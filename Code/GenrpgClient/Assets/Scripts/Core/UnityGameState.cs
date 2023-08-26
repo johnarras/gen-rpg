@@ -43,7 +43,7 @@ public class UnityGameState : GameState
 
     public string Env { get; set; }
     public string SiteURL { get; set; }
-    public string ArtURL { get; set; }
+    public string ArtURL { get; set; } = InitClient.DefaultAssetPrefix;
     public string Version { get; set; }
     public string RealtimeHost { get; set; }
     public string RealtimePort { get; set; }
