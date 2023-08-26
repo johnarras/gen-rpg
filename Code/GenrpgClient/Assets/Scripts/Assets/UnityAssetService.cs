@@ -181,6 +181,11 @@ public class UnityAssetService : IAssetService
     /// <param name="gs"></param>
 	public void Init(UnityGameState gs, CancellationToken token)
 	{
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
         _logger = gs.logger;
         _token = token;
         SpriteAtlasManager.atlasRequested += DummyRequestAtlas;

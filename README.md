@@ -164,7 +164,12 @@ Setup
 4. Open the GenrpgConfig project and look at Function1.cs It has some strngs for login server/asset root that
 	the client initially connects to in order to get. You don't need to use this. Instead you could just short-circuit
 	it at the top of InitClient.cs by creating a ConfigResponse object and passing it into the
-	OnGEtWebConfigAsync method.
+	OnGetWebConfigAsync method. If you want to use the remote config system, you will need to change the
+	ConfigURL in InitClient.cs from 
+		
+    const string ConfigURL = "https://yourremoteconfig.azurewebsites.net/api/GenrpgConfig";
+    
+    to whatever URL you want.
 	
 5. Start the LoginServer locally. For later on when you want to do a remote VM, you will need to change 
 	TempDevConstants.TestVMIP to whatever server you are using (assuming the instance manager system

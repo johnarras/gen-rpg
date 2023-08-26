@@ -35,12 +35,6 @@ public class BuildClients
     }
 
 
-    [MenuItem("Build/BuildProdClients")]
-    static void ExecuteProd()
-    {
-        BuildAllClients(EnvNames.Prod);
-    }
-
     private static void BuildAllClients (string env)
     {
         if (string.IsNullOrEmpty(env))
@@ -52,12 +46,12 @@ public class BuildClients
         UnityGameState gs = SetupEditorUnityGameState.Setup(null);
 
         bool didSetEnv = false;
-        ClientConfig clientConfig = AssetDatabase.LoadAssetAtPath<ClientConfig>("Assets/Config/ClientConfig.asset");
+        ClientConfig clientConfig = AssetDatabase.LoadAssetAtPath<ClientConfig>("Assets/Resources/Config/ClientConfig.asset");
 
         EnvEnum oldEnv = EnvEnum.Local;
         if (clientConfig == null)
         {
-            Debug.Log("Missing ClientConfig at Assets/Config/ClientConfig.asset");
+            Debug.Log("Missing ClientConfig at Assets/Resources/Config/ClientConfig.asset");
             return;
         }
 
