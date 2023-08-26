@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!55 &1
+PhysicsManager:
+  m_ObjectHideFlags: 0
+  serializedVersion: 13
+  m_Gravity: {x: 0, y: -45, z: 0}
+  m_DefaultMaterial: {fileID: 13400000, guid: 8aa8d84e6b6c45b4aa49235825da1c29, type: 2}
+  m_BounceThreshold: 2
+  m_DefaultMaxDepenetrationVelocity: 10
+  m_SleepThreshold: 0.02
+  m_DefaultContactOffset: 0.01
+  m_DefaultSolverIterations: 1
+  m_DefaultSolverVelocityIterations: 1
+  m_QueriesHitBackfaces: 1
+  m_QueriesHitTriggers: 1
+  m_EnableAdaptiveForce: 0
+  m_ClothInterCollisionDistance: 0
+  m_ClothInterCollisionStiffness: 0
+  m_ContactsGeneration: 1
+  m_LayerCollisionMatrix: c85e137dc850107dc850107dffffffffc858137dc850b47fffffffffffffffffc850b67fc95c527dc9deb77fd9d6527dffffffffc850127dffffffffc85cff7fd9d4587dd9fffcffe8d5527dc8d0137dffffffffe8d5527dc8dab77fe8d5527dffffffffe8d5527dffffffffffffffffffffffffffffffffffffffffc850127d
+  m_AutoSimulation: 1
+  m_AutoSyncTransforms: 0
+  m_ReuseCollisionCallbacks: 0
+  m_ClothInterCollisionSettingsToggle: 0
+  m_ClothGravity: {x: 0, y: -9.81, z: 0}
+  m_ContactPairsMode: 0
+  m_BroadphaseType: 0
+  m_WorldBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 100, y: 100, z: 100}
+  m_WorldSubdivisions: 16
+  m_FrictionType: 0
+  m_EnableEnhancedDeterminism: 1
+  m_EnableUnifiedHeightmaps: 1
+  m_ImprovedPatchFriction: 0
+  m_SolverType: 0
+  m_DefaultMaxAngularSpeed: 7

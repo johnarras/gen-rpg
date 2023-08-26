@@ -1,0 +1,7 @@
+{
+  "Id": "default",
+  "BuyFromVendorPriceMult": 2.5,
+  "SellToVendorPriceMult": 0.25,
+  "VendorRefreshMinutes": 15.0,
+  "Name": "VendorSettings"
+}

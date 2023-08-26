@@ -1,0 +1,9 @@
+{
+  "Id": "default",
+  "ClientVersion": 1,
+  "ServerVersion": 1,
+  "GameDataVersion": 1,
+  "UserVersion": 1,
+  "CharacterVersion": 1,
+  "Name": "VersionSettings"
+}

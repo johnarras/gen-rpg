@@ -1,0 +1,86 @@
+{
+  "Id": "default",
+  "Items": [
+    {
+      "SettingId": "AISettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "ChatSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "CoreSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "CraftingSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "CurrencySettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "EntitySettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "FactionSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "GlobalRewardSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "InputSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "ItemSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "LevelSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "NameSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "ProcGenSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "SpawnSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "SpellSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "StatSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "UnitSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "VendorSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "UserCoinSettings",
+      "DocId": "default"
+    },
+    {
+      "SettingId": "VersionSettings",
+      "DocId": "default"
+    }
+  ],
+  "Name": "DataConfig"
+}

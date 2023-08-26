@@ -1,0 +1,51 @@
+{
+  "Id": "default",
+  "CurrencyTypes": [
+    {
+      "Name": "None"
+    },
+    {
+      "IdKey": 1,
+      "Name": "Tokens"
+    },
+    {
+      "IdKey": 2,
+      "Name": "Money",
+      "Icon": "IconCopper"
+    },
+    {
+      "IdKey": 3,
+      "Name": "Exp",
+      "Icon": "IconStarGold"
+    },
+    {
+      "IdKey": 4,
+      "Name": "Ability"
+    },
+    {
+      "IdKey": 101,
+      "Name": "Alignment Tokens"
+    },
+    {
+      "IdKey": 102,
+      "Name": "Race Tokens"
+    },
+    {
+      "IdKey": 103,
+      "Name": "Religion Tokens"
+    },
+    {
+      "IdKey": 104,
+      "Name": "Job Tokens"
+    },
+    {
+      "IdKey": 106,
+      "Name": "Monster Tokens"
+    },
+    {
+      "IdKey": 107,
+      "Name": "Player Tokens"
+    }
+  ],
+  "Name": "CurrencySettings"
+}

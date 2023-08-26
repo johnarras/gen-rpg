@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="CommandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DataView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="DataWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FindUserView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MyColorFDataView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="ViewWorlds.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

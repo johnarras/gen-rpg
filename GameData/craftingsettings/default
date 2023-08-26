@@ -1,0 +1,1072 @@
+{
+  "Id": "default",
+  "LootLevelIncrement": 25,
+  "PointsPerLevel": 5,
+  "PointsPerCraft": 1,
+  "ExtraCraftLevelsAllowed": 5,
+  "LevelsPerExtraEffect": 4,
+  "MaxExtraEffects": 5,
+  "RecipeTypes": [
+    {
+      "IdKey": 1,
+      "Name": "Helm",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 1,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "ReagentQuantity": 6,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 6
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 106,
+          "Quantity": 6
+        }
+      ]
+    },
+    {
+      "IdKey": 2,
+      "Name": "Shoulder",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 2,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 80,
+      "DefPct": 80,
+      "OtherPct": 80,
+      "ReagentQuantity": 5,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 5
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 5
+        }
+      ]
+    },
+    {
+      "IdKey": 3,
+      "Name": "Chest",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 3,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "ReagentQuantity": 6,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 6
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 104,
+          "Quantity": 6
+        }
+      ]
+    },
+    {
+      "IdKey": 4,
+      "Name": "Bracers",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 4,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 80,
+      "DefPct": 80,
+      "OtherPct": 80,
+      "ReagentQuantity": 4,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 4
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 4
+        }
+      ]
+    },
+    {
+      "IdKey": 5,
+      "Name": "Gloves",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 5,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 80,
+      "DefPct": 80,
+      "OtherPct": 80,
+      "ReagentQuantity": 4,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 4
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 106,
+          "Quantity": 4
+        }
+      ]
+    },
+    {
+      "IdKey": 6,
+      "Name": "Belt",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 6,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 80,
+      "DefPct": 80,
+      "OtherPct": 80,
+      "ReagentQuantity": 4,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 4
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 105,
+          "Quantity": 4
+        }
+      ]
+    },
+    {
+      "IdKey": 7,
+      "Name": "Pants",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 7,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "ReagentQuantity": 6,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 6
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 101,
+          "Quantity": 6
+        }
+      ]
+    },
+    {
+      "IdKey": 8,
+      "Name": "Boots",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 8,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 80,
+      "DefPct": 80,
+      "OtherPct": 80,
+      "ReagentQuantity": 5,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 5
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 5
+        }
+      ]
+    },
+    {
+      "IdKey": 9,
+      "Name": "Cloak",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 9,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "ReagentQuantity": 5,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 101,
+          "Quantity": 5
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 106,
+          "Quantity": 5
+        }
+      ]
+    },
+    {
+      "IdKey": 10,
+      "Name": "Shield",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 10,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "ReagentQuantity": 8,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 104,
+          "Quantity": 8
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 8
+        }
+      ]
+    },
+    {
+      "IdKey": 11,
+      "Name": "Offhand",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 11,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 80,
+      "DefPct": 80,
+      "OtherPct": 80,
+      "ReagentQuantity": 8,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 8
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 8
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 106,
+          "Quantity": 8
+        }
+      ]
+    },
+    {
+      "IdKey": 12,
+      "Name": "Necklace",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 12,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 80,
+      "DefPct": 80,
+      "OtherPct": 80,
+      "ReagentQuantity": 8,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 106,
+          "Quantity": 8
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 8
+        }
+      ]
+    },
+    {
+      "IdKey": 13,
+      "Name": "Ring",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 13,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 80,
+      "DefPct": 80,
+      "OtherPct": 80,
+      "ReagentQuantity": 8,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 106,
+          "Quantity": 8
+        }
+      ]
+    },
+    {
+      "IdKey": 14,
+      "Name": "Trinket",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 14,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 80,
+      "DefPct": 80,
+      "OtherPct": 80,
+      "ReagentQuantity": 8,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 106,
+          "Quantity": 8
+        }
+      ]
+    },
+    {
+      "IdKey": 21,
+      "Name": "Sword",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 21,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 200,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "ReagentQuantity": 5,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 104,
+          "Quantity": 5
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 5
+        }
+      ]
+    },
+    {
+      "IdKey": 22,
+      "Name": "Axe",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 22,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 225,
+      "DefPct": 75,
+      "OtherPct": 100,
+      "ReagentQuantity": 5,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 5,
+          "Name": ""
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 104,
+          "Quantity": 5,
+          "Name": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 23,
+      "Name": "Mace",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 23,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 175,
+      "DefPct": 125,
+      "OtherPct": 100,
+      "ReagentQuantity": 5,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 105,
+          "Quantity": 5
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 5
+        }
+      ]
+    },
+    {
+      "IdKey": 24,
+      "Name": "Dagger",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 24,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 250,
+      "DefPct": 50,
+      "OtherPct": 100,
+      "ReagentQuantity": 5,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 104,
+          "Quantity": 5
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 106,
+          "Quantity": 5
+        }
+      ]
+    },
+    {
+      "IdKey": 25,
+      "Name": "2H Sword",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 25,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 400,
+      "DefPct": 200,
+      "OtherPct": 200,
+      "ReagentQuantity": 10,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 10
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 104,
+          "Quantity": 10
+        }
+      ]
+    },
+    {
+      "IdKey": 26,
+      "Name": "2H Axe",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 26,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 450,
+      "DefPct": 250,
+      "OtherPct": 200,
+      "ReagentQuantity": 10,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 10
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 104,
+          "Quantity": 10
+        }
+      ]
+    },
+    {
+      "IdKey": 27,
+      "Name": "2H Mace",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 27,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 350,
+      "DefPct": 250,
+      "OtherPct": 200,
+      "ReagentQuantity": 10,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 105,
+          "Quantity": 10
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 10
+        }
+      ]
+    },
+    {
+      "IdKey": 28,
+      "Name": "Staff",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 28,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 300,
+      "DefPct": 300,
+      "OtherPct": 200,
+      "ReagentQuantity": 10,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 10
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 101,
+          "Quantity": 10
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 106,
+          "Quantity": 10
+        }
+      ]
+    },
+    {
+      "IdKey": 29,
+      "Name": "Polearm",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 29,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 300,
+      "DefPct": 200,
+      "OtherPct": 300,
+      "ReagentQuantity": 10,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 10
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 104,
+          "Quantity": 10
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 10
+        }
+      ]
+    },
+    {
+      "IdKey": 30,
+      "Name": "Ranged",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 30,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 400,
+      "DefPct": 100,
+      "OtherPct": 300,
+      "ReagentQuantity": 5,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 5
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 5
+        }
+      ]
+    },
+    {
+      "IdKey": 31,
+      "Name": "Thrown",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 31,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 350,
+      "DefPct": 150,
+      "OtherPct": 300,
+      "ReagentQuantity": 3,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 104,
+          "Quantity": 3
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 3
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 3
+        }
+      ]
+    },
+    {
+      "IdKey": 32,
+      "Name": "Wand",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 32,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 450,
+      "DefPct": 100,
+      "OtherPct": 250,
+      "ReagentQuantity": 4,
+      "Reagents": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 103,
+          "Quantity": 4
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 101,
+          "Quantity": 4
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 102,
+          "Quantity": 4
+        }
+      ]
+    },
+    {
+      "IdKey": 33,
+      "Name": "Healing Potion",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 300,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 7,
+      "Reagents": []
+    },
+    {
+      "IdKey": 34,
+      "Name": "Mana Potion",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 301,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 7,
+      "Reagents": []
+    },
+    {
+      "IdKey": 35,
+      "Name": "Strength Elixir",
+      "EntityId": 302,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 7,
+      "Reagents": []
+    },
+    {
+      "IdKey": 36,
+      "Name": "Intellect Elixir",
+      "EntityId": 303,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 7,
+      "Reagents": []
+    },
+    {
+      "IdKey": 37,
+      "Name": "Wisdom Elixir",
+      "EntityId": 304,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 7,
+      "Reagents": []
+    },
+    {
+      "IdKey": 38,
+      "Name": "Agility Elixir",
+      "EntityId": 305,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 7,
+      "Reagents": []
+    },
+    {
+      "IdKey": 39,
+      "Name": "Stamina Elixir",
+      "EntityId": 306,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 7,
+      "Reagents": []
+    },
+    {
+      "IdKey": 40,
+      "Name": "Spirit Elixir",
+      "EntityId": 307,
+      "EntityTypeId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 7,
+      "Reagents": []
+    },
+    {
+      "IdKey": 41,
+      "Name": "Enchant Strength",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 11,
+      "EntityTypeId": 32,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 8,
+      "Reagents": []
+    },
+    {
+      "IdKey": 42,
+      "Name": "Enchant Intellect",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 12,
+      "EntityTypeId": 32,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 8,
+      "Reagents": []
+    },
+    {
+      "IdKey": 43,
+      "Name": "Enchant Wisdom",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 13,
+      "EntityTypeId": 32,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 8,
+      "Reagents": []
+    },
+    {
+      "IdKey": 44,
+      "Name": "Enchant Agility",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 10,
+      "EntityTypeId": 32,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 8,
+      "Reagents": []
+    },
+    {
+      "IdKey": 45,
+      "Name": "Enchant Stamina",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 14,
+      "EntityTypeId": 32,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 8,
+      "Reagents": []
+    },
+    {
+      "IdKey": 46,
+      "Name": "Enchant Spirit",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "EntityId": 15,
+      "EntityTypeId": 32,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Art": "",
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CrafterTypeId": 8,
+      "Reagents": []
+    }
+  ],
+  "CrafterTypes": [
+    {
+      "IdKey": 1,
+      "Name": "Tailoring",
+      "MousePointer": "Shop",
+      "ReagentItemTypeId": 101,
+      "GatherSeconds": 3.0,
+      "CraftingSeconds": 6.0,
+      "GatherActionName": "Gathering",
+      "CraftActionName": "Sewing"
+    },
+    {
+      "IdKey": 2,
+      "Name": "Carpentry",
+      "MousePointer": "Lumberjack",
+      "ReagentItemTypeId": 103,
+      "GatherSeconds": 3.0,
+      "CraftingSeconds": 6.0,
+      "GatherActionName": "Chopping",
+      "CraftActionName": "Building"
+    },
+    {
+      "IdKey": 3,
+      "Name": "Leatherworking",
+      "MousePointer": "Fight",
+      "ReagentItemTypeId": 102,
+      "GatherSeconds": 3.0,
+      "CraftingSeconds": 6.0,
+      "GatherActionName": "Skinning",
+      "CraftActionName": "Assembling"
+    },
+    {
+      "IdKey": 4,
+      "Name": "Blacksmithing",
+      "MousePointer": "Mining",
+      "ReagentItemTypeId": 104,
+      "GatherSeconds": 3.0,
+      "CraftingSeconds": 6.0,
+      "GatherActionName": "Mining",
+      "CraftActionName": "Smithing"
+    },
+    {
+      "IdKey": 5,
+      "Name": "Masonry",
+      "MousePointer": "Mining",
+      "ReagentItemTypeId": 105,
+      "GatherSeconds": 3.0,
+      "CraftingSeconds": 6.0,
+      "GatherActionName": "Mining",
+      "CraftActionName": "Building"
+    },
+    {
+      "IdKey": 6,
+      "Name": "Jewelcrafting",
+      "MousePointer": "Shop",
+      "ReagentItemTypeId": 106,
+      "GatherSeconds": 3.0,
+      "CraftingSeconds": 6.0,
+      "GatherActionName": "Mining",
+      "CraftActionName": "Crafting"
+    },
+    {
+      "IdKey": 7,
+      "Name": "Alchemy",
+      "MousePointer": "Herbalism",
+      "ReagentItemTypeId": 133,
+      "GatherSeconds": 3.0,
+      "CraftingSeconds": 6.0,
+      "GatherActionName": "Picking",
+      "CraftActionName": "Brewing"
+    },
+    {
+      "IdKey": 8,
+      "Name": "Enchanting",
+      "MousePointer": "Shop",
+      "ReagentItemTypeId": 130,
+      "GatherSeconds": 3.0,
+      "CraftingSeconds": 6.0,
+      "GatherActionName": "Draining",
+      "CraftActionName": "Enchanting"
+    },
+    {
+      "IdKey": 9,
+      "Name": "Lockpicking",
+      "MousePointer": "Shop",
+      "ReagentItemTypeId": 1,
+      "GatherSeconds": 3.0,
+      "CraftingSeconds": 6.0,
+      "GatherActionName": "Opening",
+      "CraftActionName": "Opening"
+    },
+    {
+      "Name": "None",
+      "MousePointer": "Shop",
+      "ReagentItemTypeId": 101,
+      "GatherSeconds": 1000.0,
+      "CraftingSeconds": 1000.0,
+      "GatherActionName": "None",
+      "CraftActionName": "None"
+    }
+  ],
+  "Name": "CraftingSettings"
+}

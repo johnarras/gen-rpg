@@ -1,0 +1,13 @@
+using Genrpg.Shared.Spells.Messages;
+using MessagePack;
+
+namespace Genrpg.Shared.Spells.Entities
+{
+    [MessagePackObject]
+    public class FullProc
+    {
+        [Key(0)] public SpellHit SpellHit { get; set; }
+        [Key(1)] public SpellProc Proc { get; set; }
+        [Key(2)] public CurrentProc Current { get; set; }
+    }
+}

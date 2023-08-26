@@ -1,0 +1,85 @@
+{
+  "Id": "default",
+  "EntityTypes": [
+    {
+      "Name": "None"
+    },
+    {
+      "IdKey": 1,
+      "Name": "Currency"
+    },
+    {
+      "IdKey": 2,
+      "Name": "Item"
+    },
+    {
+      "IdKey": 3,
+      "Name": "Spell"
+    },
+    {
+      "IdKey": 4,
+      "Name": "Unit"
+    },
+    {
+      "IdKey": 5,
+      "Name": "Spawn"
+    },
+    {
+      "IdKey": 6,
+      "Name": "Tutorial"
+    },
+    {
+      "IdKey": 7,
+      "Name": "Scaling"
+    },
+    {
+      "IdKey": 8,
+      "Name": "Recipe"
+    },
+    {
+      "IdKey": 9,
+      "Name": "Quest"
+    },
+    {
+      "IdKey": 10,
+      "Name": "Set"
+    },
+    {
+      "IdKey": 11,
+      "Name": "NPC"
+    },
+    {
+      "IdKey": 12,
+      "Name": "QuestItem"
+    },
+    {
+      "IdKey": 13,
+      "Name": "GroundObject"
+    },
+    {
+      "IdKey": 14,
+      "Name": "Zone"
+    },
+    {
+      "IdKey": 31,
+      "Name": "Stat"
+    },
+    {
+      "IdKey": 32,
+      "Name": "StatPct"
+    },
+    {
+      "IdKey": 33,
+      "Name": "Damage"
+    },
+    {
+      "IdKey": 34,
+      "Name": "Healing"
+    },
+    {
+      "IdKey": 35,
+      "Name": "Shield"
+    }
+  ],
+  "Name": "EntitySettings"
+}

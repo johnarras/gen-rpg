@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\AppConfig\App.config" Link="App.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Genrpg.InstanceServer\Genrpg.InstanceServer.csproj" />
+    <ProjectReference Include="..\Genrpg.MapServer\Genrpg.MapServer.csproj" />
+    <ProjectReference Include="..\Genrpg.MonsterServer\Genrpg.MonsterServer.csproj" />
+    <ProjectReference Include="..\Genrpg.PlayerServer\Genrpg.PlayerServer.csproj" />
+  </ItemGroup>
+
+</Project>

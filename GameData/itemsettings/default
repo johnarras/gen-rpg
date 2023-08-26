@@ -1,0 +1,8813 @@
+{
+  "Id": "default",
+  "GenSameStatPercent": 20,
+  "GenGlobalScalingPercent": 10,
+  "EquipSlots": [
+    {
+      "Name": "None",
+      "StatPercent": 100
+    },
+    {
+      "IdKey": 1,
+      "Name": "Head",
+      "StatPercent": 125,
+      "Active": true
+    },
+    {
+      "IdKey": 2,
+      "Name": "Neck",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "IdKey": 3,
+      "Name": "Shoulders",
+      "StatPercent": 125,
+      "Active": true
+    },
+    {
+      "IdKey": 4,
+      "Name": "Torso",
+      "StatPercent": 150,
+      "Active": true
+    },
+    {
+      "IdKey": 5,
+      "Name": "Back",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "IdKey": 6,
+      "Name": "Waist",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "IdKey": 7,
+      "Name": "Legs",
+      "StatPercent": 150,
+      "Active": true
+    },
+    {
+      "IdKey": 8,
+      "Name": "Feet",
+      "StatPercent": 125,
+      "Active": true
+    },
+    {
+      "IdKey": 9,
+      "Name": "Wrists",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "IdKey": 10,
+      "Name": "Hands",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "IdKey": 11,
+      "Name": "LeftFinger",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "IdKey": 12,
+      "Name": "RightFinger",
+      "ParentEquipSlotId": 11,
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "IdKey": 13,
+      "Name": "Jewelry1",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "IdKey": 14,
+      "Name": "Jewelry2",
+      "ParentEquipSlotId": 13,
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "IdKey": 15,
+      "Name": "MainHand",
+      "StatPercent": 150,
+      "Active": true
+    },
+    {
+      "IdKey": 16,
+      "Name": "OffHand",
+      "ParentEquipSlotId": 15,
+      "StatPercent": 125,
+      "Active": true
+    },
+    {
+      "IdKey": 17,
+      "Name": "Ranged",
+      "StatPercent": 125,
+      "Active": true
+    }
+  ],
+  "ItemTypes": [
+    {
+      "IdKey": 1,
+      "Name": "Helm",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Helmet",
+      "Art": "Helm",
+      "EquipSlotId": 1,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Name": "Cloth",
+          "Count": 6
+        },
+        {
+          "Name": "Leather",
+          "Count": 7
+        },
+        {
+          "Name": "Metal",
+          "Count": 8
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Helm",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Helmet",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cap",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Crown",
+          "Desc": ""
+        },
+        {
+          "Weight": 199.0,
+          "Name": "Hat",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Circlet",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hood",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Mask",
+          "Desc": ""
+        },
+        {
+          "Weight": 100.0,
+          "Name": "Turban",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Halo",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cover",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Veil",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cowl",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Coif",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Headdress",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 2,
+      "Name": "Shoulder",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Shoulders",
+      "Art": "Shoulder",
+      "EquipSlotId": 3,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Name": "Cloth",
+          "Count": 6
+        },
+        {
+          "Name": "Leather",
+          "Count": 6
+        },
+        {
+          "Name": "Metal",
+          "Count": 7
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Shoulderguards",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pauldrons",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shoulders",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Spaulders",
+          "Desc": ""
+        },
+        {
+          "Weight": 299.0,
+          "Name": "Mantle",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Amice",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pads",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Epaulets",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 3,
+      "Name": "Chest",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Chest",
+      "Art": "Chest",
+      "EquipSlotId": 4,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Name": "Cloth",
+          "Count": 4
+        },
+        {
+          "Name": "Leather",
+          "Count": 4
+        },
+        {
+          "Name": "Metal",
+          "Count": 4
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Robe",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Vestments",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Chainmail",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Plate",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Breastplate",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tunic",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hauberk",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Jerkin",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Chest",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Chestguard",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Vest",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Chestpiece",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 4,
+      "Name": "Bracers",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Bracers",
+      "Art": "Bracers",
+      "EquipSlotId": 9,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Name": "Cloth",
+          "Count": 4
+        },
+        {
+          "Name": "Leather",
+          "Count": 4
+        },
+        {
+          "Name": "Metal",
+          "Count": 4
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Bracer",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bracers",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wristguards",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bindings",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wraps",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wrists",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Vambraces",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 5,
+      "Name": "Gloves",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Gloves",
+      "Art": "Gloves",
+      "EquipSlotId": 10,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Name": "Cloth",
+          "Count": 5
+        },
+        {
+          "Name": "Leather",
+          "Count": 5
+        },
+        {
+          "Name": "Metal",
+          "Count": 6
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Gloves",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Gauntlets",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Handguards",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Grips",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 6,
+      "Name": "Belt",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Belt",
+      "Art": "Belt",
+      "EquipSlotId": 6,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Name": "Cloth",
+          "Count": 3
+        },
+        {
+          "Name": "Leather",
+          "Count": 3
+        },
+        {
+          "Name": "Metal",
+          "Count": 3
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Belt",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cord",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Waistguard",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sash",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Girdle",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 7,
+      "Name": "Pants",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Pants",
+      "Art": "Pants",
+      "EquipSlotId": 7,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Name": "Cloth",
+          "Count": 7
+        },
+        {
+          "Name": "Leather",
+          "Count": 7
+        },
+        {
+          "Name": "Metal",
+          "Count": 6
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Pants",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Leggings",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Legguards",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Leggings",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Legplates",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Trousers",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 8,
+      "Name": "Boots",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Boots",
+      "Art": "Boots",
+      "EquipSlotId": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Name": "Cloth",
+          "Count": 3
+        },
+        {
+          "Name": "Leather",
+          "Count": 3
+        },
+        {
+          "Name": "Metal",
+          "Count": 3
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Boots",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shoes",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Slippers",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sabatons",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sandals",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Greaves",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Footwraps",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 9,
+      "Name": "Cloak",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Cloak",
+      "Art": "ClothBack",
+      "EquipSlotId": 5,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 4
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Cloak",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cape",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Drape",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hide",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Veil",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 10,
+      "Name": "Shield",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Shield",
+      "Art": "Shield",
+      "EquipSlotId": 16,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 7
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Shield",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Aegis",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Disk",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Defender",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Blocker",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Guard",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 11,
+      "Name": "Offhand",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Offhand",
+      "Art": "Offhand",
+      "EquipSlotId": 16,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 4
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Stone",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tome",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Focus",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Crystal",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Libram",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lexicon",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Book",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Fetish",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Orb",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cane",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Rod",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 12,
+      "Name": "Necklace",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Necklace",
+      "Art": "MetalNeck",
+      "EquipSlotId": 2,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 5
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Necklace",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Choker",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Chain",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Amulet",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pendant",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Talisman",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Collar",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Medallion",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 13,
+      "Name": "Ring",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Ring",
+      "Art": "MetalLeftFinger",
+      "EquipSlotId": 11,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 8
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 10000.0,
+          "Name": "Ring",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Band",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Circle",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hoop",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Loop",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 14,
+      "Name": "Trinket",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Ring",
+      "Art": "MetalJewelry1",
+      "EquipSlotId": 13,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Trinket",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Gem",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Book",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Talisman",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Insignia",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Medal",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Mark",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Badge",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Brooch",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Charm",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shard",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Crystal",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Rune",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Scarab",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 21,
+      "Name": "Sword",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Sword",
+      "Art": "Sword",
+      "EquipSlotId": 15,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 7
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 5000.0,
+          "Name": "Sword",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Blade",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Longsword",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Warblade",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Slicer",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Reaver",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sabre",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 22,
+      "Name": "Axe",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Axe",
+      "Art": "Axe",
+      "EquipSlotId": 15,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 6
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 10000.0,
+          "Name": "Axe",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Chopper",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Destroyer",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hacker",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Scythe",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 23,
+      "Name": "Mace",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Hammer",
+      "Art": "Mace",
+      "EquipSlotId": 15,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 5
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 5000.0,
+          "Name": "Mace",
+          "Desc": ""
+        },
+        {
+          "Weight": 5000.0,
+          "Name": "Hammer",
+          "Desc": ""
+        },
+        {
+          "Weight": 5000.0,
+          "Name": "Maul",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Smasher",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Warhammer",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Rod",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Scepter",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Basher",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bludgeon",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Crusher",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shillellagh",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 24,
+      "Name": "Dagger",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Dagger",
+      "Art": "Dagger",
+      "EquipSlotId": 15,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 6
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 10000.0,
+          "Name": "Dagger",
+          "Desc": ""
+        },
+        {
+          "Weight": 10000.0,
+          "Name": "Knife",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Carver",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Blade",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shiv",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Fang",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tooth",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 25,
+      "Name": "2HSword",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Sword2H",
+      "Art": "Sword2H",
+      "EquipSlotId": 15,
+      "Flags": 10,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 5
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Sword",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Blade",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Longsword",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bastard Sword",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Two-Handed Sword",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Claymore",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Greatblade",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 26,
+      "Name": "2HAxe",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Axe2H",
+      "Art": "Axe2H",
+      "EquipSlotId": 15,
+      "Flags": 10,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 6
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 10000.0,
+          "Name": "Axe",
+          "Desc": ""
+        },
+        {
+          "Weight": 5000.0,
+          "Name": "Greataxe",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Ripper",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Reaver",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Crescent",
+          "Desc": ""
+        },
+        {
+          "Weight": 10000.0,
+          "Name": "Cleaver",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Edge",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Reaper",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Butcher",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Battle Axe",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Decapitator",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Executor",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 27,
+      "Name": "2HMace",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Hammer2H",
+      "Art": "Mace2H",
+      "EquipSlotId": 15,
+      "Flags": 10,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 7
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 10000.0,
+          "Name": "Hammer",
+          "Desc": ""
+        },
+        {
+          "Weight": 10000.0,
+          "Name": "Mace",
+          "Desc": ""
+        },
+        {
+          "Weight": 10000.0,
+          "Name": "Maul",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Fist",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Smasher",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pummeler",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Breaker",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Crusher",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bludgeon",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shillelagh",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Rod",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 28,
+      "Name": "Staff",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Staff",
+      "Art": "Staff",
+      "EquipSlotId": 15,
+      "Flags": 10,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 7
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 10000.0,
+          "Name": "Staff",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Rod",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Greatstaff",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Stick",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Scythe",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Quarterstaff",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 29,
+      "Name": "Polearm",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Spear",
+      "Art": "Polearm",
+      "EquipSlotId": 15,
+      "Flags": 10,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 6
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 5000.0,
+          "Name": "Polearm",
+          "Desc": ""
+        },
+        {
+          "Weight": 5000.0,
+          "Name": "Halberd",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Scythe",
+          "Desc": ""
+        },
+        {
+          "Weight": 5000.0,
+          "Name": "Spear",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Glaive",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Poleaxe",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Longspear",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pike",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 30,
+      "Name": "Ranged",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Bow",
+      "Art": "Bow",
+      "EquipSlotId": 17,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 8
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 10000.0,
+          "Name": "Bow",
+          "Desc": ""
+        },
+        {
+          "Weight": 10000.0,
+          "Name": "Longbow",
+          "Desc": ""
+        },
+        {
+          "Weight": 10000.0,
+          "Name": "Rifle",
+          "Desc": ""
+        },
+        {
+          "Weight": 10000.0,
+          "Name": "Gun",
+          "Desc": ""
+        },
+        {
+          "Weight": 10000.0,
+          "Name": "Crossbow",
+          "Desc": ""
+        },
+        {
+          "Weight": 5000.0,
+          "Name": "Longbow",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Recurve Bow",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Musket",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Longrifle",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hunting Bow",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 31,
+      "Name": "Thrown",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Thrown",
+      "Art": "Thrown",
+      "EquipSlotId": 17,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 5
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Throwing Star",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Throwing Knife",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Knife",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Star",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Axe",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Throwing Axe",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Blades",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "War Edge",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 32,
+      "Name": "Wand",
+      "NameId": "",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Wand",
+      "Art": "Wand",
+      "EquipSlotId": 17,
+      "Flags": 8,
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [
+        {
+          "Count": 6
+        }
+      ],
+      "Names": [
+        {
+          "Weight": 10000.0,
+          "Name": "Wand",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Stalk",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Torch",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Touch",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Rod",
+          "Desc": ""
+        }
+      ]
+    },
+    {
+      "IdKey": 50,
+      "Name": "Recipe",
+      "NameId": "Recipe",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "Scroll",
+      "Art": "",
+      "Flags": 12,
+      "Effects": [],
+      "LevelRanges": [],
+      "QualityNames": [],
+      "IconCounts": [
+        {
+          "Count": 11
+        }
+      ],
+      "Names": []
+    },
+    {
+      "IdKey": 101,
+      "Name": "Cloth",
+      "NameId": "Cloth",
+      "GenName": "Cloth",
+      "Desc": "",
+      "Icon": "Cloth",
+      "Art": "",
+      "Flags": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 14
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Flax"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Linen"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Hemp"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Cotton"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Wool"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Silk"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Rough"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Woven"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Bolt of"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Imbued"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Enchanted"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 102,
+      "Name": "Leather",
+      "NameId": "Leather",
+      "GenName": "Leather",
+      "Desc": "",
+      "Icon": "Leather",
+      "Art": "",
+      "Flags": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 11
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 14
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Thin"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Light"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Heavy"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Thick"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Solid"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Cracked"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Sturdy"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Reinforced"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Toughened"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Banded"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 103,
+      "Name": "Wood",
+      "NameId": "Wood",
+      "GenName": "Wood",
+      "Desc": "",
+      "Icon": "Wood",
+      "Art": "",
+      "Flags": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 11
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 14
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Thin"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Light"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Heavy"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Thick"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Solid"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Cracked"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Sturdy"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Reinforced"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Toughened"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Banded"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 104,
+      "Name": "Ore",
+      "NameId": "MetalOre",
+      "GenName": "Ore",
+      "Desc": "",
+      "Icon": "Ore",
+      "Art": "",
+      "Flags": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 14
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Copper Ore"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tin Ore"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Iron Ore"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Titanium Ore"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Mithril Ore"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Adamantite Ore"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Packed"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Banded"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Pure"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Earthshapen"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 105,
+      "Name": "Stone",
+      "NameId": "Stone",
+      "GenName": "Stone",
+      "Desc": "",
+      "Icon": "Stone",
+      "Art": "",
+      "Flags": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 14
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Thin"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Light"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Heavy"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Thick"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Solid"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Cracked"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Sturdy"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Reinforced"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Toughened"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Banded"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 106,
+      "Name": "Nugget",
+      "NameId": "PreciousNugget",
+      "GenName": "Nugget",
+      "Desc": "",
+      "Icon": "Nugget",
+      "Art": "",
+      "Flags": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 11
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 14
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Silver Ore"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Gold Ore"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Platinum Ore"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Palladite Ore"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Osmarum Ore"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Dragonite Ore"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Packed"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Banded"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Purse"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Earthshapen"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 130,
+      "Name": "Dust",
+      "NameId": "MagicDust",
+      "GenName": "MagicDust",
+      "Desc": "",
+      "Icon": "MagicDust",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 40
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Magic"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Enchanted"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Arcane"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Lunar"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Solar"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Dragon"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Impure"
+        },
+        {
+          "QualityTypeId": 1
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Sieved"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Concentrated"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Geobound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 131,
+      "Name": "Essence",
+      "NameId": "MagicEssence",
+      "GenName": "MagicEssence",
+      "Desc": "",
+      "Icon": "MagicEssence",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 52
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 63
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Magic"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Enchanted"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Arcane"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Lunar"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Solar"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Dragon"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Sparking"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Charged"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Energized"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Electroforged"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 132,
+      "Name": "Shard",
+      "NameId": "MagicShard",
+      "GenName": "MagicShard",
+      "Icon": "MagicShard",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 21
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Magic"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Enchanted"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Arcane"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Lunar"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Solar"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Dragon"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Brittle"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Cracked"
+        },
+        {
+          "QualityTypeId": 2
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Enchanted"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Crystalveined"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 133,
+      "Name": "Shore Herb",
+      "NameId": "ShoreHerb",
+      "GenName": "HerbLily",
+      "Icon": "HerbLily",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 64
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 22
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Seedling"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Sprig of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": ""
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Medium"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Hearty"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Thriving"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Flourishing"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Gaia-Touched"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 134,
+      "Name": "Tree Herb",
+      "NameId": "TreeHerb",
+      "GenName": "HerbSticks",
+      "Icon": "HerbSticks",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 65
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Seedling"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Sprig of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": ""
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Medium"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Hearty"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Thriving"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Flourishing"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Gaia-Touched"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 135,
+      "Name": "Desert Herb",
+      "NameId": "DesertHerb",
+      "GenName": "HerbDesert",
+      "Desc": "",
+      "Icon": "HerbDesert",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 40
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Seedling"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Sprig of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": ""
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Medium"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Hearty"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Thriving"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Flourishing"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Gaia-Touched"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 136,
+      "Name": "Ice Herb",
+      "NameId": "IceHerb",
+      "GenName": "HerbLight",
+      "Icon": "HerbLight",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 42
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 32
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Seedling"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Sprig of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": ""
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Medium"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Hearty"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Thriving"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Flourishing"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Gaia-Touched"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 137,
+      "Name": "Hill Herb",
+      "NameId": "HillHerb",
+      "GenName": "HerbTuber",
+      "Icon": "HerbTuber",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 20
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Seedling"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Sprig of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": ""
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Medium"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Hearty"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Thriving"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Flourishing"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Gaia-Touched"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 138,
+      "Name": "Rare Herb",
+      "NameId": "RareHerb",
+      "GenName": "HerbDark",
+      "Icon": "HerbDark",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 31
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Seedling"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Sprig of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": ""
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Medium"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Hearty"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Thriving"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Flourishing"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Gaia-Touched"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 139,
+      "Name": "Fire Herb",
+      "NameId": "FireHerb",
+      "GenName": "MushroomLight",
+      "Desc": "",
+      "Icon": "HerbMushroomLight",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 51
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 15
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Seedling"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Sprig of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": ""
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Medium"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Hearty"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Thriving"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Flourishing"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Gaia-Touched"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 140,
+      "Name": "Building Herb",
+      "NameId": "BuildingHerb",
+      "GenName": "HerbRoots",
+      "Icon": "HerbRoots",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 42
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Seedling"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Sprig of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": ""
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Medium"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Hearty"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Thriving"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Flourishing"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Gaia-Touched"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 141,
+      "Name": "Bush Herb",
+      "NameId": "BushHerb",
+      "GenName": "HerbBlue",
+      "Desc": "",
+      "Icon": "HerbBlue",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 51
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Seedling"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Sprig of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": ""
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Medium"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Hearty"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Thriving"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Flourishing"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Gaia-Touched"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 142,
+      "Name": "Swamp Herb",
+      "NameId": "SwampHerb",
+      "GenName": "HerbBlue",
+      "Icon": "HerbBlue",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 11
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 50
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Seedling"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Sprig of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": ""
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Medium"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Hearty"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Thriving"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Flourishing"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Gaia-Touched"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 143,
+      "Name": "Air",
+      "NameId": "ElementAir",
+      "GenName": "ElementAir",
+      "Desc": "",
+      "Icon": "ElementAir",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 42
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Speck of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Mote of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Grain of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Eseence of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Concentrated"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Elemental"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Diffuse"
+        },
+        {
+          "QualityTypeId": 1
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Cnoncentrated"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Rich"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Pristine"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 144,
+      "Name": "Earth",
+      "NameId": "ElementEarth",
+      "GenName": "ElementEarth",
+      "Icon": "ElementEarth",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 42
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 51
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Speck of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Mote of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Grain of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Eseence of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Concentrated"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Elemental"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Diffuse"
+        },
+        {
+          "QualityTypeId": 1
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Cnoncentrated"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Rich"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Pristine"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 145,
+      "Name": "Fire",
+      "NameId": "ElementFire",
+      "GenName": "ElementFire",
+      "Icon": "ElementFire",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 22
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 51
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Speck of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Mote of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Grain of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Eseence of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Concentrated"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Elemental"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Diffuse"
+        },
+        {
+          "QualityTypeId": 1
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Cnoncentrated"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Rich"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Pristine"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 146,
+      "Name": "Water",
+      "NameId": "ElementWater",
+      "GenName": "ElementWater",
+      "Icon": "ElementWater",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 14
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 31
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Speck of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Mote of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Grain of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Eseence of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Concentrated"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Elemental"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Diffuse"
+        },
+        {
+          "QualityTypeId": 1
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Cnoncentrated"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Rich"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Pristine"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 147,
+      "Name": "Amethyst",
+      "NameId": "GemAmethyst",
+      "GenName": "GemAmethyst",
+      "Icon": "GemAmethyst",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 51
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Chipped"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Huge"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Dim"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Glimmering"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Glowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Radiant"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Brilliant"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 148,
+      "Name": "Diamond",
+      "NameId": "GemDiamond",
+      "GenName": "GemDiamond",
+      "Icon": "GemDiamond",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 65
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 52
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Chipped"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Huge"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Dim"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Glimmering"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Glowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Radiant"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Brilliant"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 149,
+      "Name": "Emerald",
+      "NameId": "GemEmerald",
+      "GenName": "GemEmerald",
+      "Desc": "",
+      "Icon": "GemEmerald",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 31
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Chipped"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Huge"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Dim"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Glimmering"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Glowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Radiant"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Brilliant"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 150,
+      "Name": "FireOpal",
+      "NameId": "GemFireOpal",
+      "GenName": "GemFireOpal",
+      "Icon": "GemFireOpal",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 13
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Chipped"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Huge"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Dim"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Glimmering"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Glowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Radiant"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Brilliant"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 151,
+      "Name": "Ruby",
+      "NameId": "GemRuby",
+      "GenName": "GemRuby",
+      "Desc": "",
+      "Icon": "GemRuby",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 62
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 61
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 22
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Chipped"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Huge"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Dim"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Glimmering"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Glowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Radiant"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Brilliant"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 152,
+      "Name": "Sapphire",
+      "NameId": "GemSapphire",
+      "GenName": "GemSapphire",
+      "Desc": "",
+      "Icon": "GemSapphire",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 42
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 41
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Chipped"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Huge"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Dim"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Glimmering"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Glowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Radiant"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Brilliant"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 153,
+      "Name": "Topaz",
+      "NameId": "GemTopaz",
+      "GenName": "GemTopaz",
+      "Icon": "GemTopaz",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 50
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Chipped"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Huge"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Dim"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Glimmering"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Glowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Radiant"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Brilliant"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 154,
+      "Name": "Zircon",
+      "NameId": "GemZircon",
+      "GenName": "GemZircon",
+      "Desc": "",
+      "Icon": "GemZircon",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 64
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Chipped"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Huge"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Dim"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Glimmering"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Glowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Radiant"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Brilliant"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 155,
+      "Name": "Peridot",
+      "NameId": "GemPeridot",
+      "GenName": "GemPeridot",
+      "Icon": "GemPeridot",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 64
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Chipped"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Huge"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Dim"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Glimmering"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Glowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Radiant"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Brilliant"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 156,
+      "Name": "Antlers",
+      "NameId": "Antlers",
+      "GenName": "BodyAntlers",
+      "Icon": "BodyAntlers",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 41
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 52
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Shattered"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Fractured"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Tiny"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Spiked"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Honed"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 157,
+      "Name": "Beak",
+      "NameId": "Beak",
+      "GenName": "BodyBeak",
+      "Desc": "",
+      "Icon": "BodyBeak",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 14
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 13
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Shattered"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Cracked"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Chipped"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Razor"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 158,
+      "Name": "Blue Blood",
+      "NameId": "BloodBlue",
+      "GenName": "BodyBloodBlue",
+      "Icon": "BloodBlue",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 41
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Drop of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Trickle of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Sip of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Drizzle of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Splash of"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Cup of"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Turgid"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Viscous"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Flowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Clarified"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Purified"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 159,
+      "Name": "Green Blood",
+      "NameId": "BloodGreen",
+      "GenName": "BodyBloodGreen",
+      "Icon": "BloodGreen",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 40
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Drop of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Trickle of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Sip of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Drizzle of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Splash of"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Cup of"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Turgid"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Viscous"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Flowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Clarified"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Purified"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 160,
+      "Name": "Purple Blood",
+      "NameId": "BloodPurple",
+      "GenName": "BodyBloodPurple",
+      "Desc": "",
+      "Icon": "BloodPurple",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 14
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 30
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Drop of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Trickle of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Sip of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Drizzle of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Splash of"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Cup of"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Turgid"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Viscous"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Flowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Clarified"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Purified"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 161,
+      "Name": "Yellow Blood",
+      "NameId": "BloodYellow",
+      "GenName": "BodyBloodYellow",
+      "Icon": "BloodYellow",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 64
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Drop of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Trickle of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Sip of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Drizzle of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Splash of"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Cup of"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Turgid"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Viscous"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Flowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Clarified"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Purified"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 162,
+      "Name": "Bone",
+      "NameId": "Bone",
+      "GenName": "BodyBone",
+      "Desc": "",
+      "Icon": "BodyBone",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 13
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Cracked"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Blunt"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Honed"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Sharp"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Giant"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Razor"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 163,
+      "Name": "Claws",
+      "NameId": "Claws",
+      "GenName": "BodyClaws",
+      "Icon": "BodyClaws",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 51
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 41
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Brittle"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Broken"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Delicate"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Huge"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Piercing"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Razor"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 164,
+      "Name": "Egg",
+      "NameId": "Egg",
+      "GenName": "BodyEgg",
+      "Icon": "BodyEgg",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 52
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 61
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 165,
+      "Name": "Eye",
+      "NameId": "Eye",
+      "GenName": "BodyEye",
+      "Icon": "BodyEye",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 63
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Punctured"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Dried"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Cloudy"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Damaged"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Perfect"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Glowing"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 166,
+      "Name": "Feather",
+      "NameId": "Feather",
+      "GenName": "BodyFeather",
+      "Icon": "BodyFeather",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 14
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 40
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Mangled"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Torn"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Colorful"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Slender"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Silky"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Dragonflight"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 167,
+      "Name": "Hide",
+      "NameId": "Hide",
+      "GenName": "BodyHide",
+      "Desc": "",
+      "Icon": "BodyHide",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 65
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Stinking"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Ruined"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Dirty"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Mangy"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Heavy"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Thick"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 168,
+      "Name": "Horn",
+      "NameId": "Horn",
+      "GenName": "BodyHorn",
+      "Icon": "BodyHorn",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 15
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Splintered"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Crooked"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Blunt"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Solid"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Biting"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Sharp"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 169,
+      "Name": "Blue Ichor",
+      "NameId": "IchorBlue",
+      "GenName": "BodyIchorBlue",
+      "Icon": "IchorBlue",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 40
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 51
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 64
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Drop of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Trickle of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Sip of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Drizzle of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Splash of"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Cup of"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Turgid"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Viscous"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Flowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Clarified"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Purified"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 170,
+      "Name": "Green Ichor",
+      "NameId": "IchorGreen",
+      "GenName": "BodyIchorGreen",
+      "Icon": "IchorGreen",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 61
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 40
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Drop of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Trickle of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Sip of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Drizzle of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Splash of"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Cup of"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Turgid"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Viscous"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Flowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Clarified"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Purified"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 171,
+      "Name": "Purple Ichor",
+      "NameId": "IchorPurple",
+      "GenName": "BodyIchorPurple",
+      "Icon": "IchorPurple",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 64
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 61
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Drop of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Trickle of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Sip of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Drizzle of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Splash of"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Cup of"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Turgid"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Viscous"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Flowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Clarified"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Purified"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 172,
+      "Name": "Red Ichor",
+      "NameId": "IchorRed",
+      "GenName": "BodyIchorRed",
+      "Desc": "",
+      "Icon": "IchorRed",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 62
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Drop of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Trickle of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Sip of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Drizzle of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Splash of"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Cup of"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Turgid"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Viscous"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Flowing"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Clarified"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Purified"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 173,
+      "Name": "Yellow Ichor",
+      "NameId": "IchorYellow",
+      "GenName": "BodyIchorYellow",
+      "Icon": "IchorYellow",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 61
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Drop of"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Trickle of"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Sip of"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Drizzle of"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Splash of"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Cup of"
+        }
+      ],
+      "QualityNames": [
+        {
+          "Name": "Common"
+        },
+        {
+          "QualityTypeId": 1,
+          "Name": "Uncommon"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Rare"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Epic"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Legendary"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 174,
+      "Name": "Jaw",
+      "NameId": "Jaw",
+      "GenName": "BodyJaw",
+      "Icon": "BodyJar",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 66
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 61
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Broken"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Splintered"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Flat"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Small"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Spiked"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Sharp"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 175,
+      "Name": "Leg",
+      "NameId": "Leg",
+      "GenName": "BodyLeg",
+      "Desc": "",
+      "Icon": "BodyLeg",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 66
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Cracked"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Fractured"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Solid"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Biting"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Vicious"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Razor"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 176,
+      "Name": "Paw",
+      "NameId": "Paw",
+      "GenName": "BodyPaw",
+      "Icon": "BodyPaw",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 62
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 14
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Dirty"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Stained"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Rough"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Silky"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Supple"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Dragonmane"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 177,
+      "Name": "Pearl",
+      "NameId": "Pearl",
+      "GenName": "BodyPearl",
+      "Desc": "",
+      "Icon": "BodyPearl",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 65
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 31
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Cracked"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Rough"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Dull"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Burnished"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Glowing"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Chromatic"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 178,
+      "Name": "Skull",
+      "NameId": "Skull",
+      "GenName": "BodySkull",
+      "Icon": "BodySkull",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 66
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Fractured"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Dull"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Blunt"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Flat"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Honed"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Giant"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 179,
+      "Name": "Spine",
+      "NameId": "Spine",
+      "GenName": "BodySpine",
+      "Icon": "BodySpine",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 65
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 66
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Cracked"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Hollow"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Spiked"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Solid"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Huge"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Piercing"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 180,
+      "Name": "Tentacle",
+      "NameId": "Tentacle",
+      "GenName": "BodyTentacle",
+      "Desc": "",
+      "Icon": "BodyTentacle",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 12
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 52
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Old"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Nasty"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Gross"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Rancid"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Decayed"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Rotten"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 181,
+      "Name": "Tail",
+      "NameId": "Tail",
+      "GenName": "BodyTail",
+      "Icon": "BodyTail",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 66
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Shattered"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Cracked"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Blunt"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Flat"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Keen"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Giant"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 182,
+      "Name": "Talon",
+      "NameId": "Talon",
+      "GenName": "BodyTalon",
+      "Icon": "BodyTalon",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 52
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 31
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Fractured"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Pointed"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Huge"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Honed"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Sharp"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Razor"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 183,
+      "Name": "Tongue",
+      "NameId": "Tongue",
+      "GenName": "BodyTongue",
+      "Icon": "BodyTongue",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 61
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 52
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Icky"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Foul"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Putrid"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Reeking"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Rotten"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Ruined"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 184,
+      "Name": "Tooth",
+      "NameId": "Tooth",
+      "GenName": "BodyTooth",
+      "Icon": "BodyTooth",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 61
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 11
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Broken"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Hollow"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Large"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Biting"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Piercing"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Giant"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 185,
+      "Name": "Tusk",
+      "NameId": "Tusk",
+      "GenName": "BodyTusk",
+      "Icon": "BodyTusk",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 11
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Shattered"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Cracked"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Crooked"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Keen"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Jagged"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Piercing"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 186,
+      "Name": "Wing",
+      "NameId": "Wing",
+      "GenName": "BodyWing",
+      "Icon": "BodyWing",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 52
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 200,
+          "EntityId": 13
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Ruined"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Messy"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Thin"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Delicate"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Diaphanous"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 187,
+      "Name": "Pincer",
+      "NameId": "Pincer",
+      "GenName": "BodyPincer",
+      "Icon": "BodyPincer",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 52
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 20
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Hollow"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Fractured"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Biting"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Huge"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Sharp"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Razor"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 188,
+      "Name": "Stinger",
+      "NameId": "Stinger",
+      "GenName": "BodyStinger",
+      "Desc": "",
+      "Icon": "BodyStinger",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 12
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Hollow"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Dull"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Blunt"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Solid"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Honed"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Giant"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 189,
+      "Name": "Fang",
+      "NameId": "Fang",
+      "GenName": "BodyFang",
+      "Icon": "BodyFang",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 42
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 63
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 50
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Shattered"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Splintered"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Dull"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Jagged"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Spiked"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Honed"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 190,
+      "Name": "Brain",
+      "NameId": "Brain",
+      "GenName": "BodyBrain",
+      "Desc": "",
+      "Icon": "BodyBrain",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 61
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 11
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Repulsive"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Smelly"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Rancid"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Decayed"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Rotten"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Ruined"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 191,
+      "Name": "Carapice",
+      "NameId": "Carapice",
+      "GenName": "BodyCarapice",
+      "Desc": "",
+      "Icon": "BodyCarapice",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 20
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Cracked"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Damaged"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Thin"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Sturdy"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Solid"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 192,
+      "Name": "Chitin",
+      "NameId": "Chitin",
+      "GenName": "BodyChitin",
+      "Desc": "",
+      "Icon": "BodyChitin",
+      "Art": "",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 13
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 64
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Cracked"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Damaged"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Broken"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Rugged"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Tough"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 193,
+      "Name": "Bowels",
+      "NameId": "Bowels",
+      "GenName": "BodyBowels",
+      "Icon": "BodyBowels",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 150,
+          "EntityId": 31
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Icky"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Old"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Repulsive"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Smelly"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Rank"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Ruined"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 194,
+      "Name": "Web",
+      "NameId": "Web",
+      "GenName": "BodyWeb",
+      "Icon": "BodyWeb",
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 31,
+          "Quantity": 100,
+          "EntityId": 62
+        }
+      ],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Ruined"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Tangled"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Coarse"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": "Medium"
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Diaphanous"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Gossamer"
+        }
+      ],
+      "QualityNames": [
+        {},
+        {
+          "QualityTypeId": 1,
+          "Name": "Cleaned"
+        },
+        {
+          "QualityTypeId": 2,
+          "Name": "Worked"
+        },
+        {
+          "QualityTypeId": 3,
+          "Name": "Finished"
+        },
+        {
+          "QualityTypeId": 4,
+          "Name": "Lifebound"
+        }
+      ],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 300,
+      "Name": "Healing Potion",
+      "NameId": "HealingPotion",
+      "Icon": "HealingPotion",
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Minor"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Weak"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Lesser"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": ""
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Greater"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Superior"
+        }
+      ],
+      "QualityNames": [],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 301,
+      "Name": "Mana Potion",
+      "NameId": "ManaPotion",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "ManaPotion",
+      "Art": "",
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Minor"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Weak"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Lesser"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": ""
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Greater"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Superior"
+        }
+      ],
+      "QualityNames": [],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 302,
+      "Name": "Strength Elixir",
+      "NameId": "StrengthElixir",
+      "Icon": "StrengthElixir",
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Minor"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Weak"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Lesser"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": ""
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Greater"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Superior"
+        }
+      ],
+      "QualityNames": [],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 303,
+      "Name": "Intellect Elixir",
+      "NameId": "IntellectElixir",
+      "Icon": "IntellectElixir",
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Minor"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Weak"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Lesser"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": ""
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Greater"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Superior"
+        }
+      ],
+      "QualityNames": [],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 304,
+      "Name": "Wisdom Elxiir",
+      "NameId": "WisdomElixir",
+      "Icon": "WisdomElixir",
+      "Effects": [],
+      "LevelRanges": [],
+      "QualityNames": [],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 305,
+      "Name": "Agility Elixir",
+      "NameId": "AgilityElixir",
+      "GenName": "",
+      "Desc": "",
+      "Icon": "AgilityElixir",
+      "Art": "",
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Minor"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Weak"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Lesser"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": ""
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Greater"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Superior"
+        }
+      ],
+      "QualityNames": [],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 306,
+      "Name": "Stamina Elixir",
+      "NameId": "StaminaElixir",
+      "Icon": "StaminaElixir",
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Minor"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Weak"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Lesser"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": ""
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Greater"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Superior"
+        }
+      ],
+      "QualityNames": [],
+      "IconCounts": [],
+      "Names": []
+    },
+    {
+      "IdKey": 307,
+      "Name": "Spirit Elixir",
+      "NameId": "SpiritElixir",
+      "Icon": "SpiritElixir",
+      "Effects": [],
+      "LevelRanges": [
+        {
+          "MinLevel": 1,
+          "MaxLevel": 10,
+          "Name": "Minor"
+        },
+        {
+          "MinLevel": 11,
+          "MaxLevel": 20,
+          "Name": "Weak"
+        },
+        {
+          "MinLevel": 21,
+          "MaxLevel": 30,
+          "Name": "Lesser"
+        },
+        {
+          "MinLevel": 31,
+          "MaxLevel": 40,
+          "Name": ""
+        },
+        {
+          "MinLevel": 41,
+          "MaxLevel": 50,
+          "Name": "Greater"
+        },
+        {
+          "MinLevel": 51,
+          "MaxLevel": 60,
+          "Name": "Superior"
+        }
+      ],
+      "QualityNames": [],
+      "IconCounts": [],
+      "Names": []
+    }
+  ],
+  "SetTypes": [
+    {
+      "IdKey": 1,
+      "Name": "",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Pieces": [
+        {
+          "Stats": [],
+          "Procs": []
+        },
+        {
+          "Stats": [],
+          "Procs": []
+        }
+      ],
+      "Stats": [
+        {}
+      ],
+      "Procs": [
+        {}
+      ]
+    }
+  ],
+  "ScalingTypes": [
+    {
+      "IdKey": 1,
+      "Name": "Cloth Armor",
+      "Desc": "",
+      "Icon": "Cloth",
+      "Prefix": "Cloth",
+      "Art": "",
+      "CrafterTypeId": 1,
+      "AttPct": 110,
+      "DefPct": 90,
+      "OtherPct": 100,
+      "CostPct": 100,
+      "AddStats": [
+        {
+          "StatTypeId": 31,
+          "Percent": 75
+        }
+      ],
+      "BaseReagents": [
+        {
+          "ItemTypeId": 101,
+          "Percent": 150
+        }
+      ]
+    },
+    {
+      "IdKey": 2,
+      "Name": "Leather Armor",
+      "Desc": "",
+      "Icon": "Leather",
+      "Prefix": "Leather",
+      "Art": "",
+      "CrafterTypeId": 3,
+      "AttPct": 100,
+      "DefPct": 100,
+      "OtherPct": 100,
+      "CostPct": 125,
+      "AddStats": [
+        {
+          "StatTypeId": 31,
+          "Percent": 100
+        }
+      ],
+      "BaseReagents": [
+        {
+          "ItemTypeId": 102,
+          "Percent": 150
+        }
+      ]
+    },
+    {
+      "IdKey": 3,
+      "Name": "Metal Armor",
+      "Desc": "",
+      "Icon": "Metal",
+      "Prefix": "Metal",
+      "Art": "",
+      "CrafterTypeId": 4,
+      "AttPct": 90,
+      "DefPct": 110,
+      "OtherPct": 100,
+      "CostPct": 175,
+      "AddStats": [
+        {
+          "StatTypeId": 31,
+          "Percent": 125
+        }
+      ],
+      "BaseReagents": [
+        {
+          "ItemTypeId": 104,
+          "Percent": 150
+        }
+      ]
+    },
+    {
+      "IdKey": 4,
+      "Name": "Wood Armor",
+      "Desc": "",
+      "Icon": "Leather",
+      "Prefix": "Leather",
+      "Art": "",
+      "CrafterTypeId": 2,
+      "AttPct": 105,
+      "DefPct": 95,
+      "OtherPct": 100,
+      "CostPct": 150,
+      "AddStats": [
+        {
+          "StatTypeId": 31,
+          "Percent": 125
+        }
+      ],
+      "BaseReagents": [
+        {
+          "ItemTypeId": 103,
+          "Percent": 150
+        }
+      ]
+    },
+    {
+      "IdKey": 5,
+      "Name": "Stone Armor",
+      "Desc": "",
+      "Icon": "Stone",
+      "Prefix": "Stone",
+      "Art": "",
+      "CrafterTypeId": 5,
+      "AttPct": 85,
+      "DefPct": 115,
+      "OtherPct": 100,
+      "CostPct": 175,
+      "AddStats": [
+        {
+          "StatTypeId": 31,
+          "Percent": 125
+        }
+      ],
+      "BaseReagents": [
+        {
+          "ItemTypeId": 105,
+          "Percent": 150
+        }
+      ]
+    },
+    {
+      "IdKey": 6,
+      "Name": "Precious Armor",
+      "Desc": "",
+      "Icon": "Jeweled",
+      "Prefix": "Jeweled",
+      "Art": "",
+      "CrafterTypeId": 6,
+      "AttPct": 110,
+      "DefPct": 110,
+      "OtherPct": 100,
+      "CostPct": 150,
+      "AddStats": [
+        {
+          "StatTypeId": 31,
+          "Percent": 125
+        }
+      ],
+      "BaseReagents": [
+        {
+          "ItemTypeId": 106,
+          "Percent": 150
+        }
+      ]
+    }
+  ],
+  "QualityTypes": [
+    {
+      "IdKey": 1,
+      "Name": "Common",
+      "Icon": "BGCommon",
+      "ItemSpawnWeight": 500,
+      "ItemStatPct": 100,
+      "ItemCostPct": 100,
+      "UnitSpawnWeight": 100,
+      "UnitHealthPct": 100,
+      "UnitDamPct": 100
+    },
+    {
+      "IdKey": 2,
+      "Name": "Uncommon",
+      "Icon": "BGUncommon",
+      "ItemSpawnWeight": 100,
+      "ItemStatPct": 125,
+      "ItemCostPct": 200,
+      "UnitSpawnWeight": 20,
+      "UnitMinLevel": 3,
+      "UnitHealthPct": 150,
+      "UnitDamPct": 125
+    },
+    {
+      "IdKey": 3,
+      "Name": "Rare",
+      "Icon": "BGRare",
+      "ItemSpawnWeight": 50,
+      "ItemMinLevel": 5,
+      "ItemStatPct": 150,
+      "ItemCostPct": 300,
+      "UnitSpawnWeight": 5,
+      "UnitMinLevel": 6,
+      "UnitHealthPct": 200,
+      "UnitDamPct": 150
+    },
+    {
+      "IdKey": 4,
+      "Name": "Epic",
+      "Icon": "BGEpic",
+      "ItemSpawnWeight": 10,
+      "ItemMinLevel": 10,
+      "ItemStatPct": 200,
+      "ItemCostPct": 500,
+      "UnitSpawnWeight": 2,
+      "UnitMinLevel": 9,
+      "UnitHealthPct": 300,
+      "UnitDamPct": 200
+    },
+    {
+      "IdKey": 5,
+      "Name": "Legendary",
+      "Icon": "BGLegendary",
+      "ItemSpawnWeight": 2,
+      "ItemMinLevel": 15,
+      "ItemStatPct": 250,
+      "ItemCostPct": 1000,
+      "UnitSpawnWeight": 1,
+      "UnitMinLevel": 12,
+      "UnitHealthPct": 1000,
+      "UnitDamPct": 300
+    },
+    {
+      "IdKey": 6,
+      "Name": "Set",
+      "Icon": "BGSet",
+      "ItemSpawnWeight": 2,
+      "ItemMinLevel": 15,
+      "ItemStatPct": 250,
+      "ItemCostPct": 1000,
+      "UnitSpawnWeight": 1,
+      "UnitMinLevel": 15,
+      "UnitHealthPct": 5000,
+      "UnitDamPct": 400
+    }
+  ],
+  "Name": "ItemSettings"
+}

@@ -1,0 +1,9 @@
+{
+  "Id": "default",
+  "UpdateSeconds": 1.5,
+  "IdleWanderChance": 0.25,
+  "EnemyScanDistance": 15.0,
+  "LeashDistance": 60.0,
+  "BaseUnitSpeed": 5.0,
+  "Name": "AISettings"
+}

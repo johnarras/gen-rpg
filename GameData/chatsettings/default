@@ -1,0 +1,42 @@
+{
+  "Id": "default",
+  "ChatTypes": [
+    {
+      "IdKey": 1,
+      "Name": "Tell"
+    },
+    {
+      "IdKey": 2,
+      "Name": "Say"
+    },
+    {
+      "IdKey": 3,
+      "Name": "Yell"
+    },
+    {
+      "IdKey": 4,
+      "Name": "Zone"
+    },
+    {
+      "IdKey": 5,
+      "Name": "Map"
+    },
+    {
+      "IdKey": 6,
+      "Name": "World"
+    },
+    {
+      "IdKey": 7,
+      "Name": "Guild"
+    },
+    {
+      "IdKey": 8,
+      "Name": "Party"
+    },
+    {
+      "IdKey": 9,
+      "Name": "Raid"
+    }
+  ],
+  "Name": "ChatSettings"
+}

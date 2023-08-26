@@ -1,0 +1,41 @@
+
+
+Code
+
+Newtonsoft
+
+https://github.com/Cysharp/UniTask
+
+https://github.com/MessagePack-CSharp/MessagePack-CSharp
+
+https://github.com/icsharpcode/SharpZipLib
+
+
+
+Art 
+
+From https://opengameart.org all licensed under cc0
+
+FAbianhoSC: Fabio S. Clemente: Grass
+
+vladislavzh:   Retro Skyboxes Pack: Skybox
+
+Yughues: a lot of bushes and terrain textures and rocks
+
+Yughues: Barrels -> All Props
+
+Phelippeau Rudy: STKudy85: Bear
+
+Lorc: RPG Icons: https://opengameart.org/content/700-rpg-icons
+
+Music
+
+cynicmusic: Music1 https://opengameart.org/content/town-theme-rpg
+
+cynicmusic: Music2 https://opengameart.org/content/mysterious-ambience-song21
+
+cynicmusic: Music3 https://opengameart.org/content/dark-forest-theme
+
+Écrivain: Music4 https://opengameart.org/content/meadow-thoughts
+
+cynicmusic Music5 https://opengameart.org/content/a-new-town-rpg-theme

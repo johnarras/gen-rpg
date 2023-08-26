@@ -1,0 +1,12 @@
+{
+  "Id": "default",
+  "UserCoinTypes": [
+    {
+      "IdKey": 1,
+      "Name": "Doubloon",
+      "PluralName": "Doubloons",
+      "Icon": "IconSilver"
+    }
+  ],
+  "Name": "UserCoinSettings"
+}
