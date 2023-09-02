@@ -339,7 +339,7 @@ MonoBehaviour:
   CurrWorldSize: 4
   CurrZoneSize: 1
   MapGenSeed: 15421
-  PlayerSpeedMult: 1
+  PlayerSpeedMult: 1.5
 --- !u!114 &995606356
 MonoBehaviour:
   m_ObjectHideFlags: 0

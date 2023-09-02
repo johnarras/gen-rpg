@@ -10,7 +10,7 @@ namespace Genrpg.Shared.MapMessages
     [MessagePackObject]
     public class BaseMapMessage : IMapMessage
     {
-        private DateTime _lastExecuteTime { get; set; }
+        private DateTime _lastExecuteTime { get; set; } = DateTime.UtcNow;
         private bool _isCancelled = false;
         public virtual bool IsCancelled()
         {

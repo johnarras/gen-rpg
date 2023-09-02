@@ -9,6 +9,6 @@ namespace Genrpg.MapServer.Maps.Filters
 {
     public interface IObjectFilter : ISetupDictionaryItem<long>
     {
-        List<MapObject> Filter(GameState gs, MapObject obj, List<MapObject> initialTargets);
+        List<MapObject> Filter(MapObject obj, List<MapObject> initialTargets);
     }
 }

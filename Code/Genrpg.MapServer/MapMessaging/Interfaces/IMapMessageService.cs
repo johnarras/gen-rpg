@@ -12,9 +12,9 @@ namespace Genrpg.MapServer.MapMessaging.Interfaces
     public interface IMapMessageService : ISetupService
     {
         void Init(GameState gs, CancellationToken token);
-        void SendMessage(GameState gs, MapObject mapObject, IMapMessage message, float delaySeconds = 0);
+        void SendMessage(MapObject mapObject, IMapMessage message, float delaySeconds = 0);
 
-        void SendMessageNear(GameState gs, MapObject obj, IMapMessage message,
+        void SendMessageNear(MapObject obj, IMapMessage message,
             float dist = MessageConstants.DefaultGridDistance,
             bool playersOnly = true,
             float delaySec = 0, List<long> filters = null, bool checkDistinct = false);

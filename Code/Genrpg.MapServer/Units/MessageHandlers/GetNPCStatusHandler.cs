@@ -48,7 +48,7 @@ namespace Genrpg.MapServer.Units.MessageHandlers
 
         protected void SendResult(GameState gs, MapObject obj, OnGetNPCStatus result)
         {
-            _messageService.SendMessage(gs, obj, result);
+            _messageService.SendMessage(obj, result);
         }
     }
 }

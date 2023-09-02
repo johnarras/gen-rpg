@@ -1,9 +1,9 @@
 using MessagePack;
 using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.GameDatas;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Names.Entities
 {

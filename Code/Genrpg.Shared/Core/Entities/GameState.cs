@@ -7,8 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.GameDatas;
 using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Core.Entities
 {
@@ -25,29 +25,14 @@ namespace Genrpg.Shared.Core.Entities
         public Map map = null;
         public MapSpawnData spawns;
         public bool[,] pathfinding;
+        public IRandom rand;
 
 
-        /// <summary>
-        /// General random number generator.
-        /// 
-        /// Do not use this for procgen. Only use for combat randomness and such.
-        /// 
-        /// </summary>
-        private MyRandom _rand = new MyRandom((int)DateTime.UtcNow.Ticks);
-        public MyRandom rand
+        public GameState()
         {
-            get
-            {
-                return _rand;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    _rand = value;
-                }
-            }
+            rand = new MyRandom((int)(DateTime.UtcNow.Ticks % 1000000000));
         }
+
         public virtual void StartCoroutine(IEnumerator enumer)
         {
         }
@@ -62,7 +47,8 @@ namespace Genrpg.Shared.Core.Entities
             gsNew.map = map;
             gsNew.spawns = spawns;
             gsNew.pathfinding = pathfinding;
-            gsNew._rand = new MyRandom(DateTime.UtcNow.Ticks);
+            gsNew.logger = logger;
+            gsNew.rand = new MyRandom(DateTime.UtcNow.Ticks);
             return gsNew;
         }
 

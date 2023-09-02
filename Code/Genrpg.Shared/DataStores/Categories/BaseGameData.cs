@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.GameDatas;
+﻿using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils.Data;
 using System;

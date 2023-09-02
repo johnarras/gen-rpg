@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.UI.Chat;
 using Genrpg.Shared.Chat.Entities;
 using Genrpg.Shared.Chat.Messages;
+using Genrpg.Shared.WhoList.Entities;
+using Genrpg.Shared.WhoList.Messages;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,8 +29,6 @@ namespace UI
         [SerializeField]
         private int _maxRows = 20;
 
-        private List<OnChatMessage> _messages = new List<OnChatMessage>();
-
         private List<ChatRow> _rows = new List<ChatRow>();
 
         private static ChatWindow _instance;
@@ -44,6 +44,7 @@ namespace UI
         {
             base.Initialize(gs);
             _gs.AddEvent<OnChatMessage>(this, OnChatMessageHandler);
+            _gs.AddEvent<OnGetWhoList>(this, OnGetWhoListHandler);
             _instance = this;
         }
 
@@ -97,6 +98,14 @@ namespace UI
 
                     string firstWord = text.Substring(0, text.IndexOf(" "));
                     firstWord = firstWord.ToLower();
+
+                    if (firstWord == "who")
+                    {
+                        string args = text.Substring(firstWord.Length + 1);
+                        _networkService.SendMapMessage(new GetWhoList() { Args = args });
+                        InputService.Instance.ToggleChat();
+                        return;
+                    }
 
                     bool didChangeChat = false;
                     foreach (ChatType chatType in chatTypes)
@@ -174,8 +183,13 @@ namespace UI
             {
                 return null;
             }
+            AddChatRow(gs, message);
+            return null;
+        }
 
-            _messages.Add(message);
+
+        private void AddChatRow(UnityGameState gs, OnChatMessage message)
+        { 
             ChatRow newRow = GameObjectUtils.FullInstantiate(gs,_row.gameObject).GetComponent<ChatRow>();
             newRow.gameObject.SetActive(true);
             GameObjectUtils.AddToParent(newRow.gameObject, _chatParent);
@@ -185,6 +199,24 @@ namespace UI
             {
                 GameObject.Destroy(_rows[0].gameObject);
                 _rows.RemoveAt(0);
+            }
+        }
+
+        private OnGetWhoList OnGetWhoListHandler(UnityGameState gs, OnGetWhoList message)
+        {
+            foreach (WhoListItem item in message.Items)
+            {
+
+                ChatRow newRow = GameObjectUtils.FullInstantiate(gs, _row.gameObject).GetComponent<ChatRow>();
+                newRow.gameObject.SetActive(true);
+                GameObjectUtils.AddToParent(newRow.gameObject, _chatParent);
+                _rows.Add(newRow);
+                newRow.InitTextOnly(item.Name + " :" + item.Level);
+                while (_rows.Count > _maxRows)
+                {
+                    GameObject.Destroy(_rows[0].gameObject);
+                    _rows.RemoveAt(0);
+                }
             }
             return null;
         }

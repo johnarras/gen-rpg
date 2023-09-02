@@ -106,9 +106,9 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
                 }
             }
 
-            _messageService.SendMessageNear(gs, obj, startCast);
+            _messageService.SendMessageNear(obj, startCast);
 
-            _messageService.SendMessage(gs, obj, completeInteract, gatherSeconds);
+            _messageService.SendMessage(obj, completeInteract, gatherSeconds);
 
         }
     }

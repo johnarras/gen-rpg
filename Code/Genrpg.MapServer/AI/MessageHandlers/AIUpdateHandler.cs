@@ -32,7 +32,7 @@ namespace Genrpg.MapServer.AI.MessageHandlers
                 if (!message.IsCancelled())
                 {
                     float delayTime = gs.data.GetGameData<AISettings>().UpdateSeconds;
-                    _messageService.SendMessage(gs, obj, message, delayTime);
+                    _messageService.SendMessage(obj, message, delayTime);
                 }
             }
         }

@@ -16,37 +16,6 @@ namespace Genrpg.Shared.Utils
 
 
         /// <summary>
-        /// Concatenate two lists. This never returns each initial list
-        /// it will always make copies of them
-        /// </summary>
-        /// <typeparam name="T">Type of list</typeparam>
-        /// <param name="list1">First list</param>
-        /// <param name="list2">Second list</param>
-        /// <returns>New concatenated list. This will never be one of the initial lists. It is always a copy.</returns>
-        public static List<T> Concat<T>(List<T> list1, List<T> list2)
-        {
-            if (list1 == null || list2 == null)
-            {
-                return new List<T>();
-            }
-
-            List<T> list3 = new List<T>();
-
-            for (int i = 0; i < list1.Count; i++)
-            {
-                list3.Add(list1[i]);
-            }
-            for (int i = 0; i < list2.Count; i++)
-            {
-                list3.Add(list2[i]);
-            }
-            return list3;
-
-
-
-        }
-
-        /// <summary>
         /// Get max Id from an List of IId.
         /// </summary>
         /// <typeparam name="T">Type of list</typeparam>

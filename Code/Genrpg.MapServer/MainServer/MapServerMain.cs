@@ -2,7 +2,9 @@
 using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Setup;
 using Genrpg.ServerShared.CloudMessaging.Constants;
-using Genrpg.ServerShared.CloudMessaging.Messages.InstanceServer;
+using Genrpg.ServerShared.CloudMessaging.Requests;
+using Genrpg.ServerShared.CloudMessaging.Servers.InstanceServer.Messaging;
+using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Requests;
 using Genrpg.ServerShared.CloudMessaging.Services;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.MainServer;
@@ -60,7 +62,7 @@ namespace Genrpg.MapServer.MainServer
             {
                 if (int.TryParse(stub.Id, out int mapStubId))
                 {
-                    if (mapStubId == 1)
+                    if (mapStubId != 2)
                     {
                         //continue;
                     }
@@ -97,9 +99,10 @@ namespace Genrpg.MapServer.MainServer
             return new MapServerSetupService();
         }
 
-        protected override void SetupMessageHandlers()
+        protected override void SetupMessagingHandlers()
         {
             _cloudMessageService.SetMessageHandlers(_reflectionService.SetupDictionary<Type, IMapServerCloudMessageHandler>(_gs));
         }
+
     }
 }

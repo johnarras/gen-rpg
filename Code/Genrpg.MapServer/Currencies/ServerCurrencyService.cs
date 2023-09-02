@@ -38,7 +38,7 @@ namespace Genrpg.MapServer.Currencies
                 QuantityAdded = diff,
             };
 
-            _messageService.SendMessage(gs, unit, onAdd);
+            _messageService.SendMessage(unit, onAdd);
         }
     }
 }

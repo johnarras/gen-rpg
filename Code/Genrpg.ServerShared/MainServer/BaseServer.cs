@@ -32,13 +32,13 @@ namespace Genrpg.ServerShared.MainServer
             _gs = await SetupUtils.SetupFromConfig<ServerGameState>(this, _serverId, setupService,
                 _tokenSource.Token);
 
-            SetupMessageHandlers();
+            SetupMessagingHandlers();
 
             await Task.CompletedTask;
         }
 
         protected abstract string GetServerId(object data);
         protected abstract SetupService GetSetupService(object data);
-        protected abstract void SetupMessageHandlers();
+        protected abstract void SetupMessagingHandlers();
     }
 }

@@ -3,8 +3,19 @@ using System;
 
 namespace Genrpg.Shared.Utils
 {
+
+    public interface IRandom
+    {
+        int Next();
+        long NextLong();
+        int Next(int maxVal); 
+        int Next(int minValue, int maxValue);
+        long NextLong(long minValue, long maxValue);
+        double NextDouble();
+    }
+
     [MessagePackObject]
-    public class MyRandom
+    public class MyRandom : IRandom
     {
 
         private System.Random _rand;
@@ -15,12 +26,22 @@ namespace Genrpg.Shared.Utils
 
         public MyRandom()
         {
-            _rand = new System.Random((int)(DateTime.UtcNow.Ticks));
+            Reset();
+        }
+
+        private void Reset()
+        {
+            _rand = new System.Random((int)(DateTime.UtcNow.Ticks % 1000000000));
         }
 
         public int Next()
         {
-            return _rand.Next();
+            int val = _rand.Next();
+            if (val == 0)
+            {
+                //Reset();
+            }
+            return val;
         }
 
 
@@ -29,6 +50,10 @@ namespace Genrpg.Shared.Utils
             byte[] bytes = new byte[8];
             _rand.NextBytes(bytes);
             long val = BitConverter.ToInt64(bytes, 0);
+            if (val == 0)
+            {
+                //Reset();
+            }
             return val >= 0 ? val : -val;
         }
 

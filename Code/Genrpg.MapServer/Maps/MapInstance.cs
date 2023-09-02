@@ -25,12 +25,10 @@ using Genrpg.Shared.Crafting.Entities;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.ServerShared.CloudMessaging.Services;
-using Genrpg.ServerShared.CloudMessaging.Messages.InstanceServer;
 using Genrpg.ServerShared.CloudMessaging.Constants;
 using Genrpg.MapServer.CloudMessaging.Interfaces;
 using Genrpg.Shared.Reflection.Services;
 using System.Net;
-using Genrpg.ServerShared.CloudMessaging.Messages.PlayerServer;
 using Newtonsoft.Json.Serialization;
 using Genrpg.MapServer.Networking.Listeners;
 using Genrpg.Shared.Players.Messages;
@@ -39,6 +37,10 @@ using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Networking.Constants;
 using Genrpg.Shared.Networking.Entities;
+using Genrpg.ServerShared.CloudMessaging.Requests;
+using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer;
+using Genrpg.ServerShared.CloudMessaging.Servers.InstanceServer.Messaging;
+using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -151,7 +153,7 @@ namespace Genrpg.MapServer.Maps
                     continue;
                 }
 
-                _messageService.SendMessage(_gs, connState.ch, obj);
+                _messageService.SendMessage(connState.ch, obj);
             }
         }
 
@@ -202,7 +204,7 @@ namespace Genrpg.MapServer.Maps
             Character ch = connState.ch;
             if (ch != null)
             {
-                _objectManager.RemoveObject(ch.Id);
+                _objectManager.RemoveObject(_gs, ch.Id);
             }
             connState.ch = null;
         }
@@ -241,7 +243,7 @@ namespace Genrpg.MapServer.Maps
                     }
                     ch.SetConn(connState.conn);
                     ch.NearbyGridsSeen = new List<PointXZ>();
-                    MapObjectGridItem gridItem = _objectManager.AddObject(ch, null);
+                    MapObjectGridItem gridItem = _objectManager.AddObject(_gs, ch, null);
 
                     if (gridItem != null)
                     {
@@ -268,11 +270,11 @@ namespace Genrpg.MapServer.Maps
                 _statService.CalcStats(_gs, connState.ch, true);
                 if (didLoad)
                 {
-                    _messageService.SendMessage(_gs, connState.ch, connState.ch.GetCachedMessage<Regen>(true));
-                    _messageService.SendMessage(_gs, connState.ch, connState.ch.GetCachedMessage<SaveDirty>(true));
+                    _messageService.SendMessage(connState.ch, connState.ch.GetCachedMessage<Regen>(true));
+                    _messageService.SendMessage(connState.ch, connState.ch.GetCachedMessage<SaveDirty>(true));
                 }
-
-                _cloudMessageService.SendMessage(CloudServerNames.Player, new PlayerEnterMap()
+               
+                PlayerEnterMap playerEnterMessage =new PlayerEnterMap()
                 {
                     Id = connState.ch.Id,
                     Name = connState.ch.Name,
@@ -280,7 +282,8 @@ namespace Genrpg.MapServer.Maps
                     MapId = _mapId,
                     MapInstanceId = _instanceId,
                     UserId = connState.ch.UserId,
-                });
+                };
+                _cloudMessageService.SendMessage(CloudServerNames.Player, playerEnterMessage);
 
                 connState.conn.AddMessage(new OnFinishLoadPlayer());
             }
@@ -288,6 +291,11 @@ namespace Genrpg.MapServer.Maps
             {
                _gs.logger.Exception(e, "AddPlayer");
             }
+        }
+
+        private void OnPlayerEnter(CloudResponseEnvelope envelope)
+        {
+            Console.WriteLine("Got Response envelope for request");
         }
     }
 }

@@ -9,6 +9,7 @@ using Genrpg.Shared.Interfaces;
 using Assets.Scripts.Tokens;
 using Genrpg.Shared.Core.Entities;
 using Assets.Scripts.Model;
+using Genrpg.Shared.Constants.TempDev;
 
 public class InitClient : BaseBehaviour
 {
@@ -21,9 +22,9 @@ public class InitClient : BaseBehaviour
 
     private IClientLoginService _loginService;
 
-    const string ConfigURL = "https://yourgameconfig.azurewebsites.net/api/GenrpgConfig";
+    const string ConfigURL = TempDevConstants.ConfigEndpoint;
 
-    public const string DefaultAssetPrefix = "http://yourcontentrepo.blob.core.windows.net/yourgamenamedev/";
+    public const string DefaultAssetPrefix = TempDevConstants.DefaultAssetPrefix;
 
     public string CurrMapId;
 

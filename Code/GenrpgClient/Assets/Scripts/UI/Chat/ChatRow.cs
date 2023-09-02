@@ -22,5 +22,10 @@ namespace Assets.Scripts.UI.Chat
 
             UIHelper.SetText(_text, "[" + chatType?.Name + "] " + message.SenderName + ": " + message.Message);
         }
+
+        public void InitTextOnly(string text)
+        {
+            UIHelper.SetText(_text, text);
+        }
     }
 }

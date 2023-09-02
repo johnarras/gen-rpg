@@ -154,7 +154,7 @@ namespace Genrpg.MapServer.AI.Services
                 TargetId = unit.TargetId,
             };
 
-            _messageService.SendMessage(gs, unit, castSpell);
+            _messageService.SendMessage(unit, castSpell);
 
             KeepMoving(gs, unit);
         }
@@ -201,7 +201,7 @@ namespace Genrpg.MapServer.AI.Services
             posMessage.SetSpeed(unit.Speed);
 
 
-            _messageService.SendMessageNear(gs, unit, posMessage);
+            _messageService.SendMessageNear(unit, posMessage);
         }
 
         public void TargetMove(GameState gs, Unit unit, string targetUnitId)
@@ -299,7 +299,7 @@ namespace Genrpg.MapServer.AI.Services
             onSet.CasterId = unit.Id;
             onSet.TargetId = targetId;
 
-            _messageService.SendMessageNear(gs, unit, onSet);
+            _messageService.SendMessageNear(unit, onSet);
         }
 
         public void StartCombat(GameState gs, Unit attacker, Unit victim)
@@ -390,7 +390,7 @@ namespace Genrpg.MapServer.AI.Services
                 UnitUtils.TurnTowardPosition(unit, unit.ToX, unit.ToZ);
             }
 
-            _objectManager.UpdatePosition(unit);
+            _objectManager.UpdatePosition(gs, unit);
 
             float closeToTargetSpeedScale = 1.0f;
             if (pctMove < 1 && pctMove > 0.5f)
@@ -406,7 +406,7 @@ namespace Genrpg.MapServer.AI.Services
             posMessage.SetRot(unit.Rot);
             posMessage.SetSpeed(oldSpeed * closeToTargetSpeedScale);
 
-            _messageService.SendMessageNear(gs, unit, posMessage, MessageConstants.DefaultGridDistance, false);
+            _messageService.SendMessageNear(unit, posMessage, MessageConstants.DefaultGridDistance, false);
 
         }
     }

@@ -28,7 +28,7 @@ namespace Genrpg.MapServer.Combat.MessageHandlers
                 SetTarget setTarget = unit.GetCachedMessage<SetTarget>(true);
                 setTarget.TargetId = "";
 
-                _messageService.SendMessageNear(gs, unit, setTarget);
+                _messageService.SendMessageNear(unit, setTarget);
             }
 
         }

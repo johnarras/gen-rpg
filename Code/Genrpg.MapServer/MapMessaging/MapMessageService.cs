@@ -28,10 +28,6 @@ namespace Genrpg.MapServer.MapMessaging
         const int DefaultMessageQueueCount = 37;
         public const int CompleteTaskPause = 100; // Must be > 0
 
-        private ConcurrentQueue<MapMessagePackage> _currentQueue = new ConcurrentQueue<MapMessagePackage>();
-
-        private ConcurrentQueue<MapMessagePackage> _delayedQueue = new ConcurrentQueue<MapMessagePackage>();
-
         private Dictionary<Type, IMapMessageHandler> _eventHandlerDict = null;
 
         private List<MapMessageQueue> _queues = new List<MapMessageQueue>();
@@ -71,7 +67,7 @@ namespace Genrpg.MapServer.MapMessaging
 
             if (!string.IsNullOrEmpty(sb.ToString()))
             {
-                throw new Exception("Found nonsealed IMapMessage implementation: " + sb.ToString());
+                throw new Exception("Found nonsealed IMapApiMessage implementation: " + sb.ToString());
             }
 
         }
@@ -83,16 +79,13 @@ namespace Genrpg.MapServer.MapMessaging
             _startTime = DateTime.UtcNow;
 
             _messageQueueCount = (int)(gs.map.BlockCount * 0.39);
-
             _queues = new List<MapMessageQueue>();
             for (int q = 0; q < _messageQueueCount; q++)
             {
                 _queues.Add(new MapMessageQueue(gs, _startTime, q, _token));
             }
 
-            //#if DEBUG
             _countTask = Task.Run(() => ShowMessageCounts(gs));
-            //#endif
         }
 
         //#if DEBUG
@@ -100,7 +93,7 @@ namespace Genrpg.MapServer.MapMessaging
         {
             while (true)
             {
-                await Task.Delay(10000).ConfigureAwait(false);
+                await Task.Delay(20000).ConfigureAwait(false);
                 ServerMessageCounts counts = GetCounts();
 #if DEBUG
                 long aiUpdPerSec = _aiService.GetUpdateTimes() / counts.Seconds;
@@ -143,7 +136,7 @@ namespace Genrpg.MapServer.MapMessaging
             return messageCounts;
         }
 
-        public virtual void SendMessage(GameState gs, MapObject mapObject, IMapMessage message, float delaySeconds = 0)
+        public virtual void SendMessage(MapObject mapObject, IMapMessage message, float delaySeconds = 0)
         {
             if (mapObject == null || _queues.Count < 1 || _objectManager == null)
             {
@@ -154,17 +147,9 @@ namespace Genrpg.MapServer.MapMessaging
 
             if (_eventHandlerDict.TryGetValue(ttype, out IMapMessageHandler handler))
             {
-                MapMessagePackage package = new MapMessagePackage()
-                {
-                    message = message,
-                    obj = mapObject,
-                    handler = handler,
-                    delaySeconds = delaySeconds,
-                };
+                MapMessageQueue queue = _queues[StrUtils.GetIdHash(mapObject.Id) % _queues.Count];
 
-                int hash = StrUtils.GetIdHash(package.obj.Id) % _queues.Count;
-                int hashMod = hash % _queues.Count;
-                _queues[hashMod].AddMessage(package);
+                queue.AddMessage(message, mapObject, handler, delaySeconds);
             }
             else
             {
@@ -172,7 +157,7 @@ namespace Genrpg.MapServer.MapMessaging
             }
         }
 
-        public void SendMessageNear(GameState gs, MapObject obj, IMapMessage message,
+        public void SendMessageNear(MapObject obj, IMapMessage message,
             float dist = MessageConstants.DefaultGridDistance,
             bool playersOnly = false,
             float delaySec = 0, List<long> filters = null, bool checkDistinct = false)
@@ -196,7 +181,7 @@ namespace Genrpg.MapServer.MapMessaging
 
             foreach (MapObject nearbyObj in nearbyObjects)
             {
-                SendMessage(gs, nearbyObj, message, delaySec);
+                SendMessage(nearbyObj, message, delaySec);
             }
         }
     }

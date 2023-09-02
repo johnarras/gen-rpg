@@ -1,5 +1,5 @@
 using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.GameDatas;
+using Genrpg.Shared.GameSettings;
 using MessagePack;
 using System;
 using System.Collections.Generic;

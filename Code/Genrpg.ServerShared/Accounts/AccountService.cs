@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Accounts.Constants;
 using Genrpg.Shared.Accounts.Entities;
 using Genrpg.ServerShared.Config;
-using Genrpg.ServerShared;
 using Genrpg.ServerShared.Utils;
+using Genrpg.ServerShared.DataStores;
 
 namespace Genrpg.ServerShared.Accounts
 {

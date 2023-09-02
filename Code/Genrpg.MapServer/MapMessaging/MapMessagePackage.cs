@@ -11,7 +11,7 @@ namespace Genrpg.MapServer.MapMessaging
 {
     public class MapMessagePackage
     {
-        public MapObject obj;
+        public MapObject mapObject;
         public IMapMessage message;
         public IMapMessageHandler handler;
         public float delaySeconds = 0;
@@ -24,6 +24,13 @@ namespace Genrpg.MapServer.MapMessaging
         public void SendError(GameState gs, MapObject obj, string errorText)
         {
             obj.AddMessage(new ErrorMessage(errorText));
+        }
+
+        public void Clear()
+        {
+            mapObject = null;
+            message = null;
+            handler = null;
         }
     }
 }

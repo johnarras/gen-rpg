@@ -1,10 +1,10 @@
 ﻿using Genrpg.ServerShared.CloudMessaging;
 using Genrpg.ServerShared.CloudMessaging.Services;
-using Genrpg.ServerShared.GameDatas.Services;
+using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.GameDatas;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Setup.Services;
 using System;

@@ -46,7 +46,7 @@ namespace Genrpg.MapServer.Spells.MessageHandlers
             if (message.ShotsLeft > 0)
             {
 
-                _messageService.SendMessage(gs, caster, message, SpellUtils.GetResendDelay(message.SpellMessage.Spell.HasFlag(SpellFlags.InstantHit)));
+                _messageService.SendMessage(caster, message, SpellUtils.GetResendDelay(message.SpellMessage.Spell.HasFlag(SpellFlags.InstantHit)));
             }
         }
     }

@@ -83,6 +83,18 @@ public class ClutterObjectLoader : BaseObjectLoader
     public void AfterLoadObject(UnityGameState gs, GameObject go, DownloadObjectData dlo, CancellationToken token)
     {
         float ddscale = 0.5f;
+
+        MeshCollider collider = go.GetComponent<MeshCollider>();
+
+        if (collider != null)
+        { 
+            collider.convex = true;
+        }
+
+        Rigidbody rb = GameObjectUtils.GetOrAddComponent<Rigidbody>(gs, go);
+
+        rb.isKinematic = false;
+
         go.transform.localPosition = new Vector3(dlo.x + dlo.ddx * ddscale, dlo.height + dlo.zOffset, dlo.y + dlo.ddy * ddscale);
         if (dlo.rotation != null)
         {

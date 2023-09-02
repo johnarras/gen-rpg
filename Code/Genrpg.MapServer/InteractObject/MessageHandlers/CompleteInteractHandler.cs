@@ -29,7 +29,6 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                 return;
             }
 
-
             string errorMessage = "";
             if (obj.ActionMessage == null)
             {
@@ -126,11 +125,10 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                     }
                 }
             }
-            pack.SendError(gs, obj, errorMessage);
             message.SetCancelled(true);
             obj.ActionMessage = null;
             target.OnActionMessage = null;
-            _objectManager.RemoveObject(target.Id, 0);
+            _objectManager.RemoveObject(gs, target.Id, 0);
         }
     }
 }

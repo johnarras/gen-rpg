@@ -28,22 +28,22 @@ namespace GenrpgConfig
             if (env == "dev")
             {
                 response.ServerURL = "http://localhost:5000";
-                response.ArtURLPrefix = "http://yourblobstorage.blob.core.windows.net/";
+                response.ArtURLPrefix = "http://oxdbcontent.blob.core.windows.net/";
             }
             else if (env == "test")
             {
-                response.ServerURL = "https://yourloginservertest.azurewebsites.net";
-                response.ArtURLPrefix = "http://yourblobstorage.blob.core.windows.net/";
+                response.ServerURL = "https://genrpgtest.azurewebsites.net";
+                response.ArtURLPrefix = "http://oxdbcontent.blob.core.windows.net/";
             }
             else if (env == "live")
             {
-                response.ServerURL = "https://yourloginserver.azurewebsites.net";
-                response.ArtURLPrefix = "http://yourblobstorage.blob.core.windows.net/";
+                response.ServerURL = "https://genrpg.azurewebsites.net";
+                response.ArtURLPrefix = "http://oxdbcontent.blob.core.windows.net/";
             }
             else if (env == "local")
             {
                 response.ServerURL = "http://localhost:5000";
-                response.ArtURLPrefix = "http://yourblobstorage.blob.core.windows.net/";
+                response.ArtURLPrefix = "http://oxdbcontent.blob.core.windows.net/";
             }
 
             return new OkObjectResult(response);

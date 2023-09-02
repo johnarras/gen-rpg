@@ -19,6 +19,7 @@ using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.Shared.UserCoins.Messages;
+using Genrpg.Shared.WhoList.Messages;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -93,6 +94,8 @@ namespace Genrpg.Shared.MapMessages.Interfaces
     [Union(63,typeof(OnTargetIsDead))]
     [Union(64,typeof(SetTarget))]
     [Union(65,typeof(OnAddUserCoin))]
+    [Union(66,typeof(GetWhoList))]
+    [Union(67,typeof(OnGetWhoList))]
     public interface IMapApiMessage : IMapMessage
     {
     }

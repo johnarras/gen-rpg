@@ -209,7 +209,7 @@ namespace Genrpg.MapServer.Spells
 
             OnStopCast stop = obj.GetCachedMessage<OnStopCast>(true);
             stop.CasterId = obj.Id;
-            _messageService.SendMessageNear(gs, obj, stop);
+            _messageService.SendMessageNear(obj, stop);
         }
 
         public void SendSpell(GameState gs, Unit caster, TryCastResult result)
@@ -284,7 +284,7 @@ namespace Genrpg.MapServer.Spells
                 duration1 = Math.Max(0.1f, duration1);
             }
 
-            _messageService.SendMessage(gs, target, sendSpell, duration1);
+            _messageService.SendMessage(target, sendSpell, duration1);
 
 
             caster.ActionMessage = null;
@@ -333,7 +333,7 @@ namespace Genrpg.MapServer.Spells
 
             if (_objectManager.GetUnit(fromUnitId, out Unit fromUnit))
             {
-                _messageService.SendMessageNear(gs, fromUnit, fx);
+                _messageService.SendMessageNear(fromUnit, fx);
             }
         }
 
@@ -354,7 +354,7 @@ namespace Genrpg.MapServer.Spells
                 fx.Art = etype.Art + fxName;
             }
 
-            _messageService.SendMessageNear(gs, fromUnit, fx);
+            _messageService.SendMessageNear(fromUnit, fx);
         }
 
         public void OnSendSpell(GameState gs, Unit origTarget, SendSpell sendSpell)
@@ -363,7 +363,7 @@ namespace Genrpg.MapServer.Spells
 
             foreach (SpellHit hit in hits)
             {
-                _messageService.SendMessage(gs, hit.Target, hit);
+                _messageService.SendMessage(hit.Target, hit);
             }
         }
 
@@ -467,7 +467,7 @@ namespace Genrpg.MapServer.Spells
                 {
                     continue;
                 }
-                _messageService.SendMessage(gs, unit, eff);
+                _messageService.SendMessage(unit, eff);
             }
         }
 
@@ -602,7 +602,7 @@ namespace Genrpg.MapServer.Spells
                 TextColor = combatTextColorId,
                 IsCrit = isCrit,
             };
-            _messageService.SendMessageNear(gs, unit, combatText);
+            _messageService.SendMessageNear(unit, combatText);
         }
 
 
@@ -698,7 +698,7 @@ namespace Genrpg.MapServer.Spells
                     tickLength = eff.DurationLeft;
                 }
                 eff.DurationLeft -= tickLength;
-                _messageService.SendMessage(gs, targ, eff, tickLength);
+                _messageService.SendMessage(targ, eff, tickLength);
             }
         }
 
@@ -737,7 +737,7 @@ namespace Genrpg.MapServer.Spells
                         Duration = currEffectData.Duration,
                         DurationLeft = currEffectData.DurationLeft,
                     };
-                    _messageService.SendMessageNear(gs, unit, updateEff);
+                    _messageService.SendMessageNear(unit, updateEff);
                     canAddNew = false;
                 }
                 else
@@ -763,7 +763,7 @@ namespace Genrpg.MapServer.Spells
                     TargetId = eff.TargetId,
                 };
 
-                _messageService.SendMessageNear(gs, unit, addEffect);
+                _messageService.SendMessageNear(unit, addEffect);
             }
 
             _statService.CalcStats(gs, unit, false);
@@ -793,7 +793,7 @@ namespace Genrpg.MapServer.Spells
                 Id = effData.Id,
             };
 
-            _messageService.SendMessageNear(gs, unit, onRemove);
+            _messageService.SendMessageNear(unit, onRemove);
 
             _statService.CalcStats(gs, unit, false);
         }
@@ -941,7 +941,7 @@ namespace Genrpg.MapServer.Spells
 
             caster.ActionMessage = casting;
 
-            _messageService.SendMessage(gs, caster, casting, result.Spell.CastingTime);
+            _messageService.SendMessage(caster, casting, result.Spell.CastingTime);
 
             OnStartCast onStartCast = caster.GetCachedMessage<OnStartCast>(true);
             onStartCast.CasterId = caster.Id;
@@ -955,7 +955,7 @@ namespace Genrpg.MapServer.Spells
             {
                 onStartCast.AnimName = etype.CastAnim;
             }
-            _messageService.SendMessageNear(gs, caster, onStartCast);
+            _messageService.SendMessageNear(caster, onStartCast);
 
             return true;
         }

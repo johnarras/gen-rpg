@@ -67,7 +67,7 @@ namespace Genrpg.Shared.Utils
         }
 
 
-        public static float FloatRange(double minVal, double maxVal, MyRandom rand)
+        public static float FloatRange(double minVal, double maxVal, IRandom rand)
         {
             if (rand == null)
             {
@@ -88,7 +88,7 @@ namespace Genrpg.Shared.Utils
         /// <param name="scaleChance"></param>
         /// <param name="scaleDelta"></param>
         /// <returns></returns>
-        public static float ScaledRange(float midval, MyRandom rand, int scaleTimes, double scaleChance)
+        public static float ScaledRange(float midval, IRandom rand, int scaleTimes, double scaleChance)
         {
             if (rand == null)
             {
@@ -119,7 +119,7 @@ namespace Genrpg.Shared.Utils
         }
 
 
-        public static int IntRange(int minVal, int maxVal, MyRandom rand)
+        public static int IntRange(int minVal, int maxVal, IRandom rand)
         {
             if (rand == null || minVal >= maxVal)
             {
@@ -128,7 +128,7 @@ namespace Genrpg.Shared.Utils
 
             return minVal + rand.Next() % (maxVal - minVal + 1);
         }
-        public static long LongRange(long minVal, long maxVal, MyRandom rand)
+        public static long LongRange(long minVal, long maxVal, IRandom rand)
         {
             if (rand == null || minVal >= maxVal)
             {

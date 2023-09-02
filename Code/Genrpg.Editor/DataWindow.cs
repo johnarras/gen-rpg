@@ -11,12 +11,9 @@ using Genrpg.Editor.Entities.Copying;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor;
 using Genrpg.Editor.Utils;
-using MongoDB.Driver.Linq;
-using System.Linq;
-using Genrpg.Shared.GameDatas;
-using Genrpg.ServerShared.GameDatas.Services;
-using Genrpg.Shared.GameDatas.Interfaces;
-using Microsoft.Azure.Amqp.Framing;
+using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.ServerShared.GameSettings.Services;
 
 namespace GameEditor
 {
@@ -142,7 +139,7 @@ namespace GameEditor
                 DateTime buildtime = new DateTime(2000, 1, 1)
                         .AddDays(version.Build).AddSeconds(version.Revision * 2);
 
-                foreach (IGameDataContainer cont in gs.data.GetContainers())
+                foreach (IGameSettingsContainer cont in gs.data.GetContainers())
                 {
                     if (gs.LookedAtObjects.Contains(cont.GetData()))
                     {

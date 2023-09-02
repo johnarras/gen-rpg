@@ -7,10 +7,10 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.ServerShared.CloudMessaging.Constants;
-using Genrpg.ServerShared.CloudMessaging.Messages.PlayerServer;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.MapServer.Messages;
+using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
 
 namespace Genrpg.MapServer.Movement.MessageHandlers
 {
@@ -56,9 +56,9 @@ namespace Genrpg.MapServer.Movement.MessageHandlers
             posMessage.SetSpeed(obj.Speed);
             posMessage.SetKeysDown(message.GetKeysDown());
 
-            _objectManager.UpdatePosition(obj);
+            _objectManager.UpdatePosition(gs, obj);
 
-            _messageService.SendMessageNear(gs, obj, posMessage, MessageConstants.DefaultGridDistance, false);
+            _messageService.SendMessageNear(obj, posMessage, MessageConstants.DefaultGridDistance, false);
 
         }
     }

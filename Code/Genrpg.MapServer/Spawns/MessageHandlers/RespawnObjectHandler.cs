@@ -13,7 +13,7 @@ namespace Genrpg.MapServer.Spawns.MessageHandlers
     {
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, RespawnObject message)
         {
-            _objectManager.SpawnObject(message.Spawn);
+            _objectManager.SpawnObject(gs, message.Spawn);
         }
     }
 }

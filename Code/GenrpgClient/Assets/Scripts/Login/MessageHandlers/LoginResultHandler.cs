@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.GameDatas;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.Login.Messages.UploadMap;
 using Genrpg.Shared.MapServer.Entities;

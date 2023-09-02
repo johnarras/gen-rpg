@@ -1,13 +1,7 @@
-﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.GameDatas;
-using Genrpg.Shared.NPCs.Entities;
-using Genrpg.Shared.Stats.Entities;
+﻿
 using Genrpg.Shared.Versions.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Genrpg.Editor.Entities
 {

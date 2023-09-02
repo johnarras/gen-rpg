@@ -11,10 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.CloudMessaging.Constants;
-using Genrpg.ServerShared.CloudMessaging.Messages.PlayerServer;
 using Genrpg.ServerShared.CloudMessaging.Services;
-using Genrpg.Shared.GameDatas;
-using Genrpg.Shared.GameDatas.Interfaces;
 using System.Security.Cryptography.Xml;
 using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.ServerShared.PlayerData;
@@ -24,6 +21,8 @@ using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages;
 using Genrpg.Shared.Versions.Entities;
 using System.Threading;
+using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
 
 namespace Genrpg.LoginServer.Controllers
 {
@@ -165,7 +164,7 @@ namespace Genrpg.LoginServer.Controllers
                 MapStubs = gs.mapStubs,
             };
 
-            foreach (IGameDataContainer container in gs.data.GetContainers())
+            foreach (IGameSettingsContainer container in gs.data.GetContainers())
             {
                 if (container.GetData().SendToClient())
                 {

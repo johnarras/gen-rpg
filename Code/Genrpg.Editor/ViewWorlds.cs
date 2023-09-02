@@ -13,9 +13,8 @@ using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Utils;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor;
-using Genrpg.Shared.GameDatas;
-using Genrpg.ServerShared.GameDatas.Services;
 using Genrpg.ServerShared.Maps;
+using Genrpg.Shared.GameSettings;
 
 namespace GameEditor
 {

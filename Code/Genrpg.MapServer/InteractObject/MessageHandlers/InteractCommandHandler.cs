@@ -103,9 +103,9 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
             }
 
 
-            _messageService.SendMessageNear(gs, obj, startCast);
+            _messageService.SendMessageNear(obj, startCast);
 
-            _messageService.SendMessage(gs, obj, completeInteract, gatherSeconds);
+            _messageService.SendMessage(obj, completeInteract, gatherSeconds);
         }
     }
 }

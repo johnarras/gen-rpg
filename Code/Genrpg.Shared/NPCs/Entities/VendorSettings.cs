@@ -1,7 +1,7 @@
 using MessagePack;
 
 using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.GameDatas;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.NPCs.Entities
 {

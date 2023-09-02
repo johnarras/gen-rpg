@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.GameDatas;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.ProcGen.Entities;
 using System;
 using System.Collections.Generic;

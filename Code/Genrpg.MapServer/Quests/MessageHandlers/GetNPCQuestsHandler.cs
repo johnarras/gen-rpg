@@ -26,7 +26,7 @@ namespace Genrpg.MapServer.Quests.MessageHandlers
             // TODO make this dynamic.
             List<QuestType> quests = gs.map.GetQuestsForNPC(gs, message.NPCTypeId);
 
-            _messageService.SendMessage(gs, obj, new OnGetNPCQuests() { NPCTypeId = message.NPCTypeId, Quests = quests });
+            _messageService.SendMessage(obj, new OnGetNPCQuests() { NPCTypeId = message.NPCTypeId, Quests = quests });
         }
     }
 }

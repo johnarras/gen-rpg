@@ -26,7 +26,7 @@ namespace Genrpg.MapServer.Players.MessageHandlers
 
             if (!message.IsCancelled())
             {
-                _messageService.SendMessage(gs, ch, message, PlayerConstants.SaveDelay);
+                _messageService.SendMessage(ch, message, PlayerConstants.SaveDelay);
             }
         }
     }

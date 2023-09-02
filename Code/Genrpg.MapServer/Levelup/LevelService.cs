@@ -4,7 +4,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Entities.Services;
-using Genrpg.Shared.GameDatas;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.Levels.Messages;
@@ -64,7 +64,7 @@ namespace Genrpg.MapServer.Levelup
                     Level = ch.Level,
                     UnitId = ch.Id,
                 };
-                _messageService.SendMessageNear(gs, ch, levelMessage);
+                _messageService.SendMessageNear(ch, levelMessage);
                 GiveLevelRewards(gs, ch, ldata);
             }
 

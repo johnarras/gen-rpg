@@ -5,7 +5,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Entities.Utils;
-using Genrpg.Shared.GameDatas;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils;

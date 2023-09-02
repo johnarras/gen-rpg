@@ -45,11 +45,11 @@ namespace Genrpg.MapServer.Stats
                 {
                     unit.RegenMessage = new Regen();
 
-                    _messageService.SendMessage(gs, unit, unit.RegenMessage, StatConstants.RegenTickSeconds);
+                    _messageService.SendMessage(unit, unit.RegenMessage, StatConstants.RegenTickSeconds);
                 }
             }
 
-            _messageService.SendMessageNear(gs, unit, upd);
+            _messageService.SendMessageNear(unit, upd);
         }
 
         private List<StatType> _mutableStats = null;

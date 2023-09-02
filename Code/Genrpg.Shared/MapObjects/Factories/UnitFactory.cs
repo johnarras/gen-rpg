@@ -86,13 +86,17 @@ namespace Genrpg.Shared.MapObjects.Factories
             SpellData spellData = unit.Get<SpellData>();
             spellData.Add(spell);
 
-            if (zone != null)
+            unit.Name = spawn.GetName();
+            if (string.IsNullOrEmpty(unit.Name))
             {
-                unit.Name = _unitGenService.GenerateUnitName(gs, utype.IdKey, zone.IdKey, gs.rand, null);
-            }
-            else
-            {
-                unit.Name = utype.Name;
+                if (zone != null)
+                {
+                    unit.Name = _unitGenService.GenerateUnitName(gs, utype.IdKey, zone.IdKey, gs.rand, null);
+                }
+                else
+                {
+                    unit.Name = utype.Name;
+                }
             }
 
             _statService.CalcStats(gs, unit, true);

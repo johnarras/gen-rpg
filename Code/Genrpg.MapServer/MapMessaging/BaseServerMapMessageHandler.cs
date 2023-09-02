@@ -66,7 +66,7 @@ namespace Genrpg.MapServer.MapMessaging
         {
             if (!pack.message.IsCancelled())
             {
-                InnerProcess(gs, pack, pack.obj, pack.message as T);
+                InnerProcess(gs, pack, pack.mapObject, pack.message as T);
             }
         }
     }

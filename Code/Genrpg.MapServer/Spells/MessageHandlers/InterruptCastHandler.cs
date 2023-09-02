@@ -44,7 +44,7 @@ namespace Genrpg.MapServer.Spells.MessageHandlers
             OnStopCast stop = obj.GetCachedMessage<OnStopCast>(true);
             stop.CasterId = obj.Id;
 
-            _messageService.SendMessageNear(gs, obj, stop);
+            _messageService.SendMessageNear(obj, stop);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Genrpg.MapServer.Maps.MessageHandlers
     {
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, DelayedRemoveObject message)
         {
-            _objectManager.RemoveObject(obj.Id);
+            _objectManager.RemoveObject(gs, obj.Id);
         }
     }
 }

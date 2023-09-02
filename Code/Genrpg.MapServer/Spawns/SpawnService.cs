@@ -11,6 +11,9 @@ using Genrpg.Shared.Entities.Services;
 using System.Threading;
 using System.Runtime.InteropServices;
 using Genrpg.Shared.Spawns.Interfaces;
+using System.Linq;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using static Microsoft.Azure.Amqp.Serialization.SerializableType;
 
 namespace Genrpg.MapServer.Spawns
 {
@@ -35,6 +38,9 @@ namespace Genrpg.MapServer.Spawns
 
         private IEntityService _entityService;
         private IReflectionService _reflectionService;
+
+
+        private int _charStepLootTimes = 0;
 
         private Dictionary<long, IRollHelper> _rollHelpers = null;
         public async Task Setup(GameState gs, CancellationToken token)
@@ -81,12 +87,8 @@ namespace Genrpg.MapServer.Spawns
             for (int i = 0; i < rollData.Times; i++)
             {
                 rollData.Depth++;
-                List<SpawnResult> list2 = RollOnce(gs, items, rollData);
+                list = list.Concat(RollOnce(gs, items, rollData)).ToList();
                 rollData.Depth--;
-                if (list2 != null)
-                {
-                    list = ListUtils.Concat(list, list2);
-                }
             }
 
             return list;
@@ -111,7 +113,6 @@ namespace Genrpg.MapServer.Spawns
 
             List<SpawnResult> retval = new List<SpawnResult>();
 
-
             Dictionary<int, List<SpawnItem>> groupDict = new Dictionary<int, List<SpawnItem>>();
             List<SpawnItem> rollEachList = new List<SpawnItem>();
             foreach (SpawnItem si in items)
@@ -121,7 +122,7 @@ namespace Genrpg.MapServer.Spawns
                     if (gs.rand.NextDouble() * 100 < si.Weight)
                     {
                         rollData.Depth++;
-                        retval = ListUtils.Concat(retval, RollOneItem(gs, si, rollData));
+                        retval = retval.Concat(RollOneItem(gs, si, rollData)).ToList();
                         rollData.Depth--;
                     }
                     continue;
@@ -148,7 +149,7 @@ namespace Genrpg.MapServer.Spawns
                     continue;
                 }
 
-                double weightChosen = gs.rand.NextDouble() * Math.Max(100, totalRollWeight);
+                double weightChosen = gs.rand.NextDouble() * totalRollWeight;
 
                 foreach (SpawnItem si in groupList)
                 {
@@ -156,7 +157,7 @@ namespace Genrpg.MapServer.Spawns
                     if (weightChosen <= 0)
                     {
                         rollData.Depth++;
-                        retval = ListUtils.Concat(retval, RollOneItem(gs, si, rollData));
+                        retval = retval.Concat(RollOneItem(gs, si, rollData)).ToList();
                         rollData.Depth--;
                         break;
                     }
@@ -179,7 +180,8 @@ namespace Genrpg.MapServer.Spawns
 
             if (rollHelper != null)
             {
-                return rollHelper.Roll(gs, rollData, si);
+                retval = rollHelper.Roll(gs, rollData, si);
+                return retval;
             }
 
             long quantity = MathUtils.LongRange(si.MinQuantity, si.MaxQuantity, gs.rand);
@@ -187,7 +189,7 @@ namespace Genrpg.MapServer.Spawns
             SpawnResult sr = new SpawnResult();
             sr.EntityId = si.EntityId;
             sr.EntityTypeId = si.EntityTypeId;
-            sr.Quantity = 1;
+            sr.Quantity = quantity;
             sr.QualityTypeId = rollData.QualityTypeId;
             sr.Level = rollData.Level;
             retval.Add(sr);

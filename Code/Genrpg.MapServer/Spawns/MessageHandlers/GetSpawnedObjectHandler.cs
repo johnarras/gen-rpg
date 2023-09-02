@@ -18,7 +18,7 @@ namespace Genrpg.MapServer.Spawns.MessageHandlers
                 return;
             }
 
-            _messageService.SendMessage(gs, mapObj, new SendSpawn() { ToObjId = obj.Id });
+            _messageService.SendMessage(mapObj, new SendSpawn() { ToObjId = obj.Id });
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Genrpg.MapServer.Units.MessageHandlers
                 onSet.CasterId = obj.Id;
                 onSet.TargetId = targetId;
 
-                _messageService.SendMessageNear(gs, obj, onSet);
+                _messageService.SendMessageNear(obj, onSet);
             }
         }
     }

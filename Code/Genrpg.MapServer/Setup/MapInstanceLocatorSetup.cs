@@ -5,7 +5,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Setup.Services;
 using Genrpg.Shared.Entities.Services;
-using Genrpg.ServerShared.GameDatas;
+using Genrpg.ServerShared.GameSettings;
 using Genrpg.MapServer.Vendors;
 using Genrpg.MapServer.AI.Services;
 using Genrpg.MapServer.Crafting;

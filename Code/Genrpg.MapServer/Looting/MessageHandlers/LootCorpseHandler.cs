@@ -52,7 +52,7 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
                 ch.AddMessage(sendLoot);
             }
 
-            _messageService.SendMessageNear(gs, unit, new ClearLoot() { UnitId = unit.Id });
+            _messageService.SendMessageNear(unit, new ClearLoot() { UnitId = unit.Id });
         }
     }
 }

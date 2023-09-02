@@ -2,9 +2,7 @@
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Interfaces;
-using Genrpg.Shared.GameDatas;
-using Genrpg.Shared.GameDatas.Interfaces;
-using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Users.Entities;
 using Microsoft.Identity.Client;
 using System;

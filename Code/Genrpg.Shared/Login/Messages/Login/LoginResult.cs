@@ -1,7 +1,7 @@
 using MessagePack;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.GameDatas;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Users.Entities;
 using Newtonsoft.Json;
 using System.Collections.Generic;

@@ -32,7 +32,7 @@ namespace Genrpg.MapServer.Stats.MessageHandlers
 
             if (unit.RegenMessage != null && !unit.RegenMessage.IsCancelled())
             {
-                _messageService.SendMessage(gs, unit, message, regenSeconds);
+                _messageService.SendMessage(unit, message, regenSeconds);
             }
         }
     }

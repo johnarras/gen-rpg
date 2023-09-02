@@ -570,5 +570,26 @@ namespace Genrpg.Shared.Utils
             byte[] arr = Convert.FromBase64String(base64String);
             return System.Text.Encoding.UTF8.GetString(arr);
         }
+
+        public static string StringBetweenTokens (string searchString, string startToken, string endToken)
+        {
+            int startIndex = searchString.IndexOf(startToken);
+            if (startIndex < 0)
+            {
+                return "";
+            }
+
+            string substring = searchString.Substring(startIndex + startToken.Length);
+
+            int endIndex = substring.IndexOf(endToken);
+
+            if (endIndex < 0)
+            {
+                endIndex = substring.Length;
+            }
+
+            return substring.Substring(0, endIndex);
+
+        }
     }
 }

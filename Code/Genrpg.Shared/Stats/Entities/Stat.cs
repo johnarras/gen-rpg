@@ -10,7 +10,7 @@ namespace Genrpg.Shared.Stats.Entities
     {
         [Key(0)] public long Id { get; set; }
 
-        [Key(1)] public List<long> Vals { get; set; } = new List<long>();
+        [Key(1)] public long[] Vals = new long[StatCategory.Size];
 
         public long Get(int statCategory)
         {
@@ -19,10 +19,6 @@ namespace Genrpg.Shared.Stats.Entities
                 return 0;
             }
 
-            while (Vals.Count < StatCategory.Size)
-            {
-                Vals.Add(0);
-            }
             return Vals[statCategory];
         }
 
@@ -36,11 +32,6 @@ namespace Genrpg.Shared.Stats.Entities
             if (statCategory < 0 || statCategory >= StatCategory.Size)
             {
                 return;
-            }
-
-            while (Vals.Count < StatCategory.Size)
-            {
-                Vals.Add(0);
             }
 
             if (statCategory == StatCategory.Curr && Id > StatConstants.MaxMutableStatTypeId)
@@ -60,7 +51,7 @@ namespace Genrpg.Shared.Stats.Entities
 
         public void Reset()
         {
-            Vals = new List<long>();
+            Vals = new long[StatCategory.Size];
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Genrpg.PlayerServer.Entities;
-using Genrpg.ServerShared.CloudMessaging.Messages.MapInstance.PlayerServer;
-using Genrpg.ServerShared.CloudMessaging.Messages.PlayerServer;
+using Genrpg.ServerShared.CloudMessaging.Requests;
+using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
+using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Requests;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
@@ -26,6 +27,7 @@ namespace Genrpg.PlayerServer.Services
         void OnPlayerEnterMap(ServerGameState gs, PlayerEnterMap playerEnterMap);
         void OnPlayerLeaveMap(ServerGameState gs, PlayerLeaveMap playerLeaveMap);
         void OnPlayerEnterZone(ServerGameState gs, PlayerEnterZone playerEnterZone);
+        ICloudResponse GetWhoList(ServerGameState gs, WhoListRequest request);
     }
 
     public class PlayerService : IPlayerService
@@ -166,6 +168,25 @@ namespace Genrpg.PlayerServer.Services
                 List<OnlineCharacter> zoneChars = _zoneChars.GetOrAdd(GetMapZoneKey(currChar.MapId, currChar.ZoneId), new List<OnlineCharacter>());
                 zoneChars.Add(currChar);
             }
+        }
+
+        public ICloudResponse GetWhoList(ServerGameState gs, WhoListRequest request)
+        {
+            List<OnlineCharacter> onlineChars = _onlineChars.Values.ToList();
+
+            WhoListResponse response = new WhoListResponse();
+
+            foreach (OnlineCharacter onlineChar in onlineChars)
+            {
+                response.Chars.Add(new WhoListChar()
+                {
+                    Id = onlineChar.Id,
+                    Name = onlineChar.Name,
+                    Level = onlineChar.Level,
+                    ZoneName = onlineChar.ZoneId.ToString(),
+                });
+            }
+            return response;
         }
     }
 }

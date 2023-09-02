@@ -1,11 +1,11 @@
 using MessagePack;
 using Genrpg.Shared.Audio.Entities;
 using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.GameDatas;
 using Genrpg.Shared.Zones.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.ProcGen.Entities
 {

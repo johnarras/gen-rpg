@@ -148,11 +148,9 @@ namespace Genrpg.MapServer.Items
         }
 
 
-        private MyRandom rand = new MyRandom();
         public string GenerateName(GameState gs, long itemTypeId, long level, long qualityTypeId, List<FullReagent> reagents)
         {
 
-            rand = gs.rand;
             string badName = "Armor";
 
             // If the power of the item is < 0.7f
@@ -207,38 +205,38 @@ namespace Genrpg.MapServer.Items
                 return badName;
             }
 
-            string itemName = _nameGenService.PickWord(gs, itemNameList, rand.Next());
+            string itemName = _nameGenService.PickWord(gs, itemNameList, gs.rand.Next());
 
-            string adj1 = _nameGenService.PickWord(gs, adjList.Names, rand.Next());
+            string adj1 = _nameGenService.PickWord(gs, adjList.Names, gs.rand.Next());
             string adj1Prefix = "";
             if (!string.IsNullOrEmpty(adj1))
             {
                 adj1Prefix = adj1.Substring(0, 3);
             }
 
-            string adj2 = _nameGenService.PickWord(gs, adjList.Names, rand.Next(), "", adj1Prefix);
+            string adj2 = _nameGenService.PickWord(gs, adjList.Names, gs.rand.Next(), "", adj1Prefix);
             string adj2Prefix = "";
             if (!string.IsNullOrEmpty(adj2))
             {
                 adj2Prefix = adj2.Substring(0, 3);
             }
 
-            string suffixName = _nameGenService.PickWord(gs, nounList.Names, rand.Next(), "", adj2Prefix);
-            string badPrefix = _nameGenService.PickWord(gs, badItemList.Names, rand.Next());
+            string suffixName = _nameGenService.PickWord(gs, nounList.Names, gs.rand.Next(), "", adj2Prefix);
+            string badPrefix = _nameGenService.PickWord(gs, badItemList.Names, gs.rand.Next());
 
-            if (rand.Next() % 6 == 0 && reagents != null && reagents.Count > 0)
+            if (gs.rand.Next() % 6 == 0 && reagents != null && reagents.Count > 0)
             {
-                FullReagent nameReagent = reagents[rand.Next() % reagents.Count];
+                FullReagent nameReagent = reagents[gs.rand.Next() % reagents.Count];
                 if (nameReagent != null)
                 {
                     ItemType reagentItemType = gs.data.GetGameData<ItemSettings>().GetItemType(nameReagent.ItemTypeId);
                     if (reagentItemType != null && !string.IsNullOrEmpty(reagentItemType.GenName))
                     {
-                        if (rand.Next() % 3 == 0)
+                        if (gs.rand.Next() % 3 == 0)
                         {
                             adj1 = reagentItemType.GenName;
                         }
-                        else if (rand.Next() % 2 == 0)
+                        else if (gs.rand.Next() % 2 == 0)
                         {
                             adj2 = reagentItemType.GenName;
                         }
@@ -251,16 +249,16 @@ namespace Genrpg.MapServer.Items
 
             }
 
-            string doublePrefix = _nameGenService.PickWord(gs, doublePrefixList.Names, rand.Next());
-            string doubleSuffix = _nameGenService.PickWord(gs, doubleSuffixList.Names, rand.Next(), doublePrefix);
+            string doublePrefix = _nameGenService.PickWord(gs, doublePrefixList.Names, gs.rand.Next());
+            string doubleSuffix = _nameGenService.PickWord(gs, doubleSuffixList.Names, gs.rand.Next(), doublePrefix);
 
             if (!string.IsNullOrEmpty(doubleSuffix))
             {
                 doubleSuffix = doubleSuffix.ToLower();
             }
-            if (rand.Next() % 7 == 1)
+            if (gs.rand.Next() % 7 == 1)
             {
-                int val = rand.Next() % 3;
+                int val = gs.rand.Next() % 3;
                 if (val == 0)
                 {
                     adj1 = doublePrefix + doubleSuffix;
@@ -282,9 +280,9 @@ namespace Genrpg.MapServer.Items
                 return badPrefix + " " + itemName;
             }
 
-            if (qualityTypeId <= QualityType.Uncommon || rand.Next() % 10 == 4)
+            if (qualityTypeId <= QualityType.Uncommon || gs.rand.Next() % 10 == 4)
             {
-                if (rand.Next() % 2 == 0)
+                if (gs.rand.Next() % 2 == 0)
                 {
                     return adj1 + " " + itemName;
                 }
@@ -296,12 +294,12 @@ namespace Genrpg.MapServer.Items
 
 
             // Adj Name of Noun
-            if (rand.Next() % 3 != 2)
+            if (gs.rand.Next() % 3 != 2)
             {
                 return adj1 + " " + itemName + " of " + suffixName;
             }
             // Name of Adj Noun
-            else if (rand.Next() % 2 == 1)
+            else if (gs.rand.Next() % 2 == 1)
             {
                 string theSuffix = "";
                 if (suffixName != null && suffixName.IndexOf("the ") == 0)

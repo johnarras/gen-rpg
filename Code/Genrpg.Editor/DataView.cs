@@ -19,12 +19,12 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor;
-using Genrpg.ServerShared.GameDatas.Services;
 using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.DataStores.Categories;
 using System.Threading.Tasks;
+using Genrpg.ServerShared.GameSettings.Services;
 
 namespace GameEditor
 {

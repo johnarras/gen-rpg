@@ -1,4 +1,4 @@
-﻿using Genrpg.ServerShared.CloudMessaging.Messages.PlayerServer;
+﻿using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
 using Genrpg.ServerShared.Core;
 using System;
 using System.Collections.Generic;

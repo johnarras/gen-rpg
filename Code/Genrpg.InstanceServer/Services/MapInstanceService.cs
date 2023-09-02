@@ -1,5 +1,5 @@
 ﻿using Genrpg.InstanceServer.Entities;
-using Genrpg.ServerShared.CloudMessaging.Messages.InstanceServer;
+using Genrpg.ServerShared.CloudMessaging.Servers.InstanceServer.Messaging;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using System;

@@ -1,4 +1,5 @@
 ﻿using Genrpg.InstanceServer.MessageHandlers;
+using Genrpg.InstanceServer.RequestHandlers;
 using Genrpg.InstanceServer.Setup;
 using Genrpg.ServerShared.CloudMessaging.Constants;
 using Genrpg.ServerShared.MainServer;
@@ -18,9 +19,10 @@ namespace Genrpg.InstanceServer
             return new InstanceSetupService();
         }
 
-        protected override void SetupMessageHandlers()
+        protected override void SetupMessagingHandlers()
         {
             _cloudMessageService.SetMessageHandlers(_reflectionService.SetupDictionary<Type,IInstanceMessageHandler>(_gs));
+            _cloudMessageService.SetRequestHandlers(_reflectionService.SetupDictionary<Type,IInstanceRequestHandler>(_gs));
         }
     }
 }

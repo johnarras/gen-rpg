@@ -1,4 +1,5 @@
 ﻿using Genrpg.PlayerServer.MessageHandlers;
+using Genrpg.PlayerServer.RequestHandlers;
 using Genrpg.PlayerServer.Setup;
 using Genrpg.ServerShared.CloudMessaging.Constants;
 using Genrpg.ServerShared.MainServer;
@@ -19,9 +20,10 @@ namespace Genrpg.PlayerServer
             return new PlayerSetupService();
         }
 
-        protected override void SetupMessageHandlers()
+        protected override void SetupMessagingHandlers()
         {
             _cloudMessageService.SetMessageHandlers(_reflectionService.SetupDictionary<Type, IPlayerMessageHandler>(_gs));
+            _cloudMessageService.SetRequestHandlers(_reflectionService.SetupDictionary<Type, IPlayerRequestHandler>(_gs));
         }
     }
 }

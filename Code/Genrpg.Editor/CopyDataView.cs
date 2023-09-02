@@ -2,8 +2,7 @@
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Services.Setup;
 using Genrpg.ServerShared.Config;
-using Genrpg.ServerShared.Core;
-using Genrpg.ServerShared.GameDatas.Services;
+using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.MapSpawns;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Constants;

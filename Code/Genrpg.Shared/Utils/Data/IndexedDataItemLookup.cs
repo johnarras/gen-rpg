@@ -1,13 +1,13 @@
 using MessagePack;
 using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.Entities.Utils;
-using Genrpg.Shared.GameDatas;
-using Genrpg.Shared.GameDatas.Interfaces;
 using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Utils.Data
 {
@@ -183,7 +183,7 @@ namespace Genrpg.Shared.Utils.Data
 
             if (obj is GameData gameData)
             {
-                foreach (IGameDataContainer cont in gameData.GetContainers())
+                foreach (IGameSettingsContainer cont in gameData.GetContainers())
                 {
                     SetupCacheObjects(cont.GetData(), tempCache, tempListCache, indexInterfaceName);
                 }

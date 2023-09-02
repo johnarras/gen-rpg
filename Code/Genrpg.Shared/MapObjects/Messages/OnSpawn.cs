@@ -89,6 +89,11 @@ namespace Genrpg.Shared.MapObjects.Messages
             }
         }
 
+        public string GetName()
+        {
+            return Name;
+        }
+
         public bool IsDirty()
         {
             return false;

@@ -1,7 +1,6 @@
 ﻿using Genrpg.LoginServer.CommandHandlers;
 using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.CloudMessaging.Messages;
-using Genrpg.ServerShared.CloudMessaging.Messages.InstanceServer;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages.Error;

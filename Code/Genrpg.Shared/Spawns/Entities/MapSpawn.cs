@@ -24,5 +24,6 @@ namespace Genrpg.Shared.Spawns.Entities
         [Key(9)] public int SpawnSeconds { get; set; }
         [Key(10)] public long FactionTypeId { get; set; }
         public override void Delete(IRepositorySystem repoSystem) { repoSystem.Save(this); }
+        public virtual string GetName() { return ""; }
     }
 }

@@ -17,6 +17,7 @@ using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Spawns;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Combat.Messages;
+using Genrpg.Shared.Characters.Entities;
 
 namespace Genrpg.MapServer.Units
 {
@@ -57,8 +58,13 @@ namespace Genrpg.MapServer.Units
                 Level = targ.Level,
                 Depth = 0,
                 QualityTypeId = targ.QualityTypeId,
-                Times = 1,
+                Times = 1,            
             };
+            
+            if (_objectManager.GetChar(targ.GetFirstAttacker(), out Character ch))
+            {
+                targ.SkillLoot = new List<SpawnResult>();
+            }
 
             targ.Loot = _spawnService.Roll(gs, gs.data.GetGameData<SpawnSettings>().MonsterLootSpawnTableId, rollData);
 
@@ -66,7 +72,6 @@ namespace Genrpg.MapServer.Units
 
             if (levelData != null)
             {
-
                 targ.Loot.Add(new SpawnResult()
                 {
                     EntityTypeId = EntityType.Currency,
@@ -75,11 +80,11 @@ namespace Genrpg.MapServer.Units
                 });
             }
 
+
             if (utype.LootItems != null)
             {
                 targ.Loot.AddRange(_spawnService.Roll(gs, utype.LootItems, rollData));
             }
-
             // Quest loot? need list of quests from caster?
 
             if (utype.InteractLootItems != null)
@@ -96,7 +101,7 @@ namespace Genrpg.MapServer.Units
             died.Loot = targ.Loot;
             died.SkillLoot = targ.SkillLoot;
 
-            _messageService.SendMessageNear(gs, targ, died, MessageConstants.DefaultGridDistance * 2);
+            _messageService.SendMessageNear(targ, died, MessageConstants.DefaultGridDistance * 2);
 
             Killed killed = new Killed()
             {
@@ -110,10 +115,10 @@ namespace Genrpg.MapServer.Units
 
             if (_objectManager.GetUnit(eff.CasterId, out Unit killerUnit))
             {
-                _messageService.SendMessage(gs, killerUnit, killed);
+                _messageService.SendMessage(killerUnit, killed);
             }
 
-            _objectManager.RemoveObject(targ.Id, UnitConstants.CorpseDespawnSeconds);
+            _objectManager.RemoveObject(gs, targ.Id, UnitConstants.CorpseDespawnSeconds);
 
         }
     }

@@ -18,7 +18,7 @@ namespace Genrpg.MapServer.Spawns.MessageHandlers
                 return;
             }
 
-            _messageService.SendMessage(gs, ch, new OnSpawn(obj));
+            _messageService.SendMessage(ch, new OnSpawn(obj));
         }
     }
 }

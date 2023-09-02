@@ -136,6 +136,8 @@ Setup
 	NoSQLPlayerDataConnection -- used to store player data
 		
 	ServiceBusConnection -- This is used for internal cloud messaging (like SQS on AWS) for all things implementing ICloudMessage
+	
+	AzureRelayConnection -- This is used for bidirectional (request/response) cloud messaging, for ICloudRequest, ICloudResponse
 						
 	Classes may be tagged with a DataCategory attribute:
 		

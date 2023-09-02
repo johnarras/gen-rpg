@@ -16,7 +16,8 @@ using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.CloudMessaging;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.Logging;
-using Genrpg.ServerShared.GameDatas.Services;
+using Genrpg.ServerShared.GameSettings.Services;
+using Genrpg.ServerShared.DataStores;
 
 namespace Genrpg.ServerShared.Setup
 {

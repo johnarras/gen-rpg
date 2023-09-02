@@ -1,14 +1,11 @@
 ﻿using Genrpg.Editor.Entities.Copying;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Services.Setup;
-using Genrpg.ServerShared.GameDatas.Services;
-using Genrpg.ServerShared.GameDatas;
 using Genrpg.ServerShared.Setup;
 using Genrpg.ServerShared;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.GameDatas.Config;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,10 +17,10 @@ using Genrpg.ServerShared.Config;
 using System.Threading;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.GameDatas.Interfaces;
-using Microsoft.Identity.Client;
-using Microsoft.Azure.Amqp.Framing;
-using Microsoft.Extensions.Azure;
+using Genrpg.Shared.GameSettings.Config;
+using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.ServerShared.GameSettings.Services;
+using Genrpg.ServerShared.GameSettings;
 
 namespace Genrpg.Editor.Utils
 {
@@ -65,7 +62,7 @@ namespace Genrpg.Editor.Utils
                 await gs.repo.Save(config);
             }
 
-            foreach (IGameDataContainer container in dataCopy.Data)
+            foreach (IGameSettingsContainer container in dataCopy.Data)
             {
                 await container.SaveData(gs.repo);
             }
@@ -89,7 +86,7 @@ namespace Genrpg.Editor.Utils
                 WriteGameDataText(dirName, dataConfig);
             }
 
-            foreach (IGameDataContainer container in dataCopy.Data)
+            foreach (IGameSettingsContainer container in dataCopy.Data)
             {
                 WriteGameDataText(dirName, container.GetData());
             }

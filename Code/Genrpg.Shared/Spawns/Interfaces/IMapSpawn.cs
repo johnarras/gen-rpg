@@ -16,5 +16,6 @@ namespace Genrpg.Shared.Spawns.Interfaces
         long ZoneId { get; set; }
         int SpawnSeconds { get; set; }
         long FactionTypeId { get; set; }
+        string GetName();
     }
 }

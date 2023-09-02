@@ -39,7 +39,7 @@ namespace Genrpg.MapServer.Chat.MessageHandlers
                 };
                 foreach (Character ch in nearbyChars)
                 {
-                    _messageService.SendMessage(gs, ch, onChatMessage);
+                    _messageService.SendMessage(ch, onChatMessage);
                 }
             }
         }

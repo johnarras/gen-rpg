@@ -6,7 +6,7 @@ using UnityEngine;
 using Genrpg.Shared.Setup.Services;
 using Cysharp.Threading.Tasks;
 using System.Threading;
-using Genrpg.Shared.GameDatas;
+using Genrpg.Shared.GameSettings;
 
 public class SetupEditorUnityGameState
 {

@@ -1,11 +1,11 @@
 using MessagePack;
 using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.GameDatas;
 using Genrpg.Shared.Stats.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Inventory.Entities
 {

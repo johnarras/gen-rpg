@@ -6,6 +6,7 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Genrpg.Shared.WhoList.Messages;
 
 public class ZoneScreen : BaseScreen
 {
@@ -26,6 +27,7 @@ public class ZoneScreen : BaseScreen
         Setup();
         UIHelper.SetButton(_closeButton, GetAnalyticsName(), StartClose);
         await UniTask.CompletedTask;
+
     }
 
     private void Setup()

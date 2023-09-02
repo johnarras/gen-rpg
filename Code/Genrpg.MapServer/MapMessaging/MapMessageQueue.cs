@@ -1,5 +1,7 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.MapMessages.Interfaces;
+using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Concurrent;
@@ -7,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.XPath;
 
 namespace Genrpg.MapServer.MapMessaging
 {
@@ -17,7 +20,7 @@ namespace Genrpg.MapServer.MapMessaging
 
         protected ConcurrentQueue<MapMessagePackage> _currentQueue = new ConcurrentQueue<MapMessagePackage>();
         protected ConcurrentQueue<MapMessagePackage> _delayedQueue = new ConcurrentQueue<MapMessagePackage>();
-
+        protected ConcurrentBag<MapMessagePackage> _packagePool = new ConcurrentBag<MapMessagePackage>();
         protected List<MapMessagePackage>[] _delayedMessages = null;
         protected int _tick = 0;
         protected int _queueIndex = -1;
@@ -49,8 +52,18 @@ namespace Genrpg.MapServer.MapMessaging
             return _messagesProcessed;
         }
 
-        public void AddMessage(MapMessagePackage package)
+        public void AddMessage(IMapMessage message, MapObject mapObject, IMapMessageHandler handler, float delaySeconds)
         {
+            if (!_packagePool.TryTake(out MapMessagePackage package))
+            {
+                package = new MapMessagePackage();
+            }
+
+            package.message = message;
+            package.mapObject = mapObject;
+            package.handler = handler;
+            package.delaySeconds = delaySeconds;
+            
             if (package.delaySeconds <= 0)
             {
                 package.message.SetLastExecuteTime(DateTime.UtcNow);
@@ -125,6 +138,12 @@ namespace Genrpg.MapServer.MapMessaging
                         try
                         {
                             package.Process(gs);
+                            _messagesProcessed++;
+                            if (_packagePool.Count < 100)
+                            {
+                                package.Clear();
+                                _packagePool.Add(package);
+                            }
                         }
                         catch (Exception e)
                         {
