@@ -10,7 +10,7 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using System.Threading;
 using Genrpg.MapServer.Combat.Messages;
 using Genrpg.MapServer.Maps;
@@ -18,6 +18,7 @@ using Genrpg.MapServer.Spawns;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Combat.Messages;
 using Genrpg.Shared.Characters.Entities;
+using System.Linq;
 
 namespace Genrpg.MapServer.Units
 {
@@ -40,14 +41,22 @@ namespace Genrpg.MapServer.Units
 
             targ.AddFlag(UnitFlags.IsDead);
 
-            UnitType utype = gs.data.GetGameData<UnitSettings>().GetUnitType(targ.EntityId);
+            UnitType utype = gs.data.GetGameData<UnitSettings>(targ).GetUnitType(targ.EntityId);
 
-            TribeType ttype = gs.data.GetGameData<UnitSettings>().GetTribeType(utype.TribeTypeId);
+            TribeType ttype = gs.data.GetGameData<TribeSettings>(targ).GetTribeType(utype.TribeTypeId);
+
+            AttackerInfo firstAttacker = targ.GetFirstAttacker();
+
+            if (firstAttacker == null)
+            {
+                targ.AddAttacker(eff.CasterId, eff.CasterGroupId);
+                firstAttacker = targ.GetFirstAttacker();
+            }
 
             Died died = new Died()
             {
                 UnitId = targ.Id,
-                FirstAttackerId = targ.GetFirstAttacker(),
+                FirstAttacker = firstAttacker,
             };
 
             targ.Loot = new List<SpawnResult>();
@@ -60,44 +69,42 @@ namespace Genrpg.MapServer.Units
                 QualityTypeId = targ.QualityTypeId,
                 Times = 1,            
             };
-            
-            if (_objectManager.GetChar(targ.GetFirstAttacker(), out Character ch))
+
+            if (firstAttacker != null)
             {
                 targ.SkillLoot = new List<SpawnResult>();
-            }
 
-            targ.Loot = _spawnService.Roll(gs, gs.data.GetGameData<SpawnSettings>().MonsterLootSpawnTableId, rollData);
+                targ.Loot = _spawnService.Roll(gs, gs.data.GetGameData<SpawnSettings>(targ).MonsterLootSpawnTableId, rollData);
+                LevelInfo levelData = gs.data.GetGameData<LevelSettings>(targ).GetLevel(targ.Level);
 
-            LevelData levelData = gs.data.GetGameData<LevelSettings>().GetLevel(targ.Level);
-
-            if (levelData != null)
-            {
-                targ.Loot.Add(new SpawnResult()
+                if (levelData != null)
                 {
-                    EntityTypeId = EntityType.Currency,
-                    EntityId = CurrencyType.Money,
-                    Quantity = MathUtils.LongRange(1, levelData.KillMoney * 2, gs.rand),
-                });
+                    targ.Loot.Add(new SpawnResult()
+                    {
+                        EntityTypeId = EntityType.Currency,
+                        EntityId = CurrencyType.Money,
+                        Quantity = MathUtils.LongRange(levelData.KillMoney/2, levelData.KillMoney * 3 / 2, gs.rand),
+                    });
+                }
+
+                if (utype.LootItems != null)
+                {
+                    targ.Loot.AddRange(_spawnService.Roll(gs, utype.LootItems, rollData));
+                }
+                // Quest loot? need list of quests from caster?
+
+                if (utype.InteractLootItems != null)
+                {
+                    targ.SkillLoot = _spawnService.Roll(gs, utype.InteractLootItems, rollData);
+                }
+
+                if (ttype != null)
+                {
+                    targ.Loot.AddRange(_spawnService.Roll(gs, ttype.LootItems, rollData));
+                    targ.SkillLoot.AddRange(_spawnService.Roll(gs, ttype.InteractLootItems, rollData));
+                }
             }
-
-
-            if (utype.LootItems != null)
-            {
-                targ.Loot.AddRange(_spawnService.Roll(gs, utype.LootItems, rollData));
-            }
-            // Quest loot? need list of quests from caster?
-
-            if (utype.InteractLootItems != null)
-            {
-                targ.SkillLoot = _spawnService.Roll(gs, utype.InteractLootItems, rollData);
-            }
-
-            if (ttype != null)
-            {
-                targ.Loot.AddRange(_spawnService.Roll(gs, ttype.LootItems, rollData));
-                targ.SkillLoot.AddRange(_spawnService.Roll(gs, ttype.InteractLootItems, rollData));
-            }
-
+            
             died.Loot = targ.Loot;
             died.SkillLoot = targ.SkillLoot;
 
@@ -111,6 +118,7 @@ namespace Genrpg.MapServer.Units
                 NPCTypeId = targ.NPCTypeId,
                 ZoneId = targ.ZoneId,
                 UnitId = targ.Id,
+                
             };
 
             if (_objectManager.GetUnit(eff.CasterId, out Unit killerUnit))

@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
+﻿
+using GEntity = UnityEngine.GameObject;
 
-using Services;
-using UnityEngine;
-using Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using UnityEngine;
+using Genrpg.Shared.Utils;
 
 public class ClutterObjectLoader : BaseObjectLoader
 {
@@ -25,7 +20,7 @@ public class ClutterObjectLoader : BaseObjectLoader
     {
         uint clutterId = objectId - MapConstants.ClutterObjectOffset;
 
-        ClutterType ctype = gs.data.GetGameData<ProcGenSettings>().GetClutterType (clutterId);
+        ClutterType ctype = gs.data.GetGameData<ClutterTypeSettings>(gs.ch).GetClutterType (clutterId);
         if (ctype == null)
         {
             return false;
@@ -46,7 +41,7 @@ public class ClutterObjectLoader : BaseObjectLoader
         dlo.loadData = loadData;
         dlo.x = x;
         dlo.y = y;
-        dlo.zOffset = 1.0f * (1 + (indexHash + 17) % 3);
+        dlo.zOffset = MathUtils.FloatRange(0, 1, gs.rand);
         dlo.zone = currZone;
         dlo.zoneType = currZoneType;
         dlo.assetCategory = AssetCategory.Props;
@@ -65,7 +60,7 @@ public class ClutterObjectLoader : BaseObjectLoader
 
             dlo.x = x + ((indexHash / 7) % 3 - 1);
             dlo.y = y + ((indexHash / 131) % 3 - 1);
-            dlo.zOffset = 1.0f * (1 + (indexHash + 17) % 3);
+            dlo.zOffset = MathUtils.FloatRange(0, 1, gs.rand);
             dlo.zone = currZone;
             dlo.zoneType = currZoneType;
             dlo.assetCategory = AssetCategory.Props;
@@ -80,7 +75,7 @@ public class ClutterObjectLoader : BaseObjectLoader
         return true;
     }
 
-    public void AfterLoadObject(UnityGameState gs, GameObject go, DownloadObjectData dlo, CancellationToken token)
+    public void AfterLoadObject(UnityGameState gs, GEntity go, DownloadObjectData dlo, CancellationToken token)
     {
         float ddscale = 0.5f;
 
@@ -91,14 +86,10 @@ public class ClutterObjectLoader : BaseObjectLoader
             collider.convex = true;
         }
 
-        Rigidbody rb = GameObjectUtils.GetOrAddComponent<Rigidbody>(gs, go);
-
-        rb.isKinematic = false;
-
-        go.transform.localPosition = new Vector3(dlo.x + dlo.ddx * ddscale, dlo.height + dlo.zOffset, dlo.y + dlo.ddy * ddscale);
+        go.transform().localPosition = GVector3.Create(dlo.x + dlo.ddx * ddscale, dlo.height + dlo.zOffset, dlo.y + dlo.ddy * ddscale);
         if (dlo.rotation != null)
         {
-            go.transform.eulerAngles = new Vector3(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
+            go.transform().eulerAngles = GVector3.Create(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
         }
     }
 }

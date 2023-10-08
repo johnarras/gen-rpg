@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
+using GEntity = UnityEngine.GameObject;
+using UnityEngine.UI; // FIX
+using UnityEngine; // FIX
 
 /// <summary>
 /// Class for making vertical collapsable menus.
@@ -30,7 +27,6 @@ public class CollapsingScrollViewGroup : BaseBehaviour
 
     protected List<CollapsableScrollView> _scrollViews = null;
 
-
     protected ScrollRect _mainScrollRect = null;
 
     protected VerticalLayoutGroup _mainLayoutGroup = null;
@@ -38,7 +34,7 @@ public class CollapsingScrollViewGroup : BaseBehaviour
     public void Start()
     {
 
-        _scrollViews = GameObjectUtils.GetComponents<CollapsableScrollView>(gameObject);
+        _scrollViews = GEntityUtils.GetComponents<CollapsableScrollView>(entity);
 
 
         foreach (CollapsableScrollView view in _scrollViews)
@@ -79,9 +75,9 @@ public class CollapsingScrollViewGroup : BaseBehaviour
 
             float totalChildSize = 0;
 
-            for (int c = 0; c < _mainLayoutGroup.transform.childCount; c++)
+            for (int c = 0; c < _mainLayoutGroup.transform().childCount; c++)
             {
-                GameObject child = _mainLayoutGroup.transform.GetChild(c).gameObject;
+                GEntity child = _mainLayoutGroup.transform().GetChild(c).entity();
 
                 CollapsableScrollView collapsingRect = child.GetComponent<CollapsableScrollView>();
                 if (collapsingRect != null)
@@ -90,7 +86,7 @@ public class CollapsingScrollViewGroup : BaseBehaviour
                 }
                 else
                 {
-                    totalChildSize += _mainLayoutGroup.transform.GetChild(c).GetComponent<RectTransform>().rect.height;
+                    totalChildSize += _mainLayoutGroup.transform().GetChild(c).GetComponent<RectTransform>().rect.height;
                 }
             }
 

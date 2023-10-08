@@ -1,22 +1,11 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEngine;
+using System.Threading.Tasks;
 
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Services.ProcGen;
+
 using System.Threading;
 using Genrpg.Shared.ProcGen.Entities;
 
@@ -28,12 +17,12 @@ public class AddMountainTextures : BaseZoneGenerator
 	public const float MaxSteepnessPerturbDelta = 15f;
 
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
 
     }
@@ -300,8 +289,8 @@ public class AddMountainTextures : BaseZoneGenerator
 
                     for (int i = 0; i < numAngles; i++)
                     {
-                        float cosx = Mathf.Cos(Mathf.PI * 2.0f * i / numAngles);
-                        float sinx = Mathf.Sin(Mathf.PI * 2.0f * i / numAngles);
+                        float cosx = (float)Math.Cos(Math.PI * 2.0f * i / numAngles);
+                        float sinx = (float)Math.Sin(Math.PI * 2.0f * i / numAngles);
 
                         float xx = x + innerrad * cosx;
                         float yy = y + innerrad * sinx;
@@ -333,7 +322,7 @@ public class AddMountainTextures : BaseZoneGenerator
                         //if (Math.Abs(ahx - ahy) > 3)
                         {
                             float pct = MathUtils.FloatRange(0.2f, 1.0f, steepRandom) * extraNumMid * 0.50f;
-                            pct = Mathf.Min(0.90f, pct);
+                            pct = Math.Min(0.90f, pct);
                             if (pct > 0.6f)
                             {
                                 pct = MathUtils.FloatRange(1 - pct, pct, steepRandom);
@@ -387,7 +376,7 @@ public class AddMountainTextures : BaseZoneGenerator
 				if (roadPct > 0)
 				{
                     float mult = 1.0f;
-					origPercent = Mathf.Min (1,Mathf.Max (origPercent,roadPct*mult));
+					origPercent = Math.Min (1,Math.Max (origPercent,roadPct*mult));
 				}
                 // Rescale existing splats.
                 for (int c = 0; c < MapConstants.MaxTerrainIndex; c++)

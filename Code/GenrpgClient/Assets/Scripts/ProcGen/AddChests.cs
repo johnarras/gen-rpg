@@ -1,33 +1,18 @@
-using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-
-using UnityEngine;
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.Entities;
-using Genrpg.Shared.Interfaces;
+using GEntity = UnityEngine.GameObject;
+using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-using Services.ProcGen;
 using System.Threading;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 
 public class AddChests : BaseZoneGenerator
 {
     public const float MaxSteepness = 25;
     public const float ChestChance = 0.1f;
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 
@@ -36,7 +21,7 @@ public class AddChests : BaseZoneGenerator
 
         int skipSize = 40;
 
-        List<GroundObjType> chests = gs.data.GetGameData<ProcGenSettings>().GroundObjects.Where(x => x.GroupId == GroundObjType.ChestGroup).ToList();
+        List<GroundObjType> chests = gs.data.GetGameData<GroundObjTypeSettings>(gs.ch).GetData().Where(x => x.GroupId == GroundObjType.ChestGroup).ToList();
 
         if (chests == null || chests.Count < 1)
         {

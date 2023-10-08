@@ -1,23 +1,16 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
+using UnityEngine;
 
 public class CombatTextUI : BaseBehaviour
 {
     public const string UIPrefabName = "CombatText";
 
-    [SerializeField]
-    private Text _text;
-
-    [SerializeField]
-    private float _lifetimeSeconds = 1.0f;
-
-    [SerializeField]
-    private float _pixelsPerFrame = 2.0f;
-
+    public GText CombatText;
+    public float _lifetimeSeconds = 1.0f;
+    public float _pixelsPerFrame = 2.0f;
 
     private bool _isCrit = false;
 
@@ -33,58 +26,58 @@ public class CombatTextUI : BaseBehaviour
 
     public void Init(UnityGameState gs, CombatText text)
     {
-        if (_text == null)
+        if (CombatText == null)
         {
             return;
         }
 
-        Transform oldParent = transform.parent;
-        transform.parent = null;
-        transform.localScale = Vector3.one;
-        transform.parent = oldParent;
-        UIHelper.SetText(_text, text.Text);
+        Transform oldParent =entity.transform().parent;
+       entity.transform().parent = null;
+       entity.transform().localScale = GVector3.onePlatform;
+       entity.transform().parent = oldParent;
+        UIHelper.SetText(CombatText, text.Text);
 
         _isCrit = text.IsCrit;
        
         createTime = DateTime.UtcNow;
 
-        textStartScale = _text.transform.localScale;
+        textStartScale = GVector3.Create(CombatText.transform().localScale);
 
-        if (_text != null)
+        if (CombatText != null)
         {
             float dmult = 0.03f;
             float dx = MathUtils.FloatRange(-20, 20, gs.rand)*dmult;
             float dy = MathUtils.FloatRange(0, 15, gs.rand)*dmult;
-            _text.transform.localPosition += new Vector3(dx, dy, 0);
+            CombatText.transform().localPosition += GVector3.Create(dx, dy, 0);
 
             switch (text.TextColor)
             {
                 case CombatTextColors.Black:
-                    _text.color = Color.black;
+                    CombatText.Color = GColor.black;
                     break;
                 case CombatTextColors.Red:
-                    _text.color = Color.red;
+                    CombatText.Color = GColor.red;
                     break;
                 case CombatTextColors.Green:
-                    _text.color = Color.green;
+                    CombatText.Color = GColor.green;
                     break;
                 case CombatTextColors.Yellow:
-                    _text.color = Color.yellow;
+                    CombatText.Color = GColor.yellow;
                     break;
                 case CombatTextColors.Cyan:
-                    _text.color = Color.cyan;
+                    CombatText.Color = GColor.cyan;
                     break;
                 case CombatTextColors.Blue:
-                    _text.color = Color.blue;
+                    CombatText.Color = GColor.blue;
                     break;
                 case CombatTextColors.Orange:
-                    _text.color = new Color(1, 0.5f, 0);
+                    CombatText.Color = GColor.Create(1, 0.5f, 0);
                     break;
                 case CombatTextColors.White:
-                    _text.color = Color.white;
+                    CombatText.Color = GColor.white;
                     break;
                 default:                    
-                    _text.color = Color.white;
+                    CombatText.Color = GColor.white;
                     break;
             }
         }
@@ -93,18 +86,18 @@ public class CombatTextUI : BaseBehaviour
 
     float critMaxSizeMult = 1.5f;
     int critFrames = 5;
-    Vector3 textStartScale = Vector3.one;
+    GVector3 textStartScale = GVector3.one;
     private void CombatTextUpdate()
     {
         if ((DateTime.UtcNow-createTime).TotalSeconds >= _lifetimeSeconds)
         {
-            GameObject.Destroy(gameObject);
+            GEntityUtils.Destroy(entity);
             return;
         }
 
-        if (_text != null)
+        if (CombatText != null)
         {
-            _text.transform.localPosition += Vector3.up * _pixelsPerFrame * Time.deltaTime;
+            CombatText.transform().localPosition += GVector3.upPlatform * _pixelsPerFrame * Time.deltaTime;
         }
     
 
@@ -112,15 +105,15 @@ public class CombatTextUI : BaseBehaviour
         {
             if (frameCount <= critFrames)
             {
-                _text.transform.localScale = textStartScale * (1 + critMaxSizeMult * frameCount / critFrames);
+                CombatText.transform().localScale = GVector3.Create(textStartScale * (1 + critMaxSizeMult * frameCount / critFrames));
             }
             else if (frameCount <= critFrames*2)
             {
-                _text.transform.localScale = textStartScale * (1 + critMaxSizeMult * ((critFrames * 2) - frameCount) / critFrames);
+                CombatText.transform().localScale = GVector3.Create(textStartScale * (1 + critMaxSizeMult * ((critFrames * 2) - frameCount) / critFrames));
             }
             else
             {
-                _text.transform.localScale = textStartScale;
+                CombatText.transform().localScale = GVector3.Create(textStartScale);
             }
         }
         ++frameCount;

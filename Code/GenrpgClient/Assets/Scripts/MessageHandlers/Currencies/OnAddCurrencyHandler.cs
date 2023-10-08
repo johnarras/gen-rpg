@@ -1,0 +1,22 @@
+﻿
+using Genrpg.Shared.Currencies.Entities;
+using Genrpg.Shared.Currencies.Messages;
+using Genrpg.Shared.Currencies.Services;
+using System.Threading;
+
+namespace Assets.Scripts.MessageHandlers.Currency
+{
+    public class OnAddCurrencyHandler : BaseClientMapMessageHandler<OnAddCurrency>
+    {
+        private ICurrencyService _currencyService = null;
+        protected override void InnerProcess(UnityGameState gs, OnAddCurrency msg, CancellationToken token)
+        {
+            if (msg.CharId != gs.ch.Id)
+            {
+                return;
+            }
+            _currencyService.Add(gs, gs.ch, msg.CurrencyTypeId, msg.QuantityAdded);
+            gs.Dispatch(msg);
+        }
+    }
+}

@@ -137,7 +137,7 @@ public class BuildClients
             string appsuffix = ClientPlatformNames.GetApplicationSuffix(platformString);
             string outputFilesFolder = "../../../Build/" + lowerPrefix + "/" + platformString + "/" + lowerEnv + "/";
             string outputPath = outputFilesFolder + lowerPrefix + appsuffix;
-            string localFolderPath = Application.dataPath + "/" + outputFilesFolder;
+            string localFolderPath = AppUtils.DataPath + "/" + outputFilesFolder;
 
             if (!Directory.Exists(outputFilesFolder))
             {
@@ -150,7 +150,7 @@ public class BuildClients
         string versionFilePath = outputZipFolder + PatcherUtils.GetPatchVersionFilename();
         File.WriteAllText(versionFilePath, String.Empty);
         File.WriteAllText(versionFilePath, version.ToString());
-        string localVersionPath = Application.dataPath + "/../" + versionFilePath;
+        string localVersionPath = AppUtils.DataPath + "/../" + versionFilePath;
         string remoteVersionPath = PatcherUtils.GetPatchClientPrefix(gamePrefix, env, PlatformAssetPrefixes.Win, version) + PatcherUtils.GetPatchVersionFilename();
 
 

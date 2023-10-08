@@ -19,7 +19,7 @@ namespace Genrpg.MapServer.Combat.MessageHandlers
                 return;
             }
 
-            unit.AddAttacker(message.AttackerId);
+            unit.AddAttacker(message.AttackerId, null);
 
         }
     }

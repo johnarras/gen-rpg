@@ -1,13 +1,6 @@
-﻿using Assets.Scripts.Login.Messages;
-using Assets.Scripts.Login.Messages.Core;
-using Cysharp.Threading.Tasks;
+﻿using Assets.Scripts.Login.Messages.Core;
 using Genrpg.Shared.Login.Messages.UploadMap;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Assets.Scripts.Login.MessageHandlers.Core
 {

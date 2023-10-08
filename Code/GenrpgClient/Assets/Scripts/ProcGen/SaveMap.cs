@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.UploadMap;
 using Assets.Scripts.MapTerrain;
@@ -7,12 +7,11 @@ using Assets.Scripts.MapTerrain;
 public class SaveMap : BaseZoneGenerator
 {
     private INetworkService _networkService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 
-        DelaySendMapSizes(gs).Forget();
-
+        TaskUtils.AddTask(DelaySendMapSizes(gs));
 
         for (int gx = 0; gx < gs.map.BlockCount; gx++)
         {
@@ -23,7 +22,7 @@ public class SaveMap : BaseZoneGenerator
         }
     }
 
-    private async UniTask DelaySendMapSizes(UnityGameState gs)
+    private async Task DelaySendMapSizes(UnityGameState gs)
     {
 
         UploadMapCommand update = new UploadMapCommand() { Map = gs.map, SpawnData = gs.spawns };
@@ -36,7 +35,7 @@ public class SaveMap : BaseZoneGenerator
         await gs.repo.Save(gs.spawns);
         gs.spawns.Id = oldMapId;
         _networkService.SendClientWebCommand(update, _token);
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 
     public void SaveOneTerrainPatch(UnityGameState gs, int gx, int gy)

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6620799391962230968}
   - component: {fileID: 8615112716685536401}
-  - component: {fileID: 3181239173943439136}
+  - component: {fileID: 6483772096803979056}
   m_Layer: 0
   m_Name: Star2
   m_TagString: Untagged
@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4304948643469092858}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -46,7 +45,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307259059238678967}
   m_CullTransparentMesh: 0
---- !u!114 &3181239173943439136
+--- !u!114 &6483772096803979056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +54,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 307259059238678967}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ac6b8df9b4e23cb4d8fa628fbf5ee242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -66,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 273ee02c70d09724bb886fea04595364, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be9e24d2224bffe4f98b37171bb948c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -86,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4319590436557564428}
   - component: {fileID: 5785595159917784459}
-  - component: {fileID: 2945661577235937475}
+  - component: {fileID: 5805245290568501856}
   m_Layer: 0
   m_Name: Star1
   m_TagString: Untagged
@@ -107,7 +106,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4304948643469092858}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -122,7 +120,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1116522998075181765}
   m_CullTransparentMesh: 0
---- !u!114 &2945661577235937475
+--- !u!114 &5805245290568501856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +129,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1116522998075181765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ac6b8df9b4e23cb4d8fa628fbf5ee242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -142,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 273ee02c70d09724bb886fea04595364, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be9e24d2224bffe4f98b37171bb948c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -162,7 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 561998050291435205}
   - component: {fileID: 6154777146416386331}
-  - component: {fileID: 7496552982239533970}
+  - component: {fileID: 1614235022115158384}
   m_Layer: 0
   m_Name: Star4
   m_TagString: Untagged
@@ -183,7 +181,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4304948643469092858}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -198,7 +195,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189421337705154963}
   m_CullTransparentMesh: 0
---- !u!114 &7496552982239533970
+--- !u!114 &1614235022115158384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,7 +204,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1189421337705154963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ac6b8df9b4e23cb4d8fa628fbf5ee242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -218,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 273ee02c70d09724bb886fea04595364, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be9e24d2224bffe4f98b37171bb948c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -261,7 +258,6 @@ RectTransform:
   - {fileID: 6714591255078325974}
   - {fileID: 4304948643469092858}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -280,9 +276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bcd78339285a7540afe39416f43a383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textRow: {fileID: 4584096098822745665}
-  _changeText: {fileID: 1590523054332162333}
-  _stars:
+  TextRow: {fileID: 1816681967746055529}
+  ChangeText: {fileID: 5728734000312995495}
+  Stars:
   - {fileID: 1116522998075181765}
   - {fileID: 307259059238678967}
   - {fileID: 6809769384528632507}
@@ -300,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7737505354661996360}
   - component: {fileID: 8244667945083442350}
-  - component: {fileID: 4584096098822745665}
+  - component: {fileID: 1816681967746055529}
   m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
@@ -321,7 +317,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6014975360225143933}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -336,7 +331,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3340406006583099810}
   m_CullTransparentMesh: 0
---- !u!114 &4584096098822745665
+--- !u!114 &1816681967746055529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -345,7 +340,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3340406006583099810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: d5ec29f826410a84792259cf40e7d3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -366,10 +361,10 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Stat
+  m_Text: 
 --- !u!1 &3762966841027942913
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 265060119583186286}
   - component: {fileID: 5682020400897067003}
-  - component: {fileID: 6866657495381305782}
+  - component: {fileID: 2359616965048996317}
   m_Layer: 0
   m_Name: Star5
   m_TagString: Untagged
@@ -401,7 +396,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4304948643469092858}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -416,7 +410,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3762966841027942913}
   m_CullTransparentMesh: 0
---- !u!114 &6866657495381305782
+--- !u!114 &2359616965048996317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -425,7 +419,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3762966841027942913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ac6b8df9b4e23cb4d8fa628fbf5ee242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -436,7 +430,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 273ee02c70d09724bb886fea04595364, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be9e24d2224bffe4f98b37171bb948c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -456,7 +450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6714591255078325974}
   - component: {fileID: 4992006360776286024}
-  - component: {fileID: 1590523054332162333}
+  - component: {fileID: 5728734000312995495}
   m_Layer: 0
   m_Name: ChangeText
   m_TagString: Untagged
@@ -477,7 +471,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6014975360225143933}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -492,7 +485,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4403841792385082917}
   m_CullTransparentMesh: 0
---- !u!114 &1590523054332162333
+--- !u!114 &5728734000312995495
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -501,7 +494,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4403841792385082917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: d5ec29f826410a84792259cf40e7d3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -515,17 +508,17 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 10
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: +
 --- !u!1 &5289616136662458803
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5870415275286435147}
   - component: {fileID: 429433818115105788}
-  - component: {fileID: 2985745669068645494}
+  - component: {fileID: 2210497123011594615}
   m_Layer: 0
   m_Name: Star6
   m_TagString: Untagged
@@ -557,7 +550,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4304948643469092858}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -572,7 +564,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5289616136662458803}
   m_CullTransparentMesh: 0
---- !u!114 &2985745669068645494
+--- !u!114 &2210497123011594615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -581,7 +573,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5289616136662458803}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ac6b8df9b4e23cb4d8fa628fbf5ee242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -592,7 +584,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 273ee02c70d09724bb886fea04595364, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be9e24d2224bffe4f98b37171bb948c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -612,7 +604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4993911731849568547}
   - component: {fileID: 3968582041511384332}
-  - component: {fileID: 3792868055661593448}
+  - component: {fileID: 5200449481621962095}
   m_Layer: 0
   m_Name: Star3
   m_TagString: Untagged
@@ -633,7 +625,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4304948643469092858}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -648,7 +639,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6809769384528632507}
   m_CullTransparentMesh: 0
---- !u!114 &3792868055661593448
+--- !u!114 &5200449481621962095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -657,7 +648,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6809769384528632507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ac6b8df9b4e23cb4d8fa628fbf5ee242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -668,7 +659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 273ee02c70d09724bb886fea04595364, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be9e24d2224bffe4f98b37171bb948c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -715,7 +706,6 @@ RectTransform:
   - {fileID: 5870415275286435147}
   - {fileID: 1915159047755937896}
   m_Father: {fileID: 6014975360225143933}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -756,7 +746,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1915159047755937896}
   - component: {fileID: 2999580159643518721}
-  - component: {fileID: 8676756772852032077}
+  - component: {fileID: 3035419656154067839}
   m_Layer: 0
   m_Name: Star7
   m_TagString: Untagged
@@ -777,7 +767,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4304948643469092858}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -792,7 +781,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8544121832163838933}
   m_CullTransparentMesh: 0
---- !u!114 &8676756772852032077
+--- !u!114 &3035419656154067839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -801,7 +790,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8544121832163838933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ac6b8df9b4e23cb4d8fa628fbf5ee242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -812,7 +801,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 273ee02c70d09724bb886fea04595364, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be9e24d2224bffe4f98b37171bb948c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

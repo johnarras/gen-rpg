@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Constants;
-using System.Security;
-using Genrpg.Editor.Entities.Copying;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor;
 using Genrpg.Editor.Utils;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.ServerShared.GameSettings.Services;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
+using System.Linq;
+using Genrpg.Shared.Currencies.Entities;
 
 namespace GameEditor
 {
@@ -131,19 +131,53 @@ namespace GameEditor
             {
                 IGameDataService gds = gs.loc.Get<IGameDataService>();
 
-                GameData oldData = Task.Run(() => gds.LoadGameData(gs,false).GetAwaiter().GetResult()).GetAwaiter().GetResult();
-
                 Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
 
-                DateTime buildtime = new DateTime(2000, 1, 1)
-                        .AddDays(version.Build).AddSeconds(version.Revision * 2);
+                bool foundBadData = false;
 
-                foreach (IGameSettingsContainer cont in gs.data.GetContainers())
+                List<IGrouping<Type, IGameSettings>> groups = gs.data.GetAllData().GroupBy(x => x.GetType()).ToList();
+
+                foreach (IGrouping<Type,IGameSettings> group in groups)
                 {
-                    if (gs.LookedAtObjects.Contains(cont.GetData()))
+                    List<IGameSettings> items = group.ToList();
+
+                    List<IGrouping<string, IGameSettings>> nameGroups = items.GroupBy(x => x.Id).ToList();
+
+                    if (group.Key == typeof(CurrencySettings))
                     {
-                        await cont.SaveData(gs.repo);
+                        Console.WriteLine("Looking at currencies");
+                    }
+
+                    if (items.Count != nameGroups.Count)
+                    {
+                        DialogResult result2 = MessageBox.Show("Setting " + group.Key.Name + " has duplicate DocId");
+                        foundBadData = true;
+                    }
+                }
+
+                if (foundBadData)
+                {
+                    return;
+                }
+
+                foreach (IGameSettings settings in gs.data.GetAllData())
+                {
+                    if (string.IsNullOrEmpty(settings.Id))
+                    {
+                        DialogResult result2 = MessageBox.Show("Setting object blank Id of type " + settings.GetType().Name);
+                        foundBadData = true;
+                        return;
+                    }
+
+                    settings.SetInternalIds();
+                }
+
+                foreach (object obj in gs.LookedAtObjects)
+                {
+                    if (obj is IGameSettings gameSetting)
+                    {
+                        await gs.repo.Save(gameSetting);
                     }
                 }
             }

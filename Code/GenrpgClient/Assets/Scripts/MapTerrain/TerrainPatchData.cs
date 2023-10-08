@@ -1,14 +1,8 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
-using MessagePack;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-
+using UnityEngine; // Needed
 namespace Assets.Scripts.MapTerrain
 {
     public class TerrainPatchData : IStringId

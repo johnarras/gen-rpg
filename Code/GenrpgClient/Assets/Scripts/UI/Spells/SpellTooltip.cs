@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
-using Entities;
+﻿using System.Collections.Generic;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Spells.Entities;
 using System.Threading;
@@ -31,16 +22,11 @@ public class SpellTooltip : BaseTooltip
     public const int StarBaseAmount = 25;
     public const int StarIncrementAmount = 25;
 
-    [SerializeField]
-    private Text _name;
-    [SerializeField]
-    private Text _basicInfo;
-    [SerializeField]
-    private GameObject _rowParent;
-    [SerializeField]
-    private Text _moneyText;
-    [SerializeField]
-    private MoneyDisplay _money;
+    public GText SpellName;
+    public GText BasicInfo;
+    public GEntity RowParent;
+    public GText MoneyText;
+    public MoneyDisplay Money;
 
     protected List<SpellTooltipRow> Rows;
 
@@ -55,15 +41,15 @@ public class SpellTooltip : BaseTooltip
             return;
         }
 
-        UIHelper.SetText(_name, _data.spell.Name);
-        UIHelper.SetText(_basicInfo, "");
+        UIHelper.SetText(SpellName, _data.spell.Name);
+        UIHelper.SetText(BasicInfo, "");
 
         ShowEffects();
     }
 
     private void ShowEffects()
     {
-        GameObjectUtils.DestroyAllChildren(_rowParent);
+        GEntityUtils.DestroyAllChildren(RowParent);
         Rows = new List<SpellTooltipRow>();
 
         if (_data.spell == null)
@@ -79,12 +65,12 @@ public class SpellTooltip : BaseTooltip
             return;
         }
 
-        _assetService.LoadAssetInto(gs, _rowParent, AssetCategory.UI, SpellTooltipRow, OnLoadRow, data, _token);
+        _assetService.LoadAssetInto(gs, RowParent, AssetCategory.UI, SpellTooltipRow, OnLoadRow, data, _token);
     }
 
     private void OnLoadRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -94,7 +80,7 @@ public class SpellTooltip : BaseTooltip
         SpellTooltipRowData rowData = data as SpellTooltipRowData;
         if (row == null || rowData == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -104,6 +90,6 @@ public class SpellTooltip : BaseTooltip
 
     public void OnExit(string reason = "")
     {
-        gameObject.SetActive(false);
+        entity.SetActive(false);
     }
 }

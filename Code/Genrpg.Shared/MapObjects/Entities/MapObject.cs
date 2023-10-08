@@ -1,5 +1,4 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.MapObjects.Interfaces;
@@ -12,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Genrpg.Shared.Networking.Interfaces;
+using Genrpg.Shared.GameSettings.Entities;
+using Genrpg.Shared.DataStores.Categories.PlayerData;
 
 namespace Genrpg.Shared.MapObjects.Entities
 {
@@ -65,8 +66,6 @@ namespace Genrpg.Shared.MapObjects.Entities
         {
         }
 
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
-
         public bool HasTarget()
         {
             return !string.IsNullOrEmpty(TargetId);
@@ -80,6 +79,11 @@ namespace Genrpg.Shared.MapObjects.Entities
         public void SetDeleted(bool val)
         {
             _isDeleted = val;
+        }
+
+        public virtual string GetGameDataName(string typeName)
+        {
+            return GameDataConstants.DefaultFilename;
         }
 
         protected ConcurrentDictionary<Type, object> _messageCache = new ConcurrentDictionary<Type, object>();
@@ -153,5 +157,6 @@ namespace Genrpg.Shared.MapObjects.Entities
             return (float)Math.Sqrt(dx * dx + dz * dz);
         }
 
+        public virtual void SetSessionOverrides(SessionOverrideList list) { }
     }
 }

@@ -1,12 +1,13 @@
 using MessagePack;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Stats.Entities;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.MapObjects.Entities;
 
 namespace Genrpg.Shared.Entities.Utils
 {
@@ -510,11 +511,11 @@ namespace Genrpg.Shared.Entities.Utils
             return cinfo.Invoke(new object[0]);
 
         }
-        public static string PrintData(GameState gs, IEffect effect)
+        public static string PrintData(GameState gs, MapObject obj, IEffect effect)
         {
             if (effect.EntityTypeId == EntityType.Stat)
             {
-                StatType statType = gs.data.GetGameData<StatSettings>().GetStatType(effect.EntityId);
+                StatType statType = gs.data.GetGameData<StatSettings>(obj).GetStatType(effect.EntityId);
                 if (statType == null)
                 {
                     return "";
@@ -524,7 +525,7 @@ namespace Genrpg.Shared.Entities.Utils
             }
             else if (effect.EntityTypeId == EntityType.StatPct)
             {
-                StatType statType = gs.data.GetGameData<StatSettings>().GetStatType(effect.EntityId);
+                StatType statType = gs.data.GetGameData<StatSettings>(obj).GetStatType(effect.EntityId);
                 if (statType == null)
                 {
                     return "";
@@ -533,7 +534,7 @@ namespace Genrpg.Shared.Entities.Utils
                 return effect.Quantity + "% " + statType.Name;
             }
 
-            EntityType etype = gs.data.GetGameData<EntitySettings>().GetEntityType(effect.EntityTypeId);
+            EntityType etype = gs.data.GetGameData<EntitySettings>(obj).GetEntityType(effect.EntityTypeId);
             if (etype == null)
             {
                 return "Etype: " + effect.EntityTypeId;

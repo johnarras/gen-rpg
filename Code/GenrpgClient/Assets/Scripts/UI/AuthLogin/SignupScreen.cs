@@ -1,34 +1,26 @@
 ﻿using System;
-using UnityEngine.UI;
-using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Login.Constants;
+using System.Threading.Tasks;
 using UI.Screens.Constants;
 using System.Threading;
-using UnityEngine;
 using Genrpg.Shared.Login.Messages.Login;
 
 public class SignupScreen : BaseScreen
 {
-    [SerializeField]
-    private InputField _nameInput;
-    [SerializeField]
-    private InputField _emailInput;
-    [SerializeField]
-    private InputField _passwordInput1;
-    [SerializeField]
-    private InputField _passwordInput2;
-    [SerializeField]
-    private Button _loginButton;
-    [SerializeField]
-    private Button _signupButton;
+    
+    public GInputField NameInput;
+    public GInputField EmailInput;
+    public GInputField PasswordInput1;
+    public GInputField PasswordInput2;
+    public GButton LoginButton;
+    public GButton SignupButton;
 
     protected IClientLoginService _loginService;
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
-        UIHelper.SetButton(_loginButton, GetAnalyticsName(), ClickLogin);
-        UIHelper.SetButton(_signupButton, GetAnalyticsName(), ClickSignup);
-        await UniTask.CompletedTask;
+        UIHelper.SetButton(LoginButton, GetAnalyticsName(), ClickLogin);
+        UIHelper.SetButton(SignupButton, GetAnalyticsName(), ClickSignup);
+        await Task.CompletedTask;
     }
 
     public void ClickLogin()
@@ -49,11 +41,10 @@ public class SignupScreen : BaseScreen
         {
             return;
         }
-
-        string name = UIHelper.GetInputText(_nameInput);
-        string password1 = UIHelper.GetInputText(_passwordInput1);
-        string password2 = UIHelper.GetInputText(_passwordInput2);
-        string email = UIHelper.GetInputText(_emailInput);
+        string email = EmailInput.Text;
+        string name = NameInput.Text;
+        string password1 = PasswordInput1.Text;
+        string password2 = PasswordInput2.Text;
 
         if (string.IsNullOrEmpty(name))
         {
@@ -86,7 +77,7 @@ public class SignupScreen : BaseScreen
             Name = name,
         };
 
-        _loginService.LoginToServer(_gs, loginCommand, _token).Forget();
+        TaskUtils.AddTask(_loginService.LoginToServer(_gs, loginCommand, _token));
 
     }
 }

@@ -1,26 +1,20 @@
-﻿using UnityEngine.UI;
-using Genrpg.Shared.Utils;
-using Cysharp.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UI.Screens.Constants;
 using System.Threading;
-using UnityEngine;
 using Genrpg.Shared.Login.Messages.CreateChar;
 
 public class CharacterCreateScreen : BaseScreen
 {
-    [SerializeField]
-    private InputField _nameInput;
+    
+    public GInputField NameInput;
+    public GButton CreateButton;
+    public GButton BackButton;
 
-    [SerializeField]
-    private Button _createButton;
-    [SerializeField]
-    private Button _backButton;
-
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
-        UIHelper.SetButton(_createButton, GetAnalyticsName(), ClickCreate);
-        UIHelper.SetButton(_backButton, GetAnalyticsName(),ClickBack);
-        await UniTask.CompletedTask;
+        UIHelper.SetButton(CreateButton, GetAnalyticsName(), ClickCreate);
+        UIHelper.SetButton(BackButton, GetAnalyticsName(),ClickBack);
+        await Task.CompletedTask;
     }
 
     public void ClickBack()
@@ -40,7 +34,7 @@ public class CharacterCreateScreen : BaseScreen
             return;
         }
 
-        string charName = UIHelper.GetInputText(_nameInput);
+        string charName = NameInput.Text;
         if (string.IsNullOrEmpty(charName))
         {
             _gs.logger.Message("You need to choose a name!");

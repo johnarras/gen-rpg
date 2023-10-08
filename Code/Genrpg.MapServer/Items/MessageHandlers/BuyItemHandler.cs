@@ -62,7 +62,7 @@ namespace Genrpg.MapServer.Items.MessageHandlers
                 }
 
 
-                itemPrice = ItemUtils.GetBuyFromVendorPrice(gs, vendorItem.Item);
+                itemPrice = ItemUtils.GetBuyFromVendorPrice(gs, ch, vendorItem.Item);
 
                 if (itemPrice > playerMoney)
                 {

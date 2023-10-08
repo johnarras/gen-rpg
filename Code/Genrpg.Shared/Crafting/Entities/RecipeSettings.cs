@@ -1,0 +1,88 @@
+using MessagePack;
+using System.Collections.Generic;
+using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.DataStores.GameSettings;
+using Genrpg.Shared.Chat.Entities;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.GameSettings.Loading;
+
+namespace Genrpg.Shared.Crafting.Entities
+{
+    [MessagePackObject]
+    public class RecipeSettings : ParentSettings<RecipeType>
+    {
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public int LootLevelIncrement { get; set; }
+        [Key(2)] public int PointsPerLevel { get; set; }
+        [Key(3)] public int PointsPerCraft { get; set; }
+        [Key(4)] public int ExtraCraftLevelsAllowed { get; set; }
+        [Key(5)] public int LevelsPerExtraEffect { get; set; }
+        [Key(6)] public int MaxExtraEffects { get; set; }
+
+        [Key(7)] public override List<RecipeType> Data { get; set; } = new List<RecipeType>();
+
+        public RecipeType GetRecipeType(long idkey) { return _lookup.Get<RecipeType>(idkey); }
+
+    }
+
+    [MessagePackObject]
+    public class RecipeType : ChildSettings, IIndexedGameItem
+    {
+
+        public const string RecipeItemName = "Recipe";
+
+
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string ParentId { get; set; }
+        [Key(2)] public long IdKey { get; set; }
+        [Key(3)] public override string Name { get; set; }
+        [Key(4)] public string NameId { get; set; }
+        [Key(5)] public string Desc { get; set; }
+        [Key(6)] public string Icon { get; set; }
+        [Key(7)] public long EntityId { get; set; }
+        [Key(8)] public long EntityTypeId { get; set; }
+        [Key(9)] public int MinQuantity { get; set; }
+        [Key(10)] public int MaxQuantity { get; set; }
+        [Key(11)] public string Art { get; set; }
+
+        [Key(12)] public int AttPct { get; set; }
+        [Key(13)] public int DefPct { get; set; }
+        [Key(14)] public int OtherPct { get; set; }
+
+
+        /// <summary>
+        /// Use this for recipes that have a list of reagents rather than a choice.
+        /// </summary>
+        [Key(15)] public long CrafterTypeId { get; set; }
+
+
+        [Key(16)] public int Flags { get; set; }
+        public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
+        public void AddFlags(int flagBits) { Flags |= flagBits; }
+        public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
+
+        [Key(17)] public int ReagentQuantity { get; set; }
+
+
+        [Key(18)] public List<Reagent> Reagents { get; set; }
+
+        public RecipeType()
+        {
+            Reagents = new List<Reagent>();
+            MinQuantity = 1;
+            MaxQuantity = 1;
+            AttPct = 100;
+            DefPct = 100;
+            OtherPct = 100;
+        }
+
+    }
+
+
+    [MessagePackObject]
+    public class RecipeSettingsApi : ParentSettingsApi<RecipeSettings, RecipeType> { }
+    [MessagePackObject]
+    public class RecipeSettingsLoader : ParentSettingsLoader<RecipeSettings, RecipeType, RecipeSettingsApi> { }
+}

@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
+﻿
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Constants;
-using Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 using Assets.Scripts.MapTerrain;
+using UnityEngine; // Needed
 
 public abstract class BaseObjectLoader
 {
@@ -31,10 +22,10 @@ public abstract class BaseObjectLoader
 
     protected void OnDownloadObject(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        FinalPlaceObject(gs, obj as GameObject, data as DownloadObjectData, token);
+        FinalPlaceObject(gs, obj as GEntity, data as DownloadObjectData, token);
     }
 
-    public virtual void FinalPlaceObject(UnityGameState gs, GameObject go, DownloadObjectData dlo, CancellationToken token)
+    public virtual void FinalPlaceObject(UnityGameState gs, GEntity go, DownloadObjectData dlo, CancellationToken token)
     {
         if (go == null)
         {
@@ -43,13 +34,13 @@ public abstract class BaseObjectLoader
 
         if (dlo == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
         if (dlo == null || dlo.loadData == null || dlo.loadData.patch == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -74,16 +65,16 @@ public abstract class BaseObjectLoader
             return;
         }
 
-        GameObject terrGo = terr.gameObject;
+        GEntity terrGo = terr.entity();
 
         if (terrGo == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
-        GameObjectUtils.AddToParent(go, terrGo);
-        GameObjectUtils.SetLayer(go, LayerMask.NameToLayer(LayerNames.ObjectLayer));
+        GEntityUtils.AddToParent(go, terrGo);
+        GEntityUtils.SetLayer(go, LayerUtils.NameToLayer(LayerNames.ObjectLayer));
 
         dlo.placementSeed = 17041 + dlo.x * 9479 + dlo.y * 2281 + dlo.loadData.gx * 5281 + dlo.loadData.gy * 719
             + dlo.loadData.gx * dlo.y + dlo.loadData.gy * dlo.x;
@@ -95,19 +86,19 @@ public abstract class BaseObjectLoader
             dlo.ddy = MathUtils.SeedFloatRange(dlo.placementSeed * 17, 149, -0.5f, 0.5f, 101);
         }
         dlo.height = gs.md.SampleHeight(gs, wx, MapConstants.MapHeight, wy);
-        go.transform.localPosition = new Vector3(dlo.x + dlo.ddx, dlo.height + dlo.zOffset, dlo.y + dlo.ddy);
-        go.transform.localScale = Vector3.one;
+        go.transform().localPosition = GVector3.Create(dlo.x + dlo.ddx, dlo.height + dlo.zOffset, dlo.y + dlo.ddy);
+        go.transform().localScale = GVector3.onePlatform;
         if (dlo.finalZ > 0)
         {
-            go.transform.localPosition = new Vector3(dlo.x + dlo.ddx, dlo.finalZ, dlo.y + dlo.ddy);
+            go.transform().localPosition = GVector3.Create(dlo.x + dlo.ddx, dlo.finalZ, dlo.y + dlo.ddy);
         }
         if (dlo.rotation != null)
         {
-            go.transform.Rotate(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
+            go.transform().Rotate(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
         }
         else
         {
-            go.transform.Rotate(0, (dlo.placementSeed * 13) % 360, 0);
+            go.transform().Rotate(0, (dlo.placementSeed * 13) % 360, 0);
         }
         if (dlo.AfterLoad != null)
         {
@@ -116,7 +107,7 @@ public abstract class BaseObjectLoader
 
         if (dlo.scale != 1.0f)
         {
-            go.transform.localScale = dlo.scale * Vector3.one;
+            go.transform().localScale = GVector3.Create(GVector3.one * dlo.scale);
         }
     }
 

@@ -1,17 +1,16 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
+using GComponent = UnityEngine.MonoBehaviour;
 
-public static class GameObjectExtensionMethods
+public static class GEntityExtensionMethods
 {
-    public static CancellationToken GetToken(this GameObject gameObject)
+    public static CancellationToken GetCancellationToken(this GComponent comp)
     {
-        return gameObject.GetCancellationTokenOnDestroy();
+        return comp.destroyCancellationToken;
     }
-
 }

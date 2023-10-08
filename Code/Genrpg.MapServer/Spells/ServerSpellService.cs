@@ -19,6 +19,8 @@ using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.Targets.Messages;
+using Genrpg.MapServer.AI.Services;
+using Genrpg.MapServer.Combat.Messages;
 
 namespace Genrpg.MapServer.Spells
 {
@@ -28,7 +30,11 @@ namespace Genrpg.MapServer.Spells
         private IMapObjectManager _objectManager = null;
         private IReflectionService _reflectionService = null;
         private IStatService _statService;
+        private IAIService _aiService;
         protected Dictionary<long, ISpellEffectHandler> _handlers = null;
+
+
+        protected Dictionary<TryCastState, string> _tryCastText;
         public async Task Setup(GameState gs, CancellationToken token)
         {
             _handlers = _reflectionService.SetupDictionary<long, ISpellEffectHandler>(gs);
@@ -37,7 +43,20 @@ namespace Genrpg.MapServer.Spells
             {
                 handler.Init(gs);
             }
+
+            _tryCastText = new Dictionary<TryCastState, string>();
+            foreach (TryCastState state in Enum.GetValues<TryCastState>())
+            {
+                _tryCastText[state] = StrUtils.SplitAlongCapitalLetters(state.ToString());
+            }
+
             await Task.CompletedTask;
+        }
+
+        private void SetResultState(TryCastResult result, TryCastState state)
+        {
+            result.State = state;
+            result.StateText = _tryCastText[state];
         }
 
         public TryCastResult TryCast(GameState gs, Unit caster, long spellId, string targetId, bool endOfCast)
@@ -46,24 +65,24 @@ namespace Genrpg.MapServer.Spells
 
             if (string.IsNullOrEmpty(targetId))
             {
-                result.State = TryCastState.TargetMissing;
+                SetResultState(result, TryCastState.TargetMissing);
                 return result;
             }
 
             if (caster.IsDeleted())
             {
-                result.State = TryCastState.CasterDeleted;
+                SetResultState(result, TryCastState.CasterDeleted);
                 return result;
             }
             else if (caster.HasFlag(UnitFlags.IsDead))
             {
-                result.State = TryCastState.CasterDead;
+                SetResultState(result, TryCastState.CasterDead);
                 return result;
             }
 
             if (caster.HasFlag(UnitFlags.Evading))
             {
-                result.State = TryCastState.CasterEvading;
+                SetResultState(result, TryCastState.CasterEvading);
                 return result;
             }
 
@@ -74,7 +93,7 @@ namespace Genrpg.MapServer.Spells
                 // potential fix for stuck spells
                 if (castingSpell == null || DateTime.UtcNow < castingSpell.EndCastingTime)
                 {
-                    result.State = TryCastState.CasterBusy;
+                    SetResultState(result, TryCastState.CasterBusy);
                     return result;
                 }
                 else
@@ -86,48 +105,48 @@ namespace Genrpg.MapServer.Spells
             SpellData spellData = caster.Get<SpellData>();
             if (spellData == null)
             {
-                result.State = TryCastState.NoSpellData;
+                SetResultState(result, TryCastState.NoSpellData);
                 return result;
             }
             Spell spell = spellData.Get(spellId);
 
             if (spell == null)
             {
-                result.State = TryCastState.DoNotKnowSpell;
+                SetResultState(result, TryCastState.DoNotKnowSpell);
                 return result;
             }
             if (spell.HasFlag(SpellFlags.IsPassive))
             {
-                result.State = TryCastState.IsPassive;
+                SetResultState(result, TryCastState.IsPassive);
                 return result;
             }
 
-            ElementType elementType = gs.data.GetGameData<SpellSettings>().GetElementType(spell.ElementTypeId);
+            ElementType elementType = gs.data.GetGameData<ElementTypeSettings>(caster).GetElementType(spell.ElementTypeId);
 
             if (elementType == null)
             {
-                result.State = TryCastState.UnknownElement;
+                SetResultState(result, TryCastState.UnknownElement);
                 return result;
             }
 
-            SkillType skillType = gs.data.GetGameData<SpellSettings>().GetSkillType(spell.SkillTypeId);
+            SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(caster).GetSkillType(spell.SkillTypeId);
 
             if (skillType == null)
             {
-                result.State = TryCastState.UnknownSkill;
+                SetResultState(result, TryCastState.UnknownSkill);
                 return result;
             }
 
 
             if (spell.CooldownEnds > DateTime.UtcNow)
             {
-                result.State = TryCastState.OnCooldown;
+                SetResultState(result, TryCastState.OnCooldown);
                 return result;
             }
 
             if (caster.Stats.Curr(skillType.PowerStatTypeId) < spell.GetCost(gs, caster))
             {
-                result.State = TryCastState.NotEnoughPower;
+                SetResultState(result, TryCastState.NotEnoughPower);
                 return result;
             }
 
@@ -135,13 +154,14 @@ namespace Genrpg.MapServer.Spells
 
             if (targState.State != TryCastState.Ok)
             {
-                result.State = targState.State;
+
+                SetResultState(result, targState.State);
                 return result;
             }
 
             if (caster.DistanceTo(targState.Target) > spell.GetRange())
             {
-                result.State = TryCastState.TargetTooFar;
+                SetResultState(result, TryCastState.TargetTooFar);
                 return result;
             }
 
@@ -157,7 +177,7 @@ namespace Genrpg.MapServer.Spells
                 result.SkillRank = adata.GetRank(gs, AbilityCategory.Skill, result.SkillType.IdKey);
             }
 
-            result.State = TryCastState.Ok;
+            SetResultState(result, TryCastState.Ok);
             return result;
         }
         public TargetCastState GetTargetState(GameState gs, Spell spell, string unitId)
@@ -221,6 +241,7 @@ namespace Genrpg.MapServer.Spells
             SendSpell sendSpell = new SendSpell()
             {
                 CasterId = caster.Id,
+                CasterGroupId = caster.GetGroupId(),
                 CasterStats = newGroup,
                 CasterLevel = caster.Level,
                 CasterFactionId = caster.FactionTypeId,
@@ -325,7 +346,7 @@ namespace Genrpg.MapServer.Spells
                 Dur = duration,
             };
 
-            ElementType etype = gs.data.GetGameData<SpellSettings>().GetElementType(elementTypeId);
+            ElementType etype = gs.data.GetGameData<ElementTypeSettings>(null).GetElementType(elementTypeId);
             if (etype != null)
             {
                 fx.Art = etype.Art + fxName;
@@ -348,7 +369,7 @@ namespace Genrpg.MapServer.Spells
                 Speed = speed,
             };
 
-            ElementType etype = gs.data.GetGameData<SpellSettings>().GetElementType(spell.ElementTypeId);
+            ElementType etype = gs.data.GetGameData<ElementTypeSettings>(fromUnit).GetElementType(spell.ElementTypeId);
             if (etype != null)
             {
                 fx.Art = etype.Art + fxName;
@@ -629,7 +650,7 @@ namespace Genrpg.MapServer.Spells
             }
 
             bool allySpell = false;
-            long targetTypeId = gs.data.GetGameData<SpellSettings>().GetSkillType(eff.SkillTypeId).TargetTypeId;
+            long targetTypeId = gs.data.GetGameData<SkillTypeSettings>(null).GetSkillType(eff.SkillTypeId).TargetTypeId;
             if (targetTypeId == TargetType.Ally)
             {
                 allySpell = true;
@@ -651,17 +672,28 @@ namespace Genrpg.MapServer.Spells
             }
             ShowFX(gs, eff.TargetId, eff.TargetId, eff.ElementTypeId, fxName, 2.0f);
 
-
             if (!GetSpellEffectHandler(eff.EntityTypeId, out ISpellEffectHandler handler))
             {
                 return;
             }
 
-
             if (!handler.HandleEffect(gs, eff))
             {
                 eff.SetCancelled(true);
                 return;
+            }
+
+            if (targetTypeId == TargetType.Enemy)
+            {
+                if (!targ.HasTarget())
+                {
+                    _aiService.TargetMove(gs, targ, eff.CasterId);
+                    _aiService.BringFriends(gs, targ, eff.CasterId); // When a target is attacked, it brings friends
+                }
+                if (!targ.HasFlag(UnitFlags.IsDead) && _objectManager.GetChar(eff.CasterId, out Character chCaster))
+                {
+                    targ.AddAttacker(eff.CasterId, eff.CasterGroupId);
+                }
             }
 
             // If this is the first tick, add the effect.
@@ -827,13 +859,13 @@ namespace Genrpg.MapServer.Spells
 
             foreach (FullProc proc in procList)
             {
-                Spell procSpell = gs.data.GetGameData<SpellSettings>().GetSpell(proc.Proc.SpellId);
+                SpellType procSpell = gs.data.GetGameData<SpellTypeSettings>(null).GetSpellType(proc.Proc.SpellId);
                 if (procSpell == null)
                 {
                     continue;
                 }
 
-                SkillType procSkill = gs.data.GetGameData<SpellSettings>().GetSkillType(procSpell.SkillTypeId);
+                SkillType procSkill = gs.data.GetGameData<SkillTypeSettings>(null).GetSkillType(procSpell.SkillTypeId);
                 if (procSkill == null)
                 {
                     continue;
@@ -907,7 +939,7 @@ namespace Genrpg.MapServer.Spells
 
         protected void ProcOneSpell(GameState gs, Spell spell, Unit caster, Unit target, int procScale, int procDepth, CastResult cr)
         {
-            SkillType skillType = gs.data.GetGameData<SpellSettings>().GetSkillType(spell.SkillTypeId);
+            SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(caster).GetSkillType(spell.SkillTypeId);
 
             if (skillType.TargetTypeId != TargetType.Enemy)
             {
@@ -923,7 +955,7 @@ namespace Genrpg.MapServer.Spells
 
             if (result.State != TryCastState.Ok)
             {
-                caster.AddMessage(new ErrorMessage(StrUtils.SplitAlongCapitalLetters(result.State.ToString())));
+                caster.AddMessage(new ErrorMessage(result.StateText));
                 if (result.State == TryCastState.TargetDead)
                 {
                     caster.AddMessage(new OnTargetIsDead() { UnitId = targetId });
@@ -949,7 +981,7 @@ namespace Genrpg.MapServer.Spells
             onStartCast.CastSeconds = result.Spell.CastingTime;
             
 
-            ElementType etype = gs.data.GetGameData<SpellSettings>().GetElementType(result.Spell.ElementTypeId);
+            ElementType etype = gs.data.GetGameData<ElementTypeSettings>(caster).GetElementType(result.Spell.ElementTypeId);
 
             if (etype != null)
             {

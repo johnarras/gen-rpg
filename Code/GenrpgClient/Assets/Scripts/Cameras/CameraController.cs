@@ -1,16 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEngine;
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Constants;
-using Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.MapServer.Entities;
+using UnityEngine; // Needed
 
 [Serializable]
 public class CullDistanceOverride
@@ -26,15 +19,15 @@ public class CameraController : BaseBehaviour
     public List<CullDistanceOverride> LayerCullDistanceOverrides;
 
 	public const float CameraDistScale = 1.2f; // 1.5f?
-	public static Vector3 StartCameraOffset = new Vector3(0,2.0f,-10.0f)*CameraDistScale;
+	public static GVector3 StartCameraOffset = new GVector3(0,2.0f,-10.0f)*CameraDistScale;
 	public const float StartCameraDistance = 4.125f*CameraDistScale;
 
 	protected static float CameraHeightAboveGroundTarget = 2.0f;
 	
-	public static Vector3 CameraOffset = new Vector3(0,0.95f,-4.0f)*CameraDistScale;
-    public static Vector3 OldCameraOffset = CameraOffset;
-	public static Vector3 CamPos = Vector3.zero;
-	public static Vector3 LookAtPos = Vector3.zero;
+	public static GVector3 CameraOffset = new GVector3 (0,0.95f,-4.0f)*CameraDistScale;
+    public static GVector3 OldCameraOffset = CameraOffset;
+	public static GVector3 CamPos = GVector3.zero;
+	public static GVector3 LookAtPos = GVector3.zero;
 
 	public static bool LockCameraPosition = false;
 	public float LockedCameraAngle { get; set; }
@@ -59,22 +52,18 @@ public class CameraController : BaseBehaviour
 
     public List<Camera> Cameras;
 
-    GameObject _dragParent = null;
+    GEntity _dragParent = null;
 
 
     public override void Initialize(UnityGameState gs)
     {
         base.Initialize(gs);
         Instance = this;
-    }
-
-    void Start()
-    {
         CameraDistance = StartCameraOffset.magnitude;
         SetupCullDistances();
-        int layerMask = LayerMask.GetMask(new string[] { LayerNames.Default, LayerNames.Water, LayerNames.ObjectLayer, LayerNames.UnitLayer, LayerNames.SpellLayer });
+        int layerMask = LayerUtils.GetMask(new string[] { LayerNames.Default, LayerNames.Water, LayerNames.ObjectLayer, LayerNames.UnitLayer, LayerNames.SpellLayer });
 
-        camCollideLayerMask = LayerMask.GetMask(new string[] { LayerNames.Default, LayerNames.ObjectLayer });
+        camCollideLayerMask = LayerUtils.GetMask(new string[] { LayerNames.Default, LayerNames.ObjectLayer });
 
         foreach (Camera cam in Cameras)
         {
@@ -111,7 +100,7 @@ public class CameraController : BaseBehaviour
             // Camera is set up to render objects on the map at the proper distances, but the water and terrain need more distance.
             foreach (CullDistanceOverride dist in LayerCullDistanceOverrides)
             {
-                int layerId = LayerMask.NameToLayer(dist.LayerName);
+                int layerId = LayerUtils.NameToLayer(dist.LayerName);
                 if (layerId >= 0 && layerId < 32 && dist.CullDistance > 0)
                 {
                     cullDistances[layerId] = (maxDistance > 0 ? maxDistance : dist.CullDistance);
@@ -127,7 +116,7 @@ public class CameraController : BaseBehaviour
 
 	protected bool button0 = false;
 	protected bool button1 = false;
-	protected Vector3 prevPos = Vector3.zero;
+	protected GVector3 prevPos = GVector3.zero;
 
 
 	protected IScreenService screenService = null;
@@ -137,11 +126,11 @@ public class CameraController : BaseBehaviour
 	
 	
 	protected float moveScale = 0.0f;
-	protected Vector3 currPos = Vector3.zero;
-	protected Vector3 diffPos = Vector3.zero;
+	protected GVector3 currPos = GVector3.zero;
+	protected GVector3 diffPos = GVector3.zero;
     protected int mouseDownTicks = 0;
 
-	protected GameObject player = null;
+	protected GEntity player = null;
 
 	protected float targetCameraDistance = 0.0f;
 
@@ -171,10 +160,10 @@ public class CameraController : BaseBehaviour
 
 
 
-    Vector3 beforeCampos = Vector3.zero;
-    Vector3 beforeLookat = Vector3.zero;
-    Vector3 beforeUp = Vector3.zero;
-    Vector3 beforeRight = Vector3.zero;
+    GVector3 beforeCampos = GVector3.zero;
+    GVector3 beforeLookat = GVector3.zero;
+    GVector3 beforeUp = GVector3.zero;
+    GVector3 beforeRight = GVector3.zero;
 
     float beforeDiffX = 0;
     float beforeDiffY = 0;
@@ -187,11 +176,11 @@ public class CameraController : BaseBehaviour
     float beforeDistScale = 0;
 
     float beforeMaxHeightMult = 10.0f;
-    Vector3 beforeDiffPos = Vector3.zero;
+    GVector3 beforeDiffPos = GVector3.zero;
     float beforeAngle = 0;
     float beforeCurrAngle = 0;
     float beforeDiffAngle = 0;
-    Quaternion beforeRot = Quaternion.identity;
+    Quaternion beforeRot = GQuaternion.identity;
 
     public void BeforeMoveUpdate()
     {
@@ -268,7 +257,7 @@ public class CameraController : BaseBehaviour
 
         
 
-        newSpeed = Mathf.Min(CameraZoomSpeed, Mathf.Abs(dz / 8));
+        newSpeed = Math.Min(CameraZoomSpeed, Math.Abs(dz / 8));
 
         if (oldDist < targetCameraDistance)
         {
@@ -322,12 +311,12 @@ public class CameraController : BaseBehaviour
 
 
             beforeCampos = CameraOffset;
-            beforeUp = Vector3.up;
+            beforeUp = GVector3.up;
             beforeLookat = beforeCampos;
             beforeLookat /= beforeLookat.magnitude;
-            beforeRight = Vector3.Cross(beforeLookat, beforeUp);
+            beforeRight = GVector3.Cross(beforeLookat, beforeUp);
 
-            beforeUp = Vector3.Cross(beforeRight, beforeLookat);
+            beforeUp = GVector3.Cross(beforeRight, beforeLookat);
             beforeUp /= beforeUp.magnitude;
 
             beforeDiffX = RescaleMouseMoveDelta(diffPos.x);
@@ -341,7 +330,7 @@ public class CameraController : BaseBehaviour
                 beforePosX = beforeCampos.x;
                 beforePosY = beforeCampos.y;
                 beforePosZ = beforeCampos.z;
-                beforeGroundPlaneDist = Mathf.Sqrt(beforePosX * beforePosX + beforePosZ * beforePosZ);
+                beforeGroundPlaneDist = (float)Math.Sqrt(beforePosX * beforePosX + beforePosZ * beforePosZ);
 
                 beforeMaxHeightMult = 10.0f;
                 if (beforeGroundPlaneDist < Math.Abs(beforePosY) / beforeMaxHeightMult)
@@ -349,11 +338,11 @@ public class CameraController : BaseBehaviour
                     beforePosY = beforeMaxHeightMult * beforeGroundPlaneDist * Math.Sign(beforePosY);
                 }
 
-                beforeCampos = new Vector3(beforePosX, beforePosY, beforePosZ);
+                beforeCampos = new GVector3(beforePosX, beforePosY, beforePosZ);
 
-                if (beforeGroundPlaneDist < Mathf.Abs(beforePosY) * 0.05)
+                if (beforeGroundPlaneDist < Math.Abs(beforePosY) * 0.05)
                 {
-                    beforePosY = beforeGroundPlaneDist * 0.1f * Mathf.Sign(beforePosY);
+                    beforePosY = beforeGroundPlaneDist * 0.1f * Math.Sign(beforePosY);
                 }
 
                 beforeNorm = beforeCampos.magnitude;
@@ -376,20 +365,20 @@ public class CameraController : BaseBehaviour
                 if (button1)
                 {
 
-                    beforeDiffPos = player.transform.position - transform.position;
+                    beforeDiffPos = GVector3.Create(player.transform().position -entity.transform().position);
 
-                    beforeAngle = Mathf.Atan2(beforeDiffPos.z, -beforeDiffPos.x) * 180f / Mathf.PI-90;
+                    beforeAngle = (float)(Math.Atan2(beforeDiffPos.z, -beforeDiffPos.x) * 180f / Math.PI-90);
 
-                    beforeCurrAngle = player.transform.localRotation.eulerAngles.y;
+                    beforeCurrAngle = player.transform().localRotation.eulerAngles.y;
 
 
                     beforeDiffAngle = beforeAngle - beforeCurrAngle;
 
-                    beforeRot = Quaternion.Euler(new Vector3(0, beforeDiffAngle, 0));
+                    beforeRot = Quaternion.Euler(GVector3.Create(0, beforeDiffAngle, 0));
 
-                    player.transform.localRotation *= beforeRot;
+                    player.transform().localRotation *= beforeRot;
 
-                    CameraOffset = Quaternion.Inverse(beforeRot) * CameraOffset;
+                    CameraOffset = GQuaternion.MultVector(Quaternion.Inverse(beforeRot), CameraOffset);
                    
                 }
 
@@ -411,17 +400,17 @@ public class CameraController : BaseBehaviour
 	public float RescaleMouseMoveDelta(float delta)
 	{
 
-        return delta*Mathf.Max(0.5f, CameraDistance)*0.50f;
+        return delta*Math.Max(0.5f, CameraDistance)*0.50f;
 	}
 
-    Vector3 lookAtPos = Vector3.zero;
-    Vector3 camPos2 = Vector3.zero;
-    Vector3 lookPos3 = Vector3.zero;
+    GVector3 lookAtPos = GVector3.zero;
+    GVector3 camPos2 = GVector3.zero;
+    GVector3 lookPos3 = GVector3.zero;
     float desiredLookAngle = 0;
-    Quaternion lookAtRotation = Quaternion.identity;
-    Vector3 cameraOffset = Vector3.zero;
+    Quaternion lookAtRotation = GQuaternion.identity;
+    GVector3 cameraOffset = GVector3.zero;
 
-    Vector3 playerPosition = Vector3.zero;
+    GVector3 playerPosition = GVector3.zero;
     float terrainHeightAtPlayer = 0;
 
     float camDist = 0;
@@ -429,7 +418,8 @@ public class CameraController : BaseBehaviour
     float terrainHeightAtCamera = 0;
     float camYPos = 0;
     float currMinHeightAboveTerrain = 0;
-    RaycastHit objHit;
+
+    GEntity objHit;
 
     int camCollideLayerMask = 0;
 
@@ -443,14 +433,14 @@ public class CameraController : BaseBehaviour
 			return;
 		}
 
-        lookAtPos = player.transform.position+new Vector3(0,CameraHeightAboveGroundTarget,0);
+        lookAtPos = GVector3.Create(player.transform().position)+ new GVector3 (0,CameraHeightAboveGroundTarget,0);
 
 		if (LockCameraPosition)
 		{
 			lookAtPos = LookAtPos;
 		}
 
-        desiredLookAngle = player.transform.eulerAngles.y;
+        desiredLookAngle = player.transform().eulerAngles.y;
 
 		if (LockCameraPosition)
 		{
@@ -463,7 +453,7 @@ public class CameraController : BaseBehaviour
 
 		lookAtRotation = Quaternion.Euler (0, desiredLookAngle, 0);
 			
-		cameraOffset = Vector3.zero;
+		cameraOffset = GVector3.zero;
 
         CameraDistance = MathUtils.Clamp(MinCameraDistance, CameraDistance, MaxCameraDistance);
 			
@@ -473,18 +463,18 @@ public class CameraController : BaseBehaviour
 			CameraOffset = CameraOffset*lookRatio;
 		}
 		cameraOffset = CameraOffset;
-        MoveCamera(lookAtPos + lookAtRotation*cameraOffset, lookAtPos);
+        MoveCamera(lookAtPos + GQuaternion.MultVector(lookAtRotation,cameraOffset), lookAtPos);
 
-        camPos2 = mainCam.transform.position;
+        camPos2 = GVector3.Create(mainCam.transform().position);
 		terrainHeightAtCamera = _gs.md.SampleHeight(_gs, camPos2.x, camPos2.y, camPos2.z);
 
-        camDist = Vector3.Distance(lookAtPos, mainCam.transform.position)+1.0f;
-        camYPos = mainCam.transform.position.y;
+        camDist = GVector3.Distance(lookAtPos, GVector3.Create(mainCam.transform().position))+1.0f;
+        camYPos = mainCam.transform().position.y;
 
-        didHit = Physics.Raycast(lookAtPos, mainCam.transform.position - lookAtPos,
+        didHit = GPhysics.Raycast(lookAtPos, GVector3.Create(mainCam.transform().position) - lookAtPos,
                     out objHit, camDist, camCollideLayerMask);
 
-        playerPosition = player.transform.position;
+        playerPosition = GVector3.Create(player.transform().position);
         terrainHeightAtPlayer = _gs.md.SampleHeight(_gs, playerPosition.x, playerPosition.y + MapConstants.MapHeight, playerPosition.z);
 
         currMinHeightAboveTerrain = minHeightAboveTerrain;
@@ -502,12 +492,12 @@ public class CameraController : BaseBehaviour
             float lowDiff = (terrainHeightAtCamera + currMinHeightAboveTerrain - camYPos);
             if (lowDiff > 0 && _onStairsTicks < 1)
             {
-                CameraOffset += new Vector3(0, lowDiff, 0);
+                CameraOffset += new GVector3(0, lowDiff, 0);
             }
         }
-        else if (didHit && objHit.collider != null)
+        else if (didHit && objHit != null)
         {
-            float newDist = Vector3.Distance(LookAtPos, objHit.collider.transform.position) - 1.0f;
+            float newDist = GVector3.Distance(LookAtPos, GVector3.Create(objHit.transform().position)) - 1.0f;
             if (newDist < MinCameraDistance)
             {
                 newDist = MinCameraDistance;
@@ -517,19 +507,19 @@ public class CameraController : BaseBehaviour
             CameraDistance = CameraOffset.magnitude;
             targetCameraDistance = CameraDistance;
         }
-        CamPos = mainCam.transform.position;
+        CamPos = GVector3.Create(mainCam.transform().position);
         LookAtPos = lookAtPos;
 
     }
 
     Camera lookCam = null;
-    public void MoveCamera(Vector3 camPos, Vector3 lookAtPos)
+    public void MoveCamera(GVector3 camPos, GVector3 lookAtPos)
     {
         for (int c =0; c < Cameras.Count; c++)
         {
             lookCam = Cameras[c];
-            lookCam.transform.position = camPos;
-            lookCam.transform.LookAt(lookAtPos);
+            lookCam.transform().position = GVector3.Create(camPos);
+            lookCam.transform().LookAt(GVector3.Create(lookAtPos));
         }
     }
 
@@ -537,7 +527,7 @@ public class CameraController : BaseBehaviour
     {
         if (_dragParent == null)
         {
-            _dragParent = _screenService.GetDragParent() as GameObject;
+            _dragParent = _screenService.GetDragParent() as GEntity;
         }
 
         if (_dragParent == null)
@@ -545,7 +535,7 @@ public class CameraController : BaseBehaviour
             return false;
         }
 
-        return _dragParent.transform.childCount > 0;
+        return _dragParent.transform().childCount > 0;
     }
 
 

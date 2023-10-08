@@ -3,23 +3,21 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 using ClientEvents;
 using Genrpg.Shared.Input.Entities;
-using Entities;
 using Genrpg.Shared.Units.Entities;
-
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Spells.Entities;
-using UI.Screens.Constants;
 using UI.Screens.Utils;
 using UI;
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using System.Threading;
 using Genrpg.Shared.Spells.Messages;
+using UnityEngine; // Needed
 
 internal class InputContainer
 {
@@ -32,7 +30,6 @@ public interface IInputService : ISetupService
 {
     bool EnteringChat();
     void ToggleChat();
-    int TargetFramerate();
     bool MouseClickNow(int index);
 }
 
@@ -96,7 +93,7 @@ public class InputService : BaseBehaviour, IInputService
     {
         KeyCommData inputList = gs.ch.Get<KeyCommData>();
 
-        if (inputList == null || inputList.Data.Count < 1)
+        if (inputList == null || inputList.GetData().Count < 1)
         {
             return;
         }
@@ -105,10 +102,7 @@ public class InputService : BaseBehaviour, IInputService
         _keyCodeInputs = new Dictionary<KeyCode, InputContainer>();
         _checkEachFrameInputs = new List<InputContainer>();
 
-
-        
-
-        foreach (KeyComm item in inputList.Data)
+        foreach (KeyComm item in inputList.GetData())
         {
             if (string.IsNullOrEmpty(item.KeyPress) || string.IsNullOrEmpty(item.KeyCommand))
             {
@@ -169,11 +163,6 @@ public class InputService : BaseBehaviour, IInputService
         }
     }
 
-    public int TargetFramerate()
-    {
-        return Application.targetFrameRate;
-    }
-
     public bool MouseClickNow(int index)
     {
         if (index < 0 || index > 2)
@@ -194,9 +183,9 @@ public class InputService : BaseBehaviour, IInputService
         return Input.GetMouseButton(index);
     }
      
-    public Vector3 MousePosition()
+    public GVector3 MousePosition()
     {
-        return Input.mousePosition;
+        return GVector3.Create(Input.mousePosition);
     }
 
     public bool KeyPressNow (UnityGameState gs, string keyCommand)
@@ -291,12 +280,12 @@ public class InputService : BaseBehaviour, IInputService
 
     RaycastHit hit;
     Ray ray;
-    GameObject hitObject = null;
+    GEntity hitObject = null;
     InteractableObject interactObject = null;
     bool didHitObject = false;
     Camera mainCam = null;
     float hitObjectDistance = 0;
-    GameObject playerObject = null;
+    GEntity playerObject = null;
     float errorDistance = 1000000;
     private void GetMapMouseHit()
     {
@@ -307,7 +296,7 @@ public class InputService : BaseBehaviour, IInputService
 
         if (mouseLayerMask == 0)
         {
-            mouseLayerMask = LayerMask.GetMask(new string[] { LayerNames.Default, LayerNames.ObjectLayer, LayerNames.UnitLayer });
+            mouseLayerMask = LayerUtils.GetMask(new string[] { LayerNames.Default, LayerNames.ObjectLayer, LayerNames.UnitLayer });
         }
 
         if (playerObject == null)
@@ -317,16 +306,16 @@ public class InputService : BaseBehaviour, IInputService
 
         ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
-        didHitObject = Physics.Raycast(ray, out hit, MapConstants.MaxMouseRaycastDistance, mouseLayerMask);
+        didHitObject = GPhysics.Raycast(ray, out hit, MapConstants.MaxMouseRaycastDistance, mouseLayerMask);
        
-        if (didHitObject && hit.transform != null)
+        if (didHitObject && hit.transform() != null)
         {
             
-            hitObject = hit.transform.gameObject;
+            hitObject = hit.transform().entity();
 
             if (playerObject != null)
             {
-                hitObjectDistance = Vector3.Distance(hit.transform.position, playerObject.transform.position);
+                hitObjectDistance = GVector3.Distance(GVector3.Create(hit.transform().position), GVector3.Create(playerObject.transform().position));
             }
             else
             {
@@ -338,9 +327,9 @@ public class InputService : BaseBehaviour, IInputService
 
             // Add this for cases where the collider is nested in the prefab and 
             // the interactable object component is added to the root object.
-            if (newInteractObject == null && hitObject.transform.parent != null)
+            if (newInteractObject == null && hitObject.transform().parent != null)
             {
-                newInteractObject = GameObjectUtils.FindInParents<InteractableObject>(hitObject);
+                newInteractObject = GEntityUtils.FindInParents<InteractableObject>(hitObject);
             }
 
 
@@ -554,7 +543,7 @@ public class InputService : BaseBehaviour, IInputService
 
 
 
-        SkillType skillType = gs.data.GetGameData<SpellSettings>().GetSkillType(spell.SkillTypeId);
+        SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(_gs.ch).GetSkillType(spell.SkillTypeId);
         if (!_objectManager.GetUnit(MapUnit.TargetId, out Unit target))
         {
             if (skillType.TargetTypeId == TargetType.Ally)

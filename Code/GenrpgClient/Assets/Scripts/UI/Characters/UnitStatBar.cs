@@ -1,5 +1,5 @@
 
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using ClientEvents;
 using Genrpg.Shared.Units.Entities;
 using System.Linq;
@@ -11,11 +11,11 @@ public class UnitStatBar : BaseBehaviour
 
     Unit _unit = null;
 
-    [SerializeField]
-    private ProgressBar _progressBar;
+    
+    public ProgressBar _progressBar;
 
-    [SerializeField]
-    private int _statTypeId;
+    
+    public int _statTypeId;
 
     long _curr = 0;
     long _max = 0;

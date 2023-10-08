@@ -1,18 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-
-using UnityEngine;
-using Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 
 /// <summary>
@@ -75,7 +64,7 @@ public class AddNearbyItemsHelper
             {
                 continue;
             }
-            TreeType tt = gs.data.GetGameData<ProcGenSettings>().GetTreeType(zt.TreeTypeId);
+            TreeType tt = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(zt.TreeTypeId);
             if (tt == null || tt.Name == null)
             {
                 continue;
@@ -143,7 +132,7 @@ public class AddNearbyItemsHelper
                 int pdy = planty - y;
 
 
-                float dist = Mathf.Sqrt(pdx * pdx + pdy * pdy);
+                float dist = (float)Math.Sqrt(pdx * pdx + pdy * pdy);
                 if (dist < minOffset)
                 {
                     continue;

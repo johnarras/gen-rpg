@@ -1,0 +1,61 @@
+{
+  "Id": "default",
+  "Data": [
+    {
+      "Id": "spelltype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Attack",
+      "Desc": "",
+      "Icon": "520271",
+      "Art": "",
+      "StringId": "",
+      "ElementTypeId": 2,
+      "SkillTypeId": 2,
+      "Cost": 30,
+      "Range": 20,
+      "Shots": 1,
+      "Scale": 100,
+      "FinalScale": 100,
+      "OrigSpellTypeId": 1,
+      "Procs": []
+    },
+    {
+      "Id": "spelltype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Heal",
+      "Desc": "",
+      "Icon": "520091",
+      "Art": "",
+      "StringId": "",
+      "ElementTypeId": 4,
+      "SkillTypeId": 3,
+      "Cost": 50,
+      "Shots": 1,
+      "Scale": 100,
+      "FinalScale": 100,
+      "OrigSpellTypeId": 1,
+      "Procs": []
+    },
+    {
+      "Id": "spelltype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Strike",
+      "Desc": "",
+      "Icon": "520092",
+      "Art": "",
+      "StringId": "",
+      "ElementTypeId": 2,
+      "SkillTypeId": 1,
+      "Cost": 25,
+      "Range": 20,
+      "Scale": 250,
+      "FinalScale": 150,
+      "OrigSpellTypeId": 1,
+      "Procs": []
+    }
+  ],
+  "Name": "SpellTypeSettings"
+}

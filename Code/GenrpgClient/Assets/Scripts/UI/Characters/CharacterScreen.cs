@@ -1,17 +1,23 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Inventory.Services;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Inventory.Messages;
 
 public class CharacterScreen : ItemIconScreen
 {
+    public GText BasicInfo;
+    public InventoryPanel Items;
+    public List<EquipSlotIcon> EquipmentIcons;
+    public List<StatInfoRow> Stats;
+    public GEntity StatGridParent;
+    public GButton CloseButton;
+
     protected IInventoryService _inventoryService;
     protected IClientMapObjectManager _objectManager;
     class StatDownloadData
@@ -19,25 +25,13 @@ public class CharacterScreen : ItemIconScreen
         public Character currCh = null;
         public long statTypeId = 0;
     }
-    [SerializeField]
-    private Text _basicInfo;
-    [SerializeField]
-    private InventoryPanel _items;
-    [SerializeField]
-    private List<EquipSlotIcon> _equipmentIcons;
-    [SerializeField]
-    private List<StatInfoRow> _stats;
-    [SerializeField]
-    private GameObject _statGridParent;
-    [SerializeField]
-    private Button _closeButton;
-
+    
     protected Character _ch = null;
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        UIHelper.SetButton(_closeButton, GetAnalyticsName(), StartClose);
+        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
         _gs.AddEvent<OnUnequipItem>(this, OnUnequip);
         _gs.AddEvent<OnEquipItem>(this, OnEquip);
         _ch = _gs.ch;
@@ -45,22 +39,22 @@ public class CharacterScreen : ItemIconScreen
 
         ShowStats();
 
-        if (_items != null)
+        if (Items != null)
         {
-            _items.Init(InventoryGroup.Equipment, this, null, token);
+            Items.Init(InventoryGroup.Equipment, this, null, token);
         }
     }
 
     private void InitEquipmentIcons()
     {
-        if (_equipmentIcons == null || _ch == null)
+        if (EquipmentIcons == null || _ch == null)
         {
             return;
         }
 
         InventoryData inventory = _gs.ch.Get<InventoryData>();
         List<Item> allEquipment = inventory.GetAllEquipment();
-        foreach (EquipSlotIcon icon in _equipmentIcons)
+        foreach (EquipSlotIcon icon in EquipmentIcons)
         {
             InitEquipmentIcon(_gs, icon);
         }
@@ -75,7 +69,7 @@ public class CharacterScreen : ItemIconScreen
 
         if (eqIcon.Icon == null)
         {
-            GameObjectUtils.SetActive(eqIcon.gameObject, false);
+            GEntityUtils.SetActive(eqIcon.entity(), false);
         }
 
         InventoryData inventory = gs.ch.Get<InventoryData>();
@@ -85,7 +79,9 @@ public class CharacterScreen : ItemIconScreen
             Data = currentEquipment,
             Screen = this,
         };
+        EquipSlot slot = gs.data.GetGameData<EquipSlotSettings>(gs.ch).GetEquipSlot(eqIcon.EquipSlotId);
         eqIcon.Icon.Init(iconInitData, _token);
+        UIHelper.SetText(eqIcon.Name, slot?.Name ?? "");
     }
 
     private void ShowStats()
@@ -95,19 +91,19 @@ public class CharacterScreen : ItemIconScreen
             return;
         }
 
-        if (_statGridParent == null)
+        if (StatGridParent == null)
         {
             return;
         }
 
-        if (_stats == null)
+        if (Stats == null)
         {
-            _stats = new List<StatInfoRow>();
+            Stats = new List<StatInfoRow>();
         }
 
-        if (_stats.Count < 1)
+        if (Stats.Count < 1)
         {
-            List<StatType> allstats = _gs.data.GetGameData<StatSettings>().StatTypes;
+            List<StatType> allstats = _gs.data.GetGameData<StatSettings>(_gs.ch).GetData();
             if (allstats == null)
             {
                 return;
@@ -128,19 +124,19 @@ public class CharacterScreen : ItemIconScreen
                         currCh = _ch,
                         statTypeId = -1,
                     };
-                    _assetService.LoadAssetInto(_gs, _statGridParent, AssetCategory.UI, "StatInfoRow", OnDownloadStat, sddFill, _token);
+                    _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategory.UI, "StatInfoRow", OnDownloadStat, sddFill, _token);
                 }
                 StatDownloadData sdd = new StatDownloadData()
                 {
                     currCh = _ch,
                     statTypeId = stat.IdKey,
                 };
-                _assetService.LoadAssetInto(_gs, _statGridParent, AssetCategory.UI, "StatInfoRow", OnDownloadStat, sdd, _token);
+                _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategory.UI, "StatInfoRow", OnDownloadStat, sdd, _token);
             }
         }
         else 
         {
-            foreach (StatInfoRow row in _stats)
+            foreach (StatInfoRow row in Stats)
             {
                 row.Init(_ch, -1, 0);
             }
@@ -149,7 +145,7 @@ public class CharacterScreen : ItemIconScreen
 
     private void OnDownloadStat (UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -159,7 +155,7 @@ public class CharacterScreen : ItemIconScreen
 
         if (downloadData == null || downloadData.currCh == null || downloadData.statTypeId < 1)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -167,15 +163,15 @@ public class CharacterScreen : ItemIconScreen
         StatInfoRow statRow = go.GetComponent<StatInfoRow>();
         if (statRow == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
-        if (_stats == null)
+        if (Stats == null)
         {
-            _stats = new List<StatInfoRow>();
+            Stats = new List<StatInfoRow>();
         }
 
-        _stats.Add(statRow);
+        Stats.Add(statRow);
 
         statRow.Init(downloadData.currCh, downloadData.statTypeId, 0);
 
@@ -198,12 +194,12 @@ public class CharacterScreen : ItemIconScreen
 
     public EquipSlotIcon GetIconFromSlot(UnityGameState gs, long equipSlotId)
     {
-        if (_equipmentIcons == null)
+        if (EquipmentIcons == null)
         {
             return null;
         }
 
-        foreach (EquipSlotIcon icon in _equipmentIcons)
+        foreach (EquipSlotIcon icon in EquipmentIcons)
         {
             if (icon != null && icon.EquipSlotId == equipSlotId)
             {
@@ -221,7 +217,7 @@ public class CharacterScreen : ItemIconScreen
             return;
         }
 
-        ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(icon.GetDataItem().ItemTypeId);
+        ItemType itype = gs.data.GetGameData<ItemTypeSettings>(gs.ch).GetItemType(icon.GetDataItem().ItemTypeId);
         if (itype == null || itype.EquipSlotId < 1)
         {
             return;
@@ -236,8 +232,8 @@ public class CharacterScreen : ItemIconScreen
             return;
         }
 
-        List<long> equipSlots = itype.GetCompatibleEquipSlots(gs);
-        List<long> relatedSlots = itype.GetRelatedEquipSlots(gs);
+        List<long> equipSlots = itype.GetCompatibleEquipSlots(gs, gs.ch);
+        List<long> relatedSlots = itype.GetRelatedEquipSlots(gs, gs.ch);
 
         Dictionary<long, Item> _currentRelatedItems = new Dictionary<long, Item>();
 
@@ -275,7 +271,7 @@ public class CharacterScreen : ItemIconScreen
             return null;
         }
 
-        _items.RemoveIcon(equip.Item.Id);
+        Items.RemoveIcon(equip.Item.Id);
 
         InventoryData inventory = gs.ch.Get<InventoryData>();
 
@@ -295,10 +291,10 @@ public class CharacterScreen : ItemIconScreen
         long newEquipSlotId = equip.Item.EquipSlotId;
         
 
-        ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(equip.Item.ItemTypeId);
+        ItemType itype = gs.data.GetGameData<ItemTypeSettings>(gs.ch).GetItemType(equip.Item.ItemTypeId);
 
-        List<long> equipSlots = itype.GetCompatibleEquipSlots(gs);
-        List<long> relatedSlots = itype.GetRelatedEquipSlots(gs);
+        List<long> equipSlots = itype.GetCompatibleEquipSlots(gs, gs.ch);
+        List<long> relatedSlots = itype.GetRelatedEquipSlots(gs, gs.ch);
 
         EquipSlotIcon currEqIcon = GetIconFromSlot(gs, currEquipSlotId);
         EquipSlotIcon newEqIcon = GetIconFromSlot(gs, newEquipSlotId);
@@ -333,7 +329,7 @@ public class CharacterScreen : ItemIconScreen
             EquipSlotIcon eqIcon = newEqIcon.GetComponent<EquipSlotIcon>();
             if (eqIcon == null)
             {
-                GameObject.Destroy(newEqIcon.gameObject);
+                GEntityUtils.Destroy(newEqIcon.entity());
             }
         }
         else // Otherwise set the icon data that we were dragging to the currently equipped item data.
@@ -361,7 +357,7 @@ public class CharacterScreen : ItemIconScreen
 
         EquipSlotIcon eqSlotIcon = null;
 
-        foreach (EquipSlotIcon eqIcon in _equipmentIcons)
+        foreach (EquipSlotIcon eqIcon in EquipmentIcons)
         {
             if (eqIcon != null && 
                 eqIcon.Icon != null &&
@@ -386,7 +382,7 @@ public class CharacterScreen : ItemIconScreen
 
         if (oldItem != null)
         {
-            _items.InitIcon(oldItem, _token);
+            Items.InitIcon(oldItem, _token);
         }
         ShowStats();
         return null;
@@ -394,7 +390,7 @@ public class CharacterScreen : ItemIconScreen
 
     protected void UnequipItem(UnityGameState gs, ItemIcon icon)
     {
-        if (icon == null || icon.GetDataItem() == null || _equipmentIcons == null)
+        if (icon == null || icon.GetDataItem() == null || EquipmentIcons == null)
         {
             return;
         }
@@ -408,7 +404,7 @@ public class CharacterScreen : ItemIconScreen
 
     protected override void ShowDragTargetIconsGlow(bool visible)
     {
-        if (_equipmentIcons == null)
+        if (EquipmentIcons == null)
         {
             return;
         }
@@ -417,7 +413,7 @@ public class CharacterScreen : ItemIconScreen
 
         if (!visible)
         {
-            toggleList = _equipmentIcons;
+            toggleList = EquipmentIcons;
         }
         else
         {
@@ -429,17 +425,17 @@ public class CharacterScreen : ItemIconScreen
             Item item = _dragItem.GetDataItem();
 
 
-            ItemType itype = _gs.data.GetGameData<ItemSettings>().GetItemType(item.ItemTypeId);
+            ItemType itype = _gs.data.GetGameData<ItemTypeSettings>(_gs.ch).GetItemType(item.ItemTypeId);
             if (itype == null)
             {
                 return;
             }
 
-            List<long> allSlots = itype.GetCompatibleEquipSlots(_gs);
+            List<long> allSlots = itype.GetCompatibleEquipSlots(_gs, _gs.ch);
 
             toggleList = new List<EquipSlotIcon>();
 
-            foreach (EquipSlotIcon eqIcon in _equipmentIcons)
+            foreach (EquipSlotIcon eqIcon in EquipmentIcons)
             {
                 if (allSlots.Contains(eqIcon.EquipSlotId))
                 {
@@ -452,12 +448,12 @@ public class CharacterScreen : ItemIconScreen
         {
             if (icon.Name != null)
             {
-                icon.Name.color = (visible ? Color.yellow : Color.black);
+                icon.Name.color = (visible ? GColor.yellow : GColor.black);
             }
         }
 
     }
-    protected override void HandleDragDrop(ItemIconScreen screen, ItemIcon dragItem, ItemIcon otherIconHit, GameObject finalObjectHit)
+    protected override void HandleDragDrop(ItemIconScreen screen, ItemIcon dragItem, ItemIcon otherIconHit, GEntity finalObjectHit)
     {
         if (dragItem != _dragItem)
         {

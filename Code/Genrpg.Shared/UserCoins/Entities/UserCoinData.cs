@@ -1,11 +1,11 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Core;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.DataStores.PlayerData;
 
 namespace Genrpg.Shared.UserCoins.Entities
 {
@@ -14,16 +14,9 @@ namespace Genrpg.Shared.UserCoins.Entities
     /// </summary>
 
     [MessagePackObject]
-    public class UserCoinData : IdObjectList<UserCoinStatus>
+    public class UserCoinData : OwnerIdObjectList<UserCoinStatus>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<UserCoinStatus> Data { get; set; } = new List<UserCoinStatus>();
-        public override void AddTo(Unit unit) { unit.Set(this); }
-        protected override bool CreateIfMissingOnGet()
-        {
-            return true;
-        }
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
         public long GetQuantity(long userCoinTypeId)
         {
             return Get(userCoinTypeId).Quantity;

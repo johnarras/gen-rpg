@@ -26,9 +26,13 @@ namespace Genrpg.LoginServer.CommandHandlers
             {
                 await PlayerDataUtils.LoadPlayerData(gs, gs.ch);
                 await gs.repo.Delete(gs.ch);
-                foreach (IUnitDataContainer cont in gs.ch.GetAllData().Values)
+
+                foreach (IUnitData data in gs.ch.GetAllData().Values)
                 {
-                    cont.Delete(gs.repo);
+                    if (data.Id != gs.user.Id) // Do not delete user data
+                    {
+                        data.Delete(gs.repo);
+                    }
                 }
                 gs.ch = null;
             }

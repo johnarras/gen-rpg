@@ -1,16 +1,13 @@
 ﻿using Assets.Scripts.Tokens;
+using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using UnityEditor;
-using UnityEngine;
+using Genrpg.Shared.Spells.Entities;
 
 public class UpdateType
 {
@@ -22,7 +19,7 @@ public class UpdateType
 public interface IUpdateObject
 {
     object Obj { get; set; }
-    void Call(IUnityUpdateService unityUpdateService);
+    void Call(CancellationToken token);
     int UpdateType { get; set; }
     bool HasAction();
 }
@@ -38,7 +35,7 @@ internal class VoidUpdateObject : IUpdateObject
         return action != null;
     }
 
-    public void Call(IUnityUpdateService unityUpdateService)
+    public void Call(CancellationToken token)
     {
         if (Obj != null && action != null)
         {
@@ -57,40 +54,38 @@ internal class TokenUpdateObject : IUpdateObject
         return action != null;
     }
 
-    public void Call(IUnityUpdateService unityUpdateService)
+    public void Call(CancellationToken token)
     {
-        if (Obj != null && action != null && TokenUtils.IsValid(unityUpdateService.GetToken()))
+        if (Obj != null && action != null)
         {
-            action(unityUpdateService.GetToken());
+            action(token);
         }
     }
 }
 
 
-public interface IUnityUpdateService : IService, IMapTokenService
+public interface IUnityUpdateService : ISetupService, IMapTokenService
 {
     void AddUpdate(object objIn, Action funcIn, int updateType);
     void AddTokenUpdate(object objIn, Action<CancellationToken> funcIn, int updateType);
     void RemoveUpdates(object obj);
-    CancellationToken GetToken();
+    void AddDelayedUpdate(object objIn, Action<CancellationToken> funcIn, CancellationToken token, float delaySeconds);
 }
 
-public class UnityUpdateService : MonoBehaviour, IUnityUpdateService
+public class UnityUpdateService : StubComponent, IUnityUpdateService
 {
 
-    private List<IUpdateObject> UpdateObjects { get; set; }
-    List<IUpdateObject> AddList { get; set; }
-    List<object> RemoveList { get; set; }
-    protected void Awake()
-    {
-        Reset();
-    }
+    private List<IUpdateObject> _currentUpdates { get; set; } = new List<IUpdateObject>();
+    private List<IUpdateObject> _toAddList { get; set; } = new List<IUpdateObject>();
+    private List<object> _toRemoveList { get; set; } = new List<object>();
 
-    public void Reset()
-    {        
-        UpdateObjects = new List<IUpdateObject>();
-        AddList = new List<IUpdateObject>();
-        RemoveList = new List<object>();
+
+    private UnityGameState _gs;
+    public async Task Setup(GameState gs, CancellationToken token)
+    {
+        _gs = gs as UnityGameState;
+        _token = token;
+        await Task.CompletedTask;
     }
 
     private CancellationToken _token;
@@ -99,31 +94,25 @@ public class UnityUpdateService : MonoBehaviour, IUnityUpdateService
         _token = token;
     }
 
-    public CancellationToken GetToken()
+    private void Update ()
     {
-        return _token;
-    }
-
-    public void Update()
-    {
-        foreach (IUpdateObject obj in UpdateObjects)
+        foreach (IUpdateObject obj in _currentUpdates)
         {
             if (obj.UpdateType == UpdateType.Regular)
             {
-                obj.Call(this);
+                obj.Call(_token);
             }
         }
         UpdateUpdates();
-
     }
 
-    public void LateUpdate()
+    private void LateUpdate ()
     {
-        foreach (IUpdateObject obj in UpdateObjects)
+        foreach (IUpdateObject obj in _currentUpdates)
         {
             if (obj.UpdateType == UpdateType.Late)
             {
-                obj.Call(this);
+                obj.Call(_token);
             }
         }
         UpdateUpdates();
@@ -136,7 +125,7 @@ public class UnityUpdateService : MonoBehaviour, IUnityUpdateService
             return;
         }
 
-        AddList.Add(new VoidUpdateObject()
+        _toAddList.Add(new VoidUpdateObject()
         {
             action = funcIn,
             Obj = objIn,
@@ -151,7 +140,7 @@ public class UnityUpdateService : MonoBehaviour, IUnityUpdateService
             return;
         }
 
-        AddList.Add(new TokenUpdateObject()
+        _toAddList.Add(new TokenUpdateObject()
         {
             action = funcIn,
             Obj = objIn,
@@ -162,31 +151,86 @@ public class UnityUpdateService : MonoBehaviour, IUnityUpdateService
 
     public void RemoveUpdates(object obj)
     {
-        RemoveList.Add(obj);
-        //UpdateObjects = UpdateObjects.Where(x => x.Obj != obj).ToList();
-        AddList = AddList.Where(x => x.Obj != obj).ToList();
+        _toRemoveList.Add(obj);
+        _toAddList = _toAddList.Where(x => x.Obj != obj).ToList();
     }
 
+    List<IUpdateObject> nextUpdates = new List<IUpdateObject>();
     private void UpdateUpdates()
     {
-        UpdateObjects = UpdateObjects.Where(x => x.Obj != null  && x.HasAction() && !RemoveList.Contains(x.Obj)).ToList();
-
-        foreach (IUpdateObject data in AddList)
+        nextUpdates = new List<IUpdateObject>();
+        foreach (IUpdateObject obj in _currentUpdates)
         {
-            if (!data.HasAction() || data.Obj == null || data.UpdateType < UpdateType.Regular || data.UpdateType >= UpdateType.Max)
+            if (obj.Obj == null || !obj.HasAction() || _toRemoveList.Contains(obj.Obj))
             {
                 continue;
             }
-            List<IUpdateObject> currentUpdates = UpdateObjects.Where(x => x.Obj == data.Obj &&            
-            x.UpdateType == data.UpdateType).ToList();
+            nextUpdates.Add(obj);
+        }
+        
 
-            foreach (IUpdateObject update in currentUpdates)
+        foreach (IUpdateObject newUpdate in _toAddList)
+        {
+            if (!newUpdate.HasAction() || newUpdate.Obj == null || newUpdate.UpdateType < UpdateType.Regular || newUpdate.UpdateType >= UpdateType.Max)
             {
-                UpdateObjects.Remove(update);
+                continue;
             }
 
-            UpdateObjects.Add(data);
+            IUpdateObject currentUpdate = nextUpdates.FirstOrDefault(x => x.Obj == newUpdate.Obj && x.UpdateType == newUpdate.UpdateType);
+
+            if (currentUpdate == null)
+            {
+                nextUpdates.Add(newUpdate);
+            }
         }
-        RemoveList = new List<object>();
+
+        UpdateDelayedActions();
+
+        _currentUpdates = nextUpdates;
+        _toRemoveList = new List<object>();
+        _toAddList = new List<IUpdateObject>();
+
+    }
+
+    internal class DelayedUpdate
+    {
+        public Object Obj;
+        public CancellationToken Token;
+        public DateTime EndTime;
+        public Action<CancellationToken> Function;
+    }
+
+    private List<DelayedUpdate> _delayedUpdates = new List<DelayedUpdate>();
+
+    public void AddDelayedUpdate(object objIn, Action<CancellationToken> funcIn, CancellationToken token, float delaySeconds)
+    {
+        _delayedUpdates.Add(new DelayedUpdate()
+        {
+            Obj = objIn,
+            Function = funcIn,
+            Token = token,
+            EndTime = DateTime.UtcNow.AddSeconds(delaySeconds),
+        });
+    }
+
+    void UpdateDelayedActions()
+    {
+        List<DelayedUpdate> currUpdates = _delayedUpdates.Where(x => x.EndTime <= DateTime.UtcNow).ToList();
+
+        if (currUpdates.Count == 0)
+        {
+            return;
+        }
+
+        _delayedUpdates = _delayedUpdates.Except(currUpdates).ToList();
+
+        foreach (DelayedUpdate update in currUpdates)
+        {
+            if (update.Obj != null && update.Function != null && !update.Token.IsCancellationRequested)
+            {
+                update.Function.Invoke(update.Token);
+            }
+        }
+
     }
 }

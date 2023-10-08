@@ -1,12 +1,9 @@
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
 using ClientEvents;
-using Services.ProcGen;
 using System.Threading;
-using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Interfaces;
@@ -16,6 +13,11 @@ using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
 using Assets.Scripts.MapTerrain;
 using Genrpg.Shared.Zones.Entities;
+using UnityEngine; // Needed
+using Genrpg.Shared.DataStores.Categories;
+using static UnityEngine.Networking.UnityWebRequest;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
 
 public class UnityZoneGenService : ZoneGenService
 {
@@ -59,10 +61,10 @@ public class UnityZoneGenService : ZoneGenService
                 tokenService.SetToken(_mapToken);
             }
         }
-        InnerGenerate(gs, worldId, _mapToken).Forget();
+        TaskUtils.AddTask(InnerGenerate(gs, worldId, _mapToken));
     }
 
-    protected async UniTask InnerGenerate(UnityGameState gs, string worldId, CancellationToken token)
+    protected async Task InnerGenerate(UnityGameState gs, string worldId, CancellationToken token)
     {
         if (gs.md.GeneratingMap)
         {
@@ -71,10 +73,10 @@ public class UnityZoneGenService : ZoneGenService
 
         _screenService.CloseAll(gs);
         _screenService.Open(gs, ScreenId.Loading);
-        await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
+        await Task.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
         gs.md.GeneratingMap = true;
         RenderSettings.fog = false;
-        await UniTask.NextFrame();
+        await Task.Delay(1);
         // Now carry out the actual generation steps
         List<IZoneGenerator> genlist = new List<IZoneGenerator>();
 
@@ -279,14 +281,14 @@ public class UnityZoneGenService : ZoneGenService
 
             gen = null;
 
-            await UniTask.NextFrame(token);
+            await Task.Delay(1, token);
 
-            await UniTask.NextFrame(token);
+            await Task.Delay(1, token);
         }
 
-        await UniTask.NextFrame(token);
+        await Task.Delay(1, token);
 
-        await UniTask.NextFrame(token);
+        await Task.Delay(1, token);
         output.Append("------------------\n" +
             (DateTime.UtcNow - totalStartTime).TotalSeconds);
 
@@ -299,19 +301,19 @@ public class UnityZoneGenService : ZoneGenService
         gs.md.ClearGenerationData();
 
 
-        await UniTask.NextFrame(token);
+        await Task.Delay(1, token);
 
-        await UniTask.NextFrame(token);
+        await Task.Delay(1, token);
 
 
         gs.Dispatch(new MapIsLoadedEvent());
         gs.md.GeneratingMap = false;
-        await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+        await Task.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
         PlayerObject.MoveAboveObstacles();
-        await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+        await Task.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
 
 
-        await UniTask.NextFrame(token);
+        await Task.Delay(1, token);
     }
 
     public override void ShowGenError(UnityGameState gs, string msg)
@@ -395,7 +397,7 @@ public class UnityZoneGenService : ZoneGenService
                 }
 
 
-                SetOnePatchAlphamaps(gs, gs.md.terrainPatches[gx, gy], token).Forget();
+                TaskUtils.AddTask(SetOnePatchAlphamaps(gs, gs.md.terrainPatches[gx, gy], token));
             }
         }
 
@@ -404,7 +406,7 @@ public class UnityZoneGenService : ZoneGenService
 
 
 
-    public override async UniTask SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token)
+    public override async Task SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token)
     {
         patch.HaveSetAlphamaps = false;
         Terrain terr = patch.terrain as Terrain;
@@ -436,7 +438,7 @@ public class UnityZoneGenService : ZoneGenService
             {
                 if (UnityAssetService.LoadSpeed == LoadSpeed.Normal)
                 {
-                    await UniTask.NextFrame(token);
+                    await Task.Delay(1, token);
                 }
             }
             if (patch == null || patch.FullZoneIdList == null || patch.mainZoneIds == null)
@@ -575,7 +577,7 @@ public class UnityZoneGenService : ZoneGenService
                 if (tempAlphaTotal < 0.01f)
                 {
                     oneCellAlphas[0] = 1;
-                    await UniTask.NextFrame(token);
+                    await Task.Delay(1, token);
                 }
                 else
                 { 
@@ -744,57 +746,73 @@ public class UnityZoneGenService : ZoneGenService
         }
         if (loadData.GenerateMap)
         {
-            gs.logger.Info("Generating world " + loadData.MapId);
+            gs.logger.Info("Generating map " + loadData.MapId);
             UnityZoneGenService.LoadedMapId = "";
         }
         else
         {
             UnityZoneGenService.LoadedMapId = loadData.MapId;
-            gs.logger.Info("Loading world " + loadData.MapId);
+            gs.logger.Info("Loading map " + loadData.MapId);
         }
 
         string postData = SerializationUtils.Serialize(loadData);
         
-        _networkService.SendClientWebCommand(loadData, _mapToken);
+        _networkService.SendClientWebCommand(loadData, _gameToken);
     }
 
-    public override async UniTask OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token)
+    public override async Task OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token)
     {
-        _networkService.SetRealtimeEndpoint(data.Host, data.Port, data.Serializer);
-        _screenService.CloseAll(gs);
 
-        if (data == null || data.Map == null || data.Char == null)
+        try
         {
-            _screenService.Open(gs, ScreenId.CharacterSelect);
-            return;
-        }
-        if (!data.Generating && (data.Map.Zones == null || data.Map.Zones.Count < 1))
-        {
-            _screenService.Open(gs, ScreenId.CharacterSelect);
-            return;
-        }
+            gs.ch = data.Char;
 
-        gs.ch = data.Char;
-
-        foreach (IUnitData dataSet in data.CharData)
-        {
-            dataSet.AddTo(gs.ch);
-        }
-
-        gs.map = data.Map;
-        gs.spawns = new MapSpawnData() { Id = gs.map.Id.ToString() };
-
-        if (gs.map == null)
-        {
+            _networkService.SetRealtimeEndpoint(data.Host, data.Port, data.Serializer);
             _screenService.CloseAll(gs);
-            _screenService.Open(gs, ScreenId.CharacterSelect);
-            gs.logger.Message("Map failed to download");
-            return;
+
+
+            gs.ch.SetSessionOverrideList(data.OverrideList);
+
+            foreach (IGameSettings baseGameData in data.GameData)
+            {
+                baseGameData.AddTo(gs.data);
+            }
+
+
+            if (data == null || data.Map == null || data.Char == null)
+            {
+                _screenService.Open(gs, ScreenId.CharacterSelect);
+                return;
+            }
+            if (!data.Generating && (data.Map.Zones == null || data.Map.Zones.Count < 1))
+            {
+                _screenService.Open(gs, ScreenId.CharacterSelect);
+                return;
+            }
+
+            foreach (IUnitData dataSet in data.CharData)
+            {
+                dataSet.AddTo(gs.ch);
+            }
+
+            gs.map = data.Map;
+            gs.spawns = new MapSpawnData() { Id = gs.map.Id.ToString() };
+
+            if (gs.map == null)
+            {
+                _screenService.CloseAll(gs);
+                _screenService.Open(gs, ScreenId.CharacterSelect);
+                gs.logger.Message("Map failed to download");
+                return;
+            }
+
+            InstantiateMap(gs, gs.map.Id);
         }
-
-        InstantiateMap(gs, gs.map.Id);
-
-        await UniTask.CompletedTask;
+        catch (Exception e)
+        {
+            gs.logger.Exception(e, "OnLoadIntoMap");
+        }
+        await Task.CompletedTask;
     }
 
 
@@ -817,7 +835,7 @@ public class UnityZoneGenService : ZoneGenService
         {
             return;
         }
-        LODGroup lg = terr.gameObject.GetComponent<LODGroup>();
+        LODGroup lg = terr.entity().GetComponent<LODGroup>();
 
 
         if (_loadedTerrainMaterial == null)
@@ -826,9 +844,9 @@ public class UnityZoneGenService : ZoneGenService
             //matNameSuffix = "Specular";
             // matNameSuffix = "Diffuse";
              matNameSuffix = "Standard";
-            _loadedTerrainMaterial = Resources.Load<Material>("Materials/Terrain" + matNameSuffix);
+            _loadedTerrainMaterial = AssetUtils.LoadResource<Material>("Materials/Terrain" + matNameSuffix);
         }
-        //if (_loadedTerrainMaterial == null) _loadedTerrainMaterial = Resources.Load<Material>("Materials/TerrainStandard");
+        //if (_loadedTerrainMaterial == null) _loadedTerrainMaterial = AssetUtils.LoadResource<Material>("Materials/TerrainStandard");
         terr.materialTemplate = _loadedTerrainMaterial;
         //terr.materialType = Terrain.MaterialType.BuiltInStandard;
         terr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Simple;

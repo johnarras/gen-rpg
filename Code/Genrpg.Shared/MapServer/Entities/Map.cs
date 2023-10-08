@@ -1,8 +1,6 @@
 using MessagePack;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Constants;
 using Genrpg.Shared.NPCs.Entities;
@@ -13,12 +11,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using Genrpg.Shared.DataStores.Categories.WorldData;
+using Genrpg.Shared.Entities.Settings;
 
 namespace Genrpg.Shared.MapServer.Entities
 {
     [MessagePackObject]
     public class Map : BaseWorldData, IName, IMapRoot
     {
+        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string Name { get; set; }
         [Key(2)] public string Desc { get; set; }
@@ -62,8 +63,6 @@ namespace Genrpg.Shared.MapServer.Entities
             EdgeMountainChance = 0.98f;
             _lookup = new IndexedDataItemLookup(this);
         }
-
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
 
         public int GetHwid()
         {

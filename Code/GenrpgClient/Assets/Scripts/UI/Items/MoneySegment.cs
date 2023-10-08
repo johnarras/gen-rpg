@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
+﻿
+using GEntity = UnityEngine.GameObject;
 
 public class MoneySegment : BaseBehaviour
 {
-    [SerializeField]
-    private GameObject _parent;
-    [SerializeField]
-    private Text _quantity;
-    [SerializeField]
-    private Image _icon;
+    public GEntity Parent;
+    public GText QuantityText;
+    public GImage Icon;
 
-    public GameObject GetParent()
+    public GEntity GetParent()
     {
-        return _parent;
+        return Parent;
     }
 
     public void SetQuantityText(string txt)
     {
-        UIHelper.SetText(_quantity, txt);
+        UIHelper.SetText(QuantityText, txt);
     }
 }

@@ -1,30 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
 using UnityEngine.Events;
 using Genrpg.Shared.Interfaces;
 
 public class IndexedItemDropdown : BaseBehaviour
 {
-    [SerializeField]
-    private Dropdown _dropdownList;
-    [SerializeField]
-    private Text _name;
+    
+    public GDropdown DropdownList;
+    public GText NameText;
+
     public void Init<T> (UnityGameState gs, List<T> items, UnityAction<int> onValueChanged  = null) where T : IId, IName
     {
-        if (items == null || _dropdownList == null)
+        if (items == null || DropdownList == null)
         {
-            GameObject.Destroy(gameObject);
+            GEntityUtils.Destroy(entity);
             return;
         }
-        List<Dropdown.OptionData> options = new List<Dropdown.OptionData>();
+        List<GDropdown.OptionData> options = new List<GDropdown.OptionData>();
 
         for (int v = 0; v < items.Count; v++)
         {
@@ -34,15 +25,15 @@ public class IndexedItemDropdown : BaseBehaviour
             options.Add(did);          
         }
 
-        _dropdownList.AddOptions(options);
+        DropdownList.AddOptions(options);
         if (onValueChanged != null)
         {
-            _dropdownList.onValueChanged.RemoveAllListeners();
-            _dropdownList.onValueChanged.AddListener(onValueChanged);
+            DropdownList.onValueChanged.RemoveAllListeners();
+            DropdownList.onValueChanged.AddListener(onValueChanged);
         }
-        _dropdownList.value = 0;
+        DropdownList.value = 0;
 
-        UIHelper.SetText(_name, typeof(T).Name);
+        UIHelper.SetText(NameText, typeof(T).Name);
 
 
     }

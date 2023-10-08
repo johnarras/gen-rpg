@@ -1,22 +1,11 @@
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
-
-
-using Genrpg.Shared.Core.Entities;
-using Services;
-
-using UnityEngine;
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.Interfaces;
+using System.Threading.Tasks;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-using Services.ProcGen;
 using System.Threading;
 
 public class AddBridges : BaseZoneGenerator
@@ -26,7 +15,7 @@ public class AddBridges : BaseZoneGenerator
     private List<WaterGenData> _waterGenData = new List<WaterGenData>();
 
 	public const string DefaultBridgeArtName = "Bridge";
-	public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+	public override async Task Generate (UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         if (gs.md.bridgeDistances == null)
@@ -336,8 +325,8 @@ public class AddBridges : BaseZoneGenerator
 			float ey = gs.md.heights[ex,ez]*MapConstants.MapHeight;
 			float cy = (sy+ey+my)/3;
 
-            float minHeight = Mathf.Min(sy, my, ey);
-            float maxHeight = Mathf.Max(sy, my, ey);
+            float minHeight = Math.Min(sy, Math.Min(my, ey));
+            float maxHeight = Math.Max(sy, Math.Max(my, ey));
 
             float startHeightDiff = maxHeight - minHeight;
 
@@ -393,7 +382,7 @@ public class AddBridges : BaseZoneGenerator
             }
 
 
-            float lengthMult = Mathf.Max(1.0f, halfBridgeLength / 5.0f);
+            float lengthMult = Math.Max(1.0f, halfBridgeLength / 5.0f);
 
             // Now dig out the middle.
 
@@ -477,7 +466,7 @@ public class AddBridges : BaseZoneGenerator
 			float maxExtraObtusenessAllowed = MathUtils.FloatRange(0.5f, 0.7f, rand);
 
 
-			float holeDepthScale = MathUtils.FloatRange(1.2f, 1.6f, rand) * Mathf.Sqrt(lengthMult);
+			float holeDepthScale = MathUtils.FloatRange(1.2f, 1.6f, rand) * (float)Math.Sqrt(lengthMult);
 
 			
 			// Used for scaling how far up the ends of the roads go to make them
@@ -819,12 +808,7 @@ public class AddBridges : BaseZoneGenerator
 
     public BridgeType GetRandomBridgeType(UnityGameState gs, long zoneTypeId, MyRandom rand)
     {
-        if (gs.data.GetGameData<ProcGenSettings>().BridgeTypes == null || gs.data.GetGameData<ProcGenSettings>().ZoneTypes == null)
-        {
-            return null;
-        }
-
-        ZoneType zt = gs.data.GetGameData<ProcGenSettings>().GetZoneType(zoneTypeId);
+        ZoneType zt = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zoneTypeId);
         if (zt == null || zt.BridgeTypes == null || zt.BridgeTypes.Count < 1)
         {
             return null;
@@ -839,7 +823,7 @@ public class AddBridges : BaseZoneGenerator
             for (int b = 0; b < zt.BridgeTypes.Count; b++)
             {
                 ZoneBridgeType zbt = zt.BridgeTypes[b];
-                BridgeType bt = gs.data.GetGameData<ProcGenSettings>().GetBridgeType (zbt.BridgeTypeId);
+                BridgeType bt = gs.data.GetGameData<BridgeTypeSettings>(gs.ch).GetBridgeType (zbt.BridgeTypeId);
                 if (bt != null && !string.IsNullOrEmpty(bt.Art))
                 {
                     if (times == 0)
@@ -899,7 +883,7 @@ public class AddBridges : BaseZoneGenerator
                     continue;
                 }
                 float dby = yy - cy;
-                float dist = Mathf.Sqrt(dbx * dbx + dby * dby);
+                float dist = (float)Math.Sqrt(dbx * dbx + dby * dby);
                 if (dist < bridgeRadius)
                 {
                     if (dist < gs.md.bridgeDistances[xx,yy])

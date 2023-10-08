@@ -1,23 +1,14 @@
-
-using System;
-using UnityEngine;
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-using Genrpg.Shared.Interfaces;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Units.Entities;
+using System.Collections.Generic;
 
 public class PlayerObject
 {
-	private static GameObject _player = null;
+	private static GEntity _player = null;
     private static Unit _playerUnit = null;
     private static PlayerController _playerController = null;
 
-
-
-	public static GameObject Get ()
+	public static GEntity Get ()
 	{
 		return _player;
 	}
@@ -29,15 +20,15 @@ public class PlayerObject
 
     public static void Destroy()
     {
-        GameObject currObject = _player;
+        GEntity currObject = _player;
         Set(null);
         if (currObject != null)
         {
-            GameObject.Destroy(currObject);
+            GEntityUtils.Destroy(currObject);
         }
     }
 
-	public static void Set (GameObject go)
+	public static void Set (GEntity go)
 	{
 		_player = go;
         _playerController = null;
@@ -56,25 +47,25 @@ public class PlayerObject
 
     public static void MoveAboveObstacles()
     {
-        GameObject obj = Get();
+        GEntity obj = Get();
         if (obj == null)
         {
             return;
         }
 
-        RaycastHit[] hits = Physics.RaycastAll(obj.transform.position + Vector3.up * 500, Vector3.down);
+        List<GEntity> hits = GPhysics.RaycastAll(GVector3.Create(obj.transform().position) + GVector3.up * 500, GVector3.down);
 
-        foreach (RaycastHit hit in hits)
+        foreach (GEntity hit in hits)
         {
-            if (hit.collider.gameObject.name.IndexOf("Water") >= 0)
+            if (hit.name.IndexOf("Water") >= 0)
             {
-                if (hit.transform.position.y > obj.transform.position.y)
+                if (hit.transform().position.y > obj.transform().position.y)
                 {
-                    obj.transform.position = new Vector3(obj.transform.position.x, hit.transform.position.y + 1,
-                        obj.transform.position.z);
+                    obj.transform().position = GVector3.Create(obj.transform().position.x, hit.transform().position.y + 1,
+                        obj.transform().position.z);
                 }
             }
         }
-        obj.transform.position += new Vector3(0, 10, 0);
+        obj.transform().position += GVector3.Create(0, 10, 0);
     }
 }

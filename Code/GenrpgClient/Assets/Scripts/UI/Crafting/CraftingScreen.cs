@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Crafting.Entities;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
-using UnityEngine.UI;
 
 public class CraftingScreen : ItemIconScreen
 {
@@ -14,30 +12,21 @@ public class CraftingScreen : ItemIconScreen
     public const string ReagentRow = "ReagentRow";
     public const string CraftSlotIcon = "CraftSlotIcon";
     public const string CraftInventoryIcon = "CraftInventoryIcon";
-
-    [SerializeField]
-    private Button _craftButton;
-    [SerializeField]
-    private Button _clearButton;
-    [SerializeField]
-    private Button _closeButton;
-    [SerializeField]
-    private InventoryPanel _inventoryPanel;
-    [SerializeField]
-    private GameObject _recipeListParent;
+    
+    public GButton CraftButton;
+    public GButton ClearButton;
+    public GButton CloseButton;
+    public InventoryPanel _inventoryPanel;
+    public GEntity _recipeListParent;
+    public ReagentRow _baseReagents;
+    public ReagentRow _coreReagents;
+    public ReagentRow _optionalReagents;
 
     private List<RecipeRow> _recipes { get; set; }
 
-    [SerializeField]
-    private ReagentRow _baseReagents;
-    [SerializeField]
-    private ReagentRow _coreReagents;
-    [SerializeField]
-    private ReagentRow _optionalReagents;
-
     private RecipeRow _currentRecipe = null;
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         Init();
         await base.OnStartOpen (data, token);
@@ -68,19 +57,14 @@ public class CraftingScreen : ItemIconScreen
 
     public void Init()
     {
-        UIHelper.SetButton(_clearButton, GetAnalyticsName(), ClickClear);
-        UIHelper.SetButton(_craftButton, GetAnalyticsName(), ClickCraft);
-        UIHelper.SetButton(_closeButton, GetAnalyticsName(), StartClose);
-        if (_gs.data == null || _gs.data.GetGameData<CraftingSettings>().RecipeTypes == null)
-        {
-            ErrorClose("Missing recipe list");
-            return;
-        }
+        UIHelper.SetButton(ClearButton, GetAnalyticsName(), ClickClear);
+        UIHelper.SetButton(CraftButton, GetAnalyticsName(), ClickCraft);
+        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
 
         _recipes = new List<RecipeRow>();
 
         RecipeData recipeData = _gs.ch.Get<RecipeData>();
-        foreach (RecipeType recipe in _gs.data.GetGameData<CraftingSettings>().RecipeTypes)
+        foreach (RecipeType recipe in _gs.data.GetGameData<RecipeSettings>(_gs.ch).GetData())
         {
 
             RecipeStatus recipeStatus = recipeData.Get(recipe.IdKey);
@@ -108,7 +92,7 @@ public class CraftingScreen : ItemIconScreen
 
     private void OnLoadRecipeRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -118,7 +102,7 @@ public class CraftingScreen : ItemIconScreen
         RecipeStatus status = data as RecipeStatus;
         if (status == null || row == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 

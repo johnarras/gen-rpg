@@ -18,6 +18,9 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Networking.Entities.TCP
 {
+
+    public delegate void MapApiMessageHandler(List<IMapApiMessage> messages, CancellationToken token, object optionalData);
+
     public abstract class BaseTcpConn : IConnection
     {
         private bool _removeMe { get; set; }
@@ -25,7 +28,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
         private CancellationToken _token;
         protected ILogSystem _logger;
         private IMapApiSerializer _serializer;
-        private Action<List<IMapApiMessage>, CancellationToken> _messageHandler;
+        private MapApiMessageHandler _messageHandler;
 
         private TcpClient _client { get; set; }
         private NetworkStream _stream { get; set; }
@@ -36,15 +39,19 @@ namespace Genrpg.Shared.Networking.Entities.TCP
         private DateTime _lastMessage = DateTime.UtcNow;
         private DateTime _startTime = DateTime.UtcNow;
 
+        protected object _extraData = null;
+
         // This is concurrent so the game can send messages to it as needed.
         private ConcurrentQueue<IMapApiMessage> _outputQueue = new ConcurrentQueue<IMapApiMessage>();
 
-        public BaseTcpConn(IMapApiSerializer serializer, Action<List<IMapApiMessage>, CancellationToken> messageHandler, ILogSystem logger, CancellationToken token)
+        public BaseTcpConn(IMapApiSerializer serializer, MapApiMessageHandler messageHandler, ILogSystem logger, CancellationToken token, object extraData)
+         
         {
             _logger = logger;
             _serializer = serializer;
             _messageHandler = messageHandler;
             _token = token;
+            _extraData = extraData;
         }
 
         public ConnMessageCounts GetCounts()
@@ -270,12 +277,12 @@ namespace Genrpg.Shared.Networking.Entities.TCP
         {
             AppendOutput(message);
         }
-
+       
         protected virtual void OnReceiveBytes(byte[] receivedBytes, int byteCount)
         {
             List<IMapApiMessage> messageList = _serializer.Deserialize(receivedBytes, byteCount);
             _counts.MessagesReceived += messageList.Count;
-            _messageHandler?.Invoke(messageList, _token);
+            _messageHandler?.Invoke(messageList, _token, _extraData);
         }
     }
 }

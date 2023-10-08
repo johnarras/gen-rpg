@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 839df868427f74e4698cc6d6b0544c62,
         type: 3}
       propertyPath: m_Name
-      value: Prop1
+      value: StoneNode
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -97,6 +97,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -60225624435681299, guid: 839df868427f74e4698cc6d6b0544c62, type: 3}

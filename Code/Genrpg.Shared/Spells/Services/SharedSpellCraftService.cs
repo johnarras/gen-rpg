@@ -20,8 +20,8 @@ namespace Genrpg.Shared.Spells.Services
                 return false;
             }
 
-            ElementType elemType = gs.data.GetGameData<SpellSettings>().GetElementType(spell.ElementTypeId);
-            SkillType skillType = gs.data.GetGameData<SpellSettings>().GetSkillType(spell.SkillTypeId);
+            ElementType elemType = gs.data.GetGameData<ElementTypeSettings>(null).GetElementType(spell.ElementTypeId);
+            SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(null).GetSkillType(spell.SkillTypeId);
 
             if (elemType == null || skillType == null)
             {
@@ -42,12 +42,7 @@ namespace Genrpg.Shared.Spells.Services
             cost *= elemSkill.CostPct / 100.0f;
             scale *= elemSkill.ScalePct / 100.0f;
 
-            if (gs.data.GetGameData<SpellSettings>().SpellModifiers == null)
-            {
-                return false;
-            }
-
-            foreach (SpellModifier mod in gs.data.GetGameData<SpellSettings>().SpellModifiers)
+            foreach (SpellModifier mod in gs.data.GetGameData<SpellModifierSettings>(null).GetData())
             {
                 if (mod.Values == null || mod.IsProcMod)
                 {

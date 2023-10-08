@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 
-using Services;
+
 using Genrpg.Shared.Inventory.Entities;
 
 /// <summary>

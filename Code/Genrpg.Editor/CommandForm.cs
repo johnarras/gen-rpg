@@ -22,6 +22,12 @@ using Genrpg.Shared.MapMessages;
 using Genrpg.Editor.Entities.Copying;
 using Genrpg.Editor.Utils;
 using Amazon.Runtime.Internal;
+using System.Reflection;
+using Genrpg.Shared.Purchasing.Entities;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.Chat.Entities;
+using Genrpg.ServerShared.DataStores.NoSQL;
 
 namespace GameEditor
 {
@@ -46,7 +52,7 @@ namespace GameEditor
             numButtons++;
 
             string[] envWords = Enum.GetNames(typeof(EnvEnum)); 
-            string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets".Split(' ');
+            string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas".Split(' ');
             Button button = null;
             int p = 0;
             for (int e = 0; e < envWords.Length; e++)
@@ -220,6 +226,11 @@ namespace GameEditor
                 UpdateAssets(env);
             }
 
+            if (action == "DeleteMetas")
+            {
+                DeleteAllMetaFiles();
+            }
+
             Task.Run(() => OnClickButtonAsync(action, env));
         }
 
@@ -243,9 +254,38 @@ namespace GameEditor
                 GameData = gs.data,
             };
 
-            gs.EditorGameData.Data = gs.data.GetContainers().Select(x => x.GetData()).ToList();
+            
+
+            List<IGameSettings> allGameData = gs.data.GetAllData();
+
+            List<IGrouping<Type,IGameSettings>> groups = allGameData.GroupBy(x => x.GetType()).ToList();
+
+            groups = groups.OrderBy(x => x.Key.Name).ToList();
+
+            foreach (IGrouping<Type,IGameSettings> group in groups)
+            {
+
+                List<IGameSettings> orderedList = group.OrderBy(x => x.Id).ToList();
+
+                List<BaseGameSettings> items = new List<BaseGameSettings>();
+
+                for (int i = 0; i <  orderedList.Count; i++) 
+                {
+                    BaseGameSettings setting = orderedList[i] as BaseGameSettings;
+                    if (setting != null)
+                    {
+                        items.Add(setting);
+                    }
+                }
 
 
+                Type baseCollectionType = typeof(TypedEditorSettingsList<>);
+                Type genericType = baseCollectionType.MakeGenericType(group.Key);
+                EditorSettingsList list = (EditorSettingsList)Activator.CreateInstance(genericType);
+                list.SetData(items);
+                list.TypeName = "[" + group.Count() + "] " + group.Key.Name;
+                gs.EditorGameData.Data.Add(list);
+            }
 
             this.Invoke((MethodInvoker)delegate()
                {
@@ -329,6 +369,39 @@ namespace GameEditor
             await EditorGameDataUtils.SaveFullGameData(form, dataCopy, env, token);
 
             this.Invoke(form.Hide);
+        }
+
+        private void DeleteAllMetaFiles()
+        {
+
+            string strExeFilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            strExeFilePath += "\\..\\..\\..\\..\\Genrpg.Client\\Genrpg\\Genrpg.Game\\";
+            RemoveMetaFiles(strExeFilePath);
+        }
+
+        private void RemoveMetaFiles(string strExeFilePath)
+        {
+            if (!Directory.Exists(strExeFilePath))
+            {
+                return;
+            }
+
+            string [] currDirs = Directory.GetDirectories(strExeFilePath);
+            string [] files = Directory.GetFiles(strExeFilePath);
+
+            foreach (string file in files)
+            {
+                if (file.LastIndexOf(".meta") == file.Length-5)
+                {
+                    File.Delete(Path.Combine(strExeFilePath, file));
+                }
+            }
+
+            foreach (string dir in currDirs)
+            {
+                RemoveMetaFiles(Path.Combine(strExeFilePath, dir));
+            }
+
         }
     }
 }

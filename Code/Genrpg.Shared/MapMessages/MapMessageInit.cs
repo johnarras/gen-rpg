@@ -259,6 +259,7 @@ namespace Genrpg.Shared.MapMessages
                         if (shouldAddClass)
                         {
                             lines.Insert(classIndex, "    " + ClassAttribute);
+                            lid++;
                         }
                     }
 

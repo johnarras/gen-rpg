@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using Genrpg.Shared.Constants;
+﻿
 using Genrpg.Shared.Inventory.Entities;
-using Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Assets.Scripts.Atlas.Constants;
@@ -50,15 +38,10 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
 
     protected IEntityService _entityService;
 
-    [SerializeField] 
-    protected Image _background;
-    [SerializeField] 
-    protected Image _frame;
-    [SerializeField] 
-    protected Image _icon;
-    [SerializeField] 
-    protected Text _quantityText;
-
+    public GImage Background;
+    public GImage Frame;
+    public GImage Icon;
+    public GText QuantityText;
     
     public override void Init(InitItemIconData data, CancellationToken token)
     {
@@ -81,11 +64,11 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         {
             frameName = IconHelper.GetFrameNameFromLevel(_gs, _initData.Data.Level);
             bgName = IconHelper.GetBackingNameFromQuality(_gs, _initData.Data.QualityTypeId);
-            iconName = ItemUtils.GetIcon(_gs,_initData.Data);
+            iconName = ItemUtils.GetIcon(_gs, _gs.ch, _initData.Data);
         }
         else
         {
-            IIndexedGameItem dataObject = _entityService.Find(_gs, data.entityTypeId, data.entityId);
+            IIndexedGameItem dataObject = _entityService.Find(_gs, _gs.ch, data.entityTypeId, data.entityId);
             if (dataObject != null && !string.IsNullOrEmpty(dataObject.Icon))
             {
                 iconName = dataObject.Icon;
@@ -101,25 +84,25 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             }
         }
 
-        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, bgName, _background, token);
-        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, frameName, _frame, token);
-        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, iconName, _icon, token);
+        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, bgName, Background, token);
+        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, frameName, Frame, token);
+        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, iconName, Icon, token);
 
         if (_initData.Data != null)
         {
-            ItemType itype = _gs.data.GetGameData<ItemSettings>().GetItemType(_initData.Data.ItemTypeId);
+            ItemType itype = _gs.data.GetGameData<ItemTypeSettings>(_gs.ch).GetItemType(_initData.Data.ItemTypeId);
             if (itype.EquipSlotId > 0)
             {
-                UIHelper.SetText(_quantityText, "");
+                UIHelper.SetText(QuantityText, "");
             }
             else
             {
-                UIHelper.SetText(_quantityText, _initData.Data.Quantity.ToString());
+                UIHelper.SetText(QuantityText, _initData.Data.Quantity.ToString());
             }
         }
         else
         {
-            UIHelper.SetText(_quantityText, data.quantity.ToString());
+            UIHelper.SetText(QuantityText, data.quantity.ToString());
         }
 
         if (FlagUtils.IsSet(_initData.Flags, ItemIconFlags.ShowTooltipNow))
@@ -145,7 +128,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             return;
         }
 
-        GameObjectUtils.SetActive(_initData.Screen.ToolTip, true);
+        GEntityUtils.SetActive(_initData.Screen.ToolTip, true);
         FullItemTooltipInitData fullTooltipInitData = new FullItemTooltipInitData()
         {
             unit = _gs.ch,
@@ -164,7 +147,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             return;
         }
 
-        GameObjectUtils.SetActive(_initData.Screen.ToolTip, false);
+        GEntityUtils.SetActive(_initData.Screen.ToolTip, false);
     }
 
 

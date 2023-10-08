@@ -1,6 +1,4 @@
-﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.DataStores.Entities;
-using Services;
+﻿using Genrpg.Shared.DataStores.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -78,7 +76,7 @@ public class BundleSetupUtils
 
     private static bool SetupItemAtPath(UnityGameState gs, bool setBundleName, string assetCategory, string path, string item, bool enableGPUInstancing, bool renameMaterials, ExtraPrefabSetupStep extraSetup)
     {
-        if (AssetUtils.IsIgnoreFilename(item))
+        if (EditorAssetUtils.IsIgnoreFilename(item))
         {
             return false;
         }
@@ -131,7 +129,7 @@ public class BundleSetupUtils
                 changedSomething = true;
             }
 
-            if (GameObjectUtils.SetStatic(go, MakeStaticObjects))
+            if (GEntityUtils.SetStatic(go, MakeStaticObjects))
             {
                 changedSomething = true;
             }
@@ -145,7 +143,7 @@ public class BundleSetupUtils
             }
         }
 
-        LODGroup lodgroup = GameObjectUtils.GetComponent<LODGroup>(go);
+        LODGroup lodgroup = GEntityUtils.GetComponent<LODGroup>(go);
 
         if (lodgroup != null)
         {
@@ -206,7 +204,7 @@ public class BundleSetupUtils
         }
 
         //shaderBundleName = matBundleName;
-        List<T> renderers = GameObjectUtils.GetComponents<T>(go);
+        List<T> renderers = GEntityUtils.GetComponents<T>(go);
 
         string prefixName = go.name.Replace("(Clone)", "").ToLower();
 
@@ -580,7 +578,7 @@ public class BundleSetupUtils
                 foreach (string item in files)
                 {
 
-                    if (AssetUtils.IsIgnoreFilename(item))
+                    if (EditorAssetUtils.IsIgnoreFilename(item))
                     {
                         continue;
                     }
@@ -618,7 +616,7 @@ public class BundleSetupUtils
 
                     GameObject prefab = GetOrCreatePrefabAtPath(artName, artPath);
 
-                    TextureList tlist = GameObjectUtils.GetOrAddComponent<TextureList>(gs, prefab);
+                    TextureList tlist = GEntityUtils.GetOrAddComponent<TextureList>(gs, prefab);
                     if (tlist.Textures == null)
                     {
                         tlist.Textures = new List<Texture2D>();
@@ -689,7 +687,7 @@ public class BundleSetupUtils
                 UnityAssetService _assetService = new UnityAssetService();
                 foreach (string item in files)
                 {
-                    if (AssetUtils.IsIgnoreFilename(item))
+                    if (EditorAssetUtils.IsIgnoreFilename(item))
                     {
                         continue;
                     }
@@ -717,7 +715,7 @@ public class BundleSetupUtils
 
                     GameObject prefab = GetOrCreatePrefabAtPath(artName, artPath);
 
-                    TextureList tlist = GameObjectUtils.GetOrAddComponent<TextureList>(gs,prefab);
+                    TextureList tlist = GEntityUtils.GetOrAddComponent<TextureList>(gs,prefab);
                     if (tlist.Textures == null)
                     {
                         tlist.Textures = new List<Texture2D>();
@@ -784,7 +782,7 @@ public class BundleSetupUtils
 
                 foreach (string item in names)
                 {
-                    if (AssetUtils.IsIgnoreFilename(item))
+                    if (EditorAssetUtils.IsIgnoreFilename(item))
                     {
                         continue;
                     }

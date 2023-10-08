@@ -21,12 +21,20 @@ using System.Linq;
 using Genrpg.Shared.Networking.Constants;
 using Genrpg.ServerShared.Maps;
 using Genrpg.Shared.Constants.TempDev;
+using Genrpg.ServerShared.GameSettings;
+using Genrpg.Shared.Login.Messages.Login;
+using Genrpg.ServerShared.GameSettings.Services;
+using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.GameSettings.Loading;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
     public class LoadIntoMapHandler : BaseLoginCommandHandler<LoadIntoMapCommand>
     {
-        private ConcurrentDictionary<string, CachedMap> _mapCache = new ConcurrentDictionary<string, CachedMap>();
+        private static IGameDataService _gameDataService = null;
+        private static ConcurrentDictionary<string, CachedMap> _mapCache = new ConcurrentDictionary<string, CachedMap>();
         public override async Task Reset()
         {
             _mapCache = new ConcurrentDictionary<string, CachedMap>();
@@ -73,6 +81,20 @@ namespace Genrpg.LoginServer.CommandHandlers
 
             gs.ch.X = fullCachedMap.Map.SpawnX + 5;
             gs.ch.Z = fullCachedMap.Map.SpawnY + 5;
+         
+
+            List<IUnitData> serverDataList = await PlayerDataUtils.LoadPlayerData(gs, gs.ch);
+
+            List<IUnitData> clientDataList = await PlayerDataUtils.MapToClientApi(serverDataList);
+
+            if (_gameDataService == null)
+            {
+                _gameDataService = gs.loc.Get<IGameDataService>();
+            }
+
+            List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
+
+            List<IGameSettings> gameData = _gameDataService.GetClientData(gs, gs.ch, false);
             LoadIntoMapResult loadResult = new LoadIntoMapResult()
             {
                 Map = SerializationUtils.ConvertType<Map, Map>(fullCachedMap.Map),
@@ -81,13 +103,10 @@ namespace Genrpg.LoginServer.CommandHandlers
                 Host = fullCachedMap.MapInstance?.Host,
                 Port = fullCachedMap.MapInstance?.Port ?? 0,
                 Serializer = EMapApiSerializers.MessagePack,
+                OverrideList = gs.ch.GetSessionOverrideList(),
+                GameData = gameData,
+                CharData = clientDataList,
             };
-
-            List<IUnitData> serverDataList = await PlayerDataUtils.LoadPlayerData(gs, gs.ch);
-
-            List<IUnitData> clientDataList = await PlayerDataUtils.MapToClientApi(serverDataList);
-
-            loadResult.CharData = clientDataList;
 
             gs.Results.Add(loadResult);
 

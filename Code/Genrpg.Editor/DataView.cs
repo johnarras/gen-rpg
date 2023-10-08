@@ -15,16 +15,16 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Editor.Entities;
-using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor;
 using Genrpg.Shared.Entities.Interfaces;
-using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.ServerShared.PlayerData;
-using Genrpg.Shared.DataStores.Categories;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.GameSettings.Services;
+using Genrpg.Shared.DataStores.Categories.WorldData;
+using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.GameSettings.Interfaces;
 
 namespace GameEditor
 {
@@ -865,11 +865,19 @@ namespace GameEditor
             // Create new item and go to it.
             if (Control.ModifierKeys.HasFlag(Keys.Alt))
             {
-                object datalist2 = _reflectionService.AddItems(datalist, this, gs.repo, null, 1);
+                object datalist2 = _reflectionService.AddItems(datalist, this, gs.repo, out List<object> newItems, null, 1);
                 object newObj = _reflectionService.GetItemWithIndex(datalist2, sz);
 
                 if (newObj != null)
                 {
+                    foreach (object obj in newItems)
+                    {
+                        gs.LookedAtObjects.Add(obj);
+                        if (obj is IGameSettings settings)
+                        {
+                            gs.data.Set(settings);
+                        }
+                    }
 					UserControlFactory ucf = new UserControlFactory();
                     UserControl uc = ucf.Create (gs, win, newObj, datalist, this);
                     object idObj = _reflectionService.GetObjectValue(newObj, GameDataConstants.IdKey);
@@ -1043,7 +1051,7 @@ namespace GameEditor
             }
             else if ((ModifierKeys & Keys.Alt) != 0)
             {
-                _reflectionService.AddItems(dropdownList, gs.data, gs.repo, null, 1);
+                _reflectionService.AddItems(dropdownList, gs.data, gs.repo, out List<object> newItems, null, 1);
                 
                 dropdownList = _reflectionService.GetObjectValue(gs.data, dropdownName);
                 if (dropdownList == null)
@@ -1219,10 +1227,18 @@ namespace GameEditor
         {
             int oldSelectedRow = GetSelectedRow(MultiGrid);
 
-            object obj2 = _reflectionService.AddItems(obj, parent, gs.repo, copyFrom);
+            object obj2 = _reflectionService.AddItems(obj, parent, gs.repo, out List<object> newItems, copyFrom);
 
             if (obj2 != null)
             {
+                foreach (object obj in newItems)
+                {
+                    gs.LookedAtObjects.Add(obj);
+                    if (obj is IGameSettings settings)
+                    {
+                        gs.data.Set(settings);
+                    }
+                }
                 SetMultiGridDataSource(obj2);
                 obj = obj2;
             }
@@ -1250,6 +1266,7 @@ namespace GameEditor
             {
                 worldData.Delete(gs.repo);
             }
+
 
             if (obj2 != null)
             {
@@ -1421,8 +1438,6 @@ namespace GameEditor
                         _reflectionService.SetObjectValue(obj, mem.Name, id);
                     }
                 }
-
-
             }
 
         }
@@ -1447,15 +1462,13 @@ namespace GameEditor
                     SetSelectedRow(MultiGrid, r);
                     break;
                 }
-
             }
-
         }
 
 
         private void DataGridError (object sender, DataGridViewDataErrorEventArgs e)
         {
-            Console.WriteLine("ERror: " + e.ColumnIndex + " -- " + e.Context);
+            Console.WriteLine("Error: " + e.ColumnIndex + " -- " + e.Context);
         }
 
         public void SetMultiGridDataSource(Object list)
@@ -1586,7 +1599,7 @@ namespace GameEditor
                             MultiGrid.Columns.RemoveAt(j);
                             MultiGrid.Columns.Add(col2);
 
-                            foreach (IIndexedGameItem item in iidlist)
+                            foreach (IIdName item in iidlist)
                             {
                                 object valId = reflectionService.GetObjectValue(item, mem);
                                 int val = -1;

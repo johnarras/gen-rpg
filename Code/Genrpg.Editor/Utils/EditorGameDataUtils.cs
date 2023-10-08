@@ -2,25 +2,23 @@
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Services.Setup;
 using Genrpg.ServerShared.Setup;
-using Genrpg.ServerShared;
 using Genrpg.Shared.Constants;
-using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.DataStores.Categories;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Genrpg.ServerShared.Config;
 using System.Threading;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.GameSettings.Config;
-using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.GameSettings;
+using System.Text;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.GameSettings.Loading;
 
 namespace Genrpg.Editor.Utils
 {
@@ -34,17 +32,16 @@ namespace Genrpg.Editor.Utils
             EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(form, "Editor", new EditorSetupService(), EditorGameState.CTS.Token, serverConfig);
 
             FullGameDataCopy dataCopy = new FullGameDataCopy();
-            dataCopy.Configs = await gs.repo.Search<DataConfig>(x => true);
 
             IGameDataService gameDataService = gs.loc.Get<IGameDataService>();
-            List<IGameDataLoader> allLoaders = gameDataService.GetAllLoaders();
+            List<IGameSettingsLoader> allLoaders = gameDataService.GetAllLoaders();
 
-            foreach (IGameDataLoader loader in allLoaders)
+            foreach (IGameSettingsLoader loader in allLoaders)
             {
-                List<BaseGameData> allSettings = await loader.LoadAll(gs.repo);
-                foreach (BaseGameData data in allSettings)
+                List<IGameSettings> allSettings = await loader.LoadAll(gs.repo, true);
+                foreach (IGameSettings data in allSettings)
                 {
-                    dataCopy.Data.Add(loader.CreateContainer(data));
+                    dataCopy.Data.Add(data);
                 }
             }
             return dataCopy;
@@ -57,14 +54,9 @@ namespace Genrpg.Editor.Utils
             serverConfig.Env = env;
             EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(form, "Editor", new EditorSetupService(), EditorGameState.CTS.Token, serverConfig);
 
-            foreach (DataConfig config in dataCopy.Configs)
+            foreach (IGameSettings data in dataCopy.Data)
             {
-                await gs.repo.Save(config);
-            }
-
-            foreach (IGameSettingsContainer container in dataCopy.Data)
-            {
-                await container.SaveData(gs.repo);
+                await gs.repo.Save(data);
             }
         }
 
@@ -81,14 +73,9 @@ namespace Genrpg.Editor.Utils
                 Directory.CreateDirectory(dirName);
             }
 
-            foreach (DataConfig dataConfig in dataCopy.Configs)
+            foreach (IGameSettings data in dataCopy.Data)
             {
-                WriteGameDataText(dirName, dataConfig);
-            }
-
-            foreach (IGameSettingsContainer container in dataCopy.Data)
-            {
-                WriteGameDataText(dirName, container.GetData());
+                WriteGameDataText(dirName, data);
             }
         }
         private static void WriteGameDataText(string parentPath, object objectToSave)
@@ -131,7 +118,7 @@ namespace Genrpg.Editor.Utils
             }
 
 
-            List<IGameDataLoader> allLoaders = gs.loc.Get<IGameDataService>().GetAllLoaders();
+            List<IGameSettingsLoader> allLoaders = gs.loc.Get<IGameDataService>().GetAllLoaders();
 
             string[] fullDirectoryNames = Directory.GetDirectories(mainDirName);
 
@@ -144,32 +131,25 @@ namespace Genrpg.Editor.Utils
 
             foreach (string subDirName in directoryNames)
             {
-                string fullDirectoryName = Path.Combine(mainDirName, subDirName);
-
-                if (!Directory.Exists(fullDirectoryName))
+                try
                 {
-                    continue;
-                }                
+                    string fullDirectoryName = Path.Combine(mainDirName, subDirName);
 
-                string[] fileNames = Directory.GetFiles(fullDirectoryName);
-
-                List<string> allFiles = new List<string>();
-
-                foreach (string file in fileNames)
-                {
-                    allFiles.Add(File.ReadAllText(Path.Combine(fullDirectoryName, file)));
-                }
-                    
-                if (subDirName == typeof(DataConfig).Name.ToLower())
-                {
-                    foreach (string fileData in allFiles)
+                    if (!Directory.Exists(fullDirectoryName))
                     {
-                        dataCopy.Configs.Add(SerializationUtils.Deserialize<DataConfig>(fileData));
+                        continue;
                     }
-                }
-                else
-                {
-                    IGameDataLoader loader = allLoaders.FirstOrDefault(x=>x.GetTypeName().ToLower() == subDirName.ToLower());
+
+                    string[] fileNames = Directory.GetFiles(fullDirectoryName);
+
+                    List<string> allFiles = new List<string>();
+
+                    foreach (string file in fileNames)
+                    {
+                        allFiles.Add(File.ReadAllText(Path.Combine(fullDirectoryName, file)));
+                    }
+
+                    IGameSettingsLoader loader = allLoaders.FirstOrDefault(x => x.GetServerType().Name.ToLower() == subDirName.ToLower());
                     if (loader == null)
                     {
                         throw new Exception("Could not find data loader for typename: " + subDirName);
@@ -177,8 +157,13 @@ namespace Genrpg.Editor.Utils
 
                     foreach (string fileData in allFiles)
                     {
-                        dataCopy.Data.Add(loader.CreateContainer(loader.Deserialize(fileData)));
+                        byte[] bytes = Encoding.UTF8.GetBytes(fileData);
+                        dataCopy.Data.Add((IGameSettings)SerializationUtils.DeserializeWithType(fileData, loader.GetServerType()));
                     }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message + " " + e.StackTrace);
                 }
             }
             return dataCopy;

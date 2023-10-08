@@ -21,8 +21,14 @@ using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages;
 using Genrpg.Shared.Versions.Entities;
 using System.Threading;
-using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
+using ZstdSharp.Unsafe;
+using Genrpg.ServerShared.GameSettings.Services;
+using Genrpg.ServerShared.GameSettings;
+using Genrpg.Shared.GameSettings.Entities;
+using Genrpg.Shared.DataStores.Categories;
+using Microsoft.AspNetCore.Routing.Constraints;
+using Genrpg.Shared.GameSettings.Loading;
 
 namespace Genrpg.LoginServer.Controllers
 {
@@ -36,6 +42,7 @@ namespace Genrpg.LoginServer.Controllers
     {
 
         private AccountService _accountService;
+        private static IGameDataService _gameDataService;
         public LoginController() : base()
         {
             _accountService = new AccountService();
@@ -54,6 +61,11 @@ namespace Genrpg.LoginServer.Controllers
             try
             {
                 await SetupGameState(cts.Token);
+
+                if (_gameDataService == null)
+                {
+                    _gameDataService = gs.loc.Get<IGameDataService>();
+                }
                 // Do this by hand since we have no userId/sessionId at this point
                 
                 LoginServerCommandSet commands = SerializationUtils.Deserialize<LoginServerCommandSet>(Data);
@@ -164,13 +176,11 @@ namespace Genrpg.LoginServer.Controllers
                 MapStubs = gs.mapStubs,
             };
 
-            foreach (IGameSettingsContainer container in gs.data.GetContainers())
-            {
-                if (container.GetData().SendToClient())
-                {
-                    loginResult.Data.Add(container.GetData());
-                }
-            }
+
+            List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
+
+            loginResult.GameData = _gameDataService.GetClientData(gs, gs.user, true);
+
             gs.Results.Add(loginResult);
         }
 
@@ -273,7 +283,7 @@ namespace Genrpg.LoginServer.Controllers
 
         public virtual async Task UpdateUserVersion(User u)
         {
-            if (gs.data.GetGameData<VersionSettings>().UserVersion <= u.Version)
+            if (gs.data.GetGameData<VersionSettings>(u).UserVersion <= u.Version)
             {
                 return;
             }

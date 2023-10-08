@@ -16,9 +16,8 @@ namespace Genrpg.ServerShared.PlayerData
         Type GetServerType();
         Task<IUnitData> LoadData(IRepositorySystem repoSystem, Unit unit);
         IUnitData Create(Unit unit);
+        bool SendToClient();
         IUnitData MapToAPI(IUnitData serverObject);
-        bool ShouldSendToClient();
-        void Delete(IRepositorySystem repoSystem, IUnitData data);
         Task Setup(ServerGameState gs);
     }
 

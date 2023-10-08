@@ -1,8 +1,10 @@
 ﻿using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Users.Entities;
 using Microsoft.Identity.Client;
 using System;
@@ -14,7 +16,6 @@ namespace Genrpg.Editor.Entities.Core
 {
     public class EditorGameState : ServerGameState
     {
-
         public static CancellationTokenSource CTS = new CancellationTokenSource();
 
         public EditorUser EditorUser { get; set; }
@@ -31,8 +32,35 @@ namespace Genrpg.Editor.Entities.Core
     {
         public GameData GameData { get; set; }
 
-        public List<BaseGameData> Data { get; set; } = new List<BaseGameData>();
+        public List<EditorSettingsList> Data { get; set; } = new List<EditorSettingsList>();
 
+    }
+
+    public class EditorSettingsList
+    {
+        public string TypeName { get; set; }
+        virtual public void SetData(List<BaseGameSettings> baseList) { }
+    }
+
+    public class TypedEditorSettingsList<T> : EditorSettingsList where T : BaseGameSettings, new()
+    {
+        // This list needs a concrete type as a parameter or it won't bind to the datagrid correctly...
+        // either doesn't appear or doesn't have the id visible.
+        public List<T> Data { get; set; } = new List<T>();
+
+        public override void SetData(List<BaseGameSettings> baseList)
+        {
+            List<T> list = new List<T>();
+
+            foreach (BaseGameSettings settings in baseList)
+            {
+                if (settings is T t)
+                {
+                    list.Add(t);
+                }
+            }
+            Data = list;
+        }
     }
 
     public class EditorUser

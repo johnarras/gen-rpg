@@ -1,29 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-using Services;
-
-using UnityEngine;
-using UnityEngine.UI;
-using Entities;
-using Genrpg.Shared.Spells.Entities;
+﻿using Genrpg.Shared.Spells.Entities;
 using System.Threading;
 
 public class SpellProcEdit : BaseBehaviour
 {
-    [SerializeField]
-    private Text _name;
-    [SerializeField]
-    private Text _cost;
-    [SerializeField]
-    private SpellIcon _icon;
-    [SerializeField]
-    private SpellModDropdown _chance;
-    [SerializeField]
-    private SpellModDropdown _scale;
+    public GText ProcName;
+    public GText Cost;
+    public SpellIcon Icon;
+    public SpellModDropdown Chance;
+    public SpellModDropdown Scale;
 
     public Spell Spell { get; set; }
 
@@ -35,17 +19,17 @@ public class SpellProcEdit : BaseBehaviour
     public void Init(UnityGameState gs, SpellbookScreen screen, SpellProc currentProc, CancellationToken token)
     {
         _token = token;
-        SpellModifier scaleMod = gs.data.GetGameData<SpellSettings>().GetSpellModifier(SpellModifier.Scale);
-        SpellModifier chanceMod = gs.data.GetGameData<SpellSettings>().GetSpellModifier(SpellModifier.ProcChance);
+        SpellModifier scaleMod = gs.data.GetGameData<SpellModifierSettings>(gs.ch).GetSpellModifier(SpellModifier.Scale);
+        SpellModifier chanceMod = gs.data.GetGameData<SpellModifierSettings>(gs.ch).GetSpellModifier(SpellModifier.ProcChance);
 
-        if (_chance != null)
+        if (Chance != null)
         {
-            _chance.Init(chanceMod, OnValueChanged);
+            Chance.Init(chanceMod, OnValueChanged);
         }
 
-        if (_scale != null)
+        if (Scale != null)
         {
-            _scale.Init(chanceMod, OnValueChanged);
+            Scale.Init(chanceMod, OnValueChanged);
         }
 
         if (currentProc == null)
@@ -61,17 +45,17 @@ public class SpellProcEdit : BaseBehaviour
 
         if (Spell == null)
         {
-            UIHelper.SetText(_name, "");
-            UIHelper.SetText(_cost, "");
+            UIHelper.SetText(ProcName, "");
+            UIHelper.SetText(Cost, "");
         }
         else
         {
-            UIHelper.SetText(_name, Spell.Name);
-            UIHelper.SetText(_cost, Spell.Cost.ToString());
+            UIHelper.SetText(ProcName, Spell.Name);
+            UIHelper.SetText(Cost, Spell.Cost.ToString());
 
         }
 
-        if (_icon != null)
+        if (Icon != null)
         {
             InitSpellIconData iconData = new InitSpellIconData()
             {
@@ -79,7 +63,7 @@ public class SpellProcEdit : BaseBehaviour
                 Screen = Screen,
                 Data = Spell,
             };
-            _icon.Init(iconData, token);
+            Icon.Init(iconData, token);
         }
         
 

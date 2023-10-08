@@ -10,9 +10,10 @@ using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+
 using Genrpg.Shared.AI.Entities;
 using Genrpg.Shared.MapObjects.Messages;
+using Genrpg.Shared.Entities.Settings;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {
@@ -58,7 +59,7 @@ namespace Genrpg.Shared.MapObjects.Factories
             unit.CopyDataFromMapSpawn(spawn);
             unit.EntityTypeId = EntityType.Unit;
             unit.EntityId = utype.IdKey;
-            unit.BaseSpeed = gs.data.GetGameData<AISettings>().BaseUnitSpeed;
+            unit.BaseSpeed = gs.data.GetGameData<AISettings>(unit).BaseUnitSpeed;
             unit.Speed = unit.BaseSpeed;
 
             if (spawn is OnSpawn onSpawn)
@@ -66,16 +67,16 @@ namespace Genrpg.Shared.MapObjects.Factories
                 unit.Flags = onSpawn.TempFlags;
             }
 
-            Spell spell = gs.data.GetGameData<SpellSettings>().GetSpell(1);
+            SpellType spellType = gs.data.GetGameData<SpellTypeSettings>(unit).GetSpellType(1);
 
-            spell = SerializationUtils.FastMakeCopy(spell);
+            Spell spell = SerializationUtils.ConvertType<SpellType, Spell>(spellType);
 
             if (gs.rand.NextDouble() < 0.1f)
             {
                 spell.Duration = gs.rand.Next(1, 4);
                 spell.Scale /= 2;
             }
-            List<ElementType> etypes = gs.data.GetList<ElementType>();
+            List<ElementType> etypes = gs.data.GetGameData<ElementTypeSettings>(unit).GetData();
 
             spell.ElementTypeId = etypes[gs.rand.Next() % etypes.Count].IdKey;
             spell.FinalScale = spell.Scale;

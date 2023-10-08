@@ -1,16 +1,17 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Categories;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Loading;
 
 namespace Genrpg.Shared.Core.Entities
 {
     [MessagePackObject]
-    public class CoreSettings : BaseGameData
+    public class CoreSettings : BaseGameSettings // No List
     {
-        public override void Set(GameData gameData) { gameData.Set(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string Env { get; set; }
         [Key(2)] public string GameName { get; set; }
@@ -19,4 +20,8 @@ namespace Genrpg.Shared.Core.Entities
         [Key(5)] public string UnityProjectId { get; set; }
         [Key(6)] public string BundleId { get; set; }
     }
+
+
+    [MessagePackObject]
+    public class CoreSettingsLoader : GameDataLoader<CoreSettings> { }
 }

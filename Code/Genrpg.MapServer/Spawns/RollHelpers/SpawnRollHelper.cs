@@ -1,5 +1,5 @@
 ﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
@@ -21,7 +21,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
             List<SpawnResult> retval = new List<SpawnResult>();
             long quantity = MathUtils.LongRange(item.MinQuantity, item.MaxQuantity, gs.rand);
 
-            SpawnTable st = gs.data.GetGameData<SpawnSettings>().GetSpawnTable(item.EntityId);
+            SpawnTable st = gs.data.GetGameData<SpawnSettings>(null).GetSpawnTable(item.EntityId);
             if (st != null)
             {
                 for (int j = 0; j < quantity; j++)

@@ -7,7 +7,7 @@ using System.IO;
 
 using Genrpg.Shared.Core.Entities;
 
-using Services;
+
 using Genrpg.Shared.DataStores.Entities;
 
 public class SetupBundles
@@ -201,7 +201,7 @@ public class SetupBundles
             UnityAssetService _assetService = new UnityAssetService();
             foreach (string item in files)
             {
-                if (AssetUtils.IsIgnoreFilename(item))
+                if (EditorAssetUtils.IsIgnoreFilename(item))
                 {
                     continue;
                 }

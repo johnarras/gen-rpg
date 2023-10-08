@@ -1,33 +1,20 @@
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEngine;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-using Cysharp.Threading.Tasks;
-using Entities;
+using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Services.ProcGen;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Entities;
 
 public class AddSteepnessTextures : BaseZoneGenerator
 {
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
@@ -152,8 +139,8 @@ public class AddSteepnessTextures : BaseZoneGenerator
 							
 						for (int i = 0; i < numAngles; i++)
 						{
-							float cosx = Mathf.Cos (Mathf.PI*2.0f*i/numAngles);
-							float sinx = Mathf.Sin (Mathf.PI*2.0f*i/numAngles);
+							float cosx = (float)Math.Cos (Math.PI*2.0f*i/numAngles);
+							float sinx = (float)Math.Sin (Math.PI*2.0f*i/numAngles);
 
 							float xx = x+innerrad*cosx;
 							float yy = y+innerrad*sinx;

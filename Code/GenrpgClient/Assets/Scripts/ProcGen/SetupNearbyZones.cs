@@ -1,18 +1,17 @@
-
-using UnityEngine;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-using Services.ProcGen;
+
 using System.Threading;
+using System;
 
 public class SetupNearbyZones : BaseAddMountains
 {
 
     protected IMapGenService _mapGenService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
 
         foreach (ConnectedPairData conn in gs.md.zoneConnections)
         {
@@ -52,7 +51,7 @@ public class SetupNearbyZones : BaseAddMountains
                     int ymid2 = (zone2.ZMin + zone2.ZMax) / 2;
                     int dx = xmid1 - xmid2;
                     int dy = ymid1 - ymid2;
-                    float dist = Mathf.Sqrt(dx * dx + dy * dy);
+                    float dist = (float)Math.Sqrt(dx * dx + dy * dy);
                     genZone1.AddNearbyZone(gs, zone2, dist);
                     genZone2.AddNearbyZone(gs, zone1, dist);
                 }

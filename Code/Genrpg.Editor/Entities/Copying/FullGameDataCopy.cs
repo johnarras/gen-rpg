@@ -1,5 +1,4 @@
-﻿
-using Genrpg.Shared.GameSettings.Config;
+﻿using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,6 @@ namespace Genrpg.Editor.Entities.Copying
 {
     public class FullGameDataCopy
     {
-        public List<DataConfig> Configs { get; set; } = new List<DataConfig>();
-        public List<IGameSettingsContainer> Data { get; set; } = new List<IGameSettingsContainer>();
+        public List<IGameSettings> Data { get; set; } = new List<IGameSettings>();
     }
 }

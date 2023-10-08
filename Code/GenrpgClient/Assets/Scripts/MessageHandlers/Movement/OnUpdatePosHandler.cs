@@ -4,7 +4,7 @@ using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Threading;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.ResultHandlers.TypedHandlers
 {

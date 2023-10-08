@@ -27,11 +27,11 @@ namespace Genrpg.Shared.UserCoins.Services
 
             long diff = newQuantity - oldQuantity;
 
-            OnSetUserCoin(gs, unit, userCoinData, userCoinTypeId, diff);
+            OnSetUserCoin(gs, unit, userCoinData, status, diff);
             return true;
         }
 
-        protected virtual void OnSetUserCoin(GameState gs, Unit unit, UserCoinData userCoinData, long userCoinTypeId, long diff)
+        protected virtual void OnSetUserCoin(GameState gs, Unit unit, UserCoinData userCoinData, UserCoinStatus status, long diff)
         {
 
         }

@@ -1,34 +1,20 @@
-
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEngine;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-using Cysharp.Threading.Tasks;
-using Entities;
+using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Services.ProcGen;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Entities;
 
 public class DirtyRoads : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId), zone.XMin, zone.XMax, zone.ZMin, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.XMax, zone.ZMin, zone.ZMax);
         }
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 
     public void GenerateOne (UnityGameState gs, Zone zone, ZoneType zoneType, int minx, int maxx, int miny, int maxy)
@@ -106,10 +92,10 @@ public class DirtyRoads : BaseZoneGenerator
                 }
 
 				// Get height > 0
-				//float dirtPct = Mathf.Abs (dirtHeights[x,z]);
-				//float basePct = Mathf.Abs (baseHeights[x,z]);
-				float dirtPct = Mathf.Clamp(0,dirtHeights[x-minx,z-miny]+MathUtils.FloatRange(-generalPerturb,generalPerturb,rand),maxOtherPercent);
-				float basePct = Mathf.Clamp(0,baseHeights[x-minx,z-miny]+MathUtils.FloatRange(-generalPerturb,generalPerturb,rand),maxOtherPercent);
+				//float dirtPct = Math.Abs (dirtHeights[x,z]);
+				//float basePct = Math.Abs (baseHeights[x,z]);
+				float dirtPct = Math.Clamp(0,dirtHeights[x-minx,z-miny]+MathUtils.FloatRange(-generalPerturb,generalPerturb,rand),maxOtherPercent);
+				float basePct = Math.Clamp(0,baseHeights[x-minx,z-miny]+MathUtils.FloatRange(-generalPerturb,generalPerturb,rand),maxOtherPercent);
 
                 
 

@@ -1,13 +1,7 @@
-﻿using Entities;
-using Entities.Assets;
-using Genrpg.Shared.Core.Entities;
+﻿
 using Genrpg.Shared.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 public interface IAssetService : IService
 {
@@ -27,7 +21,6 @@ public interface IAssetService : IService
     string GetBundleForCategoryAndAsset(UnityGameState gs, string assetCategory, string assetPath);
 
     string StripPathPrefix(string path);
-    void RemoveLoadedInstance(UnityGameState gs, string bundleName, int quantity = 1, bool showData = false);
 
     List<string> GetInitialDownloadBundleList(UnityGameState gs);
     bool IsNeverUnloadBundle(UnityGameState gs, string bundleName);

@@ -1,62 +1,55 @@
-﻿using UnityEngine;
+﻿using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Entities;
-using Services.ProcGen;
+
 using UI.Screens.Constants;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
-using UnityEngine.UI;
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
 using System.Linq;
 
 public class CharacterSelectScreen : BaseScreen
 {
-    [SerializeField]
-    private GameObject _characterGridParent;
-
+    
 #if UNITY_EDITOR
-    [SerializeField]
-    private Button _genWorldButton;
+    public GButton GenWorldButton;
 #endif
-    [SerializeField]
-    private Button _createButton;
-    [SerializeField]
-    private Button _logoutButton;
-    [SerializeField]
-    private Button _quitButton;
+    public GEntity CharacterGridParent;
+    public GButton CreateButton;
+    public GButton LogoutButton;
+    public GButton QuitButton;
 
     protected IZoneGenService _zoneGenService;
     protected IClientLoginService _loginService;
 
-    [HideInInspector]
     public const string CharacterRowArt = "CharacterSelectRow";
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
 #if UNITY_EDITOR
 
-        if (_genWorldButton == null)
+        if (GenWorldButton == null)
         {
-            GameObject genWorldObj = GameObjectUtils.FindChild(gameObject, "GenWorldButton");
+            GEntity genWorldObj = GEntityUtils.FindChild(entity, "GenWorldButton");
             if (genWorldObj != null)
             {
-                _genWorldButton = GameObjectUtils.GetComponent<Button>(genWorldObj);
+                GenWorldButton = GEntityUtils.GetComponent<GButton>(genWorldObj);
             }
         }
 
-        UIHelper.SetButton(_genWorldButton, GetAnalyticsName(), ClickGenerate);
+        UIHelper.SetButton(GenWorldButton, GetAnalyticsName(), ClickGenerate);
 #endif
-        GameObjectUtils.DestroyAllChildren(_characterGridParent);
+        GEntityUtils.DestroyAllChildren(CharacterGridParent);
 
-        UIHelper.SetButton(_logoutButton, GetAnalyticsName(), ClickLogout);
-        UIHelper.SetButton(_createButton, GetAnalyticsName(), ClickCharacterCreate);
-        UIHelper.SetButton(_quitButton, GetAnalyticsName(), ClickQuit);
+        UIHelper.SetButton(LogoutButton, GetAnalyticsName(), ClickLogout);
+        UIHelper.SetButton(CreateButton, GetAnalyticsName(), ClickCharacterCreate);
+        UIHelper.SetButton(QuitButton, GetAnalyticsName(), ClickQuit);
 
         SetupCharacterGrid();
 
         GetSpellIcons(_gs);
 
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 
     private void GetSpellIcons(UnityGameState gs)
@@ -98,7 +91,7 @@ public class CharacterSelectScreen : BaseScreen
 
         CharacterStub currStub = null;
 
-        GameObject selected = UIHelper.GetSelected();
+        GEntity selected = UIHelper.GetSelected();
 
         CharacterSelectRow currRow = null;
 
@@ -121,22 +114,22 @@ public class CharacterSelectScreen : BaseScreen
 
     public virtual void SetupCharacterGrid()
     {
-        if (_characterGridParent == null)
+        if (CharacterGridParent == null)
         {
             return;
         }
 
-        GameObjectUtils.DestroyAllChildren(_characterGridParent);
+        GEntityUtils.DestroyAllChildren(CharacterGridParent);
 
         foreach (CharacterStub stub in _gs.characterStubs)
         {
-            _assetService.LoadAssetInto(_gs, _characterGridParent, AssetCategory.UI, CharacterRowArt, OnLoadCharacterRow, stub, _token);
+            _assetService.LoadAssetInto(_gs, CharacterGridParent, AssetCategory.UI, CharacterRowArt, OnLoadCharacterRow, stub, _token);
         }
     }
 
     private void OnLoadCharacterRow(UnityGameState gs, string url, object row, object data, CancellationToken token)
     {
-        GameObject go = row as GameObject;
+        GEntity go = row as GEntity;
         if (go == null)
         {
             return;
@@ -145,14 +138,14 @@ public class CharacterSelectScreen : BaseScreen
         CharacterStub ch = data as CharacterStub;
         if (ch ==null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
         CharacterSelectRow charRow = go.GetComponent<CharacterSelectRow>();
         if (charRow == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
         charRow.Init(ch, this, token);

@@ -1,17 +1,12 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Core;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
-using System.Linq;
-using Genrpg.Shared.Spells.Entities;
-using System.Collections.Generic;
+using Genrpg.Shared.DataStores.Categories.PlayerData;
 
 namespace Genrpg.Shared.Input.Entities
 {
     [MessagePackObject]
-    public class KeyComm : IStatusItem
+    public class KeyComm : OwnerPlayerData, IId
     {
 
         public const int ModifierShift = 1 << 0;
@@ -38,9 +33,12 @@ namespace Genrpg.Shared.Input.Entities
         public const string Jump = "Jump";
 
 
-        [Key(0)] public string? KeyPress { get; set; }
-        [Key(1)] public string? KeyCommand { get; set; }
-        [Key(2)] public int Modifiers { get; set; }
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public long IdKey { get; set; }
+        [Key(2)] public override string OwnerId { get; set; }
+        [Key(3)] public string? KeyPress { get; set; }
+        [Key(4)] public string? KeyCommand { get; set; }
+        [Key(5)] public int Modifiers { get; set; }
 
 
 
@@ -67,25 +65,4 @@ namespace Genrpg.Shared.Input.Entities
         public static readonly string[] ModifierNames = { ShiftName, CtrlName, AltName };
 
     }
-
-
-    [MessagePackObject]
-    public class KeyCommData : ObjectList<KeyComm>
-    {
-        [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<KeyComm> Data { get; set; } = new List<KeyComm>();
-        public override void AddTo(Unit unit) { unit.Set(this); }
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
-        public KeyComm GetKeyComm(string keyComm)
-        {
-            return Data.FirstOrDefault(x => x.KeyCommand == keyComm);
-        }
-
-        public void AddKeyComm(string keyCommand, string keyPress)
-        {
-            KeyComm keyComm = new KeyComm() { KeyCommand = keyCommand, KeyPress = keyPress };
-            Data.Add(keyComm);
-        }
-    }
-
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.DataStores.Entities;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
 
 public class FloatingTextQueuedItem
@@ -13,14 +13,14 @@ public class FloatingTextQueuedItem
 
 public class FloatingTextScreen : BaseScreen
 {
-    [SerializeField]
-    private GameObject _textAnchor;
+    
+    public GEntity _textAnchor;
 
     private string MessageArt = "FloatingMessageText";
     private string ErrorArt = "FloatingErrorText";
 
-    [SerializeField]
-    private float _TimeBetweenMessages = 3.0f;
+    
+    public float _TimeBetweenMessages = 3.0f;
 
     private List<FloatingTextItem> _currentItems;
     private List<FloatingTextQueuedItem> _messageQueue;
@@ -41,9 +41,9 @@ public class FloatingTextScreen : BaseScreen
         base.OnDisable();
     }
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 
 
@@ -70,7 +70,7 @@ public class FloatingTextScreen : BaseScreen
 
         foreach (FloatingTextItem ft in _currentItems)
         {
-            ft.transform.localPosition += new Vector3(0, delta * ft.PixelsPerSecond, 0);
+            ft.transform().localPosition += GVector3.Create(0, delta * ft.PixelsPerSecond, 0);
             ft.ElapsedSeconds += delta;
 
             if (ft.ElapsedSeconds > ft.DurationSeconds)
@@ -84,7 +84,7 @@ public class FloatingTextScreen : BaseScreen
             {
                 _currentItems.Remove(item);
             }
-            GameObject.Destroy(item.gameObject);
+            GEntityUtils.Destroy(item.entity());
         }
         
     }
@@ -117,7 +117,7 @@ public class FloatingTextScreen : BaseScreen
 
     private void OnLoadText(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -125,13 +125,13 @@ public class FloatingTextScreen : BaseScreen
         string txt = data as String;
         if (string.IsNullOrEmpty(txt))
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
         FloatingTextItem ft = go.GetComponent<FloatingTextItem>();
         if (ft == null || ft.TextString == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
         ft.TextString.text = txt;

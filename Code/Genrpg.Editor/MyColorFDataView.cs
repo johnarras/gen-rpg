@@ -9,7 +9,7 @@ using System.Reflection;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Entities;
-using Genrpg.Shared.Entities.Constants;
+
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Editor.Entities.Core;
 using GameEditor;

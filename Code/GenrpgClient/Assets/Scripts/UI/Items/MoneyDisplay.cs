@@ -1,15 +1,15 @@
 ﻿using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Currencies.Messages;
 using System.Collections.Generic;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 public class MoneyDisplay : BaseBehaviour
 {
-    [SerializeField]
-    private List<MoneySegment> _segments;
+    
+    public List<MoneySegment> _segments;
 
-    [SerializeField]
-    private bool UpdateToCharMoney = false;
+    
+    public bool UpdateToCharMoney = false;
 
     public override void Initialize(UnityGameState gs)
     {
@@ -63,11 +63,11 @@ public class MoneyDisplay : BaseBehaviour
             long currAmount = amountLeft % SegmentDiv;
             if (currAmount == 0 && (money > 0 || s < _segments.Count-1))
             {
-                GameObjectUtils.SetActive(seg.GetParent(), false);               
+                GEntityUtils.SetActive(seg.GetParent(), false);               
             }
             else
             {
-                GameObjectUtils.SetActive(seg.GetParent(), true);
+                GEntityUtils.SetActive(seg.GetParent(), true);
                 seg.SetQuantityText(currAmount.ToString());
             }
             amountLeft /= SegmentDiv;

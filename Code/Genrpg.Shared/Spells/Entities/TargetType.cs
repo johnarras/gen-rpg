@@ -1,5 +1,6 @@
 using MessagePack;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.DataStores.GameSettings;
 
 namespace Genrpg.Shared.Spells.Entities
 {
@@ -12,7 +13,7 @@ namespace Genrpg.Shared.Spells.Entities
     /// 
     /// </summary>
     [MessagePackObject]
-    public class TargetType : IIndexedGameItem
+    public class TargetType : ChildSettings, IIndexedGameItem
     {
 
         public const int None = 0;
@@ -20,11 +21,13 @@ namespace Genrpg.Shared.Spells.Entities
         public const int Ally = 2; // Can be cast on self or others, can have Enemy parts that hit things nearby.
 
 
-        
-        [Key(0)] public long IdKey { get; set; }
-        [Key(1)] public string Name { get; set; }
-        [Key(2)] public string Desc { get; set; }
-        [Key(3)] public string Icon { get; set; }
-        [Key(4)] public string Art { get; set; }
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string ParentId { get; set; }
+        [Key(2)] public long IdKey { get; set; }
+
+        [Key(3)] public override string Name { get; set; }
+        [Key(4)] public string Desc { get; set; }
+        [Key(5)] public string Icon { get; set; }
+        [Key(6)] public string Art { get; set; }
     }
 }

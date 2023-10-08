@@ -10,7 +10,7 @@ using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.MapServer.Spawns;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Interactions.Messages;
@@ -29,6 +29,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                 return;
             }
 
+            gs.logger.Message("Finish Interact " + DateTime.UtcNow);
             string errorMessage = "";
             if (obj.ActionMessage == null)
             {
@@ -73,7 +74,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
 
             if (!message.IsSkillLoot)
             {
-                GroundObjType gtype = gs.data.GetGameData<ProcGenSettings>().GetGroundObjType(message.GroundObjTypeId);
+                GroundObjType gtype = gs.data.GetGameData<GroundObjTypeSettings>(obj).GetGroundObjType(message.GroundObjTypeId);
 
                 if (gtype != null && gtype.SpawnTableId > 0)
                 {

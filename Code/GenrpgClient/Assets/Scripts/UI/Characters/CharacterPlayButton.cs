@@ -1,26 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-
-using UnityEngine;
-using UnityEngine.UI;
-using Services.ProcGen;
+﻿
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
-using UI.Screens.Constants;
 
 public class CharacterPlayButton : BaseBehaviour
 {
-    protected IZoneGenService _zoneGenService;
-    [SerializeField]
-    private Button _button;
+    public GButton PlayButton;
+    public GText CharText;
 
-    [SerializeField]
-    private Text _text;
+    protected IZoneGenService _zoneGenService;
 
     private string _mapId;
     private string _charId;
@@ -30,8 +16,8 @@ public class CharacterPlayButton : BaseBehaviour
         _mapId = mapId;
         _charId = charId;
 
-        UIHelper.SetButton(_button, screen.GetAnalyticsName(), ClickPlay);
-        UIHelper.SetText(_text, "Play " + _mapId);
+        UIHelper.SetButton(PlayButton, screen.GetAnalyticsName(), ClickPlay);
+        UIHelper.SetText(CharText, "Play " + _mapId);
     }
 
     public void ClickPlay()

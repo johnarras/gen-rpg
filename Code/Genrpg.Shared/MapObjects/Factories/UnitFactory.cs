@@ -10,9 +10,10 @@ using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+
 using Genrpg.Shared.AI.Entities;
 using Genrpg.Shared.MapObjects.Messages;
+using Genrpg.Shared.Entities.Settings;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {
@@ -23,14 +24,14 @@ namespace Genrpg.Shared.MapObjects.Factories
         public override long GetKey() { return EntityType.Unit; }
         public override MapObject Create(GameState gs, IMapSpawn spawn)
         {
-            UnitType utype = gs.data.GetGameData<UnitSettings>().GetUnitType(spawn.EntityId);
+            UnitType utype = gs.data.GetGameData<UnitSettings>(null).GetUnitType(spawn.EntityId);
 
             if (utype != null && utype.IdKey == 0)
             {
                 utype = null;
             }
 
-            Zone zone = gs.map.Get<Zone>(spawn.ZoneId);
+            Zone? zone = gs?.map?.Get<Zone>(spawn.ZoneId);
 
             long level = zone != null ? zone.Level : 1;
             if (utype == null)
@@ -65,7 +66,7 @@ namespace Genrpg.Shared.MapObjects.Factories
             unit.CopyDataFromMapSpawn(spawn);
             unit.EntityTypeId = EntityType.Unit;
             unit.EntityId = utype.IdKey;
-            unit.BaseSpeed = gs.data.GetGameData<AISettings>().BaseUnitSpeed;
+            unit.BaseSpeed = gs.data.GetGameData<AISettings>(unit).BaseUnitSpeed;
             unit.Speed = unit.BaseSpeed;
 
             if (spawn is OnSpawn onSpawn)
@@ -73,12 +74,12 @@ namespace Genrpg.Shared.MapObjects.Factories
                 unit.Flags = onSpawn.TempFlags;
             }
 
-            Spell spell = gs.data.GetGameData<SpellSettings>().GetSpell(1);
+            SpellType spellType = gs.data.GetGameData<SpellTypeSettings>(unit).GetSpellType(1);
 
-            spell = SerializationUtils.FastMakeCopy(spell);
+            Spell spell = SerializationUtils.ConvertType<SpellType, Spell>(spellType);
 
             spell.Scale /= 3;
-            List<ElementType> etypes = gs.data.GetList<ElementType>();
+            List<ElementType> etypes = gs.data.GetGameData<ElementTypeSettings>(unit).GetData();
 
             spell.ElementTypeId = etypes[gs.rand.Next() % etypes.Count].IdKey;
             spell.FinalScale = spell.Scale;

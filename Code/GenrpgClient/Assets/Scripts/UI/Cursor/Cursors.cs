@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 public class Cursors
 {
@@ -33,7 +30,7 @@ public class Cursors
         if (!_cursorCache.ContainsKey(cursorName))
         {
             // This has to get done before the game is set up, so use resources for now.
-            Texture2D newCursor = Resources.Load<Texture2D>("Cursors/Cursor_" + cursorName);
+            Texture2D newCursor = AssetUtils.LoadResource<Texture2D>("Cursors/Cursor_" + cursorName);
             if (newCursor == null)
             {
                 return;

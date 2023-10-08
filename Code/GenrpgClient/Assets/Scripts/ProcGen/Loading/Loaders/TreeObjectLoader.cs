@@ -5,17 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 
-using Services;
-using UnityEngine;
+
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Interfaces;
-using Entities;
+
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using UnityEngine;
 
 public class TreeObjectLoader : BaseObjectLoader
 {
@@ -36,7 +37,7 @@ public class TreeObjectLoader : BaseObjectLoader
 
         string assetCategory = AssetCategory.Trees;
 
-        treeType = gs.data.GetGameData<ProcGenSettings>().GetTreeType(objectId);
+        treeType = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(objectId);
 
         if (treeType == null)
         {
@@ -139,7 +140,7 @@ public class TreeObjectLoader : BaseObjectLoader
 
 
             loadData.terrManager.AddTerrainProtoPatch(artName, loadData.gx, loadData.gy);
-            GameObject currObject = loadData.terrManager.GetTerrainProtoObject(artName);
+            GEntity currObject = loadData.terrManager.GetTerrainProtoObject(artName);
 
             if (currObject != null)
             {
@@ -196,12 +197,12 @@ public class TreeObjectLoader : BaseObjectLoader
             }
             float finalScale = minScale + (maxScale - minScale) * (placementSeed % (MapTerrainManager.ScaleStepCount + 1)) / MapTerrainManager.ScaleStepCount;
 
-            Vector3 currNormal = gs.md.GetInterpolatedNormal(gs, gs.map, wx, wy);
+            GVector3 currNormal = gs.md.GetInterpolatedNormal(gs, gs.map, wx, wy);
 
             float offsetScale = 1.0f;
             if (!tt.HasFlag(TreeFlags.IsBush))
             {
-                Vector3 offset = -currNormal * (0.3f + (2.5f * (1 - currNormal.y)) / Math.Max(1.0f, offsetScale));
+                GVector3 offset = currNormal * -(0.3f + (2.5f * (1 - currNormal.y)) / Math.Max(1.0f, offsetScale));
                 ex += offset.x;
                 ey += offset.y-1.0f;
                 ez += offset.z;
@@ -214,14 +215,14 @@ public class TreeObjectLoader : BaseObjectLoader
         }
         float posMult = 1.0f / (MapConstants.TerrainPatchSize - 1);
         float extraDepth = (isbush ? 0 : 1.5f);
-        ti.position = new Vector3(ex * posMult, (ey-extraDepth) / MapConstants.MapHeight, ez * posMult);
+        ti.position = GVector3.Create(ex * posMult, (ey-extraDepth) / MapConstants.MapHeight, ez * posMult);
         instances.Add(ti);
     }
 
 
     private void OnDownloadPrototype(UnityGameState gs, String url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -230,11 +231,11 @@ public class TreeObjectLoader : BaseObjectLoader
         ObjectPrototype op = data as ObjectPrototype;
         if (op == null || op.Prototype == null || !TokenUtils.IsValid(op.token))
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
-        List<MeshRenderer> renderers = GameObjectUtils.GetComponents<MeshRenderer>(go);
+        List<MeshRenderer> renderers = GEntityUtils.GetComponents<MeshRenderer>(go);
 
         foreach (MeshRenderer renderer in renderers)
         {
@@ -256,13 +257,13 @@ public class TreeObjectLoader : BaseObjectLoader
             LODGroup lodGroup = go.GetComponent<LODGroup>();
             if (lodGroup != null)
             {
-                for (int c = 0; c < go.transform.childCount; c++)
+                for (int c = 0; c < go.transform().childCount; c++)
                 {
-                    Transform child = go.transform.GetChild(c);
-                    if (child != null && child.gameObject != null && child.name.IndexOf("LOD0") < 0)
+                    Transform child = go.transform().GetChild(c);
+                    if (child != null && child.entity() != null && child.name.IndexOf("LOD0") < 0)
                     {
 
-                        child.gameObject.SetActive(false);
+                        child.entity().SetActive(false);
                     }
                 }
                 lodGroup.enabled = false;
@@ -271,8 +272,8 @@ public class TreeObjectLoader : BaseObjectLoader
             }
         }
 
-        //GameObjectUtils.SetStatic(go, true);
-        GameObjectUtils.SetLayer(go, LayerNames.ObjectLayer);
-        go.transform.localPosition = new Vector3(0, -2000, 0);
+        //GEntityUtils.SetStatic(go, true);
+        GEntityUtils.SetLayer(go, LayerNames.ObjectLayer);
+        go.transform().localPosition = GVector3.Create(0, -2000, 0);
     }
 }

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
-using System.Numerics;
-using UnityEngine;
 
 public class EncryptionUtils
 {
@@ -30,7 +25,7 @@ public class EncryptionUtils
     static byte[] GetKey()
     {
         int keySize = 24;
-        byte[] bytes = Encoding.UTF8.GetBytes(SystemInfo.deviceUniqueIdentifier);
+        byte[] bytes = Encoding.UTF8.GetBytes(AppUtils.DeviceUniqueIdentifier);
         byte[] finalBytes = new byte[keySize];
 
         for (int b = 0; b < bytes.Length; b++)

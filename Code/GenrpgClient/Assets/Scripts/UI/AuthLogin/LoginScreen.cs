@@ -1,28 +1,24 @@
 ﻿
-using UnityEngine.UI;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using UI.Screens.Constants;
 using System.Threading;
-using UnityEngine;
 using Genrpg.Shared.Login.Messages.Login;
 
 public class LoginScreen : BaseScreen
 {
-    [SerializeField]
-    private InputField _emailInput;
-    [SerializeField]
-    private InputField _passwordInput;
-    [SerializeField]
-    private Button _loginButton;
-    [SerializeField]
-    private Button _signupButton;
+    
+    public GInputField EmailInput;
+    public GInputField PasswordInput;
+    public GButton LoginButton;
+    public GButton SignupButton;
 
     protected IClientLoginService _loginService;
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
-        UIHelper.SetButton(_loginButton, GetAnalyticsName(), ClickLogin);
-        UIHelper.SetButton(_signupButton, GetAnalyticsName(), ClickSignup);
-        await UniTask.CompletedTask;
+        UIHelper.SetButton(LoginButton, GetAnalyticsName(), ClickLogin);
+        UIHelper.SetButton(SignupButton, GetAnalyticsName(), ClickSignup);
+        await Task.CompletedTask;
     }
 
     public void ClickSignup()
@@ -43,12 +39,12 @@ public class LoginScreen : BaseScreen
             return;
         }
 
-        if (_emailInput == null || string.IsNullOrEmpty(_emailInput.text))
+        if (string.IsNullOrEmpty(EmailInput.Text))
         {
             _gs.logger.Error("Missing email");
             return;
         }
-        if (_passwordInput == null || string.IsNullOrEmpty(_passwordInput.text))
+        if (string.IsNullOrEmpty(PasswordInput.Text))
         {
             _gs.logger.Error("Missing password");
             return;
@@ -56,11 +52,11 @@ public class LoginScreen : BaseScreen
 
         LoginCommand loginCommand = new LoginCommand()
         {
-            Email = _emailInput.text,
-            Password = _passwordInput.text,
+            Email = EmailInput.Text,
+            Password = PasswordInput.Text,
         };
 
-        _loginService.LoginToServer(_gs, loginCommand, _token).Forget();
+        TaskUtils.AddTask(_loginService.LoginToServer(_gs, loginCommand, _token));
     }
 }
 

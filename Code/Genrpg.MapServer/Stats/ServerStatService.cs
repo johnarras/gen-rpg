@@ -67,7 +67,7 @@ namespace Genrpg.MapServer.Stats
 
             if (_mutableStats == null)
             {
-                _mutableStats = _statService.GetMutableStatTypes(gs);
+                _mutableStats = _statService.GetMutableStatTypes(gs, unit);
                 if (_mutableStats == null)
                 {
                     _mutableStats = new List<StatType>();
@@ -75,7 +75,7 @@ namespace Genrpg.MapServer.Stats
             }
 
             long baseStat = 100000;
-            LevelData lev = gs.data.GetGameData<LevelSettings>().GetLevel(unit.Level);
+            LevelInfo lev = gs.data.GetGameData<LevelSettings>(unit).GetLevel(unit.Level);
             if (lev != null)
             {
                 baseStat = lev.StatAmount;

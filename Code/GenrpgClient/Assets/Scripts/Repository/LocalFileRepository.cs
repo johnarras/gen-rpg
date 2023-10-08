@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using System.Collections;
 using System.Threading;
 using Genrpg.Shared.Core.Entities;

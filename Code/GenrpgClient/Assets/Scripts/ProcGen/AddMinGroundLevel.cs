@@ -8,10 +8,10 @@ using System.Collections.Specialized;
 using Genrpg.Shared.Core.Entities;
 
 
-using Services;
-using UnityEngine;
-using Cysharp.Threading.Tasks;
-using Entities;
+
+using GEntity = UnityEngine.GameObject;
+using System.Threading.Tasks;
+
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
@@ -25,7 +25,7 @@ using System.Threading;
 
 public class AddMinGroundLevel : BaseZoneGenerator
 {
-    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+    public override async Task Generate (UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         AddKillCollider(gs);
@@ -34,7 +34,7 @@ public class AddMinGroundLevel : BaseZoneGenerator
 	}
 
 
-    private static GameObject _killCollider = null;
+    private static GEntity _killCollider = null;
     public void AddKillCollider(UnityGameState gs)
     {
         if (_killCollider != null)
@@ -46,7 +46,7 @@ public class AddMinGroundLevel : BaseZoneGenerator
 
     private void OnLoadKillCollider (UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        _killCollider = obj as GameObject;
+        _killCollider = obj as GEntity;
     }
 
 }

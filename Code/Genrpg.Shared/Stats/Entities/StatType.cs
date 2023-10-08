@@ -1,5 +1,6 @@
 using MessagePack;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.DataStores.GameSettings;
 
 namespace Genrpg.Shared.Stats.Entities
 {   /// <summary>
@@ -7,7 +8,7 @@ namespace Genrpg.Shared.Stats.Entities
     /// Health/Mana/Might/Intellect/Willpower/Agility
     /// </summary>
     [MessagePackObject]
-    public class StatType : IIndexedGameItem
+    public class StatType : ChildSettings, IIndexedGameItem
     {
         public const int None = 0;
         public const int Health = 1;
@@ -48,17 +49,18 @@ namespace Genrpg.Shared.Stats.Entities
         public const int Cooldown = 65; // Cooldown reduction
         public const int CritDam = 66; // Crit damage
 
-        
-        [Key(0)] public long IdKey { get; set; }
-        [Key(1)] public string Name { get; set; }
-        [Key(2)] public string Abbrev { get; set; }
-        [Key(3)] public string Desc { get; set; }
-        [Key(4)] public string Icon { get; set; }
-        [Key(5)] public string Art { get; set; }
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string ParentId { get; set; }
+        [Key(2)] public long IdKey { get; set; }
+        [Key(3)] public override string Name { get; set; }
+        [Key(4)] public string Abbrev { get; set; }
+        [Key(5)] public string Desc { get; set; }
+        [Key(6)] public string Icon { get; set; }
+        [Key(7)] public string Art { get; set; }
 
-        [Key(6)] public int MaxPool { get; set; }
-        [Key(7)] public int RegenSeconds { get; set; }
-        [Key(8)] public int GenScalePct { get; set; }
+        [Key(8)] public int MaxPool { get; set; }
+        [Key(9)] public int RegenSeconds { get; set; }
+        [Key(10)] public int GenScalePct { get; set; }
 
     }
 

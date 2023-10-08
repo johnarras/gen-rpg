@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 
-using Services;
-using UnityEngine;
-using Entities;
+
+using GEntity = UnityEngine.GameObject;
+
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
@@ -32,7 +32,7 @@ public class RockObjectLoader : BaseObjectLoader
 
 
 
-        RockType rockType = gs.data.GetGameData<ProcGenSettings>().GetRockType(objectId);
+        RockType rockType = gs.data.GetGameData<RockTypeSettings>(gs.ch).GetRockType(objectId);
         if (rockType == null || rockType.Art == null)
         {
             return false;
@@ -68,7 +68,7 @@ public class RockObjectLoader : BaseObjectLoader
 
     }
 
-    public void AfterLoadRock(UnityGameState gs, GameObject go, DownloadObjectData dlo, CancellationToken token)
+    public void AfterLoadRock(UnityGameState gs, GEntity go, DownloadObjectData dlo, CancellationToken token)
     {
         if (go == null || dlo == null)
         {
@@ -94,7 +94,7 @@ public class RockObjectLoader : BaseObjectLoader
 
 
 
-        go.transform.localScale = new Vector3(newScale, newScale, newScale);
+        go.transform().localScale = GVector3.Create(newScale, newScale, newScale);
 
         float xrot = MathUtils.SeedFloatRange(dlo.placementSeed, 103, 0, 359, 360);
         float yrot = MathUtils.SeedFloatRange(dlo.placementSeed, 461, 0, 359, 360);
@@ -102,9 +102,9 @@ public class RockObjectLoader : BaseObjectLoader
 
 
 
-        go.transform.Rotate(xrot, yrot, zrot);
+        go.transform().Rotate(xrot, yrot, zrot);
 
 
-        //go.transform.position = new Vector3(dlo.x, go.transform.position.y, dlo.y);
+        //go.transform().position = GVector3.Create(dlo.x, go.transform().position.y, dlo.y);
     }
 }

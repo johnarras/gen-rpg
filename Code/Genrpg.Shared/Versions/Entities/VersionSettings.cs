@@ -1,5 +1,7 @@
-using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.GameSettings.Loading;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -8,9 +10,8 @@ using System.Text;
 namespace Genrpg.Shared.Versions.Entities
 {
     [MessagePackObject]
-    public class VersionSettings : BaseGameData
+    public class VersionSettings : BaseGameSettings // No List
     {
-        public override void Set(GameData gameData) { gameData.Set(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public int ClientVersion { get; set; }
         [Key(2)] public int ServerVersion { get; set; }
@@ -18,4 +19,7 @@ namespace Genrpg.Shared.Versions.Entities
         [Key(4)] public int UserVersion { get; set; }
         [Key(5)] public int CharacterVersion { get; set; }
     }
+
+    [MessagePackObject]
+    public class VersionSettingsLoader : GameDataLoader<VersionSettings> { }
 }

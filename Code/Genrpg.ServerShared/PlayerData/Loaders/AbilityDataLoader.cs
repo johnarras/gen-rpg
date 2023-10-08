@@ -7,5 +7,8 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.PlayerData.Loaders
 {
-    public class AbilityDataLoader : UnitDataLoader<AbilityData> { }
+    public class AbilityDataLoader : OwnerDataLoader<AbilityData,AbilityRank,AbilityApi>
+    {
+
+    }
 }

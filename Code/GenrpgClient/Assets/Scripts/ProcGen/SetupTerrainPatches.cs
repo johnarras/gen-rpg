@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.ProcGen.Entities;
-using Genrpg.Shared.MapServer.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.MapServer.Constants;
 using Assets.Scripts.MapTerrain;
 
 public class SetupTerrainPatches : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         for (int px = 0; px < MapConstants.MaxTerrainGridSize; px++)

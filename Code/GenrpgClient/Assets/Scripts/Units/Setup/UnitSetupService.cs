@@ -1,6 +1,6 @@
 
 using System;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Constants;
@@ -11,12 +11,12 @@ using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.NPCs.Entities;
 using System.Threading;
 using Assets.Scripts.Tokens;
-using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.AI.Entities;
+using UnityEngine; // Needed
 
 public interface IUnitSetupService : IService, IMapTokenService
 {
-    GameObject SetupUnit(UnityGameState gs, string url, GameObject artGo, SpawnLoadData loadData, CancellationToken token);
+    GEntity SetupUnit(UnityGameState gs, string url, GEntity artGo, SpawnLoadData loadData, CancellationToken token);
 }
 
 
@@ -38,7 +38,7 @@ public class UnitSetupService : IUnitSetupService
         return _token;
     }
 
-    public GameObject SetupUnit(UnityGameState gs, string url, GameObject artGo, SpawnLoadData loadData, CancellationToken token)
+    public GEntity SetupUnit(UnityGameState gs, string url, GEntity artGo, SpawnLoadData loadData, CancellationToken token)
     {
 
         if (artGo == null)
@@ -58,33 +58,33 @@ public class UnitSetupService : IUnitSetupService
         {
             if (gridItem.Controller != null && gridItem.GameObj != null)
             {
-                GameObject.Destroy(artGo);
+                GEntityUtils.Destroy(artGo);
                 return gridItem.GameObj;
             }
         }
 
         artGo.name = AnimUtils.RenderObjectName;
         float sizeScale = 1.0f;
-        MonsterArtData artData = GameObjectUtils.GetComponent<MonsterArtData>(artGo);
-        MonsterController mc = GameObjectUtils.GetComponent<MonsterController>(artGo);
+        MonsterArtData artData = GEntityUtils.GetComponent<MonsterArtData>(artGo);
+        MonsterController mc = GEntityUtils.GetComponent<MonsterController>(artGo);
         if (artData != null && mc != null)
         {
-            sizeScale = Mathf.Max(0.01f, artData.SizeScale);
+            sizeScale = Math.Max(0.01f, artData.SizeScale);
 
             mc.WalkAnimSpeed = artData.WalkAnimSpeed;
             mc.RunAnimSpeed = artData.RunAnimSpeed;
         }
         
 
-        GameObject go = new GameObject();
+        GEntity go = new GEntity();
         go.name = loadData.Obj.Name;
-        if (artGo.transform.parent != null)
+        if (artGo.transform().parent != null)
         {
-            GameObjectUtils.AddToParent(go, artGo.transform.parent.gameObject);
+            GEntityUtils.AddToParent(go, artGo.transform().parent.entity());
         }
-        GameObjectUtils.AddToParent(artGo, go);
+        GEntityUtils.AddToParent(artGo, go);
 
-        go.transform.localScale = Vector3.one * sizeScale;
+        go.transform().localScale = GVector3.onePlatform * sizeScale;
 
         CharacterController cc = go.GetComponent<CharacterController>();
         if (cc == null)
@@ -93,21 +93,22 @@ public class UnitSetupService : IUnitSetupService
         }
         cc.radius = 0.5f / sizeScale;
         cc.height = 2 / sizeScale;
-        cc.center = new Vector3(0, (cc.height / 2 * 1.02f), 0);
+        cc.center = GVector3.Create(0, (cc.height / 2 * 1.02f), 0);
         cc.slopeLimit = 80;
         cc.stepOffset = cc.height / 3;
 
         Unit unit = loadData.Obj as Unit;
         unit.TargetId = loadData.Spawn.TargetId;
-        InteractUnit interactUnit = GameObjectUtils.GetOrAddComponent<InteractUnit>(gs, go);
+        InteractUnit interactUnit = GEntityUtils.GetOrAddComponent<InteractUnit>(gs, go);
+        //interactUnit.Initialize(gs);
         interactUnit.Init(unit, go, token);
-        if (!string.IsNullOrEmpty(loadData.Spawn.FirstAttackerId) &&
+        if (loadData.Spawn.FirstAttacker != null &&
             loadData.Spawn.Loot != null &&
             loadData.Spawn.Loot.Count > 0)
         {
             unit.Loot = loadData.Spawn.Loot;
             unit.SkillLoot = loadData.Spawn.SkillLoot;
-            unit.AddAttacker(loadData.Spawn.FirstAttackerId);
+            unit.AddAttacker(loadData.Spawn.FirstAttacker.AttackerId, loadData.Spawn.FirstAttacker.GroupId);
         }
 
         if (unit.IsPlayer())
@@ -125,20 +126,20 @@ public class UnitSetupService : IUnitSetupService
 
         _statService.CalcStats(gs, unit, true);
 
-        Animator animator = GameObjectUtils.GetComponent<Animator>(go);
+        GAnimator animator = GEntityUtils.GetComponent<GAnimator>(go);
         if (animator != null)
         {
             animator.enabled = true;
         }
 
-        Quaternion rot = Quaternion.AngleAxis(loadData.Spawn.Rot, new Vector3(0, 1, 0));
-        go.transform.rotation = rot;
+        Quaternion rot = Quaternion.AngleAxis(loadData.Spawn.Rot, GVector3.Create(0, 1, 0));
+        go.transform().rotation = rot;
 
-        GameObjectUtils.SetStatic(go, false);
+        GEntityUtils.SetStatic(go, false);
 
         go.SetActive(true);
 
-        GameObjectUtils.SetLayer(go, LayerNames.UnitLayer);
+        GEntityUtils.SetLayer(go, LayerNames.UnitLayer);
 
         if (gridItem == null)
         {
@@ -157,20 +158,20 @@ public class UnitSetupService : IUnitSetupService
         return go;
     }
 
-    protected void OnLoadMonster(UnityGameState gs, GameObject go, Unit unit, CancellationToken token)
+    protected void OnLoadMonster(UnityGameState gs, GEntity go, Unit unit, CancellationToken token)
     {
-        MonsterController mc = GameObjectUtils.GetOrAddComponent<MonsterController>(gs, go);
+        MonsterController mc = GEntityUtils.GetOrAddComponent<MonsterController>(gs, go);
 
-        MonsterArtData artData = GameObjectUtils.GetComponent<MonsterArtData>(go);
+        MonsterArtData artData = GEntityUtils.GetComponent<MonsterArtData>(go);
         if (artData != null)
         {
             mc.TerrainTilt = artData.TerrainTilt;
         }
 
-        go.transform.localScale *= 2.0f;
+        go.transform().localScale *= 2.0f;
 
         mc.Init(unit, token);
-        Animator animator = GameObjectUtils.GetComponent<Animator>(go);
+        GAnimator animator = GEntityUtils.GetComponent<GAnimator>(go);
         if (animator != null)
         {
             animator.enabled = true;
@@ -180,15 +181,14 @@ public class UnitSetupService : IUnitSetupService
 
     }
 
-    protected void OnLoadProxyCharacter(UnityGameState gs, GameObject go, Unit unit, CancellationToken token)
+    protected void OnLoadProxyCharacter(UnityGameState gs, GEntity go, Unit unit, CancellationToken token)
     {
-        ProxyCharacterController pxc = GameObjectUtils.GetOrAddComponent<ProxyCharacterController>(gs, go);
+        ProxyCharacterController pxc = GEntityUtils.GetOrAddComponent<ProxyCharacterController>(gs, go);
 
-
-        go.transform.localScale = Vector3.one;
+        go.transform().localScale = GVector3.onePlatform;
 
         pxc.Init(unit, token);
-        Animator animator = GameObjectUtils.GetComponent<Animator>(go);
+        GAnimator animator = GEntityUtils.GetComponent<GAnimator>(go);
         if (animator != null)
         {
             animator.enabled = true;
@@ -199,12 +199,12 @@ public class UnitSetupService : IUnitSetupService
     }
 
 
-    public void OnLoadPlayer(UnityGameState gs, GameObject go, Unit unit, CancellationToken token)
+    public void OnLoadPlayer(UnityGameState gs, GEntity go, Unit unit, CancellationToken token)
     {
-        PlayerController pc = GameObjectUtils.GetOrAddComponent<PlayerController>(gs, go);
+        PlayerController pc = GEntityUtils.GetOrAddComponent<PlayerController>(gs, go);
         pc.Init(unit, token);
-        unit.Speed = gs.data.GetGameData<AISettings>().BaseUnitSpeed;
-        unit.BaseSpeed = gs.data.GetGameData<AISettings>().BaseUnitSpeed;
+        unit.Speed = gs.data.GetGameData<AISettings>(gs.ch).BaseUnitSpeed;
+        unit.BaseSpeed = gs.data.GetGameData<AISettings>(gs.ch).BaseUnitSpeed;
         go.name = "Player" + go.name;
         PlayerObject.Set(go);
         _assetService.LoadAssetInto(gs, go, AssetCategory.UI, "PlayerLight", null, null, token);
@@ -213,28 +213,28 @@ public class UnitSetupService : IUnitSetupService
     }
 
 
-    public void CreateHealthBar(UnityGameState gs, GameObject go, Unit unit, CancellationToken token)
+    public void CreateHealthBar(UnityGameState gs, GEntity go, Unit unit, CancellationToken token)
     {
         if (unit == null || go == null)
         {
             return;
         }
-        GameObject healthParent = new GameObject() { name = "HealthBarParent" };
-        healthParent.transform.SetParent(go.transform);
+        GEntity healthParent = new GEntity() { name = "HealthBarParent" };
+        healthParent.transform().SetParent(go.transform());
 
         float height = 2.5f;
-        MonsterArtData artData = GameObjectUtils.GetComponent<MonsterArtData>(go);
+        MonsterArtData artData = GEntityUtils.GetComponent<MonsterArtData>(go);
         if (artData != null && artData.SizeScale > 0)
         {
             height = artData.HealthBarHeight / artData.SizeScale;
         }
-        healthParent.transform.localPosition = new Vector3(0, height, 0);
+        healthParent.transform().localPosition = GVector3.Create(0, height, 0);
         _assetService.LoadAssetInto(gs, healthParent, AssetCategory.UI, "MapHealthBar", OnCreateHealthBar, unit, token);
     }
 
     private void OnCreateHealthBar(UnityGameState gs, String url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         Unit unit = data as Unit;
 
         if (go == null)
@@ -244,7 +244,7 @@ public class UnitSetupService : IUnitSetupService
 
         if (unit == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 

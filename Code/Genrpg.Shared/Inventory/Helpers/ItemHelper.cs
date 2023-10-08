@@ -1,8 +1,10 @@
 ﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+
 using Genrpg.Shared.Entities.Interfaces;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Threading.Tasks;
 namespace Genrpg.Shared.Inventory.Helpers
 {
@@ -12,9 +14,9 @@ namespace Genrpg.Shared.Inventory.Helpers
         public string GetDataPropertyName() { return "ItemTypes"; }
 
 
-        public IIndexedGameItem Find(GameState gs, long id)
+        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
         {
-            return gs.data.GetGameData<ItemSettings>().GetItemType(id);
+            return gs.data.GetGameData<ItemTypeSettings>(obj).GetItemType(id);
         }
     }
 }

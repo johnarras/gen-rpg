@@ -1,20 +1,18 @@
-using UnityEngine;
-using System.Collections;
+using GEntity = UnityEngine.GameObject;
+using GComponent = UnityEngine.MonoBehaviour;
 using ClientEvents;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Characters.Entities;
 using System.Collections.Generic;
-using System.Security.Policy;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Linq;
-using Assets.Scripts.Model;
-using Cysharp.Threading.Tasks;
+using UnityEngine; // Needed
 
 public class UnityGameState : GameState
 {
-    private GameObject initObject = null;
+    public GEntity initObject = null;
 	private InitClient initComponent = null;
     public MapGenData md = null;
     public User user { get; set; }
@@ -48,14 +46,7 @@ public class UnityGameState : GameState
     public string RealtimeHost { get; set; }
     public string RealtimePort { get; set; }
 
-    public override void StartCoroutine(IEnumerator enumer)
-    {
-        if (initComponent != null)
-        {
-            initComponent.StartCoroutine(enumer);
-        }
-    }
-    public void SetInitObject(GameObject go)
+    public void SetInitObject(GEntity go)
 	{
 		if (go == null)
 		{
@@ -74,7 +65,7 @@ public class UnityGameState : GameState
 			return default(T);
 		}
 
-        return GameObjectUtils.GetOrAddComponent<T>(this, initObject);
+        return GEntityUtils.GetOrAddComponent<T>(this, initObject);
 
 	}
 
@@ -177,10 +168,10 @@ public class UnityGameState : GameState
         }
     }
 
-    public void AddEvent<T>(Component c, GameAction<T> action) where T : class
+    public void AddEvent<T>(GComponent c, GameAction<T> action) where T : class
     { 
         _dispatcher.AddEvent<T>(action);
-        c.gameObject.GetToken().Register(() => { _dispatcher.RemoveEvent(action); });
+        c.GetCancellationToken().Register(() => { _dispatcher.RemoveEvent(action); });
     }
 
     public void ClearDispatchEvents()

@@ -2,7 +2,6 @@ using MessagePack;
 
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.DataStores.Core;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Interfaces;
@@ -11,6 +10,8 @@ using Genrpg.Shared.Utils.Data;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Genrpg.Shared.DataStores.PlayerData;
+
 namespace Genrpg.Shared.Inventory.Entities
 {
 
@@ -21,8 +22,7 @@ namespace Genrpg.Shared.Inventory.Entities
     [MessagePackObject]
     public class InventoryData : OwnerObjectList<Item>
     {
-        [Key(0)] public override string Id { get; set; }       
-        public override void AddTo(Unit unit) { unit.Set(this); }
+        [Key(0)] public override string Id { get; set; }
 
         public override void SetData(List<Item> data)
         {

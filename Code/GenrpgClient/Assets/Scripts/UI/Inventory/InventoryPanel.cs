@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using Genrpg.Shared.Characters.Entities;
-using Entities;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Inventory.Entities;
 using System.Threading;
 
 public class InventoryPanel : BaseBehaviour
 {
-    [SerializeField]
-    private GameObject _iconParent;
+    
+    public GEntity _iconParent;
 
     private int _category = 0;
     protected ItemIconScreen _screen = null;
@@ -30,7 +21,7 @@ public class InventoryPanel : BaseBehaviour
         _category = categories;
         _prefabName = prefabName;
 
-        GameObjectUtils.DestroyAllChildren(_iconParent);
+        GEntityUtils.DestroyAllChildren(_iconParent);
 
         InventoryData inventory = _gs.ch.Get<InventoryData>();
 
@@ -40,7 +31,7 @@ public class InventoryPanel : BaseBehaviour
 
         foreach (Item item in inventoryItems)
         {
-            ItemType itype = _gs.data.GetGameData<ItemSettings>().GetItemType(item.ItemTypeId);
+            ItemType itype = _gs.data.GetGameData<ItemTypeSettings>(_gs.ch).GetItemType(item.ItemTypeId);
             if (itype == null)
             {
                 continue;
@@ -85,14 +76,14 @@ public class InventoryPanel : BaseBehaviour
 
     public void RemoveIcon(string itemId)
     {
-        List<ItemIcon> allIcons = GameObjectUtils.GetComponents<ItemIcon>(_iconParent);
+        List<ItemIcon> allIcons = GEntityUtils.GetComponents<ItemIcon>(_iconParent);
 
         ItemIcon desiredIcon = allIcons.FirstOrDefault(x => x.GetDataItem() != null &&
         x.GetDataItem().Id == itemId);
 
         if (desiredIcon != null)
         {
-            GameObject.Destroy(desiredIcon.gameObject);
+            GEntityUtils.Destroy(desiredIcon.entity());
         }
     }
 

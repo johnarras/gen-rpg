@@ -1,34 +1,20 @@
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEngine;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.Interfaces;
+using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Services.ProcGen;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Entities;
 
 public class AddDetailHeights : BaseZoneGenerator
 {
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         foreach (Zone zn in gs.map.Zones)
         {
-            GenerateOneZone(gs, zn, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zn.ZoneTypeId), zn.XMin, zn.ZMin, zn.XMax, zn.ZMax);
+            GenerateOneZone(gs, zn, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zn.ZoneTypeId), zn.XMin, zn.ZMin, zn.XMax, zn.ZMax);
         }
     }
 
@@ -310,7 +296,7 @@ public class AddDetailHeights : BaseZoneGenerator
                 // scale down, and add the rest of the part back into the height mult.
 
 
-                float worldEdgePercent = (float)Mathf.Pow(gs.md.EdgeHeightmapAdjustPercent(gs, gs.map, wx, wy), 0.09f);
+                float worldEdgePercent = (float)Math.Pow(gs.md.EdgeHeightmapAdjustPercent(gs, gs.map, wx, wy), 0.09f);
 
 
                 float finalHeightDiff = heightDiff * roadHeightMult * edgeSmoothMult * worldEdgePercent;

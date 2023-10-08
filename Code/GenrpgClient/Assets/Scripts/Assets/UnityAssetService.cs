@@ -1,20 +1,18 @@
-using UnityEngine;
-using UnityEngine.UI;
+using GEntity = UnityEngine.GameObject;
 using UnityEngine.U2D;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using System;
 using System.Text;
 using System.Linq;	
-using Cysharp.Threading.Tasks;
-using Entities.Assets;
-using Entities.Bundles;
+using System.Threading.Tasks;
 using Scripts.Assets.Assets.Constants;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using System.Threading;
 using Genrpg.Shared.Logs.Entities;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -57,7 +55,7 @@ public class BundleDownload
 	public string assetName;
 	public OnDownloadHandler handler;
 	public System.Object data;
-    public GameObject parent;
+    public GEntity parent;
     public bool unloadImmediately = false;
 }
 
@@ -66,17 +64,18 @@ public class BundleCacheData
     public string name;
     public AssetBundle assetBundle;
     public DateTime lastUsed = DateTime.UtcNow;
-    public int ItemCount;
     public int LoadingCount;
     public bool NeverUnload;
     public bool RequireIncrementalUnload;
     public Dictionary<string, object> LoadedAssets = new Dictionary<string, object>();
+    public List<object> Instances = new List<object>();
 }
 
 
 public class UnityAssetService : IAssetService
 {
     private ILogSystem _logger;
+    private IUnityUpdateService _updateService;
 
     public static long BundlesLoaded = 0;
     public static long BundlesUnloaded = 0;
@@ -88,12 +87,14 @@ public class UnityAssetService : IAssetService
     public static LoadSpeed LoadSpeed = LoadSpeed.Normal;
 
 
+    private UnityGameState _gs;
+
     public const int MaxConcurrentDownloads = 2;
 
     public const int LoadsRequiredForBurstLoading = 70;
     public const int BurstConcurrentExistingLoads = 400;
 
-    public const int MaxConcurrentExistingLoads = 4;
+    public const int MaxConcurrentExistingLoads = 5;
 
     public const int MaxConcurrentBundleDownloads = 3;
 
@@ -141,7 +142,7 @@ public class UnityAssetService : IAssetService
 
     public static string GetPerisistentDataPath()
     {
-        if (string.IsNullOrEmpty(_persistentDataPath)) _persistentDataPath = Application.persistentDataPath;
+        if (string.IsNullOrEmpty(_persistentDataPath)) _persistentDataPath = AppUtils.PersistentDataPath;
         return _persistentDataPath;
     }
 
@@ -170,36 +171,38 @@ public class UnityAssetService : IAssetService
         }
 
         var prefix = GetPlatformString();
-        _runtimePrefix = Application.version + "/" + prefix + "/";
+        _runtimePrefix = AppUtils.Version + "/" + prefix + "/";
         return _runtimePrefix;
 	}
-	
-	
     /// <summary>
     /// Downloads the asset bundle list.
     /// </summary>
     /// <param name="gs"></param>
 	public void Init(UnityGameState gs, CancellationToken token)
 	{
-        if (!Application.isPlaying)
+        if (!AppUtils.IsPlaying)
         {
             return;
         }
 
+        _gs = gs;
         _logger = gs.logger;
         _token = token;
         SpriteAtlasManager.atlasRequested += DummyRequestAtlas;
         SpriteAtlasManager.atlasRegistered += DummuRegisterAtlas;
         GetPerisistentDataPath();
         LoadAssetBundleList(gs, token);
+
         for (int i = 0; i < MaxConcurrentExistingLoads; i++)
         {
-            LoadFromExistingBundles(gs, true, token).Forget();
+            TaskUtils.AddTask(LoadFromExistingBundles(gs, true, token));
         }
         for (int i = 0; i < MaxConcurrentBundleDownloads; i++)
         {
-            DownloadNewBundles(gs, token).Forget();
+            TaskUtils.AddTask(DownloadNewBundles(gs, token));
         }
+
+        TaskUtils.AddTask(IncrementalClearMemoryCache(gs, token));
     }
 
     public bool IsDownloading(UnityGameState g)
@@ -237,62 +240,63 @@ public class UnityAssetService : IAssetService
                 {
                     bdata.assetBundle.Unload(true);
                     BundlesUnloaded++;
-                    GameObject.Destroy(bdata.assetBundle);
+                    GEntityUtils.Destroy(bdata.assetBundle);
                 }
             }
 		}
 
         _bundleCache = newBundleCache;
-        AsyncUnloadAssets(token).Forget();
+        TaskUtils.AddTask(AssetUtils.UnloadUnusedAssets(token));
 	}
 
 
-    DateTime _lastIncrementalUnloadTime = DateTime.UtcNow;
-    protected async UniTask IncrementalClearMemoryCache(UnityGameState gs, CancellationToken token)
+    protected async Task IncrementalClearMemoryCache(UnityGameState gs, CancellationToken token)
     {
-        if (_clearingCache)
+        while (true)
         {
-            return;
-        }
-        _clearingCache = true;
-        _lastIncrementalUnloadTime = DateTime.UtcNow;
+            await Task.Delay(5000, token);
 
-        int removeCount = 0;
-        List<string> bundleCacheKeys = _bundleCache.Keys.ToList();
-        foreach (string item in bundleCacheKeys)
-        {
-            var bundle = _bundleCache[item];
-            if (!bundle.NeverUnload &&
-                bundle.ItemCount < 1 &&
-                bundle.LoadingCount < 1 &&
-                bundle.assetBundle != null &&
-                bundle.lastUsed < DateTime.UtcNow.AddSeconds(-20))
+            int removeCount = 0;
+            List<string> bundleCacheKeys = _bundleCache.Keys.ToList();
+            foreach (string item in bundleCacheKeys)
             {
-                bundle.assetBundle.Unload(true);
-                BundlesUnloaded++;
-                GameObject.Destroy(bundle.assetBundle);
-                _bundleCache.Remove(item);
-                removeCount++;
-                if (removeCount > 3)
+                var bundle = _bundleCache[item];
+                if (!bundle.NeverUnload &&
+                    bundle.LoadingCount < 1 &&
+                    bundle.assetBundle != null &&
+                    bundle.lastUsed < DateTime.UtcNow.AddSeconds(-20))
                 {
-                    break;
+                    if (bundle.Instances.Any(x=> x.Equals(null)))
+                    {
+                        bundle.Instances = bundle.Instances.Where(x => !x.Equals(null)).ToList();
+                    }
+                    if (bundle.Instances.Count > 0)
+                    {
+                        continue;
+                    }
+
+                    bundle.assetBundle.Unload(true);
+                    BundlesUnloaded++;
+                    GEntityUtils.Destroy(bundle.assetBundle);
+                    _bundleCache.Remove(item);
+                    removeCount++;
+                    if (removeCount > 5)
+                    {
+                        break;
+                    }
+                    await Task.Delay(1, token);
                 }
-                await UniTask.NextFrame(token);
+            }
+            if (removeCount > 0)
+            {
+                await AsyncUnloadAssets(token);
             }
         }
-        if (removeCount > 0)
-        {
-            await AsyncUnloadAssets(token);
-        }
-        _clearingCache = false;
-        await UniTask.CompletedTask;
     }
 
-
-
-    private async UniTask AsyncUnloadAssets(CancellationToken token)
+    private async Task AsyncUnloadAssets(CancellationToken token)
     {
-        await Resources.UnloadUnusedAssets();
+        await AssetUtils.UnloadUnusedAssets(token);
     }
 
 
@@ -354,7 +358,7 @@ public class UnityAssetService : IAssetService
             var list = new List<FileDownload>();
             list.Add(fileDownLoad);
             _downloading[filePath] = list;
-            StartDownloadFile(gs, fileDownLoad, token).Forget();
+            TaskUtils.AddTask( StartDownloadFile(gs, fileDownLoad, token));
         }
 	}
 
@@ -376,7 +380,7 @@ public class UnityAssetService : IAssetService
 		return GetPerisistentDataPath() + "/" + url;
 	}
 
-    private async UniTask StartDownloadFile(UnityGameState gs, FileDownload fileDownload, CancellationToken token)
+    private async Task StartDownloadFile(UnityGameState gs, FileDownload fileDownload, CancellationToken token)
     {
 
         if (fileDownload == null)
@@ -399,13 +403,11 @@ public class UnityAssetService : IAssetService
             {
                 while (_fileDownloadingCount >= MaxConcurrentDownloads && LoadSpeed != LoadSpeed.Fast)
                 {
-                    await UniTask.NextFrame(token);
+                    await Task.Delay(1, token);
                 }
                 _fileDownloadingCount++;
                 using (UnityWebRequest request = UnityWebRequest.Get(fileDownload.FullURL))
                 {
-
-
                     if (request == null)
                     {
                         _downloading.Remove(fileDownload.FilePath);
@@ -414,11 +416,11 @@ public class UnityAssetService : IAssetService
                     }
                     try
                     {
-                        await request.SendWebRequest();
+                        UnityWebRequestAsyncOperation  asyncOp = request.SendWebRequest();
 
-                        while (!request.isDone)
+                        while (!asyncOp.isDone)
                         {
-                            await UniTask.NextFrame(token);
+                            await Task.Delay(1, token);
                         }
                     }
                     catch (Exception e)
@@ -447,7 +449,7 @@ public class UnityAssetService : IAssetService
                             {
                                 _downloading.Remove(fileDownload.FilePath);
                                 _fileDownloadingCount--;
-                                await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+                                await Task.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
                             }
                         }
                     }
@@ -458,12 +460,12 @@ public class UnityAssetService : IAssetService
                        
                         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
                         {
-                            await UniTask.NextFrame(token);
+                            await Task.Delay(1, token);
                         }
                         stringrepo.SaveBytes(fileDownload.FilePath, finalBytes);
                         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
                         {
-                            await UniTask.NextFrame(token);
+                            await Task.Delay(1, token);
                         }
                         fileDownload.DownloadData.UncompressedBytes = finalBytes;
 
@@ -489,7 +491,7 @@ public class UnityAssetService : IAssetService
             {
                 if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
                 {
-                    await UniTask.NextFrame(token);
+                    await Task.Delay(1, token);
                 }
                 tex = new Texture2D(2, 2);
                 tex.LoadImage(fileDownload.DownloadData.UncompressedBytes);
@@ -581,7 +583,7 @@ public class UnityAssetService : IAssetService
         {
             return;
         }
-        var parent = parentIn as GameObject;
+        var parent = parentIn as GEntity;
         if (string.IsNullOrEmpty(assetPath))
         {
             if (handler != null)
@@ -618,7 +620,7 @@ public class UnityAssetService : IAssetService
             }
             else
             {
-                robj = Resources.Load(fullPath);
+                robj = AssetUtils.LoadResource<GEntity>(fullPath);
                 if (robj != null)
                 {
                     _loadedResources[fullPath] = robj;
@@ -644,16 +646,16 @@ public class UnityAssetService : IAssetService
                     return;
                 }
 
-                var rgo = GameObjectUtils.InstantiateIntoParent(robj, parent);
+                var rgo = GEntityUtils.InstantiateIntoParent(robj, parent);
                 if (rgo != null)
                 {
                     robj = rgo;
                 }
                 if (handler != null)
                 {
-                    if (robj is GameObject go)
+                    if (robj is GEntity go)
                     {
-                        GameObjectUtils.InitializeHierarchy(gs, go);
+                        GEntityUtils.InitializeHierarchy(gs, go);
                     }
                     handler(gs, assetPath, robj, data, token);
                 }
@@ -675,17 +677,17 @@ public class UnityAssetService : IAssetService
 
                     if (fullPath.IndexOf(ArtFileSuffix) < 0)
                     {
-                        asset = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath + ArtFileSuffix);
+                        asset = AssetDatabase.LoadAssetAtPath<GEntity>(fullPath + ArtFileSuffix);
                     }
                     else
                     {
-                        asset = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath);
+                        asset = AssetDatabase.LoadAssetAtPath<GEntity>(fullPath);
                     }
                     if (asset != null)
                     {
-                        asset = GameObjectUtils.InstantiateIntoParent(asset, parent);
+                        asset = GEntityUtils.InstantiateIntoParent(asset, parent);
 
-                        GameObjectUtils.InitializeHierarchy(gs, asset as GameObject);
+                        GEntityUtils.InitializeHierarchy(gs, asset as GEntity);
 
                         if (handler != null)
                         {
@@ -774,11 +776,16 @@ public class UnityAssetService : IAssetService
         return _isInitialized;
     }
 
+    private async Task PermanentLoadFromExistingBundles(CancellationToken token)
+    {
+        await LoadFromExistingBundles(_gs, true, token);
+    }
+
     int totalBundleLoaders = 0;
-    private async UniTask LoadFromExistingBundles(UnityGameState gs, bool isPermanentLoader, CancellationToken token)
+    private async Task LoadFromExistingBundles(UnityGameState gs, bool isPermanentLoader, CancellationToken token)
     {
         totalBundleLoaders++;
-        await UniTask.NextFrame(token);
+        await Task.Delay(1, token);
         while (true)
         {
             if (_existingDownloads.Count > 0)
@@ -786,7 +793,7 @@ public class UnityAssetService : IAssetService
                 await LoadAssetFromExistingBundle(gs, _existingDownloads.Dequeue(), token);
                 if (gs.rand.NextDouble() < LoadDelayChance)
                 {
-                    await UniTask.NextFrame(token);
+                    await Task.Delay(1, token);
                 }
             }
             else
@@ -796,12 +803,12 @@ public class UnityAssetService : IAssetService
                     totalBundleLoaders--;
                     return;
                 }
-                await UniTask.NextFrame(token);
+                await Task.Delay(1, token);
             }
         }
     }
 
-    private async UniTask DownloadNewBundles (UnityGameState gs, CancellationToken token)
+    private async Task DownloadNewBundles (UnityGameState gs, CancellationToken token)
     {
         while (true)
         {
@@ -812,7 +819,7 @@ public class UnityAssetService : IAssetService
                 _bundleDownloadQueue.Remove(firstKey);
                 if (firstDownload.Count < 1)
                 {
-                    await UniTask.NextFrame(token);
+                    await Task.Delay(1, token);
                 }
                 else
                 {
@@ -837,12 +844,12 @@ public class UnityAssetService : IAssetService
             }
             else
             {
-                await UniTask.NextFrame(token);
+                await Task.Delay(1, token);
             }
         }
 	}
 
-    private async UniTask LoadAssetFromExistingBundle (UnityGameState gs, BundleDownload bdl, CancellationToken token)
+    private async Task LoadAssetFromExistingBundle (UnityGameState gs, BundleDownload bdl, CancellationToken token)
     {
         // Need to check existence of bundle here since this call is delayed from when 
         if (bdl == null || !_bundleCache.ContainsKey(bdl.bundleName))
@@ -858,7 +865,11 @@ public class UnityAssetService : IAssetService
             var request = StartLoadAssetFromBundle(bdl.bundleName, bdl.assetName);
             if (request != null)
             {
-                await request;
+
+                while (!request.isDone)
+                {
+                    await Task.Delay(1, _token);
+                }
                 bdata.LoadedAssets[bdl.assetName] = request.asset;
             }
         }
@@ -927,7 +938,7 @@ public class UnityAssetService : IAssetService
     }
 
 
-    private GameObject _assetParent = null;
+    public GEntity _assetParent = null;
     public void LoadSprite(UnityGameState gs, string atlasName, string spriteName, OnDownloadHandler handler, object data, CancellationToken token)
     {
         if (string.IsNullOrEmpty(atlasName))
@@ -955,7 +966,7 @@ public class UnityAssetService : IAssetService
 
         if (_assetParent == null)
         {
-            _assetParent = GameObjectUtils.FindSingleton(GlobalAssetParent, true);
+            _assetParent = GEntityUtils.FindSingleton(GlobalAssetParent, true);
         }
 
         LoadAssetInto(gs, _assetParent, AssetCategory.Atlas, atlasName, OnDownloadAtlas, sdata, token);
@@ -965,7 +976,7 @@ public class UnityAssetService : IAssetService
     private void OnDownloadAtlas(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
         var sdata = data as AtlasSpriteDownload;   
-        var go = obj as GameObject;
+        var go = obj as GEntity;
         if (go == null)
         {
             if (sdata != null && sdata.finalHandler != null)
@@ -978,7 +989,7 @@ public class UnityAssetService : IAssetService
 
         if (sdata == null || string.IsNullOrEmpty(sdata.atlasName))
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
 
             if (sdata != null && sdata.finalHandler != null)
             {
@@ -998,7 +1009,7 @@ public class UnityAssetService : IAssetService
 
         if (_atlasCache.ContainsKey(sdata.atlasName))
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
         }
         else
         {
@@ -1058,7 +1069,7 @@ public class UnityAssetService : IAssetService
             }
         }
 
-        var image = download.data as Image;
+        var image = download.data as GImage;
         if (image != null)
         {
             image.sprite = sprite;
@@ -1183,15 +1194,15 @@ public class UnityAssetService : IAssetService
         SaveBundleVersionsText(gs);
 
 
-        DownloadInitialBundles(gs, token).Forget();
+        TaskUtils.AddTask(DownloadInitialBundles(gs, token));
     }
 
-    private async UniTask DownloadInitialBundles(UnityGameState gs, CancellationToken token)
+    private async Task DownloadInitialBundles(UnityGameState gs, CancellationToken token)
     {
         await CacheBundleList(gs, GetInitialDownloadBundleList(gs), OnCacheInitialBundles, token);
     }
 
-    private async UniTask CacheAllBundles(UnityGameState gs, CancellationToken token)
+    private async Task CacheAllBundles(UnityGameState gs, CancellationToken token)
     {
         if (_bundleVersions != null)
         {
@@ -1200,7 +1211,7 @@ public class UnityAssetService : IAssetService
         }
     }
 
-    private async UniTask CacheBundleList(UnityGameState gs, List<String> bundles, GameStateObjectDelegate onDownloadComplete, CancellationToken token)
+    private async Task CacheBundleList(UnityGameState gs, List<String> bundles, GameStateObjectDelegate onDownloadComplete, CancellationToken token)
     {
         if (bundles == null)
         {
@@ -1233,7 +1244,7 @@ public class UnityAssetService : IAssetService
 
     protected void OnCacheInitialBundles(GameState gs, object obj)
     {
-        if (_assetParent == null) _assetParent = GameObjectUtils.FindSingleton(GlobalAssetParent, true);     
+        if (_assetParent == null) _assetParent = GEntityUtils.FindSingleton(GlobalAssetParent, true);     
    }
 
     protected string GetFullBundleURL(UnityGameState gs, string bundleName)
@@ -1330,29 +1341,7 @@ public class UnityAssetService : IAssetService
         }
     }
 
-
-
-    private bool _clearingCache = false;
-    public void RemoveLoadedInstance(UnityGameState gs, string bundleName, int quantity = 1, bool showData = false)
-    {
-        if (string.IsNullOrEmpty(bundleName) || _bundleCache == null || !_bundleCache.ContainsKey(bundleName))
-        {
-            return;
-        }
-        _bundleCache[bundleName].ItemCount--;
-        _bundleCache[bundleName].lastUsed = DateTime.UtcNow;
-
-        if (_bundleCache[bundleName].ItemCount < 1 && 
-            (DateTime.UtcNow-_lastIncrementalUnloadTime).TotalSeconds > 15)
-        {
-            IncrementalClearMemoryCache(gs, _token).Forget();
-        }
-
-    }
-
-
-
-    private async UniTask DownloadOneBundle(UnityGameState gs, BundleDownload bad, CancellationToken token)
+    private async Task DownloadOneBundle(UnityGameState gs, BundleDownload bad, CancellationToken token)
     {
         if (string.IsNullOrEmpty(bad.url))
         {
@@ -1361,65 +1350,56 @@ public class UnityAssetService : IAssetService
                
         for (int i = 0; i < RetryTimes; i++)
         {
-            UnityWebRequest request = null;
-
             string bundleHash = GetBundleHash(gs, bad.bundleName);
             if (string.IsNullOrEmpty(bundleHash))
             {
                 _logger.Debug("No bundle hash for: " + bad.url);
                 return;
             }
-            try
-            {
-                request = UnityWebRequestAssetBundle.GetAssetBundle(bad.url, GetBundleHash128(gs, bad.bundleName));
-                await request.SendWebRequest();
 
-            }
-            catch (Exception e)
+            using (UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(bad.url,
+                GetBundleHash128(gs, bad.bundleName)))
             {
-                _logger.Exception(e, "BadAsset: " + bad.assetName + " URL: " + bad.url);
-                return;
-            }
-            
-            while (!request.isDone)
-            {
-                await UniTask.NextFrame(token);
-            }
-
-            AssetBundle downloadedBundle = null;
-
-            if (request.result != UnityWebRequest.Result.ProtocolError)
-            {
-                try
+                UnityWebRequestAsyncOperation asyncOp = request.SendWebRequest();
+                while (!asyncOp.isDone)
                 {
-                    downloadedBundle = DownloadHandlerAssetBundle.GetContent(request);
+                    await Task.Delay(1);
                 }
-                catch (Exception e)
-                {
-                    _logger.Exception(e, "FailedbundleDownload: " + bad.url + " " + bad.assetName);
-                }
-            }
 
-            if (downloadedBundle != null)
-            {
-                if (bad.unloadImmediately && !IsNeverUnloadBundle(gs, bad.bundleName))
+                AssetBundle downloadedBundle = null;
+
+                if (request.result != UnityWebRequest.Result.ProtocolError)
                 {
-                    downloadedBundle.Unload(true);
-                    BundlesUnloaded++;
+                    try
+                    {
+                        downloadedBundle = DownloadHandlerAssetBundle.GetContent(request);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.Exception(e, "FailedbundleDownload: " + bad.url + " " + bad.assetName);
+                    }
+                }
+
+                if (downloadedBundle != null)
+                {
+                    if (bad.unloadImmediately && !IsNeverUnloadBundle(gs, bad.bundleName))
+                    {
+                        downloadedBundle.Unload(true);
+                        BundlesUnloaded++;
+                    }
+                    else
+                    {
+                        AddBundleToCache(gs, bad, downloadedBundle);
+                    }
+
+                    request.Dispose();
+                    return;
                 }
                 else
                 {
-                    AddBundleToCache(gs, bad, downloadedBundle);
+                    request.Dispose();
+                    await Task.Delay(TimeSpan.FromSeconds(1.1f), cancellationToken: token);
                 }
-
-                request.Dispose();
-                return;
-            }
-            else
-            {
-                request.Dispose();
-                await UniTask.Delay(TimeSpan.FromSeconds(1.1f), cancellationToken: token);
-
             }
         }
         if (!_bundleFailedDownloads.Contains(bad.bundleName))
@@ -1429,19 +1409,12 @@ public class UnityAssetService : IAssetService
     }
 
 
-    protected GameObject InstantiateBundledAsset(UnityGameState gs, object child, GameObject parent, string bundleName, string assetName)
+    protected GEntity InstantiateBundledAsset(UnityGameState gs, object child, GEntity parent, string bundleName, string assetName)
     {
-        var go = GameObjectUtils.InstantiateIntoParent(child, parent);
+        var go = GEntityUtils.InstantiateIntoParent(child, parent);
         if (go != null)
         {
-            var bid = GameObjectUtils.GetOrAddComponent<BundleItemData>(gs, go);
-            if (bid != null)
-            {
-                bid.BundleName = bundleName;
-                bid.AssetService = this;
-                bid.GS = gs;
-                _bundleCache[bundleName].ItemCount++;
-            }
+            _bundleCache[bundleName].Instances.Add(go);
         }
         else
         {
@@ -1451,7 +1424,7 @@ public class UnityAssetService : IAssetService
         BaseBehaviour oneBehavior = go.GetComponent<BaseBehaviour>();
         if (oneBehavior != null)
         {
-            GameObjectUtils.InitializeHierarchy(gs, go);
+            GEntityUtils.InitializeHierarchy(gs, go);
         }
         return go;
     }

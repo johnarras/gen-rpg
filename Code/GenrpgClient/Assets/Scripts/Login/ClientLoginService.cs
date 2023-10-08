@@ -1,15 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Login.Messages.Login;
-using Genrpg.Shared.Utils;
-using Services.ProcGen;
 using UI.Screens.Constants;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 
 public interface IClientLoginService : IService
@@ -17,7 +12,7 @@ public interface IClientLoginService : IService
     void StartLogin(UnityGameState gs, CancellationToken token);
     void Logout(UnityGameState gs);
     void ExitMap(UnityGameState gs);
-    UniTask LoginToServer(UnityGameState gs, LoginCommand command, CancellationToken token);
+    Task LoginToServer(UnityGameState gs, LoginCommand command, CancellationToken token);
     Task SaveLocalUserData(UnityGameState gs, string email);
 }
 
@@ -62,7 +57,7 @@ public class ClientLoginService : IClientLoginService
                 Password = password,
             };
 
-            LoginToServer(gs, loginCommand, token).Forget();
+            TaskUtils.AddTask(LoginToServer(gs, loginCommand, token));
             _screenService.Open(gs, ScreenId.Loading, true);
             return;
         }
@@ -111,13 +106,13 @@ public class ClientLoginService : IClientLoginService
 
     }
 
-    public async UniTask LoginToServer(UnityGameState gs, LoginCommand command, CancellationToken token)
+    public async Task LoginToServer(UnityGameState gs, LoginCommand command, CancellationToken token)
     {
         _pwd = command.Password;
 
         _networkService.SendLoginWebCommand(command, token);
 
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 
     public async Task SaveLocalUserData(UnityGameState gs, string email)

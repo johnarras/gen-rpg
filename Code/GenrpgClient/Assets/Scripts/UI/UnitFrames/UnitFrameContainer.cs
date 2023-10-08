@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 
-using Services;
-using UnityEngine;
+
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Characters.Entities;
 using ClientEvents;
 using Genrpg.Shared.Interfaces;
@@ -59,11 +59,11 @@ public class UnitFrameContainer : BaseBehaviour
     {
         if (unit == null)
         {
-            GameObjectUtils.SetActive(Frame, false);
+            GEntityUtils.SetActive(Frame, false);
         }
         else
         {
-            GameObjectUtils.SetActive(Frame, true);
+            GEntityUtils.SetActive(Frame, true);
             Frame.Init(_gs,unit);
         }
     }

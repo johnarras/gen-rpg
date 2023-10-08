@@ -1,22 +1,32 @@
 using MessagePack;
 
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.DataStores.Core;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Genrpg.Shared.Utils;
+using Genrpg.Shared.DataStores.PlayerData;
 
 namespace Genrpg.Shared.Spells.Entities
 {
     [MessagePackObject]
-    public class AbilityData : ObjectList<AbilityRank>
+    public class AbilityData : OwnerObjectList<AbilityRank>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<AbilityRank> Data { get; set; } = new List<AbilityRank>();
-        public override void AddTo(Unit unit) { unit.Set(this); }
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
+
+        private List<AbilityRank> _data { get; set; } = new List<AbilityRank>();
+
+        public override List<AbilityRank> GetData()
+        {
+            return _data;
+        }
+
+        public override void SetData(List<AbilityRank> data)
+        {
+            _data = data;
+        }
 
         public const int DefaultRank = 1;
 
@@ -28,8 +38,13 @@ namespace Genrpg.Shared.Spells.Entities
 
         public void SetRank(GameState gs, long abilityCategoryId, long abilityTypeId, int rank)
         {
-            AbilityRank ab = GetRankItem(gs, abilityCategoryId, abilityTypeId);
-            ab.Rank = Math.Max(1, rank);
+            AbilityRank abilityRank = GetRankItem(gs, abilityCategoryId, abilityTypeId);
+            long oldRank = abilityRank.Rank;
+            abilityRank.Rank = Math.Max(1, rank);
+            if (abilityRank.Rank != oldRank)
+            {
+                gs.repo.QueueSave(abilityRank);
+            }
         }
 
         public void AddRank(GameState gs, long abilityCategoryId, long abilityTypeId, int points)
@@ -39,29 +54,21 @@ namespace Genrpg.Shared.Spells.Entities
 
         protected AbilityRank GetRankItem(GameState gs, long abilityCategoryId, long abilityTypeId)
         {
-            if (Data == null)
+            AbilityRank abilityRank = _data.FirstOrDefault(x => x.AbilityCategoryId == abilityCategoryId && x.AbilityTypeId == abilityTypeId);
+            if (abilityRank == null)
             {
-                Data = new List<AbilityRank>();
+                abilityRank = new AbilityRank() 
+                { 
+                    Id = HashUtils.NewGuid(),
+                    OwnerId = Id,
+                    AbilityCategoryId = abilityCategoryId, 
+                    AbilityTypeId = abilityTypeId, 
+                    Rank = DefaultRank 
+                };
+                _data.Add(abilityRank);
+                gs.repo.QueueSave(abilityRank);
             }
-
-            AbilityRank ab = Data.FirstOrDefault(x => x.AbilityCategoryId == abilityCategoryId && x.AbilityTypeId == abilityTypeId);
-            if (ab == null)
-            {
-                ab = new AbilityRank() { AbilityCategoryId = abilityCategoryId, AbilityTypeId = abilityTypeId, Rank = DefaultRank };
-                Data.Add(ab);
-            }
-            return ab;
+            return abilityRank;
         }
-
-        public List<AbilityRank> GetAbilities()
-        {
-            if (Data == null)
-            {
-                Data = new List<AbilityRank>();
-            }
-
-            return Data;
-        }
-
     }
 }

@@ -4,30 +4,21 @@ using Genrpg.Shared.Chat.Messages;
 using Genrpg.Shared.WhoList.Entities;
 using Genrpg.Shared.WhoList.Messages;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using GEntity = UnityEngine.GameObject;
+using UnityEngine.EventSystems; // Needed
 
 namespace UI
 {
     public class ChatWindow : BaseBehaviour
     {
-        [SerializeField]    
-        private GameObject _chatParent;
-        [SerializeField]
-        private InputField _chatInput;
-
-        [SerializeField]
-        private Text _chatTextPrefix;
-
-        [SerializeField]
-        private Image _inputBackground;
-
-        [SerializeField]
-        private ChatRow _row;
-
-        [SerializeField]
-        private int _maxRows = 20;
+            
+        public GEntity ChatParent;
+        public GInputField ChatInput;
+        public GText ChatTextPrefix;
+        public GImage InputBackground;
+        public ChatRow Row;
+        
+        public int _maxRows = 20;
 
         private List<ChatRow> _rows = new List<ChatRow>();
 
@@ -52,41 +43,41 @@ namespace UI
         public void SetEditing(bool editing)
         {
             _editing = editing;
-            if (_chatInput != null)
+            if (ChatInput != null)
             {
                 if (_editing)
                 {
-                    EventSystem.current.SetSelectedGameObject(_chatInput.gameObject);
-                    if (_inputBackground != null)
+                    EventSystem.current.SetSelectedGameObject(ChatInput.entity());
+                    if (InputBackground != null)
                     {
-                        _inputBackground.color = Color.white;
+                        InputBackground.color = GColor.white;
                     }
                     if (_currentChatType == null)
                     {
-                        _currentChatType = _gs.data.GetGameData<ChatSettings>().GetChatType(ChatType.Say);
+                        _currentChatType = _gs.data.GetGameData<ChatSettings>(_gs.ch).GetChatType(ChatType.Say);
                     }
                     ShowChatInputPrefix();
                 }
                 else
                 {
                     EventSystem.current.SetSelectedGameObject(null);
-                    if (_inputBackground != null)
+                    if (InputBackground != null)
                     {
-                        _inputBackground.color = Color.gray;
+                        InputBackground.color = GColor.gray;
                     }
-                    UIHelper.SetText(_chatTextPrefix, "");
+                    UIHelper.SetText(ChatTextPrefix, "");
                 }
             }
         }
 
         public void SendChat()
         {
-            if (_chatInput == null)
+            if (ChatInput == null)
             {
                 return;
             }
-            string text = _chatInput.text;
-            _chatInput.text = "";
+            string text = ChatInput.Text;
+            ChatInput.Text = "";
 
             if (text.Length > 0 && text[0] == '/')
             {
@@ -94,7 +85,7 @@ namespace UI
 
                 if (text.Length > 0)
                 {
-                    List<ChatType> chatTypes = _gs.data.GetList<ChatType>();
+                    List<ChatType> chatTypes = _gs.data.GetGameData<ChatSettings>(_gs.ch).GetData();
 
                     string firstWord = text.Substring(0, text.IndexOf(" "));
                     firstWord = firstWord.ToLower();
@@ -161,25 +152,25 @@ namespace UI
             }
             else
             {
-                if (_chatInput != null)
+                if (ChatInput != null)
                 {
-                    _chatInput.text = "";
+                    ChatInput.text = "";
                 }
             }
         }
 
         private void ShowChatInputPrefix()
         {
-            if (_currentChatType != null && _chatInput != null)
+            if (_currentChatType != null && ChatInput != null)
             {
                 _chatPrefix = "[" + _currentChatType.Name + "]: ";
-                UIHelper.SetText(_chatTextPrefix, _chatPrefix);
+                UIHelper.SetText(ChatTextPrefix, _chatPrefix);
             }
         }
 
         private OnChatMessage OnChatMessageHandler(UnityGameState gs, OnChatMessage message)
         {
-            if (_chatParent == null || _row == null)
+            if (ChatParent == null || Row == null)
             {
                 return null;
             }
@@ -190,14 +181,14 @@ namespace UI
 
         private void AddChatRow(UnityGameState gs, OnChatMessage message)
         { 
-            ChatRow newRow = GameObjectUtils.FullInstantiate(gs,_row.gameObject).GetComponent<ChatRow>();
-            newRow.gameObject.SetActive(true);
-            GameObjectUtils.AddToParent(newRow.gameObject, _chatParent);
+            ChatRow newRow = GEntityUtils.FullInstantiate(gs,Row.entity()).GetComponent<ChatRow>();
+            newRow.entity().SetActive(true);
+            GEntityUtils.AddToParent(newRow.entity(), ChatParent);
             _rows.Add(newRow);
             newRow.Init(message);
             while (_rows.Count > _maxRows)
             {
-                GameObject.Destroy(_rows[0].gameObject);
+                GEntityUtils.Destroy(_rows[0].entity());
                 _rows.RemoveAt(0);
             }
         }
@@ -207,14 +198,14 @@ namespace UI
             foreach (WhoListItem item in message.Items)
             {
 
-                ChatRow newRow = GameObjectUtils.FullInstantiate(gs, _row.gameObject).GetComponent<ChatRow>();
-                newRow.gameObject.SetActive(true);
-                GameObjectUtils.AddToParent(newRow.gameObject, _chatParent);
+                ChatRow newRow = GEntityUtils.FullInstantiate(gs, Row.entity()).GetComponent<ChatRow>();
+                newRow.entity().SetActive(true);
+                GEntityUtils.AddToParent(newRow.entity(), ChatParent);
                 _rows.Add(newRow);
                 newRow.InitTextOnly(item.Name + " :" + item.Level);
                 while (_rows.Count > _maxRows)
                 {
-                    GameObject.Destroy(_rows[0].gameObject);
+                    GEntityUtils.Destroy(_rows[0].entity());
                     _rows.RemoveAt(0);
                 }
             }

@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
@@ -11,7 +11,6 @@ using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.Reflection.Services;
 using Assets.Scripts.Tokens;
 using System.Threading;
-using System.Threading.Tasks;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.Login.Messages;
@@ -21,6 +20,7 @@ using Genrpg.Shared.Networking.Interfaces;
 using Genrpg.Shared.Networking.Constants;
 using Genrpg.Shared.Networking.Entities.TCP;
 using Genrpg.Shared.Networking.MapApiSerializers;
+using System.Collections.Concurrent;
 
 public delegate void WebResultsHandler(UnityGameState gs, string txt, CancellationToken token);
 
@@ -44,16 +44,20 @@ public class NetworkService : INetworkService
     public NetworkService(UnityGameState gs)
     {
         _gs = gs;
+        TaskUtils.AddTask(ProcessMessages());
     }
 
     // Web endpoints.
     public const string ClientEndpoint = "/Client";
     public const string LoginEndpoint = "/Login";
 
+    CancellationTokenSource _networkTokenSource = null;
     private CancellationToken _token;
     public void SetToken(CancellationToken token)
     {
-        _token = token;
+        _networkTokenSource?.Cancel();
+        _networkTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
+        _token = _networkTokenSource.Token;
     }
 
     public CancellationToken GetToken()
@@ -104,7 +108,7 @@ public class NetworkService : INetworkService
     protected void InnerSendWebRequest(string endpoint, ILoginCommand data,
         CancellationToken token)
     {
-        WebRequest req = new WebRequest();
+        ClientWebRequest req = new ClientWebRequest();
 
         LoginServerCommandSet commandSet = new LoginServerCommandSet()
         {
@@ -115,7 +119,7 @@ public class NetworkService : INetworkService
 
         string commandText = SerializationUtils.Serialize(commandSet);
 
-        req.GetData(_gs, _webURI + endpoint, commandText, HandleLoginResults, token).Forget();  
+        TaskUtils.AddTask(req.SendRequest(_gs, _webURI + endpoint, commandText, HandleLoginResults, token));  
     }
 
     private void HandleLoginResults (UnityGameState gs, string txt, CancellationToken token)
@@ -146,39 +150,24 @@ public class NetworkService : INetworkService
         await Task.CompletedTask;
     }
 
-    protected async UniTask HandleMapMessages(List<IMapApiMessage> results, CancellationToken token)
+    protected ConcurrentQueue<IMapApiMessage> _messages = new ConcurrentQueue<IMapApiMessage>();
+    protected void HandleMapMessages(List<IMapApiMessage> results, CancellationToken token, object optionalData)
     {
-        if (!TokenUtils.IsValid(token))
+        foreach (IMapApiMessage message in results)
         {
-            return;
+            _messages.Enqueue(message);
         }
-        await UniTask.NextFrame(token);
-        object exceptionObj = null;
-        try
-        {
-#if SHOW_SEND_RECEIVE_MESSAGES
-            StringBuilder sb = new StringBuilder();
-            sb.Append("Results: ");
-            foreach (IMessage message in results)
-            {
-                sb.Append(message.GetType().Name + " -- ");
-            }
+    }
 
-            _gs.logger.Debug(sb.ToString());
-#endif
-            if (!TokenUtils.IsValid(token))
-            {
-                return;
-            }
-            foreach (object res in results)
-            {
-                exceptionObj = res;
-                HandleOneResult(res, token);
-            }
-        }
-        catch (Exception e)
+    protected async Task ProcessMessages()
+    {
+        while (true)
         {
-            _gs.logger.Exception(e, "RealtimeHandleOneResult"); 
+            await Task.Delay(1).ConfigureAwait(true);
+            while (_messages.TryDequeue(out IMapApiMessage message))
+            {                
+                HandleOneMapApiMessage(message, _token);
+            }
         }
     }
 
@@ -221,7 +210,9 @@ public class NetworkService : INetworkService
 
         if (_clientConn == null || _clientConn.RemoveMe())
         {
-            _clientConn = new ConnectTcpConn(_host, _port, MapApiSerializerFactory.Create(_serializer), (List<IMapApiMessage> objs, CancellationToken token) => { HandleMapMessages(objs, _token).Forget(); }, _gs.logger, _token);
+            _clientConn = new ConnectTcpConn(_host, _port, MapApiSerializerFactory.Create(_serializer),
+                HandleMapMessages,
+                _gs.logger, _token, null);
 
         }
 
@@ -243,21 +234,29 @@ public class NetworkService : INetworkService
 
     private IConnection _clientConn = null;
 
-    private void HandleOneResult(object resObj, CancellationToken token)
+    private void HandleOneMapApiMessage(IMapApiMessage message, CancellationToken token)
     {
-        if (resObj == null)
+        try
         {
-            _gs.logger.Error("Null result found");
-            return;
-        }
-        Type resType = resObj.GetType();
+            if (message == null)
+            {
+                _gs.logger.Error("Null result found");
+                return;
+            }
+            Type resType = message.GetType();
 
-        if (!_mapMessageHandlers.ContainsKey(resType))
+            if (!_mapMessageHandlers.ContainsKey(resType))
+            {
+                _gs.logger.Error("Missing Typed Result Handler for: " + resType);
+                return;
+            }
+
+            _mapMessageHandlers[resType].Process(_gs, message as IMapApiMessage, token);
+        }
+        catch (Exception ee)
         {
-            _gs.logger.Error("Missing Typed Result Handler for: " + resType);
-            return;
+            _gs.logger.Exception(ee, "HandleOneMapAPIMessage");
         }
-
-        _mapMessageHandlers[resType].Process(_gs, resObj as IMapApiMessage, token);
     }
+
 }

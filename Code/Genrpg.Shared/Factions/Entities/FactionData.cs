@@ -1,11 +1,12 @@
 using MessagePack;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.DataStores.Core;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Units.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Utils;
+using Genrpg.Shared.DataStores.PlayerData;
 
 namespace Genrpg.Shared.Factions.Entities
 {
@@ -14,20 +15,9 @@ namespace Genrpg.Shared.Factions.Entities
     /// </summary>
     /// 
     [MessagePackObject]
-    public class FactionData : ObjectList<FactionStatus>
+    public class FactionData : OwnerIdObjectList<FactionStatus>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<FactionStatus> Data { get; set; } = new List<FactionStatus>();
-        public override void AddTo(Unit unit) { unit.Set(this); }
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
-        /// <summary>
-        ///  returns the list of affinities
-        /// </summary>
-        /// <returns>The list of affinities</returns>
-        public List<FactionStatus> FindAll()
-        {
-            return Data;
-        }
 
         /// <summary>
         ///  Find the FactionStub for a given faction, 
@@ -38,16 +28,18 @@ namespace Genrpg.Shared.Factions.Entities
         public FactionStatus Find(GameState gs, long factionTypeId)
         {
 
-            FactionStatus currStatus = Data.FirstOrDefault(x => x.IdKey == factionTypeId);
+            FactionStatus currStatus = _data.FirstOrDefault(x => x.IdKey == factionTypeId);
             if (currStatus == null)
             {
-                currStatus = new FactionStatus() { IdKey = factionTypeId, RepLevelId = RepLevel.Neutral };
-                FactionType factionType = gs.data.GetGameData<FactionSettings>().GetFactionType(factionTypeId);
-                if (factionType != null && factionType.StartRepLevelId > RepLevel.None)
-                {
-                    currStatus.RepLevelId = factionType.StartRepLevelId;
-                }
-                Data.Add(currStatus);
+                currStatus = new FactionStatus() 
+                { 
+                    IdKey = factionTypeId, 
+                    RepLevelId = RepLevel.Neutral,
+                    Id = HashUtils.NewGuid(),
+                    OwnerId = Id,
+                };
+                _data.Add(currStatus);
+                gs.repo.QueueSave(currStatus);
             }
             return currStatus;
         }
@@ -77,7 +69,7 @@ namespace Genrpg.Shared.Factions.Entities
         /// </summary>
         /// <param name="factionId">Which faction Id to set</param>
         /// <param name="val">The value to set</param>
-        public RepResult SetRep(GameState gs, int factionId, long val)
+        public RepResult SetRep(GameState gs, Unit unit, int factionId, long val)
         {
             FactionStatus status = Find(gs, factionId);
             RepResult res = new RepResult()
@@ -94,7 +86,7 @@ namespace Genrpg.Shared.Factions.Entities
             // Negative rep, go down levels.
             while (status.Reputation < 0)
             {
-                RepLevel repLevel = gs.data.GetGameData<FactionSettings>().GetRepLevel(status.RepLevelId - 1);
+                RepLevel repLevel = gs.data.GetGameData<ReputationSettings>(unit).GetRepLevel(status.RepLevelId - 1);
                 if (repLevel == null || status.RepLevelId <= 1)
                 {
                     status.Reputation = 0;
@@ -109,7 +101,7 @@ namespace Genrpg.Shared.Factions.Entities
 
             while (true)
             {
-                RepLevel repLevel = gs.data.GetGameData<FactionSettings>().GetRepLevel(status.RepLevelId);
+                RepLevel repLevel = gs.data.GetGameData<ReputationSettings>(unit).GetRepLevel(status.RepLevelId);
 
 
                 if (repLevel == null || status.Reputation <= repLevel.PointsNeeded)
@@ -119,7 +111,7 @@ namespace Genrpg.Shared.Factions.Entities
 
                 int pointsNeeded = repLevel.PointsNeeded;
 
-                repLevel = gs.data.GetGameData<FactionSettings>().GetRepLevel(status.RepLevelId + 1);
+                repLevel = gs.data.GetGameData<ReputationSettings>(unit).GetRepLevel(status.RepLevelId + 1);
                 if (repLevel == null)
                 {
                     status.Reputation = pointsNeeded - 1;
@@ -133,6 +125,12 @@ namespace Genrpg.Shared.Factions.Entities
             }
             res.NewRepLevelId = status.RepLevelId;
             res.NewRep = status.Reputation;
+
+            if (res.OldRep != res.NewRep || res.OldRepLevelId != res.NewRepLevelId)
+            {
+                gs.repo.QueueSave(status);
+            }
+
             return res;
         }
 
@@ -143,9 +141,9 @@ namespace Genrpg.Shared.Factions.Entities
         /// </summary>
         /// <param name="factionId">The faction to add to</param>
         /// <param name="val">The amount to add</param>
-        public RepResult Add(GameState gs, int factionId, long val)
+        public RepResult Add(GameState gs, Unit unit, int factionId, long val)
         {
-            return SetRep(gs, factionId, GetRep(gs, factionId) + val);
+            return SetRep(gs, unit, factionId, GetRep(gs, factionId) + val);
         }
     }
 }

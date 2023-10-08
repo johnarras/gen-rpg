@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
-using ClientEvents;
+﻿using System.Collections.Generic;
 using UI.Screens.Constants;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
+using UnityEngine.UI; // FIX
 
 public abstract class BaseScreen : AnimatorBehaviour, IScreen
 {
@@ -23,12 +15,11 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
 
     private static List<GraphicRaycaster> _raycasters = new List<GraphicRaycaster>();
 
-
     private CancellationTokenSource _screenSource = new CancellationTokenSource();
     protected CancellationToken _token;
 
     // Called when screen first opens.
-    protected abstract UniTask OnStartOpen(object data, CancellationToken token);
+    protected abstract Task OnStartOpen(object data, CancellationToken token);
 
 
     public override void Initialize(UnityGameState gs)
@@ -65,7 +56,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
         return _raycasters;
     }
 
-    public virtual async UniTask StartOpen(object data, CancellationToken token)
+    public virtual async Task StartOpen(object data, CancellationToken token)
     {
         _screenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
         _token = _screenSource.Token;
@@ -74,16 +65,16 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
 
         if (IntroTime > 0)
         {
-            TriggerAnimation(AnimParams.Intro, IntroTime, OnFinishOpen);
+            TriggerAnimation(AnimParams.Intro, IntroTime, OnFinishOpen, token);
         }
         else
         {
-            OnFinishOpen();
+            OnFinishOpen(token);
         }
     }
 
     // Called as the screen finishes opening.
-    protected virtual void OnFinishOpen()
+    protected virtual void OnFinishOpen(CancellationToken token)
     {
     }
 
@@ -123,11 +114,11 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
         OnStartClose();
         if (OutroTime > 0)
         {
-            TriggerAnimation(AnimParams.Outro, OutroTime, OnFinishClose);
+            TriggerAnimation(AnimParams.Outro, OutroTime, OnFinishClose, _token);
         }
         else
         {
-            OnFinishClose();
+            OnFinishClose(_token);
         }
     }
 
@@ -138,7 +129,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
     }
 
     // Called after close animation ends.
-    protected virtual void OnFinishClose()
+    protected virtual void OnFinishClose(CancellationToken token)
     {
         _screenService.FinishClose(_gs, ScreenId);
     }

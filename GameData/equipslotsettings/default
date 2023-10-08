@@ -1,0 +1,151 @@
+{
+  "Id": "default",
+  "Data": [
+    {
+      "Id": "equipslot0default",
+      "ParentId": "default",
+      "Name": "None",
+      "StatPercent": 100
+    },
+    {
+      "Id": "equipslot1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Head",
+      "StatPercent": 125,
+      "Active": true
+    },
+    {
+      "Id": "equipslot2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Neck",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "Id": "equipslot3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Shoulders",
+      "StatPercent": 125,
+      "Active": true
+    },
+    {
+      "Id": "equipslot4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Torso",
+      "StatPercent": 150,
+      "Active": true
+    },
+    {
+      "Id": "equipslot5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Back",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "Id": "equipslot6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Waist",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "Id": "equipslot7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Legs",
+      "StatPercent": 150,
+      "Active": true
+    },
+    {
+      "Id": "equipslot8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Feet",
+      "StatPercent": 125,
+      "Active": true
+    },
+    {
+      "Id": "equipslot9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Wrists",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "Id": "equipslot10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Hands",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "Id": "equipslot11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "LeftFinger",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "Id": "equipslot12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "RightFinger",
+      "ParentEquipSlotId": 11,
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "Id": "equipslot13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "Jewelry1",
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "Id": "equipslot14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "Jewelry2",
+      "ParentEquipSlotId": 13,
+      "StatPercent": 100,
+      "Active": true
+    },
+    {
+      "Id": "equipslot15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "MainHand",
+      "StatPercent": 150,
+      "Active": true
+    },
+    {
+      "Id": "equipslot16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "OffHand",
+      "ParentEquipSlotId": 15,
+      "StatPercent": 125,
+      "Active": true
+    },
+    {
+      "Id": "equipslot17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "Ranged",
+      "StatPercent": 125,
+      "Active": true
+    }
+  ],
+  "Name": "EquipSlotSettings"
+}

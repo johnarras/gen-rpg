@@ -4,6 +4,8 @@ using System;
 using MessagePack;
 using System.Runtime.Serialization.Formatters;
 using MessagePack.Resolvers;
+using MessagePack.Formatters;
+using System.IO;
 
 namespace Genrpg.Shared.Utils
 {
@@ -36,7 +38,7 @@ namespace Genrpg.Shared.Utils
             return JsonConvert.SerializeObject(obj, _settings);
         }
 
-        public static object Deserialize(string txt, Type t)
+        public static object DeserializeWithType(string txt, Type t)
     {
             int newIndex = 0;
             while (newIndex < txt.Length && txt[newIndex] != '{' && txt[newIndex] != '[')
@@ -52,12 +54,12 @@ namespace Genrpg.Shared.Utils
 
         public static T Deserialize<T>(string txt)
         {
-            return (T)Deserialize(txt, typeof(T));
+            return (T)DeserializeWithType(txt, typeof(T));
         }
 
         public static T SafeMakeCopy<T>(T t) where T : class
         {
-            return (T)Deserialize(Serialize(t), t.GetType());
+            return (T)DeserializeWithType(Serialize(t), t.GetType());
         }
 
         public static TOutput ConvertType<TInput, TOutput>(TInput input)
@@ -66,9 +68,19 @@ namespace Genrpg.Shared.Utils
             return Deserialize<TOutput>(txt);
         }
 
+        public static object? BinaryDeserializeWithType(byte[] bytes, Type t)
+        {
+            return MessagePackSerializer.Deserialize(t, bytes);
+        }
+
         public static T BinaryDeserialize<T>(byte[] bytes)
         {
             return MessagePackSerializer.Deserialize<T>(bytes);
+        }
+
+        public static byte[] BinarySerializeObject(object obj)
+        {
+            return MessagePackSerializer.Serialize(obj.GetType(), obj);
         }
 
         public static byte[] BinarySerialize<T>(T obj)
@@ -78,8 +90,7 @@ namespace Genrpg.Shared.Utils
 
         public static T FastMakeCopy<T>(T t) where T : class
         {
-            return BinaryDeserialize<T>(BinarySerialize(t));
+            return (T)BinaryDeserializeWithType(BinarySerializeObject(t), t.GetType())!;
         }
-
     }
 }

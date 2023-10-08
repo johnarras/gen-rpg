@@ -41,6 +41,9 @@ namespace Genrpg.MapServer.MapMessaging
 
         private CancellationToken _token;
 
+
+        private ConcurrentBag<MapMessagePackage>[] _packagePool;
+
         public async Task Setup(GameState gs, CancellationToken token)
         {
             _eventHandlerDict = _reflectionService.SetupDictionary<Type, IMapMessageHandler>(gs);
@@ -55,6 +58,7 @@ namespace Genrpg.MapServer.MapMessaging
 
             List<Type> messageTypes = _reflectionService.GetTypesImplementing(messageInterfaceType);
 
+            
             StringBuilder sb = new StringBuilder();
             foreach (Type t in messageTypes)
             {
@@ -79,10 +83,22 @@ namespace Genrpg.MapServer.MapMessaging
             _startTime = DateTime.UtcNow;
 
             _messageQueueCount = (int)(gs.map.BlockCount * 0.39);
+
+
+            _packagePoolSize = Math.Max(2, _messageQueueCount * 10);
+            _packagePool = new ConcurrentBag<MapMessagePackage>[_packagePoolSize];
+            for (int i = 0; i < _packagePool.Length; i++)
+            {
+                _packagePool[i] = new ConcurrentBag<MapMessagePackage>();
+            }
+
+
+
+
             _queues = new List<MapMessageQueue>();
             for (int q = 0; q < _messageQueueCount; q++)
             {
-                _queues.Add(new MapMessageQueue(gs, _startTime, q, _token));
+                _queues.Add(new MapMessageQueue(gs, _startTime, q, this,  _token));
             }
 
             _countTask = Task.Run(() => ShowMessageCounts(gs));
@@ -183,6 +199,32 @@ namespace Genrpg.MapServer.MapMessaging
             {
                 SendMessage(nearbyObj, message, delaySec);
             }
+        }
+
+        private long _packageAddIndex = 0; // Approximate incrementing without thread-safety
+        private long _packageGetIndex = 0; // Approximate incrementing without thread-safety
+        private int _packagePoolSize = 10000;
+        public void AddPackage(MapMessagePackage package)
+        {
+
+            long index = ++_packageAddIndex % _packagePoolSize;
+
+            if (_packagePool[index].Count > 100)
+            {
+                return;
+            }
+
+            package.Clear();
+            _packagePool[index].Add(package);
+        }
+
+        public MapMessagePackage GetPackage()
+        {         
+            if (_packagePool[++_packageGetIndex % _packagePoolSize].TryTake(out MapMessagePackage package))
+            {
+                return package;
+            }
+            return new MapMessagePackage();
         }
     }
 }

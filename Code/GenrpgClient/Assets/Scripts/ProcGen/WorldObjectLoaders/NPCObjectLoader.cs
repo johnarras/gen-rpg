@@ -1,5 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Entities.Constants;
+﻿using System.Threading.Tasks;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Messages;
 using System.Threading;
@@ -12,7 +12,7 @@ public class NPCObjectLoader : UnitObjectLoader
     }
     public override long GetKey() { return EntityType.NPC; }
 
-    public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async Task Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
     {
         await base.Load(gs, spawn, obj, token);
     }

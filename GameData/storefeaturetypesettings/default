@@ -1,0 +1,23 @@
+{
+  "Id": "default",
+  "Data": [
+    {
+      "Id": "storefeaturetype0default",
+      "ParentId": "default",
+      "Name": "StoreFeatureType"
+    },
+    {
+      "Id": "storefeaturetype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "StoreFeatureType"
+    },
+    {
+      "Id": "storefeaturetype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "StoreFeatureType"
+    }
+  ],
+  "Name": "StoreFeatureTypeSettings"
+}

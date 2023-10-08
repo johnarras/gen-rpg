@@ -6,6 +6,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.SpellCrafting.Messages;
 using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,12 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
                 return;
             }
 
+            spell.OwnerId = ch.Id;
+            if (string.IsNullOrEmpty(spell.Id))
+            {
+                spell.Id = HashUtils.NewGuid();
+            }
+
             if (!_spellCraftService.GenerateSpellData(gs, spell))
             {
                 obj.AddMessage(new ErrorMessage("Failed to craft spell!"));
@@ -41,9 +48,9 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
 
             long maxId = 0;
 
-            if (spellData.Data.Count > 0)
+            if (spellData.GetData().Count > 0)
             {
-                maxId = spellData.Data.Max(x => x.IdKey);
+                maxId = spellData.GetData().Max(x => x.IdKey);
             }
 
             if (spell.IdKey < 1)
@@ -52,6 +59,7 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
             }
 
             spellData.Add(spell);
+            gs.repo.Save(spell);
             ch.AddMessage(new OnCraftSpell() { CraftedSpell = spell });
             spellData.SetDirty(true);
         }

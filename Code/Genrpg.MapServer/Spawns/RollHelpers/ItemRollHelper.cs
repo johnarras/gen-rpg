@@ -1,6 +1,6 @@
 ﻿using Genrpg.MapServer.Items;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Spawns.Entities;
@@ -23,7 +23,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
         {
             List<SpawnResult> retval = new List<SpawnResult>();
 
-            ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(spawnItem.EntityId);
+            ItemType itype = gs.data.GetGameData<ItemTypeSettings>(null).GetItemType(spawnItem.EntityId);
 
             if (itype == null)
             {

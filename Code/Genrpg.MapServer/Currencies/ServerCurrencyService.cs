@@ -22,19 +22,19 @@ namespace Genrpg.MapServer.Currencies
             await Task.CompletedTask;
         }
 
-        protected override void OnSetCurrency(GameState gs, Unit unit, CurrencyData currencyData, long currencyTypeId, long diff)
+        protected override void OnSetCurrency(GameState gs, Unit unit, CurrencyData currencyData, CurrencyStatus status, long diff)
         {
             if (diff == 0)
             {
                 return;
             }
 
-            currencyData.SetDirty(true);
+            gs.repo.QueueSave(status);
 
             OnAddCurrency onAdd = new OnAddCurrency()
             {
                 CharId = unit.Id,
-                CurrencyTypeId = currencyTypeId,
+                CurrencyTypeId = status.IdKey,
                 QuantityAdded = diff,
             };
 

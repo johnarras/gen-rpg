@@ -1,7 +1,7 @@
 using MessagePack;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Categories.WorldData;
 
 namespace Genrpg.Shared.NPCs.Entities
 {
@@ -11,6 +11,7 @@ namespace Genrpg.Shared.NPCs.Entities
     [MessagePackObject]
     public class NPCType : BaseWorldData, IIndexedGameItem, IStringOwnerId
     {
+        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string OwnerId { get; set; }
         
@@ -41,6 +42,5 @@ namespace Genrpg.Shared.NPCs.Entities
         {
         }
 
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
     }
 }

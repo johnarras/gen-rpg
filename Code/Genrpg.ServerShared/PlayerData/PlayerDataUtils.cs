@@ -5,7 +5,8 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.Interfaces;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Factions.Entities;
 using Genrpg.Shared.Input.Entities;
 using Genrpg.Shared.Interfaces;
@@ -64,7 +65,7 @@ namespace Genrpg.ServerShared.PlayerData
             {
                 if (_loaderObjects.TryGetValue(serverData.GetType(), out IUnitDataLoader loader))
                 {
-                    if (loader.ShouldSendToClient())
+                    if (loader.SendToClient())
                     {
                         retval.Add(loader.MapToAPI(serverData));
                     }
@@ -95,7 +96,7 @@ namespace Genrpg.ServerShared.PlayerData
         protected static void UpdateOnLoad(ServerGameState gs, Character ch)
         {
             ch.FactionTypeId = FactionType.Player;
-            ch.BaseSpeed = gs.data.GetGameData<AISettings>().BaseUnitSpeed;
+            ch.BaseSpeed = gs.data.GetGameData<AISettings>(ch).BaseUnitSpeed;
             ch.Speed = ch.BaseSpeed;
             ch.RemoveFlag(UnitFlags.Evading);
             ch.EntityTypeId = EntityType.Unit;
@@ -107,15 +108,20 @@ namespace Genrpg.ServerShared.PlayerData
                 Spell mySpell = spellData.Get(i);
                 if (mySpell == null)
                 {
-                    spellData.Add(gs.data.GetGameData<SpellSettings>().GetSpell(i));
+                    Spell newSpell = SerializationUtils.ConvertType<SpellType, Spell>(gs.data.GetGameData<SpellTypeSettings>(ch).GetSpellType(i));
+                    newSpell.Id = HashUtils.NewGuid();
+                    newSpell.OwnerId = ch.Id;
+
+                    spellData.Add(newSpell);
+                    gs.repo.QueueSave(newSpell);
                 }
 
                 ActionInputData adata = ch.Get<ActionInputData>();
 
-                ActionInput ai = adata.Data.FirstOrDefault(x => x.SpellId == i);
+                ActionInput ai = adata.GetData().FirstOrDefault(x => x.SpellId == i);
                 if (ai == null)
                 {
-                    adata.Data.Add(new ActionInput() { Index = i, SpellId = i });
+                    adata.SetInput(i, i);
                 }
                 else
                 {

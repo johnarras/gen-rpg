@@ -1,68 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
-
+﻿using System.Collections.Generic;
+using GEntity = UnityEngine.GameObject;
 
 public class ItemTooltipRow : BaseBehaviour
 {
-    [SerializeField]
-    private Text _textRow;
-    [SerializeField]
-    private Text _changeText;
-    [SerializeField]
-    private List<GameObject> _stars;
+    public GText TextRow;
+    public GText ChangeText;
+    public List<GEntity> Stars;
 
     public void Init(UnityGameState gs, ItemTooltipRowData rowData)
     {
         if (rowData == null)
         {
-            GameObject.Destroy(gameObject);
+            GEntityUtils.Destroy(entity);
             return;
         }
 
-        UIHelper.SetText(_textRow, rowData.text);
+        UIHelper.SetText(TextRow, rowData.text);
 
-        if (_textRow != null)
+        if (TextRow != null)
         {
             if (rowData.isCurrent)
             {
-                UIHelper.SetColor(_textRow, Color.white);
+                UIHelper.SetColor(TextRow, GColor.white);
             }
             else
             {
-                UIHelper.SetColor(_textRow, Color.gray);
+                UIHelper.SetColor(TextRow, GColor.gray);
             }
         }
         if (rowData.change == 0)
         {
-            UIHelper.SetText(_changeText, "");
+            UIHelper.SetText(ChangeText, "");
         }
-        else if (_changeText != null)
+        else if (ChangeText != null)
         {
             if (rowData.change < 0)
             {
-                UIHelper.SetColor(_changeText, Color.red);
-                UIHelper.SetText(_changeText, "(" + rowData.change + ")");
+                UIHelper.SetColor(ChangeText, GColor.red);
+                UIHelper.SetText(ChangeText, "(" + rowData.change + ")");
             }
             else
             {
-                UIHelper.SetColor(_changeText, Color.green);
-                UIHelper.SetText(_changeText, "(+" + rowData.change + ")");
+                UIHelper.SetColor(ChangeText, GColor.green);
+                UIHelper.SetText(ChangeText, "(+" + rowData.change + ")");
             }
         }
 
-        if (_stars != null)
+        if (Stars != null)
         {
-            for (int i = 0; i < _stars.Count; i++)
+            for (int i = 0; i < Stars.Count; i++)
             {
-                GameObjectUtils.SetActive(_stars[i], i < rowData.starsToShow);
+                GEntityUtils.SetActive(Stars[i], i < rowData.starsToShow);
             }
         }
 

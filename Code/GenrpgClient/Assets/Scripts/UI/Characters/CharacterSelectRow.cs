@@ -1,9 +1,5 @@
-﻿using UnityEngine.UI;
-using Genrpg.Shared.Characters.Entities;
-using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Utils;
-using UnityEngine;
-using System.Collections.Generic;
+﻿using Genrpg.Shared.Characters.Entities;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.MapServer.Entities;
 using Assets.Scripts.Atlas.Constants;
 using System.Threading;
@@ -11,20 +7,13 @@ using Genrpg.Shared.Login.Messages.DeleteChar;
 
 public class CharacterSelectRow : BaseBehaviour
 {
-    [SerializeField]
-    private Text _name;
-
-    [SerializeField]
-    private Image _charImage;
-
-    [SerializeField]
-    private GameObject _playButtonAnchor;
-
-    [SerializeField]
-    private Button _deleteButton;
-
-    [SerializeField]
-    private CharacterPlayButton _playButtonPrefab;
+    
+    public GText NameText;
+    public GImage CharImage;
+    public GEntity PlayButtonAnchor;
+    public GButton DeleteButton;
+    
+    public CharacterPlayButton _playButtonPrefab;
 
     private CharacterSelectScreen _screen;
 
@@ -36,19 +25,19 @@ public class CharacterSelectRow : BaseBehaviour
         _stub = ch;
         _screen = screenIn;
         _token = token;
-        UIHelper.SetText(_name, ch.Name);
-        UIHelper.SetButton(_deleteButton, screenIn.GetAnalyticsName(), ClickDelete);
-        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, "HelmetMetal_002", _charImage, token);
+        UIHelper.SetText(NameText, ch.Name);
+        UIHelper.SetButton(DeleteButton, screenIn.GetAnalyticsName(), ClickDelete);
+        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, "HelmetMetal_002", CharImage, token);
 
-        if (_playButtonAnchor == null || _playButtonPrefab == null)
+        if (PlayButtonAnchor == null || _playButtonPrefab == null)
         {
             return;
         }
 
         foreach (MapStub stub in _gs.mapStubs)
         {
-            CharacterPlayButton newButton = GameObjectUtils.FullInstantiate<CharacterPlayButton>(_gs, _playButtonPrefab);
-            GameObjectUtils.AddToParent(newButton.gameObject, _playButtonAnchor);
+            CharacterPlayButton newButton = GEntityUtils.FullInstantiate<CharacterPlayButton>(_gs, _playButtonPrefab);
+            GEntityUtils.AddToParent(newButton.entity(), PlayButtonAnchor);
             newButton.Init(ch.Id, stub.Id, screenIn);
         }
     }

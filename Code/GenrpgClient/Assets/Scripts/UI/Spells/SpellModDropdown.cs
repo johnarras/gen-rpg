@@ -1,41 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
-using Entities;
 using Genrpg.Shared.Spells.Entities;
 
 public class SpellModDropdown : BaseBehaviour
 {
     public SpellModifier Mod { get; set; }
 
-    [SerializeField]
-    private Dropdown _dropdownList;
-    [SerializeField]
-    private Text _name;
+    public GDropdown DropdownList;
+    public GText SpellModName;
 
     public void Init(SpellModifier mod, UnityAction<int> onValueChanged = null, int initialValue = -1)
     {
         Mod = mod;
         if (mod ==null)
         {
-            GameObject.Destroy(gameObject);
+            GEntityUtils.Destroy(entity);
             return;
         }
 
-        if (Mod.Values == null || _dropdownList == null)
+        if (Mod.Values == null || DropdownList == null)
         {
             return;
         }
 
-        List<Dropdown.OptionData> options = new List<Dropdown.OptionData>();
+        List<GDropdown.OptionData> options = new List<GDropdown.OptionData>();
 
         int defaultIndex = -1;
         int desiredIndex = -1;
@@ -70,11 +59,11 @@ public class SpellModDropdown : BaseBehaviour
         }
 
 
-        _dropdownList.onValueChanged.RemoveAllListeners();
+        DropdownList.onValueChanged.RemoveAllListeners();
 
-        _dropdownList.AddOptions(options);
+        DropdownList.AddOptions(options);
        
-        UIHelper.SetText(_name, Mod.Name);
+        UIHelper.SetText(SpellModName, Mod.Name);
 
 
         if (desiredIndex >= 0)
@@ -88,11 +77,11 @@ public class SpellModDropdown : BaseBehaviour
 
         if (defaultIndex >= 0)
         {
-            _dropdownList.value = defaultIndex;
+            DropdownList.value = defaultIndex;
         }
         if (onValueChanged != null)
         {
-            _dropdownList.onValueChanged.AddListener(onValueChanged);
+            DropdownList.onValueChanged.AddListener(onValueChanged);
         }
     }
 }

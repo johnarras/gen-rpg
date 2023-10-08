@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Services;
@@ -7,20 +7,16 @@ using Genrpg.Shared.NPCs.Messages;
 using Genrpg.Shared.Units.Entities;
 using System.Linq;
 using System.Threading;
-using UnityEngine;
-using UnityEngine.UI;
+using GEntity = UnityEngine.GameObject;
 
 public class VendorScreen : ItemIconScreen
 {
     protected IInventoryService _inventoryService;
     public const string VendorIconName = "VendorItemIcon";
 
-    [SerializeField]
-    private InventoryPanel _playerItems;
-    [SerializeField]
-    private GameObject _vendorItems;
-    [SerializeField]
-    private Button _closeButton;
+    public InventoryPanel PlayerItems;
+    public GEntity VendorItems;
+    public GButton CloseButton;
 
     NPCStatus _status = null;
     NPCType _type = null;
@@ -28,10 +24,10 @@ public class VendorScreen : ItemIconScreen
 
     Unit _unit = null;
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        UIHelper.SetButton(_closeButton, GetAnalyticsName(), StartClose);
+        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
         _gs.AddEvent<OnGetNPCStatus>(this, OnGetNPCStatusHandler);
         _gs.AddEvent<OnAddItem>(this, OnAddItemHandler);
         _gs.AddEvent<OnRemoveItem>(this, OnRemoveItemHandler);
@@ -66,7 +62,7 @@ public class VendorScreen : ItemIconScreen
 
     private void InitPanel()
     {
-        _playerItems.Init(InventoryGroup.All, this, null, _token);
+        PlayerItems.Init(InventoryGroup.All, this, null, _token);
     }
 
     private OnAddItem OnAddItemHandler (UnityGameState gs, OnAddItem addItem)
@@ -100,12 +96,12 @@ public class VendorScreen : ItemIconScreen
     private void ShowVendorItems(NPCStatus status)
     {
         _status = status;
-        if (_vendorItems == null || _status == null)
+        if (VendorItems == null || _status == null)
         {
             return;
         }
 
-        GameObjectUtils.DestroyAllChildren(_vendorItems);
+        GEntityUtils.DestroyAllChildren(VendorItems);
             
         if (_status == null || _status.Items == null)
         {
@@ -121,7 +117,7 @@ public class VendorScreen : ItemIconScreen
                 iconPrefabName = VendorIconName,
                 Screen = this,
             };
-            IconHelper.InitItemIcon(_gs, idata, _vendorItems,_assetService, _token);
+            IconHelper.InitItemIcon(_gs, idata, VendorItems,_assetService, _token);
         }
 
 

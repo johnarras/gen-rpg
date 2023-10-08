@@ -17,9 +17,9 @@ namespace Genrpg.Shared.Networking.Entities.TCP
 
         public ConnectTcpConn(string host, long port,
             IMapApiSerializer serializer,
-            Action<List<IMapApiMessage>, CancellationToken> handler, 
+            MapApiMessageHandler handler, 
             ILogSystem logger,
-            CancellationToken token) : base(serializer,handler,logger, token)
+            CancellationToken token, object extraData) : base(serializer, handler,logger, token, extraData)
         {
             _host = host;
             _port = (int)port;

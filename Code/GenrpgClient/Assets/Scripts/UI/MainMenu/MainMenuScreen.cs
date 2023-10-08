@@ -1,29 +1,22 @@
 ﻿
 using System.Threading;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class MainMenuScreen : BaseScreen
 {
-    [SerializeField]
-    private Button _exitMapButton;
-
-    [SerializeField]
-    private Button _logoutAccountButton;
-
-    [SerializeField]
-    private Button _quitGameButton;
-
+    
+    public GButton ExitMapButton;
+    public GButton LogoutAccountButton;
+    public GButton QuitGameButton;
 
     protected IClientLoginService _loginService;
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
-        UIHelper.SetButton(_logoutAccountButton, GetAnalyticsName(), ClickLogout);
-        UIHelper.SetButton(_quitGameButton, GetAnalyticsName(), ClickQuit);
-        UIHelper.SetButton(_exitMapButton, GetAnalyticsName(), ExitMap);
+        UIHelper.SetButton(LogoutAccountButton, GetAnalyticsName(), ClickLogout);
+        UIHelper.SetButton(QuitGameButton, GetAnalyticsName(), ClickQuit);
+        UIHelper.SetButton(ExitMapButton, GetAnalyticsName(), ExitMap);
 
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 
 

@@ -32,7 +32,7 @@ namespace Genrpg.MapServer.Units.MessageHandlers
                 return;
             }
 
-            float refreshMinutes = gs.data.GetGameData<VendorSettings>().VendorRefreshMinutes;
+            float refreshMinutes = gs.data.GetGameData<VendorSettings>(obj).VendorRefreshMinutes;
             if (refreshMinutes > 0 &&
                 unit.NPCStatus.LastItemRefresh > DateTime.UtcNow.AddMinutes(-refreshMinutes))
             {

@@ -1,19 +1,18 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Input.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.DataStores.Entities;
-using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Spawns.Entities;
 using System.Threading;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Combat.Messages;
-//using LylekGames.RPGCharacter;
+using UnityEngine; // Needed
 
 public class UnitController : BaseBehaviour
 {
@@ -31,7 +30,7 @@ public class UnitController : BaseBehaviour
     protected const float MinRunAnimationSpeed = 0.5f;
     public const float SwimDepth = 1.2f;
 
-    protected Animator anims = null;
+    protected GAnimator anims = null;
     protected MapGenData UnityMap = null;
 	protected CharacterController cc = null;
     Rigidbody rb = null;
@@ -64,9 +63,9 @@ public class UnitController : BaseBehaviour
     public override void Initialize(UnityGameState gs)
     {
         base.Initialize(gs);
-        anims = GameObjectUtils.GetComponent<Animator>(gameObject);
+        anims = GEntityUtils.GetComponent<GAnimator>(entity);
         cc = GetComponent<CharacterController>();
-        rb = GameObjectUtils.GetOrAddComponent<Rigidbody>(gs, gameObject);
+        rb = GEntityUtils.GetOrAddComponent<Rigidbody>(gs, entity);
         rb.isKinematic = true;
         rb.freezeRotation = true;
         UnityMap = _gs.md;
@@ -102,8 +101,8 @@ public class UnitController : BaseBehaviour
             SetKeyPercent(InputService.MoveInputsToCheck[i], FlagUtils.IsSet(keysDown, 1 << i) ? 1 : 0);
         }
         _unit.Rot = rot;
-        Vector3 currEuler = transform.eulerAngles;
-        transform.eulerAngles = new Vector3(currEuler.x, rot, currEuler.z);
+        GVector3 currEuler = GVector3.Create(entity.transform().eulerAngles);
+       entity.transform().eulerAngles = GVector3.Create(currEuler.x, rot, currEuler.z);
     }
 
     protected int GetKeysDown()
@@ -140,7 +139,7 @@ public class UnitController : BaseBehaviour
         }
 
         float delta = InputService.Instance.GetDeltaTime();
-        float targetDeltaTime = 1.0f / InputService.Instance.TargetFramerate();
+        float targetDeltaTime = 1.0f / AppUtils.TargetFrameRate;
         delta = targetDeltaTime;
 
         float rotSpeed = UnitConstants.RotSpeedPerFrame;
@@ -175,19 +174,19 @@ public class UnitController : BaseBehaviour
 
         if (IsSwimming()) { dx *= SwimSpeedScale(); }
        
-        Vector3 startPos = transform.position;
+        GVector3 startPos = GVector3.Create(entity.transform().position);
         float rotateAmount = 0.0f;
         rotateAmount -= GetKeyPercent(KeyComm.TurnLeft) * rotSpeed;
         rotateAmount += GetKeyPercent(KeyComm.TurnRight) * rotSpeed;
-        if (rotateAmount != 0) { transform.rotation *= Quaternion.Euler(0, rotateAmount, 0); }
+        if (rotateAmount != 0) {entity.transform().rotation *= Quaternion.Euler(0, rotateAmount, 0); }
 
         ShowMoveAnimations(dx, dz);
 
-        Vector3 endPos = startPos;
+        GVector3 endPos = startPos;
 		if (dx != 0 || dz != 0)
 		{
             //dz *= (100.0f + _unit.Stats.Pct(StatType.Speed) / 100);
-            float nrot = gameObject.transform.localEulerAngles.y;
+            float nrot = entity.transform().localEulerAngles.y;
             double sin = Math.Sin (nrot*Math.PI/180.0);
             double cos = Math.Cos(nrot*Math.PI/180.0);
 
@@ -200,28 +199,28 @@ public class UnitController : BaseBehaviour
             float my = startPos.y+ny;
             float mz = startPos.z+nz;
 
-            endPos = new Vector3(mx, my, mz);
+            endPos = new GVector3(mx, my, mz);
 
         }
 
-        if (transform.position.y <= 100)
+        if (entity.transform().position.y <= 100)
         {
             float endHeight = _gs.md.SampleHeight(_gs, endPos.x, 2000, endPos.z);
 
             if (endHeight > 0)
             {
-                endPos = new Vector3(endPos.x, endHeight + 1, endPos.z);
-                transform.position = endPos;
+                endPos = new GVector3(endPos.x, endHeight + 1, endPos.z);
+               entity.transform().position = GVector3.Create(endPos);
                 startPos = endPos;
                 return;
 
             }
         }
 
-        Vector3 diff = (endPos - startPos) / InputService.Instance.GetDeltaTime();
+        GVector3 diff = (endPos - startPos) / InputService.Instance.GetDeltaTime();
         if (cc != null)
         {
-            cc.SimpleMove(diff);
+            cc.SimpleMove(GVector3.Create(diff));
         }
 	}
 
@@ -296,7 +295,7 @@ public class UnitController : BaseBehaviour
     {
         if (_unitFrame == null)
         {
-            _unitFrame = GameObjectUtils.GetComponent<UnitFrame>(gameObject);
+            _unitFrame = GEntityUtils.GetComponent<UnitFrame>(entity);
         }
         if (_unitFrame == null)
         {
@@ -320,15 +319,15 @@ public class UnitController : BaseBehaviour
         _unit.ToZ = _unit.Z;
         _unit.Moving = false;
 
-        if (died.FirstAttackerId == _gs.ch.Id)
+        if (UnitUtils.AttackerInfoMatchesObject(died.FirstAttacker, _gs.ch))
         {
             _unit.Loot = died.Loot;
             _unit.SkillLoot = died.SkillLoot;
-            _unit.AddAttacker(_gs.ch.Id);
+            _unit.AddAttacker(_gs.ch.Id, _gs.ch.GetGroupId());
             if ((_unit.Loot != null && _unit.Loot.Count > 0) ||
                 (_unit.SkillLoot != null && _unit.SkillLoot.Count > 0))
             {
-                InteractUnit interactUnit = gameObject.GetComponent<InteractUnit>();
+                InteractUnit interactUnit = entity.GetComponent<InteractUnit>();
                 if (interactUnit != null)
                 {
                     interactUnit.ShowGlow(0);
@@ -340,13 +339,12 @@ public class UnitController : BaseBehaviour
             _unit.Loot = new List<SpawnResult>();
             _unit.SkillLoot = new List<SpawnResult>();
         }
-        DelayShowDeathAnim(token).Forget();
+        _updateService.AddDelayedUpdate(entity, ShowDeathAnim, token, 0.1f);
     }
 
-    private async UniTask DelayShowDeathAnim(CancellationToken token)
+    private void ShowDeathAnim(CancellationToken token)
     {
-        await UniTask.NextFrame(token);
-        if (gameObject == null || anims == null)
+        if (entity == null || anims == null)
         {
             return;
         }
@@ -370,12 +368,12 @@ public class UnitController : BaseBehaviour
 
     public void ShowCombatText(CombatText text)
     {
-        _assetService.LoadAssetInto(_gs, gameObject, AssetCategory.UI, CombatTextUI.UIPrefabName, OnLoadCombatText, text, _token);
+        _assetService.LoadAssetInto(_gs, entity, AssetCategory.UI, CombatTextUI.UIPrefabName, OnLoadCombatText, text, _token);
     }
 
     private void OnLoadCombatText(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -385,14 +383,14 @@ public class UnitController : BaseBehaviour
 
         if (text == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
         CombatTextUI ui = go.GetComponent<CombatTextUI>();
         if (ui == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 

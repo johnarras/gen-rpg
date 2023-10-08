@@ -1,18 +1,10 @@
-
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Interfaces;
+using System.Threading.Tasks;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Zones.Entities;
-using Services;
-using Services.ProcGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using System.Threading;
 
 
@@ -109,7 +101,7 @@ public class AddTrees : BaseZoneGenerator
 
     private float[,] extraTreeHeights;
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         Dictionary<long, ZoneTreeData> ztdict = new Dictionary<long, ZoneTreeData>();
@@ -148,7 +140,7 @@ public class AddTrees : BaseZoneGenerator
             return null;
         }
 
-        ZoneType zoneType = gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId);
+        ZoneType zoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId);
         if (zoneType == null)
         {
             return null;
@@ -178,7 +170,7 @@ public class AddTrees : BaseZoneGenerator
         {
 
             ZoneTreeType zoneTree = tlist[t];
-            TreeType treeType = gs.data.GetGameData<ProcGenSettings>().GetTreeType(zoneTree.TreeTypeId);
+            TreeType treeType = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(zoneTree.TreeTypeId);
 
 
             if (treeType == null || string.IsNullOrEmpty(treeType.Art))
@@ -597,7 +589,7 @@ public class AddTrees : BaseZoneGenerator
 
         if (bushDensity < 1.0f)
         {
-            bushDensity = Mathf.Sqrt(bushDensity);
+            bushDensity = (float)Math.Sqrt(bushDensity);
         }
         tc.densityMult = WaterChance * MathUtils.FloatRange(0.4f, 1.6f, choiceRand) * bushDensity;
         tc.freqMult *= 0.0f;
@@ -660,15 +652,10 @@ public class AddTrees : BaseZoneGenerator
             return;
         }
 
-        if (gs.data.GetGameData<ProcGenSettings>().TreeTypes == null)
-        {
-            return;
-        }
-
         string tname = ttype.Art;
         tname = tname.Replace("Winter", "");
 
-        foreach (TreeType item in gs.data.GetGameData<ProcGenSettings>().TreeTypes)
+        foreach (TreeType item in gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetData())
         {
             if (item.Art != null && item.Art != ttype.Art)
             {
@@ -737,9 +724,9 @@ public class AddTrees : BaseZoneGenerator
                 float dirtRadius = 1;
                 if (tcat.Index == TreeIndex)
                 {
-                    dirtRadius = (treeType.HasFlag(TreeFlags.IsBush) ? 0 : gs.data.GetGameData<ProcGenSettings>().TreeDirtRadius);
+                    dirtRadius = (treeType.HasFlag(TreeFlags.IsBush) ? 0 : gs.data.GetGameData<TreeTypeSettings>(gs.ch).TreeDirtRadius);
                     float dirtScale = 0.6f;
-                    dirtRadius *= Mathf.Pow(TreeSizeScale, 0.9f);
+                    dirtRadius *= (float)Math.Pow(TreeSizeScale, 0.9f);
                     dirtRadius *= MathUtils.FloatRange(0.3f, 0.9f, full.posRand);
                     dirtScale *= MathUtils.FloatRange(0.5f, 1.2f, full.posRand);
                     if (dirtScale > 0.7f)
@@ -788,7 +775,7 @@ public class AddTrees : BaseZoneGenerator
                             float dy2 = y2 - cy;
 
 
-                            float distScale = Mathf.Sqrt(dx2 * dx2 + dy2 * dy2) / dirtRadius;
+                            float distScale = (float)Math.Sqrt(dx2 * dx2 + dy2 * dy2) / dirtRadius;
                             float dirtIntensity = (float)Math.Pow(Math.Exp(-distScale), 2.0f) * dirtScale;
                             dirtIntensity *= MathUtils.FloatRange(0.7f, 1.3f, full.posRand);
                             if (dirtIntensity > 1)
@@ -822,7 +809,7 @@ public class AddTrees : BaseZoneGenerator
                             float dy2 = y2 - cy;
 
 
-                            float distScale = Mathf.Sqrt(dx2 * dx2 + dy2 * dy2) / dirtRadius;
+                            float distScale = (float)Math.Sqrt(dx2 * dx2 + dy2 * dy2) / dirtRadius;
                             float extraHeight = overallExtraHeight * MathUtils.QuadraticSShaped(1 - distScale);
                             if (extraTreeHeights[x2, y2] < extraHeight)
                             {
@@ -842,10 +829,10 @@ public class AddTrees : BaseZoneGenerator
                     AddNearbyItemsHelper nearbyHelper = new AddNearbyItemsHelper();
 
 
-                    float maxRadius = Mathf.Max(2.0f, dirtRadius / 2);
-                    float minRadius = Mathf.Max(1.0f, maxRadius / 2);
+                    float maxRadius = Math.Max(2.0f, dirtRadius / 2);
+                    float minRadius = Math.Max(1.0f, maxRadius / 2);
                        
-                    nearbyHelper.AddItemsNear(gs, full.posRand, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId), zone, x, y, 1.0f, numNearbyItems,minRadius,maxRadius, false);
+                    nearbyHelper.AddItemsNear(gs, full.posRand, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone, x, y, 1.0f, numNearbyItems,minRadius,maxRadius, false);
                 }
             }
         }

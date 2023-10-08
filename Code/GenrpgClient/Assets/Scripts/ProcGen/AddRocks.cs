@@ -1,25 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-
-using UnityEngine;
-using Cysharp.Threading.Tasks;
-using Entities;
+using System.Threading.Tasks;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-using Services.ProcGen;
+
 using System.Threading;
 
 internal class FullRockType
@@ -48,12 +35,12 @@ public class AddRocks : BaseZoneGenerator
 {
     public const float RandomRockDensity = 1.0f / 4000.0f;
     public int TriesPerRock = 20;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
@@ -93,7 +80,7 @@ public class AddRocks : BaseZoneGenerator
                 continue;
             }
 
-            RockType rt = gs.data.GetGameData<ProcGenSettings>().GetRockType(zrt.RockTypeId);
+            RockType rt = gs.data.GetGameData<RockTypeSettings>(gs.ch).GetRockType(zrt.RockTypeId);
             if (rt == null)
             {
                 continue;
@@ -245,7 +232,7 @@ public class AddRocks : BaseZoneGenerator
                 int rdx = px - x;
                 int rdy = pz - y;
 
-                float rdist = Mathf.Sqrt(rdx * rdx + rdy * rdy);
+                float rdist = (float)Math.Sqrt(rdx * rdx + rdy * rdy);
               
 
                 int ipx = (int)(px);

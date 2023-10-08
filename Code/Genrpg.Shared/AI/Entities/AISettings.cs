@@ -1,16 +1,17 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Categories;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Loading;
 
 namespace Genrpg.Shared.AI.Entities
 {
     [MessagePackObject]
-    public class AISettings : BaseGameData
+    public class AISettings : BaseGameSettings // No List
     {
-        public override void Set(GameData gameData) { gameData.Set(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public float UpdateSeconds { get; set; } = 1.5f;
 
@@ -21,5 +22,13 @@ namespace Genrpg.Shared.AI.Entities
         [Key(4)] public float LeashDistance { get; set; } = 60.0f;
 
         [Key(5)] public float BaseUnitSpeed { get; set; } = 5.0f;
+
+        [Key(6)] public float BringAFriendRadius { get; set; } = 20.0f;
+    }
+
+
+    [MessagePackObject]
+    public class AISettingsLoader : GameDataLoader<AISettings>
+    {
     }
 }

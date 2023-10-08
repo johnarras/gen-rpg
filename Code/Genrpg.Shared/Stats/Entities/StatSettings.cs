@@ -1,24 +1,30 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Categories;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.DataStores.GameSettings;
 
 namespace Genrpg.Shared.Stats.Entities
 {
     [MessagePackObject]
-    public class StatSettings : BaseGameData
+    public class StatSettings : ParentSettings<StatType>
     {
-        public override void Set(GameData gameData) { gameData.Set(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public int StatConstantUnitMultiple { get; set; }
-        [Key(2)] public List<StatType> StatTypes { get; set; }
-        [Key(3)] public List<DerivedStat> DerivedStats { get; set; }
+        [Key(2)] public override List<StatType> Data { get; set; } = new List<StatType>();
 
         public StatType GetStatType(long idkey)
         {
             return _lookup.Get<StatType>(idkey);
         }
     }
+
+    [MessagePackObject]
+    public class StatSettingsApi : ParentSettingsApi<StatSettings, StatType> { }
+    [MessagePackObject]
+    public class StatSettingsLoader : ParentSettingsLoader<StatSettings, StatType, StatSettingsApi> { }
 }

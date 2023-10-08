@@ -1,3 +1,4 @@
+using Genrpg.Shared.MapObjects.Entities;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -167,6 +168,16 @@ namespace Genrpg.Shared.Units.Entities
                 unit.ToX = unit.X;
                 unit.ToZ = unit.Z;
             }
+        }
+
+        public static bool AttackerInfoMatchesObject (AttackerInfo attackerInfo, MapObject obj)
+        {
+            if (attackerInfo == null || !(obj is Unit unit))
+            {
+                return false;
+            }
+
+            return attackerInfo.AttackerId == unit.Id || attackerInfo.GroupId == unit.GetGroupId();
         }
     }
 }

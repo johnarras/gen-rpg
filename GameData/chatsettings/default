@@ -1,41 +1,59 @@
 {
   "Id": "default",
-  "ChatTypes": [
+  "Data": [
     {
+      "Id": "chattype1default",
+      "ParentId": "default",
       "IdKey": 1,
-      "Name": "Tell"
+      "Name": "ChatType"
     },
     {
+      "Id": "chattype2default",
+      "ParentId": "default",
       "IdKey": 2,
-      "Name": "Say"
+      "Name": "ChatType"
     },
     {
+      "Id": "chattype3default",
+      "ParentId": "default",
       "IdKey": 3,
-      "Name": "Yell"
+      "Name": "ChatType"
     },
     {
+      "Id": "chattype4default",
+      "ParentId": "default",
       "IdKey": 4,
-      "Name": "Zone"
+      "Name": "ChatType"
     },
     {
+      "Id": "chattype5default",
+      "ParentId": "default",
       "IdKey": 5,
-      "Name": "Map"
+      "Name": "ChatType"
     },
     {
+      "Id": "chattype6default",
+      "ParentId": "default",
       "IdKey": 6,
-      "Name": "World"
+      "Name": "ChatType"
     },
     {
+      "Id": "chattype7default",
+      "ParentId": "default",
       "IdKey": 7,
-      "Name": "Guild"
+      "Name": "ChatType"
     },
     {
+      "Id": "chattype8default",
+      "ParentId": "default",
       "IdKey": 8,
-      "Name": "Party"
+      "Name": "ChatType"
     },
     {
+      "Id": "chattype9default",
+      "ParentId": "default",
       "IdKey": 9,
-      "Name": "Raid"
+      "Name": "ChatType"
     }
   ],
   "Name": "ChatSettings"

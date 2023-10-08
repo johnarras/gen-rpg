@@ -8,5 +8,8 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.PlayerData.Loaders
 {
-    public class FactionDataLoader : UnitDataLoader<FactionData> { }
+    public class FactionDataLoader : OwnerDataLoader<FactionData,FactionStatus,FactionApi>
+    {
+
+    }
 }

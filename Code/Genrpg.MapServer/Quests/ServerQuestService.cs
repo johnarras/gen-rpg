@@ -39,7 +39,7 @@ namespace Genrpg.MapServer.Quests
 
             QuestData questList = ch.Get<QuestData>();
 
-            foreach (QuestStatus questStatus in questList.Data)
+            foreach (QuestStatus questStatus in questList.GetData())
             {
                 if (questStatus.Quest == null)
                 {
@@ -51,9 +51,9 @@ namespace Genrpg.MapServer.Quests
                     continue;
                 }
 
-                if (questStatus.Statuses == null)
+                if (questStatus.Tasks == null)
                 {
-                    questStatus.Statuses = new List<QuestTaskStatus>();
+                    questStatus.Tasks = new List<QuestTaskStatus>();
                 }
 
                 foreach (QuestTask task in questStatus.Quest.Tasks)
@@ -64,11 +64,11 @@ namespace Genrpg.MapServer.Quests
                     }
 
 
-                    QuestTaskStatus taskStatus = questStatus.Statuses.FirstOrDefault(X => X.Index == task.Index);
+                    QuestTaskStatus taskStatus = questStatus.Tasks.FirstOrDefault(X => X.Index == task.Index);
                     if (taskStatus == null)
                     {
                         taskStatus = new QuestTaskStatus() { Index = task.Index };
-                        questStatus.Statuses.Add(taskStatus);
+                        questStatus.Tasks.Add(taskStatus);
                     }
 
                     if (taskStatus.CurrQuantity >= task.Quantity)
@@ -113,9 +113,9 @@ namespace Genrpg.MapServer.Quests
                 return errorResult;
             }
 
-            QuestData questList = ch.Get<QuestData>();
+            QuestData questData = ch.Get<QuestData>();
 
-            QuestStatus questStatus = questList.GetStatus(quest);
+            QuestStatus questStatus = questData.GetStatus(quest);
 
             int questState = _questService.GetQuestState(gs, ch, quest);
 
@@ -150,8 +150,9 @@ namespace Genrpg.MapServer.Quests
                         return errorResult;
                     }
 
-                    questStatus = quest.CreateStatus();
-                    questList.AddStatus(questStatus);
+                    questStatus = quest.CreateStatus(questData);
+                    questData.AddStatus(questStatus);
+                    gs.repo.Delete(questStatus);
                     AlterQuestStateResult alterResult = new AlterQuestStateResult()
                     {
                         AlterTypeId = AlterQuestType.Accept,
@@ -168,7 +169,8 @@ namespace Genrpg.MapServer.Quests
                     errorResult.Message = "You aren't on this quest.";
                     return errorResult;
                 }
-                questList.RemoveStatus(questStatus);
+                questData.RemoveStatus(questStatus);
+                gs.repo.Delete(questStatus);
                 AlterQuestStateResult alterResult = new AlterQuestStateResult()
                 {
                     AlterTypeId = AlterQuestType.Abandon,
@@ -190,14 +192,11 @@ namespace Genrpg.MapServer.Quests
                     return errorResult;
                 }
 
-                List<SpawnResult> rewards = _questService.GetRewards(gs, quest, true);
+                List<SpawnResult> rewards = _questService.GetRewards(gs, ch, quest, true);
 
                 _entityService.GiveRewards(gs, ch, rewards);
-                questList.RemoveStatus(questStatus);
-
-                MapQuestsData mapQuestData = ch.Get<MapQuestsData>();
-
-                mapQuestData.AddCompletedQuest(quest);
+                questData.RemoveStatus(questStatus);
+                gs.repo.Delete(questStatus);
 
                 AlterQuestStateResult alterResult = new AlterQuestStateResult()
                 {

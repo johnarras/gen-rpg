@@ -36,10 +36,11 @@ namespace Genrpg.ServerShared.DataStores
         private string _env = null;
         private ILogSystem _logger = null;
 
+        private static ConcurrentDictionary<string, IRepository> _repos = new ConcurrentDictionary<string, IRepository>();
         private static ConcurrentDictionary<string, BlobRepository> _blobRepos = new ConcurrentDictionary<string, BlobRepository>();
         private static ConcurrentDictionary<string, NoSQLRepository> _noSQLRepos = new ConcurrentDictionary<string, NoSQLRepository>();
-        private static ConcurrentDictionary<string, object> _repoDict = new ConcurrentDictionary<string, object>();
-
+        private static ConcurrentDictionary<string, object> _repoCollectionDict = new ConcurrentDictionary<string, object>();
+        private static ConcurrentDictionary<Type, IRepository> _repoTypeDict = new ConcurrentDictionary<Type, IRepository>();
 
         public ServerRepositorySystem(ILogSystem logger, string env, Dictionary<string, string> connectionStrings)
         {
@@ -61,6 +62,7 @@ namespace Genrpg.ServerShared.DataStores
                         string replacementConnection = connectionStrings[key].Replace(ReplacementString, _env.ToLower());
                         BlobRepository blobRepo = new BlobRepository(_logger, replacementConnection);
                         _blobRepos[typeKey] = blobRepo;
+                        _repos[typeKey] = blobRepo;
                     }
                 }
                 if (key.IndexOf(NoSQLPrefix) == 0)
@@ -70,21 +72,22 @@ namespace Genrpg.ServerShared.DataStores
                     {
                         NoSQLRepository noSQLRepo = new NoSQLRepository(_logger, typeKey, connectionStrings[key]);
                         _noSQLRepos[typeKey] = noSQLRepo;
+                        _repos[typeKey] = noSQLRepo;
                     }
                 }
             }
         }
 
-
-        public async Task<IRepositoryCollection<T>> Find<T>() where T : class, IStringId
+        /// <summary>
+        /// Find a repository based on the type passed in.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public IRepository FindRepo(Type t)
         {
-            Type t = typeof(T);
-
-            string nm = (_env + t.Name).ToLower();
-
-            if (_repoDict.TryGetValue(nm, out object repoObj))
+            if (_repoTypeDict.TryGetValue(t, out IRepository repo))
             {
-                return (IRepositoryCollection<T>)repoObj;
+                return repo;
             }
 
             string dataCategoryName = DataCategory.Default;
@@ -97,43 +100,36 @@ namespace Genrpg.ServerShared.DataStores
             }
             dataCategoryName = (_env + dataCategoryName).ToLower();
 
-            if (_noSQLRepos.ContainsKey(dataCategoryName))
+            if (_repos.TryGetValue(dataCategoryName, out IRepository existingRepo))
             {
-                IRepositoryCollection<T> noSQLRepo = new NoSQLRepositoryCollection<T>(_noSQLRepos[dataCategoryName], _logger);
-                _repoDict[nm] = noSQLRepo;
-                return noSQLRepo;
-            }
-            if (_blobRepos.ContainsKey(dataCategoryName))
-            {
-                IRepositoryCollection<T> blobRepo = new BlobRepositoryCollection<T>(_blobRepos[dataCategoryName], _logger);
-                _repoDict[nm] = blobRepo;
-                return blobRepo;
+                _repoTypeDict[t] = existingRepo;
+                return existingRepo;
             }
 
-            await Task.CompletedTask;
             return null;
         }
 
-        public async Task<bool> Delete<T>(T t) where T : class, IStringId
-        {
-            IRepositoryCollection<T> repo = await Find<T>();
-            return await repo.Delete(t);
-        }
-        public async Task<T> Load<T>(string id) where T : class, IStringId
-        {
-            IRepositoryCollection<T> repo = await Find<T>();
-            return await repo.Load(id);
+        public async Task<bool> Delete<T>(T obj) where T : class, IStringId
+         {
+            IRepository repo = FindRepo(obj.GetType());
+            return await repo.Delete(obj);
         }
 
-        public async Task<bool> Save<T>(T t) where T : class, IStringId
+        public async Task<bool> Save<T>(T obj) where T : class, IStringId
         {
-            IRepositoryCollection<T> repo = await Find<T>();
-            return await repo.Save(t);
+            IRepository repo = FindRepo(obj.GetType());
+            return await repo.Save(obj);
+        }
+
+        public async Task<T> Load<T>(string id) where T : class, IStringId
+        {
+            IRepository repo = FindRepo(typeof(T));
+            return await repo.Load<T>(id);
         }
 
         public async Task<bool> SaveAll<T>(List<T> t) where T : class, IStringId
         {
-            IRepositoryCollection<T> repo = await Find<T>();
+            IRepository repo = FindRepo(typeof(T));
             return await repo.SaveAll(t);
         }
 
@@ -149,23 +145,16 @@ namespace Genrpg.ServerShared.DataStores
             _queues[StrUtils.GetIdHash(t.Id) % QueueCount].Enqueue(deleteAction);
         }
 
-
-        public async Task<bool> StringSave<T>(string id, string data) where T : class, IStringId
-        {
-            IRepositoryCollection<T> repo = await Find<T>();
-            return await repo.StringSave(id, data);
-        }
-
         public async Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity = 1000, int skip = 0) where T : class, IStringId
         {
-            IRepositoryCollection<T> repo = await Find<T>();
-            return await repo.Search(func, quantity, skip);
+            IRepository repo = FindRepo(typeof(T));
+            return await repo.Search<T>(func, quantity, skip);
         }
 
         public async Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId
         {
-            IRepositoryCollection<T> repo = await Find<T>();
-            await repo.CreateIndex(configs);
+            IRepository repo = FindRepo(typeof(T));
+            await repo.CreateIndex<T>(configs);
             return;
         }
     }

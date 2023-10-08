@@ -1,24 +1,14 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEngine;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using Cysharp.Threading.Tasks;
-using Entities;
+using GEntity = UnityEngine.GameObject;
+using System.Threading.Tasks;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
-using System.Xml.Linq;
-using System.Reflection;
-using UnityEngineInternal;
 using Assets.Scripts.MapTerrain;
-using System.Linq;
+using UnityEngine; // Needed
 
 public class TerrainTextureData
 {
@@ -26,7 +16,7 @@ public class TerrainTextureData
 
     public Texture2D RegTexture;
     public Texture2D NormTexture;
-    public GameObject TextureContainer;
+    public GEntity TextureContainer;
     public int InstanceCount = 0;
     public TerrainLayer TerrLayer;
 }
@@ -41,7 +31,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         public Terrain Terr;
     }
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 
@@ -51,15 +41,15 @@ public class SetTerrainTextures : BaseZoneGenerator
         {
             for (int gy = 0; gy < gs.map.BlockCount; gy++)
             {
-                SetOneTerrainPatchLayers(gs, gs.md.terrainPatches[gx, gy], token, true).Forget();
+                TaskUtils.AddTask(SetOneTerrainPatchLayers(gs, gs.md.terrainPatches[gx, gy], token, true));
             }
-            await UniTask.NextFrame();
+            await Task.Delay(1);
         }
-        await UniTask.Delay(TimeSpan.FromSeconds(2.0f));
+        await Task.Delay(TimeSpan.FromSeconds(2.0f));
     }
 
 
-    public async UniTask SetOneTerrainPatchLayers(UnityGameState gs, TerrainPatchData patch, CancellationToken token, bool allAtOnce = false)       
+    public async Task SetOneTerrainPatchLayers(UnityGameState gs, TerrainPatchData patch, CancellationToken token, bool allAtOnce = false)       
     {
         if (_terrainManager == null)
         {
@@ -105,13 +95,13 @@ public class SetTerrainTextures : BaseZoneGenerator
         await DelayLoadSplats(gs, terr, patch, allAtOnce, token);
     }
 
-    private async UniTask DelayLoadSplats(UnityGameState gs, Terrain terr, TerrainPatchData patch, bool allAtOnce, CancellationToken token)
+    private async Task DelayLoadSplats(UnityGameState gs, Terrain terr, TerrainPatchData patch, bool allAtOnce, CancellationToken token)
     {
         for (int l = 0; l < patch.TerrainTextureIndexes.Count; l++)
         {
             if (!allAtOnce)
             {
-                await UniTask.NextFrame(token);
+                await Task.Delay(1, token);
             }
 
             SetupTerrainTexture(gs, terr, patch.TerrainTextureIndexes[l], l, token);
@@ -140,11 +130,11 @@ public class SetTerrainTextures : BaseZoneGenerator
             return;
         }
 
-        TextureType textureType = gs.data.GetGameData<ProcGenSettings>().GetTextureType (textureId);
+        TextureType textureType = gs.data.GetGameData<TextureTypeSettings>(gs.ch).GetTextureType (textureId);
 		if (textureType == null)
 		{
             gs.logger.Message("TextureType is null: TextureId: " + textureId + " Index: " + index);
-			textureType = gs.data.GetGameData<ProcGenSettings>().GetTextureType (1);
+			textureType = gs.data.GetGameData<TextureTypeSettings>(gs.ch).GetTextureType (1);
 		}
 
         string artName = textureType.Name;
@@ -178,7 +168,7 @@ public class SetTerrainTextures : BaseZoneGenerator
             return;
         }
 
-        IndexList indexes = GameObjectUtils.GetOrAddComponent<IndexList>(gs, terr.gameObject);
+        IndexList indexes = GEntityUtils.GetOrAddComponent<IndexList>(gs, terr.entity());
 
         if (indexes.Indexes == null || indexes.Indexes.Length != currLayers.Length)
         {
@@ -203,7 +193,7 @@ public class SetTerrainTextures : BaseZoneGenerator
             return null;
         }
 
-        TextureType ttype = gs.data.GetGameData<ProcGenSettings>().GetTextureType(textureTypeId);
+        TextureType ttype = gs.data.GetGameData<TextureTypeSettings>(gs.ch).GetTextureType(textureTypeId);
 
         if (ttype == null || string.IsNullOrEmpty(ttype.Name))
         {
@@ -220,7 +210,7 @@ public class SetTerrainTextures : BaseZoneGenerator
             return;
         }
 
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
 
         if (go == null)
         {
@@ -230,7 +220,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         
         if (ddata.Terr == null || ddata.TexType == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -238,7 +228,7 @@ public class SetTerrainTextures : BaseZoneGenerator
 
         if (currentData != null && currentData.RegTexture != null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             SetNewTerrainLayer(gs, ddata.Terr, ddata.TextureIndex, currentData);
             return;            
         }
@@ -249,7 +239,7 @@ public class SetTerrainTextures : BaseZoneGenerator
 
         if (texList == null || texList.Textures == null || texList.Textures.Count < texSize)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -257,7 +247,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         {
             if (texList.Textures[i] == null)
             {
-                GameObject.Destroy(go);
+                GEntityUtils.Destroy(go);
                 return;
             }
         }
@@ -274,9 +264,9 @@ public class SetTerrainTextures : BaseZoneGenerator
         SetNewTerrainLayer(gs, ddata.Terr, ddata.TextureIndex, tdata);
     }
 
-    protected async UniTask DownloadAllTerrainTextures(UnityGameState gs, CancellationToken token)
+    protected async Task DownloadAllTerrainTextures(UnityGameState gs, CancellationToken token)
     {
-        foreach (TextureType textureType in gs.data.GetGameData<ProcGenSettings>().TextureTypes)
+        foreach (TextureType textureType in gs.data.GetGameData<TextureTypeSettings>(gs.ch).GetData())
         {
             DownloadTerrainTextureData newDownloadData = new DownloadTerrainTextureData();
             newDownloadData.TexType = textureType;
@@ -284,14 +274,14 @@ public class SetTerrainTextures : BaseZoneGenerator
             _assetService.LoadAssetInto(gs, _terrainManager.GetTerrainTextureParent(), AssetCategory.TerrainTex, textureType.Name, OnDownloadTextureToCache, newDownloadData, token);
         }
 
-        await UniTask.Delay(1000, cancellationToken: token);
+        await Task.Delay(1000, cancellationToken: token);
 
         while (_assetService.IsDownloading(gs))
         {
-            await UniTask.NextFrame(token);
+            await Task.Delay(1, token);
         }
 
-        await UniTask.Delay(100 * gs.data.GetGameData<ProcGenSettings>().TextureTypes.Count, cancellationToken: token);
+        await Task.Delay(100 * gs.data.GetGameData<TextureTypeSettings>(gs.ch).GetData().Count, cancellationToken: token);
     }
     private void OnDownloadTextureToCache(UnityGameState gs, string url, object obj, object dataIn, CancellationToken token)
     {
@@ -300,7 +290,7 @@ public class SetTerrainTextures : BaseZoneGenerator
             return;
         }
 
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
 
         if (go == null)
         {
@@ -310,7 +300,7 @@ public class SetTerrainTextures : BaseZoneGenerator
 
         if (ddata.TexType == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
         TextureList texList = go.GetComponent<TextureList>();
@@ -324,7 +314,7 @@ public class SetTerrainTextures : BaseZoneGenerator
 
         if (currentData != null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -332,7 +322,7 @@ public class SetTerrainTextures : BaseZoneGenerator
 
         if (texList == null || texList.Textures == null || texList.Textures.Count < texSize)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -340,7 +330,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         {
             if (texList.Textures[i] == null)
             {
-                GameObject.Destroy(go);
+                GEntityUtils.Destroy(go);
                 return;
             }
         }

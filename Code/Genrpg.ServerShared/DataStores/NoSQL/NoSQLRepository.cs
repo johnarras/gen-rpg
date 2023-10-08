@@ -1,14 +1,21 @@
 ﻿
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Indexes;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logs.Entities;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Security.Authentication;
+using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.DataStores.NoSQL
 {
-    public class NoSQLRepository
+    public class NoSQLRepository : IRepository
     {
 
         private static ConcurrentDictionary<string, MongoClient> _clientCache = new ConcurrentDictionary<string, MongoClient>();
@@ -16,7 +23,9 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         private MongoClient _client = null;
         private IMongoDatabase _database = null;
         private ILogSystem _logger = null;
+        private ConcurrentDictionary<Type, INoSQLCollection> _collections = new ConcurrentDictionary<Type, INoSQLCollection>();
 
+        #region Core
         public NoSQLRepository(ILogSystem logger, string databaseName, string connectionString)
         {
             _logger = logger;
@@ -73,6 +82,83 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         public IMongoDatabase GetDatabase()
         {
             return _database;
+        }
+
+        /// <summary>
+        /// This is a bit ugly, but the fact that Mongo requires a generic type
+        /// to perform operations means it's either something like this,
+        /// or the generic type of everything has to properly be passed
+        /// around the codebase, but this leads to a lot of tedious 
+        /// helper classes and methods just to be able to have
+        /// a list of some base class/interface and still be
+        /// able to do database operations through the dynamic type
+        /// of the object.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        private INoSQLCollection GetCollection(Type t) 
+        {
+            if (_collections.TryGetValue(t, out INoSQLCollection coll))
+            {
+                return coll;
+            }
+
+            Type baseCollectionType = typeof(NoSQLCollection<>);
+            Type genericType = baseCollectionType.MakeGenericType(t);
+            coll = (INoSQLCollection)Activator.CreateInstance(genericType, new object[] { this, _logger });
+            _collections[t] = coll;
+            return coll;
+        }
+        #endregion
+
+        public async Task<T> Load<T>(string id) where T : class, IStringId
+        {
+
+            INoSQLCollection collection = GetCollection(typeof(T));
+
+            return (T)await collection.Load(id);
+        }
+
+        public async Task<bool> Save<T>(T obj) where T : class, IStringId
+        {
+
+            INoSQLCollection collection = GetCollection(obj.GetType());
+            return await collection.Save(obj);
+        }
+
+        public async Task<bool> Delete<T>(T obj) where T : class, IStringId
+        {
+            INoSQLCollection collection = GetCollection(obj.GetType());
+            return await collection.Delete(obj);
+        }
+
+        public async Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity, int skip) where T : class, IStringId
+        {
+            INoSQLCollection collection = GetCollection(typeof(T));
+            List<object> objects = await collection.Search(func, quantity, skip);
+
+            List<T> retval = new List<T>();
+
+            foreach (object o in objects)
+            {
+                if (o is T t)
+                {
+                    retval.Add(t);
+                }
+            }
+            return retval;
+        }
+
+        public async Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId
+        {
+            INoSQLCollection collection = GetCollection(typeof(T));
+            await collection.CreateIndex(configs);
+        }
+
+        public async Task<bool> SaveAll<T>(List<T> items) where T : class, IStringId
+        {
+            INoSQLCollection collection = GetCollection(typeof(T));
+            return await collection.SaveAll(items);
         }
     }
 }

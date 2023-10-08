@@ -19,7 +19,7 @@ using Genrpg.Shared.MapServer.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.MapServer.Maps.Messaging;
 using Genrpg.MapServer.Maps.Filters;
 using Genrpg.MapServer.MapMessaging.Interfaces;
@@ -199,13 +199,13 @@ namespace Genrpg.MapServer.Maps
 
 
                     newGrid.AddObj(gridItem.Obj);
-                    oldGrid.RemoveObj(gridItem.Obj);
 #if DEBUG
                     _totalGridLocks += 2;
 #endif
                     gridItem.GX = newGridPos.X;
                     gridItem.GZ = newGridPos.Z;
                     OnAddObjectToGrid(gs, obj, newGridPos.X, newGridPos.Z);
+                    Task.Run(() => { oldGrid.RemoveObj(gridItem.Obj); });
                 }
             }
             UpdateZone(obj);
@@ -547,7 +547,7 @@ namespace Genrpg.MapServer.Maps
                             copySpawn.Z += MathUtils.IntRange(-delta, delta, gs.rand);
                             copySpawn.MapObjectId += "." + times.ToString();
                         }
-                        copySpawn.FactionTypeId = MathUtils.IntRange(1, 20, gs.rand);
+                        copySpawn.FactionTypeId = MathUtils.IntRange(1, 4, gs.rand);
                         copySpawns.Add(copySpawn);
                     }
                 }
@@ -561,7 +561,7 @@ namespace Genrpg.MapServer.Maps
 
             foreach (MapSpawn spawn in gs.spawns.Data)
             {
-                if (gs.rand.NextDouble() > gs.data.GetGameData<SpawnSettings>().MapSpawnChance)
+                if (gs.rand.NextDouble() > gs.data.GetGameData<SpawnSettings>(null).MapSpawnChance)
                 {
                     continue;
                 }
@@ -633,7 +633,7 @@ namespace Genrpg.MapServer.Maps
             {
                 AIUpdate update = new AIUpdate();
 
-                _messageService.SendMessage(unit, update, MathUtils.FloatRange(0, gs.data.GetGameData<AISettings>().UpdateSeconds, gs.rand));
+                _messageService.SendMessage(unit, update, MathUtils.FloatRange(0, gs.data.GetGameData<AISettings>(obj).UpdateSeconds, gs.rand));
             }
         }
 

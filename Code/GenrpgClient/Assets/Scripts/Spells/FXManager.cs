@@ -3,15 +3,16 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Spells.Messages;
 using System.Collections.Generic;
 using System.Threading;
-using UnityEngine;
+using UnityEngine; // Needed
+using GEntity = UnityEngine.GameObject;
 
 public class FullFX
 {
     public FX fx;
     public MapObject from;
     public MapObject to;
-    public GameObject fromObj;
-    public GameObject toObj;
+    public GEntity fromObj;
+    public GEntity toObj;
     public CancellationToken token;
 
 }
@@ -34,8 +35,8 @@ public class FXManager
             from = from.Obj,
             to = to.Obj,
             fx = fx,
-            fromObj = from?.Controller?.gameObject,
-            toObj = to?.Controller?.gameObject,
+            fromObj = from?.Controller?.entity(),
+            toObj = to?.Controller?.entity(),
             token = token,
         };
 
@@ -49,7 +50,7 @@ public class FXManager
 
     private static void OnLoadFX(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
 
         if (go == null)
         {
@@ -59,21 +60,12 @@ public class FXManager
         FullFX full = data as FullFX;
         if (full ==null || !TokenUtils.IsValid(full.token))
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
+        MapProjectile proj = GEntityUtils.GetOrAddComponent<MapProjectile>(gs, go);
 
-        LineRenderer line = go.GetComponent<LineRenderer>();
-        if (line != null)
-        {  
-            MapLine wl = GameObjectUtils.GetOrAddComponent<MapLine>(gs,go);
-            wl.Init(gs, line, new List<GameObject>() { full.fromObj, full.toObj }, full.fx.Dur, Vector3.zero, token);
-        }
-        else
-        {
-            MapProjectile proj = GameObjectUtils.GetOrAddComponent<MapProjectile>(gs,go);
+        proj.Init(full, token);
 
-            proj.Init(full,token);
-        }
     }
 }

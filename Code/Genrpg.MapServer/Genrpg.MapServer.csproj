@@ -7,13 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="AI\Messages\**" />
     <Compile Remove="Managers\**" />
     <Compile Remove="Queues\**" />
-    <EmbeddedResource Remove="AI\Messages\**" />
     <EmbeddedResource Remove="Managers\**" />
     <EmbeddedResource Remove="Queues\**" />
-    <None Remove="AI\Messages\**" />
     <None Remove="Managers\**" />
     <None Remove="Queues\**" />
   </ItemGroup>
@@ -27,7 +24,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&#xD;&#xA;&#xD;&#xA;copy $(TargetDir)Genrpg.Shared.dll $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.dll&#xD;&#xA;copy $(TargetDir)Genrpg.Shared.pdb $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.pdb" />
+    <Exec Command="copy $(TargetDir)Genrpg.Shared.dll $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.dll&#xD;&#xA;copy $(TargetDir)Genrpg.Shared.pdb $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.pdb" />
   </Target>
 
 </Project>

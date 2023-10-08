@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using Genrpg.Shared.Constants;
-using Entities;
+﻿
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Spells.Entities;
 using Assets.Scripts.Atlas.Constants;
 using System.Threading;
 
 public delegate void OnLoadSpellIconHandler(UnityGameState gs, InitSpellIconData data);
-
 
 public class InitSpellIconData : DragItemInitData<Spell,SpellIcon,SpellIconScreen,InitSpellIconData>
 { 
@@ -26,12 +13,9 @@ public class InitSpellIconData : DragItemInitData<Spell,SpellIcon,SpellIconScree
     public string iconPrefabName;
 };
 
-
 public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIconData>
 {
-    [SerializeField]
-    protected Image _icon;
-
+    public GImage Icon;
 
     public override void Init(InitSpellIconData data, CancellationToken token)
     {
@@ -51,7 +35,7 @@ public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIc
             iconName = data.Data.Icon;
         }
 
-        _assetService.LoadSpriteInto(_gs, AtlasNames.SkillIcons, iconName, _icon, _token);
+        _assetService.LoadSpriteInto(_gs, AtlasNames.SkillIcons, iconName, Icon, _token);
 
     }
 
@@ -89,7 +73,7 @@ public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIc
             return;
         }
 
-        GameObjectUtils.SetActive(_initData.Screen.ToolTip, true);
+        GEntityUtils.SetActive(_initData.Screen.ToolTip, true);
         InitSpellTooltipData tooltipData = new InitSpellTooltipData() { spell = _initData.Data };
         _initData.Screen.ToolTip.Init(_gs, tooltipData, _token);
         UpdateTooltipPosition();
@@ -102,7 +86,7 @@ public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIc
             return;
         }
 
-        GameObjectUtils.SetActive(_initData.Screen.ToolTip, false);
+        GEntityUtils.SetActive(_initData.Screen.ToolTip, false);
     }
 
 

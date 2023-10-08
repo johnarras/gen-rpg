@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
 using Genrpg.Shared.Inventory.Entities;
 using System.Threading;
 
 public class CraftInventoryIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-    [SerializeField]
-    private Text _info;
+    public GText InfoText;
 
     long currQuantity = 0;
 
@@ -28,7 +16,7 @@ public class CraftInventoryIcon : ItemIcon, IPointerEnterHandler, IPointerExitHa
             currQuantity = 0;
         }
 
-        UIHelper.SetText(_quantityText, currQuantity.ToString());
+        UIHelper.SetText(QuantityText, currQuantity.ToString());
     }
     
     public long GetQuantity()
@@ -54,7 +42,7 @@ public class CraftInventoryIcon : ItemIcon, IPointerEnterHandler, IPointerExitHa
             Screen = data.Screen,
         };
 
-        UIHelper.SetText(_info, ItemUtils.GetBasicInfo(_gs, data.Data));
+        UIHelper.SetText(InfoText, ItemUtils.GetBasicInfo(_gs, _gs.ch, data.Data));
 
         currQuantity = idata.Data.Quantity;
     }

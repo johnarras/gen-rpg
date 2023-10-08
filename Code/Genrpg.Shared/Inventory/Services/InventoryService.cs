@@ -2,7 +2,7 @@
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Constants;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.MapMessages.Interfaces;
@@ -57,7 +57,7 @@ namespace Genrpg.Shared.Inventory.Services
             {
                 item.Id = HashUtils.NewGuid();
             }
-            ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(item.ItemTypeId);
+            ItemType itype = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(item.ItemTypeId);
             if (itype == null)
             {
                 return false;
@@ -146,7 +146,7 @@ namespace Genrpg.Shared.Inventory.Services
                 return false;
             }
 
-            EquipSlot eqslot = gs.data.GetGameData<ItemSettings>().GetEquipSlot(equipSlotId);
+            EquipSlot eqslot = gs.data.GetGameData<EquipSlotSettings>(unit).GetEquipSlot(equipSlotId);
             if (eqslot == null || !eqslot.Active)
             {
                 return false;
@@ -170,14 +170,14 @@ namespace Genrpg.Shared.Inventory.Services
                 }
             }
 
-            ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(item.ItemTypeId);
+            ItemType itype = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(item.ItemTypeId);
 
             if (itype == null || itype.EquipSlotId < 1)
             {
                 return false;
             }
 
-            List<long> compatibleSlots = itype.GetCompatibleEquipSlots(gs);
+            List<long> compatibleSlots = itype.GetCompatibleEquipSlots(gs, unit);
 
             if (!compatibleSlots.Contains(equipSlotId))
             {
@@ -195,7 +195,7 @@ namespace Genrpg.Shared.Inventory.Services
                 }
                 else
                 {
-                    ItemType currItemType = gs.data.GetGameData<ItemSettings>().GetItemType(currEquip.ItemTypeId);
+                    ItemType currItemType = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(currEquip.ItemTypeId);
                     if (currItemType == null || currItemType.HasFlag(ItemType.FlagTwoHandedItem) ||
                         currItemType.EquipSlotId == EquipSlot.OffHand)
                     {
@@ -203,7 +203,7 @@ namespace Genrpg.Shared.Inventory.Services
                     }
                     else
                     {
-                        List<long> currSlots = currItemType.GetCompatibleEquipSlots(gs);
+                        List<long> currSlots = currItemType.GetCompatibleEquipSlots(gs, unit);
                         if (currSlots.Contains(oldEquipSlot))
                         {
                             currEquip.EquipSlotId = oldEquipSlot;
@@ -230,7 +230,7 @@ namespace Genrpg.Shared.Inventory.Services
                 Item mainHandEquip = idata.GetEquipBySlot(EquipSlot.MainHand);
                 if (mainHandEquip != null)
                 {
-                    ItemType mainHandItemType = gs.data.GetGameData<ItemSettings>().GetItemType(mainHandEquip.ItemTypeId);
+                    ItemType mainHandItemType = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(mainHandEquip.ItemTypeId);
                     if (mainHandItemType != null && FlagUtils.IsSet(mainHandItemType.Flags, ItemType.FlagTwoHandedItem))
                     {
                         UnequipItem(gs, unit, mainHandEquip.Id, false);

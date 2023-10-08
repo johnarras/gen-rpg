@@ -1,7 +1,7 @@
 ﻿
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.Spells.Entities;
@@ -30,7 +30,7 @@ namespace Genrpg.Shared.Stats.Services
                 return;
             }
 
-            UnitType utype = gs.data.GetGameData<UnitSettings>().GetUnitType(unit.EntityId);
+            UnitType utype = gs.data.GetGameData<UnitSettings>(unit).GetUnitType(unit.EntityId);
 
             if (utype == null)
             {
@@ -44,7 +44,7 @@ namespace Genrpg.Shared.Stats.Services
             Dictionary<long, long> oldStats = new Dictionary<long, long>();
             Dictionary<long, long> oldMaxStats = new Dictionary<long, long>();
 
-            List<StatType> mutableStats = GetMutableStatTypes(gs);
+            List<StatType> mutableStats = GetMutableStatTypes(gs, unit);
 
             foreach (StatType stat in mutableStats)
             {
@@ -52,7 +52,7 @@ namespace Genrpg.Shared.Stats.Services
                 oldMaxStats[stat.IdKey] = unit.Stats.Max(stat.IdKey);
             }
 
-            LevelData levelData = gs.data.GetGameData<LevelSettings>().GetLevel(unit.Level);
+            LevelInfo levelData = gs.data.GetGameData<LevelSettings>(unit).GetLevel(unit.Level);
 
             unit.Stats.ResetCurrent();
 
@@ -60,7 +60,7 @@ namespace Genrpg.Shared.Stats.Services
             long coreStatAmount = StatConstants.MinBaseStat;
             long monsterScalePercent = 0;
 
-            List<StatType> coreStats = gs.data.GetGameData<StatSettings>().StatTypes.Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
+            List<StatType> coreStats = gs.data.GetGameData<StatSettings>(unit).Data.Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 
             if (levelData != null)
             {
@@ -136,7 +136,7 @@ namespace Genrpg.Shared.Stats.Services
                                     setQuantities[setId]++;
                                 }
 
-                                SetType setType = gs.data.GetGameData<ItemSettings>().GetSetType(setId);
+                                SetType setType = gs.data.GetGameData<SetTypeSettings>(unit).GetSetType(setId);
                                 if (setType != null && setType.Pieces != null)
                                 {
                                     SetPiece piece = setType.Pieces.FirstOrDefault(x => x.ItemTypeId == eq.ItemTypeId);
@@ -157,7 +157,7 @@ namespace Genrpg.Shared.Stats.Services
                 foreach (long setId in setQuantities.Keys)
                 {
                     int quantity = setQuantities[setId];
-                    SetType setType = gs.data.GetGameData<ItemSettings>().GetSetType(setId);
+                    SetType setType = gs.data.GetGameData<SetTypeSettings>(unit).GetSetType(setId);
                     if (setType == null)
                     {
                         continue;
@@ -188,7 +188,7 @@ namespace Genrpg.Shared.Stats.Services
 
                 AbilityData abilityData = ch.Get<AbilityData>();
                 // Now add effects from skills and elements.
-                List<AbilityRank> abilities = abilityData.GetAbilities();
+                List<AbilityRank> abilities = abilityData.GetData();
 
                 List<AbilityEffect> abEffects = null;
                 foreach (AbilityRank ab in abilities)
@@ -202,7 +202,7 @@ namespace Genrpg.Shared.Stats.Services
 
                     if (ab.AbilityCategoryId == AbilityCategory.Element)
                     {
-                        ElementType etype = gs.data.GetGameData<SpellSettings>().GetElementType(ab.AbilityTypeId);
+                        ElementType etype = gs.data.GetGameData<ElementTypeSettings>(unit).GetElementType(ab.AbilityTypeId);
                         if (etype != null)
                         {
                             abEffects = etype.BonusEfffects;
@@ -210,7 +210,7 @@ namespace Genrpg.Shared.Stats.Services
                     }
                     else if (ab.AbilityCategoryId == AbilityCategory.Skill)
                     {
-                        SkillType stype = gs.data.GetGameData<SpellSettings>().GetSkillType(ab.AbilityTypeId);
+                        SkillType stype = gs.data.GetGameData<SkillTypeSettings>(unit).GetSkillType(ab.AbilityTypeId);
                         if (stype != null)
                         {
                             abEffects = stype.BonusEfffects;
@@ -306,19 +306,14 @@ namespace Genrpg.Shared.Stats.Services
         /// <param name="gs">GameState</param>
         /// <param name="unit">The monster modified</param>
         /// <param name="levData">The data used for level-scaled stats</param>
-        protected virtual void AddDerivedStats(GameState gs, Unit unit, LevelData levData)
+        protected virtual void AddDerivedStats(GameState gs, Unit unit, LevelInfo levData)
         {
             if (unit == null)
             {
                 return;
             }
 
-            if (gs.data.GetGameData<StatSettings>().DerivedStats == null)
-            {
-                return;
-            }
-
-            List<DerivedStat> list = gs.data.GetGameData<StatSettings>().DerivedStats;
+            List<DerivedStat> list = gs.data.GetGameData<DerivedStatSettings>(unit).GetData();
 
             for (int d = 0; d < list.Count; d++)
             {
@@ -328,30 +323,30 @@ namespace Genrpg.Shared.Stats.Services
             }
         }
 
-        public List<StatType> GetMutableStatTypes(GameState gs)
+        public List<StatType> GetMutableStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.GetGameData<StatSettings>().StatTypes.Where(x => x.IdKey > 0 && x.IdKey <= StatConstants.MaxMutableStatTypeId).ToList();
+            return gs.data.GetGameData<StatSettings>(unit).Data.Where(x => x.IdKey > 0 && x.IdKey <= StatConstants.MaxMutableStatTypeId).ToList();
         }
 
-        public List<StatType> GetPrimaryStatTypes(GameState gs)
+        public List<StatType> GetPrimaryStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.GetGameData<StatSettings>().StatTypes.Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
+            return gs.data.GetGameData<StatSettings>(unit).Data.Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
         }
 
-        public List<StatType> GetAttackStatTypes(GameState gs)
+        public List<StatType> GetAttackStatTypes(GameState gs, Unit unit)
         {
-            return GetPrimaryStatTypes(gs).Where(x => x.IdKey != StatType.Stamina).ToList();
+            return GetPrimaryStatTypes(gs, unit).Where(x => x.IdKey != StatType.Stamina).ToList();
         }
 
 
-        public List<StatType> GetFixedStatTypes(GameState gs)
+        public List<StatType> GetFixedStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.GetGameData<StatSettings>().StatTypes.Where(x => x.IdKey > StatConstants.MaxMutableStatTypeId).ToList();
+            return gs.data.GetGameData<StatSettings>(unit).Data.Where(x => x.IdKey > StatConstants.MaxMutableStatTypeId).ToList();
         }
 
-        public List<StatType> GetSecondaryStatTypes(GameState gs)
+        public List<StatType> GetSecondaryStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.GetGameData<StatSettings>().StatTypes.Where(x => x.IdKey > StatConstants.PrimaryStatEnd).ToList();
+            return gs.data.GetGameData<StatSettings>(unit).Data.Where(x => x.IdKey > StatConstants.PrimaryStatEnd).ToList();
         }
 
         /// <summary>
@@ -361,7 +356,7 @@ namespace Genrpg.Shared.Stats.Services
         /// <param name="unit">Monster/Player to modify</param>
         /// <param name="e">The effect doing the modifiying</param>
         /// <param name="levData">Level data used for the StatLevelPercent effects</param>
-        protected void AddEffectStat(GameState gs, Unit unit, IEffect e, LevelData levData, int multiplier)
+        protected void AddEffectStat(GameState gs, Unit unit, IEffect e, LevelInfo levData, int multiplier)
         {
             if (unit == null || e == null)
             {

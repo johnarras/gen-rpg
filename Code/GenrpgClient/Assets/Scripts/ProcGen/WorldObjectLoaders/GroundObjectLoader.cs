@@ -1,25 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using Entities;
-using Genrpg.Shared.Inventory.Entities;
+﻿using System.Threading.Tasks;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-using Genrpg.Shared.Entities;
 using Genrpg.Shared.MapObjects.Entities;
-using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Constants;
 using System.Threading;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.MapObjects.Messages;
 
 public class GroundObjectLoader : BaseMapObjectLoader
@@ -32,9 +19,9 @@ public class GroundObjectLoader : BaseMapObjectLoader
     public override long GetKey() { return EntityType.GroundObject; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 
-    public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async Task Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
     {
-        GroundObjType groundObjType = gs.data.GetGameData<ProcGenSettings>().GetGroundObjType(spawn.EntityId);
+        GroundObjType groundObjType = gs.data.GetGameData<GroundObjTypeSettings>(gs.ch).GetGroundObjType(spawn.EntityId);
         if (groundObjType == null)
         {
             return;
@@ -57,7 +44,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
 
     private void OnDownloadGroundObject(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -69,9 +56,9 @@ public class GroundObjectLoader : BaseMapObjectLoader
             return;
         }
 
-        MapGroundObject worldGroundObject = GameObjectUtils.GetOrAddComponent<MapGroundObject>(gs,go);
+        MapGroundObject worldGroundObject = GEntityUtils.GetOrAddComponent<MapGroundObject>(gs,go);
 
-        GroundObjType gtype = gs.data.GetGameData<ProcGenSettings>().GetGroundObjType(loadData.Spawn.EntityId);
+        GroundObjType gtype = gs.data.GetGameData<GroundObjTypeSettings>(gs.ch).GetGroundObjType(loadData.Spawn.EntityId);
 
         worldGroundObject.GroundObjectId = gtype.IdKey;
         worldGroundObject.CrafterTypeId = gtype.CrafterTypeId;

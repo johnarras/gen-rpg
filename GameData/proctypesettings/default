@@ -1,0 +1,24 @@
+{
+  "Id": "default",
+  "Data": [
+    {
+      "Id": "proctype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "OnCast"
+    },
+    {
+      "Id": "proctype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "OnHit"
+    },
+    {
+      "Id": "proctype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "OnDeath"
+    }
+  ],
+  "Name": "ProcTypeSettings"
+}

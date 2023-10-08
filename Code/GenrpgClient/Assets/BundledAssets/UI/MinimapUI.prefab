@@ -32,7 +32,6 @@ RectTransform:
   m_Children:
   - {fileID: 7642433768569734053}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -51,9 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72cacd6bd12264b46a4dc36f09415680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _panel: {fileID: 7571966554828879193}
-  _mapImage: {fileID: 7531956246876117393}
-  _arrowParent: {fileID: 7572623282856472287}
+  MainPanel: {fileID: 7571237265450889435}
+  MapImage: {fileID: 5277259425131610794}
+  ArrowParent: {fileID: 7572623282856472287}
+  ArrowObject: {fileID: 0}
 --- !u!114 &7532822966920823351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7641756359927887265}
   - component: {fileID: 7640246696045633919}
-  - component: {fileID: 7531956246876117393}
+  - component: {fileID: 5277259425131610794}
   m_Layer: 5
   m_Name: MinimapImage
   m_TagString: Untagged
@@ -109,7 +109,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7642536976932469297}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -124,7 +123,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7571243780583195629}
   m_CullTransparentMesh: 0
---- !u!114 &7531956246876117393
+--- !u!114 &5277259425131610794
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,12 +132,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7571243780583195629}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 99a6f184022e8f04e8e34568a4bcf634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -183,7 +182,6 @@ RectTransform:
   m_Children:
   - {fileID: 7642536976932469297}
   m_Father: {fileID: 7641988415040886913}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -262,7 +260,6 @@ RectTransform:
   - {fileID: 7641756359927887265}
   - {fileID: 7642515904974112579}
   m_Father: {fileID: 7642433768569734053}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -349,7 +346,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7642536976932469297}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

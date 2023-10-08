@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4388425064533033044}
   - component: {fileID: -5984438138525518697}
   m_Layer: 0
-  m_Name: Prop2
+  m_Name: HerbNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,6 +103,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8889019226261504797, guid: 74e56145e8f07af44bcca6bd02d1a09b, type: 3}

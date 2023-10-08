@@ -24,6 +24,7 @@ using Genrpg.MapServer.Levelup;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.ServerShared.CloudMessaging.Services;
+using Genrpg.Shared.UserCoins.Services;
 
 namespace Genrpg.MapServer.Setup
 {
@@ -52,6 +53,7 @@ namespace Genrpg.MapServer.Setup
             fact.Set<ICurrencyService>(new ServerCurrencyService());
             fact.Set<IStatService>(new ServerStatService());
             fact.Set<IMapObjectManager>(new MapObjectManager());
+            fact.Set<IUserCoinService>(new ServerUserCoinService());
         }
     }
 }

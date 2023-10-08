@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
+using GEntity = UnityEngine.GameObject;
+using UnityEngine.UI; // FIX
+using UnityEngine; // FIX
 
 public class CollapsableScrollView : BaseBehaviour
 {
     public float ExpandTime = 0.2f;
 
     protected float _minScrollViewSize = 20;
-
     protected float _targetScrollViewSize = 0;
     protected float _currentScrollViewSize = 1;
     protected float _maxScrollViewSize = 0;
-
     protected float _buttonHeight = 0;
 
     protected ScrollRect _collapsingRect = null;
@@ -55,9 +50,9 @@ public class CollapsableScrollView : BaseBehaviour
 
         _maxScrollViewSize = 0;
 
-        for (int c = 0; c < _collapsingLayout.transform.childCount; c++)
+        for (int c = 0; c < _collapsingLayout.transform().childCount; c++)
         {
-            GameObject go = _collapsingLayout.transform.GetChild(c).gameObject;
+            GEntity go = _collapsingLayout.transform().GetChild(c).entity();
             RectTransform rect = go.GetComponent<RectTransform>();
             if (rect != null)
             {
@@ -92,7 +87,7 @@ public class CollapsableScrollView : BaseBehaviour
             return;
         }
 
-        int transitionFrames = (int)Math.Max(1, InputService.Instance.TargetFramerate() * ExpandTime);
+        int transitionFrames = (int)Math.Max(1, AppUtils.TargetFrameRate * ExpandTime);
 
         float expansionPerStep = (_maxScrollViewSize-_minScrollViewSize) / (transitionFrames);
 
@@ -123,9 +118,8 @@ public class CollapsableScrollView : BaseBehaviour
         RectTransform crect = _collapsingRect.GetComponent<RectTransform>();
         if (crect != null)
         {
-            crect.sizeDelta = new Vector3(crect.rect.width, _currentScrollViewSize);
+            crect.sizeDelta = GVector3.Create(crect.rect.width, _currentScrollViewSize, 0);
         }
-
 
         if (_collapsingLayout != null)
         {

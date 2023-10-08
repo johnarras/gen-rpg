@@ -5,32 +5,32 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using Genrpg.Shared.Core.Entities;
 
-using Services;
-using UnityEngine;
-using Cysharp.Threading.Tasks;
-using Entities;
+
+using GEntity = UnityEngine.GameObject;
+using System.Threading.Tasks;
+
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-using Services.ProcGen;
+
 using System.Threading;
 
 public class AddFences : BaseZoneGenerator
 {
     public const int NumCentersAveraged = 8;
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
 
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 
     public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
@@ -61,7 +61,7 @@ public class AddFences : BaseZoneGenerator
             return;
         }
 
-        if (gs.data.GetGameData<ProcGenSettings>().FenceTypes == null || gs.data.GetGameData<ProcGenSettings>().FenceTypes.Count < 1)
+        if (gs.data.GetGameData<FenceTypeSettings>(gs.ch).GetData() == null || gs.data.GetGameData<FenceTypeSettings>(gs.ch).GetData().Count < 1)
         {
             return;
         }
@@ -362,7 +362,7 @@ public class AddFences : BaseZoneGenerator
 			return null;
 		}
 		
-		fenceType = gs.data.GetGameData<ProcGenSettings>().GetFenceType(zoneFenceType.FenceTypeId);
+		fenceType = gs.data.GetGameData<FenceTypeSettings>(gs.ch).GetFenceType(zoneFenceType.FenceTypeId);
 		
 		if (fenceType == null || string.IsNullOrEmpty(fenceType.Art))
 		{

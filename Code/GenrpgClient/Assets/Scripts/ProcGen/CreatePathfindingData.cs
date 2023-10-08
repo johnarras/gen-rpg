@@ -1,5 +1,5 @@
 
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Pathfinding.Constants;
@@ -11,7 +11,7 @@ public class CreatePathfindingData : BaseZoneGenerator
 {
 
     protected IPathfindingService _pathfindingService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         bool[,] blockedCells = new bool[gs.map.GetHwid(), gs.map.GetHhgt()];
@@ -42,7 +42,7 @@ public class CreatePathfindingData : BaseZoneGenerator
                         MapConstants.TreeObjectOffset + MapConstants.MapObjectOffsetMult)
                     {
                         long treeTypeId = worldObject - MapConstants.TreeObjectOffset;
-                        TreeType ttype = gs.data.GetGameData<ProcGenSettings>().GetTreeType (treeTypeId);
+                        TreeType ttype = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType (treeTypeId);
                         if (ttype == null || !ttype.HasFlag(TreeFlags.IsBush))
                         {
                             blockedCells[y,x] = true;
@@ -91,6 +91,6 @@ public class CreatePathfindingData : BaseZoneGenerator
         fdata.RemotePath = remotePath;
 
         FileUploader.UploadFile(fdata);
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 }

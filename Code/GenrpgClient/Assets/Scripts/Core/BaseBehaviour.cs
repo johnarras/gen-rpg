@@ -1,10 +1,10 @@
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using System.Collections;
 using System;
 
 using Genrpg.Shared.Core.Entities;
 
-using Services;
+
 using Assets.Scripts.Interfaces;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Interfaces;
@@ -12,7 +12,7 @@ using Assets.Scripts.Model;
 using Scripts.Assets.Audio.Constants;
 using System.Threading;
 
-public class BaseBehaviour : MonoBehaviour
+public class BaseBehaviour : StubComponent
 {
 	public static string ErrorString = "";
 
@@ -30,6 +30,11 @@ public class BaseBehaviour : MonoBehaviour
         _gs.loc.Resolve(this);
     }
 
+    public CancellationToken GetToken()
+    {
+        return this.GetCancellationToken();
+    }
+
     public bool CanClick(string name)
     {
         if (!canClick(name))
@@ -42,9 +47,15 @@ public class BaseBehaviour : MonoBehaviour
         return true;
     }
 
-	
+    public GEntity entity
+    {
+       get
+        {
+            return this.entity();
+        }
+    }
 
-	private bool canClick(string name)
+	protected virtual bool canClick(string name)
 	{
         return true;		
 	}

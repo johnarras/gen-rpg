@@ -10,8 +10,8 @@ namespace Genrpg.Shared.DataStores.Interfaces
 {
     public interface IUnitData : IStringId, IDirtyable
     {
-        // Need this here or the generics don't persist through the db save process.
+        void Save(IRepositorySystem repoSystem, bool saveClean);
+        void Delete(IRepositorySystem repoSystem);
         void AddTo(Unit unit);
-        void SaveAll(IRepositorySystem repoSystem);
     }
 }

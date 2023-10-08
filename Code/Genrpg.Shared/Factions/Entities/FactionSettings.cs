@@ -1,21 +1,47 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Categories;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.DataStores.GameSettings;
 
 namespace Genrpg.Shared.Factions.Entities
 {
     [MessagePackObject]
-    public class FactionSettings : BaseGameData
+    public class FactionSettings : ParentSettings<FactionType>
     {
-        public override void Set(GameData gameData) { gameData.Set(this); }
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public List<FactionType> FactionTypes { get; set; }
-        [Key(2)] public List<RepLevel> RepLevels { get; set; }
+        [Key(1)] public override List<FactionType> Data { get; set; }
 
         public FactionType GetFactionType(long idkey) { return _lookup.Get<FactionType>(idkey); }
-        public RepLevel GetRepLevel(long idkey) { return _lookup.Get<RepLevel>(idkey); }
     }
+    [MessagePackObject]
+    public class FactionType : ChildSettings, IIndexedGameItem
+    {
+        public const int Player = 0;
+        public const int Faction1 = 1;
+        public const int Faction2 = 2;
+
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string ParentId { get; set; }
+        [Key(2)] public long IdKey { get; set; }
+        [Key(3)] public override string Name { get; set; }
+        [Key(4)] public string Desc { get; set; }
+        [Key(5)] public string Icon { get; set; }
+
+        [Key(6)] public string Art { get; set; }
+
+        [Key(7)] public int StartRepLevelId { get; set; }
+
+    }
+
+    [MessagePackObject]
+    public class FactionSettingsApi : ParentSettingsApi<FactionSettings, FactionType> { }
+
+    [MessagePackObject]
+    public class FactionSettingsLoader : GameDataLoader<FactionSettings> { }
 }

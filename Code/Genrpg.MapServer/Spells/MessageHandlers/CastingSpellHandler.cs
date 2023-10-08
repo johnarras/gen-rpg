@@ -40,7 +40,7 @@ namespace Genrpg.MapServer.Spells.MessageHandlers
 
             if (result.State != TryCastState.Ok)
             {
-                pack.SendError(gs, obj, StrUtils.SplitAlongCapitalLetters(result.State.ToString()));
+                pack.SendError(gs, obj, result.StateText);
                 if (result.State == TryCastState.TargetDead)
                 {
                     caster.AddMessage(new OnTargetIsDead() { UnitId = message.TargetId });

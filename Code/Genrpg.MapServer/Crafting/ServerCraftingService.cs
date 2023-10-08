@@ -3,7 +3,7 @@ using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crafting.Entities;
 using Genrpg.Shared.Crafting.Services;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Services;
@@ -206,7 +206,7 @@ namespace Genrpg.MapServer.Crafting
             }
 
 
-            ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(recipeItem.ItemTypeId);
+            ItemType itype = gs.data.GetGameData<ItemTypeSettings>(ch).GetItemType(recipeItem.ItemTypeId);
             if (itype == null)
             {
                 res.Message = "Incorrect recipe item";
@@ -222,15 +222,15 @@ namespace Genrpg.MapServer.Crafting
                 res.Message = "You don't know this recipe";
                 return res;
             }
-            if (gs.data.GetGameData<CraftingSettings>() == null)
+            if (gs.data.GetGameData<CraftingSettings>(ch) == null)
             {
                 res.Message = "Missing basic crafting info";
                 return res;
             }
 
-            if (status.GetLevel() < recipeItem.Level - gs.data.GetGameData<CraftingSettings>().LootLevelIncrement)
+            if (status.GetLevel() < recipeItem.Level - gs.data.GetGameData<CraftingSettings>(ch).LootLevelIncrement)
             {
-                res.Message = "You need to have " + (recipeItem.Level - gs.data.GetGameData<CraftingSettings>().LootLevelIncrement) +
+                res.Message = "You need to have " + (recipeItem.Level - gs.data.GetGameData<CraftingSettings>(ch).LootLevelIncrement) +
                     " points to learn this recipe.";
                 return res;
             }

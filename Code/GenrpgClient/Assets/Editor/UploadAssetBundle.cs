@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.IO;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-
-
 using UnityEngine;
 using UnityEditor;
-using System.Threading;
 using Genrpg.Shared.Constants;
-using Entities;
-using Entities.Bundles;
 
 public class UploadAssetBundle
 {
@@ -58,8 +46,8 @@ public class UploadAssetBundle
 
                 BundleVersionData bvd = versionData[bname];
                 string fullName = bvd.Name + "_" + bvd.Hash;
-                string localPath = Application.dataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + bvd.Name;
-                string remotePath = Application.version + "/" + targets[t].FilePath + "/" + fullName;
+                string localPath = AppUtils.DataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + bvd.Name;
+                string remotePath = AppUtils.Version + "/" + targets[t].FilePath + "/" + fullName;
                 FileUploadData fdata = new FileUploadData();
                 fdata.GamePrefix = Game.Prefix;
                 fdata.Env = env;
@@ -79,8 +67,8 @@ public class UploadAssetBundle
             {
                 string prefix = targets[t].FilePath;
 
-                string localPath = Application.dataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + UnityAssetService.BundleVersionFilename;
-                string remotePath = Application.version + "/" + targets[t].FilePath + "/" + UnityAssetService.BundleVersionFilename;
+                string localPath = AppUtils.DataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + UnityAssetService.BundleVersionFilename;
+                string remotePath = AppUtils.Version + "/" + targets[t].FilePath + "/" + UnityAssetService.BundleVersionFilename;
                 FileUploadData fdata = new FileUploadData();
                 fdata.GamePrefix = Game.Prefix;
                 fdata.Env = env;

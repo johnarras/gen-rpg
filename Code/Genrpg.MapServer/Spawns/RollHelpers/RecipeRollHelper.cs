@@ -1,6 +1,6 @@
 ﻿using Genrpg.MapServer.Crafting;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Spawns.Entities;

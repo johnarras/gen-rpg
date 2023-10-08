@@ -31,7 +31,6 @@ RectTransform:
   m_Children:
   - {fileID: 3779697181436615906}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -50,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ceadd352a266f43803f8feccceb6e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _locationName: {fileID: 3958934278754288804}
+  LocationName: {fileID: 1569911105806181605}
 --- !u!1 &3994269286219380862
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,8 +60,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3779697181436615906}
   - component: {fileID: 3782218855498683916}
-  - component: {fileID: 3958934278754288804}
   - component: {fileID: 3962342739744313174}
+  - component: {fileID: 1569911105806181605}
   m_Layer: 5
   m_Name: LocationName
   m_TagString: Untagged
@@ -83,7 +82,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3780146735688893548}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -98,7 +96,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3994269286219380862}
   m_CullTransparentMesh: 0
---- !u!114 &3958934278754288804
+--- !u!114 &3962342739744313174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +105,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 3994269286219380862}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
+--- !u!114 &1569911105806181605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3994269286219380862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ec29f826410a84792259cf40e7d3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -131,19 +144,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
---- !u!114 &3962342739744313174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3994269286219380862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 2, y: -2}
-  m_UseGraphicAlpha: 1
+  m_Text: 'Zone Name:'

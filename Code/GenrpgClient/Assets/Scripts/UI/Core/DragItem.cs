@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
 using UnityEngine.EventSystems;
-using Entities;
 using Genrpg.Shared.Utils;
 using System.Threading;
+using UnityEngine;
+using UnityEngine.UI; // FIX
 
 public class DragItemInitData<TData,TDragItem,TScreen,TInitData> 
     where TData : class
@@ -33,9 +25,7 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
     where TScreen : DragItemScreen<TData,TDragItem,TScreen,TInitData>
     where TInitData : DragItemInitData<TData,TDragItem,TScreen,TInitData>
 {
-
-    [SerializeField]
-    protected Button _selfButton;
+    public GButton SelfButton;
 
     protected TInitData _initData;
     protected CancellationToken _token;
@@ -140,22 +130,22 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
 
     protected virtual void SetAsDragItem(bool isDragItem)
     {
-        ScrollRect scrollRect = GameObjectUtils.FindInParents<ScrollRect>(gameObject);
+        ScrollRect scrollRect = GEntityUtils.FindInParents<ScrollRect>(entity);
         if (scrollRect != null)
         {
             scrollRect.enabled = !enabled;
         }
 
-        List<Image> allImages = GameObjectUtils.GetComponents<Image>(gameObject);
-        foreach (Image image in allImages)
+        List<GImage> allImages = GEntityUtils.GetComponents<GImage>(entity);
+        foreach (GImage image in allImages)
         {
             if (isDragItem)
             {
-                image.color = Color.gray;
+                image.color = GColor.gray;
             }
             else
             {
-                image.color = Color.white;
+                image.color = GColor.white;
             }
         }
     }
@@ -188,7 +178,7 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
             return;
         }
 
-        //Tooltip.transform.position = transform.position;
+        //Tooltip.transform().position =entity.transform().position;
 
         RectTransform transTooltip = _initData.Screen.ToolTip.GetComponent<RectTransform>();
         RectTransform transIcon = GetComponent<RectTransform>();
@@ -219,7 +209,7 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
         }
 
         transTooltip.position = transIcon.position;
-        transTooltip.localPosition += new Vector3(dx, dy, 0);
+        transTooltip.localPosition += GVector3.Create(dx, dy, 0);
     }
 
   

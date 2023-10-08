@@ -1,11 +1,11 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Genrpg.Shared.DataStores.Categories.PlayerData;
 
 namespace Genrpg.Shared.Inventory.Entities
 {
@@ -56,8 +56,6 @@ namespace Genrpg.Shared.Inventory.Entities
             Effects = new List<ItemEffect>();
             Quantity = 1;
         }
-
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
 
     }
 }

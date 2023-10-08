@@ -33,7 +33,7 @@ namespace Genrpg.Shared.Pathfinding.Services
             {
                 string filename = MapUtils.GetMapObjectFilename(gs, PathfindingConstants.Filename, gs.map.Id, gs.map.MapVersion);
 
-                string url = AssetUtils.GetArtURLPrefix(gs);
+                string url = AssetURLUtils.GetArtURLPrefix(gs);
 
                 string fullUrl = url + filename;
 

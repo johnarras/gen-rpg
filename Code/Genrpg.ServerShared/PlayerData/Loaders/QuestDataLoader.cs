@@ -8,5 +8,8 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.PlayerData.Loaders
 {
-    public class QuestDataLoader : UnitDataLoader<QuestData> { }
+    public class QuestDataLoader : OwnerDataLoader<QuestData,QuestStatus,QuestApi>
+    {
+
+    }
 }

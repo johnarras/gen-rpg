@@ -18,6 +18,7 @@ using Genrpg.Shared.AI.Entities;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Targets.Messages;
+using Genrpg.MapServer.Combat.Messages;
 
 namespace Genrpg.MapServer.AI.Services
 {
@@ -29,6 +30,7 @@ namespace Genrpg.MapServer.AI.Services
         void TargetMove(GameState gs, Unit unit, string targetUnitId);
         void StartCombat(GameState gs, Unit attacker, Unit victim);
         void EndCombat(GameState gs, Unit unit, string killedUnitId, bool clearAllAttackers);
+        void BringFriends(GameState gs, Unit unit, string targetId);
 #if DEBUG
         long GetCastTimes();
         long GetUpdateTimes();
@@ -111,9 +113,12 @@ namespace Genrpg.MapServer.AI.Services
             if (!unit.Moving && !unit.HasFlag(UnitFlags.Evading) &&
                 unit.NPCTypeId < 1 &&
                 !unit.HasTarget() &&
-                gs.rand.NextDouble() < gs.data.GetGameData<AISettings>().UpdateSeconds &&
+                gs.rand.NextDouble() < gs.data.GetGameData<AISettings>(unit).IdleWanderChance &&
                 unit.Spawn != null)
             {
+
+                unit.ClearAttackers();
+
                 float wanderRange = 25.0f;
 
                 float targetx = MathUtils.FloatRange(unit.Spawn.X - wanderRange, unit.Spawn.X + wanderRange, gs.rand);
@@ -135,7 +140,7 @@ namespace Genrpg.MapServer.AI.Services
 
             SpellData spellData = unit.Get<SpellData>();
             // This does not require an await for monsters
-            List<Spell> spells = spellData.GetAll();
+            List<Spell> spells = spellData.GetData();
 
             if (spells.Count < 1)
             {
@@ -166,15 +171,35 @@ namespace Genrpg.MapServer.AI.Services
                 return;
             }
 
-            List<Unit> nearbyUnits = _objectManager.GetTypedObjectsNear<Unit>(unit.X, unit.Z, unit, gs.data.GetGameData<AISettings>().EnemyScanDistance,
+            List<Unit> nearbyUnits = _objectManager.GetTypedObjectsNear<Unit>(unit.X, unit.Z, unit, gs.data.GetGameData<AISettings>(unit).EnemyScanDistance,
                 true);
 
             nearbyUnits = nearbyUnits.Where(x => x.FactionTypeId != unit.FactionTypeId && !x.HasFlag(UnitFlags.IsDead | UnitFlags.Evading)).ToList();
 
             if (nearbyUnits.Count > 0)
             {
-                TargetMove(gs, unit, nearbyUnits[gs.rand.Next()%nearbyUnits.Count].Id);
+                string newTargetId = nearbyUnits[gs.rand.Next() % nearbyUnits.Count].Id;
+                TargetMove(gs, unit, newTargetId);
+                BringFriends(gs, unit, newTargetId); // When it finds a target, it brings friends.
             }
+        }
+
+        public void BringFriends(GameState gs, Unit bringer, string targetId)
+        {
+            if (!_objectManager.GetUnit(targetId, out Unit targetUnit) || targetUnit.HasFlag(UnitFlags.IsDead | UnitFlags.Evading))
+            {
+                return;
+            }
+
+            BringFriends bringAFriend = new BringFriends()
+            {
+                BringerFactionId = bringer.FactionTypeId,
+                BringerId = bringer.Id,
+                TargetFactionId = targetUnit.FactionTypeId,
+                TargetId = targetUnit.Id,
+            };
+
+            _messageService.SendMessageNear(targetUnit, bringAFriend, gs.data.GetGameData<AISettings>(bringer).BringAFriendRadius, false);
         }
 
         public void LocationMove(GameState gs, Unit unit, float x, float z, float speedMult)
@@ -343,7 +368,7 @@ namespace Genrpg.MapServer.AI.Services
 
                 double combatDist = Math.Sqrt(ddx * ddx + ddz * ddz);
 
-                if (combatDist >= gs.data.GetGameData<AISettings>().LeashDistance)
+                if (combatDist >= gs.data.GetGameData<AISettings>(unit).LeashDistance)
                 {
                     unit.AddFlag(UnitFlags.Evading);
                     EndCombat(gs, unit, "", true);
@@ -365,7 +390,7 @@ namespace Genrpg.MapServer.AI.Services
                 return;
             }
 
-            float distGone = unit.Speed * gs.data.GetGameData<AISettings>().UpdateSeconds;
+            float distGone = unit.Speed * gs.data.GetGameData<AISettings>(unit).UpdateSeconds;
 
             float oldSpeed = unit.Speed;
 

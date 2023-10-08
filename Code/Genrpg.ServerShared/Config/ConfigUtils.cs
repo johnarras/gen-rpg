@@ -30,21 +30,9 @@ namespace Genrpg.ServerShared.Config
                     serverConfig.ConnectionStrings[shortKey] = ConfigurationManager.AppSettings[key];
                 }
             }
-            serverConfig.DataConfigDocId = await GetDataConfigDocId(serverConfig);
 
-            return serverConfig;
-        }
-
-        /// <summary>
-        /// Eventually replace with some lookup?
-        /// </summary>
-        /// <param name="config"></param>
-        /// <returns></returns>
-        private static async Task<string> GetDataConfigDocId(ServerConfig config)
-        {
             await Task.CompletedTask;
-            return DataConstants.DefaultFilename;
-
+            return serverConfig;
         }
     }
 }

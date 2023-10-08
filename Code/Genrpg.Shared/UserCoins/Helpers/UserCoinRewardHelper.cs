@@ -2,9 +2,10 @@
 using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Entities.Constants;
+
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.UserCoins.Services;
+using Genrpg.Shared.Entities.Settings;
 
 namespace Genrpg.Shared.UserCoins.Helpers
 {

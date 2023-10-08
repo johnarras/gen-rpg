@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+using UnityEngine; // Needed
 
 public class AudioClipList : BaseBehaviour
 {
@@ -74,7 +71,7 @@ public class AudioClipList : BaseBehaviour
 
         if (playData.parent == null)
         {
-            playData.parent = gameObject;
+            playData.parent = entity;
         }
 
         if (clip == null)
@@ -121,7 +118,7 @@ public class AudioClipList : BaseBehaviour
         }
 
         _sources.Remove(source);
-        GameObject.Destroy(source);
+        GEntityUtils.Destroy(source);
     }
      
 
@@ -175,7 +172,7 @@ public class AudioClipList : BaseBehaviour
                 if (!source.isPlaying)
                 {
                     source.clip = null;
-                    Destroy(source);
+                    GEntityUtils.Destroy(source);
                     _sources.Remove(source);
                     s--;
                 }
@@ -202,7 +199,7 @@ public class AudioClipList : BaseBehaviour
             {
                 if (clip != null)
                 {
-                    Resources.UnloadAsset(clip);
+                    AssetUtils.UnloadAsset(clip);
                 }
             }
         }

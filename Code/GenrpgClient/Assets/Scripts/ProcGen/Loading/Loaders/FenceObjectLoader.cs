@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
+﻿
+using GEntity = UnityEngine.GameObject;
 
-using Services;
-using UnityEngine;
-using Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 
@@ -33,7 +25,7 @@ public class FenceObjectLoader : BaseObjectLoader
         angle = (4 * (angleData & (255)) - 360);
         hangle = ((4 * (angleData >> 8)) - 360);
 
-        FenceType fenceType = gs.data.GetGameData<ProcGenSettings>().GetFenceType((int)objectId);
+        FenceType fenceType = gs.data.GetGameData<FenceTypeSettings>(gs.ch).GetFenceType((int)objectId);
         if (fenceType == null)
         {
             return false;
@@ -58,13 +50,14 @@ public class FenceObjectLoader : BaseObjectLoader
 
         return true;
     }
-    public void AfterLoadObject(UnityGameState gs, GameObject go, DownloadObjectData dlo, CancellationToken token)
+    public void AfterLoadObject(UnityGameState gs, GEntity go, DownloadObjectData dlo, CancellationToken token)
     {
-        go.transform.localScale = Vector3.one;
-        go.transform.localRotation = Quaternion.identity;
+        go.transform().localScale = GVector3.onePlatform;
+        go.transform().localRotation = GQuaternion.identity;
+        go.transform().position += GVector3.upPlatform;
         if (dlo.rotation != null)
         {
-            go.transform.Rotate(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
+            go.transform().Rotate(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
         }
     }
 }

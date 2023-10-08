@@ -1,72 +1,65 @@
-﻿using Genrpg.Shared.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using System;
 using Genrpg.Shared.Interfaces;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
+using System.Threading;
 
 public class AnimatorBehaviour : BaseBehaviour
 {
-    public Animator MainAnimator;
+    public GAnimator MainAnimator;
 
-    public void SetAnimInt(string intName, int value, float delay, VoidDelegate callback)
+    public void SetAnimInt(string intName, int value, float delay, Action<CancellationToken> action, CancellationToken token)
     {
         if (MainAnimator != null)
         {
             MainAnimator.SetInteger(intName, value);
         }
 
-        StartAnimDelay(delay, callback);
+        StartAnimDelay(delay, action, token);
     }
 
-    public void SetAnimBool(string boolName, bool value, float delay, VoidDelegate callback)
+    public void SetAnimBool(string boolName, bool value, float delay, Action<CancellationToken> action, CancellationToken token)
     {
         if (MainAnimator != null)
         {
             MainAnimator.SetBool(boolName, value);
         }
 
-        StartAnimDelay(delay, callback);
+        StartAnimDelay(delay, action, token);
     }
 
-    public void TriggerAnimation(string triggerName, float delay, VoidDelegate callback)
+    public void TriggerAnimation(string triggerName, float delay, Action<CancellationToken> action, CancellationToken token)
     {
         if (MainAnimator != null)
         {
             MainAnimator.SetTrigger(triggerName);
         }
 
-        StartAnimDelay(delay, callback);
+        StartAnimDelay(delay, action, token);
     }
 
-    public void SetAnimFloat(string floatName, float val, float delay, VoidDelegate callback)
+    public void SetAnimFloat(string floatName, float val, float delay, Action<CancellationToken> action, CancellationToken token)
     {
         if (MainAnimator != null)
         {
             MainAnimator.SetFloat(floatName, val);
         }
 
-        StartAnimDelay(delay, callback);
+        StartAnimDelay(delay, action, token);
     }
 
-    private void StartAnimDelay(float delay, VoidDelegate callback)
-    {
-
-        InnerAnimDelay(delay, callback).Forget();
-    }
-
-    private async UniTask InnerAnimDelay(float delay, VoidDelegate callback)
-    {
-        await UniTask.Delay(TimeSpan.FromSeconds(delay));
-        if (callback != null)
+    private void StartAnimDelay(float delay, Action<CancellationToken> action, CancellationToken token)
+    {   
+        if (action == null)
         {
-            callback();
+            return;
         }
+
+        if (delay <= 0)
+        {
+            //action(token);
+            //return;
+        }
+
+        _updateService.AddDelayedUpdate(null, action, token, delay);
     }
-
-
 }

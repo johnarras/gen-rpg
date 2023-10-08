@@ -12,6 +12,7 @@ using Genrpg.Shared.Factions.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Networking.Interfaces;
+using Genrpg.Shared.GameSettings.Entities;
 
 namespace Genrpg.Shared.Characters.Entities
 {
@@ -34,6 +35,11 @@ namespace Genrpg.Shared.Characters.Entities
             EntityId = 1;
             FactionTypeId = FactionType.Player;
             NearbyGridsSeen = new List<PointXZ>();
+        }
+
+        public override string GetGroupId()
+        {
+            return Id;
         }
 
         public void SetConn(IConnection conn)
@@ -60,9 +66,9 @@ namespace Genrpg.Shared.Characters.Entities
             }
         }
 
-        public override Dictionary<Type, IUnitDataContainer> GetAllData()
+        public override Dictionary<Type, IUnitData> GetAllData()
         {
-            return new Dictionary<Type, IUnitDataContainer>(_dataDict);
+            return new Dictionary<Type, IUnitData>(_dataDict);
         }
 
         public override void SaveAll(IRepositorySystem repoSystem, bool saveClean)
@@ -72,25 +78,13 @@ namespace Genrpg.Shared.Characters.Entities
             {
                 SetDirty(false);
                 repoSystem.QueueSave(this);
-
             }
 
-            List<IUnitDataContainer> allValues = new List<IUnitDataContainer>(_dataDict.Values.ToList());
-            foreach (IUnitDataContainer value in allValues)
+            List<IUnitData> allValues = new List<IUnitData>(_dataDict.Values.ToList());
+            foreach (IUnitData value in allValues)
             {
-                value.SaveData(repoSystem, saveClean);
+                value.Save(repoSystem, saveClean);
             }
-        }
-
-        public List<IUnitData> GetAll()
-        {
-            List<IUnitData> retval = new List<IUnitData>();
-            List<IUnitDataContainer> allValues = new List<IUnitDataContainer>(_dataDict.Values.ToList());
-            foreach (IUnitDataContainer value in allValues)
-            {
-                retval.Add(value.GetData() as IUnitData);
-            }
-            return retval;
         }
 
         [JsonIgnore]
@@ -98,5 +92,28 @@ namespace Genrpg.Shared.Characters.Entities
 
         [JsonIgnore]
         [Key(105)] public DateTime LastServerStatTime { get; set; } = DateTime.UtcNow;
+
+        private SessionOverrideList _overrideList { get; set; }
+        public void SetSessionOverrideList(SessionOverrideList overrideList)
+        {
+            _overrideList = overrideList;
+        }
+
+        public SessionOverrideList GetSessionOverrideList()
+        {
+            return _overrideList;
+        }
+
+        public override string GetGameDataName(string settingName)
+        {
+            if (_overrideList == null)
+            {
+                return GameDataConstants.DefaultFilename;
+            }
+            SessionOverrideItem item = _overrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
+            return item?.DocId ?? GameDataConstants.DefaultFilename;
+        }
+
+
     }
 }

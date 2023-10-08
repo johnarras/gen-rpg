@@ -1,26 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-using Services.ProcGen;
 using System.Threading;
 
 public class AddWater : BaseZoneGenerator
 {
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
@@ -45,7 +35,7 @@ public class AddWater : BaseZoneGenerator
 
         if (waterPlants == null)
         {
-            waterPlants = gs.data.GetGameData<ProcGenSettings>().TreeTypes.Where(x => x.HasFlag(TreeFlags.IsWaterItem)).ToList();
+            waterPlants = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetData().Where(x => x.HasFlag(TreeFlags.IsWaterItem)).ToList();
         }
 
         if (genData.stepSize < 1)
@@ -290,7 +280,7 @@ public class AddWater : BaseZoneGenerator
             return;
         }
 
-        ZoneType ztype = gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId);
+        ZoneType ztype = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId);
         if (ztype == null)
         {
             return;
@@ -363,7 +353,7 @@ public class AddWater : BaseZoneGenerator
                         FlagUtils.IsSet(gs.md.flags[x,z],MapGenFlags.IsLocation |
                         MapGenFlags.NearWater))
                     {
-                        float dist = Mathf.Sqrt(dx * dx + dy * dy);
+                        float dist = (float)Math.Sqrt(dx * dx + dy * dy);
                         if (dist < minDistToFeature)
                         {
                             minDistToFeature = dist;
@@ -504,7 +494,7 @@ public class AddWater : BaseZoneGenerator
 
                 float radMult = 1.0f;
 
-                double angle = Mathf.Atan2(dx, dy) * 180 / Math.PI + angleRot;
+                double angle = Math.Atan2(dx, dy) * 180 / Math.PI + angleRot;
 
                 while (angle >= 360)
                 {

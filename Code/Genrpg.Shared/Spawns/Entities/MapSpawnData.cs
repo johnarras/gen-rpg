@@ -1,5 +1,4 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.NPCs.Entities;
@@ -8,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Genrpg.Shared.DataStores.Categories.WorldData;
 
 namespace Genrpg.Shared.Spawns.Entities
 {
@@ -21,13 +21,12 @@ namespace Genrpg.Shared.Spawns.Entities
         [Key(3)] public int MaxId { get; set; } = 12345;
         [Key(4)] public List<NPCStatus> NPCs { get; set; }
 
+        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
         public MapSpawnData()
         {
             Data = new List<MapSpawn>();
             NPCs = new List<NPCStatus>();
         }
-
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
 
         public void AddSpawn(long entityTypeId, long entityId, int mapx, int mapz, long zoneId)
         {

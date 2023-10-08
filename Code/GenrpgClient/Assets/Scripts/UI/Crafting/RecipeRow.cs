@@ -1,6 +1,4 @@
 ﻿
-using UnityEngine;
-using UnityEngine.UI;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Crafting.Entities;
 
@@ -9,15 +7,11 @@ public class RecipeRow : BaseBehaviour
     private RecipeType _recipe { get; set; }
     private RecipeStatus _status { get; set; }
     private ScalingType _scaling { get; set; }
-
     private CraftingScreen _screen { get; set; }
-
-    [SerializeField]
-    private Text _name;
-    [SerializeField]
-    private Text _rank;
-    [SerializeField]
-    private Image _bgImage;
+    
+    public GText RecipeName;
+    public GText RecipeRank;
+    public GImage BGImage;
 
     public void Init(RecipeStatus status, CraftingScreen screen)
     {
@@ -28,7 +22,7 @@ public class RecipeRow : BaseBehaviour
             OnError();
             return;
         }
-        _recipe = _gs.data.GetGameData<CraftingSettings>().GetRecipeType(_status.IdKey);
+        _recipe = _gs.data.GetGameData<RecipeSettings>(_gs.ch).GetRecipeType(_status.IdKey);
 
         if (_recipe == null)
         {
@@ -36,16 +30,16 @@ public class RecipeRow : BaseBehaviour
             return;
         }
 
-        UIHelper.SetText(_name, _recipe.Name);
+        UIHelper.SetText(RecipeName, _recipe.Name);
 
-        UIHelper.SetText(_rank, _status.GetLevel().ToString() + "/" + status.GetMaxLevel());
+        UIHelper.SetText(RecipeRank, _status.GetLevel().ToString() + "/" + status.GetMaxLevel());
 
         SetIsActive(false);
     }
 
     private void OnError()
     {
-        GameObject.Destroy(gameObject);
+        GEntityUtils.Destroy(entity);
         return;
     }
 
@@ -59,10 +53,9 @@ public class RecipeRow : BaseBehaviour
 
     public void SetIsActive(bool active)
     {
-        Color bgColor = active ? Color.yellow : Color.gray;    
-        if (_bgImage != null)
+        if (BGImage != null)
         {
-            _bgImage.color = bgColor;
+            BGImage.Color = (active?GColor.yellow : GColor.gray);
         }
     }
 

@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
-using Entities;
+﻿using System.Collections.Generic;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System.Threading;
+using UnityEngine; // Needed
 
 public class FullItemTooltipInitData : InitTooltipData
 {
@@ -24,20 +16,20 @@ public class FullItemTooltipInitData : InitTooltipData
 
 public class FullItemTooltip : BaseTooltip
 {
-    [SerializeField]
-    private ItemTooltip _mainTooltip;
-    [SerializeField]
-    private List<ItemTooltip> _equipTooltips;
+    
+    public ItemTooltip _mainTooltip;
+    
+    public List<ItemTooltip> _equipTooltips;
 
-    [SerializeField]
-    private GameObject _equipParent;
+    
+    public GEntity _equipParent;
 
     protected ItemIconScreen _screen;
     private Item _mainItem;
     private Unit _unit;
 
-    [SerializeField]
-    protected int _iconWidth = 32;
+    
+    public int _iconWidth = 32;
 
     protected List<Item> _equips;
     protected bool _isVendorItem;
@@ -71,14 +63,14 @@ public class FullItemTooltip : BaseTooltip
             OnExit("Missing Tooltip objects");
             return;
         }
-        ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(_mainItem.ItemTypeId);
+        ItemType itype = gs.data.GetGameData<ItemTypeSettings>(gs.ch).GetItemType(_mainItem.ItemTypeId);
 
         if (itype != null)
         {
             if (itype.EquipSlotId > 0)
             {
                 InventoryData inventory = gs.ch.Get<InventoryData>();
-                List<long> compatibleSlots = itype.GetCompatibleEquipSlots(gs);
+                List<long> compatibleSlots = itype.GetCompatibleEquipSlots(gs, gs.ch);
                 for (int i = 0; i < compatibleSlots.Count; i++)
                 {
                     Item equipItem = inventory.GetEquipBySlot(compatibleSlots[i]);
@@ -104,7 +96,7 @@ public class FullItemTooltip : BaseTooltip
         _mainTooltip.Init(gs, mainInitData, _token);
         for (int i = 0; i < _equipTooltips.Count; i++)
         {
-            GameObjectUtils.SetActive(_equipTooltips[i], i < _equips.Count);
+            GEntityUtils.SetActive(_equipTooltips[i], i < _equips.Count);
             if (i < _equips.Count)
             {
                 InitItemTooltipData otherInitData = new InitItemTooltipData()
@@ -143,17 +135,17 @@ public class FullItemTooltip : BaseTooltip
             eqiconx = 0;
         }
 
-        Vector3 mpos = _mainTooltip.transform.localPosition;
-        _mainTooltip.transform.localPosition = new Vector3(iconx, mpos.y, mpos.z);
+        GVector3 mpos = GVector3.Create(_mainTooltip.transform().localPosition);
+        _mainTooltip.transform().localPosition = GVector3.Create(iconx, mpos.y, mpos.z);
 
-        Vector3 epos = _equipParent.transform.localPosition;
-        _equipParent.transform.localPosition = new Vector3(eqiconx, epos.y, epos.z);
+        GVector3 epos = GVector3.Create(_equipParent.transform().localPosition);
+        _equipParent.transform().localPosition = GVector3.Create(eqiconx, epos.y, epos.z);
 
     }
 
     public void OnExit(string msg = "")
     {
-        GameObjectUtils.SetActive(gameObject, false);
+        GEntityUtils.SetActive(entity, false);
     }
 
 }

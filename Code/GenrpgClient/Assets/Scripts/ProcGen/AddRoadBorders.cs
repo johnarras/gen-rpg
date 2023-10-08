@@ -8,25 +8,25 @@ using System.Collections.Specialized;
 using Genrpg.Shared.Core.Entities;
 
 
-using Services;
-using Cysharp.Threading.Tasks;
-using Entities;
+
+using System.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.MapServer.Entities;
-using Services.ProcGen;
+
 using System.Threading;
 using Genrpg.Shared.ProcGen.Entities;
 
 public class AddRoadBorders : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
 
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 

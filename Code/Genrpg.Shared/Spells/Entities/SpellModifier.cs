@@ -2,11 +2,12 @@ using MessagePack;
 using Genrpg.Shared.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using Genrpg.Shared.DataStores.GameSettings;
 
 namespace Genrpg.Shared.Spells.Entities
 {
     [MessagePackObject]
-    public class SpellModifier : IIndexedGameItem
+    public class SpellModifier : ChildSettings, IIndexedGameItem
     {
         public const int DefaultCostScale = 100;
 
@@ -23,18 +24,20 @@ namespace Genrpg.Shared.Spells.Entities
         public const int ProcScale = 11;
         public const int CastTime = 12;
 
-        
-        [Key(0)] public long IdKey { get; set; }
-        [Key(1)] public string Name { get; set; }
-        [Key(2)] public string Icon { get; set; }
-        [Key(3)] public string Art { get; set; }
-        [Key(4)] public string Desc { get; set; }
-        [Key(5)] public string DisplaySuffix { get; set; }
-        [Key(6)] public string DataMemberName { get; set; }
-        [Key(7)] public bool IsProcMod { get; set; }
-        [Key(8)] public float DisplayMult { get; set; }
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string ParentId { get; set; }
+        [Key(2)] public long IdKey { get; set; }
 
-        [Key(9)] public List<SpellModifierValue> Values { get; set; }
+        [Key(3)] public override string Name { get; set; }
+        [Key(4)] public string Icon { get; set; }
+        [Key(5)] public string Art { get; set; }
+        [Key(6)] public string Desc { get; set; }
+        [Key(7)] public string DisplaySuffix { get; set; }
+        [Key(8)] public string DataMemberName { get; set; }
+        [Key(9)] public bool IsProcMod { get; set; }
+        [Key(10)] public float DisplayMult { get; set; }
+
+        [Key(11)] public List<SpellModifierValue> Values { get; set; }
 
         public SpellModifier()
         {

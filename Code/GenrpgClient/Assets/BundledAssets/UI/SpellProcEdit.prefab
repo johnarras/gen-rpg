@@ -208,11 +208,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fd7772e2a6b31d40bfd1de88c532300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: {fileID: 7006738779895749702}
-  _cost: {fileID: 4160436727600092378}
-  _icon: {fileID: 5551188366143328269}
-  _chance: {fileID: 7901633269092047602}
-  _scale: {fileID: 207833867261103122}
+  ProcName: {fileID: 5458706855193935528}
+  Cost: {fileID: 5543592864072477053}
+  Icon: {fileID: 5551188366143328269}
+  Chance: {fileID: 7901633269092047602}
+  Scale: {fileID: 207833867261103122}
 --- !u!1 &7105709576543219303
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8520995948234810793}
   - component: {fileID: 1376817734381873979}
-  - component: {fileID: 4160436727600092378}
+  - component: {fileID: 5543592864072477053}
   m_Layer: 0
   m_Name: CostVal
   m_TagString: Untagged
@@ -356,7 +356,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7911061857459462502}
   m_CullTransparentMesh: 0
---- !u!114 &4160436727600092378
+--- !u!114 &5543592864072477053
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7911061857459462502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: d5ec29f826410a84792259cf40e7d3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -381,15 +381,15 @@ MonoBehaviour:
     m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 50
-    m_Alignment: 4
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 11
+  m_Text: 
 --- !u!1 &8469261166154375156
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8218637797821475496}
   - component: {fileID: 2442149743451210440}
-  - component: {fileID: 7006738779895749702}
+  - component: {fileID: 5458706855193935528}
   m_Layer: 0
   m_Name: Name
   m_TagString: Untagged
@@ -435,7 +435,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8469261166154375156}
   m_CullTransparentMesh: 0
---- !u!114 &7006738779895749702
+--- !u!114 &5458706855193935528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8469261166154375156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: d5ec29f826410a84792259cf40e7d3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -460,15 +460,15 @@ MonoBehaviour:
     m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 50
+    m_MinSize: 1
+    m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Name
+  m_Text: 
 --- !u!1001 &1005996635067856447
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,10 +2,13 @@ using MessagePack;
 
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Currencies.Entities;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using System;
+using Genrpg.Shared.PlayerFiltering.Interfaces;
+using Genrpg.Shared.GameSettings.Entities;
+using System.Linq;
+using Genrpg.Shared.DataStores.Categories.PlayerData;
 
 namespace Genrpg.Shared.Users.Entities
 {
@@ -17,7 +20,7 @@ namespace Genrpg.Shared.Users.Entities
     }
 
     [MessagePackObject]
-    public class User : BasePlayerData, IName
+    public class User : BasePlayerData, IName, IFilteredObject
     {
         /// <summary>
         /// Used for the id found in the relational database
@@ -34,8 +37,6 @@ namespace Genrpg.Shared.Users.Entities
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
 
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
-
         public string GetNoUnderscoreName()
         {
             if (string.IsNullOrEmpty(Name))
@@ -45,6 +46,24 @@ namespace Genrpg.Shared.Users.Entities
 
             return Name.Replace("_", " ");
         }
+
+
+        [Key(7)] public SessionOverrideList OverrideList { get; set; }
+        public virtual void SetSessionOverrides (SessionOverrideList list)
+        {
+            OverrideList = list;
+        }
+
+        public virtual string GetGameDataName(string settingName)
+        {
+            if (OverrideList == null)
+            {
+                return GameDataConstants.DefaultFilename;
+            }
+            SessionOverrideItem item = OverrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
+            return item?.DocId ?? GameDataConstants.DefaultFilename;
+        }
+
 
     }
 }

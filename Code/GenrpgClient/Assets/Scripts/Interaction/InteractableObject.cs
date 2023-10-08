@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-using UnityEngine;
-using UnityEngine.UI;
+using GEntity = UnityEngine.GameObject;
 using UnityEngine.EventSystems;
-using Entities;
+
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using System.Threading;
-using Cysharp.Threading.Tasks;
+using UnityEngine; // Needed
 
 public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerClickHandler
 {
@@ -22,33 +14,30 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
     public const int DidUse = 2;
 
     protected MapObject _mapObj;
-    protected GameObject _gameObject;
+    protected GEntity _entity;
     public const string InteractGlow = "InteractGlow";
-    protected GameObject GlowItem = null;
+    protected GEntity GlowItem = null;
     CancellationToken _token;
-    private void OnEnable()
-    {
-        InnerOnEnable();
-    }
 
-    public virtual void Init(MapObject worldObj, GameObject go, CancellationToken token)
+    public virtual void Init(MapObject worldObj, GEntity go, CancellationToken token)
     {
         _mapObj = worldObj;
-        _gameObject = go;
+        _entity = go;
         _token = token;
+        OnInit();
     }
 
-    protected virtual void InnerOnEnable()
+    virtual protected void OnInit()
     {
         ShowGlow(0);
     }
 
     public void HideGlow(float delay, bool destroyAtEnd)
     {
-        DelayHideGlow(delay, destroyAtEnd, _token).Forget();
+        _updateService.AddDelayedUpdate(entity, (_token) => { DelayHideGlow(destroyAtEnd); }, _token, delay);
     }
 
-    private async UniTask DelayHideGlow(float delay, bool destroyAtEnd, CancellationToken token)
+    private void DelayHideGlow(bool destroyAtEnd)
     {
         if (GlowItem != null)
         {
@@ -61,50 +50,55 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
             }
         }
 
-        await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: token);
-
         if (GlowItem != null)
         {
-            GameObject.Destroy(GlowItem);
+            GEntityUtils.Destroy(GlowItem);
+            GlowItem = null;
         }
 
         if (destroyAtEnd)
         {
-            GameObject.Destroy(gameObject);
+            GEntityUtils.Destroy(entity);
         }
+        _showingGlow = false;
     }
 
+    private bool _showingGlow = false;
     public void ShowGlow(float delay)
     {
-        DelayShowGlow(delay, _token).Forget();
+        if (_showingGlow)
+        {
+            return;
+        }
+        _showingGlow = true;
+        _updateService.AddDelayedUpdate(entity, DelayShowGlow, _token, delay);
     }
 
-    private async UniTask DelayShowGlow(float delay, CancellationToken token)
+    private void DelayShowGlow(CancellationToken token)
     {
         if (GlowItem != null)
         {
             return;
         }
-        await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: token);
-        _assetService.LoadAssetInto(_gs, gameObject, AssetCategory.UI, InteractGlow, OnLoadGlow, null, token);
+        _assetService.LoadAssetInto(_gs, entity, AssetCategory.UI, InteractGlow, OnLoadGlow, null, token);
     }
 
     private void OnLoadGlow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject glow = obj as GameObject;
+        GEntity glow = obj as GEntity;
         if (glow == null)
         {
             return;
         }
 
-        glow.transform.localPosition = new Vector3(0, 1, 0);
+        glow.transform().localPosition = GVector3.Create(0, 1, 0);
         GlowItem = glow;
     }
 
 
     public virtual bool CanInteract()
     {
-        GameObject go = PlayerObject.Get();
+        GEntity go = PlayerObject.Get();
         if (go == null)
         {
             return false;
@@ -116,7 +110,7 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
         }
         
 
-        float dist = Vector3.Distance(go.transform.position, transform.position);
+        float dist = GVector3.Distance(GVector3.Create(go.transform().position), GVector3.Create(entity.transform().position));
         return dist < MapConstants.MaxInteractDistance;
     }
 
@@ -168,21 +162,7 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
     }
 
     public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            _LeftClick(0);
-        }
-
-        if (eventData.button == PointerEventData.InputButton.Middle)
-        {
-            _MiddleClick(0);
-        }
-
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            _RightClick(0);
-        }
+    { 
     }
 
     protected virtual void _OnPointerEnter()

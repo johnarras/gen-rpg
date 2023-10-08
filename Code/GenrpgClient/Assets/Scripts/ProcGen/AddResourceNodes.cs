@@ -2,12 +2,12 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using System.Threading;
 
 public class ZoneResourceNodeData
@@ -34,7 +34,7 @@ public class AddResourceNodes : BaseZoneGenerator
     private List<ResourceNodeData> _resources = null;
 
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
 
         await base.Generate(gs, token);
@@ -77,7 +77,7 @@ public class AddResourceNodes : BaseZoneGenerator
 
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
@@ -109,7 +109,7 @@ public class AddResourceNodes : BaseZoneGenerator
         for (int r = 0; r < _resources.Count; r++)
         {
             ResourceNodeData rdata = _resources[r];
-            List<GroundObjType> categoryObjects = gs.data.GetGameData<ProcGenSettings>().GroundObjects.Where(x => x.GroupId == rdata.GroupId).ToList();
+            List<GroundObjType> categoryObjects = gs.data.GetGameData<GroundObjTypeSettings>(gs.ch).GetData().Where(x => x.GroupId == rdata.GroupId).ToList();
 
             if (categoryObjects.Count < 1)
             {

@@ -68,11 +68,6 @@ namespace Genrpg.Shared.Interfaces
         string Art { get; set; }
     }
 
-    public interface IStatusItem
-    {
-
-    }
-
     public interface INameId
     {
         string NameId { get; set; }

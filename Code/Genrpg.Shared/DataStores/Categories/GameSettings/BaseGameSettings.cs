@@ -1,0 +1,52 @@
+﻿using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Utils.Data;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Genrpg.Shared.DataStores.Categories.GameSettings
+{
+    [DataCategory(Category = DataCategory.GameData)]
+    public abstract class BaseGameSettings : IGameSettings
+    {
+        [MessagePack.IgnoreMember]
+        public abstract string Id { get; set; }
+        [MessagePack.IgnoreMember]
+        public virtual string Name
+        {
+            get { return GetType().Name; }
+            set { }
+        }
+        public virtual void AddTo(GameData gameData)
+        {
+            gameData.Set(this);
+        }
+
+        public virtual void SetInternalIds() { }
+        
+        protected IndexedDataItemLookup _lookup { get; set; }
+
+        public BaseGameSettings()
+        {
+            _lookup = new IndexedDataItemLookup(this);
+        }
+
+        public void ClearIndex()
+        {
+            _lookup.Clear();
+        }
+
+        public List<IIdName> GetList(string typeName)
+        {
+            return _lookup.GetList(typeName);
+        }
+
+        public List<T> GetList<T>()
+        {
+            return _lookup.GetList<T>();
+        }
+    }
+}

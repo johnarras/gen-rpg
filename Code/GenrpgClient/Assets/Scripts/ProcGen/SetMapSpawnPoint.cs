@@ -1,12 +1,12 @@
 ﻿
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 
 public class SetMapSpawnPoint : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         int minx = gs.map.GetHwid() / 2;

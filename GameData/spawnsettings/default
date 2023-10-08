@@ -2,8 +2,10 @@
   "Id": "default",
   "MapSpawnChance": 1.0,
   "MonsterLootSpawnTableId": 1,
-  "SpawnTables": [
+  "Data": [
     {
+      "Id": "spawntable1default",
+      "ParentId": "default",
       "IdKey": 1,
       "Name": "MonsterLoot",
       "NameId": "",
@@ -49,6 +51,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable2default",
+      "ParentId": "default",
       "IdKey": 2,
       "Name": "Generated",
       "NameId": "",
@@ -267,6 +271,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable3default",
+      "ParentId": "default",
       "IdKey": 3,
       "Name": "Gems",
       "NameId": "",
@@ -340,6 +346,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable4default",
+      "ParentId": "default",
       "IdKey": 4,
       "Name": "Elements",
       "NameId": "",
@@ -378,6 +386,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable5default",
+      "ParentId": "default",
       "IdKey": 5,
       "Name": "Cloth",
       "NameId": "",
@@ -395,6 +405,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable6default",
+      "ParentId": "default",
       "IdKey": 6,
       "Name": "Leather",
       "NameId": "",
@@ -412,6 +424,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable7default",
+      "ParentId": "default",
       "IdKey": 7,
       "Name": "Metal",
       "NameId": "",
@@ -443,6 +457,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable8default",
+      "ParentId": "default",
       "IdKey": 8,
       "Name": "Herb",
       "NameId": "",
@@ -523,6 +539,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable9default",
+      "ParentId": "default",
       "IdKey": 9,
       "Name": "Magic",
       "NameId": "",
@@ -554,6 +572,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable10default",
+      "ParentId": "default",
       "IdKey": 10,
       "Name": "MobSmallHuman",
       "NameId": "",
@@ -606,6 +626,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable11default",
+      "ParentId": "default",
       "IdKey": 11,
       "Name": "MobUndead",
       "NameId": "",
@@ -658,6 +680,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable12default",
+      "ParentId": "default",
       "IdKey": 12,
       "Name": "MobMythical",
       "Items": [
@@ -727,6 +751,8 @@
       ]
     },
     {
+      "Id": "spawntable13default",
+      "ParentId": "default",
       "IdKey": 13,
       "Name": "MobLargeHuman",
       "NameId": "",
@@ -793,6 +819,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable14default",
+      "ParentId": "default",
       "IdKey": 14,
       "Name": "MobField",
       "Items": [
@@ -897,6 +925,8 @@
       ]
     },
     {
+      "Id": "spawntable15default",
+      "ParentId": "default",
       "IdKey": 15,
       "Name": "MobForest",
       "Items": [
@@ -980,6 +1010,8 @@
       ]
     },
     {
+      "Id": "spawntable16default",
+      "ParentId": "default",
       "IdKey": 16,
       "Name": "MobDry",
       "NameId": "",
@@ -1060,6 +1092,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable17default",
+      "ParentId": "default",
       "IdKey": 17,
       "Name": "MobSwamp",
       "NameId": "",
@@ -1161,6 +1195,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable18default",
+      "ParentId": "default",
       "IdKey": 18,
       "Name": "MobCold",
       "Items": [
@@ -1237,6 +1273,8 @@
       ]
     },
     {
+      "Id": "spawntable19default",
+      "ParentId": "default",
       "IdKey": 19,
       "Name": "MobGrassland",
       "Items": [
@@ -1348,6 +1386,8 @@
       ]
     },
     {
+      "Id": "spawntable20default",
+      "ParentId": "default",
       "IdKey": 20,
       "Name": "ShallowDungeon",
       "NameId": "",
@@ -1379,6 +1419,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable21default",
+      "ParentId": "default",
       "IdKey": 21,
       "Name": "DeepDungeon",
       "NameId": "",
@@ -1417,6 +1459,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable22default",
+      "ParentId": "default",
       "IdKey": 22,
       "Name": "Wood",
       "NameId": "",
@@ -1434,6 +1478,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable23default",
+      "ParentId": "default",
       "IdKey": 23,
       "Name": "Stone",
       "NameId": "",
@@ -1451,6 +1497,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable24default",
+      "ParentId": "default",
       "IdKey": 24,
       "Name": "Precious",
       "NameId": "",
@@ -1468,6 +1516,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable25default",
+      "ParentId": "default",
       "IdKey": 25,
       "Name": "ChestLoot",
       "NameId": "",
@@ -1561,6 +1611,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable26default",
+      "ParentId": "default",
       "IdKey": 26,
       "Name": "FurryMonsterLoot",
       "NameId": "",
@@ -1606,6 +1658,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable27default",
+      "ParentId": "default",
       "IdKey": 27,
       "Name": "BugLoot",
       "NameId": "",
@@ -1665,6 +1719,8 @@
       "Art": ""
     },
     {
+      "Id": "spawntable28default",
+      "ParentId": "default",
       "IdKey": 28,
       "Name": "FlyingLoot",
       "NameId": "",

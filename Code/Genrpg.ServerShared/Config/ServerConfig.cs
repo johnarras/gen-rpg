@@ -16,8 +16,6 @@ namespace Genrpg.ServerShared.Config
 
         public string ServerId { get; set; }
 
-        public string DataConfigDocId { get; set; }
-
         public Dictionary<string, string> ConnectionStrings { get; set; }  = new Dictionary<string, string>();
 
         public string GetConnectionString(string key)

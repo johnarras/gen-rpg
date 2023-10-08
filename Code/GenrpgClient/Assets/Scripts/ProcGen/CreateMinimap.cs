@@ -1,30 +1,28 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using Cysharp.Threading.Tasks;
+using GEntity = UnityEngine.GameObject;
+using System.Threading.Tasks;
 using Genrpg.Shared.Constants;
 using ClientEvents;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
-using Services.ProcGen;
+
 using System.Threading;
-using Cysharp.Threading.Tasks.Triggers;
-using TMPro;
 using Assets.Scripts.MapTerrain;
+using UnityEngine; // Needed
 
 public class CreateMinimap : BaseZoneGenerator
 {
     public const int TexSize = 4096;
     public const string CreateMinimapCamera = "CreateMinimapCamera";
-    private static GameObject minimapCamera = null;
-    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+    private static GEntity minimapCamera = null;
+    public override async Task Generate (UnityGameState gs, CancellationToken token)
 	{
 
         await base.Generate(gs, token);
-        GameObject.Destroy(minimapCamera);
-        minimapCamera = new GameObject();
+        GEntityUtils.Destroy(minimapCamera);
+        minimapCamera = new GEntity();
         minimapCamera.name = "CreateMinimapCamera";
         minimapCamera.AddComponent<Camera>();
 
@@ -57,19 +55,19 @@ public class CreateMinimap : BaseZoneGenerator
 
         cam.orthographic = true;
         cam.orthographicSize = zoneMapSize / 2;
-        cam.transform.position = new Vector3(zoneMapSize / 2, MapConstants.MapHeight*2, zoneMapSize / 2);
-        cam.transform.LookAt(new Vector3(zoneMapSize / 2, 0, zoneMapSize / 2));
+        cam.transform().position = GVector3.Create(zoneMapSize / 2, MapConstants.MapHeight*2, zoneMapSize / 2);
+        cam.transform().LookAt(GVector3.Create(zoneMapSize / 2, 0, zoneMapSize / 2));
         cam.clearFlags = CameraClearFlags.Skybox;
         cam.renderingPath = RenderingPath.DeferredShading;
         cam.cullingMask = -1;
 
         Color ambientColor = RenderSettings.ambientSkyColor;
         float ambientScale = 0.6f;
-        RenderSettings.ambientLight = new Color(ambientScale, ambientScale, ambientScale, 1);
+        RenderSettings.ambientLight = GColor.Create(ambientScale, ambientScale, ambientScale, 1);
 
         List<string> sunNames = new List<String>() { "Sun", "Sunlight" };
 
-        GameObject sun = null;
+        GEntity sun = null;
 
         foreach (string nm in sunNames)
         {
@@ -78,13 +76,13 @@ public class CreateMinimap : BaseZoneGenerator
                 break;
             }
 
-            sun = GameObjectUtils.FindSingleton(nm);
+            sun = GEntityUtils.FindSingleton(nm);
             if (sun != null)
             {
                 break;
             }
 
-            sun = GameObjectUtils.FindSingleton(nm.ToLower());
+            sun = GEntityUtils.FindSingleton(nm.ToLower());
             if (sun != null)
             {
                 break;
@@ -100,16 +98,16 @@ public class CreateMinimap : BaseZoneGenerator
 
 
         float lightIntensity = 1.0f;
-        Color sunColor = Color.white;
-        Vector3 oldAngles = new Vector3(90, 0, 0);
+        Color sunColor = GColor.white;
+        GVector3 oldAngles = new GVector3(90, 0, 0);
         if (light != null)
         {
             lightIntensity = light.intensity;
             light.intensity = 0.9f;
             sunColor = light.color;
-            light.color = new Color(1.0f, 0.95f, 0.9f);
-            oldAngles = light.transform.localEulerAngles;
-            light.transform.localEulerAngles = new Vector3(80, 0, 0);
+            light.color = GColor.Create(1.0f, 0.95f, 0.9f);
+            oldAngles = GVector3.Create(light.transform().localEulerAngles);
+            light.transform().localEulerAngles = GVector3.Create(80, 0, 0);
         }
 
         float waterRed = 0.5f;
@@ -120,7 +118,7 @@ public class CreateMinimap : BaseZoneGenerator
         RenderSettings.fog = false;
         // All terrain splats should have been loaded during SetFinalTerrainTextures.
 
-        await UniTask.Delay(TimeSpan.FromSeconds(1.0f));
+        await Task.Delay(TimeSpan.FromSeconds(1.0f));
 
         int numTerrainsNeeded = gs.map.BlockCount * gs.map.BlockCount;
 
@@ -128,12 +126,12 @@ public class CreateMinimap : BaseZoneGenerator
 
         while (terrains.Count < numTerrainsNeeded)
         {
-            await UniTask.Delay(1000, cancellationToken: _token);
+            await Task.Delay(1000, cancellationToken: _token);
         }
 
         while (gs.md.loadingPatchList.Count > 0 || gs.md.addPatchList.Count > 0)
         {
-            await UniTask.Delay(1000, cancellationToken: _token);
+            await Task.Delay(1000, cancellationToken: _token);
         }
 
         UnityAssetService.LoadSpeed = LoadSpeed.Paused;
@@ -152,10 +150,10 @@ public class CreateMinimap : BaseZoneGenerator
             terr.heightmapMaximumLOD = 0;
         }
 
-        GameObject waterRoot = new GameObject();
+        GEntity waterRoot = new GEntity();
         waterRoot.name = "WaterRoot";
         TerrainPatchData patch = gs.md.GetTerrainPatch(gs, 0, 0);
-        await UniTask.NextFrame();
+        await Task.Delay(1);
 
 
         WaterObjectLoader waterLoader = new WaterObjectLoader(gs);
@@ -200,14 +198,14 @@ public class CreateMinimap : BaseZoneGenerator
             }
         }
 
-        GameObject fullMapWater = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/" + MapConstants.MinimapWaterName));
+        GEntity fullMapWater = GEntity.Instantiate(AssetUtils.LoadResource<GEntity>("Prefabs/" + MapConstants.MinimapWaterName));
 
-        GameObjectUtils.AddToParent(fullMapWater, waterRoot);
+        GEntityUtils.AddToParent(fullMapWater, waterRoot);
 
-        fullMapWater.transform.position = new Vector3(gs.map.GetHwid() / 2, MapConstants.OceanHeight, gs.map.GetHhgt()/2);
-        fullMapWater.transform.localScale = new Vector3(1000000, 1, 1000000);
+        fullMapWater.transform().position = GVector3.Create(gs.map.GetHwid() / 2, MapConstants.OceanHeight, gs.map.GetHhgt()/2);
+        fullMapWater.transform().localScale = GVector3.Create(1000000, 1, 1000000);
 
-        await UniTask.Delay(50 * waterObjectCount);
+        await Task.Delay(50 * waterObjectCount);
 
         Texture2D tex = new Texture2D(TexSize, TexSize, TextureFormat.RGB24, true, true);
 
@@ -221,7 +219,7 @@ public class CreateMinimap : BaseZoneGenerator
         tex.ReadPixels(new Rect(0, 0, TexSize, TexSize), 0, 0);
         tex.Apply();
 
-        await UniTask.NextFrame();
+        await Task.Delay(1);
 
         Color[] pixels = tex.GetPixels();
 
@@ -281,7 +279,7 @@ public class CreateMinimap : BaseZoneGenerator
                             if (!bluePixels[xx, yy])
                             {
                                 int dy = yy - y;
-                                float dist = Mathf.Sqrt(dx * dx + dy * dy);
+                                float dist = (float)Math.Sqrt(dx * dx + dy * dy);
                                 if (dist < minDistToOther)
                                 {
                                     minDistToOther = dist;
@@ -301,7 +299,7 @@ public class CreateMinimap : BaseZoneGenerator
                     newColor[1] = (startVal * waterGreen) * (1 + distPct * lossPct);
                     newColor[2] = (startVal * waterBlue) * (1 + distPct * lossPct);
 
-                    pixels[GetIndex(x,y)] = new Color(newColor[0], newColor[1], newColor[2]);
+                    pixels[GetIndex(x,y)] = GColor.Create(newColor[0], newColor[1], newColor[2]);
                 }
                 else
                 {
@@ -314,7 +312,7 @@ public class CreateMinimap : BaseZoneGenerator
                     { 
                         newColor[i] = (1 - tintPct) * newColor[i] + tintPct * tint[i];
                     }
-                    pixels[GetIndex(x, y)] = new Color(newColor[0], newColor[1], newColor[2]);
+                    pixels[GetIndex(x, y)] = GColor.Create(newColor[0], newColor[1], newColor[2]);
                 }
             }
         }
@@ -363,18 +361,18 @@ public class CreateMinimap : BaseZoneGenerator
                     totals[i] = Math.Max(0, contrast * (totals[i] - 0.5f) + 0.5f + bright);
                 }
 
-                pixels[GetIndex(x, y)] = new Color((float)totals[0], (float)totals[1], (float)totals[2]);
+                pixels[GetIndex(x, y)] = GColor.Create((float)totals[0], (float)totals[1], (float)totals[2]);
             }
         }
 
-        await UniTask.NextFrame();
+        await Task.Delay(1);
 
         float minLandHeight = MapConstants.OceanHeight;
         float minLandPct = (minLandHeight) / MapConstants.MapHeight;
 
         int blackBorderWidth = 2;
 
-        Color waterColor = new Color(waterRed, waterGreen, waterBlue);
+        Color waterColor = GColor.Create(waterRed, waterGreen, waterBlue);
 
         float shiftScale = (MapConstants.TerrainPatchSize - 1) * 1.0f / (MapConstants.TerrainPatchSize - 0);
         float darkenStartPercent = 0.30f;
@@ -425,8 +423,8 @@ public class CreateMinimap : BaseZoneGenerator
 
         cam.targetTexture = null;
         RenderTexture.active = null;
-        GameObject.Destroy(rt);        
-        GameObject.Destroy(minimapCamera);
+        GEntityUtils.Destroy(rt);        
+        GEntityUtils.Destroy(minimapCamera);
         minimapCamera = null;
 
         RenderSettings.ambientSkyColor= ambientColor;
@@ -436,7 +434,7 @@ public class CreateMinimap : BaseZoneGenerator
         {
             light.intensity = lightIntensity;
             light.color = sunColor;
-            light.transform.localEulerAngles = oldAngles;
+            light.transform().localEulerAngles = GVector3.Create(oldAngles);
         }
 
         foreach (Terrain terr in terrains)
@@ -469,7 +467,7 @@ public class CreateMinimap : BaseZoneGenerator
 
         FileUploader.UploadFile(fdata);
 
-        GameObjectUtils.DestroyAllChildren(waterRoot);
+        GEntityUtils.DestroyAllChildren(waterRoot);
 
         FileUploadData uploadData = new FileUploadData();
 
@@ -477,6 +475,7 @@ public class CreateMinimap : BaseZoneGenerator
         ShowMinimap(gs, tex);
 
 
+        RenderSettings.fog = true;
     }
 
     protected int GetIndex(int x, int y)

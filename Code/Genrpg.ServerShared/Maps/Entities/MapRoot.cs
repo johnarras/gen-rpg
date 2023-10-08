@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.DataStores.Categories;
+﻿using Genrpg.Shared.DataStores.Categories.WorldData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using System;
@@ -32,6 +32,7 @@ namespace Genrpg.ServerShared.Maps.Entities
 
         public float EdgeMountainChance { get; set; }
 
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Save(this); }
+        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
+
     }
 }

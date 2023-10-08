@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
+﻿
 using UnityEngine.EventSystems;
-using Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Inventory.Entities;
 using System.Threading;
 
 public class VendorItemIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerClickHandler
 {
-    [SerializeField]
-    private Text _name;
-    [SerializeField]
-    private Text _info;
-
-    [SerializeField]
-    private MoneyDisplay _moneyDisplay;
+    
+    public GText ItemName;
+    public GText ItemInfo;
+    public MoneyDisplay _moneyDisplay;
 
     private long _price = 0;
 
@@ -53,11 +40,11 @@ public class VendorItemIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandle
         };
      
 
-        UIHelper.SetText(_name, ItemUtils.GetName(_gs, data.Data));
-        UIHelper.SetText(_info, ItemUtils.GetBasicInfo(_gs, data.Data));
+        UIHelper.SetText(ItemName, ItemUtils.GetName(_gs, _gs.ch, data.Data));
+        UIHelper.SetText(ItemInfo, ItemUtils.GetBasicInfo(_gs, _gs.ch, data.Data));
 
-        _price = (isVendorItem ? ItemUtils.GetBuyFromVendorPrice(_gs, data.Data)
-            : ItemUtils.GetSellToVendorPrice(_gs, data.Data));
+        _price = (isVendorItem ? ItemUtils.GetBuyFromVendorPrice(_gs, _gs.ch, data.Data)
+            : ItemUtils.GetSellToVendorPrice(_gs, _gs.ch, data.Data));
 
         if (_moneyDisplay != null)
         {

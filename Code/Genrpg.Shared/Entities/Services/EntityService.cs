@@ -10,6 +10,7 @@ using Genrpg.Shared.Characters.Entities;
 using System.Threading;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Entities.Interfaces;
+using Genrpg.Shared.PlayerFiltering.Interfaces;
 
 namespace Genrpg.Shared.Entities.Services
 {
@@ -17,7 +18,7 @@ namespace Genrpg.Shared.Entities.Services
     {
         bool GiveRewards<SR>(GameState gs, MapObject obj, List<SR> resultList) where SR : ISpawnResult;
         IEntityHelper GetEntityHelper(long entityTypeId);
-        IIndexedGameItem Find(GameState gs, long entityType, long entityId);
+        IIndexedGameItem Find(GameState gs, IFilteredObject obj, long entityType, long entityId);
     }
 
     public class EntityService : IEntityService
@@ -103,7 +104,7 @@ namespace Genrpg.Shared.Entities.Services
             }
             return null;
         }
-        public IIndexedGameItem Find(GameState gs, long entityType, long entityId)
+        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long entityType, long entityId)
         {
             IEntityHelper helper = GetEntityHelper(entityType);
 
@@ -112,7 +113,7 @@ namespace Genrpg.Shared.Entities.Services
                 return null;
             }
 
-            return helper.Find(gs, entityId);
+            return helper.Find(gs, obj, entityId);
 
         }
         #endregion

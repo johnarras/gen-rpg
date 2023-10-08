@@ -1,0 +1,820 @@
+{
+  "Id": "default",
+  "Data": [
+    {
+      "Id": "texturetype0default",
+      "ParentId": "default",
+      "Name": "None"
+    },
+    {
+      "Id": "texturetype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Grass",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Dirt",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Rock",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Road",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Sand",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Forest",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Swamp",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Cracked",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "WastelandRock",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "SandRock",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Wasteland",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "Path",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    },
+    {
+      "Id": "texturetype13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "Water",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "Hills",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "WastelandCracked",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "SandRoad",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "WastelandRoad",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype18default",
+      "ParentId": "default",
+      "IdKey": 18,
+      "Name": "SwampRoad",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype19default",
+      "ParentId": "default",
+      "IdKey": 19,
+      "Name": "Savannah",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype20default",
+      "ParentId": "default",
+      "IdKey": 20,
+      "Name": "SavannahDirt",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype21default",
+      "ParentId": "default",
+      "IdKey": 21,
+      "Name": "SavannahRock",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype22default",
+      "ParentId": "default",
+      "IdKey": 22,
+      "Name": "SavannahRoad",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype23default",
+      "ParentId": "default",
+      "IdKey": 23,
+      "Name": "Cobblea",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    },
+    {
+      "Id": "texturetype24default",
+      "ParentId": "default",
+      "IdKey": 24,
+      "Name": "Crackedb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 8
+    },
+    {
+      "Id": "texturetype25default",
+      "ParentId": "default",
+      "IdKey": 25,
+      "Name": "Crackedc",
+      "Size": 8.0,
+      "ParentTextureTypeId": 8
+    },
+    {
+      "Id": "texturetype26default",
+      "ParentId": "default",
+      "IdKey": 26,
+      "Name": "CrackedGraySmall",
+      "Size": 8.0,
+      "ParentTextureTypeId": 8
+    },
+    {
+      "Id": "texturetype27default",
+      "ParentId": "default",
+      "IdKey": 27,
+      "Name": "CrackedGray",
+      "Size": 8.0,
+      "ParentTextureTypeId": 8
+    },
+    {
+      "Id": "texturetype28default",
+      "ParentId": "default",
+      "IdKey": 28,
+      "Name": "SandWavy",
+      "Size": 8.0,
+      "ParentTextureTypeId": 5
+    },
+    {
+      "Id": "texturetype29default",
+      "ParentId": "default",
+      "IdKey": 29,
+      "Name": "DarkRock",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype30default",
+      "ParentId": "default",
+      "IdKey": 30,
+      "Name": "Dirta",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype31default",
+      "ParentId": "default",
+      "IdKey": 31,
+      "Name": "Dirtc",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype32default",
+      "ParentId": "default",
+      "IdKey": 32,
+      "Name": "DirtDarkc",
+      "Size": 8.0,
+      "ParentTextureTypeId": 38
+    },
+    {
+      "Id": "texturetype33default",
+      "ParentId": "default",
+      "IdKey": 33,
+      "Name": "DirtDarkd",
+      "Size": 8.0,
+      "ParentTextureTypeId": 38
+    },
+    {
+      "Id": "texturetype34default",
+      "ParentId": "default",
+      "IdKey": 34,
+      "Name": "DirtDarke",
+      "Size": 8.0,
+      "ParentTextureTypeId": 38
+    },
+    {
+      "Id": "texturetype35default",
+      "ParentId": "default",
+      "IdKey": 35,
+      "Name": "DirtDarkf",
+      "Size": 8.0,
+      "ParentTextureTypeId": 38
+    },
+    {
+      "Id": "texturetype36default",
+      "ParentId": "default",
+      "IdKey": 36,
+      "Name": "DirtDarkh",
+      "Size": 8.0,
+      "ParentTextureTypeId": 38
+    },
+    {
+      "Id": "texturetype37default",
+      "ParentId": "default",
+      "IdKey": 37,
+      "Name": "DirtDarki",
+      "Size": 8.0,
+      "ParentTextureTypeId": 38
+    },
+    {
+      "Id": "texturetype38default",
+      "ParentId": "default",
+      "IdKey": 38,
+      "Name": "DirtDark",
+      "Size": 8.0,
+      "ParentTextureTypeId": 38
+    },
+    {
+      "Id": "texturetype39default",
+      "ParentId": "default",
+      "IdKey": 39,
+      "Name": "Dirtd",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype40default",
+      "ParentId": "default",
+      "IdKey": 40,
+      "Name": "Dirte",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype41default",
+      "ParentId": "default",
+      "IdKey": 41,
+      "Name": "Dirtf",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype42default",
+      "ParentId": "default",
+      "IdKey": 42,
+      "Name": "DirtGrassb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype43default",
+      "ParentId": "default",
+      "IdKey": 43,
+      "Name": "DirtGrass",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype44default",
+      "ParentId": "default",
+      "IdKey": 44,
+      "Name": "DirtGraya",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    },
+    {
+      "Id": "texturetype45default",
+      "ParentId": "default",
+      "IdKey": 45,
+      "Name": "DirtGray",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    },
+    {
+      "Id": "texturetype46default",
+      "ParentId": "default",
+      "IdKey": 46,
+      "Name": "Dirtg",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype47default",
+      "ParentId": "default",
+      "IdKey": 47,
+      "Name": "Dirth",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype48default",
+      "ParentId": "default",
+      "IdKey": 48,
+      "Name": "Dirti",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype49default",
+      "ParentId": "default",
+      "IdKey": 49,
+      "Name": "Dirtj",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype50default",
+      "ParentId": "default",
+      "IdKey": 50,
+      "Name": "Dirtl",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype51default",
+      "ParentId": "default",
+      "IdKey": 51,
+      "Name": "Dirtm",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype52default",
+      "ParentId": "default",
+      "IdKey": 52,
+      "Name": "DirtRed",
+      "Size": 8.0,
+      "ParentTextureTypeId": 15
+    },
+    {
+      "Id": "texturetype53default",
+      "ParentId": "default",
+      "IdKey": 53,
+      "Name": "DirtRock",
+      "Size": 8.0,
+      "ParentTextureTypeId": 15
+    },
+    {
+      "Id": "texturetype54default",
+      "ParentId": "default",
+      "IdKey": 54,
+      "Name": "DirtSandb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 19
+    },
+    {
+      "Id": "texturetype55default",
+      "ParentId": "default",
+      "IdKey": 55,
+      "Name": "DirtSandc",
+      "Size": 8.0,
+      "ParentTextureTypeId": 62
+    },
+    {
+      "Id": "texturetype56default",
+      "ParentId": "default",
+      "IdKey": 56,
+      "Name": "DirtSandd",
+      "Size": 8.0,
+      "ParentTextureTypeId": 62
+    },
+    {
+      "Id": "texturetype57default",
+      "ParentId": "default",
+      "IdKey": 57,
+      "Name": "DirtSande",
+      "Size": 8.0,
+      "ParentTextureTypeId": 62
+    },
+    {
+      "Id": "texturetype58default",
+      "ParentId": "default",
+      "IdKey": 58,
+      "Name": "DirtSandf",
+      "Size": 8.0,
+      "ParentTextureTypeId": 62
+    },
+    {
+      "Id": "texturetype59default",
+      "ParentId": "default",
+      "IdKey": 59,
+      "Name": "DirtSandg",
+      "Size": 8.0,
+      "ParentTextureTypeId": 62
+    },
+    {
+      "Id": "texturetype60default",
+      "ParentId": "default",
+      "IdKey": 60,
+      "Name": "DirtSandh",
+      "Size": 8.0,
+      "ParentTextureTypeId": 62
+    },
+    {
+      "Id": "texturetype61default",
+      "ParentId": "default",
+      "IdKey": 61,
+      "Name": "DirtSandi",
+      "Size": 8.0,
+      "ParentTextureTypeId": 62
+    },
+    {
+      "Id": "texturetype62default",
+      "ParentId": "default",
+      "IdKey": 62,
+      "Name": "DirtSand",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype63default",
+      "ParentId": "default",
+      "IdKey": 63,
+      "Name": "GrassBrownb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype64default",
+      "ParentId": "default",
+      "IdKey": 64,
+      "Name": "GrassBrown",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype65default",
+      "ParentId": "default",
+      "IdKey": 65,
+      "Name": "Grassb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 1
+    },
+    {
+      "Id": "texturetype66default",
+      "ParentId": "default",
+      "IdKey": 66,
+      "Name": "Grassc",
+      "Size": 8.0,
+      "ParentTextureTypeId": 1
+    },
+    {
+      "Id": "texturetype67default",
+      "ParentId": "default",
+      "IdKey": 67,
+      "Name": "Grasse",
+      "Size": 8.0,
+      "ParentTextureTypeId": 1
+    },
+    {
+      "Id": "texturetype68default",
+      "ParentId": "default",
+      "IdKey": 68,
+      "Name": "Grassf",
+      "Size": 8.0,
+      "ParentTextureTypeId": 1
+    },
+    {
+      "Id": "texturetype69default",
+      "ParentId": "default",
+      "IdKey": 69,
+      "Name": "Grassg",
+      "Size": 8.0,
+      "ParentTextureTypeId": 1
+    },
+    {
+      "Id": "texturetype70default",
+      "ParentId": "default",
+      "IdKey": 70,
+      "Name": "Grassh",
+      "Size": 8.0,
+      "ParentTextureTypeId": 1
+    },
+    {
+      "Id": "texturetype71default",
+      "ParentId": "default",
+      "IdKey": 71,
+      "Name": "Grassi",
+      "Size": 8.0,
+      "ParentTextureTypeId": 1
+    },
+    {
+      "Id": "texturetype72default",
+      "ParentId": "default",
+      "IdKey": 72,
+      "Name": "Grassk",
+      "Size": 8.0,
+      "ParentTextureTypeId": 1
+    },
+    {
+      "Id": "texturetype73default",
+      "ParentId": "default",
+      "IdKey": 73,
+      "Name": "GrassLeafb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype74default",
+      "ParentId": "default",
+      "IdKey": 74,
+      "Name": "GrassLeafc",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype75default",
+      "ParentId": "default",
+      "IdKey": 75,
+      "Name": "GrassLeaf",
+      "Size": 8.0,
+      "ParentTextureTypeId": 2
+    },
+    {
+      "Id": "texturetype76default",
+      "ParentId": "default",
+      "IdKey": 76,
+      "Name": "GrassRock",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype77default",
+      "ParentId": "default",
+      "IdKey": 77,
+      "Name": "Leavesb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 80
+    },
+    {
+      "Id": "texturetype78default",
+      "ParentId": "default",
+      "IdKey": 78,
+      "Name": "Leavesc",
+      "Size": 8.0,
+      "ParentTextureTypeId": 80
+    },
+    {
+      "Id": "texturetype79default",
+      "ParentId": "default",
+      "IdKey": 79,
+      "Name": "Leavesd",
+      "Size": 8.0,
+      "ParentTextureTypeId": 80
+    },
+    {
+      "Id": "texturetype80default",
+      "ParentId": "default",
+      "IdKey": 80,
+      "Name": "Leaves",
+      "Size": 8.0
+    },
+    {
+      "Id": "texturetype81default",
+      "ParentId": "default",
+      "IdKey": 81,
+      "Name": "PebblesGrayb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    },
+    {
+      "Id": "texturetype82default",
+      "ParentId": "default",
+      "IdKey": 82,
+      "Name": "PebblesGray",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    },
+    {
+      "Id": "texturetype83default",
+      "ParentId": "default",
+      "IdKey": 83,
+      "Name": "Roadc",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    },
+    {
+      "Id": "texturetype84default",
+      "ParentId": "default",
+      "IdKey": 84,
+      "Name": "Roadf",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    },
+    {
+      "Id": "texturetype85default",
+      "ParentId": "default",
+      "IdKey": 85,
+      "Name": "RoadRed",
+      "Size": 8.0,
+      "ParentTextureTypeId": 17
+    },
+    {
+      "Id": "texturetype86default",
+      "ParentId": "default",
+      "IdKey": 86,
+      "Name": "Rockb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype87default",
+      "ParentId": "default",
+      "IdKey": 87,
+      "Name": "Rockc",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype88default",
+      "ParentId": "default",
+      "IdKey": 88,
+      "Name": "RockDarkb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype89default",
+      "ParentId": "default",
+      "IdKey": 89,
+      "Name": "RockDarkc",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype90default",
+      "ParentId": "default",
+      "IdKey": 90,
+      "Name": "RockDarkd",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype91default",
+      "ParentId": "default",
+      "IdKey": 91,
+      "Name": "RockDarkf",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype92default",
+      "ParentId": "default",
+      "IdKey": 92,
+      "Name": "Rockd",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype93default",
+      "ParentId": "default",
+      "IdKey": 93,
+      "Name": "Rocke",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype94default",
+      "ParentId": "default",
+      "IdKey": 94,
+      "Name": "Rockf",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype95default",
+      "ParentId": "default",
+      "IdKey": 95,
+      "Name": "RockGrass",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype96default",
+      "ParentId": "default",
+      "IdKey": 96,
+      "Name": "RockGraya",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype97default",
+      "ParentId": "default",
+      "IdKey": 97,
+      "Name": "RockGrayb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    },
+    {
+      "Id": "texturetype98default",
+      "ParentId": "default",
+      "IdKey": 98,
+      "Name": "RockGrayRed",
+      "Size": 8.0,
+      "ParentTextureTypeId": 9
+    },
+    {
+      "Id": "texturetype99default",
+      "ParentId": "default",
+      "IdKey": 99,
+      "Name": "RockRed",
+      "Size": 8.0,
+      "ParentTextureTypeId": 17
+    },
+    {
+      "Id": "texturetype100default",
+      "ParentId": "default",
+      "IdKey": 100,
+      "Name": "RockRipple",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype101default",
+      "ParentId": "default",
+      "IdKey": 101,
+      "Name": "RockSmall",
+      "Size": 8.0,
+      "ParentTextureTypeId": 3
+    },
+    {
+      "Id": "texturetype102default",
+      "ParentId": "default",
+      "IdKey": 102,
+      "Name": "RockTan",
+      "Size": 8.0,
+      "ParentTextureTypeId": 9
+    },
+    {
+      "Id": "texturetype103default",
+      "ParentId": "default",
+      "IdKey": 103,
+      "Name": "SandGrayb",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    },
+    {
+      "Id": "texturetype104default",
+      "ParentId": "default",
+      "IdKey": 104,
+      "Name": "SandGray",
+      "Size": 8.0,
+      "ParentTextureTypeId": 4
+    }
+  ],
+  "Name": "TextureTypeSettings"
+}

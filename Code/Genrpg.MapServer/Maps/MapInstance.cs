@@ -41,6 +41,7 @@ using Genrpg.ServerShared.CloudMessaging.Requests;
 using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer;
 using Genrpg.ServerShared.CloudMessaging.Servers.InstanceServer.Messaging;
 using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
+using Genrpg.ServerShared.GameSettings.Services;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -59,6 +60,7 @@ namespace Genrpg.MapServer.Maps
         private IPathfindingService _pathfindingService = null;
         private ICloudMessageService _cloudMessageService = null;
         private IReflectionService _reflectionService = null;
+        private IGameDataService _gameDataService = null;
         public const double UpdateMS = 100.0f;
 
         private string _mapId;
@@ -128,8 +130,10 @@ namespace Genrpg.MapServer.Maps
             }
         }
 
-        public void ReceiveCommands(ServerConnectionState connState, List<IMapApiMessage> commands, CancellationToken token)
+        public void ReceiveCommands(List<IMapApiMessage> commands, CancellationToken token, object connStateObject )
         {
+            ServerConnectionState connState = connStateObject as ServerConnectionState;
+
             if (token.IsCancellationRequested)
             {
                 return;
@@ -141,7 +145,7 @@ namespace Genrpg.MapServer.Maps
                 {
                     if (obj is AddPlayer add)
                     {
-                        _ = Task.Run(() => AddPlayerHandler(connState, add));
+                        Task.Run(() => AddPlayerHandler(connState, add));
                     }
                 }
                 return;
@@ -250,6 +254,8 @@ namespace Genrpg.MapServer.Maps
                         connState.ch = (Character)gridItem.Obj;
                         await PlayerDataUtils.LoadPlayerData(_gs, ch);
                     }
+
+                    _gameDataService.SetSessionOverrides(_gs, ch);
 
                     didLoad = true;
                 }

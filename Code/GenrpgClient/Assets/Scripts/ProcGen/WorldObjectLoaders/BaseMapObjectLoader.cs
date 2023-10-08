@@ -1,12 +1,12 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapObjects.Entities;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
 using Assets.Scripts.MapTerrain;
+using UnityEngine;
 
 public abstract class BaseMapObjectLoader : IMapObjectLoader
 {
@@ -17,7 +17,7 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
 
     public abstract long GetKey();
 
-    public abstract UniTask Load(UnityGameState gs, OnSpawn message, MapObject loadedObject, CancellationToken token);
+    public abstract Task Load(UnityGameState gs, OnSpawn message, MapObject loadedObject, CancellationToken token);
 
     protected abstract string GetLayerName();
 
@@ -25,7 +25,7 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
     protected IAssetService _assetService;
     protected IClientMapObjectManager _objectManager;
 
-    public void FinalPlaceObject(UnityGameState gs, GameObject go, SpawnLoadData data, string layerName)
+    public void FinalPlaceObject(UnityGameState gs, GEntity go, SpawnLoadData data, string layerName)
     {
         if (go == null)
         {
@@ -41,15 +41,15 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
         Terrain terrain = patchData.terrain as Terrain;
         if (terrain != null)
         {
-            GameObjectUtils.AddToParent(go, terrain.gameObject);
+            GEntityUtils.AddToParent(go, terrain.entity());
         }
         else
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
-        GameObjectUtils.SetLayer(go, LayerMask.NameToLayer(layerName));
+        GEntityUtils.SetLayer(go, LayerUtils.NameToLayer(layerName));
 
         long placementSeed = (long)(data.Spawn.X * 131 + data.Spawn.Z * 517);
 
@@ -58,12 +58,12 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
 
         float height = gs.md.SampleHeight(gs, nx, MapConstants.MapHeight, nz);
        
-        go.transform.position = new Vector3(nx, height, nz);
-        go.transform.eulerAngles = new Vector3(0, data.Spawn.Rot, 0);
+        go.transform().position = GVector3.Create(nx, height, nz);
+        go.transform().eulerAngles = GVector3.Create(0, data.Spawn.Rot, 0);
 
         if (data.Obj is Character ch)
         {
-            go.transform.position += new Vector3(0, 2, 0);
+            go.transform().position += GVector3.Create(0, 2, 0);
         }
 
         _objectManager.AddObject(data.Obj, go);

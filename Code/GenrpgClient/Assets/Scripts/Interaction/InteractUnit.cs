@@ -1,5 +1,5 @@
 ﻿
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Units.Entities;
 
 using Genrpg.Shared.Stats.Entities;
@@ -9,23 +9,20 @@ using Genrpg.Shared.Crafting.Entities;
 using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Loot.Messages;
+using System.Collections.Generic;
 
 public class InteractUnit : InteractableObject
 {
     protected ISharedFactionService _factionService;
     protected string crafterMousePointer = "";
-    private void Start()
-    {
-    }
 
-    public override void Init(MapObject worldObj, GameObject go, CancellationToken token)
+    public override void Init(MapObject worldObj, GEntity go, CancellationToken token)
     {
         base.Init(worldObj, go, token);
     }
 
-    protected override void InnerOnEnable()
+    protected override void OnInit()
     {
-        HideGlow(0, false);
     }
 
     protected override void _OnPointerEnter()
@@ -71,13 +68,13 @@ public class InteractUnit : InteractableObject
             {
                 if (string.IsNullOrEmpty(crafterMousePointer))
                 {
-                    UnitType unitType = _gs.data.GetGameData<UnitSettings>().GetUnitType(unit.EntityId);
+                    UnitType unitType = _gs.data.GetGameData<UnitSettings>(_gs.ch).GetUnitType(unit.EntityId);
                     if (unitType != null)
                     {
-                        TribeType tribe = _gs.data.GetGameData<UnitSettings>().GetTribeType(unitType.TribeTypeId);
+                        TribeType tribe = _gs.data.GetGameData<TribeSettings>(_gs.ch).GetTribeType(unitType.TribeTypeId);
                         if (tribe != null && tribe.LootCrafterTypeId > 0)
                         {
-                            CrafterType ctype = _gs.data.GetGameData<CraftingSettings>().GetCrafterType(tribe.LootCrafterTypeId);
+                            CrafterType ctype = _gs.data.GetGameData<CraftingSettings>(_gs.ch).GetCrafterType(tribe.LootCrafterTypeId);
                             if (ctype != null && !string.IsNullOrEmpty(ctype.MousePointer))
                             {
                                 crafterMousePointer = ctype.MousePointer;
@@ -143,7 +140,7 @@ public class InteractUnit : InteractableObject
 
         if (unit.HasFlag(UnitFlags.IsDead))
         {
-            if (unit.GetFirstAttacker() == _gs.ch.Id)
+            if (UnitUtils.AttackerInfoMatchesObject(unit.GetFirstAttacker(),_gs.ch))
             {
                 if (unit.Loot != null && unit.Loot.Count > 0)
                 {

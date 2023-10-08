@@ -1,16 +1,10 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
-using Services.ProcGen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 public class SetupMountainDecayPower : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 

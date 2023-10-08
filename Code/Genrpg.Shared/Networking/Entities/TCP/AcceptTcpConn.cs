@@ -13,9 +13,9 @@ namespace Genrpg.Shared.Networking.Entities.TCP
     {
 
         public AcceptTcpConn(TcpClient client, IMapApiSerializer serializer,  
-            Action<List<IMapApiMessage>,CancellationToken> messageHandler, 
+            MapApiMessageHandler messageHandler, 
             ILogSystem logger, 
-            CancellationToken token) : base(serializer, messageHandler, logger, token)
+            CancellationToken token, ServerConnectionState connState) : base(serializer, messageHandler, logger, token, connState)
         {
             InitTcpClient(client);
         }

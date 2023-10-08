@@ -1,13 +1,14 @@
 using MessagePack;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Categories.WorldData;
 
 namespace Genrpg.Shared.Quests.Entities
 {
     [MessagePackObject]
     public class QuestItem : BaseWorldData, IIndexedGameItem, IStringOwnerId
     {
+        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string OwnerId { get; set; }
 
@@ -18,6 +19,5 @@ namespace Genrpg.Shared.Quests.Entities
         [Key(6)] public string Art { get; set; }
 
 
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
     }
 }

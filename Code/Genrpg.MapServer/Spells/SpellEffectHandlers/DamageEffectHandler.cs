@@ -1,6 +1,6 @@
 ﻿using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Units.Entities;
@@ -74,14 +74,6 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
                 }
             }
             eff.CurrQuantity = amount;
-            if (_objectManager.GetChar(eff.CasterId, out Character chCaster))
-            {
-                targ.AddAttacker(eff.CasterId);
-            }
-            if (!targ.HasTarget())
-            {
-                _aiService.TargetMove(gs, targ, eff.CasterId);
-            }
             return base.HandleEffect(gs, eff);
         }
     }

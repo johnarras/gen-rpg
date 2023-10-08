@@ -1,18 +1,13 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
+﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 public class InitialPrefabLoader : BaseBehaviour
 {
     public List<string> Prefabs;
 
 
-    public async UniTask LoadPrefabs(UnityGameState gs)
+    public async Task LoadPrefabs(UnityGameState gs)
     {
         Initialize(gs);
         if (Prefabs == null)
@@ -22,17 +17,17 @@ public class InitialPrefabLoader : BaseBehaviour
 
         foreach (string prefab in Prefabs)
         {
-            GameObject prefabObj = Resources.Load<GameObject>("Prefabs/" + prefab);
+            GEntity prefabObj = AssetUtils.LoadResource<GEntity>("Prefabs/" + prefab);
             if (prefabObj == null)
             {
                 continue;
             }
 
-            GameObject newPrefab = GameObjectUtils.FullInstantiate(gs, prefabObj);
+            GEntity newPrefab = GEntityUtils.FullInstantiate(gs, prefabObj);
             newPrefab.name = newPrefab.name.Replace("(Clone)", "");
             _gs.loc.ResolveSelf();
             _gs.loc.Resolve(newPrefab);
         }
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 }

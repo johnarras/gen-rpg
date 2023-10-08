@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Spells.Entities;
 using Assets.Scripts.Atlas.Constants;
 using Genrpg.Shared.Reflection.Services;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.SpellCrafting.Messages;
+using UnityEngine;
 
 public class SpellbookScreen : SpellIconScreen
 {
@@ -21,33 +21,18 @@ public class SpellbookScreen : SpellIconScreen
 
     public const string ArrowListSelectorPrefab = "ArrowListSelector";
 
-    [SerializeField]
-    private GameObject _dropdownParent;
-
-    [SerializeField]
-    private SpellIconPanel _spellPanel;
-
-    [SerializeField]
-    private ArrowListSelector _elementSelector;
-    [SerializeField]
-    private ArrowListSelector _skillSelector;
-
-    [SerializeField]
-    private GameObject _procParent;
-
-    [SerializeField]
-    private Text _infoText;
-    [SerializeField]
-    private Text _extraInfo;
-
-    [SerializeField]
-    private Button _closeButton;
-    [SerializeField]
-    private Button _craftButton;
-    [SerializeField]
-    private Button _deleteButton;
-    [SerializeField]
-    private Button _clearButton;
+    
+    public GEntity DropdownParent;
+    public SpellIconPanel SpellPanel;
+    public ArrowListSelector ElementSelector;
+    public ArrowListSelector SkillSelector;
+    public GEntity ProcParent;
+    public GText InfoText;
+    public GText ExtraInfo;
+    public GButton CloseButton;
+    public GButton CraftButton;
+    public GButton DeleteButton;
+    public GButton ClearButton;
 
     public List<ArrowListSelector> _modSelectors { get; set; }
     public List<SpellProcEdit> _procEdits { get; set; }
@@ -55,15 +40,15 @@ public class SpellbookScreen : SpellIconScreen
     private Spell _selectedSpell = null;
     private Sprite[] _sprites = null;
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         _gs.AddEvent<OnCraftSpell>(this, OnCraftSpellHandler);
         _gs.AddEvent<OnDeleteSpell>(this, OnDeleteSpellHandler);
-        UIHelper.SetButton(_closeButton, GetAnalyticsName(), StartClose);
-        UIHelper.SetButton(_craftButton, GetAnalyticsName(), ClickCraft);
-        UIHelper.SetButton(_deleteButton, GetAnalyticsName(), ClickDelete);
-        UIHelper.SetButton(_clearButton, GetAnalyticsName(), ClickClear);
+        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
+        UIHelper.SetButton(CraftButton, GetAnalyticsName(), ClickCraft);
+        UIHelper.SetButton(DeleteButton, GetAnalyticsName(), ClickDelete);
+        UIHelper.SetButton(ClearButton, GetAnalyticsName(), ClickClear);
         SetupDropdowns();
         SetSelectedSpell(null);
         ShowSpells(token);
@@ -72,7 +57,7 @@ public class SpellbookScreen : SpellIconScreen
         {
             _assetService.GetSpriteList(_gs, AtlasNames.SkillIcons, OnLoadSprites, token);
         }
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 
     private void OnLoadSprites(UnityGameState gs, Sprite[] sprites)
@@ -92,42 +77,42 @@ public class SpellbookScreen : SpellIconScreen
 
     protected void ShowSpells(CancellationToken token)
     {
-        if (_spellPanel != null)
+        if (SpellPanel != null)
         {
-            _spellPanel.Init(_gs, this, null, token);
+            SpellPanel.Init(_gs, this, null, token);
         }
     }
 
     protected void SetupDropdowns()
     {
-        if (_elementSelector != null)
+        if (ElementSelector != null)
         {
-            _elementSelector.Init(_gs, _gs.data.GetGameData<SpellSettings>().ElementTypes, this);
+            ElementSelector.Init(_gs, _gs.data.GetGameData<ElementTypeSettings>(_gs.ch).GetData(), this);
         }
 
-        if (_skillSelector != null)
+        if (SkillSelector != null)
         {
-            _skillSelector.Init(_gs, _gs.data.GetGameData<SpellSettings>().SkillTypes, this);
+            SkillSelector.Init(_gs, _gs.data.GetGameData<SkillTypeSettings>(_gs.ch).GetData(), this);
         }
 
-        if (_dropdownParent == null)
+        if (DropdownParent == null)
         {
             return;
         }
 
-        GameObjectUtils.DestroyAllChildren(_dropdownParent);
+        GEntityUtils.DestroyAllChildren(DropdownParent);
         _modSelectors = new List<ArrowListSelector>();
 
-        if (_gs.data.GetGameData<SpellSettings>().SpellModifiers != null)
+        if (_gs.data.GetGameData<SpellModifierSettings>(_gs.ch).GetData() != null)
         {
-            foreach (SpellModifier mod in _gs.data.GetGameData<SpellSettings>().SpellModifiers)
+            foreach (SpellModifier mod in _gs.data.GetGameData<SpellModifierSettings>(_gs.ch).GetData())
             {
                 if (mod.IsProcMod)
                 {
                     continue;
                 }
 
-                _assetService.LoadAssetInto(_gs, _dropdownParent, AssetCategory.UI, ArrowListSelectorPrefab, OnDownloadSpellModPrefab, mod, _token);
+                _assetService.LoadAssetInto(_gs, DropdownParent, AssetCategory.UI, ArrowListSelectorPrefab, OnDownloadSpellModPrefab, mod, _token);
             }
         }
 
@@ -135,13 +120,13 @@ public class SpellbookScreen : SpellIconScreen
 
         for (int i = 0; i < SpellConstants.MaxProcsPerSpell; i++)
         {
-            _assetService.LoadAssetInto(_gs, _procParent, AssetCategory.UI, SpellProcEditPrefab, OnDownloadSpellProc,i, _token);
+            _assetService.LoadAssetInto(_gs, ProcParent, AssetCategory.UI, SpellProcEditPrefab, OnDownloadSpellProc,i, _token);
         }
     }
 
     private void OnDownloadSpellModPrefab(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -151,14 +136,14 @@ public class SpellbookScreen : SpellIconScreen
 
         if (mod == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
         ArrowListSelector modSelector = go.GetComponent<ArrowListSelector>();
         if (modSelector == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
         SpellModifierValue defaultValue = null;
@@ -180,7 +165,7 @@ public class SpellbookScreen : SpellIconScreen
 
     private void OnDownloadSpellProc(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -190,7 +175,7 @@ public class SpellbookScreen : SpellIconScreen
 
         if (procEdit == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -224,14 +209,14 @@ public class SpellbookScreen : SpellIconScreen
 
     protected OnCraftSpell OnCraftSpellHandler(UnityGameState gs, OnCraftSpell data)
     {
-        _spellPanel.Init(gs, this, null, _token);
+        SpellPanel.Init(gs, this, null, _token);
         return null;
     }
 
 
     protected OnDeleteSpell OnDeleteSpellHandler(UnityGameState gs, OnDeleteSpell data)
     {
-        _spellPanel.Init(gs, this, null, _token);
+        SpellPanel.Init(gs, this, null, _token);
         return null;
     }
 
@@ -250,7 +235,7 @@ public class SpellbookScreen : SpellIconScreen
         UpdateDropdownsFromSelectedSpell();
     }
 
-    protected T GetSelectedItem<T>(Dropdown dd) where T : class
+    protected T GetSelectedItem<T>(GDropdown dd) where T : class
     {
         if (dd == null)
         {
@@ -279,11 +264,6 @@ public class SpellbookScreen : SpellIconScreen
     /// </summary>
     public void UpdateSpellFromDropdowns()
     {
-        if (_gs.data.GetGameData<SpellSettings>().SpellModifiers == null)
-        {
-            return;
-        }
-
         if (_editSpell == null)
         {
             _editSpell = new Spell();
@@ -292,13 +272,13 @@ public class SpellbookScreen : SpellIconScreen
         _editSpell.ElementTypeId = 1;
         _editSpell.SkillTypeId = 1;
 
-        if (_elementSelector == null || _skillSelector == null)
+        if (ElementSelector == null || SkillSelector == null)
         {
             return;
         }
 
-        ElementType selectedElement = _elementSelector.GetSelectedItem<ElementType>();
-        SkillType selectedSkill = _skillSelector.GetSelectedItem<SkillType>();
+        ElementType selectedElement = ElementSelector.GetSelectedItem<ElementType>();
+        SkillType selectedSkill = SkillSelector.GetSelectedItem<SkillType>();
 
         if (selectedElement != null)
         {
@@ -347,7 +327,7 @@ public class SpellbookScreen : SpellIconScreen
     /// </summary>
     public void UpdateDropdownsFromSelectedSpell()
     {
-        if (_gs.data.GetGameData<SpellSettings>().SpellModifiers == null)
+        if (_gs.data.GetGameData<SpellModifierSettings>(_gs.ch).GetData() == null)
         {
             return;
         }
@@ -362,14 +342,14 @@ public class SpellbookScreen : SpellIconScreen
             _editSpell = new Spell();
         }
 
-        if (_elementSelector == null || _skillSelector == null)
+        if (ElementSelector == null || SkillSelector == null)
         {
             return;
         }
 
-        _elementSelector.SetToId(_editSpell.ElementTypeId);
+        ElementSelector.SetToId(_editSpell.ElementTypeId);
 
-        _skillSelector.SetToId(_editSpell.SkillTypeId);
+        SkillSelector.SetToId(_editSpell.SkillTypeId);
 
         if (_modSelectors != null)
         {

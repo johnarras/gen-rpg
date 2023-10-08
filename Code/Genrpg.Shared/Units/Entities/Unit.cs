@@ -36,52 +36,46 @@ namespace Genrpg.Shared.Units.Entities
         [Key(56)] public float CombatStartRot { get; set; }
 
 
-        private string _firstAttacker = null;
-        private List<string> _attackers = null;
-        public void AddAttacker(string unitId)
+        virtual public string GetGroupId() { return null; }
+
+        private List<AttackerInfo> _attackers = new List<AttackerInfo>();
+
+        public void AddAttacker(string atackerId, string groupId)
         {
-            if (!_attackers.Contains(unitId))
+            AttackerInfo currAttacker = _attackers.FirstOrDefault(x => x.AttackerId == atackerId);
+            if (currAttacker != null)
             {
-                _attackers.Add(unitId);
+                currAttacker.GroupId = groupId;
+                return;
             }
-            if (string.IsNullOrEmpty(_firstAttacker))
+
+            currAttacker = new AttackerInfo()
             {
-                _firstAttacker = _attackers.FirstOrDefault();
-            }
+                AttackerId = atackerId,
+                GroupId = groupId,
+            };
+
+            _attackers.Add(currAttacker);
         }
 
-        public void RemoveAttacker(string unitId)
+        public void RemoveAttacker(string attackerId)
         {
-            if (_attackers.Contains(unitId))
-            {
-                _attackers.Remove(unitId);
-            }
-
-            if (_firstAttacker == unitId)
-            {
-                _firstAttacker = _attackers.FirstOrDefault();
-            }
+            _attackers = _attackers.Where(x => x.AttackerId != attackerId).ToList();
         }
 
         public void ClearAttackers()
         {
-            _firstAttacker = null;
             _attackers.Clear();
         }
 
-        public List<string> GetAttackers()
+        public List<AttackerInfo> GetAttackers()
         {
-            return _attackers.ToArray().ToList();
+            return _attackers.ToList();
         }
 
-        public string GetFirstAttacker()
+        public AttackerInfo GetFirstAttacker()
         {
-            return _firstAttacker;
-        }
-
-        public void ClearFirstAttacker()
-        {
-            _firstAttacker = "";
+            return _attackers.FirstOrDefault(x => !string.IsNullOrEmpty(x.GroupId));
         }
 
         [Key(57)] public float BaseSpeed { get; set; }
@@ -124,7 +118,7 @@ namespace Genrpg.Shared.Units.Entities
         public Unit()
         {
             Stats = new StatGroup();
-            _attackers = new List<string>();
+            _attackers = new List<AttackerInfo>();
         }
 
         public CurrentProc GetCurrentProc(long spellTypeId)
@@ -192,7 +186,7 @@ namespace Genrpg.Shared.Units.Entities
 
         }
 
-        protected Dictionary<Type, IUnitDataContainer> _dataDict = new Dictionary<Type, IUnitDataContainer>();
+        protected Dictionary<Type, IUnitData> _dataDict = new Dictionary<Type, IUnitData>();
 
         public virtual T Get<T>() where T : class, IUnitData, new()
         {
@@ -200,27 +194,27 @@ namespace Genrpg.Shared.Units.Entities
 
             if (_dataDict.ContainsKey(t))
             {
-                return (T)_dataDict[t].GetData();
+                return (T)_dataDict[t];
             }
 
             if (!IsPlayer())
             {
-                _dataDict[t] = new UnitDataContainer<T>((T)Activator.CreateInstance(typeof(T)));
-                return (T)_dataDict[t].GetData();
+                _dataDict[t] = (T)Activator.CreateInstance(typeof(T));
+                return (T)_dataDict[t];
             }
 
             return default;
         }
 
 
-        public virtual void Set<T>(T obj) where T : class, IUnitData, new()
+        public virtual void Set<T>(T obj) where T : IUnitData
         {
-            _dataDict[typeof(T)] = new UnitDataContainer<T>(obj);
+            _dataDict[obj.GetType()] = obj;
         }
 
         public virtual void Delete<T>(IRepositorySystem repoSystem) where T : class, IUnitData, new() { }
 
-        public virtual Dictionary<Type, IUnitDataContainer> GetAllData() { return new Dictionary<Type, IUnitDataContainer>(); }
+        public virtual Dictionary<Type, IUnitData> GetAllData() { return new Dictionary<Type, IUnitData>(); }
 
         public virtual void SaveAll(IRepositorySystem repoSystem, bool saveClean)
         {

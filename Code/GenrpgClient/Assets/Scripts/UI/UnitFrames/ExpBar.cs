@@ -4,12 +4,12 @@ using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Currencies.Messages;
 using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.Units.Entities;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 public class ExpBar : BaseBehaviour
 {
-    [SerializeField]
-    private ProgressBar _progressBar;
+    
+    public ProgressBar _progressBar;
 
     private long _curr = 0;
     private long _max = 0;
@@ -24,7 +24,7 @@ public class ExpBar : BaseBehaviour
 
         long currLevelId = gs.ch.Level;
 
-        LevelData nextLevelData = gs.data.GetGameData<LevelSettings>().GetLevel(gs.ch.Level);
+        LevelInfo nextLevelData = gs.data.GetGameData<LevelSettings>(gs.ch).GetLevel(gs.ch.Level);
 
         if (nextLevelData == null)
         {

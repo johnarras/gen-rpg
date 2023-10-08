@@ -3,15 +3,13 @@ using Genrpg.Shared.Networking.Messages;
 using Genrpg.Shared.Utils;
 using System.Text;
 using System.Threading;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
     public class NetworkStatusUI : BaseBehaviour
     {
-        [SerializeField]
-        private Text _text;
+        
+        public GText Text;
 
         private CancellationToken _token;
         public void Init(CancellationToken token)
@@ -22,7 +20,7 @@ namespace Assets.Scripts.UI
 
         protected ServerMessageCounts OnServerMessageCounts (UnityGameState gs, ServerMessageCounts data)
         {
-            if (_text == null)
+            if (Text == null)
             {
                 return null;
             }           
@@ -88,7 +86,7 @@ namespace Assets.Scripts.UI
             ShowClientVals(sb, "Bundles", UnityAssetService.BundlesLoaded, UnityAssetService.BundlesUnloaded, clientCounts.Seconds);
             ShowClientVals(sb, "TerrainPatches", MapTerrainManager.PatchesAdded, MapTerrainManager.PatchesRemoved, clientCounts.Seconds);
             ShowClientVals(sb, "Objects", UnityAssetService.ObjectsLoaded, UnityAssetService.ObjectsUnloaded, clientCounts.Seconds);
-            UIHelper.SetText(_text, sb.ToString());
+            UIHelper.SetText(Text, sb.ToString());
 
             return null;
         }

@@ -8,5 +8,8 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.PlayerData.Loaders
 {
-    public class CurrencyDataLoader : UnitDataLoader<CurrencyData> { }
+    public class CurrencyDataLoader : OwnerDataLoader<CurrencyData,CurrencyStatus,CurrencyApi>
+    {
+
+    }
 }

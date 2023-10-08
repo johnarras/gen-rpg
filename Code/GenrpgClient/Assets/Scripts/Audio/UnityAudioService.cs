@@ -1,4 +1,4 @@
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using System;
 using System.Linq;
 using System.Collections;
@@ -11,11 +11,10 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Users.Entities;
 using System.Threading;
-using Cysharp.Threading;
-using System.Runtime.InteropServices;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Assets.Scripts.Tokens;
 using Genrpg.Shared.ProcGen.Entities;
+using UnityEngine; // Needed
 
 public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
 {
@@ -30,7 +29,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public void SetGameToken(CancellationToken token)
     {
         _token = token;
-        CheckRemoveAudio(_token).Forget();
+        TaskUtils.AddTask(CheckRemoveAudio(_token));
     }
 
     public override void Initialize(UnityGameState gs)
@@ -99,12 +98,12 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     #endregion
 
 
-    private async UniTask CheckRemoveAudio(CancellationToken token)
+    private async Task CheckRemoveAudio(CancellationToken token)
     {
         List<AudioClipList> _removeList = null;
         while (true)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(1.1f), cancellationToken: token);
+            await Task.Delay(TimeSpan.FromSeconds(1.1f), cancellationToken: token);
 
             foreach (AudioClipList cont in _audioCache.Values)
             { 
@@ -129,7 +128,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                     }
                     _audioCache.Remove(cont.Name);
                     cont.Clear();
-                    GameObject.Destroy(cont.gameObject);
+                    GEntityUtils.Destroy(cont.entity());
                 }
             }
             else
@@ -147,7 +146,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         {
             audioName = soundName,
             volume = volume,
-            parent = parent as GameObject,
+            parent = parent as GEntity,
             category = AudioCategory.Sound,
             looping = false,
         };
@@ -171,12 +170,12 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
 
 
 
-        _assetService.LoadAsset(gs, AssetCategory.Audio, playData.audioName, OnDownloadAudio, playData, gameObject, _token);
+        _assetService.LoadAsset(gs, AssetCategory.Audio, playData.audioName, OnDownloadAudio, playData, entity, _token);
     }
 
     private void OnDownloadAudio(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -185,20 +184,20 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         AudioClipList cont = go.GetComponent<AudioClipList>();
         if (cont == null || !cont.IsValid())
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
         PlayAudioData playData = data as PlayAudioData;
         if (playData == null || string.IsNullOrEmpty(playData.audioName))
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
         if (_audioCache.ContainsKey(playData.audioName))
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             cont = _audioCache[playData.audioName];
                 
         }
@@ -237,10 +236,10 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     }
 
 
-    public static void TurnOffAllSounds(GameObject go)
+    public static void TurnOffAllSounds(GEntity go)
     {
 
-        List<AudioSource> sounds = GameObjectUtils.GetComponents<AudioSource>(go);
+        List<AudioSource> sounds = GEntityUtils.GetComponents<AudioSource>(go);
         foreach (AudioSource sound in sounds)
         {
             sound.volume = 0;
@@ -297,7 +296,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                 continue;
             }
 
-            MusicType mtype = gs.data.GetGameData<ProcGenSettings>().GetMusicType(musicId);
+            MusicType mtype = gs.data.GetGameData<MusicTypeSettings>(gs.ch).GetMusicType(musicId);
 
             string musicName = "";
             if (mtype != null)
@@ -320,7 +319,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                 volume = ch.Volume,
                 category = ch.category,
                 looping = ch.Looping,
-                parent = gameObject,
+                parent = entity,
                 
             };
 

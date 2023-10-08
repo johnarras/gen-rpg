@@ -1,18 +1,12 @@
-﻿using Cysharp.Threading.Tasks;
-using Genrpg.Shared.MapServer.Entities;
+﻿using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
-using Services.ProcGen;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using UnityEngine;
 
 public class SetBaseTerrainHeights : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         int wid = gs.map.GetHwid();
@@ -117,7 +111,7 @@ public class SetBaseTerrainHeights : BaseZoneGenerator
             for (int y = 0; y < hgt; y++)
             {
 
-                float edgePercent = (float)Mathf.Pow(gs.md.EdgeHeightmapAdjustPercent(gs, gs.map, x, y), 0.09f);
+                float edgePercent = (float)Math.Pow(gs.md.EdgeHeightmapAdjustPercent(gs, gs.map, x, y), 0.09f);
 
                 if (x < 2 || y < 2 || x >= wid - 3 || y >= hgt - 3)
                 {

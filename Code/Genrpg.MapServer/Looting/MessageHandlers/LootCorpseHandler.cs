@@ -22,7 +22,7 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
                 return;
             }
 
-            if (unit.GetFirstAttacker() != obj.Id)
+            if (!UnitUtils.AttackerInfoMatchesObject(unit.GetFirstAttacker(),obj))
             {
                 pack.SendError(gs, obj, "You can't loot that!");
                 return;

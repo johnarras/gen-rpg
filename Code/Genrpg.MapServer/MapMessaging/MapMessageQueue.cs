@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Core.Entities;
+﻿using Genrpg.MapServer.MapMessaging.Interfaces;
+using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Logs.Entities;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
@@ -20,22 +21,23 @@ namespace Genrpg.MapServer.MapMessaging
 
         protected ConcurrentQueue<MapMessagePackage> _currentQueue = new ConcurrentQueue<MapMessagePackage>();
         protected ConcurrentQueue<MapMessagePackage> _delayedQueue = new ConcurrentQueue<MapMessagePackage>();
-        protected ConcurrentBag<MapMessagePackage> _packagePool = new ConcurrentBag<MapMessagePackage>();
         protected List<MapMessagePackage>[] _delayedMessages = null;
         protected int _tick = 0;
         protected int _queueIndex = -1;
         protected long _messagesProcessed = 0;
         protected CancellationToken _token;
         private ILogSystem _logger;
+        private IMapMessageService _mapMessageService;
 
         private DateTime _startTime = DateTime.UtcNow;
 
-        public MapMessageQueue(GameState gs, DateTime startTime, int queueIndex, CancellationToken token)
+        public MapMessageQueue(GameState gs, DateTime startTime, int queueIndex, IMapMessageService mapMessageService, CancellationToken token)
         {
             _logger = gs.logger;
             _token = token;
             _startTime = startTime;
             _queueIndex = queueIndex;
+            _mapMessageService = mapMessageService;
             _delayedMessages = new List<MapMessagePackage>[DelayedMessageBufferSize];
             for (int d = 0; d < _delayedMessages.Length; d++)
             {
@@ -54,10 +56,7 @@ namespace Genrpg.MapServer.MapMessaging
 
         public void AddMessage(IMapMessage message, MapObject mapObject, IMapMessageHandler handler, float delaySeconds)
         {
-            if (!_packagePool.TryTake(out MapMessagePackage package))
-            {
-                package = new MapMessagePackage();
-            }
+            MapMessagePackage package = _mapMessageService.GetPackage();
 
             package.message = message;
             package.mapObject = mapObject;
@@ -139,11 +138,7 @@ namespace Genrpg.MapServer.MapMessaging
                         {
                             package.Process(gs);
                             _messagesProcessed++;
-                            if (_packagePool.Count < 100)
-                            {
-                                package.Clear();
-                                _packagePool.Add(package);
-                            }
+                            _mapMessageService.AddPackage(package);
                         }
                         catch (Exception e)
                         {

@@ -18,7 +18,7 @@ namespace Genrpg.MapServer.Levelup
     {
         void UpdateLevel(GameState gs, Character ch);
         void SetupLevels(GameData data);
-        bool GiveLevelRewards(GameState gs, Character ch, LevelData lev);
+        bool GiveLevelRewards(GameState gs, Character ch, LevelInfo lev);
 
     }
 
@@ -39,13 +39,13 @@ namespace Genrpg.MapServer.Levelup
             CurrencyData currencies = ch.Get<CurrencyData>();
 
             long startLevel = ch.Level;
-            long maxLevel = gs.data.GetGameData<LevelSettings>().MaxLevel;
+            long maxLevel = gs.data.GetGameData<LevelSettings>(ch).MaxLevel;
             long startExp = currencies.GetQuantity(CurrencyType.Exp);
             long currExp = startExp;
             long endLevel = startLevel;
             for (endLevel = startLevel; endLevel < maxLevel; endLevel++)
             {
-                LevelData ldata = gs.data.GetGameData<LevelSettings>().GetLevel(endLevel);
+                LevelInfo ldata = gs.data.GetGameData<LevelSettings>(ch).GetLevel(endLevel);
                 if (ldata == null)
                 {
                     break;
@@ -75,7 +75,7 @@ namespace Genrpg.MapServer.Levelup
             }
         }
 
-        public virtual bool GiveLevelRewards(GameState gs, Character ch, LevelData lev)
+        public virtual bool GiveLevelRewards(GameState gs, Character ch, LevelInfo lev)
         {
 
             if (lev == null)

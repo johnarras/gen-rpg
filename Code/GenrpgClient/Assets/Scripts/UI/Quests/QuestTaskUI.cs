@@ -1,20 +1,17 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using Genrpg.Shared.Quests.Entities;
+﻿using Genrpg.Shared.Quests.Entities;
 
 public class QuestTaskUI : BaseBehaviour
 {
-
-    [SerializeField]
-    private Text _taskText;
+    public GText TaskText;
 
     private QuestType _qtype = null;
     private QuestTask _task = null;
+
     public void Init(QuestType qtype, QuestTask task)
     {
         if (qtype == null || task == null)
         {
-            Destroy(gameObject);
+            GEntityUtils.Destroy(entity);
             return;
         }
 
@@ -31,7 +28,7 @@ public class QuestTaskUI : BaseBehaviour
             return;
         }
 
-        UIHelper.SetText(_taskText, _qtype.PrintTaskText(_gs, _gs.ch, _task.Index));
+        UIHelper.SetText(TaskText, _qtype.PrintTaskText(_gs, _gs.ch, _task.Index));
 
     }
 

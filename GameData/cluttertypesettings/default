@@ -1,0 +1,38 @@
+{
+  "Id": "default",
+  "Data": [
+    {
+      "Id": "cluttertype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Barrel",
+      "Art": "Barrel",
+      "NumChoices": 2
+    },
+    {
+      "Id": "cluttertype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Bucket",
+      "Art": "Bucket",
+      "NumChoices": 1
+    },
+    {
+      "Id": "cluttertype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Crate",
+      "Art": "Crate",
+      "NumChoices": 3
+    },
+    {
+      "Id": "cluttertype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Pottery",
+      "Art": "Pottery",
+      "NumChoices": 37
+    }
+  ],
+  "Name": "ClutterTypeSettings"
+}

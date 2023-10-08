@@ -1,17 +1,13 @@
-using UnityEngine;
-using System.Collections;
+using GEntity = UnityEngine.GameObject;
+using GObject = UnityEngine.Object;
 using System.Collections.Generic;
-using System;
-using System.Text;
-using System.Reflection;
+using UnityEngine; // Needed
 
-using Genrpg.Shared.Core.Entities;
-using Services;
-public class GameObjectUtils
+public class GEntityUtils
 {
 
 
-    public static void SetActive(GameObject go, bool value)
+    public static void SetActive(GEntity go, bool value)
     {
         if (go == null)
         {
@@ -28,14 +24,30 @@ public class GameObjectUtils
 	{
         if (comp != null)
         {
-            SetActive(comp.gameObject, value);
+            SetActive(comp.entity(), value);
         }
     }
-		
+
+    public static void Destroy<T>(T obj) where T : GObject
+    {
+#if UNITY_EDITOR
+        if (!AppUtils.IsPlaying)
+        { 
+            GEntity.DestroyImmediate(obj);
+        }
+        else
+        {
+            GEntity.Destroy(obj);
+        }
+#else
+        GEntity.Destroy(obj);
+#endif
+    }
+
 	
 	// Use this for things that will never change once created and found.
-	private static IDictionary<string,GameObject> _objCache = new Dictionary<string,GameObject>();
-	public static GameObject FindSingleton (string name, bool createIfNotExist = false)
+	private static IDictionary<string,GEntity> _objCache = new Dictionary<string,GEntity>();
+	public static GEntity FindSingleton (string name, bool createIfNotExist = false)
 	{
 		if (string.IsNullOrEmpty(name))
         {
@@ -47,12 +59,12 @@ public class GameObjectUtils
             return _objCache[name];
         }
 
-        GameObject go = GameObject.Find (name);
+        GEntity go = GEntity.Find (name);
 		if (go == null)
         {
             if (createIfNotExist)
             {
-                go = new GameObject();
+                go = new GEntity();
                 go.name = name;
             }
             else
@@ -66,7 +78,7 @@ public class GameObjectUtils
 	
 	
 	
-	public static GameObject FindChild (GameObject obj, string name)
+	public static GEntity FindChild (GEntity obj, string name)
 	{
 		if (obj == null || string.IsNullOrEmpty(name))
         {
@@ -78,18 +90,18 @@ public class GameObjectUtils
             return obj;
         }
 
-        for (int t = 0; t < obj.transform.childCount; t++)
+        for (int t = 0; t < obj.transform().childCount; t++)
  		{
 
-            GameObject obj2 = obj.transform.GetChild(t).gameObject;
+            GEntity obj2 = obj.transform().GetChild(t).entity();
 			if (obj2.name == name)
 			{
 				return obj2;
 			}
 		}
-		for (int t = 0; t < obj.transform.childCount; t++)
+		for (int t = 0; t < obj.transform().childCount; t++)
 		{
-			GameObject obj2 = FindChild (obj.transform.GetChild (t).gameObject, name);
+			GEntity obj2 = FindChild (obj.transform().GetChild (t).entity(), name);
 			if (obj2 != null)
             {
                 return obj2;
@@ -100,7 +112,7 @@ public class GameObjectUtils
 	
 	
 	
-	public static List<T> GetComponents<T> (GameObject go) where T : Component
+	public static List<T> GetComponents<T> (GEntity go) where T : Component
 	{
 		List<T> comps = new List<T>();
 		
@@ -123,7 +135,7 @@ public class GameObjectUtils
 	}
 
 	
-	public static T GetComponent<T> (GameObject go) where T : Component
+	public static T GetComponent<T> (GEntity go) where T : Component
 	{
 		if (go == null)
         {
@@ -149,7 +161,7 @@ public class GameObjectUtils
 		return default(T);
 	}
 		
-	static public T FindInParents<T> (GameObject go) where T : Component
+	static public T FindInParents<T> (GEntity go) where T : Component
 	{
 		if (go == null)
         {
@@ -160,11 +172,11 @@ public class GameObjectUtils
 
 		if (comp == null)
 		{
-			Transform t = go.transform.parent;
+			Transform t = go.transform().parent;
 
 			while (t != null && comp == null)
 			{
-				comp = t.gameObject.GetComponent<T>();
+				comp = t.entity().GetComponent<T>();
 				t = t.parent;
 			}
 		}
@@ -177,29 +189,29 @@ public class GameObjectUtils
         DestroyAllChildren(FindSingleton(name));
     }
 	
-	public static void DestroyAllChildren (GameObject go)
+	public static void DestroyAllChildren (GEntity go)
 	{
 		if (go == null)
         {
             return;
         }
 
-        List<GameObject> list = new List<GameObject>();
+        List<GEntity> list = new List<GEntity>();
 	
-		foreach (Transform t in go.transform)
+		foreach (Transform t in go.transform())
 		{
-			if (t.gameObject != null)
+			if (t.entity() != null)
 			{
-				list.Add (t.gameObject);		
+				list.Add (t.entity());		
 			}
 		}
 		
 		for (int l = 0; l < list.Count; l++)
 		{
-			GameObject item = list[l];
+			GEntity item = list[l];
 			
 			DestroyAllChildren (item);
-			GameObject.Destroy (item);
+			GEntityUtils.Destroy (item);
 			
 		}
 		
@@ -208,13 +220,13 @@ public class GameObjectUtils
 	
 	
 	
-	public static void SetLayer (GameObject go, string layerName)
+	public static void SetLayer (GEntity go, string layerName)
     {
-        SetLayer(go, LayerMask.NameToLayer(layerName));
+        SetLayer(go, LayerUtils.NameToLayer(layerName));
       
 	}
 
-	public static void SetLayer (GameObject go, int layer)
+	public static void SetLayer (GEntity go, int layer)
 	{
         if (go == null || layer < 0 || layer >= 32)
         {
@@ -224,7 +236,7 @@ public class GameObjectUtils
         InnerSetLayerRecursive(go, layer);
 	}
 
-	private static void InnerSetLayerRecursive(GameObject go, int layer)
+	private static void InnerSetLayerRecursive(GEntity go, int layer)
 	{
         if (go == null)
         {
@@ -232,14 +244,14 @@ public class GameObjectUtils
         }
 
         go.layer = layer;
-		foreach (Transform tr in go.transform)
+		foreach (Transform tr in go.transform())
 		{
-			InnerSetLayerRecursive(tr.gameObject, layer);
+			InnerSetLayerRecursive(tr.entity(), layer);
 		}
 	}
 
 
-    public static C GetOrAddComponent<C> (UnityGameState gs, GameObject go) where C: Component
+    public static C GetOrAddComponent<C> (UnityGameState gs, GEntity go) where C: Component
     {
         if (go == null)
         {
@@ -257,33 +269,33 @@ public class GameObjectUtils
 
         if (c is BaseBehaviour bb)
         {
-            GameObjectUtils.InitializeHierarchy(gs, go);
+            GEntityUtils.InitializeHierarchy(gs, go);
         }
         return c;
     }
 
-	public static void AddToParent (GameObject child, GameObject parent)
+	public static void AddToParent (GEntity child, GEntity parent)
 	{
 		if (parent == null)
 		{
-            GameObject.Destroy(child);
+            GEntityUtils.Destroy(child);
 			return;
         }
-        child.transform.SetParent(parent.transform);
-        child.transform.localPosition = Vector3.zero;
-        child.transform.localEulerAngles = Vector3.zero;
-        child.transform.localScale = Vector3.one;
+        child.transform().SetParent(parent.transform());
+        child.transform().localPosition = GVector3.zeroPlatform;
+        child.transform().localEulerAngles = GVector3.zeroPlatform;
+        child.transform().localScale = GVector3.onePlatform;
         SetLayer(child, parent.layer);
 	}
 
-    public static GameObject InstantiateIntoParent(object child, GameObject parent)
+    public static GEntity InstantiateIntoParent(object child, GEntity parent)
     {
-        GameObject go = child as GameObject;
+        GEntity go = child as GEntity;
         if (go == null)
         {
             return null;
         }
-        go = GameObject.Instantiate<GameObject>(go);
+        go = GEntity.Instantiate<GEntity>(go);
 
         go.name = go.name.Replace("(Clone)", "");
         go.name = go.name.Replace(UnityAssetService.ArtFileSuffix, "");
@@ -298,7 +310,7 @@ public class GameObjectUtils
 
 	public static void FullDestroy (UnityEngine.Object obj)
 	{
-		GameObject.Destroy(obj);
+		GEntityUtils.Destroy(obj);
 	}
 	
 	public static C SetupGlobalComponent<C> (string name) where C : Component
@@ -308,10 +320,10 @@ public class GameObjectUtils
             return null;
         }
 
-        GameObject obj = GameObjectUtils.FindSingleton(name);
+        GEntity obj = GEntityUtils.FindSingleton(name);
         if (obj == null)
         {
-            obj = new GameObject();
+            obj = new GEntity();
             obj.name = name;
         }
 
@@ -323,7 +335,7 @@ public class GameObjectUtils
         return comp;
     }
 
-    public static bool SetStatic(GameObject go, bool value)
+    public static bool SetStatic(GEntity go, bool value)
     {
         if (go == null)
         {
@@ -337,12 +349,12 @@ public class GameObjectUtils
             go.isStatic = value;
             didChangeSomething = true;
         }
-        for (int c =0; c < go.transform.childCount; c++)
+        for (int c =0; c < go.transform().childCount; c++)
         {
-            Transform child = go.transform.GetChild(c);
-            if (child.gameObject != null)
+            Transform child = go.transform().GetChild(c);
+            if (child.entity() != null)
             {
-                if (SetStatic(child.gameObject, value))
+                if (SetStatic(child.entity(), value))
                 {
                     didChangeSomething = true;
                 }
@@ -351,7 +363,7 @@ public class GameObjectUtils
         return didChangeSomething;
     }
 
-    public static void IgnoreCollisions(GameObject go1, GameObject go2)
+    public static void IgnoreCollisions(GEntity go1, GEntity go2)
 	{
 		if (go1 == null || go2 == null)
         {
@@ -380,7 +392,7 @@ public class GameObjectUtils
     {
     }
 
-    public static T FindComponentInParents<T>(GameObject go) where T : Component
+    public static T FindComponentInParents<T>(GEntity go) where T : Component
     {
         if (go == null)
         {
@@ -393,30 +405,30 @@ public class GameObjectUtils
             return tcomp;
         }
 
-        if (go.transform.parent != null)
+        if (go.transform().parent != null)
         {
-            return FindComponentInParents<T>(go.transform.parent.gameObject);
+            return FindComponentInParents<T>(go.transform().parent.entity());
         }
         return default(T);
     }
 
     public static C FullInstantiate<C>(UnityGameState gs, C c) where C : UnityEngine.Component
     {
-        C cdupe = GameObject.Instantiate<C>(c);
-        InitializeHierarchy(gs, cdupe.gameObject);
+        C cdupe = GEntity.Instantiate<C>(c);
+        InitializeHierarchy(gs, cdupe.entity());
         return cdupe;
     }
 
-    public static GameObject FullInstantiate(UnityGameState gs, GameObject go)
+    public static GEntity FullInstantiate(UnityGameState gs, GEntity go)
     {
-        GameObject dupe = GameObject.Instantiate(go);
+        GEntity dupe = GEntity.Instantiate(go);
         InitializeHierarchy(gs, dupe);
         return dupe;
     }
 
-    public static void InitializeHierarchy(UnityGameState gs, GameObject go)
+    public static void InitializeHierarchy(UnityGameState gs, GEntity go)
     {
-        List<BaseBehaviour> allBehaviours = GameObjectUtils.GetComponents<BaseBehaviour>(go);
+        List<BaseBehaviour> allBehaviours = GEntityUtils.GetComponents<BaseBehaviour>(go);
 
         foreach (BaseBehaviour behaviour in allBehaviours)
         {

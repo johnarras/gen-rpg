@@ -1,52 +1,36 @@
 
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEngine;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.Entities;
+using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-using Services.ProcGen;
 using System.Threading;
-using Assets.Scripts.MapTerrain;
-using System.Security.Cryptography;
-using Genrpg.Shared.Pathfinding.Constants;
-using System.Threading.Tasks;
 
-public class FullDetailPrototype
+public class BaseDetailPrototype
 {
     public ZonePlantType zonePlant = null;
     public PlantType plantType = null;
-    public DetailPrototype proto = null;
     public long noiseSeed = 0;
     public int Index = 0;
     public int XGrid = -1;
     public int YGrid = -1;
     public List<long> zoneIds = new List<long>();
 }
+
 public class AddPlants : BaseZoneGenerator
 {
     public const float GrassBaseScale = 0.75f;
     public const float GrassDensity = 1.4f;
     public const float GrassRandomChance = 0.05f;
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
-
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
 
         AddPlantsToMapData(gs);
@@ -54,204 +38,11 @@ public class AddPlants : BaseZoneGenerator
 
 
 
-    public void SetupOneMapGrass(UnityGameState gs, int gx, int gy, CancellationToken token)
-    {  
-        if (_terrainManager == null)
-        {
-            gs.loc.Resolve(this);
-        }
-        InnerSetupOneMapGrass(gs, gx, gy, token).Forget();
-    }
-
-    private async UniTask InnerSetupOneMapGrass(UnityGameState gs, int gx, int gy, CancellationToken token)
+    public void UpdateValidPlantTypeList<DP>(UnityGameState gs, Zone zone, int gx, int gy, List<DP> fullList,
+        bool isMainTerrain, CancellationToken token) where DP : BaseDetailPrototype, new()
     {
-        if (
-              gs.md.terrainPatches == null ||
-              gx < 0 || gy < 0 || gx >= MapConstants.MaxTerrainGridSize ||
-              gy >= MapConstants.MaxTerrainGridSize)
-        {
-            gs.logger.Error("Bail out of making grass: " + gx + " " + gy);
-            return;
-        }
+        ZoneType zoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId);
 
-        TerrainPatchData patch = gs.md.terrainPatches[gx, gy];
-
-        if (patch == null)
-        {
-            gs.logger.Error("Patch missing " + gx + " " + gy);
-
-            return;
-        }
-
-        TerrainData tdata = patch.terrainData as TerrainData;
-
-        if (tdata == null)
-        {
-           gs.logger.Error("Tdata missing: " + gx + " " + gy);
-
-            return;
-        }
-        if (patch.grassAmounts == null || patch.mainZoneIds == null)
-        {
-            gs.logger.Error("Core Data missing: " + patch.grassAmounts + " " + patch.mainZoneIds + " " + gx + " " + gy);
-
-            return;
-        }
-
-        MyRandom bendRand = new MyRandom(gs.map.Seed + 3234992);
-
-        Color color = Color.white;
-        float amount = MathUtils.FloatRange(0.20f, 0.40f, bendRand);
-        float speed = MathUtils.FloatRange(0.30f, 0.70f, bendRand);
-        float strength = MathUtils.FloatRange(0.30f, 0.70f, bendRand);
-
-        tdata.wavingGrassTint = Color.white;
-        tdata.wavingGrassAmount = amount;
-        tdata.wavingGrassSpeed = speed;
-        tdata.wavingGrassStrength = strength;
-
-        List<FullDetailPrototype> fullProtoList = new List<FullDetailPrototype>();
-
-        List<Zone> currentZones = new List<Zone>();
-
-        if (patch.FullZoneIdList != null)
-        {
-            foreach (long zid in patch.FullZoneIdList)
-            {
-                Zone zone = gs.map.Get<Zone>(zid);
-                if (zone == null)
-                {
-                    continue;
-                }
-                currentZones.Add(zone);
-                bool isMainTerrain = patch.MainZoneIdList.Contains(zid);
-                UpdateValidPlantTypeList(gs, zone, gx, gy, fullProtoList, isMainTerrain, token);
-            }
-        }
-        else
-        {
-            gs.logger.Error("No zones for grass: " + gx + " " + gy);
-            return;
-        }
-
-        DetailPrototype[] protos = new DetailPrototype[fullProtoList.Count];
-        int index = 0;
-
-        foreach (FullDetailPrototype item in fullProtoList)
-        {
-            protos[index] = item.proto;
-            index++;
-        }
-
-        for (int i = 0; i < protos.Length; i++)
-        {
-            if (protos[i] == null)
-            {
-                gs.logger.Error("No proto: " + gx + " " + gy + " idx " + i);
-                return;
-            }
-        }
-
-        bool haveAllArt = false;
-        while (!haveAllArt)
-        {
-            haveAllArt = true;
-            for (int i = 0; i < protos.Length; i++)
-            {
-                if (protos[i] == null || (protos[i].prototypeTexture == null && protos[i].prototype == null))
-                {
-                    haveAllArt = false;
-                    break;
-                }
-            }
-            if (!haveAllArt)
-            {
-                await UniTask.NextFrame(token);
-            }
-        }
-
-        tdata.detailPrototypes = protos;
-
-        await UniTask.NextFrame(token);
-
-        tdata.RefreshPrototypes();
-
-        await UniTask.NextFrame(token);
-
-        if (patch.grassAmounts == null)
-        {
-            return;
-        }
-
-        List<int[,]> detailblock = new List<int[,]>();
-
-        for (int i = 0; i < fullProtoList.Count; i++)
-        {
-            detailblock.Add(new int[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize]);
-        }
-
-        int maxOffset = 7;
-        int totalOffset = 7 * 2 + 1;
-
-        for (int x = 0; x < MapConstants.TerrainPatchSize - 1; x++ )
-        {
-            for (int y = 0; y < MapConstants.TerrainPatchSize - 1; y++)
-            {
-                int finalX = x;
-                int finalY = y;
-
-                int offsetX = x + ((x * 11 + y * 17 + gx * 31 + gy * 47) % totalOffset - maxOffset);
-                int offsetY = y + ((x * 43 + y * 59 + gx * 37 + gy * 53) % totalOffset - maxOffset);
-                
-                if (offsetX >= 0 && offsetX < MapConstants.TerrainPatchSize-1 && 
-                    offsetY >= 0 && offsetY < MapConstants.TerrainPatchSize-1)
-                {
-                    finalX = offsetX;
-                    finalY = offsetY;
-                }
-
-                long zoneId = patch.overrideZoneIds[finalX,finalY];
-
-                if (zoneId < 1)
-                {
-                    zoneId = patch.mainZoneIds[finalX,finalY];
-                }
-
-                List<FullDetailPrototype> currentProtos = fullProtoList.Where(x=>x.zoneIds.Contains(zoneId)).ToList();
-
-                if (currentProtos.Count < 1)
-                {
-                    continue;
-                }
-
-                while (currentProtos.Count < MapConstants.MaxGrass)
-                {
-                    currentProtos.Add(currentProtos[currentProtos.Count / 3]);
-                }
-
-                for (int i = 0; i < MapConstants.MaxGrass && i < currentProtos.Count;  i++)
-                {
-                    if (patch.grassAmounts[x, y, i] > 0)
-                    {
-                        FullDetailPrototype proto = currentProtos[i];
-                        detailblock[proto.Index][x,y] = (int) patch.grassAmounts[x, y, i];
-                    }
-                }
-            }
-        }
-
-        for (int l = 0; l < detailblock.Count; l++)
-        {
-            tdata.SetDetailLayer(0, 0, l, detailblock[l]);
-        }
-    }
-
-    public void UpdateValidPlantTypeList(UnityGameState gs, Zone zone,int gx, int gy, List<FullDetailPrototype> fullList,
-        bool isMainTerrain, CancellationToken token)
-    {
-        ZoneType zoneType = gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId);
-
-        List<FullDetailPrototype> retval = new List<FullDetailPrototype>();
         List<ZonePlantType> plist = new List<ZonePlantType>(zone.PlantTypes);
 
 
@@ -266,7 +57,7 @@ public class AddPlants : BaseZoneGenerator
         {
             ZonePlantType zpt = plist[p];
 
-            FullDetailPrototype currProto = fullList.FirstOrDefault(x => x.zonePlant.PlantTypeId == zpt.PlantTypeId);
+            DP currProto = fullList.FirstOrDefault(x => x.zonePlant.PlantTypeId == zpt.PlantTypeId);
 
             if (currProto != null)
             {
@@ -274,97 +65,25 @@ public class AddPlants : BaseZoneGenerator
                 continue;
             }
 
-            PlantType pt = gs.data.GetGameData<ProcGenSettings>().GetPlantType (zpt.PlantTypeId);
+            PlantType pt = gs.data.GetGameData<PlantTypeSettings>(gs.ch).GetPlantType(zpt.PlantTypeId);
             if (pt == null || string.IsNullOrEmpty(pt.Art))
             {
                 continue;
             }
 
-            string word = pt.Art;
-
-            DetailPrototype dp = new DetailPrototype();
-            dp.renderMode = DetailRenderMode.Grass;
-            dp.healthyColor = Color.white;
-            dp.dryColor = Color.white;  
-            
-            // Now we know the plant object exists, so use the zone type plant data also.
-
-            float minHeight = pt.MinScale * GrassBaseScale;
-            float maxHeight = pt.MaxScale * GrassBaseScale;
-           
-            dp.maxHeight = maxHeight;
-            dp.maxWidth = maxHeight;
-            dp.minHeight = minHeight;
-            dp.minWidth = minHeight;
-
-            dp.noiseSpread = 1.0f;
-
-            FullDetailPrototype full = new FullDetailPrototype();
+            DP full = new DP();
             full.zonePlant = zpt;
             full.plantType = pt;
-            full.proto = dp;
             full.Index = fullList.Count;
             full.XGrid = gx;
             full.YGrid = gy;
             full.noiseSeed = zone.Seed % 12783428 + gs.map.Seed % 543333 + p * 13231;
             full.zoneIds.Add(zone.IdKey);
-            retval.Add(full);
             fullList.Add(full);
-            if (gx >= 0 && gy >= 0)
-            {
-                _assetService.LoadAsset(gs, AssetCategory.Grass, word, OnDownloadGrass, full, null, token);
-            }
         }
-        return;
     }
 
 
-    private void OnDownloadGrass (UnityGameState gs, string url, object obj, object data, CancellationToken token)
-    {
-        FullDetailPrototype full = data as FullDetailPrototype;
-        if (full == null || full.proto == null)
-        {
-            return;
-        }
-
-        GameObject go = obj as GameObject;
-
-        if (go == null)
-        {
-            gs.logger.Error("no gameobject: " + url + " " + obj + " " + full.plantType.Art);
-            return;
-        }
-
-        TextureList tlist = go.GetComponent<TextureList>();
-        if (tlist == null || tlist.Textures == null || tlist.Textures.Count < 1)
-        {
-            full.proto.prototype = go;
-            full.proto.renderMode = DetailRenderMode.VertexLit;
-            full.proto.usePrototypeMesh = true;
-        }
-        else
-        {
-            full.proto.prototypeTexture = tlist.Textures[0];
-            full.proto.healthyColor = Color.white;
-            full.proto.renderMode = DetailRenderMode.GrassBillboard;
-            full.proto.dryColor = Color.white;
-        }
-
-        TerrainPatchData grid = _terrainManager.GetMapGrid(gs, full.XGrid, full.YGrid) as TerrainPatchData;
-        if (grid == null)
-        {
-            GameObject.Destroy(go);
-            return;
-        }
-        Terrain terr = grid.terrain as Terrain;
-        if (terr == null)
-        {
-            GameObject.Destroy(go);
-            return;
-        }
-        GameObjectUtils.AddToParent(go, terr.gameObject);
-        go.SetActive(false);
-    }
 
     public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {

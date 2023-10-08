@@ -1,14 +1,13 @@
 ﻿using Genrpg.Shared.Chat.Entities;
 using Genrpg.Shared.Chat.Messages;
-using UnityEngine;
-using UnityEngine.UI;
+using TMPro.EditorUtilities;
 
 namespace Assets.Scripts.UI.Chat
 {
     public class ChatRow : BaseBehaviour
     {
-        [SerializeField]
-        private Text _text;
+        public GText Text;
+        public GImage Background;
 
         private OnChatMessage _message;
 
@@ -16,16 +15,16 @@ namespace Assets.Scripts.UI.Chat
         {
             _message = message;
 
-            ChatType chatType = _gs.data.GetGameData<ChatSettings>().GetChatType(message.ChatTypeId);
+            ChatType chatType = _gs.data.GetGameData<ChatSettings>(_gs.ch).GetChatType(message.ChatTypeId);
             
             
 
-            UIHelper.SetText(_text, "[" + chatType?.Name + "] " + message.SenderName + ": " + message.Message);
+            UIHelper.SetText(Text, "[" + chatType?.Name + "] " + message.SenderName + ": " + message.Message);
         }
 
         public void InitTextOnly(string text)
         {
-            UIHelper.SetText(_text, text);
+            UIHelper.SetText(Text, text);
         }
     }
 }

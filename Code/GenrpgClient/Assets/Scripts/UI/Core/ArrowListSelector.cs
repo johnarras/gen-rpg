@@ -1,26 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using System.Dynamic;
-using UnityEngine.UI;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using Genrpg.Shared.Interfaces;
-using UI.Screens.Constants;
 
 public class ArrowListSelector : BaseBehaviour
 {
-    [SerializeField]
-    private Text _infoText;
-    [SerializeField]
-    private Button _prevButton;
-    [SerializeField]
-    private Button _nextButton;
+    
+    public GText InfoText;
+    public GButton PrevButton;
+    public GButton NExtButton;
 
     int currentIndex = 0;
 
@@ -31,12 +17,12 @@ public class ArrowListSelector : BaseBehaviour
     {
         if (items == null)
         {
-            GameObject.Destroy(gameObject);
+            GEntityUtils.Destroy(entity);
             return;
         }
 
-        UIHelper.SetButton(_prevButton, screen.GetAnalyticsName(), ClickPrev);
-        UIHelper.SetButton(_nextButton, screen.GetAnalyticsName(), ClickNext);
+        UIHelper.SetButton(PrevButton, screen.GetAnalyticsName(), ClickPrev);
+        UIHelper.SetButton(NExtButton, screen.GetAnalyticsName(), ClickNext);
 
         _screen = screen;
 
@@ -91,14 +77,14 @@ public class ArrowListSelector : BaseBehaviour
     private void SetIndex(int index)
     {
         int oldIndex = currentIndex;
-        if (_infoText == null)
+        if (InfoText == null)
         {
             return;
         }
 
         if (_items == null || _items.Count < 1)
         {
-            _infoText.text = "No Items";
+            UIHelper.SetText(InfoText, "No Items");
         }
         if (index >= _items.Count)
         {
@@ -111,7 +97,7 @@ public class ArrowListSelector : BaseBehaviour
         }
 
         currentIndex = index;
-        _infoText.text = _items[currentIndex].ShowInfo();
+        UIHelper.SetText(InfoText, _items[currentIndex].ShowInfo());
 
         if (currentIndex != oldIndex && _screen != null)
         {

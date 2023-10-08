@@ -1,15 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-using UnityEditor;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
+﻿
 using System.Diagnostics;
 using Genrpg.Shared.Constants;
 
@@ -24,7 +13,7 @@ public class FileUploader
 
         ProcessStartInfo psi = new ProcessStartInfo();
 
-        string filePath = Application.dataPath.Replace("Assets", "../FileUploader/Output/FileUploader.exe");
+        string filePath = AppUtils.DataPath.Replace("Assets", "../FileUploader/Output/FileUploader.exe");
 
         psi.FileName = filePath;
 

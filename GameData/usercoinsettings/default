@@ -1,7 +1,9 @@
 {
   "Id": "default",
-  "UserCoinTypes": [
+  "Data": [
     {
+      "Id": "usercointype1default",
+      "ParentId": "default",
       "IdKey": 1,
       "Name": "Doubloon",
       "PluralName": "Doubloons",

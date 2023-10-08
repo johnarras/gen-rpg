@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
 using UI.Screens.Constants;
 using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 [Serializable]
 public class ScreenLayer
@@ -19,6 +15,6 @@ public class ScreenLayer
     public List<ActiveScreen> ScreenQueue;
     public bool SkipInAllScreensList;
 
-    public GameObject LayerParent { get; set; }
+    public GEntity LayerParent { get; set; }
 
 }

@@ -64,9 +64,9 @@ namespace Genrpg.LoginServer.CommandHandlers
                 actionInputs.GetInput(i);
             }
 
-            if (gs.data.GetGameData<InputSettings>().DefaultInputs != null)
+            if (gs.data.GetGameData<KeyCommSettings>(gs.ch).GetData() != null)
             {
-                foreach (KeyComm input in gs.data.GetGameData<InputSettings>().DefaultInputs)
+                foreach (KeyCommSetting input in gs.data.GetGameData<KeyCommSettings>(gs.ch).GetData())
                 {
                     KeyComm currKey = keyCommands.GetKeyComm(input.KeyCommand);
                     if (currKey == null)
@@ -81,9 +81,9 @@ namespace Genrpg.LoginServer.CommandHandlers
                         int.TryParse(actionSuffix, out actionIndex);
 
                         ActionInput currAction = actionInputs.GetInput(actionIndex);
-                        if (gs.data.GetGameData<InputSettings>().DefaultActions != null)
+                        if (gs.data.GetGameData<InputSettings>(gs.ch).GetData() != null)
                         {
-                            ActionInput defaultAction = gs.data.GetGameData<InputSettings>().DefaultActions.FirstOrDefault(x => x.Index == actionIndex);
+                            ActionInputSetting defaultAction = gs.data.GetGameData<InputSettings>(gs.ch).GetData().FirstOrDefault(x => x.Index == actionIndex);
                             if (defaultAction != null)
                             {
                                 currAction.SpellId = defaultAction.SpellId;

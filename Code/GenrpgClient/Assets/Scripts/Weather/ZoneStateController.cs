@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Genrpg.Shared.Core.Entities;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using ClientEvents;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
@@ -9,6 +9,7 @@ using Genrpg.Shared.ProcGen.Entities;
 
 using UI.Screens.Constants;
 using Assets.Scripts.MapTerrain;
+using UnityEngine; // Needed
 
 public struct UpdateColor
 {
@@ -142,11 +143,11 @@ public class ZoneStateController : BaseBehaviour
         WindScale.Set(0.0f);
         ParticleScale.Set(0.0f);
         CloudDensity.Set(0.0f);
-        CloudColor.Set(Color.gray);
-        SkyColor.Set(Color.cyan);
-        SunlightColor.Set(Color.white);
-        AmbientColor.Set(Color.white);
-        FogColor.Set(Color.gray);
+        CloudColor.Set(GColor.gray);
+        SkyColor.Set(GColor.cyan);
+        SunlightColor.Set(GColor.white);
+        AmbientColor.Set(GColor.white);
+        FogColor.Set(GColor.gray);
 
         SetupSkybox();
         
@@ -176,7 +177,7 @@ public class ZoneStateController : BaseBehaviour
         if (!_didInitZoneState)
         {
 
-            GameObject go = PlayerObject.Get();
+            GEntity go = PlayerObject.Get();
             if (go != null)
             {
                 ResetColors();
@@ -195,15 +196,15 @@ public class ZoneStateController : BaseBehaviour
         if (ticksToZoneUpdate <= 0)
         {
             ticksToZoneUpdate = MaxTicksBetweenZoneUpdates;
-            GameObject go = PlayerObject.Get();
+            GEntity go = PlayerObject.Get();
             if (go == null)
             {
                 return;
             }
             if (go != null)
             {
-                int wx = (int)go.transform.localPosition.x;
-                int wy = (int)go.transform.localPosition.z;
+                int wx = (int)go.transform().localPosition.x;
+                int wy = (int)go.transform().localPosition.z;
 
                 if (wx >= 0 && wy >= 0 && _gs.md != null && wx < _gs.map.GetHwid() && wy < _gs.map.GetHhgt() &&
                     _gs.md.terrainPatches != null)
@@ -239,10 +240,10 @@ public class ZoneStateController : BaseBehaviour
                         currentZone = zone;
                         CurrentZoneShown = zone.IdKey;
                         _gs.ch.ZoneId = zone.IdKey;                        
-                        currentZoneType = _gs.data.GetGameData<ProcGenSettings>().GetZoneType(currentZone.ZoneTypeId);
+                        currentZoneType = _gs.data.GetGameData<ZoneTypeSettings>(_gs.ch).GetZoneType(currentZone.ZoneTypeId);
                         if (currentZoneType != null)
                         {
-                            WeatherType weatherType = _gs.data.GetGameData<ProcGenSettings>().GetWeatherType(currentZoneType.WeatherTypeId);
+                            WeatherType weatherType = _gs.data.GetGameData<WeatherTypeSettings>(_gs.ch).GetWeatherType(currentZoneType.WeatherTypeId);
                             if (weatherType == null)
                             {
                                 return;

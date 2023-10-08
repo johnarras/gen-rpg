@@ -57,7 +57,7 @@ namespace Genrpg.MapServer.Items.MessageHandlers
                 return;
             }
 
-            long money = ItemUtils.GetSellToVendorPrice(gs, item);
+            long money = ItemUtils.GetSellToVendorPrice(gs, ch, item);
 
             _inventoryService.RemoveItem(gs, ch, message.ItemId,true);
             _currencyService.Add(gs, ch, CurrencyType.Money, money);

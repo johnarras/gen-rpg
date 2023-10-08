@@ -1,15 +1,15 @@
 ﻿
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Spells.Messages;
-using System.Security.Policy;
+using UnityEngine;
 
 public class CastBar : BaseBehaviour
 {
-    [SerializeField]
-    private GameObject _contentParent;
-    [SerializeField]
-    private ProgressBar _progressBar;
+    
+    public GEntity _contentParent;
+    
+    public ProgressBar _progressBar;
 
     private Unit _unit;
     private string _spellName;
@@ -67,7 +67,7 @@ public class CastBar : BaseBehaviour
 
         _spellName = spellName;
         _isCasting = true;
-        GameObjectUtils.SetActive(_contentParent, true);
+        GEntityUtils.SetActive(_contentParent, true);
         _progressBar.InitRange(gs, 0, castTimeMS, 0);
         _progressBar.SetValue(gs, 0, spellName);
 
@@ -75,7 +75,7 @@ public class CastBar : BaseBehaviour
 
     public void HideCast(UnityGameState gs)
     {
-        GameObjectUtils.SetActive(_contentParent, false);
+        GEntityUtils.SetActive(_contentParent, false);
         _isCasting = false;
     }
 

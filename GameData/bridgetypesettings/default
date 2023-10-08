@@ -1,0 +1,30 @@
+{
+  "Id": "default",
+  "Data": [
+    {
+      "Id": "bridgetype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Default Footbridge",
+      "Art": "Bridge",
+      "Length": 10
+    },
+    {
+      "Id": "bridgetype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Medium Footbridge",
+      "Art": "BridgeMedium",
+      "Length": 15
+    },
+    {
+      "Id": "bridgetype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Large Footbridge",
+      "Art": "BridgeLarge",
+      "Length": 20
+    }
+  ],
+  "Name": "BridgeTypeSettings"
+}

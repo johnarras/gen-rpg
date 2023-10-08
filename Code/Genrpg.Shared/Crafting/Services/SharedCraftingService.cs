@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Levels.Entities;
-using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Crafting.Entities;
@@ -13,7 +12,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 
 namespace Genrpg.Shared.Crafting.Services
 {
@@ -43,7 +42,7 @@ namespace Genrpg.Shared.Crafting.Services
 
             Dictionary<int, long> statTotals = new Dictionary<int, long>();
 
-            RecipeType recipe = gs.data.GetGameData<CraftingSettings>().GetRecipeType(data.RecipeTypeId);
+            RecipeType recipe = gs.data.GetGameData<RecipeSettings>(ch).GetRecipeType(data.RecipeTypeId);
 
             if (recipe == null)
             {
@@ -59,7 +58,7 @@ namespace Genrpg.Shared.Crafting.Services
 
             stats.RecipeTypeId = recipe.IdKey;
 
-            ScalingType scaleType = gs.data.GetGameData<ItemSettings>().GetScalingType(data.ScalingTypeId);
+            ScalingType scaleType = gs.data.GetGameData<ScalingTypeSettings>(ch).GetScalingType(data.ScalingTypeId);
 
             if (scaleType == null)
             {
@@ -69,7 +68,7 @@ namespace Genrpg.Shared.Crafting.Services
 
             stats.ScalingTypeId = scaleType.IdKey;
 
-            ItemType resultItemType = gs.data.GetGameData<ItemSettings>().GetItemType(recipe.EntityId);
+            ItemType resultItemType = gs.data.GetGameData<ItemTypeSettings>(ch).GetItemType(recipe.EntityId);
 
             if (resultItemType == null)
             {
@@ -78,7 +77,7 @@ namespace Genrpg.Shared.Crafting.Services
             }
 
 
-            EquipSlot equipSlot = gs.data.GetGameData<ItemSettings>().GetEquipSlot(resultItemType.EquipSlotId);
+            EquipSlot equipSlot = gs.data.GetGameData<EquipSlotSettings>(ch).GetEquipSlot(resultItemType.EquipSlotId);
             if (equipSlot == null)
             {
                 stats.Message = " Result item " + resultItemType.IdKey + " equip slot " + resultItemType.EquipSlotId + " is not valid";
@@ -140,10 +139,10 @@ namespace Genrpg.Shared.Crafting.Services
             double levelRemainder = averageLevel - (float)Math.Floor(averageLevel);
             double qualityRemainder = averageQuality - (float)Math.Floor(averageQuality);
 
-            LevelData prevLev = gs.data.GetGameData<LevelSettings>().GetLevel((int)Math.Floor(averageLevel));
-            LevelData nextLev = gs.data.GetGameData<LevelSettings>().GetLevel((int)Math.Ceiling(averageLevel));
-            QualityType prevQuality = gs.data.GetGameData<ItemSettings>().GetQualityType((int)Math.Floor(averageQuality));
-            QualityType nextQuality = gs.data.GetGameData<ItemSettings>().GetQualityType((int)Math.Ceiling(averageQuality));
+            LevelInfo prevLev = gs.data.GetGameData<LevelSettings>(ch).GetLevel((int)Math.Floor(averageLevel));
+            LevelInfo nextLev = gs.data.GetGameData<LevelSettings>(ch).GetLevel((int)Math.Ceiling(averageLevel));
+            QualityType prevQuality = gs.data.GetGameData<QualityTypeSettings>(ch).GetQualityType((int)Math.Floor(averageQuality));
+            QualityType nextQuality = gs.data.GetGameData<QualityTypeSettings>(ch).GetQualityType((int)Math.Ceiling(averageQuality));
             
             if (nextQuality == null)
             {
@@ -160,13 +159,13 @@ namespace Genrpg.Shared.Crafting.Services
                     continue;
                 }
 
-                ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(reagent.ItemTypeId);
+                ItemType itype = gs.data.GetGameData<ItemTypeSettings>(ch).GetItemType(reagent.ItemTypeId);
                 if (itype == null)
                 {
                     continue;
                 }
 
-                Dictionary<long, long> currPcts = itype.GetCraftingStatPercents(gs, reagent.Level, reagent.QualityTypeId);
+                Dictionary<long, long> currPcts = itype.GetCraftingStatPercents(gs, ch, reagent.Level, reagent.QualityTypeId);
                 foreach (long key in currPcts.Keys)
                 {
                     if (!statPercents.ContainsKey(key))
@@ -236,7 +235,7 @@ namespace Genrpg.Shared.Crafting.Services
 
                 int statTypeScaling = 100;
 
-                StatType statType = gs.data.GetGameData<StatSettings>().GetStatType(key);
+                StatType statType = gs.data.GetGameData<StatSettings>(ch).GetStatType(key);
 
                 if (statType != null)
                 {
@@ -285,7 +284,7 @@ namespace Genrpg.Shared.Crafting.Services
             ValidityResult result = new ValidityResult() { IsValid = false };
             result.Data = data;
 
-            RecipeType rtype = gs.data.GetGameData<CraftingSettings>().GetRecipeType(data.RecipeTypeId);
+            RecipeType rtype = gs.data.GetGameData<RecipeSettings>(ch).GetRecipeType(data.RecipeTypeId);
 
             if (rtype == null)
             {
@@ -294,7 +293,7 @@ namespace Genrpg.Shared.Crafting.Services
             }
             InventoryData inventory = ch.Get<InventoryData>();
 
-            ItemSettings itemSettings = gs.data.GetGameData<ItemSettings>();
+            ItemTypeSettings itemSettings = gs.data.GetGameData<ItemTypeSettings>(ch);
 
             Dictionary<string, long> itemsUsedDict = new Dictionary<string, long>();
 
@@ -320,7 +319,7 @@ namespace Genrpg.Shared.Crafting.Services
                         continue;
                     }
 
-                    ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(rreagent.EntityId);
+                    ItemType itype = gs.data.GetGameData<ItemTypeSettings>(ch).GetItemType(rreagent.EntityId);
 
                     if (itype == null)
                     {
@@ -345,7 +344,7 @@ namespace Genrpg.Shared.Crafting.Services
             }
             else
             {
-                ScalingType scaling = gs.data.GetGameData<ItemSettings>().GetScalingType(data.ScalingTypeId);
+                ScalingType scaling = gs.data.GetGameData<ScalingTypeSettings>(ch).GetScalingType(data.ScalingTypeId);
 
                 if (scaling == null)
                 {
@@ -382,7 +381,7 @@ namespace Genrpg.Shared.Crafting.Services
                 // can be used for the primary reagent. (like bamboo insted of wood for diff stats)
                 foreach (ItemPct scalingReagent in scaling.BaseReagents)
                 {
-                    ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(scalingReagent.ItemTypeId);
+                    ItemType itype = gs.data.GetGameData<ItemTypeSettings>(ch).GetItemType(scalingReagent.ItemTypeId);
 
                     if (itype == null)
                     {
@@ -445,7 +444,7 @@ namespace Genrpg.Shared.Crafting.Services
                 }
 
 
-                ItemType primaryItemType = gs.data.GetGameData<ItemSettings>().GetItemType(data.PrimaryReagent.ItemTypeId);
+                ItemType primaryItemType = gs.data.GetGameData<ItemTypeSettings>(ch).GetItemType(data.PrimaryReagent.ItemTypeId);
 
                 if (primaryItemType == null)
                 {
@@ -505,7 +504,7 @@ namespace Genrpg.Shared.Crafting.Services
                 // Check all secondary reagents (if any)
                 foreach (FullReagent reagent in data.ExtraReagents)
                 {
-                    ItemType reagentItype = gs.data.GetGameData<ItemSettings>().GetItemType(reagent.ItemTypeId);
+                    ItemType reagentItype = gs.data.GetGameData<ItemTypeSettings>(ch).GetItemType(reagent.ItemTypeId);
                     if (reagentItype == null)
                     {
                         result.Message = "Reagent item type " + reagent.ItemTypeId + " does not exist";
@@ -568,7 +567,7 @@ namespace Genrpg.Shared.Crafting.Services
                     return result;
                 }
 
-                ItemType itype = gs.data.GetGameData<ItemSettings>().GetItemType(dreagent.ItemTypeId);
+                ItemType itype = gs.data.GetGameData<ItemTypeSettings>(ch).GetItemType(dreagent.ItemTypeId);
                 if (itype == null)
                 {
                     result.Message = "Missing item type with id " + dreagent.ItemTypeId;
@@ -599,7 +598,7 @@ namespace Genrpg.Shared.Crafting.Services
         /// <returns></returns>
         public long GetCrafterTypeFromRecipe(GameState gs, Character ch, long recipeTypeId, long scalingTypeId)
         {
-            RecipeType rtype = gs.data.GetGameData<CraftingSettings>().GetRecipeType(recipeTypeId);
+            RecipeType rtype = gs.data.GetGameData<RecipeSettings>(ch).GetRecipeType(recipeTypeId);
             if (rtype == null)
             {
                 return 0;
@@ -610,7 +609,7 @@ namespace Genrpg.Shared.Crafting.Services
                 return rtype.CrafterTypeId;
             }
 
-            ScalingType scalingType = gs.data.GetGameData<ItemSettings>().GetScalingType(scalingTypeId);
+            ScalingType scalingType = gs.data.GetGameData<ScalingTypeSettings>(ch).GetScalingType(scalingTypeId);
             if (scalingType == null || scalingType.CrafterTypeId < 1)
             {
                 return 0;

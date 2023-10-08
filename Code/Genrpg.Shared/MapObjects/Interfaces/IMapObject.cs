@@ -1,11 +1,12 @@
-﻿using Genrpg.Shared.Players.Interfaces;
+﻿using Genrpg.Shared.PlayerFiltering.Interfaces;
+using Genrpg.Shared.Players.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Genrpg.Shared.MapObjects.Interfaces
 {
-    public interface IMapObject : IDirtyable
+    public interface IMapObject : IDirtyable, IFilteredObject
     {
         string Id { get; set; }
         string Name { get; set; }

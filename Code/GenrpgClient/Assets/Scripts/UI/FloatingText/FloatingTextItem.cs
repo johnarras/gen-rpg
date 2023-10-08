@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
+﻿
 
 public class FloatingTextItem : BaseBehaviour
 {
-    public Text TextString;
+    public GText TextString;
     public float DurationSeconds;
     public float PixelsPerSecond;
 

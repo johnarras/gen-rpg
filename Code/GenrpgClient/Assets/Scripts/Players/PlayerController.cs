@@ -1,13 +1,11 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
 using Genrpg.Shared.Input.Entities;
 using Genrpg.Shared.Units.Entities;
 using System.Threading;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Targets.Messages;
-using Genrpg.Shared.UserCoins.Entities;
 
 public class PlayerController : UnitController
 {
@@ -15,7 +13,7 @@ public class PlayerController : UnitController
     public const float SlopeLimit = 60f;
     public const float StepOffset = 1.0f;
 
-    Vector3 lastSendPos = Vector3.zero;
+    GVector3 lastSendPos = GVector3.zero;
 
     public float UpDistance = 0.0f;
     protected bool _sendUpdates = true;
@@ -62,8 +60,8 @@ public class PlayerController : UnitController
             CameraController.Instance.BeforeMoveUpdate();
         }
 
-        _unit.X = transform.position.x;
-        _unit.Z = transform.position.z;
+        _unit.X =entity.transform().position.x;
+        _unit.Z =entity.transform().position.z;
 
         if (CanMoveNow(_gs))
         {
@@ -82,20 +80,20 @@ public class PlayerController : UnitController
     private bool _everSentPositionUpdate = false;
     private void SendPositionUpdate()
     {
-        // Send a transform update to the server
+        // Send aentity.transform() update to the server
         if (_sendUpdates && !_gs.md.GeneratingMap &&
             _gs.map != null && UnityAssetService.LoadSpeed != LoadSpeed.Fast &&
-            gameObject == PlayerObject.Get())
+            entity == PlayerObject.Get())
         {
             float oldRot = _unit.Rot;
-            _unit.Rot = transform.eulerAngles.y;
+            _unit.Rot =entity.transform().eulerAngles.y;
             span = DateTime.UtcNow - lastServerSendTime;
-            if (gameObject == PlayerObject.Get())
+            if (entity == PlayerObject.Get())
             {
 
-                Vector3 pos = transform.position;
+                GVector3 pos = GVector3.Create(entity.transform().position);
 
-                Vector3 diff = pos - lastSendPos;
+                GVector3 diff = pos - lastSendPos;
 
 
                 _unit.X = pos.x;
@@ -120,13 +118,13 @@ public class PlayerController : UnitController
                         ZoneId = _gs.ch.ZoneId,
                     };
 
-                    Vector3 extraDist = Vector3.zero;
+                    GVector3 extraDist = GVector3.zero;
                     if (_everSentPositionUpdate)
                     {
                         extraDist = (pos - lastSendPos) * 0.1f;
                     }
 
-                    _unit.Rot = transform.eulerAngles.y;
+                    _unit.Rot =entity.transform().eulerAngles.y;
                     posMessage.SetX((float)Math.Round(pos.x+extraDist.x, 1));
                     posMessage.SetY((float)Math.Round(pos.y+extraDist.y, 1));
                     posMessage.SetZ((float)Math.Round(pos.z+extraDist.z, 1));
@@ -152,7 +150,7 @@ public class PlayerController : UnitController
 
         if (_unit != null)
         {
-            Vector3 newPos = transform.position + transform.forward * dist;
+            GVector3 newPos = GVector3.Create(entity.transform().position +entity.transform().forward * dist);
             List<Unit> units = _objectManager.GetTypedObjectsNear<Unit>(newPos.x, newPos.z, rad);
             if (units.Count < 1)
             {
@@ -172,7 +170,7 @@ public class PlayerController : UnitController
                 }
                 float dx = obj.X - cx;
                 float dz = obj.Z - cz;
-                float currDist = Mathf.Sqrt(dx * dx + dz * dz);
+                float currDist = (float)Math.Sqrt(dx * dx + dz * dz);
                 if (currDist < minDistToPlayer)
                 {
                     minDistToPlayer = currDist;
@@ -190,7 +188,7 @@ public class PlayerController : UnitController
                 }
                 float dx = obj.X - cx;
                 float dz = obj.Z - cz;
-                float currDist = Mathf.Sqrt(dx * dx + dz * dz);
+                float currDist = (float)Math.Sqrt(dx * dx + dz * dz);
 
                 if (currDist < minDistToPlayer + 10)
                 {

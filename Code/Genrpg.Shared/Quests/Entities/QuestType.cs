@@ -1,7 +1,7 @@
 using MessagePack;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Constants;
+
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.NPCs.Entities;
@@ -10,14 +10,17 @@ using Genrpg.Shared.Zones.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Utils;
+using Genrpg.Shared.DataStores.Categories.WorldData;
+using Genrpg.Shared.Entities.Settings;
 
 namespace Genrpg.Shared.Quests.Entities
 {
     [MessagePackObject]
     public class QuestType : BaseWorldData, IIndexedGameItem, IStringOwnerId
     {
+        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string OwnerId { get; set; }
 
@@ -51,8 +54,6 @@ namespace Genrpg.Shared.Quests.Entities
 
         }
 
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
-
         public bool IsSameQuest(QuestType other)
         {
             if (other == null)
@@ -85,7 +86,7 @@ namespace Genrpg.Shared.Quests.Entities
             QuestTaskStatus tstatus = null;
             if (status != null)
             {
-                tstatus = status.Statuses.FirstOrDefault(x => x.Index == index);
+                tstatus = status.Tasks.FirstOrDefault(x => x.Index == index);
 
             }
 
@@ -96,7 +97,7 @@ namespace Genrpg.Shared.Quests.Entities
                 Zone zone = gs.map.Get<Zone>(ZoneId);
 
                 string namePrefix = "";
-                UnitType utype = gs.data.GetGameData<UnitSettings>().GetUnitType(task.TaskEntityId);
+                UnitType utype = gs.data.GetGameData<UnitSettings>(ch).GetUnitType(task.TaskEntityId);
                 if (utype == null)
                 {
                     return "";
@@ -113,7 +114,7 @@ namespace Genrpg.Shared.Quests.Entities
                 long currQuantity = 0;
                 if (status != null) // have status, show progress
                 {
-                    QuestTaskStatus indexStatus = status.Statuses.FirstOrDefault(x => x.Index == index);
+                    QuestTaskStatus indexStatus = status.Tasks.FirstOrDefault(x => x.Index == index);
                     if (indexStatus != null)
                     {
                         currQuantity = indexStatus.CurrQuantity;
@@ -154,7 +155,7 @@ namespace Genrpg.Shared.Quests.Entities
                 {
                     return "";
                 }
-                UnitType utype = gs.data.GetGameData<UnitSettings>().GetUnitType(task.OnEntityId);
+                UnitType utype = gs.data.GetGameData<UnitSettings>(ch).GetUnitType(task.OnEntityId);
                 if (task.OnEntityTypeId != EntityType.Unit && task.OnEntityTypeId != EntityType.NPC)
                 {
                     finalTxt = "Find " + task.Quantity + " " + qitem.Name;
@@ -203,11 +204,13 @@ namespace Genrpg.Shared.Quests.Entities
             return finalTxt;
         }
 
-        public QuestStatus CreateStatus()
+        public QuestStatus CreateStatus(QuestData questData)
         {
             QuestStatus questStatus = new QuestStatus()
             {
                 Quest = this,
+                Id = HashUtils.NewGuid(),
+                OwnerId = questData.Id,
             };
             if (Tasks != null)
             {
@@ -218,7 +221,7 @@ namespace Genrpg.Shared.Quests.Entities
                         CurrQuantity = 0,
                         Index = i,
                     };
-                    questStatus.Statuses.Add(taskStatus);
+                    questStatus.Tasks.Add(taskStatus);
                 }
             }
             return questStatus;

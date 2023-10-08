@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using Entities;
+using System.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
@@ -11,7 +11,7 @@ using System.Threading;
 
 public class ConnectSecondaryLocations : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         AddRoads rg = new AddRoads();
@@ -134,7 +134,7 @@ public class ConnectSecondaryLocations : BaseZoneGenerator
 
         }
 
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 }
 

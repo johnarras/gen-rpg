@@ -3,6 +3,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Stats.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using Genrpg.Shared.DataStores.GameSettings;
 
 namespace Genrpg.Shared.Spells.Entities
 {
@@ -12,45 +13,45 @@ namespace Genrpg.Shared.Spells.Entities
     }
 
     [MessagePackObject]
-    public class ElementType : IIndexedGameItem, IInfo
+    public class ElementType : ChildSettings, IIndexedGameItem, IInfo
     {
 
         public const int SecondaryDebuffStatDiv = 10;
 
-        
-        [Key(0)] public long IdKey { get; set; }
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string ParentId { get; set; }
+        [Key(2)] public long IdKey { get; set; }
+        [Key(3)] public override string Name { get; set; }
+        [Key(4)] public string Desc { get; set; }
+        [Key(5)] public string Icon { get; set; }
 
-        public long GetId() { return IdKey; }
-        [Key(1)] public string Name { get; set; }
-        [Key(2)] public string Desc { get; set; }
-        [Key(3)] public string Icon { get; set; }
+        [Key(6)] public string Art { get; set; }
 
-        [Key(4)] public string Art { get; set; }
+        [Key(7)] public string CastAnim { get; set; }
 
-        [Key(5)] public string CastAnim { get; set; }
+        [Key(8)] public int RankScale { get; set; }
 
-        [Key(6)] public int RankScale { get; set; }
+        [Key(9)] public List<ElementSkill> Skills { get; set; }
 
-        [Key(7)] public List<ElementSkill> Skills { get; set; }
-
-        [Key(8)] public List<SpellProc> Procs { get; set; }
+        [Key(10)] public List<SpellProc> Procs { get; set; }
 
         /// <summary>
         /// Passive stats for using this element
         /// </summary>
-        [Key(9)] public List<AbilityEffect> BonusEfffects { get; set; }
+        [Key(11)] public List<AbilityEffect> BonusEfffects { get; set; }
 
 
-        [Key(10)] public List<StatPct> BuffEffects { get; set; }
+        [Key(12)] public List<StatPct> BuffEffects { get; set; }
 
-        [Key(11)] public List<StatPct> DebuffEffects { get; set; }
+        [Key(13)] public List<StatPct> DebuffEffects { get; set; }
 
 
-        [Key(12)] public int Flags { get; set; }
+        [Key(14)] public int Flags { get; set; }
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
 
+        public long GetId() { return IdKey; }
         public ElementType()
         {
             Skills = new List<ElementSkill>();

@@ -13,25 +13,14 @@ using Genrpg.Shared.Constants;
 using Genrpg.Shared.Utils;
 using System.Collections.Concurrent;
 using Azure.Messaging.ServiceBus.Administration;
-using Azure;
-using Azure.Identity;
 using Microsoft.Azure.Relay;
-using System.Runtime.InteropServices;
 using Genrpg.ServerShared.CloudMessaging.Messages;
 using Genrpg.Shared.Logs.Entities;
-using Genrpg.Shared.Networking.Constants;
 using Genrpg.ServerShared.DataStores.Constants;
-using Azure.ResourceManager.Relay;
 using System.Net.Http;
-using Azure.ResourceManager.Resources;
-using Azure.ResourceManager;
 using System.IO;
 using System.Net;
-using Microsoft.IdentityModel.Tokens;
-using Azure.Core;
 using Genrpg.ServerShared.CloudMessaging.Requests;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace Genrpg.ServerShared.CloudMessaging.Services
 {

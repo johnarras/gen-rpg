@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using Cysharp.Threading.Tasks;
-using Entities;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
 
 public class RemoveSetupZonePatches : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
 
         await base.Generate(gs, token);

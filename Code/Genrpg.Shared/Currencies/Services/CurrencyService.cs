@@ -28,13 +28,16 @@ namespace Genrpg.Shared.Currencies.Services
 
             long diff = newQuantity - oldQuantity;
 
-            OnSetCurrency(gs, unit, currencyData, currencyTypeId, diff);
+            OnSetCurrency(gs, unit, currencyData, status, diff);
             return true;
         }
 
-        protected virtual void OnSetCurrency(GameState gs, Unit unit, CurrencyData currencyData, long currencyTypeId, long diff)
+        protected virtual void OnSetCurrency(GameState gs, Unit unit, CurrencyData currencyData, CurrencyStatus status, long diff)
         {
-
+            if (diff != 0)
+            {
+                gs.repo.QueueSave(status);
+            }
         }
     }
 }

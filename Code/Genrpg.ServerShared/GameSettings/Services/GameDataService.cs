@@ -1,27 +1,17 @@
 ﻿using Genrpg.ServerShared.Core;
-using Genrpg.Shared.AI.Entities;
+using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Currencies.Entities;
-using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.DataStores.Constants;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.GameSettings.Config;
+using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.Names.Entities;
-using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
-using Microsoft.Extensions.Azure;
-using MongoDB.Bson.Serialization;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,7 +22,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
     public class GameDataService<D> : IGameDataService where D : GameData, new()
     {
-        private Dictionary<Type, IGameDataLoader> _loaderObjects = null;
+        private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
 
         private async void SetupLoaders(IRepositorySystem repoSystem)
         {
@@ -40,12 +30,12 @@ namespace Genrpg.ServerShared.GameSettings.Services
             {
                 return;
             }
-            List<Type> loadTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameDataLoader));
+            List<Type> loadTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettingsLoader));
 
-            Dictionary<Type, IGameDataLoader> newList = new Dictionary<Type, IGameDataLoader>();
+            Dictionary<Type, IGameSettingsLoader> newList = new Dictionary<Type, IGameSettingsLoader>();
             foreach (Type lt in loadTypes)
             {
-                if (Activator.CreateInstance(lt) is IGameDataLoader newLoader)
+                if (Activator.CreateInstance(lt) is IGameSettingsLoader newLoader)
                 {
                     newList[newLoader.GetServerType()] = newLoader;
                 }
@@ -54,9 +44,9 @@ namespace Genrpg.ServerShared.GameSettings.Services
             await Task.CompletedTask;
         }
 
-        public List<IGameDataLoader> GetAllLoaders()
+        public List<IGameSettingsLoader> GetAllLoaders()
         {
-            return _loaderObjects.Values.ToList();
+            return _loaderObjects.Values.OrderBy(x=>x.GetType().Name).ToList();
         }
 
         public async Task Setup(GameState gs, CancellationToken token)
@@ -74,44 +64,18 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return new List<string>();
         }
 
-        private DataConfig _config = null;
-        public async Task<DataConfig> GetDataConfig(ServerGameState gs)
-        {
-            if (_config == null)
-            {
-                _config = await gs.repo.Load<DataConfig>(gs.config.DataConfigDocId);
-            }
-
-            return _config;
-        }
-
         public virtual async Task<GameData> LoadGameData(ServerGameState gs, bool createMissingGameData)
         {
 
-            DataConfig config = await GetDataConfig(gs);
-
             GameData gameData = new GameData();
 
-            if (config == null)
+            foreach (IGameSettingsLoader loader in _loaderObjects.Values)
             {
-                return gameData;
-            }
+                List<IGameSettings> allDocs = await loader.LoadAll(gs.repo, true);
 
-            foreach (IGameDataLoader loader in _loaderObjects.Values)
-            {
-                ConfigItem item = config.Items.FirstOrDefault(x => x.SettingId == loader.GetTypeName());
-
-                if (item == null)
+                foreach (IGameSettings doc in allDocs)
                 {
-                    item = new ConfigItem() { DocId = DataConstants.DefaultFilename, SettingId = loader.GetTypeName() };
-                    config.Items.Add(item);
-                    await gs.repo.Save(config);
-                }
-
-                BaseGameData loadedData = await loader.LoadData(gs.repo, item.DocId, createMissingGameData);
-                if (loadedData != null)
-                {
-                    loadedData.Set(gameData);
+                    doc.AddTo(gameData);
                 }
             }
 
@@ -127,15 +91,130 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 return false;
             }
 
-            foreach (IGameSettingsContainer cont in data.GetContainers())
+            foreach (IGameSettings baseGameData in data.GetAllData())
             {
-                await cont.SaveData(repoSystem);
+                await repoSystem.Save(baseGameData);
             }
             return true;
         }
 
         public virtual void UpdateDataBeforeSave(GameData data)
         {
+        }
+
+        public void SetSessionOverrides(ServerGameState gs, IFilteredObject obj)
+        {
+            SessionOverrideList sessionOverrideList = new SessionOverrideList();
+
+            if (!(obj is Character ch))
+            {
+                return;
+            }
+
+            DataOverrideSettings settings = gs.data.GetGameData<DataOverrideSettings>(null);
+
+            List<DataOverrideGroup> acceptableGroups = new List<DataOverrideGroup>();
+
+            foreach (DataOverrideGroup group in settings.Data)
+            {
+                if (AcceptedByFilter(ch, group))
+                {
+                    foreach (DataOverrideItem item in group.Items)
+                    {
+                        if (string.IsNullOrEmpty(item.SettingId) ||
+                            string.IsNullOrEmpty(item.DocId))
+                        {
+                            continue;
+                        }
+
+                        SessionOverrideItem overrideItem = sessionOverrideList.Items.FirstOrDefault(x => x.SettingId == item.SettingId);
+
+                        if (overrideItem == null)
+                        {
+                            overrideItem = new SessionOverrideItem() { SettingId = item.SettingId };
+                            sessionOverrideList.Items.Add(overrideItem);
+                            overrideItem.DocId = item.DocId;
+                        }
+                        else if (group.Priority >= overrideItem.Priority)
+                        {
+                            overrideItem.Priority = group.Priority;
+                            overrideItem.DocId = item.DocId;
+                        }
+                    }
+                }
+            }
+
+            ch.SetSessionOverrideList(sessionOverrideList);
+        }
+
+        public List<IGameSettings> GetClientData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault)
+        {
+
+            List<IGameSettings> retval = new List<IGameSettings>();
+            SetSessionOverrides(gs, obj);
+
+            List<IGameSettings> allData = gs.data.GetAllData();
+
+            foreach (Type t in _loaderObjects.Keys)
+            {
+
+                IGameSettingsLoader loader = _loaderObjects[t];
+
+                if (!loader.SendToClient())
+                {
+                    continue;
+                }
+
+                string docName = GameDataConstants.DefaultFilename;
+
+                if (!sendAllDefault)
+                {
+                    docName = gs.data.GetDataObjectName(t.Name, obj);
+                    if (docName == GameDataConstants.DefaultFilename)
+                    {
+                        continue;
+                    }
+                }
+
+                IGameSettings currData = allData.FirstOrDefault(x => 
+                x.GetType().Name == t.Name &&
+                x.Id == docName);
+
+                if (currData != null)
+                {
+                    retval.Add(currData);
+                }
+            }
+            return retval;
+        }
+
+        private bool AcceptedByFilter(Character ch, IPlayerFilter filter)
+        {
+            if (filter.UseDateRange &&
+                (filter.StartDate > DateTime.UtcNow ||
+                filter.EndDate < DateTime.UtcNow))
+            {
+                return false;
+            }
+
+            if (filter.MinLevel > 0 && filter.MaxLevel > 0 &&
+                (filter.MinLevel > ch.Level || filter.MaxLevel < ch.Level))
+            {
+                return false;
+            }
+
+            if (filter.TotalModSize > 0 && filter.MaxAcceptableModValue > 0)
+            {
+                long idHash = StrUtils.GetIdHash(filter.IdKey + ch.Id);
+
+                if (idHash % filter.TotalModSize >= filter.MaxAcceptableModValue)
+                {
+                    return false;
+                }
+            }
+
+
+            return true;
         }
     }
 }

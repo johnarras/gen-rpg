@@ -1,5 +1,6 @@
 using MessagePack;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.DataStores.GameSettings;
 
 namespace Genrpg.Shared.Inventory.Entities
 {
@@ -7,7 +8,7 @@ namespace Genrpg.Shared.Inventory.Entities
     /// List of equipment slots for characters
     /// </summary>
     [MessagePackObject]
-    public class EquipSlot : IIndexedGameItem
+    public class EquipSlot : ChildSettings, IIndexedGameItem
     {
         public const int None = 0;
         public const int Helmet = 1;
@@ -34,26 +35,28 @@ namespace Genrpg.Shared.Inventory.Entities
         /// </summary>
         public const int Max = 20;
 
-        
-        [Key(0)] public long IdKey { get; set; }
-        [Key(1)] public string Name { get; set; }
-        [Key(2)] public string Desc { get; set; }
-        [Key(3)] public string Icon { get; set; }
+
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string ParentId { get; set; }
+        [Key(2)] public long IdKey { get; set; }
+        [Key(3)] public override string Name { get; set; }
+        [Key(4)] public string Desc { get; set; }
+        [Key(5)] public string Icon { get; set; }
 
 
         /// <summary>
         /// Add a second slot to the given item type.
         /// </summary>
-        [Key(4)] public long ParentEquipSlotId { get; set; }
+        [Key(6)] public long ParentEquipSlotId { get; set; }
 
         /// <summary>
         /// How much stats on generated items of this type are scaled.
         /// </summary>
-        [Key(5)] public int StatPercent { get; set; }
+        [Key(7)] public int StatPercent { get; set; }
 
-        [Key(6)] public string Art { get; set; }
+        [Key(8)] public string Art { get; set; }
 
-        [Key(7)] public bool Active { get; set; }
+        [Key(9)] public bool Active { get; set; }
         public EquipSlot()
         {
             StatPercent = 100;

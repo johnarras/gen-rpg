@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
-using ClientEvents;
-using Entities;
+﻿using ClientEvents;
 using Genrpg.Shared.Zones.Entities;
 using System.Threading;
 
 public class ZoneUI : BaseBehaviour
 {
-    [SerializeField]
-    private Text _locationName;
+    public GText LocationName;
 
     private CancellationToken _token;
     public void Init(CancellationToken token)
@@ -43,7 +31,7 @@ public class ZoneUI : BaseBehaviour
 
         string txt = "Map " + gs.map.Id + ": " + zone.Name + " [#" + zone.IdKey + "] {Lev " + zone.Level + "}";
 
-        UIHelper.SetText(_locationName, txt);
+        UIHelper.SetText(LocationName, txt);
         return null;
     }
 }

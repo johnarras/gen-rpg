@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
+﻿
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Constants;
-using Entities;
+
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
+using UnityEngine;
 
 public class WaterObjectLoader : BaseObjectLoader
 {
@@ -66,7 +59,7 @@ public class WaterObjectLoader : BaseObjectLoader
             return;
         }
 
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -79,25 +72,25 @@ public class WaterObjectLoader : BaseObjectLoader
 
         if (dlo.loadData.patch == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
         Terrain terr = dlo.loadData.patch.terrain as Terrain;
         if (terr != null)
         {
-            GameObjectUtils.AddToParent(go, terr.gameObject);
+            GEntityUtils.AddToParent(go, terr.entity());
         }
         else
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
         float mult = 2.0f; // = 100.0f // if AQUAS
-        go.transform.localPosition = new Vector3(dlo.x, dlo.finalZ, dlo.y);
-        go.transform.localScale = new Vector3(size.X*mult, 1, size.Z*mult);
-        GameObjectUtils.SetLayer(go, LayerMask.NameToLayer(LayerNames.Water));
+        go.transform().localPosition = GVector3.Create(dlo.x, dlo.finalZ, dlo.y);
+        go.transform().localScale = GVector3.Create(size.X*mult, 1, size.Z*mult);
+        GEntityUtils.SetLayer(go, LayerUtils.NameToLayer(LayerNames.Water));
 
 
 

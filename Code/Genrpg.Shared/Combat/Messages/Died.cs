@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.MapMessages;
+using Genrpg.Shared.Units.Entities;
 
 namespace Genrpg.Shared.Combat.Messages
 {
@@ -13,6 +14,6 @@ namespace Genrpg.Shared.Combat.Messages
         [Key(0)] public string UnitId { get; set; }
         [Key(1)] public List<SpawnResult> Loot { get; set; }
         [Key(2)] public List<SpawnResult> SkillLoot { get; set; }
-        [Key(3)] public string FirstAttackerId { get; set; }
+        [Key(3)] public AttackerInfo FirstAttacker { get; set; }
     }
 }

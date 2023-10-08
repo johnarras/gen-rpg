@@ -3,7 +3,7 @@ using MessagePack;
 using System;
 using System.Collections.Generic;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Entities.Constants;
+
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
@@ -12,6 +12,7 @@ using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapMessages;
+using Genrpg.Shared.Entities.Settings;
 
 namespace Genrpg.Shared.MapObjects.Messages
 {
@@ -37,7 +38,7 @@ namespace Genrpg.Shared.MapObjects.Messages
         [Key(16)] public string TargetId { get; set; }
         [Key(17)] public int TempFlags { get; set; }
         [Key(18)] public long Level { get; set; }
-        [Key(19)] public string FirstAttackerId { get; set; }
+        [Key(19)] public AttackerInfo FirstAttacker { get; set; }
         [Key(20)] public List<SpawnResult> Loot { get; set; }
         [Key(21)] public List<SpawnResult> SkillLoot { get; set; }
         [Key(22)] public List<SpellEffect> Effects { get; set; }
@@ -74,7 +75,7 @@ namespace Genrpg.Shared.MapObjects.Messages
                 FactionTypeId = unit.FactionTypeId;
                 Stats = unit.Stats;
                 TargetId = unit.TargetId;
-                FirstAttackerId = unit.GetFirstAttacker();
+                FirstAttacker = unit.GetFirstAttacker();
                 Loot = unit.Loot;
                 SkillLoot = unit.SkillLoot;
                 TempFlags = unit.Flags;

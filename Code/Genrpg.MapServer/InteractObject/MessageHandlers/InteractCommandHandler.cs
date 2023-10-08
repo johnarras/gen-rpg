@@ -8,7 +8,7 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Interactions.Messages;
 using Genrpg.Shared.Spells.Messages;
@@ -19,6 +19,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
     {
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, InteractCommand message)
         {
+            
             if (!_objectManager.GetObject(message.TargetId, out MapObject target))
             {
                 pack.SendError(gs, obj, "Object does not exist!");
@@ -44,7 +45,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
 
             if (target.EntityTypeId == EntityType.GroundObject)
             {
-                GroundObjType gtype = gs.data.GetGameData<ProcGenSettings>().GetGroundObjType(target.EntityId);
+                GroundObjType gtype = gs.data.GetGameData<GroundObjTypeSettings>(obj).GetGroundObjType(target.EntityId);
 
                 if (gtype == null)
                 {
@@ -54,7 +55,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                 groundObjTypeId = gtype.IdKey;
                 crafterId = gtype.CrafterTypeId;
 
-                CrafterType ctype = gs.data.GetGameData<CraftingSettings>().GetCrafterType(crafterId);
+                CrafterType ctype = gs.data.GetGameData<CraftingSettings>(obj).GetCrafterType(crafterId);
                 if (ctype != null)
                 {
                     actionName = ctype.GatherActionName;
@@ -79,7 +80,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
             startCast.AnimName = animName;
 
 
-            CompleteInteract completeInteract = obj.GetCachedMessage<CompleteInteract>(true);
+            CompleteInteract completeInteract = new CompleteInteract();
             completeInteract.CasterId = obj.Id;
             completeInteract.TargetId = target.Id;
             completeInteract.CrafterTypeId = crafterId;
@@ -87,7 +88,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
             completeInteract.SkillPoints = skillPoints;
             completeInteract.GroundObjTypeId = groundObjTypeId;
             completeInteract.IsSkillLoot = message.IsSkillLoot;
-
+            gs.logger.Message("Start Interact: " + DateTime.UtcNow + " " + gatherSeconds);
             lock (target.OnActionLock)
             {
                 if (target.OnActionMessage != null && !target.OnActionMessage.IsCancelled())

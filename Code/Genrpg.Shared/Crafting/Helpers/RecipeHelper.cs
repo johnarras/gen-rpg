@@ -1,8 +1,10 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crafting.Entities;
-using Genrpg.Shared.Entities.Constants;
+
 using Genrpg.Shared.Entities.Interfaces;
+using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Crafting.Helpers
@@ -13,9 +15,9 @@ namespace Genrpg.Shared.Crafting.Helpers
         public long GetKey() { return EntityType.Recipe; }
         public string GetDataPropertyName() { return "Recipes"; }
 
-        public IIndexedGameItem Find(GameState gs, long id)
+        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
         {
-            return gs.data.GetGameData<CraftingSettings>().GetRecipeType(id);
+            return gs.data.GetGameData<RecipeSettings>(obj).GetRecipeType(id);
         }
     }
 }

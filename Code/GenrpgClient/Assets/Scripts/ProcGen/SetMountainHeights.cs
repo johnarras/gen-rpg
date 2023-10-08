@@ -1,19 +1,14 @@
 
 using System;
-using UnityEngine;
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.Interfaces;
+using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.MapServer.Entities;
-using Services.ProcGen;
 using System.Threading;
 
 public class SetMountainHeights : BaseAddMountains
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
 
         MyRandom rand = new MyRandom(gs.map.Seed % 1000000000 + 3323292);
 
@@ -116,7 +111,7 @@ public class SetMountainHeights : BaseAddMountains
                     whh *= noiseMult;
                 }
 
-                float edgePercent = (float)Mathf.Pow(gs.md.EdgeHeightmapAdjustPercent(gs, gs.map, x, y), 0.09f);
+                float edgePercent = (float)Math.Pow(gs.md.EdgeHeightmapAdjustPercent(gs, gs.map, x, y), 0.09f);
 
                 whh *= edgePercent;
                 if (whh != 0)

@@ -8,8 +8,8 @@ using Genrpg.Shared.MapServer.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Utils;
 using System.Reflection.Emit;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Categories.WorldData;
 
 namespace Genrpg.Shared.Zones.Entities
 {
@@ -51,7 +51,6 @@ namespace Genrpg.Shared.Zones.Entities
         [Key(21)] public List<ZonePlantType> PlantTypes { get; set; }
 
         public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
-
         public Zone()
         {
             Locations = new List<Location>();

@@ -1,12 +1,11 @@
 using Genrpg.Shared.Interfaces;
-using Services.ProcGen;
 using Genrpg.Shared.Reflection.Services;
 using System.Threading;
 
 public class ClientSetupService 
 {
     public static void SetupClient (UnityGameState gs, bool forRealGame, CancellationToken token)
-	{
+    {
         gs.loc.Set<IShapeService>(new ShapeService());
         gs.loc.Set<INoiseService>(new NoiseService());
         gs.loc.Set<ISamplingService>(new SamplingService());
@@ -31,7 +30,7 @@ public class ClientSetupService
             gs.loc.Set<IMapTerrainManager>(gs.AddComponent<MapTerrainManager>());
         }
 
-		gs.loc.Set<IClientLoginService>(new ClientLoginService());
+        gs.loc.Set<IClientLoginService>(new ClientLoginService());
 		gs.loc.Set<IUnitSetupService>(new UnitSetupService());
 		gs.loc.Set<IMapGenService>(new MapGenService());
 		gs.loc.Set<IZoneGenService> (new UnityZoneGenService());
@@ -44,5 +43,5 @@ public class ClientSetupService
                 setupService.Setup(gs, token);
             }
         }
-	}
+    }
 }

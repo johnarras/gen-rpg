@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Spawns.Entities;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
 
 public class LootPopup : BaseScreen
 {
-    [SerializeField]
-    private GameObject _itemAnchor;
-    [SerializeField]
-    private float _itemDelay = 0.5f;
+    
+    public GEntity _itemAnchor;
+    
+    public float _itemDelay = 0.5f;
 
 
     public override bool BlockMouse() { return false; }
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         List<SpawnResult> rewards = data as List<SpawnResult>;
         if (rewards == null || rewards.Count < 1)
@@ -25,12 +25,12 @@ public class LootPopup : BaseScreen
             return;
         }
 
-        ShowRewards(rewards, token).Forget();
+        TaskUtils.AddTask(ShowRewards(rewards, token));
 
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 
-    private async UniTask ShowRewards(List<SpawnResult> rewards, CancellationToken token)
+    private async Task ShowRewards(List<SpawnResult> rewards, CancellationToken token)
     {
         if (rewards == null || rewards.Count < 1 || _itemAnchor == null)
         {
@@ -54,14 +54,14 @@ public class LootPopup : BaseScreen
         
         while (true)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(_itemDelay), cancellationToken: token);
+            await Task.Delay(TimeSpan.FromSeconds(_itemDelay), cancellationToken: token);
 
-            if (_itemAnchor.transform.childCount < 1)
+            if (_itemAnchor.transform().childCount < 1)
             {
                 break;
             }
-            GameObject firstChild = _itemAnchor.transform.GetChild(0).gameObject;
-            GameObject.Destroy(firstChild);
+            GEntity firstChild = _itemAnchor.transform().GetChild(0).entity();
+            GEntityUtils.Destroy(firstChild);
         }
         StartClose();
     }

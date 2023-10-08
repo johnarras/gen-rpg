@@ -4,8 +4,8 @@ using System;
 using System.Linq;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Categories.WorldData;
 
 namespace Genrpg.Shared.Spawns.Entities
 {
@@ -23,7 +23,7 @@ namespace Genrpg.Shared.Spawns.Entities
         [Key(8)] public long ZoneId { get; set; }
         [Key(9)] public int SpawnSeconds { get; set; }
         [Key(10)] public long FactionTypeId { get; set; }
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Save(this); }
         public virtual string GetName() { return ""; }
+        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
     }
 }

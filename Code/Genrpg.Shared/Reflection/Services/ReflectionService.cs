@@ -1,7 +1,6 @@
 ﻿using Genrpg.Shared.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Entities.Utils;
@@ -37,7 +36,7 @@ namespace Genrpg.Shared.Reflection.Services
         string GetMemberName(object parent, object child);
         List<NameValue> GetDropdownList(GameState gs, MemberInfo mem, object obj);
         void SetObjectValue(object obj, string name, object val);
-        object AddItems(object obj, object parent, IRepositorySystem repoSystem,
+        object AddItems(object obj, object parent, IRepositorySystem repoSystem, out List<object> newItems,
             object? copyFrom = null, int maxCount = 0);
         object GetItemWithId(object list, int id, string idMemberName = GameDataConstants.IdKey);
         object GetLastItem(object list);
@@ -68,12 +67,7 @@ namespace Genrpg.Shared.Reflection.Services
                 return false;
             }
 
-            if (type.IsArray || type.IsGenericType || type.HasElementType)
-            {
-                return true;
-            }
-
-            if (type.GetMethod("ToArray") != null || type.GetMethod("ToList") != null)
+            if (type.IsArray || type.GetMethod("ToArray") != null || type.GetMethod("ToList") != null)
             {
                 return true;
             }
@@ -520,9 +514,11 @@ namespace Genrpg.Shared.Reflection.Services
             return true;
         }
 
-        public object AddItems(object obj, object parent, IRepositorySystem repoSystem,
+        public object AddItems(object obj, object parent, IRepositorySystem repoSystem, out List<object> newItems,
             object? copyFrom = null, int maxCount = 0)
         {
+            newItems = new List<object>();
+
             if (obj == null || parent == null)
             {
                 return obj;
@@ -563,26 +559,6 @@ namespace Genrpg.Shared.Reflection.Services
                         largestIdAllowed = smallestIdAllowed + GameData.IdBlockSize;
                     }
                 }
-            }
-
-            if (currSize > 75)
-            {
-                numToAdd++;
-            }
-            if (currSize > 500)
-            {
-                numToAdd++;
-            }
-            numToAdd = 1;
-
-            if (copyFrom != null)
-            {
-                numToAdd = 1;
-            }
-
-            if (maxCount > 0 && numToAdd > maxCount)
-            {
-                numToAdd = maxCount;
             }
 
             int newSize = currSize + numToAdd;
@@ -640,7 +616,7 @@ namespace Genrpg.Shared.Reflection.Services
                         }
                         largestId++;
                         SetObjectValue(obj2, GameDataConstants.IdKey, largestId);
-
+                        newItems.Add(obj2);
                         writeMethod.Invoke(newObj, new object[] { obj2, c });
                     }
 
@@ -702,6 +678,7 @@ namespace Genrpg.Shared.Reflection.Services
                         {
                             obj2 = SerializationUtils.SafeMakeCopy(copyFrom);
                         }
+                        newItems.Add(obj2);
                         largestId++;
                         try
                         {
@@ -852,7 +829,7 @@ namespace Genrpg.Shared.Reflection.Services
         }
 
 
-        public void AddOrUpdateItem<T>(List<T> list, T t) where T : IIndexedGameItem, new()
+        public void AddOrUpdateItem<T>(List<T> list, T t) where T : IIdName, new()
         {
             if (list == null || t == null)
             {
@@ -918,8 +895,8 @@ namespace Genrpg.Shared.Reflection.Services
         }
 
         public List<T> GenDataList<S, T>(List<T> list)
-            where T : IIndexedGameItem, new()
-            where S : T, IIndexedGameItem, new()
+            where T : IIdName, new()
+            where S : T, IIdName, new()
         {
             if (list == null)
             {
@@ -977,7 +954,7 @@ namespace Genrpg.Shared.Reflection.Services
 
             if (entityTypeId > 0)
             {
-                EntityType etype = gs.data.GetGameData<EntitySettings>().GetEntityType(entityTypeId);
+                EntityType etype = gs.data.GetGameData<EntitySettings>(null).GetEntityType(entityTypeId);
                 if (etype != null && !string.IsNullOrEmpty(etype.Name))
                 {
                     etypeName = etype.Name;
@@ -1123,7 +1100,7 @@ namespace Genrpg.Shared.Reflection.Services
 
             itemList = itemList.OrderBy(x => x.IdKey).ToList();
 
-            foreach (IIndexedGameItem item in itemList)
+            foreach (IIdName item in itemList)
             {
                 list.Add(new NameValue() { IdKey = item.IdKey, Name = item.Name, });
             }
@@ -1432,8 +1409,9 @@ namespace Genrpg.Shared.Reflection.Services
             {
                 return badList;
             }
+
             string subs = nm.Substring(nm.Length - 2);
-            if (nm == null || nm.Length < 2 || nm.Substring(nm.Length - 2) != GameDataConstants.IdSuffix)
+            if (subs != GameDataConstants.IdSuffix)
             {
                 return badList;
             }

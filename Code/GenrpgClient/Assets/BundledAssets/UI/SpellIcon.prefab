@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224920924469213976}
   - component: {fileID: 222322004571761522}
-  - component: {fileID: 1584158820536248591}
+  - component: {fileID: 3888281820660056414}
   m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 224362909806178708}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -46,7 +45,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1777941097986310}
   m_CullTransparentMesh: 1
---- !u!114 &1584158820536248591
+--- !u!114 &3888281820660056414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +54,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1777941097986310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: ac6b8df9b4e23cb4d8fa628fbf5ee242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -108,7 +107,6 @@ RectTransform:
   m_Children:
   - {fileID: 224920924469213976}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -135,4 +133,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb86eafe76ed364ea2d542b505a865b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 1584158820536248591}
+  SelfButton: {fileID: 0}
+  Icon: {fileID: 3888281820660056414}

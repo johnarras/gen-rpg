@@ -1,7 +1,6 @@
 ﻿
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
-using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logs.Entities;
@@ -9,13 +8,10 @@ using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using UnityEngine;
 
-public class ClientRepository<T> : IRepositoryCollection<T> where T : class, IStringId
+public class ClientRepository<T> where T : class, IStringId
 {
 
     private ILogSystem _logger;
@@ -291,23 +287,6 @@ public class ClientRepository<T> : IRepositoryCollection<T> where T : class, ISt
         {
             _logger.Info("Failed to delete file: " + path + " " + e.Message);
         }
-    }
-
-    public string LoadBakedText(string path)
-    {
-        UnityEngine.Object textObject = Resources.Load(path);
-        if (textObject == null)
-        {
-            return "";
-        }
-
-        TextAsset tdata = textObject as TextAsset;
-        if (tdata == null)
-        {
-            return "";
-        }
-
-        return tdata.text;
     }
 
     public async Task<List<T>> LoadAll(List<string> ids)

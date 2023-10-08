@@ -1,5 +1,6 @@
 using MessagePack;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.DataStores.GameSettings;
 
 namespace Genrpg.Shared.ProcGen.Entities
 {
@@ -16,20 +17,21 @@ namespace Genrpg.Shared.ProcGen.Entities
     }
 
     [MessagePackObject]
-    public class TreeType : IIndexedGameItem
+    public class TreeType : ChildSettings, IIndexedGameItem
     {
-        
-        [Key(0)] public long IdKey { get; set; }
-        [Key(1)] public string Name { get; set; }
-        [Key(2)] public string Desc { get; set; }
-        [Key(3)] public string Icon { get; set; }
-        [Key(4)] public string Art { get; set; }
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string ParentId { get; set; }
+        [Key(2)] public long IdKey { get; set; }
+        [Key(3)] public override string Name { get; set; }
+        [Key(4)] public string Desc { get; set; }
+        [Key(5)] public string Icon { get; set; }
+        [Key(6)] public string Art { get; set; }
 
-        [Key(5)] public float Scale { get; set; } = 1.0f;
+        [Key(7)] public float Scale { get; set; } = 1.0f;
 
-        [Key(6)] public int VariationCount { get; set; } = 1;
+        [Key(8)] public int VariationCount { get; set; } = 1;
 
-        [Key(7)] public int Flags { get; set; }
+        [Key(9)] public int Flags { get; set; }
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }

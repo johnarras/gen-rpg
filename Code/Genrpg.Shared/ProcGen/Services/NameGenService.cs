@@ -123,7 +123,7 @@ namespace Genrpg.Shared.ProcGen.Services
             }
 
 
-            NameList nl = gs.data.GetGameData<NameSettings>().GetNameList(nameListName);
+            NameList nl = gs.data.GetGameData<NameSettings>(null).GetNameList(nameListName);
 
             if (nl != null && nl.Names != null && nl.Names.Count > 0)
             {
@@ -153,9 +153,9 @@ namespace Genrpg.Shared.ProcGen.Services
             }
             else if (name.IndexOf("ZoneName") >= 0)
             {
-                if (gs.data.GetGameData<ProcGenSettings>().ZoneTypes != null)
+                if (gs.data.GetGameData<ZoneTypeSettings>(null).GetData() != null)
                 {
-                    foreach (ZoneType zt in gs.data.GetGameData<ProcGenSettings>().ZoneTypes)
+                    foreach (ZoneType zt in gs.data.GetGameData<ZoneTypeSettings>(null).GetData())
                     {
                         list.Add(zt);
                     }

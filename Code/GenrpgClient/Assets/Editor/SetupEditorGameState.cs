@@ -4,7 +4,7 @@ using Assets.Scripts.Model;
 using Genrpg.Shared.Constants;
 using UnityEngine;
 using Genrpg.Shared.Setup.Services;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.GameSettings;
 

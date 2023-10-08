@@ -1,0 +1,59 @@
+{
+  "Id": "default",
+  "Data": [
+    {
+      "Id": "storeproducttype0default",
+      "ParentId": "default",
+      "Name": "None"
+    },
+    {
+      "Id": "storeproducttype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Small Gem Pack",
+      "ProductSkuTypeId": 3,
+      "Rewards": [
+        {
+          "EntityTypeId": 1,
+          "EntityId": 1,
+          "MinQuantity": 300,
+          "MaxQuantity": 300,
+          "Weight": 100.0
+        }
+      ]
+    },
+    {
+      "Id": "storeproducttype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Medium Gem Pack",
+      "ProductSkuTypeId": 8,
+      "Rewards": [
+        {
+          "EntityTypeId": 1,
+          "EntityId": 1,
+          "MinQuantity": 1000,
+          "MaxQuantity": 1000,
+          "Weight": 100.0
+        }
+      ]
+    },
+    {
+      "Id": "storeproducttype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Large Gem Pack",
+      "ProductSkuTypeId": 13,
+      "Rewards": [
+        {
+          "EntityTypeId": 1,
+          "EntityId": 1,
+          "MinQuantity": 2000,
+          "MaxQuantity": 2000,
+          "Weight": 100.0
+        }
+      ]
+    }
+  ],
+  "Name": "StoreProductTypeSettings"
+}

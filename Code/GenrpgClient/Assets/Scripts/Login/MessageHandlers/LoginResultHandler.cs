@@ -1,19 +1,17 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.Login.Messages.UploadMap;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using UI.Screens.Constants;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
@@ -25,10 +23,10 @@ namespace Assets.Scripts.Login.MessageHandlers
         private INetworkService _networkService;
         protected override void InnerProcess(UnityGameState gs, LoginResult result, CancellationToken token)
         {
-            InnerProcessAsync(gs, result, token).Forget();
+            TaskUtils.AddTask(InnerProcessAsync(gs, result, token));
         }
 
-        private async UniTask InnerProcessAsync(UnityGameState gs, LoginResult result, CancellationToken token)
+        private async Task InnerProcessAsync(UnityGameState gs, LoginResult result, CancellationToken token)
         { 
             List<ScreenId> keepOpenScreens = new List<ScreenId>();
             if (_screenService.GetScreen(gs, ScreenId.Signup) != null)
@@ -54,9 +52,10 @@ namespace Assets.Scripts.Login.MessageHandlers
             gs.characterStubs = result.CharacterStubs;
             gs.mapStubs = result.MapStubs;
             gs.data = new GameData();
-            foreach (BaseGameData baseGameData in result.Data)
+            foreach (IGameSettings baseGameData in result.GameData)
             {
-                baseGameData.Set(gs.data);
+                baseGameData.Id = GameDataConstants.DefaultFilename;
+                baseGameData.AddTo(gs.data);
             }
 
             if (gs.user != null && !String.IsNullOrEmpty(gs.user.Id))
@@ -66,10 +65,11 @@ namespace Assets.Scripts.Login.MessageHandlers
 
             while (!_assetService.IsInitialized(gs))
             {
-                await UniTask.NextFrame();
+                await Task.Delay(1);
             }
 
-            await UniTask.DelayFrame(5);
+            await Task.Delay(1);
+            await Task.Delay(1);
 
             _screenService.CloseAll(gs);
             _screenService.Close(gs, ScreenId.HUD);
@@ -80,7 +80,7 @@ namespace Assets.Scripts.Login.MessageHandlers
             //await RetryUploadMap(gs, token);
         }
 
-        public async UniTask RetryUploadMap(UnityGameState gs, CancellationToken token)
+        public async Task RetryUploadMap(UnityGameState gs, CancellationToken token)
         {
             string mapId = "1";
 

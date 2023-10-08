@@ -1,17 +1,11 @@
 
 using System;
-using UnityEngine;
-using Genrpg.Shared.Core.Entities;
-using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Interfaces;
-using Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Services.ProcGen;
+using System.Threading.Tasks;
 using System.Threading;
 
 public class SmoothHeightsFinal : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         int hwid = gs.map.GetHwid();
@@ -65,7 +59,7 @@ public class SmoothHeightsFinal : BaseZoneGenerator
                             float dx = xx - x;
                             float dy = yy - y;
 
-                            float dist = Mathf.Sqrt(dx * dx + dy * dy);
+                            float dist = (float)Math.Sqrt(dx * dx + dy * dy);
                             if (dist < otherZoneDist)
                             {
                                 otherZoneDist = dist;
@@ -124,7 +118,7 @@ public class SmoothHeightsFinal : BaseZoneGenerator
 						continue;
 					}
 
-					float dx = Mathf.Abs (xx-x);
+					float dx = Math.Abs (xx-x);
 					for (int yy = y-currRadius; yy <= y+currRadius; yy++)
 					{
 						if (yy < 0 || yy >= gs.map.GetHhgt())
@@ -133,12 +127,12 @@ public class SmoothHeightsFinal : BaseZoneGenerator
 						}
 
 
-                        float dy = Mathf.Abs (yy-y);
+                        float dy = Math.Abs (yy-y);
 
 						float totalOffset = dx+dy;
 
 						float currweight = 1;
-						currweight = Mathf.Pow(currSmoothingScale,totalOffset);
+						currweight = (float)Math.Pow(currSmoothingScale,totalOffset);
 						
 
 

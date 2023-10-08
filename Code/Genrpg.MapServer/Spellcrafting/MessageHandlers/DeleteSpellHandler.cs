@@ -23,18 +23,22 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
 
             SpellData spellData = ch.Get<SpellData>();
 
-            List<Spell> deleteSpells = spellData.Data.Where(x => x.IdKey == message.SpellId).ToList();
+            List<Spell> deleteSpells = spellData.GetData().Where(x => x.IdKey == message.SpellId).ToList();
 
             if (deleteSpells.Count < 1)
             {
                 pack.SendError(gs, ch, "Missing spell");
             }
 
-            spellData.Data = spellData.Data.Where(x => x.IdKey != message.SpellId).ToList();
+            spellData.SetData(spellData.GetData().Where(x => x.IdKey != message.SpellId).ToList());
             spellData.SetDirty(true);
+            foreach (Spell spell in deleteSpells)
+            {
+                gs.repo.QueueDelete(spell);
+            }
             ActionInputData actionData = ch.Get<ActionInputData>();
 
-            List<ActionInput> removeInputs = actionData.Data.Where(x => x.SpellId == message.SpellId).ToList();
+            List<ActionInput> removeInputs = actionData.GetData().Where(x => x.SpellId == message.SpellId).ToList();
 
             ch.AddMessage(new OnDeleteSpell() { SpellId = message.SpellId });
             foreach (ActionInput removeInput in removeInputs)

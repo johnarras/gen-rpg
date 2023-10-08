@@ -23,7 +23,7 @@ namespace Genrpg.Shared.ProcGen.Services
             Dictionary<string, string> args = null)
         {
 
-            UnitType utype = gs.data.GetGameData<UnitSettings>().GetUnitType(unitTypeId);
+            UnitType utype = gs.data.GetGameData<UnitSettings>(null).GetUnitType(unitTypeId);
             if (utype == null)
             {
                 return "Monster";
@@ -36,7 +36,7 @@ namespace Genrpg.Shared.ProcGen.Services
                 return utype.Name;
             }
 
-            ZoneType ztype = gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId);
+            ZoneType ztype = gs.data.GetGameData<ZoneTypeSettings>(null).GetZoneType(zone.ZoneTypeId);
             if (ztype == null)
             {
                 return utype.Name;
@@ -65,7 +65,7 @@ namespace Genrpg.Shared.ProcGen.Services
             Dictionary<string, string> args = null)
         {
 
-            UnitType utype = gs.data.GetGameData<UnitSettings>().GetUnitType(unitTypeId);
+            UnitType utype = gs.data.GetGameData<UnitSettings>(null).GetUnitType(unitTypeId);
             if (utype == null)
             {
                 return "";
@@ -77,7 +77,7 @@ namespace Genrpg.Shared.ProcGen.Services
                 return utype.Name;
             }
 
-            ZoneType ztype = gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId);
+            ZoneType ztype = gs.data.GetGameData<ZoneTypeSettings>(null).GetZoneType(zone.ZoneTypeId);
             if (ztype == null)
             {
                 return "";
@@ -96,7 +96,7 @@ namespace Genrpg.Shared.ProcGen.Services
                 args = new Dictionary<string, string>();
             }
 
-            NameList overallList = gs.data.GetGameData<NameSettings>().GetNameList("CreatureOverallNames");
+            NameList overallList = gs.data.GetGameData<NameSettings>(null).GetNameList("CreatureOverallNames");
             string overallName = "";
             if (overallList != null)
             {
@@ -312,13 +312,13 @@ namespace Genrpg.Shared.ProcGen.Services
                     weightChosen -= mon.Pop;
                     if (weightChosen <= 0)
                     {
-                        return gs.data.GetGameData<UnitSettings>().GetUnitType(mon.UnitTypeId);
+                        return gs.data.GetGameData<UnitSettings>(null).GetUnitType(mon.UnitTypeId);
                     }
                 }
             }
 
 
-            return gs.data.GetGameData<UnitSettings>().GetUnitType(zone.Units[gs.rand.Next() % zone.Units.Count].UnitTypeId);
+            return gs.data.GetGameData<UnitSettings>(null).GetUnitType(zone.Units[gs.rand.Next() % zone.Units.Count].UnitTypeId);
         }
     }
 }

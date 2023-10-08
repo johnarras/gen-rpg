@@ -1,22 +1,12 @@
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEngine;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.MapServer.Entities;
-using Services.ProcGen;
+using System.Threading.Tasks;
 using System.Threading;
+using UnityEngine; // Needed
 
 public class SetFinalTerrainTextures : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 
@@ -24,7 +14,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
         await WaitForTerrainLayerLoad(gs);
     }
 
-    private async UniTask WaitForTerrainLayerLoad(UnityGameState gs)
+    private async Task WaitForTerrainLayerLoad(UnityGameState gs)
     {
         for (int x = 0; x < gs.md.awid; x++)
         {
@@ -54,7 +44,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
         {
             if (_assetService.IsDownloading(gs))
             {
-                await UniTask.NextFrame();
+                await Task.Delay(1);
             }
             else
             {
@@ -62,7 +52,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
             }
         }
 
-        await UniTask.Delay(TimeSpan.FromSeconds(1.0f));
+        await Task.Delay(TimeSpan.FromSeconds(1.0f));
 
         while (true)
         {
@@ -119,7 +109,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
 
             if (missingLayer)
             {
-                await UniTask.Delay(TimeSpan.FromSeconds(1.0f));
+                await Task.Delay(TimeSpan.FromSeconds(1.0f));
             }
             else
             {
@@ -131,7 +121,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
         {
             if (_assetService.IsDownloading(gs))
             {
-                await UniTask.Delay(TimeSpan.FromSeconds(2.0f));
+                await Task.Delay(TimeSpan.FromSeconds(2.0f));
             }
             else
             {
@@ -140,7 +130,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
         }
 
 
-        await UniTask.Delay(TimeSpan.FromSeconds(10.0f));
+        await Task.Delay(TimeSpan.FromSeconds(10.0f));
 
         gs.md.HaveSetAlphaSplats = true;
 	}

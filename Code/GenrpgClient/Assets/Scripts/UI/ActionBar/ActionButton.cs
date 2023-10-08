@@ -1,6 +1,4 @@
 ﻿using System;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Input.Entities;
 using Genrpg.Shared.Inventory.Entities;
@@ -8,8 +6,7 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Spells.Entities;
 using Assets.Scripts.Atlas.Constants;
 using System.Threading;
-using UnityEngine;
-using UI.Screens.Constants;
+using GPointerEventData = UnityEngine.EventSystems.PointerEventData;
 
 public class InitActionIconData : InitSpellIconData
 {
@@ -18,19 +15,17 @@ public class InitActionIconData : InitSpellIconData
 
 public class ActionButton : SpellIcon
 {
+    public GImage Tint;
+    public GText KeyBind;
+    public GText Charges;
+
     Spell _spell = null;
     private int _actionIndex = -1;
     public int ActionIndex => _actionIndex;
     DateTime cooldownStart;
     DateTime cooldownEnd;
 
-    [SerializeField]
-    private Image _tint;
-    [SerializeField]
-    private Text _keyBind;
-    [SerializeField]
-    private Text _charges;
-
+    
 
     public override void Init(InitSpellIconData spellIconData, CancellationToken token)
     {
@@ -39,8 +34,8 @@ public class ActionButton : SpellIcon
         {
             return;
         }
-        name = name + initData.actionIndex;
-        UIHelper.SetButton(_selfButton, spellIconData.Screen.GetAnalyticsName(), ClickButton);
+        name = GetType().Name + initData.actionIndex;
+        UIHelper.SetButton(SelfButton, spellIconData.Screen.GetAnalyticsName(), ClickButton);
         base.Init(spellIconData, token); 
         if (_gs.ch == null)
         {
@@ -65,7 +60,7 @@ public class ActionButton : SpellIcon
         }
         initData.Data = _spell;
 
-        UIHelper.SetText(_keyBind, "");
+        UIHelper.SetText(KeyBind, "");
 
         KeyCommData keyCommData = _gs.ch.Get<KeyCommData>();
 
@@ -73,7 +68,7 @@ public class ActionButton : SpellIcon
 
         if (keyCode != null)
         {
-            UIHelper.SetText(_keyBind, keyCode.ShowName());
+            UIHelper.SetText(KeyBind, keyCode.ShowName());
         }
 
         string iconName = ItemConstants.BlankIconName;
@@ -82,14 +77,14 @@ public class ActionButton : SpellIcon
             iconName = _spell.Icon;
         }
 
-        _assetService.LoadSpriteInto(_gs, AtlasNames.SkillIcons, iconName, _icon, _token);
+        _assetService.LoadSpriteInto(_gs, AtlasNames.SkillIcons, iconName, Icon, _token);
 
-        if (_tint != null && _spell == null)
+        if (Tint != null && _spell == null)
         {
-            _tint.fillAmount = 0;
+            Tint.FillAmount = 0;
         }
 
-        UIHelper.SetText(_charges, "");
+        UIHelper.SetText(Charges, "");
     }
 
     protected void ClickButton()
@@ -97,7 +92,7 @@ public class ActionButton : SpellIcon
 
     }
 
-    public override void OnPointerDown(PointerEventData eventData)
+    public override void OnPointerDown(GPointerEventData eventData)
     {
         if (!InputConstants.OkActionIndex(ActionIndex))
         {
@@ -138,7 +133,7 @@ public class ActionButton : SpellIcon
     float _lastFillAmount = -1;
     public void UpdateCooldown()
     {
-        if (_tint == null || _spell == null)
+        if (Tint == null || _spell == null)
         {
             return;
         }
@@ -148,7 +143,7 @@ public class ActionButton : SpellIcon
             if (_spell.CurrCharges != _lastCharges)
             {
                 _lastCharges = _spell.CurrCharges;
-                UIHelper.SetText(_charges, _lastCharges.ToString());
+                UIHelper.SetText(Charges, _lastCharges.ToString());
 
                 if (_spell.CurrCharges < _spell.MaxCharges && _spell.CooldownEnds > DateTime.UtcNow)
                 {
@@ -160,27 +155,27 @@ public class ActionButton : SpellIcon
 
         if (cooldownEnd <= DateTime.UtcNow)
         {
-            _tint.fillAmount = 0;
+            Tint.FillAmount = 0;
             _lastFillAmount = 0;
             return;
         }
         if (cooldownStart >= DateTime.UtcNow)
         {
-            _tint.fillAmount = 1;
+            Tint.FillAmount = 1;
             _lastFillAmount = 1;
             return;
         }
         double totalSeconds = (cooldownEnd - cooldownStart).TotalSeconds;
         if (totalSeconds <= 0)
         {
-            _tint.fillAmount = 0;
+            Tint.FillAmount = 0;
             _lastFillAmount = 0;
             return;
         }
 
-        float oldFillAmount = _tint.fillAmount;
+        float oldFillAmount = Tint.fillAmount;
         float pctComplete = MathUtils.Clamp(0, (float)((DateTime.UtcNow - cooldownStart).TotalSeconds / totalSeconds), 1);
-        _tint.fillAmount = 1 - pctComplete;
+        Tint.FillAmount = 1 - pctComplete;
         _lastFillAmount = 1 - pctComplete;
 
     }

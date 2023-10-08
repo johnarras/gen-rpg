@@ -38,11 +38,10 @@ namespace Genrpg.MapServer.Combat.MessageHandlers
                 Zone zone = gs.map.Get<Zone>(message.ZoneId);
                 if (zone != null)
                 {
-                    LevelData level = gs.data.GetGameData<LevelSettings>().GetLevel(zone.Level);
+                    LevelInfo level = gs.data.GetGameData<LevelSettings>(obj).GetLevel(zone.Level);
 
                     if (level != null)
                     {
-
                         _currencyService.Add(gs, ch, CurrencyType.Exp, level.MobExp);
                         _levelService.UpdateLevel(gs, ch);
                     }

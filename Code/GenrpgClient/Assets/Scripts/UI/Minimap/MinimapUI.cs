@@ -1,28 +1,20 @@
 
 using System;
 using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
+using GEntity = UnityEngine.GameObject;
 using ClientEvents;
 using Genrpg.Shared.DataStores.Entities;
-using Entities;
 using Genrpg.Shared.Utils;
 using System.Threading;
+using UnityEngine;
 
 public class MinimapUI : BaseBehaviour
 {
-    [SerializeField]
-    private GameObject _panel;
-    [SerializeField]
-    private RawImage _mapImage;
-    [SerializeField]
-    private GameObject _arrowParent;
-    private GameObject _arrowObject;
+    
+    public GEntity MainPanel;
+    public GRawImage MapImage;
+    public GEntity ArrowParent;
+    public GEntity ArrowObject;
 
     private CancellationToken _token;
         
@@ -34,9 +26,9 @@ public class MinimapUI : BaseBehaviour
         _gs.AddEvent<LoadMinimapEvent>(this, OnLoadMinimap);
         OnDisableMinimap(_gs, null);
         AddUpdate(MinimapUpdate, UpdateType.Regular);
-        if (_arrowParent != null)
+        if (ArrowParent != null)
         {
-            _assetService.LoadAssetInto(_gs, _arrowParent, AssetCategory.UI, "PlayerArrow", OnLoadArrow, null, token);
+            _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategory.UI, "PlayerArrow", OnLoadArrow, null, token);
         }
 
         ShowMapImage();
@@ -44,9 +36,9 @@ public class MinimapUI : BaseBehaviour
 
     private void ShowMapImage()
     {
-        if (_mapImage != null && UnityZoneGenService.mapTexture != null)
+        if (MapImage != null && UnityZoneGenService.mapTexture != null)
         {
-            UIHelper.SetImageTexture(_mapImage, UnityZoneGenService.mapTexture);
+            UIHelper.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
             OnEnableMinimap(_gs, null);
             
         }
@@ -65,40 +57,40 @@ public class MinimapUI : BaseBehaviour
 
     private void OnLoadArrow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        _arrowObject = obj as GameObject;
+        ArrowObject = obj as GEntity;
     }
 
 	void MinimapUpdate()
 	{
-        GameObject player = PlayerObject.Get ();
-        if (player == null || _mapImage ==  null || _mapImage.texture == null || _gs.md == null || _gs.md.GeneratingMap)
+        GEntity player = PlayerObject.Get ();
+        if (player == null || MapImage ==  null || MapImage.texture == null || _gs.md == null || _gs.md.GeneratingMap)
         {
             return;
         }
-        Vector3 pos = player.transform.localPosition;
+        GVector3 pos = GVector3.Create(player.transform().localPosition);
 
         // Player pct goes from -0.5 to 0.5.
         float xpct = pos.x / _gs.map.GetHwid();
         float ypct = pos.z / _gs.map.GetHhgt();
 
-        float imageSize = _mapImage.rectTransform.sizeDelta.x;
+        float imageSize = MapImage.rectTransform.sizeDelta.x;
 
 
-        if (_mapImage.texture != null)
+        if (MapImage.texture != null)
         {
             float sizePct = 256.0f / _gs.map.GetHwid();
             sizePct = MathUtils.Clamp(0.02f, sizePct, 0.15f);
             float xminpct = xpct - sizePct / 2;
             float yminpct = ypct - sizePct / 2;
-            _mapImage.uvRect = new Rect(new Vector2(xminpct, yminpct), new Vector2(sizePct, sizePct));
+            MapImage.uvRect = new Rect(new Vector2(xminpct, yminpct), new Vector2(sizePct, sizePct));
         }
 
 
-        float rot = player.transform.eulerAngles.y;
+        float rot = player.transform().eulerAngles.y;
 
-		if (_arrowObject != null)
+		if (ArrowObject != null)
 		{
-			_arrowObject.transform.eulerAngles = new Vector3(0,0,-rot);
+			ArrowObject.transform().eulerAngles = GVector3.Create(0,0,-rot);
 		}
 
 
@@ -107,13 +99,13 @@ public class MinimapUI : BaseBehaviour
 
     private EnableMinimapEvent OnEnableMinimap(UnityGameState gs, EnableMinimapEvent data)
     {
-        GameObjectUtils.SetActive(_panel, true);
+        GEntityUtils.SetActive(MainPanel, true);
         return null;
     }
 
     private DisableMinimapEvent OnDisableMinimap(UnityGameState gs, DisableMinimapEvent data)
     {
-        GameObjectUtils.SetActive(_panel, false);
+        GEntityUtils.SetActive(MainPanel, false);
         return null;
     }
 

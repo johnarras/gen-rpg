@@ -8,11 +8,11 @@ public interface IStatService : IService
 {
     float Pct(Unit unit, long statTypeId);
     void CalcStats(GameState gs, Unit unit, bool resetMutableStats);
-    List<StatType> GetMutableStatTypes(GameState gs);
-    List<StatType> GetFixedStatTypes(GameState gs);
-    List<StatType> GetPrimaryStatTypes(GameState gs);
-    List<StatType> GetAttackStatTypes(GameState gs);
-    List<StatType> GetSecondaryStatTypes(GameState gs);
+    List<StatType> GetMutableStatTypes(GameState gs, Unit unit);
+    List<StatType> GetFixedStatTypes(GameState gs, Unit unit);
+    List<StatType> GetPrimaryStatTypes(GameState gs, Unit unit);
+    List<StatType> GetAttackStatTypes(GameState gs, Unit unit);
+    List<StatType> GetSecondaryStatTypes(GameState gs, Unit unit);
 
     void Add(GameState gs, Unit unit, long statTypeId, int statCategory, long value);
     void Set(GameState gs, Unit unit, long statTypeId, int statCategory, long value);

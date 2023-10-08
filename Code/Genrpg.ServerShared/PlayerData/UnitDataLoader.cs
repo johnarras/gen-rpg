@@ -16,8 +16,8 @@ namespace Genrpg.ServerShared.PlayerData
     public class UnitDataLoader<UD> : IUnitDataLoader where UD : class, IUnitData, new()
     {
         public virtual Type GetServerType() { return typeof(UD); }
-        public virtual bool ShouldSendToClient() { return true; }
-        public virtual async Task Setup(ServerGameState gs) { }
+        public virtual bool SendToClient() { return true; }
+        public virtual async Task Setup(ServerGameState gs) { await Task.CompletedTask; }
         protected virtual bool IsUserData() { return false; }
 
         public IUnitData Create(Unit unit)
@@ -48,14 +48,6 @@ namespace Genrpg.ServerShared.PlayerData
         public virtual IUnitData MapToAPI(IUnitData serverObject)
         {
             return serverObject;
-        }
-
-        public virtual void Delete(IRepositorySystem repoSystem, IUnitData data)
-        {
-            if (data is UD serverData)
-            {
-                repoSystem.Delete(serverData);
-            }
         }
     }
 }

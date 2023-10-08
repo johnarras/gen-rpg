@@ -3,7 +3,7 @@ using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Entities;
 using System.Threading;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 public class BridgeObjectLoader : BaseObjectLoader
 {
@@ -22,7 +22,7 @@ public class BridgeObjectLoader : BaseObjectLoader
         int angle = (int)(MapConstants.BridgeAngleDiv * (upperNumber & ((1 << MapConstants.BridgeHeightBitShift) - 1)));
         float bridgeHeight = (upperNumber >> MapConstants.BridgeHeightBitShift) + MapConstants.MinLandHeight;
 
-        BridgeType bridgeType = gs.data.GetGameData<ProcGenSettings>().GetBridgeType ((int)objectId);
+        BridgeType bridgeType = gs.data.GetGameData<BridgeTypeSettings>(gs.ch).GetBridgeType ((int)objectId);
         if (bridgeType == null)
         {
             return false;
@@ -48,13 +48,13 @@ public class BridgeObjectLoader : BaseObjectLoader
 
         return true;
     }
-    public void AfterLoadObject(UnityGameState gs, GameObject go, DownloadObjectData dlo, CancellationToken token)
+    public void AfterLoadObject(UnityGameState gs, GEntity go, DownloadObjectData dlo, CancellationToken token)
     {
-        go.transform.localScale = Vector3.one;
-        go.transform.localRotation = Quaternion.identity;
+        go.transform().localScale = GVector3.onePlatform;
+        go.transform().localRotation = GQuaternion.identity;
         if (dlo.rotation != null)
         {
-            go.transform.Rotate(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
+            go.transform().Rotate(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
         }
     }
 }

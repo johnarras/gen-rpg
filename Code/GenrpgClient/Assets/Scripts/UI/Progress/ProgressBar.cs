@@ -1,14 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using Entities;
 using Genrpg.Shared.Utils;
 
 public class ProgressBar : BaseBehaviour
@@ -22,24 +12,17 @@ public class ProgressBar : BaseBehaviour
         Percent=4,
     }
 
-    [SerializeField]
-    private Animator _animator;
-    [SerializeField]
-    private Image _frontBar;
-    [SerializeField]
-    private Image _backBar;
-    [SerializeField]
-    private int _fillTicks = 0;
-    [SerializeField]
-    private float _pulsePercent;
-    [SerializeField]
-    private float _minBarWidth;
-    [SerializeField]
-    private float _maxBarWidth;
-    [SerializeField]
-    private Text _barText;
-    [SerializeField]
-    private ShowTextOption _textOption = ShowTextOption.CurrentOverMax;
+    
+    public GAnimator Animator;
+    public GImage FrontBar;
+    public GImage BackBar;
+    public int FillTicks = 0;
+    public float PulsePercent;
+    public float MinBarWidth;
+    public float MaxBarWidth;
+    public GText BarText;
+    
+    public ShowTextOption _textOption = ShowTextOption.CurrentOverMax;
 
     private long _minValue = 0;
     private long _maxValue = 1;
@@ -98,28 +81,28 @@ public class ProgressBar : BaseBehaviour
     public void ShowBar()
     {
         ShowText();
-        if (_frontBar == null)
+        if (FrontBar == null)
         {
             return;
         }
 
         // Front bar only, always shows curr value
-        if (_backBar == null)
+        if (BackBar == null)
         {
-            ShowOneBar(_frontBar, _currValue);
+            ShowOneBar(FrontBar, _currValue);
         }
         else
         {
             long frontValue = Math.Min(_currValue, _targetValue);
             long backValue = Math.Max(_currValue, _targetValue);
-            ShowOneBar(_frontBar, frontValue);
-            ShowOneBar(_backBar, backValue);
+            ShowOneBar(FrontBar, frontValue);
+            ShowOneBar(BackBar, backValue);
         }
     }
 
     private double _currPct = -1;
     private bool _didInit = false;
-    private void ShowOneBar (Image bar, long value)
+    private void ShowOneBar (GImage bar, long value)
     { 
         if (bar == null)
         {
@@ -143,50 +126,50 @@ public class ProgressBar : BaseBehaviour
         _didInit = true;
         if (currPct <= 0 && bar.IsActive())
         {
-            GameObjectUtils.SetActive(bar, false);
+            GEntityUtils.SetActive(bar, false);
         }
         else if (currPct > 0 && !bar.IsActive())
         {
-            GameObjectUtils.SetActive(bar, true);
+            GEntityUtils.SetActive(bar, true);
         }
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        _maxBarWidth = rectTransform.rect.width;
+        UnityEngine.RectTransform rectTransform = GetComponent<UnityEngine.RectTransform>();
+        MaxBarWidth = rectTransform.rect.width;
         if (currPct >= 0)
         {
-            int barWidth = (int)(_minBarWidth + currPct * (_maxBarWidth - _minBarWidth));
-            bar.rectTransform.sizeDelta = new Vector2((float)(barWidth), bar.rectTransform.sizeDelta.y);
+            int barWidth = (int)(MinBarWidth + currPct * (MaxBarWidth - MinBarWidth));
+            bar.rectTransform.sizeDelta = new UnityEngine.Vector2((float)(barWidth), bar.rectTransform.sizeDelta.y);
         }
     }
 
     private void ShowText()
     {
-        if (_barText == null)
+        if (BarText == null)
         {
             return;
         }
 
         if (_textOption == ShowTextOption.Hide)
         {
-            _barText.text = "";
+            BarText.text = "";
         }
         else if (_textOption == ShowTextOption.Current)
         {
-            _barText.text = _currValue.ToString();
+            BarText.text = _currValue.ToString();
         }
         else if (_textOption == ShowTextOption.CurrentOverMax)
         {
-            _barText.text = _currValue + "/" + _maxValue;
+            BarText.text = _currValue + "/" + _maxValue;
         }
         else if (_textOption == ShowTextOption.Custom)
         {
-            _barText.text = _customText;
+            BarText.text = _customText;
         }
         else if (_textOption == ShowTextOption.Percent)
         {
             if (_maxValue > _minValue)
             {
                 double pct = 100.0 * (_currValue - _minValue) / (_maxValue - _minValue);
-                _barText.text = (int)(pct) + "%";
+                BarText.text = (int)(pct) + "%";
             }
         }
     }
@@ -213,9 +196,9 @@ public class ProgressBar : BaseBehaviour
 
         long startFillSpeed = fillSpeed;
 
-        if (_fillTicks > 1)
+        if (FillTicks > 1)
         {
-            fillSpeed /= _fillTicks;
+            fillSpeed /= FillTicks;
             if (fillSpeed == 0)
             {
                 if (_currValue == _oldValue)
@@ -224,7 +207,7 @@ public class ProgressBar : BaseBehaviour
                 }
                 else
                 {
-                    fillFraction = 1.0f * startFillSpeed / _fillTicks;
+                    fillFraction = 1.0f * startFillSpeed / FillTicks;
                     currFillFraction += fillFraction;
                 }
             }
@@ -262,13 +245,13 @@ public class ProgressBar : BaseBehaviour
 
     private void ShowPulse()
     {
-        if (_animator == null)
+        if (Animator == null)
         {
             return;
         }
 
         double currPct = 1.0 * (_currValue - _minValue) / (_maxValue - _minValue);
-        _animator.SetBool("Pulse", currPct <= _pulsePercent);
+        Animator.SetBool("Pulse", currPct <= PulsePercent);
     }
 
 

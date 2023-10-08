@@ -1,14 +1,14 @@
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using System.Collections.Generic;
 using Genrpg.Shared.DataStores.Entities;
-using ClientEvents;
 using UI.Screens.Constants;
 using Assets.Scripts.UI.Config;
 using System.Linq;
 using UI.Screens.Utils;
 using System.Threading;
 using Assets.Scripts.Tokens;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
+using UnityEngine;
 
 public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 {
@@ -16,7 +16,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
     public List<ScreenId> AllowMultiQueueScreens;
 
-    public GameObject DragParent;
+    public GEntity DragParent;
 
     private ScreenConfig[] _screenConfigs = null;
 
@@ -32,7 +32,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
         _gs.loc.Set<IScreenService>(this);
         SetupLayers();
         StartUpdates();
-        _screenConfigs = Resources.LoadAll<ScreenConfig>("ScreenConfigs");
+        _screenConfigs = AssetUtils.LoadAllResources<ScreenConfig>("ScreenConfigs");
     }
 
     public void StartUpdates()
@@ -48,20 +48,20 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
             return;
         }
         _haveSetupLayers = true;
-        GameObjectUtils.DestroyAllChildren(gameObject);
+        GEntityUtils.DestroyAllChildren(entity);
         for (int i = 0; i < Layers.Count; i++)
         {
             Layers[i].CurrentScreen = null;
             Layers[i].ScreenQueue = new List<ActiveScreen>();
         }
 
-        GameObjectUtils.DestroyAllChildren(gameObject);
+        GEntityUtils.DestroyAllChildren(entity);
         for (int i = 0; i < Layers.Count; i++)
         {
-            Layers[i].LayerParent = new GameObject();
+            Layers[i].LayerParent = new GEntity();
             Layers[i].LayerParent.name = Layers[i].LayerId + "Layer";
             Layers[i].Index = i;
-            GameObjectUtils.AddToParent(Layers[i].LayerParent, gameObject);
+            GEntityUtils.AddToParent(Layers[i].LayerParent, entity);
             if (Layers[i].LayerId == ScreenLayers.DragItems)
             {
                 DragParent = Layers[i].LayerParent;
@@ -101,12 +101,12 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
     private void OnLoadScreen(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        OnLoadScreenAsync(gs, url, obj, data, token).Forget();
+        TaskUtils.AddTask(OnLoadScreenAsync(gs, url, obj, data, token));
     }
 
-    private async UniTask OnLoadScreenAsync (UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private async Task OnLoadScreenAsync (UnityGameState gs, string url, object obj, object data, CancellationToken token)
     { 
-        GameObject screen = obj as GameObject;
+        GEntity screen = obj as GEntity;
         ActiveScreen nextItem = data as ActiveScreen;
         
         
@@ -119,7 +119,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
         if (nextItem ==null)
         {
             _gs.logger.Debug("Couldn't find active screen object for new screen");
-            GameObject.Destroy(screen);
+            GEntityUtils.Destroy(screen);
             return;
         }
 
@@ -128,7 +128,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
         if (layer == null)
         {
             _gs.logger.Debug("Couldn't find active screen layer for new screen");
-            GameObject.Destroy(screen);
+            GEntityUtils.Destroy(screen);
             return;
         }
 
@@ -137,7 +137,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
         if (bs == null)
         {
-            GameObject.Destroy(screen);
+            GEntityUtils.Destroy(screen);
             _gs.logger.Debug("Screen had no BaseScreen on it");
             return;
         }
@@ -150,7 +150,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
             canvas.sortingOrder = layer.Index * 10;
         }
 
-        Camera cam = GameObjectUtils.GetComponent<Camera>(screen);
+        Camera cam = GEntityUtils.GetComponent<Camera>(screen);
         if (cam != null)
         {
             cam.depth = 100 * (layer.Index + 1);
@@ -264,7 +264,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
                 BaseScreen baseScreen = layer.CurrentScreen.Screen as BaseScreen;
                 if (baseScreen != null)
                 {
-                    GameObject.Destroy(baseScreen.gameObject);
+                    GEntityUtils.Destroy(baseScreen.entity());
                 }
                 Analytics.Send(AnalyticsEvents.CloseScreen, baseScreen.GetAnalyticsName());
                 layer.CurrentScreen = null;

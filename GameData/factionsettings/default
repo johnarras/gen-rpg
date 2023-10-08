@@ -1,56 +1,18 @@
 {
   "Id": "default",
-  "FactionTypes": [
+  "Data": [
     {
+      "Id": "factiontype0default",
+      "ParentId": "default",
       "Name": "Neutral",
       "StartRepLevelId": 1
     },
     {
+      "Id": "factiontype1default",
+      "ParentId": "default",
       "IdKey": 1,
       "Name": "Player",
       "StartRepLevelId": 4
-    }
-  ],
-  "RepLevels": [
-    {
-      "IdKey": 1,
-      "Name": "Hated",
-      "PointsNeeded": 36000
-    },
-    {
-      "IdKey": 2,
-      "Name": "Hostile",
-      "PointsNeeded": 12000
-    },
-    {
-      "IdKey": 3,
-      "Name": "Unfriendly",
-      "PointsNeeded": 3000
-    },
-    {
-      "IdKey": 4,
-      "Name": "Neutral",
-      "PointsNeeded": 3000
-    },
-    {
-      "IdKey": 5,
-      "Name": "Friendly",
-      "PointsNeeded": 6000
-    },
-    {
-      "IdKey": 6,
-      "Name": "Honored",
-      "PointsNeeded": 12000
-    },
-    {
-      "IdKey": 7,
-      "Name": "Revered",
-      "PointsNeeded": 21000
-    },
-    {
-      "IdKey": 8,
-      "Name": "Exalted",
-      "PointsNeeded": 1000000
     }
   ],
   "Name": "FactionSettings"

@@ -1,22 +1,16 @@
-﻿using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.MapServer.Entities;
+﻿using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
-using Services.ProcGen;
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using UnityEngine;
 
 public class AddEdgeMountains : BaseAddMountains
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
         MyRandom rand = new MyRandom(gs.map.Seed / 4 + 31433);
         short[,] zoneIds = gs.md.mapZoneIds;
         List<MyPointF> points = new List<MyPointF>();
@@ -49,7 +43,7 @@ public class AddEdgeMountains : BaseAddMountains
                     zoneIds[x, z] != zoneIds[x, z + 1] ||
                     zoneIds[x, z] != zoneIds[x + 1, z + 1])
                 {
-                    float heightVal = Mathf.Max(heights[x, z] + 0.5f, 0);
+                    float heightVal = Math.Max(heights[x, z] + 0.5f, 0);
                     if (heightVal > 0)
                     {
                         gs.md.flags[x, z] |= MapGenFlags.IsWallCenter;

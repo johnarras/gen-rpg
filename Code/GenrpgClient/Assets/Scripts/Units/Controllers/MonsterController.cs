@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Units.Entities;
 using System.Threading;
-using System.Collections.Generic;
 using Genrpg.Shared.AI.Entities;
+using UnityEngine; // Needed
 
 public class MonsterController : UnitController
 {
@@ -40,11 +40,11 @@ public class MonsterController : UnitController
         return true;
     }
 
-
-
     bool canMoveNow = false;
 
     bool _didDeadUpdate = false;
+
+    int updateTimes = 0;
     public override void OnUpdate(CancellationToken token)
     {
         if (_unit == null)
@@ -59,8 +59,8 @@ public class MonsterController : UnitController
                 float height = _gs.md.SampleHeight(_gs, _unit.X, 3000, _unit.Z);
                 if (height > 0)
                 {
-                    transform.position = new Vector3(_unit.X, height, _unit.Z);
-                    transform.eulerAngles = new Vector3(0, _unit.Rot, 0);
+                   entity.transform().position = GVector3.Create(_unit.X, height, _unit.Z);
+                   entity.transform().eulerAngles = GVector3.Create(0, _unit.Rot, 0);
                     TiltObject();
                     UpdateUnitFrame();
                     _didDeadUpdate = true;
@@ -68,6 +68,11 @@ public class MonsterController : UnitController
             }
 
             return;
+        }
+        
+        if (++updateTimes == 10)
+        {
+            TiltObject();
         }
 
         canMoveNow = CanMoveNow(_gs);
@@ -118,11 +123,11 @@ public class MonsterController : UnitController
 
         if (_unit.Moving)
         {
-            float speed = Mathf.Max(0.0f, _unit.Speed);
+            float speed = Math.Max(0.0f, _unit.Speed);
 
-            float dist = Mathf.Sqrt(dx * dx + dz * dz);
+            float dist = (float)Math.Sqrt(dx * dx + dz * dz);
 
-            float distThisTick = speed / InputService.Instance.TargetFramerate();
+            float distThisTick = speed / AppUtils.TargetFrameRate;
 
             float pct = 0.01f;
 
@@ -146,10 +151,10 @@ public class MonsterController : UnitController
 
 
             float height = _gs.md.SampleHeight(_gs, _unit.X, 3000, _unit.Z);
-            transform.position = new Vector3(_unit.X, height, _unit.Z);
-            transform.eulerAngles = new Vector3(0, _unit.Rot, 0);
+            entity.transform().position = GVector3.Create(_unit.X, height, _unit.Z);
+            entity.transform().eulerAngles = GVector3.Create(0, _unit.Rot, 0);
             TiltObject();
-            if (speed > _gs.data.GetGameData<AISettings>().BaseUnitSpeed)
+            if (speed > _gs.data.GetGameData<AISettings>(_gs.ch).BaseUnitSpeed)
             {
                 animationSpeed = RunAnimSpeed;
                 SetMoveSpeed(AnimParams.RunSpeed);
@@ -173,38 +178,31 @@ public class MonsterController : UnitController
         base.Initialize(gs);
         SetState(_gs, IdleState);
 
-        float rotDiff = transform.localEulerAngles.y - transform.eulerAngles.y;
-        GameObject renderObject = GameObjectUtils.FindChild(gameObject, AnimUtils.RenderObjectName);
+        float rotDiff =entity.transform().localEulerAngles.y -entity.transform().eulerAngles.y;
+        GEntity renderObject = GEntityUtils.FindChild(entity, AnimUtils.RenderObjectName);
         if (renderObject != null)
         {
-            renderObject.transform.localEulerAngles = new Vector3(0, rotDiff, 0);
+            renderObject.transform().localEulerAngles = GVector3.Create(0, rotDiff, 0);
         }
 
         animationSpeed = 1.0f;
 
-        StartCoroutine(DelayTilt());
     }
 
-
-    private IEnumerator DelayTilt()
-    {
-        yield return new WaitForSeconds(0.7f);
-        TiltObject();
-    }
 
     private bool triedToFindInnerPlayer = false;
-    private GameObject innerPlayer = null;
-    Vector3 oldAngles = Vector3.zero;
-
+    public GEntity innerPlayer = null;
+    GVector3 oldAngles = GVector3.zero;
+    GEntity raycastHit;
 
     public bool TerrainTilt = false;
 
 
-    Vector3 lastTiltPos = Vector3.zero;
-    Vector3 currTiltPos = Vector3.zero;
-    Quaternion currTiltRot = Quaternion.identity;
-    Vector3 currTiltNormal = Vector3.zero;
-    Quaternion groundTilt = Quaternion.identity;
+    GVector3 lastTiltPos = GVector3.zero;
+    GVector3 currTiltPos = GVector3.zero;
+    Quaternion currTiltRot = GQuaternion.identity;
+    GVector3 currTiltNormal = GVector3.zero;
+    Quaternion groundTilt = GQuaternion.identity;
     float currTiltHeight = 0;
 
     int objectLayer = 0;
@@ -213,7 +211,7 @@ public class MonsterController : UnitController
     int ticksSinceLastFlat = 100;
     protected virtual void TiltObject()
     {
-        if (!TerrainTilt || gameObject == null)
+        if (!TerrainTilt || entity == null)
         { 
             return;
         }
@@ -222,14 +220,14 @@ public class MonsterController : UnitController
             return;
         }
 
-        currTiltPos = gameObject.transform.position;
+        currTiltPos = GVector3.Create(entity.transform().position);
 
-        if (Vector3.Distance(lastTiltPos, currTiltPos) < 0.01f)
+        if (GVector3.Distance(lastTiltPos, currTiltPos) < 0.01f)
         {
             return;
         }
 
-        currTiltHeight = _gs.md.SampleHeight(_gs, transform.position.x, 3000, transform.position.z);
+        currTiltHeight = _gs.md.SampleHeight(_gs,entity.transform().position.x, 3000,entity.transform().position.z);
 
         // Don't tilt things underground.
         if (currTiltPos.y < currTiltHeight-2)
@@ -244,37 +242,36 @@ public class MonsterController : UnitController
                 return;
             }
             triedToFindInnerPlayer = true;
-            innerPlayer = GameObjectUtils.FindChild(gameObject, AnimUtils.RenderObjectName);
+            innerPlayer = GEntityUtils.FindChild(entity, AnimUtils.RenderObjectName);
             if (innerPlayer == null)
             {
                 return;
             }
         }
 
-        oldAngles = innerPlayer.transform.eulerAngles;
+        oldAngles = GVector3.Create(innerPlayer.transform().eulerAngles);
         if (IsSwimming())
         {
-            innerPlayer.transform.eulerAngles = new Vector3(0, oldAngles.y, 0);
+            innerPlayer.transform().eulerAngles = GVector3.Create(0, oldAngles.y, 0);
             return;
         }
 
-        currTiltRot = gameObject.transform.rotation;
+        currTiltRot = entity.transform().rotation;
         currTiltNormal = UnityMap.GetInterpolatedNormal(_gs, _gs.map, currTiltPos.x, currTiltPos.z);
-        groundTilt = Quaternion.FromToRotation(Vector3.up, currTiltNormal);
+        groundTilt = GQuaternion.FromToRotation(GVector3.up, currTiltNormal);
 
         if (objectLayer == 0)
         {
-            objectLayer = (1 << LayerMask.NameToLayer(LayerNames.ObjectLayer));
+            objectLayer = (1 << LayerUtils.NameToLayer(LayerNames.ObjectLayer));
         }
 
-        if (Physics.Raycast(transform.position, Vector3.down, 3, objectLayer) || ++ticksSinceLastFlat < 4)
+        if (GPhysics.Raycast(GVector3.Create(entity.transform().position), GVector3.down, out raycastHit, 3, objectLayer) || ++ticksSinceLastFlat < 4)
         {
-            groundTilt = Quaternion.identity;
+            groundTilt = GQuaternion.identity;
             ticksSinceLastFlat = 0;
         }
 
-
-        innerPlayer.transform.rotation = groundTilt * currTiltRot;
+        innerPlayer.transform().rotation = groundTilt * currTiltRot;
         lastTiltPos = currTiltPos;
     }
 

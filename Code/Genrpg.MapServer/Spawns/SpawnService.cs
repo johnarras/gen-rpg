@@ -60,7 +60,7 @@ namespace Genrpg.MapServer.Spawns
 
         public List<SpawnResult> Roll(GameState gs, long spawnTableId, RollData rollData)
         {
-            return Roll(gs, gs.data.GetGameData<SpawnSettings>().GetSpawnTable(spawnTableId), rollData);
+            return Roll(gs, gs.data.GetGameData<SpawnSettings>(null).GetSpawnTable(spawnTableId), rollData);
         }
 
         // Different public roll methods.

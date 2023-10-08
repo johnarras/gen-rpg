@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using ClientEvents;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Units.Entities;
@@ -9,9 +9,8 @@ using Genrpg.Shared.Quests.Entities;
 using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.NPCs.Entities;
 using UI.Screens.Constants;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
-using UnityEngine.UI;
 using Genrpg.Shared.Quests.Messages;
 
 internal class QuestTypeWithIndex
@@ -25,15 +24,10 @@ internal class QuestTypeWithIndex
 /// </summary>
 public class QuestScreen : ItemIconScreen
 {
-
-    [SerializeField]
-    private Button _vendorButton;
-    [SerializeField]
-    private Button _closeButton;
-    [SerializeField]
-    private GameObject _questListParent;
-    [SerializeField]
-    private QuestInfoUI _fullQuestInfo;
+    public GButton VendorButton;
+    public GButton CloseButton;
+    public GEntity QuestListParent;
+    public QuestInfoUI FullQuestInfo;
 
     NPCType _type = null;
     Unit _unit = null;
@@ -42,13 +36,13 @@ public class QuestScreen : ItemIconScreen
     bool _openVendorScreenIfNoQuests = false;
 
     protected ISharedQuestService _questService = null;
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         _gs.AddEvent<AlterQuestStateEvent>(this, OnAlterQuestState);
         _gs.AddEvent<OnGetNPCQuests>(this, GetNPCQuestsHandler);
-        UIHelper.SetButton(_closeButton, GetAnalyticsName(), StartClose);
-        UIHelper.SetButton(_vendorButton, GetAnalyticsName(), ClickVendor);
+        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
+        UIHelper.SetButton(VendorButton, GetAnalyticsName(), ClickVendor);
         _unit = data as Unit;
         if (_unit == null)
         {
@@ -60,14 +54,14 @@ public class QuestScreen : ItemIconScreen
 
         if (_type == null)
         {
-            GameObject.Destroy(_vendorButton);
+            GEntityUtils.Destroy(VendorButton);
             ShowMyQuests();
             return;
         }
 
         ShowNPCQuests(true);
 
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
     }
 
     private AlterQuestStateEvent OnAlterQuestState (UnityGameState gs, AlterQuestStateEvent data)
@@ -114,7 +108,7 @@ public class QuestScreen : ItemIconScreen
             return null;
         }
 
-        GameObjectUtils.SetActive(_vendorButton, _type.ItemCount > 0);
+        GEntityUtils.SetActive(VendorButton, _type.ItemCount > 0);
 
         ShowQuestList(questsToShow);
 
@@ -125,7 +119,7 @@ public class QuestScreen : ItemIconScreen
     {
         List<QuestType> showList = new List<QuestType>();
         QuestData quests = _gs.ch.Get<QuestData>();
-        foreach (QuestStatus qstatus in quests.Data)
+        foreach (QuestStatus qstatus in quests.GetData())
         {
             if (qstatus.Quest != null)
             {
@@ -158,12 +152,12 @@ public class QuestScreen : ItemIconScreen
             return;
         }
 
-        if (_questListParent == null)
+        if (QuestListParent == null)
         {
             return;
         }
 
-        GameObjectUtils.DestroyAllChildren(_questListParent);
+        GEntityUtils.DestroyAllChildren(QuestListParent);
 
         ShowFullQuestData(null);
 
@@ -174,7 +168,7 @@ public class QuestScreen : ItemIconScreen
                 qtype = _allQuests[i],
                 index = i,
             };
-            _assetService.LoadAssetInto(_gs, _questListParent, AssetCategory.UI, GetQuestRowPrefab(), OnLoadScreenQuest,  questIndexInfo, _token);
+            _assetService.LoadAssetInto(_gs, QuestListParent, AssetCategory.UI, GetQuestRowPrefab(), OnLoadScreenQuest,  questIndexInfo, _token);
         }
 
     }
@@ -182,15 +176,15 @@ public class QuestScreen : ItemIconScreen
 
     public void ShowFullQuestData(QuestType qtype)
     {
-        if (_fullQuestInfo != null)
+        if (FullQuestInfo != null)
         {
-            _fullQuestInfo.Init(qtype, 0, this, null, _token);
+            FullQuestInfo.Init(qtype, 0, this, null, _token);
         }
     }
 
     private void OnLoadScreenQuest(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -200,7 +194,7 @@ public class QuestScreen : ItemIconScreen
 
         if (qindex == null || qindex.qtype == null) 
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 

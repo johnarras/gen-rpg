@@ -1,5 +1,5 @@
-using UnityEngine;
-using Cysharp.Threading.Tasks;
+using GEntity = UnityEngine.GameObject;
+using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Setup.Services;
@@ -10,15 +10,13 @@ using Assets.Scripts.Tokens;
 using Genrpg.Shared.Core.Entities;
 using Assets.Scripts.Model;
 using Genrpg.Shared.Constants.TempDev;
+using UI.Screens.Utils;
 
 public class InitClient : BaseBehaviour
 {
 
-    [SerializeField]
-    private ClientConfig _config = null;
-
-    [SerializeField]
-    public GameObject _splashImage;
+    public ClientConfig _config = null;
+    public GEntity _splashImage;
 
     private IClientLoginService _loginService;
 
@@ -48,25 +46,28 @@ public class InitClient : BaseBehaviour
         gs.logger = new ClientLogger(gs);
         gs.loc = new ServiceLocator(gs.logger);
         gs.repo = new ClientRepositorySystem(gs.logger);
-        
+
         Initialize(gs);
-        OnStart().Forget();
+
+        TaskUtils.AddTask(OnStart());
+
     }
 
     public void RemoveSplashScreen()
     {
         if (_splashImage != null)
         {
-            GameObjectUtils.SetActive(_splashImage, false);
+            GEntityUtils.SetActive(_splashImage, false);
             _splashImage = null;
         }
     }
+
 
     private CancellationTokenSource _clientTokenSource = new CancellationTokenSource();
 
     private string _envName = "";
     private EnvEnum _envEnum = EnvEnum.Local;
-    protected async UniTask OnStart()
+    protected async Task OnStart()
     {
 #if UNITY_EDITOR
         EditorInstance = this;
@@ -75,30 +76,26 @@ public class InitClient : BaseBehaviour
         _envName = _config.Env.ToString();
         _envEnum = _config.Env;
 
-        // Initial app appearance.
-        Application.targetFrameRate = 30;
-        Screen.SetResolution(3840, 2160, FullScreenMode.FullScreenWindow);
         Analytics.Setup(_gs);
-        QualitySettings.vSyncCount = 2;
-        Screen.orientation = ScreenOrientation.LandscapeLeft;
-        Screen.autorotateToPortrait = false;
-        Screen.autorotateToPortraitUpsideDown = false;
+        // Initial app appearance.
+        AppUtils.TargetFrameRate = 30;
+        ScreenUtils.SetupScreenSystem(3840, 2160, true, true, 2);
         Cursors.SetCursor(Cursors.Default);
 
-        WebRequest req = new WebRequest();
+        ClientWebRequest req = new ClientWebRequest();
         string url = ConfigURL + "?env=" + _envName;
-        req.GetData(_gs, url, "", OnGetWebConfig, _gameTokenSource.Token).Forget();
-        await UniTask.CompletedTask;
+        TaskUtils.AddTask(req.SendRequest(_gs, url, "", OnGetWebConfig, _gameTokenSource.Token));
+        await Task.CompletedTask;
     }
 
     private void OnGetWebConfig(UnityGameState gs, string txt, CancellationToken token)
     {
-        OnGetWebConfigAsync(gs, SerializationUtils.Deserialize<ConfigResponse>(txt), token).Forget();
+        TaskUtils.AddTask(OnGetWebConfigAsync(gs, SerializationUtils.Deserialize<ConfigResponse>(txt), token));
     }
 
-    private async UniTask OnGetWebConfigAsync(UnityGameState gs, ConfigResponse response, CancellationToken token)
+    private async Task OnGetWebConfigAsync(UnityGameState gs, ConfigResponse response, CancellationToken token)
     {
-        _gs.SetInitObject(gameObject);
+        _gs.SetInitObject(entity);
         _gs.Env = _envName;
         _gs.SiteURL = response.ServerURL;
         string envArtName = (_envName == EnvNames.Prod ? _envName.ToLower() : EnvNames.Dev.ToLower());
@@ -111,7 +108,7 @@ public class InitClient : BaseBehaviour
 
         ClientSetupService.SetupClient(_gs, true, token);
 
-        InitialPrefabLoader prefabLoader = Resources.Load<InitialPrefabLoader>("Prefabs/PrefabLoader");
+        InitialPrefabLoader prefabLoader = AssetUtils.LoadResource<InitialPrefabLoader>("Prefabs/PrefabLoader");
         await prefabLoader.LoadPrefabs(_gs);
 
         _gs.loc.ResolveSelf();
@@ -124,7 +121,6 @@ public class InitClient : BaseBehaviour
                 await iss.Setup(_gs, _gameTokenSource.Token);
             }
         }
-
         foreach (IService service in _gs.loc.GetVals())
         {
             if (service is IGameTokenService gameTokenService)
@@ -137,14 +133,14 @@ public class InitClient : BaseBehaviour
 
         while (_screenService.GetScreen(_gs, ScreenId.Loading) == null)
         {
-            await UniTask.NextFrame(_gameTokenSource.Token);
+            await Task.Delay(1, _gameTokenSource.Token);
         }
 
         _screenService.Open(_gs, ScreenId.FloatingText);
 
         _loginService.StartLogin(_gs, token);
 
-        string txt2 = "ScreenWH: " + Screen.width + "x" + Screen.height + " -- " + Game.Prefix + " -- " + _envName + " -- " + Application.platform.ToString();
+        string txt2 = "ScreenWH: " + ScreenUtils.Width + "x" + ScreenUtils.Height + " -- " + Game.Prefix + " -- " + _envName + " -- " + AppUtils.Platform;
         _gs.logger.Info(txt2);
     }
 

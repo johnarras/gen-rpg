@@ -32,7 +32,7 @@ namespace Genrpg.MapServer.Networking.Listeners
         protected EMapApiSerializers _seralizer;
         ILogSystem _logger;
         protected Action<ServerConnectionState> _addConnectionHandler;
-        protected Action<ServerConnectionState, List<IMapApiMessage>, CancellationToken> _messageHandler;
+        protected MapApiMessageHandler _messageHandler;
 
         public virtual void Dispose()
         {
@@ -46,8 +46,7 @@ namespace Genrpg.MapServer.Networking.Listeners
         public BaseTcpListener (string host, int port,
             EMapApiSerializers serializer,
             Action<ServerConnectionState> addConnection, 
-            Action<ServerConnectionState, List<IMapApiMessage>,
-            CancellationToken> receiveMessages,
+            MapApiMessageHandler receiveMessages,
             CancellationToken token)
         {
             _addConnectionHandler = addConnection;
@@ -70,12 +69,10 @@ namespace Genrpg.MapServer.Networking.Listeners
         protected IConnection CreateTCPConnection(TcpClient client, ServerConnectionState connState, ILogSystem logger, EMapApiSerializers serializer)
         {
             return new AcceptTcpConn(client, MapApiSerializerFactory.Create(serializer),
-                delegate (List<IMapApiMessage> messages, CancellationToken token)
-            {
-                _messageHandler(connState, messages, token);
-            }, 
+                _messageHandler,
             logger,
-            _token);
+            _token,
+            connState);
         }
 
         private async Task RunListener()

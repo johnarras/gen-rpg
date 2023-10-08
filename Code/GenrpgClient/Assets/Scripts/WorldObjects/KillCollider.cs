@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 
-using Services;
+
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
 
@@ -25,7 +25,7 @@ public class KillCollider :BaseBehaviour
             return;
         }
 
-        MonsterController cont = GameObjectUtils.FindInParents<MonsterController>(other.gameObject);
+        MonsterController cont = GEntityUtils.FindInParents<MonsterController>(other.entity());
 
         if (cont == null)
         {

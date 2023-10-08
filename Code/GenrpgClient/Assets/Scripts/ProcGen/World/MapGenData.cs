@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Zones.Entities;
-using System.Threading;
-using Newtonsoft.Json.Linq;
 using Assets.Scripts.MapTerrain;
+using UnityEngine;
 
 public class MapGenData
 {
@@ -221,7 +219,7 @@ public class MapGenData
 
 
 
-        return sampleTerrain.SampleHeight(new Vector3(x, y, z));
+        return sampleTerrain.SampleHeight(GVector3.Create(x, y, z));
     }
 
 
@@ -230,7 +228,7 @@ public class MapGenData
     int normalXGrid = 0;
     int normalYGrid = 0;
     TerrainPatchData normalPatch = null;
-    public Vector3 GetInterpolatedNormal (UnityGameState gs, Map map, float x, float y)
+    public GVector3 GetInterpolatedNormal (UnityGameState gs, Map map, float x, float y)
     {
         if (!HaveSetHeights)
         {
@@ -249,25 +247,25 @@ public class MapGenData
         if (normalXGrid < 0 || normalYGrid < 0 || normalXGrid >= map.BlockCount || normalYGrid >= map.BlockCount ||
             terrainPatches == null)
         {
-            return Vector3.up;
+            return GVector3.up;
         }
 
         normalPatch = terrainPatches[normalXGrid, normalYGrid];
 
         if (normalPatch == null)
         {
-            return Vector3.up;
+            return GVector3.up;
         }
 
         normalTerrainData = normalPatch.terrainData as TerrainData;
 
         if (normalTerrainData == null)
         {
-            return Vector3.up;
+            return GVector3.up;
         }
         x = MathUtils.Clamp(NormalEdgePct, x / (divSize), 1-NormalEdgePct);
         y = MathUtils.Clamp(NormalEdgePct, y / (divSize), 1-NormalEdgePct);
-        Vector3 norm = normalTerrainData.GetInterpolatedNormal(x, y);
+        GVector3 norm = GVector3.Create(normalTerrainData.GetInterpolatedNormal(x, y));
 
         return norm;
     }
@@ -335,14 +333,14 @@ public class MapGenData
         return gs.map.GetMapSize(gs);
     }
 
-    private Texture2D[] _basicTerrainTextures = null;
+    public Texture2D[] _basicTerrainTextures = null;
 
 
     public Texture2D GetBasicTerrain(UnityGameState gs, int index)
     {
         if (_basicTerrainTextures == null)
         {
-            Color[] colors = new Color[] { Color.green * 0.6f, new Color(0.6f, 0.3f, 0), Color.white * 0.4f, Color.white * 0.8f };
+            Color[] colors = new Color[] { GColor.green * 0.6f, new Color(0.6f, 0.3f, 0), GColor.white * 0.4f, GColor.white * 0.8f };
             _basicTerrainTextures = new Texture2D[MapConstants.MaxTerrainIndex];
             for (int c =0; c < colors.Length && c < MapConstants.MaxTerrainIndex; c++)
             {
@@ -695,14 +693,14 @@ public class MapGenData
         return map.Get<Zone>(mapZoneIds[x, y]);
     }
 
-    public ZoneType GetZoneTypeAt(GameState gs, Map map, int x, int y)
+    public ZoneType GetZoneTypeAt(UnityGameState gs, Map map, int x, int y)
     {
         Zone zone = GetZoneAt(gs, map, x, y);
         if (zone == null || gs.data == null)
         {
             return null;
         }
-        return gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId);
+        return gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId);
     }
 
     public float GetMountainDefaultSize(GameState gs, Map map)

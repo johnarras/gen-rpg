@@ -1,26 +1,25 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Core;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils.Data;
 using System.Collections.Generic;
 using System.Linq;
-
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.DataStores.Categories.PlayerData;
 
 namespace Genrpg.Shared.Crafting.Entities
 {
     [MessagePackObject]
-    public class RecipeStatus : IStatusItem, IId
+    public class RecipeStatus : OwnerPlayerData, IId
     {
 
         const int LevelId = 1;
         const int MaxLevelId = 2;
 
-        
-        [Key(0)] public long IdKey { get; set; }
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public long IdKey { get; set; }
+        [Key(2)] public override string OwnerId { get; set; }
 
-        [Key(1)] public List<IdVal> Levels { get; set; }
+        [Key(3)] public List<IdVal> Levels { get; set; }
 
         public RecipeStatus()
         {
@@ -58,19 +57,4 @@ namespace Genrpg.Shared.Crafting.Entities
         public void SetMaxLevel(int level) { GetMaxLevelObject().Val = level; }
         public void AddMaxLevel(int level) { GetMaxLevelObject().Val += level; }
     }
-
-
-    [MessagePackObject]
-    public class RecipeData : IdObjectList<RecipeStatus>
-    {
-        [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<RecipeStatus> Data { get; set; } = new List<RecipeStatus>();
-        public override void AddTo(Unit unit) { unit.Set(this); }
-        protected override bool CreateIfMissingOnGet()
-        {
-            return false;
-        }
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
-    }
-
 }

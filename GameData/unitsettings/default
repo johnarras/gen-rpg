@@ -1,9 +1,12 @@
 {
   "Id": "default",
-  "UnitTypes": [
+  "Data": [
     {
+      "Id": "unittype0default",
+      "ParentId": "default",
       "Name": "None",
       "Art": "None",
+      "TribeTypeId": 1,
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -13,6 +16,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype1default",
+      "ParentId": "default",
       "IdKey": 1,
       "Name": "Human",
       "Desc": "",
@@ -29,6 +34,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype2default",
+      "ParentId": "default",
       "IdKey": 2,
       "Name": "Elf",
       "Desc": "",
@@ -45,6 +52,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype3default",
+      "ParentId": "default",
       "IdKey": 3,
       "Name": "Dwarf",
       "Art": "DwarfMale",
@@ -59,6 +68,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype4default",
+      "ParentId": "default",
       "IdKey": 4,
       "Name": "Bear",
       "Desc": "",
@@ -90,6 +101,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype5default",
+      "ParentId": "default",
       "IdKey": 5,
       "Name": "Bull",
       "Desc": "",
@@ -114,6 +127,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype6default",
+      "ParentId": "default",
       "IdKey": 6,
       "Name": "Butterfly",
       "Art": "Butterfly",
@@ -128,6 +143,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype7default",
+      "ParentId": "default",
       "IdKey": 7,
       "Name": "Chicken",
       "Art": "Chicken",
@@ -142,6 +159,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype8default",
+      "ParentId": "default",
       "IdKey": 8,
       "Name": "Cow",
       "Art": "Cow",
@@ -156,6 +175,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype9default",
+      "ParentId": "default",
       "IdKey": 9,
       "Name": "Crab",
       "Art": "Crab",
@@ -170,6 +191,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype10default",
+      "ParentId": "default",
       "IdKey": 10,
       "Name": "Crocodile",
       "Art": "Crocodile",
@@ -184,6 +207,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype11default",
+      "ParentId": "default",
       "IdKey": 11,
       "Name": "Doe",
       "Art": "Doe",
@@ -198,6 +223,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype12default",
+      "ParentId": "default",
       "IdKey": 12,
       "Name": "Frog",
       "Art": "Frog",
@@ -212,6 +239,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype13default",
+      "ParentId": "default",
       "IdKey": 13,
       "Name": "Goat",
       "Desc": "",
@@ -228,6 +257,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype14default",
+      "ParentId": "default",
       "IdKey": 14,
       "Name": "Ibex",
       "Art": "Ibex",
@@ -242,6 +273,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype15default",
+      "ParentId": "default",
       "IdKey": 15,
       "Name": "Rabbit",
       "Art": "Rabbit",
@@ -256,6 +289,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype16default",
+      "ParentId": "default",
       "IdKey": 16,
       "Name": "Rat",
       "Art": "Rat",
@@ -270,6 +305,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype17default",
+      "ParentId": "default",
       "IdKey": 17,
       "Name": "Salamander",
       "Art": "Salamander",
@@ -284,6 +321,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype18default",
+      "ParentId": "default",
       "IdKey": 18,
       "Name": "Scorpion",
       "Art": "Scorpion",
@@ -298,6 +337,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype19default",
+      "ParentId": "default",
       "IdKey": 19,
       "Name": "Snail",
       "Art": "Snail",
@@ -312,6 +353,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype20default",
+      "ParentId": "default",
       "IdKey": 20,
       "Name": "Snake",
       "Art": "Snake",
@@ -326,6 +369,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype21default",
+      "ParentId": "default",
       "IdKey": 21,
       "Name": "Wolf",
       "Art": "Wolf",
@@ -340,6 +385,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype22default",
+      "ParentId": "default",
       "IdKey": 22,
       "Name": "Buck",
       "Art": "Buck",
@@ -354,6 +401,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype23default",
+      "ParentId": "default",
       "IdKey": 23,
       "Name": "Goose",
       "Art": "Goose",
@@ -368,6 +417,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype24default",
+      "ParentId": "default",
       "IdKey": 24,
       "Name": "Chimera",
       "Art": "Chimera",
@@ -382,6 +433,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype25default",
+      "ParentId": "default",
       "IdKey": 25,
       "Name": "Cyclops",
       "Art": "Cyclops",
@@ -396,6 +449,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype26default",
+      "ParentId": "default",
       "IdKey": 26,
       "Name": "Dragonkin",
       "Art": "Dragonkin",
@@ -410,6 +465,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype27default",
+      "ParentId": "default",
       "IdKey": 27,
       "Name": "Dragon",
       "Art": "Dragon",
@@ -424,6 +481,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype28default",
+      "ParentId": "default",
       "IdKey": 28,
       "Name": "Ghoul",
       "Art": "Ghoul",
@@ -438,6 +497,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype29default",
+      "ParentId": "default",
       "IdKey": 29,
       "Name": "Goblin",
       "Art": "Goblin",
@@ -452,6 +513,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype30default",
+      "ParentId": "default",
       "IdKey": 30,
       "Name": "GolemIce",
       "Art": "GolemIce",
@@ -466,6 +529,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype31default",
+      "ParentId": "default",
       "IdKey": 31,
       "Name": "GolemRock",
       "Art": "GolemRock",
@@ -480,6 +545,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype32default",
+      "ParentId": "default",
       "IdKey": 32,
       "Name": "GriffonSingleSided",
       "Art": "GriffonSingleSided",
@@ -494,6 +561,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype33default",
+      "ParentId": "default",
       "IdKey": 33,
       "Name": "GriffonTwoSided",
       "Art": "GriffonTwoSided",
@@ -508,6 +577,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype34default",
+      "ParentId": "default",
       "IdKey": 34,
       "Name": "HarpyClothed",
       "Art": "HarpyClothed",
@@ -522,6 +593,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype35default",
+      "ParentId": "default",
       "IdKey": 35,
       "Name": "HarpyNaked",
       "Art": "HarpyNaked",
@@ -536,6 +609,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype36default",
+      "ParentId": "default",
       "IdKey": 36,
       "Name": "Hobgoblin",
       "Art": "Hobgoblin",
@@ -550,6 +625,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype37default",
+      "ParentId": "default",
       "IdKey": 37,
       "Name": "Hydra",
       "Art": "Hydra",
@@ -564,6 +641,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype38default",
+      "ParentId": "default",
       "IdKey": 38,
       "Name": "Kobold",
       "Art": "Kobold",
@@ -578,6 +657,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype39default",
+      "ParentId": "default",
       "IdKey": 39,
       "Name": "LizardWarrior",
       "Art": "LizardWarrior",
@@ -592,6 +673,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype40default",
+      "ParentId": "default",
       "IdKey": 40,
       "Name": "Manticore",
       "Art": "Manticore",
@@ -606,6 +689,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype41default",
+      "ParentId": "default",
       "IdKey": 41,
       "Name": "Mummy",
       "Art": "Mummy",
@@ -620,6 +705,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype42default",
+      "ParentId": "default",
       "IdKey": 42,
       "Name": "Ogre",
       "Art": "Ogre",
@@ -634,6 +721,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype43default",
+      "ParentId": "default",
       "IdKey": 43,
       "Name": "Orc",
       "Art": "Orc",
@@ -648,6 +737,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype44default",
+      "ParentId": "default",
       "IdKey": 44,
       "Name": "Skeleton",
       "Art": "Skeleton",
@@ -662,6 +753,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype45default",
+      "ParentId": "default",
       "IdKey": 45,
       "Name": "Vampire",
       "Art": "Vampire",
@@ -676,6 +769,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype46default",
+      "ParentId": "default",
       "IdKey": 46,
       "Name": "Watcher",
       "Art": "Watcher",
@@ -690,6 +785,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype47default",
+      "ParentId": "default",
       "IdKey": 47,
       "Name": "Werewolf",
       "Art": "Werewolf",
@@ -704,6 +801,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype48default",
+      "ParentId": "default",
       "IdKey": 48,
       "Name": "Spider",
       "Art": "Spider",
@@ -718,6 +817,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype49default",
+      "ParentId": "default",
       "IdKey": 49,
       "Name": "Treant",
       "Art": "Treant",
@@ -732,6 +833,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype50default",
+      "ParentId": "default",
       "IdKey": 50,
       "Name": "Troll",
       "Art": "Troll",
@@ -746,6 +849,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype51default",
+      "ParentId": "default",
       "IdKey": 51,
       "Name": "Wyvern",
       "Art": "Wyvern",
@@ -760,6 +865,8 @@
       "InteractLootItems": []
     },
     {
+      "Id": "unittype52default",
+      "ParentId": "default",
       "IdKey": 52,
       "Name": "Zombie",
       "Art": "Zombie",
@@ -772,175 +879,6 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": []
-    }
-  ],
-  "TribeTypes": [
-    {
-      "IdKey": 1,
-      "Name": "Humanoid",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "LootItems": [
-        {
-          "EntityTypeId": 5,
-          "EntityId": 5,
-          "MinQuantity": 1,
-          "MaxQuantity": 2,
-          "Weight": 66.0
-        }
-      ],
-      "InteractLootItems": [],
-      "LootCrafterTypeId": 1
-    },
-    {
-      "IdKey": 2,
-      "Name": "Beast",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "LootItems": [
-        {
-          "EntityTypeId": 5,
-          "EntityId": 26,
-          "MinQuantity": 1,
-          "MaxQuantity": 1,
-          "Weight": 100.0
-        }
-      ],
-      "InteractLootItems": [
-        {
-          "EntityTypeId": 5,
-          "EntityId": 6,
-          "MinQuantity": 1,
-          "MaxQuantity": 2,
-          "Weight": 100.0
-        }
-      ],
-      "LootCrafterTypeId": 3
-    },
-    {
-      "IdKey": 3,
-      "Name": "Undead",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "LootItems": [
-        {
-          "EntityTypeId": 5,
-          "EntityId": 5,
-          "MinQuantity": 1,
-          "MaxQuantity": 2,
-          "Weight": 50.0
-        }
-      ],
-      "InteractLootItems": [],
-      "LootCrafterTypeId": 1
-    },
-    {
-      "IdKey": 4,
-      "Name": "Elemental",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "LootItems": [
-        {
-          "EntityTypeId": 5,
-          "EntityId": 4,
-          "MinQuantity": 1,
-          "MaxQuantity": 2,
-          "Weight": 25.0
-        }
-      ],
-      "InteractLootItems": [],
-      "LootCrafterTypeId": 6
-    },
-    {
-      "IdKey": 5,
-      "Name": "Dragonkin",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "LootItems": [
-        {
-          "EntityTypeId": 5,
-          "EntityId": 28,
-          "MinQuantity": 1,
-          "MaxQuantity": 1,
-          "Weight": 100.0
-        }
-      ],
-      "InteractLootItems": [],
-      "LootCrafterTypeId": 3
-    },
-    {
-      "IdKey": 6,
-      "Name": "Critter",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "LootItems": [],
-      "InteractLootItems": []
-    },
-    {
-      "IdKey": 7,
-      "Name": "Bug",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "LootItems": [
-        {
-          "EntityTypeId": 5,
-          "EntityId": 27,
-          "MinQuantity": 1,
-          "MaxQuantity": 1,
-          "Weight": 100.0
-        }
-      ],
-      "InteractLootItems": []
-    },
-    {
-      "IdKey": 8,
-      "Name": "Mythological",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "LootItems": [
-        {
-          "EntityTypeId": 5,
-          "EntityId": 28,
-          "MinQuantity": 1,
-          "MaxQuantity": 1,
-          "Weight": 100.0
-        },
-        {
-          "EntityTypeId": 5,
-          "EntityId": 1,
-          "MinQuantity": 1,
-          "MaxQuantity": 1,
-          "Weight": 100.0
-        }
-      ],
-      "InteractLootItems": [],
-      "LootCrafterTypeId": 8
-    },
-    {
-      "IdKey": 9,
-      "Name": "Wooden",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "LootItems": [
-        {
-          "EntityTypeId": 5,
-          "EntityId": 25,
-          "MinQuantity": 1,
-          "MaxQuantity": 1,
-          "Weight": 100.0
-        }
-      ],
-      "InteractLootItems": [],
-      "LootCrafterTypeId": 2
     }
   ],
   "Name": "UnitSettings"

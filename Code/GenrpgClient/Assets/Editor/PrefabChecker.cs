@@ -34,7 +34,7 @@ public class PrefabChecker
 		{
 			return;
 		}
-		string fullPath = Application.dataPath + path;
+		string fullPath = AppUtils.DataPath + path;
 		string[] fileEntries = Directory.GetFiles(fullPath);
 		string[] directories = Directory.GetDirectories(fullPath);
 		foreach (string entry in fileEntries)
@@ -43,7 +43,7 @@ public class PrefabChecker
 			{
 				continue;
 			}
-            string newEntry = "Assets" + entry.Replace(Application.dataPath, "");
+            string newEntry = "Assets" + entry.Replace(AppUtils.DataPath, "");
 			GameObject go = null;
 			try
 			{
@@ -62,7 +62,7 @@ public class PrefabChecker
 
 		foreach (string dir in directories)
 		{
-			CheckPath(dir.Replace(Application.dataPath, ""), extraData, logTxt, checker);
+			CheckPath(dir.Replace(AppUtils.DataPath, ""), extraData, logTxt, checker);
 		}
 	}
 

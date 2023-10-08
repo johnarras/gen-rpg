@@ -2,14 +2,14 @@
 using System;
 using System.IO;
 
-using UnityEngine;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
+using UnityEngine; // Needed
 
 public class ClearMapData : BaseZoneGenerator
 {
-    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+    public override async Task Generate (UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 
@@ -20,17 +20,19 @@ public class ClearMapData : BaseZoneGenerator
         _terrainManager.Clear(gs);
 
         RenderSettings.fog = false;
+        RenderSettings.ambientIntensity = 1.0f;
+
 
         _assetService.ClearMemoryCache(gs,token);
 
-        CleanUpOldMapFolders(gs).Forget();
+        TaskUtils.AddTask(CleanUpOldMapFolders(gs));
 
-        await UniTask.CompletedTask;
+        await Task.CompletedTask;
 	}
 
 
 
-    private async UniTask CleanUpOldMapFolders(UnityGameState gs)
+    private async Task CleanUpOldMapFolders(UnityGameState gs)
     {
         if (gs.map == null)
         {
@@ -88,7 +90,7 @@ public class ClearMapData : BaseZoneGenerator
                     gs.logger.Exception(e, "NoDeleteOnClearMap");
                 }
             }
-            await UniTask.NextFrame();
+            await Task.Delay(1);
         }
     }
 }

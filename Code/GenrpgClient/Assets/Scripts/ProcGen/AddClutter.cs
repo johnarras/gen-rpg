@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-using Services.ProcGen;
 using System.Threading;
 
 public class AddClutter : BaseZoneGenerator
@@ -15,13 +13,13 @@ public class AddClutter : BaseZoneGenerator
     public const float MaxSteepness = 15;
     public const float RandomClutterDensity = 0.00025f;
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ProcGenSettings>().GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
@@ -41,7 +39,7 @@ public class AddClutter : BaseZoneGenerator
 
         float clutterDensity = MathUtils.FloatRange(0.0f, 1.0f, rand) * RandomClutterDensity;
 
-        if (gs.data.GetGameData<ProcGenSettings>().ClutterTypes == null)
+        if (gs.data.GetGameData<ClutterTypeSettings>(gs.ch).GetData() == null)
         {
             return;
         }
@@ -164,7 +162,7 @@ public class AddClutter : BaseZoneGenerator
 
             int totalClutterChoices = 0;
             Dictionary<ClutterType, int> clutterWeights = new Dictionary<ClutterType, int>();
-            foreach (ClutterType ctype in gs.data.GetGameData<ProcGenSettings>().ClutterTypes)
+            foreach (ClutterType ctype in gs.data.GetGameData<ClutterTypeSettings>(gs.ch).GetData())
             {
                 if (ctype.NumChoices > 0)
                 {

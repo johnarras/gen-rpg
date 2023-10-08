@@ -34,9 +34,9 @@ namespace Genrpg.Editor.Utils
                     EditorCharacter ech = new EditorCharacter() { Character = ch };
                     gs.EditorUser.Characters.Add(ech);
                     await PlayerDataUtils.LoadPlayerData(gs, ch);
-                    foreach (IUnitDataContainer dataCont in ch.GetAllData().Values)
+                    foreach (IUnitData dataCont in ch.GetAllData().Values)
                     {
-                        ech.Data.Add(new EditorUnitData() { Data = dataCont.GetData() as IUnitData });
+                        ech.Data.Add(new EditorUnitData() { Data = dataCont });
                     }
                 }
             }
@@ -56,11 +56,11 @@ namespace Genrpg.Editor.Utils
                     {
                         await gs.repo.Save(ech.Character);
                     }
-                    foreach (IUnitDataContainer unitData in ech.Character.GetAllData().Values)
+                    foreach (IUnitData unitData in ech.Character.GetAllData().Values)
                     {
                         if (true || gs.LookedAtObjects.Contains(unitData))
                         {
-                            unitData.SaveData(gs.repo, true);
+                            unitData.Save(gs.repo, true);
                         }
                     }
                 }
@@ -77,7 +77,7 @@ namespace Genrpg.Editor.Utils
                 foreach (EditorCharacter ech in gs.EditorUser.Characters)
                 {
                     await gs.repo.Delete(ech.Character);
-                    foreach (IUnitDataContainer unitData in ech.Character.GetAllData().Values)
+                    foreach (IUnitData unitData in ech.Character.GetAllData().Values)
                     {
                         unitData.Delete(gs.repo);
                     }

@@ -1,10 +1,6 @@
 using System;
-using UnityEngine;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using Entities;
 using Genrpg.Shared.Utils.Data;
+using UnityEngine;
 
 public class TextureUtils
 {
@@ -26,10 +22,10 @@ public class TextureUtils
     {
         if (mc == null)
         {
-            return Color.white;
+            return GColor.white;
         }
 
-        return new Color(mc.R, mc.G, mc.B, mc.A);
+        return GColor.Create(mc.R, mc.G, mc.B, mc.A);
     }
 
 

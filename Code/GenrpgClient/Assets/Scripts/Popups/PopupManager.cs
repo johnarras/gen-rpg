@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
-using Services;
+
 
 using ClientEvents;
-using Entities;
+
 using UI.Screens.Constants;
 
 public class PopupManager : BaseBehaviour

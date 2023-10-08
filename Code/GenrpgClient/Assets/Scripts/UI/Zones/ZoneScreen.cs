@@ -1,40 +1,36 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Threading;
-using Genrpg.Shared.WhoList.Messages;
+using UnityEngine;
 
 public class ZoneScreen : BaseScreen
 {
-    [SerializeField]
-    private Text _zoneName;
-    [SerializeField]
-    private RawImage _mapImage;
-    [SerializeField]
-    private GameObject _arrowParent;
-    [SerializeField]
-    private Button _closeButton;
+    
+    public GText ZoneName;
+    public GRawImage MapImage;
+    public GEntity ArrowParent;
+    public GButton CloseButton;
 
-    protected GameObject ArrowObject;
+    protected GEntity ArrowObject;
 
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         Setup();
-        UIHelper.SetButton(_closeButton, GetAnalyticsName(), StartClose);
-        await UniTask.CompletedTask;
+        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
+        await Task.CompletedTask;
 
     }
 
     private void Setup()
     {
-        _assetService.LoadAssetInto(_gs, _arrowParent, AssetCategory.UI, "PlayerArrow", OnLoadArrow, null, _token);
+        _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategory.UI, "PlayerArrow", OnLoadArrow, null, _token);
 
-        UIHelper.SetImageTexture(_mapImage, UnityZoneGenService.mapTexture);
+        UIHelper.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
         ShowPlayer();
 
     }
@@ -42,7 +38,7 @@ public class ZoneScreen : BaseScreen
 
     private void OnLoadArrow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        ArrowObject = obj as GameObject;
+        ArrowObject = obj as GEntity;
     }
 
     protected override void ScreenUpdate()
@@ -63,7 +59,7 @@ public class ZoneScreen : BaseScreen
     void ShowPlayer()
     {
 
-        GameObject arrow = ArrowObject;
+        GEntity arrow = ArrowObject;
 
         if (arrow == null)
         {
@@ -71,25 +67,25 @@ public class ZoneScreen : BaseScreen
         }
 
         // Show player on map with arrow.
-        GameObject player = PlayerObject.Get();
+        GEntity player = PlayerObject.Get();
         if (player == null)
         {
             return;
         }
 
-        Vector3 pos = player.transform.localPosition;
+        GVector3 pos = GVector3.Create(player.transform().localPosition);
 
-        if (_mapImage == null || _mapImage.texture == null)
+        if (MapImage == null || MapImage.texture == null)
         {
             return;
         }
 
-        Texture mapTexture = _mapImage.mainTexture;
+        Texture mapTexture = MapImage.mainTexture;
 
         int mapSize = mapTexture.width;
 
 
-        float imageSize = _mapImage.rectTransform.sizeDelta.x;
+        float imageSize = MapImage.rectTransform.sizeDelta.x;
 
         float minZonePixelSize = imageSize / 2;
 
@@ -124,7 +120,7 @@ public class ZoneScreen : BaseScreen
 
             if (numBlocks > 0)
             {
-                edgeSize = Mathf.Min(0.05f, 1.0f / numBlocks);
+                edgeSize = Math.Min(0.05f, 1.0f / numBlocks);
             }
             edgeSize = 0;
 
@@ -176,12 +172,12 @@ public class ZoneScreen : BaseScreen
             
             if (mapTexture != null)
             {
-                _mapImage.uvRect = new Rect(new Vector2(xminpct, yminpct), new Vector2(xdiff, ydiff));
+                MapImage.uvRect = new Rect(new Vector2(xminpct, yminpct), new Vector2(xdiff, ydiff));
             }
             
             _lastZoneShown = currZone.IdKey;
 
-            UIHelper.SetText(_zoneName, currZone.Name);
+            UIHelper.SetText(ZoneName, currZone.Name);
         }
         else if (currZone == null)
         {
@@ -206,15 +202,15 @@ public class ZoneScreen : BaseScreen
         float xpct = MathUtils.Clamp(0, (xpctstart - xminpct) / (xmaxpct - xminpct), 1) - 0.5f;
         float ypct = MathUtils.Clamp(0, (ypctstart - yminpct) / (ymaxpct - yminpct), 1) - 0.5f;
 
-        float rot = player.transform.eulerAngles.y;
+        float rot = player.transform().eulerAngles.y;
 
         float sx = xpct * imageSize;
         float sy = ypct * imageSize;
 
-        Vector3 cpos = arrow.transform.localPosition;
-        arrow.transform.localPosition = new Vector3(sx, sy, cpos.z);
+        GVector3 cpos = GVector3.Create(arrow.transform().localPosition);
+        arrow.transform().localPosition = GVector3.Create(sx, sy, cpos.z);
 
-        arrow.transform.eulerAngles = new Vector3(0, 0, -rot);
+        arrow.transform().eulerAngles = GVector3.Create(0, 0, -rot);
 
 
     }

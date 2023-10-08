@@ -26,12 +26,12 @@ namespace Genrpg.MapServer.Vendors
         {
            
             if (unit.NPCType == null || unit.NPCType.ItemCount < 1 ||
-                gs.data.GetGameData<VendorSettings>().VendorRefreshMinutes <= 0)
+                gs.data.GetGameData<VendorSettings>(unit).VendorRefreshMinutes <= 0)
             {
                 return;
             }
 
-            if (unit.NPCStatus == null || unit.NPCStatus.LastItemRefresh > DateTime.UtcNow.AddMinutes(-gs.data.GetGameData<VendorSettings>().VendorRefreshMinutes))
+            if (unit.NPCStatus == null || unit.NPCStatus.LastItemRefresh > DateTime.UtcNow.AddMinutes(-gs.data.GetGameData<VendorSettings>(unit).VendorRefreshMinutes))
             {
                 return;
             }

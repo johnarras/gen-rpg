@@ -1,26 +1,15 @@
 
 using System;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEngine;
+using System.Threading.Tasks;
 
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-using Cysharp.Threading.Tasks;
-using Entities;
 using Genrpg.Shared.MapServer.Entities;
-using Entities.Assets;
 using System.Threading;
+using UnityEngine; // Needed
 
 public class LoadMinimap : BaseZoneGenerator
 {
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         try

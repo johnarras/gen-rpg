@@ -3,28 +3,9 @@ using MessagePack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Threading;
-using Genrpg.Shared.Levels.Entities;
-using Genrpg.Shared.NPCs.Entities;
-using Genrpg.Shared.AI.Entities;
-using Genrpg.Shared.Stats.Entities;
-using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.Spells.Entities;
-using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Input.Entities;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Factions.Entities;
-using Genrpg.Shared.Names.Entities;
-using Genrpg.Shared.Currencies.Entities;
-using Genrpg.Shared.Crafting.Entities;
-using Genrpg.Shared.ProcGen.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.Entities.Settings;
-using Genrpg.Shared.DataStores.Categories;
-using Newtonsoft.Json;
+using Genrpg.Shared.PlayerFiltering.Interfaces;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 
 namespace Genrpg.Shared.GameSettings
@@ -33,48 +14,74 @@ namespace Genrpg.Shared.GameSettings
     {
         public const int IdBlockSize = 10000;
 
-        public List<IGameSettingsContainer> GetContainers()
-        {
-            return _dataContainers;
-        }
+        private List<IGameSettings> _allData { get; set; } = new List<IGameSettings>();
 
-        private List<IGameSettingsContainer> _dataContainers { get; set; } = new List<IGameSettingsContainer>();
+        public List<IGameSettings> GetAllData()
+        {
+            return _allData;
+        }
 
         public GameData()
         {
         }
 
-        private Dictionary<Type, BaseGameData> _dataDict = null;
-        public T GetGameData<T>() where T : BaseGameData
+        public void SetupDataDict(bool force)
         {
-            if (_dataDict == null)
+            if (_dataDict == null || force)
             {
-                Dictionary<Type, BaseGameData> tempDict = new Dictionary<Type, BaseGameData>();
-                foreach (IGameSettingsContainer cont in _dataContainers)
+                Dictionary<Type, Dictionary<string, IGameSettings>> tempDict = new Dictionary<Type, Dictionary<string, IGameSettings>>();
+                foreach (IGameSettings data in _allData)
                 {
-                    BaseGameData data = cont.GetData();
-                    tempDict[data.GetType()] = data;
+                    if (!tempDict.TryGetValue(data.GetType(), out Dictionary<string, IGameSettings> dataDict))
+                    {
+                        dataDict = new Dictionary<string, IGameSettings>();
+                        tempDict.Add(data.GetType(), dataDict);
+                    }
+
+                    dataDict[data.Id] = data;
                 }
                 _dataDict = tempDict;
             }
-            if (_dataDict.TryGetValue(typeof(T), out BaseGameData value))
-            {
-                return (T)value;
-            }
-
-            return null;
         }
 
-        public void Set<T>(T t) where T : BaseGameData, new()
+        private Dictionary<Type, Dictionary<string,IGameSettings>> _dataDict = null!;
+        public T GetGameData<T>(IFilteredObject? obj) where T : IGameSettings
         {
-            _dataContainers.Add(new GameSettingsContainer<T>() { DataObject = t });
+            SetupDataDict(false);
+
+            string dataName = GetDataObjectName(typeof(T).Name, obj);
+
+            if (_dataDict.TryGetValue(typeof(T), out Dictionary<string, IGameSettings> typeDict))
+            {
+                if (typeDict.TryGetValue(dataName, out IGameSettings data))
+                {
+                    return (T)data;
+                }
+
+                if (typeDict.TryGetValue(GameDataConstants.DefaultFilename, out IGameSettings defaultData))
+                {
+                    return (T)defaultData;
+                }
+
+                return (T)typeDict.Values.FirstOrDefault();
+            }
+
+            return default(T)!;
+        }
+
+        public void Set<T>(T t) where T : IGameSettings
+        {
+            _allData.Add(t);
         }
 
         public List<IIdName> GetList(string typeName)
         {
-            foreach (IGameSettingsContainer cont in _dataContainers)
+            foreach (BaseGameSettings data in _allData)
             {
-                var data = cont.GetData();
+                if (data.Id != GameDataConstants.DefaultFilename)
+                {
+                    continue;
+                }
                 List<IIdName> vals = data.GetList(typeName);
                 if (vals != null && vals.Count > 0)
                 {
@@ -84,20 +91,10 @@ namespace Genrpg.Shared.GameSettings
             return new List<IIdName>();
         }
 
-
-        public List<T> GetList<T>()
+        public string GetDataObjectName(string typeName, IFilteredObject? obj)
         {
-            foreach (IGameSettingsContainer cont in _dataContainers)
-            {
-                var data = cont.GetData();
-                List<T> vals = data.GetList<T>();
-                if (vals != null && vals.Count > 0)
-                {
-                    return vals;
-                }
-            }
-
-            return new List<T>();
+            return obj?.GetGameDataName(typeName) ?? GameDataConstants.DefaultFilename;
+            
         }
     }
 }

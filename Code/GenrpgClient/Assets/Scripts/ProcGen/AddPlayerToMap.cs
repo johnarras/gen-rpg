@@ -1,18 +1,19 @@
 ﻿
-using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.DataStores.Entities;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Currencies.Entities;
 using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
+using System.Diagnostics;
 
 class AddPlayerToMap : BaseZoneGenerator
 {
 
     protected IUnitSetupService _unitSetupService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 
@@ -20,7 +21,7 @@ class AddPlayerToMap : BaseZoneGenerator
         gs.ch.X = gs.map.SpawnX;
         gs.ch.Z = gs.map.SpawnY;
 
-        UnitType utype = gs.data.GetGameData<UnitSettings>().GetUnitType(gs.ch.EntityId);
+        UnitType utype = gs.data.GetGameData<UnitSettings>(gs.ch).GetUnitType(gs.ch.EntityId);
 
         if (utype == null || string.IsNullOrEmpty(utype.Art))
         {
@@ -33,7 +34,7 @@ class AddPlayerToMap : BaseZoneGenerator
 
     private void OnLoadPlayer(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject artGo = obj as GameObject;
+        GEntity artGo = obj as GEntity;
 
         Character ch = data as Character;
 
@@ -47,11 +48,11 @@ class AddPlayerToMap : BaseZoneGenerator
             Spawn = new OnSpawn(),
             Token = _token,
         };
-
-        GameObject go = _unitSetupService.SetupUnit(gs, url, artGo, loadData, _token);
-
+        
+        GEntity go = _unitSetupService.SetupUnit(gs, url, artGo, loadData, _token);
         float height = gs.md.SampleHeight(gs, ch.X, MapConstants.MapHeight * 2, ch.Z);
-        go.transform.position = new Vector3(ch.X, MapConstants.MapHeight, ch.Z);
-        go.transform.eulerAngles = new Vector3(0, ch.Rot, 0);
+        go.transform().position = GVector3.Create(ch.X, MapConstants.MapHeight, ch.Z);
+        go.transform().eulerAngles = GVector3.Create(0, ch.Rot, 0);
+
     }
 }

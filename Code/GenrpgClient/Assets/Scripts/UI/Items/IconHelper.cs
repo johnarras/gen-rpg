@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Inventory.Entities;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 public class IconHelper
 {
@@ -17,7 +17,7 @@ public class IconHelper
     public static string GetBackingNameFromQuality(UnityGameState gs, long qualityTypeId)
     {
         string txt = "BGCommon";
-        QualityType quality = gs.data.GetGameData<ItemSettings>().GetQualityType(qualityTypeId);
+        QualityType quality = gs.data.GetGameData<QualityTypeSettings>(gs.ch).GetQualityType(qualityTypeId);
         if (quality == null || string.IsNullOrEmpty(quality.Icon))
         {
             return txt;
@@ -43,7 +43,7 @@ public class IconHelper
     }
 
 
-    public static void InitItemIcon(UnityGameState gs, InitItemIconData data, GameObject parent, IAssetService assetService, CancellationToken token)
+    public static void InitItemIcon(UnityGameState gs, InitItemIconData data, GEntity parent, IAssetService assetService, CancellationToken token)
     {
         string prefabName = DefaultItemIconName;
 
@@ -58,7 +58,7 @@ public class IconHelper
 
     private static void OnLoadItemIcon(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -66,7 +66,7 @@ public class IconHelper
         ItemIcon iicon = go.GetComponent<ItemIcon>();
         if (iicon == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -74,7 +74,7 @@ public class IconHelper
         InitItemIconData idata = data as InitItemIconData;
         if (idata == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -82,7 +82,7 @@ public class IconHelper
 
     }
 
-    public static void InitSpellIcon(UnityGameState gs, InitSpellIconData data, GameObject parent, IAssetService assetService, CancellationToken token)
+    public static void InitSpellIcon(UnityGameState gs, InitSpellIconData data, GEntity parent, IAssetService assetService, CancellationToken token)
     {
         string prefabName = DefaultSpellIconName;
 
@@ -97,7 +97,7 @@ public class IconHelper
 
     private static void OnLoadSpellIcon(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        GameObject go = obj as GameObject;
+        GEntity go = obj as GEntity;
         if (go == null)
         {
             return;
@@ -105,7 +105,7 @@ public class IconHelper
         SpellIcon iicon = go.GetComponent<SpellIcon>();
         if (iicon == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 
@@ -113,7 +113,7 @@ public class IconHelper
         InitSpellIconData idata = data as InitSpellIconData;
         if (idata == null)
         {
-            GameObject.Destroy(go);
+            GEntityUtils.Destroy(go);
             return;
         }
 

@@ -1,7 +1,9 @@
 {
   "Id": "default",
-  "NameLists": [
+  "Data": [
     {
+      "Id": "namelistddea97d8-5066-4780-9494-35e310ad92b7default",
+      "ParentId": "default",
       "ListName": "GemQuality",
       "Names": [
         {
@@ -14,9 +16,12 @@
           "Name": "Perfect",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist096636bf-0511-448d-8082-c5e16edda848default",
+      "ParentId": "default",
       "ListName": "GemLevel",
       "Names": [
         {
@@ -49,9 +54,12 @@
           "Name": "Huge",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistdba59861-2f94-4b59-a451-3cc147b079d0default",
+      "ParentId": "default",
       "ListName": "MetalLevel",
       "Names": [
         {
@@ -84,9 +92,12 @@
           "Name": "Adamantium",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist7c7edbfb-d923-452d-82e7-441b66bc77b3default",
+      "ParentId": "default",
       "ListName": "PreciousLevel",
       "Names": [
         {
@@ -114,9 +125,12 @@
           "Name": "Starshimmer",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist04d36da2-9248-4bbd-8575-9f8b2032d7a5default",
+      "ParentId": "default",
       "ListName": "LeatherQuality",
       "Names": [
         {
@@ -129,9 +143,12 @@
           "Name": "Toughened",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistb94db97b-3775-4827-9d94-fd1a99df6262default",
+      "ParentId": "default",
       "ListName": "LeatherLevel",
       "Names": [
         {
@@ -164,9 +181,12 @@
           "Name": "Solid",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistddb40261-8089-4640-b896-92402df78416default",
+      "ParentId": "default",
       "ListName": "MetalQuality",
       "Names": [
         {
@@ -179,9 +199,12 @@
           "Name": "Hardened",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist87348995-926d-4bc0-894a-eb83715c43e1default",
+      "ParentId": "default",
       "ListName": "ClothQuality",
       "Names": [
         {
@@ -194,9 +217,12 @@
           "Name": "Imbued",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist0a00b0a4-460c-40c6-8599-46ba945ac88adefault",
+      "ParentId": "default",
       "ListName": "ClothLevel",
       "Names": [
         {
@@ -229,9 +255,12 @@
           "Name": "Silk",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistd76d5580-0300-42de-8179-3aba9575a6fddefault",
+      "ParentId": "default",
       "ListName": "BodyQuality",
       "Names": [
         {
@@ -244,9 +273,12 @@
           "Name": "Pristine",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist467371b4-edc4-4a90-a223-c599c3e2b2d2default",
+      "ParentId": "default",
       "ListName": "ElementQuality",
       "Names": [
         {
@@ -259,9 +291,12 @@
           "Name": "Pure",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist79c60f5c-bda5-417d-8d2b-7c665b266b59default",
+      "ParentId": "default",
       "ListName": "ElementLevel",
       "Names": [
         {
@@ -294,9 +329,12 @@
           "Name": "Elemental",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist194b5bad-49f7-4528-89a6-a906b1dcb5d0default",
+      "ParentId": "default",
       "ListName": "MagicQuality",
       "Names": [
         {
@@ -314,9 +352,12 @@
           "Name": "Shard",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist78e1ce5f-0e52-4a08-913f-8a2c6e51dcccdefault",
+      "ParentId": "default",
       "ListName": "BloodQuality",
       "Names": [
         {
@@ -329,9 +370,12 @@
           "Name": "Purified",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist1baed83f-d929-4784-96b0-331497ec62b6default",
+      "ParentId": "default",
       "ListName": "PreciousQuality",
       "Names": [
         {
@@ -344,9 +388,12 @@
           "Name": "Shimmering",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist96a5196e-a614-4283-99b4-0e682e0c6845default",
+      "ParentId": "default",
       "ListName": "BodyGrossWords",
       "Names": [
         {
@@ -464,9 +511,12 @@
           "Name": "Ruined",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist711c59f3-f760-4f03-906d-9cc85d58e4dadefault",
+      "ParentId": "default",
       "ListName": "BodyThickWords",
       "Names": [
         {
@@ -539,9 +589,12 @@
           "Name": "Reinforced",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist302ea2fb-079e-4cd1-9920-13649f697364default",
+      "ParentId": "default",
       "ListName": "BodySilkWords",
       "Names": [
         {
@@ -629,9 +682,12 @@
           "Name": "Gossamer",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistc76cd68f-cb7c-4c76-a533-18ee4e4678fbdefault",
+      "ParentId": "default",
       "ListName": "BodyFeatherWords",
       "Names": [
         {
@@ -729,9 +785,12 @@
           "Name": "Dragonflight",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistfed73492-228d-41ae-90be-9bdf5f434901default",
+      "ParentId": "default",
       "ListName": "BodyPearlWords",
       "Names": [
         {
@@ -814,9 +873,12 @@
           "Name": "Dragonstar",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist058cf97c-5c8a-4325-9f3e-ad2a2e1f7a83default",
+      "ParentId": "default",
       "ListName": "BodySharpWords",
       "Names": [
         {
@@ -979,9 +1041,12 @@
           "Name": "Razor",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist8afd1814-018e-4a12-ab89-be9955b76d35default",
+      "ParentId": "default",
       "ListName": "BodyFurWords",
       "Names": [
         {
@@ -1064,9 +1129,12 @@
           "Name": "Dragonmane",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "nameliste2a11d74-2483-4659-85a5-c54b214238f7default",
+      "ParentId": "default",
       "ListName": "BodyBloodWords",
       "Names": [
         {
@@ -1149,9 +1217,12 @@
           "Name": "Purified",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist7f816b07-f34e-4436-b11a-535144e8e148default",
+      "ParentId": "default",
       "ListName": "BodyEyeWords",
       "Names": [
         {
@@ -1254,9 +1325,12 @@
           "Name": "Dragon",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist6da70cc0-1b90-4854-b564-5526d47b5b93default",
+      "ParentId": "default",
       "ListName": "ItemAdjectives",
       "Names": [
         {
@@ -2244,9 +2318,12 @@
           "Name": "Yellow",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistb17e1a4f-de11-43b4-a8ea-990524e67beedefault",
+      "ParentId": "default",
       "ListName": "ItemNouns",
       "Names": [
         {
@@ -3314,9 +3391,12 @@
           "Name": "Zeal",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist7cec97c9-bd90-4c0b-9fa9-a5d5990e11b5default",
+      "ParentId": "default",
       "ListName": "ItemDoublePrefix",
       "Names": [
         {
@@ -3719,9 +3799,12 @@
           "Name": "Wyrm",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistbe073fff-d25a-4499-acb8-adaf9015daa8default",
+      "ParentId": "default",
       "ListName": "ItemDoubleSuffix",
       "Names": [
         {
@@ -4279,9 +4362,12 @@
           "Name": "Yell",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistf66e38ae-f3bb-43d3-8a1d-c9b2d045a2d4default",
+      "ParentId": "default",
       "ListName": "ItemBadPrefix",
       "Names": [
         {
@@ -4504,9 +4590,12 @@
           "Name": "Worn",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist170cc3a1-9f95-4b9b-bb8d-f4edcd551ccedefault",
+      "ParentId": "default",
       "ListName": "CreatureFurColors",
       "Names": [
         {
@@ -4594,9 +4683,12 @@
           "Name": "White",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist9091d98d-607e-4bec-b76e-272cee6b187fdefault",
+      "ParentId": "default",
       "ListName": "CreatureFurNames",
       "Names": [
         {
@@ -4649,9 +4741,12 @@
           "Name": "Vicious",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelisteda1c877-33c2-4386-bc58-57e37e20d25fdefault",
+      "ParentId": "default",
       "ListName": "CreatureShellColors",
       "Names": [
         {
@@ -4689,9 +4784,12 @@
           "Name": "White",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist104fa290-3a9c-4dd6-98f5-8c97fb416a1fdefault",
+      "ParentId": "default",
       "ListName": "CreatureShellNames",
       "Names": [
         {
@@ -4744,9 +4842,12 @@
           "Name": "Toughened",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist6d8e48ee-4125-4378-b216-60e23f4a60b2default",
+      "ParentId": "default",
       "ListName": "CreatureBugColors",
       "Names": [
         {
@@ -4859,9 +4960,12 @@
           "Name": "White",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist07a93444-ac28-475d-b43b-df12bca57092default",
+      "ParentId": "default",
       "ListName": "CreatureBugNames",
       "Names": [
         {
@@ -4974,9 +5078,12 @@
           "Name": "Vicous",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistf268b23e-d949-4967-bad8-d1f9d7f48744default",
+      "ParentId": "default",
       "ListName": "CreatureBirdColors",
       "Names": [
         {
@@ -5009,9 +5116,12 @@
           "Name": "Striped",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistfe3550d4-feb8-498f-9061-5ee01b0e9f41default",
+      "ParentId": "default",
       "ListName": "CreatureBirdNames",
       "Names": [
         {
@@ -5054,9 +5164,12 @@
           "Name": "Vicious",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelista71cd07a-0af3-44ae-b8c5-c46090439ad9default",
+      "ParentId": "default",
       "ListName": "CreatureReptileColors",
       "Names": [
         {
@@ -5124,9 +5237,12 @@
           "Name": "Yellow",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist79b499dc-9f3c-4f06-887d-47824cee1e56default",
+      "ParentId": "default",
       "ListName": "CreatureReptileNames",
       "Names": [
         {
@@ -5179,9 +5295,12 @@
           "Name": "Water",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelista12414c3-c5fd-4830-bf41-8acccfbd2accdefault",
+      "ParentId": "default",
       "ListName": "CreatureOverallNames",
       "Names": [
         {
@@ -5224,9 +5343,12 @@
           "Name": "Swift",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist0c093b8a-68a6-427b-ac5d-d5800c012bfbdefault",
+      "ParentId": "default",
       "ListName": "ZoneNamePrefix",
       "Names": [
         {
@@ -5464,9 +5586,12 @@
           "Name": "Wind",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist85785610-3da2-410b-a667-025851841cc1default",
+      "ParentId": "default",
       "ListName": "ZoneNameSuffix",
       "Names": [
         {
@@ -5529,9 +5654,12 @@
           "Name": "Wind",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist36ab87de-489b-4a65-a4fe-3cce37e7c3e8default",
+      "ParentId": "default",
       "ListName": "HerbSuffix",
       "Names": [
         {
@@ -5689,9 +5817,12 @@
           "Name": "Wort",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistf8a355d7-4a42-493a-be34-e897fa0bdba5default",
+      "ParentId": "default",
       "ListName": "HerbPrefix",
       "Names": [
         {
@@ -5774,9 +5905,12 @@
           "Name": "Wild",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelista225c810-a0df-43af-b88e-8f4477bd3a97default",
+      "ParentId": "default",
       "ListName": "ShoreHerbPrefix",
       "Names": [
         {
@@ -5819,9 +5953,12 @@
           "Name": "Water",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist7eaaafc2-c437-4fa5-a4b9-ab04d656b385default",
+      "ParentId": "default",
       "ListName": "TreeHerbPrefix",
       "Names": [
         {
@@ -5859,9 +5996,12 @@
           "Name": "Tree",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist07678ca6-b987-417a-a74c-e526aac70125default",
+      "ParentId": "default",
       "ListName": "DesertHerbPrefix",
       "Names": [
         {
@@ -5924,9 +6064,12 @@
           "Name": "Sun",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist116d6533-c36a-40e2-a879-9e10936e6b8ddefault",
+      "ParentId": "default",
       "ListName": "IceHerbPrefix",
       "Names": [
         {
@@ -5984,9 +6127,12 @@
           "Name": "White",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist3b0dedfd-d05f-445f-858b-43b1d7fc2433default",
+      "ParentId": "default",
       "ListName": "HillHerbPrefix",
       "Names": [
         {
@@ -6049,9 +6195,12 @@
           "Name": "Wild",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist775e6075-0a26-4892-92b7-124d888b949ddefault",
+      "ParentId": "default",
       "ListName": "FieldHerbPrefix",
       "Names": [
         {
@@ -6079,35 +6228,57 @@
           "Name": "Sun",
           "Desc": ""
         }
-      ]
+      ],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistb96841c6-e483-4b7c-ad18-a1d3aa3febb5default",
+      "ParentId": "default",
       "ListName": "RareHerbPrefix",
-      "Names": []
+      "Names": [],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistc4e10a0d-ea55-44ff-b359-dfb34233397cdefault",
+      "ParentId": "default",
       "ListName": "CaveHerbPrefix",
-      "Names": []
+      "Names": [],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist28371593-daa7-44bb-b88e-82b4643860f3default",
+      "ParentId": "default",
       "ListName": "FireHerbPrefix",
-      "Names": []
+      "Names": [],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist76851eee-ffb1-4068-bd7d-21d58d718885default",
+      "ParentId": "default",
       "ListName": "BuildingHerbPrefix",
-      "Names": []
+      "Names": [],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist412a661d-351c-4a56-b064-d4c3c6ba509ddefault",
+      "ParentId": "default",
       "ListName": "BushHerbPrefix",
-      "Names": []
+      "Names": [],
+      "Name": "NameList"
     },
     {
+      "Id": "namelist70247539-aa21-4d2e-b744-a80d7c130335default",
+      "ParentId": "default",
       "ListName": "SwampHerbPrefix",
-      "Names": []
+      "Names": [],
+      "Name": "NameList"
     },
     {
+      "Id": "namelistc53e4f6d-9ed8-44d7-a7ce-873bb44e8519default",
+      "ParentId": "default",
       "ListName": "CursedHerbPrefix",
-      "Names": []
+      "Names": [],
+      "Name": "NameList"
     }
   ],
   "Name": "NameSettings"

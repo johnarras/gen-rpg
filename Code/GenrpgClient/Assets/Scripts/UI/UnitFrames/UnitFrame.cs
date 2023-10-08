@@ -2,27 +2,27 @@
 using Genrpg.Shared.Levels.Messages;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Units.Entities;
-using UnityEngine;
+using GEntity = UnityEngine.GameObject;
 
 public class UnitFrame : BaseBehaviour
 {
-    [SerializeField]
-    private CoreUnitUI _unitUI;
+    
+    public CoreUnitUI _unitUI;
 
-    [SerializeField]
-    private List<UnitStatBar> _statBar;
+    
+    public List<UnitStatBar> _statBar;
 
-    [SerializeField]
-    private CastBar _castBar;
+    
+    public CastBar _castBar;
 
-    [SerializeField]
-    private GameObject _contentRoot;
+    
+    public GEntity _contentRoot;
 
-    [SerializeField]
-    private ExpBar _expBar;
+    
+    public ExpBar _expBar;
 
-    [SerializeField]
-    private GameObject _effectParent;
+    
+    public GEntity _effectParent;
 
     private Unit _unit;
     protected UnitController _controller;
@@ -36,7 +36,7 @@ public class UnitFrame : BaseBehaviour
         _gs.AddEvent<OnRemoveEffect>(this, RemoveVisualEffect);
         _gs.AddEvent<OnUpdateEffect>(this, UpdateVisualEffect);
         _unit = unitIn;
-        _controller = GameObjectUtils.FindInParents<UnitController>(gameObject);
+        _controller = GEntityUtils.FindInParents<UnitController>(entity);
         if (_controller != null)
         {
             _controller.SetUnitFrame(this);
@@ -83,7 +83,7 @@ public class UnitFrame : BaseBehaviour
             shouldShow = false;
         }
 
-        GameObjectUtils.SetActive(_contentRoot, shouldShow);
+        GEntityUtils.SetActive(_contentRoot, shouldShow);
     }
 
     private NewLevel OnLevelUpdate(UnityGameState gs, NewLevel newLevel)

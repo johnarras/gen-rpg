@@ -4,15 +4,16 @@ using Genrpg.Shared.Inventory.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Categories.WorldData;
 
 namespace Genrpg.Shared.NPCs.Entities
 {
 
     [MessagePackObject]
-    public class NPCStatus : BaseWorldData, IStatusItem, IId, IStringOwnerId
-    {     
+    public class NPCStatus : BaseWorldData, IId, IStringOwnerId
+    {
+        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string OwnerId { get; set; }
         [Key(2)] public string MapObjectId { get; set; }
@@ -27,6 +28,5 @@ namespace Genrpg.Shared.NPCs.Entities
             Items = new List<VendorItem>();
         }
 
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Save(this); }
     }
 }

@@ -1,28 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using UnityEngine.UI;
-using Entities;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Stats.Entities;
 
 public class StatInfoRow : BaseBehaviour
 {
-    [SerializeField]
-    private Text _statName;
-    [SerializeField]
-    private Text _currStat;
-    [SerializeField]
-    private Text _percent;
-    [SerializeField]
-    private Text _modifier;
+    public GText StatName;
+    public GText CurrStat;
+    public GText Percent;
+    public GText Modifier;
 
     private StatType _statType = null;
 
@@ -36,10 +21,10 @@ public class StatInfoRow : BaseBehaviour
         }
         else
         {
-            UIHelper.SetText(_statName, "=============");
-            UIHelper.SetText(_currStat, "");
-            UIHelper.SetText(_percent, "");
-            UIHelper.SetText(_modifier, "");
+            UIHelper.SetText(StatName, "=============");
+            UIHelper.SetText(CurrStat, "");
+            UIHelper.SetText(Percent, "");
+            UIHelper.SetText(Modifier, "");
         }
 
         if (unit == null)
@@ -49,7 +34,7 @@ public class StatInfoRow : BaseBehaviour
 
         if (_statType == null)
         {
-            _statType = _gs.data.GetGameData<StatSettings>().GetStatType(this._statTypeId);
+            _statType = _gs.data.GetGameData<StatSettings>(unit).GetStatType(this._statTypeId);
         }
 
         if (_statType == null)
@@ -57,18 +42,18 @@ public class StatInfoRow : BaseBehaviour
             return;
         }
 
-        UIHelper.SetText(_statName, _statType.Name);
+        UIHelper.SetText(StatName, _statType.Name);
 
         long curr = unit.Stats.Max(_statTypeId);
 
         
-        UIHelper.SetText(_currStat, curr.ToString());
+        UIHelper.SetText(CurrStat, curr.ToString());
 
         float pct = 0.0f;
 
         if (_statTypeId <= StatConstants.PrimaryStatEnd)
         {
-            UIHelper.SetText(_percent, "");
+            UIHelper.SetText(Percent, "");
         }
         else if (_statTypeId >= StatConstants.ScaleDownBegin && _statTypeId <= StatConstants.ScaleDownEnd)
         {
@@ -85,26 +70,26 @@ public class StatInfoRow : BaseBehaviour
 
         if (Math.Abs(pct) < 0.001f)
         {
-            UIHelper.SetText(_percent, "");
+            UIHelper.SetText(Percent, "");
         }
         else
         {
-            UIHelper.SetText(_percent, (100 * pct).ToString("F2") + "%");
+            UIHelper.SetText(Percent, (100 * pct).ToString("F2") + "%");
         }
 
         if (modifier == 0)
         {
-            UIHelper.SetText(_modifier, "");
+            UIHelper.SetText(Modifier, "");
         }
         else if (modifier > 0)
         {
-            UIHelper.SetText(_modifier, "+" + modifier);
-            UIHelper.SetColor(_modifier, Color.green);
+            UIHelper.SetText(Modifier, "+" + modifier);
+            UIHelper.SetColor(Modifier, GColor.green);
         }
         else if (modifier < 0) // Just be explicit here
         {
-            UIHelper.SetText(_modifier, "-" + modifier);
-            UIHelper.SetColor(_modifier, Color.red);
+            UIHelper.SetText(Modifier, "-" + modifier);
+            UIHelper.SetColor(Modifier, GColor.red);
         }
     }
 

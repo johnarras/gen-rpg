@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-using Services;
-using UnityEngine;
-using Genrpg.Shared.Characters.Entities;
-using Entities;
+﻿using System.Collections.Generic;
+using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Spells.Entities;
 using System.Threading;
 
 public class SpellIconPanel : BaseBehaviour
 {
-    [SerializeField]
-    private GameObject _iconParent;
+    
+    public GEntity _iconParent;
 
     protected SpellIconScreen _screen = null;
     protected string _prefabName = "";
@@ -26,14 +16,14 @@ public class SpellIconPanel : BaseBehaviour
         _screen = screen;
         _prefabName = prefabName;
         _token = token;
-        List<Spell> spells = gs.ch.Get<SpellData>().GetAll();
+        List<Spell> spells = gs.ch.Get<SpellData>().GetData();
 
         if (spells == null)
         {
             return;
         }
 
-        GameObjectUtils.DestroyAllChildren(_iconParent);
+        GEntityUtils.DestroyAllChildren(_iconParent);
 
         foreach (Spell spell in spells)
         {

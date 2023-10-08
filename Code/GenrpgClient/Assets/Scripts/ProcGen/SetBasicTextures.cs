@@ -1,21 +1,8 @@
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using UnityEngine;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-using Services;
-using Cysharp.Threading.Tasks;
-using Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
+using System.Threading.Tasks;
 using System.Threading;
 using Assets.Scripts.MapTerrain;
+using UnityEngine; // Needed
 
 public class SetBasicTerrainTextures : BaseZoneGenerator
 {
@@ -30,7 +17,7 @@ public class SetBasicTerrainTextures : BaseZoneGenerator
 
     }
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 

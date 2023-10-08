@@ -1,15 +1,13 @@
 ﻿using Genrpg.ServerShared.Core;
-using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.DataStores.Core;
+using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.Interfaces;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.PlayerData.Loaders
@@ -37,10 +35,17 @@ namespace Genrpg.ServerShared.PlayerData.Loaders
 
         public override async Task<IUnitData> LoadData(IRepositorySystem repoSystem, Unit unit)
         {
-            Parent parent = await repoSystem.Load<Parent>(unit.Id);
+            string id = unit.Id;
+
+            if (IsUserData() && unit is Character ch)
+            {
+                id = ch.UserId;
+            }
+
+            Parent parent = await repoSystem.Load<Parent>(id);
             if (parent != null)
             {
-                List<Child> items = await repoSystem.Search<Child>(x => x.OwnerId == unit.Id);
+                List<Child> items = await repoSystem.Search<Child>(x => x.OwnerId == id);
                 parent.SetData(items);
             }
             return parent;
@@ -52,21 +57,10 @@ namespace Genrpg.ServerShared.PlayerData.Loaders
 
             API api = Activator.CreateInstance<API>();
 
+            api.ParentObj = parent;
             api.Data = parent.GetData();
 
             return api;
-        }
-
-        public override void Delete(IRepositorySystem repoSystem, IUnitData data)
-        {
-            base.Delete(repoSystem, data);
-            if (data is Parent parent)
-            {
-                foreach (Child child in parent.GetData())
-                {
-                    repoSystem.Delete(child);
-                }
-            }
         }
     }
 }
