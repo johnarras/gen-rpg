@@ -1,0 +1,18 @@
+{
+  "Id": "namelist1baed83f-d929-4784-96b0-331497ec62b6default",
+  "ParentId": "default",
+  "ListName": "PreciousQuality",
+  "Names": [
+    {
+      "Weight": 100.0,
+      "Name": "",
+      "Desc": ""
+    },
+    {
+      "Weight": 150.0,
+      "Name": "Shimmering",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

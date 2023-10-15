@@ -12,6 +12,7 @@ using Genrpg.Shared.Stats.Entities;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Targets.Messages;
+using Genrpg.Shared.Stats.Constants;
 
 namespace Genrpg.MapServer.Spells.MessageHandlers
 {
@@ -56,7 +57,7 @@ namespace Genrpg.MapServer.Spells.MessageHandlers
                 return;
             }
 
-            _statService.Add(gs, caster, result.SkillType.PowerStatTypeId, StatCategory.Curr, -result.Spell.GetCost(gs, caster));
+            _statService.Add(gs, caster, result.Spell.PowerStatTypeId, StatCategories.Curr, -result.Spell.GetCost(gs, caster));
 
             // Send projectile to target.
             _spellService.SendSpell(gs, caster, result);

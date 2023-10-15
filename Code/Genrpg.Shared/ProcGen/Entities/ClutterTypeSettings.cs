@@ -11,7 +11,6 @@ namespace Genrpg.Shared.ProcGen.Entities
     public class ClutterTypeSettings : ParentSettings<ClutterType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<ClutterType> Data { get; set; } = new List<ClutterType>();
 
         public ClutterType GetClutterType(long idkey) { return _lookup.Get<ClutterType>(idkey); }
     }

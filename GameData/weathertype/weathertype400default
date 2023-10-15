@@ -1,0 +1,20 @@
+{
+  "Id": "weathertype400default",
+  "ParentId": "default",
+  "IdKey": 400,
+  "Name": "None",
+  "AmbientColor": {},
+  "LightColor": {},
+  "LightScale": 1.0,
+  "SkyColor": {},
+  "FogScale": 0.01,
+  "FogColor": {},
+  "FogDistance": 250.0,
+  "CloudScale": 1.0,
+  "CloudSpeed": 1.0,
+  "CloudColor": {},
+  "WindScale": 1.0,
+  "PrecipScale": 1.0,
+  "ParticleScale": 1.0,
+  "Particles": ""
+}

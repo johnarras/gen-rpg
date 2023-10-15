@@ -2,6 +2,8 @@ using MessagePack;
 using Genrpg.Shared.Interfaces;
 using System.Collections.Generic;
 using Genrpg.Shared.DataStores.GameSettings;
+using Genrpg.Shared.Spells.Constants;
+using Genrpg.Shared.Stats.Constants;
 
 namespace Genrpg.Shared.Spells.Entities
 {
@@ -22,7 +24,9 @@ namespace Genrpg.Shared.Spells.Entities
         public const int MinRange = 5;
         public const int MaxRange = 45;
 
-        public const int RangePointDistance = 10;
+        public const int RangePointDistance = 5;
+
+        public const long DefaultCostPercent = 50;
 
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
@@ -33,61 +37,30 @@ namespace Genrpg.Shared.Spells.Entities
         [Key(5)] public string Icon { get; set; }
         [Key(6)] public string Art { get; set; }
 
-
-        /// <summary>
-        /// Skill or spell always uses one power pool for its effects. This is on the SKill, then modified
-        /// by the source.
-        /// </summary>
-        [Key(7)] public long PowerStatTypeId { get; set; }
-        /// <summary>
-        /// Cost of the skill. modified by the type of source used for this.
-        /// </summary>
-        [Key(8)] public int PowerCost { get; set; }
-
         /// <summary>
         /// Enemy, Ally or None.
         /// </summary>
-        [Key(9)] public long TargetTypeId { get; set; }
+        [Key(7)] public long TargetTypeId { get; set; }
 
-        /// <summary>
-        /// Which stat is used for scaling of this (this cascades into defenses and multipliers as well
-        /// </summary>
-        [Key(10)] public long ScalingStatTypeId { get; set; }
+        [Key(8)] public long ManaCostPercent { get; set; }
+        [Key(9)] public long EnergyCostPercent { get; set; }
+        [Key(10)] public long ComboCostPercent { get; set; }
 
+        [Key(11)] public long ScalingStatTypeId { get; set; }
 
         /// <summary>
         /// Overall scaling percent of the final stat+mult calculated above.
         /// In the case of non heal/dam spells this is ignored.
         /// </summary>
-        [Key(11)] public int BaseScalePct { get; set; }
+        [Key(12)] public int StatScalePercent { get; set; }
 
-        /// <summary>
-        /// Scaling pct added to dam/heals and base points per level for buff/debuff/summon.
-        /// </summary>
-        [Key(12)] public int RankScale { get; set; }
-
-        [Key(13)] public long EntityTypeId { get; set; }
-        [Key(14)] public List<AbilityEffect> BonusEfffects { get; set; }
-
-
-        [Key(15)] public int Flags { get; set; }
-        public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
-        public void AddFlags(int flagBits) { Flags |= flagBits; }
-        public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
+        [Key(13)] public long EffectEntityTypeId { get; set; }
 
         public long GetId() { return IdKey; }
 
-        /// <summary>
-        /// How much the output of this skill is allowed to vary when cast.
-        /// </summary>
-        [Key(16)] public int VariancePct { get; set; }
-
-
         public SkillType()
         {
-            BaseScalePct = 100;
-            RankScale = DefaultBuffLevelScale;
-            BonusEfffects = new List<AbilityEffect>();
+            StatScalePercent = 100;
         }
 
         public string ShowInfo()
@@ -96,7 +69,24 @@ namespace Genrpg.Shared.Spells.Entities
         }
         public bool HasTarget()
         {
-            return TargetTypeId == TargetType.Enemy || TargetTypeId == TargetType.Ally;
+            return TargetTypeId == TargetTypes.Enemy || TargetTypeId == TargetTypes.Ally;
+        }
+
+        public long GetCostPercentFromPowerStat(long powerStatTypeId)
+        {
+            if (powerStatTypeId == StatTypes.Mana)
+            {
+                return ManaCostPercent;
+            }
+            else if (powerStatTypeId == StatTypes.Energy)
+            {
+                return EnergyCostPercent;
+            }
+            else if (powerStatTypeId == StatTypes.Combo)
+            {
+                return ComboCostPercent;
+            }
+            return DefaultCostPercent;
         }
     }
 

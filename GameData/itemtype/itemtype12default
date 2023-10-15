@@ -1,0 +1,108 @@
+{
+  "Id": "itemtype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Necklace",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Necklace",
+  "Art": "MetalNeck",
+  "EquipSlotId": 2,
+  "Flags": 8,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Count": 5
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Necklace",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Choker",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Chain",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Amulet",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pendant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Talisman",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Collar",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Medallion",
+      "Desc": ""
+    }
+  ]
+}

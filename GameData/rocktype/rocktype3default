@@ -1,0 +1,10 @@
+{
+  "Id": "rocktype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "RockRed",
+  "Art": "RockRed",
+  "ChanceScale": 1.0,
+  "BaseColor": {},
+  "MaxIndex": 10
+}

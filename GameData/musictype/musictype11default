@@ -1,0 +1,8 @@
+{
+  "Id": "musictype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Wet Ambience",
+  "Art": "WetAmbience",
+  "RandomizeSeconds": 10.0
+}

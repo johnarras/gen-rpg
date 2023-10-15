@@ -11,7 +11,6 @@ namespace Genrpg.Shared.ProcGen.Entities
     public class RockTypeSettings : ParentSettings<RockType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<RockType> Data { get; set; } = new List<RockType>();
 
         public RockType GetRockType(long idkey) { return _lookup.Get<RockType>(idkey); }
     }

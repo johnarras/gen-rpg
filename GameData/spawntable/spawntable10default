@@ -1,0 +1,54 @@
+{
+  "Id": "spawntable10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "MobSmallHuman",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 4,
+      "EntityId": 29,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 36,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 38,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 39,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 43,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 43,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    }
+  ],
+  "Art": ""
+}

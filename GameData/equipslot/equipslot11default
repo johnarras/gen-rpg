@@ -1,0 +1,8 @@
+{
+  "Id": "equipslot11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "LeftFinger",
+  "StatPercent": 100,
+  "Active": true
+}

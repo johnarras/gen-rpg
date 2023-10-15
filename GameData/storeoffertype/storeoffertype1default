@@ -1,0 +1,9 @@
+{
+  "Id": "storeoffertype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Base Gem Offer",
+  "StoreSlotTypeId": 1,
+  "StoreFeatureTypeId": 1,
+  "ProductSetTypeId": 1
+}

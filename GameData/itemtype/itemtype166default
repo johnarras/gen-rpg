@@ -1,0 +1,74 @@
+{
+  "Id": "itemtype166default",
+  "ParentId": "default",
+  "IdKey": 166,
+  "Name": "Feather",
+  "NameId": "Feather",
+  "GenName": "BodyFeather",
+  "Icon": "BodyFeather",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 14
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 40
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Mangled"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Torn"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Colorful"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Slender"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Silky"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Dragonflight"
+    }
+  ],
+  "QualityNames": [
+    {},
+    {
+      "QualityTypeId": 1,
+      "Name": "Cleaned"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Worked"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Finished"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Lifebound"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

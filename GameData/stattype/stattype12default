@@ -1,0 +1,8 @@
+{
+  "Id": "stattype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Strength",
+  "Desc": "+2 AP",
+  "GenScalePct": 100
+}

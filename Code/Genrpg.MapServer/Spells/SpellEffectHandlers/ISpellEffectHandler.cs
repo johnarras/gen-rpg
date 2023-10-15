@@ -17,9 +17,9 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
         bool UseStatScaling();
         float GetTickLength();
 
-        List<SpellEffect> CreateEffects(GameState gs, SpellHit spellHit);
+        List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit spellHit);
 
-        bool HandleEffect(GameState gs, SpellEffect eff);
+        bool HandleEffect(GameState gs, ActiveSpellEffect eff);
 
     }
 }

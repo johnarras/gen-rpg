@@ -1,0 +1,8 @@
+{
+  "Id": "equipslot17default",
+  "ParentId": "default",
+  "IdKey": 17,
+  "Name": "Ranged",
+  "StatPercent": 125,
+  "Active": true
+}

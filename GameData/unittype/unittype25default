@@ -1,0 +1,16 @@
+{
+  "Id": "unittype25default",
+  "ParentId": "default",
+  "IdKey": 25,
+  "Name": "Cyclops",
+  "Art": "Cyclops",
+  "Height": 5.0,
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

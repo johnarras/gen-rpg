@@ -10,7 +10,7 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using System.Threading;
 using Genrpg.MapServer.Combat.Messages;
 using Genrpg.MapServer.Maps;
@@ -19,6 +19,9 @@ using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Combat.Messages;
 using Genrpg.Shared.Characters.Entities;
 using System.Linq;
+using Genrpg.Shared.Currencies.Constants;
+using Genrpg.ServerShared.Achievements;
+using Genrpg.Shared.Achievements.Constants;
 
 namespace Genrpg.MapServer.Units
 {
@@ -27,12 +30,13 @@ namespace Genrpg.MapServer.Units
         private IMapMessageService _messageService = null;
         private IMapObjectManager _objectManager = null;
         private ISpawnService _spawnService = null;
+        private IAchievementService _achievementService = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-        public void CheckForDeath(GameState gs, SpellEffect eff, Unit targ)
+        public void CheckForDeath(GameState gs, ActiveSpellEffect eff, Unit targ)
         {
             if (targ.HasFlag(UnitFlags.IsDead))
             {
@@ -81,8 +85,8 @@ namespace Genrpg.MapServer.Units
                 {
                     targ.Loot.Add(new SpawnResult()
                     {
-                        EntityTypeId = EntityType.Currency,
-                        EntityId = CurrencyType.Money,
+                        EntityTypeId = EntityTypes.Currency,
+                        EntityId = CurrencyTypes.Money,
                         Quantity = MathUtils.LongRange(levelData.KillMoney/2, levelData.KillMoney * 3 / 2, gs.rand),
                     });
                 }
@@ -103,6 +107,16 @@ namespace Genrpg.MapServer.Units
                     targ.Loot.AddRange(_spawnService.Roll(gs, ttype.LootItems, rollData));
                     targ.SkillLoot.AddRange(_spawnService.Roll(gs, ttype.InteractLootItems, rollData));
                 }
+
+                foreach (AttackerInfo info in targ.GetAttackers())
+                {
+
+                    if (_objectManager.GetChar(info.AttackerId, out Character ch))
+                    {
+                        _achievementService.UpdateAchievement(gs, ch, AchievementConstants.KillMonsterStartId + utype.IdKey, 1);
+                    }
+                }
+
             }
             
             died.Loot = targ.Loot;

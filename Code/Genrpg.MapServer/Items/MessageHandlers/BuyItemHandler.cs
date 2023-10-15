@@ -13,6 +13,9 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Inventory.Messages;
+using Genrpg.Shared.Currencies.Constants;
+using Genrpg.ServerShared.Achievements;
+using Genrpg.Shared.Achievements.Constants;
 
 namespace Genrpg.MapServer.Items.MessageHandlers
 {
@@ -20,6 +23,7 @@ namespace Genrpg.MapServer.Items.MessageHandlers
     {
         private IInventoryService _inventoryService = null;
         private ICurrencyService _currencyService = null;
+        private IAchievementService _achievementService = null;
         public override void Setup(GameState gs)
         {
             base.Setup(gs);
@@ -42,7 +46,7 @@ namespace Genrpg.MapServer.Items.MessageHandlers
             InventoryData idata = ch.Get<InventoryData>();
 
 
-            long playerMoney = cdata.GetQuantity(CurrencyType.Money);
+            long playerMoney = cdata.GetQuantity(CurrencyTypes.Money);
             long itemPrice = 0;
             VendorItem vendorItem = null;
             lock (unit.OnActionLock)
@@ -75,8 +79,9 @@ namespace Genrpg.MapServer.Items.MessageHandlers
 
             if (vendorItem != null)
             {
-                _currencyService.Add(gs, ch, CurrencyType.Money, -itemPrice);
+                _currencyService.Add(gs, ch, CurrencyTypes.Money, -itemPrice);
                 _inventoryService.AddItem(gs, ch, vendorItem.Item, true);
+                _achievementService.UpdateAchievement(gs, ch, AchievementTypes.ItemsBought, 1);
             }
 
         }

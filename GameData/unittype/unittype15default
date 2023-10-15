@@ -1,0 +1,16 @@
+{
+  "Id": "unittype15default",
+  "ParentId": "default",
+  "IdKey": 15,
+  "Name": "Rabbit",
+  "Art": "Rabbit",
+  "Height": 1.0,
+  "TribeTypeId": 6,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

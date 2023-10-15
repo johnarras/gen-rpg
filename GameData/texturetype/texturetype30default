@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype30default",
+  "ParentId": "default",
+  "IdKey": 30,
+  "Name": "Dirta",
+  "Size": 8.0,
+  "ParentTextureTypeId": 2
+}

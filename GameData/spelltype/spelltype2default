@@ -1,0 +1,18 @@
+{
+  "Id": "spelltype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Heal",
+  "Desc": "",
+  "Icon": "520091",
+  "Art": "",
+  "ElementTypeId": 4,
+  "PowerStatTypeId": 2,
+  "PowerCost": 250,
+  "Effects": [
+    {
+      "SkillTypeId": 3,
+      "Scale": 150
+    }
+  ]
+}

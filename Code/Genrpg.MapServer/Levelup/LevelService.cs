@@ -1,6 +1,7 @@
 ﻿using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Entities.Services;
@@ -40,7 +41,7 @@ namespace Genrpg.MapServer.Levelup
 
             long startLevel = ch.Level;
             long maxLevel = gs.data.GetGameData<LevelSettings>(ch).MaxLevel;
-            long startExp = currencies.GetQuantity(CurrencyType.Exp);
+            long startExp = currencies.GetQuantity(CurrencyTypes.Exp);
             long currExp = startExp;
             long endLevel = startLevel;
             for (endLevel = startLevel; endLevel < maxLevel; endLevel++)
@@ -70,7 +71,7 @@ namespace Genrpg.MapServer.Levelup
 
             if (endLevel > startLevel)
             {
-                _currencyService.Set(gs, ch, CurrencyType.Exp, currExp);
+                _currencyService.Set(gs, ch, CurrencyTypes.Exp, currExp);
                 _statService.CalcStats(gs, ch, true);
             }
         }

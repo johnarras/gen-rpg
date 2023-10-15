@@ -1,4 +1,5 @@
 ﻿using Genrpg.ServerShared.Core;
+using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Interfaces;
@@ -18,7 +19,7 @@ namespace Genrpg.ServerShared.PlayerData
         IUnitData Create(Unit unit);
         bool SendToClient();
         IUnitData MapToAPI(IUnitData serverObject);
-        Task Setup(ServerGameState gs);
+        Task Setup(GameState gs);
     }
 
 }

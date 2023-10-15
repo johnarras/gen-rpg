@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Constants\" />
+    <Folder Include="Spells\Services\" />
   </ItemGroup>
 
 </Project>

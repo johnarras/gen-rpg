@@ -1,0 +1,14 @@
+{
+  "Id": "qualitytype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Uncommon",
+  "Icon": "BGUncommon",
+  "ItemSpawnWeight": 100,
+  "ItemStatPct": 125,
+  "ItemCostPct": 200,
+  "UnitSpawnWeight": 20,
+  "UnitMinLevel": 3,
+  "UnitHealthPct": 150,
+  "UnitDamPct": 125
+}

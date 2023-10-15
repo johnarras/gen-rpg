@@ -1,0 +1,168 @@
+{
+  "Id": "namelist058cf97c-5c8a-4325-9f3e-ad2a2e1f7a83default",
+  "ParentId": "default",
+  "ListName": "BodySharpWords",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Shattered",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Brittle",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Broken",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cracked",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hollow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Splintered",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Delicate",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fractured",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hollow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tiny",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crooked",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Chipped",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dull",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blunt",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Flat",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Small",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Keen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Jagged",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Spiked",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Large",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Barbed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pointed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Solid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Huge",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Biting",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Huge",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Honed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Piercing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vicious",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sharp",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Giant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Razor",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

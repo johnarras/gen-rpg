@@ -36,6 +36,6 @@ namespace Genrpg.MapServer.Spells
 
         void ShowCombatText(GameState gs, Unit unit, string txt, int combatTextColorId, bool isCrit = false);
 
-        void ApplyOneEffect(GameState gs, SpellEffect eff);
+        void ApplyOneEffect(GameState gs, ActiveSpellEffect eff);
     }
 }

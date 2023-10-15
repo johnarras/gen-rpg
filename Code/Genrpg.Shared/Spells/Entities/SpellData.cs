@@ -18,6 +18,7 @@ namespace Genrpg.Shared.Spells.Entities
 
         public void Add(Spell spell)
         {
+            _data = _data.Where(x => x.Id != spell.Id).ToList();
             _data.Add(spell);
         }
 

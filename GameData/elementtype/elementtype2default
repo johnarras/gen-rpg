@@ -1,0 +1,77 @@
+{
+  "Id": "elementtype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Earth",
+  "Desc": "",
+  "Icon": "",
+  "Art": "Earth",
+  "RankScale": 5,
+  "Skills": [
+    {
+      "SkillTypeId": 1,
+      "CostPct": 75,
+      "ScalePct": 125
+    },
+    {
+      "SkillTypeId": 2,
+      "CostPct": 125,
+      "ScalePct": 75
+    },
+    {
+      "SkillTypeId": 3,
+      "CostPct": 125,
+      "ScalePct": 75
+    },
+    {
+      "SkillTypeId": 4,
+      "CostPct": 100,
+      "ScalePct": 150,
+      "OverrideEntityTypeId": 3
+    },
+    {
+      "SkillTypeId": 7,
+      "CostPct": 100,
+      "ScalePct": 100
+    },
+    {
+      "SkillTypeId": 8,
+      "CostPct": 100,
+      "ScalePct": 100
+    },
+    {
+      "SkillTypeId": 9,
+      "CostPct": 100,
+      "ScalePct": 100,
+      "OverrideEntityTypeId": 4,
+      "OverrideEntityId": 5
+    }
+  ],
+  "Procs": [
+    {
+      "Chance": 25,
+      "ProcTypeId": 1,
+      "FromElementTypeId": 2,
+      "Scale": 100
+    },
+    {
+      "Chance": 25,
+      "ProcTypeId": 2,
+      "FromElementTypeId": 2,
+      "Scale": 100
+    }
+  ],
+  "BonusEfffects": [],
+  "BuffEffects": [
+    {
+      "StatTypeId": 12,
+      "Percent": 25
+    }
+  ],
+  "DebuffEffects": [
+    {
+      "StatTypeId": 12,
+      "Percent": 10
+    }
+  ]
+}

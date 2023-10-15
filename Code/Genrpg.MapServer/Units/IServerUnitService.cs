@@ -11,6 +11,6 @@ namespace Genrpg.MapServer.Units
 {
     public interface IServerUnitService : ISetupService
     {
-        void CheckForDeath(GameState gs, SpellEffect eff, Unit unit);
+        void CheckForDeath(GameState gs, ActiveSpellEffect eff, Unit unit);
     }
 }

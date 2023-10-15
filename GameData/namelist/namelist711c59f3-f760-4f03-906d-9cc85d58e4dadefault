@@ -1,0 +1,78 @@
+{
+  "Id": "namelist711c59f3-f760-4f03-906d-9cc85d58e4dadefault",
+  "ParentId": "default",
+  "ListName": "BodyThickWords",
+  "Names": [
+    {
+      "Weight": 7.0,
+      "Name": "Cracked",
+      "Desc": ""
+    },
+    {
+      "Weight": 14.0,
+      "Name": "Delicate",
+      "Desc": ""
+    },
+    {
+      "Weight": 21.0,
+      "Name": "Damaged",
+      "Desc": ""
+    },
+    {
+      "Weight": 28.0,
+      "Name": "Broken",
+      "Desc": ""
+    },
+    {
+      "Weight": 35.0,
+      "Name": "Thin",
+      "Desc": ""
+    },
+    {
+      "Weight": 42.0,
+      "Name": "Medium",
+      "Desc": ""
+    },
+    {
+      "Weight": 49.0,
+      "Name": "Heavy",
+      "Desc": ""
+    },
+    {
+      "Weight": 56.0,
+      "Name": "Thick",
+      "Desc": ""
+    },
+    {
+      "Weight": 63.0,
+      "Name": "Sturdy",
+      "Desc": ""
+    },
+    {
+      "Weight": 70.0,
+      "Name": "Rugged",
+      "Desc": ""
+    },
+    {
+      "Weight": 77.0,
+      "Name": "Strong",
+      "Desc": ""
+    },
+    {
+      "Weight": 84.0,
+      "Name": "Tough",
+      "Desc": ""
+    },
+    {
+      "Weight": 91.0,
+      "Name": "Solid",
+      "Desc": ""
+    },
+    {
+      "Weight": 98.0,
+      "Name": "Reinforced",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

@@ -12,7 +12,6 @@ namespace Genrpg.Shared.ProcGen.Entities
     public class ZoneTypeSettings : ParentSettings<ZoneType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<ZoneType> Data { get; set; } = new List<ZoneType>();
 
         public ZoneType GetZoneType(long idkey) { return _lookup.Get<ZoneType>(idkey); }
     }

@@ -42,7 +42,10 @@ namespace Genrpg.LoginServer.Controllers
     {
 
         private AccountService _accountService;
-        private static IGameDataService _gameDataService;
+        private IGameDataService _gameDataService;
+        private IPlayerDataService _playerDataService;
+        private ICloudMessageService _cloudMessageService;
+
         public LoginController() : base()
         {
             _accountService = new AccountService();
@@ -62,10 +65,8 @@ namespace Genrpg.LoginServer.Controllers
             {
                 await SetupGameState(cts.Token);
 
-                if (_gameDataService == null)
-                {
-                    _gameDataService = gs.loc.Get<IGameDataService>();
-                }
+                gs.loc.Resolve(this);
+
                 // Do this by hand since we have no userId/sessionId at this point
                 
                 LoginServerCommandSet commands = SerializationUtils.Deserialize<LoginServerCommandSet>(Data);
@@ -167,12 +168,12 @@ namespace Genrpg.LoginServer.Controllers
             await UpdateUserVersion(user);
             await gs.repo.Save(user);
 
-            gs.loc.Get<ICloudMessageService>().SendMessage(CloudServerNames.Player, new LoginUser() { Id = user.Id, Name = user.Name });
+            _cloudMessageService.SendMessage(CloudServerNames.Player, new LoginUser() { Id = user.Id, Name = user.Name });
 
             LoginResult loginResult = new LoginResult()
             {
                 User = SerializationUtils.ConvertType<User, User>(user),
-                CharacterStubs = await PlayerDataUtils.LoadCharacterStubs(gs, user.Id),
+                CharacterStubs = await _playerDataService.LoadCharacterStubs(gs, user.Id),
                 MapStubs = gs.mapStubs,
             };
 

@@ -1,0 +1,20 @@
+{
+  "Id": "tribetype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Elemental",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "LootItems": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 25.0
+    }
+  ],
+  "InteractLootItems": [],
+  "LootCrafterTypeId": 6
+}

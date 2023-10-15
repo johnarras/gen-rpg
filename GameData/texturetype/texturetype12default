@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Path",
+  "Size": 8.0,
+  "ParentTextureTypeId": 4
+}

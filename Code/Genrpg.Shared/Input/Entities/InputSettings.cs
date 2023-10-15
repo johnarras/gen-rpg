@@ -15,7 +15,6 @@ namespace Genrpg.Shared.Input.Entities
     public class InputSettings : ParentSettings<ActionInputSetting>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<ActionInputSetting> Data { get; set; }
     }
 
 

@@ -1,0 +1,74 @@
+{
+  "Id": "itemtype186default",
+  "ParentId": "default",
+  "IdKey": 186,
+  "Name": "Wing",
+  "NameId": "Wing",
+  "GenName": "BodyWing",
+  "Icon": "BodyWing",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 52
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 200,
+      "EntityId": 13
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Ruined"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Messy"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Medium"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Thin"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Delicate"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Diaphanous"
+    }
+  ],
+  "QualityNames": [
+    {},
+    {
+      "QualityTypeId": 1,
+      "Name": "Cleaned"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Worked"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Finished"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Lifebound"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

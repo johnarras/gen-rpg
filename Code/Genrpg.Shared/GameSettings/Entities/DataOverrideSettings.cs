@@ -14,7 +14,6 @@ namespace Genrpg.Shared.GameSettings.Entities
     public class DataOverrideSettings : ParentSettings<DataOverrideGroup>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<DataOverrideGroup> Data { get; set; } = new List<DataOverrideGroup>();
     }
 
     [MessagePackObject]

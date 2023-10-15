@@ -13,9 +13,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Genrpg.Shared.NPCs.Entities;
 using Genrpg.Shared.Factions.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapServer.Constants;
 using System.Threading.Tasks;
+using Genrpg.Shared.Factions.Constants;
+using Genrpg.Shared.Inventory.Constants;
 
 public interface IMapGenService : IService
 {
@@ -351,11 +353,11 @@ public class MapGenService : IMapGenService
             NPCType npcType = new NPCType()
             {
                 Name = zoneName + "#" + (l + 1),
-                QualityTypeId = QualityType.Rare,
+                QualityTypeId = QualityTypes.Rare,
                 MapX = loc.CenterZ + offsetZ,
                 MapZ = loc.CenterX + offsetX,
                 UnitTypeId = 1,
-                FactionTypeId = FactionType.Player,
+                FactionTypeId = FactionTypes.Player,
                 ItemCount = rand.Next() % 3 + 3,
                 ItemQualityTypeId = 0,
             };
@@ -389,7 +391,7 @@ public class MapGenService : IMapGenService
             npcType.Level = zone.Level;
         }
 
-        gs.spawns.AddSpawn(EntityType.NPC, npcType.IdKey, npcType.MapZ, npcType.MapX, npcType.ZoneId);
+        gs.spawns.AddSpawn(EntityTypes.NPC, npcType.IdKey, npcType.MapZ, npcType.MapX, npcType.ZoneId);
         gs.spawns.NPCs.Add(new NPCStatus() { IdKey = npcType.IdKey });
 
         gs.map.NPCs.Add(npcType);

@@ -1,0 +1,7 @@
+{
+  "Id": "currencytype104default",
+  "ParentId": "default",
+  "IdKey": 104,
+  "Name": "Job Tokens",
+  "Icon": "IconHammer"
+}

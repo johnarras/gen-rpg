@@ -1,0 +1,58 @@
+{
+  "Id": "namelist79b499dc-9f3c-4f06-887d-47824cee1e56default",
+  "ParentId": "default",
+  "ListName": "CreatureReptileNames",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Cold",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Diseased",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Festering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fetid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ridged",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scaled",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scaly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tough",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vicious",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Water",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

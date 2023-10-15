@@ -1,6 +1,8 @@
-﻿using Genrpg.Shared.Characters.Entities;
+﻿using Genrpg.ServerShared.Achievements;
+using Genrpg.Shared.Achievements.Constants;
+using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Units.Entities;
@@ -14,20 +16,22 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 {
     public class DamageEffectHandler : HealthEffectHandler
     {
-        public override long GetKey() { return EntityType.Damage; }
+
+
+        public override long GetKey() { return EntityTypes.Damage; }
         public override bool IsModifyStatEffect() { return false; }
         public override bool UseStatScaling() { return true; }
 
 
-        public override List<SpellEffect> CreateEffects(GameState gs, SpellHit hitData)
+        public override List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit hitData)
         {
-            SpellEffect eff = new SpellEffect(hitData);
-            eff.EntityTypeId = EntityType.Damage;
+            ActiveSpellEffect eff = new ActiveSpellEffect(hitData);
+            eff.EntityTypeId = EntityTypes.Damage;
             eff.Quantity = hitData.BaseQuantity;
-            return new List<SpellEffect>() { eff };
+            return new List<ActiveSpellEffect>() { eff };
         }
 
-        public override bool HandleEffect(GameState gs, SpellEffect eff)
+        public override bool HandleEffect(GameState gs, ActiveSpellEffect eff)
         {
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ) || targ.HasFlag(UnitFlags.IsDead))
             {
@@ -37,11 +41,10 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
             long startAmount = eff.Quantity;
             long amount = eff.Quantity;
 
-            if (eff.VariancePct > 0 && eff.VariancePct <= 100)
-            {
-                amount = MathUtils.LongRange(startAmount * (100 - eff.VariancePct) / 100,
-                    startAmount * (100 + eff.VariancePct) / 100, gs.rand);
-            }
+            int variancePct = 20;
+            
+                amount = MathUtils.LongRange(startAmount * (100 - variancePct) / 100,
+                    startAmount * (100 + variancePct) / 100, gs.rand);
 
             long absorbAmount = 0;
             bool isImmune = targ.IsFullImmune(gs);
@@ -50,14 +53,22 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
             {
                 amount = 0;
             }
+            if (amount != 0 && _objectManager.GetChar(eff.CasterId, out Character ch))
+            {
+
+                _achievementService.UpdateAchievement(gs, ch, AchievementTypes.TotalDamage, amount);
+                _achievementService.UpdateAchievement(gs, ch, AchievementTypes.MaxDamage, amount);
+            }
+
             amount = -amount;
+
             if (targ.SpellEffects == null)
             {
-                targ.SpellEffects = new List<SpellEffect>();
+                targ.SpellEffects = new List<ActiveSpellEffect>();
             }
-            List<SpellEffect> shields = targ.SpellEffects.Where(x => x.EntityTypeId == EntityType.Shield).ToList();
+            List<ActiveSpellEffect> shields = targ.SpellEffects.Where(x => x.EntityTypeId == EntityTypes.Shield).ToList();
 
-            foreach (SpellEffect shield in shields)
+            foreach (ActiveSpellEffect shield in shields)
             {
                 long currAbsorb = Math.Min(-amount, shield.Quantity);
                 amount += currAbsorb;

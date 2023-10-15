@@ -1,0 +1,8 @@
+{
+  "Id": "musictype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Dry Ambience",
+  "Art": "DryAmbience",
+  "RandomizeSeconds": 15.0
+}

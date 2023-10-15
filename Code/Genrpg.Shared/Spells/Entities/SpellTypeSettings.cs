@@ -14,7 +14,6 @@ namespace Genrpg.Shared.Spells.Entities
     public class SpellTypeSettings : ParentSettings<SpellType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<SpellType> Data { get; set; } = new List<SpellType>();
 
         public SpellType GetSpellType(long idkey) { return _lookup.Get<SpellType>(idkey); }
     }

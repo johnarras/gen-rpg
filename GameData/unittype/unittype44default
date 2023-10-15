@@ -1,0 +1,16 @@
+{
+  "Id": "unittype44default",
+  "ParentId": "default",
+  "IdKey": 44,
+  "Name": "Skeleton",
+  "Art": "Skeleton",
+  "Height": 3.0,
+  "TribeTypeId": 3,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

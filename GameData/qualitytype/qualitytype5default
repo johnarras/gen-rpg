@@ -1,0 +1,15 @@
+{
+  "Id": "qualitytype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Legendary",
+  "Icon": "BGLegendary",
+  "ItemSpawnWeight": 2,
+  "ItemMinLevel": 15,
+  "ItemStatPct": 250,
+  "ItemCostPct": 1000,
+  "UnitSpawnWeight": 1,
+  "UnitMinLevel": 12,
+  "UnitHealthPct": 1000,
+  "UnitDamPct": 300
+}

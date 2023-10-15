@@ -13,7 +13,8 @@ namespace Genrpg.LoginServer.CommandHandlers
 {
     public class UploadMapHandler : BaseLoginCommandHandler<UploadMapCommand>
     {
-        IMapDataService _mapDataService;
+        private IMapDataService _mapDataService;
+        private IMapSpawnService _mapSpawnService;
         protected override async Task InnerHandleMessage(LoginGameState gs, UploadMapCommand command, CancellationToken token)
         {
             if (gs.config.Env == EnvNames.Prod)
@@ -45,12 +46,10 @@ namespace Genrpg.LoginServer.CommandHandlers
                 ShowError(gs, "No spawn data sent to server");
                 return;
             }
+           
+            await _mapDataService.SaveMap(gs, command.Map);
 
-            IMapDataService mds = gs.loc.Get<IMapDataService>();
-            await mds.SaveMap(gs, command.Map);
-
-            IMapSpawnService mps = gs.loc.Get<IMapSpawnService>();
-            await mps.SaveMapSpawnData(gs, command.SpawnData, Map.GetMapOwnerId(command.Map));
+            await _mapSpawnService.SaveMapSpawnData(gs, command.SpawnData, Map.GetMapOwnerId(command.Map));
           
 
             foreach (ILoginCommandHandler handler in gs.commandHandlers.Values)

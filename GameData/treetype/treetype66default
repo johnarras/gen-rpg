@@ -1,0 +1,9 @@
+{
+  "Id": "treetype66default",
+  "ParentId": "default",
+  "IdKey": 66,
+  "Name": "JapaneseMaple",
+  "Art": "JapaneseMaple",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

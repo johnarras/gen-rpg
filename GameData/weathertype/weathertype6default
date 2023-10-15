@@ -1,0 +1,48 @@
+{
+  "Id": "weathertype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Desert",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "AmbientColor": {
+    "R": 0.8901961,
+    "G": 1.0,
+    "B": 1.0,
+    "A": 1.0
+  },
+  "LightColor": {
+    "R": 1.0,
+    "G": 1.0,
+    "B": 0.90588236,
+    "A": 1.0
+  },
+  "LightScale": 1.0,
+  "SkyColor": {
+    "R": 0.7294118,
+    "G": 0.8627451,
+    "B": 1.0,
+    "A": 1.0
+  },
+  "FogScale": 0.003,
+  "FogColor": {
+    "R": 0.99607843,
+    "G": 1.0,
+    "B": 0.9411765,
+    "A": 1.0
+  },
+  "FogDistance": 250.0,
+  "CloudScale": 0.15,
+  "CloudSpeed": 0.3,
+  "CloudColor": {
+    "R": 1.0,
+    "G": 1.0,
+    "B": 1.0,
+    "A": 1.0
+  },
+  "WindScale": 0.3,
+  "PrecipScale": 0.1,
+  "ParticleScale": 0.3,
+  "Particles": "dust"
+}

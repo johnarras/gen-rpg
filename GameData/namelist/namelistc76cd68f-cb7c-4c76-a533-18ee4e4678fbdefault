@@ -1,0 +1,103 @@
+{
+  "Id": "namelistc76cd68f-cb7c-4c76-a533-18ee4e4678fbdefault",
+  "ParentId": "default",
+  "ListName": "BodyFeatherWords",
+  "Names": [
+    {
+      "Weight": 7.0,
+      "Name": "Broken",
+      "Desc": ""
+    },
+    {
+      "Weight": 12.0,
+      "Name": "Mangled",
+      "Desc": ""
+    },
+    {
+      "Weight": 17.0,
+      "Name": "Torn",
+      "Desc": ""
+    },
+    {
+      "Weight": 22.0,
+      "Name": "Stripped",
+      "Desc": ""
+    },
+    {
+      "Weight": 27.0,
+      "Name": "Damaged",
+      "Desc": ""
+    },
+    {
+      "Weight": 32.0,
+      "Name": "Ruffled",
+      "Desc": ""
+    },
+    {
+      "Weight": 37.0,
+      "Name": "Plucked",
+      "Desc": ""
+    },
+    {
+      "Weight": 42.0,
+      "Name": "Light",
+      "Desc": ""
+    },
+    {
+      "Weight": 47.0,
+      "Name": "Downy",
+      "Desc": ""
+    },
+    {
+      "Weight": 52.0,
+      "Name": "Soft",
+      "Desc": ""
+    },
+    {
+      "Weight": 57.0,
+      "Name": "Colorful",
+      "Desc": ""
+    },
+    {
+      "Weight": 62.0,
+      "Name": "Slender",
+      "Desc": ""
+    },
+    {
+      "Weight": 67.0,
+      "Name": "Fluffy",
+      "Desc": ""
+    },
+    {
+      "Weight": 72.0,
+      "Name": "Silky",
+      "Desc": ""
+    },
+    {
+      "Weight": 77.0,
+      "Name": "Smooth",
+      "Desc": ""
+    },
+    {
+      "Weight": 82.0,
+      "Name": "Fuzzy",
+      "Desc": ""
+    },
+    {
+      "Weight": 87.0,
+      "Name": "Delicate",
+      "Desc": ""
+    },
+    {
+      "Weight": 92.0,
+      "Name": "Vibrant",
+      "Desc": ""
+    },
+    {
+      "Weight": 97.0,
+      "Name": "Dragonflight",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

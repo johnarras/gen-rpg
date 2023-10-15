@@ -1,0 +1,85 @@
+{
+  "Id": "spawntable15default",
+  "ParentId": "default",
+  "IdKey": 15,
+  "Name": "MobForest",
+  "Items": [
+    {
+      "EntityTypeId": 4,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 11,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 12,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 13,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 14,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 15,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 16,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 20,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 21,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 22,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 48,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "Id": "itemtype28default",
+  "ParentId": "default",
+  "IdKey": 28,
+  "Name": "Staff",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Staff",
+  "Art": "Staff",
+  "EquipSlotId": 15,
+  "Flags": 10,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Count": 7
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 10000.0,
+      "Name": "Staff",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rod",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Greatstaff",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Stick",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scythe",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Quarterstaff",
+      "Desc": ""
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "Id": "itemtype164default",
+  "ParentId": "default",
+  "IdKey": 164,
+  "Name": "Egg",
+  "NameId": "Egg",
+  "GenName": "BodyEgg",
+  "Icon": "BodyEgg",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 52
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 61
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {},
+    {
+      "QualityTypeId": 1,
+      "Name": "Cleaned"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Worked"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Finished"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Lifebound"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

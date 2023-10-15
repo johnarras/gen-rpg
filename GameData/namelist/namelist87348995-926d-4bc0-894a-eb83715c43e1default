@@ -1,0 +1,18 @@
+{
+  "Id": "namelist87348995-926d-4bc0-894a-eb83715c43e1default",
+  "ParentId": "default",
+  "ListName": "ClothQuality",
+  "Names": [
+    {
+      "Weight": 100.0,
+      "Name": "",
+      "Desc": ""
+    },
+    {
+      "Weight": 150.0,
+      "Name": "Imbued",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

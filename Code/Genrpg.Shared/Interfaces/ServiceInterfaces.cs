@@ -11,6 +11,8 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Spells.Entities;
 using System.Threading;
+using Genrpg.Shared.Spells.Interfaces;
+using Genrpg.Shared.MapObjects.Entities;
 
 namespace Genrpg.Shared.Interfaces
 {
@@ -69,7 +71,6 @@ namespace Genrpg.Shared.Interfaces
 
         string CombinePrefixSuffix(string prefix, string suffix, float hyphenChance, long seed);
 
-
         // Gen names of the following form.
         // prefix suffix.
         // If prefix is of the form "prefix of",
@@ -78,10 +79,4 @@ namespace Genrpg.Shared.Interfaces
         string GenOfTheName(GameState gs, List<WeightedName> prefixes, List<WeightedName> suffixes, long seed = 0, int avoidMatchingPrefixLength = 0);
     }
 
-    public interface ISharedSpellCraftService : IService
-    {
-        bool GenerateSpellData(GameState gs, Spell spellType);
-
-
-    }
 }

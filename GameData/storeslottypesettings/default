@@ -1,18 +1,4 @@
 {
   "Id": "default",
-  "Data": [
-    {
-      "Id": "storeslottype0default",
-      "ParentId": "default",
-      "Name": "None"
-    },
-    {
-      "Id": "storeslottype1default",
-      "ParentId": "default",
-      "IdKey": 1,
-      "Name": "Gem Store",
-      "Desc": ""
-    }
-  ],
   "Name": "StoreSlotTypeSettings"
 }

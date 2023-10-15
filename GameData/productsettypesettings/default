@@ -1,28 +1,4 @@
 {
   "Id": "default",
-  "Data": [
-    {
-      "Id": "productsettype0default",
-      "ParentId": "default",
-      "Name": "None"
-    },
-    {
-      "Id": "productsettype1default",
-      "ParentId": "default",
-      "IdKey": 1,
-      "Name": "Base Gem Packs",
-      "StoreProducts": [
-        {
-          "StoreProductTypeId": 1
-        },
-        {
-          "StoreProductTypeId": 2
-        },
-        {
-          "StoreProductTypeId": 3
-        }
-      ]
-    }
-  ],
   "Name": "ProductSetTypeSettings"
 }

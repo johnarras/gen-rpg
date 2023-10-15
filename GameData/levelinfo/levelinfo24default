@@ -1,0 +1,15 @@
+{
+  "Id": "levelinfo24default",
+  "ParentId": "default",
+  "IdKey": 24,
+  "RewardList": [],
+  "CurrExp": 38000,
+  "MobCount": 37.2,
+  "MobExp": 765,
+  "QuestCount": 5.0,
+  "QuestExp": 1900,
+  "KillMoney": 75,
+  "StatAmount": 74,
+  "MonsterStatScale": 20,
+  "AbilityPoints": 3
+}

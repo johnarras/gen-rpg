@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype28default",
+  "ParentId": "default",
+  "IdKey": 28,
+  "Name": "SandWavy",
+  "Size": 8.0,
+  "ParentTextureTypeId": 5
+}

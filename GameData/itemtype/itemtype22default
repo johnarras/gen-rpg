@@ -1,0 +1,93 @@
+{
+  "Id": "itemtype22default",
+  "ParentId": "default",
+  "IdKey": 22,
+  "Name": "Axe",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Axe",
+  "Art": "Axe",
+  "EquipSlotId": 15,
+  "Flags": 8,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Count": 6
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 10000.0,
+      "Name": "Axe",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Chopper",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Destroyer",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hacker",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scythe",
+      "Desc": ""
+    }
+  ]
+}

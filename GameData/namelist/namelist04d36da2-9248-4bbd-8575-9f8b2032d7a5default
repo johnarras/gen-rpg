@@ -1,0 +1,18 @@
+{
+  "Id": "namelist04d36da2-9248-4bbd-8575-9f8b2032d7a5default",
+  "ParentId": "default",
+  "ListName": "LeatherQuality",
+  "Names": [
+    {
+      "Weight": 100.0,
+      "Name": "",
+      "Desc": ""
+    },
+    {
+      "Weight": 150.0,
+      "Name": "Toughened",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

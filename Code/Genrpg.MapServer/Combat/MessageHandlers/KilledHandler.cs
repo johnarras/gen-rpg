@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Genrpg.MapServer.MapMessaging;
+using Genrpg.Shared.Currencies.Constants;
 
 namespace Genrpg.MapServer.Combat.MessageHandlers
 {
@@ -42,7 +43,7 @@ namespace Genrpg.MapServer.Combat.MessageHandlers
 
                     if (level != null)
                     {
-                        _currencyService.Add(gs, ch, CurrencyType.Exp, level.MobExp);
+                        _currencyService.Add(gs, ch, CurrencyTypes.Exp, level.MobExp);
                         _levelService.UpdateLevel(gs, ch);
                     }
                 }

@@ -15,7 +15,6 @@ namespace Genrpg.Shared.Factions.Entities
     public class ReputationSettings : ParentSettings<RepLevel>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<RepLevel> Data { get; set; }
 
         public RepLevel GetRepLevel(long idkey) { return _lookup.Get<RepLevel>(idkey); }
     }
@@ -23,16 +22,6 @@ namespace Genrpg.Shared.Factions.Entities
     [MessagePackObject]
     public class RepLevel : ChildSettings, IIndexedGameItem
     {
-        public const int None = 0;
-        public const int Hated = 1;
-        public const int Hostile = 2;
-        public const int Unfriendly = 3;
-        public const int Neutral = 4;
-        public const int Friendly = 5;
-        public const int Honored = 6;
-        public const int Revered = 7;
-        public const int Exalted = 8;
-
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }

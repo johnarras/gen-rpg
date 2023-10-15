@@ -1,0 +1,16 @@
+{
+  "Id": "unittype45default",
+  "ParentId": "default",
+  "IdKey": 45,
+  "Name": "Vampire",
+  "Art": "Vampire",
+  "Height": 3.0,
+  "TribeTypeId": 3,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

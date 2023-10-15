@@ -12,7 +12,6 @@ namespace Genrpg.Shared.Inventory.Entities
     public class QualityTypeSettings : ParentSettings<QualityType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<QualityType> Data { get; set; } = new List<QualityType>();
 
         public QualityType GetQualityType(long idkey) { return _lookup.Get<QualityType>(idkey); }
     }

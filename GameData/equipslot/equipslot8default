@@ -1,0 +1,8 @@
+{
+  "Id": "equipslot8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Feet",
+  "StatPercent": 125,
+  "Active": true
+}

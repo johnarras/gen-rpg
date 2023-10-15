@@ -1,0 +1,8 @@
+{
+  "Id": "cluttertype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Crate",
+  "Art": "Crate",
+  "NumChoices": 3
+}

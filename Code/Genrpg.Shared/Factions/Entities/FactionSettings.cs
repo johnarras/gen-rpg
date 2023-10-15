@@ -15,17 +15,12 @@ namespace Genrpg.Shared.Factions.Entities
     public class FactionSettings : ParentSettings<FactionType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<FactionType> Data { get; set; }
 
         public FactionType GetFactionType(long idkey) { return _lookup.Get<FactionType>(idkey); }
     }
     [MessagePackObject]
     public class FactionType : ChildSettings, IIndexedGameItem
     {
-        public const int Player = 0;
-        public const int Faction1 = 1;
-        public const int Faction2 = 2;
-
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }

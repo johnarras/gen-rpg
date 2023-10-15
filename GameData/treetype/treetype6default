@@ -1,0 +1,9 @@
+{
+  "Id": "treetype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Palm",
+  "Art": "Palm",
+  "Scale": 1.0,
+  "VariationCount": 2
+}

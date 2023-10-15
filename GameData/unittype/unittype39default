@@ -1,0 +1,16 @@
+{
+  "Id": "unittype39default",
+  "ParentId": "default",
+  "IdKey": 39,
+  "Name": "LizardWarrior",
+  "Art": "LizardWarrior",
+  "Height": 3.0,
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

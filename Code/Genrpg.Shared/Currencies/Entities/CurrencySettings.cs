@@ -15,7 +15,6 @@ namespace Genrpg.Shared.Currencies.Entities
     public class CurrencySettings : ParentSettings<CurrencyType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<CurrencyType> Data { get; set; }
 
         public CurrencyType GetCurrencyType(long idkey) { return _lookup.Get<CurrencyType>(idkey); }
     }
@@ -23,12 +22,6 @@ namespace Genrpg.Shared.Currencies.Entities
     [MessagePackObject]
     public class CurrencyType : ChildSettings, IIndexedGameItem
     {
-        public const int None = 0;
-        public const int Gems = 1;
-        public const int Money = 2;
-        public const int Exp = 3;
-        public const int Ability = 4;
-
 
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }

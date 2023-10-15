@@ -1,0 +1,43 @@
+{
+  "Id": "namelisteda1c877-33c2-4386-bc58-57e37e20d25fdefault",
+  "ParentId": "default",
+  "ListName": "CreatureShellColors",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Black",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blue",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dark",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Night",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Orange",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Red",
+      "Desc": ""
+    },
+    {
+      "Weight": 3000.0,
+      "Name": "White",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

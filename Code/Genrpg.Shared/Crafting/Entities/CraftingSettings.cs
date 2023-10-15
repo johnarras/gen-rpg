@@ -20,7 +20,6 @@ namespace Genrpg.Shared.Crafting.Entities
         [Key(5)] public int LevelsPerExtraEffect { get; set; }
         [Key(6)] public int MaxExtraEffects { get; set; }
 
-        [Key(7)] public override List<CrafterType> Data { get; set; } = new List<CrafterType>();
 
         public CrafterType GetCrafterType(long idkey) { return _lookup.Get<CrafterType>(idkey);}
 

@@ -1,0 +1,75 @@
+{
+  "Id": "spawntable3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Gems",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 147,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 148,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 149,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 150,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 151,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 152,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 153,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 154,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 155,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    }
+  ],
+  "Art": ""
+}

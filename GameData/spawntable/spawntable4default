@@ -1,0 +1,40 @@
+{
+  "Id": "spawntable4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Elements",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 143,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 25.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 144,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 25.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 145,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 25.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 146,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 25.0
+    }
+  ],
+  "Art": ""
+}

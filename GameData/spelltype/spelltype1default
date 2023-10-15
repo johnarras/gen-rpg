@@ -1,0 +1,18 @@
+{
+  "Id": "spelltype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Attack",
+  "Desc": "",
+  "Icon": "520271",
+  "Art": "",
+  "ElementTypeId": 2,
+  "PowerStatTypeId": 3,
+  "PowerCost": 40,
+  "Effects": [
+    {
+      "SkillTypeId": 1,
+      "Scale": 100
+    }
+  ]
+}

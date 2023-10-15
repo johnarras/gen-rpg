@@ -1,0 +1,9 @@
+{
+  "Id": "treetype78default",
+  "ParentId": "default",
+  "IdKey": 78,
+  "Name": "MagnoliaWhite",
+  "Art": "MagnoliaWhite",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

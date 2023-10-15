@@ -11,7 +11,6 @@ namespace Genrpg.Shared.Inventory.Entities
     public class SetTypeSettings : ParentSettings<SetType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<SetType> Data { get; set; } = new List<SetType>();
 
         public SetType GetSetType(long idkey) { return _lookup.Get<SetType>(idkey); }
     }

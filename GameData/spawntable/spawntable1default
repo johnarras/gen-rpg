@@ -1,0 +1,47 @@
+{
+  "Id": "spawntable1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "MonsterLoot",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 1,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 9,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 5.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 50,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 2.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 50,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 2.0
+    }
+  ],
+  "Art": ""
+}

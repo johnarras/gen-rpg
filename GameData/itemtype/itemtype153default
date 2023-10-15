@@ -1,0 +1,76 @@
+{
+  "Id": "itemtype153default",
+  "ParentId": "default",
+  "IdKey": 153,
+  "Name": "Topaz",
+  "NameId": "GemTopaz",
+  "GenName": "GemTopaz",
+  "Icon": "GemTopaz",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 13
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 50
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Chipped"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Tiny"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Small"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Medium"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Large"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Huge"
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Dim"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Glimmering"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Glowing"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Radiant"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Brilliant"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

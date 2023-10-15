@@ -12,7 +12,6 @@ namespace Genrpg.Shared.Purchasing.Entities
     public class ProductSkuTypeSettings : ParentSettings<ProductSkuType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<ProductSkuType> Data { get; set; } = new List<ProductSkuType>();
 
         public ProductSkuType GetProductSkuType(long idkey) { return _lookup.Get<ProductSkuType>(idkey); }
     }

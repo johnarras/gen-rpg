@@ -1,11 +1,13 @@
 ﻿using Genrpg.MapServer.Spawns;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crafting.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.Names.Entities;
+using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Utils;
 using System;
@@ -111,7 +113,7 @@ namespace Genrpg.MapServer.Items
                 item.Effects = new List<ItemEffect>();
                 foreach (ItemEffect eff in itype.Effects)
                 {
-                    if (eff.EntityTypeId == EntityType.Stat || eff.EntityTypeId == EntityType.StatPct)
+                    if (eff.EntityTypeId == EntityTypes.Stat || eff.EntityTypeId == EntityTypes.StatPct)
                     {
                         continue;
                     }
@@ -275,12 +277,12 @@ namespace Genrpg.MapServer.Items
 
 
 
-            if (qualityTypeId <= QualityType.Common)
+            if (qualityTypeId <= QualityTypes.Common)
             {
                 return badPrefix + " " + itemName;
             }
 
-            if (qualityTypeId <= QualityType.Uncommon || gs.rand.Next() % 10 == 4)
+            if (qualityTypeId <= QualityTypes.Uncommon || gs.rand.Next() % 10 == 4)
             {
                 if (gs.rand.Next() % 2 == 0)
                 {
@@ -344,7 +346,7 @@ namespace Genrpg.MapServer.Items
                 return null;
             }
 
-            RecipeType rtype = gs.data.GetGameData<RecipeSettings>(null).GetData().FirstOrDefault(x => x.EntityTypeId == EntityType.Item && x.EntityId == genData.ItemTypeId);
+            RecipeType rtype = gs.data.GetGameData<RecipeSettings>(null).GetData().FirstOrDefault(x => x.EntityTypeId == EntityTypes.Item && x.EntityId == genData.ItemTypeId);
 
             if (rtype.CrafterTypeId > 0)
             {
@@ -382,7 +384,7 @@ namespace Genrpg.MapServer.Items
 
             // Items get 3 things.
             // 1. Some stamina.
-            AddStatTotal(statTotals, StatType.Stamina, scalingType.DefPct);
+            AddStatTotal(statTotals, StatTypes.Stamina, scalingType.DefPct);
             // 2. Some core stat
             AddStatTotal(statTotals, coreStat.IdKey, scalingType.AttPct);
             // 3. Maybe another stat like armor/resist/crit...only 1 defined here for simplicity.
@@ -486,7 +488,7 @@ namespace Genrpg.MapServer.Items
 
                 if (finalVal != 0)
                 {
-                    ItemEffect eff = new ItemEffect() { EntityTypeId = EntityType.Stat, EntityId = key, Quantity = finalVal };
+                    ItemEffect eff = new ItemEffect() { EntityTypeId = EntityTypes.Stat, EntityId = key, Quantity = finalVal };
                     effs.Add(eff);
                 }
             }
@@ -527,7 +529,7 @@ namespace Genrpg.MapServer.Items
         {
             if (gs.data.GetGameData<QualityTypeSettings>(null).GetData() == null)
             {
-                return QualityType.Common;
+                return QualityTypes.Common;
             }
 
             double chanceTotal = 0.0f;
@@ -564,13 +566,13 @@ namespace Genrpg.MapServer.Items
                 return genData.QualityTypeId;
             }
 
-            return QualityType.Common;
+            return QualityTypes.Common;
         }
 
 
         protected void AddItemReagentFromReagent(GameState gs, Reagent reagent, List<FullReagent> reagents, ItemGenData gd)
         {
-            if (reagent.EntityTypeId == EntityType.Item)
+            if (reagent.EntityTypeId == EntityTypes.Item)
             {
                 FullReagent ir = new FullReagent();
                 ir.ItemTypeId = reagent.EntityId;

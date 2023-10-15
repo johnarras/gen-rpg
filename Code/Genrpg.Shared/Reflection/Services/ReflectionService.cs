@@ -2,7 +2,7 @@
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Interfaces;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Genrpg.Shared.Entities.Settings;
+
 namespace Genrpg.Shared.Reflection.Services
 {
 
@@ -613,6 +615,10 @@ namespace Genrpg.Shared.Reflection.Services
                         else
                         {
                             obj2 = SerializationUtils.SafeMakeCopy(copyFrom);
+                            if (copyFrom is IComplexCopy complexFrom && obj2 is IComplexCopy complexObj)
+                            {
+                                complexObj.DeepCopyFrom(complexFrom);
+                            }
                         }
                         largestId++;
                         SetObjectValue(obj2, GameDataConstants.IdKey, largestId);
@@ -677,6 +683,11 @@ namespace Genrpg.Shared.Reflection.Services
                         else
                         {
                             obj2 = SerializationUtils.SafeMakeCopy(copyFrom);
+
+                            if (copyFrom is IComplexCopy complexFrom && obj2 is IComplexCopy complexObj)
+                            {
+                                complexObj.DeepCopyFrom(complexFrom);
+                            }
                         }
                         newItems.Add(obj2);
                         largestId++;
@@ -1231,7 +1242,7 @@ namespace Genrpg.Shared.Reflection.Services
 
         // Get the list used int the game object to that's put into this member
         // at this time. It's either of the form XYZFooId for an item of type Foo,
-        // or it's XYZEntityId where XYZEntityTypeId is of type EntityType.Foo.
+        // or it's XYZEntityId where XYZEntityTypeId is of type EntityTypes.Foo.
         protected string GetGameDataListName(GameState gs, object obj, MemberInfo mem)
         {
             if (gs.data == null || obj == null || mem == null || string.IsNullOrEmpty(mem.Name))

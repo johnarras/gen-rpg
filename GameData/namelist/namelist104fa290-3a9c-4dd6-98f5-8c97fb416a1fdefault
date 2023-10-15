@@ -1,0 +1,58 @@
+{
+  "Id": "namelist104fa290-3a9c-4dd6-98f5-8c97fb416a1fdefault",
+  "ParentId": "default",
+  "ListName": "CreatureShellNames",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Broken",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cracked",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Damaged",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hard",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hardened",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Heavy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Solid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Spiked",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tough",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Toughened",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

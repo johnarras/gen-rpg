@@ -1,0 +1,408 @@
+{
+  "Id": "namelist7cec97c9-bd90-4c0b-9fa9-a5d5990e11b5default",
+  "ParentId": "default",
+  "ListName": "ItemDoublePrefix",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Azure",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Battle",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bear",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Beast",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Black",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blood",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blue",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bone",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cloud",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cold",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dark",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dawn",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Day",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Death",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Demon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Drake",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dread",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dusk",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dwarf",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Eagle",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Earth",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ebon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Elf",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ever",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Falcon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Feral",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fire",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ghost",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Giant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gnome",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gold",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gray",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Green",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Grim",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hate",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hawk",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Heart",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hearth",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Holy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ice",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Iron",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lich",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Light",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lightning",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Long",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mage",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mist",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Moon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Night",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Oak",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Oath",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Orc",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Owl",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pain",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Raven",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Red",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rock",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shadow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shock",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Short",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Silver",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Skull",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sky",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Star",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Steel",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Stone",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Storm",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Stout",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sun",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tall",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Thunder",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vile",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "War",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Whisper",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "White",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wild",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wind",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wolf",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wyrm",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

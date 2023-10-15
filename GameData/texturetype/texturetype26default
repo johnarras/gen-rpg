@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype26default",
+  "ParentId": "default",
+  "IdKey": 26,
+  "Name": "CrackedGraySmall",
+  "Size": 8.0,
+  "ParentTextureTypeId": 8
+}

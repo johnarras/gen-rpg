@@ -1,0 +1,7 @@
+{
+  "Id": "stattype30default",
+  "ParentId": "default",
+  "IdKey": 30,
+  "Name": "Defense",
+  "Desc": "All Defense"
+}

@@ -1,0 +1,9 @@
+{
+  "Id": "treetype7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Spruce",
+  "Art": "Spruce",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

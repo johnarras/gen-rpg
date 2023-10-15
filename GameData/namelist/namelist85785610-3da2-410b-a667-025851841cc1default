@@ -1,0 +1,68 @@
+{
+  "Id": "namelist85785610-3da2-410b-a667-025851841cc1default",
+  "ParentId": "default",
+  "ListName": "ZoneNameSuffix",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Breeze",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Desolation",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Doom",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dust",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fear",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hate",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Misery",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pain",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Screams",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sorrows",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Ancients",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wind",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

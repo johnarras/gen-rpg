@@ -1,0 +1,9 @@
+{
+  "Id": "treetype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "RedMaple",
+  "Art": "RedMaple",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

@@ -13,6 +13,8 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Networking.Interfaces;
 using Genrpg.Shared.GameSettings.Entities;
+using Genrpg.Shared.Factions.Constants;
+using Genrpg.Shared.Inventory.Constants;
 
 namespace Genrpg.Shared.Characters.Entities
 {
@@ -31,9 +33,9 @@ namespace Genrpg.Shared.Characters.Entities
         public Character()
         {
             Level = 1;
-            QualityTypeId = QualityType.Common;
+            QualityTypeId = QualityTypes.Common;
             EntityId = 1;
-            FactionTypeId = FactionType.Player;
+            FactionTypeId = FactionTypes.Player;
             NearbyGridsSeen = new List<PointXZ>();
         }
 

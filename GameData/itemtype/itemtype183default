@@ -1,0 +1,74 @@
+{
+  "Id": "itemtype183default",
+  "ParentId": "default",
+  "IdKey": 183,
+  "Name": "Tongue",
+  "NameId": "Tongue",
+  "GenName": "BodyTongue",
+  "Icon": "BodyTongue",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 61
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 52
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Icky"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Foul"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Putrid"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Reeking"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Rotten"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Ruined"
+    }
+  ],
+  "QualityNames": [
+    {},
+    {
+      "QualityTypeId": 1,
+      "Name": "Cleaned"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Worked"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Finished"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Lifebound"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

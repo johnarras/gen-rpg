@@ -13,7 +13,6 @@ namespace Genrpg.Shared.Purchasing.Entities
     public class StoreOfferTypeSettings : ParentSettings<StoreOfferType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<StoreOfferType> Data { get; set; } = new List<StoreOfferType>();
 
         public StoreOfferType GetStoreOfferType(long idkey) { return _lookup.Get<StoreOfferType>(idkey); }
     }

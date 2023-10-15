@@ -1,0 +1,8 @@
+{
+  "Id": "equipslot9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Wrists",
+  "StatPercent": 100,
+  "Active": true
+}

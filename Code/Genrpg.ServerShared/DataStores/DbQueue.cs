@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.DataStores
@@ -11,29 +12,30 @@ namespace Genrpg.ServerShared.DataStores
     public class DbQueue
     {
         private ConcurrentQueue<IDbAction> _queue = new ConcurrentQueue<IDbAction>();
-        private ILogSystem _logger;
-        public DbQueue(ILogSystem logger)
+        public DbQueue(ILogSystem logger, CancellationToken token)
         {
-            _logger = logger;
-            _ = Task.Run(() => ActionLoop());
+            _ = Task.Run(() => ActionLoop(logger,token));
         }
 
-        protected async Task ActionLoop()
+        protected async Task ActionLoop(ILogSystem logger, CancellationToken token) 
         {
-            while (true)
+            using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(1)))
             {
-                try
+                while (true)
                 {
-                    while (_queue.TryDequeue(out IDbAction item))
+                    try
                     {
-                        await item.Execute().ConfigureAwait(false);
+                        while (_queue.TryDequeue(out IDbAction item))
+                        {
+                            await item.Execute().ConfigureAwait(false);
+                        }
                     }
+                    catch (Exception e)
+                    {
+                        logger.Exception(e, "DbActionLoop");
+                    }
+                    await timer.WaitForNextTickAsync(token).ConfigureAwait(false);
                 }
-                catch (Exception e)
-                {
-                    _logger.Exception(e, "DbActionLoop");
-                }
-                await Task.Delay(1).ConfigureAwait(false);
             }
         }
 

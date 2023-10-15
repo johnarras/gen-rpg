@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Currencies.Entities;
+﻿using Genrpg.Shared.Currencies.Constants;
+using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Currencies.Messages;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
@@ -33,7 +34,7 @@ public class MoneyDisplay : BaseBehaviour
         if (UpdateToCharMoney)
         {
             CurrencyData currencies = _gs.ch.Get<CurrencyData>();
-            SetMoney(currencies.GetQuantity(CurrencyType.Money));
+            SetMoney(currencies.GetQuantity(CurrencyTypes.Money));
         }
     }
 

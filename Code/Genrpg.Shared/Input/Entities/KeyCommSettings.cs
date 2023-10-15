@@ -17,7 +17,6 @@ namespace Genrpg.Shared.Input.Entities
     public class KeyCommSettings : ParentSettings<KeyCommSetting>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<KeyCommSetting> Data { get; set; }
     }
     [MessagePackObject]
     public class KeyCommSetting : ChildSettings, IId

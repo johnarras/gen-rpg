@@ -1,0 +1,536 @@
+{
+  "Id": "zonetype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Swamp",
+  "Desc": "",
+  "Icon": "",
+  "GenChance": 3.0,
+  "GrassDensity": 1.1,
+  "GrassFreq": 1.0,
+  "TreeDensity": 1.0,
+  "BushDensity": 1.3,
+  "BushFreq": 1.0,
+  "RockDensity": 1.0,
+  "DetailAmp": 0.2,
+  "DetailFreq": 0.5,
+  "RoadDipScale": -0.3,
+  "RoadDirtScale": 1.0,
+  "ZoneListGenScale": 1.0,
+  "Textures": [
+    {
+      "TextureTypeId": 7
+    },
+    {
+      "TextureTypeId": 2,
+      "TextureChannelId": 1
+    },
+    {
+      "TextureTypeId": 4,
+      "TextureChannelId": 2
+    },
+    {
+      "TextureTypeId": 3,
+      "TextureChannelId": 3
+    },
+    {
+      "TextureTypeId": 80,
+      "TextureChannelId": 1
+    },
+    {
+      "TextureTypeId": 38
+    }
+  ],
+  "ZoneNames": [
+    {
+      "Weight": 1000.0,
+      "Name": "Bayou",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bog",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Canyon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Canyons",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fenland",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Marsh",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Marshland",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mire",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Moor",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Morass",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Quag",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Quagmire",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Swamp",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Swampland",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Valley",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Valleys",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wetland",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wetlands",
+      "Desc": ""
+    }
+  ],
+  "ZoneAdjectives": [
+    {
+      "Weight": 1000.0,
+      "Name": "Chirping",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Choking",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Damp",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dank",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dark",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Earthen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fetid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Foggy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hot",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Leafy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Misty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mossy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Muddy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Singing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Smelly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Spongy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Stinky",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sweltering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Warm",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wet",
+      "Desc": ""
+    }
+  ],
+  "BridgeTypes": [
+    {
+      "BridgeTypeId": 2,
+      "Chance": 100
+    },
+    {
+      "BridgeTypeId": 3,
+      "Chance": 100
+    },
+    {
+      "BridgeTypeId": 1,
+      "Chance": 100
+    }
+  ],
+  "FenceTypes": [
+    {
+      "FenceTypeId": 1,
+      "Chance": 100.0
+    }
+  ],
+  "RockTypes": [
+    {
+      "RockTypeId": 1,
+      "ChanceScale": 0.1,
+      "BaseColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 1.0,
+        "A": 1.0
+      }
+    },
+    {
+      "RockTypeId": 4,
+      "ChanceScale": 1.0,
+      "BaseColor": {}
+    }
+  ],
+  "TreeTypes": [
+    {
+      "TreeTypeId": 28,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 29,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 58,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 60,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 59,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 73,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 61,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 62,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 22,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 80,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 81,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 82,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 83,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 86,
+      "PopulationScale": 1.0
+    }
+  ],
+  "CreatureNamePrefixes": [
+    {
+      "Weight": 1000.0,
+      "Name": "Bayou",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bog",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fenland",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Marsh",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Marshland",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mire",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Moor",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Morass",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Moss-Covered",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mossy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mud",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Quag",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Quagmire",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "River",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Riverbed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Swamp",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Swampland",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wetland",
+      "Desc": ""
+    }
+  ],
+  "CreatureDoubleNamePrefixes": [
+    {
+      "Weight": 1000.0,
+      "Name": "Bog",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Marsh",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Moor",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Moss",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mud",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Peat",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Quag",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Silt",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Swamp",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wet",
+      "Desc": ""
+    }
+  ],
+  "Overrides": [],
+  "UnitSpawns": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 17,
+      "MinQuantity": 5,
+      "MaxQuantity": 10,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 10,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 3.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 11,
+      "MinQuantity": 2,
+      "MaxQuantity": 5,
+      "Weight": 5.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 12,
+      "MinQuantity": 2,
+      "MaxQuantity": 4,
+      "Weight": 0.5
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 13,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 1.0
+    }
+  ],
+  "PlantChoices": "34 35 2 4 8 10",
+  "FenceChance": 0.1,
+  "Art": "",
+  "WeatherTypeId": 4,
+  "MusicTypeId": 6,
+  "AmbientMusicTypeId": 11
+}

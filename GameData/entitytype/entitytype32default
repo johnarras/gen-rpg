@@ -1,0 +1,6 @@
+{
+  "Id": "entitytype32default",
+  "ParentId": "default",
+  "IdKey": 32,
+  "Name": "StatPct"
+}

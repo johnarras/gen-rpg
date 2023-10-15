@@ -21,6 +21,8 @@ using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.MapServer.AI.Services;
 using Genrpg.MapServer.Combat.Messages;
+using Genrpg.Shared.Spells.Constants;
+using Genrpg.Shared.Stats.Constants;
 
 namespace Genrpg.MapServer.Spells
 {
@@ -129,22 +131,26 @@ namespace Genrpg.MapServer.Spells
                 return result;
             }
 
-            SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(caster).GetSkillType(spell.SkillTypeId);
-
-            if (skillType == null)
-            {
-                SetResultState(result, TryCastState.UnknownSkill);
-                return result;
-            }
-
-
             if (spell.CooldownEnds > DateTime.UtcNow)
             {
                 SetResultState(result, TryCastState.OnCooldown);
                 return result;
             }
 
-            if (caster.Stats.Curr(skillType.PowerStatTypeId) < spell.GetCost(gs, caster))
+
+            foreach (SpellEffect effect in spell.Effects)
+            {
+
+                SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(caster).GetSkillType(effect.SkillTypeId);
+
+                if (skillType == null)
+                {
+                    SetResultState(result, TryCastState.UnknownSkill);
+                    return result;
+                }
+            }
+
+            if (caster.Stats.Curr(spell.PowerStatTypeId) < spell.GetCost(gs, caster))
             {
                 SetResultState(result, TryCastState.NotEnoughPower);
                 return result;
@@ -168,13 +174,10 @@ namespace Genrpg.MapServer.Spells
             result.Spell = spell;
             result.Target = targState.Target;
             result.ElementType = elementType;
-            result.SkillType = skillType;
 
             if (caster is Character ch)
             {
                 AbilityData adata = ch.Get<AbilityData>();
-                result.ElementRank = adata.GetRank(gs, AbilityCategory.Element, result.ElementType.IdKey);
-                result.SkillRank = adata.GetRank(gs, AbilityCategory.Skill, result.SkillType.IdKey);
             }
 
             SetResultState(result, TryCastState.Ok);
@@ -247,9 +250,6 @@ namespace Genrpg.MapServer.Spells
                 CasterFactionId = caster.FactionTypeId,
                 Spell = result.Spell,
                 ElementType = result.ElementType,
-                ElementRank = result.ElementRank,
-                SkillType = result.SkillType,
-                SkillRank = result.SkillRank,
             };
 
             SendOneSpell(gs, caster, result.Target, sendSpell, true);
@@ -380,11 +380,15 @@ namespace Genrpg.MapServer.Spells
 
         public void OnSendSpell(GameState gs, Unit origTarget, SendSpell sendSpell)
         {
-            List<SpellHit> hits = GetTargetsHit(gs, origTarget, sendSpell);
 
-            foreach (SpellHit hit in hits)
+            foreach (SpellEffect effect in sendSpell.Spell.Effects)
             {
-                _messageService.SendMessage(hit.Target, hit);
+                List<SpellHit> hits = GetTargetsHit(gs, origTarget, sendSpell, effect);
+
+                foreach (SpellHit hit in hits)
+                {
+                    _messageService.SendMessage(hit.Target, hit);
+                }
             }
         }
 
@@ -394,13 +398,21 @@ namespace Genrpg.MapServer.Spells
         /// <param name="gs"></param>
         /// <param name="spellData"></param>
         /// <returns></returns>
-        protected List<SpellHit> GetTargetsHit(GameState gs, Unit origTarget, SendSpell sendSpell)
+        protected List<SpellHit> GetTargetsHit(GameState gs, Unit origTarget, SendSpell sendSpell, SpellEffect effect)
         {
             List<SpellHit> hits = new List<SpellHit>();
 
-            long targetTypeId = sendSpell.SkillType.TargetTypeId;
+            if (!_objectManager.GetObject(sendSpell.CasterId, out MapObject caster))
+            {
+                return hits;
+            }
+
+            SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(caster).GetSkillType(effect.SkillTypeId);
+            ElementType elementType = gs.data.GetGameData<ElementTypeSettings>(caster).GetElementType(sendSpell.Spell.ElementTypeId);
+
+            long targetTypeId = skillType.TargetTypeId;
             long casterFactionId = sendSpell.CasterFactionId;
-            if (targetTypeId == TargetType.None)
+            if (targetTypeId == TargetTypes.None)
             {
                 return hits;
             }
@@ -412,23 +424,25 @@ namespace Genrpg.MapServer.Spells
             primaryTargets.Add(origTarget);
             targets.Add(origTarget);
 
-            if (sendSpell.Spell.ExtraTargets > 0)
+            if (effect.ExtraTargets > 0)
             {
                 List<Unit> newTargets = GetUnitsNear(gs, origTarget.X, origTarget.Z, origTarget, SpellConstants.ExtraTargetRadius,
-                    casterFactionId, targetTypeId, sendSpell.Spell.ExtraTargets);
+                    casterFactionId, targetTypeId, effect.ExtraTargets);
 
                 targets.AddRange(newTargets);
                 targets = targets.Distinct().ToList(); // Use as help vs units moving across cells
                 primaryTargets.AddRange(newTargets);
                 primaryTargets = primaryTargets.Distinct().ToList(); // Use as help vs units moving across cells
             }
-            if (sendSpell.Spell.Radius > 0)
+
+            // Maybe someday we expand this to be TargetShape.
+            if (effect.Radius > 0)
             {
                 if (primaryTargets.Count > 0)
                 {
                     foreach (Unit ptarg in primaryTargets)
                     {
-                        List<Unit> newTargets = GetUnitsNear(gs, ptarg.X, ptarg.Z, ptarg, sendSpell.Spell.Radius, casterFactionId, targetTypeId);
+                        List<Unit> newTargets = GetUnitsNear(gs, ptarg.X, ptarg.Z, ptarg, effect.Radius, casterFactionId, targetTypeId);
 
                         newTargets = newTargets.Distinct().ToList();
                         targets.AddRange(newTargets.Except(primaryTargets));
@@ -442,12 +456,16 @@ namespace Genrpg.MapServer.Spells
                 {
                     continue;
                 }
+
                 SpellHit newHit = new SpellHit()
                 {
                     Id = gs.rand.NextLong(),
                     OrigTarget = origTarget,
                     Target = targ,
                     SendSpell = sendSpell,
+                    Effect = effect,
+                    ElementType = elementType,
+                    SkillType = skillType,
                 };
 
                 if (primaryTargets.Contains(targ))
@@ -480,9 +498,9 @@ namespace Genrpg.MapServer.Spells
 
         public void OnSpellHit(GameState gs, SpellHit hit)
         {
-            List<SpellEffect> effects = CalcSpellEffects(gs, hit);
+            List<ActiveSpellEffect> effects = CalcSpellEffects(gs, hit);
 
-            foreach (SpellEffect eff in effects)
+            foreach (ActiveSpellEffect eff in effects)
             {
                 if (!_objectManager.GetUnit(eff.TargetId, out Unit unit))
                 {
@@ -499,61 +517,62 @@ namespace Genrpg.MapServer.Spells
         /// <param name="castData"></param>
         /// <param name="hitData"></param>
         /// <param name="cr"></param>
-        public List<SpellEffect> CalcSpellEffects(GameState gs, SpellHit hit)
+        public List<ActiveSpellEffect> CalcSpellEffects(GameState gs, SpellHit hit)
         {
-
-            List<SpellEffect> retval = new List<SpellEffect>();
+            List<ActiveSpellEffect> retval = new List<ActiveSpellEffect>();
             SendSpell sendSpell = hit.SendSpell;
             Spell spell = sendSpell.Spell;
+            SpellEffect effect = hit.Effect;
 
-            ElementType elementType = hit.SendSpell.ElementType;
-            SkillType skillType = hit.SendSpell.SkillType;
-            long elementRank = hit.SendSpell.ElementRank;
-            long skillRank = hit.SendSpell.SkillRank;
+            ElementType elementType = hit.ElementType;
+            SkillType skillType = hit.SkillType;
+            long elementRank = 0;
+            long skillRank = 0;
             long level = sendSpell.CasterLevel;
 
             double elemSkillScalePct = elementType.GetScalePct(skillType.IdKey) / 100.0f;
 
-            double skillBaseScalePct = skillType.BaseScalePct / 100.0f;
-            int skillRankScale = skillType.RankScale;
-            int elemRankScale = elementType.RankScale;
+            double skillBaseScalePct = skillType.StatScalePercent / 100.0f;
+            int skillRankScale = 1;
+            int elemRankScale = 1;
 
             long baseQuantity = 0;
             long defenseQuantity = 0;
             long maxQuantity = 0;
             long finalQuantity = 0;
 
-            if (!GetSpellEffectHandler(skillType.EntityTypeId, out ISpellEffectHandler handler))
+            if (!GetSpellEffectHandler(skillType.EffectEntityTypeId, out ISpellEffectHandler handler))
             {
                 return retval;
             }
 
             if (handler.UseStatScaling())
             {
-                long powerStatId = skillType.ScalingStatTypeId;
-                if (powerStatId < StatType.Power || powerStatId >= StatType.Power + 10)
+                long scalingStatId = skillType.ScalingStatTypeId;
+                if (scalingStatId < StatTypes.Power || scalingStatId >= StatTypes.Power + 10)
                 {
-                    powerStatId = StatType.Power;
+                    scalingStatId = StatTypes.Power;
                 }
 
-                long powerOffset = powerStatId - StatType.Power;
+                long powerOffset = scalingStatId - StatTypes.Power;
 
                 StatGroup cStats = sendSpell.CasterStats;
 
-                long powerStat = cStats.Max(powerStatId);
-                double statPowerMult = cStats.Max(StatType.PowerMult + powerOffset);
+                long powerStat = cStats.Max(scalingStatId);
+
+                double statPowerMult = cStats.Max(StatTypes.PowerMult + powerOffset);
 
                 if (powerOffset > 0)
                 {
-                    powerStat += cStats.Max(StatType.Power);
-                    statPowerMult += cStats.Max(StatType.PowerMult);
+                    powerStat += cStats.Max(StatTypes.Power);
+                    statPowerMult += cStats.Max(StatTypes.PowerMult);
                 }
 
                 statPowerMult = 1 + statPowerMult / 100.0f;
 
                 double trainedRankScale = 1 + (elementRank * elemRankScale + skillRank * skillRankScale) / 100.0f;
 
-                double primaryScale = spell.Scale / 100.0f;
+                double primaryScale = effect.Scale / 100.0f;
 
                 // Base amount is your base stat times the skill and element scaling.
                 baseQuantity = (long)(
@@ -567,16 +586,16 @@ namespace Genrpg.MapServer.Spells
                 defenseQuantity = baseQuantity;
 
                 // If there's a target and it's an enemy spell, then get the victim's defenses.
-                if (hit.Target != null && skillType.TargetTypeId == TargetType.Enemy)
+                if (hit.Target != null && skillType.TargetTypeId == TargetTypes.Enemy)
                 {
                     StatGroup tStats = hit.Target.Stats;
-                    float defenseScaleDown = tStats.ScaleDown(StatType.Defense + powerOffset);
-                    long defenseMult = tStats.Max(StatType.DefenseMult + powerOffset);
+                    float defenseScaleDown = tStats.ScaleDown(StatTypes.Defense + powerOffset);
+                    long defenseMult = tStats.Max(StatTypes.DefenseMult + powerOffset);
 
                     if (powerOffset > 0)
                     {
-                        defenseScaleDown *= tStats.ScaleDown(StatType.Defense);
-                        defenseMult += tStats.Max(StatType.DefenseMult);
+                        defenseScaleDown *= tStats.ScaleDown(StatTypes.Defense);
+                        defenseMult += tStats.Max(StatTypes.DefenseMult);
                     }
 
 
@@ -592,8 +611,8 @@ namespace Genrpg.MapServer.Spells
                 maxQuantity = defenseQuantity;
                 finalQuantity = maxQuantity;
 
-                hit.CritChance = cStats.Pct(StatType.Crit);
-                hit.CritMult = 2.0f + cStats.Pct(StatType.CritDam);
+                hit.CritChance = cStats.Pct(StatTypes.Crit);
+                hit.CritMult = 2.0f + cStats.Pct(StatTypes.CritDam);
 
 
             }
@@ -608,7 +627,6 @@ namespace Genrpg.MapServer.Spells
                 finalQuantity = baseQuantity;
             }
             hit.BaseQuantity = finalQuantity;
-            hit.VariancePct = skillType.VariancePct;
 
             return handler.CreateEffects(gs, hit);
 
@@ -629,7 +647,7 @@ namespace Genrpg.MapServer.Spells
 
 
 
-        public void ApplyOneEffect(GameState gs, SpellEffect eff)
+        public void ApplyOneEffect(GameState gs, ActiveSpellEffect eff)
         {
 
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ))
@@ -651,7 +669,7 @@ namespace Genrpg.MapServer.Spells
 
             bool allySpell = false;
             long targetTypeId = gs.data.GetGameData<SkillTypeSettings>(null).GetSkillType(eff.SkillTypeId).TargetTypeId;
-            if (targetTypeId == TargetType.Ally)
+            if (targetTypeId == TargetTypes.Ally)
             {
                 allySpell = true;
             }
@@ -683,7 +701,7 @@ namespace Genrpg.MapServer.Spells
                 return;
             }
 
-            if (targetTypeId == TargetType.Enemy)
+            if (targetTypeId == TargetTypes.Enemy)
             {
                 if (!targ.HasTarget())
                 {
@@ -714,12 +732,10 @@ namespace Genrpg.MapServer.Spells
 
             if (!isImmune)
             {
-                if (targetTypeId == TargetType.Enemy && !string.IsNullOrEmpty(fxName))
+                if (targetTypeId == TargetTypes.Enemy && !string.IsNullOrEmpty(fxName))
                 {
                     ShowFX(gs, eff.TargetId, eff.TargetId, eff.ElementTypeId, fxName, 1);
                 }
-                //await ProcSpells(gs, hitData, ProcType.OnHitTarget, cr);
-                //await ProcSpells(gs, hitData, ProcType.OnWasHit, cr);
             }
 
             if (eff.Duration > 0 && eff.DurationLeft > 0)
@@ -735,7 +751,7 @@ namespace Genrpg.MapServer.Spells
         }
 
 
-        protected void AddEffect(GameState gs, SpellEffect eff)
+        protected void AddEffect(GameState gs, ActiveSpellEffect eff)
         {
 
             if (!_objectManager.GetUnit(eff.TargetId, out Unit unit))
@@ -745,11 +761,11 @@ namespace Genrpg.MapServer.Spells
 
             if (unit.SpellEffects == null)
             {
-                unit.SpellEffects = new List<SpellEffect>();
+                unit.SpellEffects = new List<ActiveSpellEffect>();
             }
 
 
-            SpellEffect currEffectData = unit.SpellEffects.FirstOrDefault(x => x.MatchesOther(eff));
+            ActiveSpellEffect currEffectData = unit.SpellEffects.FirstOrDefault(x => x.MatchesOther(eff));
 
 
             bool canAddNew = true;
@@ -803,7 +819,7 @@ namespace Genrpg.MapServer.Spells
         }
 
 
-        protected void RemoveEffect(GameState gs, SpellEffect effData)
+        protected void RemoveEffect(GameState gs, ActiveSpellEffect effData)
         {
 
             if (!_objectManager.GetUnit(effData.TargetId, out Unit unit))
@@ -830,125 +846,6 @@ namespace Genrpg.MapServer.Spells
             _statService.CalcStats(gs, unit, false);
         }
 
-        protected void ProcSpells(GameState gs, SpellHit spellHit, int procTypeId, CastResult cr)
-        {
-            List<FullProc> procList = new List<FullProc>();
-
-            string procCasterId = null;
-            string procTargetId = null;
-
-            if (procTypeId == ProcType.OnCast || procTypeId == ProcType.OnHitTarget)
-            {
-                procCasterId = spellHit.SendSpell.CasterId;
-                procTargetId = spellHit.Target.Id;
-            }
-            else if (procTypeId == ProcType.OnWasHit || procTypeId == ProcType.OnDeath)
-            {
-                procCasterId = spellHit.Target.Id;
-                procTargetId = spellHit.SendSpell.CasterId;
-            }
-
-            //procList.AddRange(AddProcsFromList(gs, castData, castData.Element.Procs, procTypeId, true));
-            //procList.AddRange(AddProcsFromList(gs, castData, castData.Spell.Procs, procTypeId, false));
-            //if (procCaster != null)
-            //{
-            //    procList.AddRange(AddProcsFromList(gs, castData, procCaster.Procs, procTypeId, true));
-            //}
-
-
-
-            foreach (FullProc proc in procList)
-            {
-                SpellType procSpell = gs.data.GetGameData<SpellTypeSettings>(null).GetSpellType(proc.Proc.SpellId);
-                if (procSpell == null)
-                {
-                    continue;
-                }
-
-                SkillType procSkill = gs.data.GetGameData<SkillTypeSettings>(null).GetSkillType(procSpell.SkillTypeId);
-                if (procSkill == null)
-                {
-                    continue;
-                }
-
-                if (procSkill.TargetTypeId == TargetType.Ally)
-                {
-                    procTargetId = procCasterId;
-                }
-                else if (procSkill.TargetTypeId == TargetType.Enemy &&
-                    procTargetId == procCasterId)
-                {
-                    continue;
-                }
-
-                proc.Current.CooldownEnds = DateTime.UtcNow.AddSeconds(proc.Proc.Cooldown);
-
-                //ProcOneSpell(gs, procSpell, procCaster, procTarget, proc.Proc.Scale, spellHit.ProcDepth + 1, cr);
-
-            }
-
-            return;
-        }
-
-        protected List<FullProc> AddProcsFromList(GameState gs, SpellHit hitData, List<SpellProc> listToCheck,
-            int procTypeId, bool requireElementSkillMatch)
-        {
-            List<FullProc> retval = new List<FullProc>();
-            if (listToCheck == null)
-            {
-                return retval;
-            }
-
-            foreach (SpellProc proc in listToCheck)
-            {
-                if (proc.ProcTypeId != procTypeId || gs.rand.Next() % 100 >= proc.Chance)
-                {
-                    continue;
-                }
-                if (requireElementSkillMatch)
-                {
-                    if (proc.FromElementTypeId > 0 && hitData.SendSpell.Spell.ElementTypeId != proc.FromElementTypeId ||
-                    proc.FromSkillTypeId > 0 && hitData.SendSpell.Spell.SkillTypeId != proc.FromSkillTypeId)
-                    {
-                        continue;
-                    }
-                }
-
-                CurrentProc currentProc = hitData.Target.GetCurrentProc(proc.SpellId);
-
-                if (proc.Cooldown > 0)
-                {
-                    if (DateTime.UtcNow < currentProc.CooldownEnds)
-                    {
-                        continue;
-                    }
-                }
-
-                FullProc fullProc = new FullProc()
-                {
-                    SpellHit = hitData,
-                    Proc = proc,
-                    Current = currentProc,
-                };
-
-                retval.Add(fullProc);
-            }
-
-            return retval;
-        }
-
-        protected void ProcOneSpell(GameState gs, Spell spell, Unit caster, Unit target, int procScale, int procDepth, CastResult cr)
-        {
-            SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(caster).GetSkillType(spell.SkillTypeId);
-
-            if (skillType.TargetTypeId != TargetType.Enemy)
-            {
-                target = caster;
-            }
-            // On proc immediately cast for free.
-            // await FullCastSpell(gs, spell, caster, target, position, procScale, procDepth + 1, cr);
-        }
-
         public bool FullTryStartCast(GameState gs, Unit caster, long spellId, string targetId)
         {
             TryCastResult result = TryCast(gs, caster, spellId, targetId, false);
@@ -967,18 +864,18 @@ namespace Genrpg.MapServer.Spells
             {
                 Spell = result.Spell,
                 TargetId = targetId,
-                CastingTime = result.Spell.CastingTime / 1000,
-                EndCastingTime = DateTime.UtcNow.AddSeconds(1.0 * result.Spell.CastingTime / 1000),
+                CastingTime = (float)result.Spell.CastTime,
+                EndCastingTime = DateTime.UtcNow.AddSeconds(1.0 * result.Spell.CastTime / 1000),
             };
 
             caster.ActionMessage = casting;
 
-            _messageService.SendMessage(caster, casting, result.Spell.CastingTime);
+            _messageService.SendMessage(caster, casting, result.Spell.CastTime);
 
             OnStartCast onStartCast = caster.GetCachedMessage<OnStartCast>(true);
             onStartCast.CasterId = caster.Id;
             onStartCast.CastingName = result.Spell.Name;
-            onStartCast.CastSeconds = result.Spell.CastingTime;
+            onStartCast.CastSeconds = result.Spell.CastTime;
             
 
             ElementType etype = gs.data.GetGameData<ElementTypeSettings>(caster).GetElementType(result.Spell.ElementTypeId);

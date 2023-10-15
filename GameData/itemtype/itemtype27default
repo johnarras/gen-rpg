@@ -1,0 +1,123 @@
+{
+  "Id": "itemtype27default",
+  "ParentId": "default",
+  "IdKey": 27,
+  "Name": "2HMace",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Hammer2H",
+  "Art": "Mace2H",
+  "EquipSlotId": 15,
+  "Flags": 10,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Count": 7
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 10000.0,
+      "Name": "Hammer",
+      "Desc": ""
+    },
+    {
+      "Weight": 10000.0,
+      "Name": "Mace",
+      "Desc": ""
+    },
+    {
+      "Weight": 10000.0,
+      "Name": "Maul",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fist",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Smasher",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pummeler",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Breaker",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crusher",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bludgeon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shillelagh",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rod",
+      "Desc": ""
+    }
+  ]
+}

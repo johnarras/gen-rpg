@@ -1,0 +1,9 @@
+{
+  "Id": "equipslot14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Jewelry2",
+  "ParentEquipSlotId": 13,
+  "StatPercent": 100,
+  "Active": true
+}

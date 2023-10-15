@@ -1,0 +1,16 @@
+{
+  "Id": "unittype47default",
+  "ParentId": "default",
+  "IdKey": 47,
+  "Name": "Werewolf",
+  "Art": "Werewolf",
+  "Height": 4.0,
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

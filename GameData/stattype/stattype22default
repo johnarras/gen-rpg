@@ -1,0 +1,8 @@
+{
+  "Id": "stattype22default",
+  "ParentId": "default",
+  "IdKey": 22,
+  "Name": "SpellPower",
+  "Desc": "Magic Power",
+  "GenScalePct": 150
+}

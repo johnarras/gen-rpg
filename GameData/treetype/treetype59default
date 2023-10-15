@@ -1,0 +1,9 @@
+{
+  "Id": "treetype59default",
+  "ParentId": "default",
+  "IdKey": 59,
+  "Name": "CypressThin",
+  "Art": "CypressThin",
+  "Scale": 1.0,
+  "VariationCount": 2
+}

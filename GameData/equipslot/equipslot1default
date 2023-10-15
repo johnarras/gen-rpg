@@ -1,0 +1,8 @@
+{
+  "Id": "equipslot1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Head",
+  "StatPercent": 125,
+  "Active": true
+}

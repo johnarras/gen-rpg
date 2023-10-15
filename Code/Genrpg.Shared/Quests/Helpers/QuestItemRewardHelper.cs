@@ -1,6 +1,6 @@
 ﻿using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Interfaces;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace Genrpg.Shared.Quests.Helpers
             return true;
         }
 
-        public long GetKey() { return EntityType.QuestItem; }
+        public long GetKey() { return EntityTypes.QuestItem; }
 
     }
 }

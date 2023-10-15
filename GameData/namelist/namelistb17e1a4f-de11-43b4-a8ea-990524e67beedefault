@@ -1,0 +1,1073 @@
+{
+  "Id": "namelistb17e1a4f-de11-43b4-a8ea-990524e67beedefault",
+  "ParentId": "default",
+  "ListName": "ItemNouns",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Accuracy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Agility",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Air",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Anguish",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ascension",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Battle",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Binding",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blasting",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blood",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bone",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Brutality",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Clarity",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Conquest",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cunning",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dark",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Darkness",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Daybreak",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Death",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Defense",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Delving",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Demons",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Despair",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Destiny",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Destruction",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Determination",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Diffusion",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dominance",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Domination",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dragons",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dreaming",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dreams",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Earth",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Eternity",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Evisceration",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Exorcism",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fate",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ferocity",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fire",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Focus",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fortitude",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fury",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Growth",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Guile",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Guilt",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Heart",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Impact",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Infinity",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Insight",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Interruption",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Justice",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Kings",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Knights",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Life",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Light",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lost Hope",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mastery",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Meditation",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mercy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Might",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Misery",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Necromancy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Night",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pain",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Piety",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Power",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Precision",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Preservation",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Proficiency",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Prophecies",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Prophecy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Prowess",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rage",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rain",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rebellion",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Redeeming",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Renewal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Resolve",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Revelry",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rumination",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Salvation",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Savagery",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scouting",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Selfishness",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Selflessness",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Serenity",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shadow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shadows",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shifting Sands",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Slaying",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sorrow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Souls",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Spirit",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Spring",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Storming",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Strife",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Striking",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Summer",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Survival",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Temperance",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tenacity",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Terror",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Abyss",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Ascendant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Avenger",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Bear",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Betrayer",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Blood",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Body",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Claw",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Cleric",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Contender",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Crab",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Crow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Crusade",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Darkness",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Demon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Desert",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Dragon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Dream",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Druid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Eagle",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Elements",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Elf",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Emporer",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the End",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Eviscerator",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Exorcist",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Fall",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Fates",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Flame",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Forest",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Forgotten",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Fox",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Goblin",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Hawk",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Heart",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Horn",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Hunter",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Just",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the King",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Knight",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Last Stand",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Leader",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Light",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Lion",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Mage",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Merciful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Mighty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Mind",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Moon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Mountains",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Mountaintop",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Necromancer",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Orc",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Plains",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Predator",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Priest",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Prophet",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Rain",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Raven",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Rebel",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Redeemed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Redeemer",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Scout",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Sentry",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Siege",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Skull",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Sleeper",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Soul",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Spirits",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Stars",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Storm",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Sun",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Tiger",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Tooth",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Traitor",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Tundra",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Undead",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Unjust",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Vanquished",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Victor",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Void",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Warrior",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Wild",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Wind",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Wise",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Wizard",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Wolf",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "the Worg",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Thorns",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Thought",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Thunder",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Time",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Timing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Traitors",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Transformation",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Triumph",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Valiance",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vengeance",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Veracity",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Victory",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "War",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Warding",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Water",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Waves",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wind",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Winter",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wisdom",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wizardry",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wounding",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wracking",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Youth",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Zeal",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

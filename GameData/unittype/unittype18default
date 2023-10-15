@@ -1,0 +1,16 @@
+{
+  "Id": "unittype18default",
+  "ParentId": "default",
+  "IdKey": 18,
+  "Name": "Scorpion",
+  "Art": "Scorpion",
+  "Height": 1.0,
+  "TribeTypeId": 7,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

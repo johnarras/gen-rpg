@@ -1,0 +1,993 @@
+{
+  "Id": "namelist6da70cc0-1b90-4854-b564-5526d47b5b93default",
+  "ParentId": "default",
+  "ListName": "ItemAdjectives",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Abyssal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Accurate",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ancestral",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ancient",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Angry",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Arcane",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ardent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ascendant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ashen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Astral",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Attuned",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Augmented",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bastion",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bejwelled",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Black",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blessed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bloodied",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bloody",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blue",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bound",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Brave",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Brilliant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Buzzing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Callous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Captive",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ceaseless",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Celestial",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Chained",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Clarified",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Colossal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Controlling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Courageous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Creepy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cruel",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crystalline",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dark",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Delicate",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Destructive",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dread",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dreadful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dreaming",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dull",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Durable",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dusky",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Elder",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Endless",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Energetic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Engraved",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Enhanced",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Enigmatic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Epic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Eternal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ethereal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Evolved",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fabled",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Faded",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fading",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fallen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fantastic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fearful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fearsome",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ferocious",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Final",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Focused",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Forest",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Forgotten",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fragrant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Frenzied",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Giant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gleaming",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Glittering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Glorious",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Glowing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Grand",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Green",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Grievous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Harmonic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Harmonious",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hateful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Haughty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Heavenly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Heavy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Holy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Humming",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Illusionary",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Immaculate",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Immovable",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Indignant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Infinite",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Inscribed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Intricate",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Jagged",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Kingly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Knightly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Legendary",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lethal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Light",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lordly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lost",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Loyal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lucent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lucky",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lurking",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Magical",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Malevolent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Metallic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mighty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mysterious",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mystic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mystical",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Nether",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Omnipotent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Orange",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ornate",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Peculiar",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Petrified",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Piercing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pink",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Polished",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Prideful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Primal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Prime",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Prismatic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Profane",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Purple",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Quick",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Quiet",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Radiant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rapid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rebellious",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Red",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Reflective",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Refurbished",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Regal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Reinforced",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Relentless",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Remembered",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Restless",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Restored",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ritualistic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rose",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ruinous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Runed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ruthless",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scaled",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Serrated",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shattered",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shimmering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Simple",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Singing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Slumbering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Soothing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sorrowful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Soulful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sparkling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Spiritual",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Stoic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Strange",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Studded",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sturdy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Swift",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Swirling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tainted",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tempestuous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Thundering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Translucent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Transparent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tumultuous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Twilight",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Twin",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tyrannical",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Unbound",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Unchained",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Unerring",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Unholy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Unlucky",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Unmatched",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Unspeakable",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Unstoppable",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Unwavering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Unyielding",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Usurped",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vacant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vengeful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vicious",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vigilant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Violent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Virtuous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Visionary",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wailing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Watchful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Whispering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "White",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wise",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wrathful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wretched",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Yellow",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

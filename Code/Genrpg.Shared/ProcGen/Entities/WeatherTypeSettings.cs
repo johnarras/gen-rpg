@@ -11,7 +11,6 @@ namespace Genrpg.Shared.ProcGen.Entities
     public class WeatherTypeSettings : ParentSettings<WeatherType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<WeatherType> Data { get; set; } = new List<WeatherType>();
 
         public WeatherType GetWeatherType(long idkey) { return _lookup.Get<WeatherType>(idkey); }
     }

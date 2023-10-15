@@ -6,7 +6,7 @@ using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Constants;
 using System.Threading;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Messages;
 
 public class GroundObjectLoader : BaseMapObjectLoader
@@ -16,7 +16,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
 
     }
 
-    public override long GetKey() { return EntityType.GroundObject; }
+    public override long GetKey() { return EntityTypes.GroundObject; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 
     public override async Task Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)

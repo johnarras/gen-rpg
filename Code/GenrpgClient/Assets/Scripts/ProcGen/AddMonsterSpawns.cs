@@ -14,7 +14,7 @@ using Genrpg.Shared.Core.Entities;
 using System.Threading.Tasks;
 
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Pathfinding.Constants;
@@ -153,7 +153,7 @@ public class AddMonsterSpawns : BaseZoneGenerator
                     zoneId = gs.md.overrideZoneIds[cx, cy];
                 }
 
-                gs.spawns.AddSpawn(EntityType.ZoneUnit, zoneId, cy, cx, zone.IdKey);
+                gs.spawns.AddSpawn(EntityTypes.ZoneUnit, zoneId, cy, cx, zone.IdKey);
             }
         }
     }

@@ -13,7 +13,6 @@ namespace Genrpg.Shared.Purchasing.Entities
     public class StoreSlotTypeSettings : ParentSettings<StoreSlotType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<StoreSlotType> Data { get; set; } = new List<StoreSlotType>();
 
         public StoreSlotType GetStoreSlotType(long idkey) { return _lookup.Get<StoreSlotType>(idkey); }
     }

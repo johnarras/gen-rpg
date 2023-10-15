@@ -1,0 +1,10 @@
+{
+  "Id": "rocktype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "RockSwamp",
+  "Art": "RockSwamp",
+  "ChanceScale": 1.0,
+  "BaseColor": {},
+  "MaxIndex": 10
+}

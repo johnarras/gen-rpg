@@ -1,0 +1,6 @@
+{
+  "Id": "achievementtype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Total Damage"
+}

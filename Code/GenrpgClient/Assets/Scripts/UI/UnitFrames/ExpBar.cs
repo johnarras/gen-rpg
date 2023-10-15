@@ -1,5 +1,6 @@
 
 using ClientEvents;
+using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Currencies.Messages;
 using Genrpg.Shared.Levels.Entities;
@@ -33,7 +34,7 @@ public class ExpBar : BaseBehaviour
 
         CurrencyData currencies = gs.ch.Get<CurrencyData>();
 
-        long currExp = currencies.GetQuantity(CurrencyType.Exp);
+        long currExp = currencies.GetQuantity(CurrencyTypes.Exp);
 
         if (_progressBar != null && _unit != null)
         {

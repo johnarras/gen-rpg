@@ -19,7 +19,6 @@ namespace Genrpg.Shared.Units.Entities
     public class UnitSettings : ParentSettings<UnitType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<UnitType> Data { get; set; }
 
 
         public UnitType GetUnitType (long idkey)

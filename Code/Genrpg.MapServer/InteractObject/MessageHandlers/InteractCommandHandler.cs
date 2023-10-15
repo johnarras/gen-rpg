@@ -8,7 +8,7 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Interactions.Messages;
 using Genrpg.Shared.Spells.Messages;
@@ -43,7 +43,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
             int skillPoints = 0;
             long groundObjTypeId = 0;
 
-            if (target.EntityTypeId == EntityType.GroundObject)
+            if (target.EntityTypeId == EntityTypes.GroundObject)
             {
                 GroundObjType gtype = gs.data.GetGameData<GroundObjTypeSettings>(obj).GetGroundObjType(target.EntityId);
 

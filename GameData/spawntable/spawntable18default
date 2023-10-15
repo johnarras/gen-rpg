@@ -1,0 +1,78 @@
+{
+  "Id": "spawntable18default",
+  "ParentId": "default",
+  "IdKey": 18,
+  "Name": "MobCold",
+  "Items": [
+    {
+      "EntityTypeId": 4,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 8,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 11,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 13,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 14,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 15,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 21,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 22,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 23,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 4,
+      "EntityId": 48,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    }
+  ]
+}

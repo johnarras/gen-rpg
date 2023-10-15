@@ -1,0 +1,30 @@
+{
+  "Id": "recipetype27default",
+  "ParentId": "default",
+  "IdKey": 27,
+  "Name": "2H Mace",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 27,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 350,
+  "DefPct": 250,
+  "OtherPct": 200,
+  "ReagentQuantity": 10,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 105,
+      "Quantity": 10
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 103,
+      "Quantity": 10
+    }
+  ]
+}

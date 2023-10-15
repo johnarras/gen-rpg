@@ -1,0 +1,30 @@
+{
+  "Id": "recipetype21default",
+  "ParentId": "default",
+  "IdKey": 21,
+  "Name": "Sword",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 21,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 200,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "ReagentQuantity": 5,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 104,
+      "Quantity": 5
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 5
+    }
+  ]
+}

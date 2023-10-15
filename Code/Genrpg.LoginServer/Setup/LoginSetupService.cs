@@ -11,6 +11,8 @@ namespace Genrpg.LoginServer.Setup
 {
     public class LoginSetupService : SetupService
     {
+        private IMapDataService _mapDataService = null;
+        private IReflectionService _reflectionService = null;
         public override void SetupObjectLocator(GameState gs)
         {
             LoginLocatorSetup els = new LoginLocatorSetup();
@@ -23,10 +25,9 @@ namespace Genrpg.LoginServer.Setup
             await base.FinalSetup(gs);
             if (gs is LoginGameState lgs)
             {
-                IReflectionService reflectionService = gs.loc.Get<IReflectionService>();
-                lgs.commandHandlers = reflectionService.SetupDictionary<Type, ILoginCommandHandler>(gs);
-                IMapDataService mapDataService = gs.loc.Get<IMapDataService>();
-                lgs.mapStubs = await mapDataService.GetMapStubs(lgs);
+                gs.loc.Resolve(this);
+                lgs.commandHandlers = _reflectionService.SetupDictionary<Type, ILoginCommandHandler>(gs);
+                lgs.mapStubs = await _mapDataService.GetMapStubs(lgs);
             }
         }
     }

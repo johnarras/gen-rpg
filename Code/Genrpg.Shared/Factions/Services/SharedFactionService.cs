@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Factions.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
@@ -35,7 +36,7 @@ namespace Genrpg.Shared.Factions.Services
 
             if (unit == null || unit.FactionTypeId < 0 || factionTypeId < 0)
             {
-                return RepLevel.Hated;
+                return RepLevels.Hated;
             }
 
             Character ch = unit as Character;
@@ -44,37 +45,37 @@ namespace Genrpg.Shared.Factions.Services
             {
                 if (unit.FactionTypeId == factionTypeId)
                 {
-                    return RepLevel.Exalted;
+                    return RepLevels.Exalted;
                 }
 
-                return RepLevel.Hated;
+                return RepLevels.Hated;
             }
 
             if (unit.FactionTypeId == factionTypeId)
             {
-                return RepLevel.Exalted;
+                return RepLevels.Exalted;
             }
 
             else
             {
-                return RepLevel.Hated;
+                return RepLevels.Hated;
             }
             // return ch.Factions.GetLevel(gs, factionTypeId);
         }
 
         public bool CanInteract(GameState gs, Unit unit, long factionTypeId)
         {
-            return GetRepLevel(gs, unit, factionTypeId) >= RepLevel.Neutral;
+            return GetRepLevel(gs, unit, factionTypeId) >= RepLevels.Neutral;
         }
 
         public bool CanFight(GameState gs, Unit unit, long factionTypeId)
         {
-            return GetRepLevel(gs, unit, factionTypeId) <= RepLevel.Unfriendly;
+            return GetRepLevel(gs, unit, factionTypeId) <= RepLevels.Unfriendly;
         }
 
         public bool WillAttack(GameState gs, Unit unit, long factionTypeId)
         {
-            return GetRepLevel(gs, unit, factionTypeId) <= RepLevel.Hostile;
+            return GetRepLevel(gs, unit, factionTypeId) <= RepLevels.Hostile;
         }
 
     }

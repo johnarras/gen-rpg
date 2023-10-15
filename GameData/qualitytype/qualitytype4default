@@ -1,0 +1,15 @@
+{
+  "Id": "qualitytype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Epic",
+  "Icon": "BGEpic",
+  "ItemSpawnWeight": 10,
+  "ItemMinLevel": 10,
+  "ItemStatPct": 200,
+  "ItemCostPct": 500,
+  "UnitSpawnWeight": 2,
+  "UnitMinLevel": 9,
+  "UnitHealthPct": 300,
+  "UnitDamPct": 200
+}

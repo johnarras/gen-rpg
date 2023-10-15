@@ -1,0 +1,27 @@
+{
+  "Id": "scalingtype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Leather Armor",
+  "Desc": "",
+  "Icon": "Leather",
+  "Prefix": "Leather",
+  "Art": "",
+  "CrafterTypeId": 3,
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "CostPct": 125,
+  "AddStats": [
+    {
+      "StatTypeId": 31,
+      "Percent": 100
+    }
+  ],
+  "BaseReagents": [
+    {
+      "ItemTypeId": 102,
+      "Percent": 150
+    }
+  ]
+}

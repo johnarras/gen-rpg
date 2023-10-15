@@ -1,0 +1,19 @@
+{
+  "Id": "spawntable5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Cloth",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 101,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "Weight": 100.0
+    }
+  ],
+  "Art": ""
+}

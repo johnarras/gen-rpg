@@ -7,6 +7,7 @@ using System.Linq;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Factions.Constants;
 
 namespace Genrpg.Shared.Factions.Entities
 {
@@ -34,12 +35,12 @@ namespace Genrpg.Shared.Factions.Entities
                 currStatus = new FactionStatus() 
                 { 
                     IdKey = factionTypeId, 
-                    RepLevelId = RepLevel.Neutral,
+                    RepLevelId = RepLevels.Neutral,
                     Id = HashUtils.NewGuid(),
                     OwnerId = Id,
                 };
                 _data.Add(currStatus);
-                gs.repo.QueueSave(currStatus);
+                currStatus.SetDirty(true);
             }
             return currStatus;
         }
@@ -128,7 +129,7 @@ namespace Genrpg.Shared.Factions.Entities
 
             if (res.OldRep != res.NewRep || res.OldRepLevelId != res.NewRepLevelId)
             {
-                gs.repo.QueueSave(status);
+                status.SetDirty(true);
             }
 
             return res;

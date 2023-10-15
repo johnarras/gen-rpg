@@ -52,8 +52,6 @@ namespace Genrpg.MapServer.MapMessaging
             {
                 handler.Setup(gs);
             }
-            await Task.CompletedTask;
-
             Type messageInterfaceType = typeof(IMapApiMessage);
 
             List<Type> messageTypes = _reflectionService.GetTypesImplementing(messageInterfaceType);
@@ -74,6 +72,8 @@ namespace Genrpg.MapServer.MapMessaging
                 throw new Exception("Found nonsealed IMapApiMessage implementation: " + sb.ToString());
             }
 
+            await Task.CompletedTask;
+
         }
 
         private Task _countTask = null;
@@ -83,7 +83,6 @@ namespace Genrpg.MapServer.MapMessaging
             _startTime = DateTime.UtcNow;
 
             _messageQueueCount = (int)(gs.map.BlockCount * 0.39);
-
 
             _packagePoolSize = Math.Max(2, _messageQueueCount * 10);
             _packagePool = new ConcurrentBag<MapMessagePackage>[_packagePoolSize];

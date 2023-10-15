@@ -76,6 +76,11 @@ namespace Genrpg.Editor.Utils
             foreach (IGameSettings data in dataCopy.Data)
             {
                 WriteGameDataText(dirName, data);
+
+                foreach (IGameSettings child in data.GetChildren())
+                {
+                    WriteGameDataText(dirName, child);
+                }
             }
         }
         private static void WriteGameDataText(string parentPath, object objectToSave)
@@ -108,6 +113,8 @@ namespace Genrpg.Editor.Utils
 
             FullGameDataCopy dataCopy = new FullGameDataCopy();
 
+            List<Type> settingsTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettings));
+
             string mainDirName = Directory.GetCurrentDirectory();
 
             mainDirName += GitOffsetPath;
@@ -116,9 +123,6 @@ namespace Genrpg.Editor.Utils
             {
                 Directory.CreateDirectory(mainDirName);
             }
-
-
-            List<IGameSettingsLoader> allLoaders = gs.loc.Get<IGameDataService>().GetAllLoaders();
 
             string[] fullDirectoryNames = Directory.GetDirectories(mainDirName);
 
@@ -131,6 +135,14 @@ namespace Genrpg.Editor.Utils
 
             foreach (string subDirName in directoryNames)
             {
+                Type currType = settingsTypes.FirstOrDefault(x => x.Name.ToLower() == subDirName.ToLower());
+
+                if (currType == null)
+                {
+                    Console.WriteLine("Unknown IGameSetting type {0}", subDirName);
+                    break;
+                }
+
                 try
                 {
                     string fullDirectoryName = Path.Combine(mainDirName, subDirName);
@@ -149,16 +161,10 @@ namespace Genrpg.Editor.Utils
                         allFiles.Add(File.ReadAllText(Path.Combine(fullDirectoryName, file)));
                     }
 
-                    IGameSettingsLoader loader = allLoaders.FirstOrDefault(x => x.GetServerType().Name.ToLower() == subDirName.ToLower());
-                    if (loader == null)
-                    {
-                        throw new Exception("Could not find data loader for typename: " + subDirName);
-                    }
-
                     foreach (string fileData in allFiles)
                     {
                         byte[] bytes = Encoding.UTF8.GetBytes(fileData);
-                        dataCopy.Data.Add((IGameSettings)SerializationUtils.DeserializeWithType(fileData, loader.GetServerType()));
+                        dataCopy.Data.Add((IGameSettings)SerializationUtils.DeserializeWithType(fileData, currType));
                     }
                 }
                 catch (Exception e)

@@ -1,0 +1,93 @@
+{
+  "Id": "itemtype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Cloak",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Cloak",
+  "Art": "ClothBack",
+  "EquipSlotId": 5,
+  "Flags": 8,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Count": 4
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Cloak",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cape",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Drape",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hide",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Veil",
+      "Desc": ""
+    }
+  ]
+}

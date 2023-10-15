@@ -2,6 +2,7 @@
 using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.CloudMessaging.Messages;
 using Genrpg.ServerShared.Core;
+using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages.Error;
 using Genrpg.Shared.Utils;
@@ -16,7 +17,10 @@ using System.Threading.Tasks;
 namespace Genrpg.MonsterServer.MessageHandlers
 {
     public abstract class BaseLoginCommandHandler<C> : ILoginCommandHandler where C : ILoginCommand
-    {      
+    {
+
+        protected IPlayerDataService _playerDataService = null;
+
         protected abstract Task InnerHandleMessage(LoginGameState gs, C command, CancellationToken token);
 
         public Type GetKey()

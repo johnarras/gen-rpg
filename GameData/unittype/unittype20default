@@ -1,0 +1,16 @@
+{
+  "Id": "unittype20default",
+  "ParentId": "default",
+  "IdKey": 20,
+  "Name": "Snake",
+  "Art": "Snake",
+  "Height": 1.0,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

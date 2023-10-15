@@ -1,0 +1,19 @@
+{
+  "Id": "spawntable6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Leather",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "Weight": 100.0
+    }
+  ],
+  "Art": ""
+}

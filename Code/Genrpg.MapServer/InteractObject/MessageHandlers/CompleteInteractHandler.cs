@@ -10,17 +10,20 @@ using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.MapServer.Spawns;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Interactions.Messages;
 using Genrpg.Shared.Loot.Messages;
+using Genrpg.Shared.Inventory.Constants;
+using Genrpg.ServerShared.Achievements;
 
 namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {
     public class CompleteInteractHandler : BaseServerMapMessageHandler<CompleteInteract>
     {
         private ISpawnService _spawnService;
+        private IAchievementService _achievementService;
 
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, CompleteInteract message)
         {
@@ -81,7 +84,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                     List<SpawnItem> lootItems = new List<SpawnItem>();
                     lootItems.Add(new SpawnItem()
                     {
-                        EntityTypeId = EntityType.Spawn,
+                        EntityTypeId = EntityTypes.Spawn,
                         EntityId = gtype.SpawnTableId,
                         MinQuantity = gtype.MinRolls,
                         MaxQuantity = gtype.MaxRolls,
@@ -90,7 +93,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                     RollData rollData = new RollData()
                     {
                         Level = message.Level,
-                        QualityTypeId = QualityType.Common,
+                        QualityTypeId = QualityTypes.Common,
                         Times = 1,
                     };
                     List<SpawnResult> rewards = _spawnService.Roll(gs, lootItems, rollData);

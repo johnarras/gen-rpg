@@ -11,7 +11,6 @@ namespace Genrpg.Shared.ProcGen.Entities
     public class FenceTypeSettings : ParentSettings<FenceType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<FenceType> Data { get; set; } = new List<FenceType>();
 
         public FenceType GetFenceType(long idkey) { return _lookup.Get<FenceType>(idkey); }
     }

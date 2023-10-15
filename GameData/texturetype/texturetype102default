@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype102default",
+  "ParentId": "default",
+  "IdKey": 102,
+  "Name": "RockTan",
+  "Size": 8.0,
+  "ParentTextureTypeId": 9
+}

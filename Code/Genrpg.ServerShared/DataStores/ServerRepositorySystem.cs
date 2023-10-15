@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Genrpg.ServerShared.DataStores.NoSQL;
 using Genrpg.ServerShared.DataStores.Blobs;
 using Genrpg.Shared.Logs.Entities;
+using System.Threading;
 
 namespace Genrpg.ServerShared.DataStores
 {
@@ -42,14 +43,15 @@ namespace Genrpg.ServerShared.DataStores
         private static ConcurrentDictionary<string, object> _repoCollectionDict = new ConcurrentDictionary<string, object>();
         private static ConcurrentDictionary<Type, IRepository> _repoTypeDict = new ConcurrentDictionary<Type, IRepository>();
 
-        public ServerRepositorySystem(ILogSystem logger, string env, Dictionary<string, string> connectionStrings)
+        public ServerRepositorySystem(ILogSystem logger, string env, Dictionary<string, string> connectionStrings,
+            CancellationToken token)
         {
             _logger = logger;
             _env = env.ToLower();
             _queues = new List<DbQueue>();
             for (int i = 0; i < QueueCount; i++)
             {
-                _queues.Add(new DbQueue(logger));
+                _queues.Add(new DbQueue(logger, token));
             }
 
             foreach (string key in connectionStrings.Keys)

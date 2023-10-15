@@ -33,7 +33,8 @@ namespace Genrpg.LoginServer.CommandHandlers
 {
     public class LoadIntoMapHandler : BaseLoginCommandHandler<LoadIntoMapCommand>
     {
-        private static IGameDataService _gameDataService = null;
+        private IGameDataService _gameDataService = null;
+        private IMapDataService _mapDataService = null;
         private static ConcurrentDictionary<string, CachedMap> _mapCache = new ConcurrentDictionary<string, CachedMap>();
         public override async Task Reset()
         {
@@ -83,14 +84,9 @@ namespace Genrpg.LoginServer.CommandHandlers
             gs.ch.Z = fullCachedMap.Map.SpawnY + 5;
          
 
-            List<IUnitData> serverDataList = await PlayerDataUtils.LoadPlayerData(gs, gs.ch);
+            List<IUnitData> serverDataList = await _playerDataService.LoadPlayerData(gs, gs.ch);
 
-            List<IUnitData> clientDataList = await PlayerDataUtils.MapToClientApi(serverDataList);
-
-            if (_gameDataService == null)
-            {
-                _gameDataService = gs.loc.Get<IGameDataService>();
-            }
+            List<IUnitData> clientDataList = await _playerDataService.MapToClientApi(serverDataList);
 
             List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
 
@@ -116,14 +112,13 @@ namespace Genrpg.LoginServer.CommandHandlers
         {
             if (!_mapCache.ContainsKey(mapId))
             {
-                IMapDataService mds = gs.loc.Get<IMapDataService>();
-                Map newMap = await mds.LoadMap(gs, mapId);
+                Map newMap = await _mapDataService.LoadMap(gs, mapId);
                 if (newMap == null || newMap.Zones == null || newMap.Zones.Count < 1)
                 {
                     return new FullCachedMap();
                 }
 
-                await mds.SaveMap(gs, newMap);
+                await _mapDataService.SaveMap(gs, newMap);
 
                 CachedMap newCachedMap = new CachedMap()
                 {

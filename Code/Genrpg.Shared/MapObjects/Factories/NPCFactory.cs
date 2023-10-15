@@ -9,14 +9,15 @@ using Genrpg.Shared.Factions.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.NPCs.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Factions.Constants;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {
     [MessagePackObject]
     public class NPCFactory : UnitFactory
     {
-        public override long GetKey() { return EntityType.NPC; }
+        public override long GetKey() { return EntityTypes.NPC; }
 
         public override MapObject Create(GameState gs, IMapSpawn spawn)
         {
@@ -30,7 +31,7 @@ namespace Genrpg.Shared.MapObjects.Factories
             MapSpawn unitSpawn = new MapSpawn()
             {
                 MapObjectId = spawn.MapObjectId,
-                EntityTypeId = EntityType.Unit,
+                EntityTypeId = EntityTypes.Unit,
                 EntityId = npcType.UnitTypeId,
                 X = npcType.MapX,
                 Z = npcType.MapZ,
@@ -42,11 +43,11 @@ namespace Genrpg.Shared.MapObjects.Factories
             {
                 return null;
             }
-            unit.EntityTypeId = EntityType.Unit;
+            unit.EntityTypeId = EntityTypes.Unit;
             unit.NPCType = npcType;
             unit.NPCTypeId = npcType.IdKey;
             unit.NPCStatus = new NPCStatus() { MapId = gs.map.Id, IdKey = npcType.IdKey, LastItemRefresh = DateTime.UtcNow.AddHours(-24) };
-            unit.FactionTypeId = FactionType.Player;
+            unit.FactionTypeId = FactionTypes.Player;
             unit.Level += 10;
             if (unit.Level > gs.map.MaxLevel)
             {

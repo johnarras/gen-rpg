@@ -1,0 +1,74 @@
+{
+  "Id": "itemtype168default",
+  "ParentId": "default",
+  "IdKey": 168,
+  "Name": "Horn",
+  "NameId": "Horn",
+  "GenName": "BodyHorn",
+  "Icon": "BodyHorn",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 12
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 15
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Splintered"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Crooked"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Blunt"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Solid"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Biting"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Sharp"
+    }
+  ],
+  "QualityNames": [
+    {},
+    {
+      "QualityTypeId": 1,
+      "Name": "Cleaned"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Worked"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Finished"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Lifebound"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

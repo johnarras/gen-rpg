@@ -12,7 +12,6 @@ namespace Genrpg.Shared.Purchasing.Entities
     public class StoreThemeTypeSettings : ParentSettings<StoreThemeType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<StoreThemeType> Data { get; set; } = new List<StoreThemeType>();
 
         public StoreThemeType GetStoreThemeType(long idkey) { return _lookup.Get<StoreThemeType>(idkey); }
     }

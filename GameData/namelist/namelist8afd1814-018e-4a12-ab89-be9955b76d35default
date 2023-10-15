@@ -1,0 +1,88 @@
+{
+  "Id": "namelist8afd1814-018e-4a12-ab89-be9955b76d35default",
+  "ParentId": "default",
+  "ListName": "BodyFurWords",
+  "Names": [
+    {
+      "Weight": 9.0,
+      "Name": "Stinking",
+      "Desc": ""
+    },
+    {
+      "Weight": 15.0,
+      "Name": "Ruined",
+      "Desc": ""
+    },
+    {
+      "Weight": 21.0,
+      "Name": "Dirty",
+      "Desc": ""
+    },
+    {
+      "Weight": 27.0,
+      "Name": "Matted",
+      "Desc": ""
+    },
+    {
+      "Weight": 33.0,
+      "Name": "Stained",
+      "Desc": ""
+    },
+    {
+      "Weight": 39.0,
+      "Name": "Mangy",
+      "Desc": ""
+    },
+    {
+      "Weight": 45.0,
+      "Name": "Thin",
+      "Desc": ""
+    },
+    {
+      "Weight": 51.0,
+      "Name": "Patchy",
+      "Desc": ""
+    },
+    {
+      "Weight": 57.0,
+      "Name": "Rough",
+      "Desc": ""
+    },
+    {
+      "Weight": 63.0,
+      "Name": "Silky",
+      "Desc": ""
+    },
+    {
+      "Weight": 69.0,
+      "Name": "Heavy",
+      "Desc": ""
+    },
+    {
+      "Weight": 75.0,
+      "Name": "Smooth",
+      "Desc": ""
+    },
+    {
+      "Weight": 81.0,
+      "Name": "Thick",
+      "Desc": ""
+    },
+    {
+      "Weight": 87.0,
+      "Name": "Supple",
+      "Desc": ""
+    },
+    {
+      "Weight": 93.0,
+      "Name": "Velvety",
+      "Desc": ""
+    },
+    {
+      "Weight": 99.0,
+      "Name": "Dragonmane",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

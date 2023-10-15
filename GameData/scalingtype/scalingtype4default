@@ -1,0 +1,27 @@
+{
+  "Id": "scalingtype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Wood Armor",
+  "Desc": "",
+  "Icon": "Leather",
+  "Prefix": "Leather",
+  "Art": "",
+  "CrafterTypeId": 2,
+  "AttPct": 105,
+  "DefPct": 95,
+  "OtherPct": 100,
+  "CostPct": 150,
+  "AddStats": [
+    {
+      "StatTypeId": 31,
+      "Percent": 125
+    }
+  ],
+  "BaseReagents": [
+    {
+      "ItemTypeId": 103,
+      "Percent": 150
+    }
+  ]
+}

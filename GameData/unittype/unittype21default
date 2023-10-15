@@ -1,0 +1,16 @@
+{
+  "Id": "unittype21default",
+  "ParentId": "default",
+  "IdKey": 21,
+  "Name": "Wolf",
+  "Art": "Wolf",
+  "Height": 1.5,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

@@ -12,7 +12,6 @@ namespace Genrpg.Shared.ProcGen.Entities
     public class MusicTypeSettings : ParentSettings<MusicType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<MusicType> Data { get; set; } = new List<MusicType>();
 
         public MusicType GetMusicType(long idkey) { return _lookup.Get<MusicType>(idkey); }
     }

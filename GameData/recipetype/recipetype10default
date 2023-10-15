@@ -1,0 +1,30 @@
+{
+  "Id": "recipetype10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Shield",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 10,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "ReagentQuantity": 8,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 104,
+      "Quantity": 8
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 8
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 ﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
@@ -13,7 +13,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
 {
     public class SpawnRollHelper : IRollHelper
     {
-        public long GetKey() { return EntityType.Spawn; }
+        public long GetKey() { return EntityTypes.Spawn; }
 
         private ISpawnService _spawnService;
         public List<SpawnResult> Roll(GameState gs, RollData rollData, SpawnItem item)

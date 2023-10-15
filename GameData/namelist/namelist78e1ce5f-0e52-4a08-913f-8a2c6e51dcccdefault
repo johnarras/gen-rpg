@@ -1,0 +1,18 @@
+{
+  "Id": "namelist78e1ce5f-0e52-4a08-913f-8a2c6e51dcccdefault",
+  "ParentId": "default",
+  "ListName": "BloodQuality",
+  "Names": [
+    {
+      "Weight": 100.0,
+      "Name": "Fetid",
+      "Desc": ""
+    },
+    {
+      "Weight": 150.0,
+      "Name": "Purified",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

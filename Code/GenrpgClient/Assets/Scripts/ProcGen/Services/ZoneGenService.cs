@@ -14,7 +14,7 @@ using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using System.Threading;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Assets.Scripts.Tokens;
 using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
@@ -612,7 +612,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         foreach (SpawnItem si in spawnItems)
         {
-            if (si.EntityTypeId != EntityType.Unit)
+            if (si.EntityTypeId != EntityTypes.Unit)
             {
                 continue;
             }
@@ -678,14 +678,14 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
             return retval;
         }
 
-        if (spawnItemIn.EntityTypeId == EntityType.Unit)
+        if (spawnItemIn.EntityTypeId == EntityTypes.Unit)
         {
             UnitType utype = gs.data.GetGameData<UnitSettings>(gs.ch).GetUnitType(spawnItemIn.EntityId);
             if (utype != null)
             {
                 SpawnItem newSi = new SpawnItem()
                 {
-                    EntityTypeId = EntityType.Unit,
+                    EntityTypeId = EntityTypes.Unit,
                     EntityId = utype.IdKey,
                     MinQuantity = 1,
                     MaxQuantity = 1,
@@ -696,7 +696,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
                 retval.Add(newSi);
             }
         }
-        else if (spawnItemIn.EntityTypeId == EntityType.Spawn)
+        else if (spawnItemIn.EntityTypeId == EntityTypes.Spawn)
         {
             SpawnTable spawnTable = gs.data.GetGameData<SpawnSettings>(gs.ch).GetSpawnTable(spawnItemIn.EntityId);
             if (spawnTable != null && spawnTable.Items != null)

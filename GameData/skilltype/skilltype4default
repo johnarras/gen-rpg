@@ -1,0 +1,16 @@
+{
+  "Id": "skilltype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Defense",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "TargetTypeId": 2,
+  "ManaCostPercent": 40,
+  "EnergyCostPercent": 50,
+  "ComboCostPercent": 10,
+  "ScalingStatTypeId": 21,
+  "StatScalePercent": 100,
+  "EffectEntityTypeId": 35
+}

@@ -1,0 +1,7 @@
+{
+  "Id": "musictype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Field",
+  "Art": "FieldMusic"
+}

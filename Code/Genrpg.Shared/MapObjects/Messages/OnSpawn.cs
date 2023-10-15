@@ -12,7 +12,7 @@ using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapMessages;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 
 namespace Genrpg.Shared.MapObjects.Messages
 {
@@ -41,7 +41,7 @@ namespace Genrpg.Shared.MapObjects.Messages
         [Key(19)] public AttackerInfo FirstAttacker { get; set; }
         [Key(20)] public List<SpawnResult> Loot { get; set; }
         [Key(21)] public List<SpawnResult> SkillLoot { get; set; }
-        [Key(22)] public List<SpellEffect> Effects { get; set; }
+        [Key(22)] public List<ActiveSpellEffect> Effects { get; set; }
 
         public OnSpawn()
         {
@@ -85,7 +85,7 @@ namespace Genrpg.Shared.MapObjects.Messages
                 {
                     IsPlayer = true;
                     Name = ch.Name;
-                    EntityTypeId = EntityType.ProxyCharacter;
+                    EntityTypeId = EntityTypes.ProxyCharacter;
                 }
             }
         }

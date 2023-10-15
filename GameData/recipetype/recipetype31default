@@ -1,0 +1,35 @@
+{
+  "Id": "recipetype31default",
+  "ParentId": "default",
+  "IdKey": 31,
+  "Name": "Thrown",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 31,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 350,
+  "DefPct": 150,
+  "OtherPct": 300,
+  "ReagentQuantity": 3,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 104,
+      "Quantity": 3
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 3
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 103,
+      "Quantity": 3
+    }
+  ]
+}

@@ -19,5 +19,6 @@ namespace Genrpg.Shared.DataStores.PlayerData
         private bool _isDirty = false;
         public void SetDirty(bool val) { _isDirty = val; }
         public bool IsDirty() { return _isDirty; }
+        public virtual List<IUnitData> GetChildren() { return new List<IUnitData>(); }
     }
 }

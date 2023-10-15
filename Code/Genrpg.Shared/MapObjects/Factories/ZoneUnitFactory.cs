@@ -13,7 +13,7 @@ using Genrpg.Shared.Core.Entities;
 
 using Genrpg.Shared.AI.Entities;
 using Genrpg.Shared.MapObjects.Messages;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {
@@ -21,7 +21,7 @@ namespace Genrpg.Shared.MapObjects.Factories
     public class ZoneUnitFactory : BaseMapObjectFactory
     {
         private IStatService _statService;
-        public override long GetKey() { return EntityType.ZoneUnit; }
+        public override long GetKey() { return EntityTypes.ZoneUnit; }
         public override MapObject Create(GameState gs, IMapSpawn spawn)
         {
 
@@ -57,7 +57,7 @@ namespace Genrpg.Shared.MapObjects.Factories
             Unit unit = new Unit();
             unit.Level = level;
             unit.CopyDataFromMapSpawn(spawn);
-            unit.EntityTypeId = EntityType.Unit;
+            unit.EntityTypeId = EntityTypes.Unit;
             unit.EntityId = utype.IdKey;
             unit.BaseSpeed = gs.data.GetGameData<AISettings>(unit).BaseUnitSpeed;
             unit.Speed = unit.BaseSpeed;
@@ -71,15 +71,10 @@ namespace Genrpg.Shared.MapObjects.Factories
 
             Spell spell = SerializationUtils.ConvertType<SpellType, Spell>(spellType);
 
-            if (gs.rand.NextDouble() < 0.1f)
-            {
-                spell.Duration = gs.rand.Next(1, 4);
-                spell.Scale /= 2;
-            }
             List<ElementType> etypes = gs.data.GetGameData<ElementTypeSettings>(unit).GetData();
 
             spell.ElementTypeId = etypes[gs.rand.Next() % etypes.Count].IdKey;
-            spell.FinalScale = spell.Scale;
+            spell.Id = HashUtils.NewGuid();
 
             SpellData spellData = unit.Get<SpellData>();
             spellData.Add(spell);

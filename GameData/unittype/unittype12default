@@ -1,0 +1,16 @@
+{
+  "Id": "unittype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Frog",
+  "Art": "Frog",
+  "Height": 1.0,
+  "TribeTypeId": 6,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

@@ -5,6 +5,7 @@ using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.SpellCrafting.Messages;
+using Genrpg.Shared.SpellCrafting.Services;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Utils;
 using System;
@@ -39,7 +40,7 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
                 spell.Id = HashUtils.NewGuid();
             }
 
-            if (!_spellCraftService.GenerateSpellData(gs, spell))
+            if (!_spellCraftService.ValidateSpellData(gs, ch, spell))
             {
                 obj.AddMessage(new ErrorMessage("Failed to craft spell!"));
             }

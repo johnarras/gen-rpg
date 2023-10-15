@@ -1,0 +1,8 @@
+{
+  "Id": "equipslot5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Back",
+  "StatPercent": 100,
+  "Active": true
+}

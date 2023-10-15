@@ -1,0 +1,54 @@
+{
+  "Id": "spawntable28default",
+  "ParentId": "default",
+  "IdKey": 28,
+  "Name": "FlyingLoot",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 164,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 165,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 182,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 166,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 186,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 181,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    }
+  ],
+  "Art": ""
+}

@@ -1,0 +1,18 @@
+{
+  "Id": "namelist467371b4-edc4-4a90-a223-c599c3e2b2d2default",
+  "ParentId": "default",
+  "ListName": "ElementQuality",
+  "Names": [
+    {
+      "Weight": 100.0,
+      "Name": "",
+      "Desc": ""
+    },
+    {
+      "Weight": 150.0,
+      "Name": "Pure",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

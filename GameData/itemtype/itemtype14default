@@ -1,0 +1,134 @@
+{
+  "Id": "itemtype14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Trinket",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Ring",
+  "Art": "MetalJewelry1",
+  "EquipSlotId": 13,
+  "Flags": 8,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [],
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Trinket",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gem",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Book",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Talisman",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Insignia",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Medal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mark",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Badge",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Brooch",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Charm",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shard",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crystal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rune",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scarab",
+      "Desc": ""
+    }
+  ]
+}

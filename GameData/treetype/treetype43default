@@ -1,0 +1,9 @@
+{
+  "Id": "treetype43default",
+  "ParentId": "default",
+  "IdKey": 43,
+  "Name": "RedMapleWinterYoung",
+  "Art": "RedMapleWinterYoung",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

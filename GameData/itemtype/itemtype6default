@@ -1,0 +1,101 @@
+{
+  "Id": "itemtype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Belt",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Belt",
+  "Art": "Belt",
+  "EquipSlotId": 6,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Name": "Cloth",
+      "Count": 3
+    },
+    {
+      "Name": "Leather",
+      "Count": 3
+    },
+    {
+      "Name": "Metal",
+      "Count": 3
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Belt",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cord",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Waistguard",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sash",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Girdle",
+      "Desc": ""
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "Id": "itemtype106default",
+  "ParentId": "default",
+  "IdKey": 106,
+  "Name": "Nugget",
+  "NameId": "PreciousNugget",
+  "GenName": "Nugget",
+  "Desc": "",
+  "Icon": "Nugget",
+  "Art": "",
+  "Flags": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 200,
+      "EntityId": 11
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 12
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 13
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 200,
+      "EntityId": 14
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Silver Ore"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Gold Ore"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Platinum Ore"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Palladite Ore"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Osmarum Ore"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Dragonite Ore"
+    }
+  ],
+  "QualityNames": [
+    {},
+    {
+      "QualityTypeId": 1,
+      "Name": "Packed"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Banded"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Purse"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Earthshapen"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

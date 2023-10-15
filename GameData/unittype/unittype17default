@@ -1,0 +1,16 @@
+{
+  "Id": "unittype17default",
+  "ParentId": "default",
+  "IdKey": 17,
+  "Name": "Salamander",
+  "Art": "Salamander",
+  "Height": 1.0,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

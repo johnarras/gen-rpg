@@ -1,0 +1,8 @@
+{
+  "Id": "stattype20default",
+  "ParentId": "default",
+  "IdKey": 20,
+  "Name": "Power",
+  "Desc": "+All Dam",
+  "GenScalePct": 100
+}

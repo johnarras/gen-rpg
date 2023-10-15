@@ -1,0 +1,95 @@
+{
+  "Id": "spawntable25default",
+  "ParentId": "default",
+  "IdKey": 25,
+  "Name": "ChestLoot",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 1,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 5,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 6,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 7,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 8,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 8,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 22,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 23,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityId": 24,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 1,
+      "EntityId": 2,
+      "MinQuantity": 100,
+      "MaxQuantity": 1000,
+      "Weight": 100.0
+    }
+  ],
+  "Art": ""
+}

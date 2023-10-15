@@ -21,6 +21,15 @@ public class UIHelper
         }
         text.text = txt;
     }
+
+    public static void SetInputText(GInputField input, object obj)
+    {
+        if (input != null && obj != null)
+        {
+            input.text = obj.ToString();
+        }
+    }
+
     public static void SetButton(GButton button, string screenName, UnityAction action, Dictionary<string,string> extraData = null)
     {
         if (button == null || action == null)
@@ -74,6 +83,32 @@ public class UIHelper
         image.texture = tex;
     }
 
+    public static int GetIntInput(GInputField field)
+    {
+        if (field == null)
+        {
+            return 0;
+        }
 
+        if (Int32.TryParse(field.text, out int value))
+        {
+            return value;
+        }
 
+        return 0;
+    }
+
+    public static float GetFloatInput(GInputField field)
+    {
+        if (field == null)
+        {
+            return 0;
+        }
+
+        if (float.TryParse(field.text, out float value))
+        {
+            return value;
+        }
+        return 0;
+    }
 }

@@ -1,8 +1,9 @@
 ﻿
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Currencies.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.Quests.Entities;
@@ -96,14 +97,14 @@ namespace Genrpg.Shared.Quests.Services
 
             rewards.Add(new SpawnResult()
             {
-                EntityTypeId = EntityType.Currency,
-                EntityId = CurrencyType.Exp,
+                EntityTypeId = EntityTypes.Currency,
+                EntityId = CurrencyTypes.Exp,
                 Quantity = qtype.CurrencyScale * level.QuestExp
             });
             rewards.Add(new SpawnResult()
             {
-                EntityTypeId = EntityType.Currency,
-                EntityId = CurrencyType.Money,
+                EntityTypeId = EntityTypes.Currency,
+                EntityId = CurrencyTypes.Money,
                 Quantity = (long)(qtype.CurrencyScale * level.KillMoney * QuestConstants.QuestKillMoneyMultiplier),
             });
 

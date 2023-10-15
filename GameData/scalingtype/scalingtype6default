@@ -1,0 +1,27 @@
+{
+  "Id": "scalingtype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Precious Armor",
+  "Desc": "",
+  "Icon": "Jeweled",
+  "Prefix": "Jeweled",
+  "Art": "",
+  "CrafterTypeId": 6,
+  "AttPct": 110,
+  "DefPct": 110,
+  "OtherPct": 100,
+  "CostPct": 150,
+  "AddStats": [
+    {
+      "StatTypeId": 31,
+      "Percent": 125
+    }
+  ],
+  "BaseReagents": [
+    {
+      "ItemTypeId": 106,
+      "Percent": 150
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "Id": "itemtype146default",
+  "ParentId": "default",
+  "IdKey": 146,
+  "Name": "Water",
+  "NameId": "ElementWater",
+  "GenName": "ElementWater",
+  "Icon": "ElementWater",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 14
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 31
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Speck of"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Mote of"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Grain of"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Eseence of"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Concentrated"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Elemental"
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Diffuse"
+    },
+    {
+      "QualityTypeId": 1
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Cnoncentrated"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Rich"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Pristine"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

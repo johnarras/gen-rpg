@@ -15,12 +15,6 @@ namespace Genrpg.Shared.Spells.Entities
     [MessagePackObject]
     public class TargetType : ChildSettings, IIndexedGameItem
     {
-
-        public const int None = 0;
-        public const int Enemy = 1; // Can be cast on enemy, can have parts that are Ally....either hit nearby ally randomly or hit self.
-        public const int Ally = 2; // Can be cast on self or others, can have Enemy parts that hit things nearby.
-
-
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }

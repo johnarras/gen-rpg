@@ -42,5 +42,6 @@ namespace Genrpg.Shared.DataStores.Categories.PlayerData
         {
             return _isDirty;
         }
+
     }
 }

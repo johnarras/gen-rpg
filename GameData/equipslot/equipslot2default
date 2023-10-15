@@ -1,0 +1,8 @@
+{
+  "Id": "equipslot2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Neck",
+  "StatPercent": 100,
+  "Active": true
+}

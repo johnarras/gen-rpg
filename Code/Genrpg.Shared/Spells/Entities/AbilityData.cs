@@ -43,7 +43,7 @@ namespace Genrpg.Shared.Spells.Entities
             abilityRank.Rank = Math.Max(1, rank);
             if (abilityRank.Rank != oldRank)
             {
-                gs.repo.QueueSave(abilityRank);
+                abilityRank.SetDirty(true);
             }
         }
 
@@ -66,7 +66,7 @@ namespace Genrpg.Shared.Spells.Entities
                     Rank = DefaultRank 
                 };
                 _data.Add(abilityRank);
-                gs.repo.QueueSave(abilityRank);
+                abilityRank.SetDirty(true);
             }
             return abilityRank;
         }

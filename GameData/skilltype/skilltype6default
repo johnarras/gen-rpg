@@ -1,0 +1,7 @@
+{
+  "Id": "skilltype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Crafting",
+  "StatScalePercent": 100
+}

@@ -1,0 +1,15 @@
+{
+  "Id": "recipetype37default",
+  "ParentId": "default",
+  "IdKey": 37,
+  "Name": "Wisdom Elixir",
+  "EntityId": 304,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "CrafterTypeId": 7,
+  "Reagents": []
+}

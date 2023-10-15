@@ -1,0 +1,19 @@
+{
+  "Id": "recipetype42default",
+  "ParentId": "default",
+  "IdKey": 42,
+  "Name": "Enchant Intellect",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 12,
+  "EntityTypeId": 32,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "CrafterTypeId": 8,
+  "Reagents": []
+}

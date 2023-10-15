@@ -1,0 +1,38 @@
+{
+  "Id": "namelistf268b23e-d949-4967-bad8-d1f9d7f48744default",
+  "ParentId": "default",
+  "ListName": "CreatureBirdColors",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Black",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Brown",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gray",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mottled",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Red",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Striped",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

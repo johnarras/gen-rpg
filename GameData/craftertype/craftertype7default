@@ -1,0 +1,12 @@
+{
+  "Id": "craftertype7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Alchemy",
+  "MousePointer": "Herbalism",
+  "ReagentItemTypeId": 133,
+  "GatherSeconds": 3.0,
+  "CraftingSeconds": 6.0,
+  "GatherActionName": "Picking",
+  "CraftActionName": "Brewing"
+}

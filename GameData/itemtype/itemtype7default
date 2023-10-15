@@ -1,0 +1,106 @@
+{
+  "Id": "itemtype7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Pants",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Pants",
+  "Art": "Pants",
+  "EquipSlotId": 7,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Name": "Cloth",
+      "Count": 7
+    },
+    {
+      "Name": "Leather",
+      "Count": 7
+    },
+    {
+      "Name": "Metal",
+      "Count": 6
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Pants",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Leggings",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Legguards",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Leggings",
+      "Desc": ""
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Legplates",
+      "Desc": ""
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Trousers",
+      "Desc": ""
+    }
+  ]
+}

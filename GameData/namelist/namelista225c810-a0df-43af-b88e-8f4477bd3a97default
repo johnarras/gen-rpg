@@ -1,0 +1,48 @@
+{
+  "Id": "namelista225c810-a0df-43af-b88e-8f4477bd3a97default",
+  "ParentId": "default",
+  "ListName": "ShoreHerbPrefix",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Glow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Kelp",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lake",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Life",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "River",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sea",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Stream",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Water",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

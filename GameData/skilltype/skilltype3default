@@ -1,0 +1,13 @@
+{
+  "Id": "skilltype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Heal",
+  "TargetTypeId": 2,
+  "ManaCostPercent": 25,
+  "EnergyCostPercent": 60,
+  "ComboCostPercent": 30,
+  "ScalingStatTypeId": 22,
+  "StatScalePercent": 100,
+  "EffectEntityTypeId": 34
+}

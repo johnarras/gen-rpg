@@ -21,7 +21,6 @@ namespace Genrpg.Shared.Crafting.Entities
         [Key(5)] public int LevelsPerExtraEffect { get; set; }
         [Key(6)] public int MaxExtraEffects { get; set; }
 
-        [Key(7)] public override List<RecipeType> Data { get; set; } = new List<RecipeType>();
 
         public RecipeType GetRecipeType(long idkey) { return _lookup.Get<RecipeType>(idkey); }
 

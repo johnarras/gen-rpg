@@ -1,0 +1,48 @@
+{
+  "Id": "weathertype7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "DarkForest",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "AmbientColor": {
+    "R": 0.5529412,
+    "G": 0.6313726,
+    "B": 0.6745098,
+    "A": 1.0
+  },
+  "LightColor": {
+    "R": 0.8117647,
+    "G": 0.89411765,
+    "B": 1.0,
+    "A": 0.98039216
+  },
+  "LightScale": 1.0,
+  "SkyColor": {
+    "R": 0.3137255,
+    "G": 0.5529412,
+    "B": 0.8627451,
+    "A": 1.0
+  },
+  "FogScale": 0.007,
+  "FogColor": {
+    "R": 0.5529412,
+    "G": 0.6745098,
+    "B": 0.79607844,
+    "A": 1.0
+  },
+  "FogDistance": 150.0,
+  "CloudScale": 0.7,
+  "CloudSpeed": 0.8,
+  "CloudColor": {
+    "R": 0.5176471,
+    "G": 0.52156866,
+    "B": 0.5254902,
+    "A": 1.0
+  },
+  "WindScale": 0.7,
+  "PrecipScale": 0.45,
+  "ParticleScale": 2.0,
+  "Particles": "mist"
+}

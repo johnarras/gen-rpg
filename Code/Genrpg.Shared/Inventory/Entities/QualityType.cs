@@ -8,16 +8,6 @@ namespace Genrpg.Shared.Inventory.Entities
     public class QualityType : ChildSettings, IIndexedGameItem
     {
 
-        public const int Common = 1;
-        public const int Uncommon = 2;
-        public const int Rare = 3;
-        public const int Epic = 4;
-        public const int Legendary = 5;
-        public const int Set = 6;
-        public const int Max = 7;
-
-
-
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }

@@ -1,19 +1,4 @@
 {
   "Id": "default",
-  "Data": [
-    {
-      "Id": "factiontype0default",
-      "ParentId": "default",
-      "Name": "Neutral",
-      "StartRepLevelId": 1
-    },
-    {
-      "Id": "factiontype1default",
-      "ParentId": "default",
-      "IdKey": 1,
-      "Name": "Player",
-      "StartRepLevelId": 4
-    }
-  ],
   "Name": "FactionSettings"
 }

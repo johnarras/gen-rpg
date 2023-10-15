@@ -1,0 +1,30 @@
+{
+  "Id": "recipetype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Gloves",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 5,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 80,
+  "DefPct": 80,
+  "OtherPct": 80,
+  "ReagentQuantity": 4,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 4
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 106,
+      "Quantity": 4
+    }
+  ]
+}

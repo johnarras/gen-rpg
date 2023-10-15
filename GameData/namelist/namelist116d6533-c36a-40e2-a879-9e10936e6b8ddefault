@@ -1,0 +1,63 @@
+{
+  "Id": "namelist116d6533-c36a-40e2-a879-9e10936e6b8ddefault",
+  "ParentId": "default",
+  "ListName": "IceHerbPrefix",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Arctic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Chill",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cold",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Freeze",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Frost",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Glacier",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ice",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Polar",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rime",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Snow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "White",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

@@ -1,0 +1,61 @@
+{
+  "Id": "spawntable27default",
+  "ParentId": "default",
+  "IdKey": 27,
+  "Name": "BugLoot",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 191,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 192,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 189,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 165,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 187,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 188,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 181,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    }
+  ],
+  "Art": ""
+}

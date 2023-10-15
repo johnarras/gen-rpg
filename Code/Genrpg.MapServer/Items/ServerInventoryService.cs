@@ -28,7 +28,8 @@ namespace Genrpg.MapServer.Items
             idata.SetDirty(true);
             if (dataUpdateType == EDataUpdateTypes.Save)
             {
-                gs.repo.QueueSave(item);
+                item.SetDirty(true);
+                // gs.repo.QueueSave(item);
             }
             else if (dataUpdateType == EDataUpdateTypes.Delete)
             {

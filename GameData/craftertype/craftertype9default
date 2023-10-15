@@ -1,0 +1,12 @@
+{
+  "Id": "craftertype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Lockpicking",
+  "MousePointer": "Shop",
+  "ReagentItemTypeId": 1,
+  "GatherSeconds": 3.0,
+  "CraftingSeconds": 6.0,
+  "GatherActionName": "Opening",
+  "CraftActionName": "Opening"
+}

@@ -1,0 +1,9 @@
+{
+  "Id": "treetype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Broadleaf",
+  "Art": "Broadleaf",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

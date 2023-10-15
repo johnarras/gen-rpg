@@ -1,0 +1,93 @@
+{
+  "Id": "namelist302ea2fb-079e-4cd1-9920-13649f697364default",
+  "ParentId": "default",
+  "ListName": "BodySilkWords",
+  "Names": [
+    {
+      "Weight": 6.0,
+      "Name": "Ruined",
+      "Desc": ""
+    },
+    {
+      "Weight": 12.0,
+      "Name": "Thick",
+      "Desc": ""
+    },
+    {
+      "Weight": 18.0,
+      "Name": "Tangled",
+      "Desc": ""
+    },
+    {
+      "Weight": 24.0,
+      "Name": "Messy",
+      "Desc": ""
+    },
+    {
+      "Weight": 30.0,
+      "Name": "Coarse",
+      "Desc": ""
+    },
+    {
+      "Weight": 36.0,
+      "Name": "Fibrous",
+      "Desc": ""
+    },
+    {
+      "Weight": 42.0,
+      "Name": "Heavy",
+      "Desc": ""
+    },
+    {
+      "Weight": 48.0,
+      "Name": "Medium",
+      "Desc": ""
+    },
+    {
+      "Weight": 54.0,
+      "Name": "Light",
+      "Desc": ""
+    },
+    {
+      "Weight": 60.0,
+      "Name": "Thin",
+      "Desc": ""
+    },
+    {
+      "Weight": 66.0,
+      "Name": "Delicate",
+      "Desc": ""
+    },
+    {
+      "Weight": 72.0,
+      "Name": "Gauzy",
+      "Desc": ""
+    },
+    {
+      "Weight": 78.0,
+      "Name": "Sheer",
+      "Desc": ""
+    },
+    {
+      "Weight": 84.0,
+      "Name": "Translucent",
+      "Desc": ""
+    },
+    {
+      "Weight": 90.0,
+      "Name": "Diaphanous",
+      "Desc": ""
+    },
+    {
+      "Weight": 96.0,
+      "Name": "Transparent",
+      "Desc": ""
+    },
+    {
+      "Weight": 102.0,
+      "Name": "Gossamer",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

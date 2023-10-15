@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype31default",
+  "ParentId": "default",
+  "IdKey": 31,
+  "Name": "Dirtc",
+  "Size": 8.0,
+  "ParentTextureTypeId": 2
+}

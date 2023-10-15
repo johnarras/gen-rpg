@@ -1,7 +1,9 @@
-﻿using Genrpg.Shared.Interfaces;
+﻿using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Genrpg.Shared.GameSettings.Interfaces
 {
@@ -9,5 +11,7 @@ namespace Genrpg.Shared.GameSettings.Interfaces
     {
         void AddTo(GameData gameData);
         void SetInternalIds();
+        Task SaveAll(IRepositorySystem repo);
+        List<IGameSettings> GetChildren();
     }
 }

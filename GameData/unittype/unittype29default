@@ -1,0 +1,16 @@
+{
+  "Id": "unittype29default",
+  "ParentId": "default",
+  "IdKey": 29,
+  "Name": "Goblin",
+  "Art": "Goblin",
+  "Height": 3.0,
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

@@ -1,0 +1,7 @@
+{
+  "Id": "musictype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Forest",
+  "Art": "ForestMusic"
+}

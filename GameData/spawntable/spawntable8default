@@ -1,0 +1,82 @@
+{
+  "Id": "spawntable8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Herb",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 133,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 20.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 134,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 20.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 135,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 20.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 136,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 20.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 137,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 20.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 138,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 20.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 139,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 20.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 140,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 20.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 141,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 20.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 142,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 20.0
+    }
+  ],
+  "Art": ""
+}

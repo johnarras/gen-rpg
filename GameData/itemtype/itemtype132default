@@ -1,0 +1,75 @@
+{
+  "Id": "itemtype132default",
+  "ParentId": "default",
+  "IdKey": 132,
+  "Name": "Shard",
+  "NameId": "MagicShard",
+  "GenName": "MagicShard",
+  "Icon": "MagicShard",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 15
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 21
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Magic"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Enchanted"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Arcane"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Lunar"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Solar"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Dragon"
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Brittle"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Cracked"
+    },
+    {
+      "QualityTypeId": 2
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Enchanted"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Crystalveined"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

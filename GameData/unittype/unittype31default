@@ -1,0 +1,16 @@
+{
+  "Id": "unittype31default",
+  "ParentId": "default",
+  "IdKey": 31,
+  "Name": "GolemRock",
+  "Art": "GolemRock",
+  "Height": 4.0,
+  "TribeTypeId": 4,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

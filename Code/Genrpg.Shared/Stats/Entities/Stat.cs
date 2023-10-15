@@ -1,3 +1,4 @@
+using Genrpg.Shared.Stats.Constants;
 using MessagePack;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -10,11 +11,11 @@ namespace Genrpg.Shared.Stats.Entities
     {
         [Key(0)] public long Id { get; set; }
 
-        [Key(1)] public long[] Vals = new long[StatCategory.Size];
+        [Key(1)] public long[] Vals = new long[StatCategories.Size];
 
         public long Get(int statCategory)
         {
-            if (statCategory < 0 || statCategory >= StatCategory.Size)
+            if (statCategory < 0 || statCategory >= StatCategories.Size)
             {
                 return 0;
             }
@@ -29,12 +30,12 @@ namespace Genrpg.Shared.Stats.Entities
 
         public void Set(int statCategory, long value)
         {
-            if (statCategory < 0 || statCategory >= StatCategory.Size)
+            if (statCategory < 0 || statCategory >= StatCategories.Size)
             {
                 return;
             }
 
-            if (statCategory == StatCategory.Curr && Id > StatConstants.MaxMutableStatTypeId)
+            if (statCategory == StatCategories.Curr && Id > StatConstants.MaxMutableStatTypeId)
             {
                 Vals[statCategory] = GetMax();
             }
@@ -46,12 +47,12 @@ namespace Genrpg.Shared.Stats.Entities
 
         public long GetMax()
         {
-            return Get(StatCategory.Base) * (100 + Get(StatCategory.Pct)) / 100;
+            return Get(StatCategories.Base) * (100 + Get(StatCategories.Pct)) / 100;
         }
 
         public void Reset()
         {
-            Vals = new long[StatCategory.Size];
+            Vals = new long[StatCategories.Size];
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Linq;
 using GEntity = UnityEngine.GameObject;
 using ClientEvents;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Spawns.Entities;
@@ -11,6 +11,7 @@ using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.NPCs.Entities;
 using Genrpg.Shared.Currencies.Entities;
 using System.Threading;
+using Genrpg.Shared.Currencies.Constants;
 
 public class QuestInfoUI : BaseBehaviour
 {
@@ -94,18 +95,18 @@ public class QuestInfoUI : BaseBehaviour
 
         List<SpawnResult> rewards = _questService.GetRewards(_gs, _gs.ch, _qtype, false);
 
-        SpawnResult expReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityType.Currency && x.EntityId == CurrencyType.Exp);
+        SpawnResult expReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Exp);
         if (expReward != null)
         {
             UIHelper.SetText(Experience, "XP: " + expReward.Quantity.ToString());
         }
-        SpawnResult moneyReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityType.Currency && x.EntityId == CurrencyType.Money);
+        SpawnResult moneyReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Money);
         if (moneyReward != null && Money != null)
         {
             Money.SetMoney(moneyReward.Quantity);
         }
 
-        List<SpawnResult> itemRewards = rewards.Where(X => X.EntityTypeId == EntityType.Item && (X.Data as Item) != null).ToList();
+        List<SpawnResult> itemRewards = rewards.Where(X => X.EntityTypeId == EntityTypes.Item && (X.Data as Item) != null).ToList();
 
 
         UIHelper.SetText(ItemRewardText, "");
@@ -120,7 +121,7 @@ public class QuestInfoUI : BaseBehaviour
                     InitItemIconData idata = new InitItemIconData()
                     {
                         Data = item,
-                        entityTypeId = EntityType.Item,
+                        entityTypeId = EntityTypes.Item,
                         entityId = item.UseEntityId,
                     };
                     IconHelper.InitItemIcon(_gs, idata, OtherRewards, this._assetService, _token);

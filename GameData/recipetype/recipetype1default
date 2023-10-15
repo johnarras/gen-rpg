@@ -1,0 +1,30 @@
+{
+  "Id": "recipetype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Helm",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 1,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "ReagentQuantity": 6,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 6
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 106,
+      "Quantity": 6
+    }
+  ]
+}

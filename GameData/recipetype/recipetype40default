@@ -1,0 +1,15 @@
+{
+  "Id": "recipetype40default",
+  "ParentId": "default",
+  "IdKey": 40,
+  "Name": "Spirit Elixir",
+  "EntityId": 307,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "CrafterTypeId": 7,
+  "Reagents": []
+}

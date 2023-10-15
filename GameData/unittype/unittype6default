@@ -1,0 +1,16 @@
+{
+  "Id": "unittype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Butterfly",
+  "Art": "Butterfly",
+  "Height": 1.0,
+  "TribeTypeId": 6,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

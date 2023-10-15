@@ -1,0 +1,16 @@
+{
+  "Id": "unittype26default",
+  "ParentId": "default",
+  "IdKey": 26,
+  "Name": "Dragonkin",
+  "Art": "Dragonkin",
+  "Height": 5.0,
+  "TribeTypeId": 5,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

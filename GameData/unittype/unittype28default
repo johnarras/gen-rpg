@@ -1,0 +1,16 @@
+{
+  "Id": "unittype28default",
+  "ParentId": "default",
+  "IdKey": 28,
+  "Name": "Ghoul",
+  "Art": "Ghoul",
+  "Height": 3.0,
+  "TribeTypeId": 3,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

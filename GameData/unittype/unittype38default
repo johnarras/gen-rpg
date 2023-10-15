@@ -1,0 +1,16 @@
+{
+  "Id": "unittype38default",
+  "ParentId": "default",
+  "IdKey": 38,
+  "Name": "Kobold",
+  "Art": "Kobold",
+  "Height": 2.0,
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

@@ -1,0 +1,18 @@
+{
+  "Id": "unittype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Human",
+  "Desc": "",
+  "Icon": "",
+  "Art": "HumanMale",
+  "Height": 2.0,
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

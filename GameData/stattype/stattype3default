@@ -1,0 +1,9 @@
+{
+  "Id": "stattype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Energy",
+  "Desc": "1->Fast Use/Fill",
+  "MaxPool": 100,
+  "RegenSeconds": 15
+}

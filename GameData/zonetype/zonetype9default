@@ -1,0 +1,420 @@
+{
+  "Id": "zonetype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Water",
+  "Desc": "",
+  "Icon": "",
+  "Textures": [
+    {
+      "TextureTypeId": 19
+    },
+    {
+      "TextureTypeId": 20,
+      "TextureChannelId": 1
+    },
+    {
+      "TextureTypeId": 22,
+      "TextureChannelId": 2
+    },
+    {
+      "TextureTypeId": 21,
+      "TextureChannelId": 3
+    },
+    {
+      "TextureTypeId": 3,
+      "TextureChannelId": 3
+    },
+    {
+      "TextureTypeId": 4,
+      "TextureChannelId": 2
+    }
+  ],
+  "ZoneNames": [
+    {
+      "Weight": 1000.0,
+      "Name": "Grassland",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Grasslands",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Llano",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Meadow",
+      "Desc": ""
+    },
+    {
+      "Weight": 2000.0,
+      "Name": "Plain",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Plains",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Prairie",
+      "Desc": ""
+    },
+    {
+      "Weight": 5000.0,
+      "Name": "Savanna",
+      "Desc": ""
+    },
+    {
+      "Weight": 2000.0,
+      "Name": "Savannah",
+      "Desc": ""
+    },
+    {
+      "Weight": 5000.0,
+      "Name": "Steppe",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Veldt",
+      "Desc": ""
+    }
+  ],
+  "ZoneAdjectives": [
+    {
+      "Weight": 1000.0,
+      "Name": "Arid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Barren",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Damp",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dry",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fertile",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Flat",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hilly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lush",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Open",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rolling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sloped",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sunny",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Verdant",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wet",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wide",
+      "Desc": ""
+    }
+  ],
+  "BridgeTypes": [
+    {
+      "BridgeTypeId": 2,
+      "Chance": 100
+    },
+    {
+      "BridgeTypeId": 3,
+      "Chance": 100
+    },
+    {
+      "BridgeTypeId": 1,
+      "Chance": 100
+    }
+  ],
+  "FenceTypes": [
+    {
+      "FenceTypeId": 1,
+      "Chance": 100.0
+    }
+  ],
+  "RockTypes": [
+    {
+      "RockTypeId": 1,
+      "ChanceScale": 0.2,
+      "BaseColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 1.0,
+        "A": 1.0
+      }
+    },
+    {
+      "RockTypeId": 2,
+      "ChanceScale": 0.8,
+      "BaseColor": {}
+    },
+    {
+      "RockTypeId": 3,
+      "ChanceScale": 0.2,
+      "BaseColor": {}
+    }
+  ],
+  "TreeTypes": [
+    {
+      "TreeTypeId": 25,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 23,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 26,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 27,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 53,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 54,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 22,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 29,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 29,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 80,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 81,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 82,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 84,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 85,
+      "PopulationScale": 1.0
+    }
+  ],
+  "CreatureNamePrefixes": [
+    {
+      "Weight": 1000.0,
+      "Name": "Clearing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dale",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dell",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Downs",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Field",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Glade",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Grassland",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Meadow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pasture",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Prairie",
+      "Desc": ""
+    }
+  ],
+  "CreatureDoubleNamePrefixes": [
+    {
+      "Weight": 1000.0,
+      "Name": "Brown",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dale",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dell",
+      "Desc": ""
+    },
+    {
+      "Weight": 2000.0,
+      "Name": "Dirt",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Downs",
+      "Desc": ""
+    },
+    {
+      "Weight": 5000.0,
+      "Name": "Field",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Glade",
+      "Desc": ""
+    },
+    {
+      "Weight": 5000.0,
+      "Name": "Grass",
+      "Desc": ""
+    },
+    {
+      "Weight": 2000.0,
+      "Name": "Green",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ground",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Meadow",
+      "Desc": ""
+    }
+  ],
+  "Overrides": [],
+  "UnitSpawns": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 19,
+      "MinQuantity": 3,
+      "MaxQuantity": 7,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 10,
+      "MinQuantity": 2,
+      "MaxQuantity": 4,
+      "Weight": 3.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 11,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 0.2
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 12,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 0.2
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 13,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "Weight": 0.6
+    }
+  ],
+  "PlantChoices": "0",
+  "FenceChance": 0.1,
+  "Art": "0",
+  "WeatherTypeId": 8,
+  "MusicTypeId": 3,
+  "AmbientMusicTypeId": 8
+}

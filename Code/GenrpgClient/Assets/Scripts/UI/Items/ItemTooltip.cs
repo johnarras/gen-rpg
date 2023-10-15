@@ -2,7 +2,7 @@
 using System.Linq;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Stats.Entities;
 using Assets.Scripts.Atlas.Constants;
@@ -92,7 +92,7 @@ public class ItemTooltip : BaseTooltip
             {
                 foreach (ItemEffect eff in _data.mainItemType.Effects)
                 {
-                    if (eff.EntityTypeId == EntityType.Stat || eff.EntityTypeId == EntityType.StatPct)
+                    if (eff.EntityTypeId == EntityTypes.Stat || eff.EntityTypeId == EntityTypes.StatPct)
                     {
                         StatType stype = _gs.data.GetGameData<StatSettings>(_gs.ch).GetStatType(eff.EntityId);
                         if (stype == null)

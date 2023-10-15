@@ -1,0 +1,47 @@
+{
+  "Id": "spawntable26default",
+  "ParentId": "default",
+  "IdKey": 26,
+  "Name": "FurryMonsterLoot",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 162,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 174,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 184,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 163,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 183,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 10.0
+    }
+  ],
+  "Art": ""
+}

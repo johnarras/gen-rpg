@@ -11,7 +11,6 @@ namespace Genrpg.Shared.Spells.Entities
     public class SkillTypeSettings : ParentSettings<SkillType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<SkillType> Data { get; set; } = new List<SkillType>();
 
         public SkillType GetSkillType(long idkey) { return _lookup.Get<SkillType>(idkey); }
     }

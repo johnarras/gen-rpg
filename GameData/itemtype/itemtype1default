@@ -1,0 +1,151 @@
+{
+  "Id": "itemtype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Helm",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Helmet",
+  "Art": "Helm",
+  "EquipSlotId": 1,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Name": "Cloth",
+      "Count": 6
+    },
+    {
+      "Name": "Leather",
+      "Count": 7
+    },
+    {
+      "Name": "Metal",
+      "Count": 8
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Helm",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Helmet",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cap",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crown",
+      "Desc": ""
+    },
+    {
+      "Weight": 199.0,
+      "Name": "Hat",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Circlet",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hood",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mask",
+      "Desc": ""
+    },
+    {
+      "Weight": 100.0,
+      "Name": "Turban",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Halo",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cover",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Veil",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cowl",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Coif",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Headdress",
+      "Desc": ""
+    }
+  ]
+}

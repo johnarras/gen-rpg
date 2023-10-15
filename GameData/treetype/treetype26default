@@ -1,0 +1,10 @@
+{
+  "Id": "treetype26default",
+  "ParentId": "default",
+  "IdKey": 26,
+  "Name": "Snakeweed",
+  "Art": "Snakeweed",
+  "Scale": 1.0,
+  "VariationCount": 2,
+  "Flags": 3
+}

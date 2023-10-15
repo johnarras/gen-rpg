@@ -1,0 +1,33 @@
+{
+  "Id": "spawntable9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Magic",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 130,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 131,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 20.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 132,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 3.0
+    }
+  ],
+  "Art": ""
+}

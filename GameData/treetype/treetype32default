@@ -1,0 +1,9 @@
+{
+  "Id": "treetype32default",
+  "ParentId": "default",
+  "IdKey": 32,
+  "Name": "ElmFall",
+  "Art": "ElmFall",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

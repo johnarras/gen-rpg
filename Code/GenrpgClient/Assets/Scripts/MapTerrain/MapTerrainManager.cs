@@ -10,7 +10,7 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
 
@@ -314,10 +314,10 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         _staticLoaders[MapConstants.ClutterObjectOffset / MapConstants.MapObjectOffsetMult] = new ClutterObjectLoader(_gs);
         _staticLoaders[MapConstants.WaterObjectOffset / MapConstants.MapObjectOffsetMult] = new WaterObjectLoader(_gs);
 
-        _mapObjectLoaders[EntityType.GroundObject] = new GroundObjectLoader(_gs);
-        _mapObjectLoaders[EntityType.Unit] = new UnitObjectLoader(_gs);
-        _mapObjectLoaders[EntityType.NPC] = new NPCObjectLoader(_gs);
-        _mapObjectLoaders[EntityType.ProxyCharacter] = new ProxyCharacterObjectLoader(_gs);
+        _mapObjectLoaders[EntityTypes.GroundObject] = new GroundObjectLoader(_gs);
+        _mapObjectLoaders[EntityTypes.Unit] = new UnitObjectLoader(_gs);
+        _mapObjectLoaders[EntityTypes.NPC] = new NPCObjectLoader(_gs);
+        _mapObjectLoaders[EntityTypes.ProxyCharacter] = new ProxyCharacterObjectLoader(_gs);
 
     }
 

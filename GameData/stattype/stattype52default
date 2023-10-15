@@ -1,0 +1,8 @@
+{
+  "Id": "stattype52default",
+  "ParentId": "default",
+  "IdKey": 52,
+  "Name": "SpellDefMult",
+  "Desc": "Spell Dam Reduced",
+  "GenScalePct": 10
+}

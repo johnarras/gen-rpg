@@ -1,0 +1,19 @@
+{
+  "Id": "spelltype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Fireball",
+  "Desc": "",
+  "Icon": "520092",
+  "Art": "",
+  "ElementTypeId": 3,
+  "PowerStatTypeId": 2,
+  "PowerCost": 150,
+  "Range": 20,
+  "Effects": [
+    {
+      "SkillTypeId": 2,
+      "Scale": 125
+    }
+  ]
+}

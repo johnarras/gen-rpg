@@ -25,10 +25,25 @@ namespace Genrpg.Shared.GameSettings.Loading
             {
                 if (setting is TParent parent)
                 {
-                    // parent.SetData(allChildren.Where(x => x.ParentId == parent.Id).ToList());
+                    parent.SetData(allChildren.Where(x => x.ParentId == parent.Id).ToList());
                 }
             }
 
+            return settings;
+        }
+
+        public override IGameSettings MapToApi(IGameSettings settings)
+        {
+            if (settings is TParent tparent)
+            {
+
+                TApi api = new TApi()
+                {
+                    ParentObj = tparent,
+                    Data = tparent.GetData(),
+                };
+                return api;
+            }
             return settings;
         }
     }

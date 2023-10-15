@@ -1,0 +1,35 @@
+{
+  "Id": "recipetype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Offhand",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 11,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 80,
+  "DefPct": 80,
+  "OtherPct": 80,
+  "ReagentQuantity": 8,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 103,
+      "Quantity": 8
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 8
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 106,
+      "Quantity": 8
+    }
+  ]
+}

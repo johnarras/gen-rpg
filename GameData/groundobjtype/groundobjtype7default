@@ -1,0 +1,13 @@
+{
+  "Id": "groundobjtype7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Art": "StoneNode",
+  "GroupId": "stone",
+  "SpawnWeight": 100,
+  "CrafterTypeId": 5,
+  "SpawnTableId": 23,
+  "MinRolls": 1,
+  "MaxRolls": 1,
+  "QualityTypeId": 1
+}

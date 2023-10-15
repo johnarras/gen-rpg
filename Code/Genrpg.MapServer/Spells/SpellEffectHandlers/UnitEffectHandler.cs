@@ -1,5 +1,5 @@
 ﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Units.Entities;
@@ -11,23 +11,23 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 {
     public class UnitEffectHandler : BaseSpellEffectHandler
     {
-        public override long GetKey() { return EntityType.Unit; }
+        public override long GetKey() { return EntityTypes.Unit; }
         public override bool IsModifyStatEffect() { return false; }
         public override bool UseStatScaling() { return false; }
 
-        public override List<SpellEffect> CreateEffects(GameState gs, SpellHit hitData)
+        public override List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit hitData)
         {
-            List<SpellEffect> retval = new List<SpellEffect>();
+            List<ActiveSpellEffect> retval = new List<ActiveSpellEffect>();
 
-            ElementSkill elemSkill = hitData.SendSpell.ElementType.GetSkill(hitData.SendSpell.SkillType.IdKey);
+            ElementSkill elemSkill = hitData.ElementType.GetSkill(hitData.SkillType.IdKey);
 
-            if (elemSkill == null || elemSkill.OverrideEntityTypeId != EntityType.Unit)
+            if (elemSkill == null || elemSkill.OverrideEntityTypeId != EntityTypes.Unit)
             {
                 return retval;
             }
 
-            SpellEffect eff = new SpellEffect(hitData);
-            eff.EntityTypeId = EntityType.Unit;
+            ActiveSpellEffect eff = new ActiveSpellEffect(hitData);
+            eff.EntityTypeId = EntityTypes.Unit;
             eff.EntityId = elemSkill.OverrideEntityId;
             eff.Quantity = elemSkill.ScalePct;
 
@@ -36,7 +36,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
             return retval;
         }
 
-        public override bool HandleEffect(GameState gs, SpellEffect eff)
+        public override bool HandleEffect(GameState gs, ActiveSpellEffect eff)
         {
 
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ))

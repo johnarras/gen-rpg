@@ -1,0 +1,30 @@
+{
+  "Id": "recipetype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Cloak",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 9,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "ReagentQuantity": 5,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 101,
+      "Quantity": 5
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 106,
+      "Quantity": 5
+    }
+  ]
+}

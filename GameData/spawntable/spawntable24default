@@ -1,0 +1,19 @@
+{
+  "Id": "spawntable24default",
+  "ParentId": "default",
+  "IdKey": 24,
+  "Name": "Precious",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 106,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "Weight": 100.0
+    }
+  ],
+  "Art": ""
+}

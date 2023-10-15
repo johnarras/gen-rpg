@@ -1,0 +1,8 @@
+{
+  "Id": "stattype51default",
+  "ParentId": "default",
+  "IdKey": 51,
+  "Name": "AttackDefMult",
+  "Desc": "Phys Dam Reduced",
+  "GenScalePct": 10
+}

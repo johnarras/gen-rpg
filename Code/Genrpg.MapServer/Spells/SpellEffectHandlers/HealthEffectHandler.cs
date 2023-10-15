@@ -2,6 +2,7 @@
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
+using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Units.Entities;
 using System;
@@ -19,11 +20,11 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
         public override bool UseStatScaling() { return true; }
         public override float GetTickLength() { return SpellConstants.DotTickSeconds; }
 
-        public override List<SpellEffect> CreateEffects(GameState gs, SpellHit hit)
+        public override List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit hit)
         {
             throw new NotImplementedException();
         }
-        public override bool HandleEffect(GameState gs, SpellEffect eff)
+        public override bool HandleEffect(GameState gs, ActiveSpellEffect eff)
         {
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ) || targ.HasFlag(UnitFlags.IsDead))
             {
@@ -58,8 +59,8 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
                 _spellService.ShowCombatText(gs, targ, quantity.ToString(), CombatTextColors.Green, isCrit);
             }
 
-            _statService.Add(gs, targ, StatType.Health, StatCategory.Curr, quantity);
-            if (targ.Stats.Curr(StatType.Health) <= 0)
+            _statService.Add(gs, targ, StatTypes.Health, StatCategories.Curr, quantity);
+            if (targ.Stats.Curr(StatTypes.Health) <= 0)
             {
                 _unitService.CheckForDeath(gs, eff, targ);
             }

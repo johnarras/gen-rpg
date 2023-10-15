@@ -1,0 +1,16 @@
+{
+  "Id": "unittype52default",
+  "ParentId": "default",
+  "IdKey": 52,
+  "Name": "Zombie",
+  "Art": "Zombie",
+  "Height": 2.0,
+  "TribeTypeId": 3,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

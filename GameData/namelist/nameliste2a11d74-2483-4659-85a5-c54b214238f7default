@@ -1,0 +1,88 @@
+{
+  "Id": "nameliste2a11d74-2483-4659-85a5-c54b214238f7default",
+  "ParentId": "default",
+  "ListName": "BodyBloodWords",
+  "Names": [
+    {
+      "Weight": 8.0,
+      "Name": "Fetid",
+      "Desc": ""
+    },
+    {
+      "Weight": 14.0,
+      "Name": "Turgid",
+      "Desc": ""
+    },
+    {
+      "Weight": 20.0,
+      "Name": "Rancid",
+      "Desc": ""
+    },
+    {
+      "Weight": 26.0,
+      "Name": "Foul",
+      "Desc": ""
+    },
+    {
+      "Weight": 32.0,
+      "Name": "Befouled",
+      "Desc": ""
+    },
+    {
+      "Weight": 38.0,
+      "Name": "Congealed",
+      "Desc": ""
+    },
+    {
+      "Weight": 44.0,
+      "Name": "Viscous",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Syrupy",
+      "Desc": ""
+    },
+    {
+      "Weight": 56.0,
+      "Name": "Gooey",
+      "Desc": ""
+    },
+    {
+      "Weight": 62.0,
+      "Name": "Gelatinous",
+      "Desc": ""
+    },
+    {
+      "Weight": 68.0,
+      "Name": "Thickened",
+      "Desc": ""
+    },
+    {
+      "Weight": 74.0,
+      "Name": "Flowing",
+      "Desc": ""
+    },
+    {
+      "Weight": 80.0,
+      "Name": "Thinned",
+      "Desc": ""
+    },
+    {
+      "Weight": 86.0,
+      "Name": "Filtered",
+      "Desc": ""
+    },
+    {
+      "Weight": 92.0,
+      "Name": "Clarified",
+      "Desc": ""
+    },
+    {
+      "Weight": 98.0,
+      "Name": "Purified",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

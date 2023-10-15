@@ -1,0 +1,16 @@
+{
+  "Id": "unittype30default",
+  "ParentId": "default",
+  "IdKey": 30,
+  "Name": "GolemIce",
+  "Art": "GolemIce",
+  "Height": 4.0,
+  "TribeTypeId": 4,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

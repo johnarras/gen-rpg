@@ -1,0 +1,27 @@
+{
+  "Id": "scalingtype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Metal Armor",
+  "Desc": "",
+  "Icon": "Metal",
+  "Prefix": "Metal",
+  "Art": "",
+  "CrafterTypeId": 4,
+  "AttPct": 90,
+  "DefPct": 110,
+  "OtherPct": 100,
+  "CostPct": 175,
+  "AddStats": [
+    {
+      "StatTypeId": 31,
+      "Percent": 125
+    }
+  ],
+  "BaseReagents": [
+    {
+      "ItemTypeId": 104,
+      "Percent": 150
+    }
+  ]
+}

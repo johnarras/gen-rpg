@@ -1,0 +1,38 @@
+{
+  "Id": "namelist096636bf-0511-448d-8082-c5e16edda848default",
+  "ParentId": "default",
+  "ListName": "GemLevel",
+  "Names": [
+    {
+      "Weight": 9.0,
+      "Name": "Sliver of",
+      "Desc": ""
+    },
+    {
+      "Weight": 19.0,
+      "Name": "Tiny",
+      "Desc": ""
+    },
+    {
+      "Weight": 29.0,
+      "Name": "Small",
+      "Desc": ""
+    },
+    {
+      "Weight": 39.0,
+      "Name": "Medium",
+      "Desc": ""
+    },
+    {
+      "Weight": 49.0,
+      "Name": "Large",
+      "Desc": ""
+    },
+    {
+      "Weight": 59.0,
+      "Name": "Huge",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

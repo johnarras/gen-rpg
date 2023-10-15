@@ -1,0 +1,7 @@
+{
+  "Id": "factiontype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Player",
+  "StartRepLevelId": 4
+}

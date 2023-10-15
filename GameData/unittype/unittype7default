@@ -1,0 +1,16 @@
+{
+  "Id": "unittype7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Chicken",
+  "Art": "Chicken",
+  "Height": 1.0,
+  "TribeTypeId": 6,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

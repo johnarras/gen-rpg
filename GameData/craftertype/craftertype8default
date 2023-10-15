@@ -1,0 +1,12 @@
+{
+  "Id": "craftertype8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Enchanting",
+  "MousePointer": "Shop",
+  "ReagentItemTypeId": 130,
+  "GatherSeconds": 3.0,
+  "CraftingSeconds": 6.0,
+  "GatherActionName": "Draining",
+  "CraftActionName": "Enchanting"
+}

@@ -1,0 +1,27 @@
+{
+  "Id": "scalingtype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Stone Armor",
+  "Desc": "",
+  "Icon": "Stone",
+  "Prefix": "Stone",
+  "Art": "",
+  "CrafterTypeId": 5,
+  "AttPct": 85,
+  "DefPct": 115,
+  "OtherPct": 100,
+  "CostPct": 175,
+  "AddStats": [
+    {
+      "StatTypeId": 31,
+      "Percent": 125
+    }
+  ],
+  "BaseReagents": [
+    {
+      "ItemTypeId": 105,
+      "Percent": 150
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "Id": "namelistddea97d8-5066-4780-9494-35e310ad92b7default",
+  "ParentId": "default",
+  "ListName": "GemQuality",
+  "Names": [
+    {
+      "Weight": 100.0,
+      "Name": "",
+      "Desc": ""
+    },
+    {
+      "Weight": 150.0,
+      "Name": "Perfect",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

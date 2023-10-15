@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Stats.Entities;
@@ -10,25 +11,25 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 {
     public class StatEffectHandler : BaseSpellEffectHandler
     {
-        public override long GetKey() { return EntityType.Stat; }
+        public override long GetKey() { return EntityTypes.Stat; }
         public override bool IsModifyStatEffect() { return true; }
         public override bool UseStatScaling() { return true; }
 
-        public override List<SpellEffect> CreateEffects(GameState gs, SpellHit hitData)
+        public override List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit hitData)
         {
 
-            List<SpellEffect> retval = new List<SpellEffect>();
+            List<ActiveSpellEffect> retval = new List<ActiveSpellEffect>();
 
-            long target = hitData.SendSpell.SkillType.TargetTypeId;
+            long target = hitData.SkillType.TargetTypeId;
 
             List<StatPct> list = null;
-            if (target == TargetType.Enemy)
+            if (target == TargetTypes.Enemy)
             {
-                list = hitData.SendSpell.ElementType.DebuffEffects;
+                list = hitData.ElementType.DebuffEffects;
             }
             else
             {
-                list = hitData.SendSpell.ElementType.BuffEffects;
+                list = hitData.ElementType.BuffEffects;
             }
 
             if (list == null)
@@ -43,8 +44,8 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
                     continue;
                 }
 
-                SpellEffect eff = new SpellEffect(hitData);
-                eff.EntityTypeId = EntityType.Stat;
+                ActiveSpellEffect eff = new ActiveSpellEffect(hitData);
+                eff.EntityTypeId = EntityTypes.Stat;
                 eff.EntityId = statPct.StatTypeId;
                 eff.Quantity = (int)(hitData.BaseQuantity * statPct.Percent / 100);
                 retval.Add(eff);
@@ -52,7 +53,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
             return retval;
         }
 
-        public override bool HandleEffect(GameState gs, SpellEffect eff)
+        public override bool HandleEffect(GameState gs, ActiveSpellEffect eff)
         {
             return true;
         }

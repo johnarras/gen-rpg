@@ -1,0 +1,30 @@
+{
+  "Id": "recipetype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Shoulder",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 2,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 80,
+  "DefPct": 80,
+  "OtherPct": 80,
+  "ReagentQuantity": 5,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 5
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 103,
+      "Quantity": 5
+    }
+  ]
+}

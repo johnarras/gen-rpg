@@ -1,0 +1,33 @@
+{
+  "Id": "unittype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Bear",
+  "Desc": "",
+  "Icon": "",
+  "Art": "Bear",
+  "Height": 2.0,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 167,
+      "MinQuantity": 2,
+      "MaxQuantity": 1,
+      "Weight": 25.0
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 163,
+      "MinQuantity": 2,
+      "MaxQuantity": 1,
+      "Weight": 25.0
+    }
+  ],
+  "InteractLootItems": []
+}

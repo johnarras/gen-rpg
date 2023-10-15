@@ -1,0 +1,32 @@
+{
+  "Id": "recipetype22default",
+  "ParentId": "default",
+  "IdKey": 22,
+  "Name": "Axe",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 22,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 225,
+  "DefPct": 75,
+  "OtherPct": 100,
+  "ReagentQuantity": 5,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 103,
+      "Quantity": 5,
+      "Name": ""
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 104,
+      "Quantity": 5,
+      "Name": ""
+    }
+  ]
+}

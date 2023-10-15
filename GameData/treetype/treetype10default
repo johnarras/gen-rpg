@@ -1,0 +1,9 @@
+{
+  "Id": "treetype10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "LondonPlane",
+  "Art": "LondonPlane",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

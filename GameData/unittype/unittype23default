@@ -1,0 +1,16 @@
+{
+  "Id": "unittype23default",
+  "ParentId": "default",
+  "IdKey": 23,
+  "Name": "Goose",
+  "Art": "Goose",
+  "Height": 1.0,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

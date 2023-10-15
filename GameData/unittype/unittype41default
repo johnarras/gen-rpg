@@ -1,0 +1,16 @@
+{
+  "Id": "unittype41default",
+  "ParentId": "default",
+  "IdKey": 41,
+  "Name": "Mummy",
+  "Art": "Mummy",
+  "Height": 3.0,
+  "TribeTypeId": 3,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

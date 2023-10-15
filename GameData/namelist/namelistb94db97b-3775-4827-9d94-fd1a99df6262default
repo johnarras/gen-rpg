@@ -1,0 +1,38 @@
+{
+  "Id": "namelistb94db97b-3775-4827-9d94-fd1a99df6262default",
+  "ParentId": "default",
+  "ListName": "LeatherLevel",
+  "Names": [
+    {
+      "Weight": 5.0,
+      "Name": "Strip of",
+      "Desc": ""
+    },
+    {
+      "Weight": 15.0,
+      "Name": "Thin",
+      "Desc": ""
+    },
+    {
+      "Weight": 25.0,
+      "Name": "Light",
+      "Desc": ""
+    },
+    {
+      "Weight": 35.0,
+      "Name": "Medium",
+      "Desc": ""
+    },
+    {
+      "Weight": 45.0,
+      "Name": "Heavy",
+      "Desc": ""
+    },
+    {
+      "Weight": 55.0,
+      "Name": "Solid",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

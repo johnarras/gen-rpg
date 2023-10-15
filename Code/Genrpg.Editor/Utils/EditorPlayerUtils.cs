@@ -24,7 +24,7 @@ namespace Genrpg.Editor.Utils
 
             gs.EditorUser.User = await gs.repo.Load<User>(userId.ToString());
 
-            List<CharacterStub> charStubs = await PlayerDataUtils.LoadCharacterStubs(gs, userId.ToString());
+            List<CharacterStub> charStubs = await gs.loc.Get<IPlayerDataService>().LoadCharacterStubs(gs, userId.ToString());
 
             foreach (CharacterStub stub in charStubs)
             {
@@ -33,7 +33,7 @@ namespace Genrpg.Editor.Utils
                 {
                     EditorCharacter ech = new EditorCharacter() { Character = ch };
                     gs.EditorUser.Characters.Add(ech);
-                    await PlayerDataUtils.LoadPlayerData(gs, ch);
+                    await gs.loc.Get<IPlayerDataService>().LoadPlayerData(gs, ch);
                     foreach (IUnitData dataCont in ch.GetAllData().Values)
                     {
                         ech.Data.Add(new EditorUnitData() { Data = dataCont });

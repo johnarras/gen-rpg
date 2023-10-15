@@ -12,7 +12,6 @@ namespace Genrpg.Shared.Inventory.Entities
     public class ScalingTypeSettings : ParentSettings<ScalingType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<ScalingType> Data { get; set; } = new List<ScalingType>();
 
         public ScalingType GetScalingType(long idkey) { return _lookup.Get<ScalingType>(idkey); }
     }

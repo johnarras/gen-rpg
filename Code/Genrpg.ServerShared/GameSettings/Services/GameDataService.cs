@@ -24,7 +24,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
     {
         private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
 
-        private async void SetupLoaders(IRepositorySystem repoSystem)
+        private async Task SetupLoaders(IRepositorySystem repoSystem)
         {
             if (_loaderObjects != null)
             {
@@ -51,8 +51,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
         public async Task Setup(GameState gs, CancellationToken token)
         {
-            SetupLoaders(gs.repo);
-            await Task.CompletedTask;
+            await SetupLoaders(gs.repo);
         }
 
         public GameDataService()
@@ -115,7 +114,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             List<DataOverrideGroup> acceptableGroups = new List<DataOverrideGroup>();
 
-            foreach (DataOverrideGroup group in settings.Data)
+            foreach (DataOverrideGroup group in settings.GetData())
             {
                 if (AcceptedByFilter(ch, group))
                 {
@@ -182,7 +181,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
                 if (currData != null)
                 {
-                    retval.Add(currData);
+                    retval.Add(loader.MapToApi(currData));
                 }
             }
             return retval;

@@ -1,0 +1,11 @@
+{
+  "Id": "craftertype0default",
+  "ParentId": "default",
+  "Name": "None",
+  "MousePointer": "Shop",
+  "ReagentItemTypeId": 101,
+  "GatherSeconds": 1000.0,
+  "CraftingSeconds": 1000.0,
+  "GatherActionName": "None",
+  "CraftActionName": "None"
+}

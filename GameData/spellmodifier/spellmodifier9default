@@ -1,0 +1,14 @@
+{
+  "Id": "spellmodifier9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Cast Time",
+  "Icon": "",
+  "Art": "",
+  "Desc": "",
+  "DisplaySuffix": "%",
+  "DataMemberName": "Cast Time",
+  "DisplayMult": 1.0,
+  "MaxValue": 6.0,
+  "ValueDelta": 0.5
+}

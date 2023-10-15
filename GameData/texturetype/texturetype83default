@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype83default",
+  "ParentId": "default",
+  "IdKey": 83,
+  "Name": "Roadc",
+  "Size": 8.0,
+  "ParentTextureTypeId": 4
+}

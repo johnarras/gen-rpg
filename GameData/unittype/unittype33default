@@ -1,0 +1,16 @@
+{
+  "Id": "unittype33default",
+  "ParentId": "default",
+  "IdKey": 33,
+  "Name": "GriffonTwoSided",
+  "Art": "GriffonTwoSided",
+  "Height": 4.0,
+  "TribeTypeId": 8,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

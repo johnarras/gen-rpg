@@ -1,0 +1,8 @@
+{
+  "Id": "musictype7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Dark Ambience",
+  "Art": "DarkAmbience",
+  "RandomizeSeconds": 10.0
+}

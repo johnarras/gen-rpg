@@ -1,0 +1,8 @@
+{
+  "Id": "stattype64default",
+  "ParentId": "default",
+  "IdKey": 64,
+  "Name": "Efficiency",
+  "Desc": "Lower Cost",
+  "GenScalePct": 200
+}

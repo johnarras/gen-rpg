@@ -1,0 +1,78 @@
+{
+  "Id": "itemtype160default",
+  "ParentId": "default",
+  "IdKey": 160,
+  "Name": "Purple Blood",
+  "NameId": "BloodPurple",
+  "GenName": "BodyBloodPurple",
+  "Desc": "",
+  "Icon": "BloodPurple",
+  "Art": "",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 14
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 30
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Drop of"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Trickle of"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Sip of"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Drizzle of"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Splash of"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Cup of"
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Turgid"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Viscous"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Flowing"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Clarified"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Purified"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

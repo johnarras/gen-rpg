@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype44default",
+  "ParentId": "default",
+  "IdKey": 44,
+  "Name": "DirtGraya",
+  "Size": 8.0,
+  "ParentTextureTypeId": 4
+}

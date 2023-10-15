@@ -11,7 +11,6 @@ namespace Genrpg.Shared.ProcGen.Entities
     public class BridgeTypeSettings : ParentSettings<BridgeType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<BridgeType> Data { get; set; } = new List<BridgeType>();
 
         public BridgeType GetBridgeType(long idkey) { return _lookup.Get<BridgeType>(idkey); }
     }

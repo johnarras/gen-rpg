@@ -1,0 +1,28 @@
+{
+  "Id": "tribetype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Beast",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "LootItems": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 26,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    }
+  ],
+  "InteractLootItems": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 6,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 100.0
+    }
+  ],
+  "LootCrafterTypeId": 3
+}

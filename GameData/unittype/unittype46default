@@ -1,0 +1,16 @@
+{
+  "Id": "unittype46default",
+  "ParentId": "default",
+  "IdKey": 46,
+  "Name": "Watcher",
+  "Art": "Watcher",
+  "Height": 4.0,
+  "TribeTypeId": 8,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

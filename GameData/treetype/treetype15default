@@ -1,0 +1,9 @@
+{
+  "Id": "treetype15default",
+  "ParentId": "default",
+  "IdKey": 15,
+  "Name": "Cactus",
+  "Art": "Cactus",
+  "Scale": 1.0,
+  "VariationCount": 4
+}

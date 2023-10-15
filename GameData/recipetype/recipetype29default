@@ -1,0 +1,35 @@
+{
+  "Id": "recipetype29default",
+  "ParentId": "default",
+  "IdKey": 29,
+  "Name": "Polearm",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 29,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 300,
+  "DefPct": 200,
+  "OtherPct": 300,
+  "ReagentQuantity": 10,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 103,
+      "Quantity": 10
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 104,
+      "Quantity": 10
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 10
+    }
+  ]
+}

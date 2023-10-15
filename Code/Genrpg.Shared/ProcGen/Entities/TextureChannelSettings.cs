@@ -11,7 +11,6 @@ namespace Genrpg.Shared.ProcGen.Entities
     public class TextureChannelSettings : ParentSettings<TextureChannel>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<TextureChannel> Data { get; set; } = new List<TextureChannel>();
 
         public TextureChannel GetTextureChannel(long idkey) { return _lookup.Get<TextureChannel>(idkey); }
     }

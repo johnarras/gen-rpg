@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.DataStores.Categories.WorldData;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Inventory.Constants;
 
 namespace Genrpg.Shared.Quests.Entities
 {
@@ -50,7 +51,7 @@ namespace Genrpg.Shared.Quests.Entities
             Tasks = new List<QuestTask>();
             CurrencyScale = 1;
             ItemQuantity = 1;
-            ItemQualityTypeId = QualityType.Uncommon;
+            ItemQualityTypeId = QualityTypes.Uncommon;
 
         }
 
@@ -92,7 +93,7 @@ namespace Genrpg.Shared.Quests.Entities
 
             string finalTxt = "";
 
-            if (task.TaskEntityTypeId == EntityType.Unit)
+            if (task.TaskEntityTypeId == EntityTypes.Unit)
             {
                 Zone zone = gs.map.Get<Zone>(ZoneId);
 
@@ -126,7 +127,7 @@ namespace Genrpg.Shared.Quests.Entities
                     finalTxt = "Kill " + task.Quantity + " " + namePrefix + " " + utype.Name;
                 }
             }
-            else if (task.TaskEntityTypeId == EntityType.NPC)
+            else if (task.TaskEntityTypeId == EntityTypes.NPC)
             {
                 NPCType npcType = gs.map.Get<NPCType>(task.TaskEntityId);
                 if (npcType != null)
@@ -148,7 +149,7 @@ namespace Genrpg.Shared.Quests.Entities
                     }
                 }
             }
-            else if (task.TaskEntityTypeId == EntityType.Item)
+            else if (task.TaskEntityTypeId == EntityTypes.Item)
             {
                 QuestItem qitem = gs.map.Get<QuestItem>(task.TaskEntityId);
                 if (qitem == null)
@@ -156,11 +157,11 @@ namespace Genrpg.Shared.Quests.Entities
                     return "";
                 }
                 UnitType utype = gs.data.GetGameData<UnitSettings>(ch).GetUnitType(task.OnEntityId);
-                if (task.OnEntityTypeId != EntityType.Unit && task.OnEntityTypeId != EntityType.NPC)
+                if (task.OnEntityTypeId != EntityTypes.Unit && task.OnEntityTypeId != EntityTypes.NPC)
                 {
                     finalTxt = "Find " + task.Quantity + " " + qitem.Name;
                 }
-                else if (task.OnEntityTypeId == EntityType.Unit)
+                else if (task.OnEntityTypeId == EntityTypes.Unit)
                 {
                     if (utype == null)
                     {
@@ -176,7 +177,7 @@ namespace Genrpg.Shared.Quests.Entities
                         return tstatus.CurrQuantity + "/" + task.Quantity + " Loot All";
                     }
                 }
-                else if (task.OnEntityTypeId == EntityType.NPC)
+                else if (task.OnEntityTypeId == EntityTypes.NPC)
                 {
                     NPCType onNPC = gs.map.Get<NPCType>(task.OnEntityId);
                     if (onNPC == null)

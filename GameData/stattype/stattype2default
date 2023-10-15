@@ -1,0 +1,9 @@
+{
+  "Id": "stattype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Mana",
+  "Desc": "1->Slow Use/Fill",
+  "MaxPool": 1000,
+  "RegenSeconds": 75
+}

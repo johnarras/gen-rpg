@@ -1,0 +1,10 @@
+{
+  "Id": "treetype20default",
+  "ParentId": "default",
+  "IdKey": 20,
+  "Name": "CactusCylinder",
+  "Art": "CactusCylinder",
+  "Scale": 1.0,
+  "VariationCount": 4,
+  "Flags": 1
+}

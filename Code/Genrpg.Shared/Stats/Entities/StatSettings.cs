@@ -15,7 +15,6 @@ namespace Genrpg.Shared.Stats.Entities
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public int StatConstantUnitMultiple { get; set; }
-        [Key(2)] public override List<StatType> Data { get; set; } = new List<StatType>();
 
         public StatType GetStatType(long idkey)
         {

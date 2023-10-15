@@ -1,0 +1,15 @@
+{
+  "Id": "qualitytype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Set",
+  "Icon": "BGSet",
+  "ItemSpawnWeight": 2,
+  "ItemMinLevel": 15,
+  "ItemStatPct": 250,
+  "ItemCostPct": 1000,
+  "UnitSpawnWeight": 1,
+  "UnitMinLevel": 15,
+  "UnitHealthPct": 5000,
+  "UnitDamPct": 400
+}

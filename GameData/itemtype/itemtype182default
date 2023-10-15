@@ -1,0 +1,79 @@
+{
+  "Id": "itemtype182default",
+  "ParentId": "default",
+  "IdKey": 182,
+  "Name": "Talon",
+  "NameId": "Talon",
+  "GenName": "BodyTalon",
+  "Icon": "BodyTalon",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 52
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 30
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 31
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Fractured"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Pointed"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Huge"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Honed"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Sharp"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Razor"
+    }
+  ],
+  "QualityNames": [
+    {},
+    {
+      "QualityTypeId": 1,
+      "Name": "Cleaned"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Worked"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Finished"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Lifebound"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

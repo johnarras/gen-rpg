@@ -1,0 +1,11 @@
+{
+  "Id": "tribetype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Critter",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "LootItems": [],
+  "InteractLootItems": []
+}

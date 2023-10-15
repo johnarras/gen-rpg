@@ -1,0 +1,26 @@
+{
+  "Id": "unittype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Bull",
+  "Desc": "",
+  "Icon": "",
+  "Art": "Bull",
+  "Height": 2.0,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 167,
+      "MinQuantity": 2,
+      "MaxQuantity": 1,
+      "Weight": 25.0
+    }
+  ],
+  "InteractLootItems": []
+}

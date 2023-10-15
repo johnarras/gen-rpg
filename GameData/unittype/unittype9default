@@ -1,0 +1,16 @@
+{
+  "Id": "unittype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Crab",
+  "Art": "Crab",
+  "Height": 1.0,
+  "TribeTypeId": 7,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

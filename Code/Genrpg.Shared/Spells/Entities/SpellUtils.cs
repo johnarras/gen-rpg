@@ -4,6 +4,7 @@ using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Genrpg.Shared.Spells.Constants;
 
 namespace Genrpg.Shared.Spells.Entities
 {
@@ -12,7 +13,7 @@ namespace Genrpg.Shared.Spells.Entities
     {
         public static bool IsValidTarget(GameState gs, Unit target, long casterFactionId, long targetTypeId)
         {
-            if (targetTypeId == TargetType.Enemy)
+            if (targetTypeId == TargetTypes.Enemy)
             {
                 if (target.FactionTypeId != casterFactionId)
                 {
@@ -21,7 +22,7 @@ namespace Genrpg.Shared.Spells.Entities
             }
 
 
-            if (targetTypeId == TargetType.Ally)
+            if (targetTypeId == TargetTypes.Ally)
             {
                 if (target.FactionTypeId == casterFactionId)
                 {

@@ -15,7 +15,6 @@ namespace Genrpg.Shared.UserCoins.Entities
     public class UserCoinSettings : ParentSettings<UserCoinType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<UserCoinType> Data { get; set; }
 
         public UserCoinType GetUserCoinType(long idkey) { return _lookup.Get<UserCoinType>(idkey); }
     }

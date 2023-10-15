@@ -1,0 +1,8 @@
+{
+  "Id": "equipslot6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Waist",
+  "StatPercent": 100,
+  "Active": true
+}

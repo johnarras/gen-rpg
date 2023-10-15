@@ -1,23 +1,4 @@
 {
   "Id": "default",
-  "Data": [
-    {
-      "Id": "targettype0default",
-      "ParentId": "default",
-      "Name": "None"
-    },
-    {
-      "Id": "targettype1default",
-      "ParentId": "default",
-      "IdKey": 1,
-      "Name": "Enemy"
-    },
-    {
-      "Id": "targettype2default",
-      "ParentId": "default",
-      "IdKey": 2,
-      "Name": "Ally"
-    }
-  ],
   "Name": "TargetTypeSettings"
 }

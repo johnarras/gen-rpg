@@ -1,0 +1,7 @@
+{
+  "Id": "achievementtype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Max Damage",
+  "Category": 1
+}

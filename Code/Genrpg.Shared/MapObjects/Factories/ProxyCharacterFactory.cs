@@ -7,14 +7,15 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Spawns.Entities;
 
 using Genrpg.Shared.MapObjects.Messages;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Factions.Constants;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {
     [MessagePackObject]
     public class ProxyCharacterFactory : UnitFactory
     {
-        public override long GetKey() { return EntityType.ProxyCharacter; }
+        public override long GetKey() { return EntityTypes.ProxyCharacter; }
 
         public override MapObject Create(GameState gs, IMapSpawn spawn)
         {
@@ -22,7 +23,7 @@ namespace Genrpg.Shared.MapObjects.Factories
             MapSpawn unitSpawn = new MapSpawn()
             {
                 MapObjectId = spawn.MapObjectId,
-                EntityTypeId = EntityType.Unit,
+                EntityTypeId = EntityTypes.Unit,
                 EntityId = spawn.EntityId,
                 X = spawn.X,
                 Z = spawn.Z,
@@ -34,7 +35,7 @@ namespace Genrpg.Shared.MapObjects.Factories
             {
                 return null;
             }
-            unit.FactionTypeId = FactionType.Player;
+            unit.FactionTypeId = FactionTypes.Player;
 
             if (spawn is OnSpawn onSpawn)
             {

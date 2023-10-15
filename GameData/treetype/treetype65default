@@ -1,0 +1,9 @@
+{
+  "Id": "treetype65default",
+  "ParentId": "default",
+  "IdKey": 65,
+  "Name": "AspenBare",
+  "Art": "AspenBare",
+  "Scale": 2.5,
+  "VariationCount": 2
+}

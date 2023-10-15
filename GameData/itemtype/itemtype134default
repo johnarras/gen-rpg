@@ -1,0 +1,74 @@
+{
+  "Id": "itemtype134default",
+  "ParentId": "default",
+  "IdKey": 134,
+  "Name": "Tree Herb",
+  "NameId": "TreeHerb",
+  "GenName": "HerbSticks",
+  "Icon": "HerbSticks",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 65
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Seedling"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Sprig of"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Tiny"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Small"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": ""
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Medium"
+    }
+  ],
+  "QualityNames": [
+    {},
+    {
+      "QualityTypeId": 1,
+      "Name": "Hearty"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Thriving"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Flourishing"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Gaia-Touched"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

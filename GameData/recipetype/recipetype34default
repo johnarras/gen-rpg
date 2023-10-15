@@ -1,0 +1,19 @@
+{
+  "Id": "recipetype34default",
+  "ParentId": "default",
+  "IdKey": 34,
+  "Name": "Mana Potion",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 301,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "CrafterTypeId": 7,
+  "Reagents": []
+}

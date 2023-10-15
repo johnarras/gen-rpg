@@ -1,0 +1,16 @@
+{
+  "Id": "unittype8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Cow",
+  "Art": "Cow",
+  "Height": 2.0,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

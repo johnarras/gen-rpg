@@ -14,6 +14,7 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using System.Linq;
 using Genrpg.Shared.Currencies.Entities;
+using Genrpg.Shared.Names.Entities;
 
 namespace GameEditor
 {
@@ -138,6 +139,17 @@ namespace GameEditor
 
                 List<IGrouping<Type, IGameSettings>> groups = gs.data.GetAllData().GroupBy(x => x.GetType()).ToList();
 
+                foreach (IGameSettings settings in gs.data.GetAllData())
+                {
+                    if (string.IsNullOrEmpty(settings.Id))
+                    {
+                        DialogResult result2 = MessageBox.Show("Setting object blank Id of type " + settings.GetType().Name);
+                        foundBadData = true;
+                        return;
+                    }
+
+                    settings.SetInternalIds();
+                }
                 foreach (IGrouping<Type,IGameSettings> group in groups)
                 {
                     List<IGameSettings> items = group.ToList();
@@ -177,7 +189,7 @@ namespace GameEditor
                 {
                     if (obj is IGameSettings gameSetting)
                     {
-                        await gs.repo.Save(gameSetting);
+                        await gameSetting.SaveAll(gs.repo);
                     }
                 }
             }

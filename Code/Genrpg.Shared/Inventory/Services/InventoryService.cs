@@ -2,10 +2,12 @@
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Constants;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.MapMessages.Interfaces;
+using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
@@ -141,7 +143,7 @@ namespace Genrpg.Shared.Inventory.Services
         public virtual bool EquipItem(GameState gs, Unit unit, string itemId, long equipSlotId)
         {
 
-            if (equipSlotId < 1 || equipSlotId >= EquipSlot.Max)
+            if (equipSlotId < 1 || equipSlotId >= EquipSlots.Max)
             {
                 return false;
             }
@@ -189,15 +191,15 @@ namespace Genrpg.Shared.Inventory.Services
             Item currEquip = idata.GetEquipBySlot(equipSlotId);
             if (currEquip != null)
             {
-                if (itype.HasFlag(ItemType.FlagTwoHandedItem) || oldEquipSlot < 1)
+                if (itype.HasFlag(ItemFlags.FlagTwoHandedItem) || oldEquipSlot < 1)
                 {
                     UnequipItem(gs, unit, currEquip.Id, false);
                 }
                 else
                 {
                     ItemType currItemType = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(currEquip.ItemTypeId);
-                    if (currItemType == null || currItemType.HasFlag(ItemType.FlagTwoHandedItem) ||
-                        currItemType.EquipSlotId == EquipSlot.OffHand)
+                    if (currItemType == null || currItemType.HasFlag(ItemFlags.FlagTwoHandedItem) ||
+                        currItemType.EquipSlotId == EquipSlots.OffHand)
                     {
                         UnequipItem(gs, unit, currEquip.Id, false);
                     }
@@ -216,22 +218,22 @@ namespace Genrpg.Shared.Inventory.Services
             RemoveItem(gs, unit, itemId, false);
 
             // Two handed weapons remove offhand items.
-            if (FlagUtils.IsSet(itype.Flags, ItemType.FlagTwoHandedItem))
+            if (FlagUtils.IsSet(itype.Flags, ItemFlags.FlagTwoHandedItem))
             {
-                Item offhandEquip = idata.GetEquipBySlot(EquipSlot.OffHand);
+                Item offhandEquip = idata.GetEquipBySlot(EquipSlots.OffHand);
                 if (offhandEquip != null)
                 {
                     UnequipItem(gs, unit, offhandEquip.Id, false);
                 }
             }
 
-            if (equipSlotId == EquipSlot.OffHand)
+            if (equipSlotId == EquipSlots.OffHand)
             {
-                Item mainHandEquip = idata.GetEquipBySlot(EquipSlot.MainHand);
+                Item mainHandEquip = idata.GetEquipBySlot(EquipSlots.MainHand);
                 if (mainHandEquip != null)
                 {
                     ItemType mainHandItemType = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(mainHandEquip.ItemTypeId);
-                    if (mainHandItemType != null && FlagUtils.IsSet(mainHandItemType.Flags, ItemType.FlagTwoHandedItem))
+                    if (mainHandItemType != null && FlagUtils.IsSet(mainHandItemType.Flags, ItemFlags.FlagTwoHandedItem))
                     {
                         UnequipItem(gs, unit, mainHandEquip.Id, false);
                     }
@@ -262,7 +264,7 @@ namespace Genrpg.Shared.Inventory.Services
             {
                 idata.RemoveEquipment(currItem.Id);
                 AddMessageNear(gs, unit, idata, item, new OnUnequipItem() { ItemId = item.Id, UnitId = unit.Id });
-                currItem.EquipSlotId = EquipSlot.None;
+                currItem.EquipSlotId = EquipSlots.None;
                 if (calcStatsNow)
                 {
                     _statService.CalcStats(gs, unit, false);
@@ -286,13 +288,13 @@ namespace Genrpg.Shared.Inventory.Services
 
             foreach (ItemEffect eff in item.Effects)
             {
-                if (eff.EntityTypeId == EntityType.Stat)
+                if (eff.EntityTypeId == EntityTypes.Stat)
                 {
-                    _statService.Add(gs, ch, eff.EntityId, StatCategory.Base, eff.Quantity * statMult);
+                    _statService.Add(gs, ch, eff.EntityId, StatCategories.Base, eff.Quantity * statMult);
                 }
-                else if (eff.EntityTypeId == EntityType.StatPct)
+                else if (eff.EntityTypeId == EntityTypes.StatPct)
                 {
-                    _statService.Add(gs, ch, eff.EntityId, StatCategory.Pct, eff.Quantity * statMult);
+                    _statService.Add(gs, ch, eff.EntityId, StatCategories.Pct, eff.Quantity * statMult);
                 }
             }
         }

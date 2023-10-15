@@ -1,0 +1,103 @@
+{
+  "Id": "itemtype24default",
+  "ParentId": "default",
+  "IdKey": 24,
+  "Name": "Dagger",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Dagger",
+  "Art": "Dagger",
+  "EquipSlotId": 15,
+  "Flags": 8,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Count": 6
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 10000.0,
+      "Name": "Dagger",
+      "Desc": ""
+    },
+    {
+      "Weight": 10000.0,
+      "Name": "Knife",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Carver",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blade",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shiv",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fang",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tooth",
+      "Desc": ""
+    }
+  ]
+}

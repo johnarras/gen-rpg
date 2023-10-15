@@ -1,0 +1,27 @@
+{
+  "Id": "scalingtype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Cloth Armor",
+  "Desc": "",
+  "Icon": "Cloth",
+  "Prefix": "Cloth",
+  "Art": "",
+  "CrafterTypeId": 1,
+  "AttPct": 110,
+  "DefPct": 90,
+  "OtherPct": 100,
+  "CostPct": 100,
+  "AddStats": [
+    {
+      "StatTypeId": 31,
+      "Percent": 75
+    }
+  ],
+  "BaseReagents": [
+    {
+      "ItemTypeId": 101,
+      "Percent": 150
+    }
+  ]
+}

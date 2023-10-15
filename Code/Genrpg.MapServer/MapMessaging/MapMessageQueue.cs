@@ -16,7 +16,6 @@ namespace Genrpg.MapServer.MapMessaging
 {
     public class MapMessageQueue
     {
-        const float DelayedEventsTimeGranularity = 0.01f;
         const int DelayedMessageBufferSize = 10000;
 
         protected ConcurrentQueue<MapMessagePackage> _currentQueue = new ConcurrentQueue<MapMessagePackage>();
@@ -80,43 +79,44 @@ namespace Genrpg.MapServer.MapMessaging
             {
                 GameState gs = gsIn.CopySharedData();
                 int currentTick = 0;
-                await Task.Delay(1);
 
-                while (true)
+                using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(MessageConstants.DelayedMessageTimeGranularity)))
                 {
-                    DateTime tickStartTime = DateTime.UtcNow;
-                    while (_delayedQueue.TryDequeue(out MapMessagePackage item))
-                    {
-                        DateTime nextExecuteTime = item.message.GetLastExecuteTime().AddSeconds(item.delaySeconds);
-                        double messageTimeDiff = Math.Max(0, (nextExecuteTime - DateTime.UtcNow).TotalSeconds);
-                        int messageTimeTicks = (int)(messageTimeDiff /= MessageConstants.DelayedMessageTimeGranularity);
-                        int offset = MathUtils.Clamp(1, messageTimeTicks, DelayedMessageBufferSize - 1);
-                        int index = (currentTick + offset) % DelayedMessageBufferSize;
-                        item.message.SetLastExecuteTime(nextExecuteTime);
-                        _delayedMessages[index].Add(item);
-                    }
+                    await Task.Delay(1);
 
-                    // Find the new tick based on the time elapsed from start of game.
-                    int newTick = (int)((DateTime.UtcNow - _startTime).TotalSeconds / MessageConstants.DelayedMessageTimeGranularity);
-
-                    for (int i = currentTick + 1; i <= newTick; i++)
+                    while (true)
                     {
-                        // For each tick in between currentTick and newTick, pull all messages into the main queue.
-                        int idx = i % DelayedMessageBufferSize;
-                        List<MapMessagePackage> newMessages = _delayedMessages[idx];
-                        _delayedMessages[idx] = new List<MapMessagePackage>();
-                        foreach (MapMessagePackage package in newMessages)
+                        DateTime tickStartTime = DateTime.UtcNow;
+                        while (_delayedQueue.TryDequeue(out MapMessagePackage item))
                         {
-                            _currentQueue.Enqueue(package);
+                            DateTime nextExecuteTime = item.message.GetLastExecuteTime().AddSeconds(item.delaySeconds);
+                            double messageTimeDiff = Math.Max(0, (nextExecuteTime - DateTime.UtcNow).TotalSeconds);
+                            int messageTimeTicks = (int)(messageTimeDiff /= MessageConstants.DelayedMessageTimeGranularity);
+                            int offset = MathUtils.Clamp(1, messageTimeTicks, DelayedMessageBufferSize - 1);
+                            int index = (currentTick + offset) % DelayedMessageBufferSize;
+                            item.message.SetLastExecuteTime(nextExecuteTime);
+                            _delayedMessages[index].Add(item);
                         }
-                    }
-                    // Update the current tick as far as we need to go.
-                    currentTick = newTick;
 
-                    double tickSeconds = (DateTime.UtcNow - tickStartTime).TotalSeconds;
-                    double timeDiff = (float)Math.Max(0, DelayedEventsTimeGranularity - tickSeconds);
-                    int msDelay = Math.Max(1, (int)(timeDiff * 1000));
-                    await Task.Delay(msDelay, _token).ConfigureAwait(false);
+                        // Find the new tick based on the time elapsed from start of game.
+                        int newTick = (int)((DateTime.UtcNow - _startTime).TotalSeconds / MessageConstants.DelayedMessageTimeGranularity);
+
+                        for (int i = currentTick + 1; i <= newTick; i++)
+                        {
+                            // For each tick in between currentTick and newTick, pull all messages into the main queue.
+                            int idx = i % DelayedMessageBufferSize;
+                            List<MapMessagePackage> newMessages = _delayedMessages[idx];
+                            _delayedMessages[idx] = new List<MapMessagePackage>();
+                            foreach (MapMessagePackage package in newMessages)
+                            {
+                                _currentQueue.Enqueue(package);
+                            }
+                        }
+                        // Update the current tick as far as we need to go.
+                        currentTick = newTick;
+
+                        await timer.WaitForNextTickAsync(_token).ConfigureAwait(false);
+                    }
                 }
             }
             catch (Exception e)
@@ -130,22 +130,25 @@ namespace Genrpg.MapServer.MapMessaging
             try
             {
                 GameState gs = gsIn.CopySharedData();
-                while (true)
+                using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(1)))
                 {
-                    while (_currentQueue.TryDequeue(out MapMessagePackage package))
+                    while (true)
                     {
-                        try
+                        while (_currentQueue.TryDequeue(out MapMessagePackage package))
                         {
-                            package.Process(gs);
-                            _messagesProcessed++;
-                            _mapMessageService.AddPackage(package);
+                            try
+                            {
+                                package.Process(gs);
+                                _messagesProcessed++;
+                                _mapMessageService.AddPackage(package);
+                            }
+                            catch (Exception e)
+                            {
+                                _logger.Exception(e, "Process Message");
+                            }
                         }
-                        catch (Exception e)
-                        {
-                            _logger.Exception(e, "Process Message");
-                        }
+                        await timer.WaitForNextTickAsync(_token).ConfigureAwait(false);
                     }
-                    await Task.Delay(1, _token).ConfigureAwait(false);
                 }
             }
             catch (Exception e)

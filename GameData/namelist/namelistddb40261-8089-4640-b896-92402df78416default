@@ -1,0 +1,18 @@
+{
+  "Id": "namelistddb40261-8089-4640-b896-92402df78416default",
+  "ParentId": "default",
+  "ListName": "MetalQuality",
+  "Names": [
+    {
+      "Weight": 100.0,
+      "Name": "",
+      "Desc": ""
+    },
+    {
+      "Weight": 150.0,
+      "Name": "Hardened",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

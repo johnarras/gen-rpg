@@ -57,7 +57,9 @@ namespace Genrpg.LoginServer.Controllers
 
         protected async Task<List<ILoginCommand>> LoadSessionCommands(string data, CancellationToken token)
         {
-            await SetupGameState(token);          
+            await SetupGameState(token);
+
+            gs.loc.Resolve(this);
 
             LoginServerCommandSet commands = SerializationUtils.Deserialize<LoginServerCommandSet>(data);
 

@@ -1,0 +1,14 @@
+{
+  "Id": "spellmodifier6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Ticks",
+  "Icon": "",
+  "Art": "",
+  "Desc": "",
+  "DisplaySuffix": "",
+  "DataMemberName": "Duration",
+  "DisplayMult": 1.0,
+  "MaxValue": 30.0,
+  "ValueDelta": 1.0
+}

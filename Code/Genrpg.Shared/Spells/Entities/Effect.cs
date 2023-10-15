@@ -19,7 +19,7 @@ namespace Genrpg.Shared.Spells.Entities
     }
 
     [MessagePackObject]
-    public sealed class SpellEffect : BaseMapApiMessage, IEffect
+    public sealed class ActiveSpellEffect : BaseMapApiMessage, IEffect
     {
         [Key(0)] public long Id { get; set; }
         [Key(1)] public long EntityTypeId { get; set; }
@@ -41,14 +41,13 @@ namespace Genrpg.Shared.Spells.Entities
         [Key(17)] public float CritChance { get; set; }
         [Key(18)] public float CritMult { get; set; }
         [Key(19)] public long CurrQuantity { get; set; }
-        [Key(20)] public int VariancePct { get; set; }
-        [Key(21)] public long CasterFactionId { get; set; }
-        public SpellEffect()
+        [Key(20)] public long CasterFactionId { get; set; }
+        public ActiveSpellEffect()
         {
 
         }
 
-        public SpellEffect(SpellHit hit)
+        public ActiveSpellEffect(SpellHit hit)
         {
             Level = hit.SendSpell.CasterLevel;
             CasterId = hit.SendSpell.CasterId;
@@ -56,20 +55,19 @@ namespace Genrpg.Shared.Spells.Entities
             TargetId = hit.Target.Id;
             SpellId = hit.SendSpell.Spell.IdKey;
             Icon = hit.SendSpell.Spell.Icon;
-            Duration = hit.SendSpell.Spell.Duration;
+            Duration = hit.Effect.Duration;
             DurationLeft = Duration;
-            Radius = hit.SendSpell.Spell.Radius;
+            Radius = hit.Effect.Radius;
             IsOrigTarget = hit.OrigTarget == hit.Target;
             ElementTypeId = hit.SendSpell.Spell.ElementTypeId;
-            SkillTypeId = hit.SendSpell.Spell.SkillTypeId;
+            SkillTypeId = hit.Effect.SkillTypeId;
             Range = hit.SendSpell.Spell.GetRange();
             CritChance = hit.CritChance;
             CritMult = hit.CritMult;
-            VariancePct = hit.VariancePct;
             CasterFactionId = hit.SendSpell.CasterFactionId;
         }
 
-        public bool MatchesOther(SpellEffect eff)
+        public bool MatchesOther(ActiveSpellEffect eff)
         {
             return CasterId == eff.CasterId &&
                 SpellId == eff.SpellId;

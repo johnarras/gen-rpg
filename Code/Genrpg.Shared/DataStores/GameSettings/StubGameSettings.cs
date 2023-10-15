@@ -4,6 +4,8 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.Shared.DataStores.GameSettings
 {
@@ -14,6 +16,13 @@ namespace Genrpg.Shared.DataStores.GameSettings
 
         public virtual void SetInternalIds() { }
         public virtual void AddTo(GameData gameData) { gameData.Set(this); }
+
+        public virtual async Task SaveAll(IRepositorySystem repo)
+        {
+            return;
+        }
+
+        public virtual List<IGameSettings> GetChildren() { return new List<IGameSettings>(); }
 
     }
 }

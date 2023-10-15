@@ -1,29 +1,4 @@
 {
   "Id": "default",
-  "Data": [
-    {
-      "Id": "texturechannel0default",
-      "ParentId": "default",
-      "Name": "Base"
-    },
-    {
-      "Id": "texturechannel1default",
-      "ParentId": "default",
-      "IdKey": 1,
-      "Name": "Dirt"
-    },
-    {
-      "Id": "texturechannel2default",
-      "ParentId": "default",
-      "IdKey": 2,
-      "Name": "Road"
-    },
-    {
-      "Id": "texturechannel3default",
-      "ParentId": "default",
-      "IdKey": 3,
-      "Name": "Steep"
-    }
-  ],
   "Name": "TextureChannelSettings"
 }

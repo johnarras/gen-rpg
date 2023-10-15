@@ -1,0 +1,33 @@
+{
+  "Id": "spawntable7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Metal",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 104,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 10.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 24,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 10.0
+    }
+  ],
+  "Art": ""
+}

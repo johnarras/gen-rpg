@@ -1,7 +1,7 @@
 ﻿using Genrpg.Shared.Core.Entities;
 
 using Genrpg.Shared.Entities.Interfaces;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.Stats.Entities;
@@ -10,7 +10,7 @@ namespace Genrpg.Shared.Stats.Helpers
 {
     public class StatPctHelper : IEntityHelper
     {
-        public long GetKey() { return EntityType.StatPct; }
+        public long GetKey() { return EntityTypes.StatPct; }
         public string GetDataPropertyName() { return "StatTypes"; }
 
 

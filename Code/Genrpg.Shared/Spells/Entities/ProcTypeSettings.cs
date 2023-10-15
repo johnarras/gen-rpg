@@ -11,7 +11,6 @@ namespace Genrpg.Shared.Spells.Entities
     public class ProcTypeSettings : ParentSettings<ProcType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<ProcType> Data { get; set; } = new List<ProcType>();
 
         public ProcType GetProcType(long idkey) { return _lookup.Get<ProcType>(idkey); }
     }

@@ -1,0 +1,16 @@
+{
+  "Id": "unittype14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Ibex",
+  "Art": "Ibex",
+  "Height": 1.5,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

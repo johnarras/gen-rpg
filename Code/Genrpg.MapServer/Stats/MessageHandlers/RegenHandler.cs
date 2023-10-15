@@ -4,10 +4,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Stats.Messages;
+using Genrpg.Shared.Stats.Constants;
 
 namespace Genrpg.MapServer.Stats.MessageHandlers
 {

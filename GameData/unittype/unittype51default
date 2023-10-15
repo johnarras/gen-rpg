@@ -1,0 +1,16 @@
+{
+  "Id": "unittype51default",
+  "ParentId": "default",
+  "IdKey": 51,
+  "Name": "Wyvern",
+  "Art": "Wyvern",
+  "Height": 4.0,
+  "TribeTypeId": 5,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

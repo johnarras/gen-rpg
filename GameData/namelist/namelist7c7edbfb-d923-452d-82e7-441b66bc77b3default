@@ -1,0 +1,33 @@
+{
+  "Id": "namelist7c7edbfb-d923-452d-82e7-441b66bc77b3default",
+  "ParentId": "default",
+  "ListName": "PreciousLevel",
+  "Names": [
+    {
+      "Weight": 15.0,
+      "Name": "Silver",
+      "Desc": ""
+    },
+    {
+      "Weight": 35.0,
+      "Name": "Electrum",
+      "Desc": ""
+    },
+    {
+      "Weight": 55.0,
+      "Name": "Gold",
+      "Desc": ""
+    },
+    {
+      "Weight": 75.0,
+      "Name": "Platinum",
+      "Desc": ""
+    },
+    {
+      "Weight": 95.0,
+      "Name": "Starshimmer",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

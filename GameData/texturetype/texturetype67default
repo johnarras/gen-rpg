@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype67default",
+  "ParentId": "default",
+  "IdKey": 67,
+  "Name": "Grasse",
+  "Size": 8.0,
+  "ParentTextureTypeId": 1
+}

@@ -15,6 +15,8 @@ public interface IScreenService : IService
 
     ActiveScreen GetScreen(UnityGameState gs, ScreenId name);
 
+    ActiveScreen GetLayerScreen(UnityGameState gs, ScreenLayers layerId);
+
     List<ActiveScreen> GetScreensNamed(UnityGameState gs, ScreenId name);
 
     List<ActiveScreen> GetAllScreens(UnityGameState gs);

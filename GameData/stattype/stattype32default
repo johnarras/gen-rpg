@@ -1,0 +1,8 @@
+{
+  "Id": "stattype32default",
+  "ParentId": "default",
+  "IdKey": 32,
+  "Name": "Resist",
+  "Desc": "Resist Spell",
+  "GenScalePct": 100
+}

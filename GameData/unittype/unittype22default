@@ -1,0 +1,16 @@
+{
+  "Id": "unittype22default",
+  "ParentId": "default",
+  "IdKey": 22,
+  "Name": "Buck",
+  "Art": "Buck",
+  "Height": 2.0,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

@@ -1,0 +1,71 @@
+{
+  "Id": "elementtype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Fire",
+  "Desc": "",
+  "Icon": "",
+  "Art": "Fire",
+  "RankScale": 5,
+  "Skills": [
+    {
+      "SkillTypeId": 1,
+      "CostPct": 125,
+      "ScalePct": 50
+    },
+    {
+      "SkillTypeId": 2,
+      "CostPct": 75,
+      "ScalePct": 150
+    },
+    {
+      "SkillTypeId": 3,
+      "CostPct": 125,
+      "ScalePct": 50
+    },
+    {
+      "SkillTypeId": 4,
+      "CostPct": 125,
+      "ScalePct": 75,
+      "OverrideEntityTypeId": 3
+    },
+    {
+      "SkillTypeId": 7,
+      "CostPct": 100,
+      "ScalePct": 100
+    },
+    {
+      "SkillTypeId": 8,
+      "CostPct": 100,
+      "ScalePct": 100
+    },
+    {
+      "SkillTypeId": 9,
+      "CostPct": 100,
+      "ScalePct": 100,
+      "OverrideEntityTypeId": 4,
+      "OverrideEntityId": 7
+    }
+  ],
+  "Procs": [
+    {
+      "Chance": 100,
+      "ProcTypeId": 2,
+      "FromElementTypeId": 3,
+      "Scale": 100
+    }
+  ],
+  "BonusEfffects": [],
+  "BuffEffects": [
+    {
+      "StatTypeId": 61,
+      "Percent": 10
+    }
+  ],
+  "DebuffEffects": [
+    {
+      "StatTypeId": 61,
+      "Percent": 10
+    }
+  ]
+}

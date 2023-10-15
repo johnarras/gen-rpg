@@ -7,12 +7,6 @@ namespace Genrpg.Shared.Spells.Entities
     [MessagePackObject]
     public class ProcType : ChildSettings, IIndexedGameItem
     {
-        public const int OnCast = 1;
-        public const int OnHitTarget = 2;
-        public const int OnWasHit = 3;
-        public const int OnDeath = 4;
-
-
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }

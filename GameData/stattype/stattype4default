@@ -1,0 +1,9 @@
+{
+  "Id": "stattype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Combo",
+  "Desc": "Start Empty, filll",
+  "MaxPool": 100,
+  "RegenSeconds": -30
+}

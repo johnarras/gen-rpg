@@ -1,5 +1,7 @@
-﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+﻿using Genrpg.Shared.Achievements.Constants;
+using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Units.Entities;
@@ -12,20 +14,20 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 {
     public class HealingEffectHandler : HealthEffectHandler
     {
-        public override long GetKey() { return EntityType.Healing; }
+        public override long GetKey() { return EntityTypes.Healing; }
         public override bool IsModifyStatEffect() { return false; }
         public override bool UseStatScaling() { return true; }
 
 
-        public override List<SpellEffect> CreateEffects(GameState gs, SpellHit hitData)
+        public override List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit hitData)
         {
-            SpellEffect eff = new SpellEffect(hitData);
-            eff.EntityTypeId = EntityType.Healing;
+            ActiveSpellEffect eff = new ActiveSpellEffect(hitData);
+            eff.EntityTypeId = EntityTypes.Healing;
             eff.Quantity = hitData.BaseQuantity;
-            return new List<SpellEffect>() { eff };
+            return new List<ActiveSpellEffect>() { eff };
         }
 
-        public override bool HandleEffect(GameState gs, SpellEffect eff)
+        public override bool HandleEffect(GameState gs, ActiveSpellEffect eff)
         {
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ) || targ.HasFlag(UnitFlags.IsDead))
             {
@@ -35,11 +37,16 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 
             eff.CurrQuantity = eff.Quantity;
 
-            if (eff.VariancePct > 0 && eff.VariancePct <= 100)
+            int variancePct = 20;
+                eff.CurrQuantity = MathUtils.LongRange(eff.Quantity * (100 - variancePct) / 100,
+                    eff.Quantity * (100 + variancePct) / 100, gs.rand);
+
+            if (eff.Quantity != 0 && _objectManager.GetChar(eff.CasterId, out Character ch))
             {
-                eff.CurrQuantity = MathUtils.LongRange(eff.Quantity * (100 - eff.VariancePct) / 100,
-                    eff.Quantity * (100 + eff.VariancePct) / 100, gs.rand);
+                _achievementService.UpdateAchievement(gs, ch, AchievementTypes.TotalHealing, eff.Quantity);
+                _achievementService.UpdateAchievement(gs, ch, AchievementTypes.MaxHealing, eff.Quantity);
             }
+
 
             return base.HandleEffect(gs, eff);
         }

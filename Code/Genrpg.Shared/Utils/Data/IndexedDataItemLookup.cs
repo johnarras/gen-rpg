@@ -84,9 +84,12 @@ namespace Genrpg.Shared.Utils.Data
             {
                 return;
             }
-            PropertyInfo[] props = obj.GetType().GetProperties();
+            PropertyInfo[] publicProps = obj.GetType().GetProperties();
+            PropertyInfo[] privateProps = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic);
 
-            for (int p = 0; p < props.Length; p++)
+            List<PropertyInfo> props = publicProps.Concat(privateProps).ToList();
+
+            for (int p = 0; p < props.Count; p++)
             {
                 PropertyInfo prop = props[p];
 

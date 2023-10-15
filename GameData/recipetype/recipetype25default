@@ -1,0 +1,30 @@
+{
+  "Id": "recipetype25default",
+  "ParentId": "default",
+  "IdKey": 25,
+  "Name": "2H Sword",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 25,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 400,
+  "DefPct": 200,
+  "OtherPct": 200,
+  "ReagentQuantity": 10,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 10
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 104,
+      "Quantity": 10
+    }
+  ]
+}

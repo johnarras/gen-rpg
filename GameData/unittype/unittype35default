@@ -1,0 +1,16 @@
+{
+  "Id": "unittype35default",
+  "ParentId": "default",
+  "IdKey": 35,
+  "Name": "HarpyNaked",
+  "Art": "HarpyNaked",
+  "Height": 3.0,
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

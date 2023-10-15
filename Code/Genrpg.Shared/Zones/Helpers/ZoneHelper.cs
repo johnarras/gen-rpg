@@ -1,7 +1,7 @@
 ﻿using Genrpg.Shared.Core.Entities;
 
 using Genrpg.Shared.Entities.Interfaces;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Genrpg.Shared.Zones.Helpers
 {
     public class ZoneHelper : IEntityHelper
     {
-        public long GetKey() { return EntityType.Zone; }
+        public long GetKey() { return EntityTypes.Zone; }
         public string GetDataPropertyName() { return "Zones"; }
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)

@@ -1,0 +1,16 @@
+{
+  "Id": "unittype49default",
+  "ParentId": "default",
+  "IdKey": 49,
+  "Name": "Treant",
+  "Art": "Treant",
+  "Height": 4.0,
+  "TribeTypeId": 9,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

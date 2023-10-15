@@ -1,0 +1,10 @@
+{
+  "Id": "treetype21default",
+  "ParentId": "default",
+  "IdKey": 21,
+  "Name": "CactusSphere",
+  "Art": "CactusSphere",
+  "Scale": 1.0,
+  "VariationCount": 4,
+  "Flags": 1
+}

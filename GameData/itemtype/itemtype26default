@@ -1,0 +1,128 @@
+{
+  "Id": "itemtype26default",
+  "ParentId": "default",
+  "IdKey": 26,
+  "Name": "2HAxe",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Axe2H",
+  "Art": "Axe2H",
+  "EquipSlotId": 15,
+  "Flags": 10,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Count": 6
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 10000.0,
+      "Name": "Axe",
+      "Desc": ""
+    },
+    {
+      "Weight": 5000.0,
+      "Name": "Greataxe",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ripper",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Reaver",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crescent",
+      "Desc": ""
+    },
+    {
+      "Weight": 10000.0,
+      "Name": "Cleaver",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Edge",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Reaper",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Butcher",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Battle Axe",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Decapitator",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Executor",
+      "Desc": ""
+    }
+  ]
+}

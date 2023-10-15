@@ -1,0 +1,14 @@
+{
+  "Id": "unittype0default",
+  "ParentId": "default",
+  "Name": "None",
+  "Art": "None",
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

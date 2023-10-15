@@ -12,7 +12,8 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Stats.Constants;
 
 namespace Genrpg.Shared.Crafting.Services
 {
@@ -50,7 +51,7 @@ namespace Genrpg.Shared.Crafting.Services
                 return stats;
             }
 
-            if (recipe.EntityTypeId != EntityType.Item)
+            if (recipe.EntityTypeId != EntityTypes.Item)
             {
                 stats.Message = "Recipe " + recipe.IdKey + " does not output an item";
                 return stats;
@@ -220,7 +221,7 @@ namespace Genrpg.Shared.Crafting.Services
             {
                 long startStatPercent = statPercents[key];
                 int scaleTypeScalingPct = 100;
-                if (key == StatType.Stamina)
+                if (key == StatTypes.Stamina)
                 {
                     scaleTypeScalingPct = scaleType.DefPct;
                 }
@@ -254,7 +255,7 @@ namespace Genrpg.Shared.Crafting.Services
                 {
                     Id = key,
                 };
-                stat.Set(StatCategory.Curr, (long)Math.Ceiling(statValDouble));
+                stat.Set(StatCategories.Curr, (long)Math.Ceiling(statValDouble));
                 stats.Stats.Add(stat);
             }
             stats.Level = (long)Math.Floor(averageLevel);
@@ -314,7 +315,7 @@ namespace Genrpg.Shared.Crafting.Services
                     }
 
                     // JRAJRA For now only have item reagents. Later on maybe allow other things.
-                    if (rreagent.EntityTypeId != EntityType.Item)
+                    if (rreagent.EntityTypeId != EntityTypes.Item)
                     {
                         continue;
                     }

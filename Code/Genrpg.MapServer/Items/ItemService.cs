@@ -3,7 +3,7 @@ using Genrpg.MapServer.Spawns;
 using Genrpg.MapServer.Crafting;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
@@ -41,12 +41,12 @@ namespace Genrpg.MapServer.Items
                 return res;
             }
 
-            if (item.UseEntityTypeId == EntityType.Recipe)
+            if (item.UseEntityTypeId == EntityTypes.Recipe)
             {
                 res = _craftingService.LearnRecipe(gs, ch, item);
 
             }
-            else if (item.UseEntityTypeId == EntityType.Spawn)
+            else if (item.UseEntityTypeId == EntityTypes.Spawn)
             {
                 RollData rollData = new RollData()
                 {
@@ -62,7 +62,7 @@ namespace Genrpg.MapServer.Items
 
                 res.Success = true;
             }
-            else if (item.UseEntityTypeId == EntityType.Spell)
+            else if (item.UseEntityTypeId == EntityTypes.Spell)
             {
                 if (_objectManager.GetUnit(ch.TargetId, out Unit targUnit))
                 {

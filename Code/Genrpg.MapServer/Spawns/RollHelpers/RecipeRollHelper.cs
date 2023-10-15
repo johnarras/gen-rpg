@@ -1,6 +1,6 @@
 ﻿using Genrpg.MapServer.Crafting;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Spawns.Entities;
@@ -14,7 +14,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
 {
     public class RecipeRollHelper : IRollHelper
     {
-        public long GetKey() { return EntityType.Recipe; }
+        public long GetKey() { return EntityTypes.Recipe; }
 
         private IServerCraftingService _craftingService;
         public List<SpawnResult> Roll(GameState gs, RollData rollData, SpawnItem item)
@@ -26,7 +26,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
             {
                 SpawnResult sr = new SpawnResult();
                 sr.EntityId = newItem.ItemTypeId;
-                sr.EntityTypeId = EntityType.Item;
+                sr.EntityTypeId = EntityTypes.Item;
                 sr.Quantity = 1;
                 sr.QualityTypeId = rollData.QualityTypeId;
                 sr.Level = rollData.Level;

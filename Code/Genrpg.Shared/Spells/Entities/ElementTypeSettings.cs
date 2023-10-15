@@ -11,7 +11,6 @@ namespace Genrpg.Shared.Spells.Entities
     public class ElementTypeSettings : ParentSettings<ElementType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<ElementType> Data { get; set; } = new List<ElementType>();
 
         public ElementType GetElementType(long idkey) { return _lookup.Get<ElementType>(idkey); }
     }

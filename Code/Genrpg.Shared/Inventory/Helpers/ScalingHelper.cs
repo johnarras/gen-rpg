@@ -1,7 +1,7 @@
 ﻿using Genrpg.Shared.Core.Entities;
 
 using Genrpg.Shared.Entities.Interfaces;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
@@ -11,7 +11,7 @@ namespace Genrpg.Shared.Inventory.Helpers
 {
     public class ScalingHelper : IEntityHelper
     {
-        public long GetKey() { return EntityType.Scaling; }
+        public long GetKey() { return EntityTypes.Scaling; }
         public string GetDataPropertyName() { return "ScalingTypes"; }
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)

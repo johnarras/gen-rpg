@@ -1,0 +1,9 @@
+{
+  "Id": "planttype36default",
+  "ParentId": "default",
+  "IdKey": 36,
+  "Art": "DetailGrass36",
+  "MinScale": 0.75,
+  "MaxScale": 1.5,
+  "BaseColor": {}
+}

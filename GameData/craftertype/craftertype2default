@@ -1,0 +1,12 @@
+{
+  "Id": "craftertype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Carpentry",
+  "MousePointer": "Lumberjack",
+  "ReagentItemTypeId": 103,
+  "GatherSeconds": 3.0,
+  "CraftingSeconds": 6.0,
+  "GatherActionName": "Chopping",
+  "CraftActionName": "Building"
+}

@@ -1,0 +1,81 @@
+{
+  "Id": "itemtype177default",
+  "ParentId": "default",
+  "IdKey": 177,
+  "Name": "Pearl",
+  "NameId": "Pearl",
+  "GenName": "BodyPearl",
+  "Desc": "",
+  "Icon": "BodyPearl",
+  "Art": "",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 65
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 200,
+      "EntityId": 12
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 200,
+      "EntityId": 31
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Cracked"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Rough"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Dull"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Burnished"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Glowing"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Chromatic"
+    }
+  ],
+  "QualityNames": [
+    {},
+    {
+      "QualityTypeId": 1,
+      "Name": "Cleaned"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Worked"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Finished"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Lifebound"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

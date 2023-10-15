@@ -64,7 +64,7 @@ namespace Genrpg.MapServer.MainServer
                 {
                     if (mapStubId != 2)
                     {
-                        continue;
+                        //continue;
                     }
                     if (mapStubId % _mapServerCount == _mapServerIndex)
                     {

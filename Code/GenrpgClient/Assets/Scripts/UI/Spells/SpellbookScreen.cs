@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.Entities;
+﻿using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Spells.Entities;
 using Assets.Scripts.Atlas.Constants;
@@ -11,34 +7,49 @@ using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.SpellCrafting.Messages;
 using UnityEngine;
+using Genrpg.Shared.SpellCrafting.Entities;
+using Genrpg.Shared.SpellCrafting.Services;
+using System.Security.Policy;
+using Assets.Scripts.UI.Spells;
+using Genrpg.Shared.SpellCrafting.Constants;
+using System.Collections.Generic;
+using Genrpg.Shared.Entities.Utils;
+using Genrpg.Shared.DataStores.Entities;
+using TMPro.EditorUtilities;
 
 public class SpellbookScreen : SpellIconScreen
 {
     protected IReflectionService _reflectionService;
     protected ISharedSpellCraftService _spellCraftService;
 
-    public const string SpellProcEditPrefab = "SpellProcEdit";
+    protected string SpellEffectEditPrefabName = "SpellEffectEdit";
 
-    public const string ArrowListSelectorPrefab = "ArrowListSelector";
-
-    
-    public GEntity DropdownParent;
     public SpellIconPanel SpellPanel;
-    public ArrowListSelector ElementSelector;
-    public ArrowListSelector SkillSelector;
-    public GEntity ProcParent;
-    public GText InfoText;
-    public GText ExtraInfo;
     public GButton CloseButton;
-    public GButton CraftButton;
     public GButton DeleteButton;
+    public GButton AddEffectButton;
+    public GButton ValidateButton;
     public GButton ClearButton;
+    public GButton CraftButton;
 
-    public List<ArrowListSelector> _modSelectors { get; set; }
-    public List<SpellProcEdit> _procEdits { get; set; }
+    public GInputField NameInput;
+    public GInputField ElementInput;
+    public GInputField PowerTypeInput;
+    public GText PowerCostText;
+
+
+    public SpellModInputField CastTimeInput;
+    public SpellModInputField RangeInput;
+    public SpellModInputField CooldownInput;
+    public SpellModInputField ShotsInput;
+    public SpellModInputField MaxChargesInput;
+
+    public GEntity EffectListParent;
 
     private Spell _selectedSpell = null;
     private Sprite[] _sprites = null;
+
+    private List<SpellEffectEdit> _effectEdits = new List<SpellEffectEdit>();
 
     protected override async Task OnStartOpen(object data, CancellationToken token)
     {
@@ -49,7 +60,9 @@ public class SpellbookScreen : SpellIconScreen
         UIHelper.SetButton(CraftButton, GetAnalyticsName(), ClickCraft);
         UIHelper.SetButton(DeleteButton, GetAnalyticsName(), ClickDelete);
         UIHelper.SetButton(ClearButton, GetAnalyticsName(), ClickClear);
-        SetupDropdowns();
+        UIHelper.SetButton(AddEffectButton, GetAnalyticsName(), ClickAddEffect);
+        UIHelper.SetButton(ValidateButton, GetAnalyticsName(), ClickValidate);
+        InitScreenInputs();
         SetSelectedSpell(null);
         ShowSpells(token);
 
@@ -83,112 +96,23 @@ public class SpellbookScreen : SpellIconScreen
         }
     }
 
-    protected void SetupDropdowns()
+    public void InitScreenInputs()
     {
-        if (ElementSelector != null)
-        {
-            ElementSelector.Init(_gs, _gs.data.GetGameData<ElementTypeSettings>(_gs.ch).GetData(), this);
-        }
-
-        if (SkillSelector != null)
-        {
-            SkillSelector.Init(_gs, _gs.data.GetGameData<SkillTypeSettings>(_gs.ch).GetData(), this);
-        }
-
-        if (DropdownParent == null)
-        {
-            return;
-        }
-
-        GEntityUtils.DestroyAllChildren(DropdownParent);
-        _modSelectors = new List<ArrowListSelector>();
-
-        if (_gs.data.GetGameData<SpellModifierSettings>(_gs.ch).GetData() != null)
-        {
-            foreach (SpellModifier mod in _gs.data.GetGameData<SpellModifierSettings>(_gs.ch).GetData())
-            {
-                if (mod.IsProcMod)
-                {
-                    continue;
-                }
-
-                _assetService.LoadAssetInto(_gs, DropdownParent, AssetCategory.UI, ArrowListSelectorPrefab, OnDownloadSpellModPrefab, mod, _token);
-            }
-        }
-
-        _procEdits = new List<SpellProcEdit>();
-
-        for (int i = 0; i < SpellConstants.MaxProcsPerSpell; i++)
-        {
-            _assetService.LoadAssetInto(_gs, ProcParent, AssetCategory.UI, SpellProcEditPrefab, OnDownloadSpellProc,i, _token);
-        }
-    }
-
-    private void OnDownloadSpellModPrefab(UnityGameState gs, string url, object obj, object data, CancellationToken token)
-    {
-        GEntity go = obj as GEntity;
-        if (go == null)
-        {
-            return;
-        }
-
-        SpellModifier mod = data as SpellModifier;
-
-        if (mod == null)
-        {
-            GEntityUtils.Destroy(go);
-            return;
-        }
-
-        ArrowListSelector modSelector = go.GetComponent<ArrowListSelector>();
-        if (modSelector == null)
-        {
-            GEntityUtils.Destroy(go);
-            return;
-        }
-        SpellModifierValue defaultValue = null;
-        if (mod.Values != null)
-        {
-            foreach (SpellModifierValue val in mod.Values)
-            {
-                val.InitTempMod(mod);
-                if (val.CostScale == SpellModifier.DefaultCostScale)
-                {
-                    defaultValue = val;
-                }
-            }
-        }
-
-        modSelector.Init(gs, mod.Values, this, defaultValue);
-        _modSelectors.Add(modSelector);
-    }
-
-    private void OnDownloadSpellProc(UnityGameState gs, string url, object obj, object data, CancellationToken token)
-    {
-        GEntity go = obj as GEntity;
-        if (go == null)
-        {
-            return;
-        }
-
-        SpellProcEdit procEdit = go.GetComponent<SpellProcEdit>();
-
-        if (procEdit == null)
-        {
-            GEntityUtils.Destroy(go);
-            return;
-        }
-
-        procEdit.Init(gs, this, null, token);
-
-        _procEdits.Add(procEdit);
-
-
+        ShotsInput?.Init(SpellModifiers.Shots);
+        RangeInput?.Init(SpellModifiers.Range);
+        CooldownInput?.Init(SpellModifiers.Cooldown);
+        MaxChargesInput?.Init(SpellModifiers.ExtraTargets);
+        CastTimeInput?.Init(SpellModifiers.CastTime);
     }
 
     public void ClickClear()
     {
         SetSelectedSpell(null);
+    }
+
+    public void ClickValidate()
+    {
+        CopyFromUIToSpell();
     }
 
     public void ClickCraft()
@@ -197,6 +121,12 @@ public class SpellbookScreen : SpellIconScreen
         {
             return;
         }
+
+        if (!CopyFromUIToSpell())
+        {
+            return;
+        }
+
         if (string.IsNullOrEmpty(_editSpell.Icon) && _sprites != null && _sprites.Length > 0)
         {
             _editSpell.Icon = _sprites[_gs.rand.Next() % _sprites.Length].name.Replace("(Clone)", "");
@@ -204,6 +134,19 @@ public class SpellbookScreen : SpellIconScreen
 
         _networkService.SendMapMessage(new CraftSpell() { CraftedSpell = _editSpell });
 
+    }
+
+    public void ClickAddEffect()
+    {
+        if (_editSpell == null)
+        {
+            return;
+        }
+
+        SpellEffect effect = new SpellEffect();
+        _editSpell.Effects.Add(effect);
+
+        _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategory.UI, SpellEffectEditPrefabName, OnLoadEffect, effect, _token);
     }
 
 
@@ -232,178 +175,114 @@ public class SpellbookScreen : SpellIconScreen
     protected void SetSelectedSpell(Spell spell)
     {
         _selectedSpell = spell;
-        UpdateDropdownsFromSelectedSpell();
+        _editSpell = spell;
+        CopyFromSpellToUI(spell);
     }
-
-    protected T GetSelectedItem<T>(GDropdown dd) where T : class
-    {
-        if (dd == null)
-        {
-            return default(T);
-        }
-
-        if (dd.options == null || dd.value < 0 || dd.value >= dd.options.Count)
-        {
-            return default(T);
-        }
-
-        MyDropdownOption option = dd.options[dd.value] as MyDropdownOption;
-        if (option == null)
-        {
-            return default(T);
-        }
-
-        return option.OptionItem as T;
-
-    }
-
 
     private Spell _editSpell = null;
     /// <summary>
     /// On select or set, update the spell based on what the dropdowns are.
     /// </summary>
-    public void UpdateSpellFromDropdowns()
+    public bool CopyFromUIToSpell()
     {
         if (_editSpell == null)
         {
             _editSpell = new Spell();
         }
 
-        _editSpell.ElementTypeId = 1;
-        _editSpell.SkillTypeId = 1;
+        _editSpell.Name = NameInput?.Text;
+        _editSpell.ElementTypeId = UIHelper.GetIntInput(ElementInput);
+        _editSpell.PowerStatTypeId = UIHelper.GetIntInput(PowerTypeInput);
 
-        if (ElementSelector == null || SkillSelector == null)
+        _editSpell.Cooldown = UIHelper.GetIntInput(CooldownInput?.InputField);
+        _editSpell.Range = UIHelper.GetIntInput(RangeInput?.InputField);
+        _editSpell.Shots = UIHelper.GetIntInput(ShotsInput?.InputField);
+        _editSpell.MaxCharges = UIHelper.GetIntInput(ShotsInput?.InputField);
+        _editSpell.CastTime = UIHelper.GetFloatInput(CastTimeInput?.InputField);
+
+        foreach (SpellEffectEdit edit in _effectEdits)
         {
-            return;
+            edit.CopyFromUIToEffect();
         }
 
-        ElementType selectedElement = ElementSelector.GetSelectedItem<ElementType>();
-        SkillType selectedSkill = SkillSelector.GetSelectedItem<SkillType>();
-
-        if (selectedElement != null)
+        if (_spellCraftService.ValidateSpellData(_gs, _gs.ch, _editSpell))
         {
-            _editSpell.ElementTypeId = selectedElement.IdKey;
+            CopyFromSpellToUI(_editSpell);
+            return true;
         }
-
-        if (selectedSkill != null)
-        {
-            _editSpell.SkillTypeId = selectedSkill.IdKey;
-        }
-
-        if (_modSelectors != null)
-        {
-            foreach (ArrowListSelector md in _modSelectors)
-            {
-                SpellModifierValue selectedMod = md.GetSelectedItem<SpellModifierValue>();
-
-                if (selectedMod == null)
-                {
-                    continue;
-                }
-
-
-                SpellModifier realMod = selectedMod.GetTempMod();
-
-                if (realMod == null)
-                {
-                    continue;
-                }
-
-                _reflectionService.SetObjectValue(_editSpell, realMod.DataMemberName, selectedMod.Value);
-            }
-        }
-
-        if (_spellCraftService.GenerateSpellData(_gs, _editSpell))
-        {
-            ShowSpellData(_editSpell);
-        }
-
+        _gs.logger.Error("Spell could not be validated!");
+        return false;
     }
 
 
-    private bool _suppressInfoChanged = false;
-    /// <summary>
-    /// On select or set, update the spell based on what the dropdowns are.
-    /// </summary>
-    public void UpdateDropdownsFromSelectedSpell()
-    {
-        if (_gs.data.GetGameData<SpellModifierSettings>(_gs.ch).GetData() == null)
-        {
-            return;
-        }
-
-        _suppressInfoChanged = true;
-        if (_selectedSpell != null)
-        {
-            _editSpell = SerializationUtils.FastMakeCopy(_selectedSpell) as Spell;
-        }
-        else
-        {
-            _editSpell = new Spell();
-        }
-
-        if (ElementSelector == null || SkillSelector == null)
-        {
-            return;
-        }
-
-        ElementSelector.SetToId(_editSpell.ElementTypeId);
-
-        SkillSelector.SetToId(_editSpell.SkillTypeId);
-
-        if (_modSelectors != null)
-        {
-            foreach (ArrowListSelector md in _modSelectors)
-            {
-                SpellModifierValue selectedMod = md.GetSelectedItem<SpellModifierValue>();
-
-                if (selectedMod == null)
-                {
-                    continue;
-                }
-
-                SpellModifier realMod = selectedMod.GetTempMod();
-                object idObj = _reflectionService.GetObjectValue(_editSpell, realMod.DataMemberName);
-
-                if (idObj == null)
-                {
-                    continue;
-                }
-
-                long modVal = -1;
-
-                if (Int64.TryParse(idObj.ToString(), out modVal))
-                {
-                    md.SetToId(modVal);
-                }
-            }
-        }
-
-        _suppressInfoChanged = false;
-        ShowSpellData(_editSpell);
-    }
-
-
-
-
-    private void ShowSpellData(Spell spell)
+    private void CopyFromSpellToUI(Spell spell)
     {
         if (spell == null)
         {
             return;
         }
 
+        UIHelper.SetInputText(NameInput, spell.Name);
+        UIHelper.SetInputText(ElementInput, spell.ElementTypeId);
+        UIHelper.SetInputText(PowerTypeInput, spell.PowerStatTypeId);
+        UIHelper.SetInputText(CooldownInput.InputField, spell.Cooldown);
+        UIHelper.SetInputText(ShotsInput?.InputField, spell.Shots);
+        UIHelper.SetInputText(CastTimeInput?.InputField, spell.CastTime);
+        UIHelper.SetInputText(RangeInput?.InputField, spell.Range);
+        UIHelper.SetInputText(MaxChargesInput?.InputField, spell.MaxCharges);
+
+        UIHelper.SetText(PowerCostText, spell.PowerCost.ToString());
+
+        // Get rid of extra effect blocks
+        while (_effectEdits.Count > spell.Effects.Count)
+        {
+            GEntityUtils.Destroy(_effectEdits[_effectEdits.Count - 1].gameObject);
+            _effectEdits.RemoveAt(_effectEdits.Count - 1);
+        }
+
+        // Re-initialize any existing effect blocks
+        for (int e = 0; e < spell.Effects.Count; e++)
+        {
+            if (e < _effectEdits.Count)
+            {
+                _effectEdits[e].Init(spell.Effects[e], spell, this);
+            }
+        }
+
+        // Add new effect edit blocks for things as needed
+        for (int e = _effectEdits.Count; e < spell.Effects.Count; e++)
+        {
+            _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategory.UI, SpellEffectEditPrefabName, OnLoadEffect, spell.Effects[e], _token);
+
+        }
     }
 
-    public override void OnInfoChanged()
+
+    private void OnLoadEffect(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        if (_suppressInfoChanged)
+        GEntity go = obj as GEntity;
+
+        if (obj == null)
         {
+            _gs.logger.Error("Failed to load SpellEffectEdit");
             return;
         }
 
-        UpdateSpellFromDropdowns();
+        SpellEffectEdit edit = go.GetComponent<SpellEffectEdit>();
+
+        if (edit == null)
+        {
+            _gs.logger.Error("SpellEffectEdit Component missing");
+            return;
+        }
+
+        edit.Init(data as SpellEffect, _editSpell, this);
+
+        _effectEdits.Add(edit);
+
+
     }
+
     protected override void ShowDragTargetIconsGlow(bool visible)
     {
 

@@ -1,0 +1,7 @@
+{
+  "Id": "musictype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Swamp",
+  "Art": "SwampMusic"
+}

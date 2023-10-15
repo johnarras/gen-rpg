@@ -1,5 +1,6 @@
 ﻿using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Chat.Constants;
 using Genrpg.Shared.Chat.Entities;
 using Genrpg.Shared.Chat.Messages;
 using Genrpg.Shared.Core.Entities;
@@ -17,11 +18,11 @@ namespace Genrpg.MapServer.Chat.MessageHandlers
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, SendChatMessage message)
         {
             float radius = 0;
-            if (message.ChatTypeId == ChatType.Say)
+            if (message.ChatTypeId == ChatTypes.Say)
             {
                 radius = 20;
             }
-            else if (message.ChatTypeId == ChatType.Yell)
+            else if (message.ChatTypeId == ChatTypes.Yell)
             {
                 radius = 50;
             }

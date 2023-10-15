@@ -1,0 +1,14 @@
+{
+  "Id": "groundobjtype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Art": "Chest03",
+  "GroupId": "chest",
+  "SpawnWeight": 7,
+  "CrafterTypeId": 9,
+  "SpawnTableId": 25,
+  "MinRolls": 4,
+  "MaxRolls": 4,
+  "QualityTypeId": 2,
+  "OneTimeOnly": true
+}

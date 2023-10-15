@@ -25,6 +25,8 @@ using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.Shared.DataStores.Categories.WorldData;
 using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.DataStores.Interfaces;
+using Genrpg.Shared.Entities.Constants;
 
 namespace GameEditor
 {
@@ -644,7 +646,7 @@ namespace GameEditor
             }
 
 			object etypeObj = _reflectionService.GetObjectValue(obj, memberName);
-			long etype = EntityType.None;
+			long etype = EntityTypes.None;
 
 			if (etypeObj != null)
 			{
@@ -738,7 +740,7 @@ namespace GameEditor
             string etypeName = nm.Replace("EntityId", "EntityTypeId");
 
             object etypeObj = _reflectionService.GetObjectValue(obj, etypeName);
-			long etype = EntityType.None;
+			long etype = EntityTypes.None;
 			
 			if (etypeObj != null)
 			{
@@ -746,7 +748,7 @@ namespace GameEditor
 			}
 
 
-            if (etype == EntityType.None)
+            if (etype == EntityTypes.None)
             {
                 return;
             }
@@ -1237,6 +1239,7 @@ namespace GameEditor
                     if (obj is IGameSettings settings)
                     {
                         gs.data.Set(settings);
+                        gs.LookedAtObjects.AddRange(settings.GetChildren());
                     }
                 }
                 SetMultiGridDataSource(obj2);
@@ -1245,7 +1248,7 @@ namespace GameEditor
             SetSelectedRow(MultiGrid, oldSelectedRow);
         }
 
-        public void DeleteItem()
+        public async Task DeleteItem()
         {
 
             DataGridViewSelectedRowCollection rows = MultiGrid.SelectedRows;
@@ -1260,13 +1263,27 @@ namespace GameEditor
             int oldSelectedRow = GetSelectedRow(MultiGrid);
 
             object obj2 = _reflectionService.DeleteItem(obj, parent, item);
-            Dictionary<Type, IUnitDataLoader> allLoaders = PlayerDataUtils.GetLoaders();
+            Dictionary<Type, IUnitDataLoader> allLoaders = gs.loc.Get<IPlayerDataService>().GetLoaders();
 
             if (item is BaseWorldData worldData)
             {
                 worldData.Delete(gs.repo);
             }
 
+            if (item is IGameSettings settings)
+            {
+                await gs.repo.Delete(settings);
+                List<IGameSettings> children = settings.GetChildren();
+                foreach (IGameSettings child in children)
+                {
+                    await gs.repo.Delete(child);
+                }
+            }
+
+            if (item is IUnitData unitData)
+            {
+                unitData.Delete(gs.repo);
+            }
 
             if (obj2 != null)
             {

@@ -11,7 +11,6 @@ namespace Genrpg.Shared.Inventory.Entities
     public class EquipSlotSettings : ParentSettings<EquipSlot>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<EquipSlot> Data { get; set; } = new List<EquipSlot>();
 
         public EquipSlot GetEquipSlot(long idkey) { return _lookup.Get<EquipSlot>(idkey); }
     }

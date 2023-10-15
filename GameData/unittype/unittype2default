@@ -1,0 +1,18 @@
+{
+  "Id": "unittype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Elf",
+  "Desc": "",
+  "Icon": "",
+  "Art": "ElfMale",
+  "Height": 2.0,
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

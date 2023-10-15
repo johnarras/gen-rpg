@@ -10,6 +10,7 @@ using Genrpg.Shared.Utils;
 using System.Reflection.Emit;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.WorldData;
+using Genrpg.Shared.ProcGen.Constants;
 
 namespace Genrpg.Shared.Zones.Entities
 {
@@ -54,10 +55,10 @@ namespace Genrpg.Shared.Zones.Entities
         public Zone()
         {
             Locations = new List<Location>();
-            BaseTextureTypeId = TextureType.Grass;
-            DirtTextureTypeId = TextureType.Dirt;
-            RockTextureTypeId = TextureType.Rock;
-            RoadTextureTypeId = TextureType.Road;
+            BaseTextureTypeId = TextureTypes.Grass;
+            DirtTextureTypeId = TextureTypes.Dirt;
+            RockTextureTypeId = TextureTypes.Rock;
+            RoadTextureTypeId = TextureTypes.Road;
 
             CleanData();
         }

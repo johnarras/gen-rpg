@@ -1,0 +1,77 @@
+{
+  "Id": "itemtype130default",
+  "ParentId": "default",
+  "IdKey": 130,
+  "Name": "Dust",
+  "NameId": "MagicDust",
+  "GenName": "MagicDust",
+  "Desc": "",
+  "Icon": "MagicDust",
+  "Art": "",
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 12
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 100,
+      "EntityId": 40
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Magic"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Enchanted"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Arcane"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Lunar"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Solar"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Dragon"
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Impure"
+    },
+    {
+      "QualityTypeId": 1
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Sieved"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Concentrated"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Geobound"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

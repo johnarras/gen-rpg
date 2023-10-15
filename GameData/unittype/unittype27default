@@ -1,0 +1,16 @@
+{
+  "Id": "unittype27default",
+  "ParentId": "default",
+  "IdKey": 27,
+  "Name": "Dragon",
+  "Art": "Dragon",
+  "Height": 5.0,
+  "TribeTypeId": 5,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

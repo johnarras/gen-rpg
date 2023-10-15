@@ -1,0 +1,10 @@
+{
+  "Id": "rocktype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "RockSand",
+  "Art": "RockSand",
+  "ChanceScale": 1.0,
+  "BaseColor": {},
+  "MaxIndex": 10
+}

@@ -1,0 +1,9 @@
+{
+  "Id": "treetype48default",
+  "ParentId": "default",
+  "IdKey": 48,
+  "Name": "WhiteOakFall",
+  "Art": "WhiteOakFall",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

@@ -1,0 +1,98 @@
+{
+  "Id": "itemtype10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Shield",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Shield",
+  "Art": "Shield",
+  "EquipSlotId": 16,
+  "Flags": 8,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Count": 7
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Shield",
+      "Desc": ""
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Aegis",
+      "Desc": ""
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Disk",
+      "Desc": ""
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Defender",
+      "Desc": ""
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Blocker",
+      "Desc": ""
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Guard",
+      "Desc": ""
+    }
+  ]
+}

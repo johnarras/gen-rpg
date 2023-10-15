@@ -1,0 +1,8 @@
+{
+  "Id": "fencetype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Fence",
+  "Art": "Fence",
+  "Length": 2.9
+}

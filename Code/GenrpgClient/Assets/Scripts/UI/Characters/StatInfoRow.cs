@@ -1,6 +1,7 @@
 ﻿using System;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Stats.Entities;
+using Genrpg.Shared.Stats.Constants;
 
 public class StatInfoRow : BaseBehaviour
 {

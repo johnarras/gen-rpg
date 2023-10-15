@@ -1,0 +1,18 @@
+{
+  "Id": "namelistd76d5580-0300-42de-8179-3aba9575a6fddefault",
+  "ParentId": "default",
+  "ListName": "BodyQuality",
+  "Names": [
+    {
+      "Weight": 100.0,
+      "Name": "",
+      "Desc": ""
+    },
+    {
+      "Weight": 150.0,
+      "Name": "Pristine",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

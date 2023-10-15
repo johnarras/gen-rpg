@@ -1,0 +1,9 @@
+{
+  "Id": "treetype70default",
+  "ParentId": "default",
+  "IdKey": 70,
+  "Name": "Apple",
+  "Art": "Apple",
+  "Scale": 2.5,
+  "VariationCount": 2
+}

@@ -1,5 +1,5 @@
 ﻿using Genrpg.Shared.MapObjects.Entities;
-using Genrpg.Shared.Stats.Entities;
+using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Units.Entities;
 using System.Threading;
@@ -17,8 +17,8 @@ namespace Assets.Scripts.MessageHandlers.Stats
 
             foreach (SmallStat stat in msg.Dat)
             {
-                unit.Stats.Set(stat.GetStatId(), StatCategory.Base, stat.GetMaxVal());
-                unit.Stats.Set(stat.GetStatId(), StatCategory.Curr, stat.GetCurrVal());
+                unit.Stats.Set(stat.GetStatId(), StatCategories.Base, stat.GetMaxVal());
+                unit.Stats.Set(stat.GetStatId(), StatCategories.Curr, stat.GetCurrVal());
             }
             gs.Dispatch(msg);
         }

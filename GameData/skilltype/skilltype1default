@@ -1,0 +1,16 @@
+{
+  "Id": "skilltype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Hit",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "TargetTypeId": 1,
+  "ManaCostPercent": 30,
+  "EnergyCostPercent": 20,
+  "ComboCostPercent": 30,
+  "ScalingStatTypeId": 21,
+  "StatScalePercent": 100,
+  "EffectEntityTypeId": 33
+}

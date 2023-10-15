@@ -6,6 +6,7 @@ using Genrpg.Shared.Utils.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Genrpg.Shared.DataStores.Categories.GameSettings
 {
@@ -48,5 +49,12 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
         {
             return _lookup.GetList<T>();
         }
+
+        public virtual async Task SaveAll(IRepositorySystem repo)
+        {
+            await repo.Save(this);
+        }
+        public virtual List<IGameSettings> GetChildren() { return new List<IGameSettings>(); }
+
     }
 }

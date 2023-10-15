@@ -6,13 +6,13 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Crafting.Services;
-using Genrpg.Shared.Spells.Services;
 using Genrpg.Shared.Stats.Services;
 using Genrpg.Shared.Factions.Services;
 using Genrpg.Shared.ProcGen.Services;
 using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.UserCoins.Services;
+using Genrpg.Shared.SpellCrafting.Services;
 
 namespace Genrpg.Shared.Setup.Services
 {

@@ -1,0 +1,79 @@
+{
+  "Id": "itemtype101default",
+  "ParentId": "default",
+  "IdKey": 101,
+  "Name": "Cloth",
+  "NameId": "Cloth",
+  "GenName": "Cloth",
+  "Desc": "",
+  "Icon": "Cloth",
+  "Art": "",
+  "Flags": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 13
+    },
+    {
+      "EntityTypeId": 31,
+      "Quantity": 150,
+      "EntityId": 14
+    }
+  ],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Flax"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Linen"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Hemp"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": "Cotton"
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Wool"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Silk"
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Rough"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Woven"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Bolt of"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Imbued"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Enchanted"
+    }
+  ],
+  "IconCounts": [],
+  "Names": []
+}

@@ -1,0 +1,38 @@
+{
+  "Id": "namelist79c60f5c-bda5-417d-8d2b-7c665b266b59default",
+  "ParentId": "default",
+  "ListName": "ElementLevel",
+  "Names": [
+    {
+      "Weight": 6.0,
+      "Name": "Speck of",
+      "Desc": ""
+    },
+    {
+      "Weight": 16.0,
+      "Name": "Shard of",
+      "Desc": ""
+    },
+    {
+      "Weight": 26.0,
+      "Name": "Essence of",
+      "Desc": ""
+    },
+    {
+      "Weight": 36.0,
+      "Name": "Piece of",
+      "Desc": ""
+    },
+    {
+      "Weight": 46.0,
+      "Name": "Glimmering",
+      "Desc": ""
+    },
+    {
+      "Weight": 56.0,
+      "Name": "Elemental",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

@@ -17,7 +17,6 @@ namespace Genrpg.Shared.Spawns.Entities
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public float MapSpawnChance { get; set; }
         [Key(2)] public long MonsterLootSpawnTableId { get; set; }
-        [Key(3)] public override List<SpawnTable> Data { get; set; }
 
 
         public SpawnTable GetSpawnTable(long idkey) { return _lookup.Get<SpawnTable>(idkey); }

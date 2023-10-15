@@ -11,7 +11,6 @@ namespace Genrpg.Shared.ProcGen.Entities
     public class PlantTypeSettings : ParentSettings<PlantType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<PlantType> Data { get; set; } = new List<PlantType>();
 
         public PlantType GetPlantType(long idkey) { return _lookup.Get<PlantType>(idkey); }
     }

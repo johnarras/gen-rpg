@@ -17,7 +17,6 @@ namespace Genrpg.Shared.Levels.Entities
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public int MaxLevel { get; set; }
-        [Key(2)] public override List<LevelInfo> Data { get; set; }
 
         public LevelInfo GetLevel (long idkey)
         {

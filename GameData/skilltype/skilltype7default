@@ -1,0 +1,13 @@
+{
+  "Id": "skilltype7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Buff",
+  "TargetTypeId": 2,
+  "ManaCostPercent": 10,
+  "EnergyCostPercent": 100,
+  "ComboCostPercent": 100,
+  "ScalingStatTypeId": 22,
+  "StatScalePercent": 100,
+  "EffectEntityTypeId": 31
+}

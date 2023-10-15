@@ -1,0 +1,16 @@
+{
+  "Id": "skilltype8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Debuff",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "TargetTypeId": 1,
+  "ManaCostPercent": 15,
+  "EnergyCostPercent": 40,
+  "ComboCostPercent": 20,
+  "ScalingStatTypeId": 22,
+  "StatScalePercent": 100,
+  "EffectEntityTypeId": 31
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "stattype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Agility",
+  "Abbrev": "",
+  "Desc": "+1 AP +1 SP",
+  "Icon": "",
+  "Art": "",
+  "GenScalePct": 100
+}

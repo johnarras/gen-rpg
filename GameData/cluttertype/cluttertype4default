@@ -1,0 +1,8 @@
+{
+  "Id": "cluttertype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Pottery",
+  "Art": "Pottery",
+  "NumChoices": 37
+}

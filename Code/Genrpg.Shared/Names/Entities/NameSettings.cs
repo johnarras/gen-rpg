@@ -14,18 +14,17 @@ namespace Genrpg.Shared.Names.Entities
     public class NameSettings : ParentSettings<NameList>
     { 
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<NameList> Data { get; set; } = new List<NameList>();
 
 
 
         public NameList GetNameList(string nm)
         {
-            if (Data == null)
+            if (_data == null)
             {
                 return null;
             }
 
-            foreach (NameList nl in Data)
+            foreach (NameList nl in _data)
             {
                 if (nl.ListName == nm)
                 {

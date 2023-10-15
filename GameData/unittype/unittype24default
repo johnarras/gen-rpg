@@ -1,0 +1,16 @@
+{
+  "Id": "unittype24default",
+  "ParentId": "default",
+  "IdKey": 24,
+  "Name": "Chimera",
+  "Art": "Chimera",
+  "Height": 4.0,
+  "TribeTypeId": 8,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

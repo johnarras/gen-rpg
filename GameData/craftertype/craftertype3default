@@ -1,0 +1,12 @@
+{
+  "Id": "craftertype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Leatherworking",
+  "MousePointer": "Fight",
+  "ReagentItemTypeId": 102,
+  "GatherSeconds": 3.0,
+  "CraftingSeconds": 6.0,
+  "GatherActionName": "Skinning",
+  "CraftActionName": "Assembling"
+}

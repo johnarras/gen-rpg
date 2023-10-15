@@ -1,0 +1,27 @@
+{
+  "Id": "tribetype8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Mythological",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "LootItems": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 28,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 1,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    }
+  ],
+  "InteractLootItems": [],
+  "LootCrafterTypeId": 8
+}

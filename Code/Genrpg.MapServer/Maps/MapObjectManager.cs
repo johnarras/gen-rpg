@@ -19,7 +19,7 @@ using Genrpg.Shared.MapServer.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.MapServer.Maps.Messaging;
 using Genrpg.MapServer.Maps.Filters;
 using Genrpg.MapServer.MapMessaging.Interfaces;
@@ -527,14 +527,14 @@ namespace Genrpg.MapServer.Maps
                 }
             }
             _totalUnits = gs.spawns.Data
-                .Where(x => x.EntityTypeId == EntityType.Unit || x.EntityTypeId == EntityType.NPC)
+                .Where(x => x.EntityTypeId == EntityTypes.Unit || x.EntityTypeId == EntityTypes.NPC)
                 .Count();
             _totalObjects = gs.spawns.Data.Count - _totalUnits;
 
             List<MapSpawn> copySpawns = new List<MapSpawn>();
             foreach (MapSpawn spawn in gs.spawns.Data)
             {
-                if (spawn.EntityTypeId == EntityType.Unit || spawn.EntityTypeId== EntityType.ZoneUnit)
+                if (spawn.EntityTypeId == EntityTypes.Unit || spawn.EntityTypeId== EntityTypes.ZoneUnit)
                 {
                     int maxTimes = 1;// + _gs.rand.Next() % 3;
                     for (int times = 0; times < maxTimes; times++)

@@ -1,0 +1,14 @@
+{
+  "Id": "spellmodifier4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Radius",
+  "Icon": "",
+  "Art": "",
+  "Desc": "",
+  "DisplaySuffix": "",
+  "DataMemberName": "Radius",
+  "DisplayMult": 1.0,
+  "MaxValue": 15.0,
+  "ValueDelta": 3.0
+}

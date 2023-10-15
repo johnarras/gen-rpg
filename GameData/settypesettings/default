@@ -1,32 +1,4 @@
 {
   "Id": "default",
-  "Data": [
-    {
-      "Id": "settype1default",
-      "ParentId": "default",
-      "IdKey": 1,
-      "Name": "",
-      "NameId": "",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "Pieces": [
-        {
-          "Stats": [],
-          "Procs": []
-        },
-        {
-          "Stats": [],
-          "Procs": []
-        }
-      ],
-      "Stats": [
-        {}
-      ],
-      "Procs": [
-        {}
-      ]
-    }
-  ],
   "Name": "SetTypeSettings"
 }

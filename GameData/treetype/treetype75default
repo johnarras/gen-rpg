@@ -1,0 +1,9 @@
+{
+  "Id": "treetype75default",
+  "ParentId": "default",
+  "IdKey": 75,
+  "Name": "RiverBirchBare",
+  "Art": "RiverBirchBare",
+  "Scale": 2.5,
+  "VariationCount": 2
+}

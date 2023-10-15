@@ -19,7 +19,6 @@ namespace Genrpg.Shared.Units.Entities
     public class TribeSettings : ParentSettings<TribeType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<TribeType> Data { get; set; }
 
 
         public TribeType GetTribeType(long idkey)

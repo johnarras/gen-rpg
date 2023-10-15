@@ -1,6 +1,7 @@
 ﻿using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Levels.Entities;
+using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Stats.Services;
@@ -84,7 +85,7 @@ namespace Genrpg.MapServer.Stats
 
             if (baseStat > 0)
             {
-                long spirit = unit.Stats.Curr(StatType.Spirit);
+                long spirit = unit.Stats.Curr(StatTypes.Spirit);
                 spiritMult = spirit > baseStat ? (float)Math.Pow(spirit / baseStat, 0.25f) : 1;
             }
 
@@ -125,7 +126,7 @@ namespace Genrpg.MapServer.Stats
                     long newCurr = MathUtils.Clamp(0, unit.Stats.Curr(st.IdKey) + currRegen, maxVal);
                     if (oldCurr != newCurr)
                     {
-                        Set(gs, unit, st.IdKey, StatCategory.Curr, newCurr);
+                        Set(gs, unit, st.IdKey, StatCategories.Curr, newCurr);
                     }
                 }
 

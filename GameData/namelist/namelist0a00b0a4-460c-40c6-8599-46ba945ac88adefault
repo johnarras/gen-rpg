@@ -1,0 +1,38 @@
+{
+  "Id": "namelist0a00b0a4-460c-40c6-8599-46ba945ac88adefault",
+  "ParentId": "default",
+  "ListName": "ClothLevel",
+  "Names": [
+    {
+      "Weight": 5.0,
+      "Name": "Linen",
+      "Desc": ""
+    },
+    {
+      "Weight": 15.0,
+      "Name": "Flax",
+      "Desc": ""
+    },
+    {
+      "Weight": 25.0,
+      "Name": "Hemp",
+      "Desc": ""
+    },
+    {
+      "Weight": 35.0,
+      "Name": "Wool",
+      "Desc": ""
+    },
+    {
+      "Weight": 45.0,
+      "Name": "Cotton",
+      "Desc": ""
+    },
+    {
+      "Weight": 55.0,
+      "Name": "Silk",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

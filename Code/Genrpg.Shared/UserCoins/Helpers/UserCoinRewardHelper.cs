@@ -5,7 +5,7 @@ using Genrpg.Shared.Characters.Entities;
 
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.UserCoins.Services;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 
 namespace Genrpg.Shared.UserCoins.Helpers
 {
@@ -22,7 +22,7 @@ namespace Genrpg.Shared.UserCoins.Helpers
             return true;
         }
 
-        public long GetKey() { return EntityType.UserCoin; }
+        public long GetKey() { return EntityTypes.UserCoin; }
 
     }
 }

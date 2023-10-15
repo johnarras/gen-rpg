@@ -6,6 +6,7 @@ using Genrpg.Shared.WhoList.Messages;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 using UnityEngine.EventSystems; // Needed
+using Genrpg.Shared.Chat.Constants;
 
 namespace UI
 {
@@ -54,7 +55,7 @@ namespace UI
                     }
                     if (_currentChatType == null)
                     {
-                        _currentChatType = _gs.data.GetGameData<ChatSettings>(_gs.ch).GetChatType(ChatType.Say);
+                        _currentChatType = _gs.data.GetGameData<ChatSettings>(_gs.ch).GetChatType(ChatTypes.Say);
                     }
                     ShowChatInputPrefix();
                 }
@@ -127,7 +128,7 @@ namespace UI
             if (!string.IsNullOrEmpty(text))
             {
                 string targetName = "";
-                if (_currentChatType.IdKey == ChatType.Tell)
+                if (_currentChatType.IdKey == ChatTypes.Tell)
                 {
                     targetName = text.Substring(0, text.IndexOf(" "));
                     text = text.Substring(targetName.Length);    

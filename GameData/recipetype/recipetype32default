@@ -1,0 +1,35 @@
+{
+  "Id": "recipetype32default",
+  "ParentId": "default",
+  "IdKey": 32,
+  "Name": "Wand",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 32,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 450,
+  "DefPct": 100,
+  "OtherPct": 250,
+  "ReagentQuantity": 4,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 103,
+      "Quantity": 4
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 101,
+      "Quantity": 4
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 4
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "Id": "musictype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Hills",
+  "Art": "HillsMusic"
+}

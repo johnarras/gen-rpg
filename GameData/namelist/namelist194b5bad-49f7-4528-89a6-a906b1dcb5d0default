@@ -1,0 +1,23 @@
+{
+  "Id": "namelist194b5bad-49f7-4528-89a6-a906b1dcb5d0default",
+  "ParentId": "default",
+  "ListName": "MagicQuality",
+  "Names": [
+    {
+      "Weight": 100.0,
+      "Name": "Essence",
+      "Desc": ""
+    },
+    {
+      "Weight": 150.0,
+      "Name": "Dust",
+      "Desc": ""
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Shard",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

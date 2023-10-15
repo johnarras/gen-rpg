@@ -11,7 +11,6 @@ namespace Genrpg.Shared.Stats.Entities
     public class DerivedStatSettings : ParentSettings<DerivedStat>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<DerivedStat> Data { get; set; } = new List<DerivedStat>();
     } 
     
     

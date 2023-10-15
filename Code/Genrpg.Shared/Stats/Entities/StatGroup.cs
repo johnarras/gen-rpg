@@ -1,3 +1,4 @@
+using Genrpg.Shared.Stats.Constants;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Genrpg.Shared.Stats.Entities
 
         public long Curr(long statTypeId)
         {
-            return GetStat(statTypeId).Get(StatCategory.Curr);
+            return GetStat(statTypeId).Get(StatCategories.Curr);
         }
 
         public long Max(long statTypeId)
@@ -38,7 +39,7 @@ namespace Genrpg.Shared.Stats.Entities
 
         public long Pct(long statTypeId)
         {
-            return GetStat(statTypeId).Get(StatCategory.Pct);
+            return GetStat(statTypeId).Get(StatCategories.Pct);
         }
 
         public float ScaleDown(long statTypeId)

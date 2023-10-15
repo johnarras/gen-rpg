@@ -1,0 +1,38 @@
+{
+  "Id": "namelistdba59861-2f94-4b59-a451-3cc147b079d0default",
+  "ParentId": "default",
+  "ListName": "MetalLevel",
+  "Names": [
+    {
+      "Weight": 5.0,
+      "Name": "Copper",
+      "Desc": ""
+    },
+    {
+      "Weight": 15.0,
+      "Name": "Tin",
+      "Desc": ""
+    },
+    {
+      "Weight": 25.0,
+      "Name": "Iron",
+      "Desc": ""
+    },
+    {
+      "Weight": 35.0,
+      "Name": "Titanium",
+      "Desc": ""
+    },
+    {
+      "Weight": 45.0,
+      "Name": "Mithril",
+      "Desc": ""
+    },
+    {
+      "Weight": 55.0,
+      "Name": "Adamantium",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

@@ -1,0 +1,44 @@
+{
+  "Id": "itemtype306default",
+  "ParentId": "default",
+  "IdKey": 306,
+  "Name": "Stamina Elixir",
+  "NameId": "StaminaElixir",
+  "Icon": "StaminaElixir",
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10,
+      "Name": "Minor"
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20,
+      "Name": "Weak"
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30,
+      "Name": "Lesser"
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40,
+      "Name": ""
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50,
+      "Name": "Greater"
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60,
+      "Name": "Superior"
+    }
+  ],
+  "QualityNames": [],
+  "IconCounts": [],
+  "Names": []
+}

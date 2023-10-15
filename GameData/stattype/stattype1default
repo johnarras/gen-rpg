@@ -1,0 +1,7 @@
+{
+  "Id": "stattype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Health",
+  "RegenSeconds": 75
+}

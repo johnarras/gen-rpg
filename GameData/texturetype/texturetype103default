@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype103default",
+  "ParentId": "default",
+  "IdKey": 103,
+  "Name": "SandGrayb",
+  "Size": 8.0,
+  "ParentTextureTypeId": 4
+}

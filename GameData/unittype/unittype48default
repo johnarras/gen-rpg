@@ -1,0 +1,16 @@
+{
+  "Id": "unittype48default",
+  "ParentId": "default",
+  "IdKey": 48,
+  "Name": "Spider",
+  "Art": "Spider",
+  "Height": 1.0,
+  "TribeTypeId": 7,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

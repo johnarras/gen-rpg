@@ -1,5 +1,6 @@
 ﻿using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
@@ -24,7 +25,7 @@ namespace Genrpg.ServerShared.PlayerData.Loaders
         where API : OwnerApiList<Parent,Child>
     {
 
-        public override async Task Setup(ServerGameState gs)
+        public override async Task Setup(GameState gs)
         {
             await base.Setup(gs);
 

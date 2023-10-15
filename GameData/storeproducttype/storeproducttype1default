@@ -1,0 +1,16 @@
+{
+  "Id": "storeproducttype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Small Gem Pack",
+  "ProductSkuTypeId": 3,
+  "Rewards": [
+    {
+      "EntityTypeId": 1,
+      "EntityId": 1,
+      "MinQuantity": 300,
+      "MaxQuantity": 300,
+      "Weight": 100.0
+    }
+  ]
+}

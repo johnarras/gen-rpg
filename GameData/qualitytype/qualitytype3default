@@ -1,0 +1,15 @@
+{
+  "Id": "qualitytype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Rare",
+  "Icon": "BGRare",
+  "ItemSpawnWeight": 50,
+  "ItemMinLevel": 5,
+  "ItemStatPct": 150,
+  "ItemCostPct": 300,
+  "UnitSpawnWeight": 5,
+  "UnitMinLevel": 6,
+  "UnitHealthPct": 200,
+  "UnitDamPct": 150
+}

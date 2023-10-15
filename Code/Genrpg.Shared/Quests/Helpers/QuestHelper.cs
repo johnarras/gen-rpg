@@ -1,7 +1,7 @@
 ﻿using Genrpg.Shared.Core.Entities;
 
 using Genrpg.Shared.Entities.Interfaces;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Genrpg.Shared.Quests.Helpers
     public class QuestHelper : IEntityHelper
     {
 
-        public long GetKey() { return EntityType.Quest; }
+        public long GetKey() { return EntityTypes.Quest; }
         public string GetDataPropertyName() { return "Quests"; }
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)

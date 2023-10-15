@@ -1,0 +1,13 @@
+{
+  "Id": "qualitytype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Common",
+  "Icon": "BGCommon",
+  "ItemSpawnWeight": 500,
+  "ItemStatPct": 100,
+  "ItemCostPct": 100,
+  "UnitSpawnWeight": 100,
+  "UnitHealthPct": 100,
+  "UnitDamPct": 100
+}

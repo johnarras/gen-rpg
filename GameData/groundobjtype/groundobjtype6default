@@ -1,0 +1,13 @@
+{
+  "Id": "groundobjtype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Art": "HerbNode",
+  "GroupId": "herb",
+  "SpawnWeight": 100,
+  "CrafterTypeId": 7,
+  "SpawnTableId": 8,
+  "MinRolls": 1,
+  "MaxRolls": 1,
+  "QualityTypeId": 1
+}

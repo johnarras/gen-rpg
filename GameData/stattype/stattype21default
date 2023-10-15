@@ -1,0 +1,8 @@
+{
+  "Id": "stattype21default",
+  "ParentId": "default",
+  "IdKey": 21,
+  "Name": "AttackPower",
+  "Desc": "Phys Power",
+  "GenScalePct": 150
+}

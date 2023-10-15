@@ -1,0 +1,9 @@
+{
+  "Id": "equipslot16default",
+  "ParentId": "default",
+  "IdKey": 16,
+  "Name": "OffHand",
+  "ParentEquipSlotId": 15,
+  "StatPercent": 125,
+  "Active": true
+}

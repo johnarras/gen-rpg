@@ -1,0 +1,48 @@
+{
+  "Id": "weathertype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Swamp",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "AmbientColor": {
+    "R": 0.6666667,
+    "G": 0.76862746,
+    "B": 0.8352941,
+    "A": 1.0
+  },
+  "LightColor": {
+    "R": 0.93333334,
+    "G": 0.85882354,
+    "B": 0.76862746,
+    "A": 1.0
+  },
+  "LightScale": 1.0,
+  "SkyColor": {
+    "R": 0.9607843,
+    "G": 0.9254902,
+    "B": 0.87058824,
+    "A": 1.0
+  },
+  "FogScale": 0.01,
+  "FogColor": {
+    "R": 0.85490197,
+    "G": 0.7647059,
+    "B": 0.6392157,
+    "A": 1.0
+  },
+  "FogDistance": 150.0,
+  "CloudScale": 1.0,
+  "CloudSpeed": 0.25,
+  "CloudColor": {
+    "R": 0.89411765,
+    "G": 0.79607844,
+    "B": 0.6509804,
+    "A": 1.0
+  },
+  "WindScale": 0.25,
+  "PrecipScale": 0.7,
+  "ParticleScale": 3.0,
+  "Particles": "mist"
+}

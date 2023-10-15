@@ -1,0 +1,10 @@
+{
+  "Id": "treetype82default",
+  "ParentId": "default",
+  "IdKey": 82,
+  "Name": "Dandelion",
+  "Art": "Dandelion",
+  "Scale": 3.0,
+  "VariationCount": 1,
+  "Flags": 13
+}

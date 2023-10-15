@@ -1,5 +1,6 @@
 ﻿using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Interfaces;
@@ -17,7 +18,7 @@ namespace Genrpg.ServerShared.PlayerData
     {
         public virtual Type GetServerType() { return typeof(UD); }
         public virtual bool SendToClient() { return true; }
-        public virtual async Task Setup(ServerGameState gs) { await Task.CompletedTask; }
+        public virtual async Task Setup(GameState gs) { await Task.CompletedTask; }
         protected virtual bool IsUserData() { return false; }
 
         public IUnitData Create(Unit unit)

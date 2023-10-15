@@ -1,0 +1,8 @@
+{
+  "Id": "stattype14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Stamina",
+  "Desc": "+10 Health",
+  "GenScalePct": 150
+}

@@ -1,0 +1,10 @@
+{
+  "Id": "treetype22default",
+  "ParentId": "default",
+  "IdKey": 22,
+  "Name": "Cattail",
+  "Art": "Cattail",
+  "Scale": 1.2,
+  "VariationCount": 2,
+  "Flags": 3
+}

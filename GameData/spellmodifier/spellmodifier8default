@@ -1,0 +1,14 @@
+{
+  "Id": "spellmodifier8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Charges",
+  "Icon": "",
+  "Art": "",
+  "Desc": "",
+  "DisplaySuffix": "",
+  "DataMemberName": "MaxCharges",
+  "DisplayMult": 1.0,
+  "MaxValue": 3.0,
+  "ValueDelta": 1.0
+}

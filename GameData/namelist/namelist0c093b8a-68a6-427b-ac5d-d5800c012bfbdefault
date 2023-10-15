@@ -1,0 +1,243 @@
+{
+  "Id": "namelist0c093b8a-68a6-427b-ac5d-d5800c012bfbdefault",
+  "ParentId": "default",
+  "ListName": "ZoneNamePrefix",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Ancient",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Breeze",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crying",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cursed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dawn",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Desolate",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dreadful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dusk",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dust",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Eagle",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "East",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Eastern",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fallen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Forbidden",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Forgotten",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Great",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Haunted",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hawk",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "High",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lost",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Low",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lower",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Midnight",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Misty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Night",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "North",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Northern",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Old",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ominous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Raven",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scarlet",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Screaming",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shadowed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shadowy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sorrowful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "South",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Southern",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sunrise",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sunset",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Twilight",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Upper",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wailing",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Weeping",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "West",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Western",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wind",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

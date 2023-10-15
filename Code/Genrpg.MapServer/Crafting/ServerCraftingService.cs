@@ -3,7 +3,7 @@ using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crafting.Entities;
 using Genrpg.Shared.Crafting.Services;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Services;
@@ -142,7 +142,7 @@ namespace Genrpg.MapServer.Crafting
             {
                 foreach (Stat stat in stats.Stats)
                 {
-                    ItemEffect ieff = new ItemEffect() { EntityTypeId = EntityType.Stat, EntityId = stat.Id, Quantity = stat.GetMax() };
+                    ItemEffect ieff = new ItemEffect() { EntityTypeId = EntityTypes.Stat, EntityId = stat.Id, Quantity = stat.GetMax() };
                     item.Effects.Add(ieff);
                 }
             }
@@ -199,7 +199,7 @@ namespace Genrpg.MapServer.Crafting
         {
             UseItemResult res = new UseItemResult() { ItemUsed = recipeItem, Success = false };
 
-            if (recipeItem.UseEntityTypeId != EntityType.Recipe)
+            if (recipeItem.UseEntityTypeId != EntityTypes.Recipe)
             {
                 res.Message = "This is not a recipe item.";
                 return res;

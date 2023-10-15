@@ -1,0 +1,6 @@
+{
+  "Id": "entitytype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Item"
+}

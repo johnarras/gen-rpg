@@ -275,6 +275,13 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
     }
 
+    public ActiveScreen GetLayerScreen(UnityGameState gs, ScreenLayers layerId)
+    {
+        ScreenLayer layer = Layers.FirstOrDefault(x => x.LayerId == layerId);
+
+        return layer?.CurrentScreen ?? null;
+    }
+
     public ActiveScreen GetScreen(UnityGameState gs, ScreenId screenName)
     {
         foreach (ScreenLayer layer in Layers)

@@ -1,0 +1,12 @@
+{
+  "Id": "craftertype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Tailoring",
+  "MousePointer": "Shop",
+  "ReagentItemTypeId": 101,
+  "GatherSeconds": 3.0,
+  "CraftingSeconds": 6.0,
+  "GatherActionName": "Gathering",
+  "CraftActionName": "Sewing"
+}

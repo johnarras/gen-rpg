@@ -24,5 +24,10 @@ namespace Genrpg.Shared.GameSettings.Loading
             }
             return list;
         }
+
+        public virtual IGameSettings MapToApi(IGameSettings settings)
+        {
+            return settings;
+        }
     }
 }

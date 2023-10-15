@@ -1,0 +1,123 @@
+{
+  "Id": "namelist96a5196e-a614-4283-99b4-0e682e0c6845default",
+  "ParentId": "default",
+  "ListName": "BodyGrossWords",
+  "Names": [
+    {
+      "Weight": 50.0,
+      "Name": "Icky",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Old",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Infested",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Repulsive",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Nasty",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Foul",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Sickening",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Putrid",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Vile",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Abhorrent",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Disgusting",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Gross",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Smelly",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Stinky",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Tainted",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Spoiled",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Fetid",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Rancid",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Reeking",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Rank",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Decayed",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Rotten",
+      "Desc": ""
+    },
+    {
+      "Weight": 40.0,
+      "Name": "Ruined",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

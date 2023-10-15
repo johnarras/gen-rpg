@@ -1,0 +1,9 @@
+{
+  "Id": "treetype47default",
+  "ParentId": "default",
+  "IdKey": 47,
+  "Name": "ScotsPineWinter",
+  "Art": "ScotsPineWinter",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

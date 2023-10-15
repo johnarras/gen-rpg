@@ -4,6 +4,7 @@ using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Inventory.Entities;
 using System.Threading;
+using Genrpg.Shared.Inventory.Constants;
 
 public class InventoryPanel : BaseBehaviour
 {
@@ -37,7 +38,7 @@ public class InventoryPanel : BaseBehaviour
                 continue;
             }
 
-            if (itype.EquipSlotId > 0 || FlagUtils.IsSet(itype.Flags,ItemType.NoStack))
+            if (itype.EquipSlotId > 0 || FlagUtils.IsSet(itype.Flags,ItemFlags.NoStack))
             {
                 if (FlagUtils.IsSet(categories,InventoryGroup.Equipment))
                 {

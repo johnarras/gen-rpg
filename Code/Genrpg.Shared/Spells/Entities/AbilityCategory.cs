@@ -7,10 +7,6 @@ namespace Genrpg.Shared.Spells.Entities
     public class AbilityCategory : IIndexedGameItem
     {
 
-        public const int Element = 1;
-        public const int Skill = 2;
-
-        
         [Key(0)] public long IdKey { get; set; }
         [Key(1)] public string Name { get; set; }
         [Key(2)] public string Abbrev { get; set; }

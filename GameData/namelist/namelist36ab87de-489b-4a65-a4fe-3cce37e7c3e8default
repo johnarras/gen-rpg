@@ -1,0 +1,163 @@
+{
+  "Id": "namelist36ab87de-489b-4a65-a4fe-3cce37e7c3e8default",
+  "ParentId": "default",
+  "ListName": "HerbSuffix",
+  "Names": [
+    {
+      "Weight": 100.0,
+      "Name": "Aloe",
+      "Desc": "Separate"
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bane",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blood",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bloom",
+      "Desc": ""
+    },
+    {
+      "Weight": 500.0,
+      "Name": "Blossom",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bramble",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Briar",
+      "Desc": ""
+    },
+    {
+      "Weight": 100.0,
+      "Name": "Bud",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Bush",
+      "Desc": ""
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Cap",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Clover",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Flower",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Grass",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Leaf",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lichen",
+      "Desc": "Separate"
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Lily",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lotus",
+      "Desc": ""
+    },
+    {
+      "Weight": 100.0,
+      "Name": "Moss",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mushroom",
+      "Desc": "Separate"
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Petal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Root",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rose",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sage",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shoot",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sprout",
+      "Desc": ""
+    },
+    {
+      "Weight": 100.0,
+      "Name": "Thistle",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Thorn",
+      "Desc": ""
+    },
+    {
+      "Weight": 100.0,
+      "Name": "Veil",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vine",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Weed",
+      "Desc": ""
+    },
+    {
+      "Weight": 200.0,
+      "Name": "Wort",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

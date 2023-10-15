@@ -1,0 +1,48 @@
+{
+  "Id": "namelista12414c3-c5fd-4830-bf41-8acccfbd2accdefault",
+  "ParentId": "default",
+  "ListName": "CreatureOverallNames",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Crafty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dire",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ghostly",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lumbering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Primal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Savage",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Spirit",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Swift",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

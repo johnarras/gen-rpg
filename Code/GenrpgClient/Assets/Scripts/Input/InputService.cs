@@ -18,6 +18,8 @@ using Genrpg.Shared.Core.Entities;
 using System.Threading;
 using Genrpg.Shared.Spells.Messages;
 using UnityEngine; // Needed
+using Genrpg.Shared.Spells.Constants;
+using UI.Screens.Constants;
 
 internal class InputContainer
 {
@@ -40,6 +42,7 @@ public class InputService : BaseBehaviour, IInputService
     public static InputService Instance { get { return _instance; } }
 
     IClientMapObjectManager _objectManager;
+    IScreenService _screenService;
 
     public async Task Setup(GameState gs, CancellationToken token)
     {
@@ -485,20 +488,21 @@ public class InputService : BaseBehaviour, IInputService
         {
             _actionKeysTocheck.Add(KeyComm.ActionPrefix + i);
         }
-
     }
-
 
     private void UpdateActionInputs()
     {
+
+        _currActionIndexes.Clear();
+
         if (PlayerController.Instance == null || PlayerController.Instance.GetUnit() == null)
         {
             return;
         }
 
-        if (_currActionIndexes.Count > 0)
+        if (_screenService.GetLayerScreen(_gs, ScreenLayers.Screens) != null)
         {
-            _currActionIndexes.Clear();
+            return;
         }
 
         for (int k = 0; k < _actionKeysTocheck.Count; k++)
@@ -543,10 +547,10 @@ public class InputService : BaseBehaviour, IInputService
 
 
 
-        SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(_gs.ch).GetSkillType(spell.SkillTypeId);
+        SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(_gs.ch).GetSkillType(spell.Effects.FirstOrDefault()?.SkillTypeId ?? 0);
         if (!_objectManager.GetUnit(MapUnit.TargetId, out Unit target))
         {
-            if (skillType.TargetTypeId == TargetType.Ally)
+            if (skillType.TargetTypeId == TargetTypes.Ally)
             {
                 target = MapUnit;
             }
@@ -558,7 +562,7 @@ public class InputService : BaseBehaviour, IInputService
 
         if (!SpellUtils.IsValidTarget(gs, target, MapUnit.FactionTypeId, skillType.TargetTypeId))
         {
-            if (skillType.TargetTypeId == TargetType.Ally)
+            if (skillType.TargetTypeId == TargetTypes.Ally)
             {
                 target = MapUnit;
             }

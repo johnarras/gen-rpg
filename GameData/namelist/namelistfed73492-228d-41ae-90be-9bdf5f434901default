@@ -1,0 +1,88 @@
+{
+  "Id": "namelistfed73492-228d-41ae-90be-9bdf5f434901default",
+  "ParentId": "default",
+  "ListName": "BodyPearlWords",
+  "Names": [
+    {
+      "Weight": 9.0,
+      "Name": "Broken",
+      "Desc": ""
+    },
+    {
+      "Weight": 15.0,
+      "Name": "Cracked",
+      "Desc": ""
+    },
+    {
+      "Weight": 21.0,
+      "Name": "Rough",
+      "Desc": ""
+    },
+    {
+      "Weight": 27.0,
+      "Name": "Dull",
+      "Desc": ""
+    },
+    {
+      "Weight": 33.0,
+      "Name": "Gray",
+      "Desc": ""
+    },
+    {
+      "Weight": 39.0,
+      "Name": "Lustrous",
+      "Desc": ""
+    },
+    {
+      "Weight": 45.0,
+      "Name": "Burnished",
+      "Desc": ""
+    },
+    {
+      "Weight": 51.0,
+      "Name": "Shiny",
+      "Desc": ""
+    },
+    {
+      "Weight": 57.0,
+      "Name": "Glinting",
+      "Desc": ""
+    },
+    {
+      "Weight": 63.0,
+      "Name": "Shimmering",
+      "Desc": ""
+    },
+    {
+      "Weight": 69.0,
+      "Name": "Glowing",
+      "Desc": ""
+    },
+    {
+      "Weight": 75.0,
+      "Name": "Luminescent",
+      "Desc": ""
+    },
+    {
+      "Weight": 81.0,
+      "Name": "Iridescent",
+      "Desc": ""
+    },
+    {
+      "Weight": 87.0,
+      "Name": "Brilliant",
+      "Desc": ""
+    },
+    {
+      "Weight": 93.0,
+      "Name": "Chromatic",
+      "Desc": ""
+    },
+    {
+      "Weight": 99.0,
+      "Name": "Dragonstar",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

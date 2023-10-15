@@ -7,7 +7,7 @@ using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using System.Threading;
 
 public class ZoneResourceNodeData
@@ -286,7 +286,7 @@ public class AddResourceNodes : BaseZoneGenerator
             GroundObjType goType = zdata.Objects[clutterIndex];
 
 
-            gs.spawns.AddSpawn(EntityType.GroundObject, goType.IdKey, px, py, zone.IdKey);
+            gs.spawns.AddSpawn(EntityTypes.GroundObject, goType.IdKey, px, py, zone.IdKey);
             zdata.CurrNum++;
 
             for (int xx = px-MapConstants.MinResourceSeparation; xx <= px+MapConstants.MinResourceSeparation; xx++)

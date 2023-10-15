@@ -1,0 +1,15 @@
+{
+  "Id": "recipetype36default",
+  "ParentId": "default",
+  "IdKey": 36,
+  "Name": "Intellect Elixir",
+  "EntityId": 303,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "CrafterTypeId": 7,
+  "Reagents": []
+}

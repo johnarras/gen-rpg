@@ -1,0 +1,8 @@
+{
+  "Id": "musictype10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Dungeon Ambience",
+  "Art": "DungeonAmbience",
+  "RandomizeSeconds": 10.0
+}

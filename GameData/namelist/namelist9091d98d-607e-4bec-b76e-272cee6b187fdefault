@@ -1,0 +1,58 @@
+{
+  "Id": "namelist9091d98d-607e-4bec-b76e-272cee6b187fdefault",
+  "ParentId": "default",
+  "ListName": "CreatureFurNames",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Angry",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Diseased",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Drooling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Growling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rabid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shaggy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sinewy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Slobbering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Snarling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vicious",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

@@ -1,0 +1,118 @@
+{
+  "Id": "namelist6d8e48ee-4125-4378-b216-60e23f4a60b2default",
+  "ParentId": "default",
+  "ListName": "CreatureBugColors",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Black",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blue",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Brown",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dark",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gray",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Green",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Grey",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mottled",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Night",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Orange",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Red",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ridged",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sandy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scintillating",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shadowy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shimmering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Spotted",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Striped",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tan",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Translucent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Transparent",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "White",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

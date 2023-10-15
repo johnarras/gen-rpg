@@ -1,0 +1,8 @@
+{
+  "Id": "stattype66default",
+  "ParentId": "default",
+  "IdKey": 66,
+  "Name": "CritDamage",
+  "Desc": "More Crit Damage",
+  "GenScalePct": 300
+}

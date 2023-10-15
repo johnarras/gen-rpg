@@ -1,0 +1,228 @@
+{
+  "Id": "namelistf66e38ae-f3bb-43d3-8a1d-c9b2d045a2d4default",
+  "ParentId": "default",
+  "ListName": "ItemBadPrefix",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Awful",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Broken",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Chipped",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Clammy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Coarse",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Corroded",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cracked",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crappy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cruddy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crude",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crushed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Decaying",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dented",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Deteriorating",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dilapidated",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dingy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dirt-Caked",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dirty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Eroded",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Faded",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Failass",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Frayed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gnarled",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Inferior",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Moist",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Moldy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mudsoaked",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Notched",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Novice",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Old",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pockmarked",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ripped",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rough",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rusty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scruffy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shabby",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Singed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Slipshod",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sodden",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tarnished",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tattered",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Terrible",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Torn",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Worn",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

@@ -1,0 +1,8 @@
+{
+  "Id": "musictype8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Default Ambience",
+  "Art": "DefaultAmbience",
+  "RandomizeSeconds": 10.0
+}

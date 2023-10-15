@@ -1,0 +1,19 @@
+{
+  "Id": "spawntable23default",
+  "ParentId": "default",
+  "IdKey": 23,
+  "Name": "Stone",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 105,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "Weight": 100.0
+    }
+  ],
+  "Art": ""
+}

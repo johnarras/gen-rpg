@@ -1,0 +1,40 @@
+{
+  "Id": "spawntable21default",
+  "ParentId": "default",
+  "IdKey": 21,
+  "Name": "DeepDungeon",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 10,
+      "MinQuantity": 1,
+      "MaxQuantity": 10,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 11,
+      "MinQuantity": 1,
+      "MaxQuantity": 7,
+      "Weight": 75.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 13,
+      "MinQuantity": 1,
+      "MaxQuantity": 4,
+      "Weight": 50.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 12,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0
+    }
+  ],
+  "Art": ""
+}

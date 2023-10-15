@@ -2,7 +2,8 @@
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crafting.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.NPCs.Entities;
 using Genrpg.Shared.ProcGen.Entities;
@@ -34,7 +35,7 @@ namespace Genrpg.Shared.Inventory.Entities
             item.Name = itype.Name;
             if (item.Name == RecipeType.RecipeItemName)
             {
-                ItemEffect firstSet = item.Effects.FirstOrDefault(X => X.EntityTypeId == EntityType.Set);
+                ItemEffect firstSet = item.Effects.FirstOrDefault(X => X.EntityTypeId == EntityTypes.Set);
                 if (firstSet != null)
                 {
                     RecipeType rtype = gs.data.GetGameData<RecipeSettings>(unit).GetRecipeType(firstSet.EntityId);
@@ -123,7 +124,7 @@ namespace Genrpg.Shared.Inventory.Entities
 
             int iconIndex = (IdHash * 131 + 29) % maxIconIndex + 1;
 
-            if (FlagUtils.IsSet(itype.Flags, ItemType.SkipScalingIconName))
+            if (FlagUtils.IsSet(itype.Flags, ItemFlags.SkipScalingIconName))
             {
                 scalingName = "";
             }
@@ -197,7 +198,7 @@ namespace Genrpg.Shared.Inventory.Entities
                 foreach (ItemEffect eff in item.Effects)
                 {
                     string ename = "ET" + eff.EntityTypeId;
-                    if (eff.EntityTypeId == EntityType.Stat || eff.EntityTypeId == EntityType.StatPct)
+                    if (eff.EntityTypeId == EntityTypes.Stat || eff.EntityTypeId == EntityTypes.StatPct)
                     {
                         StatType stype = gs.data.GetGameData<StatSettings>(unit).GetStatType(eff.EntityId);
                         if (stype == null)

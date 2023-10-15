@@ -1,0 +1,220 @@
+{
+  "Id": "spawntable2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Generated",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 1,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 5,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 6,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 7,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 8,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 9,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 10,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 11,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 12,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 13,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 14,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 500.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 21,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 22,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 23,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 25,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 26,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 27,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 28,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 29,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 30,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 31,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 32,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "GroupId": 1
+    }
+  ],
+  "Art": ""
+}

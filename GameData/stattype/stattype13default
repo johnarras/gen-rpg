@@ -1,0 +1,8 @@
+{
+  "Id": "stattype13default",
+  "ParentId": "default",
+  "IdKey": 13,
+  "Name": "Intellect",
+  "Desc": "+2 SP",
+  "GenScalePct": 100
+}

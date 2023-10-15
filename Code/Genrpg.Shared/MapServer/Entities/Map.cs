@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Genrpg.Shared.DataStores.Categories.WorldData;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 
 namespace Genrpg.Shared.MapServer.Entities
 {
@@ -97,19 +97,19 @@ namespace Genrpg.Shared.MapServer.Entities
 
         public object GetEditorListFromEntityTypeId(int entityTypeId)
         {
-            if (entityTypeId == EntityType.NPC)
+            if (entityTypeId == EntityTypes.NPC)
             {
                 return NPCs;
             }
-            else if (entityTypeId == EntityType.Quest)
+            else if (entityTypeId == EntityTypes.Quest)
             {
                 return Quests;
             }
-            else if (entityTypeId == EntityType.QuestItem || entityTypeId == EntityType.GroundObject)
+            else if (entityTypeId == EntityTypes.QuestItem || entityTypeId == EntityTypes.GroundObject)
             {
                 return QuestItems;
             }
-            else if (entityTypeId == EntityType.Zone)
+            else if (entityTypeId == EntityTypes.Zone)
             {
                 return Zones;
             }

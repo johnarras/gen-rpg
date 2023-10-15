@@ -9,8 +9,9 @@ using Genrpg.Shared.ProcGen.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.DataStores.GameSettings;
+using Genrpg.Shared.Inventory.Constants;
 
 namespace Genrpg.Shared.Inventory.Entities
 {
@@ -20,11 +21,6 @@ namespace Genrpg.Shared.Inventory.Entities
 
         public const int MinRangedItemLevel = 5;
         public const int LevelGap = 2 * MinRangedItemLevel;
-
-        public const int PrimaryReagent = 1 << 0; // 1
-        public const int FlagTwoHandedItem = 1 << 1; // 2
-        public const int NoStack = 1 << 2; // 4
-        public const int SkipScalingIconName = 1 << 3; // 8
 
 
         [Key(0)] public override string Id { get; set; }
@@ -173,7 +169,7 @@ namespace Genrpg.Shared.Inventory.Entities
 
             foreach (ItemEffect eff in Effects)
             {
-                if (eff.EntityTypeId != EntityType.Stat)
+                if (eff.EntityTypeId != EntityTypes.Stat)
                 {
                     continue;
                 }
@@ -246,12 +242,12 @@ namespace Genrpg.Shared.Inventory.Entities
             }
             retval.Add(EquipSlotId);
 
-            if (EquipSlotId == EquipSlot.OffHand)
+            if (EquipSlotId == EquipSlots.OffHand)
             {
                 return retval;
             }
 
-            if (HasFlag(FlagTwoHandedItem))
+            if (HasFlag(ItemFlags.FlagTwoHandedItem))
             {
                 return retval;
             }

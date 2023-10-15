@@ -10,8 +10,6 @@ namespace Genrpg.Shared.Zones.Entities
     [MessagePackObject]
     public class ZoneType : ChildSettings, IIndexedGameItem, IMusicRegion
     {
-        public const int None = 0;
-
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }

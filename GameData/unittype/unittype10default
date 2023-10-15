@@ -1,0 +1,16 @@
+{
+  "Id": "unittype10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Crocodile",
+  "Art": "Crocodile",
+  "Height": 1.0,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

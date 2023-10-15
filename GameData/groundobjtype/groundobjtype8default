@@ -1,0 +1,13 @@
+{
+  "Id": "groundobjtype8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Art": "WoodNode",
+  "GroupId": "wood",
+  "SpawnWeight": 100,
+  "CrafterTypeId": 2,
+  "SpawnTableId": 22,
+  "MinRolls": 1,
+  "MaxRolls": 1,
+  "QualityTypeId": 1
+}

@@ -1,0 +1,8 @@
+{
+  "Id": "texturetype39default",
+  "ParentId": "default",
+  "IdKey": 39,
+  "Name": "Dirtd",
+  "Size": 8.0,
+  "ParentTextureTypeId": 2
+}

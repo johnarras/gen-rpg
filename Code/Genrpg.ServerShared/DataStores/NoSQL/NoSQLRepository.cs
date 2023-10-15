@@ -149,12 +149,24 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             return retval;
         }
 
+        /// <summary>
+        /// This requires a generic type so that we can put the index directly onto the correct collection.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="configs"></param>
+        /// <returns></returns>
         public async Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId
         {
             INoSQLCollection collection = GetCollection(typeof(T));
             await collection.CreateIndex(configs);
         }
 
+        /// <summary>
+        /// This requires a generic type so we can save all of them into one collection at once.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public async Task<bool> SaveAll<T>(List<T> items) where T : class, IStringId
         {
             INoSQLCollection collection = GetCollection(typeof(T));

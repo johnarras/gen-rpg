@@ -1,11 +1,13 @@
 ﻿
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Levels.Entities;
+using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Interfaces;
+using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Units.Entities;
 using System;
@@ -60,7 +62,7 @@ namespace Genrpg.Shared.Stats.Services
             long coreStatAmount = StatConstants.MinBaseStat;
             long monsterScalePercent = 0;
 
-            List<StatType> coreStats = gs.data.GetGameData<StatSettings>(unit).Data.Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
+            List<StatType> coreStats = gs.data.GetGameData<StatSettings>(unit).GetData().Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 
             if (levelData != null)
             {
@@ -71,11 +73,11 @@ namespace Genrpg.Shared.Stats.Services
             unit.BaseStatAmount = coreStatAmount;
             foreach (StatType stat in coreStats)
             {
-                Set(gs, unit, stat.IdKey, StatCategory.Base, coreStatAmount);
+                Set(gs, unit, stat.IdKey, StatCategories.Base, coreStatAmount);
 
                 if (monsterScalePercent != 0)
                 {
-                    Add(gs, unit, stat.IdKey, StatCategory.Pct, monsterScalePercent);
+                    Add(gs, unit, stat.IdKey, StatCategories.Pct, monsterScalePercent);
                 }
             }
 
@@ -84,7 +86,7 @@ namespace Genrpg.Shared.Stats.Services
             {
                 if (ms.MaxPool > 0)
                 {
-                    Set(gs, unit, ms.IdKey, StatCategory.Base, ms.MaxPool);
+                    Set(gs, unit, ms.IdKey, StatCategories.Base, ms.MaxPool);
                 }
             }
 
@@ -99,7 +101,7 @@ namespace Genrpg.Shared.Stats.Services
 
             if (unit.SpellEffects != null)
             {
-                foreach (SpellEffect speff in unit.SpellEffects)
+                foreach (ActiveSpellEffect speff in unit.SpellEffects)
                 {
                     AddEffectStat(gs, unit, speff, levelData, 1);
                 }
@@ -124,7 +126,7 @@ namespace Genrpg.Shared.Stats.Services
                         {
                             AddEffectStat(gs, unit, list[l], levelData, 1);
 
-                            if (list[l].EntityTypeId == EntityType.Set && list[l].EntityId > 0)
+                            if (list[l].EntityTypeId == EntityTypes.Set && list[l].EntityId > 0)
                             {
                                 long setId = list[l].EntityId;
                                 if (!setQuantities.ContainsKey(setId))
@@ -169,7 +171,7 @@ namespace Genrpg.Shared.Stats.Services
                         {
                             if (sb.ItemCount <= quantity)
                             {
-                                Add(gs, unit, sb.StatTypeId, StatCategory.Base, levelData.StatAmount * sb.Percent / 100);
+                                Add(gs, unit, sb.StatTypeId, StatCategories.Base, levelData.StatAmount * sb.Percent / 100);
                             }
                         }
                     }
@@ -197,35 +199,6 @@ namespace Genrpg.Shared.Stats.Services
                     {
                         continue;
                     }
-
-                    abEffects = null;
-
-                    if (ab.AbilityCategoryId == AbilityCategory.Element)
-                    {
-                        ElementType etype = gs.data.GetGameData<ElementTypeSettings>(unit).GetElementType(ab.AbilityTypeId);
-                        if (etype != null)
-                        {
-                            abEffects = etype.BonusEfffects;
-                        }
-                    }
-                    else if (ab.AbilityCategoryId == AbilityCategory.Skill)
-                    {
-                        SkillType stype = gs.data.GetGameData<SkillTypeSettings>(unit).GetSkillType(ab.AbilityTypeId);
-                        if (stype != null)
-                        {
-                            abEffects = stype.BonusEfffects;
-                        }
-                    }
-
-                    if (abEffects == null)
-                    {
-                        continue;
-                    }
-
-                    foreach (AbilityEffect eff in abEffects)
-                    {
-                        AddEffectStat(gs, unit, eff, levelData, ab.Rank - AbilityData.DefaultRank);
-                    }
                 }
             }
 
@@ -233,7 +206,7 @@ namespace Genrpg.Shared.Stats.Services
             {
                 foreach (Stat stat in unit.Stats.GetAllStats())
                 {
-                    Set(gs, unit, stat.Id, StatCategory.Base, stat.Get(StatCategory.Pct) * unit.StatPct / 100);
+                    Set(gs, unit, stat.Id, StatCategories.Base, stat.Get(StatCategories.Pct) * unit.StatPct / 100);
                 }
             }
 
@@ -261,7 +234,7 @@ namespace Genrpg.Shared.Stats.Services
                         newValue = Math.Min(newValue, oldStats[stat.IdKey]);
                     }
                 }
-                Set(gs, unit, stat.IdKey, StatCategory.Curr, newValue);
+                Set(gs, unit, stat.IdKey, StatCategories.Curr, newValue);
 
                 if (resetMutableStats ||
                     oldMaxStats.ContainsKey(stat.IdKey) &&
@@ -319,34 +292,34 @@ namespace Genrpg.Shared.Stats.Services
             {
                 DerivedStat ds = list[d];
                 int addval = (int)(ds.Percent * unit.Stats.Max(ds.FromStatTypeId) / 100);
-                Add(gs, unit, ds.ToStatTypeId, StatCategory.Base, addval);
+                Add(gs, unit, ds.ToStatTypeId, StatCategories.Base, addval);
             }
         }
 
         public List<StatType> GetMutableStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.GetGameData<StatSettings>(unit).Data.Where(x => x.IdKey > 0 && x.IdKey <= StatConstants.MaxMutableStatTypeId).ToList();
+            return gs.data.GetGameData<StatSettings>(unit).GetData().Where(x => x.IdKey > 0 && x.IdKey <= StatConstants.MaxMutableStatTypeId).ToList();
         }
 
         public List<StatType> GetPrimaryStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.GetGameData<StatSettings>(unit).Data.Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
+            return gs.data.GetGameData<StatSettings>(unit).GetData().Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
         }
 
         public List<StatType> GetAttackStatTypes(GameState gs, Unit unit)
         {
-            return GetPrimaryStatTypes(gs, unit).Where(x => x.IdKey != StatType.Stamina).ToList();
+            return GetPrimaryStatTypes(gs, unit).Where(x => x.IdKey != StatTypes.Stamina).ToList();
         }
 
 
         public List<StatType> GetFixedStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.GetGameData<StatSettings>(unit).Data.Where(x => x.IdKey > StatConstants.MaxMutableStatTypeId).ToList();
+            return gs.data.GetGameData<StatSettings>(unit).GetData().Where(x => x.IdKey > StatConstants.MaxMutableStatTypeId).ToList();
         }
 
         public List<StatType> GetSecondaryStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.GetGameData<StatSettings>(unit).Data.Where(x => x.IdKey > StatConstants.PrimaryStatEnd).ToList();
+            return gs.data.GetGameData<StatSettings>(unit).GetData().Where(x => x.IdKey > StatConstants.PrimaryStatEnd).ToList();
         }
 
         /// <summary>
@@ -363,13 +336,13 @@ namespace Genrpg.Shared.Stats.Services
                 return;
             }
 
-            if (e.EntityTypeId == EntityType.Stat)
+            if (e.EntityTypeId == EntityTypes.Stat)
             {
-                Add(gs, unit, e.EntityId, StatCategory.Base, e.Quantity * multiplier);
+                Add(gs, unit, e.EntityId, StatCategories.Base, e.Quantity * multiplier);
             }
-            else if (e.EntityTypeId == EntityType.StatPct)
+            else if (e.EntityTypeId == EntityTypes.StatPct)
             {
-                Add(gs, unit, e.EntityId, StatCategory.Pct, e.Quantity * multiplier);
+                Add(gs, unit, e.EntityId, StatCategories.Pct, e.Quantity * multiplier);
             }
         }
 

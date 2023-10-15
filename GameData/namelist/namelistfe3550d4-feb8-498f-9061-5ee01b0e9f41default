@@ -1,0 +1,48 @@
+{
+  "Id": "namelistfe3550d4-feb8-498f-9061-5ee01b0e9f41default",
+  "ParentId": "default",
+  "ListName": "CreatureBirdNames",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Downy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Feathery",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Flapping",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Flustered",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mean",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pecking",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Squawking",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vicious",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

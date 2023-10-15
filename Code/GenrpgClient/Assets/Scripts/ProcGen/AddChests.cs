@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 
 public class AddChests : BaseZoneGenerator
 {
@@ -120,7 +120,7 @@ public class AddChests : BaseZoneGenerator
                         continue;
                     }
 
-                    gs.spawns.AddSpawn(EntityType.GroundObject, chosenObj.IdKey, cy, cx, gs.md.mapZoneIds[cx,cy]);
+                    gs.spawns.AddSpawn(EntityTypes.GroundObject, chosenObj.IdKey, cy, cx, gs.md.mapZoneIds[cx,cy]);
                 
                     break;
                 }

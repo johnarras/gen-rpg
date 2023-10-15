@@ -1,0 +1,123 @@
+{
+  "Id": "itemtype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Offhand",
+  "NameId": "",
+  "GenName": "",
+  "Desc": "",
+  "Icon": "Offhand",
+  "Art": "Offhand",
+  "EquipSlotId": 16,
+  "Flags": 8,
+  "Effects": [],
+  "LevelRanges": [
+    {
+      "MinLevel": 1,
+      "MaxLevel": 10
+    },
+    {
+      "MinLevel": 11,
+      "MaxLevel": 20
+    },
+    {
+      "MinLevel": 21,
+      "MaxLevel": 30
+    },
+    {
+      "MinLevel": 31,
+      "MaxLevel": 40
+    },
+    {
+      "MinLevel": 41,
+      "MaxLevel": 50
+    },
+    {
+      "MinLevel": 51,
+      "MaxLevel": 60
+    }
+  ],
+  "QualityNames": [
+    {
+      "Name": "Common"
+    },
+    {
+      "QualityTypeId": 1,
+      "Name": "Uncommon"
+    },
+    {
+      "QualityTypeId": 2,
+      "Name": "Rare"
+    },
+    {
+      "QualityTypeId": 3,
+      "Name": "Epic"
+    },
+    {
+      "QualityTypeId": 4,
+      "Name": "Legendary"
+    }
+  ],
+  "IconCounts": [
+    {
+      "Count": 4
+    }
+  ],
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Stone",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tome",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Focus",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crystal",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Libram",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lexicon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Book",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fetish",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Orb",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cane",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rod",
+      "Desc": ""
+    }
+  ]
+}

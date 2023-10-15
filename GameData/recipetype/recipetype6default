@@ -1,0 +1,30 @@
+{
+  "Id": "recipetype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Belt",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 6,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 80,
+  "DefPct": 80,
+  "OtherPct": 80,
+  "ReagentQuantity": 4,
+  "Reagents": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 102,
+      "Quantity": 4
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 105,
+      "Quantity": 4
+    }
+  ]
+}

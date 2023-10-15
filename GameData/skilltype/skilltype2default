@@ -1,0 +1,13 @@
+{
+  "Id": "skilltype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Blast",
+  "TargetTypeId": 1,
+  "ManaCostPercent": 5,
+  "EnergyCostPercent": 35,
+  "ComboCostPercent": 30,
+  "ScalingStatTypeId": 22,
+  "StatScalePercent": 100,
+  "EffectEntityTypeId": 33
+}

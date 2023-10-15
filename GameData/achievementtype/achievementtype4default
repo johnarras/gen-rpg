@@ -1,0 +1,7 @@
+{
+  "Id": "achievementtype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Max Healing",
+  "Category": 1
+}

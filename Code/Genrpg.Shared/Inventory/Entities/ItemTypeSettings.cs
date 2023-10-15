@@ -1,5 +1,6 @@
 using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.Entities;
 using MessagePack;
 using System;
@@ -16,7 +17,6 @@ namespace Genrpg.Shared.Inventory.Entities
         [Key(1)] public int GenSameStatBonusPct { get; set; }
         [Key(2)] public int GenGlobalScalingPercent { get; set; }
         [Key(3)] public override string Id { get; set; }
-        [Key(4)] public override List<ItemType> Data { get; set; } = new List<ItemType>();
 
         public ItemType GetItemType(long idkey) { return _lookup.Get<ItemType>(idkey); }
 
@@ -25,7 +25,7 @@ namespace Genrpg.Shared.Inventory.Entities
         {
             if (_primaryReagents == null)
             {
-                _primaryReagents = Data.Where(x => x.IsReagent() && x.HasFlag(ItemType.PrimaryReagent)).ToList();
+                _primaryReagents = _data.Where(x => x.IsReagent() && x.HasFlag(ItemFlags.PrimaryReagent)).ToList();
             }
             return _primaryReagents;
         }
@@ -35,7 +35,7 @@ namespace Genrpg.Shared.Inventory.Entities
         {
             if (_secondaryReagents == null)
                 {
-                    _secondaryReagents = Data.Where(x => x.IsReagent() && !x.HasFlag(ItemType.PrimaryReagent)).ToList();
+                    _secondaryReagents = _data.Where(x => x.IsReagent() && !x.HasFlag(ItemFlags.PrimaryReagent)).ToList();
                 }
                 return _secondaryReagents;
             }

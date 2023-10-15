@@ -12,5 +12,6 @@ namespace Genrpg.Shared.GameSettings.Loading
         Type GetServerType();
         bool SendToClient();
         Task<List<IGameSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing);
+        IGameSettings MapToApi(IGameSettings settings);
     }
 }

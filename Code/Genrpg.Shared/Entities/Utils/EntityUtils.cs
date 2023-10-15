@@ -6,8 +6,9 @@ using Genrpg.Shared.Stats.Entities;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.Entities.Settings;
 
 namespace Genrpg.Shared.Entities.Utils
 {
@@ -513,7 +514,7 @@ namespace Genrpg.Shared.Entities.Utils
         }
         public static string PrintData(GameState gs, MapObject obj, IEffect effect)
         {
-            if (effect.EntityTypeId == EntityType.Stat)
+            if (effect.EntityTypeId == EntityTypes.Stat)
             {
                 StatType statType = gs.data.GetGameData<StatSettings>(obj).GetStatType(effect.EntityId);
                 if (statType == null)
@@ -523,7 +524,7 @@ namespace Genrpg.Shared.Entities.Utils
 
                 return effect.Quantity + " " + statType.Name;
             }
-            else if (effect.EntityTypeId == EntityType.StatPct)
+            else if (effect.EntityTypeId == EntityTypes.StatPct)
             {
                 StatType statType = gs.data.GetGameData<StatSettings>(obj).GetStatType(effect.EntityId);
                 if (statType == null)

@@ -1,0 +1,12 @@
+{
+  "Id": "craftertype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Masonry",
+  "MousePointer": "Mining",
+  "ReagentItemTypeId": 105,
+  "GatherSeconds": 3.0,
+  "CraftingSeconds": 6.0,
+  "GatherActionName": "Mining",
+  "CraftActionName": "Building"
+}

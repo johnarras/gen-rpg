@@ -1,0 +1,19 @@
+{
+  "Id": "recipetype33default",
+  "ParentId": "default",
+  "IdKey": 33,
+  "Name": "Healing Potion",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 300,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "CrafterTypeId": 7,
+  "Reagents": []
+}

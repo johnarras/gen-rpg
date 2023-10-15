@@ -1,0 +1,8 @@
+{
+  "Id": "equipslot4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Torso",
+  "StatPercent": 150,
+  "Active": true
+}

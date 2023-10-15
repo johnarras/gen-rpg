@@ -61,6 +61,7 @@ namespace Genrpg.MapServer.Maps
         private ICloudMessageService _cloudMessageService = null;
         private IReflectionService _reflectionService = null;
         private IGameDataService _gameDataService = null;
+        private IPlayerDataService _playerDataService = null;
         public const double UpdateMS = 100.0f;
 
         private string _mapId;
@@ -204,7 +205,7 @@ namespace Genrpg.MapServer.Maps
             {
                 return;
             }
-            PlayerDataUtils.SavePlayerData(connState.ch, _gs.repo, true);
+            _playerDataService.SavePlayerData(connState.ch, _gs.repo, true);
             Character ch = connState.ch;
             if (ch != null)
             {
@@ -252,7 +253,7 @@ namespace Genrpg.MapServer.Maps
                     if (gridItem != null)
                     {
                         connState.ch = (Character)gridItem.Obj;
-                        await PlayerDataUtils.LoadPlayerData(_gs, ch);
+                        await _playerDataService.LoadPlayerData(_gs, ch);
                     }
 
                     _gameDataService.SetSessionOverrides(_gs, ch);
@@ -287,7 +288,7 @@ namespace Genrpg.MapServer.Maps
                     Level = connState.ch.Level,
                     MapId = _mapId,
                     MapInstanceId = _instanceId,
-                    UserId = connState.ch.UserId,
+                        UserId = connState.ch.UserId,
                 };
                 _cloudMessageService.SendMessage(CloudServerNames.Player, playerEnterMessage);
 

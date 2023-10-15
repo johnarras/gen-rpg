@@ -25,6 +25,8 @@ namespace Genrpg.LoginServer.Controllers
     public class ClientController : BaseWebController
     {
 
+        private IPlayerDataService _playerDataService = null;
+
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -35,6 +37,7 @@ namespace Genrpg.LoginServer.Controllers
         public async Task<string> Post([FromForm] string Data)
         {
             CancellationTokenSource cts = new CancellationTokenSource();
+
             List<ILoginCommand> comms = await LoadSessionCommands(Data, cts.Token);
 
             foreach (ILoginCommand comm in comms)
@@ -65,13 +68,13 @@ namespace Genrpg.LoginServer.Controllers
             return PackageResults(gs.Results);
         }
 
-        private static async Task SaveAll(LoginGameState gs)
+        private async Task SaveAll(LoginGameState gs)
         {
             if (gs.user != null)
             {
                 await gs.repo.Save(gs.user);
             }
-            PlayerDataUtils.SavePlayerData(gs.ch, gs.repo, true);
+            _playerDataService.SavePlayerData(gs.ch, gs.repo, true);
         }
 
     }

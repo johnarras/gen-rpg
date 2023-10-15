@@ -1,0 +1,16 @@
+{
+  "Id": "unittype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Dwarf",
+  "Art": "DwarfMale",
+  "Height": 1.5,
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

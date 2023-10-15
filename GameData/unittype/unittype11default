@@ -1,0 +1,16 @@
+{
+  "Id": "unittype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Doe",
+  "Art": "Doe",
+  "Height": 1.5,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

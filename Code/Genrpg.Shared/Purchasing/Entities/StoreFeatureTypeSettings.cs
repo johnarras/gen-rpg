@@ -12,7 +12,6 @@ namespace Genrpg.Shared.Purchasing.Entities
     public class StoreFeatureTypeSettings : ParentSettings<StoreFeatureType>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public override List<StoreFeatureType> Data { get; set; } = new List<StoreFeatureType>();
 
         public StoreFeatureType GetStoreFeatureType(long idkey) { return _lookup.Get<StoreFeatureType>(idkey); }
     }

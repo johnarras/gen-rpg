@@ -1,0 +1,93 @@
+{
+  "Id": "namelist170cc3a1-9f95-4b9b-bb8d-f4edcd551ccedefault",
+  "ParentId": "default",
+  "ListName": "CreatureFurColors",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Black",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Brown",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dark",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dusky",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gray",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Grey",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mangy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mottled",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Night",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Patchy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ragged",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Red",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sandy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shadowy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Shaggy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tan",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "White",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

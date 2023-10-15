@@ -1,0 +1,19 @@
+{
+  "Id": "tribetype7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Bug",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "LootItems": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 27,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    }
+  ],
+  "InteractLootItems": []
+}

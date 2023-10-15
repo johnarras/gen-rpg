@@ -1,0 +1,19 @@
+{
+  "Id": "spawntable22default",
+  "ParentId": "default",
+  "IdKey": 22,
+  "Name": "Wood",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "Items": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 103,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "Weight": 100.0
+    }
+  ],
+  "Art": ""
+}

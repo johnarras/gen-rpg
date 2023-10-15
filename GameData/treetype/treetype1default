@@ -1,0 +1,9 @@
+{
+  "Id": "treetype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Cedar",
+  "Art": "Cedar",
+  "Scale": 1.5,
+  "VariationCount": 2
+}

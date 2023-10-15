@@ -1,0 +1,12 @@
+{
+  "Id": "craftertype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Blacksmithing",
+  "MousePointer": "Mining",
+  "ReagentItemTypeId": 104,
+  "GatherSeconds": 3.0,
+  "CraftingSeconds": 6.0,
+  "GatherActionName": "Mining",
+  "CraftActionName": "Smithing"
+}

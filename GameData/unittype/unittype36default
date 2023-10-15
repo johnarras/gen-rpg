@@ -1,0 +1,16 @@
+{
+  "Id": "unittype36default",
+  "ParentId": "default",
+  "IdKey": 36,
+  "Name": "Hobgoblin",
+  "Art": "Hobgoblin",
+  "Height": 3.0,
+  "TribeTypeId": 1,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

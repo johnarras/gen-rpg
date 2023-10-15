@@ -1,5 +1,5 @@
 ﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Quests.Entities;
@@ -13,6 +13,7 @@ using Genrpg.Shared.NPCs.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Factions.Entities;
 using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.Factions.Constants;
 
 public interface IQuestGenService : IService
 {
@@ -126,11 +127,11 @@ public class QuestGenService : IQuestGenService
 
                     if (rand.NextDouble() < 0.5f)
                     {
-                        taskEntityTypeId = EntityType.QuestItem;
+                        taskEntityTypeId = EntityTypes.QuestItem;
                         double onLocation = rand.NextDouble();
                         if (onLocation < 0.4f)
                         {
-                            onEntityTypeId = EntityType.Unit;
+                            onEntityTypeId = EntityTypes.Unit;
                             taskQuantity = MathUtils.IntRange(1, 20, rand);
                             dropChance = MathUtils.FloatRange(0.3, 1.0f, rand);
                             if (rand.NextDouble() < 0.3f)
@@ -140,13 +141,13 @@ public class QuestGenService : IQuestGenService
                         }
                         else 
                         {
-                            onEntityTypeId = EntityType.GroundObject;
+                            onEntityTypeId = EntityTypes.GroundObject;
                             taskQuantity = MathUtils.IntRange(4, 10, rand);
                         }
                     }
                     else
                     {
-                        taskEntityTypeId = EntityType.Unit;
+                        taskEntityTypeId = EntityTypes.Unit;
                         taskQuantity = MathUtils.IntRange(2, 10, rand);
                     }
 
@@ -162,15 +163,15 @@ public class QuestGenService : IQuestGenService
 
                     QuestItem questItem = null;
 
-                    if (taskEntityTypeId == EntityType.Unit)
+                    if (taskEntityTypeId == EntityTypes.Unit)
                     {
                         taskEntityId = unitStatus.UnitTypeId;
                     }
-                    if (onEntityTypeId == EntityType.Unit)
+                    if (onEntityTypeId == EntityTypes.Unit)
                     {
                         onEntityId = unitStatus.UnitTypeId;
                     }
-                    if (taskEntityTypeId == EntityType.QuestItem)
+                    if (taskEntityTypeId == EntityTypes.QuestItem)
                     {
                         questItem = new QuestItem() { IdKey = GetNextQuestItemId(gs) };
                         questItem.Name = "QuestItem" + questType.IdKey;
@@ -253,7 +254,7 @@ public class QuestGenService : IQuestGenService
             return new List<NPCType>();
         }
 
-        return map.NPCs.Where(x => x.ZoneId == zoneId && x.FactionTypeId == FactionType.Player).ToList();
+        return map.NPCs.Where(x => x.ZoneId == zoneId && x.FactionTypeId == FactionTypes.Player).ToList();
     }
 
     protected List<MapSpawn> GetUnusedSpawnsNearPoint(GameState gs, long zoneId, int px, int py, float radius)
@@ -264,7 +265,7 @@ public class QuestGenService : IQuestGenService
         }
 
         List<MapSpawn> desiredUnits = gs.spawns.Data.Where(u =>
-        (u.EntityTypeId == EntityType.NPC || u.EntityTypeId == EntityType.Unit) &&
+        (u.EntityTypeId == EntityTypes.NPC || u.EntityTypeId == EntityTypes.Unit) &&
         u.EntityId == 0 &&
         Math.Sqrt((u.X - px) * (u.X - px) + (u.Z - py) * (u.Z - py)) <= radius).ToList();
 

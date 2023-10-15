@@ -1,0 +1,20 @@
+{
+  "Id": "tribetype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Wooden",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "LootItems": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 25,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    }
+  ],
+  "InteractLootItems": [],
+  "LootCrafterTypeId": 2
+}

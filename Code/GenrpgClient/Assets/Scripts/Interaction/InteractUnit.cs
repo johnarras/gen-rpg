@@ -10,6 +10,7 @@ using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Loot.Messages;
 using System.Collections.Generic;
+using Genrpg.Shared.Stats.Constants;
 
 public class InteractUnit : InteractableObject
 {
@@ -55,7 +56,7 @@ public class InteractUnit : InteractableObject
         }
         else 
         {
-            if (unit.Stats.Curr(StatType.Health) > 0) // alive
+            if (unit.Stats.Curr(StatTypes.Health) > 0) // alive
             {
                 Cursors.SetCursor(Cursors.Fight);
             }

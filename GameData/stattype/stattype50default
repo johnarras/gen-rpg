@@ -1,0 +1,8 @@
+{
+  "Id": "stattype50default",
+  "ParentId": "default",
+  "IdKey": 50,
+  "Name": "DefenseMult",
+  "Desc": "All Dam Reduced",
+  "GenScalePct": 10
+}

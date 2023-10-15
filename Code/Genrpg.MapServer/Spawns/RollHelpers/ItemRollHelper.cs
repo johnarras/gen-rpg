@@ -1,6 +1,6 @@
 ﻿using Genrpg.MapServer.Items;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Spawns.Entities;
@@ -15,7 +15,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
 {
     public class ItemRollHelper : IRollHelper
     {
-        public long GetKey() { return EntityType.Item; }
+        public long GetKey() { return EntityTypes.Item; }
 
         private IItemGenService _itemGenService;
 
@@ -44,7 +44,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
             {
                 SpawnResult sr = new SpawnResult();
                 sr.EntityId = spawnItem.EntityId;
-                sr.EntityTypeId = EntityType.Item;
+                sr.EntityTypeId = EntityTypes.Item;
                 sr.Quantity = 1;
                 sr.QualityTypeId = rollData.QualityTypeId;
                 sr.Level = rollData.Level;
@@ -59,7 +59,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
                 {
                     SpawnResult sr = new SpawnResult();
                     sr.EntityId = spawnItem.EntityId;
-                    sr.EntityTypeId = EntityType.Item;
+                    sr.EntityTypeId = EntityTypes.Item;
                     sr.Quantity = 1;
                     sr.QualityTypeId = rollData.QualityTypeId;
                     sr.Level = rollData.Level;

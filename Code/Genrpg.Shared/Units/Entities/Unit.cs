@@ -17,6 +17,7 @@ using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Stats.Messages;
+using Genrpg.Shared.Stats.Constants;
 
 namespace Genrpg.Shared.Units.Entities
 {
@@ -108,11 +109,11 @@ namespace Genrpg.Shared.Units.Entities
         [IgnoreMember] public DateTime GlobalCooldownEnds = DateTime.UtcNow;
 
         [JsonIgnore]
-        [IgnoreMember] public List<SpellEffect> SpellEffects;
+        [IgnoreMember] public List<ActiveSpellEffect> SpellEffects;
 
         public float GetGlobalCooldown(GameState gs)
         {
-            return SpellConstants.GlobalCooldownMS * (1 - Stats.Pct(StatType.Cooldown)) / 1000.0f;
+            return SpellConstants.GlobalCooldownMS * (1 - Stats.Pct(StatTypes.Cooldown)) / 1000.0f;
         }
 
         public Unit()

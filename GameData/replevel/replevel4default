@@ -1,0 +1,7 @@
+{
+  "Id": "replevel4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Neutral",
+  "PointsNeeded": 3000
+}

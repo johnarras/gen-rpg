@@ -1,0 +1,10 @@
+{
+  "Id": "treetype16default",
+  "ParentId": "default",
+  "IdKey": 16,
+  "Name": "Azalea",
+  "Art": "Azalea",
+  "Scale": 1.0,
+  "VariationCount": 2,
+  "Flags": 1
+}

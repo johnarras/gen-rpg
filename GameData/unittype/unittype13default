@@ -1,0 +1,18 @@
+{
+  "Id": "unittype13default",
+  "ParentId": "default",
+  "IdKey": 13,
+  "Name": "Goat",
+  "Desc": "",
+  "Icon": "",
+  "Art": "Goat",
+  "Height": 1.5,
+  "TribeTypeId": 2,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": []
+}

@@ -1,0 +1,73 @@
+{
+  "Id": "namelista71cd07a-0af3-44ae-b8c5-c46090439ad9default",
+  "ParentId": "default",
+  "ListName": "CreatureReptileColors",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Brown",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gray",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Green",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Grey",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mottled",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Muddy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Olive",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Orange",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sandy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Spotted",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tan",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "White",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Yellow",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

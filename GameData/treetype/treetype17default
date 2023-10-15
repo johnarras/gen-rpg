@@ -1,0 +1,10 @@
+{
+  "Id": "treetype17default",
+  "ParentId": "default",
+  "IdKey": 17,
+  "Name": "AzaleaPink",
+  "Art": "AzaleaPink",
+  "Scale": 1.0,
+  "VariationCount": 2,
+  "Flags": 1
+}

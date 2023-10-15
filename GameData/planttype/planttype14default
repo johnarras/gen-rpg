@@ -1,0 +1,14 @@
+{
+  "Id": "planttype14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Art": "DetailGrass14",
+  "MinScale": 0.75,
+  "MaxScale": 1.5,
+  "BaseColor": {
+    "R": 1.0,
+    "G": 1.0,
+    "B": 1.0,
+    "A": 1.0
+  }
+}

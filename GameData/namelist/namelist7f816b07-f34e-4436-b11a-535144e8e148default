@@ -1,0 +1,108 @@
+{
+  "Id": "namelist7f816b07-f34e-4436-b11a-535144e8e148default",
+  "ParentId": "default",
+  "ListName": "BodyEyeWords",
+  "Names": [
+    {
+      "Weight": 5.0,
+      "Name": "Shriveled",
+      "Desc": ""
+    },
+    {
+      "Weight": 10.0,
+      "Name": "Squishy",
+      "Desc": ""
+    },
+    {
+      "Weight": 15.0,
+      "Name": "Punctured",
+      "Desc": ""
+    },
+    {
+      "Weight": 20.0,
+      "Name": "Dried",
+      "Desc": ""
+    },
+    {
+      "Weight": 25.0,
+      "Name": "Cloudy",
+      "Desc": ""
+    },
+    {
+      "Weight": 30.0,
+      "Name": "Damaged",
+      "Desc": ""
+    },
+    {
+      "Weight": 35.0,
+      "Name": "Dented",
+      "Desc": ""
+    },
+    {
+      "Weight": 40.0,
+      "Name": "Leaky",
+      "Desc": ""
+    },
+    {
+      "Weight": 45.0,
+      "Name": "Dull",
+      "Desc": ""
+    },
+    {
+      "Weight": 50.0,
+      "Name": "Lifeless",
+      "Desc": ""
+    },
+    {
+      "Weight": 55.0,
+      "Name": "Clear",
+      "Desc": ""
+    },
+    {
+      "Weight": 60.0,
+      "Name": "Bright",
+      "Desc": ""
+    },
+    {
+      "Weight": 65.0,
+      "Name": "Fresh",
+      "Desc": ""
+    },
+    {
+      "Weight": 70.0,
+      "Name": "Preserved",
+      "Desc": ""
+    },
+    {
+      "Weight": 75.0,
+      "Name": "Beautiful",
+      "Desc": ""
+    },
+    {
+      "Weight": 80.0,
+      "Name": "Perfect",
+      "Desc": ""
+    },
+    {
+      "Weight": 85.0,
+      "Name": "Shimmering",
+      "Desc": ""
+    },
+    {
+      "Weight": 90.0,
+      "Name": "Glowing",
+      "Desc": ""
+    },
+    {
+      "Weight": 95.0,
+      "Name": "Iridescent",
+      "Desc": ""
+    },
+    {
+      "Weight": 100.0,
+      "Name": "Dragon",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

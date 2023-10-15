@@ -1,0 +1,118 @@
+{
+  "Id": "namelist07a93444-ac28-475d-b43b-df12bca57092default",
+  "ParentId": "default",
+  "ListName": "CreatureBugNames",
+  "Names": [
+    {
+      "Weight": 1000.0,
+      "Name": "Aggressive",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Armored",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Chittering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Clattering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Clicking",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crawler",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Crawling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Creeper",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Creeping",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Disgusting",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fanged",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fetid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Foul",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Gross",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Jumping",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Rock",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scrabbling",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Skittering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Stone",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Toxic",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Venomous",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Vicous",
+      "Desc": ""
+    }
+  ],
+  "Name": "NameList"
+}

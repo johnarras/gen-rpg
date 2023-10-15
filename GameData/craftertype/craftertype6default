@@ -1,0 +1,12 @@
+{
+  "Id": "craftertype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Jewelcrafting",
+  "MousePointer": "Shop",
+  "ReagentItemTypeId": 106,
+  "GatherSeconds": 3.0,
+  "CraftingSeconds": 6.0,
+  "GatherActionName": "Mining",
+  "CraftActionName": "Crafting"
+}
