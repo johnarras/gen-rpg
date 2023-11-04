@@ -11,7 +11,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IZoneGenService _zoneGenService;
         protected override void InnerProcess(UnityGameState gs, LoadIntoMapResult result, CancellationToken token)
         {
-            TaskUtils.AddTask(_zoneGenService.OnLoadIntoMap(gs, result, token));
+            TaskUtils.AddTask(_zoneGenService.OnLoadIntoMap(gs, result, token), "loadintomap", token);
 
         }
     }

@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.UploadMap;
 using Assets.Scripts.MapTerrain;
+using System;
+using Genrpg.Shared.Utils;
 
 public class SaveMap : BaseZoneGenerator
 {
@@ -11,7 +13,9 @@ public class SaveMap : BaseZoneGenerator
     {
         await base.Generate(gs, token);
 
-        TaskUtils.AddTask(DelaySendMapSizes(gs));
+        gs.map.OverrideZonePercent = MathUtils.IntRange(20, 80, gs.rand);
+
+        TaskUtils.AddTask(DelaySendMapSizes(gs),"delaysendmapsizes", token);
 
         for (int gx = 0; gx < gs.map.BlockCount; gx++)
         {
@@ -57,7 +61,7 @@ public class SaveMap : BaseZoneGenerator
 
 
 
-        int maxFileSize = MapConstants.TerrainPatchSize * MapConstants.TerrainPatchSize * 11;
+        int maxFileSize = MapConstants.TerrainPatchSize * MapConstants.TerrainPatchSize * MapConstants.TerrainBytesPerUnit;
 
         byte[] bytes = new byte[maxFileSize];
         int startX = gy * (MapConstants.TerrainPatchSize - 1);
@@ -68,13 +72,14 @@ public class SaveMap : BaseZoneGenerator
         int worldObjectValue = 0;
         int index = 0;
 
-        // Heights 2
-        // Objects 4
-        // Zones 1 (*divsq)
-        // Alphas 3 (*divsq)
-        // BaseZonePct 1
+        // 1. Heights 2
+        // 2. Objects 4
+        // 3. Alphas 3
+        // 4. Zone 1 
+        // 5. SubZone 1
+        // 6. OverrideZoneScale 1
 
-        // 2 + 4 + 1 + 3 + 1 = 11;
+        // 2 + 4 + 3 + 1 + 1 + 1 = 12;
 
         // 1 Heights: 2 bytes
         for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
@@ -117,9 +122,22 @@ public class SaveMap : BaseZoneGenerator
 
             }
         }
+        // 3 Alphas: 3 bytes (*divsq)
+        for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
+        {
+            for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
+            {
+
+                for (int i = 0; i < MapConstants.MaxTerrainIndex - 1; i++)
+                {
+                    bytes[index++] = (byte)(gs.md.alphas[x + startX, y + startY, i] * MapConstants.AlphaSaveMult);
+                }
+            }
+        }
+
 
         List<long> zoneIds = new List<long>();
-        // 3 Zones: 1 byte (*divsq)
+        // 4 Zones: 1 byte (*divsq)
         for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
         {
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
@@ -136,25 +154,24 @@ public class SaveMap : BaseZoneGenerator
                 }
             }
         }
-        // 4 Alphas: 3 bytes (*divsq)
+        // 5 subZoneIds 1 byte
         for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
         {
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
             {
-
-                for (int i = 0; i < MapConstants.MaxTerrainIndex - 1; i++)
-                {
-                    bytes[index++] = (byte)(gs.md.alphas[x + startX, y + startY, i] * MapConstants.AlphaSaveMult);
-                }
+                bytes[index++] = (byte)(gs.md.subZoneIds[x + startX, y + startY]);
             }
         }
 
-        // 5 baseZoneIds 1 byte
+
+        // 6 OverrideZoneScale 1 byte 0 to MapConstants.OverrideZoneScaleMax
         for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
         {
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
             {
-                bytes[index++] = (byte)(gs.md.overrideZoneIds[x + startX, y + startY]);
+                float val = MathUtils.Clamp(0, Math.Abs(gs.md.overrideZoneScales[x + startX, y + startY]), 1);
+
+                bytes[index++] = (byte)(val*MapConstants.OverrideZoneScaleMax);
             }
         }
 

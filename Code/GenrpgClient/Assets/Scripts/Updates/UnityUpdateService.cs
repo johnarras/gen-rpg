@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using Genrpg.Shared.Spells.Entities;
+using Assets.Scripts.GameObjects;
 
 public class UpdateType
 {
@@ -37,7 +38,7 @@ internal class VoidUpdateObject : IUpdateObject
 
     public void Call(CancellationToken token)
     {
-        if (Obj != null && action != null)
+        if (!ObjectUtils.IsNull(Obj) && action != null)
         {
             action();
         }
@@ -56,7 +57,7 @@ internal class TokenUpdateObject : IUpdateObject
 
     public void Call(CancellationToken token)
     {
-        if (Obj != null && action != null)
+        if (!ObjectUtils.IsNull(Obj) && action != null)
         {
             action(token);
         }
@@ -96,11 +97,11 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
 
     private void Update ()
     {
-        foreach (IUpdateObject obj in _currentUpdates)
+        for (int c = 0; c < _currentUpdates.Count; c++) 
         {
-            if (obj.UpdateType == UpdateType.Regular)
+            if (_currentUpdates[c].UpdateType == UpdateType.Regular)
             {
-                obj.Call(_token);
+                _currentUpdates[c].Call(_token);
             }
         }
         UpdateUpdates();
@@ -108,11 +109,11 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
 
     private void LateUpdate ()
     {
-        foreach (IUpdateObject obj in _currentUpdates)
+        for (int c = 0; c < _currentUpdates.Count; c++)
         {
-            if (obj.UpdateType == UpdateType.Late)
+            if (_currentUpdates[c].UpdateType == UpdateType.Late)
             {
-                obj.Call(_token);
+                _currentUpdates[c].Call(_token);
             }
         }
         UpdateUpdates();
@@ -120,7 +121,7 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
 
     public void AddUpdate(object objIn, Action funcIn, int updateType)
     {
-        if (objIn == null || funcIn == null || updateType < UpdateType.Regular || updateType >= UpdateType.Max)
+        if (ObjectUtils.IsNull(objIn) || funcIn == null || updateType < UpdateType.Regular || updateType >= UpdateType.Max)
         {
             return;
         }
@@ -135,7 +136,7 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
 
     public void AddTokenUpdate(object objIn, Action<CancellationToken> funcIn, int updateType)
     {
-        if (objIn == null || funcIn == null || updateType < UpdateType.Regular || updateType >= UpdateType.Max)
+        if (ObjectUtils.IsNull(objIn) || funcIn == null || updateType < UpdateType.Regular || updateType >= UpdateType.Max)
         {
             return;
         }
@@ -151,45 +152,103 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
 
     public void RemoveUpdates(object obj)
     {
+        if (ObjectUtils.IsNull(obj))
+        {
+            return;
+        }
+
         _toRemoveList.Add(obj);
         _toAddList = _toAddList.Where(x => x.Obj != obj).ToList();
     }
 
-    List<IUpdateObject> nextUpdates = new List<IUpdateObject>();
+    private List<IUpdateObject> _addUpdates = new List<IUpdateObject>();
+    private List<IUpdateObject> _removeUpdates = new List<IUpdateObject>();
+    IUpdateObject _currObj = null;
+    IUpdateObject _newUpdate = null;
+    IUpdateObject _existingUpdate = null;
+    private bool _isInRemoveList = false;
     private void UpdateUpdates()
     {
-        nextUpdates = new List<IUpdateObject>();
-        foreach (IUpdateObject obj in _currentUpdates)
+        if (_addUpdates.Count > 0)
         {
-            if (obj.Obj == null || !obj.HasAction() || _toRemoveList.Contains(obj.Obj))
+            _addUpdates.Clear();
+        }
+
+        if (_removeUpdates.Count > 0)
+        {
+            _removeUpdates.Clear();
+        }
+
+        for (int c = 0; c < _currentUpdates.Count; c++)
+        {
+            _currObj = _currentUpdates[c];
+            if (ObjectUtils.IsNull(_currObj.Obj) || !_currObj.HasAction())
             {
-                continue;
+                _isInRemoveList = false;
+                for (int r = 0; r < _toRemoveList.Count; r++)
+                {
+                    if (_toRemoveList[r] == _currObj.Obj)
+                    {
+                        _isInRemoveList = true;
+                        break;
+                    }
+                }
+
+                if (!_isInRemoveList)
+                {
+                    _removeUpdates.Add(_currObj);
+                }
             }
-            nextUpdates.Add(obj);
         }
         
-
-        foreach (IUpdateObject newUpdate in _toAddList)
+        for (int a = 0; a < _toAddList.Count; a++)
         {
-            if (!newUpdate.HasAction() || newUpdate.Obj == null || newUpdate.UpdateType < UpdateType.Regular || newUpdate.UpdateType >= UpdateType.Max)
+            _newUpdate = _toAddList[a];
+            if (!_newUpdate.HasAction() || 
+                ObjectUtils.IsNull(_newUpdate.Obj) ||
+                 _newUpdate.UpdateType < UpdateType.Regular || _newUpdate.UpdateType >= UpdateType.Max)
             {
                 continue;
             }
 
-            IUpdateObject currentUpdate = nextUpdates.FirstOrDefault(x => x.Obj == newUpdate.Obj && x.UpdateType == newUpdate.UpdateType);
-
-            if (currentUpdate == null)
+            _existingUpdate = null;
+            for (int b = 0; b < _addUpdates.Count; b++)
             {
-                nextUpdates.Add(newUpdate);
+                if (_addUpdates[b].Obj == _newUpdate.Obj && _addUpdates[b].UpdateType == _newUpdate.UpdateType)
+                {
+                    _existingUpdate = _addUpdates[b];
+                    break;
+                }
             }
+            
+            if (_existingUpdate == null)
+            {
+                _addUpdates.Add(_newUpdate);
+            }
+
         }
 
         UpdateDelayedActions();
 
-        _currentUpdates = nextUpdates;
-        _toRemoveList = new List<object>();
-        _toAddList = new List<IUpdateObject>();
+        for (int r = 0;  r < _removeUpdates.Count; r++)
+        {
+            _currentUpdates.Remove(_removeUpdates[r]);
+        }
 
+        for (int a = 0; a < _addUpdates.Count; a++)
+        {
+            _currentUpdates.Add(_addUpdates[a]);
+        }
+
+        if (_toRemoveList.Count > 0)
+        {
+            _toRemoveList.Clear();
+        }
+
+        if (_toAddList.Count > 0)
+        {
+            _toAddList.Clear();
+        }
     }
 
     internal class DelayedUpdate
@@ -202,6 +261,7 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
 
     private List<DelayedUpdate> _delayedUpdates = new List<DelayedUpdate>();
 
+    DelayedUpdate readyUpdate = null;
     public void AddDelayedUpdate(object objIn, Action<CancellationToken> funcIn, CancellationToken token, float delaySeconds)
     {
         _delayedUpdates.Add(new DelayedUpdate()
@@ -213,23 +273,36 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
         });
     }
 
+    List<DelayedUpdate> readyUpdates = new List<DelayedUpdate>();
     void UpdateDelayedActions()
     {
-        List<DelayedUpdate> currUpdates = _delayedUpdates.Where(x => x.EndTime <= DateTime.UtcNow).ToList();
 
-        if (currUpdates.Count == 0)
+        readyUpdates.Clear();
+        for (int i = 0; i < _delayedUpdates.Count; i++)
+        {
+            if (_delayedUpdates[i].EndTime <= DateTime.UtcNow)
+            {
+                readyUpdates.Add(_delayedUpdates[i]);
+            }
+        }
+
+        if (readyUpdates.Count == 0)
         {
             return;
         }
 
-        _delayedUpdates = _delayedUpdates.Except(currUpdates).ToList();
-
-        foreach (DelayedUpdate update in currUpdates)
+        for (int r = 0; r < readyUpdates.Count; r++)
         {
-            if (update.Obj != null && update.Function != null && !update.Token.IsCancellationRequested)
+            readyUpdate = readyUpdates[r];
+            if (!ObjectUtils.IsNull(readyUpdate.Obj) && readyUpdate.Function != null && !readyUpdate.Token.IsCancellationRequested)
             {
-                update.Function.Invoke(update.Token);
+                readyUpdate.Function(readyUpdate.Token);
             }
+        }
+
+        for (int r = 0; r < readyUpdates.Count; r++)
+        {
+            _delayedUpdates.Remove(readyUpdates[r]);
         }
 
     }

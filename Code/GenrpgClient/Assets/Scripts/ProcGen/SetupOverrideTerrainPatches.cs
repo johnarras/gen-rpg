@@ -41,7 +41,7 @@ public class SetupOverrideTerrainPatches : BaseZoneGenerator
             {
                 for (int z = 0; z < hgt; z++)
                 {
-                    gs.md.overrideZonePercents[x, z] += heights[x, z];
+                    gs.md.subZonePercents[x, z] += heights[x, z];
                 }
             }
         }
@@ -50,7 +50,7 @@ public class SetupOverrideTerrainPatches : BaseZoneGenerator
         {
             for (int z = 0; z < hgt; z++)
             {
-                gs.md.overrideZonePercents[x, z] = MathUtils.Clamp(0, 2*(gs.md.overrideZonePercents[x, z]-0.5f), 1);
+                gs.md.subZonePercents[x, z] = MathUtils.Clamp(0, 2*(gs.md.subZonePercents[x, z]-0.5f), 1);
             }
         }
 
@@ -60,7 +60,7 @@ public class SetupOverrideTerrainPatches : BaseZoneGenerator
         {
             for (int z = 0; z < hgt; z++)
             {
-                if (gs.md.overrideZonePercents[x,z] > 0 && gs.md.overrideZoneIds[x,z] == 0)
+                if (gs.md.subZonePercents[x,z] > 0 && gs.md.subZoneIds[x,z] == 0)
                 {
                     Zone currZone = gs.md.GetZoneAt(gs, gs.map, x, z);
                     List<Zone> okZones = procGenZones.Where(x => x.ZoneTypeId != currZone.ZoneTypeId).ToList();
@@ -68,8 +68,8 @@ public class SetupOverrideTerrainPatches : BaseZoneGenerator
                     {
                         continue;
                     }
-                    long overrideZoneId = okZones[gs.rand.Next() % okZones.Count].IdKey;
-                    FloodFillRegion(gs, (int)overrideZoneId, x, z, 0);
+                    long subZoneId = okZones[gs.rand.Next() % okZones.Count].IdKey;
+                    FloodFillRegion(gs, (int)subZoneId, x, z, 0);
                 }
             }
         }
@@ -81,9 +81,9 @@ public class SetupOverrideTerrainPatches : BaseZoneGenerator
         {
             return;
         }
-        if (gs.md.overrideZonePercents[x, z] > 0 && gs.md.overrideZoneIds[x, z] == 0)
+        if (gs.md.subZonePercents[x, z] > 0 && gs.md.subZoneIds[x, z] == 0)
         {
-            gs.md.overrideZoneIds[x, z] = zoneId;
+            gs.md.subZoneIds[x, z] = zoneId;
         }
         else
         {

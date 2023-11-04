@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Interfaces;
@@ -13,10 +7,10 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 using UnityEngine;
+using Genrpg.Shared.GameSettings.Interfaces;
 
 public class TreeObjectLoader : BaseObjectLoader
 {
@@ -34,6 +28,7 @@ public class TreeObjectLoader : BaseObjectLoader
             return false;
         }
 
+        SetupZoneTreeCache(gs);
 
         string assetCategory = AssetCategory.Trees;
 
@@ -48,6 +43,49 @@ public class TreeObjectLoader : BaseObjectLoader
         {
             assetCategory = AssetCategory.Bushes;
         }
+
+        if (!treeType.HasFlag(TreeFlags.IsWaterItem) &&
+            gs.map.OverrideZoneId > 0 && gs.map.OverrideZonePercent > 0)
+        {
+            if (loadData.patch.overrideZoneScales[x,y] < gs.map.OverrideZonePercent)
+            {
+                Zone zone = gs.map.Get<Zone>(gs.map.OverrideZoneId);
+                if (zone != null)
+                {
+                    List<long> okTreeIds = new List<long>();
+
+                    if (treeType.HasFlag(TreeFlags.IsBush))
+                    {
+                        if (gs.md.zoneBushIds.TryGetValue(zone.ZoneTypeId, out List<long> bushIds))
+                        {
+                            okTreeIds = bushIds;
+                        }
+                    }
+                    else
+                    {
+                        if (gs.md.zoneTreeIds.TryGetValue(zone.ZoneTypeId, out List<long> treeIds))
+                        {
+                            okTreeIds = treeIds;
+                        }
+                    }
+                    
+                    if (okTreeIds.Count > 0)
+                    {
+                        long treeTypeId = okTreeIds[(loadData.gx * 191 + loadData.gy * 2189 + x * 108061 + y * 857) % okTreeIds.Count];
+
+                        TreeType treeType2 = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(treeTypeId);
+
+                        if (treeType2 != null)
+                        {
+                            treeType = treeType2;
+                        }
+
+                    }
+                }
+            }
+        }
+
+
         long index = gs.md.GetIndexForTree(gs, currZone, treeType, loadData.gx * y + loadData.gy * x + x * 11 + y * 31);
         string artName = treeType.Art + index;
         if (false && treeType.HasFlag(TreeFlags.DirectPlaceObject))
@@ -275,5 +313,49 @@ public class TreeObjectLoader : BaseObjectLoader
         //GEntityUtils.SetStatic(go, true);
         GEntityUtils.SetLayer(go, LayerNames.ObjectLayer);
         go.transform().localPosition = GVector3.Create(0, -2000, 0);
+    }
+
+    private void SetupZoneTreeCache(UnityGameState gs)
+    {
+        if (gs.md.zoneTreeIds != null && gs.md.zoneBushIds != null)
+        {
+            return;
+        }
+
+        gs.md.zoneTreeIds = new Dictionary<long, List<long>>();
+        gs.md.zoneBushIds = new Dictionary<long, List<long>>();
+
+        TreeTypeSettings treeSettings = gs.data.GetGameData<TreeTypeSettings>(gs.ch);
+        foreach (IGameSettings settings in gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetChildren())
+        {
+            if (settings is ZoneType zoneType)
+            {
+                List<long> treeList = new List<long>();
+                List<long> bushList = new List<long>();
+
+                gs.md.zoneTreeIds[zoneType.IdKey] = treeList;
+                gs.md.zoneBushIds[zoneType.IdKey] = bushList;
+
+                foreach (ZoneTreeType ztt in zoneType.TreeTypes)
+                {
+                    TreeType treeType = treeSettings.GetTreeType(ztt.TreeTypeId);
+
+                    if (treeType.HasFlag(TreeFlags.IsWaterItem))
+                    {
+                        continue;
+                    }
+
+                    if (treeType.HasFlag(TreeFlags.IsBush))
+                    {
+                        bushList.Add(treeType.IdKey);
+                    }
+                    else
+                    {
+                        treeList.Add(treeType.IdKey);
+                    }
+                }
+            }
+        }
+
     }
 }

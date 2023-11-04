@@ -30,7 +30,8 @@ namespace Genrpg.ServerShared.Maps.Entities
         public int SpawnX { get; set; }
         public int SpawnY { get; set; }
 
-        public float EdgeMountainChance { get; set; }
+        public long OverrideZoneId { get; set; }
+        public float OverrideZonePercent { get; set; }
 
         public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
 

@@ -1,6 +1,5 @@
 ﻿using Genrpg.Shared.Chat.Entities;
 using Genrpg.Shared.Chat.Messages;
-using TMPro.EditorUtilities;
 
 namespace Assets.Scripts.UI.Chat
 {

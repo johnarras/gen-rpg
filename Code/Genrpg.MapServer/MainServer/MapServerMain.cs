@@ -1,5 +1,6 @@
 ﻿using Genrpg.MapServer.CloudMessaging.Interfaces;
 using Genrpg.MapServer.Maps;
+using Genrpg.MapServer.Maps.Constants;
 using Genrpg.MapServer.Setup;
 using Genrpg.ServerShared.CloudMessaging.Constants;
 using Genrpg.ServerShared.CloudMessaging.Requests;
@@ -62,9 +63,9 @@ namespace Genrpg.MapServer.MainServer
             {
                 if (int.TryParse(stub.Id, out int mapStubId))
                 {
-                    if (mapStubId != 2)
+                    if (MapInstanceConstants.ServerTestMode && mapStubId != 2)
                     {
-                        //continue;
+                        continue;
                     }
                     if (mapStubId % _mapServerCount == _mapServerIndex)
                     {

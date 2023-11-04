@@ -57,7 +57,7 @@ public class ClientLoginService : IClientLoginService
                 Password = password,
             };
 
-            TaskUtils.AddTask(LoginToServer(gs, loginCommand, token));
+            TaskUtils.AddTask(LoginToServer(gs, loginCommand, token),"logintoserver", token);
             _screenService.Open(gs, ScreenId.Loading, true);
             return;
         }

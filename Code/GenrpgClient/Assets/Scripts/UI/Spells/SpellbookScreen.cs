@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.SpellCrafting.Messages;
 using UnityEngine;
-using Genrpg.Shared.SpellCrafting.Entities;
 using Genrpg.Shared.SpellCrafting.Services;
 using System.Security.Policy;
 using Assets.Scripts.UI.Spells;
 using Genrpg.Shared.SpellCrafting.Constants;
 using System.Collections.Generic;
-using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.DataStores.Entities;
-using TMPro.EditorUtilities;
 
 public class SpellbookScreen : SpellIconScreen
 {

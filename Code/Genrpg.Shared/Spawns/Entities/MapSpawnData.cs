@@ -28,7 +28,7 @@ namespace Genrpg.Shared.Spawns.Entities
             NPCs = new List<NPCStatus>();
         }
 
-        public void AddSpawn(long entityTypeId, long entityId, int mapx, int mapz, long zoneId)
+        public void AddSpawn(long entityTypeId, long entityId, int mapx, int mapz, long zoneId, int zoneOverridePercent)
         {
             MapSpawn currSpawn = Data.FirstOrDefault(sp => sp.X == mapx && sp.Z == mapz);
             if (currSpawn != null)
@@ -70,6 +70,7 @@ namespace Genrpg.Shared.Spawns.Entities
                 Z = mapz,
                 ZoneId = zoneId,
                 SpawnSeconds = SpawnConstants.DefaultSpawnSeconds,
+                OverrideZonePercent = zoneOverridePercent,
             };
             Data.Add(spawn);
 

@@ -31,7 +31,7 @@ public class LoadPlantAssets
         {
             gs.loc.Resolve(this);
         }
-        TaskUtils.AddTask(InnerSetupOneMapGrass(gs, gx, gy, token));
+        TaskUtils.AddTask(InnerSetupOneMapGrass(gs, gx, gy, token),"innersetuponegrass", token);
     }
     private List<Task> _tasks = new List<Task>();
 
@@ -184,7 +184,7 @@ public class LoadPlantAssets
                     finalY = offsetY;
                 }
 
-                long zoneId = patch.overrideZoneIds[finalX, finalY];
+                long zoneId = patch.subZoneIds[finalX, finalY];
 
                 if (zoneId < 1)
                 {

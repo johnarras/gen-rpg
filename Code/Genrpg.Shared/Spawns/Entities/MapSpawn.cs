@@ -22,7 +22,8 @@ namespace Genrpg.Shared.Spawns.Entities
         [Key(7)] public float Z { get; set; }
         [Key(8)] public long ZoneId { get; set; }
         [Key(9)] public int SpawnSeconds { get; set; }
-        [Key(10)] public long FactionTypeId { get; set; }
+        [Key(10)] public int OverrideZonePercent { get; set; }
+        [Key(11)] public long FactionTypeId { get; set; }
         public virtual string GetName() { return ""; }
         public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
     }

@@ -77,7 +77,7 @@ public class SignupScreen : BaseScreen
             Name = name,
         };
 
-        TaskUtils.AddTask(_loginService.LoginToServer(_gs, loginCommand, _token));
+        TaskUtils.AddTask(_loginService.LoginToServer(_gs, loginCommand, _token), "logintoserver2", _token);
 
     }
 }

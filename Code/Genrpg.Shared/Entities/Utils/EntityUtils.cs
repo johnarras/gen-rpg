@@ -153,6 +153,7 @@ namespace Genrpg.Shared.Entities.Utils
                 return null;
             }
 
+
             PropertyInfo prop = null;
             // Do this recheck in case the member isn't a part of the type of the 
             // object that was passed in.

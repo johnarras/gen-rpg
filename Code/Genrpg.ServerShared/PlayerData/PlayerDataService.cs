@@ -83,19 +83,31 @@ namespace Genrpg.ServerShared.PlayerData
 
         public async Task<List<IUnitData>> LoadPlayerData(ServerGameState gs, Character ch)
         {
-            List<IUnitData> retval = new List<IUnitData>();
+            List<Task<IUnitData>> allTasks = new List<Task<IUnitData>>();
             foreach (IUnitDataLoader loader in _loaderObjects.Values)
             {
-                IUnitData newData = await loader.LoadData(gs.repo, ch);
-                if (newData == null)
-                {
-                    newData = loader.Create(ch);
-                }
-                newData.AddTo(ch);
-                retval.Add(newData);
+                allTasks.Add(LoadOrCreateData(loader, gs.repo, ch));
             }
+
+            IUnitData[] allData = await Task.WhenAll(allTasks.ToList());
+
+            foreach (IUnitData data in allData)
+            {
+                data.AddTo(ch);
+            }
+
             UpdateOnLoad(gs, ch);
-            return retval;
+            return allData.ToList();
+        }
+
+        protected async Task<IUnitData> LoadOrCreateData(IUnitDataLoader loader, IRepositorySystem repoSystem, Character ch)
+        {
+            IUnitData newData = await loader.LoadData(repoSystem, ch);
+            if (newData == null)
+            {
+                newData = loader.Create(ch);
+            }
+            return newData;
         }
 
         protected void UpdateOnLoad(ServerGameState gs, Character ch)

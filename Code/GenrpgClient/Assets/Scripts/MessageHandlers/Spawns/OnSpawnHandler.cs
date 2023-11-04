@@ -43,7 +43,7 @@ public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
 
             if (loader != null)
             {
-                TaskUtils.AddTask(loader.Load(gs, spawnMessage, newObj, token));
+                TaskUtils.AddTask(loader.Load(gs, spawnMessage, newObj, token),"loadspawn",token);
             }
         }
     }

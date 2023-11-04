@@ -37,6 +37,15 @@ namespace Genrpg.Shared.MapObjects.Factories
                 return null;
             }
 
+            if (gs.map.OverrideZoneId > 0 && gs.map.OverrideZonePercent >= spawn.OverrideZonePercent)
+            {
+                Zone newSpawnZone = gs.map.Get<Zone>(gs.map.OverrideZoneId);
+                if (newSpawnZone != null)
+                {
+                    spawnZone = newSpawnZone;
+                }
+            }
+
             Zone levelZone = gs.map.Get<Zone>(spawn.ZoneId);
 
             if (levelZone == null)

@@ -101,7 +101,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
     private void OnLoadScreen(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        TaskUtils.AddTask(OnLoadScreenAsync(gs, url, obj, data, token));
+        TaskUtils.AddTask(OnLoadScreenAsync(gs, url, obj, data, token), "onloadscreenasync", token);
     }
 
     private async Task OnLoadScreenAsync (UnityGameState gs, string url, object obj, object data, CancellationToken token)

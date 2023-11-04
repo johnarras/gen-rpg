@@ -195,14 +195,14 @@ public class UnityAssetService : IAssetService
 
         for (int i = 0; i < MaxConcurrentExistingLoads; i++)
         {
-            TaskUtils.AddTask(LoadFromExistingBundles(gs, true, token));
+            TaskUtils.AddTask(LoadFromExistingBundles(gs, true, token),"loadfromexistingbundles",token);
         }
         for (int i = 0; i < MaxConcurrentBundleDownloads; i++)
         {
-            TaskUtils.AddTask(DownloadNewBundles(gs, token));
+            TaskUtils.AddTask(DownloadNewBundles(gs, token),"downloadnewbundles",token);
         }
 
-        TaskUtils.AddTask(IncrementalClearMemoryCache(gs, token));
+        TaskUtils.AddTask(IncrementalClearMemoryCache(gs, token),"incrementalclearmemorycache", token);
     }
 
     public bool IsDownloading(UnityGameState g)
@@ -246,7 +246,7 @@ public class UnityAssetService : IAssetService
 		}
 
         _bundleCache = newBundleCache;
-        TaskUtils.AddTask(AssetUtils.UnloadUnusedAssets(token));
+        TaskUtils.AddTask(AssetUtils.UnloadUnusedAssets(token),"unloadunusedassets",token);
 	}
 
 
@@ -358,7 +358,7 @@ public class UnityAssetService : IAssetService
             var list = new List<FileDownload>();
             list.Add(fileDownLoad);
             _downloading[filePath] = list;
-            TaskUtils.AddTask( StartDownloadFile(gs, fileDownLoad, token));
+            TaskUtils.AddTask(StartDownloadFile(gs, fileDownLoad, token), "startdownloadfile", token);
         }
 	}
 
@@ -403,7 +403,7 @@ public class UnityAssetService : IAssetService
             {
                 while (_fileDownloadingCount >= MaxConcurrentDownloads && LoadSpeed != LoadSpeed.Fast)
                 {
-                    await Task.Delay(1, token);
+                    await Task.Delay(1, token); ;
                 }
                 _fileDownloadingCount++;
                 using (UnityWebRequest request = UnityWebRequest.Get(fileDownload.FullURL))
@@ -868,7 +868,7 @@ public class UnityAssetService : IAssetService
 
                 while (!request.isDone)
                 {
-                    await Task.Delay(1, _token);
+                    await Task.Delay(1, token);
                 }
                 bdata.LoadedAssets[bdl.assetName] = request.asset;
             }
@@ -1194,7 +1194,7 @@ public class UnityAssetService : IAssetService
         SaveBundleVersionsText(gs);
 
 
-        TaskUtils.AddTask(DownloadInitialBundles(gs, token));
+        TaskUtils.AddTask(DownloadInitialBundles(gs, token), "downloadinitialbundles",token);
     }
 
     private async Task DownloadInitialBundles(UnityGameState gs, CancellationToken token)
@@ -1363,7 +1363,7 @@ public class UnityAssetService : IAssetService
                 UnityWebRequestAsyncOperation asyncOp = request.SendWebRequest();
                 while (!asyncOp.isDone)
                 {
-                    await Task.Delay(1);
+                    await Task.Delay(1,token);
                 }
 
                 AssetBundle downloadedBundle = null;

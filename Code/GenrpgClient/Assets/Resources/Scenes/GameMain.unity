@@ -333,12 +333,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: 93c18f0fc0579cd408ad032e236d593a, type: 2}
   _splashImage: {fileID: 114416535}
-  CurrMapId: 3
-  ForceDownloadFromAssetBundles: 0
-  CurrWorldSize: 4
-  CurrZoneSize: 1
-  MapGenSeed: 15421
+  CurrMapId: 1
+  ForceDownloadFromAssetBundles: 1
+  CurrWorldSize: 29
+  CurrZoneSize: 3
+  MapGenSeed: 39256
   PlayerSpeedMult: 2
+  ZoneNoiseSize: 2048
+  ZoneNoiseDenominator: 200
+  ZoneNoiseAmplitude: 4.2
+  ZoneNoisePersistence: 0.5
+  ZoneNoiseLacunarity: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

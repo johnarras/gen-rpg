@@ -19,6 +19,7 @@ using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.MapServer.Combat.Messages;
+using Genrpg.MapServer.AI.Constants;
 
 namespace Genrpg.MapServer.AI.Services
 {
@@ -216,17 +217,8 @@ namespace Genrpg.MapServer.AI.Services
 
             UnitUtils.TurnTowardPosition(unit, x, z);
 
-            OnUpdatePos posMessage = unit.GetCachedMessage<OnUpdatePos>(true);
+            _objectManager.UpdatePosition(gs, unit, 0);
 
-            posMessage.ObjId = unit.Id;
-            posMessage.SetX(x);
-            posMessage.SetY(unit.Y);
-            posMessage.SetZ(z);
-            posMessage.SetRot(unit.Rot);
-            posMessage.SetSpeed(unit.Speed);
-
-
-            _messageService.SendMessageNear(unit, posMessage);
         }
 
         public void TargetMove(GameState gs, Unit unit, string targetUnitId)
@@ -383,7 +375,7 @@ namespace Genrpg.MapServer.AI.Services
 
             if (!unit.Moving)
             {
-                if (unit.HasTarget() && distToGo > 1)
+                if (unit.HasTarget() && distToGo > AIConstants.CloseToTargetDistance)
                 {
                     TargetMove(gs, unit, unit.TargetId);
                 }
@@ -395,7 +387,7 @@ namespace Genrpg.MapServer.AI.Services
             float oldSpeed = unit.Speed;
 
             float pctMove = distGone / distToGo;
-            if (pctMove >= 1.0f || distToGo < 0.1f)
+            if (pctMove >= 1.0f || distToGo < AIConstants.CloseToTargetDistance)
             {
                 unit.X = unit.ToX;
                 unit.Z = unit.ToZ;
@@ -412,26 +404,11 @@ namespace Genrpg.MapServer.AI.Services
                 float nz = unit.Z + (unit.ToZ - unit.Z) * pctMove;
                 unit.X = nx;
                 unit.Z = nz;
-                UnitUtils.TurnTowardPosition(unit, unit.ToX, unit.ToZ);
             }
 
-            _objectManager.UpdatePosition(gs, unit);
+            UnitUtils.TurnTowardPosition(unit, unit.ToX, unit.ToZ);
 
-            float closeToTargetSpeedScale = 1.0f;
-            if (pctMove < 1 && pctMove > 0.5f)
-            {
-                closeToTargetSpeedScale = (1 - pctMove) / pctMove;
-            }
-
-            OnUpdatePos posMessage = unit.GetCachedMessage<OnUpdatePos>(true);
-            posMessage.ObjId = unit.Id;
-            posMessage.SetX((float)Math.Round(unit.X, 1));
-            posMessage.SetY((float)Math.Round(unit.Y, 1));
-            posMessage.SetZ((float)Math.Round(unit.Z, 1));
-            posMessage.SetRot(unit.Rot);
-            posMessage.SetSpeed(oldSpeed * closeToTargetSpeedScale);
-
-            _messageService.SendMessageNear(unit, posMessage, MessageConstants.DefaultGridDistance, false);
+            _objectManager.UpdatePosition(gs, unit, 0);
 
         }
     }

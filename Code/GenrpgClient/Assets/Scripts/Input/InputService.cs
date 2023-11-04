@@ -42,7 +42,6 @@ public class InputService : BaseBehaviour, IInputService
     public static InputService Instance { get { return _instance; } }
 
     IClientMapObjectManager _objectManager;
-    IScreenService _screenService;
 
     public async Task Setup(GameState gs, CancellationToken token)
     {

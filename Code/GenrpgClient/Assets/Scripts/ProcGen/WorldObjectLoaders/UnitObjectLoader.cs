@@ -102,7 +102,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
 
         if (height == 0)
         {
-            TaskUtils.AddTask( WaitForTerrain(gs, go, loadData, loadData.Token));
+            TaskUtils.AddTask(WaitForTerrain(gs, go, loadData, loadData.Token), "unitobjectloaderwaitforterrain", token);
         }
 
         _objectManager.AddObject(loadData.Obj, go);
@@ -111,7 +111,8 @@ public class UnitObjectLoader : BaseMapObjectLoader
 
     private async Task WaitForTerrain(UnityGameState gs, GEntity go, SpawnLoadData loadData, CancellationToken token)
     {
-        while (!token.IsCancellationRequested)
+        int times = 0;
+        while (!token.IsCancellationRequested && ++times < 1000)
         {
             await Task.Delay(1, token);
             float height = gs.md.SampleHeight(gs, loadData.Obj.X, MapConstants.MapHeight * 2, loadData.Obj.Z);

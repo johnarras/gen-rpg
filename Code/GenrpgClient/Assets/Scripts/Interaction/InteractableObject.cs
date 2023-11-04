@@ -91,6 +91,12 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
             return;
         }
 
+        if (glow.transform.parent == null)
+        {
+            GEntityUtils.Destroy(glow);
+            return;
+        }
+
         glow.transform().localPosition = GVector3.Create(0, 1, 0);
         GlowItem = glow;
     }

@@ -46,19 +46,7 @@ namespace Genrpg.MapServer.Movement.MessageHandlers
                     ch.LastServerStatTime = DateTime.UtcNow;
                 }
             }
-            OnUpdatePos posMessage = obj.GetCachedMessage<OnUpdatePos>(true);
-
-            posMessage.ObjId = obj.Id;
-            posMessage.SetX(obj.X);
-            posMessage.SetY(obj.Y);
-            posMessage.SetZ(obj.Z);
-            posMessage.SetRot(obj.Rot);
-            posMessage.SetSpeed(obj.Speed);
-            posMessage.SetKeysDown(message.GetKeysDown());
-
-            _objectManager.UpdatePosition(gs, obj);
-
-            _messageService.SendMessageNear(obj, posMessage, MessageConstants.DefaultGridDistance, false);
+            _objectManager.UpdatePosition(gs, obj, message.GetKeysDown());
 
         }
     }

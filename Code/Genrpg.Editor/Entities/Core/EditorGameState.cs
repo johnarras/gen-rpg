@@ -1,4 +1,5 @@
-﻿using Genrpg.ServerShared.Core;
+﻿using Genrpg.Editor.Interfaces;
+using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Interfaces;
@@ -28,7 +29,7 @@ namespace Genrpg.Editor.Entities.Core
         public List<object> LookedAtObjects = new List<object>();
     }
 
-    public class EditorGameData
+    public class EditorGameData : IShowChildListAsButton
     {
         public GameData GameData { get; set; }
 

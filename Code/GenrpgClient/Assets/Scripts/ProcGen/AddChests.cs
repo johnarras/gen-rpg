@@ -120,7 +120,8 @@ public class AddChests : BaseZoneGenerator
                         continue;
                     }
 
-                    gs.spawns.AddSpawn(EntityTypes.GroundObject, chosenObj.IdKey, cy, cx, gs.md.mapZoneIds[cx,cy]);
+                    gs.spawns.AddSpawn(EntityTypes.GroundObject, chosenObj.IdKey, cy, cx, gs.md.mapZoneIds[cx, cy],
+                        (int)(gs.md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax));
                 
                     break;
                 }

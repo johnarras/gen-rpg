@@ -41,7 +41,7 @@ public class SetupRoadDistances : BaseZoneGenerator
 
                 if (gs.md.alphas[x, y, MapConstants.RoadTerrainIndex] >= 0.5f)
                 {
-                    gs.md.overrideZonePercents[x, y] = 0;
+                    gs.md.subZonePercents[x, y] = 0;
                 }
 				for (int xx = x- MapConstants.MaxRoadCheckDistance; xx <= x+ MapConstants.MaxRoadCheckDistance; xx++)
 				{

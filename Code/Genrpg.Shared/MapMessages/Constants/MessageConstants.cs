@@ -9,6 +9,8 @@ public class MessageConstants
 {
     public const float DefaultGridDistance = SharedMapConstants.TerrainPatchSize*40/100;
 
+    public const float DefaultUpdatePosDistance = DefaultGridDistance;
+
 
     public const float DelayedMessageTimeGranularity = 0.01f;
 

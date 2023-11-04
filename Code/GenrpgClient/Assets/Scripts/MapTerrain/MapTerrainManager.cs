@@ -546,16 +546,14 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         if (patchCheckTicks <= 0)
         {
             patchCheckTicks = MaxPatchLoadTicks;
-            if (gs.md.loadingPatchList.Count > 1)
+            if (gs.md.loadingPatchList.Count > 2)
             {
                 return;
             }
 
             // Add patches if there are any to add if it's normal speed or
             // we have nothing to remove in fast remove mode.
-            if (gs.md.addPatchList.Count > 0 &&
-                (UnityAssetService.LoadSpeed != LoadSpeed.Fast || 
-                gs.md.removePatchList.Count < 1))
+            if (gs.md.addPatchList.Count > 0)
             {
 
                 int loadTimes = (UnityAssetService.LoadSpeed == LoadSpeed.Fast ? 100 : 1);
@@ -629,6 +627,9 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                 patch.DataBytes = null;
                 patch.grassAmounts = null;
                 patch.heights = null;
+                patch.overrideZoneScales = null;
+                patch.subZoneIds = null;
+                patch.mainZoneIds = null;
                 patch.baseAlphas = null;
                 patch.mapObjects = null;
                 patch.FullZoneIdList = null;
@@ -1002,6 +1003,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
 
                 await Task.Delay(1, token);
+
                 TreeInstance[] tarray = loadData.treeInstances.ToArray();
 
 

@@ -54,8 +54,6 @@ public class MapGenService : IMapGenService
         map.ZoneSize = startMap.ZoneSize;
 
 
-
-
         if (map.Seed == 0)
         {
             MyRandom rand = new MyRandom((int)(DateTime.UtcNow.Ticks / 53453 % 100000000));
@@ -391,7 +389,8 @@ public class MapGenService : IMapGenService
             npcType.Level = zone.Level;
         }
 
-        gs.spawns.AddSpawn(EntityTypes.NPC, npcType.IdKey, npcType.MapZ, npcType.MapX, npcType.ZoneId);
+        gs.spawns.AddSpawn(EntityTypes.NPC, npcType.ZoneId, npcType.MapZ, npcType.MapX, npcType.ZoneId, 
+            (int)(gs.md.overrideZoneScales[npcType.MapZ, npcType.MapX] * MapConstants.OverrideZoneScaleMax));
         gs.spawns.NPCs.Add(new NPCStatus() { IdKey = npcType.IdKey });
 
         gs.map.NPCs.Add(npcType);
@@ -503,6 +502,13 @@ public class MapGenService : IMapGenService
         SetMinMaxSizes(gs);
         SetZoneLevels(gs, gs.md.zoneCenters);
 
+        List<Zone> allZones = gs.map.Zones.Where(x => x.IdKey >= SharedMapConstants.MinBaseZoneId).ToList();
+
+        if (allZones.Count > 0)
+        {
+            gs.map.OverrideZoneId = allZones[gs.rand.Next() % allZones.Count].IdKey;
+            gs.map.OverrideZonePercent = 0;
+        }
     }
 
 

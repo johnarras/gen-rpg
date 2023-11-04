@@ -22,6 +22,7 @@ public class CreateMinimap : BaseZoneGenerator
 
         await base.Generate(gs, token);
         GEntityUtils.Destroy(minimapCamera);
+
         minimapCamera = new GEntity();
         minimapCamera.name = "CreateMinimapCamera";
         minimapCamera.AddComponent<Camera>();
@@ -153,7 +154,7 @@ public class CreateMinimap : BaseZoneGenerator
         GEntity waterRoot = new GEntity();
         waterRoot.name = "WaterRoot";
         TerrainPatchData patch = gs.md.GetTerrainPatch(gs, 0, 0);
-        await Task.Delay(1);
+        await Task.Delay(1, token);
 
 
         WaterObjectLoader waterLoader = new WaterObjectLoader(gs);
@@ -198,7 +199,7 @@ public class CreateMinimap : BaseZoneGenerator
             }
         }
 
-        GEntity fullMapWater = GEntity.Instantiate(AssetUtils.LoadResource<GEntity>("Prefabs/" + MapConstants.MinimapWaterName));
+        GEntity fullMapWater = GEntity.Instantiate(AssetUtils.LoadResource<GEntity>("Prefabs/" + MapConstants.FullMinimapWaterName));
 
         GEntityUtils.AddToParent(fullMapWater, waterRoot);
 
@@ -219,7 +220,7 @@ public class CreateMinimap : BaseZoneGenerator
         tex.ReadPixels(new Rect(0, 0, TexSize, TexSize), 0, 0);
         tex.Apply();
 
-        await Task.Delay(1);
+        await Task.Delay(1, token);
 
         Color[] pixels = tex.GetPixels();
 
@@ -365,7 +366,7 @@ public class CreateMinimap : BaseZoneGenerator
             }
         }
 
-        await Task.Delay(1);
+        await Task.Delay(1, token);
 
         float minLandHeight = MapConstants.OceanHeight;
         float minLandPct = (minLandHeight) / MapConstants.MapHeight;
@@ -473,7 +474,6 @@ public class CreateMinimap : BaseZoneGenerator
 
 
         ShowMinimap(gs, tex);
-
 
         RenderSettings.fog = true;
     }

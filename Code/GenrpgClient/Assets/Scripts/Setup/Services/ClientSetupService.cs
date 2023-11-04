@@ -14,7 +14,7 @@ public class ClientSetupService
         gs.loc.Set<IMapGenService>(new MapGenService());
         gs.loc.Set<IZoneGenService>(new ZoneGenService());
         gs.loc.Set<IQuestGenService>(new QuestGenService());
-        gs.loc.Set<IClientMapObjectManager>(new ClientMapObjectManager());
+        gs.loc.Set<IClientMapObjectManager>(new ClientMapObjectManager(token));
 
         // Unity-specific overrides
         gs.loc.Set<IReflectionService>(new UnityReflectionService());
@@ -24,7 +24,7 @@ public class ClientSetupService
 
         if (forRealGame)
         {
-            gs.loc.Set<INetworkService>(new NetworkService(gs));
+            gs.loc.Set<INetworkService>(new NetworkService(gs, token));
             gs.loc.Set<IUnityUpdateService>(gs.AddComponent<UnityUpdateService>());
             gs.loc.Set<IInputService>(gs.AddComponent<InputService>());
             gs.loc.Set<IMapTerrainManager>(gs.AddComponent<MapTerrainManager>());

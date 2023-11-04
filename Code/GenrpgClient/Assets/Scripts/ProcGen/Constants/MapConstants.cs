@@ -3,6 +3,9 @@ using Genrpg.Shared.MapServer.Entities;
 
 public class MapConstants : SharedMapConstants
 {
+    public const int TerrainBytesPerUnit = 12;
+
+
     public const string MapFilename = "MapMap.jpg";
 
     public const int LocCenterEdgeSize = TerrainPatchSize / 2;
@@ -106,6 +109,9 @@ public class MapConstants : SharedMapConstants
     public const int LocationMidSize = 12;
     public const int LocationLargeSize = 20;
 
+
+    public const int OverrideZoneScaleMax = 100;
+
     /// <summary>
     ///  This MUST be a power of 2 + 1... so 65, 129, 257, 513, 1025
     /// </summary>
@@ -135,5 +141,6 @@ public class MapConstants : SharedMapConstants
 
     public const string WaterName = "MapWater";
     public const string MinimapWaterName = "MinimapWater";
+    public const string FullMinimapWaterName = "MinimapWaterFull";
     public const string KillColliderName = "KillCollider";
 }

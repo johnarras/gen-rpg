@@ -23,7 +23,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private INetworkService _networkService;
         protected override void InnerProcess(UnityGameState gs, LoginResult result, CancellationToken token)
         {
-            TaskUtils.AddTask(InnerProcessAsync(gs, result, token));
+            TaskUtils.AddTask(InnerProcessAsync(gs, result, token), "loginresultinnerprocess",token);
         }
 
         private async Task InnerProcessAsync(UnityGameState gs, LoginResult result, CancellationToken token)

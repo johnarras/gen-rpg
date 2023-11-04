@@ -81,7 +81,7 @@ public class SetupMapData : BaseZoneGenerator
             {
                 for (int gy = 0; gy < gs.map.BlockCount; gy++)
                 {
-                    TaskUtils.AddTask(_terrainManager.SetupOneTerrainPatch(gs, gx, gy, token));
+                    TaskUtils.AddTask(_terrainManager.SetupOneTerrainPatch(gs, gx, gy, token), "setuponeterrainpatch", token);
                 }
             }
         }
@@ -92,8 +92,9 @@ public class SetupMapData : BaseZoneGenerator
 
             gs.md.mapZoneIds = new short[gs.map.GetHwid(), gs.map.GetHhgt()];
 
-            gs.md.overrideZonePercents = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
-            gs.md.overrideZoneIds = new int[gs.map.GetHwid(), gs.map.GetHhgt()];
+            gs.md.subZonePercents = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
+            gs.md.subZoneIds = new int[gs.map.GetHwid(), gs.map.GetHhgt()];
+            gs.md.overrideZoneScales = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
 
             gs.md.SetAllTerrainNeighbors(gs);
 

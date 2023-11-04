@@ -51,9 +51,9 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
     public GEntity _fxParent;
 
-    public ClientMapObjectManager()
+    public ClientMapObjectManager(CancellationToken token)
     {
-        TaskUtils.AddTask(UpdateRecentlyLoadedSpawns());
+        TaskUtils.AddTask(UpdateRecentlyLoadedSpawns(), "updaterecentlyloadedspawns",token);
     }
 
     public void Reset()

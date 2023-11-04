@@ -29,7 +29,7 @@ public class LoadMap : BaseZoneGenerator
         {
             gs.loc.Resolve(this);
         }
-        TaskUtils.AddTask(InnerLoadOneTerrainPatch(gs, gx, gy, token));
+        TaskUtils.AddTask(InnerLoadOneTerrainPatch(gs, gx, gy, token),"innerloadoneterrainpatch", token);
     }
 
     private async Task InnerLoadOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token)
@@ -98,71 +98,21 @@ public class LoadMap : BaseZoneGenerator
 
         SetTerrainTextures setTextures = new SetTerrainTextures();
 
-        if (patch.mainZoneIds == null)
-        {
-            patch.mainZoneIds = new int[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
-        }
+        // 1. Heights 2
+        // 2. Objects 4
+        // 3. Alphas 3
+        // 4. Zone 1 
+        // 5. SubZone 1
+        // 6. OverrideZoneScale 1
 
-        if (patch.overrideZoneIds == null)
-        {
-            patch.overrideZoneIds = new int[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
-        }
-
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
-        {
-            await Task.Delay(1, token);
-        }
-
-        if (patch.baseAlphas == null)
-        {
-            patch.baseAlphas = new float[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize, MapConstants.MaxTerrainIndex];
-        }
-
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
-        {
-            await Task.Delay(1, token);
-        }
-        if (patch.heights == null)
-        {
-            patch.heights = new float[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
-        }
-
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
-        {
-            await Task.Delay(1, token);
-        }
-
-        if (patch.mapObjects == null)
-        {
-            patch.mapObjects = new uint[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
-        }
-
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
-        {
-            await Task.Delay(1, token);
-        }
-
-        if (patch.grassAmounts == null)
-        {
-            patch.grassAmounts = new ushort[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize, MapConstants.MaxGrass];
-        }
-
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
-        {
-            await Task.Delay(1, token);
-        }
-
-        // 11 bytes per cell with ordering:
-        // 1 Heights 2 bytes
-        // 2 Objects 4 bytes
-        // 3 Zones 1 byte (*div)
-        // 4 Alphas 3 bytes (*div)
-        // 1 BaseZonePct 1 byte
+        // 2 + 4 + 3 + 1 + 1 + 1 = 12;
 
         ushort shortHeight = 0;
         int index = 0;
         int xx = 0;
         int yy = 0;
+
+        // 1 Heights 2
         try
         {
             for (xx = 0; xx < MapConstants.TerrainPatchSize; xx++)
@@ -187,7 +137,7 @@ public class LoadMap : BaseZoneGenerator
         }
         try
         {
-            // 2 Objects 2 bytes
+            // 2 Objects 4 bytes
             uint worldObjectValue = 0;
             for (int x = 0; x < MapConstants.TerrainPatchSize - 1; x++)
             {
@@ -244,33 +194,8 @@ public class LoadMap : BaseZoneGenerator
         {
             await Task.Delay(1, token);
         }
-        // 3 ZoneIds 1 byte (*divsq)
-        List<int> overrideZoneIds = new List<int>();
-        List<int> mainZoneIds = new List<int>();
-        for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
-        {
-            for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
-            {
-                //gs.md.mapZoneIds[x + startX, y + startY] = bytes[index];
-                patch.mainZoneIds[x, y] = patch.DataBytes[index++];
-                if (patch.mainZoneIds[x, y] >= SharedMapConstants.MapZoneStartId)
-                {
-                    if (!overrideZoneIds.Contains(patch.mainZoneIds[x, y]))
-                    {
-                        overrideZoneIds.Add(patch.mainZoneIds[x, y]);
-                    }
-                    if (!mainZoneIds.Contains(patch.mainZoneIds[x,y]))
-                    {
-                        mainZoneIds.Add(patch.mainZoneIds[x, y]);
-                    }
-                }
-            }
-        }
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
-        {
-            await Task.Delay(1, token);
-        }
-        // 4 Alphas 3 bytes (*divsq)
+
+        // 3 Alphas 3 bytes 
         float alphaTotal = 0;
         float alphaDiv = MapConstants.AlphaSaveMult * 1.0f;
         for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
@@ -304,20 +229,70 @@ public class LoadMap : BaseZoneGenerator
                 }
             }
         }
+
+        // 4 ZoneId 1 byte (*divsq)
+        List<int> subZoneIds = new List<int>();
+        List<int> mainZoneIds = new List<int>();
+        if (gs.map.OverrideZoneId > 0)
+        {
+            mainZoneIds.Add((int)gs.map.OverrideZoneId);
+            subZoneIds.Add((int)gs.map.OverrideZoneId);
+        }
         for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
         {
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
             {
-                patch.overrideZoneIds[x,y] = patch.DataBytes[index++];
-                if (patch.overrideZoneIds[x,y] > 0 && !overrideZoneIds.Contains(patch.overrideZoneIds[x,y]))
+                //gs.md.mapZoneIds[x + startX, y + startY] = bytes[index];
+                patch.mainZoneIds[x, y] = patch.DataBytes[index++];
+                if (patch.mainZoneIds[x, y] >= SharedMapConstants.MapZoneStartId)
                 {
-                    overrideZoneIds.Add(patch.overrideZoneIds[x, y]);
+                    if (!subZoneIds.Contains(patch.mainZoneIds[x, y]))
+                    {
+                        subZoneIds.Add(patch.mainZoneIds[x, y]);
+                    }
+                    if (!mainZoneIds.Contains(patch.mainZoneIds[x,y]))
+                    {
+                        mainZoneIds.Add(patch.mainZoneIds[x, y]);
+                    }
                 }
             }
         }
+        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        {
+            await Task.Delay(1, token);
+        }
+
+        // 5 subzoneId 1 byte
+        for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
+        {
+            for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
+            {
+                patch.subZoneIds[x,y] = patch.DataBytes[index++];
+                if (patch.subZoneIds[x,y] > 0 && !subZoneIds.Contains(patch.subZoneIds[x,y]))
+                {
+                    subZoneIds.Add(patch.subZoneIds[x, y]);
+                }
+            }
+        }
+
+
+        // 6 OverrideZonePercent 1 byte
+        for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
+        {
+            for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
+            {
+                patch.overrideZoneScales[x, y] = patch.DataBytes[index++];
+                if (patch.overrideZoneScales[x,y] <= gs.map.OverrideZonePercent)
+                {
+                    patch.subZoneIds[x, y] = (int)gs.map.OverrideZoneId;
+                }
+            }
+        }
+
+
         patch.FullZoneIdList = new List<long>();
         patch.MainZoneIdList = new List<long>();
-        foreach (int zid in overrideZoneIds)
+        foreach (int zid in subZoneIds)
         {
             patch.FullZoneIdList.Add(zid);
         }

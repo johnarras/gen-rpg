@@ -29,7 +29,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public void SetGameToken(CancellationToken token)
     {
         _token = token;
-        TaskUtils.AddTask(CheckRemoveAudio(_token));
+        TaskUtils.AddTask(CheckRemoveAudio(_token),"checkremoveaudio", token);
     }
 
     public override void Initialize(UnityGameState gs)

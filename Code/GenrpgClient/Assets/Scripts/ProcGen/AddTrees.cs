@@ -259,7 +259,7 @@ public class AddTrees : BaseZoneGenerator
     { 
         AddTreeCategoryToMap(gs, TreeIndex, treeData, TreePlacementSkipSize);
         AddTreeCategoryToMap(gs, BushIndex, treeData, BushPlacementSkipSize);
-        //AddTreeCategoryToMap(gs, WaterIndex, treeData, WaterItemPlacementSkipSize);
+        AddTreeCategoryToMap(gs, WaterIndex, treeData, WaterItemPlacementSkipSize);
         
     }
 
@@ -373,10 +373,10 @@ public class AddTrees : BaseZoneGenerator
                 
                 int zoneId = gs.md.mapZoneIds[x, y]; // zoneobject
                 bool haveSecondaryZone = false;
-                if (gs.md.overrideZoneIds[x,y] > 0)
+                if (gs.md.subZoneIds[x,y] > 0)
                 {
                     haveSecondaryZone = true;
-                    zoneId = gs.md.overrideZoneIds[x, y];
+                    zoneId = gs.md.subZoneIds[x, y];
                 }
 
 

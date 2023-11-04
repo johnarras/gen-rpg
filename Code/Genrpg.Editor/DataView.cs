@@ -27,6 +27,7 @@ using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Editor.Interfaces;
 
 namespace GameEditor
 {
@@ -192,7 +193,39 @@ namespace GameEditor
 
             MultiGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             MultiGrid.Size = new Size(sx, sy);
+            MultiGrid.SelectionChanged += MultiGrid_SelectionChanged;
+            MultiGrid.CellValueChanged += MultiGrid_CellValueChanged;
             Controls.Add(MultiGrid);
+        }
+
+        private void MultiGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            MarkSelectedRows();
+        }
+
+        private void MarkSelectedRows()
+        {
+            DataGridViewSelectedRowCollection rows = MultiGrid.SelectedRows;
+
+            if (rows.Count < 1)
+            {
+                return;
+            }
+
+            DataGridViewRow row = rows[0];
+            object item = row.DataBoundItem;
+
+            if (!gs.LookedAtObjects.Contains(item))
+            {
+                gs.LookedAtObjects.Add(item);
+            }
+        }
+
+
+
+        private void MultiGrid_CellValueChanged(object sender, EventArgs e)
+        {
+            MarkSelectedRows();
         }
 
         private void CreateSingleGrid()
@@ -362,7 +395,15 @@ namespace GameEditor
         {
             if (_reflectionService.IsMultiType(objType))
             {
-                ShowMultiTypeData();
+                if (parent is IShowChildListAsButton parentListIsButton &&
+                    obj is IEnumerable objEnumerable)
+                {
+                    ShowMultiItemButtonsForList(objEnumerable);
+                }
+                else
+                {
+                    ShowMultiTypeData();
+                }
             }
             else
             {
@@ -1074,6 +1115,90 @@ namespace GameEditor
 
         }
 
+
+        protected void ShowMultiItemButtonsForList(IEnumerable objects)
+        {
+            SingleGrid.Controls.Clear();
+            SingleGrid.Visible = true;
+            MultiGrid.Visible = false;
+            AddButton.Visible = false;
+            DeleteButton.Visible = false;
+            CopyButton.Visible = false;
+            DetailsButton.Visible = false;
+
+            numSingleTopButtonsShown = 0;
+            
+            panelGraphics = new Dictionary<String, Graphics>();
+            colorPanels = new List<Panel>();
+            int numButtonsPerRow = 8;
+
+            if (win != null)
+            {
+                numButtonsPerRow = win.Width / (SingleItemWidth + SingleItemWidthPad);
+            }
+
+            if (numButtonsPerRow < 3)
+            {
+                numButtonsPerRow = 3;
+            }
+
+            if (numButtonsPerRow > MaxButtonsPerRow)
+            {
+                numButtonsPerRow = MaxButtonsPerRow;
+            }
+            Size sz = new Size(SingleItemWidth, SingleItemHeight);
+
+
+
+            foreach (object obj in objects)
+            {
+                object memObj = obj;
+
+                int count = 0;
+
+                object countObj = _reflectionService.GetObjectValue(memObj, "Count");
+                if (countObj != null)
+                {
+                    Int32.TryParse(countObj.ToString(), out count);
+                }
+                if (count < 1)
+                {
+                    countObj = _reflectionService.GetObjectValue(memObj, "Length");
+                    if (countObj != null)
+                    {
+                        Int32.TryParse(countObj.ToString(), out count);
+                    }
+                }
+                Button but = new Button();
+
+                Type objType = memObj.GetType();
+                if (objType.GetGenericArguments().Length > 0)
+                {
+                    objType = objType.GetGenericArguments()[0];
+                }
+
+                but.Name = objType.Name;
+                string txt = objType.Name;
+                int maxSize = 18;
+                if (txt.Length > maxSize)
+                {
+                    txt = txt.Substring(0, maxSize);
+                }
+
+                but.Text = txt;
+
+                int x = (numSingleTopButtonsShown % numButtonsPerRow) * (SingleItemWidth + SingleItemWidthPad) + SingleItemLeftPad;
+                int y = (numSingleTopButtonsShown / numButtonsPerRow) * (SingleItemHeight + SingleItemHeightPad) + 5;
+                but.Size = sz;
+                but.Location = new Point(x, y);
+                but.Click += (a, b) => { OnClickSingleObjectButton(obj); };
+                SingleGrid.Controls.Add(but);
+
+                numSingleTopButtonsShown++;
+
+            }
+        }
+
         protected void ShowMultiItemButtonsOnSingleItemView()
         {
             numSingleTopButtonsShown = 0;
@@ -1171,6 +1296,14 @@ namespace GameEditor
 				}
             }
 
+
+        }
+
+        private void OnClickSingleObjectButton(object childObj)
+        {
+            SaveChanges();
+            UserControlFactory ucf = new UserControlFactory();
+            UserControl view = ucf.Create(gs, win, childObj, obj, parent);
 
         }
 

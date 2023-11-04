@@ -148,12 +148,13 @@ public class AddMonsterSpawns : BaseZoneGenerator
                 }
 
                 long zoneId = zone.IdKey;
-                if (gs.md.overrideZoneIds[cx,cy] > 0)
+                if (gs.md.subZoneIds[cx,cy] > 0)
                 {
-                    zoneId = gs.md.overrideZoneIds[cx, cy];
+                    zoneId = gs.md.subZoneIds[cx, cy];
                 }
 
-                gs.spawns.AddSpawn(EntityTypes.ZoneUnit, zoneId, cy, cx, zone.IdKey);
+                gs.spawns.AddSpawn(EntityTypes.ZoneUnit, zoneId, cy, cx, zone.IdKey, 
+                    (int)(gs.md.overrideZoneScales[cy, cx] * MapConstants.OverrideZoneScaleMax));
             }
         }
     }

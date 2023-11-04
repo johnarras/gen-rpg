@@ -25,7 +25,7 @@ public class ClearMapData : BaseZoneGenerator
 
         _assetService.ClearMemoryCache(gs,token);
 
-        TaskUtils.AddTask(CleanUpOldMapFolders(gs));
+        TaskUtils.AddTask(CleanUpOldMapFolders(gs),"cleanupoldmapfolders",token);
 
         await Task.CompletedTask;
 	}

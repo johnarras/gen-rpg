@@ -12,6 +12,8 @@ using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -60,7 +62,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
         public virtual List<string> GetEditorIgnoreFields()
         {
-            return new List<string>();
+            return new List<string>() { "_lookup" };
         }
 
         public virtual async Task<GameData> LoadGameData(ServerGameState gs, bool createMissingGameData)
@@ -68,16 +70,25 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             GameData gameData = new GameData();
 
+            List<Task<List<IGameSettings>>> allTasks = new List<Task<List<IGameSettings>>>();
+
+
+
+
             foreach (IGameSettingsLoader loader in _loaderObjects.Values)
             {
-                List<IGameSettings> allDocs = await loader.LoadAll(gs.repo, true);
-
-                foreach (IGameSettings doc in allDocs)
-                {
-                    doc.AddTo(gameData);
-                }
+                allTasks.Add(loader.LoadAll(gs.repo, true));
             }
 
+            List<IGameSettings>[] allSettings = await Task.WhenAll(allTasks.ToArray());
+
+            foreach (List<IGameSettings> settingsList in allSettings)
+            {
+                foreach (IGameSettings settings in settingsList)
+                {
+                    settings.AddTo(gameData);
+                }
+            }
             return gameData;
         }
 

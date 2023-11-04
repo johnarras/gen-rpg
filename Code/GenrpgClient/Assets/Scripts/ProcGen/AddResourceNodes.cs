@@ -286,7 +286,8 @@ public class AddResourceNodes : BaseZoneGenerator
             GroundObjType goType = zdata.Objects[clutterIndex];
 
 
-            gs.spawns.AddSpawn(EntityTypes.GroundObject, goType.IdKey, px, py, zone.IdKey);
+            gs.spawns.AddSpawn(EntityTypes.GroundObject, goType.IdKey, px, py, zone.IdKey,
+                (int)(gs.md.overrideZoneScales[px, py] * MapConstants.OverrideZoneScaleMax));
             zdata.CurrNum++;
 
             for (int xx = px-MapConstants.MinResourceSeparation; xx <= px+MapConstants.MinResourceSeparation; xx++)

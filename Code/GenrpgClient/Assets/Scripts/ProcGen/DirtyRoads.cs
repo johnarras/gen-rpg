@@ -94,8 +94,8 @@ public class DirtyRoads : BaseZoneGenerator
 				// Get height > 0
 				//float dirtPct = Math.Abs (dirtHeights[x,z]);
 				//float basePct = Math.Abs (baseHeights[x,z]);
-				float dirtPct = Math.Clamp(0,dirtHeights[x-minx,z-miny]+MathUtils.FloatRange(-generalPerturb,generalPerturb,rand),maxOtherPercent);
-				float basePct = Math.Clamp(0,baseHeights[x-minx,z-miny]+MathUtils.FloatRange(-generalPerturb,generalPerturb,rand),maxOtherPercent);
+				float dirtPct = MathUtils.Clamp(0,dirtHeights[x-minx,z-miny]+MathUtils.FloatRange(-generalPerturb,generalPerturb,rand),maxOtherPercent);
+				float basePct = MathUtils.Clamp(0,baseHeights[x-minx,z-miny]+MathUtils.FloatRange(-generalPerturb,generalPerturb,rand),maxOtherPercent);
 
                 
 

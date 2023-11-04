@@ -472,6 +472,14 @@ namespace Genrpg.Shared.Reflection.Services
                 return "";
             }
 
+            if (parent is IEnumerable parentEnum &&
+                child.GetType().GenericTypeArguments.Length > 0)
+            {
+                return child.GetType().GenericTypeArguments[0].Name;
+            }
+            
+
+
             List<MemberInfo> members = GetMembers(parent);
 
             if (members == null)

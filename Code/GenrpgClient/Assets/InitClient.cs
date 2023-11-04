@@ -34,6 +34,11 @@ public class InitClient : BaseBehaviour
     public float CurrZoneSize;
     public int MapGenSeed;
     public float PlayerSpeedMult;
+    public int ZoneNoiseSize = 4096;
+    public float ZoneNoiseDenominator = 36;
+    public float ZoneNoiseAmplitude = 1.0f;
+    public float ZoneNoisePersistence = 0.3f;
+    public float ZoneNoiseLacunarity = 2.0f;
 #endif
 
     public static InitClient Instance { get; set; }
@@ -49,7 +54,7 @@ public class InitClient : BaseBehaviour
 
         Initialize(gs);
 
-        TaskUtils.AddTask(OnStart());
+        TaskUtils.AddTask(OnStart(),"onstart", _gameTokenSource.Token);
 
     }
 
@@ -84,13 +89,13 @@ public class InitClient : BaseBehaviour
 
         ClientWebRequest req = new ClientWebRequest();
         string url = ConfigURL + "?env=" + _envName;
-        TaskUtils.AddTask(req.SendRequest(_gs, url, "", OnGetWebConfig, _gameTokenSource.Token));
+        TaskUtils.AddTask(req.SendRequest(_gs, url, "", OnGetWebConfig, _gameTokenSource.Token),"getwebconfig",_gameTokenSource.Token);
         await Task.CompletedTask;
     }
 
     private void OnGetWebConfig(UnityGameState gs, string txt, CancellationToken token)
     {
-        TaskUtils.AddTask(OnGetWebConfigAsync(gs, SerializationUtils.Deserialize<ConfigResponse>(txt), token));
+        TaskUtils.AddTask(OnGetWebConfigAsync(gs, SerializationUtils.Deserialize<ConfigResponse>(txt), token),"ongetwebconfigasync", _gameTokenSource.Token);
     }
 
     private async Task OnGetWebConfigAsync(UnityGameState gs, ConfigResponse response, CancellationToken token)
@@ -107,6 +112,7 @@ public class InitClient : BaseBehaviour
         await setupService.SetupGame(_gs, token);
 
         ClientSetupService.SetupClient(_gs, true, token);
+
 
         InitialPrefabLoader prefabLoader = AssetUtils.LoadResource<InitialPrefabLoader>("Prefabs/PrefabLoader");
         await prefabLoader.LoadPrefabs(_gs);

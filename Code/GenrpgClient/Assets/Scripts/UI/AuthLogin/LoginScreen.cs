@@ -56,7 +56,7 @@ public class LoginScreen : BaseScreen
             Password = PasswordInput.Text,
         };
 
-        TaskUtils.AddTask(_loginService.LoginToServer(_gs, loginCommand, _token));
+        TaskUtils.AddTask(_loginService.LoginToServer(_gs, loginCommand, _token), "logintoserver", _token);
     }
 }
 

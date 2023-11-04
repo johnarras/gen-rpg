@@ -26,6 +26,7 @@ using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.AI.Entities;
 using Genrpg.Shared.MapServer.Messages;
 using Genrpg.Shared.MapObjects.Messages;
+using Genrpg.Shared.Movement.Messages;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -34,7 +35,7 @@ namespace Genrpg.MapServer.Maps
     {
         MapObjectCounts GetCounts();
         void Init(GameState gs, CancellationToken token);
-        void UpdatePosition(GameState gs, MapObject obj);
+        void UpdatePosition(GameState gs, MapObject obj, int keysDown);
         MapObject SpawnObject(GameState gs,IMapSpawn spawn);
         bool GetChar(string id, out Character ch, GetMapObjectParams objParams = null);
         bool GetUnit(string id, out Unit unit, GetMapObjectParams objParams = null);
@@ -178,8 +179,29 @@ namespace Genrpg.MapServer.Maps
 #endif
         }
 
-        public void UpdatePosition(GameState gs, MapObject obj)
+        public void UpdatePosition(GameState gs, MapObject obj, int keysDown)
         {
+
+            OnUpdatePos posMessage = obj.GetCachedMessage<OnUpdatePos>(true);
+
+            posMessage.ObjId = obj.Id;
+            posMessage.SetX(obj.X);
+            posMessage.SetY(obj.Y);
+            posMessage.SetZ(obj.Z);
+            posMessage.SetRot(obj.Rot);
+            posMessage.SetSpeed(obj.Speed);
+
+            float distance = MessageConstants.DefaultGridDistance;
+            bool playersOnly = false;
+            if (gs.rand.NextDouble() < 0.1f)
+            {
+                distance *= 2;
+                playersOnly = true;
+            }
+
+            _messageService.SendMessageNear(obj, posMessage, distance, playersOnly);
+
+
             PointXZ newGridPos = GetGridCoordinates(obj);
 
             if (GetGridItem(obj.Id, out MapObjectGridItem gridItem))

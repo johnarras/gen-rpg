@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Threading;
 using UnityEngine; // Needed
+using Newtonsoft.Json.Linq;
 
 public class SetFinalTerrainTextures : BaseZoneGenerator
 {
@@ -10,11 +11,12 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
     {
         await base.Generate(gs, token);
 
+        gs.map.OverrideZonePercent = 0;
         _zoneGenService.SetAllAlphamaps(gs, gs.md.alphas, token);
-        await WaitForTerrainLayerLoad(gs);
+        await WaitForTerrainLayerLoad(gs,token);
     }
 
-    private async Task WaitForTerrainLayerLoad(UnityGameState gs)
+    private async Task WaitForTerrainLayerLoad(UnityGameState gs, CancellationToken token)
     {
         for (int x = 0; x < gs.md.awid; x++)
         {
@@ -44,7 +46,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
         {
             if (_assetService.IsDownloading(gs))
             {
-                await Task.Delay(1);
+                await Task.Delay(1, token);
             }
             else
             {

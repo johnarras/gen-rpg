@@ -41,10 +41,10 @@ public class NetworkService : INetworkService
 {
     protected UnityGameState _gs = null;
     private IReflectionService _reflectionService;
-    public NetworkService(UnityGameState gs)
+    public NetworkService(UnityGameState gs, CancellationToken token)
     {
         _gs = gs;
-        TaskUtils.AddTask(ProcessMessages());
+        TaskUtils.AddTask(ProcessMessages(),"processmessages", token);
     }
 
     // Web endpoints.
@@ -119,7 +119,7 @@ public class NetworkService : INetworkService
 
         string commandText = SerializationUtils.Serialize(commandSet);
 
-        TaskUtils.AddTask(req.SendRequest(_gs, _webURI + endpoint, commandText, HandleLoginResults, token));  
+        TaskUtils.AddTask(req.SendRequest(_gs, _webURI + endpoint, commandText, HandleLoginResults, token),"sendrequest",token);  
     }
 
     private void HandleLoginResults (UnityGameState gs, string txt, CancellationToken token)

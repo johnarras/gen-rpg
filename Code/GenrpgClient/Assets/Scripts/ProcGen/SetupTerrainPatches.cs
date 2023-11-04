@@ -27,24 +27,7 @@ public class SetupTerrainPatches : BaseZoneGenerator
                 TerrainPatchData patch = gs.md.terrainPatches[px, py];
                 int sx = px * (MapConstants.TerrainPatchSize - 1);
                 int sy = py * (MapConstants.TerrainPatchSize - 1);
-                if (patch.FullZoneIdList == null)
-                {
-                    patch.FullZoneIdList = new List<long>();
-                }
-                if (patch.MainZoneIdList == null)
-                {
-                    patch.MainZoneIdList = new List<long>();
-                }
-
-                if (patch.mainZoneIds == null)
-                {
-                    patch.mainZoneIds = new int[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
-                }
-                if (patch.overrideZoneIds == null)
-                {
-                    patch.overrideZoneIds = new int[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
-                }
-
+            
                 for (int y = sy; y <= sy + MapConstants.TerrainPatchSize && y < gs.map.GetHhgt(); y++)
                 {
                     for (int x = sx; x <= sx + MapConstants.TerrainPatchSize && x < gs.map.GetHwid(); x++)
@@ -58,7 +41,7 @@ public class SetupTerrainPatches : BaseZoneGenerator
                         {
                             patch.FullZoneIdList.Add(zoneId);
                         }
-                        int baseZoneId = gs.md.overrideZoneIds[y, x];
+                        int baseZoneId = gs.md.subZoneIds[y, x];
 
                         if (baseZoneId >= SharedMapConstants.MinBaseZoneId && !patch.FullZoneIdList.Contains(baseZoneId))
                         {
@@ -68,7 +51,7 @@ public class SetupTerrainPatches : BaseZoneGenerator
                         if (y - sy < MapConstants.TerrainPatchSize && x - sx < MapConstants.TerrainPatchSize)
                         {
                             patch.mainZoneIds[y - sy, x - sx] = gs.md.mapZoneIds[y, x];
-                            patch.overrideZoneIds[y - sy, x - sx] = gs.md.overrideZoneIds[y, x];
+                            patch.subZoneIds[y - sy, x - sx] = gs.md.subZoneIds[y, x];
                         }
                     }
                 };

@@ -41,7 +41,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         {
             for (int gy = 0; gy < gs.map.BlockCount; gy++)
             {
-                TaskUtils.AddTask(SetOneTerrainPatchLayers(gs, gs.md.terrainPatches[gx, gy], token, true));
+                TaskUtils.AddTask(SetOneTerrainPatchLayers(gs, gs.md.terrainPatches[gx, gy], token, true), "setoneterrainpatchlayers", token);
             }
             await Task.Delay(1);
         }

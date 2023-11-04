@@ -13,7 +13,7 @@ public class LoadInitialData : BaseZoneGenerator
     public override async Task Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
-        TaskUtils.AddTask( LoadInitialMapData(gs));
+        TaskUtils.AddTask( LoadInitialMapData(gs),"loadinitialmapdata", token);
     }
 
     public async Task LoadInitialMapData(UnityGameState gs)

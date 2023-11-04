@@ -20,6 +20,7 @@ using Genrpg.MapServer.MapMessaging.Interfaces;
 using System.Reflection;
 using Genrpg.Shared.MapServer.Messages;
 using Genrpg.Shared.MapMessages;
+using Genrpg.MapServer.Maps.Constants;
 
 namespace Genrpg.MapServer.MapMessaging
 {
@@ -84,6 +85,11 @@ namespace Genrpg.MapServer.MapMessaging
 
             _messageQueueCount = (int)(gs.map.BlockCount * 0.39);
 
+
+            if (MapInstanceConstants.ServerTestMode)
+            {
+                _messageQueueCount = 1;
+            }
             _packagePoolSize = Math.Max(2, _messageQueueCount * 10);
             _packagePool = new ConcurrentBag<MapMessagePackage>[_packagePoolSize];
             for (int i = 0; i < _packagePool.Length; i++)

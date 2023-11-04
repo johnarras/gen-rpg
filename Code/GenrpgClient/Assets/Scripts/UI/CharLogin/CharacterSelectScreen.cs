@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
 using System.Linq;
+using System;
+using System.Text;
+using Genrpg.Shared.MapServer.Entities;
+using UnityEngine;
 
 public class CharacterSelectScreen : BaseScreen
 {
     
 #if UNITY_EDITOR
     public GButton GenWorldButton;
+    public GButton NoiseButton;
+    public GText NoiseText;
 #endif
     public GEntity CharacterGridParent;
     public GButton CreateButton;
@@ -21,6 +27,7 @@ public class CharacterSelectScreen : BaseScreen
 
     protected IZoneGenService _zoneGenService;
     protected IClientLoginService _loginService;
+    protected INoiseService _noiseService;
 
     public const string CharacterRowArt = "CharacterSelectRow";
 
@@ -38,6 +45,7 @@ public class CharacterSelectScreen : BaseScreen
         }
 
         UIHelper.SetButton(GenWorldButton, GetAnalyticsName(), ClickGenerate);
+        UIHelper.SetButton(NoiseButton, GetAnalyticsName(), ClickNoise);
 #endif
         GEntityUtils.DestroyAllChildren(CharacterGridParent);
 
@@ -73,6 +81,98 @@ public class CharacterSelectScreen : BaseScreen
         };
         _zoneGenService.LoadMap(_gs, lwd);
     }
+
+    public void ClickNoise()
+    {
+        int noiseSize = InitClient.Instance.ZoneNoiseSize;
+        float zoneAmp = InitClient.Instance.ZoneNoiseAmplitude;
+        float zoneDenom = InitClient.Instance.ZoneNoiseDenominator;
+        float pers = InitClient.Instance.ZoneNoisePersistence;
+        float lac = InitClient.Instance.ZoneNoiseLacunarity;
+        int seed = _gs.rand.Next();
+        float[,] heights = _noiseService.Generate(_gs, pers, noiseSize / zoneDenom, zoneAmp, 2, seed, noiseSize, noiseSize, lac);
+
+        int bucketSize = 11;
+
+        Texture2D[] textures = new Texture2D[bucketSize];
+        Color[][] pixels = new Color[bucketSize][];
+
+        for (int b = 0; b < bucketSize; b++)
+        {
+            textures[b] = new Texture2D(noiseSize, noiseSize, TextureFormat.RGB24, true, true);
+            pixels[b] = textures[b].GetPixels();
+        }
+
+        float[] buckets = new float[bucketSize];
+
+        int totalCells = 0;
+        for (int x = 0; x < heights.GetLength(0); x++)
+        {
+            for (int y = 0; y < heights.GetLength(1); y++)
+            {
+                float val = (float)Math.Abs(heights[x, y]);
+                
+                for (int b = 0; b < bucketSize; b++)
+                {
+                    Color texColor = Color.white;
+                    if (val > 1)
+                    {
+                        val = 1;
+                    }
+
+                    if (val <= (1-1.0f*b/(bucketSize-1)))
+                    {
+                        buckets[b]++;
+                        texColor = Color.green;
+                    }
+                    pixels[b][GetIndex(x, y, noiseSize)] = texColor;
+                }
+
+                totalCells++;
+            }
+        }
+
+        LocalFileRepository repo = new LocalFileRepository(_gs.logger);
+        float[] percents = new float[bucketSize];
+
+        for (int b = 0; b < bucketSize; b++)
+        {
+            percents[b] = 1.0f * buckets[b]/ totalCells;
+
+            textures[b].SetPixels(pixels[b]);
+
+            string filename = "";
+            if (b < 10)
+            {
+                filename = "ZoneNoise0" + b;
+            }
+            else
+            {
+                filename = "ZoneNoise" + b;
+            }
+
+            filename += ".jpg";
+
+            repo.SaveBytes(filename, textures[b].EncodeToJPG(100));
+        }
+
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int b = 0; b < bucketSize; b++)
+        {
+            sb.Append(b + ": " + percents[b].ToString("F3") + "\n");
+        }
+
+        UIHelper.SetText(NoiseText, sb.ToString());
+    }
+
+    private int GetIndex(int x, int y, int noiseSize)
+    {
+        return x + y * noiseSize;
+    }
+
+
 #endif 
 
     public void ClickCharacterCreate()

@@ -20,13 +20,20 @@ public class AssetUtils
     {
         Resources.UnloadAsset(obj);
     }
-    
+
+    private static bool _unloadingAssets = false;
     public static async Task UnloadUnusedAssets(CancellationToken token)
     {
+        if (_unloadingAssets)
+        {
+            return;
+        }
+        _unloadingAssets = true;
         AsyncOperation op = Resources.UnloadUnusedAssets();
         while (!op.isDone)
         {
             await Task.Delay(1, token);
         }
+        _unloadingAssets = false;
     }
 }

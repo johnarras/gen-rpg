@@ -93,7 +93,6 @@ namespace Genrpg.Shared.Zones.Entities
             BridgeTypes = new List<ZoneBridgeType>();
             FenceTypes = new List<ZoneFenceType>();
             RockTypes = new List<ZoneRockType>();
-            TreeTypes = new List<ZoneTreeType>();
 
             CreatureNamePrefixes = new List<WeightedName>();
             CreatureDoubleNamePrefixes= new List<WeightedName>();

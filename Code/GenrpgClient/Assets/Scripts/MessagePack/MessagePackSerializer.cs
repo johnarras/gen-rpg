@@ -187,7 +187,7 @@ namespace MessagePack
                     foreach (ReadOnlyMemory<byte> segment in sequenceRental.Value.AsReadOnlySequence)
                     {
                         cancellationToken.ThrowIfCancellationRequested();
-                        await stream.WriteAsync(segment, cancellationToken).ConfigureAwait(false);
+                        await stream.WriteAsync(segment, cancellationToken);
                     }
                 }
                 catch (Exception ex)
@@ -389,7 +389,7 @@ namespace MessagePack
                     do
                     {
                         Memory<byte> memory = sequence.GetMemory(stream.CanSeek ? (int)Math.Min(options.SuggestedContiguousMemorySize, stream.Length - stream.Position) : 0);
-                        bytesRead = await stream.ReadAsync(memory, cancellationToken).ConfigureAwait(false);
+                        bytesRead = await stream.ReadAsync(memory, cancellationToken);
                         sequence.Advance(bytesRead);
                     }
                     while (bytesRead > 0);

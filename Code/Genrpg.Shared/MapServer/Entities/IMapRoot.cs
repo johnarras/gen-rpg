@@ -20,6 +20,7 @@ namespace Genrpg.Shared.MapServer.Entities
         int MapVersion { get; set; }
         int SpawnX { get; set; }
         int SpawnY { get; set; }
-        float EdgeMountainChance { get; set; }
+        long OverrideZoneId { get; set; }
+        float OverrideZonePercent { get; set; }
     }
 }

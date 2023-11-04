@@ -61,7 +61,7 @@ public class UnityZoneGenService : ZoneGenService
                 tokenService.SetToken(_mapToken);
             }
         }
-        TaskUtils.AddTask(InnerGenerate(gs, worldId, _mapToken));
+        TaskUtils.AddTask(InnerGenerate(gs, worldId, _mapToken), "instantiatemapinnergenerate", _mapToken);
     }
 
     protected async Task InnerGenerate(UnityGameState gs, string worldId, CancellationToken token)
@@ -91,6 +91,8 @@ public class UnityZoneGenService : ZoneGenService
             genlist.Add(new SetBasicTerrainTextures());
 
             genlist.Add(new SetBaseTerrainHeights());
+
+            genlist.Add(new AddZoneNoise());
 
             genlist.Add(new SetupMountainDecayPower());
 
@@ -375,20 +377,15 @@ public class UnityZoneGenService : ZoneGenService
                     continue;
                 }
 
-                patch.baseAlphas = new float[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize, MapConstants.MaxTerrainIndex];
-                patch.mainZoneIds = new int[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
-                patch.overrideZoneIds = new int[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
-
                 int startx = gy * (MapConstants.TerrainPatchSize - 1);
                 int starty = gx * (MapConstants.TerrainPatchSize - 1);
-
 
                 for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
                 {
                     for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
                     {
                         patch.mainZoneIds[x, y] = gs.md.mapZoneIds[startx + x, starty + y];
-                        patch.overrideZoneIds[x, y] = gs.md.overrideZoneIds[startx + x, starty + y];
+                        patch.subZoneIds[x, y] = gs.md.subZoneIds[startx + x, starty + y];
                         for (int index = 0; index < MapConstants.MaxTerrainIndex; index++)
                         {
                             patch.baseAlphas[x, y, index] = gs.md.alphas[x + startx, y + starty, index];
@@ -397,7 +394,7 @@ public class UnityZoneGenService : ZoneGenService
                 }
 
 
-                TaskUtils.AddTask(SetOnePatchAlphamaps(gs, gs.md.terrainPatches[gx, gy], token));
+                TaskUtils.AddTask(SetOnePatchAlphamaps(gs, gs.md.terrainPatches[gx, gy], token), "setonepatchalphamaps", token);
             }
         }
 
@@ -476,7 +473,7 @@ public class UnityZoneGenService : ZoneGenService
                     cellZoneWeights[0] = 1;
                 }
 
-                int baseZoneId = patch.overrideZoneIds[x, y];
+                int baseZoneId = patch.subZoneIds[x, y];
                 bool adjacentToOtherZoneId = false;
                 if (baseZoneId > 0)
                 {
@@ -492,7 +489,7 @@ public class UnityZoneGenService : ZoneGenService
                             {
                                 continue;
                             }
-                            if (patch.overrideZoneIds[xx,yy] != baseZoneId)
+                            if (patch.subZoneIds[xx,yy] != baseZoneId)
                             {
                                 adjacentToOtherZoneId = true;
                                 break;
@@ -796,6 +793,7 @@ public class UnityZoneGenService : ZoneGenService
             }
 
             gs.map = data.Map;
+
             gs.spawns = new MapSpawnData() { Id = gs.map.Id.ToString() };
 
             if (gs.map == null)

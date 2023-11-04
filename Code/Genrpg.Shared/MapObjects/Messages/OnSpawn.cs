@@ -38,10 +38,11 @@ namespace Genrpg.Shared.MapObjects.Messages
         [Key(16)] public string TargetId { get; set; }
         [Key(17)] public int TempFlags { get; set; }
         [Key(18)] public long Level { get; set; }
-        [Key(19)] public AttackerInfo FirstAttacker { get; set; }
-        [Key(20)] public List<SpawnResult> Loot { get; set; }
-        [Key(21)] public List<SpawnResult> SkillLoot { get; set; }
-        [Key(22)] public List<ActiveSpellEffect> Effects { get; set; }
+        [Key(19)] public int OverrideZonePercent { get; set; }
+        [Key(20)] public AttackerInfo FirstAttacker { get; set; }
+        [Key(21)] public List<SpawnResult> Loot { get; set; }
+        [Key(22)] public List<SpawnResult> SkillLoot { get; set; }
+        [Key(23)] public List<ActiveSpellEffect> Effects { get; set; }
 
         public OnSpawn()
         {

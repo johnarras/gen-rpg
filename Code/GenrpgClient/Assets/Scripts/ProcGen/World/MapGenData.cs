@@ -25,8 +25,9 @@ public class MapGenData
     public TerrainPatchData[,] terrainPatches;
     // heightmap
     public float[,] heights;
-    public float[,] overrideZonePercents;
-    public int[,] overrideZoneIds;
+    public float[,] subZonePercents;
+    public int[,] subZoneIds;
+    public float[,] overrideZoneScales;
     // splatmaps
     public float[,,] alphas;
 
@@ -82,6 +83,9 @@ public class MapGenData
 
     public bool GeneratingMap = false;
 
+    public Dictionary<long, List<long>> zoneTreeIds = null;
+    public Dictionary<long, List<long>> zoneBushIds = null;
+
     public virtual void ClearGenerationData()
     {
 
@@ -104,7 +108,8 @@ public class MapGenData
         edgeMountainDistPercent = null;
         wallEndpoints = null;
         mapObjects = null;
-
+        zoneTreeIds = null;
+        zoneBushIds = null;
     }
 
     public MapGenData()

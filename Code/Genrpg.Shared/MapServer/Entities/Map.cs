@@ -39,12 +39,13 @@ namespace Genrpg.Shared.MapServer.Entities
         [Key(11)] public int SpawnX { get; set; }
         [Key(12)] public int SpawnY { get; set; }
 
-        [Key(13)] public float EdgeMountainChance { get; set; }
+        [Key(13)] public long OverrideZoneId { get; set; }
+        [Key(14)] public float OverrideZonePercent { get; set; }
 
-        [Key(14)] public List<NPCType> NPCs { get; set; }
-        [Key(15)] public List<QuestType> Quests { get; set; }
-        [Key(16)] public List<QuestItem> QuestItems { get; set; }
-        [Key(17)] public List<Zone> Zones { get; set; }
+        [Key(15)] public List<NPCType> NPCs { get; set; }
+        [Key(16)] public List<QuestType> Quests { get; set; }
+        [Key(17)] public List<QuestItem> QuestItems { get; set; }
+        [Key(18)] public List<Zone> Zones { get; set; }
 
 
         public static string GetMapOwnerId(IMapRoot mapRoot)
@@ -60,7 +61,6 @@ namespace Genrpg.Shared.MapServer.Entities
             QuestItems = new List<QuestItem>();
             SpawnX = -1;
             SpawnY = -1;
-            EdgeMountainChance = 0.98f;
             _lookup = new IndexedDataItemLookup(this);
         }
 
