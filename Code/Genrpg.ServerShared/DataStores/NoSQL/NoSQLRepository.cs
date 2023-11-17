@@ -8,6 +8,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Authentication;
@@ -171,6 +172,23 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         {
             INoSQLCollection collection = GetCollection(typeof(T));
             return await collection.SaveAll(items);
+        }
+
+        public async Task<bool> TransactionSave<T>(List<T> list) where T : class, IStringId
+        {
+            using (IClientSessionHandle session = await _client.StartSessionAsync())
+            {
+                session.StartTransaction();
+
+                foreach (T item in list)
+                {
+                    INoSQLCollection collection = GetCollection(item.GetType());
+                    await collection.Save(item);
+                }
+
+                await session.CommitTransactionAsync();
+            }
+            return true;
         }
     }
 }

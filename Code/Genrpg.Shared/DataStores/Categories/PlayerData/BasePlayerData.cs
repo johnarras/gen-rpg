@@ -27,6 +27,17 @@ namespace Genrpg.Shared.DataStores.Categories.PlayerData
             }
         }
 
+        public virtual List<BasePlayerData> GetSaveObjects(bool saveClean)
+        {
+            List<BasePlayerData> retval = new List<BasePlayerData>();
+            if (saveClean || IsDirty())
+            {
+                SetDirty(false);
+                retval.Add(this);
+            }
+            return retval;
+        }
+
         public virtual void Delete(IRepositorySystem repoSystem)
         {
             repoSystem.QueueDelete(this);

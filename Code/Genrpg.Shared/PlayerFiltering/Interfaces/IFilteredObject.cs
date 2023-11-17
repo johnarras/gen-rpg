@@ -8,6 +8,6 @@ namespace Genrpg.Shared.PlayerFiltering.Interfaces
     public interface IFilteredObject
     {
         string GetGameDataName(string docType);
-        void SetSessionOverrides(SessionOverrideList list);
+        void SetGameDataOverrides(GameDataOverrideList list);
     }
 }

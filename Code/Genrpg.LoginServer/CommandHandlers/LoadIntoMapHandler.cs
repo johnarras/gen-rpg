@@ -27,7 +27,7 @@ using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.GameSettings.Loaders;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
@@ -90,7 +90,7 @@ namespace Genrpg.LoginServer.CommandHandlers
 
             List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
 
-            List<IGameSettings> gameData = _gameDataService.GetClientData(gs, gs.ch, false);
+            List<IGameSettings> gameData = _gameDataService.GetClientGameData(gs, gs.ch, false);
             LoadIntoMapResult loadResult = new LoadIntoMapResult()
             {
                 Map = SerializationUtils.ConvertType<Map, Map>(fullCachedMap.Map),

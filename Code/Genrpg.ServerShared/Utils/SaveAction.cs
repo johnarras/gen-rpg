@@ -12,20 +12,28 @@ namespace Genrpg.ServerShared.Utils
     public class SaveAction<T> : IDbAction where T : class, IStringId
     {
 
-        private string _id { get; set; }
-        private T _item { get; set; }
+        private List<T> _items { get; set; } = new List<T>();
         private IRepositorySystem _repoSystem { get; set; }
 
         public SaveAction(T item, IRepositorySystem repoSystem)
         {
             _repoSystem = repoSystem;
-            _id = item.Id;
-            _item = SerializationUtils.FastMakeCopy(item);
+            _items.Add(SerializationUtils.FastMakeCopy(item));
+        }
+
+        public SaveAction(List<T> items, IRepositorySystem repoSystem)
+        {
+            _repoSystem = repoSystem;   
+
+            foreach (T item in items)
+            {
+                _items.Add(SerializationUtils.FastMakeCopy(item));
+            }
         }
 
         public async Task<bool> Execute()
         {
-            return await _repoSystem.Save(_item).ConfigureAwait(false);
+            return await _repoSystem.TransactionSave(_items).ConfigureAwait(false);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Genrpg.MapServer.MapMessaging.Interfaces
         void SendMessageNear(MapObject obj, IMapMessage message,
             float dist = MessageConstants.DefaultGridDistance,
             bool playersOnly = true,
-            float delaySec = 0, List<long> filters = null, bool checkDistinct = false);
+            float delaySec = 0, List<long> filters = null);
         MapMessagePackage GetPackage();
         void AddPackage(MapMessagePackage package);
     }

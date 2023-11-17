@@ -28,6 +28,8 @@ namespace Genrpg.Shared.DataStores.Entities
         void QueueDelete<T>(T t) where T : class, IStringId;
         Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity = 1000, int skip = 0) where T : class, IStringId;
         Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId;
+        Task<bool> TransactionSave<T>(List<T> list) where T : class, IStringId;
+        void QueueTransactionSave<T>(List<T> list, string queueId) where T : class, IStringId;
     }
 
     public interface IRepository
@@ -38,6 +40,7 @@ namespace Genrpg.Shared.DataStores.Entities
         Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity = 1000, int skip = 0) where T : class, IStringId;
         Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId;
         Task<bool> SaveAll<T>(List<T> tlist) where T : class, IStringId;
+        Task<bool> TransactionSave<T>(List<T> list) where T : class, IStringId;
     }
 
 }

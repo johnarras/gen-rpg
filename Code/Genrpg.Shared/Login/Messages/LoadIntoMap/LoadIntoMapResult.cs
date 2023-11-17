@@ -27,7 +27,7 @@ namespace Genrpg.Shared.Login.Messages.LoadIntoMap
 
         [Key(7)] public EMapApiSerializers Serializer { get; set; } = EMapApiSerializers.Json;
 
-        [Key(8)] public SessionOverrideList OverrideList { get; set; }
+        [Key(8)] public GameDataOverrideList OverrideList { get; set; }
 
         public LoadIntoMapResult()
         {

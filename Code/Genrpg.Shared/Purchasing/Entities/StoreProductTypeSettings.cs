@@ -1,6 +1,6 @@
 
 using Genrpg.Shared.DataStores.GameSettings;
-using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
 using MessagePack;

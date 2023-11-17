@@ -157,6 +157,6 @@ namespace Genrpg.Shared.MapObjects.Entities
             return (float)Math.Sqrt(dx * dx + dz * dz);
         }
 
-        public virtual void SetSessionOverrides(SessionOverrideList list) { }
+        public virtual void SetGameDataOverrides(GameDataOverrideList list) { }
     }
 }

@@ -1,7 +1,7 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.GameSettings.Loaders;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -21,5 +21,5 @@ namespace Genrpg.Shared.Versions.Entities
     }
 
     [MessagePackObject]
-    public class VersionSettingsLoader : GameDataLoader<VersionSettings> { }
+    public class VersionSettingsLoader : GameSettingsLoader<VersionSettings> { }
 }

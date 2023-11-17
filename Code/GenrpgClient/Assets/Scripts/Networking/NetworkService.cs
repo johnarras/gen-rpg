@@ -21,9 +21,17 @@ using Genrpg.Shared.Networking.Constants;
 using Genrpg.Shared.Networking.Entities.TCP;
 using Genrpg.Shared.Networking.MapApiSerializers;
 using System.Collections.Concurrent;
+using System.Collections;
+using System.Linq;
 
 public delegate void WebResultsHandler(UnityGameState gs, string txt, CancellationToken token);
 
+
+internal class FullLoginCommand
+{
+    ILoginCommand Command;
+
+}
 
 public interface INetworkService : ISetupService, IMapTokenService
 {
@@ -40,7 +48,8 @@ public interface INetworkService : ISetupService, IMapTokenService
 public class NetworkService : INetworkService
 {
     protected UnityGameState _gs = null;
-    private IReflectionService _reflectionService;
+    private IReflectionService _reflectionService = null!;
+    private IUnityUpdateService _updateService = null!;
     public NetworkService(UnityGameState gs, CancellationToken token)
     {
         _gs = gs;
@@ -51,6 +60,8 @@ public class NetworkService : INetworkService
     public const string ClientEndpoint = "/Client";
     public const string LoginEndpoint = "/Login";
 
+    DateTime _lastLoginResultsReceived = DateTime.UtcNow;
+
     CancellationTokenSource _networkTokenSource = null;
     private CancellationToken _token;
     public void SetToken(CancellationToken token)
@@ -58,6 +69,35 @@ public class NetworkService : INetworkService
         _networkTokenSource?.Cancel();
         _networkTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
         _token = _networkTokenSource.Token;
+    }
+
+    public async Task Setup(GameState gs, CancellationToken token)
+    {
+        if (gs is UnityGameState ugs)
+        {
+            _mapMessageHandlers = _reflectionService.SetupDictionary<Type, IClientMapMessageHandler>(gs);
+            _loginResultHandlers = _reflectionService.SetupDictionary<Type, IClientLoginResultHandler>(gs);
+            _webURI = ugs.SiteURL;
+        }
+        _updateService.AddTokenUpdate(this, ProcessLoginMessages, UpdateType.Late);
+        await Task.CompletedTask;
+    }
+
+
+    private List<ILoginCommand> _clientCommandQueue = new List<ILoginCommand>();
+    private List<ILoginCommand> _currentClientCommands = new List<ILoginCommand>();
+    private void ProcessLoginMessages(CancellationToken token)
+    {
+        if (_currentClientCommands.Count > 0 || _clientCommandQueue.Count < 1 ||
+            (DateTime.UtcNow-_lastLoginResultsReceived).TotalSeconds < 0.3f)
+        {
+            return;
+        }
+
+        _currentClientCommands = _clientCommandQueue.ToList();
+        _clientCommandQueue.Clear();
+
+        InnerSendWebRequest(ClientEndpoint, _currentClientCommands, token);
     }
 
     public CancellationToken GetToken()
@@ -90,12 +130,13 @@ public class NetworkService : INetworkService
 
     public void SendLoginWebCommand(LoginCommand loginCommand, CancellationToken token)
     {
-        InnerSendWebRequest(LoginEndpoint, loginCommand, token);
+        _currentClientCommands.Add(loginCommand);
+        InnerSendWebRequest(LoginEndpoint, new List<ILoginCommand>() { loginCommand }, token);
     }
 
-    public void SendClientWebCommand(ILoginCommand data, CancellationToken token)
+    public void SendClientWebCommand(ILoginCommand command, CancellationToken token)
     {
-        InnerSendWebRequest(ClientEndpoint, data, token);
+        _clientCommandQueue.Add(command);
     }
 
     public void SetRealtimeEndpoint(string host, long port, EMapApiSerializers serializer)
@@ -105,7 +146,7 @@ public class NetworkService : INetworkService
         _serializer = serializer;
     }
 
-    protected void InnerSendWebRequest(string endpoint, ILoginCommand data,
+    protected void InnerSendWebRequest(string endpoint, List<ILoginCommand> commands,
         CancellationToken token)
     {
         ClientWebRequest req = new ClientWebRequest();
@@ -115,7 +156,7 @@ public class NetworkService : INetworkService
             UserId = _gs?.user?.Id ?? null,
             SessionId = _gs?.user?.SessionId ?? null,
         };
-        commandSet.Commands.Add(data);
+        commandSet.Commands = commands;
 
         string commandText = SerializationUtils.Serialize(commandSet);
 
@@ -137,17 +178,8 @@ public class NetworkService : INetworkService
                 _gs.logger.Error("Unknown Message From Login Server: " + result.GetType().Name);
             }
         }
-    }
-
-    public async Task Setup(GameState gs, CancellationToken token)
-    {
-        if (gs is UnityGameState ugs)
-        {
-            _mapMessageHandlers = _reflectionService.SetupDictionary<Type, IClientMapMessageHandler>(gs);
-            _loginResultHandlers = _reflectionService.SetupDictionary<Type, IClientLoginResultHandler>(gs);
-            _webURI = ugs.SiteURL;
-        }
-        await Task.CompletedTask;
+        _lastLoginResultsReceived = DateTime.UtcNow;
+        _currentClientCommands.Clear();
     }
 
     protected ConcurrentQueue<IMapApiMessage> _messages = new ConcurrentQueue<IMapApiMessage>();

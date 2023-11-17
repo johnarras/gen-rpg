@@ -9,7 +9,7 @@ using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Interfaces;
 
-namespace Genrpg.Shared.Currencies.Entities
+namespace Genrpg.Shared.Achievements.Entities
 {
     /// <summary>
     /// Used to contain a list of currencies on objects that need it (like user and character)

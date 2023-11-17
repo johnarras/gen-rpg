@@ -36,4 +36,8 @@
     <ProjectReference Include="..\Genrpg.Shared\Genrpg.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PlayerData\Loaders\" />
+  </ItemGroup>
+
 </Project>

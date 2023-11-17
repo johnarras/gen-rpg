@@ -256,7 +256,7 @@ namespace Genrpg.MapServer.Maps
                         await _playerDataService.LoadPlayerData(_gs, ch);
                     }
 
-                    _gameDataService.SetSessionOverrides(_gs, ch);
+                    _gameDataService.SetGameDataOverrides(_gs, ch, true);
 
                     didLoad = true;
                 }

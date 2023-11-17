@@ -5,7 +5,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System;
@@ -22,7 +22,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
         List<string> GetEditorIgnoreFields();
         void UpdateDataBeforeSave(GameData data);
         List<IGameSettingsLoader> GetAllLoaders();
-        void SetSessionOverrides(ServerGameState gs, IFilteredObject obj);
-        List<IGameSettings> GetClientData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault);
+        void SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool forceUpdate);
+        List<IGameSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault);
     }
 }

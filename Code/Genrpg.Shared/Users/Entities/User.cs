@@ -48,8 +48,8 @@ namespace Genrpg.Shared.Users.Entities
         }
 
 
-        [Key(7)] public SessionOverrideList OverrideList { get; set; }
-        public virtual void SetSessionOverrides (SessionOverrideList list)
+        [Key(7)] public GameDataOverrideList OverrideList { get; set; }
+        public virtual void SetGameDataOverrides (GameDataOverrideList list)
         {
             OverrideList = list;
         }
@@ -60,7 +60,7 @@ namespace Genrpg.Shared.Users.Entities
             {
                 return GameDataConstants.DefaultFilename;
             }
-            SessionOverrideItem item = OverrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
+            GameDataOverrideItem item = OverrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
             return item?.DocId ?? GameDataConstants.DefaultFilename;
         }
 

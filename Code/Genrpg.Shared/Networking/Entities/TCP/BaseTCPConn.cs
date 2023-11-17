@@ -156,7 +156,13 @@ namespace Genrpg.Shared.Networking.Entities.TCP
 
                     while (_outputQueue.TryDequeue(out IMapApiMessage newMessage))
                     {
-                        messages.Add(newMessage);
+                        // Because of trying lockless read on MapObjectManager nearby objects, sometimes
+                        // an object will appear twice in the resulting list (distinct is expensive)
+                        // so make one last attempt to dedupe here.
+                        if (!messages.Contains(newMessage))
+                        {
+                            messages.Add(newMessage);
+                        }
                     }
 
                     if (messages.Count < 1)

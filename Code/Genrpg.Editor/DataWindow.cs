@@ -15,6 +15,8 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using System.Linq;
 using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Names.Entities;
+using System.Text;
+using Microsoft.Extensions.Azure;
 
 namespace GameEditor
 {
@@ -118,13 +120,6 @@ namespace GameEditor
         public async Task SaveData()
         {
 
-            DialogResult result = MessageBox.Show("Do you want to save the data?", "Saving Data", MessageBoxButtons.OKCancel);
-
-            if (result != DialogResult.OK)
-            {
-                return;
-            }
-
             String prefix = Game.Prefix;
             String env = gs.config.Env;
 
@@ -173,6 +168,8 @@ namespace GameEditor
                     return;
                 }
 
+                StringBuilder saveList = new StringBuilder();
+
                 foreach (IGameSettings settings in gs.data.GetAllData())
                 {
                     if (string.IsNullOrEmpty(settings.Id))
@@ -185,13 +182,55 @@ namespace GameEditor
                     settings.SetInternalIds();
                 }
 
+
+                List<IGameSettings> settingsToSave = new List<IGameSettings>();
                 foreach (object obj in gs.LookedAtObjects)
                 {
-                    if (obj is IGameSettings gameSetting)
+                    if (obj is IGameSettings settings)
                     {
-                        await gameSetting.SaveAll(gs.repo);
+                        settingsToSave.Add(settings);
                     }
                 }
+
+                List<IGrouping<Type, IGameSettings>> groupingList =
+                    settingsToSave.GroupBy(x => x.GetType()).ToList();
+
+                groupingList = groupingList.OrderBy(x => x.Key.Name).ToList();
+
+                foreach (IGrouping<Type, IGameSettings> group in groupingList)
+                {
+                    saveList.Append(group.Key.Name + ": ");
+
+                    List<IGameSettings> orderedList = group.OrderBy(x => x.Id).ToList();
+
+                    for (int i = 0; i < orderedList.Count; i++)
+                    {
+                        saveList.Append(orderedList[i].Id + (i < orderedList.Count - 1 ? ", " : "\n"));
+                    }
+                }
+
+                DialogResult result = MessageBox.Show(saveList.ToString(), "Save This Data?", MessageBoxButtons.OKCancel);
+
+                if (result != DialogResult.OK)
+                {
+                    return;
+                }
+
+                List<BaseGameSettings> settingsList = new List<BaseGameSettings>();
+                foreach (object obj in gs.LookedAtObjects)
+                {
+                    if (obj is BaseGameSettings baseGameSetting)
+                    {
+                        settingsList.Add(baseGameSetting);
+                    }
+                }
+
+                if (settingsList.Count > 0)
+                {
+                    await gs.repo.TransactionSave(settingsList);
+                }
+
+                gs.LookedAtObjects = new List<object>();
             }
 
             else if (action == "Users")

@@ -28,7 +28,7 @@ using Genrpg.ServerShared.GameSettings;
 using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.DataStores.Categories;
 using Microsoft.AspNetCore.Routing.Constraints;
-using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.GameSettings.Loaders;
 
 namespace Genrpg.LoginServer.Controllers
 {
@@ -180,7 +180,7 @@ namespace Genrpg.LoginServer.Controllers
 
             List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
 
-            loginResult.GameData = _gameDataService.GetClientData(gs, gs.user, true);
+            loginResult.GameData = _gameDataService.GetClientGameData(gs, gs.user, true);
 
             gs.Results.Add(loginResult);
         }

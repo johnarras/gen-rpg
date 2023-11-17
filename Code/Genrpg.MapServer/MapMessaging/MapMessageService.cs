@@ -83,7 +83,7 @@ namespace Genrpg.MapServer.MapMessaging
             _token = token;
             _startTime = DateTime.UtcNow;
 
-            _messageQueueCount = (int)(gs.map.BlockCount * 0.39);
+            _messageQueueCount = Math.Max(2, (int)(gs.map.BlockCount * 0.39));
 
 
             if (MapInstanceConstants.ServerTestMode)
@@ -181,7 +181,7 @@ namespace Genrpg.MapServer.MapMessaging
         public void SendMessageNear(MapObject obj, IMapMessage message,
             float dist = MessageConstants.DefaultGridDistance,
             bool playersOnly = false,
-            float delaySec = 0, List<long> filters = null, bool checkDistinct = false)
+            float delaySec = 0, List<long> filters = null)
         {
             if (_objectManager == null)
             {
@@ -189,11 +189,6 @@ namespace Genrpg.MapServer.MapMessaging
             }
 
             List<MapObject> nearbyObjects = _objectManager.GetObjectsNear(obj.X, obj.Z, obj, dist, false, filters);
-
-            if (checkDistinct)
-            {
-                nearbyObjects = nearbyObjects.Distinct().ToList();
-            }
 
             if (playersOnly)
             {

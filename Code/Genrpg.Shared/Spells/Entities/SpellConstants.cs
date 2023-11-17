@@ -14,7 +14,7 @@ namespace Genrpg.Shared.Spells.Entities
         public const int BaseScale = 100;
         public const int BaseProcDepth = 0;
 
-        public const int ExtraTargetRadius = 8;
+        public const int ExtraTargetRadius = 16;
         public const int SpellRadiusMult = 5;
 
         public const float ResendProjectileDelaySec = 0.25f;

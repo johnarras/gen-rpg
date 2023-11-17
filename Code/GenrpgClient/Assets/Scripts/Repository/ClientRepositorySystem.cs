@@ -82,5 +82,15 @@ namespace Assets.Scripts.Model
         {
             throw new NotImplementedException();
         }
+
+        Task<bool> IRepositorySystem.TransactionSave<T>(List<T> list)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IRepositorySystem.QueueTransactionSave<T>(List<T> list, string queueId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.DataStores.Entities;
+﻿using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
@@ -20,5 +21,10 @@ namespace Genrpg.Shared.DataStores.PlayerData
         public void SetDirty(bool val) { _isDirty = val; }
         public bool IsDirty() { return _isDirty; }
         public virtual List<IUnitData> GetChildren() { return new List<IUnitData>(); }
+
+        public List<BasePlayerData> GetSaveObjects(bool saveClean)
+        {
+            return new List<BasePlayerData>();
+        }
     }
 }

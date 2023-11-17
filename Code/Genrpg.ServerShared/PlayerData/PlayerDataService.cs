@@ -14,6 +14,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.SpellCrafting.Services;
 using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,15 @@ namespace Genrpg.ServerShared.PlayerData
         public Dictionary<Type,IUnitDataLoader> GetLoaders()
         {
             return _loaderObjects;
+        }
+
+        public IUnitDataLoader GetLoader<T>() where T : IUnitData
+        {
+            if (_loaderObjects.TryGetValue(typeof(T), out IUnitDataLoader loader))
+            {
+                return loader;
+            }
+            return null;
         }
 
         public void SavePlayerData(Character ch, IRepositorySystem repoSystem, bool saveClean)

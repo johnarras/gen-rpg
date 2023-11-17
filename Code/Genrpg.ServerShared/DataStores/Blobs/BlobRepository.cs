@@ -199,6 +199,12 @@ namespace Genrpg.ServerShared.DataStores.Blobs
             throw new NotImplementedException();
         }
 
+        public async Task<bool> TransactionSave<T>(List<T> list) where T : class, IStringId
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

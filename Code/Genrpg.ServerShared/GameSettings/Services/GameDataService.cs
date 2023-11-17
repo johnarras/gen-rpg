@@ -1,19 +1,17 @@
 ﻿using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Versions.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -112,40 +110,59 @@ namespace Genrpg.ServerShared.GameSettings.Services
         {
         }
 
-        public void SetSessionOverrides(ServerGameState gs, IFilteredObject obj)
+        public void SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool force)
         {
-            SessionOverrideList sessionOverrideList = new SessionOverrideList();
-
             if (!(obj is Character ch))
             {
                 return;
             }
 
-            DataOverrideSettings settings = gs.data.GetGameData<DataOverrideSettings>(null);
+            GameDataOverrideData gameDataOverrideData = ch.Get<GameDataOverrideData>();
+
+            if (gameDataOverrideData.OverrideList == null)
+            {
+                gameDataOverrideData.OverrideList = new GameDataOverrideList();
+            }
+
+            GameDataOverrideList gameDataOverrideList = gameDataOverrideData.OverrideList;
+
+            VersionSettings versionSettings = gs.data.GetGameData<VersionSettings>(ch);
+
+            DateTime currentTime = DateTime.Today.AddHours(DateTime.UtcNow.Hour);
+
+            if (!force && 
+                versionSettings.GameDataVersion == gameDataOverrideData.GameDataVersion &&
+                gameDataOverrideData.LastTimeSet < currentTime)
+            {
+                ch.SetSessionOverrideList(gameDataOverrideList);
+            }
+
+            DataOverrideSettings dataOverrideSettings = gs.data.GetGameData<DataOverrideSettings>(null);
 
             List<DataOverrideGroup> acceptableGroups = new List<DataOverrideGroup>();
 
-            foreach (DataOverrideGroup group in settings.GetData())
+            foreach (DataOverrideGroup group in dataOverrideSettings.GetData())
             {
                 if (AcceptedByFilter(ch, group))
                 {
                     foreach (DataOverrideItem item in group.Items)
                     {
                         if (string.IsNullOrEmpty(item.SettingId) ||
-                            string.IsNullOrEmpty(item.DocId))
+                            string.IsNullOrEmpty(item.DocId) ||
+                            item.DocId == GameDataConstants.DefaultFilename)
                         {
                             continue;
                         }
 
-                        SessionOverrideItem overrideItem = sessionOverrideList.Items.FirstOrDefault(x => x.SettingId == item.SettingId);
+                        GameDataOverrideItem overrideItem = gameDataOverrideList.Items.FirstOrDefault(x => x.SettingId == item.SettingId);
 
                         if (overrideItem == null)
                         {
-                            overrideItem = new SessionOverrideItem() { SettingId = item.SettingId };
-                            sessionOverrideList.Items.Add(overrideItem);
+                            overrideItem = new GameDataOverrideItem() { SettingId = item.SettingId };
+                            gameDataOverrideList.Items.Add(overrideItem);
                             overrideItem.DocId = item.DocId;
                         }
-                        else if (group.Priority >= overrideItem.Priority)
+                        else if (group.Priority > overrideItem.Priority)
                         {
                             overrideItem.Priority = group.Priority;
                             overrideItem.DocId = item.DocId;
@@ -154,14 +171,19 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 }
             }
 
-            ch.SetSessionOverrideList(sessionOverrideList);
+            gameDataOverrideData.GameDataVersion = versionSettings.GameDataVersion;
+            gameDataOverrideData.LastTimeSet = currentTime;
+
+            gameDataOverrideList.Items = gameDataOverrideList.Items.OrderBy(x => x.SettingId).ToList();
+
+            ch.SetSessionOverrideList(gameDataOverrideList);
         }
 
-        public List<IGameSettings> GetClientData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault)
+        public List<IGameSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault)
         {
 
             List<IGameSettings> retval = new List<IGameSettings>();
-            SetSessionOverrides(gs, obj);
+            SetGameDataOverrides(gs, obj, true);
 
             List<IGameSettings> allData = gs.data.GetAllData();
 

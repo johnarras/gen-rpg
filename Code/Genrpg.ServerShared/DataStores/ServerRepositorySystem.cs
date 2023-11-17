@@ -100,10 +100,14 @@ namespace Genrpg.ServerShared.DataStores
             {
                 dataCategoryName = category.Category;
             }
+            else
+            {
+                throw new Exception("Missing DataCategory");
+            }
             dataCategoryName = (_env + dataCategoryName).ToLower();
 
             if (_repos.TryGetValue(dataCategoryName, out IRepository existingRepo))
-            {
+            {               
                 _repoTypeDict[t] = existingRepo;
                 return existingRepo;
             }
@@ -135,10 +139,28 @@ namespace Genrpg.ServerShared.DataStores
             return await repo.SaveAll(t);
         }
 
+        public async Task<bool> TransactionSave<T>(List<T> list) where T : class, IStringId
+        {
+            IRepository repo = FindRepo(typeof(T));
+            return await repo.TransactionSave(list);
+        }
+
         public void QueueSave<T>(T t) where T : class, IStringId
         {
             SaveAction<T> saveAction = new SaveAction<T>(t, this);
             _queues[StrUtils.GetIdHash(t.Id) % QueueCount].Enqueue(saveAction);
+        }
+
+        public void QueueTransactionSave<T>(List<T> list, string queueId) where T : class, IStringId
+        {
+            if (list.Count < 1)
+            {
+                return;
+            }
+
+            SaveAction<T> saveAction = new SaveAction<T>(list, this);
+
+            _queues[StrUtils.GetIdHash(queueId) % QueueCount].Enqueue(saveAction);
         }
 
         public void QueueDelete<T>(T t) where T : class, IStringId

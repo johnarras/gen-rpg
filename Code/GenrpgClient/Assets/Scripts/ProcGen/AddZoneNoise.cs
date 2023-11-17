@@ -12,9 +12,9 @@ using UnityEngine;
 
 public class AddZoneNoise : BaseZoneGenerator
 {
-    private const float _amplitude = 4.2f;
+    private const float _amplitude = 3.9f;
     private const float _persistence = 0.5f;
-    private const float _freqDiv = 200f;
+    private const float _freqDiv = 1000f;
     private const float _lacunarity = 1.5f;
 
     public override async Task Generate(UnityGameState gs, CancellationToken token)

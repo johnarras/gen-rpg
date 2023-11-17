@@ -2,7 +2,7 @@ using MessagePack;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
-using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.GameSettings.Loaders;
 
 namespace Genrpg.Shared.NPCs.Entities
 {
@@ -16,5 +16,5 @@ namespace Genrpg.Shared.NPCs.Entities
     }
 
     [MessagePackObject]
-    public class VendorSettingsLoader : GameDataLoader<VendorSettings> { }
+    public class VendorSettingsLoader : GameSettingsLoader<VendorSettings> { }
 }

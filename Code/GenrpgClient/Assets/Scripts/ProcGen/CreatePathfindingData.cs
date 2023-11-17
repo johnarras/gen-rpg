@@ -6,6 +6,7 @@ using Genrpg.Shared.Pathfinding.Constants;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using Genrpg.Shared.Utils;
 
 public class CreatePathfindingData : BaseZoneGenerator
 {
@@ -70,6 +71,12 @@ public class CreatePathfindingData : BaseZoneGenerator
             }
         }
         byte[] output = _pathfindingService.ConvertGridToBytes(gs, nearBlockedCells);
+
+        int startLength = output.Length;
+
+        output = CompressionUtils.CompressBytes(output);
+
+        int endLength = output.Length;
 
         LocalFileRepository repo = new LocalFileRepository(gs.logger);
 

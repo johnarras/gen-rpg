@@ -18,7 +18,7 @@ using Genrpg.ServerShared.GameSettings;
 using System.Text;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.GameSettings.Loaders;
 
 namespace Genrpg.Editor.Utils
 {

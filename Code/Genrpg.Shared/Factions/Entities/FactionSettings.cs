@@ -5,9 +5,9 @@ using System.Text;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
-using Genrpg.Shared.GameSettings.Loading;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.DataStores.GameSettings;
+using Genrpg.Shared.GameSettings.Loaders;
 
 namespace Genrpg.Shared.Factions.Entities
 {
@@ -38,5 +38,5 @@ namespace Genrpg.Shared.Factions.Entities
     public class FactionSettingsApi : ParentSettingsApi<FactionSettings, FactionType> { }
 
     [MessagePackObject]
-    public class FactionSettingsLoader : GameDataLoader<FactionSettings> { }
+    public class FactionSettingsLoader : GameSettingsLoader<FactionSettings> { }
 }

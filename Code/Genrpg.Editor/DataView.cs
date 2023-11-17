@@ -28,6 +28,8 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Editor.Interfaces;
+using Genrpg.Shared.Editor.Entities;
+using Genrpg.Shared.Units.Loaders;
 
 namespace GameEditor
 {
@@ -50,6 +52,8 @@ namespace GameEditor
         public Button DetailsButton = null;
         public Panel SingleGrid = null;
         public DataGridView MultiGrid = null;
+
+        TypeMetaData typeMetaData = null;
 
 
         public const int MaxButtonsPerRow = 8;
@@ -86,7 +90,8 @@ namespace GameEditor
 
         public DataView(EditorGameState gsIn, DataWindow winIn, Object objIn, Object parentIn, Object grandparentIn)
         {
-            
+
+            typeMetaData = gsIn.data.GetGameData<EditorMetaDataSettings>(null)?.GetMetaDataForType(objIn.GetType().Name);
             gs = gsIn;
             gs.loc.Resolve(this);
             obj = objIn;
@@ -578,13 +583,12 @@ namespace GameEditor
 
         private void AddEntityDesc(object parentObject, MemberInfo mem, Panel panel, int sx, int sy, int tx, int ty)
         {
-            string desc = EntityDescriptions.GetEntityDescription(parentObject.GetType().Name, mem.Name);
-
-            if (desc != null)
+            MemberMetaData metaData = typeMetaData?.MemberData?.FirstOrDefault(x => x.MemberName == mem.Name);
+            if (metaData != null && !string.IsNullOrEmpty(metaData.Description))
             { 
                 Label descLabel = new Label();
                 descLabel.Name = mem.Name + "Desc";
-                descLabel.Text = desc;
+                descLabel.Text = metaData.Description;
                 descLabel.Size = new Size(sx*2, sy * 4/10);
                 descLabel.Location = new Point(tx, ty - sy *4/10);
                 SingleGrid.Controls.Add(descLabel);

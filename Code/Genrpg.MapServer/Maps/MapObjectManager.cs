@@ -40,7 +40,7 @@ namespace Genrpg.MapServer.Maps
         bool GetChar(string id, out Character ch, GetMapObjectParams objParams = null);
         bool GetUnit(string id, out Unit unit, GetMapObjectParams objParams = null);
         bool GetObject(string id, out MapObject item, GetMapObjectParams objParams = null);
-        void FinalRemoveFromGrid(MapObject obj, MapObjectGridData gridData, MapObjectGridItem item);
+        void FinalRemoveFromGrid(GameState gs, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item);
         MapObjectGridItem RemoveObject(GameState gs, string objId, float delaySeconds = 0);
         MapObjectGridItem AddObject(GameState gs, MapObject obj, IMapSpawn spawn);
         List<T> GetTypedObjectsNear<T>(float wx, float wz, MapObject filterObject,
@@ -171,7 +171,7 @@ namespace Genrpg.MapServer.Maps
             }
         }
 
-        public void FinalRemoveFromGrid(MapObject obj, MapObjectGridData gridData, MapObjectGridItem item)
+        public void FinalRemoveFromGrid(GameState gs, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item)
         {
             gridData.RemoveObj(item.Obj);
 #if DEBUG
@@ -227,7 +227,10 @@ namespace Genrpg.MapServer.Maps
                     gridItem.GX = newGridPos.X;
                     gridItem.GZ = newGridPos.Z;
                     OnAddObjectToGrid(gs, obj, newGridPos.X, newGridPos.Z);
-                    Task.Run(() => { oldGrid.RemoveObj(gridItem.Obj); });
+
+                    // Slight delay in removing grid item to allow for things processing nearby cells to complete.
+                    _messageService.SendMessage(obj, new RemoveObjectFromGridCell() { GridItem = gridItem, GridData = oldGrid });
+
                 }
             }
             UpdateZone(obj);
@@ -459,7 +462,7 @@ namespace Genrpg.MapServer.Maps
             }
             if (delaySeconds > 0)
             {
-                DelayedRemoveObject delayed = new DelayedRemoveObject()
+                RemoveObjectFromMap delayed = new RemoveObjectFromMap()
                 {
                     ObjectId = objId,
                 };

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
@@ -9,6 +6,8 @@ using Genrpg.Shared.Pathfinding.Constants;
 using Genrpg.Shared.WebRequests.Utils;
 using Genrpg.Shared.Assets.Utils;
 using Genrpg.Shared.Core.Entities;
+using System.IO.Compression;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Pathfinding.Services
 {
@@ -38,6 +37,8 @@ namespace Genrpg.Shared.Pathfinding.Services
                 string fullUrl = url + filename;
 
                 byte[] bytes = await WebRequestUtils.DownloadBytes(gs, fullUrl);
+
+                byte[] bytes2 = CompressionUtils.DecompressBytes(bytes);
 
                 gs.pathfinding = ConvertBytesToGrid(gs, bytes);
             }

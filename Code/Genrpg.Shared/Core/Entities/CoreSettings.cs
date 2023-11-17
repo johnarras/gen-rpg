@@ -5,7 +5,7 @@ using System.Text;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
-using Genrpg.Shared.GameSettings.Loading;
+using Genrpg.Shared.GameSettings.Loaders;
 
 namespace Genrpg.Shared.Core.Entities
 {
@@ -23,5 +23,5 @@ namespace Genrpg.Shared.Core.Entities
 
 
     [MessagePackObject]
-    public class CoreSettingsLoader : GameDataLoader<CoreSettings> { }
+    public class CoreSettingsLoader : GameSettingsLoader<CoreSettings> { }
 }

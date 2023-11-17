@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Achievements.Messages;
+﻿using Genrpg.Shared.Achievements.Entities;
+using Genrpg.Shared.Achievements.Messages;
 using Genrpg.Shared.Currencies.Entities;
 using System;
 using System.Collections.Generic;

@@ -1,8 +1,8 @@
 ﻿using Genrpg.Shared.Achievements.Constants;
+using Genrpg.Shared.Achievements.Entities;
 using Genrpg.Shared.Achievements.Messages;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using System;

@@ -420,33 +420,40 @@ namespace Genrpg.MapServer.Spells
             List<Unit> primaryTargets = new List<Unit>();
             List<Unit> targets = new List<Unit>();
 
-
             primaryTargets.Add(origTarget);
             targets.Add(origTarget);
 
             if (effect.ExtraTargets > 0)
             {
-                List<Unit> newTargets = GetUnitsNear(gs, origTarget.X, origTarget.Z, origTarget, SpellConstants.ExtraTargetRadius,
-                    casterFactionId, targetTypeId, effect.ExtraTargets);
+                List<Unit> newTargets = GetTargetUnitsNear(gs, origTarget.X, origTarget.Z, origTarget, SpellConstants.ExtraTargetRadius,
+                    casterFactionId, targetTypeId);
 
-                targets.AddRange(newTargets);
-                targets = targets.Distinct().ToList(); // Use as help vs units moving across cells
+                // Targets for spells are first distinct (since lockless read multithreaded movement allows for
+                // dupe messages a small amount of the time, and then not dupe the primary targets, 
+                // then randomize, then take effect.ExtraTargets of them. and add them to the 
+
+                newTargets = newTargets
+                    .Except(primaryTargets)
+                    .Distinct()
+                    .OrderBy(x=>Guid.NewGuid())
+                    .Take(effect.ExtraTargets)
+                    .ToList();
+
                 primaryTargets.AddRange(newTargets);
-                primaryTargets = primaryTargets.Distinct().ToList(); // Use as help vs units moving across cells
+                targets.AddRange(newTargets);
             }
 
             // Maybe someday we expand this to be TargetShape.
-            if (effect.Radius > 0)
+            if (effect.Radius > 0 && primaryTargets.Count > 0)
             {
-                if (primaryTargets.Count > 0)
+                foreach (Unit ptarg in primaryTargets)
                 {
-                    foreach (Unit ptarg in primaryTargets)
-                    {
-                        List<Unit> newTargets = GetUnitsNear(gs, ptarg.X, ptarg.Z, ptarg, effect.Radius, casterFactionId, targetTypeId);
+                    List<Unit> newTargets = GetTargetUnitsNear(gs, ptarg.X, ptarg.Z, ptarg, effect.Radius, 
+                        casterFactionId, targetTypeId);
 
-                        newTargets = newTargets.Distinct().ToList();
-                        targets.AddRange(newTargets.Except(primaryTargets));
-                    }
+                    newTargets = newTargets.Distinct().ToList();
+                    newTargets.Remove(ptarg);
+                    targets.AddRange(newTargets);
                 }
             }
 
@@ -477,8 +484,8 @@ namespace Genrpg.MapServer.Spells
             return hits;
         }
 
-        protected List<Unit> GetUnitsNear(GameState gs, float x, float z, Unit origTarget, float radius,
-            long casterFactionId, long targetTypeId, long maxQuantity = 0)
+        protected List<Unit> GetTargetUnitsNear(GameState gs, float x, float z, Unit origTarget, float radius,
+            long casterFactionId, long targetTypeId)
         {
             List<Unit> newTargets = _objectManager.GetTypedObjectsNear<Unit>(x, z, origTarget, radius, true);
 
@@ -489,10 +496,6 @@ namespace Genrpg.MapServer.Spells
                 newTargets.Remove(origTarget);
             }
 
-            if (maxQuantity > 0)
-            {
-                newTargets.RemoveAt(gs.rand.Next() % newTargets.Count);
-            }
             return newTargets;
         }
 
