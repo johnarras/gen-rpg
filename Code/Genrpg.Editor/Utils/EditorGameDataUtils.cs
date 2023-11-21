@@ -19,6 +19,8 @@ using System.Text;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.ServerShared.CloudComms.Constants;
+using Microsoft.Azure.Amqp.Framing;
 
 namespace Genrpg.Editor.Utils
 {
@@ -27,9 +29,7 @@ namespace Genrpg.Editor.Utils
         public static async Task<FullGameDataCopy> LoadFullGameData(Form form, string env, CancellationToken token)
         {
 
-            ServerConfig serverConfig = await ConfigUtils.SetupServerConfig(token, "Editor");
-            serverConfig.Env = env;
-            EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(form, "Editor", new EditorSetupService(), EditorGameState.CTS.Token, serverConfig);
+            EditorGameState gs = await SetupFromConfig(form, env);
 
             FullGameDataCopy dataCopy = new FullGameDataCopy();
 
@@ -47,13 +47,22 @@ namespace Genrpg.Editor.Utils
             return dataCopy;
         }
 
+        public static async Task<EditorGameState> SetupFromConfig (object parent, string env, ServerConfig serverConfig = null)
+        {
+            if (serverConfig == null)
+            {
+                serverConfig = await ConfigUtils.SetupServerConfig(EditorGameState.CTS.Token, CloudServerNames.Editor.ToString().ToLower());
+            }
+            serverConfig.Env = env;
+            EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(parent, CloudServerNames.Editor.ToString().ToLower(), 
+                new EditorSetupService(), null, EditorGameState.CTS.Token, serverConfig);
+            return gs;
+        }
+
         public static async Task SaveFullGameData(Form form, FullGameDataCopy dataCopy, string env, CancellationToken token)
         {
 
-            ServerConfig serverConfig = await ConfigUtils.SetupServerConfig(token, "Editor");
-            serverConfig.Env = env;
-            EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(form, "Editor", new EditorSetupService(), EditorGameState.CTS.Token, serverConfig);
-
+            EditorGameState gs = await SetupFromConfig(form, env);
             foreach (IGameSettings data in dataCopy.Data)
             {
                 await gs.repo.Save(data);
@@ -107,9 +116,8 @@ namespace Genrpg.Editor.Utils
 
         public static async Task<FullGameDataCopy> LoadDataFromDisk(Form form, CancellationToken token)
         {
-            ServerConfig serverConfig = await ConfigUtils.SetupServerConfig(token, "Editor");
-            serverConfig.Env = EnvNames.Dev;
-            EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(form, "Editor", new EditorSetupService(), EditorGameState.CTS.Token, serverConfig);
+
+            EditorGameState gs = await SetupFromConfig(form, EnvNames.Dev);
 
             FullGameDataCopy dataCopy = new FullGameDataCopy();
 

@@ -53,12 +53,12 @@ namespace Genrpg.Shared.Interfaces
     public interface IUnitGenService : IService
     {
         string GenerateUnitPrefixName(GameState gs, long unitTypeId, Zone zone, IRandom rand,
-            Dictionary<string, string>? args = null);
+            Dictionary<string, string> args = null);
 
         UnitType GetRandomUnitType(GameState gs, Map map, Zone zone);
 
         string GenerateUnitName(GameState gs, long unitTypeId, long zoneId, IRandom rand,
-            Dictionary<string, string>? args = null);
+            Dictionary<string, string> args = null);
 
     }
 

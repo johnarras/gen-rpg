@@ -51,7 +51,7 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
 
         }
 
-        public virtual string GetInfoText(GameState gs, MapObject? obj)
+        public virtual string GetInfoText(GameState gs, MapObject obj)
         {
             SpellModifier modifier = GetModifier(gs, obj);
 

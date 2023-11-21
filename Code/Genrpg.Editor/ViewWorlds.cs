@@ -26,13 +26,7 @@ namespace GameEditor
 		private GameData Data = null;
 
 
-		private Button AddButton = null;
-		private Button DeleteButton = null;
-		private Button CopyButton = null;
-		private Button SaveButton = null;
 		private Button DetailsButton = null;
-
-		IReflectionService _reflectionService = null;
 
         private List<MapStub> _stubs = new List<MapStub>();
 
@@ -54,8 +48,6 @@ namespace GameEditor
             int width = XSize;
             int height = YSize;
 			Size = new Size(width, height);
-
-            _reflectionService = gs.loc.Get<IReflectionService>();
 
             Data = gs.data;
 			if (Data == null)

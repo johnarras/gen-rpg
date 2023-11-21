@@ -15,7 +15,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
     {
         public long GetKey() { return EntityTypes.Spawn; }
 
-        private ISpawnService _spawnService;
+        private ISpawnService _spawnService = null;
         public List<SpawnResult> Roll(GameState gs, RollData rollData, SpawnItem item)
         {
             List<SpawnResult> retval = new List<SpawnResult>();

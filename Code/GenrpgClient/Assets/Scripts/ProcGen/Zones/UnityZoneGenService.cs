@@ -18,6 +18,7 @@ using Genrpg.Shared.DataStores.Categories;
 using static UnityEngine.Networking.UnityWebRequest;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.DataStores.PlayerData;
 
 public class UnityZoneGenService : ZoneGenService
 {
@@ -767,14 +768,10 @@ public class UnityZoneGenService : ZoneGenService
             _networkService.SetRealtimeEndpoint(data.Host, data.Port, data.Serializer);
             _screenService.CloseAll(gs);
 
+            gs.ch.SetGameDataOverrideList(data.OverrideList);
 
-            gs.ch.SetSessionOverrideList(data.OverrideList);
 
-            foreach (IGameSettings baseGameData in data.GameData)
-            {
-                baseGameData.AddTo(gs.data);
-            }
-
+            gs.data.AddData(data.GameData);
 
             if (data == null || data.Map == null || data.Char == null)
             {

@@ -10,8 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Genrpg.ServerShared.CloudMessaging.Constants;
-using Genrpg.ServerShared.CloudMessaging.Services;
 using System.Security.Cryptography.Xml;
 using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.ServerShared.PlayerData;
@@ -21,7 +19,6 @@ using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages;
 using Genrpg.Shared.Versions.Entities;
 using System.Threading;
-using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
 using ZstdSharp.Unsafe;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.GameSettings;
@@ -29,22 +26,21 @@ using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.DataStores.Categories;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.ServerShared.CloudComms.Services;
+using Genrpg.ServerShared.CloudComms.Constants;
+using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
 
 namespace Genrpg.LoginServer.Controllers
 {
-
-
-
-
     [Route("[controller]")]
     [ApiController]
     public class LoginController : BaseWebController
     {
 
-        private AccountService _accountService;
-        private IGameDataService _gameDataService;
-        private IPlayerDataService _playerDataService;
-        private ICloudMessageService _cloudMessageService;
+        private AccountService _accountService = null;
+        private IGameDataService _gameDataService = null;
+        private IPlayerDataService _playerDataService = null;
+        private ICloudCommsService _cloudCommsService= null;
 
         public LoginController() : base()
         {
@@ -168,7 +164,7 @@ namespace Genrpg.LoginServer.Controllers
             await UpdateUserVersion(user);
             await gs.repo.Save(user);
 
-            _cloudMessageService.SendMessage(CloudServerNames.Player, new LoginUser() { Id = user.Id, Name = user.Name });
+            _cloudCommsService.SendQueueMessage(CloudServerNames.Player, new LoginUser() { Id = user.Id, Name = user.Name });
 
             LoginResult loginResult = new LoginResult()
             {

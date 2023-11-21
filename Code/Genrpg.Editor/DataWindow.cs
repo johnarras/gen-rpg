@@ -17,11 +17,17 @@ using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Names.Entities;
 using System.Text;
 using Microsoft.Extensions.Azure;
+using Genrpg.Shared.Versions.Entities;
+using Genrpg.ServerShared.CloudComms.Services;
+using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
 
 namespace GameEditor
 {
     public partial class DataWindow : Form
     {
+
+        private ICloudCommsService _cloudCommsService = null;
+
         private EditorGameState gs = null;
         public IList<UserControl> ViewStack = null;
         private Object obj = null;
@@ -31,6 +37,7 @@ namespace GameEditor
         {
             parentForm = parentFormIn;
             gs = gsIn;
+            gs.loc.Resolve(this);
             action = actionIn;
             ViewStack = new List<UserControl>();
             obj = objIn;
@@ -120,7 +127,6 @@ namespace GameEditor
         public async Task SaveData()
         {
 
-            String prefix = Game.Prefix;
             String env = gs.config.Env;
 
             if (action == "Data")
@@ -216,6 +222,14 @@ namespace GameEditor
                     return;
                 }
 
+                // Set Save time to before the data is saved so it's older than anything that's saved now.
+                VersionSettings versionSettings = gs.data.GetGameData<VersionSettings>(null);
+                versionSettings.GameDataSaveTime = DateTime.UtcNow;
+                if (!gs.LookedAtObjects.Contains(versionSettings))
+                {
+                    gs.LookedAtObjects.Add(versionSettings);
+                }
+
                 List<BaseGameSettings> settingsList = new List<BaseGameSettings>();
                 foreach (object obj in gs.LookedAtObjects)
                 {
@@ -231,6 +245,8 @@ namespace GameEditor
                 }
 
                 gs.LookedAtObjects = new List<object>();
+
+                _cloudCommsService.SendPubSubMessage(gs, new UpdateGameDataAdminMessage());
             }
 
             else if (action == "Users")

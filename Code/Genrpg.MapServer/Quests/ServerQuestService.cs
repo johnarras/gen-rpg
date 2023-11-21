@@ -22,8 +22,8 @@ namespace Genrpg.MapServer.Quests
 
     public class ServerQuestService : IServerQuestService
     {
-        private ISharedQuestService _questService;
-        private IEntityService _entityService;
+        private ISharedQuestService _questService = null;
+        private IEntityService _entityService = null;
 
         public virtual UpdateQuestResult UpdateQuest(GameState gs, MapObject mobj, ISpawnResult spawnResult)
         {

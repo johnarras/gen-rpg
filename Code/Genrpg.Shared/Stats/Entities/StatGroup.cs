@@ -1,8 +1,11 @@
 using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.Stats.Messages;
 using MessagePack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Xml;
 
 namespace Genrpg.Shared.Stats.Entities
 {
@@ -10,36 +13,85 @@ namespace Genrpg.Shared.Stats.Entities
     public class StatGroup
     {
 
-        [Key(0)] public List<Stat> _stats { get; set; }
+        private Dictionary<short,Stat>[] _stats = null;
 
-        public List<Stat> GetAllStats()
+        public List<Stat> GetAllBaseStats()
         {
-            return _stats.ToList();
+            return _stats[StatCategories.Base].Values.ToList();
         }
 
         public StatGroup()
         {
-            _stats = new List<Stat>();
+            ResetCurrent();
         }
 
         public void ResetCurrent()
         {
-            _stats.ForEach(x => x.Reset());
+            Dictionary<short, Stat>[] statCopy = new Dictionary<short,Stat>[StatCategories.Size];
+            for (int i = 0; i < 3; i++)
+            {
+                statCopy[i] = new Dictionary<short, Stat>();
+            }
+            _stats = statCopy;
         }
 
-        public long Curr(long statTypeId)
+        public int Get(long statTypeId, int statCategory)
         {
-            return GetStat(statTypeId).Get(StatCategories.Curr);
+            if (_stats[statCategory].TryGetValue((short)statTypeId, out Stat stat))
+            {
+                return stat.Val;
+            }
+
+            if (statCategory == StatCategories.Curr)
+            {
+                return Max(statTypeId);
+            }
+
+            return 0;
         }
 
-        public long Max(long statTypeId)
+        public void Set(long statTypeId, long statCategory, long val)
         {
-            return GetStat(statTypeId).GetMax();
+
+            if (!_stats[statCategory].TryGetValue((short)statTypeId, out Stat stat))
+            {
+                lock (this)
+                {
+                    if (!_stats[statCategory].TryGetValue((short)statTypeId, out Stat stat2))
+                    {
+                        stat = new Stat() { Id = (short)statTypeId };
+                        Dictionary<short, Stat> newList = new Dictionary<short, Stat>(_stats[statCategory]);
+                        newList[(short)statTypeId] = stat;
+                        _stats[statCategory] = newList;
+                    }
+                    else
+                    {
+                        stat = stat2;
+                    }
+                }
+            }
+            stat.Val = (int)val;
         }
 
-        public long Pct(long statTypeId)
+        public int Curr(long statTypeId) { return Get(statTypeId, StatCategories.Curr); }
+        public void SetCurr(long statTypeId, long val) { Set(statTypeId, StatCategories.Curr, val); }
+
+        public int Pct(long statTypeId) { return Get(statTypeId, StatCategories.Pct); }
+        public void SetPct(long statTypeId, long val) { Set(statTypeId, StatCategories.Pct, val); }
+
+        public int Base(long statTypeId) { return Get(statTypeId, StatCategories.Base); }
+        public void SetBase(long statTypeId, long val) { Set(statTypeId, StatCategories.Base, val); }
+
+        public int Max(long statTypeId)
         {
-            return GetStat(statTypeId).Get(StatCategories.Pct);
+            int baseVal = Base(statTypeId);
+            if (baseVal > 0)
+            {
+                int pctVal = Pct(statTypeId);
+
+                return baseVal * (100 + pctVal) / 100;
+            }
+            return 0;
         }
 
         public float ScaleDown(long statTypeId)
@@ -47,39 +99,56 @@ namespace Genrpg.Shared.Stats.Entities
             return 1;
         }
 
-        protected Stat GetStat(long statTypeId)
+        public List<FullStat> GetSnapshot()
         {
-            Stat stat = _stats.FirstOrDefault(x => x.Id == statTypeId);
-            if (stat == null)
+            List<short> allStatTypes = _stats[StatCategories.Base].Keys.ToList();
+
+            List<FullStat> retval = new List<FullStat>();
+
+            foreach (short statTypeId in allStatTypes)
             {
-                lock (this)
+
+                FullStat fullStat = GetFullStat(statTypeId);
+
+                if (fullStat != null)
                 {
-                    stat = _stats.FirstOrDefault(x => x.Id == statTypeId);
-                    if (stat == null)
-                    {
-                        stat = new Stat() { Id = statTypeId };
-                        List<Stat> newList = new List<Stat>(_stats);
-                        newList.Add(stat);
-                        _stats = newList;
-                    }
+                    retval.Add(fullStat);
                 }
             }
-            return stat;
+            return retval;
         }
 
-        public long Get(long statTypeId, int statCategory)
+        public void UpdateFromSnapshot(List<FullStat> fullStats)
         {
-            return GetStat(statTypeId).Get(statCategory);
+            if (fullStats == null)
+            {
+                return;
+            }
+
+            foreach (FullStat fullStat in fullStats)
+            {
+                SetBase(fullStat.GetStatId(), fullStat.GetBase());
+                SetPct(fullStat.GetStatId(), fullStat.GetPct());
+                SetCurr(fullStat.GetStatId(), fullStat.GetCurr());
+            }
         }
 
-        public void Set(long statTypeId, int statCategory, long val)
+        public FullStat GetFullStat(long statTypeId)
         {
-            GetStat(statTypeId).Set(statCategory, val);
+
+            int baseVal = Base(statTypeId);
+
+            if (baseVal > 0)
+            {
+                int currVal = Curr(statTypeId);
+                int pctVal = Pct(statTypeId);
+
+                FullStat smallStat = new FullStat();
+                smallStat.SetData(statTypeId, currVal, baseVal, pctVal);
+                return smallStat;
+            }
+            return null;
         }
 
-        public void Add(long statTypeId, int statCategory, long val)
-        {
-            Set(statTypeId, statCategory, Get(statTypeId, statCategory));
-        }
     }
 }

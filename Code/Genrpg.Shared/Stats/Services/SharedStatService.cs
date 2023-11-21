@@ -192,7 +192,6 @@ namespace Genrpg.Shared.Stats.Services
                 // Now add effects from skills and elements.
                 List<AbilityRank> abilities = abilityData.GetData();
 
-                List<AbilityEffect> abEffects = null;
                 foreach (AbilityRank ab in abilities)
                 {
                     if (ab.Rank <= AbilityData.DefaultRank)
@@ -204,9 +203,9 @@ namespace Genrpg.Shared.Stats.Services
 
             if (unit.StatPct != 0 && unit.StatPct != 100)
             {
-                foreach (Stat stat in unit.Stats.GetAllStats())
+                foreach (Stat stat in unit.Stats.GetAllBaseStats())
                 {
-                    Set(gs, unit, stat.Id, StatCategories.Base, stat.Get(StatCategories.Pct) * unit.StatPct / 100);
+                    Set(gs, unit, stat.Id, StatCategories.Base, unit.Stats.Pct(stat.Id) * unit.StatPct / 100);
                 }
             }
 

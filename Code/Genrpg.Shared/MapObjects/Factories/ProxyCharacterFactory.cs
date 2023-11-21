@@ -9,6 +9,9 @@ using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
+using System.Collections.Generic;
+using Genrpg.Shared.Stats.Messages;
+using Genrpg.Shared.Stats.Constants;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {
@@ -39,7 +42,10 @@ namespace Genrpg.Shared.MapObjects.Factories
 
             if (spawn is OnSpawn onSpawn)
             {
-                unit.Stats = onSpawn.Stats;
+                List<FullStat> smallStats = onSpawn.Stats;
+
+                unit.Stats.UpdateFromSnapshot(smallStats);
+
                 unit.Level = onSpawn.Level;
                 unit.Name = onSpawn.Name;
                 unit.Speed = onSpawn.Speed;

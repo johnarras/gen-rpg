@@ -29,12 +29,12 @@ namespace Genrpg.Shared.GameSettings.Entities
         [Key(5)] public long MaxAcceptableModValue { get; set; }
         [Key(6)] public long Priority { get; set; }
 
-        [Key(7)] public double MinDaysSinceInstall { get; set; }
-        [Key(8)] public double MaxDaysSinceInstall { get; set; }
+        [Key(7)] public double MinUserDaysSinceInstall { get; set; }
+        [Key(8)] public double MaxUserDaysSinceInstall { get; set; }
         [Key(9)] public long MinLevel { get; set; }
         [Key(10)] public long MaxLevel { get; set; }
-        [Key(11)] public long SpendTimes { get; set; }
-        [Key(12)] public double TotalSpend { get; set; }
+        [Key(11)] public long MinPurchaseCount { get; set; }
+        [Key(12)] public double MinPurchaseTotal { get; set; }
 
         [Key(13)] public bool UseDateRange { get; set; }
         [Key(14)] public DateTime StartDate { get; set; }
@@ -46,8 +46,8 @@ namespace Genrpg.Shared.GameSettings.Entities
     [MessagePackObject]
     public class DataOverrideItem
     {
-        [Key(0)] public string? SettingId { get; set; }
-        [Key(1)] public string? DocId { get; set; }
+        [Key(0)] public string SettingId { get; set; }
+        [Key(1)] public string DocId { get; set; }
     }
 
     [MessagePackObject]

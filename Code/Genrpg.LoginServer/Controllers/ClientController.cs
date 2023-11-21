@@ -8,6 +8,7 @@ using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -36,36 +37,45 @@ namespace Genrpg.LoginServer.Controllers
         [HttpPost]
         public async Task<string> Post([FromForm] string Data)
         {
+
             CancellationTokenSource cts = new CancellationTokenSource();
 
             List<ILoginCommand> comms = await LoadSessionCommands(Data, cts.Token);
 
-            foreach (ILoginCommand comm in comms)
+            try
             {
-                if (gs.commandHandlers.TryGetValue(comm.GetType(), out ILoginCommandHandler handler))
-                { 
-                    await handler.Execute(gs, comm, cts.Token);
-                }
-            }
-
-            List<ILoginResult> errors = new List<ILoginResult>();
-
-            foreach (ILoginResult result in gs.Results)
-            {
-                if (result is ErrorResult error)
+                foreach (ILoginCommand comm in comms)
                 {
-                    errors.Add(error);
+                    if (gs.commandHandlers.TryGetValue(comm.GetType(), out ILoginCommandHandler handler))
+                    {
+                        await handler.Execute(gs, comm, cts.Token);
+                    }
                 }
-            }
 
-            if (errors.Count > 0)
+                List<ILoginResult> errors = new List<ILoginResult>();
+
+                foreach (ILoginResult result in gs.Results)
+                {
+                    if (result is ErrorResult error)
+                    {
+                        errors.Add(error);
+                    }
+                }
+
+                if (errors.Count > 0)
+                {
+                    return PackageResults(errors);
+                }
+
+                await SaveAll(gs);
+
+                return PackageResults(gs.Results);
+            }
+            catch (Exception e)
             {
-                return PackageResults(errors);
+                gs.logger.Exception(e, "HandleLoginCommand." + comms.Select(x => x.GetType().Name + " ").ToList());
             }
-
-            await SaveAll(gs);
-
-            return PackageResults(gs.Results);
+            return null;
         }
 
         private async Task SaveAll(LoginGameState gs)

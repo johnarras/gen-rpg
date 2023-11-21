@@ -25,6 +25,7 @@ namespace Genrpg.Shared.Input.Entities
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public int Index { get; set; }
         [Key(3)] public long SpellId { get; set; }
+        [Key(4)] public override string Name { get; set; }
     }
 
     [MessagePackObject]

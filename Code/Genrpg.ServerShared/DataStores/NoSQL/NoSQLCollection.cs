@@ -27,6 +27,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
     public interface INoSQLCollection
     {
         Task<object> Load(string id);
+        Task<bool> TransactionSave(object t, IClientSessionHandle session);
         Task<bool> Save(object t);
         Task<bool> Delete(object t);
         Task CreateIndex(List<IndexConfig> configs);
@@ -37,10 +38,11 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 
     public class NoSQLCollection<T> : INoSQLCollection where T : class, IStringId
     {
-        private IMongoCollection<T> _collection = null;
-        private ILogSystem _logger;
+        protected IMongoCollection<T> _collection = null;
+        protected ILogSystem _logger = null;
         public NoSQLCollection(NoSQLRepository mongoRepository, ILogSystem logger)
         {
+            _logger = logger;
             try
             {
                 _collection = mongoRepository.GetDatabase().GetCollection<T>(GetCollectionName());
@@ -98,6 +100,16 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 
         public async Task<bool> Save(object obj)
         {
+            return await InnerSave(obj, null);
+        }
+
+        public async Task<bool> TransactionSave(object obj, IClientSessionHandle session)
+        {
+            return await InnerSave(obj, session);
+        }
+
+        protected async Task<bool> InnerSave(object obj, IClientSessionHandle session)
+        {
             T t = (T)obj;
 
             if (t == null)
@@ -112,7 +124,14 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                 }
 
                 ReplaceOptions options = new ReplaceOptions() { IsUpsert = true, BypassDocumentValidation = true, };
-                await _collection.ReplaceOneAsync(w => w.Id == t.Id, t, options);
+                ReplaceOneResult replaceResult = await ReplaceDocument(t, options, session);
+
+                if (replaceResult.ModifiedCount < 1 && string.IsNullOrEmpty(replaceResult.UpsertedId?.AsString ?? null))
+                {
+                    string errorString = "Failed to upsert Document " + typeof(T).Name + " Id: " + t.Id;
+                    _logger.Error(errorString);
+                    throw new Exception (errorString);
+                }
             }
             catch (Exception ex)
             {
@@ -120,6 +139,18 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                 return false;
             }
             return true;
+        }
+
+        virtual protected async Task<ReplaceOneResult> ReplaceDocument(T t, ReplaceOptions options, IClientSessionHandle session)
+        {
+            if (session != null)
+            {
+                return await _collection.ReplaceOneAsync(session, w => w.Id == t.Id, t, options);
+            }
+            else
+            {
+                return await _collection.ReplaceOneAsync(w => w.Id == t.Id, t, options);
+            }
         }
 
         public async Task<List<object>> Search(object funcObj, int quantity = 1000, int skip = 0)

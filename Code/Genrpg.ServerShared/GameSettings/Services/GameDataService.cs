@@ -1,4 +1,5 @@
 ﻿using Genrpg.ServerShared.Core;
+using Genrpg.ServerShared.GameSettings.Interfaces;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
@@ -17,11 +18,11 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.GameSettings.Services
 {
-
-
-
     public class GameDataService<D> : IGameDataService where D : GameData, new()
     {
+
+        private List<IGameDataContainer> _gameDataContainers = new List<IGameDataContainer>();
+
         private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
 
         private async Task SetupLoaders(IRepositorySystem repoSystem)
@@ -54,24 +55,25 @@ namespace Genrpg.ServerShared.GameSettings.Services
             await SetupLoaders(gs.repo);
         }
 
-        public GameDataService()
+        public void AddGameDataContainer(IGameDataContainer container)
         {
+            if (container != null)
+            {
+                _gameDataContainers.Add(container);
+            }
         }
+
 
         public virtual List<string> GetEditorIgnoreFields()
         {
-            return new List<string>() { "_lookup" };
+            return new List<string>() { "_lookup", "DocVersion" };
         }
 
         public virtual async Task<GameData> LoadGameData(ServerGameState gs, bool createMissingGameData)
         {
-
             GameData gameData = new GameData();
 
             List<Task<List<IGameSettings>>> allTasks = new List<Task<List<IGameSettings>>>();
-
-
-
 
             foreach (IGameSettingsLoader loader in _loaderObjects.Values)
             {
@@ -87,6 +89,10 @@ namespace Genrpg.ServerShared.GameSettings.Services
                     settings.AddTo(gameData);
                 }
             }
+            gameData.SetupDataDict(true);
+
+            gameData.CurrSaveTime = gameData.GetGameData<VersionSettings>(null).GameDataSaveTime;
+
             return gameData;
         }
 
@@ -106,11 +112,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return true;
         }
 
-        public virtual void UpdateDataBeforeSave(GameData data)
-        {
-        }
-
-        public void SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool force)
+        public void SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool forceRefresh)
         {
             if (!(obj is Character ch))
             {
@@ -128,13 +130,14 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             VersionSettings versionSettings = gs.data.GetGameData<VersionSettings>(ch);
 
-            DateTime currentTime = DateTime.Today.AddHours(DateTime.UtcNow.Hour);
+            DateTime startOfHour = DateTime.Today.AddHours(DateTime.UtcNow.Hour);
 
-            if (!force && 
-                versionSettings.GameDataVersion == gameDataOverrideData.GameDataVersion &&
-                gameDataOverrideData.LastTimeSet < currentTime)
+            if (!forceRefresh && 
+                versionSettings.GameDataSaveTime == gameDataOverrideData.GameDataSaveTime &&
+                gameDataOverrideData.LastTimeSet == startOfHour)
             {
-                ch.SetSessionOverrideList(gameDataOverrideList);
+                ch.SetGameDataOverrideList(gameDataOverrideList);
+                return;
             }
 
             DataOverrideSettings dataOverrideSettings = gs.data.GetGameData<DataOverrideSettings>(null);
@@ -154,11 +157,11 @@ namespace Genrpg.ServerShared.GameSettings.Services
                             continue;
                         }
 
-                        GameDataOverrideItem overrideItem = gameDataOverrideList.Items.FirstOrDefault(x => x.SettingId == item.SettingId);
+                        PlayerSettingsOverrideItem overrideItem = gameDataOverrideList.Items.FirstOrDefault(x => x.SettingId == item.SettingId);
 
                         if (overrideItem == null)
                         {
-                            overrideItem = new GameDataOverrideItem() { SettingId = item.SettingId };
+                            overrideItem = new PlayerSettingsOverrideItem() { SettingId = item.SettingId };
                             gameDataOverrideList.Items.Add(overrideItem);
                             overrideItem.DocId = item.DocId;
                         }
@@ -171,12 +174,30 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 }
             }
 
-            gameDataOverrideData.GameDataVersion = versionSettings.GameDataVersion;
-            gameDataOverrideData.LastTimeSet = currentTime;
-
+            gameDataOverrideData.GameDataSaveTime = versionSettings.GameDataSaveTime;
+            gameDataOverrideData.LastTimeSet = startOfHour;
+            gameDataOverrideData.SetDirty(true);
             gameDataOverrideList.Items = gameDataOverrideList.Items.OrderBy(x => x.SettingId).ToList();
 
-            ch.SetSessionOverrideList(gameDataOverrideList);
+            ch.SetGameDataOverrideList(gameDataOverrideList);
+        }
+
+        public List<IGameSettings> MapToApi(ServerGameState gs, List<IGameSettings> startSettings)
+        {
+            List<IGameSettings> retval = new List<IGameSettings>();
+
+            foreach (IGameSettings settings in startSettings)
+            {
+                if (_loaderObjects.TryGetValue(settings.GetType(), out IGameSettingsLoader loader))
+                {
+                    retval.Add(loader.MapToApi(settings));
+                }
+                else
+                {
+                    retval.Add(settings);
+                }
+            }
+            return retval;
         }
 
         public List<IGameSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault)
@@ -189,7 +210,6 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             foreach (Type t in _loaderObjects.Keys)
             {
-
                 IGameSettingsLoader loader = _loaderObjects[t];
 
                 if (!loader.SendToClient())
@@ -247,6 +267,26 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
 
             return true;
+        }
+
+        public async Task ReloadGameData(ServerGameState gs)
+        {
+            if (gs.data == null)
+            {
+                gs.data = await LoadGameData(gs, true);
+            }
+            else
+            {
+                GameData newData = await LoadGameData(gs, true);
+
+                newData.PrevSaveTime = gs.data.CurrSaveTime;
+                gs.data = newData;
+            }
+
+            foreach (IGameDataContainer container in _gameDataContainers)
+            {
+                container.UpdateFromNewGameData(gs.data);
+            }
         }
     }
 }

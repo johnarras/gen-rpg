@@ -20,7 +20,7 @@ namespace Genrpg.Shared.MapObjects.Factories
     [MessagePackObject]
     public class UnitFactory : BaseMapObjectFactory
     {
-        private IStatService _statService;
+        private IStatService _statService = null;
         public override long GetKey() { return EntityTypes.Unit; }
         public override MapObject Create(GameState gs, IMapSpawn spawn)
         {
@@ -31,7 +31,7 @@ namespace Genrpg.Shared.MapObjects.Factories
                 utype = null;
             }
 
-            Zone? zone = gs?.map?.Get<Zone>(spawn.ZoneId);
+            Zone zone = gs?.map?.Get<Zone>(spawn.ZoneId);
 
             long level = zone != null ? zone.Level : 1;
             if (utype == null)

@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace Genrpg.Shared.DataStores.Categories.GameSettings
 {
     [DataCategory(Category = DataCategory.GameData)]
-    public abstract class BaseGameSettings : IGameSettings
+    public abstract class BaseGameSettings : IGameSettings, IUpdateData
     {
         [MessagePack.IgnoreMember]
         public abstract string Id { get; set; }
@@ -21,6 +22,11 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
             get { return GetType().Name; }
             set { }
         }
+        [MessagePack.IgnoreMember]
+        public DateTime UpdateTime { get; set; } = DateTime.MinValue;
+        [MessagePack.IgnoreMember]
+        public DateTime CreateTime { get; set; } = DateTime.MinValue;
+
         public virtual void AddTo(GameData gameData)
         {
             gameData.Set(this);

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.MapServer.MapMessaging;
-using Genrpg.ServerShared.CloudMessaging.Constants;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.MapServer.Messages;
-using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
+using Genrpg.ServerShared.CloudComms.Constants;
+using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
 
 namespace Genrpg.MapServer.Movement.MessageHandlers
 {
@@ -30,7 +30,7 @@ namespace Genrpg.MapServer.Movement.MessageHandlers
             {
                 if (obj.PrevZoneId != obj.ZoneId)
                 {
-                    _cloudMessageService.SendMessage(CloudServerNames.Player, new PlayerEnterZone() { Id = ch.Id, ZoneId = ch.ZoneId });
+                    _cloudCommsService.SendQueueMessage(CloudServerNames.Player, new PlayerEnterZone() { Id = ch.Id, ZoneId = ch.ZoneId });
                 }
 
 

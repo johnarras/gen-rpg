@@ -26,9 +26,9 @@ namespace Genrpg.MapServer.Crafting
 
     public class ServerCraftingService : IServerCraftingService
     {
-        private IInventoryService _inventoryService;
-        private ISharedCraftingService _sharedCraftingService;
-        private IItemGenService _itemGenService;
+        private IInventoryService _inventoryService = null;
+        private ISharedCraftingService _sharedCraftingService = null    ;
+        private IItemGenService _itemGenService = null;
         public CraftingResult CraftItem(GameState gs, CraftingItemData data, Character ch, bool sendUpdates = false)
         {
 
@@ -142,7 +142,7 @@ namespace Genrpg.MapServer.Crafting
             {
                 foreach (Stat stat in stats.Stats)
                 {
-                    ItemEffect ieff = new ItemEffect() { EntityTypeId = EntityTypes.Stat, EntityId = stat.Id, Quantity = stat.GetMax() };
+                    ItemEffect ieff = new ItemEffect() { EntityTypeId = EntityTypes.Stat, EntityId = stat.Id, Quantity = stat.Val };
                     item.Effects.Add(ieff);
                 }
             }

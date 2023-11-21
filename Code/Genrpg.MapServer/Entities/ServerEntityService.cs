@@ -12,7 +12,7 @@ namespace Genrpg.MapServer.Entities
 {
     public class ServerEntityService : EntityService
     {
-        IServerQuestService _questService;
+        IServerQuestService _questService = null;
         public override bool GiveRewards<SR>(GameState gs, MapObject obj, List<SR> resultList)
         {
 

@@ -7,7 +7,6 @@ namespace Genrpg.Shared.MapServer.Entities
 {
     public interface IMapRoot : IStringId
     {
-        string Id { get; set; }
         string Name { get; set; }
         string Desc { get; set; }
         string Icon { get; set; }

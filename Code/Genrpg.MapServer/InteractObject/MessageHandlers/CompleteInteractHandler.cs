@@ -22,8 +22,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {
     public class CompleteInteractHandler : BaseServerMapMessageHandler<CompleteInteract>
     {
-        private ISpawnService _spawnService;
-        private IAchievementService _achievementService;
+        private ISpawnService _spawnService = null;
 
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, CompleteInteract message)
         {

@@ -10,9 +10,13 @@ using Genrpg.Shared.GameSettings.Interfaces;
 
 namespace Genrpg.Shared.GameSettings
 {
+    [MessagePackObject]
     public class GameData
     {
         public const int IdBlockSize = 10000;
+
+        [Key(0)] public DateTime PrevSaveTime { get; set; }  = DateTime.MinValue;
+        [Key(1)] public DateTime CurrSaveTime { get; set; } = DateTime.UtcNow;
 
         private List<IGameSettings> _allData { get; set; } = new List<IGameSettings>();
 
@@ -45,7 +49,7 @@ namespace Genrpg.Shared.GameSettings
         }
 
         private Dictionary<Type, Dictionary<string,IGameSettings>> _dataDict = null!;
-        public T GetGameData<T>(IFilteredObject? obj) where T : IGameSettings
+        public T GetGameData<T>(IFilteredObject obj) where T : IGameSettings
         {
             SetupDataDict(false);
 
@@ -71,7 +75,22 @@ namespace Genrpg.Shared.GameSettings
 
         public void Set<T>(T t) where T : IGameSettings
         {
+            IGameSettings currentObject = _allData.FirstOrDefault(x => x.Id == t.Id && x.GetType() == t.GetType());
+            if (currentObject != null)
+            {
+                _allData.Remove(currentObject);
+            }
+                                       
             _allData.Add(t);
+        }
+
+        public void AddData(List<IGameSettings> settingsList)
+        {
+            foreach (IGameSettings settings in settingsList)
+            {
+                settings.AddTo(this);
+            }
+            SetupDataDict(true);
         }
 
         public List<IIdName> GetList(string typeName)
@@ -91,7 +110,7 @@ namespace Genrpg.Shared.GameSettings
             return new List<IIdName>();
         }
 
-        public string GetDataObjectName(string typeName, IFilteredObject? obj)
+        public string GetDataObjectName(string typeName, IFilteredObject obj)
         {
             return obj?.GetGameDataName(typeName) ?? GameDataConstants.DefaultFilename;
             

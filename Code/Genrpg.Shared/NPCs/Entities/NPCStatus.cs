@@ -18,7 +18,7 @@ namespace Genrpg.Shared.NPCs.Entities
         [Key(1)] public string OwnerId { get; set; }
         [Key(2)] public string MapObjectId { get; set; }
         [Key(3)] public long IdKey { get; set; }
-        [Key(4)] public string? MapId { get; set; }
+        [Key(4)] public string MapId { get; set; }
 
         [Key(5)] public DateTime LastItemRefresh { get; set; }
         [Key(6)] public List<VendorItem> Items { get; set; }

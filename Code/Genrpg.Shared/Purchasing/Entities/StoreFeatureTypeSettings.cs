@@ -23,17 +23,12 @@ namespace Genrpg.Shared.Purchasing.Entities
 
 
     [MessagePackObject]
-    public class StoreFeatureType : ChildSettings, IIndexedGameItem
+    public class StoreFeatureType : ChildSettings, IIdName
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }
-        [Key(3)] public string Desc { get; set; }
-        [Key(4)] public string Icon { get; set; }
-        [Key(5)] public string Art { get; set; }
-        [Key(6)] public double DollarPrice { get; set; }
-        [Key(7)] public long GemPrice { get; set; }
-        [Key(8)] public string GoogleProductId { get; set; }
-        [Key(9)] public string AppleProductId { get; set; }
+        [Key(3)] public override string Name { get; set; }
+        [Key(4)] public string Desc { get; set; }
     }
 }

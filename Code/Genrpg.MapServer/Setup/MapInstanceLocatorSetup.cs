@@ -16,14 +16,12 @@ using Genrpg.MapServer.Entities;
 using Genrpg.MapServer.Currencies;
 using Genrpg.MapServer.Stats;
 using Genrpg.MapServer.Maps;
-using Genrpg.ServerShared.CloudMessaging;
 using Genrpg.ServerShared.Setup;
 using Genrpg.MapServer.Units;
 using Genrpg.MapServer.Spells;
 using Genrpg.MapServer.Levelup;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.MapServer.MapMessaging;
-using Genrpg.ServerShared.CloudMessaging.Services;
 using Genrpg.Shared.UserCoins.Services;
 
 namespace Genrpg.MapServer.Setup

@@ -15,7 +15,7 @@ namespace Genrpg.Shared.Versions.Entities
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public int ClientVersion { get; set; }
         [Key(2)] public int ServerVersion { get; set; }
-        [Key(3)] public int GameDataVersion { get; set; }
+        [Key(3)] public DateTime GameDataSaveTime { get; set; }
         [Key(4)] public int UserVersion { get; set; }
         [Key(5)] public int CharacterVersion { get; set; }
     }

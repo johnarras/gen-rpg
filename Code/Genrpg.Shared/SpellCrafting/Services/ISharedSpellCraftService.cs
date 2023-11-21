@@ -11,7 +11,7 @@ namespace Genrpg.Shared.SpellCrafting.Services
 {
     public interface ISharedSpellCraftService : ISetupService
     {
-        bool ValidateSpellData(GameState gs, MapObject? obj, ISpell spellType);
+        bool ValidateSpellData(GameState gs, MapObject obj, ISpell spellType);
         ISpellModifierHelper GetSpellModifierHelper(long spellModifierId);
     }
 }

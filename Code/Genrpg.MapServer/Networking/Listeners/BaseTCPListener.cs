@@ -30,7 +30,7 @@ namespace Genrpg.MapServer.Networking.Listeners
         protected int _port = 0;
         protected CancellationToken _token;
         protected EMapApiSerializers _seralizer;
-        ILogSystem _logger;
+        ILogSystem _logger = null;
         protected Action<ServerConnectionState> _addConnectionHandler;
         protected MapApiMessageHandler _messageHandler;
 

@@ -16,7 +16,7 @@ namespace Genrpg.MapServer.Items
 {
     public class ServerInventoryService : InventoryService
     {
-        private IMapMessageService _messageService;
+        private IMapMessageService _messageService = null;
         public override async Task Setup(GameState gs, CancellationToken token)
         {
             await base.Setup(gs, token);

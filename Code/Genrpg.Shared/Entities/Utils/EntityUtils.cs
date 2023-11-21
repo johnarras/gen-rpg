@@ -222,9 +222,6 @@ namespace Genrpg.Shared.Entities.Utils
                     return null;
                 }
             }
-
-            return null;
-
         }
 
 

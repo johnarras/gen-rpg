@@ -1,6 +1,6 @@
 ﻿using Genrpg.PlayerServer.Services;
-using Genrpg.ServerShared.CloudMessaging.Messages;
-using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
+using Genrpg.ServerShared.CloudComms.Queues.Entities;
+using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
 using Genrpg.ServerShared.Core;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.PlayerServer.MessageHandlers
 {
-    public abstract class BasePlayerMessageHandler<T> : IPlayerMessageHandler where T : IPlayerCloudMessage
+    public abstract class BasePlayerMessageHandler<T> : IPlayerMessageHandler where T : IPlayerQueueMessage
     {
 
         protected IPlayerService _playerService;
@@ -22,7 +22,7 @@ namespace Genrpg.PlayerServer.MessageHandlers
             return typeof(T);
         }
 
-        public async Task HandleMessage(ServerGameState gs, ICloudMessage message, CancellationToken token)
+        public async Task HandleMessage(ServerGameState gs, IQueueMessage message, CancellationToken token)
         {
             await InnerHandleMessage(gs, (T)message);
         }

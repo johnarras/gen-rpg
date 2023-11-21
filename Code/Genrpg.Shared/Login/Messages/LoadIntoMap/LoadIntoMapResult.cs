@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Networking.Constants;
 using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.DataStores.PlayerData;
 
 namespace Genrpg.Shared.Login.Messages.LoadIntoMap
 {
@@ -23,6 +23,7 @@ namespace Genrpg.Shared.Login.Messages.LoadIntoMap
         [Key(4)] public long Port { get; set; }
         [JsonProperty(TypeNameHandling = TypeNameHandling.Auto)]
         [Key(5)] public List<IUnitData> CharData { get; set; } = new List<IUnitData>();
+        [JsonProperty(TypeNameHandling = TypeNameHandling.Auto)]
         [Key(6)] public List<IGameSettings> GameData { get; set; } = new List<IGameSettings>();
 
         [Key(7)] public EMapApiSerializers Serializer { get; set; } = EMapApiSerializers.Json;

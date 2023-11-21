@@ -1,7 +1,7 @@
 ﻿using Genrpg.InstanceServer.MessageHandlers;
 using Genrpg.InstanceServer.RequestHandlers;
 using Genrpg.InstanceServer.Setup;
-using Genrpg.ServerShared.CloudMessaging.Constants;
+using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.MainServer;
 using Genrpg.Shared.Setup.Services;
 
@@ -11,7 +11,7 @@ namespace Genrpg.InstanceServer
     {
         protected override string GetServerId(object data)
         {
-            return CloudServerNames.Instances;
+            return CloudServerNames.Instances.ToString();
         }
 
         protected override SetupService GetSetupService(object data)
@@ -19,10 +19,10 @@ namespace Genrpg.InstanceServer
             return new InstanceSetupService();
         }
 
-        protected override void SetupMessagingHandlers()
+        protected override void SetupCustomCloudMessagingHandlers()
         {
-            _cloudMessageService.SetMessageHandlers(_reflectionService.SetupDictionary<Type,IInstanceMessageHandler>(_gs));
-            _cloudMessageService.SetRequestHandlers(_reflectionService.SetupDictionary<Type,IInstanceRequestHandler>(_gs));
+            _cloudCommsService.SetQueueMessageHandlers(_reflectionService.SetupDictionary<Type,IInstanceMessageHandler>(_gs));
+            _cloudCommsService.SetRequestHandlers(_reflectionService.SetupDictionary<Type,IInstanceRequestHandler>(_gs));
         }
     }
 }

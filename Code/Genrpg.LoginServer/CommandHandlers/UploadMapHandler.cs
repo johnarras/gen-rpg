@@ -13,8 +13,8 @@ namespace Genrpg.LoginServer.CommandHandlers
 {
     public class UploadMapHandler : BaseLoginCommandHandler<UploadMapCommand>
     {
-        private IMapDataService _mapDataService;
-        private IMapSpawnService _mapSpawnService;
+        private IMapDataService _mapDataService = null;
+        private IMapSpawnService _mapSpawnService = null;
         protected override async Task InnerHandleMessage(LoginGameState gs, UploadMapCommand command, CancellationToken token)
         {
             if (gs.config.Env == EnvNames.Prod)

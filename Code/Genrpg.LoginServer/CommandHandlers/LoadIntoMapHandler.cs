@@ -28,6 +28,11 @@ using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.ServerShared.CloudComms.Services;
+using Genrpg.ServerShared.CloudComms.Requests.Entities;
+using Genrpg.ServerShared.CloudComms.Constants;
+using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Requests;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
@@ -35,6 +40,7 @@ namespace Genrpg.LoginServer.CommandHandlers
     {
         private IGameDataService _gameDataService = null;
         private IMapDataService _mapDataService = null;
+        private ICloudCommsService _cloudCommsService = null;
         private static ConcurrentDictionary<string, CachedMap> _mapCache = new ConcurrentDictionary<string, CachedMap>();
         public override async Task Reset()
         {
@@ -99,7 +105,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 Host = fullCachedMap.MapInstance?.Host,
                 Port = fullCachedMap.MapInstance?.Port ?? 0,
                 Serializer = EMapApiSerializers.MessagePack,
-                OverrideList = gs.ch.GetSessionOverrideList(),
+                OverrideList = gs.ch.GetGameDataOverrideList(),
                 GameData = gameData,
                 CharData = clientDataList,
             };
@@ -132,36 +138,27 @@ namespace Genrpg.LoginServer.CommandHandlers
                 _mapCache.TryAdd(mapId, newCachedMap);
             }
 
-            CachedMap cachedMap = _mapCache[mapId];
+            ResponseEnvelope envelope = await _cloudCommsService.SendRequestAsync(CloudServerNames.Instances,new GetInstanceRequest() { MapId = mapId });
 
-            CachedMapInstance mapInstance = cachedMap.Instances.FirstOrDefault(x => x.InstanceId == instanceId);
-            if (mapInstance == null)
+            GetInstanceResponse response = envelope.Response as GetInstanceResponse;
+
+            if (response == null || !string.IsNullOrEmpty(envelope.ErrorText))
             {
-                // Need to really get this from some instance service
-
-                mapInstance = new CachedMapInstance();
-
-                if (env == EnvNames.Local)
-                {
-                    mapInstance.Host = TempDevConstants.LocalIP;
-                }
-                else if (env == EnvNames.Dev || env == EnvNames.Test || env == EnvNames.Prod)
-                {
-                    mapInstance.Host = TempDevConstants.TestVMIP;
-                }
-
-                if (int.TryParse(mapId, out int mapIdInt))
-                {
-                    mapInstance.Port = 4000 + mapIdInt;
-                }
-                cachedMap.Instances.Add(mapInstance);
-
+                return new FullCachedMap();
             }
+
+            CachedMap cachedMap = _mapCache[mapId];
 
             FullCachedMap fullMap = new FullCachedMap()
             {
                 Map = (generatingMap ? cachedMap.FullMap : cachedMap.ClientMap),
-                MapInstance = mapInstance,
+            };
+
+            fullMap.MapInstance = new CachedMapInstance()
+            {
+                Host = response.Host,
+                Port = response.Port,
+                InstanceId = response.InstanceId,
             };
 
             return fullMap;

@@ -30,7 +30,7 @@ namespace Genrpg.Shared.Crafting.Services
         /// <summary>
         /// Get stats generated when the given crafting stats are used
         /// Add up the stat values given the levels of the items passed in 
-        /// and the powers of thsoe items. Then, use the overall power to
+        /// and the powers of those items. Then, use the overall power to
         /// scale up the power of this item.
         /// </summary>
         /// <param name="gs">GameState</param>
@@ -253,9 +253,9 @@ namespace Genrpg.Shared.Crafting.Services
                 // now it's scaled relative to all of these factors, add 0.5f to round and then set this as the return value.
                 Stat stat = new Stat()
                 {
-                    Id = key,
+                    Id = (short)key,
                 };
-                stat.Set(StatCategories.Curr, (long)Math.Ceiling(statValDouble));
+                stat.Val = (int)Math.Ceiling(statValDouble);
                 stats.Stats.Add(stat);
             }
             stats.Level = (long)Math.Floor(averageLevel);

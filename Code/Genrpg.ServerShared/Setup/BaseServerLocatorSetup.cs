@@ -1,10 +1,10 @@
 ﻿using Genrpg.ServerShared.Achievements;
-using Genrpg.ServerShared.CloudMessaging;
-using Genrpg.ServerShared.CloudMessaging.Services;
+using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;
 using Genrpg.ServerShared.PlayerData;
+using Genrpg.ServerShared.Purchasing.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
@@ -22,12 +22,13 @@ namespace Genrpg.ServerShared.Setup
         public override void Setup(GameState gs)
         {
             base.Setup(gs);
-            gs.loc.Set<ICloudMessageService>(new CloudMessageService());
+            gs.loc.Set<ICloudCommsService>(new CloudCommsService());
             gs.loc.Set<IGameDataService>(new GameDataService<GameData>());
             gs.loc.Set<IMapSpawnService>(new MapSpawnService());
             gs.loc.Set<IMapDataService>(new MapDataService());
             gs.loc.Set<IAchievementService>(new AchievementService());
             gs.loc.Set<IPlayerDataService>(new PlayerDataService());
+            gs.loc.Set<IPurchasingService>(new PurchasingService());
         }
     }
 }

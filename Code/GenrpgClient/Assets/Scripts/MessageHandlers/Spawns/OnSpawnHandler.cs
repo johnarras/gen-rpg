@@ -4,6 +4,8 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Units.Entities;
 using System.Threading;
+using System.Collections.Generic;
+using Genrpg.Shared.Stats.Messages;
 
 public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
 {
@@ -14,7 +16,9 @@ public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
             if (obj is Unit existingUnit)
             {
                 existingUnit.Flags = spawnMessage.TempFlags;
-                existingUnit.Stats = spawnMessage.Stats;
+
+                existingUnit.Stats.UpdateFromSnapshot(spawnMessage.Stats);
+
                 existingUnit.Loot = spawnMessage.Loot;
                 existingUnit.SkillLoot = spawnMessage.SkillLoot;
 

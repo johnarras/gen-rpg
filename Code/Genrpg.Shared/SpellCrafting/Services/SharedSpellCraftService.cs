@@ -25,8 +25,9 @@ namespace Genrpg.Shared.SpellCrafting.Services
         private Dictionary<long, ISpellModifierHelper> _modifierHelpers = null;
 
         public virtual async Task Setup(GameState gs, CancellationToken token)
-        {
+        {           
             _modifierHelpers = _reflectionService.SetupDictionary<long, ISpellModifierHelper>(gs);
+            await Task.CompletedTask;
         }
 
         public ISpellModifierHelper GetSpellModifierHelper(long modifierId)
@@ -39,7 +40,7 @@ namespace Genrpg.Shared.SpellCrafting.Services
             return null;
         }            
 
-        public bool ValidateSpellData(GameState gs, MapObject? obj, ISpell spell)
+        public bool ValidateSpellData(GameState gs, MapObject obj, ISpell spell)
         {
             if (spell == null)
             {
@@ -119,8 +120,6 @@ namespace Genrpg.Shared.SpellCrafting.Services
 
 
                 firstSkillName = skillType.Name;
-
-                double scale = 1.0f;
 
                 long currentCostPercent = 100;
                 currentCostPercent = skillType.GetCostPercentFromPowerStat(spell.PowerStatTypeId);

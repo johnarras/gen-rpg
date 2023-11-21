@@ -26,9 +26,8 @@ namespace Genrpg.MapServer.Items
 
     public class ItemGenService : IItemGenService
     {
-        private INameGenService _nameGenService;
-        private IStatService _statService;
-        private ISpawnService _spawnService;
+        private INameGenService _nameGenService = null;
+        private IStatService _statService = null;
 
 
 

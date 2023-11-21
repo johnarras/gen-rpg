@@ -2,16 +2,14 @@
 using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Maps.Constants;
 using Genrpg.MapServer.Setup;
-using Genrpg.ServerShared.CloudMessaging.Constants;
-using Genrpg.ServerShared.CloudMessaging.Requests;
-using Genrpg.ServerShared.CloudMessaging.Servers.InstanceServer.Messaging;
-using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Requests;
-using Genrpg.ServerShared.CloudMessaging.Services;
+using Genrpg.ServerShared.CloudComms.Constants;
+using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.MainServer;
 using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.DataStores.Interfaces;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Networking.Constants;
 using Genrpg.Shared.Setup.Services;
@@ -30,7 +28,7 @@ namespace Genrpg.MapServer.MainServer
     public class MapServerMain : BaseServer
     {
 
-        private IMapDataService _mapDataService;
+        private IMapDataService _mapDataService = null;
 
         private List<MapInstance> _instances = new List<MapInstance>();
 
@@ -42,20 +40,20 @@ namespace Genrpg.MapServer.MainServer
         public override async Task Init(object data, CancellationToken serverToken)
         {
             InitMapServerData mapData = data as InitMapServerData;
-            _serverId = CloudServerNames.Map + mapData.MapServerId;
+            _serverId = CloudServerNames.Map+ mapData.MapServerId;
             _mapServerId = mapData.MapServerId;
             _mapServerIndex = mapData.MapServerIndex;
             _mapServerCount = mapData.MapServerCount;
             await base.Init(data, serverToken);
 
-            string messageQueueId = _cloudMessageService.GetFullQueueName(_serverId);
+            string messageQueueId = _cloudCommsService.GetFullServerName(_serverId);
 
             AddMapServer addServer = new AddMapServer()
             {
                 ServerId = messageQueueId,
             };
 
-            _cloudMessageService.SendMessage(CloudServerNames.Instances, addServer);
+            _cloudCommsService.SendQueueMessage(CloudServerNames.Instances, addServer);
 
             List<MapStub> mapStubs = await _mapDataService.GetMapStubs(_gs);
 
@@ -71,12 +69,14 @@ namespace Genrpg.MapServer.MainServer
                     {
                         MapInstance mapInstance = new MapInstance();
 
+                        string instanceId = (++_nextInstanceId).ToString();
                         InitMapInstanceData initData = new InitMapInstanceData()
                         {
                             MapId = stub.Id,
                             MapServerId = mapData.MapServerId,
+                            MapFullServerId = _cloudCommsService.GetFullServerNameForMapInstance(stub.Id, instanceId),
                             Port = mapData.StartPort + mapStubId,
-                            InstanceId = (++_nextInstanceId).ToString(),
+                            InstanceId = instanceId,
                             MapServerMessageQueueId = messageQueueId,
                             Serializer = EMapApiSerializers.MessagePack,
                         };
@@ -100,10 +100,20 @@ namespace Genrpg.MapServer.MainServer
             return new MapServerSetupService();
         }
 
-        protected override void SetupMessagingHandlers()
+        protected override void SetupCustomCloudMessagingHandlers()
         {
-            _cloudMessageService.SetMessageHandlers(_reflectionService.SetupDictionary<Type, IMapServerCloudMessageHandler>(_gs));
+            _cloudCommsService.SetQueueMessageHandlers(_reflectionService.SetupDictionary<Type, IMapServerCloudMessageHandler>(_gs));
         }
 
+        public override void UpdateFromNewGameData(GameData gameData)
+        {
+            base.UpdateFromNewGameData(gameData);
+            List<MapInstance> instances = new List<MapInstance>(_instances);
+
+            foreach (MapInstance instance in instances)
+            {
+                instance.RefreshGameData();
+            }
+        }
     }
 }

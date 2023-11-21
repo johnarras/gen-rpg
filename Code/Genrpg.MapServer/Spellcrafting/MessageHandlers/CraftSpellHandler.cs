@@ -17,7 +17,7 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
 {
     public class CraftSpellHandler : BaseServerMapMessageHandler<CraftSpell>
     {
-        private ISharedSpellCraftService _spellCraftService;
+        private ISharedSpellCraftService _spellCraftService = null;
 
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, CraftSpell message)
         {

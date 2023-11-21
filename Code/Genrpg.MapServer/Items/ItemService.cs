@@ -25,11 +25,11 @@ namespace Genrpg.MapServer.Items
 
     public class ItemService : IItemService
     {
-        private ISpawnService _spawnService;
-        private IServerCraftingService _craftingService;
-        private IEntityService _entityService;
-        private IMapObjectManager _objectManager;
-        private IInventoryService _inventoryService;
+        private ISpawnService _spawnService = null;
+        private IServerCraftingService _craftingService = null;
+        private IEntityService _entityService = null;
+        private IMapObjectManager _objectManager = null;
+        private IInventoryService _inventoryService = null;
         // This should call out to different functions in different parts of the code.
         // Eventually split these cases into separate functions.
         public UseItemResult UseItem(GameState gs, Character ch, Item item)

@@ -39,7 +39,7 @@ namespace Genrpg.Shared.Reflection.Services
         List<NameValue> GetDropdownList(GameState gs, MemberInfo mem, object obj);
         void SetObjectValue(object obj, string name, object val);
         object AddItems(object obj, object parent, IRepositorySystem repoSystem, out List<object> newItems,
-            object? copyFrom = null, int maxCount = 0);
+            object copyFrom = null, int maxCount = 0);
         object GetItemWithId(object list, int id, string idMemberName = GameDataConstants.IdKey);
         object GetLastItem(object list);
         IList CreateGenericList(Type type);
@@ -525,7 +525,7 @@ namespace Genrpg.Shared.Reflection.Services
         }
 
         public object AddItems(object obj, object parent, IRepositorySystem repoSystem, out List<object> newItems,
-            object? copyFrom = null, int maxCount = 0)
+            object copyFrom = null, int maxCount = 0)
         {
             newItems = new List<object>();
 

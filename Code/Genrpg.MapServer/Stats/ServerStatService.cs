@@ -18,8 +18,8 @@ namespace Genrpg.MapServer.Stats
     public class ServerStatService : SharedStatService
     {
 
-        private IMapMessageService _messageService;
-        private IStatService _statService;
+        private IMapMessageService _messageService = null;
+        private IStatService _statService = null;
 
         protected override void SendUpdatedStats(GameState gs, Unit unit, List<long> statIdsToSend)
         {
@@ -27,6 +27,7 @@ namespace Genrpg.MapServer.Stats
             {
                 return;
             }
+
             StatUpd upd = new StatUpd()
             {
                 UnitId = unit.Id,
@@ -34,14 +35,12 @@ namespace Genrpg.MapServer.Stats
 
             foreach (long statId in statIdsToSend)
             {
+                FullStat fullStat = unit.Stats.GetFullStat(statId);
 
-                long curr = unit.Stats.Curr(statId);
-                long max = unit.Stats.Max(statId);
+                upd.AddFullStat(fullStat);
 
-
-                upd.AddStat(statId, curr, max);
-
-                if (curr < max &&
+                if (fullStat != null && 
+                    fullStat.GetCurr() < fullStat.GetMax() &&
                     (unit.RegenMessage == null || unit.RegenMessage.IsCancelled()))
                 {
                     unit.RegenMessage = new Regen();
@@ -50,7 +49,10 @@ namespace Genrpg.MapServer.Stats
                 }
             }
 
-            _messageService.SendMessageNear(unit, upd);
+            if (upd.Dat.Count > 0)
+            {
+                _messageService.SendMessageNear(unit, upd);
+            }
         }
 
         private List<StatType> _mutableStats = null;

@@ -11,6 +11,7 @@ namespace Genrpg.MapServer.Maps
     {
         public string MapId { get; set; }
         public string MapServerId { get; set; }
+        public string MapFullServerId { get; set; }
         public string InstanceId { get; set; }
         public string MapServerMessageQueueId { get; set; }
         public int Port { get; set; }

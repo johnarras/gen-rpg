@@ -15,9 +15,9 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.DataStores.PlayerData;
 
 namespace Genrpg.Shared.Units.Entities
 {
@@ -41,9 +41,9 @@ namespace Genrpg.Shared.Units.Entities
 
         private List<AttackerInfo> _attackers = new List<AttackerInfo>();
 
-        public void AddAttacker(string atackerId, string groupId)
+        public void AddAttacker(string attackerId, string groupId)
         {
-            AttackerInfo currAttacker = _attackers.FirstOrDefault(x => x.AttackerId == atackerId);
+            AttackerInfo currAttacker = _attackers.FirstOrDefault(x => x.AttackerId == attackerId);
             if (currAttacker != null)
             {
                 currAttacker.GroupId = groupId;
@@ -52,7 +52,7 @@ namespace Genrpg.Shared.Units.Entities
 
             currAttacker = new AttackerInfo()
             {
-                AttackerId = atackerId,
+                AttackerId = attackerId,
                 GroupId = groupId,
             };
 
@@ -86,7 +86,8 @@ namespace Genrpg.Shared.Units.Entities
         [JsonIgnore]
         [IgnoreMember] public Regen RegenMessage;
 
-        [Key(58)] public StatGroup Stats { get; set; }
+        [JsonIgnore]
+        [IgnoreMember] public StatGroup Stats { get; set; } = new StatGroup();
 
         public float GetScale() { return 1.0f; }
 

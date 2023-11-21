@@ -82,7 +82,7 @@ namespace Genrpg.Shared.Spells.Entities
                 return Cooldown;
             }
 
-            return Cooldown * (1 - caster.Stats.Get(StatTypes.Cooldown, StatCategories.Pct));
+            return Cooldown * (1 - caster.Stats.Pct(StatTypes.Cooldown));
         }
 
         public int GetCost(GameState gs, Unit caster)

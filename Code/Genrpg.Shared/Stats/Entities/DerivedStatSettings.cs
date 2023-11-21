@@ -19,9 +19,10 @@ namespace Genrpg.Shared.Stats.Entities
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
-        [Key(2)] public long FromStatTypeId { get; set; }
-        [Key(3)] public long ToStatTypeId { get; set; }
-        [Key(4)] public int Percent { get; set; }
+        [Key(2)] public override string Name { get; set; }
+        [Key(3)] public long FromStatTypeId { get; set; }
+        [Key(4)] public long ToStatTypeId { get; set; }
+        [Key(5)] public int Percent { get; set; }
     }
 
     [MessagePackObject]

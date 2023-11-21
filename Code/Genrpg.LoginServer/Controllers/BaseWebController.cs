@@ -15,17 +15,18 @@ using System.Threading.Tasks;
 using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.Setup;
 using Genrpg.LoginServer.Setup;
-using Genrpg.ServerShared.CloudMessaging.Services;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.ServerShared.Maps;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages;
 using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.Login.Messages.Error;
+using Genrpg.ServerShared.GameSettings.Interfaces;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.LoginServer.Controllers
 {
-    public class BaseWebController : ControllerBase
+    public class BaseWebController : ControllerBase, IGameDataContainer
     {
         private static LoginGameState _gs;
 
@@ -35,7 +36,7 @@ namespace Genrpg.LoginServer.Controllers
         {
             if (_gs == null)
             {
-                _gs = await SetupUtils.SetupFromConfig<LoginGameState>(this, "login", new LoginSetupService(), token);                
+                _gs = await SetupUtils.SetupFromConfig<LoginGameState>(this, "login", new LoginSetupService(), this, token);                
             }
 
             gs = new LoginGameState()
@@ -48,6 +49,12 @@ namespace Genrpg.LoginServer.Controllers
                 commandHandlers = _gs.commandHandlers,
                 mapStubs = _gs.mapStubs,
             };
+        }
+
+        public void UpdateFromNewGameData(GameData gameData)
+        {
+            _gs.data = gameData;
+            _gs.logger.Message("UpdateFromNewGameData");
         }
 
         protected string PackageResults(List<ILoginResult> results)

@@ -19,8 +19,8 @@ namespace Genrpg.MapServer.Combat.MessageHandlers
 {
     public class KilledHandler : BaseServerMapMessageHandler<Killed>
     {
-        private ICurrencyService _currencyService;
-        private ILevelService _levelService;
+        private ICurrencyService _currencyService = null;
+        private ILevelService _levelService = null;
         public override void Setup(GameState gs)
         {
             base.Setup(gs);

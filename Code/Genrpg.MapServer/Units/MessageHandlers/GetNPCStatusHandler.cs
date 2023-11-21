@@ -15,7 +15,7 @@ namespace Genrpg.MapServer.Units.MessageHandlers
     public class GetNPCStatusHandler : BaseServerMapMessageHandler<GetNPCStatus>
     {
 
-        private IVendorService _vendorService;
+        private IVendorService _vendorService = null;
 
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, GetNPCStatus message)
         {

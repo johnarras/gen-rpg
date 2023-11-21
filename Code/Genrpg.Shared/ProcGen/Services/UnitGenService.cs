@@ -18,7 +18,7 @@ namespace Genrpg.Shared.ProcGen.Services
 
     public class UnitGenService : IUnitGenService
     {
-        private INameGenService _nameGenService;
+        private INameGenService _nameGenService = null;
         public virtual string GenerateUnitName(GameState gs, long unitTypeId, long zoneId, IRandom rand,
             Dictionary<string, string> args = null)
         {

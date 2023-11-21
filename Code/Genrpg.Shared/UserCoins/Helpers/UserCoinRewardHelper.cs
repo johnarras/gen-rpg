@@ -11,7 +11,7 @@ namespace Genrpg.Shared.UserCoins.Helpers
 {
     public class UserCoinRewardHelper : IRewardHelper
     {
-        private IUserCoinService _userCoinService;
+        private IUserCoinService _userCoinService = null;
         public bool GiveReward(GameState gs, Character ch, long entityId, long quantity, object extraData = null)
         {
             if (quantity < 1)

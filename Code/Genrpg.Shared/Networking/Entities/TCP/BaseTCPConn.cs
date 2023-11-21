@@ -111,7 +111,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
         }
 
 
-        public virtual void Shutdown(Exception? e, string message)
+        public virtual void Shutdown(Exception e, string message)
         {
             if (_removeMe || _client == null)
             {
@@ -143,6 +143,8 @@ namespace Genrpg.Shared.Networking.Entities.TCP
         protected async Task WriteLoop()
         {
             List<IMapApiMessage> messages = new List<IMapApiMessage>();
+            List<IMapApiMessage> prevMessages = new List<IMapApiMessage>();
+            List<IMapApiMessage> tempMessages = null;
             while (true)
             {
                 try
@@ -152,6 +154,9 @@ namespace Genrpg.Shared.Networking.Entities.TCP
                         break;
                     }
 
+                    tempMessages = prevMessages;
+                    prevMessages = messages;
+                    messages = tempMessages;
                     messages.Clear();
 
                     while (_outputQueue.TryDequeue(out IMapApiMessage newMessage))
@@ -159,7 +164,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
                         // Because of trying lockless read on MapObjectManager nearby objects, sometimes
                         // an object will appear twice in the resulting list (distinct is expensive)
                         // so make one last attempt to dedupe here.
-                        if (!messages.Contains(newMessage))
+                        if (!messages.Contains(newMessage) && !prevMessages.Contains(newMessage))
                         {
                             messages.Add(newMessage);
                         }

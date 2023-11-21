@@ -19,7 +19,7 @@ namespace Genrpg.MapServer.Currencies
 {
     public class ServerUserCoinService : UserCoinService, ISetupService
     {
-        private IMapMessageService _messageService;
+        private IMapMessageService _messageService = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;

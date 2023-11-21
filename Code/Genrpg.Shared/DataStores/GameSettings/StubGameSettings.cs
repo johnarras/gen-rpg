@@ -19,6 +19,7 @@ namespace Genrpg.Shared.DataStores.GameSettings
 
         public virtual async Task SaveAll(IRepositorySystem repo)
         {
+            await Task.CompletedTask;
             return;
         }
 

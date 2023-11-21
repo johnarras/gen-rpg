@@ -15,11 +15,7 @@ namespace Assets.Scripts.MessageHandlers.Stats
                 return;
             }
 
-            foreach (SmallStat stat in msg.Dat)
-            {
-                unit.Stats.Set(stat.GetStatId(), StatCategories.Base, stat.GetMaxVal());
-                unit.Stats.Set(stat.GetStatId(), StatCategories.Curr, stat.GetCurrVal());
-            }
+            unit.Stats.UpdateFromSnapshot(msg.Dat);
             gs.Dispatch(msg);
         }
     }

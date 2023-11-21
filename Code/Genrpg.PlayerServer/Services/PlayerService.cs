@@ -1,7 +1,7 @@
 ﻿using Genrpg.PlayerServer.Entities;
-using Genrpg.ServerShared.CloudMessaging.Requests;
-using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
-using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Requests;
+using Genrpg.ServerShared.CloudComms.Requests.Entities;
+using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
+using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Requests;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
@@ -27,7 +27,7 @@ namespace Genrpg.PlayerServer.Services
         void OnPlayerEnterMap(ServerGameState gs, PlayerEnterMap playerEnterMap);
         void OnPlayerLeaveMap(ServerGameState gs, PlayerLeaveMap playerLeaveMap);
         void OnPlayerEnterZone(ServerGameState gs, PlayerEnterZone playerEnterZone);
-        ICloudResponse GetWhoList(ServerGameState gs, WhoListRequest request);
+        IResponse GetWhoList(ServerGameState gs, WhoListRequest request);
     }
 
     public class PlayerService : IPlayerService
@@ -43,6 +43,7 @@ namespace Genrpg.PlayerServer.Services
         public async Task Setup(GameState gs, CancellationToken token)
         {
             _logger = gs.logger;
+            await Task.CompletedTask;
         }
         protected string GetMapZoneKey(string mapId, long zoneId)
         {
@@ -121,7 +122,7 @@ namespace Genrpg.PlayerServer.Services
         public void OnPlayerEnterMap(ServerGameState gs, PlayerEnterMap playerEnterMap)
         {
             _logger.Message("PlayerEnterMap: " + playerEnterMap.Id + " Map: " + playerEnterMap.MapId + " Instance: " +
-                playerEnterMap.MapInstanceId);
+                playerEnterMap.InstanceId);
             if (_onlineChars.TryGetValue(playerEnterMap.Id, out OnlineCharacter currChar))
             {
                 RemoveFromMap(currChar);
@@ -135,7 +136,7 @@ namespace Genrpg.PlayerServer.Services
                     Name = playerEnterMap.Name,
                     Level = playerEnterMap.Level,
                     MapId = playerEnterMap.MapId,
-                    MapInstanceId = playerEnterMap.MapInstanceId,
+                    MapInstanceId = playerEnterMap.InstanceId,
                     UserId = playerEnterMap.UserId,
                 };
                 _onlineChars.TryAdd(currChar.Id, currChar);
@@ -145,7 +146,7 @@ namespace Genrpg.PlayerServer.Services
             List<OnlineCharacter> newMapChars = _mapChars.GetOrAdd(playerEnterMap.MapId, new List<OnlineCharacter>());
             newMapChars.Add(currChar);
 
-            List<OnlineCharacter> newMapInstanceChars = _mapInstanceChars.GetOrAdd(playerEnterMap.MapInstanceId, new List<OnlineCharacter>());
+            List<OnlineCharacter> newMapInstanceChars = _mapInstanceChars.GetOrAdd(playerEnterMap.InstanceId, new List<OnlineCharacter>());
             newMapInstanceChars.Add(currChar);
         }
 
@@ -170,7 +171,7 @@ namespace Genrpg.PlayerServer.Services
             }
         }
 
-        public ICloudResponse GetWhoList(ServerGameState gs, WhoListRequest request)
+        public IResponse GetWhoList(ServerGameState gs, WhoListRequest request)
         {
             List<OnlineCharacter> onlineChars = _onlineChars.Values.ToList();
 

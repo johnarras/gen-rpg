@@ -62,6 +62,7 @@ namespace Genrpg.ServerShared.DataStores.Blobs
 
         public async Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId
         {
+            await Task.CompletedTask;
             throw new NotImplementedException();
         }
         #endregion
@@ -196,6 +197,7 @@ namespace Genrpg.ServerShared.DataStores.Blobs
         #region Search
         public async Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity, int skip) where T : class, IStringId
         {
+            await Task.CompletedTask;
             throw new NotImplementedException();
         }
 

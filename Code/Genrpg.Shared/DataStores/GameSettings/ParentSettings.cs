@@ -15,31 +15,30 @@ namespace Genrpg.Shared.DataStores.GameSettings
         where TChild : ChildSettings, new()
     {
         protected List<TChild> _data { get; set; } = new List<TChild>();
-        public virtual void SetData(List<TChild> data) { _data = data; }
+        public virtual void SetData(List<TChild> data) { _data = data; ClearIndex(); }
         public List<TChild> GetData() { return _data; }
         public override void SetInternalIds()
         {
+
             for (int c = 0; c < _data.Count; c++)
             {
                 TChild child = _data[c];
 
                 string oldParentId = child.ParentId;
                 child.ParentId = Id;
-                if (string.IsNullOrEmpty(child.Id))
+
+                string childId = child.Id;
+                if (child is IId iid)
                 {
-                    string childId = child.GetType().Name;
-                    if (child is IId iid)
-                    {
-                        childId += iid.IdKey;
-                    }
-                    else
-                    {
-                        childId += HashUtils.NewGuid();
-                    }
-                    childId += Id;
-                    childId = childId.ToLower();
-                    child.Id = childId;
+                    childId = child.GetType().Name + iid.IdKey + Id;
                 }
+                else if (string.IsNullOrEmpty(childId))
+                {
+                    childId = child.GetType().Name + HashUtils.NewGuid().ToString();
+                }
+                childId = childId.ToLower();
+                child.Id = childId;
+
                 if (!string.IsNullOrEmpty(oldParentId))
                 {
                     child.Id = child.Id.Replace(oldParentId, "");
@@ -63,7 +62,7 @@ namespace Genrpg.Shared.DataStores.GameSettings
             if (from.GetType() == GetType())
             {             
                 Id = "copy" + (DateTime.UtcNow.Ticks % 1000000);
-                List<TChild>? fromChildren = from.GetDeepCopyData() as List<TChild>;
+                List<TChild> fromChildren = from.GetDeepCopyData() as List<TChild>;
                 if (fromChildren != null)
                 {
                     List<TChild> newData = new List<TChild>();

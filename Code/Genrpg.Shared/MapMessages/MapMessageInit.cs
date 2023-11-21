@@ -224,7 +224,6 @@ namespace Genrpg.Shared.MapMessages
 
                         int keyIndex = startKeyIndex;
 
-                        bool addedProperty = false;
                         while (++lid < lines.Count)
                         {
                             string line2 = lines[lid];
@@ -252,7 +251,6 @@ namespace Genrpg.Shared.MapMessages
                             }
 
                             lines[lid] = line2.Replace("public ", KeyPrefix + keyIndex++ + KeySuffix + " public ");
-                            addedProperty = true;
                             shouldAddClass = true;
                         }
 

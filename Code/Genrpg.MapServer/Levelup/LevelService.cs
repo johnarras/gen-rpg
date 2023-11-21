@@ -25,10 +25,10 @@ namespace Genrpg.MapServer.Levelup
 
     public class LevelService : ILevelService
     {
-        private ICurrencyService _currencyService;
-        private IStatService _statService;
-        private IEntityService _entityService;
-        private IMapMessageService _messageService;
+        private ICurrencyService _currencyService = null;
+        private IStatService _statService = null;
+        private IEntityService _entityService = null;
+        private IMapMessageService _messageService = null;
 
         public async Task Setup(GameState gs, CancellationToken token)
         {

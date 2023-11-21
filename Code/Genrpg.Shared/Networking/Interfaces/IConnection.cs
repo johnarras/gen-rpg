@@ -12,6 +12,6 @@ namespace Genrpg.Shared.Networking.Interfaces
         void AddMessage(IMapApiMessage message);
         bool RemoveMe();
         ConnMessageCounts GetCounts();
-        void Shutdown(Exception? e, string message);
+        void Shutdown(Exception e, string message);
     }
 }

@@ -1,4 +1,4 @@
-﻿using Genrpg.ServerShared.CloudMessaging.Messages;
+﻿using Genrpg.ServerShared.CloudComms.Queues.Entities;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Interfaces;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.InstanceServer.MessageHandlers
 {
-    public interface IInstanceMessageHandler : ICloudMessageHandler
+    public interface IInstanceMessageHandler : IQueueMessageHandler
     {
     }
 }

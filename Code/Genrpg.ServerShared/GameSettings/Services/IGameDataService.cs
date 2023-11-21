@@ -1,4 +1,5 @@
 ﻿using Genrpg.ServerShared.Core;
+using Genrpg.ServerShared.GameSettings.Interfaces;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
@@ -18,11 +19,13 @@ namespace Genrpg.ServerShared.GameSettings.Services
     public interface IGameDataService : ISetupService
     {
         Task<GameData> LoadGameData(ServerGameState gs, bool createMissingGameData);
+        Task ReloadGameData(ServerGameState gs);
         Task<bool> SaveGameData(GameData data, IRepositorySystem repoSystem);
         List<string> GetEditorIgnoreFields();
-        void UpdateDataBeforeSave(GameData data);
         List<IGameSettingsLoader> GetAllLoaders();
-        void SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool forceUpdate);
+        List<IGameSettings> MapToApi(ServerGameState gs, List<IGameSettings> startSettings);
+        void SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool forceRefresh);
         List<IGameSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault);
+        void AddGameDataContainer(IGameDataContainer container);
     }
 }

@@ -52,11 +52,8 @@ namespace Assets.Scripts.Login.MessageHandlers
             gs.characterStubs = result.CharacterStubs;
             gs.mapStubs = result.MapStubs;
             gs.data = new GameData();
-            foreach (IGameSettings baseGameData in result.GameData)
-            {
-                baseGameData.Id = GameDataConstants.DefaultFilename;
-                baseGameData.AddTo(gs.data);
-            }
+
+            gs.data.AddData(result.GameData);
 
             if (gs.user != null && !String.IsNullOrEmpty(gs.user.Id))
             {

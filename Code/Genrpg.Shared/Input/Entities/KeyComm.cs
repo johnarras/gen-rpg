@@ -36,8 +36,8 @@ namespace Genrpg.Shared.Input.Entities
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public long IdKey { get; set; }
         [Key(2)] public override string OwnerId { get; set; }
-        [Key(3)] public string? KeyPress { get; set; }
-        [Key(4)] public string? KeyCommand { get; set; }
+        [Key(3)] public string KeyPress { get; set; }
+        [Key(4)] public string KeyCommand { get; set; }
         [Key(5)] public int Modifiers { get; set; }
 
 

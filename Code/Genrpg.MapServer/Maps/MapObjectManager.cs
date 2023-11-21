@@ -51,6 +51,7 @@ namespace Genrpg.MapServer.Maps
             float distance = MessageConstants.DefaultGridDistance,
             bool enforceDistance = false,
             List<long> filters = null);
+        List<Character> GetAllCharacters();
     }
 
     public class MapObjectManager : IMapObjectManager
@@ -63,8 +64,8 @@ namespace Genrpg.MapServer.Maps
         protected Dictionary<int, ConcurrentDictionary<string, MapObjectGridItem>> _idDict =
             new Dictionary<int, ConcurrentDictionary<string, MapObjectGridItem>>();
 
-        protected Dictionary<long, Dictionary<string, Character>> _zoneDict =
-            new Dictionary<long, Dictionary<string, Character>>();
+        protected Dictionary<long, ConcurrentDictionary<string, Character>> _zoneDict =
+            new Dictionary<long, ConcurrentDictionary<string, Character>>();
 
         protected bool _didSetupOnce = false;
 
@@ -89,7 +90,7 @@ namespace Genrpg.MapServer.Maps
         private Dictionary<long, IObjectFilter> _filters = new Dictionary<long, IObjectFilter>();
 
         private IMapMessageService _messageService = null;
-        private IReflectionService _reflectionService;
+        private IReflectionService _reflectionService = null;
 
         private MapObject _messageTarget = new MapObject() { Id = typeof(MapObjectManager).Name };
         public MapObject GetMessageTarget()
@@ -128,7 +129,7 @@ namespace Genrpg.MapServer.Maps
 
             for (int i = 0; i < 256; i++)
             {
-                _zoneDict[i] = new Dictionary<string, Character>();
+                _zoneDict[i] = new ConcurrentDictionary<string, Character>();
             }
             await Task.CompletedTask;
         }
@@ -499,11 +500,11 @@ namespace Genrpg.MapServer.Maps
 
             if (gridItem.Obj is Character ch)
             {
-                if (_zoneDict.TryGetValue(ch.ZoneId, out Dictionary<string, Character> currDict))
+                if (_zoneDict.TryGetValue(ch.ZoneId, out ConcurrentDictionary<string, Character> currDict))
                 {
                     if (currDict.TryGetValue(ch.Id, out Character currChar))
                     {
-                        currDict.Remove(ch.Id);
+                        currDict.TryRemove(ch.Id, out Character delChar);
                     }
                 }
             }
@@ -745,17 +746,28 @@ namespace Genrpg.MapServer.Maps
                 return;
             }
 
-            if (_zoneDict.TryGetValue(obj.PrevZoneId, out Dictionary<string, Character> prevDict))
+            if (_zoneDict.TryGetValue(obj.PrevZoneId, out ConcurrentDictionary<string, Character> prevDict))
             {
                 if (prevDict.TryGetValue(ch.Id, out Character prevChar))
                 {
-                    prevDict.Remove(ch.Id);
+                    prevDict.TryRemove(ch.Id, out Character delChar);
                 }
             }
-            if (_zoneDict.TryGetValue(obj.ZoneId, out Dictionary<string, Character> currDict))
+            if (_zoneDict.TryGetValue(obj.ZoneId, out ConcurrentDictionary<string, Character> currDict))
             {
-                currDict.Add(ch.Id, ch);
+                currDict.TryAdd(ch.Id, ch);
             }
+        }
+
+        public List<Character> GetAllCharacters()
+        {
+            List<Character> retval = new List<Character>();
+            foreach (ConcurrentDictionary<string,Character> dict in _zoneDict.Values)
+            {
+                retval.AddRange(dict.Values);
+            }
+
+            return retval.Distinct().ToList();
         }
     }
 }

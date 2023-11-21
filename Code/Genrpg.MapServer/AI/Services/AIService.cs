@@ -43,7 +43,6 @@ namespace Genrpg.MapServer.AI.Services
 
         private IMapMessageService _messageService = null;
         private IMapObjectManager _objectManager = null;
-        private IServerSpellService _spellService = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;

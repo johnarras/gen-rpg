@@ -31,8 +31,8 @@ namespace Genrpg.MapServer.Spells
         private IMapMessageService _messageService = null;
         private IMapObjectManager _objectManager = null;
         private IReflectionService _reflectionService = null;
-        private IStatService _statService;
-        private IAIService _aiService;
+        private IStatService _statService = null;
+        private IAIService _aiService = null;
         protected Dictionary<long, ISpellEffectHandler> _handlers = null;
 
 
@@ -239,13 +239,11 @@ namespace Genrpg.MapServer.Spells
         {
             // Creating and sending projectiles
 
-            StatGroup newGroup = new StatGroup();
-            newGroup._stats = new List<Stat>(caster.Stats._stats);
             SendSpell sendSpell = new SendSpell()
             {
                 CasterId = caster.Id,
                 CasterGroupId = caster.GetGroupId(),
-                CasterStats = newGroup,
+                CasterStats = caster.Stats,
                 CasterLevel = caster.Level,
                 CasterFactionId = caster.FactionTypeId,
                 Spell = result.Spell,

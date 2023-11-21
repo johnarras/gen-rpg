@@ -10,13 +10,13 @@ using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Factions.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Networking.Interfaces;
 using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using System.Net.Http.Headers;
+using Genrpg.Shared.DataStores.PlayerData;
 
 namespace Genrpg.Shared.Characters.Entities
 {
@@ -31,6 +31,7 @@ namespace Genrpg.Shared.Characters.Entities
         [Key(102)] public int AbilityPoints { get; set; }
         [Key(103)] public string MapId { get; set; }
 
+        [Key(104)] public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
         public Character()
         {
@@ -94,18 +95,18 @@ namespace Genrpg.Shared.Characters.Entities
         }
 
         [JsonIgnore]
-        [Key(104)] public List<PointXZ> NearbyGridsSeen { get; set; }
+        [Key(105)] public List<PointXZ> NearbyGridsSeen { get; set; }
 
         [JsonIgnore]
-        [Key(105)] public DateTime LastServerStatTime { get; set; } = DateTime.UtcNow;
+        [Key(106)] public DateTime LastServerStatTime { get; set; } = DateTime.UtcNow;
 
         private GameDataOverrideList _overrideList { get; set; }
-        public void SetSessionOverrideList(GameDataOverrideList overrideList)
+        public void SetGameDataOverrideList(GameDataOverrideList overrideList)
         {
             _overrideList = overrideList;
         }
 
-        public GameDataOverrideList GetSessionOverrideList()
+        public GameDataOverrideList GetGameDataOverrideList()
         {
             return _overrideList;
         }
@@ -116,7 +117,7 @@ namespace Genrpg.Shared.Characters.Entities
             {
                 return GameDataConstants.DefaultFilename;
             }
-            GameDataOverrideItem item = _overrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
+            PlayerSettingsOverrideItem item = _overrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
             return item?.DocId ?? GameDataConstants.DefaultFilename;
         }
 

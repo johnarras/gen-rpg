@@ -6,6 +6,9 @@ using Genrpg.Shared.Zones.Entities;
 using System.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
+using Genrpg.Shared.GameSettings.Entities;
+using Genrpg.Shared.Currencies.Entities;
+using Genrpg.Shared.Currencies.Constants;
 
 public class ZoneScreen : BaseScreen
 {
@@ -22,6 +25,8 @@ public class ZoneScreen : BaseScreen
     {
         Setup();
         UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
+
+        FloatingTextScreen.Instance.ShowMessage(_gs.data.GetGameData<CurrencySettings>(_gs.ch).GetCurrencyType(CurrencyTypes.Money).Art);
         await Task.CompletedTask;
 
     }

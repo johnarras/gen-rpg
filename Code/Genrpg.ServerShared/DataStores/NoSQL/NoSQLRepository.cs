@@ -1,6 +1,8 @@
 ﻿
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
+using Genrpg.Shared.DataStores.Interfaces;
+using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logs.Entities;
 using MongoDB.Bson.Serialization.Conventions;
@@ -9,6 +11,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Authentication;
@@ -104,7 +107,9 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                 return coll;
             }
 
-            Type baseCollectionType = typeof(NoSQLCollection<>);
+            Type baseCollectionType = (t.GetInterface(nameof(IUpdateData)) != null ?
+                typeof (VersionedNoSQLCollection<>) :                
+                typeof(NoSQLCollection<>));
             Type genericType = baseCollectionType.MakeGenericType(t);
             coll = (INoSQLCollection)Activator.CreateInstance(genericType, new object[] { this, _logger });
             _collections[t] = coll;
@@ -136,6 +141,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         public async Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity, int skip) where T : class, IStringId
         {
             INoSQLCollection collection = GetCollection(typeof(T));
+           
             List<object> objects = await collection.Search(func, quantity, skip);
 
             List<T> retval = new List<T>();
@@ -176,19 +182,49 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 
         public async Task<bool> TransactionSave<T>(List<T> list) where T : class, IStringId
         {
-            using (IClientSessionHandle session = await _client.StartSessionAsync())
+
+            if (true)
             {
-                session.StartTransaction();
+                List<Task<bool>> saves = new List<Task<bool>>();
 
                 foreach (T item in list)
                 {
                     INoSQLCollection collection = GetCollection(item.GetType());
-                    await collection.Save(item);
+                    saves.Add(collection.Save(item));
                 }
 
-                await session.CommitTransactionAsync();
+                bool[] results = await Task.WhenAll(saves).ConfigureAwait(false);
+
+                return !results.Any(x => x == false);
             }
-            return true;
+            else // Only use this if we have replica sets, does not work in serverless cosmos apparently
+            {
+                using (IClientSessionHandle session = await _client.StartSessionAsync())
+                {
+                    try
+                    {
+                        session.StartTransaction();
+
+
+                        List<Task<bool>> saves = new List<Task<bool>>();
+
+                        foreach (T item in list)
+                        {
+                            INoSQLCollection collection = GetCollection(item.GetType());
+                            await collection.TransactionSave(item, session);
+                        }
+
+                        await session.CommitTransactionAsync();
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.Exception(e, "NoSQLRepository.TransactionSave");
+                        await session.AbortTransactionAsync();
+                        throw new Exception("Failed Transaction", e);
+                    }
+                    return true;
+                }
+            }
         }
     }
 }

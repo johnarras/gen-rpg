@@ -9,10 +9,10 @@ using Genrpg.Shared.MapObjects.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Spells.Entities;
-using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapMessages;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Stats.Messages;
 
 namespace Genrpg.Shared.MapObjects.Messages
 {
@@ -33,16 +33,16 @@ namespace Genrpg.Shared.MapObjects.Messages
         [Key(11)] public float Speed { get; set; }
         [Key(12)] public long NPCTypeId { get; set; }
         [Key(13)] public long FactionTypeId { get; set; }
-        [Key(14)] public StatGroup Stats { get; set; }
-        [Key(15)] public bool IsPlayer { get; set; }
-        [Key(16)] public string TargetId { get; set; }
-        [Key(17)] public int TempFlags { get; set; }
-        [Key(18)] public long Level { get; set; }
-        [Key(19)] public int OverrideZonePercent { get; set; }
-        [Key(20)] public AttackerInfo FirstAttacker { get; set; }
-        [Key(21)] public List<SpawnResult> Loot { get; set; }
-        [Key(22)] public List<SpawnResult> SkillLoot { get; set; }
-        [Key(23)] public List<ActiveSpellEffect> Effects { get; set; }
+        [Key(14)] public bool IsPlayer { get; set; }
+        [Key(15)] public string TargetId { get; set; }
+        [Key(16)] public int TempFlags { get; set; }
+        [Key(17)] public long Level { get; set; }
+        [Key(18)] public int OverrideZonePercent { get; set; }
+        [Key(19)] public AttackerInfo FirstAttacker { get; set; }
+        [Key(20)] public List<SpawnResult> Loot { get; set; }
+        [Key(21)] public List<SpawnResult> SkillLoot { get; set; }
+        [Key(22)] public List<ActiveSpellEffect> Effects { get; set; }
+        [Key(23)] public List<FullStat> Stats { get; set; }
 
         public OnSpawn()
         {
@@ -74,7 +74,7 @@ namespace Genrpg.Shared.MapObjects.Messages
                     NPCTypeId = unit.NPCTypeId;
                 }
                 FactionTypeId = unit.FactionTypeId;
-                Stats = unit.Stats;
+                Stats = unit.Stats.GetSnapshot();
                 TargetId = unit.TargetId;
                 FirstAttacker = unit.GetFirstAttacker();
                 Loot = unit.Loot;

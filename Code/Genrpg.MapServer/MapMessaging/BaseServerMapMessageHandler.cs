@@ -12,7 +12,7 @@ using Genrpg.MapServer.AI.Services;
 using Genrpg.MapServer.Spells;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.MapServer.MapMessaging.Interfaces;
-using Genrpg.ServerShared.CloudMessaging.Services;
+using Genrpg.ServerShared.CloudComms.Services;
 
 namespace Genrpg.MapServer.MapMessaging
 {
@@ -25,7 +25,7 @@ namespace Genrpg.MapServer.MapMessaging
         protected IServerSpellService _spellService = null;
         protected IAIService _aiService = null;
         protected IEntityService _entityService = null;
-        protected ICloudMessageService _cloudMessageService = null;
+        protected ICloudCommsService _cloudCommsService = null;
         public virtual void Setup(GameState gs)
         {
         }

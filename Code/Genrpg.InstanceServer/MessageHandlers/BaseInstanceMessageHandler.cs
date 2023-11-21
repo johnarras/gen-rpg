@@ -1,6 +1,6 @@
 ﻿using Genrpg.InstanceServer.Services;
-using Genrpg.ServerShared.CloudMessaging.Messages;
-using Genrpg.ServerShared.CloudMessaging.Servers.InstanceServer.Messages;
+using Genrpg.ServerShared.CloudComms.Queues.Entities;
+using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.ServerShared.Core;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.InstanceServer.MessageHandlers
 {
-    public abstract class BaseInstanceMessageHandler<T> : IInstanceMessageHandler where T : IInstanceCloudMessage
+    public abstract class BaseInstanceMessageHandler<T> : IInstanceMessageHandler where T : IInstanceQueueMessage
     {
 
         protected IMapInstanceService _mapInstanceService;
@@ -22,7 +22,7 @@ namespace Genrpg.InstanceServer.MessageHandlers
             return typeof(T);
         }
 
-        public async Task HandleMessage(ServerGameState gs, ICloudMessage message, CancellationToken token)
+        public async Task HandleMessage(ServerGameState gs, IQueueMessage message, CancellationToken token)
         {
             await InnerHandleMessage(gs, (T)message);
         }

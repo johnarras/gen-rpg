@@ -21,7 +21,6 @@ namespace Genrpg.Shared.Purchasing.Entities
     [MessagePackObject]
     public class StoreProductTypeSettingsLoader : ParentSettingsLoader<StoreProductTypeSettings, StoreProductType, StoreProductTypeSettingsApi> { }
 
-
     [MessagePackObject]
     public class StoreProductType : ChildSettings, IIdName
     {
@@ -29,7 +28,6 @@ namespace Genrpg.Shared.Purchasing.Entities
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }
         [Key(3)] public override string Name { get; set; }
-        [Key(4)] public long ProductSkuTypeId { get; set; }
-        [Key(5)] public List<SpawnItem> Rewards { get; set; }
+        [Key(4)] public List<SpawnItem> Rewards { get; set; }
     }
 }

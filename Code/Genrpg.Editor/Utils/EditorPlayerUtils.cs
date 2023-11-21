@@ -1,7 +1,7 @@
 ﻿using Genrpg.Editor.Entities.Core;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.DataStores.Interfaces;
+using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;

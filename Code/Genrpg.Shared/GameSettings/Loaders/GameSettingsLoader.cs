@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Utils;
 using System;

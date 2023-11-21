@@ -33,6 +33,8 @@ namespace Genrpg.Shared.Users.Entities
         [Key(4)] public string Name { get; set; }
         [Key(5)] public string SessionId { get; set; }
         [Key(6)] public int Flags { get; set; }
+        [Key(7)] public DateTime CreationDate { get; set; } = DateTime.UtcNow;
+
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
@@ -48,7 +50,7 @@ namespace Genrpg.Shared.Users.Entities
         }
 
 
-        [Key(7)] public GameDataOverrideList OverrideList { get; set; }
+        [Key(8)] public GameDataOverrideList OverrideList { get; set; }
         public virtual void SetGameDataOverrides (GameDataOverrideList list)
         {
             OverrideList = list;
@@ -60,7 +62,7 @@ namespace Genrpg.Shared.Users.Entities
             {
                 return GameDataConstants.DefaultFilename;
             }
-            GameDataOverrideItem item = OverrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
+            PlayerSettingsOverrideItem item = OverrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
             return item?.DocId ?? GameDataConstants.DefaultFilename;
         }
 

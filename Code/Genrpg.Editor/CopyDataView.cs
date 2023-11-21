@@ -1,6 +1,8 @@
 ﻿using GameEditor;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Services.Setup;
+using Genrpg.Editor.Utils;
+using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.MapSpawns;
@@ -8,6 +10,7 @@ using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Utils;
+using Microsoft.Azure.Amqp.Framing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +29,6 @@ namespace Genrpg.Editor
         private EditorGameState _gs;
         private CancellationTokenSource _cts = new CancellationTokenSource();
         private DataWindow win;
-        private IMapSpawnService _mapSpawnService;
         public CopyDataView(EditorGameState gs, DataWindow winIn)
         {
             _gs = gs; 
@@ -49,15 +51,10 @@ namespace Genrpg.Editor
 
         private async Task CopyDataAsync(CancellationToken token)
         {
-            ServerConfig fromConfig = await ConfigUtils.SetupServerConfig(token, "Editor");
-            fromConfig.Env = EnvNames.Dev;
-            EditorGameState fromGS = await SetupUtils.SetupFromConfig<EditorGameState>(this, "Editor", new EditorSetupService(), token, fromConfig);
+            EditorGameState fromGS = await EditorGameDataUtils.SetupFromConfig(this, EnvNames.Dev);
 
-            ServerConfig toConfig = SerializationUtils.SafeMakeCopy(fromConfig);
-            toConfig.Env = EnvNames.Test;
-
-            EditorGameState toGS = await SetupUtils.SetupFromConfig<EditorGameState>(this, "Editor", new EditorSetupService(), token, toConfig);
-
+            EditorGameState toGS = await EditorGameDataUtils.SetupFromConfig(this, EnvNames.Test);
+          
             IGameDataService gds = toGS.loc.Get<IGameDataService>();
 
             await gds.SaveGameData(fromGS.data, toGS.repo);

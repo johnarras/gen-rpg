@@ -1,11 +1,6 @@
 using MessagePack;
 using Newtonsoft.Json;
 using System;
-using MessagePack;
-using System.Runtime.Serialization.Formatters;
-using MessagePack.Resolvers;
-using MessagePack.Formatters;
-using System.IO;
 
 namespace Genrpg.Shared.Utils
 {
@@ -68,7 +63,7 @@ namespace Genrpg.Shared.Utils
             return Deserialize<TOutput>(txt);
         }
 
-        public static object? BinaryDeserializeWithType(byte[] bytes, Type t)
+        public static object BinaryDeserializeWithType(byte[] bytes, Type t)
         {
             return MessagePackSerializer.Deserialize(t, bytes);
         }

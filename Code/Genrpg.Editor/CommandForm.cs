@@ -28,6 +28,7 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Chat.Entities;
 using Genrpg.ServerShared.DataStores.NoSQL;
+using Genrpg.ServerShared.CloudComms.Constants;
 
 namespace GameEditor
 {
@@ -160,7 +161,7 @@ namespace GameEditor
             String env = words[1];
 			String action = words[2];
 
-            gs = await SetupUtils.SetupFromConfig<EditorGameState>(this, env, new EditorSetupService(), EditorGameState.CTS.Token);
+            gs = await EditorGameDataUtils.SetupFromConfig(this, env);
 
             this.Invoke((MethodInvoker)
                 delegate ()
@@ -237,7 +238,7 @@ namespace GameEditor
         private async Task OnClickButtonAsync(string action, string env)
         { 
 
-            gs = await SetupUtils.SetupFromConfig<EditorGameState>(this, env, new EditorSetupService(), EditorGameState.CTS.Token);
+            gs = await EditorGameDataUtils.SetupFromConfig(this, env);
 
 
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;

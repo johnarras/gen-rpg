@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
@@ -20,5 +21,7 @@ namespace Genrpg.MapServer.MapMessaging.Interfaces
             float delaySec = 0, List<long> filters = null);
         MapMessagePackage GetPackage();
         void AddPackage(MapMessagePackage package);
+        void UpdateGameData(GameData gameData);
+        void SendMessageToAllPlayers(IMapApiMessage message);
     }
 }

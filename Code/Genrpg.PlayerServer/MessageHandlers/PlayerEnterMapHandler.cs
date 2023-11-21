@@ -1,4 +1,4 @@
-﻿using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Messages;
+﻿using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
 using Genrpg.ServerShared.Core;
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,7 @@ namespace Genrpg.PlayerServer.MessageHandlers
         protected override async Task InnerHandleMessage(ServerGameState gs, PlayerEnterMap message)
         {
             _playerService.OnPlayerEnterMap(gs, message);
+            await Task.CompletedTask;
         }
     }
 }

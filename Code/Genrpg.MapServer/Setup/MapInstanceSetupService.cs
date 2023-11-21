@@ -13,13 +13,12 @@ namespace Genrpg.MapServer.Setup
     public class MapInstanceSetupService : SetupService
     {
         private string _mapId;
-        private IMapSpawnService _mapSpawnService;
-        private IMapDataService _mapDataService;
+        private IMapSpawnService _mapSpawnService = null;
+        private IMapDataService _mapDataService = null;
         public MapInstanceSetupService(string mapId)
         {
             _mapId = mapId;
         }
-
 
         public override void SetupObjectLocator(GameState gs)
         {

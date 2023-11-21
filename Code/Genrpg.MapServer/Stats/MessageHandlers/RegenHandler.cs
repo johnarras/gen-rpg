@@ -13,7 +13,7 @@ namespace Genrpg.MapServer.Stats.MessageHandlers
 {
     public class RegenHandler : BaseServerMapMessageHandler<Regen>
     {
-        private IStatService _statService;
+        private IStatService _statService = null;
         public override void Setup(GameState gs)
         {
             base.Setup(gs);

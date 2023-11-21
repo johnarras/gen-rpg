@@ -18,7 +18,7 @@ namespace Genrpg.MapServer.Spells.MessageHandlers
 {
     public class CastingSpellHandler : BaseServerMapMessageHandler<CastingSpell>
     {
-        private IStatService _statService;
+        private IStatService _statService = null;
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, CastingSpell message)
         {
             if (!GetOkUnit(obj, true, out Unit caster))

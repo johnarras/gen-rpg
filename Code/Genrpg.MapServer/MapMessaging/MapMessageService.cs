@@ -21,6 +21,7 @@ using System.Reflection;
 using Genrpg.Shared.MapServer.Messages;
 using Genrpg.Shared.MapMessages;
 using Genrpg.MapServer.Maps.Constants;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.MapServer.MapMessaging
 {
@@ -34,8 +35,10 @@ namespace Genrpg.MapServer.MapMessaging
         private List<MapMessageQueue> _queues = new List<MapMessageQueue>();
 
         private IMapObjectManager _objectManager = null;
+        private IReflectionService _reflectionService = null;
+#if DEBUG
         private IAIService _aiService = null;
-        private IReflectionService _reflectionService;
+#endif
         private DateTime _startTime = DateTime.UtcNow;
 
         private int _messageQueueCount = DefaultMessageQueueCount;
@@ -57,7 +60,6 @@ namespace Genrpg.MapServer.MapMessaging
 
             List<Type> messageTypes = _reflectionService.GetTypesImplementing(messageInterfaceType);
 
-            
             StringBuilder sb = new StringBuilder();
             foreach (Type t in messageTypes)
             {
@@ -85,7 +87,6 @@ namespace Genrpg.MapServer.MapMessaging
 
             _messageQueueCount = Math.Max(2, (int)(gs.map.BlockCount * 0.39));
 
-
             if (MapInstanceConstants.ServerTestMode)
             {
                 _messageQueueCount = 1;
@@ -97,9 +98,6 @@ namespace Genrpg.MapServer.MapMessaging
                 _packagePool[i] = new ConcurrentBag<MapMessagePackage>();
             }
 
-
-
-
             _queues = new List<MapMessageQueue>();
             for (int q = 0; q < _messageQueueCount; q++)
             {
@@ -107,6 +105,14 @@ namespace Genrpg.MapServer.MapMessaging
             }
 
             _countTask = Task.Run(() => ShowMessageCounts(gs));
+        }
+
+        public void UpdateGameData(GameData gameData)
+        {
+            foreach (MapMessageQueue queue in _queues)
+            {
+                queue.UpdateGameData(gameData);
+            }
         }
 
         //#if DEBUG
@@ -225,6 +231,15 @@ namespace Genrpg.MapServer.MapMessaging
                 return package;
             }
             return new MapMessagePackage();
+        }
+
+        public void SendMessageToAllPlayers(IMapApiMessage message)
+        {
+            List<Character> allChars = _objectManager.GetAllCharacters();
+            foreach (Character character in allChars)
+            {
+                character.AddMessage(message);
+            }
         }
     }
 }

@@ -36,11 +36,7 @@ namespace Genrpg.MapServer.Spawns
     public class SpawnService : ISpawnService
     {
 
-        private IEntityService _entityService;
-        private IReflectionService _reflectionService;
-
-
-        private int _charStepLootTimes = 0;
+        private IReflectionService _reflectionService = null;
 
         private Dictionary<long, IRollHelper> _rollHelpers = null;
         public async Task Setup(GameState gs, CancellationToken token)

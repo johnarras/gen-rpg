@@ -10,7 +10,7 @@ namespace Genrpg.Editor.Utils
     {
         public static async Task UpdateAssetsAsync(string env)
         {
-
+            await Task.CompletedTask;
         }
     }
 }

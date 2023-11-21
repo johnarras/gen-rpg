@@ -40,7 +40,7 @@ public class UnitStatBar : BaseBehaviour
             return null;
         }
 
-        SmallStat myUpdate = sdata.Dat.FirstOrDefault(x => x.GetStatId() == _statTypeId);
+        FullStat myUpdate = sdata.Dat.FirstOrDefault(x => x.GetStatId() == _statTypeId);
 
         if (myUpdate == null)
         {
@@ -48,8 +48,8 @@ public class UnitStatBar : BaseBehaviour
         }
 
 
-        long curr = myUpdate.GetCurrVal();
-        long max = myUpdate.GetMaxVal();
+        long curr = myUpdate.GetCurr();
+        long max = myUpdate.GetMax();
 
         if (_max != max)
         {

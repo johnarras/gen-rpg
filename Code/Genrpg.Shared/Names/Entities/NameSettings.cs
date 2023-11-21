@@ -43,8 +43,9 @@ namespace Genrpg.Shared.Names.Entities
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
-        [Key(2)] public string ListName { get; set; }
-        [Key(3)] public List<WeightedName> Names { get; set; }
+        [Key(2)] public override string Name { get; set; }
+        [Key(3)] public string ListName { get; set; }
+        [Key(4)] public List<WeightedName> Names { get; set; }
 
         public NameList()
         {

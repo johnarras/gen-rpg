@@ -17,7 +17,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
     {
         public long GetKey() { return EntityTypes.Item; }
 
-        private IItemGenService _itemGenService;
+        private IItemGenService _itemGenService = null;
 
         public List<SpawnResult> Roll(GameState gs, RollData rollData, SpawnItem spawnItem)
         {

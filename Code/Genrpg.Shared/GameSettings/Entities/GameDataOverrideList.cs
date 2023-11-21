@@ -8,6 +8,6 @@ namespace Genrpg.Shared.GameSettings.Entities
     [MessagePackObject]
     public class GameDataOverrideList
     {
-        [Key(0)] public List<GameDataOverrideItem> Items { get; set; } = new List<GameDataOverrideItem>();      
+        [Key(0)] public List<PlayerSettingsOverrideItem> Items { get; set; } = new List<PlayerSettingsOverrideItem>();      
     }
 }

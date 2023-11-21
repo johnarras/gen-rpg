@@ -20,7 +20,7 @@ namespace Genrpg.MapServer.Vendors
 
     public class VendorService : IVendorService
     {
-        private IItemGenService _itemGenService;
+        private IItemGenService _itemGenService = null;
 
         public void UpdateNPCItems(GameState gs, Unit unit)
         {

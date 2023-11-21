@@ -1,4 +1,4 @@
-﻿using Genrpg.ServerShared.CloudMessaging.Requests;
+﻿using Genrpg.ServerShared.CloudComms.Requests.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.InstanceServer.RequestHandlers
 {
-    public interface IInstanceRequestHandler : ICloudRequestHandler
+    public interface IInstanceRequestHandler : IRequestHandler
     {
     }
 }

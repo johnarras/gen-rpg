@@ -1,8 +1,7 @@
 ﻿using Genrpg.MapServer.MapMessaging;
-using Genrpg.ServerShared.CloudMessaging.Constants;
-using Genrpg.ServerShared.CloudMessaging.Requests;
-using Genrpg.ServerShared.CloudMessaging.Servers.PlayerServer.Requests;
-using Genrpg.ServerShared.CloudMessaging.Services;
+using Genrpg.ServerShared.CloudComms.Constants;
+using Genrpg.ServerShared.CloudComms.Requests.Entities;
+using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Requests;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Errors.Messages;
@@ -19,7 +18,6 @@ namespace Genrpg.MapServer.WhoList.MessageHandlers
 {
     public class GetWhoListHandler : BaseServerMapMessageHandler<GetWhoList>
     {
-        ICloudMessageService _cloudMessageService;
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, GetWhoList message)
         {
             if (!_objectManager.GetChar(obj.Id, out Character ch))
@@ -27,13 +25,13 @@ namespace Genrpg.MapServer.WhoList.MessageHandlers
                 return;
             }
 
-            _cloudMessageService.SendRequest(CloudServerNames.Player, new WhoListRequest() { Args = message.Args }, (envelope) =>
+            _cloudCommsService.SendRequest(CloudServerNames.Player, new WhoListRequest() { Args = message.Args }, (envelope) =>
             {
                 OnReceiveWhoList(obj.Id, envelope);
             });
         }
 
-        private void OnReceiveWhoList(string charId, CloudResponseEnvelope envelope)
+        private void OnReceiveWhoList(string charId, ResponseEnvelope envelope)
         {
             if (!_objectManager.GetChar(charId, out Character ch))
             {

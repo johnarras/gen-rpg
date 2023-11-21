@@ -2,7 +2,7 @@
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
-using Genrpg.Shared.DataStores.Interfaces;
+using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;

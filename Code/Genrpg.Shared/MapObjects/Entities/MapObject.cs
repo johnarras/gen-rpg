@@ -138,16 +138,6 @@ namespace Genrpg.Shared.MapObjects.Entities
             FactionTypeId = spawn.FactionTypeId;
 
         }
-        private bool _isDirty = false;
-        public void SetDirty(bool val)
-        {
-            _isDirty = val;
-        }
-
-        public bool IsDirty()
-        {
-            return _isDirty;
-        }
 
         public float DistanceTo(MapObject other)
         {

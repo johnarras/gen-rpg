@@ -10,5 +10,8 @@ namespace Genrpg.Shared.DataStores.GameSettings
     {
         [MessagePack.IgnoreMember]
         public abstract string ParentId { get; set; }
+
+        [MessagePack.IgnoreMember]
+        public abstract override string Name { get; set; }
     }
 }
