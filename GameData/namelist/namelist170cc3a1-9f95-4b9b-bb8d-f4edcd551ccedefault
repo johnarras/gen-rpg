@@ -1,6 +1,7 @@
 {
   "Id": "namelist170cc3a1-9f95-4b9b-bb8d-f4edcd551ccedefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureFurColors",
   "Names": [
     {
@@ -88,6 +89,5 @@
       "Name": "White",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

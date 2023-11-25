@@ -1,7 +1,7 @@
 {
   "Id": "namelist28371593-daa7-44bb-b88e-82b4643860f3default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "FireHerbPrefix",
-  "Names": [],
-  "Name": "NameList"
+  "Names": []
 }

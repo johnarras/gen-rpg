@@ -1,7 +1,7 @@
 {
   "Id": "namelistb96841c6-e483-4b7c-ad18-a1d3aa3febb5default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "RareHerbPrefix",
-  "Names": [],
-  "Name": "NameList"
+  "Names": []
 }

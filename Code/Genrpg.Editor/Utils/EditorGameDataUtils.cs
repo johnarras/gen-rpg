@@ -55,7 +55,7 @@ namespace Genrpg.Editor.Utils
             }
             serverConfig.Env = env;
             EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(parent, CloudServerNames.Editor.ToString().ToLower(), 
-                new EditorSetupService(), null, EditorGameState.CTS.Token, serverConfig);
+                new EditorSetupService(), EditorGameState.CTS.Token, serverConfig);
             return gs;
         }
 

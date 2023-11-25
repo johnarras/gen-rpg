@@ -37,10 +37,16 @@ namespace Genrpg.Editor.Entities.Core
 
     }
 
-    public class EditorSettingsList
+    public interface IEditorScaffold
+    {
+        System.Collections.IEnumerable GetData();
+    }
+
+    public abstract class EditorSettingsList : IEditorScaffold
     {
         public string TypeName { get; set; }
-        virtual public void SetData(List<BaseGameSettings> baseList) { }
+        public virtual void SetData(List<BaseGameSettings> baseList) { }
+        public abstract System.Collections.IEnumerable GetData();
     }
 
     public class TypedEditorSettingsList<T> : EditorSettingsList where T : BaseGameSettings, new()
@@ -61,6 +67,11 @@ namespace Genrpg.Editor.Entities.Core
                 }
             }
             Data = list;
+        }
+
+        public override System.Collections.IEnumerable GetData()
+        {
+            return Data;
         }
     }
 

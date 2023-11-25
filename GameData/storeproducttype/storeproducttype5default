@@ -1,0 +1,15 @@
+{
+  "Id": "storeproducttype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Medium Gold Pack",
+  "Rewards": [
+    {
+      "EntityTypeId": 1,
+      "EntityId": 2,
+      "MinQuantity": 2500,
+      "MaxQuantity": 2500,
+      "Weight": 100.0
+    }
+  ]
+}

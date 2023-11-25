@@ -29,33 +29,38 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Chat.Entities;
 using Genrpg.ServerShared.DataStores.NoSQL;
 using Genrpg.ServerShared.CloudComms.Constants;
+using Genrpg.Editor.UI;
+using Genrpg.Editor.UI.Constants;
 
 namespace GameEditor
 {
     public partial class CommandForm : Form
     {
-        private EditorGameState gs = null;
-        private string prefix;
-        private MainForm parentForm;
-        public CommandForm (string prefixIn, MainForm parentFormIn) 
-        {
-            parentForm = parentFormIn;
-            prefix = prefixIn;
-            int numButtons = 0;
+        const int _topPadding = 50;
 
-            Label lab = new Label();
-            lab.Location = new Point(getLeftRightPadding(), getTopBottomPadding());
-            lab.Size = new Size(getButtonWidth(), getButtonHeight());
-            lab.Text = prefix;
-            lab.Font = new Font("Arial", 20);
-            lab.TextAlign = ContentAlignment.MiddleCenter;
-            Controls.Add(lab);
-            numButtons++;
+        private EditorGameState _gs = null;
+        private string _prefix;
+        private MainForm _parentForm;
+        private UIFormatter _formatter = null;
+
+        public CommandForm (string prefix, UIFormatter formatter, MainForm parentForm) 
+        {
+            _parentForm = parentForm;
+            _prefix = prefix;
+            _formatter = formatter;
+            _formatter.SetupForm(this, EFormTypes.Default);
+            int buttonCount = 0;
+
+
+            UIHelper.CreateLabel(Controls, ELabelTypes.Default, _formatter, _prefix + "Label", _prefix, getButtonWidth(), getButtonHeight(),
+                getLeftRightPadding(), getTopBottomPadding(), 20);
+
+
+            buttonCount++;
 
             string[] envWords = Enum.GetNames(typeof(EnvEnum)); 
             string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas".Split(' ');
-            Button button = null;
-            int p = 0;
+            int column = 0;
             for (int e = 0; e < envWords.Length; e++)
             {
                 string env = envWords[e];
@@ -77,37 +82,44 @@ namespace GameEditor
 
                         if (action == "Maps")
                         {
-                            if (prefix == Game.Prefix)
+                            if (_prefix == Game.Prefix)
                             {
 
-                                button = new Button();
-                                button.Text = prefix + " " + env + " " + action;
-                                button.Name = env + action;
-                                button.Size = new Size(getButtonWidth(), getButtonHeight());
-                                button.Location = new Point(getLeftRightPadding() + p * (getButtonWidth() + p * getButtonGap()), getTotalHeight(numButtons));
-                                numButtons++;
-                                Controls.Add(button);
-                                button.Click += OnClickMaps;
+                                UIHelper.CreateButton(Controls, 
+                                    EButtonTypes.Default, 
+                                    _formatter, 
+                                    env + action, 
+                                    _prefix + " " + env + " " + action,
+                                    getButtonWidth(), 
+                                    getButtonHeight(),
+                                    getLeftRightPadding() + column * (getButtonWidth() + column * getButtonGap()),
+                                    getTotalHeight(buttonCount),
+                                    OnClickMaps);
+                                buttonCount++;
                             }
                             continue;
                         }
 
 
-                        button = new Button();
-                        button.Text = env + " " + action;
-                        button.Name = env + action;
-                        button.Size = new Size(getButtonWidth(), getButtonHeight());
-                        button.Location = new Point(getLeftRightPadding() + p * (getButtonWidth() + p * getButtonGap()), getTotalHeight(numButtons));
-                        numButtons++;
-                        button.Click += OnClickButton;
-                        Controls.Add(button);
+
+                        UIHelper.CreateButton(Controls,
+                            EButtonTypes.Default,
+                            _formatter,
+                            env + action,
+                            env + " " + action,
+                            getButtonWidth(),
+                            getButtonHeight(),
+                            getLeftRightPadding() + column * (getButtonWidth() + column * getButtonGap()),
+                            getTotalHeight(buttonCount),
+                            OnClickButton);
+                        buttonCount++;
                     }
                 }
             }
 
 
 
-            Size = new Size(2 * getLeftRightPadding() + 1 * (getButtonWidth() + getButtonGap() * 2), getTotalHeight(numButtons)*2 + getTopBottomPadding());
+            Size = new Size(2 * getLeftRightPadding() + 1 * (getButtonWidth() + getButtonGap() * 2), getTotalHeight(buttonCount) + getTopBottomPadding() + _topPadding);
 
             InitializeComponent();
         }
@@ -153,7 +165,7 @@ namespace GameEditor
                 return;
             }
 
-            if (string.IsNullOrEmpty(prefix))
+            if (string.IsNullOrEmpty(_prefix))
             {
                 return;
             }
@@ -161,12 +173,12 @@ namespace GameEditor
             String env = words[1];
 			String action = words[2];
 
-            gs = await EditorGameDataUtils.SetupFromConfig(this, env);
+            _gs = await EditorGameDataUtils.SetupFromConfig(this, env);
 
             this.Invoke((MethodInvoker)
                 delegate ()
                 {
-                    ViewMaps va = new ViewMaps(gs);
+                    ViewMaps va = new ViewMaps(_gs, _formatter);
                     va.Show();
                 });
 
@@ -191,7 +203,7 @@ namespace GameEditor
                 return;
             }
 
-            if (string.IsNullOrEmpty(prefix))
+            if (string.IsNullOrEmpty(_prefix))
             {
                 return;
             }
@@ -238,7 +250,7 @@ namespace GameEditor
         private async Task OnClickButtonAsync(string action, string env)
         { 
 
-            gs = await EditorGameDataUtils.SetupFromConfig(this, env);
+            _gs = await EditorGameDataUtils.SetupFromConfig(this, env);
 
 
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
@@ -247,17 +259,17 @@ namespace GameEditor
             DateTime buildtime = new DateTime(2000, 1, 1)
                     .AddDays(version.Build).AddSeconds(version.Revision * 2);
 
-            IReflectionService reflectionService = gs.loc.Get<IReflectionService>();
-            reflectionService.InitializeObjectData(gs.data);
+            IReflectionService reflectionService = _gs.loc.Get<IReflectionService>();
+            reflectionService.InitializeObjectData(_gs.data);
 
-            gs.EditorGameData = new EditorGameData()
+            _gs.EditorGameData = new EditorGameData()
             {
-                GameData = gs.data,
+                GameData = _gs.data,
             };
 
             
 
-            List<IGameSettings> allGameData = gs.data.GetAllData();
+            List<IGameSettings> allGameData = _gs.data.GetAllData();
 
             List<IGrouping<Type,IGameSettings>> groups = allGameData.GroupBy(x => x.GetType()).ToList();
 
@@ -279,18 +291,17 @@ namespace GameEditor
                     }
                 }
 
-
                 Type baseCollectionType = typeof(TypedEditorSettingsList<>);
                 Type genericType = baseCollectionType.MakeGenericType(group.Key);
                 EditorSettingsList list = (EditorSettingsList)Activator.CreateInstance(genericType);
                 list.SetData(items);
                 list.TypeName = "[" + group.Count() + "] " + group.Key.Name;
-                gs.EditorGameData.Data.Add(list);
+                _gs.EditorGameData.Data.Add(list);
             }
 
             this.Invoke((MethodInvoker)delegate()
                {
-                   DataWindow win = new DataWindow(gs, gs.EditorGameData, this, action);
+                   DataWindow win = new DataWindow(_gs, _formatter, _gs.EditorGameData, this, action);
                    win.Show();
                });
 
@@ -298,7 +309,7 @@ namespace GameEditor
 
         private void CopyDataFromEnvToEnv(string fromEnv, string toEnv)
         {
-            Form form = UIHelper.ShowBlockingDialog("Copying data from " + fromEnv + " to " + toEnv, this);
+            Form form = UIHelper.ShowBlockingDialog("Copying data from " + fromEnv + " to " + toEnv, _formatter, this);
             _ = Task.Run(() => CopyDataFromEnvToEnvAsync(fromEnv, toEnv, form));
         }
 
@@ -316,7 +327,7 @@ namespace GameEditor
             for (int i = 0; i < Application.OpenForms.Count; i++)
             {
                 Form f = Application.OpenForms[i];
-                if (f == this || f == parentForm)
+                if (f == this || f == _parentForm)
                 {
                     continue;
                 }
@@ -339,7 +350,7 @@ namespace GameEditor
 
         protected void CopyGameDataFromDatabaseToGit(string env)
         {
-            Form form = UIHelper.ShowBlockingDialog("Copying to Git", this);
+            Form form = UIHelper.ShowBlockingDialog("Copying to Git", _formatter, this);
             _ = Task.Run(() => CopyGameDataFromDatabaseToGitAsync(env, form, EditorGameState.CTS.Token));
         }
 
@@ -354,13 +365,13 @@ namespace GameEditor
 
         protected void UpdateAssets(string env)
         {
-            Form form = UIHelper.ShowBlockingDialog("Updating Assets");
+            Form form = UIHelper.ShowBlockingDialog("Updating Assets", _formatter);
             _ = Task.Run(() => UpdateAssetsUtils.UpdateAssetsAsync(env));
         }
 
         protected void CopyGameDataFromGitToDatabase(string env)
         {
-           Form form = UIHelper.ShowBlockingDialog("Copying to Mongo", this);
+           Form form = UIHelper.ShowBlockingDialog("Copying to Mongo", _formatter, this);
             _ = Task.Run(() => CopyGameDataFromGitToDatabaseAsync(form, env, EditorGameState.CTS.Token));
         }
 

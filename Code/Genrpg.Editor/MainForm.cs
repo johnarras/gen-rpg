@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Genrpg.Editor;
 using Genrpg.Editor.Entities.Core;
+using Genrpg.Editor.UI;
+using Genrpg.Editor.UI.Constants;
 using Genrpg.Shared.Constants;
 
 namespace GameEditor
@@ -11,22 +13,19 @@ namespace GameEditor
     public partial class MainForm : Form
     {
         private static MainForm _instance = null;
-        private EditorGameState gs = null;
 
+        private UIFormatter _formatter = null;
         public MainForm()
         {
-            gs = new EditorGameState();
             _instance = this;
             int numButtons = 0;
 
-            Button button = null;
-            button = new Button();
-            button.Text = Game.Prefix;
-            button.Location = new Point(10, getTotalHeight(numButtons) - getButtonGap() / 2);
-            button.Size = new Size(getButtonWidth(), getButtonHeight());
+            _formatter = new UIFormatter();
+            _formatter.SetupForm(this, EFormTypes.Default);
+
+            UIHelper.CreateButton(Controls, EButtonTypes.Default, _formatter, Game.Prefix + "Button",
+                Game.Prefix, getButtonWidth(), getButtonHeight(), 10, getTotalHeight(numButtons) - getButtonGap() / 2, OnClickButton);
             numButtons++;
-            Controls.Add(button);
-            button.Click += OnClickButton;
 
             Size = new Size(getButtonWidth() + getButtonGap() * 4, getTotalHeight(numButtons) + getTopBottomPadding() * 4);
 
@@ -59,8 +58,8 @@ namespace GameEditor
 
             CloseAllForms(true);
 
-            Form form = UIHelper.ShowBlockingDialog("Loading Data", this);
-            CommandForm win = new CommandForm(prefix, this);
+            Form form = UIHelper.ShowBlockingDialog("Loading Data", _formatter, this);
+            CommandForm win = new CommandForm(prefix, _formatter, this);
             win.Show();
             if (form != null)
             {

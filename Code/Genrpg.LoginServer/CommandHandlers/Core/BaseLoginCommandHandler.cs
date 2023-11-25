@@ -1,5 +1,4 @@
-﻿using Genrpg.LoginServer.CommandHandlers;
-using Genrpg.LoginServer.Core;
+﻿using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Login.Interfaces;
@@ -13,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genrpg.MonsterServer.MessageHandlers
+namespace Genrpg.LoginServer.CommandHandlers.Core
 {
     public abstract class BaseLoginCommandHandler<C> : ILoginCommandHandler where C : ILoginCommand
     {

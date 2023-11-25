@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Genrpg.Shared.Entities.Settings;
+using MessagePack.Formatters;
 
 namespace Genrpg.Shared.Reflection.Services
 {
@@ -475,7 +476,13 @@ namespace Genrpg.Shared.Reflection.Services
             if (parent is IEnumerable parentEnum &&
                 child.GetType().GenericTypeArguments.Length > 0)
             {
-                return child.GetType().GenericTypeArguments[0].Name;
+                return "List<" + child.GetType().GenericTypeArguments[0].Name + ">";
+            }
+
+            if (child is IEnumerable childEnum &&
+                child.GetType().GenericTypeArguments.Length > 0)
+            {
+                return "List<" + child.GetType().GenericTypeArguments[0].Name + ">";
             }
             
 
@@ -988,6 +995,18 @@ namespace Genrpg.Shared.Reflection.Services
                 }
             }
 
+            List<IIdName> list = gs.data.GetList(etypeName);
+
+            if (list != null && list.Count > 0)
+            {
+                return etypeName;
+            }
+
+            list = gs.data.GetList(tableName);
+            if (list != null && list.Count > 0)
+            {
+                return tableName;
+            }
 
             do
             {
@@ -1313,6 +1332,11 @@ namespace Genrpg.Shared.Reflection.Services
                 return new List<NameValue>();
             }
 
+            if (mem.Name == "EquipSlotId")
+            {
+                Console.WriteLine("EquipSlotId");
+            }
+
             Type memType = mem.GetType();
             if (memType.IsEnum)
             {
@@ -1336,9 +1360,9 @@ namespace Genrpg.Shared.Reflection.Services
         }
 
         protected List<NameValue> GetMapDropdownList(GameState gs, MemberInfo mem)
-        {
+        {        
 
-            if (gs.map == null || mem == null)
+            if (gs.map == null)
             {
                 return null;
             }

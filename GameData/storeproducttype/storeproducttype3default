@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 3,
   "Name": "Large Gem Pack",
-  "ProductSkuTypeId": 13,
   "Rewards": [
     {
       "EntityTypeId": 1,

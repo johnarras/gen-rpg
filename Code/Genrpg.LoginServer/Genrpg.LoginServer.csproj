@@ -10,13 +10,9 @@
 
   <ItemGroup>
     <Compile Remove="Items\**" />
-    <Compile Remove="Services\**" />
     <Content Remove="Items\**" />
-    <Content Remove="Services\**" />
     <EmbeddedResource Remove="Items\**" />
-    <EmbeddedResource Remove="Services\**" />
     <None Remove="Items\**" />
-    <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>

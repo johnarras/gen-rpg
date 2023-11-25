@@ -9,11 +9,13 @@ using Genrpg.ServerShared.Core;
 using Azure.Messaging.ServiceBus.Administration;
 using Genrpg.ServerShared.DataStores.Constants;
 using Genrpg.ServerShared.CloudComms.Queues.Entities;
-using Genrpg.ServerShared.CloudComms.Services.Managers;
 using Genrpg.ServerShared.CloudComms.Requests.Entities;
 using Genrpg.ServerShared.CloudComms.PubSub.Constants;
 using Genrpg.ServerShared.CloudComms.PubSub.Entities;
 using Genrpg.Shared.Reflection.Services;
+using Genrpg.ServerShared.CloudComms.PubSub.Managers;
+using Genrpg.ServerShared.CloudComms.Queues.Managers;
+using Genrpg.ServerShared.CloudComms.Requests.Managers;
 
 namespace Genrpg.ServerShared.CloudComms.Services
 {
@@ -85,7 +87,12 @@ namespace Genrpg.ServerShared.CloudComms.Services
 
         public void SendQueueMessage(string serverId, IQueueMessage cloudMessage)
         {
-            _queueManager.SendQueueMessage(serverId, cloudMessage);
+            _queueManager.SendQueueMessages(serverId, new List<IQueueMessage>() { cloudMessage });
+        }
+
+        public void SendQueueMessages(string serverId, List<IQueueMessage> cloudMessages)
+        {
+            _queueManager.SendQueueMessages(serverId, cloudMessages);
         }
 
         #endregion

@@ -1,4 +1,6 @@
-﻿using Genrpg.ServerShared.Setup;
+﻿using Genrpg.MonsterServer.Admin;
+using Genrpg.ServerShared.CloudComms.Services.Admin;
+using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,8 @@ namespace Genrpg.MonsterServer.Setup
         public override void Setup(GameState gs)
         {
             base.Setup(gs);
+
+            gs.loc.Set<IAdminService>(new MonsterAdminService());
         }
     }
 }

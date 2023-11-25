@@ -1,6 +1,7 @@
 {
   "Id": "namelist1baed83f-d929-4784-96b0-331497ec62b6default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "PreciousQuality",
   "Names": [
     {
@@ -13,6 +14,5 @@
       "Name": "Shimmering",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

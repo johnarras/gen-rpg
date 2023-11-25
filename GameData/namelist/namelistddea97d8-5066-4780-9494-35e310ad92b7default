@@ -1,6 +1,7 @@
 {
   "Id": "namelistddea97d8-5066-4780-9494-35e310ad92b7default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "GemQuality",
   "Names": [
     {
@@ -13,6 +14,5 @@
       "Name": "Perfect",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

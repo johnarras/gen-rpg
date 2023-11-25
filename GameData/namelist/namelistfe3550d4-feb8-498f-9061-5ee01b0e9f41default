@@ -1,6 +1,7 @@
 {
   "Id": "namelistfe3550d4-feb8-498f-9061-5ee01b0e9f41default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureBirdNames",
   "Names": [
     {
@@ -43,6 +44,5 @@
       "Name": "Vicious",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

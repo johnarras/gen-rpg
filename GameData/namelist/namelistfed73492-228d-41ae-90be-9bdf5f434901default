@@ -1,6 +1,7 @@
 {
   "Id": "namelistfed73492-228d-41ae-90be-9bdf5f434901default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BodyPearlWords",
   "Names": [
     {
@@ -83,6 +84,5 @@
       "Name": "Dragonstar",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

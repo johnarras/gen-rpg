@@ -1,8 +1,8 @@
 {
   "Id": "derivedstat5db38de3-7e10-4b6e-beea-9666e7ebbc5fdefault",
   "ParentId": "default",
+  "Name": "DerivedStat",
   "FromStatTypeId": 11,
   "ToStatTypeId": 22,
-  "Percent": 200,
-  "Name": "DerivedStat"
+  "Percent": 200
 }

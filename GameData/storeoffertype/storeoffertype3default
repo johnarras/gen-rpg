@@ -1,0 +1,24 @@
+{
+  "Id": "storeoffertype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Regular Gold Offer",
+  "StoreSlotTypeId": 2,
+  "StoreFeatureTypeId": 1,
+  "Products": [
+    {
+      "StoreProductTypeId": 4,
+      "ProductSkuTypeId": 3
+    },
+    {
+      "Index": 1,
+      "StoreProductTypeId": 5,
+      "ProductSkuTypeId": 10
+    },
+    {
+      "Index": 2,
+      "StoreProductTypeId": 6,
+      "ProductSkuTypeId": 16
+    }
+  ]
+}

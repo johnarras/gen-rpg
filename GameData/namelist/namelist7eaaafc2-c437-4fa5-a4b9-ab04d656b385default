@@ -1,6 +1,7 @@
 {
   "Id": "namelist7eaaafc2-c437-4fa5-a4b9-ab04d656b385default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "TreeHerbPrefix",
   "Names": [
     {
@@ -38,6 +39,5 @@
       "Name": "Tree",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

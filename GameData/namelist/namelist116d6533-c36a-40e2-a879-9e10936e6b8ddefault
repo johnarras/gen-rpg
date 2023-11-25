@@ -1,6 +1,7 @@
 {
   "Id": "namelist116d6533-c36a-40e2-a879-9e10936e6b8ddefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "IceHerbPrefix",
   "Names": [
     {
@@ -58,6 +59,5 @@
       "Name": "White",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

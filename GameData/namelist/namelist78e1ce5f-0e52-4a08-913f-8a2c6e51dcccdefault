@@ -1,6 +1,7 @@
 {
   "Id": "namelist78e1ce5f-0e52-4a08-913f-8a2c6e51dcccdefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BloodQuality",
   "Names": [
     {
@@ -13,6 +14,5 @@
       "Name": "Purified",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

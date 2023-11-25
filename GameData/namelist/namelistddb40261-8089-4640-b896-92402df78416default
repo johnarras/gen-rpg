@@ -1,6 +1,7 @@
 {
   "Id": "namelistddb40261-8089-4640-b896-92402df78416default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "MetalQuality",
   "Names": [
     {
@@ -13,6 +14,5 @@
       "Name": "Hardened",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

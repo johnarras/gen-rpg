@@ -13,6 +13,8 @@ using Genrpg.Shared.Entities;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Editor.Entities.Core;
 using GameEditor;
+using Genrpg.Editor.UI;
+using Genrpg.Editor.UI.Constants;
 
 namespace Genrpg.Editor
 {
@@ -40,29 +42,30 @@ namespace Genrpg.Editor
 
         PictureBox[] pics = new PictureBox[NumChannels];
 
+
         Timer timer = null;
 
-        public MyColorFDataView(EditorGameState gsIn, DataWindow winIn, object objIn, object parentIn, object grandparentIn) :
-            base(gsIn, winIn, objIn, parentIn, grandparentIn)
+        public MyColorFDataView(EditorGameState gsIn, UIFormatter formatter, DataWindow winIn, object objIn, object parentIn, object grandparentIn, DataView parentView) :
+            base(gsIn, formatter, winIn, objIn, parentIn, grandparentIn, parentView)
         {
         }
         public override void ShowData()
         {
-            if (MultiGrid == null || SingleGrid == null)
+            if (_multiGrid == null || _singleGrid == null)
             {
                 return;
             }
 
-            SingleGrid.Controls.Clear();
-            SingleGrid.Visible = true;
-            MultiGrid.Visible = false;
+            _singleGrid.Controls.Clear();
+            _singleGrid.Visible = true;
+            _multiGrid.Visible = false;
             AddButton.Visible = false;
             DeleteButton.Visible = false;
             CopyButton.Visible = false;
             DetailsButton.Visible = false;
 
 
-            color = obj as MyColorF;
+            color = Obj as MyColorF;
             if (color == null)
             {
                 return;
@@ -81,13 +84,7 @@ namespace Genrpg.Editor
             {
                 string cn = channels[c];
 
-                Label txt = new Label();
-                names[c] = txt;
-                txt.Name = cn + "Text";
-                txt.Text = cn;
-                txt.Size = new Size(50, 30);
-                txt.Location = new Point(sx, sy);
-                SingleGrid.Controls.Add(txt);
+                UIHelper.CreateLabel(_singleGrid.Controls, ELabelTypes.Default, _formatter, cn + "Text", cn, 50, 30, sx, sy);
 
                 int cx = 180;
                 int tbwid = 280;
@@ -98,7 +95,7 @@ namespace Genrpg.Editor
                 pb.Name = cn + "Colors";
                 pb.Size = new Size(pbwid, ColorScaleBitmapHeight);
                 pb.Location = new Point(cx, sy + 20);
-                SingleGrid.Controls.Add(pb);
+                _singleGrid.Controls.Add(pb);
 
                 TrackBar tb = new TrackBar();
                 bars[c] = tb;
@@ -110,24 +107,16 @@ namespace Genrpg.Editor
                 tb.SetRange(0, 255);
                 tb.Value = vals[c];
                 tb.ValueChanged += OnTrackbarChanged;
-                SingleGrid.Controls.Add(tb);
+                _singleGrid.Controls.Add(tb);
 
-                TextBox input = new TextBox();
-                inputs[c] = input;
-                input.Name = cn + "Input";
-                input.Text = vals[c].ToString();
-                input.Size = new Size(50, 30);
-                input.Location = new Point(sx + 400, sy);
-                input.TextChanged += OnTextChanged;
-                SingleGrid.Controls.Add(input);
-
+                inputs[c] = UIHelper.CreateTextBox(_singleGrid.Controls, _formatter, cn + "Input", vals[c].ToString(), 50, 30, sx + 400, sy, OnTextChanged);
 
                 sy += dy;
             }
             colorPanel = new Panel();
             colorPanel.Size = new Size(150, 150);
             colorPanel.Location = new Point(230, 120);
-            SingleGrid.Controls.Add(colorPanel);
+            _singleGrid.Controls.Add(colorPanel);
             typeof(Panel).InvokeMember("DoubleBuffered",
                 BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
             null, colorPanel, new object[] { true });

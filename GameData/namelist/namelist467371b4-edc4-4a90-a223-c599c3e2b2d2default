@@ -1,6 +1,7 @@
 {
   "Id": "namelist467371b4-edc4-4a90-a223-c599c3e2b2d2default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ElementQuality",
   "Names": [
     {
@@ -13,6 +14,5 @@
       "Name": "Pure",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

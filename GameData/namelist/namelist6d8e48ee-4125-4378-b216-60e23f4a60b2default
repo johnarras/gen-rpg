@@ -1,6 +1,7 @@
 {
   "Id": "namelist6d8e48ee-4125-4378-b216-60e23f4a60b2default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureBugColors",
   "Names": [
     {
@@ -113,6 +114,5 @@
       "Name": "White",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

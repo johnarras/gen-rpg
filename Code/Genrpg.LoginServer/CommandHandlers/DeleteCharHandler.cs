@@ -1,5 +1,5 @@
-﻿using Genrpg.LoginServer.Core;
-using Genrpg.MonsterServer.MessageHandlers;
+﻿using Genrpg.LoginServer.CommandHandlers.Core;
+using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Interfaces;

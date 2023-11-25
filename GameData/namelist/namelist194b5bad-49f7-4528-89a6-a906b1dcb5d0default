@@ -1,6 +1,7 @@
 {
   "Id": "namelist194b5bad-49f7-4528-89a6-a906b1dcb5d0default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "MagicQuality",
   "Names": [
     {
@@ -18,6 +19,5 @@
       "Name": "Shard",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

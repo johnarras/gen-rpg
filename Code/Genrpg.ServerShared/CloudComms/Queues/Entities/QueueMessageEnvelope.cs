@@ -12,6 +12,6 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Entities
         public string ToServerId { get; set; }
         public string FromServerId { get; set; }
         [JsonProperty(TypeNameHandling = TypeNameHandling.Auto)]
-        public IQueueMessage Message { get; set; }
+        public List<IQueueMessage> Messages { get; set; } = new List<IQueueMessage>();
     }
 }

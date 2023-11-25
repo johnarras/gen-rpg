@@ -9,14 +9,13 @@ using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.Logging;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.DataStores;
-using Genrpg.ServerShared.GameSettings.Interfaces;
 
 namespace Genrpg.ServerShared.Setup
 {
     public class SetupUtils
     {
         public static async Task<GS> SetupFromConfig<GS>(object parentObject, string serverId, 
-            SetupService setupService, IGameDataContainer gameDataContainer, CancellationToken token, ServerConfig serverConfigIn = null) where GS : ServerGameState, new()
+            SetupService setupService, CancellationToken token, ServerConfig serverConfigIn = null) where GS : ServerGameState, new()
         {
             if (string.IsNullOrEmpty(serverId))
             {
@@ -39,7 +38,6 @@ namespace Genrpg.ServerShared.Setup
 
             IGameDataService gameDataService = gs.loc.Get<IGameDataService>();
             gs.data = await gameDataService.LoadGameData(gs, setupService.CreateMissingGameData());
-            gameDataService.AddGameDataContainer(gameDataContainer);
 
             await setupService.FinalSetup(gs);
 

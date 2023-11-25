@@ -1,6 +1,7 @@
 {
   "Id": "namelist7f816b07-f34e-4436-b11a-535144e8e148default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BodyEyeWords",
   "Names": [
     {
@@ -103,6 +104,5 @@
       "Name": "Dragon",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

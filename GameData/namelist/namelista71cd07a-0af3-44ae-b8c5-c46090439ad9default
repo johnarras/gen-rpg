@@ -1,6 +1,7 @@
 {
   "Id": "namelista71cd07a-0af3-44ae-b8c5-c46090439ad9default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureReptileColors",
   "Names": [
     {
@@ -68,6 +69,5 @@
       "Name": "Yellow",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Networking\Constants\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

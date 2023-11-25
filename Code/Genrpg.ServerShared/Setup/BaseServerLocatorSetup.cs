@@ -1,5 +1,7 @@
-﻿using Genrpg.ServerShared.Achievements;
+﻿using Genrpg.ServerShared.Accounts.Services;
+using Genrpg.ServerShared.Achievements;
 using Genrpg.ServerShared.CloudComms.Services;
+using Genrpg.ServerShared.CloudComms.Services.Admin;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;
@@ -29,6 +31,8 @@ namespace Genrpg.ServerShared.Setup
             gs.loc.Set<IAchievementService>(new AchievementService());
             gs.loc.Set<IPlayerDataService>(new PlayerDataService());
             gs.loc.Set<IPurchasingService>(new PurchasingService());
+            gs.loc.Set<IAccountService>(new AccountService());
+            gs.loc.Set<IAdminService>(new BaseAdminService());
         }
     }
 }

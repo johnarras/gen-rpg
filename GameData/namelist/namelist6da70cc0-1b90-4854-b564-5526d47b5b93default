@@ -1,6 +1,7 @@
 {
   "Id": "namelist6da70cc0-1b90-4854-b564-5526d47b5b93default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ItemAdjectives",
   "Names": [
     {
@@ -988,6 +989,5 @@
       "Name": "Yellow",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

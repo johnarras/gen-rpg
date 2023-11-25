@@ -1,6 +1,7 @@
 {
   "Id": "namelist96a5196e-a614-4283-99b4-0e682e0c6845default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BodyGrossWords",
   "Names": [
     {
@@ -118,6 +119,5 @@
       "Name": "Ruined",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

@@ -1,6 +1,7 @@
 {
   "Id": "namelistb94db97b-3775-4827-9d94-fd1a99df6262default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "LeatherLevel",
   "Names": [
     {
@@ -33,6 +34,5 @@
       "Name": "Solid",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

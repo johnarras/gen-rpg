@@ -1,6 +1,7 @@
 {
   "Id": "namelist0a00b0a4-460c-40c6-8599-46ba945ac88adefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ClothLevel",
   "Names": [
     {
@@ -33,6 +34,5 @@
       "Name": "Silk",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

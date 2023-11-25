@@ -1,6 +1,7 @@
 {
   "Id": "namelist87348995-926d-4bc0-894a-eb83715c43e1default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ClothQuality",
   "Names": [
     {
@@ -13,6 +14,5 @@
       "Name": "Imbued",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

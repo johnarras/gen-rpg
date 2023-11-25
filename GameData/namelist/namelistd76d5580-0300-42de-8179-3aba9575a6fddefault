@@ -1,6 +1,7 @@
 {
   "Id": "namelistd76d5580-0300-42de-8179-3aba9575a6fddefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BodyQuality",
   "Names": [
     {
@@ -13,6 +14,5 @@
       "Name": "Pristine",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

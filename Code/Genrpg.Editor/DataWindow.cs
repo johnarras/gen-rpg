@@ -20,6 +20,8 @@ using Microsoft.Extensions.Azure;
 using Genrpg.Shared.Versions.Entities;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
+using Genrpg.Editor.UI;
+using Genrpg.Editor.UI.Constants;
 
 namespace GameEditor
 {
@@ -32,13 +34,16 @@ namespace GameEditor
         public IList<UserControl> ViewStack = null;
         private Object obj = null;
         public String action = "";
-        public Form parentForm;
-        public DataWindow(EditorGameState gsIn, Object objIn, Form parentFormIn, String actionIn)
+        private Form _parentForm;
+        protected UIFormatter _formatter;
+        public DataWindow(EditorGameState gsIn, UIFormatter formatter, Object objIn, Form parentFormIn, String actionIn)
         {
-            parentForm = parentFormIn;
+            _parentForm = parentFormIn;
+            _formatter = formatter;
             gs = gsIn;
             gs.loc.Resolve(this);
             action = actionIn;
+            _formatter.SetupForm(this, EFormTypes.Default);
             ViewStack = new List<UserControl>();
             obj = objIn;
             if (obj == null)
@@ -58,15 +63,15 @@ namespace GameEditor
             UserControl view = null;
             if (action == "Users")
             {
-                view = new FindUserView(gs, this);
+                view = new FindUserView(gs, _formatter, this);
             }
             else if (action == "Data")
             {
-                view = ucf.Create(gs, this, obj, null, null);
+                view = ucf.Create(gs, _formatter, this, obj, null, null, null);
             }
             else if (action == "Map")
             {
-                view = ucf.Create(gs, this, obj, null, null);
+                view = ucf.Create(gs, _formatter, this, obj, null, null, null);
             }
             else if (action == "CopyToTest")
             {
@@ -131,10 +136,19 @@ namespace GameEditor
 
             if (action == "Data")
             {
+
+                foreach (DataView dataView in ViewStack)
+                {
+                    if (dataView.Obj is IGameSettings settings &&
+                        !gs.LookedAtObjects.Contains(settings))
+                    {
+                        gs.LookedAtObjects.Add(settings);
+                    }
+                }
+
                 IGameDataService gds = gs.loc.Get<IGameDataService>();
 
                 Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-
 
                 bool foundBadData = false;
 
@@ -298,6 +312,11 @@ namespace GameEditor
                 if (string.IsNullOrEmpty(mname))
                 {
                     mname = type.Name;
+                }
+
+                if (mname.IndexOf("BackingField") >= 0)
+                {
+                    mname = "List";
                 }
 
                 txt += mname;

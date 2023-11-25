@@ -34,6 +34,7 @@ namespace Genrpg.Shared.Users.Entities
         [Key(5)] public string SessionId { get; set; }
         [Key(6)] public int Flags { get; set; }
         [Key(7)] public DateTime CreationDate { get; set; } = DateTime.UtcNow;
+        public string CurrCharId { get; set; }
 
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }

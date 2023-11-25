@@ -1,6 +1,7 @@
 {
   "Id": "namelist058cf97c-5c8a-4325-9f3e-ad2a2e1f7a83default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BodySharpWords",
   "Names": [
     {
@@ -163,6 +164,5 @@
       "Name": "Razor",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

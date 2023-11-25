@@ -4,6 +4,7 @@ using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,13 @@ namespace Genrpg.Shared.Units.Loaders
     /// <summary>
     /// Class to load and save a list of items that can be individually loaded and saved
     /// </summary>
-    /// <typeparam name="Parent">Parent container object (Think InventoryData)</typeparam>
-    /// <typeparam name="Child">Child type object (think Items)</typeparam>
-    /// <typeparam name="API">Type used to send the parent data to the client (since the Parent has no public list.</typeparam>
-    public class OwnerDataLoader<Parent, Child, API> : UnitDataLoader<Parent>
-        where Parent : OwnerObjectList<Child>, new()
-        where Child : OwnerPlayerData
-        where API : OwnerApiList<Parent, Child>
+    /// <typeparam name="TParent">Parent container object (Think InventoryData)</typeparam>
+    /// <typeparam name="TChild">Child type object (think Items)</typeparam>
+    /// <typeparam name="TApi">Type used to send the parent data to the client (since the Parent has no public list.</typeparam>
+    public class OwnerDataLoader<TParent, TChild, TApi> : UnitDataLoader<TParent>
+        where TParent : OwnerObjectList<TChild>, new()
+        where TChild : OwnerPlayerData
+        where TApi : OwnerApiList<TParent, TChild>
     {
 
         public override async Task Setup(GameState gs)
@@ -29,7 +30,7 @@ namespace Genrpg.Shared.Units.Loaders
 
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { Ascending = true, MemberName = "OwnerId" });
-            await gs.repo.CreateIndex<Child>(configs);
+            await gs.repo.CreateIndex<TChild>(configs);
         }
 
         public override async Task<IUnitData> LoadData(IRepositorySystem repoSystem, Unit unit)
@@ -41,10 +42,15 @@ namespace Genrpg.Shared.Units.Loaders
                 id = ch.UserId;
             }
 
-            Parent parent = await repoSystem.Load<Parent>(id);
-            if (parent != null)
-            {
-                List<Child> items = await repoSystem.Search<Child>(x => x.OwnerId == id);
+            Task<TParent> parentTask = repoSystem.Load<TParent>(id);
+            Task<List<TChild>> childTask = repoSystem.Search<TChild>(x => x.OwnerId == id);
+
+            await Task.WhenAll(parentTask, childTask).ConfigureAwait(false);
+
+            TParent parent = await parentTask;
+            List<TChild> items = await childTask;
+            if (parent != null) 
+            {                
                 parent.SetData(items);
             }
             return parent;
@@ -52,9 +58,9 @@ namespace Genrpg.Shared.Units.Loaders
 
         public override IUnitData MapToAPI(IUnitData serverObject)
         {
-            Parent parent = serverObject as Parent;
+            TParent parent = serverObject as TParent;
 
-            API api = Activator.CreateInstance<API>();
+            TApi api = Activator.CreateInstance<TApi>();
 
             api.ParentObj = parent;
             api.Data = parent.GetData();

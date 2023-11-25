@@ -1,6 +1,7 @@
 {
   "Id": "namelisteda1c877-33c2-4386-bc58-57e37e20d25fdefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureShellColors",
   "Names": [
     {
@@ -38,6 +39,5 @@
       "Name": "White",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

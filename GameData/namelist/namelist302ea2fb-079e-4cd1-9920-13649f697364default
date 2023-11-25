@@ -1,6 +1,7 @@
 {
   "Id": "namelist302ea2fb-079e-4cd1-9920-13649f697364default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BodySilkWords",
   "Names": [
     {
@@ -88,6 +89,5 @@
       "Name": "Gossamer",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

@@ -1,4 +1,4 @@
-﻿using Genrpg.InstanceServer.Services;
+﻿using Genrpg.InstanceServer.Managers;
 using Genrpg.ServerShared.CloudComms.Queues.Entities;
 using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.ServerShared.Core;
@@ -13,7 +13,7 @@ namespace Genrpg.InstanceServer.MessageHandlers
     public abstract class BaseInstanceMessageHandler<T> : IInstanceMessageHandler where T : IInstanceQueueMessage
     {
 
-        protected IMapInstanceService _mapInstanceService;
+        protected IInstanceManagerService _mapInstanceService;
 
         protected abstract Task InnerHandleMessage(ServerGameState gs, T message);
 

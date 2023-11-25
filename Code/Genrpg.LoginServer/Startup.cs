@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http.Features;
+using Genrpg.LoginServer.Controllers;
+using System.Threading;
+using Genrpg.LoginServer.Core;
 
 namespace Genrpg.LoginServer
 {
@@ -27,6 +30,7 @@ namespace Genrpg.LoginServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.Add(new ServiceDescriptor(typeof(WebService), new WebService()));
             services.Configure<FormOptions>(options =>
             {
                 options.KeyLengthLimit = int.MaxValue;
@@ -34,9 +38,7 @@ namespace Genrpg.LoginServer
                 options.ValueLengthLimit = int.MaxValue;
                 options.MultipartHeadersLengthLimit = int.MaxValue;
             });
-
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

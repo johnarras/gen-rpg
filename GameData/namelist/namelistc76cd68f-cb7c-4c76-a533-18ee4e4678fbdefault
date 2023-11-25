@@ -1,6 +1,7 @@
 {
   "Id": "namelistc76cd68f-cb7c-4c76-a533-18ee4e4678fbdefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BodyFeatherWords",
   "Names": [
     {
@@ -98,6 +99,5 @@
       "Name": "Dragonflight",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

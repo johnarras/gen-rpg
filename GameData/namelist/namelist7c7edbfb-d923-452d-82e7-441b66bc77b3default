@@ -1,6 +1,7 @@
 {
   "Id": "namelist7c7edbfb-d923-452d-82e7-441b66bc77b3default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "PreciousLevel",
   "Names": [
     {
@@ -28,6 +29,5 @@
       "Name": "Starshimmer",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

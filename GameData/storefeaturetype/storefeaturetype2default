@@ -2,5 +2,5 @@
   "Id": "storefeaturetype2default",
   "ParentId": "default",
   "IdKey": 2,
-  "Name": "StoreFeatureType"
+  "Name": "Single Purchase"
 }

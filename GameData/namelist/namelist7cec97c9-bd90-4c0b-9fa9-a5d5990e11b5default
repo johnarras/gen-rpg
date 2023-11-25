@@ -1,6 +1,7 @@
 {
   "Id": "namelist7cec97c9-bd90-4c0b-9fa9-a5d5990e11b5default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ItemDoublePrefix",
   "Names": [
     {
@@ -403,6 +404,5 @@
       "Name": "Wyrm",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

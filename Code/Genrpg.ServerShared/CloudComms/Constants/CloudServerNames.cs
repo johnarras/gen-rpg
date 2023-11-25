@@ -11,7 +11,7 @@ namespace Genrpg.ServerShared.CloudComms.Constants
         public const string Map = "Map";
         public const string Player = "Player";
         public const string Monster = "Monster";
-        public const string Instances = "Instance";
+        public const string Instance = "Instance";
         public const string Editor = "Editor";
         public const string Login = "Login";
     }

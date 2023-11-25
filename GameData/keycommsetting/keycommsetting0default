@@ -1,7 +1,7 @@
 {
   "Id": "keycommsetting0default",
+  "Name": "KeyCommSetting",
   "ParentId": "default",
   "KeyPress": "k",
-  "KeyCommand": "QuestScreen",
-  "Name": "KeyCommSetting"
+  "KeyCommand": "QuestScreen"
 }

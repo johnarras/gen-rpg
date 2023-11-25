@@ -17,9 +17,15 @@ namespace Genrpg.Shared.GameSettings.Loaders
 
         public override async Task<List<IGameSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing)
         {
-            List<IGameSettings> settings = await base.LoadAll(repoSystem, createDefaultIfMissing);
+            Task<List<IGameSettings>> loadParents = base.LoadAll(repoSystem, createDefaultIfMissing);
 
-            List<TChild> allChildren = await repoSystem.Search<TChild>(x => true);
+            Task<List<TChild>> loadChildren = repoSystem.Search<TChild>(x => true);
+
+            await Task.WhenAll(loadParents, loadChildren).ConfigureAwait(false);
+
+            List<IGameSettings> settings = await loadParents;
+            List<TChild> allChildren = await loadChildren;
+
 
             foreach (IGameSettings setting in settings)
             {

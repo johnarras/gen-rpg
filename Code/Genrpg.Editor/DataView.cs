@@ -32,30 +32,41 @@ using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.DataStores.GameSettings;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Editor.UI;
+using Genrpg.Editor.UI.Constants;
+using MongoDB.Bson.Serialization.Conventions;
+using ZstdSharp.Unsafe;
+using MongoDB.Driver;
 
 namespace GameEditor
 {
     public partial class DataView : UserControl
     {
-        public EditorGameState gs = null;
-        public Object obj = null;
-        public Object parent = null;
-        public Object grandparent = null;
-        public Type objType = null;
-        public Type parentType = null;
-        public Type grandparentType = null;
-        public DataWindow win = null;
-        public Button BackButton = null;
-        public Button HomeButton = null;
+        public Object Obj = null;
+        private EditorGameState _gs = null;
+        private Object _parent = null;
+        private Object _grandparent = null;
+        protected UIFormatter _formatter = null;
+        private Type _objType = null;
+        private Type _parentType = null;
+        private Type _grandParentType = null;
+        
+        
+        private DataWindow _window = null;
+        private DataView _parentView = null;
+
+
+        private Button _backButton = null;
+        private Button _homeButton = null;
         public Button AddButton = null;
         public Button DeleteButton = null;
         public Button CopyButton = null;
-        public Button SaveButton = null;
+        private Button _saveButton = null;
         public Button DetailsButton = null;
-        public Panel SingleGrid = null;
-        public DataGridView MultiGrid = null;
+        protected Panel _singleGrid = null;
+        protected DataGridView _multiGrid = null;
 
-        TypeMetaData typeMetaData = null;
+        private TypeMetaData _typeMetaData = null;
 
 
         public const int MaxButtonsPerRow = 8;
@@ -65,11 +76,10 @@ namespace GameEditor
         public const int SingleItemHeightPad = 20;
         public const int SingleItemTopPad = 60;
         public const int SingleItemLeftPad = 10;
-        public int numSingleTopButtonsShown = 0;
+        private int _numSingleTopButtonsShown = 0;
 
-        public IList<Panel> colorPanels = new List<Panel>();
-
-        public IDictionary<string, Graphics> panelGraphics = new Dictionary<string, Graphics>();
+        private IList<Panel> colorPanels = new List<Panel>();
+        private IDictionary<string, Graphics> panelGraphics = new Dictionary<string, Graphics>();
 
         Timer timer = null;
 
@@ -90,31 +100,44 @@ namespace GameEditor
             return false;
         }
 
-        public DataView(EditorGameState gsIn, DataWindow winIn, Object objIn, Object parentIn, Object grandparentIn)
+        public DataView(EditorGameState gs, UIFormatter formatter, DataWindow win, Object obj, Object parent, Object grandParent, DataView parentView)
         {
+            _formatter = formatter;
+            _typeMetaData = gs.data.GetGameData<EditorMetaDataSettings>(null)?.GetMetaDataForType(obj.GetType().Name);
+            _gs = gs;
+            _gs.loc.Resolve(this);
 
-            typeMetaData = gsIn.data.GetGameData<EditorMetaDataSettings>(null)?.GetMetaDataForType(objIn.GetType().Name);
-            gs = gsIn;
-            gs.loc.Resolve(this);
-            obj = objIn;
-            parent = parentIn;
-            grandparent = grandparentIn;
-            win = winIn;
-            if (win != null)
+            if (obj is IEditorScaffold scaffold)
             {
-                Size = win.Size;
-                win.Controls.Clear();
-                win.Controls.Add(this);
-                win.ViewStack.Add(this);
+                IEnumerable data = scaffold.GetData();
+                if (data != null)
+                {
+                    grandParent = parent;
+                    parent = obj;
+                    obj = data;
+                }
+            }
+
+            Obj = obj;
+            _parent = parent;
+            _grandparent = grandParent;
+            _window = win;
+            _parentView = parentView;
+            if (_window != null)
+            {
+                Size = _window.Size;
+                _window.Controls.Clear();
+                _window.Controls.Add(this);
+                _window.ViewStack.Add(this);
             }
 
             SetupGrids();
 
             InitializeComponent();
 
-            if (!gsIn.LookedAtObjects.Contains(obj))
+            if (!gs.LookedAtObjects.Contains(Obj))
             {
-                gsIn.LookedAtObjects.Add(obj);
+                gs.LookedAtObjects.Add(Obj);
             }
 
             if (_gameDataService != null)
@@ -127,15 +150,15 @@ namespace GameEditor
                 IgnoredFields = new List<String>();
             }
 
-            objType = obj.GetType();
-            if (parent != null)
+            _objType = Obj.GetType();
+            if (_parent != null)
             {
-                parentType = parent.GetType();
+                _parentType = _parent.GetType();
             }
 
-            if (grandparent != null)
+            if (_grandparent != null)
             {
-                grandparentType = grandparent.GetType();
+                _grandParentType = _grandparent.GetType();
             }
 
             AddTopButtons();
@@ -158,25 +181,25 @@ namespace GameEditor
 
         public Object GetObject()
         {
-            return obj;
+            return Obj;
         }
 
         public Object GetParent()
         {
-            return parent;
+            return _parent;
         }
 
         public void Save()
         {
-            if (win != null)
+            if (_window != null)
             {
-                _ = Task.Run(() => win.SaveData());
+                _ = Task.Run(() => _window.SaveData());
             }
         }
 
         private void SetupGrids()
         {
-            if (win == null)
+            if (_window == null)
             {
                 return;
             }
@@ -188,22 +211,19 @@ namespace GameEditor
 
         private void CreateMultiGrid()
         {
-            if (MultiGrid != null && Controls.Contains(MultiGrid))
+            if (_multiGrid != null && Controls.Contains(_multiGrid))
             {
-                Controls.Remove(MultiGrid);
+                Controls.Remove(_multiGrid);
             }
-            int sx = win.Width - 16;
-            int sy = win.Height - SingleItemTopPad - 37;
-            MultiGrid = new DataGridView();
-            MultiGrid.DataError += DataGridView1_DataError;
-            //MultiGrid.MultiSelect = false;
-            MultiGrid.Location = new Point(0, SingleItemTopPad);
+            int sx = _window.Width - 16;
+            int sy = _window.Height - SingleItemTopPad - 37;
+            _multiGrid = UIHelper.CreateDataGridView(Controls, _formatter, "MultiGrid", _window.Width - 16, _window.Height - SingleItemHeight - 37,
+                0, SingleItemTopPad);
 
-            MultiGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            MultiGrid.Size = new Size(sx, sy);
-            MultiGrid.SelectionChanged += MultiGrid_SelectionChanged;
-            MultiGrid.CellValueChanged += MultiGrid_CellValueChanged;
-            Controls.Add(MultiGrid);
+            _multiGrid.DataError += DataGridView1_DataError;
+            _multiGrid.SelectionChanged += MultiGrid_SelectionChanged;
+            _multiGrid.CellValueChanged += MultiGrid_CellValueChanged;
+            Controls.Add(_multiGrid);
         }
 
         private void MultiGrid_SelectionChanged(object sender, EventArgs e)
@@ -213,7 +233,7 @@ namespace GameEditor
 
         private void MarkSelectedRows()
         {
-            DataGridViewSelectedRowCollection rows = MultiGrid.SelectedRows;
+            DataGridViewSelectedRowCollection rows = _multiGrid.SelectedRows;
 
             if (rows.Count < 1)
             {
@@ -223,9 +243,9 @@ namespace GameEditor
             DataGridViewRow row = rows[0];
             object item = row.DataBoundItem;
 
-            if (!gs.LookedAtObjects.Contains(item))
+            if (!_gs.LookedAtObjects.Contains(item))
             {
-                gs.LookedAtObjects.Add(item);
+                _gs.LookedAtObjects.Add(item);
             }
         }
 
@@ -238,14 +258,14 @@ namespace GameEditor
 
         private void CreateSingleGrid()
         {
-            int sx = win.Width - 16;
-            int sy = win.Height - SingleItemTopPad - 37;
+            int sx = _window.Width - 16;
+            int sy = _window.Height - SingleItemTopPad - 37;
 
-            SingleGrid = new Panel();
-            SingleGrid.AutoScroll = true;
-            SingleGrid.Location = new Point(0, SingleItemTopPad);
-            SingleGrid.Size = new Size(sx, sy);
-            Controls.Add(SingleGrid);
+            _singleGrid = new Panel();
+            _singleGrid.AutoScroll = true;
+            _singleGrid.Location = new Point(0, SingleItemTopPad);
+            _singleGrid.Size = new Size(sx, sy);
+            Controls.Add(_singleGrid);
         }
 
 
@@ -259,93 +279,31 @@ namespace GameEditor
 
             addedButtons = true;
 
-            Button but = null;
-
-            if (win != null)
+            if (_window != null)
             {
-                Label label = new Label();
-                Controls.Add(label);
-                label.Location = new Point(10, 10);
-                label.Size = new Size(win.Width, 20);
-                label.Text = win.ShowStack();
+                UIHelper.CreateLabel(Controls, ELabelTypes.Default, _formatter, "TopLabel", _window.ShowStack(), _window.Width, 20, 10, 10);
             }
 
             int y = 30;
             int x = 20;
-            Size sz = new Size(100, 30);
+            int w = 100;
+            int h = 30;
 
-            but = new Button();
-            but.Location = new Point(x, y);
-            but.Size = sz;
-            x += sz.Width + 5;
-            but.Name = "HomeButton";
-            but.Text = "Home";
-            but.Click += OnClickHome;
-            Controls.Add(but);
-            HomeButton = but;
+            _homeButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "HomeButton", "Home", w, h, x, y, OnClickHome); x += w + 5;
 
-            but = new Button();
-            but.Location = new Point(x, y);
-            but.Size = sz;
-            x += sz.Width + 5;
-            but.Name = "BackButton";
-            but.Text = "Back";
-            but.Click += OnClickBack;
-            Controls.Add(but);
-            BackButton = but;
+            _backButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "BackButton", "Back", w, h, x, y, OnClickBack); x += w + 5;
 
-            but = new Button();
-            but.Location = new Point(x, y);
-            but.Size = sz;
-            x += sz.Width + 5;
-            but.Name = "SaveButton";
-            but.Text = "Save";
-            but.Click += OnClickSave;
-            Controls.Add(but);
-            SaveButton = but;
+            DetailsButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "DetailsButton", "Details", w, h, x, y, OnClickDetails); x += w + 5;
 
-            but = new Button();
-            but.Location = new Point(x, y);
-            but.Size = sz;
-            x += sz.Width + 5;
-            but.Name = "AddButton";
-            but.Text = "Add";
-            but.Click += OnClickAdd;
-            Controls.Add(but);
-            AddButton = but;
+            AddButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "AddButton", "Add", w, h, x, y, OnClickAdd); x += w + 5;
 
-            but = new Button();
-            but.Location = new Point(x, y);
-            but.Size = sz;
-            x += sz.Width + 5;
-            but.Name = "CopyButton";
-            but.Text = "Copy";
-            but.Click += OnClickCopy;
-            Controls.Add(but);
-            CopyButton = but;
+            CopyButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "CopyButton", "Copy", w, h, x, y, OnClickCopy); x += w + 5;
 
-            but = new Button();
-            but.Location = new Point(x, y);
-            but.Size = sz;
-            x += sz.Width + 5;
-            but.Name = "DetailsButton";
-            but.Text = "Details";
-            but.Click += OnClickDetails;
-            Controls.Add(but);
-            DetailsButton = but;
+            x += w + 5;
+            _saveButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "SaveButton", "Save", w, h, x, y, OnClickSave); x += w + 5;
 
-
-            x += sz.Width + 5;
-            but = new Button();
-            but.Location = new Point(x, y);
-            but.Size = sz;
-            x += sz.Width + 5;
-            but.Name = "DeleteButton";
-            but.Text = "Delete";
-            but.Click += OnClickDelete;
-            Controls.Add(but);
-            DeleteButton = but;
-
+            x += w + 5;
+            DeleteButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "DeleteButton", "Delete", w, h, x, y, OnClickDelete); x += w + 5;
 
         }
         public void OnClickCopy(object sender, EventArgs e)
@@ -374,37 +332,37 @@ namespace GameEditor
         public void OnClickBack(object sender, EventArgs e)
         {
             SaveChanges();
-            if (win != null)
+            if (_window != null)
             {
-                win.GoBack();
+                _window.GoBack();
             }
         }
 
         public void OnClickHome(object sender, EventArgs e)
         {
             SaveChanges();
-            if (win != null)
+            if (_window != null)
             {
-                win.GoHome();
+                _window.GoHome();
             }
         }
 
         public void OnClickSave(object sender, EventArgs e)
         {
             SaveChanges();
-            if (win != null)
+            if (_window != null)
             {
 
-                _ = Task.Run(() => win.SaveData());
+                _ = Task.Run(() => _window.SaveData());
             }
         }
 
         public virtual void ShowData()
         {
-            if (_reflectionService.IsMultiType(objType))
+            if (_reflectionService.IsMultiType(_objType))
             {
-                if (parent is IShowChildListAsButton parentListIsButton &&
-                    obj is IEnumerable objEnumerable)
+                if (_parent is IShowChildListAsButton parentListIsButton &&
+                    Obj is IEnumerable objEnumerable)
                 {
                     ShowMultiItemButtonsForList(objEnumerable);
                 }
@@ -423,15 +381,15 @@ namespace GameEditor
 
         public void ShowMultiTypeData()
         {
-            if (MultiGrid == null || SingleGrid == null)
+            if (_multiGrid == null || _singleGrid == null)
             {
                 return;
             }
 
-            Form form = UIHelper.ShowBlockingDialog("Setting up data", win);
-            SingleGrid.Visible = false;
-            MultiGrid.Visible = true;
-            SetMultiGridDataSource(obj);
+            Form form = UIHelper.ShowBlockingDialog("Setting up data", _formatter, _window);
+            _singleGrid.Visible = false;
+            _multiGrid.Visible = true;
+            SetMultiGridDataSource(Obj);
             AddButton.Visible = true;
             DeleteButton.Visible = true;
             CopyButton.Visible = true;
@@ -466,16 +424,16 @@ namespace GameEditor
 
         public void ShowSingleTypeData()
         {
-            if (MultiGrid == null || SingleGrid == null)
+            if (_multiGrid == null || _singleGrid == null)
             {
                 return;
             }
 
-            Form form = UIHelper.ShowBlockingDialog("Setting up data", win);
-            SingleGrid.Controls.Clear();
+            Form form = UIHelper.ShowBlockingDialog("Setting up data", _formatter, _window);
+            _singleGrid.Controls.Clear();
             ShowMultiItemButtonsOnSingleItemView();
-            SingleGrid.Visible = true;
-            MultiGrid.Visible = false;
+            _singleGrid.Visible = true;
+            _multiGrid.Visible = false;
             AddButton.Visible = false;
             DeleteButton.Visible = false;
             CopyButton.Visible = false;
@@ -483,9 +441,9 @@ namespace GameEditor
 
             int numButtonsPerRow = 8;
 
-            if (win != null)
+            if (_window != null)
             {
-                numButtonsPerRow = win.Width / (SingleItemWidth + SingleItemWidthPad);
+                numButtonsPerRow = _window.Width / (SingleItemWidth + SingleItemWidthPad);
             }
 
             if (numButtonsPerRow < 3)
@@ -499,9 +457,9 @@ namespace GameEditor
             }
             int numRowsUsed = 0;
 
-            if (numSingleTopButtonsShown > 0)
+            if (_numSingleTopButtonsShown > 0)
             {
-                numRowsUsed = numSingleTopButtonsShown / numButtonsPerRow + (numSingleTopButtonsShown % numSingleTopButtonsShown > 0 ? 1 : 0);
+                numRowsUsed = _numSingleTopButtonsShown / numButtonsPerRow + (_numSingleTopButtonsShown % _numSingleTopButtonsShown > 0 ? 1 : 0);
             }
 
             int editorsPerRow = (numButtonsPerRow + 1) / 2;
@@ -510,72 +468,65 @@ namespace GameEditor
             int sx = SingleItemWidth;
             int sy = SingleItemHeight;
 
-            List<MemberInfo> members = _reflectionService.GetMembers(obj);
+            List<MemberInfo> members = _reflectionService.GetMembers(Obj);
 
             for (int i = 0; i < members.Count; i++)
             {
                 MemberInfo mem = members[i];
 
-                if (!AllowEditing(gs, mem, true))
+                if (!AllowEditing(_gs, mem, true))
                 {
                     continue;
                 }
-                int tx = (numEditorsShown % editorsPerRow) * (SingleItemWidth + SingleItemWidthPad) * 2 + SingleItemLeftPad;
-                int ty = (numEditorsShown / editorsPerRow + numRowsUsed + 1) * (SingleItemHeight + SingleItemHeightPad);
+                int labelX = (numEditorsShown % editorsPerRow) * (SingleItemWidth + SingleItemWidthPad) * 2 + SingleItemLeftPad;
+                int labelY = (numEditorsShown / editorsPerRow + numRowsUsed + 1) * (SingleItemHeight + SingleItemHeightPad);
 
-                int ex = tx + SingleItemWidth * 4 / 5 + SingleItemWidthPad;
-                int ey = ty;
+                int controlX = labelX + SingleItemWidth * 4 / 5 + SingleItemWidthPad;
+                int controlY = labelY;
 
-                Label tb = new Label();
-                tb.Name = mem.Name + "Text";
-                tb.Text = mem.Name;
-                tb.Size = new Size(sx * 4 / 5, sy);
-                tb.Location = new Point(tx, ty);
-                SingleGrid.Controls.Add(tb);
+                UIHelper.CreateLabel(_singleGrid.Controls, ELabelTypes.Default, _formatter, mem.Name + "Label", mem.Name, sx * 4 / 5, sy, labelX, labelY);
 
+                AddEntityDesc(Obj, mem, _singleGrid, sx, sy, labelX, labelY);
 
-                AddEntityDesc(obj, mem, SingleGrid, sx, sy, tx, ty);
+                Control eb = AddSingleControl(mem, _singleGrid.Controls, sx, sy, controlX, controlY);
 
-
-
-                Control eb = AddSingleControl(mem, SingleGrid.Controls);
-                eb.Name = mem.Name + "Edit";
-
-
-
-                TextBox tbox = eb as TextBox;
-
-                if (tbox != null && mem.Name.IndexOf("Description") >= 0)
+                if (eb != null)
                 {
-                    tbox.Multiline = true;
-                    eb.Size = new Size(sx * 6 / 5, sy * 3 / 2);
-                }
-                else
-                {
-                    eb.Size = new Size(sx * 6 / 5, sy);
-                }
 
-                eb.Location = new Point(ex, ey);
-                object val = _reflectionService.GetObjectValue(obj, mem.Name);
+                    eb.Name = mem.Name + "Edit";
 
+                    TextBox tbox = eb as TextBox;
 
-
-                if (val != null)
-                {
-                    eb.Text = val.ToString();
-                }
-
-                CheckBox cbox = eb as CheckBox;
-                if (cbox != null)
-                {
-                    cbox.Text = "";
-                    if (val != null && (bool)(val) == true)
+                    if (tbox != null && mem.Name.IndexOf("Description") >= 0)
                     {
-                        cbox.Checked = true;
+                        tbox.Multiline = true;
+                        eb.Size = new Size(sx * 6 / 5, sy * 3 / 2);
                     }
                     else
                     {
-                        cbox.Checked = false;
+                        eb.Size = new Size(sx * 6 / 5, sy);
+                    }
+
+                    eb.Location = new Point(controlX, controlY);
+                    object val = _reflectionService.GetObjectValue(Obj, mem.Name);
+
+                    if (val != null)
+                    {
+                        eb.Text = val.ToString();
+                    }
+
+                    CheckBox cbox = eb as CheckBox;
+                    if (cbox != null)
+                    {
+                        cbox.Text = "";
+                        if (val != null && (bool)(val) == true)
+                        {
+                            cbox.Checked = true;
+                        }
+                        else
+                        {
+                            cbox.Checked = false;
+                        }
                     }
                 }
 
@@ -586,60 +537,51 @@ namespace GameEditor
 
         private void AddEntityDesc(object parentObject, MemberInfo mem, Panel panel, int sx, int sy, int tx, int ty)
         {
-            MemberMetaData metaData = typeMetaData?.MemberData?.FirstOrDefault(x => x.MemberName == mem.Name);
+            MemberMetaData metaData = _typeMetaData?.MemberData?.FirstOrDefault(x => x.MemberName == mem.Name);
             if (metaData != null && !string.IsNullOrEmpty(metaData.Description))
             {
-                Label descLabel = new Label();
-                descLabel.Name = mem.Name + "Desc";
-                descLabel.Text = metaData.Description;
-                descLabel.Size = new Size(sx * 2, sy * 4 / 10);
-                descLabel.Location = new Point(tx, ty - sy * 4 / 10);
-                SingleGrid.Controls.Add(descLabel);
+                UIHelper.CreateLabel(_singleGrid.Controls, ELabelTypes.Default, _formatter, mem.Name + "Desc", metaData.Description,
+                    sx * 2, sy / 4 * 10, tx, ty - sy * 4 / 10, FormatterConstants.SmallLabelFontSize);
             }
         }
 
         // Add a control to the parent object. We add it here because then
         // dropdown menus get their items populated here.
-        private Control AddSingleControl(MemberInfo mem, ControlCollection coll)
+        private Control AddSingleControl(MemberInfo mem, ControlCollection coll, int width, int height, int xpos, int ypos)
         {
             Type memType = _reflectionService.GetMemberType(mem);
 
             if (coll == null)
             {
-                return new TextBox();
+                return null;
             }
 
             if (mem == null || memType == null)
             {
-                TextBox tb = new TextBox();
-                coll.Add(tb);
-                return tb;
+                return null;
             }
 
             if (memType.Name == "bool" || memType.Name == "Boolean")
             {
-                CheckBox cbox = new CheckBox();
-                coll.Add(cbox);
-                return cbox;
+
+                return UIHelper.CreateCheckBox(coll, _formatter, memType.Name + "Check", width, height, xpos, ypos);
             }
 
-            List<NameValue> ddList = _reflectionService.GetDropdownList(gs, mem, obj);
+            List<NameValue> ddList = _reflectionService.GetDropdownList(_gs, mem, Obj);
 
             if (ddList != null && ddList.Count > 0)
             {
-                return AddDropdownComboBox(ddList, mem, coll);
+                return AddDropdownComboBox(ddList, mem, coll, width, height, xpos, ypos);
             }
 
-            TextBox tb2 = new TextBox();
-            coll.Add(tb2);
-            return tb2;
-
+            TextBox textBox = UIHelper.CreateTextBox(coll, _formatter, memType.Name + "Input", null, width, height, xpos, ypos, null);
+            return textBox;
         }
 
         private void OnEntityTypeIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = sender as ComboBox;
-            if (SingleGrid == null)
+            if (_singleGrid == null)
             {
                 return;
             }
@@ -667,7 +609,7 @@ namespace GameEditor
 
             if (selItem != null)
             {
-                _reflectionService.SetObjectValue(obj, memberName, selItem.IdKey);
+                _reflectionService.SetObjectValue(Obj, memberName, selItem.IdKey);
             }
             string newname = prefix + "EntityIdEdit";
 
@@ -675,9 +617,9 @@ namespace GameEditor
 
             ComboBox keyCont = null;
 
-            for (int c = 0; c < SingleGrid.Controls.Count; c++)
+            for (int c = 0; c < _singleGrid.Controls.Count; c++)
             {
-                Control cont = SingleGrid.Controls[c];
+                Control cont = _singleGrid.Controls[c];
                 if (cont.Name == newname)
                 {
                     keyCont = cont as ComboBox;
@@ -693,7 +635,7 @@ namespace GameEditor
                 return;
             }
 
-            object etypeObj = _reflectionService.GetObjectValue(obj, memberName);
+            object etypeObj = _reflectionService.GetObjectValue(Obj, memberName);
             long etype = EntityTypes.None;
 
             if (etypeObj != null)
@@ -701,7 +643,7 @@ namespace GameEditor
                 Int64.TryParse(etypeObj.ToString(), out etype);
             }
 
-            EntityService entityService = gs.loc.Get<EntityService>();
+            EntityService entityService = _gs.loc.Get<EntityService>();
 
             IEntityHelper helper = entityService.GetEntityHelper(etype);
 
@@ -711,7 +653,7 @@ namespace GameEditor
             }
 
             string tname = helper.GetDataPropertyName();
-            List<NameValue> dataList = _reflectionService.CreateDataList(gs, tname);
+            List<NameValue> dataList = _reflectionService.CreateDataList(_gs, tname);
 
             if (dataList == null)
             {
@@ -720,7 +662,7 @@ namespace GameEditor
 
 
             // Do this first, or the value gets wiped due to the event here
-            object currObj = _reflectionService.GetObjectValue(obj, newpropname);
+            object currObj = _reflectionService.GetObjectValue(Obj, newpropname);
 
             // JRAJRA important: this triggers the OnChangeSelected event and it resets the
             // value, so get the currObj BEFORE resetting the list.
@@ -774,7 +716,7 @@ namespace GameEditor
 
             string nm = cb.Name.Replace("Edit", "");
 
-            object val = _reflectionService.GetObjectValue(obj, nm);
+            object val = _reflectionService.GetObjectValue(Obj, nm);
 
             if (val == null)
             {
@@ -787,7 +729,7 @@ namespace GameEditor
 
             string etypeName = nm.Replace("EntityId", "EntityTypeId");
 
-            object etypeObj = _reflectionService.GetObjectValue(obj, etypeName);
+            object etypeObj = _reflectionService.GetObjectValue(Obj, etypeName);
             long etype = EntityTypes.None;
 
             if (etypeObj != null)
@@ -801,7 +743,7 @@ namespace GameEditor
                 return;
             }
 
-            EntityService entityService = gs.loc.Get<EntityService>();
+            EntityService entityService = _gs.loc.Get<EntityService>();
 
             IEntityHelper helper = entityService.GetEntityHelper(etype);
 
@@ -817,7 +759,7 @@ namespace GameEditor
                 return;
             }
 
-            object datalist = _reflectionService.GetObjectValue(gs.data, dataname);
+            object datalist = _reflectionService.GetObjectValue(_gs.data, dataname);
 
             if (datalist == null)
             {
@@ -895,7 +837,7 @@ namespace GameEditor
             {
                 if (currObject != null)
                 {
-                    UserControl dv = dvf.Create(gs, win, currObject, datalist, obj);
+                    UserControl dv = dvf.Create(_gs, _formatter, _window, currObject, datalist, Obj, this);
                 }
                 return;
             }
@@ -903,7 +845,7 @@ namespace GameEditor
             // Go to list
             if (Control.ModifierKeys.HasFlag(Keys.Control))
             {
-                UserControl uc = dvf.Create(gs, win, datalist, obj, parent);
+                UserControl uc = dvf.Create(_gs, _formatter, _window, datalist, Obj, _parent, this);
                 DataView dv = uc as DataView;
                 if (dv != null)
                 {
@@ -915,21 +857,21 @@ namespace GameEditor
             // Create new item and go to it.
             if (Control.ModifierKeys.HasFlag(Keys.Alt))
             {
-                object datalist2 = _reflectionService.AddItems(datalist, this, gs.repo, out List<object> newItems, null, 1);
+                object datalist2 = _reflectionService.AddItems(datalist, this, _gs.repo, out List<object> newItems, null, 1);
                 object newObj = _reflectionService.GetItemWithIndex(datalist2, sz);
 
                 if (newObj != null)
                 {
                     foreach (object obj in newItems)
                     {
-                        gs.LookedAtObjects.Add(obj);
+                        _gs.LookedAtObjects.Add(obj);
                         if (obj is IGameSettings settings)
                         {
-                            gs.data.Set(settings);
+                            _gs.data.Set(settings);
                         }
                     }
                     UserControlFactory ucf = new UserControlFactory();
-                    UserControl uc = ucf.Create(gs, win, newObj, datalist, this);
+                    UserControl uc = ucf.Create(_gs, _formatter, _window, newObj, datalist, this, this);
                     object idObj = _reflectionService.GetObjectValue(newObj, GameDataConstants.IdKey);
                     int nid = -1;
                     if (idObj != null)
@@ -939,7 +881,7 @@ namespace GameEditor
 
                     if (nid > 0)
                     {
-                        _reflectionService.SetObjectValue(obj, nm, nid);
+                        _reflectionService.SetObjectValue(Obj, nm, nid);
                     }
                 }
             }
@@ -962,25 +904,23 @@ namespace GameEditor
                 return;
             }
 
-            _reflectionService.SetObjectValue(obj, propname, selItem.IdKey);
+            _reflectionService.SetObjectValue(Obj, propname, selItem.IdKey);
 
         }
 
-        private ComboBox AddDropdownComboBox(Object dropdownList, MemberInfo mem, ControlCollection coll)
+        private ComboBox AddDropdownComboBox(Object dropdownList, MemberInfo mem, ControlCollection coll, int xsize, int ysize, int xpos, int ypos)
         {
             if (dropdownList == null || mem == null || coll == null)
             {
-                return new ComboBox();
+                return null;
             }
 
-            ComboBox cb2 = new ComboBox();
-            cb2.DropDownStyle = ComboBoxStyle.DropDownList;
-            cb2.DataSource = dropdownList;
-            cb2.ValueMember = GameDataConstants.IdKey;
-            cb2.DisplayMember = "Name";
-            coll.Add(cb2);
-            cb2.CreateControl();
-            object val = _reflectionService.GetObjectValue(obj, mem);
+            ComboBox comboBox = UIHelper.CreateComboBox(coll, _formatter, "DropDown", xsize, ysize, xpos, ypos);
+            comboBox.DataSource = dropdownList;
+            comboBox.ValueMember = GameDataConstants.IdKey;
+            comboBox.DisplayMember = "Name";
+
+            object val = _reflectionService.GetObjectValue(Obj, mem);
 
             long idVal = 1;
 
@@ -998,28 +938,28 @@ namespace GameEditor
                 {
                     Console.Write("Combobox exception: " + idE.Message);
                 }
-                for (int i = 0; i < cb2.Items.Count; i++)
+                for (int i = 0; i < comboBox.Items.Count; i++)
                 {
-                    NameValue item = cb2.Items[i] as NameValue;
+                    NameValue item = comboBox.Items[i] as NameValue;
                     if (item != null && item.IdKey.ToString() == val.ToString())
                     {
-                        cb2.SelectedItem = item;
+                        comboBox.SelectedItem = item;
                         break;
                     }
                 }
             }
 
-            if (cb2.SelectedItem == null)
+            if (comboBox.SelectedItem == null)
             {
                 NameValue errorItem = new NameValue() { Name = "ErrorItem", IdKey = idVal };
-                cb2.Items.Add(errorItem);
-                cb2.SelectedItem = errorItem;
+                comboBox.Items.Add(errorItem);
+                comboBox.SelectedItem = errorItem;
             }
 
-            cb2.SelectedIndexChanged += OnComboBoxChanged;
-            cb2.Click += OnClickComboBox;
+            comboBox.SelectedIndexChanged += OnComboBoxChanged;
+            comboBox.Click += OnClickComboBox;
 
-            return cb2;
+            return comboBox;
         }
 
         private void OnClickComboBox(object sender, EventArgs e)
@@ -1052,21 +992,21 @@ namespace GameEditor
             }
 
 
-            MemberInfo mem = _reflectionService.GetMemberInfo(obj, memberName);
+            MemberInfo mem = _reflectionService.GetMemberInfo(Obj, memberName);
 
-            string dropdownName = _reflectionService.GetOnClickDropdownName(gs, obj, mem);
+            string dropdownName = _reflectionService.GetOnClickDropdownName(_gs, Obj, mem);
             if (string.IsNullOrEmpty(dropdownName))
             {
                 return;
             }
 
-            object dropdownList = _reflectionService.GetObjectValue(gs.data, dropdownName);
+            object dropdownList = _reflectionService.GetObjectValue(_gs.data, dropdownName);
             if (dropdownList == null)
             {
                 return;
             }
 
-            object memberVal = _reflectionService.GetObjectValue(obj, memberName);
+            object memberVal = _reflectionService.GetObjectValue(Obj, memberName);
 
             int memberId = 0;
 
@@ -1090,20 +1030,20 @@ namespace GameEditor
             {
                 if (memberObject != null)
                 {
-                    UserControl uc = ucf.Create(gs, win, memberObject, dropdownList, gs.data);
+                    UserControl uc = ucf.Create(_gs, _formatter, _window, memberObject, dropdownList, _gs.data, this);
                     return;
                 }
             }
             else if ((ModifierKeys & Keys.Control) != 0)
             {
-                UserControl uc = ucf.Create(gs, win, dropdownList, gs.data, gs);
+                UserControl uc = ucf.Create(_gs, _formatter, _window, dropdownList, _gs.data, _gs, this);
                 return;
             }
             else if ((ModifierKeys & Keys.Alt) != 0)
             {
-                _reflectionService.AddItems(dropdownList, gs.data, gs.repo, out List<object> newItems, null, 1);
+                _reflectionService.AddItems(dropdownList, _gs.data, _gs.repo, out List<object> newItems, null, 1);
 
-                dropdownList = _reflectionService.GetObjectValue(gs.data, dropdownName);
+                dropdownList = _reflectionService.GetObjectValue(_gs.data, dropdownName);
                 if (dropdownList == null)
                 {
                     return;
@@ -1114,7 +1054,7 @@ namespace GameEditor
                 if (newItem != null)
                 {
 
-                    UserControl uc = ucf.Create(gs, win, newItem, dropdownList, gs.data);
+                    UserControl uc = ucf.Create(_gs, _formatter, _window, newItem, dropdownList, _gs.data, this);
                     return;
                 }
 
@@ -1125,23 +1065,23 @@ namespace GameEditor
 
         protected void ShowMultiItemButtonsForList(IEnumerable objects)
         {
-            SingleGrid.Controls.Clear();
-            SingleGrid.Visible = true;
-            MultiGrid.Visible = false;
+            _singleGrid.Controls.Clear();
+            _singleGrid.Visible = true;
+            _multiGrid.Visible = false;
             AddButton.Visible = false;
             DeleteButton.Visible = false;
             CopyButton.Visible = false;
             DetailsButton.Visible = false;
 
-            numSingleTopButtonsShown = 0;
+            _numSingleTopButtonsShown = 0;
 
             panelGraphics = new Dictionary<String, Graphics>();
             colorPanels = new List<Panel>();
             int numButtonsPerRow = 8;
 
-            if (win != null)
+            if (_window != null)
             {
-                numButtonsPerRow = win.Width / (SingleItemWidth + SingleItemWidthPad);
+                numButtonsPerRow = _window.Width / (SingleItemWidth + SingleItemWidthPad);
             }
 
             if (numButtonsPerRow < 3)
@@ -1153,10 +1093,6 @@ namespace GameEditor
             {
                 numButtonsPerRow = MaxButtonsPerRow;
             }
-            Size sz = new Size(SingleItemWidth, SingleItemHeight);
-
-
-
             foreach (object obj in objects)
             {
                 object memObj = obj;
@@ -1176,15 +1112,12 @@ namespace GameEditor
                         Int32.TryParse(countObj.ToString(), out count);
                     }
                 }
-                Button but = new Button();
-
                 Type objType = memObj.GetType();
                 if (objType.GetGenericArguments().Length > 0)
                 {
                     objType = objType.GetGenericArguments()[0];
                 }
 
-                but.Name = objType.Name;
                 string txt = objType.Name;
                 int maxSize = 18;
                 if (txt.Length > maxSize)
@@ -1192,32 +1125,31 @@ namespace GameEditor
                     txt = txt.Substring(0, maxSize);
                 }
 
-                but.Text = txt;
+                int x = (_numSingleTopButtonsShown % numButtonsPerRow) * (SingleItemWidth + SingleItemWidthPad) + SingleItemLeftPad;
+                int y = (_numSingleTopButtonsShown / numButtonsPerRow) * (SingleItemHeight + SingleItemHeightPad) + 5;
 
-                int x = (numSingleTopButtonsShown % numButtonsPerRow) * (SingleItemWidth + SingleItemWidthPad) + SingleItemLeftPad;
-                int y = (numSingleTopButtonsShown / numButtonsPerRow) * (SingleItemHeight + SingleItemHeightPad) + 5;
-                but.Size = sz;
-                but.Location = new Point(x, y);
-                but.Click += (a, b) => { OnClickSingleObjectButton(obj); };
-                SingleGrid.Controls.Add(but);
 
-                numSingleTopButtonsShown++;
+                UIHelper.CreateButton(_singleGrid.Controls, EButtonTypes.Default, _formatter, objType.Name, txt, SingleItemWidth, SingleItemHeight,
+                    x, y, (a, b) => { OnClickSingleObjectButton(obj); });
+
+
+                _numSingleTopButtonsShown++;
 
             }
         }
 
         protected void ShowMultiItemButtonsOnSingleItemView()
         {
-            numSingleTopButtonsShown = 0;
-            List<MemberInfo> members = _reflectionService.GetMembers(obj);
+            _numSingleTopButtonsShown = 0;
+            List<MemberInfo> members = _reflectionService.GetMembers(Obj);
 
             panelGraphics = new Dictionary<String, Graphics>();
             colorPanels = new List<Panel>();
             int numButtonsPerRow = 8;
 
-            if (win != null)
+            if (_window != null)
             {
-                numButtonsPerRow = win.Width / (SingleItemWidth + SingleItemWidthPad);
+                numButtonsPerRow = _window.Width / (SingleItemWidth + SingleItemWidthPad);
             }
 
             if (numButtonsPerRow < 3)
@@ -1229,11 +1161,9 @@ namespace GameEditor
             {
                 numButtonsPerRow = MaxButtonsPerRow;
             }
-            Size sz = new Size(SingleItemWidth, SingleItemHeight);
-
             foreach (MemberInfo mem in members)
             {
-                if (!AllowEditing(gs, mem, false))
+                if (!AllowEditing(_gs, mem, false))
                 {
                     continue;
                 }
@@ -1241,7 +1171,7 @@ namespace GameEditor
 
                 try
                 {
-                    memObj = _reflectionService.GetObjectValue(obj, mem.Name);
+                    memObj = _reflectionService.GetObjectValue(Obj, mem.Name);
                 }
                 catch (Exception e)
                 {
@@ -1263,8 +1193,6 @@ namespace GameEditor
                         Int32.TryParse(countObj.ToString(), out count);
                     }
                 }
-                Button but = new Button();
-                but.Name = mem.Name + "Button";
                 string txt = mem.Name;
                 if (_reflectionService.MemberIsMultiType(mem))
                 {
@@ -1276,29 +1204,26 @@ namespace GameEditor
                     txt = txt.Substring(0, maxSize);
                 }
 
-                but.Text = txt;
+                int x = (_numSingleTopButtonsShown % numButtonsPerRow) * (SingleItemWidth + SingleItemWidthPad) + SingleItemLeftPad;
+                int y = (_numSingleTopButtonsShown / numButtonsPerRow) * (SingleItemHeight + SingleItemHeightPad) + 5;
 
-                int x = (numSingleTopButtonsShown % numButtonsPerRow) * (SingleItemWidth + SingleItemWidthPad) + SingleItemLeftPad;
-                int y = (numSingleTopButtonsShown / numButtonsPerRow) * (SingleItemHeight + SingleItemHeightPad) + 5;
-                but.Size = sz;
-                but.Location = new Point(x, y);
-                but.Click += OnClickSingleTopButton;
-                SingleGrid.Controls.Add(but);
+                Button button = UIHelper.CreateButton(_singleGrid.Controls, EButtonTypes.Default, _formatter, mem.Name + "Button", txt, SingleItemWidth, SingleItemHeight,
+                    x, y, OnClickSingleTopButton);
 
-                AddEntityDesc(obj, mem, SingleGrid, SingleItemWidth, SingleItemHeight, x, y);
+                AddEntityDesc(Obj, mem, _singleGrid, SingleItemWidth, SingleItemHeight, x, y);
 
-                numSingleTopButtonsShown++;
+                _numSingleTopButtonsShown++;
 
-                MyColorF col = EntityUtils.GetObjectValue(obj, mem) as MyColorF;
+                MyColorF col = EntityUtils.GetObjectValue(Obj, mem) as MyColorF;
 
                 if (col != null)
                 {
                     int extraWidth = 3;
                     Panel colorPanel = new Panel();
-                    colorPanel.Size = new Size(sz.Width + extraWidth * 2, sz.Height + extraWidth * 2);
-                    colorPanel.Location = new Point(but.Location.X - extraWidth, but.Location.Y - extraWidth);
+                    colorPanel.Size = new Size(button.Width + extraWidth * 2, button.Height + extraWidth * 2);
+                    colorPanel.Location = new Point(button.Location.X - extraWidth, button.Location.Y - extraWidth);
                     colorPanel.Name = mem.Name;
-                    SingleGrid.Controls.Add(colorPanel);
+                    _singleGrid.Controls.Add(colorPanel);
                     colorPanels.Add(colorPanel);
                 }
             }
@@ -1310,7 +1235,7 @@ namespace GameEditor
         {
             SaveChanges();
             UserControlFactory ucf = new UserControlFactory();
-            UserControl view = ucf.Create(gs, win, childObj, obj, parent);
+            UserControl view = ucf.Create(_gs, _formatter, _window, childObj, Obj, _parent, this);
 
         }
 
@@ -1331,12 +1256,12 @@ namespace GameEditor
 
             nm = nm.Substring(0, nm.Length - 6);
 
-            object childObj = _reflectionService.GetObjectValue(obj, nm);
+            object childObj = _reflectionService.GetObjectValue(Obj, nm);
 
             if (childObj == null)
             {
 
-                MemberInfo member = _reflectionService.GetMemberInfo(obj, nm);
+                MemberInfo member = _reflectionService.GetMemberInfo(Obj, nm);
                 if (member == null)
                 {
                     return;
@@ -1350,8 +1275,8 @@ namespace GameEditor
 
                 if (_reflectionService.IsGenericList(mtype))
                 {
-                    _reflectionService.SetObjectValue(obj, member, _reflectionService.CreateGenericList(mtype));
-                    childObj = _reflectionService.GetObjectValue(obj, nm);
+                    _reflectionService.SetObjectValue(Obj, member, _reflectionService.CreateGenericList(mtype));
+                    childObj = _reflectionService.GetObjectValue(Obj, nm);
                 }
                 if (childObj == null)
                 {
@@ -1361,15 +1286,15 @@ namespace GameEditor
 
             SaveChanges();
             UserControlFactory ucf = new UserControlFactory();
-            UserControl view = ucf.Create(gs, win, childObj, obj, parent);
+            UserControl view = ucf.Create(_gs, _formatter, _window, childObj, Obj, _parent, this);
 
         }
 
         public void AddItems(Object copyFrom = null)
         {
-            int oldSelectedRow = GetSelectedRow(MultiGrid);
+            int oldSelectedRow = GetSelectedRow(_multiGrid);
 
-            object obj2 = _reflectionService.AddItems(obj, parent, gs.repo, out List<object> newItems, copyFrom);
+            object obj2 = _reflectionService.AddItems(Obj, _parent, _gs.repo, out List<object> newItems, copyFrom);
 
             object oneNewItem = null;
 
@@ -1377,40 +1302,40 @@ namespace GameEditor
             {
                 foreach (object newItem in newItems)
                 {
-                    gs.LookedAtObjects.Add(newItem);
+                    _gs.LookedAtObjects.Add(newItem);
                     if (newItem is IGameSettings settings)
                     {                        
-                        gs.data.Set(settings);
-                        gs.LookedAtObjects.AddRange(settings.GetChildren());
+                        _gs.data.Set(settings);
+                        _gs.LookedAtObjects.AddRange(settings.GetChildren());
                         oneNewItem = newItem;
                     }
                 }
                 SetMultiGridDataSource(obj2);
-                obj = obj2;
+                Obj = obj2;
             }
 
             
 
             if (oneNewItem is ChildSettings childSettings)
             {
-                if (parent is IGameSettings parentSettings)
+                if (_parent is IGameSettings parentSettings)
                 {
-                    MemberInfo memberInfo = _reflectionService.GetMemberInfo(parent, "_data");
+                    MemberInfo memberInfo = _reflectionService.GetMemberInfo(_parent, "_data");
                     if (memberInfo != null)
                     {
-                        _reflectionService.SetObjectValue(parent, _reflectionService.GetMemberInfo(parent, "_data"), obj);
+                        _reflectionService.SetObjectValue(_parent, _reflectionService.GetMemberInfo(_parent, "_data"), Obj);
                     }
                 }
             }
 
 
-            SetSelectedRow(MultiGrid, oldSelectedRow);
+            SetSelectedRow(_multiGrid, oldSelectedRow);
         }
 
         public async Task DeleteItem()
         {
 
-            DataGridViewSelectedRowCollection rows = MultiGrid.SelectedRows;
+            DataGridViewSelectedRowCollection rows = _multiGrid.SelectedRows;
             if (rows == null || rows.Count < 1)
             {
                 return;
@@ -1419,38 +1344,38 @@ namespace GameEditor
             DataGridViewRow row = rows[0];
             object item = row.DataBoundItem;
 
-            int oldSelectedRow = GetSelectedRow(MultiGrid);
+            int oldSelectedRow = GetSelectedRow(_multiGrid);
 
-            object obj2 = _reflectionService.DeleteItem(obj, parent, item);
-            Dictionary<Type, IUnitDataLoader> allLoaders = gs.loc.Get<IPlayerDataService>().GetLoaders();
+            object obj2 = _reflectionService.DeleteItem(Obj, _parent, item);
+            Dictionary<Type, IUnitDataLoader> allLoaders = _gs.loc.Get<IPlayerDataService>().GetLoaders();
 
             if (item is BaseWorldData worldData)
             {
-                worldData.Delete(gs.repo);
+                worldData.Delete(_gs.repo);
             }
 
             if (item is IGameSettings settings)
             {
-                await gs.repo.Delete(settings);
+                await _gs.repo.Delete(settings);
                 List<IGameSettings> children = settings.GetChildren();
                 foreach (IGameSettings child in children)
                 {
-                    await gs.repo.Delete(child);
+                    await _gs.repo.Delete(child);
                 }
             }
 
             if (item is IUnitData unitData)
             {
-                unitData.Delete(gs.repo);
+                unitData.Delete(_gs.repo);
             }
 
             if (obj2 != null)
             {
                 SetMultiGridDataSource(obj2);
-                obj = obj2;
+                Obj = obj2;
             }
 
-            SetSelectedRow(MultiGrid, oldSelectedRow);
+            SetSelectedRow(_multiGrid, oldSelectedRow);
 
         }
 
@@ -1458,7 +1383,7 @@ namespace GameEditor
 
         public void CopyItem()
         {
-            DataGridViewSelectedRowCollection rows = MultiGrid.SelectedRows;
+            DataGridViewSelectedRowCollection rows = _multiGrid.SelectedRows;
             if (rows == null || rows.Count < 1)
             {
                 return;
@@ -1476,7 +1401,7 @@ namespace GameEditor
 
         public void ShowDetails()
         {
-            DataGridViewSelectedRowCollection rows = MultiGrid.SelectedRows;
+            DataGridViewSelectedRowCollection rows = _multiGrid.SelectedRows;
             if (rows == null || rows.Count < 1)
             {
                 return;
@@ -1490,7 +1415,7 @@ namespace GameEditor
             }
 
             UserControlFactory ucf = new UserControlFactory();
-            UserControl uc = ucf.Create(gs, win, item, this, parent);
+            UserControl uc = ucf.Create(_gs, _formatter, _window, item, this, this, this);
         }
 
         public int GetSelectedRow(DataGridView dgv)
@@ -1549,12 +1474,12 @@ namespace GameEditor
 
         public void SaveChanges()
         {
-            if (_reflectionService.IsMultiType(objType))
+            if (_reflectionService.IsMultiType(_objType))
             {
                 return;
             }
 
-            List<MemberInfo> members = _reflectionService.GetMembers(objType);
+            List<MemberInfo> members = _reflectionService.GetMembers(_objType);
 
             foreach (MemberInfo mem in members)
             {
@@ -1572,7 +1497,7 @@ namespace GameEditor
                 }
 
 
-                Control[] conts = SingleGrid.Controls.Find(mem.Name + "Edit", false);
+                Control[] conts = _singleGrid.Controls.Find(mem.Name + "Edit", false);
 
                 if (conts == null || conts.Length < 1)
                 {
@@ -1584,14 +1509,14 @@ namespace GameEditor
                 CheckBox cbox = cont as CheckBox;
                 if (cbox != null)
                 {
-                    _reflectionService.SetObjectValue(obj, mem.Name, cbox.Checked);
+                    _reflectionService.SetObjectValue(Obj, mem.Name, cbox.Checked);
                 }
 
                 TextBox tb = cont as TextBox;
 
                 if (tb != null)
                 {
-                    _reflectionService.SetObjectValue(obj, mem.Name, tb.Text);
+                    _reflectionService.SetObjectValue(Obj, mem.Name, tb.Text);
 
                     continue;
                 }
@@ -1606,12 +1531,12 @@ namespace GameEditor
                     NameValue nv = item as NameValue;
                     if (nv != null)
                     {
-                        _reflectionService.SetObjectValue(obj, mem.Name, nv.IdKey);
+                        _reflectionService.SetObjectValue(Obj, mem.Name, nv.IdKey);
                     }
                     else if (item != null)
                     {
                         String id = _reflectionService.GetIdString(item.ToString());
-                        _reflectionService.SetObjectValue(obj, mem.Name, id);
+                        _reflectionService.SetObjectValue(Obj, mem.Name, id);
                     }
                 }
             }
@@ -1625,17 +1550,17 @@ namespace GameEditor
                 return;
             }
 
-            if (MultiGrid == null)
+            if (_multiGrid == null)
             {
                 return;
             }
 
-            for (int r = 0; r < MultiGrid.Rows.Count; r++)
+            for (int r = 0; r < _multiGrid.Rows.Count; r++)
             {
-                DataGridViewRow row = MultiGrid.Rows[r];
+                DataGridViewRow row = _multiGrid.Rows[r];
                 if (row.DataBoundItem == item)
                 {
-                    SetSelectedRow(MultiGrid, r);
+                    SetSelectedRow(_multiGrid, r);
                     break;
                 }
             }
@@ -1651,12 +1576,12 @@ namespace GameEditor
         {
             try
             {
-                if (MultiGrid == null || list == null)
+                if (_multiGrid == null || list == null)
                 {
                     return;
                 }
 
-                IReflectionService reflectionService = gs.loc.Get<IReflectionService>();
+                IReflectionService reflectionService = _gs.loc.Get<IReflectionService>();
                 IEnumerable elist = list as IEnumerable;
                 List<IIdName> iidlist = new List<IIdName>();
                 int listCount = 0;
@@ -1675,23 +1600,23 @@ namespace GameEditor
                 if (listCount == iidlist.Count && listCount > 0)
                 {
                     iidlist = iidlist.OrderBy(x => x.IdKey).ToList();
-                    reflectionService.ReplaceIndexedItems(gs, list, iidlist);
+                    reflectionService.ReplaceIndexedItems(_gs, list, iidlist);
                 }
                 list = reflectionService.SortOnParameter(elist);
 
-                MultiGrid.DataSource = null;
-                MultiGrid.Rows.Clear();
-                MultiGrid.Columns.Clear();
-                MultiGrid.ClearSelection();
-                MultiGrid.DataSource = list;
-                MultiGrid.Refresh();
-                (MultiGrid.BindingContext[MultiGrid.DataSource] as CurrencyManager).Refresh();
+                _multiGrid.DataSource = null;
+                _multiGrid.Rows.Clear();
+                _multiGrid.Columns.Clear();
+                _multiGrid.ClearSelection();
+                _multiGrid.DataSource = list;
+                _multiGrid.Refresh();
+                (_multiGrid.BindingContext[_multiGrid.DataSource] as CurrencyManager).Refresh();
                 if (list == null)
                 {
                     return;
                 }
 
-                Type underlyingType = reflectionService.GetUnderlyingType(obj);
+                Type underlyingType = reflectionService.GetUnderlyingType(Obj);
 
                 if (underlyingType == null)
                 {
@@ -1709,12 +1634,12 @@ namespace GameEditor
                         continue;
                     }
 
-                    for (int j = 0; j < MultiGrid.Columns.Count; j++)
+                    for (int j = 0; j < _multiGrid.Columns.Count; j++)
                     {
-                        DataGridViewColumn col = MultiGrid.Columns[j];
+                        DataGridViewColumn col = _multiGrid.Columns[j];
                         if (col.HeaderText == mem.Name)
                         {
-                            MultiGrid.Columns.Remove(col);
+                            _multiGrid.Columns.Remove(col);
                             break;
                         }
                     }
@@ -1723,12 +1648,12 @@ namespace GameEditor
 
                 foreach (string ignored in ignoreFields)
                 {
-                    for (int j = 0; j < MultiGrid.Columns.Count; j++)
+                    for (int j = 0; j < _multiGrid.Columns.Count; j++)
                     {
-                        DataGridViewColumn col = MultiGrid.Columns[j];
+                        DataGridViewColumn col = _multiGrid.Columns[j];
                         if (col.HeaderText == ignored)
                         {
-                            MultiGrid.Columns.Remove(col);
+                            _multiGrid.Columns.Remove(col);
                             break;
                         }
                     }
@@ -1746,9 +1671,9 @@ namespace GameEditor
                         continue;
                     }
 
-                    for (int j = 0; j < MultiGrid.Columns.Count; j++)
+                    for (int j = 0; j < _multiGrid.Columns.Count; j++)
                     {
-                        DataGridViewColumn col = MultiGrid.Columns[j];
+                        DataGridViewColumn col = _multiGrid.Columns[j];
                         if (col.HeaderText == mem.Name)
                         {
                             DataGridViewComboBoxColumn col2 = new DataGridViewComboBoxColumn();
@@ -1760,8 +1685,8 @@ namespace GameEditor
                             col2.Name = mem.Name + "Edit";
                             col2.Width += 40;
                             col2.HeaderText = mem.Name;
-                            MultiGrid.Columns.RemoveAt(j);
-                            MultiGrid.Columns.Add(col2);
+                            _multiGrid.Columns.RemoveAt(j);
+                            _multiGrid.Columns.Add(col2);
                             break;
                         }
                     }
@@ -1770,7 +1695,7 @@ namespace GameEditor
                 {
                     MemberInfo mem = members[i];
 
-                    List<NameValue> dropdownList = reflectionService.GetDropdownList(gs, mem, null);
+                    List<NameValue> dropdownList = reflectionService.GetDropdownList(_gs, mem, null);
 
                     if (dropdownList == null || dropdownList.Count < 1)
                     {
@@ -1778,9 +1703,9 @@ namespace GameEditor
                     }
 
                     long firstKey = dropdownList.FirstOrDefault()?.IdKey ?? 1;
-                    for (int j = 0; j < MultiGrid.Columns.Count; j++)
+                    for (int j = 0; j < _multiGrid.Columns.Count; j++)
                     {
-                        DataGridViewColumn col = MultiGrid.Columns[j];
+                        DataGridViewColumn col = _multiGrid.Columns[j];
                         if (col.HeaderText == mem.Name)
                         {
                             DataGridViewComboBoxColumn col2 = new DataGridViewComboBoxColumn();
@@ -1793,8 +1718,8 @@ namespace GameEditor
                             col2.Name = mem.Name + "Edit";
                             col2.HeaderText = mem.Name;
                             col2.Width += 40;
-                            MultiGrid.Columns.RemoveAt(j);
-                            MultiGrid.Columns.Add(col2);
+                            _multiGrid.Columns.RemoveAt(j);
+                            _multiGrid.Columns.Add(col2);
 
                             foreach (IIdName item in iidlist)
                             {
@@ -1821,7 +1746,8 @@ namespace GameEditor
                     }
                 }
 
-                MultiGrid.Refresh();
+                _multiGrid.Refresh();
+                _formatter.SetupDataGrid(_multiGrid);
             }
             catch (Exception e)
             {
@@ -1850,7 +1776,7 @@ namespace GameEditor
                     panelGraphics[cp.Name] = graphics;
                 }
 
-                MyColorF col = EntityUtils.GetObjectValue(obj, cp.Name) as MyColorF;
+                MyColorF col = EntityUtils.GetObjectValue(Obj, cp.Name) as MyColorF;
                 if (col == null)
                 {
                     continue;

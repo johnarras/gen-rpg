@@ -32,6 +32,8 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
         protected string _subscriptionName = null;
         protected CancellationToken _token = CancellationToken.None;
 
+
+
         protected Dictionary<Type, H> _handlers = null;
 
         public bool IsValidMessage(IPubSubMessage message)
@@ -56,7 +58,11 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
 
             if (!response.Value)
             {
-                CreateTopicOptions options = new CreateTopicOptions(_topicName);
+                CreateTopicOptions options = new CreateTopicOptions(_topicName)
+                {
+                    AutoDeleteOnIdle = CloudCommsConstants.EndpointDeleteTime,
+                    DefaultMessageTimeToLive = CloudCommsConstants.MessageDeleteTime,
+                };
 
                 await _adminClient.CreateTopicAsync(options);
             }
@@ -100,7 +106,11 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
 
                 if (!response.Value)
                 {
-                    CreateSubscriptionOptions createOptions = new CreateSubscriptionOptions(_topicName, _subscriptionName);
+                    CreateSubscriptionOptions createOptions = new CreateSubscriptionOptions(_topicName, _subscriptionName)
+                    {
+                        AutoDeleteOnIdle = CloudCommsConstants.EndpointDeleteTime,
+                        DefaultMessageTimeToLive = CloudCommsConstants.MessageDeleteTime,
+                    };
 
                     await _adminClient.CreateSubscriptionAsync(createOptions, token);
                 }
@@ -113,7 +123,7 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
                 ServiceBusReceiverOptions receiverOptions = new ServiceBusReceiverOptions()
                 {
                     ReceiveMode = ServiceBusReceiveMode.ReceiveAndDelete,
-                    PrefetchCount = 50,
+                    PrefetchCount = 50,                   
                 };
                 _receiver = _serviceBusClient.CreateReceiver(_topicName, _subscriptionName, receiverOptions);
                 _serverGameState.logger.Message("PubSubReceiver: " + _topicName + ":" + _subscriptionName);
@@ -125,7 +135,6 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
                     foreach (ServiceBusReceivedMessage message in messages)
                     {
                         PubSubMessageEnvelope envelope = SerializationUtils.Deserialize<PubSubMessageEnvelope>(Encoding.UTF8.GetString(message.Body));
-                        _serverGameState.logger.Message("Received PubSub Message: " + _topicName + ":" + _subscriptionName);
 
                         if (_handlers == null)
                         {

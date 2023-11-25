@@ -1,6 +1,7 @@
 {
   "Id": "namelistbe073fff-d25a-4499-acb8-adaf9015daa8default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ItemDoubleSuffix",
   "Names": [
     {
@@ -558,6 +559,5 @@
       "Name": "Yell",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

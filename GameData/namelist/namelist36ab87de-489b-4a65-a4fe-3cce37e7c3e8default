@@ -1,6 +1,7 @@
 {
   "Id": "namelist36ab87de-489b-4a65-a4fe-3cce37e7c3e8default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "HerbSuffix",
   "Names": [
     {
@@ -158,6 +159,5 @@
       "Name": "Wort",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

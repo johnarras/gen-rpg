@@ -1,6 +1,7 @@
 {
   "Id": "namelist79c60f5c-bda5-417d-8d2b-7c665b266b59default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ElementLevel",
   "Names": [
     {
@@ -33,6 +34,5 @@
       "Name": "Elemental",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

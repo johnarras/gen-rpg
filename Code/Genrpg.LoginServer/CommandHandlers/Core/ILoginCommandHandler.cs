@@ -5,7 +5,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genrpg.LoginServer.CommandHandlers
+namespace Genrpg.LoginServer.CommandHandlers.Core
 {
     public interface ILoginCommandHandler : ISetupDictionaryItem<Type>
     {

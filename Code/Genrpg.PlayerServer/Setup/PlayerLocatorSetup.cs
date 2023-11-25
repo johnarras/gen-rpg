@@ -1,4 +1,6 @@
-﻿using Genrpg.PlayerServer.Services;
+﻿using Genrpg.PlayerServer.Managers;
+using Genrpg.PlayerServer.Admin;
+using Genrpg.ServerShared.CloudComms.Services.Admin;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Core.Entities;
 using System;
@@ -15,6 +17,7 @@ namespace Genrpg.PlayerServer.Setup
         {
             base.Setup(gs);
             gs.loc.Set<IPlayerService>(new PlayerService());
+            gs.loc.Set<IAdminService>(new PlayerAdminService());
         }
     }
 }

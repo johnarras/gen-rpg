@@ -1,7 +1,7 @@
 {
   "Id": "namelistc4e10a0d-ea55-44ff-b359-dfb34233397cdefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CaveHerbPrefix",
-  "Names": [],
-  "Name": "NameList"
+  "Names": []
 }

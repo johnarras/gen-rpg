@@ -1,6 +1,7 @@
 {
   "Id": "namelist8afd1814-018e-4a12-ab89-be9955b76d35default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BodyFurWords",
   "Names": [
     {
@@ -83,6 +84,5 @@
       "Name": "Dragonmane",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

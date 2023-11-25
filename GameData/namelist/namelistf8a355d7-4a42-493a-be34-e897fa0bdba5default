@@ -1,6 +1,7 @@
 {
   "Id": "namelistf8a355d7-4a42-493a-be34-e897fa0bdba5default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "HerbPrefix",
   "Names": [
     {
@@ -83,6 +84,5 @@
       "Name": "Wild",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

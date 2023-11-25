@@ -1,6 +1,7 @@
 {
   "Id": "namelist9091d98d-607e-4bec-b76e-272cee6b187fdefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureFurNames",
   "Names": [
     {
@@ -53,6 +54,5 @@
       "Name": "Vicious",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

@@ -1,6 +1,7 @@
 {
   "Id": "namelist07a93444-ac28-475d-b43b-df12bca57092default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureBugNames",
   "Names": [
     {
@@ -113,6 +114,5 @@
       "Name": "Vicous",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

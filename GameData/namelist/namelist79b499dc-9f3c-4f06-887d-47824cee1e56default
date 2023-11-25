@@ -1,6 +1,7 @@
 {
   "Id": "namelist79b499dc-9f3c-4f06-887d-47824cee1e56default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureReptileNames",
   "Names": [
     {
@@ -53,6 +54,5 @@
       "Name": "Water",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

@@ -1,6 +1,7 @@
 {
   "Id": "namelistdba59861-2f94-4b59-a451-3cc147b079d0default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "MetalLevel",
   "Names": [
     {
@@ -33,6 +34,5 @@
       "Name": "Adamantium",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

@@ -3,5 +3,10 @@
   "ParentId": "default",
   "IdKey": 2,
   "Name": "Money",
-  "Icon": "IconCopper"
+  "PluralName": "",
+  "Desc": "",
+  "Icon": "IconCopper",
+  "Art": "updated tuning",
+  "UpdateTime": "2023-11-22T14:17:10.008Z",
+  "CreateTime": "2023-11-21T18:31:48Z"
 }

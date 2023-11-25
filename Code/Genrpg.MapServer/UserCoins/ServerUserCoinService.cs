@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genrpg.MapServer.Currencies
+namespace Genrpg.MapServer.UserCoins
 {
     public class ServerUserCoinService : UserCoinService, ISetupService
     {
@@ -25,7 +25,7 @@ namespace Genrpg.MapServer.Currencies
             await Task.CompletedTask;
         }
 
-        protected override void OnSetUserCoin (GameState gs, Unit unit, UserCoinData userCoinData, UserCoinStatus status, long diff)
+        protected override void OnSetUserCoin(GameState gs, Unit unit, UserCoinData userCoinData, UserCoinStatus status, long diff)
         {
             if (diff == 0)
             {

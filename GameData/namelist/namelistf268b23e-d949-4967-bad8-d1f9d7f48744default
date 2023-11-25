@@ -1,6 +1,7 @@
 {
   "Id": "namelistf268b23e-d949-4967-bad8-d1f9d7f48744default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureBirdColors",
   "Names": [
     {
@@ -33,6 +34,5 @@
       "Name": "Striped",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

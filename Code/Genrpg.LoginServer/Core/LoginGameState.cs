@@ -1,4 +1,5 @@
-﻿using Genrpg.LoginServer.CommandHandlers;
+﻿using Genrpg.LoginServer.CommandHandlers.Core;
+using Genrpg.LoginServer.Maps;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
@@ -14,7 +15,7 @@ namespace Genrpg.LoginServer.Core
     {
         public User user { get; set; }
         public Character ch { get; set; }
-        public List<MapStub> mapStubs = new List<MapStub>();
+        public MapStubList mapStubs { get; set; } = new MapStubList();
         public Dictionary<Type, ILoginCommandHandler> commandHandlers = null;
 
         public List<ILoginResult> Results { get; set; } = new List<ILoginResult>();

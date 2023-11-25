@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Genrpg.LoginServer.Core;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,26 @@ namespace Genrpg.LoginServer.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class IndexController : ControllerBase
+    public class IndexController : ControllerBase 
     {
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "Index" };
+        }
+
+        [HttpPost]
+        [Route("/login")]
+        public async Task<string> PostLogin(WebService webService, [FromForm] string Data)
+        {
+            return await webService.HandleLogin(Data);
+        }
+
+        [HttpPost]
+        [Route("/client")]
+        public async Task<string> PostClient(WebService webService, [FromForm] string Data)
+        {
+            return await webService.HandleClient(Data);
         }
     }
 }

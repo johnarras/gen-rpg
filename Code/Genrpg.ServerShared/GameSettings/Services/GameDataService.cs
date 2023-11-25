@@ -1,12 +1,13 @@
 ﻿using Genrpg.ServerShared.Core;
-using Genrpg.ServerShared.GameSettings.Interfaces;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.Login.Messages.RefreshGameData;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Entities;
@@ -20,8 +21,6 @@ namespace Genrpg.ServerShared.GameSettings.Services
 {
     public class GameDataService<D> : IGameDataService where D : GameData, new()
     {
-
-        private List<IGameDataContainer> _gameDataContainers = new List<IGameDataContainer>();
 
         private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
 
@@ -54,15 +53,6 @@ namespace Genrpg.ServerShared.GameSettings.Services
         {
             await SetupLoaders(gs.repo);
         }
-
-        public void AddGameDataContainer(IGameDataContainer container)
-        {
-            if (container != null)
-            {
-                _gameDataContainers.Add(container);
-            }
-        }
-
 
         public virtual List<string> GetEditorIgnoreFields()
         {
@@ -112,11 +102,11 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return true;
         }
 
-        public void SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool forceRefresh)
+        public bool SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool forceRefresh)
         {
             if (!(obj is Character ch))
             {
-                return;
+                return false;
             }
 
             GameDataOverrideData gameDataOverrideData = ch.Get<GameDataOverrideData>();
@@ -137,7 +127,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 gameDataOverrideData.LastTimeSet == startOfHour)
             {
                 ch.SetGameDataOverrideList(gameDataOverrideList);
-                return;
+                return false;
             }
 
             DataOverrideSettings dataOverrideSettings = gs.data.GetGameData<DataOverrideSettings>(null);
@@ -172,6 +162,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                         }
                     }
                 }
+
             }
 
             gameDataOverrideData.GameDataSaveTime = versionSettings.GameDataSaveTime;
@@ -180,6 +171,8 @@ namespace Genrpg.ServerShared.GameSettings.Services
             gameDataOverrideList.Items = gameDataOverrideList.Items.OrderBy(x => x.SettingId).ToList();
 
             ch.SetGameDataOverrideList(gameDataOverrideList);
+
+            return true;
         }
 
         public List<IGameSettings> MapToApi(ServerGameState gs, List<IGameSettings> startSettings)
@@ -282,11 +275,64 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 newData.PrevSaveTime = gs.data.CurrSaveTime;
                 gs.data = newData;
             }
+        }
 
-            foreach (IGameDataContainer container in _gameDataContainers)
+        public RefreshGameSettingsResult GetNewGameDataUpdates(ServerGameState gs, Character ch, bool forceRefresh)
+        {
+            if (!SetGameDataOverrides(gs, ch, forceRefresh))
             {
-                container.UpdateFromNewGameData(gs.data);
+                return null;
             }
+
+            RefreshGameSettingsResult result = new RefreshGameSettingsResult();
+
+            List<IGameSettings> newSettings = new List<IGameSettings>();
+
+            // Always load this on client commands/always have in mapserver.
+            GameDataOverrideData overrideData = ch.Get<GameDataOverrideData>();
+
+            List<PlayerSettingsOverrideItem> oldPlayerOverrides = new List<PlayerSettingsOverrideItem>(overrideData.OverrideList.Items);
+
+            GameDataOverrideList overrideList = ch.GetGameDataOverrideList();
+
+            List<IGameSettings> allSettings = gs.data.GetAllData();
+
+            foreach (IGameSettings settings in allSettings)
+            {
+                BaseGameSettings baseSettings = settings as BaseGameSettings;
+
+                if (baseSettings.Id == GameDataConstants.DefaultFilename)
+                {
+                    // If it's default data saved after the current save time, then send it to the client.
+                    if (baseSettings.UpdateTime >= gs.data.CurrSaveTime)
+                    {
+                        newSettings.Add(settings);
+                    }
+                }
+                else // Send all A/B test data to the client
+                {
+                    PlayerSettingsOverrideItem overrideItem = overrideList.Items.FirstOrDefault(x => x.SettingId == settings.GetType().Name &&
+                    x.DocId == settings.Id);
+
+                    if (overrideItem != null)
+                    {
+                        PlayerSettingsOverrideItem prevItem = oldPlayerOverrides.FirstOrDefault(x => x.SettingId == settings.GetType().Name);
+
+                        if (prevItem == null || baseSettings.UpdateTime >= gs.data.CurrSaveTime ||
+                            prevItem.DocId != overrideItem.DocId)
+                        {
+                            newSettings.Add(settings);
+                        }
+                    }
+                }
+            }
+
+            result.Overrides = overrideList;
+            result.NewSettings = MapToApi(gs, newSettings);
+
+
+            return result;
+
         }
     }
 }

@@ -1,6 +1,7 @@
 {
   "Id": "namelist775e6075-0a26-4892-92b7-124d888b949ddefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "FieldHerbPrefix",
   "Names": [
     {
@@ -28,6 +29,5 @@
       "Name": "Sun",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

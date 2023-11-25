@@ -1,5 +1,4 @@
 ﻿using Genrpg.LoginServer.Core;
-using Genrpg.MonsterServer.MessageHandlers;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Constants;
@@ -33,6 +32,7 @@ using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.CloudComms.Requests.Entities;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Requests;
+using Genrpg.LoginServer.CommandHandlers.Core;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
@@ -110,6 +110,8 @@ namespace Genrpg.LoginServer.CommandHandlers
                 CharData = clientDataList,
             };
 
+            gs.user.CurrCharId = gs.ch.Id;
+
             gs.Results.Add(loadResult);
 
         }
@@ -138,7 +140,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 _mapCache.TryAdd(mapId, newCachedMap);
             }
 
-            ResponseEnvelope envelope = await _cloudCommsService.SendRequestAsync(CloudServerNames.Instances,new GetInstanceRequest() { MapId = mapId });
+            ResponseEnvelope envelope = await _cloudCommsService.SendRequestAsync(CloudServerNames.Instance,new GetInstanceRequest() { MapId = mapId });
 
             GetInstanceResponse response = envelope.Response as GetInstanceResponse;
 

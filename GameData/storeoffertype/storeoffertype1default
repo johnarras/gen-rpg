@@ -2,8 +2,23 @@
   "Id": "storeoffertype1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "Base Gem Offer",
+  "Name": "Regular Gem Offer",
   "StoreSlotTypeId": 1,
   "StoreFeatureTypeId": 1,
-  "ProductSetTypeId": 1
+  "Products": [
+    {
+      "StoreProductTypeId": 1,
+      "ProductSkuTypeId": 3
+    },
+    {
+      "Index": 1,
+      "StoreProductTypeId": 2,
+      "ProductSkuTypeId": 10
+    },
+    {
+      "Index": 2,
+      "StoreProductTypeId": 3,
+      "ProductSkuTypeId": 16
+    }
+  ]
 }

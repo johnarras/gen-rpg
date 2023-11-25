@@ -1,6 +1,7 @@
 {
   "Id": "namelist096636bf-0511-448d-8082-c5e16edda848default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "GemLevel",
   "Names": [
     {
@@ -33,6 +34,5 @@
       "Name": "Huge",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

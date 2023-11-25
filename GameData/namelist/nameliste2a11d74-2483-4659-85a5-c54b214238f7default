@@ -1,6 +1,7 @@
 {
   "Id": "nameliste2a11d74-2483-4659-85a5-c54b214238f7default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BodyBloodWords",
   "Names": [
     {
@@ -83,6 +84,5 @@
       "Name": "Purified",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

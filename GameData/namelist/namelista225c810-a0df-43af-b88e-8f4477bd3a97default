@@ -1,6 +1,7 @@
 {
   "Id": "namelista225c810-a0df-43af-b88e-8f4477bd3a97default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ShoreHerbPrefix",
   "Names": [
     {
@@ -43,6 +44,5 @@
       "Name": "Water",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

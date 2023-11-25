@@ -1,6 +1,7 @@
 {
   "Id": "namelistb17e1a4f-de11-43b4-a8ea-990524e67beedefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ItemNouns",
   "Names": [
     {
@@ -1068,6 +1069,5 @@
       "Name": "Zeal",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

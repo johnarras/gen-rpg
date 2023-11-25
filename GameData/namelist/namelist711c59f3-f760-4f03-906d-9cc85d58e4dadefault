@@ -1,6 +1,7 @@
 {
   "Id": "namelist711c59f3-f760-4f03-906d-9cc85d58e4dadefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BodyThickWords",
   "Names": [
     {
@@ -73,6 +74,5 @@
       "Name": "Reinforced",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

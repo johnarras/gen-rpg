@@ -1,5 +1,7 @@
 {
   "Id": "currencytype0default",
   "ParentId": "default",
-  "Name": "None"
+  "Name": "None",
+  "UpdateTime": "2023-11-22T14:17:10.004Z",
+  "CreateTime": "2023-11-19T18:31:48.733Z"
 }

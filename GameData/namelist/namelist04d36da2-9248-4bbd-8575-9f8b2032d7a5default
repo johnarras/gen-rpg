@@ -1,6 +1,7 @@
 {
   "Id": "namelist04d36da2-9248-4bbd-8575-9f8b2032d7a5default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "LeatherQuality",
   "Names": [
     {
@@ -13,6 +14,5 @@
       "Name": "Toughened",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

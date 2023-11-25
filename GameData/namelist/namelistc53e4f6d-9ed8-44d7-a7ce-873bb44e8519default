@@ -1,7 +1,7 @@
 {
   "Id": "namelistc53e4f6d-9ed8-44d7-a7ce-873bb44e8519default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CursedHerbPrefix",
-  "Names": [],
-  "Name": "NameList"
+  "Names": []
 }

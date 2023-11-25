@@ -17,6 +17,7 @@ namespace Genrpg.ServerShared.CloudComms.Services
         string GetFullServerNameForMapInstance(string mapId, string mapInstanceId);
         void SetQueueMessageHandlers<H>(Dictionary<Type, H> handlers) where H : IQueueMessageHandler;
         void SendQueueMessage(string serverId, IQueueMessage cloudMessage);
+        void SendQueueMessages(string serverId, List<IQueueMessage> cloudMessages);
 
         void SendRequest(string serverId, IRequest request, Action<ResponseEnvelope> responseAction);
         Task<ResponseEnvelope> SendRequestAsync(string serverId, IRequest request);

@@ -1,4 +1,4 @@
-﻿using Genrpg.LoginServer.CommandHandlers;
+﻿using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Maps;
@@ -29,7 +29,7 @@ namespace Genrpg.LoginServer.Setup
             {
                 gs.loc.Resolve(this);
                 lgs.commandHandlers = _reflectionService.SetupDictionary<Type, ILoginCommandHandler>(gs);
-                lgs.mapStubs = await _mapDataService.GetMapStubs(lgs);
+                lgs.mapStubs.Stubs = await _mapDataService.GetMapStubs(lgs);
                 _cloudCommsService.SetupPubSubMessageHandlers(lgs);
             }
         }

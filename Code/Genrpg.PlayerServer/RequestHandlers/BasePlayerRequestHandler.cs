@@ -1,5 +1,5 @@
-﻿using Genrpg.PlayerServer.RequestHandlers;
-using Genrpg.PlayerServer.Services;
+﻿using Genrpg.PlayerServer.Managers;
+using Genrpg.PlayerServer.RequestHandlers;
 using Genrpg.ServerShared.CloudComms.Requests.Entities;
 using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Requests;
 using Genrpg.ServerShared.Core;

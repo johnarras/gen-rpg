@@ -1,6 +1,7 @@
 {
   "Id": "namelistf66e38ae-f3bb-43d3-8a1d-c9b2d045a2d4default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ItemBadPrefix",
   "Names": [
     {
@@ -223,6 +224,5 @@
       "Name": "Worn",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

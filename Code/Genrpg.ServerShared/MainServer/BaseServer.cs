@@ -1,6 +1,6 @@
-﻿using Genrpg.ServerShared.CloudComms.Services;
+﻿using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
+using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Core;
-using Genrpg.ServerShared.GameSettings.Interfaces;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Reflection.Services;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.MainServer
 {
-    public abstract class BaseServer : IGameDataContainer
+    public abstract class BaseServer
     {
         protected ServerGameState _gs;
         protected CancellationTokenSource _tokenSource = new CancellationTokenSource();
@@ -24,11 +24,13 @@ namespace Genrpg.ServerShared.MainServer
             _serverId = GetServerId(data);
             SetupService setupService = GetSetupService(data);
 
-            _gs = await SetupUtils.SetupFromConfig<ServerGameState>(this, _serverId, setupService, this,
+            _gs = await SetupUtils.SetupFromConfig<ServerGameState>(this, _serverId, setupService,
                 _tokenSource.Token);
 
             SetupCustomCloudMessagingHandlers();
             _cloudCommsService.SetupPubSubMessageHandlers(_gs);
+
+            _cloudCommsService.SendPubSubMessage(_gs, new ServerStartedAdminMessage() { ServerId = _serverId });
 
             await Task.CompletedTask;
         }

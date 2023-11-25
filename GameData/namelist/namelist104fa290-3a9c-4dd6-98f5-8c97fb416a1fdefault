@@ -1,6 +1,7 @@
 {
   "Id": "namelist104fa290-3a9c-4dd6-98f5-8c97fb416a1fdefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureShellNames",
   "Names": [
     {
@@ -53,6 +54,5 @@
       "Name": "Toughened",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

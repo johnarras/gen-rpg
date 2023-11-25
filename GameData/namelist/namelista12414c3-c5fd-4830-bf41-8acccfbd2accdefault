@@ -1,6 +1,7 @@
 {
   "Id": "namelista12414c3-c5fd-4830-bf41-8acccfbd2accdefault",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "CreatureOverallNames",
   "Names": [
     {
@@ -43,6 +44,5 @@
       "Name": "Swift",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

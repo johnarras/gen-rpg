@@ -12,29 +12,34 @@ using Genrpg.ServerShared.Accounts;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor;
 using Genrpg.Editor.Utils;
+using Genrpg.ServerShared.Accounts.Services;
+using Genrpg.Editor.UI;
+using Genrpg.Editor.UI.Constants;
 
 namespace GameEditor
 {
     public partial class FindUserView : UserControl
     {
-        private EditorGameState gs = null;
-        private DataWindow win = null;
-        private TextBox queryInput = null;
-        private ComboBox queryType = null;
+        private IAccountService _accountService = null;
+        private EditorGameState _gs = null;
+        private DataWindow _win = null;
+        private TextBox _queryInput = null;
+        private ComboBox _queryType = null;
         private DataGridView Grid = null;
-        private AccountService _accountService = null;
-        public FindUserView (EditorGameState gsIn, DataWindow winIn)
+        private UIFormatter _formatter = null;
+        public FindUserView (EditorGameState gsIn, UIFormatter formatter, DataWindow winIn)
         {
-            gs = gsIn;
-            win = winIn;
-            if (win != null)
+            _formatter = formatter;
+            _gs = gsIn;
+            _gs.loc.Resolve(this);
+            _win = winIn;
+            if (_win != null)
             {
-                Size = win.Size;
-                win.Controls.Clear();
-                win.Controls.Add(this);
-                win.ViewStack.Add(this);
+                Size = _win.Size;
+                _win.Controls.Clear();
+                _win.Controls.Add(this);
+                _win.ViewStack.Add(this);
             }
-            _accountService = new AccountService();
             ShowComponents();
             InitializeComponent();
         }
@@ -42,7 +47,9 @@ namespace GameEditor
         public void ShowComponents()
         {
             int x = 50;
-            Size sz = new Size(150, 30);
+            int width = 150;
+            int height = 30;
+            int ypos = 100;
             PropertyInfo[] props = typeof(Account).GetProperties();
 
             List<string> wordlist = new List<string>();
@@ -60,62 +67,27 @@ namespace GameEditor
             string[] words = wordlist.ToArray();
 
             
-            queryType = new ComboBox();
-            queryType.Size = sz;
-            queryType.Items.AddRange(words);
+            _queryType = UIHelper.CreateComboBox(Controls, _formatter, "SaerchType", width, height, x, 20);
+
+            _queryType.Items.AddRange(words);
             if (words != null && words.Length > 0)
             {
-                queryType.SelectedItem = "DatabaseId";
-                queryType.SelectedItem = "Id";
-            }
-            queryType.DropDownStyle = ComboBoxStyle.DropDownList;
-            Controls.Add(queryType);
-            queryType.Location = new Point(x, 20);
-            queryInput = new TextBox();
-            queryInput.Location = new Point(x, 60);
-            queryInput.Size = sz;
-            Controls.Add(queryInput);
-
-            Button button = new Button();
-            button.Text = "Search";
-            button.Click += OnClickSearch;
-            button.Location = new Point(x, 100);
-            button.Size = sz;
-            Controls.Add(button);
-            if (win != null)
-            {
-                win.AcceptButton = button;
+                _queryType.SelectedItem = "Id";
             }
 
-            button = new Button();
-            button.Text = "Clear";
-            button.Click += OnClickClear;
-            button.Location = new Point(x+(sz.Width+5), 100);
-            button.Size = sz;
-            Controls.Add(button);
 
-            button = new Button();
-            button.Text = "Details";
-            button.Click += OnClickDetails;
-            button.Location = new Point(x + (sz.Width+5)*2, 100);
-            button.Size = sz;
-            Controls.Add(button);
+            _queryInput = UIHelper.CreateTextBox(Controls, _formatter, "Query", null, width, height, 0, 60, null);
+                
+            int currX = x;
+            UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "SearchButton", "Search", width, height, x, ypos, OnClickSearch); currX += width + 5;
 
-            button = new Button();
-            button.Text = "Delete";
-            button.Click += OnClickDelete;
-            button.Location = new Point(x + (sz.Width + 5) * 6, 100);
-            button.Size = sz;
-            Controls.Add(button);
+            UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "ClearButton", "Clear", width, height, x + width + 5, ypos, OnClickClear); currX += width + 5;
 
-            Grid = new DataGridView();
-            Grid.Location = new Point(0, 140);
-            Grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            Controls.Add(Grid);
-            if (win != null)
-            {
-                Grid.Size = new Size(win.Width-17, win.Height - 180);
-            }
+            UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "DetailsButton", "Details", width, height, currX, ypos, OnClickDetails); currX += (width + 5) * 3;
+
+            UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "DeleteButton", "Delete", width, height, currX, ypos, OnClickDelete);
+
+            Grid = UIHelper.CreateDataGridView(Controls, _formatter, "UserGrid", _win.Width - 17, _win.Height - 180, 0, 140);
         }
         private void OnClickClear(object sender, EventArgs e)
         {
@@ -137,22 +109,22 @@ namespace GameEditor
                 return;
             }
 
-            if (gs == null || gs.loc == null)
+            if (_gs == null || _gs.loc == null)
             {
                 return;
             }
 
-            Form form = UIHelper.ShowBlockingDialog("Loading user data", win);
-            Task.Run(() => EditorPlayerUtils.LoadEditorUserData(gs, acct.Id)).GetAwaiter().GetResult();
+            Form form = UIHelper.ShowBlockingDialog("Loading user data", _formatter, _win);
+            Task.Run(() => EditorPlayerUtils.LoadEditorUserData(_gs, acct.Id)).GetAwaiter().GetResult();
             form.Hide();
-            if (gs.EditorUser.User == null)
+            if (_gs.EditorUser.User == null)
             {
                 MessageBox.Show("User not found");
                 return;
             }
 
 			UserControlFactory ucf = new UserControlFactory();
-            UserControl view = ucf.Create (gs, win, gs.EditorUser, null, null);
+            UserControl view = ucf.Create (_gs, _formatter, _win, _gs.EditorUser, null, null, null);
 
 
         }
@@ -172,21 +144,21 @@ namespace GameEditor
                 return;
             }
 
-            Form form = UIHelper.ShowBlockingDialog("Loading user data", win);
-            Task.Run(() => EditorPlayerUtils.LoadEditorUserData(gs, acct.Id)).GetAwaiter().GetResult();
+            Form form = UIHelper.ShowBlockingDialog("Loading user data", _formatter, _win);
+            Task.Run(() => EditorPlayerUtils.LoadEditorUserData(_gs, acct.Id)).GetAwaiter().GetResult();
             form.Hide();
-            form = UIHelper.ShowBlockingDialog("Deleting user data", win);
+            form = UIHelper.ShowBlockingDialog("Deleting user data", _formatter, _win);
 
             // We don't delete the account here.
-            Task.Run(() => EditorPlayerUtils.DeleteEditorUserData(gs)).GetAwaiter().GetResult();
+            Task.Run(() => EditorPlayerUtils.DeleteEditorUserData(_gs)).GetAwaiter().GetResult();
             form.Hide();
 
         }
 
         private void OnClickSearch(object sender, EventArgs e)
         {
-            string val = queryInput.Text;
-            Object item = queryType.SelectedItem;
+            string val = _queryInput.Text;
+            Object item = _queryType.SelectedItem;
             _ = Task.Run(() => OnClickSearchAsync(val,item));
         }
 
@@ -204,7 +176,7 @@ namespace GameEditor
             }
 
             Account acct = null;
-            acct = await _accountService.LoadBy(gs.config, key, val);
+            acct = await _accountService.LoadBy(_gs.config, key, val);
             List<Account> list = new List<Account>();
             if (acct != null)
             {
@@ -214,16 +186,17 @@ namespace GameEditor
             {
                 Grid.DataSource = list;
                 Grid.Refresh();
+                _formatter.SetupDataGrid(Grid);
             }));  
         }
 
 
         public void Save()
         {
-            if (win != null)
+            if (_win != null)
             {
 
-                _ = Task.Run(() => win.SaveData());
+                _ = Task.Run(() => _win.SaveData());
             }
         }
 

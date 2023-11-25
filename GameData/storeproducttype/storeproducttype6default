@@ -1,0 +1,15 @@
+{
+  "Id": "storeproducttype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Large Gold Pack",
+  "Rewards": [
+    {
+      "EntityTypeId": 1,
+      "EntityId": 2,
+      "MinQuantity": 10000,
+      "MaxQuantity": 10000,
+      "Weight": 100.0
+    }
+  ]
+}

@@ -1,6 +1,6 @@
-﻿using Genrpg.LoginServer.Core;
-using Genrpg.MonsterServer.MessageHandlers;
-using Genrpg.ServerShared.GameSettings.Interfaces;
+﻿using Genrpg.LoginServer.CommandHandlers.Core;
+using Genrpg.LoginServer.Core;
+using Genrpg.LoginServer.PlayerData;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
@@ -20,58 +20,15 @@ namespace Genrpg.LoginServer.CommandHandlers
 
         protected override async Task InnerHandleMessage(LoginGameState gs, RefreshGameSettingsCommand command, CancellationToken token)
         {
-            RefreshGameSettingsResult result = new RefreshGameSettingsResult();
 
-            List<IGameSettings> newSettings = new List<IGameSettings>();
+            RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs, gs.ch, true);
 
-
-            gs.ch = await gs.repo.Load<Character>(command.CharId);
-
-            GameDataOverrideData overrideData = await gs.repo.Load<GameDataOverrideData>(command.CharId);
-            if (overrideData == null)
+            if (result != null)
             {
-                overrideData = new GameDataOverrideData() { Id = command.CharId };
+                gs.Results.Add(result);
             }
 
-            overrideData.AddTo(gs.ch);
-
-            _gameDataService.SetGameDataOverrides(gs, gs.ch, true);
-
-            GameDataOverrideList overrideList = gs.ch.GetGameDataOverrideList();
-
-            List<IGameSettings> allSettings = gs.data.GetAllData();
-           
-            foreach (IGameSettings settings in allSettings)
-            {
-                BaseGameSettings baseSettings = settings as BaseGameSettings;
-
-                if (baseSettings.Id == GameDataConstants.DefaultFilename)
-                {
-                    // If it's default data saved after the current save time, then send it to the client.
-                    if (baseSettings.UpdateTime >= gs.data.CurrSaveTime)
-                    {
-                        newSettings.Add(settings);
-                    }
-                }
-                else // Send all A/B test data to the client
-                {
-                    PlayerSettingsOverrideItem overrideItem = overrideList.Items.FirstOrDefault(x => x.SettingId == settings.GetType().Name &&
-                    x.DocId == settings.Id);
-
-                    if (overrideItem != null)
-                    {
-                        newSettings.Add(settings);
-                    }
-                }
-            }
-
-            await gs.repo.Save(overrideData);
-
-            result.Overrides = overrideList;
-            result.NewSettings = _gameDataService.MapToApi(gs, newSettings);
-
-            gs.Results.Add(result);
-
+            await Task.CompletedTask;
         }
     }
 }

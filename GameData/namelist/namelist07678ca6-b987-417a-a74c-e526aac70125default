@@ -1,6 +1,7 @@
 {
   "Id": "namelist07678ca6-b987-417a-a74c-e526aac70125default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "DesertHerbPrefix",
   "Names": [
     {
@@ -63,6 +64,5 @@
       "Name": "Sun",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }

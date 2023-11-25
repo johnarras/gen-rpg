@@ -1,0 +1,24 @@
+{
+  "Id": "storeoffertype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Bigger Gem Offer",
+  "StoreSlotTypeId": 1,
+  "StoreFeatureTypeId": 1,
+  "Products": [
+    {
+      "StoreProductTypeId": 1,
+      "ProductSkuTypeId": 14
+    },
+    {
+      "Index": 1,
+      "StoreProductTypeId": 2,
+      "ProductSkuTypeId": 35
+    },
+    {
+      "Index": 2,
+      "StoreProductTypeId": 3,
+      "ProductSkuTypeId": 85
+    }
+  ]
+}

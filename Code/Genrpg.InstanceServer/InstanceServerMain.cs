@@ -11,7 +11,7 @@ namespace Genrpg.InstanceServer
     {
         protected override string GetServerId(object data)
         {
-            return CloudServerNames.Instances.ToString();
+            return CloudServerNames.Instance.ToString();
         }
 
         protected override SetupService GetSetupService(object data)

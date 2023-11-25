@@ -1,7 +1,7 @@
 {
   "Id": "namelist76851eee-ffb1-4068-bd7d-21d58d718885default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "BuildingHerbPrefix",
-  "Names": [],
-  "Name": "NameList"
+  "Names": []
 }

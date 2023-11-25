@@ -41,11 +41,11 @@ using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
 using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.ServerShared.CloudComms.Requests.Entities;
 using Genrpg.ServerShared.CloudComms.Services;
-using Genrpg.ServerShared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Constants.TempDev;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.GameSettings.Messages;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -72,6 +72,10 @@ namespace Genrpg.MapServer.Maps
         private string _mapServerId;
         private string _instanceId;
         private string _mapServerQueueId;
+
+        private string _host = null;
+        private int _port;
+        private string _mapFullServerId = null;
 
         public MapInstance()
         {
@@ -128,7 +132,7 @@ namespace Genrpg.MapServer.Maps
             _mapServerQueueId = initData.MapServerMessageQueueId;
             _tokenSource = CancellationTokenSource.CreateLinkedTokenSource(parentToken, _tokenSource.Token);
             _isRunning = true;
-            _gs = await SetupUtils.SetupFromConfig<ServerGameState>(this, initData.MapFullServerId, new MapInstanceSetupService(initData.MapId), null, _tokenSource.Token);
+            _gs = await SetupUtils.SetupFromConfig<ServerGameState>(this, initData.MapFullServerId, new MapInstanceSetupService(initData.MapId), _tokenSource.Token);
 
             _cloudCommsService.SetQueueMessageHandlers(_reflectionService.SetupDictionary<Type, IMapInstanceCloudMessageHandler>(_gs));
             _cloudCommsService.SetupPubSubMessageHandlers(_gs);
@@ -136,27 +140,34 @@ namespace Genrpg.MapServer.Maps
             _listener = GetListener(IPAddress.Any.ToString(), initData.Port, initData.Serializer);
             _messageService.Init(_gs, _tokenSource.Token);
             _objectManager.Init(_gs, _tokenSource.Token);
-
-            string host = TempDevConstants.LocalIP;
+            _port = initData.Port;
+            _mapFullServerId = initData.MapFullServerId;
+            _host = TempDevConstants.LocalIP;
 
             if (_gs.config.Env != EnvNames.Dev && _gs.config.Env != EnvNames.Local)
             {
-                host = GetLocalIPAddress();
+                _host = GetLocalIPAddress();
             }
 
-            AddMapInstance addInstance = new AddMapInstance()
-            {
-                MapFullServerId = initData.MapFullServerId,
-                MapId = _mapId,
-                InstanceId = _instanceId,
-                Port = initData.Port,
-                Host = host,
-            };
+            SendAddInstanceMessage();
 
-            _cloudCommsService.SendQueueMessage(CloudServerNames.Instances, addInstance);
             _ = Task.Run(() => ProcessMap(), _tokenSource.Token);
 
             await _pathfindingService.LoadPathfinding(_gs);
+        }
+
+        public void SendAddInstanceMessage()
+        {
+            AddMapInstance addInstance = new AddMapInstance()
+            {
+                MapFullServerId = _mapFullServerId,
+                MapId = _mapId,
+                InstanceId = _instanceId,
+                Port = _port,
+                Host = _host,
+            };
+
+            _cloudCommsService.SendQueueMessage(CloudServerNames.Instance, addInstance);
         }
 
         public void AddConnection(ServerConnectionState connState)
@@ -165,7 +176,7 @@ namespace Genrpg.MapServer.Maps
             {
                 _players.Add(connState);
             }
-        }
+        }        
 
         public void ReceiveCommands(List<IMapApiMessage> commands, CancellationToken token, object connStateObject )
         {
@@ -317,22 +328,34 @@ namespace Genrpg.MapServer.Maps
                     _messageService.SendMessage(connState.ch, connState.ch.GetCachedMessage<SaveDirty>(true));
                 }
                
-                PlayerEnterMap playerEnterMessage =new PlayerEnterMap()
-                {
-                    Id = connState.ch.Id,
-                    Name = connState.ch.Name,
-                    Level = connState.ch.Level,
-                    MapId = _mapId,
-                    InstanceId = _instanceId,
-                    UserId = connState.ch.UserId,
-                };
-                _cloudCommsService.SendQueueMessage(CloudServerNames.Player, playerEnterMessage);
-
                 connState.conn.AddMessage(new OnFinishLoadPlayer());
             }
             catch (Exception e)
             {
                _gs.logger.Exception(e, "AddPlayer");
+            }
+        }
+
+        protected void SendPlayerEnterMapMessage(Character ch)
+        {
+            PlayerEnterMap playerEnterMessage = new PlayerEnterMap()
+            {
+                Id = ch.Id,
+                Name = ch.Name,
+                Level = ch.Level,
+                MapId = _mapId,
+                InstanceId = _instanceId,
+                UserId = ch.UserId,
+            };
+            _cloudCommsService.SendQueueMessage(CloudServerNames.Player, playerEnterMessage);
+        }
+
+        public void SendAllPlayerEnterMapMessages()
+        {
+            List<Character> characters = _objectManager.GetAllCharacters();
+            foreach (Character ch in characters)
+            {
+                SendPlayerEnterMapMessage(ch);
             }
         }
 

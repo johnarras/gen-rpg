@@ -15,7 +15,7 @@ namespace Genrpg.InstanceServer.RequestHandlers
     {
         protected override async Task<IResponse> InnerHandleRequest(ServerGameState gs, GetInstanceRequest request, ResponseEnvelope envelope)
         {
-            MapInstanceData instanceData = await _mapInstanceService.GetInstanceDataForMap(request.MapId);
+            MapInstanceData instanceData = await _instanceManagerService.GetInstanceDataForMap(request.MapId);
 
             if (instanceData == null)
             {

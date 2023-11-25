@@ -1,6 +1,7 @@
 {
   "Id": "namelist85785610-3da2-410b-a667-025851841cc1default",
   "ParentId": "default",
+  "Name": "NameList",
   "ListName": "ZoneNameSuffix",
   "Names": [
     {
@@ -63,6 +64,5 @@
       "Name": "Wind",
       "Desc": ""
     }
-  ],
-  "Name": "NameList"
+  ]
 }
