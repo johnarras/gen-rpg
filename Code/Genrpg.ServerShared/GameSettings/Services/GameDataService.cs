@@ -111,8 +111,6 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 return false;
             }
 
-           
-
             GameDataOverrideData gameDataOverrideData = ch.Get<GameDataOverrideData>();
 
             if (gameDataOverrideData.OverrideList == null)

@@ -359,14 +359,16 @@ namespace Genrpg.MapServer.Maps
             }
         }
 
-        private void OnPlayerEnter(ResponseEnvelope envelope)
-        {
-            Console.WriteLine("Got Response envelope for request");
-        }
-
         private void UpdatePlayerClientData()
         {
             _messageService.SendMessageToAllPlayers(new OnRefreshGameSettings());
+
+            List<Character> allCharacters = _objectManager.GetAllCharacters();
+
+            foreach (Character ch in allCharacters)
+            {
+                _gameDataService.SetGameDataOverrides(_gs, ch, true);
+            }
         }
     }
 }

@@ -236,6 +236,7 @@ namespace Genrpg.MapServer.MapMessaging
         public void SendMessageToAllPlayers(IMapApiMessage message)
         {
             List<Character> allChars = _objectManager.GetAllCharacters();
+
             foreach (Character character in allChars)
             {
                 character.AddMessage(message);
