@@ -8,5 +8,7 @@
   "GatherSeconds": 3.0,
   "CraftingSeconds": 6.0,
   "GatherActionName": "Mining",
-  "CraftActionName": "Building"
+  "CraftActionName": "Building",
+  "UpdateTime": "2023-11-24T16:45:18.446Z",
+  "CreateTime": "2023-11-24T16:45:18.446Z"
 }

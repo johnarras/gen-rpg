@@ -8,5 +8,7 @@
   "GatherSeconds": 3.0,
   "CraftingSeconds": 6.0,
   "GatherActionName": "Chopping",
-  "CraftActionName": "Building"
+  "CraftActionName": "Building",
+  "UpdateTime": "2023-11-24T16:45:18.106Z",
+  "CreateTime": "2023-11-24T16:45:18.106Z"
 }

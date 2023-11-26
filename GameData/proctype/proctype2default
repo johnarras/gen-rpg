@@ -2,5 +2,7 @@
   "Id": "proctype2default",
   "ParentId": "default",
   "IdKey": 2,
-  "Name": "OnHit"
+  "Name": "OnHit",
+  "UpdateTime": "2023-11-24T16:46:07.616Z",
+  "CreateTime": "2023-11-24T16:46:07.616Z"
 }

@@ -11,5 +11,7 @@
   "KillMoney": 188,
   "StatAmount": 160,
   "MonsterStatScale": 30,
-  "AbilityPoints": 3
+  "AbilityPoints": 3,
+  "UpdateTime": "2023-11-24T16:45:47.333Z",
+  "CreateTime": "2023-11-24T16:45:47.333Z"
 }

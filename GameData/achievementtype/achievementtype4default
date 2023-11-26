@@ -3,5 +3,7 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Max Healing",
-  "Category": 1
+  "Category": 1,
+  "UpdateTime": "2023-11-24T16:45:14.27Z",
+  "CreateTime": "2023-11-24T16:45:14.27Z"
 }

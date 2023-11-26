@@ -2,5 +2,7 @@
   "Id": "currencytype107default",
   "ParentId": "default",
   "IdKey": 107,
-  "Name": "Player Tokens"
+  "Name": "Player Tokens",
+  "UpdateTime": "2023-11-24T16:45:20.349Z",
+  "CreateTime": "2023-11-24T16:45:20.349Z"
 }

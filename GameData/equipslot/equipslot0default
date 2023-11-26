@@ -2,5 +2,7 @@
   "Id": "equipslot0default",
   "ParentId": "default",
   "Name": "None",
-  "StatPercent": 100
+  "StatPercent": 100,
+  "UpdateTime": "2023-11-24T16:45:26.128Z",
+  "CreateTime": "2023-11-24T16:45:26.128Z"
 }

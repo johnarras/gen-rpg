@@ -4,5 +4,7 @@
   "Name": "DerivedStat",
   "FromStatTypeId": 11,
   "ToStatTypeId": 31,
-  "Percent": 200
+  "Percent": 200,
+  "UpdateTime": "2023-11-24T16:45:21.583Z",
+  "CreateTime": "2023-11-24T16:45:21.583Z"
 }

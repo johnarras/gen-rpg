@@ -10,5 +10,7 @@
   "MinRolls": 5,
   "MaxRolls": 5,
   "QualityTypeId": 3,
-  "OneTimeOnly": true
+  "OneTimeOnly": true,
+  "UpdateTime": "2023-11-24T16:45:29.605Z",
+  "CreateTime": "2023-11-24T16:45:29.605Z"
 }

@@ -2,5 +2,7 @@
   "Id": "entitytype3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "Spell"
+  "Name": "Spell",
+  "UpdateTime": "2023-11-24T16:45:25.338Z",
+  "CreateTime": "2023-11-24T16:45:25.338Z"
 }

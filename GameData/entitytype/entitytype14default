@@ -2,5 +2,7 @@
   "Id": "entitytype14default",
   "ParentId": "default",
   "IdKey": 14,
-  "Name": "Zone"
+  "Name": "Zone",
+  "UpdateTime": "2023-11-24T16:45:24.398Z",
+  "CreateTime": "2023-11-24T16:45:24.398Z"
 }

@@ -2,5 +2,7 @@
   "Id": "chattype4default",
   "ParentId": "default",
   "IdKey": 4,
-  "Name": "ChatType"
+  "Name": "ChatType",
+  "UpdateTime": "2023-11-24T16:45:16.307Z",
+  "CreateTime": "2023-11-24T16:45:16.307Z"
 }

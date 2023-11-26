@@ -2,5 +2,7 @@
   "Id": "currencytype106default",
   "ParentId": "default",
   "IdKey": 106,
-  "Name": "Monster Tokens"
+  "Name": "Monster Tokens",
+  "UpdateTime": "2023-11-24T16:45:20.24Z",
+  "CreateTime": "2023-11-24T16:45:20.24Z"
 }

@@ -21,6 +21,7 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Microsoft.Azure.Amqp.Framing;
+using System.Drawing;
 
 namespace Genrpg.Editor.Utils
 {
@@ -90,8 +91,48 @@ namespace Genrpg.Editor.Utils
                 {
                     WriteGameDataText(dirName, child);
                 }
+                RemoveDeletedFiles(dirName, data.GetChildren());
+            }
+            RemoveDeletedFiles(dirName, dataCopy.Data);
+
+
+        }
+
+        private static void RemoveDeletedFiles(string parentPath, List<IGameSettings> allSettings)
+        {
+            if (allSettings.Count < 1)
+            {
+                return;
+            }
+
+            foreach (IGameSettings settings in allSettings)
+            {
+                string subpath = settings.GetType().Name.ToLower();
+                
+                string fullDir = Path.Combine(parentPath, subpath);
+
+                if (!Directory.Exists(fullDir))
+                {
+                    Directory.CreateDirectory(fullDir);
+                }
+
+                string[] fileNames = Directory.GetFiles(fullDir);
+
+                foreach (string fileName in fileNames)
+                {
+                    IGameSettings matchingObject = allSettings.FirstOrDefault(x => x.GetType() == settings.GetType() && x.Id == settings.Id);
+
+                    if (matchingObject == null)
+                    {
+                        string fullPath = Path.Combine(fullDir, fileName);
+                        File.Delete(fullPath);
+                    }
+                }
             }
         }
+
+
+
         private static void WriteGameDataText(string parentPath, object objectToSave)
         {
             IStringId idObj = objectToSave as IStringId;

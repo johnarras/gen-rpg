@@ -2,5 +2,7 @@
   "Id": "entitytype32default",
   "ParentId": "default",
   "IdKey": 32,
-  "Name": "StatPct"
+  "Name": "StatPct",
+  "UpdateTime": "2023-11-24T16:45:24.868Z",
+  "CreateTime": "2023-11-24T16:45:24.868Z"
 }

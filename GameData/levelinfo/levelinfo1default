@@ -10,5 +10,7 @@
   "QuestExp": 175,
   "KillMoney": 16,
   "StatAmount": 10,
-  "AbilityPoints": 5
+  "AbilityPoints": 5,
+  "UpdateTime": "2023-11-24T16:45:44.791Z",
+  "CreateTime": "2023-11-24T16:45:44.791Z"
 }

@@ -3,5 +3,7 @@
   "Name": "KeyCommSetting",
   "ParentId": "default",
   "KeyPress": "k",
-  "KeyCommand": "QuestScreen"
+  "KeyCommand": "QuestScreen",
+  "UpdateTime": "2023-11-24T16:45:42.591Z",
+  "CreateTime": "2023-11-24T16:45:42.591Z"
 }

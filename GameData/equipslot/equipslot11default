@@ -4,5 +4,7 @@
   "IdKey": 11,
   "Name": "LeftFinger",
   "StatPercent": 100,
-  "Active": true
+  "Active": true,
+  "UpdateTime": "2023-11-24T16:45:26.401Z",
+  "CreateTime": "2023-11-24T16:45:26.401Z"
 }

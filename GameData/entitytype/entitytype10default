@@ -2,5 +2,7 @@
   "Id": "entitytype10default",
   "ParentId": "default",
   "IdKey": 10,
-  "Name": "Set"
+  "Name": "Set",
+  "UpdateTime": "2023-11-24T16:45:23.91Z",
+  "CreateTime": "2023-11-24T16:45:23.91Z"
 }

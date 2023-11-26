@@ -2,5 +2,7 @@
   "GenSameStatPercent": 20,
   "GenGlobalScalingPercent": 10,
   "Id": "default",
-  "Name": "ItemTypeSettings"
+  "Name": "ItemTypeSettings",
+  "UpdateTime": "2023-11-24T16:45:42.415Z",
+  "CreateTime": "2023-11-24T16:45:42.415Z"
 }

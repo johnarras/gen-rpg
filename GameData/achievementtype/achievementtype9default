@@ -2,5 +2,7 @@
   "Id": "achievementtype9default",
   "ParentId": "default",
   "IdKey": 9,
-  "Name": "Items Bought"
+  "Name": "Items Bought",
+  "UpdateTime": "2023-11-24T16:45:14.88Z",
+  "CreateTime": "2023-11-24T16:45:14.88Z"
 }

@@ -2,5 +2,7 @@
   "Id": "entitytype1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "Currency"
+  "Name": "Currency",
+  "UpdateTime": "2023-11-24T16:45:24.517Z",
+  "CreateTime": "2023-11-24T16:45:24.517Z"
 }

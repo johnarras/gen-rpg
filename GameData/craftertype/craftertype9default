@@ -8,5 +8,7 @@
   "GatherSeconds": 3.0,
   "CraftingSeconds": 6.0,
   "GatherActionName": "Opening",
-  "CraftActionName": "Opening"
+  "CraftActionName": "Opening",
+  "UpdateTime": "2023-11-24T16:45:18.905Z",
+  "CreateTime": "2023-11-24T16:45:18.905Z"
 }

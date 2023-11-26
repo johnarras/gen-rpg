@@ -2,5 +2,7 @@
   "Id": "entitytype12default",
   "ParentId": "default",
   "IdKey": 12,
-  "Name": "QuestItem"
+  "Name": "QuestItem",
+  "UpdateTime": "2023-11-24T16:45:24.157Z",
+  "CreateTime": "2023-11-24T16:45:24.157Z"
 }

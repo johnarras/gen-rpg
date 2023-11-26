@@ -2,5 +2,7 @@
   "Id": "currencytype101default",
   "ParentId": "default",
   "IdKey": 101,
-  "Name": "Alignment Tokens"
+  "Name": "Alignment Tokens",
+  "UpdateTime": "2023-11-24T16:45:19.761Z",
+  "CreateTime": "2023-11-24T16:45:19.76Z"
 }

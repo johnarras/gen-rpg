@@ -3,5 +3,7 @@
   "ParentId": "default",
   "IdKey": 2,
   "Name": "Max Damage",
-  "Category": 1
+  "Category": 1,
+  "UpdateTime": "2023-11-24T16:45:14.031Z",
+  "CreateTime": "2023-11-24T16:45:14.031Z"
 }

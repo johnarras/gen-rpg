@@ -2,5 +2,7 @@
   "Id": "achievementtype1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "Total Damage"
+  "Name": "Total Damage",
+  "UpdateTime": "2023-11-24T16:45:13.884Z",
+  "CreateTime": "2023-11-24T16:45:13.884Z"
 }

@@ -4,5 +4,7 @@
   "IdKey": 3,
   "Name": "Large Footbridge",
   "Art": "BridgeLarge",
-  "Length": 20
+  "Length": 20,
+  "UpdateTime": "2023-11-24T16:45:15.491Z",
+  "CreateTime": "2023-11-24T16:45:15.491Z"
 }

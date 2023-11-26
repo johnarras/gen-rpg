@@ -1,5 +1,7 @@
 {
   "Id": "entitytype0default",
   "ParentId": "default",
-  "Name": "None"
+  "Name": "None",
+  "UpdateTime": "2023-11-24T16:45:23.729Z",
+  "CreateTime": "2023-11-24T16:45:23.729Z"
 }

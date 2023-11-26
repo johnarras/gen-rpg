@@ -4,5 +4,7 @@
   "IdKey": 3,
   "Name": "Shoulders",
   "StatPercent": 125,
-  "Active": true
+  "Active": true,
+  "UpdateTime": "2023-11-24T16:45:27.442Z",
+  "CreateTime": "2023-11-24T16:45:27.442Z"
 }

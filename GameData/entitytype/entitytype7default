@@ -2,5 +2,7 @@
   "Id": "entitytype7default",
   "ParentId": "default",
   "IdKey": 7,
-  "Name": "Scaling"
+  "Name": "Scaling",
+  "UpdateTime": "2023-11-24T16:45:25.787Z",
+  "CreateTime": "2023-11-24T16:45:25.787Z"
 }

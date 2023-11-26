@@ -4,5 +4,7 @@
   "IdKey": 9,
   "Name": "Wrists",
   "StatPercent": 100,
-  "Active": true
+  "Active": true,
+  "UpdateTime": "2023-11-24T16:45:28.111Z",
+  "CreateTime": "2023-11-24T16:45:28.111Z"
 }

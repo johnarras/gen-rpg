@@ -4,5 +4,7 @@
   "IdKey": 4,
   "Name": "Torso",
   "StatPercent": 150,
-  "Active": true
+  "Active": true,
+  "UpdateTime": "2023-11-24T16:45:27.551Z",
+  "CreateTime": "2023-11-24T16:45:27.551Z"
 }

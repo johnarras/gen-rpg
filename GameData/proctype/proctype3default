@@ -2,5 +2,7 @@
   "Id": "proctype3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "OnDeath"
+  "Name": "OnDeath",
+  "UpdateTime": "2023-11-24T16:46:07.721Z",
+  "CreateTime": "2023-11-24T16:46:07.721Z"
 }

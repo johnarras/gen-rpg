@@ -4,5 +4,7 @@
   "IdKey": 1,
   "Name": "Barrel",
   "Art": "Barrel",
-  "NumChoices": 2
+  "NumChoices": 2,
+  "UpdateTime": "2023-11-24T16:45:16.97Z",
+  "CreateTime": "2023-11-24T16:45:16.97Z"
 }

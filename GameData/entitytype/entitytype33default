@@ -2,5 +2,7 @@
   "Id": "entitytype33default",
   "ParentId": "default",
   "IdKey": 33,
-  "Name": "Damage"
+  "Name": "Damage",
+  "UpdateTime": "2023-11-24T16:45:24.981Z",
+  "CreateTime": "2023-11-24T16:45:24.981Z"
 }

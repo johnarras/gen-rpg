@@ -5,5 +5,7 @@
   "Name": "RightFinger",
   "ParentEquipSlotId": 11,
   "StatPercent": 100,
-  "Active": true
+  "Active": true,
+  "UpdateTime": "2023-11-24T16:45:26.532Z",
+  "CreateTime": "2023-11-24T16:45:26.532Z"
 }

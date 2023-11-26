@@ -2,5 +2,7 @@
   "Id": "achievementtype5default",
   "ParentId": "default",
   "IdKey": 5,
-  "Name": "Money Looted"
+  "Name": "Money Looted",
+  "UpdateTime": "2023-11-24T16:45:14.413Z",
+  "CreateTime": "2023-11-24T16:45:14.413Z"
 }

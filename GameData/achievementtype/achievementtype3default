@@ -2,5 +2,7 @@
   "Id": "achievementtype3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "Total Healing"
+  "Name": "Total Healing",
+  "UpdateTime": "2023-11-24T16:45:14.141Z",
+  "CreateTime": "2023-11-24T16:45:14.141Z"
 }

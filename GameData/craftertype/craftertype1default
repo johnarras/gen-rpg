@@ -8,5 +8,7 @@
   "GatherSeconds": 3.0,
   "CraftingSeconds": 6.0,
   "GatherActionName": "Gathering",
-  "CraftActionName": "Sewing"
+  "CraftActionName": "Sewing",
+  "UpdateTime": "2023-11-24T16:45:17.979Z",
+  "CreateTime": "2023-11-24T16:45:17.979Z"
 }

@@ -4,5 +4,7 @@
   "IdKey": 5,
   "Name": "Back",
   "StatPercent": 100,
-  "Active": true
+  "Active": true,
+  "UpdateTime": "2023-11-24T16:45:27.663Z",
+  "CreateTime": "2023-11-24T16:45:27.663Z"
 }

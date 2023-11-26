@@ -2,5 +2,7 @@
   "Id": "currencytype4default",
   "ParentId": "default",
   "IdKey": 4,
-  "Name": "Ability"
+  "Name": "Ability",
+  "UpdateTime": "2023-11-24T16:45:20.785Z",
+  "CreateTime": "2023-11-24T16:45:20.785Z"
 }

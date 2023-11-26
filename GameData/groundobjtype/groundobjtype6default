@@ -9,5 +9,7 @@
   "SpawnTableId": 8,
   "MinRolls": 1,
   "MaxRolls": 1,
-  "QualityTypeId": 1
+  "QualityTypeId": 1,
+  "UpdateTime": "2023-11-24T16:45:29.839Z",
+  "CreateTime": "2023-11-24T16:45:29.839Z"
 }

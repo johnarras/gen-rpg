@@ -2,5 +2,7 @@
   "Id": "achievementtype7default",
   "ParentId": "default",
   "IdKey": 7,
-  "Name": "Vendor Money"
+  "Name": "Vendor Money",
+  "UpdateTime": "2023-11-24T16:45:14.639Z",
+  "CreateTime": "2023-11-24T16:45:14.639Z"
 }

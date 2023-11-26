@@ -2,5 +2,7 @@
   "Id": "achievementtype6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Items Looted"
+  "Name": "Items Looted",
+  "UpdateTime": "2023-11-24T16:45:14.529Z",
+  "CreateTime": "2023-11-24T16:45:14.529Z"
 }

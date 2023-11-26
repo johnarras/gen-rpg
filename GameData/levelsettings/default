@@ -1,5 +1,7 @@
 {
   "Id": "default",
   "MaxLevel": 100,
-  "Name": "LevelSettings"
+  "Name": "LevelSettings",
+  "UpdateTime": "2023-11-24T16:45:54.611Z",
+  "CreateTime": "2023-11-24T16:45:54.611Z"
 }

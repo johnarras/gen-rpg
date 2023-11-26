@@ -4,5 +4,7 @@
   "IdKey": 1,
   "Name": "Fence",
   "Art": "Fence",
-  "Length": 2.9
+  "Length": 2.9,
+  "UpdateTime": "2023-11-24T16:45:28.866Z",
+  "CreateTime": "2023-11-24T16:45:28.866Z"
 }

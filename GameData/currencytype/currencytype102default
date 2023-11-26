@@ -2,5 +2,7 @@
   "Id": "currencytype102default",
   "ParentId": "default",
   "IdKey": 102,
-  "Name": "Race Tokens"
+  "Name": "Race Tokens",
+  "UpdateTime": "2023-11-24T16:45:19.88Z",
+  "CreateTime": "2023-11-24T16:45:19.88Z"
 }

@@ -6,5 +6,7 @@
   "ExtraCraftLevelsAllowed": 5,
   "LevelsPerExtraEffect": 4,
   "MaxExtraEffects": 5,
-  "Name": "CraftingSettings"
+  "Name": "CraftingSettings",
+  "UpdateTime": "2023-11-24T16:45:19.017Z",
+  "CreateTime": "2023-11-24T16:45:19.017Z"
 }

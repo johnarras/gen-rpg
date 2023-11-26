@@ -2,5 +2,7 @@
   "Id": "entitytype11default",
   "ParentId": "default",
   "IdKey": 11,
-  "Name": "NPC"
+  "Name": "NPC",
+  "UpdateTime": "2023-11-24T16:45:24.027Z",
+  "CreateTime": "2023-11-24T16:45:24.027Z"
 }

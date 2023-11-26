@@ -4,5 +4,7 @@
   "IdKey": 1,
   "Name": "Default Footbridge",
   "Art": "Bridge",
-  "Length": 10
+  "Length": 10,
+  "UpdateTime": "2023-11-24T16:45:15.218Z",
+  "CreateTime": "2023-11-24T16:45:15.218Z"
 }
