@@ -9,5 +9,7 @@ namespace Genrpg.Shared.GameSettings.Entities
     public class GameDataOverrideList
     {
         [Key(0)] public List<PlayerSettingsOverrideItem> Items { get; set; } = new List<PlayerSettingsOverrideItem>();      
+
+        public string Hash { get; set; }
     }
 }

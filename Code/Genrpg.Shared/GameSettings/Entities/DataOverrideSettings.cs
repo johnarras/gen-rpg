@@ -7,6 +7,7 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using System.Linq;
 
 namespace Genrpg.Shared.GameSettings.Entities
 {
@@ -14,6 +15,18 @@ namespace Genrpg.Shared.GameSettings.Entities
     public class DataOverrideSettings : ParentSettings<DataOverrideGroup>
     {
         [Key(0)] public override string Id { get; set; }
+
+        public override void SetData(List<DataOverrideGroup> data)
+        {
+            data = data.OrderBy(x => x.IdKey).ToList();
+
+            foreach (DataOverrideGroup group in data)
+            {
+                group.Items = group.Items.OrderBy(x => x.SettingId).ThenBy(x => x.DocId).ToList();
+            }
+
+            base.SetData(data);
+        }
     }
 
     [MessagePackObject]
@@ -48,6 +61,13 @@ namespace Genrpg.Shared.GameSettings.Entities
     {
         [Key(0)] public string SettingId { get; set; }
         [Key(1)] public string DocId { get; set; }
+    }
+
+    public class DataOverrideItemPriority
+    {
+        public string SettingId { get; set; }
+        public string DocId { get; set; }
+        public long Priority { get; set; }
     }
 
     [MessagePackObject]

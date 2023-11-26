@@ -16,7 +16,6 @@ namespace Genrpg.Shared.GameSettings.Entities
         [Key(2)] public DateTime LastTimeSet { get; set; } = DateTime.MinValue;
 
         [Key(3)] public GameDataOverrideList OverrideList { get; set; }
-        
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Genrpg.ServerShared.Core;
+using Genrpg.ServerShared.Utils;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
@@ -8,6 +9,7 @@ using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Login.Messages.RefreshGameData;
+using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Entities;
@@ -109,6 +111,8 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 return false;
             }
 
+           
+
             GameDataOverrideData gameDataOverrideData = ch.Get<GameDataOverrideData>();
 
             if (gameDataOverrideData.OverrideList == null)
@@ -130,45 +134,68 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 return false;
             }
 
+            List<DataOverrideItemPriority> priorityOverrides = new List<DataOverrideItemPriority>();
+
             DataOverrideSettings dataOverrideSettings = gs.data.GetGameData<DataOverrideSettings>(null);
 
             List<DataOverrideGroup> acceptableGroups = new List<DataOverrideGroup>();
 
-            foreach (DataOverrideGroup group in dataOverrideSettings.GetData())
+            // dataOverrideSettings.GetData() is ordered the DataOverrideSettingsLoader
+            foreach (DataOverrideGroup overrideGroup in dataOverrideSettings.GetData())
             {
-                if (AcceptedByFilter(ch, group))
+                if (AcceptedByFilter(ch, overrideGroup))
                 {
-                    foreach (DataOverrideItem item in group.Items)
+
+                    // Each group.Items is ordered on load by SettingsId then by DocId
+                    foreach (DataOverrideItem groupItem in overrideGroup.Items)
                     {
-                        if (string.IsNullOrEmpty(item.SettingId) ||
-                            string.IsNullOrEmpty(item.DocId) ||
-                            item.DocId == GameDataConstants.DefaultFilename)
+                        if (string.IsNullOrEmpty(groupItem.SettingId) ||
+                            string.IsNullOrEmpty(groupItem.DocId) ||
+                            groupItem.DocId == GameDataConstants.DefaultFilename)
                         {
                             continue;
                         }
 
-                        PlayerSettingsOverrideItem overrideItem = gameDataOverrideList.Items.FirstOrDefault(x => x.SettingId == item.SettingId);
+                        DataOverrideItemPriority overrideItem = priorityOverrides.FirstOrDefault(x => x.SettingId == groupItem.SettingId);
 
                         if (overrideItem == null)
                         {
-                            overrideItem = new PlayerSettingsOverrideItem() { SettingId = item.SettingId };
-                            gameDataOverrideList.Items.Add(overrideItem);
-                            overrideItem.DocId = item.DocId;
+                            overrideItem = new DataOverrideItemPriority { SettingId = groupItem.SettingId };
+                            priorityOverrides.Add(overrideItem);
+                            overrideItem.DocId = groupItem.DocId;
+                            overrideItem.Priority = overrideGroup.Priority;
                         }
-                        else if (group.Priority > overrideItem.Priority)
+                        else if (overrideGroup.Priority > overrideItem.Priority)
                         {
-                            overrideItem.Priority = group.Priority;
-                            overrideItem.DocId = item.DocId;
+                            overrideItem.Priority = overrideGroup.Priority;
+                            overrideItem.DocId = groupItem.DocId;
                         }
                     }
                 }
-
             }
 
             gameDataOverrideData.GameDataSaveTime = versionSettings.GameDataSaveTime;
             gameDataOverrideData.LastTimeSet = startOfHour;
             gameDataOverrideData.SetDirty(true);
+
+            gameDataOverrideList.Items = new List<PlayerSettingsOverrideItem>();
+
+            foreach (DataOverrideItemPriority priority in priorityOverrides)
+            {
+                gameDataOverrideList.Items.Add(new PlayerSettingsOverrideItem()
+                {
+                    SettingId = priority.SettingId,
+                    DocId = priority.DocId,
+                });
+            }
+
             gameDataOverrideList.Items = gameDataOverrideList.Items.OrderBy(x => x.SettingId).ToList();
+
+            string fullString = SerializationUtils.Serialize(gameDataOverrideList.Items) +
+                gameDataOverrideData.GameDataSaveTime.Ticks.ToString() + "." +
+                gameDataOverrideData.LastTimeSet.Ticks.ToString();
+
+            gameDataOverrideList.Hash = PasswordUtils.Sha256(fullString);
 
             ch.SetGameDataOverrideList(gameDataOverrideList);
 

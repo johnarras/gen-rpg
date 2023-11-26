@@ -17,10 +17,8 @@ namespace Genrpg.ServerShared.Utils
             }
 
             string txt2 = userSalt + password;
-            SHA256 sha = SHA256.Create();
-            byte[] arr = System.Text.Encoding.UTF8.GetBytes(txt2);
-            byte[] arr2 = sha.ComputeHash(arr);
-            return Convert.ToBase64String(arr2);
+
+            return Sha256(txt2);
         }
 
         public static string GeneratePasswordSalt()
@@ -29,7 +27,12 @@ namespace Genrpg.ServerShared.Utils
             return Convert.ToBase64String(buff);
         }
 
-
-
+        public static string Sha256 (string txt)
+        {
+            SHA256 sha = SHA256.Create();
+            byte[] arr = System.Text.Encoding.UTF8.GetBytes(txt);
+            byte[] arr2 = sha.ComputeHash(arr);
+            return Convert.ToBase64String(arr2);
+        }
     }
 }
