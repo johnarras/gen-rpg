@@ -7,58 +7,77 @@ using Genrpg.Shared.Login.Messages.DeleteChar;
 
 public class CharacterSelectRow : BaseBehaviour
 {
-    
     public GText NameText;
     public GImage CharImage;
     public GEntity PlayButtonAnchor;
     public GButton DeleteButton;
     
-    public CharacterPlayButton _playButtonPrefab;
-
+    private CharacterStub _characterStub;
     private CharacterSelectScreen _screen;
 
-    private CharacterStub _stub;
-
     protected CancellationToken _token;
-    public void Init(CharacterStub ch, CharacterSelectScreen screenIn, CancellationToken token)
+    public void Init(CharacterStub ch, CharacterSelectScreen screen, CancellationToken token)
     {
-        _stub = ch;
-        _screen = screenIn;
+        _screen = screen;
+        _characterStub = ch;
         _token = token;
         UIHelper.SetText(NameText, ch.Name);
-        UIHelper.SetButton(DeleteButton, screenIn.GetAnalyticsName(), ClickDelete);
+        UIHelper.SetButton(DeleteButton, screen.GetAnalyticsName(), ClickDelete);
         _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, "HelmetMetal_002", CharImage, token);
 
-        if (PlayButtonAnchor == null || _playButtonPrefab == null)
+        if (PlayButtonAnchor == null)
         {
             return;
         }
 
         foreach (MapStub stub in _gs.mapStubs)
         {
-            CharacterPlayButton newButton = GEntityUtils.FullInstantiate<CharacterPlayButton>(_gs, _playButtonPrefab);
-            GEntityUtils.AddToParent(newButton.entity(), PlayButtonAnchor);
-            newButton.Init(ch.Id, stub.Id, screenIn);
+            _assetService.LoadAssetInto(_gs, PlayButtonAnchor, AssetCategoryNames.UI, "CharacterPlayButton", OnDownloadPlayButton, stub, token);          
         }
     }
 
     public CharacterStub GetStub()
     {
-        return _stub;
+        return _characterStub;
     }
 
     public void ClickDelete()
     {
-        if (_stub == null)
+        if (_characterStub == null)
         {
             return;
         }
 
         DeleteCharCommand com = new DeleteCharCommand()
         {
-            CharId = _stub.Id,
+            CharId = _characterStub.Id,
         };
 
         _networkService.SendClientWebCommand(com, _token);
+    }
+
+    private void OnDownloadPlayButton(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    {
+        GEntity go = obj as GEntity;
+
+        if (go == null)
+        {
+            return;
+        }
+
+        MapStub stub = data as MapStub;
+
+        if (stub == null)
+        {
+            Destroy(go);
+        }
+
+        CharacterPlayButton button = go.GetComponent<CharacterPlayButton>();
+        if (button == null)
+        {
+            Destroy(go);
+        }
+
+        button.Init(_characterStub.Id, stub.Id, _screen);
     }
 }

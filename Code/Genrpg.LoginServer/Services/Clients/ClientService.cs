@@ -2,12 +2,14 @@
 using Genrpg.LoginServer.Core;
 using Genrpg.LoginServer.PlayerData;
 using Genrpg.LoginServer.Utils;
+using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages;
 using Genrpg.Shared.Login.Messages.Error;
+using Genrpg.Shared.Login.Messages.RefreshGameData;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
 using Microsoft.Azure.Amqp.Framing;
@@ -23,6 +25,7 @@ namespace Genrpg.LoginServer.Services.Clients
     {
 
         private IPlayerDataService _playerDataService = null;
+        private IGameDataService _gameDataService = null;
 
         public async Task<List<ILoginResult>> HandleClient(LoginGameState gs, string postData, CancellationToken token)
         {
@@ -80,6 +83,13 @@ namespace Genrpg.LoginServer.Services.Clients
             {
                 gs.ch = await gs.repo.Load<Character>(gs.user.CurrCharId);
                 await gs.ch.GetAsync<GameDataOverrideData>(gs);
+
+                RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs, gs.ch, false);
+
+                if (result != null)
+                {
+                    gs.Results.Add(result);
+                }
             }
 
             return;

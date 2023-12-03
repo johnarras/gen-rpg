@@ -19,6 +19,4 @@ namespace Genrpg.Shared.ProcGen.Entities
     public class FenceTypeSettingsApi : ParentSettingsApi<FenceTypeSettings, FenceType> { }
     [MessagePackObject]
     public class FenceTypeSettingsLoader : ParentSettingsLoader<FenceTypeSettings, FenceType, FenceTypeSettingsApi> { }
-
-
 }

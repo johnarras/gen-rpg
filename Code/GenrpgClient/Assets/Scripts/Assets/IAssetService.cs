@@ -17,14 +17,11 @@ public interface IAssetService : IService
 
     void DownloadFile(UnityGameState gs, string url, DownloadData data, CancellationToken token);
     string GetArtURLPrefix(UnityGameState gs);
-    void ClearMemoryCache(UnityGameState gs, CancellationToken token);
-    string GetBundleForCategoryAndAsset(UnityGameState gs, string assetCategory, string assetPath);
+    void ClearBundleCache(UnityGameState gs, CancellationToken token);
+    string GetBundleNameForCategoryAndAsset(UnityGameState gs, string assetCategory, string assetPath);
 
     string StripPathPrefix(string path);
 
-    List<string> GetInitialDownloadBundleList(UnityGameState gs);
-    bool IsNeverUnloadBundle(UnityGameState gs, string bundleName);
-    bool IncrementalUnloadOnly(UnityGameState gs, string bundleName);
     bool IsDownloading(UnityGameState gs);
 
 }

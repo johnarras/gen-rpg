@@ -223,7 +223,7 @@ public class CharacterSelectScreen : BaseScreen
 
         foreach (CharacterStub stub in _gs.characterStubs)
         {
-            _assetService.LoadAssetInto(_gs, CharacterGridParent, AssetCategory.UI, CharacterRowArt, OnLoadCharacterRow, stub, _token);
+            _assetService.LoadAssetInto(_gs, CharacterGridParent, AssetCategoryNames.UI, CharacterRowArt, OnLoadCharacterRow, stub, _token);
         }
     }
 

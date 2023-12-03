@@ -6,14 +6,11 @@ namespace Genrpg.Shared.DataStores.Entities
     {
         public const string DownloadAssetRootPath = "BundledAssets/";
 
-        public const string DirectoryBundleSuffix = "DirectoryBundles";
-
         public const string Atlas = "atlas";
         public const string Screens = "screens";
         public const string UI = "ui";
         public const string Audio = "audio";
 
-        public const string MonsterTex = "monstertex";
         public const string Monsters = "monsters";
         public const string Trees = "trees";
         public const string Bushes = "bushes";

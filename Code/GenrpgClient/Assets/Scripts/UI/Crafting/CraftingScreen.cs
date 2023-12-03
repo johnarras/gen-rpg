@@ -87,7 +87,7 @@ public class CraftingScreen : ItemIconScreen
             return;
         }
 
-        _assetService.LoadAsset(_gs, AssetCategory.UI, RecipeRow, OnLoadRecipeRow, status, _recipeListParent, _token);        
+        _assetService.LoadAsset(_gs, AssetCategoryNames.UI, RecipeRow, OnLoadRecipeRow, status, _recipeListParent, _token);        
     }
 
     private void OnLoadRecipeRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)

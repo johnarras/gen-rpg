@@ -144,7 +144,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         newDownloadData.Terr = terr;
         newDownloadData.TextureIndex = index;
 
-		_assetService.LoadAssetInto(gs, _terrainManager.GetTerrainTextureParent(), AssetCategory.TerrainTex, artName, OnDownloadArt,newDownloadData, token);
+		_assetService.LoadAssetInto(gs, _terrainManager.GetTerrainTextureParent(), AssetCategoryNames.TerrainTex, artName, OnDownloadArt,newDownloadData, token);
 	}
 
 
@@ -271,7 +271,7 @@ public class SetTerrainTextures : BaseZoneGenerator
             DownloadTerrainTextureData newDownloadData = new DownloadTerrainTextureData();
             newDownloadData.TexType = textureType;
 
-            _assetService.LoadAssetInto(gs, _terrainManager.GetTerrainTextureParent(), AssetCategory.TerrainTex, textureType.Name, OnDownloadTextureToCache, newDownloadData, token);
+            _assetService.LoadAssetInto(gs, _terrainManager.GetTerrainTextureParent(), AssetCategoryNames.TerrainTex, textureType.Name, OnDownloadTextureToCache, newDownloadData, token);
         }
 
         await Task.Delay(1000, cancellationToken: token);

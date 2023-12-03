@@ -122,7 +122,10 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
 
                     foreach (IQueueMessage queueMessage in envelope.Messages)
                     {
-                        if (_queueHandlers.TryGetValue(envelope.Messages.GetType(), out IQueueMessageHandler handler))
+
+
+
+                        if (_queueHandlers.TryGetValue(queueMessage.GetType(), out IQueueMessageHandler handler))
                         {
                             await handler.HandleMessage(_serverGameState, queueMessage, _token);
                         }

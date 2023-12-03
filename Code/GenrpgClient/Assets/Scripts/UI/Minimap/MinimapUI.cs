@@ -28,7 +28,7 @@ public class MinimapUI : BaseBehaviour
         AddUpdate(MinimapUpdate, UpdateType.Regular);
         if (ArrowParent != null)
         {
-            _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategory.UI, "PlayerArrow", OnLoadArrow, null, token);
+            _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, token);
         }
 
         ShowMapImage();

@@ -80,7 +80,7 @@ public class ActionBars : SpellIconScreen
                     Parent = parent,
                 };
 
-                _assetService.LoadAssetInto(_gs, parent, AssetCategory.UI, ActionButtonPrefab, OnDownloadButton, abDownload, _token);
+                _assetService.LoadAssetInto(_gs, parent, AssetCategoryNames.UI, ActionButtonPrefab, OnDownloadButton, abDownload, _token);
             }
         }
     }

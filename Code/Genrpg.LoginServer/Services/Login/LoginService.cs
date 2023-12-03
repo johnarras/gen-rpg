@@ -134,7 +134,7 @@ namespace Genrpg.LoginServer.Services.Login
 
             List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
 
-            loginResult.GameData = _gameDataService.GetClientGameData(gs, gs.user, true);
+            loginResult.GameData = _gameDataService.GetClientGameData(gs, gs.user, true, loginCommand.ClientSettings);
 
             gs.Results.Add(loginResult);
 

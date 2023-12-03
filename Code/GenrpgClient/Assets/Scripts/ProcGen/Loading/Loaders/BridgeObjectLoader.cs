@@ -39,12 +39,12 @@ public class BridgeObjectLoader : BaseObjectLoader
         dlo.finalZ = bridgeHeight;
         dlo.zone = currZone;
         dlo.zoneType = currZoneType;
-        dlo.assetCategory = AssetCategory.Props;
+        dlo.assetCategory = AssetCategoryNames.Props;
 
         dlo.rotation = new MyPointF(0, angle, 0);
         dlo.AfterLoad = AfterLoadObject;
 
-        _assetService.LoadAsset(gs, AssetCategory.Props, dlo.url, OnDownloadObject, dlo, null, token);
+        _assetService.LoadAsset(gs, AssetCategoryNames.Props, dlo.url, OnDownloadObject, dlo, null, token);
 
         return true;
     }

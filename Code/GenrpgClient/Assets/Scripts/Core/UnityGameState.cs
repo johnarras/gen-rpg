@@ -99,7 +99,7 @@ public class UnityGameState : GameState
         if (_config == null)
         {
 
-            ClientRepository<InitialClientConfig> repo = new ClientRepository<InitialClientConfig>(logger);
+            ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(logger);
             _config = repo.Load(ConfigFilename).Result;
             if (_config == null)
             {
@@ -125,7 +125,7 @@ public class UnityGameState : GameState
             };
         }
 
-        ClientRepository<InitialClientConfig> repo = new ClientRepository<InitialClientConfig>(logger);
+        ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(logger);
         repo.Save(_config).Wait();
     }
 

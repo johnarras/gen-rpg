@@ -37,7 +37,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
         };
         await Task.CompletedTask;
 
-        _assetService.LoadAsset(gs, AssetCategory.Monsters, utype.Art, AfterLoadUnit, loadData, null, token);
+        _assetService.LoadAsset(gs, AssetCategoryNames.Monsters, utype.Art, AfterLoadUnit, loadData, null, token);
     }
 
 

@@ -243,7 +243,7 @@ public class LoadPlantAssets
             full.proto = dp;
             if (gx >= 0 && gy >= 0)
             {
-                _assetService.LoadAsset(gs, AssetCategory.Grass, full.plantType.Art, OnDownloadGrass, full, null, token);
+                _assetService.LoadAsset(gs, AssetCategoryNames.Grass, full.plantType.Art, OnDownloadGrass, full, null, token);
             }
         }
     }

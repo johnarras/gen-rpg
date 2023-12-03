@@ -170,7 +170,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
 
 
 
-        _assetService.LoadAsset(gs, AssetCategory.Audio, playData.audioName, OnDownloadAudio, playData, entity, _token);
+        _assetService.LoadAsset(gs, AssetCategoryNames.Audio, playData.audioName, OnDownloadAudio, playData, entity, _token);
     }
 
     private void OnDownloadAudio(UnityGameState gs, string url, object obj, object data, CancellationToken token)

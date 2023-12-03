@@ -10,6 +10,7 @@ namespace Genrpg.Shared.GameSettings.Loaders
     public interface IGameSettingsLoader
     {
         Type GetServerType();
+        Type GetClientType();
         bool SendToClient();
         Task<List<IGameSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing);
         IGameSettings MapToApi(IGameSettings settings);

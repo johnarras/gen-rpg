@@ -207,7 +207,7 @@ public class UnitSetupService : IUnitSetupService
         unit.BaseSpeed = gs.data.GetGameData<AISettings>(gs.ch).BaseUnitSpeed;
         go.name = "Player" + go.name;
         PlayerObject.Set(go);
-        _assetService.LoadAssetInto(gs, go, AssetCategory.UI, "PlayerLight", null, null, token);
+        _assetService.LoadAssetInto(gs, go, AssetCategoryNames.UI, "PlayerLight", null, null, token);
         gs.Dispatch(new SetMapPlayerEvent() { Ch = unit as Character });
         CreateHealthBar(gs, go, unit, token);
     }
@@ -229,7 +229,7 @@ public class UnitSetupService : IUnitSetupService
             height = artData.HealthBarHeight / artData.SizeScale;
         }
         healthParent.transform().localPosition = GVector3.Create(0, height, 0);
-        _assetService.LoadAssetInto(gs, healthParent, AssetCategory.UI, "MapHealthBar", OnCreateHealthBar, unit, token);
+        _assetService.LoadAssetInto(gs, healthParent, AssetCategoryNames.UI, "MapHealthBar", OnCreateHealthBar, unit, token);
     }
 
     private void OnCreateHealthBar(UnityGameState gs, String url, object obj, object data, CancellationToken token)

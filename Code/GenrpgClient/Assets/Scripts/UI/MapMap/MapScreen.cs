@@ -21,7 +21,7 @@ public class MapScreen : BaseScreen
 
     private void Setup()
     {
-        _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategory.UI, "PlayerArrow", OnLoadArrow, null, _token);
+        _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token);
 
         UIHelper.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
     }

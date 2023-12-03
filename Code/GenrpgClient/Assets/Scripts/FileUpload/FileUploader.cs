@@ -29,7 +29,6 @@ public class FileUploader
         fdata.RemotePath = "\"" + fdata.RemotePath + "\"";
         fdata.LocalPath = "\"" + fdata.LocalPath + "\"";
 
-
         psi.Arguments = fdata.LocalPath + " " + fdata.RemotePath;
         psi.WindowStyle = ProcessWindowStyle.Hidden;
         psi.CreateNoWindow = true;

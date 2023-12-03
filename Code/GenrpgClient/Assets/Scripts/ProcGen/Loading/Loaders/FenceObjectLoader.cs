@@ -41,12 +41,12 @@ public class FenceObjectLoader : BaseObjectLoader
         dlo.y = y;
         dlo.zone = currZone;
         dlo.zoneType = currZoneType;
-        dlo.assetCategory = AssetCategory.Props;
+        dlo.assetCategory = AssetCategoryNames.Props;
 
         dlo.rotation = new MyPointF(0, angle, hangle);
         dlo.AfterLoad = AfterLoadObject;
 
-        _assetService.LoadAsset(gs, AssetCategory.Props, dlo.url, OnDownloadObject, dlo, null, token);
+        _assetService.LoadAsset(gs, AssetCategoryNames.Props, dlo.url, OnDownloadObject, dlo, null, token);
 
         return true;
     }

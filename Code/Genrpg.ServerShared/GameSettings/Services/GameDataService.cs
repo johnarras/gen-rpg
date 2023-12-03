@@ -4,10 +4,12 @@ using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.Login.Messages.RefreshGameData;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
@@ -218,7 +220,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return retval;
         }
 
-        public List<IGameSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault)
+        public List<IGameSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null)
         {
 
             List<IGameSettings> retval = new List<IGameSettings>();
@@ -246,14 +248,24 @@ namespace Genrpg.ServerShared.GameSettings.Services
                     }
                 }
 
-                IGameSettings currData = allData.FirstOrDefault(x => 
+                IGameSettings currData = allData.FirstOrDefault(x =>
                 x.GetType().Name == t.Name &&
                 x.Id == docName);
 
-                if (currData != null)
+
+
+                if (clientCache != null && docName == GameDataConstants.DefaultFilename &&
+                    currData != null && currData is IUpdateData updateData)
                 {
-                    retval.Add(loader.MapToApi(currData));
+                    ClientCachedGameSettings clientCachedItem = clientCache.FirstOrDefault(x => x.TypeName == loader.GetServerType().Name);
+
+                    if (clientCachedItem != null && clientCachedItem.ClientSaveTime >= updateData.UpdateTime)
+                    {
+                        continue;
+                    }
+
                 }
+                retval.Add(loader.MapToApi(currData));
             }
             return retval;
         }
@@ -354,7 +366,6 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             result.Overrides = overrideList;
             result.NewSettings = MapToApi(gs, newSettings);
-
 
             return result;
 

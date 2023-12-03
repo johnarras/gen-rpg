@@ -1,3 +1,4 @@
+using Assets.Scripts.GameSettings.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Reflection.Services;
 using System.Threading;
@@ -15,6 +16,7 @@ public class ClientSetupService
         gs.loc.Set<IZoneGenService>(new ZoneGenService());
         gs.loc.Set<IQuestGenService>(new QuestGenService());
         gs.loc.Set<IClientMapObjectManager>(new ClientMapObjectManager(token));
+        gs.loc.Set<IClientGameDataService>(new ClientGameDataService());
 
         // Unity-specific overrides
         gs.loc.Set<IReflectionService>(new UnityReflectionService());

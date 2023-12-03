@@ -28,7 +28,7 @@ class AddPlayerToMap : BaseZoneGenerator
             return;
         }
 
-        _assetService.LoadAssetInto(gs, null, AssetCategory.Monsters, utype.Art, OnLoadPlayer, gs.ch, token);
+        _assetService.LoadAssetInto(gs, null, AssetCategoryNames.Monsters, utype.Art, OnLoadPlayer, gs.ch, token);
 
     }
 

@@ -44,11 +44,11 @@ public class ClutterObjectLoader : BaseObjectLoader
         dlo.zOffset = MathUtils.FloatRange(0, 1, gs.rand);
         dlo.zone = currZone;
         dlo.zoneType = currZoneType;
-        dlo.assetCategory = AssetCategory.Props;
+        dlo.assetCategory = AssetCategoryNames.Props;
 
         dlo.rotation = new MyPointF(((indexHash * 37) % 4) * 90, (indexHash * 23) % 360, ((indexHash * 59) % 4) * 90);
 
-        _assetService.LoadAsset(gs, AssetCategory.Props, dlo.url, OnDownloadObject, dlo, null, token);
+        _assetService.LoadAsset(gs, AssetCategoryNames.Props, dlo.url, OnDownloadObject, dlo, null, token);
 
         if (indexHash % 3 == 2)
         {
@@ -63,12 +63,12 @@ public class ClutterObjectLoader : BaseObjectLoader
             dlo.zOffset = MathUtils.FloatRange(0, 1, gs.rand);
             dlo.zone = currZone;
             dlo.zoneType = currZoneType;
-            dlo.assetCategory = AssetCategory.Props;
+            dlo.assetCategory = AssetCategoryNames.Props;
             dlo.AfterLoad = AfterLoadObject;
 
             dlo.rotation = new MyPointF(((indexHash * 37) % 4) * 90, (indexHash * 23) % 360, ((indexHash * 59) % 4) * 90);
 
-            _assetService.LoadAsset(gs, AssetCategory.Props, dlo.url, OnDownloadObject, dlo, null, token);
+            _assetService.LoadAsset(gs, AssetCategoryNames.Props, dlo.url, OnDownloadObject, dlo, null, token);
 
            
         }

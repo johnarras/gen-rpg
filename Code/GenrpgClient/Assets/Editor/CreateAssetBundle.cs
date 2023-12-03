@@ -18,7 +18,6 @@ public class CreateAssetBundle
     {
         gs = SetupEditorUnityGameState.Setup(gs);
 
-
         Debug.Log("Game Target: " + Game.Prefix);
 
         List<PlatformBuildData> targets = BuildConfiguration.GetbuildConfigs(gs);
@@ -34,35 +33,9 @@ public class CreateAssetBundle
                 Directory.CreateDirectory(basePath);
             }
             DirectoryInfo di = new DirectoryInfo(basePath);
-            /*
-            foreach (var file in di.GetFiles())
-            {
-                try
-                {
-                    file.Delete();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError("Failed to delete file: " + file + " " + e.Message);
-                }
-            }
-            foreach (var dir in di.GetDirectories())
-            {
-                try
-                {
-                    dir.Delete(true);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError("Failed to delete file: " + dir + " " + e.Message);
-                }
-            }
-            */
-
-
+           
             // Load bundle version data in if possible
             Dictionary<string, BundleVersionData> versionDict = new Dictionary<string, BundleVersionData>();
-
 
             BuildAssetBundleOptions options = BuildAssetBundleOptions.ChunkBasedCompression;
 

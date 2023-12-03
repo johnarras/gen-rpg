@@ -45,7 +45,7 @@ public class FXManager
             return;
         }
 
-        assetService.LoadAsset(gs, AssetCategory.Magic, fx.Art, OnLoadFX, full, null, token);
+        assetService.LoadAsset(gs, AssetCategoryNames.Magic, fx.Art, OnLoadFX, full, null, token);
     }
 
     private static void OnLoadFX(UnityGameState gs, string url, object obj, object data, CancellationToken token)

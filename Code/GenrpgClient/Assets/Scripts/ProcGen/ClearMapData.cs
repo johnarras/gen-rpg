@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
 using UnityEngine; // Needed
+using UI.Screens.Constants;
 
 public class ClearMapData : BaseZoneGenerator
 {
+    private IScreenService _screenService = null;
+
     public override async Task Generate (UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
@@ -22,8 +25,7 @@ public class ClearMapData : BaseZoneGenerator
         RenderSettings.fog = false;
         RenderSettings.ambientIntensity = 1.0f;
 
-
-        _assetService.ClearMemoryCache(gs,token);
+        _assetService.ClearBundleCache(gs,token);
 
         TaskUtils.AddTask(CleanUpOldMapFolders(gs),"cleanupoldmapfolders",token);
 

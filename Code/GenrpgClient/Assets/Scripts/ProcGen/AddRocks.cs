@@ -21,7 +21,7 @@ internal class FullRockType
 
 	public List<MyPoint> PlacedRocks;
 
-    public string assetCategory = AssetCategory.Rocks;
+    public string assetCategory = AssetCategoryNames.Rocks;
 
 	public string assetName = "";
 	public string fullURL = "";
@@ -106,7 +106,7 @@ public class AddRocks : BaseZoneGenerator
             full.weight = weight;
             full.assetName = rt.Name;
             full.fullURL = full.assetName;
-            full.assetCategory = AssetCategory.Rocks;
+            full.assetCategory = AssetCategoryNames.Rocks;
             list.Add(full);
 
         }

@@ -124,14 +124,14 @@ public class CharacterScreen : ItemIconScreen
                         currCh = _ch,
                         statTypeId = -1,
                     };
-                    _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategory.UI, "StatInfoRow", OnDownloadStat, sddFill, _token);
+                    _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategoryNames.UI, "StatInfoRow", OnDownloadStat, sddFill, _token);
                 }
                 StatDownloadData sdd = new StatDownloadData()
                 {
                     currCh = _ch,
                     statTypeId = stat.IdKey,
                 };
-                _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategory.UI, "StatInfoRow", OnDownloadStat, sdd, _token);
+                _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategoryNames.UI, "StatInfoRow", OnDownloadStat, sdd, _token);
             }
         }
         else 

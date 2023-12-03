@@ -63,6 +63,11 @@ public class EditorAssetUtils
             return true;
         }
 
+        if (name.LastIndexOf(".prefab") < 0 || name.LastIndexOf(".prefab") != name.Length-7)
+        {
+            return true;
+        }
+
         if (name.LastIndexOf(".meta") == name.Length-5 || name.IndexOf("Thumbs.db") >= 0 ||
             name.IndexOf(".spriteatlas") >= 0)
         {

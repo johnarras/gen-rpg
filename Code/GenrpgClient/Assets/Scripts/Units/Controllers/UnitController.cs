@@ -368,7 +368,7 @@ public class UnitController : BaseBehaviour
 
     public void ShowCombatText(CombatText text)
     {
-        _assetService.LoadAssetInto(_gs, entity, AssetCategory.UI, CombatTextUI.UIPrefabName, OnLoadCombatText, text, _token);
+        _assetService.LoadAssetInto(_gs, entity, AssetCategoryNames.UI, CombatTextUI.UIPrefabName, OnLoadCombatText, text, _token);
     }
 
     private void OnLoadCombatText(UnityGameState gs, string url, object obj, object data, CancellationToken token)

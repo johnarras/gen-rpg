@@ -63,11 +63,12 @@ namespace Genrpg.Shared.GameSettings.Entities
         [Key(1)] public string DocId { get; set; }
     }
 
+    [MessagePackObject]
     public class DataOverrideItemPriority
     {
-        public string SettingId { get; set; }
-        public string DocId { get; set; }
-        public long Priority { get; set; }
+        [Key(0)] public string SettingId { get; set; }
+        [Key(1)] public string DocId { get; set; }
+        [Key(2)] public long Priority { get; set; }
     }
 
     [MessagePackObject]

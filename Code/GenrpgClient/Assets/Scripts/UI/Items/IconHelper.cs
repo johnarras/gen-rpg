@@ -52,7 +52,7 @@ public class IconHelper
             prefabName = data.iconPrefabName;
         }
 
-        assetService.LoadAssetInto(gs, parent, AssetCategory.UI, prefabName, OnLoadItemIcon, data, token);
+        assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, prefabName, OnLoadItemIcon, data, token);
 
     }
 
@@ -91,7 +91,7 @@ public class IconHelper
             prefabName = data.iconPrefabName;
         }
 
-        assetService.LoadAssetInto(gs, parent, AssetCategory.UI, prefabName, OnLoadSpellIcon, data, token);
+        assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, prefabName, OnLoadSpellIcon, data, token);
 
     }
 

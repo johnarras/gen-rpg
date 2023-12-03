@@ -168,7 +168,7 @@ public class QuestScreen : ItemIconScreen
                 qtype = _allQuests[i],
                 index = i,
             };
-            _assetService.LoadAssetInto(_gs, QuestListParent, AssetCategory.UI, GetQuestRowPrefab(), OnLoadScreenQuest,  questIndexInfo, _token);
+            _assetService.LoadAssetInto(_gs, QuestListParent, AssetCategoryNames.UI, GetQuestRowPrefab(), OnLoadScreenQuest,  questIndexInfo, _token);
         }
 
     }

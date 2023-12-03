@@ -65,7 +65,7 @@ public class SpellTooltip : BaseTooltip
             return;
         }
 
-        _assetService.LoadAssetInto(gs, RowParent, AssetCategory.UI, SpellTooltipRow, OnLoadRow, data, _token);
+        _assetService.LoadAssetInto(gs, RowParent, AssetCategoryNames.UI, SpellTooltipRow, OnLoadRow, data, _token);
     }
 
     private void OnLoadRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)

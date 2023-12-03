@@ -30,7 +30,7 @@ public class TreeObjectLoader : BaseObjectLoader
 
         SetupZoneTreeCache(gs);
 
-        string assetCategory = AssetCategory.Trees;
+        string assetCategory = AssetCategoryNames.Trees;
 
         treeType = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(objectId);
 
@@ -41,7 +41,7 @@ public class TreeObjectLoader : BaseObjectLoader
 
         if (treeType.HasFlag(TreeFlags.IsBush))
         {
-            assetCategory = AssetCategory.Bushes;
+            assetCategory = AssetCategoryNames.Bushes;
         }
 
         if (!treeType.HasFlag(TreeFlags.IsWaterItem) &&

@@ -12,6 +12,8 @@ using System.Threading;
 using UI.Screens.Constants;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Assets.Scripts.GameSettings.Services;
+using Genrpg.Shared.AI.Entities;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
@@ -21,6 +23,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IClientLoginService _loginService;
         private IAssetService _assetService;
         private INetworkService _networkService;
+        private IClientGameDataService _gameDataService;
         protected override void InnerProcess(UnityGameState gs, LoginResult result, CancellationToken token)
         {
             TaskUtils.AddTask(InnerProcessAsync(gs, result, token), "loginresultinnerprocess",token);
@@ -51,18 +54,21 @@ namespace Assets.Scripts.Login.MessageHandlers
             gs.user = result.User;
             gs.characterStubs = result.CharacterStubs;
             gs.mapStubs = result.MapStubs;
-            gs.data = new GameData();
+
+            foreach (IGameSettings settings in result.GameData)
+            {
+               await _gameDataService.SaveSettings(gs, settings);
+            }
+
+            List<IGameSettings> loadedSettings = gs.data.GetAllData();
+
+            FloatingTextScreen.Instance.ShowMessage("Cache Qty: " + loadedSettings.Count + " D/L Qty: " + result.GameData.Count);
 
             gs.data.AddData(result.GameData);
 
             if (gs.user != null && !String.IsNullOrEmpty(gs.user.Id))
             {
                 await _loginService.SaveLocalUserData(gs, gs.user.Email);
-            }
-
-            while (!_assetService.IsInitialized(gs))
-            {
-                await Task.Delay(1);
             }
 
             await Task.Delay(1);

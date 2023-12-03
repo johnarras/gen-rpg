@@ -52,7 +52,7 @@ public class LoadMap : BaseZoneGenerator
 
             string filePath = patch.GetFilePath(gs, false);
 
-            ClientRepository<TerrainPatchData> repo = new ClientRepository<TerrainPatchData>(gs.logger);
+            ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(gs.logger);
 
             patch.DataBytes = repo.LoadBytes(filePath);
             await Task.Delay(1, token);
@@ -394,7 +394,7 @@ public class LoadMap : BaseZoneGenerator
 
         string filePath = patch.GetFilePath(gs, false);
 
-        ClientRepository<TerrainPatchData> repo = new ClientRepository<TerrainPatchData>(gs.logger);
+        ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(gs.logger);
        
         repo.SaveBytes(filePath, bytes);
         patch.DataBytes = bytes;

@@ -37,9 +37,19 @@ public class LoadInitialData : BaseZoneGenerator
         GEntity go = PlayerObject.Get();
         if (ch != null && go != null)
         {
-            float height = gs.md.SampleHeight(gs, ch.X, MapConstants.MapHeight * 2, ch.Z);
-            go.transform().position = GVector3.Create(ch.X, height, ch.Z);
-            go.transform().eulerAngles = GVector3.Create(0, ch.Rot, 0);
+            float height = 0;
+
+            do
+            {
+                height = gs.md.SampleHeight(gs, ch.X, MapConstants.MapHeight * 2, ch.Z);
+                go.transform().position = GVector3.Create(ch.X, height, ch.Z);
+                go.transform().eulerAngles = GVector3.Create(0, ch.Rot, 0);
+                if (height == 0)
+                {
+                    await Task.Delay(1000);
+                }
+            }
+            while (height == 0);
         }
         _networkService.SendMapMessage(new AddPlayer()
         {

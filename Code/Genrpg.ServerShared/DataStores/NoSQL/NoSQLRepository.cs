@@ -107,6 +107,9 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                 return coll;
             }
 
+
+            // This uses reflection here to avoid having generic scaffolding classes
+            // grow throughout the program
             Type baseCollectionType = (t.GetInterface(nameof(IUpdateData)) != null ?
                 typeof (VersionedNoSQLCollection<>) :                
                 typeof(NoSQLCollection<>));

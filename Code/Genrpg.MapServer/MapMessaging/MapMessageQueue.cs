@@ -148,6 +148,7 @@ namespace Genrpg.MapServer.MapMessaging
                         {
                             try
                             {
+                                // This is intentionally synchronous
                                 package.Process(_pgs);
                                 _messagesProcessed++;
                                 _mapMessageService.AddPackage(package);

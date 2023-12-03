@@ -181,7 +181,7 @@ public class SaveMap : BaseZoneGenerator
             newBytes[i] = bytes[i];
         }
 
-        ClientRepository<TerrainPatchData> repo = new ClientRepository<TerrainPatchData>(gs.logger);
+        ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(gs.logger);
 
         string zoneText = "";
         foreach (long zid in zoneIds)

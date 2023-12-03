@@ -10,6 +10,6 @@ namespace Genrpg.Shared.GameSettings.Entities
     {
         [Key(0)] public List<PlayerSettingsOverrideItem> Items { get; set; } = new List<PlayerSettingsOverrideItem>();      
 
-        public string Hash { get; set; }
+        [Key(1)] public string Hash { get; set; }
     }
 }

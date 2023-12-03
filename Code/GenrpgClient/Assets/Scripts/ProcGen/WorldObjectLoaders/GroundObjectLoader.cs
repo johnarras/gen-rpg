@@ -36,7 +36,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
             Token = token,
         };
 
-        _assetService.LoadAsset(gs, AssetCategory.Props, groundObjType.Art, OnDownloadGroundObject, loadData, null, token);
+        _assetService.LoadAsset(gs, AssetCategoryNames.Props, groundObjType.Art, OnDownloadGroundObject, loadData, null, token);
 
         await Task.CompletedTask;
         return;

@@ -94,7 +94,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
             layer.CurrentLoading = nextItem;
             layer.ScreenQueue.RemoveAt(0);
 
-            _assetService.LoadAssetInto(_gs, layer.LayerParent, AssetCategory.Screens, ScreenUtils.GetPrefabName(nextItem.ScreenId), OnLoadScreen, nextItem, _gameToken);
+            _assetService.LoadAssetInto(_gs, layer.LayerParent, AssetCategoryNames.Screens, ScreenUtils.GetPrefabName(nextItem.ScreenId), OnLoadScreen, nextItem, _gameToken);
         }
 
     }

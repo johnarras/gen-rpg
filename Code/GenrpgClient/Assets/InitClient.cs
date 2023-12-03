@@ -11,6 +11,7 @@ using Genrpg.Shared.Core.Entities;
 using Assets.Scripts.Model;
 using Genrpg.Shared.Constants.TempDev;
 using UI.Screens.Utils;
+using Genrpg.Shared.GameSettings;
 
 public class InitClient : BaseBehaviour
 {
@@ -51,6 +52,7 @@ public class InitClient : BaseBehaviour
         gs.logger = new ClientLogger(gs);
         gs.loc = new ServiceLocator(gs.logger);
         gs.repo = new ClientRepositorySystem(gs.logger);
+        gs.data = new GameData();
 
         Initialize(gs);
 
@@ -113,7 +115,6 @@ public class InitClient : BaseBehaviour
 
         ClientSetupService.SetupClient(_gs, true, token);
 
-
         InitialPrefabLoader prefabLoader = AssetUtils.LoadResource<InitialPrefabLoader>("Prefabs/PrefabLoader");
         await prefabLoader.LoadPrefabs(_gs);
 
@@ -133,6 +134,11 @@ public class InitClient : BaseBehaviour
             {
                 gameTokenService.SetGameToken(_gameTokenSource.Token);
             }
+        }
+
+        while (!_assetService.IsInitialized(gs))
+        {
+            await Task.Delay(1);
         }
 
         _screenService.Open(_gs, ScreenId.Loading);

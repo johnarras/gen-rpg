@@ -1,8 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Assets.Scripts.GameSettings.Services;
+using Genrpg.Shared.DataStores.Interfaces;
+using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Login.Messages.Login;
+using Genrpg.Shared.Versions.Entities;
 using UI.Screens.Constants;
 using GEntity = UnityEngine.GameObject;
 
@@ -27,11 +32,14 @@ public class ClientLoginService : IClientLoginService
     private IMapTerrainManager _mapManager;
     private IClientMapObjectManager _objectManager;
     private IZoneGenService _zoneGenService;
+    private IClientGameDataService _gameDataService;
     private string _pwd = "";
 
     public void StartLogin(UnityGameState gs, CancellationToken token)
     {
         LocalUserData localData = gs.repo.Load<LocalUserData>(LocalUserFilename).Result;
+
+
 
         string email = "";
         string password = "";
@@ -109,6 +117,31 @@ public class ClientLoginService : IClientLoginService
     public async Task LoginToServer(UnityGameState gs, LoginCommand command, CancellationToken token)
     {
         _pwd = command.Password;
+
+        try
+        {
+            await _gameDataService.LoadCachedSettings(gs);
+        }
+        catch (Exception e)
+        {
+            gs.logger.Exception(e, "LoginToServer.LoadData");
+        }
+
+        List<IGameSettings> allSettings = gs.data.GetAllData();
+
+        command.ClientSettings = new List<ClientCachedGameSettings>();
+
+        foreach (IGameSettings settings in allSettings)
+        {
+            if (settings.Id.IndexOf(GameDataConstants.DefaultFilename) >= 0 && settings is IUpdateData updateData)
+            {
+                command.ClientSettings.Add(new ClientCachedGameSettings()
+                {
+                    ClientSaveTime = updateData.UpdateTime,
+                    TypeName = settings.GetType().Name,
+                });
+            }
+        }
 
         _networkService.SendLoginWebCommand(command, token);
 

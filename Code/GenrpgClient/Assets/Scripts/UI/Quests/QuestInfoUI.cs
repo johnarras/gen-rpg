@@ -88,7 +88,7 @@ public class QuestInfoUI : BaseBehaviour
             GEntityUtils.DestroyAllChildren(TaskParent);
             foreach (QuestTask task in _qtype.Tasks)
             {
-                _assetService.LoadAssetInto(_gs, TaskParent, AssetCategory.UI, rowPrefabName, OnLoadTask, task, _token);
+                _assetService.LoadAssetInto(_gs, TaskParent, AssetCategoryNames.UI, rowPrefabName, OnLoadTask, task, _token);
             }
         }
 

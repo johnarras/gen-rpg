@@ -6,6 +6,7 @@ using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace Genrpg.Shared.GameSettings.Loaders
@@ -14,6 +15,7 @@ namespace Genrpg.Shared.GameSettings.Loaders
         where TServer : BaseGameSettings, new()
     {
         public virtual Type GetServerType() { return typeof(TServer); }
+        public virtual Type GetClientType() { return typeof(TServer); }
         public virtual bool SendToClient() { return true; }
 
         public virtual async Task<List<IGameSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing)

@@ -173,7 +173,7 @@ public class ItemTooltip : BaseTooltip
             return;
         }
 
-        _assetService.LoadAssetInto(gs, RowParent, AssetCategory.UI, ItemTooltipRow, OnLoadRow, data, _token);
+        _assetService.LoadAssetInto(gs, RowParent, AssetCategoryNames.UI, ItemTooltipRow, OnLoadRow, data, _token);
     }
 
     private void OnLoadRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)

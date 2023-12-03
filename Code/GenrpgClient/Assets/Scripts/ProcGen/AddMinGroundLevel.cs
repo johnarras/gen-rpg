@@ -41,7 +41,7 @@ public class AddMinGroundLevel : BaseZoneGenerator
         {
             return;
         }
-        _assetService.LoadAsset(gs, AssetCategory.Prefabs, MapConstants.KillColliderName, OnLoadKillCollider, null, null, _token);
+        _assetService.LoadAsset(gs, AssetCategoryNames.Prefabs, MapConstants.KillColliderName, OnLoadKillCollider, null, null, _token);
     }
 
     private void OnLoadKillCollider (UnityGameState gs, string url, object obj, object data, CancellationToken token)

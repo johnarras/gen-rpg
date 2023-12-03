@@ -15,6 +15,8 @@ namespace Genrpg.Shared.GameSettings.Loaders
         where TApi : ParentSettingsApi<TParent, TChild>, new()
     {
 
+        public override Type GetClientType() { return typeof(TApi); }
+
         public override async Task<List<IGameSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing)
         {
             Task<List<IGameSettings>> loadParents = base.LoadAll(repoSystem, createDefaultIfMissing);
@@ -47,6 +49,7 @@ namespace Genrpg.Shared.GameSettings.Loaders
                 {
                     ParentObj = tparent,
                     Data = tparent.GetData(),
+                    Id = tparent.Id,
                 };
                 return api;
             }

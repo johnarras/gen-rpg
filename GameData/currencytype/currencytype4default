@@ -3,6 +3,7 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Ability",
-  "UpdateTime": "2023-11-24T16:45:20.785Z",
+  "Art": "new text blah",
+  "UpdateTime": "2023-12-02T16:35:13.381Z",
   "CreateTime": "2023-11-24T16:45:20.785Z"
 }

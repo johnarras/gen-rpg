@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Model
 {
@@ -24,13 +25,19 @@ namespace Assets.Scripts.Model
 
         public async Task<bool> Delete<T>(T t) where T : class, IStringId
         {
-            ClientRepository<T> repo = new ClientRepository<T>(_logger);
+            ClientRepositoryCollection<T> repo = GetRepository<T>();
             return await repo.Delete(t);
+        }
+
+        public async Task<object> LoadWithType(Type t, string id)
+        {
+            IClientRepositoryCollection repo = GetRepositoryFromType(t);
+            return await repo.LoadWithType(t, id);
         }
 
         public async Task<T> Load<T>(string id) where T : class, IStringId
         {
-            ClientRepository<T> repo = new ClientRepository<T>(_logger);
+            ClientRepositoryCollection<T> repo = GetRepository<T>();
             return await repo.Load(id);
         }
 
@@ -46,8 +53,16 @@ namespace Assets.Scripts.Model
 
         public async Task<bool> Save<T>(T t) where T : class, IStringId
         {
-            ClientRepository<T> repo = new ClientRepository<T>(_logger);
-            return await repo.Save(t);
+            try
+            {
+                IClientRepositoryCollection repo = GetRepositoryFromType(t.GetType());
+                return await repo.Save(t);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("EXC: " + e.Message + " " + e.StackTrace);
+            }
+            return false;
         }
 
         public async Task<bool> SaveAll<T>(List<T> list) where T : class, IStringId
@@ -61,20 +76,19 @@ namespace Assets.Scripts.Model
 
         public async Task<bool> StringSave<T>(string id, string data) where T : class, IStringId
         {
-
-            ClientRepository<T> repo = new ClientRepository<T>(_logger);
+            ClientRepositoryCollection<T> repo = GetRepository<T>();
             return await repo.StringSave(id, data);
         }
 
         public async Task<List<T>> LoadAll<T>(List<string> ids) where T : class, IStringId
         {
-            ClientRepository<T> repo = new ClientRepository<T>(_logger);
+            ClientRepositoryCollection<T> repo = GetRepository<T>();
             return await repo.LoadAll(ids);
         }
 
         public async Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity = 1000, int skip = 0) where T : class, IStringId
         {
-            ClientRepository<T> repo = new ClientRepository<T>(_logger);
+            ClientRepositoryCollection<T> repo = GetRepository<T>();
             return await repo.Search(func);
         }
 
@@ -92,5 +106,28 @@ namespace Assets.Scripts.Model
         {
             throw new NotImplementedException();
         }
+
+        private Dictionary<Type, object> _repoCache = new Dictionary<Type, object>();
+        public IClientRepositoryCollection GetRepositoryFromType (Type t)
+        {
+            if (_repoCache.TryGetValue(t, out object repo))
+            {
+                return (IClientRepositoryCollection) repo;
+            }
+
+            Type baseRepoType = typeof(ClientRepositoryCollection<>);
+            Type genericType = baseRepoType.MakeGenericType(t);
+            object newRepo = Activator.CreateInstance(genericType, new object[] { _logger });
+
+            _repoCache[t] = newRepo;
+
+            return (IClientRepositoryCollection) newRepo;
+        }
+
+        public ClientRepositoryCollection<T> GetRepository<T>() where T : class, IStringId
+        {
+            return (ClientRepositoryCollection<T>)GetRepositoryFromType(typeof(T));
+        }
+
     }
 }

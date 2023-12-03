@@ -8,7 +8,7 @@ namespace Genrpg.Shared.GameSettings.Entities
     [MessagePackObject]
     public class PlayerSettingsOverrideItem
     {
-        [Key(1)] public string SettingId { get; set; }
-        [Key(2)] public string DocId { get; set; }
+        [Key(0)] public string SettingId { get; set; }
+        [Key(1)] public string DocId { get; set; }
     }
 }

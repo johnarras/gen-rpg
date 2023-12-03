@@ -37,10 +37,10 @@ public class WaterObjectLoader : BaseObjectLoader
         dlo.finalZ = heightOffset-0.5f;
         dlo.zone = currZone;
         dlo.zoneType = currZoneType;
-        dlo.assetCategory = AssetCategory.Prefabs;
+        dlo.assetCategory = AssetCategoryNames.Prefabs;
         dlo.data = new MyPointF(xSize, heightOffset, zSize);
 
-        _assetService.LoadAsset(gs, AssetCategory.Prefabs, artName, OnDownloadWater, dlo, null, token);
+        _assetService.LoadAsset(gs, AssetCategoryNames.Prefabs, artName, OnDownloadWater, dlo, null, token);
 
         return true;
 

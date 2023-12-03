@@ -143,7 +143,7 @@ public class SpellbookScreen : SpellIconScreen
         SpellEffect effect = new SpellEffect();
         _editSpell.Effects.Add(effect);
 
-        _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategory.UI, SpellEffectEditPrefabName, OnLoadEffect, effect, _token);
+        _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategoryNames.UI, SpellEffectEditPrefabName, OnLoadEffect, effect, _token);
     }
 
 
@@ -249,7 +249,7 @@ public class SpellbookScreen : SpellIconScreen
         // Add new effect edit blocks for things as needed
         for (int e = _effectEdits.Count; e < spell.Effects.Count; e++)
         {
-            _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategory.UI, SpellEffectEditPrefabName, OnLoadEffect, spell.Effects[e], _token);
+            _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategoryNames.UI, SpellEffectEditPrefabName, OnLoadEffect, spell.Effects[e], _token);
 
         }
     }

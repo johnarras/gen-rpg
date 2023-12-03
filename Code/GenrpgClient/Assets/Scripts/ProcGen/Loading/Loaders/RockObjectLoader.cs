@@ -58,11 +58,11 @@ public class RockObjectLoader : BaseObjectLoader
         dlo.y = y;
         dlo.zone = currZone;
         dlo.zoneType = currZoneType;
-        dlo.assetCategory = AssetCategory.Rocks;
+        dlo.assetCategory = AssetCategoryNames.Rocks;
         dlo.data = (smallObject ? "small" : "");
         dlo.AfterLoad = AfterLoadRock;
 
-        _assetService.LoadAsset(gs, AssetCategory.Rocks, artName, OnDownloadObject, dlo, null, token);
+        _assetService.LoadAsset(gs, AssetCategoryNames.Rocks, artName, OnDownloadObject, dlo, null, token);
 
         return true;
 

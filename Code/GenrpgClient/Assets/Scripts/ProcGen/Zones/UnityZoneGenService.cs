@@ -271,7 +271,6 @@ public class UnityZoneGenService : ZoneGenService
             }
             DateTime endTime = DateTime.UtcNow;
 
-
             if (!String.IsNullOrEmpty(GenErrorMsg))
             {
                 gs.logger.Error("GENERATION FAILURE: " + GenErrorMsg);
