@@ -74,6 +74,7 @@
     <Compile Include="Assets\Plugins\UniTask\Runtime\UniTask.WhenAny.Generated.cs" />
     <Compile Include="Assets\Plugins\UniTask\Runtime\Internal\ValueStopwatch.cs" />
     <Compile Include="Assets\Plugins\UniTask\Runtime\CompilerServices\AsyncUniTaskMethodBuilder.cs" />
+    <Compile Include="Assets\Plugins\UniTask\Runtime\UnityAwaitableExtensions.cs" />
     <Compile Include="Assets\Plugins\UniTask\Runtime\TaskPool.cs" />
     <Compile Include="Assets\Plugins\UniTask\Runtime\Internal\DiagnosticsExtensions.cs" />
     <Compile Include="Assets\Plugins\UniTask\Runtime\CompilerServices\AsyncUniTaskVoidMethodBuilder.cs" />

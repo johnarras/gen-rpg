@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Core;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Services.Maps
 {
@@ -58,15 +59,10 @@ namespace Genrpg.MapServer.Services.Maps
                     {
                         MapInstance mapInstance = new MapInstance();
 
-                        string instanceId = (++_nextInstanceId).ToString();
                         InitMapInstanceData initData = new InitMapInstanceData()
                         {
                             MapId = stub.Id,
-                            MapServerId = mapData.MapServerId,
-                            MapFullServerId = _cloudCommsService.GetFullServerNameForMapInstance(stub.Id, instanceId),
                             Port = mapData.StartPort + mapStubId,
-                            InstanceId = instanceId,
-                            MapServerMessageQueueId = _messageQueueId,
                             Serializer = EMapApiSerializers.MessagePack,
                         };
 

@@ -1,5 +1,5 @@
 
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UI.Screens.Constants;
 using System.Threading;
 
@@ -7,7 +7,7 @@ public class AfterGenerateMap : BaseZoneGenerator
 {
 
     protected IScreenService _screenService;
-    public override async Task Generate (UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 
@@ -16,7 +16,7 @@ public class AfterGenerateMap : BaseZoneGenerator
             _screenService.CloseAll(gs);
             _screenService.Open(gs, ScreenId.CharacterSelect);
         }
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
 	}
 	
 

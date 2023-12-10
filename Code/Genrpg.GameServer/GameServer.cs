@@ -18,6 +18,7 @@ using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Logging;
 using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.GameServer
 {
@@ -29,7 +30,7 @@ namespace Genrpg.GameServer
         }
 
 
-        private static List<BaseServer> _servers = new List<BaseServer>();
+        private static List<IBaseServer> _servers = new List<IBaseServer>();
         private static CancellationTokenSource _serverTokenSource = new CancellationTokenSource();
         private static async Task RunGame()
         {
@@ -60,7 +61,7 @@ namespace Genrpg.GameServer
                     {
                         MapServerCount = serverCount,
                         MapServerIndex = i,
-                        MapServerId = i.ToString(),
+                        MapServerId = HashUtils.NewGuid(),
                         StartPort = TempDevConstants.StartPort,
                         MapIds = new List<string>(),
                     }; 

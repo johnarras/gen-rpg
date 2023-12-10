@@ -1,5 +1,5 @@
 using GEntity = UnityEngine.GameObject;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Setup.Services;
@@ -56,8 +56,7 @@ public class InitClient : BaseBehaviour
 
         Initialize(gs);
 
-        TaskUtils.AddTask(OnStart(),"onstart", _gameTokenSource.Token);
-
+        OnStart().Forget();
     }
 
     public void RemoveSplashScreen()
@@ -74,7 +73,7 @@ public class InitClient : BaseBehaviour
 
     private string _envName = "";
     private EnvEnum _envEnum = EnvEnum.Local;
-    protected async Task OnStart()
+    protected async UniTask OnStart()
     {
 #if UNITY_EDITOR
         EditorInstance = this;
@@ -91,16 +90,16 @@ public class InitClient : BaseBehaviour
 
         ClientWebRequest req = new ClientWebRequest();
         string url = ConfigURL + "?env=" + _envName;
-        TaskUtils.AddTask(req.SendRequest(_gs, url, "", OnGetWebConfig, _gameTokenSource.Token),"getwebconfig",_gameTokenSource.Token);
-        await Task.CompletedTask;
+        req.SendRequest(_gs, url, "", OnGetWebConfig, _gameTokenSource.Token).Forget();
+        await UniTask.CompletedTask;
     }
 
     private void OnGetWebConfig(UnityGameState gs, string txt, CancellationToken token)
     {
-        TaskUtils.AddTask(OnGetWebConfigAsync(gs, SerializationUtils.Deserialize<ConfigResponse>(txt), token),"ongetwebconfigasync", _gameTokenSource.Token);
+        OnGetWebConfigAsync(gs, SerializationUtils.Deserialize<ConfigResponse>(txt), token).Forget();
     }
 
-    private async Task OnGetWebConfigAsync(UnityGameState gs, ConfigResponse response, CancellationToken token)
+    private async UniTask OnGetWebConfigAsync(UnityGameState gs, ConfigResponse response, CancellationToken token)
     {
         _gs.SetInitObject(entity);
         _gs.Env = _envName;
@@ -138,14 +137,14 @@ public class InitClient : BaseBehaviour
 
         while (!_assetService.IsInitialized(gs))
         {
-            await Task.Delay(1);
+            await UniTask.Delay(1);
         }
 
         _screenService.Open(_gs, ScreenId.Loading);
 
         while (_screenService.GetScreen(_gs, ScreenId.Loading) == null)
         {
-            await Task.Delay(1, _gameTokenSource.Token);
+            await UniTask.NextFrame( cancellationToken: _gameTokenSource.Token);
         }
 
         _screenService.Open(_gs, ScreenId.FloatingText);

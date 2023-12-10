@@ -1,5 +1,5 @@
 
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Pathfinding.Constants;
@@ -12,7 +12,7 @@ public class CreatePathfindingData : BaseZoneGenerator
 {
 
     protected IPathfindingService _pathfindingService;
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         bool[,] blockedCells = new bool[gs.map.GetHwid(), gs.map.GetHhgt()];
@@ -98,6 +98,6 @@ public class CreatePathfindingData : BaseZoneGenerator
         fdata.RemotePath = remotePath;
 
         FileUploader.UploadFile(fdata);
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 }

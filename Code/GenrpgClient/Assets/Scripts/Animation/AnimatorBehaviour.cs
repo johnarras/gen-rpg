@@ -1,6 +1,6 @@
 ﻿using System;
 using Genrpg.Shared.Interfaces;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System.Threading;
 
 public class AnimatorBehaviour : BaseBehaviour

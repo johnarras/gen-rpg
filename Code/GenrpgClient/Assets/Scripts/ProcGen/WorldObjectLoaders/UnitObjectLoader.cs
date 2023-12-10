@@ -2,7 +2,7 @@
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.DataStores.Entities;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Constants;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
@@ -20,7 +20,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
     public override long GetKey() { return EntityTypes.Unit; }
     protected override string GetLayerName() { return LayerNames.UnitLayer; }
 
-    public override async Task Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
     {
 
         UnitType utype = gs.data.GetGameData<UnitSettings>(gs.ch).GetUnitType(spawn.EntityId);
@@ -35,7 +35,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
             Obj = obj,
             Token = token,
         };
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
 
         _assetService.LoadAsset(gs, AssetCategoryNames.Monsters, utype.Art, AfterLoadUnit, loadData, null, token);
     }
@@ -102,19 +102,19 @@ public class UnitObjectLoader : BaseMapObjectLoader
 
         if (height == 0)
         {
-            TaskUtils.AddTask(WaitForTerrain(gs, go, loadData, loadData.Token), "unitobjectloaderwaitforterrain", token);
+            WaitForTerrain(gs, go, loadData, loadData.Token).Forget();
         }
 
         _objectManager.AddObject(loadData.Obj, go);
         
     }
 
-    private async Task WaitForTerrain(UnityGameState gs, GEntity go, SpawnLoadData loadData, CancellationToken token)
+    private async UniTask WaitForTerrain(UnityGameState gs, GEntity go, SpawnLoadData loadData, CancellationToken token)
     {
         int times = 0;
         while (!token.IsCancellationRequested && ++times < 1000)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
             float height = gs.md.SampleHeight(gs, loadData.Obj.X, MapConstants.MapHeight * 2, loadData.Obj.Z);
             if (height > 0)
             {

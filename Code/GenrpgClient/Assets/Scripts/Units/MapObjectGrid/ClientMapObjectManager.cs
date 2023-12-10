@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapObjects.Entities;
@@ -13,6 +13,8 @@ using Genrpg.Shared.MapObjects.Factories;
 using Assets.Scripts.Tokens;
 using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 public interface IClientMapObjectManager : ISetupService, IMapTokenService
 {
@@ -53,7 +55,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
     public ClientMapObjectManager(CancellationToken token)
     {
-        TaskUtils.AddTask(UpdateRecentlyLoadedSpawns(), "updaterecentlyloadedspawns",token);
+        UpdateRecentlyLoadedSpawns(token).Forget();
     }
 
     public void Reset()
@@ -99,7 +101,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
             _didAddUpdate = true;
         }
         _fxParent = GEntityUtils.FindSingleton("FXParent", true);
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     public bool GetUnit (string id, out Unit unit, bool downloadIfNotExist = true)
@@ -311,11 +313,11 @@ public class ClientMapObjectManager : IClientMapObjectManager
         return obj;
     }
 
-    protected async Task UpdateRecentlyLoadedSpawns()
+    protected async UniTask UpdateRecentlyLoadedSpawns(CancellationToken token)
     {
         while (true)
         {
-            await Task.Delay(TimeSpan.FromSeconds(2.0f));
+            await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: token);
             _olderSpawns = _recentlyLoadedSpawns;
             _recentlyLoadedSpawns = new List<string>();
         }

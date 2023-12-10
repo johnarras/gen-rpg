@@ -9,7 +9,7 @@ using Genrpg.Shared.Core.Entities;
 
 
 
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
@@ -21,7 +21,7 @@ using Genrpg.Shared.ProcGen.Entities;
 
 public class AddRandomDirt : BaseZoneGenerator
 {
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)

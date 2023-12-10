@@ -10,6 +10,7 @@ namespace Genrpg.InstanceServer.Entities
     {
         public string MapId { get; set; }
         public string InstanceId { get; set; }
+        public string ServerId { get; set; }
         public string Host { get; set; }
         public int Port { get; set; }
     }

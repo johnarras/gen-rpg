@@ -9,13 +9,12 @@ using Genrpg.ServerShared.Core;
 using Azure.Messaging.ServiceBus.Administration;
 using Genrpg.ServerShared.DataStores.Constants;
 using Genrpg.ServerShared.CloudComms.Queues.Entities;
-using Genrpg.ServerShared.CloudComms.Requests.Entities;
-using Genrpg.ServerShared.CloudComms.PubSub.Constants;
 using Genrpg.ServerShared.CloudComms.PubSub.Entities;
 using Genrpg.Shared.Reflection.Services;
 using Genrpg.ServerShared.CloudComms.PubSub.Managers;
 using Genrpg.ServerShared.CloudComms.Queues.Managers;
-using Genrpg.ServerShared.CloudComms.Requests.Managers;
+using Genrpg.ServerShared.CloudComms.Queues.Requests.Entities;
+using MongoDB.Driver.Core.WireProtocol.Messages;
 
 namespace Genrpg.ServerShared.CloudComms.Services
 {
@@ -40,14 +39,11 @@ namespace Genrpg.ServerShared.CloudComms.Services
         // Pubsub
         private CloudPubSubManager _pubSubManager = null;
 
-        // Request
-        private CloudRequestManager _requestManager = null;
-
         public async Task Setup(GameState gs, CancellationToken token)
         {
             _serverGameState = gs as ServerGameState;
             _token = token;
-            _env = _serverGameState.config.Env.ToLower();
+            _env = _serverGameState.config.MessagingEnv.ToLower();
             _serverId = _serverGameState.config.ServerId.ToLower();
             string serviceBusConnectionString = _serverGameState.config.GetConnectionString(ConnectionNames.ServiceBus);
             _serviceBusClient = new ServiceBusClient(serviceBusConnectionString);
@@ -59,8 +55,6 @@ namespace Genrpg.ServerShared.CloudComms.Services
             _pubSubManager = new CloudPubSubManager();
             await _pubSubManager.Init(_serverGameState, _serviceBusClient, _adminClient, _reflectionService, _serverId, _env, token);
 
-            _requestManager = new CloudRequestManager();
-            await _requestManager.Init(_serverGameState, this, _serverId, _env, token);
         }
 
         public void Dispose()
@@ -73,11 +67,6 @@ namespace Genrpg.ServerShared.CloudComms.Services
         public string GetFullServerName(string serverId)
         {
             return _queueManager.GetFullQueueName(serverId);
-        }
-
-        public string GetFullServerNameForMapInstance(string mapId, string mapInstanceId)
-        {
-            return "minst" + mapId + "." + mapInstanceId;
         }
 
         public void SetQueueMessageHandlers<H>(Dictionary<Type, H> handlers) where H : IQueueMessageHandler
@@ -95,9 +84,25 @@ namespace Genrpg.ServerShared.CloudComms.Services
             _queueManager.SendQueueMessages(serverId, cloudMessages);
         }
 
+        public async Task<TResponse> SendResponseMessageAsync<TResponse>(string serverId, IRequestQueueMessage requestMessage) where TResponse : IResponseQueueMessage
+        {
+            return await _queueManager.SendRequestResponseQueueMessage<TResponse>(serverId, requestMessage);
+        }
+
+
+        public void SendResponseMessageWithHandler<TResponse>(string serverId, IRequestQueueMessage requestMessage, Action<TResponse> responseHandler) where TResponse : IResponseQueueMessage
+        {
+            Task.Run(()=>SendAsyncRequestWithHandler(serverId, requestMessage, responseHandler));
+        }
+
+        private async Task SendAsyncRequestWithHandler<TResponse>(string serverId, IRequestQueueMessage requestMessage, Action<TResponse> responseHandler) where TResponse : IResponseQueueMessage
+        {
+            TResponse response = await SendResponseMessageAsync<TResponse>(serverId, requestMessage);
+            responseHandler?.Invoke(response);
+        }
         #endregion
 
-        #region pubsub
+            #region pubsub
 
         public void SendPubSubMessage(ServerGameState gs, IPubSubMessage message)
         {
@@ -110,26 +115,6 @@ namespace Genrpg.ServerShared.CloudComms.Services
         }
 
         #endregion
-
-        #region requests
-
-        public void SendRequest(string serverId, IRequest request, Action<ResponseEnvelope> responseAction)
-        {
-            _requestManager.SendRequest(serverId, request, responseAction);
-        }
-
-        public async Task<ResponseEnvelope> SendRequestAsync(string serverId, IRequest request)
-        {
-            return await _requestManager.SendRequestAsync(serverId, request);
-        }
-
-        public void SetRequestHandlers<H>(Dictionary<Type, H> handlers) where H : IRequestHandler
-        {
-            _requestManager.SetRequestHandlers(handlers);
-        }
-
-        #endregion
-
 
     }
 }

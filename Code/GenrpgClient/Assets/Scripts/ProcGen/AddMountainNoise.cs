@@ -13,7 +13,7 @@ using Genrpg.Shared.Core.Entities;
 
 
 
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
@@ -21,9 +21,9 @@ using System.Threading;
 
 public class AddMountainNoise : BaseAddMountains
 {
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
 
         int radius = 4;
 

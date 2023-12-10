@@ -10,8 +10,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.Model
 {

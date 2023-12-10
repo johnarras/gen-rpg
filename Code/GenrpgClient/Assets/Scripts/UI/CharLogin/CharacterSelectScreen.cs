@@ -3,7 +3,7 @@ using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Entities;
 
 using UI.Screens.Constants;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
 using System.Linq;
@@ -31,7 +31,7 @@ public class CharacterSelectScreen : BaseScreen
 
     public const string CharacterRowArt = "CharacterSelectRow";
 
-    protected override async Task OnStartOpen(object data, CancellationToken token)
+    protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
 #if UNITY_EDITOR
 
@@ -57,7 +57,7 @@ public class CharacterSelectScreen : BaseScreen
 
         GetSpellIcons(_gs);
 
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     private void GetSpellIcons(UnityGameState gs)

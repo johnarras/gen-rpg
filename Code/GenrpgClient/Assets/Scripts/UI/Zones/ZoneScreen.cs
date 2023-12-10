@@ -3,7 +3,7 @@ using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
 using Genrpg.Shared.GameSettings.Entities;
@@ -21,13 +21,13 @@ public class ZoneScreen : BaseScreen
     protected GEntity ArrowObject;
 
 
-    protected override async Task OnStartOpen(object data, CancellationToken token)
+    protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         Setup();
         UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
 
         FloatingTextScreen.Instance.ShowMessage(_gs.data.GetGameData<CurrencySettings>(_gs.ch).GetCurrencyType(CurrencyTypes.Money).Art);
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
 
     }
 

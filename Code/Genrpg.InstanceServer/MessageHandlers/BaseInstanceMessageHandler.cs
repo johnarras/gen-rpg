@@ -13,7 +13,7 @@ namespace Genrpg.InstanceServer.MessageHandlers
     public abstract class BaseInstanceMessageHandler<T> : IInstanceMessageHandler where T : IInstanceQueueMessage
     {
 
-        protected IInstanceManagerService _mapInstanceService;
+        protected IInstanceManagerService _instanceManagerService = null;
 
         protected abstract Task InnerHandleMessage(ServerGameState gs, T message);
 

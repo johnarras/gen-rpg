@@ -19,6 +19,8 @@ namespace Genrpg.ServerShared.Config
             ServerConfig serverConfig = new ServerConfig();
             serverConfig.ServerId = serverId;
             serverConfig.Env = ConfigurationManager.AppSettings["Env"];
+            serverConfig.DbEnv = ConfigurationManager.AppSettings["DbEnv"];
+            serverConfig.MessagingEnv = ConfigurationManager.AppSettings["MessagingEnv"];
 
             List<string> allKeys = ConfigurationManager.AppSettings.AllKeys.ToList();
 

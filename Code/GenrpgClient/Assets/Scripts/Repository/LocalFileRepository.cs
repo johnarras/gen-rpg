@@ -5,7 +5,7 @@ using System.Collections;
 using System.Threading;
 using Genrpg.Shared.Core.Entities;
 
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Logs.Entities;
 

@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
@@ -23,6 +23,7 @@ using Genrpg.Shared.Networking.MapApiSerializers;
 using System.Collections.Concurrent;
 using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 
 public delegate void WebResultsHandler(UnityGameState gs, string txt, CancellationToken token);
 
@@ -45,15 +46,23 @@ public interface INetworkService : ISetupService, IMapTokenService
 
 }
 
+
 public class NetworkService : INetworkService
 {
+
+    class ResultHandlerPair
+    {
+        public ILoginResult Result { get; set; } = null;
+        public IClientLoginResultHandler Handler { get; set; } = null;
+    }
+
     protected UnityGameState _gs = null;
     private IReflectionService _reflectionService = null!;
     private IUnityUpdateService _updateService = null!;
     public NetworkService(UnityGameState gs, CancellationToken token)
     {
         _gs = gs;
-        TaskUtils.AddTask(ProcessMessages(),"processmessages", token);
+        ProcessMessages(token).Forget();
     }
 
     // Web endpoints.
@@ -80,7 +89,7 @@ public class NetworkService : INetworkService
             _webURI = ugs.SiteURL;
         }
         _updateService.AddTokenUpdate(this, ProcessLoginMessages, UpdateType.Late);
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
 
@@ -160,24 +169,41 @@ public class NetworkService : INetworkService
 
         string commandText = SerializationUtils.Serialize(commandSet);
 
-        TaskUtils.AddTask(req.SendRequest(_gs, _webURI + endpoint, commandText, HandleLoginResults, token),"sendrequest",token);  
+        req.SendRequest(_gs, _webURI + endpoint, commandText, HandleLoginResults, token).Forget();
     }
 
     private void HandleLoginResults (UnityGameState gs, string txt, CancellationToken token)
     {
         LoginServerResultSet resultSet = SerializationUtils.Deserialize<LoginServerResultSet>(txt);
 
+        List<ResultHandlerPair> resultPairs = new List<ResultHandlerPair>();
+
+
+
+
         foreach (ILoginResult result in resultSet.Results)
         {
             if (_loginResultHandlers.TryGetValue(result.GetType(), out IClientLoginResultHandler handler))
             {
-                handler.Process(gs, result, token);
+                resultPairs.Add(new ResultHandlerPair()
+                {
+                    Result = result,
+                    Handler = handler,
+                });
             }
             else
             {
                 _gs.logger.Error("Unknown Message From Login Server: " + result.GetType().Name);
             }
         }
+
+        resultPairs = resultPairs.OrderByDescending(x => x.Handler.Priority()).ToList();
+
+        foreach (ResultHandlerPair resultPair in resultPairs)
+        {
+            resultPair.Handler.Process(gs, resultPair.Result, token);
+        }
+
         _lastLoginResultsReceived = DateTime.UtcNow;
         _currentClientCommands.Clear();
     }
@@ -191,14 +217,14 @@ public class NetworkService : INetworkService
         }
     }
 
-    protected async Task ProcessMessages()
+    protected async UniTask ProcessMessages(CancellationToken token)
     {
         while (true)
         {
-            await Task.Delay(1).ConfigureAwait(true);
+            await UniTask.NextFrame( cancellationToken: token);
             while (_messages.TryDequeue(out IMapApiMessage message))
             {                
-                HandleOneMapApiMessage(message, _token);
+                HandleOneMapApiMessage(message, token);
             }
         }
     }

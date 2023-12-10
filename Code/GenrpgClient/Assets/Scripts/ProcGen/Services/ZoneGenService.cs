@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Names.Entities;
@@ -23,7 +23,7 @@ using Assets.Scripts.MapTerrain;
 public interface IZoneGenService : IService
 {
     void CancelMapToken();
-    Task SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token);
+    UniTask SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token);
     void SetOnePatchHeightmaps(UnityGameState gs, TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null);
     void InstantiateMap(UnityGameState gs, string mapId);
     Zone Generate(UnityGameState gs, long zoneId, long zoneTypeId, long extraSeed);
@@ -41,7 +41,7 @@ public interface IZoneGenService : IService
         
     void LoadMap(UnityGameState gsIn, LoadIntoMapCommand loadData);
     void InitTerrainSettings(UnityGameState gs, int gx, int gy, int patchSize, CancellationToken token);
-    Task OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token);
+    UniTask OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token);
 }
 
 public class ZoneGenService : IZoneGenService, IGameTokenService
@@ -67,14 +67,14 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
     }
 
-    public virtual async Task OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token)
+    public virtual async UniTask OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token)
     {
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
-    public virtual async Task SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token)
+    public virtual async UniTask SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token)
     {
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     public virtual void SetOnePatchHeightmaps(UnityGameState gs, TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null)

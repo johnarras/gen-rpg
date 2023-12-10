@@ -5,7 +5,7 @@ using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Inventory.Services;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Inventory.Messages;
 
@@ -28,7 +28,7 @@ public class CharacterScreen : ItemIconScreen
     
     protected Character _ch = null;
 
-    protected override async Task OnStartOpen(object data, CancellationToken token)
+    protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);

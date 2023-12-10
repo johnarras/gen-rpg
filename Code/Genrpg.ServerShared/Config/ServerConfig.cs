@@ -7,6 +7,10 @@ namespace Genrpg.ServerShared.Config
     {
         public string Env { get; set; }
 
+        public string DbEnv { get; set; }
+
+        public string MessagingEnv { get; set; }
+
         public string ServerId { get; set; }
 
         public Dictionary<string, string> ConnectionStrings { get; set; }  = new Dictionary<string, string>();

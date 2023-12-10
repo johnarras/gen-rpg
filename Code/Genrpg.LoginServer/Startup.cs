@@ -30,7 +30,7 @@ namespace Genrpg.LoginServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.Add(new ServiceDescriptor(typeof(WebService), new WebService()));
+            services.Add(new ServiceDescriptor(typeof(Core.LoginServer), new Core.LoginServer()));
             services.Configure<FormOptions>(options =>
             {
                 options.KeyLengthLimit = int.MaxValue;

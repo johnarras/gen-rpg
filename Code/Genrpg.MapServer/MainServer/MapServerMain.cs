@@ -26,7 +26,7 @@ using static Microsoft.Azure.Amqp.Serialization.SerializableType;
 
 namespace Genrpg.MapServer.MainServer
 {
-    public class MapServerMain : BaseServer
+    public class MapServerMain : BaseServer<ServerGameState,MapServerSetupService, IMapServerCloudMessageHandler>
     {
 
         private IMapServerService _mapServerService = null;
@@ -42,16 +42,6 @@ namespace Genrpg.MapServer.MainServer
         {
             InitMapServerData mapData = data as InitMapServerData;
             return CloudServerNames.Map + mapData.MapServerId;
-        }
-
-        protected override SetupService GetSetupService(object data)
-        {
-            return new MapServerSetupService();
-        }
-
-        protected override void SetupCustomCloudMessagingHandlers()
-        {
-            _cloudCommsService.SetQueueMessageHandlers(_reflectionService.SetupDictionary<Type, IMapServerCloudMessageHandler>(_gs));
         }
     }
 }

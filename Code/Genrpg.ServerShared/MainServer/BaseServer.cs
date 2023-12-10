@@ -1,18 +1,30 @@
 ﻿using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
+using Genrpg.ServerShared.CloudComms.Queues.Entities;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Setup.Services;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.MainServer
 {
-    public abstract class BaseServer
+    public interface IBaseServer
     {
-        protected ServerGameState _gs;
+
+    }
+
+
+    public abstract class BaseServer<TGameState,TSetupService,IQMessageHandler> : IBaseServer 
+        where TGameState: ServerGameState, new()
+        where TSetupService: SetupService, new()
+        where IQMessageHandler : IQueueMessageHandler
+    {
+        protected TGameState _gs;
         protected CancellationTokenSource _tokenSource = new CancellationTokenSource();
         protected string _serverId;
         protected ICloudCommsService _cloudCommsService;
@@ -22,12 +34,12 @@ namespace Genrpg.ServerShared.MainServer
         {
             _tokenSource = CancellationTokenSource.CreateLinkedTokenSource(serverToken, _tokenSource.Token);
             _serverId = GetServerId(data);
-            SetupService setupService = GetSetupService(data);
 
-            _gs = await SetupUtils.SetupFromConfig<ServerGameState>(this, _serverId, setupService,
+            _gs = await SetupUtils.SetupFromConfig<TGameState>(this, _serverId, new TSetupService(),
                 _tokenSource.Token);
 
-            SetupCustomCloudMessagingHandlers();
+            _cloudCommsService.SetQueueMessageHandlers(_reflectionService.SetupDictionary<Type, IQMessageHandler>(_gs));
+        
             _cloudCommsService.SetupPubSubMessageHandlers(_gs);
 
             _cloudCommsService.SendPubSubMessage(_gs, new ServerStartedAdminMessage() { ServerId = _serverId });
@@ -35,14 +47,6 @@ namespace Genrpg.ServerShared.MainServer
             await Task.CompletedTask;
         }
 
-        public virtual void UpdateFromNewGameData(GameData gameData)
-        {
-            _gs.data = gameData;
-            _gs.logger.Message("Update GameData on " + GetType().Name);
-        }
-
         protected abstract string GetServerId(object data);
-        protected abstract SetupService GetSetupService(object data);
-        protected abstract void SetupCustomCloudMessagingHandlers();
     }
 }

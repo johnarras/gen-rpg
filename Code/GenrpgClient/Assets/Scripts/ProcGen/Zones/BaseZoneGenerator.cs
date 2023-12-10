@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using System.Threading;
 
 public class BaseZoneGenerator : IZoneGenerator
@@ -10,10 +10,10 @@ public class BaseZoneGenerator : IZoneGenerator
     protected IZoneGenService _zoneGenService;
     protected CancellationToken _token;
 
-    public virtual async Task Generate(UnityGameState gs, CancellationToken token)
+    public virtual async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         _token = token;
         gs.loc.Resolve(this);
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 }

@@ -9,7 +9,7 @@ using Genrpg.Shared.Quests.Entities;
 using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.NPCs.Entities;
 using UI.Screens.Constants;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Quests.Messages;
 
@@ -36,7 +36,7 @@ public class QuestScreen : ItemIconScreen
     bool _openVendorScreenIfNoQuests = false;
 
     protected ISharedQuestService _questService = null;
-    protected override async Task OnStartOpen(object data, CancellationToken token)
+    protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         _gs.AddEvent<AlterQuestStateEvent>(this, OnAlterQuestState);
@@ -61,7 +61,7 @@ public class QuestScreen : ItemIconScreen
 
         ShowNPCQuests(true);
 
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     private AlterQuestStateEvent OnAlterQuestState (UnityGameState gs, AlterQuestStateEvent data)

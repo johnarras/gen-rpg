@@ -15,9 +15,10 @@ using Genrpg.Shared.NPCs.Entities;
 using Genrpg.Shared.Factions.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapServer.Constants;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Inventory.Constants;
+using System.Threading;
 
 public interface IMapGenService : IService
 {
@@ -512,7 +513,7 @@ public class MapGenService : IMapGenService
     }
 
 
-    private async void ConnectZones(UnityGameState gs, MyRandom rand)
+    private void ConnectZones(UnityGameState gs, MyRandom rand)
     {
         while (true)
         {
@@ -643,7 +644,6 @@ public class MapGenService : IMapGenService
                         {
                             reallyHaveUnsetCell = true;
                             gs.logger.Message("Cell slipped through processing: " + x + " " + z);
-                            await Task.Delay(2000);
                         }
                     }
                 }

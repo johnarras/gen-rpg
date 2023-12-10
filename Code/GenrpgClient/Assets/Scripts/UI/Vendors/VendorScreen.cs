@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Services;
@@ -24,7 +24,7 @@ public class VendorScreen : ItemIconScreen
 
     Unit _unit = null;
 
-    protected override async Task OnStartOpen(object data, CancellationToken token)
+    protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);

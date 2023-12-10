@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -62,10 +62,10 @@ public class UnityZoneGenService : ZoneGenService
                 tokenService.SetToken(_mapToken);
             }
         }
-        TaskUtils.AddTask(InnerGenerate(gs, worldId, _mapToken), "instantiatemapinnergenerate", _mapToken);
+        InnerGenerate(gs, worldId, _mapToken).Forget();
     }
 
-    protected async Task InnerGenerate(UnityGameState gs, string worldId, CancellationToken token)
+    protected async UniTask InnerGenerate(UnityGameState gs, string worldId, CancellationToken token)
     {
         if (gs.md.GeneratingMap)
         {
@@ -74,10 +74,10 @@ public class UnityZoneGenService : ZoneGenService
 
         _screenService.CloseAll(gs);
         _screenService.Open(gs, ScreenId.Loading);
-        await Task.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
+        await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
         gs.md.GeneratingMap = true;
         RenderSettings.fog = false;
-        await Task.Delay(1);
+        await UniTask.NextFrame( cancellationToken: token);
         // Now carry out the actual generation steps
         List<IZoneGenerator> genlist = new List<IZoneGenerator>();
 
@@ -283,14 +283,14 @@ public class UnityZoneGenService : ZoneGenService
 
             gen = null;
 
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
 
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
 
-        await Task.Delay(1, token);
+        await UniTask.NextFrame( cancellationToken: token);
 
-        await Task.Delay(1, token);
+        await UniTask.NextFrame( cancellationToken: token);
         output.Append("------------------\n" +
             (DateTime.UtcNow - totalStartTime).TotalSeconds);
 
@@ -303,19 +303,19 @@ public class UnityZoneGenService : ZoneGenService
         gs.md.ClearGenerationData();
 
 
-        await Task.Delay(1, token);
+        await UniTask.NextFrame( cancellationToken: token);
 
-        await Task.Delay(1, token);
+        await UniTask.NextFrame( cancellationToken: token);
 
 
         gs.Dispatch(new MapIsLoadedEvent());
         gs.md.GeneratingMap = false;
-        await Task.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+        await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
         PlayerObject.MoveAboveObstacles();
-        await Task.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+        await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
 
 
-        await Task.Delay(1, token);
+        await UniTask.NextFrame( cancellationToken: token);
     }
 
     public override void ShowGenError(UnityGameState gs, string msg)
@@ -394,7 +394,7 @@ public class UnityZoneGenService : ZoneGenService
                 }
 
 
-                TaskUtils.AddTask(SetOnePatchAlphamaps(gs, gs.md.terrainPatches[gx, gy], token), "setonepatchalphamaps", token);
+                SetOnePatchAlphamaps(gs, gs.md.terrainPatches[gx, gy], token).Forget();
             }
         }
 
@@ -403,7 +403,7 @@ public class UnityZoneGenService : ZoneGenService
 
 
 
-    public override async Task SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token)
+    public override async UniTask SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token)
     {
         patch.HaveSetAlphamaps = false;
         Terrain terr = patch.terrain as Terrain;
@@ -435,7 +435,7 @@ public class UnityZoneGenService : ZoneGenService
             {
                 if (UnityAssetService.LoadSpeed == LoadSpeed.Normal)
                 {
-                    await Task.Delay(1, token);
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
             }
             if (patch == null || patch.FullZoneIdList == null || patch.mainZoneIds == null)
@@ -574,7 +574,7 @@ public class UnityZoneGenService : ZoneGenService
                 if (tempAlphaTotal < 0.01f)
                 {
                     oneCellAlphas[0] = 1;
-                    await Task.Delay(1, token);
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
                 else
                 { 
@@ -757,7 +757,7 @@ public class UnityZoneGenService : ZoneGenService
         _networkService.SendClientWebCommand(loadData, _gameToken);
     }
 
-    public override async Task OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token)
+    public override async UniTask OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token)
     {
 
         try
@@ -806,7 +806,7 @@ public class UnityZoneGenService : ZoneGenService
         {
             gs.logger.Exception(e, "OnLoadIntoMap");
         }
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
 

@@ -33,7 +33,7 @@ namespace Genrpg.ServerShared.Setup
             gs.config = config;
             gs.logger = new ServerLogger(config);
             gs.loc = new ServiceLocator(gs.logger);
-            gs.repo = new ServerRepositorySystem(gs.logger, config.Env, config.ConnectionStrings, token);
+            gs.repo = new ServerRepositorySystem(gs.logger, config.DbEnv, config.ConnectionStrings, token);
             await setupService.SetupGame(gs, token);
 
             IGameDataService gameDataService = gs.loc.Get<IGameDataService>();

@@ -9,6 +9,5 @@ namespace Genrpg.ServerShared.DataStores.Constants
     public class ConnectionNames
     {
         public const string ServiceBus = "ServiceBus";
-        public const string AzureRelay = "AzureRelay";
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine.Networking;
 using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine; // Needed
 
@@ -12,7 +12,7 @@ public class ClientWebRequest
     private WebResultsHandler _handler = null;
 
     const int MaxTimes = 3;
-	public async Task SendRequest (UnityGameState gs, string uri, string postData, WebResultsHandler handler, CancellationToken token)
+	public async UniTask SendRequest (UnityGameState gs, string uri, string postData, WebResultsHandler handler, CancellationToken token)
     {
         _gs = gs;
         _uri = uri;
@@ -27,13 +27,13 @@ public class ClientWebRequest
                 UnityWebRequestAsyncOperation asyncOp = request.SendWebRequest();
                 while (!asyncOp.isDone)
                 {
-                    await Task.Delay(1, token);
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
 
                 if (!String.IsNullOrEmpty(request.error))
                 {
                     _gs.logger.Info("HTTP Post Error: " + request.error + " URI: " + _uri);
-                    await Task.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
                     continue;
                 }
 
@@ -49,7 +49,7 @@ public class ClientWebRequest
                 }
                 else
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
                     continue;
                 }
                 break;

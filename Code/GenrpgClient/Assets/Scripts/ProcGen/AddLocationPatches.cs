@@ -9,7 +9,7 @@ using Genrpg.Shared.Core.Entities;
 
 
 using GEntity = UnityEngine.GameObject;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
@@ -20,7 +20,7 @@ using System.Threading;
 
 public class AddLocationPatches : BaseZoneGenerator
 {
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         int edgeSize = MapConstants.LocCenterEdgeSize;
@@ -85,7 +85,7 @@ public class AddLocationPatches : BaseZoneGenerator
                 }
             }
         }
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     public void AddOneLocationPatch(UnityGameState gs, Zone zone, Location loc)

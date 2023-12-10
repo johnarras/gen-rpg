@@ -13,7 +13,7 @@ namespace Genrpg.InstanceServer.MessageHandlers
         protected override async Task InnerHandleMessage(ServerGameState gs, RemoveMapServer message)
         {
             gs.logger.Message("Received " + message.GetType().Name + " from " + message.ServerId);
-            await _mapInstanceService.RemoveMapServer(message);
+            await _instanceManagerService.RemoveMapServer(message);
             await Task.CompletedTask;
         }
     }

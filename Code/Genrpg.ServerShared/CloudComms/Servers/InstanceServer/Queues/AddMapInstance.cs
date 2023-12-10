@@ -9,7 +9,7 @@ namespace Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues
 {
     public class AddMapInstance : IInstanceQueueMessage
     {
-        public string MapFullServerId { get; set; }
+        public string ServerId { get; set; }
         public string MapId { get; set; }
         public string InstanceId { get; set; }
         public string Host { get; set; }

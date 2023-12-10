@@ -7,6 +7,8 @@ namespace Assets.Scripts.Login.Messages
 {
     public interface IClientLoginResultHandler : ISetupDictionaryItem<Type>
     {
+
+        int Priority();
         void Process(UnityGameState gs, ILoginResult result, CancellationToken token);
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 
 namespace Assets.Scripts.GameSettings.Services
@@ -31,8 +32,9 @@ namespace Assets.Scripts.GameSettings.Services
                 }
             }
             _loaderObjects = newList;
+            await Task.CompletedTask;
         }
-        public async Task LoadCachedSettings(UnityGameState gs)
+        public async UniTask LoadCachedSettings(UnityGameState gs)
         {
             ClientRepositorySystem repo = gs.repo as ClientRepositorySystem;
 
@@ -47,10 +49,10 @@ namespace Assets.Scripts.GameSettings.Services
             }
             gs.data.AddData(allSettings);
 
-
+            await Task.CompletedTask;
         }
 
-        public async Task SaveSettings(UnityGameState gs, IGameSettings settings)
+        public async UniTask SaveSettings(UnityGameState gs, IGameSettings settings)
         {
             await gs.repo.Save(settings);
         }

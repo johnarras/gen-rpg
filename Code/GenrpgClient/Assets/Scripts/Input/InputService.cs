@@ -13,13 +13,14 @@ using Genrpg.Shared.Constants;
 using Genrpg.Shared.Spells.Entities;
 using UI.Screens.Utils;
 using UI;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using System.Threading;
 using Genrpg.Shared.Spells.Messages;
 using UnityEngine; // Needed
 using Genrpg.Shared.Spells.Constants;
 using UI.Screens.Constants;
+using System.Threading.Tasks;
 
 internal class InputContainer
 {
@@ -48,7 +49,7 @@ public class InputService : BaseBehaviour, IInputService
         _instance = this;
         AddUpdate(InputUpdate, UpdateType.Regular);
         _gs.AddEvent<MapIsLoadedEvent>(this, UpdateInputs);
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     private bool _editingChat = false;

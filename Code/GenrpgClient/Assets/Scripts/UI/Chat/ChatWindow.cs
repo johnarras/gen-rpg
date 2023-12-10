@@ -88,12 +88,24 @@ namespace UI
                 {
                     List<ChatType> chatTypes = _gs.data.GetGameData<ChatSettings>(_gs.ch).GetData();
 
-                    string firstWord = text.Substring(0, text.IndexOf(" "));
+                    int firstSpaceIndex = text.IndexOf(" ");
+
+                    string firstWord = text;
+
+                    if (firstSpaceIndex > 0)
+                    {
+                        firstWord = text.Substring(0, text.IndexOf(" "));
+                    }
                     firstWord = firstWord.ToLower();
 
                     if (firstWord == "who")
                     {
-                        string args = text.Substring(firstWord.Length + 1);
+                        string args = "";
+
+                        if (text.Length > firstWord.Length)
+                        {
+                            args = text.Substring(firstWord.Length + 1);
+                        }
                         _networkService.SendMapMessage(new GetWhoList() { Args = args });
                         InputService.Instance.ToggleChat();
                         return;

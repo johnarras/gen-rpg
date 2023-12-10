@@ -1,5 +1,5 @@
 using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using System.Threading;
@@ -7,14 +7,14 @@ using Genrpg.Shared.ProcGen.Entities;
 
 public class DirtyRoads : BaseZoneGenerator
 {
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
             GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.XMax, zone.ZMin, zone.ZMax);
         }
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     public void GenerateOne (UnityGameState gs, Zone zone, ZoneType zoneType, int minx, int maxx, int miny, int maxy)

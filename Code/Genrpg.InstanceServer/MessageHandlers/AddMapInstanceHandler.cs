@@ -7,8 +7,8 @@ namespace Genrpg.InstanceServer.MessageHandlers
     {
         protected override async Task InnerHandleMessage(ServerGameState gs, AddMapInstance message)
         {
-            gs.logger.Message("Received " + message.GetType().Name + " from " + message.MapFullServerId);
-            await _mapInstanceService.AddInstanceData(message);
+            gs.logger.Message("Received " + message.GetType().Name + " from " + message.ServerId);
+            await _instanceManagerService.AddInstanceData(message);
             await Task.CompletedTask;
         }
     }

@@ -29,10 +29,10 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.ServerShared.CloudComms.Services;
-using Genrpg.ServerShared.CloudComms.Requests.Entities;
 using Genrpg.ServerShared.CloudComms.Constants;
-using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Requests;
 using Genrpg.LoginServer.CommandHandlers.Core;
+using Genrpg.ServerShared.CloudComms.Servers.LoginServer;
+using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
@@ -140,11 +140,9 @@ namespace Genrpg.LoginServer.CommandHandlers
                 _mapCache.TryAdd(mapId, newCachedMap);
             }
 
-            ResponseEnvelope envelope = await _cloudCommsService.SendRequestAsync(CloudServerNames.Instance,new GetInstanceRequest() { MapId = mapId });
+            GetInstanceQueueResponse response = await _cloudCommsService.SendResponseMessageAsync<GetInstanceQueueResponse>(CloudServerNames.Instance, new GetInstanceQueueRequest() { MapId = mapId });
 
-            GetInstanceResponse response = envelope.Response as GetInstanceResponse;
-
-            if (response == null || !string.IsNullOrEmpty(envelope.ErrorText))
+            if (response == null || !string.IsNullOrEmpty(response.ErrorText))
             {
                 return new FullCachedMap();
             }

@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Zones.Entities;
@@ -19,7 +19,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
     public override long GetKey() { return EntityTypes.GroundObject; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 
-    public override async Task Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
     {
         GroundObjType groundObjType = gs.data.GetGameData<GroundObjTypeSettings>(gs.ch).GetGroundObjType(spawn.EntityId);
         if (groundObjType == null)
@@ -38,7 +38,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
 
         _assetService.LoadAsset(gs, AssetCategoryNames.Props, groundObjType.Art, OnDownloadGroundObject, loadData, null, token);
 
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
         return;
     }
 

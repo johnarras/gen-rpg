@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Players.Messages;
 using GEntity = UnityEngine.GameObject;
@@ -10,13 +10,13 @@ public class LoadInitialData : BaseZoneGenerator
 {
     protected IScreenService _screenService;
     private INetworkService _networkService;
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
-        TaskUtils.AddTask( LoadInitialMapData(gs),"loadinitialmapdata", token);
+        LoadInitialMapData(gs, token).Forget();
     }
 
-    public async Task LoadInitialMapData(UnityGameState gs)
+    public async UniTask LoadInitialMapData(UnityGameState gs, CancellationToken token)
     {
         gs.md.HaveSetHeights = true;
         gs.md.HaveSetAlphaSplats = true;
@@ -25,11 +25,11 @@ public class LoadInitialData : BaseZoneGenerator
 
         UnityAssetService.LoadSpeed = LoadSpeed.Fast;
 
-        await Task.Delay(TimeSpan.FromSeconds(delaySec));
+        await UniTask.Delay(TimeSpan.FromSeconds(delaySec), cancellationToken: token);
 
         while (_terrainManager.AddingPatches(gs))
         {
-            await Task.Delay(TimeSpan.FromSeconds(delaySec));
+            await UniTask.Delay(TimeSpan.FromSeconds(delaySec), cancellationToken: token);
         }
         UnityAssetService.LoadSpeed = LoadSpeed.Normal;
 
@@ -46,7 +46,7 @@ public class LoadInitialData : BaseZoneGenerator
                 go.transform().eulerAngles = GVector3.Create(0, ch.Rot, 0);
                 if (height == 0)
                 {
-                    await Task.Delay(1000);
+                    await UniTask.Delay(1000, cancellationToken: token);
                 }
             }
             while (height == 0);
@@ -59,7 +59,7 @@ public class LoadInitialData : BaseZoneGenerator
         });
 
         gs.logger.Debug("LOADINTOMAP START");
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
 

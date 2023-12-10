@@ -49,7 +49,6 @@ public class UnitController : BaseBehaviour
         _token = _cts.Token;
     }
 
-
     protected float animationSpeed = 1.0f;
     int currMoveSpeed = -1;
 
@@ -210,7 +209,7 @@ public class UnitController : BaseBehaviour
             if (endHeight > 0)
             {
                 endPos = new GVector3(endPos.x, endHeight + 1, endPos.z);
-               entity.transform().position = GVector3.Create(endPos);
+                entity.transform().position = GVector3.Create(endPos);
                 startPos = endPos;
                 return;
 
@@ -218,7 +217,7 @@ public class UnitController : BaseBehaviour
         }
 
         GVector3 diff = (endPos - startPos) / InputService.Instance.GetDeltaTime();
-        if (cc != null)
+        if (cc != null && diff.magnitude > 0)
         {
             cc.SimpleMove(GVector3.Create(diff));
         }

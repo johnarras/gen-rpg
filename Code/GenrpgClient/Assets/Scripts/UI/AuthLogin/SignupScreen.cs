@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.Login;
@@ -16,11 +16,11 @@ public class SignupScreen : BaseScreen
 
     protected IClientLoginService _loginService;
 
-    protected override async Task OnStartOpen(object data, CancellationToken token)
+    protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         UIHelper.SetButton(LoginButton, GetAnalyticsName(), ClickLogin);
         UIHelper.SetButton(SignupButton, GetAnalyticsName(), ClickSignup);
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     public void ClickLogin()
@@ -77,7 +77,7 @@ public class SignupScreen : BaseScreen
             Name = name,
         };
 
-        TaskUtils.AddTask(_loginService.LoginToServer(_gs, loginCommand, _token), "logintoserver2", _token);
+        _loginService.LoginToServer(_gs, loginCommand, _token).Forget();
 
     }
 }

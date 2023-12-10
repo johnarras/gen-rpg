@@ -7,7 +7,7 @@ using Genrpg.Shared.Core.Entities;
 
 
 using GEntity = UnityEngine.GameObject;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
@@ -22,7 +22,7 @@ public class AddFences : BaseZoneGenerator
 {
     public const int NumCentersAveraged = 8;
 
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
 
         await base.Generate(gs, token);
@@ -30,7 +30,7 @@ public class AddFences : BaseZoneGenerator
         {
             GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)

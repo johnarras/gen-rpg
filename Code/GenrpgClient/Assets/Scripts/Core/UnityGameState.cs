@@ -9,6 +9,7 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Linq;
 using UnityEngine; // Needed
+using Cysharp.Threading.Tasks;
 
 public class UnityGameState : GameState
 {
@@ -100,7 +101,7 @@ public class UnityGameState : GameState
         {
 
             ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(logger);
-            _config = repo.Load(ConfigFilename).Result;
+            _config = repo.Load(ConfigFilename).GetAwaiter().GetResult();
             if (_config == null)
             {
                 _config = new InitialClientConfig()
@@ -126,7 +127,7 @@ public class UnityGameState : GameState
         }
 
         ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(logger);
-        repo.Save(_config).Wait();
+        repo.Save(_config).Forget();
     }
 
     public void UpdateUserFlags(int flag, bool val)

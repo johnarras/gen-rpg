@@ -1,14 +1,12 @@
 ﻿
 
 using Assets.Scripts.MapTerrain;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 
@@ -31,11 +29,9 @@ public class LoadPlantAssets
         {
             gs.loc.Resolve(this);
         }
-        TaskUtils.AddTask(InnerSetupOneMapGrass(gs, gx, gy, token),"innersetuponegrass", token);
+        InnerSetupOneMapGrass(gs, gx, gy, token).Forget();
     }
-    private List<Task> _tasks = new List<Task>();
-
-    private async Task InnerSetupOneMapGrass(UnityGameState gs, int gx, int gy, CancellationToken token)
+    private async UniTask InnerSetupOneMapGrass(UnityGameState gs, int gx, int gy, CancellationToken token)
     {
         if (
               gs.md.terrainPatches == null ||
@@ -140,17 +136,17 @@ public class LoadPlantAssets
             }
             if (!haveAllArt)
             {
-                await Task.Delay(1, token);
+                await UniTask.NextFrame( cancellationToken: token);
             }
         }
 
         tdata.detailPrototypes = protos;
 
-        await Task.Delay(1, token);
+        await UniTask.NextFrame( cancellationToken: token);
 
         tdata.RefreshPrototypes();
 
-        await Task.Delay(1, token);
+        await UniTask.NextFrame( cancellationToken: token);
 
         if (patch.grassAmounts == null)
         {

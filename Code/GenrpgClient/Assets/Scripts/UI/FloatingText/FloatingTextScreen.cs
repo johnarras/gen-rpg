@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.DataStores.Entities;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System.Threading;
 
 public class FloatingTextQueuedItem
@@ -41,9 +41,9 @@ public class FloatingTextScreen : BaseScreen
         base.OnDisable();
     }
 
-    protected override async Task OnStartOpen(object data, CancellationToken token)
+    protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
 

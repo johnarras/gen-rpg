@@ -11,7 +11,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Users.Entities;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Assets.Scripts.Tokens;
 using Genrpg.Shared.ProcGen.Entities;
 using UnityEngine; // Needed
@@ -29,7 +29,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public void SetGameToken(CancellationToken token)
     {
         _token = token;
-        TaskUtils.AddTask(CheckRemoveAudio(_token),"checkremoveaudio", token);
+        CheckRemoveAudio(_token).Forget();
     }
 
     public override void Initialize(UnityGameState gs)
@@ -98,12 +98,12 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     #endregion
 
 
-    private async Task CheckRemoveAudio(CancellationToken token)
+    private async UniTask CheckRemoveAudio(CancellationToken token)
     {
         List<AudioClipList> _removeList = null;
         while (true)
         {
-            await Task.Delay(TimeSpan.FromSeconds(1.1f), cancellationToken: token);
+            await UniTask.Delay(TimeSpan.FromSeconds(1.1f), cancellationToken: token);
 
             foreach (AudioClipList cont in _audioCache.Values)
             { 
@@ -296,12 +296,16 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                 continue;
             }
 
-            MusicType mtype = gs.data.GetGameData<MusicTypeSettings>(gs.ch).GetMusicType(musicId);
+            MusicType mtype = gs.data.GetGameData<MusicTypeSettings>(gs.ch)?.GetMusicType(musicId);
 
             string musicName = "";
             if (mtype != null)
             {
                 musicName = mtype.Art;
+            }
+            else
+            {
+                musicName = "IntroMusic";
             }
 
             if (ch.curr != null && ch.curr.playData != null &&

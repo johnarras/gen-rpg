@@ -3,7 +3,7 @@ using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Crafting.Entities;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System.Threading;
 
 public class CraftingScreen : ItemIconScreen
@@ -26,7 +26,7 @@ public class CraftingScreen : ItemIconScreen
 
     private RecipeRow _currentRecipe = null;
 
-    protected override async Task OnStartOpen(object data, CancellationToken token)
+    protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         Init();
         await base.OnStartOpen (data, token);

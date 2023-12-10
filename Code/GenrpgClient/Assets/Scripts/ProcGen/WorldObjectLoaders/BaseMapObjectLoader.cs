@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapObjects.Entities;
@@ -17,7 +17,7 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
 
     public abstract long GetKey();
 
-    public abstract Task Load(UnityGameState gs, OnSpawn message, MapObject loadedObject, CancellationToken token);
+    public abstract UniTask Load(UnityGameState gs, OnSpawn message, MapObject loadedObject, CancellationToken token);
 
     protected abstract string GetLayerName();
 

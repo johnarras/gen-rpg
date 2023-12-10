@@ -10,10 +10,6 @@ namespace Genrpg.MapServer.Maps
     public class InitMapInstanceData
     {
         public string MapId { get; set; }
-        public string MapServerId { get; set; }
-        public string MapFullServerId { get; set; }
-        public string InstanceId { get; set; }
-        public string MapServerMessageQueueId { get; set; }
         public int Port { get; set; }
         public EMapApiSerializers Serializer { get; set; } = EMapApiSerializers.MessagePack;
     }

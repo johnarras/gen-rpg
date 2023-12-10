@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapServer.Entities;
@@ -15,7 +15,7 @@ using Genrpg.Shared.MapServer.Constants;
 
 public class SetupOverrideTerrainPatches : BaseZoneGenerator
 {
-    public override async Task Generate (UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         int wid = gs.map.GetHwid();

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Core.Entities;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
@@ -13,6 +13,7 @@ using System.Threading;
 using Genrpg.Shared.Entities.Constants;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
+using System.Threading.Tasks;
 
 public class PatchLoadData
 {
@@ -102,12 +103,12 @@ public interface IMapTerrainManager : ISetupService
     TerrainTextureData GetFromTerrainTextureCache(string textureName);
     void Clear(UnityGameState gs);
     IMapObjectLoader GetMapObjectLoader(long entityTypeId);
-    Task SetupOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token);
+    UniTask SetupOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token);
     bool AddingPatches(UnityGameState gs);
     List<Terrain> GetTerrains(UnityGameState gs);
     TerrainPatchData GetPatchFromMapPos(UnityGameState gs, float worldx, float worldy);
     TerrainPatchData GetMapGrid(UnityGameState gs, int gx, int gy);
-    Task AddPatchObjects(UnityGameState gs, int gx, int gy, CancellationToken token);
+    UniTask AddPatchObjects(UnityGameState gs, int gx, int gy, CancellationToken token);
     void AddToTerrainTextureCache(string textureName, TerrainTextureData data);
     void ClearPatches(UnityGameState gs);
     GEntity GetPrototypeParent();
@@ -154,7 +155,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         _prototypeParent = GEntityUtils.FindSingleton(PrototypeParent, true);
         _terrainTextureParent = GEntityUtils.FindSingleton(MapConstants.TerrainTextureRoot, true);
         SetupLoaders();
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
 
@@ -660,7 +661,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                 
     }
 
-    public async Task SetupOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token)
+    public async UniTask SetupOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token)
     {
         if (gx < 0 || gy < 0 || gx >= gs.map.BlockCount ||
             gy >= gs.map.BlockCount)
@@ -689,7 +690,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
         int alphaPatchSize = patchSize * MapConstants.AlphaMapsPerTerrainCell;
         float[,,] patchAlphas = new float[alphaPatchSize, alphaPatchSize, MapConstants.MaxTerrainIndex];
@@ -717,13 +718,13 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
         terr2.terrainData.SetHeights(0, 0, patchHeights);
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
 
 
@@ -736,7 +737,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
         terr2.terrainData.SetAlphamaps(0, 0, patchAlphas);
         terr2.Flush();
@@ -746,7 +747,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         float maxHeight = MapConstants.MapHeight;
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
         terr2.terrainData.heightmapResolution = patchSize;
         terr2.terrainData.size = GVector3.Create(patchSize-1, maxHeight, patchSize-1);
@@ -755,12 +756,12 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
         terr2.Flush();
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
 
     }
@@ -792,7 +793,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
     }
 
 
-    public async Task ShiftItems(bool outOfPlace, CancellationToken token)
+    public async UniTask ShiftItems(bool outOfPlace, CancellationToken token)
     {
         int newYValue = (outOfPlace ? ShiftYOffset : 0);
         if (newYValue == _lastYShift)
@@ -821,7 +822,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
                 if (++currShifts % maxShiftsAtOnce == 0)
                 {
-                    await Task.Delay(1, token);
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
             }
         }
@@ -832,7 +833,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         return _prototypeParent;
     }
 
-    public async Task AddPatchObjects(UnityGameState gs, int gx, int gy, CancellationToken token)
+    public async UniTask AddPatchObjects(UnityGameState gs, int gx, int gy, CancellationToken token)
     {
         PatchLoadData loadData = new PatchLoadData();
         loadData.gx = gx;
@@ -950,7 +951,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                         addTimes = 0;
                         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
                         {
-                            await Task.Delay(1, token);
+                            await UniTask.NextFrame( cancellationToken: token);
                         }
                     }
                     if (gs.md.terrainPatches[loadData.gx, loadData.gy] == null)
@@ -962,7 +963,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         }
 
 
-        await Task.Delay(1, token);
+        await UniTask.NextFrame( cancellationToken: token);
 
         // Wait until all protos have been downloaded.
         while (true)
@@ -982,7 +983,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                 break;
             }
 
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
 
         }
 
@@ -1002,7 +1003,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                 tdata.RefreshPrototypes();
 
 
-                await Task.Delay(1, token);
+                await UniTask.NextFrame( cancellationToken: token);
 
                 TreeInstance[] tarray = loadData.treeInstances.ToArray();
 

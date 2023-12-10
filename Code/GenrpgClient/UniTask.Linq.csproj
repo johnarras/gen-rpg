@@ -79,6 +79,7 @@
     <Compile Include="Assets\Plugins\UniTask\Runtime\Linq\Average.cs" />
     <Compile Include="Assets\Plugins\UniTask\Runtime\Linq\Distinct.cs" />
     <Compile Include="Assets\Plugins\UniTask\Runtime\Linq\GroupBy.cs" />
+    <Compile Include="Assets\Plugins\UniTask\Runtime\Linq\Merge.cs" />
     <Compile Include="Assets\Plugins\UniTask\Runtime\Linq\Buffer.cs" />
     <Compile Include="Assets\Plugins\UniTask\Runtime\Linq\ToObservable.cs" />
     <Compile Include="Assets\Plugins\UniTask\Runtime\Linq\ToUniTaskAsyncEnumerable.cs" />

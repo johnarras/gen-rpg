@@ -34,20 +34,19 @@ namespace Genrpg.ServerShared.DataStores
 
         protected ServerConfig _config = null;
         private List<DbQueue> _queues = null;
-        private string _env = null;
+        private string _dbEnv = null;
         private ILogSystem _logger = null;
 
         private static ConcurrentDictionary<string, IRepository> _repos = new ConcurrentDictionary<string, IRepository>();
         private static ConcurrentDictionary<string, BlobRepository> _blobRepos = new ConcurrentDictionary<string, BlobRepository>();
         private static ConcurrentDictionary<string, NoSQLRepository> _noSQLRepos = new ConcurrentDictionary<string, NoSQLRepository>();
-        private static ConcurrentDictionary<string, object> _repoCollectionDict = new ConcurrentDictionary<string, object>();
         private static ConcurrentDictionary<Type, IRepository> _repoTypeDict = new ConcurrentDictionary<Type, IRepository>();
 
-        public ServerRepositorySystem(ILogSystem logger, string env, Dictionary<string, string> connectionStrings,
+        public ServerRepositorySystem(ILogSystem logger, string dbEnv, Dictionary<string, string> connectionStrings,
             CancellationToken token)
         {
             _logger = logger;
-            _env = env.ToLower();
+            _dbEnv = dbEnv.ToLower();
             _queues = new List<DbQueue>();
             for (int i = 0; i < QueueCount; i++)
             {
@@ -58,10 +57,10 @@ namespace Genrpg.ServerShared.DataStores
             {
                 if (key.IndexOf(BlobPrefix) == 0)
                 {
-                    string typeKey = (_env + key.Replace(BlobPrefix, "")).ToLower();
+                    string typeKey = (_dbEnv + key.Replace(BlobPrefix, "")).ToLower();
                     if (!_blobRepos.ContainsKey(typeKey))
                     {
-                        string replacementConnection = connectionStrings[key].Replace(ReplacementString, _env.ToLower());
+                        string replacementConnection = connectionStrings[key].Replace(ReplacementString, _dbEnv.ToLower());
                         BlobRepository blobRepo = new BlobRepository(_logger, replacementConnection);
                         _blobRepos[typeKey] = blobRepo;
                         _repos[typeKey] = blobRepo;
@@ -69,7 +68,7 @@ namespace Genrpg.ServerShared.DataStores
                 }
                 if (key.IndexOf(NoSQLPrefix) == 0)
                 {
-                    string typeKey = (_env + key.Replace(NoSQLPrefix, "")).ToLower();
+                    string typeKey = (_dbEnv + key.Replace(NoSQLPrefix, "")).ToLower();
                     if (!_noSQLRepos.ContainsKey(typeKey))
                     {
                         NoSQLRepository noSQLRepo = new NoSQLRepository(_logger, typeKey, connectionStrings[key]);
@@ -104,7 +103,7 @@ namespace Genrpg.ServerShared.DataStores
             {
                 throw new Exception("Missing DataCategory");
             }
-            dataCategoryName = (_env + dataCategoryName).ToLower();
+            dataCategoryName = (_dbEnv + dataCategoryName).ToLower();
 
             if (_repos.TryGetValue(dataCategoryName, out IRepository existingRepo))
             {               

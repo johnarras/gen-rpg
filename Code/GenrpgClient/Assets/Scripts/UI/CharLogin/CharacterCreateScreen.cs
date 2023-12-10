@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.CreateChar;
@@ -10,11 +10,11 @@ public class CharacterCreateScreen : BaseScreen
     public GButton CreateButton;
     public GButton BackButton;
 
-    protected override async Task OnStartOpen(object data, CancellationToken token)
+    protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         UIHelper.SetButton(CreateButton, GetAnalyticsName(), ClickCreate);
         UIHelper.SetButton(BackButton, GetAnalyticsName(),ClickBack);
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     public void ClickBack()

@@ -1,14 +1,14 @@
 
 using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using System.Threading;
 
 public class SetMountainHeights : BaseAddMountains
 {
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
 
         MyRandom rand = new MyRandom(gs.map.Seed % 1000000000 + 3323292);
 

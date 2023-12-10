@@ -1,10 +1,10 @@
 ﻿using Genrpg.Shared.Spells.Entities;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using System.Threading;
 
 public class SpellIconScreen : DragItemScreen<Spell,SpellIcon,SpellIconScreen,InitSpellIconData>
 {
-    protected override async Task OnStartOpen(object data, CancellationToken token)
+    protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
     }

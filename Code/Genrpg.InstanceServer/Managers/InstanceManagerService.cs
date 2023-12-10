@@ -41,6 +41,7 @@ namespace Genrpg.InstanceServer.Managers
                 InstanceId = mapInstance.InstanceId,
                 MapId = mapInstance.MapId,
                 Port = mapInstance.Port,
+                ServerId = mapInstance.ServerId,
             };
 
             _mapInstances.Add(instanceData);

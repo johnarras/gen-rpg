@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using System.Threading;
 
 public interface IZoneGenerator
 {
-    Task Generate(UnityGameState gs, CancellationToken token);
+    UniTask Generate(UnityGameState gs, CancellationToken token);
 }

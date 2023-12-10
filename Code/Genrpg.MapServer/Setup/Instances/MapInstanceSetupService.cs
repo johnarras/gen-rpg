@@ -12,14 +12,6 @@ namespace Genrpg.MapServer.Setup
 {
     public class MapInstanceSetupService : SetupService
     {
-        private string _mapId;
-        private IMapSpawnService _mapSpawnService = null;
-        private IMapDataService _mapDataService = null;
-        public MapInstanceSetupService(string mapId)
-        {
-            _mapId = mapId;
-        }
-
         public override void SetupObjectLocator(GameState gs)
         {
             MapInstanceLocatorSetup ss = new MapInstanceLocatorSetup();
@@ -28,10 +20,6 @@ namespace Genrpg.MapServer.Setup
 
         public override async Task FinalSetup(GameState gs)
         {
-            ServerGameState sgs = gs as ServerGameState;
-
-            gs.map = await _mapDataService.LoadMap(sgs, _mapId);
-            gs.spawns = await _mapSpawnService.LoadMapSpawnData(gs, Map.GetMapOwnerId(gs.map));
             await base.FinalSetup(gs);
         }
     }

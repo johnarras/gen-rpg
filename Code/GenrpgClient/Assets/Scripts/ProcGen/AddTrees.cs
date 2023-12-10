@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
@@ -101,7 +101,7 @@ public class AddTrees : BaseZoneGenerator
 
     private float[,] extraTreeHeights;
 
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         Dictionary<long, ZoneTreeData> ztdict = new Dictionary<long, ZoneTreeData>();

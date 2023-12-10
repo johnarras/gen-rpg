@@ -10,7 +10,7 @@ using Genrpg.Shared.Core.Entities;
 
 
 using GEntity = UnityEngine.GameObject;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
@@ -33,7 +33,7 @@ public class AddOutcroppings : BaseZoneGenerator
 
     protected ILineGenService _lineGenService;
 
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         grids = new float[GridSize, GridSize, MaxGridIndex];

@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Utils.Data;
 using System.Threading;
 using Genrpg.Shared.MapServer.Constants;
@@ -11,7 +11,7 @@ using UnityEngine; // Needed
 
 public class LoadMap : BaseZoneGenerator
 {
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     { 
         await base.Generate(gs, token);
     }
@@ -29,10 +29,10 @@ public class LoadMap : BaseZoneGenerator
         {
             gs.loc.Resolve(this);
         }
-        TaskUtils.AddTask(InnerLoadOneTerrainPatch(gs, gx, gy, token),"innerloadoneterrainpatch", token);
+        InnerLoadOneTerrainPatch(gs, gx, gy, token).Forget();
     }
 
-    private async Task InnerLoadOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token)
+    private async UniTask InnerLoadOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token)
     {
         if ( gx < 0 || gy < 0 ||
             gs.map == null)
@@ -55,7 +55,7 @@ public class LoadMap : BaseZoneGenerator
             ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(gs.logger);
 
             patch.DataBytes = repo.LoadBytes(filePath);
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
 
             if (patch.DataBytes == null || patch.DataBytes.Length < 1)
             {
@@ -75,7 +75,7 @@ public class LoadMap : BaseZoneGenerator
         }
 
         MapTerrainManager.PatchesAdded++;
-        await Task.Delay(1, token);
+        await UniTask.NextFrame( cancellationToken: token);
 
         if (patch.terrain == null)
         {
@@ -133,7 +133,7 @@ public class LoadMap : BaseZoneGenerator
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
         try
         {
@@ -192,7 +192,7 @@ public class LoadMap : BaseZoneGenerator
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
 
         // 3 Alphas 3 bytes 
@@ -259,7 +259,7 @@ public class LoadMap : BaseZoneGenerator
         }
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
 
         // 5 subzoneId 1 byte
@@ -306,25 +306,25 @@ public class LoadMap : BaseZoneGenerator
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
         else
         {
-            await Task.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token); 
+            await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token); 
         }
 
         await _zoneGenService.SetOnePatchAlphamaps(gs, patch, token);
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
         _zoneGenService.SetOnePatchHeightmaps(gs, patch, null, patch.heights);
 
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
 
         LoadPlantAssets lpa = new LoadPlantAssets();
@@ -332,7 +332,7 @@ public class LoadMap : BaseZoneGenerator
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
 
         gs.md.SetOneTerrainNeighbors(gs, patch.X, patch.Y);
@@ -347,7 +347,7 @@ public class LoadMap : BaseZoneGenerator
 
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
-            await Task.Delay(1, token);
+            await UniTask.NextFrame( cancellationToken: token);
         }
         await _terrainManager.AddPatchObjects(gs, gx, gy, token);
 

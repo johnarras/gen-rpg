@@ -1,5 +1,5 @@
 
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
@@ -17,9 +17,9 @@ public class BaseAddMountains : BaseZoneGenerator
 {
     protected ILineGenService _lineGenService;
 
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
 

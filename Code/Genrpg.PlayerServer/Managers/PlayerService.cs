@@ -1,18 +1,12 @@
 ﻿using Genrpg.PlayerServer.Entities;
-using Genrpg.ServerShared.CloudComms.Requests.Entities;
+using Genrpg.ServerShared.CloudComms.Servers.MapInstance.Queues;
 using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
-using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Requests;
+using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logs.Entities;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Genrpg.PlayerServer.Managers
 {
@@ -27,11 +21,14 @@ namespace Genrpg.PlayerServer.Managers
         void OnPlayerEnterMap(ServerGameState gs, PlayerEnterMap playerEnterMap);
         void OnPlayerLeaveMap(ServerGameState gs, PlayerLeaveMap playerLeaveMap);
         void OnPlayerEnterZone(ServerGameState gs, PlayerEnterZone playerEnterZone);
-        IResponse GetWhoList(ServerGameState gs, WhoListRequest request);
+        void OnGetWhoList(ServerGameState gs, WhoListRequest whoListMessage);
     }
 
     public class PlayerService : IPlayerService
     {
+
+        private ICloudCommsService _commsService = null;
+
         private ConcurrentDictionary<string, LoggedInUser> _users = new ConcurrentDictionary<string, LoggedInUser>();
         private ConcurrentDictionary<string, List<OnlineCharacter>> _mapChars = new ConcurrentDictionary<string, List<OnlineCharacter>>();
         private ConcurrentDictionary<string, List<OnlineCharacter>> _mapInstanceChars = new ConcurrentDictionary<string, List<OnlineCharacter>>();
@@ -171,11 +168,14 @@ namespace Genrpg.PlayerServer.Managers
             }
         }
 
-        public IResponse GetWhoList(ServerGameState gs, WhoListRequest request)
+        public void OnGetWhoList(ServerGameState gs, WhoListRequest request)
         {
             List<OnlineCharacter> onlineChars = _onlineChars.Values.ToList();
 
-            WhoListResponse response = new WhoListResponse();
+            WhoListResponse response = new WhoListResponse()
+            {
+                RequestId = request.RequestId,
+            };
 
             foreach (OnlineCharacter onlineChar in onlineChars)
             {
@@ -187,7 +187,9 @@ namespace Genrpg.PlayerServer.Managers
                     ZoneName = onlineChar.ZoneId.ToString(),
                 });
             }
-            return response;
+
+            _commsService.SendQueueMessage(request.FromServerId, response);
+
         }
     }
 }

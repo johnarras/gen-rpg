@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using System.Threading;

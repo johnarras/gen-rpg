@@ -1,7 +1,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
@@ -15,7 +15,7 @@ public class AddBridges : BaseZoneGenerator
     private List<WaterGenData> _waterGenData = new List<WaterGenData>();
 
 	public const string DefaultBridgeArtName = "Bridge";
-	public override async Task Generate (UnityGameState gs, CancellationToken token)
+	public override async UniTask Generate (UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         if (gs.md.bridgeDistances == null)

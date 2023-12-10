@@ -1,5 +1,5 @@
 ﻿
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using GEntity = UnityEngine.GameObject;
@@ -13,7 +13,7 @@ class AddPlayerToMap : BaseZoneGenerator
 {
 
     protected IUnitSetupService _unitSetupService;
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 

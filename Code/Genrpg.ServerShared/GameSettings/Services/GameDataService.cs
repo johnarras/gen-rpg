@@ -124,19 +124,29 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             VersionSettings versionSettings = gs.data.GetGameData<VersionSettings>(ch);
 
-            DateTime startOfHour = DateTime.Today.AddHours(DateTime.UtcNow.Hour);
+            DataOverrideSettings dataOverrideSettings = gs.data.GetGameData<DataOverrideSettings>(null);
+
+            if (dataOverrideSettings.NextUpdateTime <= DateTime.UtcNow)
+            {
+                dataOverrideSettings.SetPrevNextUpdateTimes();
+            }
+
+            // If we are not force refreshing, don't always update the settings
+            // If the game data wasn't saved and the player's LastTimeSet is after the PrevUpdateTime
+            // (most recent override update) and it's before the NextUpdateTime then it means the
+            // player has the most recent data and the next data hasn't changed, so don't make 
+            // any changes.
 
             if (!forceRefresh && 
                 versionSettings.GameDataSaveTime == gameDataOverrideData.GameDataSaveTime &&
-                gameDataOverrideData.LastTimeSet == startOfHour)
-            {
+                gameDataOverrideData.LastTimeSet >= dataOverrideSettings.PrevUpdateTime &&
+                gameDataOverrideData.LastTimeSet < dataOverrideSettings.NextUpdateTime)
+            { 
                 ch.SetGameDataOverrideList(gameDataOverrideList);
                 return false;
             }
 
             List<DataOverrideItemPriority> priorityOverrides = new List<DataOverrideItemPriority>();
-
-            DataOverrideSettings dataOverrideSettings = gs.data.GetGameData<DataOverrideSettings>(null);
 
             List<DataOverrideGroup> acceptableGroups = new List<DataOverrideGroup>();
 
@@ -175,7 +185,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             }
 
             gameDataOverrideData.GameDataSaveTime = versionSettings.GameDataSaveTime;
-            gameDataOverrideData.LastTimeSet = startOfHour;
+            gameDataOverrideData.LastTimeSet = DateTime.UtcNow;
             gameDataOverrideData.SetDirty(true);
 
             gameDataOverrideList.Items = new List<PlayerSettingsOverrideItem>();
@@ -191,9 +201,13 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             gameDataOverrideList.Items = gameDataOverrideList.Items.OrderBy(x => x.SettingId).ToList();
 
+            // This should be deterministic across machines because the player has a set
+            // of overrides that should be the same for anyone who's in the same bucket
+            // and then the game data save time and the prev update time (last time the
+            // overrides changed) will be the same.
             string fullString = SerializationUtils.Serialize(gameDataOverrideList.Items) +
-                gameDataOverrideData.GameDataSaveTime.Ticks.ToString() + "." +
-                gameDataOverrideData.LastTimeSet.Ticks.ToString();
+                versionSettings.GameDataSaveTime.Ticks.ToString() + "." +
+                dataOverrideSettings.PrevUpdateTime.Ticks.ToString();
 
             gameDataOverrideList.Hash = PasswordUtils.Sha256(fullString);
 

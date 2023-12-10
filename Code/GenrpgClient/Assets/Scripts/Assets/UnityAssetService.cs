@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.Text;
 using System.Linq;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Scripts.Assets.Assets.Constants;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Core.Entities;
@@ -194,14 +194,14 @@ public class UnityAssetService : IAssetService
 
         for (int i = 0; i < MaxConcurrentExistingLoads; i++)
         {
-            TaskUtils.AddTask(LoadFromExistingBundles(gs, true, token), "loadfromexistingbundles", token);
+            LoadFromExistingBundles(gs, true, token).Forget();
         }
         for (int i = 0; i < MaxConcurrentBundleDownloads; i++)
         {
-            TaskUtils.AddTask(DownloadNewBundles(gs, token), "downloadnewbundles", token);
+            DownloadNewBundles(gs, token).Forget();
         }
 
-        TaskUtils.AddTask(IncrementalClearMemoryCache(gs, token), "incrementalclearmemorycache", token);
+        IncrementalClearMemoryCache(gs, token).Forget();
     }
 
     public bool IsDownloading(UnityGameState g)
@@ -246,15 +246,15 @@ public class UnityAssetService : IAssetService
         }
 
         _bundleCache = newBundleCache;
-        TaskUtils.AddTask(AssetUtils.UnloadUnusedAssets(token), "unloadunusedassets", token);
+        AssetUtils.UnloadUnusedAssets(token).Forget();
     }
 
 
-    protected async Task IncrementalClearMemoryCache(UnityGameState gs, CancellationToken token)
+    protected async UniTask IncrementalClearMemoryCache(UnityGameState gs, CancellationToken token)
     {
         while (true)
         {
-            await Task.Delay(5000, token);
+            await UniTask.Delay(5000, cancellationToken: token);
 
             int removeCount = 0;
             List<string> bundleCacheKeys = _bundleCache.Keys.ToList();
@@ -284,7 +284,7 @@ public class UnityAssetService : IAssetService
                     {
                         break;
                     }
-                    await Task.Delay(1, token);
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
             }
             if (removeCount > 0)
@@ -294,7 +294,7 @@ public class UnityAssetService : IAssetService
         }
     }
 
-    private async Task AsyncUnloadAssets(CancellationToken token)
+    private async UniTask AsyncUnloadAssets(CancellationToken token)
     {
         await AssetUtils.UnloadUnusedAssets(token);
     }
@@ -358,7 +358,7 @@ public class UnityAssetService : IAssetService
             var list = new List<FileDownload>();
             list.Add(fileDownLoad);
             _downloading[filePath] = list;
-            TaskUtils.AddTask(StartDownloadFile(gs, fileDownLoad, token), "startdownloadfile", token);
+            StartDownloadFile(gs, fileDownLoad, token).Forget();
         }
     }
 
@@ -380,7 +380,7 @@ public class UnityAssetService : IAssetService
         return GetPerisistentDataPath() + "/" + url;
     }
 
-    private async Task StartDownloadFile(UnityGameState gs, FileDownload fileDownload, CancellationToken token)
+    private async UniTask StartDownloadFile(UnityGameState gs, FileDownload fileDownload, CancellationToken token)
     {
 
         if (fileDownload == null)
@@ -403,7 +403,7 @@ public class UnityAssetService : IAssetService
             {
                 while (_fileDownloadingCount >= MaxConcurrentDownloads && LoadSpeed != LoadSpeed.Fast)
                 {
-                    await Task.Delay(1, token); ;
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
                 _fileDownloadingCount++;
                 using (UnityWebRequest request = UnityWebRequest.Get(fileDownload.FullURL))
@@ -420,7 +420,7 @@ public class UnityAssetService : IAssetService
 
                         while (!asyncOp.isDone)
                         {
-                            await Task.Delay(1, token);
+                            await UniTask.NextFrame( cancellationToken: token);
                         }
                     }
                     catch (Exception e)
@@ -449,7 +449,7 @@ public class UnityAssetService : IAssetService
                             {
                                 _downloading.Remove(fileDownload.FilePath);
                                 _fileDownloadingCount--;
-                                await Task.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+                                await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
                             }
                         }
                     }
@@ -460,12 +460,12 @@ public class UnityAssetService : IAssetService
 
                         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
                         {
-                            await Task.Delay(1, token);
+                            await UniTask.NextFrame( cancellationToken: token);
                         }
                         stringrepo.SaveBytes(fileDownload.FilePath, finalBytes);
                         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
                         {
-                            await Task.Delay(1, token);
+                            await UniTask.NextFrame( cancellationToken: token);
                         }
                         fileDownload.DownloadData.UncompressedBytes = finalBytes;
 
@@ -491,7 +491,7 @@ public class UnityAssetService : IAssetService
             {
                 if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
                 {
-                    await Task.Delay(1, token);
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
                 tex = new Texture2D(2, 2);
                 tex.LoadImage(fileDownload.DownloadData.UncompressedBytes);
@@ -776,16 +776,16 @@ public class UnityAssetService : IAssetService
         return _isInitialized;
     }
 
-    private async Task PermanentLoadFromExistingBundles(CancellationToken token)
+    private async UniTask PermanentLoadFromExistingBundles(CancellationToken token)
     {
         await LoadFromExistingBundles(_gs, true, token);
     }
 
     int totalBundleLoaders = 0;
-    private async Task LoadFromExistingBundles(UnityGameState gs, bool isPermanentLoader, CancellationToken token)
+    private async UniTask LoadFromExistingBundles(UnityGameState gs, bool isPermanentLoader, CancellationToken token)
     {
         totalBundleLoaders++;
-        await Task.Delay(1, token);
+        await UniTask.NextFrame( cancellationToken: token);
         while (true)
         {
             if (_existingDownloads.Count > 0)
@@ -793,7 +793,7 @@ public class UnityAssetService : IAssetService
                 await LoadAssetFromExistingBundle(gs, _existingDownloads.Dequeue(), token);
                 if (gs.rand.NextDouble() < LoadDelayChance)
                 {
-                    await Task.Delay(1, token);
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
             }
             else
@@ -803,12 +803,12 @@ public class UnityAssetService : IAssetService
                     totalBundleLoaders--;
                     return;
                 }
-                await Task.Delay(1, token);
+                await UniTask.NextFrame( cancellationToken: token);
             }
         }
     }
 
-    private async Task DownloadNewBundles(UnityGameState gs, CancellationToken token)
+    private async UniTask DownloadNewBundles(UnityGameState gs, CancellationToken token)
     {
         while (true)
         {
@@ -819,7 +819,7 @@ public class UnityAssetService : IAssetService
                 _bundleDownloadQueue.Remove(firstKey);
                 if (firstDownload.Count < 1)
                 {
-                    await Task.Delay(1, token);
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
                 else
                 {
@@ -844,12 +844,12 @@ public class UnityAssetService : IAssetService
             }
             else
             {
-                await Task.Delay(1, token);
+                await UniTask.NextFrame( cancellationToken: token);
             }
         }
     }
 
-    private async Task LoadAssetFromExistingBundle(UnityGameState gs, BundleDownload bdl, CancellationToken token)
+    private async UniTask LoadAssetFromExistingBundle(UnityGameState gs, BundleDownload bdl, CancellationToken token)
     {
         // Need to check existence of bundle here since this call is delayed from when 
         if (bdl == null || !_bundleCache.ContainsKey(bdl.bundleName))
@@ -868,7 +868,7 @@ public class UnityAssetService : IAssetService
 
                 while (!request.isDone)
                 {
-                    await Task.Delay(1, token);
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
                 bdata.LoadedAssets[bdl.assetName] = request.asset;
             }
@@ -1291,7 +1291,7 @@ public class UnityAssetService : IAssetService
         }
     }
 
-    private async Task DownloadOneBundle(UnityGameState gs, BundleDownload bad, CancellationToken token)
+    private async UniTask DownloadOneBundle(UnityGameState gs, BundleDownload bad, CancellationToken token)
     {
         if (string.IsNullOrEmpty(bad.url))
         {
@@ -1313,7 +1313,7 @@ public class UnityAssetService : IAssetService
                 UnityWebRequestAsyncOperation asyncOp = request.SendWebRequest();
                 while (!asyncOp.isDone)
                 {
-                    await Task.Delay(1, token);
+                    await UniTask.NextFrame( cancellationToken: token);
                 }
 
                 AssetBundle downloadedBundle = null;
@@ -1340,7 +1340,7 @@ public class UnityAssetService : IAssetService
                 else
                 {
                     request.Dispose();
-                    await Task.Delay(TimeSpan.FromSeconds(1.1f), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(1.1f), cancellationToken: token);
                 }
             }
         }

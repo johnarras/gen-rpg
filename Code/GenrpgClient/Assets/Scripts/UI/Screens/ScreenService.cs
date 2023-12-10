@@ -7,7 +7,7 @@ using System.Linq;
 using UI.Screens.Utils;
 using System.Threading;
 using Assets.Scripts.Tokens;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
@@ -101,10 +101,10 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
     private void OnLoadScreen(UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
-        TaskUtils.AddTask(OnLoadScreenAsync(gs, url, obj, data, token), "onloadscreenasync", token);
+        OnLoadScreenAsync(gs, url, obj, data, token).Forget();
     }
 
-    private async Task OnLoadScreenAsync (UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private async UniTask OnLoadScreenAsync (UnityGameState gs, string url, object obj, object data, CancellationToken token)
     { 
         GEntity screen = obj as GEntity;
         ActiveScreen nextItem = data as ActiveScreen;

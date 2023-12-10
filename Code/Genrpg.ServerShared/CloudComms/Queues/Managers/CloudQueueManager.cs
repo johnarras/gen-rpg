@@ -15,11 +15,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.CloudComms.Queues.Entities;
 using Genrpg.ServerShared.CloudComms.Constants;
+using Genrpg.ServerShared.CloudComms.Queues.Requests.Entities;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Genrpg.ServerShared.CloudComms.Queues.Managers
 {
     internal class CloudQueueManager
     {
+        const double QueueRequestTimeoutSeconds = 5.0f;
+
         private ServiceBusReceiver _queueReceiver;
         private Dictionary<Type, IQueueMessageHandler> _queueHandlers;
         private string _myQueueName;
@@ -122,16 +126,56 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
 
                     foreach (IQueueMessage queueMessage in envelope.Messages)
                     {
-
-
-
-                        if (_queueHandlers.TryGetValue(queueMessage.GetType(), out IQueueMessageHandler handler))
+                        if (queueMessage is IResponseQueueMessage responseQueueMessage &&
+                            _pendingRequests.TryRemove(responseQueueMessage.RequestId, out PendingQueueRequest pendingRequest))
+                        {
+                            pendingRequest.Response = responseQueueMessage;
+                        }
+                        else if (_queueHandlers.TryGetValue(queueMessage.GetType(), out IQueueMessageHandler handler))
                         {
                             await handler.HandleMessage(_serverGameState, queueMessage, _token);
                         }
                     }
                 }
             }
+        }
+
+        private ConcurrentDictionary<string, PendingQueueRequest> _pendingRequests = new ConcurrentDictionary<string, PendingQueueRequest>();
+        public async Task<TResponse> SendRequestResponseQueueMessage<TResponse>(string serverId, IRequestQueueMessage requestMessage) where TResponse : IResponseQueueMessage
+    {
+
+            PendingQueueRequest pendingQueueRequest = new PendingQueueRequest()
+            {
+                ToServerId = serverId,
+                FromServerId = _serverId,
+                SendTime = DateTime.UtcNow,
+                Request = requestMessage,
+                RequestId = HashUtils.NewGuid().ToString(),
+            };
+            _pendingRequests[pendingQueueRequest.RequestId] = pendingQueueRequest;
+            requestMessage.RequestId = pendingQueueRequest.RequestId;
+            requestMessage.FromServerId = _serverId;
+
+            SendQueueMessages(serverId, new List<IQueueMessage>() { requestMessage });
+
+            do
+            {
+                await Task.Delay(1).ConfigureAwait(false);
+
+                if (pendingQueueRequest.Response != null)
+                {
+                    return (TResponse) pendingQueueRequest.Response;
+                }
+            }
+            while (pendingQueueRequest.Response == null && 
+            (DateTime.UtcNow - pendingQueueRequest.SendTime).TotalSeconds < QueueRequestTimeoutSeconds);
+
+            if (_pendingRequests.TryRemove(pendingQueueRequest.RequestId, out PendingQueueRequest orphanedRequest))
+            {
+                return (TResponse)orphanedRequest.Response;
+            }
+
+            return default;
         }
 
         private ConcurrentDictionary<string, ServiceBusSender> _senders = new ConcurrentDictionary<string, ServiceBusSender>();
@@ -159,6 +203,7 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
                 sender = _serviceBusClient.CreateSender(envelope.ToServerId);
                 _senders[envelope.ToServerId] = sender;
             }
+
 
             ServiceBusMessage serviceBusMessage = new ServiceBusMessage(SerializationUtils.Serialize(envelope));
             _ = Task.Run(() => sender.SendMessageAsync(serviceBusMessage));

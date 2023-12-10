@@ -10,7 +10,7 @@ using Genrpg.Shared.Core.Entities;
 
 
 
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
@@ -35,7 +35,7 @@ public class RaiseOrLowerZones : BaseZoneGenerator
 {
 
     public const int StartDist = -1000;
-    public override async Task Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
         MyRandom rand = new MyRandom(gs.map.Seed % 23432432 + 31234);

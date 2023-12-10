@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 
@@ -7,7 +7,7 @@ public class InitialPrefabLoader : BaseBehaviour
     public List<string> Prefabs;
 
 
-    public async Task LoadPrefabs(UnityGameState gs)
+    public async UniTask LoadPrefabs(UnityGameState gs)
     {
         Initialize(gs);
         if (Prefabs == null)
@@ -28,6 +28,6 @@ public class InitialPrefabLoader : BaseBehaviour
             _gs.loc.ResolveSelf();
             _gs.loc.Resolve(newPrefab);
         }
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 }

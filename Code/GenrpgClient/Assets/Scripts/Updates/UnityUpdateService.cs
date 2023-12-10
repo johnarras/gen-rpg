@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Tokens;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using System;
@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using Genrpg.Shared.Spells.Entities;
 using Assets.Scripts.GameObjects;
+using System.Threading.Tasks;
 
 public class UpdateType
 {
@@ -86,7 +87,7 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
     {
         _gs = gs as UnityGameState;
         _token = token;
-        await Task.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     private CancellationToken _token;
