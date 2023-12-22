@@ -130,7 +130,7 @@ public class CharacterScreen : ItemIconScreen
                         statTypeId = -1,
                     };
                     _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategoryNames.UI, 
-                        "StatInfoRow", OnDownloadStat, sddFill, _token, Subdirectory);
+                        "StatInfoRow", OnDownloadStat, sddFill, _token, "Units");
                 }
                 StatDownloadData sdd = new StatDownloadData()
                 {
@@ -138,7 +138,7 @@ public class CharacterScreen : ItemIconScreen
                     statTypeId = stat.IdKey,
                 };
                 _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategoryNames.UI,
-                    "StatInfoRow", OnDownloadStat, sdd, _token, Subdirectory);
+                    "StatInfoRow", OnDownloadStat, sdd, _token, "Units");
             }
         }
         else 

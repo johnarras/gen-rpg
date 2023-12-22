@@ -334,9 +334,9 @@ MonoBehaviour:
   _splashImage: {fileID: 114416535}
   CurrMapId: 2
   ForceDownloadFromAssetBundles: 1
-  CurrWorldSize: 8
-  CurrZoneSize: 1.5
-  MapGenSeed: 881144
+  CurrWorldSize: 19
+  CurrZoneSize: 2.5
+  MapGenSeed: 623471
   PlayerSpeedMult: 2
   ZoneNoiseSize: 4096
   ZoneNoiseDenominator: 1000

@@ -6,7 +6,7 @@ namespace Genrpg.Shared.Units.Entities
     {
         public const float ErrorDistance = 1000000;
 
-        public const int PlayerObjectVisRadius = 3;
+        public const int PlayerObjectVisRadius = 2;
 
         public const float CombatSpeedMult = 1.5f;
 

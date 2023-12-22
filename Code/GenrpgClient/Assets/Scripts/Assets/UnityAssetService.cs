@@ -303,7 +303,7 @@ public class UnityAssetService : IAssetService
             }
             if (removeCount > 0)
             {
-                await AsyncUnloadAssets(token);
+                //await AsyncUnloadAssets(token);
             }
         }
     }

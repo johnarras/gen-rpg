@@ -11,6 +11,7 @@ using Genrpg.Shared.Constants;
 using System.Linq;
 using Scripts.Assets.Assets.Constants;
 using Genrpg.Shared.Setup.Services;
+using System.Runtime.Remoting.Channels;
 
 public class BuildClients
 {
@@ -52,6 +53,9 @@ public class BuildClients
             Debug.Log("Missing ClientConfig at Assets/Resources/Config/ClientConfig.asset");
             return;
         }
+        string oldEnv = clientConfig.Env;
+        clientConfig.Env = env;
+        didSetEnv = true;
 
         if (!didSetEnv)
         {
@@ -140,7 +144,8 @@ public class BuildClients
         vfdata.RemotePath = remoteVersionPath;
 
         FileUploader.UploadFile(vfdata);
-
+        clientConfig = AssetDatabase.LoadAssetAtPath<ClientConfig>("Assets/Resources/Config/ClientConfig.asset");
+        clientConfig.Env = oldEnv;
         EditorUtility.SetDirty(clientConfig);
         AssetDatabase.SaveAssets();
 
