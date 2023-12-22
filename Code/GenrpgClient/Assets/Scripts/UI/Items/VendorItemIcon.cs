@@ -1,8 +1,9 @@
 ﻿
 using UnityEngine.EventSystems;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 using System.Threading;
+using Genrpg.Shared.Inventory.Utils;
 
 public class VendorItemIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerClickHandler
 {

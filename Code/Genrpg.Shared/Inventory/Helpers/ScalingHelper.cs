@@ -3,10 +3,11 @@
 using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.Stats.Entities;
 using System.Threading.Tasks;
+using Genrpg.Shared.Stats.Settings.Scaling;
+
 namespace Genrpg.Shared.Inventory.Helpers
 {
     public class ScalingHelper : IEntityHelper

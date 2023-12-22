@@ -6,7 +6,6 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.Names.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Spawns.Entities;
@@ -16,9 +15,19 @@ using Genrpg.Shared.Zones.Entities;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
 using Assets.Scripts.Tokens;
-using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
 using Assets.Scripts.MapTerrain;
+using Genrpg.Shared.Units.Services;
+using Genrpg.Shared.Names.Services;
+using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Names.Settings;
+using Genrpg.Shared.ProcGen.Settings.Locations;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.ProcGen.Settings.Texturse;
+using Genrpg.Shared.ProcGen.Settings.Plants;
+using Genrpg.Shared.ProcGen.Settings.Trees;
+using Genrpg.Shared.Spawns.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public interface IZoneGenService : IService
 {

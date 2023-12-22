@@ -20,6 +20,9 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.LineGen;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class AddOutcroppings : BaseZoneGenerator
 {

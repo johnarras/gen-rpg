@@ -3,6 +3,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
+using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;

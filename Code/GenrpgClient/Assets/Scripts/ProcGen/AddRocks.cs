@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Rocks;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 internal class FullRockType
 {

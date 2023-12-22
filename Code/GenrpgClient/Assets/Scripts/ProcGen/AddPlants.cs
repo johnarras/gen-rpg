@@ -7,6 +7,9 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Plants;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class BaseDetailPrototype
 {
@@ -304,8 +307,11 @@ public class AddPlants : BaseZoneGenerator
 
                     if (_zoneGenService.FindMapLocation(gs, x, y, 1) != null)
                     {
-                        nearLocation++;
-                        continue;
+                        if (FlagUtils.IsSet(gs.md.flags[x, y], MapGenFlags.IsLocationPatch))
+                        {
+                            nearLocation++;
+                            continue;
+                        }
                     }
 
 

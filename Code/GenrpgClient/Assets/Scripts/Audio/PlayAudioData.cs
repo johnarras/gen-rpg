@@ -1,7 +1,7 @@
 ﻿
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Audio.Entities;
 using UnityEngine; // Needed
+using Genrpg.Shared.Audio.Settings;
 
 public class PlayAudioData
 {

@@ -1,5 +1,6 @@
 ﻿using ClientEvents;
 using Genrpg.Shared.Zones.Entities;
+using Genrpg.Shared.Zones.WorldData;
 using System.Threading;
 
 public class ZoneUI : BaseBehaviour

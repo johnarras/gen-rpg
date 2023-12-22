@@ -10,8 +10,11 @@ using Genrpg.Shared.GameSettings;
 
 public class SetupEditorUnityGameState
 {
+
+    const string DefaultDevContentRoot = "http://oxdbcontent.blob.core.windows.net/genrpg";
     public static UnityGameState Setup(UnityGameState gs = null)
     {
+
         CancellationTokenSource _cts = new CancellationTokenSource();
         EditorBuildSettingsScene[] scenes = EditorBuildSettings.scenes;
 
@@ -33,7 +36,12 @@ public class SetupEditorUnityGameState
             ss.SetupGame(gs, _cts.Token);
             gs.data = new GameData();
 
-            ClientSetupService.SetupClient(gs, false, _cts.Token);
+            ClientConfig config = Resources.Load<ClientConfig>("Config/ClientConfig");
+
+            ClientSetupService.SetupClient(gs, false, DefaultDevContentRoot, 
+                !string.IsNullOrEmpty(config.ContentDataEnvOverride) ? config.ContentDataEnvOverride : EnvNames.Dev, 
+                !string.IsNullOrEmpty(config.WorldDataEnv) ? config.WorldDataEnv : EnvNames.Dev, 
+                _cts.Token);
         }
         return gs;
     }

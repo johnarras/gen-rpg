@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using System.Threading;
 using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Spells.SpellEffectHandlers;
@@ -23,6 +22,14 @@ using Genrpg.MapServer.AI.Services;
 using Genrpg.MapServer.Combat.Messages;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.Spells.Settings.Elements;
+using Genrpg.Shared.Spells.Settings.Effects;
+using Genrpg.Shared.Spells.Utils;
+using Genrpg.Shared.Spells.PlayerData.Spells;
+using Genrpg.Shared.Spells.Settings.Skills;
+using Genrpg.Shared.Spells.PlayerData.Abilties;
+using Genrpg.Shared.Spells.Settings.Spells;
+using Genrpg.Shared.Spells.Casting;
 
 namespace Genrpg.MapServer.Spells
 {

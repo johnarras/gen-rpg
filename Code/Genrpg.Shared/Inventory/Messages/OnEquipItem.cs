@@ -1,9 +1,9 @@
 using MessagePack;
-using Genrpg.Shared.Inventory.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.MapMessages;
+using Genrpg.Shared.Inventory.PlayerData;
 
 namespace Genrpg.Shared.Inventory.Messages
 {

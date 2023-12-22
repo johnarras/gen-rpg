@@ -1,8 +1,7 @@
 ﻿using Genrpg.Shared.Currencies.Constants;
-using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Currencies.Messages;
+using Genrpg.Shared.Currencies.PlayerData;
 using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
 
 public class MoneyDisplay : BaseBehaviour
 {

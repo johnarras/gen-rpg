@@ -1,6 +1,6 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
-using Genrpg.Shared.SpellCrafting.Entities;
+using Genrpg.Shared.SpellCrafting.Settings;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Utils;
 using System;

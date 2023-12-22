@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.UI.Chat;
-using Genrpg.Shared.Chat.Entities;
 using Genrpg.Shared.Chat.Messages;
 using Genrpg.Shared.WhoList.Entities;
 using Genrpg.Shared.WhoList.Messages;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 using UnityEngine.EventSystems; // Needed
 using Genrpg.Shared.Chat.Constants;
+using Genrpg.Shared.Chat.Settings;
 
 namespace UI
 {

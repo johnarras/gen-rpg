@@ -1,14 +1,11 @@
 using MessagePack;
 
-using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Currencies.Entities;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using System;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
-using Genrpg.Shared.GameSettings.Entities;
 using System.Linq;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.GameSettings.PlayerData;
 
 namespace Genrpg.Shared.Users.Entities
 {

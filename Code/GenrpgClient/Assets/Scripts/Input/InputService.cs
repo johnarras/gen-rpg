@@ -1,16 +1,14 @@
 
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 
 using ClientEvents;
-using Genrpg.Shared.Input.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Constants;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 using UI.Screens.Utils;
 using UI;
 using Cysharp.Threading.Tasks;
@@ -21,6 +19,10 @@ using UnityEngine; // Needed
 using Genrpg.Shared.Spells.Constants;
 using UI.Screens.Constants;
 using System.Threading.Tasks;
+using Genrpg.Shared.Input.PlayerData;
+using Genrpg.Shared.Input.Constants;
+using Genrpg.Shared.Spells.Settings.Skills;
+using Genrpg.Shared.Spells.Utils;
 
 internal class InputContainer
 {

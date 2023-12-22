@@ -1,27 +1,24 @@
 ﻿using Genrpg.ServerShared.Core;
-using Genrpg.Shared.AI.Entities;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.ServerShared.PlayerData.LoadUpdateHelpers;
+using Genrpg.Shared.AI.Settings;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Factions.Constants;
-using Genrpg.Shared.Factions.Entities;
-using Genrpg.Shared.Input.Entities;
-using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.SpellCrafting.Services;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
+using Genrpg.Shared.Spells.Settings.Spells;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.Utils;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,6 +30,8 @@ namespace Genrpg.ServerShared.PlayerData
         ISharedSpellCraftService _spellCraftingService = null;
 
         private Dictionary<Type, IUnitDataLoader> _loaderObjects = null;
+
+        private List<ICharacterLoadUpdater> _loadUpdateHelpers = new List<ICharacterLoadUpdater>();
 
         public async Task Setup(GameState gs, CancellationToken token)
         {
@@ -51,7 +50,22 @@ namespace Genrpg.ServerShared.PlayerData
                     await newLoader.Setup(gs);
                 }
             }
+
             _loaderObjects = newList;
+
+            List<Type> updateTypes = ReflectionUtils.GetTypesImplementing(typeof(ICharacterLoadUpdater));
+            _loadUpdateHelpers = new List<ICharacterLoadUpdater>();
+
+            foreach (Type ut in updateTypes)
+            {
+                if (Activator.CreateInstance(ut) is ICharacterLoadUpdater helper)
+                {
+                    _loadUpdateHelpers.Add(helper);
+                    await helper.Setup(gs);
+                }
+            }
+
+            _loadUpdateHelpers = _loadUpdateHelpers.OrderBy(x => x.Priority).ToList();
         }
 
         public Dictionary<Type,IUnitDataLoader> GetLoaders()
@@ -120,49 +134,13 @@ namespace Genrpg.ServerShared.PlayerData
             return newData;
         }
 
-        protected void UpdateOnLoad(ServerGameState gs, Character ch)
+        protected async void UpdateOnLoad(ServerGameState gs, Character ch)
         {
-            ch.FactionTypeId = FactionTypes.Player;
-            ch.BaseSpeed = gs.data.GetGameData<AISettings>(ch).BaseUnitSpeed;
-            ch.Speed = ch.BaseSpeed;
-            ch.RemoveFlag(UnitFlags.Evading);
-            ch.EntityTypeId = EntityTypes.Unit;
-            ch.EntityId = 1;
-
-            SpellData spellData = ch.Get<SpellData>();
-            for (int i = 1; i <= 3; i++)
+            foreach (ICharacterLoadUpdater updater in _loadUpdateHelpers)
             {
-                Spell mySpell = spellData.Get(i);
-                if (mySpell == null)
-                {
-                    Spell newSpell = SerializationUtils.ConvertType<SpellType, Spell>(gs.data.GetGameData<SpellTypeSettings>(ch).GetSpellType(i));
-                    newSpell.Id = HashUtils.NewGuid();
-                    newSpell.OwnerId = ch.Id;
-
-                    spellData.Add(newSpell);
-                    gs.repo.QueueSave(newSpell);
-                }
-
-                ActionInputData adata = ch.Get<ActionInputData>();
-
-                ActionInput ai = adata.GetData().FirstOrDefault(x => x.SpellId == i);
-                if (ai == null)
-                {
-                    adata.SetInput(i, i);
-                }
-                else
-                {
-                    ai.Index = i;
-                }
-                ch.SetDirty(true);
-                adata.SetDirty(true);
+                await updater.Update(gs, ch);
             }
-
-            foreach (Spell spell in spellData.GetData())
-            {
-                _spellCraftingService.ValidateSpellData(gs, ch, spell);
-            }
-
+          
         }
 
         public async Task<List<CharacterStub>> LoadCharacterStubs(ServerGameState gs, string userId)

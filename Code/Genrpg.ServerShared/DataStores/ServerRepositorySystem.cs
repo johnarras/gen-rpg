@@ -14,8 +14,10 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.DataStores.NoSQL;
 using Genrpg.ServerShared.DataStores.Blobs;
-using Genrpg.Shared.Logs.Entities;
 using System.Threading;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Genrpg.Shared.Logs.Interfaces;
 
 namespace Genrpg.ServerShared.DataStores
 {
@@ -34,49 +36,71 @@ namespace Genrpg.ServerShared.DataStores
 
         protected ServerConfig _config = null;
         private List<DbQueue> _queues = null;
-        private string _dbEnv = null;
         private ILogSystem _logger = null;
+
+        private Dictionary<string, string> _environments = new Dictionary<string, string>();
+        private Dictionary<string, string> _connectionStrings = new Dictionary<string, string>();
 
         private static ConcurrentDictionary<string, IRepository> _repos = new ConcurrentDictionary<string, IRepository>();
         private static ConcurrentDictionary<string, BlobRepository> _blobRepos = new ConcurrentDictionary<string, BlobRepository>();
         private static ConcurrentDictionary<string, NoSQLRepository> _noSQLRepos = new ConcurrentDictionary<string, NoSQLRepository>();
-        private static ConcurrentDictionary<Type, IRepository> _repoTypeDict = new ConcurrentDictionary<Type, IRepository>();
+        private ConcurrentDictionary<Type, IRepository> _repoTypeDict = new ConcurrentDictionary<Type, IRepository>();
 
-        public ServerRepositorySystem(ILogSystem logger, string dbEnv, Dictionary<string, string> connectionStrings,
+        public ServerRepositorySystem(ILogSystem logger, Dictionary<string,string> dataEnvironments, Dictionary<string, string> connectionStrings,
             CancellationToken token)
         {
             _logger = logger;
-            _dbEnv = dbEnv.ToLower();
+            _environments = dataEnvironments;
+            _connectionStrings = connectionStrings;
             _queues = new List<DbQueue>();
             for (int i = 0; i < QueueCount; i++)
             {
                 _queues.Add(new DbQueue(logger, token));
             }
 
-            foreach (string key in connectionStrings.Keys)
+            foreach (string key in _connectionStrings.Keys)
             {
                 if (key.IndexOf(BlobPrefix) == 0)
                 {
-                    string typeKey = (_dbEnv + key.Replace(BlobPrefix, "")).ToLower();
-                    if (!_blobRepos.ContainsKey(typeKey))
-                    {
-                        string replacementConnection = connectionStrings[key].Replace(ReplacementString, _dbEnv.ToLower());
-                        BlobRepository blobRepo = new BlobRepository(_logger, replacementConnection);
-                        _blobRepos[typeKey] = blobRepo;
-                        _repos[typeKey] = blobRepo;
-                    }
+                    string dataCategory = key.Replace(BlobPrefix, "");
+                    string blobEnv = _environments[dataCategory];
+                    AddBlobRepo(dataCategory, blobEnv);
                 }
-                if (key.IndexOf(NoSQLPrefix) == 0)
+
+                else if (key.IndexOf(NoSQLPrefix) == 0)
                 {
-                    string typeKey = (_dbEnv + key.Replace(NoSQLPrefix, "")).ToLower();
-                    if (!_noSQLRepos.ContainsKey(typeKey))
-                    {
-                        NoSQLRepository noSQLRepo = new NoSQLRepository(_logger, typeKey, connectionStrings[key]);
-                        _noSQLRepos[typeKey] = noSQLRepo;
-                        _repos[typeKey] = noSQLRepo;
-                    }
+                    string dataCategory = key.Replace(NoSQLPrefix, "");
+                    string dbEnv = _environments[dataCategory];
+                    AddNoSqlRepo(dataCategory, dbEnv);
                 }
             }
+        }
+
+        public BlobRepository AddBlobRepo(string dataCategory, string blobEnv)
+        {
+            string typeKey = (_environments[dataCategory] + dataCategory).ToLower();
+            if (!_blobRepos.TryGetValue(typeKey, out BlobRepository currentBlobRepo))
+            {
+                string blobConnection = _connectionStrings[BlobPrefix + dataCategory];
+                BlobRepository blobRepo = new BlobRepository(_logger, blobConnection);
+                _blobRepos[typeKey] = blobRepo;
+                _repos[typeKey] = blobRepo;
+                return blobRepo;
+            }
+            return currentBlobRepo;
+        }
+
+        public NoSQLRepository AddNoSqlRepo(string dataCategory, string dbEnv)
+        {
+            string typeKey = (_environments[dataCategory] + dataCategory).ToLower();
+            if (!_noSQLRepos.TryGetValue(typeKey, out NoSQLRepository currentNoSqlRepo))
+            {
+                NoSQLRepository noSQLRepo = new NoSQLRepository(_logger, typeKey, _connectionStrings[NoSQLPrefix+dataCategory]);
+                _noSQLRepos[typeKey] = noSQLRepo;
+                _repos[typeKey] = noSQLRepo;
+                return noSQLRepo;
+            }
+            return currentNoSqlRepo;
         }
 
         /// <summary>
@@ -91,7 +115,7 @@ namespace Genrpg.ServerShared.DataStores
                 return repo;
             }
 
-            string dataCategoryName = DataCategory.Default;
+            string dataCategoryName = DataCategoryTypes.Default;
 
             DataCategory category = Attribute.GetCustomAttribute(t, typeof(DataCategory), true) as DataCategory;
 
@@ -103,7 +127,10 @@ namespace Genrpg.ServerShared.DataStores
             {
                 throw new Exception("Missing DataCategory");
             }
-            dataCategoryName = (_dbEnv + dataCategoryName).ToLower();
+
+            string dbEnv = _environments[dataCategoryName];
+
+            dataCategoryName = (dbEnv + dataCategoryName).ToLower();
 
             if (_repos.TryGetValue(dataCategoryName, out IRepository existingRepo))
             {               

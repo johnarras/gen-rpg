@@ -3,7 +3,7 @@ using GComponent = UnityEngine.MonoBehaviour;
 using ClientEvents;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Users.Entities;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using System.Collections.Generic;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
@@ -42,7 +42,9 @@ public class UnityGameState : GameState
 
     public string Env { get; set; }
     public string SiteURL { get; set; }
-    public string ArtURL { get; set; } = InitClient.DefaultAssetPrefix;
+    public string ArtURLWithoutEnv { get; set; }
+    public string ContentAssetEnv { get; set; }
+    public string WorldAssetEnv { get; set; }
     public string Version { get; set; }
     public string RealtimeHost { get; set; }
     public string RealtimePort { get; set; }

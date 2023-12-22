@@ -12,6 +12,7 @@ using Genrpg.Shared.MapServer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.LineGen;
 
 public class BaseAddMountains : BaseZoneGenerator
 {

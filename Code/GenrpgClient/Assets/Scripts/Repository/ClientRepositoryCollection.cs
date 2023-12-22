@@ -1,15 +1,13 @@
 ﻿
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Logs.Entities;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
 using Cysharp.Threading.Tasks;
+using Genrpg.Shared.Logs.Interfaces;
 
 public interface IClientRepositoryCollection
 {

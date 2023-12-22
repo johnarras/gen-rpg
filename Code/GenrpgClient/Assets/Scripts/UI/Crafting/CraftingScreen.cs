@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Crafting.Entities;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.Crafting.PlayerData.Recipes;
+using Genrpg.Shared.Crafting.Settings.Recipes;
 
 public class CraftingScreen : ItemIconScreen
 {
@@ -87,7 +87,8 @@ public class CraftingScreen : ItemIconScreen
             return;
         }
 
-        _assetService.LoadAsset(_gs, AssetCategoryNames.UI, RecipeRow, OnLoadRecipeRow, status, _recipeListParent, _token);        
+        _assetService.LoadAsset(_gs, AssetCategoryNames.UI, RecipeRow, OnLoadRecipeRow, 
+            status, _recipeListParent, _token, Subdirectory);        
     }
 
     private void OnLoadRecipeRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)

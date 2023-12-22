@@ -1,0 +1,10 @@
+{
+  "Id": "keycommsetting18default",
+  "IdKey": 18,
+  "Name": "KeyCommSetting",
+  "ParentId": "default",
+  "KeyPress": "j",
+  "KeyCommand": "Jump",
+  "UpdateTime": "2023-12-18T20:38:27.351Z",
+  "CreateTime": "2023-11-24T22:45:42Z"
+}

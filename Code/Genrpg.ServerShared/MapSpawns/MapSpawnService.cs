@@ -2,10 +2,12 @@
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
 using Genrpg.Shared.MapServer.Constants;
-using Genrpg.Shared.NPCs.Entities;
 using Genrpg.Shared.Quests.Entities;
-using Genrpg.Shared.Spawns.Entities;
+using Genrpg.Shared.Spawns.WorldData;
+using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using System;
 using System.Collections.Generic;
@@ -30,25 +32,20 @@ namespace Genrpg.ServerShared.MapSpawns
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = "OwnerId" });
-            await gs.repo.CreateIndex<NPCStatus>(configs);
+            await gs.repo.CreateIndex<UnitStatus>(configs);
             await gs.repo.CreateIndex<MapSpawn>(configs);
         }
         public async Task SaveMapSpawnData(ServerGameState gs, MapSpawnData data, string mapOwnerId)
         {
-            MapSpawnData[] spawnArray = new MapSpawnData[SharedMapConstants.MapSpawnArraySize];
-
-            foreach (NPCStatus status in data.NPCs)
-            {
-                status.Id = status.MapObjectId + "-" + mapOwnerId;
-                status.OwnerId = mapOwnerId;
-            }
-
-            await gs.repo.SaveAll(data.NPCs);
-
             foreach (MapSpawn spawn in data.Data)
             {
-                spawn.Id = spawn.MapObjectId + "-" + mapOwnerId;
+                spawn.Id = spawn.ObjId + "-" + mapOwnerId;
                 spawn.OwnerId = mapOwnerId;
+                if (spawn.Addons != null)
+                {
+                    spawn.AddonString = SerializationUtils.Serialize(spawn.Addons);
+                    spawn.Addons = null;
+                }
             }
 
             await gs.repo.SaveAll(data.Data);
@@ -59,10 +56,17 @@ namespace Genrpg.ServerShared.MapSpawns
         {
             MapSpawnData spawnData = new MapSpawnData();
 
-
-            spawnData.NPCs = await gs.repo.Search<NPCStatus>(x => x.OwnerId == mapOwnerId, 1000000);
-
             spawnData.Data = await gs.repo.Search<MapSpawn>(x => x.OwnerId == mapOwnerId, 1000000);
+
+            foreach (MapSpawn mapSpawn in spawnData.Data)
+            {
+                if (!string.IsNullOrEmpty(mapSpawn.AddonString))
+                {
+                    mapSpawn.Addons = SerializationUtils.Deserialize<List<IMapObjectAddon>>(mapSpawn.AddonString);
+                    mapSpawn.AddonString = null;
+                }
+            }
+
 
             return spawnData;
         }

@@ -1,8 +1,8 @@
-﻿using Genrpg.Shared.Characters.Entities;
+﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Spawns.Interfaces;
 using System.Threading.Tasks;

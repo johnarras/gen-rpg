@@ -1,18 +1,7 @@
 ﻿
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Genrpg.Shared.Utils;
-using Genrpg.Shared.Names.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.Spells.Entities;
 using System.Threading;
-using Genrpg.Shared.Spells.Interfaces;
-using Genrpg.Shared.MapObjects.Entities;
 
 namespace Genrpg.Shared.Interfaces
 {
@@ -47,36 +36,6 @@ namespace Genrpg.Shared.Interfaces
     public interface IFactorySetupService
     {
         void Setup(GameState gs);
-    }
-
-
-    public interface IUnitGenService : IService
-    {
-        string GenerateUnitPrefixName(GameState gs, long unitTypeId, Zone zone, IRandom rand,
-            Dictionary<string, string> args = null);
-
-        UnitType GetRandomUnitType(GameState gs, Map map, Zone zone);
-
-        string GenerateUnitName(GameState gs, long unitTypeId, long zoneId, IRandom rand,
-            Dictionary<string, string> args = null);
-
-    }
-
-    public interface INameGenService : IService
-    {
-        string PickWord(GameState gs, List<WeightedName> list, long seed, string excludeName = "", string excludePrefix = "", string excludeDesc = "");
-        string PickDataListName(GameState gs, string name, long seed = 0);
-        string PickNameListName(GameState gs, string nameListName, long seed = 0, string excludeName = "", string excludePrefix = "", string excludeDesc = "");
-        string PickItemName(GameState gs, List<IIndexedGameItem> list, long seed = 0, bool onlyShortNames = false);
-
-        string CombinePrefixSuffix(string prefix, string suffix, float hyphenChance, long seed);
-
-        // Gen names of the following form.
-        // prefix suffix.
-        // If prefix is of the form "prefix of",
-        // then allow suffixes of the form "the suffix",
-        // otherwise don't allow suffixes of the form "the suffix"
-        string GenOfTheName(GameState gs, List<WeightedName> prefixes, List<WeightedName> suffixes, long seed = 0, int avoidMatchingPrefixLength = 0);
     }
 
 }

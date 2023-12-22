@@ -4,7 +4,7 @@ using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using System;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Interfaces;
@@ -296,7 +296,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
     public virtual MapObject SpawnObject(IMapSpawn spawn)
     {
-        if (GetObject(spawn.MapObjectId, out MapObject currObj))
+        if (GetObject(spawn.ObjId, out MapObject currObj))
         {
             return currObj;
         }

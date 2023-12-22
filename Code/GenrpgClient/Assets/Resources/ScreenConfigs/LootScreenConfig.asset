@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScreenName: 17
   ScreenLayer: 3
+  Subdirectory: Loot

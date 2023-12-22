@@ -9,7 +9,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
-
+using Genrpg.Shared.Zones.WorldData;
 
 public class FullDetailPrototype : BaseDetailPrototype
 {

@@ -12,6 +12,7 @@ namespace Assets.Scripts.UI.Config
     {
         public ScreenId ScreenName;
         public ScreenLayers ScreenLayer;
+        public string Subdirectory;
 #if UNITY_EDITOR
         [MenuItem("Assets/Create/ScriptableObjects/ScreenConfig", false, 0)]
         public static void Create()

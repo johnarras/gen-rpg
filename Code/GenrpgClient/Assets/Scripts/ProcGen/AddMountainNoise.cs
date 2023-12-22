@@ -1,23 +1,9 @@
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using GEntity = UnityEngine.GameObject;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-
-
 using Cysharp.Threading.Tasks;
-
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
 using System.Threading;
+using Genrpg.Shared.Zones.WorldData;
 
 public class AddMountainNoise : BaseAddMountains
 {
@@ -42,18 +28,14 @@ public class AddMountainNoise : BaseAddMountains
             int miny = Math.Max(0, zone.ZMin - radius);
             int maxy = Math.Min(gs.map.GetHwid() - 1, zone.ZMax + radius);
 
-
             int xsize = (maxx - minx + 1);
             int ysize = (maxy - miny + 1);
 
             int size = (xsize + ysize) / 2;
 
-
-
             MyRandom rand = new MyRandom(gs.map.Seed % 500000000 + zone.Seed % 500000000 + 328233);
 
             float terraceSize = MathUtils.FloatRange(12.0f, 18.0f, rand);
-
 
             float freqb = (float)(MathUtils.FloatRange(0.3f, 1.0f, rand) * size / 90.0f)*0.03f;
             float ampb = MathUtils.FloatRange(0.9f, 1.4f, rand)*2.5f;
@@ -99,15 +81,11 @@ public class AddMountainNoise : BaseAddMountains
                 int octaves = 2;
                 float pers = MathUtils.FloatRange(0.30f, 0.50f, rand);
 
-
-
                 float extraScale = MathUtils.FloatRange(0.9f, 1.3f, rand);
                 freq /= extraScale;
                 amp *= extraScale;
 
                 float[,] heights = _noiseService.Generate(gs, pers, freq, amp, octaves, startPerlinSeed + 1000 * i, xsize, ysize);
-
-                
 
                 float secondaryWallScale = MathUtils.FloatRange(0.4f, 1.0f, rand);
 
@@ -133,8 +111,6 @@ public class AddMountainNoise : BaseAddMountains
                 {
                     for (int y = miny; y <= maxy; y++)
                     {
-
-
                         float zoneScale = 1.0f;
 
                         if (gs.md.mapZoneIds[x, y] == zone.IdKey)
@@ -250,5 +226,4 @@ public class AddMountainNoise : BaseAddMountains
             }
         }
     }
-
 }

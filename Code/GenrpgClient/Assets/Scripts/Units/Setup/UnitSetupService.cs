@@ -2,17 +2,15 @@
 using System;
 using GEntity = UnityEngine.GameObject;
 
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.Entities;
 using ClientEvents;
 using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.NPCs.Entities;
 using System.Threading;
 using Assets.Scripts.Tokens;
-using Genrpg.Shared.AI.Entities;
 using UnityEngine; // Needed
+using Genrpg.Shared.AI.Settings;
 
 public interface IUnitSetupService : IService, IMapTokenService
 {
@@ -149,8 +147,6 @@ public class UnitSetupService : IUnitSetupService
         gridItem.Controller = go.GetComponent<UnitController>();
         if (unit != null && loadData.Spawn != null)
         {
-            unit.NPCTypeId = loadData.Spawn.NPCTypeId;
-            unit.NPCType = gs.map.Get<NPCType>(loadData.Spawn.NPCTypeId);
             unit.FactionTypeId = loadData.Spawn.FactionTypeId;
         }
         _objectManager.AddController(gridItem, go);
@@ -207,7 +203,8 @@ public class UnitSetupService : IUnitSetupService
         unit.BaseSpeed = gs.data.GetGameData<AISettings>(gs.ch).BaseUnitSpeed;
         go.name = "Player" + go.name;
         PlayerObject.Set(go);
-        _assetService.LoadAssetInto(gs, go, AssetCategoryNames.UI, "PlayerLight", null, null, token);
+        _assetService.LoadAssetInto(gs, go, AssetCategoryNames.UI,
+            "PlayerLight", null, null, token, "Units");
         gs.Dispatch(new SetMapPlayerEvent() { Ch = unit as Character });
         CreateHealthBar(gs, go, unit, token);
     }
@@ -229,7 +226,8 @@ public class UnitSetupService : IUnitSetupService
             height = artData.HealthBarHeight / artData.SizeScale;
         }
         healthParent.transform().localPosition = GVector3.Create(0, height, 0);
-        _assetService.LoadAssetInto(gs, healthParent, AssetCategoryNames.UI, "MapHealthBar", OnCreateHealthBar, unit, token);
+        _assetService.LoadAssetInto(gs, healthParent, AssetCategoryNames.UI, 
+            "MapHealthBar", OnCreateHealthBar, unit, token, "Units");
     }
 
     private void OnCreateHealthBar(UnityGameState gs, String url, object obj, object data, CancellationToken token)

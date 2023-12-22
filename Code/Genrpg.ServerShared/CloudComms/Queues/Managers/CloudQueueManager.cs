@@ -2,7 +2,6 @@
 using Azure.Messaging.ServiceBus;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.DataStores.Constants;
-using Genrpg.Shared.Logs.Entities;
 using Genrpg.Shared.Utils;
 using MongoDB.Driver.Core.Servers;
 using Newtonsoft.Json.Linq;
@@ -17,6 +16,7 @@ using Genrpg.ServerShared.CloudComms.Queues.Entities;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Queues.Requests.Entities;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Genrpg.Shared.Logs.Interfaces;
 
 namespace Genrpg.ServerShared.CloudComms.Queues.Managers
 {

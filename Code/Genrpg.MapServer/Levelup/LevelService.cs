@@ -1,14 +1,14 @@
 ﻿using Genrpg.MapServer.MapMessaging.Interfaces;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Currencies.Constants;
-using Genrpg.Shared.Currencies.Entities;
+using Genrpg.Shared.Currencies.PlayerData;
 using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.Levels.Messages;
+using Genrpg.Shared.Levels.Settings;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;

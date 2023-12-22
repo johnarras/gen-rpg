@@ -1,3 +1,4 @@
+using Genrpg.Shared.Zones.Settings;
 using MessagePack;
 namespace Genrpg.Shared.Zones.Entities
 {

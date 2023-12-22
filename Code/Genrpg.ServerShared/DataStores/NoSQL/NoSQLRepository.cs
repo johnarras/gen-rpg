@@ -2,18 +2,15 @@
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.Interfaces;
-using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.Logs.Interfaces;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 

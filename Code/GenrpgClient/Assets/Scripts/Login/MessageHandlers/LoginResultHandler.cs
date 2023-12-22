@@ -10,6 +10,7 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using Assets.Scripts.GameSettings.Services;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Genrpg.Shared.Spawns.WorldData;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
@@ -79,12 +80,15 @@ namespace Assets.Scripts.Login.MessageHandlers
 
         public async UniTask RetryUploadMap(UnityGameState gs, CancellationToken token)
         {
-            string mapId = "1";
+            // Change filenames from XXXUploadedMap and XXXUploadedSpawns to XXXMapmapId and XXXMapSpawnsmapId            
+            string mapId = "2";
 
             UploadMapCommand comm = new UploadMapCommand();
             comm.Map = await gs.repo.Load<Map>(mapId);
             comm.SpawnData = await gs.repo.Load<MapSpawnData>(mapId);
-
+            comm.Map.Id = mapId;
+            comm.SpawnData.Id = mapId;
+            comm.WorldDataEnv = _assetService.GetWorldDataEnv();
             _networkService.SendClientWebCommand(comm, token);
         }
     }

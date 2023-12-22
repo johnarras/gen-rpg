@@ -1,7 +1,7 @@
 ﻿using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Constants;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.Units.Entities;

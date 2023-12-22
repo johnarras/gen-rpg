@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 using ClientEvents;
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Input.Entities;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 using System.Threading;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.SpellCrafting.Messages;
 using System.Linq;
+using Genrpg.Shared.Input.Constants;
+using Genrpg.Shared.Input.PlayerData;
 
 internal class ActionButtonDownload
 {
@@ -80,7 +80,7 @@ public class ActionBars : SpellIconScreen
                     Parent = parent,
                 };
 
-                _assetService.LoadAssetInto(_gs, parent, AssetCategoryNames.UI, ActionButtonPrefab, OnDownloadButton, abDownload, _token);
+                _assetService.LoadAssetInto(_gs, parent, AssetCategoryNames.UI, ActionButtonPrefab, OnDownloadButton, abDownload, _token, "ActionBars");
             }
         }
     }

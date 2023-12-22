@@ -1,8 +1,9 @@
 ﻿using System;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Spells.Messages;
 using UnityEngine;
+using Genrpg.Shared.Spells.Constants;
 
 public class CombatTextUI : BaseBehaviour
 {

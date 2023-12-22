@@ -6,14 +6,15 @@ using System.Text;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
-
-using Genrpg.Shared.AI.Entities;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.AI.Settings;
+using Genrpg.Shared.Spells.Settings.Elements;
+using Genrpg.Shared.Spells.Settings.Spells;
+using Genrpg.Shared.Spells.PlayerData.Spells;
+using Genrpg.Shared.Zones.WorldData;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {

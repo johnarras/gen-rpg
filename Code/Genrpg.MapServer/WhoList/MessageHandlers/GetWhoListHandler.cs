@@ -2,7 +2,7 @@
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Servers.MapInstance.Queues;
 using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.MapObjects.Entities;

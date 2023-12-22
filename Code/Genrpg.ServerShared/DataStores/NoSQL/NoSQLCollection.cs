@@ -16,9 +16,9 @@ using System.Reflection;
 using Genrpg.Shared.DataStores.Indexes;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using MongoDB.Driver.Core.Clusters;
-using Genrpg.Shared.Logs.Entities;
 using MongoDB.Bson.IO;
 using System.Reflection.Metadata.Ecma335;
+using Genrpg.Shared.Logs.Interfaces;
 
 namespace Genrpg.ServerShared.DataStores.NoSQL
 {

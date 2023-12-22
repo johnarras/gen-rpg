@@ -1,17 +1,14 @@
-﻿
-using Genrpg.Shared.Characters.Entities;
+﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Currencies.Constants;
-using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Levels.Entities;
-using Genrpg.Shared.Quests.Entities;
+using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Quests.Constants;
+using Genrpg.Shared.Quests.PlayerData;
+using Genrpg.Shared.Quests.WorldData;
 using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Units.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Quests.Services
 {

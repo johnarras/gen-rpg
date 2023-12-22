@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.ProcGen.Settings.Trees;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 /// <summary>
 /// Add items nearby a tree or a rock or something of that sort.

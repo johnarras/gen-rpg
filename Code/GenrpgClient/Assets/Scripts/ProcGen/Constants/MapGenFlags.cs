@@ -18,5 +18,7 @@ public class MapGenFlags
     public const int BelowWater = 1 << 10;
     public const int IsLocation = 1 << 11;
     public const int VeryCurvedRoad = 1 << 12;
+    public const int MinorRoad = 1 << 13;
+    public const int IsLocationPatch = 1 << 14;
 }
 

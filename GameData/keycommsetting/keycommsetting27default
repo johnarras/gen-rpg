@@ -1,0 +1,10 @@
+{
+  "Id": "keycommsetting27default",
+  "IdKey": 27,
+  "Name": "KeyCommSetting",
+  "ParentId": "default",
+  "KeyPress": "tab",
+  "KeyCommand": "TargetNext",
+  "UpdateTime": "2023-12-18T20:38:27.369Z",
+  "CreateTime": "2023-11-24T22:45:42Z"
+}

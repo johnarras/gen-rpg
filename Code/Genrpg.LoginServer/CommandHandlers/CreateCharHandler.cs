@@ -1,10 +1,12 @@
 ﻿using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.PlayerData;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
-using Genrpg.Shared.Input.Entities;
+using Genrpg.Shared.Input.Constants;
+using Genrpg.Shared.Input.PlayerData;
+using Genrpg.Shared.Input.Settings;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages.CreateChar;
 using Genrpg.Shared.Users.Entities;
@@ -40,7 +42,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 UserId = gs.user.Id,
             };
 
-            await SetupCharacter(gs);
+            List<IUnitData> list = await _playerDataService.LoadPlayerData(gs, gs.ch);
 
             charStubs.Add(new CharacterStub() { Id = gs.ch.Id, Name = gs.ch.Name, Level = gs.ch.Level });
 
@@ -51,48 +53,6 @@ namespace Genrpg.LoginServer.CommandHandlers
             };
 
             gs.Results.Add(result);
-        }
-
-
-        public async Task SetupCharacter(LoginGameState gs)
-        {
-            List<IUnitData> list = await _playerDataService.LoadPlayerData(gs, gs.ch);
-            KeyCommData keyCommands = gs.ch.Get<KeyCommData>();
-            ActionInputData actionInputs = gs.ch.Get<ActionInputData>();
-
-            for (int i = InputConstants.MinActionIndex; i <= InputConstants.MaxActionIndex; i++)
-            {
-                actionInputs.GetInput(i);
-            }
-
-            if (gs.data.GetGameData<KeyCommSettings>(gs.ch).GetData() != null)
-            {
-                foreach (KeyCommSetting input in gs.data.GetGameData<KeyCommSettings>(gs.ch).GetData())
-                {
-                    KeyComm currKey = keyCommands.GetKeyComm(input.KeyCommand);
-                    if (currKey == null)
-                    {
-                        keyCommands.AddKeyComm(input.KeyCommand, input.KeyPress);
-                    }
-                    if (input.KeyCommand.IndexOf(KeyComm.ActionPrefix) == 0)
-                    {
-                        string actionSuffix = input.KeyCommand.Replace(KeyComm.ActionPrefix, "");
-                        int actionIndex = -1;
-
-                        int.TryParse(actionSuffix, out actionIndex);
-
-                        ActionInput currAction = actionInputs.GetInput(actionIndex);
-                        if (gs.data.GetGameData<InputSettings>(gs.ch).GetData() != null)
-                        {
-                            ActionInputSetting defaultAction = gs.data.GetGameData<InputSettings>(gs.ch).GetData().FirstOrDefault(x => x.Index == actionIndex);
-                            if (defaultAction != null)
-                            {
-                                currAction.SpellId = defaultAction.SpellId;
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 }

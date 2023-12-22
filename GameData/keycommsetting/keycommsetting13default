@@ -1,0 +1,10 @@
+{
+  "Id": "keycommsetting13default",
+  "IdKey": 13,
+  "Name": "KeyCommSetting",
+  "ParentId": "default",
+  "KeyPress": "a",
+  "KeyCommand": "TurnLeft",
+  "UpdateTime": "2023-12-18T20:38:27.341Z",
+  "CreateTime": "2023-11-24T22:45:42Z"
+}

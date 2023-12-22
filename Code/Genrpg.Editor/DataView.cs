@@ -37,6 +37,7 @@ using Genrpg.Editor.UI.Constants;
 using MongoDB.Bson.Serialization.Conventions;
 using ZstdSharp.Unsafe;
 using MongoDB.Driver;
+using Genrpg.Shared.ProcGen.Settings.Names;
 
 namespace GameEditor
 {

@@ -1,13 +1,10 @@
 ﻿
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.DataStores.Entities;
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Currencies.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
-using System.Diagnostics;
 
 class AddPlayerToMap : BaseZoneGenerator
 {

@@ -12,7 +12,7 @@ namespace Genrpg.Shared.WebRequests.Utils
     [MessagePackObject]
     public class WebRequestUtils
     {
-        public static async Task<byte[]> DownloadBytes(GameState gs, string fullURL)
+        public static async Task<byte[]> DownloadBytes(string fullURL)
         {
             WebClient webClient = new WebClient();
 

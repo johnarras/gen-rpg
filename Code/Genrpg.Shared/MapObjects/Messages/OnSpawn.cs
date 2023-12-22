@@ -2,24 +2,25 @@ using MessagePack;
 
 using System;
 using System.Collections.Generic;
-using Genrpg.Shared.Characters.Entities;
 
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapMessages;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Stats.Messages;
+using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Spells.Settings.Effects;
+using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
 
 namespace Genrpg.Shared.MapObjects.Messages
 {
     [MessagePackObject]
     public sealed class OnSpawn : BaseMapApiMessage, IMapSpawn
     {
-        [Key(0)] public string MapObjectId { get; set; }
+        [Key(0)] public string ObjId { get; set; }
         [Key(1)] public DateTime LastSpawnTime { get; set; }
         [Key(2)] public long EntityTypeId { get; set; }
         [Key(3)] public long EntityId { get; set; }
@@ -31,18 +32,22 @@ namespace Genrpg.Shared.MapObjects.Messages
         [Key(9)] public float Y { get; set; }
         [Key(10)] public float Rot { get; set; }
         [Key(11)] public float Speed { get; set; }
-        [Key(12)] public long NPCTypeId { get; set; }
-        [Key(13)] public long FactionTypeId { get; set; }
-        [Key(14)] public bool IsPlayer { get; set; }
-        [Key(15)] public string TargetId { get; set; }
-        [Key(16)] public int TempFlags { get; set; }
-        [Key(17)] public long Level { get; set; }
-        [Key(18)] public int OverrideZonePercent { get; set; }
-        [Key(19)] public AttackerInfo FirstAttacker { get; set; }
-        [Key(20)] public List<SpawnResult> Loot { get; set; }
-        [Key(21)] public List<SpawnResult> SkillLoot { get; set; }
-        [Key(22)] public List<ActiveSpellEffect> Effects { get; set; }
-        [Key(23)] public List<FullStat> Stats { get; set; }
+        [Key(12)] public long FactionTypeId { get; set; }
+        [Key(13)] public bool IsPlayer { get; set; }
+        [Key(14)] public string TargetId { get; set; }
+        [Key(15)] public int TempFlags { get; set; }
+        [Key(16)] public long Level { get; set; }
+        [Key(17)] public int OverrideZonePercent { get; set; }
+        [Key(18)] public AttackerInfo FirstAttacker { get; set; }
+        [Key(19)] public List<SpawnResult> Loot { get; set; }
+        [Key(20)] public List<SpawnResult> SkillLoot { get; set; }
+        [Key(21)] public List<ActiveSpellEffect> Effects { get; set; }
+        [Key(22)] public List<FullStat> Stats { get; set; }
+        [Key(23)] public long AddonBits { get; set; }
+        public long GetAddonBits() { return AddonBits; }
+        
+        // Do not send Addons on spawn.
+        public List<IMapObjectAddon> GetAddons() { return new List<IMapObjectAddon>(); }
 
         public OnSpawn()
         {
@@ -56,7 +61,8 @@ namespace Genrpg.Shared.MapObjects.Messages
 
         private void CopyDataFrom(IMapObject obj)
         {
-            MapObjectId = obj.Id;
+            ObjId = obj.Id;
+
             Name = obj.Name;
             EntityTypeId = obj.EntityTypeId;
             EntityId = obj.EntityId;
@@ -66,13 +72,10 @@ namespace Genrpg.Shared.MapObjects.Messages
             Rot = obj.Rot;
             Speed = obj.Speed;
             ZoneId = obj.ZoneId;
+            AddonBits = obj.AddonBits;
 
             if (obj is Unit unit)
             {
-                if (unit.NPCTypeId > 0)
-                {
-                    NPCTypeId = unit.NPCTypeId;
-                }
                 FactionTypeId = unit.FactionTypeId;
                 Stats = unit.Stats.GetSnapshot();
                 TargetId = unit.TargetId;

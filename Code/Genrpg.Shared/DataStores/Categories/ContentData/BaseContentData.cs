@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Genrpg.Shared.DataStores.Categories.ContentData
 {
-    [DataCategory(Category = DataCategory.Content)]
+    [DataCategory(Category = DataCategoryTypes.ContentData)]
     [MessagePackObject]
     public class BaseContentData : IStringId
     {

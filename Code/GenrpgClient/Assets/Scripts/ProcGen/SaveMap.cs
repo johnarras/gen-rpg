@@ -13,7 +13,7 @@ public class SaveMap : BaseZoneGenerator
     {
         await base.Generate(gs, token);
 
-        gs.map.OverrideZonePercent = MathUtils.IntRange(20, 80, gs.rand);
+        gs.map.OverrideZonePercent = 0; // MathUtils.IntRange(20, 80, gs.rand);
 
         DelaySendMapSizes(gs, token).Forget();
 
@@ -29,7 +29,11 @@ public class SaveMap : BaseZoneGenerator
     private async UniTask DelaySendMapSizes(UnityGameState gs, CancellationToken token)
     {
 
-        UploadMapCommand update = new UploadMapCommand() { Map = gs.map, SpawnData = gs.spawns };
+        UploadMapCommand update = new UploadMapCommand() { 
+            Map = gs.map, 
+            SpawnData = gs.spawns,
+            WorldDataEnv = _assetService.GetWorldDataEnv()
+        };
 
         string oldMapId = gs.map.Id;
         gs.map.Id = "UploadedMap";

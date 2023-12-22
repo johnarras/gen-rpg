@@ -1,20 +1,21 @@
 ﻿using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.Utils;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.GameSettings.Settings;
 using Genrpg.Shared.Login.Messages.Login;
-using Genrpg.Shared.Login.Messages.RefreshGameData;
+using Genrpg.Shared.Login.Messages.RefreshGameSettings;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Versions.Entities;
+using Genrpg.Shared.Versions.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             foreach (IGameSettingsLoader loader in _loaderObjects.Values)
             {
-                allTasks.Add(loader.LoadAll(gs.repo, true));
+                allTasks.Add(loader.LoadAll(gs.repo, createMissingGameData));
             }
 
             List<IGameSettings>[] allSettings = await Task.WhenAll(allTasks.ToArray());

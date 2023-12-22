@@ -1,13 +1,12 @@
 ﻿using Cysharp.Threading.Tasks;
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Constants;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Messages;
+using Genrpg.Shared.ProcGen.Settings.GroundObjects;
+using Genrpg.Shared.Zones.WorldData;
 
 public class GroundObjectLoader : BaseMapObjectLoader
 {

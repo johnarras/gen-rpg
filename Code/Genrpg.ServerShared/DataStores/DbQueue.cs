@@ -1,5 +1,5 @@
 ﻿using Genrpg.ServerShared.Utils;
-using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.Logs.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

@@ -1,8 +1,9 @@
 ﻿using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
+using Genrpg.Shared.Spells.PlayerData.Spells;
+using Genrpg.Shared.Spells.Utils;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;

@@ -1,0 +1,11 @@
+{
+  "Id": "npctype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Tailor",
+  "CrafterTypeId": 1,
+  "BuildingTypeId": 1,
+  "DefaultVendorItems": [],
+  "UpdateTime": "2023-12-22T20:37:40.139Z",
+  "CreateTime": "2023-12-22T13:40:16.913Z"
+}

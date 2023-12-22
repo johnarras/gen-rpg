@@ -1,0 +1,9 @@
+{
+  "Id": "npctype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Guard",
+  "DefaultVendorItems": [],
+  "UpdateTime": "2023-12-22T19:32:53.566Z",
+  "CreateTime": "2023-12-22T13:40:16.934Z"
+}

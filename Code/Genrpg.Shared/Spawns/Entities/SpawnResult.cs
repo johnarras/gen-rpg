@@ -1,5 +1,5 @@
 using MessagePack;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 
 namespace Genrpg.Shared.Spawns.Entities
 {

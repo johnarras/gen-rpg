@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Stats.Entities;
@@ -13,6 +12,7 @@ using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.Spells.Casting;
 
 namespace Genrpg.MapServer.Spells.MessageHandlers
 {

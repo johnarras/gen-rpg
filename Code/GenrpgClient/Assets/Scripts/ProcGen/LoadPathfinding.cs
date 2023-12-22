@@ -23,7 +23,7 @@ public class LoadPathfinding : BaseZoneGenerator
         else
         {
             DownloadData ddata = new DownloadData() { IsImage = false, Handler= OnDownloadPathfinding };
-            _assetService.DownloadFile(gs, filename, ddata, token);
+            _assetService.DownloadFile(gs, filename, ddata, true, token);
         }
     }
 

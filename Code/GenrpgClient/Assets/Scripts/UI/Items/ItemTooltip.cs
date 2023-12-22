@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Stats.Entities;
 using Assets.Scripts.Atlas.Constants;
 using Genrpg.Shared.Entities.Utils;
 using System.Threading;
+using Genrpg.Shared.Inventory.Utils;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.Stats.Settings.Stats;
 
 public class InitItemTooltipData : InitTooltipData
 {
@@ -173,7 +174,8 @@ public class ItemTooltip : BaseTooltip
             return;
         }
 
-        _assetService.LoadAssetInto(gs, RowParent, AssetCategoryNames.UI, ItemTooltipRow, OnLoadRow, data, _token);
+        _assetService.LoadAssetInto(gs, RowParent, AssetCategoryNames.UI, 
+            ItemTooltipRow, OnLoadRow, data, _token, "Items" );
     }
 
     private void OnLoadRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)

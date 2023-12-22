@@ -8,6 +8,7 @@ using Genrpg.Shared.ProcGen.Entities;
 
 using System.Linq;
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Locations;
 
 public class AddZoneCenters : BaseZoneGenerator
 {

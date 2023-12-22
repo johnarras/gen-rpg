@@ -1,23 +1,11 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-
 using Cysharp.Threading.Tasks;
-
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
-
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.LineGen;
 
 public class AddRoads : BaseZoneGenerator
 {
@@ -137,10 +125,10 @@ public class AddRoads : BaseZoneGenerator
 
         if (!primaryRoad)
         {
-            startWidth = startWidth * 2 / 3;
-            if (startWidth < 5)
+            startWidth = startWidth / 2;
+            if (startWidth < 4)
             {
-                startWidth = 5;
+                startWidth = 4;
             }
         }
 
@@ -172,12 +160,9 @@ public class AddRoads : BaseZoneGenerator
             }
         }
 		
-		
-		
 		ld.WidthSizeChangeAmount = 1+((rand.Next ()%3)/2);
 		ld.WidthSizeChangeChance = 0.02f+0.07f*(float)(rand.NextDouble ());
 	
-		
 		ld.WidthPosShiftChance = 0.03f + 0.05f*(float)(rand.NextDouble ());
 		ld.WidthPosShiftSize = 1;
 
@@ -193,6 +178,17 @@ public class AddRoads : BaseZoneGenerator
             ld.WidthPosShiftSize++;
             ld.LinePathNoiseScale *= 2;
             ld.InitialNoPosShiftLength = 3;
+        }
+
+        if (FlagUtils.IsSet(extraMapFlags, MapGenFlags.MinorRoad))
+        {
+            ld.WidthPosShiftChance = 0.1f;
+            ld.WidthPosShiftSize = 1;
+            ld.LinePathNoiseScale = 0;
+            ld.InitialNoPosShiftLength = 10;
+            ld.MaxWidthPosDrift = 1;
+            ld.WidthSizeChangeChance = 0.01f;
+            ld.WidthSizeChangeChance = 1;
         }
 
 		ld.Seed = gs.map.Seed/7+147*extraSeed+3*extraSeed*extraSeed+163;
@@ -215,20 +211,30 @@ public class AddRoads : BaseZoneGenerator
             gs.md.flags[px,py] |= extraMapFlags;
 
 			float roadPercent = (float)(rand.NextDouble ()*0.2+0.8f)*roadTextureScale;
-            
-			float dirtPercent = 0.0f;
-            float basePercent = 1 - roadPercent;
+
+            float dirtPercent = 1 - roadPercent;
+            float basePercent = 0;
             if (!primaryRoad)
             {
                 float oldRoadPercent = roadPercent;
-                roadPercent *= MathUtils.FloatRange(0.2f, 0.7f, rand);
+                roadPercent *= MathUtils.FloatRange(0.2f, 0.4f, rand);
                 dirtPercent = oldRoadPercent - roadPercent;
+                basePercent = 1 - roadPercent - dirtPercent;
             }
 
-            if (primaryRoad || alphamaps[px, py, MapConstants.RoadTerrainIndex] == 0)
+            if (FlagUtils.IsSet(extraMapFlags, MapGenFlags.MinorRoad))
+            {
+                dirtPercent = MathUtils.FloatRange(0.6f, 1.0f, rand);
+                roadPercent = 1 - dirtPercent;
+                basePercent = 0;
+            }
+
+
+            if (primaryRoad || alphamaps[px, py, MapConstants.RoadTerrainIndex] == 0 ||
+                FlagUtils.IsSet(extraMapFlags, MapGenFlags.MinorRoad))
             {
                 gs.md.ClearAlphasAt(gs, px, py);
-                alphamaps[px, py, MapConstants.BaseTerrainIndex] = 1 - roadPercent;
+                alphamaps[px, py, MapConstants.BaseTerrainIndex] = basePercent;
                 alphamaps[px, py, MapConstants.RoadTerrainIndex] = roadPercent;
                 alphamaps[px, py, MapConstants.DirtTerrainIndex] = dirtPercent;
             }

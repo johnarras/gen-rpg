@@ -1,5 +1,5 @@
 ﻿using Genrpg.MapServer.MapMessaging;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Messages;
@@ -17,7 +17,6 @@ namespace Genrpg.MapServer.Spawns.MessageHandlers
             {
                 return;
             }
-
             _messageService.SendMessage(ch, new OnSpawn(obj));
         }
     }

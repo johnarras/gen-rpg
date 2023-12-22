@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Characters.Entities;
+﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.Entities;

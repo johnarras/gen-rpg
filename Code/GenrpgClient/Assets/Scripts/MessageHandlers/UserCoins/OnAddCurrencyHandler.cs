@@ -1,8 +1,6 @@
 ﻿
-using Genrpg.Shared.Currencies.Entities;
-using Genrpg.Shared.Currencies.Messages;
-using Genrpg.Shared.UserCoins.Entities;
 using Genrpg.Shared.UserCoins.Messages;
+using Genrpg.Shared.UserCoins.PlayerData;
 using System.Threading;
 
 namespace Assets.Scripts.MessageHandlers.Currency

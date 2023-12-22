@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Crafting.Entities;
+﻿using Genrpg.Shared.Crafting.PlayerData.Recipes;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Units.Loaders;
 using System;

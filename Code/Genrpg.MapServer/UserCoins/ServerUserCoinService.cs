@@ -1,11 +1,10 @@
 ﻿using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Currencies.Entities;
+using Genrpg.Shared.Currencies.PlayerData;
 using Genrpg.Shared.Currencies.Messages;
 using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.UserCoins.Entities;
 using Genrpg.Shared.UserCoins.Messages;
 using Genrpg.Shared.UserCoins.Services;
 using System;
@@ -14,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Genrpg.Shared.UserCoins.PlayerData;
 
 namespace Genrpg.MapServer.UserCoins
 {

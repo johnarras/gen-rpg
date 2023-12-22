@@ -6,7 +6,7 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.ServerShared.Achievements;

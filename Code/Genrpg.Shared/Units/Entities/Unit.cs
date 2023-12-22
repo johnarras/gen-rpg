@@ -1,23 +1,19 @@
 using MessagePack;
-
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Stats.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.NPCs.Entities;
 using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Spells.Settings.Effects;
+using Genrpg.Shared.Spells.Constants;
+using Genrpg.Shared.Spells.Casting;
 
 namespace Genrpg.Shared.Units.Entities
 {
@@ -25,16 +21,13 @@ namespace Genrpg.Shared.Units.Entities
     [MessagePackObject]
     public class Unit : MapObject
     {
-        // Use these things to generate the spells this can cast.
-        [Key(50)] public long NPCTypeId { get; set; }
+        [Key(50)] public long BaseStatAmount { get; set; }
+        [Key(51)] public long StatPct { get; set; }
+        [Key(52)] public long QualityTypeId { get; set; }
 
-        [Key(51)] public long BaseStatAmount { get; set; }
-        [Key(52)] public long StatPct { get; set; }
-        [Key(53)] public long QualityTypeId { get; set; }
-
-        [Key(54)] public float CombatStartX { get; set; }
-        [Key(55)] public float CombatStartZ { get; set; }
-        [Key(56)] public float CombatStartRot { get; set; }
+        [Key(53)] public float CombatStartX { get; set; }
+        [Key(54)] public float CombatStartZ { get; set; }
+        [Key(55)] public float CombatStartRot { get; set; }
 
 
         virtual public string GetGroupId() { return null; }
@@ -79,7 +72,7 @@ namespace Genrpg.Shared.Units.Entities
             return _attackers.FirstOrDefault(x => !string.IsNullOrEmpty(x.GroupId));
         }
 
-        [Key(57)] public float BaseSpeed { get; set; }
+        [Key(56)] public float BaseSpeed { get; set; }
 
         public override bool IsUnit() { return true; }
 
@@ -90,13 +83,6 @@ namespace Genrpg.Shared.Units.Entities
         [IgnoreMember] public StatGroup Stats { get; set; } = new StatGroup();
 
         public float GetScale() { return 1.0f; }
-
-        [JsonIgnore]
-        [IgnoreMember] public NPCType NPCType;
-        [JsonIgnore]
-        [IgnoreMember] public NPCStatus NPCStatus;
-
-        // NOT Stored in the cloud. Calculated during StatsService.CalcStats()
 
         [JsonIgnore]
         [IgnoreMember] public List<SpellProc> Procs;

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Genrpg.Shared.DataStores.Categories.WorldData
 {
-    [DataCategory(Category = DataCategory.WorldData)]
+    [DataCategory(Category = DataCategoryTypes.WorldData)]
     public abstract class BaseWorldData : IStringId
     {
         [MessagePack.IgnoreMember]

@@ -3,16 +3,16 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Constants;
-using Genrpg.Shared.NPCs.Entities;
-using Genrpg.Shared.Quests.Entities;
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.Zones.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Genrpg.Shared.DataStores.Categories.WorldData;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Quests.WorldData;
+using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Vendors.WorldData;
 
 namespace Genrpg.Shared.MapServer.Entities
 {
@@ -42,10 +42,9 @@ namespace Genrpg.Shared.MapServer.Entities
         [Key(13)] public long OverrideZoneId { get; set; }
         [Key(14)] public float OverrideZonePercent { get; set; }
 
-        [Key(15)] public List<NPCType> NPCs { get; set; }
-        [Key(16)] public List<QuestType> Quests { get; set; }
-        [Key(17)] public List<QuestItem> QuestItems { get; set; }
-        [Key(18)] public List<Zone> Zones { get; set; }
+        [Key(15)] public List<QuestType> Quests { get; set; }
+        [Key(16)] public List<QuestItem> QuestItems { get; set; }
+        [Key(17)] public List<Zone> Zones { get; set; }
 
 
         public static string GetMapOwnerId(IMapRoot mapRoot)
@@ -57,7 +56,6 @@ namespace Genrpg.Shared.MapServer.Entities
         {
             Quests = new List<QuestType>();
             Zones = new List<Zone>();
-            NPCs = new List<NPCType>();
             QuestItems = new List<QuestItem>();
             SpawnX = -1;
             SpawnY = -1;
@@ -97,11 +95,7 @@ namespace Genrpg.Shared.MapServer.Entities
 
         public object GetEditorListFromEntityTypeId(int entityTypeId)
         {
-            if (entityTypeId == EntityTypes.NPC)
-            {
-                return NPCs;
-            }
-            else if (entityTypeId == EntityTypes.Quest)
+            if (entityTypeId == EntityTypes.Quest)
             {
                 return Quests;
             }
@@ -128,12 +122,6 @@ namespace Genrpg.Shared.MapServer.Entities
             {
                 return Zones;
             }
-
-            if (name.IndexOf("NPCTypeId") >= 0)
-            {
-                return NPCs;
-            }
-
             if (name.IndexOf("QuestTypeId") >= 0)
             {
                 return Quests;
@@ -145,30 +133,6 @@ namespace Genrpg.Shared.MapServer.Entities
             }
 
             return null;
-        }
-
-        private Dictionary<long, List<QuestType>> _npcQuestList = null;
-        public List<QuestType> GetQuestsForNPC(GameState gs, long npcTypeId)
-        {
-            if (_npcQuestList == null)
-            {
-                _npcQuestList = new Dictionary<long, List<QuestType>>();
-                if (NPCs != null && Quests != null)
-                {
-                    foreach (NPCType npc in NPCs)
-                    {
-                        _npcQuestList[npc.IdKey] = Quests.Where(X => X.StartNPCTypeId == npc.IdKey || X.EndNPCTypeId == npc.IdKey).ToList();
-                    }
-                }
-            }
-
-            if (!_npcQuestList.ContainsKey(npcTypeId))
-            {
-                return new List<QuestType>();
-            }
-
-            return _npcQuestList[npcTypeId];
-
         }
 
         public void CleanForClient()

@@ -1,23 +1,14 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-
-using System.Text;
-using Genrpg.Shared.Core.Entities;
-
-
-
 using Cysharp.Threading.Tasks;
 
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 
 using System.Threading;
 using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class AddRandomDirt : BaseZoneGenerator
 {

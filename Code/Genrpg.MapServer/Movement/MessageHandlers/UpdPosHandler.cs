@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.MapServer.MapMessaging;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.MapServer.Messages;
 using Genrpg.ServerShared.CloudComms.Constants;

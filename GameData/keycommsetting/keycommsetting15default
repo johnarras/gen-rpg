@@ -1,0 +1,10 @@
+{
+  "Id": "keycommsetting15default",
+  "IdKey": 15,
+  "Name": "KeyCommSetting",
+  "ParentId": "default",
+  "KeyPress": "d",
+  "KeyCommand": "TurnRight",
+  "UpdateTime": "2023-12-18T20:38:27.345Z",
+  "CreateTime": "2023-11-24T22:45:42Z"
+}

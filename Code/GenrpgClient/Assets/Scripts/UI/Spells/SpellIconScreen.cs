@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Spells.Entities;
+﻿using Genrpg.Shared.Spells.PlayerData.Spells;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 

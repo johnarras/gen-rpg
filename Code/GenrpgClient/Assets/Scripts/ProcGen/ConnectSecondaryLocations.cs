@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Locations;
+using Genrpg.Shared.ProcGen.Settings.Locations.Constants;
 
 // Connect these zone centers to "closest object.
 
@@ -37,7 +36,7 @@ public class ConnectSecondaryLocations : BaseZoneGenerator
                 }
                 foreach (Location loc in gs.md.locationGrid[x, y])
                 {
-                    if (loc.LocationTypeId != LocationType.ZoneCenter)
+                    if (loc.LocationTypeId != LocationTypes.ZoneCenter)
                     {
                         locations.Add(loc);
                     }

@@ -1,10 +1,10 @@
 ﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Currencies.Entities;
 
 using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
+using Genrpg.Shared.Currencies.Settings;
 
 namespace Genrpg.Shared.Currencies.Helpers
 {

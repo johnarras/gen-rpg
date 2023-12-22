@@ -1,4 +1,5 @@
 ﻿
+using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Constants;
 using Genrpg.Shared.Entities.Utils;
 using System;
@@ -14,13 +15,23 @@ namespace Genrpg.ServerShared.Config
     public class ConfigUtils
     {
         const string ConnectionSuffix = "Connection";
+    
         public static async Task<ServerConfig> SetupServerConfig(CancellationToken token, string serverId)
         {
             ServerConfig serverConfig = new ServerConfig();
             serverConfig.ServerId = serverId;
             serverConfig.Env = ConfigurationManager.AppSettings["Env"];
-            serverConfig.DbEnv = ConfigurationManager.AppSettings["DbEnv"];
+
+            foreach (string dataCategory in DataCategoryTypes.DataCategories)
+            {
+                serverConfig.DataEnvs[dataCategory] = ConfigurationManager.AppSettings[dataCategory + "Env"];
+            }
+
             serverConfig.MessagingEnv = ConfigurationManager.AppSettings["MessagingEnv"];
+
+            serverConfig.ContentRoot = ConfigurationManager.AppSettings["ContentRoot"];
+
+            serverConfig.EtherscanKey = ConfigurationManager.AppSettings["EtherscanKey"];
 
             List<string> allKeys = ConfigurationManager.AppSettings.AllKeys.ToList();
 

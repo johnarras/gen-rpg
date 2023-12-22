@@ -7,6 +7,11 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.ProcGen.Settings.Bridges;
+using Genrpg.Shared.ProcGen.Settings.MapWater;
+using Genrpg.Shared.ProcGen.Settings.Locations;
+using Genrpg.Shared.Zones.WorldData;
 
 public class AddBridges : BaseZoneGenerator
 {

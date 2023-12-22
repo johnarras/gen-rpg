@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 using System.Threading;
 
 public class InitSpellTooltipData : InitTooltipData
@@ -65,7 +65,8 @@ public class SpellTooltip : BaseTooltip
             return;
         }
 
-        _assetService.LoadAssetInto(gs, RowParent, AssetCategoryNames.UI, SpellTooltipRow, OnLoadRow, data, _token);
+        _assetService.LoadAssetInto(gs, RowParent, AssetCategoryNames.UI, 
+            SpellTooltipRow, OnLoadRow, data, _token, "Spells");
     }
 
     private void OnLoadRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)

@@ -1,11 +1,10 @@
 
 using ClientEvents;
 using Genrpg.Shared.Currencies.Constants;
-using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Currencies.Messages;
-using Genrpg.Shared.Levels.Entities;
+using Genrpg.Shared.Currencies.PlayerData;
+using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Units.Entities;
-using GEntity = UnityEngine.GameObject;
 
 public class ExpBar : BaseBehaviour
 {

@@ -4,8 +4,11 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.MapWater;
+using Genrpg.Shared.ProcGen.Settings.Trees;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class AddWater : BaseZoneGenerator
 {

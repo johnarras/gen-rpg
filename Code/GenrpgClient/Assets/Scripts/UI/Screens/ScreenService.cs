@@ -9,6 +9,7 @@ using System.Threading;
 using Assets.Scripts.Tokens;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using System.Web;
 
 public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 {
@@ -94,9 +95,15 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
             layer.CurrentLoading = nextItem;
             layer.ScreenQueue.RemoveAt(0);
 
-            _assetService.LoadAssetInto(_gs, layer.LayerParent, AssetCategoryNames.Screens, ScreenUtils.GetPrefabName(nextItem.ScreenId), OnLoadScreen, nextItem, _gameToken);
-        }
 
+            string prefabName = ScreenUtils.GetPrefabName(nextItem.ScreenId);
+            string subdirectory = GetSubdirectory(nextItem.ScreenId);
+
+
+            _assetService.LoadAssetInto(_gs, layer.LayerParent, AssetCategoryNames.UI, 
+                prefabName, OnLoadScreen, nextItem, _gameToken, subdirectory);
+            
+        }
     }
 
     private void OnLoadScreen(UnityGameState gs, string url, object obj, object data, CancellationToken token)
@@ -141,7 +148,9 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
             _gs.logger.Debug("Screen had no BaseScreen on it");
             return;
         }
+        bs.Name = bs.name;
         bs.ScreenId = nextItem.ScreenId;
+        bs.Subdirectory = GetSubdirectory(bs.ScreenId);
 
         Canvas canvas = screen.GetComponent<Canvas>();
 
@@ -221,6 +230,12 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
         act.LayerObject = currLayer;
 
         currLayer.ScreenQueue.Add(act);
+    }
+
+    private string GetSubdirectory(ScreenId screenName)
+    {
+        ScreenConfig config = _screenConfigs.FirstOrDefault(x => x.ScreenName == screenName);
+        return config?.Subdirectory ?? null;
     }
 
     public ScreenLayer GetLayer(ScreenId screenName)

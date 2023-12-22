@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.DataStores.Categories.GameSettings
 {
-    [DataCategory(Category = DataCategory.GameData)]
+    [DataCategory(Category = DataCategoryTypes.GameData)]
     public abstract class BaseGameSettings : IGameSettings, IUpdateData
     {
         [MessagePack.IgnoreMember]

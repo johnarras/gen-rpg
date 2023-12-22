@@ -59,7 +59,7 @@ public class FloatingTextScreen : BaseScreen
             FloatingTextQueuedItem firstItem = _messageQueue[0];
             _messageQueue.RemoveAt(0);
 
-            _assetService.LoadAssetInto(_gs, _textAnchor, AssetCategoryNames.UI, firstItem.ArtName, OnLoadText, firstItem.Message, _token);
+            _assetService.LoadAssetInto(_gs, _textAnchor, AssetCategoryNames.UI, firstItem.ArtName, OnLoadText, firstItem.Message, _token, Subdirectory);
 
         }
 

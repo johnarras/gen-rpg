@@ -1,5 +1,4 @@
 ﻿
-using Genrpg.Shared.Currencies.Entities;
 using Genrpg.Shared.Currencies.Messages;
 using Genrpg.Shared.Currencies.Services;
 using System.Threading;

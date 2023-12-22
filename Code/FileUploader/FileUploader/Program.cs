@@ -12,22 +12,26 @@ namespace FileUploader
         public static void Main(string[] args)
         {
             string output = "";
+
             try
             {
-                var _connectionString = ConfigurationManager.AppSettings["BlobContentConnection"];
-                if (args.Length < 2)
+                string connectionStringVar = (args[0] == "True" ?
+                    "BlobWorldDataConnection" : "BlobContentDataConnection");
+
+                var _connectionString = ConfigurationManager.AppSettings[connectionStringVar];
+                if (args.Length < 3)
                 {
                     output += "Not enough args\n";
                     return;
                 }
 
-                output += "Arg0: " + args[0] + "\n";
-                output += "Arg1: " + args[1] + "\n";
 
+                output += "Arg0: " + args[1] + "\n";
+                output += "Arg1: " + args[2] + "\n";
 
                 var fdata = new FileUploadData();
-                fdata.SetLocalPath(args[0]);
-                fdata.SetRemotePath(args[1]);
+                fdata.SetLocalPath(args[1]);
+                fdata.SetRemotePath(args[2]);
 
 
                 var account = CloudStorageAccount.Parse(_connectionString);

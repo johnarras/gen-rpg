@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Quests.Entities;
+﻿using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Units.Loaders;
 using System;
 using System.Collections.Generic;

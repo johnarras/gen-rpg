@@ -12,7 +12,7 @@ namespace UI.Screens.Utils
     {
         public static string GetPrefabName(ScreenId id)
         {
-            return (id.ToString() + "Screen");
+            return (id.ToString().Replace("_","/") + "Screen");
         }
 
         public static void SetupScreenSystem(int width, int height, bool isFullScreen, bool isLandscape, int vsyncCount)

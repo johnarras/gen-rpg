@@ -1,14 +1,11 @@
 ﻿using System;
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
-using Genrpg.Shared.GameSettings.Entities;
-using Genrpg.Shared.Currencies.Entities;
-using Genrpg.Shared.Currencies.Constants;
+using Genrpg.Shared.Zones.WorldData;
 
 public class ZoneScreen : BaseScreen
 {
@@ -25,15 +22,12 @@ public class ZoneScreen : BaseScreen
     {
         Setup();
         UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
-
-        FloatingTextScreen.Instance.ShowMessage(_gs.data.GetGameData<CurrencySettings>(_gs.ch).GetCurrencyType(CurrencyTypes.Money).Art);
         await UniTask.CompletedTask;
-
     }
 
     private void Setup()
     {
-        _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token);
+        _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token, "Maps");
 
         UIHelper.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
         ShowPlayer();
@@ -89,14 +83,11 @@ public class ZoneScreen : BaseScreen
 
         int mapSize = mapTexture.width;
 
-
         float imageSize = MapImage.rectTransform.sizeDelta.x;
 
         float minZonePixelSize = imageSize / 2;
 
         float minPercentSize = 1.0f * minZonePixelSize / mapSize;
-
-
 
         Zone currZone = _gs.map.Get<Zone>(ZoneStateController.CurrentZoneShown);
 

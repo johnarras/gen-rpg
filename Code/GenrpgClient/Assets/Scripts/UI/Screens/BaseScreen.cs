@@ -8,6 +8,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
 {
     public string Name { get; set; }
     public ScreenId ScreenId { get; set; }
+    public string Subdirectory { get; set; }
     public float IntroTime;
     public float OutroTime;
 
@@ -17,6 +18,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
 
     private CancellationTokenSource _screenSource = new CancellationTokenSource();
     protected CancellationToken _token;
+  
 
     // Called when screen first opens.
     protected abstract UniTask OnStartOpen(object data, CancellationToken token);

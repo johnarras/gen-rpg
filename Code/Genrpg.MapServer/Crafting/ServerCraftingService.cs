@@ -1,12 +1,19 @@
 ﻿using Genrpg.MapServer.Items;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Crafting.Constants;
 using Genrpg.Shared.Crafting.Entities;
+using Genrpg.Shared.Crafting.Messages;
+using Genrpg.Shared.Crafting.PlayerData.Crafting;
+using Genrpg.Shared.Crafting.PlayerData.Recipes;
 using Genrpg.Shared.Crafting.Services;
+using Genrpg.Shared.Crafting.Settings.Crafters;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Utils;
 using System;
@@ -65,9 +72,9 @@ namespace Genrpg.MapServer.Crafting
 
             long crafterTypeId = _sharedCraftingService.GetCrafterTypeFromRecipe(gs, ch, data.RecipeTypeId, data.ScalingTypeId);
 
-            CrafterData crafterData = ch.Get<CrafterData>();
+            CraftingData crafterData = ch.Get<CraftingData>();
 
-            CrafterStatus crafterStatus = crafterData.Get(crafterTypeId);
+            CraftingStatus crafterStatus = crafterData.Get(crafterTypeId);
 
             if (crafterStatus == null)
             {

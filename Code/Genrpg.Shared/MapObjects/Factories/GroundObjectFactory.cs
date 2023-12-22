@@ -1,10 +1,10 @@
 using MessagePack;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.GroundObjects.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.GroundObjects.MapObjects;
+using Genrpg.Shared.Zones.WorldData;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {

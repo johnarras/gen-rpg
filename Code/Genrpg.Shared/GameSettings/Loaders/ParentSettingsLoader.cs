@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.DataStores.Entities;
+﻿using Genrpg.Shared.Charms.Settings;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using System;
@@ -27,7 +28,6 @@ namespace Genrpg.Shared.GameSettings.Loaders
 
             List<IGameSettings> settings = await loadParents;
             List<TChild> allChildren = await loadChildren;
-
 
             foreach (IGameSettings setting in settings)
             {

@@ -1,0 +1,10 @@
+{
+  "Id": "keycommsetting1default",
+  "IdKey": 1,
+  "Name": "KeyCommSetting",
+  "ParentId": "default",
+  "KeyPress": "k",
+  "KeyCommand": "QuestScreen",
+  "UpdateTime": "2023-12-18T20:38:27.315Z",
+  "CreateTime": "2023-11-24T22:45:42Z"
+}

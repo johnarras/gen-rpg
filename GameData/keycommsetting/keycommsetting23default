@@ -1,0 +1,10 @@
+{
+  "Id": "keycommsetting23default",
+  "IdKey": 23,
+  "Name": "KeyCommSetting",
+  "ParentId": "default",
+  "KeyPress": "n",
+  "KeyCommand": "ZoneScreen",
+  "UpdateTime": "2023-12-18T20:38:27.361Z",
+  "CreateTime": "2023-11-24T22:45:42Z"
+}

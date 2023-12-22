@@ -5,6 +5,8 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class AddDetailHeights : BaseZoneGenerator
 {

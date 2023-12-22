@@ -65,7 +65,7 @@ public class LoadMap : BaseZoneGenerator
                     Handler = OnDownloadTerrainBytes, 
                     Data = patch,
                 };
-                _assetService.DownloadFile(gs, filePath, ddata, token);
+                _assetService.DownloadFile(gs, filePath, ddata, true, token);
                 return;
             }
             else

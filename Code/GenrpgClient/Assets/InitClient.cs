@@ -9,21 +9,16 @@ using Genrpg.Shared.Interfaces;
 using Assets.Scripts.Tokens;
 using Genrpg.Shared.Core.Entities;
 using Assets.Scripts.Model;
-using Genrpg.Shared.Constants.TempDev;
 using UI.Screens.Utils;
 using Genrpg.Shared.GameSettings;
 
 public class InitClient : BaseBehaviour
 {
 
-    public ClientConfig _config = null;
+    private ClientConfig _config = null;
     public GEntity _splashImage;
 
     private IClientLoginService _loginService;
-
-    const string ConfigURL = TempDevConstants.ConfigEndpoint;
-
-    public const string DefaultAssetPrefix = TempDevConstants.DefaultAssetPrefix;
 
     public string CurrMapId;
 
@@ -48,6 +43,8 @@ public class InitClient : BaseBehaviour
 
     void Start()
     {
+        _config = ClientConfig.Load();
+
         UnityGameState gs = new UnityGameState();
         gs.logger = new ClientLogger(gs);
         gs.loc = new ServiceLocator(gs.logger);
@@ -69,10 +66,7 @@ public class InitClient : BaseBehaviour
     }
 
 
-    private CancellationTokenSource _clientTokenSource = new CancellationTokenSource();
-
     private string _envName = "";
-    private EnvEnum _envEnum = EnvEnum.Local;
     protected async UniTask OnStart()
     {
 #if UNITY_EDITOR
@@ -80,7 +74,6 @@ public class InitClient : BaseBehaviour
 #endif
         Instance = this;
         _envName = _config.Env.ToString();
-        _envEnum = _config.Env;
 
         Analytics.Setup(_gs);
         // Initial app appearance.
@@ -89,7 +82,7 @@ public class InitClient : BaseBehaviour
         Cursors.SetCursor(Cursors.Default);
 
         ClientWebRequest req = new ClientWebRequest();
-        string url = ConfigURL + "?env=" + _envName;
+        string url = _config.InitialConfigEndpoint + "?env=" + _envName;
         req.SendRequest(_gs, url, "", OnGetWebConfig, _gameTokenSource.Token).Forget();
         await UniTask.CompletedTask;
     }
@@ -104,15 +97,17 @@ public class InitClient : BaseBehaviour
         _gs.SetInitObject(entity);
         _gs.Env = _envName;
         _gs.SiteURL = response.ServerURL;
-        string envArtName = (_envName == EnvNames.Prod ? _envName.ToLower() : EnvNames.Dev.ToLower());
-        _gs.ArtURL = response.ArtURLPrefix + Game.Prefix.ToLower() + envArtName + "/";
+
+        string artURLWithoutEnv = response.ArtURLPrefix;
+        string contentDataEnv = string.IsNullOrEmpty(_config.ContentDataEnvOverride) ? response.ArtEnv : _config.ContentDataEnvOverride;
+        string worldDataEnv = _config.WorldDataEnv;
         UIHelper.SetGameState(_gs);
 
         // Basic game setup
         SetupService setupService = new SetupService();
         await setupService.SetupGame(_gs, token);
 
-        ClientSetupService.SetupClient(_gs, true, token);
+        ClientSetupService.SetupClient(_gs, true, artURLWithoutEnv, contentDataEnv, worldDataEnv, token);
 
         InitialPrefabLoader prefabLoader = AssetUtils.LoadResource<InitialPrefabLoader>("Prefabs/PrefabLoader");
         await prefabLoader.LoadPrefabs(_gs);

@@ -4,9 +4,10 @@ using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
-using Genrpg.Shared.Spawns.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Genrpg.Shared.Spawns.Settings;
+
 namespace Genrpg.Shared.Spawns.Helpers
 {
     public class SpawnHelper : IEntityHelper

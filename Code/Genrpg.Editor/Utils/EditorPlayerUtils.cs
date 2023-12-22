@@ -1,13 +1,9 @@
 ﻿using Genrpg.Editor.Entities.Core;
 using Genrpg.ServerShared.PlayerData;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Users.Entities;
-using Genrpg.Shared.Utils;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Genrpg.Editor.Utils
@@ -44,23 +40,23 @@ namespace Genrpg.Editor.Utils
 
         public static async Task SaveEditorUserData(EditorGameState gs)
         {
-            if (true || gs.LookedAtObjects.Contains(gs.EditorUser.User))
+            if (gs.LookedAtObjects.Contains(gs.EditorUser.User))
             {
                 await gs.repo.Save(gs.EditorUser.User);
             }
-            if (true || gs.EditorUser.Characters != null)
+            if (gs.EditorUser.Characters != null)
             {
                 foreach (EditorCharacter ech in gs.EditorUser.Characters)
                 {
-                    if (true ||gs.LookedAtObjects.Contains(ech.Character))
+                    if (gs.LookedAtObjects.Contains(ech.Character))
                     {
                         await gs.repo.Save(ech.Character);
                     }
                     foreach (IUnitData unitData in ech.Character.GetAllData().Values)
                     {
-                        if (true || gs.LookedAtObjects.Contains(unitData))
+                        if (gs.LookedAtObjects.Contains(unitData))
                         {
-                            unitData.Save(gs.repo, true);
+                            unitData.Save(gs.repo, false);
                         }
                     }
                 }

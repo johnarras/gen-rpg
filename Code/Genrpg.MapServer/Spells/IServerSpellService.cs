@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Spells.Messages;
+using Genrpg.Shared.Spells.Settings.Effects;
+using Genrpg.Shared.Spells.PlayerData.Spells;
+using Genrpg.Shared.Spells.Casting;
 
 namespace Genrpg.MapServer.Spells
 {

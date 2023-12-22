@@ -1,6 +1,5 @@
 ﻿using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.PlayerData;
-using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Login.Interfaces;
@@ -19,7 +18,6 @@ using Genrpg.Shared.MapServer.Entities;
 using System.Linq;
 using Genrpg.Shared.Networking.Constants;
 using Genrpg.ServerShared.Maps;
-using Genrpg.Shared.Constants.TempDev;
 using Genrpg.ServerShared.GameSettings;
 using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.ServerShared.GameSettings.Services;
@@ -33,6 +31,8 @@ using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.ServerShared.CloudComms.Servers.LoginServer;
 using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
+using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Spawns.WorldData;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
@@ -60,10 +60,6 @@ namespace Genrpg.LoginServer.CommandHandlers
                 long.TryParse(command.MapId, out mapId);
                 if (command.GenerateMap)
                 {
-                    fullCachedMap.Map = new Map() { Id = command.MapId };
-                    await gs.repo.Save(fullCachedMap.Map);
-                    MapSpawnData mapSpawnData = new MapSpawnData { Id = command.MapId.ToString() };
-                    await gs.repo.Save(mapSpawnData);
                 }
                 else
                 {
@@ -96,6 +92,13 @@ namespace Genrpg.LoginServer.CommandHandlers
 
             List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
 
+            string worldDataEnv = gs.config.DataEnvs[DataCategoryTypes.WorldData];
+
+            if (command.GenerateMap && !string.IsNullOrEmpty(command.WorldDataEnv))
+            {
+                worldDataEnv = command.WorldDataEnv;
+            }
+
             List<IGameSettings> gameData = _gameDataService.GetClientGameData(gs, gs.ch, false);
             LoadIntoMapResult loadResult = new LoadIntoMapResult()
             {
@@ -108,6 +111,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 OverrideList = gs.ch.GetGameDataOverrideList(),
                 GameData = gameData,
                 CharData = clientDataList,
+                WorldDataEnv = worldDataEnv,
             };
 
             gs.user.CurrCharId = gs.ch.Id;
@@ -142,7 +146,7 @@ namespace Genrpg.LoginServer.CommandHandlers
 
             GetInstanceQueueResponse response = await _cloudCommsService.SendResponseMessageAsync<GetInstanceQueueResponse>(CloudServerNames.Instance, new GetInstanceQueueRequest() { MapId = mapId });
 
-            if (response == null || !string.IsNullOrEmpty(response.ErrorText))
+            if (!generatingMap && (response == null || !string.IsNullOrEmpty(response.ErrorText)))
             {
                 return new FullCachedMap();
             }
@@ -154,12 +158,15 @@ namespace Genrpg.LoginServer.CommandHandlers
                 Map = (generatingMap ? cachedMap.FullMap : cachedMap.ClientMap),
             };
 
-            fullMap.MapInstance = new CachedMapInstance()
+            if (!generatingMap)
             {
-                Host = response.Host,
-                Port = response.Port,
-                InstanceId = response.InstanceId,
-            };
+                fullMap.MapInstance = new CachedMapInstance()
+                {
+                    Host = response.Host,
+                    Port = response.Port,
+                    InstanceId = response.InstanceId,
+                };
+            }
 
             return fullMap;
         }

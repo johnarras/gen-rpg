@@ -4,7 +4,7 @@ using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.Logs.Interfaces;
 
 namespace Genrpg.Shared.Core.Entities
 {

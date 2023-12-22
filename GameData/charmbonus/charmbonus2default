@@ -1,0 +1,18 @@
+{
+  "Id": "charmbonus2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "EntityTypeId": 31,
+  "EntityId": 12,
+  "CharmUseId": 1,
+  "CheckBitCount": 5,
+  "CheckBitsMatchTarget": 1,
+  "CheckBitStartIndex": 852,
+  "CheckBitSkip": 4,
+  "QuantityBitsCount": 14,
+  "QuantityMod": 43,
+  "QuantityBitSkip": 7,
+  "QuantityStartBit": 1651,
+  "UpdateTime": "2023-12-18T15:48:18.216Z",
+  "CreateTime": "2023-12-18T14:31:42.111Z"
+}

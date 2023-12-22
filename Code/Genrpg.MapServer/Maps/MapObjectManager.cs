@@ -17,16 +17,18 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.MapServer.Constants;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Spawns.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.MapServer.Maps.Messaging;
 using Genrpg.MapServer.Maps.Filters;
 using Genrpg.MapServer.MapMessaging.Interfaces;
-using Genrpg.Shared.AI.Entities;
+using Genrpg.Shared.AI.Settings;
 using Genrpg.Shared.MapServer.Messages;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Movement.Messages;
+using Genrpg.Shared.Spawns.Settings;
+using Genrpg.Shared.Spawns.WorldData;
+using MongoDB.Bson.IO;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -410,7 +412,6 @@ namespace Genrpg.MapServer.Maps
 
         public virtual MapObjectGridItem AddObject(GameState gs, MapObject obj, IMapSpawn spawn)
         {
-
             PointXZ pt = GetGridCoordinates(obj);
 
             if (GetGridItem(obj.Id, out MapObjectGridItem currentGridItem))
@@ -477,6 +478,7 @@ namespace Genrpg.MapServer.Maps
                 return null;
             }
             gridItem.Obj.SetDeleted(true);
+
 #if DEBUG
             if (gridItem.Obj is Unit unit)
             {
@@ -553,7 +555,7 @@ namespace Genrpg.MapServer.Maps
                 }
             }
             _totalUnits = gs.spawns.Data
-                .Where(x => x.EntityTypeId == EntityTypes.Unit || x.EntityTypeId == EntityTypes.NPC)
+                .Where(x => x.EntityTypeId == EntityTypes.Unit || x.EntityTypeId == EntityTypes.ZoneUnit)
                 .Count();
             _totalObjects = gs.spawns.Data.Count - _totalUnits;
 
@@ -571,9 +573,12 @@ namespace Genrpg.MapServer.Maps
                             int delta = 25;
                             copySpawn.X += MathUtils.IntRange(-delta, delta, gs.rand);
                             copySpawn.Z += MathUtils.IntRange(-delta, delta, gs.rand);
-                            copySpawn.MapObjectId += "." + times.ToString();
+                            copySpawn.ObjId += "." + times.ToString();
                         }
-                        copySpawn.FactionTypeId = MathUtils.IntRange(1, 4, gs.rand);
+                        if (!copySpawn.GetAddons().Any())
+                        {
+                            copySpawn.FactionTypeId = MathUtils.IntRange(1, 4, gs.rand);
+                        }
                         copySpawns.Add(copySpawn);
                     }
                 }
@@ -633,10 +638,10 @@ namespace Genrpg.MapServer.Maps
         public virtual MapObject SpawnObject(GameState gs, IMapSpawn spawn)
         {
 
-            if (GetObject(spawn.MapObjectId, out MapObject currObj))
+            if (GetObject(spawn.ObjId, out MapObject currObj))
             {
                 return currObj;
-            }
+                }
 
             if (!GetFactory(spawn.EntityTypeId, out IMapObjectFactory fact))
             {

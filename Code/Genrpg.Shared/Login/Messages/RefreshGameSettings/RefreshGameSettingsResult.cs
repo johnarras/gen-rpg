@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Genrpg.Shared.GameSettings.Entities;
+using Genrpg.Shared.GameSettings.PlayerData;
 
-namespace Genrpg.Shared.Login.Messages.RefreshGameData
+namespace Genrpg.Shared.Login.Messages.RefreshGameSettings
 {
     [MessagePackObject]
     public sealed class RefreshGameSettingsResult : ILoginResult

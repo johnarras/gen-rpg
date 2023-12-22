@@ -7,7 +7,7 @@ using Genrpg.Shared.Core.Entities;
 
 
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using ClientEvents;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;

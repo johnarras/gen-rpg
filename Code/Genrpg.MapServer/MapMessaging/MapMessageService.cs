@@ -11,7 +11,7 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using System.Runtime.InteropServices;
 using Genrpg.MapServer.AI.Services;
 using Genrpg.MapServer.Maps;

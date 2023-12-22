@@ -1,5 +1,5 @@
 ﻿using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.Settings.Spells;
 using MessagePack;
 using System;
 using System.Collections.Generic;

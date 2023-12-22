@@ -7,6 +7,8 @@ using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Entities;
 using System.Threading;
 using UnityEngine;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class WaterObjectLoader : BaseObjectLoader
 {

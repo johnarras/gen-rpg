@@ -6,6 +6,8 @@ using Genrpg.Shared.Zones.Entities;
 using System.Threading;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public abstract class BaseObjectLoader
 {

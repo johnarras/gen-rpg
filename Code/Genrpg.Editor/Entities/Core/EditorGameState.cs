@@ -1,16 +1,11 @@
 ﻿using Genrpg.Editor.Interfaces;
 using Genrpg.ServerShared.Core;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Users.Entities;
-using Microsoft.Identity.Client;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace Genrpg.Editor.Entities.Core

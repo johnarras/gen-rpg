@@ -1,8 +1,8 @@
 ﻿
-using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 using Assets.Scripts.Atlas.Constants;
 using System.Threading;
+using Genrpg.Shared.Inventory.Constants;
 
 public delegate void OnLoadSpellIconHandler(UnityGameState gs, InitSpellIconData data);
 

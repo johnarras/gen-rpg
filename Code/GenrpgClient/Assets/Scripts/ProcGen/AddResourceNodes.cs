@@ -1,14 +1,15 @@
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Genrpg.Shared.ProcGen.Entities;
-using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Entities.Constants;
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.GroundObjects;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Spawns.Entities;
 
 public class ZoneResourceNodeData
 {
@@ -285,9 +286,18 @@ public class AddResourceNodes : BaseZoneGenerator
 
             GroundObjType goType = zdata.Objects[clutterIndex];
 
+            InitSpawnData initData = new InitSpawnData()
+            {
+                EntityTypeId = EntityTypes.GroundObject,
+                EntityId = goType.IdKey,
+                SpawnX = py,
+                SpawnZ = px,
+                ZoneId = gs.md.mapZoneIds[cx, cy],
+                ZoneOverridePercent = (int)(gs.md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax),
+            };
 
-            gs.spawns.AddSpawn(EntityTypes.GroundObject, goType.IdKey, px, py, zone.IdKey,
-                (int)(gs.md.overrideZoneScales[px, py] * MapConstants.OverrideZoneScaleMax));
+            gs.spawns.AddSpawn(initData);
+
             zdata.CurrNum++;
 
             for (int xx = px-MapConstants.MinResourceSeparation; xx <= px+MapConstants.MinResourceSeparation; xx++)

@@ -1,10 +1,14 @@
 ﻿
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Assets.Scripts.Atlas.Constants;
 using Genrpg.Shared.Entities.Services;
 using System.Threading;
+using Genrpg.Shared.Inventory.Settings;
+using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.Inventory.Utils;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
 
 public delegate void OnLoadItemIconHandler(UnityGameState gs, InitItemIconData data);
 

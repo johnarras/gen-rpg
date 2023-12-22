@@ -22,7 +22,7 @@ public class BundleSetupUtils
     /// Use this function to 
     /// </summary>
     /// <param name="path"></param>
-    public static void BundleFilesInDirectory(UnityGameState gs, string assetPathSuffix)
+    public static void BundleFilesInDirectory(UnityGameState gs, string assetPathSuffix, bool allowAllFiles)
     {
         if (_assetService == null)
         {
@@ -43,7 +43,7 @@ public class BundleSetupUtils
 
         foreach (string fileName in files)
         {
-            if (SetupItemAtPath(gs, assetPathSuffix, fullPath, fileName))
+            if (SetupFileAtPath(gs, assetPathSuffix, fileName, false))
             {
                 numAdded++;
             }
@@ -66,20 +66,23 @@ public class BundleSetupUtils
         foreach (string directory in directories)
         {
             string subdirectory = directory.Replace(fullPath, "");
-            BundleFilesInDirectory(gs, assetPathSuffix + (!string.IsNullOrEmpty(assetPathSuffix)?"/":"") + subdirectory);
+            if (string.IsNullOrEmpty(assetPathSuffix))
+            {
+                BundleFilesInDirectory(gs, assetPathSuffix + (!string.IsNullOrEmpty(assetPathSuffix) ? "/" : "") + subdirectory, false);
+            }
+            else
+            {
+                SetupFileAtPath(gs, assetPathSuffix, directory, true);
+            }
         }
     }
 
-    private static bool SetupItemAtPath(UnityGameState gs, string assetPathSuffix, string path, string item)
+    private static bool SetupFileAtPath(UnityGameState gs, string assetPathSuffix, string item, bool allowAllFiles)
     {
-        if (EditorAssetUtils.IsIgnoreFilename(item))
+        if (!allowAllFiles && EditorAssetUtils.IsIgnoreFilename(item))
         {
             return false;
         }
-
-        string artName = item.Replace(path, "");
-        string artPath = item;
-
 
         AssetDatabase.ImportAsset(item, ImportAssetOptions.Default);
 

@@ -4,6 +4,7 @@ using Genrpg.Shared.ProcGen.Entities;
 
 using System.Threading;
 using System;
+using Genrpg.Shared.Zones.WorldData;
 
 public class SetupNearbyZones : BaseAddMountains
 {

@@ -2,11 +2,9 @@
 using Genrpg.LoginServer.Core;
 using Genrpg.LoginServer.PlayerData;
 using Genrpg.ServerShared.GameSettings.Services;
-using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
-using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.Login.Messages.RefreshGameData;
+using Genrpg.Shared.Login.Messages.RefreshGameSettings;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;

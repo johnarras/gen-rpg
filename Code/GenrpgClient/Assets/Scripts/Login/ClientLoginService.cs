@@ -7,7 +7,6 @@ using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Login.Messages.Login;
-using Genrpg.Shared.Versions.Entities;
 using UI.Screens.Constants;
 using GEntity = UnityEngine.GameObject;
 

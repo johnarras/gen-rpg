@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System.Threading;
 using UnityEngine; // Needed
+using Genrpg.Shared.Inventory.Settings;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
 
 public class FullItemTooltipInitData : InitTooltipData
 {

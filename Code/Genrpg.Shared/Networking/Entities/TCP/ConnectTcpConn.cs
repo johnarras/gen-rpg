@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Networking.MapApiSerializers;
 using Genrpg.Shared.MapMessages.Interfaces;
-using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.Logs.Interfaces;
 
 namespace Genrpg.Shared.Networking.Entities.TCP
 {

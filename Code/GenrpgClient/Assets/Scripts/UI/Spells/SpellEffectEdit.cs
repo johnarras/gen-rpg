@@ -1,9 +1,5 @@
-﻿using Genrpg.Shared.Spells.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Cysharp.Threading.Tasks;
+﻿using Genrpg.Shared.Spells.PlayerData.Spells;
+using Genrpg.Shared.Spells.Settings.Spells;
 
 namespace Assets.Scripts.UI.Spells
 {

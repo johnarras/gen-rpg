@@ -1,7 +1,7 @@
 ﻿using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Spawns;
 using Genrpg.MapServer.Crafting;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Services;
@@ -9,10 +9,11 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Units.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Spells.Casting;
 
 namespace Genrpg.MapServer.Items
 {

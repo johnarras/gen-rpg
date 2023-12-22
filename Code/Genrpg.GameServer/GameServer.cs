@@ -1,24 +1,12 @@
-﻿using Genrpg.MapServer.Maps;
-using Genrpg.MapServer.MainServer;
+﻿using Genrpg.MapServer.MainServer;
 using Genrpg.ServerShared.MainServer;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
 using Genrpg.InstanceServer;
 using Genrpg.PlayerServer;
 using Genrpg.MonsterServer;
-using Genrpg.Shared.MapMessages;
-using Genrpg.Shared.MapObjects.Messages;
-using MessagePack;
-using System.Threading;
-using Genrpg.Shared.Constants.TempDev;
-using Microsoft.Extensions.Azure;
-using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Logging;
-using Genrpg.Shared.Logs.Entities;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Logs.Interfaces;
 
 namespace Genrpg.GameServer
 {
@@ -62,7 +50,7 @@ namespace Genrpg.GameServer
                         MapServerCount = serverCount,
                         MapServerIndex = i,
                         MapServerId = HashUtils.NewGuid(),
-                        StartPort = TempDevConstants.StartPort,
+                        StartPort = 4000,
                         MapIds = new List<string>(),
                     }; 
                     

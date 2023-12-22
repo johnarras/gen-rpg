@@ -1,5 +1,5 @@
-﻿using Genrpg.Shared.Chat.Entities;
-using Genrpg.Shared.Chat.Messages;
+﻿using Genrpg.Shared.Chat.Messages;
+using Genrpg.Shared.Chat.Settings;
 
 namespace Assets.Scripts.UI.Chat
 {
@@ -15,8 +15,6 @@ namespace Assets.Scripts.UI.Chat
             _message = message;
 
             ChatType chatType = _gs.data.GetGameData<ChatSettings>(_gs.ch).GetChatType(message.ChatTypeId);
-            
-            
 
             UIHelper.SetText(Text, "[" + chatType?.Name + "] " + message.SenderName + ": " + message.Message);
         }

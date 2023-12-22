@@ -331,13 +331,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39105bd8cd9349bc96b6ff34c085542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 93c18f0fc0579cd408ad032e236d593a, type: 2}
   _splashImage: {fileID: 114416535}
-  CurrMapId: 3
+  CurrMapId: 2
   ForceDownloadFromAssetBundles: 1
-  CurrWorldSize: 4
-  CurrZoneSize: 1
-  MapGenSeed: 672341
+  CurrWorldSize: 8
+  CurrZoneSize: 1.5
+  MapGenSeed: 881144
   PlayerSpeedMult: 2
   ZoneNoiseSize: 4096
   ZoneNoiseDenominator: 1000

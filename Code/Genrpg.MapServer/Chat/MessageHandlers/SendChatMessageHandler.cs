@@ -1,7 +1,6 @@
 ﻿using Genrpg.MapServer.MapMessaging;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Chat.Constants;
-using Genrpg.Shared.Chat.Entities;
 using Genrpg.Shared.Chat.Messages;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;

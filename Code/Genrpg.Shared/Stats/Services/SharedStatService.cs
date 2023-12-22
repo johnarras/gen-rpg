@@ -1,14 +1,20 @@
-﻿
-using Genrpg.Shared.Characters.Entities;
+﻿using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Charms.Constants;
+using Genrpg.Shared.Charms.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.Levels.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Inventory.Settings.ItemSets;
+using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.Spells.Constants;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Interfaces;
+using Genrpg.Shared.Spells.PlayerData.Abilties;
+using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
+using Genrpg.Shared.Stats.Settings.DerivedStats;
+using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
@@ -58,6 +64,13 @@ namespace Genrpg.Shared.Stats.Services
 
             unit.Stats.ResetCurrent();
 
+            Character ch = unit as Character;
+
+            PlayerCharmData charmData = unit.Get<PlayerCharmData>();
+
+            PlayerCharm charmStatus = charmData.GetData().FirstOrDefault(x => x.CurrentCharmUseId == CharmUses.Character &&
+            x.TargetId == unit.Id);
+
             // Basic stat amount with basic monster stat amount.
             long coreStatAmount = StatConstants.MinBaseStat;
             long monsterScalePercent = 0;
@@ -67,7 +80,8 @@ namespace Genrpg.Shared.Stats.Services
             if (levelData != null)
             {
                 coreStatAmount = levelData.StatAmount;
-                monsterScalePercent = levelData.MonsterStatScale;
+
+                monsterScalePercent = (ch == null ? levelData.MonsterStatScale : 0);
             }
 
             unit.BaseStatAmount = coreStatAmount;
@@ -106,8 +120,6 @@ namespace Genrpg.Shared.Stats.Services
                     AddEffectStat(gs, unit, speff, levelData, 1);
                 }
             }
-
-            Character ch = unit as Character;
 
             if (ch != null)
             {
@@ -197,6 +209,22 @@ namespace Genrpg.Shared.Stats.Services
                     if (ab.Rank <= AbilityData.DefaultRank)
                     {
                         continue;
+                    }
+                }
+            }
+
+            if (charmStatus != null)
+            {
+                PlayerCharmBonusList bonusList = charmStatus.Bonuses.FirstOrDefault(x => x.CharmUseId == CharmUses.Character);
+
+                if (bonusList != null)
+                {
+                    foreach (PlayerCharmBonus charmBonus in bonusList.Bonuses)
+                    {
+                        if (charmBonus.EntityTypeId == EntityTypes.Stat)
+                        {
+                            Add(gs, unit, charmBonus.EntityId, StatCategories.Pct, charmBonus.Quantity);
+                        }
                     }
                 }
             }

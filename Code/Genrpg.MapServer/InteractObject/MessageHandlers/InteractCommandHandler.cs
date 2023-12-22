@@ -3,15 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Genrpg.Shared.Crafting.Entities;
 using Genrpg.Shared.MapObjects.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Interactions.Messages;
 using Genrpg.Shared.Spells.Messages;
+using Genrpg.Shared.Crafting.Constants;
+using Genrpg.Shared.ProcGen.Settings.GroundObjects;
+using Genrpg.Shared.Crafting.PlayerData.Crafting;
+using Genrpg.Shared.Crafting.Settings.Crafters;
 
 namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {
@@ -62,7 +64,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                     animName = ctype.GatherAnimation;
                     if (obj is Character ch)
                     {
-                        CrafterData cdata = ch.Get<CrafterData>();
+                        CraftingData cdata = ch.Get<CraftingData>();
                         skillPoints = cdata.Get(crafterId).GetSkillPoints(CraftingConstants.GatheringSkill);
                     }
                     gatherSeconds = ctype.GatherSeconds;

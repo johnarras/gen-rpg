@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScreenName: 13
   ScreenLayer: 0
+  Subdirectory: Crafting

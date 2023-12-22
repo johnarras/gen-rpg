@@ -1,11 +1,5 @@
-﻿using Genrpg.Shared.Currencies.Entities;
-using Genrpg.Shared.Units.Loaders;
-using Genrpg.Shared.UserCoins.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.UserCoins.PlayerData;
 
 namespace Genrpg.Shared.Users.Loaders
 {

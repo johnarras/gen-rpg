@@ -18,7 +18,7 @@ namespace Genrpg.Shared.Quests.Entities
         [Key(2)] public string MapId { get; set; }
 
         [Key(3)] public int MapVersion { get; set; }
-        [Key(4)] public long NPCTypeId { get; set; }
+        [Key(4)] public string QuestGiverId { get; set; }
 
     }
 }

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScreenName: 5
   ScreenLayer: 0
+  Subdirectory: Maps

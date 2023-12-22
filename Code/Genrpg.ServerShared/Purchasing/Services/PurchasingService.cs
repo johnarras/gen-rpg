@@ -1,17 +1,14 @@
 ﻿using Genrpg.ServerShared.Core;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.GameSettings.Entities;
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Purchasing.Entities;
+using Genrpg.Shared.Purchasing.PlayerData;
+using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Versions.Entities;
-using Microsoft.Azure.Amqp.Framing;
+using Genrpg.Shared.Versions.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

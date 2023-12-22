@@ -1,6 +1,7 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.ProcGen.Settings.LineGen;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using System;
@@ -146,8 +147,7 @@ public class LineGenService : ILineGenService
 
         int index = 0;
         for (int l = sl; l != el; l += dl, index++)
-        {
-
+        { 
             bool canShift = Math.Abs(l - sl) >= lg.InitialNoPosShiftLength;
 
             remainder += width;
@@ -187,7 +187,6 @@ public class LineGenService : ILineGenService
                 endWidthPos++;
                 currWidthPos++;
             }
-
 
             // Push the path back to its correct position along the width.
             int widthPosDelta = 0;
@@ -229,9 +228,6 @@ public class LineGenService : ILineGenService
                 endWidthPos += widthPosGap;
             }
 
-
-
-
             // Make path wider or narrower.
 
             if (lg.WidthSizeChangeChance >= rand.NextDouble())
@@ -240,7 +236,6 @@ public class LineGenService : ILineGenService
                 int delta = rand.Next(-size, size + 1);
                 pathWidth = MathUtils.Clamp(lg.MinWidthSize, pathWidth + delta, lg.MaxWidthSize);
             }
-
 
             // Now make path return to its normal size slowly.
             if (pathWidth > lg.WidthSize && rand.NextDouble() < 0.1 * (pathWidth - lg.WidthSize))

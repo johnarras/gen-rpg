@@ -8,7 +8,7 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.MapServer.MapMessaging;
-using Genrpg.Shared.AI.Entities;
+using Genrpg.Shared.AI.Settings;
 
 namespace Genrpg.MapServer.AI.MessageHandlers
 {

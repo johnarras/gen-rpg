@@ -2,7 +2,7 @@
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.Logs.Interfaces;
 using Genrpg.Shared.Utils;
 using Microsoft.Azure.Amqp.Framing;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;

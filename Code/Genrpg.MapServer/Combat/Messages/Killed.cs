@@ -9,8 +9,8 @@ namespace Genrpg.MapServer.Combat.Messages
     {
         public string UnitId { get; set; }
         public long UnitTypeId { get; set; }
-        public long NPCTypeId { get; set; }
         public long FactionTypeId { get; set; }
+        public string ObjId { get; set; }      
         public long Level { get; set; }
         public long ZoneId { get; set; }
     }

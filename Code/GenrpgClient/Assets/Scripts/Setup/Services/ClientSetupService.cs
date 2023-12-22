@@ -5,7 +5,8 @@ using System.Threading;
 
 public class ClientSetupService 
 {
-    public static void SetupClient (UnityGameState gs, bool forRealGame, CancellationToken token)
+    public static void SetupClient (UnityGameState gs, bool forRealGame, string assetPrefix,
+        string contentDataEnv, string worldDataEnv, CancellationToken token)
     {
         gs.loc.Set<IShapeService>(new ShapeService());
         gs.loc.Set<INoiseService>(new NoiseService());
@@ -21,7 +22,7 @@ public class ClientSetupService
         // Unity-specific overrides
         gs.loc.Set<IReflectionService>(new UnityReflectionService());
         IAssetService ias = new UnityAssetService();
-        ias.Init(gs, token);
+        ias.Init(gs, assetPrefix, contentDataEnv, worldDataEnv, token);
         gs.loc.Set(ias);
 
         if (forRealGame)

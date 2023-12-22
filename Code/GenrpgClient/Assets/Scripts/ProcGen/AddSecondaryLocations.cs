@@ -18,6 +18,8 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Locations;
+using Genrpg.Shared.ProcGen.Settings.Locations.Constants;
 
 public class AddSecondaryLocations : BaseZoneGenerator
 {
@@ -116,7 +118,7 @@ public class AddSecondaryLocations : BaseZoneGenerator
             {
                 CenterX = cx,
                 CenterZ = cy,
-                LocationTypeId = LocationType.Secondary,
+                LocationTypeId = LocationTypes.Secondary,
                 XSize = MathUtils.IntRange(minRad, maxRad, rand),
                 ZSize = MathUtils.IntRange(minRad, maxRad, rand),
         

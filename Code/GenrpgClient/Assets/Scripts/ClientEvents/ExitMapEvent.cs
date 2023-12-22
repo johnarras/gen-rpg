@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Characters.Entities;
+﻿using Genrpg.Shared.Characters.PlayerData;
 
 namespace ClientEvents
 {

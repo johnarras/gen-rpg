@@ -12,12 +12,11 @@ using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.MapServer.Messages;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Networking.Messages;
-using Genrpg.Shared.NPCs.Messages;
 using Genrpg.Shared.Players.Messages;
 using Genrpg.Shared.Quests.Messages;
 using Genrpg.Shared.SpellCrafting.Messages;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
+using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.Shared.UserCoins.Messages;
@@ -58,21 +57,21 @@ namespace Genrpg.Shared.MapMessages.Interfaces
     [Union(25,typeof(SendRewards))]
     [Union(26,typeof(SkillLootCorpse))]
     [Union(27,typeof(DespawnObject))]
-    [Union(28,typeof(GetSpawnedObject))]
-    [Union(29,typeof(OnSpawn))]
-    [Union(30,typeof(SendSpawn))]
-    [Union(31,typeof(MapObjectCounts))]
-    [Union(32,typeof(ServerMessageCounts))]
-    [Union(33,typeof(UpdatePos))]
-    [Union(34,typeof(ConnMessageCounts))]
-    [Union(35,typeof(GetNPCStatus))]
-    [Union(36,typeof(OnGetNPCStatus))]
+    [Union(28,typeof(GetMapObjectStatus))]
+    [Union(29,typeof(GetSpawnedObject))]
+    [Union(30,typeof(OnGetMapObjectStatus))]
+    [Union(31,typeof(OnSpawn))]
+    [Union(32,typeof(SendSpawn))]
+    [Union(33,typeof(MapObjectCounts))]
+    [Union(34,typeof(ServerMessageCounts))]
+    [Union(35,typeof(UpdatePos))]
+    [Union(36,typeof(ConnMessageCounts))]
     [Union(37,typeof(Ping))]
     [Union(38,typeof(AddPlayer))]
     [Union(39,typeof(OnFinishLoadPlayer))]
     [Union(40,typeof(SaveDirty))]
-    [Union(41,typeof(GetNPCQuests))]
-    [Union(42,typeof(OnGetNPCQuests))]
+    [Union(41,typeof(GetQuests))]
+    [Union(42,typeof(OnGetQuests))]
     [Union(43,typeof(CraftSpell))]
     [Union(44,typeof(DeleteSpell))]
     [Union(45,typeof(OnCraftSpell))]
@@ -81,16 +80,16 @@ namespace Genrpg.Shared.MapMessages.Interfaces
     [Union(48,typeof(OnSetActionBarItem))]
     [Union(49,typeof(RemoveActionBarItem))]
     [Union(50,typeof(SetActionBarItem))]
-    [Union(51,typeof(ActiveSpellEffect))]
-    [Union(52,typeof(CastingSpell))]
-    [Union(53,typeof(CastSpell))]
-    [Union(54,typeof(CombatText))]
-    [Union(55,typeof(OnAddEffect))]
-    [Union(56,typeof(OnRemoveEffect))]
-    [Union(57,typeof(OnStartCast))]
-    [Union(58,typeof(OnStopCast))]
-    [Union(59,typeof(OnUpdateEffect))]
-    [Union(60,typeof(ResendSpell))]
+    [Union(51,typeof(CastingSpell))]
+    [Union(52,typeof(CastSpell))]
+    [Union(53,typeof(CombatText))]
+    [Union(54,typeof(OnAddEffect))]
+    [Union(55,typeof(OnRemoveEffect))]
+    [Union(56,typeof(OnStartCast))]
+    [Union(57,typeof(OnStopCast))]
+    [Union(58,typeof(OnUpdateEffect))]
+    [Union(59,typeof(ResendSpell))]
+    [Union(60,typeof(ActiveSpellEffect))]
     [Union(61,typeof(Regen))]
     [Union(62,typeof(OnSetTarget))]
     [Union(63,typeof(OnTargetIsDead))]

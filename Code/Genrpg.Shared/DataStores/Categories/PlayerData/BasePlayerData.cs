@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Genrpg.Shared.DataStores.Categories.PlayerData
 {
-    [DataCategory(Category = DataCategory.PlayerData)]
+    [DataCategory(Category = DataCategoryTypes.PlayerData)]
     public abstract class BasePlayerData : IUnitData
     {
         [MessagePack.IgnoreMember]

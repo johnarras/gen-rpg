@@ -6,7 +6,6 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using Newtonsoft.Json;
@@ -18,6 +17,7 @@ using System.Linq;
 using System.Reflection;
 using Genrpg.Shared.Entities.Settings;
 using MessagePack.Formatters;
+using Genrpg.Shared.ProcGen.Settings.Names;
 
 namespace Genrpg.Shared.Reflection.Services
 {

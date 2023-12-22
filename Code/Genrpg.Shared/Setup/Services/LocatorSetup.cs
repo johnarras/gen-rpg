@@ -8,11 +8,13 @@ using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Crafting.Services;
 using Genrpg.Shared.Stats.Services;
 using Genrpg.Shared.Factions.Services;
-using Genrpg.Shared.ProcGen.Services;
 using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.UserCoins.Services;
 using Genrpg.Shared.SpellCrafting.Services;
+using Genrpg.Shared.Units.Services;
+using Genrpg.Shared.Names.Services;
+using Genrpg.Shared.Charms.Services;
 
 namespace Genrpg.Shared.Setup.Services
 {
@@ -34,6 +36,7 @@ namespace Genrpg.Shared.Setup.Services
             fact.Set<ICurrencyService>(new CurrencyService());
             fact.Set<IUserCoinService>(new UserCoinService());
             fact.Set<IReflectionService>(new ReflectionService());
+            fact.Set<ICharmService>(new CharmService());
         }
     }
 }

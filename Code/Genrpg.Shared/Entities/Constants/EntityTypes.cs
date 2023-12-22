@@ -16,12 +16,12 @@ namespace Genrpg.Shared.Entities.Constants
         public const long Recipe = 8;
         public const long Quest = 9;
         public const long Set = 10;
-        public const long NPC = 11;
         public const long QuestItem = 12;
         public const long GroundObject = 13;
         public const long Zone = 14;
         public const long ZoneUnit = 15;
         public const long ProxyCharacter = 16;
+        public const long Building = 17;
 
         public const long Stat = 31;
         public const long StatPct = 32;

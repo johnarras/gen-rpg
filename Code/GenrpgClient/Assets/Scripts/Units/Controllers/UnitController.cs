@@ -3,16 +3,15 @@ using System;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 
-using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Input.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using System.Threading;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Combat.Messages;
 using UnityEngine; // Needed
+using Genrpg.Shared.Input.PlayerData;
 
 public class UnitController : BaseBehaviour
 {
@@ -367,7 +366,8 @@ public class UnitController : BaseBehaviour
 
     public void ShowCombatText(CombatText text)
     {
-        _assetService.LoadAssetInto(_gs, entity, AssetCategoryNames.UI, CombatTextUI.UIPrefabName, OnLoadCombatText, text, _token);
+        _assetService.LoadAssetInto(_gs, entity, AssetCategoryNames.UI, CombatTextUI.UIPrefabName,
+            OnLoadCombatText, text, _token, "FloatingText" );
     }
 
     private void OnLoadCombatText(UnityGameState gs, string url, object obj, object data, CancellationToken token)

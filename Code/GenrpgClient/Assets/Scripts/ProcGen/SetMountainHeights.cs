@@ -68,7 +68,6 @@ public class SetMountainHeights : BaseAddMountains
                     float rpct = roadDist / roadCheckDistance;
                     rpct = (float)(Math.Pow(rpct, 1.6f));
                     float edgeDist = MathUtils.Clamp(0.10f, 0.30f + edgeNoise[x, y], 0.70f);
-                    //edgeDist = 0.15f;
                     float edgeAmt = (float)(Math.Pow(edgeDist, 1.7f + edgePowNoise[x, y]));
                     
                     float currAmt = rpct * rpct;

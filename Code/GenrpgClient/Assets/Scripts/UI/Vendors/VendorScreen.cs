@@ -1,13 +1,15 @@
 ﻿using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Services;
-using Genrpg.Shared.NPCs.Entities;
-using Genrpg.Shared.NPCs.Messages;
 using Genrpg.Shared.Units.Entities;
 using System.Linq;
 using System.Threading;
 using GEntity = UnityEngine.GameObject;
+using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.MapObjects.MapObjectAddons.Constants;
+using Genrpg.Shared.MapObjects.Messages;
+using Genrpg.Shared.Vendors.MapObjectAddons;
+using Genrpg.Shared.Vendors.WorldData;
 
 public class VendorScreen : ItemIconScreen
 {
@@ -18,30 +20,20 @@ public class VendorScreen : ItemIconScreen
     public GEntity VendorItems;
     public GButton CloseButton;
 
-    NPCStatus _status = null;
-    NPCType _type = null;
-
 
     Unit _unit = null;
 
+    VendorAddon _addon = null;
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
-        _gs.AddEvent<OnGetNPCStatus>(this, OnGetNPCStatusHandler);
+        _gs.AddEvent<OnGetMapObjectStatus>(this, OnGetNPCStatusHandler);
         _gs.AddEvent<OnAddItem>(this, OnAddItemHandler);
         _gs.AddEvent<OnRemoveItem>(this, OnRemoveItemHandler);
         _unit = data as Unit;
 
-        if (_unit == null)
-        {
-            StartClose();
-            return;
-        }
-
-        _type = _unit.NPCType;
-
-        if (_type == null)
+        if (_unit == null || !_unit.HasAddon(MapObjectAddonTypes.Vendor))
         {
             StartClose();
             return;
@@ -49,13 +41,17 @@ public class VendorScreen : ItemIconScreen
 
         InitPanel();
 
-        _networkService.SendMapMessage(new GetNPCStatus() { UnitId = _unit.Id });
+        _networkService.SendMapMessage(new GetMapObjectStatus() { ObjId =_unit.Id });
 
     }
 
-    private OnGetNPCStatus OnGetNPCStatusHandler(UnityGameState gs, OnGetNPCStatus status)
+    private OnGetMapObjectStatus OnGetNPCStatusHandler(UnityGameState gs, OnGetMapObjectStatus status)
     {
-        ShowVendorItems(status.Status);
+
+        VendorAddon addon = (VendorAddon)status.Addons.FirstOrDefault(x=>x.GetAddonType() == MapObjectAddonTypes.Vendor);
+
+
+        ShowVendorItems(addon);
 
         return null;
     }
@@ -67,17 +63,18 @@ public class VendorScreen : ItemIconScreen
 
     private OnAddItem OnAddItemHandler (UnityGameState gs, OnAddItem addItem)
     {
-        if (_status != null)
+        if (_addon == null)
         {
-            VendorItem vitem = _status.Items.FirstOrDefault(x => x.Item != null && x.Item.Id == addItem.ItemId);
-            if (vitem != null)
-            {
-                _status.Items.Remove(vitem);
-                ShowVendorItems(_status);
+            return null;
+        }
 
-                _inventoryService.AddItem(gs, gs.ch, vitem.Item, true);
-                InitPanel();
-            }
+        VendorItem vitem = _addon.Items.FirstOrDefault(x => x.Item != null && x.Item.Id == addItem.ItemId);
+        if (vitem != null)
+        {
+            _addon.Items.Remove(vitem);
+            ShowVendorItems(_addon);
+            _inventoryService.AddItem(gs, gs.ch, vitem.Item, true);
+            InitPanel();
         }
         return null;
     }
@@ -93,22 +90,17 @@ public class VendorScreen : ItemIconScreen
         return null;
     }
 
-    private void ShowVendorItems(NPCStatus status)
+    private void ShowVendorItems(VendorAddon addon)
     {
-        _status = status;
-        if (VendorItems == null || _status == null)
-        {
-            return;
-        }
-
         GEntityUtils.DestroyAllChildren(VendorItems);
-            
-        if (_status == null || _status.Items == null)
+
+        _addon = addon;
+        if (VendorItems == null || addon == null || addon.Items == null)
         {
             return;
         }
 
-        foreach (VendorItem item in _status.Items)
+        foreach (VendorItem item in addon.Items)
         {
             InitItemIconData idata = new InitItemIconData()
             {
@@ -119,11 +111,7 @@ public class VendorScreen : ItemIconScreen
             };
             IconHelper.InitItemIcon(_gs, idata, VendorItems,_assetService, _token);
         }
-
-
-
     }
-
 
     // Blank
     public override void OnLeftClickIcon(UnityGameState gs, ItemIcon icon) { }

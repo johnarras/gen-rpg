@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-
-
+﻿
 using GEntity = UnityEngine.GameObject;
-
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Rocks;
+using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Zones.Settings;
 
 public class RockObjectLoader : BaseObjectLoader
 {

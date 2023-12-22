@@ -1,5 +1,5 @@
 ﻿using Genrpg.MapServer.MapMessaging;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Services;

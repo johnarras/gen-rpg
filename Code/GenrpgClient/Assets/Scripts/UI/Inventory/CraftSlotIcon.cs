@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 
 
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 
 /// <summary>
 /// Use this to track items that are currently being added to a recipe.

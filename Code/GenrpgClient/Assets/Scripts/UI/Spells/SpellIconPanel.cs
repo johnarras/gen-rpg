@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 using System.Threading;
 
 public class SpellIconPanel : BaseBehaviour

@@ -2,9 +2,10 @@
 using System.Linq;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 using System.Threading;
 using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
 
 public class InventoryPanel : BaseBehaviour
 {

@@ -9,6 +9,8 @@ using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
+using Genrpg.Shared.ProcGen.Settings.Texturse;
+using Genrpg.Shared.Zones.WorldData;
 
 public class TerrainTextureData
 {

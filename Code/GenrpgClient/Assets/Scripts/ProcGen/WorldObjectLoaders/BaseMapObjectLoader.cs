@@ -1,5 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapObjects.Entities;
 using GEntity = UnityEngine.GameObject;

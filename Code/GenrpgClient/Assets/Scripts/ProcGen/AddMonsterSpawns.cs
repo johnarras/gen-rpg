@@ -1,25 +1,12 @@
 
-using System;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using GEntity = UnityEngine.GameObject;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-
 using Cysharp.Threading.Tasks;
-
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Pathfinding.Constants;
 using System.Threading;
-using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Spawns.Entities;
 
 public class AddMonsterSpawns : BaseZoneGenerator
 {
@@ -106,7 +93,7 @@ public class AddMonsterSpawns : BaseZoneGenerator
                     continue;
                 }
 
-                if (_zoneGenService.FindMapLocation(gs, cx, cy, 5) != null)
+                if (_zoneGenService.FindMapLocation(gs, cx, cy, 15) != null)
                 {
                     continue;
                 }
@@ -153,8 +140,19 @@ public class AddMonsterSpawns : BaseZoneGenerator
                     zoneId = gs.md.subZoneIds[cx, cy];
                 }
 
-                gs.spawns.AddSpawn(EntityTypes.ZoneUnit, zoneId, cy, cx, zone.IdKey, 
-                    (int)(gs.md.overrideZoneScales[cy, cx] * MapConstants.OverrideZoneScaleMax));
+                InitSpawnData initData = new InitSpawnData()
+                {
+                    EntityTypeId = EntityTypes.ZoneUnit,
+                    EntityId = zone.IdKey,
+                    SpawnX = cy,
+                    SpawnZ = cx,
+                    ZoneId = gs.md.mapZoneIds[cx, cy],
+                    ZoneOverridePercent = (int)(gs.md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax),
+                };
+
+
+                gs.spawns.AddSpawn(initData);
+
             }
         }
     }

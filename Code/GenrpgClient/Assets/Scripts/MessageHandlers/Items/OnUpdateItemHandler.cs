@@ -1,6 +1,7 @@
-﻿using Genrpg.Shared.Inventory.Entities;
+﻿using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Messages;
 using System.Threading;
+using Genrpg.Shared.Inventory.Utils;
 
 namespace Assets.Scripts.MessageHandlers.Items
 {

@@ -1,5 +1,5 @@
 ﻿
-using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.Logs.Interfaces;
 using System;
 
 public class ClientLogger : ILogSystem

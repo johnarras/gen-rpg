@@ -1,24 +1,22 @@
-﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Entities;
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Inventory.Entities;
+﻿using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.ProcGen.Entities;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Zones.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Genrpg.Shared.NPCs.Entities;
-using Genrpg.Shared.Factions.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapServer.Constants;
-using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Factions.Constants;
-using Genrpg.Shared.Inventory.Constants;
-using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Locations;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Vendors.MapObjectAddons;
+using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
+using Genrpg.Shared.ProcGen.Settings.Locations.Constants;
+using Genrpg.Shared.Spawns.Entities;
+using Genrpg.Shared.NPCs.Settings;
+using Genrpg.Shared.Buildings.Settings;
 
 public interface IMapGenService : IService
 {
@@ -27,7 +25,6 @@ public interface IMapGenService : IService
     void CreateZones(UnityGameState gs);
     void SetPrevNextZones(UnityGameState gs);
     void AddNPCs(UnityGameState gs);
-    void AddNPC(UnityGameState gs, NPCType npcType);
 }
 
 
@@ -341,60 +338,81 @@ public class MapGenService : IMapGenService
             zoneName = zoneName.Substring(0, 8);
         }
 
+        List<NPCType> npcTypes = gs.data.GetGameData<NPCSettings>(null).GetData();
+        List<BuildingType> buildings = gs.data.GetGameData<BuildingSettings>(null).GetData();
+
         for (int l = 0; l < zone.Locations.Count; l++)
         {
             Location loc = zone.Locations[l];
-            gs.logger.Debug("Add NPC To Zone: " + zone.IdKey + " at " + loc.CenterX + " " + loc.CenterZ);
-            int offsetMult = 0;
-            int offsetX = offsetMult * loc.CenterX / (MapConstants.TerrainPatchSize - 1);
-            int offsetZ = offsetMult * loc.CenterZ / (MapConstants.TerrainPatchSize - 1);
 
-            NPCType npcType = new NPCType()
+            if (loc.Places == null || loc.Places.Count < 1)
             {
-                Name = zoneName + "#" + (l + 1),
-                QualityTypeId = QualityTypes.Rare,
-                MapX = loc.CenterZ + offsetZ,
-                MapZ = loc.CenterX + offsetX,
-                UnitTypeId = 1,
-                FactionTypeId = FactionTypes.Player,
-                ItemCount = rand.Next() % 3 + 3,
-                ItemQualityTypeId = 0,
-            };
+                continue;
+            }
 
-            AddNPC(gs, npcType);
+            List<NPCType> remainingNPCs = new List<NPCType>(npcTypes);
+
+            List<LocationPlace> remainingPlaces = new List<LocationPlace>(loc.Places);
+
+            while (remainingPlaces.Count > 0 && remainingNPCs.Count > 0)
+            {
+                NPCType npc = remainingNPCs[rand.Next() % remainingNPCs.Count];
+                remainingNPCs.Remove(npc);
+                LocationPlace place = remainingPlaces[rand.Next() % remainingPlaces.Count];
+                remainingPlaces.Remove(place);
+
+                int dx = place.EntranceX - place.CenterX;
+                int dz = place.EntranceZ - place.CenterZ;
+
+                float rot = (float)(Math.Atan2(dz, dx) * 180f / Math.PI);
+
+                gs.logger.Debug("Add NPC To Zone: " + zone.IdKey + " at " + loc.CenterX + " " + loc.CenterZ);
+
+                List<IMapObjectAddon> addons = new List<IMapObjectAddon>
+                {
+                    new VendorAddon() { ItemCount = rand.Next() % 4 + 4, NPCTypeId = npc.IdKey }
+                };
+
+                int overridePercent = (int)(gs.md.overrideZoneScales[place.EntranceX,place.EntranceZ]);
+
+                int unitSpawnX = place.EntranceZ - dz / 3;
+                int unitSpawnZ = place.EntranceX - dx / 3;
+
+                InitSpawnData initData = new InitSpawnData()
+                {
+                    EntityTypeId = EntityTypes.Unit,
+                    EntityId = 1,
+                    SpawnX = unitSpawnX,
+                    SpawnZ = unitSpawnZ,
+                    ZoneId = zone.IdKey,
+                    ZoneOverridePercent = overridePercent * MapConstants.OverrideZoneScaleMax,
+                    Addons = addons,
+                    Name = zoneName + " " + npc.Name,
+                    Rot = rot,
+                };
+
+                gs.spawns.AddSpawn(initData);
+                BuildingType btype = gs.data.GetGameData<BuildingSettings>(null).GetBuildingType(npc.BuildingTypeId);
+
+                if (btype != null)
+                {
+                    InitSpawnData buildingInitData = new InitSpawnData()
+                    {
+                        EntityTypeId = EntityTypes.Building,
+                        EntityId = npc.BuildingTypeId,
+                        SpawnX = place.CenterZ,
+                        SpawnZ = place.CenterX,
+                        ZoneId = zone.IdKey,
+                        ZoneOverridePercent = overridePercent * MapConstants.OverrideZoneScaleMax,
+                        Addons = null,
+                        Name = zoneName + " " + btype.Name,
+                        Rot = rot,
+                    };
+
+                    gs.spawns.AddSpawn(buildingInitData);
+                }
+            }
         }
-    }
-
-    public void AddNPC(UnityGameState gs, NPCType npcType)
-    {
-        if (npcType.MapX < 0 || npcType.MapZ < 0 || npcType.MapX >= gs.map.GetHwid() || npcType.MapZ >= gs.map.GetHhgt())
-        {
-            return;
-        }
-
-        long npcId = 1;
-        if (gs.map.NPCs.Count > 0)
-        {
-            npcId = gs.map.NPCs.Max(X => X.IdKey) + 1;
-        }
-        npcType.IdKey = npcId;
-        npcType.MapId = gs.map.Id;
-
-        npcType.ZoneId = gs.md.mapZoneIds[npcType.MapX, npcType.MapZ];
-
-        gs.logger.Debug("New NPCID: " + npcId + " in zone " + npcType.ZoneId + " at " + npcType.MapX + " " + npcType.MapZ);
-
-        Zone zone = gs.map.Get<Zone>(npcType.ZoneId);
-        if (zone != null)
-        {
-            npcType.Level = zone.Level;
-        }
-
-        gs.spawns.AddSpawn(EntityTypes.NPC, npcType.ZoneId, npcType.MapZ, npcType.MapX, npcType.ZoneId, 
-            (int)(gs.md.overrideZoneScales[npcType.MapZ, npcType.MapX] * MapConstants.OverrideZoneScaleMax));
-        gs.spawns.NPCs.Add(new NPCStatus() { IdKey = npcType.IdKey });
-
-        gs.map.NPCs.Add(npcType);
     }
 
     public void CreateZones(UnityGameState gs)
@@ -460,8 +478,8 @@ public class MapGenService : IMapGenService
 
         int zonedelta = (int)(gs.map.ZoneSize * MapConstants.TerrainPatchSize / 12);
 
-        int minRad = 30;
-        int maxRad = 40;
+        int minRad = 100;
+        int maxRad = minRad*3/2;
 
         gs.md.zoneCenters = new List<Location>();
         while (newCenters.Count > 0)
@@ -480,13 +498,13 @@ public class MapGenService : IMapGenService
                 continue;
             }
             currZoneId++;
-            center.LocationTypeId = LocationType.ZoneCenter;
+            center.LocationTypeId = LocationTypes.ZoneCenter;
 
             Location finalCenter = new Location()
             {
                 CenterX = center.CenterX + MathUtils.IntRange(-zonedelta, zonedelta, rand),
                 CenterZ = center.CenterZ + MathUtils.IntRange(-zonedelta, zonedelta, rand),
-                LocationTypeId = LocationType.ZoneCenter,
+                LocationTypeId = LocationTypes.ZoneCenter,
                 XSize = MathUtils.IntRange(minRad, maxRad, rand),
                 ZSize = MathUtils.IntRange(minRad, maxRad, rand),
             };

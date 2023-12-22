@@ -1,23 +1,13 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-
 using Cysharp.Threading.Tasks;
-
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-
 using System.Threading;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.ProcGen.Settings.Locations;
+using Genrpg.Shared.Zones.WorldData;
 
 public class AddRoadDips : BaseZoneGenerator
 {
@@ -74,7 +64,7 @@ public class AddRoadDips : BaseZoneGenerator
 			for (int y = starty; y < endy; y++)
 			{
 
-                Location loc = _zoneGenService.FindMapLocation(gs, x, y, 1);
+                Location loc = _zoneGenService.FindMapLocation(gs, x, y, 5);
 
                 if (loc != null)
                 {

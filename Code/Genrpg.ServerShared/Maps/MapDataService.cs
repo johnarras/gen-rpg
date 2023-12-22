@@ -4,10 +4,9 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.NPCs.Entities;
-using Genrpg.Shared.Quests.Entities;
+using Genrpg.Shared.Quests.WorldData;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
+using Genrpg.Shared.Zones.WorldData;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -28,7 +27,6 @@ namespace Genrpg.ServerShared.Maps
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = "OwnerId" });
-            await gs.repo.CreateIndex<NPCType>(configs);
             await gs.repo.CreateIndex<QuestType>(configs);
             await gs.repo.CreateIndex<QuestItem>(configs);
             await gs.repo.CreateIndex<Zone>(configs);
@@ -68,7 +66,6 @@ namespace Genrpg.ServerShared.Maps
             string mapOwnerId = Map.GetMapOwnerId(map);
 
             map.Zones = await LoadMapDataList<Zone>(gs, mapOwnerId);
-            map.NPCs = await LoadMapDataList<NPCType>(gs, mapOwnerId);
             map.Quests = await LoadMapDataList<QuestType>(gs, mapOwnerId);
             map.QuestItems = await LoadMapDataList<QuestItem>(gs, mapOwnerId);
 
@@ -82,12 +79,12 @@ namespace Genrpg.ServerShared.Maps
             {
                 MapRoot mapRoot = SerializationUtils.Deserialize<MapRoot>(SerializationUtils.Serialize(map));
 
+                // Do not save map. It's too big.
                 await gs.repo.Save(mapRoot);
 
                 string mapOwnerId = Map.GetMapOwnerId(map);
 
                 await SaveMapDataList(gs, map.Zones, mapOwnerId);
-                await SaveMapDataList(gs, map.NPCs, mapOwnerId);
                 await SaveMapDataList(gs, map.Quests, mapOwnerId);
                 await SaveMapDataList(gs, map.QuestItems, mapOwnerId);
             }

@@ -1,14 +1,22 @@
 ﻿using Genrpg.MapServer.Spawns;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crafting.Entities;
+using Genrpg.Shared.Crafting.Settings.Recipes;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.Levels.Entities;
-using Genrpg.Shared.Names.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.Inventory.Settings.Qualities;
+using Genrpg.Shared.Inventory.Settings.Slots;
+using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Names.Services;
+using Genrpg.Shared.Names.Settings;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
+using Genrpg.Shared.Stats.Settings.Scaling;
+using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
@@ -28,9 +36,6 @@ namespace Genrpg.MapServer.Items
     {
         private INameGenService _nameGenService = null;
         private IStatService _statService = null;
-
-
-
 
         // ACtually generate an item from either an old item or an itemTypeId.
         public virtual Item Generate(GameState gs, ItemGenData genData)

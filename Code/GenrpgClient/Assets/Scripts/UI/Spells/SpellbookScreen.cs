@@ -1,6 +1,6 @@
 ﻿using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 using Assets.Scripts.Atlas.Constants;
 using Genrpg.Shared.Reflection.Services;
 using Cysharp.Threading.Tasks;
@@ -13,6 +13,7 @@ using Assets.Scripts.UI.Spells;
 using Genrpg.Shared.SpellCrafting.Constants;
 using System.Collections.Generic;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Spells.Settings.Spells;
 
 public class SpellbookScreen : SpellIconScreen
 {
@@ -143,7 +144,8 @@ public class SpellbookScreen : SpellIconScreen
         SpellEffect effect = new SpellEffect();
         _editSpell.Effects.Add(effect);
 
-        _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategoryNames.UI, SpellEffectEditPrefabName, OnLoadEffect, effect, _token);
+        _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategoryNames.UI, 
+            SpellEffectEditPrefabName, OnLoadEffect, effect, _token, Subdirectory);
     }
 
 
@@ -249,7 +251,8 @@ public class SpellbookScreen : SpellIconScreen
         // Add new effect edit blocks for things as needed
         for (int e = _effectEdits.Count; e < spell.Effects.Count; e++)
         {
-            _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategoryNames.UI, SpellEffectEditPrefabName, OnLoadEffect, spell.Effects[e], _token);
+            _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategoryNames.UI,
+                SpellEffectEditPrefabName, OnLoadEffect, spell.Effects[e], _token, Subdirectory);
 
         }
     }

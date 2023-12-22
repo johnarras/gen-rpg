@@ -14,6 +14,7 @@ using Genrpg.Shared.Spawns.Interfaces;
 using System.Linq;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using static Microsoft.Azure.Amqp.Serialization.SerializableType;
+using Genrpg.Shared.Spawns.Settings;
 
 namespace Genrpg.MapServer.Spawns
 {

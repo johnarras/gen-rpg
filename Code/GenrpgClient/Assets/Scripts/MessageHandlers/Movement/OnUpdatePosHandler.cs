@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Characters.Entities;
+﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Units.Entities;

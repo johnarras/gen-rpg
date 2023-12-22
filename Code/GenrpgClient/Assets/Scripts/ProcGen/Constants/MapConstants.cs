@@ -59,10 +59,10 @@ public class MapConstants : SharedMapConstants
     public const float RoadDipHeight = 0.00175f;
     public const float MaxRoadDipPercent = 0.80f;
 
-
     public const int BridgeMaxAngle = 180;
     public const int BridgeAngleDiv = 3;
     public const int BridgeAngleMod = BridgeMaxAngle / BridgeAngleDiv;
+
     // Shift for encoding bridge height into map data. 
     // Set this up so that 1 << BridgeHEightBitShift is > BridgeAngleMod...  
     // so the lowest BitShift bits are for the angle and the rest are for the

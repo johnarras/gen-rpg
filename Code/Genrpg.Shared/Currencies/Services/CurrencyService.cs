@@ -1,6 +1,6 @@
 ﻿
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Currencies.Entities;
+using Genrpg.Shared.Currencies.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;

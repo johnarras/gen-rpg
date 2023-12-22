@@ -1,11 +1,12 @@
-﻿
-using Genrpg.Shared.Characters.Entities;
+﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Constants;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Inventory.Constants;
-using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Messages;
+using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.Inventory.Settings.Slots;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;

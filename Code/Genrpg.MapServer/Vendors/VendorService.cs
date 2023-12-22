@@ -1,11 +1,18 @@
-﻿using Genrpg.MapServer.Items;
+﻿using Amazon.Runtime.Internal.Util;
+using Genrpg.MapServer.Items;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.NPCs.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
+using Genrpg.Shared.Vendors.MapObjectAddons;
+using Genrpg.Shared.Vendors.Settings;
+using Genrpg.Shared.Vendors.WorldData;
+using Genrpg.Shared.Zones.WorldData;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,7 +21,7 @@ namespace Genrpg.MapServer.Vendors
 {
     public interface IVendorService : IService
     {
-        void UpdateNPCItems(GameState gs, Unit unit);
+        void UpdateItems(GameState gs, MapObject mapObject);
     }
 
 
@@ -22,52 +29,71 @@ namespace Genrpg.MapServer.Vendors
     {
         private IItemGenService _itemGenService = null;
 
-        public void UpdateNPCItems(GameState gs, Unit unit)
+        public void UpdateItems(GameState gs, MapObject mapObject)
         {
-           
-            if (unit.NPCType == null || unit.NPCType.ItemCount < 1 ||
-                gs.data.GetGameData<VendorSettings>(unit).VendorRefreshMinutes <= 0)
+
+            VendorAddon addon = mapObject.GetAddon<VendorAddon>();
+
+            if (addon == null)
             {
                 return;
             }
 
-            if (unit.NPCStatus == null || unit.NPCStatus.LastItemRefresh > DateTime.UtcNow.AddMinutes(-gs.data.GetGameData<VendorSettings>(unit).VendorRefreshMinutes))
+            double refreshMinutes = gs.data.GetGameData<VendorSettings>(mapObject).VendorRefreshMinutes;
+
+            if (refreshMinutes <= 0)
             {
                 return;
             }
 
-            lock (unit.OnActionLock)
+            if (addon.LastRefreshTime >= DateTime.UtcNow.AddMinutes(-refreshMinutes))
             {
-                NPCStatus newStatus = new NPCStatus() { LastItemRefresh = DateTime.UtcNow, IdKey = unit.NPCType.IdKey, MapId = unit.NPCStatus.MapId };
+                return;
+            }
 
-                int currItemCount = MathUtils.IntRange(unit.NPCType.ItemCount, unit.NPCType.ItemCount * 2, gs.rand);
+            int currItemCount = MathUtils.IntRange(addon.ItemCount, addon.ItemCount * 2, gs.rand);
+            long level = mapObject.Level;
+            Zone zone = gs.map.Get<Zone>(mapObject.ZoneId);
 
-                long level = unit.NPCType.Level;
+            if (zone != null)
+            {
+                level = zone.Level;
+            }
 
-                Zone zone = gs.map.Get<Zone>(unit.NPCType.ZoneId);
+            List<VendorItem> newItems = new List<VendorItem>();
 
-                if (zone != null)
+            for (int i = 0; i < currItemCount; i++)
+            {
+                ItemGenData igd = new ItemGenData()
                 {
-                    level = zone.Level;
+                    Level = level,
+                    Quantity = 1,
+                };
+
+                Item item = _itemGenService.Generate(gs, igd);
+
+                if (item != null)
+                {
+                    newItems.Add(new VendorItem() { Item = item, Quantity = 1 });
+                }
+            }
+            lock (mapObject.OnActionLock)
+            {
+                if (addon.LastRefreshTime >= DateTime.UtcNow.AddMinutes(-refreshMinutes))
+                {
+                    return;
                 }
 
-                for (int i = 0; i < currItemCount; i++)
+                addon.Items = newItems;
+                addon.LastRefreshTime = DateTime.UtcNow;
+
+                if (mapObject.Spawn is MapSpawn mapSpawn)
                 {
-                    ItemGenData igd = new ItemGenData()
-                    {
-                        Level = level,
-                        Quantity = 1,
-                    };
-
-                    Item item = _itemGenService.Generate(gs, igd);
-
-                    if (item != null)
-                    {
-                        VendorItem vi = new VendorItem() { Item = item, Quantity = 1 };
-                        newStatus.Items.Add(vi);
-                    }
+                    mapSpawn = SerializationUtils.FastMakeCopy(mapSpawn);
+                    mapSpawn.AddonString = SerializationUtils.Serialize(mapSpawn.Addons);
+                    mapSpawn.Addons = null;
+                    gs.repo.QueueSave(mapSpawn);
                 }
-                unit.NPCStatus = newStatus;
             }
         }
     }

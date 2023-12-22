@@ -1,19 +1,19 @@
 ﻿using Genrpg.MapServer.Levelup;
 using Genrpg.MapServer.Combat.Messages;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Currencies.Entities;
+using Genrpg.Shared.Currencies.PlayerData;
 using Genrpg.Shared.Currencies.Services;
-using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.Zones.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Currencies.Constants;
+using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 namespace Genrpg.MapServer.Combat.MessageHandlers
 {

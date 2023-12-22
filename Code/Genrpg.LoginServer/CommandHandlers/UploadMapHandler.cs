@@ -1,10 +1,14 @@
 ﻿using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Core;
+using Genrpg.ServerShared.Config;
+using Genrpg.ServerShared.DataStores;
 using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;
 using Genrpg.Shared.Constants;
+using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.Login.Messages.UploadMap;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Utils;
 using Microsoft.Azure.Amqp.Framing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,12 +50,18 @@ namespace Genrpg.LoginServer.CommandHandlers
                 ShowError(gs, "No spawn data sent to server");
                 return;
             }
+
+            if (!string.IsNullOrEmpty(command.WorldDataEnv))
+            {
+                ServerConfig newConfig = SerializationUtils.SafeMakeCopy(gs.config);
+                newConfig.DataEnvs[DataCategoryTypes.WorldData] = command.WorldDataEnv;
+                gs.repo = new ServerRepositorySystem(gs.logger, newConfig.DataEnvs, newConfig.ConnectionStrings, token);
+            }
            
             await _mapDataService.SaveMap(gs, command.Map);
 
             await _mapSpawnService.SaveMapSpawnData(gs, command.SpawnData, Map.GetMapOwnerId(command.Map));
           
-
             foreach (ILoginCommandHandler handler in gs.commandHandlers.Values)
             {
                 await handler.Reset();

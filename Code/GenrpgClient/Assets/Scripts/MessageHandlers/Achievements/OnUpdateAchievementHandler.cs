@@ -1,12 +1,6 @@
-﻿using Genrpg.Shared.Achievements.Entities;
-using Genrpg.Shared.Achievements.Messages;
-using Genrpg.Shared.Currencies.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Genrpg.Shared.Achievements.Messages;
+using Genrpg.Shared.Achievements.PlayerData;
 using System.Threading;
-using Cysharp.Threading.Tasks;
 
 namespace Assets.Scripts.MessageHandlers.Achievements
 {

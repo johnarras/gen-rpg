@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Spells.Entities;
-using Genrpg.Shared.Currencies.Entities;
+using Genrpg.Shared.Currencies.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using System.Threading;
@@ -17,11 +15,14 @@ using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Spawns;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Combat.Messages;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using System.Linq;
 using Genrpg.Shared.Currencies.Constants;
 using Genrpg.ServerShared.Achievements;
 using Genrpg.Shared.Achievements.Constants;
+using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Spawns.Settings;
+using Genrpg.Shared.Spells.Settings.Effects;
 
 namespace Genrpg.MapServer.Units
 {
@@ -129,7 +130,7 @@ namespace Genrpg.MapServer.Units
                 UnitTypeId = targ.EntityTypeId,
                 FactionTypeId = targ.FactionTypeId,
                 Level = targ.Level,
-                NPCTypeId = targ.NPCTypeId,
+                ObjId = targ.Id,
                 ZoneId = targ.ZoneId,
                 UnitId = targ.Id,
                 

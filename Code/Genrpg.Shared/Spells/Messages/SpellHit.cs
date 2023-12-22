@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.MapMessages;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.Settings.Elements;
+using Genrpg.Shared.Spells.Settings.Skills;
+using Genrpg.Shared.Spells.Settings.Spells;
 
 namespace Genrpg.Shared.Spells.Messages
 {

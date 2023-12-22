@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Spells.Entities;
+﻿using Genrpg.Shared.Spells.PlayerData.Abilties;
 using Genrpg.Shared.Units.Loaders;
 using System;
 using System.Collections.Generic;

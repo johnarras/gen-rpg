@@ -19,6 +19,8 @@ using static UnityEngine.Networking.UnityWebRequest;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Spawns.WorldData;
+using Genrpg.Shared.Zones.WorldData;
 
 public class UnityZoneGenService : ZoneGenService
 {
@@ -40,6 +42,7 @@ public class UnityZoneGenService : ZoneGenService
     private CancellationTokenSource _mapTokenSource;
     private CancellationToken _mapToken;
     private CancellationToken _gameToken;
+    private IAssetService _assetServce;
 
     public override void SetGameToken(CancellationToken token)
     {
@@ -159,7 +162,7 @@ public class UnityZoneGenService : ZoneGenService
             genlist.Add(new AddWater());
 
             genlist.Add(new SetfinalTerrainHeights());
-            
+
             genlist.Add(new AddTrees());
 
             genlist.Add(new AddRocks());
@@ -177,12 +180,12 @@ public class UnityZoneGenService : ZoneGenService
             genlist.Add(new AddRoadBorders());
 
             genlist.Add(new DirtyRoads());
-                
+
             genlist.Add(new AddSteepnessTextures());
 
             genlist.Add(new AddMountainTextures());
 
-            genlist.Add(new AddRandomDirt());                            
+            genlist.Add(new AddRandomDirt());
 
             genlist.Add(new SetTerrainTextures());
 
@@ -764,6 +767,7 @@ public class UnityZoneGenService : ZoneGenService
         {
             gs.ch = data.Char;
 
+            _assetServce.SetWorldAssetEnv(data.WorldDataEnv);
             _networkService.SetRealtimeEndpoint(data.Host, data.Port, data.Serializer);
             _screenService.CloseAll(gs);
 

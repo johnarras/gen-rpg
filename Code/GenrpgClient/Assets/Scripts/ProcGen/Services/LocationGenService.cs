@@ -1,6 +1,7 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.ProcGen.Settings.Locations;
 
 public interface ILocationGenService : IService
 {

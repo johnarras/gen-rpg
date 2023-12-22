@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 using ClientEvents;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.Quests.Entities;
 
 using Genrpg.Shared.Quests.Services;
-using Genrpg.Shared.NPCs.Entities;
 using UI.Screens.Constants;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Quests.Messages;
+using Genrpg.Shared.Quests.WorldData;
+using Genrpg.Shared.Quests.Constants;
+using Genrpg.Shared.Quests.PlayerData;
+using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
+using Genrpg.Shared.MapObjects.MapObjectAddons.Constants;
 
 internal class QuestTypeWithIndex
 {
@@ -29,7 +31,6 @@ public class QuestScreen : ItemIconScreen
     public GEntity QuestListParent;
     public QuestInfoUI FullQuestInfo;
 
-    NPCType _type = null;
     Unit _unit = null;
 
     List<QuestType> _allQuests = null;
@@ -40,7 +41,7 @@ public class QuestScreen : ItemIconScreen
     {
         await base.OnStartOpen(data, token);
         _gs.AddEvent<AlterQuestStateEvent>(this, OnAlterQuestState);
-        _gs.AddEvent<OnGetNPCQuests>(this, GetNPCQuestsHandler);
+        _gs.AddEvent<OnGetQuests>(this, OnGetQuestsHandler);
         UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
         UIHelper.SetButton(VendorButton, GetAnalyticsName(), ClickVendor);
         _unit = data as Unit;
@@ -50,38 +51,36 @@ public class QuestScreen : ItemIconScreen
             return;
         }
 
-        _type = _unit.NPCType;
-
-        if (_type == null)
+        if (!_unit.HasAddon(MapObjectAddonTypes.Vendor))
         {
             GEntityUtils.Destroy(VendorButton);
             ShowMyQuests();
             return;
         }
 
-        ShowNPCQuests(true);
+        ShowQuests(true);
 
         await UniTask.CompletedTask;
     }
 
     private AlterQuestStateEvent OnAlterQuestState (UnityGameState gs, AlterQuestStateEvent data)
     {
-        ShowNPCQuests(false);
+        ShowQuests(false);
         return null;
     }
 
-    protected void ShowNPCQuests(bool openVendorScreenIfNoQuests)
+    protected void ShowQuests(bool openVendorScreenIfNoQuests)
     {
         _openVendorScreenIfNoQuests = openVendorScreenIfNoQuests;
-        GetNPCQuests getQuests = new GetNPCQuests() { NPCTypeId = _type.IdKey };
+        GetQuests getQuests = new GetQuests() { ObjId = _unit.Id };
 
         _networkService.SendMapMessage(getQuests);
         ShowQuestList(new List<QuestType>());
     }
 
-    private OnGetNPCQuests GetNPCQuestsHandler(UnityGameState gs, OnGetNPCQuests quests)
+    private OnGetQuests OnGetQuestsHandler(UnityGameState gs, OnGetQuests quests)
     {
-        if (quests.NPCTypeId != _type.IdKey)
+        if (quests.ObjId != _unit.Id)
         {
             quests.Quests = new List<QuestType>();
         }
@@ -108,7 +107,7 @@ public class QuestScreen : ItemIconScreen
             return null;
         }
 
-        GEntityUtils.SetActive(VendorButton, _type.ItemCount > 0);
+        GEntityUtils.SetActive(VendorButton, _unit.HasAddon(MapObjectAddonTypes.Vendor));
 
         ShowQuestList(questsToShow);
 
@@ -131,7 +130,7 @@ public class QuestScreen : ItemIconScreen
 
     public void ClickVendor()
     {
-        if (_type != null && _type.ItemCount > 0)
+        if (_unit.HasAddon(MapObjectAddonTypes.Vendor))
         {
             _screenService.Open(_gs, ScreenId.Vendor, _unit);
             _screenService.Close(_gs, ScreenId);
@@ -168,7 +167,8 @@ public class QuestScreen : ItemIconScreen
                 qtype = _allQuests[i],
                 index = i,
             };
-            _assetService.LoadAssetInto(_gs, QuestListParent, AssetCategoryNames.UI, GetQuestRowPrefab(), OnLoadScreenQuest,  questIndexInfo, _token);
+            _assetService.LoadAssetInto(_gs, QuestListParent, AssetCategoryNames.UI, 
+                GetQuestRowPrefab(), OnLoadScreenQuest,  questIndexInfo, _token, Subdirectory);
         }
 
     }
@@ -178,7 +178,7 @@ public class QuestScreen : ItemIconScreen
     {
         if (FullQuestInfo != null)
         {
-            FullQuestInfo.Init(qtype, 0, this, null, _token);
+            FullQuestInfo.Init(qtype, 0, this, _unit, _token);
         }
     }
 

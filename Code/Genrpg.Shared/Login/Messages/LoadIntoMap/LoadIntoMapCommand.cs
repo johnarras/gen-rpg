@@ -11,5 +11,6 @@ namespace Genrpg.Shared.Login.Messages.LoadIntoMap
         [Key(2)] public string InstanceId { get; set; }
         [Key(3)] public string CharId { get; set; }
         [Key(4)] public bool GenerateMap { get; set; }
+        [Key(5)] public string WorldDataEnv { get; set; }
     }
 }

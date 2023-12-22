@@ -8,6 +8,8 @@ using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapServer.Constants;
 using System.Linq;
+using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Zones.Settings;
 
 namespace Genrpg.Shared.ProcGen.Entities
 {

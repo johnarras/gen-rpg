@@ -1,10 +1,10 @@
 ﻿using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Levels.Entities;
+using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Stats.Constants;
-using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Stats.Services;
+using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System;

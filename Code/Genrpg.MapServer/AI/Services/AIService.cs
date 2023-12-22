@@ -8,18 +8,18 @@ using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Spells.Entities;
-using Genrpg.Shared.Characters.Entities;
 using Genrpg.MapServer.Maps;
 using System.Threading;
 using Genrpg.MapServer.Spells;
 using Genrpg.MapServer.MapMessaging.Interfaces;
-using Genrpg.Shared.AI.Entities;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.MapServer.Combat.Messages;
 using Genrpg.MapServer.AI.Constants;
+using Genrpg.Shared.AI.Settings;
+using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 
 namespace Genrpg.MapServer.AI.Services
 {
@@ -67,7 +67,7 @@ namespace Genrpg.MapServer.AI.Services
         {
             if (unit.HasFlag(UnitFlags.IsDead))
             {
-                return false;
+                    return false;
             }
 #if DEBUG
             _updateTimes++;
@@ -111,7 +111,7 @@ namespace Genrpg.MapServer.AI.Services
         protected void IdleWander(GameState gs, Unit unit)
         {
             if (!unit.Moving && !unit.HasFlag(UnitFlags.Evading) &&
-                unit.NPCTypeId < 1 &&
+                !unit.GetAddons().Any() &&
                 !unit.HasTarget() &&
                 gs.rand.NextDouble() < gs.data.GetGameData<AISettings>(unit).IdleWanderChance &&
                 unit.Spawn != null)

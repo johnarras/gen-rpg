@@ -10,6 +10,9 @@ using Genrpg.Shared.ProcGen.Entities;
 using UI.Screens.Constants;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
+using Genrpg.Shared.ProcGen.Settings.Weather;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public struct UpdateColor
 {

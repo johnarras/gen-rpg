@@ -1,19 +1,18 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.Quests.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.Zones.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Genrpg.Shared.NPCs.Entities;
-using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Factions.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Factions.Constants;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Quests.WorldData;
+using Genrpg.Shared.Quests.Constants;
+using Genrpg.Shared.Spawns.WorldData;
+using Genrpg.Shared.Zones.WorldData;
+using Unity.Collections;
 
 public interface IQuestGenService : IService
 {
@@ -36,14 +35,11 @@ public class QuestGenService : IQuestGenService
         {
             GenerateZoneQuests(gs, zone);
         }
-
-
     }
 
     protected void GenerateZoneQuests(UnityGameState gs, Zone zone)
     {
-        if ( gs.map == null || zone == null || zone.Units.Count < 1 ||
-            gs.map.NPCs == null)
+        if ( gs.map == null || zone == null || zone.Units.Count < 1)
         {
             return;
         }
@@ -57,17 +53,16 @@ public class QuestGenService : IQuestGenService
             map.Quests = new List<QuestType>();
         }
 
-        List<NPCType> zoneNPCs = GetNPCsForZone(gs, map, zone.IdKey);
+        List<MapSpawn> zoneNPCs = GetNPCsForZone(gs, map, zone.IdKey);
 
         gs.logger.Debug("NPCs for ZoneId: " + zone.IdKey + " " + zoneNPCs.Count);
 
         List<long> unitTypeIds = zoneType.UnitSpawns.Select(x => x.EntityId).ToList();
 
         // Make standard quests first.
-        foreach (NPCType npc in zoneNPCs)
+        foreach (MapSpawn npc in zoneNPCs)
         {
             int numQuests = MathUtils.IntRange(1, 3, rand);
-
 
             for (int q = 0; q < numQuests; q++)
             {
@@ -87,8 +82,8 @@ public class QuestGenService : IQuestGenService
                 {
                     questType.Desc += questType.Desc;
                 }
-                questType.StartNPCTypeId = npc.IdKey;
-                questType.EndNPCTypeId = npc.IdKey;
+                questType.StartObjId = npc.Id;
+                questType.EndObjId = npc.Id;
                 questType.MinLevel = Math.Max(1, zone.Level - QuestConstants.QuestLevelBelowZoneLevel);
                 questType.ZoneId = zone.IdKey;
                 questType.MapId = gs.map.Id;
@@ -247,15 +242,14 @@ public class QuestGenService : IQuestGenService
         return gs.map.QuestItems.Max(X => X.IdKey) + 1;
     }
 
-    protected List<NPCType> GetNPCsForZone(GameState gs, Map map, long zoneId)
+    protected List<MapSpawn> GetNPCsForZone(GameState gs, Map map, long zoneId)
     {
-        if (map == null || map.NPCs == null)
-        {
-            return new List<NPCType>();
-        }
+        List<MapSpawn> zoneSpawns = gs.spawns.Data.Where(x=>x.ZoneId == zoneId &&
+        x.Addons != null && x.Addons.Count > 0).ToList();
 
-        return map.NPCs.Where(x => x.ZoneId == zoneId && x.FactionTypeId == FactionTypes.Player).ToList();
+        return zoneSpawns;
     }
+
 
     protected List<MapSpawn> GetUnusedSpawnsNearPoint(GameState gs, long zoneId, int px, int py, float radius)
     {
@@ -265,7 +259,7 @@ public class QuestGenService : IQuestGenService
         }
 
         List<MapSpawn> desiredUnits = gs.spawns.Data.Where(u =>
-        (u.EntityTypeId == EntityTypes.NPC || u.EntityTypeId == EntityTypes.Unit) &&
+        (u.EntityTypeId == EntityTypes.ZoneUnit || u.EntityTypeId == EntityTypes.Unit) &&
         u.EntityId == 0 &&
         Math.Sqrt((u.X - px) * (u.X - px) + (u.Z - py) * (u.Z - py)) <= radius).ToList();
 

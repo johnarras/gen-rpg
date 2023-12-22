@@ -14,6 +14,8 @@ using Genrpg.Shared.Entities.Constants;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
 using System.Threading.Tasks;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class PatchLoadData
 {
@@ -317,8 +319,8 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
         _mapObjectLoaders[EntityTypes.GroundObject] = new GroundObjectLoader(_gs);
         _mapObjectLoaders[EntityTypes.Unit] = new UnitObjectLoader(_gs);
-        _mapObjectLoaders[EntityTypes.NPC] = new NPCObjectLoader(_gs);
         _mapObjectLoaders[EntityTypes.ProxyCharacter] = new ProxyCharacterObjectLoader(_gs);
+        _mapObjectLoaders[EntityTypes.Building] = new BuildingObjectLoader(_gs);
 
     }
 

@@ -3,15 +3,17 @@ using System.Linq;
 using GEntity = UnityEngine.GameObject;
 using ClientEvents;
 using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Quests.Entities;
 using Genrpg.Shared.Quests.Services;
-using Genrpg.Shared.NPCs.Entities;
-using Genrpg.Shared.Currencies.Entities;
 using System.Threading;
 using Genrpg.Shared.Currencies.Constants;
+using Genrpg.Shared.Quests.WorldData;
+using Genrpg.Shared.Quests.Constants;
+using Genrpg.Shared.Quests.PlayerData;
+using Genrpg.Shared.Inventory.Settings.Qualities;
+using Genrpg.Shared.MapObjects.Entities;
 
 public class QuestInfoUI : BaseBehaviour
 {
@@ -38,15 +40,15 @@ public class QuestInfoUI : BaseBehaviour
 
     QuestType _qtype = null;
     QuestScreen _screen = null;
-    NPCType _type = null;
     private CancellationToken _token;
-    public void Init(QuestType qtype, int index, QuestScreen screen, NPCType npcType, CancellationToken token)
+    MapObject _obj = null;
+    public void Init(QuestType qtype, int index, QuestScreen screen, MapObject mapObject, CancellationToken token)
     {
         _gs.AddEvent<UpdateQuestEvent>(this, OnUpdateQuest);
         _token = token;
         _qtype = qtype;
         _screen = screen;
-        _type = npcType;
+        _obj = mapObject;
         ShowQuestInfo();
     }
 
@@ -88,7 +90,8 @@ public class QuestInfoUI : BaseBehaviour
             GEntityUtils.DestroyAllChildren(TaskParent);
             foreach (QuestTask task in _qtype.Tasks)
             {
-                _assetService.LoadAssetInto(_gs, TaskParent, AssetCategoryNames.UI, rowPrefabName, OnLoadTask, task, _token);
+                _assetService.LoadAssetInto(_gs, TaskParent, AssetCategoryNames.UI,
+                    rowPrefabName, OnLoadTask, task, _token, _screen.Subdirectory);
             }
         }
 
@@ -275,9 +278,10 @@ public class QuestInfoUI : BaseBehaviour
             MapId = _qtype.MapId,
             AlterTypeId = alterQuestTypeId,
         };
-        if (_type != null)
+
+        if (_obj != null)
         {
-            alterData.NPCTypeId = _type.IdKey;
+            alterData.QuestGiverId = _obj.Id;
         }
     }
 }

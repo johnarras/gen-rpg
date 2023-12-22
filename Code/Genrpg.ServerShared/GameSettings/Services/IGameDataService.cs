@@ -1,12 +1,12 @@
 ﻿using Genrpg.ServerShared.Core;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Login.Messages.Login;
-using Genrpg.Shared.Login.Messages.RefreshGameData;
+using Genrpg.Shared.Login.Messages.RefreshGameSettings;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;

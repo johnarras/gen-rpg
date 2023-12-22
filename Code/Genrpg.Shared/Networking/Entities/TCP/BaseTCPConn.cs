@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Logs.Entities;
+﻿using Genrpg.Shared.Logs.Interfaces;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.Networking.Constants;
 using Genrpg.Shared.Networking.Interfaces;

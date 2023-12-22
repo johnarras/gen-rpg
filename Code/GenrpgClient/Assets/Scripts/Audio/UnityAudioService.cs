@@ -1,20 +1,17 @@
 using GEntity = UnityEngine.GameObject;
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 
 using Assets.Scripts.Interfaces;
-using Genrpg.Shared.Audio.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Users.Entities;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Assets.Scripts.Tokens;
-using Genrpg.Shared.ProcGen.Entities;
 using UnityEngine; // Needed
+using Genrpg.Shared.Audio.Settings;
 
 public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
 {

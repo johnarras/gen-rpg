@@ -1,16 +1,14 @@
 ﻿
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Units.Entities;
-
-using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Factions.Services;
-using Genrpg.Shared.Crafting.Entities;
 using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Loot.Messages;
-using System.Collections.Generic;
 using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.MapObjects.MapObjectAddons.Constants;
+using Genrpg.Shared.Crafting.Settings.Crafters;
 
 public class InteractUnit : InteractableObject
 {
@@ -38,12 +36,12 @@ public class InteractUnit : InteractableObject
         { 
             return;
         }
-        else if (unit.NPCType != null)
+        else if (unit.AddonBits > 0)
         {
             if (_factionService.CanInteract(_gs, _gs.ch, unit.FactionTypeId))
             {
 
-                if (unit.NPCType.ItemCount > 0)
+                if (unit.HasAddon(MapObjectAddonTypes.Vendor))
                 {
                     Cursors.SetCursor(Cursors.Shop);
                 }
@@ -126,14 +124,9 @@ public class InteractUnit : InteractableObject
 
         if (_factionService.CanInteract(_gs,_gs.ch,unit.FactionTypeId))
         {
-            if (unit.NPCType != null)
+            if (unit.HasAddon(MapObjectAddonTypes.Vendor))
             {
-                if (unit.NPCType.ItemCount > 0)
-                {
-                    _screenService.Open(_gs, ScreenId.Quest, unit);
-                }
-
-                return;
+                _screenService.Open(_gs, ScreenId.Quest, unit);
             }
 
             return;

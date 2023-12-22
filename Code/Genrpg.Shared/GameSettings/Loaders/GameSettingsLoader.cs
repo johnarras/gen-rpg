@@ -1,12 +1,9 @@
 ﻿using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace Genrpg.Shared.GameSettings.Loaders
@@ -23,7 +20,7 @@ namespace Genrpg.Shared.GameSettings.Loaders
             List<IGameSettings> list = (await repoSystem.Search<TServer>(x => true)).Cast<IGameSettings>().ToList();
             if (createDefaultIfMissing && list.Count < 1)
             {
-                list.Add(new TServer() { Id = GameDataConstants.DefaultFilename });
+                list.Add(new TServer() { Id = GameDataConstants.DefaultFilename });              
             }
             return list;
         }

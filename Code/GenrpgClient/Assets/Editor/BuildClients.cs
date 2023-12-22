@@ -11,7 +11,6 @@ using Genrpg.Shared.Constants;
 using System.Linq;
 using Scripts.Assets.Assets.Constants;
 using Genrpg.Shared.Setup.Services;
-using Genrpg.Shared.Patcher.Entities;
 
 public class BuildClients
 {
@@ -48,22 +47,10 @@ public class BuildClients
         bool didSetEnv = false;
         ClientConfig clientConfig = AssetDatabase.LoadAssetAtPath<ClientConfig>("Assets/Resources/Config/ClientConfig.asset");
 
-        EnvEnum oldEnv = EnvEnum.Local;
         if (clientConfig == null)
         {
             Debug.Log("Missing ClientConfig at Assets/Resources/Config/ClientConfig.asset");
             return;
-        }
-
-        foreach (EnvEnum envEnvum in Enum.GetValues(typeof(EnvEnum)))
-        {
-            if (envEnvum.ToString() == env)
-            {
-                oldEnv = clientConfig.Env;
-                clientConfig.Env = envEnvum;
-                didSetEnv = true;
-                break;
-            }
         }
 
         if (!didSetEnv)
@@ -91,7 +78,6 @@ public class BuildClients
 
         List<PlatformBuildData> configs = BuildConfiguration.GetbuildConfigs(gs);
 
-
         string[] sceneArray = new string[scenePaths.Count];
         for (int s = 0; s < scenePaths.Count; s++)
         {
@@ -115,20 +101,13 @@ public class BuildClients
             Directory.CreateDirectory(outputZipFolder);
         }
 
-
         ServiceLocator loc = new ServiceLocator(gs.logger);
         ClientRepositorySystem repofact = new ClientRepositorySystem(gs.logger);
         SetupService ss = new SetupService();
         CancellationTokenSource cts = new CancellationTokenSource();
         ss.SetupGame(gs, cts.Token);
 
-
-
         Assembly servicesAssembly = Assembly.GetAssembly(typeof(SetupService));
-
-
-
-        SetupGlobalConstants(gs);
 
         string lowerEnv = env.ToLower();
         foreach (PlatformBuildData config in configs)
@@ -145,8 +124,8 @@ public class BuildClients
             }
             BuildPipeline.BuildPlayer(sceneArray, outputPath, config.Target, BuildOptions.AllowDebugging | BuildOptions.CompressWithLz4HC);
 
-
         }
+
         string versionFilePath = outputZipFolder + PatcherUtils.GetPatchVersionFilename();
         File.WriteAllText(versionFilePath, String.Empty);
         File.WriteAllText(versionFilePath, version.ToString());
@@ -162,26 +141,10 @@ public class BuildClients
 
         FileUploader.UploadFile(vfdata);
 
-
-        clientConfig.Env = oldEnv;
         EditorUtility.SetDirty(clientConfig);
         AssetDatabase.SaveAssets();
 
         Debug.Log("Finished building clients version: " + version);
 
-    }
-
-
-
-    protected static void SetupGlobalConstants(UnityGameState gs)
-    {
-        List<string> envs = new List<String>() { EnvNames.Prod, EnvNames.Test };
-        string currEnv = gs.Env;
-        if (string.IsNullOrEmpty(currEnv))
-        {
-            currEnv = EnvNames.Prod;
-        }
-
-        AssetDatabase.SaveAssets();
     }
 }

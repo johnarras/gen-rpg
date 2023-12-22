@@ -1,5 +1,4 @@
 using MessagePack;
-using Genrpg.Shared.Spawns.Entities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Text;
 
 using TColl = System.Collections.Generic.List<Genrpg.Shared.MapObjects.Entities.MapObject>;
+using Genrpg.Shared.Spawns.WorldData;
 //using TColl = System.Collections.Generic.HashSet<Entities.MapObjects.MapObject>;
 
 namespace Genrpg.Shared.MapObjects.Entities

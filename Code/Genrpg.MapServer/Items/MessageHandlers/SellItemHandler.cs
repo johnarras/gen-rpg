@@ -5,16 +5,18 @@ using System.Threading.Tasks;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.Currencies.Entities;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Currencies.PlayerData;
 using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Currencies.Constants;
 using Genrpg.ServerShared.Achievements;
 using Genrpg.Shared.Achievements.Constants;
+using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Inventory.Utils;
+using Genrpg.Shared.Vendors.MapObjectAddons;
 
 namespace Genrpg.MapServer.Items.MessageHandlers
 {
@@ -31,14 +33,16 @@ namespace Genrpg.MapServer.Items.MessageHandlers
         }
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, SellItem message)
         {
-            if (!_objectManager.GetUnit(message.UnitId, out Unit unit))
+            if (!_objectManager.GetObject(message.UnitId, out MapObject mapObject))
             {
                 pack.SendError(gs, obj, "That vendor doesn't exist");
                 return;
             }
 
+            VendorAddon addon = mapObject.GetAddon<VendorAddon>();
 
-            if (unit.NPCTypeId < 1 || unit.NPCType == null || unit.NPCType.ItemCount < 1)
+
+            if (addon == null)
             {
                 pack.SendError(gs, obj, "This isn't a vendor");
                 return;

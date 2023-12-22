@@ -3,13 +3,13 @@ using MessagePack;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Networking.Constants;
-using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.Characters.PlayerData;
 
 namespace Genrpg.Shared.Login.Messages.LoadIntoMap
 {
@@ -29,6 +29,8 @@ namespace Genrpg.Shared.Login.Messages.LoadIntoMap
         [Key(7)] public EMapApiSerializers Serializer { get; set; } = EMapApiSerializers.Json;
 
         [Key(8)] public GameDataOverrideList OverrideList { get; set; }
+
+        [Key(9)] public string WorldDataEnv { get; set; }
 
         public LoadIntoMapResult()
         {

@@ -5,7 +5,7 @@ using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.Logs.Interfaces;
 using System.Collections.Concurrent;
 
 namespace Genrpg.PlayerServer.Managers

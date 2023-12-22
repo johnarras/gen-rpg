@@ -13,4 +13,5 @@ public class FileUploadData
     public string Env;
     public string LocalPath;
     public string RemotePath;
+    public bool IsWorldData;
 }

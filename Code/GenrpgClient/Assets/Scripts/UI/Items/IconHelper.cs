@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Genrpg.Shared.Inventory.Settings;
+using Genrpg.Shared.Inventory.Settings.Qualities;
 using System.Threading;
-using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Inventory.Entities;
 using GEntity = UnityEngine.GameObject;
 
 public class IconHelper
@@ -52,7 +46,8 @@ public class IconHelper
             prefabName = data.iconPrefabName;
         }
 
-        assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, prefabName, OnLoadItemIcon, data, token);
+        assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, 
+            prefabName, OnLoadItemIcon, data, token, "Items");
 
     }
 
@@ -91,7 +86,8 @@ public class IconHelper
             prefabName = data.iconPrefabName;
         }
 
-        assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, prefabName, OnLoadSpellIcon, data, token);
+        assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, 
+            prefabName, OnLoadSpellIcon, data, token, "Spells");
 
     }
 

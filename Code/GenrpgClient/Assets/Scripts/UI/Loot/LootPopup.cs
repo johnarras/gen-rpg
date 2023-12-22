@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Spawns.Entities;
 using Cysharp.Threading.Tasks;
 using System.Threading;

@@ -1,0 +1,9 @@
+{
+  "Id": "buildingtype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Stonecarver's",
+  "Art": "Stonecarver",
+  "UpdateTime": "2023-12-22T19:02:25.481Z",
+  "CreateTime": "2023-12-22T13:43:47.874Z"
+}

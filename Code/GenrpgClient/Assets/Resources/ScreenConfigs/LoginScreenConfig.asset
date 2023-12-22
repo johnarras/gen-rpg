@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScreenName: 8
   ScreenLayer: 0
+  Subdirectory: Login

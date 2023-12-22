@@ -6,6 +6,8 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.ProcGen.Settings.GroundObjects;
+using Genrpg.Shared.Spawns.Entities;
 
 public class AddChests : BaseZoneGenerator
 {
@@ -120,8 +122,18 @@ public class AddChests : BaseZoneGenerator
                         continue;
                     }
 
-                    gs.spawns.AddSpawn(EntityTypes.GroundObject, chosenObj.IdKey, cy, cx, gs.md.mapZoneIds[cx, cy],
-                        (int)(gs.md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax));
+                    InitSpawnData initData = new InitSpawnData()
+                    {
+                        EntityTypeId = EntityTypes.GroundObject,
+                        EntityId = chosenObj.IdKey,
+                        SpawnX = cy,
+                        SpawnZ = cx,
+                        ZoneId = gs.md.mapZoneIds[cx, cy],
+                        ZoneOverridePercent = (int)(gs.md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax),
+                    };
+                    
+
+                    gs.spawns.AddSpawn (initData);
                 
                     break;
                 }

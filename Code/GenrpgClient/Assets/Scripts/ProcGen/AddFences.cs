@@ -1,22 +1,14 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using Genrpg.Shared.Core.Entities;
-
-
-using GEntity = UnityEngine.GameObject;
 using Cysharp.Threading.Tasks;
-
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
-
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Fences;
+using Genrpg.Shared.ProcGen.Settings.Locations;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class AddFences : BaseZoneGenerator
 {
@@ -100,7 +92,13 @@ public class AddFences : BaseZoneGenerator
                 int ddy = y - starty;
                 if (chanceRand.NextDouble() > fenceChances[ddx,ddy])
                 {
-                    continue;
+                    Location currLoc = _zoneGenService.FindMapLocation(gs, x, y, 3);
+
+                    if (currLoc == null ||
+                        FlagUtils.IsSet(gs.md.flags[x,y], MapGenFlags.IsLocationPatch))
+                    {
+                        continue;
+                    }
                 }
 
                 if (gs.md.mapZoneIds[x, y] != zone.IdKey) // zoneobject
@@ -113,23 +111,9 @@ public class AddFences : BaseZoneGenerator
                     continue;
                 }
 
-                bool inRectLoc = false;
-                Location currLoc = _zoneGenService.FindMapLocation(gs, x, y,3);
-
-                if (currLoc != null)
-                {
-                    continue;
-                }
-
                 if (FlagUtils.IsSet(gs.md.flags[x, y], MapGenFlags.BelowWater))
                 {
                     continue;
-                }
-
-                if (currLoc != null && currLoc.IsRectangular())
-                {
-
-                    inRectLoc = true;
                 }
 
                 FenceType fenceType = GetFenceType(gs, zoneType, choiceRand);
@@ -153,10 +137,9 @@ public class AddFences : BaseZoneGenerator
                     continue;
                 }
 
-
                 List<MyPointF> potentialEndPoints = new List<MyPointF>();
 
-                float extraLengthMult = 2.0f;
+                float extraLengthMult = 0.5f;
 
                 float checkLength = fenceType.Length*extraLengthMult;
 
@@ -262,7 +245,7 @@ public class AddFences : BaseZoneGenerator
                 //var centerHeight = gs.md.SampleHeight(gs, cx+wdx, 2000, cy+wdy);
                 float centerHeight = gs.md.SampleHeight(gs, cy + wdy, 2000, cx + wdx);
 
-                if (!inRectLoc && Math.Abs(hgt - centerHeight) > maxHeightAboveCenter)
+                if (Math.Abs(hgt - centerHeight) > maxHeightAboveCenter)
                 {
                     continue;
                 }

@@ -1,5 +1,5 @@
 ﻿using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 
 using UI.Screens.Constants;
@@ -78,6 +78,7 @@ public class CharacterSelectScreen : BaseScreen
             CharId = _gs.characterStubs.Select(x => x.Id).FirstOrDefault(),
             GenerateMap = true,
             Env = _gs.Env,
+            WorldDataEnv = _assetService.GetWorldDataEnv(),
         };
         _zoneGenService.LoadMap(_gs, lwd);
     }
@@ -223,7 +224,8 @@ public class CharacterSelectScreen : BaseScreen
 
         foreach (CharacterStub stub in _gs.characterStubs)
         {
-            _assetService.LoadAssetInto(_gs, CharacterGridParent, AssetCategoryNames.UI, CharacterRowArt, OnLoadCharacterRow, stub, _token);
+            _assetService.LoadAssetInto(_gs, CharacterGridParent, AssetCategoryNames.UI, 
+                CharacterRowArt, OnLoadCharacterRow, stub, _token, Subdirectory);
         }
     }
 

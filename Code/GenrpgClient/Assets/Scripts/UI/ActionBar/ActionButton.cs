@@ -1,12 +1,14 @@
 ﻿using System;
-using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Input.Entities;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Spells.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 using Assets.Scripts.Atlas.Constants;
 using System.Threading;
 using GPointerEventData = UnityEngine.EventSystems.PointerEventData;
+using Genrpg.Shared.Input.PlayerData;
+using Genrpg.Shared.Input.Constants;
+using Genrpg.Shared.Inventory.Constants;
 
 public class InitActionIconData : InitSpellIconData
 {

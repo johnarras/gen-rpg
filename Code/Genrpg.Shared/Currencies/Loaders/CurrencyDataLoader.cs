@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Currencies.Entities;
+﻿using Genrpg.Shared.Currencies.PlayerData;
 using Genrpg.Shared.Units.Loaders;
 using System;
 using System.Collections.Generic;

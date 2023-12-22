@@ -59,7 +59,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
             return;
         }
 
-        if (_objectManager.GetController(loadData.Spawn.MapObjectId, out UnitController currController))
+        if (_objectManager.GetController(loadData.Spawn.ObjId, out UnitController currController))
         {
             GEntityUtils.Destroy(artGo);
             return;

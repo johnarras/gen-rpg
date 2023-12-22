@@ -19,17 +19,12 @@ public class FileUploader
 
         string env = fdata.Env;
         
-        if (env == EnvNames.Test)
-        {
-            env = EnvNames.Dev;
-        }
-
         fdata.RemotePath = fdata.GamePrefix.ToLower() + env.ToLower() + "/" + fdata.RemotePath;
 
         fdata.RemotePath = "\"" + fdata.RemotePath + "\"";
         fdata.LocalPath = "\"" + fdata.LocalPath + "\"";
 
-        psi.Arguments = fdata.LocalPath + " " + fdata.RemotePath;
+        psi.Arguments = fdata.IsWorldData.ToString() + " " + fdata.LocalPath + " " + fdata.RemotePath;
         psi.WindowStyle = ProcessWindowStyle.Hidden;
         psi.CreateNoWindow = true;
         Process process = Process.Start(psi);

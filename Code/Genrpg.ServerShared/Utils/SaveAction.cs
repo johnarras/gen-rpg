@@ -18,17 +18,13 @@ namespace Genrpg.ServerShared.Utils
         public SaveAction(T item, IRepositorySystem repoSystem)
         {
             _repoSystem = repoSystem;
-            _items.Add(SerializationUtils.FastMakeCopy(item));
+            _items.Add(item);
         }
 
         public SaveAction(List<T> items, IRepositorySystem repoSystem)
         {
-            _repoSystem = repoSystem;   
-
-            foreach (T item in items)
-            {
-                _items.Add(SerializationUtils.FastMakeCopy(item));
-            }
+            _repoSystem = repoSystem;
+            _items = new List<T>(items);
         }
 
         public async Task<bool> Execute()

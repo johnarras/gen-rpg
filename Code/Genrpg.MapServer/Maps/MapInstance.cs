@@ -14,14 +14,14 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Players.Constants;
 using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using System.ComponentModel;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.ServerShared.Setup;
 using Genrpg.ServerShared.Core;
 using Genrpg.MapServer.Networking;
 using Genrpg.MapServer.Setup;
-using Genrpg.Shared.Crafting.Entities;
+using Genrpg.Shared.Crafting.PlayerData;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.MapServer.CloudMessaging.Interfaces;
@@ -41,7 +41,6 @@ using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
 using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.Constants.TempDev;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.GameSettings.Messages;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -49,6 +48,7 @@ using Genrpg.ServerShared.MainServer;
 using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.DataStores.Categories;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -145,7 +145,7 @@ namespace Genrpg.MapServer.Maps
             _messageService.Init(_gs, _tokenSource.Token);
             _objectManager.Init(_gs, _tokenSource.Token);
             _port = initData.Port;
-            _host = TempDevConstants.LocalIP;
+            _host = "127.0.0.1";
             
             // Step 4: Setup listener
             _listener = GetListener(IPAddress.Any.ToString(), initData.Port, initData.Serializer);
@@ -159,7 +159,9 @@ namespace Genrpg.MapServer.Maps
 
             _ = Task.Run(() => ProcessMap(), _tokenSource.Token);
 
-            await _pathfindingService.LoadPathfinding(_gs);
+            await _pathfindingService.LoadPathfinding(_gs,
+                _gs.config.ContentRoot + 
+                _gs.config.DataEnvs[DataCategoryTypes.WorldData] + "/");
         }
 
         public void SendAddInstanceMessage()

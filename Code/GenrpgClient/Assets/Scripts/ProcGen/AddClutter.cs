@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Clutter;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class AddClutter : BaseZoneGenerator
 {

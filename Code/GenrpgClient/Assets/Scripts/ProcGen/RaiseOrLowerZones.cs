@@ -19,6 +19,7 @@ using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.MapServer.Entities;
 
 using System.Threading;
+using Genrpg.Shared.Zones.WorldData;
 
 public class ZoneHeightCellData
 {

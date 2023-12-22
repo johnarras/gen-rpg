@@ -2,16 +2,14 @@ using MessagePack;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
-using Genrpg.Shared.Factions.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Spawns.Entities;
 
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
 using System.Collections.Generic;
 using Genrpg.Shared.Stats.Messages;
-using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.Spawns.WorldData;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {
@@ -25,7 +23,7 @@ namespace Genrpg.Shared.MapObjects.Factories
 
             MapSpawn unitSpawn = new MapSpawn()
             {
-                MapObjectId = spawn.MapObjectId,
+                ObjId = spawn.ObjId,
                 EntityTypeId = EntityTypes.Unit,
                 EntityId = spawn.EntityId,
                 X = spawn.X,

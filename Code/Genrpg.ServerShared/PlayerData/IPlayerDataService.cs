@@ -1,5 +1,5 @@
 ﻿using Genrpg.ServerShared.Core;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Interfaces;

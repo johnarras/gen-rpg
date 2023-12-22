@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Genrpg.Shared.Input.Entities;
 using Genrpg.Shared.Units.Entities;
 using System.Threading;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Targets.Messages;
+using Genrpg.Shared.Input.PlayerData;
 
 public class PlayerController : UnitController
 {

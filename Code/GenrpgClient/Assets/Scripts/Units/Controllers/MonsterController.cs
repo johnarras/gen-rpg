@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Units.Entities;
 using System.Threading;
-using Genrpg.Shared.AI.Entities;
 using UnityEngine; // Needed
+using Genrpg.Shared.AI.Settings;
 
 public class MonsterController : UnitController
 {

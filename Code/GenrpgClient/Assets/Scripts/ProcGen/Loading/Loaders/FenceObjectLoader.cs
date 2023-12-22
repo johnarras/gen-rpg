@@ -1,11 +1,12 @@
 ﻿
 using GEntity = UnityEngine.GameObject;
 
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Fences;
+using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Zones.Settings;
 
 public class FenceObjectLoader : BaseObjectLoader
 {

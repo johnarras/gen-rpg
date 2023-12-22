@@ -1,12 +1,6 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.Login.Messages.RefreshGameData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Genrpg.Shared.Login.Messages.RefreshGameSettings;
 using System.Threading;
-using Cysharp.Threading.Tasks;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {

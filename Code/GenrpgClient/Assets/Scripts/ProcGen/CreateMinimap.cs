@@ -458,13 +458,10 @@ public class CreateMinimap : BaseZoneGenerator
         string remotePath = filename;
         FileUploadData fdata = new FileUploadData();
         fdata.GamePrefix = Game.Prefix;
-        fdata.Env = gs.Env;
-        if (fdata.Env != EnvNames.Prod)
-        {
-            fdata.Env = EnvNames.Dev;
-        }
+        fdata.Env = _assetService.GetWorldDataEnv();
         fdata.LocalPath = localPath;
         fdata.RemotePath = remotePath;
+        fdata.IsWorldData = true;
 
         FileUploader.UploadFile(fdata);
 

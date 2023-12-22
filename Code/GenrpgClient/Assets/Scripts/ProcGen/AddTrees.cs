@@ -1,7 +1,12 @@
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.ProcGen.Settings.Locations;
+using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
+using MessagePack.Formatters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +55,7 @@ internal class TreeCategory
     public float posDeltaScale = 1.0f;
     public float sizeScale = 1.0f;
     public float overrideChance = 0.0f;
+    public float skipChance = 0.0f;
    
     public TreeCategory()
     {
@@ -81,7 +87,7 @@ public class AddTrees : BaseZoneGenerator
     public const int BushIndex = 2;
     public const int WaterIndex = 3;
 
-    public const int TreePlacementSkipSize = 16;
+    public const int TreePlacementSkipSize = 12;
     public const int BushPlacementSkipSize = 6;
     public const int WaterItemPlacementSkipSize = 4;
     public const float WaterChance = 0.65f;
@@ -90,9 +96,9 @@ public class AddTrees : BaseZoneGenerator
     public const float TreeNoiseChance = 8.0f;
     public const float BushNoiseChance = 0.60f;
     public const float MinWallTreeChance = 0.35f;
-    public const float TreeSizeScale = 1.5f;
-    public const float BushSizeScale = 1.5f;
-    public const float MaxTreeChance = 0.20f;
+    public const float TreeSizeScale = 1.0f;
+    public const float BushSizeScale = 1.0f;
+    public const float MaxTreeChance = 0.35f;
     public const float MaxBushChance = 1.0f;
     
    
@@ -217,9 +223,6 @@ public class AddTrees : BaseZoneGenerator
             }
             SetupTreeTypeOverrides(gs, full, treeType);
 
-
-
-
             if (full.Name == null)
             {
                 full.Name = "Tree";
@@ -260,7 +263,6 @@ public class AddTrees : BaseZoneGenerator
         AddTreeCategoryToMap(gs, TreeIndex, treeData, TreePlacementSkipSize);
         AddTreeCategoryToMap(gs, BushIndex, treeData, BushPlacementSkipSize);
         AddTreeCategoryToMap(gs, WaterIndex, treeData, WaterItemPlacementSkipSize);
-        
     }
 
 
@@ -313,21 +315,15 @@ public class AddTrees : BaseZoneGenerator
             allNoises.Add(noise);
         }
 
-
-
-
-        int minRoadDist = 3;
-        int startRoadDist = 6;
-
-        double skipSizeChance = 1.0f;
+        int minRoadDist = 6;
+        int startRoadDist = 10;
 
         bool isWaterItem = (listIndex == WaterIndex);
         bool isBush = (listIndex == BushIndex || listIndex == WaterIndex);
 
-        int skipDelta = Math.Max(1, skipSize * 2 / 5);
+        int skipDelta = Math.Max(2, skipSize * 2 / 5);
         for (int cx = 0; cx < gs.map.GetHwid(); cx += skipSize)
         {
-
             int x = cx + MathUtils.IntRange(-skipDelta, skipDelta, skipRand);
             x = MathUtils.Clamp(0, x, gs.map.GetHwid() - 1);
             int ddx = -x / (MapConstants.TerrainPatchSize - 1);
@@ -345,13 +341,21 @@ public class AddTrees : BaseZoneGenerator
                     continue;
                 }
 
-                if (chanceRand.NextDouble() > skipSizeChance && !isWaterItem)
-                {
-                    continue;
-                }
+                Location closeLoc = _zoneGenService.FindMapLocation(gs, x, y, 15);
 
-                int tx = x - x / (MapConstants.TerrainPatchSize - 1);
-                int ty = y - y / (MapConstants.TerrainPatchSize - 1);
+                bool forceTrees = false;
+                
+                if (closeLoc != null)
+                {
+                    if (listIndex == TreeIndex)
+                    {
+                        forceTrees = true;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
 
                 if (!isWaterItem)
                 {
@@ -360,11 +364,9 @@ public class AddTrees : BaseZoneGenerator
                         continue;
                     }
 
+                    float currRoadDist = Math.Max(minRoadDist, startRoadDist + roadNoise[x, y]);
 
-                    float currRoadDist = Math.Max(minRoadDist, startRoadDist + roadNoise[tx, ty]);
-
-
-                    if (gs.md.roadDistances[tx, ty] <= currRoadDist)
+                    if (gs.md.roadDistances[x, y] <= currRoadDist)
                     {
                         continue;
                     }
@@ -414,10 +416,37 @@ public class AddTrees : BaseZoneGenerator
                     }
                 }
 
-                if (!isWaterItem)
+                if (closeLoc != null)
                 {
-                    Location closeLoc = _zoneGenService.FindMapLocation(gs, tx,ty, 5);
-                    if (closeLoc != null)
+                    int checkRadius = 2;
+                    bool foundLocationPatch = false;
+                    for (int lx = x-checkRadius; lx <= x+checkRadius; lx++)
+                    {
+                        if (lx < 0 || lx >= gs.map.GetHwid())
+                        {
+                            continue;
+                        }
+
+                        for (int lz = x - checkRadius; lz <= x+checkRadius; lz++)
+                        {
+                            if (lz < 0 || lz >= gs.map.GetHhgt())
+                            {
+                                continue;
+                            }
+
+                            if (FlagUtils.IsSet(gs.md.flags[lx,lz], MapGenFlags.IsLocationPatch))
+                            {
+                                foundLocationPatch = true;
+                                break;
+                            }
+                        }
+                        if (foundLocationPatch)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (foundLocationPatch)
                     {
                         continue;
                     }
@@ -427,11 +456,16 @@ public class AddTrees : BaseZoneGenerator
                     continue;
                 }
 
-                bool extraWallChance = false;
+                if (FlagUtils.IsSet(gs.md.flags[x+ddx,y+ddy], MapGenFlags.NearWater) != isWaterItem)
+                {
+                    continue;
+                }
+
+                bool extraMountainChance = false;
 
                 if (listIndex == TreeIndex && gs.md.mountainHeights[x, y] != 0)
                 {
-                    extraWallChance = true;
+                    extraMountainChance = true;
                 }
 
                 double totalChance = 0.0f;
@@ -448,6 +482,13 @@ public class AddTrees : BaseZoneGenerator
                 {
                     continue;
                 }
+
+
+                if (chanceRand.NextDouble() < category.skipChance && !isWaterItem && !forceTrees)
+                {
+                    continue;
+                }
+
                 List<FullTreePrototype> list = category.list;
 
                 // Get the current chances.
@@ -471,20 +512,17 @@ public class AddTrees : BaseZoneGenerator
                             val += Math.Max(0, currNoise[xindex, yindex]);
                         }
 
-                        list[i].currChance = Math.Max(0, val) * category.densityMult;
+                        list[i].currChance = Math.Max(0, val) * category.densityMult;                       
                     }
 
-                    if (extraWallChance && list[i].currChance < MinWallTreeChance)
+                    if (extraMountainChance && list[i].currChance < MinWallTreeChance)
                     {
                         list[i].currChance = MinWallTreeChance;
                     }
-
                     list[i].currChance *= 1.0f/list.Count;
 
                     totalChance += list[i].currChance;
                 }
-
-
 
                 List<FullTreePrototype> currList = new List<FullTreePrototype>();
 
@@ -496,12 +534,6 @@ public class AddTrees : BaseZoneGenerator
                         list[i].currChance *= scaleDownChance;
                     }
                     totalChance = finalChance;
-                }
-
-
-                if (totalChance < 1)
-                {
-                    totalChance = 1;
                 }
 
                 double chanceChosen = chanceRand.NextDouble() * totalChance;
@@ -517,7 +549,10 @@ public class AddTrees : BaseZoneGenerator
                     }
                 }
 
-
+                if (forceTrees && currList.Count < 1 && list.Count > 0)
+                {
+                    currList.Add(list[choiceRand.Next() % list.Count]);
+                }
 
                 foreach (FullTreePrototype full in currList)
                 {
@@ -552,6 +587,7 @@ public class AddTrees : BaseZoneGenerator
         tc.freqMult = genZone.TreeFreq * zoneType.TreeFreq;
         tc.densityMult = genZone.TreeDensity * zoneType.TreeDensity;
         tc.numItems = MathUtils.IntRange(2, 4, choiceRand);
+        tc.skipChance = 0.75f;
         if (choiceRand.NextDouble() < 0.2f)
         {
             tc.numItems += MathUtils.IntRange(1, 3, choiceRand);
@@ -565,13 +601,13 @@ public class AddTrees : BaseZoneGenerator
 
         tc = new TreeCategory();
         tc.Index = BushIndex;
-        tc.freqMult = genZone.BushFreq * zoneType.BushFreq;
-        tc.densityMult *= genZone.BushDensity * zoneType.BushDensity;
-        tc.freqMult *= 2.0f;
+        tc.freqMult = genZone.BushFreq * zoneType.BushFreq * 2;
+        tc.densityMult = genZone.BushDensity * zoneType.BushDensity;
         tc.posDeltaScale = 2.0f;
         tc.sizeScale = TreeSizeScale;
         tc.numItems = MathUtils.IntRange(3, 5, choiceRand);
         tc.densityMult *= (tc.freqMult <= 0 ? BushUniformChance : BushNoiseChance);
+        tc.skipChance = 0.80f;
         if (choiceRand.NextDouble() < 0.1f)
         {
             tc.numItems += MathUtils.IntRange(1, 3, choiceRand);
@@ -595,6 +631,7 @@ public class AddTrees : BaseZoneGenerator
         tc.freqMult *= 0.0f;
         tc.posDeltaScale = 1.0f;
         tc.sizeScale = BushSizeScale;
+        tc.skipChance = 0.35f;
         tc.numItems = MathUtils.IntRange(2, 3, choiceRand);
         list.Add(tc);
 

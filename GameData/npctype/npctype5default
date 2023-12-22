@@ -1,0 +1,11 @@
+{
+  "Id": "npctype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Stonemason",
+  "CrafterTypeId": 5,
+  "BuildingTypeId": 5,
+  "DefaultVendorItems": [],
+  "UpdateTime": "2023-12-22T19:02:25.53Z",
+  "CreateTime": "2023-12-22T13:40:16.925Z"
+}

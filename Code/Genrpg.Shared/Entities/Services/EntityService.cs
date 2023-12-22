@@ -6,11 +6,11 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Characters.Entities;
 using System.Threading;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
+using Genrpg.Shared.Characters.PlayerData;
 
 namespace Genrpg.Shared.Entities.Services
 {

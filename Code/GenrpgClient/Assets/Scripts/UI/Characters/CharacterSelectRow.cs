@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Characters.Entities;
+﻿using Genrpg.Shared.Characters.PlayerData;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.MapServer.Entities;
 using Assets.Scripts.Atlas.Constants;
@@ -32,7 +32,8 @@ public class CharacterSelectRow : BaseBehaviour
 
         foreach (MapStub stub in _gs.mapStubs)
         {
-            _assetService.LoadAssetInto(_gs, PlayButtonAnchor, AssetCategoryNames.UI, "CharacterPlayButton", OnDownloadPlayButton, stub, token);          
+            _assetService.LoadAssetInto(_gs, PlayButtonAnchor, AssetCategoryNames.UI, 
+                "CharacterPlayButton", OnDownloadPlayButton, stub, token, screen.Subdirectory);          
         }
     }
 

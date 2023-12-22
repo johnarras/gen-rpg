@@ -1,6 +1,6 @@
 ﻿using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Logs.Entities;
+using Genrpg.Shared.Logs.Interfaces;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;

@@ -12,6 +12,7 @@ using Genrpg.Shared.Zones.Entities;
 using System.Linq;
 using System.Threading;
 using Genrpg.Shared.MapServer.Constants;
+using Genrpg.Shared.Zones.WorldData;
 
 public class SetupOverrideTerrainPatches : BaseZoneGenerator
 {

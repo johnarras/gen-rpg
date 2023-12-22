@@ -1,0 +1,11 @@
+{
+  "Id": "npctype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Thief",
+  "CrafterTypeId": 9,
+  "BuildingTypeId": 9,
+  "DefaultVendorItems": [],
+  "UpdateTime": "2023-12-22T19:02:25.539Z",
+  "CreateTime": "2023-12-22T13:40:16.934Z"
+}

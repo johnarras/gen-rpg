@@ -1,9 +1,9 @@
 ﻿using Genrpg.Shared.Achievements.Constants;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
+using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System;

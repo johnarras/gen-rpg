@@ -1,8 +1,8 @@
 using MessagePack;
-using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils.Data;
 using System;
 using System.Collections.Generic;
+using Genrpg.Shared.ProcGen.Settings.LineGen;
 
 namespace Genrpg.Shared.Utils
 {

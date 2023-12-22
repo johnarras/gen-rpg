@@ -1,16 +1,13 @@
 
 using System;
 using System.Collections.Generic;
-using Genrpg.Shared.Core.Entities;
 using Cysharp.Threading.Tasks;
-
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 
 using System.Threading;
+using Genrpg.Shared.ProcGen.Settings.Locations;
+using Genrpg.Shared.Spawns.WorldData;
+using Genrpg.Shared.Zones.WorldData;
 
 public class SetupMapData : BaseZoneGenerator
 {

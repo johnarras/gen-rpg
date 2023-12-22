@@ -26,7 +26,7 @@ public class LoadMinimap : BaseZoneGenerator
             else
             {
                 DownloadData ddata = new DownloadData() { IsImage = true, Handler= OnDownloadMinimap };
-                _assetService.DownloadFile(gs, filename, ddata, token);
+                _assetService.DownloadFile(gs, filename, ddata, true, token);
             }
         }
         catch (Exception e)

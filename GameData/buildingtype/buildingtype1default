@@ -1,0 +1,9 @@
+{
+  "Id": "buildingtype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Clothing Store",
+  "Art": "ClothingStore",
+  "UpdateTime": "2023-12-22T19:32:35.287Z",
+  "CreateTime": "2023-12-22T13:43:47.862Z"
+}

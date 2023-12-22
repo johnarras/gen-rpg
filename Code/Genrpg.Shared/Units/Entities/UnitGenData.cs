@@ -10,17 +10,16 @@ namespace Genrpg.Shared.Units.Entities
         [Key(0)] public long UnitTypeId { get; set; }
         [Key(1)] public long Level { get; set; }
         [Key(2)] public long FactionTypeId { get; set; }
-        [Key(3)] public long NPCTypeId { get; set; }
-        [Key(4)] public long ZoneId { get; set; }
+        [Key(3)] public long ZoneId { get; set; }
 
 
         // Immediately create a unit and use it to store UnitTypeId, Id and Level.
-        [Key(5)] public Unit Unit { get; set; }
-        [Key(6)] public MyPointF Pos { get; set; }
-        [Key(7)] public float Rot { get; set; }
-        [Key(8)] public object Parent { get; set; }
-        [Key(9)] public int StatPct { get; set; }
-        [Key(10)] public bool AllowNoParent { get; set; }
+        [Key(4)] public Unit Unit { get; set; }
+        [Key(5)] public MyPointF Pos { get; set; }
+        [Key(6)] public float Rot { get; set; }
+        [Key(7)] public object Parent { get; set; }
+        [Key(8)] public int StatPct { get; set; }
+        [Key(9)] public bool AllowNoParent { get; set; }
 
         public GameStateObjectDelegate Handler;
         public object ArtInstance;

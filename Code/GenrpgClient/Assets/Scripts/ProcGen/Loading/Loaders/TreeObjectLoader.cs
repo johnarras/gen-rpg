@@ -11,6 +11,9 @@ using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 using UnityEngine;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.ProcGen.Settings.Trees;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class TreeObjectLoader : BaseObjectLoader
 {
@@ -104,6 +107,7 @@ public class TreeObjectLoader : BaseObjectLoader
             long placementSeed = 17041 + x * 9479 + y * 2281 + loadData.gx * 5281 + loadData.gy * 719 +
                 loadData.gx * y + loadData.gy * x;
 
+            treeType.Scale = 1.0f; //TODO remove eventually
             float minScale = treeType.Scale;
             float maxScale = treeType.Scale * 1.5f;
             float finalScale = minScale + (maxScale - minScale) * (placementSeed % (MapTerrainManager.ScaleStepCount + 1)) / MapTerrainManager.ScaleStepCount;

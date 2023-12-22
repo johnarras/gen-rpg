@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.GameSettings.Entities;
+﻿using Genrpg.Shared.GameSettings.PlayerData;
 using System;
 using System.Collections.Generic;
 using System.Text;

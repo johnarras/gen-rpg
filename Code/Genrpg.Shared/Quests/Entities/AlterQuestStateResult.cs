@@ -1,6 +1,7 @@
 using MessagePack;
 using Genrpg.Shared.Spawns.Entities;
 using System.Collections.Generic;
+using Genrpg.Shared.Quests.PlayerData;
 
 namespace Genrpg.Shared.Quests.Entities
 {

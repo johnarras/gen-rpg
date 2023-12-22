@@ -1,7 +1,7 @@
 ﻿using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Maps;
 using Genrpg.ServerShared.Core;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.MapServer.Entities;

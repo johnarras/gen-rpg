@@ -6,14 +6,16 @@ using System.Text;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
-
-using Genrpg.Shared.AI.Entities;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.AI.Settings;
+using Genrpg.Shared.Spells.Settings.Elements;
+using Genrpg.Shared.Spells.Settings.Spells;
+using Genrpg.Shared.Spells.PlayerData.Spells;
+using Genrpg.Shared.Zones.WorldData;
+using System.Linq;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {
@@ -56,13 +58,14 @@ namespace Genrpg.Shared.MapObjects.Factories
                 return null;
             }
 
-            if (spawn.EntityTypeId != EntityTypes.NPC)
-            {
-                level += MathUtils.IntRange(0, 2, gs.rand);
-            }
-
             Unit unit = new Unit();
             unit.Level = level;
+
+            if (spawn.GetAddons().Any())
+            {
+                unit.Level += 3;
+            }
+
             unit.CopyDataFromMapSpawn(spawn);
             unit.EntityTypeId = EntityTypes.Unit;
             unit.EntityId = utype.IdKey;
@@ -91,7 +94,7 @@ namespace Genrpg.Shared.MapObjects.Factories
             SpellData spellData = unit.Get<SpellData>();
             spellData.Add(spell);
 
-            unit.Name = spawn.GetName();
+            unit.Name = spawn.Name;
             if (string.IsNullOrEmpty(unit.Name))
             {
                 if (zone != null)

@@ -8,6 +8,10 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Zones.Entities;
 using Assets.Scripts.MapTerrain;
 using UnityEngine;
+using Genrpg.Shared.ProcGen.Settings.Locations;
+using Genrpg.Shared.ProcGen.Settings.Trees;
+using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Zones.WorldData;
 
 public class MapGenData
 {

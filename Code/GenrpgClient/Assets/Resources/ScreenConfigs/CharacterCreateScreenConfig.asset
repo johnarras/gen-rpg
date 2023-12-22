@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScreenName: 10
   ScreenLayer: 0
+  Subdirectory: Characters

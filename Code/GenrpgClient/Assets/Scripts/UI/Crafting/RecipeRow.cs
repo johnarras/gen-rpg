@@ -1,6 +1,7 @@
 ﻿
-using Genrpg.Shared.Stats.Entities;
-using Genrpg.Shared.Crafting.Entities;
+using Genrpg.Shared.Crafting.PlayerData.Recipes;
+using Genrpg.Shared.Crafting.Settings.Recipes;
+using Genrpg.Shared.Stats.Settings.Scaling;
 
 public class RecipeRow : BaseBehaviour
 {

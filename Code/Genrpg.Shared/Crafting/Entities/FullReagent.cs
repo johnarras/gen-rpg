@@ -1,5 +1,6 @@
 using MessagePack;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Stats.Settings.Scaling;
+using Genrpg.Shared.Crafting.Settings.Recipes;
 
 namespace Genrpg.Shared.Crafting.Entities
 {

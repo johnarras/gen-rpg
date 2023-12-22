@@ -3,9 +3,10 @@
 using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Threading.Tasks;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
+
 namespace Genrpg.Shared.Inventory.Helpers
 {
     public class ItemHelper : IEntityHelper

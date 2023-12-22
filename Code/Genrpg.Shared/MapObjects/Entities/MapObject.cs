@@ -11,8 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Genrpg.Shared.Networking.Interfaces;
-using Genrpg.Shared.GameSettings.Entities;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
 
 namespace Genrpg.Shared.MapObjects.Entities
 {
@@ -34,7 +35,7 @@ namespace Genrpg.Shared.MapObjects.Entities
         [IgnoreMember] public long PrevZoneId { get; set; }
         [Key(9)] public long Level { get; set; }
         [Key(10)] public long FactionTypeId { get; set; }
-
+        [Key(11)] public long AddonBits { get; set; }
         [JsonIgnore]
         [IgnoreMember] public DateTime LastGridChange { get; set; }
         [JsonIgnore]
@@ -49,7 +50,6 @@ namespace Genrpg.Shared.MapObjects.Entities
         [JsonIgnore]
         [IgnoreMember] public string TargetId { get; set; }
 
-
         [JsonIgnore]
         [IgnoreMember] public object OnActionLock = new object();
 
@@ -60,10 +60,26 @@ namespace Genrpg.Shared.MapObjects.Entities
         [JsonIgnore]
         [IgnoreMember] public IMapSpawn Spawn { get; set; }
 
+        [JsonIgnore]
         private bool _isDeleted { get; set; }
 
         public MapObject()
         {
+        }
+
+        public TAddon GetAddon<TAddon>() where TAddon : IMapObjectAddon
+        {
+            return (TAddon)Spawn?.GetAddons()?.FirstOrDefault(x => x.GetType() == typeof(TAddon));
+        }
+
+        public List<IMapObjectAddon> GetAddons()
+        {
+            return Spawn?.GetAddons() ?? new List<IMapObjectAddon>();
+        }
+
+        public bool HasAddon(long addonTypeId)
+        {
+            return (AddonBits & (long)(1 << (int)addonTypeId)) != 0;
         }
 
         public bool HasTarget()
@@ -126,17 +142,21 @@ namespace Genrpg.Shared.MapObjects.Entities
 
         public void CopyDataFromMapSpawn(IMapSpawn spawn)
         {
-            Id = spawn.MapObjectId;
+            Id = spawn.ObjId;
             X = spawn.X;
             Z = spawn.Z;
-            Rot = 0;
+            Rot = spawn.Rot;
             EntityTypeId = spawn.EntityTypeId;
             EntityId = spawn.EntityId;
             ZoneId = spawn.ZoneId;
             Speed = 0;
             Moving = false;
             FactionTypeId = spawn.FactionTypeId;
-
+            AddonBits = spawn.GetAddonBits();
+            if (!string.IsNullOrEmpty(spawn.Name))
+            {
+                Name = spawn.Name;
+            }
         }
 
         public float DistanceTo(MapObject other)

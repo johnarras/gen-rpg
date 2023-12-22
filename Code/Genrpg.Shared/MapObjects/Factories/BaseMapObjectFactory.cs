@@ -6,6 +6,7 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Units.Services;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {

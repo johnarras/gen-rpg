@@ -4,7 +4,6 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Pathfinding.Constants;
 using Genrpg.Shared.WebRequests.Utils;
-using Genrpg.Shared.Assets.Utils;
 using Genrpg.Shared.Core.Entities;
 using System.IO.Compression;
 using Genrpg.Shared.Utils;
@@ -14,14 +13,14 @@ namespace Genrpg.Shared.Pathfinding.Services
 
     public interface IPathfindingService : IService
     {
-        Task LoadPathfinding(GameState gs);
+        Task LoadPathfinding(GameState gs, string urlPrefix);
         bool[,] ConvertBytesToGrid(GameState gs, byte[] bytes);
         byte[] ConvertGridToBytes(GameState gs, bool[,] grid);
     }
 
     public class PathfindingService : IPathfindingService
     {
-        public async Task LoadPathfinding(GameState gs)
+        public async Task LoadPathfinding(GameState gs, string urlPrefix)
         {
             if (gs.pathfinding != null || gs.map == null)
             {
@@ -32,11 +31,9 @@ namespace Genrpg.Shared.Pathfinding.Services
             {
                 string filename = MapUtils.GetMapObjectFilename(gs, PathfindingConstants.Filename, gs.map.Id, gs.map.MapVersion);
 
-                string url = AssetURLUtils.GetArtURLPrefix(gs);
+                string fullUrl = urlPrefix + filename;
 
-                string fullUrl = url + filename;
-
-                byte[] bytes = await WebRequestUtils.DownloadBytes(gs, fullUrl);
+                byte[] bytes = await WebRequestUtils.DownloadBytes(fullUrl);
 
                 byte[] bytes2 = CompressionUtils.DecompressBytes(bytes);
 
@@ -52,7 +49,10 @@ namespace Genrpg.Shared.Pathfinding.Services
         public bool[,] ConvertBytesToGrid(GameState gs, byte[] bytes)
         {
 
-            bool[,] grid = new bool[gs.map.GetHwid(), gs.map.GetHhgt()];
+
+            int xsize = gs.map.GetHwid() / PathfindingConstants.BlockSize;
+            int zsize = gs.map.GetHhgt() / PathfindingConstants.BlockSize;
+            bool[,] grid = new bool[xsize,zsize];
 
             int x = 0;
             int y = 0;
@@ -92,34 +92,36 @@ namespace Genrpg.Shared.Pathfinding.Services
         public byte[] ConvertGridToBytes(GameState gs, bool[,] grid)
         {
 
-            int size = (int)Math.Ceiling(gs.map.GetHwid() * gs.map.GetHhgt() / 8.0);
+            int xsize = gs.map.GetHwid() / PathfindingConstants.BlockSize;
+            int zsize = gs.map.GetHhgt() / PathfindingConstants.BlockSize;
+            int size = (int)Math.Ceiling(xsize*zsize / 8.0);
 
             byte[] output = new byte[size];
 
             int dx = 0;
-            int dy = 0;
+            int dz = 0;
 
             int offset = 0;
             for (offset = 0; offset < size; offset++)
             {
-                if (dx >= gs.map.GetHwid() || dy >= gs.map.GetHhgt())
+                if (dx >= xsize || dz >= zsize)
                 {
                     break;
                 }
                 byte newByte = 0;
                 for (int bit = 0; bit < 8; bit++)
                 {
-                    if (grid[dx, dy])
+                    if (grid[dx, dz])
                     {
                         newByte |= (byte)(1 << 7 - bit);
                     }
                     dx++;
-                    if (dx >= gs.map.GetHwid())
+                    if (dx >= xsize)
                     {
                         dx = 0;
-                        dy++;
+                        dz++;
                     }
-                    if (dx >= gs.map.GetHwid() || dy >= gs.map.GetHhgt())
+                    if (dx >= xsize|| dz >= zsize)
                     {
                         break;
                     }

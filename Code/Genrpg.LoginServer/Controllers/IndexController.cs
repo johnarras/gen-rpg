@@ -19,16 +19,23 @@ namespace Genrpg.LoginServer.Controllers
 
         [HttpPost]
         [Route("/login")]
-        public async Task<string> PostLogin(Core.LoginServer webService, [FromForm] string Data)
+        public async Task<string> PostLogin(Core.LoginServer loginServer, [FromForm] string Data)
         {
-            return await webService.HandleLogin(Data);
+            return await loginServer.HandleLogin(Data);
         }
 
         [HttpPost]
         [Route("/client")]
-        public async Task<string> PostClient(Core.LoginServer webService, [FromForm] string Data)
+        public async Task<string> PostClient(Core.LoginServer loginServer, [FromForm] string Data)
         {
-            return await webService.HandleClient(Data);
+            return await loginServer.HandleClient(Data);
+        }
+
+        [HttpGet]
+        [Route("/txlist")]
+        public async Task<string> PostTxList(Core.LoginServer loginServer, string address)
+        {
+            return await loginServer.HandleTxList(address);
         }
     }
 }

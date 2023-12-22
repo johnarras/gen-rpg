@@ -1,7 +1,7 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.Spells.Entities;
 using Genrpg.Shared.Spells.Messages;
+using Genrpg.Shared.Spells.Settings.Effects;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

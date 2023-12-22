@@ -1,7 +1,7 @@
 ﻿using Genrpg.ServerShared.Core;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Purchasing.Entities;
+using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Users.Entities;
 using System;
 using System.Collections.Generic;

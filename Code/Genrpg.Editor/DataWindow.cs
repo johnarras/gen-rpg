@@ -4,24 +4,20 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using Genrpg.Shared.Reflection.Services;
-using Genrpg.Shared.Constants;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor;
 using Genrpg.Editor.Utils;
-using Genrpg.Shared.GameSettings;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using System.Linq;
-using Genrpg.Shared.Currencies.Entities;
-using Genrpg.Shared.Names.Entities;
 using System.Text;
-using Microsoft.Extensions.Azure;
-using Genrpg.Shared.Versions.Entities;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
 using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
+using Genrpg.Shared.Currencies.Settings;
+using Genrpg.Shared.Versions.Settings;
 
 namespace GameEditor
 {

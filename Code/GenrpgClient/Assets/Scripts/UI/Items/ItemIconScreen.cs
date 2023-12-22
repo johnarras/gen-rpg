@@ -1,5 +1,5 @@
-﻿using Genrpg.Shared.Inventory.Entities;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using Genrpg.Shared.Inventory.PlayerData;
 using System.Threading;
 
 public class ItemIconScreen : DragItemScreen<Item,ItemIcon,ItemIconScreen,InitItemIconData>

@@ -4,8 +4,8 @@ using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
-using Genrpg.Shared.Spells.Entities;
 using System.Threading.Tasks;
+using Genrpg.Shared.Spells.Settings.Spells;
 
 namespace Genrpg.Shared.Spells.Helpers
 {

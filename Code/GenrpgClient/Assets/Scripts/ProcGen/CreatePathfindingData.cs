@@ -7,6 +7,11 @@ using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.ProcGen.Settings.Trees;
+using MessagePack.Formatters;
+using System.Collections.Concurrent;
+using Genrpg.Shared.Spawns.WorldData;
+using Genrpg.Shared.Entities.Constants;
 
 public class CreatePathfindingData : BaseZoneGenerator
 {
@@ -15,58 +20,94 @@ public class CreatePathfindingData : BaseZoneGenerator
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
-        bool[,] blockedCells = new bool[gs.map.GetHwid(), gs.map.GetHhgt()];
 
-        bool[,] nearBlockedCells = new bool[gs.map.GetHwid(), gs.map.GetHhgt()];
+        int blockSize = PathfindingConstants.BlockSize;
+        int xsize = gs.map.GetHwid() / blockSize;
+        int zsize = gs.map.GetHhgt() / blockSize;
+        
+        bool[,] blockedCells = new bool[xsize,zsize];
+        bool[,] nearBlockedCells = new bool[xsize,zsize];
 
-
-        for (int x = 0; x < gs.map.GetHwid(); x++)
+        for (int x = 0; x < xsize; x += blockSize)
         {
-            for (int y = 0; y < gs.map.GetHhgt(); y++)
+            for (int z = 0; z < zsize; z += blockSize)
             {
+                int gx = x / blockSize;
+                int gz = z / blockSize;
 
-                float steepness = gs.md.GetSteepness(gs, x, y);
-
-                if (steepness > PathfindingConstants.MaxSteepness)
+                for (int xx = gx; xx < gx+blockSize; xx++)
                 {
-                    blockedCells[x, y] = true;
-                    continue;
-                }
-
-                long worldObject = gs.md.mapObjects[x, y];
-
-                if (worldObject > 0 && 
-                    (worldObject < MapConstants.GrassMinCellValue ||
-                    worldObject > MapConstants.GrassMaxCellValue))
-                {
-                    if (worldObject >= MapConstants.TreeObjectOffset && worldObject <
-                        MapConstants.TreeObjectOffset + MapConstants.MapObjectOffsetMult)
+                    for (int zz = gz; zz < gz+blockSize; zz++)
                     {
-                        long treeTypeId = worldObject - MapConstants.TreeObjectOffset;
-                        TreeType ttype = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType (treeTypeId);
-                        if (ttype == null || !ttype.HasFlag(TreeFlags.IsBush))
+                        float steepness = gs.md.GetSteepness(gs, xx, zz);
+
+                        if (steepness > PathfindingConstants.MaxSteepness)
                         {
-                            blockedCells[y,x] = true;
+                            blockedCells[gx, gz] = true;
                         }
-                    }
-                    else
-                    {
-                        blockedCells[y,x] = true;
+
+                        long worldObject = gs.md.mapObjects[xx,zz];
+
+                        if (worldObject > 0 &&
+                            (worldObject < MapConstants.GrassMinCellValue ||
+                            worldObject > MapConstants.GrassMaxCellValue))
+                        {
+                            if (worldObject >= MapConstants.TreeObjectOffset && worldObject <
+                                MapConstants.TreeObjectOffset + MapConstants.MapObjectOffsetMult)
+                            {
+                                long treeTypeId = worldObject - MapConstants.TreeObjectOffset;
+                                TreeType ttype = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(treeTypeId);
+                                if (ttype == null || !ttype.HasFlag(TreeFlags.IsBush))
+                                {
+                                    blockedCells[gz,gx] = true;
+                                }
+                            }
+                            else
+                            {
+                                blockedCells[gz, gx] = true;
+                            }
+                        }
                     }
                 }
             }
         }
 
-        for (int x = 0; x < gs.map.GetHwid(); x++)
+        // Now block out all building spawns.
+        foreach (MapSpawn spawn in gs.spawns.Data)
         {
-            for (int y = 0; y < gs.map.GetHhgt(); y++)
+           
+            if (spawn.EntityTypeId == EntityTypes.Building)
             {
-                if ((x > 0 && blockedCells[x-1,y]) ||
-                    (x < gs.map.GetHwid()-1 && blockedCells[x+1,y]) ||
-                    (y > 0 && blockedCells[x,y-1]) ||
-                    (y < gs.map.GetHhgt()-1 && blockedCells[x,y+1]))
+                int buildingRadius = 3;
+                for (int xx = (int)spawn.X-buildingRadius; xx <= spawn.X + buildingRadius; xx++)
                 {
-                    nearBlockedCells[x, y] = true;
+                    if (xx < 0 || xx >= gs.map.GetHwid())
+                    {
+                        continue;
+                    }
+                    for (int yy = (int)spawn.Z-buildingRadius; yy <= spawn.Z + buildingRadius; yy++)
+                    {
+                        if (yy < 0 || yy >= gs.map.GetHhgt())
+                        {
+                            continue;
+                        }
+
+                        blockedCells[xx/blockSize, yy/blockSize] = true;
+                    }
+                }
+            }
+        }
+
+        for (int x = 0; x < xsize; x++)
+        {
+            for (int z = 0; z < zsize; zsize++)
+            {
+                if ((x > 0 && blockedCells[x-1,z]) ||
+                    (x < gs.map.GetHwid()-1 && blockedCells[x+1,z]) ||
+                    (z > 0 && blockedCells[x,z-1]) ||
+                    (z < gs.map.GetHhgt()-1 && blockedCells[x,z+1]))
+                {
+                    nearBlockedCells[x, z] = true;
                 }
             }
         }
@@ -83,19 +124,14 @@ public class CreatePathfindingData : BaseZoneGenerator
         string filename = MapUtils.GetMapObjectFilename(gs, PathfindingConstants.Filename, gs.map.Id, gs.map.MapVersion);
         repo.SaveBytes(filename, output);
 
-
-
         string localPath = LocalFileRepository.GetPath(filename);
         string remotePath = filename;
         FileUploadData fdata = new FileUploadData();
         fdata.GamePrefix = Game.Prefix;
-        fdata.Env = gs.Env;
-        if (fdata.Env != EnvNames.Prod)
-        {
-            fdata.Env = EnvNames.Dev;
-        }
+        fdata.Env = _assetService.GetWorldDataEnv();
         fdata.LocalPath = localPath;
         fdata.RemotePath = remotePath;
+        fdata.IsWorldData = true;
 
         FileUploader.UploadFile(fdata);
         await UniTask.CompletedTask;

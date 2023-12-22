@@ -1,0 +1,10 @@
+{
+  "Id": "keycommsetting9default",
+  "IdKey": 9,
+  "Name": "KeyCommSetting",
+  "ParentId": "default",
+  "KeyPress": "8",
+  "KeyCommand": "Action8",
+  "UpdateTime": "2023-12-18T20:38:27.333Z",
+  "CreateTime": "2023-11-24T22:45:42Z"
+}

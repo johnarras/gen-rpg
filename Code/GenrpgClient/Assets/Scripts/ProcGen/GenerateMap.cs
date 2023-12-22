@@ -1,6 +1,7 @@
 ﻿
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Spawns.Entities;
+using Genrpg.Shared.Spawns.WorldData;
 using System.Threading;
 
 public class GenerateMap : BaseZoneGenerator

@@ -6,12 +6,13 @@ using Genrpg.Shared.Units.Entities;
 using System.Threading;
 using System.Collections.Generic;
 using Genrpg.Shared.Stats.Messages;
+using Genrpg.Shared.Entities.Constants;
 
 public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
 {
     protected override void InnerProcess(UnityGameState gs, OnSpawn spawnMessage, CancellationToken token)
     {
-        if (_objectManager.GetObject(spawnMessage.MapObjectId, out MapObject obj))
+        if (_objectManager.GetObject(spawnMessage.ObjId, out MapObject obj))
         {
             if (obj is Unit existingUnit)
             {
@@ -24,11 +25,11 @@ public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
 
                 if (existingUnit.HasFlag(UnitFlags.IsDead))
                 {
-                    if (_objectManager.GetController(spawnMessage.MapObjectId, out UnitController controller))
+                    if (_objectManager.GetController(spawnMessage.ObjId, out UnitController controller))
                     {
                         Died died = new Died()
                         {
-                            UnitId = spawnMessage.MapObjectId,
+                            UnitId = spawnMessage.ObjId,
                         };
                         controller.OnDeath(died, token);
                     }

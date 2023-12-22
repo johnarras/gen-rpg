@@ -4,8 +4,9 @@ using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
-using Genrpg.Shared.Stats.Entities;
 using System.Threading.Tasks;
+using Genrpg.Shared.Stats.Settings.Stats;
+
 namespace Genrpg.Shared.Stats.Helpers
 {
     public class StatPctHelper : IEntityHelper

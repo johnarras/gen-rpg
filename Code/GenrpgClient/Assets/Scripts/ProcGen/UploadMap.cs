@@ -49,15 +49,8 @@ public class UploadMap : BaseZoneGenerator
         string localPath = LocalFileRepository.GetPath(localFilePath);
         FileUploadData fdata = new FileUploadData();
         fdata.GamePrefix = Game.Prefix;
-
-        if (env != EnvNames.Prod)
-        {
-            env = EnvNames.Dev;
-        }
-
-        fdata.Env = env;
-
-     
+        fdata.Env = _assetService.GetWorldDataEnv();
+        fdata.IsWorldData = true;
 
         fdata.LocalPath = localPath;
         fdata.RemotePath = remoteFilePath;

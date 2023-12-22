@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScreenName: 16
   ScreenLayer: 0
+  Subdirectory: Quests

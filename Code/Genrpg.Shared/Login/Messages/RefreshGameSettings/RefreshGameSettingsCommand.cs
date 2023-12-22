@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Genrpg.Shared.Login.Messages.RefreshGameData
+namespace Genrpg.Shared.Login.Messages.RefreshGameSettings
 {
     [MessagePackObject]
     public class RefreshGameSettingsCommand : ILoginCommand

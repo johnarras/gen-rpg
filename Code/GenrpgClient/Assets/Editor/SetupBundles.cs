@@ -62,6 +62,6 @@ public class SetupBundles
     { 
         gs = SetupEditorUnityGameState.Setup(gs);
 
-        BundleSetupUtils.BundleFilesInDirectory(gs, "");
+        BundleSetupUtils.BundleFilesInDirectory(gs, "", false);
     }
 }

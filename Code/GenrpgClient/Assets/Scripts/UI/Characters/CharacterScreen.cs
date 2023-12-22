@@ -1,13 +1,18 @@
 ﻿using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Characters.Entities;
-using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Inventory.Services;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Inventory.Messages;
+using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.Inventory.Settings;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.Stats.Settings.Stats;
+using Genrpg.Shared.Inventory.Settings.Slots;
 
 public class CharacterScreen : ItemIconScreen
 {
@@ -124,14 +129,16 @@ public class CharacterScreen : ItemIconScreen
                         currCh = _ch,
                         statTypeId = -1,
                     };
-                    _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategoryNames.UI, "StatInfoRow", OnDownloadStat, sddFill, _token);
+                    _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategoryNames.UI, 
+                        "StatInfoRow", OnDownloadStat, sddFill, _token, Subdirectory);
                 }
                 StatDownloadData sdd = new StatDownloadData()
                 {
                     currCh = _ch,
                     statTypeId = stat.IdKey,
                 };
-                _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategoryNames.UI, "StatInfoRow", OnDownloadStat, sdd, _token);
+                _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategoryNames.UI,
+                    "StatInfoRow", OnDownloadStat, sdd, _token, Subdirectory);
             }
         }
         else 

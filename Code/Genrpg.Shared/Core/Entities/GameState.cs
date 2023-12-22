@@ -6,9 +6,9 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Logs.Entities;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Spawns.WorldData;
 
 namespace Genrpg.Shared.Core.Entities
 {

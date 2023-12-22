@@ -1,5 +1,5 @@
-﻿using Genrpg.Shared.GameSettings.Entities;
-using Genrpg.Shared.Spells.Entities;
+﻿using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.Units.Loaders;
 using System;
 using System.Collections.Generic;

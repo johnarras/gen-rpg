@@ -1,5 +1,4 @@
 using MessagePack;
-using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Users.Entities;
 using Newtonsoft.Json;
@@ -8,6 +7,7 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.Characters.PlayerData;
 
 namespace Genrpg.Shared.Login.Messages.Login
 {

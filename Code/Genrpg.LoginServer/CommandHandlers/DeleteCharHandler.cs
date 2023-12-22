@@ -1,10 +1,9 @@
 ﻿using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.PlayerData;
-using Genrpg.Shared.Characters.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
-using Genrpg.Shared.Input.Entities;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages.CreateChar;
 using Genrpg.Shared.Login.Messages.DeleteChar;

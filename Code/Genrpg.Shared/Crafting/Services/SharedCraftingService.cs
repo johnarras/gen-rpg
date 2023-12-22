@@ -4,16 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Genrpg.Shared.Stats.Entities;
-using Genrpg.Shared.Levels.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.Crafting.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Constants;
-using Genrpg.Shared.Characters.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Stats.Settings.Stats;
+using Genrpg.Shared.Stats.Settings.Scaling;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.Inventory.Settings.Qualities;
+using Genrpg.Shared.Inventory.Settings.Slots;
+using Genrpg.Shared.Crafting.Entities;
+using Genrpg.Shared.Crafting.Settings.Recipes;
 
 namespace Genrpg.Shared.Crafting.Services
 {

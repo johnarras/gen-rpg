@@ -26,6 +26,7 @@ namespace UI.Screens.Constants
         Vendor=15,
         Quest=16,
         Loot=17,
-        ActionBars,
+        ActionBars=18,
+        Charm=19,
     }
 }

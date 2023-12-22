@@ -1,34 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
 using System.Threading.Tasks;
 using Genrpg.Shared.Reflection.Services;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Constants;
-using Genrpg.ServerShared.Setup;
-using Genrpg.Editor.Services.Setup;
-using Genrpg.ServerShared;
 using Genrpg.Editor.Entities.Core;
-using Genrpg.Editor;
 using Genrpg.Shared.MapMessages;
 using Genrpg.Editor.Entities.Copying;
 using Genrpg.Editor.Utils;
-using Amazon.Runtime.Internal;
 using System.Reflection;
-using Genrpg.Shared.Purchasing.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.Chat.Entities;
-using Genrpg.ServerShared.DataStores.NoSQL;
-using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
 
@@ -58,7 +46,7 @@ namespace GameEditor
 
             buttonCount++;
 
-            string[] envWords = Enum.GetNames(typeof(EnvEnum)); 
+            string[] envWords = { "dev" };
             string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas".Split(' ');
             int column = 0;
             for (int e = 0; e < envWords.Length; e++)
