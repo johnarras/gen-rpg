@@ -31,6 +31,7 @@ namespace Genrpg.Shared.Buildings.Settings
         [Key(4)] public string Desc { get; set; }
         [Key(5)] public string Icon { get; set; }
         [Key(6)] public string Art { get; set; }
+        [Key(7)] public int Radius { get; set; } = 2;
 
     }
 

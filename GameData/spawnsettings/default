@@ -2,5 +2,7 @@
   "Id": "default",
   "MapSpawnChance": 1.0,
   "MonsterLootSpawnTableId": 1,
-  "Name": "SpawnSettings"
+  "Name": "SpawnSettings",
+  "UpdateTime": "2023-12-23T23:13:14.252Z",
+  "CreateTime": "2023-12-23T23:13:14.252Z"
 }

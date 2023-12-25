@@ -5,19 +5,12 @@ using System.Text;
 using ClientEvents;
 using System.Threading;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Interfaces;
 using UI.Screens.Constants;
 using Assets.Scripts.Tokens;
-using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
 using Assets.Scripts.MapTerrain;
-using Genrpg.Shared.Zones.Entities;
 using UnityEngine; // Needed
-using Genrpg.Shared.DataStores.Categories;
-using static UnityEngine.Networking.UnityWebRequest;
-using Genrpg.Shared.DataStores.Categories.GameSettings;
-using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Zones.WorldData;
@@ -263,8 +256,6 @@ public class UnityZoneGenService : ZoneGenService
             try
             {
                 await gen.Generate(gs, token);
-
-
                 gs.logger.Info("StageEnd: " + currStep + " " + gen.GetType().Name + " Time: " + DateTime.UtcNow);
             }
             catch (Exception e)
@@ -380,6 +371,11 @@ public class UnityZoneGenService : ZoneGenService
                     continue;
                 }
 
+                if (patch.baseAlphas == null)
+                {
+                    patch.baseAlphas = new float[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize, MapConstants.MaxTerrainIndex];
+                }
+
                 int startx = gy * (MapConstants.TerrainPatchSize - 1);
                 int starty = gx * (MapConstants.TerrainPatchSize - 1);
 
@@ -387,8 +383,8 @@ public class UnityZoneGenService : ZoneGenService
                 {
                     for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
                     {
-                        patch.mainZoneIds[x, y] = gs.md.mapZoneIds[startx + x, starty + y];
-                        patch.subZoneIds[x, y] = gs.md.subZoneIds[startx + x, starty + y];
+                        patch.mainZoneIds[x, y] = (byte)gs.md.mapZoneIds[startx + x, starty + y];
+                        patch.subZoneIds[x, y] = (byte)gs.md.subZoneIds[startx + x, starty + y];
                         for (int index = 0; index < MapConstants.MaxTerrainIndex; index++)
                         {
                             patch.baseAlphas[x, y, index] = gs.md.alphas[x + startx, y + starty, index];
@@ -424,6 +420,11 @@ public class UnityZoneGenService : ZoneGenService
 
         MyRandom rand = new MyRandom(patch.X * 13 + patch.Y * 17 + gs.map.Seed / 3);
 
+
+        if (patch.baseAlphas == null)
+        {
+            patch.baseAlphas = new float[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize, MapConstants.MaxTerrainIndex];
+        }
 
         int firstZoneIndex = -1;
         int zoneId = -1;
@@ -852,10 +853,10 @@ public class UnityZoneGenService : ZoneGenService
         terr.treeBillboardDistance = 100;
         terr.treeCrossFadeLength = 5;
         terr.treeMaximumFullLODCount = 30;
-        terr.basemapDistance = 120;      
+        terr.basemapDistance = 250;      
         terr.heightmapPixelError = 10;
-        terr.detailObjectDensity = 0.50f;
-        terr.detailObjectDistance = 120;
+        terr.detailObjectDensity = 1.0f;
+        terr.detailObjectDistance = 200;
         terr.drawHeightmap = true;
         terr.drawTreesAndFoliage = true;
         terr.collectDetailPatches = false;

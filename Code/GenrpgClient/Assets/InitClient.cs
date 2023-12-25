@@ -26,8 +26,9 @@ public class InitClient : BaseBehaviour
 
     public static InitClient EditorInstance { get; set; }
     public bool ForceDownloadFromAssetBundles = false;
-    public int CurrWorldSize;
-    public float CurrZoneSize;
+    public int WorldSize;
+    public float ZoneSize;
+    public int ForceZoneTypeId;
     public int MapGenSeed;
     public float PlayerSpeedMult;
     public int ZoneNoiseSize = 4096;

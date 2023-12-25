@@ -147,6 +147,12 @@ namespace Genrpg.ServerShared.DataStores
             return await repo.Delete(obj);
         }
 
+        public async Task<bool> DeleteAll<T>(Expression<Func<T, bool>> func) where T : class, IStringId
+        {
+            IRepository repo = FindRepo(typeof(T));
+            return await repo.DeleteAll(func);
+        }
+
         public async Task<bool> Save<T>(T obj) where T : class, IStringId
         {
             IRepository repo = FindRepo(obj.GetType());

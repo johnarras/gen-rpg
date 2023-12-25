@@ -6,7 +6,7 @@
   "Desc": "",
   "Icon": "",
   "GenChance": 3.0,
-  "GrassDensity": 1.1,
+  "GrassDensity": 1.0,
   "GrassFreq": 1.0,
   "TreeDensity": 1.0,
   "BushDensity": 1.3,
@@ -532,5 +532,7 @@
   "Art": "",
   "WeatherTypeId": 4,
   "MusicTypeId": 6,
-  "AmbientMusicTypeId": 11
+  "AmbientMusicTypeId": 11,
+  "UpdateTime": "2023-12-24T15:55:51.292Z",
+  "CreateTime": "2023-12-24T15:55:51.292Z"
 }

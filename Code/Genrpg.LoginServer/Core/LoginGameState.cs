@@ -14,6 +14,7 @@ namespace Genrpg.LoginServer.Core
     public class LoginGameState : ServerGameState
     {
         public User user { get; set; }
+        public CoreCharacter coreCh { get; set; }
         public Character ch { get; set; }
         public MapStubList mapStubs { get; set; } = new MapStubList();
         public Dictionary<Type, ILoginCommandHandler> commandHandlers = null;

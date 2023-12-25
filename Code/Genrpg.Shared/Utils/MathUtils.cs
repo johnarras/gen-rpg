@@ -337,6 +337,14 @@ namespace Genrpg.Shared.Utils
             return value;
         }
 
-
+        /// <summary>
+        /// Bezier ease in out
+        /// </summary>
+        /// <param name="x">X is in [0,1] </param>
+        /// <returns>in [0,1]</returns>
+        public static float EaseInOut(float x)
+        {
+            return (3 - 2 * x) * x * x;
+        }
     }
 }

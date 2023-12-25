@@ -2,6 +2,7 @@
 using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Characters.Utils;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Input.Constants;
@@ -35,16 +36,19 @@ namespace Genrpg.LoginServer.CommandHandlers
                 nextId++;
             }
 
-            gs.ch = new Character()
+            gs.coreCh = new CoreCharacter()
             {
                 Id = gs.user.Id + "." + nextId,
                 Name = command.Name,
                 UserId = gs.user.Id,
             };
+            gs.ch = new Character();
+            CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
+
 
             List<IUnitData> list = await _playerDataService.LoadPlayerData(gs, gs.ch);
 
-            charStubs.Add(new CharacterStub() { Id = gs.ch.Id, Name = gs.ch.Name, Level = gs.ch.Level });
+            charStubs.Add(new CharacterStub() { Id = gs.coreCh.Id, Name = gs.coreCh.Name, Level = gs.coreCh.Level });
 
             CreateCharResult result = new CreateCharResult()
             {

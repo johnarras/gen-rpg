@@ -52,13 +52,6 @@ public abstract class BaseObjectLoader
         int wx = gx * (MapConstants.TerrainPatchSize - 1) + dlo.x;
         int wy = gy * (MapConstants.TerrainPatchSize - 1) + dlo.y;
 
-        if (!dlo.allowRandomPlacement)
-        {
-            wx = dlo.x;
-            wy = dlo.y;
-        }
-
-
         TerrainPatchData patch = dlo.loadData.patch;
 
         Terrain terr = patch.terrain as Terrain;

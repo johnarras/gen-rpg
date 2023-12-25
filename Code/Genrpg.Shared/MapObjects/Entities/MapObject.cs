@@ -1,67 +1,66 @@
-using MessagePack;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.MapObjects.Interfaces;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Utils.Data;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Genrpg.Shared.Networking.Interfaces;
-using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
 
 namespace Genrpg.Shared.MapObjects.Entities
 {
-    [MessagePackObject]
-    public class MapObject : BasePlayerData, IMapObject
+    // MessagePackIgnore
+    public class MapObject : IMapObject
     {
-        [Key(0)] public override string Id { get; set; }
-        [Key(1)] public string Name { get; set; }
-        [Key(2)] public long EntityTypeId { get; set; }
-        [Key(3)] public long EntityId { get; set; }
-        [Key(4)] public float X { get; set; }
-        [Key(5)] public float Y { get; set; }
-        [Key(6)] public float Z { get; set; }
-        [Key(7)] public float Rot { get; set; }
-        [Key(8)] public float Speed { get; set; }
-        [JsonIgnore]
-        [IgnoreMember] public long ZoneId { get; set; }
-        [JsonIgnore]
-        [IgnoreMember] public long PrevZoneId { get; set; }
-        [Key(9)] public long Level { get; set; }
-        [Key(10)] public long FactionTypeId { get; set; }
-        [Key(11)] public long AddonBits { get; set; }
-        [JsonIgnore]
-        [IgnoreMember] public DateTime LastGridChange { get; set; }
-        [JsonIgnore]
-        [IgnoreMember] public float ToRot { get; set; }
-        [JsonIgnore]
-        [IgnoreMember] public float ToX { get; set; }
-        [JsonIgnore]
-        [IgnoreMember] public float ToZ { get; set; }
-        [JsonIgnore]
-        [IgnoreMember] public bool Moving { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public long EntityTypeId { get; set; }
+        public long EntityId { get; set; }
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Z { get; set; }
+        public float Rot { get; set; }
+        public float Speed { get; set; }
+        
+        public long ZoneId { get; set; }
+        
+        public long PrevZoneId { get; set; }
+        public long Level { get; set; }
+        public long FactionTypeId { get; set; }
+        public long AddonBits { get; set; }
+        
+        public DateTime LastGridChange { get; set; }
+        
+        public float ToRot { get; set; }
+        
+        public float ToX { get; set; }
+        
+        public float ToZ { get; set; }
+        
+        public bool Moving { get; set; }
 
-        [JsonIgnore]
-        [IgnoreMember] public string TargetId { get; set; }
+        
+        public string TargetId { get; set; }
 
-        [JsonIgnore]
-        [IgnoreMember] public object OnActionLock = new object();
+        
+        public object OnActionLock = new object();
 
-        [JsonIgnore]
-        [IgnoreMember] public IMapApiMessage OnActionMessage { get; set; }
-        [JsonIgnore]
-        [IgnoreMember] public IMapApiMessage ActionMessage { get; set; }
-        [JsonIgnore]
-        [IgnoreMember] public IMapSpawn Spawn { get; set; }
+        
+        public IMapApiMessage OnActionMessage { get; set; }
+        
+        public IMapApiMessage ActionMessage { get; set; }
+        
+        public IMapSpawn Spawn { get; set; }
 
-        [JsonIgnore]
+        
         private bool _isDeleted { get; set; }
+
+        private bool _isDirty = false;
+        public bool IsDirty() { return _isDirty; }
+        public void SetDirty(bool dirty) { _isDirty = dirty; }
 
         public MapObject()
         {
@@ -124,7 +123,7 @@ namespace Genrpg.Shared.MapObjects.Entities
         public virtual bool IsGroundObject() { return false; }
 
         // This exists here, but it is only set up for players for now
-        [JsonIgnore]
+        
         protected IConnection _conn = null;
         public virtual void AddMessage(IMapApiMessage message)
         {

@@ -49,7 +49,12 @@ namespace Genrpg.Shared.MapServer.Entities
 
         public static string GetMapOwnerId(IMapRoot mapRoot)
         {
-            return mapRoot.Id + "-" + mapRoot.MapVersion;
+            return GetMapOwnerId(mapRoot.Id, mapRoot.MapVersion);
+        }
+
+        public static string GetMapOwnerId(string mapId, int mapVersion)
+        {
+            return mapId + "-" + mapVersion;
         }
 
         public Map()

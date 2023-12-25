@@ -878,88 +878,92 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
         List<ZoneType> zoneTypeCache = new List<ZoneType>();
 
-        int addTimes = 0;
-        if (loadData.patch.mapObjects != null)
+        if (loadData.patch.mapObjects == null)
         {
-            int currZoneId = -1;
-            Zone currZone = null;
-            ZoneType currZoneType = null;
-            for (int x = 0; x < MapConstants.TerrainPatchSize - 1; x++)
+            loadData.patch.mapObjects = new uint[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
+        }
+
+        int addTimes = 0;
+       
+        int currZoneId = -1;
+        Zone currZone = null;
+        ZoneType currZoneType = null;
+
+        for (int x = 0; x < MapConstants.TerrainPatchSize - 1; x++)
+        {
+            for (int y = 0; y < MapConstants.TerrainPatchSize - 1; y++)
             {
-                for (int y = 0; y < MapConstants.TerrainPatchSize - 1; y++)
+                if (loadData.patch.mapObjects[x, y] == 0)
                 {
-                    if (loadData.patch.mapObjects == null || loadData.patch.mapObjects[x, y] == 0)
+                    continue;
+                }
+
+                uint worldObjectValue = (uint)loadData.patch.mapObjects[x, y];
+
+                if (loadData.patch.heights == null || loadData.patch.heights[y, x] < MapConstants.StartHeightPercent * 0.75f)
+                {
+                    continue;
+                }
+
+                int zoneId = loadData.patch.mainZoneIds[x, y];
+
+
+                if (zoneId != currZoneId)
+                {
+                    currZoneId = zoneId;
+                    currZone = currZones.FirstOrDefault(xx => xx.IdKey == zoneId);
+                    if (currZone == null)
                     {
-                        continue;
-                    }
-
-                    uint worldObjectValue = (uint)loadData.patch.mapObjects[x, y];
-
-                    if (loadData.patch.heights == null || loadData.patch.heights[y, x] < MapConstants.StartHeightPercent * 0.75f)
-                    {
-                        continue;
-                    }
-
-                    int zoneId = loadData.patch.mainZoneIds[x, y];
-
-
-                    if (zoneId != currZoneId)
-                    {
-                        currZoneId = zoneId;
-                        currZone = currZones.FirstOrDefault(xx => xx.IdKey == zoneId);
+                        currZone = gs.map.Get<Zone>(currZoneId);
                         if (currZone == null)
                         {
-                            currZone = gs.map.Get<Zone>(currZoneId);
-                            if (currZone == null)
-                            {
-                                currZoneId = -1;
-                                currZoneType = null;
-                                continue;
-                            }
-                            currZones.Add(currZone);
+                            currZoneId = -1;
+                            currZoneType = null;
+                            continue;
                         }
-                        currZoneType = zoneTypeCache.FirstOrDefault(xx => xx.IdKey == currZone.ZoneTypeId);
+                        currZones.Add(currZone);
+                    }
+                    currZoneType = zoneTypeCache.FirstOrDefault(xx => xx.IdKey == currZone.ZoneTypeId);
+                    if (currZoneType == null)
+                    {
+                        currZoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(currZone.ZoneTypeId);
                         if (currZoneType == null)
                         {
-                            currZoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(currZone.ZoneTypeId);
-                            if (currZoneType == null)
-                            {
-                                currZoneId = -1;
-                                currZone = null;
-                                continue;
-                            }
-                            zoneTypeCache.Add(currZoneType);
+                            currZoneId = -1;
+                            currZone = null;
+                            continue;
                         }
+                        zoneTypeCache.Add(currZoneType);
                     }
+                }
 
-                    if (currZone == null || currZoneType == null)
+                if (currZone == null || currZoneType == null)
+                {
+                    continue;
+                }
+
+
+
+                int loaderIndex = (int)(worldObjectValue % (1 << 16)) / MapConstants.MapObjectOffsetMult;
+
+                if (!_staticLoaders.ContainsKey(loaderIndex))
+                {
+                    continue;
+                }
+                _staticLoaders[loaderIndex].LoadObject(gs, loadData, worldObjectValue, x, y, currZone, currZoneType, token);
+
+                addTimes++;
+                if (addTimes >= LoadObjectCountBeforePause)
+                {
+                    addTimes = 0;
+                    if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
                     {
-                        continue;
+                        await UniTask.NextFrame(cancellationToken: token);
                     }
-
-
-
-                    int loaderIndex = (int)(worldObjectValue % (1 << 16)) / MapConstants.MapObjectOffsetMult;
-
-                    if (!_staticLoaders.ContainsKey(loaderIndex))
-                    {
-                        continue;
-                    }
-                    _staticLoaders[loaderIndex].LoadObject(gs, loadData, worldObjectValue, x, y, currZone, currZoneType, token);
-
-                    addTimes++;
-                    if (addTimes >= LoadObjectCountBeforePause)
-                    {
-                        addTimes = 0;
-                        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
-                        {
-                            await UniTask.NextFrame( cancellationToken: token);
-                        }
-                    }
-                    if (gs.md.terrainPatches[loadData.gx, loadData.gy] == null)
-                    {
-                        return;
-                    }
+                }
+                if (gs.md.terrainPatches[loadData.gx, loadData.gy] == null)
+                {
+                    return;
                 }
             }
         }

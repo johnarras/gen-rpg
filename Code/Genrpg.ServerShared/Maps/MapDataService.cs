@@ -27,6 +27,7 @@ namespace Genrpg.ServerShared.Maps
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = "OwnerId" });
+            configs.Add(new IndexConfig() { MemberName = "MapId" });
             await gs.repo.CreateIndex<QuestType>(configs);
             await gs.repo.CreateIndex<QuestItem>(configs);
             await gs.repo.CreateIndex<Zone>(configs);
@@ -84,9 +85,9 @@ namespace Genrpg.ServerShared.Maps
 
                 string mapOwnerId = Map.GetMapOwnerId(map);
 
-                await SaveMapDataList(gs, map.Zones, mapOwnerId);
-                await SaveMapDataList(gs, map.Quests, mapOwnerId);
-                await SaveMapDataList(gs, map.QuestItems, mapOwnerId);
+                await SaveMapDataList(gs, map.Zones, map.Id, map.MapVersion);
+                await SaveMapDataList(gs, map.Quests, map.Id, map.MapVersion);
+                await SaveMapDataList(gs, map.QuestItems, map.Id, map.MapVersion);
             }
             catch (Exception ex)
             {
@@ -94,12 +95,15 @@ namespace Genrpg.ServerShared.Maps
             }
         }
 
-        protected async Task SaveMapDataList<T>(ServerGameState gs, List<T> list, string ownerId) where T : class, IStringOwnerId, IId
+        protected async Task SaveMapDataList<T>(ServerGameState gs, List<T> list, string mapId, int mapVersion) where T : class, IMapOwnerId, IId
         {
+            await gs.repo.DeleteAll<T>(x => x.MapId == mapId);
+            string ownerId = Map.GetMapOwnerId(mapId, mapVersion);
             foreach (T t in list)
             {
                 t.OwnerId = ownerId;
-                t.Id = ownerId + "-" + t.IdKey;
+                t.MapId = mapId;
+                t.Id = t.IdKey + "-" + ownerId;
             }
             await gs.repo.SaveAll(list);
         }

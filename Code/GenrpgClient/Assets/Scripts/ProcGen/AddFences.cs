@@ -64,11 +64,11 @@ public class AddFences : BaseZoneGenerator
 
         MyRandom placeRand = new MyRandom(zone.Seed % 82348732 + 33234);
 
-        int distFromEnd = 10;
+        int distFromEnd = 6;
 
         List<MyPointF> currFences = new List<MyPointF>();
 
-        float minDistToFence = 10;
+        float minDistToFence = 2.5f;
 
         int xsize = endx - startx + 1;
         int ysize = endy - starty + 1;
@@ -125,7 +125,9 @@ public class AddFences : BaseZoneGenerator
                 bool closeToFence = false;
                 foreach (MyPointF item in currFences)
                 {
-                    if (Math.Abs((float)(item.X - x)) + Math.Abs(item.Y - y) < minDistToFence)
+                    float dx2 = item.X - x;
+                    float dy2 = item.Y - y;
+                    if (Math.Sqrt(dx2*dx2+dy2*dy2) < minDistToFence)
                     {
                         closeToFence = true;
                         continue;
@@ -139,7 +141,7 @@ public class AddFences : BaseZoneGenerator
 
                 List<MyPointF> potentialEndPoints = new List<MyPointF>();
 
-                float extraLengthMult = 0.5f;
+                float extraLengthMult = 2.0f;
 
                 float checkLength = fenceType.Length*extraLengthMult;
 

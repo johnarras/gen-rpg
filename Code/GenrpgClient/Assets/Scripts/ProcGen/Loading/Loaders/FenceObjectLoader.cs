@@ -43,10 +43,10 @@ public class FenceObjectLoader : BaseObjectLoader
         dlo.zone = currZone;
         dlo.zoneType = currZoneType;
         dlo.assetCategory = AssetCategoryNames.Props;
-
+        dlo.allowRandomPlacement = false;
         dlo.rotation = new MyPointF(0, angle, hangle);
         dlo.AfterLoad = AfterLoadObject;
-
+        
         _assetService.LoadAsset(gs, AssetCategoryNames.Props, dlo.url, OnDownloadObject, dlo, null, token);
 
         return true;
@@ -55,7 +55,6 @@ public class FenceObjectLoader : BaseObjectLoader
     {
         go.transform().localScale = GVector3.onePlatform;
         go.transform().localRotation = GQuaternion.identity;
-        go.transform().position += GVector3.upPlatform;
         if (dlo.rotation != null)
         {
             go.transform().Rotate(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);

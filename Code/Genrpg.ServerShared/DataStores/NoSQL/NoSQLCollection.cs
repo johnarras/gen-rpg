@@ -19,6 +19,7 @@ using MongoDB.Driver.Core.Clusters;
 using MongoDB.Bson.IO;
 using System.Reflection.Metadata.Ecma335;
 using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Inventory.PlayerData;
 
 namespace Genrpg.ServerShared.DataStores.NoSQL
 {
@@ -30,6 +31,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         Task<bool> TransactionSave(object t, IClientSessionHandle session);
         Task<bool> Save(object t);
         Task<bool> Delete(object t);
+        Task<bool> DeleteAll(object func);
         Task CreateIndex(List<IndexConfig> configs);
         Task<List<object>> Search(object func, int quantity = 1000, int skip = 0);
         Task<bool> SaveAll(object itemList);
@@ -58,6 +60,29 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             return (typeof(T).Name + "doc").ToLower();
         }
 
+        public async Task<bool> DeleteAll (object listObj)
+        {
+            Expression<Func<T, bool>> func = (Expression<Func<T, bool>>)listObj;
+
+
+            if (func == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                DeleteResult deleteResult =  await _collection.DeleteManyAsync<T>(func);
+            }
+            catch (Exception ex)
+            {
+                _logger.Exception(ex, "MongoRepo.SaveAll");
+                return false;
+            }
+            return true;
+        }
+
+
         public async Task<bool> Delete(object obj)
         {
             T t = (T)obj;
@@ -69,7 +94,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 
             try
             {
-                DeleteResult result = await _collection.DeleteOneAsync(x => x.Id == t.Id);
+                DeleteResult result = await _collection.DeleteOneAsync(x => x.Id == t.Id);                
                 if (result.DeletedCount < 1)
                 {
                     return false;

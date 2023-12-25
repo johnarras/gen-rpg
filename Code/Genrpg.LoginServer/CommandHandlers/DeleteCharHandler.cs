@@ -2,6 +2,7 @@
 using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Characters.Utils;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Login.Interfaces;
@@ -20,12 +21,15 @@ namespace Genrpg.LoginServer.CommandHandlers
     {
         protected override async Task InnerHandleMessage(LoginGameState gs, DeleteCharCommand command, CancellationToken token)
         {
-            gs.ch = await gs.repo.Load<Character>(command.CharId);
+            gs.coreCh = await gs.repo.Load<CoreCharacter>(command.CharId);
 
-            if (gs.ch != null && gs.ch.UserId == gs.user.Id)
+            if (gs.coreCh != null && gs.coreCh.UserId == gs.user.Id)
             {
+                Character ch = new Character();
+                CharacterUtils.CopyDataFromTo(gs.coreCh, ch);
+
                 await _playerDataService.LoadPlayerData(gs, gs.ch);
-                await gs.repo.Delete(gs.ch);
+                await gs.repo.Delete(gs.coreCh);
 
                 foreach (IUnitData data in gs.ch.GetAllData().Values)
                 {
@@ -34,7 +38,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                         data.Delete(gs.repo);
                     }
                 }
-                gs.ch = null;
+                gs.coreCh = null;
             }
 
             DeleteCharResult result = new DeleteCharResult()

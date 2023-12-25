@@ -28,6 +28,11 @@ namespace Genrpg.Shared.Interfaces
        string OwnerId { get; set; }
     }
 
+    public interface IMapOwnerId : IStringOwnerId
+    {
+        string MapId { get; set; }
+    }
+
     public interface IId
     {
         long IdKey { get; set; }

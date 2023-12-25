@@ -1,6 +1,7 @@
 ﻿using Genrpg.Editor.Entities.Core;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Characters.Utils;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Users.Entities;
 using System.Collections.Generic;
@@ -24,10 +25,13 @@ namespace Genrpg.Editor.Utils
 
             foreach (CharacterStub stub in charStubs)
             {
-                Character ch = await gs.repo.Load<Character>(stub.Id);
-                if (ch != null)
+                CoreCharacter coreChar = await gs.repo.Load<CoreCharacter>(stub.Id);
+                if (coreChar != null)
                 {
-                    EditorCharacter ech = new EditorCharacter() { Character = ch };
+                    Character ch = new Character();
+                    CharacterUtils.CopyDataFromTo(coreChar, ch);
+
+                    EditorCharacter ech = new EditorCharacter() { Character = ch, CoreCharacter = coreChar };
                     gs.EditorUser.Characters.Add(ech);
                     await gs.loc.Get<IPlayerDataService>().LoadPlayerData(gs, ch);
                     foreach (IUnitData dataCont in ch.GetAllData().Values)
@@ -50,7 +54,7 @@ namespace Genrpg.Editor.Utils
                 {
                     if (gs.LookedAtObjects.Contains(ech.Character))
                     {
-                        await gs.repo.Save(ech.Character);
+                        await gs.repo.Save(ech.CoreCharacter);
                     }
                     foreach (IUnitData unitData in ech.Character.GetAllData().Values)
                     {
@@ -72,7 +76,7 @@ namespace Genrpg.Editor.Utils
             {
                 foreach (EditorCharacter ech in gs.EditorUser.Characters)
                 {
-                    await gs.repo.Delete(ech.Character);
+                    await gs.repo.Delete(ech.CoreCharacter);
                     foreach (IUnitData unitData in ech.Character.GetAllData().Values)
                     {
                         unitData.Delete(gs.repo);

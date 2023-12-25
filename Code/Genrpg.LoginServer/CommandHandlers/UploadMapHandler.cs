@@ -18,7 +18,7 @@ namespace Genrpg.LoginServer.CommandHandlers
     public class UploadMapHandler : BaseLoginCommandHandler<UploadMapCommand>
     {
         private IMapDataService _mapDataService = null;
-        private IMapSpawnService _mapSpawnService = null;
+        private IMapSpawnDataService _mapSpawnService = null;
         protected override async Task InnerHandleMessage(LoginGameState gs, UploadMapCommand command, CancellationToken token)
         {
             if (gs.config.Env == EnvNames.Prod)
@@ -60,7 +60,7 @@ namespace Genrpg.LoginServer.CommandHandlers
            
             await _mapDataService.SaveMap(gs, command.Map);
 
-            await _mapSpawnService.SaveMapSpawnData(gs, command.SpawnData, Map.GetMapOwnerId(command.Map));
+            await _mapSpawnService.SaveMapSpawnData(gs, command.SpawnData, command.Map.Id, command.Map.MapVersion);
           
             foreach (ILoginCommandHandler handler in gs.commandHandlers.Values)
             {

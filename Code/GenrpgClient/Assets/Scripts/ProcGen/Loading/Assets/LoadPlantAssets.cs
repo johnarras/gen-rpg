@@ -10,6 +10,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Zones.WorldData;
+using System;
 
 public class FullDetailPrototype : BaseDetailPrototype
 {
@@ -82,9 +83,9 @@ public class LoadPlantAssets
 
         List<Zone> currentZones = new List<Zone>();
 
-        if (patch.FullZoneIdList != null)
+        if (patch.MainZoneIdList != null)
         {
-            foreach (long zid in patch.FullZoneIdList)
+            foreach (long zid in patch.MainZoneIdList)
             {
                 Zone zone = gs.map.Get<Zone>(zid);
                 if (zone == null)
@@ -95,8 +96,18 @@ public class LoadPlantAssets
                 bool isMainTerrain = patch.MainZoneIdList.Contains(zid);
                 AddPlants addplants = new AddPlants();
                 addplants.UpdateValidPlantTypeList(gs, zone, gx, gy, fullProtoList, isMainTerrain, token);
-                AfterUpdateValidPrototypes(gs, fullProtoList, gx, gy, token);
+
             }
+
+            fullProtoList = fullProtoList.OrderByDescending(x => x.zoneIds.Count).ToList();
+
+            while (fullProtoList.Count > MapConstants.MaxGrass)
+            {
+                fullProtoList.RemoveAt(fullProtoList.Count - 1);
+            }
+
+
+            AfterUpdateValidPrototypes(gs, fullProtoList, gx, gy, token);
         }
         else
         {
@@ -148,20 +159,21 @@ public class LoadPlantAssets
 
         await UniTask.NextFrame( cancellationToken: token);
 
-        if (patch.grassAmounts == null)
-        {
-            return;
-        }
-
         List<int[,]> detailblock = new List<int[,]>();
 
         for (int i = 0; i < fullProtoList.Count; i++)
         {
             detailblock.Add(new int[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize]);
+            fullProtoList[i].Index = i;
         }
 
         int maxOffset = 7;
         int totalOffset = 7 * 2 + 1;
+
+        if (patch.grassAmounts == null)
+        {
+            patch.grassAmounts = new ushort[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize, MapConstants.MaxGrass];
+        }
 
         for (int x = 0; x < MapConstants.TerrainPatchSize - 1; x++)
         {
@@ -191,7 +203,14 @@ public class LoadPlantAssets
 
                 if (currentProtos.Count < 1)
                 {
-                    continue;
+                    zoneId = patch.MainZoneIdList.First();
+
+                    currentProtos = fullProtoList.Where(x => x.zoneIds.Contains(zoneId)).ToList();
+
+                    if (currentProtos.Count < 1)
+                    {
+                        continue;
+                    }
                 }
 
                 while (currentProtos.Count < MapConstants.MaxGrass)
@@ -201,9 +220,15 @@ public class LoadPlantAssets
 
                 for (int i = 0; i < MapConstants.MaxGrass && i < currentProtos.Count; i++)
                 {
+                    int offset = 0;
+                    if (patch.MainZoneIdList.Count >= 2 && zoneId == patch.MainZoneIdList[1] &&
+                        i + MapConstants.MaxGrass < currentProtos.Count)
+                    {
+                        offset = MapConstants.MaxGrass;
+                    }
                     if (patch.grassAmounts[x, y, i] > 0)
                     {
-                        FullDetailPrototype proto = currentProtos[i];
+                        FullDetailPrototype proto = currentProtos[i+offset];
                         detailblock[proto.Index][x, y] = (int)patch.grassAmounts[x, y, i];
                     }
                 }

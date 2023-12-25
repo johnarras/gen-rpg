@@ -37,8 +37,6 @@ public class SetBaseTerrainHeights : BaseZoneGenerator
         {
             float pers = MathUtils.FloatRange(0.1f, 0.3f, rand);
 
-
-
             // This number is here because these ups and downs should be a percent of the overall world height.
             float amp = MathUtils.FloatRange(0.005f, 0.01f, rand) * overworldSizeMult;
             // We want these features to be approx several hundred units across or so.

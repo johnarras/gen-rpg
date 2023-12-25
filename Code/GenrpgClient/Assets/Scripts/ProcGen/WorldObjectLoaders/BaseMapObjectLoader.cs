@@ -56,6 +56,12 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
         float nx = MathUtils.SeedFloatRange(placementSeed * 13, 143, -0.5f, 0.5f, 101) + data.Spawn.X;
         float nz = MathUtils.SeedFloatRange(placementSeed * 17, 149, -0.5f, 0.5f, 101) + data.Spawn.Z;
 
+        if (data.FixedPosition)
+        {
+            nx = data.Spawn.X;
+            nz = data.Spawn.Z;
+        }
+
         float height = gs.md.SampleHeight(gs, nx, MapConstants.MapHeight, nz);
        
         go.transform().position = GVector3.Create(nx, height, nz);

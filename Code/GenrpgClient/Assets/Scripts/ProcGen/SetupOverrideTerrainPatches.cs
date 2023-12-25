@@ -70,6 +70,12 @@ public class SetupOverrideTerrainPatches : BaseZoneGenerator
                         continue;
                     }
                     long subZoneId = okZones[gs.rand.Next() % okZones.Count].IdKey;
+
+                    if (rand.NextDouble() < 0.8f) // Most subzones are not added for now
+                    {
+                        subZoneId = 0;
+                    }
+
                     FloodFillRegion(gs, (int)subZoneId, x, z, 0);
                 }
             }
@@ -85,6 +91,7 @@ public class SetupOverrideTerrainPatches : BaseZoneGenerator
         if (gs.md.subZonePercents[x, z] > 0 && gs.md.subZoneIds[x, z] == 0)
         {
             gs.md.subZoneIds[x, z] = zoneId;
+            gs.md.subZonePercents[x, z] = 0;
         }
         else
         {

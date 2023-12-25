@@ -53,7 +53,6 @@ internal class TreeCategory
     public float freqMult = 1.0f;
     public float densityMult = 1.0f;
     public float posDeltaScale = 1.0f;
-    public float sizeScale = 1.0f;
     public float overrideChance = 0.0f;
     public float skipChance = 0.0f;
    
@@ -97,9 +96,9 @@ public class AddTrees : BaseZoneGenerator
     public const float BushNoiseChance = 0.60f;
     public const float MinWallTreeChance = 0.35f;
     public const float TreeSizeScale = 1.0f;
-    public const float BushSizeScale = 1.0f;
+    public const float BushSizeScale = 1.5f;
     public const float MaxTreeChance = 0.35f;
-    public const float MaxBushChance = 1.0f;
+    public const float MaxBushChance = 0.02f;
     
    
     public static string[] TreeOverrideNames = new String[] { "Fall", "Young", "Bare", "FallYoung" };
@@ -321,7 +320,7 @@ public class AddTrees : BaseZoneGenerator
         bool isWaterItem = (listIndex == WaterIndex);
         bool isBush = (listIndex == BushIndex || listIndex == WaterIndex);
 
-        int skipDelta = Math.Max(2, skipSize * 2 / 5);
+        int skipDelta = skipSize * 2 / 3;
         for (int cx = 0; cx < gs.map.GetHwid(); cx += skipSize)
         {
             int x = cx + MathUtils.IntRange(-skipDelta, skipDelta, skipRand);
@@ -365,6 +364,11 @@ public class AddTrees : BaseZoneGenerator
                     }
 
                     float currRoadDist = Math.Max(minRoadDist, startRoadDist + roadNoise[x, y]);
+
+                    if (forceTrees)
+                    {
+                        currRoadDist = 4;
+                    }
 
                     if (gs.md.roadDistances[x, y] <= currRoadDist)
                     {
@@ -557,9 +561,7 @@ public class AddTrees : BaseZoneGenerator
                 foreach (FullTreePrototype full in currList)
                 {
                     AddTreeActual(gs, ztData.zone, full, category, x, y, (1+replaceNoise[x,y]));
-
                 }
-
             }
         }
     }
@@ -592,7 +594,6 @@ public class AddTrees : BaseZoneGenerator
         {
             tc.numItems += MathUtils.IntRange(1, 3, choiceRand);
         }
-        tc.sizeScale = TreeSizeScale;
         tc.densityMult *= (tc.freqMult <= 0 ? TreeUniformChance : TreeNoiseChance);
         list.Add(tc);
 
@@ -604,7 +605,6 @@ public class AddTrees : BaseZoneGenerator
         tc.freqMult = genZone.BushFreq * zoneType.BushFreq * 2;
         tc.densityMult = genZone.BushDensity * zoneType.BushDensity;
         tc.posDeltaScale = 2.0f;
-        tc.sizeScale = TreeSizeScale;
         tc.numItems = MathUtils.IntRange(3, 5, choiceRand);
         tc.densityMult *= (tc.freqMult <= 0 ? BushUniformChance : BushNoiseChance);
         tc.skipChance = 0.80f;
@@ -630,7 +630,6 @@ public class AddTrees : BaseZoneGenerator
         tc.densityMult = WaterChance * MathUtils.FloatRange(0.4f, 1.6f, choiceRand) * bushDensity;
         tc.freqMult *= 0.0f;
         tc.posDeltaScale = 1.0f;
-        tc.sizeScale = BushSizeScale;
         tc.skipChance = 0.35f;
         tc.numItems = MathUtils.IntRange(2, 3, choiceRand);
         list.Add(tc);

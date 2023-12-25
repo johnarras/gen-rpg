@@ -1,5 +1,3 @@
-using MessagePack;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,17 +15,16 @@ using Genrpg.Shared.Spells.Casting;
 
 namespace Genrpg.Shared.Units.Entities
 {
-    // MessagePackKeyOffset 50
-    [MessagePackObject]
+    // MessagePackIgnore
     public class Unit : MapObject
     {
-        [Key(50)] public long BaseStatAmount { get; set; }
-        [Key(51)] public long StatPct { get; set; }
-        [Key(52)] public long QualityTypeId { get; set; }
+        public long BaseStatAmount { get; set; }
+        public long StatPct { get; set; }
+        public long QualityTypeId { get; set; }
 
-        [Key(53)] public float CombatStartX { get; set; }
-        [Key(54)] public float CombatStartZ { get; set; }
-        [Key(55)] public float CombatStartRot { get; set; }
+        public float CombatStartX { get; set; }
+        public float CombatStartZ { get; set; }
+        public float CombatStartRot { get; set; }
 
 
         virtual public string GetGroupId() { return null; }
@@ -72,31 +69,31 @@ namespace Genrpg.Shared.Units.Entities
             return _attackers.FirstOrDefault(x => !string.IsNullOrEmpty(x.GroupId));
         }
 
-        [Key(56)] public float BaseSpeed { get; set; }
+        public float BaseSpeed { get; set; }
 
         public override bool IsUnit() { return true; }
 
-        [JsonIgnore]
-        [IgnoreMember] public Regen RegenMessage;
+        
+        public Regen RegenMessage;
 
-        [JsonIgnore]
-        [IgnoreMember] public StatGroup Stats { get; set; } = new StatGroup();
+        
+        public StatGroup Stats { get; set; } = new StatGroup();
 
         public float GetScale() { return 1.0f; }
 
-        [JsonIgnore]
-        [IgnoreMember] public List<SpellProc> Procs;
+        
+        public List<SpellProc> Procs;
 
 
-        [JsonIgnore]
-        [IgnoreMember] public List<CurrentProc> CurrentProcs;
+        
+        public List<CurrentProc> CurrentProcs;
 
 
-        [JsonIgnore]
-        [IgnoreMember] public DateTime GlobalCooldownEnds = DateTime.UtcNow;
+        
+        public DateTime GlobalCooldownEnds = DateTime.UtcNow;
 
-        [JsonIgnore]
-        [IgnoreMember] public List<ActiveSpellEffect> SpellEffects;
+        
+        public List<ActiveSpellEffect> SpellEffects;
 
         public float GetGlobalCooldown(GameState gs)
         {
@@ -127,28 +124,30 @@ namespace Genrpg.Shared.Units.Entities
             return proc;
         }
 
-        [JsonIgnore]
-        [IgnoreMember] public List<SpawnResult> Loot;
+        
+        public List<SpawnResult> Loot;
+        public List<SpawnResult> SkillLoot;
 
-        [JsonIgnore]
-        [IgnoreMember] public List<SpawnResult> SkillLoot;
-
-        [JsonIgnore]
-        [IgnoreMember] public int Flags = 0;
+        private int _flags = 0;
 
         public bool HasFlag(int flag)
         {
-            return (Flags & flag) != 0;
+            return (_flags & flag) != 0;
         }
 
         public void AddFlag(int flag)
         {
-            Flags |= flag;
+            _flags |= flag;
         }
 
         public void RemoveFlag(int flag)
         {
-            Flags &= ~flag;
+            _flags &= ~flag;
+        }
+
+        public int GetFlags()
+        {
+            return _flags;
         }
 
 

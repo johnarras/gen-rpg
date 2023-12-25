@@ -5,6 +5,7 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Pathfinding.Constants;
 using System.Threading;
+using Genrpg.Shared.Utils;
 
 public class LoadPathfinding : BaseZoneGenerator
 {
@@ -30,14 +31,15 @@ public class LoadPathfinding : BaseZoneGenerator
     private void OnDownloadPathfinding (UnityGameState gs, string url, object obj, object data, CancellationToken token)
     {
 
-        byte[] bytes = obj as byte[];
+        byte[] compressedBytes = obj as byte[];
 
-        if (bytes == null)
+        if (compressedBytes == null)
         {
             return;
         }
+        byte[] decompressedBytes = CompressionUtils.DecompressBytes(compressedBytes);
 
-        gs.pathfinding = _pathfindingService.ConvertBytesToGrid(gs, bytes);
+        gs.pathfinding = _pathfindingService.ConvertBytesToGrid(gs, decompressedBytes);
 
     }
 }

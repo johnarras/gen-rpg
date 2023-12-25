@@ -6,5 +6,6 @@ public class SpawnLoadData
 {
     public MapObject Obj;
     public OnSpawn Spawn;
+    public bool FixedPosition;
     public CancellationToken Token;
 }

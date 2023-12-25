@@ -20,21 +20,19 @@ using Genrpg.Shared.Vendors.WorldData;
 namespace Genrpg.Shared.Quests.WorldData
 {
     [MessagePackObject]
-    public class QuestType : BaseWorldData, IIndexedGameItem, IStringOwnerId
+    public class QuestType : BaseWorldData, IIndexedGameItem, IMapOwnerId
     {
         public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string OwnerId { get; set; }
+        [Key(2)] public string MapId { get; set; }
+        [Key(3)] public long IdKey { get; set; }
+        [Key(4)] public string Name { get; set; }
+        [Key(5)] public string Desc { get; set; }
+        [Key(6)] public string Icon { get; set; }
+        [Key(7)] public string Art { get; set; }
 
-        [Key(2)] public long IdKey { get; set; }
-        [Key(3)] public string Name { get; set; }
-        [Key(4)] public string Desc { get; set; }
-        [Key(5)] public string Icon { get; set; }
-        [Key(6)] public string Art { get; set; }
-
-        [Key(7)] public List<QuestTask> Tasks { get; set; }
-
-        [Key(8)] public string MapId { get; set; }
+        [Key(8)] public List<QuestTask> Tasks { get; set; }
 
         [Key(9)] public int MapVersion { get; set; }
         [Key(10)] public long ZoneId { get; set; }

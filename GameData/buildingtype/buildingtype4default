@@ -4,6 +4,7 @@
   "IdKey": 4,
   "Name": "The Smithy",
   "Art": "Smithy",
-  "UpdateTime": "2023-12-22T19:02:25.478Z",
+  "Radius": 5,
+  "UpdateTime": "2023-12-25T03:29:01.691Z",
   "CreateTime": "2023-12-22T13:43:47.871Z"
 }

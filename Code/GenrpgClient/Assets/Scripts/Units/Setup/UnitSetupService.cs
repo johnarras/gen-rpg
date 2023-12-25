@@ -164,8 +164,6 @@ public class UnitSetupService : IUnitSetupService
             mc.TerrainTilt = artData.TerrainTilt;
         }
 
-        go.transform().localScale *= 2.0f;
-
         mc.Init(unit, token);
         GAnimator animator = GEntityUtils.GetComponent<GAnimator>(go);
         if (animator != null)

@@ -189,6 +189,9 @@ public class AddRoads : BaseZoneGenerator
             ld.MaxWidthPosDrift = 1;
             ld.WidthSizeChangeChance = 0.01f;
             ld.WidthSizeChangeChance = 1;
+            ld.MinWidthSize = 4;
+            ld.WidthSize = 4;
+            ld.MaxWidthSize = 4;
         }
 
 		ld.Seed = gs.map.Seed/7+147*extraSeed+3*extraSeed*extraSeed+163;

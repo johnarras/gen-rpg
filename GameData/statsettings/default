@@ -1,5 +1,7 @@
 {
   "Id": "default",
   "StatConstantUnitMultiple": 10,
-  "Name": "StatSettings"
+  "Name": "StatSettings",
+  "UpdateTime": "2023-12-23T23:13:14.167Z",
+  "CreateTime": "2023-12-23T23:13:14.167Z"
 }

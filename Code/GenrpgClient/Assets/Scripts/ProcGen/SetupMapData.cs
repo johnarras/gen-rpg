@@ -38,15 +38,15 @@ public class SetupMapData : BaseZoneGenerator
 
         
         if (initComp != null &&
-            initComp.CurrWorldSize >= 3 &&
-            initComp.CurrZoneSize >= 1 &&
+            initComp.WorldSize >= 3 &&
+            initComp.ZoneSize >= 1 &&
             initComp.MapGenSeed > 0)
         {
             fixSeeds = true;
             if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId))
             {
-                gs.map.BlockCount = initComp.CurrWorldSize;
-                gs.map.ZoneSize = initComp.CurrZoneSize;
+                gs.map.BlockCount = initComp.WorldSize;
+                gs.map.ZoneSize = initComp.ZoneSize;
                 gs.map.Seed = initComp.MapGenSeed;
             }
         }

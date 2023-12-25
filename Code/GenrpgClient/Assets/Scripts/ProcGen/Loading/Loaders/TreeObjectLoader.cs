@@ -107,9 +107,9 @@ public class TreeObjectLoader : BaseObjectLoader
             long placementSeed = 17041 + x * 9479 + y * 2281 + loadData.gx * 5281 + loadData.gy * 719 +
                 loadData.gx * y + loadData.gy * x;
 
-            treeType.Scale = 1.0f; //TODO remove eventually
+            treeType.Scale = 1.0f; // TODO Fix
             float minScale = treeType.Scale;
-            float maxScale = treeType.Scale * 1.5f;
+            float maxScale = treeType.Scale * 1.50f;
             float finalScale = minScale + (maxScale - minScale) * (placementSeed % (MapTerrainManager.ScaleStepCount + 1)) / MapTerrainManager.ScaleStepCount;
 
             if (treeType.HasFlag(TreeFlags.IsBush))
@@ -224,6 +224,7 @@ public class TreeObjectLoader : BaseObjectLoader
         if (tt != null)
         {
 
+            tt.Scale = 1.0f; // TODO Fix
             float minScale = tt.Scale;
             float maxScale = minScale * 1.5f;
 

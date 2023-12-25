@@ -125,5 +125,10 @@ namespace Assets.Scripts.Model
             return (ClientRepositoryCollection<T>)GetRepositoryFromType(typeof(T));
         }
 
+        public async Task<bool> DeleteAll<T>(Expression<Func<T, bool>> func) where T : class, IStringId
+        {
+            await Task.CompletedTask;
+            return false;
+        }
     }
 }

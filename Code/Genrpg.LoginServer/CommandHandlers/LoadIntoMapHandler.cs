@@ -33,6 +33,7 @@ using Genrpg.ServerShared.CloudComms.Servers.LoginServer;
 using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Spawns.WorldData;
+using Genrpg.Shared.Characters.Utils;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
@@ -60,6 +61,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 long.TryParse(command.MapId, out mapId);
                 if (command.GenerateMap)
                 {
+                    fullCachedMap.Map = new Map() { Id = command.MapId };
                 }
                 else
                 {
@@ -67,24 +69,26 @@ namespace Genrpg.LoginServer.CommandHandlers
                     return;
                 }
             }
-            Character newChar = await gs.repo.Load<Character>(command.CharId);
-            if (newChar == null)
+
+            CoreCharacter newCoreChar = await gs.repo.Load<CoreCharacter>(command.CharId);
+            if (newCoreChar == null)
             {
                 ShowError(gs, "Couldn't find new character to load " + command.CharId);
                 return;
             }
 
-            if (newChar.UserId != gs.user.Id)
+            if (newCoreChar.UserId != gs.user.Id)
             {
                 ShowError(gs, "You don't own this character");
                 return;
             }
 
-            gs.ch = newChar;
+            gs.coreCh = newCoreChar;
+            gs.coreCh.X = fullCachedMap.Map.SpawnX + 5;
+            gs.coreCh.Z = fullCachedMap.Map.SpawnY + 5;
 
-            gs.ch.X = fullCachedMap.Map.SpawnX + 5;
-            gs.ch.Z = fullCachedMap.Map.SpawnY + 5;
-         
+            gs.ch = new Character();
+            CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 
             List<IUnitData> serverDataList = await _playerDataService.LoadPlayerData(gs, gs.ch);
 
@@ -114,7 +118,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 WorldDataEnv = worldDataEnv,
             };
 
-            gs.user.CurrCharId = gs.ch.Id;
+            gs.user.CurrCharId = gs.coreCh.Id;
 
             gs.Results.Add(loadResult);
 

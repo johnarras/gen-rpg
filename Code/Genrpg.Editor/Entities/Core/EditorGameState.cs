@@ -101,6 +101,7 @@ namespace Genrpg.Editor.Entities.Core
     public class EditorCharacter
     {
         public Character Character { get; set; }
+        public CoreCharacter CoreCharacter { get; set; }
         public List<EditorUnitData> Data { get; set; }
 
         public EditorCharacter()

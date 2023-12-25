@@ -16,27 +16,25 @@ namespace Genrpg.Shared.Zones.WorldData
 {
 
     [MessagePackObject]
-    public class Zone : BaseWorldData, IIndexedGameItem, IStringOwnerId
+    public class Zone : BaseWorldData, IIndexedGameItem, IMapOwnerId
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string OwnerId { get; set; }
-
-        [Key(2)] public long IdKey { get; set; }
-        [Key(3)] public long ZoneTypeId { get; set; }
-
-
-        [Key(4)] public string Name { get; set; }
-        [Key(5)] public string Desc { get; set; }
-        [Key(6)] public string Icon { get; set; }
-        [Key(7)] public long Seed { get; set; }
+        [Key(2)] public string MapId { get; set; }
+        [Key(3)] public long IdKey { get; set; }
+        [Key(4)] public long ZoneTypeId { get; set; }
 
 
-        [Key(8)] public long BaseTextureTypeId { get; set; }
-        [Key(9)] public long DirtTextureTypeId { get; set; }
-        [Key(10)] public long RockTextureTypeId { get; set; }
-        [Key(11)] public long RoadTextureTypeId { get; set; }
+        [Key(5)] public string Name { get; set; }
+        [Key(6)] public string Desc { get; set; }
+        [Key(7)] public string Icon { get; set; }
+        [Key(8)] public long Seed { get; set; }
 
-        [Key(12)] public string MapId { get; set; }
+
+        [Key(9)] public long BaseTextureTypeId { get; set; }
+        [Key(10)] public long DirtTextureTypeId { get; set; }
+        [Key(11)] public long RockTextureTypeId { get; set; }
+        [Key(12)] public long RoadTextureTypeId { get; set; }
 
         [Key(13)] public long Level { get; set; }
 

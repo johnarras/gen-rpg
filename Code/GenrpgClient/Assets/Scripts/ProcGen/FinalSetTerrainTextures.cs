@@ -10,7 +10,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
     {
         await base.Generate(gs, token);
 
-        gs.map.OverrideZonePercent = 0;
+        gs.map.OverrideZonePercent = 0;        
         _zoneGenService.SetAllAlphamaps(gs, gs.md.alphas, token);
         await WaitForTerrainLayerLoad(gs,token);
     }

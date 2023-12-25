@@ -1,5 +1,3 @@
-using MessagePack;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,21 +10,22 @@ using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.Players.Interfaces;
+using Genrpg.Shared.Characters.Utils;
 
 namespace Genrpg.Shared.Characters.PlayerData
 {
-    // MessagePackKeyOffset 100
-    [MessagePackObject]
-    public class Character : Unit
+    // MessagePackIgnore
+    public class Character : Unit, IDirtyable, ICoreCharacter
     {
 
-        [Key(100)] public string UserId { get; set; }
-        [Key(101)] public int Version { get; set; }
+        public string UserId { get; set; }
+        public int Version { get; set; }
 
-        [Key(102)] public int AbilityPoints { get; set; }
-        [Key(103)] public string MapId { get; set; }
+        public int AbilityPoints { get; set; }
+        public string MapId { get; set; }
 
-        [Key(104)] public DateTime CreationDate { get; set; } = DateTime.UtcNow;
+        public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
         public Character()
         {
@@ -78,7 +77,11 @@ namespace Genrpg.Shared.Characters.PlayerData
             if (saveClean || IsDirty())
             {
                 SetDirty(false);
-                itemsToSave.Add(this);
+                CoreCharacter coreChar = new CoreCharacter();
+
+                CharacterUtils.CopyDataFromTo(this, coreChar);
+
+                itemsToSave.Add(coreChar);
             }
 
             List<IUnitData> allValues = new List<IUnitData>(_dataDict.Values.ToList());
@@ -89,11 +92,11 @@ namespace Genrpg.Shared.Characters.PlayerData
             repoSystem.QueueTransactionSave(itemsToSave, Id);
         }
 
-        [JsonIgnore]
-        [Key(105)] public List<PointXZ> NearbyGridsSeen { get; set; }
+        
+        public List<PointXZ> NearbyGridsSeen { get; set; }
 
-        [JsonIgnore]
-        [Key(106)] public DateTime LastServerStatTime { get; set; } = DateTime.UtcNow;
+        
+        public DateTime LastServerStatTime { get; set; } = DateTime.UtcNow;
 
         private GameDataOverrideList _overrideList { get; set; }
         public void SetGameDataOverrideList(GameDataOverrideList overrideList)

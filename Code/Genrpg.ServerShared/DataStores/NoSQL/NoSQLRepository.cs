@@ -136,6 +136,13 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         {
             INoSQLCollection collection = GetCollection(obj.GetType());
             return await collection.Delete(obj);
+            
+        }
+
+        public async Task<bool> DeleteAll<T>(Expression<Func<T,bool>> func) where T : class, IStringId
+        {
+            INoSQLCollection collection = GetCollection(typeof(T));
+            return await collection.DeleteAll(func);
         }
 
         public async Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity, int skip) where T : class, IStringId

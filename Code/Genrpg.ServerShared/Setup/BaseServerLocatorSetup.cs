@@ -27,7 +27,7 @@ namespace Genrpg.ServerShared.Setup
             base.Setup(gs);
             gs.loc.Set<ICloudCommsService>(new CloudCommsService());
             gs.loc.Set<IGameDataService>(new GameDataService<GameData>());
-            gs.loc.Set<IMapSpawnService>(new MapSpawnService());
+            gs.loc.Set<IMapSpawnDataService>(new MapSpawnDataService());
             gs.loc.Set<IMapDataService>(new MapDataService());
             gs.loc.Set<IAchievementService>(new AchievementService());
             gs.loc.Set<IPlayerDataService>(new PlayerDataService());

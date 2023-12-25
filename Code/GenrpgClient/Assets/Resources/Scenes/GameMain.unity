@@ -332,12 +332,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _splashImage: {fileID: 114416535}
-  CurrMapId: 2
+  CurrMapId: 1
   ForceDownloadFromAssetBundles: 1
-  CurrWorldSize: 19
-  CurrZoneSize: 2.5
-  MapGenSeed: 623471
-  PlayerSpeedMult: 2
+  WorldSize: 8
+  ZoneSize: 1
+  ForceZoneTypeId: 0
+  MapGenSeed: 2345611
+  PlayerSpeedMult: 1
   ZoneNoiseSize: 4096
   ZoneNoiseDenominator: 1000
   ZoneNoiseAmplitude: 3.9

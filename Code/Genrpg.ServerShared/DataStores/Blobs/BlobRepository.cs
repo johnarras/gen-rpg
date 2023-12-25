@@ -1,22 +1,17 @@
-﻿using Genrpg.Shared.Accounts.Entities;
+﻿using Amazon.Runtime;
+using Genrpg.Shared.Accounts.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logs.Interfaces;
 using Genrpg.Shared.Utils;
-using Microsoft.Azure.Amqp.Framing;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using static MongoDB.Driver.WriteConcern;
 
 namespace Genrpg.ServerShared.DataStores.Blobs
 {
@@ -144,6 +139,14 @@ namespace Genrpg.ServerShared.DataStores.Blobs
             }
             return success;
         }
+
+
+        public async Task<bool> DeleteAll<T>(Expression<Func<T, bool>> func) where T : class, IStringId
+        {
+            await Task.CompletedTask;
+            return false;
+        }
+
 
         #endregion
 

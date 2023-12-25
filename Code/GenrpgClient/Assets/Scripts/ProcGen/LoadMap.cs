@@ -8,6 +8,9 @@ using System.Threading;
 using Genrpg.Shared.MapServer.Constants;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
+using Genrpg.Shared.Pathfinding.Services;
+using System.IO.Compression;
+using Genrpg.Shared.Pathfinding.Constants;
 
 public class LoadMap : BaseZoneGenerator
 {
@@ -112,6 +115,11 @@ public class LoadMap : BaseZoneGenerator
         int xx = 0;
         int yy = 0;
 
+        if (patch.heights == null)
+        {
+            patch.heights = new float[MapConstants.TerrainPatchSize,MapConstants.TerrainPatchSize];
+        }
+
         // 1 Heights 2
         try
         {
@@ -137,6 +145,16 @@ public class LoadMap : BaseZoneGenerator
         }
         try
         {
+            if (patch.grassAmounts == null)
+            {
+                patch.grassAmounts = new ushort[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize, MapConstants.MaxGrass];
+            }
+
+            if (patch.mapObjects == null)
+            {
+                patch.mapObjects = new uint[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
+            }
+
             // 2 Objects 4 bytes
             uint worldObjectValue = 0;
             for (int x = 0; x < MapConstants.TerrainPatchSize - 1; x++)
@@ -195,6 +213,11 @@ public class LoadMap : BaseZoneGenerator
             await UniTask.NextFrame( cancellationToken: token);
         }
 
+        if (patch.baseAlphas == null)
+        {
+           patch.baseAlphas = new float[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize, MapConstants.MaxTerrainIndex];
+        }
+
         // 3 Alphas 3 bytes 
         float alphaTotal = 0;
         float alphaDiv = MapConstants.AlphaSaveMult * 1.0f;
@@ -238,25 +261,42 @@ public class LoadMap : BaseZoneGenerator
             mainZoneIds.Add((int)gs.map.OverrideZoneId);
             subZoneIds.Add((int)gs.map.OverrideZoneId);
         }
+
+        List<IdVal> mainZoneQuantities = new List<IdVal>();
+
         for (int x = 0; x < MapConstants.TerrainPatchSize; x++)
         {
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
             {
                 //gs.md.mapZoneIds[x + startX, y + startY] = bytes[index];
-                patch.mainZoneIds[x, y] = patch.DataBytes[index++];
-                if (patch.mainZoneIds[x, y] >= SharedMapConstants.MapZoneStartId)
+                byte newMainZoneId = patch.DataBytes[index++];
+                patch.mainZoneIds[x, y] = newMainZoneId;
+                if (newMainZoneId >= SharedMapConstants.MapZoneStartId)
                 {
-                    if (!subZoneIds.Contains(patch.mainZoneIds[x, y]))
+                    if (!subZoneIds.Contains(newMainZoneId))
                     {
-                        subZoneIds.Add(patch.mainZoneIds[x, y]);
+                        subZoneIds.Add(newMainZoneId);
                     }
-                    if (!mainZoneIds.Contains(patch.mainZoneIds[x,y]))
+                    if (!mainZoneIds.Contains(newMainZoneId))
                     {
-                        mainZoneIds.Add(patch.mainZoneIds[x, y]);
+                        mainZoneIds.Add(newMainZoneId);
                     }
+
+                    IdVal zoneQuantity = mainZoneQuantities.FirstOrDefault(x => x.Id == newMainZoneId);
+
+                    if (zoneQuantity == null)
+                    {
+                        zoneQuantity = new IdVal() { Id = newMainZoneId };
+                        mainZoneQuantities.Add(zoneQuantity);
+                    }
+
+                    zoneQuantity.Val++;
                 }
             }
         }
+
+        mainZoneIds = mainZoneQuantities.OrderByDescending(x => x.Val).Select(x => x.Id).ToList();
+
         if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
         {
             await UniTask.NextFrame( cancellationToken: token);
@@ -284,7 +324,7 @@ public class LoadMap : BaseZoneGenerator
                 patch.overrideZoneScales[x, y] = patch.DataBytes[index++];
                 if (patch.overrideZoneScales[x,y] <= gs.map.OverrideZonePercent)
                 {
-                    patch.subZoneIds[x, y] = (int)gs.map.OverrideZoneId;
+                    patch.subZoneIds[x, y] = (byte)gs.map.OverrideZoneId;
                 }
             }
         }
@@ -358,7 +398,35 @@ public class LoadMap : BaseZoneGenerator
             gs.md.loadingPatchList.Remove(item);
         }
 
-       
+        if (true && gs.pathfinding != null)
+        {
+            for (int px = 0; px < MapConstants.TerrainPatchSize; px += PathfindingConstants.BlockSize)
+            {
+                int worldx = gx * (MapConstants.TerrainPatchSize - 1) + px;
+                for (int pz = 0; pz < MapConstants.TerrainPatchSize; pz += PathfindingConstants.BlockSize)
+                {
+                    int worldz = gy * (MapConstants.TerrainPatchSize - 1) + pz;
+
+                    int finalx = worldx / PathfindingConstants.BlockSize;
+                    int finalz = worldz / PathfindingConstants.BlockSize;
+
+                    if (finalx < 0 || finalx >= gs.pathfinding.GetLength(0) ||
+                        finalz < 0 || finalz >= gs.pathfinding.GetLength(1))
+                    {
+                        continue;
+                    }
+                    if (gs.pathfinding[finalx,finalz])
+                    {
+                        float height = gs.md.SampleHeight(gs, worldx, 2000, worldz);
+                        GameObject sphere = Resources.Load<GameObject>("Prefabs/TestSphere");
+                        sphere = GameObject.Instantiate(sphere);
+                        sphere.name = "TestSphere_" + worldx + "_" + worldz;
+                        GEntityUtils.AddToParent(sphere, patch.terrain.gameObject);
+                        sphere.transform.position = new Vector3(worldx, height, worldz);
+                    }
+                }
+            }
+        }
     }
 
     private void OnDownloadTerrainBytes(UnityGameState gs, string url, object obj, object data, CancellationToken token)

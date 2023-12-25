@@ -234,6 +234,12 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         long seed = gs.map.Seed / 3 + 431 + extraSeed;
         MyRandom rand = new MyRandom(seed);
+#if UNITY_EDITOR
+        if (InitClient.Instance.ForceZoneTypeId > 0)
+        {
+            zoneTypeId = InitClient.Instance.ForceZoneTypeId;
+        }
+#endif
         ZoneType zoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zoneTypeId);
         if (zoneType == null)
         {

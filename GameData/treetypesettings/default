@@ -2,5 +2,7 @@
   "Id": "default",
   "TallChance": 0.5,
   "TreeDirtRadius": 9.0,
-  "Name": "TreeTypeSettings"
+  "Name": "TreeTypeSettings",
+  "UpdateTime": "2023-12-23T23:13:14.221Z",
+  "CreateTime": "2023-12-23T23:13:14.221Z"
 }

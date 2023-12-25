@@ -16,7 +16,7 @@ public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
         {
             if (obj is Unit existingUnit)
             {
-                existingUnit.Flags = spawnMessage.TempFlags;
+                existingUnit.AddFlag(spawnMessage.TempFlags);
 
                 existingUnit.Stats.UpdateFromSnapshot(spawnMessage.Stats);
 

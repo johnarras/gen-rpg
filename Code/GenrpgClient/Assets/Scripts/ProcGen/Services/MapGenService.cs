@@ -48,7 +48,7 @@ public class MapGenService : IMapGenService
         map.MaxLevel = startMap.MaxLevel;
         map.Id = startMap.Id;
         map.Seed = startMap.Seed;
-        map.BlockCount = startMap.BlockCount;
+        map.BlockCount = Math.Min(MapConstants.MaxTerrainGridSize, startMap.BlockCount);
         map.ZoneSize = startMap.ZoneSize;
 
 
@@ -323,7 +323,6 @@ public class MapGenService : IMapGenService
     {
         foreach (Zone zone in gs.map.Zones)
         {
-            gs.logger.Debug("Add NPCS To Zone: " + zone.IdKey);
             AddNPCsToZone(gs, zone);
         }
     }
@@ -338,6 +337,7 @@ public class MapGenService : IMapGenService
             zoneName = zoneName.Substring(0, 8);
         }
 
+        List<BuildingType> buildingTypes = gs.data.GetGameData<BuildingSettings>(null).GetData();
         List<NPCType> npcTypes = gs.data.GetGameData<NPCSettings>(null).GetData();
         List<BuildingType> buildings = gs.data.GetGameData<BuildingSettings>(null).GetData();
 
@@ -350,14 +350,29 @@ public class MapGenService : IMapGenService
                 continue;
             }
 
-            List<NPCType> remainingNPCs = new List<NPCType>(npcTypes);
-
             List<LocationPlace> remainingPlaces = new List<LocationPlace>(loc.Places);
+            List<NPCType> noBuildingNPCs = new List<NPCType>();
+            List<NPCType> buildingNPCs = new List<NPCType>();
 
-            while (remainingPlaces.Count > 0 && remainingNPCs.Count > 0)
+
+            foreach (NPCType npcType in npcTypes)
             {
-                NPCType npc = remainingNPCs[rand.Next() % remainingNPCs.Count];
-                remainingNPCs.Remove(npc);
+                BuildingType btype = buildingTypes.FirstOrDefault(x => x.IdKey == npcType.BuildingTypeId);
+
+                if (btype != null && btype.IdKey > 0)
+                {
+                    buildingNPCs.Add(npcType);
+                }
+                else
+                {
+                    noBuildingNPCs.Add(npcType);
+                }
+            }
+
+            while (remainingPlaces.Count > 0 && buildingNPCs.Count > 0)
+            {
+                NPCType npc = buildingNPCs[rand.Next() % buildingNPCs.Count];
+                buildingNPCs.Remove(npc);
                 LocationPlace place = remainingPlaces[rand.Next() % remainingPlaces.Count];
                 remainingPlaces.Remove(place);
 
@@ -365,8 +380,6 @@ public class MapGenService : IMapGenService
                 int dz = place.EntranceZ - place.CenterZ;
 
                 float rot = (float)(Math.Atan2(dz, dx) * 180f / Math.PI);
-
-                gs.logger.Debug("Add NPC To Zone: " + zone.IdKey + " at " + loc.CenterX + " " + loc.CenterZ);
 
                 List<IMapObjectAddon> addons = new List<IMapObjectAddon>
                 {
@@ -392,7 +405,7 @@ public class MapGenService : IMapGenService
                 };
 
                 gs.spawns.AddSpawn(initData);
-                BuildingType btype = gs.data.GetGameData<BuildingSettings>(null).GetBuildingType(npc.BuildingTypeId);
+                BuildingType btype = buildingTypes.FirstOrDefault(x=>x.IdKey == npc.BuildingTypeId);
 
                 if (btype != null)
                 {
@@ -478,7 +491,7 @@ public class MapGenService : IMapGenService
 
         int zonedelta = (int)(gs.map.ZoneSize * MapConstants.TerrainPatchSize / 12);
 
-        int minRad = 100;
+        int minRad = 40;
         int maxRad = minRad*3/2;
 
         gs.md.zoneCenters = new List<Location>();

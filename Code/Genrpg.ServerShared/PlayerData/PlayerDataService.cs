@@ -37,7 +37,7 @@ namespace Genrpg.ServerShared.PlayerData
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { Ascending = true, MemberName = "UserId" });
-            await gs.repo.CreateIndex<Character>(configs);
+            await gs.repo.CreateIndex<CoreCharacter>(configs);
 
             List<Type> loadTypes = ReflectionUtils.GetTypesImplementing(typeof(IUnitDataLoader));
 
@@ -146,10 +146,10 @@ namespace Genrpg.ServerShared.PlayerData
         public async Task<List<CharacterStub>> LoadCharacterStubs(ServerGameState gs, string userId)
         {
             // TODO: projection in the repo itself
-            List<Character> chars = await gs.repo.Search<Character>(x => x.UserId == userId);
+            List<CoreCharacter> chars = await gs.repo.Search<CoreCharacter>(x => x.UserId == userId);
 
             List<CharacterStub> stubs = new List<CharacterStub>();
-            foreach (Character ch in chars)
+            foreach (CoreCharacter ch in chars)
             {
                 stubs.Add(new CharacterStub()
                 {

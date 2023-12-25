@@ -5,6 +5,7 @@ using Genrpg.LoginServer.Utils;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Characters.Utils;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages;
@@ -81,7 +82,10 @@ namespace Genrpg.LoginServer.Services.Clients
 
             if (!string.IsNullOrEmpty(gs.user.CurrCharId))
             {
-                gs.ch = await gs.repo.Load<Character>(gs.user.CurrCharId);
+                gs.coreCh = await gs.repo.Load<CoreCharacter>(gs.user.CurrCharId);
+                gs.ch = new Character();
+                CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
+
                 await gs.ch.GetAsync<GameDataOverrideData>(gs);
 
                 RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs, gs.ch, false);

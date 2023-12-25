@@ -28,19 +28,19 @@ namespace Assets.Scripts.MapTerrain
 
         public byte[] DataBytes;
 
-        public float[,] heights { get; set; } = new float[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
+        public float[,] heights { get; set; }
 
-        public float[,,] baseAlphas { get; set; } = new float[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize, MapConstants.MaxTerrainIndex];
+        public float[,,] baseAlphas { get; set; } 
 
-        public uint[,] mapObjects { get; set; } = new uint[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
+        public uint[,] mapObjects { get; set; }
 
-        public ushort[,,] grassAmounts { get; set; } = new ushort[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize, MapConstants.MaxGrass];
+        public ushort[,,] grassAmounts { get; set; }
 
-        public int[,] subZoneIds { get; set; } = new int[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
+        public byte[,] subZoneIds { get; set; } = new byte[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
 
-        public int[,] mainZoneIds { get; set; } = new int[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
+        public byte[,] mainZoneIds { get; set; } = new byte[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
 
-        public float[,] overrideZoneScales { get; set; } = new float[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
+        public byte[,] overrideZoneScales { get; set; } = new byte[MapConstants.TerrainPatchSize, MapConstants.TerrainPatchSize];
 
         public bool HaveSetAlphamaps = false;
 

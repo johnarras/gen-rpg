@@ -82,7 +82,7 @@ namespace Genrpg.Shared.MapObjects.Messages
                 FirstAttacker = unit.GetFirstAttacker();
                 Loot = unit.Loot;
                 SkillLoot = unit.SkillLoot;
-                TempFlags = unit.Flags;
+                TempFlags = unit.GetFlags();
                 Effects = unit.SpellEffects;
                 Level = unit.Level;
                 if (obj is Character ch)

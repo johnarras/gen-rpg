@@ -87,5 +87,10 @@
   "Overrides": [],
   "UnitSpawns": [],
   "PlantChoices": "",
-  "FenceChance": 0.1
+  "FenceChance": 0.1,
+  "WeatherTypeId": 1,
+  "MusicTypeId": 1,
+  "AmbientMusicTypeId": 1,
+  "UpdateTime": "2023-12-24T15:55:51.245Z",
+  "CreateTime": "2023-12-24T15:55:51.245Z"
 }

@@ -43,7 +43,7 @@ public class MapConstants : SharedMapConstants
     public const int RoadSmoothMinRadius = 3;
     public const int RoadSmoothMaxRadius = 5;
 
-    public const int MaxTerrainGridSize = 128;
+    public const int MaxTerrainGridSize = 84;
     public const int ZoneCenterSkipSize = (TerrainPatchSize - 1) * 2;
     public const float MountainZeroHeightChance = 0.07f;
     public const float MountainRandomHeightChance = 0.85f;

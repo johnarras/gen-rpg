@@ -6,8 +6,8 @@
   "Desc": "",
   "Icon": "",
   "GenChance": 1.0,
-  "GrassDensity": 0.2,
-  "GrassFreq": 1.6,
+  "GrassDensity": 1.0,
+  "GrassFreq": 1.0,
   "TreeDensity": 0.25,
   "TreeFreq": 1.6,
   "BushDensity": 0.5,
@@ -453,5 +453,7 @@
   "CreviceDepthScale": 1.5,
   "CreviceWidthScale": 1.5,
   "MusicTypeId": 6,
-  "AmbientMusicTypeId": 9
+  "AmbientMusicTypeId": 9,
+  "UpdateTime": "2023-12-24T15:55:51.279Z",
+  "CreateTime": "2023-12-24T15:55:51.279Z"
 }

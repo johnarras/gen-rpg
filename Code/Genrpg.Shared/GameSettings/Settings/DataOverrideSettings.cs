@@ -51,7 +51,7 @@ namespace Genrpg.Shared.GameSettings.Settings
                 // may update twice and players who update in between may download
                 // slightly different data, but it will settle once the time goes past
                 // the second update time.
-                DateTime updateTime = DateTime.UtcNow;
+                DateTime updateTime = DateTime.UtcNow;                
                 List<DateTime> updates = AllUpdateTimes;
 
                 if (updates.Any(x => x <= updateTime))

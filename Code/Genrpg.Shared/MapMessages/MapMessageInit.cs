@@ -26,6 +26,8 @@ namespace Genrpg.Shared.MapMessages
 
         const string IMapApiMessageType = "public interface IMapApiMessage";
 
+        const string IgnoreTypeMessage = "MessagePackIgnore";
+
         internal class MessageInitData
         {
             public List<string> MapMessageTypes = new List<string>();
@@ -158,8 +160,16 @@ namespace Genrpg.Shared.MapMessages
                     int startKeyIndex = 0;
 
                     int classIndex = 0;
+
+                    bool ignoreType = false;
                     for (int lid = 0; lid < lines.Count; lid++)
                     {
+                        if (lines[lid].Contains(IgnoreTypeMessage))
+                        {
+                            ignoreType = true;
+                            break;
+                        }
+
                         if (lines[lid].Contains("MessagePackKeyOffset"))
                         {
                             string[] lineWords = lines[lid].Split(' ');
@@ -177,6 +187,11 @@ namespace Genrpg.Shared.MapMessages
                             lines.RemoveAt(lid);
                             lid--;
                         }
+                    }
+
+                    if (ignoreType)
+                    {
+                        continue;
                     }
 
                     for (int lid = 0; lid < lines.Count; lid++)
@@ -219,7 +234,6 @@ namespace Genrpg.Shared.MapMessages
                                     break;
                                 }
                             }
-                            shouldAddClass = true;
                         }
 
                         int keyIndex = startKeyIndex;

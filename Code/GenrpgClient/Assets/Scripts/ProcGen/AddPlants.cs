@@ -24,9 +24,9 @@ public class BaseDetailPrototype
 
 public class AddPlants : BaseZoneGenerator
 {
-    public const float GrassBaseScale = 0.75f;
-    public const float GrassDensity = 1.4f;
-    public const float GrassRandomChance = 0.05f;
+    public const float GrassBaseScale = 1.0f;
+    public const float GrassDensity = 1.5f;
+    public const float GrassRandomChance = 0.10f;
 
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
@@ -44,10 +44,14 @@ public class AddPlants : BaseZoneGenerator
     public void UpdateValidPlantTypeList<DP>(UnityGameState gs, Zone zone, int gx, int gy, List<DP> fullList,
         bool isMainTerrain, CancellationToken token) where DP : BaseDetailPrototype, new()
     {
+        if (fullList.Count >= 2*MapConstants.MaxGrass)
+        {
+            return;
+        }
+
         ZoneType zoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId);
 
         List<ZonePlantType> plist = new List<ZonePlantType>(zone.PlantTypes);
-
 
         int maxQuantity = isMainTerrain ? MapConstants.MaxGrass : MapConstants.OverrideMaxGrass;
 
@@ -120,8 +124,6 @@ public class AddPlants : BaseZoneGenerator
             fullList.RemoveAt(fullList.Count - 1);
         }
 
-        bool hadTargetAlphaIndex = false;
-
         for (int index = 0; index < fullList.Count; index++)
         {
             FullDetailPrototype full = fullList[index];
@@ -187,26 +189,6 @@ public class AddPlants : BaseZoneGenerator
             int nearRoad = 0;
             int nearLocation = 0;
             int didSet = 0;
-
-            int targetAlphaIndex = -1;
-
-
-            if (!hadTargetAlphaIndex)
-            {
-                if (rand.NextDouble() < 0.1f)
-                {
-                    targetAlphaIndex = MapConstants.BaseTerrainIndex;
-                }
-                else if (rand.NextDouble() < 0.05f)
-                {
-                    targetAlphaIndex = MapConstants.DirtTerrainIndex;
-                }
-
-                if (targetAlphaIndex >= 0)
-                {
-                    hadTargetAlphaIndex = true;
-                }
-            }
 
             bool useUniformDensity = gs.rand.NextDouble() < 0.03f;
             for (int x = startx; x <= endx; x++)
@@ -314,12 +296,6 @@ public class AddPlants : BaseZoneGenerator
                         }
                     }
 
-
-                    if (targetAlphaIndex >= 0 && targetAlphaIndex < MapConstants.MaxTerrainIndex)                       
-                    {
-                        float currAlpha = gs.md.alphas[x, y, targetAlphaIndex];
-                        chance *= (currAlpha * 1.2f);
-                    }
 
                     short val = (short)(chance * MapConstants.MaxGrassValue);
 

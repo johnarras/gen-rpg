@@ -49,6 +49,7 @@ using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.Characters.Utils;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -66,7 +67,7 @@ namespace Genrpg.MapServer.Maps
         private IPathfindingService _pathfindingService = null;
         private IGameDataService _gameDataService = null;
         private IPlayerDataService _playerDataService = null;
-        private IMapSpawnService _mapSpawnService = null;
+        private IMapSpawnDataService _mapSpawnDataService = null;
         private IMapDataService _mapDataService = null;
         public const double UpdateMS = 100.0f;
 
@@ -139,7 +140,7 @@ namespace Genrpg.MapServer.Maps
 
             // Step 2: Load map before setting up messaging and object manager
             _gs.map = await _mapDataService.LoadMap(_gs, _mapId);
-            _gs.spawns = await _mapSpawnService.LoadMapSpawnData(_gs, Map.GetMapOwnerId(_gs.map));
+            _gs.spawns = await _mapSpawnDataService.LoadMapSpawnData(_gs, _gs.map.Id, _gs.map.MapVersion);
 
             // Step 3: Setup messaging and object systems
             _messageService.Init(_gs, _tokenSource.Token);
@@ -294,13 +295,16 @@ namespace Genrpg.MapServer.Maps
                 bool didLoad = false;
                 if (!_objectManager.GetObject(add.CharacterId, out MapObject mapObj))
                 {
-                    Character ch = await _gs.repo.Load<Character>(add.CharacterId);
+                    CoreCharacter coreCh = await _gs.repo.Load<CoreCharacter>(add.CharacterId);
 
-                    if (ch == null)
+                    if (coreCh == null)
                     {
                         connState.conn.AddMessage(new ErrorMessage("Character does not exist"));
                         return;
                     }
+                    Character ch = new Character();
+
+                    CharacterUtils.CopyDataFromTo(coreCh, ch);
                     ch.SetConn(connState.conn);
                     ch.NearbyGridsSeen = new List<PointXZ>();
                     MapObjectGridItem gridItem = _objectManager.AddObject(_gs, ch, null);

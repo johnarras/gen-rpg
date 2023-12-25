@@ -57,6 +57,20 @@ namespace Genrpg.Editor.Utils
             serverConfig.Env = env;
             EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(parent, CloudServerNames.Editor.ToString().ToLower(), 
                 new EditorSetupService(), EditorGameState.CTS.Token, serverConfig);
+
+            List<IGameSettings> allSettings = gs.data.GetAllData();
+
+            foreach (IGameSettings settings in allSettings)
+            {
+                if (settings is BaseGameSettings baseSettings)
+                {
+                    if (baseSettings.UpdateTime == DateTime.MinValue)
+                    {
+                        gs.LookedAtObjects.Add(baseSettings);
+                    }
+                }
+            }
+
             return gs;
         }
 

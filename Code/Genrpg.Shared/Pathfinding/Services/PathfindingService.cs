@@ -33,11 +33,11 @@ namespace Genrpg.Shared.Pathfinding.Services
 
                 string fullUrl = urlPrefix + filename;
 
-                byte[] bytes = await WebRequestUtils.DownloadBytes(fullUrl);
+                byte[] compressedBytes = await WebRequestUtils.DownloadBytes(fullUrl);
 
-                byte[] bytes2 = CompressionUtils.DecompressBytes(bytes);
+                byte[] decompressedBytes = CompressionUtils.DecompressBytes(compressedBytes);
 
-                gs.pathfinding = ConvertBytesToGrid(gs, bytes);
+                gs.pathfinding = ConvertBytesToGrid(gs, decompressedBytes);
             }
             catch (Exception e)
             {
@@ -65,7 +65,11 @@ namespace Genrpg.Shared.Pathfinding.Services
 
                     for (int b = 0; b < 8; b++)
                     {
-                        if ((currByte & 1 << 7 - b) != 0)
+                        if (x >= grid.GetLength(0) || y >= grid.GetLength(1))
+                        {
+                            break;
+                        }
+                        if ((currByte & 1 << (7 - b)) != 0)
                         {
                             grid[x, y] = true;
                         }
@@ -74,10 +78,6 @@ namespace Genrpg.Shared.Pathfinding.Services
                         {
                             x = 0;
                             y++;
-                        }
-                        if (x >= grid.GetLength(0) || y >= grid.GetLength(1))
-                        {
-                            break;
                         }
                     }
                 }
@@ -112,8 +112,8 @@ namespace Genrpg.Shared.Pathfinding.Services
                 for (int bit = 0; bit < 8; bit++)
                 {
                     if (grid[dx, dz])
-                    {
-                        newByte |= (byte)(1 << 7 - bit);
+                    {                       
+                        newByte |= (byte)(1 << (7 - bit));
                     }
                     dx++;
                     if (dx >= xsize)

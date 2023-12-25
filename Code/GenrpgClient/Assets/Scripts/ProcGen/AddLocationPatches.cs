@@ -75,11 +75,10 @@ public class AddLocationPatches : BaseZoneGenerator
                         }
                         if (!zone.Locations.Contains(loc))
                         {
-                            gs.logger.Debug("Add Center to zone: " + zone.IdKey + " at " + loc.CenterX + " " + loc.CenterZ);
                             zone.Locations.Add(loc);
                         }
                         loc.ZoneId = zone.IdKey;
-                        AddOneLocationPatch(gs, loc, MathUtils.FloatRange(0.7f,1.0f, smoothnessRand));
+                        AddOneLocationPatch(gs, loc, MathUtils.FloatRange(0.7f, 1.0f, smoothnessRand));
                     }
                 }
             }
@@ -138,6 +137,12 @@ public class AddLocationPatches : BaseZoneGenerator
         int fullXSize = xsize + extraXSize;
         int fullZSize = zsize + extraZSize;
 
+        if (loc.LocationTypeId == LocationTypes.Patch)
+        {
+            fullXSize = xsize;
+            fullZSize = zsize;
+        }
+
         // Get average height of location.
         for (int x = centerX-fullXSize; x <= centerX+fullXSize; x++)
         {
@@ -160,7 +165,7 @@ public class AddLocationPatches : BaseZoneGenerator
 
                 if (normDist <= 1)
                 {
-                    float hgt = gs.md.heights[x, z];
+                    float hgt = Mathf.Max(MapConstants.StartHeightPercent, gs.md.heights[x, z]);
                     totalHeight += hgt;
                     if (hgt > maxHeight)
                     {
@@ -177,6 +182,9 @@ public class AddLocationPatches : BaseZoneGenerator
             }
         }
 
+        fullXSize = xsize + extraXSize;
+        fullZSize = zsize + extraZSize;
+
         if (cellCount < 1)
         {
             return;
@@ -185,7 +193,7 @@ public class AddLocationPatches : BaseZoneGenerator
         float aveHeight = totalHeight / cellCount;
 
         // Slightly perturb the height of the location.
-        float dVert = (fullXSize+fullZSize) / 50.0f;
+        float dVert = 0;// (fullXSize+fullZSize) / 50.0f;
         aveHeight += (MathUtils.FloatRange(-dVert, dVert, rand))/MapConstants.MapHeight;
 
         float heightPerturb = (midSize / 2)/MapConstants.MapHeight;
@@ -219,7 +227,10 @@ public class AddLocationPatches : BaseZoneGenerator
 
                 outsideCenterDist = MathUtils.Clamp(minNormDist, outsideCenterDist, maxNormDist);
 
-                float changePct = MathF.Min(1, (maxNormDist - outsideCenterDist) / (maxNormDist - minNormDist));
+                // Starts at 1 near center, goes to 0 near edge.
+                float baseChangePct = MathF.Min(1, (maxNormDist - outsideCenterDist) / (maxNormDist - minNormDist));
+
+                float changePct = MathUtils.EaseInOut(baseChangePct);
 
                 float currFlattenFraction = flattenFraction;
 
@@ -261,12 +272,12 @@ public class AddLocationPatches : BaseZoneGenerator
 
         if (loc.LocationTypeId != LocationTypes.Patch)
         {
-            int placeCount = rand.Next(7, 10);
+            int placeCount = rand.Next(10, 15);
             List<LocationPlace> places = new List<LocationPlace>();
 
             int xSearchSize = xsize*4/5;
             int zSearchSize = zsize*4/5;
-            int minPatchSize = 12;
+            int minPatchSize = 6;
             for (int i = 0; i < placeCount*50; i++)
             {
                 int patchXSize = MathUtils.IntRange(minPatchSize, minPatchSize*3/2, rand);
@@ -335,8 +346,6 @@ public class AddLocationPatches : BaseZoneGenerator
 
                 float ratio = placedist / totalDist;
 
-
-
                 int roadx = (int)(place.CenterX + dcx * ratio);
                 int roadz = (int)(place.CenterZ + dcz * ratio);
 
@@ -364,13 +373,13 @@ public class AddLocationPatches : BaseZoneGenerator
 
             MyRandom connectRand = new MyRandom(gs.rand.Next());
 
-            List<ConnectedPairData> roadsToMake = _lineGenService.ConnectPoints(gs, connectPoints, connectRand, 0.0f);
+            List<ConnectedPairData> roadsToMake = _lineGenService.ConnectPoints(gs, connectPoints, connectRand, 0.1f);
 
             foreach (ConnectedPairData rd in roadsToMake)
             {
                 ConnectPointData center1 = rd.Point1;
                 ConnectPointData center2 = rd.Point2;
-                _addRoads.AddRoad(gs, (int)center1.X, (int)center1.Z, (int)center2.X, (int)center2.Z, connectRand.Next(), rand, true);
+                _addRoads.AddRoad(gs, (int)center1.X, (int)center1.Z, (int)center2.X, (int)center2.Z, connectRand.Next(), rand, false, 1, MapGenFlags.MinorRoad);
 
             }
 

@@ -74,7 +74,7 @@ namespace Genrpg.Shared.MapObjects.Factories
 
             if (spawn is OnSpawn onSpawn)
             {
-                unit.Flags = onSpawn.TempFlags;
+                unit.AddFlag(onSpawn.TempFlags);
             }
 
             SpellType spellType = gs.data.GetGameData<SpellTypeSettings>(unit).GetSpellType(1);

@@ -3,5 +3,7 @@
   "BuyFromVendorPriceMult": 2.5,
   "SellToVendorPriceMult": 0.25,
   "VendorRefreshMinutes": 15.0,
-  "Name": "VendorSettings"
+  "Name": "VendorSettings",
+  "UpdateTime": "2023-12-23T23:13:14.157Z",
+  "CreateTime": "2023-12-23T23:13:14.157Z"
 }
