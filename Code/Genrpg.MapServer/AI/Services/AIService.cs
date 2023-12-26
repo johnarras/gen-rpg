@@ -20,6 +20,8 @@ using Genrpg.MapServer.AI.Constants;
 using Genrpg.Shared.AI.Settings;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Spells.PlayerData.Spells;
+using Genrpg.Shared.Pathfinding.Services;
+using Genrpg.Shared.Pathfinding.Messages;
 
 namespace Genrpg.MapServer.AI.Services
 {
@@ -43,6 +45,7 @@ namespace Genrpg.MapServer.AI.Services
 
         private IMapMessageService _messageService = null;
         private IMapObjectManager _objectManager = null;
+        private IPathfindingService _pathfindingService = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
@@ -204,17 +207,9 @@ namespace Genrpg.MapServer.AI.Services
 
         public void LocationMove(GameState gs, Unit unit, float x, float z, float speedMult)
         {
-
-            float dx = x - unit.X;
-            float dz = z - unit.Z;
-
-
-            unit.ToX = x;
-            unit.ToZ = z;
             unit.Speed = unit.BaseSpeed * speedMult;
             unit.Moving = true;
-
-            UnitUtils.TurnTowardPosition(unit, x, z);
+            UpdatePath(gs, unit, x, z);
 
             _objectManager.UpdatePosition(gs, unit, 0);
 
@@ -247,13 +242,6 @@ namespace Genrpg.MapServer.AI.Services
             float dz = unit.Z - targetUnit.Z;
 
             float dist = (float)Math.Sqrt(dx * dx + dz * dz);
-
-            //if (dist > AIConstants.TargetStopShortDistance)
-            //{
-            //    float distScale = AIConstants.TargetStopShortDistance / dist;
-            //    targX = unit.X + (targetUnit.X - unit.X) * distScale;
-            //    targZ = unit.Z + (targetUnit.Z - unit.Z) * distScale;
-            //}
 
             LocationMove(gs, unit, targX, targZ, speedMult);
 
@@ -350,12 +338,15 @@ namespace Genrpg.MapServer.AI.Services
             {
                 if (_objectManager.GetUnit(unit.TargetId, out Unit target))
                 {
-                    unit.ToX = target.X;
-                    unit.ToZ = target.Z;
+                    if (Math.Abs(unit.FinalX-target.X) > 0.5f ||
+                        Math.Abs(unit.FinalZ-target.Z) > 0.5f)
+                    {
+                        UpdatePath(gs, unit, target.X, target.Z);
+                    }
                 }
 
-                float ddx = unit.ToX - unit.CombatStartX;
-                float ddz = unit.ToZ - unit.CombatStartZ;
+                float ddx = unit.FinalX - unit.CombatStartX;
+                float ddz = unit.FinalZ - unit.CombatStartZ;
 
                 double combatDist = Math.Sqrt(ddx * ddx + ddz * ddz);
 
@@ -367,8 +358,8 @@ namespace Genrpg.MapServer.AI.Services
                 }
             }
 
-            float dx = unit.X - unit.ToX;
-            float dz = unit.Z - unit.ToZ;
+            float dx = unit.X - unit.FinalX;
+            float dz = unit.Z - unit.FinalZ;
 
             float distToGo = (float)Math.Sqrt(dx * dx + dz * dz);
 
@@ -388,8 +379,8 @@ namespace Genrpg.MapServer.AI.Services
             float pctMove = distGone / distToGo;
             if (pctMove >= 1.0f || distToGo < AIConstants.CloseToTargetDistance)
             {
-                unit.X = unit.ToX;
-                unit.Z = unit.ToZ;
+                unit.X = unit.FinalX;
+                unit.Z = unit.FinalZ;
                 unit.Speed = 0;
                 unit.Moving = false;
                 if (unit.HasFlag(UnitFlags.Evading))
@@ -399,15 +390,69 @@ namespace Genrpg.MapServer.AI.Services
             }
             else
             {
-                float nx = unit.X + (unit.ToX - unit.X) * pctMove;
-                float nz = unit.Z + (unit.ToZ - unit.Z) * pctMove;
+
+                float nextXPos = unit.GetNextXPos();
+                float nextZPos = unit.GetNextZPos();
+
+
+                float oldX = unit.X;
+                float oldZ = unit.Z;
+
+                float nx = unit.X + (nextXPos - unit.X) * pctMove;
+                float nz = unit.Z + (nextZPos - unit.Z) * pctMove;
                 unit.X = nx;
                 unit.Z = nz;
+
+                float nextToFinalX = nextXPos - unit.FinalX;
+                float nextToFinalZ = nextZPos - unit.FinalZ;
+
+                float nextToFinalDist = MathF.Sqrt(nextToFinalX*nextToFinalX+nextToFinalZ*nextToFinalZ);
+
+                float currToFinalDistX = unit.X - unit.FinalX;
+                float currToFinalDistZ = unit.Z - unit.FinalZ;
+
+                float currToFinalDist = MathF.Sqrt(currToFinalDistX*currToFinalDistX+currToFinalDistZ*currToFinalDistZ);
+
+                if (currToFinalDist < nextToFinalDist+1)
+                {
+                    if (unit.Waypoints != null)
+                    {
+                        if (unit.Waypoints.Waypoints.Count > 0)
+                        {
+                            unit.Waypoints.Waypoints.RemoveAt(0);
+                        }
+
+                        if (unit.Waypoints.Waypoints.Count == 0)
+                        {
+                            unit.Waypoints = null;
+                        }
+                    }
+                }
             }
 
-            UnitUtils.TurnTowardPosition(unit, unit.ToX, unit.ToZ);
+            UnitUtils.TurnTowardNextPosition(unit);
 
             _objectManager.UpdatePosition(gs, unit, 0);
+
+        }
+
+        private void UpdatePath(GameState gs, Unit unit, float finalx, float finalz)
+        {
+
+            if (_pathfindingService.UpdatePath(gs, unit, (int)finalx, (int)finalz))
+            {
+                OnMoveToLocation moveLoc = new OnMoveToLocation();
+                moveLoc.FinalX = (short)finalx;
+                moveLoc.FinalZ = (short)finalz;
+                moveLoc.ObjId = unit.Id;
+                moveLoc.Speed = unit.Speed;
+                moveLoc.ObjX = (short)unit.X;
+                moveLoc.ObjZ = (short)unit.Z;
+
+                _messageService.SendMessageNear(unit, moveLoc, MessageConstants.DefaultGridDistance, true);
+            }
+
+            UnitUtils.TurnTowardNextPosition(unit);
 
         }
     }

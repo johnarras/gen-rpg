@@ -9,6 +9,7 @@ using System.Linq;
 using Genrpg.Shared.Networking.Interfaces;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
+using Genrpg.Shared.Pathfinding.Entities;
 
 namespace Genrpg.Shared.MapObjects.Entities
 {
@@ -36,10 +37,32 @@ namespace Genrpg.Shared.MapObjects.Entities
         
         public float ToRot { get; set; }
         
-        public float ToX { get; set; }
+        public float FinalX { get; set; }
         
-        public float ToZ { get; set; }
-        
+        public float FinalZ { get; set; }
+
+        public WaypointList Waypoints { get; set; }
+
+        public float GetNextXPos()
+        {
+            if (Waypoints != null && Waypoints.Waypoints.Count > 0)
+            {
+                return Waypoints.Waypoints[0].X;
+            }
+            return FinalX;
+        }
+
+        public float GetNextZPos()
+        {
+            if (Waypoints != null && Waypoints.Waypoints.Count > 0)
+            {
+                return Waypoints.Waypoints[0].Z;
+            }
+            return FinalZ;
+        }
+
+
+
         public bool Moving { get; set; }
 
         

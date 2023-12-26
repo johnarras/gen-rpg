@@ -526,7 +526,6 @@ public class MapGenService : IMapGenService
             gs.map.Zones.Add(zone);
             gs.md.mapZoneIds[finalCenter.CenterX, finalCenter.CenterZ] = (short)zone.IdKey;
             zone.Locations.Add(finalCenter);
-            gs.logger.Debug("Add Center to zone: " + zone.IdKey + " at " + finalCenter.CenterX + " " + finalCenter.CenterZ);
             gs.md.AddMapLocation(gs, finalCenter);
         }
 

@@ -25,7 +25,7 @@ namespace Genrpg.Shared.Spawns.WorldData
         [Key(7)] public string Name { get; set; }
         [Key(8)] public float X { get; set; }
         [Key(9)] public float Z { get; set; }
-        [Key(10)] public float Rot { get; set; }
+        [Key(10)] public short Rot { get; set; }
         [Key(11)] public long ZoneId { get; set; }
         [Key(12)] public int SpawnSeconds { get; set; }
         [Key(13)] public int OverrideZonePercent { get; set; }

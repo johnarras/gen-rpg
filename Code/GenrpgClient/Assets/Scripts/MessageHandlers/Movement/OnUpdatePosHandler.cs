@@ -29,8 +29,8 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
             {
                 if (!(obj is Character ch))
                 {
-                    obj.ToX = pos.GetX();
-                    obj.ToZ = pos.GetZ();
+                    obj.FinalX = pos.GetX();
+                    obj.FinalZ = pos.GetZ();
                     obj.Speed = pos.GetSpeed();
                     obj.Moving = true;
                     if (obj is Unit unit && unit.HasFlag(UnitFlags.ProxyCharacter))

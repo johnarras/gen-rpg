@@ -191,8 +191,17 @@ public class AddWater : BaseZoneGenerator
 
             for (int xx = cx - xSizeMaxHeight - extraEdge; xx <= cx + xSizeMaxHeight + extraEdge; xx++)
             {
+                if (xx < 0 || xx >= gs.map.GetHwid())
+                {
+                    continue;
+                }
                 for (int yy = cz - ySizeMaxHeight - extraEdge; yy <= cz + ySizeMaxHeight + extraEdge; yy++)
                 {
+                    if (yy < 0 || yy >= gs.map.GetHhgt())
+                    {
+                        continue;
+                    }
+
                     gs.md.flags[xx,yy] |=  MapGenFlags.NearWater;
                     if (gs.md.heights[xx,yy] < waterHeight)
                     {

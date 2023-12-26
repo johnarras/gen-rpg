@@ -15,7 +15,7 @@ namespace Genrpg.Shared.Spawns.Interfaces
         long EntityId { get; set; }
         float X { get; set; }
         float Z { get; set; }
-        float Rot { get; set; }
+        short Rot { get; set; }
         long ZoneId { get; set; }
         int SpawnSeconds { get; set; }
         long FactionTypeId { get; set; }

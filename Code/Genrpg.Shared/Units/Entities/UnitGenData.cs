@@ -16,7 +16,7 @@ namespace Genrpg.Shared.Units.Entities
         // Immediately create a unit and use it to store UnitTypeId, Id and Level.
         [Key(4)] public Unit Unit { get; set; }
         [Key(5)] public MyPointF Pos { get; set; }
-        [Key(6)] public float Rot { get; set; }
+        [Key(6)] public short Rot { get; set; }
         [Key(7)] public object Parent { get; set; }
         [Key(8)] public int StatPct { get; set; }
         [Key(9)] public bool AllowNoParent { get; set; }

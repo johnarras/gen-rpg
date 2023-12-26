@@ -415,7 +415,7 @@ public class LoadMap : BaseZoneGenerator
                     {
                         continue;
                     }
-                    if (gs.pathfinding[finalx,finalz])
+                    if (false && gs.pathfinding[finalx,finalz])
                     {
                         float height = gs.md.SampleHeight(gs, worldx, 2000, worldz);
                         GameObject sphere = Resources.Load<GameObject>("Prefabs/TestSphere");

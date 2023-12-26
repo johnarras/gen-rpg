@@ -6,10 +6,17 @@ using System.Threading;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.Shared.Input.PlayerData;
+using Genrpg.Shared.Pathfinding.Services;
+using Genrpg.Shared.Pathfinding.Entities;
+using Cysharp.Threading.Tasks.Triggers;
+using System.Text;
+using UnityEngine;
+using Cysharp.Threading.Tasks;
+using Genrpg.Shared.Pathfinding.Constants;
+using Assets.Scripts.Pathfinding.Utils;
 
 public class PlayerController : UnitController
 {
-
     public const float SlopeLimit = 60f;
     public const float StepOffset = 1.0f;
 
@@ -145,7 +152,7 @@ public class PlayerController : UnitController
     private List<Unit> _lastUnitsTabbed = new List<Unit>();
     public void TargetNext(UnityGameState gs)
     {
-        int dist = 20;
+        int dist = 30;
         int rad = dist + 10;
 
         if (_unit != null)
@@ -246,13 +253,22 @@ public class PlayerController : UnitController
         {
             _lastUnitsTabbed.Add(finalUnit);
             _unit.TargetId = finalUnit.Id;
+            //int sx = (int)(gameObject.transform.position.x);
+            //int sz = (int)(gameObject.transform.position.z);
+            //int ex = (int)(finalUnit.X);
+            //int ez = (int)(finalUnit.Z);
+            //WaypointList list = _pathfindingService.GetPath(_gs, sx, sz, ex, ez);
+
+            //ClientPathfindingUtils.ShowPath(_gs, list);
         }
         else
         {
             _unit.TargetId = null;
         }
+
         _networkService.SendMapMessage(new SetTarget() { TargetId = finalUnit.Id });
     }
+
 }
 
 

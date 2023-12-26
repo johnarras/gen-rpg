@@ -9,16 +9,32 @@ namespace Genrpg.Shared.Units.Entities
     [MessagePackObject]
     public class UnitUtils
     {
-        public static bool TurnTowardPosition(Unit unit, float targetx, float targetz, float maxRotation = 360)
+        public static bool TurnTowardNextPosition(Unit unit, float maxRotation=360)
         {
 
             float cx = unit.X;
             float cz = unit.Z;
 
+            float targetx = unit.FinalX;
+            float targetz = unit.FinalZ;
+
             float dx = targetx - cx;
             float dz = targetz - cz;
 
-            if (Math.Abs(dx) < 0.01f && Math.Abs(dz) < 0.01f)
+
+            double distToTarget = Math.Sqrt(dx * dx + dz * dz);
+
+            if (distToTarget >= 0.1f)
+            {
+                if (unit.Waypoints != null && unit.Waypoints.Waypoints.Count > 0)
+                {
+                    targetx = unit.Waypoints.Waypoints[0].X;
+                    targetz = unit.Waypoints.Waypoints[0].Z;
+                }
+            }
+
+
+            if (Math.Abs(dx) < 0.5f && Math.Abs(dz) < 0.5f)
             {
                 return true;
             }
@@ -146,28 +162,6 @@ namespace Genrpg.Shared.Units.Entities
                 return -100000;
             }
             return AngleToward(unit, target.X, target.Y, target.Z);
-        }
-
-        public static void SetTargetPos(Unit unit, Unit target, float gap)
-        {
-
-            float tdx = target.X - unit.X;
-            float tdz = target.Z - unit.Z;
-
-            float tdist = (float)Math.Sqrt(tdx * tdx + tdz * tdz);
-
-            if (tdist > gap)
-            {
-                float ndx = tdx / tdist;
-                float ndz = tdz / tdist;
-                unit.ToX = target.X - ndx * gap;
-                unit.ToZ = target.Z - ndz * gap;
-            }
-            else
-            {
-                unit.ToX = unit.X;
-                unit.ToZ = unit.Z;
-            }
         }
 
         public static bool AttackerInfoMatchesObject (AttackerInfo attackerInfo, MapObject obj)

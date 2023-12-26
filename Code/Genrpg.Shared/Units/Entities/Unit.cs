@@ -12,6 +12,7 @@ using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Casting;
+using Genrpg.Shared.Pathfinding.Entities;
 
 namespace Genrpg.Shared.Units.Entities
 {
@@ -25,7 +26,6 @@ namespace Genrpg.Shared.Units.Entities
         public float CombatStartX { get; set; }
         public float CombatStartZ { get; set; }
         public float CombatStartRot { get; set; }
-
 
         virtual public string GetGroupId() { return null; }
 

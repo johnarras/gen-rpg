@@ -272,11 +272,11 @@ namespace Genrpg.MapServer.Spells
             float duration1 = distance1 / SpellConstants.ProjectileSpeed;
 
             if (target.Moving &&
-                (target.ToX != target.X ||
-                target.Z != target.ToZ))
+                (target.FinalX != target.X ||
+                target.Z != target.FinalZ))
             {
-                float tdx = target.ToX - target.X;
-                float tdz = target.ToZ - target.Z;
+                float tdx = target.FinalX - target.X;
+                float tdz = target.FinalZ - target.Z;
 
                 float dist = (float)Math.Sqrt(tdx * tdx + tdz * tdz);
 

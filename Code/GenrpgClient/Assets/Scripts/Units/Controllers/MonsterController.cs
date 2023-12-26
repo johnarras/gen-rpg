@@ -5,6 +5,10 @@ using Genrpg.Shared.Units.Entities;
 using System.Threading;
 using UnityEngine; // Needed
 using Genrpg.Shared.AI.Settings;
+using Genrpg.Shared.Pathfinding.Entities;
+using System.Linq;
+using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 
 public class MonsterController : UnitController
 {
@@ -12,6 +16,7 @@ public class MonsterController : UnitController
     public float WalkAnimSpeed = 0;
     public float RunAnimSpeed = 0;
 
+    DateTime _lastPathUpdateTime = DateTime.UtcNow.AddDays(-1);
     protected override void OnDestroy()
     {
         _objectManager.RemoveObject(_unit.Id);
@@ -87,9 +92,16 @@ public class MonsterController : UnitController
 
         if (_unit.HasTarget() && !_unit.HasFlag(UnitFlags.IsDead))
         {
-            if (_objectManager.GetUnit(_unit.TargetId,out Unit targetUnit))
+            if (_objectManager.GetUnit(_unit.TargetId, out Unit targetUnit))
             {
-                UnitUtils.SetTargetPos(_unit, targetUnit,0);
+                _unit.FinalX = targetUnit.X;
+                _unit.FinalZ = targetUnit.Z;
+
+                if (_unit.Waypoints != null && _unit.Waypoints.Waypoints.Count > 0)
+                {
+                    _unit.Waypoints.Waypoints.Last().X = (int)(_unit.FinalX);
+                    _unit.Waypoints.Waypoints.Last().Z = (int)(_unit.FinalZ);
+                }
 
                 SetState(_gs, CombatState);
             }
@@ -99,26 +111,46 @@ public class MonsterController : UnitController
             SetState(_gs, IdleState);
         }
 
-        float dx = _unit.ToX - _unit.X;
-        float dz = _unit.ToZ - _unit.Z;
+        float nextX = _unit.GetNextXPos();
+        float nextZ = _unit.GetNextZPos();
+
+        if (false && _unit.TargetId == "1.1")
+        {
+            if (_objectManager.GetChar("1.1", out Character ch))
+            {
+                _gs.logger.Info("TrackPlayer: Next: " + nextX + " " + nextZ + " Final: " + _unit.FinalX + " " + _unit.FinalZ +
+                    " ActualPlayer: " + ch.X + " " + ch.Z);
+            }
+        }
+
+        if (_unit.HasTarget() && _unit.Waypoints != null && _unit.Waypoints.Waypoints.Count < 3 &&
+            _unit.Waypoints.Waypoints.Count > 0)
+        {
+            if (_objectManager.GetObject(_unit.TargetId, out MapObject mapObject))
+            {
+                nextX = mapObject.X;
+                nextZ = mapObject.Z;
+                _unit.Waypoints.Waypoints.Last().X = (int)nextX;
+                _unit.Waypoints.Waypoints.Last().Z = (int)nextZ;
+            }
+        }
+
+        float dx = nextX - _unit.X;
+        float dz = nextZ - _unit.Z;
         float dxsize = Math.Abs(dx);
         float dzsize = Math.Abs(dz);
 
-        if (_unit.HasTarget() && _unit.Id.IndexOf(".") < 0)
-        {
-            if (dxsize < 0.1 && dzsize < 0.1)
-            {
-                _unit.Moving = false;
-            }
-        }
-        else if (dxsize < 0.1f && dzsize < 0.1f)
-        {
-            _unit.Moving = false;
-        }
-
-        float rotSpeed = UnitConstants.RotSpeedPerFrame*10;
-        float oldRot = _unit.Rot;
-        UnitUtils.TurnTowardPosition(_unit, _unit.ToX, _unit.ToZ, rotSpeed);
+        //if (_unit.HasTarget() && _unit.Id.IndexOf(".") < 0)
+        //{
+        //    if (dxsize < 0.1 && dzsize < 0.1)
+        //    {
+        //        _unit.Moving = false;
+        //    }
+        //}
+        //else if (dxsize < 0.1f && dzsize < 0.1f)
+        //{
+        //    _unit.Moving = false;
+        //}
 
         if (_unit.Moving)
         {
@@ -132,11 +164,26 @@ public class MonsterController : UnitController
 
             if (dist <= distThisTick)
             {
-                _unit.X = _unit.ToX;
-                _unit.Z = _unit.ToZ;
-                if (!_unit.HasTarget())
+                if (_unit.Waypoints != null && _unit.Waypoints.Waypoints.Count > 0)
                 {
-                    _unit.Moving = false;
+                    _unit.Waypoints.Waypoints.RemoveAt(0);
+
+                     nextX = _unit.GetNextXPos();
+                     nextZ = _unit.GetNextZPos();
+
+                     dx = nextX - _unit.X;
+                     dz = nextZ - _unit.Z;
+                     dxsize = Math.Abs(dx);
+                     dzsize = Math.Abs(dz);
+                }
+                else
+                {
+                    _unit.X = _unit.FinalX;
+                    _unit.Z = _unit.FinalZ;
+                    if (!_unit.HasTarget())
+                    {
+                        _unit.Moving = false;
+                    }
                 }
             }
             else
@@ -147,6 +194,8 @@ public class MonsterController : UnitController
                 _unit.X += pct * dx;
                 _unit.Z += pct * dz;
             }
+
+            UnitUtils.TurnTowardNextPosition(_unit);
 
 
             float height = _gs.md.SampleHeight(_gs, _unit.X, 3000, _unit.Z);

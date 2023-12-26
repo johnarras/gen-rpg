@@ -334,11 +334,11 @@ MonoBehaviour:
   _splashImage: {fileID: 114416535}
   CurrMapId: 1
   ForceDownloadFromAssetBundles: 1
-  WorldSize: 8
-  ZoneSize: 1
+  WorldSize: 30
+  ZoneSize: 3.1
   ForceZoneTypeId: 0
-  MapGenSeed: 2345611
-  PlayerSpeedMult: 1
+  MapGenSeed: 8146293
+  PlayerSpeedMult: 2
   ZoneNoiseSize: 4096
   ZoneNoiseDenominator: 1000
   ZoneNoiseAmplitude: 3.9

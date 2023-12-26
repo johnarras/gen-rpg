@@ -30,7 +30,7 @@ namespace Genrpg.Shared.MapObjects.Messages
         [Key(7)] public int SpawnSeconds { get; set; }
         [Key(8)] public string Name { get; set; }
         [Key(9)] public float Y { get; set; }
-        [Key(10)] public float Rot { get; set; }
+        [Key(10)] public short Rot { get; set; }
         [Key(11)] public float Speed { get; set; }
         [Key(12)] public long FactionTypeId { get; set; }
         [Key(13)] public bool IsPlayer { get; set; }
@@ -69,7 +69,7 @@ namespace Genrpg.Shared.MapObjects.Messages
             X = obj.X;
             Y = obj.Y;
             Z = obj.Z;
-            Rot = obj.Rot;
+            Rot = (short)obj.Rot;
             Speed = obj.Speed;
             ZoneId = obj.ZoneId;
             AddonBits = obj.AddonBits;

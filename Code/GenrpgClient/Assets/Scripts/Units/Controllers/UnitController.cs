@@ -12,11 +12,13 @@ using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Combat.Messages;
 using UnityEngine; // Needed
 using Genrpg.Shared.Input.PlayerData;
+using Genrpg.Shared.Pathfinding.Services;
 
 public class UnitController : BaseBehaviour
 {
     protected IClientMapObjectManager _objectManager;
     protected IMapTerrainManager _terrainManager;
+    protected IPathfindingService _pathfindingService;
     public const int IdleState = 0;
     public const int CombatState = 1;
     public const int LeashState = 2;
@@ -313,8 +315,8 @@ public class UnitController : BaseBehaviour
 
         _died = true;
         _unit.TargetId = null;
-        _unit.ToX = _unit.X;
-        _unit.ToZ = _unit.Z;
+        _unit.FinalX = _unit.X;
+        _unit.FinalZ = _unit.Z;
         _unit.Moving = false;
 
         if (UnitUtils.AttackerInfoMatchesObject(died.FirstAttacker, _gs.ch))

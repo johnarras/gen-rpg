@@ -8,7 +8,7 @@ namespace Genrpg.Shared.Units.Entities
 
         public const int PlayerObjectVisRadius = 2;
 
-        public const float CombatSpeedMult = 1.5f;
+        public const float CombatSpeedMult = 1.2f;
 
         public const float EvadeSpeedMult = 2.0f;
 

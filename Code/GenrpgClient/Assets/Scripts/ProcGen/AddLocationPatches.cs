@@ -78,7 +78,7 @@ public class AddLocationPatches : BaseZoneGenerator
                             zone.Locations.Add(loc);
                         }
                         loc.ZoneId = zone.IdKey;
-                        AddOneLocationPatch(gs, loc, MathUtils.FloatRange(0.7f, 1.0f, smoothnessRand));
+                        AddOneLocationPatch(gs, loc, MathUtils.FloatRange(0.9f, 1.0f, smoothnessRand));
                     }
                 }
             }

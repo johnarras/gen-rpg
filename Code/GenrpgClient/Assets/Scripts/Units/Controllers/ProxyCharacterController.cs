@@ -35,8 +35,8 @@ public class ProxyCharacterController : UnitController
         }
 
         GVector3 startPos = GVector3.Create(entity.transform().position);
-        float ddx = _unit.ToX - startPos.x;
-        float ddz = _unit.ToZ - startPos.z;
+        float ddx = _unit.FinalX - startPos.x;
+        float ddz = _unit.FinalZ - startPos.z;
         float totalDist = (float)Math.Sqrt(ddx * ddx + ddz * ddz);
 
         float minDistToMove = 0.5f;
@@ -47,14 +47,14 @@ public class ProxyCharacterController : UnitController
            entity.transform().localEulerAngles = GVector3.Create(0, _unit.Rot, 0);
             if (_lastMoveKey == KeyComm.Forward)
             {
-                UnitUtils.TurnTowardPosition(_unit, _unit.ToX, _unit.ToZ, 10);
+                UnitUtils.TurnTowardNextPosition(_unit, 10);
                entity.transform().localEulerAngles = GVector3.Create(0, _unit.Rot, 0);
                 dx = -moveSpeed;
                 didErrorCorrectionMove = true;
             }
             else if (_lastMoveKey == KeyComm.Backward)
             {
-                UnitUtils.TurnTowardPosition(_unit, startPos.x - ddx, startPos.z - ddz, 10);
+                UnitUtils.TurnTowardNextPosition(_unit, 10);
                entity.transform().localEulerAngles = GVector3.Create(0, _unit.Rot, 0);
                 didErrorCorrectionMove = true;
             }
@@ -83,8 +83,8 @@ public class ProxyCharacterController : UnitController
 
             GVector3 endPos = new GVector3 (mx, my, mz);
 
-            float edx = endPos.x - _unit.ToX;
-            float edz = endPos.z - _unit.ToZ;
+            float edx = endPos.x - _unit.FinalX;
+            float edz = endPos.z - _unit.FinalZ;
 
             float endDist = (float)Math.Sqrt(edx * edx + edz * edz);
             if (endDist >= totalDist && didErrorCorrectionMove)
