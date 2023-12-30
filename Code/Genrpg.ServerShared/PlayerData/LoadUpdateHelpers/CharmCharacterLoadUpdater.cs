@@ -27,6 +27,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
             }
 
             _statService.CalcStats(gs, ch, false);
+            await Task.CompletedTask;
         }
     }
 }

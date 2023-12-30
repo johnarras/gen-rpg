@@ -493,9 +493,6 @@ namespace GameEditor
 
                 if (eb != null)
                 {
-
-                    eb.Name = mem.Name + "Edit";
-
                     TextBox tbox = eb as TextBox;
 
                     if (tbox != null && mem.Name.IndexOf("Description") >= 0)
@@ -528,7 +525,7 @@ namespace GameEditor
                         {
                             cbox.Checked = false;
                         }
-                    }
+                    }                   
                 }
 
                 numEditorsShown++;
@@ -897,7 +894,7 @@ namespace GameEditor
                 return;
             }
 
-            string propname = cb.Name.Replace("Edit", "");
+            string propName = cb.Name.Replace("Edit", "");
 
             NameValue selItem = cb.SelectedItem as NameValue;
             if (selItem == null)
@@ -905,8 +902,29 @@ namespace GameEditor
                 return;
             }
 
-            _reflectionService.SetObjectValue(Obj, propname, selItem.IdKey);
+            _reflectionService.SetObjectValue(Obj, propName, selItem.IdKey);
 
+            if (propName.IndexOf("EntityTypeId") >= 0)
+            {
+                string entityPropName = propName.Replace("EntityTypeId", "EntityId");
+
+                string entityControlName = entityPropName + "Edit";
+
+                Control currentControl = _singleGrid.Controls.Find(entityControlName, true).FirstOrDefault();
+
+                MemberInfo mem = Obj.GetType().GetMember(entityPropName).FirstOrDefault();
+
+                if (currentControl != null && mem != null)
+                {
+
+                    Console.WriteLine("EntityTypeId Changed");
+                    _singleGrid.Controls.Remove(currentControl);
+
+                    Control newControl = AddSingleControl(mem, _singleGrid.Controls, currentControl.Size.Width, currentControl.Size.Height,
+                        currentControl.Location.X, currentControl.Location.Y);
+
+                }
+            }
         }
 
         private ComboBox AddDropdownComboBox(Object dropdownList, MemberInfo mem, ControlCollection coll, int xsize, int ysize, int xpos, int ypos)
@@ -920,6 +938,7 @@ namespace GameEditor
             comboBox.DataSource = dropdownList;
             comboBox.ValueMember = GameDataConstants.IdKey;
             comboBox.DisplayMember = "Name";
+            comboBox.Name = mem.Name + "Edit";
 
             object val = _reflectionService.GetObjectValue(Obj, mem);
 
@@ -1299,6 +1318,7 @@ namespace GameEditor
 
             object oneNewItem = null;
 
+            bool addedGameSettings = false;
             if (obj2 != null)
             {
                 foreach (object newItem in newItems)
@@ -1308,14 +1328,13 @@ namespace GameEditor
                     {                        
                         _gs.data.Set(settings);
                         _gs.LookedAtObjects.AddRange(settings.GetChildren());
+                        addedGameSettings = true;
                         oneNewItem = newItem;
                     }
                 }
                 SetMultiGridDataSource(obj2);
                 Obj = obj2;
             }
-
-            
 
             if (oneNewItem is ChildSettings childSettings)
             {
@@ -1329,6 +1348,10 @@ namespace GameEditor
                 }
             }
 
+            if (addedGameSettings)
+            {
+                _gs.data.ClearIndex();
+            }
 
             SetSelectedRow(_multiGrid, oldSelectedRow);
         }
@@ -1353,21 +1376,28 @@ namespace GameEditor
             if (item is BaseWorldData worldData)
             {
                 worldData.Delete(_gs.repo);
+                _gs.LookedAtObjects.Remove(worldData);
             }
 
             if (item is IGameSettings settings)
             {
                 await _gs.repo.Delete(settings);
+                _gs.LookedAtObjects.Remove(settings);
                 List<IGameSettings> children = settings.GetChildren();
                 foreach (IGameSettings child in children)
                 {
                     await _gs.repo.Delete(child);
+                    _gs.LookedAtObjects.Remove(child);
                 }
+
+                _gs.data.ClearIndex();
+
             }
 
             if (item is IUnitData unitData)
             {
                 unitData.Delete(_gs.repo);
+                _gs.LookedAtObjects.Remove(unitData);
             }
 
             if (obj2 != null)

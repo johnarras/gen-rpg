@@ -17,7 +17,7 @@ namespace Genrpg.Shared.ProcGen.Settings.Locations
         /// <summary>
         /// Location id in the zone
         /// </summary>
-        [Key(0)] public long Id { get; set; }
+        [Key(0)] public string Id { get; set; }
 
         [Key(1)] public long ZoneId { get; set; }
         /// <summary>

@@ -1,0 +1,24 @@
+{
+  "Id": "storeoffer3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Bundle Store",
+  "StoreSlotId": 3,
+  "StoreThemeId": 3,
+  "Products": [
+    {
+      "StoreProductId": 7,
+      "ProductSkuId": 7
+    },
+    {
+      "StoreProductId": 8,
+      "ProductSkuId": 14
+    },
+    {
+      "StoreProductId": 9,
+      "ProductSkuId": 24
+    }
+  ],
+  "UpdateTime": "2023-12-29T23:45:10.06Z",
+  "CreateTime": "2023-12-29T23:44:29.349Z"
+}

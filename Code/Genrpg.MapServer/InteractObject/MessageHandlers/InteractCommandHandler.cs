@@ -11,9 +11,9 @@ using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Interactions.Messages;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Crafting.Constants;
-using Genrpg.Shared.ProcGen.Settings.GroundObjects;
 using Genrpg.Shared.Crafting.PlayerData.Crafting;
 using Genrpg.Shared.Crafting.Settings.Crafters;
+using Genrpg.Shared.GroundObjects.Settings;
 
 namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {

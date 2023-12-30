@@ -3,8 +3,8 @@
   "IdKey": 28,
   "Name": "KeyCommSetting",
   "ParentId": "default",
-  "KeyPress": "h",
-  "KeyCommand": "CharmScreen",
-  "UpdateTime": "2023-12-24T17:22:43.856Z",
-  "CreateTime": "2023-11-24T22:45:42Z"
+  "KeyPress": "k",
+  "KeyCommand": "QuestScreen",
+  "UpdateTime": "2023-12-29T16:39:20.027Z",
+  "CreateTime": "2023-11-24T16:45:42.591Z"
 }

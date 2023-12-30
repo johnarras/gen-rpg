@@ -29,6 +29,14 @@ namespace Genrpg.Shared.GameSettings
         {
         }
 
+        public void ClearIndex()
+        {
+            foreach (IGameSettings settings in _allData)
+            {
+                settings.ClearIndex();
+            }
+        }
+
         public void SetupDataDict(bool force)
         {
             if (_dataDict == null || force)

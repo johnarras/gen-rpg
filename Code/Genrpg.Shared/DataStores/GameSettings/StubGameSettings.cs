@@ -16,6 +16,7 @@ namespace Genrpg.Shared.DataStores.GameSettings
 
         public virtual void SetInternalIds() { }
         public virtual void AddTo(GameData gameData) { gameData.Set(this); }
+        public void ClearIndex() { }
 
         public virtual async Task SaveAll(IRepositorySystem repo)
         {

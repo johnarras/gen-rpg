@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.Purchasing.PlayerData;
 
 namespace Genrpg.Shared.Login.Messages.RefreshGameSettings
 {

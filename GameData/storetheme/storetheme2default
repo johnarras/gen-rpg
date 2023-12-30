@@ -1,0 +1,9 @@
+{
+  "Id": "storetheme2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Gem Store",
+  "Art": "Gems",
+  "UpdateTime": "2023-12-29T16:11:48.651Z",
+  "CreateTime": "2023-12-28T01:53:01.011Z"
+}

@@ -29,7 +29,6 @@ namespace Genrpg.MapServer.Services.Maps
         private List<MapInstance> _instances = new List<MapInstance>();
 
         private string _mapServerId;
-        private int _nextInstanceId = 0;
         private int _mapServerIndex = -1;
         private int _mapServerCount = -1;
         private string _serverId = null;

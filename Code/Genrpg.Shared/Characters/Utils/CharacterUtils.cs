@@ -15,7 +15,6 @@ namespace Genrpg.Shared.Characters.Utils
             to.UserId = from.UserId;
             to.CreationDate = from.CreationDate;
             to.Level = from.Level;
-            to.PrevZoneId = from.PrevZoneId;
             to.ZoneId = from.ZoneId;
             to.EntityId = from.EntityId;
             to.EntityTypeId = from.EntityTypeId;

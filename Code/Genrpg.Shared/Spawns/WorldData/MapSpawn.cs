@@ -27,12 +27,14 @@ namespace Genrpg.Shared.Spawns.WorldData
         [Key(9)] public float Z { get; set; }
         [Key(10)] public short Rot { get; set; }
         [Key(11)] public long ZoneId { get; set; }
-        [Key(12)] public int SpawnSeconds { get; set; }
-        [Key(13)] public int OverrideZonePercent { get; set; }
-        [Key(14)] public long FactionTypeId { get; set; }
-        [Key(15)] public string AddonString { get; set; } // TODO: better system than this hack
+        [Key(12)] public string LocationId { get; set; }
+        [Key(13)] public string LocationPlaceId { get; set; }
+        [Key(14)] public int SpawnSeconds { get; set; }
+        [Key(15)] public int OverrideZonePercent { get; set; }
+        [Key(16)] public long FactionTypeId { get; set; }
+        [Key(17)] public string AddonString { get; set; } // TODO: better system than this hack
         [JsonProperty(TypeNameHandling = TypeNameHandling.Auto)]
-        [Key(16)] public List<IMapObjectAddon> Addons { get; set; } = new List<IMapObjectAddon>();
+        [Key(18)] public List<IMapObjectAddon> Addons { get; set; } = new List<IMapObjectAddon>();
         public List<IMapObjectAddon> GetAddons()
         {
             if (Addons == null)

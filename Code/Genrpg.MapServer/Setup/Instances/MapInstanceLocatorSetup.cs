@@ -22,8 +22,8 @@ using Genrpg.MapServer.Spells;
 using Genrpg.MapServer.Levelup;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.MapServer.MapMessaging;
-using Genrpg.Shared.UserCoins.Services;
 using Genrpg.MapServer.UserCoins;
+using Genrpg.Shared.UserCoins.Services;
 
 namespace Genrpg.MapServer.Setup
 {

@@ -10,6 +10,7 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Purchasing.PlayerData;
 
 namespace Genrpg.Shared.Login.Messages.LoadIntoMap
 {
@@ -31,6 +32,8 @@ namespace Genrpg.Shared.Login.Messages.LoadIntoMap
         [Key(8)] public GameDataOverrideList OverrideList { get; set; }
 
         [Key(9)] public string WorldDataEnv { get; set; }
+
+        [Key(10)] public PlayerStoreOfferData Stores { get; set; }
 
         public LoadIntoMapResult()
         {

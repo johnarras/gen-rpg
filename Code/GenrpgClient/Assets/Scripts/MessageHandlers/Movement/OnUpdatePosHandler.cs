@@ -1,6 +1,7 @@
 ﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Movement.Messages;
+using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Threading;
@@ -9,7 +10,10 @@ using GEntity = UnityEngine.GameObject;
 namespace Assets.Scripts.ResultHandlers.TypedHandlers
 {
     public class OnUpdatePosHandler : BaseClientMapMessageHandler<OnUpdatePos>
-    { 
+    {
+
+        private IPathfindingService _pathfindingService;
+
         protected override void InnerProcess(UnityGameState gs, OnUpdatePos pos, CancellationToken token)
         {
             if (pos.ObjId == PlayerObject.GetUnit()?.Id)
@@ -29,10 +33,23 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
             {
                 if (!(obj is Character ch))
                 {
+                    float oldFX = obj.FinalX;
+                    float oldFZ = obj.FinalZ;
+                    string oldTarget = obj.TargetId;
+                    float oldSpeed = obj.Speed;
+
                     obj.FinalX = pos.GetX();
                     obj.FinalZ = pos.GetZ();
                     obj.Speed = pos.GetSpeed();
                     obj.Moving = true;
+                    obj.TargetId = pos.TargetId;
+                    
+                    if (oldFX != obj.FinalX || oldFZ != obj.FinalZ || oldSpeed != obj.Speed ||
+                        oldTarget != obj.TargetId)
+                    {
+                        _pathfindingService.UpdatePath(gs, obj, (int)obj.FinalX, (int)obj.FinalZ);
+                    }
+
                     if (obj is Unit unit && unit.HasFlag(UnitFlags.ProxyCharacter))
                     {
                         if (_objectManager.GetController(pos.ObjId, out UnitController unitController))

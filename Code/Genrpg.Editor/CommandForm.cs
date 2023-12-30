@@ -19,6 +19,7 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
+using Genrpg.Shared.Purchasing.Settings;
 
 namespace GameEditor
 {
@@ -254,8 +255,6 @@ namespace GameEditor
             {
                 GameData = _gs.data,
             };
-
-            
 
             List<IGameSettings> allGameData = _gs.data.GetAllData();
 

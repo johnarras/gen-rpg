@@ -1,0 +1,32 @@
+{
+  "Id": "storeoffer2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Gold Store",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "OfferId": "",
+  "StoreSlotId": 2,
+  "StoreFeatureId": 1,
+  "StoreThemeId": 1,
+  "Products": [
+    {
+      "Index": 1,
+      "StoreProductId": 4,
+      "ProductSkuId": 4
+    },
+    {
+      "Index": 2,
+      "StoreProductId": 5,
+      "ProductSkuId": 11
+    },
+    {
+      "Index": 3,
+      "StoreProductId": 6,
+      "ProductSkuId": 22
+    }
+  ],
+  "UpdateTime": "2023-12-29T20:12:31.554Z",
+  "CreateTime": "2023-12-28T02:16:10.843Z"
+}

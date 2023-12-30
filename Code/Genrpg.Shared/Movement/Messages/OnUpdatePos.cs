@@ -19,7 +19,8 @@ namespace Genrpg.Shared.Movement.Messages
         const int Max = 6;
 
         [Key(0)] public string ObjId { get; set; }
-        [Key(1)] public ushort[] Dat { get; set; }
+        [Key(1)] public string TargetId { get; set; }
+        [Key(2)] public ushort[] Dat { get; set; }
 
         public OnUpdatePos()
         {

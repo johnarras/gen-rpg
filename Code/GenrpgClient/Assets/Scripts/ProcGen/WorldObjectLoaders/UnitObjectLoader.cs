@@ -13,10 +13,6 @@ using UnityEngine;
 
 public class UnitObjectLoader : BaseMapObjectLoader
 {
-    public UnitObjectLoader(UnityGameState gs) : base(gs)
-    {
-
-    }
     public override long GetKey() { return EntityTypes.Unit; }
     protected override string GetLayerName() { return LayerNames.UnitLayer; }
 

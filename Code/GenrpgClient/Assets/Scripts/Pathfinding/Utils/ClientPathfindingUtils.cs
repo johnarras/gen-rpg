@@ -17,11 +17,12 @@ namespace Assets.Scripts.Pathfinding.Utils
             StringBuilder sb = new StringBuilder();
             if (true || list.Waypoints.Count > 2)
             {
+                List<Waypoint> dupeList = new List<Waypoint>(list.Waypoints);
                 List<GameObject> pathObjects = new List<GameObject>();
 
                 GameObject basePathSphere = Resources.Load<GameObject>("Prefabs/PathSphere");
 
-                foreach (Waypoint wp in list.Waypoints)
+                foreach (Waypoint wp in dupeList)
                 {
                     GameObject sph = GameObject.Instantiate<GameObject>(basePathSphere);
                     float height = _gs.md.SampleHeight(_gs, wp.X, 2000, wp.Z);

@@ -11,11 +11,6 @@ using Assets.Scripts.Buildings;
 
 public class BuildingObjectLoader : BaseMapObjectLoader
 {
-    public BuildingObjectLoader(UnityGameState gs) : base(gs)
-    {
-
-    }
-
     public override long GetKey() { return EntityTypes.Building; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 

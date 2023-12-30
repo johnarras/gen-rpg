@@ -2,7 +2,9 @@
   "Id": "usercointype1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "Doubloon",
-  "PluralName": "Doubloons",
-  "Icon": "IconSilver"
+  "Name": "Gem",
+  "PluralName": "Gems",
+  "Icon": "IconGems",
+  "UpdateTime": "2023-12-29T15:22:06.527Z",
+  "CreateTime": "2023-12-29T15:22:06.527Z"
 }

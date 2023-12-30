@@ -36,8 +36,6 @@ namespace Genrpg.MapServer.Combat.MessageHandlers
             {
                 _aiService.TargetMove(gs, possibleFriend, message.TargetId);
             }
-
-
         }
     }
 }

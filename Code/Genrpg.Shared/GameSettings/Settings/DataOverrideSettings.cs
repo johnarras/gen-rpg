@@ -13,66 +13,9 @@ using Newtonsoft.Json;
 namespace Genrpg.Shared.GameSettings.Settings
 {
     [MessagePackObject]
-    public class DataOverrideSettings : ParentSettings<DataOverrideGroup>
+    public class DataOverrideSettings : BaseDataOverrideSettings<DataOverrideGroup>
     {
-        [Key(0)] public override string Id { get; set; }
-
-
-        // Temp internal data to make updating configs cheaper.
-        [JsonIgnore][IgnoreMember] public DateTime PrevUpdateTime { get; set; } = DateTime.MinValue;
-        [JsonIgnore][IgnoreMember] public DateTime NextUpdateTime { get; set; } = DateTime.MaxValue;
-        [JsonIgnore][IgnoreMember] public List<DateTime> AllUpdateTimes { get; set; } = new List<DateTime>();
-
-        public override void SetData(List<DataOverrideGroup> data)
-        {
-            data = data.OrderBy(x => x.IdKey).ToList();
-
-            foreach (DataOverrideGroup group in data)
-            {
-                group.Items = group.Items.OrderBy(x => x.SettingId).ThenBy(x => x.DocId).ToList();
-            }
-
-            AllUpdateTimes = data.Select(x => x.StartDate).Union(data.Select(x => x.EndDate)).Distinct().OrderBy(x => x).ToList();
-
-            SetPrevNextUpdateTimes();
-
-            base.SetData(data);
-        }
-
-
-        private object _updateTimeLock = new object();
-        public void SetPrevNextUpdateTimes()
-        {
-            lock (_updateTimeLock)
-            {
-                // We are using DateTime.UtcNow to set these times, but even though all
-                // servers will have slightly different updateTimes they check, if there's
-                // two changes close together, a few servers may update once, and some
-                // may update twice and players who update in between may download
-                // slightly different data, but it will settle once the time goes past
-                // the second update time.
-                DateTime updateTime = DateTime.UtcNow;                
-                List<DateTime> updates = AllUpdateTimes;
-
-                if (updates.Any(x => x <= updateTime))
-                {
-                    PrevUpdateTime = updates.Last(x => x <= updateTime);
-                }
-                else
-                {
-                    PrevUpdateTime = DateTime.MinValue;
-                }
-
-                if (updates.Any(x => x > updateTime))
-                {
-                    NextUpdateTime = updates.First(x => x > updateTime);
-                }
-                else
-                {
-                    NextUpdateTime = DateTime.MaxValue;
-                }
-            }
-        }
+        [Key(0)] public override string Id { get; set; } 
     }
 
     [MessagePackObject]
@@ -100,6 +43,11 @@ namespace Genrpg.Shared.GameSettings.Settings
         [Key(15)] public DateTime EndDate { get; set; }
 
         [Key(16)] public List<DataOverrideItem> Items { get; set; }
+
+        public void OrderSelf()
+        {
+            Items = Items.OrderBy(x => x.SettingId).ThenBy(x => x.DocId).ToList();
+        }
 
     }
 

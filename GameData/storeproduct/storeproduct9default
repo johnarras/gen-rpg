@@ -1,0 +1,24 @@
+{
+  "Id": "storeproduct9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Large Bundle",
+  "Rewards": [
+    {
+      "EntityTypeId": 1,
+      "EntityId": 2,
+      "MinQuantity": 5000,
+      "MaxQuantity": 5000,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 200,
+      "EntityId": 1,
+      "MinQuantity": 500,
+      "MaxQuantity": 500,
+      "Weight": 100.0
+    }
+  ],
+  "UpdateTime": "2023-12-29T23:44:29.321Z",
+  "CreateTime": "2023-12-29T23:43:49.757Z"
+}

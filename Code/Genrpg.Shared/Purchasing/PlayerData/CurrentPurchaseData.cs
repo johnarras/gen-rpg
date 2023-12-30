@@ -21,8 +21,8 @@ namespace Genrpg.Shared.Purchasing.PlayerData
 
         [Key(0)] public override string Id { get; set; }
 
-        [Key(1)] public StoreOfferType CurrentOffer { get; set; }
+        [Key(1)] public PlayerStoreOffer CurrentOffer { get; set; }
 
-        [Key(2)] public OfferProduct CurrentProduct { get; set; }
+        [Key(2)] public PlayerOfferProduct CurrentProduct { get; set; }
     }
 }

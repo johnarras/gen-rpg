@@ -27,7 +27,9 @@ namespace Genrpg.Shared.MapObjects.Entities
         public float Speed { get; set; }
         
         public long ZoneId { get; set; }
-        
+        public string LocationId { get; set; }
+        public string LocationPlaceId { get; set; }
+
         public long PrevZoneId { get; set; }
         public long Level { get; set; }
         public long FactionTypeId { get; set; }
@@ -162,7 +164,7 @@ namespace Genrpg.Shared.MapObjects.Entities
             return new MyPointF(X, Y, Z);
         }
 
-        public void CopyDataFromMapSpawn(IMapSpawn spawn)
+        public void CopyDataToMapObjectFromMapSpawn(IMapSpawn spawn)
         {
             Id = spawn.ObjId;
             X = spawn.X;
@@ -171,6 +173,8 @@ namespace Genrpg.Shared.MapObjects.Entities
             EntityTypeId = spawn.EntityTypeId;
             EntityId = spawn.EntityId;
             ZoneId = spawn.ZoneId;
+            LocationId = spawn.LocationId;
+            LocationPlaceId = spawn.LocationPlaceId;
             Speed = 0;
             Moving = false;
             FactionTypeId = spawn.FactionTypeId;

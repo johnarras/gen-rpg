@@ -26,9 +26,8 @@ namespace Genrpg.Shared.Characters.PlayerData
         [Key(11)] public float Rot { get; set; }
         [Key(12)] public float Speed { get; set; }
         [Key(13)] public long ZoneId { get; set; }
-        [Key(14)] public long PrevZoneId { get; set; }
-        [Key(15)] public long Level { get; set; }
-        [Key(16)] public long FactionTypeId { get; set; }
-        [Key(17)] public long AddonBits { get; set; }
+        [Key(14)] public long Level { get; set; }
+        [Key(15)] public long FactionTypeId { get; set; }
+        [Key(16)] public long AddonBits { get; set; }
     }
 }

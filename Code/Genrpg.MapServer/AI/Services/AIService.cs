@@ -21,17 +21,13 @@ using Genrpg.Shared.AI.Settings;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Pathfinding.Services;
-using Genrpg.Shared.Pathfinding.Messages;
 
 namespace Genrpg.MapServer.AI.Services
 {
     public interface IAIService : ISetupService
     {
         bool Update(GameState gs, Unit unit);
-        void ScanForTargets(GameState gs, Unit unit);
-        void LocationMove(GameState gs, Unit unit, float x, float z, float speedMult);
         void TargetMove(GameState gs, Unit unit, string targetUnitId);
-        void StartCombat(GameState gs, Unit attacker, Unit victim);
         void EndCombat(GameState gs, Unit unit, string killedUnitId, bool clearAllAttackers);
         void BringFriends(GameState gs, Unit unit, string targetId);
 #if DEBUG
@@ -70,11 +66,18 @@ namespace Genrpg.MapServer.AI.Services
         {
             if (unit.HasFlag(UnitFlags.IsDead))
             {
-                    return false;
+                return false;
             }
 #if DEBUG
             _updateTimes++;
 #endif
+            float ux = unit.X;
+            float uz = unit.Z;
+            float fx = unit.FinalX;
+            float fz = unit.FinalZ;
+            float spd = unit.Speed;
+            float rot = unit.Rot;
+
             if (!unit.HasFlag(UnitFlags.Evading))
             {
                 if (!unit.HasTarget())
@@ -108,6 +111,8 @@ namespace Genrpg.MapServer.AI.Services
             {
                 KeepMoving(gs, unit);
             }
+
+            UpdateAfterAIStep(gs, unit);
             return true;
         }
 
@@ -167,7 +172,7 @@ namespace Genrpg.MapServer.AI.Services
             KeepMoving(gs, unit);
         }
 
-        public void ScanForTargets(GameState gs, Unit unit)
+        protected void ScanForTargets(GameState gs, Unit unit)
         {
             if (unit.HasFlag(UnitFlags.Evading))
             {
@@ -209,10 +214,10 @@ namespace Genrpg.MapServer.AI.Services
         {
             unit.Speed = unit.BaseSpeed * speedMult;
             unit.Moving = true;
-            UpdatePath(gs, unit, x, z);
+            unit.FinalX = x;
+            unit.FinalZ = z;
 
-            _objectManager.UpdatePosition(gs, unit, 0);
-
+            //UpdateAfterAIStep(gs, unit);
         }
 
         public void TargetMove(GameState gs, Unit unit, string targetUnitId)
@@ -338,11 +343,8 @@ namespace Genrpg.MapServer.AI.Services
             {
                 if (_objectManager.GetUnit(unit.TargetId, out Unit target))
                 {
-                    if (Math.Abs(unit.FinalX-target.X) > 0.5f ||
-                        Math.Abs(unit.FinalZ-target.Z) > 0.5f)
-                    {
-                        UpdatePath(gs, unit, target.X, target.Z);
-                    }
+                    unit.FinalX = target.X;
+                    unit.FinalZ = target.Z;
                 }
 
                 float ddx = unit.FinalX - unit.CombatStartX;
@@ -428,31 +430,14 @@ namespace Genrpg.MapServer.AI.Services
                         }
                     }
                 }
-            }
-
-            UnitUtils.TurnTowardNextPosition(unit);
-
-            _objectManager.UpdatePosition(gs, unit, 0);
-
+            }           
         }
 
-        private void UpdatePath(GameState gs, Unit unit, float finalx, float finalz)
+        private void UpdateAfterAIStep(GameState gs, Unit unit)
         {
-
-            if (_pathfindingService.UpdatePath(gs, unit, (int)finalx, (int)finalz))
-            {
-                OnMoveToLocation moveLoc = new OnMoveToLocation();
-                moveLoc.FinalX = (short)finalx;
-                moveLoc.FinalZ = (short)finalz;
-                moveLoc.ObjId = unit.Id;
-                moveLoc.Speed = unit.Speed;
-                moveLoc.ObjX = (short)unit.X;
-                moveLoc.ObjZ = (short)unit.Z;
-
-                _messageService.SendMessageNear(unit, moveLoc, MessageConstants.DefaultGridDistance, true);
-            }
-
+            _pathfindingService.UpdatePath(gs, unit, (int)unit.FinalX, (int)unit.FinalZ);
             UnitUtils.TurnTowardNextPosition(unit);
+            _objectManager.UpdatePosition(gs, unit, 0);
 
         }
     }

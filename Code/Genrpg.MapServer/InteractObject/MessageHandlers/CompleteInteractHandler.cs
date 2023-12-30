@@ -16,8 +16,8 @@ using Genrpg.Shared.Interactions.Messages;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.ServerShared.Achievements;
-using Genrpg.Shared.ProcGen.Settings.GroundObjects;
 using Genrpg.Shared.Spawns.Settings;
+using Genrpg.Shared.GroundObjects.Settings;
 
 namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {

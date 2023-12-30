@@ -69,6 +69,8 @@ namespace Genrpg.Shared.Spawns.WorldData
                 Z = initSpawnData.SpawnZ,
                 Rot = (short)initSpawnData.Rot,
                 ZoneId = initSpawnData.ZoneId,
+                LocationId = initSpawnData.LocationId,
+                LocationPlaceId = initSpawnData.LocationPlaceId,
                 SpawnSeconds = initSpawnData.SpawnSeconds,
                 OverrideZonePercent = initSpawnData.ZoneOverridePercent,
                 Addons = initSpawnData.Addons,

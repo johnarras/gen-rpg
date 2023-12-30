@@ -11,6 +11,7 @@ namespace Genrpg.Shared.GameSettings.Interfaces
     {
         void AddTo(GameData gameData);
         void SetInternalIds();
+        void ClearIndex();
         Task SaveAll(IRepositorySystem repo);
         List<IGameSettings> GetChildren();
     }

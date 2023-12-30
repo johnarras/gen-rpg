@@ -61,7 +61,7 @@ public class MapGenData
     public int[,] flags;
 
     public short[,] mapZoneIds;
-    public List<Location> zoneCenters;
+    public List<MyPoint> zoneCenters;
     public List<ConnectedPairData> zoneConnections;
     public float[,] mountainHeights;
     public float[,] nearestMountainTopHeight;
@@ -648,6 +648,7 @@ public class MapGenData
         return 1.0f * minDist / edgeSize;
     }
 
+    protected int locationCount = 0;
     public void AddMapLocation(GameState gs, Location loc)
     {
         if (loc == null)
@@ -666,11 +667,24 @@ public class MapGenData
             }
         }
 
-        int gx = MathUtils.Clamp(0, loc.CenterX / MapConstants.TerrainPatchSize, MapConstants.MaxTerrainGridSize - 1);
-        int gy = MathUtils.Clamp(0, loc.CenterZ / MapConstants.TerrainPatchSize, MapConstants.MaxTerrainGridSize - 1);
+        if (loc.CenterX < 0 || loc.CenterX >= gs.map.GetHwid() ||
+            loc.CenterZ < 0 || loc.CenterZ >= gs.map.GetHhgt())
+        {
+            return;
+        }
 
+        Zone zone = gs.map.Get<Zone>(mapZoneIds[loc.CenterX, loc.CenterZ]);
+        if (zone != null)
+        {
+            zone.Locations.Add(loc);
 
-        locationGrid[gx, gy].Add(loc);
+            int gx = MathUtils.Clamp(0, loc.CenterX / MapConstants.TerrainPatchSize, MapConstants.MaxTerrainGridSize - 1);
+            int gy = MathUtils.Clamp(0, loc.CenterZ / MapConstants.TerrainPatchSize, MapConstants.MaxTerrainGridSize - 1);
+
+            locationGrid[gx, gy].Add(loc);
+
+            loc.Id = gs.map.Id + "-" + (++locationCount);
+        }
     }
 
     public float DistanceToBridge(GameState gs, int x, int y)

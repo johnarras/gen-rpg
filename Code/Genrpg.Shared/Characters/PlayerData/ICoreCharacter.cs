@@ -19,7 +19,6 @@ namespace Genrpg.Shared.Characters.PlayerData
         float Rot { get; set; }
         float Speed { get; set; }
         long ZoneId { get; set; }
-        long PrevZoneId { get; set; }
         long FactionTypeId { get; set; }
         long EntityTypeId { get; set; }
         long EntityId { get; set; }

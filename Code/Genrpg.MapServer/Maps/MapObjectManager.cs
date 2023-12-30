@@ -188,6 +188,7 @@ namespace Genrpg.MapServer.Maps
             OnUpdatePos posMessage = obj.GetCachedMessage<OnUpdatePos>(true);
 
             posMessage.ObjId = obj.Id;
+            posMessage.TargetId = obj.TargetId;
             posMessage.SetX(obj.X);
             posMessage.SetY(obj.Y);
             posMessage.SetZ(obj.Z);

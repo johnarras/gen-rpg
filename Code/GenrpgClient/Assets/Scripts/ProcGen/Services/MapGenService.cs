@@ -17,6 +17,8 @@ using Genrpg.Shared.ProcGen.Settings.Locations.Constants;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.NPCs.Settings;
 using Genrpg.Shared.Buildings.Settings;
+using Genrpg.Shared.Utils.Data;
+using Genrpg.Shared.Levels.Settings;
 
 public interface IMapGenService : IService
 {
@@ -42,10 +44,11 @@ public class MapGenService : IMapGenService
         if (startMap.MinLevel == 0 && startMap.MaxLevel == 0)
         {
             startMap.MinLevel = 1;
-            startMap.MaxLevel = 100;
+            startMap.MaxLevel = gs.data.GetGameData<LevelSettings>(null).MaxLevel;
         }
         map.MinLevel = startMap.MinLevel;
         map.MaxLevel = startMap.MaxLevel;
+        
         map.Id = startMap.Id;
         map.Seed = startMap.Seed;
         map.BlockCount = Math.Min(MapConstants.MaxTerrainGridSize, startMap.BlockCount);
@@ -143,7 +146,7 @@ public class MapGenService : IMapGenService
     }
 
 
-    private void SetZoneLevels(UnityGameState gs, List<Location> validCenters)
+    private void SetZoneLevels(UnityGameState gs, List<MyPoint> validCenters)
     {
         if ( gs.map == null || gs.map.Zones == null || validCenters == null)
         {
@@ -156,9 +159,9 @@ public class MapGenService : IMapGenService
         double minLevelRadius = gs.map.GetHwid() + gs.map.GetHhgt();
         double maxLevelRadius = 0;
 
-        foreach (Location center in validCenters)
+        foreach (MyPoint center in validCenters)
         {
-            double dist = Math.Sqrt(center.CenterX * center.CenterX + center.CenterZ * center.CenterZ);
+            double dist = Math.Sqrt(center.X * center.X + center.Y * center.Y);
             if (dist < minLevelRadius)
             {
                 minLevelRadius = dist;
@@ -388,8 +391,8 @@ public class MapGenService : IMapGenService
 
                 int overridePercent = (int)(gs.md.overrideZoneScales[place.EntranceX,place.EntranceZ]);
 
-                int unitSpawnX = place.EntranceZ - dz / 3;
-                int unitSpawnZ = place.EntranceX - dx / 3;
+                int unitSpawnX = place.EntranceZ - dz / 2;
+                int unitSpawnZ = place.EntranceX - dx / 2;
 
                 InitSpawnData initData = new InitSpawnData()
                 {
@@ -398,6 +401,8 @@ public class MapGenService : IMapGenService
                     SpawnX = unitSpawnX,
                     SpawnZ = unitSpawnZ,
                     ZoneId = zone.IdKey,
+                    LocationId = loc.Id,
+                    LocationPlaceId = place.Id,
                     ZoneOverridePercent = overridePercent * MapConstants.OverrideZoneScaleMax,
                     Addons = addons,
                     Name = zoneName + " " + npc.Name,
@@ -416,6 +421,8 @@ public class MapGenService : IMapGenService
                         SpawnX = place.CenterZ,
                         SpawnZ = place.CenterX,
                         ZoneId = zone.IdKey,
+                        LocationId = loc.Id,
+                        LocationPlaceId = place.Id,
                         ZoneOverridePercent = overridePercent * MapConstants.OverrideZoneScaleMax,
                         Addons = null,
                         Name = zoneName + " " + btype.Name,
@@ -487,22 +494,22 @@ public class MapGenService : IMapGenService
             gs.map.Zones.Add(baseZone);
         }
 
-        List<Location> newCenters = new List<Location>(gs.md.zoneCenters);
+        List<MyPoint> newCenters = new List<MyPoint>(gs.md.zoneCenters);
 
         int zonedelta = (int)(gs.map.ZoneSize * MapConstants.TerrainPatchSize / 12);
 
-        int minRad = 40;
-        int maxRad = minRad*3/2;
+        int minRad = 50 + rand.Next() % 26;
+        int maxRad = minRad * 3 / 2;
 
-        gs.md.zoneCenters = new List<Location>();
+        gs.md.zoneCenters = new List<MyPoint>();
         while (newCenters.Count > 0)
         {
             int pos = rand.Next() % newCenters.Count;
-            Location center = newCenters[pos];
+            MyPoint center = newCenters[pos];
             gs.md.zoneCenters.Add(center);
             newCenters.Remove(center);
 
-            ZoneType zoneTypeChosen = ChooseNextZoneType(gs, rand, zoneGenList, center.CenterX, center.CenterZ);
+            ZoneType zoneTypeChosen = ChooseNextZoneType(gs, rand, zoneGenList, center.X, center.Y);
 
             Zone zone = _zoneGenService.Generate(gs, currZoneId, zoneTypeChosen.IdKey, rand.Next() % 1000000000);
 
@@ -511,23 +518,24 @@ public class MapGenService : IMapGenService
                 continue;
             }
             currZoneId++;
-            center.LocationTypeId = LocationTypes.ZoneCenter;
 
             Location finalCenter = new Location()
             {
-                CenterX = center.CenterX + MathUtils.IntRange(-zonedelta, zonedelta, rand),
-                CenterZ = center.CenterZ + MathUtils.IntRange(-zonedelta, zonedelta, rand),
+                CenterX = (int)center.X + MathUtils.IntRange(-zonedelta, zonedelta, rand),
+                CenterZ = (int)center.Y + MathUtils.IntRange(-zonedelta, zonedelta, rand),
                 LocationTypeId = LocationTypes.ZoneCenter,
                 XSize = MathUtils.IntRange(minRad, maxRad, rand),
                 ZSize = MathUtils.IntRange(minRad, maxRad, rand),
             };
 
-
             gs.map.Zones.Add(zone);
+            gs.map.ClearIndex();
             gs.md.mapZoneIds[finalCenter.CenterX, finalCenter.CenterZ] = (short)zone.IdKey;
-            zone.Locations.Add(finalCenter);
+            gs.logger.Info("ZoneCenterZoneId at (" + finalCenter.CenterX + "," + finalCenter.CenterZ + ") is " +
+                gs.md.mapZoneIds[finalCenter.CenterX, finalCenter.CenterZ]);
             gs.md.AddMapLocation(gs, finalCenter);
         }
+
 
         ConnectZones(gs, rand);
         SetMinMaxSizes(gs);

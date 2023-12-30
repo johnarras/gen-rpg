@@ -8,13 +8,13 @@ using Genrpg.Shared.MapObjects.Messages;
 using Assets.Scripts.MapTerrain;
 using UnityEngine;
 
+/// <summary>
+/// Base class for object loaders
+/// 
+/// *** NOTE IF YOU MAKE A NEW ONE OF THESE YOU MUST REGISTER IT IN Map
+/// </summary>
 public abstract class BaseMapObjectLoader : IMapObjectLoader
 {
-    public BaseMapObjectLoader(UnityGameState gs)
-    {
-        gs.loc.Resolve(this);
-    }
-
     public abstract long GetKey();
 
     public abstract UniTask Load(UnityGameState gs, OnSpawn message, MapObject loadedObject, CancellationToken token);

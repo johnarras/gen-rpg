@@ -5,16 +5,11 @@ using Genrpg.Shared.Constants;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Messages;
-using Genrpg.Shared.ProcGen.Settings.GroundObjects;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.GroundObjects.Settings;
 
 public class GroundObjectLoader : BaseMapObjectLoader
 {
-    public GroundObjectLoader(UnityGameState gs) : base(gs)
-    {
-
-    }
-
     public override long GetKey() { return EntityTypes.GroundObject; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 

@@ -26,9 +26,6 @@ namespace Genrpg.ServerShared.PlayerData
 {
     public class PlayerDataService : IPlayerDataService
     {
-
-        ISharedSpellCraftService _spellCraftingService = null;
-
         private Dictionary<Type, IUnitDataLoader> _loaderObjects = null;
 
         private List<ICharacterLoadUpdater> _loadUpdateHelpers = new List<ICharacterLoadUpdater>();

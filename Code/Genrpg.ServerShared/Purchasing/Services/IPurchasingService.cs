@@ -13,6 +13,6 @@ namespace Genrpg.ServerShared.Purchasing.Services
 {
     public interface IPurchasingService : ISetupService
     {
-        Task<ClientStoreOfferData> GetCurrentStores(ServerGameState gs, User user, Character ch, bool forceRefresh);
+        Task<PlayerStoreOfferData> GetCurrentStores(ServerGameState gs, User user, Character ch, bool forceRefresh);
     }
 }

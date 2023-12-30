@@ -6,10 +6,6 @@ using System.Threading;
 
 public class ProxyCharacterObjectLoader : UnitObjectLoader
 {
-    public ProxyCharacterObjectLoader(UnityGameState gs) : base(gs)
-    {
-
-    }
     public override long GetKey()
     {
         return EntityTypes.ProxyCharacter;

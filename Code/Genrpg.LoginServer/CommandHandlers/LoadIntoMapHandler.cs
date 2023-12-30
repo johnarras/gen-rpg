@@ -34,6 +34,8 @@ using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Characters.Utils;
+using Genrpg.Shared.Purchasing.PlayerData;
+using Genrpg.ServerShared.Purchasing.Services;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
@@ -42,6 +44,8 @@ namespace Genrpg.LoginServer.CommandHandlers
         private IGameDataService _gameDataService = null;
         private IMapDataService _mapDataService = null;
         private ICloudCommsService _cloudCommsService = null;
+        private IPurchasingService _purchasingService = null;
+
         private static ConcurrentDictionary<string, CachedMap> _mapCache = new ConcurrentDictionary<string, CachedMap>();
         public override async Task Reset()
         {
@@ -92,6 +96,8 @@ namespace Genrpg.LoginServer.CommandHandlers
 
             List<IUnitData> serverDataList = await _playerDataService.LoadPlayerData(gs, gs.ch);
 
+            PlayerStoreOfferData offerData = await _purchasingService.GetCurrentStores(gs, gs.user, gs.ch, true);
+
             List<IUnitData> clientDataList = await _playerDataService.MapToClientApi(serverDataList);
 
             List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
@@ -116,6 +122,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 GameData = gameData,
                 CharData = clientDataList,
                 WorldDataEnv = worldDataEnv,
+                Stores = offerData,
             };
 
             gs.user.CurrCharId = gs.coreCh.Id;

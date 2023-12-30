@@ -24,6 +24,7 @@ using System.Collections.Concurrent;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 public delegate void WebResultsHandler(UnityGameState gs, string txt, CancellationToken token);
 

@@ -28,5 +28,6 @@ namespace UI.Screens.Constants
         Loot=17,
         ActionBars=18,
         Charm=19,
+        Store=20,
     }
 }

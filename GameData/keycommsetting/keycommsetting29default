@@ -1,0 +1,9 @@
+{
+  "Id": "keycommsetting29default",
+  "IdKey": 29,
+  "ParentId": "default",
+  "KeyPress": "l",
+  "KeyCommand": "StoreScreen",
+  "UpdateTime": "2023-12-29T16:39:20.024Z",
+  "CreateTime": "2023-12-29T16:39:20.024Z"
+}

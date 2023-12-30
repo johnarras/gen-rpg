@@ -1,0 +1,17 @@
+{
+  "Id": "storeproduct4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Small Gold Pack",
+  "Rewards": [
+    {
+      "EntityTypeId": 1,
+      "EntityId": 2,
+      "MinQuantity": 1000,
+      "MaxQuantity": 1000,
+      "Weight": 100.0
+    }
+  ],
+  "UpdateTime": "2023-12-28T02:13:05.833Z",
+  "CreateTime": "2023-12-28T08:11:54Z"
+}

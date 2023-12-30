@@ -1,11 +1,14 @@
 ﻿using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.GameSettings.Settings;
 using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Settings;
+using Microsoft.Extensions.Azure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,71 +24,117 @@ namespace Genrpg.ServerShared.Purchasing.Services
             await Task.CompletedTask;
         }
 
-        public async Task<ClientStoreOfferData> GetCurrentStores(ServerGameState gs, User user, Character ch, bool forceRefresh)
+        public async Task<PlayerStoreOfferData> GetCurrentStores(ServerGameState gs, User user, Character ch, bool forceRefresh)
         {
 
-            CurrentStoresData storesData = await gs.repo.Load<CurrentStoresData>(user.Id);
+            PlayerStoreOfferData storeOfferData = await gs.repo.Load<PlayerStoreOfferData>(user.Id);
 
-            DateTime topOfHour = DateTime.Today.AddHours(DateTime.UtcNow.Hour);
+            if (storeOfferData == null)
+            {
+                storeOfferData = new PlayerStoreOfferData() { Id = user.Id };
+            }
+
+            DateTime currentTime = DateTime.UtcNow;
 
             VersionSettings versionSettings = gs.data.GetGameData<VersionSettings>(ch);
 
-            List<StoreOfferType> storeOfferTypes = gs.data.GetGameData<StoreOfferTypeSettings>(ch).GetData();
+            StoreOfferSettings storeOfferSettings = gs.data.GetGameData<StoreOfferSettings>(ch);
+            ProductSkuSettings skuSettings = gs.data.GetGameData<ProductSkuSettings>(ch);
+            StoreFeatureSettings featureSettings = gs.data.GetGameData<StoreFeatureSettings>(ch);
+            StoreSlotSettings slotSettings = gs.data.GetGameData<StoreSlotSettings>(ch);
+            StoreProductSettings productSettings = gs.data.GetGameData<StoreProductSettings>(ch);
 
-            if (forceRefresh ||
-                versionSettings.GameDataSaveTime == storesData.LastGameDataSaveTime ||
-                storesData.LastTimeSet == topOfHour ||
-                storesData.Stores.Count == 0)
+            if (storeOfferSettings.NextUpdateTime <= DateTime.UtcNow)
             {
-                storesData.Stores = new List<CurrentStore>();
+                storeOfferSettings.SetPrevNextUpdateTimes();
+            }
 
-                Dictionary<long, StoreOfferType> storeDict = new Dictionary<long, StoreOfferType>();
+            if (!forceRefresh &&
+            versionSettings.GameDataSaveTime == storeOfferData.GameDataSaveTime &&
+            storeOfferData.LastTimeSet >= storeOfferSettings.PrevUpdateTime &&
+            storeOfferData.LastTimeSet < storeOfferSettings.NextUpdateTime)
+            {
+                // stores are the same
+                return storeOfferData;
+            }
 
-                PurchaseHistoryData historyData = await gs.repo.Load<PurchaseHistoryData>(user.Id);
+            List<StoreOffer> storeOffers = gs.data.GetGameData<StoreOfferSettings>(ch).GetData();
 
-                foreach (StoreOfferType offer in storeOfferTypes)
+            Dictionary<long, StoreOffer> storeDict = new Dictionary<long, StoreOffer>();
+
+            storeOfferData.StoreOffers.Clear();
+
+            PurchaseHistoryData historyData = await gs.repo.Load<PurchaseHistoryData>(user.Id);
+
+            if (historyData == null)
+            {
+                historyData = new PurchaseHistoryData() { Id = user.Id };
+                await gs.repo.Save(historyData);
+            }
+
+            foreach (StoreOffer offer in storeOffers)
+            {
+                TryAddOffer(gs, offer, storeDict, user, ch, historyData);
+            }
+
+            foreach (StoreOffer storeOffer in storeDict.Values)
+            {
+                StoreSlot slot = slotSettings.GetStoreSlot(storeOffer.StoreSlotId);
+                StoreFeature feature = featureSettings.GetStoreFeature(storeOffer.StoreFeatureId);
+
+                if (slot == null || feature == null)
                 {
-                    TryAddOffer(gs, offer, storeDict, user, ch, historyData);
+                    continue;
                 }
 
-                foreach (StoreOfferType storeOffer in storeDict.Values)
+                PlayerStoreOffer playerStoreOffer = new PlayerStoreOffer()
                 {
-                    storesData.Stores.Add(new CurrentStore()
+                    StoreFeatureId = storeOffer.StoreFeatureId,
+                    StoreSlotId = storeOffer.StoreSlotId,
+                    StoreThemeId = storeOffer.StoreThemeId,
+                    EndDate = storeOffer.EndDate,
+                    Art = storeOffer.Art,
+                    Desc = storeOffer.Desc,
+                    Icon = storeOffer.Icon,
+                    IdKey = storeOffer.IdKey,
+                    Name = storeOffer.Name,
+                    OfferId = storeOffer.OfferId,
+                    UniqueId = HashUtils.NewGuid(),
+                };
+
+                foreach (OfferProduct offerProduct in storeOffer.Products)
+                {
+                    StoreProduct storeProduct = productSettings.GetStoreProduct(offerProduct.StoreProductId);
+                    ProductSku sku = skuSettings.GetProductSku(offerProduct.ProductSkuId);
+
+                    if (storeProduct != null && sku != null)
                     {
-                        StoreOfferTypeId = storeOffer.IdKey,
-                        UniqueId = HashUtils.NewGuid().ToString(),
-                    });
+                        PlayerOfferProduct playerOfferProduct = new PlayerOfferProduct()
+                        {
+                            Index = offerProduct.Index,
+                            Product = storeProduct,
+                            Sku = sku,
+                        };
+                        playerStoreOffer.Products.Add(playerOfferProduct);
+                    }
                 }
 
-                storesData.LastGameDataSaveTime = versionSettings.GameDataSaveTime;
-                storesData.LastTimeSet = topOfHour;
-                storesData.SetDirty(true);
-            }
-
-            List<ClientStoreOffer> clientOffers = new List<ClientStoreOffer>();
-
-            foreach (CurrentStore currentStore in storesData.Stores)
-            {
-                StoreOfferType offerType = storeOfferTypes.FirstOrDefault(x => x.IdKey == currentStore.StoreOfferTypeId);
-
-                clientOffers.Add(new ClientStoreOffer()
+                if (playerStoreOffer.Products.Count > 0)
                 {
-                    IdKey = offerType.IdKey,
-                    Art = offerType.Art,
-                    Desc = offerType.Desc,
-                    Icon = offerType.Icon,
-                    Name = offerType.Name,
-                    Products = offerType.Products,
-                    StoreSlotTypeId = offerType.StoreSlotTypeId,
-                    StoreFeatureTypeId = offerType.StoreFeatureTypeId,
-                    UniqueId = currentStore.UniqueId,                    
-                });
+                    storeOfferData.StoreOffers.Add(playerStoreOffer);
+                }
+
             }
 
-            return new ClientStoreOfferData() { Id = user.Id, Offers = clientOffers };
+            storeOfferData.GameDataSaveTime = versionSettings.GameDataSaveTime;
+            storeOfferData.LastTimeSet = currentTime;
+
+            await gs.repo.Save(storeOfferData);
+
+            return storeOfferData;
         }
 
-        protected void TryAddOffer (ServerGameState gs, StoreOfferType offer, Dictionary<long,StoreOfferType> currentOffers, User user, Character ch, PurchaseHistoryData historyData)
+        protected void TryAddOffer (ServerGameState gs, StoreOffer offer, Dictionary<long,StoreOffer> currentOffers, User user, Character ch, PurchaseHistoryData historyData)
         {
 
             if (offer.UseDateRange &&
@@ -95,7 +144,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
                 return;
             }
 
-            if (currentOffers.TryGetValue(offer.StoreSlotTypeId, out StoreOfferType currentOffer) && 
+            if (currentOffers.TryGetValue(offer.StoreSlotId, out StoreOffer currentOffer) && 
                 currentOffer.Priority >= offer.Priority)
             {
                 return;
@@ -112,14 +161,17 @@ namespace Genrpg.ServerShared.Purchasing.Services
                 return;
             }
 
-            if (offer.MaxCharDaysSinceInstall > 0 && (DateTime.UtcNow - ch.CreationDate).Days > offer.MaxCharDaysSinceInstall)
+            if (ch != null)
             {
-                return;
-            }
+                if (offer.MaxCharDaysSinceInstall > 0 && (DateTime.UtcNow - ch.CreationDate).Days > offer.MaxCharDaysSinceInstall)
+                {
+                    return;
+                }
 
-            if (offer.MinCharDaysSinceInstall > 0 && (DateTime.UtcNow - ch.CreationDate).Days < offer.MinCharDaysSinceInstall)
-            {
-                return;
+                if (offer.MinCharDaysSinceInstall > 0 && (DateTime.UtcNow - ch.CreationDate).Days < offer.MinCharDaysSinceInstall)
+                {
+                    return;
+                }
             }
 
             if (offer.MinPurchaseCount > 0 && historyData.PurchaseCount < offer.MinPurchaseCount)
@@ -142,17 +194,20 @@ namespace Genrpg.ServerShared.Purchasing.Services
                 return;
             }
 
-            if (offer.MinLevel > 0 && ch.Level < offer.MinLevel)
+            if (ch != null)
             {
-                return;
+                if (offer.MinLevel > 0 && ch.Level < offer.MinLevel)
+                {
+                    return;
+                }
+
+                if (offer.MaxLevel > 0 && ch.Level > offer.MaxLevel)
+                {
+                    return;
+                }
             }
 
-            if (offer.MaxLevel > 0 && ch.Level > offer.MaxLevel)
-            {
-                return;
-            }
-
-            currentOffers[offer.StoreSlotTypeId] = offer;
+            currentOffers[offer.StoreSlotId] = offer;
         }
     }
 }

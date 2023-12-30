@@ -144,6 +144,8 @@ public class UnityZoneGenService : ZoneGenService
 
             genlist.Add(new AddNPCs());
 
+            genlist.Add(new AddMapMods());
+
             genlist.Add(new SetupTerrainPatches());
 
             genlist.Add(new AddBridges());
@@ -792,6 +794,8 @@ public class UnityZoneGenService : ZoneGenService
             {
                 dataSet.AddTo(gs.ch);
             }
+
+            data.Stores?.AddTo(gs.ch);
 
             gs.map = data.Map;
 

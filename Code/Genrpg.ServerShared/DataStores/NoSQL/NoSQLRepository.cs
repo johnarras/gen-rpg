@@ -26,6 +26,8 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         private ILogSystem _logger = null;
         private ConcurrentDictionary<Type, INoSQLCollection> _collections = new ConcurrentDictionary<Type, INoSQLCollection>();
 
+        static object _connectionLock = new object();
+
         #region Core
         public NoSQLRepository(ILogSystem logger, string databaseName, string connectionString)
         {
@@ -40,18 +42,28 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                 }
                 else
                 {
-                    string newConnectionString = connectionString.Replace(";", "&");
-                    MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(newConnectionString));
-                    settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
-                    _clientCache.TryAdd(connectionString, new MongoClient(settings));
+                    lock (_connectionLock)
+                    {
+                        if (_clientCache.TryGetValue(connectionString, out MongoClient client2))
+                        {
+                            _client = client2;
+                        }
+                        else
+                        {
+                            string newConnectionString = connectionString.Replace(";", "&");
+                            MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(newConnectionString));
+                            settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+                            _clientCache.TryAdd(connectionString, new MongoClient(settings));
 
-                    if (_clientCache.TryGetValue(connectionString, out MongoClient client2))
-                    {
-                        _client = client2;
-                    }
-                    else
-                    {
-                        throw new Exception("Failed to create MongClient");
+                            if (_clientCache.TryGetValue(connectionString, out MongoClient client3))
+                            {
+                                _client = client3;
+                            }
+                            else
+                            {
+                                throw new Exception("Failed to create MongClient");
+                            }
+                        }
                     }
                 }
 

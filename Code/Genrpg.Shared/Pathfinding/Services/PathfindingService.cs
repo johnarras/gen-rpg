@@ -24,6 +24,7 @@ namespace Genrpg.Shared.Pathfinding.Services
         byte[] ConvertGridToBytes(GameState gs, bool[,] grid);
         WaypointList GetPath(GameState gs, int startx, int startz, int endx, int endz);
         bool UpdatePath(GameState gs, MapObject tracker, int endx, int endz);
+        bool CellIsBlocked(GameState gs, int x, int z);
     }
 
     public class PathfindingService : IPathfindingService
@@ -655,11 +656,6 @@ namespace Genrpg.Shared.Pathfinding.Services
                     }
                 }
             }
-
-            retval.RetvalType = "ASTAR FAIL";
-            _workbookCache.Add(workbook);
-            return retval;
-
         }
        
         private float CalcCost(Cell cell, Cell fromCell, int endx, int endz)
@@ -807,6 +803,18 @@ namespace Genrpg.Shared.Pathfinding.Services
 
             tracker.Waypoints = GetPath(gs, (int)tracker.X, (int)tracker.Z, endx, endz);
             return true;
+        }
+
+        public bool CellIsBlocked(GameState gs, int x, int z)
+        {
+            if (gs.pathfinding == null || 
+                x < 0 || x >= gs.pathfinding.GetLength(0) ||
+                z < 0 || z >= gs.pathfinding.GetLength(1) ||
+                gs.pathfinding[x,z] == true)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

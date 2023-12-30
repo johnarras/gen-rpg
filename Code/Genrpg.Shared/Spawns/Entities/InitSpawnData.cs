@@ -19,9 +19,11 @@ namespace Genrpg.Shared.Spawns.Entities
         [Key(4)] public float SpawnZ { get; set; }
         [Key(5)] public float Rot { get; set; }
         [Key(6)] public long ZoneId { get; set; }
-        [Key(7)] public long FactionTypeId { get; set; } = 1;
-        [Key(8)] public int ZoneOverridePercent { get; set; }
-        [Key(9)] public int SpawnSeconds { get; set; } = SpawnConstants.DefaultSpawnSeconds;
-        [Key(10)] public List<IMapObjectAddon> Addons { get; set; } = new List<IMapObjectAddon>();
+        [Key(7)] public string LocationId { get; set; }
+        [Key(8)] public string LocationPlaceId { get; set; }
+        [Key(9)] public long FactionTypeId { get; set; } = 1;
+        [Key(10)] public int ZoneOverridePercent { get; set; }
+        [Key(11)] public int SpawnSeconds { get; set; } = SpawnConstants.DefaultSpawnSeconds;
+        [Key(12)] public List<IMapObjectAddon> Addons { get; set; } = new List<IMapObjectAddon>();
     }
 }

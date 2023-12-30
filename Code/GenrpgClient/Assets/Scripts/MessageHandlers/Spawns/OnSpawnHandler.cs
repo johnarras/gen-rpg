@@ -44,7 +44,7 @@ public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
         {
             _objectManager.AddObject(newObj, null);
 
-            IMapObjectLoader loader = _terrainManager.GetMapObjectLoader(spawnMessage.EntityTypeId);
+            IMapObjectLoader loader = _objectManager.GetMapObjectLoader(spawnMessage.EntityTypeId);
 
             if (loader != null)
             {

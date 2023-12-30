@@ -104,7 +104,6 @@ public interface IMapTerrainManager : ISetupService
     void RemovePatchFromPrototypes(int gx, int gy);
     TerrainTextureData GetFromTerrainTextureCache(string textureName);
     void Clear(UnityGameState gs);
-    IMapObjectLoader GetMapObjectLoader(long entityTypeId);
     UniTask SetupOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token);
     bool AddingPatches(UnityGameState gs);
     List<Terrain> GetTerrains(UnityGameState gs);
@@ -138,7 +137,6 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
     // Used to move world objects out of the way when we enter a dungeon.
 
     private Dictionary<long, BaseObjectLoader> _staticLoaders = new Dictionary<long, BaseObjectLoader>();
-    private Dictionary<long, BaseMapObjectLoader> _mapObjectLoaders = new Dictionary<long, BaseMapObjectLoader>();
 
     public Dictionary<string, TerrainTextureData> _terrainTextureCache = new Dictionary<string, TerrainTextureData>();
 
@@ -317,20 +315,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         _staticLoaders[MapConstants.ClutterObjectOffset / MapConstants.MapObjectOffsetMult] = new ClutterObjectLoader(_gs);
         _staticLoaders[MapConstants.WaterObjectOffset / MapConstants.MapObjectOffsetMult] = new WaterObjectLoader(_gs);
 
-        _mapObjectLoaders[EntityTypes.GroundObject] = new GroundObjectLoader(_gs);
-        _mapObjectLoaders[EntityTypes.Unit] = new UnitObjectLoader(_gs);
-        _mapObjectLoaders[EntityTypes.ProxyCharacter] = new ProxyCharacterObjectLoader(_gs);
-        _mapObjectLoaders[EntityTypes.Building] = new BuildingObjectLoader(_gs);
 
-    }
-
-    public IMapObjectLoader GetMapObjectLoader(long entityTypeId)
-    {
-        if (_mapObjectLoaders.ContainsKey(entityTypeId))
-        {
-            return _mapObjectLoaders[entityTypeId];
-        }
-        return null;
     }
 
     void TerrainUpdate(CancellationToken token)

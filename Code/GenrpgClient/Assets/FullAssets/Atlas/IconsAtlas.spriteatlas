@@ -334,6 +334,7 @@ SpriteAtlas:
     - d32cdf7c91b826149971d2fd7816ec02: 21300000
     - 07cdc38c4fb0ed243a43aeef317479ac: 21300000
     - 2577d98c7df3cd542bb04c3ba38f5809: 21300000
+    - b23354bc58db62446a80e048b61b52a4: 21300000
     - fc55bacca28876d428820dd26606e682: 21300000
     - 1b67dccc0393b01468c554e37df7350f: 21300000
     - 716f50dcc6267514883f49f1715b45de: 21300000
@@ -710,6 +711,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d32cdf7c91b826149971d2fd7816ec02, type: 3}
   - {fileID: 21300000, guid: 07cdc38c4fb0ed243a43aeef317479ac, type: 3}
   - {fileID: 21300000, guid: 2577d98c7df3cd542bb04c3ba38f5809, type: 3}
+  - {fileID: 21300000, guid: b23354bc58db62446a80e048b61b52a4, type: 3}
   - {fileID: 21300000, guid: fc55bacca28876d428820dd26606e682, type: 3}
   - {fileID: 21300000, guid: 1b67dccc0393b01468c554e37df7350f, type: 3}
   - {fileID: 21300000, guid: 716f50dcc6267514883f49f1715b45de, type: 3}
@@ -1085,6 +1087,7 @@ SpriteAtlas:
   - Dagger_03
   - Frame_040
   - ChestJeweled_001
+  - IconGems
   - ChestLeather_001
   - BodyLeg_001
   - Axe_004

@@ -19,6 +19,7 @@ namespace Genrpg.Shared.PlayerFiltering.Interfaces
         bool UseDateRange { get; set; }
         DateTime StartDate { get; set; }
         DateTime EndDate { get; set; }
+        void OrderSelf();
 
     }
 }

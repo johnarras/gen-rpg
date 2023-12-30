@@ -1,0 +1,31 @@
+{
+  "Id": "storeoffer1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Gem Store",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "OfferId": "",
+  "StoreSlotId": 1,
+  "StoreFeatureId": 1,
+  "StoreThemeId": 2,
+  "Products": [
+    {
+      "StoreProductId": 1,
+      "ProductSkuId": 1
+    },
+    {
+      "Index": 1,
+      "StoreProductId": 2,
+      "ProductSkuId": 6
+    },
+    {
+      "Index": 2,
+      "StoreProductId": 3,
+      "ProductSkuId": 11
+    }
+  ],
+  "UpdateTime": "2023-12-29T23:45:10.055Z",
+  "CreateTime": "2023-12-28T08:14:04Z"
+}

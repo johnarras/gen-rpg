@@ -18,6 +18,8 @@ namespace Genrpg.Shared.MapObjects.Interfaces
         float Rot { get; set; }
         float Speed { get; set; }
         long ZoneId { get; set; }
+        string LocationId { get; set; }
+        string LocationPlaceId { get; set; }
         long AddonBits { get; set; }
     }
 }

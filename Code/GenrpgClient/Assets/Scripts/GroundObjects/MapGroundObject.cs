@@ -1,7 +1,7 @@
 ﻿
+using Genrpg.Shared.GroundObjects.Settings;
 using Genrpg.Shared.Interactions.Messages;
 using Genrpg.Shared.ProcGen.Entities;
-using Genrpg.Shared.ProcGen.Settings.GroundObjects;
 
 public class MapGroundObject : InteractableObject
 {

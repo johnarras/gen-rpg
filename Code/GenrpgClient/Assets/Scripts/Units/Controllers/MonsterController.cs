@@ -113,15 +113,8 @@ public class MonsterController : UnitController
 
         float nextX = _unit.GetNextXPos();
         float nextZ = _unit.GetNextZPos();
-
-        if (false && _unit.TargetId == "1.1")
-        {
-            if (_objectManager.GetChar("1.1", out Character ch))
-            {
-                _gs.logger.Info("TrackPlayer: Next: " + nextX + " " + nextZ + " Final: " + _unit.FinalX + " " + _unit.FinalZ +
-                    " ActualPlayer: " + ch.X + " " + ch.Z);
-            }
-        }
+        nextX = _unit.FinalX;
+        nextZ = _unit.FinalZ;
 
         if (_unit.HasTarget() && _unit.Waypoints != null && _unit.Waypoints.Waypoints.Count < 3 &&
             _unit.Waypoints.Waypoints.Count > 0)
@@ -140,17 +133,17 @@ public class MonsterController : UnitController
         float dxsize = Math.Abs(dx);
         float dzsize = Math.Abs(dz);
 
-        //if (_unit.HasTarget() && _unit.Id.IndexOf(".") < 0)
-        //{
-        //    if (dxsize < 0.1 && dzsize < 0.1)
-        //    {
-        //        _unit.Moving = false;
-        //    }
-        //}
-        //else if (dxsize < 0.1f && dzsize < 0.1f)
-        //{
-        //    _unit.Moving = false;
-        //}
+        if (_unit.HasTarget() && _unit.Id.IndexOf(".") < 0)
+        {
+            if (dxsize < 0.1 && dzsize < 0.1)
+            {
+                _unit.Moving = false;
+            }
+        }
+        else if (dxsize < 0.1f && dzsize < 0.1f)
+        {
+            _unit.Moving = false;
+        }
 
         if (_unit.Moving)
         {

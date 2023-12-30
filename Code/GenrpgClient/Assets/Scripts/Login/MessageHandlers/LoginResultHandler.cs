@@ -81,7 +81,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         public async UniTask RetryUploadMap(UnityGameState gs, CancellationToken token)
         {
             // Change filenames from XXXUploadedMap and XXXUploadedSpawns to XXXMapmapId and XXXMapSpawnsmapId            
-            string mapId = "2";
+            string mapId = "1";
 
             UploadMapCommand comm = new UploadMapCommand();
             comm.Map = await gs.repo.Load<Map>(mapId);

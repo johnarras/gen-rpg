@@ -15,6 +15,7 @@ using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Genrpg.Shared.Entities.Constants;
 
 public interface IClientMapObjectManager : ISetupService, IMapTokenService
 {
@@ -23,6 +24,7 @@ public interface IClientMapObjectManager : ISetupService, IMapTokenService
     bool GetObject(string id, out MapObject item, bool downloadIfNotExist = true);
     bool GetGridItem(string id, out ClientMapObjectGridItem gridItem);
     bool GetController(string unitId, out UnitController controller);
+    IMapObjectLoader GetMapObjectLoader(long entityTypeId);
     MapObject SpawnObject(IMapSpawn spawn);
     void Reset();
     List<T> GetTypedObjectsNear<T>(float x, float z, float radius) where T : MapObject;
@@ -48,6 +50,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
     protected List<string> _olderSpawns = new List<string>();
     protected List<string> _recentlyLoadedSpawns = new List<string>();
     List<UnitController> _removeUnitList = new List<UnitController>();
+    private Dictionary<long, IMapObjectLoader> _mapObjectLoaders = new Dictionary<long, IMapObjectLoader>();
 
     private GameState _gs;
 
@@ -101,8 +104,23 @@ public class ClientMapObjectManager : IClientMapObjectManager
             _didAddUpdate = true;
         }
         _fxParent = GEntityUtils.FindSingleton("FXParent", true);
+
+
+        _mapObjectLoaders = _reflectionService.SetupDictionary<long, IMapObjectLoader>(gs);
+
         await UniTask.CompletedTask;
     }
+
+
+    public IMapObjectLoader GetMapObjectLoader(long entityTypeId)
+    {
+        if (_mapObjectLoaders.ContainsKey(entityTypeId))
+        {
+            return _mapObjectLoaders[entityTypeId];
+        }
+        return null;
+    }
+
 
     public bool GetUnit (string id, out Unit unit, bool downloadIfNotExist = true)
     {

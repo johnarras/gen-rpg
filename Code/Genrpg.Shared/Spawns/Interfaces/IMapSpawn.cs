@@ -20,6 +20,8 @@ namespace Genrpg.Shared.Spawns.Interfaces
         int SpawnSeconds { get; set; }
         long FactionTypeId { get; set; }
         int OverrideZonePercent { get; set; }
+        string LocationId { get; set; }
+        string LocationPlaceId { get; set; }
         List<IMapObjectAddon> GetAddons();
         long GetAddonBits();
     }

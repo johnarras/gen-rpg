@@ -77,7 +77,7 @@ namespace Genrpg.Shared.Zones.WorldData
             
         }
 
-        public Location GetLocation(int id)
+        public Location GetLocation(string id)
         {
             if (Locations == null)
             {

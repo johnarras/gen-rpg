@@ -22,6 +22,7 @@ namespace Genrpg.Shared.Entities.Constants
         public const long ZoneUnit = 15;
         public const long ProxyCharacter = 16;
         public const long Building = 17;
+        public const long MapMod = 18;
 
         public const long Stat = 31;
         public const long StatPct = 32;

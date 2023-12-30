@@ -93,7 +93,6 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
         public virtual async Task<bool> SaveGameData(GameData data, IRepositorySystem repoSystem)
         {
-            DateTime startSaveTime = DateTime.UtcNow;
             D tdata = data as D;
             if (tdata == null)
             {
