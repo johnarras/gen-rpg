@@ -24,23 +24,10 @@ using System.Collections.Concurrent;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
-public delegate void WebResultsHandler(UnityGameState gs, string txt, CancellationToken token);
-
-
-internal class FullLoginCommand
+public interface IRealtimeNetworkService : ISetupService, IMapTokenService
 {
-    ILoginCommand Command;
-
-}
-
-public interface INetworkService : ISetupService, IMapTokenService
-{
-    string GetBaseURI();
     void CloseClient();
-    void SendLoginWebCommand(LoginCommand loginCommand, CancellationToken token);
-    void SendClientWebCommand(ILoginCommand data, CancellationToken token);
     void SetRealtimeEndpoint(string host, long port, EMapApiSerializers serializer);
     ConnMessageCounts GetMessageCounts();
     void SendMapMessage(IMapApiMessage message);
@@ -48,37 +35,23 @@ public interface INetworkService : ISetupService, IMapTokenService
 }
 
 
-public class NetworkService : INetworkService
+public class RealtimeNetworkService : IRealtimeNetworkService
 {
-
-    class ResultHandlerPair
-    {
-        public ILoginResult Result { get; set; } = null;
-        public IClientLoginResultHandler Handler { get; set; } = null;
-    }
-
     protected UnityGameState _gs = null;
-    private IReflectionService _reflectionService = null!;
-    private IUnityUpdateService _updateService = null!;
-    public NetworkService(UnityGameState gs, CancellationToken token)
+    private IReflectionService _reflectionService = null;
+    public RealtimeNetworkService(UnityGameState gs, CancellationToken token)
     {
         _gs = gs;
         ProcessMessages(token).Forget();
     }
 
-    // Web endpoints.
-    public const string ClientEndpoint = "/Client";
-    public const string LoginEndpoint = "/Login";
-
-    DateTime _lastLoginResultsReceived = DateTime.UtcNow;
-
-    CancellationTokenSource _networkTokenSource = null;
+    CancellationTokenSource _mapTokenSource = null;
     private CancellationToken _token;
-    public void SetToken(CancellationToken token)
+    public void SetMapToken(CancellationToken token)
     {
-        _networkTokenSource?.Cancel();
-        _networkTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
-        _token = _networkTokenSource.Token;
+        _mapTokenSource?.Cancel();
+        _mapTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
+        _token = _mapTokenSource.Token;
     }
 
     public async Task Setup(GameState gs, CancellationToken token)
@@ -86,41 +59,16 @@ public class NetworkService : INetworkService
         if (gs is UnityGameState ugs)
         {
             _mapMessageHandlers = _reflectionService.SetupDictionary<Type, IClientMapMessageHandler>(gs);
-            _loginResultHandlers = _reflectionService.SetupDictionary<Type, IClientLoginResultHandler>(gs);
-            _webURI = ugs.SiteURL;
         }
-        _updateService.AddTokenUpdate(this, ProcessLoginMessages, UpdateType.Late);
         await UniTask.CompletedTask;
     }
 
-
-    private List<ILoginCommand> _clientCommandQueue = new List<ILoginCommand>();
-    private List<ILoginCommand> _currentClientCommands = new List<ILoginCommand>();
-    private void ProcessLoginMessages(CancellationToken token)
-    {
-        if (_currentClientCommands.Count > 0 || _clientCommandQueue.Count < 1 ||
-            (DateTime.UtcNow-_lastLoginResultsReceived).TotalSeconds < 0.3f)
-        {
-            return;
-        }
-
-        _currentClientCommands = _clientCommandQueue.ToList();
-        _clientCommandQueue.Clear();
-
-        InnerSendWebRequest(ClientEndpoint, _currentClientCommands, token);
-    }
 
     public CancellationToken GetToken()
     {
         return _token;
     }
-
-
-    public string GetBaseURI()
-    {
-        return _webURI;
-    }
-            
+   
     public void CloseClient()
     {
         if (_clientConn != null)
@@ -132,81 +80,15 @@ public class NetworkService : INetworkService
     }
 
     private Dictionary<Type,IClientMapMessageHandler> _mapMessageHandlers = null;
-    private Dictionary<Type, IClientLoginResultHandler> _loginResultHandlers = null;
-    private string _webURI = null;
     private string _host = "";
     private long _port = 0;
     private EMapApiSerializers _serializer = EMapApiSerializers.Json;
-
-    public void SendLoginWebCommand(LoginCommand loginCommand, CancellationToken token)
-    {
-        _currentClientCommands.Add(loginCommand);
-        InnerSendWebRequest(LoginEndpoint, new List<ILoginCommand>() { loginCommand }, token);
-    }
-
-    public void SendClientWebCommand(ILoginCommand command, CancellationToken token)
-    {
-        _clientCommandQueue.Add(command);
-    }
 
     public void SetRealtimeEndpoint(string host, long port, EMapApiSerializers serializer)
     {
         _host = host;
         _port = port;
         _serializer = serializer;
-    }
-
-    protected void InnerSendWebRequest(string endpoint, List<ILoginCommand> commands,
-        CancellationToken token)
-    {
-        ClientWebRequest req = new ClientWebRequest();
-
-        LoginServerCommandSet commandSet = new LoginServerCommandSet()
-        {
-            UserId = _gs?.user?.Id ?? null,
-            SessionId = _gs?.user?.SessionId ?? null,
-        };
-        commandSet.Commands = commands;
-
-        string commandText = SerializationUtils.Serialize(commandSet);
-
-        req.SendRequest(_gs, _webURI + endpoint, commandText, HandleLoginResults, token).Forget();
-    }
-
-    private void HandleLoginResults (UnityGameState gs, string txt, CancellationToken token)
-    {
-        LoginServerResultSet resultSet = SerializationUtils.Deserialize<LoginServerResultSet>(txt);
-
-        List<ResultHandlerPair> resultPairs = new List<ResultHandlerPair>();
-
-
-
-
-        foreach (ILoginResult result in resultSet.Results)
-        {
-            if (_loginResultHandlers.TryGetValue(result.GetType(), out IClientLoginResultHandler handler))
-            {
-                resultPairs.Add(new ResultHandlerPair()
-                {
-                    Result = result,
-                    Handler = handler,
-                });
-            }
-            else
-            {
-                _gs.logger.Error("Unknown Message From Login Server: " + result.GetType().Name);
-            }
-        }
-
-        resultPairs = resultPairs.OrderByDescending(x => x.Handler.Priority()).ToList();
-
-        foreach (ResultHandlerPair resultPair in resultPairs)
-        {
-            resultPair.Handler.Process(gs, resultPair.Result, token);
-        }
-
-        _lastLoginResultsReceived = DateTime.UtcNow;
-        _currentClientCommands.Clear();
     }
 
     protected ConcurrentQueue<IMapApiMessage> _messages = new ConcurrentQueue<IMapApiMessage>();
@@ -269,6 +151,7 @@ public class NetworkService : INetworkService
 
         if (_clientConn == null || _clientConn.RemoveMe())
         {
+            _gs.logger.Info("Create Realtime Client: " + _host + " " + _port);
             _clientConn = new ConnectTcpConn(_host, _port, MapApiSerializerFactory.Create(_serializer),
                 HandleMapMessages,
                 _gs.logger, _token, null);

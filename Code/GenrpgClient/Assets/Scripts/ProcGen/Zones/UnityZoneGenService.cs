@@ -30,7 +30,8 @@ public class UnityZoneGenService : ZoneGenService
 
     protected IScreenService _screenService;
     protected IMapTerrainManager _terrainManager;
-    private INetworkService _networkService;
+    private IWebNetworkService _webNetworkService;
+    private IRealtimeNetworkService _networkService;
 
     private CancellationTokenSource _mapTokenSource;
     private CancellationToken _mapToken;
@@ -55,7 +56,7 @@ public class UnityZoneGenService : ZoneGenService
         {
             if (service is IMapTokenService tokenService)
             {
-                tokenService.SetToken(_mapToken);
+                tokenService.SetMapToken(_mapToken);
             }
         }
         InnerGenerate(gs, worldId, _mapToken).Forget();
@@ -205,9 +206,6 @@ public class UnityZoneGenService : ZoneGenService
             genlist.Add(new UploadMap());
 
             genlist.Add(new AfterGenerateMap());
-
-            genlist.Add(new AddPlayerToMap());
-
 
         }
         else
@@ -760,7 +758,7 @@ public class UnityZoneGenService : ZoneGenService
 
         string postData = SerializationUtils.Serialize(loadData);
         
-        _networkService.SendClientWebCommand(loadData, _gameToken);
+        _webNetworkService.SendClientWebCommand(loadData, _gameToken);
     }
 
     public override async UniTask OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token)

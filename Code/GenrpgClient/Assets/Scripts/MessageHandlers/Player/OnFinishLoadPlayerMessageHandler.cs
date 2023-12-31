@@ -10,8 +10,8 @@ namespace Assets.Scripts.MessageHandlers.Player
         protected IScreenService _screenService;
         protected override void InnerProcess(UnityGameState gs, OnFinishLoadPlayer msg, CancellationToken token)
         {
-            gs.logger.Debug("LOADINTOMAP END");
-            _screenService.Close(gs, ScreenId.Loading);
+            gs.Dispatch(msg);
+            _screenService.CloseAll(gs);
             _screenService.Open(gs, ScreenId.HUD);
         }
     }

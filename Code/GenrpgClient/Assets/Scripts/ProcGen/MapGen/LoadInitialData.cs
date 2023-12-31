@@ -9,7 +9,7 @@ using GEntity = UnityEngine.GameObject;
 public class LoadInitialData : BaseZoneGenerator
 {
     protected IScreenService _screenService;
-    private INetworkService _networkService;
+    private IRealtimeNetworkService _networkService;
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
@@ -58,7 +58,7 @@ public class LoadInitialData : BaseZoneGenerator
             CharacterId = gs.ch.Id,
         });
 
-        gs.logger.Debug("LOADINTOMAP START");
+        gs.logger.Debug("LOADINTOMAP START " + gs.user.SessionId);
         await UniTask.CompletedTask;
     }
 

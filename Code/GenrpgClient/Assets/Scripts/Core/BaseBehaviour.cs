@@ -19,7 +19,7 @@ public class BaseBehaviour : StubComponent
     protected IAudioService _audioService;
     protected IUnityUpdateService _updateService;
     protected IScreenService _screenService;
-    protected INetworkService _networkService;
+    protected IRealtimeNetworkService _networkService;
     protected IAssetService _assetService;
 
     public UnityGameState _gs { get; set; }

@@ -83,30 +83,33 @@ namespace Genrpg.Shared.Networking.Entities.TCP
             _counts = new ConnMessageCounts();
             _startTime = DateTime.UtcNow;
 
-            Task.Run(() => WriteLoop());
-            Task.Run(() => ReadLoop());
-            Task.Run(() => PollOtherEnd());
+            Task.Run(() => WriteLoop(_token));
+            Task.Run(() => ReadLoop(_token));
+            Task.Run(() => PollOtherEnd(_token));
         }
 
-        protected virtual async Task PollOtherEnd()
+        protected virtual async Task PollOtherEnd(CancellationToken token)
         {
             Ping ping = new Ping();
-            while (true)
+            try
             {
-                await Task.Delay(ConnectionConstants.TimeoutCheckMS, _token).ConfigureAwait(false);
-                if (_token.IsCancellationRequested)
+                while (true)
                 {
-                    return;
+                    await Task.Delay(ConnectionConstants.TimeoutCheckMS, token).ConfigureAwait(false);
+                    if ((DateTime.UtcNow - _lastMessage).TotalSeconds < ConnectionConstants.TimeoutCheckMS / 1000.0)
+                    {
+                        continue;
+                    }
+                    AppendOutput(ping);
+                    if (_removeMe)
+                    {
+                        break;
+                    }
                 }
-                if ((DateTime.UtcNow - _lastMessage).TotalSeconds < ConnectionConstants.TimeoutCheckMS / 1000.0)
-                {
-                    continue;
-                }
-                AppendOutput(ping);
-                if (_removeMe)
-                {
-                    break;
-                }
+            }
+            catch (Exception e)
+            {
+
             }
         }
 
@@ -140,7 +143,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
             _outputQueue.Enqueue(message);
         }
 
-        protected async Task WriteLoop()
+        protected async Task WriteLoop(CancellationToken token)
         {
             List<IMapApiMessage> messages = new List<IMapApiMessage>();
             List<IMapApiMessage> prevMessages = new List<IMapApiMessage>();
@@ -172,7 +175,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
 
                     if (messages.Count < 1)
                     {
-                        await Task.Delay(1).ConfigureAwait(false);
+                        await Task.Delay(1, token).ConfigureAwait(false);
                         continue;
                     }
 
@@ -189,11 +192,6 @@ namespace Genrpg.Shared.Networking.Entities.TCP
                     _counts.BytesSent += messageBytes.Length;
                     await _stream.FlushAsync(_token).ConfigureAwait(false);
 
-                    if (_token.IsCancellationRequested)
-                    {
-                        return;
-                    }
-
                     _lastMessage = DateTime.UtcNow;
                 }
                 catch (Exception e)
@@ -203,7 +201,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
             }
         }
 
-        protected async Task ReadLoop()
+        protected async Task ReadLoop(CancellationToken token)
         {
 
             byte[] header = new byte[ConnectionConstants.HeaderSize];
@@ -226,11 +224,8 @@ namespace Genrpg.Shared.Networking.Entities.TCP
                             break;
                         }
 
-                        int headerBytesRead = await _stream.ReadAsync(_readBuffer, 0, ConnectionConstants.HeaderSize, _token);
-                        if (_token.IsCancellationRequested)
-                        {
-                            return;
-                        }
+                        int headerBytesRead = await _stream.ReadAsync(_readBuffer, 0, ConnectionConstants.HeaderSize, token);
+                       
                         if (headerBytesRead != ConnectionConstants.HeaderSize)
                         {
                             Shutdown(null, "Failed to read header bytes: " + headerBytesRead);
@@ -255,11 +250,8 @@ namespace Genrpg.Shared.Networking.Entities.TCP
 
                         while (totalBytesRead < newMessageLength)
                         {
-                            int currBytesRead = await _stream.ReadAsync(_readBuffer, totalBytesRead, newMessageLength - totalBytesRead, _token).ConfigureAwait(false);
-                            if (_token.IsCancellationRequested)
-                            {
-                                return;
-                            }
+                            int currBytesRead = await _stream.ReadAsync(_readBuffer, totalBytesRead, newMessageLength - totalBytesRead, token).ConfigureAwait(false);
+                           
                             totalBytesRead += currBytesRead;
                         }
 

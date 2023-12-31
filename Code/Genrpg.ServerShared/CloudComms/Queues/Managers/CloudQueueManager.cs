@@ -110,33 +110,40 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
                 await Task.Delay(1, token);
             }
 
-            while (true)
+            try
             {
-                IReadOnlyList<ServiceBusReceivedMessage> messages = await _queueReceiver.ReceiveMessagesAsync(50, TimeSpan.FromSeconds(1.0f), token);
-
-                foreach (ServiceBusReceivedMessage message in messages)
+                while (true)
                 {
-                    QueueMessageEnvelope envelope = SerializationUtils.Deserialize<QueueMessageEnvelope>(Encoding.UTF8.GetString(message.Body));
-                    logger.Message("Received message: " + _myQueueName);
+                    IReadOnlyList<ServiceBusReceivedMessage> messages = await _queueReceiver.ReceiveMessagesAsync(50, TimeSpan.FromSeconds(1.0f), token);
 
-                    if (_queueHandlers == null)
+                    foreach (ServiceBusReceivedMessage message in messages)
                     {
-                        throw new Exception("Cloud message handlers not set up");
-                    }
+                        QueueMessageEnvelope envelope = SerializationUtils.Deserialize<QueueMessageEnvelope>(Encoding.UTF8.GetString(message.Body));
+                        logger.Message("Received message: " + _myQueueName);
 
-                    foreach (IQueueMessage queueMessage in envelope.Messages)
-                    {
-                        if (queueMessage is IResponseQueueMessage responseQueueMessage &&
-                            _pendingRequests.TryRemove(responseQueueMessage.RequestId, out PendingQueueRequest pendingRequest))
+                        if (_queueHandlers == null)
                         {
-                            pendingRequest.Response = responseQueueMessage;
+                            throw new Exception("Cloud message handlers not set up");
                         }
-                        else if (_queueHandlers.TryGetValue(queueMessage.GetType(), out IQueueMessageHandler handler))
+
+                        foreach (IQueueMessage queueMessage in envelope.Messages)
                         {
-                            await handler.HandleMessage(_serverGameState, queueMessage, _token);
+                            if (queueMessage is IResponseQueueMessage responseQueueMessage &&
+                                _pendingRequests.TryRemove(responseQueueMessage.RequestId, out PendingQueueRequest pendingRequest))
+                            {
+                                pendingRequest.Response = responseQueueMessage;
+                            }
+                            else if (_queueHandlers.TryGetValue(queueMessage.GetType(), out IQueueMessageHandler handler))
+                            {
+                                await handler.HandleMessage(_serverGameState, queueMessage, _token);
+                            }
                         }
                     }
                 }
+            }
+            catch (OperationCanceledException ce)
+            {
+                _serverGameState.logger.Info("Shutting down cloud listener for " + _serverId);
             }
         }
 
@@ -160,7 +167,7 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
 
             do
             {
-                await Task.Delay(1).ConfigureAwait(false);
+                await Task.Delay(1, _token).ConfigureAwait(false);
 
                 if (pendingQueueRequest.Response != null)
                 {

@@ -19,7 +19,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IScreenService _screenService;
         private IClientLoginService _loginService;
         private IAssetService _assetService;
-        private INetworkService _networkService;
+        private IWebNetworkService _webNetworkService;
         private IClientGameDataService _gameDataService;
         protected override void InnerProcess(UnityGameState gs, LoginResult result, CancellationToken token)
         {
@@ -80,16 +80,16 @@ namespace Assets.Scripts.Login.MessageHandlers
 
         public async UniTask RetryUploadMap(UnityGameState gs, CancellationToken token)
         {
-            // Change filenames from XXXUploadedMap and XXXUploadedSpawns to XXXMapmapId and XXXMapSpawnsmapId            
+            // Set the mapId you want to upload to here.
             string mapId = "1";
 
             UploadMapCommand comm = new UploadMapCommand();
-            comm.Map = await gs.repo.Load<Map>(mapId);
-            comm.SpawnData = await gs.repo.Load<MapSpawnData>(mapId);
+            comm.Map = await gs.repo.Load<Map>("UploadedMap");
+            comm.SpawnData = await gs.repo.Load<MapSpawnData>("UploadedSpawns");
             comm.Map.Id = mapId;
             comm.SpawnData.Id = mapId;
             comm.WorldDataEnv = _assetService.GetWorldDataEnv();
-            _networkService.SendClientWebCommand(comm, token);
+            _webNetworkService.SendClientWebCommand(comm, token);
         }
     }
 }

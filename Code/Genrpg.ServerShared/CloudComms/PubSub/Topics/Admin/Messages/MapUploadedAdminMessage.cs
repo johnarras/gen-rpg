@@ -1,0 +1,15 @@
+﻿using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages
+{
+    public class MapUploadedAdminMessage : BaseAdminPubSubMessage
+    {
+        public string MapId { get; set; }
+        public string WorldDataEnv { get; set; }
+    }
+}

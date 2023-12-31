@@ -29,6 +29,7 @@ namespace Assets.Scripts.UI.Stores
             SetupData(token);
 
             _gs.AddEvent<RefreshStoresResult>(this, OnRefreshStores);
+            await UniTask.CompletedTask;
         }
 
         private void SetupData(CancellationToken token)

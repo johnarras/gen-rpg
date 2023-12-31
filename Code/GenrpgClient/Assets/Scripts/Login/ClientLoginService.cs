@@ -25,8 +25,8 @@ public class ClientLoginService : IClientLoginService
 
     private const string LocalUserFilename = "LocalUser";
 
-
-    private INetworkService _networkService;
+    private IWebNetworkService _webNetworkService;
+    private IRealtimeNetworkService _realtimeNetworkService;
     private IScreenService _screenService;
     private IMapTerrainManager _mapManager;
     private IClientMapObjectManager _objectManager;
@@ -81,7 +81,6 @@ public class ClientLoginService : IClientLoginService
         gs.logger.Info("Logging out");
         InnerExitMap(gs);
         gs.user = null;
-        gs.ch = null;
         gs.data = null;
         _screenService.CloseAll(gs);
         _screenService.Close(gs, ScreenId.HUD);
@@ -90,6 +89,7 @@ public class ClientLoginService : IClientLoginService
 
     public void ExitMap(UnityGameState gs)
     {
+        gs.logger.Info("Exiting Map");
         InnerExitMap(gs);
         _screenService.CloseAll(gs);
         _screenService.Close(gs, ScreenId.HUD);
@@ -100,16 +100,17 @@ public class ClientLoginService : IClientLoginService
     {
         _zoneGenService.CancelMapToken();
         PlayerObject.Destroy();
-        _networkService.CloseClient();
+        _realtimeNetworkService.CloseClient();
         _mapManager.Clear(gs);
         _objectManager.Reset();
-
+        UnityZoneGenService.LoadedMapId = null;
         if (gs.md != null)
         {
             gs.map = null;
             gs.md = null;
             gs.spawns = null;
         }
+        gs.ch = null;
 
     }
 
@@ -142,7 +143,7 @@ public class ClientLoginService : IClientLoginService
             }
         }
 
-        _networkService.SendLoginWebCommand(command, token);
+        _webNetworkService.SendLoginWebCommand(command, token);
 
         await UniTask.CompletedTask;
     }

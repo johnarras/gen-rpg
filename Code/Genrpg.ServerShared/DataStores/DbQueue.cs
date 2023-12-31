@@ -21,20 +21,24 @@ namespace Genrpg.ServerShared.DataStores
         {
             using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(1)))
             {
-                while (true)
+                try
                 {
-                    try
+                    while (true)
                     {
                         while (_queue.TryDequeue(out IDbAction item))
                         {
                             await item.Execute().ConfigureAwait(false);
                         }
+                        await timer.WaitForNextTickAsync(token).ConfigureAwait(false);
                     }
-                    catch (Exception e)
-                    {
-                        logger.Exception(e, "DbActionLoop");
-                    }
-                    await timer.WaitForNextTickAsync(token).ConfigureAwait(false);
+                }
+                catch (OperationCanceledException ce)
+                {
+                    logger.Info("Stopped DBQueue");
+                }
+                catch (Exception e)
+                {
+                    logger.Exception(e, "DbActionLoop");
                 }
             }
         }

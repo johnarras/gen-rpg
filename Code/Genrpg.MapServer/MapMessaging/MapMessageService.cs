@@ -104,7 +104,7 @@ namespace Genrpg.MapServer.MapMessaging
                 _queues.Add(new MapMessageQueue(gs, _startTime, q, this,  _token));
             }
 
-            _countTask = Task.Run(() => ShowMessageCounts(gs));
+            _countTask = Task.Run(() => ShowMessageCounts(gs, token));
         }
 
         public void UpdateGameData(GameData gameData)
@@ -116,23 +116,30 @@ namespace Genrpg.MapServer.MapMessaging
         }
 
         //#if DEBUG
-        private async Task ShowMessageCounts(GameState gs)
+        private async Task ShowMessageCounts(GameState gs, CancellationToken token)
         {
-            while (true)
+            try
             {
-                await Task.Delay(20000).ConfigureAwait(false);
-                ServerMessageCounts counts = GetCounts();
+                while (true)
+            {
+                    await Task.Delay(20000, token).ConfigureAwait(false);
+                    ServerMessageCounts counts = GetCounts();
 #if DEBUG
-                long aiUpdPerSec = _aiService.GetUpdateTimes() / counts.Seconds;
-                long castPerSec = _aiService.GetCastTimes() / counts.Seconds;
+                    long aiUpdPerSec = _aiService.GetUpdateTimes() / counts.Seconds;
+                    long castPerSec = _aiService.GetCastTimes() / counts.Seconds;
 #endif
 
-                gs.logger.Message("M: " + gs.map.Id + " Min/Max " + counts.MinMessages + "/" + counts.MaxMessages
-                    + " Total: " + counts.TotalMessages + " PerSec: " + counts.MessagesPerSecond
+                    gs.logger.Message("M: " + gs.map.Id + " Min/Max " + counts.MinMessages + "/" + counts.MaxMessages
+                        + " Total: " + counts.TotalMessages + " PerSec: " + counts.MessagesPerSecond
 #if DEBUG
-                     +" AI/Sec: " + aiUpdPerSec + " Cast/Sec: " + castPerSec
+                         + " AI/Sec: " + aiUpdPerSec + " Cast/Sec: " + castPerSec
 #endif
-                    );
+                        );
+                }
+            }
+            catch
+            {
+                gs.logger.Info("Stopped info loop");
             }
         }
         //#endif

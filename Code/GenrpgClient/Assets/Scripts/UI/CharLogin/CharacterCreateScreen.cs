@@ -5,6 +5,7 @@ using Genrpg.Shared.Login.Messages.CreateChar;
 
 public class CharacterCreateScreen : BaseScreen
 {
+    private IWebNetworkService _webNetworkService;
     
     public GInputField NameInput;
     public GButton CreateButton;
@@ -46,7 +47,7 @@ public class CharacterCreateScreen : BaseScreen
             Name = charName,
         };
 
-        _networkService.SendClientWebCommand(createCommand, _token);
+        _webNetworkService.SendClientWebCommand(createCommand, _token);
 
     }
 }

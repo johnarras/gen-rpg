@@ -1,5 +1,7 @@
 ﻿using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Core;
+using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
+using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.DataStores;
 using Genrpg.ServerShared.Maps;
@@ -19,6 +21,7 @@ namespace Genrpg.LoginServer.CommandHandlers
     {
         private IMapDataService _mapDataService = null;
         private IMapSpawnDataService _mapSpawnService = null;
+        private ICloudCommsService _cloudCommsService = null;
         protected override async Task InnerHandleMessage(LoginGameState gs, UploadMapCommand command, CancellationToken token)
         {
             if (gs.config.Env == EnvNames.Prod)
@@ -66,6 +69,14 @@ namespace Genrpg.LoginServer.CommandHandlers
             {
                 await handler.Reset();
             }
+
+            MapUploadedAdminMessage mapUploadedMessage = new MapUploadedAdminMessage()
+            {
+                MapId = command.Map.Id,
+                WorldDataEnv = command.WorldDataEnv,
+            };
+
+            _cloudCommsService.SendPubSubMessage(gs, mapUploadedMessage);
 
             gs.Results.Add(new UploadMapResult());
         }

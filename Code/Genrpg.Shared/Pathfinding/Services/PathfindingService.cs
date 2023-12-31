@@ -13,11 +13,12 @@ using System.Runtime.CompilerServices;
 using System.Linq;
 using System.ComponentModel.Design;
 using Genrpg.Shared.MapObjects.Entities;
+using System.Threading;
 
 namespace Genrpg.Shared.Pathfinding.Services
 {
 
-    public interface IPathfindingService : IService
+    public interface IPathfindingService : ISetupService
     {
         Task LoadPathfinding(GameState gs, string urlPrefix);
         bool[,] ConvertBytesToGrid(GameState gs, byte[] bytes);
@@ -29,6 +30,18 @@ namespace Genrpg.Shared.Pathfinding.Services
 
     public class PathfindingService : IPathfindingService
     {
+
+        const int WorkbookCacheCount = 100;
+        ConcurrentBag<PathWorkbook>[] _workbookCache = null;
+
+        public async Task Setup(GameState gs, CancellationToken token)
+        {
+            _workbookCache = new ConcurrentBag<PathWorkbook>[WorkbookCacheCount];
+            for (int  i = 0; i < WorkbookCacheCount; i++)
+            {
+                _workbookCache[i] = new ConcurrentBag<PathWorkbook>();
+            }
+        }
 
         public async Task LoadPathfinding(GameState gs, string urlPrefix)
         {
@@ -142,8 +155,6 @@ namespace Genrpg.Shared.Pathfinding.Services
             return output;
         }
 
-
-        ConcurrentBag<PathWorkbook> _workbookCache = new ConcurrentBag<PathWorkbook>();
 
         class Cell
         {
@@ -389,6 +400,25 @@ namespace Genrpg.Shared.Pathfinding.Services
             }
         }
 
+        private PathWorkbook CheckoutWorkbook(GameState gs)
+        {
+            int index = gs.rand.Next() % WorkbookCacheCount;
+
+            if (_workbookCache[index].TryTake(out PathWorkbook workbook))
+            {
+                workbook.Clear();
+                return workbook;
+            }
+            return new PathWorkbook();
+        }
+
+        private void ReturnWorkbook(GameState gs, PathWorkbook workbook)
+        {
+            int index = gs.rand.Next() % WorkbookCacheCount;
+
+            _workbookCache[index].Add(workbook);
+        }
+
         public WaypointList GetPath(GameState gs, int worldStartX, int worldStartZ, int worldEndX, int worldEndZ)
         {
 
@@ -403,15 +433,8 @@ namespace Genrpg.Shared.Pathfinding.Services
                 return retval;
             }
 
-            if (!_workbookCache.TryTake(out PathWorkbook workbook))
-            {
-                workbook = new PathWorkbook();
-            }
-            else
-            {
-                workbook.Clear();
-            }
-
+            PathWorkbook workbook = CheckoutWorkbook(gs);
+          
             // Map to pathfinding grid values.
             int startGridX = (worldStartX + PathfindingConstants.BlockSize / 2) / PathfindingConstants.BlockSize;
             int startGridZ = (worldStartZ + PathfindingConstants.BlockSize / 2) / PathfindingConstants.BlockSize;
@@ -422,7 +445,7 @@ namespace Genrpg.Shared.Pathfinding.Services
             if (startGridX == endGridX && startGridZ == endGridZ)
             {
                 retval.AddGridCell(endGridX, endGridZ);
-                _workbookCache.Add(workbook);
+                ReturnWorkbook(gs, workbook);
                 retval.RetvalType = "Start Is End";
                 return retval;
             }
@@ -464,7 +487,7 @@ namespace Genrpg.Shared.Pathfinding.Services
             if (!workbook.DidFindBlockedCell)
             {
                 retval.AddWorldLoc(worldEndX, worldEndZ);
-                _workbookCache.Add(workbook);
+                ReturnWorkbook(gs, workbook);
                 retval.RetvalType = "Straight Path";
                 return retval;
             }
@@ -537,7 +560,7 @@ namespace Genrpg.Shared.Pathfinding.Services
                         }
                     }
                     retval.AddGridCell(endGridX, endGridZ);
-                    _workbookCache.Add(workbook);
+                    ReturnWorkbook(gs, workbook);
                     retval.RetvalType = "Small Bad Points";
                     return retval;
                 }
@@ -568,7 +591,7 @@ namespace Genrpg.Shared.Pathfinding.Services
                 Cell activeCell = workbook.GetNextOpenCell();
                 if (activeCell == null)
                 {
-                    _workbookCache.Add(workbook);
+                    ReturnWorkbook(gs, workbook);
                     retval.RetvalType = "No Open Cells Left " + openCellIteration;
                     return retval;
                 }
@@ -599,7 +622,7 @@ namespace Genrpg.Shared.Pathfinding.Services
                     }
 
                     retval.Waypoints.Reverse();
-                    _workbookCache.Add(workbook);
+                    ReturnWorkbook(gs, workbook);
                     retval.RetvalType = "ASTAR SUCCESS";
                     return retval;
                 }

@@ -26,7 +26,7 @@ public class UnitSetupService : IUnitSetupService
 
 
     private CancellationToken _token;
-    public void SetToken(CancellationToken token)
+    public void SetMapToken(CancellationToken token)
     {
         _token = token;
     }

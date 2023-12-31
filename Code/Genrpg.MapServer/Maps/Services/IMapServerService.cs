@@ -14,7 +14,8 @@ namespace Genrpg.MapServer.Services.Maps
     public interface IMapServerService : IService
     {
         Task Init(ServerGameState gs, InitMapServerData mapData, CancellationToken serverToken);
-        List<MapInstance> GetMapInstances();
-        public void SendAddMapServerMessage();
+        IReadOnlyList<MapInstance> GetMapInstances();
+        void SendAddMapServerMessage();
+        Task RestartMapsWithId(string mapId);
     }
 }

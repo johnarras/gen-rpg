@@ -37,7 +37,7 @@ public interface IClientMapObjectManager : ISetupService, IMapTokenService
 public class ClientMapObjectManager : IClientMapObjectManager
 {
     protected IReflectionService _reflectionService;
-    private INetworkService _networkService;
+    private IRealtimeNetworkService _networkService;
 
     private List<UnitController> _controllers = new List<UnitController>();
     private Dictionary<long, IMapObjectFactory> _factories = new Dictionary<long, IMapObjectFactory>();
@@ -78,7 +78,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
     }
 
     private CancellationToken _token;
-    public void SetToken(CancellationToken token)
+    public void SetMapToken(CancellationToken token)
     {
         _token = token;
     }

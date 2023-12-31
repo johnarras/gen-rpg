@@ -27,7 +27,15 @@ public class ClientWebRequest
                 UnityWebRequestAsyncOperation asyncOp = request.SendWebRequest();
                 while (!asyncOp.isDone)
                 {
-                    await UniTask.NextFrame( cancellationToken: token);
+                    try
+                    {
+                        await UniTask.NextFrame(cancellationToken: token);
+                    }
+                    catch (OperationCanceledException ce)
+                    {
+                        _gs.logger.Info("Op was cancelled " + ce.Message);
+                        break;
+                    }
                 }
 
                 if (!String.IsNullOrEmpty(request.error))

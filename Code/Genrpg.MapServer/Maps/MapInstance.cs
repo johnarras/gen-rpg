@@ -50,6 +50,8 @@ using Genrpg.ServerShared.MapSpawns;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.Characters.Utils;
+using Newtonsoft.Json.Linq;
+using Genrpg.Shared.Logs.Interfaces;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -84,6 +86,23 @@ namespace Genrpg.MapServer.Maps
 
         }
 
+        public async Task Shutdown(int msDelay = 0)
+        {
+            _cloudCommsService.SendQueueMessage(CloudServerNames.Instance, new RemoveMapInstance() { FullInstanceId = _serverId });
+            _instanceTokenSource?.CancelAfter(msDelay);
+            await Task.CompletedTask;
+        }
+
+        public string GetMapId()
+        {
+            return _mapId;
+        }
+
+        public string GetInstanceId()
+        {
+            return _instanceId;
+        }
+
         protected bool _isRunning = false;
         public bool IsRunning()
         {
@@ -95,9 +114,9 @@ namespace Genrpg.MapServer.Maps
             _tokenSource.Cancel();
         }
 
-        protected virtual IListener GetListener(string host, int port, EMapApiSerializers serializer)
+        protected virtual IListener GetListener(string host, int port, ILogSystem logger, EMapApiSerializers serializer)
         {
-            return new BaseTcpListener(host, port, serializer, AddConnection, ReceiveCommands, _tokenSource.Token);
+            return new BaseTcpListener(host, port, logger, serializer, AddConnection, ReceiveCommands, _tokenSource.Token);
         }
 
         public void RefreshGameData()
@@ -149,7 +168,7 @@ namespace Genrpg.MapServer.Maps
             _host = "127.0.0.1";
             
             // Step 4: Setup listener
-            _listener = GetListener(IPAddress.Any.ToString(), initData.Port, initData.Serializer);
+            _listener = GetListener(IPAddress.Any.ToString(), initData.Port, _gs.logger, initData.Serializer);
 
             if (_gs.config.Env.IndexOf("Test") >= 0 || _gs.config.Env.IndexOf("Prod") >= 0)
             {
@@ -158,7 +177,7 @@ namespace Genrpg.MapServer.Maps
 
             SendAddInstanceMessage();
 
-            _ = Task.Run(() => ProcessMap(), _tokenSource.Token);
+            _ = Task.Run(() => ProcessMap(_tokenSource.Token), _tokenSource.Token);
 
             await _pathfindingService.LoadPathfinding(_gs,
                 _gs.config.ContentRoot + 
@@ -218,17 +237,23 @@ namespace Genrpg.MapServer.Maps
             }
         }
 
-        private async Task ProcessMap()
+        private async Task ProcessMap(CancellationToken token)
         {
-            while (true)
+
+            try
             {
-                DateTime startTime = DateTime.UtcNow;
-                UpdatePlayerConnections();
-                int msDelay = (int)Math.Max(0, UpdateMS - (DateTime.UtcNow - startTime).TotalMilliseconds);
-                if (msDelay > 0)
+                using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(UpdateMS)))
                 {
-                    await Task.Delay(msDelay, _tokenSource.Token);
-                }
+                    while (true)
+                    {
+                        UpdatePlayerConnections();
+                        await timer.WaitForNextTickAsync(token).ConfigureAwait(false);
+                    }
+                }            
+            }
+            catch (OperationCanceledException ce)
+            {
+                _gs.logger.Info("Shutdown MapInstance.ProcessPlayerConnections");
             }
         }
 

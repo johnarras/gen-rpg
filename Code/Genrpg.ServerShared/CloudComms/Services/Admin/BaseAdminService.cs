@@ -18,6 +18,11 @@ namespace Genrpg.ServerShared.CloudComms.Services.Admin
             await _gameDataService.ReloadGameData(gs);
         }
 
+        public virtual async Task OnMapUploaded(ServerGameState gs, MapUploadedAdminMessage message)
+        {
+            await Task.CompletedTask;
+        }
+
         public virtual async Task OnServerStarted(ServerGameState gs, ServerStartedAdminMessage message)
         {
             await Task.CompletedTask;

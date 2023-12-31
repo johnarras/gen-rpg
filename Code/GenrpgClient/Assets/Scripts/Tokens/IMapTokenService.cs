@@ -9,6 +9,6 @@ namespace Assets.Scripts.Tokens
 {
     public interface IMapTokenService
     {
-        void SetToken(CancellationToken token);
+        void SetMapToken(CancellationToken token);
     }
 }

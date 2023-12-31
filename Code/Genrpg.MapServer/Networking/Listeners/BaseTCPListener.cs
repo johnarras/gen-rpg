@@ -44,11 +44,13 @@ namespace Genrpg.MapServer.Networking.Listeners
         }
 
         public BaseTcpListener (string host, int port,
+            ILogSystem logger,
             EMapApiSerializers serializer,
             Action<ServerConnectionState> addConnection, 
             MapApiMessageHandler receiveMessages,
             CancellationToken token)
         {
+            _logger = logger;
             _addConnectionHandler = addConnection;
             _messageHandler = receiveMessages;
             _port = port;
@@ -78,12 +80,13 @@ namespace Genrpg.MapServer.Networking.Listeners
         private async Task RunListener()
         {
             bool listenerIsActive = false;
-            while (true)
+            try
             {
-                try
+                while (true)
                 {
                     if (!listenerIsActive)
                     {
+                        _logger.Info("Create listen socket " + _host + " " + _port);
                         IPAddress localAddr = IPAddress.Parse(_host);
                         _server = new TcpListener(localAddr, _port);
                         _server.Start();
@@ -91,14 +94,24 @@ namespace Genrpg.MapServer.Networking.Listeners
                     }
 
                     TcpClient client = await _server.AcceptTcpClientAsync(_token);
+                    _logger.Info("Accepted client on " + _host + " " + _port);
                     AddClient(client);
                 }
-                catch (SocketException e)
-                {
-                    Trace.WriteLine("SocketException: {0}", e.Message);
-                    _server.Stop();
-                    listenerIsActive = false;
-                }
+            }
+            catch (SocketException e)
+            {
+                Trace.WriteLine("SocketException: {0}", e.Message);
+                _server.Stop();
+                listenerIsActive = false;
+            }
+            catch (OperationCanceledException ce)
+            {
+                _logger.Info("Shutdown listen socket");
+                _server.Stop();
+            }
+            catch (Exception e)
+            {
+                _logger.Exception(e, "BaseTcpListener.Listen");
             }
         }
     }

@@ -14,5 +14,6 @@ namespace Genrpg.ServerShared.CloudComms.Services.Admin
     {
         Task HandleReloadGameState(ServerGameState gs);
         Task OnServerStarted(ServerGameState gs, ServerStartedAdminMessage message);
+        Task OnMapUploaded(ServerGameState gs,  MapUploadedAdminMessage message);
     }
 }

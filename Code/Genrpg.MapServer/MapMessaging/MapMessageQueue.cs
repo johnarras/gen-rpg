@@ -128,8 +128,12 @@ namespace Genrpg.MapServer.MapMessaging
                     }
                 }
             }
-            catch (Exception e)
+            catch (OperationCanceledException oce)
             {
+                _logger.Info("Map Instance Shutdown MessageQueue.ProcessDelayed Index: " + _queueIndex);
+            }
+            catch (Exception e)
+            { 
                 _logger.Exception(e, "MessageQueueDelay");
             }
         }
@@ -161,6 +165,10 @@ namespace Genrpg.MapServer.MapMessaging
                         await timer.WaitForNextTickAsync(_token).ConfigureAwait(false);
                     }
                 }
+            }
+            catch (OperationCanceledException oce)
+            {
+                _logger.Info("Map Instance Shutdown MessageQueue.Process Index: " + _queueIndex);
             }
             catch (Exception e)
             {

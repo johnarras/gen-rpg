@@ -66,7 +66,7 @@ internal class TokenUpdateObject : IUpdateObject
 }
 
 
-public interface IUnityUpdateService : ISetupService, IMapTokenService
+public interface IUnityUpdateService : ISetupService, IMapTokenService, IGameTokenService
 {
     void AddUpdate(object objIn, Action funcIn, int updateType);
     void AddTokenUpdate(object objIn, Action<CancellationToken> funcIn, int updateType);
@@ -86,23 +86,34 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
     public async Task Setup(GameState gs, CancellationToken token)
     {
         _gs = gs as UnityGameState;
-        _token = token;
+        _mapToken = token;
         await UniTask.CompletedTask;
     }
 
-    private CancellationToken _token;
-    public void SetToken (CancellationToken token)
+    private CancellationToken _gameToken;
+    public void SetGameToken(CancellationToken token)
     {
-        _token = token;
+        _gameToken = token;
+    }
+
+    private CancellationToken _mapToken;
+    public void SetMapToken (CancellationToken token)
+    {
+        _mapToken = token;
     }
 
     private void Update ()
     {
+        // Top level update in the game is outside of the task system
+        if (_gameToken != CancellationToken.None && _gameToken.IsCancellationRequested)
+        {
+            return;
+        }
         for (int c = 0; c < _currentUpdates.Count; c++) 
         {
             if (_currentUpdates[c].UpdateType == UpdateType.Regular)
             {
-                _currentUpdates[c].Call(_token);
+                _currentUpdates[c].Call(_mapToken);
             }
         }
         UpdateUpdates();
@@ -110,11 +121,16 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
 
     private void LateUpdate ()
     {
+        // Top level update in the game is outside of the task system
+        if (_gameToken != CancellationToken.None && _gameToken.IsCancellationRequested)
+        {
+            return;
+        }
         for (int c = 0; c < _currentUpdates.Count; c++)
         {
             if (_currentUpdates[c].UpdateType == UpdateType.Late)
             {
-                _currentUpdates[c].Call(_token);
+                _currentUpdates[c].Call(_mapToken);
             }
         }
         UpdateUpdates();
@@ -307,4 +323,5 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
         }
 
     }
+
 }

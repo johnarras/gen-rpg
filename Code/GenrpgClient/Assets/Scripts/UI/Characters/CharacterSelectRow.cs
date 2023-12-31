@@ -7,6 +7,8 @@ using Genrpg.Shared.Login.Messages.DeleteChar;
 
 public class CharacterSelectRow : BaseBehaviour
 {
+    private IWebNetworkService _webNetworkService;
+
     public GText NameText;
     public GImage CharImage;
     public GEntity PlayButtonAnchor;
@@ -54,7 +56,7 @@ public class CharacterSelectRow : BaseBehaviour
             CharId = _characterStub.Id,
         };
 
-        _networkService.SendClientWebCommand(com, _token);
+        _webNetworkService.SendClientWebCommand(com, _token);
     }
 
     private void OnDownloadPlayButton(UnityGameState gs, string url, object obj, object data, CancellationToken token)

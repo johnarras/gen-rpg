@@ -3,6 +3,7 @@ using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
 using Genrpg.ServerShared.CloudComms.Services.Admin;
 using Genrpg.ServerShared.Core;
+using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Inventory.Entities;
 using System;
@@ -20,7 +21,7 @@ namespace Genrpg.MapServer.Services.Maps
         public override async Task HandleReloadGameState(ServerGameState gs)
         {
             await base.HandleReloadGameState(gs);
-            List<MapInstance> instances = _mapServerService.GetMapInstances();
+            IReadOnlyList<MapInstance> instances = _mapServerService.GetMapInstances();
 
             foreach (MapInstance instance in instances)
             {
@@ -34,7 +35,7 @@ namespace Genrpg.MapServer.Services.Maps
             {
                 _mapServerService.SendAddMapServerMessage();
 
-                List<MapInstance> mapInstances = _mapServerService.GetMapInstances();
+                IReadOnlyList<MapInstance> mapInstances = _mapServerService.GetMapInstances();
 
                 foreach (MapInstance mapInstance in mapInstances)
                 {
@@ -43,11 +44,28 @@ namespace Genrpg.MapServer.Services.Maps
             }
             else if (message.ServerId == CloudServerNames.Player)
             {
-                List<MapInstance> mapInstances = _mapServerService.GetMapInstances();
+                IReadOnlyList<MapInstance> mapInstances = _mapServerService.GetMapInstances();
+
+                foreach (MapInstance mapInstance in mapInstances)
+                {
+                    mapInstance.SendAllPlayerEnterMapMessages();
+                }
 
             }
 
             await Task.CompletedTask;
+        }
+        
+        public override async Task OnMapUploaded(ServerGameState gs, MapUploadedAdminMessage message)
+        {
+
+            if (message.WorldDataEnv != gs.config.DataEnvs[DataCategoryTypes.WorldData])
+            {
+                return;
+            }
+            await _mapServerService.RestartMapsWithId(message.MapId);
+
+
         }
     }
 }

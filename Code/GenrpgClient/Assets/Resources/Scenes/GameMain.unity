@@ -337,7 +337,7 @@ MonoBehaviour:
   WorldSize: 4
   ZoneSize: 1
   ForceZoneTypeId: 0
-  MapGenSeed: 324528
+  MapGenSeed: 341234
   PlayerSpeedMult: 2
   ZoneNoiseSize: 4096
   ZoneNoiseDenominator: 1000

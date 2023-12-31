@@ -13,6 +13,7 @@ using UnityEngine; // Needed
 using Genrpg.Shared.ProcGen.Settings.Weather;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Players.Messages;
 
 public struct UpdateColor
 {
@@ -65,9 +66,11 @@ public class ZoneStateController : BaseBehaviour
         RenderSettings.sun = Sun;
         AddUpdate(ZoneUpdate, UpdateType.Regular);
         _gs.AddEvent<GetCurrentZoneEvent>(this, OnGetCurrentZone);
+        _gs.AddEvent<OnFinishLoadPlayer>(this, OnFinishLoadingPlayer);
         ResetColors();
     }
 
+    
 
     public static float AmbientScale = 1.0f;
     public static float SunlightScale = 1.0f;
@@ -128,8 +131,8 @@ public class ZoneStateController : BaseBehaviour
     public UpdateColor CloudColor;
     public UpdateColor AmbientColor;
 
-    Zone currentZone;
-    ZoneType currentZoneType;
+    Zone _currentZone;
+    ZoneType _currentZoneType;
 
 
     protected WeatherType CurrentWeatherType;
@@ -168,8 +171,17 @@ public class ZoneStateController : BaseBehaviour
 
     private GetCurrentZoneEvent OnGetCurrentZone(GameState gs, GetCurrentZoneEvent edata)
     {
-        edata.Zone = currentZone;
+        edata.Zone = _currentZone;
         return edata;
+    }
+    
+    private OnFinishLoadPlayer OnFinishLoadingPlayer(GameState gs, OnFinishLoadPlayer edata)
+    {
+        ResetColors();
+        _currentZone = null;
+        _currentZoneType = null;
+
+        return null;
     }
 
     private bool _didInitZoneState = false;
@@ -233,20 +245,20 @@ public class ZoneStateController : BaseBehaviour
                     ActiveScreen hud = ss.GetScreen(_gs, ScreenId.HUD);
 
 
-                    if (((currentZone == null || currentZone.IdKey != zoneId) && zoneId > 1) && hud != null)
+                    if (((_currentZone == null || _currentZone.IdKey != zoneId) && zoneId > 1) && hud != null)
                     {
                         Zone zone = _gs.map.Get<Zone>(zoneId);
                         if (zone == null)
                         {
                             return;
                         }
-                        currentZone = zone;
+                        _currentZone = zone;
                         CurrentZoneShown = zone.IdKey;
                         _gs.ch.ZoneId = zone.IdKey;                        
-                        currentZoneType = _gs.data.GetGameData<ZoneTypeSettings>(_gs.ch).GetZoneType(currentZone.ZoneTypeId);
-                        if (currentZoneType != null)
+                        _currentZoneType = _gs.data.GetGameData<ZoneTypeSettings>(_gs.ch).GetZoneType(_currentZone.ZoneTypeId);
+                        if (_currentZoneType != null)
                         {
-                            WeatherType weatherType = _gs.data.GetGameData<WeatherTypeSettings>(_gs.ch).GetWeatherType(currentZoneType.WeatherTypeId);
+                            WeatherType weatherType = _gs.data.GetGameData<WeatherTypeSettings>(_gs.ch).GetWeatherType(_currentZoneType.WeatherTypeId);
                             if (weatherType == null)
                             {
                                 return;
@@ -274,7 +286,7 @@ public class ZoneStateController : BaseBehaviour
                             FogStart.Target = weatherType.FogDistance;
                             FogEnd.Target = LinearFogEnd;
 
-                            _audioService.PlayMusic(_gs, currentZoneType);
+                            _audioService.PlayMusic(_gs, _currentZoneType);
                         }
                         if (FogDistScale <= 1.0f)
                         {

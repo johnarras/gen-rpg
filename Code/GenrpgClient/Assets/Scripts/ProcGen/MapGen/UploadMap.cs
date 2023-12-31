@@ -1,11 +1,13 @@
 using Assets.Scripts.MapTerrain;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Constants;
+using Genrpg.Shared.Login.Messages.UploadMap;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 
 public class UploadMap : BaseZoneGenerator
 {
+    private IWebNetworkService _webNetworkService;
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
 
@@ -17,6 +19,8 @@ public class UploadMap : BaseZoneGenerator
                 UploadOneTerrainPatch(gs, gx, gy);
             }
         }
+
+        await DelaySendMapSizes(gs, token);
     }
 
     private void UploadOneTerrainPatch(UnityGameState gs, int gx, int gy)
@@ -57,6 +61,28 @@ public class UploadMap : BaseZoneGenerator
 
         FileUploader.UploadFile(fdata);
 
+    }
+
+
+    private async UniTask DelaySendMapSizes(UnityGameState gs, CancellationToken token)
+    {
+        await UniTask.Delay(2000, cancellationToken: token);
+        UploadMapCommand update = new UploadMapCommand()
+        {
+            Map = gs.map,
+            SpawnData = gs.spawns,
+            WorldDataEnv = _assetService.GetWorldDataEnv()
+        };
+
+        string oldMapId = gs.map.Id;
+        gs.map.Id = "UploadedMap";
+        await gs.repo.Save(gs.map);
+        gs.map.Id = oldMapId;
+        gs.spawns.Id = "UploadedSpawns";
+        await gs.repo.Save(gs.spawns);
+        gs.spawns.Id = oldMapId;
+        _webNetworkService.SendClientWebCommand(update, _token);
+        await UniTask.CompletedTask;
     }
 }
 	

@@ -27,7 +27,8 @@ public class ClientSetupService
 
         if (forRealGame)
         {
-            gs.loc.Set<INetworkService>(new NetworkService(gs, token));
+            gs.loc.Set<IRealtimeNetworkService>(new RealtimeNetworkService(gs, token));
+            gs.loc.Set<IWebNetworkService>(new WebNetworkService(gs, token));
             gs.loc.Set<IUnityUpdateService>(gs.AddComponent<UnityUpdateService>());
             gs.loc.Set<IInputService>(gs.AddComponent<InputService>());
             gs.loc.Set<IMapTerrainManager>(gs.AddComponent<MapTerrainManager>());

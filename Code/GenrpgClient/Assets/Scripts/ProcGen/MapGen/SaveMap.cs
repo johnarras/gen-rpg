@@ -8,14 +8,11 @@ using Genrpg.Shared.Utils;
 
 public class SaveMap : BaseZoneGenerator
 {
-    private INetworkService _networkService;
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 
         gs.map.OverrideZonePercent = 0; // MathUtils.IntRange(20, 80, gs.rand);
-
-        DelaySendMapSizes(gs, token).Forget();
 
         for (int gx = 0; gx < gs.map.BlockCount; gx++)
         {
@@ -26,25 +23,6 @@ public class SaveMap : BaseZoneGenerator
         }
     }
 
-    private async UniTask DelaySendMapSizes(UnityGameState gs, CancellationToken token)
-    {
-
-        UploadMapCommand update = new UploadMapCommand() { 
-            Map = gs.map, 
-            SpawnData = gs.spawns,
-            WorldDataEnv = _assetService.GetWorldDataEnv()
-        };
-
-        string oldMapId = gs.map.Id;
-        gs.map.Id = "UploadedMap";
-        await gs.repo.Save(gs.map);
-        gs.map.Id = oldMapId;
-        gs.spawns.Id = "UploadedSpawns";
-        await gs.repo.Save(gs.spawns);
-        gs.spawns.Id = oldMapId;
-        _networkService.SendClientWebCommand(update, _token);
-        await UniTask.CompletedTask;
-    }
 
     public void SaveOneTerrainPatch(UnityGameState gs, int gx, int gy)
     {
