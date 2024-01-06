@@ -17,38 +17,23 @@ namespace Genrpg.Shared.Users.Entities
     }
 
     [MessagePackObject]
-    public class User : BasePlayerData, IName, IFilteredObject
+    public class User : BasePlayerData, IFilteredObject
     {
         /// <summary>
         /// Used for the id found in the relational database
         /// </summary>
         /// 
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public long AccountId { get; set; }
-        [Key(2)] public string Email { get; set; }
-        [Key(3)] public int Version { get; set; }
-        [Key(4)] public string Name { get; set; }
-        [Key(5)] public string SessionId { get; set; }
-        [Key(6)] public int Flags { get; set; }
-        [Key(7)] public DateTime CreationDate { get; set; } = DateTime.UtcNow;
-        [Key(8)] public string CurrCharId { get; set; }
+        [Key(1)] public string SessionId { get; set; }
+        [Key(2)] public DateTime CreationDate { get; set; } = DateTime.UtcNow;
+        [Key(3)] public string CurrCharId { get; set; }
 
+        [Key(4)] public int Flags { get; set; }
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
 
-        public string GetNoUnderscoreName()
-        {
-            if (string.IsNullOrEmpty(Name))
-            {
-                return "";
-            }
-
-            return Name.Replace("_", " ");
-        }
-
-
-        [Key(9)] public GameDataOverrideList OverrideList { get; set; }
+        [Key(5)] public GameDataOverrideList OverrideList { get; set; }
         public virtual void SetGameDataOverrides (GameDataOverrideList list)
         {
             OverrideList = list;

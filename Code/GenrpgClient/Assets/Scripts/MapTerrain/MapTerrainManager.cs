@@ -629,7 +629,12 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
 
     public void ClearPatches(UnityGameState gs)
-    { 
+    {      
+        if (gs.md == null || gs.md.terrainPatches == null)
+        {
+            return;
+        }
+
         for (int x = 0; x < gs.md.terrainPatches.GetLength(0); x++)
         {
             for (int y = 0; y < gs.md.terrainPatches.GetLength(1); y++)
@@ -1042,7 +1047,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
     public void ClearMapObjects(UnityGameState gs)
     {
-        if (gs.md.terrainPatches == null)
+        if (gs.md == null || gs.md.terrainPatches == null)
         {
             return;
         }

@@ -39,7 +39,7 @@ public class ClientLoginService : IClientLoginService
         LocalUserData localData = gs.repo.Load<LocalUserData>(LocalUserFilename).Result;
 
 
-
+        string userid = "";
         string email = "";
         string password = "";
         
@@ -47,7 +47,7 @@ public class ClientLoginService : IClientLoginService
         {
             try
             {
-                email = localData.Email;
+                userid = localData.UserId;
                 password = EncryptionUtils.DecryptString(localData.Password);
 
             }
@@ -56,10 +56,11 @@ public class ClientLoginService : IClientLoginService
                 gs.logger.Exception(ex, "StartLogin");
             }
         }
-        if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
+        if ((!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(userid)) && !string.IsNullOrEmpty(password))
         {
             LoginCommand loginCommand = new LoginCommand()
             {
+                UserId = userid,
                 Email = email,
                 Password = password,
             };
@@ -148,12 +149,12 @@ public class ClientLoginService : IClientLoginService
         await UniTask.CompletedTask;
     }
 
-    public async UniTask SaveLocalUserData(UnityGameState gs, string email)
+    public async UniTask SaveLocalUserData(UnityGameState gs, string userId)
     {
         LocalUserData localUserData = new LocalUserData()
         {
             Id = LocalUserFilename,
-            Email = gs.user.Email,
+            UserId = userId,
             Password = EncryptionUtils.EncryptString(_pwd),
         };
 

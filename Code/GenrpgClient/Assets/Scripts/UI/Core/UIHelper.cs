@@ -4,6 +4,8 @@ using GEntity = UnityEngine.GameObject;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine; // Fix
+using Genrpg.Shared.Interfaces;
+using System.Linq;
 
 public class UIHelper
 {
@@ -81,6 +83,18 @@ public class UIHelper
         }
 
         image.texture = tex;
+    }
+
+    public static long GetSelectedIdFromName(Type iidNameType,  GDropdown dropdown)
+    {
+        List<IIdName> items = _gs.data.GetList(iidNameType.Name);
+
+        string selectedText = dropdown.captionText.text;
+
+        IIdName selectedItem = items.FirstOrDefault(x => x.Name == dropdown.captionText.text);
+
+        return selectedItem?.IdKey ?? 0;
+
     }
 
     public static int GetIntInput(GInputField field)

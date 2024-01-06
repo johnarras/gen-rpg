@@ -14,6 +14,10 @@ using Genrpg.Shared.SpellCrafting.Constants;
 using System.Collections.Generic;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Spells.Settings.Spells;
+using Genrpg.Shared.Spells.Settings.Elements;
+using Genrpg.Shared.Stats.Settings.Stats;
+using System.Linq;
+using Genrpg.Shared.Stats.Constants;
 
 public class SpellbookScreen : SpellIconScreen
 {
@@ -31,9 +35,9 @@ public class SpellbookScreen : SpellIconScreen
     public GButton CraftButton;
 
     public GInputField NameInput;
-    public GInputField ElementInput;
-    public GInputField PowerTypeInput;
     public GText PowerCostText;
+    public GDropdown ElementDropdown;
+    public GDropdown PowerTypeDropdown;
 
 
     public SpellModInputField CastTimeInput;
@@ -96,11 +100,14 @@ public class SpellbookScreen : SpellIconScreen
 
     public void InitScreenInputs()
     {
-        ShotsInput?.Init(SpellModifiers.Shots);
-        RangeInput?.Init(SpellModifiers.Range);
-        CooldownInput?.Init(SpellModifiers.Cooldown);
-        MaxChargesInput?.Init(SpellModifiers.ExtraTargets);
-        CastTimeInput?.Init(SpellModifiers.CastTime);
+        ElementDropdown?.Init(_gs.data.GetGameData<ElementTypeSettings>(_gs.ch).GetData(), OnDropdownValueChanged);
+        PowerTypeDropdown?.Init(_gs.data.GetGameData<StatSettings>(_gs.ch).GetPowerStats(), OnDropdownValueChanged);
+        
+        ShotsInput?.Init(SpellModifiers.Shots, OnDropdownValueChanged);
+        RangeInput?.Init(SpellModifiers.Range, OnDropdownValueChanged);
+        CooldownInput?.Init(SpellModifiers.Cooldown, OnDropdownValueChanged);
+        MaxChargesInput?.Init(SpellModifiers.ExtraTargets, OnDropdownValueChanged);
+        CastTimeInput?.Init(SpellModifiers.CastTime, OnDropdownValueChanged);
     }
 
     public void ClickClear()
@@ -190,14 +197,18 @@ public class SpellbookScreen : SpellIconScreen
         }
 
         _editSpell.Name = NameInput?.Text;
-        _editSpell.ElementTypeId = UIHelper.GetIntInput(ElementInput);
-        _editSpell.PowerStatTypeId = UIHelper.GetIntInput(PowerTypeInput);
 
-        _editSpell.Cooldown = UIHelper.GetIntInput(CooldownInput?.InputField);
-        _editSpell.Range = UIHelper.GetIntInput(RangeInput?.InputField);
-        _editSpell.Shots = UIHelper.GetIntInput(ShotsInput?.InputField);
-        _editSpell.MaxCharges = UIHelper.GetIntInput(ShotsInput?.InputField);
-        _editSpell.CastTime = UIHelper.GetFloatInput(CastTimeInput?.InputField);
+        List<ElementType> elements = _gs.data.GetGameData<ElementTypeSettings>(_gs.ch).GetData();
+        List<StatType> statTypes = _gs.data.GetGameData<StatSettings>(_gs.ch).GetData();
+
+        _editSpell.ElementTypeId = UIHelper.GetSelectedIdFromName(typeof(ElementType), ElementDropdown);
+        _editSpell.PowerStatTypeId = UIHelper.GetSelectedIdFromName(typeof(StatType), PowerTypeDropdown);
+
+        _editSpell.Cooldown = (int)CooldownInput?.GetSelectedValue();
+        _editSpell.Range = (int)RangeInput?.GetSelectedValue();
+        _editSpell.Shots = (int)ShotsInput?.GetSelectedValue();
+        _editSpell.MaxCharges = (int)ShotsInput?.GetSelectedValue();
+        _editSpell.CastTime = (float)CastTimeInput?.GetSelectedValue();
 
         foreach (SpellEffectEdit edit in _effectEdits)
         {
@@ -213,6 +224,11 @@ public class SpellbookScreen : SpellIconScreen
         return false;
     }
 
+    private void OnDropdownValueChanged()
+    {
+        CopyFromUIToSpell();
+    }
+
 
     private void CopyFromSpellToUI(Spell spell)
     {
@@ -221,14 +237,14 @@ public class SpellbookScreen : SpellIconScreen
             return;
         }
 
-        UIHelper.SetInputText(NameInput, spell.Name);
-        UIHelper.SetInputText(ElementInput, spell.ElementTypeId);
-        UIHelper.SetInputText(PowerTypeInput, spell.PowerStatTypeId);
-        UIHelper.SetInputText(CooldownInput.InputField, spell.Cooldown);
-        UIHelper.SetInputText(ShotsInput?.InputField, spell.Shots);
-        UIHelper.SetInputText(CastTimeInput?.InputField, spell.CastTime);
-        UIHelper.SetInputText(RangeInput?.InputField, spell.Range);
-        UIHelper.SetInputText(MaxChargesInput?.InputField, spell.MaxCharges);
+        ElementDropdown?.SetFromId(spell.ElementTypeId);
+        PowerTypeDropdown?.SetFromId(spell.PowerStatTypeId);
+
+        CooldownInput?.SetSelectedValue(spell.Cooldown);
+        ShotsInput?.SetSelectedValue(spell.Shots);
+        CastTimeInput?.SetSelectedValue(spell.CastTime);
+        RangeInput?.SetSelectedValue(spell.Range);
+        MaxChargesInput?.SetSelectedValue(spell.MaxCharges);
 
         UIHelper.SetText(PowerCostText, spell.PowerCost.ToString());
 
@@ -244,7 +260,7 @@ public class SpellbookScreen : SpellIconScreen
         {
             if (e < _effectEdits.Count)
             {
-                _effectEdits[e].Init(spell.Effects[e], spell, this);
+                _effectEdits[e].Init(spell.Effects[e], spell, this, OnDropdownValueChanged);
             }
         }
 
@@ -276,7 +292,7 @@ public class SpellbookScreen : SpellIconScreen
             return;
         }
 
-        edit.Init(data as SpellEffect, _editSpell, this);
+        edit.Init(data as SpellEffect, _editSpell, this, OnDropdownValueChanged);
 
         _effectEdits.Add(edit);
 

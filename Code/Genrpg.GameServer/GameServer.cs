@@ -10,6 +10,11 @@ using Genrpg.Shared.Logs.Interfaces;
 
 namespace Genrpg.GameServer
 {
+    /// <summary>
+    /// This server exists to allow devs to spin up an entire stack on a custom MessagingEnv
+    /// so they can develop locally in a sandbox. Really, the microservices may end up being
+    /// stateless, and the map instance servers should all be spun up separately.
+    /// </summary>
     public class GameServer
     {
         static void Main(string[] args)

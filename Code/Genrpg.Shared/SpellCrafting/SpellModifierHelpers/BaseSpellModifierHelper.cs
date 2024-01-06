@@ -55,7 +55,28 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
         {
             SpellModifier modifier = GetModifier(gs, obj);
 
-            return "Range: " + modifier.MinValue + " to " + modifier.MaxValue + " Incr: " + modifier.ValueDelta;
+            return modifier.MinValue + " to " + modifier.MaxValue + " by " + modifier.ValueDelta;
+        }
+
+        public virtual List<double> GetValidValues(GameState gs, MapObject obj)
+        {
+            SpellModifier modifier = GetModifier(gs, obj);
+            List<double> retval = new List<double>();
+
+            if (modifier.ValueDelta <= 0)
+            {
+                return retval;
+            }
+
+            double currVal = modifier.MinValue;
+            do
+            {
+                retval.Add(currVal);
+                currVal += modifier.ValueDelta;
+            }
+            while (currVal <= modifier.MaxValue);
+
+            return retval;
         }
     }
 }

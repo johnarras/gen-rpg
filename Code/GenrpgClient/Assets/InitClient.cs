@@ -154,6 +154,8 @@ public class InitClient : BaseBehaviour
     void OnApplicationQuit()
     {
         _gameTokenSource.Cancel();
+        _gameTokenSource.Dispose();
+        _gameTokenSource = null;
         _networkService?.CloseClient();
     }
 

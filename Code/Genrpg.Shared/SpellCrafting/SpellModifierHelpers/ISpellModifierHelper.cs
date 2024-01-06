@@ -15,5 +15,6 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
         double GetCostScale(GameState gs, MapObject obj, double currValue);
         double GetValidValue(GameState gs, MapObject obj, double currValue);
         string GetInfoText(GameState gs, MapObject obj);
+        List<double> GetValidValues(GameState gs, MapObject obj);
     }
 }

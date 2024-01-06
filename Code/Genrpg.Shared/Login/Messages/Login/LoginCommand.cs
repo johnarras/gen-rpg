@@ -7,9 +7,10 @@ namespace Genrpg.Shared.Login.Messages.Login
     [MessagePackObject]
     public class LoginCommand : ILoginCommand
     {
-        [Key(0)] public string Email { get; set; }
-        [Key(1)] public string Password { get; set; }
-        [Key(2)] public string Name { get; set; }
-        [Key(3)] public List<ClientCachedGameSettings> ClientSettings { get; set; } = new List<ClientCachedGameSettings>();
+        [Key(0)] public string UserId { get; set; }
+        [Key(1)] public string Email { get; set; }
+        [Key(2)] public string Password { get; set; }
+        [Key(3)] public string Name { get; set; }
+        [Key(4)] public List<ClientCachedGameSettings> ClientSettings { get; set; } = new List<ClientCachedGameSettings>();
     }
 }

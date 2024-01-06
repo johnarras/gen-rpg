@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
+using Genrpg.Shared.GameSettings;
 
 namespace Assets.Scripts.GameSettings.Services
 {
@@ -36,6 +37,7 @@ namespace Assets.Scripts.GameSettings.Services
         }
         public async UniTask LoadCachedSettings(UnityGameState gs)
         {
+            gs.data = new GameData();
             ClientRepositorySystem repo = gs.repo as ClientRepositorySystem;
 
             List<IGameSettings> allSettings = new List<IGameSettings>();

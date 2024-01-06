@@ -76,6 +76,7 @@ public class WebNetworkService : IWebNetworkService
     public void SetGameToken(CancellationToken token)
     {
         _webTokenSource?.Cancel();
+        _webTokenSource?.Dispose();        
         _webTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
         _token = _webTokenSource.Token;
     }

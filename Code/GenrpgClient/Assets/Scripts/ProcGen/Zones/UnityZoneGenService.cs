@@ -45,7 +45,9 @@ public class UnityZoneGenService : ZoneGenService
 
     public override void CancelMapToken()
     {
-        _mapTokenSource.Cancel();
+        _mapTokenSource?.Cancel();
+        _mapTokenSource?.Dispose();
+        _mapTokenSource = null;
     }
 
     public override void InstantiateMap(UnityGameState gs, string worldId)

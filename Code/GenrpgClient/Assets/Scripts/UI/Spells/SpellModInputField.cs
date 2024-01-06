@@ -2,15 +2,15 @@
 using Genrpg.Shared.SpellCrafting.Settings;
 using Genrpg.Shared.SpellCrafting.Services;
 using Genrpg.Shared.SpellCrafting.SpellModifierHelpers;
+using System;
 
 namespace Assets.Scripts.UI.Spells
 {
     public class SpellModInputField : BaseBehaviour
     {
-        public GInputField InputField;
+        public GDropdown Dropdown;
         public GText ModifierName;
         public GText InfoText;
-        public GText InputText;
                 
         private long _spellModifierId;
         private ISpellModifierHelper _helper = null;
@@ -18,7 +18,7 @@ namespace Assets.Scripts.UI.Spells
 
 
         private ISharedSpellCraftService _craftingService = null;
-        public void Init(long spellModifierId)
+        public void Init(long spellModifierId, Action onValueChangedAction)
         {
             _gs.loc.Resolve(this);
             _spellModifierId = spellModifierId;
@@ -28,10 +28,33 @@ namespace Assets.Scripts.UI.Spells
 
             UIHelper.SetText(ModifierName, _modifier.Name);
 
-            UIHelper.SetText(InfoText, _helper.GetInfoText(_gs, _gs.ch));
+            UIHelper.SetText(InfoText, "");// _helper.GetInfoText(_gs, _gs.ch));
 
-            UIHelper.SetText(InputText, _modifier.DefaultValue.ToString());
+            Dropdown?.Init(_helper.GetValidValues(_gs, _gs.ch), onValueChangedAction);
 
+            
         }
+
+        public double GetSelectedValue()
+        {
+            if (Dropdown == null)
+            {
+                return 0;
+            }
+
+            if (double.TryParse(Dropdown.captionText.text, out double value))
+            {
+                return value;
+            }
+
+            return 0;
+        }
+
+        public void SetSelectedValue(double value)
+        {
+            Dropdown?.SetFromValue(value);
+        }
+
+
     }
 }

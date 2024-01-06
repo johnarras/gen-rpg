@@ -52,8 +52,18 @@ namespace Genrpg.LoginServer.Services.Login
                 return gs.Results;
             }
 
-            Account account = await _accountService.LoadBy(gs.config, AccountSearch.Email, loginCommand.Email);
 
+
+            Account account = null;
+
+            if (!string.IsNullOrEmpty(loginCommand.Email))
+            {
+                account = await _accountService.LoadBy(gs.config, AccountSearch.Email, loginCommand.Email);
+            }
+            else if (!string.IsNullOrEmpty(loginCommand.UserId))
+            {
+                account = await _accountService.LoadBy(gs.config, AccountSearch.Id, loginCommand.UserId);
+            }
             if (account != null)
             {
                 if (account.HasFlag(AccountFlags.Banned))
@@ -124,7 +134,7 @@ namespace Genrpg.LoginServer.Services.Login
 
             await gs.repo.Save(user);
 
-            _cloudCommsService.SendQueueMessage(CloudServerNames.Player, new LoginUser() { Id = user.Id, Name = user.Name });
+            _cloudCommsService.SendQueueMessage(CloudServerNames.Player, new LoginUser() { Id = user.Id, Name = "User" + user.Id });
 
             LoginResult loginResult = new LoginResult()
             {
@@ -150,8 +160,6 @@ namespace Genrpg.LoginServer.Services.Login
                 user.AddFlags(UserFlags.SoundActive | UserFlags.MusicActive);
             }
             user.Id = acct.Id.ToString();
-            user.Name = acct.Name;
-            user.Email = acct.Email;
             user.SessionId = HashUtils.NewGuid();
             gs.user = user;
 

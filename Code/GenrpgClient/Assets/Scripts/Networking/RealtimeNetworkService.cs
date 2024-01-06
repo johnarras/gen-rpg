@@ -50,6 +50,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
     public void SetMapToken(CancellationToken token)
     {
         _mapTokenSource?.Cancel();
+        _mapTokenSource?.Dispose();
         _mapTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
         _token = _mapTokenSource.Token;
     }

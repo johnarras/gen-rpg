@@ -7,6 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using System.Linq;
+using Genrpg.Shared.Stats.Constants;
 
 namespace Genrpg.Shared.Stats.Settings.Stats
 {
@@ -19,6 +21,12 @@ namespace Genrpg.Shared.Stats.Settings.Stats
         public StatType GetStatType(long idkey)
         {
             return _lookup.Get<StatType>(idkey);
+        }
+
+        public List<StatType> GetPowerStats()
+        {
+            return _data.Where(x => x.IdKey <= StatConstants.MaxMutableStatTypeId &&
+            x.IdKey > 0 && x.IdKey != StatTypes.Health).ToList();
         }
     }
 

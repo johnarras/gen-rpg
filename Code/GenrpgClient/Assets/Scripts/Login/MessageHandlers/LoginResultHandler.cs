@@ -63,7 +63,7 @@ namespace Assets.Scripts.Login.MessageHandlers
 
             if (gs.user != null && !String.IsNullOrEmpty(gs.user.Id))
             {
-                await _loginService.SaveLocalUserData(gs, gs.user.Email);
+                await _loginService.SaveLocalUserData(gs, gs.user.Id);
             }
 
             await UniTask.NextFrame( cancellationToken: token);
