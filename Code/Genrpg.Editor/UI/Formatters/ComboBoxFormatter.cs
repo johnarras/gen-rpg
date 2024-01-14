@@ -1,5 +1,4 @@
 ﻿using Genrpg.Editor.UI.Constants;
-using Genrpg.Editor.UI.FormatterHelpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

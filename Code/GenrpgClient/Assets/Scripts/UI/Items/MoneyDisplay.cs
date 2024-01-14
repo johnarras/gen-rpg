@@ -37,8 +37,7 @@ public class MoneyDisplay : BaseBehaviour
         }
     }
 
-
-    public const int SegmentDiv = 100;
+    private const int SegmentDiv = 100;
 
     private long _money = -1; // Force at least one update.
     public void SetMoney(long money)

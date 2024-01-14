@@ -64,6 +64,7 @@ SpriteAtlas:
     - abbe8e2751e2779499587437d27d462f: 21300000
     - f7fe0067a0a783a4ebabb0ccbc08d818: 21300000
     - 589cd1d7280d00746965b6859c3c0f02: 21300000
+    - 8ab8b288fb666ef42bad8ee4a3c4daf1: 21300000
     - feb8f3b8261152b4f96a0ed1ac12b032: 21300000
     - 9be221998bc4e9b42a92f8a355d8e6b8: 21300000
     - 098ff2e989588f64e89bf458922f7f98: 21300000
@@ -92,6 +93,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: abbe8e2751e2779499587437d27d462f, type: 3}
   - {fileID: 21300000, guid: f7fe0067a0a783a4ebabb0ccbc08d818, type: 3}
   - {fileID: 21300000, guid: 589cd1d7280d00746965b6859c3c0f02, type: 3}
+  - {fileID: 21300000, guid: 8ab8b288fb666ef42bad8ee4a3c4daf1, type: 3}
   - {fileID: 21300000, guid: feb8f3b8261152b4f96a0ed1ac12b032, type: 3}
   - {fileID: 21300000, guid: 9be221998bc4e9b42a92f8a355d8e6b8, type: 3}
   - {fileID: 21300000, guid: 098ff2e989588f64e89bf458922f7f98, type: 3}
@@ -119,6 +121,7 @@ SpriteAtlas:
   - BGDark
   - PurpleBar
   - BarBGBrown2
+  - ButtonInfo
   - IconGems
   - BlueBar
   - GreenBar
@@ -129,7 +132,7 @@ SpriteAtlas:
   - MultiStars
   - SilverBar
   - Blank
-  - WhiteCircle200
+  - WhiteCircle256
   - IconCopper
   m_RenderDataMap: {}
   m_Tag: UIAtlas

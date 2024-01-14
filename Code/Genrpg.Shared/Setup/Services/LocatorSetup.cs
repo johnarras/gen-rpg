@@ -15,6 +15,7 @@ using Genrpg.Shared.SpellCrafting.Services;
 using Genrpg.Shared.Units.Services;
 using Genrpg.Shared.Names.Services;
 using Genrpg.Shared.Charms.Services;
+using Genrpg.Shared.Ftue.Services;
 
 namespace Genrpg.Shared.Setup.Services
 {
@@ -37,6 +38,7 @@ namespace Genrpg.Shared.Setup.Services
             fact.Set<IUserCoinService>(new UserCoinService());
             fact.Set<IReflectionService>(new ReflectionService());
             fact.Set<ICharmService>(new CharmService());
+            fact.Set<IFtueService>(new FtueService());
         }
     }
 }

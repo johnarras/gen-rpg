@@ -17,8 +17,6 @@ public class CharacterSelectScreen : BaseScreen
     
 #if UNITY_EDITOR
     public GButton GenWorldButton;
-    public GButton NoiseButton;
-    public GText NoiseText;
 #endif
     public GEntity CharacterGridParent;
     public GButton CreateButton;
@@ -44,14 +42,13 @@ public class CharacterSelectScreen : BaseScreen
             }
         }
 
-        UIHelper.SetButton(GenWorldButton, GetAnalyticsName(), ClickGenerate);
-        UIHelper.SetButton(NoiseButton, GetAnalyticsName(), ClickNoise);
+        _uiService.SetButton(GenWorldButton, GetName(), ClickGenerate);
 #endif
         GEntityUtils.DestroyAllChildren(CharacterGridParent);
 
-        UIHelper.SetButton(LogoutButton, GetAnalyticsName(), ClickLogout);
-        UIHelper.SetButton(CreateButton, GetAnalyticsName(), ClickCharacterCreate);
-        UIHelper.SetButton(QuitButton, GetAnalyticsName(), ClickQuit);
+        _uiService.SetButton(LogoutButton, GetName(), ClickLogout);
+        _uiService.SetButton(CreateButton, GetName(), ClickCharacterCreate);
+        _uiService.SetButton(QuitButton, GetName(), ClickQuit);
 
         SetupCharacterGrid();
 
@@ -74,7 +71,7 @@ public class CharacterSelectScreen : BaseScreen
         }
         LoadIntoMapCommand lwd = new LoadIntoMapCommand()
         {
-            MapId = InitClient.Instance.CurrMapId,
+            MapId = InitClient.EditorInstance.CurrMapId,
             CharId = _gs.characterStubs.Select(x => x.Id).FirstOrDefault(),
             GenerateMap = true,
             Env = _gs.Env,
@@ -83,90 +80,6 @@ public class CharacterSelectScreen : BaseScreen
         _zoneGenService.LoadMap(_gs, lwd);
     }
 
-    public void ClickNoise()
-    {
-        int noiseSize = InitClient.Instance.ZoneNoiseSize;
-        float zoneAmp = InitClient.Instance.ZoneNoiseAmplitude;
-        float zoneDenom = InitClient.Instance.ZoneNoiseDenominator;
-        float pers = InitClient.Instance.ZoneNoisePersistence;
-        float lac = InitClient.Instance.ZoneNoiseLacunarity;
-        int seed = _gs.rand.Next();
-        float[,] heights = _noiseService.Generate(_gs, pers, noiseSize / zoneDenom, zoneAmp, 2, seed, noiseSize, noiseSize, lac);
-
-        int bucketSize = 11;
-
-        Texture2D[] textures = new Texture2D[bucketSize];
-        Color[][] pixels = new Color[bucketSize][];
-
-        for (int b = 0; b < bucketSize; b++)
-        {
-            textures[b] = new Texture2D(noiseSize, noiseSize, TextureFormat.RGB24, true, true);
-            pixels[b] = textures[b].GetPixels();
-        }
-
-        float[] buckets = new float[bucketSize];
-
-        int totalCells = 0;
-        for (int x = 0; x < heights.GetLength(0); x++)
-        {
-            for (int y = 0; y < heights.GetLength(1); y++)
-            {
-                float val = (float)Math.Abs(heights[x, y]);
-                
-                for (int b = 0; b < bucketSize; b++)
-                {
-                    Color texColor = Color.white;
-                    if (val > 1)
-                    {
-                        val = 1;
-                    }
-
-                    if (val <= (1-1.0f*b/(bucketSize-1)))
-                    {
-                        buckets[b]++;
-                        texColor = Color.green;
-                    }
-                    pixels[b][GetIndex(x, y, noiseSize)] = texColor;
-                }
-
-                totalCells++;
-            }
-        }
-
-        LocalFileRepository repo = new LocalFileRepository(_gs.logger);
-        float[] percents = new float[bucketSize];
-
-        for (int b = 0; b < bucketSize; b++)
-        {
-            percents[b] = 1.0f * buckets[b]/ totalCells;
-
-            textures[b].SetPixels(pixels[b]);
-
-            string filename = "";
-            if (b < 10)
-            {
-                filename = "ZoneNoise0" + b;
-            }
-            else
-            {
-                filename = "ZoneNoise" + b;
-            }
-
-            filename += ".jpg";
-
-            repo.SaveBytes(filename, textures[b].EncodeToJPG(100));
-        }
-
-
-        StringBuilder sb = new StringBuilder();
-
-        for (int b = 0; b < bucketSize; b++)
-        {
-            sb.Append(b + ": " + percents[b].ToString("F3") + "\n");
-        }
-
-        UIHelper.SetText(NoiseText, sb.ToString());
-    }
 
     private int GetIndex(int x, int y, int noiseSize)
     {
@@ -185,14 +98,9 @@ public class CharacterSelectScreen : BaseScreen
 
     public void OnSelectChar()
     {
-        if (!CanClick("selectchar"))
-        {
-            return;
-        }
-
         CharacterStub currStub = null;
 
-        GEntity selected = UIHelper.GetSelected();
+        GEntity selected = _uiService.GetSelected();
 
         CharacterSelectRow currRow = null;
 
@@ -255,10 +163,6 @@ public class CharacterSelectScreen : BaseScreen
 
     public void ClickQuit()
     {
-        if (!CanClick("quit"))
-        {
-            return;
-        }
         AppUtils.Quit();
     }
 

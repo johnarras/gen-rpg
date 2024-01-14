@@ -7,6 +7,7 @@ using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using MessagePack.Formatters;
+using MessagePack.Resolvers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -100,9 +101,7 @@ public class AddTrees : BaseZoneGenerator
     public const float MaxTreeChance = 0.35f;
     public const float MaxBushChance = 0.02f;
     
-   
-    public static string[] TreeOverrideNames = new String[] { "Fall", "Young", "Bare", "FallYoung" };
-
+    private string[] _treeOverrideNames = new String[] { "Fall", "Young", "Bare", "FallYoung" };
 
     private float[,] extraTreeHeights;
 
@@ -695,7 +694,7 @@ public class AddTrees : BaseZoneGenerator
         {
             if (item.Art != null && item.Art != ttype.Art)
             {
-                foreach (string name in TreeOverrideNames)
+                foreach (string name in _treeOverrideNames)
                 {
                     if (item.Art.Replace(name, "") == tname)
                     {
@@ -774,7 +773,7 @@ public class AddTrees : BaseZoneGenerator
                     // Put a bump near this item.
                     float overallExtraHeight = MathUtils.FloatRange(0, 1, full.posRand) * maxOverallExtraHeight;
 
-                    float steepness = gs.md.GetSteepness(gs, x, y);
+                    float steepness = _terrainManager.GetSteepness(gs, x, y);
 
                     overallExtraHeight *= (90 - steepness) / 90;
 
@@ -868,7 +867,7 @@ public class AddTrees : BaseZoneGenerator
                     float maxRadius = Math.Max(2.0f, dirtRadius / 2);
                     float minRadius = Math.Max(1.0f, maxRadius / 2);
                        
-                    nearbyHelper.AddItemsNear(gs, full.posRand, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone, x, y, 1.0f, numNearbyItems,minRadius,maxRadius, false);
+                    nearbyHelper.AddItemsNear(gs, _terrainManager, full.posRand, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone, x, y, 1.0f, numNearbyItems,minRadius,maxRadius, false);
                 }
             }
         }

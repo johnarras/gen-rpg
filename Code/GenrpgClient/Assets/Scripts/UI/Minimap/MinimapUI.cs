@@ -38,7 +38,7 @@ public class MinimapUI : BaseBehaviour
     {
         if (MapImage != null && UnityZoneGenService.mapTexture != null)
         {
-            UIHelper.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
+            _uiService.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
             OnEnableMinimap(_gs, null);
             
         }

@@ -13,7 +13,7 @@ public class ProxyCharacterController : UnitController
             return;
         }
 
-        float delta = InputService.Instance.GetDeltaTime();
+        float delta = _inputService.GetDeltaTime();
         float targetDeltaTime = 1.0f / AppUtils.TargetFrameRate;
         delta = targetDeltaTime;
         float moveSpeed = _unit.Speed * delta;
@@ -94,7 +94,7 @@ public class ProxyCharacterController : UnitController
             _unit.X = endPos.x;
             _unit.Z = endPos.z;
 
-            float endHeight = _gs.md.SampleHeight(_gs, endPos.x, 2000, endPos.z);
+            float endHeight = _terrainManager.SampleHeight(_gs, endPos.x, endPos.z);
            entity.transform().position = GVector3.Create(endPos.x, endHeight, endPos.z);
 
         }

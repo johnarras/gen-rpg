@@ -21,7 +21,6 @@ public class CharacterScreen : ItemIconScreen
     public List<EquipSlotIcon> EquipmentIcons;
     public List<StatInfoRow> Stats;
     public GEntity StatGridParent;
-    public GButton CloseButton;
 
     protected IInventoryService _inventoryService;
     protected IClientMapObjectManager _objectManager;
@@ -36,7 +35,6 @@ public class CharacterScreen : ItemIconScreen
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
         _gs.AddEvent<OnUnequipItem>(this, OnUnequip);
         _gs.AddEvent<OnEquipItem>(this, OnEquip);
         _ch = _gs.ch;
@@ -86,7 +84,7 @@ public class CharacterScreen : ItemIconScreen
         };
         EquipSlot slot = gs.data.GetGameData<EquipSlotSettings>(gs.ch).GetEquipSlot(eqIcon.EquipSlotId);
         eqIcon.Icon.Init(iconInitData, _token);
-        UIHelper.SetText(eqIcon.Name, slot?.Name ?? "");
+        _uiService.SetText(eqIcon.Name, slot?.Name ?? "");
     }
 
     private void ShowStats()

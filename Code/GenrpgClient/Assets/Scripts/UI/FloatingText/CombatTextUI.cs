@@ -36,7 +36,7 @@ public class CombatTextUI : BaseBehaviour
        entity.transform().parent = null;
        entity.transform().localScale = GVector3.onePlatform;
        entity.transform().parent = oldParent;
-        UIHelper.SetText(CombatText, text.Text);
+        _uiService.SetText(CombatText, text.Text);
 
         _isCrit = text.IsCrit;
        

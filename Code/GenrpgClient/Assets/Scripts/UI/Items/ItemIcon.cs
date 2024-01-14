@@ -97,16 +97,16 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             ItemType itype = _gs.data.GetGameData<ItemTypeSettings>(_gs.ch).GetItemType(_initData.Data.ItemTypeId);
             if (itype.EquipSlotId > 0)
             {
-                UIHelper.SetText(QuantityText, "");
+                _uiService.SetText(QuantityText, "");
             }
             else
             {
-                UIHelper.SetText(QuantityText, _initData.Data.Quantity.ToString());
+                _uiService.SetText(QuantityText, _initData.Data.Quantity.ToString());
             }
         }
         else
         {
-            UIHelper.SetText(QuantityText, data.quantity.ToString());
+            _uiService.SetText(QuantityText, data.quantity.ToString());
         }
 
         if (FlagUtils.IsSet(_initData.Flags, ItemIconFlags.ShowTooltipNow))

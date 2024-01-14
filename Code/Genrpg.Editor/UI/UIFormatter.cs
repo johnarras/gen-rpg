@@ -1,6 +1,5 @@
 ﻿using Amazon.Runtime.Internal.Util;
 using Genrpg.Editor.UI.Constants;
-using Genrpg.Editor.UI.FormatterHelpers;
 using Genrpg.Editor.UI.Formatters;
 using Genrpg.Shared.Utils;
 using Microsoft.VisualBasic.Logging;

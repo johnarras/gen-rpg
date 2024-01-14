@@ -298,7 +298,7 @@ public class GEntityUtils
         go = GEntity.Instantiate<GEntity>(go);
 
         go.name = go.name.Replace("(Clone)", "");
-        go.name = go.name.Replace(UnityAssetService.ArtFileSuffix, "");
+        go.name = go.name.Replace(AssetConstants.ArtFileSuffix, "");
 
         if (parent != null)
         {

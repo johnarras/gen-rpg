@@ -1,4 +1,5 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.Units.Loaders;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,19 @@ using System.Text;
 
 namespace Genrpg.Shared.GameSettings.PlayerData
 {
+    [MessagePackObject]
+    public class PlayerSettingsOverrideItem
+    {
+        [Key(0)] public string SettingId { get; set; }
+        [Key(1)] public string DocId { get; set; }
+    }
+    [MessagePackObject]
+    public class GameDataOverrideList
+    {
+        [Key(0)] public List<PlayerSettingsOverrideItem> Items { get; set; } = new List<PlayerSettingsOverrideItem>();
+
+        [Key(1)] public string Hash { get; set; }
+    }
     [MessagePackObject]
     public class GameDataOverrideData : BasePlayerData
     {
@@ -17,5 +31,10 @@ namespace Genrpg.Shared.GameSettings.PlayerData
 
         [Key(3)] public GameDataOverrideList OverrideList { get; set; }
 
+    }
+    [MessagePackObject]
+    public class SettingsOverrideDataLoader : UnitDataLoader<GameDataOverrideData>
+    {
+        public override bool SendToClient() { return false; }
     }
 }

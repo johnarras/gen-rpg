@@ -150,26 +150,26 @@ public class ProgressBar : BaseBehaviour
 
         if (_textOption == ShowTextOption.Hide)
         {
-            UIHelper.SetText(BarText, "");
+            _uiService.SetText(BarText, "");
         }
         else if (_textOption == ShowTextOption.Current)
         {
-            UIHelper.SetText(BarText, _currValue.ToString());
+            _uiService.SetText(BarText, _currValue.ToString());
         }
         else if (_textOption == ShowTextOption.CurrentOverMax)
         {
-            UIHelper.SetText(BarText, _currValue + "/" + _maxValue);
+            _uiService.SetText(BarText, _currValue + "/" + _maxValue);
         }
         else if (_textOption == ShowTextOption.Custom)
         {
-            UIHelper.SetText(BarText, _customText);
+            _uiService.SetText(BarText, _customText);
         }
         else if (_textOption == ShowTextOption.Percent)
         {
             if (_maxValue > _minValue)
             {
                 double pct = 100.0 * (_currValue - _minValue) / (_maxValue - _minValue);
-                UIHelper.SetText(BarText, (int)(pct) + "%");
+                _uiService.SetText(BarText, (int)(pct) + "%");
             }
         }
     }

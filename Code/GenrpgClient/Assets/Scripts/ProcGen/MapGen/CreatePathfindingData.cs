@@ -56,7 +56,7 @@ public class CreatePathfindingData : BaseZoneGenerator
                         continue;
                     }
 
-                    float steepness = gs.md.GetSteepness(gs, x, z);
+                    float steepness = _terrainManager.GetSteepness(gs, x, z);
 
                     if (steepness > PathfindingConstants.MaxSteepness)
                     {
@@ -147,7 +147,7 @@ public class CreatePathfindingData : BaseZoneGenerator
             string filename = MapUtils.GetMapObjectFilename(gs, PathfindingConstants.Filename, gs.map.Id, gs.map.MapVersion);
             repo.SaveBytes(filename, output);
 
-            string localPath = LocalFileRepository.GetPath(filename);
+            string localPath = repo.GetPath(filename);
             string remotePath = filename;
             FileUploadData fdata = new FileUploadData();
             fdata.GamePrefix = Game.Prefix;

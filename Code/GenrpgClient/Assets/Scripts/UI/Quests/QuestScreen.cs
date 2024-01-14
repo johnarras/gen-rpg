@@ -27,7 +27,6 @@ internal class QuestTypeWithIndex
 public class QuestScreen : ItemIconScreen
 {
     public GButton VendorButton;
-    public GButton CloseButton;
     public GEntity QuestListParent;
     public QuestInfoUI FullQuestInfo;
 
@@ -42,8 +41,7 @@ public class QuestScreen : ItemIconScreen
         await base.OnStartOpen(data, token);
         _gs.AddEvent<AlterQuestStateEvent>(this, OnAlterQuestState);
         _gs.AddEvent<OnGetQuests>(this, OnGetQuestsHandler);
-        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
-        UIHelper.SetButton(VendorButton, GetAnalyticsName(), ClickVendor);
+        _uiService.SetButton(VendorButton, GetName(), ClickVendor);
         _unit = data as Unit;
         if (_unit == null)
         {

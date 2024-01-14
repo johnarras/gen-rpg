@@ -520,7 +520,6 @@ namespace Genrpg.Shared.Reflection.Services
                 return false;
             }
 
-
             MethodInfo addMethod = objType.GetMethod("Add", new[] { underlyingType });
             if (addMethod == null)
             {
@@ -529,6 +528,24 @@ namespace Genrpg.Shared.Reflection.Services
             addMethod.Invoke(collection, new[] { itemToAdd });
 
             return true;
+        }
+
+        private object CreateFromCopy(object copyFrom, Type underlyingType)
+        {
+            object obj2 = null;
+            if (copyFrom == null)
+            {
+                obj2 = CreateObjectOfType(underlyingType);
+            }
+            else
+            {
+                obj2 = SerializationUtils.SafeMakeCopy(copyFrom);
+            }
+            if (copyFrom is IComplexCopy complexFrom && obj2 is IComplexCopy complexObj)
+            {
+                complexObj.DeepCopyFrom(complexFrom);
+            }
+            return obj2;
         }
 
         public object AddItems(object obj, object parent, IRepositorySystem repoSystem, out List<object> newItems,
@@ -622,19 +639,7 @@ namespace Genrpg.Shared.Reflection.Services
 
                     for (int c = currSize; c < newSize; c++)
                     {
-                        object obj2 = null;
-                        if (copyFrom == null)
-                        {
-                            obj2 = CreateObjectOfType(underlyingType);
-                        }
-                        else
-                        {
-                            obj2 = SerializationUtils.SafeMakeCopy(copyFrom);
-                            if (copyFrom is IComplexCopy complexFrom && obj2 is IComplexCopy complexObj)
-                            {
-                                complexObj.DeepCopyFrom(complexFrom);
-                            }
-                        }
+                        object obj2 = CreateFromCopy(copyFrom, underlyingType);
                         largestId++;
                         SetObjectValue(obj2, GameDataConstants.IdKey, largestId);
                         newItems.Add(obj2);
@@ -691,19 +696,8 @@ namespace Genrpg.Shared.Reflection.Services
                     for (int c = 0; c < numToAdd; c++)
                     {
                         object obj2 = null;
-                        if (copyFrom == null)
-                        {
-                            obj2 = CreateObjectOfType(underlyingType);
-                        }
-                        else
-                        {
-                            obj2 = SerializationUtils.SafeMakeCopy(copyFrom);
 
-                            if (copyFrom is IComplexCopy complexFrom && obj2 is IComplexCopy complexObj)
-                            {
-                                complexObj.DeepCopyFrom(complexFrom);
-                            }
-                        }
+                        obj2 = CreateFromCopy(copyFrom, underlyingType);
                         newItems.Add(obj2);
                         largestId++;
                         try

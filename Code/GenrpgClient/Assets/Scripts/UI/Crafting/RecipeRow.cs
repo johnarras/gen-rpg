@@ -31,9 +31,9 @@ public class RecipeRow : BaseBehaviour
             return;
         }
 
-        UIHelper.SetText(RecipeName, _recipe.Name);
+        _uiService.SetText(RecipeName, _recipe.Name);
 
-        UIHelper.SetText(RecipeRank, _status.GetLevel().ToString() + "/" + status.GetMaxLevel());
+        _uiService.SetText(RecipeRank, _status.GetLevel().ToString() + "/" + status.GetMaxLevel());
 
         SetIsActive(false);
     }

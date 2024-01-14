@@ -13,28 +13,18 @@ public class CharacterCreateScreen : BaseScreen
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
-        UIHelper.SetButton(CreateButton, GetAnalyticsName(), ClickCreate);
-        UIHelper.SetButton(BackButton, GetAnalyticsName(),ClickBack);
+        _uiService.SetButton(CreateButton, GetName(), ClickCreate);
+        _uiService.SetButton(BackButton, GetName(),ClickBack);
         await UniTask.CompletedTask;
     }
 
     public void ClickBack()
     {
-        if (!CanClick("back"))
-        {
-            return;
-        }
-
         _screenService.Open(_gs, ScreenId.CharacterSelect);
         _screenService.Close(_gs, ScreenId.CharacterCreate);
     }
     public void ClickCreate()
     {
-        if (!CanClick("create"))
-        {
-            return;
-        }
-
         string charName = NameInput.Text;
         if (string.IsNullOrEmpty(charName))
         {

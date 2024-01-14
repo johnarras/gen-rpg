@@ -87,5 +87,25 @@ namespace Genrpg.Shared.Utils
         {
             return (T)BinaryDeserializeWithType(BinarySerializeObject(t), t.GetType())!;
         }
+
+        public static T TryDeserialize<T>(object obj) where T  :class
+        {
+            string txt = obj as String;
+            if (txt == null)
+            {
+                return default(T);
+            }
+
+            try
+            {
+                T t = Deserialize<T>(txt);
+                return t;
+            }
+            catch (Exception ex)
+            {
+               // Ignore bad deserialize
+            }
+            return default(T);
+        }
     }
 }

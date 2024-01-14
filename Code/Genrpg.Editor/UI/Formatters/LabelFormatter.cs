@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Genrpg.Editor.UI.FormatterHelpers
+namespace Genrpg.Editor.UI.Formatters
 {
     public class LabelFormatter
     {
@@ -28,7 +28,7 @@ namespace Genrpg.Editor.UI.FormatterHelpers
             Font font = label.Font;
 
             label.ForeColor = TextColor;
-            Font newFont = new Font(familyName:FamilyName, emSize:fontSize > 0 ? fontSize : font.Size, style:FontStyle);
+            Font newFont = new Font(familyName: FamilyName, emSize: fontSize > 0 ? fontSize : font.Size, style: FontStyle);
 
             label.Font = newFont;
 

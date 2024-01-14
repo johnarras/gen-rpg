@@ -2,6 +2,7 @@ using MessagePack;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Units.Loaders;
 
 namespace Genrpg.Shared.Achievements.PlayerData
 {
@@ -32,4 +33,6 @@ namespace Genrpg.Shared.Achievements.PlayerData
 
     [MessagePackObject]
     public class AchievementApi : OwnerApiList<AchievementData, AchievementStatus> { }
+    [MessagePackObject]
+    public class AchievementDataLoader : OwnerDataLoader<AchievementData, AchievementStatus, AchievementApi> { }
 }

@@ -45,7 +45,7 @@ namespace Assets.Scripts.MapTerrain
         public bool HaveSetAlphamaps = false;
 
         public List<long> TerrainTextureIndexes { get; set; } = new List<long>();
-
+        
         public string GetFilePath(GameState gs, bool duringSaveAndUpload)
         {
             string path = MapUtils.GetMapFolder(gs, MapId, MapVersion) + "TerrainX" + X.ToString("000") + "Y" + Y.ToString("000");

@@ -236,7 +236,7 @@ public class AddMountainTextures : BaseZoneGenerator
 					continue;
 				}
 
-				float steep = gs.md.GetSteepness(gs,y,x);
+				float steep = _terrainManager.GetSteepness(gs,y,x);
 
 				// Steepness works in 2 stages.
 				// Within the "Core" wall, not the extra blended edge, the steepness
@@ -279,7 +279,7 @@ public class AddMountainTextures : BaseZoneGenerator
                 }
                 else
                 {
-                    float midhgt = gs.md.GetInterpolatedHeight(gs, y, x);
+                    float midhgt = _terrainManager.GetInterpolatedHeight(gs, y, x);
 
                     int numAngles = 100;
                     int innerMinNumAboveMid = numAngles / 2 + extraRaisedPointsPercent;
@@ -296,7 +296,7 @@ public class AddMountainTextures : BaseZoneGenerator
 
                         float xx = x + innerrad * cosx;
                         float yy = y + innerrad * sinx;
-                        float xyhgt = gs.md.GetInterpolatedHeight(gs, yy, xx);
+                        float xyhgt = _terrainManager.GetInterpolatedHeight(gs, yy, xx);
                         if (xyhgt > midhgt + innerExtraHeight)
                         {
                             innerNumAboveMid++;
@@ -304,7 +304,7 @@ public class AddMountainTextures : BaseZoneGenerator
 
                         xx = x + outerrad * cosx;
                         yy = y + outerrad * sinx;
-                        xyhgt = gs.md.GetInterpolatedHeight(gs, yy, xx);
+                        xyhgt = _terrainManager.GetInterpolatedHeight(gs, yy, xx);
                         if (xyhgt > midhgt + innerExtraHeight)
                         {
                             outerNumAboveMid++;

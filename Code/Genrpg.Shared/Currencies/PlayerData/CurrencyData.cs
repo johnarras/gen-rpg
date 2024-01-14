@@ -8,6 +8,7 @@ using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Units.Loaders;
 
 namespace Genrpg.Shared.Currencies.PlayerData
 {
@@ -38,4 +39,7 @@ namespace Genrpg.Shared.Currencies.PlayerData
 
     [MessagePackObject]
     public class CurrencyApi : OwnerApiList<CurrencyData, CurrencyStatus> { }
+
+    [MessagePackObject]
+    public class CurrencyDataLoader : OwnerDataLoader<CurrencyData, CurrencyStatus, CurrencyApi> { }
 }

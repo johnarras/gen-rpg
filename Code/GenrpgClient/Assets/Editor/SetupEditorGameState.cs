@@ -38,7 +38,8 @@ public class SetupEditorUnityGameState
 
             ClientConfig config = Resources.Load<ClientConfig>("Config/ClientConfig");
 
-            ClientSetupService.SetupClient(gs, false, DefaultDevContentRoot, 
+            ClientInitializer clientInitializer = new ClientInitializer();
+            clientInitializer.SetupClientServices(gs, false, DefaultDevContentRoot, 
                 !string.IsNullOrEmpty(config.ContentDataEnvOverride) ? config.ContentDataEnvOverride : EnvNames.Dev, 
                 !string.IsNullOrEmpty(config.WorldDataEnv) ? config.WorldDataEnv : EnvNames.Dev, 
                 _cts.Token);

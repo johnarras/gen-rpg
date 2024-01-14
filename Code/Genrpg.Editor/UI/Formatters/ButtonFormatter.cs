@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Genrpg.Editor.UI.FormatterHelpers
+namespace Genrpg.Editor.UI.Formatters
 {
     public class ButtonFormatter
     {
-        public const int DefaultBG = FormFormatter.DefaultBG+40;
+        public const int DefaultBG = FormFormatter.DefaultBG + 40;
         public const int DefaultFG = 235; // Font Color
 
         public Color BackColor { get; set; } = Color.Black;
@@ -43,7 +43,7 @@ namespace Genrpg.Editor.UI.FormatterHelpers
 
             Font font = button.Font;
 
-            Font newFont = new Font(familyName:FamilyName, emSize:font.Size, style:FontStyle);
+            Font newFont = new Font(familyName: FamilyName, emSize: font.Size, style: FontStyle);
 
             button.Font = newFont;
         }

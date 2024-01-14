@@ -18,7 +18,7 @@ public class CreateConnectedZones : BaseAddMountains
 
         if (zonesDesired < 1)
         {
-            UnityZoneGenService.GenErrorMsg = "Failed to Generate enough zones!";
+            gs.logger.Error("FAILED TO GENERATE ENOUGH ZONES");
             return;
         }
 

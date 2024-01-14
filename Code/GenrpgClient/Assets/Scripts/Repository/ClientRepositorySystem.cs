@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using UnityEngine;
 using System.Threading.Tasks;
 using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Entities.Utils;
 
 namespace Assets.Scripts.Model
 {
@@ -130,5 +131,48 @@ namespace Assets.Scripts.Model
             await Task.CompletedTask;
             return false;
         }
+
+        // Don't allow this on the client
+        public async Task<bool> UpdateDict<T>(string docId, Dictionary<string,object> fieldNameUpdates) where T : class, IStringId
+        {
+            T doc = await Load<T>(docId);
+
+            if (doc != null)
+            {
+                foreach (string key in fieldNameUpdates.Keys)
+                {
+                    EntityUtils.SetObjectValue(doc, key, fieldNameUpdates[key]);
+                }
+
+                return await Save(doc);
+            }
+
+            await Task.CompletedTask;
+            return false;
+        }
+        public void QueueUpdateDict<T>(string docId, Dictionary<string, object> fieldNameUpdates) where T : class, IStringId
+        {
+            UpdateDict<T>(docId, fieldNameUpdates).Wait();
+        }
+
+        public async Task<bool> UpdateAction<T>(string docId, Action<T> action) where T : class, IStringId
+        {
+            T doc = await Load<T>(docId);
+
+            if (doc != null)
+            {
+                action(doc);
+                return await Save(doc);
+            }
+
+            await Task.CompletedTask;
+            return false;
+        }
+
+        public void QueueUpdateAction<T>(string docId, Action<T> action) where T : class, IStringId
+        {
+            UpdateAction<T>(docId, action).Wait();
+        }
+
     }
 }

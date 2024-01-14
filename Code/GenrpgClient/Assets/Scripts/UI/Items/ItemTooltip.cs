@@ -58,9 +58,9 @@ public class ItemTooltip : BaseTooltip
             return;
         }
 
-        UIHelper.SetText(Message, _data.message);
-        UIHelper.SetText(ItemName, ItemUtils.GetName(gs, gs.ch,_data.mainItem));
-        UIHelper.SetText(BasicInfo, ItemUtils.GetBasicInfo(gs, gs.ch, _data.mainItem));
+        _uiService.SetText(Message, _data.message);
+        _uiService.SetText(ItemName, ItemUtils.GetName(gs, gs.ch,_data.mainItem));
+        _uiService.SetText(BasicInfo, ItemUtils.GetBasicInfo(gs, gs.ch, _data.mainItem));
 
         string bgName = IconHelper.GetBackingNameFromQuality(gs, _data.mainItem.QualityTypeId);
 
@@ -211,12 +211,12 @@ public class ItemTooltip : BaseTooltip
 
             if (!_data.isVendorItem)
             {
-                UIHelper.SetText(MoneyText, "Sell:");
+                _uiService.SetText(MoneyText, "Sell:");
                 cost = ItemUtils.GetSellToVendorPrice(_gs, _gs.ch, _data.mainItem);
             }
             else
             {
-                UIHelper.SetText(MoneyText, "Price:");
+                _uiService.SetText(MoneyText, "Price:");
                 cost = ItemUtils.GetBuyFromVendorPrice(_gs, _gs.ch, _data.mainItem);
             }
 

@@ -12,6 +12,7 @@ using Genrpg.Shared.Zones.WorldData;
 public abstract class BaseObjectLoader
 {
     protected IAssetService _assetService;
+    protected IMapTerrainManager _terrainManager;
     public BaseObjectLoader(UnityGameState gs)
     {
         gs.loc.Resolve(this);
@@ -80,7 +81,7 @@ public abstract class BaseObjectLoader
             dlo.ddx = MathUtils.SeedFloatRange(dlo.placementSeed * 13, 143, -0.5f, 0.5f, 101);
             dlo.ddy = MathUtils.SeedFloatRange(dlo.placementSeed * 17, 149, -0.5f, 0.5f, 101);
         }
-        dlo.height = gs.md.SampleHeight(gs, wx, MapConstants.MapHeight, wy);
+        dlo.height = _terrainManager.SampleHeight(gs, wx, wy);
         go.transform().localPosition = GVector3.Create(dlo.x + dlo.ddx, dlo.height + dlo.zOffset, dlo.y + dlo.ddy);
         go.transform().localScale = GVector3.onePlatform;
         if (dlo.finalZ > 0)

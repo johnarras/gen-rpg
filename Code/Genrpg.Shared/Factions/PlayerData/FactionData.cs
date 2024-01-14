@@ -10,9 +10,22 @@ using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Factions.Settings;
 using Genrpg.Shared.Factions.Messages;
+using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Units.Loaders;
 
 namespace Genrpg.Shared.Factions.PlayerData
 {
+    [MessagePackObject]
+    public class FactionStatus : OwnerPlayerData, IId
+    {
+
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string OwnerId { get; set; }
+        [Key(2)] public long IdKey { get; set; }
+        [Key(3)] public long RepLevelId { get; set; }
+        [Key(4)] public long Reputation { get; set; }
+    }
     /// <summary>
     /// A list of affinities/reputations
     /// </summary>
@@ -149,4 +162,8 @@ namespace Genrpg.Shared.Factions.PlayerData
             return SetRep(gs, unit, factionId, GetRep(gs, factionId) + val);
         }
     }
+    [MessagePackObject]
+    public class FactionApi : OwnerApiList<FactionData, FactionStatus> { }
+    [MessagePackObject]
+    public class FactionDataLoader : OwnerDataLoader<FactionData, FactionStatus, FactionApi> { }
 }

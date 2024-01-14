@@ -8,13 +8,11 @@ public class MapScreen : BaseScreen
 
     public GEntity ArrowParent = null;
     public GRawImage MapImage;
-    public GButton CloseButton;
 
     GEntity ArrowObject = null;
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
-        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
         Setup();
         await UniTask.CompletedTask;
     }
@@ -23,7 +21,7 @@ public class MapScreen : BaseScreen
     {
         _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token, Subdirectory);
 
-        UIHelper.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
+        _uiService.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
     }
 
     private void OnLoadArrow(UnityGameState gs, string url, object obj, object data, CancellationToken token)

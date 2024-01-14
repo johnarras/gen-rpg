@@ -1,9 +1,22 @@
 using MessagePack;
 using System;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Units.Loaders;
 
 namespace Genrpg.Shared.UserCoins.PlayerData
 {
+    [MessagePackObject]
+    public class UserCoinStatus : OwnerPlayerData, IId
+    {
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string OwnerId { get; set; }
+        [Key(2)] public long IdKey { get; set; }
+        [Key(3)] public long Quantity { get; set; }
+    }
+
+
     /// <summary>
     /// Used to contain a list of currencies on objects that need it (like user and character)
     /// </summary>
@@ -35,4 +48,12 @@ namespace Genrpg.Shared.UserCoins.PlayerData
             return true;
         }
     }
+
+    [MessagePackObject]
+    public class UserCoinDataLoader : OwnerDataLoader<UserCoinData, UserCoinStatus, UserCoinApi>
+    {
+        protected override bool IsUserData() { return true; }
+    }
+    [MessagePackObject]
+    public class UserCoinApi : OwnerApiList<UserCoinData, UserCoinStatus> { }
 }

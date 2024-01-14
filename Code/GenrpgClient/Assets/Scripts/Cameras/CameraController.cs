@@ -4,6 +4,7 @@ using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Utils;
 using UnityEngine; // Needed
+using Genrpg.Shared.Interfaces;
 
 [Serializable]
 public class CullDistanceOverride
@@ -12,40 +13,48 @@ public class CullDistanceOverride
     public float CullDistance;
 }
 
-
-public class CameraController : BaseBehaviour
+public interface ICameraController : IService
 {
+    Camera GetMainCamera();
+    void BeforeMoveUpdate();
+    void AfterMoveUpdate();
+    List<Camera> GetAllCameras();
+}
+
+public class CameraController : BaseBehaviour, ICameraController
+{
+
+    private IInputService _inputService;
+    private IMapTerrainManager _terrainManager;
 
     public List<CullDistanceOverride> LayerCullDistanceOverrides;
 
-	public const float CameraDistScale = 1.2f; // 1.5f?
-	public static GVector3 StartCameraOffset = new GVector3(0,2.0f,-10.0f)*CameraDistScale;
-	public const float StartCameraDistance = 4.125f*CameraDistScale;
+	private const float CameraDistScale = 1.2f; // 1.5f?
+	private static GVector3 StartCameraOffset = new GVector3(0,2.0f,-10.0f)*CameraDistScale;
+	private const float StartCameraDistance = 4.125f*CameraDistScale;
 
 	protected static float CameraHeightAboveGroundTarget = 2.0f;
 	
-	public static GVector3 CameraOffset = new GVector3 (0,0.95f,-4.0f)*CameraDistScale;
-    public static GVector3 OldCameraOffset = CameraOffset;
-	public static GVector3 CamPos = GVector3.zero;
-	public static GVector3 LookAtPos = GVector3.zero;
+	private static GVector3 CameraOffset = new GVector3 (0,0.95f,-4.0f)*CameraDistScale;
+    private static GVector3 OldCameraOffset = CameraOffset;
+	private static GVector3 CamPos = GVector3.zero;
+	private static GVector3 LookAtPos = GVector3.zero;
 
-	public static bool LockCameraPosition = false;
-	public float LockedCameraAngle { get; set; }
+	private bool _lockCameraPosition = false;
+	private float LockedCameraAngle { get; set; }
 	
-	public static float CameraDistance = 0.0f;
+	private static float CameraDistance = 0.0f;
 	
-	public const float minHeightAboveTerrain = 2.0f;
+	private const float minHeightAboveTerrain = 2.0f;
 	
-	public const float MinCameraDistance = 10f;
-	public const float MaxCameraDistance = 20;
-	public const float CameraZoomSpeed = 0.2f;
-	public const float CameraDistanceDelta = 5.0f;
-	public const float CameraZoomScale = 1.1f;
-	public const float CameraMoveScale = 1.5f;
+	private const float MinCameraDistance = 10f;
+	private const float MaxCameraDistance = 20;
+	private const float CameraZoomSpeed = 0.2f;
+	private const float CameraDistanceDelta = 5.0f;
+	private const float CameraZoomScale = 1.1f;
+	private const float CameraMoveScale = 1.5f;
 
     private int _onStairsTicks = 0;
-
-    public static CameraController Instance = null;
 
 
     public Camera mainCam = null;
@@ -54,11 +63,12 @@ public class CameraController : BaseBehaviour
 
     GEntity _dragParent = null;
 
+    public List<Camera> GetAllCameras() { return Cameras; }
 
     public override void Initialize(UnityGameState gs)
     {
         base.Initialize(gs);
-        Instance = this;
+        gs.loc.Set<ICameraController>(this);
         CameraDistance = StartCameraOffset.magnitude;
         SetupCullDistances();
         int layerMask = LayerUtils.GetMask(new string[] { LayerNames.Default, LayerNames.Water, LayerNames.ObjectLayer, LayerNames.UnitLayer, LayerNames.SpellLayer });
@@ -156,7 +166,7 @@ public class CameraController : BaseBehaviour
             _onStairsTicks = 0;
         }
     }
-	public const float MaxPanMagnitude = 15.0f;
+	private const float MaxPanMagnitude = 15.0f;
 
 
 
@@ -214,8 +224,8 @@ public class CameraController : BaseBehaviour
         }
 
 
-        moveScale = CameraMoveScale * InputService.Instance.GetDeltaTime();
-        currPos = InputService.Instance.MousePosition();
+        moveScale = CameraMoveScale * _inputService.GetDeltaTime();
+        currPos = _inputService.MousePosition();
         diffPos = currPos - prevPos;
         scrollWheel = -Input.GetAxis("Mouse ScrollWheel");
 
@@ -281,8 +291,8 @@ public class CameraController : BaseBehaviour
         {
             mouseDownTicks = 0;
         }
-        button0 = InputService.Instance.MouseIsDown(0);
-        button1 = InputService.Instance.MouseIsDown(1);
+        button0 = _inputService.MouseIsDown(0);
+        button1 = _inputService.MouseIsDown(1);
 
 
         player = PlayerObject.Get();
@@ -297,7 +307,7 @@ public class CameraController : BaseBehaviour
             return;
         }
 
-        if (LockCameraPosition)
+        if (_lockCameraPosition)
         {
             return;
         }
@@ -435,14 +445,14 @@ public class CameraController : BaseBehaviour
 
         lookAtPos = GVector3.Create(player.transform().position)+ new GVector3 (0,CameraHeightAboveGroundTarget,0);
 
-		if (LockCameraPosition)
+		if (_lockCameraPosition)
 		{
 			lookAtPos = LookAtPos;
 		}
 
         desiredLookAngle = player.transform().eulerAngles.y;
 
-		if (LockCameraPosition)
+		if (_lockCameraPosition)
 		{
 			desiredLookAngle = LockedCameraAngle;
 		}
@@ -466,7 +476,7 @@ public class CameraController : BaseBehaviour
         MoveCamera(lookAtPos + GQuaternion.MultVector(lookAtRotation,cameraOffset), lookAtPos);
 
         camPos2 = GVector3.Create(mainCam.transform().position);
-		terrainHeightAtCamera = _gs.md.SampleHeight(_gs, camPos2.x, camPos2.y, camPos2.z);
+		terrainHeightAtCamera = _terrainManager.SampleHeight(_gs, camPos2.x, camPos2.z);
 
         camDist = GVector3.Distance(lookAtPos, GVector3.Create(mainCam.transform().position))+1.0f;
         camYPos = mainCam.transform().position.y;
@@ -475,7 +485,7 @@ public class CameraController : BaseBehaviour
                     out objHit, camDist, camCollideLayerMask);
 
         playerPosition = GVector3.Create(player.transform().position);
-        terrainHeightAtPlayer = _gs.md.SampleHeight(_gs, playerPosition.x, playerPosition.y + MapConstants.MapHeight, playerPosition.z);
+        terrainHeightAtPlayer = _terrainManager.SampleHeight(_gs, playerPosition.x, playerPosition.z);
 
         currMinHeightAboveTerrain = minHeightAboveTerrain;
 

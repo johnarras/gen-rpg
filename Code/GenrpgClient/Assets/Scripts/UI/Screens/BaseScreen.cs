@@ -3,10 +3,10 @@ using UI.Screens.Constants;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine.UI; // FIX
+using Unity.IO.LowLevel.Unsafe;
 
 public abstract class BaseScreen : AnimatorBehaviour, IScreen
 {
-    public string Name { get; set; }
     public ScreenId ScreenId { get; set; }
     public string Subdirectory { get; set; }
     public float IntroTime;
@@ -48,9 +48,9 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
         }
     }
 
-    virtual public string GetAnalyticsName()
+    public virtual string GetName()
     {
-        return ScreenId.ToString();
+        return name;
     }
 
     protected List<GraphicRaycaster> GetAllRaycasters()

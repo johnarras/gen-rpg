@@ -17,6 +17,8 @@ public class InitActionIconData : InitSpellIconData
 
 public class ActionButton : SpellIcon
 {
+    private IInputService _inputService;
+
     public GImage Tint;
     public GText KeyBind;
     public GText Charges;
@@ -37,7 +39,7 @@ public class ActionButton : SpellIcon
             return;
         }
         name = GetType().Name + initData.actionIndex;
-        UIHelper.SetButton(SelfButton, spellIconData.Screen.GetAnalyticsName(), ClickButton);
+        _uiService.SetButton(SelfButton, spellIconData.Screen.GetName(), ClickButton);
         base.Init(spellIconData, token); 
         if (_gs.ch == null)
         {
@@ -62,7 +64,7 @@ public class ActionButton : SpellIcon
         }
         initData.Data = _spell;
 
-        UIHelper.SetText(KeyBind, "");
+        _uiService.SetText(KeyBind, "");
 
         KeyCommData keyCommData = _gs.ch.Get<KeyCommData>();
 
@@ -70,7 +72,7 @@ public class ActionButton : SpellIcon
 
         if (keyCode != null)
         {
-            UIHelper.SetText(KeyBind, keyCode.ShowName());
+            _uiService.SetText(KeyBind, keyCode.ShowName());
         }
 
         string iconName = ItemConstants.BlankIconName;
@@ -86,7 +88,7 @@ public class ActionButton : SpellIcon
             Tint.FillAmount = 0;
         }
 
-        UIHelper.SetText(Charges, "");
+        _uiService.SetText(Charges, "");
     }
 
     protected void ClickButton()
@@ -101,7 +103,7 @@ public class ActionButton : SpellIcon
             return;
         }
 
-        if (InputService.Instance.ModifierIsActive(_gs, KeyComm.ShiftName))
+        if (_inputService.ModifierIsActive(KeyComm.ShiftName))
         {
             base.OnPointerDown(eventData);
             return;
@@ -145,7 +147,7 @@ public class ActionButton : SpellIcon
             if (_spell.CurrCharges != _lastCharges)
             {
                 _lastCharges = _spell.CurrCharges;
-                UIHelper.SetText(Charges, _lastCharges.ToString());
+                _uiService.SetText(Charges, _lastCharges.ToString());
 
                 if (_spell.CurrCharges < _spell.MaxCharges && _spell.CooldownEnds > DateTime.UtcNow)
                 {

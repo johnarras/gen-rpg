@@ -115,7 +115,7 @@ public class AddChests : BaseZoneGenerator
                     }
 
 
-                    if (gs.md.GetSteepness(gs, cx, cy) > MaxSteepness)
+                    if (_terrainManager.GetSteepness(gs, cx, cy) > MaxSteepness)
                     {
                         continue;
                     }

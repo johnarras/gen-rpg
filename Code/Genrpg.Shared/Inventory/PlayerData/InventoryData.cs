@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Units.Loaders;
 
 namespace Genrpg.Shared.Inventory.PlayerData
 {
@@ -93,4 +94,13 @@ namespace Genrpg.Shared.Inventory.PlayerData
         }
         #endregion
     }
+
+    [MessagePackObject]
+    public class InventoryApi : OwnerApiList<InventoryData, Item>
+    {
+        [Key(0)] public List<Item> AllItems { get; set; } = new List<Item>();
+
+    }
+    [MessagePackObject]
+    public class InventoryDataLoader : OwnerDataLoader<InventoryData, Item, InventoryApi> { }
 }

@@ -94,7 +94,7 @@ public class SetupMapData : BaseZoneGenerator
             gs.md.subZoneIds = new int[gs.map.GetHwid(), gs.map.GetHhgt()];
             gs.md.overrideZoneScales = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
 
-            gs.md.SetAllTerrainNeighbors(gs);
+            _terrainManager.SetAllTerrainNeighbors(gs);
 
             gs.md.alphas = new float[gs.md.awid, gs.md.ahgt, MapConstants.MaxTerrainIndex];
             gs.md.heights = new float[gs.map.GetHwid(), gs.map.GetHhgt()];

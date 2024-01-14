@@ -17,6 +17,8 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class TreeObjectLoader : BaseObjectLoader
 {
+    const int ScaleStepCount = 20;
+
     public TreeObjectLoader(UnityGameState gs) : base(gs)
     {
     }
@@ -110,7 +112,7 @@ public class TreeObjectLoader : BaseObjectLoader
             treeType.Scale = 1.0f; // TODO Fix
             float minScale = treeType.Scale;
             float maxScale = treeType.Scale * 1.50f;
-            float finalScale = minScale + (maxScale - minScale) * (placementSeed % (MapTerrainManager.ScaleStepCount + 1)) / MapTerrainManager.ScaleStepCount;
+            float finalScale = minScale + (maxScale - minScale) * (placementSeed % (ScaleStepCount + 1)) / ScaleStepCount;
 
             if (treeType.HasFlag(TreeFlags.IsBush))
             {
@@ -210,7 +212,7 @@ public class TreeObjectLoader : BaseObjectLoader
         int wy = gy * (MapConstants.TerrainPatchSize - 1) + y;
         float ddx = MathUtils.SeedFloatRange(placementSeed * 13, 143, -0.5f, 0.5f, 101);
         float ddy = MathUtils.SeedFloatRange(placementSeed * 17, 149, -0.5f, 0.5f, 101);
-        float height = gs.md.SampleHeight(gs, wx, 2000, wy);
+        float height = _terrainManager.SampleHeight(gs, wx, wy);
 
         TreeInstance ti = new TreeInstance();
         ti.prototypeIndex = protoIndex;
@@ -238,9 +240,9 @@ public class TreeObjectLoader : BaseObjectLoader
             {
                 maxScale *= AddTrees.TreeSizeScale;
             }
-            float finalScale = minScale + (maxScale - minScale) * (placementSeed % (MapTerrainManager.ScaleStepCount + 1)) / MapTerrainManager.ScaleStepCount;
+            float finalScale = minScale + (maxScale - minScale) * (placementSeed % (ScaleStepCount + 1)) / ScaleStepCount;
 
-            GVector3 currNormal = gs.md.GetInterpolatedNormal(gs, gs.map, wx, wy);
+            GVector3 currNormal = _terrainManager.GetInterpolatedNormal(gs, gs.map, wx, wy);
 
             float offsetScale = 1.0f;
             if (!tt.HasFlag(TreeFlags.IsBush))

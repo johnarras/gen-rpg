@@ -43,7 +43,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         {
             for (int gy = 0; gy < gs.map.BlockCount; gy++)
             {
-                SetOneTerrainPatchLayers(gs, gs.md.terrainPatches[gx, gy], token, true).Forget();
+                SetOneTerrainPatchLayers(gs, _terrainManager.GetTerrainPatch(gs, gx, gy, true), token, true).Forget();
             }
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -111,11 +111,6 @@ public class SetTerrainTextures : BaseZoneGenerator
         }
     }
 
-    public static string GetTerrainTextureCacheKey (UnityGameState gs, int worldId, int zoneId, int zoneTypeId, int baseSplatChannel)
-    {
-        return "W" + worldId + "Z" + zoneTypeId + "S" + baseSplatChannel;
-    }
-	
     /// <summary>
     /// 
     /// </summary>
@@ -180,7 +175,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         currLayers[index] = tdata.TerrLayer;
         indexes.Indexes[index] = (int)tdata.TexType.IdKey;
 
-        MapGenData.SetTerrainLayerData(currLayers[index]);
+        _terrainManager.SetTerrainLayerData(currLayers[index]);
 
         tdata.InstanceCount++;
 
@@ -261,7 +256,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         tdata.NormTexture = newTerrains[1];
         tdata.TexType = ddata.TexType;
         tdata.TextureContainer = go;
-        tdata.TerrLayer = MapGenData.CreateTerrainLayer(tdata.RegTexture, tdata.NormTexture);
+        tdata.TerrLayer = _terrainManager.CreateTerrainLayer(tdata.RegTexture, tdata.NormTexture);
         _terrainManager.AddToTerrainTextureCache(ddata.TexType.Name, tdata);
         SetNewTerrainLayer(gs, ddata.Terr, ddata.TextureIndex, tdata);
     }
@@ -344,7 +339,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         tdata.NormTexture = newTerrains[1];
         tdata.TexType = ddata.TexType;
         tdata.TextureContainer = go;
-        tdata.TerrLayer = MapGenData.CreateTerrainLayer(tdata.RegTexture, tdata.NormTexture);
+        tdata.TerrLayer = _terrainManager.CreateTerrainLayer(tdata.RegTexture, tdata.NormTexture);
         _terrainManager.AddToTerrainTextureCache(ddata.TexType.Name, tdata);
     }
 }

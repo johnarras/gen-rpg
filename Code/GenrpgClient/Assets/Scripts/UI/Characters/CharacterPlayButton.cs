@@ -16,8 +16,8 @@ public class CharacterPlayButton : BaseBehaviour
         _mapId = mapId;
         _charId = charId;
 
-        UIHelper.SetButton(PlayButton, screen.GetAnalyticsName(), ClickPlay);
-        UIHelper.SetText(CharText, "Play " + _mapId);
+        _uiService.SetButton(PlayButton, screen.GetName(), ClickPlay);
+        _uiService.SetText(CharText, "Play " + _mapId);
     }
 
     public void ClickPlay()

@@ -1,28 +1,27 @@
-
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
-
 using ClientEvents;
-using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Constants;
-using Genrpg.Shared.Spells.PlayerData.Spells;
-using UI.Screens.Utils;
-using UI;
 using Cysharp.Threading.Tasks;
+using Genrpg.Shared.Constants;
 using Genrpg.Shared.Core.Entities;
-using System.Threading;
-using Genrpg.Shared.Spells.Messages;
-using UnityEngine; // Needed
-using Genrpg.Shared.Spells.Constants;
-using UI.Screens.Constants;
-using System.Threading.Tasks;
-using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Input.Constants;
+using Genrpg.Shared.Input.PlayerData;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Spells.Constants;
+using Genrpg.Shared.Spells.Messages;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Spells.Settings.Skills;
 using Genrpg.Shared.Spells.Utils;
+using Genrpg.Shared.Units.Entities;
+using System;
+using System.Collections.Generic;
+using System.Drawing.Text;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using UI.Screens.Constants;
+using UI.Screens.Utils;
+using UnityEngine; // Needed
+using UnityEngine.EventSystems;
+using GEntity = UnityEngine.GameObject;
 
 internal class InputContainer
 {
@@ -33,42 +32,32 @@ internal class InputContainer
 
 public interface IInputService : ISetupService
 {
-    bool EnteringChat();
-    void ToggleChat();
     bool MouseClickNow(int index);
+    float GetDeltaTime();
+    bool MouseIsDown(int mouseIndex);
+    GVector3 MousePosition();
+    void PerformAction(int actionButtonIndex);
+    bool ModifierIsActive(string keyCommand);
+    string[] MoveInputsToCheck();
 }
 
 public class InputService : BaseBehaviour, IInputService
 {
 
-    private static InputService _instance = null;
-    public static InputService Instance { get { return _instance; } }
+    private ICameraController _cameraController = null;
 
     IClientMapObjectManager _objectManager;
 
     public async Task Setup(GameState gs, CancellationToken token)
     {
-        _instance = this;
         AddUpdate(InputUpdate, UpdateType.Regular);
         _gs.AddEvent<MapIsLoadedEvent>(this, UpdateInputs);
         await UniTask.CompletedTask;
     }
 
-    private bool _editingChat = false;
-
-    public bool EnteringChat()
+    private bool EditingText()
     {
-        return _editingChat;
-    }
-
-    public void ToggleChat()
-    {
-        if (_editingChat)
-        {
-            ChatWindow.Instance?.SendChat();
-        }
-        _editingChat = !_editingChat;
-        ChatWindow.Instance?.SetEditing(_editingChat);
+        return GEntityUtils.GetComponent<GInputField>(EventSystem.current.currentSelectedGameObject) != null;
     }
 
     private Dictionary<string, InputContainer> _stringInputs = null;
@@ -212,7 +201,7 @@ public class InputService : BaseBehaviour, IInputService
         return Input.GetKeyDown(code);
     }
 
-    public bool ModifierIsActive(UnityGameState gs, string keyCommand)
+    public bool ModifierIsActive(string keyCommand)
     {
         if (keyCommand == KeyComm.ShiftName)
         {
@@ -296,7 +285,7 @@ public class InputService : BaseBehaviour, IInputService
     {
         if (mainCam == null)
         {
-            mainCam = CameraController.Instance.GetMainCamera();
+            mainCam = _cameraController.GetMainCamera();
         }
 
         if (mouseLayerMask == 0)
@@ -391,12 +380,7 @@ public class InputService : BaseBehaviour, IInputService
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            ToggleChat();
-        }
-
-        if (!EnteringChat())
+        if (!EditingText())
         {
             foreach (InputContainer kci in _checkEachFrameInputs)
             {
@@ -436,7 +420,12 @@ public class InputService : BaseBehaviour, IInputService
         }
     }
 
-    public static readonly string[] MoveInputsToCheck = 
+    public string[] MoveInputsToCheck()
+    {
+        return _moveInputsToCheck;
+    }
+   
+    private string[] _moveInputsToCheck = new string[]
     {
         KeyComm.Forward,
         KeyComm.Backward,
@@ -454,12 +443,12 @@ public class InputService : BaseBehaviour, IInputService
             return;
         }
 
-        if (EnteringChat())
+        if (EditingText())
         {
             return;
         }
 
-        foreach (string kc in MoveInputsToCheck)
+        foreach (string kc in _moveInputsToCheck)
         {
             PlayerController.Instance.SetKeyPercent(kc, KeyIsDown(_gs, kc) ? 1 : 0);
         }
@@ -519,26 +508,26 @@ public class InputService : BaseBehaviour, IInputService
         {
             for (int i = 0; i < _currActionIndexes.Count; i++)
             {
-                PerformAction(_gs, _currActionIndexes[i]);
+                PerformAction(_currActionIndexes[i]);
             }
         }
     }
 
     private DateTime _lastActionTime = DateTime.UtcNow;
-    public void PerformAction (UnityGameState gs, int actionIndex)
+    public void PerformAction (int actionIndex)
     {
         if ((DateTime.UtcNow-_lastActionTime).TotalSeconds < 0.5f)
         {
             return;
         }
-        ActionInputData actionInputs = gs.ch.Get<ActionInputData>();
+        ActionInputData actionInputs = _gs.ch.Get<ActionInputData>();
         ActionInput actionKey = actionInputs.GetInput(actionIndex);
         if (actionKey == null || actionKey.SpellId == 0)
         {
             return;
         }
 
-        Spell spell = gs.ch.Get<SpellData>().Get(actionKey.SpellId);
+        Spell spell = _gs.ch.Get<SpellData>().Get(actionKey.SpellId);
 
         Unit MapUnit = PlayerController.Instance.GetUnit();
 
@@ -549,7 +538,7 @@ public class InputService : BaseBehaviour, IInputService
 
 
 
-        SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(_gs.ch).GetSkillType(spell.Effects.FirstOrDefault()?.SkillTypeId ?? 0);
+        SkillType skillType = _gs.data.GetGameData<SkillTypeSettings>(base._gs.ch).GetSkillType(spell.Effects.FirstOrDefault()?.SkillTypeId ?? 0);
         if (!_objectManager.GetUnit(MapUnit.TargetId, out Unit target))
         {
             if (skillType.TargetTypeId == TargetTypes.Ally)
@@ -562,7 +551,7 @@ public class InputService : BaseBehaviour, IInputService
             }
         }
 
-        if (!SpellUtils.IsValidTarget(gs, target, MapUnit.FactionTypeId, skillType.TargetTypeId))
+        if (!SpellUtils.IsValidTarget(_gs, target, MapUnit.FactionTypeId, skillType.TargetTypeId))
         {
             if (skillType.TargetTypeId == TargetTypes.Ally)
             {

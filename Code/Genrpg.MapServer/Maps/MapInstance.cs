@@ -52,6 +52,7 @@ using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.Characters.Utils;
 using Newtonsoft.Json.Linq;
 using Genrpg.Shared.Logs.Interfaces;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -78,6 +79,7 @@ namespace Genrpg.MapServer.Maps
 
         private string _host = null;
         private int _port = 0;
+        private int _mapSize = 0;
 
         private CancellationTokenSource _instanceTokenSource;
 
@@ -166,6 +168,7 @@ namespace Genrpg.MapServer.Maps
             _objectManager.Init(_gs, _tokenSource.Token);
             _port = initData.Port;
             _host = "127.0.0.1";
+            _mapSize = _gs.map.BlockCount;
             
             // Step 4: Setup listener
             _listener = GetListener(IPAddress.Any.ToString(), initData.Port, _gs.logger, initData.Serializer);
@@ -193,6 +196,7 @@ namespace Genrpg.MapServer.Maps
                 InstanceId = _serverId,
                 Port = _port,
                 Host = _host,
+                Size = _mapSize,
             };
 
             _cloudCommsService.SendQueueMessage(CloudServerNames.Instance, addInstance);

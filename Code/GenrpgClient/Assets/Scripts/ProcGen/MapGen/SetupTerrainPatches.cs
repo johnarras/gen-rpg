@@ -15,18 +15,18 @@ public class SetupTerrainPatches : BaseZoneGenerator
         {
             for (int py = 0; py < MapConstants.MaxTerrainGridSize; py++)
             {
-                if (gs.md.terrainPatches[px, py] == null)
+                if (_terrainManager.GetTerrainPatch(gs, px, py, false) == null)
                 {
-                    gs.md.SetTerrainPatchAtGridLocation(gs, px, py, null, null);
+                    _terrainManager.SetTerrainPatchAtGridLocation(gs, px, py, null, null);
                 }
 
-                UnityEngine.TerrainData tdata = gs.md.GetTerrainData(gs, px, py);
+                UnityEngine.TerrainData tdata = _terrainManager.GetTerrainData(gs, px, py);
                 if (tdata == null)
                 {
                     continue;
                 }
 
-                TerrainPatchData patch = gs.md.terrainPatches[px, py];
+                TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, px, py, false);
                 int sx = px * (MapConstants.TerrainPatchSize - 1);
                 int sy = py * (MapConstants.TerrainPatchSize - 1);
 

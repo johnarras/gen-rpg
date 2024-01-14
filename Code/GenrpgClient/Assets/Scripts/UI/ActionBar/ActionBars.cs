@@ -17,6 +17,8 @@ internal class ActionButtonDownload
 
 public class ActionBars : SpellIconScreen
 {
+    private IInputService _inputService;
+
     public const string ActionButtonPrefab = "ActionButton";
 
     
@@ -258,7 +260,7 @@ public class ActionBars : SpellIconScreen
             return;
         }
 
-        InputService.Instance.PerformAction(gs, actionButton.ActionIndex);
+        _inputService.PerformAction(actionButton.ActionIndex);
     }
 
     protected override void HandleDragDrop(SpellIconScreen screen, SpellIcon dragItem, SpellIcon otherIconHit, GEntity finalObjectHit)

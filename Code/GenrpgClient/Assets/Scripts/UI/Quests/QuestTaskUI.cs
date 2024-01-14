@@ -29,7 +29,7 @@ public class QuestTaskUI : BaseBehaviour
             return;
         }
 
-        UIHelper.SetText(TaskText, _qtype.PrintTaskText(_gs, _gs.ch, _task.Index));
+        _uiService.SetText(TaskText, _qtype.PrintTaskText(_gs, _gs.ch, _task.Index));
 
     }
 

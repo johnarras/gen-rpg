@@ -60,7 +60,7 @@ public class MonsterController : UnitController
         {
             if (!_didDeadUpdate)
             {
-                float height = _gs.md.SampleHeight(_gs, _unit.X, 3000, _unit.Z);
+                float height = _terrainManager.SampleHeight(_gs, _unit.X, _unit.Z);
                 if (height > 0)
                 {
                    entity.transform().position = GVector3.Create(_unit.X, height, _unit.Z);
@@ -191,7 +191,7 @@ public class MonsterController : UnitController
             UnitUtils.TurnTowardNextPosition(_unit);
 
 
-            float height = _gs.md.SampleHeight(_gs, _unit.X, 3000, _unit.Z);
+            float height = _terrainManager.SampleHeight(_gs, _unit.X, _unit.Z);
             entity.transform().position = GVector3.Create(_unit.X, height, _unit.Z);
             entity.transform().eulerAngles = GVector3.Create(0, _unit.Rot, 0);
             TiltObject();
@@ -268,7 +268,7 @@ public class MonsterController : UnitController
             return;
         }
 
-        currTiltHeight = _gs.md.SampleHeight(_gs,entity.transform().position.x, 3000,entity.transform().position.z);
+        currTiltHeight = _terrainManager.SampleHeight(_gs,entity.transform().position.x,entity.transform().position.z);
 
         // Don't tilt things underground.
         if (currTiltPos.y < currTiltHeight-2)
@@ -298,7 +298,7 @@ public class MonsterController : UnitController
         }
 
         currTiltRot = entity.transform().rotation;
-        currTiltNormal = UnityMap.GetInterpolatedNormal(_gs, _gs.map, currTiltPos.x, currTiltPos.z);
+        currTiltNormal = _terrainManager.GetInterpolatedNormal(_gs, _gs.map, currTiltPos.x, currTiltPos.z);
         groundTilt = GQuaternion.FromToRotation(GVector3.up, currTiltNormal);
 
         if (objectLayer == 0)

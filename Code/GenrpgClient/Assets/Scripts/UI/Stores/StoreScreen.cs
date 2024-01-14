@@ -14,8 +14,6 @@ namespace Assets.Scripts.UI.Stores
     {
         public GEntity StoreParent;
 
-        public GButton CloseButton;
-
         const string StorePanelPrefab = "StorePanel";
 
         private List<StorePanel> _panels = new List<StorePanel>();
@@ -24,8 +22,6 @@ namespace Assets.Scripts.UI.Stores
         {
             _offerData = _gs.ch.Get<PlayerStoreOfferData>();
 
-            UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
-          
             SetupData(token);
 
             _gs.AddEvent<RefreshStoresResult>(this, OnRefreshStores);

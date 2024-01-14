@@ -59,7 +59,7 @@ public class ClearMapData : BaseZoneGenerator
             return;
         }
 
-        string desiredFolder = UnityAssetService.GetPerisistentDataPath() + "/Data/" + folder;
+        string desiredFolder = AssetUtils.GetPerisistentDataPath() + "/Data/" + folder;
 
 
         string parentFolder = desiredFolder.Substring(0, desiredFolder.Length - 5);

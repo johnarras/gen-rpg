@@ -19,6 +19,8 @@ public interface IScreenService : IService
 
     List<ActiveScreen> GetScreensNamed(UnityGameState gs, ScreenId name);
 
+    public ActiveScreen GetScreen(UnityGameState gs, string screenName);
+
     List<ActiveScreen> GetAllScreens(UnityGameState gs);
 
     void CloseAll(UnityGameState gs, List<ScreenId> ignoreScreens = null);

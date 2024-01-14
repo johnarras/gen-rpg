@@ -32,7 +32,7 @@ public class ZoneUI : BaseBehaviour
 
         string txt = "Map " + gs.map.Id + ": " + zone.Name + " [#" + zone.IdKey + "] {Lev " + zone.Level + "}";
 
-        UIHelper.SetText(LocationName, txt);
+        _uiService.SetText(LocationName, txt);
         return null;
     }
 }

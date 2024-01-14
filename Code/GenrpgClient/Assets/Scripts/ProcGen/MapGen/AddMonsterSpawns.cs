@@ -77,7 +77,7 @@ public class AddMonsterSpawns : BaseZoneGenerator
                     continue;
                 }
 
-                if (gs.md.GetSteepness(gs, cx, cy) > PathfindingConstants.MaxSteepness)
+                if (_terrainManager.GetSteepness(gs, cx, cy) > PathfindingConstants.MaxSteepness)
                 {
                     continue;
                 }

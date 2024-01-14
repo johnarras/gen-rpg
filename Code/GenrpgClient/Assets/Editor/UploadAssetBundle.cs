@@ -3,6 +3,7 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 using Genrpg.Shared.Constants;
+using UnityEngine.Networking;
 
 public class UploadAssetBundle
 {
@@ -29,22 +30,22 @@ public class UploadAssetBundle
 	private static void InnerUploadFiles(UnityGameState gs,string env)
 	{
 
+        LocalFileRepository localRepo = new LocalFileRepository(gs.logger);
         gs = SetupEditorUnityGameState.Setup(gs);
 
         List<PlatformBuildData> targets = BuildConfiguration.GetbuildConfigs(gs);
 
-		int numUploads = 0;
+		int uploadCount = 0;
 		for (int t = 0; t < targets.Count; t++)
 		{
-            string bundleVersionPath = targets[t].GetTextFileOutputPath() + "/" + UnityAssetService.BundleVersionFilename;
-            string versionText = File.ReadAllText(bundleVersionPath);
-            Dictionary<string, BundleVersionData> versionData = UnityAssetService.ConvertTextToBundleVersions(gs, versionText);
-            foreach (string bname in versionData.Keys)
-            {
+            string bundleVersionPath = targets[t].GetTextFileOutputPath() + "/" + AssetConstants.BundleVersionsFile;
 
+            BundleVersions currentData = localRepo.LoadObject<BundleVersions>(bundleVersionPath);
+            foreach (string bname in currentData.Versions.Keys)
+            {
                 string prefix = targets[t].FilePath;
 
-                BundleVersionData bvd = versionData[bname];
+                BundleVersion bvd = currentData.Versions[bname];
                 string fullName = bvd.Name + "_" + bvd.Hash;
                 string localPath = AppUtils.DataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + bvd.Name;
                 string remotePath = AppUtils.Version + "/" + targets[t].FilePath + "/" + fullName;
@@ -55,32 +56,38 @@ public class UploadAssetBundle
                 fdata.RemotePath = remotePath;
 
                 FileUploader.UploadFile(fdata);
-                ++numUploads;
-                if (numUploads % 10 == 0)
+                ++uploadCount;
+                if (uploadCount % 10 == 0)
                 {
-                    Debug.Log("Uploaded " + numUploads + "/" + versionData.Keys.Count * targets.Count);
+                    Debug.Log("Uploaded " + uploadCount + "/" + currentData.Versions.Keys.Count * targets.Count);
                 }
 			}
 
             // Now upload the new bundle list.
-            if (versionData.Keys.Count > 0)
+            if (currentData.Versions.Keys.Count > 0)
             {
                 string prefix = targets[t].FilePath;
 
-                string localPath = AppUtils.DataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + UnityAssetService.BundleVersionFilename;
-                string remotePath = AppUtils.Version + "/" + targets[t].FilePath + "/" + UnityAssetService.BundleVersionFilename;
-                FileUploadData fdata = new FileUploadData();
-                fdata.GamePrefix = Game.Prefix;
-                fdata.Env = env;
-                fdata.LocalPath = localPath;
-                fdata.RemotePath = remotePath;
+                // Upload bundle version and create time file
 
-               FileUploader.UploadFile(fdata);
+                List<string> filesToUpload = new List<string>() { AssetConstants.BundleUpdateFile, AssetConstants.BundleVersionsFile };
 
+                foreach (string fileName in filesToUpload)
+                {
+                    string localPath = AppUtils.DataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + fileName;
+                    string remotePath = AppUtils.Version + "/" + targets[t].FilePath + "/" + fileName;
+                    FileUploadData fdata = new FileUploadData();
+                    fdata.GamePrefix = Game.Prefix;
+                    fdata.Env = env;
+                    fdata.LocalPath = localPath;
+                    fdata.RemotePath = remotePath;
+
+                    FileUploader.UploadFile(fdata);
+                }
             }
 		}
 
-		Debug.Log("Num uploads: " + numUploads);
+		Debug.Log("Upload Count: " + uploadCount);
 	}
 
 }

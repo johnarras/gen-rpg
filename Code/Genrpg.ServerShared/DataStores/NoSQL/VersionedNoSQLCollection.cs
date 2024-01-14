@@ -1,10 +1,13 @@
 ﻿using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Logs.Interfaces;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +34,35 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             {
                 return await _collection.ReplaceOneAsync(x => x.Id == t.Id && !(x.UpdateTime >= t.UpdateTime), t, options);
             }
+        }
+
+        protected override int GetMaxUpdateAttempts()
+        {
+            return 7;
+        }
+
+        class StubUpdateData : IUpdateData
+        {
+            public DateTime CreateTime { get; set; }
+            public DateTime UpdateTime { get; set; }
+        }
+
+
+        string updateMemberName = null;
+        protected override Dictionary<string, object> UpdateFieldNameUpdates(Dictionary<string, object> fieldNameUpdates)
+        {
+            if (string.IsNullOrEmpty(updateMemberName))
+            {
+                StubUpdateData updateData = new StubUpdateData();
+                updateMemberName = nameof(updateData.UpdateTime);
+            }
+
+            if (!fieldNameUpdates.ContainsKey(updateMemberName))
+            {
+                fieldNameUpdates[updateMemberName] = DateTime.UtcNow;
+            }
+
+            return fieldNameUpdates;
         }
     }
 }

@@ -130,12 +130,10 @@ public class CreateMinimap : BaseZoneGenerator
             await UniTask.Delay(1000, cancellationToken: _token);
         }
 
-        while (gs.md.loadingPatchList.Count > 0 || gs.md.addPatchList.Count > 0)
+        while (_terrainManager.IsLoadingPatches())
         {
             await UniTask.Delay(1000, cancellationToken: _token);
         }
-
-        UnityAssetService.LoadSpeed = LoadSpeed.Paused;
 
         float oldBasemapDist = 500;
         float oldPixelError = 5;
@@ -153,7 +151,7 @@ public class CreateMinimap : BaseZoneGenerator
 
         GEntity waterRoot = new GEntity();
         waterRoot.name = "WaterRoot";
-        TerrainPatchData patch = gs.md.GetTerrainPatch(gs, 0, 0);
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, 0, 0);
         await UniTask.NextFrame( cancellationToken: token);
 
 
@@ -385,7 +383,7 @@ public class CreateMinimap : BaseZoneGenerator
             {
                 int ypos = (int)((shiftScale * 1.0 * y / TexSize) * gs.map.GetHhgt());
 
-                float belowMinLandDist = minLandPct - gs.md.GetInterpolatedHeight(gs, xpos, ypos) / MapConstants.MapHeight;
+                float belowMinLandDist = minLandPct - _terrainManager.GetInterpolatedHeight(gs, xpos, ypos) / MapConstants.MapHeight;
                     
                 if (belowMinLandDist > 0)
                 {
@@ -454,7 +452,7 @@ public class CreateMinimap : BaseZoneGenerator
 
 
 
-        string localPath = LocalFileRepository.GetPath(filename);
+        string localPath = repo.GetPath(filename);
         string remotePath = filename;
         FileUploadData fdata = new FileUploadData();
         fdata.GamePrefix = Game.Prefix;

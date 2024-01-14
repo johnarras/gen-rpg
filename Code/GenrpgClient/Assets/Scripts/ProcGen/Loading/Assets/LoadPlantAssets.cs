@@ -34,21 +34,10 @@ public class LoadPlantAssets
     }
     private async UniTask InnerSetupOneMapGrass(UnityGameState gs, int gx, int gy, CancellationToken token)
     {
-        if (
-              gs.md.terrainPatches == null ||
-              gx < 0 || gy < 0 || gx >= MapConstants.MaxTerrainGridSize ||
-              gy >= MapConstants.MaxTerrainGridSize)
-        {
-            gs.logger.Error("Bail out of making grass: " + gx + " " + gy);
-            return;
-        }
-
-        TerrainPatchData patch = gs.md.terrainPatches[gx, gy];
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
 
         if (patch == null)
         {
-            gs.logger.Error("Patch missing " + gx + " " + gy);
-
             return;
         }
 

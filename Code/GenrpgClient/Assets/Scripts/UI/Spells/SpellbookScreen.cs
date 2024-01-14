@@ -27,7 +27,6 @@ public class SpellbookScreen : SpellIconScreen
     protected string SpellEffectEditPrefabName = "SpellEffectEdit";
 
     public SpellIconPanel SpellPanel;
-    public GButton CloseButton;
     public GButton DeleteButton;
     public GButton AddEffectButton;
     public GButton ValidateButton;
@@ -58,12 +57,11 @@ public class SpellbookScreen : SpellIconScreen
         await base.OnStartOpen(data, token);
         _gs.AddEvent<OnCraftSpell>(this, OnCraftSpellHandler);
         _gs.AddEvent<OnDeleteSpell>(this, OnDeleteSpellHandler);
-        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
-        UIHelper.SetButton(CraftButton, GetAnalyticsName(), ClickCraft);
-        UIHelper.SetButton(DeleteButton, GetAnalyticsName(), ClickDelete);
-        UIHelper.SetButton(ClearButton, GetAnalyticsName(), ClickClear);
-        UIHelper.SetButton(AddEffectButton, GetAnalyticsName(), ClickAddEffect);
-        UIHelper.SetButton(ValidateButton, GetAnalyticsName(), ClickValidate);
+        _uiService.SetButton(CraftButton, GetName(), ClickCraft);
+        _uiService.SetButton(DeleteButton, GetName(), ClickDelete);
+        _uiService.SetButton(ClearButton, GetName(), ClickClear);
+        _uiService.SetButton(AddEffectButton, GetName(), ClickAddEffect);
+        _uiService.SetButton(ValidateButton, GetName(), ClickValidate);
         InitScreenInputs();
         SetSelectedSpell(null);
         ShowSpells(token);
@@ -201,8 +199,8 @@ public class SpellbookScreen : SpellIconScreen
         List<ElementType> elements = _gs.data.GetGameData<ElementTypeSettings>(_gs.ch).GetData();
         List<StatType> statTypes = _gs.data.GetGameData<StatSettings>(_gs.ch).GetData();
 
-        _editSpell.ElementTypeId = UIHelper.GetSelectedIdFromName(typeof(ElementType), ElementDropdown);
-        _editSpell.PowerStatTypeId = UIHelper.GetSelectedIdFromName(typeof(StatType), PowerTypeDropdown);
+        _editSpell.ElementTypeId = _uiService.GetSelectedIdFromName(typeof(ElementType), ElementDropdown);
+        _editSpell.PowerStatTypeId = _uiService.GetSelectedIdFromName(typeof(StatType), PowerTypeDropdown);
 
         _editSpell.Cooldown = (int)CooldownInput?.GetSelectedValue();
         _editSpell.Range = (int)RangeInput?.GetSelectedValue();
@@ -246,7 +244,7 @@ public class SpellbookScreen : SpellIconScreen
         RangeInput?.SetSelectedValue(spell.Range);
         MaxChargesInput?.SetSelectedValue(spell.MaxCharges);
 
-        UIHelper.SetText(PowerCostText, spell.PowerCost.ToString());
+        _uiService.SetText(PowerCostText, spell.PowerCost.ToString());
 
         // Get rid of extra effect blocks
         while (_effectEdits.Count > spell.Effects.Count)

@@ -7,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Genrpg.Editor.UI.FormatterHelpers
+namespace Genrpg.Editor.UI.Formatters
 {
     public class DataGridViewFormatter
     {
 
-        public const int DefaultBG = ButtonFormatter.DefaultBG+30;
+        public const int DefaultBG = ButtonFormatter.DefaultBG + 30;
 
         public Color BackColor { get; set; } = Color.Black;
         public Color ForeColor { get; set; } = Color.Black;
@@ -48,7 +48,7 @@ namespace Genrpg.Editor.UI.FormatterHelpers
             borderStyle.BackColor = UIFormatter.CreateGray(DefaultBG - 20);
             borderStyle.ForeColor = Color.White;
             borderStyle.SelectionBackColor = Color.Black;
-            borderStyle.SelectionForeColor = Color.White;        
+            borderStyle.SelectionForeColor = Color.White;
             borderStyle.Font = new Font(familyName: FormatterConstants.DefaultFontFamily, emSize: FormatterConstants.SmallLabelFontSize);
 
 
@@ -68,7 +68,7 @@ namespace Genrpg.Editor.UI.FormatterHelpers
                 for (int c = 0; c < dataGrid.Columns.Count; c++)
                 {
                     DataGridViewCell cell = dataGrid.Rows[r].Cells[c];
-                    
+
                     cell.Style = mainStyle;
                 }
             }

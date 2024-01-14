@@ -23,8 +23,8 @@ public class CharacterSelectRow : BaseBehaviour
         _screen = screen;
         _characterStub = ch;
         _token = token;
-        UIHelper.SetText(NameText, ch.Name);
-        UIHelper.SetButton(DeleteButton, screen.GetAnalyticsName(), ClickDelete);
+        _uiService.SetText(NameText, ch.Name);
+        _uiService.SetButton(DeleteButton, screen.GetName(), ClickDelete);
         _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, "HelmetMetal_002", CharImage, token);
 
         if (PlayButtonAnchor == null)

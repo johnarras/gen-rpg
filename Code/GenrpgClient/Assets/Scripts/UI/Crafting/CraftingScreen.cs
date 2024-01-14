@@ -15,7 +15,6 @@ public class CraftingScreen : ItemIconScreen
     
     public GButton CraftButton;
     public GButton ClearButton;
-    public GButton CloseButton;
     public InventoryPanel _inventoryPanel;
     public GEntity _recipeListParent;
     public ReagentRow _baseReagents;
@@ -57,9 +56,8 @@ public class CraftingScreen : ItemIconScreen
 
     public void Init()
     {
-        UIHelper.SetButton(ClearButton, GetAnalyticsName(), ClickClear);
-        UIHelper.SetButton(CraftButton, GetAnalyticsName(), ClickCraft);
-        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
+        _uiService.SetButton(ClearButton, GetName(), ClickClear);
+        _uiService.SetButton(CraftButton, GetName(), ClickCraft);
 
         _recipes = new List<RecipeRow>();
 

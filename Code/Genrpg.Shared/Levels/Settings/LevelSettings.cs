@@ -13,18 +13,6 @@ using Genrpg.Shared.GameSettings.Loaders;
 namespace Genrpg.Shared.Levels.Settings
 {
     [MessagePackObject]
-    public class LevelSettings : ParentSettings<LevelInfo>
-    {
-        [Key(0)] public override string Id { get; set; }
-        [Key(1)] public int MaxLevel { get; set; }
-
-        public LevelInfo GetLevel(long idkey)
-        {
-            return _lookup.Get<LevelInfo>(idkey);
-        }
-    }
-
-    [MessagePackObject]
     public class LevelInfo : ChildSettings, IIndexedGameItem
     {
 
@@ -54,6 +42,18 @@ namespace Genrpg.Shared.Levels.Settings
         public LevelInfo()
         {
             RewardList = new List<SpawnResult>();
+        }
+    }
+
+    [MessagePackObject]
+    public class LevelSettings : ParentSettings<LevelInfo>
+    {
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public int MaxLevel { get; set; }
+
+        public LevelInfo GetLevel(long idkey)
+        {
+            return _lookup.Get<LevelInfo>(idkey);
         }
     }
 

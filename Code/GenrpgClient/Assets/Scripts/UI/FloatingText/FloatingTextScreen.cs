@@ -13,6 +13,7 @@ public class FloatingTextQueuedItem
 
 public class FloatingTextScreen : BaseScreen
 {
+    private IInputService _inputService;
     
     public GEntity _textAnchor;
 
@@ -64,7 +65,7 @@ public class FloatingTextScreen : BaseScreen
         }
 
 
-        delta = InputService.Instance.GetDeltaTime();
+        delta = _inputService.GetDeltaTime();
 
         removeList.Clear();
 
@@ -134,7 +135,7 @@ public class FloatingTextScreen : BaseScreen
             GEntityUtils.Destroy(go);
             return;
         }
-        UIHelper.SetText(ft.TextString, txt);
+        _uiService.SetText(ft.TextString, txt);
         if (_currentItems == null)
         {
             _currentItems = new List<FloatingTextItem>();

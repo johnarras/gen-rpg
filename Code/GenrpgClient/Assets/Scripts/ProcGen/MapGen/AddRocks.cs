@@ -250,7 +250,7 @@ public class AddRocks : BaseZoneGenerator
                 {
                     continue;
                 }
-                float posHeight = gs.md.GetInterpolatedHeight(gs, ipx, ipy);
+                float posHeight = _terrainManager.GetInterpolatedHeight(gs, ipx, ipy);
 
                 if (posHeight < MapConstants.MinLandHeight)
                 {
@@ -276,7 +276,7 @@ public class AddRocks : BaseZoneGenerator
 
                         float currMaxOffset = MathUtils.FloatRange(1.1f, 2.1f, rand);
                         float currMinOffset = currMaxOffset / 2;
-                        nearbyHelper.AddItemsNear(gs, rand, zoneType, zone, x, y, 0.9f, nearbyItemsCount, currMinOffset, currMaxOffset);
+                        nearbyHelper.AddItemsNear(gs, _terrainManager, rand, zoneType, zone, x, y, 0.9f, nearbyItemsCount, currMinOffset, currMaxOffset);
                     }
                 }
 

@@ -4,8 +4,6 @@ using Genrpg.Shared.Core.Entities;
 using GEntity = UnityEngine.GameObject;
 using ClientEvents;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 
 using UI.Screens.Constants;
 using Assets.Scripts.MapTerrain;
@@ -14,6 +12,7 @@ using Genrpg.Shared.ProcGen.Settings.Weather;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Players.Messages;
+using System.Net;
 
 public struct UpdateColor
 {
@@ -48,21 +47,13 @@ public class WeatherEffectContainer
 
 public class ZoneStateController : BaseBehaviour
 {
-
-    private static ZoneStateController _instance = null;
-    public static ZoneStateController Instance
-    {
-        get
-        {
-            return _instance;
-        }
-    }
+    private ICameraController _cameraController = null;
+    private IMapTerrainManager _terrainManager = null;
 
 
     public override void Initialize(UnityGameState gs)
     {
         base.Initialize(gs);
-        _instance = this;
         RenderSettings.sun = Sun;
         AddUpdate(ZoneUpdate, UpdateType.Regular);
         _gs.AddEvent<GetCurrentZoneEvent>(this, OnGetCurrentZone);
@@ -191,7 +182,6 @@ public class ZoneStateController : BaseBehaviour
 
         if (!_didInitZoneState)
         {
-
             GEntity go = PlayerObject.Get();
             if (go != null)
             {
@@ -199,6 +189,7 @@ public class ZoneStateController : BaseBehaviour
                 _didInitZoneState = true;
             }
         }
+
 
         float delta = ColorFrameDelta;
 
@@ -221,8 +212,7 @@ public class ZoneStateController : BaseBehaviour
                 int wx = (int)go.transform().localPosition.x;
                 int wy = (int)go.transform().localPosition.z;
 
-                if (wx >= 0 && wy >= 0 && _gs.md != null && wx < _gs.map.GetHwid() && wy < _gs.map.GetHhgt() &&
-                    _gs.md.terrainPatches != null)
+                if (wx >= 0 && wy >= 0 && _gs.md != null && wx < _gs.map.GetHwid() && wy < _gs.map.GetHhgt())
                 {
 
                     int gx = wx / (MapConstants.TerrainPatchSize-1);
@@ -230,16 +220,12 @@ public class ZoneStateController : BaseBehaviour
 
 
                     int zoneId = 0;
-                    if (gx < _gs.md.terrainPatches.GetLength(0) &&
-                        gy < _gs.md.terrainPatches.GetLength(1))
+                    TerrainPatchData patch = _terrainManager.GetTerrainPatch(_gs, gx, gy);
+                    if (patch != null && patch.mainZoneIds != null)
                     {
-                        TerrainPatchData patch = _gs.md.terrainPatches[gx, gy];
-                        if (patch != null && patch.mainZoneIds != null)
-                        {
-                            wx %= (MapConstants.TerrainPatchSize-1);
-                            wy %= (MapConstants.TerrainPatchSize-1);
-                            zoneId = patch.mainZoneIds[wy, wx];
-                        }
+                        wx %= (MapConstants.TerrainPatchSize - 1);
+                        wy %= (MapConstants.TerrainPatchSize - 1);
+                        zoneId = patch.mainZoneIds[wy, wx];
                     }
 
                     ActiveScreen hud = ss.GetScreen(_gs, ScreenId.HUD);
@@ -317,9 +303,9 @@ public class ZoneStateController : BaseBehaviour
         CloudColor.Current = TextureUtils.MoveCurrToTargetColor(CloudColor.Current, CloudColor.Target, delta);
         FogDensity.Current = TextureUtils.MoveCurrFloatToTarget(FogDensity.Current, FogDensity.Target*fogDensityMult, delta * 0.01f);
 
-        if (CameraController.Instance != null)
+        if (_cameraController != null)
         {
-            List<Camera> allCams = CameraController.Instance.Cameras;
+            List<Camera> allCams = _cameraController.GetAllCameras();
             foreach (Camera cam in allCams)
             {
                 cam.backgroundColor = SkyColor.Current;

@@ -25,9 +25,6 @@ public class UnityZoneGenService : ZoneGenService
 
     public const float ObjectScale = 1.0f;
 
-    public static string GenErrorMsg = "";
-
-
     protected IScreenService _screenService;
     protected IMapTerrainManager _terrainManager;
     private IWebNetworkService _webNetworkService;
@@ -267,14 +264,6 @@ public class UnityZoneGenService : ZoneGenService
             }
             DateTime endTime = DateTime.UtcNow;
 
-            if (!String.IsNullOrEmpty(GenErrorMsg))
-            {
-                gs.logger.Error("GENERATION FAILURE: " + GenErrorMsg);
-                _screenService.CloseAll(gs);
-                _screenService.Open(gs, ScreenId.CharacterSelect);
-                return;
-            }
-
             output.Append("Stage: " + currStep + ": " + gen.GetType().Name + " -- " + (endTime - startTime).TotalSeconds + "\n");
 
             gen = null;
@@ -360,13 +349,13 @@ public class UnityZoneGenService : ZoneGenService
         {
             for (int gy = 0; gy < gs.map.BlockCount; gy++)
             {
-                TerrainData tdata = gs.md.GetTerrainData(gs, gx, gy);
+                TerrainData tdata = _terrainManager.GetTerrainData(gs, gx, gy);
                 if (tdata == null)
                 {
                     continue;
                 }
 
-                TerrainPatchData patch = gs.md.terrainPatches[gx, gy] as TerrainPatchData;
+                TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
 
                 if (patch == null)
                 {
@@ -395,7 +384,7 @@ public class UnityZoneGenService : ZoneGenService
                 }
 
 
-                SetOnePatchAlphamaps(gs, gs.md.terrainPatches[gx, gy], token).Forget();
+                SetOnePatchAlphamaps(gs, patch, token).Forget();
             }
         }
 
@@ -439,10 +428,7 @@ public class UnityZoneGenService : ZoneGenService
         {
             if (x % pauseSize == pauseVal)
             {
-                if (UnityAssetService.LoadSpeed == LoadSpeed.Normal)
-                {
-                    await UniTask.NextFrame( cancellationToken: token);
-                }
+                await UniTask.NextFrame(cancellationToken: token);
             }
             if (patch == null || patch.FullZoneIdList == null || patch.mainZoneIds == null)
             {
@@ -624,7 +610,7 @@ public class UnityZoneGenService : ZoneGenService
 
         terr.terrainData.SetAlphamaps(0, 0, newAlphas);
         terr.Flush();
-        gs.md.SetOneTerrainNeighbors(gs, patch.X, patch.Y);
+        _terrainManager.SetOneTerrainNeighbors(gs, patch.X, patch.Y);
         patch.HaveSetAlphamaps = true;
     }
 
@@ -640,7 +626,7 @@ public class UnityZoneGenService : ZoneGenService
         {
             for (int gy = 0; gy < gs.map.BlockCount; gy++)
             {
-                SetOnePatchHeightmaps(gs, gs.md.terrainPatches[gx,gy], heights);
+                SetOnePatchHeightmaps(gs, _terrainManager.GetTerrainPatch(gs, gx, gy), heights);
             }
         }
 
@@ -714,14 +700,14 @@ public class UnityZoneGenService : ZoneGenService
     {
         UnityGameState gs = gsIn as UnityGameState;
 
-        
-#if !UNITY_EDITOR
-        loadData.GenerateMap = false;       
-#else
-        if (string.IsNullOrEmpty(loadData.MapId) && !string.IsNullOrEmpty(InitClient.Instance.CurrMapId))
+   
+#if UNITY_EDITOR
+        if (string.IsNullOrEmpty(loadData.MapId) && !string.IsNullOrEmpty(InitClient.EditorInstance.CurrMapId))
         {
-            loadData.MapId = InitClient.Instance.CurrMapId;
+            loadData.MapId = InitClient.EditorInstance.CurrMapId;
         }
+#else
+        loadData.GenerateMap = false;  
 #endif
 
         if (string.IsNullOrEmpty(loadData.MapId))
@@ -827,7 +813,7 @@ public class UnityZoneGenService : ZoneGenService
             return;
         }
 
-        TerrainPatchData patch = gs.md.GetTerrainPatch(gs, gx, gy);
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
         if (patch == null)
         {
             return;

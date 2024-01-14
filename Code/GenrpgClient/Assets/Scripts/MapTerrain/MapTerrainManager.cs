@@ -16,6 +16,7 @@ using UnityEngine; // Needed
 using System.Threading.Tasks;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.MapServer.Entities;
 
 public class PatchLoadData
 {
@@ -96,56 +97,33 @@ public class TerrainProtoObject
 }
 
 
-public interface IMapTerrainManager : ISetupService
-{
-    GEntity GetTerrainTextureParent();
-    GEntity GetTerrainProtoObject(string name);
-    void AddTerrainProtoPatch(string name, int gx, int gy);
-    void RemovePatchFromPrototypes(int gx, int gy);
-    TerrainTextureData GetFromTerrainTextureCache(string textureName);
-    void Clear(UnityGameState gs);
-    UniTask SetupOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token);
-    bool AddingPatches(UnityGameState gs);
-    List<Terrain> GetTerrains(UnityGameState gs);
-    TerrainPatchData GetPatchFromMapPos(UnityGameState gs, float worldx, float worldy);
-    TerrainPatchData GetMapGrid(UnityGameState gs, int gx, int gy);
-    UniTask AddPatchObjects(UnityGameState gs, int gx, int gy, CancellationToken token);
-    void AddToTerrainTextureCache(string textureName, TerrainTextureData data);
-    void ClearPatches(UnityGameState gs);
-    GEntity GetPrototypeParent();
-    GEntity AddOrReuseTerrainProtoObject(string name, GEntity go);
-    void ClearMapObjects(UnityGameState gs);
-}
-
 public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 {
 
-    public static long PatchesAdded = 0;
-    public static long PatchesRemoved = 0;
+    private const int MaxLoadUnloadCheckTicks = 13;
+    private const int MaxPatchLoadTicks = 23;
 
-    public const int MaxLoadUnloadCheckTicks = 13;
-    public const int MaxPatchLoadTicks = 23;
+    private const string PrototypeParent = "PrototypeParent";
 
-    // Used to move terrain out of the way when we enter a dungeon.
-    public const int ShiftYOffset = -5000;
-
-    public const string PrototypeParent = "PrototypeParent";
-
-    public const int LoadObjectCountBeforePause = 20;
-    public const int ScaleStepCount = 20;
+    private const int LoadObjectCountBeforePause = 20;
 
     // Used to move world objects out of the way when we enter a dungeon.
 
     private Dictionary<long, BaseObjectLoader> _staticLoaders = new Dictionary<long, BaseObjectLoader>();
 
-    public Dictionary<string, TerrainTextureData> _terrainTextureCache = new Dictionary<string, TerrainTextureData>();
+    private Dictionary<string, TerrainTextureData> _terrainTextureCache = new Dictionary<string, TerrainTextureData>();
 
-    public GEntity _prototypeParent = null;
-    public GEntity _terrainTextureParent = null;
-
+    private GEntity _prototypeParent = null;
+    private GEntity _terrainTextureParent = null;
 
     protected IZoneGenService _zoneGenService;
 
+
+    private List<MyPoint> _addPatchList = new List<MyPoint>();
+    private List<MyPoint> _removePatchList = new List<MyPoint>();
+    private List<MyPoint> _loadingPatchList = new List<MyPoint>();
+
+    public TerrainPatchData[,] _terrainPatches = new TerrainPatchData[MapConstants.MaxTerrainGridSize, MapConstants.MaxTerrainGridSize];
 
     private Dictionary<string, TerrainProtoObject> _terrainProtoObjectData = new Dictionary<string, TerrainProtoObject>();
 
@@ -158,6 +136,30 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         await UniTask.CompletedTask;
     }
 
+    private bool _fastLoading = false;
+    public void SetFastLoading()
+    {
+        _fastLoading = true;
+    }
+
+
+    private long _patchesAdded = 0;
+    private long _patchesRemoved = 0;
+
+    public long GetPatchesAdded()
+    {
+        return _patchesAdded;
+    }
+
+    public long GetPatchesRemoved() 
+    {
+        return _patchesRemoved;
+    }
+
+    public void IncrementPatchesAdded()
+    {
+        _patchesAdded++;
+    }
 
 
 
@@ -180,6 +182,20 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
     private int GetProtoPatchIndex(int gx, int gy)
     {
         return 1000 * gx + gy;
+    }
+
+    public bool IsLoadingPatches()
+    {
+        return _addPatchList?.Count > 0 ||
+            _loadingPatchList?.Count > 0;
+    }
+
+    public void RemoveLoadingPatches(int gx, int gy)
+    {
+        if (_loadingPatchList != null)
+        {
+            _loadingPatchList = _loadingPatchList.Where(x => x.X != gx || x.Y != gy).ToList();
+        }
     }
 
     public void AddTerrainProtoPatch (string name, int gx, int gy)
@@ -259,12 +275,9 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         GEntityUtils.DestroyAllChildren(_terrainTextureParent);
         _terrainTextureCache.Clear();
 
-        if (gs.md != null)
-        {
-            gs.md.loadingPatchList = new List<MyPoint>();
-            gs.md.addPatchList = new List<MyPoint>();
-            gs.md.removePatchList = new List<MyPoint>();
-        }
+        _loadingPatchList = new List<MyPoint>();
+        _addPatchList = new List<MyPoint>();
+        _removePatchList = new List<MyPoint>();
         ClearMapObjects(gs);
         ClearPatches(gs);
     }
@@ -382,9 +395,9 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
     public bool AddingPatches (UnityGameState gs)
     {
-        if (gs.md.addPatchList.Count > 0 || 
-            gs.md.loadingPatchList.Count > 0 ||
-            gs.md.removePatchList.Count > 0)
+        if (_addPatchList.Count > 0 || 
+            _loadingPatchList.Count > 0 ||
+            _removePatchList.Count > 0)
         {
             return true;
         }
@@ -418,11 +431,6 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
     void UpdatePatchVisibility(UnityGameState gs, CancellationToken token)
     {
-        if (UnityAssetService.LoadSpeed == LoadSpeed.Paused)
-        {
-            return;
-        }
-
         if (PlayerObject.Get() == null)
         {
             return;
@@ -436,7 +444,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         loadUnloadCheckTicks--;
         patchCheckTicks--;
 
-        if (UnityAssetService.LoadSpeed == LoadSpeed.Fast)
+        if (_fastLoading)
         {
             loadUnloadCheckTicks = 0;
             patchCheckTicks = 0;
@@ -461,7 +469,6 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
             {
                 checkRad = gs.map.BlockCount + 1;
             }
-
 
             minx = (int)Math.Max(0, XGrid - checkRad);
             maxx = (int)Math.Min(gs.map.BlockCount - 1, XGrid + checkRad);
@@ -492,17 +499,17 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                     // Check if we load the patch if it's near the player's position.
                     if (dist < loadRad * (MapConstants.TerrainPatchSize-1))
                     {
-                        patch = gs.md.GetTerrainPatch(gs, x, y);
+                        patch = GetTerrainPatch(gs, x, y);
                         if (patch != null)
                         {
                             terr = patch.terrain as Terrain;
                             if (terr == null)
                             {
-                                if (!ListContainsCell(gs.md.addPatchList, x, y) &&
-                                    !ListContainsCell(gs.md.loadingPatchList, x, y))
+                                if (!ListContainsCell(_addPatchList, x, y) &&
+                                    !ListContainsCell(_loadingPatchList, x, y))
                                 {
-                                    AddListCell(gs.md.addPatchList, x, y);
-                                    RemoveListCell(gs.md.removePatchList, x, y);
+                                    AddListCell(_addPatchList, x, y);
+                                    RemoveListCell(_removePatchList, x, y);
                                 }
                             }
                         }
@@ -510,18 +517,18 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                     // Check if we unload the patch.
                     else if (dist > unloadRad * (MapConstants.TerrainPatchSize - 1))
                     {
-                        patch = gs.md.GetTerrainPatch(gs, x, y, false);
+                        patch = GetTerrainPatch(gs, x, y, false);
                         if (patch != null)
                         {
                             terr = patch.terrain as Terrain;
                             if (terr != null)
                             {
-                                if (!ListContainsCell(gs.md.loadingPatchList, x, y))
+                                if (!ListContainsCell(_loadingPatchList, x, y))
                                 {
-                                    RemoveListCell(gs.md.addPatchList, x, y);
-                                    if (!ListContainsCell(gs.md.removePatchList, x, y) && terr != null)
+                                    RemoveListCell(_addPatchList, x, y);
+                                    if (!ListContainsCell(_removePatchList, x, y) && terr != null)
                                     {
-                                        AddListCell(gs.md.removePatchList, x, y);
+                                        AddListCell(_removePatchList, x, y);
                                     }
                                 }
                             }
@@ -534,43 +541,43 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         if (patchCheckTicks <= 0)
         {
             patchCheckTicks = MaxPatchLoadTicks;
-            if (gs.md.loadingPatchList.Count > 2)
+            if (_loadingPatchList.Count > 2)
             {
                 return;
             }
 
             // Add patches if there are any to add if it's normal speed or
             // we have nothing to remove in fast remove mode.
-            if (gs.md.addPatchList.Count > 0)
+            if (_addPatchList.Count > 0)
             {
 
-                int loadTimes = (UnityAssetService.LoadSpeed == LoadSpeed.Fast ? 100 : 1);
+                int loadTimes = (_fastLoading ? 100 : 1);
 
                 for (int tt = 0; tt < loadTimes; tt++)
                 {
-                    if (gs.md.addPatchList.Count < 1)
+                    if (_addPatchList.Count < 1)
                     {
                         break;
                     }
 
-                    firstItem = gs.md.addPatchList[0];
-                    gs.md.addPatchList.RemoveAt(0);
-                    gs.md.loadingPatchList.Add(firstItem);
-                    loadGen.LoadOneTerrainPatch(gs, firstItem.X, firstItem.Y, token);
+                    firstItem = _addPatchList[0];
+                    _addPatchList.RemoveAt(0);
+                    _loadingPatchList.Add(firstItem);
+                    loadGen.LoadOneTerrainPatch(gs, firstItem.X, firstItem.Y, _fastLoading, token);
                 }
             }
             
-            if (gs.md.removePatchList.Count > 0)
+            if (_removePatchList.Count > 0)
             {
-                firstItem = gs.md.removePatchList[0];
-                gs.md.removePatchList.Remove(firstItem);
-                PatchesRemoved++;
-                patch = gs.md.GetTerrainPatch(gs, firstItem.X, firstItem.Y);
+                firstItem = _removePatchList[0];
+                _removePatchList.Remove(firstItem);
+                _patchesRemoved++;
+                patch = GetTerrainPatch(gs, firstItem.X, firstItem.Y);
                 if (patch == null)
                 {
                     return;
                 }
-                gs.md.RemoveTerrainPatch(gs, firstItem.X, firstItem.Y);
+                RemoveTerrainPatch(gs, firstItem.X, firstItem.Y);
                 terr = patch.terrain as Terrain;
 
                 if (terr != null)
@@ -625,23 +632,28 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                 patch.parentObject = null;
             }
         }
+
+        if (_fastLoading && _addPatchList.Count < 1 && _loadingPatchList.Count < 1)
+        {
+            _fastLoading = false;
+        }
 	}
 
 
     public void ClearPatches(UnityGameState gs)
     {      
-        if (gs.md == null || gs.md.terrainPatches == null)
+        if (gs.md == null || _terrainPatches == null)
         {
             return;
         }
 
-        for (int x = 0; x < gs.md.terrainPatches.GetLength(0); x++)
+        for (int x = 0; x < _terrainPatches.GetLength(0); x++)
         {
-            for (int y = 0; y < gs.md.terrainPatches.GetLength(1); y++)
+            for (int y = 0; y < _terrainPatches.GetLength(1); y++)
             {
-                if (gs.md.terrainPatches[x, y] != null)
+                if (_terrainPatches[x, y] != null)
                 {
-                    Terrain terr = gs.md.terrainPatches[x, y].terrain as Terrain;
+                    Terrain terr = _terrainPatches[x, y].terrain as Terrain;
                     if (terr != null)
                     {
                         GEntityUtils.Destroy(terr.entity());
@@ -649,7 +661,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                 }
             }
         }
-        gs.md.terrainPatches = new TerrainPatchData[MapConstants.MaxTerrainGridSize, MapConstants.MaxTerrainGridSize];
+        _terrainPatches = new TerrainPatchData[MapConstants.MaxTerrainGridSize, MapConstants.MaxTerrainGridSize];
                 
     }
 
@@ -660,7 +672,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         {
             return;
         }
-        TerrainPatchData patch = gs.md.GetTerrainPatch(gs, gx, gy);
+        TerrainPatchData patch = GetTerrainPatch(gs, gx, gy);
         if (patch == null)
         {
             return;
@@ -680,7 +692,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         }
 
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!_fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -708,13 +720,13 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
         _zoneGenService.InitTerrainSettings(gs, gx, gy, patchSize, token);
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!_fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
         terr2.terrainData.SetHeights(0, 0, patchHeights);
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!_fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -723,11 +735,11 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         TerrainLayer[] arr = new TerrainLayer[MapConstants.MaxTerrainIndex];
         for (int s = 0; s < arr.Length; s++)
         {
-            arr[s] = MapGenData.CreateTerrainLayer(null);
+            arr[s] = CreateTerrainLayer(null);
         }
         terr2.terrainData.terrainLayers = arr;
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!_fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -737,7 +749,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         //terr2.bakeLightProbesForTrees = false;       
 
         float maxHeight = MapConstants.MapHeight;
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!_fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -746,12 +758,12 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
         terr2.terrainData.alphamapResolution = patchSize * MapConstants.AlphaMapsPerTerrainCell;
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!_fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
         terr2.Flush();
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!_fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -761,18 +773,18 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
     public List<Terrain> GetTerrains(UnityGameState gs)
     {
         List<Terrain> retval = new List<Terrain>();
-        if (gs.md.terrainPatches == null)
+        if (_terrainPatches == null)
         {
             return retval;
         }
 
-        for (int x = 0; x < gs.md.terrainPatches.GetLength(0); x++)
+        for (int x = 0; x < _terrainPatches.GetLength(0); x++)
         {
-            for (int y = 0; y < gs.md.terrainPatches.GetLength(1); y++)
+            for (int y = 0; y < _terrainPatches.GetLength(1); y++)
             {
-                if (gs.md.terrainPatches[x,y] != null)
+                if (_terrainPatches[x,y] != null)
                 {
-                    Terrain terr = gs.md.terrainPatches[x, y].terrain as Terrain;
+                    Terrain terr = _terrainPatches[x, y].terrain as Terrain;
                     if (terr != null)
                     {
                         retval.Add(terr);
@@ -784,41 +796,6 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         return retval;
     }
 
-
-    public async UniTask ShiftItems(bool outOfPlace, CancellationToken token)
-    {
-        int newYValue = (outOfPlace ? ShiftYOffset : 0);
-        if (newYValue == _lastYShift)
-        {
-            return;
-        }
-        _lastYShift = newYValue;
-        int maxShiftsAtOnce = 1;
-        int currShifts = 0;
-        for (int x = 0; x < _gs.md.terrainPatches.GetLength(0); x++)
-        {
-            for (int y = 0; y < _gs.md.terrainPatches.GetLength(1); y++)
-            {
-                TerrainPatchData terrainPatch = _gs.md.GetTerrainPatch(_gs, x, y);
-                if (terrainPatch == null)
-                {
-                    continue;
-                }
-                Terrain terr = terrainPatch.terrain as Terrain;
-                if (terr == null || terr.entity() == null)
-                {
-                    continue;
-                }
-                GVector3 pos = GVector3.Create(terr.entity().transform().position);
-                terr.entity().transform().position = GVector3.Create(pos.x, newYValue, pos.z);
-
-                if (++currShifts % maxShiftsAtOnce == 0)
-                {
-                    await UniTask.NextFrame( cancellationToken: token);
-                }
-            }
-        }
-    }
 
     public GEntity GetPrototypeParent()
     {
@@ -834,7 +811,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         loadData.StartY = loadData.gy * (MapConstants.TerrainPatchSize - 1);
         loadData.terrManager = this;
 
-        patch = gs.md.GetTerrainPatch(gs, gx, gy);
+        patch = GetTerrainPatch(gs, gx, gy);
         loadData.patch = patch;
 
 
@@ -932,8 +909,6 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                     continue;
                 }
 
-
-
                 int loaderIndex = (int)(worldObjectValue % (1 << 16)) / MapConstants.MapObjectOffsetMult;
 
                 if (!_staticLoaders.ContainsKey(loaderIndex))
@@ -946,12 +921,12 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                 if (addTimes >= LoadObjectCountBeforePause)
                 {
                     addTimes = 0;
-                    if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+                    if (!_fastLoading)
                     {
                         await UniTask.NextFrame(cancellationToken: token);
                     }
                 }
-                if (gs.md.terrainPatches[loadData.gx, loadData.gy] == null)
+                if (_terrainPatches[loadData.gx, loadData.gy] == null)
                 {
                     return;
                 }
@@ -983,7 +958,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
         }
 
-        if (gs.md != null && loadData != null && loadData.patch != null && gs.md.terrainPatches[loadData.gx, loadData.gy] != null)
+        if (gs.md != null && loadData != null && loadData.patch != null && _terrainPatches[loadData.gx, loadData.gy] != null)
         {
             TerrainData tdata = loadData.patch.terrainData as TerrainData;
             Terrain terr = loadData.patch.terrain as Terrain;
@@ -1038,7 +1013,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         {
             return null;
         }
-        return gs.md.terrainPatches[gx, gy];
+        return _terrainPatches[gx, gy];
     }
 
 
@@ -1047,16 +1022,16 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
     public void ClearMapObjects(UnityGameState gs)
     {
-        if (gs.md == null || gs.md.terrainPatches == null)
+        if (gs.md == null || _terrainPatches == null)
         {
             return;
         }
 
-        for (int x = 0; x < gs.md.terrainPatches.GetLength(0); x++)
+        for (int x = 0; x < _terrainPatches.GetLength(0); x++)
         {
-            for (int y = 0; y < gs.md.terrainPatches.GetLength(1); y++)
+            for (int y = 0; y < _terrainPatches.GetLength(1); y++)
             {
-                TerrainPatchData patch = gs.md.terrainPatches[x, y];
+                TerrainPatchData patch = _terrainPatches[x, y];
                 if (patch == null)
                 {
                     continue;
@@ -1069,14 +1044,344 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                 }
 
                 GEntityUtils.Destroy(terr.entity());
-                gs.md.terrainPatches[x, y] = null;
+                _terrainPatches[x, y] = null;
 
             }
         }
     }
 
-    private int _lastYShift = 0;
+
+    const float NormalEdgePct = 0.001f;
+    int divSize = MapConstants.TerrainPatchSize - 1;
+    int normalXGrid = 0;
+    int normalYGrid = 0;
+    TerrainPatchData normalPatch = null;
+    public GVector3 GetInterpolatedNormal(UnityGameState gs, Map map, float x, float y)
+    {
+        if (!gs.md.HaveSetHeights)
+        {
+            throw new Exception("You must set the terrain heights before interpolating height.");
+        }
+
+        float startx = x;
+        float starty = y;
+
+        normalXGrid = (int)(x / (divSize));
+        normalYGrid = (int)(y / (divSize));
+
+        x -= normalXGrid * (divSize);
+        y -= normalYGrid * (divSize);
+
+        if (normalXGrid < 0 || normalYGrid < 0 || normalXGrid >= map.BlockCount || normalYGrid >= map.BlockCount ||
+            _terrainPatches == null)
+        {
+            return GVector3.up;
+        }
+
+        normalPatch = _terrainPatches[normalXGrid, normalYGrid];
+
+        if (normalPatch == null)
+        {
+            return GVector3.up;
+        }
+
+        normalTerrainData = normalPatch.terrainData as TerrainData;
+
+        if (normalTerrainData == null)
+        {
+            return GVector3.up;
+        }
+        x = MathUtils.Clamp(NormalEdgePct, x / (divSize), 1 - NormalEdgePct);
+        y = MathUtils.Clamp(NormalEdgePct, y / (divSize), 1 - NormalEdgePct);
+        GVector3 norm = GVector3.Create(normalTerrainData.GetInterpolatedNormal(x, y));
+
+        return norm;
+    }
+    public float GetSteepness(UnityGameState gs, float xpos, float ypos)
+    {
+        if (!gs.md.HaveSetHeights)
+        {
+            return 0.0f;
+            //throw new Exception("Tried to calc steepness before setting heights!");
+        }
 
 
+        int xgrid = (int)(xpos / (MapConstants.TerrainPatchSize - 1));
+        int ygrid = (int)(ypos / (MapConstants.TerrainPatchSize - 1));
+
+        float localx = xpos - xgrid * (MapConstants.TerrainPatchSize - 1);
+        float localy = ypos - ygrid * (MapConstants.TerrainPatchSize - 1);
+
+        if (localx < 0.1f)
+        {
+            localx += 0.1f;
+        }
+
+        if (localy < 0.1f)
+        {
+            localy += 0.1f;
+        }
+
+        TerrainData tdata2 = GetTerrainData(gs, xgrid, ygrid);
+
+        if (tdata2 == null)
+        {
+            return 0.0f;
+        }
+
+        float endDelta = 0.2f;
+        localx = MathUtils.Clamp(endDelta, localx, MapConstants.TerrainPatchSize - 1 - endDelta);
+        localy = MathUtils.Clamp(endDelta, localy, MapConstants.TerrainPatchSize - 1 - endDelta);
+
+        return tdata2.GetSteepness((localx + 0.0f) / (MapConstants.TerrainPatchSize - 1), (localy + 0.0f) / (MapConstants.TerrainPatchSize - 1));
+    }
+
+    int interpXGrid = 0;
+    int interpYGrid = 0;
+    float interpLocalX = 0;
+    float interpLocalY = 0;
+    TerrainData normalTerrainData = null;
+    public float GetInterpolatedHeight(UnityGameState gs, float xpos, float ypos)
+    {
+        if (!gs.md.HaveSetHeights)
+        {
+            return 0.0f;
+        }
+        interpXGrid = (int)(xpos / (MapConstants.TerrainPatchSize - 1));
+        interpYGrid = (int)(ypos / (MapConstants.TerrainPatchSize - 1));
+
+        interpLocalX = xpos - interpXGrid * (MapConstants.TerrainPatchSize - 1);
+        interpLocalY = ypos - interpYGrid * (MapConstants.TerrainPatchSize - 1);
+
+        if (interpLocalX < 0.1f)
+        {
+            interpLocalX += 0.1f;
+        }
+
+        if (interpLocalY < 0.1f)
+        {
+            interpLocalY += 0.1f;
+        }
+
+        normalTerrainData = GetTerrainData(gs, interpXGrid, interpYGrid);
+
+        if (normalTerrainData == null)
+        {
+            return 0.0f;
+        }
+
+
+        interpLocalX = MathUtils.Clamp(0.1f, interpLocalX, MapConstants.TerrainPatchSize - 1.1f);
+        interpLocalY = MathUtils.Clamp(0.1f, interpLocalY, MapConstants.TerrainPatchSize - 1.1f);
+
+        return normalTerrainData.GetInterpolatedHeight((interpLocalX + 0.0f) / MapConstants.TerrainPatchSize, (interpLocalY + 0.0f) / MapConstants.TerrainPatchSize);
+    }
+
+    int sampleXGrid = 0;
+    int sampleYGrid = 0;
+    Terrain sampleTerrain = null;
+    public float SampleHeight(UnityGameState gs, float x, float z)
+    {
+        if (!gs.md.HaveSetHeights)
+        {
+            return 0.0f;
+        }
+
+
+        sampleXGrid = (int)(x / (MapConstants.TerrainPatchSize - 1));
+        sampleYGrid = (int)(z / (MapConstants.TerrainPatchSize - 1));
+
+
+        sampleTerrain = GetTerrain(gs, sampleXGrid, sampleYGrid);
+        if (sampleTerrain == null)
+        {
+            return 0.0f;
+        }
+
+
+
+        return sampleTerrain.SampleHeight(GVector3.Create(x, MapConstants.MapHeight, z));
+    }
+
+
+    TerrainPatchData getDataPatch = null;
+    public TerrainData GetTerrainData(UnityGameState gs, int gx, int gy)
+    {
+        getDataPatch = GetTerrainPatch(gs, gx, gy);
+        if (getDataPatch == null)
+        {
+            return null;
+        }
+        return getDataPatch.terrainData as TerrainData;
+
+    }
+
+
+    public void SetAllTerrainNeighbors(UnityGameState gs)
+    {
+        for (int gx = 0; gx < gs.map.BlockCount; gx++)
+        {
+            for (int gy = 0; gy < gs.map.BlockCount; gy++)
+            {
+                SetOneTerrainNeighbors(gs, gx, gy);
+            }
+        }
+    }
+
+
+    TerrainPatchData getTerrainPatch = null;
+    public Terrain GetTerrain(UnityGameState gs, int gx, int gy)
+    {
+        getTerrainPatch = GetTerrainPatch(gs, gx, gy);
+        if (getTerrainPatch == null)
+        {
+            return null;
+        }
+        return getTerrainPatch.terrain as Terrain;
+    }
+
+    public void SetOneTerrainNeighbors(UnityGameState gs, int gx, int gy)
+    {
+        if (gx < 0 || gy < 0)
+        {
+            return;
+        }
+
+        Terrain mid = GetTerrain(gs, gx, gy);
+        if (mid == null)
+        {
+            return;
+        }
+        Terrain top = GetTerrain(gs, gx, gy + 1);
+        Terrain bottom = GetTerrain(gs, gx, gy - 1);
+        Terrain left = GetTerrain(gs, gx - 1, gy);
+        Terrain right = GetTerrain(gs, gx + 1, gy);
+        mid.SetNeighbors(left, top, right, bottom);
+    }
+
+    public int GetHeightmapSize(UnityGameState gs)
+    {
+        if (gs.map == null || gs.map.BlockCount < 4)
+        {
+            return MapConstants.DefaultHeightmapSize;
+        }
+        return gs.map.GetMapSize(gs);
+    }
+
+    public Texture2D[] _basicTerrainTextures = null;
+
+    public Texture2D GetBasicTerrainTexture(UnityGameState gs, int index)
+    {
+        if (_basicTerrainTextures == null)
+        {
+            Color[] colors = new Color[] { GColor.green * 0.6f, new Color(0.6f, 0.3f, 0), GColor.white * 0.4f, GColor.white * 0.8f };
+            _basicTerrainTextures = new Texture2D[MapConstants.MaxTerrainIndex];
+            for (int c = 0; c < colors.Length && c < MapConstants.MaxTerrainIndex; c++)
+            {
+
+                Texture2D tex = new Texture2D(4, 4, TextureFormat.ARGB32, false, true);
+                Color32[] texColors = tex.GetPixels32();
+                for (int i = 0; i < texColors.Length; i++)
+                {
+                    texColors[i] = colors[c];
+                }
+                tex.SetPixels32(texColors);
+                _basicTerrainTextures[c] = tex;
+            }
+        }
+
+        if (index < 0 || index >= _basicTerrainTextures.Length)
+        {
+            return new Texture2D(2, 2);
+        }
+        return _basicTerrainTextures[index];
+    }
+
+    public TerrainLayer CreateTerrainLayer(Texture2D diffuse, Texture2D normal = null)
+    {
+        TerrainLayer tl = new TerrainLayer();
+        if (diffuse == null)
+        {
+            diffuse = new Texture2D(2, 2);
+        }
+
+        tl.diffuseTexture = diffuse;
+        tl.normalMapTexture = normal;
+        SetTerrainLayerData(tl);
+        return tl;
+    }
+
+    public void SetTerrainLayerData(TerrainLayer tl)
+    {
+        if (tl == null)
+        {
+            return;
+        }
+        tl.normalScale = 1.0f;
+        tl.metallic = 0.00f; // Set to 0 if using Standard terrain shader.
+        tl.smoothness = 0.00f;
+        tl.specular = (Color.gray * 0.00f);
+        tl.tileOffset = new Vector2(MapConstants.TerrainLayerOffset, MapConstants.TerrainLayerOffset);
+        tl.tileSize = new Vector2(MapConstants.TerrainLayerTileSize, MapConstants.TerrainLayerTileSize);
+        tl.diffuseRemapMax = Vector4.zero;
+        tl.diffuseRemapMin = Vector4.zero;
+    }
+
+    public TerrainPatchData GetTerrainPatch(UnityGameState gs, int gx, int gy, bool createIfNotThere = true)
+    {
+        if (gx < 0 || gy < 0 || 
+            _terrainPatches == null ||
+            gx >= MapConstants.MaxTerrainGridSize ||
+            gy >= MapConstants.MaxTerrainGridSize)
+        {
+            return null;
+        }
+        if (_terrainPatches[gx, gy] == null)
+        {
+            SetTerrainPatchAtGridLocation(gs, gx, gy, gs.map, null);
+        }
+        return _terrainPatches[gx, gy];
+    }
+
+    public void RemoveTerrainPatch(GameState gs, int gx, int gy)
+    {
+        if (gx < 0 || gy < 0 || _terrainPatches == null ||
+            gx >= MapConstants.MaxTerrainGridSize || gy >= MapConstants.MaxTerrainGridSize)
+        {
+            return;
+        }
+        _terrainPatches[gx, gy] = null;
+    }
+
+    public void SetTerrainPatchAtGridLocation(UnityGameState gs, int xgrid, int ygrid, Map map, TerrainPatchData data)
+    {
+        if (xgrid < 0 || ygrid < 0 || xgrid >= MapConstants.MaxTerrainGridSize || ygrid >= MapConstants.MaxTerrainGridSize ||
+           map == null)
+        {
+            return;
+        }
+
+        TerrainPatchData oldPatch = _terrainPatches[xgrid, ygrid];
+
+        if (data == null)
+        {
+            data = new TerrainPatchData();
+        }
+
+        data.MapId = map.Id;
+        data.MapVersion = map.MapVersion;
+        data.X = xgrid;
+        data.Y = ygrid;
+        if (map != null)
+        {
+            data.MapId = map.Id;
+        }
+        _terrainPatches[xgrid, ygrid] = data;
+        if (oldPatch != null)
+        {
+            data.terrain = oldPatch.terrain;
+            data.terrainData = oldPatch.terrainData;
+        }
+    }
 
 }

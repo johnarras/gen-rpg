@@ -224,7 +224,7 @@ public class AddFences : BaseZoneGenerator
 
                 MyPointF chosenEndPt = potentialEndPoints[choiceRand.Next() % potentialEndPoints.Count];
 
-                float slope = gs.md.GetSteepness(gs, x, y);
+                float slope = _terrainManager.GetSteepness(gs, x, y);
 
                 if (slope > 30)
                 {
@@ -242,10 +242,10 @@ public class AddFences : BaseZoneGenerator
                 float angle = (float)(Math.Atan2(dy, dx) * 180f / Math.PI + 90);
 
                 //float hgt = gs.md.SampleHeight(gs, x+wdx, 2000, y+wdy);
-                float hgt = gs.md.SampleHeight(gs, y + wdy, 2000, x + wdx);
+                float hgt = _terrainManager.SampleHeight(gs, y + wdy,  x + wdx);
 
                 //var centerHeight = gs.md.SampleHeight(gs, cx+wdx, 2000, cy+wdy);
-                float centerHeight = gs.md.SampleHeight(gs, cy + wdy, 2000, cx + wdx);
+                float centerHeight = _terrainManager.SampleHeight(gs, cy + wdy, cx + wdx);
 
                 if (Math.Abs(hgt - centerHeight) > maxHeightAboveCenter)
                 {
@@ -295,7 +295,7 @@ public class AddFences : BaseZoneGenerator
         }
 
 
-        float endhgt = gs.md.SampleHeight(gs, endx,1000,endz);
+        float endhgt = _terrainManager.SampleHeight(gs, endx, endz);
 
 
 

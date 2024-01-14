@@ -27,7 +27,7 @@ public class SaveMap : BaseZoneGenerator
     public void SaveOneTerrainPatch(UnityGameState gs, int gx, int gy)
     {
 
-        TerrainPatchData patch = gs.md.GetTerrainPatch(gs, gx, gy);
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
 
         if (patch == null)
         {

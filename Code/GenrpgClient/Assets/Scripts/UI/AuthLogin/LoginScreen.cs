@@ -16,29 +16,19 @@ public class LoginScreen : BaseScreen
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
-        UIHelper.SetButton(LoginButton, GetAnalyticsName(), ClickLogin);
-        UIHelper.SetButton(SignupButton, GetAnalyticsName(), ClickSignup);
+        _uiService.SetButton(LoginButton, GetName(), ClickLogin);
+        _uiService.SetButton(SignupButton, GetName(), ClickSignup);
         await UniTask.CompletedTask;
     }
 
     public void ClickSignup()
     {
-        if (!CanClick("signup"))
-        {
-            return;
-        }
-
         _screenService.Open(_gs, ScreenId.Signup);
         _screenService.Close(_gs, ScreenId.Login);
     }
 
     public void ClickLogin()
     {
-        if (!CanClick("login"))
-        {
-            return;
-        }
-
         if (string.IsNullOrEmpty(EmailInput.Text))
         {
             _gs.logger.Error("Missing email");

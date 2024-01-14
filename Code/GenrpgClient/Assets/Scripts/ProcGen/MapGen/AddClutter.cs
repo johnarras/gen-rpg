@@ -98,7 +98,7 @@ public class AddClutter : BaseZoneGenerator
             }
 
 
-            if (gs.md.GetSteepness(gs, x, y) > MaxSteepness)
+            if (_terrainManager.GetSteepness(gs, x, y) > MaxSteepness)
             {
                 continue;
             }
@@ -232,7 +232,7 @@ public class AddClutter : BaseZoneGenerator
             }
 
             float currMaxOffset = MathUtils.FloatRange(0.7f, 1.2f, rand);
-            nearbyHelper.AddItemsNear(gs, rand, zoneType, zone, x, y, 0.9f, numToPlace, 1.0f, currMaxOffset);
+            nearbyHelper.AddItemsNear(gs, _terrainManager, rand, zoneType, zone, x, y, 0.9f, numToPlace, 1.0f, currMaxOffset);
         }
     }
 }

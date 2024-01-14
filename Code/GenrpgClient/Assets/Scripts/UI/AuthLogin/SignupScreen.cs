@@ -18,18 +18,13 @@ public class SignupScreen : BaseScreen
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
-        UIHelper.SetButton(LoginButton, GetAnalyticsName(), ClickLogin);
-        UIHelper.SetButton(SignupButton, GetAnalyticsName(), ClickSignup);
+        _uiService.SetButton(LoginButton, GetName(), ClickLogin);
+        _uiService.SetButton(SignupButton, GetName(), ClickSignup);
         await UniTask.CompletedTask;
     }
 
     public void ClickLogin()
     {
-        if (!CanClick("login"))
-        {
-            return;
-        }
-
         _screenService.Open(_gs, ScreenId.Login);
         _screenService.Close(_gs, ScreenId.Signup);
     }
@@ -37,10 +32,6 @@ public class SignupScreen : BaseScreen
 
     public void ClickSignup()
     {
-        if (!CanClick("signup"))
-        {
-            return;
-        }
         string email = EmailInput.Text;
         string name = NameInput.Text;
         string password1 = PasswordInput1.Text;

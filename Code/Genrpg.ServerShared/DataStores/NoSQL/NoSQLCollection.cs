@@ -20,6 +20,9 @@ using MongoDB.Bson.IO;
 using System.Reflection.Metadata.Ecma335;
 using Genrpg.Shared.Logs.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
+using Amazon.Runtime.Internal.Util;
+using AutoMapper.Execution;
+using System.Security.Cryptography;
 
 namespace Genrpg.ServerShared.DataStores.NoSQL
 {
@@ -32,6 +35,8 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         Task<bool> Save(object t);
         Task<bool> Delete(object t);
         Task<bool> DeleteAll(object func);
+        Task<bool> UpdateDict(string id, Dictionary<string, object> fieldNameUpdates);
+        Task<bool> UpdateAction(string id, object action);
         Task CreateIndex(List<IndexConfig> configs);
         Task<List<object>> Search(object func, int quantity = 1000, int skip = 0);
         Task<bool> SaveAll(object itemList);
@@ -60,7 +65,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             return (typeof(T).Name + "doc").ToLower();
         }
 
-        public async Task<bool> DeleteAll (object listObj)
+        public async Task<bool> DeleteAll(object listObj)
         {
             Expression<Func<T, bool>> func = (Expression<Func<T, bool>>)listObj;
 
@@ -72,7 +77,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 
             try
             {
-                DeleteResult deleteResult =  await _collection.DeleteManyAsync<T>(func);
+                DeleteResult deleteResult = await _collection.DeleteManyAsync<T>(func);
             }
             catch (Exception ex)
             {
@@ -94,7 +99,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 
             try
             {
-                DeleteResult result = await _collection.DeleteOneAsync(x => x.Id == t.Id);                
+                DeleteResult result = await _collection.DeleteOneAsync(x => x.Id == t.Id);
                 if (result.DeletedCount < 1)
                 {
                     return false;
@@ -155,7 +160,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                 {
                     string errorString = "Failed to upsert Document " + typeof(T).Name + " Id: " + t.Id;
                     _logger.Error(errorString);
-                    throw new Exception (errorString);
+                    return false;
                 }
             }
             catch (Exception ex)
@@ -266,7 +271,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                 return true;
             }
             try
-            { 
+            {
                 List<WriteModel<T>> models = new List<WriteModel<T>>();
 
                 foreach (T item in items)
@@ -290,6 +295,82 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                 return false;
             }
             return true;
+        }
+
+        protected virtual int GetMaxUpdateAttempts()
+        {
+            return 1;
+        }
+
+        protected virtual Dictionary<string,object> UpdateFieldNameUpdates(Dictionary<string,object> fieldNameUpdates)
+        {
+            return fieldNameUpdates;
+        }
+
+        public virtual async Task<bool> UpdateDict(string docId, Dictionary<string, object> fieldNameUpdates)
+        {
+
+            fieldNameUpdates = UpdateFieldNameUpdates(fieldNameUpdates);
+
+            int maxAttempts = GetMaxUpdateAttempts();
+
+            Expression<Func<T, bool>> filter = x => x.Id == docId;
+
+            UpdateDefinitionBuilder<T> builder = Builders<T>.Update;
+
+            List<UpdateDefinition<T>> updates = new List<UpdateDefinition<T>>();
+
+            foreach (string fieldName in fieldNameUpdates.Keys)
+            {
+                updates.Add(builder.Set(fieldName, fieldNameUpdates[fieldName]));
+            }
+
+            UpdateDefinition<T> finalUpdateDef = builder.Combine(updates);
+
+            UpdateOptions options = new UpdateOptions() { BypassDocumentValidation = true, IsUpsert = true };
+
+            for (int i = 0; i < maxAttempts; i++)
+            {
+                UpdateResult result = await _collection.UpdateOneAsync(filter, finalUpdateDef, options);
+
+                if (result.UpsertedId == docId)
+                {
+                    return true;
+                }
+
+                await Task.Delay(100);
+            }
+
+            return false;
+        }
+
+        public async Task<bool> UpdateAction(string docId, object actionObj)
+        {
+            Action<T> action = actionObj as Action<T>;
+
+            if (action == null)
+            {
+                return false;
+            }
+
+            for (int times = 0; times < GetMaxUpdateAttempts(); times++)
+            {
+                T doc = (T)(await Load(docId));
+
+                if (doc != null)
+                {
+                    action(doc);
+
+                    if (await Save(doc))
+                    {
+                        return true;
+                    }
+                }
+
+                await Task.Delay(250);
+
+            }
+            return false;
         }
     }
 }

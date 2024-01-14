@@ -12,6 +12,8 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
     where TInitData : DragItemInitData<TData, TDragItem, TScreen, TInitData>
 {
 
+    protected IInputService _inputService;
+
     public BaseTooltip ToolTip;
     public MoneyDisplay _playerMoney;
 
@@ -52,8 +54,8 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
 
         if (_dragItem != null)
         {
-            _dragItem.transform().position = GVector3.Create(InputService.Instance.MousePosition());
-            if (!InputService.Instance.MouseIsDown(0))
+            _dragItem.transform().position = GVector3.Create(_inputService.MousePosition());
+            if (!_inputService.MouseIsDown(0))
             {
                 OnPointerUp();
             }
@@ -122,7 +124,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
         bool didHitItem = false;
 
         PointerEventData pointerData = new PointerEventData(EventSystem.current);
-        pointerData.position = GVector3.Create(InputService.Instance.MousePosition());
+        pointerData.position = GVector3.Create(_inputService.MousePosition());
 
         foreach (GraphicRaycaster gr in raycasters)
         {
@@ -188,7 +190,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
     {
         if (_dragItem != null)
         {
-            _dragItem.transform().position = GVector3.Create(InputService.Instance.MousePosition());
+            _dragItem.transform().position = GVector3.Create(_inputService.MousePosition());
         }
     }
 

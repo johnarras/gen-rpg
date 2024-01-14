@@ -147,7 +147,7 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
 
     protected static string GetPathPrefix()
     {
-        string prefix = UnityAssetService.GetPerisistentDataPath() + "/Data";
+        string prefix = AssetUtils.GetPerisistentDataPath() + "/Data";
 #if DEMO_BUILD
     if (InitProject.Env != EnvNames.Prod && !string.IsNullOrEmpty(Application.version))
     {
@@ -164,7 +164,7 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
     }
 
 
-    public static string GetPath(string id)
+    private string GetPath(string id)
     {
         if (string.IsNullOrEmpty(id))
         {

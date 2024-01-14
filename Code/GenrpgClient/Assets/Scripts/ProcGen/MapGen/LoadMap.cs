@@ -25,17 +25,17 @@ public class LoadMap : BaseZoneGenerator
 
     }
 
-    public void LoadOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token)
+    public void LoadOneTerrainPatch(UnityGameState gs, int gx, int gy, bool fastLoading, CancellationToken token)
     {
         _token = token;
         if (_terrainManager == null)
         {
             gs.loc.Resolve(this);
         }
-        InnerLoadOneTerrainPatch(gs, gx, gy, token).Forget();
+        InnerLoadOneTerrainPatch(gs, gx, gy, fastLoading, token).Forget();
     }
 
-    private async UniTask InnerLoadOneTerrainPatch(UnityGameState gs, int gx, int gy, CancellationToken token)
+    private async UniTask InnerLoadOneTerrainPatch(UnityGameState gs, int gx, int gy, bool fastLoading, CancellationToken token)
     {
         if ( gx < 0 || gy < 0 ||
             gs.map == null)
@@ -43,7 +43,7 @@ public class LoadMap : BaseZoneGenerator
             OnError(gs, "Missing basic data");
             return;
         }
-        TerrainPatchData patch = gs.md.GetTerrainPatch(gs, gx, gy);
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
 
         if (patch == null)
         {
@@ -73,11 +73,11 @@ public class LoadMap : BaseZoneGenerator
             }
             else
             {
-                gs.md.SetTerrainPatchAtGridLocation(gs, gx, gy, gs.map, patch);
+                _terrainManager.SetTerrainPatchAtGridLocation(gs, gx, gy, gs.map, patch);
             }
         }
 
-        MapTerrainManager.PatchesAdded++;
+        _terrainManager.IncrementPatchesAdded();
         await UniTask.NextFrame( cancellationToken: token);
 
         if (patch.terrain == null)
@@ -93,7 +93,7 @@ public class LoadMap : BaseZoneGenerator
             return;
         }
 
-        gs.md.terrainPatches[patch.X, patch.Y] = patch;
+        _terrainManager.SetTerrainPatchAtGridLocation(gs, patch.X, patch.Y, gs.map, patch);
 
         int startX = patch.Y * (MapConstants.TerrainPatchSize - 1);
         int startY = patch.X * (MapConstants.TerrainPatchSize - 1);
@@ -139,7 +139,7 @@ public class LoadMap : BaseZoneGenerator
             gs.logger.Exception(e, "LoadMap3: " + xx + " " + yy + " Len: " + bytelen + " Idx: " + index);
         }
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -208,7 +208,7 @@ public class LoadMap : BaseZoneGenerator
             gs.logger.Exception(e, "LoadMap2");
         }
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -297,7 +297,7 @@ public class LoadMap : BaseZoneGenerator
 
         mainZoneIds = mainZoneQuantities.OrderByDescending(x => x.Val).Select(x => x.Id).ToList();
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -344,7 +344,7 @@ public class LoadMap : BaseZoneGenerator
 
         await setTextures.SetOneTerrainPatchLayers(gs, patch, token);
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -355,14 +355,14 @@ public class LoadMap : BaseZoneGenerator
 
         await _zoneGenService.SetOnePatchAlphamaps(gs, patch, token);
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
         _zoneGenService.SetOnePatchHeightmaps(gs, patch, null, patch.heights);
 
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
@@ -370,35 +370,30 @@ public class LoadMap : BaseZoneGenerator
         LoadPlantAssets lpa = new LoadPlantAssets();
         lpa.SetupOneMapGrass(gs, patch.X, patch.Y, token);
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
 
-        gs.md.SetOneTerrainNeighbors(gs, patch.X, patch.Y);
+        _terrainManager.SetOneTerrainNeighbors(gs, patch.X, patch.Y);
        
-        gs.md.SetOneTerrainNeighbors(gs, patch.X + 1, patch.Y);
+        _terrainManager.SetOneTerrainNeighbors(gs, patch.X + 1, patch.Y);
        
-        gs.md.SetOneTerrainNeighbors(gs, patch.X - 1, patch.Y);
+        _terrainManager.SetOneTerrainNeighbors(gs, patch.X - 1, patch.Y);
      
-        gs.md.SetOneTerrainNeighbors(gs, patch.X, patch.Y - 1);
+        _terrainManager.SetOneTerrainNeighbors(gs, patch.X, patch.Y - 1);
        
-        gs.md.SetOneTerrainNeighbors(gs, patch.X, patch.Y + 1);
+        _terrainManager.SetOneTerrainNeighbors(gs, patch.X, patch.Y + 1);
 
-        if (UnityAssetService.LoadSpeed != LoadSpeed.Fast)
+        if (!fastLoading)
         {
             await UniTask.NextFrame( cancellationToken: token);
         }
         await _terrainManager.AddPatchObjects(gs, gx, gy, token);
 
-        List<MyPoint> loadingItemsToRemove = gs.md.loadingPatchList.Where(item=>item.X == gx && item.Y == gy).ToList();
+        _terrainManager.RemoveLoadingPatches(gx, gy);
 
-        foreach (MyPoint item in loadingItemsToRemove)
-        {
-            gs.md.loadingPatchList.Remove(item);
-        }
-
-        if (true && gs.pathfinding != null)
+        if (false && gs.pathfinding != null)
         {
             for (int px = 0; px < MapConstants.TerrainPatchSize; px += PathfindingConstants.BlockSize)
             {
@@ -417,7 +412,7 @@ public class LoadMap : BaseZoneGenerator
                     }
                     if (false && gs.pathfinding[finalx,finalz])
                     {
-                        float height = gs.md.SampleHeight(gs, worldx, 2000, worldz);
+                        float height = _terrainManager.SampleHeight(gs, worldx, worldz);
                         GameObject sphere = Resources.Load<GameObject>("Prefabs/TestSphere");
                         sphere = GameObject.Instantiate(sphere);
                         sphere.name = "TestSphere_" + worldx + "_" + worldz;
@@ -466,7 +461,7 @@ public class LoadMap : BaseZoneGenerator
        
         repo.SaveBytes(filePath, bytes);
         patch.DataBytes = bytes;
-        LoadOneTerrainPatch(gs, patch.X, patch.Y, _token);
+        LoadOneTerrainPatch(gs, patch.X, patch.Y, PlayerObject.Get() == null, _token);
     }
 }
 	

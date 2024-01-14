@@ -8,13 +8,6 @@ using System.Text;
 namespace Genrpg.Shared.Stats.Settings.DerivedStats
 {
     [MessagePackObject]
-    public class DerivedStatSettings : ParentSettings<DerivedStat>
-    {
-        [Key(0)] public override string Id { get; set; }
-    }
-
-
-    [MessagePackObject]
     public class DerivedStat : ChildSettings
     {
         [Key(0)] public override string Id { get; set; }
@@ -23,6 +16,12 @@ namespace Genrpg.Shared.Stats.Settings.DerivedStats
         [Key(3)] public long FromStatTypeId { get; set; }
         [Key(4)] public long ToStatTypeId { get; set; }
         [Key(5)] public int Percent { get; set; }
+    }
+
+    [MessagePackObject]
+    public class DerivedStatSettings : ParentSettings<DerivedStat>
+    {
+        [Key(0)] public override string Id { get; set; }
     }
 
     [MessagePackObject]

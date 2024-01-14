@@ -47,7 +47,7 @@ class AddPlayerToMap : BaseZoneGenerator
         };
         
         GEntity go = _unitSetupService.SetupUnit(gs, url, artGo, loadData, _token);
-        float height = gs.md.SampleHeight(gs, ch.X, MapConstants.MapHeight * 2, ch.Z);
+        float height = _terrainManager.SampleHeight(gs, ch.X, ch.Z);
         go.transform().position = GVector3.Create(ch.X, MapConstants.MapHeight, ch.Z);
         go.transform().eulerAngles = GVector3.Create(0, ch.Rot, 0);
 

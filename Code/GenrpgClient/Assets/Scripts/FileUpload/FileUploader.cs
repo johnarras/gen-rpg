@@ -4,11 +4,8 @@ using Genrpg.Shared.Constants;
 
 public class FileUploader
 {
-
-
     public static void UploadFile(FileUploadData fdata)
     {
-
         // Call out to the FileUploader program in Assets../FileUploader/FileUploader.exe
 
         ProcessStartInfo psi = new ProcessStartInfo();

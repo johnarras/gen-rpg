@@ -92,7 +92,7 @@ public class AddSteepnessTextures : BaseZoneGenerator
 
                 float edgePct = gs.md.EdgeHeightmapAdjustPercent(gs, gs.map, x, y);
 
-				float steep = gs.md.GetSteepness(gs, y,x);
+				float steep = _terrainManager.GetSteepness(gs, y,x);
 				float roadPercent= alphas[x,y,MapConstants.RoadTerrainIndex];
 
 				if (roadPercent > 0) // && steep < gs.md.MinSteepnessForTexture*1.5f)
@@ -129,7 +129,7 @@ public class AddSteepnessTextures : BaseZoneGenerator
 					if (useCleftDirt)
 					{
 
-                        float midhgt = gs.md.SampleHeight(gs, y, 1000, x);
+                        float midhgt = _terrainManager.SampleHeight(gs, y, x);
 							
 						int numAngles = 40;
 						int innerMinNumAboveMid = numAngles/2+extraRaisedPointsAmount;
@@ -144,7 +144,7 @@ public class AddSteepnessTextures : BaseZoneGenerator
 
 							float xx = x+innerrad*cosx;
 							float yy = y+innerrad*sinx;
-                            float xyhgt = gs.md.SampleHeight(gs, yy, 1000, xx);
+                            float xyhgt = _terrainManager.SampleHeight(gs, yy, xx);
 							if (xyhgt > midhgt+innerExtraHeight)
 							{
 								innerNumAboveMid++;

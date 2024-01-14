@@ -3,6 +3,8 @@ using UnityEngine; // Needed
 
 public class ClutterObject : BaseBehaviour
 {
+    IMapTerrainManager _terrainManager;
+
     public override void Initialize(UnityGameState gs)
     {
         base.Initialize(gs);
@@ -51,7 +53,7 @@ public class ClutterObject : BaseBehaviour
 
         didFinalSetPos = true;
 
-        GVector3 normal = _gs.md.GetInterpolatedNormal(_gs, _gs.map,entity.transform().position.x,entity.transform().position.z);
+        GVector3 normal = _terrainManager.GetInterpolatedNormal(_gs, _gs.map,entity.transform().position.x,entity.transform().position.z);
 
         Quaternion groundTilt = GQuaternion.FromToRotation(GVector3.up, normal);
 

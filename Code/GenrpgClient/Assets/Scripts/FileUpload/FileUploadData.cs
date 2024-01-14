@@ -7,8 +7,6 @@ using Genrpg.Shared.Constants;
 
 public class FileUploadData
 {
-    public static string EnvName = EnvNames.Dev;
-
     public string GamePrefix;
     public string Env;
     public string LocalPath;

@@ -29,7 +29,7 @@ public class BundleSetupUtils
             _assetService = new UnityAssetService();
         }
 
-        string endOfPath = UnityAssetService.GetAssetPath(assetPathSuffix);
+        string endOfPath = AssetUtils.GetAssetPath(assetPathSuffix);
 
         string pathWithoutSlash = endOfPath.Replace("/", "");
 
@@ -91,7 +91,7 @@ public class BundleSetupUtils
         AssetImporter importer = AssetImporter.GetAtPath(item) as AssetImporter;
         if (importer != null)
         {
-            string shortFilename = fileName.Replace(UnityAssetService.ArtFileSuffix, "");
+            string shortFilename = fileName.Replace(AssetConstants.ArtFileSuffix, "");
             string bundleName = _assetService.GetBundleNameForCategoryAndAsset(gs, assetPathSuffix, shortFilename);
             if (importer.assetBundleName != bundleName)
             {

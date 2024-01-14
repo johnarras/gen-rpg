@@ -13,10 +13,10 @@ using Genrpg.Shared.Zones.WorldData;
 public class AddNearbyItemsHelper
 {
 
-    public void AddItemsNear(UnityGameState gs, MyRandom rand, ZoneType zoneType, Zone zone, int x, int y, double placeChance, int maxPlaceQuantity, float minOffset, float maxOffset, bool canPlaceTrees = true)
+    public void AddItemsNear(UnityGameState gs, IMapTerrainManager terrainManager, MyRandom rand, ZoneType zoneType, Zone zone, int x, int y, double placeChance, int maxPlaceQuantity, float minOffset, float maxOffset, bool canPlaceTrees = true)
     {
 
-        float posHeight = gs.md.GetInterpolatedHeight(gs, y, x);
+        float posHeight = terrainManager.GetInterpolatedHeight(gs, y, x);
 
         if (posHeight < MapConstants.OceanHeight)
         {

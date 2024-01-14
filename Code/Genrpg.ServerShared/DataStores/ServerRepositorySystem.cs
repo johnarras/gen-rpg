@@ -1,6 +1,5 @@
 ﻿using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.ServerShared.Config;
-using Genrpg.ServerShared.Utils;
 using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
@@ -18,6 +17,8 @@ using System.Threading;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.ServerShared.DataStores.DbQueues;
+using Genrpg.ServerShared.DataStores.DbQueues.Actions;
 
 namespace Genrpg.ServerShared.DataStores
 {
@@ -213,5 +214,33 @@ namespace Genrpg.ServerShared.DataStores
             await repo.CreateIndex<T>(configs);
             return;
         }
+
+        public async Task<bool> UpdateDict<T>(string docId, Dictionary<string, object> fieldNameUpdates) where T : class, IStringId
+        {
+            IRepository repo = FindRepo(typeof(T));
+
+            return await repo.UpdateDict<T>(docId, fieldNameUpdates);
+        }
+
+        public void QueueUpdateDict<T>(string docId, Dictionary<string, object> fieldNameUpdates) where T : class, IStringId
+        {
+            UpdateAction<T> updateAction = new UpdateAction<T>(docId, fieldNameUpdates, this);
+            _queues[StrUtils.GetIdHash(docId) % QueueCount].Enqueue(updateAction);
+        }
+
+
+        public async Task<bool> UpdateAction<T>(string docId, Action<T> action) where T : class, IStringId
+        {
+            IRepository repo = FindRepo(typeof(T));
+
+            return await repo.UpdateAction<T>(docId, action);
+        }
+
+        public void QueueUpdateAction<T>(string docId, Action<T> action) where T : class, IStringId
+        {
+            UpdateAction<T> updateAction = new UpdateAction<T>(docId, action, this);
+            _queues[StrUtils.GetIdHash(docId) % QueueCount].Enqueue(updateAction);
+        }
+
     }
 }

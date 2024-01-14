@@ -21,7 +21,7 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
 
     protected abstract string GetLayerName();
 
-    protected IMapTerrainManager _mapTerrainManager;
+    protected IMapTerrainManager _terrainManager;
     protected IAssetService _assetService;
     protected IClientMapObjectManager _objectManager;
 
@@ -32,7 +32,7 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
             return;
         }
 
-        TerrainPatchData patchData = _mapTerrainManager.GetPatchFromMapPos(gs, data.Spawn.X, data.Spawn.Z);
+        TerrainPatchData patchData = _terrainManager.GetPatchFromMapPos(gs, data.Spawn.X, data.Spawn.Z);
 
         if (patchData == null)
         {
@@ -62,7 +62,7 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
             nz = data.Spawn.Z;
         }
 
-        float height = gs.md.SampleHeight(gs, nx, MapConstants.MapHeight, nz);
+        float height = _terrainManager.SampleHeight(gs, nx, nz);
        
         go.transform().position = GVector3.Create(nx, height, nz);
         go.transform().eulerAngles = GVector3.Create(0, data.Spawn.Rot, 0);

@@ -14,6 +14,8 @@ namespace Assets.Scripts.Pathfinding.Utils
     {
         public static async void ShowPath(UnityGameState _gs, WaypointList list)
         {
+
+            IMapTerrainManager _terrainManager = _gs.loc.Get<IMapTerrainManager>();
             StringBuilder sb = new StringBuilder();
             if (true || list.Waypoints.Count > 2)
             {
@@ -25,7 +27,7 @@ namespace Assets.Scripts.Pathfinding.Utils
                 foreach (Waypoint wp in dupeList)
                 {
                     GameObject sph = GameObject.Instantiate<GameObject>(basePathSphere);
-                    float height = _gs.md.SampleHeight(_gs, wp.X, 2000, wp.Z);
+                    float height = _terrainManager.SampleHeight(_gs, wp.X, wp.Z);
                     sph.transform.position = new Vector3(wp.X, height + 0.5f, wp.Z);
                     sb.Append("WP: " + wp.X + " " + wp.Z + "\n");
                     pathObjects.Add(sph);

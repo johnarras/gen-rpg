@@ -3,6 +3,8 @@ using System;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine; // Needed
+using Assets.Scripts.MapTerrain;
+using UnityEditor;
 
 public class SetFinalTerrainTextures : BaseZoneGenerator
 {
@@ -72,13 +74,15 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
                         break;
                     }
 
-                    if (gs.md.terrainPatches[x,y] == null)
+                    TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, x, y);
+
+                    if (patch == null)
                     {
                         missingLayer = true;
                         break;
                     }
 
-                    TerrainData tdata = gs.md.GetTerrainData(gs, x, y);
+                    TerrainData tdata = _terrainManager.GetTerrainData(gs, x, y);
                     if (tdata == null)
                     {
                         missingLayer = true;
@@ -100,7 +104,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
                         }
                     }
 
-                    if (!missingLayer && !gs.md.terrainPatches[x, y].HaveSetAlphamaps)
+                    if (!missingLayer && !patch.HaveSetAlphamaps)
                     {
                         missingLayer = true;
                         break;

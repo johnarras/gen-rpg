@@ -12,9 +12,9 @@ public class MainMenuScreen : BaseScreen
     protected IClientLoginService _loginService;
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
-        UIHelper.SetButton(LogoutAccountButton, GetAnalyticsName(), ClickLogout);
-        UIHelper.SetButton(QuitGameButton, GetAnalyticsName(), ClickQuit);
-        UIHelper.SetButton(ExitMapButton, GetAnalyticsName(), ExitMap);
+        _uiService.SetButton(LogoutAccountButton, GetName(), ClickLogout);
+        _uiService.SetButton(QuitGameButton, GetName(), ClickQuit);
+        _uiService.SetButton(ExitMapButton, GetName(), ExitMap);
 
         await UniTask.CompletedTask;
     }
@@ -22,30 +22,16 @@ public class MainMenuScreen : BaseScreen
 
     private void ClickLogout()
     {
-        if (!CanClick("logout"))
-        {
-            return;
-        }
-
         _loginService.Logout(_gs);
     }
 
     private void ClickQuit()
     {
-        if (!CanClick("quit"))
-        {
-            return;
-        }
-
         AppUtils.Quit();
     }
 
     private void ExitMap()
     {
-        if (!CanClick("exit"))
-        {
-            return;
-        }
         _loginService.ExitMap(_gs);
     }
     

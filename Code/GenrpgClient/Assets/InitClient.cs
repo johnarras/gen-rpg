@@ -16,14 +16,13 @@ public class InitClient : BaseBehaviour
 {
 
     private ClientConfig _config = null;
+
     public GEntity _splashImage;
 
     private IClientLoginService _loginService;
 
-    public string CurrMapId;
-
 #if UNITY_EDITOR
-
+    public string CurrMapId;
     public static InitClient EditorInstance { get; set; }
     public bool ForceDownloadFromAssetBundles = false;
     public int WorldSize;
@@ -31,34 +30,22 @@ public class InitClient : BaseBehaviour
     public int ForceZoneTypeId;
     public int MapGenSeed;
     public float PlayerSpeedMult;
-    public int ZoneNoiseSize = 4096;
-    public float ZoneNoiseDenominator = 36;
-    public float ZoneNoiseAmplitude = 1.0f;
-    public float ZoneNoisePersistence = 0.3f;
-    public float ZoneNoiseLacunarity = 2.0f;
 #endif
-
-    public static InitClient Instance { get; set; }
 
     private CancellationTokenSource _gameTokenSource = new CancellationTokenSource();
 
     void Start()
     {
-        _config = ClientConfig.Load();
-
-        UnityGameState gs = new UnityGameState();
-        gs.logger = new ClientLogger(gs);
-        gs.loc = new ServiceLocator(gs.logger);
-        gs.repo = new ClientRepositorySystem(gs.logger);
-        gs.data = new GameData();
-
-        Initialize(gs);
-
         OnStart().Forget();
     }
 
-    public void RemoveSplashScreen()
+    private async UniTask DelayRemoveSplashScreen(CancellationToken token)
     {
+        while (_screenService == null || _screenService.GetAllScreens(_gs).Count < 1)
+        {
+            await UniTask.NextFrame(token);
+        }
+
         if (_splashImage != null)
         {
             GEntityUtils.SetActive(_splashImage, false);
@@ -70,11 +57,22 @@ public class InitClient : BaseBehaviour
     private string _envName = "";
     protected async UniTask OnStart()
     {
+        _config = ClientConfig.Load();
+
+        UnityGameState gs = new UnityGameState();
+        gs.logger = new ClientLogger(gs);
+        gs.loc = new ServiceLocator(gs.logger);
+        gs.repo = new ClientRepositorySystem(gs.logger);
+        gs.data = new GameData();
+
+        Initialize(gs);
+
 #if UNITY_EDITOR
         EditorInstance = this;
 #endif
-        Instance = this;
         _envName = _config.Env.ToString();
+
+        DelayRemoveSplashScreen(_gameTokenSource.Token).Forget();
 
         Analytics.Setup(_gs);
         // Initial app appearance.
@@ -102,13 +100,13 @@ public class InitClient : BaseBehaviour
         string artURLWithoutEnv = response.ArtURLPrefix;
         string contentDataEnv = string.IsNullOrEmpty(_config.ContentDataEnvOverride) ? response.ArtEnv : _config.ContentDataEnvOverride;
         string worldDataEnv = _config.WorldDataEnv;
-        UIHelper.SetGameState(_gs);
 
         // Basic game setup
         SetupService setupService = new SetupService();
         await setupService.SetupGame(_gs, token);
 
-        ClientSetupService.SetupClient(_gs, true, artURLWithoutEnv, contentDataEnv, worldDataEnv, token);
+        ClientInitializer clientInitilizer = new ClientInitializer();
+        clientInitilizer.SetupClientServices(_gs, true, artURLWithoutEnv, contentDataEnv, worldDataEnv, token);
 
         InitialPrefabLoader prefabLoader = AssetUtils.LoadResource<InitialPrefabLoader>("Prefabs/PrefabLoader");
         await prefabLoader.LoadPrefabs(_gs);

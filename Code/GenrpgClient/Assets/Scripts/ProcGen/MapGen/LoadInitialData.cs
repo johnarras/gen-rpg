@@ -23,7 +23,7 @@ public class LoadInitialData : BaseZoneGenerator
 
         float delaySec = 1.0f;
 
-        UnityAssetService.LoadSpeed = LoadSpeed.Fast;
+        _terrainManager.SetFastLoading();
 
         await UniTask.Delay(TimeSpan.FromSeconds(delaySec), cancellationToken: token);
 
@@ -31,8 +31,6 @@ public class LoadInitialData : BaseZoneGenerator
         {
             await UniTask.Delay(TimeSpan.FromSeconds(delaySec), cancellationToken: token);
         }
-        UnityAssetService.LoadSpeed = LoadSpeed.Normal;
-
         Character ch = PlayerObject.GetUnit() as Character;
         GEntity go = PlayerObject.Get();
         if (ch != null && go != null)
@@ -41,7 +39,7 @@ public class LoadInitialData : BaseZoneGenerator
 
             do
             {
-                height = gs.md.SampleHeight(gs, ch.X, MapConstants.MapHeight * 2, ch.Z);
+                height = _terrainManager.SampleHeight(gs, ch.X, ch.Z);
                 go.transform().position = GVector3.Create(ch.X, height, ch.Z);
                 go.transform().eulerAngles = GVector3.Create(0, ch.Rot, 0);
                 if (height == 0)

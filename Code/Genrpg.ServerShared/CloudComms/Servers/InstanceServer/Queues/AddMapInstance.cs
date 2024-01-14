@@ -14,5 +14,6 @@ namespace Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues
         public string InstanceId { get; set; }
         public string Host { get; set; }
         public int Port { get; set; }
+        public int Size { get; set; }
     }
 }

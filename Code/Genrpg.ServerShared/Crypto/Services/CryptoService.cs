@@ -2,10 +2,9 @@
 using Genrpg.Shared.Crypto.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.WebRequests.Utils;
+using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.Crypto.Services

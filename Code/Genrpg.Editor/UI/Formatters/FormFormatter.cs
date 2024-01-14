@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Genrpg.Editor.UI.FormatterHelpers
+namespace Genrpg.Editor.UI.Formatters
 {
     public class FormFormatter
     {

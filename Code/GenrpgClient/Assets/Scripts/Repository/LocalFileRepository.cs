@@ -1,6 +1,9 @@
 using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Utils;
 using System;
 using System.IO;
+using UnityEngine.SearchService;
+
 public class LocalFileRepository
 {
 
@@ -14,7 +17,7 @@ public class LocalFileRepository
 
     protected static string GetPathPrefix()
     {
-        string prefix = UnityAssetService.GetPerisistentDataPath() + "/Data";
+        string prefix = AssetUtils.GetPerisistentDataPath() + "/Data";
 #if DEMO_BUILD
         if (InitProject.Env != EnvNames.Prod && !string.IsNullOrEmpty(Application.version))
         {
@@ -31,11 +34,16 @@ public class LocalFileRepository
     }
 
 
-    public static string GetPath(string id)
+    public string GetPath(string id)
     {
         if (string.IsNullOrEmpty(id))
         {
             return "";
+        }
+
+        if (id.IndexOf(":") > 0)
+        {
+            return id;
         }
 
         string basePath = GetPathPrefix();
@@ -159,4 +167,18 @@ public class LocalFileRepository
 		    _logger.Info("Failed to delete file: " + path + " " + e.Message);
 		}
 	}
+
+    public void SaveObject(string fileName, object obj)
+    {
+        if (obj == null)
+        {
+            return;
+        }
+        Save(fileName, SerializationUtils.Serialize(obj));
+    }
+
+    public T LoadObject<T>(string fileName) where T : class
+    {
+        return SerializationUtils.TryDeserialize<T>(Load(fileName));
+    }
 }

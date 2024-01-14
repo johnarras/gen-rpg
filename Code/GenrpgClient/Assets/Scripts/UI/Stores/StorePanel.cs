@@ -34,7 +34,7 @@ namespace Assets.Scripts.UI.Stores
 
             _theme = _gs.data.GetGameData<StoreThemeSettings>(_gs.ch).GetStoreTheme(offer.StoreThemeId);
 
-            UIHelper.SetText(Header, _offer.Name);
+            _uiService.SetText(Header, _offer.Name);
 
             foreach (PlayerOfferProduct product in _offer.Products)
             {
@@ -54,7 +54,7 @@ namespace Assets.Scripts.UI.Stores
 
             StoreProductPanel productPanel = go.GetComponent<StoreProductPanel>();
 
-            productPanel.Init(data as PlayerOfferProduct, _screen.GetAnalyticsName(), _theme, token);
+            productPanel.Init(data as PlayerOfferProduct, _screen.GetName(), _theme, token);
         }
     }
 }

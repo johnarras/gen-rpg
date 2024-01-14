@@ -13,7 +13,6 @@ public class ZoneScreen : BaseScreen
     public GText ZoneName;
     public GRawImage MapImage;
     public GEntity ArrowParent;
-    public GButton CloseButton;
 
     protected GEntity ArrowObject;
 
@@ -21,7 +20,6 @@ public class ZoneScreen : BaseScreen
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         Setup();
-        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
         await UniTask.CompletedTask;
     }
 
@@ -29,7 +27,7 @@ public class ZoneScreen : BaseScreen
     {
         _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token, "Maps");
 
-        UIHelper.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
+        _uiService.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
         ShowPlayer();
 
     }
@@ -173,7 +171,7 @@ public class ZoneScreen : BaseScreen
             
             _lastZoneShown = currZone.IdKey;
 
-            UIHelper.SetText(ZoneName, currZone.Name);
+            _uiService.SetText(ZoneName, currZone.Name);
         }
         else if (currZone == null)
         {

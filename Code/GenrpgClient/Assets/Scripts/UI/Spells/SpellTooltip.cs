@@ -41,8 +41,8 @@ public class SpellTooltip : BaseTooltip
             return;
         }
 
-        UIHelper.SetText(SpellName, _data.spell.Name);
-        UIHelper.SetText(BasicInfo, "");
+        _uiService.SetText(SpellName, _data.spell.Name);
+        _uiService.SetText(BasicInfo, "");
 
         ShowEffects();
     }

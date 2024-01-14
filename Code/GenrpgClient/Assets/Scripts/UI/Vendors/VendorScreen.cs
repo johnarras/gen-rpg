@@ -18,7 +18,6 @@ public class VendorScreen : ItemIconScreen
 
     public InventoryPanel PlayerItems;
     public GEntity VendorItems;
-    public GButton CloseButton;
 
 
     Unit _unit = null;
@@ -27,7 +26,6 @@ public class VendorScreen : ItemIconScreen
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        UIHelper.SetButton(CloseButton, GetAnalyticsName(), StartClose);
         _gs.AddEvent<OnGetMapObjectStatus>(this, OnGetNPCStatusHandler);
         _gs.AddEvent<OnAddItem>(this, OnAddItemHandler);
         _gs.AddEvent<OnRemoveItem>(this, OnRemoveItemHandler);

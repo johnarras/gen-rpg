@@ -7,6 +7,7 @@ using GEntity = UnityEngine.GameObject;
 using UnityEngine.EventSystems; // Needed
 using Genrpg.Shared.Chat.Constants;
 using Genrpg.Shared.Chat.Settings;
+using UnityEngine;
 
 namespace UI
 {
@@ -23,10 +24,6 @@ namespace UI
 
         private List<ChatRow> _rows = new List<ChatRow>();
 
-        private static ChatWindow _instance;
-
-        public static ChatWindow Instance => _instance;
-
         private ChatType _currentChatType = null;
 
         private string _chatPrefix = "";
@@ -37,17 +34,27 @@ namespace UI
             base.Initialize(gs);
             _gs.AddEvent<OnChatMessage>(this, OnChatMessageHandler);
             _gs.AddEvent<OnGetWhoList>(this, OnGetWhoListHandler);
-            _instance = this;
+            _updateService.AddUpdate(this, UpdateChat, UpdateType.Regular);
+        }
+
+        private void UpdateChat()
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SetEditing(!_editing);
+            }
         }
 
         private bool _editing = false;
-        public void SetEditing(bool editing)
+        private void SetEditing(bool editing)
         {
             _editing = editing;
+            _gs.logger.Info("Set editing val " + _editing);
             if (ChatInput != null)
             {
                 if (_editing)
                 {
+                    _gs.logger.Info("Edit Now!");
                     EventSystem.current.SetSelectedGameObject(ChatInput.entity());
                     if (InputBackground != null)
                     {
@@ -61,12 +68,14 @@ namespace UI
                 }
                 else
                 {
+                    SendChat();
+                    _gs.logger.Info("Stop edit now!");
                     EventSystem.current.SetSelectedGameObject(null);
                     if (InputBackground != null)
                     {
                         InputBackground.color = GColor.gray;
                     }
-                    UIHelper.SetText(ChatTextPrefix, "");
+                    _uiService.SetText(ChatTextPrefix, "");
                 }
             }
         }
@@ -107,7 +116,7 @@ namespace UI
                             args = text.Substring(firstWord.Length + 1);
                         }
                         _networkService.SendMapMessage(new GetWhoList() { Args = args });
-                        InputService.Instance.ToggleChat();
+                        SetEditing(false);
                         return;
                     }
 
@@ -130,7 +139,7 @@ namespace UI
                         _gs.logger.Debug("Change chat type to: " + _currentChatType.Name);
                         if (text.Length < 1)
                         {
-                            InputService.Instance.ToggleChat();
+                            SetEditing(false);
                             return;
                         }
                     }
@@ -147,13 +156,14 @@ namespace UI
                     
                     if (string.IsNullOrEmpty(targetName) || string.IsNullOrEmpty(text))
                     {
-                        InputService.Instance.ToggleChat();
+                        SetEditing(false);
                         return;
                     }
                 }
 
                 _gs.logger.Debug("Sending chat: " + _currentChatType.Name + " To: " + targetName + ": " + text);
-                InputService.Instance.ToggleChat();
+
+                SetEditing(false);
 
                 SendChatMessage sendMessage = new SendChatMessage()
                 {
@@ -177,7 +187,7 @@ namespace UI
             if (_currentChatType != null && ChatInput != null)
             {
                 _chatPrefix = "[" + _currentChatType.Name + "]: ";
-                UIHelper.SetText(ChatTextPrefix, _chatPrefix);
+                _uiService.SetText(ChatTextPrefix, _chatPrefix);
             }
         }
 

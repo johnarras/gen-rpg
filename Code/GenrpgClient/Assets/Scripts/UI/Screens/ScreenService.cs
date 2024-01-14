@@ -1,6 +1,5 @@
 using GEntity = UnityEngine.GameObject;
 using System.Collections.Generic;
-using Genrpg.Shared.DataStores.Entities;
 using UI.Screens.Constants;
 using Assets.Scripts.UI.Config;
 using System.Linq;
@@ -9,7 +8,6 @@ using System.Threading;
 using Assets.Scripts.Tokens;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using System.Web;
 
 public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 {
@@ -148,7 +146,6 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
             _gs.logger.Debug("Screen had no BaseScreen on it");
             return;
         }
-        bs.Name = bs.name;
         bs.ScreenId = nextItem.ScreenId;
         bs.Subdirectory = GetSubdirectory(bs.ScreenId);
 
@@ -169,11 +166,10 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
         layer.CurrentScreen = nextItem;
         layer.CurrentLoading = null;
-        Analytics.Send(AnalyticsEvents.OpenScreen, nextItem.Screen.GetAnalyticsName());
+        Analytics.Send(AnalyticsEvents.OpenScreen, nextItem.Screen.GetName());
         await nextItem.Screen.StartOpen(nextItem.Data, token);
         ClearAllScreensList();
 
-        InitClient.Instance?.RemoveSplashScreen();
     }
 
     public void StringOpen (UnityGameState gs, string screenName, object data = null)
@@ -281,7 +277,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
                 {
                     GEntityUtils.Destroy(baseScreen.entity());
                 }
-                Analytics.Send(AnalyticsEvents.CloseScreen, baseScreen.GetAnalyticsName());
+                Analytics.Send(AnalyticsEvents.CloseScreen, baseScreen.GetName());
                 layer.CurrentScreen = null;
                 ClearAllScreensList();
                 break;
@@ -376,5 +372,24 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
             Close(gs, layer.CurrentScreen.ScreenId);
         }
+    }
+
+    public ActiveScreen GetScreen(UnityGameState gs, string screenName)
+    {
+        string shortScreenName = screenName.Replace("Screen", "");
+
+        foreach (ScreenLayer layer in Layers)
+        {
+            if (layer.CurrentScreen == null)
+            {
+                continue;
+            }
+            if (layer.CurrentScreen.ScreenId.ToString() != shortScreenName)
+            {
+                continue;
+            }
+            return layer.CurrentScreen;
+        }
+        return null;
     }
 }

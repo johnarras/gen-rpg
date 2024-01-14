@@ -29,5 +29,7 @@ namespace UI.Screens.Constants
         ActionBars=18,
         Charm=19,
         Store=20,
+        Ftue=21,
+        Blocker=22,
     }
 }

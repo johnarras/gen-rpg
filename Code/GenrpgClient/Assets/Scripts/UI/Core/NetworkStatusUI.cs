@@ -8,7 +8,8 @@ namespace Assets.Scripts.UI
 {
     public class NetworkStatusUI : BaseBehaviour
     {
-        
+
+        private IMapTerrainManager _terrainManager;
         public GText Text;
 
         private CancellationToken _token;
@@ -82,11 +83,13 @@ namespace Assets.Scripts.UI
                 sb.Append("Server/Client Msg Ratio: " + messageRatio + "\n");
             }
 
+            ClientAssetCounts assetCounts = _assetService.GetAssetCounts();
+
             sb.Append("\nClientAssets:\n");
-            ShowClientVals(sb, "Bundles", UnityAssetService.BundlesLoaded, UnityAssetService.BundlesUnloaded, clientCounts.Seconds);
-            ShowClientVals(sb, "TerrainPatches", MapTerrainManager.PatchesAdded, MapTerrainManager.PatchesRemoved, clientCounts.Seconds);
-            ShowClientVals(sb, "Objects", UnityAssetService.ObjectsLoaded, UnityAssetService.ObjectsUnloaded, clientCounts.Seconds);
-            UIHelper.SetText(Text, sb.ToString());
+            ShowClientVals(sb, "Bundles", assetCounts.BundlesLoaded, assetCounts.BundlesUnloaded, clientCounts.Seconds);
+            ShowClientVals(sb, "TerrainPatches", _terrainManager.GetPatchesAdded(), _terrainManager.GetPatchesRemoved(), clientCounts.Seconds);
+            ShowClientVals(sb, "Objects", assetCounts.ObjectsLoaded, assetCounts.ObjectsUnloaded, clientCounts.Seconds);
+            _uiService.SetText(Text, sb.ToString());
 
             return null;
         }

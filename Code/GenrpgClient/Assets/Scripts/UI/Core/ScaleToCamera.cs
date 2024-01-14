@@ -8,7 +8,7 @@ using GEntity = UnityEngine.GameObject;
 
 public class ScaleToCamera : BaseBehaviour
 {
-    
+    private ICameraController _cameraController;
     public bool _remainVertical = false;
     
     public float _defaultScale;
@@ -31,7 +31,7 @@ public class ScaleToCamera : BaseBehaviour
     {
         if (_mainCam == null)
         {
-            _mainCam = CameraController.Instance.GetMainCamera();
+            _mainCam = _cameraController.GetMainCamera();
         }
 
         if (_mainCam == null)

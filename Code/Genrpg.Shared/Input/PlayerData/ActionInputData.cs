@@ -1,5 +1,7 @@
+using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Input.Constants;
+using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.Utils;
 using MessagePack;
 using System;
@@ -9,6 +11,16 @@ using System.Text;
 
 namespace Genrpg.Shared.Input.PlayerData
 {
+    [MessagePackObject]
+    public class ActionInput : OwnerPlayerData
+    {
+        [Key(0)] public override string Id { get; set; }
+        [Key(1)] public override string OwnerId { get; set; }
+        [Key(2)] public int Index { get; set; }
+        [Key(3)] public long SpellId { get; set; }
+    }
+
+
     [MessagePackObject]
     public class ActionInputData : OwnerObjectList<ActionInput>
     {
@@ -63,5 +75,10 @@ namespace Genrpg.Shared.Input.PlayerData
             SetDirty(true);
         }
     }
+    [MessagePackObject]
+    public class ActionInputApi : OwnerApiList<ActionInputData, ActionInput> { }
+
+    [MessagePackObject]
+    public class ActionInputDataLoader : OwnerDataLoader<ActionInputData, ActionInput, ActionInputApi> { }
 
 }

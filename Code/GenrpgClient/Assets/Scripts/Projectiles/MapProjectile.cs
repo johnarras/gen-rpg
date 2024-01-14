@@ -4,6 +4,7 @@ using System.Threading;
 public class MapProjectile : BaseBehaviour
 {
     protected IClientMapObjectManager _objectManager;
+    private IInputService _inputService;
 
     protected FullFX _full;
 
@@ -55,7 +56,7 @@ public class MapProjectile : BaseBehaviour
 
         if (_full.fx.Speed > 0)
         {
-            float deltaTime = InputService.Instance.GetDeltaTime();
+            float deltaTime = _inputService.GetDeltaTime();
             float distThisTick = deltaTime * _full.fx.Speed;
 
             GVector3 diff = GVector3.Create(_full.toObj.transform().position -entity.transform().position);
@@ -74,7 +75,7 @@ public class MapProjectile : BaseBehaviour
         }
         else
         {
-            _elapsedTime += InputService.Instance.GetDeltaTime();
+            _elapsedTime += _inputService.GetDeltaTime();
 
             if (_elapsedTime >= _full.fx.Dur)
             {

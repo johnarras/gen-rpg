@@ -64,6 +64,9 @@ MonoBehaviour:
   - LayerId: 6
     Index: 0
     SkipInAllScreensList: 1
+  - LayerId: 7
+    Index: 0
+    SkipInAllScreensList: 0
   - LayerId: 2
     Index: 0
     SkipInAllScreensList: 0

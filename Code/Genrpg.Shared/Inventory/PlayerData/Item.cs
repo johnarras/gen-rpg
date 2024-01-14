@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.Spells.Interfaces;
 
 namespace Genrpg.Shared.Inventory.PlayerData
 {
@@ -58,4 +59,12 @@ namespace Genrpg.Shared.Inventory.PlayerData
         }
 
     }
+    [MessagePackObject]
+    public class ItemEffect : IEffect
+    {
+        [Key(0)] public long EntityTypeId { get; set; }
+        [Key(1)] public long Quantity { get; set; }
+        [Key(2)] public long EntityId { get; set; }
+    }
+
 }

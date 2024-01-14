@@ -18,6 +18,8 @@ public interface IAssetService : IService
     void ClearBundleCache(UnityGameState gs, CancellationToken token);
     string GetBundleNameForCategoryAndAsset(UnityGameState gs, string assetCategory, string assetPath);
 
+    ClientAssetCounts GetAssetCounts();
+
     string StripPathPrefix(string path);
     void SetWorldAssetEnv(string worldAssetEnv);
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using Genrpg.Shared.Constants;
+using Genrpg.Shared.Utils;
 
 public class CreateAssetBundle
 {
@@ -33,10 +34,11 @@ public class CreateAssetBundle
                 Directory.CreateDirectory(basePath);
             }
             DirectoryInfo di = new DirectoryInfo(basePath);
-           
-            // Load bundle version data in if possible
-            Dictionary<string, BundleVersionData> versionDict = new Dictionary<string, BundleVersionData>();
 
+            BundleUpdateInfo updateData = new BundleUpdateInfo() { ClientVersion = AppUtils.Version, UpdateTime = DateTime.UtcNow };
+
+            BundleVersions versionData = new BundleVersions() { UpdateInfo = updateData };
+           
             BuildAssetBundleOptions options = BuildAssetBundleOptions.ChunkBasedCompression;
 
             AssetBundleManifest manifest = null;
@@ -60,18 +62,17 @@ public class CreateAssetBundle
                     string hash = manifest.GetAssetBundleHash(bundle).ToString();
                     string bundle2 = bundle.Replace(hash, "").Replace("_","");
                 
-                    if (!versionDict.ContainsKey(bundle2))
+                    if (!versionData.Versions.ContainsKey(bundle2))
                     {
-                        versionDict[bundle2] = new BundleVersionData() { Name = bundle2 };
+                        versionData.Versions[bundle2] = new BundleVersion() { Name = bundle2 };
                     }
 
-                    BundleVersionData bvd = versionDict[bundle2];
+                    BundleVersion bvd = versionData.Versions[bundle2];
                     bvd.Hash = hash;
 
                     try
                     {
                         byte[] bytes = File.ReadAllBytes(basePath + "/" + bundle);
-                        //Debug.LogError("FileSize: " + bytes.Length);
                         bvd.Size = bytes.Length;
                     }
                     catch (Exception e)
@@ -81,15 +82,17 @@ public class CreateAssetBundle
                 }
             }
 
-            // Save the versions file into the correct folder now.
-            string newText = UnityAssetService.ConvertBundleVersionsToText(gs, versionDict);
+            // Save the versions and last bundle upload time
+            string bundleVersionText = SerializationUtils.Serialize(versionData);
+            string bundleVersionPath = textFilePath + "/" + AssetConstants.BundleVersionsFile;
 
+            string bundleUploadTimeText = SerializationUtils.Serialize(updateData);
+            string bundleUploadTimePath = textFilePath + "/" + AssetConstants.BundleUpdateFile;
 
-            // Get path to the bundle version list for this platform
-            string bundleVersionPath = textFilePath + "/" + UnityAssetService.BundleVersionFilename;
             try
             {
-                File.WriteAllText(bundleVersionPath, newText);
+                File.WriteAllText(bundleVersionPath, bundleVersionText);
+                File.WriteAllText(bundleUploadTimePath, bundleUploadTimeText);
             }
             catch (Exception e)
             {

@@ -27,6 +27,8 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
 {
     public GButton SelfButton;
 
+    protected IInputService _inputService;
+
     protected TInitData _initData;
     protected CancellationToken _token;
     public virtual void Init(TInitData initData, CancellationToken token)
@@ -112,7 +114,7 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
             return;
         }
 
-        if (InputService.Instance.MouseClickNow(1))
+        if (_inputService.MouseClickNow(1))
         {
             return;
         }

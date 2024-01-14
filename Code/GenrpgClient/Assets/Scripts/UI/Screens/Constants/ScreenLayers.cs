@@ -17,5 +17,6 @@ namespace UI.Screens.Constants
         Overlays=4,
         FloatingText=5,
         DragItems=6,
+        Blocker=7,
     }
 }

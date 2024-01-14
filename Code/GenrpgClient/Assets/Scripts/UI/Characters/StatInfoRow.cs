@@ -23,10 +23,10 @@ public class StatInfoRow : BaseBehaviour
         }
         else
         {
-            UIHelper.SetText(StatName, "=============");
-            UIHelper.SetText(CurrStat, "");
-            UIHelper.SetText(Percent, "");
-            UIHelper.SetText(Modifier, "");
+            _uiService.SetText(StatName, "=============");
+            _uiService.SetText(CurrStat, "");
+            _uiService.SetText(Percent, "");
+            _uiService.SetText(Modifier, "");
         }
 
         if (unit == null)
@@ -44,18 +44,18 @@ public class StatInfoRow : BaseBehaviour
             return;
         }
 
-        UIHelper.SetText(StatName, _statType.Name);
+        _uiService.SetText(StatName, _statType.Name);
 
         long curr = unit.Stats.Max(_statTypeId);
 
         
-        UIHelper.SetText(CurrStat, curr.ToString());
+        _uiService.SetText(CurrStat, curr.ToString());
 
         float pct = 0.0f;
 
         if (_statTypeId <= StatConstants.PrimaryStatEnd)
         {
-            UIHelper.SetText(Percent, "");
+            _uiService.SetText(Percent, "");
         }
         else if (_statTypeId >= StatConstants.ScaleDownBegin && _statTypeId <= StatConstants.ScaleDownEnd)
         {
@@ -72,26 +72,26 @@ public class StatInfoRow : BaseBehaviour
 
         if (Math.Abs(pct) < 0.001f)
         {
-            UIHelper.SetText(Percent, "");
+            _uiService.SetText(Percent, "");
         }
         else
         {
-            UIHelper.SetText(Percent, (100 * pct).ToString("F2") + "%");
+            _uiService.SetText(Percent, (100 * pct).ToString("F2") + "%");
         }
 
         if (modifier == 0)
         {
-            UIHelper.SetText(Modifier, "");
+            _uiService.SetText(Modifier, "");
         }
         else if (modifier > 0)
         {
-            UIHelper.SetText(Modifier, "+" + modifier);
-            UIHelper.SetColor(Modifier, GColor.green);
+            _uiService.SetText(Modifier, "+" + modifier);
+            _uiService.SetColor(Modifier, GColor.green);
         }
         else if (modifier < 0) // Just be explicit here
         {
-            UIHelper.SetText(Modifier, "-" + modifier);
-            UIHelper.SetColor(Modifier, GColor.red);
+            _uiService.SetText(Modifier, "-" + modifier);
+            _uiService.SetColor(Modifier, GColor.red);
         }
     }
 

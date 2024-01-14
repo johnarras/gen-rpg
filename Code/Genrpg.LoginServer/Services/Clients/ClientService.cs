@@ -83,16 +83,20 @@ namespace Genrpg.LoginServer.Services.Clients
             if (!string.IsNullOrEmpty(gs.user.CurrCharId))
             {
                 gs.coreCh = await gs.repo.Load<CoreCharacter>(gs.user.CurrCharId);
-                gs.ch = new Character();
-                CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 
-                await gs.ch.GetAsync<GameDataOverrideData>(gs);
-
-                RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs, gs.ch, false);
-
-                if (result != null)
+                if (gs.coreCh != null)
                 {
-                    gs.Results.Add(result);
+                    gs.ch = new Character();
+                    CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
+
+                    await gs.ch.GetAsync<GameDataOverrideData>(gs);
+
+                    RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs, gs.ch, false);
+
+                    if (result != null)
+                    {
+                        gs.Results.Add(result);
+                    }
                 }
             }
 

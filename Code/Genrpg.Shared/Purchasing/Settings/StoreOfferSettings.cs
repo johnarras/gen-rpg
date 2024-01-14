@@ -28,7 +28,7 @@ namespace Genrpg.Shared.Purchasing.Settings
 
 
     [MessagePackObject]
-    public class StoreOffer : ChildSettings, IPlayerFilter
+    public class StoreOffer : ChildSettings, IPlayerFilter, IComplexCopy
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
@@ -37,7 +37,7 @@ namespace Genrpg.Shared.Purchasing.Settings
         [Key(4)] public string Desc { get; set; }
         [Key(5)] public string Icon { get; set; }
         [Key(6)] public string Art { get; set; }
-        [Key(7)] public string OfferId { get; set; }
+        [Key(7)] public string OfferId { get; set; } = Guid.NewGuid().ToString();
 
         [Key(8)] public long TotalModSize { get; set; }
         [Key(9)] public long MaxAcceptableModValue { get; set; }
@@ -62,6 +62,16 @@ namespace Genrpg.Shared.Purchasing.Settings
         [Key(26)] public DateTime EndDate { get; set; }
 
         [Key(27)] public List<OfferProduct> Products { get; set; } = new List<OfferProduct>();
+
+        public void DeepCopyFrom(IComplexCopy from)
+        {
+            OfferId = Guid.NewGuid().ToString();
+        }
+
+        public object GetDeepCopyData()
+        {
+            return null;
+        }
 
         public void OrderSelf()
         {

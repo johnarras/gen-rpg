@@ -10,7 +10,6 @@ namespace Assets.Scripts.UI.Charms
     public class CharmScreen : BaseScreen
     {
         const string CharmRowPrefabName = "CharmRow";
-        public GButton CloseButton;
         public GEntity RowParent;
 
 

@@ -17,6 +17,9 @@ using Assets.Scripts.Pathfinding.Utils;
 
 public class PlayerController : UnitController
 {
+
+    private ICameraController _cameraController = null;
+
     public const float SlopeLimit = 60f;
     public const float StepOffset = 1.0f;
 
@@ -62,10 +65,8 @@ public class PlayerController : UnitController
     private int _keysDown = 0;
     public override void OnUpdate(CancellationToken token)
     {
-        if (CameraController.Instance != null)
-        {
-            CameraController.Instance.BeforeMoveUpdate();
-        }
+           
+        _cameraController.BeforeMoveUpdate();
 
         _unit.X =entity.transform().position.x;
         _unit.Z =entity.transform().position.z;
@@ -76,11 +77,7 @@ public class PlayerController : UnitController
         }
         SendPositionUpdate();
 
-
-        if (CameraController.Instance != null)
-        {
-           CameraController.Instance.AfterMoveUpdate();
-        }
+        _cameraController.AfterMoveUpdate();
     }
 
 
@@ -89,7 +86,7 @@ public class PlayerController : UnitController
     {
         // Send aentity.transform() update to the server
         if (_sendUpdates && !_gs.md.GeneratingMap &&
-            _gs.map != null && UnityAssetService.LoadSpeed != LoadSpeed.Fast &&
+            _gs.map != null &&
             entity == PlayerObject.Get())
         {
             float oldRot = _unit.Rot;

@@ -41,8 +41,8 @@ public class VendorItemIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandle
         };
      
 
-        UIHelper.SetText(ItemName, ItemUtils.GetName(_gs, _gs.ch, data.Data));
-        UIHelper.SetText(ItemInfo, ItemUtils.GetBasicInfo(_gs, _gs.ch, data.Data));
+        _uiService.SetText(ItemName, ItemUtils.GetName(_gs, _gs.ch, data.Data));
+        _uiService.SetText(ItemInfo, ItemUtils.GetBasicInfo(_gs, _gs.ch, data.Data));
 
         _price = (isVendorItem ? ItemUtils.GetBuyFromVendorPrice(_gs, _gs.ch, data.Data)
             : ItemUtils.GetSellToVendorPrice(_gs, _gs.ch, data.Data));

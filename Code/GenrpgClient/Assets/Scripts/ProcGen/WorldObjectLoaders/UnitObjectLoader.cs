@@ -62,9 +62,9 @@ public class UnitObjectLoader : BaseMapObjectLoader
         }
 
         GEntity go = _zoneGenService.SetupUnit(gs, url, artGo, loadData, loadData.Token);
-        float height = gs.md.SampleHeight(gs, loadData.Obj.X, MapConstants.MapHeight * 2, loadData.Obj.Z);
+        float height = _terrainManager.SampleHeight(gs, loadData.Obj.X, loadData.Obj.Z);
 
-        TerrainPatchData patch = _mapTerrainManager.GetPatchFromMapPos(gs, loadData.Obj.X, loadData.Obj.Z);
+        TerrainPatchData patch = _terrainManager.GetPatchFromMapPos(gs, loadData.Obj.X, loadData.Obj.Z);
 
         GVector3 oldScale = GVector3.Create(go.transform().localScale);
         if (patch != null)
@@ -77,7 +77,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
             }
             else
             {
-                GEntityUtils.AddToParent(go, _mapTerrainManager.GetPrototypeParent());
+                GEntityUtils.AddToParent(go, _terrainManager.GetPrototypeParent());
             }
         }
 
@@ -111,7 +111,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
         while (!token.IsCancellationRequested && ++times < 1000)
         {
             await UniTask.NextFrame( cancellationToken: token);
-            float height = gs.md.SampleHeight(gs, loadData.Obj.X, MapConstants.MapHeight * 2, loadData.Obj.Z);
+            float height = _terrainManager.SampleHeight(gs, loadData.Obj.X, loadData.Obj.Z);
             if (height > 0)
             {
                 go.transform().position = GVector3.Create(loadData.Obj.X, height, loadData.Obj.Z);

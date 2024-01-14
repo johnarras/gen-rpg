@@ -240,14 +240,14 @@ public class AddPlants : BaseZoneGenerator
                             continue;
                         }
                     }
-                    float hgt = gs.md.SampleHeight(gs, x, 2000, y);
+                    float hgt = _terrainManager.SampleHeight(gs, x, y);
                     if (hgt < MapConstants.MinLandHeight*7/10)
                     {
                         continue;
                     }
 
 
-                    float steep = gs.md.GetSteepness(gs, x,y);
+                    float steep = _terrainManager.GetSteepness(gs, x,y);
 
                     if (steep > (midSteepVal+steepVals[x-startx,y-starty]))
                     {

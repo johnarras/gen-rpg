@@ -30,7 +30,7 @@ public class SetBasicTerrainTextures : BaseZoneGenerator
         for (int s = 0; s < layers.Length; s++)
         {
 
-            layers[s] = MapGenData.CreateTerrainLayer(gs.md.GetBasicTerrain(gs, s));
+            layers[s] = _terrainManager.CreateTerrainLayer(_terrainManager.GetBasicTerrainTexture(gs, s));
         }
 
         for (int gx = 0; gx < gs.map.BlockCount; gx++)
@@ -38,7 +38,7 @@ public class SetBasicTerrainTextures : BaseZoneGenerator
             for (int gy = 0; gy < gs.map.BlockCount; gy++)
             {
 
-                TerrainPatchData patch = gs.md.GetTerrainPatch(gs, gx, gy);
+                TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
                 if (patch == null)
                 {
                     continue;

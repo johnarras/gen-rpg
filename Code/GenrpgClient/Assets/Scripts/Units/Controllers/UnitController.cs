@@ -19,6 +19,7 @@ public class UnitController : BaseBehaviour
     protected IClientMapObjectManager _objectManager;
     protected IMapTerrainManager _terrainManager;
     protected IPathfindingService _pathfindingService;
+    protected IInputService _inputService;
     public const int IdleState = 0;
     public const int CombatState = 1;
     public const int LeashState = 2;
@@ -96,9 +97,10 @@ public class UnitController : BaseBehaviour
     
     public void SetInputValues(int keysDown, float rot)
     {
-        for (int i = 0; i < InputService.MoveInputsToCheck.Length; i++)
+        string[] moveInputsToCheck = _inputService.MoveInputsToCheck();
+        for (int i = 0; i < moveInputsToCheck.Length; i++)
         {
-            SetKeyPercent(InputService.MoveInputsToCheck[i], FlagUtils.IsSet(keysDown, 1 << i) ? 1 : 0);
+            SetKeyPercent(moveInputsToCheck[i], FlagUtils.IsSet(keysDown, 1 << i) ? 1 : 0);
         }
         _unit.Rot = rot;
         GVector3 currEuler = GVector3.Create(entity.transform().eulerAngles);
@@ -108,9 +110,10 @@ public class UnitController : BaseBehaviour
     protected int GetKeysDown()
     {
         int retval = 0;
-        for (int i = 0; i < InputService.MoveInputsToCheck.Length; i++)
+        string[] moveInputsToCheck = _inputService.MoveInputsToCheck();
+        for (int i = 0; i < moveInputsToCheck.Length; i++)
         {
-            if (GetKeyPercent(InputService.MoveInputsToCheck[i]) > 0)
+            if (GetKeyPercent(moveInputsToCheck[i]) > 0)
             {
                 retval |= 1 << i;
             }
@@ -138,7 +141,7 @@ public class UnitController : BaseBehaviour
             return;
         }
 
-        float delta = InputService.Instance.GetDeltaTime();
+        float delta = _inputService.GetDeltaTime();
         float targetDeltaTime = 1.0f / AppUtils.TargetFrameRate;
         delta = targetDeltaTime;
 
@@ -205,7 +208,7 @@ public class UnitController : BaseBehaviour
 
         if (entity.transform().position.y <= 100)
         {
-            float endHeight = _gs.md.SampleHeight(_gs, endPos.x, 2000, endPos.z);
+            float endHeight = _terrainManager.SampleHeight(_gs, endPos.x, endPos.z);
 
             if (endHeight > 0)
             {
@@ -217,7 +220,7 @@ public class UnitController : BaseBehaviour
             }
         }
 
-        GVector3 diff = (endPos - startPos) / InputService.Instance.GetDeltaTime();
+        GVector3 diff = (endPos - startPos) / _inputService.GetDeltaTime();
         if (cc != null && diff.magnitude > 0)
         {
             cc.SimpleMove(GVector3.Create(diff));

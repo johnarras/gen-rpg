@@ -2,11 +2,13 @@
 using Genrpg.Shared.Accounts.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
+using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logs.Interfaces;
 using Genrpg.Shared.Utils;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -208,6 +210,33 @@ namespace Genrpg.ServerShared.DataStores.Blobs
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
+        }
+
+        public virtual async Task<bool> UpdateDict<T>(string docId, Dictionary<string, object> fieldNameUpdates) where T : class, IStringId
+        {
+            T doc = (T)await Load<T>(docId);
+
+            if (doc != null)
+            {
+                foreach (string key in fieldNameUpdates.Keys)
+                {
+                    EntityUtils.SetObjectValue(doc, key, fieldNameUpdates[key]);
+                }
+                return await Save(doc);
+            }
+            return false;
+        }
+
+        public async Task<bool> UpdateAction<T>(string docId, Action<T> action) where T : class, IStringId
+        {
+            T doc = (T)await Load<T>(docId);
+
+            if (doc != null)
+            {
+                action(doc);
+                return await Save(doc);
+            }
+            return false;
         }
 
         #endregion

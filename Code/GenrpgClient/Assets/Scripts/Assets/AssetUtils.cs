@@ -3,6 +3,7 @@ using GObject = UnityEngine.Object;
 using UnityEngine; // Needed
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Scripts.Assets.Assets.Constants;
 
 public class AssetUtils
 {
@@ -36,4 +37,49 @@ public class AssetUtils
         }
         _unloadingAssets = false;
     }
+
+    public static string GetAssetPath(string assetCategoryName)
+    {
+        return assetCategoryName + "/";
+    }
+
+    private static string _persistentDataPath = null;
+    public static string GetPerisistentDataPath()
+    {
+        if (string.IsNullOrEmpty(_persistentDataPath))
+        {
+            _persistentDataPath = AppUtils.PersistentDataPath;
+        }
+        return _persistentDataPath;
+    }
+
+    public static string GetPlatformString()
+    {
+        string prefix = PlatformAssetPrefixes.Win;
+#if UNITY_STANDALONE_OSX
+        prefix = PlatformAssetPrefixes.OSX;
+#endif
+#if UNITY_STANDALONE_LINUX
+        prefix = PlatformAssetPrefixes.Linux;
+#endif
+#if UNITY_EDITOR
+        prefix = PlatformAssetPrefixes.Win;
+#endif
+
+        return prefix;
+    }
+
+    private static string _runtimePrefix = "";
+    public static string GetRuntimePrefix()
+    {
+        if (!string.IsNullOrEmpty(_runtimePrefix))
+        {
+            return _runtimePrefix;
+        }
+
+        var prefix = GetPlatformString();
+        _runtimePrefix = AppUtils.Version + "/" + prefix + "/";
+        return _runtimePrefix;
+    }
+
 }

@@ -27,7 +27,6 @@ using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Editor.Interfaces;
-using Genrpg.Shared.Editor.Entities;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.DataStores.GameSettings;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -38,6 +37,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using ZstdSharp.Unsafe;
 using MongoDB.Driver;
 using Genrpg.Shared.ProcGen.Settings.Names;
+using Genrpg.Editor.Entities.MetaData;
 
 namespace GameEditor
 {
@@ -538,8 +538,9 @@ namespace GameEditor
             MemberMetaData metaData = _typeMetaData?.MemberData?.FirstOrDefault(x => x.MemberName == mem.Name);
             if (metaData != null && !string.IsNullOrEmpty(metaData.Description))
             {
+                int height = 20;
                 UIHelper.CreateLabel(_singleGrid.Controls, ELabelTypes.Default, _formatter, mem.Name + "Desc", metaData.Description,
-                    sx * 2, sy / 4 * 10, tx, ty - sy * 4 / 10, FormatterConstants.SmallLabelFontSize);
+                    250, height, tx, ty - height, FormatterConstants.SmallLabelFontSize);
             }
         }
 
@@ -562,7 +563,7 @@ namespace GameEditor
             if (memType.Name == "bool" || memType.Name == "Boolean")
             {
 
-                return UIHelper.CreateCheckBox(coll, _formatter, memType.Name + "Check", width, height, xpos, ypos);
+                return UIHelper.CreateCheckBox(coll, _formatter, mem.Name + "Edit", width, height, xpos, ypos);
             }
 
             List<NameValue> ddList = _reflectionService.GetDropdownList(_gs, mem, Obj);
@@ -572,7 +573,7 @@ namespace GameEditor
                 return AddDropdownComboBox(ddList, mem, coll, width, height, xpos, ypos);
             }
 
-            TextBox textBox = UIHelper.CreateTextBox(coll, _formatter, memType.Name + "Input", null, width, height, xpos, ypos, null);
+            TextBox textBox = UIHelper.CreateTextBox(coll, _formatter, mem.Name + "Edit", null, width, height, xpos, ypos, null);
             return textBox;
         }
 
@@ -1521,12 +1522,10 @@ namespace GameEditor
 
                 string nm = mem.Name;
 
-
                 if (nm == "LastEditorSaveTime" || nm == "LastEditorBuildTime")
                 {
                     continue;
                 }
-
 
                 Control[] conts = _singleGrid.Controls.Find(mem.Name + "Edit", false);
 

@@ -3,6 +3,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Logs.Interfaces;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
@@ -244,6 +245,20 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                     return true;
                 }
             }
+        }
+
+        public virtual async Task<bool> UpdateDict<T>(string docId, Dictionary<string, object> fieldNameUpdates) where T : class, IStringId
+        {
+            INoSQLCollection collection = GetCollection(typeof(T));
+
+            return await collection.UpdateDict(docId, fieldNameUpdates);
+        }
+
+        public virtual async Task<bool> UpdateAction<T>(string docId, Action<T> action) where T : class, IStringId
+        {
+            INoSQLCollection collection = GetCollection(typeof(T));
+
+            return await collection.UpdateAction(docId, action);
         }
     }
 }

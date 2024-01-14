@@ -232,18 +232,6 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         }
     }
 
-
-    public static void TurnOffAllSounds(GEntity go)
-    {
-
-        List<AudioSource> sounds = GEntityUtils.GetComponents<AudioSource>(go);
-        foreach (AudioSource sound in sounds)
-        {
-            sound.volume = 0;
-        }
-    }
-
-
     #region Music
 
     protected MusicChannel GetMusicChannel(AudioCategory cat)
