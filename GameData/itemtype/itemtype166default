@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 166,
   "Name": "Feather",
-  "NameId": "Feather",
-  "GenName": "BodyFeather",
   "Icon": "BodyFeather",
   "Effects": [
     {

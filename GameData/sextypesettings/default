@@ -1,0 +1,8 @@
+{
+  "Id": "default",
+  "LevelsPerQuality": 5.0,
+  "ExtraQualityChance": 0.25,
+  "Name": "SexTypeSettings",
+  "UpdateTime": "2024-01-28T21:23:54.795Z",
+  "CreateTime": "2024-01-28T21:23:54.795Z"
+}

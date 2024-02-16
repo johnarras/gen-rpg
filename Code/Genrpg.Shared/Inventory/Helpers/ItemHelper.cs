@@ -17,7 +17,7 @@ namespace Genrpg.Shared.Inventory.Helpers
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
         {
-            return gs.data.GetGameData<ItemTypeSettings>(obj).GetItemType(id);
+            return gs.data.Get<ItemTypeSettings>(obj).Get(id);
         }
     }
 }

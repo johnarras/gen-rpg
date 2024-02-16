@@ -1,17 +1,12 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-using Genrpg.Shared.Reflection.Services;
-using Genrpg.Shared.Spawns.Entities;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
+using Genrpg.Shared.Units.Entities;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
 using Assets.Scripts.Tokens;
@@ -28,6 +23,7 @@ using Genrpg.Shared.ProcGen.Settings.Plants;
 using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Entities.Utils;
 
 public interface IZoneGenService : IService
 {
@@ -55,7 +51,6 @@ public interface IZoneGenService : IService
 
 public class ZoneGenService : IZoneGenService, IGameTokenService
 {
-    protected IReflectionService _reflectionService;
     protected IUnitGenService _unitGenService;
     protected INameGenService _nameGenService;
 
@@ -240,13 +235,13 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
             zoneTypeId = InitClient.EditorInstance.ForceZoneTypeId;
         }
 #endif
-        ZoneType zoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zoneTypeId);
+        ZoneType zoneType = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zoneTypeId);
         if (zoneType == null)
         {
             return null;
         }
 
-        int maxLevel = gs.data.GetGameData<LevelSettings>(gs.ch).MaxLevel;
+        int maxLevel = gs.data.Get<LevelSettings>(gs.ch).MaxLevel;
 
         Zone zone = new Zone();
         zone.IdKey = zoneId++;
@@ -271,7 +266,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
             return;
         }
 
-        GenZone genZone = gs.GetGenZone(zone.IdKey);
+        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
 
         float densityDelta = 0.10f;
         genZone.DetailAmp = MathUtils.FloatRange(1 - densityDelta, 1 + densityDelta, rand);
@@ -290,18 +285,18 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         if (zt.Textures != null)
         {
-            List<TextureType> allTextures = gs.data.GetGameData<TextureTypeSettings>(gs.ch).GetData();
+            IReadOnlyList<TextureType> allTextures = gs.data.Get<TextureTypeSettings>(gs.ch).GetData();
             if (allTextures == null)
             {
                 allTextures = new List<TextureType>();
             }
-            List<TextureChannel> channels = gs.data.GetGameData<TextureChannelSettings>(gs.ch).GetData();
+            IReadOnlyList<TextureChannel> channels = gs.data.Get<TextureChannelSettings>(gs.ch).GetData();
         
             for (int i = 0; i < channels.Count; i++)
             {
                 TextureChannel channel = channels[i];
 
-                List<ZoneTextureType> startTex = zt.Textures.Where(x => x.TextureChannelId == channel.IdKey).ToList();
+                IReadOnlyList<ZoneTextureType> startTex = zt.Textures.Where(x => x.TextureChannelId == channel.IdKey).ToList();
 
                 List<long> currTextures = new List<long>();
                 foreach (ZoneTextureType st in startTex)
@@ -339,7 +334,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
                     {
                         gs.logger.Debug("Zero texture id " + zone.IdKey + " " + zone.ZoneTypeId + " " + id);
                     }
-                    _reflectionService.SetObjectValue(zone, channels[i].Name + "TextureTypeId", id);
+                    EntityUtils.SetObjectValue(zone, channels[i].Name + "TextureTypeId", id);
                 }
                 else
                 {
@@ -371,7 +366,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         MyRandom ztRand = new MyRandom(map.Seed % 500000000 + zone.Seed % 1234567890);
 
-        GenZone genZone = gs.GetGenZone(zone.IdKey);
+        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
 
         if (zt.RockTypes == null)
         {
@@ -437,7 +432,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
             double totalDensity = 0.0;
             foreach (ZonePlantType pt in plantTypeList)
             {
-                PlantType ptype = gs.data.GetGameData<PlantTypeSettings>(gs.ch).GetPlantType (pt.PlantTypeId);
+                PlantType ptype = gs.data.Get<PlantTypeSettings>(gs.ch).Get(pt.PlantTypeId);
                 if (ptype != null)
                 {
                     if (times < MapConstants.MaxGrass / 2)
@@ -522,7 +517,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         List<ZoneTreeType> waterTypes = new List<ZoneTreeType>();
         foreach (ZoneTreeType ztt in zt.TreeTypes)
         {
-            TreeType tt = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(ztt.TreeTypeId);
+            TreeType tt = gs.data.Get<TreeTypeSettings>(gs.ch).Get(ztt.TreeTypeId);
             if (tt == null)
             {
                 continue;
@@ -600,7 +595,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         zone.Units = new List<ZoneUnitStatus>();
 
-        List<UnitType> units = gs.data.GetGameData<UnitSettings>(gs.ch).GetData();
+        IReadOnlyList<UnitType> units = gs.data.Get<UnitSettings>(gs.ch).GetData();
         if (units == null)
         {
             return;
@@ -632,7 +627,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
                 continue;
             }
 
-            UnitType utype = gs.data.GetGameData<UnitSettings>(gs.ch).GetUnitType(si.EntityId);
+            UnitType utype = gs.data.Get<UnitSettings>(gs.ch).Get(si.EntityId);
             if (utype == null)
             {
                 continue;
@@ -695,7 +690,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         if (spawnItemIn.EntityTypeId == EntityTypes.Unit)
         {
-            UnitType utype = gs.data.GetGameData<UnitSettings>(gs.ch).GetUnitType(spawnItemIn.EntityId);
+            UnitType utype = gs.data.Get<UnitSettings>(gs.ch).Get(spawnItemIn.EntityId);
             if (utype != null)
             {
                 SpawnItem newSi = new SpawnItem()
@@ -713,7 +708,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         }
         else if (spawnItemIn.EntityTypeId == EntityTypes.Spawn)
         {
-            SpawnTable spawnTable = gs.data.GetGameData<SpawnSettings>(gs.ch).GetSpawnTable(spawnItemIn.EntityId);
+            SpawnTable spawnTable = gs.data.Get<SpawnSettings>(gs.ch).Get(spawnItemIn.EntityId);
             if (spawnTable != null && spawnTable.Items != null)
             {
                 foreach (SpawnItem si in spawnTable.Items)
@@ -732,7 +727,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         MyRandom rand = new MyRandom(extraSeed);
 
-        ZoneType zt = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zoneTypeId);
+        ZoneType zt = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zoneTypeId);
         if (zt == null)
         {
             return badName;
@@ -795,7 +790,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         {
             // Need to check if the doublename suffix can be used as a single word zone suffix.
             bool canUseSuffix = false;
-            NameList nl = gs.data.GetGameData<NameSettings>(gs.ch).GetNameList("ItemDoubleSuffix");
+            NameList nl = gs.data.Get<NameSettings>(gs.ch).GetNameList("ItemDoubleSuffix");
             if (nl != null && nl.Names != null)
             {
                 foreach (WeightedName item in nl.Names)

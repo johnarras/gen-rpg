@@ -4,5 +4,7 @@
   "IdKey": 21,
   "Name": "AttackPower",
   "Desc": "Phys Power",
-  "GenScalePct": 150
+  "GenScalePct": 150,
+  "UpdateTime": "2024-02-15T23:03:14.495Z",
+  "CreateTime": "2024-02-15T23:03:14.495Z"
 }

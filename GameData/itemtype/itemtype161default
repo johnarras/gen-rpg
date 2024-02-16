@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 161,
   "Name": "Yellow Blood",
-  "NameId": "BloodYellow",
-  "GenName": "BodyBloodYellow",
   "Icon": "BloodYellow",
   "Effects": [
     {

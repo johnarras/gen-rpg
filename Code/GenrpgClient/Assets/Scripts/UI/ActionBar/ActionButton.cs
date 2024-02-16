@@ -17,8 +17,6 @@ public class InitActionIconData : InitSpellIconData
 
 public class ActionButton : SpellIcon
 {
-    private IInputService _inputService;
-
     public GImage Tint;
     public GText KeyBind;
     public GText Charges;
@@ -81,7 +79,7 @@ public class ActionButton : SpellIcon
             iconName = _spell.Icon;
         }
 
-        _assetService.LoadSpriteInto(_gs, AtlasNames.SkillIcons, iconName, Icon, _token);
+        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.SkillIcons, iconName, Icon, _token);
 
         if (Tint != null && _spell == null)
         {

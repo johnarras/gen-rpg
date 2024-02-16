@@ -4,5 +4,7 @@
   "IdKey": 62,
   "Name": "Haste",
   "Desc": "Faster Cast",
-  "GenScalePct": 200
+  "GenScalePct": 200,
+  "UpdateTime": "2024-02-15T23:03:14.511Z",
+  "CreateTime": "2024-02-03T23:14:42.875Z"
 }

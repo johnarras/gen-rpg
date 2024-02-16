@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 187,
   "Name": "Pincer",
-  "NameId": "Pincer",
-  "GenName": "BodyPincer",
   "Icon": "BodyPincer",
   "Effects": [
     {

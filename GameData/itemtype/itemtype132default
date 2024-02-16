@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 132,
   "Name": "Shard",
-  "NameId": "MagicShard",
-  "GenName": "MagicShard",
   "Icon": "MagicShard",
   "Effects": [
     {

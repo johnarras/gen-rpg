@@ -25,8 +25,6 @@ namespace Genrpg.Shared.Spells.Settings.Procs
     public class ProcTypeSettings : ParentSettings<ProcType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public ProcType GetProcType(long idkey) { return _lookup.Get<ProcType>(idkey); }
     }
 
     [MessagePackObject]

@@ -36,6 +36,11 @@ namespace Genrpg.Shared.Inventory.Settings.Slots
         [Key(8)] public string Art { get; set; }
 
         [Key(9)] public bool Active { get; set; }
+
+        [Key(10)] public bool ClassRestricted { get; set; }
+
+        [Key(11)] public long BaseBonusStatTypeId { get; set; }
+
         public EquipSlot()
         {
             StatPercent = 100;
@@ -47,8 +52,6 @@ namespace Genrpg.Shared.Inventory.Settings.Slots
     public class EquipSlotSettings : ParentSettings<EquipSlot>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public EquipSlot GetEquipSlot(long idkey) { return _lookup.Get<EquipSlot>(idkey); }
     }
 
     [MessagePackObject]

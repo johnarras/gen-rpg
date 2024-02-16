@@ -58,7 +58,7 @@ public class FxService : IFxService
         _assetService.LoadAsset(gs, AssetCategoryNames.Magic, fx.Art, OnLoadFX, full, null, token);
     }
 
-    private void OnLoadFX(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadFX(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
 

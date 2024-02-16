@@ -4,5 +4,7 @@
   "IdKey": 61,
   "Name": "Crit",
   "Desc": "Extra damage",
-  "GenScalePct": 200
+  "GenScalePct": 200,
+  "UpdateTime": "2024-02-15T23:03:14.508Z",
+  "CreateTime": "2024-02-15T22:35:07.986Z"
 }

@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Combat.Messages;
+using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
 using System.Threading;
 

@@ -1,0 +1,27 @@
+{
+  "Id": "crawlerspell31default",
+  "ParentId": "default",
+  "IdKey": 31,
+  "Name": "Lightning Bolt",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 10,
+  "PowerPerLevel": 1,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 7,
+  "TargetTypeId": 1,
+  "Level": 3,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 12,
+      "ElementTypeId": 4
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.449Z",
+  "CreateTime": "2024-01-28T15:21:51Z"
+}

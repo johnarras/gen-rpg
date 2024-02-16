@@ -15,7 +15,7 @@ namespace Genrpg.Shared.Units.Helpers
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
         {
-            return gs.data.GetGameData<UnitSettings>(obj).GetUnitType(id);
+            return gs.data.Get<UnitSettings>(obj).Get(id);
         }
     }
 }

@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 23,
   "Name": "Mace",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Hammer",
   "Art": "Mace",
+  "MinVal": 2,
+  "MaxVal": 5,
   "EquipSlotId": 15,
   "Flags": 8,
   "Effects": [],
@@ -120,6 +120,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:38.549Z",
-  "CreateTime": "2023-11-24T16:45:39.366Z"
+  "UpdateTime": "2024-02-03T22:45:17.03Z",
+  "CreateTime": "2023-11-24T22:45:39Z"
 }

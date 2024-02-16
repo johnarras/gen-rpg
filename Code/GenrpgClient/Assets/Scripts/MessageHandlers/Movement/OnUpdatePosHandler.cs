@@ -2,6 +2,7 @@
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Pathfinding.Services;
+using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Threading;

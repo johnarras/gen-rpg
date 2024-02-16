@@ -16,7 +16,7 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
 
         protected virtual SpellModifier GetModifier(GameState gs, MapObject obj)
         {
-            return gs.data.GetGameData<SpellModifierSettings>(obj).GetSpellModifier(GetKey());
+            return gs.data.Get<SpellModifierSettings>(obj).Get(GetKey());
         }
 
         public virtual double GetMinValue(GameState gs, MapObject obj)

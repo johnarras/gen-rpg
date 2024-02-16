@@ -29,7 +29,13 @@ namespace Genrpg.Shared.Entities.Constants
         public const long Damage = 33;
         public const long Healing = 34;
         public const long Shield = 35;
+        public const long StatusEffect = 36;
+        public const long SpecialMagic = 37;
+        public const long Attack = 38;
+        public const long Shoot = 39;
 
+        // Crawler-specific entitytypes
+        public const long CrawlerSpell = 100;
 
         // User Reward Types
         public const long UserCoin = 200;

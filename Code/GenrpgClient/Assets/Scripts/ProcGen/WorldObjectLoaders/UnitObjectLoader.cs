@@ -10,6 +10,7 @@ using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Combat.Messages;
 using Assets.Scripts.MapTerrain;
 using UnityEngine;
+using Genrpg.Shared.Units.Constants;
 
 public class UnitObjectLoader : BaseMapObjectLoader
 {
@@ -19,7 +20,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
     public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
     {
 
-        UnitType utype = gs.data.GetGameData<UnitSettings>(gs.ch).GetUnitType(spawn.EntityId);
+        UnitType utype = gs.data.Get<UnitSettings>(gs.ch).Get(spawn.EntityId);
         if (utype == null)
         {
             return;
@@ -39,7 +40,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
 
 
     private IUnitSetupService _zoneGenService = null;
-    protected virtual void AfterLoadUnit(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    protected virtual void AfterLoadUnit(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         SpawnLoadData loadData = data as SpawnLoadData;
         GEntity artGo = obj as GEntity;
@@ -61,7 +62,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
             return;
         }
 
-        GEntity go = _zoneGenService.SetupUnit(gs, url, artGo, loadData, loadData.Token);
+        GEntity go = _zoneGenService.SetupUnit(gs, artGo, loadData, loadData.Token);
         float height = _terrainManager.SampleHeight(gs, loadData.Obj.X, loadData.Obj.Z);
 
         TerrainPatchData patch = _terrainManager.GetPatchFromMapPos(gs, loadData.Obj.X, loadData.Obj.Z);

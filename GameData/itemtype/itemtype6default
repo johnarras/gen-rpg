@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 6,
   "Name": "Belt",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Belt",
   "Art": "Belt",
+  "MinVal": 1,
+  "MaxVal": 1,
   "EquipSlotId": 6,
   "Effects": [],
   "LevelRanges": [
@@ -98,6 +98,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:40.867Z",
+  "UpdateTime": "2024-02-03T22:45:17.016Z",
   "CreateTime": "2023-11-24T16:45:41.954Z"
 }

@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 300,
   "Name": "Healing Potion",
-  "NameId": "HealingPotion",
   "Icon": "HealingPotion",
   "Effects": [],
   "LevelRanges": [

@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.DataStores.Constants;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Inventory.Constants;
@@ -60,7 +61,7 @@ namespace Genrpg.Shared.Inventory.Services
             {
                 item.Id = HashUtils.NewGuid();
             }
-            ItemType itype = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(item.ItemTypeId);
+            ItemType itype = gs.data.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
             if (itype == null)
             {
                 return false;
@@ -141,7 +142,7 @@ namespace Genrpg.Shared.Inventory.Services
         }
 
 
-        public virtual bool EquipItem(GameState gs, Unit unit, string itemId, long equipSlotId)
+        public virtual bool EquipItem(GameState gs, Unit unit, string itemId, long equipSlotId, bool calcStatsNow = true)
         {
 
             if (equipSlotId < 1 || equipSlotId >= EquipSlots.Max)
@@ -149,7 +150,7 @@ namespace Genrpg.Shared.Inventory.Services
                 return false;
             }
 
-            EquipSlot eqslot = gs.data.GetGameData<EquipSlotSettings>(unit).GetEquipSlot(equipSlotId);
+            EquipSlot eqslot = gs.data.Get<EquipSlotSettings>(unit).Get(equipSlotId);
             if (eqslot == null || !eqslot.Active)
             {
                 return false;
@@ -173,7 +174,12 @@ namespace Genrpg.Shared.Inventory.Services
                 }
             }
 
-            ItemType itype = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(item.ItemTypeId);
+            if (!CanEquipItem(gs, unit, item))
+            {
+                return false;
+            }
+
+            ItemType itype = gs.data.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
 
             if (itype == null || itype.EquipSlotId < 1)
             {
@@ -198,7 +204,7 @@ namespace Genrpg.Shared.Inventory.Services
                 }
                 else
                 {
-                    ItemType currItemType = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(currEquip.ItemTypeId);
+                    ItemType currItemType = gs.data.Get<ItemTypeSettings>(unit).Get(currEquip.ItemTypeId);
                     if (currItemType == null || currItemType.HasFlag(ItemFlags.FlagTwoHandedItem) ||
                         currItemType.EquipSlotId == EquipSlots.OffHand)
                     {
@@ -233,7 +239,7 @@ namespace Genrpg.Shared.Inventory.Services
                 Item mainHandEquip = idata.GetEquipBySlot(EquipSlots.MainHand);
                 if (mainHandEquip != null)
                 {
-                    ItemType mainHandItemType = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(mainHandEquip.ItemTypeId);
+                    ItemType mainHandItemType = gs.data.Get<ItemTypeSettings>(unit).Get(mainHandEquip.ItemTypeId);
                     if (mainHandItemType != null && FlagUtils.IsSet(mainHandItemType.Flags, ItemFlags.FlagTwoHandedItem))
                     {
                         UnequipItem(gs, unit, mainHandEquip.Id, false);
@@ -245,7 +251,10 @@ namespace Genrpg.Shared.Inventory.Services
             idata.AddEquipment(item);
             AddMessageNear(gs, unit, idata, item, new OnEquipItem() { Item = item, UnitId = unit.Id });
 
-            _statService.CalcStats(gs, unit, false);
+            if (calcStatsNow)
+            {
+                _statService.CalcStats(gs, unit, false);
+            }
             return true;
         }
 
@@ -310,6 +319,51 @@ namespace Genrpg.Shared.Inventory.Services
             }
 
             return idata.GetItemsByItemTypeId(itemTypeId);
+        }
+
+        public bool CanEquipItem (GameState gs, Unit unit, Item item)
+        {
+            ItemType itype = gs.data.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
+
+            if (itype.EquipSlotId < 1)
+            {
+                return false;
+            }
+
+            EquipSlot slot = gs.data.Get<EquipSlotSettings>(unit).Get(itype.EquipSlotId);
+
+            if (slot != null)
+            {
+                if (!slot.Active)
+                {
+                    return false;
+                }
+
+                if (unit.Classes.Count > 0)
+                {
+                    ClassSettings classSettings = gs.data.Get<ClassSettings>(null);
+
+                    foreach (UnitClass uc in unit.Classes)
+                    {
+                        Class cl = classSettings.Get(uc.ClassId);
+                        if (slot.ClassRestricted && cl.AllowedEquipSlots.Any(x => x.EquipSlotId == slot.IdKey))
+                        {
+                            return true;
+                        }
+                        else if (slot.IdKey == EquipSlots.MainHand && cl.AllowedWeapons.Any(x => x.ItemTypeId == itype.IdKey))
+                        {
+                            return true;
+                        }
+                        else if (cl.MaxArmorScalingTypeId >= item.ScalingTypeId)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

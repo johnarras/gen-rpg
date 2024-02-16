@@ -50,11 +50,6 @@ namespace Genrpg.Shared.Levels.Settings
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public int MaxLevel { get; set; }
-
-        public LevelInfo GetLevel(long idkey)
-        {
-            return _lookup.Get<LevelInfo>(idkey);
-        }
     }
 
     [MessagePackObject]

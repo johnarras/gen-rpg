@@ -32,19 +32,21 @@ namespace Genrpg.ServerShared.PlayerData
 
         public async Task Setup(GameState gs, CancellationToken token)
         {
+            List<Task> loaderTasks = new List<Task>();
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { Ascending = true, MemberName = "UserId" });
-            await gs.repo.CreateIndex<CoreCharacter>(configs);
+            loaderTasks.Add(gs.repo.CreateIndex<CoreCharacter>(configs));
 
             List<Type> loadTypes = ReflectionUtils.GetTypesImplementing(typeof(IUnitDataLoader));
 
             Dictionary<Type, IUnitDataLoader> newList = new Dictionary<Type, IUnitDataLoader>();
+
             foreach (Type lt in loadTypes)
             {
                 if (Activator.CreateInstance(lt) is IUnitDataLoader newLoader)
                 {
                     newList[newLoader.GetServerType()] = newLoader;
-                    await newLoader.Setup(gs);
+                    loaderTasks.Add(newLoader.Setup(gs));
                 }
             }
 
@@ -58,9 +60,11 @@ namespace Genrpg.ServerShared.PlayerData
                 if (Activator.CreateInstance(ut) is ICharacterLoadUpdater helper)
                 {
                     _loadUpdateHelpers.Add(helper);
-                    await helper.Setup(gs);
+                    loaderTasks.Add(helper.Setup(gs));
                 }
             }
+
+            await Task.WhenAll(loaderTasks);
 
             _loadUpdateHelpers = _loadUpdateHelpers.OrderBy(x => x.Priority).ToList();
         }

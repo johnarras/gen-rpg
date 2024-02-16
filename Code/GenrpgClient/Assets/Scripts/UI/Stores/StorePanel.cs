@@ -32,7 +32,7 @@ namespace Assets.Scripts.UI.Stores
             _screen = screen;
             _offer = offer;
 
-            _theme = _gs.data.GetGameData<StoreThemeSettings>(_gs.ch).GetStoreTheme(offer.StoreThemeId);
+            _theme = _gs.data.Get<StoreThemeSettings>(_gs.ch).Get(offer.StoreThemeId);
 
             _uiService.SetText(Header, _offer.Name);
 
@@ -43,7 +43,7 @@ namespace Assets.Scripts.UI.Stores
             }
         }
         
-        private void OnLoadStorePanel(GameState gs, string url, object obj, object data, CancellationToken token)
+        private void OnLoadStorePanel(GameState gs, object obj, object data, CancellationToken token)
         {
             GEntity go = obj as GEntity;
 

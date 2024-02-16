@@ -3,6 +3,8 @@
   "ParentId": "default",
   "IdKey": 38,
   "Name": "Kobold",
+  "PluralName": "Kobolds",
+  "Icon": "Kobold",
   "Art": "Kobold",
   "Height": 2.0,
   "TribeTypeId": 1,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.912Z",
+  "CreateTime": "2024-02-04T21:57:21.965Z"
 }

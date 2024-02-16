@@ -4,7 +4,6 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Services;
-using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Crafting.Services;
 using Genrpg.Shared.Stats.Services;
 using Genrpg.Shared.Factions.Services;
@@ -16,6 +15,8 @@ using Genrpg.Shared.Units.Services;
 using Genrpg.Shared.Names.Services;
 using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Ftue.Services;
+using Genrpg.Shared.UnitEffects.Services;
+using Genrpg.Shared.Crawler.Roles.Services;
 
 namespace Genrpg.Shared.Setup.Services
 {
@@ -36,9 +37,20 @@ namespace Genrpg.Shared.Setup.Services
             fact.Set<IInventoryService>(new InventoryService());
             fact.Set<ICurrencyService>(new CurrencyService());
             fact.Set<IUserCoinService>(new UserCoinService());
-            fact.Set<IReflectionService>(new ReflectionService());
             fact.Set<ICharmService>(new CharmService());
             fact.Set<IFtueService>(new FtueService());
+            fact.Set<IStatusEffectService>(new StatusEffectService());
+
+
+
+
+
+
+
+
+            // This section is for dungeon crawler stuff.
+            fact.Set<IClassService>(new ClassService());
+           
         }
     }
 }

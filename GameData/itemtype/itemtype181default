@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 181,
   "Name": "Tail",
-  "NameId": "Tail",
-  "GenName": "BodyTail",
   "Icon": "BodyTail",
   "Effects": [
     {

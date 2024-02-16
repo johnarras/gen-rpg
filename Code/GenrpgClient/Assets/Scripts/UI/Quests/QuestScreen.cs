@@ -180,7 +180,7 @@ public class QuestScreen : ItemIconScreen
         }
     }
 
-    private void OnLoadScreenQuest(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadScreenQuest(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

@@ -31,6 +31,13 @@ namespace Genrpg.Shared.Inventory.PlayerData
             _inventory = data.Where(x => x.EquipSlotId == 0).ToList();
         }
 
+        public void SetInvenEquip(List<Item> inventory, List<Item> equipment)
+        {
+            _inventory = inventory;
+            _equipment = equipment;
+        }
+
+
         public override List<Item> GetData()
         {
             return _inventory.Concat(_equipment).ToList();
@@ -40,7 +47,15 @@ namespace Genrpg.Shared.Inventory.PlayerData
         protected List<Item> _inventory { get; set; } = new List<Item>();
         public List<Item> GetAllInventory() { return _inventory.ToList(); }
         public void AddInventory(Item item) { _inventory.Add(item); }
-        public void RemoveInventory(GameState gs, Item item) { _inventory = _inventory.Where(x => x.Id != item.Id).ToList(); }
+        public void RemoveInventory(GameState gs, Item item)
+        {
+            List<Item> removeItems = _inventory.Where(x => x.Id == item.Id).ToList();
+
+            foreach (Item itemToRemove in removeItems)
+            {
+                _inventory.Remove(item);
+            }
+        }
         public virtual Item GetItem(string itemId) { return _inventory.FirstOrDefault(x => x.Id == itemId); }
 
         public List<Item> GetAllItemsOfItemType(int itemTypeId)
@@ -53,9 +68,7 @@ namespace Genrpg.Shared.Inventory.PlayerData
             return _inventory.FirstOrDefault(x =>
             x.ItemTypeId == item.ItemTypeId &&
             x.QualityTypeId == item.QualityTypeId &&
-            x.Level == item.Level &&
-            x.UseEntityTypeId == item.UseEntityTypeId &&
-            x.UseEntityId == item.UseEntityId);
+            x.Level == item.Level);
         }
 
         public List<Item> GetItemsByItemTypeId(long itemTypeId)

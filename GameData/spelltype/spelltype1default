@@ -9,10 +9,13 @@
   "ElementTypeId": 2,
   "PowerStatTypeId": 3,
   "PowerCost": 40,
+  "MaxRange": 100,
   "Effects": [
     {
       "SkillTypeId": 1,
       "Scale": 100
     }
-  ]
+  ],
+  "UpdateTime": "2024-02-15T23:06:19.946Z",
+  "CreateTime": "2024-02-15T23:06:19.946Z"
 }

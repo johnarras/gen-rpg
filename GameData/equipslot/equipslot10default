@@ -5,6 +5,7 @@
   "Name": "Hands",
   "StatPercent": 100,
   "Active": true,
-  "UpdateTime": "2024-01-12T14:11:10.636Z",
+  "BaseBonusStatTypeId": 31,
+  "UpdateTime": "2024-02-13T20:39:34.309Z",
   "CreateTime": "2023-11-24T16:45:26.292Z"
 }

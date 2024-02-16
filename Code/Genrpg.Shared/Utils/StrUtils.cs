@@ -407,31 +407,20 @@ namespace Genrpg.Shared.Utils
             return val.ToString(formatter);
         }
 
-        public static string SplitOnCaps(string s)
+        public static string SplitOnCapitalLetters(string txt)
         {
-            if (string.IsNullOrEmpty(s))
-            {
-                return "";
-            }
-
             StringBuilder sb = new StringBuilder();
-
-            for (int c = 0; c < s.Length; c++)
+            for (int i = 0; i < txt.Length; i++)
             {
-                char ch = s[c];
-
-                if (c > 0 && ch >= 'A' && ch <= 'Z')
+                if (i > 0 && char.IsUpper(txt[i]))
                 {
                     sb.Append(' ');
                 }
-                sb.Append(ch);
-
+                sb.Append(txt[i]);
             }
-
             return sb.ToString();
-
-
         }
+
 
         /// <summary>
         /// This is used in procedural word/name generation to try to keep
@@ -527,20 +516,6 @@ namespace Genrpg.Shared.Utils
             }
 
             return txt;
-        }
-
-        public static string SplitAlongCapitalLetters(string txt)
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < txt.Length; i++)
-            {
-                if (i > 0 && char.IsUpper(txt[i]))
-                {
-                    sb.Append(' ');
-                }
-                sb.Append(txt[i]);
-            }
-            return sb.ToString();
         }
 
         const int IdHashMult = 151;

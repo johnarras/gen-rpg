@@ -20,7 +20,7 @@ public class BaseBehaviour : StubComponent
     protected IScreenService _screenService;
     protected IRealtimeNetworkService _networkService;
     protected IAssetService _assetService;
-    protected IUIService _uiService;
+    protected IUiService _uiService;
 
     public UnityGameState _gs { get; set; }
     

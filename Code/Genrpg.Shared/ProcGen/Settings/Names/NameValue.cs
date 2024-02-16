@@ -20,6 +20,4 @@ namespace Genrpg.Shared.ProcGen.Settings.Names
         [Key(0)] public string Key { get; set; }
         [Key(1)] public string Val { get; set; }
     }
-
-
 }

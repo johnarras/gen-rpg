@@ -16,7 +16,7 @@ public class BuildingObjectLoader : BaseMapObjectLoader
 
     public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
     {
-        BuildingType buildingType = gs.data.GetGameData<BuildingSettings>(gs.ch).GetBuildingType(spawn.EntityId);
+        BuildingType buildingType = gs.data.Get<BuildingSettings>(gs.ch).Get(spawn.EntityId);
         if (buildingType == null)
         {
             return;
@@ -37,7 +37,7 @@ public class BuildingObjectLoader : BaseMapObjectLoader
         return;
     }
 
-    private void OnDownloadBuildingObject(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadBuildingObject(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -53,7 +53,7 @@ public class BuildingObjectLoader : BaseMapObjectLoader
         loadData.FixedPosition = true;
         MapBuilding building = GEntityUtils.GetOrAddComponent<MapBuilding>(gs,go);
 
-        BuildingType buildingType = gs.data.GetGameData<BuildingSettings>(gs.ch).GetBuildingType(loadData.Spawn.EntityId);
+        BuildingType buildingType = gs.data.Get<BuildingSettings>(gs.ch).Get(loadData.Spawn.EntityId);
 
         building.Init(buildingType, loadData.Spawn);
  

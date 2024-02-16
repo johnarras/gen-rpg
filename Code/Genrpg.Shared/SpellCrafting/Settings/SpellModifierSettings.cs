@@ -39,8 +39,6 @@ namespace Genrpg.Shared.SpellCrafting.Settings
     public class SpellModifierSettings : ParentSettings<SpellModifier>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public SpellModifier GetSpellModifier(long idkey) { return _lookup.Get<SpellModifier>(idkey); }
     }
 
     [MessagePackObject]

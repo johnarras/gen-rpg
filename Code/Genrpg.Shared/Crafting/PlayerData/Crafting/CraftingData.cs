@@ -44,7 +44,7 @@ namespace Genrpg.Shared.Crafting.PlayerData.Crafting
             return 0;
         }
 
-        public int GetLevel(GameState gs, int skillCategory)
+        public int Get(GameState gs, int skillCategory)
         {
             if (skillCategory == CraftingConstants.CraftingSkill)
             {

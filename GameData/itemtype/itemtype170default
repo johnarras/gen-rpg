@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 170,
   "Name": "Green Ichor",
-  "NameId": "IchorGreen",
-  "GenName": "BodyIchorGreen",
   "Icon": "IchorGreen",
   "Effects": [
     {

@@ -1,0 +1,9 @@
+{
+  "Id": "statuseffect10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Silenced",
+  "Abbrev": "Sile",
+  "UpdateTime": "2024-01-28T17:14:24.051Z",
+  "CreateTime": "2024-01-27T17:52:56.659Z"
+}

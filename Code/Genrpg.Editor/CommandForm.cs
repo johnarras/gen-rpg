@@ -8,7 +8,6 @@ using System.Threading;
 using System.Windows.Forms;
 
 using System.Threading.Tasks;
-using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Constants;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Shared.MapMessages;
@@ -19,7 +18,13 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
-using Genrpg.Shared.Purchasing.Settings;
+using Genrpg.Editor.Services.Reflection;
+using Genrpg.Shared.Inventory.Settings.LootRanks;
+using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.DataStores.Interfaces;
+using Genrpg.Shared.Crawler.Roles.Settings;
+using Genrpg.Shared.Utils;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace GameEditor
 {
@@ -248,7 +253,7 @@ namespace GameEditor
             DateTime buildtime = new DateTime(2000, 1, 1)
                     .AddDays(version.Build).AddSeconds(version.Revision * 2);
 
-            IReflectionService reflectionService = _gs.loc.Get<IReflectionService>();
+            IEditorReflectionService reflectionService = _gs.loc.Get<IEditorReflectionService>();
             reflectionService.InitializeObjectData(_gs.data);
 
             _gs.EditorGameData = new EditorGameData()
@@ -256,16 +261,16 @@ namespace GameEditor
                 GameData = _gs.data,
             };
 
-            List<IGameSettings> allGameData = _gs.data.GetAllData();
+            List<ITopLevelSettings> allGameData = _gs.data.AllSettings();
 
-            List<IGrouping<Type,IGameSettings>> groups = allGameData.GroupBy(x => x.GetType()).ToList();
+            List<IGrouping<Type,ITopLevelSettings>> groups = allGameData.GroupBy(x => x.GetType()).ToList();
 
             groups = groups.OrderBy(x => x.Key.Name).ToList();
 
-            foreach (IGrouping<Type,IGameSettings> group in groups)
+            foreach (IGrouping<Type,ITopLevelSettings> group in groups)
             {
 
-                List<IGameSettings> orderedList = group.OrderBy(x => x.Id).ToList();
+                List<ITopLevelSettings> orderedList = group.OrderBy(x => x.Id).ToList();
 
                 List<BaseGameSettings> items = new List<BaseGameSettings>();
 
@@ -275,8 +280,23 @@ namespace GameEditor
                     if (setting != null)
                     {
                         items.Add(setting);
+                        if (setting.UpdateTime == DateTime.MinValue)
+                        {
+                            _gs.LookedAtObjects.Add(setting);
+                        }
+                        foreach (IGameSettings childSetting in setting.GetChildren())
+                        {
+                            if (childSetting is IUpdateData updateChild)
+                            {
+                                if (updateChild.UpdateTime == DateTime.MinValue)
+                                {
+                                    _gs.LookedAtObjects.Add(updateChild);
+                                }
+                            }
+                        }
                     }
                 }
+
 
                 Type baseCollectionType = typeof(TypedEditorSettingsList<>);
                 Type genericType = baseCollectionType.MakeGenericType(group.Key);

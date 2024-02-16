@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 178,
   "Name": "Skull",
-  "NameId": "Skull",
-  "GenName": "BodySkull",
   "Icon": "BodySkull",
   "Effects": [
     {

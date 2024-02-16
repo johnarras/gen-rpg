@@ -15,8 +15,6 @@ namespace Genrpg.Shared.UserCoins.Settings
     public class UserCoinSettings : ParentSettings<UserCoinType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public UserCoinType GetUserCoinType(long idkey) { return _lookup.Get<UserCoinType>(idkey); }
     }
     [MessagePackObject]
     public class UserCoinType : ChildSettings, IIndexedGameItem

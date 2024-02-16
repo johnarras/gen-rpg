@@ -1,0 +1,27 @@
+{
+  "Id": "crawlerspell14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Holy Beam",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 10,
+  "PowerPerLevel": 1,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 4,
+  "TargetTypeId": 1,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 9,
+      "ElementTypeId": 7
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.415Z",
+  "CreateTime": "2024-01-28T09:21:51Z"
+}

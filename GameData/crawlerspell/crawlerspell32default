@@ -1,0 +1,27 @@
+{
+  "Id": "crawlerspell32default",
+  "ParentId": "default",
+  "IdKey": 32,
+  "Name": "Chain Lightning",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 60,
+  "PowerPerLevel": 2,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 7,
+  "TargetTypeId": 3,
+  "Level": 11,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 4,
+      "ElementTypeId": 4
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.45Z",
+  "CreateTime": "2024-01-29T03:21:51Z"
+}

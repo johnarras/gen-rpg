@@ -2,78 +2,16 @@
   "Id": "elementtype1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "Air",
-  "Desc": "",
-  "Icon": "",
-  "Art": "Lightning",
-  "RankScale": 5,
-  "Skills": [
-    {
-      "SkillTypeId": 1,
-      "CostPct": 75,
-      "ScalePct": 125
-    },
-    {
-      "SkillTypeId": 2,
-      "CostPct": 100,
-      "ScalePct": 100
-    },
-    {
-      "SkillTypeId": 3,
-      "CostPct": 110,
-      "ScalePct": 90
-    },
-    {
-      "SkillTypeId": 4,
-      "CostPct": 125,
-      "ScalePct": 100,
-      "OverrideEntityTypeId": 3
-    },
-    {
-      "SkillTypeId": 7,
-      "CostPct": 100,
-      "ScalePct": 100
-    },
-    {
-      "SkillTypeId": 8,
-      "CostPct": 100,
-      "ScalePct": 100
-    },
-    {
-      "SkillTypeId": 9,
-      "CostPct": 100,
-      "ScalePct": 50,
-      "OverrideEntityTypeId": 4,
-      "OverrideEntityId": 4
-    }
-  ],
-  "Procs": [
-    {
-      "Chance": 25,
-      "ProcTypeId": 1,
-      "FromElementTypeId": 1,
-      "Scale": 100
-    },
-    {
-      "Chance": 25,
-      "ProcTypeId": 2,
-      "FromElementTypeId": 1,
-      "Scale": 100
-    }
-  ],
-  "BonusEfffects": [],
-  "BuffEffects": [
-    {
-      "StatTypeId": 11,
-      "Percent": 10
-    }
-  ],
-  "DebuffEffects": [
-    {
-      "StatTypeId": 11,
-      "Percent": 10
-    }
-  ],
-  "UpdateTime": "2023-12-24T17:22:23.517Z",
-  "CreateTime": "2023-11-24T16:45:22.658Z"
+  "Name": "Physical",
+  "Art": "Earth",
+  "CasterActionName": "Hit",
+  "ObserverActionName": "Hits",
+  "Skills": [],
+  "OldProcs": [],
+  "BonusEffects": [],
+  "BuffEffects": [],
+  "DebuffEffects": [],
+  "Procs": [],
+  "UpdateTime": "2024-02-09T22:34:21.947Z",
+  "CreateTime": "2024-01-27T20:32:45.369Z"
 }

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Genrpg.Shared.Ftue.Settings.Steps
+namespace Genrpg.Shared.Ftue.Settings.Effects
 {
 
     [MessagePackObject]
@@ -25,8 +25,6 @@ namespace Genrpg.Shared.Ftue.Settings.Steps
     public class FtueEffectSettings : ParentSettings<FtueEffect>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public FtueEffect GetFtueEffect(long idkey) { return _lookup.Get<FtueEffect>(idkey); }
     }
 
     [MessagePackObject]

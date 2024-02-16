@@ -2,16 +2,16 @@
   "Id": "scalingtype3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "Metal Armor",
+  "Name": "Chain Armor",
   "Desc": "",
-  "Icon": "Metal",
-  "Prefix": "Metal",
+  "Icon": "Chain",
+  "Prefix": "Wood",
   "Art": "",
-  "CrafterTypeId": 4,
+  "CrafterTypeId": 2,
   "AttPct": 90,
   "DefPct": 110,
   "OtherPct": 100,
-  "CostPct": 175,
+  "CostPct": 300,
   "AddStats": [
     {
       "StatTypeId": 31,
@@ -23,5 +23,8 @@
       "ItemTypeId": 104,
       "Percent": 150
     }
-  ]
+  ],
+  "ArmorPct": 300,
+  "UpdateTime": "2024-02-10T00:04:46.184Z",
+  "CreateTime": "2024-02-03T21:40:49.651Z"
 }

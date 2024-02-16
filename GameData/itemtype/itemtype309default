@@ -1,0 +1,15 @@
+{
+  "Id": "itemtype309default",
+  "ParentId": "default",
+  "IdKey": 309,
+  "Name": "Quiver",
+  "Icon": "Quiver",
+  "EquipSlotId": 19,
+  "Effects": [],
+  "LevelRanges": [],
+  "QualityNames": [],
+  "IconCounts": [],
+  "Names": [],
+  "UpdateTime": "2024-02-03T21:41:37.065Z",
+  "CreateTime": "2024-01-28T02:46:20.258Z"
+}

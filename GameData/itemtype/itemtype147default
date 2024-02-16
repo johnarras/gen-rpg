@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 147,
   "Name": "Amethyst",
-  "NameId": "GemAmethyst",
-  "GenName": "GemAmethyst",
   "Icon": "GemAmethyst",
   "Effects": [
     {

@@ -49,7 +49,7 @@ public class AddNearbyItemsHelper
             treesToAdd = 2;
         }
 
-        GenZone genZone = gs.GetGenZone(zone.IdKey);
+        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
 
         if (zoneType.TreeTypes == null || genZone.TreeTypes == null)
         {
@@ -67,7 +67,7 @@ public class AddNearbyItemsHelper
             {
                 continue;
             }
-            TreeType tt = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(zt.TreeTypeId);
+            TreeType tt = gs.data.Get<TreeTypeSettings>(gs.ch).Get(zt.TreeTypeId);
             if (tt == null || tt.Name == null)
             {
                 continue;

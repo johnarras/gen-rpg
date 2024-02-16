@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 156,
   "Name": "Antlers",
-  "NameId": "Antlers",
-  "GenName": "BodyAntlers",
   "Icon": "BodyAntlers",
   "Effects": [
     {

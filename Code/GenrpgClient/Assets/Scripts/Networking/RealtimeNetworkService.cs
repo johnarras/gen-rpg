@@ -8,21 +8,14 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapMessages.Interfaces;
-using Genrpg.Shared.Reflection.Services;
 using Assets.Scripts.Tokens;
 using System.Threading;
-using Genrpg.Shared.Login.Interfaces;
-using Genrpg.Shared.Login.Messages.Login;
-using Genrpg.Shared.Login.Messages;
-using Assets.Scripts.Login.Messages;
 using Genrpg.Shared.Networking.Messages;
 using Genrpg.Shared.Networking.Interfaces;
 using Genrpg.Shared.Networking.Constants;
 using Genrpg.Shared.Networking.Entities.TCP;
 using Genrpg.Shared.Networking.MapApiSerializers;
 using System.Collections.Concurrent;
-using System.Collections;
-using System.Linq;
 using System.Threading.Tasks;
 
 public interface IRealtimeNetworkService : ISetupService, IMapTokenService
@@ -38,7 +31,6 @@ public interface IRealtimeNetworkService : ISetupService, IMapTokenService
 public class RealtimeNetworkService : IRealtimeNetworkService
 {
     protected UnityGameState _gs = null;
-    private IReflectionService _reflectionService = null;
     public RealtimeNetworkService(UnityGameState gs, CancellationToken token)
     {
         _gs = gs;
@@ -59,7 +51,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
     {
         if (gs is UnityGameState ugs)
         {
-            _mapMessageHandlers = _reflectionService.SetupDictionary<Type, IClientMapMessageHandler>(gs);
+            _mapMessageHandlers = ReflectionUtils.SetupDictionary<Type, IClientMapMessageHandler>(gs);
         }
         await UniTask.CompletedTask;
     }

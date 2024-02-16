@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 25,
   "Name": "2HSword",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Sword2H",
   "Art": "Sword2H",
+  "MinVal": 2,
+  "MaxVal": 12,
   "EquipSlotId": 15,
   "Flags": 10,
   "Effects": [],
@@ -100,6 +100,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:38.757Z",
+  "UpdateTime": "2024-02-03T22:45:17.035Z",
   "CreateTime": "2023-11-24T16:45:39.586Z"
 }

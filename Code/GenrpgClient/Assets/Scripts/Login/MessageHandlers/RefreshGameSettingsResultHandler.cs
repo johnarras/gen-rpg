@@ -8,7 +8,7 @@ namespace Assets.Scripts.Login.MessageHandlers
     {
         protected override void InnerProcess(UnityGameState gs, RefreshGameSettingsResult result, CancellationToken token)
         {
-            gs.ch.SetGameDataOverrideList(result.Overrides);
+            gs.ch.SetGameDataOverrideList(result.Overrides);         
             gs.data.AddData(result.NewSettings);
         }
     }

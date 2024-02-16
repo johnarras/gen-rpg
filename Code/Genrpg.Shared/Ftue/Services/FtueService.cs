@@ -22,7 +22,7 @@ namespace Genrpg.Shared.Ftue.Services
         {
             FtueData ftueData = ch.Get<FtueData>();
 
-            return gs.data.GetGameData<FtueStepSettings>(ch).GetFtueStep(ftueData.CurrentFtueStepId);
+            return gs.data.Get<FtueStepSettings>(ch).Get(ftueData.CurrentFtueStepId);
         }
 
         public bool CanClickButton(GameState gs, Character ch, string screenName, string buttonName)
@@ -43,7 +43,7 @@ namespace Genrpg.Shared.Ftue.Services
         {
             FtueData ftueData = ch.Get<FtueData>();
 
-            FtueStep ftueStep = gs.data.GetGameData<FtueStepSettings>(ch).GetFtueStep(ftueStepId);
+            FtueStep ftueStep = gs.data.Get<FtueStepSettings>(ch).Get(ftueStepId);
 
             if (ftueStep == null)
             {

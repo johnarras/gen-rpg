@@ -18,6 +18,6 @@ namespace Genrpg.Shared.Login.Messages.Login
         [Key(1)] public List<CharacterStub> CharacterStubs { get; set; }
         [Key(2)] public List<MapStub> MapStubs { get; set; }
         [JsonProperty(TypeNameHandling = TypeNameHandling.Auto)]
-        [Key(3)] public List<IGameSettings> GameData { get; set; } = new List<IGameSettings>();
+        [Key(3)] public List<ITopLevelSettings> GameData { get; set; } = new List<ITopLevelSettings>();
     }
 }

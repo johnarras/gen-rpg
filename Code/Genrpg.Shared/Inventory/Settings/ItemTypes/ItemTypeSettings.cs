@@ -17,8 +17,6 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
         [Key(2)] public int GenGlobalScalingPercent { get; set; }
         [Key(3)] public override string Id { get; set; }
 
-        public ItemType GetItemType(long idkey) { return _lookup.Get<ItemType>(idkey); }
-
         List<ItemType> _primaryReagents = null;
         public List<ItemType> GetPrimaryReagents()
         {

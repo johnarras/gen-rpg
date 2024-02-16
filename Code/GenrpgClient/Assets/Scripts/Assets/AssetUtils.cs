@@ -7,6 +7,7 @@ using Scripts.Assets.Assets.Constants;
 
 public class AssetUtils
 {
+
     public static T LoadResource<T>(string path) where T : GObject
     {
         return Resources.Load<T>(path);
@@ -77,7 +78,7 @@ public class AssetUtils
             return _runtimePrefix;
         }
 
-        var prefix = GetPlatformString();
+        string prefix = GetPlatformString();
         _runtimePrefix = AppUtils.Version + "/" + prefix + "/";
         return _runtimePrefix;
     }

@@ -12,6 +12,7 @@ using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using System.Linq;
 
 public class MapGenData
 {
@@ -76,6 +77,10 @@ public class MapGenData
 
 
 
+    public List<GenZone> GenZones { get; set; } = new List<GenZone>();
+
+
+
     // Have we copied the heightmap data into the TerrainData?
     public bool HaveSetHeights = false;
     // Have we copied the splatmaps data into the TerrainData?
@@ -123,11 +128,6 @@ public class MapGenData
  
     public void ClearAlphasAt(GameState gs, int x, int z)
     {
-        ScaleAlphasAt(gs, x, z, 0);
-    }
-
-    public void ScaleAlphasAt(GameState gs, int x, int z, float scale)
-    {
         if (x < 0 || z < 0 || x >= awid || z >= ahgt)
         {
             return;
@@ -135,8 +135,19 @@ public class MapGenData
 
         for (int c = 0; c < MapConstants.MaxTerrainIndex; c++)
         {
-            alphas[x, z, c] *= scale;
+            alphas[x, z, c] *= 0;
         }
+    }
+
+    public GenZone GetGenZone(long zoneId)
+    {
+        GenZone genZone = GenZones.FirstOrDefault(x => x.IdKey == zoneId);
+        if (genZone == null)
+        {
+            genZone = new GenZone() { IdKey = zoneId };
+            GenZones.Add(genZone);
+        }
+        return genZone;
     }
 
     public float GetAverageHeightNear(GameState gs, Map map, int hx, int hy, int radius, int terrainType = -1)
@@ -187,55 +198,6 @@ public class MapGenData
 
     }
 
-    public float GetDistanceToNonzeroElement(GameState gs, int[,] grid, int cx, int cz, float maxRadiusIn)
-    {
-        if (grid == null || cx < 0 || cz < 0 || cx >= grid.GetLength(0) || cz >= grid.GetLength(1))
-        {
-            return -1;
-        }
-
-        int xsize = grid.GetLength(0);
-        int zsize = grid.GetLength(1);
-
-        int maxRadius = (int)Math.Ceiling(maxRadiusIn);
-
-
-        float minDist = maxRadiusIn + 1;
-
-        for (int x = cx - maxRadius; x <= cx + maxRadiusIn; x++)
-        {
-            if (x < 0 || x >= xsize)
-            {
-                continue;
-            }
-            for (int z = cz - maxRadius; z <= cz + maxRadiusIn; z++)
-            {
-                if (z < 0 || z >= zsize)
-                {
-                    continue;
-                }
-
-                if (grid[x, z] <= 0)
-                {
-                    continue;
-                }
-
-                float dist = (float)Math.Sqrt((x - cx) * (x - cx) + (z - cz) * (z - cz));
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                }
-            }
-        }
-
-        if (minDist >= 0 && minDist <= maxRadiusIn)
-        {
-            return minDist;
-        }
-
-        return -1;
-    }
-
     public float GetAverageSplatNear(GameState gs, int x, int y, int radius, int channel)
     {
         if (alphas == null || radius < 1 || channel < 0 || channel >= MapConstants.MaxTerrainIndex)
@@ -268,21 +230,6 @@ public class MapGenData
         }
 
         return totalDirt / cellCount;
-    }
-
-    public long GetIndexForTree(GameState gs, Zone zone, TreeType treeType, int localSeed)
-    {
-        if (zone == null || treeType == null)
-        {
-            return 1;
-        }
-
-        if (treeType.VariationCount > 1)
-        {
-            return 1 + (zone.Seed % 100000000 + treeType.IdKey * 12 + treeType.IdKey * treeType.IdKey + localSeed * 13 + localSeed * treeType.IdKey * 17) % treeType.VariationCount;
-        }
-        return 1;
-
     }
 
     public float EdgeHeightmapAdjustPercent(GameState gs, Map map, int x, int y)
@@ -349,45 +296,6 @@ public class MapGenData
 
             loc.Id = gs.map.Id + "-" + (++locationCount);
         }
-    }
-
-    public float DistanceToBridge(GameState gs, int x, int y)
-    {
-        float minDist = 10000000;
-        foreach (MyPointF br in currBridges)
-        {
-
-            float bx = br.X - x;
-            float by = br.Y - y;
-            float bdist = MathUtils.Sqrt(bx * bx + by * by);
-            if (bdist < minDist)
-            {
-                minDist = bdist;
-            }
-        }
-        return minDist;
-
-    }
-
-    public Zone GetZoneAt(GameState gs, Map map, int x, int y)
-    {
-        if (map == null ||
-            mapZoneIds == null || x < 0 || y < 0 || x >= mapZoneIds.GetLength(0) || y >= mapZoneIds.GetLength(1))
-        {
-            return null;
-        }
-
-        return map.Get<Zone>(mapZoneIds[x, y]);
-    }
-
-    public ZoneType GetZoneTypeAt(UnityGameState gs, Map map, int x, int y)
-    {
-        Zone zone = GetZoneAt(gs, map, x, y);
-        if (zone == null || gs.data == null)
-        {
-            return null;
-        }
-        return gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId);
     }
 
     public float GetMountainDefaultSize(GameState gs, Map map)

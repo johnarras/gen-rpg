@@ -27,7 +27,7 @@ namespace Assets.Scripts.UI.Stores
 
             if (gameItem != null)
             {
-                _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, gameItem.Icon, RewardIcon, token);
+                _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, gameItem.Icon, RewardIcon, token);
             }
 
             _uiService.SetText(RewardQuantity, spawnItem.MinQuantity.ToString());

@@ -20,8 +20,8 @@ public interface IGameDataService : ISetupService
     Task<bool> SaveGameData(GameData data, IRepositorySystem repoSystem);
     List<string> GetEditorIgnoreFields();
     List<IGameSettingsLoader> GetAllLoaders();
-    List<IGameSettings> MapToApi(ServerGameState gs, List<IGameSettings> startSettings);
+    List<ITopLevelSettings> MapToApi(ServerGameState gs, List<ITopLevelSettings> startSettings);
     bool SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool forceRefresh);
     RefreshGameSettingsResult GetNewGameDataUpdates(ServerGameState gs, Character ch, bool forceRefresh);
-    List<IGameSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null);
+    List<ITopLevelSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null);
 }

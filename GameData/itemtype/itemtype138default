@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 138,
   "Name": "Rare Herb",
-  "NameId": "RareHerb",
-  "GenName": "HerbDark",
   "Icon": "HerbDark",
   "Effects": [
     {

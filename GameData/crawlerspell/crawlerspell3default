@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Shoot",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MinRange": 20,
+  "MaxRange": 100,
+  "CombatActionId": 3,
+  "TargetTypeId": 1,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 39,
+      "EntityId": 2,
+      "ElementTypeId": 1
+    }
+  ],
+  "SuppressCastText": true,
+  "UpdateTime": "2024-02-16T03:41:53.393Z",
+  "CreateTime": "2024-01-29T08:46:43Z"
+}

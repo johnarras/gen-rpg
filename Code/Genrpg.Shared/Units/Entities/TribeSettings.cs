@@ -13,11 +13,6 @@ namespace Genrpg.Shared.Units.Entities
     {
         [Key(0)] public override string Id { get; set; }
 
-
-        public TribeType GetTribeType(long idkey)
-        {
-            return _lookup.Get<TribeType>(idkey);
-        }
     }
     [MessagePackObject]
     public class TribeType : ChildSettings, IIndexedGameItem

@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 21,
   "Name": "Sword",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Sword",
   "Art": "Sword",
+  "MinVal": 1,
+  "MaxVal": 6,
   "EquipSlotId": 15,
   "Flags": 8,
   "Effects": [],
@@ -100,6 +100,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:38.331Z",
+  "UpdateTime": "2024-02-03T22:45:17.026Z",
   "CreateTime": "2023-11-24T16:45:39.152Z"
 }

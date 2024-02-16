@@ -9,6 +9,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Stats.Settings.Stats;
+using System.Diagnostics;
 
 namespace Genrpg.Shared.Entities.Utils
 {
@@ -514,7 +515,7 @@ namespace Genrpg.Shared.Entities.Utils
         {
             if (effect.EntityTypeId == EntityTypes.Stat)
             {
-                StatType statType = gs.data.GetGameData<StatSettings>(obj).GetStatType(effect.EntityId);
+                StatType statType = gs.data.Get<StatSettings>(obj).Get(effect.EntityId);
                 if (statType == null)
                 {
                     return "";
@@ -524,7 +525,7 @@ namespace Genrpg.Shared.Entities.Utils
             }
             else if (effect.EntityTypeId == EntityTypes.StatPct)
             {
-                StatType statType = gs.data.GetGameData<StatSettings>(obj).GetStatType(effect.EntityId);
+                StatType statType = gs.data.Get<StatSettings>(obj).Get(effect.EntityId);
                 if (statType == null)
                 {
                     return "";
@@ -533,7 +534,7 @@ namespace Genrpg.Shared.Entities.Utils
                 return effect.Quantity + "% " + statType.Name;
             }
 
-            EntityType etype = gs.data.GetGameData<EntitySettings>(obj).GetEntityType(effect.EntityTypeId);
+            EntityType etype = gs.data.Get<EntitySettings>(obj).Get(effect.EntityTypeId);
             if (etype == null)
             {
                 return "Etype: " + effect.EntityTypeId;

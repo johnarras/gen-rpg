@@ -1,9 +1,11 @@
 ﻿using Assets.Scripts.Interfaces;
+using Assets.Scripts.UI.Crawler.CrawlerPanels;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Ftue.Messages;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Ftue.Settings;
 using Genrpg.Shared.Ftue.Settings.Steps;
+using Genrpg.Shared.GameSettings.Utils;
 using Genrpg.Shared.Interfaces;
 using Scripts.Assets.Audio.Constants;
 using System;
@@ -15,11 +17,12 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using static System.Collections.Specialized.BitVector32;
 using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.UI.Services
 {
-    public class UIService : IUIService
+    public class UiService : IUiService
     {
         protected IFtueService _ftueService;
         protected IAudioService _audioService;
@@ -71,7 +74,7 @@ namespace Assets.Scripts.UI.Services
 
         public long GetSelectedIdFromName(Type iidNameType, GDropdown dropdown)
         {
-            List<IIdName> items = _gs.data.GetList(iidNameType.Name);
+            List<IIdName> items = GameDataUtils.GetIdNameList(_gs.data, iidNameType.Name);
 
             string selectedText = dropdown.captionText.text;
 
@@ -155,6 +158,14 @@ namespace Assets.Scripts.UI.Services
                    });
             }
 
+        }
+
+        public void AddEventListener(UnityGameState gs, GEntity go, EventTriggerType type, UnityAction<BaseEventData> callback)
+        {
+            EventTrigger trigger = GEntityUtils.GetOrAddComponent<EventTrigger>(_gs, go);
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerEnter;
+            entry.callback.AddListener(callback);
         }
     }
 }

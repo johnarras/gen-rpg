@@ -13,11 +13,15 @@ using System.IO;
 using Genrpg.Shared.Logs.Interfaces;
 using Genrpg.Shared.Utils;
 using ClientEvents;
+using Genrpg.Shared.Spawns.Settings;
+using Newtonsoft.Json.Linq;
+using System.Xml.Linq;
+using Genrpg.Shared.Purchasing.PlayerData;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public delegate void OnDownloadHandler(UnityGameState gs, string url, object obj, object data, CancellationToken token);
+public delegate void OnDownloadHandler(UnityGameState gs, object obj, object data, CancellationToken token);
 
 public delegate void SpriteListDelegate (UnityGameState gs, Sprite[] sprites);
 
@@ -45,6 +49,20 @@ public class AtlasSpriteDownload
     public string spriteName;
     public OnDownloadHandler finalHandler;
     public object data;
+}
+
+public class CachedSpriteTexture
+{
+    public string SpriteName;
+    public Sprite CurrSprite;
+    public int Count;
+    public DateTime LastTimeUsed = DateTime.UtcNow;
+}
+
+public class SpriteWithImage
+{
+    public GImage Image;
+    public CachedSpriteTexture Cache;
 }
 
 public class BundleDownload
@@ -118,7 +136,7 @@ public class UnityAssetService : IAssetService
 #endif
     protected Dictionary<string, SpriteAtlas> _atlasCache = new Dictionary<string, SpriteAtlas>();
     protected Dictionary<string, Sprite[]> _spriteListCache = new Dictionary<string, Sprite[]>();
-    protected Dictionary<string, Sprite> _spriteCache = new Dictionary<string, Sprite>();
+    protected Dictionary<string, Sprite> _atlasSpriteCache = new Dictionary<string, Sprite>();
 
     protected BundleVersions _bundleVersions = null;
     protected BundleUpdateInfo _bundleUpdateInfo = null;
@@ -206,11 +224,11 @@ public class UnityAssetService : IAssetService
 
     public void ClearBundleCache(UnityGameState gs, CancellationToken token)
     {
-        var newBundleCache = new Dictionary<string, BundleCacheData>();
+        Dictionary<string,BundleCacheData> newBundleCache = new Dictionary<string, BundleCacheData>();
 
-        foreach (var item in _bundleCache.Keys)
+        foreach (string item in _bundleCache.Keys)
         {
-            var bdata = _bundleCache[item];
+            BundleCacheData bdata = _bundleCache[item];
 
             if (bdata.assetBundle != null)
             {
@@ -231,7 +249,6 @@ public class UnityAssetService : IAssetService
         AssetUtils.UnloadUnusedAssets(token).Forget();
     }
 
-
     protected async UniTask IncrementalClearMemoryCache(UnityGameState gs, CancellationToken token)
     {
         while (true)
@@ -242,7 +259,7 @@ public class UnityAssetService : IAssetService
             List<string> bundleCacheKeys = _bundleCache.Keys.ToList();
             foreach (string item in bundleCacheKeys)
             {
-                var bundle = _bundleCache[item];
+                BundleCacheData bundle = _bundleCache[item];
                 if (bundle.LoadingCount < 1 &&
                     bundle.assetBundle != null &&
                     !bundle.KeepLoaded &&
@@ -303,7 +320,7 @@ public class UnityAssetService : IAssetService
         {
             if (downloadData.Handler != null)
             {
-                downloadData.Handler(gs, filePath, null, downloadData.Data, token);
+                downloadData.Handler(gs, null, downloadData.Data, token);
             }
             return;
         }
@@ -312,7 +329,7 @@ public class UnityAssetService : IAssetService
         {
             if (downloadData.Handler != null)
             {
-                downloadData.Handler(gs, filePath, null, downloadData.Data, token);
+                downloadData.Handler(gs, null, downloadData.Data, token);
             }
             return;
         }
@@ -324,11 +341,11 @@ public class UnityAssetService : IAssetService
             urlPrefix = GetArtURLPrefix(worldData);
         }
 
-        var fileDownLoad = new FileDownload(downloadData, urlPrefix, filePath, token);
+        FileDownload fileDownLoad = new FileDownload(downloadData, urlPrefix, filePath, token);
 
         if (_downloading.ContainsKey(filePath))
         {
-            var list = _downloading[filePath];
+            List<FileDownload> list = _downloading[filePath];
             if (list != null)
             {
                 list.Add(fileDownLoad);
@@ -337,10 +354,10 @@ public class UnityAssetService : IAssetService
         }
         else
         {
-            var list = new List<FileDownload>();
+            List<FileDownload> list = new List<FileDownload>();
             list.Add(fileDownLoad);
             _downloading[filePath] = list;
-            StartDownloadFile(gs, fileDownLoad, token).Forget();
+            DownloadFileInternal(gs, fileDownLoad, token).Forget();
         }
     }
 
@@ -362,7 +379,7 @@ public class UnityAssetService : IAssetService
         return AssetUtils.GetPerisistentDataPath() + "/" + url;
     }
 
-    private async UniTask StartDownloadFile(UnityGameState gs, FileDownload fileDownload, CancellationToken token)
+    private async UniTask DownloadFileInternal(UnityGameState gs, FileDownload fileDownload, CancellationToken token)
     {
 
         if (fileDownload == null)
@@ -408,7 +425,8 @@ public class UnityAssetService : IAssetService
                     {
                         gs.logger.Exception(e, "DownloadFile :" + fileDownload.FullURL);
                     }
-                    var handler = request.downloadHandler;
+
+                    DownloadHandler handler = request.downloadHandler;
                     fileDownload.DownloadData.StartBytes = handler.data;
                     txt = handler.text;
                     if (fileDownload.DownloadData.StartBytes != null &&
@@ -487,23 +505,23 @@ public class UnityAssetService : IAssetService
 
         if (_downloading.ContainsKey(fileDownload.FilePath))
         {
-            var list = _downloading[fileDownload.FilePath];
+            List<FileDownload> allFileDownloads = _downloading[fileDownload.FilePath];
             _downloading.Remove(fileDownload.FilePath);
-            foreach (var ad2 in list)
+            foreach (FileDownload fd in allFileDownloads)
             {
-                if (ad2.DownloadData == null || ad2.DownloadData.Handler == null || !TokenUtils.IsValid(token))
+                if (fd.DownloadData == null || fd.DownloadData.Handler == null || !TokenUtils.IsValid(token))
                 {
                     continue;
                 }
 
-                ad2.DownloadData.Handler(gs, fileDownload.FilePath, obj, ad2.DownloadData.Data, token);
+                fd.DownloadData.Handler(gs, obj, fd.DownloadData.Data, token);
             }
         }
     }
 
-    private string GetAssetNameFromPath(AssetBundle ab, string assetName)
+    private string GetAssetNameFromPath(AssetBundle assetBundle, string assetName)
     {
-        if (ab == null || string.IsNullOrEmpty(assetName))
+        if (assetBundle == null || string.IsNullOrEmpty(assetName))
         {
             return assetName;
         }
@@ -515,7 +533,7 @@ public class UnityAssetService : IAssetService
         }
 
         string fullAssetName = assetName;
-        var assetNames = ab.GetAllAssetNames();
+        string[] assetNames = assetBundle.GetAllAssetNames();
         for (int i = 0; i < assetNames.Length; i++)
         {
             if (assetNames[i].IndexOf(assetName) >= 0)
@@ -555,21 +573,21 @@ public class UnityAssetService : IAssetService
         {
             return;
         }
-        var parent = parentIn as GEntity;
+        GEntity parent = parentIn as GEntity;
         if (string.IsNullOrEmpty(assetName))
         {
             if (handler != null)
             {
-                handler(gs, assetName, null, data, token);
+                handler(gs, null, data, token);
             }
             return;
         }
 
-        if (_spriteCache.ContainsKey(assetName))
+        if (_atlasSpriteCache.ContainsKey(assetName))
         {
             if (handler != null)
             {
-                handler(gs, assetName, _spriteCache[assetName], data, token);
+                handler(gs, _atlasSpriteCache[assetName], data, token);
             }
             return;
         }
@@ -579,65 +597,9 @@ public class UnityAssetService : IAssetService
             assetPathSuffix += "/" + subdirectory;
         }
 
-        if ((false || ShouldCheckResources(assetPathSuffix)) && !_failedResourceLoads.Contains(assetName))
+        if (LoadFromResources(gs, assetPathSuffix, assetName, handler, data, parent, token, subdirectory))
         {
-            string categoryPath = AssetUtils. GetAssetPath(assetPathSuffix);
-            if (assetName.IndexOf(categoryPath) == 0)
-            {
-                categoryPath = "";
-            }
-
-            var fullPath = categoryPath + assetName;
-
-            UnityEngine.Object robj = null;
-
-            if (_loadedResources.ContainsKey(fullPath))
-            {
-                robj = _loadedResources[fullPath];
-            }
-            else
-            {
-                robj = AssetUtils.LoadResource<GEntity>(fullPath);
-                if (robj != null)
-                {
-                    _loadedResources[fullPath] = robj;
-                }
-            }
-            if (robj == null)
-            {
-                _failedResourceLoads.Add(assetName);
-            }
-            else
-            {
-
-                var rtex = robj as Texture2D;
-                if (rtex != null)
-                {
-                    var sprite = Sprite.Create(rtex, new Rect(0, 0, rtex.width, rtex.height), Vector2.zero);
-                    _spriteCache[assetName] = sprite;
-                    if (handler != null)
-                    {
-                        handler(gs, assetName, sprite, data, token);
-
-                    }
-                    return;
-                }
-
-                var rgo = GEntityUtils.InstantiateIntoParent(robj, parent);
-                if (rgo != null)
-                {
-                    robj = rgo;
-                }
-                if (handler != null)
-                {
-                    if (robj is GEntity go)
-                    {
-                        GEntityUtils.InitializeHierarchy(gs, go);
-                    }
-                    handler(gs, assetName, robj, data, token);
-                }
-                return;
-            }
+            return;
         }
 
 #if UNITY_EDITOR
@@ -654,7 +616,29 @@ public class UnityAssetService : IAssetService
 
                     if (fullPath.IndexOf(AssetConstants.ArtFileSuffix) < 0)
                     {
-                        asset = AssetDatabase.LoadAssetAtPath<GEntity>(fullPath + AssetConstants.ArtFileSuffix);
+                        if (categoryPath.IndexOf(AssetCategoryNames.Sprites) == 0)
+                        {
+                            string loadPath = fullPath;
+                            if (fullPath.LastIndexOf(".png") != fullPath.Length-4)
+                            {
+                                loadPath = fullPath + ".png"; 
+                            }
+                            Sprite spriteAsset = AssetDatabase.LoadAssetAtPath<Sprite>(loadPath);
+
+                            if (spriteAsset != null)
+                            {
+                                handler(gs, spriteAsset, data, token);
+                            }
+                            else
+                            {
+                                _failedAssetPathLoads.Add(assetName);
+                            }
+                            return;
+                        }
+                        else
+                        {
+                            asset = AssetDatabase.LoadAssetAtPath<GEntity>(fullPath + AssetConstants.ArtFileSuffix);
+                        }
                     }
                     else
                     {
@@ -668,7 +652,7 @@ public class UnityAssetService : IAssetService
 
                         if (handler != null)
                         {
-                            handler(gs, assetName, asset, data, token);
+                            handler(gs, asset, data, token);
                         }
                         return;
                     }
@@ -687,7 +671,7 @@ public class UnityAssetService : IAssetService
         {
             if (handler != null)
             {
-                handler(gs, assetName, null, data, token);
+                handler(gs, null, data, token);
             }
             return;
         }
@@ -730,10 +714,74 @@ public class UnityAssetService : IAssetService
             _bundleDownloadQueue[bundleName] = new List<BundleDownload>();
             _bundleDownloadQueue[bundleName].Add(currentBundleDownload);
         }
-
     }
+    //(gs, assetPathSuffix, assetName, handler, data, parentIn, token, subdirectory))
+    private bool LoadFromResources(UnityGameState gs, string assetPathSuffix, string assetName, OnDownloadHandler handler,
+        object data, GEntity parent, CancellationToken token, string subdirectory)
+    {
+        if (!IsResourceAssetCategory(assetPathSuffix) || _failedResourceLoads.Contains(assetName))
+        {
+            return false;
+        }
 
-    public static bool LoadLocallyInEditor = false;
+        string categoryPath = AssetUtils.GetAssetPath(assetPathSuffix);
+        if (assetName.IndexOf(categoryPath) == 0)
+        {
+            categoryPath = "";
+        }
+
+        string fullPath = categoryPath + assetName;
+
+        UnityEngine.Object resourceObject = null;
+
+        if (_loadedResources.ContainsKey(fullPath))
+        {
+            resourceObject = _loadedResources[fullPath];
+        }
+        else
+        {
+            resourceObject = AssetUtils.LoadResource<GEntity>(fullPath);
+            if (resourceObject != null)
+            {
+                _loadedResources[fullPath] = resourceObject;
+            }
+        }
+        if (resourceObject == null)
+        {
+            _failedResourceLoads.Add(assetName);
+        }
+        else
+        {
+            Texture2D resourceTexture = resourceObject as Texture2D;
+            if (resourceTexture != null)
+            {
+                Sprite sprite = Sprite.Create(resourceTexture, 
+                    new Rect(0, 0, resourceTexture.width, resourceTexture.height), Vector2.zero);
+                _atlasSpriteCache[assetName] = sprite;
+                if (handler != null)
+                {
+                    handler(gs, sprite, data, token);
+                }
+                return true;
+            }
+
+            GEntity resourceGameObject = GEntityUtils.InstantiateIntoParent(resourceObject, parent);
+            if (resourceGameObject != null)
+            {
+                resourceObject = resourceGameObject;
+            }
+            if (handler != null)
+            {
+                if (resourceObject is GEntity go)
+                {
+                    GEntityUtils.InitializeHierarchy(gs, go);
+                }
+                handler(gs, resourceObject, data, token);
+            }
+            return true;
+        }
+        return false;
+    }
 
     public void SetWorldAssetEnv(string worldAssetEnv)
     {
@@ -745,14 +793,7 @@ public class UnityAssetService : IAssetService
     private Dictionary<bool, string> _urlPrefixes = new Dictionary<bool, string>();
     public string GetArtURLPrefix(bool worldData)
     {
-#if UNITY_EDITOR
-        if (LoadLocallyInEditor)
-        {
-            return "Assets/AssetBundles/";
-        }
-#endif
-
-        if (_urlPrefixes.TryGetValue(worldData, out var prefix))
+        if (_urlPrefixes.TryGetValue(worldData, out string prefix))
         {
             return prefix;
         }
@@ -774,11 +815,10 @@ public class UnityAssetService : IAssetService
         await LoadFromExistingBundles(_gs, true, token);
     }
 
-    int totalBundleLoaders = 0;
     private async UniTask LoadFromExistingBundles(UnityGameState gs, bool isPermanentLoader, CancellationToken token)
     {
-        totalBundleLoaders++;
         await UniTask.NextFrame( cancellationToken: token);
+
         while (true)
         {
             if (_existingDownloads.Count > 0)
@@ -793,7 +833,6 @@ public class UnityAssetService : IAssetService
             {
                 if (!isPermanentLoader)
                 {
-                    totalBundleLoaders--;
                     return;
                 }
                 await UniTask.NextFrame( cancellationToken: token);
@@ -807,30 +846,30 @@ public class UnityAssetService : IAssetService
         {
             if (_bundleDownloadQueue.Keys.Count > 0)
             {
-                var firstKey = _bundleDownloadQueue.Keys.First();
-                var firstDownload = _bundleDownloadQueue[firstKey];
+                string firstKey = _bundleDownloadQueue.Keys.First();
+                List<BundleDownload> firstDownloadList = _bundleDownloadQueue[firstKey];
                 _bundleDownloadQueue.Remove(firstKey);
-                if (firstDownload.Count < 1)
+                if (firstDownloadList.Count < 1)
                 {
                     await UniTask.NextFrame( cancellationToken: token);
                 }
                 else
                 {
-                    _bundleDownloading[firstKey] = firstDownload;
-                    await DownloadOneBundle(gs, firstDownload[0], token);
+                    _bundleDownloading[firstKey] = firstDownloadList;
+                    await DownloadOneBundle(gs, firstDownloadList[0], token);
                     _bundleDownloading.Remove(firstKey);
-                    if (!_bundleCache.ContainsKey(firstDownload[0].bundleName))
+                    if (!_bundleCache.ContainsKey(firstDownloadList[0].bundleName))
                     {
-                        foreach (var bdl in firstDownload)
+                        foreach (BundleDownload bundleDownload in firstDownloadList)
                         {
-                            bdl?.handler(gs, bdl.url, null, bdl.data, token);
+                            bundleDownload?.handler(gs, null, bundleDownload.data, token);
                         }
                     }
                     else
                     {
-                        foreach (var bdl in firstDownload)
+                        foreach (BundleDownload bundleDownload in firstDownloadList)
                         {
-                            _existingDownloads.Enqueue(bdl);
+                            _existingDownloads.Enqueue(bundleDownload);
                         }
                     }
                 }
@@ -849,16 +888,15 @@ public class UnityAssetService : IAssetService
         {
             return;
         }
-        var bdata = _bundleCache[bdl.bundleName];
+        BundleCacheData bdata = _bundleCache[bdl.bundleName];
         bdata.LoadingCount++;
         bdata.lastUsed = DateTime.UtcNow;
         if (!bdata.LoadedAssets.ContainsKey(bdl.assetName))
         {
 
-            var request = StartLoadAssetFromBundle(bdl.bundleName, bdl.assetName);
+            AssetBundleRequest request = StartLoadAssetFromBundle(bdl.bundleName, bdl.assetName);
             if (request != null)
             {
-
                 while (!request.isDone)
                 {
                     await UniTask.NextFrame( cancellationToken: token);
@@ -869,11 +907,12 @@ public class UnityAssetService : IAssetService
 
         if (bdata.LoadedAssets.ContainsKey(bdl.assetName))
         {
-            var newObj = InstantiateBundledAsset(gs, bdata.LoadedAssets[bdl.assetName], bdl.parent, bdl.bundleName, bdl.assetName);
             bdata.LoadingCount--;
+
+             object newObj = InstantiateBundledAsset(gs, bdata.LoadedAssets[bdl.assetName], bdl.parent, bdl.bundleName, bdl.assetName);
             if (bdl.handler != null)
             {
-                bdl.handler(gs, bdl.assetName, newObj, bdl.data, token);
+                bdl.handler(gs, newObj, bdl.data, token);
                 return;
             }
         }
@@ -887,7 +926,8 @@ public class UnityAssetService : IAssetService
     private void AddBundleToCache(UnityGameState gs, BundleDownload bad, AssetBundle downloadedBundle)
     {
         if (bad == null || downloadedBundle == null || _bundleCache.ContainsKey(bad.bundleName)) return;
-        var bdata = new BundleCacheData()
+        
+        BundleCacheData bdata = new BundleCacheData()
         {
             name = bad.bundleName,
             assetBundle = downloadedBundle,
@@ -896,6 +936,7 @@ public class UnityAssetService : IAssetService
             || bad.bundleName.IndexOf("screen") == 0
             || bad.bundleName.IndexOf("ui") == 0),
         };
+
         _bundleCache[bad.bundleName] = bdata;
         _assetCounts.BundlesLoaded++;
     }
@@ -914,8 +955,9 @@ public class UnityAssetService : IAssetService
         }
 
         BundleCacheData cacheData = _bundleCache[bundleName];
-        var bundle = cacheData.assetBundle;
-        var fullName = GetAssetNameFromPath(bundle, assetName);
+        AssetBundle bundle = cacheData.assetBundle;
+        string fullName = GetAssetNameFromPath(bundle, assetName);
+
         try
         {
             return bundle.LoadAssetAsync(assetName);
@@ -926,35 +968,35 @@ public class UnityAssetService : IAssetService
         }
         return null;
     }
-    public void LoadSpriteInto(UnityGameState gs, string atlasName, string spriteName, object parentSprite, CancellationToken token)
+    public void LoadAtlasSpriteInto(UnityGameState gs, string atlasName, string spriteName, object parentObject, CancellationToken token)
     {
-        LoadSprite(gs, atlasName, spriteName, null, parentSprite, token);
+        LoadAtlasSprite(gs, atlasName, spriteName, null, parentObject, token);
     }
 
 
     public GEntity _assetParent = null;
-    public void LoadSprite(UnityGameState gs, string atlasName, string spriteName, OnDownloadHandler handler, object data, CancellationToken token)
+    private void LoadAtlasSprite(UnityGameState gs, string atlasName, string spriteName, OnDownloadHandler handler, object parentSprite, CancellationToken token)
     {
         if (string.IsNullOrEmpty(atlasName))
         {
             if (handler != null)
             {
-                handler(gs, spriteName, null, data, token);
+                handler(gs, null, parentSprite, token);
             }
             return;
         }
 
-        var sdata = new AtlasSpriteDownload()
+        AtlasSpriteDownload atlasDownload = new AtlasSpriteDownload()
         {
             atlasName = atlasName,
             spriteName = spriteName,
             finalHandler = handler,
-            data = data,
+            data = parentSprite,
         };
 
         if (_atlasCache.ContainsKey(atlasName))
         {
-            GetAtlasSprite(gs, sdata, token);
+            GetAtlasSprite(gs, atlasDownload, token);
             return;
         }
 
@@ -963,54 +1005,55 @@ public class UnityAssetService : IAssetService
             _assetParent = GEntityUtils.FindSingleton(AssetConstants.GlobalAssetParent, true);
         }
 
-        LoadAssetInto(gs, _assetParent, AssetCategoryNames.Atlas, atlasName, OnDownloadAtlas, sdata, token);
+        LoadAssetInto(gs, _assetParent, AssetCategoryNames.Atlas, atlasName, OnDownloadAtlas, atlasDownload, token);
 
     }
 
-    private void OnDownloadAtlas(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadAtlas(UnityGameState gs, object obj, object data, CancellationToken token)
     {
-        var sdata = data as AtlasSpriteDownload;
-        var go = obj as GEntity;
+        AtlasSpriteDownload atlasSpriteDownload = data as AtlasSpriteDownload;
+        GEntity go = obj as GEntity;
+
         if (go == null)
         {
-            if (sdata != null && sdata.finalHandler != null)
+            if (atlasSpriteDownload != null && atlasSpriteDownload.finalHandler != null)
             {
-                sdata.finalHandler(gs, url, null, sdata.data, token);
+                atlasSpriteDownload.finalHandler(gs, null, atlasSpriteDownload.data, token);
             }
 
             return;
         }
 
-        if (sdata == null || string.IsNullOrEmpty(sdata.atlasName))
+        if (atlasSpriteDownload == null || string.IsNullOrEmpty(atlasSpriteDownload.atlasName))
         {
             GEntityUtils.Destroy(go);
 
-            if (sdata != null && sdata.finalHandler != null)
+            if (atlasSpriteDownload != null && atlasSpriteDownload.finalHandler != null)
             {
-                sdata.finalHandler(gs, url, null, sdata.data, token);
+                atlasSpriteDownload.finalHandler(gs, null, atlasSpriteDownload.data, token);
             }
             return;
         }
 
-        var atlasCont = go.GetComponent<SpriteAtlasContainer>();
+        SpriteAtlasContainer atlasCont = go.GetComponent<SpriteAtlasContainer>();
         if (atlasCont == null || atlasCont.Atlas == null)
         {
-            if (sdata.finalHandler != null)
+            if (atlasSpriteDownload.finalHandler != null)
             {
-                sdata.finalHandler(gs, url, null, sdata.data, token);
+                atlasSpriteDownload.finalHandler(gs, null, atlasSpriteDownload.data, token);
             }
         }
 
-        if (_atlasCache.ContainsKey(sdata.atlasName))
+        if (_atlasCache.ContainsKey(atlasSpriteDownload.atlasName))
         {
             GEntityUtils.Destroy(go);
         }
         else
         {
-            _atlasCache[sdata.atlasName] = atlasCont.Atlas;
+            _atlasCache[atlasSpriteDownload.atlasName] = atlasCont.Atlas;
         }
 
-        GetAtlasSprite(gs, sdata, token);
+        GetAtlasSprite(gs, atlasSpriteDownload, token);
 
     }
 
@@ -1037,17 +1080,18 @@ public class UnityAssetService : IAssetService
             {
                 atlasTemp = _atlasCache[download.atlasName];
             }
-            download.finalHandler(gs, download.spriteName, atlasTemp, download.data, token);
+            download.finalHandler(gs, atlasTemp, download.data, token);
             return;
         }
-        var atlas = _atlasCache[download.atlasName];
+        
+        SpriteAtlas atlas = _atlasCache[download.atlasName];
 
         string cacheName = GetSpriteCacheKey(gs, download.atlasName, download.spriteName);
 
         Sprite sprite = null;
-        if (_spriteCache.ContainsKey(cacheName))
+        if (_atlasSpriteCache.ContainsKey(cacheName))
         {
-            sprite = _spriteCache[cacheName];
+            sprite = _atlasSpriteCache[cacheName];
         }
         else
         {
@@ -1055,7 +1099,7 @@ public class UnityAssetService : IAssetService
             if (sprite != null)
             {
                 sprite.name = sprite.name.Replace("(Clone)", "");
-                _spriteCache[cacheName] = sprite;
+                _atlasSpriteCache[cacheName] = sprite;
             }
             else
             {
@@ -1063,7 +1107,7 @@ public class UnityAssetService : IAssetService
             }
         }
 
-        var image = download.data as GImage;
+        GImage image = download.data as GImage;
         if (image != null)
         {
             image.sprite = sprite;
@@ -1072,19 +1116,20 @@ public class UnityAssetService : IAssetService
 
         if (download.finalHandler != null)
         {
-            download.finalHandler(gs, download.spriteName, atlas, download.data, token);
+            download.finalHandler(gs, atlas, download.data, token);
         }
     }
 
 
-    private void OnDownloadSpriteForList(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadSpriteForList(UnityGameState gs, object obj, object data, CancellationToken token)
     {
-        var spriteDelegate = data as SpriteListDelegate;
+        SpriteListDelegate spriteDelegate = data as SpriteListDelegate;
         if (spriteDelegate == null)
         {
             return;
         }
-        var atlas = obj as SpriteAtlas;
+        
+        SpriteAtlas atlas = obj as SpriteAtlas;
 
         if (obj == null)
         {
@@ -1092,25 +1137,124 @@ public class UnityAssetService : IAssetService
             return;
         }
 
-        var spriteCount = atlas.spriteCount;
-        var retval = new Sprite[atlas.spriteCount];
+        int spriteCount = atlas.spriteCount;
+        Sprite[] retval = new Sprite[atlas.spriteCount];
         atlas.GetSprites(retval);
         spriteDelegate(gs, retval);
     }
 
+    private Dictionary<string, CachedSpriteTexture> _spriteCache = new Dictionary<string, CachedSpriteTexture>();
+    public void LoadSpriteInto(UnityGameState gs, string spriteName, GImage parent, CancellationToken token)
+    {
+        if (parent == null)
+        {
+            return;
+        }
 
+        string finalSpriteName = spriteName.Replace("/", "");
+        if (_spriteCache.ContainsKey(finalSpriteName))
+        {     
+            SpriteWithImage swi = new SpriteWithImage()
+            {
+                Cache = _spriteCache[finalSpriteName],
+                Image = parent,
+            };
+            OnLoadRawSprite(gs, _spriteCache[finalSpriteName].CurrSprite, swi, token);
+        }
+        else
+        {
+            SpriteWithImage swi = new SpriteWithImage()
+            {
+                Cache = new CachedSpriteTexture() { SpriteName = finalSpriteName },
+                Image = parent,
+            };
+            LoadAsset(gs, AssetCategoryNames.Sprites, spriteName, OnLoadRawSprite, swi, null, token);
+        }
 
+    }
 
+    protected void OnLoadRawSprite(UnityGameState gs, object obj, object data, CancellationToken token)
+    {
 
+        SpriteWithImage swi = data as SpriteWithImage;
 
+        if (swi == null || swi.Image == null)
+        {
+            return;
+        }
 
+        Sprite currSprite = swi.Cache.CurrSprite;
+        Texture2D justDownloadedTex = obj as Texture2D;
 
+        Sprite finalSprite = null;
 
+        if (currSprite == null)
+        {
+            if (justDownloadedTex == null)
+            {
+                return;
+            }
+            else
+            {
+                finalSprite = Sprite.Create(justDownloadedTex, new Rect(0, 0, justDownloadedTex.width, justDownloadedTex.height), Vector2.zero);
+                swi.Cache.CurrSprite = finalSprite;
+                finalSprite.name = swi.Cache.SpriteName;
+            }
+        }
+        else
+        {
+            finalSprite = currSprite;
+        }
 
+        CachedSpriteTexture nameCache = swi.Cache;
+        if (nameCache == null)
+        {
+            return;
+        }
 
+        if (_spriteCache.ContainsKey(nameCache.SpriteName) &&
+            _spriteCache[nameCache.SpriteName] != nameCache)
+        {
+            nameCache = _spriteCache[nameCache.SpriteName];
+        }
+        else
+        {
+            _spriteCache[nameCache.SpriteName] = nameCache;
+        }
+        
+        if (swi.Image.sprite != null)
+        {
+            Sprite oldSprite = swi.Image.sprite;
 
+            if (finalSprite != oldSprite)
+            {
+                if (_spriteCache.TryGetValue(oldSprite.name, out CachedSpriteTexture oldTexCache))
+                {
+                    if (_spriteCache.Keys.Count > 50 && oldTexCache.Count == 0)
+                    {
+                        List<CachedSpriteTexture> oldTextures = _spriteCache.Values.Where(x=>x.Count == 0 && x.LastTimeUsed < DateTime.UtcNow.AddSeconds(-5)).ToList();
 
+                        foreach (CachedSpriteTexture oldTexture in oldTextures)
+                        { 
+                            _spriteCache.Remove(oldTexture.SpriteName);
+                            Resources.UnloadAsset(oldSprite.texture);
+                        }
+                    }
+                    oldTexCache.Count--;
+                    oldTexCache.LastTimeUsed = DateTime.UtcNow;
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
 
+        nameCache.Count++;
+
+        swi.Image.sprite = finalSprite;
+
+    }
 
     protected string GetBundleHash(string bundleName)
     {
@@ -1134,7 +1278,7 @@ public class UnityAssetService : IAssetService
 
     protected Hash128 GetBundleHash128(string bundleName)
     {
-        var hashInts = GetBundleHashInts(bundleName);
+        uint[] hashInts = GetBundleHashInts(bundleName);
         if (hashInts == null || hashInts.Length != 4) return new Hash128();
         return new Hash128(hashInts[0], hashInts[1], hashInts[2], hashInts[3]);
     }
@@ -1142,12 +1286,12 @@ public class UnityAssetService : IAssetService
 
     protected void LoadLastSaveTimeFile(UnityGameState gs, CancellationToken token)
     {
-        var path = AssetUtils.GetRuntimePrefix() + AssetConstants.BundleUpdateFile;
-        var ddata = new DownloadData() { ForceDownload = true, Handler = OnDownloadLastSaveTimeText, IsText = true };
+        string path = AssetUtils.GetRuntimePrefix() + AssetConstants.BundleUpdateFile;
+        DownloadData ddata = new DownloadData() { ForceDownload = true, Handler = OnDownloadLastSaveTimeText, IsText = true };
         DownloadFile(gs, path, ddata, false, token);
     }
 
-    private void OnDownloadLastSaveTimeText(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadLastSaveTimeText(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         _bundleUpdateInfo = SerializationUtils.TryDeserialize<BundleUpdateInfo>(obj);
 
@@ -1158,14 +1302,14 @@ public class UnityAssetService : IAssetService
     {
         _bundleVersions = _localRepo.LoadObject<BundleVersions>(AssetConstants.BundleVersionsFile);
 
-        var ddata = new DownloadData() { ForceDownload = true, Handler = OnDownloadBundleVersions, IsText = true };
+        DownloadData ddata = new DownloadData() { ForceDownload = true, Handler = OnDownloadBundleVersions, IsText = true };
 
         if (_bundleVersions == null || _bundleVersions.UpdateInfo == null ||
             _bundleUpdateInfo == null ||
             _bundleVersions.UpdateInfo.ClientVersion != _bundleUpdateInfo.ClientVersion ||
             _bundleVersions.UpdateInfo.UpdateTime != _bundleUpdateInfo.UpdateTime)
         {
-            var path = AssetUtils.GetRuntimePrefix() + AssetConstants.BundleVersionsFile;
+            string path = AssetUtils.GetRuntimePrefix() + AssetConstants.BundleVersionsFile;
             DownloadFile(gs, path, ddata, false, token);
             gs.logger.Info("YES DOWNLOAD BUNDLE VERSIONS!");
         }
@@ -1176,7 +1320,7 @@ public class UnityAssetService : IAssetService
         }
     }
 
-    private void OnDownloadBundleVersions(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadBundleVersions(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         BundleVersions newVersions = SerializationUtils.TryDeserialize<BundleVersions>(obj);
 
@@ -1255,9 +1399,16 @@ public class UnityAssetService : IAssetService
     }
 
 
-    protected GEntity InstantiateBundledAsset(UnityGameState gs, object child, GEntity parent, string bundleName, string assetName)
+    protected object InstantiateBundledAsset(UnityGameState gs, object child, GEntity parent, string bundleName, string assetName)
     {
-        var go = GEntityUtils.InstantiateIntoParent(child, parent);
+
+        if (child is Texture2D tex2d)
+        {
+            _bundleCache[bundleName].Instances.Add(tex2d);
+            return tex2d;
+        }
+
+        GEntity go = GEntityUtils.InstantiateIntoParent(child, parent);
         if (go != null)
         {
             _bundleCache[bundleName].Instances.Add(go);
@@ -1277,7 +1428,7 @@ public class UnityAssetService : IAssetService
 
     public void GetSpriteList(UnityGameState gs, string atlasName, SpriteListDelegate onLoad, CancellationToken token)
     {
-        LoadSprite(gs, atlasName, "", OnDownloadSpriteForList, onLoad, token);
+        LoadAtlasSprite(gs, atlasName, "", OnDownloadSpriteForList, onLoad, token);
     }
 
     /// <summary>
@@ -1330,14 +1481,9 @@ public class UnityAssetService : IAssetService
         LoadAsset(gs, assetPathSuffix, assetPath, handler, data, parent, token, subdirectory);
     }
 
-    private bool ShouldCheckResources(string assetSuffix)
+    private bool IsResourceAssetCategory(string assetCategory)
     {
-        if (assetSuffix == AssetCategoryNames.Prefabs)
-        {
-            return true;
-        }
-
-        return false;
+        return assetCategory == AssetCategoryNames.Prefabs;
     }
 
     public string StripPathPrefix(string path)

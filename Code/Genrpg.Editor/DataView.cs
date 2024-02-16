@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Services;
-using Genrpg.Shared.ProcGen.Entities;
-using Genrpg.Editor.Entities;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor;
@@ -23,21 +18,18 @@ using Genrpg.ServerShared.PlayerData;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.Shared.DataStores.Categories.WorldData;
-using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Editor.Interfaces;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.DataStores.GameSettings;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
-using MongoDB.Bson.Serialization.Conventions;
-using ZstdSharp.Unsafe;
 using MongoDB.Driver;
 using Genrpg.Shared.ProcGen.Settings.Names;
 using Genrpg.Editor.Entities.MetaData;
+using Genrpg.Editor.Services.Reflection;
 
 namespace GameEditor
 {
@@ -49,20 +41,13 @@ namespace GameEditor
         private Object _grandparent = null;
         protected UIFormatter _formatter = null;
         private Type _objType = null;
-        private Type _parentType = null;
-        private Type _grandParentType = null;
         
         
         private DataWindow _window = null;
-        private DataView _parentView = null;
 
-
-        private Button _backButton = null;
-        private Button _homeButton = null;
         public Button AddButton = null;
         public Button DeleteButton = null;
         public Button CopyButton = null;
-        private Button _saveButton = null;
         public Button DetailsButton = null;
         protected Panel _singleGrid = null;
         protected DataGridView _multiGrid = null;
@@ -87,7 +72,7 @@ namespace GameEditor
 
         protected IList<String> IgnoredFields;
 
-        protected IReflectionService _reflectionService;
+        protected IEditorReflectionService _reflectionService;
         protected IGameDataService _gameDataService;
 
         protected bool IsIgnoreField(String nm)
@@ -104,7 +89,7 @@ namespace GameEditor
         public DataView(EditorGameState gs, UIFormatter formatter, DataWindow win, Object obj, Object parent, Object grandParent, DataView parentView)
         {
             _formatter = formatter;
-            _typeMetaData = gs.data.GetGameData<EditorMetaDataSettings>(null)?.GetMetaDataForType(obj.GetType().Name);
+            _typeMetaData = gs.data.Get<EditorMetaDataSettings>(null)?.GetMetaDataForType(obj.GetType().Name);
             _gs = gs;
             _gs.loc.Resolve(this);
 
@@ -123,10 +108,9 @@ namespace GameEditor
             _parent = parent;
             _grandparent = grandParent;
             _window = win;
-            _parentView = parentView;
             if (_window != null)
             {
-                Size = _window.Size;
+                Size = (_window.Size - new Size(20, 20));
                 _window.Controls.Clear();
                 _window.Controls.Add(this);
                 _window.ViewStack.Add(this);
@@ -152,16 +136,7 @@ namespace GameEditor
             }
 
             _objType = Obj.GetType();
-            if (_parent != null)
-            {
-                _parentType = _parent.GetType();
-            }
-
-            if (_grandparent != null)
-            {
-                _grandParentType = _grandparent.GetType();
-            }
-
+          
             AddTopButtons();
 
             ShowData();
@@ -214,11 +189,14 @@ namespace GameEditor
         {
             if (_multiGrid != null && Controls.Contains(_multiGrid))
             {
+                _multiGrid.DataError -= DataGridView1_DataError;
+                _multiGrid.SelectionChanged -= MultiGrid_SelectionChanged;
+                _multiGrid.CellValueChanged -= MultiGrid_CellValueChanged;
                 Controls.Remove(_multiGrid);
             }
             int sx = _window.Width - 16;
             int sy = _window.Height - SingleItemTopPad - 37;
-            _multiGrid = UIHelper.CreateDataGridView(Controls, _formatter, "MultiGrid", _window.Width - 16, _window.Height - SingleItemHeight - 37,
+            _multiGrid = UIHelper.CreateDataGridView(Controls, _formatter, "MultiGrid", Width - 16, Height - SingleItemHeight - 37,
                 0, SingleItemTopPad);
 
             _multiGrid.DataError += DataGridView1_DataError;
@@ -290,9 +268,9 @@ namespace GameEditor
             int w = 100;
             int h = 30;
 
-            _homeButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "HomeButton", "Home", w, h, x, y, OnClickHome); x += w + 5;
+           UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "HomeButton", "Home", w, h, x, y, OnClickHome); x += w + 5;
 
-            _backButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "BackButton", "Back", w, h, x, y, OnClickBack); x += w + 5;
+           UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "BackButton", "Back", w, h, x, y, OnClickBack); x += w + 5;
 
             DetailsButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "DetailsButton", "Details", w, h, x, y, OnClickDetails); x += w + 5;
 
@@ -301,7 +279,7 @@ namespace GameEditor
             CopyButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "CopyButton", "Copy", w, h, x, y, OnClickCopy); x += w + 5;
 
             x += w + 5;
-            _saveButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "SaveButton", "Save", w, h, x, y, OnClickSave); x += w + 5;
+            UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "SaveButton", "Save", w, h, x, y, OnClickSave); x += w + 5;
 
             x += w + 5;
             DeleteButton = UIHelper.CreateButton(Controls, EButtonTypes.TopBar, _formatter, "DeleteButton", "Delete", w, h, x, y, OnClickDelete); x += w + 5;
@@ -864,7 +842,7 @@ namespace GameEditor
                     foreach (object obj in newItems)
                     {
                         _gs.LookedAtObjects.Add(obj);
-                        if (obj is IGameSettings settings)
+                        if (obj is ITopLevelSettings settings)
                         {
                             _gs.data.Set(settings);
                         }
@@ -1139,7 +1117,7 @@ namespace GameEditor
                     objType = objType.GetGenericArguments()[0];
                 }
 
-                string txt = objType.Name;
+                string txt = objType.Name.Replace("Settings", "");
                 int maxSize = 18;
                 if (txt.Length > maxSize)
                 {
@@ -1325,8 +1303,8 @@ namespace GameEditor
                 foreach (object newItem in newItems)
                 {
                     _gs.LookedAtObjects.Add(newItem);
-                    if (newItem is IGameSettings settings)
-                    {                        
+                    if (newItem is ITopLevelSettings settings)
+                    {
                         _gs.data.Set(settings);
                         _gs.LookedAtObjects.AddRange(settings.GetChildren());
                         addedGameSettings = true;
@@ -1604,14 +1582,14 @@ namespace GameEditor
 
         public void SetMultiGridDataSource(Object list)
         {
-            try
+            Invoke(() =>
             {
+
                 if (_multiGrid == null || list == null)
                 {
                     return;
                 }
 
-                IReflectionService reflectionService = _gs.loc.Get<IReflectionService>();
                 IEnumerable elist = list as IEnumerable;
                 List<IIdName> iidlist = new List<IIdName>();
                 int listCount = 0;
@@ -1630,36 +1608,36 @@ namespace GameEditor
                 if (listCount == iidlist.Count && listCount > 0)
                 {
                     iidlist = iidlist.OrderBy(x => x.IdKey).ToList();
-                    reflectionService.ReplaceIndexedItems(_gs, list, iidlist);
+                    _reflectionService.ReplaceIndexedItems(_gs, list, iidlist);
                 }
-                list = reflectionService.SortOnParameter(elist);
+                list = _reflectionService.SortOnParameter(elist);
 
-                _multiGrid.DataSource = null;
-                _multiGrid.Rows.Clear();
-                _multiGrid.Columns.Clear();
+                CreateMultiGrid();
                 _multiGrid.ClearSelection();
                 _multiGrid.DataSource = list;
-                _multiGrid.Refresh();
                 (_multiGrid.BindingContext[_multiGrid.DataSource] as CurrencyManager).Refresh();
-                if (list == null)
-                {
-                    return;
-                }
+                _multiGrid.Visible = false;
 
-                Type underlyingType = reflectionService.GetUnderlyingType(Obj);
+                Type underlyingType = _reflectionService.GetUnderlyingType(Obj);
 
                 if (underlyingType == null)
                 {
                     return;
                 }
 
+                for (int j = 0; j < _multiGrid.Columns.Count; j++)
+                {
+                    DataGridViewColumn col = _multiGrid.Columns[j];
+                    col.Width -= 20;
+                }
+
                 List<string> ignoreFields = _gameDataService.GetEditorIgnoreFields();
-                List<MemberInfo> members = reflectionService.GetMembers(underlyingType);
+                List<MemberInfo> members = _reflectionService.GetMembers(underlyingType);
 
                 for (int i = 0; i < members.Count; i++)
                 {
                     MemberInfo mem = members[i];
-                    if (reflectionService.MemberIsPrimitive(mem))
+                    if (_reflectionService.MemberIsPrimitive(mem))
                     {
                         continue;
                     }
@@ -1694,7 +1672,7 @@ namespace GameEditor
                 for (int i = 0; i < members.Count; i++)
                 {
                     MemberInfo mem = members[i];
-                    Type mtype = reflectionService.GetMemberType(mem);
+                    Type mtype = _reflectionService.GetMemberType(mem);
 
                     if (!mtype.IsEnum)
                     {
@@ -1713,7 +1691,7 @@ namespace GameEditor
                             col2.DataSource = values;
                             col2.DataPropertyName = mem.Name;
                             col2.Name = mem.Name + "Edit";
-                            col2.Width += 40;
+                            col2.Width += 10;
                             col2.HeaderText = mem.Name;
                             _multiGrid.Columns.RemoveAt(j);
                             _multiGrid.Columns.Add(col2);
@@ -1725,7 +1703,7 @@ namespace GameEditor
                 {
                     MemberInfo mem = members[i];
 
-                    List<NameValue> dropdownList = reflectionService.GetDropdownList(_gs, mem, null);
+                    List<NameValue> dropdownList = _reflectionService.GetDropdownList(_gs, mem, null);
 
                     if (dropdownList == null || dropdownList.Count < 1)
                     {
@@ -1747,13 +1725,13 @@ namespace GameEditor
                             col2.DataPropertyName = mem.Name;
                             col2.Name = mem.Name + "Edit";
                             col2.HeaderText = mem.Name;
-                            col2.Width += 40;
+                            col2.Width += 10;
                             _multiGrid.Columns.RemoveAt(j);
                             _multiGrid.Columns.Add(col2);
 
                             foreach (IIdName item in iidlist)
                             {
-                                object valId = reflectionService.GetObjectValue(item, mem);
+                                object valId = _reflectionService.GetObjectValue(item, mem);
                                 int val = -1;
                                 Int32.TryParse(valId.ToString(), out val);
                                 bool foundItem = false;
@@ -1767,7 +1745,7 @@ namespace GameEditor
                                 }
                                 if (!foundItem)
                                 {
-                                    reflectionService.SetObjectValue(item, mem, firstKey);
+                                    _reflectionService.SetObjectValue(item, mem, firstKey);
                                 }
                             }
 
@@ -1778,11 +1756,8 @@ namespace GameEditor
 
                 _multiGrid.Refresh();
                 _formatter.SetupDataGrid(_multiGrid);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Bad dropdown " + e.Message + " -- " + e.StackTrace);
-            }
+                _multiGrid.Show();
+            });
         }
 
         private void OnTick(object sender, EventArgs e)

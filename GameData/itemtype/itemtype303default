@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 303,
   "Name": "Intellect Elixir",
-  "NameId": "IntellectElixir",
   "Icon": "IntellectElixir",
   "Effects": [],
   "LevelRanges": [

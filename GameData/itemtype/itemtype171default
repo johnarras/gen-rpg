@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 171,
   "Name": "Purple Ichor",
-  "NameId": "IchorPurple",
-  "GenName": "BodyIchorPurple",
   "Icon": "IchorPurple",
   "Effects": [
     {

@@ -257,7 +257,7 @@ public class LoadPlantAssets
             }
         }
     }
-private void OnDownloadGrass(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+private void OnDownloadGrass(UnityGameState gs, object obj, object data, CancellationToken token)
 {
     FullDetailPrototype full = data as FullDetailPrototype;
     if (full == null || full.proto == null)
@@ -269,7 +269,7 @@ private void OnDownloadGrass(UnityGameState gs, string url, object obj, object d
 
     if (go == null)
     {
-        gs.logger.Error("no GEntity: " + url + " " + obj + " " + full.plantType.Art);
+        gs.logger.Error("no GEntity: " + obj + " " + full.plantType.Art);
         return;
     }
 

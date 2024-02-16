@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 137,
   "Name": "Hill Herb",
-  "NameId": "HillHerb",
-  "GenName": "HerbTuber",
   "Icon": "HerbTuber",
   "Effects": [
     {

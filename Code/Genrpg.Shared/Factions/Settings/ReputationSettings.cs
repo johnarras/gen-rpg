@@ -15,8 +15,6 @@ namespace Genrpg.Shared.Factions.Settings
     public class ReputationSettings : ParentSettings<RepLevel>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public RepLevel GetRepLevel(long idkey) { return _lookup.Get<RepLevel>(idkey); }
     }
 
     [MessagePackObject]

@@ -24,7 +24,7 @@ public class MapScreen : BaseScreen
         _uiService.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
     }
 
-    private void OnLoadArrow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadArrow(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         ArrowObject = obj as GEntity;
         ShowPlayer();

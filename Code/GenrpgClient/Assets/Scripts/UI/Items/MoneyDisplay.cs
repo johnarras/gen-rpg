@@ -1,11 +1,14 @@
-﻿using Genrpg.Shared.Currencies.Constants;
+﻿using Assets.Scripts.Crawler.Services;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Currencies.Messages;
 using Genrpg.Shared.Currencies.PlayerData;
 using System.Collections.Generic;
 
 public class MoneyDisplay : BaseBehaviour
 {
-    
+
+    private ICrawlerService _crawlerService;
     public List<MoneySegment> _segments;
 
     
@@ -32,8 +35,11 @@ public class MoneyDisplay : BaseBehaviour
     {
         if (UpdateToCharMoney)
         {
-            CurrencyData currencies = _gs.ch.Get<CurrencyData>();
-            SetMoney(currencies.GetQuantity(CurrencyTypes.Money));
+            if (_gs.ch != null)
+            {
+                CurrencyData currencies = _gs.ch.Get<CurrencyData>();
+                SetMoney(currencies.GetQuantity(CurrencyTypes.Money));
+            }
         }
     }
 

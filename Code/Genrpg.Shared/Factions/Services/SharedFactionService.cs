@@ -59,7 +59,7 @@ namespace Genrpg.Shared.Factions.Services
             {
                 return RepLevels.Hated;
             }
-            // return ch.Factions.GetLevel(gs, factionTypeId);
+            // return ch.Factions.Get(gs, factionTypeId);
         }
 
         public bool CanInteract(GameState gs, Unit unit, long factionTypeId)

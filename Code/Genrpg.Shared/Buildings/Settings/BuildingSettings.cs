@@ -16,8 +16,6 @@ namespace Genrpg.Shared.Buildings.Settings
     public class BuildingSettings : ParentSettings<BuildingType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public BuildingType GetBuildingType(long idkey) { return _lookup.Get<BuildingType>(idkey); }
     }
 
     [MessagePackObject]

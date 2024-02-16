@@ -3,6 +3,8 @@
   "ParentId": "default",
   "IdKey": 49,
   "Name": "Treant",
+  "PluralName": "Treants",
+  "Icon": "Treant",
   "Art": "Treant",
   "Height": 4.0,
   "TribeTypeId": 9,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.938Z",
+  "CreateTime": "2024-02-04T21:57:21.986Z"
 }

@@ -15,8 +15,6 @@ namespace Genrpg.Shared.ProcGen.Settings.Trees
 
         [Key(1)] public float TallChance { get; set; } = 0.5f;
         [Key(2)] public float TreeDirtRadius { get; set; } = 9.0f;
-
-        public TreeType GetTreeType(long idkey) { return _lookup.Get<TreeType>(idkey); }
     }
 
     [MessagePackObject]

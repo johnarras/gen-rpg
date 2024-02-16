@@ -47,7 +47,7 @@ public class WaterObjectLoader : BaseObjectLoader
         return true;
 
     }
-    public virtual void OnDownloadWater(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    public virtual void OnDownloadWater(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         DownloadObjectData dlo = data as DownloadObjectData;
         if (dlo == null)

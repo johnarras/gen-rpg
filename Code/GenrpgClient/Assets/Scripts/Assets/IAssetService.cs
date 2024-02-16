@@ -10,8 +10,9 @@ public interface IAssetService : IService
     bool IsInitialized(UnityGameState gs);
     void LoadAssetInto(UnityGameState gs, object parent, string assetCategory, string assetPath, OnDownloadHandler handler, object data, CancellationToken token, string subdirectory=null);
     void LoadAsset(UnityGameState gs, string assetCategory, string assetPath, OnDownloadHandler handler, object data, object parent, CancellationToken token,string subdirectory=null);
-    void LoadSprite(UnityGameState gs, string atlasName, string spriteName, OnDownloadHandler handler, object data, CancellationToken token);
-    void LoadSpriteInto(UnityGameState gs, string atlasName, string spriteName, object parentSprite, CancellationToken token);
+    void LoadAtlasSpriteInto(UnityGameState gs, string atlasName, string spriteName, object parentObject, CancellationToken token);
+    void LoadSpriteInto(UnityGameState gs, string spriteName, GImage parentSprite, CancellationToken token);
+
     void GetSpriteList(UnityGameState gs, string atlasName, SpriteListDelegate onLoad, CancellationToken token);
 
     void DownloadFile(UnityGameState gs, string url, DownloadData data, bool worldData, CancellationToken token);

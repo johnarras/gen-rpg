@@ -3,5 +3,7 @@
   "ParentId": "default",
   "IdKey": 9,
   "Name": "WastelandRock",
-  "Size": 8.0
+  "Size": 8.0,
+  "UpdateTime": "2024-02-15T23:06:20.13Z",
+  "CreateTime": "2024-02-15T23:06:20.13Z"
 }

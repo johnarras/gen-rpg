@@ -48,8 +48,6 @@ namespace Genrpg.Shared.ProcGen.Settings.Rocks
     public class RockTypeSettings : ParentSettings<RockType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public RockType GetRockType(long idkey) { return _lookup.Get<RockType>(idkey); }
     }
 
     [MessagePackObject]

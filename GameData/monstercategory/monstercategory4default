@@ -1,0 +1,17 @@
+{
+  "Id": "monstercategory4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Demon",
+  "MaxLevel": 10000,
+  "Chance": 1.0,
+  "HpScale": 1.0,
+  "DamScale": 1.0,
+  "PrefixChance": 25.0,
+  "SuffixChance": 100.0,
+  "Prefixes": [],
+  "Suffixes": [],
+  "Abilities": [],
+  "UpdateTime": "2024-01-21T16:06:12.793Z",
+  "CreateTime": "2024-01-21T15:27:57.835Z"
+}

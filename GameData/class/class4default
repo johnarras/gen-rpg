@@ -1,0 +1,33 @@
+{
+  "Id": "class4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Cleric",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Cl",
+  "LevelsPerMelee": 12,
+  "LevelsPerRanged": 16,
+  "HealthPerLevel": 10,
+  "ManaPerLevel": 10,
+  "BuffStatTypeId": 31,
+  "BuffStatPercent": 50,
+  "DefaultLevelPercentBuff": 50,
+  "PartyBuffId": 4,
+  "MaxArmorScalingTypeId": 3,
+  "AllowedWeapons": [
+    {
+      "ItemTypeId": 23
+    },
+    {
+      "ItemTypeId": 28
+    },
+    {
+      "ItemTypeId": 24
+    }
+  ],
+  "AllowedEquipSlots": [],
+  "UpdateTime": "2024-02-16T02:43:09.658Z",
+  "CreateTime": "2024-01-27T12:57:37Z"
+}

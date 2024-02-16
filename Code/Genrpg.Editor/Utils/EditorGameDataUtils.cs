@@ -14,14 +14,11 @@ using System.Threading;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.ServerShared.GameSettings.Services;
-using Genrpg.ServerShared.GameSettings;
 using System.Text;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.ServerShared.CloudComms.Constants;
-using Microsoft.Azure.Amqp.Framing;
-using System.Drawing;
 
 namespace Genrpg.Editor.Utils
 {
@@ -39,12 +36,13 @@ namespace Genrpg.Editor.Utils
 
             foreach (IGameSettingsLoader loader in allLoaders)
             {
-                List<IGameSettings> allSettings = await loader.LoadAll(gs.repo, true);
-                foreach (IGameSettings data in allSettings)
+                List<ITopLevelSettings> allSettings = await loader.LoadAll(gs.repo, true);
+                foreach (ITopLevelSettings data in allSettings)
                 {
                     dataCopy.Data.Add(data);
                 }
             }
+
             return dataCopy;
         }
 
@@ -58,9 +56,9 @@ namespace Genrpg.Editor.Utils
             EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(parent, CloudServerNames.Editor.ToString().ToLower(), 
                 new EditorSetupService(), EditorGameState.CTS.Token, serverConfig);
 
-            List<IGameSettings> allSettings = gs.data.GetAllData();
+            List<ITopLevelSettings> allSettings = gs.data.AllSettings();
 
-            foreach (IGameSettings settings in allSettings)
+            foreach (ITopLevelSettings settings in allSettings)
             {
                 if (settings is BaseGameSettings baseSettings)
                 {

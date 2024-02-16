@@ -170,7 +170,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         _assetService.LoadAsset(gs, AssetCategoryNames.Audio, playData.audioName, OnDownloadAudio, playData, entity, _token);
     }
 
-    private void OnDownloadAudio(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadAudio(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -281,7 +281,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                 continue;
             }
 
-            MusicType mtype = gs.data.GetGameData<MusicTypeSettings>(gs.ch)?.GetMusicType(musicId);
+            MusicType mtype = gs.data.Get<MusicTypeSettings>(gs.ch)?.Get(musicId);
 
             string musicName = "";
             if (mtype != null)

@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 168,
   "Name": "Horn",
-  "NameId": "Horn",
-  "GenName": "BodyHorn",
   "Icon": "BodyHorn",
   "Effects": [
     {

@@ -10,5 +10,7 @@
   "DataMemberName": "Radius",
   "DisplayMult": 1.0,
   "MaxValue": 15.0,
-  "ValueDelta": 3.0
+  "ValueDelta": 3.0,
+  "UpdateTime": "2024-02-15T23:06:19.934Z",
+  "CreateTime": "2024-02-15T23:06:19.934Z"
 }

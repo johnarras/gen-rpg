@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 9,
   "Name": "Cloak",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Cloak",
   "Art": "ClothBack",
+  "MinVal": 2,
+  "MaxVal": 2,
   "EquipSlotId": 5,
   "Flags": 8,
   "Effects": [],
@@ -90,6 +90,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:41.159Z",
+  "UpdateTime": "2024-02-03T22:45:17.022Z",
   "CreateTime": "2023-11-24T16:45:42.307Z"
 }

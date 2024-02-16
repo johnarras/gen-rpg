@@ -24,7 +24,7 @@ namespace Assets.Scripts.UI.Spells
             _spellModifierId = spellModifierId;
 
             _helper = _craftingService.GetSpellModifierHelper(spellModifierId);
-            _modifier = _gs.data.GetGameData<SpellModifierSettings>(_gs.ch).GetSpellModifier(spellModifierId);
+            _modifier = _gs.data.Get<SpellModifierSettings>(_gs.ch).Get(spellModifierId);
 
             _uiService.SetText(ModifierName, _modifier.Name);
 

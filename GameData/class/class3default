@@ -1,0 +1,45 @@
+{
+  "Id": "class3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Hunter",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Hu",
+  "LevelsPerMelee": 10,
+  "LevelsPerRanged": 4,
+  "HealthPerLevel": 16,
+  "BuffStatTypeId": 70,
+  "BuffStatPercent": 100,
+  "DefaultLevelPercentBuff": 100,
+  "PartyBuffId": 3,
+  "MaxArmorScalingTypeId": 3,
+  "AllowedWeapons": [
+    {
+      "ItemTypeId": 21
+    },
+    {
+      "ItemTypeId": 22
+    },
+    {
+      "ItemTypeId": 24
+    },
+    {
+      "ItemTypeId": 25
+    },
+    {
+      "ItemTypeId": 26
+    },
+    {
+      "ItemTypeId": 309
+    }
+  ],
+  "AllowedEquipSlots": [
+    {
+      "EquipSlotId": 19
+    }
+  ],
+  "UpdateTime": "2024-02-16T02:43:09.656Z",
+  "CreateTime": "2024-01-28T00:57:37Z"
+}

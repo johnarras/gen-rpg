@@ -56,7 +56,7 @@ public class VendorScreen : ItemIconScreen
 
     private void InitPanel()
     {
-        PlayerItems.Init(InventoryGroup.All, this, null, _token);
+        PlayerItems.Init(InventoryGroup.All, this, _gs.ch, null, _token);
     }
 
     private OnAddItem OnAddItemHandler (UnityGameState gs, OnAddItem addItem)

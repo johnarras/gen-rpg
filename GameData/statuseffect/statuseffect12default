@@ -1,0 +1,9 @@
+{
+  "Id": "statuseffect12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Feared",
+  "Abbrev": "Fear",
+  "UpdateTime": "2024-01-28T17:14:24.058Z",
+  "CreateTime": "2024-01-27T17:52:56.665Z"
+}

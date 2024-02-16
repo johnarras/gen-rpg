@@ -1,0 +1,12 @@
+{
+  "Id": "class0default",
+  "ParentId": "default",
+  "Name": "None",
+  "BuffStatPercent": 100,
+  "DefaultLevelPercentBuff": 50,
+  "MaxArmorScalingTypeId": 1,
+  "AllowedWeapons": [],
+  "AllowedEquipSlots": [],
+  "UpdateTime": "2024-02-16T03:29:55.263Z",
+  "CreateTime": "2024-01-27T00:57:37.613Z"
+}

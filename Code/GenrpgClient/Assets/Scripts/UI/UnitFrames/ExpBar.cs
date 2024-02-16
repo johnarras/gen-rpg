@@ -24,7 +24,7 @@ public class ExpBar : BaseBehaviour
 
         long currLevelId = gs.ch.Level;
 
-        LevelInfo nextLevelData = gs.data.GetGameData<LevelSettings>(gs.ch).GetLevel(gs.ch.Level);
+        LevelInfo nextLevelData = gs.data.Get<LevelSettings>(gs.ch).Get(gs.ch.Level);
 
         if (nextLevelData == null)
         {

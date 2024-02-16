@@ -4,5 +4,7 @@
   "IdKey": 83,
   "Name": "Roadc",
   "Size": 8.0,
-  "ParentTextureTypeId": 4
+  "ParentTextureTypeId": 4,
+  "UpdateTime": "2024-02-15T23:06:20.688Z",
+  "CreateTime": "2024-02-15T23:06:20.688Z"
 }

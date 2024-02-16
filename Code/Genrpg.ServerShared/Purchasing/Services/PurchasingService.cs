@@ -36,13 +36,13 @@ namespace Genrpg.ServerShared.Purchasing.Services
 
             DateTime currentTime = DateTime.UtcNow;
 
-            VersionSettings versionSettings = gs.data.GetGameData<VersionSettings>(ch);
+            VersionSettings versionSettings = gs.data.Get<VersionSettings>(ch);
 
-            StoreOfferSettings storeOfferSettings = gs.data.GetGameData<StoreOfferSettings>(ch);
-            ProductSkuSettings skuSettings = gs.data.GetGameData<ProductSkuSettings>(ch);
-            StoreFeatureSettings featureSettings = gs.data.GetGameData<StoreFeatureSettings>(ch);
-            StoreSlotSettings slotSettings = gs.data.GetGameData<StoreSlotSettings>(ch);
-            StoreProductSettings productSettings = gs.data.GetGameData<StoreProductSettings>(ch);
+            StoreOfferSettings storeOfferSettings = gs.data.Get<StoreOfferSettings>(ch);
+            ProductSkuSettings skuSettings = gs.data.Get<ProductSkuSettings>(ch);
+            StoreFeatureSettings featureSettings = gs.data.Get<StoreFeatureSettings>(ch);
+            StoreSlotSettings slotSettings = gs.data.Get<StoreSlotSettings>(ch);
+            StoreProductSettings productSettings = gs.data.Get<StoreProductSettings>(ch);
 
             if (storeOfferSettings.NextUpdateTime <= DateTime.UtcNow)
             {
@@ -58,7 +58,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
                 return storeOfferData;
             }
 
-            List<StoreOffer> storeOffers = gs.data.GetGameData<StoreOfferSettings>(ch).GetData();
+            IReadOnlyList<StoreOffer> storeOffers = gs.data.Get<StoreOfferSettings>(ch).GetData();
 
             Dictionary<long, StoreOffer> storeDict = new Dictionary<long, StoreOffer>();
 
@@ -79,8 +79,8 @@ namespace Genrpg.ServerShared.Purchasing.Services
 
             foreach (StoreOffer storeOffer in storeDict.Values)
             {
-                StoreSlot slot = slotSettings.GetStoreSlot(storeOffer.StoreSlotId);
-                StoreFeature feature = featureSettings.GetStoreFeature(storeOffer.StoreFeatureId);
+                StoreSlot slot = slotSettings.Get(storeOffer.StoreSlotId);
+                StoreFeature feature = featureSettings.Get(storeOffer.StoreFeatureId);
 
                 if (slot == null || feature == null)
                 {
@@ -104,8 +104,8 @@ namespace Genrpg.ServerShared.Purchasing.Services
 
                 foreach (OfferProduct offerProduct in storeOffer.Products)
                 {
-                    StoreProduct storeProduct = productSettings.GetStoreProduct(offerProduct.StoreProductId);
-                    ProductSku sku = skuSettings.GetProductSku(offerProduct.ProductSkuId);
+                    StoreProduct storeProduct = productSettings.Get(offerProduct.StoreProductId);
+                    ProductSku sku = skuSettings.Get(offerProduct.ProductSkuId);
 
                     if (storeProduct != null && sku != null)
                     {

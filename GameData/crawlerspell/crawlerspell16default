@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell16default",
+  "ParentId": "default",
+  "IdKey": 16,
+  "Name": "Town Portal",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 100,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 5,
+  "TargetTypeId": 8,
+  "Level": 11,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 1,
+      "ElementTypeId": 9
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.418Z",
+  "CreateTime": "2024-01-28T05:43:55Z"
+}

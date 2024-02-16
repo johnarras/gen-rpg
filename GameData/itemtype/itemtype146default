@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 146,
   "Name": "Water",
-  "NameId": "ElementWater",
-  "GenName": "ElementWater",
   "Icon": "ElementWater",
   "Effects": [
     {

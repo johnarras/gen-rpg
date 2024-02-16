@@ -2,5 +2,7 @@
   "Id": "texturechannel1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "Dirt"
+  "Name": "Dirt",
+  "UpdateTime": "2024-02-15T23:06:20.01Z",
+  "CreateTime": "2024-02-15T23:06:20.01Z"
 }

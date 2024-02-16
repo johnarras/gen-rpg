@@ -11,8 +11,6 @@ namespace Genrpg.Shared.Inventory.Settings.ItemSets
     public class SetTypeSettings : ParentSettings<SetType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public SetType GetSetType(long idkey) { return _lookup.Get<SetType>(idkey); }
     }
 
     [MessagePackObject]

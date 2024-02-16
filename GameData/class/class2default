@@ -1,0 +1,36 @@
+{
+  "Id": "class2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Thief",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Th",
+  "LevelsPerMelee": 8,
+  "LevelsPerRanged": 8,
+  "HealthPerLevel": 12,
+  "BuffStatTypeId": 63,
+  "BuffStatPercent": 100,
+  "DefaultLevelPercentBuff": 100,
+  "PartyBuffId": 2,
+  "MaxArmorScalingTypeId": 2,
+  "AllowedWeapons": [
+    {
+      "ItemTypeId": 21
+    },
+    {
+      "ItemTypeId": 24
+    },
+    {
+      "ItemTypeId": 308
+    }
+  ],
+  "AllowedEquipSlots": [
+    {
+      "EquipSlotId": 18
+    }
+  ],
+  "UpdateTime": "2024-02-16T02:43:09.653Z",
+  "CreateTime": "2024-01-28T00:57:37Z"
+}

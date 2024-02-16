@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Iron",
+  "Armor": 6,
+  "Damage": 4,
+  "CostPct": 400,
+  "UpdateTime": "2024-02-08T21:54:19.004Z",
+  "CreateTime": "2024-01-28T02:21:35.709Z"
+}

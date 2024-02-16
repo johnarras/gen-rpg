@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 183,
   "Name": "Tongue",
-  "NameId": "Tongue",
-  "GenName": "BodyTongue",
   "Icon": "BodyTongue",
   "Effects": [
     {

@@ -15,9 +15,10 @@ namespace Genrpg.Shared.Spells.Interfaces
         int Cooldown { get; set; }
         float CastTime { get; set; }
         int MaxCharges { get; set; }
-        int Range { get; set; }
+        int MinRange { get; set; }
+        int MaxRange { get; set; }
         int Shots { get; set; }
-        
+
         public List<SpellEffect> Effects { get; set; }
 
         void SetDirty(bool isDirty);

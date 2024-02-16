@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank16default",
+  "ParentId": "default",
+  "IdKey": 16,
+  "Name": "HeartStone",
+  "Armor": 60,
+  "Damage": 30,
+  "CostPct": 10000,
+  "UpdateTime": "2024-02-08T21:54:19.041Z",
+  "CreateTime": "2024-01-28T02:21:35.731Z"
+}

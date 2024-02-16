@@ -23,8 +23,6 @@ namespace Genrpg.Shared.ProcGen.Settings.Texturse
     public class TextureChannelSettings : ParentSettings<TextureChannel>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public TextureChannel GetTextureChannel(long idkey) { return _lookup.Get<TextureChannel>(idkey); }
     }
 
     [MessagePackObject]

@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 7,
   "Name": "Pants",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Pants",
   "Art": "Pants",
+  "MinVal": 4,
+  "MaxVal": 4,
   "EquipSlotId": 7,
   "Effects": [],
   "LevelRanges": [
@@ -103,6 +103,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:40.958Z",
+  "UpdateTime": "2024-02-03T22:45:17.018Z",
   "CreateTime": "2023-11-24T16:45:42.08Z"
 }

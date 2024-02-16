@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 142,
   "Name": "Swamp Herb",
-  "NameId": "SwampHerb",
-  "GenName": "HerbBlue",
   "Icon": "HerbBlue",
   "Effects": [
     {

@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Copper",
+  "Armor": 2,
+  "Damage": 1,
+  "CostPct": 150,
+  "UpdateTime": "2024-02-08T21:54:18.993Z",
+  "CreateTime": "2024-01-28T02:21:35.704Z"
+}

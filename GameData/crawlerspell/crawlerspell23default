@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell23default",
+  "ParentId": "default",
+  "IdKey": 23,
+  "Name": "Silence",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 200,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 4,
+  "TargetTypeId": 3,
+  "Level": 13,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 10,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "ElementTypeId": 6
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.429Z",
+  "CreateTime": "2024-01-27T23:51:33.019Z"
+}

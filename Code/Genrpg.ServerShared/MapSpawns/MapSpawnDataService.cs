@@ -34,8 +34,10 @@ namespace Genrpg.ServerShared.MapSpawns
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = "OwnerId" });
             configs.Add(new IndexConfig() { MemberName = "MapId" });
-            await gs.repo.CreateIndex<UnitStatus>(configs);
-            await gs.repo.CreateIndex<MapSpawn>(configs);
+            List<Task> allTasks = new List<Task>();
+            allTasks.Add(gs.repo.CreateIndex<UnitStatus>(configs));
+            allTasks.Add(gs.repo.CreateIndex<MapSpawn>(configs));
+            await Task.WhenAll(allTasks);
         }
         public async Task SaveMapSpawnData(ServerGameState gs, MapSpawnData data, string mapId, int mapVersion)
         {

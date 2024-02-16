@@ -10,7 +10,7 @@ namespace UI.Screens.Utils
 {
     public class ScreenUtils
     {
-        public static string GetPrefabName(ScreenId id)
+        public static string GetFullScreenNameFromEnum(ScreenId id)
         {
             return (id.ToString().Replace("_","/") + "Screen");
         }

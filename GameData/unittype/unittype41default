@@ -3,6 +3,8 @@
   "ParentId": "default",
   "IdKey": 41,
   "Name": "Mummy",
+  "PluralName": "Mummies",
+  "Icon": "Mummy",
   "Art": "Mummy",
   "Height": 3.0,
   "TribeTypeId": 3,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.919Z",
+  "CreateTime": "2024-02-04T21:57:21.971Z"
 }

@@ -26,8 +26,6 @@ namespace Genrpg.Shared.Audio.Settings
     public class MusicTypeSettings : ParentSettings<MusicType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public MusicType GetMusicType(long idkey) { return _lookup.Get<MusicType>(idkey); }
     }
 
     [MessagePackObject]

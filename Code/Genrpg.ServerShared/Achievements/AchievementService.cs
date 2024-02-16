@@ -25,7 +25,7 @@ namespace Genrpg.ServerShared.Achievements
 
             AchievementStatus status = ch.Get<AchievementData>().Get(achievementTypeId);
 
-            AchievementType type = gs.data.GetGameData<AchievementSettings>(ch).GetAchievementType(achievementTypeId);
+            AchievementType type = gs.data.Get<AchievementSettings>(ch).Get(achievementTypeId);
 
             if (type?.Category == AchievementCategories.Max)
             {

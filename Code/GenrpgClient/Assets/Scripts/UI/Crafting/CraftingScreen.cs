@@ -62,7 +62,7 @@ public class CraftingScreen : ItemIconScreen
         _recipes = new List<RecipeRow>();
 
         RecipeData recipeData = _gs.ch.Get<RecipeData>();
-        foreach (RecipeType recipe in _gs.data.GetGameData<RecipeSettings>(_gs.ch).GetData())
+        foreach (RecipeType recipe in _gs.data.Get<RecipeSettings>(_gs.ch).GetData())
         {
 
             RecipeStatus recipeStatus = recipeData.Get(recipe.IdKey);
@@ -72,7 +72,7 @@ public class CraftingScreen : ItemIconScreen
 
         if (_inventoryPanel != null)
         {
-            _inventoryPanel.Init(InventoryGroup.Reagents, this, CraftInventoryIcon, _token);
+            _inventoryPanel.Init(InventoryGroup.Reagents, this, _gs.ch, CraftInventoryIcon, _token);
         }
 
     }
@@ -89,7 +89,7 @@ public class CraftingScreen : ItemIconScreen
             status, _recipeListParent, _token, Subdirectory);        
     }
 
-    private void OnLoadRecipeRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadRecipeRow(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

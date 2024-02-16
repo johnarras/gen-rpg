@@ -23,9 +23,9 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                 actionInputs.GetInput(i);
             }
 
-            if (gs.data.GetGameData<KeyCommSettings>(ch).GetData() != null)
+            if (gs.data.Get<KeyCommSettings>(ch).GetData() != null)
             {
-                foreach (KeyCommSetting input in gs.data.GetGameData<KeyCommSettings>(ch).GetData())
+                foreach (KeyCommSetting input in gs.data.Get<KeyCommSettings>(ch).GetData())
                 {
                     KeyComm currKey = keyCommands.GetKeyComm(input.KeyCommand);
                     if (currKey == null)
@@ -40,9 +40,9 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                         int.TryParse(actionSuffix, out actionIndex);
 
                         ActionInput currAction = actionInputs.GetInput(actionIndex);
-                        if (gs.data.GetGameData<InputSettings>(ch).GetData() != null)
+                        if (gs.data.Get<InputSettings>(ch).GetData() != null)
                         {
-                            ActionInputSetting defaultAction = gs.data.GetGameData<InputSettings>(ch).GetData().FirstOrDefault(x => x.Index == actionIndex);
+                            ActionInputSetting defaultAction = gs.data.Get<InputSettings>(ch).GetData().FirstOrDefault(x => x.Index == actionIndex);
                             if (defaultAction != null)
                             {
                                 currAction.SpellId = defaultAction.SpellId;

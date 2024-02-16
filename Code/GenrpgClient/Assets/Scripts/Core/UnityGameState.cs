@@ -6,8 +6,6 @@ using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Characters.PlayerData;
 using System.Collections.Generic;
 using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
-using System.Linq;
 using UnityEngine; // Needed
 using Cysharp.Threading.Tasks;
 
@@ -21,23 +19,8 @@ public class UnityGameState : GameState
     public List<CharacterStub> characterStubs = new List<CharacterStub>();
     public List<MapStub> mapStubs = new List<MapStub>();
 
-
-    public List<GenZone> GenZones { get; set; } = new List<GenZone>();
-
-
     public UnityGameState()
     {
-    }
-
-    public GenZone GetGenZone(long zoneId)
-    {
-        GenZone genZone = GenZones.FirstOrDefault(x => x.IdKey == zoneId);
-        if (genZone == null)
-        {
-            genZone = new GenZone() { IdKey = zoneId };
-            GenZones.Add(genZone);
-        }
-        return genZone;
     }
 
     public string Env { get; set; }

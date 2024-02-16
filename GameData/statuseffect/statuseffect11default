@@ -1,0 +1,9 @@
+{
+  "Id": "statuseffect11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Rooted",
+  "Abbrev": "Root",
+  "UpdateTime": "2024-01-28T17:14:24.054Z",
+  "CreateTime": "2024-01-27T17:52:56.662Z"
+}

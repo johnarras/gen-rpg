@@ -32,8 +32,6 @@ namespace Genrpg.Shared.Spells.Settings.Targets
     public class TargetTypeSettings : ParentSettings<TargetType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public TargetType GetTargetType(long idkey) { return _lookup.Get<TargetType>(idkey); }
     }
 
     [MessagePackObject]

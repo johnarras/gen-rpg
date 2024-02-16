@@ -14,6 +14,7 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Core.Entities;
 
 public class TreeObjectLoader : BaseObjectLoader
 {
@@ -37,7 +38,7 @@ public class TreeObjectLoader : BaseObjectLoader
 
         string assetCategory = AssetCategoryNames.Trees;
 
-        treeType = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(objectId);
+        treeType = gs.data.Get<TreeTypeSettings>(gs.ch).Get(objectId);
 
         if (treeType == null)
         {
@@ -78,7 +79,7 @@ public class TreeObjectLoader : BaseObjectLoader
                     {
                         long treeTypeId = okTreeIds[(loadData.gx * 191 + loadData.gy * 2189 + x * 108061 + y * 857) % okTreeIds.Count];
 
-                        TreeType treeType2 = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(treeTypeId);
+                        TreeType treeType2 = gs.data.Get<TreeTypeSettings>(gs.ch).Get(treeTypeId);
 
                         if (treeType2 != null)
                         {
@@ -91,7 +92,7 @@ public class TreeObjectLoader : BaseObjectLoader
         }
 
 
-        long index = gs.md.GetIndexForTree(gs, currZone, treeType, loadData.gx * y + loadData.gy * x + x * 11 + y * 31);
+        long index = GetIndexForTree(gs, currZone, treeType, loadData.gx * y + loadData.gy * x + x * 11 + y * 31);
         string artName = treeType.Art + index;
         if (false && treeType.HasFlag(TreeFlags.DirectPlaceObject))
         {
@@ -138,10 +139,28 @@ public class TreeObjectLoader : BaseObjectLoader
         return true;
     }
 
-    protected void OnDownloadObjectDirect(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    protected void OnDownloadObjectDirect(UnityGameState gs, object obj, object data, CancellationToken token)
     {
-        OnDownloadObject(gs, url, obj, data, token);
+        OnDownloadObject(gs, obj, data, token);
     }
+
+
+    public long GetIndexForTree(GameState gs, Zone zone, TreeType treeType, int localSeed)
+    {
+        if (zone == null || treeType == null)
+        {
+            return 1;
+        }
+
+        if (treeType.VariationCount > 1)
+        {
+            return 1 + (zone.Seed % 100000000 + treeType.IdKey * 12 + treeType.IdKey * treeType.IdKey + localSeed * 13 + localSeed * treeType.IdKey * 17) % treeType.VariationCount;
+        }
+        return 1;
+
+    }
+
+
 
     protected void StartPlaceInstance(UnityGameState gs, PatchLoadData loadData,
         IIndexedGameItem dataItem,
@@ -265,7 +284,7 @@ public class TreeObjectLoader : BaseObjectLoader
     }
 
 
-    private void OnDownloadPrototype(UnityGameState gs, String url, object obj, object data, CancellationToken token)
+    private void OnDownloadPrototype(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -332,8 +351,8 @@ public class TreeObjectLoader : BaseObjectLoader
         gs.md.zoneTreeIds = new Dictionary<long, List<long>>();
         gs.md.zoneBushIds = new Dictionary<long, List<long>>();
 
-        TreeTypeSettings treeSettings = gs.data.GetGameData<TreeTypeSettings>(gs.ch);
-        foreach (IGameSettings settings in gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetChildren())
+        TreeTypeSettings treeSettings = gs.data.Get<TreeTypeSettings>(gs.ch);
+        foreach (IGameSettings settings in gs.data.Get<ZoneTypeSettings>(gs.ch).GetChildren())
         {
             if (settings is ZoneType zoneType)
             {
@@ -345,7 +364,7 @@ public class TreeObjectLoader : BaseObjectLoader
 
                 foreach (ZoneTreeType ztt in zoneType.TreeTypes)
                 {
-                    TreeType treeType = treeSettings.GetTreeType(ztt.TreeTypeId);
+                    TreeType treeType = treeSettings.Get(ztt.TreeTypeId);
 
                     if (treeType.HasFlag(TreeFlags.IsWaterItem))
                     {

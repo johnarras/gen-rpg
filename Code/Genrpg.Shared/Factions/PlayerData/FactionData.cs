@@ -65,7 +65,7 @@ namespace Genrpg.Shared.Factions.PlayerData
         /// </summary>
         /// <param name="factionId"></param>
         /// <returns></returns>
-        public long GetLevel(GameState gs, long factionId)
+        public long Get(GameState gs, long factionId)
         {
             return Find(gs, factionId).RepLevelId;
         }
@@ -102,7 +102,7 @@ namespace Genrpg.Shared.Factions.PlayerData
             // Negative rep, go down levels.
             while (status.Reputation < 0)
             {
-                RepLevel repLevel = gs.data.GetGameData<ReputationSettings>(unit).GetRepLevel(status.RepLevelId - 1);
+                RepLevel repLevel = gs.data.Get<ReputationSettings>(unit).Get(status.RepLevelId - 1);
                 if (repLevel == null || status.RepLevelId <= 1)
                 {
                     status.Reputation = 0;
@@ -117,7 +117,7 @@ namespace Genrpg.Shared.Factions.PlayerData
 
             while (true)
             {
-                RepLevel repLevel = gs.data.GetGameData<ReputationSettings>(unit).GetRepLevel(status.RepLevelId);
+                RepLevel repLevel = gs.data.Get<ReputationSettings>(unit).Get(status.RepLevelId);
 
 
                 if (repLevel == null || status.Reputation <= repLevel.PointsNeeded)
@@ -127,7 +127,7 @@ namespace Genrpg.Shared.Factions.PlayerData
 
                 int pointsNeeded = repLevel.PointsNeeded;
 
-                repLevel = gs.data.GetGameData<ReputationSettings>(unit).GetRepLevel(status.RepLevelId + 1);
+                repLevel = gs.data.Get<ReputationSettings>(unit).Get(status.RepLevelId + 1);
                 if (repLevel == null)
                 {
                     status.Reputation = pointsNeeded - 1;

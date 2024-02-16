@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Heal Wounds",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 20,
+  "PowerPerLevel": 1,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 4,
+  "TargetTypeId": 2,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 34,
+      "MinQuantity": 1,
+      "MaxQuantity": 9,
+      "ElementTypeId": 7
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.404Z",
+  "CreateTime": "2024-01-28T09:12:48Z"
+}

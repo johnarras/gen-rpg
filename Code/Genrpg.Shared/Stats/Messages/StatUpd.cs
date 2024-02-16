@@ -32,33 +32,22 @@ namespace Genrpg.Shared.Stats.Messages
     {
         const int StatTypeId = 0;
         const int Curr = 1;
-        const int Base = 2;
-        const int Pct = 3;
-        const int Size = 4;
+        const int Max = 2;
+        const int Size = 3;    
 
         [Key(0)] public int[] Dat { get; set; } = new int[Size];
 
-
-        public void SetData(long statTypeId, long currVal, long baseVal, long pctVal)
+        public void SetData(long statTypeId, long currVal, long maxVal)
         {
             Dat[StatTypeId] = (int)statTypeId;
             Dat[Curr] = (int)currVal;
-            Dat[Base] = (int)baseVal;
-            Dat[Pct] = (int)pctVal;
+            Dat[Max] = (int)maxVal;
         }
 
         public long GetStatId() { return Dat[StatTypeId]; }
 
         public long GetCurr() { return Dat[Curr]; }
 
-        public long GetBase() { return Dat[Base]; }
-
-        public long GetPct() { return Dat[Pct]; }
-
-        public long GetMax()
-        {
-            return GetBase() * (100 + GetPct()) / 100;
-        }
-
+        public long GetMax() { return Dat[Max]; }
     }
 }

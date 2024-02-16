@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 180,
   "Name": "Tentacle",
-  "NameId": "Tentacle",
-  "GenName": "BodyTentacle",
   "Desc": "",
   "Icon": "BodyTentacle",
   "Art": "",

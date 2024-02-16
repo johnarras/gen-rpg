@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 151,
   "Name": "Ruby",
-  "NameId": "GemRuby",
-  "GenName": "GemRuby",
   "Desc": "",
   "Icon": "GemRuby",
   "Art": "",

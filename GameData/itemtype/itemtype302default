@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 302,
   "Name": "Strength Elixir",
-  "NameId": "StrengthElixir",
   "Icon": "StrengthElixir",
   "Effects": [],
   "LevelRanges": [

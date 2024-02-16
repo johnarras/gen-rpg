@@ -1,0 +1,12 @@
+{
+  "Id": "default",
+  "LinearCostPerLevel": 100,
+  "QuadraticCostPerLevel": 10,
+  "StartKillsNeeded": 10,
+  "ExtraKillsNeeded": 2,
+  "StartMonsterExp": 100,
+  "ExtraMonsterExp": 25,
+  "Name": "CrawlerTrainingSettings",
+  "UpdateTime": "2024-02-13T20:35:41.742Z",
+  "CreateTime": "2024-02-14T06:34:33Z"
+}

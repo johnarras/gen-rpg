@@ -35,23 +35,24 @@ namespace Genrpg.Shared.Spells.PlayerData.Spells
         [Key(5)] public string Icon { get; set; }
         [Key(6)] public string Art { get; set; }
         [Key(7)] public long ElementTypeId { get; set; }
-        [Key(8)] public int Range { get; set; }
-        [Key(9)] public float CastTime { get; set; }
-        [Key(10)] public long PowerStatTypeId { get; set; }
-        [Key(11)] public int PowerCost { get; set; }
-        [Key(12)] public int Cooldown { get; set; }
-        [Key(13)] public int MaxCharges { get; set; }
-        [Key(14)] public int Shots { get; set; }
+        [Key(8)] public int MinRange { get; set; }
+        [Key(9)] public int MaxRange { get; set; }
+        [Key(10)] public float CastTime { get; set; }
+        [Key(11)] public long PowerStatTypeId { get; set; }
+        [Key(12)] public int PowerCost { get; set; }
+        [Key(13)] public int Cooldown { get; set; }
+        [Key(14)] public int MaxCharges { get; set; }
+        [Key(15)] public int Shots { get; set; }
 
-        [Key(15)] public DateTime CooldownEnds { get; set; }
-        [Key(16)] public int CurrCharges { get; set; }
+        [Key(16)] public DateTime CooldownEnds { get; set; }
+        [Key(17)] public int CurrCharges { get; set; }
 
-        [Key(17)] public int Flags { get; set; }
+        [Key(18)] public int Flags { get; set; }
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
 
-        [Key(18)] public List<SpellEffect> Effects { get; set; } = new List<SpellEffect>();
+        [Key(19)] public List<SpellEffect> Effects { get; set; } = new List<SpellEffect>();
 
         public Spell()
         {
@@ -59,7 +60,7 @@ namespace Genrpg.Shared.Spells.PlayerData.Spells
 
         public int GetRange()
         {
-            return MathUtils.Clamp(SkillType.MinRange, SkillType.MinRange + Range * SkillType.RangePointDistance, SkillType.MaxRange);
+            return MathUtils.Clamp(SkillType.MinRange, SkillType.MinRange + MaxRange * SkillType.RangePointDistance, SkillType.MaxRange);
         }
 
         public bool UsesProjectile()

@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Brass",
+  "Armor": 3,
+  "Damage": 2,
+  "CostPct": 200,
+  "UpdateTime": "2024-02-08T21:54:18.996Z",
+  "CreateTime": "2024-01-28T02:21:35.706Z"
+}

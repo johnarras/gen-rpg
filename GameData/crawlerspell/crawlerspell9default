@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Heal Party",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 50,
+  "PowerPerLevel": 5,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 4,
+  "TargetTypeId": 5,
+  "Level": 9,
+  "Effects": [
+    {
+      "EntityTypeId": 34,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "ElementTypeId": 7
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.406Z",
+  "CreateTime": "2024-01-28T09:12:48Z"
+}

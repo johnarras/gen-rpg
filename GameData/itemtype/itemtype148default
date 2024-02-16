@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 148,
   "Name": "Diamond",
-  "NameId": "GemDiamond",
-  "GenName": "GemDiamond",
   "Icon": "GemDiamond",
   "Effects": [
     {

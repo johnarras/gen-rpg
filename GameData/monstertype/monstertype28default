@@ -1,0 +1,18 @@
+{
+  "Id": "monstertype28default",
+  "ParentId": "default",
+  "IdKey": 28,
+  "Name": "Lich",
+  "MaxLevel": 10000,
+  "Chance": 1.0,
+  "HpScale": 1.0,
+  "DamScale": 1.0,
+  "PrefixChance": 1.0,
+  "SuffixChance": 1.0,
+  "Prefixes": [],
+  "Suffixes": [],
+  "Abilities": [],
+  "MonsterCategoryId": 3,
+  "UpdateTime": "2024-01-21T16:05:54.423Z",
+  "CreateTime": "2024-01-21T15:37:50.384Z"
+}

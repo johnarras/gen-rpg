@@ -1,0 +1,22 @@
+{
+  "Id": "unittype53default",
+  "ParentId": "default",
+  "IdKey": 53,
+  "Name": "Gnome",
+  "PluralName": "Gnomes",
+  "Desc": "",
+  "Icon": "ElfMale",
+  "Art": "ElfMale",
+  "Height": 2.0,
+  "TribeTypeId": 1,
+  "PlayerRace": true,
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.948Z",
+  "CreateTime": "2024-01-28T21:19:53.303Z"
+}

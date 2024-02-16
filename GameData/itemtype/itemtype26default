@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 26,
   "Name": "2HAxe",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Axe2H",
   "Art": "Axe2H",
+  "MinVal": 3,
+  "MaxVal": 14,
   "EquipSlotId": 15,
   "Flags": 10,
   "Effects": [],
@@ -125,6 +125,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:38.857Z",
+  "UpdateTime": "2024-02-03T22:45:17.037Z",
   "CreateTime": "2023-11-24T16:45:39.695Z"
 }

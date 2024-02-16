@@ -2,26 +2,20 @@
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using Assets.Scripts.Atlas.Constants;
-using Genrpg.Shared.Reflection.Services;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.SpellCrafting.Messages;
 using UnityEngine;
 using Genrpg.Shared.SpellCrafting.Services;
-using System.Security.Policy;
 using Assets.Scripts.UI.Spells;
 using Genrpg.Shared.SpellCrafting.Constants;
 using System.Collections.Generic;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Spells.Settings.Spells;
 using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Stats.Settings.Stats;
-using System.Linq;
-using Genrpg.Shared.Stats.Constants;
 
 public class SpellbookScreen : SpellIconScreen
 {
-    protected IReflectionService _reflectionService;
     protected ISharedSpellCraftService _spellCraftService;
 
     protected string SpellEffectEditPrefabName = "SpellEffectEdit";
@@ -98,8 +92,8 @@ public class SpellbookScreen : SpellIconScreen
 
     public void InitScreenInputs()
     {
-        ElementDropdown?.Init(_gs.data.GetGameData<ElementTypeSettings>(_gs.ch).GetData(), OnDropdownValueChanged);
-        PowerTypeDropdown?.Init(_gs.data.GetGameData<StatSettings>(_gs.ch).GetPowerStats(), OnDropdownValueChanged);
+        ElementDropdown?.Init(_gs.data.Get<ElementTypeSettings>(_gs.ch).GetData(), OnDropdownValueChanged);
+        PowerTypeDropdown?.Init(_gs.data.Get<StatSettings>(_gs.ch).GetPowerStats(), OnDropdownValueChanged);
         
         ShotsInput?.Init(SpellModifiers.Shots, OnDropdownValueChanged);
         RangeInput?.Init(SpellModifiers.Range, OnDropdownValueChanged);
@@ -196,14 +190,14 @@ public class SpellbookScreen : SpellIconScreen
 
         _editSpell.Name = NameInput?.Text;
 
-        List<ElementType> elements = _gs.data.GetGameData<ElementTypeSettings>(_gs.ch).GetData();
-        List<StatType> statTypes = _gs.data.GetGameData<StatSettings>(_gs.ch).GetData();
+        IReadOnlyList<ElementType> elements = _gs.data.Get<ElementTypeSettings>(_gs.ch).GetData();
+        IReadOnlyList<StatType> statTypes = _gs.data.Get<StatSettings>(_gs.ch).GetData();
 
         _editSpell.ElementTypeId = _uiService.GetSelectedIdFromName(typeof(ElementType), ElementDropdown);
         _editSpell.PowerStatTypeId = _uiService.GetSelectedIdFromName(typeof(StatType), PowerTypeDropdown);
 
         _editSpell.Cooldown = (int)CooldownInput?.GetSelectedValue();
-        _editSpell.Range = (int)RangeInput?.GetSelectedValue();
+        _editSpell.MaxRange = (int)RangeInput?.GetSelectedValue();
         _editSpell.Shots = (int)ShotsInput?.GetSelectedValue();
         _editSpell.MaxCharges = (int)ShotsInput?.GetSelectedValue();
         _editSpell.CastTime = (float)CastTimeInput?.GetSelectedValue();
@@ -241,7 +235,7 @@ public class SpellbookScreen : SpellIconScreen
         CooldownInput?.SetSelectedValue(spell.Cooldown);
         ShotsInput?.SetSelectedValue(spell.Shots);
         CastTimeInput?.SetSelectedValue(spell.CastTime);
-        RangeInput?.SetSelectedValue(spell.Range);
+        RangeInput?.SetSelectedValue(spell.MaxRange);
         MaxChargesInput?.SetSelectedValue(spell.MaxCharges);
 
         _uiService.SetText(PowerCostText, spell.PowerCost.ToString());
@@ -272,7 +266,7 @@ public class SpellbookScreen : SpellIconScreen
     }
 
 
-    private void OnLoadEffect(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadEffect(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
 

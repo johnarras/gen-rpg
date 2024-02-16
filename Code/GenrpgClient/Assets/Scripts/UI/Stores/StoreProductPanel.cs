@@ -52,7 +52,7 @@ namespace Assets.Scripts.UI.Stores
             }
         }
 
-        private void OnDownloadReward(GameState gs, string url, object obj, object data, CancellationToken token)
+        private void OnDownloadReward(GameState gs, object obj, object data, CancellationToken token)
         {
             if (obj == null)
             {

@@ -14,6 +14,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Authentication;
 using System.Threading.Tasks;
+using ZstdSharp.Unsafe;
 
 namespace Genrpg.ServerShared.DataStores.NoSQL
 {
@@ -77,6 +78,33 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             }
         }
 
+        public async Task CopyBetweenCollections<T>(string startSuffix, string endSuffix) where T : IStringId, new()
+        {
+            string startName = (typeof(T).Name + startSuffix).ToLower();
+            string endName = (typeof(T).Name + endSuffix).ToLower();
+
+            IMongoCollection<T> startColl = _database.GetCollection<T>(startName);
+            IMongoCollection<T> endColl = _database.GetCollection<T>(endName);
+
+            List<T> items = await startColl.Find(x => true).ToListAsync();
+
+            List<WriteModel<T>> models = new List<WriteModel<T>>();
+
+            foreach (T item in items)
+            {
+                ReplaceOneModel<T> replaceModel = new ReplaceOneModel<T>(new FilterDefinitionBuilder<T>().Where(x => x.Id == item.Id), item);
+                replaceModel.IsUpsert = true;
+                models.Add(replaceModel);
+            }
+
+            BulkWriteOptions options = new BulkWriteOptions()
+            {
+                BypassDocumentValidation = true,
+                IsOrdered = false,
+            };
+            await endColl.BulkWriteAsync(models, options);
+        }
+
         private void Setup()
         {
             ConventionRegistry.Register("IgnoreMessyData",
@@ -129,6 +157,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             return coll;
         }
         #endregion
+
 
         public async Task<T> Load<T>(string id) where T : class, IStringId
         {

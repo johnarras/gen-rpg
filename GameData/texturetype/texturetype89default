@@ -4,5 +4,7 @@
   "IdKey": 89,
   "Name": "RockDarkc",
   "Size": 8.0,
-  "ParentTextureTypeId": 3
+  "ParentTextureTypeId": 3,
+  "UpdateTime": "2024-02-15T23:06:20.744Z",
+  "CreateTime": "2024-02-15T23:06:20.744Z"
 }

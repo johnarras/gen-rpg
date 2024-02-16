@@ -14,7 +14,7 @@ namespace Genrpg.Shared.Login.Messages.RefreshGameSettings
     public sealed class RefreshGameSettingsResult : ILoginResult
     {
         [JsonProperty(TypeNameHandling = TypeNameHandling.Auto)]
-        [Key(0)] public List<IGameSettings> NewSettings { get; set; } = new List<IGameSettings>();
+        [Key(0)] public List<ITopLevelSettings> NewSettings { get; set; } = new List<ITopLevelSettings>();
         [Key(1)] public GameDataOverrideList Overrides { get; set; } = null;
     }
 }

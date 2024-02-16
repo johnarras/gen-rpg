@@ -20,7 +20,7 @@ public class AddFences : BaseZoneGenerator
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
         await UniTask.CompletedTask;
     }
@@ -53,7 +53,7 @@ public class AddFences : BaseZoneGenerator
             return;
         }
 
-        if (gs.data.GetGameData<FenceTypeSettings>(gs.ch).GetData() == null || gs.data.GetGameData<FenceTypeSettings>(gs.ch).GetData().Count < 1)
+        if (gs.data.Get<FenceTypeSettings>(gs.ch).GetData() == null || gs.data.Get<FenceTypeSettings>(gs.ch).GetData().Count < 1)
         {
             return;
         }
@@ -347,7 +347,7 @@ public class AddFences : BaseZoneGenerator
 			return null;
 		}
 		
-		fenceType = gs.data.GetGameData<FenceTypeSettings>(gs.ch).GetFenceType(zoneFenceType.FenceTypeId);
+		fenceType = gs.data.Get<FenceTypeSettings>(gs.ch).Get(zoneFenceType.FenceTypeId);
 		
 		if (fenceType == null || string.IsNullOrEmpty(fenceType.Art))
 		{

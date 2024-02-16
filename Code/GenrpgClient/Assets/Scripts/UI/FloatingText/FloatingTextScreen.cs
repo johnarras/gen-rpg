@@ -116,7 +116,7 @@ public class FloatingTextScreen : BaseScreen
         _messageQueue.Add(queuedItem);
     }
 
-    private void OnLoadText(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadText(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

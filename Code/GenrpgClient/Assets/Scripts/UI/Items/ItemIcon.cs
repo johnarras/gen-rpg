@@ -34,6 +34,8 @@ public class InitItemIconData : DragItemInitData<Item,ItemIcon,ItemIconScreen,In
     public OnLoadItemIconHandler handler;
 
     public string iconPrefabName;
+
+    public string subdirectory = "Items";
 };
 
 
@@ -88,13 +90,13 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             }
         }
 
-        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, bgName, Background, token);
-        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, frameName, Frame, token);
-        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, iconName, Icon, token);
+        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, bgName, Background, token);
+        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, frameName, Frame, token);
+        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, iconName, Icon, token);
 
         if (_initData.Data != null)
         {
-            ItemType itype = _gs.data.GetGameData<ItemTypeSettings>(_gs.ch).GetItemType(_initData.Data.ItemTypeId);
+            ItemType itype = _gs.data.Get<ItemTypeSettings>(_gs.ch).Get(_initData.Data.ItemTypeId);
             if (itype.EquipSlotId > 0)
             {
                 _uiService.SetText(QuantityText, "");
@@ -135,7 +137,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         GEntityUtils.SetActive(_initData.Screen.ToolTip, true);
         FullItemTooltipInitData fullTooltipInitData = new FullItemTooltipInitData()
         {
-            unit = _gs.ch,
+            unit = _initData.Screen.GetUnit(),
             screen = _initData.Screen,
             item = _initData.Data,
             flags = _initData.Flags,

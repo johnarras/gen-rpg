@@ -104,12 +104,12 @@ namespace Genrpg.Shared.Characters.PlayerData
             _overrideList = overrideList;
         }
 
-        public GameDataOverrideList GetGameDataOverrideList()
+        public GameDataOverrideList GetOverrideList()
         {
             return _overrideList;
         }
 
-        public override string GetGameDataName(string settingName)
+        public override string GetName(string settingName)
         {
             if (_overrideList == null)
             {

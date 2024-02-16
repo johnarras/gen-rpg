@@ -45,8 +45,6 @@ namespace Genrpg.Shared.Inventory.Settings.Qualities
     public class QualityTypeSettings : ParentSettings<QualityType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public QualityType GetQualityType(long idkey) { return _lookup.Get<QualityType>(idkey); }
     }
 
     [MessagePackObject]

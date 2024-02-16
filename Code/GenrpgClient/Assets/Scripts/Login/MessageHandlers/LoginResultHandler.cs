@@ -57,7 +57,7 @@ namespace Assets.Scripts.Login.MessageHandlers
                await _gameDataService.SaveSettings(gs, settings);
             }
 
-            List<IGameSettings> loadedSettings = gs.data.GetAllData();
+            List<ITopLevelSettings> loadedSettings = gs.data.AllSettings();
 
             gs.data.AddData(result.GameData);
 

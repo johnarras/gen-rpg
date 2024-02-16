@@ -38,6 +38,11 @@ namespace Genrpg.Shared.Stats.Settings.Scaling
 
         [Key(14)] public List<ItemPct> BaseReagents { get; set; }
 
+        /// <summary>
+        /// Used for Crawler
+        /// </summary>
+        [Key(15)] public int ArmorPct { get; set; } = 100;
+
         public ScalingType()
         {
             AddStats = new List<StatPct>();
@@ -60,8 +65,6 @@ namespace Genrpg.Shared.Stats.Settings.Scaling
     public class ScalingTypeSettings : ParentSettings<ScalingType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public ScalingType GetScalingType(long idkey) { return _lookup.Get<ScalingType>(idkey); }
     }
 
     [MessagePackObject]

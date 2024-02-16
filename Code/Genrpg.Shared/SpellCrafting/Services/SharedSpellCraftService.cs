@@ -1,7 +1,7 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
-using Genrpg.Shared.Reflection.Services;
+using Genrpg.Shared.Utils;
 using Genrpg.Shared.SpellCrafting.Constants;
 using Genrpg.Shared.SpellCrafting.SpellModifierHelpers;
 using Genrpg.Shared.Spells.Constants;
@@ -22,13 +22,11 @@ namespace Genrpg.Shared.SpellCrafting.Services
 {
     public class SharedSpellCraftService : ISharedSpellCraftService
     {
-
-        private IReflectionService _reflectionService = null;
         private Dictionary<long, ISpellModifierHelper> _modifierHelpers = null;
 
         public virtual async Task Setup(GameState gs, CancellationToken token)
         {           
-            _modifierHelpers = _reflectionService.SetupDictionary<long, ISpellModifierHelper>(gs);
+            _modifierHelpers = ReflectionUtils.SetupDictionary<long, ISpellModifierHelper>(gs);
             await Task.CompletedTask;
         }
 
@@ -49,7 +47,7 @@ namespace Genrpg.Shared.SpellCrafting.Services
                 return false;
             }
 
-            ElementType elemType = gs.data.GetGameData<ElementTypeSettings>(null).GetElementType(spell.ElementTypeId);
+            ElementType elemType = gs.data.Get<ElementTypeSettings>(null).Get(spell.ElementTypeId);
 
             if (elemType == null)
             {
@@ -69,8 +67,8 @@ namespace Genrpg.Shared.SpellCrafting.Services
             spellCostScale *= castTimeHelper.GetCostScale(gs,obj, spell.CastTime);
 
             ISpellModifierHelper rangeHelper = GetSpellModifierHelper(SpellModifiers.Range);
-            spell.Range = (int)(rangeHelper.GetValidValue(gs, obj, spell.Range));
-            spellCostScale *= rangeHelper.GetCostScale(gs, obj, spell.Range);
+            spell.MaxRange = (int)(rangeHelper.GetValidValue(gs, obj, spell.MaxRange));
+            spellCostScale *= rangeHelper.GetCostScale(gs, obj, spell.MaxRange);
 
             ISpellModifierHelper shotsHelper = GetSpellModifierHelper(SpellModifiers.Shots);
             spell.Shots = (int)(shotsHelper.GetValidValue(gs, obj, spell.Shots));
@@ -85,7 +83,7 @@ namespace Genrpg.Shared.SpellCrafting.Services
 
                 double effectCostScale = 1.0f;
 
-                SkillType skillType = gs.data.GetGameData<SkillTypeSettings>(obj).GetSkillType(effect.SkillTypeId);
+                SkillType skillType = gs.data.Get<SkillTypeSettings>(obj).Get(effect.SkillTypeId);
 
                 if (skillType == null)
                 {
@@ -131,7 +129,7 @@ namespace Genrpg.Shared.SpellCrafting.Services
 
             costPercent *= spellCostScale;
 
-            StatType powerStatType = gs.data.GetGameData<StatSettings>(null).GetStatType(spell.PowerStatTypeId);
+            StatType powerStatType = gs.data.Get<StatSettings>(null).Get(spell.PowerStatTypeId);
 
             long oldPowerCost = spell.PowerCost;
             spell.PowerCost = (int)(costPercent * powerStatType.MaxPool / 100.0f);

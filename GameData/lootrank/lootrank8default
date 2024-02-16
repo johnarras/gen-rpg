@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Gold",
+  "Armor": 13,
+  "Damage": 7,
+  "CostPct": 1000,
+  "UpdateTime": "2024-02-08T21:54:19.014Z",
+  "CreateTime": "2024-01-28T02:21:35.715Z"
+}

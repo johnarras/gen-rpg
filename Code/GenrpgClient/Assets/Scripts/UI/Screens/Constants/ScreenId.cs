@@ -31,5 +31,8 @@ namespace UI.Screens.Constants
         Store=20,
         Ftue=21,
         Blocker=22,
+        Crawler=23,
+        CrawlerCharacter=24,
+        CrawlerVendor=25,
     }
 }

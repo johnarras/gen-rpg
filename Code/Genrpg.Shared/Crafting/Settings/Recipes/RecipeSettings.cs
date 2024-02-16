@@ -31,9 +31,6 @@ namespace Genrpg.Shared.Crafting.Settings.Recipes
         [Key(5)] public int LevelsPerExtraEffect { get; set; }
         [Key(6)] public int MaxExtraEffects { get; set; }
 
-
-        public RecipeType GetRecipeType(long idkey) { return _lookup.Get<RecipeType>(idkey); }
-
     }
 
     [MessagePackObject]

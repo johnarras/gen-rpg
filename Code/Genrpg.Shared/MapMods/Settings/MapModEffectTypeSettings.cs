@@ -24,8 +24,6 @@ namespace Genrpg.Shared.MapMods.Settings
     public class MapModEffectTypeSettings : ParentSettings<MapModEffectType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public MapModEffectType GetMapModEffect(long idkey) { return _lookup.Get<MapModEffectType>(idkey); }
     }
 
     [MessagePackObject]

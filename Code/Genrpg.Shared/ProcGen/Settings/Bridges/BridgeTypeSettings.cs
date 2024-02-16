@@ -31,8 +31,6 @@ namespace Genrpg.Shared.ProcGen.Settings.Bridges
     public class BridgeTypeSettings : ParentSettings<BridgeType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public BridgeType GetBridgeType(long idkey) { return _lookup.Get<BridgeType>(idkey); }
     }
 
     [MessagePackObject]

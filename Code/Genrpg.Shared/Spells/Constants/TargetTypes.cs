@@ -7,8 +7,15 @@ namespace Genrpg.Shared.Spells.Constants
     public class TargetTypes
     {
 
-        public const int None = 0;
-        public const int Enemy = 1; // Can be cast on enemy, can have parts that are Ally....either hit nearby ally randomly or hit self.
-        public const int Ally = 2; // Can be cast on self or others, can have Enemy parts that hit things nearby.
+        public const long None = 0;
+        public const long Enemy = 1; // Can be cast on enemy, can have parts that are Ally....either hit nearby ally randomly or hit self.
+        public const long Ally = 2; // Can be cast on self or others, can have Enemy parts that hit things nearby.
+        public const long EnemyGroup = 3;
+        public const long AllEnemies = 4;
+        public const long Party = 5;
+        public const long Location = 6;
+        public const long Item = 7;
+        public const long Special = 8;
+        public const long Self = 9;
     }
 }

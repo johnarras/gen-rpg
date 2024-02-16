@@ -4,5 +4,7 @@
   "IdKey": 51,
   "Name": "AttackDefMult",
   "Desc": "Phys Dam Reduced",
-  "GenScalePct": 10
+  "GenScalePct": 10,
+  "UpdateTime": "2024-02-15T23:03:14.504Z",
+  "CreateTime": "2024-02-15T23:03:14.504Z"
 }

@@ -10,5 +10,7 @@
   "DataMemberName": "MaxCharges",
   "DisplayMult": 1.0,
   "MaxValue": 3.0,
-  "ValueDelta": 1.0
+  "ValueDelta": 1.0,
+  "UpdateTime": "2024-02-15T23:06:19.942Z",
+  "CreateTime": "2024-02-15T23:06:19.942Z"
 }

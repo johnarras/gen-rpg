@@ -1,0 +1,18 @@
+{
+  "Id": "crawlerspell36default",
+  "ParentId": "default",
+  "IdKey": 36,
+  "Name": "Taunt",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MaxRange": 100,
+  "ReplacesCrawlerSpellId": 2,
+  "CombatActionId": 2,
+  "ClassId": 1,
+  "TargetTypeId": 9,
+  "Level": 1,
+  "Effects": [],
+  "UpdateTime": "2024-02-16T03:41:53.457Z",
+  "CreateTime": "2024-01-28T14:46:43Z"
+}

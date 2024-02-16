@@ -10,7 +10,7 @@ using Azure.Messaging.ServiceBus.Administration;
 using Genrpg.ServerShared.DataStores.Constants;
 using Genrpg.ServerShared.CloudComms.Queues.Entities;
 using Genrpg.ServerShared.CloudComms.PubSub.Entities;
-using Genrpg.Shared.Reflection.Services;
+using Genrpg.Shared.Utils;
 using Genrpg.ServerShared.CloudComms.PubSub.Managers;
 using Genrpg.ServerShared.CloudComms.Queues.Managers;
 using Genrpg.ServerShared.CloudComms.Queues.Requests.Entities;
@@ -21,9 +21,6 @@ namespace Genrpg.ServerShared.CloudComms.Services
 
     public class CloudCommsService : ICloudCommsService
     {
-        private IReflectionService _reflectionService = null;
-
-
         private ServerGameState _serverGameState = null;
         private string _env;
         private string _serverId;
@@ -53,7 +50,7 @@ namespace Genrpg.ServerShared.CloudComms.Services
             await _queueManager.Init(_serverGameState, _serviceBusClient, _adminClient, _serverId, _env, token);
 
             _pubSubManager = new CloudPubSubManager();
-            await _pubSubManager.Init(_serverGameState, _serviceBusClient, _adminClient, _reflectionService, _serverId, _env, token);
+            await _pubSubManager.Init(_serverGameState, _serviceBusClient, _adminClient, _serverId, _env, token);
 
         }
 
@@ -111,7 +108,7 @@ namespace Genrpg.ServerShared.CloudComms.Services
 
         public void SetupPubSubMessageHandlers(ServerGameState gs)
         {
-            _pubSubManager.SetupPubSubMessageHandlers(gs, _reflectionService);
+            _pubSubManager.SetupPubSubMessageHandlers(gs);
         }
 
         #endregion

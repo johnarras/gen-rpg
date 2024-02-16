@@ -10,5 +10,7 @@
   "DataMemberName": "Range",
   "DisplayMult": 1.0,
   "MaxValue": 40.0,
-  "ValueDelta": 5.0
+  "ValueDelta": 5.0,
+  "UpdateTime": "2024-02-15T23:06:19.923Z",
+  "CreateTime": "2024-02-15T23:06:19.923Z"
 }

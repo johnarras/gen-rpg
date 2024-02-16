@@ -2,72 +2,17 @@
   "Id": "elementtype5default",
   "ParentId": "default",
   "IdKey": 5,
-  "Name": "Arcane",
-  "Desc": "",
-  "Icon": "",
-  "Art": "Arcane",
-  "RankScale": 5,
-  "Skills": [
-    {
-      "SkillTypeId": 1,
-      "CostPct": 100,
-      "ScalePct": 50
-    },
-    {
-      "SkillTypeId": 2,
-      "CostPct": 110,
-      "ScalePct": 150
-    },
-    {
-      "SkillTypeId": 3,
-      "CostPct": 100,
-      "ScalePct": 50
-    },
-    {
-      "SkillTypeId": 4,
-      "CostPct": 100,
-      "ScalePct": 75,
-      "OverrideEntityTypeId": 3
-    },
-    {
-      "SkillTypeId": 7,
-      "CostPct": 100,
-      "ScalePct": 100
-    },
-    {
-      "SkillTypeId": 8,
-      "CostPct": 100,
-      "ScalePct": 100
-    },
-    {
-      "SkillTypeId": 9,
-      "CostPct": 100,
-      "ScalePct": 100,
-      "OverrideEntityTypeId": 4,
-      "OverrideEntityId": 10
-    }
-  ],
-  "Procs": [
-    {
-      "Chance": 25,
-      "ProcTypeId": 2,
-      "FromElementTypeId": 5,
-      "Scale": 100
-    }
-  ],
-  "BonusEfffects": [],
-  "BuffEffects": [
-    {
-      "StatTypeId": 13,
-      "Percent": 10
-    }
-  ],
-  "DebuffEffects": [
-    {
-      "StatTypeId": 13,
-      "Percent": 10
-    }
-  ],
-  "UpdateTime": "2023-12-24T17:22:24.015Z",
-  "CreateTime": "2023-11-24T16:45:23.186Z"
+  "Name": "Earth",
+  "Art": "Earth",
+  "CasterActionName": "Crush",
+  "ObserverActionName": "Crushes",
+  "VulnElementTypeId": 4,
+  "Skills": [],
+  "OldProcs": [],
+  "BonusEffects": [],
+  "BuffEffects": [],
+  "DebuffEffects": [],
+  "Procs": [],
+  "UpdateTime": "2024-02-09T22:37:35.122Z",
+  "CreateTime": "2024-01-27T20:32:45.38Z"
 }

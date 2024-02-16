@@ -15,8 +15,6 @@ namespace Genrpg.Shared.Entities.Settings
     public class EntitySettings : ParentSettings<EntityType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public EntityType GetEntityType(long idkey) { return _lookup.Get<EntityType>(idkey); }
     }
 
     [MessagePackObject]

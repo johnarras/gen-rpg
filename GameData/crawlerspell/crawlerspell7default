@@ -1,0 +1,27 @@
+{
+  "Id": "crawlerspell7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Mesmerize",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 100,
+  "PowerPerLevel": 1,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 7,
+  "TargetTypeId": 3,
+  "Level": 9,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "ElementTypeId": 4
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.402Z",
+  "CreateTime": "2024-01-28T09:09:08Z"
+}

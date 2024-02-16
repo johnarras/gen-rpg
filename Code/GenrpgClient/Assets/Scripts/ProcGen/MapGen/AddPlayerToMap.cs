@@ -18,7 +18,7 @@ class AddPlayerToMap : BaseZoneGenerator
         gs.ch.X = gs.map.SpawnX;
         gs.ch.Z = gs.map.SpawnY;
 
-        UnitType utype = gs.data.GetGameData<UnitSettings>(gs.ch).GetUnitType(gs.ch.EntityId);
+        UnitType utype = gs.data.Get<UnitSettings>(gs.ch).Get(gs.ch.EntityId);
 
         if (utype == null || string.IsNullOrEmpty(utype.Art))
         {
@@ -29,7 +29,7 @@ class AddPlayerToMap : BaseZoneGenerator
 
     }
 
-    private void OnLoadPlayer(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadPlayer(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity artGo = obj as GEntity;
 
@@ -46,7 +46,7 @@ class AddPlayerToMap : BaseZoneGenerator
             Token = _token,
         };
         
-        GEntity go = _unitSetupService.SetupUnit(gs, url, artGo, loadData, _token);
+        GEntity go = _unitSetupService.SetupUnit(gs, artGo, loadData, _token);
         float height = _terrainManager.SampleHeight(gs, ch.X, ch.Z);
         go.transform().position = GVector3.Create(ch.X, MapConstants.MapHeight, ch.Z);
         go.transform().eulerAngles = GVector3.Create(0, ch.Rot, 0);

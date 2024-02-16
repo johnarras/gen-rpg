@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Core.Entities;
 using System.Threading;
@@ -11,6 +10,7 @@ using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Entities.Services
 {
@@ -27,11 +27,10 @@ namespace Genrpg.Shared.Entities.Services
         private Dictionary<long, IRewardHelper> _rewardHelpers = null;
         private Dictionary<long, IEntityHelper> _entityHelpers = null;
 
-        protected IReflectionService _reflectionService = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
-            _rewardHelpers = _reflectionService.SetupDictionary<long, IRewardHelper>(gs);
-            _entityHelpers = _reflectionService.SetupDictionary<long, IEntityHelper>(gs);
+            _rewardHelpers = ReflectionUtils.SetupDictionary<long, IRewardHelper>(gs);
+            _entityHelpers = ReflectionUtils.SetupDictionary<long, IEntityHelper>(gs);
             await Task.CompletedTask;
         }
 

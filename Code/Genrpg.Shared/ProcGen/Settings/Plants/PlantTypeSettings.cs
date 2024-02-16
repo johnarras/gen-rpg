@@ -56,8 +56,6 @@ namespace Genrpg.Shared.ProcGen.Settings.Plants
     public class PlantTypeSettings : ParentSettings<PlantType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public PlantType GetPlantType(long idkey) { return _lookup.Get<PlantType>(idkey); }
     }
 
     [MessagePackObject]

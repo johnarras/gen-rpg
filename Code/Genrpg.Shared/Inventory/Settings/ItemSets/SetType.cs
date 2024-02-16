@@ -42,7 +42,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemSets
         [Key(2)] public int Percent { get; set; }
     }
     [MessagePackObject]
-    public class SetSpellProc : ISpellProc
+    public class SetSpellProc : IOldSpellProc
     {
         [Key(0)] public int Chance { get; set; }
         [Key(1)] public long SpellId { get; set; }
@@ -59,14 +59,12 @@ namespace Genrpg.Shared.Inventory.Settings.ItemSets
         [Key(0)] public long ItemTypeId { get; set; }
         [Key(1)] public string Name { get; set; }
 
-        [Key(2)] public List<StatPct> Stats { get; set; }
+        [Key(2)] public List<StatPct> Stats { get; set; } = new List<StatPct>();
 
-        [Key(3)] public List<SpellProc> Procs { get; set; }
+        [Key(3)] public List<OldSpellProc> OldProcs { get; set; } = new List<OldSpellProc>();
 
         public SetPiece()
         {
-            Stats = new List<StatPct>();
-            Procs = new List<SpellProc>();
         }
 
     }

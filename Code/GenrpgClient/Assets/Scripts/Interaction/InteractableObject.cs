@@ -84,7 +84,7 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
             InteractGlow, OnLoadGlow, null, token, "Core");
     }
 
-    private void OnLoadGlow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadGlow(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity glow = obj as GEntity;
         if (glow == null)

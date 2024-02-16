@@ -2,7 +2,9 @@
   "Id": "unittype39default",
   "ParentId": "default",
   "IdKey": 39,
-  "Name": "LizardWarrior",
+  "Name": "Lizard Warrior",
+  "PluralName": "Lizard Warriors",
+  "Icon": "LizardWarrior",
   "Art": "LizardWarrior",
   "Height": 3.0,
   "TribeTypeId": 1,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.914Z",
+  "CreateTime": "2024-02-04T21:57:21.967Z"
 }

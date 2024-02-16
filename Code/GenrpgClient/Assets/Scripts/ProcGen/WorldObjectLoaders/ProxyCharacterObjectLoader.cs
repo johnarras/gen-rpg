@@ -15,8 +15,8 @@ public class ProxyCharacterObjectLoader : UnitObjectLoader
     {
         await base.Load(gs, spawn, obj, token);
     }
-    protected override void AfterLoadUnit(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    protected override void AfterLoadUnit(UnityGameState gs, object obj, object data, CancellationToken token)
     {
-        base.AfterLoadUnit(gs, url, obj, data, token);
+        base.AfterLoadUnit(gs, obj, data, token);
     }
 }

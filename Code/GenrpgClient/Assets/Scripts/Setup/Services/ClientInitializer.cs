@@ -1,9 +1,15 @@
+using Assets.Scripts.Crawler.Services;
+using Assets.Scripts.Crawler.Services.Combat;
+using Assets.Scripts.Crawler.Services.Training;
 using Assets.Scripts.Ftue.Services;
 using Assets.Scripts.GameSettings.Services;
 using Assets.Scripts.UI.Services;
+using Genrpg.Shared.Crawler.Loot.Services;
+using Genrpg.Shared.Crawler.Spells.Services;
+using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Reflection.Services;
+using Genrpg.Shared.Utils;
 using System.Threading;
 
 public class ClientInitializer 
@@ -21,11 +27,10 @@ public class ClientInitializer
         gs.loc.Set<IQuestGenService>(new QuestGenService());
         gs.loc.Set<IClientMapObjectManager>(new ClientMapObjectManager(token));
         gs.loc.Set<IClientGameDataService>(new ClientGameDataService());
-        gs.loc.Set<IUIService>(new UIService());
+        gs.loc.Set<IUiService>(new UiService());
         gs.loc.Set<IFxService>(new FxService());
 
         // Unity-specific overrides
-        gs.loc.Set<IReflectionService>(new UnityReflectionService());
         IAssetService ias = new UnityAssetService();
         ias.Init(gs, assetPrefix, contentDataEnv, worldDataEnv, token);
         gs.loc.Set(ias);
@@ -44,6 +49,15 @@ public class ClientInitializer
 		gs.loc.Set<IMapGenService>(new MapGenService());
 		gs.loc.Set<IZoneGenService> (new UnityZoneGenService());
         gs.loc.Set<IFtueService>(new ClientFtueService());
+
+        gs.loc.Set<ICrawlerService>(new CrawlerService());
+        gs.loc.Set<ICrawlerSpellService>(new CrawlerSpellService());
+        gs.loc.Set<ICombatService>(new CombatService());
+        gs.loc.Set<ILootGenService>(new LootGenService());
+        gs.loc.Set<IProcessCombatRoundCombatService>(new ProcessCombatRoundCombatService());
+        gs.loc.Set<ITrainingService>(new TrainingService());
+        gs.loc.Set<ICrawlerStatService>(new CrawlerStatService());
+
         gs.loc.ResolveSelf();
 
         foreach (IService service in gs.loc.GetVals())

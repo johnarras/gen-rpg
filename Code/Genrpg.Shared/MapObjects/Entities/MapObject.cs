@@ -10,6 +10,8 @@ using Genrpg.Shared.Networking.Interfaces;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
 using Genrpg.Shared.Pathfinding.Entities;
+using Genrpg.Shared.Spells.Interfaces;
+using Genrpg.Shared.Entities.Constants;
 
 namespace Genrpg.Shared.MapObjects.Entities
 {
@@ -25,7 +27,7 @@ namespace Genrpg.Shared.MapObjects.Entities
         public float Z { get; set; }
         public float Rot { get; set; }
         public float Speed { get; set; }
-        
+
         public long ZoneId { get; set; }
         public string LocationId { get; set; }
         public string LocationPlaceId { get; set; }
@@ -34,16 +36,64 @@ namespace Genrpg.Shared.MapObjects.Entities
         public long Level { get; set; }
         public long FactionTypeId { get; set; }
         public long AddonBits { get; set; }
-        
+
         public DateTime LastGridChange { get; set; }
-        
+
         public float ToRot { get; set; }
-        
+
         public float FinalX { get; set; }
-        
+
         public float FinalZ { get; set; }
 
         public WaypointList Waypoints { get; set; }
+
+        public List<IDisplayEffect> Effects { get; set; } = new List<IDisplayEffect>();
+
+        public BitList StatusEffects { get; set; } = new BitList();
+
+        public void AddEffect(IDisplayEffect effect)
+        {
+            if (effect.EntityTypeId == EntityTypes.StatusEffect)
+            {
+                StatusEffects.SetBit(effect.EntityId);
+            }
+        }
+
+        public void RemoveEffect(IDisplayEffect effect)
+        {
+            if (!Effects.Contains(effect))
+            {
+                return;
+            }
+
+            lock (this)
+            {
+                Effects.Remove(effect);
+            }
+
+            if (effect.EntityTypeId == EntityTypes.StatusEffect)
+            {
+                if (!Effects.Any(x=>x.EntityTypeId == EntityTypes.StatusEffect && x.EntityId == effect.EntityId))
+                {
+                    StatusEffects.RemoveBit(effect.EntityId);
+                }
+            }
+        }
+
+        public void RemoveStatusBit(long statusBitId)
+        {
+            StatusEffects.RemoveBit(statusBitId);
+            if (Effects.Any(x=>x.EntityTypeId == EntityTypes.StatusEffect && x.EntityId == statusBitId))
+            {
+                lock (this)
+                {
+                    Effects = Effects.Where(x => x.EntityTypeId != EntityTypes.StatusEffect || x.EntityId != statusBitId).ToList();
+                }
+            }
+        }
+
+     
+
 
         public float GetNextXPos()
         {
@@ -121,7 +171,7 @@ namespace Genrpg.Shared.MapObjects.Entities
             _isDeleted = val;
         }
 
-        public virtual string GetGameDataName(string typeName)
+        public virtual string GetName(string typeName)
         {
             return GameDataConstants.DefaultFilename;
         }

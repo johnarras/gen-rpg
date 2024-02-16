@@ -14,6 +14,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Pathfinding.Constants;
 using Assets.Scripts.Pathfinding.Utils;
+using Genrpg.Shared.Units.Constants;
 
 public class PlayerController : UnitController
 {

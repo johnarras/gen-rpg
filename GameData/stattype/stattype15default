@@ -2,6 +2,9 @@
   "Id": "stattype15default",
   "ParentId": "default",
   "IdKey": 15,
-  "Name": "Spirit",
-  "GenScalePct": 100
+  "Name": "Luck",
+  "Desc": "Helps with ?",
+  "GenScalePct": 100,
+  "UpdateTime": "2024-02-15T23:16:28.897Z",
+  "CreateTime": "2024-02-15T23:03:14.478Z"
 }

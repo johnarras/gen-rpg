@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.DataStores.Categories.GameSettings;
+﻿using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
 using System;
@@ -9,10 +10,11 @@ namespace Genrpg.Shared.GameSettings.Loaders
 {
     public interface IGameSettingsLoader
     {
+        Task Setup(IRepositorySystem repoSystem);
         Type GetServerType();
         Type GetClientType();
         bool SendToClient();
-        Task<List<IGameSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing);
-        IGameSettings MapToApi(IGameSettings settings);
+        Task<List<ITopLevelSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing);
+        ITopLevelSettings MapToApi(ITopLevelSettings settings);
     }
 }

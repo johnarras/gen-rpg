@@ -3,6 +3,8 @@
   "ParentId": "default",
   "IdKey": 52,
   "Name": "Zombie",
+  "PluralName": "Zombies",
+  "Icon": "Zombie",
   "Art": "Zombie",
   "Height": 2.0,
   "TribeTypeId": 3,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.946Z",
+  "CreateTime": "2024-02-04T21:57:21.993Z"
 }

@@ -1,4 +1,5 @@
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.Units.Constants;
 using MessagePack;
 using System;
 using System.Collections.Generic;

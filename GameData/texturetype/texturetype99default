@@ -4,5 +4,7 @@
   "IdKey": 99,
   "Name": "RockRed",
   "Size": 8.0,
-  "ParentTextureTypeId": 17
+  "ParentTextureTypeId": 17,
+  "UpdateTime": "2024-02-15T23:06:20.835Z",
+  "CreateTime": "2024-02-15T23:06:20.835Z"
 }

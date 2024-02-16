@@ -15,8 +15,6 @@ namespace Genrpg.Shared.Currencies.Settings
     public class CurrencySettings : ParentSettings<CurrencyType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public CurrencyType GetCurrencyType(long idkey) { return _lookup.Get<CurrencyType>(idkey); }
     }
 
     [MessagePackObject]

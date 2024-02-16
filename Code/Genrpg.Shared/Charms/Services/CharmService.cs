@@ -41,11 +41,11 @@ namespace Genrpg.Shared.Charms.Services
 
             List<PlayerCharmBonusList> retval = new List<PlayerCharmBonusList>();
 
-            List<CharmUse> charmUses = gs.data.GetGameData<CharmUseSettings>(null).GetList<CharmUse>();
+            IReadOnlyList<CharmUse> charmUses = gs.data.Get<CharmUseSettings>(null).GetData();
 
-            List<CharmBonus> charmBonuses = gs.data.GetGameData<CharmBonusSettings>(null).GetList<CharmBonus>();
+            IReadOnlyList<CharmBonus> charmBonuses = gs.data.Get<CharmBonusSettings>(null).GetData();
 
-            List<StatType> statTypes = gs.data.GetGameData<StatSettings>(null).GetList<StatType>();
+            IReadOnlyList<StatType> statTypes = gs.data.Get<StatSettings>(null).GetData();
 
             foreach (CharmUse charmUse in charmUses)
             {
@@ -136,7 +136,7 @@ namespace Genrpg.Shared.Charms.Services
         {
 
             List<string> retval = new List<string>();
-            List<StatType> allStatTypes = gs.data.GetGameData<StatSettings>(null).GetList<StatType>();
+            IReadOnlyList<StatType> allStatTypes = gs.data.Get<StatSettings>(null).GetData();
 
             foreach (PlayerCharmBonus bonus in list.Bonuses)
             {

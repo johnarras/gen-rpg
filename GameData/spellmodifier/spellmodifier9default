@@ -10,5 +10,7 @@
   "DataMemberName": "Cast Time",
   "DisplayMult": 1.0,
   "MaxValue": 6.0,
-  "ValueDelta": 0.5
+  "ValueDelta": 0.5,
+  "UpdateTime": "2024-02-15T23:06:19.944Z",
+  "CreateTime": "2024-02-15T23:06:19.944Z"
 }

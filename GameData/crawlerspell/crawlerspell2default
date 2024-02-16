@@ -1,0 +1,17 @@
+{
+  "Id": "crawlerspell2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Defend",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MaxRange": 100,
+  "CombatActionId": 2,
+  "TargetTypeId": 9,
+  "Level": 1,
+  "Effects": [],
+  "SuppressCastText": true,
+  "UpdateTime": "2024-02-16T03:41:53.39Z",
+  "CreateTime": "2024-01-28T08:46:43Z"
+}

@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 153,
   "Name": "Topaz",
-  "NameId": "GemTopaz",
-  "GenName": "GemTopaz",
   "Icon": "GemTopaz",
   "Effects": [
     {

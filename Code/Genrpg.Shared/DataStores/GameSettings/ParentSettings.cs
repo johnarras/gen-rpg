@@ -6,20 +6,55 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Genrpg.Shared.DataStores.GameSettings
 {
-    public abstract class ParentSettings<TChild> : BaseGameSettings, IComplexCopy
+    public abstract class ParentSettings<TChild> : TopLevelGameSettings, IComplexCopy
         where TChild : ChildSettings, new()
     {
         protected List<TChild> _data { get; set; } = new List<TChild>();
-        public virtual void SetData(List<TChild> data) { _data = data; ClearIndex(); }
-        public List<TChild> GetData() { return _data; }
+        protected Dictionary<long, TChild> _dict = new Dictionary<long, TChild>();
+        public virtual void SetData(List<TChild> data) 
+        { 
+            _data = data; 
+            if (_data.Count > 0 && _data[0] is IId iTempId)
+            {
+                List<IId> idList = _data.Cast<IId>().ToList();
+                idList = idList.OrderBy(x => x.IdKey).ToList();
+                _data = idList.Cast<TChild>().ToList(); 
+            }
+            ClearIndex(); 
+        }
+
+        public override void ClearIndex()
+        {
+            _dict.Clear();
+
+            foreach (TChild child in _data)
+            {
+                if (child is IIdName idname)
+                {
+                    _dict[idname.IdKey] = child;
+                }
+            }
+        }
+
+        public IReadOnlyList<TChild> GetData() { return _data; }
+
+        public TChild Get(long idkey)
+        {
+            if (_dict.TryGetValue(idkey, out TChild child))
+            {
+                return child;
+            }
+            return default;
+        }
+
         public override void SetInternalIds()
         {
-
             for (int c = 0; c < _data.Count; c++)
             {
                 TChild child = _data[c];

@@ -7,6 +7,7 @@ using Genrpg.Shared.Setup.Services;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.GameSettings;
+using Assets.Scripts.GameSettings.Services;
 
 public class SetupEditorUnityGameState
 {
@@ -28,7 +29,7 @@ public class SetupEditorUnityGameState
         if (needInit)
         {
 
-            GameObject initObject = GameObject.Find("__Init");
+            GameObject initObject = GameObject.Find("InitClient");
             gs.SetInitObject(initObject);
             SetupService ss = new SetupService();
 
@@ -43,6 +44,10 @@ public class SetupEditorUnityGameState
                 !string.IsNullOrEmpty(config.ContentDataEnvOverride) ? config.ContentDataEnvOverride : EnvNames.Dev, 
                 !string.IsNullOrEmpty(config.WorldDataEnv) ? config.WorldDataEnv : EnvNames.Dev, 
                 _cts.Token);
+
+            IClientGameDataService _clientGameDataService = gs.loc.Get<IClientGameDataService>();
+
+            _clientGameDataService.LoadCachedSettings(gs);
         }
         return gs;
     }

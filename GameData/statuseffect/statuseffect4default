@@ -1,0 +1,9 @@
+{
+  "Id": "statuseffect4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Paralyzed",
+  "Abbrev": "Para",
+  "UpdateTime": "2024-01-28T17:14:24.032Z",
+  "CreateTime": "2024-01-27T17:52:56.642Z"
+}

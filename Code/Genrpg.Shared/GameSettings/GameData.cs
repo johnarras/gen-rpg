@@ -7,6 +7,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.DataStores.GameSettings;
 
 namespace Genrpg.Shared.GameSettings
 {
@@ -18,9 +19,9 @@ namespace Genrpg.Shared.GameSettings
         [Key(0)] public DateTime PrevSaveTime { get; set; }  = DateTime.MinValue;
         [Key(1)] public DateTime CurrSaveTime { get; set; } = DateTime.UtcNow;
 
-        private List<IGameSettings> _allData { get; set; } = new List<IGameSettings>();
+        private List<ITopLevelSettings> _allData { get; set; } = new List<ITopLevelSettings>();
 
-        public List<IGameSettings> GetAllData()
+        public List<ITopLevelSettings> AllSettings()
         {
             return _allData;
         }
@@ -57,11 +58,11 @@ namespace Genrpg.Shared.GameSettings
         }
 
         private Dictionary<Type, Dictionary<string,IGameSettings>> _dataDict = null!;
-        public T GetGameData<T>(IFilteredObject obj) where T : IGameSettings
+        public T Get<T>(IFilteredObject obj) where T : IGameSettings
         {
             SetupDataDict(false);
 
-            string dataName = GetDataObjectName(typeof(T).Name, obj);
+            string dataName = DataObjectName(typeof(T).Name, obj);
 
             if (_dataDict.TryGetValue(typeof(T), out Dictionary<string, IGameSettings> typeDict))
             {
@@ -81,9 +82,14 @@ namespace Genrpg.Shared.GameSettings
             return default(T)!;
         }
 
-        public void Set<T>(T t) where T : IGameSettings
+        public void Set<T>(T t) where T : ITopLevelSettings
         {
-            IGameSettings currentObject = _allData.FirstOrDefault(x => x.Id == t.Id && x.GetType() == t.GetType());
+            if (t is IChildSettings childSettings)
+            {
+                return;
+            }
+
+            ITopLevelSettings currentObject = _allData.FirstOrDefault(x => x.Id == t.Id && x.GetType() == t.GetType());
             if (currentObject != null)
             {
                 _allData.Remove(currentObject);
@@ -92,35 +98,18 @@ namespace Genrpg.Shared.GameSettings
             _allData.Add(t);
         }
 
-        public void AddData(List<IGameSettings> settingsList)
+        public void AddData(List<ITopLevelSettings> settingsList)
         {
-            foreach (IGameSettings settings in settingsList)
+            foreach (ITopLevelSettings settings in settingsList)
             {
                 settings.AddTo(this);
             }
             SetupDataDict(true);
         }
 
-        public List<IIdName> GetList(string typeName)
+        public string DataObjectName(string typeName, IFilteredObject obj)
         {
-            foreach (BaseGameSettings data in _allData)
-            {
-                if (data.Id != GameDataConstants.DefaultFilename)
-                {
-                    continue;
-                }
-                List<IIdName> vals = data.GetList(typeName);
-                if (vals != null && vals.Count > 0)
-                {
-                    return vals;
-                }
-            }
-            return new List<IIdName>();
-        }
-
-        public string GetDataObjectName(string typeName, IFilteredObject obj)
-        {
-            return obj?.GetGameDataName(typeName) ?? GameDataConstants.DefaultFilename;
+            return obj?.GetName(typeName) ?? GameDataConstants.DefaultFilename;
             
         }
     }

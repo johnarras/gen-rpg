@@ -4,5 +4,7 @@
   "IdKey": 71,
   "Name": "Grassi",
   "Size": 8.0,
-  "ParentTextureTypeId": 1
+  "ParentTextureTypeId": 1,
+  "UpdateTime": "2024-02-15T23:06:20.578Z",
+  "CreateTime": "2024-02-15T23:06:20.578Z"
 }

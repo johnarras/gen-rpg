@@ -1,0 +1,50 @@
+{
+  "Id": "class1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Warrior",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Wa",
+  "LevelsPerMelee": 6,
+  "LevelsPerRanged": 12,
+  "HealthPerLevel": 20,
+  "BuffStatTypeId": 71,
+  "BuffStatPercent": 100,
+  "DefaultLevelPercentBuff": 50,
+  "PartyBuffId": 1,
+  "MaxArmorScalingTypeId": 4,
+  "AllowedWeapons": [
+    {
+      "ItemTypeId": 21
+    },
+    {
+      "ItemTypeId": 22
+    },
+    {
+      "ItemTypeId": 23
+    },
+    {
+      "ItemTypeId": 24
+    },
+    {
+      "ItemTypeId": 25
+    },
+    {
+      "ItemTypeId": 26
+    },
+    {
+      "ItemTypeId": 27
+    },
+    {
+      "ItemTypeId": 28
+    },
+    {
+      "ItemTypeId": 29
+    }
+  ],
+  "AllowedEquipSlots": [],
+  "UpdateTime": "2024-02-16T02:43:09.65Z",
+  "CreateTime": "2024-01-27T18:57:37Z"
+}

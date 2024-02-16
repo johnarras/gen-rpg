@@ -1,0 +1,9 @@
+{
+  "Id": "statuseffect13default",
+  "ParentId": "default",
+  "IdKey": 13,
+  "Name": "Hidden",
+  "Abbrev": "Hide",
+  "UpdateTime": "2024-01-28T17:14:24.062Z",
+  "CreateTime": "2024-01-27T20:57:02.191Z"
+}

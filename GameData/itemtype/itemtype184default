@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 184,
   "Name": "Tooth",
-  "NameId": "Tooth",
-  "GenName": "BodyTooth",
   "Icon": "BodyTooth",
   "Effects": [
     {

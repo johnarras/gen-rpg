@@ -1,0 +1,13 @@
+{
+  "Id": "elementtype0default",
+  "ParentId": "default",
+  "Name": "None",
+  "Skills": [],
+  "OldProcs": [],
+  "BonusEffects": [],
+  "BuffEffects": [],
+  "DebuffEffects": [],
+  "Procs": [],
+  "UpdateTime": "2024-02-09T22:37:35.105Z",
+  "CreateTime": "2024-01-27T20:32:45.362Z"
+}

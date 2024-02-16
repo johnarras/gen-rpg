@@ -5,7 +5,7 @@ using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Reflection.Services;
+using Genrpg.Shared.Utils;
 using Genrpg.Shared.Setup.Services;
 using System;
 using System.Threading;
@@ -28,7 +28,6 @@ namespace Genrpg.ServerShared.MainServer
         protected CancellationTokenSource _tokenSource = new CancellationTokenSource();
         protected string _serverId;
         protected ICloudCommsService _cloudCommsService;
-        protected IReflectionService _reflectionService;
 
         public virtual async Task Init(object data, CancellationToken serverToken)
         {
@@ -38,7 +37,7 @@ namespace Genrpg.ServerShared.MainServer
             _gs = await SetupUtils.SetupFromConfig<TGameState>(this, _serverId, new TSetupService(),
                 _tokenSource.Token);
 
-            _cloudCommsService.SetQueueMessageHandlers(_reflectionService.SetupDictionary<Type, IQMessageHandler>(_gs));
+            _cloudCommsService.SetQueueMessageHandlers(ReflectionUtils.SetupDictionary<Type, IQMessageHandler>(_gs));
         
             _cloudCommsService.SetupPubSubMessageHandlers(_gs);
 

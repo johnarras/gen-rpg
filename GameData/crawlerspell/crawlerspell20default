@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell20default",
+  "ParentId": "default",
+  "IdKey": 20,
+  "Name": "Blink",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 50,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 5,
+  "TargetTypeId": 8,
+  "Level": 5,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 5,
+      "ElementTypeId": 9
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.423Z",
+  "CreateTime": "2024-01-28T05:48:08Z"
+}

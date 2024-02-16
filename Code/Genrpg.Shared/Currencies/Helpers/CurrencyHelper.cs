@@ -16,7 +16,7 @@ namespace Genrpg.Shared.Currencies.Helpers
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
         {
-            return gs.data.GetGameData<CurrencySettings>(obj).GetCurrencyType(id);
+            return gs.data.Get<CurrencySettings>(obj).Get(id);
         }
     }
 }

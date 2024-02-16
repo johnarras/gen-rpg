@@ -1,0 +1,8 @@
+{
+  "Id": "combataction3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Shoot",
+  "UpdateTime": "2024-02-04T20:06:31.898Z",
+  "CreateTime": "2024-02-04T20:06:31.898Z"
+}

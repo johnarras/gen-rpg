@@ -42,11 +42,6 @@ namespace Genrpg.Shared.Stats.Settings.Stats
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public int StatConstantUnitMultiple { get; set; }
 
-        public StatType GetStatType(long idkey)
-        {
-            return _lookup.Get<StatType>(idkey);
-        }
-
         public List<StatType> GetPowerStats()
         {
             return _data.Where(x => x.IdKey <= StatConstants.MaxMutableStatTypeId &&

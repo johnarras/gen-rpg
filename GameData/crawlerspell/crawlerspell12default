@@ -1,0 +1,69 @@
+{
+  "Id": "crawlerspell12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Cleanse",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 30,
+  "MaxRange": 100,
+  "ReplacesCrawlerSpellId": 11,
+  "CombatActionId": 4,
+  "ClassId": 4,
+  "TargetTypeId": 2,
+  "Level": 9,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 1,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 2,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 3,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 4,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 6,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 7,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 8,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.411Z",
+  "CreateTime": "2024-01-28T09:17:33Z"
+}

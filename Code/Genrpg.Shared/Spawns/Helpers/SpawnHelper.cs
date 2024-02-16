@@ -18,7 +18,7 @@ namespace Genrpg.Shared.Spawns.Helpers
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
         {
-            return gs.data.GetGameData<SpawnSettings>(obj).GetSpawnTable(id);
+            return gs.data.Get<SpawnSettings>(obj).Get(id);
         }
     }
 }

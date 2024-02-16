@@ -3,6 +3,8 @@
   "ParentId": "default",
   "IdKey": 23,
   "Name": "Goose",
+  "PluralName": "Geese",
+  "Icon": "Goose",
   "Art": "Goose",
   "Height": 1.0,
   "TribeTypeId": 2,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.876Z",
+  "CreateTime": "2024-02-04T21:57:21.931Z"
 }

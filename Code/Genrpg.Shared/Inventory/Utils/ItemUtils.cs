@@ -29,7 +29,7 @@ namespace Genrpg.Shared.Inventory.Utils
             {
                 return item.Name;
             }
-            ItemType itype = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(item.ItemTypeId);
+            ItemType itype = gs.data.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
             if (itype == null)
             {
                 return "Item";
@@ -41,10 +41,10 @@ namespace Genrpg.Shared.Inventory.Utils
                 ItemEffect firstSet = item.Effects.FirstOrDefault(X => X.EntityTypeId == EntityTypes.Set);
                 if (firstSet != null)
                 {
-                    RecipeType rtype = gs.data.GetGameData<RecipeSettings>(unit).GetRecipeType(firstSet.EntityId);
+                    RecipeType rtype = gs.data.Get<RecipeSettings>(unit).Get(firstSet.EntityId);
                     if (rtype != null)
                     {
-                        ScalingType stype = gs.data.GetGameData<ScalingTypeSettings>(unit).GetScalingType(item.ScalingTypeId);
+                        ScalingType stype = gs.data.Get<ScalingTypeSettings>(unit).Get(item.ScalingTypeId);
                         if (stype != null && !string.IsNullOrEmpty(stype.Prefix))
                         {
                             item.Name = "Recipe: L " + item.Level + " " + stype.Prefix + " " + rtype.Name;
@@ -66,7 +66,7 @@ namespace Genrpg.Shared.Inventory.Utils
                 return item.GetIcon();
             }
 
-            ScalingType scalingType = gs.data.GetGameData<ScalingTypeSettings>(unit).GetScalingType(item.ScalingTypeId);
+            ScalingType scalingType = gs.data.Get<ScalingTypeSettings>(unit).Get(item.ScalingTypeId);
             string scalingName = "";
             if (scalingType != null)
             {
@@ -81,7 +81,7 @@ namespace Genrpg.Shared.Inventory.Utils
 
             string startMainName = "";
 
-            ItemType itype = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(item.ItemTypeId);
+            ItemType itype = gs.data.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
             if (itype == null || string.IsNullOrEmpty(itype.Icon))
             {
                 startMainName = RpgConstants.DefaultItemIcon;
@@ -145,9 +145,9 @@ namespace Genrpg.Shared.Inventory.Utils
                 return item.GetBasicInfo();
             }
 
-            ItemType itype = gs.data.GetGameData<ItemTypeSettings>(unit).GetItemType(item.ItemTypeId);
-            QualityType quality = gs.data.GetGameData<QualityTypeSettings>(unit).GetQualityType(item.QualityTypeId);
-            ScalingType scaling = gs.data.GetGameData<ScalingTypeSettings>(unit).GetScalingType(item.ScalingTypeId);
+            ItemType itype = gs.data.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
+            QualityType quality = gs.data.Get<QualityTypeSettings>(unit).Get(item.QualityTypeId);
+            ScalingType scaling = gs.data.Get<ScalingTypeSettings>(unit).Get(item.ScalingTypeId);
 
 
             string basicInfo = "Lv. " + item.Level;
@@ -179,7 +179,7 @@ namespace Genrpg.Shared.Inventory.Utils
                 return item.GetArt();
             }
 
-            ItemType itype = gs.data.GetGameData<ItemTypeSettings>(null).GetItemType(item.ItemTypeId);
+            ItemType itype = gs.data.Get<ItemTypeSettings>(null).Get(item.ItemTypeId);
             if (itype == null || string.IsNullOrEmpty(itype.Art))
             {
                 item.SetArt(RpgConstants.DefaultMapItemArt);
@@ -194,8 +194,7 @@ namespace Genrpg.Shared.Inventory.Utils
         public static string PrintData(GameState gs, Unit unit, Item item)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("IDLQN: " + item.ItemTypeId + " " + item.Level + " " + item.QualityTypeId + " " + item.Name
-                + " Use: " + item.UseEntityTypeId + " " + item.UseEntityId + " ");
+            sb.Append("IDLQN: " + item.ItemTypeId + " " + item.Level + " " + item.QualityTypeId + " " + item.Name + " ");
             if (item.Effects != null)
             {
                 foreach (ItemEffect eff in item.Effects)
@@ -203,7 +202,7 @@ namespace Genrpg.Shared.Inventory.Utils
                     string ename = "ET" + eff.EntityTypeId;
                     if (eff.EntityTypeId == EntityTypes.Stat || eff.EntityTypeId == EntityTypes.StatPct)
                     {
-                        StatType stype = gs.data.GetGameData<StatSettings>(unit).GetStatType(eff.EntityId);
+                        StatType stype = gs.data.Get<StatSettings>(unit).Get(eff.EntityId);
                         if (stype == null)
                         {
                             ename = "Stat" + eff.EntityId;
@@ -226,7 +225,7 @@ namespace Genrpg.Shared.Inventory.Utils
             if (buyPrice < 1)
             {
                 buyPrice = (long)(GetSellToVendorPrice(gs, unit, item) * Math.Max(2.0f,
-                    gs.data.GetGameData<VendorSettings>(unit).BuyFromVendorPriceMult));
+                    gs.data.Get<VendorSettings>(unit).BuyFromVendorPriceMult));
             }
 
             return buyPrice;
@@ -239,7 +238,7 @@ namespace Genrpg.Shared.Inventory.Utils
             if (sellPrice < 1)
             {
                 long itemValue = minSellPrice;
-                LevelInfo levelData = gs.data.GetGameData<LevelSettings>(unit).GetLevel(item.Level);
+                LevelInfo levelData = gs.data.Get<LevelSettings>(unit).Get(item.Level);
                 if (levelData != null)
                 {
                     itemValue = levelData.KillMoney * 3;
@@ -250,7 +249,7 @@ namespace Genrpg.Shared.Inventory.Utils
                     itemValue = sellPrice;
                 }
 
-                QualityType quality = gs.data.GetGameData<QualityTypeSettings>(unit).GetQualityType(item.QualityTypeId);
+                QualityType quality = gs.data.Get<QualityTypeSettings>(unit).Get(item.QualityTypeId);
                 if (quality != null && quality.ItemCostPct > 0)
                 {
                     itemValue = itemValue * quality.ItemCostPct / 100;
@@ -260,7 +259,7 @@ namespace Genrpg.Shared.Inventory.Utils
                     itemValue *= 100;
                 }
 
-                ScalingType scaling = gs.data.GetGameData<ScalingTypeSettings>(null).GetScalingType(item.ScalingTypeId);
+                ScalingType scaling = gs.data.Get<ScalingTypeSettings>(null).Get(item.ScalingTypeId);
                 if (scaling != null)
                 {
                     itemValue *= scaling.CostPct;

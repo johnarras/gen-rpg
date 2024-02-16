@@ -2,7 +2,9 @@
   "Id": "unittype32default",
   "ParentId": "default",
   "IdKey": 32,
-  "Name": "GriffonSingleSided",
+  "Name": "Griffon",
+  "PluralName": "Griffons",
+  "Icon": "GriffonSingleSided",
   "Art": "GriffonSingleSided",
   "Height": 4.0,
   "TribeTypeId": 8,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.898Z",
+  "CreateTime": "2024-02-04T21:57:21.953Z"
 }

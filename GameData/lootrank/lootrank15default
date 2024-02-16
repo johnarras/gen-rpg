@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank15default",
+  "ParentId": "default",
+  "IdKey": 15,
+  "Name": "Diamond",
+  "Armor": 50,
+  "Damage": 25,
+  "CostPct": 7500,
+  "UpdateTime": "2024-02-08T21:54:19.037Z",
+  "CreateTime": "2024-01-28T02:21:35.73Z"
+}

@@ -44,5 +44,7 @@
   "WindScale": 0.25,
   "PrecipScale": 0.7,
   "ParticleScale": 3.0,
-  "Particles": "mist"
+  "Particles": "mist",
+  "UpdateTime": "2024-02-15T23:06:21.535Z",
+  "CreateTime": "2024-02-15T23:06:21.535Z"
 }

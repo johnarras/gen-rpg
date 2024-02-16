@@ -3,6 +3,8 @@
   "ParentId": "default",
   "IdKey": 26,
   "Name": "Dragonkin",
+  "PluralName": "Dragonkin",
+  "Icon": "Dragonkin",
   "Art": "Dragonkin",
   "Height": 5.0,
   "TribeTypeId": 5,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.884Z",
+  "CreateTime": "2024-02-04T21:57:21.941Z"
 }

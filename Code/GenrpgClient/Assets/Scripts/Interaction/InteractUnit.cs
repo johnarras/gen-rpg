@@ -9,6 +9,7 @@ using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Constants;
 using Genrpg.Shared.Crafting.Settings.Crafters;
+using Genrpg.Shared.Units.Constants;
 
 public class InteractUnit : InteractableObject
 {
@@ -67,13 +68,13 @@ public class InteractUnit : InteractableObject
             {
                 if (string.IsNullOrEmpty(crafterMousePointer))
                 {
-                    UnitType unitType = _gs.data.GetGameData<UnitSettings>(_gs.ch).GetUnitType(unit.EntityId);
+                    UnitType unitType = _gs.data.Get<UnitSettings>(_gs.ch).Get(unit.EntityId);
                     if (unitType != null)
                     {
-                        TribeType tribe = _gs.data.GetGameData<TribeSettings>(_gs.ch).GetTribeType(unitType.TribeTypeId);
+                        TribeType tribe = _gs.data.Get<TribeSettings>(_gs.ch).Get(unitType.TribeTypeId);
                         if (tribe != null && tribe.LootCrafterTypeId > 0)
                         {
-                            CrafterType ctype = _gs.data.GetGameData<CraftingSettings>(_gs.ch).GetCrafterType(tribe.LootCrafterTypeId);
+                            CrafterType ctype = _gs.data.Get<CraftingSettings>(_gs.ch).Get(tribe.LootCrafterTypeId);
                             if (ctype != null && !string.IsNullOrEmpty(ctype.MousePointer))
                             {
                                 crafterMousePointer = ctype.MousePointer;

@@ -2,72 +2,29 @@
   "Id": "elementtype3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "Fire",
+  "Name": "Ice",
   "Desc": "",
   "Icon": "",
-  "Art": "Fire",
-  "RankScale": 5,
-  "Skills": [
-    {
-      "SkillTypeId": 1,
-      "CostPct": 125,
-      "ScalePct": 50
-    },
-    {
-      "SkillTypeId": 2,
-      "CostPct": 75,
-      "ScalePct": 150
-    },
-    {
-      "SkillTypeId": 3,
-      "CostPct": 125,
-      "ScalePct": 50
-    },
-    {
-      "SkillTypeId": 4,
-      "CostPct": 125,
-      "ScalePct": 75,
-      "OverrideEntityTypeId": 3
-    },
-    {
-      "SkillTypeId": 7,
-      "CostPct": 100,
-      "ScalePct": 100
-    },
-    {
-      "SkillTypeId": 8,
-      "CostPct": 100,
-      "ScalePct": 100
-    },
-    {
-      "SkillTypeId": 9,
-      "CostPct": 100,
-      "ScalePct": 100,
-      "OverrideEntityTypeId": 4,
-      "OverrideEntityId": 7
-    }
-  ],
+  "Art": "Water",
+  "CasterActionName": "Freeze",
+  "ObserverActionName": "Freezes",
+  "CastAnim": "",
+  "VulnElementTypeId": 2,
+  "Skills": [],
+  "OldProcs": [],
+  "BonusEffects": [],
+  "BuffEffects": [],
+  "DebuffEffects": [],
   "Procs": [
     {
-      "Chance": 100,
-      "ProcTypeId": 2,
-      "FromElementTypeId": 3,
-      "Scale": 100
+      "EntityTypeId": 36,
+      "EntityId": 15,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "PercentChance": 10.0,
+      "ElementTypeId": 3
     }
   ],
-  "BonusEfffects": [],
-  "BuffEffects": [
-    {
-      "StatTypeId": 61,
-      "Percent": 10
-    }
-  ],
-  "DebuffEffects": [
-    {
-      "StatTypeId": 61,
-      "Percent": 10
-    }
-  ],
-  "UpdateTime": "2023-12-24T17:22:23.806Z",
-  "CreateTime": "2023-11-24T16:45:22.965Z"
+  "UpdateTime": "2024-02-09T22:37:35.113Z",
+  "CreateTime": "2024-01-28T02:32:45Z"
 }

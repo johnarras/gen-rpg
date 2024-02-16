@@ -26,7 +26,7 @@ namespace Assets.Scripts.UI.Charms
             await UniTask.CompletedTask;
         }
 
-        private void OnLoadStatusRow (UnityGameState gs, string url, object obj, object data, CancellationToken token)
+        private void OnLoadStatusRow (UnityGameState gs, object obj, object data, CancellationToken token)
         {
             GEntity go = obj as GEntity;
 

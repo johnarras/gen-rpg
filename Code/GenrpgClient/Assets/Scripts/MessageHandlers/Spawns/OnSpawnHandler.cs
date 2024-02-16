@@ -2,11 +2,9 @@
 using Genrpg.Shared.Combat.Messages;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Messages;
+using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
 using System.Threading;
-using System.Collections.Generic;
-using Genrpg.Shared.Stats.Messages;
-using Genrpg.Shared.Entities.Constants;
 
 public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
 {

@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 140,
   "Name": "Building Herb",
-  "NameId": "BuildingHerb",
-  "GenName": "HerbRoots",
   "Icon": "HerbRoots",
   "Effects": [
     {

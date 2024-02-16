@@ -416,5 +416,7 @@
   "Art": "0",
   "WeatherTypeId": 8,
   "MusicTypeId": 3,
-  "AmbientMusicTypeId": 8
+  "AmbientMusicTypeId": 8,
+  "UpdateTime": "2024-02-15T23:06:21.554Z",
+  "CreateTime": "2024-02-15T23:06:21.554Z"
 }

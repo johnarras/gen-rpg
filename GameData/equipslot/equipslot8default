@@ -5,6 +5,7 @@
   "Name": "Feet",
   "StatPercent": 125,
   "Active": true,
-  "UpdateTime": "2023-12-24T17:22:28.27Z",
+  "BaseBonusStatTypeId": 31,
+  "UpdateTime": "2024-02-13T20:39:34.303Z",
   "CreateTime": "2023-11-24T16:45:28.001Z"
 }

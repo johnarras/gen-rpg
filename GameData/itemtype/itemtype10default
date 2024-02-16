@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 10,
   "Name": "Shield",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Shield",
   "Art": "Shield",
+  "MinVal": 8,
+  "MaxVal": 8,
   "EquipSlotId": 16,
   "Flags": 8,
   "Effects": [],
@@ -95,6 +95,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:31.279Z",
+  "UpdateTime": "2024-02-03T22:45:17.024Z",
   "CreateTime": "2023-11-24T16:45:31.277Z"
 }

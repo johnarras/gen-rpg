@@ -1,0 +1,33 @@
+{
+  "Id": "crawlerspell10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Minor Cleanse",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 30,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 4,
+  "TargetTypeId": 2,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 1,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 2,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.407Z",
+  "CreateTime": "2024-01-28T03:17:33Z"
+}

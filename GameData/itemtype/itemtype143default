@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 143,
   "Name": "Air",
-  "NameId": "ElementAir",
-  "GenName": "ElementAir",
   "Desc": "",
   "Icon": "ElementAir",
   "Art": "",

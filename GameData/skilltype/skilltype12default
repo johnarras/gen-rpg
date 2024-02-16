@@ -1,0 +1,12 @@
+{
+  "Id": "skilltype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Shoot",
+  "TargetTypeId": 1,
+  "ScalingStatTypeId": 21,
+  "StatScalePercent": 100,
+  "EffectEntityTypeId": 33,
+  "UpdateTime": "2024-01-27T20:14:52.858Z",
+  "CreateTime": "2024-01-27T20:07:00.146Z"
+}

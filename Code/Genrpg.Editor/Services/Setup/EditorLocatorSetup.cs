@@ -1,4 +1,5 @@
-﻿using Genrpg.ServerShared.Setup;
+﻿using Genrpg.Editor.Services.Reflection;
+using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Genrpg.Editor.Services.Setup
     {
         public override void Setup(GameState gs)
         {
+            gs.loc.Set<IEditorReflectionService>(new EditorReflectionService());
             base.Setup(gs);
         }
     }

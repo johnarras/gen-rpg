@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 163,
   "Name": "Claws",
-  "NameId": "Claws",
-  "GenName": "BodyClaws",
   "Icon": "BodyClaws",
   "Effects": [
     {

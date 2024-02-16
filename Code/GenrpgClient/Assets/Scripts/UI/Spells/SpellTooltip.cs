@@ -69,7 +69,7 @@ public class SpellTooltip : BaseTooltip
             SpellTooltipRow, OnLoadRow, data, _token, "Spells");
     }
 
-    private void OnLoadRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadRow(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

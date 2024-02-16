@@ -21,7 +21,7 @@ public class AddChests : BaseZoneGenerator
 
         int skipSize = 40;
 
-        List<GroundObjType> chests = gs.data.GetGameData<GroundObjTypeSettings>(gs.ch).GetData().Where(x => x.GroupId == GroundObjType.ChestGroup).ToList();
+        List<GroundObjType> chests = gs.data.Get<GroundObjTypeSettings>(gs.ch).GetData().Where(x => x.GroupId == GroundObjType.ChestGroup).ToList();
 
         if (chests == null || chests.Count < 1)
         {

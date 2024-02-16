@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 29,
   "Name": "Polearm",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Spear",
   "Art": "Polearm",
+  "MinVal": 3,
+  "MaxVal": 13,
   "EquipSlotId": 15,
   "Flags": 10,
   "Effects": [],
@@ -105,6 +105,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:39.158Z",
+  "UpdateTime": "2024-02-03T22:45:17.043Z",
   "CreateTime": "2023-11-24T16:45:40.025Z"
 }

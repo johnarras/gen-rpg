@@ -2,7 +2,9 @@
   "Id": "unittype35default",
   "ParentId": "default",
   "IdKey": 35,
-  "Name": "HarpyNaked",
+  "Name": "Harpy",
+  "PluralName": "Harpies",
+  "Icon": "HarpyNaked",
   "Art": "HarpyNaked",
   "Height": 3.0,
   "TribeTypeId": 1,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.905Z",
+  "CreateTime": "2024-02-04T21:57:21.959Z"
 }

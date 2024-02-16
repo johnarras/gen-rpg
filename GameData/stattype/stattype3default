@@ -5,5 +5,7 @@
   "Name": "Energy",
   "Desc": "1->Fast Use/Fill",
   "MaxPool": 100,
-  "RegenSeconds": 15
+  "RegenSeconds": 15,
+  "UpdateTime": "2024-02-15T23:03:14.483Z",
+  "CreateTime": "2024-02-15T23:03:14.483Z"
 }

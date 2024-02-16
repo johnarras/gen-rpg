@@ -2,5 +2,7 @@
   "Id": "texturechannel3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "Steep"
+  "Name": "Steep",
+  "UpdateTime": "2024-02-15T23:06:20.027Z",
+  "CreateTime": "2024-02-15T23:06:20.027Z"
 }

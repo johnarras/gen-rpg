@@ -11,7 +11,7 @@ public class IconHelper
     public static string GetBackingNameFromQuality(UnityGameState gs, long qualityTypeId)
     {
         string txt = "BGCommon";
-        QualityType quality = gs.data.GetGameData<QualityTypeSettings>(gs.ch).GetQualityType(qualityTypeId);
+        QualityType quality = gs.data.Get<QualityTypeSettings>(gs.ch).Get(qualityTypeId);
         if (quality == null || string.IsNullOrEmpty(quality.Icon))
         {
             return txt;
@@ -47,11 +47,11 @@ public class IconHelper
         }
 
         assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, 
-            prefabName, OnLoadItemIcon, data, token, "Items");
+            prefabName, OnLoadItemIcon, data, token, data.subdirectory);
 
     }
 
-    private static void OnLoadItemIcon(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private static void OnLoadItemIcon(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -87,11 +87,11 @@ public class IconHelper
         }
 
         assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, 
-            prefabName, OnLoadSpellIcon, data, token, "Spells");
+            prefabName, OnLoadSpellIcon, data, token, data.subdirectory);
 
     }
 
-    private static void OnLoadSpellIcon(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private static void OnLoadSpellIcon(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

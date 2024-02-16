@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 22,
   "Name": "Axe",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Axe",
   "Art": "Axe",
+  "MinVal": 1,
+  "MaxVal": 8,
   "EquipSlotId": 15,
   "Flags": 8,
   "Effects": [],
@@ -90,6 +90,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:38.444Z",
+  "UpdateTime": "2024-02-03T22:45:17.028Z",
   "CreateTime": "2023-11-24T16:45:39.256Z"
 }

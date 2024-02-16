@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell17default",
+  "ParentId": "default",
+  "IdKey": 17,
+  "Name": "Phase Door",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 100,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 7,
+  "TargetTypeId": 8,
+  "Level": 12,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 2,
+      "ElementTypeId": 9
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.42Z",
+  "CreateTime": "2024-01-28T05:48:08Z"
+}

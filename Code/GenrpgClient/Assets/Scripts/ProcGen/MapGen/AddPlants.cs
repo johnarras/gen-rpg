@@ -33,7 +33,7 @@ public class AddPlants : BaseZoneGenerator
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
 
         AddPlantsToMapData(gs);
@@ -49,7 +49,7 @@ public class AddPlants : BaseZoneGenerator
             return;
         }
 
-        ZoneType zoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId);
+        ZoneType zoneType = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
 
         List<ZonePlantType> plist = new List<ZonePlantType>(zone.PlantTypes);
 
@@ -72,7 +72,7 @@ public class AddPlants : BaseZoneGenerator
                 continue;
             }
 
-            PlantType pt = gs.data.GetGameData<PlantTypeSettings>(gs.ch).GetPlantType(zpt.PlantTypeId);
+            PlantType pt = gs.data.Get<PlantTypeSettings>(gs.ch).Get(zpt.PlantTypeId);
             if (pt == null || string.IsNullOrEmpty(pt.Art))
             {
                 continue;
@@ -142,7 +142,7 @@ public class AddPlants : BaseZoneGenerator
 
             float midSteepVal = 70f;
 
-            GenZone genZone = gs.GetGenZone(zone.IdKey);
+            GenZone genZone = gs.md.GetGenZone(zone.IdKey);
 
             MyRandom rand = new MyRandom(full.noiseSeed);
             for (int i = 0; i < plantChanceTimes; i++)

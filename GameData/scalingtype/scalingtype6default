@@ -11,7 +11,7 @@
   "AttPct": 110,
   "DefPct": 110,
   "OtherPct": 100,
-  "CostPct": 150,
+  "CostPct": 1000,
   "AddStats": [
     {
       "StatTypeId": 31,
@@ -23,5 +23,8 @@
       "ItemTypeId": 106,
       "Percent": 150
     }
-  ]
+  ],
+  "ArmorPct": 100,
+  "UpdateTime": "2024-02-03T21:40:49.663Z",
+  "CreateTime": "2024-02-03T21:40:49.663Z"
 }

@@ -1,0 +1,10 @@
+{
+  "Id": "stattype72default",
+  "ParentId": "default",
+  "IdKey": 72,
+  "Name": "Boost",
+  "Desc": "Better stat bonuses",
+  "GenScalePct": 100,
+  "UpdateTime": "2024-02-15T23:34:21.151Z",
+  "CreateTime": "2024-02-15T22:48:39.213Z"
+}

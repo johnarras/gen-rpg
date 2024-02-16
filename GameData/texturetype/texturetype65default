@@ -4,5 +4,7 @@
   "IdKey": 65,
   "Name": "Grassb",
   "Size": 8.0,
-  "ParentTextureTypeId": 1
+  "ParentTextureTypeId": 1,
+  "UpdateTime": "2024-02-15T23:06:20.526Z",
+  "CreateTime": "2024-02-15T23:06:20.526Z"
 }

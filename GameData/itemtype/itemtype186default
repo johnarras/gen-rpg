@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 186,
   "Name": "Wing",
-  "NameId": "Wing",
-  "GenName": "BodyWing",
   "Icon": "BodyWing",
   "Effects": [
     {

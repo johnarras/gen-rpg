@@ -2,5 +2,7 @@
   "Id": "targettype2default",
   "ParentId": "default",
   "IdKey": 2,
-  "Name": "Ally"
+  "Name": "Ally",
+  "UpdateTime": "2024-02-15T23:06:19.983Z",
+  "CreateTime": "2024-02-15T23:06:19.983Z"
 }

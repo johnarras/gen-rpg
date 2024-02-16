@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 306,
   "Name": "Stamina Elixir",
-  "NameId": "StaminaElixir",
   "Icon": "StaminaElixir",
   "Effects": [],
   "LevelRanges": [

@@ -14,7 +14,7 @@ namespace Assets.Scripts.UI.Chat
         {
             _message = message;
 
-            ChatType chatType = _gs.data.GetGameData<ChatSettings>(_gs.ch).GetChatType(message.ChatTypeId);
+            ChatType chatType = _gs.data.Get<ChatSettings>(_gs.ch).Get(message.ChatTypeId);
 
             _uiService.SetText(Text, "[" + chatType?.Name + "] " + message.SenderName + ": " + message.Message);
         }

@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.CloudComms.PubSub.Topics.Core;
 using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin;
-using Genrpg.Shared.Reflection.Services;
+using Genrpg.Shared.Utils;
 using Genrpg.ServerShared.CloudComms.PubSub.Constants;
 using Genrpg.ServerShared.CloudComms.PubSub.Entities;
 
@@ -18,14 +18,13 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Managers
         Dictionary<string, IPubSubHelper> _helpers = new Dictionary<string, IPubSubHelper>();
 
         public async Task Init(ServerGameState gs, ServiceBusClient serviceBusClient, ServiceBusAdministrationClient adminClient,
-            IReflectionService reflectionService,
             string serverId, string env, CancellationToken token)
         {
             _helpers[PubSubTopicNames.Admin] = new AdminPubSubHelper();
 
             foreach (IPubSubHelper helper in _helpers.Values)
             {
-                await helper.Init(gs, serviceBusClient, adminClient, reflectionService, serverId, env, token);
+                await helper.Init(gs, serviceBusClient, adminClient, serverId, env, token);
             }
         }
 
@@ -41,11 +40,11 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Managers
             }
         }
 
-        public void SetupPubSubMessageHandlers(ServerGameState gs, IReflectionService reflectionService)
+        public void SetupPubSubMessageHandlers(ServerGameState gs)
         {
             foreach (IPubSubHelper helper in _helpers.Values)
             {
-                helper.SetMessageHandlers(gs, reflectionService);
+                helper.SetMessageHandlers(gs);
             }
         }
     }

@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 301,
   "Name": "Mana Potion",
-  "NameId": "ManaPotion",
-  "GenName": "",
   "Desc": "",
   "Icon": "ManaPotion",
   "Art": "",

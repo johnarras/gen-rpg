@@ -1,0 +1,8 @@
+{
+  "Id": "damage2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Ranged",
+  "UpdateTime": "2024-01-27T20:53:48.775Z",
+  "CreateTime": "2024-01-27T20:53:48.775Z"
+}

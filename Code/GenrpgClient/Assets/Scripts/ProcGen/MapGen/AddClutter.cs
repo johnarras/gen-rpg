@@ -20,7 +20,7 @@ public class AddClutter : BaseZoneGenerator
 
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
@@ -40,7 +40,7 @@ public class AddClutter : BaseZoneGenerator
 
         float clutterDensity = MathUtils.FloatRange(0.0f, 1.0f, rand) * RandomClutterDensity;
 
-        if (gs.data.GetGameData<ClutterTypeSettings>(gs.ch).GetData() == null)
+        if (gs.data.Get<ClutterTypeSettings>(gs.ch).GetData() == null)
         {
             return;
         }
@@ -163,7 +163,7 @@ public class AddClutter : BaseZoneGenerator
 
             int totalClutterChoices = 0;
             Dictionary<ClutterType, int> clutterWeights = new Dictionary<ClutterType, int>();
-            foreach (ClutterType ctype in gs.data.GetGameData<ClutterTypeSettings>(gs.ch).GetData())
+            foreach (ClutterType ctype in gs.data.Get<ClutterTypeSettings>(gs.ch).GetData())
             {
                 if (ctype.NumChoices > 0)
                 {

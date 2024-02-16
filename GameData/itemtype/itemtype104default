@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 104,
   "Name": "Ore",
-  "NameId": "MetalOre",
-  "GenName": "Ore",
   "Desc": "",
   "Icon": "Ore",
   "Art": "",

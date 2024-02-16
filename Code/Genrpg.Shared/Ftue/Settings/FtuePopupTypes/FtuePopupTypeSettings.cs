@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Genrpg.Shared.Ftue.Settings.Steps
+namespace Genrpg.Shared.Ftue.Settings.FtuePopupTypes
 {
 
     [MessagePackObject]
@@ -25,8 +25,6 @@ namespace Genrpg.Shared.Ftue.Settings.Steps
     public class FtuePopupTypeSettings : ParentSettings<FtuePopupType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public FtuePopupType GetFtuePopupType(long idkey) { return _lookup.Get<FtuePopupType>(idkey); }
     }
 
     [MessagePackObject]

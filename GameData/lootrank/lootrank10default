@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Mithril",
+  "Armor": 20,
+  "Damage": 10,
+  "CostPct": 1500,
+  "UpdateTime": "2024-02-08T21:54:19.02Z",
+  "CreateTime": "2024-01-28T02:21:35.72Z"
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Platinum",
+  "Armor": 16,
+  "Damage": 8,
+  "CostPct": 1250,
+  "UpdateTime": "2024-02-08T21:54:19.017Z",
+  "CreateTime": "2024-01-28T02:21:35.718Z"
+}

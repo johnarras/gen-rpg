@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Managers\**" />
+    <Compile Remove="Queues\**" />
+    <EmbeddedResource Remove="Managers\**" />
+    <EmbeddedResource Remove="Queues\**" />
+    <None Remove="Managers\**" />
+    <None Remove="Queues\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Networking\Constants\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Genrpg.ServerShared\Genrpg.ServerShared.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetDir)Genrpg.Shared.dll $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.dll&#xD;&#xA;copy $(TargetDir)Genrpg.Shared.pdb $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.pdb" />
+  </Target>
+
+</Project>

@@ -41,8 +41,8 @@ public class SetupNearbyZones : BaseAddMountains
                 Zone zone1 = gs.map.Get<Zone>(zoneId1);
                 Zone zone2 = gs.map.Get<Zone>(zoneId2);
 
-                GenZone genZone1 = gs.GetGenZone(zone1.IdKey);
-                GenZone genZone2 = gs.GetGenZone(zone2.IdKey);
+                GenZone genZone1 = gs.md.GetGenZone(zone1.IdKey);
+                GenZone genZone2 = gs.md.GetGenZone(zone2.IdKey);
 
                 if (zone1 != null && zone2 != null)
                 {

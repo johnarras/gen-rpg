@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Backstab",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MaxRange": 10,
+  "RequiredStatusEffectId": 13,
+  "ReplacesCrawlerSpellId": 1,
+  "CombatActionId": 1,
+  "ClassId": 2,
+  "TargetTypeId": 1,
+  "CritChance": 100,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 38,
+      "EntityId": 1,
+      "ElementTypeId": 1
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.398Z",
+  "CreateTime": "2024-01-29T14:58:39Z"
+}

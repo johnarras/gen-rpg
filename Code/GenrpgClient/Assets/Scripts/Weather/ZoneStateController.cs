@@ -241,10 +241,10 @@ public class ZoneStateController : BaseBehaviour
                         _currentZone = zone;
                         CurrentZoneShown = zone.IdKey;
                         _gs.ch.ZoneId = zone.IdKey;                        
-                        _currentZoneType = _gs.data.GetGameData<ZoneTypeSettings>(_gs.ch).GetZoneType(_currentZone.ZoneTypeId);
+                        _currentZoneType = _gs.data.Get<ZoneTypeSettings>(_gs.ch).Get(_currentZone.ZoneTypeId);
                         if (_currentZoneType != null)
                         {
-                            WeatherType weatherType = _gs.data.GetGameData<WeatherTypeSettings>(_gs.ch).GetWeatherType(_currentZoneType.WeatherTypeId);
+                            WeatherType weatherType = _gs.data.Get<WeatherTypeSettings>(_gs.ch).Get(_currentZoneType.WeatherTypeId);
                             if (weatherType == null)
                             {
                                 return;

@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell21default",
+  "ParentId": "default",
+  "IdKey": 21,
+  "Name": "Teleport",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 100,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 4,
+  "TargetTypeId": 8,
+  "Level": 8,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 6,
+      "ElementTypeId": 9
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.425Z",
+  "CreateTime": "2024-01-28T05:48:08Z"
+}

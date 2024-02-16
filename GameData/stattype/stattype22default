@@ -4,5 +4,7 @@
   "IdKey": 22,
   "Name": "SpellPower",
   "Desc": "Magic Power",
-  "GenScalePct": 150
+  "GenScalePct": 150,
+  "UpdateTime": "2024-02-15T23:03:14.493Z",
+  "CreateTime": "2024-02-15T23:03:14.493Z"
 }

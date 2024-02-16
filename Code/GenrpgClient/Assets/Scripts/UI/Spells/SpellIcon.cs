@@ -11,6 +11,7 @@ public class InitSpellIconData : DragItemInitData<Spell,SpellIcon,SpellIconScree
     public OnLoadSpellIconHandler handler;
     public SpellIcon createdIcon;
     public string iconPrefabName;
+    public string subdirectory = "Spells";
 };
 
 public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIconData>
@@ -35,7 +36,7 @@ public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIc
             iconName = data.Data.Icon;
         }
 
-        _assetService.LoadSpriteInto(_gs, AtlasNames.SkillIcons, iconName, Icon, _token);
+        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.SkillIcons, iconName, Icon, _token);
 
     }
 

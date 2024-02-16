@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 159,
   "Name": "Green Blood",
-  "NameId": "BloodGreen",
-  "GenName": "BodyBloodGreen",
   "Icon": "BloodGreen",
   "Effects": [
     {

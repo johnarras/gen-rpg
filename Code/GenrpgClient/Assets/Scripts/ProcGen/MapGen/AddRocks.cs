@@ -42,13 +42,13 @@ public class AddRocks : BaseZoneGenerator
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
     public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
-        GenZone genZone = gs.GetGenZone(zone.IdKey);
+        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
 
         if (endx <= startx || endy <= starty)
         {
@@ -82,7 +82,7 @@ public class AddRocks : BaseZoneGenerator
                 continue;
             }
 
-            RockType rt = gs.data.GetGameData<RockTypeSettings>(gs.ch).GetRockType(zrt.RockTypeId);
+            RockType rt = gs.data.Get<RockTypeSettings>(gs.ch).Get(zrt.RockTypeId);
             if (rt == null)
             {
                 continue;

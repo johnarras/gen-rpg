@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LibGit2Sharp" Version="0.29.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Genrpg.ServerShared\Genrpg.ServerShared.csproj" />
   </ItemGroup>
 

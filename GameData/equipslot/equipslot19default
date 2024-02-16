@@ -1,0 +1,11 @@
+{
+  "Id": "equipslot19default",
+  "ParentId": "default",
+  "IdKey": 19,
+  "Name": "Quiver",
+  "StatPercent": 100,
+  "Active": true,
+  "ClassRestricted": true,
+  "UpdateTime": "2024-02-10T00:06:45.8Z",
+  "CreateTime": "2024-01-28T02:28:39.263Z"
+}

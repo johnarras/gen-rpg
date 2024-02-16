@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Silver",
+  "Armor": 10,
+  "Damage": 6,
+  "CostPct": 750,
+  "UpdateTime": "2024-02-08T21:54:19.011Z",
+  "CreateTime": "2024-01-28T02:21:35.713Z"
+}

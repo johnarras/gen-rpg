@@ -13,7 +13,7 @@ public class GDropdown : TMPro.TMP_Dropdown
 
     private List<IIdName> _iidList = new List<IIdName>();
     private List<double> _doubleList = new List<double>();
-    public void Init<IDN>(List<IDN> list, Action onValueChangedAction) where IDN : IIdName
+    public void Init<IDN>(IReadOnlyList<IDN> list, Action onValueChangedAction) where IDN : IIdName
     {
         ClearOptions();
 

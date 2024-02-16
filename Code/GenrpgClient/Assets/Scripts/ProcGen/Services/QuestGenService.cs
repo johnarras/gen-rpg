@@ -44,7 +44,7 @@ public class QuestGenService : IQuestGenService
             return;
         }
 
-        ZoneType zoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId);
+        ZoneType zoneType = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
 
         Map map = gs.map;
         MyRandom rand = new MyRandom(zone.Seed / 2 + 32324 + map.Seed / 3);

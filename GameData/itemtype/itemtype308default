@@ -1,0 +1,15 @@
+{
+  "Id": "itemtype308default",
+  "ParentId": "default",
+  "IdKey": 308,
+  "Name": "PoisonVial",
+  "Icon": "PoisonVial",
+  "EquipSlotId": 18,
+  "Effects": [],
+  "LevelRanges": [],
+  "QualityNames": [],
+  "IconCounts": [],
+  "Names": [],
+  "UpdateTime": "2024-02-03T21:43:13.67Z",
+  "CreateTime": "2024-01-28T02:46:20.256Z"
+}

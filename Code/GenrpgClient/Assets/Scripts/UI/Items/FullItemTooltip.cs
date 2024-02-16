@@ -65,14 +65,14 @@ public class FullItemTooltip : BaseTooltip
             OnExit("Missing Tooltip objects");
             return;
         }
-        ItemType itype = gs.data.GetGameData<ItemTypeSettings>(gs.ch).GetItemType(_mainItem.ItemTypeId);
+        ItemType itype = gs.data.Get<ItemTypeSettings>(_unit).Get(_mainItem.ItemTypeId);
 
         if (itype != null)
         {
             if (itype.EquipSlotId > 0)
             {
-                InventoryData inventory = gs.ch.Get<InventoryData>();
-                List<long> compatibleSlots = itype.GetCompatibleEquipSlots(gs, gs.ch);
+                InventoryData inventory = _unit.Get<InventoryData>();
+                List<long> compatibleSlots = itype.GetCompatibleEquipSlots(gs, _unit);
                 for (int i = 0; i < compatibleSlots.Count; i++)
                 {
                     Item equipItem = inventory.GetEquipBySlot(compatibleSlots[i]);
@@ -92,6 +92,7 @@ public class FullItemTooltip : BaseTooltip
             isVendorItem = _isVendorItem,
             message = "",
             compareToItem = null,
+            unit = _unit,
         };
 
 
@@ -107,6 +108,7 @@ public class FullItemTooltip : BaseTooltip
                     isVendorItem = false,
                     compareToItem = _mainItem,
                     message = "Currently Equipped:",
+                    unit = _unit,
                 };
 
                 _equipTooltips[i].Init(gs, otherInitData, _token);

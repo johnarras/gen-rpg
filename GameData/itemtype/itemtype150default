@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 150,
   "Name": "FireOpal",
-  "NameId": "GemFireOpal",
-  "GenName": "GemFireOpal",
   "Icon": "GemFireOpal",
   "Effects": [
     {

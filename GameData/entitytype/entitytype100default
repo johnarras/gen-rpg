@@ -1,0 +1,8 @@
+{
+  "Id": "entitytype100default",
+  "ParentId": "default",
+  "IdKey": 100,
+  "Name": "CrawlerSpell",
+  "UpdateTime": "2024-01-28T01:07:02.691Z",
+  "CreateTime": "2024-01-28T01:07:02.691Z"
+}

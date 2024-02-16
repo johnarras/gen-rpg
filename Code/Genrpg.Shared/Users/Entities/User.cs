@@ -39,7 +39,7 @@ namespace Genrpg.Shared.Users.Entities
             OverrideList = list;
         }
 
-        public virtual string GetGameDataName(string settingName)
+        public virtual string GetName(string settingName)
         {
             if (OverrideList == null)
             {
@@ -48,7 +48,5 @@ namespace Genrpg.Shared.Users.Entities
             PlayerSettingsOverrideItem item = OverrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
             return item?.DocId ?? GameDataConstants.DefaultFilename;
         }
-
-
     }
 }

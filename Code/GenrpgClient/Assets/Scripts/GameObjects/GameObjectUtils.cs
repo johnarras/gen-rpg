@@ -414,7 +414,12 @@ public class GEntityUtils
 
     public static C FullInstantiate<C>(UnityGameState gs, C c) where C : UnityEngine.Component
     {
+        if (c == null)
+        {
+            return null;
+        }
         C cdupe = GEntity.Instantiate<C>(c);
+        cdupe.name = cdupe.name.Replace("(Clone)", "");
         InitializeHierarchy(gs, cdupe.entity());
         return cdupe;
     }
@@ -428,6 +433,7 @@ public class GEntityUtils
 
     public static void InitializeHierarchy(UnityGameState gs, GEntity go)
     {
+        SetActive(go, true);
         List<BaseBehaviour> allBehaviours = GEntityUtils.GetComponents<BaseBehaviour>(go);
 
         foreach (BaseBehaviour behaviour in allBehaviours)

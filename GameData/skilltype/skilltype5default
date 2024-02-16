@@ -3,5 +3,7 @@
   "ParentId": "default",
   "IdKey": 5,
   "Name": "Gathering",
-  "StatScalePercent": 100
+  "StatScalePercent": 100,
+  "UpdateTime": "2024-02-15T23:06:19.777Z",
+  "CreateTime": "2024-02-15T23:06:19.777Z"
 }

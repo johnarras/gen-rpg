@@ -45,6 +45,16 @@ namespace Genrpg.ServerShared.GameSettings.Services
                     newList[newLoader.GetServerType()] = newLoader;
                 }
             }
+
+            List<Task> setupTasks = new List<Task>();
+
+            foreach (IGameSettingsLoader loader in newList.Values)
+            {
+                setupTasks.Add(loader.Setup(repoSystem));
+            }
+
+            await Task.WhenAll(setupTasks);
+
             _loaderObjects = newList;
             await Task.CompletedTask;
         }
@@ -68,16 +78,16 @@ namespace Genrpg.ServerShared.GameSettings.Services
         {
             GameData gameData = new GameData();
 
-            List<Task<List<IGameSettings>>> allTasks = new List<Task<List<IGameSettings>>>();
+            List<Task<List<ITopLevelSettings>>> allTasks = new List<Task<List<ITopLevelSettings>>>();
 
             foreach (IGameSettingsLoader loader in _loaderObjects.Values)
             {
                 allTasks.Add(loader.LoadAll(gs.repo, createMissingGameData));
             }
 
-            List<IGameSettings>[] allSettings = await Task.WhenAll(allTasks.ToArray());
+            List<ITopLevelSettings>[] allSettings = await Task.WhenAll(allTasks.ToArray());
 
-            foreach (List<IGameSettings> settingsList in allSettings)
+            foreach (List<ITopLevelSettings> settingsList in allSettings)
             {
                 foreach (IGameSettings settings in settingsList)
                 {
@@ -86,7 +96,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             }
             gameData.SetupDataDict(true);
 
-            gameData.CurrSaveTime = gameData.GetGameData<VersionSettings>(null).GameDataSaveTime;
+            gameData.CurrSaveTime = gameData.Get<VersionSettings>(null).GameDataSaveTime;
 
             return gameData;
         }
@@ -99,7 +109,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 return false;
             }
 
-            foreach (IGameSettings baseGameData in data.GetAllData())
+            foreach (IGameSettings baseGameData in data.AllSettings())
             {
                 await repoSystem.Save(baseGameData);
             }
@@ -122,9 +132,9 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             GameDataOverrideList gameDataOverrideList = gameDataOverrideData.OverrideList;
 
-            VersionSettings versionSettings = gs.data.GetGameData<VersionSettings>(ch);
+            VersionSettings versionSettings = gs.data.Get<VersionSettings>(ch);
 
-            DataOverrideSettings dataOverrideSettings = gs.data.GetGameData<DataOverrideSettings>(null);
+            DataOverrideSettings dataOverrideSettings = gs.data.Get<DataOverrideSettings>(null);
 
             if (dataOverrideSettings.NextUpdateTime <= DateTime.UtcNow)
             {
@@ -216,11 +226,11 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return true;
         }
 
-        public List<IGameSettings> MapToApi(ServerGameState gs, List<IGameSettings> startSettings)
+        public List<ITopLevelSettings> MapToApi(ServerGameState gs, List<ITopLevelSettings> startSettings)
         {
-            List<IGameSettings> retval = new List<IGameSettings>();
+            List<ITopLevelSettings> retval = new List<ITopLevelSettings>();
 
-            foreach (IGameSettings settings in startSettings)
+            foreach (ITopLevelSettings settings in startSettings)
             {
                 if (_loaderObjects.TryGetValue(settings.GetType(), out IGameSettingsLoader loader))
                 {
@@ -234,13 +244,13 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return retval;
         }
 
-        public List<IGameSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null)
+        public List<ITopLevelSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null)
         {
 
-            List<IGameSettings> retval = new List<IGameSettings>();
+            List<ITopLevelSettings> retval = new List<ITopLevelSettings>();
             SetGameDataOverrides(gs, obj, true);
 
-            List<IGameSettings> allData = gs.data.GetAllData();
+            List<ITopLevelSettings> allData = gs.data.AllSettings();
 
             foreach (Type t in _loaderObjects.Keys)
             {
@@ -255,14 +265,14 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
                 if (!sendAllDefault)
                 {
-                    docName = gs.data.GetDataObjectName(t.Name, obj);
+                    docName = gs.data.DataObjectName(t.Name, obj);
                     if (docName == GameDataConstants.DefaultFilename)
                     {
                         continue;
                     }
                 }
 
-                IGameSettings currData = allData.FirstOrDefault(x =>
+                ITopLevelSettings currData = allData.FirstOrDefault(x =>
                 x.GetType().Name == t.Name &&
                 x.Id == docName);
 
@@ -337,18 +347,18 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             RefreshGameSettingsResult result = new RefreshGameSettingsResult();
 
-            List<IGameSettings> newSettings = new List<IGameSettings>();
+            List<ITopLevelSettings> newSettings = new List<ITopLevelSettings>();
 
             // Always load this on client commands/always have in mapserver.
             GameDataOverrideData overrideData = ch.Get<GameDataOverrideData>();
 
             List<PlayerSettingsOverrideItem> oldPlayerOverrides = new List<PlayerSettingsOverrideItem>(overrideData.OverrideList.Items);
 
-            GameDataOverrideList overrideList = ch.GetGameDataOverrideList();
+            GameDataOverrideList overrideList = ch.GetOverrideList();
 
-            List<IGameSettings> allSettings = gs.data.GetAllData();
+            List<ITopLevelSettings> allSettings = gs.data.AllSettings();
 
-            foreach (IGameSettings settings in allSettings)
+            foreach (ITopLevelSettings settings in allSettings)
             {
                 BaseGameSettings baseSettings = settings as BaseGameSettings;
 

@@ -26,8 +26,6 @@ namespace Genrpg.Shared.Chat.Settings
     public class ChatSettings : ParentSettings<ChatType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public ChatType GetChatType(long idkey) { return _lookup.Get<ChatType>(idkey); }
     }
 
     [MessagePackObject]

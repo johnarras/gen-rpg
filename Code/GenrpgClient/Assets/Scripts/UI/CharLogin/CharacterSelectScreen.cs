@@ -1,16 +1,11 @@
 ﻿using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Characters.PlayerData;
-using Genrpg.Shared.DataStores.Entities;
 
 using UI.Screens.Constants;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
 using System.Linq;
-using System;
-using System.Text;
-using Genrpg.Shared.MapServer.Entities;
-using UnityEngine;
 
 public class CharacterSelectScreen : BaseScreen
 {
@@ -22,10 +17,12 @@ public class CharacterSelectScreen : BaseScreen
     public GButton CreateButton;
     public GButton LogoutButton;
     public GButton QuitButton;
+    public GButton CrawlerButton;
 
     protected IZoneGenService _zoneGenService;
     protected IClientLoginService _loginService;
     protected INoiseService _noiseService;
+    protected IInputService _inputService;
 
     public const string CharacterRowArt = "CharacterSelectRow";
 
@@ -49,6 +46,7 @@ public class CharacterSelectScreen : BaseScreen
         _uiService.SetButton(LogoutButton, GetName(), ClickLogout);
         _uiService.SetButton(CreateButton, GetName(), ClickCharacterCreate);
         _uiService.SetButton(QuitButton, GetName(), ClickQuit);
+        _uiService.SetButton(CrawlerButton, GetName(), ClickCrawler);
 
         SetupCharacterGrid();
 
@@ -63,7 +61,7 @@ public class CharacterSelectScreen : BaseScreen
 
 
 #if UNITY_EDITOR
-    public void ClickGenerate()
+    private void ClickGenerate()
     {
         if (_gs.characterStubs.Count < 1)
         {
@@ -86,17 +84,26 @@ public class CharacterSelectScreen : BaseScreen
         return x + y * noiseSize;
     }
 
+#endif
 
-#endif 
 
-    public void ClickCharacterCreate()
+    private void ClickCrawler()
+    {
+        _screenService.CloseAll(_gs);
+        _inputService.SetDisabled(true);
+        _screenService.Open(_gs, ScreenId.Crawler);
+    }
+
+    private void ClickCharacterCreate()
     {
         _screenService.Open(_gs, ScreenId.CharacterCreate);
         _screenService.Close(_gs, ScreenId.CharacterSelect);
 
     }
 
-    public void OnSelectChar()
+
+
+    private void OnSelectChar()
     {
         CharacterStub currStub = null;
 
@@ -115,7 +122,7 @@ public class CharacterSelectScreen : BaseScreen
 
     }
 
-    public void ClickLogout()
+    private void ClickLogout()
     {
         _loginService.Logout(_gs);
     }
@@ -137,7 +144,7 @@ public class CharacterSelectScreen : BaseScreen
         }
     }
 
-    private void OnLoadCharacterRow(UnityGameState gs, string url, object row, object data, CancellationToken token)
+    private void OnLoadCharacterRow(UnityGameState gs, object row, object data, CancellationToken token)
     {
         GEntity go = row as GEntity;
         if (go == null)
@@ -161,7 +168,7 @@ public class CharacterSelectScreen : BaseScreen
         charRow.Init(ch, this, token);
     }
 
-    public void ClickQuit()
+    private void ClickQuit()
     {
         AppUtils.Quit();
     }

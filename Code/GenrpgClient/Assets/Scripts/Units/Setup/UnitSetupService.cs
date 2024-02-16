@@ -11,10 +11,11 @@ using System.Threading;
 using Assets.Scripts.Tokens;
 using UnityEngine; // Needed
 using Genrpg.Shared.AI.Settings;
+using Genrpg.Shared.Units.Constants;
 
 public interface IUnitSetupService : IService, IMapTokenService
 {
-    GEntity SetupUnit(UnityGameState gs, string url, GEntity artGo, SpawnLoadData loadData, CancellationToken token);
+    GEntity SetupUnit(UnityGameState gs, GEntity artGo, SpawnLoadData loadData, CancellationToken token);
 }
 
 
@@ -36,12 +37,12 @@ public class UnitSetupService : IUnitSetupService
         return _token;
     }
 
-    public GEntity SetupUnit(UnityGameState gs, string url, GEntity artGo, SpawnLoadData loadData, CancellationToken token)
+    public GEntity SetupUnit(UnityGameState gs, GEntity artGo, SpawnLoadData loadData, CancellationToken token)
     {
 
         if (artGo == null)
         {
-            gs.logger.Error("Couldn't download monster art " + url);
+            gs.logger.Error("Couldn't download monster art ");
             return null;
         }
 
@@ -197,8 +198,8 @@ public class UnitSetupService : IUnitSetupService
     {
         PlayerController pc = GEntityUtils.GetOrAddComponent<PlayerController>(gs, go);
         pc.Init(unit, token);
-        unit.Speed = gs.data.GetGameData<AISettings>(gs.ch).BaseUnitSpeed;
-        unit.BaseSpeed = gs.data.GetGameData<AISettings>(gs.ch).BaseUnitSpeed;
+        unit.Speed = gs.data.Get<AISettings>(gs.ch).BaseUnitSpeed;
+        unit.BaseSpeed = gs.data.Get<AISettings>(gs.ch).BaseUnitSpeed;
         go.name = "Player" + go.name;
         PlayerObject.Set(go);
         _assetService.LoadAssetInto(gs, go, AssetCategoryNames.UI,
@@ -228,7 +229,7 @@ public class UnitSetupService : IUnitSetupService
             "MapHealthBar", OnCreateHealthBar, unit, token, "Units");
     }
 
-    private void OnCreateHealthBar(UnityGameState gs, String url, object obj, object data, CancellationToken token)
+    private void OnCreateHealthBar(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         Unit unit = data as Unit;

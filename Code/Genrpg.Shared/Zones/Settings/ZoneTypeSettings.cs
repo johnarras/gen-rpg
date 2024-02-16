@@ -11,8 +11,6 @@ namespace Genrpg.Shared.Zones.Settings
     public class ZoneTypeSettings : ParentSettings<ZoneType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public ZoneType GetZoneType(long idkey) { return _lookup.Get<ZoneType>(idkey); }
     }
 
     [MessagePackObject]

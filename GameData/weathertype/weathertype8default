@@ -44,5 +44,7 @@
   "WindScale": 1.5,
   "PrecipScale": 0.5,
   "ParticleScale": 1.0,
-  "Particles": "leaves"
+  "Particles": "leaves",
+  "UpdateTime": "2024-02-15T23:06:21.548Z",
+  "CreateTime": "2024-02-15T23:06:21.548Z"
 }

@@ -1,0 +1,27 @@
+{
+  "Id": "crawlerspell24default",
+  "ParentId": "default",
+  "IdKey": 24,
+  "Name": "Entangle",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 100,
+  "PowerPerLevel": 1,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 5,
+  "TargetTypeId": 3,
+  "Level": 5,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 11,
+      "MinQuantity": 2,
+      "MaxQuantity": 3,
+      "ElementTypeId": 8
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.431Z",
+  "CreateTime": "2024-01-28T05:51:33Z"
+}

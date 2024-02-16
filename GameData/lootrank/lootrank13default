@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank13default",
+  "ParentId": "default",
+  "IdKey": 13,
+  "Name": "Sapphire",
+  "Armor": 35,
+  "Damage": 18,
+  "CostPct": 4000,
+  "UpdateTime": "2024-02-08T21:54:19.031Z",
+  "CreateTime": "2024-01-28T02:21:35.726Z"
+}

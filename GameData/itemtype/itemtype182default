@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 182,
   "Name": "Talon",
-  "NameId": "Talon",
-  "GenName": "BodyTalon",
   "Icon": "BodyTalon",
   "Effects": [
     {

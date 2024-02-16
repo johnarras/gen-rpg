@@ -17,7 +17,7 @@ public class AddRoadDips : BaseZoneGenerator
 
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
@@ -28,7 +28,7 @@ public class AddRoadDips : BaseZoneGenerator
             return;
         }
 
-        GenZone genZone = gs.GetGenZone(zone.IdKey);
+        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
 
 		float dipScale = genZone.RoadDipScale*zoneType.RoadDipScale;
 

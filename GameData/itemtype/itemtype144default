@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 144,
   "Name": "Earth",
-  "NameId": "ElementEarth",
-  "GenName": "ElementEarth",
   "Icon": "ElementEarth",
   "Effects": [
     {

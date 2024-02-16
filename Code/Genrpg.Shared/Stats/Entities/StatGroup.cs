@@ -22,13 +22,13 @@ namespace Genrpg.Shared.Stats.Entities
 
         public StatGroup()
         {
-            ResetCurrent();
+            ResetAll();
         }
 
-        public void ResetCurrent()
+        public void ResetAll()
         {
             Dictionary<short, Stat>[] statCopy = new Dictionary<short,Stat>[StatCategories.Size];
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < StatCategories.Size; i++)
             {
                 statCopy[i] = new Dictionary<short, Stat>();
             }
@@ -82,9 +82,12 @@ namespace Genrpg.Shared.Stats.Entities
         public int Base(long statTypeId) { return Get(statTypeId, StatCategories.Base); }
         public void SetBase(long statTypeId, long val) { Set(statTypeId, StatCategories.Base, val); }
 
+        public int Bonus(long statTypeId) { return Get(statTypeId, StatCategories.Bonus); }
+        public void SetBonus(long statTypeId, long val) { Set(statTypeId, StatCategories.Bonus, val); }
+
         public int Max(long statTypeId)
         {
-            int baseVal = Base(statTypeId);
+            int baseVal = Base(statTypeId) + Bonus(statTypeId);
             if (baseVal > 0)
             {
                 int pctVal = Pct(statTypeId);
@@ -127,8 +130,7 @@ namespace Genrpg.Shared.Stats.Entities
 
             foreach (FullStat fullStat in fullStats)
             {
-                SetBase(fullStat.GetStatId(), fullStat.GetBase());
-                SetPct(fullStat.GetStatId(), fullStat.GetPct());
+                SetBase(fullStat.GetStatId(), fullStat.GetMax());
                 SetCurr(fullStat.GetStatId(), fullStat.GetCurr());
             }
         }
@@ -136,15 +138,12 @@ namespace Genrpg.Shared.Stats.Entities
         public FullStat GetFullStat(long statTypeId)
         {
 
-            int baseVal = Base(statTypeId);
+            int maxVal = Max(statTypeId);
 
-            if (baseVal > 0)
+            if (maxVal > 0)
             {
-                int currVal = Curr(statTypeId);
-                int pctVal = Pct(statTypeId);
-
                 FullStat smallStat = new FullStat();
-                smallStat.SetData(statTypeId, currVal, baseVal, pctVal);
+                smallStat.SetData(statTypeId, Curr(statTypeId), Max(statTypeId));
                 return smallStat;
             }
             return null;

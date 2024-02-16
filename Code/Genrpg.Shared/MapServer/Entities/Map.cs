@@ -64,7 +64,6 @@ namespace Genrpg.Shared.MapServer.Entities
             QuestItems = new List<QuestItem>();
             SpawnX = -1;
             SpawnY = -1;
-            _lookup = new IndexedDataItemLookup(this);
         }
 
         public int GetHwid()
@@ -77,11 +76,23 @@ namespace Genrpg.Shared.MapServer.Entities
             return BlockCount * (SharedMapConstants.TerrainPatchSize - 1) + 1;
         }
 
-        protected IndexedDataItemLookup _lookup = null;
-        public virtual object Get(Type type, int id) { return _lookup.Get(type, id); }
-        public virtual T Get<T>(long id) where T : class, IIndexedGameItem { return _lookup.Get<T>(id); }
-        public virtual T Get<T>(ulong id) where T : class, IIndexedGameItem { return _lookup.Get<T>(id); }
-        public virtual void ClearIndex() { _lookup.Clear(); }
+        public virtual T Get<T>(long id) where T : class, IIdName
+        {
+            if (typeof(T) == typeof(Zone))
+            {
+                return Zones.FirstOrDefault(x => x.IdKey == id) as T;
+            }
+            else if (typeof(T) == typeof(QuestType))
+            {
+                return Quests.FirstOrDefault(x => x.IdKey == id) as T;
+            }
+            else if (typeof(T) == typeof(QuestItem))
+            {
+                return QuestItems.FirstOrDefault(x => x.IdKey == id) as T;
+            }
+            return default;
+        }
+        public virtual void ClearIndex() {}
 
         public int GetMapSize(GameState gs)
         {

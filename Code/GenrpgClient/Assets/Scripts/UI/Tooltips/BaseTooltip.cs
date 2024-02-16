@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
-
-
+using Genrpg.Shared.Units.Entities;
 
 public class InitTooltipData 
 {

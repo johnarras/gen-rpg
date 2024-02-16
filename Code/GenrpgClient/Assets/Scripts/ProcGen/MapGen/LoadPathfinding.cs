@@ -19,7 +19,7 @@ public class LoadPathfinding : BaseZoneGenerator
         byte[] bytes = repo.LoadBytes(filename);
         if (bytes != null)
         {
-            OnDownloadPathfinding(gs, "", bytes, null, token);
+            OnDownloadPathfinding(gs, bytes, null, token);
         }
         else
         {
@@ -28,7 +28,7 @@ public class LoadPathfinding : BaseZoneGenerator
         }
     }
 
-    private void OnDownloadPathfinding (UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadPathfinding (UnityGameState gs, object obj, object data, CancellationToken token)
     {
 
         byte[] compressedBytes = obj as byte[];

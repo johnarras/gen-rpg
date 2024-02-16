@@ -1,0 +1,27 @@
+{
+  "Id": "crawlerspell29default",
+  "ParentId": "default",
+  "IdKey": 29,
+  "Name": "Frostbolt",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 20,
+  "PowerPerLevel": 1,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 5,
+  "TargetTypeId": 1,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 18,
+      "ElementTypeId": 3
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.446Z",
+  "CreateTime": "2024-01-28T09:21:51Z"
+}

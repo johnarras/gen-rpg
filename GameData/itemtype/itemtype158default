@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 158,
   "Name": "Blue Blood",
-  "NameId": "BloodBlue",
-  "GenName": "BodyBloodBlue",
   "Icon": "BloodBlue",
   "Effects": [
     {

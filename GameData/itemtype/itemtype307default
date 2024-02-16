@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 307,
   "Name": "Spirit Elixir",
-  "NameId": "SpiritElixir",
   "Icon": "SpiritElixir",
   "Effects": [],
   "LevelRanges": [

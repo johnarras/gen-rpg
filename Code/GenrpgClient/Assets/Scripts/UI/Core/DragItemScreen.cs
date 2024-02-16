@@ -22,6 +22,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
         if (ToolTip != null)
         {
             GEntityUtils.InitializeHierarchy(_gs, ToolTip.entity());
+            GEntityUtils.SetActive(ToolTip.entity(), false);
         }
         await UniTask.CompletedTask;
     }
@@ -185,7 +186,6 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
 
     }
 
-
     protected virtual void UpdateDragIconPosition()
     {
         if (_dragItem != null)
@@ -193,5 +193,4 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
             _dragItem.transform().position = GVector3.Create(_inputService.MousePosition());
         }
     }
-
 }

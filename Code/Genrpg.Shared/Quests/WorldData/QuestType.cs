@@ -97,7 +97,7 @@ namespace Genrpg.Shared.Quests.WorldData
                 Zone zone = gs.map.Get<Zone>(ZoneId);
 
                 string namePrefix = "";
-                UnitType utype = gs.data.GetGameData<UnitSettings>(ch).GetUnitType(task.TaskEntityId);
+                UnitType utype = gs.data.Get<UnitSettings>(ch).Get(task.TaskEntityId);
                 if (utype == null)
                 {
                     return "";
@@ -133,7 +133,7 @@ namespace Genrpg.Shared.Quests.WorldData
                 {
                     return "";
                 }
-                UnitType utype = gs.data.GetGameData<UnitSettings>(ch).GetUnitType(task.OnEntityId);
+                UnitType utype = gs.data.Get<UnitSettings>(ch).Get(task.OnEntityId);
                 if (task.OnEntityTypeId == EntityTypes.Unit)
                 {
                     if (utype == null)

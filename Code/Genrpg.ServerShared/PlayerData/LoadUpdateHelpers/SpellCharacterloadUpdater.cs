@@ -31,7 +31,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                 Spell mySpell = spellData.Get(i);
                 if (mySpell == null)
                 {
-                    Spell newSpell = SerializationUtils.ConvertType<SpellType, Spell>(gs.data.GetGameData<SpellTypeSettings>(ch).GetSpellType(i));
+                    Spell newSpell = SerializationUtils.ConvertType<SpellType, Spell>(gs.data.Get<SpellTypeSettings>(ch).Get(i));
                     newSpell.Id = HashUtils.NewGuid();
                     newSpell.OwnerId = ch.Id;
 

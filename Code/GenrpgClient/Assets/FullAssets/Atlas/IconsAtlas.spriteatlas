@@ -348,7 +348,6 @@ SpriteAtlas:
     - 2fdfbf0deab77ed45b6820d60b069602: 21300000
     - 39c9ba3d7a88ca44fb6a1ec6bfc767c9: 21300000
     - f3b7234dfb2812042bdda5961e3e4a47: 21300000
-    - 8da2d25df6dd1eb4f8048321f291554b: 21300000
     - 04b4065d410b5234dbe2fcfe81f0f40d: 21300000
     - 5a4b1b5dbc3466843a48bfec4f4d5cff: 21300000
     - 8434736dc622c4f47af83f7fc0bfc362: 21300000
@@ -725,7 +724,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2fdfbf0deab77ed45b6820d60b069602, type: 3}
   - {fileID: 21300000, guid: 39c9ba3d7a88ca44fb6a1ec6bfc767c9, type: 3}
   - {fileID: 21300000, guid: f3b7234dfb2812042bdda5961e3e4a47, type: 3}
-  - {fileID: 21300000, guid: 8da2d25df6dd1eb4f8048321f291554b, type: 3}
   - {fileID: 21300000, guid: 04b4065d410b5234dbe2fcfe81f0f40d, type: 3}
   - {fileID: 21300000, guid: 5a4b1b5dbc3466843a48bfec4f4d5cff, type: 3}
   - {fileID: 21300000, guid: 8434736dc622c4f47af83f7fc0bfc362, type: 3}
@@ -1101,7 +1099,6 @@ SpriteAtlas:
   - Sword_001
   - ShouldersCloth_005
   - BeltStone_001
-  - BodySkull_001
   - Thrown_003
   - BeltWood_001
   - ChestMetal_002

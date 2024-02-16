@@ -11,10 +11,6 @@ namespace Genrpg.Shared.Purchasing.Settings
     public class StoreProductSettings : ParentSettings<StoreProduct>
     {
         [Key(0)] public override string Id { get; set; }
-
-        
-
-        public StoreProduct GetStoreProduct(long idkey) { return _lookup.Get<StoreProduct>(idkey); }
     }
 
     [MessagePackObject]

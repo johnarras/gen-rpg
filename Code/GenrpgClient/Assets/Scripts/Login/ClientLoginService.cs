@@ -128,11 +128,11 @@ public class ClientLoginService : IClientLoginService
             gs.logger.Exception(e, "LoginToServer.LoadData");
         }
 
-        List<IGameSettings> allSettings = gs.data.GetAllData();
+        List<ITopLevelSettings> allSettings = gs.data.AllSettings();
 
         command.ClientSettings = new List<ClientCachedGameSettings>();
 
-        foreach (IGameSettings settings in allSettings)
+        foreach (ITopLevelSettings settings in allSettings)
         {
             if (settings.Id.IndexOf(GameDataConstants.DefaultFilename) >= 0 && settings is IUpdateData updateData)
             {

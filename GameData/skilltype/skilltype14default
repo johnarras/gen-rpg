@@ -1,0 +1,11 @@
+{
+  "Id": "skilltype14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "RemoveBuff",
+  "TargetTypeId": 1,
+  "StatScalePercent": 100,
+  "EffectEntityTypeId": 36,
+  "UpdateTime": "2024-01-27T20:14:52.865Z",
+  "CreateTime": "2024-01-27T20:14:52.865Z"
+}

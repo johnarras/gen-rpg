@@ -4,5 +4,7 @@
   "IdKey": 52,
   "Name": "DirtRed",
   "Size": 8.0,
-  "ParentTextureTypeId": 15
+  "ParentTextureTypeId": 15,
+  "UpdateTime": "2024-02-15T23:06:20.412Z",
+  "CreateTime": "2024-02-15T23:06:20.412Z"
 }

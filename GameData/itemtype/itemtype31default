@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 31,
   "Name": "Thrown",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Thrown",
   "Art": "Thrown",
+  "MinVal": 1,
+  "MaxVal": 2,
   "EquipSlotId": 17,
   "Flags": 8,
   "Effects": [],
@@ -105,6 +105,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:40.247Z",
+  "UpdateTime": "2024-02-03T22:45:17.047Z",
   "CreateTime": "2023-11-24T16:45:41.249Z"
 }

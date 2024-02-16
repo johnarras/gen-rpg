@@ -16,7 +16,7 @@ namespace Genrpg.Shared.Crafting.Helpers
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
         {
-            return gs.data.GetGameData<RecipeSettings>(obj).GetRecipeType(id);
+            return gs.data.Get<RecipeSettings>(obj).Get(id);
         }
     }
 }

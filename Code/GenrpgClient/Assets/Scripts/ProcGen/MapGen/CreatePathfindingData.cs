@@ -73,7 +73,7 @@ public class CreatePathfindingData : BaseZoneGenerator
                             MapConstants.TreeObjectOffset + MapConstants.MapObjectOffsetMult)
                         {
                             long treeTypeId = worldObject - MapConstants.TreeObjectOffset;
-                            TreeType ttype = gs.data.GetGameData<TreeTypeSettings>(gs.ch).GetTreeType(treeTypeId);
+                            TreeType ttype = gs.data.Get<TreeTypeSettings>(gs.ch).Get(treeTypeId);
                             if (ttype != null && !ttype.HasFlag(TreeFlags.IsBush))
                             {
                                 blockedCells[pz,px] = true;
@@ -92,7 +92,7 @@ public class CreatePathfindingData : BaseZoneGenerator
             {
                 if (spawn.EntityTypeId == EntityTypes.Building)
                 {
-                    BuildingType btype = gs.data.GetGameData<BuildingSettings>(null).GetBuildingType(spawn.EntityId);
+                    BuildingType btype = gs.data.Get<BuildingSettings>(null).Get(spawn.EntityId);
                     if (btype != null)
                     {
                         int buildingRadius = Math.Max(1, (btype.Radius + 1) / 2);

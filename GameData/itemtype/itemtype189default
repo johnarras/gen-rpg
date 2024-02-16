@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 189,
   "Name": "Fang",
-  "NameId": "Fang",
-  "GenName": "BodyFang",
   "Icon": "BodyFang",
   "Effects": [
     {

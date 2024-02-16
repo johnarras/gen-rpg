@@ -40,13 +40,13 @@ namespace Assets.Scripts.UI.Stores
 
             foreach (PlayerStoreOffer offer in _offerData.StoreOffers)
             {
-                StoreTheme theme = _gs.data.GetGameData<StoreThemeSettings>(_gs.ch).GetStoreTheme(offer.StoreThemeId);
+                StoreTheme theme = _gs.data.Get<StoreThemeSettings>(_gs.ch).Get(offer.StoreThemeId);
 
                 _assetService.LoadAssetInto(_gs, StoreParent, AssetCategoryNames.Stores, StorePanelPrefab, OnLoadStorePanel, offer, token, theme.Art);
             }
         }
 
-        private void OnLoadStorePanel(GameState gs, string url, object obj, object data, CancellationToken token)
+        private void OnLoadStorePanel(GameState gs, object obj, object data, CancellationToken token)
         {
             GEntity go = obj as GEntity;
 

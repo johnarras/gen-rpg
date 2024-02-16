@@ -3,8 +3,12 @@
   "ParentId": "default",
   "IdKey": 1,
   "Name": "Head",
+  "Desc": "",
+  "Icon": "",
   "StatPercent": 125,
+  "Art": "",
   "Active": true,
-  "UpdateTime": "2024-01-12T14:11:10.634Z",
-  "CreateTime": "2023-11-24T16:45:27.222Z"
+  "BaseBonusStatTypeId": 31,
+  "UpdateTime": "2024-02-13T20:39:34.287Z",
+  "CreateTime": "2023-11-24T22:45:27Z"
 }

@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell39default",
+  "ParentId": "default",
+  "IdKey": 39,
+  "Name": "Volley",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MinRange": 20,
+  "MaxRange": 100,
+  "CombatActionId": 3,
+  "ClassId": 3,
+  "TargetTypeId": 4,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 39,
+      "EntityId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 1
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.461Z",
+  "CreateTime": "2024-01-29T14:46:43Z"
+}

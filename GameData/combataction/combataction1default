@@ -1,0 +1,8 @@
+{
+  "Id": "combataction1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Attack",
+  "UpdateTime": "2024-02-04T20:06:31.893Z",
+  "CreateTime": "2024-02-04T20:06:31.893Z"
+}

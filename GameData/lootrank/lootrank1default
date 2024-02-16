@@ -1,0 +1,9 @@
+{
+  "Id": "lootrank1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Armor": 1,
+  "CostPct": 125,
+  "UpdateTime": "2024-02-08T21:54:18.987Z",
+  "CreateTime": "2024-01-28T02:21:35.701Z"
+}

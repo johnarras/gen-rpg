@@ -17,8 +17,6 @@ internal class ActionButtonDownload
 
 public class ActionBars : SpellIconScreen
 {
-    private IInputService _inputService;
-
     public const string ActionButtonPrefab = "ActionButton";
 
     
@@ -87,7 +85,7 @@ public class ActionBars : SpellIconScreen
         }
     }
 
-    private void OnDownloadButton(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadButton(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
 

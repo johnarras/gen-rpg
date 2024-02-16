@@ -10,5 +10,7 @@
   "DataMemberName": "Duration",
   "DisplayMult": 1.0,
   "MaxValue": 30.0,
-  "ValueDelta": 1.0
+  "ValueDelta": 1.0,
+  "UpdateTime": "2024-02-15T23:06:19.938Z",
+  "CreateTime": "2024-02-15T23:06:19.938Z"
 }

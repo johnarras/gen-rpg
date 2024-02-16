@@ -1,0 +1,9 @@
+{
+  "Id": "screenoverride1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "CharacterCreate",
+  "NewName": "SpiffyCharacterCreate",
+  "UpdateTime": "2024-02-11T15:16:22.779Z",
+  "CreateTime": "2024-02-11T15:14:32.26Z"
+}

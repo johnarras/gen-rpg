@@ -3,6 +3,8 @@
   "ParentId": "default",
   "IdKey": 12,
   "Name": "Frog",
+  "PluralName": "Frogs",
+  "Icon": "Frog",
   "Art": "Frog",
   "Height": 1.0,
   "TribeTypeId": 6,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.842Z",
+  "CreateTime": "2024-02-04T21:57:21.909Z"
 }

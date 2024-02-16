@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell33default",
+  "ParentId": "default",
+  "IdKey": 33,
+  "Name": "Weaken",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerPerLevel": 30,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 7,
+  "TargetTypeId": 3,
+  "Level": 6,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 17,
+      "MinQuantity": 100,
+      "MaxQuantity": 100,
+      "ElementTypeId": 9
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.453Z",
+  "CreateTime": "2024-01-28T06:41:15Z"
+}

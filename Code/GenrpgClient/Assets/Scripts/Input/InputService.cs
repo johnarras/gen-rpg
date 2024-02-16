@@ -39,6 +39,7 @@ public interface IInputService : ISetupService
     void PerformAction(int actionButtonIndex);
     bool ModifierIsActive(string keyCommand);
     string[] MoveInputsToCheck();
+    void SetDisabled(bool isDisabled);
 }
 
 public class InputService : BaseBehaviour, IInputService
@@ -53,6 +54,12 @@ public class InputService : BaseBehaviour, IInputService
         AddUpdate(InputUpdate, UpdateType.Regular);
         _gs.AddEvent<MapIsLoadedEvent>(this, UpdateInputs);
         await UniTask.CompletedTask;
+    }
+
+    private bool _isDisabled = false;
+    public void SetDisabled(bool isDisabled)
+    {
+        _isDisabled = isDisabled;
     }
 
     private bool EditingText()
@@ -247,6 +254,10 @@ public class InputService : BaseBehaviour, IInputService
 
     private void InputUpdate()
     {
+        if (_isDisabled)
+        {
+            return;
+        }
         if (_stringInputs == null || _checkEachFrameInputs == null)
         {
             return;
@@ -399,7 +410,7 @@ public class InputService : BaseBehaviour, IInputService
                             continue;
                         }
 
-                        if (ScreenUtils.GetPrefabName(ssi.ScreenId) == kci.Command.KeyCommand)
+                        if (ScreenUtils.GetFullScreenNameFromEnum(ssi.ScreenId) == kci.Command.KeyCommand)
                         {
                             _screenService.Close(_gs, ssi.ScreenId);
                             screenIsShowing = true;
@@ -538,7 +549,7 @@ public class InputService : BaseBehaviour, IInputService
 
 
 
-        SkillType skillType = _gs.data.GetGameData<SkillTypeSettings>(base._gs.ch).GetSkillType(spell.Effects.FirstOrDefault()?.SkillTypeId ?? 0);
+        SkillType skillType = _gs.data.Get<SkillTypeSettings>(base._gs.ch).Get(spell.Effects.FirstOrDefault()?.SkillTypeId ?? 0);
         if (!_objectManager.GetUnit(MapUnit.TargetId, out Unit target))
         {
             if (skillType.TargetTypeId == TargetTypes.Ally)

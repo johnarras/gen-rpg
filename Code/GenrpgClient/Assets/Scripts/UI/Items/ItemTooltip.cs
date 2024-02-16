@@ -9,6 +9,7 @@ using System.Threading;
 using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Stats.Settings.Stats;
+using Genrpg.Shared.Units.Entities;
 
 public class InitItemTooltipData : InitTooltipData
 {
@@ -17,6 +18,7 @@ public class InitItemTooltipData : InitTooltipData
     public bool isVendorItem;
     public Item compareToItem;
     public string message;
+    public Unit unit;
 }
 
 public class ItemTooltipRowData
@@ -47,6 +49,8 @@ public class ItemTooltip : BaseTooltip
     protected List<ItemTooltipRow> _rows;
 
     protected InitItemTooltipData _data;
+
+    protected Unit _unit = null;
     public override void Init(UnityGameState gs, InitTooltipData baseData, CancellationToken token)
     {
         base.Init(gs, baseData, token);
@@ -57,14 +61,15 @@ public class ItemTooltip : BaseTooltip
             OnExit("No item");
             return;
         }
+        _unit = data.unit;
 
         _uiService.SetText(Message, _data.message);
-        _uiService.SetText(ItemName, ItemUtils.GetName(gs, gs.ch,_data.mainItem));
-        _uiService.SetText(BasicInfo, ItemUtils.GetBasicInfo(gs, gs.ch, _data.mainItem));
+        _uiService.SetText(ItemName, ItemUtils.GetName(gs, _unit,_data.mainItem));
+        _uiService.SetText(BasicInfo, ItemUtils.GetBasicInfo(gs, _unit, _data.mainItem));
 
         string bgName = IconHelper.GetBackingNameFromQuality(gs, _data.mainItem.QualityTypeId);
 
-        _assetService.LoadSpriteInto(gs, AtlasNames.Icons, bgName, RarityImage, token);
+        _assetService.LoadAtlasSpriteInto(gs, AtlasNames.Icons, bgName, RarityImage, token);
 
         ShowMoney();
 
@@ -95,7 +100,7 @@ public class ItemTooltip : BaseTooltip
                 {
                     if (eff.EntityTypeId == EntityTypes.Stat || eff.EntityTypeId == EntityTypes.StatPct)
                     {
-                        StatType stype = _gs.data.GetGameData<StatSettings>(_gs.ch).GetStatType(eff.EntityId);
+                        StatType stype = _gs.data.Get<StatSettings>(_unit).Get(eff.EntityId);
                         if (stype == null)
                         {
                             continue;
@@ -120,7 +125,7 @@ public class ItemTooltip : BaseTooltip
 
         foreach (ItemEffect eff in _data.mainItem.Effects)
         {
-            string mainText = EntityUtils.PrintData(_gs, _gs.ch, eff);
+            string mainText = EntityUtils.PrintData(_gs, _unit, eff);
 
             if (string.IsNullOrEmpty(mainText))
             {
@@ -154,7 +159,7 @@ public class ItemTooltip : BaseTooltip
                 continue;
             }
 
-            string mainText = EntityUtils.PrintData(_gs, _gs.ch, eff);
+            string mainText = EntityUtils.PrintData(_gs, _unit, eff);
             long change = eff.Quantity;
             ItemTooltipRowData rowData = new ItemTooltipRowData()
             {
@@ -178,7 +183,7 @@ public class ItemTooltip : BaseTooltip
             ItemTooltipRow, OnLoadRow, data, _token, "Items" );
     }
 
-    private void OnLoadRow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadRow(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -212,12 +217,12 @@ public class ItemTooltip : BaseTooltip
             if (!_data.isVendorItem)
             {
                 _uiService.SetText(MoneyText, "Sell:");
-                cost = ItemUtils.GetSellToVendorPrice(_gs, _gs.ch, _data.mainItem);
+                cost = ItemUtils.GetSellToVendorPrice(_gs, _unit, _data.mainItem);
             }
             else
             {
                 _uiService.SetText(MoneyText, "Price:");
-                cost = ItemUtils.GetBuyFromVendorPrice(_gs, _gs.ch, _data.mainItem);
+                cost = ItemUtils.GetBuyFromVendorPrice(_gs, _unit, _data.mainItem);
             }
 
             Money.SetMoney(cost);

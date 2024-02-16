@@ -17,7 +17,7 @@ namespace Genrpg.Shared.Spells.Helpers
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
         {
-            return gs.data.GetGameData<SpellTypeSettings>(obj).GetSpellType(id);
+            return gs.data.Get<SpellTypeSettings>(obj).Get(id);
         }
     }
 }

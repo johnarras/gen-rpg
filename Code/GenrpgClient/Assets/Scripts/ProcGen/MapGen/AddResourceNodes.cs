@@ -78,7 +78,7 @@ public class AddResourceNodes : BaseZoneGenerator
 
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
@@ -110,7 +110,7 @@ public class AddResourceNodes : BaseZoneGenerator
         for (int r = 0; r < _resources.Count; r++)
         {
             ResourceNodeData rdata = _resources[r];
-            List<GroundObjType> categoryObjects = gs.data.GetGameData<GroundObjTypeSettings>(gs.ch).GetData().Where(x => x.GroupId == rdata.GroupId).ToList();
+            List<GroundObjType> categoryObjects = gs.data.Get<GroundObjTypeSettings>(gs.ch).GetData().Where(x => x.GroupId == rdata.GroupId).ToList();
 
             if (categoryObjects.Count < 1)
             {

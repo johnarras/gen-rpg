@@ -97,8 +97,6 @@ namespace Genrpg.Shared.Spells.Settings.Skills
     public class SkillTypeSettings : ParentSettings<SkillType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public SkillType GetSkillType(long idkey) { return _lookup.Get<SkillType>(idkey); }
     }
 
     [MessagePackObject]

@@ -44,7 +44,7 @@ public class MapGenService : IMapGenService
         if (startMap.MinLevel == 0 && startMap.MaxLevel == 0)
         {
             startMap.MinLevel = 1;
-            startMap.MaxLevel = gs.data.GetGameData<LevelSettings>(null).MaxLevel;
+            startMap.MaxLevel = gs.data.Get<LevelSettings>(null).MaxLevel;
         }
         map.MinLevel = startMap.MinLevel;
         map.MaxLevel = startMap.MaxLevel;
@@ -248,7 +248,7 @@ public class MapGenService : IMapGenService
         for (int i = 0; i < orderedZones.Count; i++)
         {
             Zone zone = orderedZones[i];
-            GenZone genZone = gs.GetGenZone(zone.IdKey);
+            GenZone genZone = gs.md.GetGenZone(zone.IdKey);
             for (int j = i - numAdjacent; j < i + numAdjacent; j++)
             {
                 if (j < 0 || j >= orderedZones.Count)
@@ -267,7 +267,7 @@ public class MapGenService : IMapGenService
 
     }
 
-    protected virtual long GetZoneTypeId(UnityGameState gs, Map map, MyRandom rand)
+    protected virtual long GetId(UnityGameState gs, Map map, MyRandom rand)
     {
         if (map == null || rand == null)
         {
@@ -275,7 +275,7 @@ public class MapGenService : IMapGenService
         }
 
 
-        List<ZoneType> zoneTypes = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetData();
+        IReadOnlyList<ZoneType> zoneTypes = gs.data.Get<ZoneTypeSettings>(gs.ch).GetData();
         if (zoneTypes == null)
         {
             return 0;
@@ -340,9 +340,9 @@ public class MapGenService : IMapGenService
             zoneName = zoneName.Substring(0, 8);
         }
 
-        List<BuildingType> buildingTypes = gs.data.GetGameData<BuildingSettings>(null).GetData();
-        List<NPCType> npcTypes = gs.data.GetGameData<NPCSettings>(null).GetData();
-        List<BuildingType> buildings = gs.data.GetGameData<BuildingSettings>(null).GetData();
+        IReadOnlyList<BuildingType> buildingTypes = gs.data.Get<BuildingSettings>(null).GetData();
+        IReadOnlyList<NPCType> npcTypes = gs.data.Get<NPCSettings>(null).GetData();
+        IReadOnlyList<BuildingType> buildings = gs.data.Get<BuildingSettings>(null).GetData();
 
         for (int l = 0; l < zone.Locations.Count; l++)
         {
@@ -443,7 +443,7 @@ public class MapGenService : IMapGenService
         }
         gs.map.Zones = new List<Zone>();
 
-        ZoneType waterZoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetData().FirstOrDefault(X => X.Name == "Water");
+        ZoneType waterZoneType = gs.data.Get<ZoneTypeSettings>(gs.ch).GetData().FirstOrDefault(X => X.Name == "Water");
 
         if (waterZoneType != null)
         {
@@ -462,7 +462,7 @@ public class MapGenService : IMapGenService
 
         List<ZoneTypeGenData> zoneGenList = new List<ZoneTypeGenData>();
 
-        foreach (ZoneType zt in gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetData())
+        foreach (ZoneType zt in gs.data.Get<ZoneTypeSettings>(gs.ch).GetData())
         {
             if (zt.IdKey < 1 || zt.GenChance <= 0)
             {
@@ -592,7 +592,7 @@ public class MapGenService : IMapGenService
                         continue;
                     }
 
-                    GenZone genZone = gs.GetGenZone(zone.IdKey);
+                    GenZone genZone = gs.md.GetGenZone(zone.IdKey);
 
                     if (pass > 0 && rand.NextDouble() > genZone.SpreadChance)
                     {

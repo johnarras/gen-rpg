@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading;
 using Genrpg.Shared.MapServer.Constants;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Core.Entities;
 
 public class SetupOverrideTerrainPatches : BaseZoneGenerator
 {
@@ -63,7 +64,7 @@ public class SetupOverrideTerrainPatches : BaseZoneGenerator
             {
                 if (gs.md.subZonePercents[x,z] > 0 && gs.md.subZoneIds[x,z] == 0)
                 {
-                    Zone currZone = gs.md.GetZoneAt(gs, gs.map, x, z);
+                    Zone currZone = GetZoneAt(gs, gs.map, x, z);
                     List<Zone> okZones = procGenZones.Where(x => x.ZoneTypeId != currZone.ZoneTypeId).ToList();
                     if (okZones.Count < 1)
                     {
@@ -80,6 +81,17 @@ public class SetupOverrideTerrainPatches : BaseZoneGenerator
                 }
             }
         }
+    }
+
+    public Zone GetZoneAt(UnityGameState gs, Map map, int x, int y)
+    {
+        if (gs.map == null || gs.md == null ||
+            gs.md.mapZoneIds == null || x < 0 || y < 0 || x >= gs.md.mapZoneIds.GetLength(0) || y >= gs.md.mapZoneIds.GetLength(1))
+        {
+            return null;
+        }
+
+        return map.Get<Zone>(gs.md.mapZoneIds[x, y]);
     }
 
     protected void FloodFillRegion(UnityGameState gs, int zoneId, int x, int z, int depth)

@@ -10,6 +10,7 @@ using Genrpg.Shared.Factions.Constants;
 using System.Collections.Generic;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Spawns.WorldData;
+using Genrpg.Shared.Units.Constants;
 
 namespace Genrpg.Shared.Units.Factories
 {

@@ -2,6 +2,7 @@ using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spells.Casting;
+using Genrpg.Shared.Spells.Procs.Entities;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Stats.Entities;
 using MessagePack;
@@ -32,38 +33,40 @@ namespace Genrpg.Shared.Spells.Settings.Elements
 
         [Key(6)] public string Art { get; set; }
 
-        [Key(7)] public string CastAnim { get; set; }
+        [Key(7)] public string CasterActionName { get; set; }
+        [Key(8)] public string ObserverActionName { get; set; }
 
-        [Key(8)] public int RankScale { get; set; }
+        [Key(9)] public string CastAnim { get; set; }
 
-        [Key(9)] public List<ElementSkill> Skills { get; set; }
+        [Key(10)] public long VulnElementTypeId { get; set; }
 
-        [Key(10)] public List<SpellProc> Procs { get; set; }
+        [Key(11)] public List<ElementSkill> Skills { get; set; } = new List<ElementSkill>();
+
+        [Key(12)] public List<OldSpellProc> OldProcs { get; set; } = new List<OldSpellProc>();
+
+      
 
         /// <summary>
         /// Passive stats for using this element
         /// </summary>
-        [Key(11)] public List<AbilityEffect> BonusEfffects { get; set; }
+        [Key(13)] public List<AbilityEffect> BonusEffects { get; set; } = new List<AbilityEffect>();
 
 
-        [Key(12)] public List<StatPct> BuffEffects { get; set; }
+        [Key(14)] public List<StatPct> BuffEffects { get; set; } = new List<StatPct>();
 
-        [Key(13)] public List<StatPct> DebuffEffects { get; set; }
+        [Key(15)] public List<StatPct> DebuffEffects { get; set; } = new List<StatPct>();
 
 
-        [Key(14)] public int Flags { get; set; }
+        [Key(16)] public List<SpellProc> Procs { get; set; } = new List<SpellProc>();
+
+
+        [Key(17)] public int Flags { get; set; }
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
 
         public long GetId() { return IdKey; }
-        public ElementType()
-        {
-            Skills = new List<ElementSkill>();
-            Procs = new List<SpellProc>();
-            BonusEfffects = new List<AbilityEffect>();
-        }
-
+       
         public string ShowInfo()
         {
             return "Element: " + Name;
@@ -120,8 +123,6 @@ namespace Genrpg.Shared.Spells.Settings.Elements
     public class ElementTypeSettings : ParentSettings<ElementType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public ElementType GetElementType(long idkey) { return _lookup.Get<ElementType>(idkey); }
     }
 
     [MessagePackObject]

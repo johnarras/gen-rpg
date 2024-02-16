@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 176,
   "Name": "Paw",
-  "NameId": "Paw",
-  "GenName": "BodyPaw",
   "Icon": "BodyPaw",
   "Effects": [
     {

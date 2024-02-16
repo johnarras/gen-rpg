@@ -13,8 +13,6 @@ namespace Genrpg.Shared.Purchasing.Settings
     public class StoreSlotSettings : ParentSettings<StoreSlot>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public StoreSlot GetStoreSlot(long idkey) { return _lookup.Get<StoreSlot>(idkey); }
     }
 
     [MessagePackObject]

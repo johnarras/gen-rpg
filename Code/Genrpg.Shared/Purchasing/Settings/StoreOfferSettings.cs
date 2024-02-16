@@ -14,8 +14,6 @@ namespace Genrpg.Shared.Purchasing.Settings
     public class StoreOfferSettings : BaseDataOverrideSettings<StoreOffer>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public StoreOffer GetStoreBundle(long idkey) { return _lookup.Get<StoreOffer>(idkey); }
     }
 
     [MessagePackObject]

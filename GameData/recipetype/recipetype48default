@@ -1,0 +1,20 @@
+{
+  "Id": "recipetype48default",
+  "ParentId": "default",
+  "IdKey": 48,
+  "Name": "Quiver",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 309,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "Reagents": [],
+  "UpdateTime": "2024-01-28T03:02:25.406Z",
+  "CreateTime": "2024-01-28T03:02:03.845Z"
+}

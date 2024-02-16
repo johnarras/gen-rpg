@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 155,
   "Name": "Peridot",
-  "NameId": "GemPeridot",
-  "GenName": "GemPeridot",
   "Icon": "GemPeridot",
   "Effects": [
     {

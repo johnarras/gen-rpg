@@ -27,35 +27,11 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
         [MessagePack.IgnoreMember]
         public DateTime CreateTime { get; set; } = DateTime.MinValue;
 
-        public virtual void AddTo(GameData gameData)
-        {
-            gameData.Set(this);
-        }
+        public abstract void AddTo(GameData data);
 
         public virtual void SetInternalIds() { }
+        public virtual void ClearIndex() { }
         
-        protected IndexedDataItemLookup _lookup { get; set; }
-
-        public BaseGameSettings()
-        {
-            _lookup = new IndexedDataItemLookup(this);
-        }
-
-        public void ClearIndex()
-        {
-            _lookup.Clear();
-        }
-
-        public List<IIdName> GetList(string typeName)
-        {
-            return _lookup.GetList(typeName);
-        }
-
-        public List<T> GetList<T>()
-        {
-            return _lookup.GetList<T>();
-        }
-
         public virtual async Task SaveAll(IRepositorySystem repo)
         {
             await repo.Save(this);

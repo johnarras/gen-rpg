@@ -33,7 +33,7 @@ public class MapModObjectLoader : BaseMapObjectLoader
         return;
     }
 
-    private void OnDownloadMapModObject(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadMapModObject(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

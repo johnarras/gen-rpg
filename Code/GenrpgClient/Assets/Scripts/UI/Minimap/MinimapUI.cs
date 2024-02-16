@@ -55,7 +55,7 @@ public class MinimapUI : BaseBehaviour
         return null;
     }
 
-    private void OnLoadArrow(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadArrow(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         ArrowObject = obj as GEntity;
     }

@@ -11,5 +11,7 @@
   "DefPct": 100,
   "OtherPct": 100,
   "CrafterTypeId": 7,
-  "Reagents": []
+  "Reagents": [],
+  "UpdateTime": "2024-02-15T23:06:19.741Z",
+  "CreateTime": "2024-02-15T23:06:19.741Z"
 }

@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Bronze",
+  "Armor": 4,
+  "Damage": 3,
+  "CostPct": 300,
+  "UpdateTime": "2024-02-08T21:54:19Z",
+  "CreateTime": "2024-01-28T02:21:35.708Z"
+}

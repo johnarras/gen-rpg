@@ -28,9 +28,10 @@ namespace Genrpg.ServerShared.Maps
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = "OwnerId" });
             configs.Add(new IndexConfig() { MemberName = "MapId" });
-            await gs.repo.CreateIndex<QuestType>(configs);
-            await gs.repo.CreateIndex<QuestItem>(configs);
-            await gs.repo.CreateIndex<Zone>(configs);
+            List<Task> allTasks = new List<Task>();
+            allTasks.Add(gs.repo.CreateIndex<QuestType>(configs));
+            allTasks.Add(gs.repo.CreateIndex<QuestItem>(configs));
+            allTasks.Add(gs.repo.CreateIndex<Zone>(configs));
         }
 
         public async Task<List<MapStub>> GetMapStubs(ServerGameState gs)

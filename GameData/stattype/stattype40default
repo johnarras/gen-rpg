@@ -4,5 +4,7 @@
   "IdKey": 40,
   "Name": "PowerMult",
   "Desc": "All Dam Mult",
-  "GenScalePct": 10
+  "GenScalePct": 10,
+  "UpdateTime": "2024-02-15T23:03:14.501Z",
+  "CreateTime": "2024-01-27T19:57:19.984Z"
 }

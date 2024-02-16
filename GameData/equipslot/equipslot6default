@@ -5,6 +5,7 @@
   "Name": "Waist",
   "StatPercent": 100,
   "Active": true,
-  "UpdateTime": "2024-01-12T14:12:09.32Z",
+  "BaseBonusStatTypeId": 31,
+  "UpdateTime": "2024-02-13T20:39:34.299Z",
   "CreateTime": "2023-11-24T16:45:27.782Z"
 }

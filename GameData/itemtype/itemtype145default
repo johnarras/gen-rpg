@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 145,
   "Name": "Fire",
-  "NameId": "ElementFire",
-  "GenName": "ElementFire",
   "Icon": "ElementFire",
   "Effects": [
     {

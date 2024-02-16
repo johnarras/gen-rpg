@@ -44,8 +44,6 @@ namespace Genrpg.Shared.GroundObjects.Settings
     public class GroundObjTypeSettings : ParentSettings<GroundObjType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public GroundObjType GetGroundObjType(long idkey) { return _lookup.Get<GroundObjType>(idkey); }
     }
 
     [MessagePackObject]

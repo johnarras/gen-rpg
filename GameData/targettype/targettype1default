@@ -2,5 +2,7 @@
   "Id": "targettype1default",
   "ParentId": "default",
   "IdKey": 1,
-  "Name": "Enemy"
+  "Name": "Enemy",
+  "UpdateTime": "2024-02-15T23:06:19.962Z",
+  "CreateTime": "2024-02-15T23:06:19.962Z"
 }

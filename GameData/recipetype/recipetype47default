@@ -1,0 +1,20 @@
+{
+  "Id": "recipetype47default",
+  "ParentId": "default",
+  "IdKey": 47,
+  "Name": "PoisonVial",
+  "NameId": "",
+  "Desc": "",
+  "Icon": "",
+  "EntityId": 308,
+  "EntityTypeId": 2,
+  "MinQuantity": 1,
+  "MaxQuantity": 1,
+  "Art": "",
+  "AttPct": 100,
+  "DefPct": 100,
+  "OtherPct": 100,
+  "Reagents": [],
+  "UpdateTime": "2024-01-28T03:02:25.402Z",
+  "CreateTime": "2024-01-28T03:02:03.842Z"
+}

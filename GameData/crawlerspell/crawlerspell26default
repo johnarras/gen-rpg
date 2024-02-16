@@ -1,0 +1,27 @@
+{
+  "Id": "crawlerspell26default",
+  "ParentId": "default",
+  "IdKey": 26,
+  "Name": "Miasma",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 45,
+  "PowerPerLevel": 2,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 4,
+  "TargetTypeId": 3,
+  "Level": 18,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "ElementTypeId": 6
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.441Z",
+  "CreateTime": "2024-01-28T21:21:51Z"
+}

@@ -1,0 +1,18 @@
+{
+  "Id": "elementtype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Arcane",
+  "Art": "Arcane",
+  "CasterActionName": "Bewitch",
+  "ObserverActionName": "Bewitches",
+  "VulnElementTypeId": 8,
+  "Skills": [],
+  "OldProcs": [],
+  "BonusEffects": [],
+  "BuffEffects": [],
+  "DebuffEffects": [],
+  "Procs": [],
+  "UpdateTime": "2024-02-09T22:37:35.13Z",
+  "CreateTime": "2024-01-27T20:32:45.362Z"
+}

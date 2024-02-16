@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 24,
   "Name": "Dagger",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Dagger",
   "Art": "Dagger",
+  "MinVal": 1,
+  "MaxVal": 3,
   "EquipSlotId": 15,
   "Flags": 8,
   "Effects": [],
@@ -100,6 +100,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:38.657Z",
+  "UpdateTime": "2024-02-03T22:45:17.032Z",
   "CreateTime": "2023-11-24T16:45:39.476Z"
 }

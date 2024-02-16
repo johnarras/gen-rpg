@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell22default",
+  "ParentId": "default",
+  "IdKey": 22,
+  "Name": "Reveal Secret",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 100,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 7,
+  "TargetTypeId": 6,
+  "Level": 3,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 7,
+      "ElementTypeId": 7
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.426Z",
+  "CreateTime": "2024-01-28T05:48:08Z"
+}

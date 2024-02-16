@@ -1,0 +1,11 @@
+{
+  "Id": "skilltype13default",
+  "ParentId": "default",
+  "IdKey": 13,
+  "Name": "AddBuff",
+  "TargetTypeId": 2,
+  "StatScalePercent": 100,
+  "EffectEntityTypeId": 36,
+  "UpdateTime": "2024-01-27T20:14:52.861Z",
+  "CreateTime": "2024-01-27T20:14:52.861Z"
+}

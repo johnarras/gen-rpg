@@ -1,6 +1,7 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using MessagePack;
 using System;
@@ -10,7 +11,7 @@ using System.Text;
 namespace Genrpg.Shared.DataStores.GameSettings
 {
     [MessagePackObject]
-    public class ParentSettingsApi<TParent, TChild> : StubGameSettings
+    public class ParentSettingsApi<TParent, TChild> : StubGameSettings, ITopLevelSettings
         where TParent : ParentSettings<TChild>, new()
         where TChild : ChildSettings, new()
     {

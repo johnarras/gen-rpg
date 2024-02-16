@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 193,
   "Name": "Bowels",
-  "NameId": "Bowels",
-  "GenName": "BodyBowels",
   "Icon": "BodyBowels",
   "Effects": [
     {

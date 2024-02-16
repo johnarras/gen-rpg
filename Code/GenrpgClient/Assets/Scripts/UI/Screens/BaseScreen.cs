@@ -35,7 +35,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
         GraphicRaycaster gr = GetComponent<GraphicRaycaster>();
         if (gr != null)
         {
-            _raycasters.Add(gr);
+            _raycasters.Insert(0, gr);
         }
     }
 

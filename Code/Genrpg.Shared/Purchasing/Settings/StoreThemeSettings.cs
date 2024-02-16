@@ -12,8 +12,6 @@ namespace Genrpg.Shared.Purchasing.Settings
     public class StoreThemeSettings : ParentSettings<StoreTheme>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public StoreTheme GetStoreTheme(long idkey) { return _lookup.Get<StoreTheme>(idkey); }
     }
 
     [MessagePackObject]

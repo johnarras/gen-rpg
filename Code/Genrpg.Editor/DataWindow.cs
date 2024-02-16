@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
-using Genrpg.Shared.Reflection.Services;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor;
 using Genrpg.Editor.Utils;
@@ -18,6 +17,7 @@ using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
 using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.Versions.Settings;
+using Genrpg.Editor.Services.Reflection;
 
 namespace GameEditor
 {
@@ -47,7 +47,7 @@ namespace GameEditor
                 return;
             }
 
-            Size = new Size(1600, 1000);
+            Size = new Size(1600, 900);
             AddView(action);
             InitializeComponent();
 
@@ -148,9 +148,11 @@ namespace GameEditor
 
                 bool foundBadData = false;
 
-                List<IGrouping<Type, IGameSettings>> groups = gs.data.GetAllData().GroupBy(x => x.GetType()).ToList();
+                List<IGrouping<Type, ITopLevelSettings>> groups = gs.data.AllSettings().GroupBy(x => x.GetType()).ToList();
 
-                foreach (IGameSettings settings in gs.data.GetAllData())
+
+                List<ITopLevelSettings> allSettings = gs.data.AllSettings();
+                foreach (ITopLevelSettings settings in allSettings)
                 {
                     if (string.IsNullOrEmpty(settings.Id))
                     {
@@ -161,11 +163,11 @@ namespace GameEditor
 
                     settings.SetInternalIds();
                 }
-                foreach (IGrouping<Type,IGameSettings> group in groups)
+                foreach (IGrouping<Type,ITopLevelSettings> group in groups)
                 {
-                    List<IGameSettings> items = group.ToList();
+                    List<ITopLevelSettings> items = group.ToList();
 
-                    List<IGrouping<string, IGameSettings>> nameGroups = items.GroupBy(x => x.Id).ToList();
+                    List<IGrouping<string, ITopLevelSettings>> nameGroups = items.GroupBy(x => x.Id).ToList();
 
                     if (group.Key == typeof(CurrencySettings))
                     {
@@ -186,7 +188,7 @@ namespace GameEditor
 
                 StringBuilder saveList = new StringBuilder();
 
-                foreach (IGameSettings settings in gs.data.GetAllData())
+                foreach (ITopLevelSettings settings in gs.data.AllSettings())
                 {
                     if (string.IsNullOrEmpty(settings.Id))
                     {
@@ -233,7 +235,7 @@ namespace GameEditor
                 }
 
                 // Set Save time to before the data is saved so it's older than anything that's saved now.
-                VersionSettings versionSettings = gs.data.GetGameData<VersionSettings>(null);
+                VersionSettings versionSettings = gs.data.Get<VersionSettings>(null);
                 versionSettings.GameDataSaveTime = DateTime.UtcNow;
                 if (!gs.LookedAtObjects.Contains(versionSettings))
                 {
@@ -269,7 +271,7 @@ namespace GameEditor
         {
             string txt = "";
 
-            IReflectionService reflectionService = gs.loc.Get<IReflectionService>();
+            IEditorReflectionService reflectionService = gs.loc.Get<IEditorReflectionService>();
 
             for (int i = 0; i < ViewStack.Count; i++)
             {

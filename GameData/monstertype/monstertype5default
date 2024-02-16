@@ -1,0 +1,18 @@
+{
+  "Id": "monstertype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Hobbit",
+  "MaxLevel": 10000,
+  "Chance": 1.0,
+  "HpScale": 1.0,
+  "DamScale": 1.0,
+  "PrefixChance": 1.0,
+  "SuffixChance": 1.0,
+  "Prefixes": [],
+  "Suffixes": [],
+  "Abilities": [],
+  "MonsterCategoryId": 1,
+  "UpdateTime": "2024-01-21T16:05:54.369Z",
+  "CreateTime": "2024-01-21T15:37:50.328Z"
+}

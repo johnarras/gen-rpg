@@ -23,7 +23,7 @@ public abstract class BaseObjectLoader
         Zone currZone, ZoneType currZoneType, CancellationToken token);
 
 
-    protected void OnDownloadObject(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    protected void OnDownloadObject(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         FinalPlaceObject(gs, obj as GEntity, data as DownloadObjectData, token);
     }

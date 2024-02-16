@@ -12,8 +12,6 @@ namespace Genrpg.Shared.Purchasing.Settings
     public class StoreFeatureSettings : ParentSettings<StoreFeature>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public StoreFeature GetStoreFeature(long idkey) { return _lookup.Get<StoreFeature>(idkey); }
     }
 
     [MessagePackObject]

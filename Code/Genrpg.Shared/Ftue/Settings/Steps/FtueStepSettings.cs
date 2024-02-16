@@ -46,8 +46,6 @@ namespace Genrpg.Shared.Ftue.Settings.Steps
     {
         [Key(0)] public override string Id { get; set; }
 
-        public FtueStep GetFtueStep(long idkey) { return _lookup.Get<FtueStep>(idkey); }
-
         public FtueStep FindFtueStep(long ftueTriggerId, string ftueTriggerName)
         {
             return _data.FirstOrDefault(x => x.FtueTriggerId == ftueTriggerId && x.TriggerName == ftueTriggerName);

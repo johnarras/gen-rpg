@@ -71,6 +71,7 @@ namespace Genrpg.Editor.UI
             dataGridView.Size = new Size(width, height);
             dataGridView.Location = new Point(xpos, ypos);
             dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView.ScrollBars = ScrollBars.Both;
             formatter.SetupDataGrid(dataGridView);
             controls.Add(dataGridView);
 

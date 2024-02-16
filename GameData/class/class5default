@@ -1,0 +1,33 @@
+{
+  "Id": "class5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Mage",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Ma",
+  "LevelsPerMelee": 14,
+  "LevelsPerRanged": 20,
+  "HealthPerLevel": 6,
+  "ManaPerLevel": 10,
+  "BuffStatTypeId": 32,
+  "BuffStatPercent": 100,
+  "DefaultLevelPercentBuff": 50,
+  "PartyBuffId": 5,
+  "MaxArmorScalingTypeId": 1,
+  "AllowedWeapons": [
+    {
+      "ItemTypeId": 24
+    },
+    {
+      "ItemTypeId": 28
+    },
+    {
+      "ItemTypeId": 21
+    }
+  ],
+  "AllowedEquipSlots": [],
+  "UpdateTime": "2024-02-16T02:43:09.66Z",
+  "CreateTime": "2024-01-27T12:57:37Z"
+}

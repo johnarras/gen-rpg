@@ -24,8 +24,6 @@ namespace Genrpg.Shared.ProcGen.Settings.Clutter
     public class ClutterTypeSettings : ParentSettings<ClutterType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public ClutterType GetClutterType(long idkey) { return _lookup.Get<ClutterType>(idkey); }
     }
 
     [MessagePackObject]

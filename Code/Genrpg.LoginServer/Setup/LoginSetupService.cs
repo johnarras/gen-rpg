@@ -3,8 +3,8 @@ using Genrpg.LoginServer.Core;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Maps;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Setup.Services;
+using Genrpg.Shared.Utils;
 using System;
 using System.Threading.Tasks;
 
@@ -13,7 +13,6 @@ namespace Genrpg.LoginServer.Setup
     public class LoginSetupService : SetupService
     {
         private IMapDataService _mapDataService = null;
-        private IReflectionService _reflectionService = null;
         private ICloudCommsService _cloudCommsService = null;
         public override void SetupObjectLocator(GameState gs)
         {
@@ -28,7 +27,7 @@ namespace Genrpg.LoginServer.Setup
             if (gs is LoginGameState lgs)
             {
                 gs.loc.Resolve(this);
-                lgs.commandHandlers = _reflectionService.SetupDictionary<Type, ILoginCommandHandler>(gs);
+                lgs.commandHandlers = ReflectionUtils.SetupDictionary<Type, ILoginCommandHandler>(gs);
                 lgs.mapStubs.Stubs = await _mapDataService.GetMapStubs(lgs);
                 _cloudCommsService.SetupPubSubMessageHandlers(lgs);
             }

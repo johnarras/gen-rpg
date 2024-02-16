@@ -893,7 +893,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                     currZoneType = zoneTypeCache.FirstOrDefault(xx => xx.IdKey == currZone.ZoneTypeId);
                     if (currZoneType == null)
                     {
-                        currZoneType = gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(currZone.ZoneTypeId);
+                        currZoneType = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(currZone.ZoneTypeId);
                         if (currZoneType == null)
                         {
                             currZoneId = -1;

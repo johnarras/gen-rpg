@@ -4,5 +4,7 @@
   "IdKey": 50,
   "Name": "DefenseMult",
   "Desc": "All Dam Reduced",
-  "GenScalePct": 10
+  "GenScalePct": 10,
+  "UpdateTime": "2024-02-15T23:06:19.956Z",
+  "CreateTime": "2024-02-15T23:06:19.956Z"
 }

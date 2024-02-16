@@ -2,5 +2,7 @@
   "Id": "texturechannel2default",
   "ParentId": "default",
   "IdKey": 2,
-  "Name": "Road"
+  "Name": "Road",
+  "UpdateTime": "2024-02-15T23:06:20.018Z",
+  "CreateTime": "2024-02-15T23:06:20.018Z"
 }

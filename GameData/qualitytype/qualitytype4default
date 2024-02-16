@@ -11,5 +11,7 @@
   "UnitSpawnWeight": 2,
   "UnitMinLevel": 9,
   "UnitHealthPct": 300,
-  "UnitDamPct": 200
+  "UnitDamPct": 200,
+  "UpdateTime": "2024-02-15T23:06:19.65Z",
+  "CreateTime": "2024-02-15T23:06:19.65Z"
 }

@@ -11,8 +11,6 @@ namespace Genrpg.Shared.ProcGen.Settings.Weather
     public class WeatherTypeSettings : ParentSettings<WeatherType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public WeatherType GetWeatherType(long idkey) { return _lookup.Get<WeatherType>(idkey); }
     }
 
     [MessagePackObject]

@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 5,
   "Name": "Gloves",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Gloves",
   "Art": "Gloves",
+  "MinVal": 1,
+  "MaxVal": 1,
   "EquipSlotId": 10,
   "Effects": [],
   "LevelRanges": [
@@ -93,6 +93,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:40.767Z",
+  "UpdateTime": "2024-02-03T22:45:17.013Z",
   "CreateTime": "2023-11-24T16:45:41.847Z"
 }

@@ -62,7 +62,7 @@ namespace UI
                     }
                     if (_currentChatType == null)
                     {
-                        _currentChatType = _gs.data.GetGameData<ChatSettings>(_gs.ch).GetChatType(ChatTypes.Say);
+                        _currentChatType = _gs.data.Get<ChatSettings>(_gs.ch).Get(ChatTypes.Say);
                     }
                     ShowChatInputPrefix();
                 }
@@ -95,7 +95,7 @@ namespace UI
 
                 if (text.Length > 0)
                 {
-                    List<ChatType> chatTypes = _gs.data.GetGameData<ChatSettings>(_gs.ch).GetData();
+                    IReadOnlyList<ChatType> chatTypes = _gs.data.Get<ChatSettings>(_gs.ch).GetData();
 
                     int firstSpaceIndex = text.IndexOf(" ");
 

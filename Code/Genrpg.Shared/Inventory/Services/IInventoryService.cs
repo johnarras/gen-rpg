@@ -15,6 +15,7 @@ namespace Genrpg.Shared.Inventory.Services
         bool UnequipItem(GameState gs, Unit unit, string itemId, bool calcStatsNow = true);
         Item RemoveItemQuantity(GameState gs, Unit unit, string itemId, int quantity);
         Item RemoveItem(GameState gs, Unit unit, string itemId,bool destroyItem);
-        bool EquipItem(GameState gs, Unit unit, string itemId, long equipSlotId);
+        bool EquipItem(GameState gs, Unit unit, string itemId, long equipSlotId, bool calcStatsNow = true);
+        bool CanEquipItem(GameState gs, Unit unit, Item item);
     }
 }

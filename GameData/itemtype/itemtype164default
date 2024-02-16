@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 164,
   "Name": "Egg",
-  "NameId": "Egg",
-  "GenName": "BodyEgg",
   "Icon": "BodyEgg",
   "Effects": [
     {

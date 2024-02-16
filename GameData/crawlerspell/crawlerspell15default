@@ -1,0 +1,27 @@
+{
+  "Id": "crawlerspell15default",
+  "ParentId": "default",
+  "IdKey": 15,
+  "Name": "Holy Storm",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 30,
+  "PowerPerLevel": 2,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 4,
+  "TargetTypeId": 3,
+  "Level": 14,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "ElementTypeId": 7
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.416Z",
+  "CreateTime": "2024-01-28T15:21:51Z"
+}

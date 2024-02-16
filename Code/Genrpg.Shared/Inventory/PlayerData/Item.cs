@@ -20,20 +20,13 @@ namespace Genrpg.Shared.Inventory.PlayerData
         [Key(4)] public long Quantity { get; set; }
         [Key(5)] public List<ItemEffect> Effects { get; set; }
         [Key(6)] public long QualityTypeId { get; set; }
-        [Key(7)] public long Level { get; set; }
-        [Key(8)] public long ScalingTypeId { get; set; }
-        [Key(9)] public long EquipSlotId { get; set; }
+        [Key(7)] public long LootRankId { get; set; }
+        [Key(8)] public long Level { get; set; }
+        [Key(9)] public long ScalingTypeId { get; set; }
+        [Key(10)] public long EquipSlotId { get; set; }
+        [Key(11)] public long Cost { get; set; }
 
-        /// <summary>
-        /// What happens when this item is used. 
-        /// Could be learning a recipe, casting a spell, getting stats, 
-        /// opening a box of loot.
-        /// </summary>
-        [Key(10)] public long UseEntityTypeId { get; set; }
-        /// <summary>
-        /// What entity id is created/used when this item is used.
-        /// </summary>
-        [Key(11)] public long UseEntityId { get; set; }
+        [Key(12)] public List<ItemProc> Procs { get; set; } = new List<ItemProc>();
 
         /// <summary>
         /// Cache this on the item when it's in memory so we don't have to keep looking it up.
@@ -59,6 +52,7 @@ namespace Genrpg.Shared.Inventory.PlayerData
         }
 
     }
+
     [MessagePackObject]
     public class ItemEffect : IEffect
     {

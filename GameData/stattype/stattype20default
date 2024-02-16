@@ -4,5 +4,7 @@
   "IdKey": 20,
   "Name": "Power",
   "Desc": "+All Dam",
-  "GenScalePct": 100
+  "GenScalePct": 100,
+  "UpdateTime": "2024-02-15T23:03:14.488Z",
+  "CreateTime": "2024-02-03T22:37:28.625Z"
 }

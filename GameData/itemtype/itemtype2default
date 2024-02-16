@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 2,
   "Name": "Shoulder",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Shoulders",
   "Art": "Shoulder",
+  "MinVal": 2,
+  "MaxVal": 2,
   "EquipSlotId": 3,
   "Effects": [],
   "LevelRanges": [
@@ -113,6 +113,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:39.259Z",
+  "UpdateTime": "2024-02-03T22:45:17.007Z",
   "CreateTime": "2023-11-24T16:45:40.136Z"
 }

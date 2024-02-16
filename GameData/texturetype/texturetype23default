@@ -4,5 +4,7 @@
   "IdKey": 23,
   "Name": "Cobblea",
   "Size": 8.0,
-  "ParentTextureTypeId": 4
+  "ParentTextureTypeId": 4,
+  "UpdateTime": "2024-02-15T23:06:20.158Z",
+  "CreateTime": "2024-02-15T23:06:20.158Z"
 }

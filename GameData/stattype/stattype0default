@@ -1,5 +1,7 @@
 {
   "Id": "stattype0default",
   "ParentId": "default",
-  "Name": "None"
+  "Name": "None",
+  "UpdateTime": "2024-02-15T23:34:21.147Z",
+  "CreateTime": "2024-01-27T19:57:19.973Z"
 }

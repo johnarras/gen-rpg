@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 public class CloseButton : BaseBehaviour
 {
-    private IUIService _uiService = null;
     public GButton Button;
 
     public override void Initialize(UnityGameState gs)

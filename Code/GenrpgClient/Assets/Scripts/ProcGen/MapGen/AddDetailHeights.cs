@@ -16,7 +16,7 @@ public class AddDetailHeights : BaseZoneGenerator
         await base.Generate(gs, token);
         foreach (Zone zn in gs.map.Zones)
         {
-            GenerateOneZone(gs, zn, gs.data.GetGameData<ZoneTypeSettings>(gs.ch).GetZoneType(zn.ZoneTypeId), zn.XMin, zn.ZMin, zn.XMax, zn.ZMax);
+            GenerateOneZone(gs, zn, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zn.ZoneTypeId), zn.XMin, zn.ZMin, zn.XMax, zn.ZMax);
         }
     }
 
@@ -66,7 +66,7 @@ public class AddDetailHeights : BaseZoneGenerator
 
         MyRandom rand = new MyRandom(zone.Seed+gs.map.Seed/7);
 
-        GenZone genZone = gs.GetGenZone(zone.IdKey);
+        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
 		float hillAmplitudeScale = 1.0f;
         hillAmplitudeScale *= genZone.DetailAmp;
         hillAmplitudeScale *= zoneType.DetailAmp;

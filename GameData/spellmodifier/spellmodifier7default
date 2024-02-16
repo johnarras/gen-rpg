@@ -10,5 +10,7 @@
   "DataMemberName": "Shots",
   "DisplayMult": 1.0,
   "MaxValue": 4.0,
-  "ValueDelta": 1.0
+  "ValueDelta": 1.0,
+  "UpdateTime": "2024-02-15T23:06:19.94Z",
+  "CreateTime": "2024-02-15T23:06:19.94Z"
 }

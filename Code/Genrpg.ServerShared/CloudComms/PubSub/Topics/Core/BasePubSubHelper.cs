@@ -3,16 +3,10 @@ using Azure.Messaging.ServiceBus;
 using Azure.Messaging.ServiceBus.Administration;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.PubSub.Entities;
-using Genrpg.ServerShared.CloudComms.Queues.Entities;
 using Genrpg.ServerShared.Core;
-using Genrpg.Shared.Reflection.Services;
 using Genrpg.Shared.Utils;
-using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,7 +39,7 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
             return false;
         }
 
-        public async Task Init(ServerGameState gs, ServiceBusClient client, ServiceBusAdministrationClient adminClient, IReflectionService _reflectionService, string serverId, string env,  CancellationToken token)
+        public async Task Init(ServerGameState gs, ServiceBusClient client, ServiceBusAdministrationClient adminClient, string serverId, string env,  CancellationToken token)
         {
             _serverGameState = gs;
             _serviceBusClient = client;
@@ -78,9 +72,9 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
             _ = Task.Run(() => RunReceiver(token));
         }
 
-        public void SetMessageHandlers(ServerGameState gs, IReflectionService reflectionService)
+        public void SetMessageHandlers(ServerGameState gs)
         {
-            _handlers = reflectionService.SetupDictionary<Type, H>(gs);
+            _handlers = ReflectionUtils.SetupDictionary<Type, H>(gs);
         }
 
         public void SendMessage(ServerGameState gs, IPubSubMessage message)

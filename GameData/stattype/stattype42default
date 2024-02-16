@@ -4,5 +4,7 @@
   "IdKey": 42,
   "Name": "SpellMult",
   "Desc": "Spell Dam Mult",
-  "GenScalePct": 10
+  "GenScalePct": 10,
+  "UpdateTime": "2024-02-15T23:03:14.502Z",
+  "CreateTime": "2024-02-15T23:03:14.502Z"
 }

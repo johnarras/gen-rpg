@@ -8,6 +8,7 @@ using System.Threading;
 using Assets.Scripts.Tokens;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Genrpg.Shared.UI.Settings;
 
 public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 {
@@ -93,10 +94,21 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
             layer.CurrentLoading = nextItem;
             layer.ScreenQueue.RemoveAt(0);
 
-
-            string prefabName = ScreenUtils.GetPrefabName(nextItem.ScreenId);
+            string prefabName = ScreenUtils.GetFullScreenNameFromEnum(nextItem.ScreenId);
             string subdirectory = GetSubdirectory(nextItem.ScreenId);
 
+            
+            ScreenOverrideSettings overrideSettings = _gs.data.Get<ScreenOverrideSettings>(_gs.ch);
+
+            if (overrideSettings != null) // This will not exist during the very earliest screens, so check it.
+            {
+                ScreenOverride screenOverride = overrideSettings.GetData().FirstOrDefault(x => x.Name == nextItem.ScreenId.ToString());
+
+                if (screenOverride != null && !string.IsNullOrEmpty(screenOverride.Name) && !string.IsNullOrEmpty(screenOverride.NewName))
+                {
+                    prefabName = prefabName.Replace(screenOverride.Name, screenOverride.NewName);
+                }
+            }
 
             _assetService.LoadAssetInto(_gs, layer.LayerParent, AssetCategoryNames.UI, 
                 prefabName, OnLoadScreen, nextItem, _gameToken, subdirectory);
@@ -104,12 +116,12 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
         }
     }
 
-    private void OnLoadScreen(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadScreen(UnityGameState gs, object obj, object data, CancellationToken token)
     {
-        OnLoadScreenAsync(gs, url, obj, data, token).Forget();
+        OnLoadScreenAsync(gs, obj, data, token).Forget();
     }
 
-    private async UniTask OnLoadScreenAsync (UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private async UniTask OnLoadScreenAsync (UnityGameState gs, object obj, object data, CancellationToken token)
     { 
         GEntity screen = obj as GEntity;
         ActiveScreen nextItem = data as ActiveScreen;
@@ -117,7 +129,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
         
         if (screen == null)
         {
-            _gs.logger.Debug("Couldn't load screen " + url);
+            _gs.logger.Debug("Couldn't load screen ");
             return;
         }
 
@@ -174,7 +186,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
     public void StringOpen (UnityGameState gs, string screenName, object data = null)
     {
-        ScreenConfig config = _screenConfigs.FirstOrDefault(x => ScreenUtils.GetPrefabName(x.ScreenName) == screenName);
+        ScreenConfig config = _screenConfigs.FirstOrDefault(x => ScreenUtils.GetFullScreenNameFromEnum(x.ScreenName) == screenName);
 
         if (config != null)
         {

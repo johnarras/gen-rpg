@@ -85,7 +85,7 @@ namespace Genrpg.Shared.Quests.Services
                 return rewards;
             }
 
-            LevelInfo level = gs.data.GetGameData<LevelSettings>(ch).GetLevel(qtype.MinLevel);
+            LevelInfo level = gs.data.Get<LevelSettings>(ch).Get(qtype.MinLevel);
 
             if (level == null)
             {

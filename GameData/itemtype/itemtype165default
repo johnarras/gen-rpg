@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 165,
   "Name": "Eye",
-  "NameId": "Eye",
-  "GenName": "BodyEye",
   "Icon": "BodyEye",
   "Effects": [
     {

@@ -16,7 +16,7 @@ namespace Genrpg.Shared.UserCoins.Helpers
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
         {
-            return gs.data.GetGameData<UserCoinSettings>(obj).GetUserCoinType(id);
+            return gs.data.Get<UserCoinSettings>(obj).Get(id);
         }
     }
 }

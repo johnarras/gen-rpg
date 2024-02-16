@@ -49,5 +49,9 @@ namespace Genrpg.Shared.Spells.Constants
         public const float ProjectileOffsetDist = 2.0f;
         public const float FXOffsetDist = 2.0f;
 
+
+        public const int MinRange = 0;
+        public const int MaxRange = 100;
+
     }
 }

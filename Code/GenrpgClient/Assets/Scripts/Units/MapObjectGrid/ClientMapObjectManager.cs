@@ -8,7 +8,7 @@ using Genrpg.Shared.Characters.PlayerData;
 using System;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Interfaces;
-using Genrpg.Shared.Reflection.Services;
+using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapObjects.Factories;
 using Assets.Scripts.Tokens;
 using System.Threading;
@@ -36,7 +36,6 @@ public interface IClientMapObjectManager : ISetupService, IMapTokenService
 
 public class ClientMapObjectManager : IClientMapObjectManager
 {
-    protected IReflectionService _reflectionService;
     private IRealtimeNetworkService _networkService;
 
     private List<UnitController> _controllers = new List<UnitController>();
@@ -93,7 +92,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
     {
         _gs = gs;
         Reset();
-        _factories = _reflectionService.SetupDictionary<long, IMapObjectFactory>(gs);
+        _factories = ReflectionUtils.SetupDictionary<long, IMapObjectFactory>(gs);
         foreach (IMapObjectFactory mapObjFact in _factories.Values)
         {
             mapObjFact.Setup(gs);
@@ -106,7 +105,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
         _fxParent = GEntityUtils.FindSingleton("FXParent", true);
 
 
-        _mapObjectLoaders = _reflectionService.SetupDictionary<long, IMapObjectLoader>(gs);
+        _mapObjectLoaders = ReflectionUtils.SetupDictionary<long, IMapObjectLoader>(gs);
 
         await UniTask.CompletedTask;
     }

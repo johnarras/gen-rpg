@@ -1,0 +1,19 @@
+{
+  "Id": "class7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Sorcerer",
+  "Abbrev": "So",
+  "LevelsPerMelee": 16,
+  "LevelsPerRanged": 12,
+  "HealthPerLevel": 8,
+  "ManaPerLevel": 10,
+  "BuffStatTypeId": 72,
+  "BuffStatPercent": 100,
+  "DefaultLevelPercentBuff": 50,
+  "MaxArmorScalingTypeId": 1,
+  "AllowedWeapons": [],
+  "AllowedEquipSlots": [],
+  "UpdateTime": "2024-02-16T03:29:55.272Z",
+  "CreateTime": "2024-02-15T22:45:14.089Z"
+}

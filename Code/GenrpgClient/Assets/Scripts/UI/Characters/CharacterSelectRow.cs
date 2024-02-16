@@ -25,7 +25,7 @@ public class CharacterSelectRow : BaseBehaviour
         _token = token;
         _uiService.SetText(NameText, ch.Name);
         _uiService.SetButton(DeleteButton, screen.GetName(), ClickDelete);
-        _assetService.LoadSpriteInto(_gs, AtlasNames.Icons, "HelmetMetal_002", CharImage, token);
+        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, "HelmetMetal_002", CharImage, token);
 
         if (PlayButtonAnchor == null)
         {
@@ -59,7 +59,7 @@ public class CharacterSelectRow : BaseBehaviour
         _webNetworkService.SendClientWebCommand(com, _token);
     }
 
-    private void OnDownloadPlayButton(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadPlayButton(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
 

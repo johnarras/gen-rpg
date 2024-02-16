@@ -15,8 +15,6 @@ namespace Genrpg.Shared.Achievements.Settings
     public class AchievementSettings : ParentSettings<AchievementType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public AchievementType GetAchievementType(long idkey) { return _lookup.Get<AchievementType>(idkey); }
     }
 
     [MessagePackObject]

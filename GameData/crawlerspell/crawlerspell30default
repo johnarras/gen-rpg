@@ -1,0 +1,27 @@
+{
+  "Id": "crawlerspell30default",
+  "ParentId": "default",
+  "IdKey": 30,
+  "Name": "Cone of Cold",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 40,
+  "PowerPerLevel": 2,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 5,
+  "TargetTypeId": 3,
+  "Level": 5,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "ElementTypeId": 3
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.447Z",
+  "CreateTime": "2024-01-28T15:21:51Z"
+}

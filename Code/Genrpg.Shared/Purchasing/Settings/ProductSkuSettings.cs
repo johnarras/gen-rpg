@@ -12,8 +12,6 @@ namespace Genrpg.Shared.Purchasing.Settings
     public class ProductSkuSettings : ParentSettings<ProductSku>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public ProductSku GetProductSku(long idkey) { return _lookup.Get<ProductSku>(idkey); }
     }
 
     [MessagePackObject]

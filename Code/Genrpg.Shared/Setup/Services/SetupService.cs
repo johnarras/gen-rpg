@@ -1,6 +1,8 @@
 
+using Genrpg.Shared.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -26,13 +28,17 @@ namespace Genrpg.Shared.Setup.Services
             gs.loc.Resolve(this);
             List<IService> vals = gs.loc.GetVals();
 
+
+            List<Task> setupTasks = new List<Task>();
             foreach (IService val in vals)
             {
                 if (val is ISetupService setupVal)
                 {
-                    await setupVal.Setup(gs, token);
+                    setupTasks.Add(setupVal.Setup(gs, token));
                 }
             }
+
+            await Task.WhenAll(setupTasks);
         }
 
         public virtual async Task FinalSetup(GameState gs)

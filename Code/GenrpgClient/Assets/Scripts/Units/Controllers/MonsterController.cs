@@ -9,6 +9,7 @@ using Genrpg.Shared.Pathfinding.Entities;
 using System.Linq;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Units.Constants;
 
 public class MonsterController : UnitController
 {
@@ -195,7 +196,7 @@ public class MonsterController : UnitController
             entity.transform().position = GVector3.Create(_unit.X, height, _unit.Z);
             entity.transform().eulerAngles = GVector3.Create(0, _unit.Rot, 0);
             TiltObject();
-            if (speed > _gs.data.GetGameData<AISettings>(_gs.ch).BaseUnitSpeed)
+            if (speed > _gs.data.Get<AISettings>(_gs.ch).BaseUnitSpeed)
             {
                 animationSpeed = RunAnimSpeed;
                 SetMoveSpeed(AnimParams.RunSpeed);

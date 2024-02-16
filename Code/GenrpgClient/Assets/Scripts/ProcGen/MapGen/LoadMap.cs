@@ -424,7 +424,7 @@ public class LoadMap : BaseZoneGenerator
         }
     }
 
-    private void OnDownloadTerrainBytes(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnDownloadTerrainBytes(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         TerrainPatchData patch = data as TerrainPatchData;
 
@@ -451,7 +451,7 @@ public class LoadMap : BaseZoneGenerator
             {
                 txt = System.Text.Encoding.UTF8.GetString(bytes);
             }
-            gs.logger.Error("Failed to download Bytes from: " + url + " " + bytes);
+            gs.logger.Error("Failed to download Bytes");
             return;
         }
 

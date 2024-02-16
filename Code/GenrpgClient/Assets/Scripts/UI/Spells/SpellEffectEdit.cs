@@ -46,7 +46,7 @@ namespace Assets.Scripts.UI.Spells
             ExtraTargetsInput?.Init(SpellModifiers.ExtraTargets, _onValueChangedAction);
             ExtraTargetsInput.SetSelectedValue(_effect.ExtraTargets);
 
-            SkillInput?.Init(_gs.data.GetGameData<SkillTypeSettings>(_gs.ch).GetData(), _onValueChangedAction);
+            SkillInput?.Init(_gs.data.Get<SkillTypeSettings>(_gs.ch).GetData(), _onValueChangedAction);
             SkillInput.SetFromId(_effect.SkillTypeId);
 
             _uiService.SetInputText(EntityInput, _effect.EntityId);

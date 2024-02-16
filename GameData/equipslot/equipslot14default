@@ -6,6 +6,7 @@
   "ParentEquipSlotId": 13,
   "StatPercent": 100,
   "Active": true,
-  "UpdateTime": "2023-12-24T17:22:27.182Z",
+  "BaseBonusStatTypeId": 32,
+  "UpdateTime": "2024-02-13T20:39:34.315Z",
   "CreateTime": "2023-11-24T16:45:26.769Z"
 }

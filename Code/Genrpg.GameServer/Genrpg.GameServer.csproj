@@ -12,10 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Genrpg.InstanceServer\Genrpg.InstanceServer.csproj" />
-    <ProjectReference Include="..\Genrpg.MapServer\Genrpg.MapServer.csproj" />
-    <ProjectReference Include="..\Genrpg.MonsterServer\Genrpg.MonsterServer.csproj" />
-    <ProjectReference Include="..\Genrpg.PlayerServer\Genrpg.PlayerServer.csproj" />
+    <ProjectReference Include="..\Genrpg.Servers\Genrpg.InstanceServer\Genrpg.InstanceServer.csproj" />
+    <ProjectReference Include="..\Genrpg.Servers\Genrpg.MapServer\Genrpg.MapServer.csproj" />
+    <ProjectReference Include="..\Genrpg.Servers\Genrpg.MonsterServer\Genrpg.MonsterServer.csproj" />
+    <ProjectReference Include="..\Genrpg.Servers\Genrpg.PlayerServer\Genrpg.PlayerServer.csproj" />
   </ItemGroup>
 
 </Project>

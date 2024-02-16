@@ -1,0 +1,18 @@
+{
+  "Id": "monstertype42default",
+  "ParentId": "default",
+  "IdKey": 42,
+  "Name": "Hound",
+  "MaxLevel": 10000,
+  "Chance": 1.0,
+  "HpScale": 1.0,
+  "DamScale": 1.0,
+  "PrefixChance": 1.0,
+  "SuffixChance": 1.0,
+  "Prefixes": [],
+  "Suffixes": [],
+  "Abilities": [],
+  "MonsterCategoryId": 2,
+  "UpdateTime": "2024-01-21T16:06:12.763Z",
+  "CreateTime": "2024-01-21T15:37:50.419Z"
+}

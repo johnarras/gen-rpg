@@ -13,6 +13,7 @@ using Genrpg.Shared.Combat.Messages;
 using UnityEngine; // Needed
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Pathfinding.Services;
+using Genrpg.Shared.Units.Constants;
 
 public class UnitController : BaseBehaviour
 {
@@ -375,7 +376,7 @@ public class UnitController : BaseBehaviour
             OnLoadCombatText, text, _token, "FloatingText" );
     }
 
-    private void OnLoadCombatText(UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadCombatText(UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

@@ -14,6 +14,8 @@ using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
+using Genrpg.Shared.Spells.Interfaces;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.MapObjects.Messages
 {
@@ -43,7 +45,7 @@ namespace Genrpg.Shared.MapObjects.Messages
         [Key(20)] public AttackerInfo FirstAttacker { get; set; }
         [Key(21)] public List<SpawnResult> Loot { get; set; }
         [Key(22)] public List<SpawnResult> SkillLoot { get; set; }
-        [Key(23)] public List<ActiveSpellEffect> Effects { get; set; }
+        [Key(23)] public List<DisplayEffect> Effects { get; set; }
         [Key(24)] public List<FullStat> Stats { get; set; }
         [Key(25)] public long AddonBits { get; set; }
         public long GetAddonBits() { return AddonBits; }
@@ -87,7 +89,13 @@ namespace Genrpg.Shared.MapObjects.Messages
                 Loot = unit.Loot;
                 SkillLoot = unit.SkillLoot;
                 TempFlags = unit.GetFlags();
-                Effects = unit.SpellEffects;
+
+                Effects = new List<DisplayEffect>();
+                foreach (IDisplayEffect eff in unit.Effects)
+                {
+                    Effects.Add(SerializationUtils.ConvertType<IDisplayEffect, DisplayEffect>(eff));
+                }
+
                 Level = unit.Level;
                 if (obj is Character ch)
                 {

@@ -9,5 +9,7 @@
   "ItemCostPct": 100,
   "UnitSpawnWeight": 100,
   "UnitHealthPct": 100,
-  "UnitDamPct": 100
+  "UnitDamPct": 100,
+  "UpdateTime": "2024-02-15T23:06:19.538Z",
+  "CreateTime": "2024-02-15T23:06:19.537Z"
 }

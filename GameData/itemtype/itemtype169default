@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 169,
   "Name": "Blue Ichor",
-  "NameId": "IchorBlue",
-  "GenName": "BodyIchorBlue",
   "Icon": "IchorBlue",
   "Effects": [
     {

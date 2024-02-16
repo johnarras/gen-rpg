@@ -15,8 +15,6 @@ namespace Genrpg.Shared.Factions.Settings
     public class FactionSettings : ParentSettings<FactionType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public FactionType GetFactionType(long idkey) { return _lookup.Get<FactionType>(idkey); }
     }
     [MessagePackObject]
     public class FactionType : ChildSettings, IIndexedGameItem

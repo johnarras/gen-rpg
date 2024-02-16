@@ -2,16 +2,16 @@
   "Id": "scalingtype4default",
   "ParentId": "default",
   "IdKey": 4,
-  "Name": "Wood Armor",
+  "Name": "Plate Armor",
   "Desc": "",
-  "Icon": "Leather",
-  "Prefix": "Leather",
+  "Icon": "Plate",
+  "Prefix": "Metal",
   "Art": "",
-  "CrafterTypeId": 2,
+  "CrafterTypeId": 4,
   "AttPct": 105,
   "DefPct": 95,
   "OtherPct": 100,
-  "CostPct": 150,
+  "CostPct": 500,
   "AddStats": [
     {
       "StatTypeId": 31,
@@ -23,5 +23,8 @@
       "ItemTypeId": 103,
       "Percent": 150
     }
-  ]
+  ],
+  "ArmorPct": 400,
+  "UpdateTime": "2024-02-10T00:04:46.187Z",
+  "CreateTime": "2024-02-03T21:40:49.655Z"
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Genrpg.Shared.Levels.Messages;
 using Genrpg.Shared.Spells.Messages;
+using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
 using GEntity = UnityEngine.GameObject;
 

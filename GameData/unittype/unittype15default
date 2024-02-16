@@ -3,6 +3,8 @@
   "ParentId": "default",
   "IdKey": 15,
   "Name": "Rabbit",
+  "PluralName": "Rabbits",
+  "Icon": "Rabbit",
   "Art": "Rabbit",
   "Height": 1.0,
   "TribeTypeId": 6,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.852Z",
+  "CreateTime": "2024-02-04T21:57:21.915Z"
 }

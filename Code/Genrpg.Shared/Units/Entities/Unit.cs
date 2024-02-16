@@ -13,9 +13,26 @@ using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.Pathfinding.Entities;
+using Genrpg.Shared.Spells.Interfaces;
+using MessagePack;
+using Genrpg.Shared.Utils.Data;
+using Newtonsoft.Json;
 
 namespace Genrpg.Shared.Units.Entities
 {
+    /// <summary>
+    /// Core effect
+    /// </summary>
+    [MessagePackObject]
+    public class UnitEffect : IEffect
+    {
+        [Key(0)] public long EntityTypeId { get; set; }
+
+        [Key(1)] public long Quantity { get; set; }
+
+        [Key(2)] public long EntityId { get; set; }
+    }
+
     // MessagePackIgnore
     public class Unit : MapObject
     {
@@ -26,6 +43,11 @@ namespace Genrpg.Shared.Units.Entities
         public float CombatStartX { get; set; }
         public float CombatStartZ { get; set; }
         public float CombatStartRot { get; set; }
+
+        public long SexTypeId { get; set; }
+
+        public List<UnitClass> Classes { get; set; } = new List<UnitClass>();
+
 
         virtual public string GetGroupId() { return null; }
 
@@ -69,31 +91,19 @@ namespace Genrpg.Shared.Units.Entities
             return _attackers.FirstOrDefault(x => !string.IsNullOrEmpty(x.GroupId));
         }
 
-        public float BaseSpeed { get; set; }
-
         public override bool IsUnit() { return true; }
 
-        
+        public float BaseSpeed { get; set; }
+
         public Regen RegenMessage;
 
-        
-        public StatGroup Stats { get; set; } = new StatGroup();
+        public StatGroup Stats = new StatGroup();
 
-        public float GetScale() { return 1.0f; }
+        public List<OldSpellProc> Procs;
 
-        
-        public List<SpellProc> Procs;
-
-
-        
         public List<CurrentProc> CurrentProcs;
 
-
-        
         public DateTime GlobalCooldownEnds = DateTime.UtcNow;
-
-        
-        public List<ActiveSpellEffect> SpellEffects;
 
         public float GetGlobalCooldown(GameState gs)
         {
@@ -106,25 +116,6 @@ namespace Genrpg.Shared.Units.Entities
             _attackers = new List<AttackerInfo>();
         }
 
-        public CurrentProc GetCurrentProc(long spellTypeId)
-        {
-            if (CurrentProcs == null)
-            {
-                CurrentProcs = new List<CurrentProc>();
-                SetDirty(true);
-            }
-
-            CurrentProc proc = CurrentProcs.FirstOrDefault(x => x.SpellTypeId == spellTypeId);
-            if (proc == null)
-            {
-                proc = new CurrentProc() { SpellTypeId = spellTypeId, CooldownEnds = DateTime.UtcNow };
-                CurrentProcs.Add(proc);
-                SetDirty(true);
-            }
-            return proc;
-        }
-
-        
         public List<SpawnResult> Loot;
         public List<SpawnResult> SkillLoot;
 
@@ -150,21 +141,39 @@ namespace Genrpg.Shared.Units.Entities
             return _flags;
         }
 
+        public CurrentProc GetCurrentProc(long spellTypeId)
+        {
+            if (CurrentProcs == null)
+            {
+                CurrentProcs = new List<CurrentProc>();
+                SetDirty(true);
+            }
 
-        public void AddProc(GameState gs, ISpellProc proc)
+            CurrentProc proc = CurrentProcs.FirstOrDefault(x => x.SpellTypeId == spellTypeId);
+            if (proc == null)
+            {
+                proc = new CurrentProc() { SpellTypeId = spellTypeId, CooldownEnds = DateTime.UtcNow };
+                CurrentProcs.Add(proc);
+                SetDirty(true);
+            }
+            return proc;
+        }
+
+
+        public void AddProc(GameState gs, IOldSpellProc proc)
         {
             if (proc == null)
             {
                 return;
             }
 
-            SpellProc currProc = Procs.FirstOrDefault(x => x.SpellId == proc.SpellId);
+            OldSpellProc currProc = Procs.FirstOrDefault(x => x.SpellId == proc.SpellId);
             if (currProc != null)
             {
                 return;
             }
 
-            Procs.Add(SpellProc.CreateFrom(proc));
+            Procs.Add(OldSpellProc.CreateFrom(proc));
         }
 
         public virtual bool CanInteract(GameState gs, Unit otherUnit)

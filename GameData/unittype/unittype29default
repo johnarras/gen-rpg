@@ -3,6 +3,8 @@
   "ParentId": "default",
   "IdKey": 29,
   "Name": "Goblin",
+  "PluralName": "Goblins",
+  "Icon": "Goblin",
   "Art": "Goblin",
   "Height": 3.0,
   "TribeTypeId": 1,
@@ -12,5 +14,7 @@
   "AlternateNames": [],
   "FoodSources": [],
   "LootItems": [],
-  "InteractLootItems": []
+  "InteractLootItems": [],
+  "UpdateTime": "2024-02-10T19:10:17.891Z",
+  "CreateTime": "2024-02-04T21:57:21.947Z"
 }

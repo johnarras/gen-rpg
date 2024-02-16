@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Emerald",
+  "Armor": 40,
+  "Damage": 21,
+  "CostPct": 5000,
+  "UpdateTime": "2024-02-08T21:54:19.034Z",
+  "CreateTime": "2024-01-28T02:21:35.727Z"
+}

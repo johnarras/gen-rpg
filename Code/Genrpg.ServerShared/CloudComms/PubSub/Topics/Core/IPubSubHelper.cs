@@ -1,7 +1,7 @@
 ﻿using Azure.Messaging.ServiceBus.Administration;
 using Azure.Messaging.ServiceBus;
 using Genrpg.ServerShared.Core;
-using Genrpg.Shared.Reflection.Services;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +14,10 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
 {
     public interface IPubSubHelper
     {
-        Task Init(ServerGameState gs, ServiceBusClient client, ServiceBusAdministrationClient adminClient, IReflectionService _reflectionService, string env, string serverId, CancellationToken token);
+        Task Init(ServerGameState gs, ServiceBusClient client, ServiceBusAdministrationClient adminClient, string env, string serverId, CancellationToken token);
         void SendMessage(ServerGameState gs, IPubSubMessage message);
         bool IsValidMessage(IPubSubMessage message);
-        void SetMessageHandlers(ServerGameState gs, IReflectionService reflectionService);
+        void SetMessageHandlers(ServerGameState gs);
 
     }
 }

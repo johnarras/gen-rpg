@@ -36,7 +36,7 @@ public class StatInfoRow : BaseBehaviour
 
         if (_statType == null)
         {
-            _statType = _gs.data.GetGameData<StatSettings>(unit).GetStatType(this._statTypeId);
+            _statType = _gs.data.Get<StatSettings>(unit).Get(this._statTypeId);
         }
 
         if (_statType == null)

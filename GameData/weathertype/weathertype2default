@@ -44,5 +44,7 @@
   "WindScale": 1.0,
   "PrecipScale": 0.3,
   "ParticleScale": 1.0,
-  "Particles": "dust leaves mist"
+  "Particles": "dust leaves mist",
+  "UpdateTime": "2024-02-15T23:06:21.523Z",
+  "CreateTime": "2024-02-15T23:06:21.523Z"
 }

@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Hide",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MaxRange": 100,
+  "CombatActionId": 5,
+  "ClassId": 2,
+  "TargetTypeId": 9,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 13,
+      "MinQuantity": 1,
+      "MaxQuantity": 1
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.395Z",
+  "CreateTime": "2024-01-28T14:46:43Z"
+}

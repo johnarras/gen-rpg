@@ -33,7 +33,7 @@ namespace Genrpg.Shared.Crafting.PlayerData.Recipes
             Levels = new List<IdVal>();
         }
 
-        protected IdVal GetLevelById(int id, int startval)
+        protected IdVal GetById(int id, int startval)
         {
             if (Levels == null)
             {
@@ -54,12 +54,12 @@ namespace Genrpg.Shared.Crafting.PlayerData.Recipes
             return idval;
         }
 
-        protected IdVal GetLevelObject() { return GetLevelById(LevelId, CraftingConstants.StartSkillLevel); }
-        public int GetLevel() { return GetLevelObject().Val; }
-        public void SetLevel(int level) { GetLevelObject().Val = level; }
-        public void AddLevel(int level) { GetLevelObject().Val += level; }
+        protected IdVal GetObject() { return GetById(LevelId, CraftingConstants.StartSkillLevel); }
+        public int Get() { return GetObject().Val; }
+        public void SetLevel(int level) { GetObject().Val = level; }
+        public void AddLevel(int level) { GetObject().Val += level; }
 
-        protected IdVal GetMaxLevelObject() { return GetLevelById(MaxLevelId, CraftingConstants.StartMaxSkillLevel); }
+        protected IdVal GetMaxLevelObject() { return GetById(MaxLevelId, CraftingConstants.StartMaxSkillLevel); }
         public int GetMaxLevel() { return GetMaxLevelObject().Val; }
         public void SetMaxLevel(int level) { GetMaxLevelObject().Val = level; }
         public void AddMaxLevel(int level) { GetMaxLevelObject().Val += level; }
@@ -72,11 +72,6 @@ namespace Genrpg.Shared.Crafting.PlayerData.Recipes
         public override List<RecipeStatus> GetData()
         {
             return _data;
-        }
-
-        public override void SetData(List<RecipeStatus> data)
-        {
-            _data = data;
         }
 
         public void AddRecipeStatus(long recipeTypeId)

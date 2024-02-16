@@ -1,0 +1,25 @@
+{
+  "Id": "crawlerspell37default",
+  "ParentId": "default",
+  "IdKey": 37,
+  "Name": "Berserking",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MaxRange": 10,
+  "CombatActionId": 1,
+  "ClassId": 6,
+  "TargetTypeId": 4,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 38,
+      "EntityId": 1,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 1
+    }
+  ],
+  "UpdateTime": "2024-02-16T03:41:53.459Z",
+  "CreateTime": "2024-01-28T12:55:56Z"
+}

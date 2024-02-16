@@ -5,6 +5,7 @@
   "Name": "Legs",
   "StatPercent": 150,
   "Active": true,
-  "UpdateTime": "2023-12-24T17:22:28.18Z",
+  "BaseBonusStatTypeId": 31,
+  "UpdateTime": "2024-02-13T20:39:34.301Z",
   "CreateTime": "2023-11-24T16:45:27.891Z"
 }

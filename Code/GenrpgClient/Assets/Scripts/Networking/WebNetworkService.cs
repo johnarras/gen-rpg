@@ -7,24 +7,15 @@ using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.MapMessages.Interfaces;
-using Genrpg.Shared.Reflection.Services;
 using Assets.Scripts.Tokens;
 using System.Threading;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.Login.Messages;
 using Assets.Scripts.Login.Messages;
-using Genrpg.Shared.Networking.Messages;
-using Genrpg.Shared.Networking.Interfaces;
 using Genrpg.Shared.Networking.Constants;
-using Genrpg.Shared.Networking.Entities.TCP;
-using Genrpg.Shared.Networking.MapApiSerializers;
-using System.Collections.Concurrent;
-using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 public delegate void WebResultsHandler(UnityGameState gs, string txt, CancellationToken token);
 
@@ -58,7 +49,6 @@ public class WebNetworkService : IWebNetworkService
     }
 
     protected UnityGameState _gs = null;
-    private IReflectionService _reflectionService = null!;
     private IUnityUpdateService _updateService = null!;
     public WebNetworkService(UnityGameState gs, CancellationToken token)
     {
@@ -85,7 +75,7 @@ public class WebNetworkService : IWebNetworkService
     {
         if (gs is UnityGameState ugs)
         {
-            _loginResultHandlers = _reflectionService.SetupDictionary<Type, IClientLoginResultHandler>(gs);
+            _loginResultHandlers = ReflectionUtils.SetupDictionary<Type, IClientLoginResultHandler>(gs);
             _webURI = ugs.SiteURL;
         }
         _updateService.AddUpdate(this, ProcessLoginMessages, UpdateType.Late);

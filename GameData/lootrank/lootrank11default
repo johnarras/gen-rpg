@@ -1,0 +1,11 @@
+{
+  "Id": "lootrank11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Adamantite",
+  "Armor": 25,
+  "Damage": 12,
+  "CostPct": 2000,
+  "UpdateTime": "2024-02-08T21:54:19.024Z",
+  "CreateTime": "2024-01-28T02:21:35.722Z"
+}

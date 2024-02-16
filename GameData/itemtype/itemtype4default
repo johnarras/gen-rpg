@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Bracers",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Bracers",
   "Art": "Bracers",
+  "MinVal": 1,
+  "MaxVal": 1,
   "EquipSlotId": 9,
   "Effects": [],
   "LevelRanges": [
@@ -108,6 +108,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:40.563Z",
+  "UpdateTime": "2024-02-03T22:45:17.011Z",
   "CreateTime": "2023-11-24T16:45:41.606Z"
 }

@@ -31,8 +31,6 @@ namespace Genrpg.Shared.ProcGen.Settings.Fences
     public class FenceTypeSettings : ParentSettings<FenceType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public FenceType GetFenceType(long idkey) { return _lookup.Get<FenceType>(idkey); }
     }
 
     [MessagePackObject]

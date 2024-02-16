@@ -4,5 +4,7 @@
   "IdKey": 64,
   "Name": "Efficiency",
   "Desc": "Lower Cost",
-  "GenScalePct": 200
+  "GenScalePct": 200,
+  "UpdateTime": "2024-02-15T23:03:14.515Z",
+  "CreateTime": "2024-02-15T22:48:39.217Z"
 }

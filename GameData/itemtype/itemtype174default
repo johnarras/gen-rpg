@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 174,
   "Name": "Jaw",
-  "NameId": "Jaw",
-  "GenName": "BodyJaw",
   "Icon": "BodyJar",
   "Effects": [
     {

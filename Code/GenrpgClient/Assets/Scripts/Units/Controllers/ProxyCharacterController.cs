@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Input.PlayerData;
+using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Threading;

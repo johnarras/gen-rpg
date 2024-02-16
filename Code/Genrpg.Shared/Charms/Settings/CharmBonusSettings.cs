@@ -43,7 +43,6 @@ namespace Genrpg.Shared.Charms.Settings
     public class CharmBonusSettings : ParentSettings<CharmBonus>
     {
         [Key(0)] public override string Id { get; set; }
-        public CharmBonus GetCharmBonus(long idkey) { return _lookup.Get<CharmBonus>(idkey); }
     }
 
     [MessagePackObject]

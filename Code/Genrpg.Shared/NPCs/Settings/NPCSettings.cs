@@ -16,8 +16,6 @@ namespace Genrpg.Shared.NPCs.Settings
     public class NPCSettings : ParentSettings<NPCType>
     {
         [Key(0)] public override string Id { get; set; }
-
-        public NPCType GetNPCType(long idkey) { return _lookup.Get<NPCType>(idkey); }
     }
 
     [MessagePackObject]

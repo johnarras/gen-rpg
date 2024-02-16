@@ -25,7 +25,7 @@ namespace Genrpg.Shared.Login.Messages.LoadIntoMap
         [JsonProperty(TypeNameHandling = TypeNameHandling.Auto)]
         [Key(5)] public List<IUnitData> CharData { get; set; } = new List<IUnitData>();
         [JsonProperty(TypeNameHandling = TypeNameHandling.Auto)]
-        [Key(6)] public List<IGameSettings> GameData { get; set; } = new List<IGameSettings>();
+        [Key(6)] public List<ITopLevelSettings> GameData { get; set; } = new List<ITopLevelSettings>();
 
         [Key(7)] public EMapApiSerializers Serializer { get; set; } = EMapApiSerializers.Json;
 

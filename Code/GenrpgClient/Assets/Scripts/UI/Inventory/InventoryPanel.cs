@@ -6,6 +6,7 @@ using Genrpg.Shared.Inventory.PlayerData;
 using System.Threading;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.Units.Entities;
 
 public class InventoryPanel : BaseBehaviour
 {
@@ -16,8 +17,10 @@ public class InventoryPanel : BaseBehaviour
     protected ItemIconScreen _screen = null;
     protected string _prefabName = "";
     private CancellationToken _token;
-    public void Init(int categories, ItemIconScreen screen, string prefabName, CancellationToken token)
+    private Unit _unit;
+    public void Init(int categories, ItemIconScreen screen, Unit unit, string prefabName, CancellationToken token)
     {
+        _unit = unit;
         _token = token;
         _screen = screen;
         _category = categories;
@@ -25,7 +28,7 @@ public class InventoryPanel : BaseBehaviour
 
         GEntityUtils.DestroyAllChildren(_iconParent);
 
-        InventoryData inventory = _gs.ch.Get<InventoryData>();
+        InventoryData inventory = _unit.Get<InventoryData>();
 
         List<Item> inventoryItems = inventory.GetAllInventory();
 
@@ -33,7 +36,7 @@ public class InventoryPanel : BaseBehaviour
 
         foreach (Item item in inventoryItems)
         {
-            ItemType itype = _gs.data.GetGameData<ItemTypeSettings>(_gs.ch).GetItemType(item.ItemTypeId);
+            ItemType itype = _gs.data.Get<ItemTypeSettings>(_unit).Get(item.ItemTypeId);
             if (itype == null)
             {
                 continue;

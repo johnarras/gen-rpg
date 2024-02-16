@@ -4,5 +4,7 @@
   "IdKey": 32,
   "Name": "Resist",
   "Desc": "Resist Spell",
-  "GenScalePct": 100
+  "GenScalePct": 100,
+  "UpdateTime": "2024-02-15T23:03:14.499Z",
+  "CreateTime": "2024-02-15T23:03:14.499Z"
 }

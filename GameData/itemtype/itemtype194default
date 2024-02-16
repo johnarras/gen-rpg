@@ -3,8 +3,6 @@
   "ParentId": "default",
   "IdKey": 194,
   "Name": "Web",
-  "NameId": "Web",
-  "GenName": "BodyWeb",
   "Icon": "BodyWeb",
   "Effects": [
     {

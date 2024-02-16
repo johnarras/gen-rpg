@@ -21,8 +21,6 @@ namespace Genrpg.Shared.Crafting.Settings.Crafters
         [Key(6)] public int MaxExtraEffects { get; set; }
 
 
-        public CrafterType GetCrafterType(long idkey) { return _lookup.Get<CrafterType>(idkey); }
-
         public CraftingSettings()
         {
             LootLevelIncrement = 25;

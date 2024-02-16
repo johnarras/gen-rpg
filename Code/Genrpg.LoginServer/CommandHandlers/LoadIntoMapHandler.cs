@@ -109,7 +109,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 worldDataEnv = command.WorldDataEnv;
             }
 
-            List<IGameSettings> gameData = _gameDataService.GetClientGameData(gs, gs.ch, false);
+            List<ITopLevelSettings> gameData = _gameDataService.GetClientGameData(gs, gs.ch, false);
             LoadIntoMapResult loadResult = new LoadIntoMapResult()
             {
                 Map = SerializationUtils.ConvertType<Map, Map>(fullCachedMap.Map),
@@ -118,7 +118,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 Host = fullCachedMap.MapInstance?.Host,
                 Port = fullCachedMap.MapInstance?.Port ?? 0,
                 Serializer = EMapApiSerializers.MessagePack,
-                OverrideList = gs.ch.GetGameDataOverrideList(),
+                OverrideList = gs.ch.GetOverrideList(),
                 GameData = gameData,
                 CharData = clientDataList,
                 WorldDataEnv = worldDataEnv,

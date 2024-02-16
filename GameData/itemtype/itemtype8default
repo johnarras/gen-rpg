@@ -3,11 +3,11 @@
   "ParentId": "default",
   "IdKey": 8,
   "Name": "Boots",
-  "NameId": "",
-  "GenName": "",
   "Desc": "",
   "Icon": "Boots",
   "Art": "Boots",
+  "MinVal": 3,
+  "MaxVal": 3,
   "EquipSlotId": 8,
   "Effects": [],
   "LevelRanges": [
@@ -108,6 +108,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2023-12-24T17:22:41.059Z",
+  "UpdateTime": "2024-02-03T22:45:17.02Z",
   "CreateTime": "2023-11-24T16:45:42.196Z"
 }

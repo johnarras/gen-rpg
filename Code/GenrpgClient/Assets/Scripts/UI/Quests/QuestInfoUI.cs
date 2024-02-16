@@ -125,7 +125,6 @@ public class QuestInfoUI : BaseBehaviour
                     {
                         Data = item,
                         entityTypeId = EntityTypes.Item,
-                        entityId = item.UseEntityId,
                     };
                     IconHelper.InitItemIcon(_gs, idata, OtherRewards, this._assetService, _token);
                 }
@@ -137,7 +136,7 @@ public class QuestInfoUI : BaseBehaviour
 
             if (_qtype.ItemQualityTypeId > 0)
             {
-                QualityType qualityType = _gs.data.GetGameData<QualityTypeSettings>(_gs.ch).GetQualityType(_qtype.ItemQualityTypeId);
+                QualityType qualityType = _gs.data.Get<QualityTypeSettings>(_gs.ch).Get(_qtype.ItemQualityTypeId);
                 if (qualityType != null)
                 {
                     qualityString = " " + qualityType.Name;
@@ -202,7 +201,7 @@ public class QuestInfoUI : BaseBehaviour
         return null;
     }
 
-    private void OnLoadTask (UnityGameState gs, string url, object obj, object data, CancellationToken token)
+    private void OnLoadTask (UnityGameState gs, object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

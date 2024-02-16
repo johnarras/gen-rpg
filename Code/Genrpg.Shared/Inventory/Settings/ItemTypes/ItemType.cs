@@ -30,12 +30,12 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }
         [Key(3)] public override string Name { get; set; }
-        [Key(4)] public string NameId { get; set; }
-        [Key(5)] public string GenName { get; set; }
-        [Key(6)] public string Desc { get; set; }
-        [Key(7)] public string Icon { get; set; }
-        [Key(8)] public string Art { get; set; }
+        [Key(4)] public string Desc { get; set; }
+        [Key(5)] public string Icon { get; set; }
+        [Key(6)] public string Art { get; set; }
 
+        [Key(7)] public int MinVal { get; set; }
+        [Key(8)] public int MaxVal { get; set; }
         // Probably want to use bitfields but bleh. IDK.
         [Key(9)] public long EquipSlotId { get; set; }
 
@@ -65,7 +65,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
         }
 
 
-        public long GetRangedLevel(GameState gs, long desiredLevel)
+        public long GetFromRangeLevel(GameState gs, long desiredLevel)
         {
             if (LevelRanges == null || LevelRanges.Count < 1)
             {
@@ -152,8 +152,8 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
                 return dict;
             }
 
-            LevelInfo ldata = gs.data.GetGameData<LevelSettings>(crafter).GetLevel(level);
-            QualityType qtype = gs.data.GetGameData<QualityTypeSettings>(crafter).GetQualityType(quality);
+            LevelInfo ldata = gs.data.Get<LevelSettings>(crafter).Get(level);
+            QualityType qtype = gs.data.Get<QualityTypeSettings>(crafter).Get(quality);
 
             int baseStat = 10;
             int qualityPercent = 100;
@@ -167,7 +167,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
                 qualityPercent = qtype.ItemStatPct;
             }
 
-            int globalScaling = gs.data.GetGameData<ItemTypeSettings>(crafter).GenGlobalScalingPercent;
+            int globalScaling = gs.data.Get<ItemTypeSettings>(crafter).GenGlobalScalingPercent;
 
 
             foreach (ItemEffect eff in Effects)
@@ -201,7 +201,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
             }
 
 
-            EquipSlot eqSlot = gs.data.GetGameData<EquipSlotSettings>(unit).GetEquipSlot(EquipSlotId);
+            EquipSlot eqSlot = gs.data.Get<EquipSlotSettings>(unit).Get(EquipSlotId);
             if (eqSlot == null)
             {
                 return retval;
@@ -213,7 +213,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
                 retval.Add(eqSlot.ParentEquipSlotId);
             }
 
-            List<EquipSlot> childSlots = gs.data.GetGameData<EquipSlotSettings>(unit).GetData().Where(x => x.ParentEquipSlotId == EquipSlotId).ToList();
+            List<EquipSlot> childSlots = gs.data.Get<EquipSlotSettings>(unit).GetData().Where(x => x.ParentEquipSlotId == EquipSlotId).ToList();
             foreach (EquipSlot childSlot in childSlots)
             {
                 if (!retval.Contains(childSlot.IdKey))
@@ -233,12 +233,12 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
         public List<long> GetCompatibleEquipSlots(GameState gs, Unit unit)
         {
             List<long> retval = new List<long>();
-            if (gs.data.GetGameData<EquipSlotSettings>(unit).GetData() == null || EquipSlotId < 1)
+            if (gs.data.Get<EquipSlotSettings>(unit).GetData() == null || EquipSlotId < 1)
             {
                 return retval;
             }
 
-            EquipSlot eqSlot = gs.data.GetGameData<EquipSlotSettings>(unit).GetEquipSlot(EquipSlotId);
+            EquipSlot eqSlot = gs.data.Get<EquipSlotSettings>(unit).Get(EquipSlotId);
             if (eqSlot == null)
             {
                 return retval;
@@ -258,7 +258,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
 
             long mainSlotId = eqSlot.ParentEquipSlotId > 0 ? eqSlot.ParentEquipSlotId : eqSlot.IdKey;
 
-            foreach (EquipSlot slot in gs.data.GetGameData<EquipSlotSettings>(unit).GetData())
+            foreach (EquipSlot slot in gs.data.Get<EquipSlotSettings>(unit).GetData())
             {
                 if (slot.IdKey < 1 || retval.Contains(slot.IdKey))
                 {
