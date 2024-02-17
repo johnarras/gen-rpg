@@ -5,6 +5,8 @@ MUD/MMO fully streamed from the cloud using Unity/C#/Azure.
 The code is MIT licensed and there is a tiny amount of cc0
 licensed art.
 
+You will need to download and install blender or the 3d models won't work.
+
 Overview of projects:
 
 AppConfig/App.Config -- Connection strings. 

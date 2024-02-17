@@ -133,19 +133,6 @@ namespace Genrpg.MapServer.Maps
             UpdatePlayerClientData();
         }
 
-        public static string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
-        }
-
         public override async Task Init(object data, CancellationToken parentToken)
         {
             InitMapInstanceData initData = data as InitMapInstanceData;
@@ -170,13 +157,13 @@ namespace Genrpg.MapServer.Maps
             _host = "127.0.0.1";
             _mapSize = _gs.map.BlockCount;
             
-            // Step 4: Setup listener
-            _listener = GetListener(IPAddress.Any.ToString(), initData.Port, _gs.logger, initData.Serializer);
-
-            if (_gs.config.Env.IndexOf("Test") >= 0 || _gs.config.Env.IndexOf("Prod") >= 0)
+            if (_gs.config.Env.IndexOf(EnvNames.Test) >= 0 || _gs.config.Env.IndexOf(EnvNames.Prod) >= 0)
             {
-                _host = GetLocalIPAddress();
+                _host = _gs.config.PublicIP;
             }
+            // Step 4: Setup listener
+            _listener = GetListener(_host, initData.Port, _gs.logger, initData.Serializer);
+
 
             SendAddInstanceMessage();
 

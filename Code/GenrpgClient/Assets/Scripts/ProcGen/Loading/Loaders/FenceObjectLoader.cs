@@ -2,11 +2,11 @@
 using GEntity = UnityEngine.GameObject;
 
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.Zones.Entities;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.Fences;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Zones.Settings;
+using UnityEngine;
 
 public class FenceObjectLoader : BaseObjectLoader
 {
@@ -55,6 +55,7 @@ public class FenceObjectLoader : BaseObjectLoader
     {
         go.transform().localScale = GVector3.onePlatform;
         go.transform().localRotation = GQuaternion.identity;
+        go.transform().localPosition += Vector3.up;
         if (dlo.rotation != null)
         {
             go.transform().Rotate(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);

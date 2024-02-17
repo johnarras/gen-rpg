@@ -1,8 +1,11 @@
 ﻿using Genrpg.InstanceServer.Entities;
 using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.ServerShared.CloudComms.Services.Admin;
+using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Logs.Interfaces;
+using MongoDB.Driver.Core.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,12 +32,16 @@ namespace Genrpg.InstanceServer.Managers
 
         private List<MapServerData> _mapServers = new List<MapServerData>();
 
+        private ILogSystem _logger = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
+            _logger = gs.logger;
             await Task.CompletedTask;
         }
         public async Task AddInstanceData(AddMapInstance mapInstance)
         {
+            _logger.Info("Add Instance " + mapInstance.MapId + " Host: " + mapInstance.Host + " Port: " + mapInstance.Port);
+
             MapInstanceData instanceData = new MapInstanceData()
             {
                 Host = mapInstance.Host,
@@ -53,11 +60,19 @@ namespace Genrpg.InstanceServer.Managers
         public async Task<MapInstanceData> GetInstanceDataForMap(string mapId)
         {
             await Task.CompletedTask;
+
+            foreach (MapInstanceData mid in _mapInstances)
+            {
+                _logger.Info("MapInstance: " + mid.MapId + " need " + mapId);
+            }
+
             return _mapInstances.FirstOrDefault(x => x.MapId == mapId);
         }
 
         public async Task RemoveInstanceData(RemoveMapInstance removeInstance)
         {
+            _logger.Info("Remove Instance " + removeInstance.FullInstanceId);
+
             _mapInstances = _mapInstances.Where(x => x.InstanceId != removeInstance.FullInstanceId).ToList();
             await Task.CompletedTask;
         }

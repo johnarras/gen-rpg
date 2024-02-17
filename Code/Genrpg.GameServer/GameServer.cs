@@ -55,7 +55,7 @@ namespace Genrpg.GameServer
                         MapServerCount = serverCount,
                         MapServerIndex = i,
                         MapServerId = HashUtils.NewGuid(),
-                        StartPort = 4000 + 1000*i,
+                        StartPort = 4000 + 100*i,
                         MapIds = new List<string>(),
                     }; 
                     

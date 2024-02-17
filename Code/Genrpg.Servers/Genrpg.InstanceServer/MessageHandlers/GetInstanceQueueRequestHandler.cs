@@ -15,7 +15,7 @@ namespace Genrpg.InstanceServer.MessageHandlers
         protected override async Task InnerHandleMessage(ServerGameState gs, GetInstanceQueueRequest message)
         {
             MapInstanceData instanceData = await _instanceManagerService.GetInstanceDataForMap(message.MapId);
-
+            gs.logger.Info("Instance Data for mapId: " + message.MapId + " is " + instanceData);
             GetInstanceQueueResponse response = new GetInstanceQueueResponse()
             {
                 RequestId = message.RequestId,

@@ -85,7 +85,7 @@ public class InitClient : BaseBehaviour
         Analytics.Setup(_gs);
         // Initial app appearance.
         AppUtils.TargetFrameRate = 30;
-        ScreenUtils.SetupScreenSystem(3840, 2160, true, true, 2);
+        ScreenUtils.SetupScreenSystem(1920, 1080, false, true, 2);
         Cursors.SetCursor(Cursors.Default);
 
         ClientWebRequest req = new ClientWebRequest();

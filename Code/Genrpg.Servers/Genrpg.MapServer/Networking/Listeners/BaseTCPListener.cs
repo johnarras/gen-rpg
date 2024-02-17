@@ -60,7 +60,7 @@ namespace Genrpg.MapServer.Networking.Listeners
             Task.Run(() => RunListener(), _token);
         }
 
-        private void AddClient(TcpClient client)
+        private async Task AddClient(TcpClient client)
         {
             ServerConnectionState connState = new ServerConnectionState();
             IConnection conn = CreateTCPConnection(client, connState, _logger, _seralizer);
@@ -95,7 +95,7 @@ namespace Genrpg.MapServer.Networking.Listeners
 
                     TcpClient client = await _server.AcceptTcpClientAsync(_token);
                     _logger.Info("Accepted client on " + _host + " " + _port);
-                    AddClient(client);
+                    Task.Run(() => AddClient(client));
                 }
             }
             catch (SocketException e)

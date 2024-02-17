@@ -33,6 +33,8 @@ namespace Genrpg.ServerShared.Config
 
             serverConfig.EtherscanKey = ConfigurationManager.AppSettings["EtherscanKey"];
 
+            serverConfig.PublicIP = ConfigurationManager.AppSettings["PublicIP"];
+
             List<string> allKeys = ConfigurationManager.AppSettings.AllKeys.ToList();
 
             foreach (string key in allKeys)

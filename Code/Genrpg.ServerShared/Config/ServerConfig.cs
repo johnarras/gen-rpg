@@ -17,6 +17,8 @@ namespace Genrpg.ServerShared.Config
 
         public string EtherscanKey { get; set; }
 
+        public string PublicIP { get; set; }
+
         public Dictionary<string, string> ConnectionStrings { get; set; }  = new Dictionary<string, string>();
 
         public string GetConnectionString(string key)
