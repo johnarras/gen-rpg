@@ -13,9 +13,9 @@ namespace Genrpg.Shared.Stats.Constants
         public const int Energy = 3; // quick drain, quick regen. 
         public const int Combo = 4; // Build up with use of other skills
 
-        public const int Agility = 11; // + ranged dam
-        public const int Strength = 12; // + melee dam
-        public const int Intellect = 13; // + spell points
+        public const int Strength = 11; // + melee dam
+        public const int Intellect = 12; // + spell points
+        public const int Agility = 13; // + ranged dam
         public const int Stamina = 14; // health
         public const int Luck = 15; // Does???
 
@@ -48,6 +48,5 @@ namespace Genrpg.Shared.Stats.Constants
         
         public const int Hit = 70; // Chance to hit
         public const int Leadership = 71; // effective attack level
-        public const int Boost = 72; // Baseline stat bonuses are higher.
     }
 }

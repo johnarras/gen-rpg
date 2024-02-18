@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Interfaces;
+﻿using Genrpg.Shared.Crawler.Combat.Constants;
+using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

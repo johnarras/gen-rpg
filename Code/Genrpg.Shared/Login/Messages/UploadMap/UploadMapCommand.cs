@@ -6,7 +6,7 @@ using Genrpg.Shared.Spawns.WorldData;
 namespace Genrpg.Shared.Login.Messages.UploadMap
 {
     [MessagePackObject]
-    public class UploadMapCommand : ILoginCommand
+    public class UploadMapCommand : IClientCommand
     {
         [Key(0)] public Map Map { get; set; }
         [Key(1)] public MapSpawnData SpawnData { get; set; }

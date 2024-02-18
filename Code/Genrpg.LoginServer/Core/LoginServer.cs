@@ -28,6 +28,7 @@ using System.Linq;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Charms.PlayerData;
+using Genrpg.LoginServer.Services.NoUsers;
 
 namespace Genrpg.LoginServer.Core
 {
@@ -40,6 +41,7 @@ namespace Genrpg.LoginServer.Core
         protected ILoginService _loginService { get; private set; }
         protected ICryptoService _cryptoService { get; private set; }
         protected ICharmService _charmService { get; private set; }
+        protected INoUserService _noUserService { get; private set; }
         private CancellationTokenSource _serverSource = new CancellationTokenSource();
         protected CancellationToken _token => _serverSource.Token;
 
@@ -52,6 +54,7 @@ namespace Genrpg.LoginServer.Core
             _loginService = _gs.loc.Get<ILoginService>();
             _cryptoService = _gs.loc.Get<ICryptoService>();
             _charmService = _gs.loc.Get<ICharmService>();
+            _noUserService = _gs.loc.Get<INoUserService>();
         }
 
         protected LoginGameState SetupGameState()
@@ -64,6 +67,7 @@ namespace Genrpg.LoginServer.Core
                 loc = _gs.loc,
                 rand = new MyRandom(),
                 commandHandlers = _gs.commandHandlers,
+                noUserCommandHandlers = _gs.noUserCommandHandlers,
                 mapStubs = _gs.mapStubs,
             };
         }
@@ -77,6 +81,11 @@ namespace Genrpg.LoginServer.Core
         public async Task<string> HandleClient(string postData)
         {
             return WebUtils.PackageResults(await _clientService.HandleClient(SetupGameState(), postData, _token));
+        }
+
+        public async Task<string> HandleNoUser(string postData)
+        {
+            return WebUtils.PackageResults(await _noUserService.HandleNoUserCommand(SetupGameState(), postData, _token));
         }
 
         public async Task<string> HandleLogin(string postData)

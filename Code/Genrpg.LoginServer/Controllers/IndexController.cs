@@ -37,5 +37,13 @@ namespace Genrpg.LoginServer.Controllers
         {
             return await loginServer.HandleTxList(address);
         }
+
+
+        [HttpPost]
+        [Route("/nouser")]
+        public async Task<string> PostNoUser(Core.LoginServer loginServer, [FromForm] string Data)
+        {
+            return await loginServer.HandleNoUser(Data);
+        }
     }
 }

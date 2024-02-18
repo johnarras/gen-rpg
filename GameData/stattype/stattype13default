@@ -2,9 +2,9 @@
   "Id": "stattype13default",
   "ParentId": "default",
   "IdKey": 13,
-  "Name": "Intellect",
+  "Name": "Agility",
   "Desc": "+2 SP",
   "GenScalePct": 100,
-  "UpdateTime": "2024-02-15T23:03:14.486Z",
+  "UpdateTime": "2024-02-18T16:15:21.19Z",
   "CreateTime": "2024-02-15T23:03:14.486Z"
 }

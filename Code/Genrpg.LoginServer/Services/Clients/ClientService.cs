@@ -38,7 +38,7 @@ namespace Genrpg.LoginServer.Services.Clients
             {
                 foreach (ILoginCommand comm in commandSet.Commands)
                 {
-                    if (gs.commandHandlers.TryGetValue(comm.GetType(), out ILoginCommandHandler handler))
+                    if (gs.commandHandlers.TryGetValue(comm.GetType(), out IClientCommandHandler handler))
                     {
                         await handler.Execute(gs, comm, token);
                     }

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.CommandHandlers.Core
 {
-    public interface ILoginCommandHandler : ISetupDictionaryItem<Type>
+    public interface INoUserCommandHandler : ISetupDictionaryItem<Type>
     {
         Task Reset();
-        Task Execute(LoginGameState gs, ILoginCommand command, CancellationToken token);
+        Task Execute(LoginGameState gs, INoUserCommand command, CancellationToken token);
     }
 }

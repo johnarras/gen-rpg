@@ -27,7 +27,8 @@ namespace Genrpg.LoginServer.Setup
             if (gs is LoginGameState lgs)
             {
                 gs.loc.Resolve(this);
-                lgs.commandHandlers = ReflectionUtils.SetupDictionary<Type, ILoginCommandHandler>(gs);
+                lgs.commandHandlers = ReflectionUtils.SetupDictionary<Type, IClientCommandHandler>(gs);
+                lgs.noUserCommandHandlers = ReflectionUtils.SetupDictionary<Type, INoUserCommandHandler>(gs);
                 lgs.mapStubs.Stubs = await _mapDataService.GetMapStubs(lgs);
                 _cloudCommsService.SetupPubSubMessageHandlers(lgs);
             }

@@ -45,11 +45,7 @@ namespace Genrpg.Shared.Crawler.Stats.Utils
                 baseBonus = 11 + (statValue - 50) / 10;
             }
 
-            long boostValue = Math.Max(0, unit.Stats.Max(StatTypes.Boost) - unit.Level);
-
-            double boostRatio = MathUtils.Min(2.0f, boostValue / unit.Level);
-
-            return (int)(baseBonus * (1.0 + boostRatio) / 1.0);
+            return baseBonus;
 
         }
     }

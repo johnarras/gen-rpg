@@ -7,7 +7,7 @@ using System.Text;
 namespace Genrpg.Shared.Login.Messages.RefreshStores
 {
     [MessagePackObject]
-    public class RefreshStoresCommand : ILoginCommand
+    public class RefreshStoresCommand : IClientCommand
     {
         [Key(0)] public string CharId { get; set; }
     }

@@ -39,7 +39,7 @@ using Genrpg.ServerShared.Purchasing.Services;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
-    public class LoadIntoMapHandler : BaseLoginCommandHandler<LoadIntoMapCommand>
+    public class LoadIntoMapHandler : BaseClientCommandHandler<LoadIntoMapCommand>
     {
         private IGameDataService _gameDataService = null;
         private IMapDataService _mapDataService = null;

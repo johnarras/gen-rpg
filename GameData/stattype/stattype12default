@@ -2,9 +2,9 @@
   "Id": "stattype12default",
   "ParentId": "default",
   "IdKey": 12,
-  "Name": "Strength",
+  "Name": "Intellect",
   "Desc": "+2 AP",
   "GenScalePct": 100,
-  "UpdateTime": "2024-02-15T23:03:14.492Z",
+  "UpdateTime": "2024-02-18T16:15:21.188Z",
   "CreateTime": "2024-02-15T23:03:14.492Z"
 }

@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
-    public class RefreshStoresHandler : BaseLoginCommandHandler<RefreshStoresCommand>
+    public class RefreshStoresHandler : BaseClientCommandHandler<RefreshStoresCommand>
     {
         private IPurchasingService _purchasingService = null;
 

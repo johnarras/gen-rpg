@@ -6,6 +6,5 @@ namespace Genrpg.Shared.Crawler.Roles.Helpers.ClassHelpers
     public class HunterClassHelper : BaseClassHelper
     {
         public override long GetKey() { return Classes.Hunter; }
-
     }
 }

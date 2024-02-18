@@ -7,7 +7,7 @@ using System.Text;
 namespace Genrpg.Shared.Login.Messages.RefreshGameSettings
 {
     [MessagePackObject]
-    public class RefreshGameSettingsCommand : ILoginCommand
+    public class RefreshGameSettingsCommand : IClientCommand
     {
         [Key(0)] public string CharId { get; set; }
     }

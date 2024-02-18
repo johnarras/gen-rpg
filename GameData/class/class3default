@@ -15,6 +15,7 @@
   "DefaultLevelPercentBuff": 100,
   "PartyBuffId": 3,
   "MaxArmorScalingTypeId": 3,
+  "CritPercent": 5,
   "AllowedWeapons": [
     {
       "ItemTypeId": 21
@@ -40,6 +41,6 @@
       "EquipSlotId": 19
     }
   ],
-  "UpdateTime": "2024-02-16T02:43:09.656Z",
+  "UpdateTime": "2024-02-17T22:30:05.232Z",
   "CreateTime": "2024-01-28T00:57:37Z"
 }

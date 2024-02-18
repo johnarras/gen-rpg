@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
-    public class UploadMapHandler : BaseLoginCommandHandler<UploadMapCommand>
+    public class UploadMapHandler : BaseClientCommandHandler<UploadMapCommand>
     {
         private IMapDataService _mapDataService = null;
         private IMapSpawnDataService _mapSpawnService = null;
@@ -65,7 +65,7 @@ namespace Genrpg.LoginServer.CommandHandlers
 
             await _mapSpawnService.SaveMapSpawnData(gs, command.SpawnData, command.Map.Id, command.Map.MapVersion);
           
-            foreach (ILoginCommandHandler handler in gs.commandHandlers.Values)
+            foreach (IClientCommandHandler handler in gs.commandHandlers.Values)
             {
                 await handler.Reset();
             }

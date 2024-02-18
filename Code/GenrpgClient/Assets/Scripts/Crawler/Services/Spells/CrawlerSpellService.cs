@@ -149,10 +149,8 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             if (caster is PartyMember member)
             {
-                long critStat = caster.Stats.Curr(StatTypes.Crit);
-                critChance = (long)(combatSettings.CritPercentWithStatAtLevel * critStat / caster.Level);
                 classes = gs.data.Get<ClassSettings>(null).GetClasses(member.Classes);
-
+                critChance = classes.Sum(x => x.CritPercent);
             }
 
             List<long> actionTypesWithProcsSet = new List<long>();
@@ -238,15 +236,10 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                 oneEffect.MinQuantity = CrawlerCombatConstants.BaseMinDamage;
                 oneEffect.MaxQuantity = CrawlerCombatConstants.BaseMaxDamage;
-                
 
                 long equipSlotToCheck = 0;
                 long statUsedForScaling = 0;
                 List<int> levelsPerAttack = new List<int>();
-                if (fullEffect.InitialEffect)
-                {
-                    oneEffect.CritChance = critChance + spell.CritChance;
-                }
                 if (effect.EntityTypeId == EntityTypes.Attack)
                 {
                     equipSlotToCheck = EquipSlots.MainHand;
@@ -274,6 +267,10 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         attackQuantity = abilityLevel;
                     }
                     continue;
+                }
+                if (fullEffect.InitialEffect)
+                {
+                    oneEffect.CritChance = critChance + spell.CritChance;
                 }
 
                 Item weapon = caster.GetEquipmentInSlot(equipSlotToCheck);
@@ -450,7 +447,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 foreach (CrawlerUnit target in action.FinalTargets)
                 {
                     await CastSpellOnUnit(gs, party, action.Caster, fullSpell, target, 0, delay);
-
                 }
             }
             catch (Exception e)

@@ -4,7 +4,7 @@ using Genrpg.Shared.Login.Interfaces;
 namespace Genrpg.Shared.Login.Messages.LoadIntoMap
 {
     [MessagePackObject]
-    public class LoadIntoMapCommand : ILoginCommand
+    public class LoadIntoMapCommand : IClientCommand
     {
         [Key(0)] public string Env { get; set; }
         [Key(1)] public string MapId { get; set; }

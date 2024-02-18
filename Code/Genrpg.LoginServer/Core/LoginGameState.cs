@@ -17,7 +17,8 @@ namespace Genrpg.LoginServer.Core
         public CoreCharacter coreCh { get; set; }
         public Character ch { get; set; }
         public MapStubList mapStubs { get; set; } = new MapStubList();
-        public Dictionary<Type, ILoginCommandHandler> commandHandlers = null;
+        public Dictionary<Type, IClientCommandHandler> commandHandlers = null;
+        public Dictionary<Type, INoUserCommandHandler> noUserCommandHandlers = null;
 
         public List<ILoginResult> Results { get; set; } = new List<ILoginResult>();
 

@@ -45,7 +45,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
                 extraData: selectAction));
             stateData.Actions.Add(new CrawlerStateAction("Vendor", KeyCode.V, ECrawlerStates.Vendor));
 
-            stateData.Actions.Add(new CrawlerStateAction("Start Combat", KeyCode.S, ECrawlerStates.StartCombat));
+            stateData.Actions.Add(new CrawlerStateAction("Fight", KeyCode.F, ECrawlerStates.StartCombat));
           
 
             await UniTask.CompletedTask;

@@ -23,7 +23,8 @@ public interface IWebNetworkService : ISetupService, IGameTokenService
 {
     string GetBaseURI();
     void SendLoginWebCommand(LoginCommand loginCommand, CancellationToken token);
-    void SendClientWebCommand(ILoginCommand data, CancellationToken token);
+    void SendClientWebCommand(IClientCommand data, CancellationToken token);
+    void SendNoUserWebCommand(INoUserCommand data, CancellationToken token);
 
 }
 
@@ -56,8 +57,9 @@ public class WebNetworkService : IWebNetworkService
     }
 
     // Web endpoints.
-    public const string ClientEndpoint = "/Client";
-    public const string LoginEndpoint = "/Login";
+    public const string ClientEndpoint = "/client";
+    public const string LoginEndpoint = "/login";
+    public const string NoUserEndpoint = "/nouser";
 
     DateTime _lastLoginResultsReceived = DateTime.UtcNow;
 
@@ -118,10 +120,19 @@ public class WebNetworkService : IWebNetworkService
         _currentClientCommands.Add(new FullLoginCommand() { Command = loginCommand, Token = token});
         InnerSendWebRequest(LoginEndpoint, _currentClientCommands);
     }
-
-    public void SendClientWebCommand(ILoginCommand command, CancellationToken token)
+    public void SendClientWebCommand(IClientCommand command, CancellationToken token)
     {
         _clientCommandQueue.Add(new FullLoginCommand() { Command = command, Token = token });
+    }
+
+
+    public void SendNoUserWebCommand(INoUserCommand loginCommand, CancellationToken token)
+    {
+        List<FullLoginCommand> commands = new List<FullLoginCommand>();
+        FullLoginCommand flc = new FullLoginCommand() { Command = loginCommand, Token = token };
+        commands.Add(flc);
+        _currentClientCommands.Add(flc);
+        InnerSendWebRequest(NoUserEndpoint, commands);
     }
 
     public void SetRealtimeEndpoint(string host, long port, EMapApiSerializers serializer)

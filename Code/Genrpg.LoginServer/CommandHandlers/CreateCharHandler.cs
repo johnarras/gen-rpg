@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
-    public class CreateCharHandler : BaseLoginCommandHandler<CreateCharCommand>
+    public class CreateCharHandler : BaseClientCommandHandler<CreateCharCommand>
     {
         protected override async Task InnerHandleMessage(LoginGameState gs, CreateCharCommand command, CancellationToken token)
         {

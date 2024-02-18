@@ -2,9 +2,9 @@
   "Id": "derivedstatbc89c1c4-f897-4622-8fed-22a2dfbfc244default",
   "ParentId": "default",
   "Name": "DerivedStat",
-  "FromStatTypeId": 13,
+  "FromStatTypeId": 12,
   "ToStatTypeId": 22,
   "Percent": 300,
-  "UpdateTime": "2023-12-24T17:22:22.995Z",
+  "UpdateTime": "2024-02-18T16:15:21.209Z",
   "CreateTime": "2023-11-24T16:45:22.042Z"
 }

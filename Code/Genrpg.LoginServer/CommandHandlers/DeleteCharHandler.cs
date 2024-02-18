@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
-    public class DeleteCharHandler : BaseLoginCommandHandler<DeleteCharCommand>
+    public class DeleteCharHandler : BaseClientCommandHandler<DeleteCharCommand>
     {
         protected override async Task InnerHandleMessage(LoginGameState gs, DeleteCharCommand command, CancellationToken token)
         {

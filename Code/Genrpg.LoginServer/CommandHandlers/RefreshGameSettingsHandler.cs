@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.CommandHandlers
 {
-    public class RefreshGameSettingsHandler : BaseLoginCommandHandler<RefreshGameSettingsCommand>
+    public class RefreshGameSettingsHandler : BaseClientCommandHandler<RefreshGameSettingsCommand>
     {
         private IGameDataService _gameDataService = null;
 

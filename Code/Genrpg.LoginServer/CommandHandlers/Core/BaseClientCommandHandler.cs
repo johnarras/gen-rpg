@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.CommandHandlers.Core
 {
-    public abstract class BaseLoginCommandHandler<C> : ILoginCommandHandler where C : ILoginCommand
+    public abstract class BaseClientCommandHandler<C> : IClientCommandHandler where C : IClientCommand
     {
 
         protected IPlayerDataService _playerDataService = null;

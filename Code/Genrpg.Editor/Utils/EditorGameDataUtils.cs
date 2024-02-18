@@ -95,6 +95,11 @@ namespace Genrpg.Editor.Utils
                 Directory.CreateDirectory(dirName);
             }
 
+            foreach (string file in Directory.GetFiles(dirName))
+            {
+                File.Delete(file);
+            }
+
             foreach (IGameSettings data in dataCopy.Data)
             {
                 WriteGameDataText(dirName, data);

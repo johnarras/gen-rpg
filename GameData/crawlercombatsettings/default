@@ -2,7 +2,6 @@
   "Id": "default",
   "MinHitToDefenseRatio": 0.25,
   "MaxHitToDefenseRatio": 1.25,
-  "CritPercentWithStatAtLevel": 5.0,
   "DefendDamageScale": 0.5,
   "TauntDamageScale": 0.25,
   "Name": "CrawlerCombatSettings",

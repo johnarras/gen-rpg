@@ -9,6 +9,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Login.Messages.Login;
 using UI.Screens.Constants;
 using GEntity = UnityEngine.GameObject;
+using Genrpg.Shared.Login.Messages.NoUserGameData;
 
 
 public interface IClientLoginService : IService
@@ -18,6 +19,7 @@ public interface IClientLoginService : IService
     void ExitMap(UnityGameState gs);
     UniTask LoginToServer(UnityGameState gs, LoginCommand command, CancellationToken token);
     UniTask SaveLocalUserData(UnityGameState gs, string email);
+    void NoUserGetGameData(CancellationToken token);
 }
 
 public class ClientLoginService : IClientLoginService
@@ -159,5 +161,10 @@ public class ClientLoginService : IClientLoginService
         };
 
         await gs.repo.Save(localUserData);
+    }
+
+    public void NoUserGetGameData(CancellationToken token)
+    {
+        _webNetworkService.SendNoUserWebCommand(new NoUserGameDataCommand(), token);
     }
 }

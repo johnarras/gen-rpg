@@ -35,6 +35,9 @@ public class InitClient : BaseBehaviour
     public float PlayerSpeedMult;
 #endif
 
+
+    public const bool ForceCrawler = true;
+
     private CancellationTokenSource _gameTokenSource = new CancellationTokenSource();
 
     private void Awake()
@@ -156,8 +159,14 @@ public class InitClient : BaseBehaviour
 
         _screenService.Open(_gs, ScreenId.FloatingText);
 
-        _loginService.StartLogin(_gs, token);
-
+        if (!ForceCrawler)
+        {
+            _loginService.StartLogin(_gs, token);
+        }
+        else
+        {
+            _loginService.NoUserGetGameData(token);
+        }
         string txt2 = "ScreenWH: " + ScreenUtils.Width + "x" + ScreenUtils.Height + " -- " + Game.Prefix + " -- " + _envName + " -- " + AppUtils.Platform;
         _gs.logger.Info(txt2);
     }

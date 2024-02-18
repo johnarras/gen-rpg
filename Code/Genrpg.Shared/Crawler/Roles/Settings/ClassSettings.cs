@@ -1,3 +1,4 @@
+using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Interfaces;
@@ -45,9 +46,10 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
         [Key(14)] public long DefaultLevelPercentBuff { get; set; } = 50;
         [Key(15)] public long PartyBuffId { get; set; }
         [Key(16)] public long MaxArmorScalingTypeId { get; set; }
+        [Key(17)] public long CritPercent { get; set; } = 0;
 
-        [Key(17)] public List<AllowedWeapon> AllowedWeapons { get; set; } = new List<AllowedWeapon>();
-        [Key(18)] public List<AllowedEquipSlot> AllowedEquipSlots { get; set; } = new List<AllowedEquipSlot>();
+        [Key(18)] public List<AllowedWeapon> AllowedWeapons { get; set; } = new List<AllowedWeapon>();
+        [Key(19)] public List<AllowedEquipSlot> AllowedEquipSlots { get; set; } = new List<AllowedEquipSlot>();
 
     }
 

@@ -20,7 +20,12 @@ namespace Genrpg.LoginServer.Services.Admin
 
             if (gs is LoginGameState lgs)
             {
-                foreach (ILoginCommandHandler handler in lgs.commandHandlers.Values)
+                foreach (IClientCommandHandler handler in lgs.commandHandlers.Values)
+                {
+                    await handler.Reset();
+                }
+
+                foreach (INoUserCommandHandler handler in lgs.noUserCommandHandlers.Values)
                 {
                     await handler.Reset();
                 }

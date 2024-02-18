@@ -8,7 +8,7 @@
   "Art": "",
   "MaxRange": 10,
   "CombatActionId": 1,
-  "ClassId": 6,
+  "ClassId": 1,
   "TargetTypeId": 4,
   "Level": 1,
   "Effects": [
@@ -20,6 +20,6 @@
       "ElementTypeId": 1
     }
   ],
-  "UpdateTime": "2024-02-16T03:41:53.459Z",
+  "UpdateTime": "2024-02-17T21:04:00.031Z",
   "CreateTime": "2024-01-28T12:55:56Z"
 }

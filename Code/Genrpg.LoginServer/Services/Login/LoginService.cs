@@ -52,8 +52,6 @@ namespace Genrpg.LoginServer.Services.Login
                 return gs.Results;
             }
 
-
-
             Account account = null;
 
             if (!string.IsNullOrEmpty(loginCommand.Email))

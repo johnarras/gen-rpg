@@ -2,12 +2,12 @@
   "Id": "stattype11default",
   "ParentId": "default",
   "IdKey": 11,
-  "Name": "Agility",
+  "Name": "Strength",
   "Abbrev": "",
   "Desc": "+1 AP +1 SP",
   "Icon": "",
   "Art": "",
   "GenScalePct": 100,
-  "UpdateTime": "2024-02-15T23:03:14.49Z",
-  "CreateTime": "2024-02-15T23:03:14.49Z"
+  "UpdateTime": "2024-02-18T16:15:21.185Z",
+  "CreateTime": "2024-02-16T05:03:14Z"
 }
