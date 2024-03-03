@@ -1,0 +1,9 @@
+{
+  "Id": "replevel6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Honored",
+  "PointsNeeded": 12000,
+  "UpdateTime": "2024-02-24T21:01:03.408Z",
+  "CreateTime": "2024-02-24T21:01:03.408Z"
+}

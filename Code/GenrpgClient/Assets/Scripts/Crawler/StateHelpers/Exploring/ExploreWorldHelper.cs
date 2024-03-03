@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
+using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Services;
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Crawler.StateHelpers.PartyMembers;
 using Assets.Scripts.Crawler.StateHelpers.Selection.Entities;
 using Assets.Scripts.UI.Crawler.States;
@@ -7,9 +9,11 @@ using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Spells.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using UI.Screens.Constants;
@@ -19,6 +23,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 {
     public class ExploreWorldHelper : BasePartyMemberSelectHelper
     {
+        private ICrawlerMapService _crawlerMapService;
         public override ECrawlerStates GetKey() { return ECrawlerStates.ExploreWorld; }
         public override bool IsTopLevelState() { return true; }
         protected override bool ShowSelectText() { return true; }
@@ -39,6 +44,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
                 Member = null,
             };
 
+            EnterCrawlerMapData mapData = action.ExtraData as EnterCrawlerMapData;
+
             stateData.Actions.Add(new CrawlerStateAction("Inn", KeyCode.I, ECrawlerStates.TavernMain));
             stateData.Actions.Add(new CrawlerStateAction("Train", KeyCode.T, ECrawlerStates.TrainingMain));
             stateData.Actions.Insert(0, new CrawlerStateAction("Cast", KeyCode.C, ECrawlerStates.SelectAlly, 
@@ -46,9 +53,22 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
             stateData.Actions.Add(new CrawlerStateAction("Vendor", KeyCode.V, ECrawlerStates.Vendor));
 
             stateData.Actions.Add(new CrawlerStateAction("Fight", KeyCode.F, ECrawlerStates.StartCombat));
-          
 
-            await UniTask.CompletedTask;
+            stateData.Actions.Add(new CrawlerStateAction("Go Adventure", KeyCode.G, ECrawlerStates.ExploreWorld, extraData: new EnterCrawlerMapData() { MapId=2, 
+            XPos = 5, ZPos = 3}));
+
+            if (mapData == null)
+            {
+                mapData = new EnterCrawlerMapData()
+                {
+                    MapId = 1,
+                    XPos = 10,
+                    ZPos = 10,
+                };
+            }
+
+            await _crawlerMapService.EnterMap(gs, party, mapData, token);
+
             return stateData;
 
         }

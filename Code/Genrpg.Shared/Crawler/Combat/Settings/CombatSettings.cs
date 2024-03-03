@@ -1,4 +1,3 @@
-
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using MessagePack;
@@ -6,7 +5,7 @@ using MessagePack;
 namespace Genrpg.Shared.Crawler.Combat.Settings
 {
     [MessagePackObject]
-    public class CrawlerCombatSettings : TopLevelGameSettings // No List
+    public class CrawlerCombatSettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public double MinHitToDefenseRatio { get; set; } = 0.25f;
@@ -17,5 +16,5 @@ namespace Genrpg.Shared.Crawler.Combat.Settings
 
 
     [MessagePackObject]
-    public class CrawlerCombatSettingsLoader : GameSettingsLoader<CrawlerCombatSettings> { }
+    public class CrawlerCombatSettingsLoader : NoChildSettingsLoader<CrawlerCombatSettings> { }
 }

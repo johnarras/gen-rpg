@@ -44,6 +44,7 @@ namespace Genrpg.MapServer.MapMessaging
         private CancellationToken _token;
 
 
+        private int[] _packagePoolCount; // Not quite perfect due to threading
         private ConcurrentBag<MapMessagePackage>[] _packagePool;
 
         public async Task Setup(GameState gs, CancellationToken token)
@@ -90,6 +91,7 @@ namespace Genrpg.MapServer.MapMessaging
                 _messageQueueCount = 1;
             }
             _packagePoolSize = Math.Max(2, _messageQueueCount * 10);
+            _packagePoolCount = new int[_packagePoolSize];
             _packagePool = new ConcurrentBag<MapMessagePackage>[_packagePoolSize];
             for (int i = 0; i < _packagePool.Length; i++)
             {
@@ -220,21 +222,24 @@ namespace Genrpg.MapServer.MapMessaging
 
             long index = ++_packageAddIndex % _packagePoolSize;
 
-            if (_packagePool[index].Count > 100)
+            if (_packagePoolCount[index] > 100)
             {
                 return;
             }
-
             package.Clear();
+            _packagePoolCount[index]++;
             _packagePool[index].Add(package);
         }
 
         public MapMessagePackage GetPackage()
-        {         
-            if (_packagePool[++_packageGetIndex % _packagePoolSize].TryTake(out MapMessagePackage package))
+        {
+            long index = ++_packageGetIndex % _packagePoolSize;
+            if (_packagePool[index].TryTake(out MapMessagePackage package))
             {
+                _packagePoolCount[index]--;
                 return package;
             }
+            _packagePoolCount[index] = 0;
             return new MapMessagePackage();
         }
 

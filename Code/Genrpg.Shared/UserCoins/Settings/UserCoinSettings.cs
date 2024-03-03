@@ -6,7 +6,6 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 
 namespace Genrpg.Shared.UserCoins.Settings

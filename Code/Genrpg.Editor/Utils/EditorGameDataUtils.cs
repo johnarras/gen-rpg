@@ -72,7 +72,7 @@ namespace Genrpg.Editor.Utils
             return gs;
         }
 
-        public static async Task SaveFullGameData(Form form, FullGameDataCopy dataCopy, string env, CancellationToken token)
+        public static async Task SaveFullGameData(Form form, FullGameDataCopy dataCopy, string env, bool deleteExistingData, CancellationToken token)
         {
 
             EditorGameState gs = await SetupFromConfig(form, env);

@@ -288,26 +288,6 @@ public class GEntityUtils
         SetLayer(child, parent.layer);
 	}
 
-    public static GEntity InstantiateIntoParent(object child, GEntity parent)
-    {
-        GEntity go = child as GEntity;
-        if (go == null)
-        {
-            return null;
-        }
-        go = GEntity.Instantiate<GEntity>(go);
-
-        go.name = go.name.Replace("(Clone)", "");
-        go.name = go.name.Replace(AssetConstants.ArtFileSuffix, "");
-
-        if (parent != null)
-        {
-            AddToParent(go, parent);
-        }
-        return go;
-    }
-
-
 	public static void FullDestroy (UnityEngine.Object obj)
 	{
 		GEntityUtils.Destroy(obj);

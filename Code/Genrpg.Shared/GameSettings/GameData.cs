@@ -7,7 +7,6 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.DataStores.GameSettings;
 
 namespace Genrpg.Shared.GameSettings
 {

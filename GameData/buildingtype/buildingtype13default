@@ -1,0 +1,12 @@
+{
+  "Id": "buildingtype13default",
+  "ParentId": "default",
+  "IdKey": 13,
+  "Name": "Equipment",
+  "Art": "Equipment",
+  "Radius": 5,
+  "IsCrawlerBuilding": true,
+  "ArtCount": 1,
+  "UpdateTime": "2024-02-18T20:24:24.328Z",
+  "CreateTime": "2024-02-18T20:20:49.074Z"
+}

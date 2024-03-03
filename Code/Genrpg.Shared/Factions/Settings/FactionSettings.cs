@@ -6,7 +6,6 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 
 namespace Genrpg.Shared.Factions.Settings
@@ -36,5 +35,5 @@ namespace Genrpg.Shared.Factions.Settings
     public class FactionSettingsApi : ParentSettingsApi<FactionSettings, FactionType> { }
 
     [MessagePackObject]
-    public class FactionSettingsLoader : GameSettingsLoader<FactionSettings> { }
+    public class FactionSettingsLoader : ParentSettingsLoader<FactionSettings,FactionType,FactionSettingsApi> { }
 }

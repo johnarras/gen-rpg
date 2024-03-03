@@ -1,0 +1,12 @@
+{
+  "Id": "buildingtype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Guild",
+  "Art": "Guild",
+  "Radius": 5,
+  "IsCrawlerBuilding": true,
+  "ArtCount": 1,
+  "UpdateTime": "2024-02-18T20:24:24.334Z",
+  "CreateTime": "2024-02-18T20:20:49.069Z"
+}

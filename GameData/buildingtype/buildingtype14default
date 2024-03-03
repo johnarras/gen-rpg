@@ -1,0 +1,12 @@
+{
+  "Id": "buildingtype14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Temple",
+  "Art": "Temple",
+  "Radius": 5,
+  "IsCrawlerBuilding": true,
+  "ArtCount": 1,
+  "UpdateTime": "2024-02-18T20:24:24.331Z",
+  "CreateTime": "2024-02-18T20:20:49.075Z"
+}

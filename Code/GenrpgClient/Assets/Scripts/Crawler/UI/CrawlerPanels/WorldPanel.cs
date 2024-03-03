@@ -45,42 +45,35 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         private Dictionary<string, TextureList> _cachedSprites = new Dictionary<string, TextureList>();
         public void SetPicture(string spriteName)
         {
-
-            if (spriteName != null && spriteName.ToLower().IndexOf("griffintwo") >= 0)
-            {
-                _gs.logger.Info("Showing Griffin 2 side");
-            }
             if (WorldImage == null)
             {
                 return;
             }
-
+            if (string.IsNullOrEmpty(spriteName))
+            {
+                WorldImage.texture = null;
+                GEntityUtils.SetActive(WorldImage, false);
+                return;
+            }
             if (_currentSpriteName == spriteName)
             {
                 return;
             }
 
             _currentSpriteName = spriteName;
-            if (string.IsNullOrEmpty(spriteName))
+         
+            if (_cachedSprites.TryGetValue(spriteName, out TextureList textureList))
             {
-                WorldImage.texture = null;
-                GEntityUtils.SetActive(WorldImage, false);
-            }
-            else
-            {
-                if (_cachedSprites.TryGetValue(spriteName, out TextureList textureList))
+                if (textureList.Textures.Count > 0 && textureList.Textures[0] != null)
                 {
-                    if (textureList.Textures.Count > 0 && textureList.Textures[0] != null)
-                    {
-                        GEntityUtils.SetActive(WorldImage, true);
-                        WorldImage.texture = textureList.Textures[0];
-                        SetTextureFrame(0);
-                    }
-                    return;
+                    GEntityUtils.SetActive(WorldImage, true);
+                    WorldImage.texture = textureList.Textures[0];
+                    SetTextureFrame(0);
                 }
-
-                _assetService.LoadAsset(_gs, AssetCategoryNames.TextureLists, spriteName, OnDownloadAtlas, spriteName, null, _token); 
+                return;
             }
+
+            _assetService.LoadAsset(_gs, AssetCategoryNames.TextureLists, spriteName, OnDownloadAtlas, spriteName, null, _token); 
         }
         public void ApplyEffect(string effectName, float duration)
         {

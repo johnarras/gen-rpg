@@ -1,6 +1,6 @@
 using Genrpg.Shared.Crawler.Monsters.Constants;
 using Genrpg.Shared.Crawler.Monsters.Settings.Interfaces;
-using Genrpg.Shared.DataStores.GameSettings;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Interfaces;
 using MessagePack;

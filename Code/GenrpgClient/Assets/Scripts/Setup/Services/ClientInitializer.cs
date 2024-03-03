@@ -1,5 +1,6 @@
 using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.Crawler.Services.Combat;
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Crawler.Services.Training;
 using Assets.Scripts.Ftue.Services;
 using Assets.Scripts.GameSettings.Services;
@@ -57,6 +58,8 @@ public class ClientInitializer
         gs.loc.Set<IProcessCombatRoundCombatService>(new ProcessCombatRoundCombatService());
         gs.loc.Set<ITrainingService>(new TrainingService());
         gs.loc.Set<ICrawlerStatService>(new CrawlerStatService());
+        gs.loc.Set<ICrawlerMapService>(new CrawlerMapService());
+
 
         gs.loc.ResolveSelf();
 

@@ -324,7 +324,7 @@ namespace GameEditor
         {
 
             FullGameDataCopy dataCopy = await EditorGameDataUtils.LoadFullGameData(this, fromEnv, EditorGameState.CTS.Token);
-            await EditorGameDataUtils.SaveFullGameData(this, dataCopy, toEnv, EditorGameState.CTS.Token);
+            await EditorGameDataUtils.SaveFullGameData(this, dataCopy, toEnv, true, EditorGameState.CTS.Token);
 
             this.Invoke(form.Hide);
         }
@@ -385,7 +385,7 @@ namespace GameEditor
         private async Task CopyGameDataFromGitToDatabaseAsync(Form form, string env, CancellationToken token)
         {
             FullGameDataCopy dataCopy = await EditorGameDataUtils.LoadDataFromDisk(form, token);
-            await EditorGameDataUtils.SaveFullGameData(form, dataCopy, env, token);
+            await EditorGameDataUtils.SaveFullGameData(form, dataCopy, env, true, token);
 
             this.Invoke(form.Hide);
         }

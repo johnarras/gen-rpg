@@ -5,7 +5,6 @@ using System.Text;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
-using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Spells.Settings.Spells;

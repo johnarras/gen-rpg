@@ -39,7 +39,13 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(6)] public long Gold { get; set; } = 0;
 
-        
+        [Key(7)] public long Seed { get; set; }
+
+        [Key(8)] public long CityId { get; set; }
+
+        [Key(9)] public int MapX { get; set; }
+        [Key(10)] public int MapZ { get; set; }
+        [Key(11)] public int MapRot { get; set; }
 
         [JsonIgnore] public IWorldPanel WorldPanel = null;
         [JsonIgnore] public IActionPanel ActionPanel = null;
@@ -118,7 +124,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
             return retval;
         }
 
-        public long GetWorldLevel()
+        public int GetWorldLevel()
         {
             List<PartyMember> partyMembers = GetActiveParty();
             if (partyMembers.Count < 1)
@@ -126,7 +132,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
                 return 1;
             }
 
-            return (long)Math.Max(1, Math.Ceiling(1.0 * partyMembers.Sum(x => x.Level) / partyMembers.Count));
+            return (int)Math.Max(1, Math.Ceiling(1.0 * partyMembers.Sum(x => x.Level) / partyMembers.Count));
         }
     }
 

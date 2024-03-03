@@ -1,10 +1,10 @@
 using MessagePack;
 using Genrpg.Shared.Interfaces;
 using System.Collections.Generic;
-using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.Names.Settings;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Zones.Entities;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace Genrpg.Shared.Zones.Settings
 {

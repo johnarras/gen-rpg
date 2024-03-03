@@ -1,0 +1,8 @@
+{
+  "Id": "factiontype0default",
+  "ParentId": "default",
+  "Name": "Neutral",
+  "StartRepLevelId": 1,
+  "UpdateTime": "2023-12-24T17:22:28.816Z",
+  "CreateTime": "2023-12-24T17:22:28.816Z"
+}

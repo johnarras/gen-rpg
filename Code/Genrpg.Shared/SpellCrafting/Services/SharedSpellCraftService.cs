@@ -1,20 +1,14 @@
 ﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.SpellCrafting.Constants;
 using Genrpg.Shared.SpellCrafting.SpellModifierHelpers;
-using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Spells.Settings.Skills;
 using Genrpg.Shared.Spells.Settings.Spells;
-using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
-using Genrpg.Shared.Utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -47,7 +47,6 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Genrpg.ServerShared.MainServer;
 using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;
-using Genrpg.Shared.Utils;
 using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.Characters.Utils;
 using Newtonsoft.Json.Linq;

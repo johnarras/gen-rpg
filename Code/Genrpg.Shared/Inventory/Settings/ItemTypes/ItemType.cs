@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Levels.Settings;
@@ -15,6 +14,7 @@ using Genrpg.Shared.Names.Settings;
 using Genrpg.Shared.ProcGen.Settings.Names;
 using Genrpg.Shared.Inventory.Settings.Qualities;
 using Genrpg.Shared.Inventory.Settings.Slots;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace Genrpg.Shared.Inventory.Settings.ItemTypes
 {

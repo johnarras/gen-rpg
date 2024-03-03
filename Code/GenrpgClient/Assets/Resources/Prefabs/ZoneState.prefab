@@ -129,7 +129,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3731700555145375390}
+  m_Father: {fileID: 6632194261816976123}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -218,7 +218,8 @@ MonoBehaviour:
     CullDistance: 125
   - LayerName: ObjectLayer
     CullDistance: 200
-  mainCam: {fileID: 3731700554955103553}
+  MainCam: {fileID: 3731700554955103553}
+  CameraParent: {fileID: 3959712634914346852}
   Cameras:
   - {fileID: 3731700554955103553}
 --- !u!81 &3731700554955103567
@@ -353,7 +354,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1880425893740860500}
+  - {fileID: 6632194261816976123}
   - {fileID: 1376471115}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -398,3 +399,35 @@ WindZone:
   m_WindTurbulence: 0.3
   m_WindPulseMagnitude: 0.25
   m_WindPulseFrequency: 0.1
+--- !u!1 &3959712634914346852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6632194261816976123}
+  m_Layer: 8
+  m_Name: CameraParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6632194261816976123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3959712634914346852}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1880425893740860500}
+  m_Father: {fileID: 3731700555145375390}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

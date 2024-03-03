@@ -1,0 +1,12 @@
+{
+  "Id": "buildingtype17default",
+  "ParentId": "default",
+  "IdKey": 17,
+  "Name": "Tavern",
+  "Art": "Tavern",
+  "Radius": 5,
+  "IsCrawlerBuilding": true,
+  "ArtCount": 1,
+  "UpdateTime": "2024-02-18T20:20:49.08Z",
+  "CreateTime": "2024-02-18T20:20:49.08Z"
+}

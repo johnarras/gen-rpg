@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
+using Assets.Scripts.Crawler.UI.Utils;
 using Assets.Scripts.UI.Crawler.States;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -31,7 +32,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Errors
                 stateData.Actions.Add(new CrawlerStateAction("\n" + currentData.ErrorMessage + "\n"));
             }
 
-            stateData.Actions.Add(new CrawlerStateAction("Press <color=yellow>Space</color> to continue...", KeyCode.Space, ECrawlerStates.ExploreWorld));
+            stateData.Actions.Add(new CrawlerStateAction($"\n\nPress {CrawlerUIUtils.HighlightText("Space")} to continue...", KeyCode.Space, ECrawlerStates.ExploreWorld));
 
             await UniTask.CompletedTask;
             return stateData;

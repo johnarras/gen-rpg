@@ -1,0 +1,9 @@
+{
+  "Id": "replevel2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Hostile",
+  "PointsNeeded": 12000,
+  "UpdateTime": "2024-02-24T21:01:03.399Z",
+  "CreateTime": "2024-02-24T21:01:03.399Z"
+}

@@ -36,7 +36,7 @@ public class InitClient : BaseBehaviour
 #endif
 
 
-    public const bool ForceCrawler = true;
+    public const bool ForceCrawler = false;
 
     private CancellationTokenSource _gameTokenSource = new CancellationTokenSource();
 

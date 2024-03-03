@@ -42,7 +42,7 @@ namespace Genrpg.Shared.DataStores.PlayerData
                             OwnerId = Id,
                             IdKey = id,
                         };
-                        _data.Add(child);
+                        _data = new List<Child>(_data) { child };
                     }
                 }
             }

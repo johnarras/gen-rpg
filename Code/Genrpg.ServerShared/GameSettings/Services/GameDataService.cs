@@ -5,6 +5,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Interfaces;
+using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
@@ -275,8 +276,6 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 ITopLevelSettings currData = allData.FirstOrDefault(x =>
                 x.GetType().Name == t.Name &&
                 x.Id == docName);
-
-
 
                 if (clientCache != null && docName == GameDataConstants.DefaultFilename &&
                     currData != null && currData is IUpdateData updateData)

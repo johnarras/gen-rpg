@@ -251,9 +251,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
 
         if (InitClient.ForceCrawler)
         {
-            {
-                return;
-            }
+            return;
         }
         if (gs.data == null || MusicChannels == null)
         {

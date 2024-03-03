@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ae576c33749ec44a78ff4b3922352d, type: 3}
   m_Name: ClientConfig
   m_EditorClassIdentifier: 
-  Env: test
+  Env: local
   ContentDataEnvOverride: dev
   WorldDataEnv: dev
   InitialConfigEndpoint: https://genrpgconfig.azurewebsites.net/api/GenrpgConfig

@@ -11,7 +11,7 @@ using System.Text;
 namespace Genrpg.Shared.Versions.Settings
 {
     [MessagePackObject]
-    public class VersionSettings : TopLevelGameSettings // No List
+    public class VersionSettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public int ClientVersion { get; set; }
@@ -22,5 +22,5 @@ namespace Genrpg.Shared.Versions.Settings
     }
 
     [MessagePackObject]
-    public class VersionSettingsLoader : GameSettingsLoader<VersionSettings> { }
+    public class VersionSettingsLoader : NoChildSettingsLoader<VersionSettings> { }
 }

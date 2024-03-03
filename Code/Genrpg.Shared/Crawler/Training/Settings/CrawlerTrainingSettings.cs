@@ -6,7 +6,7 @@ using System.Security;
 namespace Genrpg.Shared.Crawler.Training.Settings
 {
     [MessagePackObject]
-    public class CrawlerTrainingSettings : TopLevelGameSettings // No List
+    public class CrawlerTrainingSettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public long LinearCostPerLevel { get; set; } = 100;
@@ -44,5 +44,5 @@ namespace Genrpg.Shared.Crawler.Training.Settings
 
 
     [MessagePackObject]
-    public class CrawlerTrainingSettingsLoader : GameSettingsLoader<CrawlerTrainingSettings> { }
+    public class CrawlerTrainingSettingsLoader : NoChildSettingsLoader<CrawlerTrainingSettings> { }
 }

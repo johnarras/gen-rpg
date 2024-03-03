@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 {
-    public class HealthEffectHandler : BaseSpellEffectHandler
+    public abstract class HealthEffectHandler : BaseSpellEffectHandler
     {
 
 
@@ -22,10 +22,6 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
         public override bool UseStatScaling() { return true; }
         public override float GetTickLength() { return SpellConstants.DotTickSeconds; }
 
-        public override List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit hit)
-        {
-            throw new NotImplementedException();
-        }
         public override bool HandleEffect(GameState gs, ActiveSpellEffect eff)
         {
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ) || targ.HasFlag(UnitFlags.IsDead))

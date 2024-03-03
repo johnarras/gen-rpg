@@ -16,8 +16,6 @@ using System.Linq;
 using System.Reflection;
 using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.ProcGen.Settings.Names;
-using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.DataStores.GameSettings;
 using System.DirectoryServices;
 using Genrpg.Shared.GameSettings.Utils;
 

@@ -16,6 +16,7 @@ public class CullDistanceOverride
 public interface ICameraController : IService
 {
     Camera GetMainCamera();
+    GEntity GetCameraParent();
     void BeforeMoveUpdate();
     void AfterMoveUpdate();
     List<Camera> GetAllCameras();
@@ -57,7 +58,8 @@ public class CameraController : BaseBehaviour, ICameraController
     private int _onStairsTicks = 0;
 
 
-    public Camera mainCam = null;
+    public Camera MainCam = null;
+    public GEntity CameraParent = null;
 
     public List<Camera> Cameras;
 
@@ -85,7 +87,12 @@ public class CameraController : BaseBehaviour, ICameraController
 
     public Camera GetMainCamera()
     {
-        return mainCam;
+        return MainCam;
+    }
+
+    public GEntity GetCameraParent()
+    {
+        return CameraParent;
     }
 
     int _maxDistance = 100;
@@ -102,7 +109,7 @@ public class CameraController : BaseBehaviour, ICameraController
 
         _maxDistance = maxDistance;
 
-        if (mainCam != null && LayerCullDistanceOverrides != null)
+        if (MainCam != null && LayerCullDistanceOverrides != null)
         {
 
             float[] cullDistances = new float[32];
@@ -118,8 +125,8 @@ public class CameraController : BaseBehaviour, ICameraController
                
             }
 
-            mainCam.layerCullDistances = cullDistances;
-            mainCam.layerCullSpherical = true;
+            MainCam.layerCullDistances = cullDistances;
+            MainCam.layerCullSpherical = true;
         }
 
 	}
@@ -263,9 +270,6 @@ public class CameraController : BaseBehaviour, ICameraController
         oldDist = CameraDistance;
         newDist = oldDist;
         dz = targetCameraDistance - oldDist;
-
-
-        
 
         newSpeed = Math.Min(CameraZoomSpeed, Math.Abs(dz / 8));
 
@@ -438,7 +442,7 @@ public class CameraController : BaseBehaviour, ICameraController
     public void UpdateCamera()
 	{
 	    player = PlayerObject.Get();
-		if (player == null || _gs.md == null || _gs.md.GeneratingMap || mainCam == null)
+		if (player == null || _gs.md == null || _gs.md.GeneratingMap || MainCam == null)
 		{
 			return;
 		}
@@ -475,13 +479,13 @@ public class CameraController : BaseBehaviour, ICameraController
 		cameraOffset = CameraOffset;
         MoveCamera(lookAtPos + GQuaternion.MultVector(lookAtRotation,cameraOffset), lookAtPos);
 
-        camPos2 = GVector3.Create(mainCam.transform().position);
+        camPos2 = GVector3.Create(MainCam.transform().position);
 		terrainHeightAtCamera = _terrainManager.SampleHeight(_gs, camPos2.x, camPos2.z);
 
-        camDist = GVector3.Distance(lookAtPos, GVector3.Create(mainCam.transform().position))+1.0f;
-        camYPos = mainCam.transform().position.y;
+        camDist = GVector3.Distance(lookAtPos, GVector3.Create(MainCam.transform().position))+1.0f;
+        camYPos = MainCam.transform().position.y;
 
-        didHit = GPhysics.Raycast(lookAtPos, GVector3.Create(mainCam.transform().position) - lookAtPos,
+        didHit = GPhysics.Raycast(lookAtPos, GVector3.Create(MainCam.transform().position) - lookAtPos,
                     out objHit, camDist, camCollideLayerMask);
 
         playerPosition = GVector3.Create(player.transform().position);
@@ -517,7 +521,7 @@ public class CameraController : BaseBehaviour, ICameraController
             CameraDistance = CameraOffset.magnitude;
             targetCameraDistance = CameraDistance;
         }
-        CamPos = GVector3.Create(mainCam.transform().position);
+        CamPos = GVector3.Create(MainCam.transform().position);
         LookAtPos = lookAtPos;
 
     }

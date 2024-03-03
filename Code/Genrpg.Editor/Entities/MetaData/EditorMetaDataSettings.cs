@@ -1,10 +1,7 @@
-using Genrpg.Shared.DataStores.GameSettings;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using MessagePack;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Genrpg.Editor.Entities.MetaData
 {

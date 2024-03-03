@@ -2,8 +2,8 @@
   "Id": "unittype54default",
   "ParentId": "default",
   "IdKey": 54,
-  "Name": "Half-Orc",
-  "PluralName": "Half-Orcs",
+  "Name": "Mongrel",
+  "PluralName": "Mongrel",
   "Desc": "",
   "Icon": "ElfMale",
   "Art": "ElfMale",
@@ -17,6 +17,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-10T19:10:17.951Z",
+  "UpdateTime": "2024-02-18T21:28:05.975Z",
   "CreateTime": "2024-01-28T21:19:53.306Z"
 }

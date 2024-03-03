@@ -1,0 +1,9 @@
+{
+  "Id": "replevel3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Unfriendly",
+  "PointsNeeded": 3000,
+  "UpdateTime": "2024-02-24T21:01:03.402Z",
+  "CreateTime": "2024-02-24T21:01:03.402Z"
+}

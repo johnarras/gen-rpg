@@ -1,7 +1,7 @@
 using MessagePack;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.DataStores.GameSettings;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace Genrpg.Shared.ProcGen.Settings.Weather
 {

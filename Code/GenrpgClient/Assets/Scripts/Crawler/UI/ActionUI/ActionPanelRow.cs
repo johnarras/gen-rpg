@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Services;
+using Assets.Scripts.Crawler.UI.Utils;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
 using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Utils;
@@ -32,7 +33,7 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
 
                 if (_action.Key == KeyCode.Escape)
                 {
-                    text = "\n\nPress <color=yellow>Escape</color> to return to " + StrUtils.SplitOnCapitalLetters(_action.NextState.ToString());                
+                    text = $"\n\nPress {CrawlerUIUtils.HighlightText("Escape")} to return to " + StrUtils.SplitOnCapitalLetters(_action.NextState.ToString());                
                 }
                 else if (text != null && text.Length > 0 && char.IsLetterOrDigit(text[0]))
                 {
@@ -40,7 +41,7 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
                         char.ToLower(text[0]) == (char)(_action.Key))
                     {
                         char firstLetter = text[0];
-                        text = "<color=yellow>[" + text[0] + "]</color>" + text.Substring(1);
+                        text = $"{CrawlerUIUtils.HighlightText(text[0])} {text.Substring(1)}";
                     }
                 }
 

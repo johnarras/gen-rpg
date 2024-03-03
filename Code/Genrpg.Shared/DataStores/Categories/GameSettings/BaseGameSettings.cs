@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.DataStores.Entities;
+﻿using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
@@ -31,7 +32,7 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
 
         public virtual void SetInternalIds() { }
         public virtual void ClearIndex() { }
-        
+
         public virtual async Task SaveAll(IRepositorySystem repo)
         {
             await repo.Save(this);

@@ -1,3 +1,4 @@
+using Genrpg.Shared.Vendors.Settings;
 using MessagePack;
 using System;
 
@@ -75,6 +76,20 @@ namespace Genrpg.Shared.Utils
             }
 
             return (float)(minVal + rand.NextDouble() * (maxVal - minVal));
+        }
+
+
+        public static int ModClamp(int val, int mod)
+        {
+            int r = val % mod;
+            return r < 0 ? r + mod : r;
+        }
+
+
+        public static long ModClamp(long val, long mod)
+        {
+            long r = val % mod;
+            return r < 0 ? r + mod : r;
         }
 
         /// <summary>

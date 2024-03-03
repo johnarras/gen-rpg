@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace Genrpg.Shared.Core.Settings
 {
     [MessagePackObject]
-    public class CoreSettings : TopLevelGameSettings // No List
+    public class CoreSettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string GameName { get; set; }
@@ -22,5 +22,5 @@ namespace Genrpg.Shared.Core.Settings
 
 
     [MessagePackObject]
-    public class CoreSettingsLoader : GameSettingsLoader<CoreSettings> { }
+    public class CoreSettingsLoader : NoChildSettingsLoader<CoreSettings> { }
 }

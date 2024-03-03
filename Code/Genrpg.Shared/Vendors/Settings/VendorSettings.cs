@@ -1,14 +1,14 @@
 using MessagePack;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace Genrpg.Shared.Vendors.Settings
 {
     [MessagePackObject]
-    public class VendorSettings : TopLevelGameSettings // No List
+    public class VendorSettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public float BuyFromVendorPriceMult { get; set; }
@@ -17,5 +17,5 @@ namespace Genrpg.Shared.Vendors.Settings
     }
 
     [MessagePackObject]
-    public class VendorSettingsLoader : GameSettingsLoader<VendorSettings> { }
+    public class VendorSettingsLoader : NoChildSettingsLoader<VendorSettings> { }
 }

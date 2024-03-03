@@ -646,7 +646,7 @@ public class UnityAssetService : IAssetService
                     }
                     if (asset != null)
                     {
-                        asset = GEntityUtils.InstantiateIntoParent(asset, parent);
+                        asset = InstantiateIntoParent(asset, parent);
 
                         GEntityUtils.InitializeHierarchy(gs, asset as GEntity);
 
@@ -765,7 +765,7 @@ public class UnityAssetService : IAssetService
                 return true;
             }
 
-            GEntity resourceGameObject = GEntityUtils.InstantiateIntoParent(resourceObject, parent);
+            GEntity resourceGameObject = InstantiateIntoParent(resourceObject, parent);
             if (resourceGameObject != null)
             {
                 resourceObject = resourceGameObject;
@@ -1401,17 +1401,23 @@ public class UnityAssetService : IAssetService
 
     protected object InstantiateBundledAsset(UnityGameState gs, object child, GEntity parent, string bundleName, string assetName)
     {
-
+        BundleCacheData bundleCache = _bundleCache[bundleName];
         if (child is Texture2D tex2d)
         {
-            _bundleCache[bundleName].Instances.Add(tex2d);
+            bundleCache.Instances.Add(tex2d);
             return tex2d;
         }
 
-        GEntity go = GEntityUtils.InstantiateIntoParent(child, parent);
+        GEntity go = InstantiateIntoParent(child, parent);
         if (go != null)
         {
-            _bundleCache[bundleName].Instances.Add(go);
+            go.GetCancellationTokenOnDestroy().Register(() => 
+            { 
+                bundleCache.Instances.Remove(go);
+                bundleCache.lastUsed = DateTime.UtcNow;
+            });
+
+            bundleCache.Instances.Add(go);
         }
         else
         {
@@ -1496,5 +1502,27 @@ public class UnityAssetService : IAssetService
         path = path.Substring(path.LastIndexOf("\\") + 1);
         return path;
     }
+
+
+    private GEntity InstantiateIntoParent(object child, GEntity parent)
+    {
+        GEntity go = child as GEntity;
+        if (go == null)
+        {
+            return null;
+        }
+        go = GEntity.Instantiate<GEntity>(go);
+
+        go.name = go.name.Replace("(Clone)", "");
+        go.name = go.name.Replace(AssetConstants.ArtFileSuffix, "");
+
+        if (parent != null)
+        {
+            GEntityUtils.AddToParent(go, parent);
+        }
+        return go;
+    }
+
+
 }
 

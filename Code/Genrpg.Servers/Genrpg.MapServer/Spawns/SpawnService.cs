@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Services;
 using System.Threading;

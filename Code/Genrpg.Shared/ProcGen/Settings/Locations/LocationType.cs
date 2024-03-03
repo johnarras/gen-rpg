@@ -1,6 +1,6 @@
 using MessagePack;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.DataStores.GameSettings;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace Genrpg.Shared.ProcGen.Settings.Locations
 {

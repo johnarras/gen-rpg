@@ -1,4 +1,4 @@
-using Genrpg.Shared.DataStores.GameSettings;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Entities;

@@ -1,7 +1,7 @@
 ﻿using Genrpg.Shared.Charms.Settings;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.GameSettings.Interfaces;
 using System;
@@ -13,45 +13,54 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.GameSettings.Loaders
 {
-    public class ParentSettingsLoader<TParent, TChild, TApi> : GameSettingsLoader<TParent>
+    public class ParentSettingsLoader<TParent, TChild, TApi> : IGameSettingsLoader
         where TParent : ParentSettings<TChild>, new()
         where TChild : ChildSettings, new()
         where TApi : ParentSettingsApi<TParent, TChild>, new()
     {
 
-        public override Type GetClientType() { return typeof(TApi); }
+        public virtual Type GetServerType() { return typeof(TParent); }
+        public virtual Type GetClientType() { return typeof(TApi); }
+        public virtual bool SendToClient() { return true; }
 
-        public override async Task Setup(IRepositorySystem repoSystem)
+        public virtual async Task Setup(IRepositorySystem repoSystem)
         {
-            await base.Setup(repoSystem);
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { Ascending = true, MemberName = "ParentId" });
             await repoSystem.CreateIndex<TChild>(configs);
         }
 
-        public override async Task<List<ITopLevelSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing)
+        public virtual async Task<List<ITopLevelSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing)
         {
-            Task<List<ITopLevelSettings>> loadParents = base.LoadAll(repoSystem, createDefaultIfMissing);
 
-            Task<List<TChild>> loadChildren = repoSystem.Search<TChild>(x => true);
+            Task<List<TParent>> loadParentsTask = repoSystem.Search<TParent>(x => true);
 
-            await Task.WhenAll(loadParents, loadChildren).ConfigureAwait(false);
+            Task <List<TChild>> loadChildrenTask = repoSystem.Search<TChild>(x => true);
 
-            List<ITopLevelSettings> settings = await loadParents;
-            List<TChild> allChildren = await loadChildren;
+            await Task.WhenAll(loadParentsTask, loadChildrenTask).ConfigureAwait(false);
 
-            foreach (IGameSettings setting in settings)
+            List<TParent> parents = await loadParentsTask;
+            List<TChild> allChildren = await loadChildrenTask;
+
+            if (createDefaultIfMissing)
             {
-                if (setting is TParent parent)
+                TParent defaultObject = parents.FirstOrDefault(x => x.Id == GameDataConstants.DefaultFilename);
+                if (defaultObject == null)
                 {
-                    parent.SetData(allChildren.Where(x => x.ParentId == parent.Id).ToList());
+                    defaultObject = new TParent() { Id = GameDataConstants.DefaultFilename };
+                    parents.Add(defaultObject);
                 }
             }
 
-            return settings;
+            foreach (TParent parent in parents)
+            {
+                parent.SetData(allChildren.Where(x => x.ParentId == parent.Id).ToList());
+            }
+
+            return parents.Cast<ITopLevelSettings>().ToList();
         }
 
-        public override ITopLevelSettings MapToApi(ITopLevelSettings settings)
+        public virtual ITopLevelSettings MapToApi(ITopLevelSettings settings)
         {
             if (settings is TParent tparent)
             {

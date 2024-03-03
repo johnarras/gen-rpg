@@ -22,7 +22,6 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Editor.Interfaces;
 using Genrpg.Shared.Units.Loaders;
-using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
@@ -30,6 +29,7 @@ using MongoDB.Driver;
 using Genrpg.Shared.ProcGen.Settings.Names;
 using Genrpg.Editor.Entities.MetaData;
 using Genrpg.Editor.Services.Reflection;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace GameEditor
 {

@@ -1,0 +1,9 @@
+{
+  "Id": "factiontype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Player",
+  "StartRepLevelId": 4,
+  "UpdateTime": "2023-12-24T17:22:29.035Z",
+  "CreateTime": "2023-12-24T17:22:29.035Z"
+}

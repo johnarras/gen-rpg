@@ -8,7 +8,7 @@ using MessagePack;
 namespace Genrpg.Shared.Crawler.Loot.Settings
 {
     [MessagePackObject]
-    public class CrawlerLootSettings : TopLevelGameSettings // No List
+    public class CrawlerLootSettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public long BaseLootCost { get; set; } = 10;
@@ -21,5 +21,5 @@ namespace Genrpg.Shared.Crawler.Loot.Settings
     }
 
     [MessagePackObject]
-    public class CrawlerLootSettingsLoader : GameSettingsLoader<CrawlerLootSettings> { }
+    public class CrawlerLootSettingsLoader : NoChildSettingsLoader<CrawlerLootSettings> { }
 }

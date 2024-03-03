@@ -1,8 +1,8 @@
 using MessagePack;
 using System.Collections.Generic;
-using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace Genrpg.Shared.Crafting.Settings.Recipes
 {

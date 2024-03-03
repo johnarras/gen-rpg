@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace Genrpg.Shared.AI.Settings
 {
     [MessagePackObject]
-    public class AISettings : TopLevelGameSettings // No List
+    public class AISettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public float UpdateSeconds { get; set; } = 1.5f;
@@ -29,7 +29,7 @@ namespace Genrpg.Shared.AI.Settings
 
 
     [MessagePackObject]
-    public class AISettingsLoader : GameSettingsLoader<AISettings>
+    public class AISettingsLoader : NoChildSettingsLoader<AISettings>
     {
     }
 }

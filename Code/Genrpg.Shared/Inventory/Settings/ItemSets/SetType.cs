@@ -1,9 +1,9 @@
 using MessagePack;
 using Genrpg.Shared.Interfaces;
 using System.Collections.Generic;
-using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Spells.Casting;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace Genrpg.Shared.Inventory.Settings.ItemSets
 {

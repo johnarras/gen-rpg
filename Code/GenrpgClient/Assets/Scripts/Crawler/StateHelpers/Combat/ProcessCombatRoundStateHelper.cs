@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Services.Combat;
+using Assets.Scripts.Crawler.UI.Utils;
 using Assets.Scripts.UI.Crawler.States;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -41,7 +42,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
             await UniTask.Delay(100, cancellationToken: token);
             bool success = await _processCombatService.ProcessCombatRound(gs, party, token);
 
-            party.ActionPanel.AddText("\n\nPress <color=yellow>Space</color> to continue...\n\n");
+            party.ActionPanel.AddText($"\n\nPress {CrawlerUIUtils.HighlightText("Space")} to continue...\n\n");
             
             for (int i = 0; i < 1; i++)
             {

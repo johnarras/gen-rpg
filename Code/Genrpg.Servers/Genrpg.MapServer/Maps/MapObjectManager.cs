@@ -14,7 +14,6 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.MapObjects.Factories;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapServer.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.PlayerData;

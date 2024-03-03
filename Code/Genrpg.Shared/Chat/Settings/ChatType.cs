@@ -3,8 +3,8 @@ using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Genrpg.Shared.DataStores.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 
 namespace Genrpg.Shared.Chat.Settings
 {
