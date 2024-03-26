@@ -15,12 +15,16 @@ using Genrpg.Editor.Utils;
 using Genrpg.ServerShared.Accounts.Services;
 using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.ServerShared.Config;
 
 namespace GameEditor
 {
     public partial class FindUserView : UserControl
     {
         private IAccountService _accountService = null;
+        private IRepositoryService _repoService = null;
+        private IServerConfig _config = null;
         private EditorGameState _gs = null;
         private DataWindow _win = null;
         private TextBox _queryInput = null;
@@ -115,7 +119,7 @@ namespace GameEditor
             }
 
             Form form = UIHelper.ShowBlockingDialog("Loading user data", _formatter, _win);
-            Task.Run(() => EditorPlayerUtils.LoadEditorUserData(_gs, acct.Id)).GetAwaiter().GetResult();
+            Task.Run(() => EditorPlayerUtils.LoadEditorUserData(_gs, _repoService, acct.Id)).GetAwaiter().GetResult();
             form.Hide();
             if (_gs.EditorUser.User == null)
             {
@@ -145,12 +149,12 @@ namespace GameEditor
             }
 
             Form form = UIHelper.ShowBlockingDialog("Loading user data", _formatter, _win);
-            Task.Run(() => EditorPlayerUtils.LoadEditorUserData(_gs, acct.Id)).GetAwaiter().GetResult();
+            Task.Run(() => EditorPlayerUtils.LoadEditorUserData(_gs, _repoService, acct.Id)).GetAwaiter().GetResult();
             form.Hide();
             form = UIHelper.ShowBlockingDialog("Deleting user data", _formatter, _win);
 
             // We don't delete the account here.
-            Task.Run(() => EditorPlayerUtils.DeleteEditorUserData(_gs)).GetAwaiter().GetResult();
+            Task.Run(() => EditorPlayerUtils.DeleteEditorUserData(_gs, _repoService)).GetAwaiter().GetResult();
             form.Hide();
 
         }
@@ -176,7 +180,7 @@ namespace GameEditor
             }
 
             Account acct = null;
-            acct = await _accountService.LoadBy(_gs.config, key, val);
+            acct = await _accountService.LoadBy(_config, key, val);
             List<Account> list = new List<Account>();
             if (acct != null)
             {

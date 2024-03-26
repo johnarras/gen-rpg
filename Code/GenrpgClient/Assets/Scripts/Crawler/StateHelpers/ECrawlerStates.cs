@@ -42,6 +42,7 @@ namespace Assets.Scripts.UI.Crawler.States
         PartyMember,
 
         SelectAlly,
+        SelectAllyTarget,
         SelectEnemyGroup,
         SelectItem,
         SelectSpell,

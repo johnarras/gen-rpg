@@ -82,7 +82,7 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
         }
 
 
-        public override async Task SaveAll(IRepositorySystem repo)
+        public override async Task SaveAll(IRepositoryService repo)
         {
             await repo.Save(this);
             await repo.SaveAll(_data);

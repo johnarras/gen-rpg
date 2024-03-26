@@ -14,7 +14,7 @@ namespace Genrpg.Shared.Crawler.Combat.Entities
         [Key(0)] public EHitTypes HitType { get; set; }
         [Key(1)] public long MinQuantity { get; set; }
         [Key(2)] public long MaxQuantity { get; set; }
-        [Key(3)] public long CritChance { get; set; }
+        [Key(3)] public double CritChance { get; set; }
         [Key(4)] public double PowerPercent { get; set; } = 100;
     }
 }

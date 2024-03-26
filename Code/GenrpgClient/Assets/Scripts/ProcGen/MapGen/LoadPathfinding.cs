@@ -14,7 +14,7 @@ public class LoadPathfinding : BaseZoneGenerator
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
-        LocalFileRepository repo = new LocalFileRepository(gs.logger);
+        BinaryFileRepository repo = new BinaryFileRepository(_logService);
         string filename = MapUtils.GetMapObjectFilename(gs, PathfindingConstants.Filename, gs.map.Id, gs.map.MapVersion);
         byte[] bytes = repo.LoadBytes(filename);
         if (bytes != null)
@@ -23,8 +23,8 @@ public class LoadPathfinding : BaseZoneGenerator
         }
         else
         {
-            DownloadData ddata = new DownloadData() { IsImage = false, Handler= OnDownloadPathfinding };
-            _assetService.DownloadFile(gs, filename, ddata, true, token);
+            DownloadFileData ddata = new DownloadFileData() { IsImage = false, Handler= OnDownloadPathfinding };
+            _fileDownloadService.DownloadFile(gs, filename, ddata, true, token);
         }
     }
 

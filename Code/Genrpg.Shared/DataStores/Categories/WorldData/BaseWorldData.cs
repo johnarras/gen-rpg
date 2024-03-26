@@ -11,6 +11,6 @@ namespace Genrpg.Shared.DataStores.Categories.WorldData
     {
         [MessagePack.IgnoreMember]
         public abstract string Id { get; set; }
-        public abstract void Delete(IRepositorySystem repoSystem);
+        public abstract void Delete(IRepositoryService repoSystem);
     }
 }

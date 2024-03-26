@@ -104,7 +104,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
     {
         if (!string.IsNullOrEmpty(txt))
         {
-            _gs.logger.Message("Error on close: " + txt);
+            _logService.Message("Error on close: " + txt);
         }
 
         StartClose();

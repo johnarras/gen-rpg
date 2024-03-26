@@ -53,7 +53,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
             stateData.Actions.Add(new CrawlerStateAction("Fight", KeyCode.F, ECrawlerStates.CombatPlayer,
                    onClickAction: delegate ()
                    {
-                       partyData.Combat.Allies[0].CombatGroupAction = ECombatGroupActions.Fight;
+                       partyData.Combat.PartyGroup.CombatGroupAction = ECombatGroupActions.Fight;
                    }));
 
 
@@ -61,7 +61,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
             stateData.Actions.Add(new CrawlerStateAction("Run", KeyCode.R, ECrawlerStates.CombatConfirm,
                 onClickAction: delegate ()
                 {
-                    partyData.Combat.Allies[0].CombatGroupAction = ECombatGroupActions.Run;
+                    partyData.Combat.PartyGroup.CombatGroupAction = ECombatGroupActions.Run;
                 }));
 
 
@@ -77,7 +77,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                 stateData.Actions.Add(new CrawlerStateAction("Advance", KeyCode.A, ECrawlerStates.CombatConfirm,
                onClickAction: delegate ()
                {
-                   partyData.Combat.Allies[0].CombatGroupAction = ECombatGroupActions.Advance;
+                   partyData.Combat.PartyGroup.CombatGroupAction = ECombatGroupActions.Advance;
                }));
             }
 

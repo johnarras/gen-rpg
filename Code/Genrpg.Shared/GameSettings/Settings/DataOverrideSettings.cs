@@ -40,8 +40,10 @@ namespace Genrpg.Shared.GameSettings.Settings
         [Key(13)] public bool UseDateRange { get; set; }
         [Key(14)] public DateTime StartDate { get; set; }
         [Key(15)] public DateTime EndDate { get; set; }
+        [Key(16)] public int RepeatHours { get; set; }
+        [Key(17)] public bool RepeatMonthly { get; set; }
 
-        [Key(16)] public List<DataOverrideItem> Items { get; set; }
+        [Key(18)] public List<DataOverrideItem> Items { get; set; }
 
         public void OrderSelf()
         {

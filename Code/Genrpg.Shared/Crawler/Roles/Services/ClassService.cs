@@ -17,6 +17,7 @@ namespace Genrpg.Shared.Crawler.Roles.Services
         public async Task Setup(GameState gs, CancellationToken token)
         {
             _classHelpers = ReflectionUtils.SetupDictionary<long, IClassHelper>(gs);
+            await Task.CompletedTask;
         }
 
         public IClassHelper GetClassHelper(long classId)

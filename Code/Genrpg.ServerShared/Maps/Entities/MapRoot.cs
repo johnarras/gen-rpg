@@ -33,7 +33,7 @@ namespace Genrpg.ServerShared.Maps.Entities
         public long OverrideZoneId { get; set; }
         public float OverrideZonePercent { get; set; }
 
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
+        public override void Delete(IRepositoryService repoSystem) { repoSystem.Delete(this); }
 
     }
 }

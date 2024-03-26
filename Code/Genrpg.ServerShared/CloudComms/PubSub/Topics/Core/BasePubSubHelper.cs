@@ -4,6 +4,7 @@ using Azure.Messaging.ServiceBus.Administration;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.PubSub.Entities;
 using Genrpg.ServerShared.Core;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
         protected CancellationToken _token = CancellationToken.None;
 
 
+        protected ILogService _logService = null;
 
         protected Dictionary<Type, H> _handlers = null;
 
@@ -88,7 +90,7 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
             }
             else
             {
-                gs.logger.Error("Sent incorrect message of type " + message.GetType().Name + " to topic " + _topicName);
+                _logService.Error("Sent incorrect message of type " + message.GetType().Name + " to topic " + _topicName);
             }
         }
 
@@ -120,7 +122,7 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
                     PrefetchCount = 50,                   
                 };
                 _receiver = _serviceBusClient.CreateReceiver(_topicName, _subscriptionName, receiverOptions);
-                _serverGameState.logger.Message("PubSubReceiver: " + _topicName + ":" + _subscriptionName);
+                _logService.Message("PubSubReceiver: " + _topicName + ":" + _subscriptionName);
 
                 while (true)
                 {
@@ -144,11 +146,11 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
             }
             catch (OperationCanceledException ce)
             {
-                _serverGameState.logger.Info("Shut down PubSub listener " + _topicName + ":" + _subscriptionName);
+                _logService.Info("Shut down PubSub listener " + _topicName + ":" + _subscriptionName);
             }
             catch (Exception e)
             {
-                _serverGameState.logger.Exception(e, "PubSubReceiver " + _topicName + ":" + _subscriptionName);
+                _logService.Exception(e, "PubSubReceiver " + _topicName + ":" + _subscriptionName);
             }
             finally
             {

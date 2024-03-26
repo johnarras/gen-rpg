@@ -36,7 +36,7 @@ namespace Genrpg.Shared.Units.Loaders
             return unit.Id;
         }
 
-        public virtual async Task<IUnitData> LoadData(IRepositorySystem repoSystem, Unit unit)
+        public virtual async Task<IUnitData> LoadData(IRepositoryService repoSystem, Unit unit)
         {
             return await repoSystem.Load<UD>(GetFileId(unit));
         }

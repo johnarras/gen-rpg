@@ -12,9 +12,9 @@ namespace Genrpg.Shared.DataStores.PlayerData
 {
     public interface IUnitData : IStringId, IDirtyable, IEditorMetaDataTarget
     {
-        void Save(IRepositorySystem repoSystem, bool saveClean);
+        void Save(IRepositoryService repoSystem, bool saveClean);
         List<BasePlayerData> GetSaveObjects(bool saveClean);
-        void Delete(IRepositorySystem repoSystem);
+        void Delete(IRepositoryService repoSystem);
         void AddTo(Unit unit);
     }
 }

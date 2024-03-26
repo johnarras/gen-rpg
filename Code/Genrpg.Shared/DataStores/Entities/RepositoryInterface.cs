@@ -18,7 +18,7 @@ namespace Genrpg.Shared.DataStores.Entities
         GameData=4,
     };
 
-    public interface IRepositorySystem
+    public interface IRepositoryService : IPrioritySetupService
     {
         Task<T> Load<T>(string id) where T : class, IStringId;
         

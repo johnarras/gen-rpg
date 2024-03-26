@@ -19,6 +19,7 @@ using Genrpg.Shared.NPCs.Settings;
 using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Logging.Interfaces;
 
 public interface IMapGenService : IService
 {
@@ -33,6 +34,7 @@ public interface IMapGenService : IService
 public class MapGenService : IMapGenService
 {
     protected IZoneGenService _zoneGenService;
+    protected ILogService _logService;
     public Map GenerateMap(UnityGameState gs, Map startMap)
     {
         if (startMap == null)
@@ -531,7 +533,7 @@ public class MapGenService : IMapGenService
             gs.map.Zones.Add(zone);
             gs.map.ClearIndex();
             gs.md.mapZoneIds[finalCenter.CenterX, finalCenter.CenterZ] = (short)zone.IdKey;
-            gs.logger.Info("ZoneCenterZoneId at (" + finalCenter.CenterX + "," + finalCenter.CenterZ + ") is " +
+            _logService.Info("ZoneCenterZoneId at (" + finalCenter.CenterX + "," + finalCenter.CenterZ + ") is " +
                 gs.md.mapZoneIds[finalCenter.CenterX, finalCenter.CenterZ]);
             gs.md.AddMapLocation(gs, finalCenter);
         }
@@ -681,7 +683,7 @@ public class MapGenService : IMapGenService
                         if (gs.md.mapZoneIds[x,z] < SharedMapConstants.MapZoneStartId)
                         {
                             reallyHaveUnsetCell = true;
-                            gs.logger.Message("Cell slipped through processing: " + x + " " + z);
+                            _logService.Message("Cell slipped through processing: " + x + " " + z);
                         }
                     }
                 }

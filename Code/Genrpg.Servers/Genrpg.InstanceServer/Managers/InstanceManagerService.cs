@@ -4,7 +4,7 @@ using Genrpg.ServerShared.CloudComms.Services.Admin;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using MongoDB.Driver.Core.Events;
 using System;
 using System.Collections.Generic;
@@ -32,10 +32,9 @@ namespace Genrpg.InstanceServer.Managers
 
         private List<MapServerData> _mapServers = new List<MapServerData>();
 
-        private ILogSystem _logger = null;
+        private ILogService _logger = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
-            _logger = gs.logger;
             await Task.CompletedTask;
         }
         public async Task AddInstanceData(AddMapInstance mapInstance)

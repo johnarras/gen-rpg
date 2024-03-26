@@ -9,9 +9,11 @@ using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Stats.Services;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Utils;
 using System;
@@ -30,6 +32,8 @@ namespace Assets.Scripts.Crawler.Services
         private ICrawlerStatService _statService;
         private IScreenService _screenService;
         private ICrawlerMapService _crawlerMapService;
+        protected ILogService _logService;
+        protected IRepositoryService _repoService;
 
         const string SaveFileSuffix = ".sav";
         const string SaveFileName = "Start" + SaveFileSuffix;
@@ -143,7 +147,7 @@ namespace Assets.Scripts.Crawler.Services
             }     
             else
             {
-                _gs.logger.Error("State not found: " + action.NextState);
+                _logService.Error("State not found: " + action.NextState);
             }
                 
         }
@@ -170,7 +174,7 @@ namespace Assets.Scripts.Crawler.Services
 
         public async UniTask LoadSaveGame()
         {
-            _party = await _gs.repo.Load<PartyData>(SaveFileName);
+            _party = await _repoService.Load<PartyData>(SaveFileName);
 
             if (_party == null)
             {
@@ -193,7 +197,7 @@ namespace Assets.Scripts.Crawler.Services
         {
             if (_party != null)
             {
-                await _gs.repo.Save(_party);
+                await _repoService.Save(_party);
             }
         }
 

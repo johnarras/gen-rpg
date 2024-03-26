@@ -1,12 +1,15 @@
 ﻿using Assets.Scripts.UI.Services;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Ftue.Constants;
 using Genrpg.Shared.Ftue.PlayerData;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Ftue.Settings.Steps;
+using Genrpg.Shared.Logging.Interfaces;
 
 public class InfoButton : BaseBehaviour
 {
     private IFtueService _ftueService = null;
+    protected IRepositoryService _repoService;
     public GButton Button;
 
     private string _screenName = null;
@@ -33,7 +36,7 @@ public class InfoButton : BaseBehaviour
 
                 _ftueService.StartStep(_gs, _gs.ch, step.IdKey);
 
-                _gs.logger.Info("Show Info for " + _screenName);
+                _logService.Info("Show Info for " + _screenName);
             }
         }
     }

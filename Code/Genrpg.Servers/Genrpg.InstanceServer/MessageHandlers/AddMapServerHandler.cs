@@ -12,7 +12,7 @@ namespace Genrpg.InstanceServer.MessageHandlers
     {
         protected override async Task InnerHandleMessage(ServerGameState gs, AddMapServer message)
         {
-            gs.logger.Message("Received " + message.GetType().Name + " from " + message.ServerId);
+            _logService.Message("Received " + message.GetType().Name + " from " + message.ServerId);
             await _instanceManagerService.AddMapServer(message);
             await Task.CompletedTask;
         }

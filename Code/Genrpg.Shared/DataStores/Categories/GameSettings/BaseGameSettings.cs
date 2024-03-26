@@ -33,7 +33,7 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
         public virtual void SetInternalIds() { }
         public virtual void ClearIndex() { }
 
-        public virtual async Task SaveAll(IRepositorySystem repo)
+        public virtual async Task SaveAll(IRepositoryService repo)
         {
             await repo.Save(this);
         }

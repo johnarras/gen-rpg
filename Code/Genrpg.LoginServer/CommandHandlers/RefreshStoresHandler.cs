@@ -24,7 +24,7 @@ namespace Genrpg.LoginServer.CommandHandlers
         protected override async Task InnerHandleMessage(LoginGameState gs, RefreshStoresCommand command, CancellationToken token)
         {
 
-            gs.coreCh = await gs.repo.Load<CoreCharacter>(command.CharId);
+            gs.coreCh = await _repoService.Load<CoreCharacter>(command.CharId);
             gs.ch = new Character();
             CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 

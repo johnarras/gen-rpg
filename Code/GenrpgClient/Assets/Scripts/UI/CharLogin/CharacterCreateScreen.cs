@@ -28,7 +28,7 @@ public class CharacterCreateScreen : BaseScreen
         string charName = NameInput.Text;
         if (string.IsNullOrEmpty(charName))
         {
-            _gs.logger.Message("You need to choose a name!");
+            _logService.Message("You need to choose a name!");
             return;
         }
 

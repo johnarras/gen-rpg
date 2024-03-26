@@ -1,0 +1,51 @@
+{
+  "Id": "class6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Barbarian",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Ba",
+  "LevelsPerMelee": 3,
+  "InitialMeleeAttacks": 3,
+  "LevelsPerRanged": 8,
+  "InitialRangedAttacks": 1,
+  "HealthPerLevel": 16,
+  "BuffStatTypeId": 63,
+  "BuffStatPercent": 100,
+  "DefaultLevelPercentBuff": 50,
+  "MaxArmorScalingTypeId": 2,
+  "AllowedWeapons": [
+    {
+      "ItemTypeId": 21
+    },
+    {
+      "ItemTypeId": 22
+    },
+    {
+      "ItemTypeId": 23
+    },
+    {
+      "ItemTypeId": 24
+    },
+    {
+      "ItemTypeId": 25
+    },
+    {
+      "ItemTypeId": 26
+    },
+    {
+      "ItemTypeId": 27
+    },
+    {
+      "ItemTypeId": 28
+    },
+    {
+      "ItemTypeId": 29
+    }
+  ],
+  "AllowedEquipSlots": [],
+  "UpdateTime": "2024-03-23T17:36:47.881Z",
+  "CreateTime": "2024-01-27T18:57:37Z"
+}

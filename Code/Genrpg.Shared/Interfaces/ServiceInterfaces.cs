@@ -23,6 +23,12 @@ namespace Genrpg.Shared.Interfaces
         Task Setup(GameState gs, CancellationToken token);
     }
 
+    public interface IPrioritySetupService : IService
+    {
+        int SetupPriorityAscending();
+        Task PrioritySetup(GameState gs, CancellationToken token);
+    }
+
 
     /// <summary>
     /// Use this to set up dictionaries of classes for things like handlers such that the 

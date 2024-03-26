@@ -55,6 +55,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
                     {
                         selectAction.Action.Action.FinalTargets = group.Units.ToList();
                         currUnit.Action = selectAction.Action.Action;
+                        selectAction.Action.Action.FinalTargetGroups = new List<CombatGroup>() { group };
                     }));
 
             }

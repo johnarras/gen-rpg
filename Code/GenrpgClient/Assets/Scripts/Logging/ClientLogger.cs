@@ -1,15 +1,26 @@
 ﻿
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Setup.Constants;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
-public class ClientLogger : ILogSystem
+public class ClientLogger : ILogService
 {
-
-    private UnityGameState _gs;
-    public ClientLogger(UnityGameState gs)
+    private ClientConfig _config = null;
+    public ClientLogger(ClientConfig config)
     {
-        _gs = gs;
+        _config = config;
     }
+
+    public async Task PrioritySetup(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
+
+    public int SetupPriorityAscending() { return SetupPriorities.Logging; }
+
 
     public void Debug(string txt)
     {

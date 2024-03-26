@@ -32,8 +32,6 @@ namespace Genrpg.MapServer.Setup
         public override void Setup(GameState gs)
         {
             IServiceLocator fact = gs.loc;
-            IRepositorySystem repo = gs.repo;
-
             base.Setup(gs);
 
             fact.Set<IServerSpellService>(new ServerSpellService());

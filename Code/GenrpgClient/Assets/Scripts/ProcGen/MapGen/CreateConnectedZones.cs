@@ -18,7 +18,7 @@ public class CreateConnectedZones : BaseAddMountains
 
         if (zonesDesired < 1)
         {
-            gs.logger.Error("FAILED TO GENERATE ENOUGH ZONES");
+            _logService.Error("FAILED TO GENERATE ENOUGH ZONES");
             return;
         }
 

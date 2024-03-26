@@ -30,17 +30,17 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                 return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Party is not in combat." };
             }
 
-            if (party.Combat.Allies[0].CombatGroupAction == ECombatGroupActions.Advance)
+            if (party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Advance)
             {
                 stateData.Actions.Add(new CrawlerStateAction("Are you sure you wish to advance?", KeyCode.None, ECrawlerStates.None));
             }
-            else if (party.Combat.Allies[0].CombatGroupAction == ECombatGroupActions.Run)
+            else if (party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Run)
             {
                 stateData.Actions.Add(new CrawlerStateAction("Are you sure you wish to run?", KeyCode.None, ECrawlerStates.None));
             }
             else
             {
-                foreach (CrawlerUnit combatUnit in party.Combat.Allies[0].Units)
+                foreach (CrawlerUnit combatUnit in party.Combat.PartyGroup.Units)
                 {
                     stateData.Actions.Add(new CrawlerStateAction(combatUnit.Name + ": " + combatUnit.Action.Text));
                 }

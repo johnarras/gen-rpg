@@ -10,16 +10,16 @@ namespace Genrpg.ServerShared.DataStores.DbQueues.Actions
     {
         private string _docId;
         private Dictionary<string, object> _fieldUpdates = new Dictionary<string, object>();
-        private IRepositorySystem _repoSystem { get; set; }
+        private IRepositoryService _repoSystem { get; set; }
         private Action<T> _updateAction;
 
-        public UpdateAction(string docId, Dictionary<string,object> fieldUpdates, IRepositorySystem repoSystem)
+        public UpdateAction(string docId, Dictionary<string,object> fieldUpdates, IRepositoryService repoSystem)
         {
             _docId = docId;
             _fieldUpdates = fieldUpdates;
             _repoSystem = repoSystem;
         }
-        public UpdateAction(string docId, Action<T> action, IRepositorySystem repoSystem)
+        public UpdateAction(string docId, Action<T> action, IRepositoryService repoSystem)
         {
             _docId = docId;
             _updateAction = action;

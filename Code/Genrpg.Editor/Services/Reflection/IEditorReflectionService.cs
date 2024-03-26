@@ -27,7 +27,7 @@ namespace Genrpg.Editor.Services.Reflection
         string GetMemberName(object parent, object child);
         List<NameValue> GetDropdownList(GameState gs, MemberInfo mem, object obj);
         void SetObjectValue(object obj, string name, object val);
-        object AddItems(object obj, object parent, IRepositorySystem repoSystem, out List<object> newItems,
+        object AddItems(object obj, object parent, IRepositoryService repoSystem, out List<object> newItems,
             object copyFrom = null, int maxCount = 0);
         object GetItemWithId(object list, int id, string idMemberName = GameDataConstants.IdKey);
         object GetLastItem(object list);

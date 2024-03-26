@@ -4,7 +4,7 @@ using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using System;
@@ -25,13 +25,13 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 
         private MongoClient _client = null;
         private IMongoDatabase _database = null;
-        private ILogSystem _logger = null;
+        private ILogService _logger = null;
         private ConcurrentDictionary<Type, INoSQLCollection> _collections = new ConcurrentDictionary<Type, INoSQLCollection>();
 
         static object _connectionLock = new object();
 
         #region Core
-        public NoSQLRepository(ILogSystem logger, string databaseName, string connectionString)
+        public NoSQLRepository(ILogService logger, string databaseName, string connectionString)
         {
             _logger = logger;
             try

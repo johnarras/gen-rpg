@@ -197,7 +197,7 @@ public class CreateMinimap : BaseZoneGenerator
             }
         }
 
-        GEntity fullMapWater = GEntity.Instantiate(AssetUtils.LoadResource<GEntity>("Prefabs/" + MapConstants.FullMinimapWaterName));
+        GEntity fullMapWater = await _assetService.LoadAssetAsync(gs, AssetCategoryNames.Prefabs, MapConstants.FullMinimapWaterName, null, token);
 
         GEntityUtils.AddToParent(fullMapWater, waterRoot);
 
@@ -446,7 +446,7 @@ public class CreateMinimap : BaseZoneGenerator
 
         tex.SetPixels(pixels);
 
-        LocalFileRepository repo = new LocalFileRepository(gs.logger);
+        BinaryFileRepository repo = new BinaryFileRepository(_logService);
         string filename = MapUtils.GetMapObjectFilename(gs, MapConstants.MapFilename, gs.map.Id, gs.map.MapVersion);
         repo.SaveBytes(filename, tex.EncodeToJPG(100));
 

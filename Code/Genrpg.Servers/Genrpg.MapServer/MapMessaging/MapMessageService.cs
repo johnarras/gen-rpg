@@ -21,6 +21,7 @@ using Genrpg.Shared.MapServer.Messages;
 using Genrpg.Shared.MapMessages;
 using Genrpg.MapServer.Maps.Constants;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.MapServer.MapMessaging
 {
@@ -30,6 +31,7 @@ namespace Genrpg.MapServer.MapMessaging
         public const int CompleteTaskPause = 100; // Must be > 0
 
         private Dictionary<Type, IMapMessageHandler> _eventHandlerDict = null;
+        private ILogService _logService = null;
 
         private List<MapMessageQueue> _queues = new List<MapMessageQueue>();
 
@@ -101,7 +103,7 @@ namespace Genrpg.MapServer.MapMessaging
             _queues = new List<MapMessageQueue>();
             for (int q = 0; q < _messageQueueCount; q++)
             {
-                _queues.Add(new MapMessageQueue(gs, _startTime, q, this,  _token));
+                _queues.Add(new MapMessageQueue(gs, _startTime, q, _logService, this,  _token));
             }
 
             _countTask = Task.Run(() => ShowMessageCounts(gs, token));
@@ -129,7 +131,7 @@ namespace Genrpg.MapServer.MapMessaging
                     long castPerSec = _aiService.GetCastTimes() / counts.Seconds;
 #endif
 
-                    gs.logger.Message("M: " + gs.map.Id + " Min/Max " + counts.MinMessages + "/" + counts.MaxMessages
+                    _logService.Message("M: " + gs.map.Id + " Min/Max " + counts.MinMessages + "/" + counts.MaxMessages
                         + " Total: " + counts.TotalMessages + " PerSec: " + counts.MessagesPerSecond
 #if DEBUG
                          + " AI/Sec: " + aiUpdPerSec + " Cast/Sec: " + castPerSec
@@ -139,7 +141,7 @@ namespace Genrpg.MapServer.MapMessaging
             }
             catch
             {
-                gs.logger.Info("Stopped info loop");
+                _logService.Info("Stopped info loop");
             }
         }
         //#endif

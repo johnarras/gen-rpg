@@ -25,8 +25,6 @@ public class UploadMap : BaseZoneGenerator
 
     private void UploadOneTerrainPatch(UnityGameState gs, int gx, int gy)
     {
-        string env = gs.Env;
-
         TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy, false);
 
         if (patch == null)
@@ -42,7 +40,7 @@ public class UploadMap : BaseZoneGenerator
         string localFilePath = patch.GetFilePath(gs, true);
         string remoteFilePath = patch.GetFilePath(gs, false);
 
-        LocalFileRepository repo = new LocalFileRepository(gs.logger);
+        BinaryFileRepository repo = new BinaryFileRepository(_logService);
         string localPath = repo.GetPath(localFilePath);
         FileUploadData fdata = new FileUploadData();
         fdata.GamePrefix = Game.Prefix;
@@ -69,10 +67,10 @@ public class UploadMap : BaseZoneGenerator
 
         string oldMapId = gs.map.Id;
         gs.map.Id = "UploadedMap";
-        await gs.repo.Save(gs.map);
+        await _repoService.Save(gs.map);
         gs.map.Id = oldMapId;
         gs.spawns.Id = "UploadedSpawns";
-        await gs.repo.Save(gs.spawns);
+        await _repoService.Save(gs.spawns);
         gs.spawns.Id = oldMapId;
         _webNetworkService.SendClientWebCommand(update, _token);
         await UniTask.CompletedTask;

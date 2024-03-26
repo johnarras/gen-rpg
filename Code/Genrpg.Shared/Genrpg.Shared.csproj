@@ -7,8 +7,11 @@
 
   <ItemGroup>
     <Compile Remove="MapMessages\Messages\**" />
+    <Compile Remove="Units\Settings\**" />
     <EmbeddedResource Remove="MapMessages\Messages\**" />
+    <EmbeddedResource Remove="Units\Settings\**" />
     <None Remove="MapMessages\Messages\**" />
+    <None Remove="Units\Settings\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Spells\Services\" />
-    <Folder Include="Units\Settings\" />
   </ItemGroup>
 
 </Project>

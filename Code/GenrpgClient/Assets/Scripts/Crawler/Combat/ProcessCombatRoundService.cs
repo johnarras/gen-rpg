@@ -38,12 +38,12 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 return false;
             }
 
-            if (party.Combat.Allies[0].CombatGroupAction == ECombatGroupActions.Run)
+            if (party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Run)
             {
-                long totalLuck = party.Combat.Allies[0].Units.Sum(x => x.Stats.Get(StatTypes.Luck, StatCategories.Curr));
+                long totalLuck = party.Combat.PartyGroup.Units.Sum(x => x.Stats.Get(StatTypes.Luck, StatCategories.Curr));
                 if (totalLuck > 0)
                 {
-                    double averageLuck = 1.0*totalLuck/party.Combat.Allies[0].Units.Count;
+                    double averageLuck = 1.0*totalLuck/party.Combat.PartyGroup.Units.Count;
 
                     if (gs.rand.NextDouble()*party.Combat.Level < averageLuck)
                     {
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 }
             }
 
-            if (party.Combat.Allies[0].CombatGroupAction == ECombatGroupActions.Advance)
+            if (party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Advance)
             {
                 foreach (CombatGroup group in party.Combat.Enemies)
                 {

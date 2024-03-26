@@ -6,9 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.CloudComms.PubSub.Topics.Core;
 using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin;
-using Genrpg.Shared.Utils;
 using Genrpg.ServerShared.CloudComms.PubSub.Constants;
 using Genrpg.ServerShared.CloudComms.PubSub.Entities;
+using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.ServerShared.CloudComms.PubSub.Managers
 {
@@ -17,11 +18,13 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Managers
     {
         Dictionary<string, IPubSubHelper> _helpers = new Dictionary<string, IPubSubHelper>();
 
-        public async Task Init(ServerGameState gs, ServiceBusClient serviceBusClient, ServiceBusAdministrationClient adminClient,
+        private ILogService _logService;
+        public async Task Init(ServerGameState gs, ILogService logService, ServiceBusClient serviceBusClient, ServiceBusAdministrationClient adminClient,
             string serverId, string env, CancellationToken token)
         {
-            _helpers[PubSubTopicNames.Admin] = new AdminPubSubHelper();
-
+            _logService = logService;
+            _helpers[PubSubTopicNames.Admin] = (AdminPubSubHelper)(await ReflectionUtils.CreateInstanceFromType(gs, typeof(AdminPubSubHelper), token));
+                
             foreach (IPubSubHelper helper in _helpers.Values)
             {
                 await helper.Init(gs, serviceBusClient, adminClient, serverId, env, token);

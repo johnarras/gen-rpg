@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Logs.Interfaces;
+﻿using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.Networking.MapApiSerializers;
 using System;
@@ -14,7 +14,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
 
         public AcceptTcpConn(TcpClient client, IMapApiSerializer serializer,  
             MapApiMessageHandler messageHandler, 
-            ILogSystem logger, 
+            ILogService logger, 
             CancellationToken token, ServerConnectionState connState) : base(serializer, messageHandler, logger, token, connState)
         {
             InitTcpClient(client);

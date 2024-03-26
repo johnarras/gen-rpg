@@ -29,6 +29,7 @@ using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Spawns.WorldData;
 using MongoDB.Bson.IO;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -92,6 +93,7 @@ namespace Genrpg.MapServer.Maps
         private Dictionary<long, IObjectFilter> _filters = new Dictionary<long, IObjectFilter>();
 
         private IMapMessageService _messageService = null;
+        private ILogService _logService = null;
 
         private MapObject _messageTarget = new MapObject() { Id = typeof(MapObjectManager).Name };
         public MapObject GetMessageTarget()
@@ -628,7 +630,7 @@ namespace Genrpg.MapServer.Maps
                 }
                 catch (Exception e)
                 {
-                    gs.logger.Exception(e, "SpawnObject");
+                    _logService.Exception(e, "SpawnObject");
                 }
                 grid.SpawnedObjects = true;
             }

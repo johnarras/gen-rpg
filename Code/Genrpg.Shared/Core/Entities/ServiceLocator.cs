@@ -4,7 +4,7 @@ using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.Shared.Core.Entities
 {
@@ -19,14 +19,13 @@ namespace Genrpg.Shared.Core.Entities
     public class ServiceLocator : IServiceLocator
     {
 
-        public ServiceLocator(ILogSystem logger)
+        public ServiceLocator(ILogService logService)
         {
-            _logger = logger;
+            _logger = logService;
+            Set(logService);
         }
 
-
-
-        private ILogSystem _logger;
+        private ILogService _logger;
 
         /// <summary>
         /// Internal storage indexed by type
@@ -44,7 +43,6 @@ namespace Genrpg.Shared.Core.Entities
         /// <returns>An object of Type T</returns>
         public T Get<T>() where T : IService
         {
-
             if (!typeof(T).IsInterface)
             {
                 _logger.Error("ServiceLocator only allows interface lookups not: " + typeof(T).Name);
@@ -57,15 +55,6 @@ namespace Genrpg.Shared.Core.Entities
             }
 
             return (T)_typeDict[typeof(T)];
-        }
-
-        /// <summary>
-        /// Reset the internal dictionaries
-        /// </summary>
-        public void Clear()
-        {
-            _typeDict = new Dictionary<Type, IService>();
-            _nameDict = new Dictionary<string, IService>();
         }
 
         /// <summary>

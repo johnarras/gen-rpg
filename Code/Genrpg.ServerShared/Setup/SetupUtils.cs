@@ -9,31 +9,29 @@ using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.Logging;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.DataStores;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.ServerShared.Setup
 {
     public class SetupUtils
     {
         public static async Task<GS> SetupFromConfig<GS>(object parentObject, string serverId, 
-            SetupService setupService, CancellationToken token, ServerConfig serverConfigIn = null) where GS : ServerGameState, new()
+            SetupService setupService, CancellationToken token, IServerConfig serverConfigIn = null) where GS : ServerGameState
         {
             if (string.IsNullOrEmpty(serverId))
             {
                 throw new Exception("Missing ServerId in setup code!");
             }
 
-            ServerConfig config = serverConfigIn;
+            IServerConfig config = serverConfigIn;
 
             if (config == null)
             {
                 config = await ConfigUtils.SetupServerConfig(token, serverId);
             }
 
-            GS gs = new GS();
-            gs.config = config;
-            gs.logger = new ServerLogger(config);
-            gs.loc = new ServiceLocator(gs.logger);
-            gs.repo = new ServerRepositorySystem(gs.logger, config.DataEnvs, config.ConnectionStrings, token);
+            GS gs = (GS)Activator.CreateInstance(typeof(GS), new object[] { config });
             await setupService.SetupGame(gs, token);
 
             IGameDataService gameDataService = gs.loc.Get<IGameDataService>();

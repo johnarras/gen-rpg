@@ -170,14 +170,6 @@ namespace Genrpg.Shared.MapMessages
                             break;
                         }
 
-                        if (lines[lid].Contains("MessagePackKeyOffset"))
-                        {
-                            string[] lineWords = lines[lid].Split(' ');
-                            if (int.TryParse(lineWords[lineWords.Length-1].Trim(), out int keyOffset))
-                            {
-                                startKeyIndex = keyOffset;
-                            }
-                        }
                         if (lines[lid].Contains("public class") || lines[lid].Contains("public sealed class"))
                         {
                             lines[lid] = lines[lid].Replace(ClassAttribute + " ", "");

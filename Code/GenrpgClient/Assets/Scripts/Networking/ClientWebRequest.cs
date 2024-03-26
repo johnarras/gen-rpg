@@ -2,7 +2,9 @@ using UnityEngine.Networking;
 using System;
 using Cysharp.Threading.Tasks;
 using System.Threading;
-using UnityEngine; // Needed
+using UnityEngine;
+using Genrpg.Shared.Logging.Interfaces;
+using System.Runtime.InteropServices; // Needed
 
 public class ClientWebRequest
 {
@@ -10,11 +12,11 @@ public class ClientWebRequest
 	private string _uri;
     private string _postData;
     private WebResultsHandler _handler = null;
-
+    private ILogService _logService = null;
     const int MaxTimes = 3;
-	public async UniTask SendRequest (UnityGameState gs, string uri, string postData, WebResultsHandler handler, CancellationToken token)
+	public async UniTask SendRequest (UnityGameState gs, ILogService logService, string uri, string postData, WebResultsHandler handler, CancellationToken token)
     {
-        _gs = gs;
+        _logService = logService;
         _uri = uri;
         _postData = postData;
         _handler = handler;
@@ -33,14 +35,14 @@ public class ClientWebRequest
                     }
                     catch (OperationCanceledException ce)
                     {
-                        _gs.logger.Info("Op was cancelled " + ce.Message);
+                        _logService.Info("Op was cancelled " + ce.Message);
                         break;
                     }
                 }
 
                 if (!String.IsNullOrEmpty(request.error))
                 {
-                    _gs.logger.Info("HTTP Post Error: " + request.error + " URI: " + _uri);
+                    _logService.Info("HTTP Post Error: " + request.error + " URI: " + _uri);
                     await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
                     continue;
                 }

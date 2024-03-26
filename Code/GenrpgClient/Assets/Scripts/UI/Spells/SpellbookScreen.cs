@@ -13,10 +13,13 @@ using System.Collections.Generic;
 using Genrpg.Shared.Spells.Settings.Spells;
 using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Stats.Settings.Stats;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Logging.Interfaces;
 
 public class SpellbookScreen : SpellIconScreen
 {
     protected ISharedSpellCraftService _spellCraftService;
+    protected IRepositoryService _repoService;
 
     protected string SpellEffectEditPrefabName = "SpellEffectEdit";
 
@@ -212,7 +215,7 @@ public class SpellbookScreen : SpellIconScreen
             CopyFromSpellToUI(_editSpell);
             return true;
         }
-        _gs.logger.Error("Spell could not be validated!");
+        _logService.Error("Spell could not be validated!");
         return false;
     }
 
@@ -272,7 +275,7 @@ public class SpellbookScreen : SpellIconScreen
 
         if (obj == null)
         {
-            _gs.logger.Error("Failed to load SpellEffectEdit");
+            _logService.Error("Failed to load SpellEffectEdit");
             return;
         }
 
@@ -280,7 +283,7 @@ public class SpellbookScreen : SpellIconScreen
 
         if (edit == null)
         {
-            _gs.logger.Error("SpellEffectEdit Component missing");
+            _logService.Error("SpellEffectEdit Component missing");
             return;
         }
 

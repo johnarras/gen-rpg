@@ -2,6 +2,7 @@
 using Assets.Scripts.Crawler.StateHelpers;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Sexes.Settings;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,10 @@ namespace Assets.Scripts.UI.Crawler.States
 
             IReadOnlyList<SexType> sexes = gs.data.Get<SexTypeSettings>(null).GetData();
 
-            PartyMember member = new PartyMember();
+            PartyMember member = new PartyMember()
+            {
+                FactionTypeId = FactionTypes.Player,
+            };
             
             foreach (SexType sex in sexes)
             {

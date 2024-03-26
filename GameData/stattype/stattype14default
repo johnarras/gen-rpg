@@ -2,9 +2,9 @@
   "Id": "stattype14default",
   "ParentId": "default",
   "IdKey": 14,
-  "Name": "Stamina",
-  "Desc": "+10 Health",
-  "GenScalePct": 150,
-  "UpdateTime": "2024-02-18T16:15:21.192Z",
-  "CreateTime": "2024-02-03T22:37:28.629Z"
+  "Name": "Agility",
+  "Desc": "+2 RAP",
+  "GenScalePct": 100,
+  "UpdateTime": "2024-03-23T03:08:07.472Z",
+  "CreateTime": "2024-02-15T23:03:14.486Z"
 }

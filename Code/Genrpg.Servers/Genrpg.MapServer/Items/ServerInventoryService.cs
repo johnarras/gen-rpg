@@ -1,6 +1,7 @@
 ﻿using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Constants;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.MapMessages.Interfaces;
@@ -16,6 +17,7 @@ namespace Genrpg.MapServer.Items
 {
     public class ServerInventoryService : InventoryService
     {
+        protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;
         public override async Task Setup(GameState gs, CancellationToken token)
         {
@@ -29,11 +31,11 @@ namespace Genrpg.MapServer.Items
             if (dataUpdateType == EDataUpdateTypes.Save)
             {
                 item.SetDirty(true);
-                // gs.repo.QueueSave(item);
+                // _repoService.QueueSave(item);
             }
             else if (dataUpdateType == EDataUpdateTypes.Delete)
             {
-                gs.repo.QueueDelete(item);
+                _repoService.QueueDelete(item);
             }
         }
 
@@ -43,11 +45,11 @@ namespace Genrpg.MapServer.Items
             idata.SetDirty(true);
             if (dataUpdateType == EDataUpdateTypes.Save)
             {
-                gs.repo.QueueSave(item);
+                _repoService.QueueSave(item);
             }
             else if (dataUpdateType == EDataUpdateTypes.Delete)
             {
-                gs.repo.QueueDelete(item);
+                _repoService.QueueDelete(item);
             }
         }
     }

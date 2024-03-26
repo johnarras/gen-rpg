@@ -17,6 +17,7 @@ using Genrpg.Shared.Networking.Entities.TCP;
 using Genrpg.Shared.Networking.MapApiSerializers;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using Genrpg.Shared.Logging.Interfaces;
 
 public interface IRealtimeNetworkService : ISetupService, IMapTokenService
 {
@@ -30,12 +31,16 @@ public interface IRealtimeNetworkService : ISetupService, IMapTokenService
 
 public class RealtimeNetworkService : IRealtimeNetworkService
 {
+    private ILogService _logService;
+
+
     protected UnityGameState _gs = null;
     public RealtimeNetworkService(UnityGameState gs, CancellationToken token)
     {
         _gs = gs;
         ProcessMessages(token).Forget();
     }
+
 
     CancellationTokenSource _mapTokenSource = null;
     private CancellationToken _token;
@@ -125,7 +130,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         {
             sb.Append(message.GetType().Name + " -- ");
         }
-        _gs.logger.Debug(sb.ToString());
+        _logService.Debug(sb.ToString());
 #endif
             
         string userid = "";
@@ -144,10 +149,10 @@ public class RealtimeNetworkService : IRealtimeNetworkService
 
         if (_clientConn == null || _clientConn.RemoveMe())
         {
-            _gs.logger.Info("Create Realtime Client: " + _host + " " + _port);
+            _logService.Info("Create Realtime Client: " + _host + " " + _port);
             _clientConn = new ConnectTcpConn(_host, _port, MapApiSerializerFactory.Create(_serializer),
                 HandleMapMessages,
-                _gs.logger, _token, null);
+                _logService, _token, null);
 
         }
 
@@ -175,14 +180,14 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         {
             if (message == null)
             {
-                _gs.logger.Error("Null result found");
+                _logService.Error("Null result found");
                 return;
             }
             Type resType = message.GetType();
 
             if (!_mapMessageHandlers.ContainsKey(resType))
             {
-                _gs.logger.Error("Missing Typed Result Handler for: " + resType);
+                _logService.Error("Missing Typed Result Handler for: " + resType);
                 return;
             }
 
@@ -190,7 +195,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         }
         catch (Exception ee)
         {
-            _gs.logger.Exception(ee, "HandleOneMapAPIMessage");
+            _logService.Exception(ee, "HandleOneMapAPIMessage");
         }
     }
 

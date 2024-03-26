@@ -14,6 +14,8 @@ using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.MapServer.MapMessaging
 {
@@ -27,6 +29,8 @@ namespace Genrpg.MapServer.MapMessaging
         protected IAIService _aiService = null;
         protected IEntityService _entityService = null;
         protected ICloudCommsService _cloudCommsService = null;
+        protected ILogService _logService = null;
+        protected IRepositoryService _repoService = null;
         public virtual void Setup(GameState gs)
         {
         }

@@ -21,7 +21,7 @@ namespace Genrpg.LoginServer.CommandHandlers
     {
         protected override async Task InnerHandleMessage(LoginGameState gs, DeleteCharCommand command, CancellationToken token)
         {
-            gs.coreCh = await gs.repo.Load<CoreCharacter>(command.CharId);
+            gs.coreCh = await _repoService.Load<CoreCharacter>(command.CharId);
 
             if (gs.coreCh != null && gs.coreCh.UserId == gs.user.Id)
             {
@@ -29,13 +29,13 @@ namespace Genrpg.LoginServer.CommandHandlers
                 CharacterUtils.CopyDataFromTo(gs.coreCh, ch);
 
                 await _playerDataService.LoadPlayerData(gs, gs.ch);
-                await gs.repo.Delete(gs.coreCh);
+                await _repoService.Delete(gs.coreCh);
 
                 foreach (IUnitData data in gs.ch.GetAllData().Values)
                 {
                     if (data.Id != gs.user.Id) // Do not delete user data
                     {
-                        data.Delete(gs.repo);
+                        data.Delete(_repoService);
                     }
                 }
                 gs.coreCh = null;

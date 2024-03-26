@@ -51,9 +51,11 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 unit.Level = 1;
             }
 
+            ClassSettings classSettings = gs.data.Get<ClassSettings>(null);
+
             IReadOnlyList<StatType> allStats = gs.data.Get<StatSettings>(null).GetData();
 
-            IReadOnlyList<Class> allClasses = gs.data.Get<ClassSettings>(null).GetData();
+            IReadOnlyList<Class> allClasses = classSettings.GetData();
 
             List<long> buffStatTypes = allClasses.Select(x=>x.BuffStatTypeId).ToList();
 
@@ -117,25 +119,30 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                     }
                 }
 
-                long healthPerLevel = 0;
-                long manaPerLevel = 0;
+                double healthPerLevel = 0;
+                double manaPerLevel = 0;
 
                 long stamBonus = CrawlerStatUtils.GetStatBonus(member,StatTypes.Stamina);
-                long intbonus = CrawlerStatUtils.GetStatBonus(member, StatTypes.Intellect);
-                foreach (Class cl in memberClasses)
+
+                for (int c = 0; c < memberClasses.Count; c++)
                 {
-                    healthPerLevel += cl.HealthPerLevel;
-                    manaPerLevel += cl.ManaPerLevel;
+                    Class cl = memberClasses[c];
+
+                    double classScaling = (c == 0 ? 1.0f : classSettings.SecondaryClassPowerScale);
+
+                    healthPerLevel += cl.HealthPerLevel * classScaling;
+                    manaPerLevel += cl.ManaPerLevel * classScaling;
+
+                    if (cl.ManaStatTypeId > 0)
+                    {
+                        manaPerLevel += CrawlerStatUtils.GetStatBonus(member, cl.ManaStatTypeId) * classScaling;
+                    }
                 }
 
                 healthPerLevel += stamBonus;
-                if (manaPerLevel > 0)
-                {
-                    manaPerLevel += intbonus;
-                }
 
-                long totalHealth = (healthPerLevel * unit.Level);
-                long totalMana = (manaPerLevel * unit.Level);
+                long totalHealth = (long)(healthPerLevel * unit.Level);
+                long totalMana = (long)(manaPerLevel * unit.Level);
 
                 _statService.Set(gs, member, StatTypes.Health, StatCategories.Base, totalHealth);
                 _statService.Set(gs, member, StatTypes.Mana, StatCategories.Base, totalMana);
@@ -189,16 +196,25 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                 List<Class> memberClasses = classSettings.GetClasses(member.Classes);
 
-                foreach (Class cl in memberClasses)
-                {
+                for (int c = 0; c < memberClasses.Count(); c++)
+                { 
+                    Class cl = memberClasses[c];
+
                     if (!buffStatLevels.ContainsKey(cl.BuffStatTypeId))
                     {
                         buffStatLevels[cl.BuffStatTypeId] = 0;
                     }
-                    
-                    if (buffStatLevels[cl.BuffStatTypeId] < member.Level)
+
+                    long scalingLevel = member.Level;
+
+                    if (c > 0)
                     {
-                        buffStatLevels[cl.BuffStatTypeId] = member.Level;
+                        scalingLevel = (long)(scalingLevel * classSettings.SecondaryClassPowerScale);
+                    }
+
+                    if (buffStatLevels[cl.BuffStatTypeId] < scalingLevel)
+                    {
+                        buffStatLevels[cl.BuffStatTypeId] = scalingLevel;
                     }
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -6,6 +7,7 @@ using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Units.Entities;
 using System.Collections.Generic;
 
 namespace Assets.Scripts.Crawler.Services.Combat
@@ -27,5 +29,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
         UnitAction GetActionFromSpell(GameState gs, PartyData party, CrawlerUnit unit, CrawlerSpell spell,
             List<UnitAction> currentActions = null);
         void SetInitialActions(GameState gs, PartyData party);
+        void AddCombatUnits(GameState gs, PartyData partyData, UnitType unitType, long unitQuantity, long factionTypeId,
+            int currRange = CrawlerCombatConstants.MinRange);
     }
 }

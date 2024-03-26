@@ -1,6 +1,7 @@
 ﻿using Genrpg.Shared.AI.Settings;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Input.PlayerData;
@@ -21,6 +22,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
     {
         private ISharedSpellCraftService _spellCraftingService = null;
 
+        protected IRepositoryService _repoService = null;
         public override int Priority => 2;
 
         public override async Task Update(GameState gs, Character ch)
@@ -36,7 +38,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                     newSpell.OwnerId = ch.Id;
 
                     spellData.Add(newSpell);
-                    gs.repo.QueueSave(newSpell);
+                    _repoService.QueueSave(newSpell);
                 }
 
                 ActionInputData adata = ch.Get<ActionInputData>();

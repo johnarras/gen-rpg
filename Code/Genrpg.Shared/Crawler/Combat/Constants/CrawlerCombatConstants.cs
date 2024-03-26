@@ -17,5 +17,7 @@ namespace Genrpg.Shared.Crawler.Combat.Constants
 
         public const long BaseMinDamage = 1;
         public const long BaseMaxDamage = 2;
+
+        public const int PartyCombatGroupIndex = 0;
     }
 }

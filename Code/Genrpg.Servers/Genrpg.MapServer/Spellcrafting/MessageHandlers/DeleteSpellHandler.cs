@@ -1,6 +1,7 @@
 ﻿using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.SpellCrafting.Messages;
@@ -14,6 +15,7 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
 {
     public class DeleteSpellHandler : BaseServerMapMessageHandler<DeleteSpell>
     {
+        protected IRepositoryService _repoService = null;
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, DeleteSpell message)
         {
             if (!_objectManager.GetChar(obj.Id, out Character ch))
@@ -34,7 +36,7 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
             spellData.SetDirty(true);
             foreach (Spell spell in deleteSpells)
             {
-                gs.repo.QueueDelete(spell);
+                _repoService.QueueDelete(spell);
             }
             ActionInputData actionData = ch.Get<ActionInputData>();
 

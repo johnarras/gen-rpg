@@ -60,7 +60,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
                 }
                 else if (newAction.PossibleTargetUnits.Count > 0)
                 {
-                    return new CrawlerStateData(ECrawlerStates.SelectAlly, true) { ExtraData = selectSpell };
+                    return new CrawlerStateData(ECrawlerStates.SelectAllyTarget, true) { ExtraData = selectSpell };
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
             }
 
             await UniTask.CompletedTask;
-            return new CrawlerStateData(nextState,true);
+            return new CrawlerStateData(nextState,true) {  ExtraData = selectSpell };
         }
     }
 }

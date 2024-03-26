@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Logs.Interfaces;
+﻿using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.Networking.Constants;
 using Genrpg.Shared.Networking.Entities;
@@ -30,7 +30,7 @@ namespace Genrpg.MapServer.Networking.Listeners
         protected int _port = 0;
         protected CancellationToken _token;
         protected EMapApiSerializers _seralizer;
-        ILogSystem _logger = null;
+        ILogService _logger = null;
         protected Action<ServerConnectionState> _addConnectionHandler;
         protected MapApiMessageHandler _messageHandler;
 
@@ -44,7 +44,7 @@ namespace Genrpg.MapServer.Networking.Listeners
         }
 
         public BaseTcpListener (string host, int port,
-            ILogSystem logger,
+            ILogService logger,
             EMapApiSerializers serializer,
             Action<ServerConnectionState> addConnection, 
             MapApiMessageHandler receiveMessages,
@@ -68,7 +68,7 @@ namespace Genrpg.MapServer.Networking.Listeners
             _addConnectionHandler(connState);
         }
 
-        protected IConnection CreateTCPConnection(TcpClient client, ServerConnectionState connState, ILogSystem logger, EMapApiSerializers serializer)
+        protected IConnection CreateTCPConnection(TcpClient client, ServerConnectionState connState, ILogService logger, EMapApiSerializers serializer)
         {
             return new AcceptTcpConn(client, MapApiSerializerFactory.Create(serializer),
                 _messageHandler,

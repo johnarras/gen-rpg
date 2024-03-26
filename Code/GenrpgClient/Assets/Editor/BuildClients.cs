@@ -12,6 +12,7 @@ using System.Linq;
 using Scripts.Assets.Assets.Constants;
 using Genrpg.Shared.Setup.Services;
 using System.Runtime.Remoting.Channels;
+using Genrpg.Shared.Logging.Interfaces;
 
 public class BuildClients
 {
@@ -46,11 +47,11 @@ public class BuildClients
         UnityGameState gs = SetupEditorUnityGameState.Setup(null);
 
         bool didSetEnv = false;
-        ClientConfig clientConfig = AssetDatabase.LoadAssetAtPath<ClientConfig>("Assets/Resources/Config/ClientConfig.asset");
+        ClientConfig clientConfig = ClientConfig.Load();
 
         if (clientConfig == null)
         {
-            Debug.Log("Missing ClientConfig at Assets/Resources/Config/ClientConfig.asset");
+            Debug.Log("Missing ClientConfig");
             return;
         }
         string oldEnv = clientConfig.Env;
@@ -105,10 +106,11 @@ public class BuildClients
             Directory.CreateDirectory(outputZipFolder);
         }
 
-        ServiceLocator loc = new ServiceLocator(gs.logger);
-        ClientRepositorySystem repofact = new ClientRepositorySystem(gs.logger);
-        SetupService ss = new SetupService();
+        ILogService logService = gs.loc.Get<ILogService>();
+        ServiceLocator loc = new ServiceLocator(logService);
+        ClientRepositoryService repoService = new ClientRepositoryService(logService);
         CancellationTokenSource cts = new CancellationTokenSource();
+        SetupService ss = new SetupService();
         ss.SetupGame(gs, cts.Token);
 
         Assembly servicesAssembly = Assembly.GetAssembly(typeof(SetupService));
@@ -144,7 +146,7 @@ public class BuildClients
         vfdata.RemotePath = remoteVersionPath;
 
         FileUploader.UploadFile(vfdata);
-        clientConfig = AssetDatabase.LoadAssetAtPath<ClientConfig>("Assets/Resources/Config/ClientConfig.asset");
+        clientConfig = ClientConfig.Load();
         clientConfig.Env = oldEnv;
         EditorUtility.SetDirty(clientConfig);
         AssetDatabase.SaveAssets();

@@ -46,8 +46,8 @@ namespace Assets.Editor
             }
         }
 
-        [MenuItem("Build/SetupPrefabs")]
-        static void ExecutePrefabs()
+        [MenuItem("Build/SetupMonsterImagePrefabs")]
+        static void SetupMonsterImagePrefabs()
         {
             UnityGameState gs = SetupEditorUnityGameState.Setup(null);
 
@@ -94,6 +94,46 @@ namespace Assets.Editor
                 GameObject.DestroyImmediate(go);
 
             }
+        }
+
+
+        [MenuItem("Build/SetupMonster3DPrefabs")]
+        static void SetupMonster3DPrefabs()
+        {
+            UnityGameState gs = SetupEditorUnityGameState.Setup(null);
+
+            IReadOnlyList<UnitType> unitTypes = gs.data.Get<UnitSettings>(null).GetData();
+
+            string startLoc = "Assets/FullAssets/Monsters/Bear/Monster1.prefab";
+            GameObject startGo = AssetDatabase.LoadAssetAtPath<GameObject>(startLoc);
+
+            if (startGo == null)
+            {
+                return;
+            }
+
+            foreach (UnitType unitType in unitTypes)
+            {
+                if (unitType.IdKey < 1 || string.IsNullOrEmpty(unitType.Art))
+                {
+                    continue;
+                }
+
+                string targetFile = "Assets/BundledAssets/Monsters/" + unitType.Art + ".prefab";
+
+                if (File.Exists(targetFile))
+                {
+                    continue;
+                }
+
+                GameObject endGo = GameObject.Instantiate(startGo);
+                endGo.name = unitType.Art;
+                PrefabUtility.SaveAsPrefabAsset(endGo, targetFile);
+
+                GameObject.DestroyImmediate(endGo);
+
+            }
+
         }
     }
 }

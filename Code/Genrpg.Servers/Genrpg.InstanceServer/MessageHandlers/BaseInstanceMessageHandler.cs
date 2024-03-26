@@ -2,6 +2,7 @@
 using Genrpg.ServerShared.CloudComms.Queues.Entities;
 using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.ServerShared.Core;
+using Genrpg.Shared.Logging.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Genrpg.InstanceServer.MessageHandlers
     {
 
         protected IInstanceManagerService _instanceManagerService = null;
+
+        protected ILogService _logService = null;
 
         protected abstract Task InnerHandleMessage(ServerGameState gs, T message);
 

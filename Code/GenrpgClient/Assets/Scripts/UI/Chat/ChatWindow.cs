@@ -49,12 +49,12 @@ namespace UI
         private void SetEditing(bool editing)
         {
             _editing = editing;
-            _gs.logger.Info("Set editing val " + _editing);
+            _logService.Info("Set editing val " + _editing);
             if (ChatInput != null)
             {
                 if (_editing)
                 {
-                    _gs.logger.Info("Edit Now!");
+                    _logService.Info("Edit Now!");
                     EventSystem.current.SetSelectedGameObject(ChatInput.entity());
                     if (InputBackground != null)
                     {
@@ -69,7 +69,7 @@ namespace UI
                 else
                 {
                     SendChat();
-                    _gs.logger.Info("Stop edit now!");
+                    _logService.Info("Stop edit now!");
                     EventSystem.current.SetSelectedGameObject(null);
                     if (InputBackground != null)
                     {
@@ -136,7 +136,7 @@ namespace UI
 
                     if (didChangeChat)
                     {
-                        _gs.logger.Debug("Change chat type to: " + _currentChatType.Name);
+                        _logService.Debug("Change chat type to: " + _currentChatType.Name);
                         if (text.Length < 1)
                         {
                             SetEditing(false);
@@ -161,7 +161,7 @@ namespace UI
                     }
                 }
 
-                _gs.logger.Debug("Sending chat: " + _currentChatType.Name + " To: " + targetName + ": " + text);
+                _logService.Debug("Sending chat: " + _currentChatType.Name + " To: " + targetName + ": " + text);
 
                 SetEditing(false);
 

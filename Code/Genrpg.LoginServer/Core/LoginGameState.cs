@@ -1,5 +1,6 @@
 ﻿using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Maps;
+using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
@@ -21,6 +22,8 @@ namespace Genrpg.LoginServer.Core
         public Dictionary<Type, INoUserCommandHandler> noUserCommandHandlers = null;
 
         public List<ILoginResult> Results { get; set; } = new List<ILoginResult>();
+
+        public LoginGameState(IServerConfig config) : base(config) { }
 
     }
 }

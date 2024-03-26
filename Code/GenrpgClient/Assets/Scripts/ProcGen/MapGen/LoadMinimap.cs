@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 
 using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
-using UnityEngine; // Needed
+using UnityEngine;
 
 public class LoadMinimap : BaseZoneGenerator
 {
@@ -14,7 +14,7 @@ public class LoadMinimap : BaseZoneGenerator
         await base.Generate(gs, token);
         try
         {
-            LocalFileRepository repo = new LocalFileRepository(gs.logger);
+            BinaryFileRepository repo = new BinaryFileRepository(_logService);
             string filename = MapUtils.GetMapObjectFilename(gs, MapConstants.MapFilename, gs.map.Id, gs.map.MapVersion);
             byte[] bytes = repo.LoadBytes(filename);
             if (bytes != null)
@@ -25,13 +25,13 @@ public class LoadMinimap : BaseZoneGenerator
             }
             else
             {
-                DownloadData ddata = new DownloadData() { IsImage = true, Handler= OnDownloadMinimap };
-                _assetService.DownloadFile(gs, filename, ddata, true, token);
+                DownloadFileData ddata = new DownloadFileData() { IsImage = true, Handler= OnDownloadMinimap };
+                _fileDownloadService.DownloadFile(gs, filename, ddata, true, token);
             }
         }
         catch (Exception e)
         {
-            gs.logger.Exception(e, "LoadMinimap");
+            _logService.Exception(e, "LoadMinimap");
         }
     }
 

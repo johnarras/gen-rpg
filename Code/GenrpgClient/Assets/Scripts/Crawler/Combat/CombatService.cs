@@ -1,27 +1,20 @@
-﻿using Assets.Scripts.UI.Crawler;
-using Genrpg.Shared.Core.Entities;
+﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Combat.Utils;
-using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using Genrpg.Shared.Crawler.Roles.Constants;
-using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Constants;
 using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.Levels.Settings;
-using Genrpg.Shared.Spawns.Entities;
+using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Interfaces;
-using Genrpg.Shared.Spells.Settings.Targets;
 using Genrpg.Shared.UnitEffects.Constants;
-using Genrpg.Shared.UnitEffects.Settings;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System;
@@ -29,9 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using UI.Screens.Constants;
-using UnityEngine.Assertions.Must;
-using UnityEngine.XR.WSA;
+using UnityEngine;
 
 namespace Assets.Scripts.Crawler.Services.Combat
 {
@@ -54,10 +45,24 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             partyData.Combat = combatState;
 
+            List<PartyMember> members = partyData.GetActiveParty();
+
+            foreach (PartyMember member in members)
+            {
+                foreach (PartySummon summon in member.Summons)
+                {
+                    UnitType unitType = gs.data.Get<UnitSettings>(null).Get(summon.UnitTypeId);
+
+                    if (unitType != null)
+                    {
+                        AddCombatUnits(gs, partyData, unitType, 1, FactionTypes.Player);
+                    }
+                }
+            }
+
             CombatGroup partyGroup = new CombatGroup() { SingularName = "Player", PluralName = "Players" };
             combatState.Allies.Add(partyGroup);
-
-            List<PartyMember> members = partyData.GetActiveParty();
+            combatState.PartyGroup = partyGroup;
 
             foreach (PartyMember member in members)
             {
@@ -94,22 +99,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
             int currRange = CrawlerCombatConstants.MinRange;
             foreach (UnitType unitType in chosenUnitTypes)
             {
-
-                string singularName = unitType.Name;
-                string pluralName = unitType.PluralName;
-
-                // Should modify the monsters here.
-
-
-                CombatGroup group = new CombatGroup() { Range = currRange };
-
-                group.SingularName = singularName;
-                group.PluralName = pluralName;
-                
-                combatState.Enemies.Add(group);
-
                 int quantity = MathUtils.IntRange(1, 8, gs.rand);
-
 
                 while (gs.rand.NextDouble() < 0.2f)
                 {
@@ -129,29 +119,79 @@ namespace Assets.Scripts.Crawler.Services.Combat
                     quantity = 99;
                 }
 
-                for (int i = 0; i < quantity; i++)
-                {
+                AddCombatUnits(gs, partyData, unitType, quantity, FactionTypes.Faction1);
 
-                    Monster monster = new Monster() 
-                    { 
-                        UnitTypeId = unitType.IdKey, 
-                        Level = combatState.Level, 
-                        Name = singularName + (i+1),
-                        PortraitName = unitType.Icon,
-                    };
-                    _statService.CalcUnitStats(gs, partyData, monster, true);
-
-                    group.Units.Add(monster);
-
-                }
                 if (gs.rand.NextDouble() < 0.9f)
                 {
                     currRange += CrawlerCombatConstants.RangeDelta * 2;
                 }
-
             }
 
             return true;
+        }
+
+        public void AddCombatUnits(GameState gs, PartyData partyData, UnitType unitType, long unitQuantity, long factionTypeId,
+            int currRange = CrawlerCombatConstants.MinRange)
+        {
+
+            if (partyData.Combat == null)
+            {
+                return;
+            }
+
+            CrawlerCombatSettings combatSettings = gs.data.Get<CrawlerCombatSettings>(null);
+
+            List<CombatGroup> groups = (factionTypeId == FactionTypes.Player ? partyData.Combat.Allies : partyData.Combat.Enemies);
+
+            CombatGroup group = groups.FirstOrDefault(x => x.UnitTypeId == unitType.IdKey);
+
+            if (group == null)
+            {
+                group = new CombatGroup()
+                {
+                    Range = currRange,
+                    UnitTypeId = unitType.IdKey,
+                    SingularName = unitType.Name,
+                    PluralName = unitType.PluralName,
+                };
+
+                bool didAddGroup = false;
+                for (int g = 0; g < groups.Count; g++)
+                {
+                    if (groups[g].Range >= currRange)
+                    {
+                        groups.Insert(g, group);
+                        didAddGroup = true;
+                        break;
+                    }                       
+                }
+
+                if (!didAddGroup)
+                {
+                    groups.Add(group);
+                }
+            }
+
+            for (int i = 0; i < unitQuantity; i++)
+            {
+                if (group.Units.Count >= combatSettings.MaxGroupSize)
+                {
+                    break;
+                }
+
+                Monster monster = new Monster()
+                {
+                    UnitTypeId = unitType.IdKey,
+                    Level = partyData.Combat.Level,
+                    Name = unitType.Name + (i + 1),
+                    PortraitName = unitType.Icon,
+                    FactionTypeId = factionTypeId,
+                };
+                _statService.CalcUnitStats(gs, partyData, monster, true);
+
+                group.Units.Add(monster);
+
+            }
         }
 
         public bool ReadyForCombat(GameState gs, PartyData party)
@@ -245,7 +285,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
         {
             // Pass 1 defend and hide
 
-            foreach (CrawlerUnit unit in party.Combat.Allies[0].Units)
+            foreach (CrawlerUnit unit in party.Combat.PartyGroup.Units)
             {
                 if (unit.Action == null || unit.Action.IsComplete)
                 {
@@ -283,6 +323,8 @@ namespace Assets.Scripts.Crawler.Services.Combat
             {
                 return false;
             }
+            List<CrawlerSpell> monsterSpells = gs.data.Get<CrawlerSpellSettings>(null).GetData().Where(x => x.HasFlag(CrawlerSpellFlags.MonsterOnly)).ToList();
+
 
             CombatState combat = party.Combat;
 
@@ -301,12 +343,12 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             foreach (CombatGroup group in combat.Allies)
             {
-                SelectGroupActions(gs, party, group, tauntUnits, combat.Allies, combat.Enemies);
+                SelectGroupActions(gs, party, group, new List<CrawlerUnit>(), combat.Allies, combat.Enemies, monsterSpells);
             }
 
             foreach (CombatGroup group in combat.Enemies)
             {
-                SelectGroupActions(gs, party, group, new List<CrawlerUnit>(), combat.Enemies, combat.Allies);
+                SelectGroupActions(gs, party, group, tauntUnits, combat.Enemies, combat.Allies, monsterSpells);
             }
 
             return true;
@@ -327,7 +369,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
         }
 
         public void SelectGroupActions(GameState gs, PartyData party, CombatGroup group, List<CrawlerUnit> tauntUnits, List<CombatGroup> friends,
-            List<CombatGroup> foes)
+            List<CombatGroup> foes, List<CrawlerSpell> monsterSpells)
         {
 
             if (group.Range > CrawlerCombatConstants.MinRange)
@@ -340,21 +382,22 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
                 foreach (CrawlerUnit unit in group.Units)
                 {
-                    SelectMonsterAction(gs, party, unit, tauntUnits, friends, foes);
+                    SelectMonsterAction(gs, party, unit, tauntUnits, friends, foes, monsterSpells);
                 }
             }
         }
 
         public void SelectMonsterAction (GameState gs, PartyData party,
             CrawlerUnit unit, List<CrawlerUnit> tauntUnits,
-            List<CombatGroup> friends, List<CombatGroup> foes)
+            List<CombatGroup> friends, List<CombatGroup> foes, List<CrawlerSpell> monsterSpells)
         {
             if (party.Combat == null)
             {
                 return;
             }
 
-            if (unit is PartyMember member)
+
+            if (unit.IsPlayer())
             {
                 if (!unit.StatusEffects.HasBit(StatusEffects.Possessed))
                 {
@@ -366,12 +409,13 @@ namespace Assets.Scripts.Crawler.Services.Combat
                     friends = foes;
                     foes = temp;
                     tauntUnits = new List<CrawlerUnit>();
+                    return;
                 }
             }
 
             CrawlerUnit target = null;
 
-            if (tauntUnits.Count > 0)
+            if (unit.FactionTypeId != FactionTypes.Player && tauntUnits.Count > 0)
             {
                 target = tauntUnits[gs.rand.Next() % tauntUnits.Count];
             }
@@ -394,6 +438,8 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 CombatActionId = (targets.Count > 0 ? CombatActions.Attack : CombatActions.Defend),          
             };
 
+
+
             if (combatAction.CombatActionId == CombatActions.Attack)
             {
                 combatAction.Spell = gs.data.Get<CrawlerSpellSettings>(null).Get(CrawlerSpells.AttackId);
@@ -402,6 +448,19 @@ namespace Assets.Scripts.Crawler.Services.Combat
             {
                 combatAction.Spell = gs.data.Get<CrawlerSpellSettings>(null).Get(CrawlerSpells.DefendId);
             }
+
+            if (!unit.IsPlayer() && monsterSpells.Count > 0 && gs.rand.NextDouble() < 0.05f)
+            {
+                CrawlerSpell spell = monsterSpells[gs.rand.Next() % monsterSpells.Count];
+                if (spell.TargetTypeId == TargetTypes.Self)
+                {
+                    combatAction.FinalTargets = new List<CrawlerUnit>() { unit };
+                    combatAction.Spell = spell;
+                    combatAction.CombatActionId = CombatActions.Cast;
+                }
+            }
+
+
 
             unit.Action = combatAction;
         }
@@ -434,7 +493,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 Caster = unit,
             };
 
-            if (spell.TargetTypeId == TargetTypes.Party)
+            if (spell.TargetTypeId == TargetTypes.AllAllies)
             {
                 newAction.FinalTargets = new List<CrawlerUnit>(party.GetActiveParty());
             }

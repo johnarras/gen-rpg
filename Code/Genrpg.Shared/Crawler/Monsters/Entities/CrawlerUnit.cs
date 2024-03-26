@@ -7,6 +7,7 @@ using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Spells.Entities;
+using Newtonsoft.Json;
 
 namespace Genrpg.Shared.Crawler.Monsters.Entities
 {
@@ -20,6 +21,7 @@ namespace Genrpg.Shared.Crawler.Monsters.Entities
         [Key(3)] public string PortraitName { get; set; }
 
 
+        [JsonIgnore]
         [Key(4)] public UnitAction Action { get; set; }
 
         public long GetAbilityLevel()

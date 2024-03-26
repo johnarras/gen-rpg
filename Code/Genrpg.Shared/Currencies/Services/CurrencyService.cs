@@ -1,6 +1,8 @@
 ﻿
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Currencies.PlayerData;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,8 @@ namespace Genrpg.Shared.Currencies.Services
 {
     public class CurrencyService : ICurrencyService
     {
+        protected IRepositoryService _repoService = null;
+
         public bool Add(GameState gs, Unit unit, long currencyTypeId, long quantity)
         {
             return Set(gs, unit, currencyTypeId, unit.Get<CurrencyData>().GetQuantity(currencyTypeId) + quantity);
@@ -36,7 +40,7 @@ namespace Genrpg.Shared.Currencies.Services
         {
             if (diff != 0)
             {
-                gs.repo.QueueSave(status);
+                _repoService.QueueSave(status);
             }
         }
     }

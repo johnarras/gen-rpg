@@ -14,7 +14,7 @@ namespace Genrpg.ServerShared.PlayerData
 {
     public interface IPlayerDataService : ISetupService
     {
-        void SavePlayerData(Character ch, IRepositorySystem repoSystem, bool saveClean);
+        void SavePlayerData(Character ch, IRepositoryService repoSystem, bool saveClean);
         Task<List<IUnitData>> MapToClientApi(List<IUnitData> serverDataList);
         Task<List<IUnitData>> LoadPlayerData(ServerGameState gs, Character ch);
         Task<List<CharacterStub>> LoadCharacterStubs(ServerGameState gs, string userId);

@@ -15,6 +15,7 @@ using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.Login.Messages.RefreshGameSettings;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
+using Genrpg.Shared.PlayerFiltering.Utils;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Settings;
 using System;
@@ -29,8 +30,9 @@ namespace Genrpg.ServerShared.GameSettings.Services
     {
 
         private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
+        protected IRepositoryService _repoService = null;
 
-        private async Task SetupLoaders(IRepositorySystem repoSystem)
+        private async Task SetupLoaders(GameState gs, IRepositoryService repoSystem, CancellationToken token)
         {
             if (_loaderObjects != null)
             {
@@ -41,7 +43,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             Dictionary<Type, IGameSettingsLoader> newList = new Dictionary<Type, IGameSettingsLoader>();
             foreach (Type lt in loadTypes)
             {
-                if (Activator.CreateInstance(lt) is IGameSettingsLoader newLoader)
+                if (await ReflectionUtils.CreateInstanceFromType(gs, lt, token) is IGameSettingsLoader newLoader)
                 {
                     newList[newLoader.GetServerType()] = newLoader;
                 }
@@ -67,7 +69,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
         public async Task Setup(GameState gs, CancellationToken token)
         {
-            await SetupLoaders(gs.repo);
+            await SetupLoaders(gs, _repoService, token);
         }
 
         public virtual List<string> GetEditorIgnoreFields()
@@ -83,7 +85,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             foreach (IGameSettingsLoader loader in _loaderObjects.Values)
             {
-                allTasks.Add(loader.LoadAll(gs.repo, createMissingGameData));
+                allTasks.Add(loader.LoadAll(_repoService, createMissingGameData));
             }
 
             List<ITopLevelSettings>[] allSettings = await Task.WhenAll(allTasks.ToArray());
@@ -102,7 +104,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return gameData;
         }
 
-        public virtual async Task<bool> SaveGameData(GameData data, IRepositorySystem repoSystem)
+        public virtual async Task<bool> SaveGameData(GameData data, IRepositoryService repoSystem)
         {
             D tdata = data as D;
             if (tdata == null)
@@ -295,9 +297,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
         private bool AcceptedByFilter(Character ch, IPlayerFilter filter)
         {
-            if (filter.UseDateRange &&
-                (filter.StartDate > DateTime.UtcNow ||
-                filter.EndDate < DateTime.UtcNow))
+            if (!PlayerFilterTimeUtils.IsActive(filter))
             {
                 return false;
             }

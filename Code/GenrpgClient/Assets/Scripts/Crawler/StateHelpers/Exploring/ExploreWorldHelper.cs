@@ -35,35 +35,35 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
             PartyData party = _crawlerService.GetParty();
             party.Combat = null;
 
-            UnitAction unitAction = new UnitAction();
-            SelectAction selectAction = new SelectAction()
-            {
-                ReturnState = ECrawlerStates.ExploreWorld,
-                NextState = ECrawlerStates.WorldCast,
-                Action = unitAction,
-                Member = null,
-            };
-
             EnterCrawlerMapData mapData = action.ExtraData as EnterCrawlerMapData;
 
             stateData.Actions.Add(new CrawlerStateAction("Inn", KeyCode.I, ECrawlerStates.TavernMain));
             stateData.Actions.Add(new CrawlerStateAction("Train", KeyCode.T, ECrawlerStates.TrainingMain));
-            stateData.Actions.Insert(0, new CrawlerStateAction("Cast", KeyCode.C, ECrawlerStates.SelectAlly, 
-                extraData: selectAction));
+            stateData.Actions.Insert(0, new CrawlerStateAction("Cast", KeyCode.C, ECrawlerStates.SelectAlly));
             stateData.Actions.Add(new CrawlerStateAction("Vendor", KeyCode.V, ECrawlerStates.Vendor));
 
             stateData.Actions.Add(new CrawlerStateAction("Fight", KeyCode.F, ECrawlerStates.StartCombat));
 
             stateData.Actions.Add(new CrawlerStateAction("Go Adventure", KeyCode.G, ECrawlerStates.ExploreWorld, extraData: new EnterCrawlerMapData() { MapId=2, 
-            XPos = 5, ZPos = 3}));
+            MapX = 5, MapZ = 3}));
+
+            stateData.Actions.Add(new CrawlerStateAction("Back to the City", KeyCode.B, ECrawlerStates.ExploreWorld,
+                extraData: new EnterCrawlerMapData()
+                {
+                    MapId = 1,
+                    MapX = 13,
+                    MapZ = 13,
+                    MapRot = 0,
+                }));
 
             if (mapData == null)
             {
                 mapData = new EnterCrawlerMapData()
                 {
-                    MapId = 1,
-                    XPos = 10,
-                    ZPos = 10,
+                    MapId = party.MapId,
+                    MapX = party.MapX,
+                    MapZ = party.MapZ,
+                    MapRot = party.MapRot,
                 };
             }
 

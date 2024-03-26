@@ -30,6 +30,8 @@ using Genrpg.Shared.ProcGen.Settings.Names;
 using Genrpg.Editor.Entities.MetaData;
 using Genrpg.Editor.Services.Reflection;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace GameEditor
 {
@@ -74,6 +76,8 @@ namespace GameEditor
 
         protected IEditorReflectionService _reflectionService;
         protected IGameDataService _gameDataService;
+        protected IRepositoryService _repoService;
+        protected ILogService _logService;
 
         protected bool IsIgnoreField(String nm)
         {
@@ -834,7 +838,7 @@ namespace GameEditor
             // Create new item and go to it.
             if (Control.ModifierKeys.HasFlag(Keys.Alt))
             {
-                object datalist2 = _reflectionService.AddItems(datalist, this, _gs.repo, out List<object> newItems, null, 1);
+                object datalist2 = _reflectionService.AddItems(datalist, this, _repoService, out List<object> newItems, null, 1);
                 object newObj = _reflectionService.GetItemWithIndex(datalist2, sz);
 
                 if (newObj != null)
@@ -1040,7 +1044,7 @@ namespace GameEditor
             }
             else if ((ModifierKeys & Keys.Alt) != 0)
             {
-                _reflectionService.AddItems(dropdownList, _gs.data, _gs.repo, out List<object> newItems, null, 1);
+                _reflectionService.AddItems(dropdownList, _gs.data, _repoService, out List<object> newItems, null, 1);
 
                 dropdownList = _reflectionService.GetObjectValue(_gs.data, dropdownName);
                 if (dropdownList == null)
@@ -1293,7 +1297,7 @@ namespace GameEditor
         {
             int oldSelectedRow = GetSelectedRow(_multiGrid);
 
-            object obj2 = _reflectionService.AddItems(Obj, _parent, _gs.repo, out List<object> newItems, copyFrom);
+            object obj2 = _reflectionService.AddItems(Obj, _parent, _repoService, out List<object> newItems, copyFrom);
 
             object oneNewItem = null;
 
@@ -1354,18 +1358,18 @@ namespace GameEditor
 
             if (item is BaseWorldData worldData)
             {
-                worldData.Delete(_gs.repo);
+                worldData.Delete(_repoService);
                 _gs.LookedAtObjects.Remove(worldData);
             }
 
             if (item is IGameSettings settings)
             {
-                await _gs.repo.Delete(settings);
+                await _repoService.Delete(settings);
                 _gs.LookedAtObjects.Remove(settings);
                 List<IGameSettings> children = settings.GetChildren();
                 foreach (IGameSettings child in children)
                 {
-                    await _gs.repo.Delete(child);
+                    await _repoService.Delete(child);
                     _gs.LookedAtObjects.Remove(child);
                 }
 
@@ -1375,7 +1379,7 @@ namespace GameEditor
 
             if (item is IUnitData unitData)
             {
-                unitData.Delete(_gs.repo);
+                unitData.Delete(_repoService);
                 _gs.LookedAtObjects.Remove(unitData);
             }
 

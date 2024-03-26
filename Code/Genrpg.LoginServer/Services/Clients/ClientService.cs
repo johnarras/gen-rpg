@@ -6,7 +6,9 @@ using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Characters.Utils;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages;
 using Genrpg.Shared.Login.Messages.Error;
@@ -27,6 +29,8 @@ namespace Genrpg.LoginServer.Services.Clients
 
         private IPlayerDataService _playerDataService = null;
         private IGameDataService _gameDataService = null;
+        private IRepositoryService _repoService = null;
+        private ILogService _logService = null;
 
         public async Task<List<ILoginResult>> HandleClient(LoginGameState gs, string postData, CancellationToken token)
         {
@@ -64,7 +68,7 @@ namespace Genrpg.LoginServer.Services.Clients
             catch (Exception e)
             {
                 string errorMessage = "HandleLoginCommand." + commandSet.Commands.Select(x => x.GetType().Name + " ").ToList();
-                gs.logger.Exception(e, errorMessage);
+                _logService.Exception(e, errorMessage);
                 WebUtils.ShowError(gs, errorMessage);
             }
 
@@ -73,7 +77,7 @@ namespace Genrpg.LoginServer.Services.Clients
 
         private async Task LoadLoggedInPlayer(LoginGameState gs, string userId, string sessionId)
         {
-            gs.user = await gs.repo.Load<User>(userId);
+            gs.user = await _repoService.Load<User>(userId);
 
             if (gs.user == null || gs.user.SessionId != sessionId)
             {
@@ -82,7 +86,7 @@ namespace Genrpg.LoginServer.Services.Clients
 
             if (!string.IsNullOrEmpty(gs.user.CurrCharId))
             {
-                gs.coreCh = await gs.repo.Load<CoreCharacter>(gs.user.CurrCharId);
+                gs.coreCh = await _repoService.Load<CoreCharacter>(gs.user.CurrCharId);
 
                 if (gs.coreCh != null)
                 {
@@ -107,9 +111,9 @@ namespace Genrpg.LoginServer.Services.Clients
         {
             if (gs.user != null)
             {
-                await gs.repo.Save(gs.user);
+                await _repoService.Save(gs.user);
             }
-            _playerDataService.SavePlayerData(gs.ch, gs.repo, true);
+            _playerDataService.SavePlayerData(gs.ch, _repoService, true);
         }
 
     }

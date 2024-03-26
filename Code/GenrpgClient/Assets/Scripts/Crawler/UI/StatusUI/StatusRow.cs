@@ -17,6 +17,7 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
         public GText Level;
         public GText Health;
         public GText Mana;
+        public GText Summons;
         public GText StatusEffects;
 
 
@@ -43,7 +44,9 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                 _uiService.SetText(Level, "Lev");
                 _uiService.SetText(Health, "Health");
                 _uiService.SetText(Mana, "Mana");
+                _uiService.SetText(Summons, "Summon");
                 _uiService.SetText(StatusEffects, "Status");
+
             }
 
             UpdateText();
@@ -90,6 +93,11 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                 {
                     Class cl = classSettings.Get(uc.ClassId);
 
+                    if (cl == null)
+                    {
+                        continue;
+                    }
+
                     if (!string.IsNullOrEmpty(classText))
                     {
                         classText += "/";
@@ -100,6 +108,16 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                 _uiService.SetText(Class, classText);
 
                 _uiService.SetText(StatusEffects, _statusEffectService.ShowStatusEffects(_gs, _partyMember, true));
+
+
+                if (_partyMember.Summons != null && _partyMember.Summons.Count > 0)
+                {
+                    _uiService.SetText(Summons, _partyMember.Summons[0].Name);
+                }
+                else
+                {
+                    _uiService.SetText(Summons, "");
+                }
             }
         }
     }

@@ -47,7 +47,7 @@ public class AddZoneCenters : BaseZoneGenerator
             sdata.Count = 1;
         }
 
-        gs.logger.Info("Map TotalSize: " + totalSize + " SearchSize: " + searchSize + " BlockSize: " + blockSize);
+        _logService.Info("Map TotalSize: " + totalSize + " SearchSize: " + searchSize + " BlockSize: " + blockSize);
 
         sdata.MaxAttemptsPerItem = 1000;
         sdata.MinSeparation = blockSize * 12 / 10;
@@ -68,7 +68,7 @@ public class AddZoneCenters : BaseZoneGenerator
         && p.X <= gs.map.GetHwid() - edgeSize
         && p.Y <= gs.map.GetHhgt() - edgeSize).ToList();
 
-        gs.logger.Info("Centers Wanted: " + sdata.Count + " Found: " + centers.Count);
+        _logService.Info("Centers Wanted: " + sdata.Count + " Found: " + centers.Count);
 
         if (centers.Count < 1)
         {

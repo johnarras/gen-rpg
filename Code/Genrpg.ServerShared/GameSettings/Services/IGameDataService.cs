@@ -17,7 +17,7 @@ public interface IGameDataService : ISetupService
 {
     Task<GameData> LoadGameData(ServerGameState gs, bool createMissingGameData);
     Task ReloadGameData(ServerGameState gs);
-    Task<bool> SaveGameData(GameData data, IRepositorySystem repoSystem);
+    Task<bool> SaveGameData(GameData data, IRepositoryService repoSystem);
     List<string> GetEditorIgnoreFields();
     List<IGameSettingsLoader> GetAllLoaders();
     List<ITopLevelSettings> MapToApi(ServerGameState gs, List<ITopLevelSettings> startSettings);

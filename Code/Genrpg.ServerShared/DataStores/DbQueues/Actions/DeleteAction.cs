@@ -7,9 +7,9 @@ namespace Genrpg.ServerShared.DataStores.DbQueues.Actions
     public class DeleteAction<T> : IDbAction where T : class, IStringId
     {
         private T _obj { get; set; }
-        private IRepositorySystem _repoSystem { get; set; }
+        private IRepositoryService _repoSystem { get; set; }
 
-        public DeleteAction(T item, IRepositorySystem repoSystem)
+        public DeleteAction(T item, IRepositoryService repoSystem)
         {
             _obj = item;
             _repoSystem = repoSystem;

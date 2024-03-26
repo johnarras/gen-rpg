@@ -1,5 +1,5 @@
 ﻿using Genrpg.ServerShared.DataStores.DbQueues.Actions;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,12 +12,12 @@ namespace Genrpg.ServerShared.DataStores.DbQueues
     public class DbQueue
     {
         private ConcurrentQueue<IDbAction> _queue = new ConcurrentQueue<IDbAction>();
-        public DbQueue(ILogSystem logger, CancellationToken token)
+        public DbQueue(ILogService logger, CancellationToken token)
         {
             _ = Task.Run(() => ActionLoop(logger, token));
         }
 
-        protected async Task ActionLoop(ILogSystem logger, CancellationToken token)
+        protected async Task ActionLoop(ILogService logger, CancellationToken token)
         {
             using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(1)))
             {

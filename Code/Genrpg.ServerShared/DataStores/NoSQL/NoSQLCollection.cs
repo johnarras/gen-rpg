@@ -18,11 +18,11 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using MongoDB.Driver.Core.Clusters;
 using MongoDB.Bson.IO;
 using System.Reflection.Metadata.Ecma335;
-using Genrpg.Shared.Logs.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
 using Amazon.Runtime.Internal.Util;
 using AutoMapper.Execution;
 using System.Security.Cryptography;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.ServerShared.DataStores.NoSQL
 {
@@ -46,8 +46,8 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
     public class NoSQLCollection<T> : INoSQLCollection where T : class, IStringId
     {
         protected IMongoCollection<T> _collection = null;
-        protected ILogSystem _logger = null;
-        public NoSQLCollection(NoSQLRepository mongoRepository, ILogSystem logger)
+        protected ILogService _logger = null;
+        public NoSQLCollection(NoSQLRepository mongoRepository, ILogService logger)
         {
             _logger = logger;
             try

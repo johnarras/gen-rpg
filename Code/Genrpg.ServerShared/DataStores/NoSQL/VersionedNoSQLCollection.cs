@@ -1,7 +1,7 @@
 ﻿using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MongoDB.Driver;
 using System;
@@ -15,7 +15,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 {
     public class VersionedNoSQLCollection<T> : NoSQLCollection<T> where T : class, IStringId, IUpdateData
     {
-        public VersionedNoSQLCollection(NoSQLRepository mongoRepository, ILogSystem logger) : base(mongoRepository, logger)
+        public VersionedNoSQLCollection(NoSQLRepository mongoRepository, ILogService logger) : base(mongoRepository, logger)
         {
         }
 

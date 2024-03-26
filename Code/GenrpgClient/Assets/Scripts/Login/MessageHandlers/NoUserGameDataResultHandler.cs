@@ -66,8 +66,8 @@ namespace Assets.Scripts.Login.MessageHandlers
             string mapId = "1";
 
             UploadMapCommand comm = new UploadMapCommand();
-            comm.Map = await gs.repo.Load<Map>("UploadedMap");
-            comm.SpawnData = await gs.repo.Load<MapSpawnData>("UploadedSpawns");
+            comm.Map = await _repoService.Load<Map>("UploadedMap");
+            comm.SpawnData = await _repoService.Load<MapSpawnData>("UploadedSpawns");
             comm.Map.Id = mapId;
             comm.SpawnData.Id = mapId;
             comm.WorldDataEnv = _assetService.GetWorldDataEnv();

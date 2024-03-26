@@ -4,6 +4,7 @@ using Genrpg.ServerShared.Accounts.Services;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
 using Genrpg.ServerShared.CloudComms.Services;
+using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.ServerShared.Purchasing.Services;
@@ -11,7 +12,9 @@ using Genrpg.ServerShared.Utils;
 using Genrpg.Shared.Accounts.Constants;
 using Genrpg.Shared.Accounts.Entities;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Login.Constants;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages;
@@ -33,6 +36,9 @@ namespace Genrpg.LoginServer.Services.Login
         private IGameDataService _gameDataService = null;
         private IPlayerDataService _playerDataService = null;
         private ICloudCommsService _cloudCommsService = null;
+        private IRepositoryService _repoService = null;
+        private ILogService _logService = null;
+        private IServerConfig _config = null;
 
         public async Task<List<ILoginResult>> Login(LoginGameState gs, string postData, CancellationToken token)
         {
@@ -56,11 +62,11 @@ namespace Genrpg.LoginServer.Services.Login
 
             if (!string.IsNullOrEmpty(loginCommand.Email))
             {
-                account = await _accountService.LoadBy(gs.config, AccountSearch.Email, loginCommand.Email);
+                account = await _accountService.LoadBy(_config, AccountSearch.Email, loginCommand.Email);
             }
             else if (!string.IsNullOrEmpty(loginCommand.UserId))
             {
-                account = await _accountService.LoadBy(gs.config, AccountSearch.Id, loginCommand.UserId);
+                account = await _accountService.LoadBy(_config, AccountSearch.Id, loginCommand.UserId);
             }
             if (account != null)
             {
@@ -118,19 +124,19 @@ namespace Genrpg.LoginServer.Services.Login
 
                 account.Password = PasswordUtils.GetPasswordHash(account.PasswordSalt, loginCommand.Password);
 
-                await _accountService.SaveAccount(gs.config, account);
-                account = await _accountService.LoadBy(gs.config, AccountSearch.Email, loginCommand.Email);
+                await _accountService.SaveAccount(_config, account);
+                account = await _accountService.LoadBy(_config, AccountSearch.Email, loginCommand.Email);
 
                 if (account == null)
                 {
                     WebUtils.ShowError(gs, "Failed to save Account");
                 }
             }
-            User user = await gs.repo.Load<User>(account.Id.ToString());
+            User user = await _repoService.Load<User>(account.Id.ToString());
 
             user = await CreateOrUpdateUserFromAccount(gs, account, user, loginCommand);
 
-            await gs.repo.Save(user);
+            await _repoService.Save(user);
 
             _cloudCommsService.SendQueueMessage(CloudServerNames.Player, new LoginUser() { Id = user.Id, Name = "User" + user.Id });
 
@@ -161,8 +167,8 @@ namespace Genrpg.LoginServer.Services.Login
             user.SessionId = HashUtils.NewGuid();
             gs.user = user;
 
-            await gs.repo.Save(user);
-            User u2 = await gs.repo.Load<User>(user.Id);
+            await _repoService.Save(user);
+            User u2 = await _repoService.Load<User>(user.Id);
 
             return u2;
         }
@@ -186,7 +192,7 @@ namespace Genrpg.LoginServer.Services.Login
 
             if (networkName == NetworkNames.Username)
             {
-                Account acct = await _accountService.LoadBy(gs.config, AccountSearch.Email, email);
+                Account acct = await _accountService.LoadBy(_config, AccountSearch.Email, email);
                 if (acct != null)
                 {
                     return "This email is already in use.";
@@ -217,7 +223,7 @@ namespace Genrpg.LoginServer.Services.Login
             // If this is the username network make sure screen name is unique.
             if (networkName == NetworkNames.Username)
             {
-                Task<Account> acct = _accountService.LoadBy(gs.config, AccountSearch.Name, screenname);
+                Task<Account> acct = _accountService.LoadBy(_config, AccountSearch.Name, screenname);
                 if (acct != null)
                 {
                     return "This name is already in use.";

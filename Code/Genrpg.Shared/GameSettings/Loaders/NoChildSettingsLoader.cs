@@ -15,12 +15,12 @@ namespace Genrpg.Shared.GameSettings.Loaders
         public virtual Type GetClientType() { return typeof(TServer); }
         public virtual bool SendToClient() { return true; }
 
-        public virtual async Task Setup(IRepositorySystem repoSystem)
+        public virtual async Task Setup(IRepositoryService repoSystem)
         {
             await Task.CompletedTask;
         }
 
-        public virtual async Task<List<ITopLevelSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing)
+        public virtual async Task<List<ITopLevelSettings>> LoadAll(IRepositoryService repoSystem, bool createDefaultIfMissing)
         {
 
             List<ITopLevelSettings> list = (await repoSystem.Search<TServer>(x => true)).Cast<ITopLevelSettings>().ToList();

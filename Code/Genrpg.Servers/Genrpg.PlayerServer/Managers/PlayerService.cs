@@ -5,7 +5,7 @@ using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using System.Collections.Concurrent;
 
 namespace Genrpg.PlayerServer.Managers
@@ -28,6 +28,7 @@ namespace Genrpg.PlayerServer.Managers
     {
 
         private ICloudCommsService _commsService = null;
+        private ILogService _logService = null;
 
         private ConcurrentDictionary<string, LoggedInUser> _users = new ConcurrentDictionary<string, LoggedInUser>();
         private ConcurrentDictionary<string, List<OnlineCharacter>> _mapChars = new ConcurrentDictionary<string, List<OnlineCharacter>>();
@@ -36,10 +37,8 @@ namespace Genrpg.PlayerServer.Managers
         private ConcurrentDictionary<string, OnlineCharacter> _onlineChars = new ConcurrentDictionary<string, OnlineCharacter>();
 
 
-        private ILogSystem _logger;
         public async Task Setup(GameState gs, CancellationToken token)
         {
-            _logger = gs.logger;
             await Task.CompletedTask;
         }
         protected string GetMapZoneKey(string mapId, long zoneId)
@@ -64,7 +63,7 @@ namespace Genrpg.PlayerServer.Managers
 
         public void OnLoginUser(ServerGameState gs, LoginUser login)
         {
-            _logger.Message("LoginUser: " + login.Id + ": " + login.Name);
+            _logService.Message("LoginUser: " + login.Id + ": " + login.Name);
             if (_users.TryGetValue(login.Id, out LoggedInUser user))
             {
                 return;
@@ -79,7 +78,7 @@ namespace Genrpg.PlayerServer.Managers
 
         public void OnLogoutUser(ServerGameState gs, LogoutUser logout)
         {
-            _logger.Message("Logout user: " + logout.Id);
+            _logService.Message("Logout user: " + logout.Id);
             _users.TryRemove(logout.Id, out LoggedInUser user);
         }
 
@@ -110,7 +109,7 @@ namespace Genrpg.PlayerServer.Managers
             {
                 if (_zoneChars.TryGetValue(GetMapZoneKey(currChar.MapId, currChar.ZoneId), out List<OnlineCharacter> zoneChars))
                 {
-                    _logger.Message("RemoveFromZone: " + currChar.Id);
+                    _logService.Message("RemoveFromZone: " + currChar.Id);
                     zoneChars.Remove(currChar);
                 }
             }
@@ -118,7 +117,7 @@ namespace Genrpg.PlayerServer.Managers
 
         public void OnPlayerEnterMap(ServerGameState gs, PlayerEnterMap playerEnterMap)
         {
-            _logger.Message("PlayerEnterMap: " + playerEnterMap.Id + " Map: " + playerEnterMap.MapId + " Instance: " +
+            _logService.Message("PlayerEnterMap: " + playerEnterMap.Id + " Map: " + playerEnterMap.MapId + " Instance: " +
                 playerEnterMap.InstanceId);
             if (_onlineChars.TryGetValue(playerEnterMap.Id, out OnlineCharacter currChar))
             {
@@ -149,7 +148,7 @@ namespace Genrpg.PlayerServer.Managers
 
         public void OnPlayerLeaveMap(ServerGameState gs, PlayerLeaveMap playerLeaveMap)
         {
-            _logger.Message("PlayerLeaveMap: " + playerLeaveMap.Id);
+            _logService.Message("PlayerLeaveMap: " + playerLeaveMap.Id);
             if (_onlineChars.TryGetValue(playerLeaveMap.Id, out OnlineCharacter currChar))
             {
                 RemoveFromMap(currChar);
@@ -158,7 +157,7 @@ namespace Genrpg.PlayerServer.Managers
 
         public void OnPlayerEnterZone(ServerGameState gs, PlayerEnterZone playerEnterZone)
         {
-            _logger.Message("AddToZone: " + playerEnterZone.Id + " to " + playerEnterZone.ZoneId);
+            _logService.Message("AddToZone: " + playerEnterZone.Id + " to " + playerEnterZone.ZoneId);
             if (_onlineChars.TryGetValue(playerEnterZone.Id, out OnlineCharacter currChar))
             {
                 RemoveFromZone(currChar);

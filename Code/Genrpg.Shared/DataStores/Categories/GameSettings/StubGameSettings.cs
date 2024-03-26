@@ -18,7 +18,7 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
         public virtual void AddTo(GameData gameData) { }
         public void ClearIndex() { }
 
-        public virtual async Task SaveAll(IRepositorySystem repo)
+        public virtual async Task SaveAll(IRepositoryService repo)
         {
             await Task.CompletedTask;
             return;

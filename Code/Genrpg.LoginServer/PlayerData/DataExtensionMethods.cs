@@ -6,6 +6,7 @@ using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Units.Loaders;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.PlayerData
@@ -14,6 +15,7 @@ namespace Genrpg.LoginServer.PlayerData
     {
 
         private static IPlayerDataService _playerDataService = null;
+        private static IRepositoryService _repoService = null;
         public static async Task<T> GetAsync<T>(this Character ch, GameState gs) where T : IUnitData
         {
             if (_playerDataService == null)
@@ -21,9 +23,14 @@ namespace Genrpg.LoginServer.PlayerData
                 _playerDataService = gs.loc.Get<IPlayerDataService>();
             }
 
+            if (_repoService == null)
+            {
+                _repoService = gs.loc.Get<IRepositoryService>();
+            }
+
             IUnitDataLoader loader = _playerDataService.GetLoader<T>();
 
-            IUnitData newData = await loader.LoadData(gs.repo, ch);
+            IUnitData newData = await loader.LoadData(_repoService, ch);
 
             if (newData == null)
             {

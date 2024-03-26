@@ -24,6 +24,8 @@ using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Entities.Utils;
+using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.DataStores.Entities;
 
 public interface IZoneGenService : IService
 {
@@ -53,6 +55,8 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 {
     protected IUnitGenService _unitGenService;
     protected INameGenService _nameGenService;
+    protected ILogService _logService;
+    protected IRepositoryService _repoService;
 
     public virtual void SetGameToken(CancellationToken token)
     {
@@ -195,7 +199,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
     public virtual void ShowGenError(UnityGameState gs, string msg)
     {
-        gs.logger.Error("ZONE GEN ERROR: " + msg);
+        _logService.Error("ZONE GEN ERROR: " + msg);
     }
 
 
@@ -332,13 +336,13 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
                     long id = currTextures[rand.Next() % currTextures.Count];
                     if (id == 0)
                     {
-                        gs.logger.Debug("Zero texture id " + zone.IdKey + " " + zone.ZoneTypeId + " " + id);
+                        _logService.Debug("Zero texture id " + zone.IdKey + " " + zone.ZoneTypeId + " " + id);
                     }
                     EntityUtils.SetObjectValue(zone, channels[i].Name + "TextureTypeId", id);
                 }
                 else
                 {
-                    gs.logger.Debug("CurrentTextures Empty: " + zone.IdKey + " " + zone.ZoneTypeId + " Channel " + channel.Name);
+                    _logService.Debug("CurrentTextures Empty: " + zone.IdKey + " " + zone.ZoneTypeId + " Channel " + channel.Name);
                 }
             }
         }

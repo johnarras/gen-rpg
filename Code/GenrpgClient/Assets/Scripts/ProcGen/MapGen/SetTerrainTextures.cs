@@ -130,7 +130,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         TextureType textureType = gs.data.Get<TextureTypeSettings>(gs.ch).Get(textureId);
 		if (textureType == null)
 		{
-            gs.logger.Message("TextureType is null: TextureId: " + textureId + " Index: " + index);
+            _logService.Message("TextureType is null: TextureId: " + textureId + " Index: " + index);
 			textureType = gs.data.Get<TextureTypeSettings>(gs.ch).Get(1);
 		}
 

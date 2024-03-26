@@ -1,7 +1,7 @@
 ﻿using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Utils;
@@ -26,15 +26,15 @@ namespace Genrpg.MapServer.MapMessaging
         protected int _queueIndex = -1;
         protected long _messagesProcessed = 0;
         protected CancellationToken _token;
-        private ILogSystem _logger;
+        private ILogService _logService;
         private IMapMessageService _mapMessageService;
 
         private DateTime _startTime = DateTime.UtcNow;
 
-        public MapMessageQueue(GameState gs, DateTime startTime, int queueIndex, IMapMessageService mapMessageService, CancellationToken token)
+        public MapMessageQueue(GameState gs, DateTime startTime, int queueIndex, ILogService logService, IMapMessageService mapMessageService, CancellationToken token)
         {
-            _logger = gs.logger;
             _token = token;
+            _logService = logService;
             _startTime = startTime;
             _queueIndex = queueIndex;
             _mapMessageService = mapMessageService;
@@ -58,7 +58,7 @@ namespace Genrpg.MapServer.MapMessaging
         {
             _pgs.data = gameData;
             _dgs.data = gameData;
-            _dgs.logger.Message("Update Message Queue Game Data!");
+            _logService.Message("Update Message Queue Game Data!");
         }
 
         public void AddMessage(IMapMessage message, MapObject mapObject, IMapMessageHandler handler, float delaySeconds)
@@ -86,7 +86,7 @@ namespace Genrpg.MapServer.MapMessaging
         {
             try
             {
-                _dgs = gsIn.CopySharedData();
+                _dgs = gsIn.CreateGameStateCopy();
                 int currentTick = 0;
 
                 using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(MessageConstants.DelayedMessageTimeGranularity)))
@@ -130,11 +130,11 @@ namespace Genrpg.MapServer.MapMessaging
             }
             catch (OperationCanceledException oce)
             {
-                _logger.Info("Map Instance Shutdown MessageQueue.ProcessDelayed Index: " + _queueIndex);
+                _logService.Info("Map Instance Shutdown MessageQueue.ProcessDelayed Index: " + _queueIndex);
             }
             catch (Exception e)
             { 
-                _logger.Exception(e, "MessageQueueDelay");
+                _logService.Exception(e, "MessageQueueDelay");
             }
         }
 
@@ -143,7 +143,7 @@ namespace Genrpg.MapServer.MapMessaging
         {
             try
             {
-                _pgs = gsIn.CopySharedData();
+                _pgs = gsIn.CreateGameStateCopy();
                 using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(1)))
                 {
                     while (true)
@@ -159,7 +159,7 @@ namespace Genrpg.MapServer.MapMessaging
                             }
                             catch (Exception e)
                             {
-                                _logger.Exception(e, "Process Message");
+                                _logService.Exception(e, "Process Message");
                             }
                         }
                         await timer.WaitForNextTickAsync(_token).ConfigureAwait(false);
@@ -168,11 +168,11 @@ namespace Genrpg.MapServer.MapMessaging
             }
             catch (OperationCanceledException oce)
             {
-                _logger.Info("Map Instance Shutdown MessageQueue.Process Index: " + _queueIndex);
+                _logService.Info("Map Instance Shutdown MessageQueue.Process Index: " + _queueIndex);
             }
             catch (Exception e)
             {
-                _logger.Exception(e, "MessageQueueProcess");
+                _logService.Exception(e, "MessageQueueProcess");
             }
         }
     }

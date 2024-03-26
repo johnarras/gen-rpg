@@ -23,14 +23,14 @@ namespace Genrpg.Shared.GameSettings.Loaders
         public virtual Type GetClientType() { return typeof(TApi); }
         public virtual bool SendToClient() { return true; }
 
-        public virtual async Task Setup(IRepositorySystem repoSystem)
+        public virtual async Task Setup(IRepositoryService repoSystem)
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { Ascending = true, MemberName = "ParentId" });
             await repoSystem.CreateIndex<TChild>(configs);
         }
 
-        public virtual async Task<List<ITopLevelSettings>> LoadAll(IRepositorySystem repoSystem, bool createDefaultIfMissing)
+        public virtual async Task<List<ITopLevelSettings>> LoadAll(IRepositoryService repoSystem, bool createDefaultIfMissing)
         {
 
             Task<List<TParent>> loadParentsTask = repoSystem.Search<TParent>(x => true);

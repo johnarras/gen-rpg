@@ -72,7 +72,7 @@ public class CharacterSelectScreen : BaseScreen
             MapId = InitClient.EditorInstance.CurrMapId,
             CharId = _gs.characterStubs.Select(x => x.Id).FirstOrDefault(),
             GenerateMap = true,
-            Env = _gs.Env,
+            Env = _gs.Config.Env,
             WorldDataEnv = _assetService.GetWorldDataEnv(),
         };
         _zoneGenService.LoadMap(_gs, lwd);

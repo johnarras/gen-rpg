@@ -8,6 +8,7 @@ using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using System.Linq;
 using Newtonsoft.Json;
+using Genrpg.Shared.PlayerFiltering.Utils;
 
 namespace Genrpg.Shared.GameSettings.Settings
 {
@@ -27,7 +28,9 @@ namespace Genrpg.Shared.GameSettings.Settings
                 group.OrderSelf();
             }
 
-            AllUpdateTimes = data.Select(x => x.StartDate).Union(data.Select(x => x.EndDate)).Distinct().OrderBy(x => x).ToList();
+            AllUpdateTimes = data.Select(x => PlayerFilterTimeUtils.GetNextStartDate(x))
+                .Union(data.Select(x => PlayerFilterTimeUtils.GetNextEndDate(x)))
+                .Distinct().OrderBy(x => x).ToList();
 
             SetPrevNextUpdateTimes();
 

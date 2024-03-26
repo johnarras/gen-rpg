@@ -54,12 +54,14 @@ namespace Genrpg.Shared.Purchasing.Settings
         [Key(21)] public long MaxPurchaseCount { get; set; }
         [Key(22)] public double MinPurchaseTotal { get; set; }
         [Key(23)] public double MaxPurchaseTotal { get; set; }
-
+        
         [Key(24)] public bool UseDateRange { get; set; }
         [Key(25)] public DateTime StartDate { get; set; }
         [Key(26)] public DateTime EndDate { get; set; }
+        [Key(27)] public int RepeatHours { get; set; }
+        [Key(28)] public bool RepeatMonthly { get; set; }
 
-        [Key(27)] public List<OfferProduct> Products { get; set; } = new List<OfferProduct>();
+        [Key(29)] public List<OfferProduct> Products { get; set; } = new List<OfferProduct>();
 
         public void DeepCopyFrom(IComplexCopy from)
         {

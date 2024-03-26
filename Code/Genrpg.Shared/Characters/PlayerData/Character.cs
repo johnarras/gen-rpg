@@ -52,7 +52,7 @@ namespace Genrpg.Shared.Characters.PlayerData
 
         public override bool IsPlayer() { return true; }
 
-        public override void Delete<T>(IRepositorySystem repoSystem)
+        public override void Delete<T>(IRepositoryService repoSystem)
         {
             T item = Get<T>();
             if (item != null)
@@ -70,7 +70,7 @@ namespace Genrpg.Shared.Characters.PlayerData
             return new Dictionary<Type, IUnitData>(_dataDict);
         }
 
-        public override void SaveAll(IRepositorySystem repoSystem, bool saveClean)
+        public override void SaveAll(IRepositoryService repoSystem, bool saveClean)
         {
             List<BasePlayerData> itemsToSave = new List<BasePlayerData>();
 

@@ -20,8 +20,10 @@ namespace Genrpg.Shared.Crawler.Combat.Entities
         [Key(2)] public List<CombatGroup> Enemies { get; set; } = new List<CombatGroup>();
 
         [Key(3)] public List<CombatGroup> Allies { get; set; } = new List<CombatGroup>();
-
+       
         [Key(4)] public List<CrawlerUnit> EnemiesKilled { get; set; } = new List<CrawlerUnit>();
+
+        [Key(5)] public CombatGroup PartyGroup { get; set; }
 
         public bool CombatIsOver() { return Enemies.Count == 0 || PartyIsDead(); }
 

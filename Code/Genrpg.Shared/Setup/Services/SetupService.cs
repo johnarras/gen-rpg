@@ -1,11 +1,8 @@
 
-using Genrpg.Shared.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,7 +10,7 @@ namespace Genrpg.Shared.Setup.Services
 {
     public class SetupService : IService
     {
-        public virtual void SetupObjectLocator(GameState gs)
+        public virtual void SetupServiceLocator(GameState gs)
         {
             LocatorSetup ls = new LocatorSetup();
             ls.Setup(gs);
@@ -21,24 +18,13 @@ namespace Genrpg.Shared.Setup.Services
 
         public virtual async Task SetupGame(GameState gs, CancellationToken token)
         {
-            SetupObjectLocator(gs);
+            SetupServiceLocator(gs);
 
             gs.loc.ResolveSelf();
-
             gs.loc.Resolve(this);
-            List<IService> vals = gs.loc.GetVals();
 
+            await ReflectionUtils.SetupServices(gs, gs.loc.GetVals(), token);
 
-            List<Task> setupTasks = new List<Task>();
-            foreach (IService val in vals)
-            {
-                if (val is ISetupService setupVal)
-                {
-                    setupTasks.Add(setupVal.Setup(gs, token));
-                }
-            }
-
-            await Task.WhenAll(setupTasks);
         }
 
         public virtual async Task FinalSetup(GameState gs)

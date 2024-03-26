@@ -32,7 +32,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                 return;
             }
 
-            gs.logger.Message("Finish Interact " + DateTime.UtcNow);
+            _logService.Message("Finish Interact " + DateTime.UtcNow);
             string errorMessage = "";
             if (obj.ActionMessage == null)
             {

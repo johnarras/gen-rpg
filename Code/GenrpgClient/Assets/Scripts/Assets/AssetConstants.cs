@@ -1,5 +1,8 @@
 ﻿public class AssetConstants
 {
+
+    public const string DefaultDevContentRoot = "http://oxdbcontent.blob.core.windows.net/genrpg";
+
     public const string DownloadAssetRootPath = "BundledAssets/";
 
     public const string DirectoryBundlePath = "_dir";

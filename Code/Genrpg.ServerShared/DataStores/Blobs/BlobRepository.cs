@@ -4,7 +4,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Utils;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -21,11 +21,11 @@ namespace Genrpg.ServerShared.DataStores.Blobs
     {
         private CloudStorageAccount _account = null;
         private CloudBlobClient _client = null;
-        private ILogSystem _logger = null;
+        private ILogService _logger = null;
         private ConcurrentDictionary<Type, string> _collectionNames = new ConcurrentDictionary<Type, string>();
         private ConcurrentDictionary<Type, CloudBlobContainer> _containers = new ConcurrentDictionary<Type, CloudBlobContainer>();
     
-        public BlobRepository(ILogSystem logger, string connectionString)
+        public BlobRepository(ILogService logger, string connectionString)
         {
             _account = CloudStorageAccount.Parse(connectionString);
             _client = _account.CreateCloudBlobClient();

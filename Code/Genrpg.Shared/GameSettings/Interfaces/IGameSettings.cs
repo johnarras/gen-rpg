@@ -13,7 +13,7 @@ namespace Genrpg.Shared.GameSettings.Interfaces
         void AddTo(GameData gameData);
         void SetInternalIds();
         void ClearIndex();
-        Task SaveAll(IRepositorySystem repo);
+        Task SaveAll(IRepositoryService repo);
         List<IGameSettings> GetChildren();
     }
 }

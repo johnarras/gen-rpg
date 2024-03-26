@@ -60,6 +60,6 @@ namespace Genrpg.Shared.Spawns.WorldData
             }
             return addonBits;
         }
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
+        public override void Delete(IRepositoryService repoSystem) { repoSystem.Delete(this); }
     }
 }

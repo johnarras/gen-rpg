@@ -10,6 +10,8 @@ using Genrpg.Shared.Setup.Services;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using Genrpg.ServerShared.Config;
 
 namespace Genrpg.ServerShared.MainServer
 {
@@ -20,7 +22,7 @@ namespace Genrpg.ServerShared.MainServer
 
 
     public abstract class BaseServer<TGameState,TSetupService,IQMessageHandler> : IBaseServer 
-        where TGameState: ServerGameState, new()
+        where TGameState: ServerGameState
         where TSetupService: SetupService, new()
         where IQMessageHandler : IQueueMessageHandler
     {
@@ -28,6 +30,7 @@ namespace Genrpg.ServerShared.MainServer
         protected CancellationTokenSource _tokenSource = new CancellationTokenSource();
         protected string _serverId;
         protected ICloudCommsService _cloudCommsService;
+        protected IServerConfig _config = null;
 
         public virtual async Task Init(object data, CancellationToken serverToken)
         {

@@ -1,4 +1,5 @@
 ﻿using Genrpg.Editor.Interfaces;
+using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
@@ -16,7 +17,7 @@ namespace Genrpg.Editor.Entities.Core
 
         public EditorUser EditorUser { get; set; }
         public EditorGameData EditorGameData { get; set; }
-        public EditorGameState()
+        public EditorGameState(IServerConfig config): base(config)
         {
             EditorUser = new EditorUser();
         }

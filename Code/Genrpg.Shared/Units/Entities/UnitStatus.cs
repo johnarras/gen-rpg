@@ -14,7 +14,7 @@ namespace Genrpg.Shared.Units.Entities
     [MessagePackObject]
     public class UnitStatus : BaseWorldData, IId, IStringOwnerId
     {
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
+        public override void Delete(IRepositoryService repoSystem) { repoSystem.Delete(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string OwnerId { get; set; }
         [Key(2)] public string ObjId { get; set; }

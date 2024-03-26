@@ -12,6 +12,7 @@ using Assets.Scripts.Model;
 using Scripts.Assets.Audio.Constants;
 using System.Threading;
 using Assets.Scripts.UI.Services;
+using Genrpg.Shared.Logging.Interfaces;
 
 public class BaseBehaviour : StubComponent
 {
@@ -21,6 +22,7 @@ public class BaseBehaviour : StubComponent
     protected IRealtimeNetworkService _networkService;
     protected IAssetService _assetService;
     protected IUiService _uiService;
+    protected ILogService _logService;
 
     public UnityGameState _gs { get; set; }
     

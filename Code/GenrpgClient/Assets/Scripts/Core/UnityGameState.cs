@@ -8,6 +8,10 @@ using System.Collections.Generic;
 using Genrpg.Shared.MapServer.Entities;
 using UnityEngine; // Needed
 using Cysharp.Threading.Tasks;
+using Genrpg.Shared.Logging.Interfaces;
+using Assets.Scripts.Model;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GameSettings;
 
 public class UnityGameState : GameState
 {
@@ -19,15 +23,17 @@ public class UnityGameState : GameState
     public List<CharacterStub> characterStubs = new List<CharacterStub>();
     public List<MapStub> mapStubs = new List<MapStub>();
 
+    public ClientConfig Config { get; }
+
     public UnityGameState()
     {
+        Config = ClientConfig.Load();
+        ILogService logService = new ClientLogger(Config);
+        loc = new ServiceLocator(logService);
+        data = new GameData();
     }
 
-    public string Env { get; set; }
-    public string SiteURL { get; set; }
-    public string ArtURLWithoutEnv { get; set; }
-    public string ContentAssetEnv { get; set; }
-    public string WorldAssetEnv { get; set; }
+    public string LoginServerURL { get; set; }
     public string Version { get; set; }
     public string RealtimeHost { get; set; }
     public string RealtimePort { get; set; }
@@ -85,7 +91,7 @@ public class UnityGameState : GameState
         if (_config == null)
         {
 
-            ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(logger);
+            ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(loc.Get<ILogService>());
             _config = repo.Load(ConfigFilename).GetAwaiter().GetResult();
             if (_config == null)
             {
@@ -111,7 +117,7 @@ public class UnityGameState : GameState
             };
         }
 
-        ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(logger);
+        ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(loc.Get<ILogService>());
         repo.Save(_config).Forget();
     }
 

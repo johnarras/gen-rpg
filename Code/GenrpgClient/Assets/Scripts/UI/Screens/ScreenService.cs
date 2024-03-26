@@ -129,13 +129,13 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
         
         if (screen == null)
         {
-            _gs.logger.Debug("Couldn't load screen ");
+            _logService.Debug("Couldn't load screen ");
             return;
         }
 
         if (nextItem ==null)
         {
-            _gs.logger.Debug("Couldn't find active screen object for new screen");
+            _logService.Debug("Couldn't find active screen object for new screen");
             GEntityUtils.Destroy(screen);
             return;
         }
@@ -144,7 +144,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
         if (layer == null)
         {
-            _gs.logger.Debug("Couldn't find active screen layer for new screen");
+            _logService.Debug("Couldn't find active screen layer for new screen");
             GEntityUtils.Destroy(screen);
             return;
         }
@@ -155,7 +155,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
         if (bs == null)
         {
             GEntityUtils.Destroy(screen);
-            _gs.logger.Debug("Screen had no BaseScreen on it");
+            _logService.Debug("Screen had no BaseScreen on it");
             return;
         }
         bs.ScreenId = nextItem.ScreenId;
@@ -199,7 +199,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
         ScreenLayer currLayer = GetLayer(screenName);
         if (currLayer == null)
         {
-            _gs.logger.Debug("Couldn't find layer for the screen " + screenName);
+            _logService.Debug("Couldn't find layer for the screen " + screenName);
             return;
         }
 

@@ -41,7 +41,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(7)] public long Seed { get; set; }
 
-        [Key(8)] public long CityId { get; set; }
+        [Key(8)] public long MapId { get; set; }
 
         [Key(9)] public int MapX { get; set; }
         [Key(10)] public int MapZ { get; set; }

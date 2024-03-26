@@ -31,13 +31,13 @@ public class SaveMap : BaseZoneGenerator
 
         if (patch == null)
         {
-            gs.logger.Error("NO patch at " + gx + " " + gy);
+            _logService.Error("NO patch at " + gx + " " + gy);
             return;
         }
 
         if (patch.FullZoneIdList == null || patch.FullZoneIdList.Count < 1)
         {
-            gs.logger.Error("No zone list at " + gx + " " + gy);
+            _logService.Error("No zone list at " + gx + " " + gy);
             return;
         }
 
@@ -127,7 +127,7 @@ public class SaveMap : BaseZoneGenerator
                 byte zid = (byte)gs.md.mapZoneIds[x + startX, y + startY];
                 if (zid <= MapConstants.MountainZoneId)
                 {
-                    gs.logger.Error("Found bad zoneId at " + (x + startX) + " " + (y + startY));
+                    _logService.Error("Found bad zoneId at " + (x + startX) + " " + (y + startY));
                 }
                 bytes[index++] = zid;
                 if (!zoneIds.Contains(zid))
@@ -163,7 +163,7 @@ public class SaveMap : BaseZoneGenerator
             newBytes[i] = bytes[i];
         }
 
-        ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(gs.logger);
+        ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService);
 
         string zoneText = "";
         foreach (long zid in zoneIds)

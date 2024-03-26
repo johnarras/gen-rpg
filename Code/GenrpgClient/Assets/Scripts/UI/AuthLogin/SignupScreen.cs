@@ -3,6 +3,8 @@ using Cysharp.Threading.Tasks;
 using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.Login;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Logging.Interfaces;
 
 public class SignupScreen : BaseScreen
 {
@@ -15,6 +17,7 @@ public class SignupScreen : BaseScreen
     public GButton SignupButton;
 
     protected IClientLoginService _loginService;
+    protected IRepositoryService _repoService;
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
@@ -39,25 +42,25 @@ public class SignupScreen : BaseScreen
 
         if (string.IsNullOrEmpty(name))
         {
-            _gs.logger.Message("Name must not be blank");
+            _logService.Message("Name must not be blank");
             return;
         }
 
         if (String.IsNullOrEmpty(email))
         {
-            _gs.logger.Message("Email must not be blank");
+            _logService.Message("Email must not be blank");
             return;
         }
 
         if (password1 != password2)
         {
-            _gs.logger.Message("Passwords don't match");
+            _logService.Message("Passwords don't match");
             return;
         }
 
         if (string.IsNullOrEmpty(password1))
         {
-            _gs.logger.Message("Password isn't strong enough");
+            _logService.Message("Password isn't strong enough");
             return;
         }
 

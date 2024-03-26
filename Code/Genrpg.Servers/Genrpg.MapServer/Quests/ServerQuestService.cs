@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
@@ -28,6 +29,7 @@ namespace Genrpg.MapServer.Quests
         private ISharedQuestService _questService = null;
         private IEntityService _entityService = null;
 
+        protected IRepositoryService _repoService = null;
         public virtual UpdateQuestResult UpdateQuest(GameState gs, MapObject mobj, ISpawnResult spawnResult)
         {
             UpdateQuestResult retval = new UpdateQuestResult();
@@ -155,7 +157,7 @@ namespace Genrpg.MapServer.Quests
 
                     questStatus = quest.CreateStatus(questData);
                     questData.AddStatus(questStatus);
-                    gs.repo.Delete(questStatus);
+                    _repoService.Delete(questStatus);
                     AlterQuestStateResult alterResult = new AlterQuestStateResult()
                     {
                         AlterTypeId = AlterQuestType.Accept,
@@ -173,7 +175,7 @@ namespace Genrpg.MapServer.Quests
                     return errorResult;
                 }
                 questData.RemoveStatus(questStatus);
-                gs.repo.Delete(questStatus);
+                _repoService.Delete(questStatus);
                 AlterQuestStateResult alterResult = new AlterQuestStateResult()
                 {
                     AlterTypeId = AlterQuestType.Abandon,
@@ -199,7 +201,7 @@ namespace Genrpg.MapServer.Quests
 
                 _entityService.GiveRewards(gs, ch, rewards);
                 questData.RemoveStatus(questStatus);
-                gs.repo.Delete(questStatus);
+                _repoService.Delete(questStatus);
 
                 AlterQuestStateResult alterResult = new AlterQuestStateResult()
                 {

@@ -12,7 +12,7 @@ namespace Genrpg.Shared.Spells.Constants
         public const long Ally = 2; // Can be cast on self or others, can have Enemy parts that hit things nearby.
         public const long EnemyGroup = 3;
         public const long AllEnemies = 4;
-        public const long Party = 5;
+        public const long AllAllies = 5;
         public const long Location = 6;
         public const long Item = 7;
         public const long Special = 8;

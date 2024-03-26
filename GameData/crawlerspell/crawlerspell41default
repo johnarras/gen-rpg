@@ -1,0 +1,25 @@
+{
+  "Id": "crawlerspell41default",
+  "ParentId": "default",
+  "IdKey": 41,
+  "Name": "Summon Bear",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 3,
+  "TargetTypeId": 9,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 4,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 8
+    }
+  ],
+  "UpdateTime": "2024-03-24T07:43:32.757Z",
+  "CreateTime": "2024-03-24T12:42:16Z"
+}

@@ -208,11 +208,11 @@ namespace Genrpg.Shared.Units.Entities
             _dataDict[obj.GetType()] = obj;
         }
 
-        public virtual void Delete<T>(IRepositorySystem repoSystem) where T : class, IUnitData, new() { }
+        public virtual void Delete<T>(IRepositoryService repoSystem) where T : class, IUnitData, new() { }
 
         public virtual Dictionary<Type, IUnitData> GetAllData() { return new Dictionary<Type, IUnitData>(); }
 
-        public virtual void SaveAll(IRepositorySystem repoSystem, bool saveClean)
+        public virtual void SaveAll(IRepositoryService repoSystem, bool saveClean)
         {
         }
 

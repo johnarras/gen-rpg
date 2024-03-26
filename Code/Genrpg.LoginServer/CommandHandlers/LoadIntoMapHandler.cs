@@ -74,7 +74,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 }
             }
 
-            CoreCharacter newCoreChar = await gs.repo.Load<CoreCharacter>(command.CharId);
+            CoreCharacter newCoreChar = await _repoService.Load<CoreCharacter>(command.CharId);
             if (newCoreChar == null)
             {
                 ShowError(gs, "Couldn't find new character to load " + command.CharId);
@@ -102,7 +102,7 @@ namespace Genrpg.LoginServer.CommandHandlers
 
             List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
 
-            string worldDataEnv = gs.config.DataEnvs[DataCategoryTypes.WorldData];
+            string worldDataEnv = _config.DataEnvs[DataCategoryTypes.WorldData];
 
             if (command.GenerateMap && !string.IsNullOrEmpty(command.WorldDataEnv))
             {
@@ -141,7 +141,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                     return new FullCachedMap();
                 }
 
-                await _mapDataService.SaveMap(gs, newMap);
+                await _mapDataService.SaveMap(_repoService, newMap);
 
                 CachedMap newCachedMap = new CachedMap()
                 {

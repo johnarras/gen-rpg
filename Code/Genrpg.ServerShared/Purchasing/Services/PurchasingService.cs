@@ -1,8 +1,10 @@
 ﻿using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.GameSettings.Settings;
+using Genrpg.Shared.PlayerFiltering.Utils;
 using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Users.Entities;
@@ -19,6 +21,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
 {
     public class PurchasingService : IPurchasingService
     {
+        protected IRepositoryService _repoService = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
@@ -27,7 +30,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
         public async Task<PlayerStoreOfferData> GetCurrentStores(ServerGameState gs, User user, Character ch, bool forceRefresh)
         {
 
-            PlayerStoreOfferData storeOfferData = await gs.repo.Load<PlayerStoreOfferData>(user.Id);
+            PlayerStoreOfferData storeOfferData = await _repoService.Load<PlayerStoreOfferData>(user.Id);
 
             if (storeOfferData == null)
             {
@@ -64,12 +67,12 @@ namespace Genrpg.ServerShared.Purchasing.Services
 
             storeOfferData.StoreOffers.Clear();
 
-            PurchaseHistoryData historyData = await gs.repo.Load<PurchaseHistoryData>(user.Id);
+            PurchaseHistoryData historyData = await _repoService.Load<PurchaseHistoryData>(user.Id);
 
             if (historyData == null)
             {
                 historyData = new PurchaseHistoryData() { Id = user.Id };
-                await gs.repo.Save(historyData);
+                await _repoService.Save(historyData);
             }
 
             foreach (StoreOffer offer in storeOffers)
@@ -129,7 +132,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
             storeOfferData.GameDataSaveTime = versionSettings.GameDataSaveTime;
             storeOfferData.LastTimeSet = currentTime;
 
-            await gs.repo.Save(storeOfferData);
+            await _repoService.Save(storeOfferData);
 
             return storeOfferData;
         }
@@ -137,9 +140,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
         protected void TryAddOffer (ServerGameState gs, StoreOffer offer, Dictionary<long,StoreOffer> currentOffers, User user, Character ch, PurchaseHistoryData historyData)
         {
 
-            if (offer.UseDateRange &&
-                (offer.StartDate > DateTime.UtcNow ||
-                offer.EndDate < DateTime.UtcNow))
+            if (!PlayerFilterTimeUtils.IsActive(offer))
             {
                 return;
             }

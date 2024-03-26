@@ -10,6 +10,8 @@ using Genrpg.Shared.Login.Messages.Login;
 using UI.Screens.Constants;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Login.Messages.NoUserGameData;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Logging.Interfaces;
 
 
 public interface IClientLoginService : IService
@@ -34,11 +36,13 @@ public class ClientLoginService : IClientLoginService
     private IClientMapObjectManager _objectManager;
     private IZoneGenService _zoneGenService;
     private IClientGameDataService _gameDataService;
+    private IRepositoryService _repoService;
+    private ILogService _logService;
     private string _pwd = "";
 
     public void StartLogin(UnityGameState gs, CancellationToken token)
     {
-        LocalUserData localData = gs.repo.Load<LocalUserData>(LocalUserFilename).Result;
+        LocalUserData localData = _repoService.Load<LocalUserData>(LocalUserFilename).Result;
 
 
         string userid = "";
@@ -55,7 +59,7 @@ public class ClientLoginService : IClientLoginService
             }
             catch (Exception ex)
             {
-                gs.logger.Exception(ex, "StartLogin");
+                _logService.Exception(ex, "StartLogin");
             }
         }
         if ((!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(userid)) && !string.IsNullOrEmpty(password))
@@ -81,7 +85,7 @@ public class ClientLoginService : IClientLoginService
 
     public void Logout(UnityGameState gs)
     {
-        gs.logger.Info("Logging out");
+        _logService.Info("Logging out");
         InnerExitMap(gs);
         gs.user = null;
         gs.data = null;
@@ -92,7 +96,7 @@ public class ClientLoginService : IClientLoginService
 
     public void ExitMap(UnityGameState gs)
     {
-        gs.logger.Info("Exiting Map");
+        _logService.Info("Exiting Map");
         InnerExitMap(gs);
         _screenService.CloseAll(gs);
         _screenService.Close(gs, ScreenId.HUD);
@@ -127,7 +131,7 @@ public class ClientLoginService : IClientLoginService
         }
         catch (Exception e)
         {
-            gs.logger.Exception(e, "LoginToServer.LoadData");
+            _logService.Exception(e, "LoginToServer.LoadData");
         }
 
         List<ITopLevelSettings> allSettings = gs.data.AllSettings();
@@ -160,7 +164,7 @@ public class ClientLoginService : IClientLoginService
             Password = EncryptionUtils.EncryptString(_pwd),
         };
 
-        await gs.repo.Save(localUserData);
+        await _repoService.Save(localUserData);
     }
 
     public void NoUserGetGameData(CancellationToken token)

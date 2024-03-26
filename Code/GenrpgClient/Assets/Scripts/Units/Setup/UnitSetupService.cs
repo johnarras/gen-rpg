@@ -12,6 +12,7 @@ using Assets.Scripts.Tokens;
 using UnityEngine; // Needed
 using Genrpg.Shared.AI.Settings;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.Logging.Interfaces;
 
 public interface IUnitSetupService : IService, IMapTokenService
 {
@@ -24,6 +25,7 @@ public class UnitSetupService : IUnitSetupService
     protected IClientMapObjectManager _objectManager;
     protected IStatService _statService;
     protected IAssetService _assetService;
+    protected ILogService _logService;
 
 
     private CancellationToken _token;
@@ -42,7 +44,7 @@ public class UnitSetupService : IUnitSetupService
 
         if (artGo == null)
         {
-            gs.logger.Error("Couldn't download monster art ");
+            _logService.Error("Couldn't download monster art ");
             return null;
         }
 

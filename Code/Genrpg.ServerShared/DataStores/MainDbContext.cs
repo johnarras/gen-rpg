@@ -9,7 +9,7 @@ namespace Genrpg.ServerShared.DataStores
         public DbSet<DbAccount> Accounts { get; set; }
 
 
-        public static MainDbContext Create(ServerConfig config)
+        public static MainDbContext Create(IServerConfig config)
         {
             DbContextOptionsBuilder<MainDbContext> options = new DbContextOptionsBuilder<MainDbContext>();
             options.UseSqlServer(config.GetConnectionString("SQLPlatform"), opts => opts.EnableRetryOnFailure());

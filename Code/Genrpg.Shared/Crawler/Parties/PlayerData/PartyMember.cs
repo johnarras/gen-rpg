@@ -24,6 +24,10 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(4)] public long Exp { get; set; }
 
+        [Key(5)] public List<PartySummon> Summons { get; set; } = new List<PartySummon>();
+
+        public override bool IsPlayer() { return true; }
+
         public long GetPermStat(long statTypeId)
         {
             return PermStats.FirstOrDefault(x => x.Id == statTypeId)?.Val ?? 0;           

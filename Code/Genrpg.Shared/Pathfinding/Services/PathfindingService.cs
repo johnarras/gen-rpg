@@ -14,6 +14,7 @@ using System.Linq;
 using System.ComponentModel.Design;
 using Genrpg.Shared.MapObjects.Entities;
 using System.Threading;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.Shared.Pathfinding.Services
 {
@@ -33,6 +34,7 @@ namespace Genrpg.Shared.Pathfinding.Services
 
         const int WorkbookCacheCount = 100;
         ConcurrentBag<PathWorkbook>[] _workbookCache = null;
+        private ILogService _logService = null;
 
         public async Task Setup(GameState gs, CancellationToken token)
         {
@@ -41,6 +43,7 @@ namespace Genrpg.Shared.Pathfinding.Services
             {
                 _workbookCache[i] = new ConcurrentBag<PathWorkbook>();
             }
+            await Task.CompletedTask;
         }
 
         public async Task LoadPathfinding(GameState gs, string urlPrefix)
@@ -64,7 +67,7 @@ namespace Genrpg.Shared.Pathfinding.Services
             }
             catch (Exception e)
             {
-                gs.logger.Exception(e, "LoadPathfinding");
+                _logService.Exception(e, "LoadPathfinding");
             }
         }
 
@@ -107,7 +110,7 @@ namespace Genrpg.Shared.Pathfinding.Services
             }
             catch (Exception e)
             {
-                gs.logger.Exception(e, "Patfinding Bytes to Grid");
+                _logService.Exception(e, "Patfinding Bytes to Grid");
             }
             return grid;
         }
@@ -611,7 +614,7 @@ namespace Genrpg.Shared.Pathfinding.Services
 
                             if (currentWaypoint != null)
                             {
-                                gs.logger.Info("Added dupe cell to waypoint list!");
+                                _logService.Info("Added dupe cell to waypoint list!");
                                 break;
                             }
                             else

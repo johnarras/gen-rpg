@@ -26,12 +26,14 @@ namespace Genrpg.Shared.Crawler.Spells.Entities
 
         [Key(4)] public List<CrawlerUnit> FinalTargets { get; set; } = new List<CrawlerUnit>();
 
-        [Key(5)] public long CombatActionId { get; set; }
+        [Key(5)] public List<CombatGroup> FinalTargetGroups { get; set; } = new List<CombatGroup>();
 
-        [Key(6)] public CrawlerSpell Spell { get; set; }
+        [Key(6)] public long CombatActionId { get; set; }
 
-        [Key(7)] public bool IsComplete { get; set; }
+        [Key(7)] public CrawlerSpell Spell { get; set; }
 
-        [Key(8)] public Item CastingItem { get; set; }
+        [Key(8)] public bool IsComplete { get; set; }
+
+        [Key(9)] public Item CastingItem { get; set; }
     }
 }

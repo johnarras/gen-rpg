@@ -248,7 +248,7 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: ForceDownloadFromAssetBundles
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985136876956973675, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}

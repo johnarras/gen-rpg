@@ -90,7 +90,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
             completeInteract.SkillPoints = skillPoints;
             completeInteract.GroundObjTypeId = groundObjTypeId;
             completeInteract.IsSkillLoot = message.IsSkillLoot;
-            gs.logger.Message("Start Interact: " + DateTime.UtcNow + " " + gatherSeconds);
+            _logService.Message("Start Interact: " + DateTime.UtcNow + " " + gatherSeconds);
             lock (target.OnActionLock)
             {
                 if (target.OnActionMessage != null && !target.OnActionMessage.IsCancelled())

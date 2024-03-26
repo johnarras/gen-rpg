@@ -251,11 +251,11 @@ public class UnityZoneGenService : ZoneGenService
             };
             gs.Dispatch(showPercent);
             DateTime startTime = DateTime.UtcNow;
-            gs.logger.Info("StageStart: " + currStep + " " + gen.GetType().Name + " Time: " + DateTime.UtcNow);
+            _logService.Info("StageStart: " + currStep + " " + gen.GetType().Name + " Time: " + DateTime.UtcNow);
             try
             {
                 await gen.Generate(gs, token);
-                gs.logger.Info("StageEnd: " + currStep + " " + gen.GetType().Name + " Time: " + DateTime.UtcNow);
+                _logService.Info("StageEnd: " + currStep + " " + gen.GetType().Name + " Time: " + DateTime.UtcNow);
             }
             catch (Exception e)
             {
@@ -279,7 +279,7 @@ public class UnityZoneGenService : ZoneGenService
         output.Append("------------------\n" +
             (DateTime.UtcNow - totalStartTime).TotalSeconds);
 
-        gs.logger.Debug(output.ToString());
+        _logService.Debug(output.ToString());
 
 
 
@@ -600,7 +600,7 @@ public class UnityZoneGenService : ZoneGenService
         if (terr.terrainData.terrainLayers == null ||
               terr.terrainData.terrainLayers.Length != newAlphas.GetLength(2))
         {
-            gs.logger.Info("Setting wrong terrainLayer sizes on " + patch.X + " -- " + patch.Y);
+            _logService.Info("Setting wrong terrainLayer sizes on " + patch.X + " -- " + patch.Y);
         }
 
         if (terr == null || terr.terrainData == null)
@@ -694,7 +694,6 @@ public class UnityZoneGenService : ZoneGenService
 
     }
 
-    static Material _loadedTerrainMaterial = null;
     static DateTime lastLoadClick = DateTime.UtcNow.AddMinutes(-1);
     public override void LoadMap(UnityGameState gsIn, LoadIntoMapCommand loadData)
     {
@@ -712,7 +711,7 @@ public class UnityZoneGenService : ZoneGenService
 
         if (string.IsNullOrEmpty(loadData.MapId))
         {
-            gs.logger.Info("No world id chosen!");
+            _logService.Info("No world id chosen!");
             return;
         }
 
@@ -735,13 +734,13 @@ public class UnityZoneGenService : ZoneGenService
         }
         if (loadData.GenerateMap)
         {
-            gs.logger.Info("Generating map " + loadData.MapId);
+            _logService.Info("Generating map " + loadData.MapId);
             UnityZoneGenService.LoadedMapId = "";
         }
         else
         {
             UnityZoneGenService.LoadedMapId = loadData.MapId;
-            gs.logger.Info("Loading map " + loadData.MapId);
+            _logService.Info("Loading map " + loadData.MapId);
         }
 
         string postData = SerializationUtils.Serialize(loadData);
@@ -791,7 +790,7 @@ public class UnityZoneGenService : ZoneGenService
             {
                 _screenService.CloseAll(gs);
                 _screenService.Open(gs, ScreenId.CharacterSelect);
-                gs.logger.Message("Map failed to download");
+                _logService.Message("Map failed to download");
                 return;
             }
 
@@ -799,7 +798,7 @@ public class UnityZoneGenService : ZoneGenService
         }
         catch (Exception e)
         {
-            gs.logger.Exception(e, "OnLoadIntoMap");
+            _logService.Exception(e, "OnLoadIntoMap");
         }
         await UniTask.CompletedTask;
     }
@@ -827,17 +826,6 @@ public class UnityZoneGenService : ZoneGenService
         LODGroup lg = terr.entity().GetComponent<LODGroup>();
 
 
-        if (_loadedTerrainMaterial == null)
-        {
-            string matNameSuffix = "";
-            //matNameSuffix = "Specular";
-            // matNameSuffix = "Diffuse";
-             matNameSuffix = "Standard";
-            _loadedTerrainMaterial = AssetUtils.LoadResource<Material>("Materials/Terrain" + matNameSuffix);
-        }
-        //if (_loadedTerrainMaterial == null) _loadedTerrainMaterial = AssetUtils.LoadResource<Material>("Materials/TerrainStandard");
-        terr.materialTemplate = _loadedTerrainMaterial;
-        //terr.materialType = Terrain.MaterialType.BuiltInStandard;
         terr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Simple;
         terr.treeDistance = 150;
         terr.treeBillboardDistance = 100;

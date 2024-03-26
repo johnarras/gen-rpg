@@ -11,11 +11,15 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Assets.Scripts.GameSettings.Services
 {
     public class ClientGameDataService : IClientGameDataService
     {
+
+        private IRepositoryService _repoService;
+
         private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
 
         public async Task Setup(GameState gs, CancellationToken token)
@@ -36,7 +40,7 @@ namespace Assets.Scripts.GameSettings.Services
         public async UniTask LoadCachedSettings(UnityGameState gs)
         {
             gs.data = new GameData();
-            ClientRepositorySystem repo = gs.repo as ClientRepositorySystem;
+            ClientRepositoryService repo = _repoService as ClientRepositoryService;
 
             List<ITopLevelSettings> allSettings = new List<ITopLevelSettings>();
             foreach (IGameSettingsLoader loader in _loaderObjects.Values)
@@ -54,7 +58,7 @@ namespace Assets.Scripts.GameSettings.Services
 
         public async UniTask SaveSettings(UnityGameState gs, IGameSettings settings)
         {
-            await gs.repo.Save(settings);
+            await _repoService.Save(settings);
         }
     }
 }

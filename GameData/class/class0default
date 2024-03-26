@@ -2,11 +2,13 @@
   "Id": "class0default",
   "ParentId": "default",
   "Name": "None",
+  "InitialMeleeAttacks": 1,
+  "InitialRangedAttacks": 1,
   "BuffStatPercent": 100,
   "DefaultLevelPercentBuff": 50,
   "MaxArmorScalingTypeId": 1,
   "AllowedWeapons": [],
   "AllowedEquipSlots": [],
-  "UpdateTime": "2024-02-17T22:30:05.224Z",
+  "UpdateTime": "2024-03-23T23:02:49.606Z",
   "CreateTime": "2024-01-27T00:57:37.613Z"
 }

@@ -19,7 +19,7 @@ namespace Genrpg.Shared.MapServer.Entities
     [MessagePackObject]
     public class Map : BaseWorldData, IName, IMapRoot
     {
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
+        public override void Delete(IRepositoryService repoSystem) { repoSystem.Delete(this); }
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string Name { get; set; }
         [Key(2)] public string Desc { get; set; }

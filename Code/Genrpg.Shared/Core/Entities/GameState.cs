@@ -7,8 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.Logs.Interfaces;
 using Genrpg.Shared.Spawns.WorldData;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.Shared.Core.Entities
 {
@@ -20,8 +20,6 @@ namespace Genrpg.Shared.Core.Entities
         // Shared data
         public GameData data;
         public IServiceLocator loc;
-        public IRepositorySystem repo;
-        public ILogSystem logger;
         public Map map = null;
         public MapSpawnData spawns;
         public bool[,] pathfinding;
@@ -37,17 +35,19 @@ namespace Genrpg.Shared.Core.Entities
         {
         }
 
-        public virtual GameState CopySharedData()
+        protected virtual GameState CreateGameStateInstance(ILogService logService = null)
         {
-            GameState gsNew = (GameState)Activator.CreateInstance(GetType());
+           return (GameState)Activator.CreateInstance(GetType());
+        }
 
+        public virtual GameState CreateGameStateCopy()
+        {
+            GameState gsNew = CreateGameStateInstance(loc.Get<ILogService>());
             gsNew.data = data;
             gsNew.loc = loc;
-            gsNew.repo = repo;
             gsNew.map = map;
             gsNew.spawns = spawns;
             gsNew.pathfinding = pathfinding;
-            gsNew.logger = logger;
             gsNew.rand = new MyRandom(DateTime.UtcNow.Ticks);
             return gsNew;
         }

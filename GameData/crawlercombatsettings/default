@@ -1,10 +1,11 @@
 {
   "Id": "default",
-  "MinHitToDefenseRatio": 0.25,
+  "MinHitToDefenseRatio": 0.2,
   "MaxHitToDefenseRatio": 1.25,
   "DefendDamageScale": 0.5,
   "TauntDamageScale": 0.25,
+  "MaxGroupSize": 99,
   "Name": "CrawlerCombatSettings",
-  "UpdateTime": "2024-02-15T23:32:35.361Z",
-  "CreateTime": "2024-02-12T02:44:39Z"
+  "UpdateTime": "2024-03-24T18:43:00.084Z",
+  "CreateTime": "2024-02-12T08:44:39Z"
 }

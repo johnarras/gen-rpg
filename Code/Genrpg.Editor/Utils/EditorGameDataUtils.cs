@@ -19,6 +19,7 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.ServerShared.CloudComms.Constants;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.Editor.Utils
 {
@@ -32,11 +33,12 @@ namespace Genrpg.Editor.Utils
             FullGameDataCopy dataCopy = new FullGameDataCopy();
 
             IGameDataService gameDataService = gs.loc.Get<IGameDataService>();
+            IRepositoryService repoService = gs.loc.Get<IRepositoryService>();
             List<IGameSettingsLoader> allLoaders = gameDataService.GetAllLoaders();
 
             foreach (IGameSettingsLoader loader in allLoaders)
             {
-                List<ITopLevelSettings> allSettings = await loader.LoadAll(gs.repo, true);
+                List<ITopLevelSettings> allSettings = await loader.LoadAll(repoService, true);
                 foreach (ITopLevelSettings data in allSettings)
                 {
                     dataCopy.Data.Add(data);
@@ -46,7 +48,7 @@ namespace Genrpg.Editor.Utils
             return dataCopy;
         }
 
-        public static async Task<EditorGameState> SetupFromConfig (object parent, string env, ServerConfig serverConfig = null)
+        public static async Task<EditorGameState> SetupFromConfig (object parent, string env, IServerConfig serverConfig = null)
         {
             if (serverConfig == null)
             {
@@ -76,9 +78,10 @@ namespace Genrpg.Editor.Utils
         {
 
             EditorGameState gs = await SetupFromConfig(form, env);
+            IRepositoryService repoService = gs.loc.Get<IRepositoryService>();
             foreach (IGameSettings data in dataCopy.Data)
             {
-                await gs.repo.Save(data);
+                await repoService.Save(data);
             }
         }
 

@@ -8,7 +8,9 @@
   "Art": "",
   "Abbrev": "Cl",
   "LevelsPerMelee": 12,
-  "LevelsPerRanged": 16,
+  "InitialMeleeAttacks": 1,
+  "LevelsPerRanged": 15,
+  "InitialRangedAttacks": 1,
   "HealthPerLevel": 10,
   "ManaPerLevel": 10,
   "BuffStatTypeId": 31,
@@ -16,6 +18,7 @@
   "DefaultLevelPercentBuff": 50,
   "PartyBuffId": 4,
   "MaxArmorScalingTypeId": 3,
+  "ManaStatTypeId": 13,
   "AllowedWeapons": [
     {
       "ItemTypeId": 23
@@ -28,6 +31,6 @@
     }
   ],
   "AllowedEquipSlots": [],
-  "UpdateTime": "2024-02-17T22:30:05.25Z",
+  "UpdateTime": "2024-03-23T22:58:54.533Z",
   "CreateTime": "2024-01-27T12:57:37Z"
 }

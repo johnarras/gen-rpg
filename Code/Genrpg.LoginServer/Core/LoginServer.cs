@@ -29,6 +29,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Charms.PlayerData;
 using Genrpg.LoginServer.Services.NoUsers;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.LoginServer.Core
 {
@@ -59,12 +60,11 @@ namespace Genrpg.LoginServer.Core
 
         protected LoginGameState SetupGameState()
         {
-            return new LoginGameState()
+            return new LoginGameState(_config)
             {
-                config = _gs.config,
                 data = _gs.data,
-                repo = _gs.repo,
                 loc = _gs.loc,
+
                 rand = new MyRandom(),
                 commandHandlers = _gs.commandHandlers,
                 noUserCommandHandlers = _gs.noUserCommandHandlers,

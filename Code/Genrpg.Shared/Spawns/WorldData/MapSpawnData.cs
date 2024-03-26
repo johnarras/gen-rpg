@@ -26,7 +26,7 @@ namespace Genrpg.Shared.Spawns.WorldData
         [Key(2)] public List<MapSpawn> Data { get; set; } = new List<MapSpawn>();
         [Key(3)] public int MaxId { get; set; } = 12345;
 
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
+        public override void Delete(IRepositoryService repoSystem) { repoSystem.Delete(this); }
 
         public void AddSpawn(InitSpawnData initSpawnData)
         {

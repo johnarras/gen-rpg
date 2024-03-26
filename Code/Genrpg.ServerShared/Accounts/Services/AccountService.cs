@@ -15,12 +15,12 @@ namespace Genrpg.ServerShared.Accounts.Services
 {
     public class AccountService : IAccountService
     {
-        private MainDbContext GetContext(ServerConfig config)
+        private MainDbContext GetContext(IServerConfig config)
         {
             return MainDbContext.Create(config);
         }
 
-        public async Task<Account> LoadBy(ServerConfig config, string type, string id)
+        public async Task<Account> LoadBy(IServerConfig config, string type, string id)
         {
             if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(type))
             {
@@ -56,7 +56,7 @@ namespace Genrpg.ServerShared.Accounts.Services
             return null;
         }
 
-        public virtual async Task<bool> SaveAccount(ServerConfig config, Account acct)
+        public virtual async Task<bool> SaveAccount(IServerConfig config, Account acct)
         {
             if (acct == null)
             {

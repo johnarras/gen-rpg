@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell43default",
+  "ParentId": "default",
+  "IdKey": 43,
+  "Name": "Bring a Friend",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 9,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 8
+    }
+  ],
+  "Flags": 2,
+  "UpdateTime": "2024-03-24T18:00:36.878Z",
+  "CreateTime": "2024-03-24T17:42:16Z"
+}

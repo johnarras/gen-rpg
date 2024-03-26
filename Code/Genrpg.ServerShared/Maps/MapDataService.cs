@@ -1,8 +1,10 @@
 ﻿using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.Maps.Entities;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Quests.WorldData;
 using Genrpg.Shared.Utils;
@@ -18,25 +20,28 @@ namespace Genrpg.ServerShared.Maps
     {
         Task<List<MapStub>> GetMapStubs(ServerGameState gs);
         Task<Map> LoadMap(ServerGameState gs, string mapId);
-        Task SaveMap(ServerGameState gs, Map map);
+        Task SaveMap(IRepositoryService repoService, Map map);
     }
 
     public class MapDataService : IMapDataService
     {
+        protected IRepositoryService _repoService = null;
+        protected ILogService _logService = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
             List<IndexConfig> configs = new List<IndexConfig>();
-            configs.Add(new IndexConfig() { MemberName = "OwnerId" });
-            configs.Add(new IndexConfig() { MemberName = "MapId" });
+            configs.Add(new IndexConfig() { MemberName = nameof(QuestType.OwnerId) });
+            configs.Add(new IndexConfig() { MemberName =  nameof(QuestType.MapId) });
             List<Task> allTasks = new List<Task>();
-            allTasks.Add(gs.repo.CreateIndex<QuestType>(configs));
-            allTasks.Add(gs.repo.CreateIndex<QuestItem>(configs));
-            allTasks.Add(gs.repo.CreateIndex<Zone>(configs));
+            allTasks.Add(_repoService.CreateIndex<QuestType>(configs));
+            allTasks.Add(_repoService.CreateIndex<QuestItem>(configs));
+            allTasks.Add(_repoService.CreateIndex<Zone>(configs));
+            await Task.CompletedTask;
         }
 
         public async Task<List<MapStub>> GetMapStubs(ServerGameState gs)
         {
-            List<MapRoot> allMaps = await gs.repo.Search<MapRoot>(x => true);
+            List<MapRoot> allMaps = await _repoService.Search<MapRoot>(x => true);
 
             List<MapStub> allStubs = new List<MapStub>();
 
@@ -51,7 +56,7 @@ namespace Genrpg.ServerShared.Maps
 
         public async Task<Map> LoadMap(ServerGameState gs, string mapId)
         {
-            MapRoot root = await gs.repo.Load<MapRoot>(mapId);
+            MapRoot root = await _repoService.Load<MapRoot>(mapId);
 
             if (root == null)
             {
@@ -60,7 +65,7 @@ namespace Genrpg.ServerShared.Maps
                     Id = mapId,
                     MapVersion = 0
                 };
-                await gs.repo.Save(root);
+                await _repoService.Save(root);
             }
 
             Map map = SerializationUtils.Deserialize<Map>(SerializationUtils.Serialize(root));
@@ -74,7 +79,7 @@ namespace Genrpg.ServerShared.Maps
             return map;
         }
 
-        public async Task SaveMap(ServerGameState gs, Map map)
+        public async Task SaveMap(IRepositoryService repoService, Map map)
         {
 
             try
@@ -82,23 +87,23 @@ namespace Genrpg.ServerShared.Maps
                 MapRoot mapRoot = SerializationUtils.Deserialize<MapRoot>(SerializationUtils.Serialize(map));
 
                 // Do not save map. It's too big.
-                await gs.repo.Save(mapRoot);
+                await _repoService.Save(mapRoot);
 
                 string mapOwnerId = Map.GetMapOwnerId(map);
 
-                await SaveMapDataList(gs, map.Zones, map.Id, map.MapVersion);
-                await SaveMapDataList(gs, map.Quests, map.Id, map.MapVersion);
-                await SaveMapDataList(gs, map.QuestItems, map.Id, map.MapVersion);
+                await SaveMapDataList(repoService, map.Zones, map.Id, map.MapVersion);
+                await SaveMapDataList(repoService, map.Quests, map.Id, map.MapVersion);
+                await SaveMapDataList(repoService, map.QuestItems, map.Id, map.MapVersion);
             }
             catch (Exception ex)
             {
-                gs.logger.Exception(ex, "SaveMap");
+                _logService.Exception(ex, "SaveMap");
             }
         }
 
-        protected async Task SaveMapDataList<T>(ServerGameState gs, List<T> list, string mapId, int mapVersion) where T : class, IMapOwnerId, IId
+        protected async Task SaveMapDataList<T>(IRepositoryService repoService, List<T> list, string mapId, int mapVersion) where T : class, IMapOwnerId, IId
         {
-            await gs.repo.DeleteAll<T>(x => x.MapId == mapId);
+            await repoService.DeleteAll<T>(x => x.MapId == mapId);
             string ownerId = Map.GetMapOwnerId(mapId, mapVersion);
             foreach (T t in list)
             {
@@ -106,7 +111,7 @@ namespace Genrpg.ServerShared.Maps
                 t.MapId = mapId;
                 t.Id = t.IdKey + "-" + ownerId;
             }
-            await gs.repo.SaveAll(list);
+            await repoService.SaveAll(list);
         }
 
         protected async Task<List<T>> LoadMapDataList<T>(ServerGameState gs, string ownerId) where T : class, IStringOwnerId
@@ -118,7 +123,7 @@ namespace Genrpg.ServerShared.Maps
 
             while (true)
             {
-                List<T> newList = await gs.repo.Search<T>(x => x.OwnerId == ownerId, quantity, skip);
+                List<T> newList = await _repoService.Search<T>(x => x.OwnerId == ownerId, quantity, skip);
                 retval.AddRange(newList);
                 if (newList.Count < quantity)
                 {

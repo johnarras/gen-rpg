@@ -56,7 +56,7 @@ public class LoadInitialData : BaseZoneGenerator
             CharacterId = gs.ch.Id,
         });
 
-        gs.logger.Debug("LOADINTOMAP START " + gs.user.SessionId);
+        _logService.Debug("LOADINTOMAP START " + gs.user.SessionId);
         await UniTask.CompletedTask;
     }
 

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEditor;
 using Genrpg.Shared.Constants;
-using UnityEngine.Networking;
+using Genrpg.Shared.Logging.Interfaces;
 
 public class UploadAssetBundle
 {
@@ -30,7 +29,7 @@ public class UploadAssetBundle
 	private static void InnerUploadFiles(UnityGameState gs,string env)
 	{
 
-        LocalFileRepository localRepo = new LocalFileRepository(gs.logger);
+        BinaryFileRepository localRepo = new BinaryFileRepository(gs.loc.Get<ILogService>());
         gs = SetupEditorUnityGameState.Setup(gs);
 
         List<PlatformBuildData> targets = BuildConfiguration.GetbuildConfigs(gs);

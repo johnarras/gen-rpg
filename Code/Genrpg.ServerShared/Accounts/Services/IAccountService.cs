@@ -11,8 +11,8 @@ namespace Genrpg.ServerShared.Accounts.Services
 {
     public interface IAccountService : IService
     {
-        Task<Account> LoadBy(ServerConfig config, string type, string id);
-        Task<bool> SaveAccount(ServerConfig config, Account acct);
+        Task<Account> LoadBy(IServerConfig config, string type, string id);
+        Task<bool> SaveAccount(IServerConfig config, Account acct);
     }
 
 }

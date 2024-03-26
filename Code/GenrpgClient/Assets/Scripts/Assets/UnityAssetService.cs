@@ -3,20 +3,19 @@ using UnityEngine.U2D;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using System;
-using System.Text;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using Scripts.Assets.Assets.Constants;
 using System.Threading;
 using UnityEngine;
-using System.IO;
-using Genrpg.Shared.Logs.Interfaces;
 using Genrpg.Shared.Utils;
-using ClientEvents;
-using Genrpg.Shared.Spawns.Settings;
-using Newtonsoft.Json.Linq;
-using System.Xml.Linq;
-using Genrpg.Shared.Purchasing.PlayerData;
+using Genrpg.Shared.Logging.Interfaces;
+using System.Threading.Tasks;
+using Genrpg.Shared.Core.Entities;
+
+
+
+
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -25,22 +24,11 @@ public delegate void OnDownloadHandler(UnityGameState gs, object obj, object dat
 
 public delegate void SpriteListDelegate (UnityGameState gs, Sprite[] sprites);
 
-public class FileDownload
-{
-    public string URLPrefix { get; private set; }
-    public string FilePath { get; private set; }
-    public string FullURL { get; private set; }
-    public DownloadData DownloadData { get; private set; }
-    public CancellationToken Token { get; private set; }
-    public FileDownload(DownloadData downloadData, string urlPrefix, string filePath, CancellationToken token)
-    {
-        URLPrefix = urlPrefix;
-        FilePath = filePath;
-        FullURL = URLPrefix + FilePath;
-        DownloadData = downloadData;
-        Token = token;
-    }
 
+internal class GEntityContainer
+{
+    public GEntity Entity;
+    public bool FailedLoad;
 }
 
 public class AtlasSpriteDownload
@@ -98,13 +86,12 @@ public class ClientAssetCounts
 
 public class UnityAssetService : IAssetService
 {
-    private ILogSystem _logger;
+    private ILogService _logService;
+    private IFileDownloadService _fileDownloadService;
 
     private static float _loadDelayChance = 0.03f;
 
     private UnityGameState _gs;
-
-    private const int _maxConcurrentDownloads = 2;
 
     private const int _maxConcurrentExistingDownloads = 5;
 
@@ -114,10 +101,6 @@ public class UnityAssetService : IAssetService
 
     protected bool _isInitialized = false;
 
-    protected Dictionary<string, List<FileDownload>> _downloading = new Dictionary<string, List<FileDownload>>();
-
-    protected HashSet<string> _failedDownloads = new HashSet<string>();
-
     protected Dictionary<string, BundleCacheData> _bundleCache = new Dictionary<string, BundleCacheData>();
 
     protected Dictionary<string, List<BundleDownload>> _bundleDownloading = new Dictionary<string, List<BundleDownload>>();
@@ -126,10 +109,6 @@ public class UnityAssetService : IAssetService
 
 
     protected HashSet<string> _bundleFailedDownloads = new HashSet<string>();
-
-    protected HashSet<string> _failedResourceLoads = new HashSet<string>();
-
-    protected Dictionary<string, UnityEngine.Object> _loadedResources = new Dictionary<string, UnityEngine.Object>();
 
 #if UNITY_EDITOR
     protected HashSet<string> _failedAssetPathLoads = new HashSet<string>();
@@ -142,14 +121,13 @@ public class UnityAssetService : IAssetService
     protected BundleUpdateInfo _bundleUpdateInfo = null;
 
 
-    private LocalFileRepository _localRepo = null;
+    private BinaryFileRepository _localRepo = null;
 
-    int _fileDownloadingCount = 0;
     private Queue<BundleDownload> _existingDownloads = new Queue<BundleDownload>();
 
 
-    private string _assetURLPrefix = null;
-    private string _contentDataEnv = null;
+    private string _contentRootUrl = null;
+    private string _assetDataEnv = null;
     private string _worldDataEnv = null;
 
 
@@ -164,34 +142,24 @@ public class UnityAssetService : IAssetService
     { 
         return _worldDataEnv; 
     }
-    public string GetContentDataEnv() 
-    { 
-        return _contentDataEnv; 
-    }
-
-    /// <summary>
-    /// Downloads the asset bundle list.
-    /// </summary>
-    /// <param name="gs"></param>
-	public void Init(UnityGameState gs, string assetURLPrefix, string contentDataEnv, string worldDataEnv, CancellationToken token)
+    public async Task Setup(GameState gsIn, CancellationToken token)
     {
         if (!AppUtils.IsPlaying)
         {
             return;
         }
 
+        UnityGameState gs = gsIn as UnityGameState;
+
         _gs = gs;
-        _logger = gs.logger;
-        _assetURLPrefix = assetURLPrefix;
-        _contentDataEnv = contentDataEnv;
-        _worldDataEnv = worldDataEnv;
+        _contentRootUrl = gs.Config.GetContentRoot();
+        _assetDataEnv = gs.Config.GetAssetDataEnv();
+        _worldDataEnv = gs.Config.GetWorldDataEnv();
         _assetParent = GEntityUtils.FindSingleton(AssetConstants.GlobalAssetParent, true);
         SpriteAtlasManager.atlasRequested += DummyRequestAtlas;
         SpriteAtlasManager.atlasRegistered += DummuRegisterAtlas;
-        _localRepo = new LocalFileRepository(gs.logger);
+        _localRepo = new BinaryFileRepository(_logService);
         AssetUtils.GetPerisistentDataPath();
-        LoadLastSaveTimeFile(gs, token);
-
         for (int i = 0; i < _maxConcurrentExistingDownloads; i++)
         {
             LoadFromExistingBundles(gs, true, token).Forget();
@@ -202,11 +170,14 @@ public class UnityAssetService : IAssetService
         }
 
         IncrementalClearMemoryCache(gs, token).Forget();
+        LoadLastSaveTimeFile(gs, token);
+
+        await Task.CompletedTask;
     }
 
     public bool IsDownloading(UnityGameState g)
     {
-        return _downloading.Count > 0 ||
+        return 
             _existingDownloads.Count > 0 ||
             _bundleDownloading.Keys.Count > 0 ||
             _bundleDownloadQueue.Keys.Count > 0;
@@ -288,7 +259,7 @@ public class UnityAssetService : IAssetService
             }
             if (removeCount > 0)
             {
-                //await AsyncUnloadAssets(token);
+                await AsyncUnloadAssets(token);
             }
         }
     }
@@ -299,225 +270,7 @@ public class UnityAssetService : IAssetService
     }
 
 
-    // If it's in the cache, return it.
-    // If it's a failed download, return nothing.
-    // If it's in downloading, add the handler to the queue.	
-    // If it's none of those, start the download.
-
-
-    public void DownloadFile(UnityGameState gs, string filePath, DownloadData downloadData, bool worldData, CancellationToken token)
-    {
-        if (!TokenUtils.IsValid(token))
-        {
-            return;
-        }
-        if (downloadData == null)
-        {
-            downloadData = new DownloadData();
-        }
-
-        if (string.IsNullOrEmpty(filePath))
-        {
-            if (downloadData.Handler != null)
-            {
-                downloadData.Handler(gs, null, downloadData.Data, token);
-            }
-            return;
-        }
-
-        if (_failedDownloads.Contains(filePath))
-        {
-            if (downloadData.Handler != null)
-            {
-                downloadData.Handler(gs, null, downloadData.Data, token);
-            }
-            return;
-        }
-
-        string urlPrefix = downloadData.URLPrefixOverride;
-
-        if (string.IsNullOrEmpty(urlPrefix))
-        {
-            urlPrefix = GetArtURLPrefix(worldData);
-        }
-
-        FileDownload fileDownLoad = new FileDownload(downloadData, urlPrefix, filePath, token);
-
-        if (_downloading.ContainsKey(filePath))
-        {
-            List<FileDownload> list = _downloading[filePath];
-            if (list != null)
-            {
-                list.Add(fileDownLoad);
-            }
-            return;
-        }
-        else
-        {
-            List<FileDownload> list = new List<FileDownload>();
-            list.Add(fileDownLoad);
-            _downloading[filePath] = list;
-            DownloadFileInternal(gs, fileDownLoad, token).Forget();
-        }
-    }
-
-    public static string GetCachedFilenameFromUrl(string url)
-    {
-        if (string.IsNullOrEmpty(url))
-        {
-            return "";
-        }
-
-        while (url.IndexOf("/") >= 0)
-        {
-            url = url.Replace("/", "_");
-        }
-        while (url.IndexOf("\\") >= 0)
-        {
-            url = url.Replace("\\", "_");
-        }
-        return AssetUtils.GetPerisistentDataPath() + "/" + url;
-    }
-
-    private async UniTask DownloadFileInternal(UnityGameState gs, FileDownload fileDownload, CancellationToken token)
-    {
-
-        if (fileDownload == null)
-        {
-            return;
-        }
-        Texture2D tex = null;
-        string txt = null;
-
-        System.Object obj = null;
-
-        if (!fileDownload.DownloadData.ForceDownload)
-        {
-            fileDownload.DownloadData.StartBytes = _localRepo.LoadBytes(fileDownload.FilePath);
-        }
-        if (fileDownload.DownloadData.StartBytes == null || fileDownload.DownloadData.StartBytes.Length < 1)
-        {
-            for (int i = 0; i < _retryTimes; i++)
-            {
-                while (_fileDownloadingCount >= _maxConcurrentDownloads)
-                {
-                    await UniTask.NextFrame( cancellationToken: token);
-                }
-                _fileDownloadingCount++;
-                using (UnityWebRequest request = UnityWebRequest.Get(fileDownload.FullURL))
-                {
-                    if (request == null)
-                    {
-                        _downloading.Remove(fileDownload.FilePath);
-                        _fileDownloadingCount--;
-                        return;
-                    }
-                    try
-                    {
-                        UnityWebRequestAsyncOperation asyncOp = request.SendWebRequest();
-
-                        while (!asyncOp.isDone)
-                        {
-                            await UniTask.NextFrame( cancellationToken: token);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        gs.logger.Exception(e, "DownloadFile :" + fileDownload.FullURL);
-                    }
-
-                    DownloadHandler handler = request.downloadHandler;
-                    fileDownload.DownloadData.StartBytes = handler.data;
-                    txt = handler.text;
-                    if (fileDownload.DownloadData.StartBytes != null &&
-                        fileDownload.DownloadData.StartBytes.Length < 300)
-                    {
-                        try
-                        {
-                            txt = Encoding.UTF8.GetString(fileDownload.DownloadData.StartBytes);
-                        }
-                        catch (Exception e)
-                        {
-                            _logger.Exception(e, "DownloadToBytesToText");
-                        }
-                        if (txt == null || txt.IndexOf("BlobNotFound") >= 0)
-                        {
-                            fileDownload.DownloadData.StartBytes = null;
-                            request.Dispose();
-                            if (i < _retryTimes - 1)
-                            {
-                                _downloading.Remove(fileDownload.FilePath);
-                                _fileDownloadingCount--;
-                                await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
-                            }
-                        }
-                    }
-
-                    if (fileDownload.DownloadData.StartBytes != null)
-                    {
-                        byte[] finalBytes = fileDownload.DownloadData.StartBytes;
-
-                        await UniTask.NextFrame(cancellationToken: token);
-                        _localRepo.SaveBytes(fileDownload.FilePath, finalBytes);
-                        await UniTask.NextFrame(cancellationToken: token);
-                        fileDownload.DownloadData.UncompressedBytes = finalBytes;
-
-                        request.Dispose();
-                        _fileDownloadingCount--;
-                        break;
-                    }
-                    else
-                    {
-                        _fileDownloadingCount--;
-                    }
-                }
-            }
-        }
-        else
-        {
-            fileDownload.DownloadData.UncompressedBytes = fileDownload.DownloadData.StartBytes;
-        }
-
-        if (fileDownload.DownloadData.UncompressedBytes != null)
-        {
-            if (fileDownload.DownloadData.IsImage)
-            {
-                await UniTask.NextFrame(cancellationToken: token);
-                tex = new Texture2D(2, 2);
-                tex.LoadImage(fileDownload.DownloadData.UncompressedBytes);
-                TextureUtils.SetupTexture(tex);
-                obj = tex;
-            }
-            else if (fileDownload.DownloadData.IsText ||
-                fileDownload.FilePath.IndexOf(".txt") > 0)
-            {
-                obj = txt;
-            }
-            else
-            {
-                obj = fileDownload.DownloadData.UncompressedBytes;
-            }
-        }
-        else
-        {
-            _failedDownloads.Add(fileDownload.FilePath);
-        }
-
-        if (_downloading.ContainsKey(fileDownload.FilePath))
-        {
-            List<FileDownload> allFileDownloads = _downloading[fileDownload.FilePath];
-            _downloading.Remove(fileDownload.FilePath);
-            foreach (FileDownload fd in allFileDownloads)
-            {
-                if (fd.DownloadData == null || fd.DownloadData.Handler == null || !TokenUtils.IsValid(token))
-                {
-                    continue;
-                }
-
-                fd.DownloadData.Handler(gs, obj, fd.DownloadData.Data, token);
-            }
-        }
-    }
+   
 
     private string GetAssetNameFromPath(AssetBundle assetBundle, string assetName)
     {
@@ -595,11 +348,6 @@ public class UnityAssetService : IAssetService
         if (!string.IsNullOrEmpty(subdirectory))
         {
             assetPathSuffix += "/" + subdirectory;
-        }
-
-        if (LoadFromResources(gs, assetPathSuffix, assetName, handler, data, parent, token, subdirectory))
-        {
-            return;
         }
 
 #if UNITY_EDITOR
@@ -715,90 +463,23 @@ public class UnityAssetService : IAssetService
             _bundleDownloadQueue[bundleName].Add(currentBundleDownload);
         }
     }
-    //(gs, assetPathSuffix, assetName, handler, data, parentIn, token, subdirectory))
-    private bool LoadFromResources(UnityGameState gs, string assetPathSuffix, string assetName, OnDownloadHandler handler,
-        object data, GEntity parent, CancellationToken token, string subdirectory)
-    {
-        if (!IsResourceAssetCategory(assetPathSuffix) || _failedResourceLoads.Contains(assetName))
-        {
-            return false;
-        }
-
-        string categoryPath = AssetUtils.GetAssetPath(assetPathSuffix);
-        if (assetName.IndexOf(categoryPath) == 0)
-        {
-            categoryPath = "";
-        }
-
-        string fullPath = categoryPath + assetName;
-
-        UnityEngine.Object resourceObject = null;
-
-        if (_loadedResources.ContainsKey(fullPath))
-        {
-            resourceObject = _loadedResources[fullPath];
-        }
-        else
-        {
-            resourceObject = AssetUtils.LoadResource<GEntity>(fullPath);
-            if (resourceObject != null)
-            {
-                _loadedResources[fullPath] = resourceObject;
-            }
-        }
-        if (resourceObject == null)
-        {
-            _failedResourceLoads.Add(assetName);
-        }
-        else
-        {
-            Texture2D resourceTexture = resourceObject as Texture2D;
-            if (resourceTexture != null)
-            {
-                Sprite sprite = Sprite.Create(resourceTexture, 
-                    new Rect(0, 0, resourceTexture.width, resourceTexture.height), Vector2.zero);
-                _atlasSpriteCache[assetName] = sprite;
-                if (handler != null)
-                {
-                    handler(gs, sprite, data, token);
-                }
-                return true;
-            }
-
-            GEntity resourceGameObject = InstantiateIntoParent(resourceObject, parent);
-            if (resourceGameObject != null)
-            {
-                resourceObject = resourceGameObject;
-            }
-            if (handler != null)
-            {
-                if (resourceObject is GEntity go)
-                {
-                    GEntityUtils.InitializeHierarchy(gs, go);
-                }
-                handler(gs, resourceObject, data, token);
-            }
-            return true;
-        }
-        return false;
-    }
 
     public void SetWorldAssetEnv(string worldAssetEnv)
     {
         _urlPrefixes.Remove(true);
         _worldDataEnv = worldAssetEnv;
-        GetArtURLPrefix(true);
+        GetContentRootURL(true);
     }
 
     private Dictionary<bool, string> _urlPrefixes = new Dictionary<bool, string>();
-    public string GetArtURLPrefix(bool worldData)
+    public string GetContentRootURL(bool worldData)
     {
         if (_urlPrefixes.TryGetValue(worldData, out string prefix))
         {
             return prefix;
         }
 
-        string newUrl = _assetURLPrefix + (worldData ? _worldDataEnv : _contentDataEnv) + "/";
+        string newUrl = _contentRootUrl + (worldData ? _worldDataEnv : _assetDataEnv) + "/";
 
         _urlPrefixes[worldData] = newUrl;
 
@@ -964,7 +645,7 @@ public class UnityAssetService : IAssetService
         }
         catch (Exception e)
         {
-            _logger.Exception(e, "Failed asset Load:" + assetName);
+            _logService.Exception(e, "Failed asset Load:" + assetName);
         }
         return null;
     }
@@ -1103,7 +784,7 @@ public class UnityAssetService : IAssetService
             }
             else
             {
-                _logger.Debug("Missing sprite: " + download.spriteName);
+                _logService.Debug("Missing sprite: " + download.spriteName);
             }
         }
 
@@ -1284,11 +965,11 @@ public class UnityAssetService : IAssetService
     }
 
 
-    protected void LoadLastSaveTimeFile(UnityGameState gs, CancellationToken token)
+    protected void LoadLastSaveTimeFile(GameState gs, CancellationToken token)
     {
         string path = AssetUtils.GetRuntimePrefix() + AssetConstants.BundleUpdateFile;
-        DownloadData ddata = new DownloadData() { ForceDownload = true, Handler = OnDownloadLastSaveTimeText, IsText = true };
-        DownloadFile(gs, path, ddata, false, token);
+        DownloadFileData ddata = new DownloadFileData() { ForceDownload = true, Handler = OnDownloadLastSaveTimeText, IsText = true };
+        _fileDownloadService.DownloadFile(gs as UnityGameState, path, ddata, false, token);
     }
 
     private void OnDownloadLastSaveTimeText(UnityGameState gs, object obj, object data, CancellationToken token)
@@ -1302,7 +983,7 @@ public class UnityAssetService : IAssetService
     {
         _bundleVersions = _localRepo.LoadObject<BundleVersions>(AssetConstants.BundleVersionsFile);
 
-        DownloadData ddata = new DownloadData() { ForceDownload = true, Handler = OnDownloadBundleVersions, IsText = true };
+        DownloadFileData ddata = new DownloadFileData() { ForceDownload = true, Handler = OnDownloadBundleVersions, IsText = true };
 
         if (_bundleVersions == null || _bundleVersions.UpdateInfo == null ||
             _bundleUpdateInfo == null ||
@@ -1310,13 +991,13 @@ public class UnityAssetService : IAssetService
             _bundleVersions.UpdateInfo.UpdateTime != _bundleUpdateInfo.UpdateTime)
         {
             string path = AssetUtils.GetRuntimePrefix() + AssetConstants.BundleVersionsFile;
-            DownloadFile(gs, path, ddata, false, token);
-            gs.logger.Info("YES DOWNLOAD BUNDLE VERSIONS!");
+            _fileDownloadService.DownloadFile(gs, path, ddata, false, token);
+            _logService.Info("YES DOWNLOAD BUNDLE VERSIONS!");
         }
         else
         {
             _isInitialized = true;
-            gs.logger.Info("NO DOWNLOAD BUNDLE VERSIONS");
+            _logService.Info("NO DOWNLOAD BUNDLE VERSIONS");
         }
     }
 
@@ -1336,7 +1017,7 @@ public class UnityAssetService : IAssetService
 
     protected string GetFullBundleURL(string bundleName)
     {
-        return GetArtURLPrefix(false) + AssetUtils.GetRuntimePrefix() + bundleName + "_" + GetBundleHash(bundleName);
+        return GetContentRootURL(false) + AssetUtils.GetRuntimePrefix() + bundleName + "_" + GetBundleHash(bundleName);
     }
 
     private async UniTask DownloadOneBundle(UnityGameState gs, BundleDownload bad, CancellationToken token)
@@ -1351,7 +1032,7 @@ public class UnityAssetService : IAssetService
             string bundleHash = GetBundleHash(bad.bundleName);
             if (string.IsNullOrEmpty(bundleHash))
             {
-                _logger.Debug("No bundle hash for: " + bad.url);
+                _logService.Debug("No bundle hash for: " + bad.url);
                 return;
             }
 
@@ -1374,7 +1055,7 @@ public class UnityAssetService : IAssetService
                     }
                     catch (Exception e)
                     {
-                        _logger.Exception(e, "FailedbundleDownload: " + bad.url + " " + bad.assetName);
+                        _logService.Exception(e, "FailedbundleDownload: " + bad.url + " " + bad.assetName);
                     }
                 }
 
@@ -1421,7 +1102,7 @@ public class UnityAssetService : IAssetService
         }
         else
         {
-            _logger.Error("Failed to load " + assetName + " from " + bundleName);
+            _logService.Error("Failed to load " + assetName + " from " + bundleName);
             return null;
         }
         BaseBehaviour oneBehavior = go.GetComponent<BaseBehaviour>();
@@ -1487,11 +1168,6 @@ public class UnityAssetService : IAssetService
         LoadAsset(gs, assetPathSuffix, assetPath, handler, data, parent, token, subdirectory);
     }
 
-    private bool IsResourceAssetCategory(string assetCategory)
-    {
-        return assetCategory == AssetCategoryNames.Prefabs;
-    }
-
     public string StripPathPrefix(string path)
     {
         if (string.IsNullOrEmpty(path))
@@ -1522,7 +1198,37 @@ public class UnityAssetService : IAssetService
         }
         return go;
     }
+    
+    public async UniTask<GEntity> LoadAssetAsync(UnityGameState gs, string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null)
+    {
+        GEntityContainer cont = new GEntityContainer();
+        LoadAsset(gs, assetCategory, assetPath, OnLoadEntityAsync, cont, null, token, subdirectory);
 
+        while (cont.Entity == null && !cont.FailedLoad)
+        {
+            await UniTask.NextFrame(token);
+        }
+
+        return cont.Entity;
+    }
+
+    private void OnLoadEntityAsync(UnityGameState gs, object obj, object data, CancellationToken token)
+    {
+        GEntityContainer cont = data as GEntityContainer;
+
+        if (cont == null)
+        {
+            return;
+        }
+
+        cont.Entity = obj as GEntity;
+
+        if (cont.Entity == null)
+        {
+            cont.FailedLoad = true;
+        }
+
+    }
 
 }
 

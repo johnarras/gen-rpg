@@ -15,8 +15,6 @@ using UnityEngine;
 using System.Linq;
 using Assets.Scripts.Crawler.Maps.Loading;
 using Genrpg.Shared.Zones.Settings;
-using Cysharp.Threading.Tasks.Triggers;
-using Genrpg.Shared.ProcGen.Settings.Texturse;
 
 namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {
@@ -27,7 +25,10 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         public override async UniTask<CrawlerMapRoot> Enter(UnityGameState gs, PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
-            partyData.CityId = mapData.MapId;
+            partyData.MapId = mapData.MapId;
+            partyData.MapX = mapData.MapX;
+            partyData.MapZ = mapData.MapZ;
+            partyData.MapRot = mapData.MapRot;
             string mapId = "City" + mapData.MapId;
 
             CrawlerMap cmap = GenerateCityMap(gs, partyData, mapData.MapId);
@@ -35,9 +36,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             GameObject go = new GameObject() { name = "City" };
             CrawlerMapRoot mapRoot = GEntityUtils.GetOrAddComponent<CrawlerMapRoot>(gs, go);
             mapRoot.SetupFromMap(cmap);
-            partyData.MapX = mapData.XPos;
-            partyData.MapZ = mapData.ZPos;
-            partyData.MapRot = 0;
             mapRoot.name = mapId;
             mapRoot.MapId = mapId;
             mapRoot.DrawX = partyData.MapX * CrawlerMapConstants.BlockSize;
@@ -73,7 +71,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             int streetCount = (int)(Math.Sqrt((cmap.XSize * cmap.ZSize)) * 0.75f);
 
-            gs.logger.Info("StreetCount: " + streetCount);
+            _logService.Info("StreetCount: " + streetCount);
 
             for (int times = 0; times < streetCount; times++)
             {
@@ -267,7 +265,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             ZoneType zoneType = null;
 
             AddWallComponent(gs, mapRoot.Assets.Floor, cell.Content, new Vector3(0, 0, 0), new Vector3(90, 0, 0));
-            bool loadedTexture = false;
             if (zoneTypeId > 0)
             {
                 zoneType = gs.data.Get<ZoneTypeSettings>(null).Get(zoneTypeId);
@@ -278,7 +275,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                     if (zoneTextureType != null && zoneTextureType.TextureTypeId > 0)
                     {
                         LoadTerrainTexture(gs, cell.Content, zoneTextureType.TextureTypeId, token);
-                        loadedTexture = true;
                     }
                 }
             }

@@ -24,16 +24,17 @@ namespace Genrpg.Shared.Units.Loaders
         where TApi : OwnerApiList<TParent, TChild>
     {
 
+        protected IRepositoryService _repoService = null;
         public override async Task Setup(GameState gs)
         {
             await base.Setup(gs);
 
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { Ascending = true, MemberName = "OwnerId" });
-            await gs.repo.CreateIndex<TChild>(configs);
+            await _repoService.CreateIndex<TChild>(configs);
         }
 
-        public override async Task<IUnitData> LoadData(IRepositorySystem repoSystem, Unit unit)
+        public override async Task<IUnitData> LoadData(IRepositoryService repoSystem, Unit unit)
         {
             string id = unit.Id;
 

@@ -14,11 +14,13 @@ using System.Threading.Tasks;
 using Genrpg.Shared.UserCoins.Messages;
 using Genrpg.Shared.UserCoins.PlayerData;
 using Genrpg.Shared.UserCoins.Services;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.MapServer.UserCoins
 {
     public class ServerUserCoinService : UserCoinService, ISetupService
     {
+        protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
@@ -32,7 +34,7 @@ namespace Genrpg.MapServer.UserCoins
                 return;
             }
 
-            gs.repo.QueueSave(status);
+            _repoService.QueueSave(status);
 
             OnAddUserCoin onAdd = new OnAddUserCoin()
             {

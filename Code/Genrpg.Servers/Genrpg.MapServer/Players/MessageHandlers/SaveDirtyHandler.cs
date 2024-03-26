@@ -13,7 +13,7 @@ namespace Genrpg.MapServer.Players.MessageHandlers
 {
     public class SaveDirtyHandler : BaseServerMapMessageHandler<SaveDirty>
     {
-        IPlayerDataService _playerDataService = null;
+        protected IPlayerDataService _playerDataService = null;     
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, SaveDirty message)
         {
             if (!_objectManager.GetChar(obj.Id, out Character ch))
@@ -21,7 +21,7 @@ namespace Genrpg.MapServer.Players.MessageHandlers
                 return;
             }
 
-            _playerDataService.SavePlayerData(ch, gs.repo, false);
+            _playerDataService.SavePlayerData(ch, _repoService, false);
 
             if (!message.IsCancelled())
             {

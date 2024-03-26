@@ -16,7 +16,7 @@ namespace Genrpg.Shared.DataStores.PlayerData
         public abstract void SetData(List<TChild> data);
         public abstract List<TChild> GetData();
 
-        public override void Save(IRepositorySystem repoSystem, bool saveClean)
+        public override void Save(IRepositoryService repoSystem, bool saveClean)
         {
             base.Save(repoSystem, saveClean);
 
@@ -41,7 +41,7 @@ namespace Genrpg.Shared.DataStores.PlayerData
         }
 
 
-        public override void Delete(IRepositorySystem repoSystem)
+        public override void Delete(IRepositoryService repoSystem)
         {
             base.Delete(repoSystem);
             foreach (TChild child in GetData())

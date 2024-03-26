@@ -28,6 +28,7 @@ namespace Genrpg.MapServer.Vendors
     public class VendorService : IVendorService
     {
         private IItemGenService _itemGenService = null;
+        protected IRepositoryService _repoService = null;
 
         public void UpdateItems(GameState gs, MapObject mapObject)
         {
@@ -92,7 +93,7 @@ namespace Genrpg.MapServer.Vendors
                     mapSpawn = SerializationUtils.FastMakeCopy(mapSpawn);
                     mapSpawn.AddonString = SerializationUtils.Serialize(mapSpawn.Addons);
                     mapSpawn.Addons = null;
-                    gs.repo.QueueSave(mapSpawn);
+                    _repoService.QueueSave(mapSpawn);
                 }
             }
         }

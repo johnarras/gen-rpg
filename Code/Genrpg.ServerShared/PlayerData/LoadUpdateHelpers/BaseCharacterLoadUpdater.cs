@@ -16,7 +16,6 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
 
         public virtual async Task Setup(GameState gs)
         {
-            gs.loc.Resolve(this);
             await Task.CompletedTask;
         }
     }

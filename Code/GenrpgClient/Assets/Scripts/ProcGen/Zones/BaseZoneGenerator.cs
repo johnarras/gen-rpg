@@ -1,14 +1,19 @@
 ﻿using Cysharp.Threading.Tasks;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Logging.Interfaces;
 using System.Threading;
 
 public class BaseZoneGenerator : IZoneGenerator
 {
     protected IAssetService _assetService;
+    protected IFileDownloadService _fileDownloadService;
     protected IClientMapObjectManager _objectManager;
     protected IMapTerrainManager _terrainManager;
     protected INoiseService _noiseService;
     protected IZoneGenService _zoneGenService;
     protected CancellationToken _token;
+    protected ILogService _logService;
+    protected IRepositoryService _repoService;
 
     public virtual async UniTask Generate(UnityGameState gs, CancellationToken token)
     {

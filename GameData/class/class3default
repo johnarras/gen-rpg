@@ -7,9 +7,11 @@
   "Icon": "",
   "Art": "",
   "Abbrev": "Hu",
-  "LevelsPerMelee": 10,
-  "LevelsPerRanged": 4,
-  "HealthPerLevel": 16,
+  "LevelsPerMelee": 9,
+  "InitialMeleeAttacks": 1,
+  "LevelsPerRanged": 3,
+  "InitialRangedAttacks": 2,
+  "HealthPerLevel": 14,
   "BuffStatTypeId": 70,
   "BuffStatPercent": 100,
   "DefaultLevelPercentBuff": 100,
@@ -41,6 +43,6 @@
       "EquipSlotId": 19
     }
   ],
-  "UpdateTime": "2024-02-17T22:30:05.232Z",
+  "UpdateTime": "2024-03-23T23:02:49.613Z",
   "CreateTime": "2024-01-28T00:57:37Z"
 }

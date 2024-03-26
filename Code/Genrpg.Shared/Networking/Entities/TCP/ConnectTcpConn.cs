@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Networking.MapApiSerializers;
 using Genrpg.Shared.MapMessages.Interfaces;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.Shared.Networking.Entities.TCP
 {
@@ -18,7 +18,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
         public ConnectTcpConn(string host, long port,
             IMapApiSerializer serializer,
             MapApiMessageHandler handler, 
-            ILogSystem logger,
+            ILogService logger,
             CancellationToken token, object extraData) : base(serializer, handler,logger, token, extraData)
         {
             _host = host;

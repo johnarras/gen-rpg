@@ -6,6 +6,6 @@ public class ErrorMessageHandler : BaseClientMapMessageHandler<ErrorMessage>
 {
     protected override void InnerProcess(UnityGameState gs, ErrorMessage msg, CancellationToken token)
     {
-        gs.logger.Error(msg.ErrorText);
+        _logService.Error(msg.ErrorText);
     }
 }

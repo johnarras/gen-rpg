@@ -3,8 +3,8 @@
   "ParentId": "default",
   "Name": "DerivedStat",
   "FromStatTypeId": 14,
-  "ToStatTypeId": 1,
-  "Percent": 1000,
-  "UpdateTime": "2023-12-24T17:22:22.905Z",
+  "ToStatTypeId": 22,
+  "Percent": 100,
+  "UpdateTime": "2024-03-23T03:08:07.483Z",
   "CreateTime": "2023-11-24T16:45:21.932Z"
 }

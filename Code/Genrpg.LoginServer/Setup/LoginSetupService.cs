@@ -14,7 +14,7 @@ namespace Genrpg.LoginServer.Setup
     {
         private IMapDataService _mapDataService = null;
         private ICloudCommsService _cloudCommsService = null;
-        public override void SetupObjectLocator(GameState gs)
+        public override void SetupServiceLocator(GameState gs)
         {
             LoginLocatorSetup els = new LoginLocatorSetup();
             els.Setup(gs);

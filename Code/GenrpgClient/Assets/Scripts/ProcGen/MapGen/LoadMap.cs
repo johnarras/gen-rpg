@@ -8,8 +8,6 @@ using System.Threading;
 using Genrpg.Shared.MapServer.Constants;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
-using Genrpg.Shared.Pathfinding.Services;
-using System.IO.Compression;
 using Genrpg.Shared.Pathfinding.Constants;
 
 public class LoadMap : BaseZoneGenerator
@@ -21,7 +19,7 @@ public class LoadMap : BaseZoneGenerator
 
     public void OnError(UnityGameState gs, string txt)
     {
-        gs.logger.Error("Zone load error: " + txt);
+        _logService.Error("Zone load error: " + txt);
 
     }
 
@@ -55,7 +53,7 @@ public class LoadMap : BaseZoneGenerator
 
             string filePath = patch.GetFilePath(gs, false);
 
-            ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(gs.logger);
+            ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService);
 
             patch.DataBytes = repo.LoadBytes(filePath);
             await UniTask.NextFrame( cancellationToken: token);
@@ -63,12 +61,12 @@ public class LoadMap : BaseZoneGenerator
             if (patch.DataBytes == null || patch.DataBytes.Length < 1)
             {
 
-                DownloadData ddata = new DownloadData() 
+                DownloadFileData ddata = new DownloadFileData() 
                 { 
                     Handler = OnDownloadTerrainBytes, 
                     Data = patch,
                 };
-                _assetService.DownloadFile(gs, filePath, ddata, true, token);
+                _fileDownloadService.DownloadFile(gs, filePath, ddata, true, token);
                 return;
             }
             else
@@ -136,7 +134,7 @@ public class LoadMap : BaseZoneGenerator
         catch (Exception e)
         {
             string bytelen = (patch.DataBytes == null ? "NullBytes" : "Len: " + patch.DataBytes.Length);
-            gs.logger.Exception(e, "LoadMap3: " + xx + " " + yy + " Len: " + bytelen + " Idx: " + index);
+            _logService.Exception(e, "LoadMap3: " + xx + " " + yy + " Len: " + bytelen + " Idx: " + index);
         }
 
         if (!fastLoading)
@@ -205,7 +203,7 @@ public class LoadMap : BaseZoneGenerator
         }
         catch (Exception e)
         {
-            gs.logger.Exception(e, "LoadMap2");
+            _logService.Exception(e, "LoadMap2");
         }
 
         if (!fastLoading)
@@ -234,7 +232,7 @@ public class LoadMap : BaseZoneGenerator
                     }
                     catch (Exception e)
                     {
-                        gs.logger.Exception(e, "LoadMap");
+                        _logService.Exception(e, "LoadMap");
                         throw e;
                     }
                     alphaTotal += patch.baseAlphas[x, y, i];
@@ -413,8 +411,7 @@ public class LoadMap : BaseZoneGenerator
                     if (false && gs.pathfinding[finalx,finalz])
                     {
                         float height = _terrainManager.SampleHeight(gs, worldx, worldz);
-                        GameObject sphere = Resources.Load<GameObject>("Prefabs/TestSphere");
-                        sphere = GameObject.Instantiate(sphere);
+                        GameObject sphere = await _assetService.LoadAssetAsync(gs, AssetCategoryNames.Prefabs, "TestSphere", null, token);
                         sphere.name = "TestSphere_" + worldx + "_" + worldz;
                         GEntityUtils.AddToParent(sphere, patch.terrain.gameObject);
                         sphere.transform.position = new Vector3(worldx, height, worldz);
@@ -451,13 +448,13 @@ public class LoadMap : BaseZoneGenerator
             {
                 txt = System.Text.Encoding.UTF8.GetString(bytes);
             }
-            gs.logger.Error("Failed to download Bytes");
+            _logService.Error("Failed to download Bytes");
             return;
         }
 
         string filePath = patch.GetFilePath(gs, false);
 
-        ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(gs.logger);
+        ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService);
        
         repo.SaveBytes(filePath, bytes);
         patch.DataBytes = bytes;

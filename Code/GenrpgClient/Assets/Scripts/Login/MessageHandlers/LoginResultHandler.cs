@@ -73,9 +73,6 @@ namespace Assets.Scripts.Login.MessageHandlers
             _screenService.Close(gs, ScreenId.HUD);
             _screenService.Open(gs, ScreenId.CharacterSelect);
 
-            string env = gs.Env;
-
-            //await RetryUploadMap(gs, token);
         }
 
         public async UniTask RetryUploadMap(UnityGameState gs, CancellationToken token)
@@ -84,8 +81,8 @@ namespace Assets.Scripts.Login.MessageHandlers
             string mapId = "1";
 
             UploadMapCommand comm = new UploadMapCommand();
-            comm.Map = await gs.repo.Load<Map>("UploadedMap");
-            comm.SpawnData = await gs.repo.Load<MapSpawnData>("UploadedSpawns");
+            comm.Map = await _repoService.Load<Map>("UploadedMap");
+            comm.SpawnData = await _repoService.Load<MapSpawnData>("UploadedSpawns");
             comm.Map.Id = mapId;
             comm.SpawnData.Id = mapId;
             comm.WorldDataEnv = _assetService.GetWorldDataEnv();

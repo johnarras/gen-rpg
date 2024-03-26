@@ -15,9 +15,10 @@ namespace Genrpg.Shared.Stats.Constants
 
         public const int Strength = 11; // + melee dam
         public const int Intellect = 12; // + spell points
-        public const int Agility = 13; // + ranged dam
-        public const int Stamina = 14; // health
-        public const int Luck = 15; // Does???
+        public const int Devotion = 13; // + spell pts heals
+        public const int Agility = 14; // + ranged dam
+        public const int Stamina = 15; // health
+        public const int Luck = 16; // Does???
 
         // For 20-60 make sure the offsets for +power, +defense, +powerMult , +defenseMult are all offset the same at 2x 3x 4x 5x
         // to simplify calculations.

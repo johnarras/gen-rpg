@@ -13,15 +13,15 @@ namespace Genrpg.ServerShared.DataStores.DbQueues.Actions
     {
 
         private List<T> _items { get; set; } = new List<T>();
-        private IRepositorySystem _repoSystem { get; set; }
+        private IRepositoryService _repoSystem { get; set; }
 
-        public SaveAction(T item, IRepositorySystem repoSystem)
+        public SaveAction(T item, IRepositoryService repoSystem)
         {
             _repoSystem = repoSystem;
             _items.Add(item);
         }
 
-        public SaveAction(List<T> items, IRepositorySystem repoSystem)
+        public SaveAction(List<T> items, IRepositoryService repoSystem)
         {
             _repoSystem = repoSystem;
             _items = new List<T>(items);

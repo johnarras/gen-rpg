@@ -1,7 +1,10 @@
 ﻿using Genrpg.LoginServer.Core;
+using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.ServerShared.Purchasing.Services;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages.Error;
 using Genrpg.Shared.Utils;
@@ -19,6 +22,9 @@ namespace Genrpg.LoginServer.CommandHandlers.Core
     {
 
         protected IPlayerDataService _playerDataService = null;
+        protected ILogService _logService = null;
+        protected IRepositoryService _repoService = null;
+        protected IServerConfig _config = null;
 
         protected abstract Task InnerHandleMessage(LoginGameState gs, C command, CancellationToken token);
 

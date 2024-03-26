@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell42default",
+  "ParentId": "default",
+  "IdKey": 42,
+  "Name": "Conjure Golem",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 5,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "ClassId": 5,
+  "TargetTypeId": 9,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 4,
+      "EntityId": 31,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 8
+    }
+  ],
+  "UpdateTime": "2024-03-24T17:39:49.712Z",
+  "CreateTime": "2024-03-24T12:42:16Z"
+}

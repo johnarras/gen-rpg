@@ -13,8 +13,8 @@ namespace Genrpg.Shared.DataStores.PlayerData
         public string Id { get; set; }
         public virtual void AddTo(Unit unit) { unit.Set(this); }
 
-        public void Delete(IRepositorySystem repoSystem) { }
-        public void Save(IRepositorySystem repoSystem, bool saveClean) { }
+        public void Delete(IRepositoryService repoSystem) { }
+        public void Save(IRepositoryService repoSystem, bool saveClean) { }
 
         private bool _isDirty = false;
         public void SetDirty(bool val) { _isDirty = val; }

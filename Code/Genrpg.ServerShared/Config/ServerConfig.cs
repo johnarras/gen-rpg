@@ -1,9 +1,32 @@
 ﻿
+using Genrpg.Shared.Configs.Interfaces;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using System.Collections.Generic;
 
 namespace Genrpg.ServerShared.Config
 {
-    public class ServerConfig
+
+    public interface IServerConfig : IService, IConnectionConfig
+    {
+
+        string Env { get; set; }
+
+        Dictionary<string, string> DataEnvs { get; set; }
+
+        string MessagingEnv { get; set; }
+
+        string ServerId { get; set; }
+
+        string ContentRoot { get; set; }
+
+        string EtherscanKey { get; set; }
+
+        string PublicIP { get; set; }       
+
+    }
+
+    public class ServerConfig : IServerConfig
     {
         public string Env { get; set; }
 
@@ -20,6 +43,11 @@ namespace Genrpg.ServerShared.Config
         public string PublicIP { get; set; }
 
         public Dictionary<string, string> ConnectionStrings { get; set; }  = new Dictionary<string, string>();
+
+        public Dictionary<string,string> GetConnectionStrings()
+        {
+            return ConnectionStrings;
+        }
 
         public string GetConnectionString(string key)
         {

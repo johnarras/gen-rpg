@@ -11,6 +11,7 @@ using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Zones.WorldData;
 using System;
+using Genrpg.Shared.Logging.Interfaces;
 
 public class FullDetailPrototype : BaseDetailPrototype
 {
@@ -21,7 +22,7 @@ public class LoadPlantAssets
 {
     private IAssetService _assetService;
     private IMapTerrainManager _terrainManager;
-
+    private ILogService _logService;
 
 
     public void SetupOneMapGrass(UnityGameState gs, int gx, int gy, CancellationToken token)
@@ -45,13 +46,13 @@ public class LoadPlantAssets
 
         if (tdata == null)
         {
-            gs.logger.Error("Tdata missing: " + gx + " " + gy);
+            _logService.Error("Tdata missing: " + gx + " " + gy);
 
             return;
         }
         if (patch.grassAmounts == null || patch.mainZoneIds == null)
         {
-            gs.logger.Error("Core Data missing: " + patch.grassAmounts + " " + patch.mainZoneIds + " " + gx + " " + gy);
+            _logService.Error("Core Data missing: " + patch.grassAmounts + " " + patch.mainZoneIds + " " + gx + " " + gy);
 
             return;
         }
@@ -100,7 +101,7 @@ public class LoadPlantAssets
         }
         else
         {
-            gs.logger.Error("No zones for grass: " + gx + " " + gy);
+            _logService.Error("No zones for grass: " + gx + " " + gy);
             return;
         }
 
@@ -117,7 +118,7 @@ public class LoadPlantAssets
         {
             if (protos[i] == null)
             {
-                gs.logger.Error("No proto: " + gx + " " + gy + " idx " + i);
+                _logService.Error("No proto: " + gx + " " + gy + " idx " + i);
                 return;
             }
         }
@@ -269,7 +270,7 @@ private void OnDownloadGrass(UnityGameState gs, object obj, object data, Cancell
 
     if (go == null)
     {
-        gs.logger.Error("no GEntity: " + obj + " " + full.plantType.Art);
+        _logService.Error("no GEntity: " + obj + " " + full.plantType.Art);
         return;
     }
 

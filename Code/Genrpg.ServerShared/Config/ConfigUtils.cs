@@ -16,7 +16,7 @@ namespace Genrpg.ServerShared.Config
     {
         const string ConnectionSuffix = "Connection";
     
-        public static async Task<ServerConfig> SetupServerConfig(CancellationToken token, string serverId)
+        public static async Task<IServerConfig> SetupServerConfig(CancellationToken token, string serverId)
         {
             ServerConfig serverConfig = new ServerConfig();
             serverConfig.ServerId = serverId;

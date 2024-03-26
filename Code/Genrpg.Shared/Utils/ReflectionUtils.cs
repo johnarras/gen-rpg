@@ -7,8 +7,9 @@ using System.Text;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Interfaces;
-using System.Configuration;
-using System.Xml.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Genrpg.Shared.Utils
 {
@@ -146,5 +147,66 @@ namespace Genrpg.Shared.Utils
             return dict;
         }
 
+        public static async Task<object> CreateInstanceFromType(GameState gs, Type t, CancellationToken token)
+        {
+            object obj = Activator.CreateInstance(t);
+            gs.loc.Resolve(obj);
+
+            if (obj is IService service)
+            {
+                await SetupServices(gs, new List<IService> { service }, token);
+            }
+
+            return obj;
+        }
+
+        public static async Task SetupServices(GameState gs, List<IService> services, CancellationToken token)
+        {
+
+            List<ISetupService> setupServices = new List<ISetupService>();
+
+            List<IPrioritySetupService> priorityServices = new List<IPrioritySetupService>();
+
+            foreach (IService service in services)
+            {
+                if (service is ISetupService setupService)
+                {
+                    setupServices.Add(setupService);
+                }
+
+                if (service is IPrioritySetupService prioritySetupService)
+                {
+                    priorityServices.Add(prioritySetupService);
+                }
+            }
+
+            List<IGrouping<int,IPrioritySetupService>> groupedServices = priorityServices.GroupBy(x => x.SetupPriorityAscending()).OrderBy(x=>x.Key).ToList();  
+
+            foreach (IGrouping<int,IPrioritySetupService> group in groupedServices)
+            {
+
+                List<Task> priorityTasks = new List<Task>();
+
+                List<IPrioritySetupService> currentPriorityServices = group.ToList();
+
+                foreach (IPrioritySetupService service in currentPriorityServices)
+                {
+                    priorityTasks.Add(service.PrioritySetup(gs, token));
+                }
+
+                await Task.WhenAll(priorityTasks);
+
+            }
+
+            List<Task> setupTasks = new List<Task>();
+
+            foreach (ISetupService setupService in setupServices)
+            {
+                setupTasks.Add(setupService.Setup(gs, token));
+            }
+
+            await Task.WhenAll(setupTasks);
+
+        }
     }
 }

@@ -31,12 +31,12 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
             PartyData party = _crawlerService.GetParty();
 
             if (party.Combat == null || party.Combat.Allies.Count < 1 ||
-                party.Combat.Allies[0].CombatGroupAction != ECombatGroupActions.Fight)
+                party.Combat.PartyGroup.CombatGroupAction != ECombatGroupActions.Fight)
             {
                 return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Party is not fighting in combat" };
             }
 
-            CombatGroup group = party.Combat.Allies[0];
+            CombatGroup group = party.Combat.PartyGroup;
 
             List<CrawlerUnit> readyUnits = group.Units.Where(x => x is PartyMember member && x.Action != null).ToList();
 

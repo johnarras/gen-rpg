@@ -17,9 +17,9 @@ namespace Genrpg.Shared.Crawler.Combat.Entities
 
         [Key(2)] public ECombatGroupActions CombatGroupAction { get; set; }
 
-
         [Key(3)] public string SingularName { get; set; }
         [Key(4)] public string PluralName { get; set; }
+        [Key(5)] public long UnitTypeId { get; set; }
 
         public string ShowStatus()
         {

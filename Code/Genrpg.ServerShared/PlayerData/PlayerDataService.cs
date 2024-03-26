@@ -26,6 +26,7 @@ namespace Genrpg.ServerShared.PlayerData
 {
     public class PlayerDataService : IPlayerDataService
     {
+        protected IRepositoryService _repoService = null;
         private Dictionary<Type, IUnitDataLoader> _loaderObjects = null;
 
         private List<ICharacterLoadUpdater> _loadUpdateHelpers = new List<ICharacterLoadUpdater>();
@@ -34,8 +35,8 @@ namespace Genrpg.ServerShared.PlayerData
         {
             List<Task> loaderTasks = new List<Task>();
             List<IndexConfig> configs = new List<IndexConfig>();
-            configs.Add(new IndexConfig() { Ascending = true, MemberName = "UserId" });
-            loaderTasks.Add(gs.repo.CreateIndex<CoreCharacter>(configs));
+            configs.Add(new IndexConfig() { Ascending = true, MemberName = nameof(CoreCharacter.UserId) });
+            loaderTasks.Add(_repoService.CreateIndex<CoreCharacter>(configs));
 
             List<Type> loadTypes = ReflectionUtils.GetTypesImplementing(typeof(IUnitDataLoader));
 
@@ -43,7 +44,7 @@ namespace Genrpg.ServerShared.PlayerData
 
             foreach (Type lt in loadTypes)
             {
-                if (Activator.CreateInstance(lt) is IUnitDataLoader newLoader)
+                if (await ReflectionUtils.CreateInstanceFromType(gs, lt, token) is IUnitDataLoader newLoader)
                 {
                     newList[newLoader.GetServerType()] = newLoader;
                     loaderTasks.Add(newLoader.Setup(gs));
@@ -57,7 +58,7 @@ namespace Genrpg.ServerShared.PlayerData
 
             foreach (Type ut in updateTypes)
             {
-                if (Activator.CreateInstance(ut) is ICharacterLoadUpdater helper)
+                if (await ReflectionUtils.CreateInstanceFromType(gs, ut, token) is ICharacterLoadUpdater helper)
                 {
                     _loadUpdateHelpers.Add(helper);
                     loaderTasks.Add(helper.Setup(gs));
@@ -83,7 +84,7 @@ namespace Genrpg.ServerShared.PlayerData
             return null;
         }
 
-        public void SavePlayerData(Character ch, IRepositorySystem repoSystem, bool saveClean)
+        public void SavePlayerData(Character ch, IRepositoryService repoSystem, bool saveClean)
         {
             ch?.SaveAll(repoSystem, saveClean);
         }
@@ -111,7 +112,7 @@ namespace Genrpg.ServerShared.PlayerData
             List<Task<IUnitData>> allTasks = new List<Task<IUnitData>>();
             foreach (IUnitDataLoader loader in _loaderObjects.Values)
             {
-                allTasks.Add(LoadOrCreateData(loader, gs.repo, ch));
+                allTasks.Add(LoadOrCreateData(loader, _repoService, ch));
             }
 
             IUnitData[] allData = await Task.WhenAll(allTasks.ToList());
@@ -125,7 +126,7 @@ namespace Genrpg.ServerShared.PlayerData
             return allData.ToList();
         }
 
-        protected async Task<IUnitData> LoadOrCreateData(IUnitDataLoader loader, IRepositorySystem repoSystem, Character ch)
+        protected async Task<IUnitData> LoadOrCreateData(IUnitDataLoader loader, IRepositoryService repoSystem, Character ch)
         {
             IUnitData newData = await loader.LoadData(repoSystem, ch);
             if (newData == null)
@@ -147,7 +148,7 @@ namespace Genrpg.ServerShared.PlayerData
         public async Task<List<CharacterStub>> LoadCharacterStubs(ServerGameState gs, string userId)
         {
             // TODO: projection in the repo itself
-            List<CoreCharacter> chars = await gs.repo.Search<CoreCharacter>(x => x.UserId == userId);
+            List<CoreCharacter> chars = await _repoService.Search<CoreCharacter>(x => x.UserId == userId);
 
             List<CharacterStub> stubs = new List<CharacterStub>();
             foreach (CoreCharacter ch in chars)

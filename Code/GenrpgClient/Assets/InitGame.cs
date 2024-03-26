@@ -13,7 +13,6 @@ namespace Assets
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         static void OnGameStart()
         {
-            //GEntityUtils.InstantiateIntoParent(AssetUtils.LoadResource<GameObject>(AssetCategoryNames.Prefabs + "/InitClient"), null);
         }
     }
 }

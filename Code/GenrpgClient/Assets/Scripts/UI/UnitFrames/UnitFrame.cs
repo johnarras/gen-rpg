@@ -123,7 +123,7 @@ public class UnitFrame : BaseBehaviour
     private OnUpdateEffect UpdateVisualEffect(UnityGameState gs, OnUpdateEffect eff)
     {
 
-        _gs.logger.Debug("Update effect: " + eff.Id);
+        _logService.Debug("Update effect: " + eff.Id);
 
         return null;
     }

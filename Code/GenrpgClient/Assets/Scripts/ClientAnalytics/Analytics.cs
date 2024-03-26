@@ -13,6 +13,6 @@ public class Analytics
         string str2 = null,        
         Dictionary<string,string> extraData = null)
     {
-        //_gs.logger.Debug("Analytics: " + analyticsEvent.ToString() + ", " + str1 + ", " + str2);
+        //_logService.Debug("Analytics: " + analyticsEvent.ToString() + ", " + str1 + ", " + str2);
     }
 }

@@ -6,7 +6,7 @@ using Genrpg.MonsterServer;
 using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Logging;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.GameServer
 {
@@ -27,12 +27,11 @@ namespace Genrpg.GameServer
         private static CancellationTokenSource _serverTokenSource = new CancellationTokenSource();
         private static async Task RunGame()
         {
-            ServerConfig serverConfig = null;
-            ILogSystem serverLogger = null;
+            IServerConfig serverConfig = null;
+            ILogService serverLogger = null;
             try
             {
                 serverConfig = await ConfigUtils.SetupServerConfig(_serverTokenSource.Token, "GameServer");
-                serverLogger = new ServerLogger(serverConfig);
 
                 InstanceServerMain instanceServer = new InstanceServerMain();
                 await instanceServer.Init(null, _serverTokenSource.Token);

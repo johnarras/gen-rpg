@@ -13,7 +13,7 @@ namespace Genrpg.LoginServer.Services.Admin
     {
         public override async Task OnMapUploaded(ServerGameState gs, MapUploadedAdminMessage message)
         {
-            if (message.WorldDataEnv != gs.config.DataEnvs[DataCategoryTypes.WorldData])
+            if (message.WorldDataEnv != _config.DataEnvs[DataCategoryTypes.WorldData])
             {
                 return;
             }

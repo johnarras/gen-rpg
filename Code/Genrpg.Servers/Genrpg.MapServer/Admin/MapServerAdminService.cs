@@ -17,6 +17,7 @@ namespace Genrpg.MapServer.Services.Maps
     public class MapServerAdminService : BaseAdminService, IAdminService
     {
         private IMapServerService _mapServerService = null;
+        
 
         public override async Task HandleReloadGameState(ServerGameState gs)
         {
@@ -59,7 +60,7 @@ namespace Genrpg.MapServer.Services.Maps
         public override async Task OnMapUploaded(ServerGameState gs, MapUploadedAdminMessage message)
         {
 
-            if (message.WorldDataEnv != gs.config.DataEnvs[DataCategoryTypes.WorldData])
+            if (message.WorldDataEnv != _config.DataEnvs[DataCategoryTypes.WorldData])
             {
                 return;
             }

@@ -18,6 +18,8 @@ using Genrpg.Editor.UI.Constants;
 using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.Versions.Settings;
 using Genrpg.Editor.Services.Reflection;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.ServerShared.Config;
 
 namespace GameEditor
 {
@@ -25,6 +27,8 @@ namespace GameEditor
     {
 
         private ICloudCommsService _cloudCommsService = null;
+        private IRepositoryService _repoService = null;
+        private IServerConfig _config = null;
 
         private EditorGameState gs = null;
         public IList<UserControl> ViewStack = null;
@@ -128,7 +132,7 @@ namespace GameEditor
         public async Task SaveData()
         {
 
-            String env = gs.config.Env;
+            String env = _config.Env;
 
             if (action == "Data")
             {
@@ -253,7 +257,7 @@ namespace GameEditor
 
                 if (settingsList.Count > 0)
                 {
-                    await gs.repo.TransactionSave(settingsList);
+                    await _repoService.TransactionSave(settingsList);
                 }
 
                 gs.LookedAtObjects = new List<object>();
@@ -263,7 +267,7 @@ namespace GameEditor
 
             else if (action == "Users")
             {
-                Task.Run(() => EditorPlayerUtils.SaveEditorUserData(gs).GetAwaiter().GetResult()).GetAwaiter().GetResult();
+                Task.Run(() => EditorPlayerUtils.SaveEditorUserData(gs, _repoService).GetAwaiter().GetResult()).GetAwaiter().GetResult();
             }
 
         }

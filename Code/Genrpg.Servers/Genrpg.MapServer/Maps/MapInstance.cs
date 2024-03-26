@@ -50,8 +50,10 @@ using Genrpg.ServerShared.MapSpawns;
 using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.Characters.Utils;
 using Newtonsoft.Json.Linq;
-using Genrpg.Shared.Logs.Interfaces;
 using MongoDB.Bson.Serialization.Serializers;
+using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.ServerShared.Config;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -71,6 +73,10 @@ namespace Genrpg.MapServer.Maps
         private IPlayerDataService _playerDataService = null;
         private IMapSpawnDataService _mapSpawnDataService = null;
         private IMapDataService _mapDataService = null;
+        protected IRepositoryService _repoService = null;
+        protected ILogService _logService = null;
+        private IServerConfig _config = null;
+
         public const double UpdateMS = 100.0f;
 
         private string _mapId;
@@ -115,7 +121,7 @@ namespace Genrpg.MapServer.Maps
             _tokenSource.Cancel();
         }
 
-        protected virtual IListener GetListener(string host, int port, ILogSystem logger, EMapApiSerializers serializer)
+        protected virtual IListener GetListener(string host, int port, ILogService logger, EMapApiSerializers serializer)
         {
             return new BaseTcpListener(host, port, logger, serializer, AddConnection, ReceiveCommands, _tokenSource.Token);
         }
@@ -147,7 +153,7 @@ namespace Genrpg.MapServer.Maps
 
             // Step 2: Load map before setting up messaging and object manager
             _gs.map = await _mapDataService.LoadMap(_gs, _mapId);
-            _gs.spawns = await _mapSpawnDataService.LoadMapSpawnData(_gs, _gs.map.Id, _gs.map.MapVersion);
+            _gs.spawns = await _mapSpawnDataService.LoadMapSpawnData(_repoService, _gs.map.Id, _gs.map.MapVersion);
 
             // Step 3: Setup messaging and object systems
             _messageService.Init(_gs, _tokenSource.Token);
@@ -156,12 +162,12 @@ namespace Genrpg.MapServer.Maps
             _host = "127.0.0.1";
             _mapSize = _gs.map.BlockCount;
             
-            if (_gs.config.Env.IndexOf(EnvNames.Test) >= 0 || _gs.config.Env.IndexOf(EnvNames.Prod) >= 0)
+            if (_config.Env.IndexOf(EnvNames.Test) >= 0 || _config.Env.IndexOf(EnvNames.Prod) >= 0)
             {
-                _host = _gs.config.PublicIP;
+                _host = _config.PublicIP;
             }
             // Step 4: Setup listener
-            _listener = GetListener(_host, initData.Port, _gs.logger, initData.Serializer);
+            _listener = GetListener(_host, initData.Port, _logService, initData.Serializer);
 
 
             SendAddInstanceMessage();
@@ -169,8 +175,8 @@ namespace Genrpg.MapServer.Maps
             _ = Task.Run(() => ProcessMap(_tokenSource.Token), _tokenSource.Token);
 
             await _pathfindingService.LoadPathfinding(_gs,
-                _gs.config.ContentRoot + 
-                _gs.config.DataEnvs[DataCategoryTypes.WorldData] + "/");
+                _config.ContentRoot + 
+                _config.DataEnvs[DataCategoryTypes.WorldData] + "/");
         }
 
         public void SendAddInstanceMessage()
@@ -243,7 +249,7 @@ namespace Genrpg.MapServer.Maps
             }
             catch (OperationCanceledException ce)
             {
-                _gs.logger.Info("Shutdown MapInstance.ProcessPlayerConnections");
+                _logService.Info("Shutdown MapInstance.ProcessPlayerConnections");
             }
         }
 
@@ -276,7 +282,7 @@ namespace Genrpg.MapServer.Maps
             {
                 return;
             }
-            _playerDataService.SavePlayerData(connState.ch, _gs.repo, true);
+            _playerDataService.SavePlayerData(connState.ch, _repoService, true);
             Character ch = connState.ch;
             if (ch != null)
             {
@@ -295,7 +301,7 @@ namespace Genrpg.MapServer.Maps
                     return;
                 }
 
-                User user = await _gs.repo.Load<User>(add.UserId);
+                User user = await _repoService.Load<User>(add.UserId);
 
                 if (user == null)
                 {
@@ -310,7 +316,7 @@ namespace Genrpg.MapServer.Maps
                 bool didLoad = false;
                 if (!_objectManager.GetObject(add.CharacterId, out MapObject mapObj))
                 {
-                    CoreCharacter coreCh = await _gs.repo.Load<CoreCharacter>(add.CharacterId);
+                    CoreCharacter coreCh = await _repoService.Load<CoreCharacter>(add.CharacterId);
 
                     if (coreCh == null)
                     {
@@ -360,7 +366,7 @@ namespace Genrpg.MapServer.Maps
             }
             catch (Exception e)
             {
-               _gs.logger.Exception(e, "AddPlayer");
+               _logService.Exception(e, "AddPlayer");
             }
         }
 

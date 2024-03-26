@@ -10,7 +10,7 @@ namespace Genrpg.MapServer.Setup
 {
     public class MapServerSetupService : SetupService
     {
-        public override void SetupObjectLocator(GameState gs)
+        public override void SetupServiceLocator(GameState gs)
         {
             MapServerLocatorSetup ms = new MapServerLocatorSetup();
             ms.Setup(gs);

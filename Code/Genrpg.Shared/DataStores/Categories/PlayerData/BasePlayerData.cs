@@ -18,7 +18,7 @@ namespace Genrpg.Shared.DataStores.Categories.PlayerData
 
         public virtual void AddTo(Unit unit) { unit.Set(this); }
 
-        public virtual void Save(IRepositorySystem repoSystem, bool saveClean)
+        public virtual void Save(IRepositoryService repoSystem, bool saveClean)
         {
             if (saveClean || IsDirty())
             {
@@ -38,7 +38,7 @@ namespace Genrpg.Shared.DataStores.Categories.PlayerData
             return retval;
         }
 
-        public virtual void Delete(IRepositorySystem repoSystem)
+        public virtual void Delete(IRepositoryService repoSystem)
         {
             repoSystem.QueueDelete(this);
         }

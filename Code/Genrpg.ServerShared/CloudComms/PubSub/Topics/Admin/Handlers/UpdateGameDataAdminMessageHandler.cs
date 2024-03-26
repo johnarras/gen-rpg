@@ -18,7 +18,7 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Handlers
 
         protected override async Task InnerHandleMessage(ServerGameState gs, UpdateGameDataAdminMessage message, CancellationToken token)
         {
-            gs.logger.Message("Received Update Game Data Message ");
+            _logService.Message("Received Update Game Data Message ");
             await _adminService.HandleReloadGameState(gs);
             await Task.CompletedTask;
         }

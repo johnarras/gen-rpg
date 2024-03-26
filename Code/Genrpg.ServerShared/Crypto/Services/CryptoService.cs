@@ -1,4 +1,5 @@
-﻿using Genrpg.ServerShared.Core;
+﻿using Genrpg.ServerShared.Config;
+using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Crypto.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.WebRequests.Utils;
@@ -12,6 +13,9 @@ namespace Genrpg.ServerShared.Crypto.Services
 
     public class CryptoService : ICryptoService
     {
+
+        private IServerConfig _config = null;
+
         public async Task<EthereumTransactionList> GetTransactionsFromWallet(ServerGameState gs, string address, bool internalTransactions)
         {
             if (string.IsNullOrEmpty(address))
@@ -21,7 +25,7 @@ namespace Genrpg.ServerShared.Crypto.Services
 
             string action = (internalTransactions ? "txlistinternal" : "txlist");
 
-            string myapikey = gs.config.EtherscanKey;
+            string myapikey = _config.EtherscanKey;
 
             string url = "https://api.etherscan.io/api?module=account&action=" + action + "&address=" + address;
             url += "&sort=desc&apikey=" + myapikey;

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
 using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 
 public interface IClientRepositoryCollection
 {
@@ -18,8 +18,8 @@ public interface IClientRepositoryCollection
 public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T : class, IStringId
 {
 
-    private ILogSystem _logger;
-    public ClientRepositoryCollection(ILogSystem logger)
+    private ILogService _logger;
+    public ClientRepositoryCollection(ILogService logger)
     {
         _logger = logger;
     }

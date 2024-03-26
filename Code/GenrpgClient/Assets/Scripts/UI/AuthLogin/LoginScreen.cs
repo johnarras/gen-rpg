@@ -3,6 +3,8 @@ using Cysharp.Threading.Tasks;
 using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.Login;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Logging.Interfaces;
 
 public class LoginScreen : BaseScreen
 {
@@ -13,6 +15,7 @@ public class LoginScreen : BaseScreen
     public GButton SignupButton;
 
     protected IClientLoginService _loginService;
+    protected IRepositoryService _repoService;
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
@@ -31,12 +34,12 @@ public class LoginScreen : BaseScreen
     {
         if (string.IsNullOrEmpty(EmailInput.Text))
         {
-            _gs.logger.Error("Missing email");
+            _logService.Error("Missing email");
             return;
         }
         if (string.IsNullOrEmpty(PasswordInput.Text))
         {
-            _gs.logger.Error("Missing password");
+            _logService.Error("Missing password");
             return;
         }
 

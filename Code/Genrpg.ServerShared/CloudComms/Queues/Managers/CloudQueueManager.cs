@@ -16,7 +16,7 @@ using Genrpg.ServerShared.CloudComms.Queues.Entities;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Queues.Requests.Entities;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Genrpg.Shared.Logs.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.ServerShared.CloudComms.Queues.Managers
 {
@@ -33,10 +33,11 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
         private ServiceBusClient _serviceBusClient = null;
         private ServiceBusAdministrationClient _adminClient = null;
         private CancellationToken _token;
+        private ILogService _logService = null;
         private string _env = null;
         private string _serverId = null;
 
-        public async Task Init(ServerGameState gs, ServiceBusClient serviceBusClient, ServiceBusAdministrationClient adminClient,
+        public async Task Init(ServerGameState gs, ILogService logService, ServiceBusClient serviceBusClient, ServiceBusAdministrationClient adminClient,
             string serverId, string env, CancellationToken token)
         {
             _serverGameState = gs;
@@ -45,6 +46,7 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
             _token = token;
             _env = env;
             _serverId = serverId;
+            _logService = logService;
 
             _myQueueName = GetFullQueueName(_serverId);
 
@@ -63,12 +65,12 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
             }
             catch (Exception e)
             {
-                gs.logger.Exception(e, "CloudMessageSetup");
+                _logService.Exception(e, "CloudMessageSetup");
             }
 
-            gs.logger.Message("Created Queue " + _myQueueName);
+            _logService.Message("Created Queue " + _myQueueName);
 
-            _ = Task.Run(() => SetupQueueReceiver(gs.logger, _token));
+            _ = Task.Run(() => SetupQueueReceiver(_logService, _token));
 
             _didSetupQueue = true;
             await Task.CompletedTask;
@@ -95,7 +97,7 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
             _queueHandlers = newDict;
         }
 
-        private async Task SetupQueueReceiver(ILogSystem logger, CancellationToken token)
+        private async Task SetupQueueReceiver(ILogService logger, CancellationToken token)
         {
             ServiceBusReceiverOptions options = new ServiceBusReceiverOptions()
             {
@@ -143,7 +145,7 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
             }
             catch (OperationCanceledException ce)
             {
-                _serverGameState.logger.Info("Shutting down cloud listener for " + _serverId);
+                _logService.Info("Shutting down cloud listener for " + _serverId);
             }
         }
 

@@ -49,7 +49,7 @@ namespace Genrpg.Shared.Zones.WorldData
         [Key(20)] public List<ZoneUnitStatus> Units { get; set; }
         [Key(21)] public List<ZonePlantType> PlantTypes { get; set; }
 
-        public override void Delete(IRepositorySystem repoSystem) { repoSystem.Delete(this); }
+        public override void Delete(IRepositoryService repoSystem) { repoSystem.Delete(this); }
         public Zone()
         {
             Locations = new List<Location>();

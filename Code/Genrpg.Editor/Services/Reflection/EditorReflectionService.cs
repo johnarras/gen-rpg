@@ -487,7 +487,7 @@ namespace Genrpg.Editor.Services.Reflection
             return "";
         }
 
-        public bool AddItem(object collection, object parent, object itemToAdd, IRepositorySystem repoSystem)
+        public bool AddItem(object collection, object parent, object itemToAdd, IRepositoryService repoSystem)
         {
             if (collection == null || parent == null || itemToAdd == null)
             {
@@ -530,7 +530,7 @@ namespace Genrpg.Editor.Services.Reflection
             return obj2;
         }
 
-        public object AddItems(object obj, object parent, IRepositorySystem repoSystem, out List<object> newItems,
+        public object AddItems(object obj, object parent, IRepositoryService repoSystem, out List<object> newItems,
             object copyFrom = null, int maxCount = 0)
         {
             newItems = new List<object>();

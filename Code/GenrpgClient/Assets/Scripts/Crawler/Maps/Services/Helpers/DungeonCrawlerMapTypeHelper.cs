@@ -20,16 +20,15 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {
     public class DungeonCrawlerMapTypeHelper : BaseCrawlerMapTypeHelper
     {
-        private IAssetService _assetService;
-
         public override ECrawlerMapTypes GetKey() { return ECrawlerMapTypes.Dungeon; }
 
 
         public async override UniTask<CrawlerMapRoot> Enter(UnityGameState gs, PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
-            partyData.MapX = mapData.XPos;
-            partyData.MapZ = mapData.ZPos;
-            partyData.MapRot = 0;
+            partyData.MapId = mapData.MapId;
+            partyData.MapX = mapData.MapX;
+            partyData.MapZ = mapData.MapZ;
+            partyData.MapRot = mapData.MapRot;
 
             CrawlerMap cmap = GenerateMap(gs, mapData.MapId);
 

@@ -8,6 +8,7 @@ using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.MapSpawns;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Constants;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Utils;
 using Microsoft.Azure.Amqp.Framing;
@@ -56,8 +57,9 @@ namespace Genrpg.Editor
             EditorGameState toGS = await EditorGameDataUtils.SetupFromConfig(this, EnvNames.Test);
           
             IGameDataService gds = toGS.loc.Get<IGameDataService>();
+            IRepositoryService toRepo = toGS.loc.Get<IRepositoryService>();
 
-            await gds.SaveGameData(fromGS.data, toGS.repo);
+            await gds.SaveGameData(fromGS.data, toRepo);
         }
     }
 }

@@ -702,8 +702,8 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         GVector3 offsetPos = new GVector3 (gx * (MapConstants.TerrainPatchSize-1), 0, gy * (MapConstants.TerrainPatchSize-1));
         string terrainName = "Terrain" + gx + "_" + gy;
 
-        GEntity terrObj2 = AssetUtils.LoadResource<GEntity>("Prefabs/TerrainMaterialPlaceholder");
-        terrObj2 = Instantiate<GEntity>(terrObj2);
+
+        GEntity terrObj2 = await _assetService.LoadAssetAsync(gs, AssetCategoryNames.Prefabs, "TerrainMaterialPlaceholder", null, token);
         terrObj2.name = terrainName;    
 
         terrObj2.transform().localPosition = GVector3.Create(offsetPos);

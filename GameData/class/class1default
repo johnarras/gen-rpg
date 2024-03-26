@@ -7,8 +7,10 @@
   "Icon": "",
   "Art": "",
   "Abbrev": "Wa",
-  "LevelsPerMelee": 6,
-  "LevelsPerRanged": 12,
+  "LevelsPerMelee": 3,
+  "InitialMeleeAttacks": 2,
+  "LevelsPerRanged": 9,
+  "InitialRangedAttacks": 1,
   "HealthPerLevel": 20,
   "BuffStatTypeId": 71,
   "BuffStatPercent": 100,
@@ -45,6 +47,6 @@
     }
   ],
   "AllowedEquipSlots": [],
-  "UpdateTime": "2024-02-17T22:30:05.246Z",
+  "UpdateTime": "2024-03-23T23:02:49.611Z",
   "CreateTime": "2024-01-27T18:57:37Z"
 }

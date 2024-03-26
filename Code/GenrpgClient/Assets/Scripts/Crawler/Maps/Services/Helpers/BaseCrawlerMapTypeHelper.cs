@@ -8,6 +8,7 @@ using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.ProcGen.Settings.Texturse;
 using System.Threading;
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
     {
         protected IAssetService _assetService;
         protected IUiService _uiService;
+        protected ILogService _logService;
 
         public abstract ECrawlerMapTypes GetKey();
 

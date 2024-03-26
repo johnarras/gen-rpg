@@ -19,7 +19,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Casting
         {
             CrawlerStateData stateData = CreateStateData();
 
-            gs.logger.Info("Special spellcast");
+            _logService.Info("Special spellcast");
 
             SelectSpellAction selectSpellAction = action.ExtraData as SelectSpellAction;
 

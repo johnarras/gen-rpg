@@ -33,6 +33,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
     {
         IAssetService _assetService;
         ICameraController _cameraController;
+        ICrawlerService _crawlerService;
 
         const int ViewRadius = 8;
         CrawlerMapRoot _crawlerMap = null;
@@ -47,7 +48,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         public async Task Setup(GameState gs, CancellationToken token)
         {
-            _cameraParent = _cameraController.GetCameraParent();
+            _cameraParent = _cameraController?.GetCameraParent();
 
             _mapTypeHelpers = ReflectionUtils.SetupDictionary<ECrawlerMapTypes, ICrawlerMapTypeHelper>(gs);
 
@@ -82,6 +83,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             await UpdateCameraPos(token);
 
             queuedMoves.Clear();
+
+            await _crawlerService.SaveGame();
         }
 
         private async UniTask LoadDungeonAssets(UnityGameState gs, CrawlerMapRoot mapRoot, CancellationToken token)

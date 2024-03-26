@@ -11,11 +11,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.MapServer.Currencies
 {
     public class ServerCurrencyService : CurrencyService, ISetupService
     {
+        protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;
         public async Task Setup(GameState gs, CancellationToken token)
         {
@@ -29,7 +31,7 @@ namespace Genrpg.MapServer.Currencies
                 return;
             }
 
-            gs.repo.QueueSave(status);
+            _repoService.QueueSave(status);
 
             OnAddCurrency onAdd = new OnAddCurrency()
             {

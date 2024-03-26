@@ -10,7 +10,7 @@ namespace Genrpg.Editor.Services.Setup
 {
     public class EditorSetupService : SetupService
     {
-        public override void SetupObjectLocator(GameState gs)
+        public override void SetupServiceLocator(GameState gs)
         {
             EditorLocatorSetup els = new EditorLocatorSetup();
             els.Setup(gs);

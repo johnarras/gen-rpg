@@ -39,7 +39,7 @@ public class SetupTerrainPatches : BaseZoneGenerator
                         int zoneId = gs.md.mapZoneIds[y, x];
                         if (zoneId < SharedMapConstants.MapZoneStartId)
                         {
-                            gs.logger.Message("Missing zoneId at " + x + " " + y);
+                            _logService.Message("Missing zoneId at " + x + " " + y);
                         }
                         else if (!patch.FullZoneIdList.Contains(zoneId))
                         {

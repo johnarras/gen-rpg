@@ -28,26 +28,26 @@ namespace GenrpgConfig
             if (env == "dev")
             {
                 response.ServerURL = "http://localhost:5000";
-                response.ArtURLPrefix = "http://oxdbcontent.blob.core.windows.net/genrpg";
-                response.ArtEnv = "dev";
+                response.ContentRoot = "http://oxdbcontent.blob.core.windows.net/genrpg";
+                response.AssetEnv = "dev";
             }
             else if (env == "test")
             {
                 response.ServerURL = "https://genrpgtest.azurewebsites.net";
-                response.ArtURLPrefix = "http://oxdbcontent.blob.core.windows.net/genrpg";
-                response.ArtEnv = "dev";
+                response.ContentRoot = "http://oxdbcontent.blob.core.windows.net/genrpg";
+                response.AssetEnv = "dev";
             }
             else if (env == "prod")
             {
                 response.ServerURL = "https://genrpg.azurewebsites.net";
-                response.ArtURLPrefix = "http://oxdbcontent.blob.core.windows.net/genrpg";
-                response.ArtEnv = "prod";
+                response.ContentRoot = "http://oxdbcontent.blob.core.windows.net/genrpg";
+                response.AssetEnv = "prod";
             }
             else if (env == "local")
             {
                 response.ServerURL = "http://localhost:5000";
-                response.ArtURLPrefix = "http://oxdbcontent.blob.core.windows.net/genrpg";
-                response.ArtEnv = "dev";
+                response.ContentRoot = "http://oxdbcontent.blob.core.windows.net/genrpg";
+                response.AssetEnv = "dev";
             }
 
             return new OkObjectResult(response);

@@ -142,7 +142,7 @@ public class CreatePathfindingData : BaseZoneGenerator
 
             int endLength = output.Length;
 
-            LocalFileRepository repo = new LocalFileRepository(gs.logger);
+            BinaryFileRepository repo = new BinaryFileRepository(_logService);
 
             string filename = MapUtils.GetMapObjectFilename(gs, PathfindingConstants.Filename, gs.map.Id, gs.map.MapVersion);
             repo.SaveBytes(filename, output);
@@ -161,7 +161,7 @@ public class CreatePathfindingData : BaseZoneGenerator
         }
         catch (Exception e)
         {
-            gs.logger.Exception(e, "Pathfinding");
+            _logService.Exception(e, "Pathfinding");
         }
     }
 }

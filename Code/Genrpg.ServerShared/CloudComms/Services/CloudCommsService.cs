@@ -15,6 +15,8 @@ using Genrpg.ServerShared.CloudComms.PubSub.Managers;
 using Genrpg.ServerShared.CloudComms.Queues.Managers;
 using Genrpg.ServerShared.CloudComms.Queues.Requests.Entities;
 using MongoDB.Driver.Core.WireProtocol.Messages;
+using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.ServerShared.Config;
 
 namespace Genrpg.ServerShared.CloudComms.Services
 {
@@ -30,27 +32,33 @@ namespace Genrpg.ServerShared.CloudComms.Services
         private ServiceBusClient _serviceBusClient = null;
         private ServiceBusAdministrationClient _adminClient = null;
 
+        private ILogService _logService = null;
+
         // Queues
         private CloudQueueManager _queueManager = null;
 
         // Pubsub
         private CloudPubSubManager _pubSubManager = null;
 
+        private IServerConfig _config = null;
+
+
+
         public async Task Setup(GameState gs, CancellationToken token)
         {
             _serverGameState = gs as ServerGameState;
             _token = token;
-            _env = _serverGameState.config.MessagingEnv.ToLower();
-            _serverId = _serverGameState.config.ServerId.ToLower();
-            string serviceBusConnectionString = _serverGameState.config.GetConnectionString(ConnectionNames.ServiceBus);
+            _env = _config.MessagingEnv.ToLower();
+            _serverId = _config.ServerId.ToLower();
+            string serviceBusConnectionString = _config.GetConnectionString(ConnectionNames.ServiceBus);
             _serviceBusClient = new ServiceBusClient(serviceBusConnectionString);
             _adminClient = new ServiceBusAdministrationClient(serviceBusConnectionString);
 
             _queueManager = new CloudQueueManager();
-            await _queueManager.Init(_serverGameState, _serviceBusClient, _adminClient, _serverId, _env, token);
+            await _queueManager.Init(_serverGameState, _logService, _serviceBusClient, _adminClient, _serverId, _env, token);
 
             _pubSubManager = new CloudPubSubManager();
-            await _pubSubManager.Init(_serverGameState, _serviceBusClient, _adminClient, _serverId, _env, token);
+            await _pubSubManager.Init(_serverGameState, _logService, _serviceBusClient, _adminClient, _serverId, _env, token);
 
         }
 

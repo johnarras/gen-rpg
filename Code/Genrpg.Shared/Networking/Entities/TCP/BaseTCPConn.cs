@@ -1,4 +1,4 @@
-﻿using Genrpg.Shared.Logs.Interfaces;
+﻿using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.Networking.Constants;
 using Genrpg.Shared.Networking.Interfaces;
@@ -26,7 +26,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
         private bool _removeMe { get; set; }
 
         private CancellationToken _token;
-        protected ILogSystem _logger;
+        protected ILogService _logger;
         private IMapApiSerializer _serializer;
         private MapApiMessageHandler _messageHandler;
 
@@ -44,7 +44,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
         // This is concurrent so the game can send messages to it as needed.
         private ConcurrentQueue<IMapApiMessage> _outputQueue = new ConcurrentQueue<IMapApiMessage>();
 
-        public BaseTcpConn(IMapApiSerializer serializer, MapApiMessageHandler messageHandler, ILogSystem logger, CancellationToken token, object extraData)
+        public BaseTcpConn(IMapApiSerializer serializer, MapApiMessageHandler messageHandler, ILogService logger, CancellationToken token, object extraData)
          
         {
             _logger = logger;

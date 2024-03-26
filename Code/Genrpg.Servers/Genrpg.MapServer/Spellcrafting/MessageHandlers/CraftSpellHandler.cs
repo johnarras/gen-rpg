@@ -1,6 +1,7 @@
 ﻿using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
@@ -19,6 +20,7 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
     {
         private ISharedSpellCraftService _spellCraftService = null;
 
+        protected IRepositoryService _repoService = null;
         protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, CraftSpell message)
         {
 
@@ -60,7 +62,7 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
             }
 
             spellData.Add(spell);
-            gs.repo.Save(spell);
+            _repoService.Save(spell);
             ch.AddMessage(new OnCraftSpell() { CraftedSpell = spell });
             spellData.SetDirty(true);
         }

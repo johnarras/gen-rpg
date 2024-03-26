@@ -13,7 +13,7 @@
   "TargetTypeId": 9,
   "Level": 1,
   "Effects": [],
-  "SuppressCastText": true,
-  "UpdateTime": "2024-02-17T21:04:00.027Z",
+  "Flags": 1,
+  "UpdateTime": "2024-03-24T17:39:11.07Z",
   "CreateTime": "2024-01-28T14:46:43Z"
 }

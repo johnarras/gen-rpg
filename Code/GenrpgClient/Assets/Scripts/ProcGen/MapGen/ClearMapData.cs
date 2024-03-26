@@ -48,7 +48,7 @@ public class ClearMapData : BaseZoneGenerator
         string worldId = gs.map.Id;
         int worldVersion = gs.map.MapVersion;
 
-        gs.logger.Info("Current Map: " + gs.map.Id + " Version: " + gs.map.MapVersion);
+        _logService.Info("Current Map: " + gs.map.Id + " Version: " + gs.map.MapVersion);
 
         string folder = MapUtils.GetMapFolder(gs, worldId, worldVersion);
 
@@ -72,7 +72,7 @@ public class ClearMapData : BaseZoneGenerator
         }
         catch (Exception e)
         {
-            gs.logger.Exception(e, "ClearMap");
+            _logService.Exception(e, "ClearMap");
         }
         foreach (string dir in dirs)
         {
@@ -87,7 +87,7 @@ public class ClearMapData : BaseZoneGenerator
                 }
                 catch (Exception e)
                 {
-                    gs.logger.Exception(e, "NoDeleteOnClearMap");
+                    _logService.Exception(e, "NoDeleteOnClearMap");
                 }
             }
             await UniTask.NextFrame( cancellationToken: token);

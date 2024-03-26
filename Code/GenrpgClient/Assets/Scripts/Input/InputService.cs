@@ -5,6 +5,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Input.Constants;
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Spells.PlayerData.Spells;
@@ -120,7 +121,7 @@ public class InputService : BaseBehaviour, IInputService
                 }
                 catch (Exception e)
                 {
-                    _gs.logger.Exception(e, "Bad KeyCode");
+                    _logService.Exception(e, "Bad KeyCode");
                     continue;
                 }
             }

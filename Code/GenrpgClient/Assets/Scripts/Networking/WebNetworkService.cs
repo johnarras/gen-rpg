@@ -16,6 +16,7 @@ using Assets.Scripts.Login.Messages;
 using Genrpg.Shared.Networking.Constants;
 using System.Linq;
 using System.Threading.Tasks;
+using Genrpg.Shared.Logging.Interfaces;
 
 public delegate void WebResultsHandler(UnityGameState gs, string txt, CancellationToken token);
 
@@ -50,7 +51,8 @@ public class WebNetworkService : IWebNetworkService
     }
 
     protected UnityGameState _gs = null;
-    private IUnityUpdateService _updateService = null!;
+    private IUnityUpdateService _updateService;
+    private ILogService _logService;
     public WebNetworkService(UnityGameState gs, CancellationToken token)
     {
         _gs = gs;
@@ -78,7 +80,7 @@ public class WebNetworkService : IWebNetworkService
         if (gs is UnityGameState ugs)
         {
             _loginResultHandlers = ReflectionUtils.SetupDictionary<Type, IClientLoginResultHandler>(gs);
-            _webURI = ugs.SiteURL;
+            _loginServerURL = ugs.LoginServerURL;
         }
         _updateService.AddUpdate(this, ProcessLoginMessages, UpdateType.Late);
         await UniTask.CompletedTask;
@@ -106,11 +108,11 @@ public class WebNetworkService : IWebNetworkService
 
     public string GetBaseURI()
     {
-        return _webURI;
+        return _loginServerURL;
     }
 
     private Dictionary<Type, IClientLoginResultHandler> _loginResultHandlers = null;
-    private string _webURI = null;
+    private string _loginServerURL = null;
     private string _host = "";
     private long _port = 0;
     private EMapApiSerializers _serializer = EMapApiSerializers.Json;
@@ -161,7 +163,7 @@ public class WebNetworkService : IWebNetworkService
 
         string commandText = SerializationUtils.Serialize(commandSet);
 
-        req.SendRequest(_gs, _webURI + endpoint, commandText, HandleLoginResults, fullRequestSource.Token).Forget();
+        req.SendRequest(_gs, _logService, _loginServerURL + endpoint, commandText, HandleLoginResults, fullRequestSource.Token).Forget();
     }
 
     private void HandleLoginResults(UnityGameState gs, string txt, CancellationToken token)
@@ -182,7 +184,7 @@ public class WebNetworkService : IWebNetworkService
             }
             else
             {
-                _gs.logger.Error("Unknown Message From Login Server: " + result.GetType().Name);
+                _logService.Error("Unknown Message From Login Server: " + result.GetType().Name);
             }
         }
 

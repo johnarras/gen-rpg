@@ -1,6 +1,7 @@
 ﻿using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Spawns.MapObjectAddons;
 using Genrpg.ServerShared.Core;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapMods.Constants;
 using Genrpg.Shared.MapMods.MapObjectAddons;
 using Genrpg.Shared.MapMods.MapObjects;
@@ -20,6 +21,7 @@ namespace Genrpg.Shared.MapMods.Helpers
     {
         private IMapObjectManager _objectManager = null;
         private IPathfindingService _pathfindingService = null;
+        protected IRepositoryService _repoService = null;
 
         const int MinSeparation = 5;
 
@@ -92,7 +94,7 @@ namespace Genrpg.Shared.MapMods.Helpers
 
                 if (mapMod.Spawn is MapSpawn mapModSpawn)
                 {
-                    gs.repo.QueueSave(mapModSpawn);
+                    _repoService.QueueSave(mapModSpawn);
                 }
                 effect.CurrQuantity++;
 

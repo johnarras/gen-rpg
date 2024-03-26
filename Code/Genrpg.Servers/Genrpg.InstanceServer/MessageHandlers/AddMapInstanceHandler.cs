@@ -1,5 +1,6 @@
 ﻿using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.ServerShared.Core;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.InstanceServer.MessageHandlers
 {
@@ -7,7 +8,7 @@ namespace Genrpg.InstanceServer.MessageHandlers
     {
         protected override async Task InnerHandleMessage(ServerGameState gs, AddMapInstance message)
         {
-            gs.logger.Message("Received " + message.GetType().Name + " from " + message.ServerId);
+            _logService.Message("Received " + message.GetType().Name + " from " + message.ServerId);
             await _instanceManagerService.AddInstanceData(message);
             await Task.CompletedTask;
         }
