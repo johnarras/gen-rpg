@@ -24,11 +24,11 @@ namespace Genrpg.ServerShared.Config
 
             foreach (string dataCategory in DataCategoryTypes.DataCategories)
             {
-                serverConfig.DataEnvs[dataCategory] = ConfigurationManager.AppSettings[dataCategory + "Env"];
+                serverConfig.DataEnvs[dataCategory] = GetEnvOrDefault(dataCategory + "Env", serverConfig.Env);
             }
 
-            serverConfig.MessagingEnv = ConfigurationManager.AppSettings["MessagingEnv"];
-
+            serverConfig.MessagingEnv = GetEnvOrDefault("MessagingEnv", serverConfig.Env);
+            
             serverConfig.ContentRoot = ConfigurationManager.AppSettings["ContentRoot"];
 
             serverConfig.EtherscanKey = ConfigurationManager.AppSettings["EtherscanKey"];
@@ -48,6 +48,17 @@ namespace Genrpg.ServerShared.Config
 
             await Task.CompletedTask;
             return serverConfig;
+        }
+
+        private static string GetEnvOrDefault(string key, string defaultValue)
+        {
+            string envId = ConfigurationManager.AppSettings[key];
+
+            if (string.IsNullOrEmpty(envId))
+            {
+                return defaultValue;
+            }
+            return envId;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Interfaces;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
+using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Ftue.Messages;
 using Genrpg.Shared.Ftue.Services;
@@ -27,6 +28,7 @@ namespace Assets.Scripts.UI.Services
         protected IFtueService _ftueService;
         protected IAudioService _audioService;
         protected IRealtimeNetworkService _realtimeNetworkService;
+        protected IAnalyticsService _analyticsService;
 
         protected UnityGameState _gs;
 
@@ -126,7 +128,7 @@ namespace Assets.Scripts.UI.Services
                 button.onClick.AddListener(
                    () =>
                    {
-                       Analytics.Send(AnalyticsEvents.ClickButton, button.name, screenName, extraData); 
+                       _analyticsService.Send(_gs, AnalyticsEvents.ClickButton, button.name, screenName, extraData); 
                        _audioService.PlaySound(_gs, AudioList.ButtonClick);
                        action();
                    });
@@ -142,7 +144,7 @@ namespace Assets.Scripts.UI.Services
                        {
                            _audioService.PlaySound(_gs, AudioList.ButtonClick);
 
-                           Analytics.Send(AnalyticsEvents.ClickButton, button.name, screenName, extraData);
+                           _analyticsService.Send(_gs, AnalyticsEvents.ClickButton, button.name, screenName, extraData);
                            action();
 
                            if (step != null)

@@ -9,6 +9,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Analytics.Services;
 
 namespace Genrpg.Shared.Core.Entities
 {
@@ -35,14 +36,14 @@ namespace Genrpg.Shared.Core.Entities
         {
         }
 
-        protected virtual GameState CreateGameStateInstance(ILogService logService = null)
+        protected virtual GameState CreateGameStateInstance(ILogService logService = null, IAnalyticsService analyicsService = null)
         {
            return (GameState)Activator.CreateInstance(GetType());
         }
 
         public virtual GameState CreateGameStateCopy()
         {
-            GameState gsNew = CreateGameStateInstance(loc.Get<ILogService>());
+            GameState gsNew = CreateGameStateInstance(loc.Get<ILogService>(), loc.Get<IAnalyticsService>());
             gsNew.data = data;
             gsNew.loc = loc;
             gsNew.map = map;

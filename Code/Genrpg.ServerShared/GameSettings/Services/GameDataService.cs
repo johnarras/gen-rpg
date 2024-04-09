@@ -302,6 +302,11 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 return false;
             }
 
+            if (filter.AllowedPlayers.Any(x=>x.PlayerId == ch.Id))
+            {
+                return true;
+            }
+
             if (filter.MinLevel > 0 && filter.MaxLevel > 0 &&
                 (filter.MinLevel > ch.Level || filter.MaxLevel < ch.Level))
             {

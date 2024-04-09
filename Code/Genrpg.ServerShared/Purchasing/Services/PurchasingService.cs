@@ -150,61 +150,64 @@ namespace Genrpg.ServerShared.Purchasing.Services
             {
                 return;
             }
-            
-         
-            if (offer.MaxUserDaysSinceInstall > 0 && (DateTime.UtcNow-user.CreationDate).Days > offer.MaxUserDaysSinceInstall)
-            {
-                return;
-            }
 
-            if (offer.MinUserDaysSinceInstall > 0 && (DateTime.UtcNow-user.CreationDate).Days < offer.MinUserDaysSinceInstall)
+            if (!offer.AllowedPlayers.Any(x => x.PlayerId == user.Id || (ch != null && x.PlayerId == ch.Id)))
             {
-                return;
-            }
 
-            if (ch != null)
-            {
-                if (offer.MaxCharDaysSinceInstall > 0 && (DateTime.UtcNow - ch.CreationDate).Days > offer.MaxCharDaysSinceInstall)
+                if (offer.MaxUserDaysSinceInstall > 0 && (DateTime.UtcNow - user.CreationDate).Days > offer.MaxUserDaysSinceInstall)
                 {
                     return;
                 }
 
-                if (offer.MinCharDaysSinceInstall > 0 && (DateTime.UtcNow - ch.CreationDate).Days < offer.MinCharDaysSinceInstall)
-                {
-                    return;
-                }
-            }
-
-            if (offer.MinPurchaseCount > 0 && historyData.PurchaseCount < offer.MinPurchaseCount)
-            {
-                return;
-            }
-
-            if (offer.MaxPurchaseCount > 0 && historyData.PurchaseCount < offer.MaxPurchaseCount)
-            {
-                return;
-            }
-
-            if (offer.MinPurchaseTotal > 0 && historyData.PurchaseTotal < offer.MinPurchaseTotal)
-            {
-                return;
-            }
-
-            if (offer.MaxPurchaseTotal > 0 && historyData.PurchaseTotal >  offer.MaxPurchaseTotal)
-            {
-                return;
-            }
-
-            if (ch != null)
-            {
-                if (offer.MinLevel > 0 && ch.Level < offer.MinLevel)
+                if (offer.MinUserDaysSinceInstall > 0 && (DateTime.UtcNow - user.CreationDate).Days < offer.MinUserDaysSinceInstall)
                 {
                     return;
                 }
 
-                if (offer.MaxLevel > 0 && ch.Level > offer.MaxLevel)
+                if (ch != null)
+                {
+                    if (offer.MaxCharDaysSinceInstall > 0 && (DateTime.UtcNow - ch.CreationDate).Days > offer.MaxCharDaysSinceInstall)
+                    {
+                        return;
+                    }
+
+                    if (offer.MinCharDaysSinceInstall > 0 && (DateTime.UtcNow - ch.CreationDate).Days < offer.MinCharDaysSinceInstall)
+                    {
+                        return;
+                    }
+                }
+
+                if (offer.MinPurchaseCount > 0 && historyData.PurchaseCount < offer.MinPurchaseCount)
                 {
                     return;
+                }
+
+                if (offer.MaxPurchaseCount > 0 && historyData.PurchaseCount < offer.MaxPurchaseCount)
+                {
+                    return;
+                }
+
+                if (offer.MinPurchaseTotal > 0 && historyData.PurchaseTotal < offer.MinPurchaseTotal)
+                {
+                    return;
+                }
+
+                if (offer.MaxPurchaseTotal > 0 && historyData.PurchaseTotal > offer.MaxPurchaseTotal)
+                {
+                    return;
+                }
+
+                if (ch != null)
+                {
+                    if (offer.MinLevel > 0 && ch.Level < offer.MinLevel)
+                    {
+                        return;
+                    }
+
+                    if (offer.MaxLevel > 0 && ch.Level > offer.MaxLevel)
+                    {
+                        return;
+                    }
                 }
             }
 

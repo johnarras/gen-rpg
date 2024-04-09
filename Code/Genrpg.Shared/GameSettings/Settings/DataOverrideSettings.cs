@@ -8,6 +8,7 @@ using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using System.Linq;
 using Newtonsoft.Json;
+using Genrpg.Shared.PlayerFiltering.Settings;
 
 namespace Genrpg.Shared.GameSettings.Settings
 {
@@ -44,6 +45,7 @@ namespace Genrpg.Shared.GameSettings.Settings
         [Key(17)] public bool RepeatMonthly { get; set; }
 
         [Key(18)] public List<DataOverrideItem> Items { get; set; }
+        [Key(19)] public List<AllowedPlayer> AllowedPlayers { get; set; } = new List<AllowedPlayer>();
 
         public void OrderSelf()
         {

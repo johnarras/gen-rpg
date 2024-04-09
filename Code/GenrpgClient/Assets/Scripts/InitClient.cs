@@ -11,12 +11,14 @@ using UI.Screens.Utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Reflection;
+using Genrpg.Shared.Analytics.Services;
 
 public class InitClient : BaseBehaviour
 {
     public GEntity _splashImage;
 
     private IClientLoginService _loginService;
+    private IAnalyticsService _analyticsService;
 
 #if UNITY_EDITOR
     public string CurrMapId;
@@ -43,20 +45,6 @@ public class InitClient : BaseBehaviour
         OnStart().Forget();
     }
 
-    private async UniTask DelayRemoveSplashScreen(CancellationToken token)
-    {
-        while (_screenService == null || _screenService.GetAllScreens(_gs).Count < 1)
-        {
-            await UniTask.NextFrame(token);
-        }
-
-        if (_splashImage != null)
-        {
-            GEntityUtils.SetActive(_splashImage, false);
-            _splashImage = null;
-        }
-    }
-
     protected async UniTask OnStart()
     {
         UnityGameState gs = new UnityGameState();
@@ -69,7 +57,6 @@ public class InitClient : BaseBehaviour
 
         DelayRemoveSplashScreen(_gameTokenSource.Token).Forget();
 
-        Analytics.Setup(_gs);
         // Initial app appearance.
         AppUtils.TargetFrameRate = 30;
         ScreenUtils.SetupScreenSystem(1920, 1080, false, true, 2);
@@ -164,4 +151,19 @@ public class InitClient : BaseBehaviour
     {
         return _gameTokenSource.Token;
     }
+
+    private async UniTask DelayRemoveSplashScreen(CancellationToken token)
+    {
+        while (_screenService == null || _screenService.GetAllScreens(_gs).Count < 1)
+        {
+            await UniTask.NextFrame(token);
+        }
+
+        if (_splashImage != null)
+        {
+            GEntityUtils.SetActive(_splashImage, false);
+            _splashImage = null;
+        }
+    }
+
 }

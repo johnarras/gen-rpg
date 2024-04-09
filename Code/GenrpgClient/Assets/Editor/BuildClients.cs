@@ -13,6 +13,7 @@ using Scripts.Assets.Assets.Constants;
 using Genrpg.Shared.Setup.Services;
 using System.Runtime.Remoting.Channels;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Analytics.Services;
 
 public class BuildClients
 {
@@ -107,7 +108,8 @@ public class BuildClients
         }
 
         ILogService logService = gs.loc.Get<ILogService>();
-        ServiceLocator loc = new ServiceLocator(logService);
+        IAnalyticsService analyicsService = gs.loc.Get<IAnalyticsService>();
+        ServiceLocator loc = new ServiceLocator(logService, analyicsService);
         ClientRepositoryService repoService = new ClientRepositoryService(logService);
         CancellationTokenSource cts = new CancellationTokenSource();
         SetupService ss = new SetupService();

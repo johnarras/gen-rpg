@@ -9,9 +9,12 @@ using Assets.Scripts.Tokens;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Genrpg.Shared.UI.Settings;
+using Genrpg.Shared.Analytics.Services;
 
 public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 {
+    private IAnalyticsService _analyticsService;
+
     public List<ScreenLayer> Layers;
 
     public List<ScreenId> AllowMultiQueueScreens;
@@ -178,7 +181,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 
         layer.CurrentScreen = nextItem;
         layer.CurrentLoading = null;
-        Analytics.Send(AnalyticsEvents.OpenScreen, nextItem.Screen.GetName());
+        _analyticsService.Send(gs, AnalyticsEvents.OpenScreen, nextItem.Screen.GetName());
         await nextItem.Screen.StartOpen(nextItem.Data, token);
         ClearAllScreensList();
 
@@ -289,7 +292,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
                 {
                     GEntityUtils.Destroy(baseScreen.entity());
                 }
-                Analytics.Send(AnalyticsEvents.CloseScreen, baseScreen.GetName());
+                _analyticsService.Send(gs, AnalyticsEvents.CloseScreen, baseScreen.GetName());
                 layer.CurrentScreen = null;
                 ClearAllScreensList();
                 break;

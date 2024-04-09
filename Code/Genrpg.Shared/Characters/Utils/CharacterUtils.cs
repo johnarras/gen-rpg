@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Users.Entities;
 
 namespace Genrpg.Shared.Characters.Utils
 {

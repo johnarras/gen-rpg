@@ -12,6 +12,7 @@ using Genrpg.Shared.Logging.Interfaces;
 using Assets.Scripts.Model;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Analytics.Services;
 
 public class UnityGameState : GameState
 {
@@ -29,7 +30,8 @@ public class UnityGameState : GameState
     {
         Config = ClientConfig.Load();
         ILogService logService = new ClientLogger(Config);
-        loc = new ServiceLocator(logService);
+        IAnalyticsService analyticsService = new ClientAnalyticsService(Config);
+        loc = new ServiceLocator(logService, analyticsService);
         data = new GameData();
     }
 

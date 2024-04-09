@@ -6,6 +6,7 @@ using Assets.Scripts.Ftue.Services;
 using Assets.Scripts.GameSettings.Services;
 using Assets.Scripts.Model;
 using Assets.Scripts.UI.Services;
+using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.Stats.Services;

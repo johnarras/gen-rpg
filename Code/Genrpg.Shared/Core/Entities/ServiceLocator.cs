@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Analytics.Services;
 
 namespace Genrpg.Shared.Core.Entities
 {
@@ -19,13 +20,16 @@ namespace Genrpg.Shared.Core.Entities
     public class ServiceLocator : IServiceLocator
     {
 
-        public ServiceLocator(ILogService logService)
+        public ServiceLocator(ILogService logService, IAnalyticsService analyticsService)
         {
             _logger = logService;
             Set(logService);
+            _analytics = analyticsService;
+            Set(analyticsService);
         }
 
         private ILogService _logger;
+        private IAnalyticsService _analytics;
 
         /// <summary>
         /// Internal storage indexed by type

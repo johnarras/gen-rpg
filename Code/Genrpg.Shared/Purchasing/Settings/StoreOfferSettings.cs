@@ -3,6 +3,7 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Settings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
+using Genrpg.Shared.PlayerFiltering.Settings;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,7 @@ namespace Genrpg.Shared.Purchasing.Settings
 
         [Key(29)] public List<OfferProduct> Products { get; set; } = new List<OfferProduct>();
 
+        [Key(30)] public List<AllowedPlayer> AllowedPlayers { get; set; } = new List<AllowedPlayer>();
         public void DeepCopyFrom(IComplexCopy from)
         {
             OfferId = Guid.NewGuid().ToString();

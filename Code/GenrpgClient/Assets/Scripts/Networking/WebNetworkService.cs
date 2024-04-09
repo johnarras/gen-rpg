@@ -13,41 +13,163 @@ using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.Login.Messages;
 using Assets.Scripts.Login.Messages;
-using Genrpg.Shared.Networking.Constants;
 using System.Linq;
 using System.Threading.Tasks;
 using Genrpg.Shared.Logging.Interfaces;
+using System.Net;
+using static WebNetworkService;
 
 public delegate void WebResultsHandler(UnityGameState gs, string txt, CancellationToken token);
 
 public interface IWebNetworkService : ISetupService, IGameTokenService
 {
-    string GetBaseURI();
     void SendLoginWebCommand(LoginCommand loginCommand, CancellationToken token);
     void SendClientWebCommand(IClientCommand data, CancellationToken token);
     void SendNoUserWebCommand(INoUserCommand data, CancellationToken token);
-
 }
-
 
 public class WebNetworkService : IWebNetworkService
 {
+    private Dictionary<string,WebRequestQueue> _queues = new Dictionary<string,WebRequestQueue>();
+    private Dictionary<Type, IClientLoginResultHandler> _loginResultHandlers = null;
 
-    private List<FullLoginCommand> _clientCommandQueue = new List<FullLoginCommand>();
-    private List<FullLoginCommand> _currentClientCommands = new List<FullLoginCommand>();
-
-
-    internal class FullLoginCommand
+    private class FullLoginCommand
     {
         public ILoginCommand Command;
         public CancellationToken Token;
     }
 
-
-    internal class ResultHandlerPair
+    private class ResultHandlerPair
     {
         public ILoginResult Result { get; set; } = null;
         public IClientLoginResultHandler Handler { get; set; } = null;
+    }
+
+    private class WebRequestQueue
+    {
+        private Dictionary<Type, IClientLoginResultHandler> _loginResultHandlers = new Dictionary<Type, IClientLoginResultHandler>();
+        private List<FullLoginCommand> _queue = new List<FullLoginCommand>();
+        private List<FullLoginCommand> _pending = new List<FullLoginCommand>();
+        private float _delaySeconds;
+        private CancellationToken _token;
+        private UnityGameState _gs;
+        private DateTime _lastResponseReceivedTime = DateTime.UtcNow;
+        private WebRequestQueue _parentQueue;
+        private List<WebRequestQueue> _childQueues = new List<WebRequestQueue>();
+        private string _fullEndpoint;
+        private ILogService _logService;
+
+        public WebRequestQueue(UnityGameState gs, CancellationToken token, string fullEndpoint, float delaySeconds, ILogService logService, WebRequestQueue parentQueue = null)
+        {
+            _loginResultHandlers = ReflectionUtils.SetupDictionary<Type, IClientLoginResultHandler>(gs);
+            _parentQueue = parentQueue;
+            _logService = logService;
+            if (_parentQueue != null)
+            {
+                _parentQueue.AddChildQueue(this);
+            }
+            _gs = gs;
+            _delaySeconds = delaySeconds;
+            _token = token;         
+            _fullEndpoint = fullEndpoint;
+
+        }
+
+        public void AddChildQueue(WebRequestQueue childQueue)
+        {
+            _childQueues.Add(childQueue);
+        }
+
+        public void AddRequest(ILoginCommand command, CancellationToken token)
+        {
+            _queue.Add(new FullLoginCommand(){ Command = command, Token = token });
+        }
+
+        public bool HavePendingRequests()
+        {
+            return _pending.Count > 0 || (DateTime.UtcNow - _lastResponseReceivedTime).TotalSeconds < _delaySeconds;
+        }
+
+        public bool HaveRequests()
+        {
+            return _queue.Count > 0 || HavePendingRequests();
+        }
+
+        public void ProcessRequests()
+        {
+            if (_parentQueue != null && _parentQueue.HaveRequests())
+            {
+                return;
+            }
+
+            foreach (WebRequestQueue childQueue in _childQueues)
+            {
+                if (childQueue.HavePendingRequests())
+                {
+                    return;
+                }
+            }
+
+            if (HavePendingRequests() || _queue.Count < 1)
+            {
+                return;
+            }
+
+            _pending = new List<FullLoginCommand>(_queue);
+            _queue.Clear();
+
+            ClientWebRequest req = new ClientWebRequest();
+
+            LoginServerCommandSet commandSet = new LoginServerCommandSet()
+            {
+                UserId = _gs?.user?.Id ?? null,
+                SessionId = _gs?.user?.SessionId ?? null,
+            };
+
+            List<CancellationToken> allTokens = _pending.Select(x => x.Token).Distinct().ToList();
+            allTokens.Add(_token);
+
+            CancellationTokenSource fullRequestSource = CancellationTokenSource.CreateLinkedTokenSource(allTokens.ToArray());
+
+            commandSet.Commands.AddRange(_pending.Select(x => x.Command));
+
+            string commandText = SerializationUtils.Serialize(commandSet);
+
+            req.SendRequest(_gs, _logService, _fullEndpoint, commandText, HandleResults, fullRequestSource.Token).Forget();
+        }
+
+        private void HandleResults(UnityGameState gs, string txt, CancellationToken token)
+        {
+            LoginServerResultSet resultSet = SerializationUtils.Deserialize<LoginServerResultSet>(txt);
+
+            List<ResultHandlerPair> resultPairs = new List<ResultHandlerPair>();
+
+            foreach (ILoginResult result in resultSet.Results)
+            {
+                if (_loginResultHandlers.TryGetValue(result.GetType(), out IClientLoginResultHandler handler))
+                {
+                    resultPairs.Add(new ResultHandlerPair()
+                    {
+                        Result = result,
+                        Handler = handler,
+                    });
+                }
+                else
+                {
+                    _logService.Error("Unknown Message From Login Server: " + result.GetType().Name);
+                }
+            }
+
+            resultPairs = resultPairs.OrderByDescending(x => x.Handler.Priority()).ToList();
+
+            foreach (ResultHandlerPair resultPair in resultPairs)
+            {
+                resultPair.Handler.Process(gs, resultPair.Result, token);
+            }
+
+            _lastResponseReceivedTime = DateTime.UtcNow;
+            _pending.Clear();
+        }
     }
 
     protected UnityGameState _gs = null;
@@ -59,11 +181,9 @@ public class WebNetworkService : IWebNetworkService
     }
 
     // Web endpoints.
-    public const string ClientEndpoint = "/client";
+    public const string UserEndpoint = "/client";
     public const string LoginEndpoint = "/login";
     public const string NoUserEndpoint = "/nouser";
-
-    DateTime _lastLoginResultsReceived = DateTime.UtcNow;
 
     CancellationTokenSource _webTokenSource = null;
     private CancellationToken _token;
@@ -75,29 +195,29 @@ public class WebNetworkService : IWebNetworkService
         _token = _webTokenSource.Token;
     }
 
+    private const float UserRequestDelaySeconds = 0.3f;
+
     public async Task Setup(GameState gs, CancellationToken token)
     {
-        if (gs is UnityGameState ugs)
-        {
-            _loginResultHandlers = ReflectionUtils.SetupDictionary<Type, IClientLoginResultHandler>(gs);
-            _loginServerURL = ugs.LoginServerURL;
-        }
-        _updateService.AddUpdate(this, ProcessLoginMessages, UpdateType.Late);
+        UnityGameState ugs = gs as UnityGameState;
+        
+        // This is like this rather than a REST api because in games you want to be able to mix features, so gameplay is one concern and you
+        // do not separate it. So your server should be a monolith, and I want to be able to batch requests.
+        _queues[LoginEndpoint] = new WebRequestQueue(_gs, token, ugs.LoginServerURL + LoginEndpoint, UserRequestDelaySeconds, _logService, null);
+        _queues[UserEndpoint] = new WebRequestQueue(_gs, token, ugs.LoginServerURL + UserEndpoint, UserRequestDelaySeconds, _logService, _queues[LoginEndpoint]);
+        _queues[NoUserEndpoint] = new WebRequestQueue(_gs, token, ugs.LoginServerURL + NoUserEndpoint, 0, _logService, null);
+
+        _updateService.AddUpdate(this, ProcessRequestQueues, UpdateType.Late);
+        
         await UniTask.CompletedTask;
     }
 
-    private void ProcessLoginMessages()
+    private void ProcessRequestQueues()
     {
-        if (_currentClientCommands.Count > 0 || _clientCommandQueue.Count < 1 ||
-            (DateTime.UtcNow - _lastLoginResultsReceived).TotalSeconds < 0.3f)
+        foreach (WebRequestQueue queue in _queues.Values)
         {
-            return;
+            queue.ProcessRequests();
         }
-
-        _currentClientCommands = _clientCommandQueue.ToList();
-        _clientCommandQueue.Clear();
-
-        InnerSendWebRequest(ClientEndpoint, _currentClientCommands);
     }
 
     public CancellationToken GetToken()
@@ -105,97 +225,25 @@ public class WebNetworkService : IWebNetworkService
         return _token;
     }
 
-
-    public string GetBaseURI()
-    {
-        return _loginServerURL;
-    }
-
-    private Dictionary<Type, IClientLoginResultHandler> _loginResultHandlers = null;
-    private string _loginServerURL = null;
-    private string _host = "";
-    private long _port = 0;
-    private EMapApiSerializers _serializer = EMapApiSerializers.Json;
-
     public void SendLoginWebCommand(LoginCommand loginCommand, CancellationToken token)
     {
-        _currentClientCommands.Add(new FullLoginCommand() { Command = loginCommand, Token = token});
-        InnerSendWebRequest(LoginEndpoint, _currentClientCommands);
+        SendRequest(LoginEndpoint, loginCommand, token);
     }
-    public void SendClientWebCommand(IClientCommand command, CancellationToken token)
+    public void SendClientWebCommand(IClientCommand userCommand, CancellationToken token)
     {
-        _clientCommandQueue.Add(new FullLoginCommand() { Command = command, Token = token });
-    }
-
-
-    public void SendNoUserWebCommand(INoUserCommand loginCommand, CancellationToken token)
-    {
-        List<FullLoginCommand> commands = new List<FullLoginCommand>();
-        FullLoginCommand flc = new FullLoginCommand() { Command = loginCommand, Token = token };
-        commands.Add(flc);
-        _currentClientCommands.Add(flc);
-        InnerSendWebRequest(NoUserEndpoint, commands);
+        SendRequest(UserEndpoint, userCommand, token);
     }
 
-    public void SetRealtimeEndpoint(string host, long port, EMapApiSerializers serializer)
+    public void SendNoUserWebCommand(INoUserCommand noUserCommand, CancellationToken token)
     {
-        _host = host;
-        _port = port;
-        _serializer = serializer;
+        SendRequest(NoUserEndpoint, noUserCommand, token);
     }
 
-    private void InnerSendWebRequest(string endpoint, List<FullLoginCommand> commands)
+    private void SendRequest(string endpoint, ILoginCommand loginCommand, CancellationToken token)
     {
-        ClientWebRequest req = new ClientWebRequest();
-
-        LoginServerCommandSet commandSet = new LoginServerCommandSet()
+        if (_queues.TryGetValue(endpoint, out WebRequestQueue queue))
         {
-            UserId = _gs?.user?.Id ?? null,
-            SessionId = _gs?.user?.SessionId ?? null,
-        };
-
-        List<CancellationToken> allTokens = commands.Select(x => x.Token).Distinct().ToList();
-        allTokens.Add(_token);
-
-        CancellationTokenSource fullRequestSource = CancellationTokenSource.CreateLinkedTokenSource(allTokens.ToArray());
-
-        commandSet.Commands.AddRange(commands.Select(x => x.Command));
-
-        string commandText = SerializationUtils.Serialize(commandSet);
-
-        req.SendRequest(_gs, _logService, _loginServerURL + endpoint, commandText, HandleLoginResults, fullRequestSource.Token).Forget();
-    }
-
-    private void HandleLoginResults(UnityGameState gs, string txt, CancellationToken token)
-    {
-        LoginServerResultSet resultSet = SerializationUtils.Deserialize<LoginServerResultSet>(txt);
-
-        List<ResultHandlerPair> resultPairs = new List<ResultHandlerPair>();
-
-        foreach (ILoginResult result in resultSet.Results)
-        {
-            if (_loginResultHandlers.TryGetValue(result.GetType(), out IClientLoginResultHandler handler))
-            {
-                resultPairs.Add(new ResultHandlerPair()
-                {
-                    Result = result,
-                    Handler = handler,
-                });
-            }
-            else
-            {
-                _logService.Error("Unknown Message From Login Server: " + result.GetType().Name);
-            }
+            queue.AddRequest(loginCommand, token);
         }
-
-        resultPairs = resultPairs.OrderByDescending(x => x.Handler.Priority()).ToList();
-
-        foreach (ResultHandlerPair resultPair in resultPairs)
-        {
-            resultPair.Handler.Process(gs, resultPair.Result, token);
-        }
-
-        _lastLoginResultsReceived = DateTime.UtcNow;
-        _currentClientCommands.Clear();
     }
 }

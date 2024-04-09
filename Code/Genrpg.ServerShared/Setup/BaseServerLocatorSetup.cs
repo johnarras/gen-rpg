@@ -1,5 +1,6 @@
 ﻿using Genrpg.ServerShared.Accounts.Services;
 using Genrpg.ServerShared.Achievements;
+using Genrpg.ServerShared.Analytics.Services;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.CloudComms.Services.Admin;
 using Genrpg.ServerShared.Crypto.Services;
@@ -10,6 +11,7 @@ using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.ServerShared.Purchasing.Services;
+using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;

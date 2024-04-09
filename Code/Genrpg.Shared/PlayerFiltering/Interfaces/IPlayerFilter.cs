@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.PlayerFiltering.Settings;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,6 +23,6 @@ namespace Genrpg.Shared.PlayerFiltering.Interfaces
         int RepeatHours { get; set; }
         bool RepeatMonthly { get; set; }
         void OrderSelf();
-
+        List<AllowedPlayer> AllowedPlayers { get; set; }
     }
 }
