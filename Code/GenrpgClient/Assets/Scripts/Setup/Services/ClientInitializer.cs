@@ -35,7 +35,7 @@ public class ClientInitializer
         gs.loc.Set<IQuestGenService>(new QuestGenService());
         gs.loc.Set<IClientMapObjectManager>(new ClientMapObjectManager(token));
         gs.loc.Set<IClientGameDataService>(new ClientGameDataService());
-        gs.loc.Set<IUiService>(new UiService());
+        gs.loc.Set<IUIInitializable>(new UIInitializable());
         gs.loc.Set<IFxService>(new FxService());
 
         // Unity-specific overrides
@@ -65,11 +65,11 @@ public class ClientInitializer
 
         gs.loc.ResolveSelf();
 
-        foreach (IService service in gs.loc.GetVals())
+        foreach (IInjectable service in gs.loc.GetVals())
         {
-            if (service is ISetupService setupService)
+            if (service is IInitializable initService)
             {
-                await setupService.Setup(gs, token);
+                await initService.Initialize(gs, token);
             }
         }
     }

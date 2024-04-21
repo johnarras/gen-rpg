@@ -30,10 +30,10 @@ namespace Assets.Scripts.UI.Crawler.States
 
             PartyMember member = action.ExtraData as PartyMember;
 
-            IReadOnlyList<StatType> allStats = gs.data.Get<StatSettings>(null).GetData().Where(x=>x.IdKey >=
+            IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(null).GetData().Where(x=>x.IdKey >=
             StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 
-            List<Class> memberClasses = gs.data.Get<ClassSettings>(null).GetClasses(member.Classes);
+            List<Class> memberClasses = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
 
 
 

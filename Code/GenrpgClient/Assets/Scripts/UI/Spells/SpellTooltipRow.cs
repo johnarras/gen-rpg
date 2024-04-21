@@ -11,7 +11,7 @@ public class SpellTooltipRow : BaseBehaviour
             return;
         }
 
-        _uiService.SetText(TextRow, rowData.text);
+        _uIInitializable.SetText(TextRow, rowData.text);
 
     }
 }

@@ -16,7 +16,7 @@ namespace Assets.Scripts.MessageHandlers.Stats
             }
 
             unit.Stats.UpdateFromSnapshot(msg.Dat);
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs, msg);
         }
     }
 }

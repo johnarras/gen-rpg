@@ -11,11 +11,9 @@
   "MinQuantity": 1,
   "MaxQuantity": 1,
   "Art": "",
-  "AttPct": 100,
-  "DefPct": 100,
-  "OtherPct": 100,
+  "ScalingPct": 100,
   "CrafterTypeId": 8,
-  "Reagents": [],
+  "ExplicitReagents": [],
   "UpdateTime": "2024-02-25T15:47:57.551Z",
   "CreateTime": "2024-02-15T23:06:19.75Z"
 }

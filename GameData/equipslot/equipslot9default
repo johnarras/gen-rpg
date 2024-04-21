@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 9,
   "Name": "Wrists",
-  "StatPercent": 100,
   "Active": true,
   "BaseBonusStatTypeId": 31,
   "UpdateTime": "2024-02-25T15:46:42.884Z",

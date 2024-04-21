@@ -29,7 +29,7 @@ public class QuestTaskUI : BaseBehaviour
             return;
         }
 
-        _uiService.SetText(TaskText, _qtype.PrintTaskText(_gs, _gs.ch, _task.Index));
+        _uIInitializable.SetText(TaskText, _qtype.PrintTaskText(_gs, _gs.ch, _gameData, _task.Index));
 
     }
 

@@ -39,9 +39,9 @@ public class QuestScreen : ItemIconScreen
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        _gs.AddEvent<AlterQuestStateEvent>(this, OnAlterQuestState);
-        _gs.AddEvent<OnGetQuests>(this, OnGetQuestsHandler);
-        _uiService.SetButton(VendorButton, GetName(), ClickVendor);
+        _dispatcher.AddEvent<AlterQuestStateEvent>(this, OnAlterQuestState);
+        _dispatcher.AddEvent<OnGetQuests>(this, OnGetQuestsHandler);
+        _uIInitializable.SetButton(VendorButton, GetName(), ClickVendor);
         _unit = data as Unit;
         if (_unit == null)
         {

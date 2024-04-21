@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Genrpg.Shared.SpellCrafting.Services
 {
-    public interface ISharedSpellCraftService : ISetupService
+    public interface ISharedSpellCraftService : IInitializable
     {
         bool ValidateSpellData(GameState gs, MapObject obj, ISpell spellType);
         ISpellModifierHelper GetSpellModifierHelper(long spellModifierId);

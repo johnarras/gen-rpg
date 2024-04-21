@@ -6,6 +6,7 @@ using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.GameSettings;
 
 /// <summary>
 /// Add items nearby a tree or a rock or something of that sort.
@@ -13,7 +14,7 @@ using Genrpg.Shared.Zones.WorldData;
 public class AddNearbyItemsHelper
 {
 
-    public void AddItemsNear(UnityGameState gs, IMapTerrainManager terrainManager, MyRandom rand, ZoneType zoneType, Zone zone, int x, int y, double placeChance, int maxPlaceQuantity, float minOffset, float maxOffset, bool canPlaceTrees = true)
+    public void AddItemsNear(UnityGameState gs, IGameData gameData, IMapTerrainManager terrainManager, MyRandom rand, ZoneType zoneType, Zone zone, int x, int y, double placeChance, int maxPlaceQuantity, float minOffset, float maxOffset, bool canPlaceTrees = true)
     {
 
         float posHeight = terrainManager.GetInterpolatedHeight(gs, y, x);
@@ -67,7 +68,7 @@ public class AddNearbyItemsHelper
             {
                 continue;
             }
-            TreeType tt = gs.data.Get<TreeTypeSettings>(gs.ch).Get(zt.TreeTypeId);
+            TreeType tt = gameData.Get<TreeTypeSettings>(gs.ch).Get(zt.TreeTypeId);
             if (tt == null || tt.Name == null)
             {
                 continue;

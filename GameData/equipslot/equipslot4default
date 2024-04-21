@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Torso",
-  "StatPercent": 150,
   "Active": true,
   "BaseBonusStatTypeId": 31,
   "UpdateTime": "2024-02-25T15:46:42.397Z",

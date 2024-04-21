@@ -77,7 +77,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
 
             if (!message.IsSkillLoot)
             {
-                GroundObjType gtype = gs.data.Get<GroundObjTypeSettings>(obj).Get(message.GroundObjTypeId);
+                GroundObjType gtype = _gameData.Get<GroundObjTypeSettings>(obj).Get(message.GroundObjTypeId);
 
                 if (gtype != null && gtype.SpawnTableId > 0)
                 {

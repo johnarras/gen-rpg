@@ -102,7 +102,7 @@ namespace Assets.Scripts.UI.Blockers
                         BackgroundImage.raycastTarget = true;
                         GEntityUtils.SetActive(BackgroundImage, true);
 
-                        _uiService.SetButton(BackgroundButton, GetName(), OnClickBackground);
+                        _uIInitializable.SetButton(BackgroundButton, GetName(), OnClickBackground);
                     }
                 }
             }
@@ -116,7 +116,7 @@ namespace Assets.Scripts.UI.Blockers
                 else
                 {
                     DescParent.SetActive(true);
-                    _uiService.SetText(DescText, _step.Desc);
+                    _uIInitializable.SetText(DescText, _step.Desc);
                 }
             }
 

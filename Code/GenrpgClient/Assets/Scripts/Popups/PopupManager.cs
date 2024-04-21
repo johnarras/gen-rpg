@@ -16,7 +16,7 @@ public class PopupManager : BaseBehaviour
     public override void Initialize(UnityGameState gs)
     {
         base.Initialize(gs);
-        _gs.AddEvent<ShowLootEvent>(this, OnLootPopup);
+        _dispatcher.AddEvent<ShowLootEvent>(this, OnLootPopup);
 
     }
 

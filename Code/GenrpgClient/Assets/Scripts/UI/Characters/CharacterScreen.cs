@@ -39,8 +39,8 @@ public class CharacterScreen : ItemIconScreen
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        _gs.AddEvent<OnUnequipItem>(this, OnUnequip);
-        _gs.AddEvent<OnEquipItem>(this, OnEquip);
+        _dispatcher.AddEvent<OnUnequipItem>(this, OnUnequip);
+        _dispatcher.AddEvent<OnEquipItem>(this, OnEquip);
 
         if (_unit == null)
         {
@@ -90,9 +90,9 @@ public class CharacterScreen : ItemIconScreen
             Data = currentEquipment,
             Screen = this,
         };
-        EquipSlot slot = gs.data.Get<EquipSlotSettings>(_unit).Get(eqIcon.EquipSlotId);
+        EquipSlot slot = _gameData.Get<EquipSlotSettings>(_unit).Get(eqIcon.EquipSlotId);
         eqIcon.Icon.Init(iconInitData, _token);
-        _uiService.SetText(eqIcon.Name, slot?.Name ?? "");
+        _uIInitializable.SetText(eqIcon.Name, slot?.Name ?? "");
     }
 
     protected virtual void ShowStats()
@@ -114,7 +114,7 @@ public class CharacterScreen : ItemIconScreen
 
         if (Stats.Count < 1)
         {
-            IReadOnlyList<StatType> allstats = _gs.data.Get<StatSettings>(_unit).GetData();
+            IReadOnlyList<StatType> allstats = _gameData.Get<StatSettings>(_unit).GetData();
             if (allstats == null)
             {
                 return;
@@ -235,7 +235,7 @@ public class CharacterScreen : ItemIconScreen
             return;
         }
 
-        ItemType itype = gs.data.Get<ItemTypeSettings>(_unit).Get(icon.GetDataItem().ItemTypeId);
+        ItemType itype = _gameData.Get<ItemTypeSettings>(_unit).Get(icon.GetDataItem().ItemTypeId);
         if (itype == null || itype.EquipSlotId < 1)
         {
             return;
@@ -250,8 +250,8 @@ public class CharacterScreen : ItemIconScreen
             return;
         }
 
-        List<long> equipSlots = itype.GetCompatibleEquipSlots(gs, _unit);
-        List<long> relatedSlots = itype.GetRelatedEquipSlots(gs, _unit);
+        List<long> equipSlots = itype.GetCompatibleEquipSlots(_gameData, _unit);
+        List<long> relatedSlots = itype.GetRelatedEquipSlots(_gameData, _unit);
 
         Dictionary<long, Item> _currentRelatedItems = new Dictionary<long, Item>();
 
@@ -319,10 +319,10 @@ public class CharacterScreen : ItemIconScreen
         long newEquipSlotId = equip.Item.EquipSlotId;
         
 
-        ItemType itype = gs.data.Get<ItemTypeSettings>(_unit).Get(equip.Item.ItemTypeId);
+        ItemType itype = _gameData.Get<ItemTypeSettings>(_unit).Get(equip.Item.ItemTypeId);
 
-        List<long> equipSlots = itype.GetCompatibleEquipSlots(gs, _unit);
-        List<long> relatedSlots = itype.GetRelatedEquipSlots(gs, _unit);
+        List<long> equipSlots = itype.GetCompatibleEquipSlots(_gameData, _unit);
+        List<long> relatedSlots = itype.GetRelatedEquipSlots(_gameData, _unit);
 
         EquipSlotIcon currEqIcon = GetIconFromSlot(gs, currEquipSlotId);
         EquipSlotIcon newEqIcon = GetIconFromSlot(gs, newEquipSlotId);
@@ -463,13 +463,13 @@ public class CharacterScreen : ItemIconScreen
             item = _dragItem.GetDataItem();
 
 
-            ItemType itype = _gs.data.Get<ItemTypeSettings>(_unit).Get(item.ItemTypeId);
+            ItemType itype = _gameData.Get<ItemTypeSettings>(_unit).Get(item.ItemTypeId);
             if (itype == null)
             {
                 return;
             }
 
-            List<long> allSlots = itype.GetCompatibleEquipSlots(_gs, _unit);
+            List<long> allSlots = itype.GetCompatibleEquipSlots(_gameData, _unit);
 
             toggleList = new List<EquipSlotIcon>();
 

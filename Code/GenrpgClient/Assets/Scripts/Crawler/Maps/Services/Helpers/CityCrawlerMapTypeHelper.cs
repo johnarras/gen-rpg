@@ -145,7 +145,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             int cityBiomeId = 0;
 
-            List<ZoneType> zoneTypes = gs.data.Get<ZoneTypeSettings>(null).GetData().Where(x => x.IdKey > 0).ToList();
+            List<ZoneType> zoneTypes = _gameData.Get<ZoneTypeSettings>(null).GetData().Where(x => x.IdKey > 0).ToList();
 
             for (int x = 0; x < cmap.XSize; x++)
             {
@@ -162,7 +162,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             }
 
 
-            IReadOnlyList<BuildingType> buildings = gs.data.Get<BuildingSettings>(null).GetData();
+            IReadOnlyList<BuildingType> buildings = _gameData.Get<BuildingSettings>(null).GetData();
 
             List<BuildingType> crawlerBuildings = buildings.Where(x => x.IsCrawlerBuilding).ToList();
 
@@ -231,7 +231,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                     }
                 }
             }
-            cmap.DungeonArt = gs.data.Get<DungeonArtSettings>(null).Get(cmap.DungeonArtId);
+            cmap.DungeonArt = _gameData.Get<DungeonArtSettings>(null).Get(cmap.DungeonArtId);
 
             return cmap;
         }
@@ -267,7 +267,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             AddWallComponent(gs, mapRoot.Assets.Floor, cell.Content, new Vector3(0, 0, 0), new Vector3(90, 0, 0));
             if (zoneTypeId > 0)
             {
-                zoneType = gs.data.Get<ZoneTypeSettings>(null).Get(zoneTypeId);
+                zoneType = _gameData.Get<ZoneTypeSettings>(null).Get(zoneTypeId);
 
                 if (zoneType != null && zoneType.Textures != null)
                 {
@@ -283,7 +283,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             if (extraData > 0)
             {
-                BuildingType btype = gs.data.Get<BuildingSettings>(null).Get(extraData);
+                BuildingType btype = _gameData.Get<BuildingSettings>(null).Get(extraData);
 
                 if (btype != null)
                 {

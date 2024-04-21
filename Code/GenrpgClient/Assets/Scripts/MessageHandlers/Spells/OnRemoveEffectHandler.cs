@@ -13,7 +13,7 @@ namespace Assets.Scripts.MessageHandlers.Spells
                 return;
             }
 
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs,msg);
         }
     }
 }

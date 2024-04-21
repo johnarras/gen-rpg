@@ -9,7 +9,7 @@ namespace Genrpg.Shared.GameSettings.Utils
 {
     public static class GameDataUtils
     {
-        public static List<IIdName> GetIdNameList(GameData data, string typeName)
+        public static List<IIdName> GetIdNameList(IGameData data, string typeName)
         {
             List<ITopLevelSettings> settingsList = data.AllSettings();
 

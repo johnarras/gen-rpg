@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Genrpg.Shared.Interfaces;
 using UI.Screens.Constants;
 
-public interface IScreenService : IService
+public interface IScreenService : IInitializable
 {
     void Open(UnityGameState gs, ScreenId name, object data = null);
     void StringOpen(UnityGameState gs, string screenName, object data = null);

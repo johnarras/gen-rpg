@@ -19,6 +19,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Factions.Settings;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
@@ -53,8 +54,9 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         private ILogService _logService;
         private IRepositoryService _repoService;
         private ICombatService _combatService;
+        protected IGameData _gameData;
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -75,14 +77,14 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             PartyMember member, bool inCombat, bool chooseSpells)
         { 
 
-            IReadOnlyList<CrawlerSpell> allSpells = gs.data.Get<CrawlerSpellSettings>(null).GetData();
+            IReadOnlyList<CrawlerSpell> allSpells = _gameData.Get<CrawlerSpellSettings>(null).GetData();
 
             List<CrawlerSpell> castSpells = allSpells.Where(x => 
             (x.CombatActionId == CombatActions.Cast) == chooseSpells).ToList();
 
             List<CrawlerSpell> okSpells = new List<CrawlerSpell>();
 
-            List<Class> classes = gs.data.Get<ClassSettings>(null).GetClasses(member.Classes);
+            List<Class> classes = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
 
             List<long> classIds = classes.Select(x => x.IdKey).ToList();
             classIds.Add(0);
@@ -157,9 +159,9 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             List<Class> classes = new List<Class>();
 
-            CrawlerCombatSettings combatSettings = gs.data.Get<CrawlerCombatSettings>(null);
+            CrawlerCombatSettings combatSettings = _gameData.Get<CrawlerCombatSettings>(null);
 
-            ClassSettings classSettings = gs.data.Get<ClassSettings>(null);
+            ClassSettings classSettings = _gameData.Get<ClassSettings>(null);
 
             double critChance = 0;
 
@@ -169,7 +171,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             if (caster is PartyMember member)
             {
-                classes = gs.data.Get<ClassSettings>(null).GetClasses(member.Classes);
+                classes = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
 
                 for (int c = 0; c < classes.Count; c++)
                 {
@@ -198,7 +200,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             List<long> actionTypesWithProcsSet = new List<long>();
 
-            ElementTypeSettings elemSettings = gs.data.Get<ElementTypeSettings>(null);
+            ElementTypeSettings elemSettings = _gameData.Get<ElementTypeSettings>(null);
 
             // Make full effect list to let us weave procs into the combined spell's effects.
             List<FullEffect> startFullEffectList = new List<FullEffect>();
@@ -334,12 +336,12 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 Item weapon = caster.GetEquipmentInSlot(equipSlotToCheck);
                 if (weapon != null)
                 {
-                    ItemType itype = gs.data.Get<ItemTypeSettings>(null).Get(weapon.ItemTypeId);
+                    ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(weapon.ItemTypeId);
 
                     oneEffect.MinQuantity = itype.MinVal;
                     oneEffect.MaxQuantity = itype.MaxVal;
 
-                    LootRank lootRank = gs.data.Get<LootRankSettings>(null).Get(weapon.LootRankId);
+                    LootRank lootRank = _gameData.Get<LootRankSettings>(null).Get(weapon.LootRankId);
 
                     if (lootRank != null)
                     {
@@ -601,8 +603,8 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 return;
             }
 
-            CrawlerCombatSettings combatSettings = gs.data.Get<CrawlerCombatSettings>(null);
-            ClassSettings classSettings = gs.data.Get<ClassSettings>(null);
+            CrawlerCombatSettings combatSettings = _gameData.Get<CrawlerCombatSettings>(null);
+            ClassSettings classSettings = _gameData.Get<ClassSettings>(null);
 
             long currHealth = target.Stats.Curr(StatTypes.Health);
             long maxHealth = target.Stats.Max(StatTypes.Health);
@@ -755,7 +757,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                             unitTypeId = caster.UnitTypeId;
                         }
 
-                        UnitType unitType = gs.data.Get<UnitSettings>(null).Get(unitTypeId);
+                        UnitType unitType = _gameData.Get<UnitSettings>(null).Get(unitTypeId);
 
                         if (unitType == null)
                         {
@@ -818,7 +820,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         }
                         if (effect.EntityTypeId == EntityTypes.StatusEffect)
                         {
-                            StatusEffect statusEffect = gs.data.Get<StatusEffectSettings>(null).Get(effect.EntityId);
+                            StatusEffect statusEffect = _gameData.Get<StatusEffectSettings>(null).Get(effect.EntityId);
                             if (statusEffect == null)
                             {
                                 continue;

@@ -7,7 +7,7 @@ namespace Assets.Scripts.MessageHandlers.Messaging
     {
         protected override void InnerProcess(UnityGameState gs, ServerMessageCounts msg, CancellationToken token)
         {
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs,msg);
         }
     }
 }

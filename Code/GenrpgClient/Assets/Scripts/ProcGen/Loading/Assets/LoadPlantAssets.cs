@@ -84,7 +84,7 @@ public class LoadPlantAssets
                 }
                 currentZones.Add(zone);
                 bool isMainTerrain = patch.MainZoneIdList.Contains(zid);
-                AddPlants addplants = new AddPlants();
+                AddPlants addplants = gs.CreateInstance<AddPlants>();
                 addplants.UpdateValidPlantTypeList(gs, zone, gx, gy, fullProtoList, isMainTerrain, token);
 
             }

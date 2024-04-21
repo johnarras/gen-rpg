@@ -39,7 +39,7 @@ namespace Genrpg.MapServer.Combat.MessageHandlers
                 Zone zone = gs.map.Get<Zone>(message.ZoneId);
                 if (zone != null)
                 {
-                    LevelInfo level = gs.data.Get<LevelSettings>(obj).Get(zone.Level);
+                    LevelInfo level = _gameData.Get<LevelSettings>(obj).Get(zone.Level);
 
                     if (level != null)
                     {

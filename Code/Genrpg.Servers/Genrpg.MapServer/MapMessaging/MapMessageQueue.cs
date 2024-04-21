@@ -54,10 +54,10 @@ namespace Genrpg.MapServer.MapMessaging
             return _messagesProcessed;
         }
 
-        public void UpdateGameData(GameData gameData)
+        public void UpdateGameData(IGameData gameData)
         {
-            _pgs.data = gameData;
-            _dgs.data = gameData;
+            _processQueueGameState.loc.Get<IGameData>().CopyFrom(gameData);
+            _delayQueueGameState.loc.Get<IGameData>().CopyFrom(gameData);
             _logService.Message("Update Message Queue Game Data!");
         }
 
@@ -81,12 +81,12 @@ namespace Genrpg.MapServer.MapMessaging
             }
         }
 
-        private GameState _dgs = null;
+        private GameState _delayQueueGameState = null;
         protected async Task ProcessDelayQueue(GameState gsIn)
         {
             try
             {
-                _dgs = gsIn.CreateGameStateCopy();
+                _delayQueueGameState = gsIn.CreateGameStateCopy();
                 int currentTick = 0;
 
                 using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(MessageConstants.DelayedMessageTimeGranularity)))
@@ -138,12 +138,12 @@ namespace Genrpg.MapServer.MapMessaging
             }
         }
 
-        private GameState _pgs = null;
+        private GameState _processQueueGameState = null;
         protected async Task ProcessQueue(GameState gsIn)
         {
             try
             {
-                _pgs = gsIn.CreateGameStateCopy();
+                _processQueueGameState = gsIn.CreateGameStateCopy();
                 using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(1)))
                 {
                     while (true)
@@ -153,7 +153,7 @@ namespace Genrpg.MapServer.MapMessaging
                             try
                             {
                                 // This is intentionally synchronous
-                                package.Process(_pgs);
+                                package.Process(_processQueueGameState);
                                 _messagesProcessed++;
                                 _mapMessageService.AddPackage(package);
                             }

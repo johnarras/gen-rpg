@@ -40,6 +40,11 @@ namespace Genrpg.LoginServer.Services.Login
         private ILogService _logService = null;
         private IServerConfig _config = null;
 
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
+
         public async Task<List<ILoginResult>> Login(LoginGameState gs, string postData, CancellationToken token)
         {
             LoginServerCommandSet commandSet = SerializationUtils.Deserialize<LoginServerCommandSet>(postData);

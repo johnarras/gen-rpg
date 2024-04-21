@@ -7,7 +7,7 @@ namespace Assets.Scripts.MessageHandlers.SpellCrafting
     {
         protected override void InnerProcess(UnityGameState gs, OnRemoveActionBarItem msg, CancellationToken token)
         {
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs,msg);
         }
     }
 }

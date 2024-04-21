@@ -32,10 +32,10 @@ public class UnitFrame : BaseBehaviour
 
     public void Init(UnityGameState gs, Unit unitIn)
     {
-        _gs.AddEvent<NewLevel>(this, OnLevelUpdate);
-        _gs.AddEvent<OnAddEffect>(this, AddVisualEffect);
-        _gs.AddEvent<OnRemoveEffect>(this, RemoveVisualEffect);
-        _gs.AddEvent<OnUpdateEffect>(this, UpdateVisualEffect);
+        _dispatcher.AddEvent<NewLevel>(this, OnLevelUpdate);
+        _dispatcher.AddEvent<OnAddEffect>(this, AddVisualEffect);
+        _dispatcher.AddEvent<OnRemoveEffect>(this, RemoveVisualEffect);
+        _dispatcher.AddEvent<OnUpdateEffect>(this, UpdateVisualEffect);
         _unit = unitIn;
         _controller = GEntityUtils.FindInParents<UnitController>(entity);
         if (_controller != null)

@@ -12,6 +12,7 @@ public abstract class BaseClientMapMessageHandler<T> : IClientMapMessageHandler 
     protected IMapTerrainManager _terrainManager;
     protected IRepositoryService _repoService;
     protected ILogService _logService;
+    protected IDispatcher _dispatcher;
 
     protected abstract void InnerProcess(UnityGameState gs, T msg, CancellationToken token);
 

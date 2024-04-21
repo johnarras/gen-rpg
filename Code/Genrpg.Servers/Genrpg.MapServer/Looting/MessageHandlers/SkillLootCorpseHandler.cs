@@ -34,21 +34,21 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
             }
 
 
-            UnitType utype = gs.data.Get<UnitSettings>(obj).Get(unit.EntityId);
+            UnitType utype = _gameData.Get<UnitSettings>(obj).Get(unit.EntityId);
             if (utype == null)
             {
                 pack.SendError(gs, obj, "Not a valid target");
                 return;
             }
 
-            TribeType tribeType = gs.data.Get<TribeSettings>(obj).Get(utype.TribeTypeId);
+            TribeType tribeType = _gameData.Get<TribeSettings>(obj).Get(utype.TribeTypeId);
 
             if (tribeType == null)
             {
                 pack.SendError(gs, obj, "Not a valid type");
                 return;
             }
-            CrafterType crafterType = gs.data.Get<CraftingSettings>(obj).Get(tribeType.LootCrafterTypeId);
+            CrafterType crafterType = _gameData.Get<CraftingSettings>(obj).Get(tribeType.LootCrafterTypeId);
 
             if (crafterType == null)
             {

@@ -10,10 +10,17 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Genrpg.Shared.UI.Settings;
 using Genrpg.Shared.Analytics.Services;
+using Genrpg.Shared.Core.Entities;
+using System.Threading.Tasks;
 
 public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
 {
     private IAnalyticsService _analyticsService;
+
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
 
     public List<ScreenLayer> Layers;
 
@@ -101,7 +108,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
             string subdirectory = GetSubdirectory(nextItem.ScreenId);
 
             
-            ScreenOverrideSettings overrideSettings = _gs.data.Get<ScreenOverrideSettings>(_gs.ch);
+            ScreenOverrideSettings overrideSettings = _gameData.Get<ScreenOverrideSettings>(_gs.ch);
 
             if (overrideSettings != null) // This will not exist during the very earliest screens, so check it.
             {

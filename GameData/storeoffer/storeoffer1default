@@ -3,6 +3,7 @@
   "ParentId": "default",
   "IdKey": 1,
   "Name": "Gem Store",
+  "Enabled": true,
   "Desc": "",
   "Icon": "",
   "Art": "",
@@ -12,20 +13,24 @@
   "StoreThemeId": 2,
   "Products": [
     {
+      "Enabled": true,
       "StoreProductId": 1,
       "ProductSkuId": 1
     },
     {
+      "Enabled": true,
       "Index": 1,
       "StoreProductId": 2,
       "ProductSkuId": 6
     },
     {
+      "Enabled": true,
       "Index": 2,
       "StoreProductId": 3,
       "ProductSkuId": 11
     }
   ],
-  "UpdateTime": "2024-02-25T15:48:23.749Z",
-  "CreateTime": "2023-12-28T08:14:04Z"
+  "AllowedPlayers": [],
+  "UpdateTime": "2024-04-17T13:05:21.105Z",
+  "CreateTime": "2023-12-28T20:14:04Z"
 }

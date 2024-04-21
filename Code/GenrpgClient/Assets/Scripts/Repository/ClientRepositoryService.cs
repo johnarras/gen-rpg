@@ -19,6 +19,12 @@ namespace Assets.Scripts.Model
     {
         private ILogService _logger;
 
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
+
+
         public ClientRepositoryService(ILogService logService)
         {
             _logger = logService;

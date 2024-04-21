@@ -7,6 +7,7 @@ using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Characters.Utils;
+using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Login.Interfaces;
@@ -27,6 +28,12 @@ namespace Genrpg.LoginServer.Services.Clients
     public class NoUserService : INoUserService
     {
         private ILogService _logService = null;
+
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
+
         public async Task<List<ILoginResult>> HandleNoUserCommand(LoginGameState gs, string postData, CancellationToken token)
         {
             LoginServerCommandSet commandSet = SerializationUtils.Deserialize<LoginServerCommandSet>(postData);

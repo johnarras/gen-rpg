@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 public class ClientLogger : ILogService
 {
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
+
     private ClientConfig _config = null;
     public ClientLogger(ClientConfig config)
     {

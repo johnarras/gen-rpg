@@ -12,9 +12,9 @@ public class MainMenuScreen : BaseScreen
     protected IClientLoginService _loginService;
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
-        _uiService.SetButton(LogoutAccountButton, GetName(), ClickLogout);
-        _uiService.SetButton(QuitGameButton, GetName(), ClickQuit);
-        _uiService.SetButton(ExitMapButton, GetName(), ExitMap);
+        _uIInitializable.SetButton(LogoutAccountButton, GetName(), ClickLogout);
+        _uIInitializable.SetButton(QuitGameButton, GetName(), ClickQuit);
+        _uIInitializable.SetButton(ExitMapButton, GetName(), ExitMap);
 
         await UniTask.CompletedTask;
     }

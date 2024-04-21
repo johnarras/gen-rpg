@@ -23,10 +23,10 @@ public class StatInfoRow : BaseBehaviour
         }
         else
         {
-            _uiService.SetText(StatName, "=============");
-            _uiService.SetText(CurrStat, "");
-            _uiService.SetText(Percent, "");
-            _uiService.SetText(Modifier, "");
+            _uIInitializable.SetText(StatName, "=============");
+            _uIInitializable.SetText(CurrStat, "");
+            _uIInitializable.SetText(Percent, "");
+            _uIInitializable.SetText(Modifier, "");
         }
 
         if (unit == null)
@@ -36,7 +36,7 @@ public class StatInfoRow : BaseBehaviour
 
         if (_statType == null)
         {
-            _statType = _gs.data.Get<StatSettings>(unit).Get(this._statTypeId);
+            _statType = _gameData.Get<StatSettings>(unit).Get(this._statTypeId);
         }
 
         if (_statType == null)
@@ -44,18 +44,18 @@ public class StatInfoRow : BaseBehaviour
             return;
         }
 
-        _uiService.SetText(StatName, _statType.Name);
+        _uIInitializable.SetText(StatName, _statType.Name);
 
         long curr = unit.Stats.Max(_statTypeId);
 
         
-        _uiService.SetText(CurrStat, curr.ToString());
+        _uIInitializable.SetText(CurrStat, curr.ToString());
 
         float pct = 0.0f;
 
         if (_statTypeId <= StatConstants.PrimaryStatEnd)
         {
-            _uiService.SetText(Percent, "");
+            _uIInitializable.SetText(Percent, "");
         }
         else if (_statTypeId >= StatConstants.ScaleDownBegin && _statTypeId <= StatConstants.ScaleDownEnd)
         {
@@ -72,26 +72,26 @@ public class StatInfoRow : BaseBehaviour
 
         if (Math.Abs(pct) < 0.001f)
         {
-            _uiService.SetText(Percent, "");
+            _uIInitializable.SetText(Percent, "");
         }
         else
         {
-            _uiService.SetText(Percent, (100 * pct).ToString("F2") + "%");
+            _uIInitializable.SetText(Percent, (100 * pct).ToString("F2") + "%");
         }
 
         if (modifier == 0)
         {
-            _uiService.SetText(Modifier, "");
+            _uIInitializable.SetText(Modifier, "");
         }
         else if (modifier > 0)
         {
-            _uiService.SetText(Modifier, "+" + modifier);
-            _uiService.SetColor(Modifier, GColor.green);
+            _uIInitializable.SetText(Modifier, "+" + modifier);
+            _uIInitializable.SetColor(Modifier, GColor.green);
         }
         else if (modifier < 0) // Just be explicit here
         {
-            _uiService.SetText(Modifier, "-" + modifier);
-            _uiService.SetColor(Modifier, GColor.red);
+            _uIInitializable.SetText(Modifier, "-" + modifier);
+            _uIInitializable.SetColor(Modifier, GColor.red);
         }
     }
 

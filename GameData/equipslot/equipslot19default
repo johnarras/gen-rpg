@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 19,
   "Name": "Quiver",
-  "StatPercent": 100,
   "Active": true,
   "ClassRestricted": true,
   "UpdateTime": "2024-02-25T15:46:42.024Z",

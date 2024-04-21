@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Setup.Services
 {
-    public class SetupService : IService
+    public class SetupService : IInitializable
     {
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
         public virtual void SetupServiceLocator(GameState gs)
         {
             LocatorSetup ls = new LocatorSetup();

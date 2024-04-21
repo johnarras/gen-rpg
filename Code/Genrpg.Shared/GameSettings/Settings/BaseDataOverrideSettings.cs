@@ -28,8 +28,8 @@ namespace Genrpg.Shared.GameSettings.Settings
                 group.OrderSelf();
             }
 
-            AllUpdateTimes = data.Select(x => PlayerFilterTimeUtils.GetNextStartDate(x))
-                .Union(data.Select(x => PlayerFilterTimeUtils.GetNextEndDate(x)))
+            AllUpdateTimes = data.Select(x => PlayerFilterUtils.GetNextStartDate(x))
+                .Union(data.Select(x => PlayerFilterUtils.GetNextEndDate(x)))
                 .Distinct().OrderBy(x => x).ToList();
 
             SetPrevNextUpdateTimes();

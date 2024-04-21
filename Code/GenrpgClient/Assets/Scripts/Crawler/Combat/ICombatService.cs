@@ -19,7 +19,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
         public List<Item> Items { get; set; } = new List<Item>();
     }
 
-    public interface ICombatService : ISetupService
+    public interface ICombatService : IInitializable
     {
         bool StartCombat(GameState gs, PartyData partyData, CombatState combatState);
         void EndCombatRound(GameState gs, PartyData party);

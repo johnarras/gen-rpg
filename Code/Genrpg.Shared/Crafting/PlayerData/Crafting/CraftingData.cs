@@ -67,5 +67,5 @@ namespace Genrpg.Shared.Crafting.PlayerData.Crafting
     [MessagePackObject]
     public class CraftingApi : OwnerApiList<CraftingData, CraftingStatus> { }
     [MessagePackObject]
-    public class CrafterDataLoader : OwnerDataLoader<CraftingData, CraftingStatus, CraftingApi> { }
+    public class CrafterDataLoader : OwnerIdDataLoader<CraftingData, CraftingStatus, CraftingApi> { }
 }

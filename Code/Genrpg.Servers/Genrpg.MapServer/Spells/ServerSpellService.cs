@@ -32,6 +32,7 @@ using Genrpg.Shared.Spells.Settings.Spells;
 using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Spells.Interfaces;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.MapServer.Spells
 {
@@ -41,11 +42,12 @@ namespace Genrpg.MapServer.Spells
         private IMapObjectManager _objectManager = null;
         private IStatService _statService = null;
         private IAIService _aiService = null;
+        private IGameData _gameData;
         protected Dictionary<long, ISpellEffectHandler> _handlers = null;
 
 
         protected Dictionary<TryCastState, string> _tryCastText;
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             _handlers = ReflectionUtils.SetupDictionary<long, ISpellEffectHandler>(gs);
 
@@ -131,7 +133,7 @@ namespace Genrpg.MapServer.Spells
                 return result;
             }
 
-            ElementType elementType = gs.data.Get<ElementTypeSettings>(caster).Get(spell.ElementTypeId);
+            ElementType elementType = _gameData.Get<ElementTypeSettings>(caster).Get(spell.ElementTypeId);
 
             if (elementType == null)
             {
@@ -149,7 +151,7 @@ namespace Genrpg.MapServer.Spells
             foreach (SpellEffect effect in spell.Effects)
             {
 
-                SkillType skillType = gs.data.Get<SkillTypeSettings>(caster).Get(effect.SkillTypeId);
+                SkillType skillType = _gameData.Get<SkillTypeSettings>(caster).Get(effect.SkillTypeId);
 
                 if (skillType == null)
                 {
@@ -352,7 +354,7 @@ namespace Genrpg.MapServer.Spells
                 Dur = duration,
             };
 
-            ElementType etype = gs.data.Get<ElementTypeSettings>(null).Get(elementTypeId);
+            ElementType etype = _gameData.Get<ElementTypeSettings>(null).Get(elementTypeId);
             if (etype != null)
             {
                 fx.Art = etype.Art + fxName;
@@ -375,7 +377,7 @@ namespace Genrpg.MapServer.Spells
                 Speed = speed,
             };
 
-            ElementType etype = gs.data.Get<ElementTypeSettings>(fromUnit).Get(spell.ElementTypeId);
+            ElementType etype = _gameData.Get<ElementTypeSettings>(fromUnit).Get(spell.ElementTypeId);
             if (etype != null)
             {
                 fx.Art = etype.Art + fxName;
@@ -413,8 +415,8 @@ namespace Genrpg.MapServer.Spells
                 return hits;
             }
 
-            SkillType skillType = gs.data.Get<SkillTypeSettings>(caster).Get(effect.SkillTypeId);
-            ElementType elementType = gs.data.Get<ElementTypeSettings>(caster).Get(sendSpell.Spell.ElementTypeId);
+            SkillType skillType = _gameData.Get<SkillTypeSettings>(caster).Get(effect.SkillTypeId);
+            ElementType elementType = _gameData.Get<ElementTypeSettings>(caster).Get(sendSpell.Spell.ElementTypeId);
 
             long targetTypeId = skillType.TargetTypeId;
             long casterFactionId = sendSpell.CasterFactionId;
@@ -677,7 +679,7 @@ namespace Genrpg.MapServer.Spells
             }
 
             bool allySpell = false;
-            long targetTypeId = gs.data.Get<SkillTypeSettings>(null).Get(eff.SkillTypeId).TargetTypeId;
+            long targetTypeId = _gameData.Get<SkillTypeSettings>(null).Get(eff.SkillTypeId).TargetTypeId;
             if (targetTypeId == TargetTypes.Ally)
             {
                 allySpell = true;
@@ -889,7 +891,7 @@ namespace Genrpg.MapServer.Spells
             onStartCast.CastSeconds = result.Spell.CastTime;
             
 
-            ElementType etype = gs.data.Get<ElementTypeSettings>(caster).Get(result.Spell.ElementTypeId);
+            ElementType etype = _gameData.Get<ElementTypeSettings>(caster).Get(result.Spell.ElementTypeId);
 
             if (etype != null)
             {

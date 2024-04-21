@@ -20,8 +20,12 @@ using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Core.Entities;
+using System.Threading;
+using System.Threading.Tasks;
+using Genrpg.Shared.GameSettings;
 
-public interface IMapGenService : IService
+public interface IMapGenService : IInitializable
 {
 
     Map GenerateMap(UnityGameState gs, Map startMap);
@@ -33,8 +37,14 @@ public interface IMapGenService : IService
 
 public class MapGenService : IMapGenService
 {
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
+
     protected IZoneGenService _zoneGenService;
     protected ILogService _logService;
+    protected IGameData _gameData;
     public Map GenerateMap(UnityGameState gs, Map startMap)
     {
         if (startMap == null)
@@ -46,7 +56,7 @@ public class MapGenService : IMapGenService
         if (startMap.MinLevel == 0 && startMap.MaxLevel == 0)
         {
             startMap.MinLevel = 1;
-            startMap.MaxLevel = gs.data.Get<LevelSettings>(null).MaxLevel;
+            startMap.MaxLevel = _gameData.Get<LevelSettings>(null).MaxLevel;
         }
         map.MinLevel = startMap.MinLevel;
         map.MaxLevel = startMap.MaxLevel;
@@ -277,7 +287,7 @@ public class MapGenService : IMapGenService
         }
 
 
-        IReadOnlyList<ZoneType> zoneTypes = gs.data.Get<ZoneTypeSettings>(gs.ch).GetData();
+        IReadOnlyList<ZoneType> zoneTypes = _gameData.Get<ZoneTypeSettings>(gs.ch).GetData();
         if (zoneTypes == null)
         {
             return 0;
@@ -342,9 +352,9 @@ public class MapGenService : IMapGenService
             zoneName = zoneName.Substring(0, 8);
         }
 
-        IReadOnlyList<BuildingType> buildingTypes = gs.data.Get<BuildingSettings>(null).GetData();
-        IReadOnlyList<NPCType> npcTypes = gs.data.Get<NPCSettings>(null).GetData();
-        IReadOnlyList<BuildingType> buildings = gs.data.Get<BuildingSettings>(null).GetData();
+        IReadOnlyList<BuildingType> buildingTypes = _gameData.Get<BuildingSettings>(null).GetData();
+        IReadOnlyList<NPCType> npcTypes = _gameData.Get<NPCSettings>(null).GetData();
+        IReadOnlyList<BuildingType> buildings = _gameData.Get<BuildingSettings>(null).GetData();
 
         for (int l = 0; l < zone.Locations.Count; l++)
         {
@@ -445,7 +455,7 @@ public class MapGenService : IMapGenService
         }
         gs.map.Zones = new List<Zone>();
 
-        ZoneType waterZoneType = gs.data.Get<ZoneTypeSettings>(gs.ch).GetData().FirstOrDefault(X => X.Name == "Water");
+        ZoneType waterZoneType = _gameData.Get<ZoneTypeSettings>(gs.ch).GetData().FirstOrDefault(X => X.Name == "Water");
 
         if (waterZoneType != null)
         {
@@ -464,7 +474,7 @@ public class MapGenService : IMapGenService
 
         List<ZoneTypeGenData> zoneGenList = new List<ZoneTypeGenData>();
 
-        foreach (ZoneType zt in gs.data.Get<ZoneTypeSettings>(gs.ch).GetData())
+        foreach (ZoneType zt in _gameData.Get<ZoneTypeSettings>(gs.ch).GetData())
         {
             if (zt.IdKey < 1 || zt.GenChance <= 0)
             {

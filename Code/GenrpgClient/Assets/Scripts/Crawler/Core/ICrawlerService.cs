@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Assets.Scripts.Crawler.Services
 {
-    public interface ICrawlerService : ISetupService, ISpeedupListener
+    public interface ICrawlerService : IInitializable, ISpeedupListener
     {
         UniTask Init(CancellationToken token);
         void ChangeState(ECrawlerStates state, CancellationToken token, object extraData = null);

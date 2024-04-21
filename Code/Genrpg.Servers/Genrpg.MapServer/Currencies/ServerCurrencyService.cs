@@ -15,11 +15,11 @@ using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.MapServer.Currencies
 {
-    public class ServerCurrencyService : CurrencyService, ISetupService
+    public class ServerCurrencyService : CurrencyService, IInitializable
     {
         protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }

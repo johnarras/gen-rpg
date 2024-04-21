@@ -18,13 +18,13 @@ public class ExpBar : BaseBehaviour
     public void Init(UnityGameState gs, Unit unitIn)
     {
 
-        _gs.AddEvent<LevelUpEvent>(this, OnLevelUpdate);
-        _gs.AddEvent<OnAddCurrency>(this, OnAddCurrencyHandler);
+        _dispatcher.AddEvent<LevelUpEvent>(this, OnLevelUpdate);
+        _dispatcher.AddEvent<OnAddCurrency>(this, OnAddCurrencyHandler);
         _unit = unitIn;
 
         long currLevelId = gs.ch.Level;
 
-        LevelInfo nextLevelData = gs.data.Get<LevelSettings>(gs.ch).Get(gs.ch.Level);
+        LevelInfo nextLevelData = _gameData.Get<LevelSettings>(gs.ch).Get(gs.ch.Level);
 
         if (nextLevelData == null)
         {

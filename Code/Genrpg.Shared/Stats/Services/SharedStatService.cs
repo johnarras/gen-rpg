@@ -3,6 +3,7 @@ using Genrpg.Shared.Charms.Constants;
 using Genrpg.Shared.Charms.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Settings.ItemSets;
 using Genrpg.Shared.Levels.Settings;
@@ -20,12 +21,20 @@ using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 namespace Genrpg.Shared.Stats.Services
 {
 
     public class SharedStatService : IStatService
     {
+
+        protected IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
         /// <summary>
         /// Recalculate stats for a monster/player based on level, equipment and spell effects
         /// </summary>
@@ -34,12 +43,12 @@ namespace Genrpg.Shared.Stats.Services
         /// <param name="resetMutableStats">Do we reset health and mana to max or not?</param>
         public virtual void CalcStats(GameState gs, Unit unit, bool resetMutableStats)
         {
-            if (unit == null || gs.data == null)
+            if (unit == null)
             {
                 return;
             }
 
-            UnitType utype = gs.data.Get<UnitSettings>(unit).Get(unit.EntityId);
+            UnitType utype = _gameData.Get<UnitSettings>(unit).Get(unit.EntityId);
 
             if (utype == null)
             {
@@ -61,7 +70,7 @@ namespace Genrpg.Shared.Stats.Services
                 oldMaxStats[stat.IdKey] = unit.Stats.Max(stat.IdKey);
             }
 
-            LevelInfo levelData = gs.data.Get<LevelSettings>(unit).Get(unit.Level);
+            LevelInfo levelData = _gameData.Get<LevelSettings>(unit).Get(unit.Level);
 
             unit.Stats.ResetAll();
 
@@ -76,7 +85,7 @@ namespace Genrpg.Shared.Stats.Services
             long coreStatAmount = StatConstants.MinBaseStat;
             long monsterScalePercent = 0;
 
-            List<StatType> coreStats = gs.data.Get<StatSettings>(unit).GetData().Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
+            List<StatType> coreStats = _gameData.Get<StatSettings>(unit).GetData().Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 
             if (levelData != null)
             {
@@ -151,7 +160,7 @@ namespace Genrpg.Shared.Stats.Services
                                     setQuantities[setId]++;
                                 }
 
-                                SetType setType = gs.data.Get<SetTypeSettings>(unit).Get(setId);
+                                SetType setType = _gameData.Get<SetTypeSettings>(unit).Get(setId);
                                 if (setType != null && setType.Pieces != null)
                                 {
                                     SetPiece piece = setType.Pieces.FirstOrDefault(x => x.ItemTypeId == eq.ItemTypeId);
@@ -172,7 +181,7 @@ namespace Genrpg.Shared.Stats.Services
                 foreach (long setId in setQuantities.Keys)
                 {
                     int quantity = setQuantities[setId];
-                    SetType setType = gs.data.Get<SetTypeSettings>(unit).Get(setId);
+                    SetType setType = _gameData.Get<SetTypeSettings>(unit).Get(setId);
                     if (setType == null)
                     {
                         continue;
@@ -314,7 +323,7 @@ namespace Genrpg.Shared.Stats.Services
                 return;
             }
 
-            IReadOnlyList<DerivedStat> list = gs.data.Get<DerivedStatSettings>(unit).GetData();
+            IReadOnlyList<DerivedStat> list = _gameData.Get<DerivedStatSettings>(unit).GetData();
 
             for (int d = 0; d < list.Count; d++)
             {
@@ -326,12 +335,12 @@ namespace Genrpg.Shared.Stats.Services
 
         public List<StatType> GetMutableStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.Get<StatSettings>(unit).GetData().Where(x => x.IdKey > 0 && x.IdKey <= StatConstants.MaxMutableStatTypeId).ToList();
+            return _gameData.Get<StatSettings>(unit).GetData().Where(x => x.IdKey > 0 && x.IdKey <= StatConstants.MaxMutableStatTypeId).ToList();
         }
 
         public List<StatType> GetPrimaryStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.Get<StatSettings>(unit).GetData().Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
+            return _gameData.Get<StatSettings>(unit).GetData().Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
         }
 
         public List<StatType> GetAttackStatTypes(GameState gs, Unit unit)
@@ -342,12 +351,12 @@ namespace Genrpg.Shared.Stats.Services
 
         public List<StatType> GetFixedStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.Get<StatSettings>(unit).GetData().Where(x => x.IdKey > StatConstants.MaxMutableStatTypeId).ToList();
+            return _gameData.Get<StatSettings>(unit).GetData().Where(x => x.IdKey > StatConstants.MaxMutableStatTypeId).ToList();
         }
 
         public List<StatType> GetSecondaryStatTypes(GameState gs, Unit unit)
         {
-            return gs.data.Get<StatSettings>(unit).GetData().Where(x => x.IdKey > StatConstants.PrimaryStatEnd).ToList();
+            return _gameData.Get<StatSettings>(unit).GetData().Where(x => x.IdKey > StatConstants.PrimaryStatEnd).ToList();
         }
 
         /// <summary>

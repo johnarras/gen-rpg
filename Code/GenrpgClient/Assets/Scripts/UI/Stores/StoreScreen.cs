@@ -24,7 +24,7 @@ namespace Assets.Scripts.UI.Stores
 
             SetupData(token);
 
-            _gs.AddEvent<RefreshStoresResult>(this, OnRefreshStores);
+            _dispatcher.AddEvent<RefreshStoresResult>(this, OnRefreshStores);
             await UniTask.CompletedTask;
         }
 
@@ -40,7 +40,7 @@ namespace Assets.Scripts.UI.Stores
 
             foreach (PlayerStoreOffer offer in _offerData.StoreOffers)
             {
-                StoreTheme theme = _gs.data.Get<StoreThemeSettings>(_gs.ch).Get(offer.StoreThemeId);
+                StoreTheme theme = _gameData.Get<StoreThemeSettings>(_gs.ch).Get(offer.StoreThemeId);
 
                 _assetService.LoadAssetInto(_gs, StoreParent, AssetCategoryNames.Stores, StorePanelPrefab, OnLoadStorePanel, offer, token, theme.Art);
             }

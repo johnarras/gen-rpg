@@ -16,7 +16,7 @@ namespace GameEditor
 	{
 		public EditorGameState _gs { get; set; }
 		private DataGridView _grid = null;
-		private GameData _gameData = null;
+		private IGameData _gameData = null;
         private List<MapStub> _stubs = new List<MapStub>();
         private UIFormatter _formatter = null;
 

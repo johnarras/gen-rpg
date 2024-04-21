@@ -119,6 +119,8 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
     protected IZoneGenService _zoneGenService;
 
 
+    ILoadMap loadGen = null;
+
     private List<MyPoint> _addPatchList = new List<MyPoint>();
     private List<MyPoint> _removePatchList = new List<MyPoint>();
     private List<MyPoint> _loadingPatchList = new List<MyPoint>();
@@ -127,9 +129,10 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
     private Dictionary<string, TerrainProtoObject> _terrainProtoObjectData = new Dictionary<string, TerrainProtoObject>();
 
-    public async Task Setup(GameState gs, CancellationToken token)
+    public async Task Initialize(GameState gs, CancellationToken token)
     {
         AddTokenUpdate(TerrainUpdate, UpdateType.Regular);
+        loadGen = gs.CreateInstance<LoadMap>();
         _prototypeParent = GEntityUtils.FindSingleton(PrototypeParent, true);
         _terrainTextureParent = GEntityUtils.FindSingleton(MapConstants.TerrainTextureRoot, true);
         SetupLoaders();
@@ -426,8 +429,6 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
     TerrainPatchData patch = null;
     Terrain terr = null;
     MyPoint firstItem = null;
-
-    LoadMap loadGen = new LoadMap();   
 
     void UpdatePatchVisibility(UnityGameState gs, CancellationToken token)
     {
@@ -893,7 +894,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                     currZoneType = zoneTypeCache.FirstOrDefault(xx => xx.IdKey == currZone.ZoneTypeId);
                     if (currZoneType == null)
                     {
-                        currZoneType = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(currZone.ZoneTypeId);
+                        currZoneType = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(currZone.ZoneTypeId);
                         if (currZoneType == null)
                         {
                             currZoneId = -1;

@@ -22,7 +22,7 @@ using ZstdSharp.Unsafe;
 namespace Genrpg.ServerShared.MapSpawns
 {
 
-    public interface IMapSpawnDataService : ISetupService
+    public interface IMapSpawnDataService : IInitializable
     {
         Task SaveMapSpawnData(IRepositoryService repoService, MapSpawnData data, string mapId, int mapVersion);
         Task<MapSpawnData> LoadMapSpawnData(IRepositoryService repoService, string mapId, int mapVersion);
@@ -30,7 +30,7 @@ namespace Genrpg.ServerShared.MapSpawns
 
     public class MapSpawnDataService : IMapSpawnDataService
     {
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = nameof(UnitStatus.OwnerId) });

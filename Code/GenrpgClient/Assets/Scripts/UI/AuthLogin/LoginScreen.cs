@@ -19,8 +19,8 @@ public class LoginScreen : BaseScreen
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
-        _uiService.SetButton(LoginButton, GetName(), ClickLogin);
-        _uiService.SetButton(SignupButton, GetName(), ClickSignup);
+        _uIInitializable.SetButton(LoginButton, GetName(), ClickLogin);
+        _uIInitializable.SetButton(SignupButton, GetName(), ClickSignup);
         await UniTask.CompletedTask;
     }
 

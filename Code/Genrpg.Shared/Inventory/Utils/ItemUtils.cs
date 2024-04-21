@@ -2,6 +2,7 @@
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crafting.Settings.Recipes;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
@@ -23,13 +24,13 @@ namespace Genrpg.Shared.Inventory.Utils
 {
     public static class ItemUtils
     {
-        public static string GetName(GameState gs, Unit unit, Item item)
+        public static string GetName(IGameData gameData, Unit unit, Item item)
         {
             if (!string.IsNullOrEmpty(item.Name))
             {
                 return item.Name;
             }
-            ItemType itype = gs.data.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
+            ItemType itype = gameData.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
             if (itype == null)
             {
                 return "Item";
@@ -41,10 +42,10 @@ namespace Genrpg.Shared.Inventory.Utils
                 ItemEffect firstSet = item.Effects.FirstOrDefault(X => X.EntityTypeId == EntityTypes.Set);
                 if (firstSet != null)
                 {
-                    RecipeType rtype = gs.data.Get<RecipeSettings>(unit).Get(firstSet.EntityId);
+                    RecipeType rtype = gameData.Get<RecipeSettings>(unit).Get(firstSet.EntityId);
                     if (rtype != null)
                     {
-                        ScalingType stype = gs.data.Get<ScalingTypeSettings>(unit).Get(item.ScalingTypeId);
+                        ScalingType stype = gameData.Get<ScalingTypeSettings>(unit).Get(item.ScalingTypeId);
                         if (stype != null && !string.IsNullOrEmpty(stype.Prefix))
                         {
                             item.Name = "Recipe: L " + item.Level + " " + stype.Prefix + " " + rtype.Name;
@@ -59,14 +60,14 @@ namespace Genrpg.Shared.Inventory.Utils
             return item.Name;
         }
 
-        public static string GetIcon(GameState gs, Unit unit, Item item)
+        public static string GetIcon(IGameData gameData, Unit unit, Item item)
         {
             if (!string.IsNullOrEmpty(item.GetIcon()))
             {
                 return item.GetIcon();
             }
 
-            ScalingType scalingType = gs.data.Get<ScalingTypeSettings>(unit).Get(item.ScalingTypeId);
+            ScalingType scalingType = gameData.Get<ScalingTypeSettings>(unit).Get(item.ScalingTypeId);
             string scalingName = "";
             if (scalingType != null)
             {
@@ -81,7 +82,7 @@ namespace Genrpg.Shared.Inventory.Utils
 
             string startMainName = "";
 
-            ItemType itype = gs.data.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
+            ItemType itype = gameData.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
             if (itype == null || string.IsNullOrEmpty(itype.Icon))
             {
                 startMainName = RpgConstants.DefaultItemIcon;
@@ -138,16 +139,16 @@ namespace Genrpg.Shared.Inventory.Utils
             return item.GetIcon();
         }
 
-        public static string GetBasicInfo(GameState gs, Unit unit, Item item)
+        public static string GetBasicInfo(IGameData gameData, Unit unit, Item item)
         {
             if (!string.IsNullOrEmpty(item.GetBasicInfo()))
             {
                 return item.GetBasicInfo();
             }
 
-            ItemType itype = gs.data.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
-            QualityType quality = gs.data.Get<QualityTypeSettings>(unit).Get(item.QualityTypeId);
-            ScalingType scaling = gs.data.Get<ScalingTypeSettings>(unit).Get(item.ScalingTypeId);
+            ItemType itype = gameData.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
+            QualityType quality = gameData.Get<QualityTypeSettings>(unit).Get(item.QualityTypeId);
+            ScalingType scaling = gameData.Get<ScalingTypeSettings>(unit).Get(item.ScalingTypeId);
 
 
             string basicInfo = "Lv. " + item.Level;
@@ -172,14 +173,14 @@ namespace Genrpg.Shared.Inventory.Utils
 
         }
 
-        public static string GetMapArt(GameState gs, Item item)
+        public static string GetMapArt(IGameData gameData, Item item)
         {
             if (!string.IsNullOrEmpty(item.GetArt()))
             {
                 return item.GetArt();
             }
 
-            ItemType itype = gs.data.Get<ItemTypeSettings>(null).Get(item.ItemTypeId);
+            ItemType itype = gameData.Get<ItemTypeSettings>(null).Get(item.ItemTypeId);
             if (itype == null || string.IsNullOrEmpty(itype.Art))
             {
                 item.SetArt(RpgConstants.DefaultMapItemArt);
@@ -191,7 +192,7 @@ namespace Genrpg.Shared.Inventory.Utils
             return item.GetArt();
         }
 
-        public static string PrintData(GameState gs, Unit unit, Item item)
+        public static string PrintData(IGameData gameData, Unit unit, Item item)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("IDLQN: " + item.ItemTypeId + " " + item.Level + " " + item.QualityTypeId + " " + item.Name + " ");
@@ -202,7 +203,7 @@ namespace Genrpg.Shared.Inventory.Utils
                     string ename = "ET" + eff.EntityTypeId;
                     if (eff.EntityTypeId == EntityTypes.Stat || eff.EntityTypeId == EntityTypes.StatPct)
                     {
-                        StatType stype = gs.data.Get<StatSettings>(unit).Get(eff.EntityId);
+                        StatType stype = gameData.Get<StatSettings>(unit).Get(eff.EntityId);
                         if (stype == null)
                         {
                             ename = "Stat" + eff.EntityId;
@@ -218,27 +219,27 @@ namespace Genrpg.Shared.Inventory.Utils
             return sb.ToString();
         }
 
-        public static long GetBuyFromVendorPrice(GameState gs, Unit unit, Item item)
+        public static long GetBuyFromVendorPrice(IGameData gameData, Unit unit, Item item)
         {
             long buyPrice = 0;
 
             if (buyPrice < 1)
             {
-                buyPrice = (long)(GetSellToVendorPrice(gs, unit, item) * Math.Max(2.0f,
-                    gs.data.Get<VendorSettings>(unit).BuyFromVendorPriceMult));
+                buyPrice = (long)(GetSellToVendorPrice(gameData, unit, item) * Math.Max(2.0f,
+                    gameData.Get<VendorSettings>(unit).BuyFromVendorPriceMult));
             }
 
             return buyPrice;
         }
 
-        public static long GetSellToVendorPrice(GameState gs, Unit unit, Item item)
+        public static long GetSellToVendorPrice(IGameData gameData, Unit unit, Item item)
         {
             long sellPrice = 0;
             int minSellPrice = 8;
             if (sellPrice < 1)
             {
                 long itemValue = minSellPrice;
-                LevelInfo levelData = gs.data.Get<LevelSettings>(unit).Get(item.Level);
+                LevelInfo levelData = gameData.Get<LevelSettings>(unit).Get(item.Level);
                 if (levelData != null)
                 {
                     itemValue = levelData.KillMoney * 3;
@@ -249,7 +250,7 @@ namespace Genrpg.Shared.Inventory.Utils
                     itemValue = sellPrice;
                 }
 
-                QualityType quality = gs.data.Get<QualityTypeSettings>(unit).Get(item.QualityTypeId);
+                QualityType quality = gameData.Get<QualityTypeSettings>(unit).Get(item.QualityTypeId);
                 if (quality != null && quality.ItemCostPct > 0)
                 {
                     itemValue = itemValue * quality.ItemCostPct / 100;
@@ -259,7 +260,7 @@ namespace Genrpg.Shared.Inventory.Utils
                     itemValue *= 100;
                 }
 
-                ScalingType scaling = gs.data.Get<ScalingTypeSettings>(null).Get(item.ScalingTypeId);
+                ScalingType scaling = gameData.Get<ScalingTypeSettings>(null).Get(item.ScalingTypeId);
                 if (scaling != null)
                 {
                     itemValue *= scaling.CostPct;

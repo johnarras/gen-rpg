@@ -30,7 +30,7 @@ namespace Assets.Scripts.UI.Stores
                 _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, gameItem.Icon, RewardIcon, token);
             }
 
-            _uiService.SetText(RewardQuantity, spawnItem.MinQuantity.ToString());
+            _uIInitializable.SetText(RewardQuantity, spawnItem.MinQuantity.ToString());
 
         }
     }

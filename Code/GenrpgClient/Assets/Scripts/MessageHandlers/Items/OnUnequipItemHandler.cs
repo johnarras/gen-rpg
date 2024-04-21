@@ -7,7 +7,7 @@ namespace Assets.Scripts.MessageHandlers.Items
     {
         protected override void InnerProcess(UnityGameState gs, OnUnequipItem msg, CancellationToken token)
         {
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs,msg);
         }
     }
 }

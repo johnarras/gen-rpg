@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Crawler.Services.Combat
 {
-    public interface IProcessCombatRoundCombatService : ISetupService
+    public interface IProcessCombatRoundCombatService : IInitializable
     {
         UniTask<bool> ProcessCombatRound(GameState gs, PartyData partyData, CancellationToken token);
     }

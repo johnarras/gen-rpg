@@ -30,8 +30,8 @@ public class UnitStatBar : BaseBehaviour
             _max = _unit.Stats.Max(_statTypeId);
             _progressBar.InitRange(gs, 0, _max, _curr);
         }
-        _gs.AddEvent<LevelUpEvent>(this, OnLevelUpdate);
-        _gs.AddEvent<StatUpd>(this, OnStatUpdate);
+        _dispatcher.AddEvent<LevelUpEvent>(this, OnLevelUpdate);
+        _dispatcher.AddEvent<StatUpd>(this, OnStatUpdate);
     }
     private StatUpd OnStatUpdate(UnityGameState gs, StatUpd sdata)
     {

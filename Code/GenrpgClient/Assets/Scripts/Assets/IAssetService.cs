@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public interface IAssetService : ISetupService
+public interface IAssetService : IInitializable
 {
     bool IsInitialized(UnityGameState gs);
     void LoadAssetInto(UnityGameState gs, object parent, string assetCategory, string assetPath, OnDownloadHandler handler, object data, CancellationToken token, string subdirectory=null);

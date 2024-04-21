@@ -21,7 +21,7 @@ public class InfoButton : BaseBehaviour
         if (screen != null)
         {
             _screenName = screen.GetName();
-            _uiService.SetButton(Button, screen.GetName(), ClickInfoButton);
+            _uIInitializable.SetButton(Button, screen.GetName(), ClickInfoButton);
         }
     }
 
@@ -29,7 +29,7 @@ public class InfoButton : BaseBehaviour
     {
        // if (_ftueService.GetCurrentStep(_gs,_gs.ch) == null)
         {
-            FtueStep step = _gs.data.Get<FtueStepSettings>(_gs.ch).FindFtueStep(FtueTriggers.InfoButton, _screenName);
+            FtueStep step = _gameData.Get<FtueStepSettings>(_gs.ch).FindFtueStep(FtueTriggers.InfoButton, _screenName);
 
             if (step != null)
             {

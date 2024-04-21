@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 3,
   "Name": "Shoulders",
-  "StatPercent": 125,
   "Active": true,
   "BaseBonusStatTypeId": 30,
   "UpdateTime": "2024-02-25T15:46:42.304Z",

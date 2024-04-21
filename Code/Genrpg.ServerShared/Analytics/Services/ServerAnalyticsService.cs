@@ -12,6 +12,13 @@ namespace Genrpg.ServerShared.Analytics.Services
 {
     public class ServerAnalyticsService : IAnalyticsService
     {
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
+
         private IServerConfig _serverConfig = null;
         public ServerAnalyticsService(IServerConfig serverConfig)
         {

@@ -10,7 +10,12 @@ using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
 using Genrpg.Shared.Pathfinding.Constants;
 
-public class LoadMap : BaseZoneGenerator
+public interface ILoadMap : IZoneGenerator
+{
+    void LoadOneTerrainPatch(UnityGameState gs, int gx, int gy, bool fastLoading, CancellationToken token);
+}
+
+public class LoadMap : BaseZoneGenerator, ILoadMap
 {
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     { 

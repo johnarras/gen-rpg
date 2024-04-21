@@ -10,11 +10,20 @@ using Genrpg.ServerShared.Utils;
 using Genrpg.ServerShared.DataStores;
 using Genrpg.Shared.Interfaces;
 using Genrpg.ServerShared.Accounts;
+using Genrpg.Shared.Core.Entities;
+using System.Threading;
 
 namespace Genrpg.ServerShared.Accounts.Services
 {
     public class AccountService : IAccountService
     {
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
+
         private MainDbContext GetContext(IServerConfig config)
         {
             return MainDbContext.Create(config);

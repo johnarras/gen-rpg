@@ -1,6 +1,4 @@
 using GEntity = UnityEngine.GameObject;
-using GComponent = UnityEngine.MonoBehaviour;
-using ClientEvents;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Characters.PlayerData;
@@ -9,8 +7,6 @@ using Genrpg.Shared.MapServer.Entities;
 using UnityEngine; // Needed
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Logging.Interfaces;
-using Assets.Scripts.Model;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Analytics.Services;
 
@@ -31,8 +27,8 @@ public class UnityGameState : GameState
         Config = ClientConfig.Load();
         ILogService logService = new ClientLogger(Config);
         IAnalyticsService analyticsService = new ClientAnalyticsService(Config);
-        loc = new ServiceLocator(logService, analyticsService);
-        data = new GameData();
+        loc = new ServiceLocator(logService, analyticsService, new GameData());
+        loc.Set<IDispatcher>(new Dispatcher());
     }
 
     public string LoginServerURL { get; set; }
@@ -48,7 +44,6 @@ public class UnityGameState : GameState
 		}
 		initObject = go;
 		initComponent = go.GetComponent<InitClient>();
-        AddEvent<NewVersionEvent>(initComponent, OnNewVersion);
 	}
 
 	public T AddComponent<T> () where T : MonoBehaviour
@@ -71,20 +66,6 @@ public class UnityGameState : GameState
 		}
 		return default(T);
 	}
-
-    public T Dispatch<T> (T data) where T : class
-    {
-        return _dispatcher.DispatchEvent<T>(this,data);
-	}
-	
-
-	private NewVersionEvent OnNewVersion(GameState gs, NewVersionEvent newVersion)
-	{
-		Caching.ClearCache ();
-        return null;
-	}
-
-
 
     protected string ConfigFilename = "InitialClientConfig";
     protected InitialClientConfig _config = null;
@@ -144,32 +125,4 @@ public class UnityGameState : GameState
         SaveConfig();
     }
 
-    // The Dispatcher is hidden inside of gamestate to avoid wonky 
-    // constructions every time it's called.
-
-    private Dispatcher _dispatcher = new Dispatcher();
-
-    public Dispatcher GetDispatcher()
-    {
-        return _dispatcher;
-    }
-
-    public void SetDispatcher(Dispatcher disp)
-    {
-        if (disp != null)
-        {
-            _dispatcher = disp;
-        }
-    }
-
-    public void AddEvent<T>(GComponent c, GameAction<T> action) where T : class
-    { 
-        _dispatcher.AddEvent<T>(action);
-        c.GetCancellationToken().Register(() => { _dispatcher.RemoveEvent(action); });
-    }
-
-    public void ClearDispatchEvents()
-    {
-        _dispatcher.Clear();
-    }
 }

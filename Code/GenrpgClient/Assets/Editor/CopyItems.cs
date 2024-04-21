@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Constants;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,8 @@ namespace Assets.Editor
         {
             UnityGameState gs = SetupEditorUnityGameState.Setup(null);
 
-            IReadOnlyList<UnitType> unitTypes = gs.data.Get<UnitSettings>(null).GetData();
+            IGameData gameData = gs.loc.Get<IGameData>();
+            IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
 
             string directory = "Assets/FullAssets/Monsters/Images/";
 
@@ -51,7 +53,8 @@ namespace Assets.Editor
         {
             UnityGameState gs = SetupEditorUnityGameState.Setup(null);
 
-            IReadOnlyList<UnitType> unitTypes = gs.data.Get<UnitSettings>(null).GetData();
+            IGameData gameData = gs.loc.Get<IGameData>();
+            IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
 
             string directory = "Assets/FullAssets/Monsters/Images/";
 
@@ -102,7 +105,8 @@ namespace Assets.Editor
         {
             UnityGameState gs = SetupEditorUnityGameState.Setup(null);
 
-            IReadOnlyList<UnitType> unitTypes = gs.data.Get<UnitSettings>(null).GetData();
+            IGameData gameData = gs.loc.Get<IGameData>();
+            IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
 
             string startLoc = "Assets/FullAssets/Monsters/Bear/Monster1.prefab";
             GameObject startGo = AssetDatabase.LoadAssetAtPath<GameObject>(startLoc);

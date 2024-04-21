@@ -23,7 +23,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
     /// </summary>
 
     [MessagePackObject]
-    public class PartyData : BasePlayerData
+    public class PartyData : NoChildPlayerData
     {
         [Key(0)] public override string Id { get; set; }
 

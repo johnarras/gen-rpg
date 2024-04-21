@@ -67,7 +67,7 @@ public class CrawlerVendorScreen : ItemIconScreen
             return;        
         }
 
-        VendorSettings settings = _gs.data.Get<VendorSettings>(null);
+        VendorSettings settings = _gameData.Get<VendorSettings>(null);
 
         if (_party.VendorItems.Count < 1 || (_party.LastVendorRefresh < DateTime.UtcNow.AddMinutes(-settings.VendorRefreshMinutes)))
         {
@@ -102,7 +102,7 @@ public class CrawlerVendorScreen : ItemIconScreen
             IconHelper.InitItemIcon(_gs, idata, VendorItems, _assetService, _token);
         }
 
-        _uiService.SetText(PartyGoldText, StrUtils.PrintCommaValue(_party.Gold));
+        _uIInitializable.SetText(PartyGoldText, StrUtils.PrintCommaValue(_party.Gold));
     }
 
     // Blank

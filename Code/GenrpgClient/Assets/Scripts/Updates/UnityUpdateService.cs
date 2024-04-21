@@ -66,7 +66,7 @@ internal class TokenUpdateObject : IUpdateObject
 }
 
 
-public interface IUnityUpdateService : ISetupService, IMapTokenService, IGameTokenService
+public interface IUnityUpdateService : IInitializable, IMapTokenService, IGameTokenService
 {
     void AddUpdate(object objIn, Action funcIn, int updateType);
     void AddTokenUpdate(object objIn, Action<CancellationToken> funcIn, int updateType);
@@ -83,7 +83,7 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
 
 
     private UnityGameState _gs;
-    public async Task Setup(GameState gs, CancellationToken token)
+    public async Task Initialize(GameState gs, CancellationToken token)
     {
         _gs = gs as UnityGameState;
         _mapToken = token;

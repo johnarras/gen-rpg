@@ -87,6 +87,6 @@ namespace Genrpg.Shared.Crafting.PlayerData.Recipes
     [MessagePackObject]
     public class RecipeDataApi : OwnerApiList<RecipeData, RecipeStatus> { }
     [MessagePackObject]
-    public class RecipeDataLoader : OwnerDataLoader<RecipeData, RecipeStatus, RecipeDataApi> { }
+    public class RecipeDataLoader : OwnerIdDataLoader<RecipeData, RecipeStatus, RecipeDataApi> { }
 
 }

@@ -16,7 +16,7 @@ namespace Genrpg.Shared.Purchasing.PlayerData
     }
 
     [MessagePackObject]
-    public class CurrentPurchaseData : BasePlayerData, IUnitData
+    public class CurrentPurchaseData : NoChildPlayerData, IUnitData
     {
 
         [Key(0)] public override string Id { get; set; }

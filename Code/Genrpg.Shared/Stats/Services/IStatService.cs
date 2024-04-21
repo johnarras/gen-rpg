@@ -5,7 +5,7 @@ using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Entities;
 using System.Collections.Generic;
 
-public interface IStatService : IService
+public interface IStatService : IInitializable
 {
     float Pct(Unit unit, long statTypeId);
     void CalcStats(GameState gs, Unit unit, bool resetMutableStats);

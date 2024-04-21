@@ -13,6 +13,7 @@ using Genrpg.Shared.Factions.Messages;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Factions.PlayerData
 {
@@ -41,7 +42,7 @@ namespace Genrpg.Shared.Factions.PlayerData
         /// <param name="factionTypeId">The faction to find</param>
         /// <param name="createIfNull">Create if null or return null if missing</param>
         /// <returns>The Reputation found or null</returns>
-        public FactionStatus Find(GameState gs, long factionTypeId)
+        public FactionStatus Find(IGameData gameData, long factionTypeId)
         {
 
             FactionStatus currStatus = _data.FirstOrDefault(x => x.IdKey == factionTypeId);
@@ -65,9 +66,9 @@ namespace Genrpg.Shared.Factions.PlayerData
         /// </summary>
         /// <param name="factionId"></param>
         /// <returns></returns>
-        public long Get(GameState gs, long factionId)
+        public long Get(IGameData gameData, long factionId)
         {
-            return Find(gs, factionId).RepLevelId;
+            return Find(gameData, factionId).RepLevelId;
         }
 
         /// <summary>
@@ -75,9 +76,9 @@ namespace Genrpg.Shared.Factions.PlayerData
         /// </summary>
         /// <param name="factionId">The faction Id to find</param>
         /// <returns>The FactionStub value or 0 if missing</returns>
-        public long GetRep(GameState gs, long factionId)
+        public long GetRep(IGameData gameData, long factionId)
         {
-            return Find(gs, factionId).Reputation;
+            return Find(gameData, factionId).Reputation;
         }
 
         /// <summary>
@@ -85,9 +86,9 @@ namespace Genrpg.Shared.Factions.PlayerData
         /// </summary>
         /// <param name="factionId">Which faction Id to set</param>
         /// <param name="val">The value to set</param>
-        public RepResult SetRep(GameState gs, Unit unit, int factionId, long val)
+        public RepResult SetRep(IGameData gameData, Unit unit, int factionId, long val)
         {
-            FactionStatus status = Find(gs, factionId);
+            FactionStatus status = Find(gameData, factionId);
             RepResult res = new RepResult()
             {
                 OldRep = status.Reputation,
@@ -102,7 +103,7 @@ namespace Genrpg.Shared.Factions.PlayerData
             // Negative rep, go down levels.
             while (status.Reputation < 0)
             {
-                RepLevel repLevel = gs.data.Get<ReputationSettings>(unit).Get(status.RepLevelId - 1);
+                RepLevel repLevel = gameData.Get<ReputationSettings>(unit).Get(status.RepLevelId - 1);
                 if (repLevel == null || status.RepLevelId <= 1)
                 {
                     status.Reputation = 0;
@@ -117,7 +118,7 @@ namespace Genrpg.Shared.Factions.PlayerData
 
             while (true)
             {
-                RepLevel repLevel = gs.data.Get<ReputationSettings>(unit).Get(status.RepLevelId);
+                RepLevel repLevel = gameData.Get<ReputationSettings>(unit).Get(status.RepLevelId);
 
 
                 if (repLevel == null || status.Reputation <= repLevel.PointsNeeded)
@@ -127,7 +128,7 @@ namespace Genrpg.Shared.Factions.PlayerData
 
                 int pointsNeeded = repLevel.PointsNeeded;
 
-                repLevel = gs.data.Get<ReputationSettings>(unit).Get(status.RepLevelId + 1);
+                repLevel = gameData.Get<ReputationSettings>(unit).Get(status.RepLevelId + 1);
                 if (repLevel == null)
                 {
                     status.Reputation = pointsNeeded - 1;
@@ -157,13 +158,13 @@ namespace Genrpg.Shared.Factions.PlayerData
         /// </summary>
         /// <param name="factionId">The faction to add to</param>
         /// <param name="val">The amount to add</param>
-        public RepResult Add(GameState gs, Unit unit, int factionId, long val)
+        public RepResult Add(IGameData gameData, Unit unit, int factionId, long val)
         {
-            return SetRep(gs, unit, factionId, GetRep(gs, factionId) + val);
+            return SetRep(gameData, unit, factionId, GetRep(gameData, factionId) + val);
         }
     }
     [MessagePackObject]
     public class FactionApi : OwnerApiList<FactionData, FactionStatus> { }
     [MessagePackObject]
-    public class FactionDataLoader : OwnerDataLoader<FactionData, FactionStatus, FactionApi> { }
+    public class FactionDataLoader : OwnerIdDataLoader<FactionData, FactionStatus, FactionApi> { }
 }

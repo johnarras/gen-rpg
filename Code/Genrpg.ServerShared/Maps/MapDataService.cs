@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.Maps
 {
-    public interface IMapDataService : ISetupService
+    public interface IMapDataService : IInitializable
     {
         Task<List<MapStub>> GetMapStubs(ServerGameState gs);
         Task<Map> LoadMap(ServerGameState gs, string mapId);
@@ -27,7 +27,7 @@ namespace Genrpg.ServerShared.Maps
     {
         protected IRepositoryService _repoService = null;
         protected ILogService _logService = null;
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = nameof(QuestType.OwnerId) });

@@ -19,10 +19,11 @@ namespace Assets.Scripts.GameSettings.Services
     {
 
         private IRepositoryService _repoService;
+        protected IGameData _gameData;
 
         private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             List<Type> loaderTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettingsLoader));
 
@@ -39,7 +40,7 @@ namespace Assets.Scripts.GameSettings.Services
         }
         public async UniTask LoadCachedSettings(UnityGameState gs)
         {
-            gs.data = new GameData();
+            GameData gameData = new GameData();
             ClientRepositoryService repo = _repoService as ClientRepositoryService;
 
             List<ITopLevelSettings> allSettings = new List<ITopLevelSettings>();
@@ -51,7 +52,8 @@ namespace Assets.Scripts.GameSettings.Services
                     allSettings.Add(settings);
                 }
             }
-            gs.data.AddData(allSettings);
+            gameData.AddData(allSettings);
+            _gameData.CopyFrom(gameData);
 
             await Task.CompletedTask;
         }

@@ -3,11 +3,13 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Genrpg.Shared.Factions.Services
 {
 
-    public interface ISharedFactionService : IService
+    public interface ISharedFactionService : IInitializable
     {
         long GetRepLevel(GameState gs, Unit unit, long factionTypeId);
         bool CanInteract(GameState gs, Unit unit, long factionTypeId);
@@ -17,6 +19,12 @@ namespace Genrpg.Shared.Factions.Services
 
     public class SharedFactionService : ISharedFactionService
     {
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
         /// <summary>
         /// Returns the relative rep level for the two units.
         /// 

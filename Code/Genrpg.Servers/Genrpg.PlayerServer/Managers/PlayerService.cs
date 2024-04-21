@@ -11,7 +11,7 @@ using System.Collections.Concurrent;
 namespace Genrpg.PlayerServer.Managers
 {
 
-    public interface IPlayerService : ISetupService
+    public interface IPlayerService : IInitializable
     {
         List<OnlineCharacter> GetPlayersInMap(string mapId);
         List<OnlineCharacter> GetPlayersInZone(string mapId, long zoneId);
@@ -37,7 +37,7 @@ namespace Genrpg.PlayerServer.Managers
         private ConcurrentDictionary<string, OnlineCharacter> _onlineChars = new ConcurrentDictionary<string, OnlineCharacter>();
 
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }

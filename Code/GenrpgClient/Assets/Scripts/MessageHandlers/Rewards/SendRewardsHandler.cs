@@ -14,7 +14,7 @@ namespace Assets.Scripts.MessageHandlers.Rewards
 
             if (msg.ShowPopup)
             {
-                gs.Dispatch(new ShowLootEvent() { Rewards = msg.Rewards });
+                _dispatcher.Dispatch(gs,new ShowLootEvent() { Rewards = msg.Rewards });
             }
         }
     }

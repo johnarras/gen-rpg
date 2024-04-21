@@ -2,6 +2,7 @@
 using Genrpg.MapServer.Items;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.PlayerData;
@@ -15,11 +16,12 @@ using Genrpg.Shared.Vendors.WorldData;
 using Genrpg.Shared.Zones.WorldData;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Vendors
 {
-    public interface IVendorService : IService
+    public interface IVendorService : IInitializable
     {
         void UpdateItems(GameState gs, MapObject mapObject);
     }
@@ -27,8 +29,14 @@ namespace Genrpg.MapServer.Vendors
 
     public class VendorService : IVendorService
     {
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
+
         private IItemGenService _itemGenService = null;
         protected IRepositoryService _repoService = null;
+        private IGameData _gameData;
 
         public void UpdateItems(GameState gs, MapObject mapObject)
         {
@@ -40,7 +48,7 @@ namespace Genrpg.MapServer.Vendors
                 return;
             }
 
-            double refreshMinutes = gs.data.Get<VendorSettings>(mapObject).VendorRefreshMinutes;
+            double refreshMinutes = _gameData.Get<VendorSettings>(mapObject).VendorRefreshMinutes;
 
             if (refreshMinutes <= 0)
             {

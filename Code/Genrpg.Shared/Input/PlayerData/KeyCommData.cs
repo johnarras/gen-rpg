@@ -105,7 +105,7 @@ namespace Genrpg.Shared.Input.PlayerData
         }
     }
     [MessagePackObject]
-    public class KeyCommDataLoader : OwnerDataLoader<KeyCommData, KeyComm, KeyCommApi> { }
+    public class KeyCommDataLoader : OwnerIdDataLoader<KeyCommData, KeyComm, KeyCommApi> { }
     [MessagePackObject]
     public class KeyCommApi : OwnerApiList<KeyCommData, KeyComm> { }
 }

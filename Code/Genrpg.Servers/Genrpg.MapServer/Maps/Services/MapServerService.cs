@@ -28,6 +28,11 @@ namespace Genrpg.MapServer.Services.Maps
         private IMapDataService _mapDataService = null;
         private ICloudCommsService _cloudCommsService = null;
 
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
+
         private ConcurrentDictionary<string,MapInstance> _instances = new ConcurrentDictionary<string,MapInstance>();
 
         private string _mapServerId;

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Genrpg.Shared.Inventory.Services
 {
-    public interface IInventoryService : ISetupService
+    public interface IInventoryService : IInitializable
     {
         int InventorySpaceLeft(Unit unit, Item item);
         bool AddItem(GameState gs, Unit unit, Item item, bool forceAdd);

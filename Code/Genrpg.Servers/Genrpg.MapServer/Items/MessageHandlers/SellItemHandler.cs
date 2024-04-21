@@ -66,7 +66,7 @@ namespace Genrpg.MapServer.Items.MessageHandlers
                 return;
             }
 
-            long money = ItemUtils.GetSellToVendorPrice(gs, ch, item);
+            long money = ItemUtils.GetSellToVendorPrice(_gameData, ch, item);
 
             _inventoryService.RemoveItem(gs, ch, message.ItemId,true);
             _achievementService.UpdateAchievement(gs, ch, AchievementTypes.ItemsSold, item.Quantity);

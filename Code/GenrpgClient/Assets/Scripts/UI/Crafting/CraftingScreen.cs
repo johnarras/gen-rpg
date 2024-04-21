@@ -56,13 +56,13 @@ public class CraftingScreen : ItemIconScreen
 
     public void Init()
     {
-        _uiService.SetButton(ClearButton, GetName(), ClickClear);
-        _uiService.SetButton(CraftButton, GetName(), ClickCraft);
+        _uIInitializable.SetButton(ClearButton, GetName(), ClickClear);
+        _uIInitializable.SetButton(CraftButton, GetName(), ClickCraft);
 
         _recipes = new List<RecipeRow>();
 
         RecipeData recipeData = _gs.ch.Get<RecipeData>();
-        foreach (RecipeType recipe in _gs.data.Get<RecipeSettings>(_gs.ch).GetData())
+        foreach (RecipeType recipe in _gameData.Get<RecipeSettings>(_gs.ch).GetData())
         {
 
             RecipeStatus recipeStatus = recipeData.Get(recipe.IdKey);

@@ -10,6 +10,8 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.Stats.Settings.Stats;
 using System.Diagnostics;
+using Genrpg.Shared.GameSettings;
+using System.ComponentModel;
 
 namespace Genrpg.Shared.Entities.Utils
 {
@@ -17,8 +19,15 @@ namespace Genrpg.Shared.Entities.Utils
     /// This is a list of some reflection utility functions.
     /// </summary>
     [MessagePackObject]
-    public class EntityUtils
+    public static class EntityUtils
     {
+
+        private static Assembly _systemAssembly = typeof(System.String).Assembly;
+        static EntityUtils()
+        {
+
+        }
+
 
         /// <summary>
         /// Returns an id from an object regardless of whether it has an int Id or a string Id.
@@ -368,7 +377,7 @@ namespace Genrpg.Shared.Entities.Utils
             "Single",
             "SByte",
             "Int16",
-             "Int64",
+            "Int64",
             "Byte",
             "UInt16",
             "UInt32",
@@ -378,6 +387,8 @@ namespace Genrpg.Shared.Entities.Utils
             "DateTime",
         };
 
+
+        private static bool _didSetupAssembly = false;
 
         /// <summary>
         /// Use this to get an object value from a string and a BaseSystemType
@@ -392,30 +403,31 @@ namespace Genrpg.Shared.Entities.Utils
                 return null;
             }
 
-            if (typeName == "System.Int32") { int val = 0; int.TryParse(valStr, out val); return val; }
-            if (typeName == "System.Single") { float val = 0; float.TryParse(valStr, out val); return val; }
+            Assembly systemAssembly = Assembly.GetAssembly(typeof(System.Int32));
 
-            if (typeName == "System.Sbyte") { sbyte val = 0; sbyte.TryParse(valStr, out val); return val; }
-            if (typeName == "System.Int16") { short val = 0; short.TryParse(valStr, out val); return val; }
-            if (typeName == "System.Int64") { long val = 0; long.TryParse(valStr, out val); return val; }
-
-
-            if (typeName == "System.Byte") { byte val = 0; byte.TryParse(valStr, out val); return val; }
-            if (typeName == "System.UInt16") { ushort val = 0; ushort.TryParse(valStr, out val); return val; }
-            if (typeName == "System.UInt32") { uint val = 0; uint.TryParse(valStr, out val); return val; }
-            if (typeName == "System.UInt64") { ulong val = 0; ulong.TryParse(valStr, out val); return val; }
-
-
-            if (typeName == "System.Double") { double val = 0; double.TryParse(valStr, out val); return val; }
-            if (typeName == "System.Boolean") { bool val = false; bool.TryParse(valStr, out val); return val; }
-
-
-            if (typeName == "System.DateTime")
+            Type currType = _systemAssembly.GetType(typeName);
+            if (currType != null)
             {
-                DateTime val = DateTime.UtcNow;
-                DateTime.TryParse(valStr, out val);
-                return val;
+                try
+                {
+                    if (currType == typeof(DateTime))
+                    {
+                        DateTimeConverter timeConverter = new DateTimeConverter();
+                        return timeConverter.ConvertFromString(valStr);
+                    }
+                    else
+                    {
+                        TypeConverter converter = TypeDescriptor.GetConverter(currType);
+
+                        return converter.ConvertFromString(valStr);
+                    }
+                }
+                catch
+                {
+                    return null;
+                }
             }
+
             return null;
         }
 
@@ -511,11 +523,11 @@ namespace Genrpg.Shared.Entities.Utils
             return cinfo.Invoke(new object[0]);
 
         }
-        public static string PrintData(GameState gs, MapObject obj, IEffect effect)
+        public static string PrintData(IGameData gameData, MapObject obj, IEffect effect)
         {
             if (effect.EntityTypeId == EntityTypes.Stat)
             {
-                StatType statType = gs.data.Get<StatSettings>(obj).Get(effect.EntityId);
+                StatType statType = gameData.Get<StatSettings>(obj).Get(effect.EntityId);
                 if (statType == null)
                 {
                     return "";
@@ -525,7 +537,7 @@ namespace Genrpg.Shared.Entities.Utils
             }
             else if (effect.EntityTypeId == EntityTypes.StatPct)
             {
-                StatType statType = gs.data.Get<StatSettings>(obj).Get(effect.EntityId);
+                StatType statType = gameData.Get<StatSettings>(obj).Get(effect.EntityId);
                 if (statType == null)
                 {
                     return "";
@@ -534,7 +546,7 @@ namespace Genrpg.Shared.Entities.Utils
                 return effect.Quantity + "% " + statType.Name;
             }
 
-            EntityType etype = gs.data.Get<EntitySettings>(obj).Get(effect.EntityTypeId);
+            EntityType etype = gameData.Get<EntitySettings>(obj).Get(effect.EntityTypeId);
             if (etype == null)
             {
                 return "Etype: " + effect.EntityTypeId;

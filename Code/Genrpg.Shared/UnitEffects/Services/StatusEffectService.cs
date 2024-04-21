@@ -4,11 +4,20 @@ using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.UnitEffects.Services
 {
     public class StatusEffectService : IStatusEffectService
     {
+        private IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
         public string ShowStatusEffects(GameState gs, Unit unit, bool showAbbreviations)
         {
             StringBuilder sb = new StringBuilder();
@@ -17,7 +26,7 @@ namespace Genrpg.Shared.UnitEffects.Services
                 return "";
             }
 
-            IReadOnlyList<StatusEffect> effects = gs.data.Get<StatusEffectSettings>(unit).GetData();
+            IReadOnlyList<StatusEffect> effects = _gameData.Get<StatusEffectSettings>(unit).GetData();
 
             for (int i = 0; i < effects.Count; i++)
             {

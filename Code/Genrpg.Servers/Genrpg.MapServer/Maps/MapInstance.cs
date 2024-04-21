@@ -126,15 +126,15 @@ namespace Genrpg.MapServer.Maps
             return new BaseTcpListener(host, port, logger, serializer, AddConnection, ReceiveCommands, _tokenSource.Token);
         }
 
-        public void RefreshGameData()
+        public void RefreshGameData(IGameData gameData)
         {
-            Task.Run(() => RefreshGameDataAsync());
+            Task.Run(() => RefreshGameDataAsync(gameData));
         }
 
-        private async Task RefreshGameDataAsync()
+        private async Task RefreshGameDataAsync(IGameData gameData)
         {
             await _gameDataService.ReloadGameData(_gs);
-            _messageService.UpdateGameData(_gs.data);
+            _messageService.UpdateGameData(gameData);
             UpdatePlayerClientData();
         }
 
@@ -333,7 +333,7 @@ namespace Genrpg.MapServer.Maps
                     if (gridItem != null)
                     {
                         connState.ch = (Character)gridItem.Obj;
-                        await _playerDataService.LoadPlayerData(_gs, ch);
+                        await _playerDataService.LoadAllPlayerData(_gs, ch);
                     }
 
                     _gameDataService.SetGameDataOverrides(_gs, ch, true);

@@ -34,7 +34,7 @@ namespace Genrpg.Editor.Utils
 
                     EditorCharacter ech = new EditorCharacter() { Character = ch, CoreCharacter = coreChar };
                     gs.EditorUser.Characters.Add(ech);
-                    await gs.loc.Get<IPlayerDataService>().LoadPlayerData(gs, ch);
+                    await gs.loc.Get<IPlayerDataService>().LoadAllPlayerData(gs, ch);
                     foreach (IUnitData dataCont in ch.GetAllData().Values)
                     {
                         ech.Data.Add(new EditorUnitData() { Data = dataCont });

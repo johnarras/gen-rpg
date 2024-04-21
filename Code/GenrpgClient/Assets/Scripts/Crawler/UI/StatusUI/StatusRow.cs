@@ -30,22 +30,22 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
 
             if (_index > 0)
             {
-                _uiService.SetText(Index, _index.ToString());
+                _uIInitializable.SetText(Index, _index.ToString());
             }
             else
             {
-                _uiService.SetText(Index, "");
-                _uiService.SetText(Name, "Name");
+                _uIInitializable.SetText(Index, "");
+                _uIInitializable.SetText(Name, "Name");
                 if (Name != null)
                 {
                     Name.alignment = TMPro.TextAlignmentOptions.Center;
                 }
-                _uiService.SetText(Class, "Cl");
-                _uiService.SetText(Level, "Lev");
-                _uiService.SetText(Health, "Health");
-                _uiService.SetText(Mana, "Mana");
-                _uiService.SetText(Summons, "Summon");
-                _uiService.SetText(StatusEffects, "Status");
+                _uIInitializable.SetText(Class, "Cl");
+                _uIInitializable.SetText(Level, "Lev");
+                _uIInitializable.SetText(Health, "Health");
+                _uIInitializable.SetText(Mana, "Mana");
+                _uIInitializable.SetText(Summons, "Summon");
+                _uIInitializable.SetText(StatusEffects, "Status");
 
             }
 
@@ -60,33 +60,33 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
             }
             if (_partyMember == null)
             {
-                _uiService.SetText(Name, "");
-                _uiService.SetText(Health, "");
-                _uiService.SetText(Mana, "");
-                _uiService.SetText(Class, "");
-                _uiService.SetText(Level, "");
+                _uIInitializable.SetText(Name, "");
+                _uIInitializable.SetText(Health, "");
+                _uIInitializable.SetText(Mana, "");
+                _uIInitializable.SetText(Class, "");
+                _uIInitializable.SetText(Level, "");
                 return;
             }
             else
             {
-                _uiService.SetText(Name, _partyMember.Name);
-                _uiService.SetText(Level, _partyMember.Level.ToString());
+                _uIInitializable.SetText(Name, _partyMember.Name);
+                _uIInitializable.SetText(Level, _partyMember.Level.ToString());
                 long currHp = _partyMember.Stats.Curr(StatTypes.Health);
                 long maxHp = _partyMember.Stats.Max(StatTypes.Health);
-                _uiService.SetText(Health, currHp + "/" + maxHp);
+                _uIInitializable.SetText(Health, currHp + "/" + maxHp);
                 long currMana = _partyMember.Stats.Curr(StatTypes.Mana);
                 long maxMana = _partyMember.Stats.Max(StatTypes.Mana);
 
                 if (maxMana < 1)
                 {
-                    _uiService.SetText(Mana, "");
+                    _uIInitializable.SetText(Mana, "");
                 }
                 else
                 {
-                    _uiService.SetText(Mana, currMana + "/" + maxMana);
+                    _uIInitializable.SetText(Mana, currMana + "/" + maxMana);
                 }
 
-                ClassSettings classSettings = _gs.data.Get<ClassSettings>(_gs.ch);
+                ClassSettings classSettings = _gameData.Get<ClassSettings>(_gs.ch);
                 string classText = "";
 
                 foreach (UnitClass uc in _partyMember.Classes)
@@ -105,18 +105,18 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                     classText += cl.Abbrev;
                 }
 
-                _uiService.SetText(Class, classText);
+                _uIInitializable.SetText(Class, classText);
 
-                _uiService.SetText(StatusEffects, _statusEffectService.ShowStatusEffects(_gs, _partyMember, true));
+                _uIInitializable.SetText(StatusEffects, _statusEffectService.ShowStatusEffects(_gs, _partyMember, true));
 
 
                 if (_partyMember.Summons != null && _partyMember.Summons.Count > 0)
                 {
-                    _uiService.SetText(Summons, _partyMember.Summons[0].Name);
+                    _uIInitializable.SetText(Summons, _partyMember.Summons[0].Name);
                 }
                 else
                 {
-                    _uiService.SetText(Summons, "");
+                    _uIInitializable.SetText(Summons, "");
                 }
             }
         }

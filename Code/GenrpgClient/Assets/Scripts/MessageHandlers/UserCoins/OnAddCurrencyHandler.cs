@@ -16,7 +16,7 @@ namespace Assets.Scripts.MessageHandlers.Currency
 
             UserCoinData coinData = gs.ch.Get<UserCoinData>();
             coinData.Add(msg.UserCoinTypeId, msg.QuantityAdded);
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs,msg);
         }
     }
 }

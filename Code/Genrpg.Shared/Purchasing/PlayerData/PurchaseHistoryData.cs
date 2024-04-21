@@ -14,7 +14,7 @@ namespace Genrpg.Shared.Purchasing.PlayerData
     }
 
     [MessagePackObject]
-    public class PurchaseHistoryData : BasePlayerData
+    public class PurchaseHistoryData : NoChildPlayerData
     {
         public const int MaxRecentPurchasesCount = 10;
 

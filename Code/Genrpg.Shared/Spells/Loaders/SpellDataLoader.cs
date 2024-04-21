@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Spells.Loaders
 {
-    public class SpellDataLoader : OwnerDataLoader<SpellData, Spell, SpellApi>
+    public class SpellDataLoader : OwnerIdDataLoader<SpellData, Spell, SpellApi>
     {
 
     }

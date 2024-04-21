@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Crawler.Spells.Services
 {
-    public interface ICrawlerSpellService : ISetupService
+    public interface ICrawlerSpellService : IInitializable
     {
         List<CrawlerSpell> GetSpellsForMember(GameState gs, PartyData party, PartyMember member, bool inCombat);
         List<CrawlerSpell> GetNonSpellCombatActionsForMember(GameState gs, PartyData party, PartyMember member, bool inCombat);

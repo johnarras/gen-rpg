@@ -11,22 +11,8 @@
   "MinQuantity": 1,
   "MaxQuantity": 1,
   "Art": "",
-  "AttPct": 400,
-  "DefPct": 100,
-  "OtherPct": 300,
-  "ReagentQuantity": 5,
-  "Reagents": [
-    {
-      "EntityTypeId": 2,
-      "EntityId": 103,
-      "Quantity": 5
-    },
-    {
-      "EntityTypeId": 2,
-      "EntityId": 102,
-      "Quantity": 5
-    }
-  ],
-  "UpdateTime": "2024-02-25T15:47:55.959Z",
+  "ScalingPct": 150,
+  "ExplicitReagents": [],
+  "UpdateTime": "2024-04-19T17:39:08.596Z",
   "CreateTime": "2024-02-15T23:06:19.721Z"
 }

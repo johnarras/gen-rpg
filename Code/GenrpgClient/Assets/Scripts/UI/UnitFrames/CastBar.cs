@@ -20,8 +20,8 @@ public class CastBar : BaseBehaviour
     {
         base.Initialize(gs);
         AddUpdate(CastUpdate, UpdateType.Regular);
-        _gs.AddEvent<OnStartCast>(this, OnStartCastHandler);
-        _gs.AddEvent<OnStopCast>(this, OnStopCastHandler);
+        _dispatcher.AddEvent<OnStartCast>(this, OnStartCastHandler);
+        _dispatcher.AddEvent<OnStopCast>(this, OnStopCastHandler);
     }
     
     public void Init(UnityGameState gs, Unit unit)

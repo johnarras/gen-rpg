@@ -46,7 +46,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         private Dictionary<ECrawlerMapTypes, ICrawlerMapTypeHelper> _mapTypeHelpers;
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             _cameraParent = _cameraController?.GetCameraParent();
 

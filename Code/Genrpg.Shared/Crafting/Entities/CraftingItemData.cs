@@ -8,30 +8,18 @@ namespace Genrpg.Shared.Crafting.Entities
     {
         [Key(0)] public long RecipeTypeId { get; set; }
         [Key(1)] public long ScalingTypeId { get; set; }
-        [Key(2)] public List<FullReagent> RecipeReagents { get; set; }
-        [Key(3)] public FullReagent PrimaryReagent { get; set; }
-        [Key(4)] public List<FullReagent> ExtraReagents { get; set; }
+        [Key(2)] public FullReagent BaseScalingReagent { get; set; }
+        [Key(3)] public List<FullReagent> StatReagents { get; set; } = new List<FullReagent>();
+        [Key(4)] public List<FullReagent> LevelQualityReagents { get; set; } = new List<FullReagent>();
 
 
         public List<FullReagent> GetAllReagents()
         {
             List<FullReagent> retval = new List<FullReagent>();
 
-            if (RecipeReagents != null)
-            {
-                retval.AddRange(RecipeReagents);
-            }
-
-            if (PrimaryReagent != null)
-            {
-                retval.Add(PrimaryReagent);
-            }
-
-            if (ExtraReagents != null)
-            {
-                retval.AddRange(ExtraReagents);
-            }
-
+            retval.Add(BaseScalingReagent);
+            retval.AddRange(StatReagents);
+            retval.AddRange(LevelQualityReagents);
 
             return retval;
         }

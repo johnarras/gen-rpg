@@ -26,26 +26,27 @@ namespace Genrpg.Shared.GameSettings.Settings
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }
         [Key(3)] public override string Name { get; set; }
+        [Key(4)] public bool Enabled { get; set; } = true;
 
-        [Key(4)] public long TotalModSize { get; set; }
-        [Key(5)] public long MaxAcceptableModValue { get; set; }
-        [Key(6)] public long Priority { get; set; }
+        [Key(5)] public long TotalModSize { get; set; }
+        [Key(6)] public long MaxAcceptableModValue { get; set; }
+        [Key(7)] public long Priority { get; set; }
 
-        [Key(7)] public double MinUserDaysSinceInstall { get; set; }
-        [Key(8)] public double MaxUserDaysSinceInstall { get; set; }
-        [Key(9)] public long MinLevel { get; set; }
-        [Key(10)] public long MaxLevel { get; set; }
-        [Key(11)] public long MinPurchaseCount { get; set; }
-        [Key(12)] public double MinPurchaseTotal { get; set; }
+        [Key(8)] public double MinUserDaysSinceInstall { get; set; }
+        [Key(9)] public double MaxUserDaysSinceInstall { get; set; }
+        [Key(10)] public long MinLevel { get; set; }
+        [Key(11)] public long MaxLevel { get; set; }
+        [Key(12)] public long MinPurchaseCount { get; set; }
+        [Key(13)] public double MinPurchaseTotal { get; set; }
 
-        [Key(13)] public bool UseDateRange { get; set; }
-        [Key(14)] public DateTime StartDate { get; set; }
-        [Key(15)] public DateTime EndDate { get; set; }
-        [Key(16)] public int RepeatHours { get; set; }
-        [Key(17)] public bool RepeatMonthly { get; set; }
+        [Key(14)] public bool UseDateRange { get; set; }
+        [Key(15)] public DateTime StartDate { get; set; }
+        [Key(16)] public DateTime EndDate { get; set; }
+        [Key(17)] public int RepeatHours { get; set; }
+        [Key(18)] public bool RepeatMonthly { get; set; }
 
-        [Key(18)] public List<DataOverrideItem> Items { get; set; }
-        [Key(19)] public List<AllowedPlayer> AllowedPlayers { get; set; } = new List<AllowedPlayer>();
+        [Key(19)] public List<DataOverrideItem> Items { get; set; }
+        [Key(20)] public List<AllowedPlayer> AllowedPlayers { get; set; } = new List<AllowedPlayer>();
 
         public void OrderSelf()
         {
@@ -57,8 +58,9 @@ namespace Genrpg.Shared.GameSettings.Settings
     [MessagePackObject]
     public class DataOverrideItem
     {
-        [Key(0)] public string SettingId { get; set; }
-        [Key(1)] public string DocId { get; set; }
+        [Key(0)] public bool Enabled { get; set; } = true;
+        [Key(1)] public string SettingId { get; set; }
+        [Key(2)] public string DocId { get; set; }
     }
 
     [MessagePackObject]

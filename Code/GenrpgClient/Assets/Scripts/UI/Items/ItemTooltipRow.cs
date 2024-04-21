@@ -15,34 +15,34 @@ public class ItemTooltipRow : BaseBehaviour
             return;
         }
 
-        _uiService.SetText(TextRow, rowData.text);
+        _uIInitializable.SetText(TextRow, rowData.text);
 
         if (TextRow != null)
         {
             if (rowData.isCurrent)
             {
-                _uiService.SetColor(TextRow, GColor.white);
+                _uIInitializable.SetColor(TextRow, GColor.white);
             }
             else
             {
-                _uiService.SetColor(TextRow, GColor.gray);
+                _uIInitializable.SetColor(TextRow, GColor.gray);
             }
         }
         if (rowData.change == 0)
         {
-            _uiService.SetText(ChangeText, "");
+            _uIInitializable.SetText(ChangeText, "");
         }
         else if (ChangeText != null)
         {
             if (rowData.change < 0)
             {
-                _uiService.SetColor(ChangeText, GColor.red);
-                _uiService.SetText(ChangeText, "(" + rowData.change + ")");
+                _uIInitializable.SetColor(ChangeText, GColor.red);
+                _uIInitializable.SetText(ChangeText, "(" + rowData.change + ")");
             }
             else
             {
-                _uiService.SetColor(ChangeText, GColor.green);
-                _uiService.SetText(ChangeText, "(+" + rowData.change + ")");
+                _uIInitializable.SetColor(ChangeText, GColor.green);
+                _uIInitializable.SetText(ChangeText, "(+" + rowData.change + ")");
             }
         }
 

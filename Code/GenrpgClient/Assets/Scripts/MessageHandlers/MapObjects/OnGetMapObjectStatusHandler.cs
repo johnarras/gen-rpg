@@ -7,7 +7,7 @@ namespace Assets.Scripts.MessageHandlers.MapObjects
     {
         protected override void InnerProcess(UnityGameState gs, OnGetMapObjectStatus msg, CancellationToken token)
         {
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs,msg);
         }
     }
 }

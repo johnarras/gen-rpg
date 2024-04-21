@@ -17,7 +17,7 @@ namespace Genrpg.MapServer.Services.Maps
     public class MapServerAdminService : BaseAdminService, IAdminService
     {
         private IMapServerService _mapServerService = null;
-        
+        private IGameData _gameData;
 
         public override async Task HandleReloadGameState(ServerGameState gs)
         {
@@ -26,7 +26,7 @@ namespace Genrpg.MapServer.Services.Maps
 
             foreach (MapInstance instance in instances)
             {
-                instance.RefreshGameData();
+                instance.RefreshGameData(_gameData);
             }
         }
 

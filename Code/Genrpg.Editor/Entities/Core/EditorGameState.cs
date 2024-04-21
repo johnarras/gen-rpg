@@ -17,6 +17,7 @@ namespace Genrpg.Editor.Entities.Core
 
         public EditorUser EditorUser { get; set; }
         public EditorGameData EditorGameData { get; set; }
+        public IGameData data { get; set; }
         public EditorGameState(IServerConfig config): base(config)
         {
             EditorUser = new EditorUser();
@@ -27,7 +28,7 @@ namespace Genrpg.Editor.Entities.Core
 
     public class EditorGameData : IShowChildListAsButton
     {
-        public GameData GameData { get; set; }
+        public IGameData GameData { get; set; }
 
         public List<EditorSettingsList> Data { get; set; } = new List<EditorSettingsList>();
 

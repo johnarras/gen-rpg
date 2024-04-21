@@ -79,7 +79,7 @@ namespace Genrpg.MapServer.Items.MessageHandlers
                         return;
                     }
 
-                    itemPrice = ItemUtils.GetBuyFromVendorPrice(gs, ch, vendorItem.Item);
+                    itemPrice = ItemUtils.GetBuyFromVendorPrice(_gameData, ch, vendorItem.Item);
 
                     if (itemPrice > playerMoney)
                     {

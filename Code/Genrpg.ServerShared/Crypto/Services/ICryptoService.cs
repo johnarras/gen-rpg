@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.Crypto.Services
 {
-    public interface ICryptoService : IService
+    public interface ICryptoService : IInitializable
     {
         Task<EthereumTransactionList> GetTransactionsFromWallet(ServerGameState gs, string walletAddress, bool internalTransactions);
     }

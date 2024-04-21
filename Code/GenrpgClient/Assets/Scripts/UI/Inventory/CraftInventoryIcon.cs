@@ -17,7 +17,7 @@ public class CraftInventoryIcon : ItemIcon, IPointerEnterHandler, IPointerExitHa
             currQuantity = 0;
         }
 
-        _uiService.SetText(QuantityText, currQuantity.ToString());
+        _uIInitializable.SetText(QuantityText, currQuantity.ToString());
     }
     
     public long GetQuantity()
@@ -43,7 +43,7 @@ public class CraftInventoryIcon : ItemIcon, IPointerEnterHandler, IPointerExitHa
             Screen = data.Screen,
         };
 
-        _uiService.SetText(InfoText, ItemUtils.GetBasicInfo(_gs, _gs.ch, data.Data));
+        _uIInitializable.SetText(InfoText, ItemUtils.GetBasicInfo(_gameData, _gs.ch, data.Data));
 
         currQuantity = idata.Data.Quantity;
     }

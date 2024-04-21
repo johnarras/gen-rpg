@@ -13,18 +13,26 @@ using Genrpg.Shared.Names.Services;
 using Genrpg.Shared.Names.Settings;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Units.Services
 {
 
     public class UnitGenService : IUnitGenService
     {
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
         private INameGenService _nameGenService = null;
+        private IGameData _gameData;
         public virtual string GenerateUnitName(GameState gs, long unitTypeId, long zoneId, IRandom rand,
             Dictionary<string, string> args = null)
         {
 
-            UnitType utype = gs.data.Get<UnitSettings>(null).Get(unitTypeId);
+            UnitType utype = _gameData.Get<UnitSettings>(null).Get(unitTypeId);
             if (utype == null)
             {
                 return "Monster";
@@ -37,7 +45,7 @@ namespace Genrpg.Shared.Units.Services
                 return utype.Name;
             }
 
-            ZoneType ztype = gs.data.Get<ZoneTypeSettings>(null).Get(zone.ZoneTypeId);
+            ZoneType ztype = _gameData.Get<ZoneTypeSettings>(null).Get(zone.ZoneTypeId);
             if (ztype == null)
             {
                 return utype.Name;
@@ -66,7 +74,7 @@ namespace Genrpg.Shared.Units.Services
             Dictionary<string, string> args = null)
         {
 
-            UnitType utype = gs.data.Get<UnitSettings>(null).Get(unitTypeId);
+            UnitType utype = _gameData.Get<UnitSettings>(null).Get(unitTypeId);
             if (utype == null)
             {
                 return "";
@@ -78,7 +86,7 @@ namespace Genrpg.Shared.Units.Services
                 return utype.Name;
             }
 
-            ZoneType ztype = gs.data.Get<ZoneTypeSettings>(null).Get(zone.ZoneTypeId);
+            ZoneType ztype = _gameData.Get<ZoneTypeSettings>(null).Get(zone.ZoneTypeId);
             if (ztype == null)
             {
                 return "";
@@ -97,7 +105,7 @@ namespace Genrpg.Shared.Units.Services
                 args = new Dictionary<string, string>();
             }
 
-            NameList overallList = gs.data.Get<NameSettings>(null).GetNameList("CreatureOverallNames");
+            NameList overallList = _gameData.Get<NameSettings>(null).GetNameList("CreatureOverallNames");
             string overallName = "";
             if (overallList != null)
             {
@@ -313,13 +321,13 @@ namespace Genrpg.Shared.Units.Services
                     weightChosen -= mon.Pop;
                     if (weightChosen <= 0)
                     {
-                        return gs.data.Get<UnitSettings>(null).Get(mon.UnitTypeId);
+                        return _gameData.Get<UnitSettings>(null).Get(mon.UnitTypeId);
                     }
                 }
             }
 
 
-            return gs.data.Get<UnitSettings>(null).Get(zone.Units[gs.rand.Next() % zone.Units.Count].UnitTypeId);
+            return _gameData.Get<UnitSettings>(null).Get(zone.Units[gs.rand.Next() % zone.Units.Count].UnitTypeId);
         }
     }
 }

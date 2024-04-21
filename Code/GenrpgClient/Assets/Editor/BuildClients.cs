@@ -14,6 +14,7 @@ using Genrpg.Shared.Setup.Services;
 using System.Runtime.Remoting.Channels;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Analytics.Services;
+using Genrpg.Shared.GameSettings;
 
 public class BuildClients
 {
@@ -109,7 +110,7 @@ public class BuildClients
 
         ILogService logService = gs.loc.Get<ILogService>();
         IAnalyticsService analyicsService = gs.loc.Get<IAnalyticsService>();
-        ServiceLocator loc = new ServiceLocator(logService, analyicsService);
+        ServiceLocator loc = new ServiceLocator(logService, analyicsService, new GameData());
         ClientRepositoryService repoService = new ClientRepositoryService(logService);
         CancellationTokenSource cts = new CancellationTokenSource();
         SetupService ss = new SetupService();

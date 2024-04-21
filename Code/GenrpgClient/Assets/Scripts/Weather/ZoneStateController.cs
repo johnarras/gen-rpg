@@ -56,8 +56,8 @@ public class ZoneStateController : BaseBehaviour
         base.Initialize(gs);
         RenderSettings.sun = Sun;
         AddUpdate(ZoneUpdate, UpdateType.Regular);
-        _gs.AddEvent<GetCurrentZoneEvent>(this, OnGetCurrentZone);
-        _gs.AddEvent<OnFinishLoadPlayer>(this, OnFinishLoadingPlayer);
+        _dispatcher.AddEvent<GetCurrentZoneEvent>(this, OnGetCurrentZone);
+        _dispatcher.AddEvent<OnFinishLoadPlayer>(this, OnFinishLoadingPlayer);
         ResetColors();
     }
 
@@ -241,10 +241,10 @@ public class ZoneStateController : BaseBehaviour
                         _currentZone = zone;
                         CurrentZoneShown = zone.IdKey;
                         _gs.ch.ZoneId = zone.IdKey;                        
-                        _currentZoneType = _gs.data.Get<ZoneTypeSettings>(_gs.ch).Get(_currentZone.ZoneTypeId);
+                        _currentZoneType = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(_currentZone.ZoneTypeId);
                         if (_currentZoneType != null)
                         {
-                            WeatherType weatherType = _gs.data.Get<WeatherTypeSettings>(_gs.ch).Get(_currentZoneType.WeatherTypeId);
+                            WeatherType weatherType = _gameData.Get<WeatherTypeSettings>(_gs.ch).Get(_currentZoneType.WeatherTypeId);
                             if (weatherType == null)
                             {
                                 return;
@@ -276,7 +276,7 @@ public class ZoneStateController : BaseBehaviour
                         }
                         if (FogDistScale <= 1.0f)
                         {
-                            _gs.Dispatch(new SetZoneNameEvent());
+                            _dispatcher.Dispatch(_gs,new SetZoneNameEvent());
                         }
                     }
                 }

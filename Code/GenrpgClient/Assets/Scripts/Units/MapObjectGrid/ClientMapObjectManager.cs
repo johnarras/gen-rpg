@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Genrpg.Shared.Entities.Constants;
 
-public interface IClientMapObjectManager : ISetupService, IMapTokenService
+public interface IClientMapObjectManager : IInitializable, IMapTokenService
 {
     bool GetUnit(string id, out Unit unit, bool downloadIfNotExist = true);
     bool GetChar(string id, out Character ch, bool downloadIfNotExist = true);
@@ -88,7 +88,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
     }
 
     private bool _didAddUpdate = false;
-    public async Task Setup(GameState gs, CancellationToken token)
+    public async Task Initialize(GameState gs, CancellationToken token)
     {
         _gs = gs;
         Reset();

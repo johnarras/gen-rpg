@@ -18,11 +18,11 @@ using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.MapServer.UserCoins
 {
-    public class ServerUserCoinService : UserCoinService, ISetupService
+    public class ServerUserCoinService : UserCoinService, IInitializable
     {
         protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }

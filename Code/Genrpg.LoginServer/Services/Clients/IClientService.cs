@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.Services.Clients
 {
-    public interface IClientService : IService
+    public interface IClientService : IInitializable
     {
         Task<List<ILoginResult>> HandleClient(LoginGameState gs, string postData, CancellationToken token);
     }

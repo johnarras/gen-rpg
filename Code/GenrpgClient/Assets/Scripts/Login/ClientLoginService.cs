@@ -12,9 +12,12 @@ using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Login.Messages.NoUserGameData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Core.Entities;
+using System.Threading.Tasks;
+using Genrpg.Shared.GameSettings;
 
 
-public interface IClientLoginService : IService
+public interface IClientLoginService : IInitializable
 {
     void StartLogin(UnityGameState gs, CancellationToken token);
     void Logout(UnityGameState gs);
@@ -38,7 +41,13 @@ public class ClientLoginService : IClientLoginService
     private IClientGameDataService _gameDataService;
     private IRepositoryService _repoService;
     private ILogService _logService;
+    protected IGameData _gameData;
     private string _pwd = "";
+
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
 
     public void StartLogin(UnityGameState gs, CancellationToken token)
     {
@@ -88,7 +97,6 @@ public class ClientLoginService : IClientLoginService
         _logService.Info("Logging out");
         InnerExitMap(gs);
         gs.user = null;
-        gs.data = null;
         _screenService.CloseAll(gs);
         _screenService.Close(gs, ScreenId.HUD);
         _screenService.Open(gs, ScreenId.Login);
@@ -134,7 +142,7 @@ public class ClientLoginService : IClientLoginService
             _logService.Exception(e, "LoginToServer.LoadData");
         }
 
-        List<ITopLevelSettings> allSettings = gs.data.AllSettings();
+        List<ITopLevelSettings> allSettings = _gameData.AllSettings();
 
         command.ClientSettings = new List<ClientCachedGameSettings>();
 

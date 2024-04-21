@@ -24,7 +24,7 @@ public class RockObjectLoader : BaseObjectLoader
 
 
 
-        RockType rockType = gs.data.Get<RockTypeSettings>(gs.ch).Get(objectId);
+        RockType rockType = _gameData.Get<RockTypeSettings>(gs.ch).Get(objectId);
         if (rockType == null || rockType.Art == null)
         {
             return false;

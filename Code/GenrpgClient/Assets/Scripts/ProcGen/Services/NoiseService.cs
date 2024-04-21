@@ -1,7 +1,9 @@
 ﻿
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
-public interface INoiseService : IService
+using System.Threading;
+using System.Threading.Tasks;
+public interface INoiseService : IInitializable
 {
     float[,] Generate(GameState gs, double pers, double freq, double amp,
                                 int octaves, long seed, int width, int height, double lacunarity = 2.0f);
@@ -9,6 +11,11 @@ public interface INoiseService : IService
 
 public class NoiseService : INoiseService
 {
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
+
     public float[,] Generate(GameState gs, double pers, double freq, double amp,
                                 int octaves, long seed, int width, int height, double lacunarity = 2.0f)
     {

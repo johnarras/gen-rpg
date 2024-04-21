@@ -38,7 +38,7 @@ public class TreeObjectLoader : BaseObjectLoader
 
         string assetCategory = AssetCategoryNames.Trees;
 
-        treeType = gs.data.Get<TreeTypeSettings>(gs.ch).Get(objectId);
+        treeType = _gameData.Get<TreeTypeSettings>(gs.ch).Get(objectId);
 
         if (treeType == null)
         {
@@ -79,7 +79,7 @@ public class TreeObjectLoader : BaseObjectLoader
                     {
                         long treeTypeId = okTreeIds[(loadData.gx * 191 + loadData.gy * 2189 + x * 108061 + y * 857) % okTreeIds.Count];
 
-                        TreeType treeType2 = gs.data.Get<TreeTypeSettings>(gs.ch).Get(treeTypeId);
+                        TreeType treeType2 = _gameData.Get<TreeTypeSettings>(gs.ch).Get(treeTypeId);
 
                         if (treeType2 != null)
                         {
@@ -351,8 +351,8 @@ public class TreeObjectLoader : BaseObjectLoader
         gs.md.zoneTreeIds = new Dictionary<long, List<long>>();
         gs.md.zoneBushIds = new Dictionary<long, List<long>>();
 
-        TreeTypeSettings treeSettings = gs.data.Get<TreeTypeSettings>(gs.ch);
-        foreach (IGameSettings settings in gs.data.Get<ZoneTypeSettings>(gs.ch).GetChildren())
+        TreeTypeSettings treeSettings = _gameData.Get<TreeTypeSettings>(gs.ch);
+        foreach (IGameSettings settings in _gameData.Get<ZoneTypeSettings>(gs.ch).GetChildren())
         {
             if (settings is ZoneType zoneType)
             {

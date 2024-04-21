@@ -38,10 +38,10 @@ namespace Assets.Scripts.UI.Stores
             _theme = theme;
             _token = token;
 
-            _uiService.SetText(Name, product.Product.Name);
-            _uiService.SetText(PriceAmount, "$" + product.Sku.DollarPrice);
-            _uiService.SetText(Description, product.Product.Desc);
-            _uiService.SetButton(PurchaseButton, screenName, OnPurchaseItem);
+            _uIInitializable.SetText(Name, product.Product.Name);
+            _uIInitializable.SetText(PriceAmount, "$" + product.Sku.DollarPrice);
+            _uIInitializable.SetText(Description, product.Product.Desc);
+            _uIInitializable.SetButton(PurchaseButton, screenName, OnPurchaseItem);
 
             if (RewardAnchor != null)
             {

@@ -32,6 +32,7 @@ using Genrpg.Editor.Services.Reflection;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.GameSettings;
 
 namespace GameEditor
 {
@@ -78,6 +79,7 @@ namespace GameEditor
         protected IGameDataService _gameDataService;
         protected IRepositoryService _repoService;
         protected ILogService _logService;
+        protected IGameData _gameData;
 
         protected bool IsIgnoreField(String nm)
         {
@@ -214,6 +216,8 @@ namespace GameEditor
             MarkSelectedRows();
         }
 
+        private bool _markedZeroIdKey = false;
+        private bool _markedOtherItem = false;
         private void MarkSelectedRows()
         {
             DataGridViewSelectedRowCollection rows = _multiGrid.SelectedRows;
@@ -226,7 +230,21 @@ namespace GameEditor
             DataGridViewRow row = rows[0];
             object item = row.DataBoundItem;
 
-            if (!_gs.LookedAtObjects.Contains(item))
+            bool okToAddItem = false;
+            if (item is IId idItem && idItem.IdKey == 0)
+            {
+                if (_markedOtherItem)
+                {
+                    okToAddItem = true;
+                }
+            }
+            else
+            {
+                _markedOtherItem = true;
+                okToAddItem = true;
+            }
+    
+            if (okToAddItem && !_gs.LookedAtObjects.Contains(item))
             {
                 _gs.LookedAtObjects.Add(item);
             }
@@ -848,7 +866,7 @@ namespace GameEditor
                         _gs.LookedAtObjects.Add(obj);
                         if (obj is ITopLevelSettings settings)
                         {
-                            _gs.data.Set(settings);
+                            _gameData.Set(settings);
                         }
                     }
                     UserControlFactory ucf = new UserControlFactory();
@@ -1121,7 +1139,7 @@ namespace GameEditor
                     objType = objType.GetGenericArguments()[0];
                 }
 
-                string txt = objType.Name.Replace("Settings", "");
+                string txt = objType.Name;
                 int maxSize = 18;
                 if (txt.Length > maxSize)
                 {
@@ -1309,7 +1327,7 @@ namespace GameEditor
                     _gs.LookedAtObjects.Add(newItem);
                     if (newItem is ITopLevelSettings settings)
                     {
-                        _gs.data.Set(settings);
+                        _gameData.Set(settings);
                         _gs.LookedAtObjects.AddRange(settings.GetChildren());
                         addedGameSettings = true;
                         oneNewItem = newItem;
@@ -1333,7 +1351,7 @@ namespace GameEditor
 
             if (addedGameSettings)
             {
-                _gs.data.ClearIndex();
+                _gameData.ClearIndex();
             }
 
             SetSelectedRow(_multiGrid, oldSelectedRow);
@@ -1373,7 +1391,7 @@ namespace GameEditor
                     _gs.LookedAtObjects.Remove(child);
                 }
 
-                _gs.data.ClearIndex();
+                _gameData.ClearIndex();
 
             }
 

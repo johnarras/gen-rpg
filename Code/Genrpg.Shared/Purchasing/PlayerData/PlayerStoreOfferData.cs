@@ -44,7 +44,7 @@ namespace Genrpg.Shared.Purchasing.PlayerData
 
 
     [MessagePackObject]
-    public class PlayerStoreOfferData : BasePlayerData
+    public class PlayerStoreOfferData : NoChildPlayerData
     {
         [Key(0)] public override string Id { get; set; }
 

@@ -135,7 +135,7 @@ public class FloatingTextScreen : BaseScreen
             GEntityUtils.Destroy(go);
             return;
         }
-        _uiService.SetText(ft.TextString, txt);
+        _uIInitializable.SetText(ft.TextString, txt);
         if (_currentItems == null)
         {
             _currentItems = new List<FloatingTextItem>();

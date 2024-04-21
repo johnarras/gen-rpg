@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.Accounts.Services
 {
-    public interface IAccountService : IService
+    public interface IAccountService : IInitializable
     {
         Task<Account> LoadBy(IServerConfig config, string type, string id);
         Task<bool> SaveAccount(IServerConfig config, Account acct);

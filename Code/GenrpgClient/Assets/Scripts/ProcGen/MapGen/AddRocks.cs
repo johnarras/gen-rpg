@@ -42,7 +42,7 @@ public class AddRocks : BaseZoneGenerator
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
@@ -82,7 +82,7 @@ public class AddRocks : BaseZoneGenerator
                 continue;
             }
 
-            RockType rt = gs.data.Get<RockTypeSettings>(gs.ch).Get(zrt.RockTypeId);
+            RockType rt = _gameData.Get<RockTypeSettings>(gs.ch).Get(zrt.RockTypeId);
             if (rt == null)
             {
                 continue;
@@ -276,7 +276,7 @@ public class AddRocks : BaseZoneGenerator
 
                         float currMaxOffset = MathUtils.FloatRange(1.1f, 2.1f, rand);
                         float currMinOffset = currMaxOffset / 2;
-                        nearbyHelper.AddItemsNear(gs, _terrainManager, rand, zoneType, zone, x, y, 0.9f, nearbyItemsCount, currMinOffset, currMaxOffset);
+                        nearbyHelper.AddItemsNear(gs, _gameData, _terrainManager, rand, zoneType, zone, x, y, 0.9f, nearbyItemsCount, currMinOffset, currMaxOffset);
                     }
                 }
 

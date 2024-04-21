@@ -19,7 +19,7 @@ using Genrpg.Shared.Logging.Interfaces;
 namespace Genrpg.Shared.Pathfinding.Services
 {
 
-    public interface IPathfindingService : ISetupService
+    public interface IPathfindingService : IInitializable
     {
         Task LoadPathfinding(GameState gs, string urlPrefix);
         bool[,] ConvertBytesToGrid(GameState gs, byte[] bytes);
@@ -36,7 +36,7 @@ namespace Genrpg.Shared.Pathfinding.Services
         ConcurrentBag<PathWorkbook>[] _workbookCache = null;
         private ILogService _logService = null;
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             _workbookCache = new ConcurrentBag<PathWorkbook>[WorkbookCacheCount];
             for (int  i = 0; i < WorkbookCacheCount; i++)

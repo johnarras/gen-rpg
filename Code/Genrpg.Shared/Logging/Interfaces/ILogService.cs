@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Genrpg.Shared.Logging.Interfaces
 {
-    public interface ILogService : IPrioritySetupService
+    public interface ILogService : IPriorityInitializable
     {
         void Message(string txt);
         void Info(string txt);

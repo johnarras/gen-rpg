@@ -18,12 +18,20 @@ using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.ProcGen.Settings.Names;
 using System.DirectoryServices;
 using Genrpg.Shared.GameSettings.Utils;
+using System.Threading.Tasks;
+using System.Threading;
+using Genrpg.Editor.Entities.Core;
 
 namespace Genrpg.Editor.Services.Reflection
 {
 
     public class EditorReflectionService : IEditorReflectionService
     {
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
+
         public bool MemberIsMultiType(MemberInfo mem)
         {
             return IsMultiType(GetMemberType(mem));
@@ -710,7 +718,7 @@ namespace Genrpg.Editor.Services.Reflection
 
         }
 
-        public void ReplaceIndexedItems(GameState gs, object list, List<IIdName> newList)
+        public void ReplaceIndexedItems(EditorGameState gs, object list, List<IIdName> newList)
         {
             if (list == null || newList == null)
             {
@@ -940,7 +948,7 @@ namespace Genrpg.Editor.Services.Reflection
             return list;
         }
         public IDictionary<long, IEntityHelper> _entityDict = null;
-        public string GetDataTableName(GameState gs, object obj)
+        public string GetDataTableName(EditorGameState gs, object obj)
         {
             if (gs.data == null || obj == null || string.IsNullOrEmpty(obj.ToString()))
             {
@@ -1101,7 +1109,7 @@ namespace Genrpg.Editor.Services.Reflection
             return EntityUtils.GetObjId(obj, IdName);
         }
 
-        public List<NameValue> CreateDataList(GameState gs, string listName)
+        public List<NameValue> CreateDataList(EditorGameState gs, string listName)
         {
             List<NameValue> list = new List<NameValue>();
             if (gs.data == null || string.IsNullOrEmpty(listName))
@@ -1126,7 +1134,7 @@ namespace Genrpg.Editor.Services.Reflection
             return list;
         }
 
-        public List<NameValue> CreateDataList(GameState gs, object prop)
+        public List<NameValue> CreateDataList(EditorGameState gs, object prop)
         {
             List<NameValue> list = new List<NameValue>();
 
@@ -1222,7 +1230,7 @@ namespace Genrpg.Editor.Services.Reflection
             return list;
         }
 
-        public string GetOnClickDropdownName(GameState gs, object obj, MemberInfo mem)
+        public string GetOnClickDropdownName(EditorGameState gs, object obj, MemberInfo mem)
         {
             if (obj == null || mem == null)
             {
@@ -1250,7 +1258,7 @@ namespace Genrpg.Editor.Services.Reflection
         // Get the list used int the game object to that's put into this member
         // at this time. It's either of the form XYZFooId for an item of type Foo,
         // or it's XYZEntityId where XYZEntityTypeId is of type EntityTypes.Foo.
-        protected string GetListName(GameState gs, object obj, MemberInfo mem)
+        protected string GetListName(EditorGameState gs, object obj, MemberInfo mem)
         {
             if (gs.data == null || obj == null || mem == null || string.IsNullOrEmpty(mem.Name))
             {
@@ -1305,7 +1313,7 @@ namespace Genrpg.Editor.Services.Reflection
             return "";
         }
 
-        public List<NameValue> GetDropdownList(GameState gs, MemberInfo mem, object obj)
+        public List<NameValue> GetDropdownList(EditorGameState gs, MemberInfo mem, object obj)
         {
             if (gs.data == null || mem == null)
             {
@@ -1339,7 +1347,7 @@ namespace Genrpg.Editor.Services.Reflection
             return GetEntityTypeDropdownList(gs, mem);
         }
 
-        protected List<NameValue> GetMapDropdownList(GameState gs, MemberInfo mem)
+        protected List<NameValue> GetMapDropdownList(EditorGameState gs, MemberInfo mem)
         {
 
             if (gs.map == null)
@@ -1359,7 +1367,7 @@ namespace Genrpg.Editor.Services.Reflection
         }
 
 
-        protected List<NameValue> GetEntityIdDropdownList(GameState gs, MemberInfo mem, object obj)
+        protected List<NameValue> GetEntityIdDropdownList(EditorGameState gs, MemberInfo mem, object obj)
         {
             if (obj == null || mem == null)
             {
@@ -1411,7 +1419,7 @@ namespace Genrpg.Editor.Services.Reflection
 
         // This adds an entity list dropdown for things that are named XXXId where XXXs is something in the game data.
 
-        protected List<NameValue> GetEntityTypeDropdownList(GameState gs, MemberInfo mem)
+        protected List<NameValue> GetEntityTypeDropdownList(EditorGameState gs, MemberInfo mem)
         {
             List<NameValue> badList = new List<NameValue>();
             if (gs.data == null || mem == null)
@@ -1664,7 +1672,7 @@ namespace Genrpg.Editor.Services.Reflection
 
         }
 
-        public virtual Dictionary<Type, object> SetupTypedDictionary(GameState gs, Type genericInterfaceType, List<string> extraAssemblies = null)
+        public virtual Dictionary<Type, object> SetupTypedDictionary(EditorGameState gs, Type genericInterfaceType, List<string> extraAssemblies = null)
         {
             Dictionary<Type, object> dict = new Dictionary<Type, object>();
 

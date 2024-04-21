@@ -41,11 +41,11 @@ public class VendorItemIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandle
         };
      
 
-        _uiService.SetText(ItemName, ItemUtils.GetName(_gs, _gs.ch, data.Data));
-        _uiService.SetText(ItemInfo, ItemUtils.GetBasicInfo(_gs, _gs.ch, data.Data));
+        _uIInitializable.SetText(ItemName, ItemUtils.GetName(_gameData, _gs.ch, data.Data));
+        _uIInitializable.SetText(ItemInfo, ItemUtils.GetBasicInfo(_gameData, _gs.ch, data.Data));
 
-        _price = (isVendorItem ? ItemUtils.GetBuyFromVendorPrice(_gs, _gs.ch, data.Data)
-            : ItemUtils.GetSellToVendorPrice(_gs, _gs.ch, data.Data));
+        _price = (isVendorItem ? ItemUtils.GetBuyFromVendorPrice(_gameData, _gs.ch, data.Data)
+            : ItemUtils.GetSellToVendorPrice(_gameData, _gs.ch, data.Data));
 
         if (_moneyDisplay != null)
         {

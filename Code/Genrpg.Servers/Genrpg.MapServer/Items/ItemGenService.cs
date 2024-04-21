@@ -21,9 +21,12 @@ using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
+using Genrpg.Shared.GameSettings;
 namespace Genrpg.MapServer.Items
 {
-    public interface IItemGenService : IService
+    public interface IItemGenService : IInitializable
     {
         Item Generate(GameState gs, ItemGenData genData);
         Item CreateSimpleItem(GameState gs, ItemGenData gd);
@@ -36,6 +39,12 @@ namespace Genrpg.MapServer.Items
     {
         private INameGenService _nameGenService = null;
         private IStatService _statService = null;
+        private IGameData _gameData;
+
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
 
         // ACtually generate an item from either an old item or an itemTypeId.
         public virtual Item Generate(GameState gs, ItemGenData genData)
@@ -65,7 +74,7 @@ namespace Genrpg.MapServer.Items
 
             if (genData.ItemTypeId < 1)
             {
-                List<RecipeType> recipes = gs.data.Get<RecipeSettings>(null).GetData().Where(x => x.CrafterTypeId < 1).ToList();
+                List<RecipeType> recipes = _gameData.Get<RecipeSettings>(null).GetData().Where(x => x.CrafterTypeId < 1).ToList();
                 if (recipes.Count < 1)
                 {
                     return null;
@@ -77,7 +86,7 @@ namespace Genrpg.MapServer.Items
 
 
 
-            ItemType itype = gs.data.Get<ItemTypeSettings>(null).Get(genData.ItemTypeId);
+            ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(genData.ItemTypeId);
             if (itype == null)
             {
                 return null;
@@ -95,7 +104,7 @@ namespace Genrpg.MapServer.Items
 
         public Item CreateSimpleItem(GameState gs, ItemGenData gd)
         {
-            ItemType itype = gs.data.Get<ItemTypeSettings>(null).Get(gd.ItemTypeId);
+            ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(gd.ItemTypeId);
             if (itype == null)
             {
                 return null;
@@ -131,7 +140,7 @@ namespace Genrpg.MapServer.Items
 
         public Item GenerateLevelRangeItem(GameState gs, ItemGenData gd)
         {
-            ItemType itype = gs.data.Get<ItemTypeSettings>(null).Get(gd.ItemTypeId);
+            ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(gd.ItemTypeId);
             if (itype == null)
             {
                 return null;
@@ -170,31 +179,31 @@ namespace Genrpg.MapServer.Items
             // Adj can also be a DoubleWord
             // Noun can also be a "the DoubleWord".
 
-            NameList adjList = gs.data.Get<NameSettings>(null).GetNameList("ItemAdjectives");
-            NameList nounList = gs.data.Get<NameSettings>(null).GetNameList("ItemNouns");
+            NameList adjList = _gameData.Get<NameSettings>(null).GetNameList("ItemAdjectives");
+            NameList nounList = _gameData.Get<NameSettings>(null).GetNameList("ItemNouns");
 
-            NameList doublePrefixList = gs.data.Get<NameSettings>(null).GetNameList("ItemDoublePrefix");
-            NameList doubleSuffixList = gs.data.Get<NameSettings>(null).GetNameList("ItemDoubleSuffix");
+            NameList doublePrefixList = _gameData.Get<NameSettings>(null).GetNameList("ItemDoublePrefix");
+            NameList doubleSuffixList = _gameData.Get<NameSettings>(null).GetNameList("ItemDoubleSuffix");
 
-            NameList badItemList = gs.data.Get<NameSettings>(null).GetNameList("ItemBadPrefix");
+            NameList badItemList = _gameData.Get<NameSettings>(null).GetNameList("ItemBadPrefix");
 
             List<WeightedName> itemNameList = null;
 
-            ItemType itype = gs.data.Get<ItemTypeSettings>(null).Get(itemTypeId);
+            ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(itemTypeId);
             if (itype == null)
             {
                 return badName;
             }
             badName = itype.Name;
 
-            EquipSlot equipSlot = gs.data.Get<EquipSlotSettings>(null).Get(itype.EquipSlotId);
+            EquipSlot equipSlot = _gameData.Get<EquipSlotSettings>(null).Get(itype.EquipSlotId);
 
             if (equipSlot == null)
             {
                 return badName;
             }
 
-            ItemType itemType = gs.data.Get<ItemTypeSettings>(null).Get(itemTypeId);
+            ItemType itemType = _gameData.Get<ItemTypeSettings>(null).Get(itemTypeId);
 
             if (itemType != null && itemType.Names != null)
             {
@@ -230,7 +239,7 @@ namespace Genrpg.MapServer.Items
                 FullReagent nameReagent = reagents[gs.rand.Next() % reagents.Count];
                 if (nameReagent != null)
                 {
-                    ItemType reagentItemType = gs.data.Get<ItemTypeSettings>(null).Get(nameReagent.ItemTypeId);
+                    ItemType reagentItemType = _gameData.Get<ItemTypeSettings>(null).Get(nameReagent.ItemTypeId);
                     if (reagentItemType != null && !string.IsNullOrEmpty(reagentItemType.Name))
                     {
                         if (gs.rand.Next() % 3 == 0)
@@ -329,7 +338,7 @@ namespace Genrpg.MapServer.Items
 
         public Item GenerateEquipment(GameState gs, ItemGenData genData)
         {
-            ItemType itype = gs.data.Get<ItemTypeSettings>(null).Get(genData.ItemTypeId);
+            ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(genData.ItemTypeId);
             if (itype == null)
             {
                 return null;
@@ -339,28 +348,21 @@ namespace Genrpg.MapServer.Items
                 return null;
             }
 
-            QualityType qualityType = gs.data.Get<QualityTypeSettings>(null).Get(genData.QualityTypeId);
+            QualityType qualityType = _gameData.Get<QualityTypeSettings>(null).Get(genData.QualityTypeId);
             if (qualityType == null)
             {
                 return null;
             }
 
-            RecipeType rtype = gs.data.Get<RecipeSettings>(null).GetData().FirstOrDefault(x => x.EntityTypeId == EntityTypes.Item && x.EntityId == genData.ItemTypeId);
+            RecipeType recipeType = _gameData.Get<RecipeSettings>(null).GetData().FirstOrDefault(x => x.EntityTypeId == EntityTypes.Item && x.EntityId == genData.ItemTypeId);
 
-            if (rtype.CrafterTypeId > 0)
+            if (recipeType.CrafterTypeId > 0)
             {
                 return null;
             }
 
-            IReadOnlyList<ScalingType> scalingTypes = gs.data.Get<ScalingTypeSettings>(null).GetData();
+            IReadOnlyList<ScalingType> scalingTypes = _gameData.Get<ScalingTypeSettings>(null).GetData();
             if (scalingTypes.Count < 1)
-            {
-                return null;
-            }
-
-
-            EquipSlot eqSlot = gs.data.Get<EquipSlotSettings>(null).Get(itype.EquipSlotId);
-            if (eqSlot == null)
             {
                 return null;
             }
@@ -377,7 +379,6 @@ namespace Genrpg.MapServer.Items
 
             // Base stat applied.
             StatType coreStat = primaryStats[gs.rand.Next() % primaryStats.Count];
-
 
             Dictionary<long, long> statTotals = new Dictionary<long, long>();
 
@@ -399,9 +400,8 @@ namespace Genrpg.MapServer.Items
             {
                 long numExtraEffects = genData.QualityTypeId / 2;
 
-
-                int sameStatPct = gs.data.Get<ItemTypeSettings>(null).GenSameStatPercent;
-                int sameStatBonus = gs.data.Get<ItemTypeSettings>(null).GenSameStatBonusPct;
+                int sameStatPct = _gameData.Get<ItemTypeSettings>(null).GenSameStatPercent;
+                int sameStatBonus = _gameData.Get<ItemTypeSettings>(null).GenSameStatBonusPct;
 
                 int numBaseScale = 0;
                 int numNewEffects = 0;
@@ -444,21 +444,20 @@ namespace Genrpg.MapServer.Items
             }
 
             long baseStat = 10;
-            LevelInfo levelData = gs.data.Get<LevelSettings>(null).Get(genData.Level);
+            LevelInfo levelData = _gameData.Get<LevelSettings>(null).Get(genData.Level);
             if (levelData != null)
             {
                 baseStat = levelData.StatAmount;
             }
 
             int qualityPct = qualityType.ItemStatPct;
-            int eqSlotPct = eqSlot.StatPercent;
+            int scalingPct = recipeType.ScalingPct;
 
-            int globalPct = gs.data.Get<ItemTypeSettings>(null).GenGlobalScalingPercent;
+            int globalPct = _gameData.Get<ItemTypeSettings>(null).GenGlobalScalingPercent;
             if (globalPct < 5)
             {
                 globalPct = 5;
             }
-
 
             List<ItemEffect> effs = new List<ItemEffect>();
 
@@ -470,7 +469,7 @@ namespace Genrpg.MapServer.Items
                     continue;
                 }
 
-                StatType stype = gs.data.Get<StatSettings>(null).Get(key);
+                StatType stype = _gameData.Get<StatSettings>(null).Get(key);
 
                 if (stype == null)
                 {
@@ -479,7 +478,7 @@ namespace Genrpg.MapServer.Items
 
                 // Scaling factor ends up being baseStat*equipSlotPct*qualityPct*globalPct
 
-                long finalVal = baseStat * qualityPct * globalPct * eqSlot.StatPercent * val * stype.GenScalePct / (100L * 100 * 100 * 100 * 100L);
+                long finalVal = baseStat * qualityPct * globalPct * scalingPct * val * stype.GenScalePct / (100L * 100 * 100 * 100 * 100L);
                 if (finalVal == 0)
                 {
                     finalVal = 1;
@@ -526,7 +525,7 @@ namespace Genrpg.MapServer.Items
 
         public long ChooseItemQuality(GameState gs, ItemGenData genData)
         {
-            if (gs.data.Get<QualityTypeSettings>(null).GetData() == null)
+            if (_gameData.Get<QualityTypeSettings>(null).GetData() == null)
             {
                 return QualityTypes.Common;
             }
@@ -534,7 +533,7 @@ namespace Genrpg.MapServer.Items
             double chanceTotal = 0.0f;
 
             // Look at all qualitites of the appropriate level that are >= quality to genData.QualityTypeId.
-            foreach (QualityType qt in gs.data.Get<QualityTypeSettings>(null).GetData())
+            foreach (QualityType qt in _gameData.Get<QualityTypeSettings>(null).GetData())
             {
                 if (qt.ItemMinLevel <= genData.Level && qt.IdKey >= genData.QualityTypeId)
                 {
@@ -547,7 +546,7 @@ namespace Genrpg.MapServer.Items
             {
                 double chanceChosen = gs.rand.NextDouble() * chanceTotal;
 
-                foreach (QualityType qt in gs.data.Get<QualityTypeSettings>(null).GetData())
+                foreach (QualityType qt in _gameData.Get<QualityTypeSettings>(null).GetData())
                 {
                     if (qt.ItemMinLevel <= genData.Level && qt.IdKey >= genData.QualityTypeId)
                     {

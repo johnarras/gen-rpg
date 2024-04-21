@@ -12,6 +12,7 @@ using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.UnitEffects.Constants;
@@ -30,8 +31,9 @@ namespace Assets.Scripts.Crawler.Services.Combat
     {
         private ICrawlerStatService _statService;
         private ICrawlerSpellService _spellService;
+        protected IGameData _gameData;
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -51,7 +53,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
             {
                 foreach (PartySummon summon in member.Summons)
                 {
-                    UnitType unitType = gs.data.Get<UnitSettings>(null).Get(summon.UnitTypeId);
+                    UnitType unitType = _gameData.Get<UnitSettings>(null).Get(summon.UnitTypeId);
 
                     if (unitType != null)
                     {
@@ -69,7 +71,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 partyGroup.Units.Add(member);           
             }
 
-            IReadOnlyList<UnitType> allUnitTypes = gs.data.Get<UnitSettings>(null).GetData();
+            IReadOnlyList<UnitType> allUnitTypes = _gameData.Get<UnitSettings>(null).GetData();
 
 
             int groupCount = CrawlerCombatConstants.MaxStartCombatGroups;
@@ -139,7 +141,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 return;
             }
 
-            CrawlerCombatSettings combatSettings = gs.data.Get<CrawlerCombatSettings>(null);
+            CrawlerCombatSettings combatSettings = _gameData.Get<CrawlerCombatSettings>(null);
 
             List<CombatGroup> groups = (factionTypeId == FactionTypes.Player ? partyData.Combat.Allies : partyData.Combat.Enemies);
 
@@ -323,7 +325,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
             {
                 return false;
             }
-            List<CrawlerSpell> monsterSpells = gs.data.Get<CrawlerSpellSettings>(null).GetData().Where(x => x.HasFlag(CrawlerSpellFlags.MonsterOnly)).ToList();
+            List<CrawlerSpell> monsterSpells = _gameData.Get<CrawlerSpellSettings>(null).GetData().Where(x => x.HasFlag(CrawlerSpellFlags.MonsterOnly)).ToList();
 
 
             CombatState combat = party.Combat;
@@ -442,11 +444,11 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             if (combatAction.CombatActionId == CombatActions.Attack)
             {
-                combatAction.Spell = gs.data.Get<CrawlerSpellSettings>(null).Get(CrawlerSpells.AttackId);
+                combatAction.Spell = _gameData.Get<CrawlerSpellSettings>(null).Get(CrawlerSpells.AttackId);
             }
             else
             {
-                combatAction.Spell = gs.data.Get<CrawlerSpellSettings>(null).Get(CrawlerSpells.DefendId);
+                combatAction.Spell = _gameData.Get<CrawlerSpellSettings>(null).Get(CrawlerSpells.DefendId);
             }
 
             if (!unit.IsPlayer() && monsterSpells.Count > 0 && gs.rand.NextDouble() < 0.05f)
@@ -566,7 +568,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             if (currAction == null)
             {
-                CombatAction combatAction = gs.data.Get<CombatActionSettings>(null).Get(newAction.CombatActionId);
+                CombatAction combatAction = _gameData.Get<CombatActionSettings>(null).Get(newAction.CombatActionId);
                 newAction.Text = combatAction.Name;
                 if (combatAction.Name != spell.Name)
                 {

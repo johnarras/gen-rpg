@@ -16,7 +16,7 @@ namespace Genrpg.MapServer.MapMods.Services
     public class MapModService : IMapModService
     {
         private Dictionary<long, IMapModEffectHelper> _effectHelpers = null;
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             _effectHelpers = ReflectionUtils.SetupDictionary<long, IMapModEffectHelper>(gs);
         }

@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 17,
   "Name": "Ranged",
-  "StatPercent": 125,
   "Active": true,
   "UpdateTime": "2024-02-25T15:46:41.833Z",
   "CreateTime": "2023-11-24T16:45:27.114Z"

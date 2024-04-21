@@ -28,7 +28,7 @@ namespace Assets.Scripts.UI.Crawler.States
 
             PartyMember member = action.ExtraData as PartyMember;
 
-            IReadOnlyList<Class> classes = gs.data.Get<ClassSettings>(null).GetData();
+            IReadOnlyList<Class> classes = _gameData.Get<ClassSettings>(null).GetData();
 
             foreach (Class cl in classes)
             {

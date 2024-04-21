@@ -6,24 +6,18 @@ using System.Threading;
 namespace Genrpg.Shared.Interfaces
 {
 
-    /// <summary>
-    /// This is used to mark everything that is considered a service
-    /// This will be used to turn setup into a 2 step process where all
-    /// services are put into a service loc and then for each service,
-    /// all other serviecs needed will be looked up at startup and
-    /// then used from then on instead of using the loc
-    /// </summary>
-    public interface IService
+    public interface IInjectable
     {
+
     }
 
     // Used for services that need to have a "setup" function run at startup.
-    public interface ISetupService : IService
+    public interface IInitializable : IInjectable
     {
-        Task Setup(GameState gs, CancellationToken token);
+        Task Initialize(GameState gs, CancellationToken token);
     }
 
-    public interface IPrioritySetupService : IService
+    public interface IPriorityInitializable : IInitializable
     {
         int SetupPriorityAscending();
         Task PrioritySetup(GameState gs, CancellationToken token);

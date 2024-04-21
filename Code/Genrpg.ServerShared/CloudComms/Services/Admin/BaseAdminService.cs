@@ -2,16 +2,25 @@
 using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.GameSettings.Services;
+using Genrpg.Shared.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.CloudComms.Services.Admin
 {
     public class BaseAdminService : IAdminService
     {
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
+
         protected IGameDataService _gameDataService = null;
         protected IServerConfig _config = null;
 

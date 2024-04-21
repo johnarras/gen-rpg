@@ -12,13 +12,14 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.PlayerData
 {
-    public interface IPlayerDataService : ISetupService
+    public interface IPlayerDataService : IInitializable
     {
         void SavePlayerData(Character ch, IRepositoryService repoSystem, bool saveClean);
         Task<List<IUnitData>> MapToClientApi(List<IUnitData> serverDataList);
-        Task<List<IUnitData>> LoadPlayerData(ServerGameState gs, Character ch);
+        Task<List<IUnitData>> LoadAllPlayerData(ServerGameState gs, Character ch);
         Task<List<CharacterStub>> LoadCharacterStubs(ServerGameState gs, string userId);
         Dictionary<Type, IUnitDataLoader> GetLoaders();
         IUnitDataLoader GetLoader<T>() where T : IUnitData;
+        
     }
 }

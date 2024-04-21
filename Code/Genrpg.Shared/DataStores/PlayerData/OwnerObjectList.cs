@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.DataStores.PlayerData
 {
-    public abstract class OwnerObjectList<TChild> : BasePlayerData, IUnitData where TChild : OwnerPlayerData
+    public abstract class OwnerObjectList<TChild> : BasePlayerData, ITopLevelUnitData where TChild : OwnerPlayerData
     {
         public abstract void SetData(List<TChild> data);
         public abstract List<TChild> GetData();

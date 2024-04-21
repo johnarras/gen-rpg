@@ -1,13 +1,16 @@
 ﻿
 using Genrpg.Shared.Configs.Interfaces;
+using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Genrpg.ServerShared.Config
 {
 
-    public interface IServerConfig : IService, IConnectionConfig
+    public interface IServerConfig : IInitializable, IConnectionConfig
     {
 
         string Env { get; set; }
@@ -28,6 +31,13 @@ namespace Genrpg.ServerShared.Config
 
     public class ServerConfig : IServerConfig
     {
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
+
         public string Env { get; set; }
 
         public Dictionary<string, string> DataEnvs { get; set; } = new Dictionary<string, string>();

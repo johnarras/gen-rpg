@@ -30,11 +30,12 @@ using Genrpg.Shared.Spawns.WorldData;
 using MongoDB.Bson.IO;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.MapServer.Maps
 {
 
-    public interface IMapObjectManager : ISetupService, IMessageTarget
+    public interface IMapObjectManager : IInitializable, IMessageTarget
     {
         MapObjectCounts GetCounts();
         void Init(GameState gs, CancellationToken token);
@@ -94,6 +95,7 @@ namespace Genrpg.MapServer.Maps
 
         private IMapMessageService _messageService = null;
         private ILogService _logService = null;
+        private IGameData _gameData;
 
         private MapObject _messageTarget = new MapObject() { Id = typeof(MapObjectManager).Name };
         public MapObject GetMessageTarget()
@@ -121,7 +123,7 @@ namespace Genrpg.MapServer.Maps
             };
             return counts;
         }
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             _factories = ReflectionUtils.SetupDictionary<long, IMapObjectFactory>(gs);
             foreach (IMapObjectFactory mapObjFact in _factories.Values)
@@ -594,7 +596,7 @@ namespace Genrpg.MapServer.Maps
 
             foreach (MapSpawn spawn in gs.spawns.Data)
             {
-                if (gs.rand.NextDouble() > gs.data.Get<SpawnSettings>(null).MapSpawnChance)
+                if (gs.rand.NextDouble() > _gameData.Get<SpawnSettings>(null).MapSpawnChance)
                 {
                     continue;
                 }
@@ -666,7 +668,7 @@ namespace Genrpg.MapServer.Maps
             {
                 AIUpdate update = new AIUpdate();
 
-                _messageService.SendMessage(unit, update, MathUtils.FloatRange(0, gs.data.Get<AISettings>(obj).UpdateSeconds, gs.rand));
+                _messageService.SendMessage(unit, update, MathUtils.FloatRange(0, _gameData.Get<AISettings>(obj).UpdateSeconds, gs.rand));
             }
         }
 

@@ -94,7 +94,7 @@ namespace Genrpg.LoginServer.CommandHandlers
             gs.ch = new Character();
             CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 
-            List<IUnitData> serverDataList = await _playerDataService.LoadPlayerData(gs, gs.ch);
+            List<IUnitData> serverDataList = await _playerDataService.LoadAllPlayerData(gs, gs.ch);
 
             PlayerStoreOfferData offerData = await _purchasingService.GetCurrentStores(gs, gs.user, gs.ch, true);
 

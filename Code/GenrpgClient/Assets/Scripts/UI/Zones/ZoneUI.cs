@@ -11,13 +11,13 @@ public class ZoneUI : BaseBehaviour
     public void Init(CancellationToken token)
     {
         _token = token;
-        _gs.AddEvent<SetZoneNameEvent>(this, OnSetZoneName);
+        _dispatcher.AddEvent<SetZoneNameEvent>(this, OnSetZoneName);
         OnSetZoneName(_gs, null);
     }
 
     private SetZoneNameEvent OnSetZoneName(UnityGameState gs, SetZoneNameEvent data)
     {
-        GetCurrentZoneEvent sdata = gs.Dispatch(new GetCurrentZoneEvent());
+        GetCurrentZoneEvent sdata = _dispatcher.Dispatch(gs,new GetCurrentZoneEvent());
 
         if (sdata == null)
         {
@@ -32,7 +32,7 @@ public class ZoneUI : BaseBehaviour
 
         string txt = "Map " + gs.map.Id + ": " + zone.Name + " [#" + zone.IdKey + "] {Lev " + zone.Level + "}";
 
-        _uiService.SetText(LocationName, txt);
+        _uIInitializable.SetText(LocationName, txt);
         return null;
     }
 }

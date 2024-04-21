@@ -7,11 +7,9 @@
   "EntityTypeId": 2,
   "MinQuantity": 1,
   "MaxQuantity": 1,
-  "AttPct": 100,
-  "DefPct": 100,
-  "OtherPct": 100,
+  "ScalingPct": 100,
   "CrafterTypeId": 7,
-  "Reagents": [],
+  "ExplicitReagents": [],
   "UpdateTime": "2024-02-25T15:47:56.832Z",
   "CreateTime": "2024-02-15T23:06:19.739Z"
 }

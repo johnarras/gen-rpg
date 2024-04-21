@@ -34,6 +34,16 @@ public class DownloadFileData
 
 public class FileDownloadService : IFileDownloadService
 {
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        if (!AppUtils.IsPlaying)
+        {
+            return;
+        }
+
+        _binaryFileRepo = new BinaryFileRepository(_logService);
+        await Task.CompletedTask;
+    }
 
     private class InternalFileDownload
     {
@@ -68,16 +78,7 @@ public class FileDownloadService : IFileDownloadService
     private Dictionary<string, List<InternalFileDownload>> _downloading = new Dictionary<string, List<InternalFileDownload>>();
 
     protected HashSet<string> _failedDownloads = new HashSet<string>();
-    public async Task Setup (GameState gs, CancellationToken token)
-    {
-        if (!AppUtils.IsPlaying)
-        {
-            return;
-        }
-
-        _binaryFileRepo = new BinaryFileRepository(_logService);
-        await Task.CompletedTask;
-    } 
+   
     // If it's in the cache, return it.
     // If it's a failed download, return nothing.
     // If it's in downloading, add the handler to the queue.	

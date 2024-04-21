@@ -13,8 +13,8 @@ public class CharacterCreateScreen : BaseScreen
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
-        _uiService.SetButton(CreateButton, GetName(), ClickCreate);
-        _uiService.SetButton(BackButton, GetName(),ClickBack);
+        _uIInitializable.SetButton(CreateButton, GetName(), ClickCreate);
+        _uIInitializable.SetButton(BackButton, GetName(),ClickBack);
         await UniTask.CompletedTask;
     }
 

@@ -31,6 +31,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
         private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
         protected IRepositoryService _repoService = null;
+        private IGameData _gameData;
 
         private async Task SetupLoaders(GameState gs, IRepositoryService repoSystem, CancellationToken token)
         {
@@ -67,7 +68,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return _loaderObjects.Values.OrderBy(x=>x.GetType().Name).ToList();
         }
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await SetupLoaders(gs, _repoService, token);
         }
@@ -77,7 +78,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return new List<string>() { "_lookup", "DocVersion" };
         }
 
-        public virtual async Task<GameData> LoadGameData(ServerGameState gs, bool createMissingGameData)
+        public virtual async Task<IGameData> LoadGameData(ServerGameState gs, bool createMissingGameData)
         {
             GameData gameData = new GameData();
 
@@ -101,10 +102,12 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             gameData.CurrSaveTime = gameData.Get<VersionSettings>(null).GameDataSaveTime;
 
+            _gameData.CopyFrom(gameData);
+
             return gameData;
         }
 
-        public virtual async Task<bool> SaveGameData(GameData data, IRepositoryService repoSystem)
+        public virtual async Task<bool> SaveGameData(IGameData data, IRepositoryService repoSystem)
         {
             D tdata = data as D;
             if (tdata == null)
@@ -135,9 +138,9 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             GameDataOverrideList gameDataOverrideList = gameDataOverrideData.OverrideList;
 
-            VersionSettings versionSettings = gs.data.Get<VersionSettings>(ch);
+            VersionSettings versionSettings = _gameData.Get<VersionSettings>(ch);
 
-            DataOverrideSettings dataOverrideSettings = gs.data.Get<DataOverrideSettings>(null);
+            DataOverrideSettings dataOverrideSettings = _gameData.Get<DataOverrideSettings>(null);
 
             if (dataOverrideSettings.NextUpdateTime <= DateTime.UtcNow)
             {
@@ -174,6 +177,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                     {
                         if (string.IsNullOrEmpty(groupItem.SettingId) ||
                             string.IsNullOrEmpty(groupItem.DocId) ||
+                            !groupItem.Enabled ||
                             groupItem.DocId == GameDataConstants.DefaultFilename)
                         {
                             continue;
@@ -253,7 +257,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             List<ITopLevelSettings> retval = new List<ITopLevelSettings>();
             SetGameDataOverrides(gs, obj, true);
 
-            List<ITopLevelSettings> allData = gs.data.AllSettings();
+            List<ITopLevelSettings> allData = _gameData.AllSettings();
 
             foreach (Type t in _loaderObjects.Keys)
             {
@@ -268,7 +272,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
                 if (!sendAllDefault)
                 {
-                    docName = gs.data.DataObjectName(t.Name, obj);
+                    docName = _gameData.DataObjectName(t.Name, obj);
                     if (docName == GameDataConstants.DefaultFilename)
                     {
                         continue;
@@ -297,7 +301,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
         private bool AcceptedByFilter(Character ch, IPlayerFilter filter)
         {
-            if (!PlayerFilterTimeUtils.IsActive(filter))
+            if (!PlayerFilterUtils.IsActive(filter))
             {
                 return false;
             }
@@ -329,17 +333,9 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
         public async Task ReloadGameData(ServerGameState gs)
         {
-            if (gs.data == null)
-            {
-                gs.data = await LoadGameData(gs, true);
-            }
-            else
-            {
-                GameData newData = await LoadGameData(gs, true);
+            IGameData newData = await LoadGameData(gs, true);
 
-                newData.PrevSaveTime = gs.data.CurrSaveTime;
-                gs.data = newData;
-            }
+            newData.PrevSaveTime = _gameData.CurrSaveTime;
         }
 
         public RefreshGameSettingsResult GetNewGameDataUpdates(ServerGameState gs, Character ch, bool forceRefresh)
@@ -360,7 +356,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             GameDataOverrideList overrideList = ch.GetOverrideList();
 
-            List<ITopLevelSettings> allSettings = gs.data.AllSettings();
+            List<ITopLevelSettings> allSettings = _gameData.AllSettings();
 
             foreach (ITopLevelSettings settings in allSettings)
             {
@@ -369,7 +365,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 if (baseSettings.Id == GameDataConstants.DefaultFilename)
                 {
                     // If it's default data saved after the current save time, then send it to the client.
-                    if (baseSettings.UpdateTime >= gs.data.CurrSaveTime)
+                    if (baseSettings.UpdateTime >= _gameData.CurrSaveTime)
                     {
                         newSettings.Add(settings);
                     }
@@ -383,7 +379,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                     {
                         PlayerSettingsOverrideItem prevItem = oldPlayerOverrides.FirstOrDefault(x => x.SettingId == settings.GetType().Name);
 
-                        if (prevItem == null || baseSettings.UpdateTime >= gs.data.CurrSaveTime ||
+                        if (prevItem == null || baseSettings.UpdateTime >= _gameData.CurrSaveTime ||
                             prevItem.DocId != overrideItem.DocId)
                         {
                             newSettings.Add(settings);

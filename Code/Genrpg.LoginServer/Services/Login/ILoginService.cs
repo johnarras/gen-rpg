@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.Services.Login
 {
-    public interface ILoginService : IService
+    public interface ILoginService : IInitializable
     {
         Task<List<ILoginResult>> Login(LoginGameState gs, string postData, CancellationToken token);
     }

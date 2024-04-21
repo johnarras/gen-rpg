@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Services.Maps
 {
-    public interface IMapServerService : IService
+    public interface IMapServerService : IInitializable
     {
         Task Init(ServerGameState gs, InitMapServerData mapData, CancellationToken serverToken);
         IReadOnlyList<MapInstance> GetMapInstances();

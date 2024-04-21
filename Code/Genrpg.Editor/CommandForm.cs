@@ -25,6 +25,9 @@ using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Utils;
 using Microsoft.Extensions.Logging.Abstractions;
+using Genrpg.Shared.GameSettings;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
+using System.Diagnostics;
 
 namespace GameEditor
 {
@@ -36,6 +39,7 @@ namespace GameEditor
         private string _prefix;
         private MainForm _parentForm;
         private UIFormatter _formatter = null;
+        private IGameData _gameData;
 
         public CommandForm (string prefix, UIFormatter formatter, MainForm parentForm) 
         {
@@ -109,13 +113,92 @@ namespace GameEditor
                         buttonCount++;
                     }
                 }
+
             }
 
+
+            UIHelper.CreateButton(Controls,
+                EButtonTypes.Default,
+                _formatter,
+                "TestSharedRandom",
+                "Test Shared Random",
+                getButtonWidth(),
+                getButtonHeight(),
+                getLeftRightPadding() + column * (getButtonWidth() + column * getButtonGap()),
+                getTotalHeight(buttonCount),
+                OnClickSharedRandom);
+            buttonCount++;
 
 
             Size = new Size(2 * getLeftRightPadding() + 1 * (getButtonWidth() + getButtonGap() * 2), getTotalHeight(buttonCount) + getTopBottomPadding() + _topPadding);
 
             InitializeComponent();
+        }
+        
+        private void OnClickSharedRandom(object sender , EventArgs e)
+        {
+            TestSharedRandomAsync().Wait();
+        }
+
+        private async Task TestSharedRandomAsync()
+        {
+            int numTasks = 100;
+            int iterationCount = 100000;
+
+            DateTime startTime = DateTime.UtcNow;
+            List<Task> tasks = new List<Task>();
+            for (int i = 0; i < numTasks; i++)
+            {
+                tasks.Add(TestRegRandom(iterationCount));
+            }
+
+            await Task.WhenAll(tasks);
+
+            double randSeconds = (DateTime.UtcNow - startTime).TotalSeconds;
+
+            startTime = DateTime.UtcNow;
+
+            tasks.Clear();
+            for (int i = 0; i < numTasks; i++)
+            {
+                tasks.Add(TestSharedRandom(iterationCount));
+            }
+
+            await Task.WhenAll(tasks);
+
+            double sharedSeconds = (DateTime.UtcNow - startTime).TotalSeconds;
+
+            Trace.WriteLine("RandSeconds: " + randSeconds + " " + totalRandVal + " SharedSeconds: " + sharedSeconds + " " + totalSharedVal);
+           
+        }
+
+        private long totalRandVal = 0;
+        private long totalSharedVal = 0;
+        private async Task TestRegRandom(int iterations)
+        {
+            Random rand = new Random();
+            long val = 0;
+            for (int i = 0; i < iterations; i++)
+            {
+                val += rand.Next() + rand.Next() + rand.Next() + rand.Next() + rand.Next() +
+                   rand.Next() + rand.Next() + rand.Next() + rand.Next() + rand.Next();
+            }
+
+            totalRandVal += val;
+            await Task.CompletedTask;
+        }
+
+        private async Task TestSharedRandom(int iterations)
+        {
+            long val = 0;
+            for (int i = 0; i < iterations; i++)
+            {
+                val += Random.Shared.Next() + Random.Shared.Next() + Random.Shared.Next() + Random.Shared.Next() + Random.Shared.Next() +
+                    Random.Shared.Next() + Random.Shared.Next() + Random.Shared.Next() + Random.Shared.Next() + Random.Shared.Next();
+            }
+
+            totalSharedVal += val;
+            await Task.CompletedTask;
         }
 
         private int getButtonWidth() { return 150; }
@@ -254,14 +337,14 @@ namespace GameEditor
                     .AddDays(version.Build).AddSeconds(version.Revision * 2);
 
             IEditorReflectionService reflectionService = _gs.loc.Get<IEditorReflectionService>();
-            reflectionService.InitializeObjectData(_gs.data);
+            reflectionService.InitializeObjectData(_gameData);
 
             _gs.EditorGameData = new EditorGameData()
             {
-                GameData = _gs.data,
+                GameData = _gameData,
             };
 
-            List<ITopLevelSettings> allGameData = _gs.data.AllSettings();
+            List<ITopLevelSettings> allGameData = _gameData.AllSettings();
 
             List<IGrouping<Type,ITopLevelSettings>> groups = allGameData.GroupBy(x => x.GetType()).ToList();
 

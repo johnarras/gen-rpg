@@ -142,7 +142,7 @@ public class UnityAssetService : IAssetService
     { 
         return _worldDataEnv; 
     }
-    public async Task Setup(GameState gsIn, CancellationToken token)
+    public async Task Initialize(GameState gsIn, CancellationToken token)
     {
         if (!AppUtils.IsPlaying)
         {
@@ -230,31 +230,33 @@ public class UnityAssetService : IAssetService
             List<string> bundleCacheKeys = _bundleCache.Keys.ToList();
             foreach (string item in bundleCacheKeys)
             {
-                BundleCacheData bundle = _bundleCache[item];
-                if (bundle.LoadingCount < 1 &&
-                    bundle.assetBundle != null &&
-                    !bundle.KeepLoaded &&
-                    bundle.lastUsed < DateTime.UtcNow.AddSeconds(-20))
+                if (_bundleCache.TryGetValue(item, out BundleCacheData bundle))
                 {
-                    if (bundle.Instances.Any(x => x.Equals(null)))
+                    if (bundle.LoadingCount < 1 &&
+                        bundle.assetBundle != null &&
+                        !bundle.KeepLoaded &&
+                        bundle.lastUsed < DateTime.UtcNow.AddSeconds(-20))
                     {
-                        bundle.Instances = bundle.Instances.Where(x => !x.Equals(null)).ToList();
-                    }
-                    if (bundle.Instances.Count > 0)
-                    {
-                        continue;
-                    }
+                        if (bundle.Instances.Any(x => x.Equals(null)))
+                        {
+                            bundle.Instances = bundle.Instances.Where(x => !x.Equals(null)).ToList();
+                        }
+                        if (bundle.Instances.Count > 0)
+                        {
+                            continue;
+                        }
 
-                    bundle.assetBundle.Unload(true);
-                    _assetCounts.BundlesUnloaded++;
-                    GEntityUtils.Destroy(bundle.assetBundle);
-                    _bundleCache.Remove(item);
-                    removeCount++;
-                    if (removeCount > 5)
-                    {
-                        break;
+                        bundle.assetBundle.Unload(true);
+                        _assetCounts.BundlesUnloaded++;
+                        GEntityUtils.Destroy(bundle.assetBundle);
+                        _bundleCache.Remove(item);
+                        removeCount++;
+                        if (removeCount > 5)
+                        {
+                            break;
+                        }
+                        await UniTask.NextFrame(cancellationToken: token);
                     }
-                    await UniTask.NextFrame( cancellationToken: token);
                 }
             }
             if (removeCount > 0)

@@ -26,7 +26,7 @@ public class FenceObjectLoader : BaseObjectLoader
         angle = (4 * (angleData & (255)) - 360);
         hangle = ((4 * (angleData >> 8)) - 360);
 
-        FenceType fenceType = gs.data.Get<FenceTypeSettings>(gs.ch).Get((int)objectId);
+        FenceType fenceType = _gameData.Get<FenceTypeSettings>(gs.ch).Get((int)objectId);
         if (fenceType == null)
         {
             return false;

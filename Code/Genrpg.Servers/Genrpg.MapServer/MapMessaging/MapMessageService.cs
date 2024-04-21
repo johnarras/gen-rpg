@@ -49,7 +49,7 @@ namespace Genrpg.MapServer.MapMessaging
         private int[] _packagePoolCount; // Not quite perfect due to threading
         private ConcurrentBag<MapMessagePackage>[] _packagePool;
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             _eventHandlerDict = ReflectionUtils.SetupDictionary<Type, IMapMessageHandler>(gs);
 
@@ -109,7 +109,7 @@ namespace Genrpg.MapServer.MapMessaging
             _countTask = Task.Run(() => ShowMessageCounts(gs, token));
         }
 
-        public void UpdateGameData(GameData gameData)
+        public void UpdateGameData(IGameData gameData)
         {
             foreach (MapMessageQueue queue in _queues)
             {

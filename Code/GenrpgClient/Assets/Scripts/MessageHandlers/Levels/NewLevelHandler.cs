@@ -7,7 +7,7 @@ namespace Assets.Scripts.MessageHandlers.Levels
     {
         protected override void InnerProcess(UnityGameState gs, NewLevel msg, CancellationToken token)
         {
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs,msg);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Genrpg.Shared.Ftue.PlayerData
     /// </summary>
 
     [MessagePackObject]
-    public class FtueData : BasePlayerData
+    public class FtueData : NoChildPlayerData
     {
         [Key(0)] public override string Id { get; set; }
 

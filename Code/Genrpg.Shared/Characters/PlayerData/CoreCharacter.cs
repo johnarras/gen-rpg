@@ -10,7 +10,7 @@ using System.Text;
 namespace Genrpg.Shared.Characters.PlayerData
 {
     [MessagePackObject]
-    public class CoreCharacter : BasePlayerData, ICoreCharacter
+    public class CoreCharacter : NoChildPlayerData, ICoreCharacter
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public string Name { get; set; }

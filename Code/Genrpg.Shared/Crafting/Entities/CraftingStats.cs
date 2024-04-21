@@ -14,13 +14,13 @@ namespace Genrpg.Shared.Crafting.Entities
         [Key(4)] public long QualityTypeId { get; set; }
         [Key(5)] public long RecipeTypeId { get; set; }
         [Key(6)] public long ScalingTypeId { get; set; }
+        [Key(7)] public int ReagentQuantity { get; set; }
 
+        [Key(8)] public CraftingItemData Data { get; set; }
 
-        [Key(7)] public CraftingItemData Data { get; set; }
+        [Key(9)] public bool IsValid { get; set; }
 
-        [Key(8)] public bool IsValid { get; set; }
-
-        [Key(9)] public string Message { get; set; }
+        [Key(10)] public string Message { get; set; }
 
         public CraftingStats()
         {

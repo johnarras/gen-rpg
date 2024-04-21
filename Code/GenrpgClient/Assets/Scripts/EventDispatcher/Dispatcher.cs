@@ -1,20 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Cysharp.Threading.Tasks;
+using System.Threading;
+using System.Threading.Tasks;
+using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 
 // Should probably use 2 generic params, but that's more complicated for now.
 public delegate T GameAction<T>(UnityGameState gs, T t);
 
 
-public class Dispatcher
+public interface IDispatcher : IInitializable
 {
+    void AddEvent<T>(UnityEngine.MonoBehaviour monoBehaviour, GameAction<T> action) where T : class;
+    void RemoveEvent<T>(GameAction<T> action) where T : class;
+    T Dispatch<T>(UnityGameState gs, T actionParam) where T : class;
+
+}
+
+public class Dispatcher : IDispatcher
+{
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
+
     private Dictionary<Type, object> _dict = new Dictionary<Type, object>();
 
-
-    public void AddEvent<T>(GameAction<T> action) where T : class
+    public void AddEvent<T>(UnityEngine.MonoBehaviour monoBehaviour, GameAction<T> action) where T : class
     {
+        monoBehaviour.GetCancellationToken().Register(() => { RemoveEvent(action); });
         if (!_dict.ContainsKey(typeof(T)))
         {
             _dict[typeof(T)] = new List<GameAction<T>>();
@@ -40,7 +54,7 @@ public class Dispatcher
         }
     }
 
-    public T DispatchEvent<T>(UnityGameState gs, T actionParam) where T : class
+    public T Dispatch<T>(UnityGameState gs, T actionParam) where T : class
     {
         if (!_dict.ContainsKey(typeof(T)))
         {
@@ -61,11 +75,5 @@ public class Dispatcher
         }
 
         return retval;
-    }
-
-
-    public void Clear()
-    {
-        _dict = new Dictionary<Type, object>();
     }
 }

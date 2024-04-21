@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Genrpg.Shared.Charms.Services
 {
-    public interface ICharmService : IService
+    public interface ICharmService : IInitializable
     {
         List<PlayerCharmBonusList> CalcBonuses(GameState gs, string charmId);
 

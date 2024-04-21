@@ -3,6 +3,7 @@
   "ParentId": "default",
   "IdKey": 2,
   "Name": "Gold Store",
+  "Enabled": true,
   "Desc": "",
   "Icon": "",
   "Art": "",
@@ -12,21 +13,25 @@
   "StoreThemeId": 1,
   "Products": [
     {
+      "Enabled": true,
       "Index": 1,
       "StoreProductId": 4,
       "ProductSkuId": 4
     },
     {
+      "Enabled": true,
       "Index": 2,
       "StoreProductId": 5,
       "ProductSkuId": 11
     },
     {
+      "Enabled": true,
       "Index": 3,
       "StoreProductId": 6,
       "ProductSkuId": 22
     }
   ],
-  "UpdateTime": "2024-02-25T15:48:23.879Z",
-  "CreateTime": "2023-12-28T02:16:10.843Z"
+  "AllowedPlayers": [],
+  "UpdateTime": "2024-04-17T13:05:21.11Z",
+  "CreateTime": "2023-12-28T08:16:10Z"
 }

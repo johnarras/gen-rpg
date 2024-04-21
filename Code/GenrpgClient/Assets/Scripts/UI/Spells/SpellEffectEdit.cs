@@ -46,22 +46,22 @@ namespace Assets.Scripts.UI.Spells
             ExtraTargetsInput?.Init(SpellModifiers.ExtraTargets, _onValueChangedAction);
             ExtraTargetsInput.SetSelectedValue(_effect.ExtraTargets);
 
-            SkillInput?.Init(_gs.data.Get<SkillTypeSettings>(_gs.ch).GetData(), _onValueChangedAction);
+            SkillInput?.Init(_gameData.Get<SkillTypeSettings>(_gs.ch).GetData(), _onValueChangedAction);
             SkillInput.SetFromId(_effect.SkillTypeId);
 
-            _uiService.SetInputText(EntityInput, _effect.EntityId);
+            _uIInitializable.SetInputText(EntityInput, _effect.EntityId);
         }
 
         public void CopyFromUIToEffect()
         {
-            _effect.SkillTypeId = _uiService.GetSelectedIdFromName(typeof(SkillType), SkillInput);
+            _effect.SkillTypeId = _uIInitializable.GetSelectedIdFromName(typeof(SkillType), SkillInput);
                 
             _effect.Scale = (int)ScaleInput?.GetSelectedValue();
             _effect.Radius = (int)RadiusInput?.GetSelectedValue();
             _effect.Duration = (int)DurationInput?.GetSelectedValue();
             _effect.ExtraTargets = (int)(ExtraTargetsInput?.GetSelectedValue());
                 
-            _effect.EntityId = _uiService.GetIntInput(EntityInput);
+            _effect.EntityId = _uIInitializable.GetIntInput(EntityInput);
         }
 
 

@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 7,
   "Name": "Legs",
-  "StatPercent": 150,
   "Active": true,
   "BaseBonusStatTypeId": 31,
   "UpdateTime": "2024-02-25T15:46:42.689Z",

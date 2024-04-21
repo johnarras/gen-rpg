@@ -25,8 +25,8 @@ namespace Genrpg.Shared.Currencies.PlayerData
         {
             return Get(currencyTypeId).Quantity;
         }
-
     }
+
     [MessagePackObject]
     public class CurrencyStatus : OwnerPlayerData, IId
     {
@@ -41,5 +41,5 @@ namespace Genrpg.Shared.Currencies.PlayerData
     public class CurrencyApi : OwnerApiList<CurrencyData, CurrencyStatus> { }
 
     [MessagePackObject]
-    public class CurrencyDataLoader : OwnerDataLoader<CurrencyData, CurrencyStatus, CurrencyApi> { }
+    public class CurrencyDataLoader : OwnerIdDataLoader<CurrencyData, CurrencyStatus, CurrencyApi> { }
 }

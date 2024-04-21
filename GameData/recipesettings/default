@@ -6,7 +6,8 @@
   "ExtraCraftLevelsAllowed": 5,
   "LevelsPerExtraEffect": 4,
   "MaxExtraEffects": 5,
+  "ReagentQuantityPerPercent": 0.025,
   "Name": "RecipeSettings",
-  "UpdateTime": "2024-02-25T15:47:53.466Z",
-  "CreateTime": "2023-12-24T11:13:14Z"
+  "UpdateTime": "2024-04-19T17:40:10.835Z",
+  "CreateTime": "2023-12-24T17:13:14Z"
 }

@@ -6,6 +6,7 @@ using Genrpg.Shared.Ftue.Messages;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Ftue.Settings;
 using Genrpg.Shared.Ftue.Settings.Steps;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Utils;
 using Genrpg.Shared.Interfaces;
 using Scripts.Assets.Audio.Constants;
@@ -23,12 +24,13 @@ using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.UI.Services
 {
-    public class UiService : IUiService
+    public class UIInitializable : IUIInitializable
     {
         protected IFtueService _ftueService;
         protected IAudioService _audioService;
         protected IRealtimeNetworkService _realtimeNetworkService;
         protected IAnalyticsService _analyticsService;
+        protected IGameData _gameData;
 
         protected UnityGameState _gs;
 
@@ -37,7 +39,7 @@ namespace Assets.Scripts.UI.Services
             _gs = gs;
         }
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             _gs = gs as UnityGameState;
             await Task.CompletedTask;
@@ -76,7 +78,7 @@ namespace Assets.Scripts.UI.Services
 
         public long GetSelectedIdFromName(Type iidNameType, GDropdown dropdown)
         {
-            List<IIdName> items = GameDataUtils.GetIdNameList(_gs.data, iidNameType.Name);
+            List<IIdName> items = GameDataUtils.GetIdNameList(_gameData, iidNameType.Name);
 
             string selectedText = dropdown.captionText.text;
 

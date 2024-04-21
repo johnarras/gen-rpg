@@ -80,7 +80,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
             foreach (UnitAction unitCombatAction in actions)
             {
-                CombatAction combatAction = gs.data.Get<CombatActionSettings>(null).Get(unitCombatAction.CombatActionId);
+                CombatAction combatAction = _gameData.Get<CombatActionSettings>(null).Get(unitCombatAction.CombatActionId);
                 ECrawlerStates nextState = ECrawlerStates.CombatPlayer;
                 if (unitCombatAction.CombatActionId == CombatActions.Cast && notReadyMember != null)
                 {

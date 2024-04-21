@@ -4,6 +4,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.SpellCrafting.Services;
 using Genrpg.Shared.Spells.PlayerData.Spells;
@@ -21,6 +22,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
     public class SpellCharacterLoadUpdater : BaseCharacterLoadUpdater
     {
         private ISharedSpellCraftService _spellCraftingService = null;
+        private IGameData _gameData;
 
         protected IRepositoryService _repoService = null;
         public override int Priority => 2;
@@ -33,7 +35,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                 Spell mySpell = spellData.Get(i);
                 if (mySpell == null)
                 {
-                    Spell newSpell = SerializationUtils.ConvertType<SpellType, Spell>(gs.data.Get<SpellTypeSettings>(ch).Get(i));
+                    Spell newSpell = SerializationUtils.ConvertType<SpellType, Spell>(_gameData.Get<SpellTypeSettings>(ch).Get(i));
                     newSpell.Id = HashUtils.NewGuid();
                     newSpell.OwnerId = ch.Id;
 

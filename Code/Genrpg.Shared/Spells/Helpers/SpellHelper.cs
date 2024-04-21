@@ -6,18 +6,20 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Threading.Tasks;
 using Genrpg.Shared.Spells.Settings.Spells;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Spells.Helpers
 {
 
     public class SpellHelper : IEntityHelper
     {
+        private IGameData _gameData;
         public long GetKey() { return EntityTypes.Spell; }
         public string GetDataPropertyName() { return "Spells"; }
 
         public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
         {
-            return gs.data.Get<SpellTypeSettings>(obj).Get(id);
+            return _gameData.Get<SpellTypeSettings>(obj).Get(id);
         }
     }
 }

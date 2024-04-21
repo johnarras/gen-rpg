@@ -10,8 +10,22 @@ using Genrpg.Shared.GameSettings.Interfaces;
 
 namespace Genrpg.Shared.GameSettings
 {
+    public interface IGameData : IInjectable
+    {
+        DateTime PrevSaveTime { get; set; }
+        DateTime CurrSaveTime { get; set; }
+        List<ITopLevelSettings> AllSettings();
+        void ClearIndex();
+        void SetupDataDict(bool force);
+        T Get<T>(IFilteredObject obj) where T : IGameSettings;
+        void Set<T>(T t) where T : ITopLevelSettings;
+        void AddData(List<ITopLevelSettings> settingsList);
+        string DataObjectName(string typeName, IFilteredObject obj);
+        void CopyFrom(IGameData data);
+    }
+
     [MessagePackObject]
-    public class GameData
+    public class GameData : IGameData
     {
         public const int IdBlockSize = 10000;
 
@@ -27,6 +41,12 @@ namespace Genrpg.Shared.GameSettings
 
         public GameData()
         {
+        }
+
+        public void CopyFrom(IGameData gameData)
+        {
+            _allData = gameData.AllSettings();
+            ClearIndex();
         }
 
         public void ClearIndex()

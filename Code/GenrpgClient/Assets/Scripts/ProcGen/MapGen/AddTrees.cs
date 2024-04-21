@@ -144,7 +144,7 @@ public class AddTrees : BaseZoneGenerator
             return null;
         }
 
-        ZoneType zoneType = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
+        ZoneType zoneType = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
         if (zoneType == null)
         {
             return null;
@@ -174,7 +174,7 @@ public class AddTrees : BaseZoneGenerator
         {
 
             ZoneTreeType zoneTree = tlist[t];
-            TreeType treeType = gs.data.Get<TreeTypeSettings>(gs.ch).Get(zoneTree.TreeTypeId);
+            TreeType treeType = _gameData.Get<TreeTypeSettings>(gs.ch).Get(zoneTree.TreeTypeId);
 
 
             if (treeType == null || string.IsNullOrEmpty(treeType.Art))
@@ -690,7 +690,7 @@ public class AddTrees : BaseZoneGenerator
         string tname = ttype.Art;
         tname = tname.Replace("Winter", "");
 
-        foreach (TreeType item in gs.data.Get<TreeTypeSettings>(gs.ch).GetData())
+        foreach (TreeType item in _gameData.Get<TreeTypeSettings>(gs.ch).GetData())
         {
             if (item.Art != null && item.Art != ttype.Art)
             {
@@ -759,7 +759,7 @@ public class AddTrees : BaseZoneGenerator
                 float dirtRadius = 1;
                 if (tcat.Index == TreeIndex)
                 {
-                    dirtRadius = (treeType.HasFlag(TreeFlags.IsBush) ? 0 : gs.data.Get<TreeTypeSettings>(gs.ch).TreeDirtRadius);
+                    dirtRadius = (treeType.HasFlag(TreeFlags.IsBush) ? 0 : _gameData.Get<TreeTypeSettings>(gs.ch).TreeDirtRadius);
                     float dirtScale = 0.6f;
                     dirtRadius *= (float)Math.Pow(TreeSizeScale, 0.9f);
                     dirtRadius *= MathUtils.FloatRange(0.3f, 0.9f, full.posRand);
@@ -867,7 +867,7 @@ public class AddTrees : BaseZoneGenerator
                     float maxRadius = Math.Max(2.0f, dirtRadius / 2);
                     float minRadius = Math.Max(1.0f, maxRadius / 2);
                        
-                    nearbyHelper.AddItemsNear(gs, _terrainManager, full.posRand, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone, x, y, 1.0f, numNearbyItems,minRadius,maxRadius, false);
+                    nearbyHelper.AddItemsNear(gs, _gameData, _terrainManager, full.posRand, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone, x, y, 1.0f, numNearbyItems,minRadius,maxRadius, false);
                 }
             }
         }

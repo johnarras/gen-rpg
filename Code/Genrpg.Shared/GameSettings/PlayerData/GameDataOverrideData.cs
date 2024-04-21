@@ -21,7 +21,7 @@ namespace Genrpg.Shared.GameSettings.PlayerData
         [Key(1)] public string Hash { get; set; }
     }
     [MessagePackObject]
-    public class GameDataOverrideData : BasePlayerData
+    public class GameDataOverrideData : NoChildPlayerData
     {
         [Key(0)] public override string Id { get; set; }
 

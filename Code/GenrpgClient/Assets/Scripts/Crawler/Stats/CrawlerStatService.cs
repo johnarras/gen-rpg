@@ -20,14 +20,16 @@ using Genrpg.Shared.Crawler.Stats.Utils;
 using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Crawler.Stats.Services
 {
     public class CrawlerStatService : ICrawlerStatService
     {
         IStatService _statService;
+        protected IGameData _gameData;
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -51,9 +53,9 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 unit.Level = 1;
             }
 
-            ClassSettings classSettings = gs.data.Get<ClassSettings>(null);
+            ClassSettings classSettings = _gameData.Get<ClassSettings>(null);
 
-            IReadOnlyList<StatType> allStats = gs.data.Get<StatSettings>(null).GetData();
+            IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(null).GetData();
 
             IReadOnlyList<Class> allClasses = classSettings.GetData();
 
@@ -67,7 +69,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
             if (unit is PartyMember member)
             {
-                List<Class> memberClasses = gs.data.Get<ClassSettings>(null).GetClasses(member.Classes);
+                List<Class> memberClasses = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
 
                 List<Stat> permStats = member.PermStats;
 
@@ -187,9 +189,9 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
             List<Stat> retval = new List<Stat>();
 
-            IReadOnlyList<Class> allClasss = gs.data.Get<ClassSettings>(null).GetData();
+            IReadOnlyList<Class> allClasss = _gameData.Get<ClassSettings>(null).GetData();
 
-            ClassSettings classSettings = gs.data.Get<ClassSettings>(null);
+            ClassSettings classSettings = _gameData.Get<ClassSettings>(null);
 
             foreach (PartyMember member in partyData.GetActiveParty())
             {

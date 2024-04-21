@@ -3,6 +3,7 @@ using Genrpg.ServerShared.PlayerData.LoadUpdateHelpers;
 using Genrpg.Shared.AI.Settings;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.PlayerData;
@@ -19,6 +20,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,7 +33,7 @@ namespace Genrpg.ServerShared.PlayerData
 
         private List<ICharacterLoadUpdater> _loadUpdateHelpers = new List<ICharacterLoadUpdater>();
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             List<Task> loaderTasks = new List<Task>();
             List<IndexConfig> configs = new List<IndexConfig>();
@@ -107,7 +109,18 @@ namespace Genrpg.ServerShared.PlayerData
             return retval;
         }
 
-        public async Task<List<IUnitData>> LoadPlayerData(ServerGameState gs, Character ch)
+        public async Task<T> LoadTopLevelData<T>(ServerGameState gameState, Character ch) where T : class, ITopLevelUnitData, new()
+        {
+            IUnitDataLoader loader = GetLoader<T>();
+
+            if (loader != null)
+            {
+                return (T)await loader.LoadTopLevelData(ch);
+            }
+            return default;
+        }
+
+        public async Task<List<IUnitData>> LoadAllPlayerData(ServerGameState gs, Character ch)
         {
             List<Task<IUnitData>> allTasks = new List<Task<IUnitData>>();
             foreach (IUnitDataLoader loader in _loaderObjects.Values)
@@ -128,7 +141,7 @@ namespace Genrpg.ServerShared.PlayerData
 
         protected async Task<IUnitData> LoadOrCreateData(IUnitDataLoader loader, IRepositoryService repoSystem, Character ch)
         {
-            IUnitData newData = await loader.LoadData(repoSystem, ch);
+            IUnitData newData = await loader.LoadFullData(ch);
             if (newData == null)
             {
                 newData = loader.Create(ch);

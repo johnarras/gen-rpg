@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace Genrpg.MapServer.MapMessaging.Interfaces
 {
-    public interface IMapMessageService : ISetupService
+    public interface IMapMessageService : IInitializable
     {
         void Init(GameState gs, CancellationToken token);
         void SendMessage(MapObject mapObject, IMapMessage message, float delaySeconds = 0);
@@ -21,7 +21,7 @@ namespace Genrpg.MapServer.MapMessaging.Interfaces
             float delaySec = 0, List<long> filters = null);
         MapMessagePackage GetPackage();
         void AddPackage(MapMessagePackage package);
-        void UpdateGameData(GameData gameData);
+        void UpdateGameData(IGameData gameData);
         void SendMessageToAllPlayers(IMapApiMessage message);
     }
 }

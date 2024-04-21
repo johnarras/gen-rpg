@@ -23,7 +23,7 @@ public class BridgeObjectLoader : BaseObjectLoader
         int angle = (int)(MapConstants.BridgeAngleDiv * (upperNumber & ((1 << MapConstants.BridgeHeightBitShift) - 1)));
         float bridgeHeight = (upperNumber >> MapConstants.BridgeHeightBitShift) + MapConstants.MinLandHeight;
 
-        BridgeType bridgeType = gs.data.Get<BridgeTypeSettings>(gs.ch).Get ((int)objectId);
+        BridgeType bridgeType = _gameData.Get<BridgeTypeSettings>(gs.ch).Get ((int)objectId);
         if (bridgeType == null)
         {
             return false;

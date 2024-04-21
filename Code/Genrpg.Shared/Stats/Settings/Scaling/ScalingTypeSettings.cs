@@ -36,8 +36,7 @@ namespace Genrpg.Shared.Stats.Settings.Scaling
 
         [Key(13)] public List<StatPct> AddStats { get; set; }
 
-        [Key(14)] public List<ItemPct> BaseReagents { get; set; }
-
+        [Key(14)] public long BaseItemTypeId { get; set; }
         /// <summary>
         /// Used for Crawler
         /// </summary>
@@ -46,7 +45,6 @@ namespace Genrpg.Shared.Stats.Settings.Scaling
         public ScalingType()
         {
             AddStats = new List<StatPct>();
-            BaseReagents = new List<ItemPct>();
         }
     }
 

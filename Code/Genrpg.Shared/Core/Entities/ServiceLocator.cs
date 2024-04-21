@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Analytics.Services;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Core.Entities
 {
@@ -20,12 +21,12 @@ namespace Genrpg.Shared.Core.Entities
     public class ServiceLocator : IServiceLocator
     {
 
-        public ServiceLocator(ILogService logService, IAnalyticsService analyticsService)
+        public ServiceLocator(ILogService logService, IAnalyticsService analyticsService, IGameData gameData)
         {
             _logger = logService;
             Set(logService);
-            _analytics = analyticsService;
             Set(analyticsService);
+            Set(gameData);
         }
 
         private ILogService _logger;
@@ -34,23 +35,23 @@ namespace Genrpg.Shared.Core.Entities
         /// <summary>
         /// Internal storage indexed by type
         /// </summary>
-        private Dictionary<Type, IService> _typeDict = new Dictionary<Type, IService>();
+        private Dictionary<Type, IInjectable> _typeDict = new Dictionary<Type, IInjectable>();
         /// <summary>
         /// Internal storage indexed by the name of the type
         /// </summary>
-        private Dictionary<string, IService> _nameDict = new Dictionary<string, IService>();
+        private Dictionary<string, IInjectable> _nameDict = new Dictionary<string, IInjectable>();
 
         /// <summary>
         /// Returns an instance of type T
         /// </summary>
         /// <typeparam name="T">The type to be returned. An IFoo can return a FooImpl as long as FooImpl is IFoo</typeparam>
         /// <returns>An object of Type T</returns>
-        public T Get<T>() where T : IService
+        public T Get<T>() where T : IInjectable
         {
             if (!typeof(T).IsInterface)
             {
                 _logger.Error("ServiceLocator only allows interface lookups not: " + typeof(T).Name);
-                return default;
+                throw new Exception("ServiceLocator: Attempted to Get non-interface type: " + typeof(T).Name);
             }
 
             if (!_typeDict.ContainsKey(typeof(T)))
@@ -84,9 +85,9 @@ namespace Genrpg.Shared.Core.Entities
         /// Get a list of all services in the ObjectFactory
         /// </summary>
         /// <returns></returns>
-        public List<IService> GetVals()
+        public List<IInjectable> GetVals()
         {
-            List<IService> list = new List<IService>();
+            List<IInjectable> list = new List<IInjectable>();
             if (_typeDict == null)
             {
                 return list;
@@ -123,7 +124,7 @@ namespace Genrpg.Shared.Core.Entities
         /// </summary>
         /// <typeparam name="T">The type to add</typeparam>
         /// <param name="obj">The object of type T to add</param>
-        public void Set<T>(T obj) where T : IService
+        public void Set<T>(T obj) where T : IInjectable
         {
             if (obj == null)
             {
@@ -133,7 +134,7 @@ namespace Genrpg.Shared.Core.Entities
             if (!typeof(T).IsInterface)
             {
                 _logger.Message("ServiceLocator can only set Interfaces Not: " + typeof(T).Name + " ");
-                return;
+                throw new Exception("ServiceLocator: Attempted to Get non-interface type. " + typeof(T).Name);               
             }
 
             if (_typeDict.ContainsKey(typeof(T)))
@@ -156,7 +157,7 @@ namespace Genrpg.Shared.Core.Entities
         ///  Remove the value associated with the type given
         /// </summary>
         /// <typeparam name="T">The type to remove</typeparam>
-        public void Remove<T>() where T : IService
+        public void Remove<T>() where T : IInjectable
         {
             if (_typeDict == null)
             {
@@ -179,7 +180,8 @@ namespace Genrpg.Shared.Core.Entities
             while (true)
             {
                 FieldInfo[] fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-                string serviceTypeName = typeof(IService).Name;
+                string serviceTypeName = typeof(IInjectable).Name;
+
                 foreach (FieldInfo field in fields)
                 {
                     if (field.IsPublic || field.IsStatic)
@@ -197,9 +199,8 @@ namespace Genrpg.Shared.Core.Entities
                     if (!fieldType.IsInterface)
                     {
                         _logger.Message("ServiceLocator Concrete service type " + fieldType.Name + " in " + obj.GetType().Name);
-                        continue;
+                        throw new Exception("ServiceLocator: Attempted to resolve non-interface type: " + fieldType.Name + " in " + obj.GetType().Name);
                     }
-
 
                     object serviceObject = GetByName(fieldType.Name);
                     if (serviceObject == null)

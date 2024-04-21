@@ -8,19 +8,27 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Units.Loaders
 {
-    public class UnitDataLoader<UD> : IUnitDataLoader where UD : class, IUnitData, new()
+    public class UnitDataLoader<TServer> : IUnitDataLoader where TServer : class, ITopLevelUnitData, new()
     {
-        public virtual Type GetServerType() { return typeof(UD); }
+
+        protected IRepositoryService _repoService;
+
+        public virtual Type GetServerType() { return typeof(TServer); }
         public virtual bool SendToClient() { return true; }
         public virtual async Task Setup(GameState gs) { await Task.CompletedTask; }
         protected virtual bool IsUserData() { return false; }
 
         public IUnitData Create(Unit unit)
         {
-            UD t = Activator.CreateInstance<UD>();
+            TServer t = Activator.CreateInstance<TServer>();
             t.Id = GetFileId(unit);
             t.SetDirty(true);
             return t;
+        }
+
+        public virtual IUnitData MapToAPI(IUnitData serverObject)
+        {
+            return serverObject;
         }
 
         protected virtual string GetFileId(Unit unit)
@@ -36,14 +44,41 @@ namespace Genrpg.Shared.Units.Loaders
             return unit.Id;
         }
 
-        public virtual async Task<IUnitData> LoadData(IRepositoryService repoSystem, Unit unit)
+        public virtual async Task<ITopLevelUnitData> LoadFullData(Unit unit)
         {
-            return await repoSystem.Load<UD>(GetFileId(unit));
+            return await _repoService.Load<TServer>(GetFileId(unit));
         }
 
-        public virtual IUnitData MapToAPI(IUnitData serverObject)
+        public async Task<ITopLevelUnitData> LoadTopLevelData(Unit unit)
         {
-            return serverObject;
+
+            TServer currServer = unit.Get<TServer>();
+
+            if (currServer != null)
+            {
+                return currServer;
+            }
+
+            currServer = await _repoService.Load<TServer>(GetFileId(unit));
+
+            if (currServer != null)
+            {
+                unit.Set(currServer);
+            }
+
+            return currServer;
+        }
+
+        public virtual async Task<IChildUnitData> LoadChildByIdkey(Unit unit, long idkey)
+        {
+            await Task.CompletedTask;
+            return default;
+        }
+
+        public virtual async Task<IChildUnitData> LoadChildById(Unit unit, string id)
+        {
+            await Task.CompletedTask;
+            return default;
         }
     }
 }

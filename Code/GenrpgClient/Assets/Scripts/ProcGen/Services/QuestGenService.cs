@@ -13,8 +13,11 @@ using Genrpg.Shared.Quests.Constants;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Zones.WorldData;
 using Unity.Collections;
+using System.Threading;
+using System.Threading.Tasks;
+using Genrpg.Shared.GameSettings;
 
-public interface IQuestGenService : IService
+public interface IQuestGenService : IInitializable
 {
     void GenerateQuests(UnityGameState gs);
 }
@@ -23,6 +26,13 @@ public class QuestGenService : IQuestGenService
 {
 
     protected IMapGenService _mapGenService;
+    protected IGameData _gameData;
+
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
+
 
     public void GenerateQuests(UnityGameState gs)
     {
@@ -44,7 +54,7 @@ public class QuestGenService : IQuestGenService
             return;
         }
 
-        ZoneType zoneType = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
+        ZoneType zoneType = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
 
         Map map = gs.map;
         MyRandom rand = new MyRandom(zone.Seed / 2 + 32324 + map.Seed / 3);

@@ -40,12 +40,12 @@ public class ActionBars : SpellIconScreen
     public void Init(CancellationToken token)
     {
         _token = token;
-        _gs.AddEvent<OnDeleteSpell>(this, OnDeleteSpellHandler);
-        _gs.AddEvent<OnStartCast>(this, OnStartCastHandler);
-        _gs.AddEvent<OnCraftSpell>(this, OnCraftSpellHandler);
-        _gs.AddEvent<SetMapPlayerEvent>(this, OnSetMapPlayer);
-        _gs.AddEvent<OnRemoveActionBarItem>(this, OnRemoveActionItem);
-        _gs.AddEvent<OnSetActionBarItem>(this, OnSetActionBarItemHandler);
+        _dispatcher.AddEvent<OnDeleteSpell>(this, OnDeleteSpellHandler);
+        _dispatcher.AddEvent<OnStartCast>(this, OnStartCastHandler);
+        _dispatcher.AddEvent<OnCraftSpell>(this, OnCraftSpellHandler);
+        _dispatcher.AddEvent<SetMapPlayerEvent>(this, OnSetMapPlayer);
+        _dispatcher.AddEvent<OnRemoveActionBarItem>(this, OnRemoveActionItem);
+        _dispatcher.AddEvent<OnSetActionBarItem>(this, OnSetActionBarItemHandler);
         Reset();
     }
 

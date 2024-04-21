@@ -10,6 +10,11 @@ using System.Threading.Tasks;
 public class ClientAnalyticsService : IAnalyticsService
 {
 
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
+
     private ClientConfig _config;
     public ClientAnalyticsService (ClientConfig config)
     {

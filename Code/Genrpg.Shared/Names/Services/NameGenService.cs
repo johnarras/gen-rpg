@@ -5,10 +5,20 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Settings;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
+using Genrpg.Shared.GameSettings;
 namespace Genrpg.Shared.Names.Services
 {
     public class NameGenService : INameGenService
     {
+
+        private IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
         public string PickWord(GameState gs, List<WeightedName> list, long seed = 0, string excludeName = "", string excludePrefix = "", string excludeDesc = "")
         {
             if (list == null)
@@ -121,7 +131,7 @@ namespace Genrpg.Shared.Names.Services
             }
 
 
-            NameList nl = gs.data.Get<NameSettings>(null).GetNameList(nameListName);
+            NameList nl = _gameData.Get<NameSettings>(null).GetNameList(nameListName);
 
             if (nl != null && nl.Names != null && nl.Names.Count > 0)
             {
@@ -151,9 +161,9 @@ namespace Genrpg.Shared.Names.Services
             }
             else if (name.IndexOf("ZoneName") >= 0)
             {
-                if (gs.data.Get<ZoneTypeSettings>(null).GetData() != null)
+                if (_gameData.Get<ZoneTypeSettings>(null).GetData() != null)
                 {
-                    foreach (ZoneType zt in gs.data.Get<ZoneTypeSettings>(null).GetData())
+                    foreach (ZoneType zt in _gameData.Get<ZoneTypeSettings>(null).GetData())
                     {
                         list.Add(zt);
                     }

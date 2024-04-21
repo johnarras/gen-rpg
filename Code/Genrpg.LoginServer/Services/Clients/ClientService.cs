@@ -6,6 +6,7 @@ using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Characters.Utils;
+using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.Logging.Interfaces;
@@ -26,6 +27,10 @@ namespace Genrpg.LoginServer.Services.Clients
 {
     public class ClientService : IClientService
     {
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
 
         private IPlayerDataService _playerDataService = null;
         private IGameDataService _gameDataService = null;

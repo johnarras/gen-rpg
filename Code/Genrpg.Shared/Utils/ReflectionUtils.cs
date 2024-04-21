@@ -152,44 +152,44 @@ namespace Genrpg.Shared.Utils
             object obj = Activator.CreateInstance(t);
             gs.loc.Resolve(obj);
 
-            if (obj is IService service)
+            if (obj is IInitializable service)
             {
-                await SetupServices(gs, new List<IService> { service }, token);
+                await SetupServices(gs, new List<IInjectable> { service }, token);
             }
 
             return obj;
         }
 
-        public static async Task SetupServices(GameState gs, List<IService> services, CancellationToken token)
+        public static async Task SetupServices(GameState gs, List<IInjectable> services, CancellationToken token)
         {
 
-            List<ISetupService> setupServices = new List<ISetupService>();
+            List<IInitializable> setupServices = new List<IInitializable>();
 
-            List<IPrioritySetupService> priorityServices = new List<IPrioritySetupService>();
+            List<IPriorityInitializable> priorityServices = new List<IPriorityInitializable>();
 
-            foreach (IService service in services)
+            foreach (IInjectable service in services)
             {
-                if (service is ISetupService setupService)
+                if (service is IInitializable setupService)
                 {
                     setupServices.Add(setupService);
                 }
 
-                if (service is IPrioritySetupService prioritySetupService)
+                if (service is IPriorityInitializable prioritySetupService)
                 {
                     priorityServices.Add(prioritySetupService);
                 }
             }
 
-            List<IGrouping<int,IPrioritySetupService>> groupedServices = priorityServices.GroupBy(x => x.SetupPriorityAscending()).OrderBy(x=>x.Key).ToList();  
+            List<IGrouping<int,IPriorityInitializable>> groupedServices = priorityServices.GroupBy(x => x.SetupPriorityAscending()).OrderBy(x=>x.Key).ToList();  
 
-            foreach (IGrouping<int,IPrioritySetupService> group in groupedServices)
+            foreach (IGrouping<int,IPriorityInitializable> group in groupedServices)
             {
 
                 List<Task> priorityTasks = new List<Task>();
 
-                List<IPrioritySetupService> currentPriorityServices = group.ToList();
+                List<IPriorityInitializable> currentPriorityServices = group.ToList();
 
-                foreach (IPrioritySetupService service in currentPriorityServices)
+                foreach (IPriorityInitializable service in currentPriorityServices)
                 {
                     priorityTasks.Add(service.PrioritySetup(gs, token));
                 }
@@ -200,9 +200,9 @@ namespace Genrpg.Shared.Utils
 
             List<Task> setupTasks = new List<Task>();
 
-            foreach (ISetupService setupService in setupServices)
+            foreach (IInitializable setupService in setupServices)
             {
-                setupTasks.Add(setupService.Setup(gs, token));
+                setupTasks.Add(setupService.Initialize(gs, token));
             }
 
             await Task.WhenAll(setupTasks);

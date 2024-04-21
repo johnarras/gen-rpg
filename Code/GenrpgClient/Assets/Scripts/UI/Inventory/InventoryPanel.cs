@@ -36,7 +36,7 @@ public class InventoryPanel : BaseBehaviour
 
         foreach (Item item in inventoryItems)
         {
-            ItemType itype = _gs.data.Get<ItemTypeSettings>(_unit).Get(item.ItemTypeId);
+            ItemType itype = _gameData.Get<ItemTypeSettings>(_unit).Get(item.ItemTypeId);
             if (itype == null)
             {
                 continue;

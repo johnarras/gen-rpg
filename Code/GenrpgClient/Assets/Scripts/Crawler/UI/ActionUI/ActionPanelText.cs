@@ -18,7 +18,7 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
         public void Init(string text, CancellationToken token)
         {
             _text = text;
-            _uiService.SetText(Text, text);
+            _uIInitializable.SetText(Text, text);
         }
     }
 }

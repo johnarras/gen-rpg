@@ -46,7 +46,7 @@ namespace Genrpg.LoginServer.CommandHandlers
             CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 
 
-            List<IUnitData> list = await _playerDataService.LoadPlayerData(gs, gs.ch);
+            List<IUnitData> list = await _playerDataService.LoadAllPlayerData(gs, gs.ch);
 
             charStubs.Add(new CharacterStub() { Id = gs.coreCh.Id, Name = gs.coreCh.Name, Level = gs.coreCh.Level });
 

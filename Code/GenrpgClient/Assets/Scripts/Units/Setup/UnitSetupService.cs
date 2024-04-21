@@ -13,8 +13,11 @@ using UnityEngine; // Needed
 using Genrpg.Shared.AI.Settings;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Core.Entities;
+using System.Threading.Tasks;
+using Genrpg.Shared.GameSettings;
 
-public interface IUnitSetupService : IService, IMapTokenService
+public interface IUnitSetupService : IInitializable, IMapTokenService
 {
     GEntity SetupUnit(UnityGameState gs, GEntity artGo, SpawnLoadData loadData, CancellationToken token);
 }
@@ -26,6 +29,13 @@ public class UnitSetupService : IUnitSetupService
     protected IStatService _statService;
     protected IAssetService _assetService;
     protected ILogService _logService;
+    protected IDispatcher _dispatcher;
+    protected IGameData _gameData;
+
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
 
 
     private CancellationToken _token;
@@ -200,13 +210,13 @@ public class UnitSetupService : IUnitSetupService
     {
         PlayerController pc = GEntityUtils.GetOrAddComponent<PlayerController>(gs, go);
         pc.Init(unit, token);
-        unit.Speed = gs.data.Get<AISettings>(gs.ch).BaseUnitSpeed;
-        unit.BaseSpeed = gs.data.Get<AISettings>(gs.ch).BaseUnitSpeed;
+        unit.Speed = _gameData.Get<AISettings>(gs.ch).BaseUnitSpeed;
+        unit.BaseSpeed = _gameData.Get<AISettings>(gs.ch).BaseUnitSpeed;
         go.name = "Player" + go.name;
         PlayerObject.Set(go);
         _assetService.LoadAssetInto(gs, go, AssetCategoryNames.UI,
             "PlayerLight", null, null, token, "Units");
-        gs.Dispatch(new SetMapPlayerEvent() { Ch = unit as Character });
+        _dispatcher.Dispatch(gs,new SetMapPlayerEvent() { Ch = unit as Character });
         CreateHealthBar(gs, go, unit, token);
     }
 

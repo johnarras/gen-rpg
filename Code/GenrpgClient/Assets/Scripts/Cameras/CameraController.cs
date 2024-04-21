@@ -5,6 +5,9 @@ using Genrpg.Shared.Constants;
 using Genrpg.Shared.Utils;
 using UnityEngine; // Needed
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Core.Entities;
+using System.Threading;
+using System.Threading.Tasks;
 
 [Serializable]
 public class CullDistanceOverride
@@ -13,7 +16,7 @@ public class CullDistanceOverride
     public float CullDistance;
 }
 
-public interface ICameraController : IService
+public interface ICameraController : IInitializable
 {
     Camera GetMainCamera();
     GEntity GetCameraParent();
@@ -27,6 +30,13 @@ public class CameraController : BaseBehaviour, ICameraController
 
     private IInputService _inputService;
     private IMapTerrainManager _terrainManager;
+
+
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
+
 
     public List<CullDistanceOverride> LayerCullDistanceOverrides;
 

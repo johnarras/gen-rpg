@@ -4,12 +4,19 @@ using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using System.Collections.Generic;
-public interface ISamplingService : IService
+using System.Threading;
+using System.Threading.Tasks;
+public interface ISamplingService : IInitializable
 {
     List<MyPoint2> PlanePoissonSample(GameState gs, SamplingData sd);
 }
 public class SamplingService : ISamplingService
 {
+
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
 
     public List<MyPoint2> PlanePoissonSample(GameState gs, SamplingData sd)
     {

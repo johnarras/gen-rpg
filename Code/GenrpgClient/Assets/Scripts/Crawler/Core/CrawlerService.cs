@@ -34,6 +34,7 @@ namespace Assets.Scripts.Crawler.Services
         private ICrawlerMapService _crawlerMapService;
         protected ILogService _logService;
         protected IRepositoryService _repoService;
+        protected IDispatcher _dispatcher;
 
         const string SaveFileSuffix = ".sav";
         const string SaveFileName = "Start" + SaveFileSuffix;
@@ -58,7 +59,7 @@ namespace Assets.Scripts.Crawler.Services
 
         private Dictionary<KeyCode, KeyCode> _equivalentKeys = new Dictionary<KeyCode, KeyCode>();
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             _gs = gs as UnityGameState;
             _token = token;
@@ -142,7 +143,7 @@ namespace Assets.Scripts.Crawler.Services
                 else
                 {
                     _stateData.Push(nextStateData);
-                    _gs.Dispatch(nextStateData);
+                    _dispatcher.Dispatch(_gs,nextStateData);
                 }
             }     
             else

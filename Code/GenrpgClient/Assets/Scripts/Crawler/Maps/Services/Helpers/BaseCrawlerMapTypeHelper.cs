@@ -7,6 +7,7 @@ using Assets.Scripts.UI.Services;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapObjects.Messages;
@@ -20,8 +21,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
     public abstract class BaseCrawlerMapTypeHelper : ICrawlerMapTypeHelper
     {
         protected IAssetService _assetService;
-        protected IUiService _uiService;
+        protected IUIInitializable _uIInitializable;
         protected ILogService _logService;
+        protected IGameData _gameData;
 
         public abstract ECrawlerMapTypes GetKey();
 
@@ -67,7 +69,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         protected virtual void LoadTerrainTexture (UnityGameState gs, GameObject parent, long terrainTextureId, CancellationToken token)
         {
-            TextureType ttype = gs.data.Get<TextureTypeSettings>(null).Get(terrainTextureId);
+            TextureType ttype = _gameData.Get<TextureTypeSettings>(null).Get(terrainTextureId);
 
             if (ttype != null && !string.IsNullOrEmpty(ttype.Name))
             {

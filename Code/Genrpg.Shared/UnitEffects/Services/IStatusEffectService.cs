@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Genrpg.Shared.UnitEffects.Services
 {
-    public interface IStatusEffectService : IService
+    public interface IStatusEffectService : IInitializable
     {
         public string ShowStatusEffects(GameState gs, Unit unit, bool showAbbreviations);
     }

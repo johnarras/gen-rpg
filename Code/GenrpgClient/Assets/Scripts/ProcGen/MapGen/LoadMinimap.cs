@@ -42,7 +42,9 @@ public class LoadMinimap : BaseZoneGenerator
         {
             return;
         }
-        CreateMinimap cm = new CreateMinimap();
+
+
+        CreateMinimap cm = gs.CreateInstance<CreateMinimap>();
         cm.ShowMinimap(gs, tex);
     }
 }

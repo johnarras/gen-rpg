@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.SpellCrafting.Settings;
 using Genrpg.Shared.Spells.Constants;
@@ -11,12 +12,13 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
 {
     public abstract class BaseSpellModifierHelper : ISpellModifierHelper
     {
+        private IGameData _gameData;
         public abstract long GetKey();
         public abstract double GetCostScale(GameState gs, MapObject obj, double value);
 
         protected virtual SpellModifier GetModifier(GameState gs, MapObject obj)
         {
-            return gs.data.Get<SpellModifierSettings>(obj).Get(GetKey());
+            return _gameData.Get<SpellModifierSettings>(obj).Get(GetKey());
         }
 
         public virtual double GetMinValue(GameState gs, MapObject obj)

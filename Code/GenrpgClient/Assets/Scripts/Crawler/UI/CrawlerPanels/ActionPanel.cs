@@ -90,9 +90,9 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             {
                 GEntityUtils.SetActive(Input, true);
                 stateData.InputField = Input.Input;
-                _uiService.SetText(Input.Placeholder, stateData.InputPlaceholderText);
-                _uiService.SetText(Input.Label, stateData.InputLabel);
-                _uiService.SetInputText(Input.Input, "");
+                _uIInitializable.SetText(Input.Placeholder, stateData.InputPlaceholderText);
+                _uIInitializable.SetText(Input.Label, stateData.InputLabel);
+                _uIInitializable.SetInputText(Input.Input, "");
             }
             else
             {

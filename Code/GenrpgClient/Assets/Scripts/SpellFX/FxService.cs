@@ -1,9 +1,11 @@
-﻿using Genrpg.Shared.DataStores.Entities;
+﻿using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Spells.Messages;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine; // Needed
 using GEntity = UnityEngine.GameObject;
 
@@ -18,7 +20,7 @@ public class FullFX
 
 }
 
-public interface IFxService : IService
+public interface IFxService : IInitializable
 {
     void ShowFX(UnityGameState gs, FX fx, CancellationToken token);
 }
@@ -27,6 +29,11 @@ public class FxService : IFxService
 {
     private IClientMapObjectManager _objectManager;
     private IAssetService _assetService;
+
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
 
 
     public void ShowFX(UnityGameState gs, FX fx, CancellationToken token)

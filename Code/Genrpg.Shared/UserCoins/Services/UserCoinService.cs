@@ -4,11 +4,19 @@ using Genrpg.Shared.UserCoins.PlayerData;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Genrpg.Shared.UserCoins.Services
 {
     public class UserCoinService : IUserCoinService
     {
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
         public bool Add(GameState gs, Unit unit, long userCoinTypeId, long quantity)
         {
             return Set(gs, unit, userCoinTypeId, unit.Get<UserCoinData>().GetQuantity(userCoinTypeId) + quantity);

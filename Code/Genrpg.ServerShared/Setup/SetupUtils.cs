@@ -11,6 +11,7 @@ using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.DataStores;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.ServerShared.Setup
 {
@@ -35,7 +36,7 @@ namespace Genrpg.ServerShared.Setup
             await setupService.SetupGame(gs, token);
 
             IGameDataService gameDataService = gs.loc.Get<IGameDataService>();
-            gs.data = await gameDataService.LoadGameData(gs, setupService.CreateMissingGameData());
+            IGameData gameData = await gameDataService.LoadGameData(gs, setupService.CreateMissingGameData());
 
             await setupService.FinalSetup(gs);
 

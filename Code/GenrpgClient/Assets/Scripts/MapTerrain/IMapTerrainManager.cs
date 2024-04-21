@@ -7,7 +7,7 @@ using System.Threading;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 
-public interface IMapTerrainManager : ISetupService
+public interface IMapTerrainManager : IInitializable
 {
     GEntity GetTerrainTextureParent();
     GEntity GetTerrainProtoObject(string name);

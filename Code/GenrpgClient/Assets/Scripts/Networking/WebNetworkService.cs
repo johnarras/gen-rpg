@@ -21,7 +21,7 @@ using static WebNetworkService;
 
 public delegate void WebResultsHandler(UnityGameState gs, string txt, CancellationToken token);
 
-public interface IWebNetworkService : ISetupService, IGameTokenService
+public interface IWebNetworkService : IInitializable, IGameTokenService
 {
     void SendLoginWebCommand(LoginCommand loginCommand, CancellationToken token);
     void SendClientWebCommand(IClientCommand data, CancellationToken token);
@@ -197,7 +197,7 @@ public class WebNetworkService : IWebNetworkService
 
     private const float UserRequestDelaySeconds = 0.3f;
 
-    public async Task Setup(GameState gs, CancellationToken token)
+    public async Task Initialize(GameState gs, CancellationToken token)
     {
         UnityGameState ugs = gs as UnityGameState;
         

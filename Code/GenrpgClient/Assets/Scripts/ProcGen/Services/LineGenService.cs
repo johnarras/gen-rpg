@@ -7,7 +7,9 @@ using Genrpg.Shared.Utils.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-public interface ILineGenService : IService
+using System.Threading;
+using System.Threading.Tasks;
+public interface ILineGenService : IInitializable
 {
     List<MyPointF> GetBressenhamLine(GameState gs, MyPoint start, MyPoint end, LineGenParameters lg = null);
     List<MyPointF> GetBressenhamCircle(GameState gs, MyPoint center, LineGenParameters pars);
@@ -17,6 +19,11 @@ public interface ILineGenService : IService
 public class LineGenService : ILineGenService
 {
     protected INoiseService _noiseService;
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
+
     public List<MyPointF> GetBressenhamLine(GameState gs, MyPoint start, MyPoint end, LineGenParameters lg = null)
     {
         if (lg == null)

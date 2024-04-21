@@ -22,8 +22,8 @@ public class UnitFrameContainer : BaseBehaviour
     public void Init(CancellationToken token)
     {
         _token = token;
-        _gs.AddEvent<SetMapPlayerEvent>(this, OnSetMapPlayer);
-        _gs.AddEvent<ExitMapEvent>(this, OnExitMap);
+        _dispatcher.AddEvent<SetMapPlayerEvent>(this, OnSetMapPlayer);
+        _dispatcher.AddEvent<ExitMapEvent>(this, OnExitMap);
         SetMapPlayer(PlayerObject.GetUnit());
     }
 

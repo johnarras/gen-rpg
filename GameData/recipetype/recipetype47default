@@ -11,10 +11,8 @@
   "MinQuantity": 1,
   "MaxQuantity": 1,
   "Art": "",
-  "AttPct": 100,
-  "DefPct": 100,
-  "OtherPct": 100,
-  "Reagents": [],
+  "ScalingPct": 100,
+  "ExplicitReagents": [],
   "UpdateTime": "2024-02-25T15:47:57.745Z",
   "CreateTime": "2024-01-28T03:02:03.842Z"
 }

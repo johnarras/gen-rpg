@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Units
 {
-    public interface IServerUnitService : ISetupService
+    public interface IServerUnitService : IInitializable
     {
         void CheckForDeath(GameState gs, ActiveSpellEffect eff, Unit unit);
     }

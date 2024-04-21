@@ -10,7 +10,11 @@ namespace Genrpg.Shared.Units.Loaders
     public interface IUnitDataLoader
     {
         Type GetServerType();
-        Task<IUnitData> LoadData(IRepositoryService repoSystem, Unit unit);
+        Task<ITopLevelUnitData> LoadFullData(Unit unit);
+        Task<ITopLevelUnitData> LoadTopLevelData(Unit unit);
+        Task<IChildUnitData> LoadChildByIdkey(Unit unit, long childIdkey);
+        Task<IChildUnitData> LoadChildById(Unit unit, string childId);
+
         IUnitData Create(Unit unit);
         bool SendToClient();
         IUnitData MapToAPI(IUnitData serverObject);

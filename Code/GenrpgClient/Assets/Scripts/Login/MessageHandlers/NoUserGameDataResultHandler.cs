@@ -44,7 +44,7 @@ namespace Assets.Scripts.Login.MessageHandlers
                 await _loginService.SaveLocalUserData(gs, gs.user.Id);
             }
 
-            gs.data.AddData(result.GameData);
+            _gameData.AddData(result.GameData);
 
             await UniTask.NextFrame( cancellationToken: token);
             await UniTask.NextFrame( cancellationToken: token);

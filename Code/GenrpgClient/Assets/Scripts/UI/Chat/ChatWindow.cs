@@ -32,8 +32,8 @@ namespace UI
         public override void Initialize(UnityGameState gs)
         {
             base.Initialize(gs);
-            _gs.AddEvent<OnChatMessage>(this, OnChatMessageHandler);
-            _gs.AddEvent<OnGetWhoList>(this, OnGetWhoListHandler);
+            _dispatcher.AddEvent<OnChatMessage>(this, OnChatMessageHandler);
+            _dispatcher.AddEvent<OnGetWhoList>(this, OnGetWhoListHandler);
             _updateService.AddUpdate(this, UpdateChat, UpdateType.Regular);
         }
 
@@ -62,7 +62,7 @@ namespace UI
                     }
                     if (_currentChatType == null)
                     {
-                        _currentChatType = _gs.data.Get<ChatSettings>(_gs.ch).Get(ChatTypes.Say);
+                        _currentChatType = _gameData.Get<ChatSettings>(_gs.ch).Get(ChatTypes.Say);
                     }
                     ShowChatInputPrefix();
                 }
@@ -75,7 +75,7 @@ namespace UI
                     {
                         InputBackground.color = GColor.gray;
                     }
-                    _uiService.SetText(ChatTextPrefix, "");
+                    _uIInitializable.SetText(ChatTextPrefix, "");
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace UI
 
                 if (text.Length > 0)
                 {
-                    IReadOnlyList<ChatType> chatTypes = _gs.data.Get<ChatSettings>(_gs.ch).GetData();
+                    IReadOnlyList<ChatType> chatTypes = _gameData.Get<ChatSettings>(_gs.ch).GetData();
 
                     int firstSpaceIndex = text.IndexOf(" ");
 
@@ -187,7 +187,7 @@ namespace UI
             if (_currentChatType != null && ChatInput != null)
             {
                 _chatPrefix = "[" + _currentChatType.Name + "]: ";
-                _uiService.SetText(ChatTextPrefix, _chatPrefix);
+                _uIInitializable.SetText(ChatTextPrefix, _chatPrefix);
             }
         }
 

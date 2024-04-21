@@ -28,7 +28,7 @@ namespace Assets.Scripts.UI.Charms
 
         private void ShowData(PlayerCharm charm)
         {
-            _uiService.SetText(HashText, charm.Hash);
+            _uIInitializable.SetText(HashText, charm.Hash);
             List<string> bonuses = _charmService.PrintBonuses(_gs, charm.Bonuses.FirstOrDefault());
 
             StringBuilder sb = new StringBuilder();
@@ -38,17 +38,17 @@ namespace Assets.Scripts.UI.Charms
                 sb.AppendLine(bonus);
             }
 
-            _uiService.SetText(Bonuses, sb.ToString());
+            _uIInitializable.SetText(Bonuses, sb.ToString());
 
             if (charm.CurrentCharmUseId == CharmUses.Character)
             {
-                _uiService.SetText(UseType, "Character");
-                _uiService.SetText(UseIdName, charm.TargetName + ": [#" + charm.TargetId + "]");
+                _uIInitializable.SetText(UseType, "Character");
+                _uIInitializable.SetText(UseIdName, charm.TargetName + ": [#" + charm.TargetId + "]");
             }
             else
             {
-                _uiService.SetText(UseType, "None");
-                _uiService.SetText(UseIdName, null);
+                _uIInitializable.SetText(UseType, "None");
+                _uIInitializable.SetText(UseIdName, null);
             }
         }
     }

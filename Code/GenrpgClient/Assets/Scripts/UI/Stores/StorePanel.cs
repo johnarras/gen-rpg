@@ -32,9 +32,9 @@ namespace Assets.Scripts.UI.Stores
             _screen = screen;
             _offer = offer;
 
-            _theme = _gs.data.Get<StoreThemeSettings>(_gs.ch).Get(offer.StoreThemeId);
+            _theme = _gameData.Get<StoreThemeSettings>(_gs.ch).Get(offer.StoreThemeId);
 
-            _uiService.SetText(Header, _offer.Name);
+            _uIInitializable.SetText(Header, _offer.Name);
 
             foreach (PlayerOfferProduct product in _offer.Products)
             {

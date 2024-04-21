@@ -13,7 +13,7 @@ using Genrpg.Shared.Spells.Casting;
 
 namespace Genrpg.MapServer.Spells
 {
-    public interface IServerSpellService : ISetupService
+    public interface IServerSpellService : IInitializable
     {
         TryCastResult TryCast(GameState gs, Unit unit, long spellId, string targetId, bool endOfCast);
 

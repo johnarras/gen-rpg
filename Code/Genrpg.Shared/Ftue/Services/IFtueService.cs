@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Genrpg.Shared.Ftue.Services
 {
-    public interface IFtueService : ISetupService
+    public interface IFtueService : IInitializable
     {
         bool IsComplete(GameState gs, Character ch);
         FtueStep GetCurrentStep(GameState gs, Character ch);

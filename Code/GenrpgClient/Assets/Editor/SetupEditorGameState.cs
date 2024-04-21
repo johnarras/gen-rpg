@@ -8,7 +8,6 @@ using System;
 
 public class SetupEditorUnityGameState
 {
-
     public static UnityGameState Setup(UnityGameState gs = null)
     {
 
@@ -30,7 +29,6 @@ public class SetupEditorUnityGameState
             SetupService ss = new SetupService();
 
             ss.SetupGame(gs, _cts.Token);
-            gs.data = new GameData();
 
             ClientConfig config = ClientConfig.Load();
 

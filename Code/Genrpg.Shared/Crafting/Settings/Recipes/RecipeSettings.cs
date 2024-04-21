@@ -30,6 +30,10 @@ namespace Genrpg.Shared.Crafting.Settings.Recipes
         [Key(4)] public int ExtraCraftLevelsAllowed { get; set; }
         [Key(5)] public int LevelsPerExtraEffect { get; set; }
         [Key(6)] public int MaxExtraEffects { get; set; }
+        /// <summary>
+        /// this is 2.5 meaning each 2.5pct of scaling for the recipe requires 1 reagent in all slots.
+        /// </summary>
+        [Key(7)] public double ReagentQuantityPerPercent { get; set; } = 0.025;
 
     }
 
@@ -49,40 +53,25 @@ namespace Genrpg.Shared.Crafting.Settings.Recipes
         [Key(6)] public string Icon { get; set; }
         [Key(7)] public long EntityId { get; set; }
         [Key(8)] public long EntityTypeId { get; set; }
-        [Key(9)] public int MinQuantity { get; set; }
-        [Key(10)] public int MaxQuantity { get; set; }
+        [Key(9)] public int MinQuantity { get; set; } = 1;
+        [Key(10)] public int MaxQuantity { get; set; } = 1;
         [Key(11)] public string Art { get; set; }
-
-        [Key(12)] public int AttPct { get; set; }
-        [Key(13)] public int DefPct { get; set; }
-        [Key(14)] public int OtherPct { get; set; }
+        [Key(12)] public int ScalingPct { get; set; } = 100;
 
 
         /// <summary>
         /// Use this for recipes that have a list of reagents rather than a choice.
         /// </summary>
-        [Key(15)] public long CrafterTypeId { get; set; }
+        [Key(13)] public long CrafterTypeId { get; set; }
 
 
-        [Key(16)] public int Flags { get; set; }
+        [Key(14)] public int Flags { get; set; }
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
 
-        [Key(17)] public int ReagentQuantity { get; set; }
 
-
-        [Key(18)] public List<Reagent> Reagents { get; set; }
-
-        public RecipeType()
-        {
-            Reagents = new List<Reagent>();
-            MinQuantity = 1;
-            MaxQuantity = 1;
-            AttPct = 100;
-            DefPct = 100;
-            OtherPct = 100;
-        }
+        [Key(15)] public List<Reagent> ExplicitReagents { get; set; } = new List<Reagent>();
 
     }
 

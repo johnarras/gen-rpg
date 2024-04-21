@@ -46,7 +46,7 @@ namespace Genrpg.Shared.Charms.PlayerData
 
 
     [MessagePackObject]
-    public class CrafterDataLoader : OwnerDataLoader<PlayerCharmData, PlayerCharm, PlayerCharmApi>
+    public class CrafterDataLoader : OwnerIdDataLoader<PlayerCharmData, PlayerCharm, PlayerCharmApi>
     {
         protected override bool IsUserData() { return true; }
     }

@@ -487,7 +487,7 @@ public class CreateMinimap : BaseZoneGenerator
         }
         tex.wrapMode = TextureWrapMode.Clamp;
         UnityZoneGenService.mapTexture = tex;
-        gs.Dispatch(new LoadMinimapEvent());
+        _dispatcher.Dispatch(gs,new LoadMinimapEvent());
     }
 }
 	

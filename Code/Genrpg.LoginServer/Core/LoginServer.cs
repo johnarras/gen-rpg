@@ -62,7 +62,6 @@ namespace Genrpg.LoginServer.Core
         {
             return new LoginGameState(_config)
             {
-                data = _gs.data,
                 loc = _gs.loc,
 
                 rand = new MyRandom(),

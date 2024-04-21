@@ -1,4 +1,6 @@
-﻿using Genrpg.Shared.Inventory.Settings;
+﻿using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Inventory.Settings;
 using Genrpg.Shared.Inventory.Settings.Qualities;
 using System.Threading;
 using GEntity = UnityEngine.GameObject;
@@ -8,10 +10,10 @@ public class IconHelper
     public const string DefaultItemIconName = "ItemIcon";
     public const string DefaultSpellIconName = "SpellIcon";
 
-    public static string GetBackingNameFromQuality(UnityGameState gs, long qualityTypeId)
+    public static string GetBackingNameFromQuality(IGameData gameData, long qualityTypeId)
     {
         string txt = "BGCommon";
-        QualityType quality = gs.data.Get<QualityTypeSettings>(gs.ch).Get(qualityTypeId);
+        QualityType quality = gameData.Get<QualityTypeSettings>(null).Get(qualityTypeId);
         if (quality == null || string.IsNullOrEmpty(quality.Icon))
         {
             return txt;
@@ -20,7 +22,7 @@ public class IconHelper
         return quality.Icon;
     }
 
-    public static string GetFrameNameFromLevel(UnityGameState gs, long level)
+    public static string GetFrameNameFromLevel(IGameData gameData, long level)
     {
         if (level < 0)
         {

@@ -2,6 +2,7 @@
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.GameSettings.Settings;
 using Genrpg.Shared.PlayerFiltering.Utils;
@@ -22,7 +23,8 @@ namespace Genrpg.ServerShared.Purchasing.Services
     public class PurchasingService : IPurchasingService
     {
         protected IRepositoryService _repoService = null;
-        public async Task Setup(GameState gs, CancellationToken token)
+        private IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -39,13 +41,13 @@ namespace Genrpg.ServerShared.Purchasing.Services
 
             DateTime currentTime = DateTime.UtcNow;
 
-            VersionSettings versionSettings = gs.data.Get<VersionSettings>(ch);
+            VersionSettings versionSettings = _gameData.Get<VersionSettings>(ch);
 
-            StoreOfferSettings storeOfferSettings = gs.data.Get<StoreOfferSettings>(ch);
-            ProductSkuSettings skuSettings = gs.data.Get<ProductSkuSettings>(ch);
-            StoreFeatureSettings featureSettings = gs.data.Get<StoreFeatureSettings>(ch);
-            StoreSlotSettings slotSettings = gs.data.Get<StoreSlotSettings>(ch);
-            StoreProductSettings productSettings = gs.data.Get<StoreProductSettings>(ch);
+            StoreOfferSettings storeOfferSettings = _gameData.Get<StoreOfferSettings>(ch);
+            ProductSkuSettings skuSettings = _gameData.Get<ProductSkuSettings>(ch);
+            StoreFeatureSettings featureSettings = _gameData.Get<StoreFeatureSettings>(ch);
+            StoreSlotSettings slotSettings = _gameData.Get<StoreSlotSettings>(ch);
+            StoreProductSettings productSettings = _gameData.Get<StoreProductSettings>(ch);
 
             if (storeOfferSettings.NextUpdateTime <= DateTime.UtcNow)
             {
@@ -61,7 +63,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
                 return storeOfferData;
             }
 
-            IReadOnlyList<StoreOffer> storeOffers = gs.data.Get<StoreOfferSettings>(ch).GetData();
+            IReadOnlyList<StoreOffer> storeOffers = _gameData.Get<StoreOfferSettings>(ch).GetData();
 
             Dictionary<long, StoreOffer> storeDict = new Dictionary<long, StoreOffer>();
 
@@ -90,6 +92,13 @@ namespace Genrpg.ServerShared.Purchasing.Services
                     continue;
                 }
 
+                List<OfferProduct> validProducts = storeOffer.Products.Where(x => x.Enabled).ToList();
+
+                if (validProducts.Count < 1)
+                {
+                    continue;
+                }
+
                 PlayerStoreOffer playerStoreOffer = new PlayerStoreOffer()
                 {
                     StoreFeatureId = storeOffer.StoreFeatureId,
@@ -105,8 +114,9 @@ namespace Genrpg.ServerShared.Purchasing.Services
                     UniqueId = HashUtils.NewGuid(),
                 };
 
-                foreach (OfferProduct offerProduct in storeOffer.Products)
+                for (int p = 0; p < validProducts.Count; p++)
                 {
+                    OfferProduct offerProduct = validProducts[p];
                     StoreProduct storeProduct = productSettings.Get(offerProduct.StoreProductId);
                     ProductSku sku = skuSettings.Get(offerProduct.ProductSkuId);
 
@@ -114,7 +124,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
                     {
                         PlayerOfferProduct playerOfferProduct = new PlayerOfferProduct()
                         {
-                            Index = offerProduct.Index,
+                            Index = p,
                             Product = storeProduct,
                             Sku = sku,
                         };
@@ -140,7 +150,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
         protected void TryAddOffer (ServerGameState gs, StoreOffer offer, Dictionary<long,StoreOffer> currentOffers, User user, Character ch, PurchaseHistoryData historyData)
         {
 
-            if (!PlayerFilterTimeUtils.IsActive(offer))
+            if (!PlayerFilterUtils.IsActive(offer))
             {
                 return;
             }

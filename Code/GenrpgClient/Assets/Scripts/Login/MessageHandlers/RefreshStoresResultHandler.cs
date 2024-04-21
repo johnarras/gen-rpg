@@ -10,7 +10,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         protected override void InnerProcess(UnityGameState gs, RefreshStoresResult result, CancellationToken token)
         {
             result.Stores?.AddTo(gs.ch);
-            gs.Dispatch(result);
+            _dispatcher.Dispatch(gs,result);
         }
     }
 }

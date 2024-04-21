@@ -20,7 +20,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
     public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
     {
 
-        UnitType utype = gs.data.Get<UnitSettings>(gs.ch).Get(spawn.EntityId);
+        UnitType utype = _gameData.Get<UnitSettings>(gs.ch).Get(spawn.EntityId);
         if (utype == null)
         {
             return;

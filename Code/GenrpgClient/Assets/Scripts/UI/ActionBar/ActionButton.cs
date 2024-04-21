@@ -37,7 +37,7 @@ public class ActionButton : SpellIcon
             return;
         }
         name = GetType().Name + initData.actionIndex;
-        _uiService.SetButton(SelfButton, spellIconData.Screen.GetName(), ClickButton);
+        _uIInitializable.SetButton(SelfButton, spellIconData.Screen.GetName(), ClickButton);
         base.Init(spellIconData, token); 
         if (_gs.ch == null)
         {
@@ -62,7 +62,7 @@ public class ActionButton : SpellIcon
         }
         initData.Data = _spell;
 
-        _uiService.SetText(KeyBind, "");
+        _uIInitializable.SetText(KeyBind, "");
 
         KeyCommData keyCommData = _gs.ch.Get<KeyCommData>();
 
@@ -70,7 +70,7 @@ public class ActionButton : SpellIcon
 
         if (keyCode != null)
         {
-            _uiService.SetText(KeyBind, keyCode.ShowName());
+            _uIInitializable.SetText(KeyBind, keyCode.ShowName());
         }
 
         string iconName = ItemConstants.BlankIconName;
@@ -86,7 +86,7 @@ public class ActionButton : SpellIcon
             Tint.FillAmount = 0;
         }
 
-        _uiService.SetText(Charges, "");
+        _uIInitializable.SetText(Charges, "");
     }
 
     protected void ClickButton()
@@ -145,7 +145,7 @@ public class ActionButton : SpellIcon
             if (_spell.CurrCharges != _lastCharges)
             {
                 _lastCharges = _spell.CurrCharges;
-                _uiService.SetText(Charges, _lastCharges.ToString());
+                _uIInitializable.SetText(Charges, _lastCharges.ToString());
 
                 if (_spell.CurrCharges < _spell.MaxCharges && _spell.CooldownEnds > DateTime.UtcNow)
                 {

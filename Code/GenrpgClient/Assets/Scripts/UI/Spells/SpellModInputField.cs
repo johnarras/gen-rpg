@@ -24,11 +24,11 @@ namespace Assets.Scripts.UI.Spells
             _spellModifierId = spellModifierId;
 
             _helper = _craftingService.GetSpellModifierHelper(spellModifierId);
-            _modifier = _gs.data.Get<SpellModifierSettings>(_gs.ch).Get(spellModifierId);
+            _modifier = _gameData.Get<SpellModifierSettings>(_gs.ch).Get(spellModifierId);
 
-            _uiService.SetText(ModifierName, _modifier.Name);
+            _uIInitializable.SetText(ModifierName, _modifier.Name);
 
-            _uiService.SetText(InfoText, "");// _helper.GetInfoText(_gs, _gs.ch));
+            _uIInitializable.SetText(InfoText, "");// _helper.GetInfoText(_gs, _gs.ch));
 
             Dropdown?.Init(_helper.GetValidValues(_gs, _gs.ch), onValueChangedAction);
 

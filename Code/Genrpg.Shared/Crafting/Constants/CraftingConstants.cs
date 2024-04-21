@@ -25,5 +25,9 @@ namespace Genrpg.Shared.Crafting.Constants
         public const int StartMaxSkillLevel = 10;
 
 
+        public const int MinReagentQuantity = 1;
+        public const int BadReagentQuantity = 1000;
+
+
     }
 }

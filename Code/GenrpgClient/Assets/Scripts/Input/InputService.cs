@@ -31,7 +31,7 @@ internal class InputContainer
     public int MouseButton = -1;
 }
 
-public interface IInputService : ISetupService
+public interface IInputService : IInitializable
 {
     bool MouseClickNow(int index);
     float GetDeltaTime();
@@ -50,10 +50,10 @@ public class InputService : BaseBehaviour, IInputService
 
     IClientMapObjectManager _objectManager;
 
-    public async Task Setup(GameState gs, CancellationToken token)
+    public async Task Initialize(GameState gs, CancellationToken token)
     {
         AddUpdate(InputUpdate, UpdateType.Regular);
-        _gs.AddEvent<MapIsLoadedEvent>(this, UpdateInputs);
+        _dispatcher.AddEvent<MapIsLoadedEvent>(this, UpdateInputs);
         await UniTask.CompletedTask;
     }
 
@@ -550,7 +550,7 @@ public class InputService : BaseBehaviour, IInputService
 
 
 
-        SkillType skillType = _gs.data.Get<SkillTypeSettings>(base._gs.ch).Get(spell.Effects.FirstOrDefault()?.SkillTypeId ?? 0);
+        SkillType skillType = _gameData.Get<SkillTypeSettings>(base._gs.ch).Get(spell.Effects.FirstOrDefault()?.SkillTypeId ?? 0);
         if (!_objectManager.GetUnit(MapUnit.TargetId, out Unit target))
         {
             if (skillType.TargetTypeId == TargetTypes.Ally)

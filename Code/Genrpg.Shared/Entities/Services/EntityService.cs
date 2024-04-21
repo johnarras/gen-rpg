@@ -14,7 +14,7 @@ using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Entities.Services
 {
-    public interface IEntityService : ISetupService
+    public interface IEntityService : IInitializable
     {
         bool GiveRewards<SR>(GameState gs, MapObject obj, List<SR> resultList) where SR : ISpawnResult;
         IEntityHelper GetEntityHelper(long entityTypeId);
@@ -27,7 +27,7 @@ namespace Genrpg.Shared.Entities.Services
         private Dictionary<long, IRewardHelper> _rewardHelpers = null;
         private Dictionary<long, IEntityHelper> _entityHelpers = null;
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             _rewardHelpers = ReflectionUtils.SetupDictionary<long, IRewardHelper>(gs);
             _entityHelpers = ReflectionUtils.SetupDictionary<long, IEntityHelper>(gs);

@@ -44,7 +44,7 @@ public class QuestInfoUI : BaseBehaviour
     MapObject _obj = null;
     public void Init(QuestType qtype, int index, QuestScreen screen, MapObject mapObject, CancellationToken token)
     {
-        _gs.AddEvent<UpdateQuestEvent>(this, OnUpdateQuest);
+        _dispatcher.AddEvent<UpdateQuestEvent>(this, OnUpdateQuest);
         _token = token;
         _qtype = qtype;
         _screen = screen;
@@ -81,8 +81,8 @@ public class QuestInfoUI : BaseBehaviour
         UpdateButtonsFromState(state);
 
 
-        _uiService.SetText(QuestName, nameText);
-        _uiService.SetText(Description, _qtype.Desc);
+        _uIInitializable.SetText(QuestName, nameText);
+        _uIInitializable.SetText(Description, _qtype.Desc);
 
         GEntityUtils.DestroyAllChildren(TaskParent);
         if (_qtype.Tasks != null && TaskParent != null)
@@ -101,7 +101,7 @@ public class QuestInfoUI : BaseBehaviour
         SpawnResult expReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Exp);
         if (expReward != null)
         {
-            _uiService.SetText(Experience, "XP: " + expReward.Quantity.ToString());
+            _uIInitializable.SetText(Experience, "XP: " + expReward.Quantity.ToString());
         }
         SpawnResult moneyReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Money);
         if (moneyReward != null && Money != null)
@@ -112,7 +112,7 @@ public class QuestInfoUI : BaseBehaviour
         List<SpawnResult> itemRewards = rewards.Where(X => X.EntityTypeId == EntityTypes.Item && (X.Data as Item) != null).ToList();
 
 
-        _uiService.SetText(ItemRewardText, "");
+        _uIInitializable.SetText(ItemRewardText, "");
         if (itemRewards.Count > 0)
         {
 
@@ -136,14 +136,14 @@ public class QuestInfoUI : BaseBehaviour
 
             if (_qtype.ItemQualityTypeId > 0)
             {
-                QualityType qualityType = _gs.data.Get<QualityTypeSettings>(_gs.ch).Get(_qtype.ItemQualityTypeId);
+                QualityType qualityType = _gameData.Get<QualityTypeSettings>(_gs.ch).Get(_qtype.ItemQualityTypeId);
                 if (qualityType != null)
                 {
                     qualityString = " " + qualityType.Name;
                 }
             }
             string txt = "Create " + _qtype.ItemQuantity + "" + qualityString + " Item" + (_qtype.ItemQuantity==1?"":"s");
-            _uiService.SetText(ItemRewardText, txt);
+            _uIInitializable.SetText(ItemRewardText, txt);
         }
     }
 

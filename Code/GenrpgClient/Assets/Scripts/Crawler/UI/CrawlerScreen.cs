@@ -21,7 +21,7 @@ namespace Assets.Scripts.UI.Crawler
         protected override async UniTask OnStartOpen(object data, CancellationToken token)
         {
             await _crawlerService.LoadSaveGame();
-            _gs.AddEvent<CrawlerStateData>(this, OnNewStateData);
+            _dispatcher.AddEvent<CrawlerStateData>(this, OnNewStateData);
             await WorldPanel.Init(this,token);
             await ActionPanel.Init(this, token);
             await StatusPanel.Init(this, token);

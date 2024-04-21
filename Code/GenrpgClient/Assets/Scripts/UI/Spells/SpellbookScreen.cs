@@ -52,13 +52,13 @@ public class SpellbookScreen : SpellIconScreen
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        _gs.AddEvent<OnCraftSpell>(this, OnCraftSpellHandler);
-        _gs.AddEvent<OnDeleteSpell>(this, OnDeleteSpellHandler);
-        _uiService.SetButton(CraftButton, GetName(), ClickCraft);
-        _uiService.SetButton(DeleteButton, GetName(), ClickDelete);
-        _uiService.SetButton(ClearButton, GetName(), ClickClear);
-        _uiService.SetButton(AddEffectButton, GetName(), ClickAddEffect);
-        _uiService.SetButton(ValidateButton, GetName(), ClickValidate);
+        _dispatcher.AddEvent<OnCraftSpell>(this, OnCraftSpellHandler);
+        _dispatcher.AddEvent<OnDeleteSpell>(this, OnDeleteSpellHandler);
+        _uIInitializable.SetButton(CraftButton, GetName(), ClickCraft);
+        _uIInitializable.SetButton(DeleteButton, GetName(), ClickDelete);
+        _uIInitializable.SetButton(ClearButton, GetName(), ClickClear);
+        _uIInitializable.SetButton(AddEffectButton, GetName(), ClickAddEffect);
+        _uIInitializable.SetButton(ValidateButton, GetName(), ClickValidate);
         InitScreenInputs();
         SetSelectedSpell(null);
         ShowSpells(token);
@@ -95,8 +95,8 @@ public class SpellbookScreen : SpellIconScreen
 
     public void InitScreenInputs()
     {
-        ElementDropdown?.Init(_gs.data.Get<ElementTypeSettings>(_gs.ch).GetData(), OnDropdownValueChanged);
-        PowerTypeDropdown?.Init(_gs.data.Get<StatSettings>(_gs.ch).GetPowerStats(), OnDropdownValueChanged);
+        ElementDropdown?.Init(_gameData.Get<ElementTypeSettings>(_gs.ch).GetData(), OnDropdownValueChanged);
+        PowerTypeDropdown?.Init(_gameData.Get<StatSettings>(_gs.ch).GetPowerStats(), OnDropdownValueChanged);
         
         ShotsInput?.Init(SpellModifiers.Shots, OnDropdownValueChanged);
         RangeInput?.Init(SpellModifiers.Range, OnDropdownValueChanged);
@@ -193,11 +193,11 @@ public class SpellbookScreen : SpellIconScreen
 
         _editSpell.Name = NameInput?.Text;
 
-        IReadOnlyList<ElementType> elements = _gs.data.Get<ElementTypeSettings>(_gs.ch).GetData();
-        IReadOnlyList<StatType> statTypes = _gs.data.Get<StatSettings>(_gs.ch).GetData();
+        IReadOnlyList<ElementType> elements = _gameData.Get<ElementTypeSettings>(_gs.ch).GetData();
+        IReadOnlyList<StatType> statTypes = _gameData.Get<StatSettings>(_gs.ch).GetData();
 
-        _editSpell.ElementTypeId = _uiService.GetSelectedIdFromName(typeof(ElementType), ElementDropdown);
-        _editSpell.PowerStatTypeId = _uiService.GetSelectedIdFromName(typeof(StatType), PowerTypeDropdown);
+        _editSpell.ElementTypeId = _uIInitializable.GetSelectedIdFromName(typeof(ElementType), ElementDropdown);
+        _editSpell.PowerStatTypeId = _uIInitializable.GetSelectedIdFromName(typeof(StatType), PowerTypeDropdown);
 
         _editSpell.Cooldown = (int)CooldownInput?.GetSelectedValue();
         _editSpell.MaxRange = (int)RangeInput?.GetSelectedValue();
@@ -241,7 +241,7 @@ public class SpellbookScreen : SpellIconScreen
         RangeInput?.SetSelectedValue(spell.MaxRange);
         MaxChargesInput?.SetSelectedValue(spell.MaxCharges);
 
-        _uiService.SetText(PowerCostText, spell.PowerCost.ToString());
+        _uIInitializable.SetText(PowerCostText, spell.PowerCost.ToString());
 
         // Get rid of extra effect blocks
         while (_effectEdits.Count > spell.Effects.Count)

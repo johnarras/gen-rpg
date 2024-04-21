@@ -17,7 +17,7 @@ namespace Genrpg.Shared.Users.Entities
     }
 
     [MessagePackObject]
-    public class User : BasePlayerData, IFilteredObject
+    public class User : NoChildPlayerData, IFilteredObject
     {
         /// <summary>
         /// Used for the id found in the relational database

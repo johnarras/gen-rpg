@@ -24,6 +24,7 @@ using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.MapServer.Units
 {
@@ -32,8 +33,9 @@ namespace Genrpg.MapServer.Units
         private IMapMessageService _messageService = null;
         private IMapObjectManager _objectManager = null;
         private ISpawnService _spawnService = null;
+        private IGameData _gameData;
         private IAchievementService _achievementService = null;
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -47,9 +49,9 @@ namespace Genrpg.MapServer.Units
 
             targ.AddFlag(UnitFlags.IsDead);
 
-            UnitType utype = gs.data.Get<UnitSettings>(targ).Get(targ.EntityId);
+            UnitType utype = _gameData.Get<UnitSettings>(targ).Get(targ.EntityId);
 
-            TribeType ttype = gs.data.Get<TribeSettings>(targ).Get(utype.TribeTypeId);
+            TribeType ttype = _gameData.Get<TribeSettings>(targ).Get(utype.TribeTypeId);
 
             AttackerInfo firstAttacker = targ.GetFirstAttacker();
 
@@ -80,8 +82,8 @@ namespace Genrpg.MapServer.Units
             {
                 targ.SkillLoot = new List<SpawnResult>();
 
-                targ.Loot = _spawnService.Roll(gs, gs.data.Get<SpawnSettings>(targ).MonsterLootSpawnTableId, rollData);
-                LevelInfo levelData = gs.data.Get<LevelSettings>(targ).Get(targ.Level);
+                targ.Loot = _spawnService.Roll(gs, _gameData.Get<SpawnSettings>(targ).MonsterLootSpawnTableId, rollData);
+                LevelInfo levelData = _gameData.Get<LevelSettings>(targ).Get(targ.Level);
 
                 if (levelData != null)
                 {

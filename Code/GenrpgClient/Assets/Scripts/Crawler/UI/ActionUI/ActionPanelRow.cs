@@ -45,9 +45,9 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
                     }
                 }
 
-                _uiService.SetText(Text, text);
+                _uIInitializable.SetText(Text, text);
 
-                _uiService.SetButton(Button, "ActionTextRow", ClickAction);
+                _uIInitializable.SetButton(Button, "ActionTextRow", ClickAction);
 
             }
         }
@@ -64,7 +64,7 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
         {
             if (_action != null && !string.IsNullOrEmpty(_action.SpriteName))
             {
-                _gs.Dispatch<ShowWorldPanelImage>(new ShowWorldPanelImage()
+                _dispatcher.Dispatch<ShowWorldPanelImage>(_gs, new ShowWorldPanelImage()
                 {
                     SpriteName = _action.SpriteName
                 });

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.MapMods.Services
 {
-    public interface IMapModService : ISetupService
+    public interface IMapModService : IInitializable
     {
         void Process(ServerGameState gs, MapMod mapMod);
     }

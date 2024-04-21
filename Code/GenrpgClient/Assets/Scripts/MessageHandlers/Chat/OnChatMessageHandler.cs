@@ -8,7 +8,7 @@ namespace Assets.Scripts.MessageHandlers.Chat
     {
         protected override void InnerProcess(UnityGameState gs, OnChatMessage msg, CancellationToken token)
         {
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs,msg);
         }
     }
 }

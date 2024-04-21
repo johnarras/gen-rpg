@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Crawler.Services.Training
 {
-    public interface ITrainingService : IService
+    public interface ITrainingService : IInitializable
     {
         TrainingInfo GetTrainingInfo(GameState gs, PartyData party, PartyMember member);
         void TrainPartyMemberLevel(GameState gs, PartyData party, PartyMember member);

@@ -3,6 +3,7 @@ using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.Crawler.Training.Settings;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assets.Scripts.Crawler.Services.Training
@@ -28,11 +30,18 @@ namespace Assets.Scripts.Crawler.Services.Training
     {
 
         private ICrawlerStatService _statService;
+        protected IGameData _gameData;
+
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
+
 
         public TrainingInfo GetTrainingInfo(GameState gs, PartyData party, PartyMember member)
         {
 
-            CrawlerTrainingSettings settings = gs.data.Get<CrawlerTrainingSettings>(null);
+            CrawlerTrainingSettings settings = _gameData.Get<CrawlerTrainingSettings>(null);
 
             long cost = settings.GetNextLevelTrainingCost(member.Level);
             long exp = settings.GetExpToLevel(member.Level);
@@ -61,7 +70,7 @@ namespace Assets.Scripts.Crawler.Services.Training
                 member.Exp -= info.TotalExp;
                 member.Level++;
 
-                List<StatType> primaryStats = gs.data.Get<StatSettings>(null).GetData().Where(
+                List<StatType> primaryStats = _gameData.Get<StatSettings>(null).GetData().Where(
                     x => x.IdKey >= StatConstants.PrimaryStatStart &&
                     x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 

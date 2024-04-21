@@ -23,7 +23,7 @@ namespace Assets.Scripts.UI.Crawler.States
         {
             CrawlerStateData stateData = CreateStateData();
 
-            IReadOnlyList<SexType> sexes = gs.data.Get<SexTypeSettings>(null).GetData();
+            IReadOnlyList<SexType> sexes = _gameData.Get<SexTypeSettings>(null).GetData();
 
             PartyMember member = new PartyMember()
             {

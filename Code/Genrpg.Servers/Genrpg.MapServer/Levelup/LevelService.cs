@@ -15,7 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Genrpg.MapServer.Levelup
 {
-    public interface ILevelService : ISetupService
+    public interface ILevelService : IInitializable
     {
         void UpdateLevel(GameState gs, Character ch);
         void SetupLevels(GameData data);
@@ -29,8 +29,9 @@ namespace Genrpg.MapServer.Levelup
         private IStatService _statService = null;
         private IEntityService _entityService = null;
         private IMapMessageService _messageService = null;
+        private IGameData _gameData;
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -40,13 +41,13 @@ namespace Genrpg.MapServer.Levelup
             CurrencyData currencies = ch.Get<CurrencyData>();
 
             long startLevel = ch.Level;
-            long maxLevel = gs.data.Get<LevelSettings>(ch).MaxLevel;
+            long maxLevel = _gameData.Get<LevelSettings>(ch).MaxLevel;
             long startExp = currencies.GetQuantity(CurrencyTypes.Exp);
             long currExp = startExp;
             long endLevel = startLevel;
             for (endLevel = startLevel; endLevel < maxLevel; endLevel++)
             {
-                LevelInfo ldata = gs.data.Get<LevelSettings>(ch).Get(endLevel);
+                LevelInfo ldata = _gameData.Get<LevelSettings>(ch).Get(endLevel);
                 if (ldata == null)
                 {
                     break;

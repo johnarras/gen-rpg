@@ -30,7 +30,7 @@ namespace Genrpg.LoginServer.PlayerData
 
             IUnitDataLoader loader = _playerDataService.GetLoader<T>();
 
-            IUnitData newData = await loader.LoadData(_repoService, ch);
+            IUnitData newData = await loader.LoadFullData(ch);
 
             if (newData == null)
             {

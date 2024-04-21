@@ -22,7 +22,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         public override async UniTask Init(CrawlerScreen screen, CancellationToken token)
         {
             await base.Init(screen, token);
-            _gs.AddEvent<ShowWorldPanelImage>(this, OnShowWorldPanelImage);
+            _dispatcher.AddEvent<ShowWorldPanelImage>(this, OnShowWorldPanelImage);
 
             _updateService.AddUpdate(this, IncrementTextureFrame, UpdateType.Late);
             SetPicture(null);

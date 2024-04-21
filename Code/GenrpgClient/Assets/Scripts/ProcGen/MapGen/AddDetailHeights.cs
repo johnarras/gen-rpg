@@ -16,7 +16,7 @@ public class AddDetailHeights : BaseZoneGenerator
         await base.Generate(gs, token);
         foreach (Zone zn in gs.map.Zones)
         {
-            GenerateOneZone(gs, zn, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zn.ZoneTypeId), zn.XMin, zn.ZMin, zn.XMax, zn.ZMax);
+            GenerateOneZone(gs, zn, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zn.ZoneTypeId), zn.XMin, zn.ZMin, zn.XMax, zn.ZMax);
         }
     }
 

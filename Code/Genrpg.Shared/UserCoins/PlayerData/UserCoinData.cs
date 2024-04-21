@@ -50,7 +50,7 @@ namespace Genrpg.Shared.UserCoins.PlayerData
     }
 
     [MessagePackObject]
-    public class UserCoinDataLoader : OwnerDataLoader<UserCoinData, UserCoinStatus, UserCoinApi>
+    public class UserCoinDataLoader : OwnerIdDataLoader<UserCoinData, UserCoinStatus, UserCoinApi>
     {
         protected override bool IsUserData() { return true; }
     }

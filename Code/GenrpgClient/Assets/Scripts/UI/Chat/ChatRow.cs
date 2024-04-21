@@ -14,14 +14,14 @@ namespace Assets.Scripts.UI.Chat
         {
             _message = message;
 
-            ChatType chatType = _gs.data.Get<ChatSettings>(_gs.ch).Get(message.ChatTypeId);
+            ChatType chatType = _gameData.Get<ChatSettings>(_gs.ch).Get(message.ChatTypeId);
 
-            _uiService.SetText(Text, "[" + chatType?.Name + "] " + message.SenderName + ": " + message.Message);
+            _uIInitializable.SetText(Text, "[" + chatType?.Name + "] " + message.SenderName + ": " + message.Message);
         }
 
         public void InitTextOnly(string text)
         {
-            _uiService.SetText(Text, text);
+            _uIInitializable.SetText(Text, text);
         }
     }
 }

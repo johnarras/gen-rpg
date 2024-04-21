@@ -7,6 +7,7 @@ using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
 using Assets.Scripts.MapTerrain;
 using UnityEngine;
+using Genrpg.Shared.GameSettings;
 
 /// <summary>
 /// Base class for object loaders
@@ -24,6 +25,7 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
     protected IMapTerrainManager _terrainManager;
     protected IAssetService _assetService;
     protected IClientMapObjectManager _objectManager;
+    protected IGameData _gameData;
 
     public void FinalPlaceObject(UnityGameState gs, GEntity go, SpawnLoadData data, string layerName)
     {

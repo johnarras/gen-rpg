@@ -10,6 +10,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.AI.Settings;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.MapServer.AI.MessageHandlers
 {
@@ -32,7 +33,7 @@ namespace Genrpg.MapServer.AI.MessageHandlers
             {
                 if (!message.IsCancelled())
                 {
-                    float delayTime = gs.data.Get<AISettings>(obj).UpdateSeconds;
+                    float delayTime = _gameData.Get<AISettings>(obj).UpdateSeconds;
                     _messageService.SendMessage(obj, message, delayTime);
                 }
             }

@@ -8,11 +8,13 @@ using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.GameSettings;
 
 public abstract class BaseObjectLoader
 {
     protected IAssetService _assetService;
     protected IMapTerrainManager _terrainManager;
+    protected IGameData _gameData;
     public BaseObjectLoader(UnityGameState gs)
     {
         gs.loc.Resolve(this);

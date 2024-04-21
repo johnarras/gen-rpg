@@ -28,7 +28,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 Character ch = new Character();
                 CharacterUtils.CopyDataFromTo(gs.coreCh, ch);
 
-                await _playerDataService.LoadPlayerData(gs, gs.ch);
+                await _playerDataService.LoadAllPlayerData(gs, gs.ch);
                 await _repoService.Delete(gs.coreCh);
 
                 foreach (IUnitData data in gs.ch.GetAllData().Values)

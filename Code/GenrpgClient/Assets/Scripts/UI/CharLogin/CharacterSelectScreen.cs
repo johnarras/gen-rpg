@@ -39,14 +39,14 @@ public class CharacterSelectScreen : BaseScreen
             }
         }
 
-        _uiService.SetButton(GenWorldButton, GetName(), ClickGenerate);
+        _uIInitializable.SetButton(GenWorldButton, GetName(), ClickGenerate);
 #endif
         GEntityUtils.DestroyAllChildren(CharacterGridParent);
 
-        _uiService.SetButton(LogoutButton, GetName(), ClickLogout);
-        _uiService.SetButton(CreateButton, GetName(), ClickCharacterCreate);
-        _uiService.SetButton(QuitButton, GetName(), ClickQuit);
-        _uiService.SetButton(CrawlerButton, GetName(), ClickCrawler);
+        _uIInitializable.SetButton(LogoutButton, GetName(), ClickLogout);
+        _uIInitializable.SetButton(CreateButton, GetName(), ClickCharacterCreate);
+        _uIInitializable.SetButton(QuitButton, GetName(), ClickQuit);
+        _uIInitializable.SetButton(CrawlerButton, GetName(), ClickCrawler);
 
         SetupCharacterGrid();
 
@@ -107,7 +107,7 @@ public class CharacterSelectScreen : BaseScreen
     {
         CharacterStub currStub = null;
 
-        GEntity selected = _uiService.GetSelected();
+        GEntity selected = _uIInitializable.GetSelected();
 
         CharacterSelectRow currRow = null;
 

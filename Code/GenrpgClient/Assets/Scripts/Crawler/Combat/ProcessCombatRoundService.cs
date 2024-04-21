@@ -26,7 +26,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
         private ICombatService _combatService;
         private ICrawlerService _crawlerService;
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }

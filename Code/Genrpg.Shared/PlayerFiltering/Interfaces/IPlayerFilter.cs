@@ -8,6 +8,7 @@ namespace Genrpg.Shared.PlayerFiltering.Interfaces
 {
     public interface IPlayerFilter : IIdName
     {
+        bool Enabled { get; set; }
         long TotalModSize { get; set; }
         long MaxAcceptableModValue { get; set; }
         long MinLevel { get; set; }

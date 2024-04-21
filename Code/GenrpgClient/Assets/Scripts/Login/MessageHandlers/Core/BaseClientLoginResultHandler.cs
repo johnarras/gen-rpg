@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Login.Interfaces;
 using System;
@@ -11,6 +12,8 @@ namespace Assets.Scripts.Login.Messages.Core
     {
         protected ILogService _logService;
         protected IRepositoryService _repoService;
+        protected IDispatcher _dispatcher;
+        protected IGameData _gameData;
         public Type GetKey() { return typeof(T); }
 
         virtual public int Priority() { return 0; }

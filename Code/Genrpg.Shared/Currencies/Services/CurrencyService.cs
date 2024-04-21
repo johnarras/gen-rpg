@@ -7,11 +7,19 @@ using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Genrpg.Shared.Currencies.Services
 {
     public class CurrencyService : ICurrencyService
     {
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
         protected IRepositoryService _repoService = null;
 
         public bool Add(GameState gs, Unit unit, long currencyTypeId, long quantity)

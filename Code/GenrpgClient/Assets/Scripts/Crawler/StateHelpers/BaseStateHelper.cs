@@ -7,6 +7,7 @@ using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
 using System.Threading;
 
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Crawler.StateHelpers
         protected ICrawlerSpellService _spellService;
         protected ILogService _logService;
         protected IRepositoryService _repoService;
+        protected IGameData _gameData;
 
         public abstract ECrawlerStates GetKey();
         public abstract UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token);

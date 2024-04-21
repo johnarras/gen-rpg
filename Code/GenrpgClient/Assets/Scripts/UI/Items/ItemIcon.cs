@@ -61,16 +61,16 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         _initData = data;
 
 
-        string bgName = IconHelper.GetBackingNameFromQuality(_gs, 0);
-        string frameName = IconHelper.GetFrameNameFromLevel(_gs, 1);
+        string bgName = IconHelper.GetBackingNameFromQuality(_gameData, 0);
+        string frameName = IconHelper.GetFrameNameFromLevel(_gameData, 1);
 
         string iconName = ItemConstants.BlankIconName;
 
         if (_initData.Data != null)
         {
-            frameName = IconHelper.GetFrameNameFromLevel(_gs, _initData.Data.Level);
-            bgName = IconHelper.GetBackingNameFromQuality(_gs, _initData.Data.QualityTypeId);
-            iconName = ItemUtils.GetIcon(_gs, _gs.ch, _initData.Data);
+            frameName = IconHelper.GetFrameNameFromLevel(_gameData, _initData.Data.Level);
+            bgName = IconHelper.GetBackingNameFromQuality(_gameData, _initData.Data.QualityTypeId);
+            iconName = ItemUtils.GetIcon(_gameData, _gs.ch, _initData.Data);
         }
         else
         {
@@ -81,12 +81,12 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             }
             if (data.quality > 0)
             {
-                bgName = IconHelper.GetBackingNameFromQuality(_gs, data.quality);
+                bgName = IconHelper.GetBackingNameFromQuality(_gameData, data.quality);
             }
 
             if (data.level > 0)
             {
-                frameName = IconHelper.GetFrameNameFromLevel(_gs, data.level);
+                frameName = IconHelper.GetFrameNameFromLevel(_gameData, data.level);
             }
         }
 
@@ -96,19 +96,19 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
 
         if (_initData.Data != null)
         {
-            ItemType itype = _gs.data.Get<ItemTypeSettings>(_gs.ch).Get(_initData.Data.ItemTypeId);
+            ItemType itype = _gameData.Get<ItemTypeSettings>(_gs.ch).Get(_initData.Data.ItemTypeId);
             if (itype.EquipSlotId > 0)
             {
-                _uiService.SetText(QuantityText, "");
+                _uIInitializable.SetText(QuantityText, "");
             }
             else
             {
-                _uiService.SetText(QuantityText, _initData.Data.Quantity.ToString());
+                _uIInitializable.SetText(QuantityText, _initData.Data.Quantity.ToString());
             }
         }
         else
         {
-            _uiService.SetText(QuantityText, data.quantity.ToString());
+            _uIInitializable.SetText(QuantityText, data.quantity.ToString());
         }
 
         if (FlagUtils.IsSet(_initData.Flags, ItemIconFlags.ShowTooltipNow))

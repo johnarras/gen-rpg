@@ -19,9 +19,9 @@ namespace Genrpg.MapServer.Items
     {
         protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;
-        public override async Task Setup(GameState gs, CancellationToken token)
+        public override async Task Initialize(GameState gs, CancellationToken token)
         {
-            await base.Setup(gs, token);
+            await base.Initialize(gs, token);
         }
 
         protected override void AddMessage(GameState gs, Unit unit, InventoryData idata, Item item, IMapApiMessage message, EDataUpdateTypes dataUpdateType = EDataUpdateTypes.Save)

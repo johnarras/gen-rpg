@@ -28,22 +28,16 @@ namespace Genrpg.Shared.Inventory.Settings.Slots
         /// </summary>
         [Key(6)] public long ParentEquipSlotId { get; set; }
 
-        /// <summary>
-        /// How much stats on generated items of this type are scaled.
-        /// </summary>
-        [Key(7)] public int StatPercent { get; set; }
+        [Key(7)] public string Art { get; set; }
 
-        [Key(8)] public string Art { get; set; }
+        [Key(8)] public bool Active { get; set; }
 
-        [Key(9)] public bool Active { get; set; }
+        [Key(9)] public bool ClassRestricted { get; set; }
 
-        [Key(10)] public bool ClassRestricted { get; set; }
-
-        [Key(11)] public long BaseBonusStatTypeId { get; set; }
+        [Key(10)] public long BaseBonusStatTypeId { get; set; }
 
         public EquipSlot()
         {
-            StatPercent = 100;
         }
 
 

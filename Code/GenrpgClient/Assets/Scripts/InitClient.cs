@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Reflection;
 using Genrpg.Shared.Analytics.Services;
+using ClientEvents;
+using Genrpg.Shared.Core.Entities;
+using UnityEngine;
 
 public class InitClient : BaseBehaviour
 {
@@ -76,6 +79,7 @@ public class InitClient : BaseBehaviour
     private async UniTask OnGetWebConfigAsync(UnityGameState gs, ConfigResponse response, CancellationToken token)
     {
         _gs.SetInitObject(entity);
+        _dispatcher.AddEvent<NewVersionEvent>(this, OnNewVersion);
         _gs.LoginServerURL = response.ServerURL;
         _gs.Config.ResponseContentRoot = response.ContentRoot;
         _gs.Config.ResponseAssetEnv = response.AssetEnv;
@@ -95,17 +99,17 @@ public class InitClient : BaseBehaviour
 
         List<Task> setupTasks = new List<Task>();
 
-        foreach (IService service in _gs.loc.GetVals())
+        foreach (IInjectable service in _gs.loc.GetVals())
         {
-            if (service is ISetupService iss)
+            if (service is IInitializable initService)
             {
-                setupTasks.Add(iss.Setup(_gs, _gameTokenSource.Token));
+                setupTasks.Add(initService.Initialize(_gs, _gameTokenSource.Token));
             }
         }
 
         await Task.WhenAll(setupTasks);
 
-        foreach (IService service in _gs.loc.GetVals())
+        foreach (IInjectable service in _gs.loc.GetVals())
         {
             if (service is IGameTokenService gameTokenService)
             {
@@ -165,5 +169,13 @@ public class InitClient : BaseBehaviour
             _splashImage = null;
         }
     }
+
+    private NewVersionEvent OnNewVersion(GameState gs, NewVersionEvent newVersion)
+    {
+        Caching.ClearCache();
+        return null;
+    }
+
+
 
 }

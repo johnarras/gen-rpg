@@ -33,7 +33,7 @@ public class AddPlants : BaseZoneGenerator
         await base.Generate(gs, token);
         foreach (Zone zone in gs.map.Zones)
         {
-            GenerateOne(gs, zone, gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
 
         AddPlantsToMapData(gs);
@@ -49,7 +49,7 @@ public class AddPlants : BaseZoneGenerator
             return;
         }
 
-        ZoneType zoneType = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
+        ZoneType zoneType = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
 
         List<ZonePlantType> plist = new List<ZonePlantType>(zone.PlantTypes);
 
@@ -72,7 +72,7 @@ public class AddPlants : BaseZoneGenerator
                 continue;
             }
 
-            PlantType pt = gs.data.Get<PlantTypeSettings>(gs.ch).Get(zpt.PlantTypeId);
+            PlantType pt = _gameData.Get<PlantTypeSettings>(gs.ch).Get(zpt.PlantTypeId);
             if (pt == null || string.IsNullOrEmpty(pt.Art))
             {
                 continue;

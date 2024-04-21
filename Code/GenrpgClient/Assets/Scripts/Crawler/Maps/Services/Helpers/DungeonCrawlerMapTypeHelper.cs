@@ -79,7 +79,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                 }
             }
 
-            cmap.DungeonArt = gs.data.Get<DungeonArtSettings>(null).Get(cmap.DungeonArtId);
+            cmap.DungeonArt = _gameData.Get<DungeonArtSettings>(null).Get(cmap.DungeonArtId);
 
             return cmap;
         }

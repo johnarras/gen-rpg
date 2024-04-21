@@ -15,7 +15,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
 
     public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
     {
-        GroundObjType groundObjType = gs.data.Get<GroundObjTypeSettings>(gs.ch).Get(spawn.EntityId);
+        GroundObjType groundObjType = _gameData.Get<GroundObjTypeSettings>(gs.ch).Get(spawn.EntityId);
         if (groundObjType == null)
         {
             return;
@@ -52,7 +52,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
 
         MapGroundObject worldGroundObject = GEntityUtils.GetOrAddComponent<MapGroundObject>(gs,go);
 
-        GroundObjType gtype = gs.data.Get<GroundObjTypeSettings>(gs.ch).Get(loadData.Spawn.EntityId);
+        GroundObjType gtype = _gameData.Get<GroundObjTypeSettings>(gs.ch).Get(loadData.Spawn.EntityId);
 
         worldGroundObject.GroundObjectId = gtype.IdKey;
         worldGroundObject.CrafterTypeId = gtype.CrafterTypeId;

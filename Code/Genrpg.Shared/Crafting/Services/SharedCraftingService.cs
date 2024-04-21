@@ -20,19 +20,29 @@ using Genrpg.Shared.Inventory.Settings.Qualities;
 using Genrpg.Shared.Inventory.Settings.Slots;
 using Genrpg.Shared.Crafting.Entities;
 using Genrpg.Shared.Crafting.Settings.Recipes;
+using System.Threading;
+using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Crafting.Constants;
 
 namespace Genrpg.Shared.Crafting.Services
 {
-    public interface ISharedCraftingService : IService
+    public interface ISharedCraftingService : IInitializable
     {
         CraftingStats CalculateStatsFromReagents(GameState gs, Character ch, CraftingItemData data);
         ValidityResult HasValidReagents(GameState gs, Character ch, CraftingItemData data, Character crafter);
         long GetCrafterTypeFromRecipe(GameState gs, Character ch, long recipeTypeId, long scalingTypeId);
-
+        int GetReagentQuantity(long recipeTypeId);
     }
 
     public class SharedCraftingService : ISharedCraftingService
     {
+
+        private IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
         /// <summary>
         /// Get stats generated when the given crafting stats are used
         /// Add up the stat values given the levels of the items passed in 
@@ -49,7 +59,7 @@ namespace Genrpg.Shared.Crafting.Services
 
             Dictionary<int, long> statTotals = new Dictionary<int, long>();
 
-            RecipeType recipe = gs.data.Get<RecipeSettings>(ch).Get(data.RecipeTypeId);
+            RecipeType recipe = _gameData.Get<RecipeSettings>(ch).Get(data.RecipeTypeId);
 
             if (recipe == null)
             {
@@ -65,7 +75,7 @@ namespace Genrpg.Shared.Crafting.Services
 
             stats.RecipeTypeId = recipe.IdKey;
 
-            ScalingType scaleType = gs.data.Get<ScalingTypeSettings>(ch).Get(data.ScalingTypeId);
+            ScalingType scaleType = _gameData.Get<ScalingTypeSettings>(ch).Get(data.ScalingTypeId);
 
             if (scaleType == null)
             {
@@ -75,7 +85,7 @@ namespace Genrpg.Shared.Crafting.Services
 
             stats.ScalingTypeId = scaleType.IdKey;
 
-            ItemType resultItemType = gs.data.Get<ItemTypeSettings>(ch).Get(recipe.EntityId);
+            ItemType resultItemType = _gameData.Get<ItemTypeSettings>(ch).Get(recipe.EntityId);
 
             if (resultItemType == null)
             {
@@ -84,7 +94,7 @@ namespace Genrpg.Shared.Crafting.Services
             }
 
 
-            EquipSlot equipSlot = gs.data.Get<EquipSlotSettings>(ch).Get(resultItemType.EquipSlotId);
+            EquipSlot equipSlot = _gameData.Get<EquipSlotSettings>(ch).Get(resultItemType.EquipSlotId);
             if (equipSlot == null)
             {
                 stats.Message = " Result item " + resultItemType.IdKey + " equip slot " + resultItemType.EquipSlotId + " is not valid";
@@ -94,30 +104,24 @@ namespace Genrpg.Shared.Crafting.Services
             stats.EntityTypeId = recipe.EntityTypeId;
             stats.EntityId = recipe.EntityId;
 
+            List<FullReagent> allStatReagents = new List<FullReagent>();
+            allStatReagents.Add(data.BaseScalingReagent);
+            allStatReagents.AddRange(data.StatReagents);
+
+            List<FullReagent> allScalingReagents = new List<FullReagent>();
+            allScalingReagents.AddRange(allStatReagents);
+            allScalingReagents.AddRange(data.LevelQualityReagents);
+
             double levelTotal = 0; // Sum Quantity*Level
             double qualityTotal = 0; // Sum Quantity*Quality
             double levelQualityTotal = 0; // Sum Quantity*Level*Quality
 
-            if (data.RecipeReagents == null || data.RecipeReagents.Count < 1 || data.PrimaryReagent == null)
-            {
-                stats.Message = "crafting data was missing base reagents or primary reagent";
-                return stats;
-            }
-            List<FullReagent> allReagents = new List<FullReagent>();
-            allReagents.AddRange(data.RecipeReagents);
-            allReagents.Add(data.PrimaryReagent);
-            if (data.ExtraReagents != null)
-            {
-                allReagents.AddRange(data.ExtraReagents);
-            }
-
-
             // Get level and quality totals to calc stats.
-            foreach (FullReagent reagent in allReagents)
+            foreach (FullReagent scalingReagent in allScalingReagents)
             {
-                levelTotal += reagent.Quantity * reagent.Level;
-                qualityTotal += reagent.Quantity * reagent.QualityTypeId / 100.0f;
-                levelQualityTotal += reagent.Quantity * reagent.Level * reagent.QualityTypeId / 100.0f;
+                levelTotal += scalingReagent.Quantity * scalingReagent.Level;
+                qualityTotal += scalingReagent.Quantity * scalingReagent.QualityTypeId / 100.0f;
+                levelQualityTotal += scalingReagent.Quantity * scalingReagent.Level * scalingReagent.QualityTypeId / 100.0f;
             }
 
             // Eg
@@ -146,10 +150,10 @@ namespace Genrpg.Shared.Crafting.Services
             double levelRemainder = averageLevel - (float)Math.Floor(averageLevel);
             double qualityRemainder = averageQuality - (float)Math.Floor(averageQuality);
 
-            LevelInfo prevLev = gs.data.Get<LevelSettings>(ch).Get((int)Math.Floor(averageLevel));
-            LevelInfo nextLev = gs.data.Get<LevelSettings>(ch).Get((int)Math.Ceiling(averageLevel));
-            QualityType prevQuality = gs.data.Get<QualityTypeSettings>(ch).Get((int)Math.Floor(averageQuality));
-            QualityType nextQuality = gs.data.Get<QualityTypeSettings>(ch).Get((int)Math.Ceiling(averageQuality));
+            LevelInfo prevLev = _gameData.Get<LevelSettings>(ch).Get((int)Math.Floor(averageLevel));
+            LevelInfo nextLev = _gameData.Get<LevelSettings>(ch).Get((int)Math.Ceiling(averageLevel));
+            QualityType prevQuality = _gameData.Get<QualityTypeSettings>(ch).Get((int)Math.Floor(averageQuality));
+            QualityType nextQuality = _gameData.Get<QualityTypeSettings>(ch).Get((int)Math.Ceiling(averageQuality));
             
             if (nextQuality == null)
             {
@@ -158,21 +162,15 @@ namespace Genrpg.Shared.Crafting.Services
 
             Dictionary<long, long> statPercents = new Dictionary<long, long>();
 
-            foreach (FullReagent reagent in allReagents)
+            foreach (FullReagent reagent in allStatReagents)
             {
-                // The core recipe reagents don't provide stats, just level + quality
-                if (data.RecipeReagents.Contains(reagent))
-                {
-                    continue;
-                }
-
-                ItemType itype = gs.data.Get<ItemTypeSettings>(ch).Get(reagent.ItemTypeId);
+                ItemType itype = _gameData.Get<ItemTypeSettings>(ch).Get(reagent.ItemTypeId);
                 if (itype == null)
                 {
                     continue;
                 }
 
-                Dictionary<long, long> currPcts = itype.GetCraftingStatPercents(gs, ch, reagent.Level, reagent.QualityTypeId);
+                Dictionary<long, long> currPcts = itype.GetCraftingStatPercents(_gameData, ch, reagent.Level, reagent.QualityTypeId);
                 foreach (long key in currPcts.Keys)
                 {
                     if (!statPercents.ContainsKey(key))
@@ -217,11 +215,10 @@ namespace Genrpg.Shared.Crafting.Services
                 qualityStatScale = prevQuality.ItemStatPct * qualityRemainder + nextQuality.ItemStatPct * (1 - qualityRemainder);
             }
 
-
             /// Scale quality stat scale down to 1.0f scale.
             qualityStatScale /= 100.0f;
 
-            int equipSlotScaling = equipSlot.StatPercent;
+            int equipSlotScaling = recipe.ScalingPct;
 
             foreach (long key in statPercents.Keys)
             {
@@ -242,7 +239,7 @@ namespace Genrpg.Shared.Crafting.Services
 
                 int statTypeScaling = 100;
 
-                StatType statType = gs.data.Get<StatSettings>(ch).Get(key);
+                StatType statType = _gameData.Get<StatSettings>(ch).Get(key);
 
                 if (statType != null)
                 {
@@ -266,8 +263,23 @@ namespace Genrpg.Shared.Crafting.Services
             }
             stats.Level = (long)Math.Floor(averageLevel);
             stats.QualityTypeId = nextQuality.IdKey;
+            stats.ReagentQuantity = GetReagentQuantity(recipe.IdKey);
             stats.IsValid = true;
             return stats;
+        }
+
+        public int GetReagentQuantity(long recipeTypeId)
+        {
+            RecipeSettings settings = _gameData.Get<RecipeSettings>(null);
+
+            RecipeType recipeType = settings.Get(recipeTypeId);
+
+            if (recipeType != null)
+            {
+                return (int)(Math.Max(CraftingConstants.MinReagentQuantity, 
+                    Math.Ceiling(recipeType.ScalingPct * settings.ReagentQuantityPerPercent)));
+            }
+            return CraftingConstants.BadReagentQuantity;
         }
 
         private void AddStatPercent(Dictionary<int, long> statDict, int statTypeId, long pct)
@@ -291,46 +303,49 @@ namespace Genrpg.Shared.Crafting.Services
             ValidityResult result = new ValidityResult() { IsValid = false };
             result.Data = data;
 
-            RecipeType rtype = gs.data.Get<RecipeSettings>(ch).Get(data.RecipeTypeId);
+            RecipeType rtype = _gameData.Get<RecipeSettings>(ch).Get(data.RecipeTypeId);
 
             if (rtype == null)
             {
                 result.Message = "Recipe " + data.RecipeTypeId + " not found";
                 return result;
             }
+
+            int reagentQuantity = GetReagentQuantity(rtype.IdKey);
+
             InventoryData inventory = ch.Get<InventoryData>();
 
-            ItemTypeSettings itemSettings = gs.data.Get<ItemTypeSettings>(ch);
+            ItemTypeSettings itemTypeSettings = _gameData.Get<ItemTypeSettings>(ch);
 
             Dictionary<string, long> itemsUsedDict = new Dictionary<string, long>();
 
-            if (rtype.CrafterTypeId > 0)
+            if (rtype.ExplicitReagents != null && rtype.ExplicitReagents.Count > 0)
             {
-                if (data.ExtraReagents == null)
+                if (data.StatReagents == null)
                 {
                     result.Message = "Crafting data contained no reagents.";
                     return result;
                 }
-                foreach (Reagent rreagent in rtype.Reagents)
+                foreach (Reagent reagent in rtype.ExplicitReagents)
                 {
-                    FullReagent dreagent = data.ExtraReagents.FirstOrDefault(x => x.ReagentMappedTo == rreagent);
+                    FullReagent dreagent = data.StatReagents.FirstOrDefault(x => x.ReagentMappedTo == reagent);
                     if (dreagent == null)
                     {
-                        result.Message = "Could not find reagent data for reagent " + rreagent.Quantity + " of #" + rreagent.EntityId;
+                        result.Message = "Could not find reagent data for reagent " + reagent.Quantity + " of #" + reagent.EntityId;
                         return result;
                     }
 
                     // JRAJRA For now only have item reagents. Later on maybe allow other things.
-                    if (rreagent.EntityTypeId != EntityTypes.Item)
+                    if (reagent.EntityTypeId != EntityTypes.Item)
                     {
                         continue;
                     }
 
-                    ItemType itype = gs.data.Get<ItemTypeSettings>(ch).Get(rreagent.EntityId);
+                    ItemType itype = _gameData.Get<ItemTypeSettings>(ch).Get(reagent.EntityId);
 
                     if (itype == null)
                     {
-                        result.Message = "Could not find item type " + rreagent.EntityId;
+                        result.Message = "Could not find item type " + reagent.EntityId;
                         return result;
                     }
 
@@ -351,7 +366,7 @@ namespace Genrpg.Shared.Crafting.Services
             }
             else
             {
-                ScalingType scaling = gs.data.Get<ScalingTypeSettings>(ch).Get(data.ScalingTypeId);
+                ScalingType scaling = _gameData.Get<ScalingTypeSettings>(ch).Get(data.ScalingTypeId);
 
                 if (scaling == null)
                 {
@@ -359,197 +374,95 @@ namespace Genrpg.Shared.Crafting.Services
                     return result;
                 }
 
+                ItemType baseItemType = itemTypeSettings.Get(scaling.BaseItemTypeId);
 
-                // Check base reagents...these don't give stats.
-                if (data.RecipeReagents == null || data.RecipeReagents.Count < 1)
-                {
-                    result.Message = "No base reagents found in crafting data";
-                    return result;
-                }
-
-                if (scaling.BaseReagents == null || scaling.BaseReagents.Count < 1)
+                if (baseItemType == null)
                 {
                     result.Message = "No base reagents found in scaling data";
                     return result;
                 }
 
-                if (scaling.BaseReagents.Count != data.RecipeReagents.Count)
+                List<FullReagent> remainingReagents = new List<FullReagent>();
+
+                // Player has to have the proper itemtype in their inventory
+
+                FullReagent baseReagent = data.BaseScalingReagent;
+
+                if (baseReagent == null)
                 {
-                    result.Message = "Base reagent count and craft reagents used count don't match.";
+                    result.Message = "Base Reagent missing";
                     return result;
                 }
 
-                List<FullReagent> remainingReagents = new List<FullReagent>(data.RecipeReagents);
-
-                // Check each Base reagent vs what's in the character's inventory.
-                // These base reagents must be the basic types. 
-                // If we ever have different kinds of wood or ore or something,
-                // then these core things will still be used, but those other things
-                // can be used for the primary reagent. (like bamboo insted of wood for diff stats)
-                foreach (ItemPct scalingReagent in scaling.BaseReagents)
+                if (baseReagent.ItemTypeId != baseItemType.IdKey)
                 {
-                    ItemType itype = gs.data.Get<ItemTypeSettings>(ch).Get(scalingReagent.ItemTypeId);
-
-                    if (itype == null)
-                    {
-                        result.Message = "Item type not found: " + scalingReagent.ItemTypeId;
-                        return result;
-                    }
-                    FullReagent baseReagent = remainingReagents.FirstOrDefault(x => x.ItemMappedTo == scalingReagent);
-                    if (baseReagent == null)
-                    {
-                        result.Message = "Base reagent mapping to Item " + itype.Name + " not found";
-                        return result;
-                    }
-
-                    if (string.IsNullOrEmpty(baseReagent.ItemId))
-                    {
-                        result.Message = "Base reagent has no ItemId";
-                        return result;
-                    }
-
-                    Item baseItem = inventory.GetItem(baseReagent.ItemId);
-
-                    if (baseItem == null)
-                    {
-                        result.Message = "Unit does not contain an item with id " + baseReagent.ItemId;
-                        return result;
-                    }
-
-                    if (baseItem.ItemTypeId != scalingReagent.ItemTypeId)
-                    {
-                        result.Message = "Base Data reagent has the incorrect ItemTypeId is: " + baseItem.ItemTypeId + " want: " + scalingReagent.ItemTypeId;
-                        return result;
-                    }
-
-                    int desiredQuantity = scalingReagent.Percent * rtype.ReagentQuantity / 100;
-
-                    if (baseReagent.Quantity != desiredQuantity)
-                    {
-                        result.Message = "Quantity desired was " + desiredQuantity + " but reagent had " + baseReagent.Quantity;
-                    }
-
-                    remainingReagents.Remove(baseReagent);
-
-                    if (!itemsUsedDict.ContainsKey(baseReagent.ItemId))
-                    {
-                        itemsUsedDict[baseReagent.ItemId] = 0;
-                    }
-
-                    itemsUsedDict[baseReagent.ItemId] += baseReagent.Quantity;
-
-
-                }
-
-
-                // Check the primary reagent that gives the core stats.
-                // Does 
-                if (data.PrimaryReagent == null)
-                {
-                    result.Message = "Data is missing a core reagent";
+                    result.Message = "Base Data reagent has the incorrect ItemTypeId is: "
+                        + baseReagent.ItemTypeId + " want: " + baseItemType.IdKey;
                     return result;
                 }
 
-
-                ItemType primaryItemType = gs.data.Get<ItemTypeSettings>(ch).Get(data.PrimaryReagent.ItemTypeId);
-
-                if (primaryItemType == null)
+                if (baseReagent.Quantity != reagentQuantity)
                 {
-                    result.Message = "Primary item type: " + data.PrimaryReagent.ItemTypeId + " does not exist";
+                    result.Message = "Improper quantity of base reagent.";
                     return result;
                 }
 
-
-
-                // Primary reagents are marked with the 1 = 0x01 flagbit
-                List<ItemType> primaryReagents = itemSettings.GetPrimaryReagents();
-
-                if (primaryReagents == null || !primaryReagents.Contains(primaryItemType))
+                if (!itemsUsedDict.ContainsKey(baseReagent.ItemId))
                 {
-                    result.Message = "Item type " + primaryItemType.Name + " #" + primaryItemType.IdKey + " is not a primary item type";
-                    return result;
+                    itemsUsedDict[baseReagent.ItemId] = 0;
                 }
 
-                if (string.IsNullOrEmpty(data.PrimaryReagent.ItemId))
+                itemsUsedDict[baseReagent.ItemId] += baseReagent.Quantity;
+
+                List<List<FullReagent>> allLists = new List<List<FullReagent>>();
+                allLists.Add(data.StatReagents);
+                allLists.Add(data.LevelQualityReagents);
+
+                foreach (List<FullReagent> list in allLists)
                 {
-                    result.Message = "Primary reagent has no ItemId";
-                    return result;
-                }
-
-                Item primaryItem = inventory.GetItem(data.PrimaryReagent.ItemId);
-
-                if (primaryItem == null)
-                {
-                    result.Message = "Unit does not contain a primary item with id " + data.PrimaryReagent.ItemId;
-                    return result;
-                }
-
-                if (primaryItem.ItemTypeId != data.PrimaryReagent.ItemTypeId)
-                {
-                    result.Message = "Data priamry reagent has the incorrect ItemTypeId is: " + primaryItem.ItemTypeId + " want: " + data.PrimaryReagent.ItemTypeId;
-                    return result;
-                }
-
-                if (primaryItem.Quantity != rtype.ReagentQuantity)
-                {
-                    result.Message = "Primary reagent count is " + primaryItem.Quantity + " but should be " + rtype.ReagentQuantity;
-                    return result;
-                }
-
-                if (!itemsUsedDict.ContainsKey(data.PrimaryReagent.ItemId))
-                {
-                    itemsUsedDict[data.PrimaryReagent.ItemId] = 0;
-                }
-
-                itemsUsedDict[data.PrimaryReagent.ItemId] += data.PrimaryReagent.Quantity;
-
-                if (data.ExtraReagents == null)
-                {
-                    data.ExtraReagents = new List<FullReagent>();
-                }
-
-                // Check all secondary reagents (if any)
-                foreach (FullReagent reagent in data.ExtraReagents)
-                {
-                    ItemType reagentItype = gs.data.Get<ItemTypeSettings>(ch).Get(reagent.ItemTypeId);
-                    if (reagentItype == null)
+                    // Check all stat reagents (if any)
+                    foreach (FullReagent reagent in list)
                     {
-                        result.Message = "Reagent item type " + reagent.ItemTypeId + " does not exist";
-                        return result;
+                        ItemType reagentItype = _gameData.Get<ItemTypeSettings>(ch).Get(reagent.ItemTypeId);
+                        if (reagentItype == null)
+                        {
+                            result.Message = "Reagent item type " + reagent.ItemTypeId + " does not exist";
+                            return result;
+                        }
+
+                        if (string.IsNullOrEmpty(reagent.ItemId))
+                        {
+                            result.Message = "Reagent has no item id";
+                            return result;
+                        }
+
+                        Item reagentItem = inventory.GetItem(reagent.ItemId);
+
+                        if (reagentItem == null)
+                        {
+                            result.Message = "Unit does not contain reagent with id " + reagent.ItemId;
+                            return result;
+                        }
+
+                        if (reagentItem.ItemTypeId != reagent.ItemTypeId)
+                        {
+                            result.Message = "Reagent with id " + reagent.ItemId + " has incorrect itemtypeid is: " + reagentItem.ItemTypeId + " want " + reagent.ItemTypeId;
+                            return result;
+                        }
+
+                        if (reagent.Quantity != reagentQuantity)
+                        {
+                            result.Message = "Secondary reagent has quantity " + reagent.Quantity + " and needs " + reagentQuantity;
+                            return result;
+                        }
+
+                        if (!itemsUsedDict.ContainsKey(reagent.ItemId))
+                        {
+                            itemsUsedDict[reagent.ItemId] = 0;
+                        }
+
+                        itemsUsedDict[reagent.ItemId] += reagent.Quantity;
                     }
-
-                    if (string.IsNullOrEmpty(reagent.ItemId))
-                    {
-                        result.Message = "Reagent has no item id";
-                        return result;
-                    }
-
-                    Item reagentItem = inventory.GetItem(reagent.ItemId);
-
-                    if (reagentItem == null)
-                    {
-                        result.Message = "Unit does not contain reagent with id " + reagent.ItemId;
-                        return result;
-                    }
-
-                    if (reagentItem.ItemTypeId != reagent.ItemTypeId)
-                    {
-                        result.Message = "Reagent with id " + reagent.ItemId + " has incorrect itemtypeid is: " + reagentItem.ItemTypeId + " want " + reagent.ItemTypeId;
-                        return result;
-                    }
-
-                    if (reagent.Quantity != rtype.ReagentQuantity)
-                    {
-                        result.Message = "Secondary reagent has quantity " + reagent.Quantity + " and needs " + rtype.ReagentQuantity;
-                        return result;
-                    }
-
-                    if (!itemsUsedDict.ContainsKey(reagent.ItemId))
-                    {
-                        itemsUsedDict[reagent.ItemId] = 0;
-                    }
-
-                    itemsUsedDict[reagent.ItemId] += reagent.Quantity;
                 }
             }
 
@@ -567,14 +480,14 @@ namespace Genrpg.Shared.Crafting.Services
                     return result;
                 }
 
-                FullReagent dreagent = data.ExtraReagents.FirstOrDefault(x => x.ItemId == iid);
+                FullReagent dreagent = data.StatReagents.FirstOrDefault(x => x.ItemId == iid);
                 if (dreagent == null)
                 {
                     result.Message = "Missing data reagents with Id " + iid;
                     return result;
                 }
 
-                ItemType itype = gs.data.Get<ItemTypeSettings>(ch).Get(dreagent.ItemTypeId);
+                ItemType itype = _gameData.Get<ItemTypeSettings>(ch).Get(dreagent.ItemTypeId);
                 if (itype == null)
                 {
                     result.Message = "Missing item type with id " + dreagent.ItemTypeId;
@@ -605,7 +518,7 @@ namespace Genrpg.Shared.Crafting.Services
         /// <returns></returns>
         public long GetCrafterTypeFromRecipe(GameState gs, Character ch, long recipeTypeId, long scalingTypeId)
         {
-            RecipeType rtype = gs.data.Get<RecipeSettings>(ch).Get(recipeTypeId);
+            RecipeType rtype = _gameData.Get<RecipeSettings>(ch).Get(recipeTypeId);
             if (rtype == null)
             {
                 return 0;
@@ -616,7 +529,7 @@ namespace Genrpg.Shared.Crafting.Services
                 return rtype.CrafterTypeId;
             }
 
-            ScalingType scalingType = gs.data.Get<ScalingTypeSettings>(ch).Get(scalingTypeId);
+            ScalingType scalingType = _gameData.Get<ScalingTypeSettings>(ch).Get(scalingTypeId);
             if (scalingType == null || scalingType.CrafterTypeId < 1)
             {
                 return 0;

@@ -2,6 +2,7 @@
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Services;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Quests.Constants;
@@ -14,12 +15,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Quests
 {
 
-    public interface IServerQuestService : IService
+    public interface IServerQuestService : IInitializable
     {
         UpdateQuestResult UpdateQuest(GameState gs, MapObject mobj, ISpawnResult spawnResult);
     }
@@ -30,6 +32,13 @@ namespace Genrpg.MapServer.Quests
         private IEntityService _entityService = null;
 
         protected IRepositoryService _repoService = null;
+        private IGameData _gameData;
+
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
+
         public virtual UpdateQuestResult UpdateQuest(GameState gs, MapObject mobj, ISpawnResult spawnResult)
         {
             UpdateQuestResult retval = new UpdateQuestResult();
@@ -90,7 +99,7 @@ namespace Genrpg.MapServer.Quests
                         taskStatus.CurrQuantity = task.Quantity;
                     }
 
-                    retval.Message += questStatus.Quest.PrintTaskText(gs, ch, task.Index) + "\n";
+                    retval.Message += questStatus.Quest.PrintTaskText(gs, ch, _gameData, task.Index) + "\n";
                     retval.Success = true;
                 }
             }

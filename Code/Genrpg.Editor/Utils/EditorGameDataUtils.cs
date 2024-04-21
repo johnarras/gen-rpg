@@ -20,6 +20,7 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Editor.Utils
 {
@@ -58,6 +59,7 @@ namespace Genrpg.Editor.Utils
             EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(parent, CloudServerNames.Editor.ToString().ToLower(), 
                 new EditorSetupService(), EditorGameState.CTS.Token, serverConfig);
 
+            gs.data = gs.loc.Get<IGameData>();
             List<ITopLevelSettings> allSettings = gs.data.AllSettings();
 
             foreach (ITopLevelSettings settings in allSettings)

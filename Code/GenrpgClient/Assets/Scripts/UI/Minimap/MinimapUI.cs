@@ -21,9 +21,9 @@ public class MinimapUI : BaseBehaviour
     public void Init(CancellationToken token)
     {
         _token = token;
-        _gs.AddEvent<EnableMinimapEvent>(this, OnEnableMinimap);
-        _gs.AddEvent<DisableMinimapEvent>(this, OnDisableMinimap);
-        _gs.AddEvent<LoadMinimapEvent>(this, OnLoadMinimap);
+        _dispatcher.AddEvent<EnableMinimapEvent>(this, OnEnableMinimap);
+        _dispatcher.AddEvent<DisableMinimapEvent>(this, OnDisableMinimap);
+        _dispatcher.AddEvent<LoadMinimapEvent>(this, OnLoadMinimap);
         OnDisableMinimap(_gs, null);
         AddUpdate(MinimapUpdate, UpdateType.Regular);
         if (ArrowParent != null)
@@ -38,7 +38,7 @@ public class MinimapUI : BaseBehaviour
     {
         if (MapImage != null && UnityZoneGenService.mapTexture != null)
         {
-            _uiService.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
+            _uIInitializable.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
             OnEnableMinimap(_gs, null);
             
         }

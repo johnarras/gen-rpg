@@ -12,11 +12,18 @@ using Cysharp.Threading.Tasks;
 using Assets.Scripts.Tokens;
 using UnityEngine; // Needed
 using Genrpg.Shared.Audio.Settings;
+using Genrpg.Shared.Core.Entities;
+using System.Threading.Tasks;
 
 public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
 {
     public const float MusicVolumeScale = 0.3f;
     public List<MusicChannel> MusicChannels;
+
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
 
     private Dictionary<string, AudioClipList> _audioCache = new Dictionary<string, AudioClipList>();
 
@@ -253,7 +260,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         {
             return;
         }
-        if (gs.data == null || MusicChannels == null)
+        if (MusicChannels == null)
         {
             return;
         }
@@ -286,7 +293,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                 continue;
             }
 
-            MusicType mtype = gs.data.Get<MusicTypeSettings>(gs.ch)?.Get(musicId);
+            MusicType mtype = _gameData.Get<MusicTypeSettings>(gs.ch)?.Get(musicId);
 
             string musicName = "";
             if (mtype != null)

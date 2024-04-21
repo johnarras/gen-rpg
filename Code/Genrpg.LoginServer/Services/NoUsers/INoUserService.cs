@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Genrpg.LoginServer.Services.NoUsers
 {
-    public interface INoUserService : IService
+    public interface INoUserService : IInitializable
     {
         Task<List<ILoginResult>> HandleNoUserCommand(LoginGameState gs, string postData, CancellationToken token);
     }

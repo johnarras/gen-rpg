@@ -16,7 +16,7 @@ public class CloseButton : BaseBehaviour
 
         if (screen != null)
         {
-            _uiService.SetButton(Button, screen.GetName(), screen.StartClose);
+            _uIInitializable.SetButton(Button, screen.GetName(), screen.StartClose);
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using Genrpg.Shared.Interfaces;
+﻿using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils.Data;
 using System;
 using System.Collections.Generic;
-public interface IShapeService : IService
+using System.Threading;
+using System.Threading.Tasks;
+public interface IShapeService : IInitializable
 {
     List<MyPointF> CreateRegularPolygon(double cx, double cy, double radius, int sides, double radianOffset = Math.PI / 2.0);
 
@@ -10,6 +13,11 @@ public interface IShapeService : IService
 
 public class ShapeService : IShapeService
 {
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
+
     public List<MyPointF> CreateRegularPolygon(double cx, double cy, double radius, int sides, double radianOffset = Math.PI / 2.0)
     {
         List<MyPointF> list = new List<MyPointF>();

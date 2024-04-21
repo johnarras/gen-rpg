@@ -2,6 +2,7 @@
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Ftue.PlayerData;
 using Genrpg.Shared.Ftue.Settings.Steps;
+using Genrpg.Shared.GameSettings;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,8 @@ namespace Genrpg.Shared.Ftue.Services
     public class FtueService : IFtueService
     {
 
-        public async Task Setup(GameState gs, CancellationToken token)
+        private IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -22,7 +24,7 @@ namespace Genrpg.Shared.Ftue.Services
         {
             FtueData ftueData = ch.Get<FtueData>();
 
-            return gs.data.Get<FtueStepSettings>(ch).Get(ftueData.CurrentFtueStepId);
+            return _gameData.Get<FtueStepSettings>(ch).Get(ftueData.CurrentFtueStepId);
         }
 
         public bool CanClickButton(GameState gs, Character ch, string screenName, string buttonName)
@@ -43,7 +45,7 @@ namespace Genrpg.Shared.Ftue.Services
         {
             FtueData ftueData = ch.Get<FtueData>();
 
-            FtueStep ftueStep = gs.data.Get<FtueStepSettings>(ch).Get(ftueStepId);
+            FtueStep ftueStep = _gameData.Get<FtueStepSettings>(ch).Get(ftueStepId);
 
             if (ftueStep == null)
             {

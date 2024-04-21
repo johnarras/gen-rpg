@@ -22,10 +22,11 @@ using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.MapServer.AI.Services
 {
-    public interface IAIService : ISetupService
+    public interface IAIService : IInitializable
     {
         bool Update(GameState gs, Unit unit);
         void TargetMove(GameState gs, Unit unit, string targetUnitId);
@@ -43,7 +44,8 @@ namespace Genrpg.MapServer.AI.Services
         private IMapMessageService _messageService = null;
         private IMapObjectManager _objectManager = null;
         private IPathfindingService _pathfindingService = null;
-        public async Task Setup(GameState gs, CancellationToken token)
+        private IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -122,7 +124,7 @@ namespace Genrpg.MapServer.AI.Services
             if (!unit.Moving && !unit.HasFlag(UnitFlags.Evading) &&
                 !unit.GetAddons().Any() &&
                 !unit.HasTarget() &&
-                gs.rand.NextDouble() < gs.data.Get<AISettings>(unit).IdleWanderChance &&
+                gs.rand.NextDouble() < _gameData.Get<AISettings>(unit).IdleWanderChance &&
                 unit.Spawn != null)
             {
 
@@ -180,7 +182,7 @@ namespace Genrpg.MapServer.AI.Services
                 return;
             }
 
-            List<Unit> nearbyUnits = _objectManager.GetTypedObjectsNear<Unit>(unit.X, unit.Z, unit, gs.data.Get<AISettings>(unit).EnemyScanDistance,
+            List<Unit> nearbyUnits = _objectManager.GetTypedObjectsNear<Unit>(unit.X, unit.Z, unit, _gameData.Get<AISettings>(unit).EnemyScanDistance,
                 true);
 
             nearbyUnits = nearbyUnits.Where(x => x.FactionTypeId != unit.FactionTypeId && !x.HasFlag(UnitFlags.IsDead | UnitFlags.Evading)).ToList();
@@ -208,7 +210,7 @@ namespace Genrpg.MapServer.AI.Services
                 TargetId = targetUnit.Id,
             };
 
-            _messageService.SendMessageNear(targetUnit, bringAFriend, gs.data.Get<AISettings>(bringer).BringAFriendRadius, false);
+            _messageService.SendMessageNear(targetUnit, bringAFriend, _gameData.Get<AISettings>(bringer).BringAFriendRadius, false);
         }
 
         public void LocationMove(GameState gs, Unit unit, float x, float z, float speedMult)
@@ -353,7 +355,7 @@ namespace Genrpg.MapServer.AI.Services
 
                 double combatDist = Math.Sqrt(ddx * ddx + ddz * ddz);
 
-                if (combatDist >= gs.data.Get<AISettings>(unit).LeashDistance)
+                if (combatDist >= _gameData.Get<AISettings>(unit).LeashDistance)
                 {
                     unit.AddFlag(UnitFlags.Evading);
                     EndCombat(gs, unit, "", true);
@@ -375,7 +377,7 @@ namespace Genrpg.MapServer.AI.Services
                 return;
             }
 
-            float distGone = unit.Speed * gs.data.Get<AISettings>(unit).UpdateSeconds;
+            float distGone = unit.Speed * _gameData.Get<AISettings>(unit).UpdateSeconds;
 
             float oldSpeed = unit.Speed;
 

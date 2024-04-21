@@ -4,6 +4,7 @@ using Genrpg.Shared.Charms.Settings;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Stats.Settings.Stats;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,19 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Charms.Services
 {
     public class CharmService : ICharmService
     {
+
+        private IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
 
         public List<PlayerCharmBonusList> CalcBonuses(GameState gs, string charmId)
         {
@@ -41,11 +50,11 @@ namespace Genrpg.Shared.Charms.Services
 
             List<PlayerCharmBonusList> retval = new List<PlayerCharmBonusList>();
 
-            IReadOnlyList<CharmUse> charmUses = gs.data.Get<CharmUseSettings>(null).GetData();
+            IReadOnlyList<CharmUse> charmUses = _gameData.Get<CharmUseSettings>(null).GetData();
 
-            IReadOnlyList<CharmBonus> charmBonuses = gs.data.Get<CharmBonusSettings>(null).GetData();
+            IReadOnlyList<CharmBonus> charmBonuses = _gameData.Get<CharmBonusSettings>(null).GetData();
 
-            IReadOnlyList<StatType> statTypes = gs.data.Get<StatSettings>(null).GetData();
+            IReadOnlyList<StatType> statTypes = _gameData.Get<StatSettings>(null).GetData();
 
             foreach (CharmUse charmUse in charmUses)
             {
@@ -136,7 +145,7 @@ namespace Genrpg.Shared.Charms.Services
         {
 
             List<string> retval = new List<string>();
-            IReadOnlyList<StatType> allStatTypes = gs.data.Get<StatSettings>(null).GetData();
+            IReadOnlyList<StatType> allStatTypes = _gameData.Get<StatSettings>(null).GetData();
 
             foreach (PlayerCharmBonus bonus in list.Bonuses)
             {

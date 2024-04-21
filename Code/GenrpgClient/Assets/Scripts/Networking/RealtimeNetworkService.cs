@@ -19,7 +19,7 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Genrpg.Shared.Logging.Interfaces;
 
-public interface IRealtimeNetworkService : ISetupService, IMapTokenService
+public interface IRealtimeNetworkService : IInitializable, IMapTokenService
 {
     void CloseClient();
     void SetRealtimeEndpoint(string host, long port, EMapApiSerializers serializer);
@@ -52,7 +52,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         _token = _mapTokenSource.Token;
     }
 
-    public async Task Setup(GameState gs, CancellationToken token)
+    public async Task Initialize(GameState gs, CancellationToken token)
     {
         if (gs is UnityGameState ugs)
         {

@@ -16,7 +16,7 @@ public class ClearMapData : BaseZoneGenerator
 
         PlayerObject.Destroy();
 
-        await _objectManager.Setup(gs, token);
+        await _objectManager.Initialize(gs, token);
 
         _terrainManager.Clear(gs);
 

@@ -27,7 +27,7 @@ public class ZoneScreen : BaseScreen
     {
         _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token, "Maps");
 
-        _uiService.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
+        _uIInitializable.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
         ShowPlayer();
 
     }
@@ -171,7 +171,7 @@ public class ZoneScreen : BaseScreen
             
             _lastZoneShown = currZone.IdKey;
 
-            _uiService.SetText(ZoneName, currZone.Name);
+            _uIInitializable.SetText(ZoneName, currZone.Name);
         }
         else if (currZone == null)
         {

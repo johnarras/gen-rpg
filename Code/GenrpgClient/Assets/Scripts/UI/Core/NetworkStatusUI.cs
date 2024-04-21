@@ -16,7 +16,7 @@ namespace Assets.Scripts.UI
         public void Init(CancellationToken token)
         {
             _token = token;
-            _gs.AddEvent<ServerMessageCounts>(this, OnServerMessageCounts);
+            _dispatcher.AddEvent<ServerMessageCounts>(this, OnServerMessageCounts);
         }
 
         protected ServerMessageCounts OnServerMessageCounts (UnityGameState gs, ServerMessageCounts data)
@@ -89,7 +89,7 @@ namespace Assets.Scripts.UI
             ShowClientVals(sb, "Bundles", assetCounts.BundlesLoaded, assetCounts.BundlesUnloaded, clientCounts.Seconds);
             ShowClientVals(sb, "TerrainPatches", _terrainManager.GetPatchesAdded(), _terrainManager.GetPatchesRemoved(), clientCounts.Seconds);
             ShowClientVals(sb, "Objects", assetCounts.ObjectsLoaded, assetCounts.ObjectsUnloaded, clientCounts.Seconds);
-            _uiService.SetText(Text, sb.ToString());
+            _uIInitializable.SetText(Text, sb.ToString());
 
             return null;
         }

@@ -23,7 +23,7 @@ public class RecipeRow : BaseBehaviour
             OnError();
             return;
         }
-        _recipe = _gs.data.Get<RecipeSettings>(_gs.ch).Get(_status.IdKey);
+        _recipe = _gameData.Get<RecipeSettings>(_gs.ch).Get(_status.IdKey);
 
         if (_recipe == null)
         {
@@ -31,9 +31,9 @@ public class RecipeRow : BaseBehaviour
             return;
         }
 
-        _uiService.SetText(RecipeName, _recipe.Name);
+        _uIInitializable.SetText(RecipeName, _recipe.Name);
 
-        _uiService.SetText(RecipeRank, _status.Get().ToString() + "/" + status.GetMaxLevel());
+        _uIInitializable.SetText(RecipeRank, _status.Get().ToString() + "/" + status.GetMaxLevel());
 
         SetIsActive(false);
     }

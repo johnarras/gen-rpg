@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.CloudComms.Services
 {
-    public interface ICloudCommsService : ISetupService, IDisposable
+    public interface ICloudCommsService : IInitializable, IDisposable
     {
         string GetFullServerName(string serverId);
 

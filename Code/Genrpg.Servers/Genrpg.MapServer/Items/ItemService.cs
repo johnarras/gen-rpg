@@ -16,10 +16,11 @@ using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Spells.Casting;
 using System.Linq;
 using System;
+using System.Threading;
 
 namespace Genrpg.MapServer.Items
 {
-    public interface IItemService : IService
+    public interface IItemService : IInitializable
     {
         UseItemResult UseItem(GameState gs, Character ch, Item item);
 
@@ -33,6 +34,12 @@ namespace Genrpg.MapServer.Items
         private IEntityService _entityService = null;
         private IMapObjectManager _objectManager = null;
         private IInventoryService _inventoryService = null;
+
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
+
         // This should call out to different functions in different parts of the code.
         // Eventually split these cases into separate functions.
         public UseItemResult UseItem(GameState gs, Character ch, Item item)

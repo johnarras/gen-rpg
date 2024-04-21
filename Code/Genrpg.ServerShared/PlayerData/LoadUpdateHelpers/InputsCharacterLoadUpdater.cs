@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Input.Constants;
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Input.Settings;
@@ -13,6 +14,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
 {
     public class InputsCharacterLoadUpdater : BaseCharacterLoadUpdater
     {
+        private IGameData _gameData;
         public override async Task Update(GameState gs, Character ch)
         {
             KeyCommData keyCommands = ch.Get<KeyCommData>();
@@ -23,9 +25,9 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                 actionInputs.GetInput(i);
             }
 
-            if (gs.data.Get<KeyCommSettings>(ch).GetData() != null)
+            if (_gameData.Get<KeyCommSettings>(ch).GetData() != null)
             {
-                foreach (KeyCommSetting input in gs.data.Get<KeyCommSettings>(ch).GetData())
+                foreach (KeyCommSetting input in _gameData.Get<KeyCommSettings>(ch).GetData())
                 {
                     KeyComm currKey = keyCommands.GetKeyComm(input.KeyCommand);
                     if (currKey == null)
@@ -40,9 +42,9 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                         int.TryParse(actionSuffix, out actionIndex);
 
                         ActionInput currAction = actionInputs.GetInput(actionIndex);
-                        if (gs.data.Get<InputSettings>(ch).GetData() != null)
+                        if (_gameData.Get<InputSettings>(ch).GetData() != null)
                         {
-                            ActionInputSetting defaultAction = gs.data.Get<InputSettings>(ch).GetData().FirstOrDefault(x => x.Index == actionIndex);
+                            ActionInputSetting defaultAction = _gameData.Get<InputSettings>(ch).GetData().FirstOrDefault(x => x.Index == actionIndex);
                             if (defaultAction != null)
                             {
                                 currAction.SpellId = defaultAction.SpellId;

@@ -10,6 +10,13 @@ namespace Genrpg.ServerShared.Logging
 {
     public class ServerLogService : ILogService
     {
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
+
         private IServerConfig _config;
 
         public ServerLogService(IServerConfig config)

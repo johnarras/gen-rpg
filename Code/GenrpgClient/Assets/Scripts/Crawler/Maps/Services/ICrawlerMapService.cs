@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
-    public interface ICrawlerMapService : ISetupService
+    public interface ICrawlerMapService : IInitializable
     {
         UniTask EnterMap(UnityGameState gs, PartyData partyData,  EnterCrawlerMapData mapData, CancellationToken token);
         UniTask UpdateMovement(UnityGameState gs, CancellationToken token);

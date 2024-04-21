@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.Purchasing.Services
 {
-    public interface IPurchasingService : ISetupService
+    public interface IPurchasingService : IInitializable
     {
         Task<PlayerStoreOfferData> GetCurrentStores(ServerGameState gs, User user, Character ch, bool forceRefresh);
     }

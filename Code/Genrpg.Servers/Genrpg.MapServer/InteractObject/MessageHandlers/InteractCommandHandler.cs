@@ -14,6 +14,7 @@ using Genrpg.Shared.Crafting.Constants;
 using Genrpg.Shared.Crafting.PlayerData.Crafting;
 using Genrpg.Shared.Crafting.Settings.Crafters;
 using Genrpg.Shared.GroundObjects.Settings;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {
@@ -47,7 +48,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
 
             if (target.EntityTypeId == EntityTypes.GroundObject)
             {
-                GroundObjType gtype = gs.data.Get<GroundObjTypeSettings>(obj).Get(target.EntityId);
+                GroundObjType gtype = _gameData.Get<GroundObjTypeSettings>(obj).Get(target.EntityId);
 
                 if (gtype == null)
                 {
@@ -57,7 +58,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                 groundObjTypeId = gtype.IdKey;
                 crafterId = gtype.CrafterTypeId;
 
-                CrafterType ctype = gs.data.Get<CraftingSettings>(obj).Get(crafterId);
+                CrafterType ctype = _gameData.Get<CraftingSettings>(obj).Get(crafterId);
                 if (ctype != null)
                 {
                     actionName = ctype.GatherActionName;

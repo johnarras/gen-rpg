@@ -38,7 +38,7 @@ public class AddWater : BaseZoneGenerator
 
         if (waterPlants == null)
         {
-            waterPlants = gs.data.Get<TreeTypeSettings>(gs.ch).GetData().Where(x => x.HasFlag(TreeFlags.IsWaterItem)).ToList();
+            waterPlants = _gameData.Get<TreeTypeSettings>(gs.ch).GetData().Where(x => x.HasFlag(TreeFlags.IsWaterItem)).ToList();
         }
 
         if (genData.stepSize < 1)
@@ -292,7 +292,7 @@ public class AddWater : BaseZoneGenerator
             return;
         }
 
-        ZoneType ztype = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
+        ZoneType ztype = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
         if (ztype == null)
         {
             return;

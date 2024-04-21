@@ -14,11 +14,12 @@ using System.Linq;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using static Microsoft.Azure.Amqp.Serialization.SerializableType;
 using Genrpg.Shared.Spawns.Settings;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.MapServer.Spawns
 {
 
-    public interface ISpawnService : ISetupService
+    public interface ISpawnService : IInitializable
     {
         List<SpawnResult> Roll(GameState gs, long spawnTableId, RollData rollData);
         List<SpawnResult> Roll(GameState gs, SpawnTable st, RollData rollData);
@@ -35,9 +36,9 @@ namespace Genrpg.MapServer.Spawns
     /// </summary>
     public class SpawnService : ISpawnService
     {
-
+        private IGameData _gameData;
         private Dictionary<long, IRollHelper> _rollHelpers = null;
-        public async Task Setup(GameState gs, CancellationToken token)
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             _rollHelpers = ReflectionUtils.SetupDictionary<long, IRollHelper>(gs);
             await Task.CompletedTask;
@@ -54,7 +55,7 @@ namespace Genrpg.MapServer.Spawns
 
         public List<SpawnResult> Roll(GameState gs, long spawnTableId, RollData rollData)
         {
-            return Roll(gs, gs.data.Get<SpawnSettings>(null).Get(spawnTableId), rollData);
+            return Roll(gs, _gameData.Get<SpawnSettings>(null).Get(spawnTableId), rollData);
         }
 
         // Different public roll methods.

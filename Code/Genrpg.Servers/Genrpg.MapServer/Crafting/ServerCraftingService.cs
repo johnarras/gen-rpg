@@ -9,6 +9,7 @@ using Genrpg.Shared.Crafting.PlayerData.Recipes;
 using Genrpg.Shared.Crafting.Services;
 using Genrpg.Shared.Crafting.Settings.Crafters;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.PlayerData;
@@ -20,13 +21,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ZstdSharp.Unsafe;
 
 namespace Genrpg.MapServer.Crafting
 {
 
-    public interface IServerCraftingService : IService
+    public interface IServerCraftingService : IInitializable
     {
         CraftingResult CraftItem(GameState gs, CraftingItemData data, Character ch, bool sendUpdates = false);
         UseItemResult LearnRecipe(GameState gs, Character ch, Item recipeItem);
@@ -35,6 +37,12 @@ namespace Genrpg.MapServer.Crafting
 
     public class ServerCraftingService : IServerCraftingService
     {
+        private IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken token)
+        {
+            await Task.CompletedTask;
+        }
+
         private IInventoryService _inventoryService = null;
         private ISharedCraftingService _sharedCraftingService = null    ;
         private IItemGenService _itemGenService = null;
@@ -217,7 +225,7 @@ namespace Genrpg.MapServer.Crafting
             }
 
 
-            ItemType itype = gs.data.Get<ItemTypeSettings>(ch).Get(recipeItem.ItemTypeId);
+            ItemType itype = _gameData.Get<ItemTypeSettings>(ch).Get(recipeItem.ItemTypeId);
             if (itype == null)
             {
                 res.Message = "Incorrect recipe item";
@@ -233,15 +241,15 @@ namespace Genrpg.MapServer.Crafting
                 res.Message = "You don't know this recipe";
                 return res;
             }
-            if (gs.data.Get<CraftingSettings>(ch) == null)
+            if (_gameData.Get<CraftingSettings>(ch) == null)
             {
                 res.Message = "Missing basic crafting info";
                 return res;
             }
 
-            if (status.Get() < recipeItem.Level - gs.data.Get<CraftingSettings>(ch).LootLevelIncrement)
+            if (status.Get() < recipeItem.Level - _gameData.Get<CraftingSettings>(ch).LootLevelIncrement)
             {
-                res.Message = "You need to have " + (recipeItem.Level - gs.data.Get<CraftingSettings>(ch).LootLevelIncrement) +
+                res.Message = "You need to have " + (recipeItem.Level - _gameData.Get<CraftingSettings>(ch).LootLevelIncrement) +
                     " points to learn this recipe.";
                 return res;
             }

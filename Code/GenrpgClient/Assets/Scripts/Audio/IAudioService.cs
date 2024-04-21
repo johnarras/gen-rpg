@@ -8,7 +8,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Assets.Scripts.Interfaces
 {
-    public interface IAudioService : IService
+    public interface IAudioService : IInitializable
     {
         void PlaySound(UnityGameState gs, string name, object parent = null, float volume = 1.0f);
         void PlayMusic(UnityGameState gs, IMusicRegion region);

@@ -7,7 +7,7 @@ namespace Assets.Scripts.MessageHandlers.Quests
     {
         protected override void InnerProcess(UnityGameState gs, OnGetQuests msg, CancellationToken token)
         {
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs,msg);
         }
     }
 }

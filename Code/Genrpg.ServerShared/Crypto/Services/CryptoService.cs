@@ -1,11 +1,13 @@
 ﻿using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Core;
+using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crypto.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.WebRequests.Utils;
 using MongoDB.Driver;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.Crypto.Services
@@ -13,6 +15,13 @@ namespace Genrpg.ServerShared.Crypto.Services
 
     public class CryptoService : ICryptoService
     {
+
+
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
 
         private IServerConfig _config = null;
 

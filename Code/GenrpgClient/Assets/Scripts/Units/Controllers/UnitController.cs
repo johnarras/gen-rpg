@@ -358,7 +358,7 @@ public class UnitController : BaseBehaviour
     public void StartCasting(OnStartCast msg)
     {
         _unit.ActionMessage = msg;
-        _gs.Dispatch(msg);
+        _dispatcher.Dispatch(_gs,msg);
     }
 
     public void SetActionAnimation(int actionId)

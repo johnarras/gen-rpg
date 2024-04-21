@@ -31,6 +31,13 @@ namespace Genrpg.ServerShared.DataStores
     public class ServerRepositoryService : IRepositoryService
     {
 
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
+
+
         const int QueueCount = 4;
 
         const string BlobPrefix = "Blob";

@@ -14,7 +14,7 @@ namespace Assets.Scripts.MessageHandlers.WhoList
         {
             int count = msg.Items?.Count ?? 0;
 
-            gs.Dispatch(msg);
+            _dispatcher.Dispatch(gs, msg);
         }
     }
 }

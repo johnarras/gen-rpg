@@ -6,6 +6,7 @@ using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Training.Settings;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
@@ -34,7 +35,8 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
     public class LootGenService : ILootGenService
     {
-        public async Task Setup(GameState gs, CancellationToken token)
+        protected IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -49,9 +51,9 @@ namespace Genrpg.Shared.Crawler.Loot.Services
         {
             long level = lootGenData.Level;
 
-            CrawlerLootSettings lootSettings = gs.data.Get<CrawlerLootSettings>(null);
+            CrawlerLootSettings lootSettings = _gameData.Get<CrawlerLootSettings>(null);
 
-            LootRankSettings rankSettings = gs.data.Get<LootRankSettings>(null);
+            LootRankSettings rankSettings = _gameData.Get<LootRankSettings>(null);
 
             IReadOnlyList<LootRank> ranks = rankSettings.GetData();
 
@@ -80,7 +82,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             LootRank chosenRank = okRanks[gs.rand.Next() % okRanks.Count];
 
-            IReadOnlyList<ItemType> allLootItems = gs.data.Get<ItemTypeSettings>(null).GetData();
+            IReadOnlyList<ItemType> allLootItems = _gameData.Get<ItemTypeSettings>(null).GetData();
 
             List<ItemType> okLootItems = allLootItems.Where(x => x.EquipSlotId > 0).ToList();
 
@@ -105,7 +107,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
             if (finalList == armorItems)
             {
                 scalingTypeId = MathUtils.IntRange(1, LootConstants.MaxArmorScalingType, gs.rand);
-                scalingType = gs.data.Get<ScalingTypeSettings>(null).Get(scalingTypeId);
+                scalingType = _gameData.Get<ScalingTypeSettings>(null).Get(scalingTypeId);
             }
 
             Item item = new Item() { Id = Guid.NewGuid().ToString() };
@@ -122,7 +124,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
             if (isArmor)
             {
 
-                EquipSlot equipSlot = gs.data.Get<EquipSlotSettings>(null).Get(itemType.EquipSlotId);
+                EquipSlot equipSlot = _gameData.Get<EquipSlotSettings>(null).Get(itemType.EquipSlotId);
 
                 if (equipSlot == null || equipSlot.BaseBonusStatTypeId < 1)
                 {
@@ -164,7 +166,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             if (itemType.EquipSlotId == EquipSlots.Quiver || itemType.EquipSlotId == EquipSlots.PoisonVial)
             {
-                List<ElementType> okElements = gs.data.Get<ElementTypeSettings>(null).GetData().Where(x => x.IdKey > 1).ToList();
+                List<ElementType> okElements = _gameData.Get<ElementTypeSettings>(null).GetData().Where(x => x.IdKey > 1).ToList();
 
                 ElementType okElement = okElements[gs.rand.Next() % okElements.Count];
 
@@ -189,7 +191,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
             }
             else
             {
-                List<StatType> okStats = gs.data.Get<StatSettings>(null).GetData()
+                List<StatType> okStats = _gameData.Get<StatSettings>(null).GetData()
                     .Where(x => x.IdKey >= StatConstants.PrimaryStatStart &&
                 x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 
@@ -261,9 +263,9 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                 return loot;
             }
 
-            CrawlerLootSettings lootSettings = gs.data.Get<CrawlerLootSettings>(null);
+            CrawlerLootSettings lootSettings = _gameData.Get<CrawlerLootSettings>(null);
 
-            CrawlerTrainingSettings trainingSettings = gs.data.Get<CrawlerTrainingSettings>(null);
+            CrawlerTrainingSettings trainingSettings = _gameData.Get<CrawlerTrainingSettings>(null);
 
             double itemChance = lootSettings.ItemChancePerMonster;
 

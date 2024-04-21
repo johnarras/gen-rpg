@@ -8,6 +8,7 @@ using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Units.Loaders
@@ -20,21 +21,21 @@ namespace Genrpg.Shared.Units.Loaders
     /// <typeparam name="TApi">Type used to send the parent data to the client (since the Parent has no public list.</typeparam>
     public class OwnerDataLoader<TParent, TChild, TApi> : UnitDataLoader<TParent>
         where TParent : OwnerObjectList<TChild>, new()
-        where TChild : OwnerPlayerData
+        where TChild : OwnerPlayerData, IChildUnitData
         where TApi : OwnerApiList<TParent, TChild>
     {
 
-        protected IRepositoryService _repoService = null;
+        protected IRepositoryService _repoSystem = null;
         public override async Task Setup(GameState gs)
         {
             await base.Setup(gs);
 
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { Ascending = true, MemberName = "OwnerId" });
-            await _repoService.CreateIndex<TChild>(configs);
+            await _repoSystem.CreateIndex<TChild>(configs);
         }
 
-        public override async Task<IUnitData> LoadData(IRepositoryService repoSystem, Unit unit)
+        public override async Task<ITopLevelUnitData> LoadFullData(Unit unit)
         {
             string id = unit.Id;
 
@@ -43,8 +44,8 @@ namespace Genrpg.Shared.Units.Loaders
                 id = ch.UserId;
             }
 
-            Task<TParent> parentTask = repoSystem.Load<TParent>(id);
-            Task<List<TChild>> childTask = repoSystem.Search<TChild>(x => x.OwnerId == id);
+            Task<TParent> parentTask = _repoSystem.Load<TParent>(id);
+            Task<List<TChild>> childTask = _repoSystem.Search<TChild>(x => x.OwnerId == id);
 
             await Task.WhenAll(parentTask, childTask).ConfigureAwait(false);
 
@@ -55,6 +56,26 @@ namespace Genrpg.Shared.Units.Loaders
                 parent.SetData(items);
             }
             return parent;
+        }
+
+        public override async Task<IChildUnitData> LoadChildByIdkey(Unit unit, long idkey)
+        {
+            await Task.CompletedTask;
+            return default;
+        }
+
+        public override async Task<IChildUnitData> LoadChildById(Unit unit, string id)
+        {
+            TParent parentObj = (TParent)await LoadTopLevelData(unit);
+
+            TChild child = parentObj.GetData().FirstOrDefault(x => x.Id == id);
+
+            if (child != null)
+            {
+                parentObj.GetData().Add(child);
+            }
+
+            return child;
         }
 
         public override IUnitData MapToAPI(IUnitData serverObject)

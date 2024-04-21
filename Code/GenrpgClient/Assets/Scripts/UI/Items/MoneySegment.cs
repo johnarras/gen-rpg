@@ -26,6 +26,6 @@ public class MoneySegment : BaseBehaviour
     public void SetQuantityText(string txt)
     {
         _txt = txt;
-        _uiService?.SetText(QuantityText, txt);
+        _uIInitializable?.SetText(QuantityText, txt);
     }
 }

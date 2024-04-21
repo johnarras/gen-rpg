@@ -8,7 +8,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Assets.Scripts.GameSettings.Services
 {
-    public interface IClientGameDataService : ISetupService
+    public interface IClientGameDataService : IInitializable
     {
         UniTask SaveSettings(UnityGameState gs, IGameSettings settings);
 

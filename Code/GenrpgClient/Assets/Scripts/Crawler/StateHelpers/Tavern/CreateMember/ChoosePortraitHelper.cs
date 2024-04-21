@@ -24,7 +24,7 @@ namespace Assets.Scripts.Crawler.StateHelpers
         {
             CrawlerStateData stateData = CreateStateData();
 
-            IReadOnlyList<UnitType> allUnitTypes = gs.data.Get<UnitSettings>(null).GetData();
+            IReadOnlyList<UnitType> allUnitTypes = _gameData.Get<UnitSettings>(null).GetData();
 
             PartyMember member = action.ExtraData as PartyMember;
 

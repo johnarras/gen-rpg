@@ -1,18 +1,11 @@
 using GEntity = UnityEngine.GameObject;
-using System.Collections;
 using System;
 
-using Genrpg.Shared.Core.Entities;
-
-
 using Assets.Scripts.Interfaces;
-using Genrpg.Shared.Constants;
-using Genrpg.Shared.Interfaces;
-using Assets.Scripts.Model;
-using Scripts.Assets.Audio.Constants;
 using System.Threading;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.GameSettings;
 
 public class BaseBehaviour : StubComponent
 {
@@ -21,8 +14,10 @@ public class BaseBehaviour : StubComponent
     protected IScreenService _screenService;
     protected IRealtimeNetworkService _networkService;
     protected IAssetService _assetService;
-    protected IUiService _uiService;
+    protected IUIInitializable _uIInitializable;
     protected ILogService _logService;
+    protected IDispatcher _dispatcher;
+    protected IGameData _gameData;
 
     public UnityGameState _gs { get; set; }
     

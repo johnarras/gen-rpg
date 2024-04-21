@@ -19,7 +19,7 @@ public class ClutterObjectLoader : BaseObjectLoader
     {
         uint clutterId = objectId - MapConstants.ClutterObjectOffset;
 
-        ClutterType ctype = gs.data.Get<ClutterTypeSettings>(gs.ch).Get(clutterId);
+        ClutterType ctype = _gameData.Get<ClutterTypeSettings>(gs.ch).Get(clutterId);
         if (ctype == null)
         {
             return false;

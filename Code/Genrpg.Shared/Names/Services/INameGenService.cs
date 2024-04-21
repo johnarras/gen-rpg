@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Genrpg.Shared.Names.Services
 {
 
-    public interface INameGenService : IService
+    public interface INameGenService : IInitializable
     {
         string PickWord(GameState gs, List<WeightedName> list, long seed, string excludeName = "", string excludePrefix = "", string excludeDesc = "");
         string PickDataListName(GameState gs, string name, long seed = 0);

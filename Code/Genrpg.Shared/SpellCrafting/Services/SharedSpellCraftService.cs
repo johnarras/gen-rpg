@@ -11,14 +11,16 @@ using Genrpg.Shared.Stats.Settings.Stats;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.SpellCrafting.Services
 {
     public class SharedSpellCraftService : ISharedSpellCraftService
     {
+        private IGameData _gameData;
         private Dictionary<long, ISpellModifierHelper> _modifierHelpers = null;
 
-        public virtual async Task Setup(GameState gs, CancellationToken token)
+        public virtual async Task Initialize(GameState gs, CancellationToken token)
         {           
             _modifierHelpers = ReflectionUtils.SetupDictionary<long, ISpellModifierHelper>(gs);
             await Task.CompletedTask;
@@ -41,7 +43,7 @@ namespace Genrpg.Shared.SpellCrafting.Services
                 return false;
             }
 
-            ElementType elemType = gs.data.Get<ElementTypeSettings>(null).Get(spell.ElementTypeId);
+            ElementType elemType = _gameData.Get<ElementTypeSettings>(null).Get(spell.ElementTypeId);
 
             if (elemType == null)
             {
@@ -77,7 +79,7 @@ namespace Genrpg.Shared.SpellCrafting.Services
 
                 double effectCostScale = 1.0f;
 
-                SkillType skillType = gs.data.Get<SkillTypeSettings>(obj).Get(effect.SkillTypeId);
+                SkillType skillType = _gameData.Get<SkillTypeSettings>(obj).Get(effect.SkillTypeId);
 
                 if (skillType == null)
                 {
@@ -123,7 +125,7 @@ namespace Genrpg.Shared.SpellCrafting.Services
 
             costPercent *= spellCostScale;
 
-            StatType powerStatType = gs.data.Get<StatSettings>(null).Get(spell.PowerStatTypeId);
+            StatType powerStatType = _gameData.Get<StatSettings>(null).Get(spell.PowerStatTypeId);
 
             long oldPowerCost = spell.PowerCost;
             spell.PowerCost = (int)(costPercent * powerStatType.MaxPool / 100.0f);

@@ -63,11 +63,11 @@ public class ItemTooltip : BaseTooltip
         }
         _unit = data.unit;
 
-        _uiService.SetText(Message, _data.message);
-        _uiService.SetText(ItemName, ItemUtils.GetName(gs, _unit,_data.mainItem));
-        _uiService.SetText(BasicInfo, ItemUtils.GetBasicInfo(gs, _unit, _data.mainItem));
+        _uIInitializable.SetText(Message, _data.message);
+        _uIInitializable.SetText(ItemName, ItemUtils.GetName(_gameData, _unit, _data.mainItem));
+        _uIInitializable.SetText(BasicInfo, ItemUtils.GetBasicInfo(_gameData, _unit, _data.mainItem));
 
-        string bgName = IconHelper.GetBackingNameFromQuality(gs, _data.mainItem.QualityTypeId);
+        string bgName = IconHelper.GetBackingNameFromQuality(_gameData, _data.mainItem.QualityTypeId);
 
         _assetService.LoadAtlasSpriteInto(gs, AtlasNames.Icons, bgName, RarityImage, token);
 
@@ -100,7 +100,7 @@ public class ItemTooltip : BaseTooltip
                 {
                     if (eff.EntityTypeId == EntityTypes.Stat || eff.EntityTypeId == EntityTypes.StatPct)
                     {
-                        StatType stype = _gs.data.Get<StatSettings>(_unit).Get(eff.EntityId);
+                        StatType stype = _gameData.Get<StatSettings>(_unit).Get(eff.EntityId);
                         if (stype == null)
                         {
                             continue;
@@ -125,7 +125,7 @@ public class ItemTooltip : BaseTooltip
 
         foreach (ItemEffect eff in _data.mainItem.Effects)
         {
-            string mainText = EntityUtils.PrintData(_gs, _unit, eff);
+            string mainText = EntityUtils.PrintData(_gameData, _unit, eff);
 
             if (string.IsNullOrEmpty(mainText))
             {
@@ -159,7 +159,7 @@ public class ItemTooltip : BaseTooltip
                 continue;
             }
 
-            string mainText = EntityUtils.PrintData(_gs, _unit, eff);
+            string mainText = EntityUtils.PrintData(_gameData, _unit, eff);
             long change = eff.Quantity;
             ItemTooltipRowData rowData = new ItemTooltipRowData()
             {
@@ -216,13 +216,13 @@ public class ItemTooltip : BaseTooltip
 
             if (!_data.isVendorItem)
             {
-                _uiService.SetText(MoneyText, "Sell:");
-                cost = ItemUtils.GetSellToVendorPrice(_gs, _unit, _data.mainItem);
+                _uIInitializable.SetText(MoneyText, "Sell:");
+                cost = ItemUtils.GetSellToVendorPrice(_gameData, _unit, _data.mainItem);
             }
             else
             {
-                _uiService.SetText(MoneyText, "Price:");
-                cost = ItemUtils.GetBuyFromVendorPrice(_gs, _unit, _data.mainItem);
+                _uIInitializable.SetText(MoneyText, "Price:");
+                cost = ItemUtils.GetBuyFromVendorPrice(_gameData, _unit, _data.mainItem);
             }
 
             Money.SetMoney(cost);

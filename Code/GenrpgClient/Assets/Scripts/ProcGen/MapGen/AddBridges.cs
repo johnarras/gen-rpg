@@ -813,7 +813,7 @@ public class AddBridges : BaseZoneGenerator
 
     public BridgeType GetRandomBridgeType(UnityGameState gs, long zoneTypeId, MyRandom rand)
     {
-        ZoneType zt = gs.data.Get<ZoneTypeSettings>(gs.ch).Get(zoneTypeId);
+        ZoneType zt = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zoneTypeId);
         if (zt == null || zt.BridgeTypes == null || zt.BridgeTypes.Count < 1)
         {
             return null;
@@ -828,7 +828,7 @@ public class AddBridges : BaseZoneGenerator
             for (int b = 0; b < zt.BridgeTypes.Count; b++)
             {
                 ZoneBridgeType zbt = zt.BridgeTypes[b];
-                BridgeType bt = gs.data.Get<BridgeTypeSettings>(gs.ch).Get(zbt.BridgeTypeId);
+                BridgeType bt = _gameData.Get<BridgeTypeSettings>(gs.ch).Get(zbt.BridgeTypeId);
                 if (bt != null && !string.IsNullOrEmpty(bt.Art))
                 {
                     if (times == 0)

@@ -27,7 +27,7 @@ namespace Assets.Scripts.UI.Crawler.States
 
             PartyMember member = action.ExtraData as PartyMember;
 
-            IReadOnlyList<UnitType> unitTypes = gs.data.Get<UnitSettings>(null).GetData();
+            IReadOnlyList<UnitType> unitTypes = _gameData.Get<UnitSettings>(null).GetData();
 
             foreach (UnitType utype in unitTypes)
             {

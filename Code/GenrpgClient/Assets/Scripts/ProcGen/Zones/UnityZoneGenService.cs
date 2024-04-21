@@ -51,7 +51,7 @@ public class UnityZoneGenService : ZoneGenService
     {
         _mapTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_gameToken);
         _mapToken = _mapTokenSource.Token;
-        foreach (IService service in gs.loc.GetVals())
+        foreach (IInjectable service in gs.loc.GetVals())
         {
             if (service is IMapTokenService tokenService)
             {
@@ -249,7 +249,7 @@ public class UnityZoneGenService : ZoneGenService
                 CurrStep = currStep,
                 TotalSteps = totalSteps,
             };
-            gs.Dispatch(showPercent);
+            _dispatcher.Dispatch(gs,showPercent);
             DateTime startTime = DateTime.UtcNow;
             _logService.Info("StageStart: " + currStep + " " + gen.GetType().Name + " Time: " + DateTime.UtcNow);
             try
@@ -293,7 +293,7 @@ public class UnityZoneGenService : ZoneGenService
         await UniTask.NextFrame( cancellationToken: token);
 
 
-        gs.Dispatch(new MapIsLoadedEvent());
+        _dispatcher.Dispatch(gs,new MapIsLoadedEvent());
         gs.md.GeneratingMap = false;
         await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
         PlayerObject.MoveAboveObstacles();
@@ -762,7 +762,7 @@ public class UnityZoneGenService : ZoneGenService
             gs.ch.SetGameDataOverrideList(data.OverrideList);
 
 
-            gs.data.AddData(data.GameData);
+            _gameData.AddData(data.GameData);
 
             if (data == null || data.Map == null || data.Char == null)
             {

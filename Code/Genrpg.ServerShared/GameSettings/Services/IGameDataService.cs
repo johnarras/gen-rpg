@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.GameSettings.Services;
 
-public interface IGameDataService : ISetupService
+public interface IGameDataService : IInitializable
 {
-    Task<GameData> LoadGameData(ServerGameState gs, bool createMissingGameData);
+    Task<IGameData> LoadGameData(ServerGameState gs, bool createMissingGameData);
     Task ReloadGameData(ServerGameState gs);
-    Task<bool> SaveGameData(GameData data, IRepositoryService repoSystem);
+    Task<bool> SaveGameData(IGameData data, IRepositoryService repoSystem);
     List<string> GetEditorIgnoreFields();
     List<IGameSettingsLoader> GetAllLoaders();
     List<ITopLevelSettings> MapToApi(ServerGameState gs, List<ITopLevelSettings> startSettings);

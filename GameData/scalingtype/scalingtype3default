@@ -18,12 +18,6 @@
       "Percent": 125
     }
   ],
-  "BaseReagents": [
-    {
-      "ItemTypeId": 104,
-      "Percent": 150
-    }
-  ],
   "ArmorPct": 300,
   "UpdateTime": "2024-02-25T15:48:01.795Z",
   "CreateTime": "2024-02-03T21:40:49.651Z"

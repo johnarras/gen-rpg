@@ -68,13 +68,13 @@ public class InteractUnit : InteractableObject
             {
                 if (string.IsNullOrEmpty(crafterMousePointer))
                 {
-                    UnitType unitType = _gs.data.Get<UnitSettings>(_gs.ch).Get(unit.EntityId);
+                    UnitType unitType = _gameData.Get<UnitSettings>(_gs.ch).Get(unit.EntityId);
                     if (unitType != null)
                     {
-                        TribeType tribe = _gs.data.Get<TribeSettings>(_gs.ch).Get(unitType.TribeTypeId);
+                        TribeType tribe = _gameData.Get<TribeSettings>(_gs.ch).Get(unitType.TribeTypeId);
                         if (tribe != null && tribe.LootCrafterTypeId > 0)
                         {
-                            CrafterType ctype = _gs.data.Get<CraftingSettings>(_gs.ch).Get(tribe.LootCrafterTypeId);
+                            CrafterType ctype = _gameData.Get<CraftingSettings>(_gs.ch).Get(tribe.LootCrafterTypeId);
                             if (ctype != null && !string.IsNullOrEmpty(ctype.MousePointer))
                             {
                                 crafterMousePointer = ctype.MousePointer;

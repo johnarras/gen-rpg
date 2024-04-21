@@ -9,10 +9,13 @@ using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Quests.WorldData;
 using Genrpg.Shared.Spawns.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Quests.Services
 {
-    public interface ISharedQuestService : IService
+    public interface ISharedQuestService : IInitializable
     {
         int GetQuestState(GameState gs, Character ch, QuestType qtype);
         bool IsQuestSoonVisible(GameState gs, Character ch, QuestType qtype);
@@ -23,6 +26,13 @@ namespace Genrpg.Shared.Quests.Services
 
     public class SharedQuestService : ISharedQuestService
     {
+
+        private IGameData _gameData;
+        public async Task Initialize(GameState gs, CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
+
 
         public int GetQuestState(GameState gs, Character ch, QuestType qtype)
         {
@@ -80,12 +90,12 @@ namespace Genrpg.Shared.Quests.Services
         {
             List<SpawnResult> rewards = new List<SpawnResult>();
 
-            if (gs.data == null || qtype == null)
+            if (qtype == null)
             {
                 return rewards;
             }
 
-            LevelInfo level = gs.data.Get<LevelSettings>(ch).Get(qtype.MinLevel);
+            LevelInfo level = _gameData.Get<LevelSettings>(ch).Get(qtype.MinLevel);
 
             if (level == null)
             {

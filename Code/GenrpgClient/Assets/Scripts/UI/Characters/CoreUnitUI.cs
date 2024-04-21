@@ -6,7 +6,7 @@ public class CoreUnitUI : BaseBehaviour
 
     public void Init(string name, long level)
     {
-        _uiService.SetText(NameText, name);
-        _uiService.SetText(LevelText, level.ToString());
+        _uIInitializable.SetText(NameText, name);
+        _uIInitializable.SetText(LevelText, level.ToString());
     }
 }

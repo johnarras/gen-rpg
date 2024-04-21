@@ -3,7 +3,6 @@
   "ParentId": "default",
   "IdKey": 18,
   "Name": "PoisonVial",
-  "StatPercent": 100,
   "Active": true,
   "ClassRestricted": true,
   "UpdateTime": "2024-02-25T15:46:41.927Z",

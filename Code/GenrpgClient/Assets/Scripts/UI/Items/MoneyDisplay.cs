@@ -19,7 +19,7 @@ public class MoneyDisplay : BaseBehaviour
         base.Initialize(gs);
         if (UpdateToCharMoney)
         {
-            _gs.AddEvent<OnAddCurrency>(this, OnCurrencyUpdate);
+            _dispatcher.AddEvent<OnAddCurrency>(this, OnCurrencyUpdate);
             UpdateValue();
         }
     }

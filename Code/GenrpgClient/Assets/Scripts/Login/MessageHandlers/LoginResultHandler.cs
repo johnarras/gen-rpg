@@ -11,6 +11,7 @@ using Assets.Scripts.GameSettings.Services;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Spawns.WorldData;
+using Genrpg.Shared.GameSettings;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
@@ -57,9 +58,9 @@ namespace Assets.Scripts.Login.MessageHandlers
                await _gameDataService.SaveSettings(gs, settings);
             }
 
-            List<ITopLevelSettings> loadedSettings = gs.data.AllSettings();
+            List<ITopLevelSettings> loadedSettings = _gameData.AllSettings();
 
-            gs.data.AddData(result.GameData);
+            _gameData.AddData(result.GameData);
 
             if (gs.user != null && !String.IsNullOrEmpty(gs.user.Id))
             {
