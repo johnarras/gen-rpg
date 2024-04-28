@@ -37,7 +37,8 @@ namespace Assets.Scripts.UI
             sb.Append("MsgMin/Max: " + StrUtils.PrintCommaValue(data.MinMessages) + "/" 
                 + StrUtils.PrintCommaValue(data.MaxMessages) + "\n");
             sb.Append("Spells: " + StrUtils.PrintCommaValue(data.TotalSpells) + " PerSec: " + (data.TotalSpells / data.Seconds) + "\n");
-          
+            sb.Append("Updates: " + StrUtils.PrintCommaValue(data.TotalUpdates) + " PerSec: " + (data.TotalUpdates / data.Seconds) + "\n");
+
             if (data.MapCounts != null)
             {               
                 MapObjectCounts mapCounts = data.MapCounts;

@@ -1,0 +1,12 @@
+{
+  "Id": "currencytype2abtest",
+  "ParentId": "abtest",
+  "IdKey": 2,
+  "Name": "Money",
+  "PluralName": "",
+  "Desc": "",
+  "Icon": "IconCopper",
+  "Art": "updated tuning",
+  "UpdateTime": "2024-04-26T23:51:29.518Z",
+  "CreateTime": "2024-04-26T23:51:29.518Z"
+}

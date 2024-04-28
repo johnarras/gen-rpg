@@ -95,6 +95,7 @@ public class AddBridges : BaseZoneGenerator
 		}
 
         AddWater addWater = new AddWater();
+        gs.loc.Resolve(addWater);
 
         foreach (WaterGenData wgd in _waterGenData)
         {

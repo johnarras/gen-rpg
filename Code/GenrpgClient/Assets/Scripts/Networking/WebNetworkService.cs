@@ -31,7 +31,6 @@ public interface IWebNetworkService : IInitializable, IGameTokenService
 public class WebNetworkService : IWebNetworkService
 {
     private Dictionary<string,WebRequestQueue> _queues = new Dictionary<string,WebRequestQueue>();
-    private Dictionary<Type, IClientLoginResultHandler> _loginResultHandlers = null;
 
     private class FullLoginCommand
     {

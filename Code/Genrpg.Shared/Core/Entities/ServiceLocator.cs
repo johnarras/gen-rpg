@@ -171,6 +171,10 @@ namespace Genrpg.Shared.Core.Entities
 
         public void Resolve(object obj)
         {
+            if (obj == null)
+            {
+                return;
+            }
             Type type = obj.GetType();
             if (!type.IsClass)
             {

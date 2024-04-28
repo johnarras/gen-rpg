@@ -67,8 +67,8 @@ public class ZoneStateController : BaseBehaviour
     public static float SunlightScale = 1.0f;
     public static float FogScale = 1.0f;
 
-    public const float BaseFogStart = 200;
-    public const float BaseFogEnd = 400;
+    public const float BaseFogStart = 150;
+    public const float BaseFogEnd = 300;
     public static float FogDistScale = 1.0f;
 
     public static long CurrentZoneShown = -1;
@@ -80,7 +80,7 @@ public class ZoneStateController : BaseBehaviour
     public Material SkyboxMaterial;
 
   
-    public float LinearFogEnd = 400;
+    public float LinearFogEnd = 300;
 
 
     DateTime windBurstEnd = DateTime.UtcNow;
@@ -130,7 +130,6 @@ public class ZoneStateController : BaseBehaviour
 
     private void ResetColors()
     {
-        //if (Weather == null) Weather = ScriptableObject.CreateInstance<WeatherType>();
         SunlightIntensity.Set(1.0f);
         FogStart.Set(BaseFogStart);
         FogEnd.Set(BaseFogEnd);
@@ -145,7 +144,7 @@ public class ZoneStateController : BaseBehaviour
         SunlightColor.Set(GColor.white);
         AmbientColor.Set(GColor.white);
         FogColor.Set(GColor.gray);
-
+        RenderSettings.fog = true;
         SetupSkybox();
         
     }
@@ -314,7 +313,6 @@ public class ZoneStateController : BaseBehaviour
 
         FogStart.Current = TextureUtils.MoveCurrFloatToTarget(FogStart.Current, FogStart.Target * FogDistScale, FogDistDelta * FogDistScale);
         FogEnd.Current = TextureUtils.MoveCurrFloatToTarget(FogEnd.Current, FogEnd.Target * FogDistScale, FogDistDelta * FogDistScale);
-        
 
         SunlightIntensity.Current = TextureUtils.MoveCurrFloatToTarget(SunlightIntensity.Current, SunlightIntensity.Target * SunlightScale, delta);
         CloudSpeed.Current = TextureUtils.MoveCurrFloatToTarget(CloudSpeed.Current, CloudSpeed.Target, delta);

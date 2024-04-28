@@ -1,0 +1,9 @@
+{
+  "Id": "currencytype3abtest",
+  "ParentId": "abtest",
+  "IdKey": 3,
+  "Name": "Exp",
+  "Icon": "IconStarGold",
+  "UpdateTime": "2024-04-26T23:51:29.52Z",
+  "CreateTime": "2024-04-26T23:51:29.52Z"
+}

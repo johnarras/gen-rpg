@@ -16,6 +16,7 @@ namespace Genrpg.Shared.MapServer.Messages
         [Key(4)] public long MessagesPerSecond { get; set; }
         [Key(5)] public long Seconds { get; set; }
         [Key(6)] public long TotalSpells { get; set; }
-        [Key(7)] public MapObjectCounts MapCounts { get; set; }
+        [Key(7)] public long TotalUpdates { get; set; }
+        [Key(8)] public MapObjectCounts MapCounts { get; set; }
     }
 }

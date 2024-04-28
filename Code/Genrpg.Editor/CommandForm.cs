@@ -28,6 +28,9 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Genrpg.Shared.GameSettings;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 using System.Diagnostics;
+using Genrpg.Shared.Settings.Settings;
+using MongoDB.Driver.Core.WireProtocol.Messages.Encoders;
+using System.Text;
 
 namespace GameEditor
 {
@@ -350,14 +353,36 @@ namespace GameEditor
 
             groups = groups.OrderBy(x => x.Key.Name).ToList();
 
+            SettingsNameSettings settingSettings = (SettingsNameSettings)allGameData.FirstOrDefault(x => x.Id == "default" && x.GetType().Name == nameof(SettingsNameSettings));
+
+            List<SettingsName> allSettingNames = settingSettings.GetData().ToList();
+
+            long maxIndex = 0;
+            
+            if (allSettingNames.Count > 0)
+            {
+                maxIndex = allSettingNames.Max(x => x.IdKey);
+            }
+
             foreach (IGrouping<Type,ITopLevelSettings> group in groups)
             {
+                string typeName = group.Key.Name;
+
+                SettingsName currName = allSettingNames.FirstOrDefault(x=>x.Name ==  typeName);
+
+                if (currName == null)
+                {
+                    currName = new SettingsName() { Id = "default", Name = typeName, IdKey = ++maxIndex };
+                    allSettingNames.Add(currName);
+                    _gs.LookedAtObjects.Add(currName);
+                }
+                
 
                 List<ITopLevelSettings> orderedList = group.OrderBy(x => x.Id).ToList();
 
                 List<BaseGameSettings> items = new List<BaseGameSettings>();
 
-                for (int i = 0; i <  orderedList.Count; i++) 
+                for (int i = 0; i < orderedList.Count; i++) 
                 {
                     BaseGameSettings setting = orderedList[i] as BaseGameSettings;
                     if (setting != null)
@@ -388,6 +413,9 @@ namespace GameEditor
                 list.TypeName = "[" + group.Count() + "] " + group.Key.Name;
                 _gs.EditorGameData.Data.Add(list);
             }
+
+            settingSettings.SetData(allSettingNames);
+
 
             this.Invoke((MethodInvoker)delegate()
                {

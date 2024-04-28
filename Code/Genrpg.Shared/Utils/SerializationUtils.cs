@@ -19,7 +19,17 @@ namespace Genrpg.Shared.Utils
     public class SerializationUtils
     {
 
-        private static JsonSerializerSettings _settings = new JsonSerializerSettings()
+        private static JsonSerializerSettings _baseSettings = new JsonSerializerSettings()
+        {
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            NullValueHandling = NullValueHandling.Ignore,
+            TypeNameHandling = TypeNameHandling.Auto,
+            TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
+            Formatting = Formatting.None,
+        };
+
+
+        private static JsonSerializerSettings _prettyPrintSettings = new JsonSerializerSettings()
         {
             DefaultValueHandling = DefaultValueHandling.Ignore,
             NullValueHandling = NullValueHandling.Ignore,
@@ -28,9 +38,15 @@ namespace Genrpg.Shared.Utils
             Formatting = Formatting.Indented,
         };
 
+
+        public static string PrettyPrint(object obj)
+        {
+            return JsonConvert.SerializeObject(obj, _prettyPrintSettings);
+        }
+
         public static string Serialize(object obj)
         {
-            return JsonConvert.SerializeObject(obj, _settings);
+            return JsonConvert.SerializeObject(obj, _baseSettings);
         }
 
         public static object DeserializeWithType(string txt, Type t)
@@ -44,7 +60,7 @@ namespace Genrpg.Shared.Utils
             {
                 txt = txt.Substring(newIndex);
             }
-            return JsonConvert.DeserializeObject(txt, t, _settings);
+            return JsonConvert.DeserializeObject(txt, t, _baseSettings);
         }
 
         public static T Deserialize<T>(string txt)

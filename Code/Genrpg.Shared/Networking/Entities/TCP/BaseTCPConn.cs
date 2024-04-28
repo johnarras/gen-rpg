@@ -44,6 +44,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
         // This is concurrent so the game can send messages to it as needed.
         private ConcurrentQueue<IMapApiMessage> _outputQueue = new ConcurrentQueue<IMapApiMessage>();
 
+        // Could replace this IConnection implementation with SocketAsyncEventArgs if scaling is needed
         public BaseTcpConn(IMapApiSerializer serializer, MapApiMessageHandler messageHandler, ILogService logger, CancellationToken token, object extraData)
          
         {

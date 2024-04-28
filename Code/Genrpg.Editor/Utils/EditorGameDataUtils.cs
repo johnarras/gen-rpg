@@ -174,7 +174,7 @@ namespace Genrpg.Editor.Utils
             }
 
             string fullPath = Path.Combine(fullDir, idObj.Id);
-            File.WriteAllText(fullPath, SerializationUtils.Serialize(idObj));
+            File.WriteAllText(fullPath, SerializationUtils.PrettyPrint(idObj));
         }
 
         public static async Task<FullGameDataCopy> LoadDataFromDisk(Form form, CancellationToken token)

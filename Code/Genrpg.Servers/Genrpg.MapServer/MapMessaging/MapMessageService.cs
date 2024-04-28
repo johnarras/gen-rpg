@@ -22,6 +22,7 @@ using Genrpg.Shared.MapMessages;
 using Genrpg.MapServer.Maps.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.MapServer.Spells;
 
 namespace Genrpg.MapServer.MapMessaging
 {
@@ -36,9 +37,9 @@ namespace Genrpg.MapServer.MapMessaging
         private List<MapMessageQueue> _queues = new List<MapMessageQueue>();
 
         private IMapObjectManager _objectManager = null;
-#if DEBUG
+        private IServerSpellService _serverSpellService = null;
         private IAIService _aiService = null;
-#endif
+
         private DateTime _startTime = DateTime.UtcNow;
 
         private int _messageQueueCount = DefaultMessageQueueCount;
@@ -117,7 +118,6 @@ namespace Genrpg.MapServer.MapMessaging
             }
         }
 
-        //#if DEBUG
         private async Task ShowMessageCounts(GameState gs, CancellationToken token)
         {
             try
@@ -126,16 +126,16 @@ namespace Genrpg.MapServer.MapMessaging
             {
                     await Task.Delay(20000, token).ConfigureAwait(false);
                     ServerMessageCounts counts = GetCounts();
-#if DEBUG
+
                     long aiUpdPerSec = _aiService.GetUpdateTimes() / counts.Seconds;
                     long castPerSec = _aiService.GetCastTimes() / counts.Seconds;
-#endif
+
 
                     _logService.Message("M: " + gs.map.Id + " Min/Max " + counts.MinMessages + "/" + counts.MaxMessages
                         + " Total: " + counts.TotalMessages + " PerSec: " + counts.MessagesPerSecond
-#if DEBUG
+
                          + " AI/Sec: " + aiUpdPerSec + " Cast/Sec: " + castPerSec
-#endif
+
                         );
                 }
             }
@@ -144,7 +144,6 @@ namespace Genrpg.MapServer.MapMessaging
                 _logService.Info("Stopped info loop");
             }
         }
-        //#endif
 
         public ServerMessageCounts GetCounts()
         {
@@ -168,7 +167,8 @@ namespace Genrpg.MapServer.MapMessaging
             messageCounts.TotalMessages = counts.Sum();
             messageCounts.Seconds = (long)Math.Max(1, (DateTime.UtcNow - _startTime).TotalSeconds);
             messageCounts.MessagesPerSecond = messageCounts.TotalMessages / messageCounts.Seconds;
-
+            messageCounts.TotalSpells = _aiService.GetCastTimes();
+            messageCounts.TotalUpdates = _aiService.GetUpdateTimes();
             return messageCounts;
         }
 

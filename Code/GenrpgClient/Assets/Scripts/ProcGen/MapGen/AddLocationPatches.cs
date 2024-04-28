@@ -15,7 +15,7 @@ using Genrpg.Shared.Utils.Data;
 public class AddLocationPatches : BaseZoneGenerator
 {
     private ILineGenService _lineGenService = null;
-    AddRoads _addRoads = null;
+    public AddRoads _addRoads = null;
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         _addRoads = new AddRoads();

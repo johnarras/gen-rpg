@@ -27,7 +27,7 @@ public class AddWater : BaseZoneGenerator
 
     public bool TryAddPool(UnityGameState gs, WaterGenData genData)
     {
-        if ( genData == null ||
+        if (genData == null ||
             genData.x < MapConstants.TerrainPatchSize ||
             genData.z < MapConstants.TerrainPatchSize ||
             genData.x > gs.map.GetHwid() - MapConstants.TerrainPatchSize ||

@@ -70,7 +70,7 @@ public class MapConstants : SharedMapConstants
     public const int BridgeHeightBitShift = 6;
 
 
-    public const float MapHeightPerGrid = 0.015f;
+    public const float MapHeightPerGrid = 0.01f;
 
     public const int MapObjectOffsetMult = 2000;
     public const int TreeObjectOffset = 0;

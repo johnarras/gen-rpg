@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ClientConfig
   m_EditorClassIdentifier: 
   Env: local
-  ContentDataEnvOverride: dev
+  AssetDataEnv: dev
   WorldDataEnv: dev
   InitialConfigEndpoint: https://genrpgconfig.azurewebsites.net/api/GenrpgConfig

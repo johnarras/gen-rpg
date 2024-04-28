@@ -40,9 +40,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1376471114}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 1
-  m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.1
   m_Range: 10
@@ -374,7 +373,7 @@ MonoBehaviour:
   Wind: {fileID: 3731700555145375388}
   Sun: {fileID: 1376471116}
   SkyboxMaterial: {fileID: 2100000, guid: 4e57d50f472456649871890354f264d9, type: 2}
-  LinearFogEnd: 450
+  LinearFogEnd: 300
   SunlightIntensityMultiplier: 1.1
   AmbientIntensityMultiplier: 0.65
   Effects:

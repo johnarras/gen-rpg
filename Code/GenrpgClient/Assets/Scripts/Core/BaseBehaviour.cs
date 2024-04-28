@@ -57,7 +57,7 @@ public class BaseBehaviour : StubComponent
     {
         if (_addedUpdate)
         {
-            _updateService.RemoveUpdates(this);
+            _updateService?.RemoveUpdates(this);
         }
     }
 }

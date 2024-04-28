@@ -16,6 +16,7 @@ using Genrpg.Shared.Login.Messages.RefreshGameSettings;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Utils;
+using Genrpg.Shared.Settings.Settings;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Settings;
 using System;
@@ -142,6 +143,8 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             DataOverrideSettings dataOverrideSettings = _gameData.Get<DataOverrideSettings>(null);
 
+            SettingsNameSettings settingsNameSettings = _gameData.Get<SettingsNameSettings>(null);
+
             if (dataOverrideSettings.NextUpdateTime <= DateTime.UtcNow)
             {
                 dataOverrideSettings.SetPrevNextUpdateTimes();
@@ -175,7 +178,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                     // Each group.Items is ordered on load by SettingsId then by DocId
                     foreach (DataOverrideItem groupItem in overrideGroup.Items)
                     {
-                        if (string.IsNullOrEmpty(groupItem.SettingId) ||
+                        if (groupItem.SettingsNameId < 1 ||
                             string.IsNullOrEmpty(groupItem.DocId) ||
                             !groupItem.Enabled ||
                             groupItem.DocId == GameDataConstants.DefaultFilename)
@@ -183,11 +186,11 @@ namespace Genrpg.ServerShared.GameSettings.Services
                             continue;
                         }
 
-                        DataOverrideItemPriority overrideItem = priorityOverrides.FirstOrDefault(x => x.SettingId == groupItem.SettingId);
+                        DataOverrideItemPriority overrideItem = priorityOverrides.FirstOrDefault(x => x.SettingsNameId == groupItem.SettingsNameId);
 
                         if (overrideItem == null)
                         {
-                            overrideItem = new DataOverrideItemPriority { SettingId = groupItem.SettingId };
+                            overrideItem = new DataOverrideItemPriority { SettingsNameId = groupItem.SettingsNameId };
                             priorityOverrides.Add(overrideItem);
                             overrideItem.DocId = groupItem.DocId;
                             overrideItem.Priority = overrideGroup.Priority;
@@ -211,7 +214,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             {
                 gameDataOverrideList.Items.Add(new PlayerSettingsOverrideItem()
                 {
-                    SettingId = priority.SettingId,
+                    SettingId = settingsNameSettings.Get(priority.SettingsNameId).Name,
                     DocId = priority.DocId,
                 });
             }

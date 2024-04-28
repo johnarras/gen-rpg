@@ -1,0 +1,34 @@
+﻿using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Units.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Genrpg.Shared.Units.Loaders
+{
+    public class OwnerIdDataLoader<TParent, TChild, TApi> : OwnerDataLoader<TParent,TChild,TApi>
+        where TParent : OwnerObjectList<TChild>, new()
+        where TChild : OwnerPlayerData, IChildUnitData, IId
+        where TApi : OwnerApiList<TParent, TChild>
+    {
+
+        public override async Task<IChildUnitData> LoadChildByIdkey (Unit unit, long idkey)
+        {
+
+            TParent parentObj = (TParent)await LoadTopLevelData(unit);
+
+            TChild child = parentObj.GetData().FirstOrDefault(x => x.IdKey == idkey);
+
+            if (child != null)
+            {
+                parentObj.GetData().Add(child);
+            }
+
+            return child;
+        }
+    }
+}

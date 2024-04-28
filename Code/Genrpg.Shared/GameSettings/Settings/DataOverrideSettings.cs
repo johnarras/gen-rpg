@@ -50,7 +50,7 @@ namespace Genrpg.Shared.GameSettings.Settings
 
         public void OrderSelf()
         {
-            Items = Items.OrderBy(x => x.SettingId).ThenBy(x => x.DocId).ToList();
+            Items = Items.OrderBy(x => x.SettingsNameId).ThenBy(x => x.DocId).ToList();
         }
 
     }
@@ -59,14 +59,14 @@ namespace Genrpg.Shared.GameSettings.Settings
     public class DataOverrideItem
     {
         [Key(0)] public bool Enabled { get; set; } = true;
-        [Key(1)] public string SettingId { get; set; }
+        [Key(1)] public long SettingsNameId { get; set; }
         [Key(2)] public string DocId { get; set; }
     }
 
     [MessagePackObject]
     public class DataOverrideItemPriority
     {
-        [Key(0)] public string SettingId { get; set; }
+        [Key(0)] public long SettingsNameId { get; set; }
         [Key(1)] public string DocId { get; set; }
         [Key(2)] public long Priority { get; set; }
     }

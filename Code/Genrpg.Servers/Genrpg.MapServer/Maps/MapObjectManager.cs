@@ -77,7 +77,6 @@ namespace Genrpg.MapServer.Maps
 
         CancellationToken _token;
 
-#if DEBUG
         protected long _objectCount = 0;
         protected long _unitCount = 0;
         protected long _totalQueries = 0;
@@ -85,7 +84,6 @@ namespace Genrpg.MapServer.Maps
         protected long _totalGridLocks = 0;
         protected long _unitsAdded = 0;
         protected long _unitsRemoved = 0;
-#endif
 
         protected long _totalUnits = 0;
         protected long _totalObjects = 0;
@@ -171,18 +169,14 @@ namespace Genrpg.MapServer.Maps
                     }
                 }
                 _didSetupOnce = true;
-#if DEBUG
-                _unitsAdded = 0;           
-#endif
+                _unitsAdded = 0; 
             }
         }
 
         public void FinalRemoveFromGrid(GameState gs, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item)
         {
             gridData.RemoveObj(item.Obj);
-#if DEBUG
             _totalGridLocks++;
-#endif
         }
 
         public void UpdatePosition(GameState gs, MapObject obj, int keysDown)
@@ -228,9 +222,7 @@ namespace Genrpg.MapServer.Maps
 
 
                     newGrid.AddObj(gridItem.Obj);
-#if DEBUG
                     _totalGridLocks += 2;
-#endif
                     gridItem.GX = newGridPos.X;
                     gridItem.GZ = newGridPos.Z;
                     OnAddObjectToGrid(gs, obj, newGridPos.X, newGridPos.Z);
@@ -317,9 +309,7 @@ namespace Genrpg.MapServer.Maps
 
         protected List<MapObject> GetObjectsFromGridBox(int gxmin, int gxmax, int gzmin, int gzmax)
         {
-#if DEBUG
             _totalQueries++;
-#endif
             List<MapObject> retval = new List<MapObject>();
 
             gxmin = MathUtils.Clamp(0, gxmin, _gridSize - 1);
@@ -333,9 +323,7 @@ namespace Genrpg.MapServer.Maps
                 {
                     // Do not need to lock here because the .Objs list is immutable (copied then updated and replaced when add/remove happens)
                     retval.AddRange(_objectGrid[gx, gz].GetObjects());
-#if DEBUG
                     _totalGridReads++;
-#endif
                 }
             }
 
@@ -426,18 +414,14 @@ namespace Genrpg.MapServer.Maps
             MapObjectGridItem newGridItem = CreateGridItem(obj, pt.X, pt.Z);
 
             _objectGrid[pt.X, pt.Z].AddObj(newGridItem.Obj);
-#if DEBUG
             _totalGridLocks++;
-#endif
 
             _idDict[StrUtils.GetIdHash(obj.Id) % IdHashSize].TryAdd(obj.Id, newGridItem);
             obj.Spawn = spawn;
             if (obj is Unit unit)
             {
-#if DEBUG
                 _unitCount++;
                 _unitsAdded++;
-#endif
                 if (obj is Character ch)
                 {
                     OnAddObjectToGrid(gs, ch, pt.X, pt.Z);
@@ -445,9 +429,7 @@ namespace Genrpg.MapServer.Maps
             }
             else
             {
-#if DEBUG
                 _objectCount++;
-#endif
             }
 
             if (_didSetupOnce && _messageService != null)
@@ -483,7 +465,6 @@ namespace Genrpg.MapServer.Maps
             }
             gridItem.Obj.SetDeleted(true);
 
-#if DEBUG
             if (gridItem.Obj is Unit unit)
             {
                 _unitCount--;
@@ -493,15 +474,12 @@ namespace Genrpg.MapServer.Maps
             {
                 _objectCount--;
             }
-#endif
             if (gridItem.GX >= 0 && gridItem.GX < _gridSize &&
                 gridItem.GZ >= 0 && gridItem.GZ < _gridSize)
             {
 
                 _objectGrid[gridItem.GX, gridItem.GZ].RemoveObj(gridItem.Obj);
-#if DEBUG
                 _totalGridLocks++;
-#endif
             }
 
             if (gridItem.Obj is Character ch)

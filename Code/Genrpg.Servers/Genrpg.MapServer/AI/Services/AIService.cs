@@ -32,10 +32,8 @@ namespace Genrpg.MapServer.AI.Services
         void TargetMove(GameState gs, Unit unit, string targetUnitId);
         void EndCombat(GameState gs, Unit unit, string killedUnitId, bool clearAllAttackers);
         void BringFriends(GameState gs, Unit unit, string targetId);
-#if DEBUG
         long GetCastTimes();
         long GetUpdateTimes();
-#endif
     }
 
     public class AIService : IAIService
@@ -50,7 +48,6 @@ namespace Genrpg.MapServer.AI.Services
             await Task.CompletedTask;
         }
 
-#if DEBUG
         public long _updateTimes = 0;
         public long _castTimes = 0;
 
@@ -63,7 +60,6 @@ namespace Genrpg.MapServer.AI.Services
         {
             return _castTimes;
         }
-#endif
 
         public bool Update(GameState gs, Unit unit)
         {
@@ -71,9 +67,7 @@ namespace Genrpg.MapServer.AI.Services
             {
                 return false;
             }
-#if DEBUG
             _updateTimes++;
-#endif
             float ux = unit.X;
             float uz = unit.Z;
             float fx = unit.FinalX;
@@ -159,9 +153,7 @@ namespace Genrpg.MapServer.AI.Services
                 return;
             }
 
-#if DEBUG
             _castTimes++;
-#endif
             Spell spell = spells.FirstOrDefault();
 
             CastSpell castSpell = new CastSpell()

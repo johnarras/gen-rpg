@@ -28,7 +28,7 @@ public class SetupEditorUnityGameState
             gs.SetInitObject(initObject);
             SetupService ss = new SetupService();
 
-            ss.SetupGame(gs, _cts.Token);
+            ss.SetupGame(gs, _cts.Token).Wait();
 
             ClientConfig config = ClientConfig.Load();
 

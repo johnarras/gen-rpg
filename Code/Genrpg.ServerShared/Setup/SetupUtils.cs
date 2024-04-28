@@ -39,7 +39,7 @@ namespace Genrpg.ServerShared.Setup
             IGameData gameData = await gameDataService.LoadGameData(gs, setupService.CreateMissingGameData());
 
             await setupService.FinalSetup(gs);
-
+         
             gs.loc.Resolve(parentObject);
 
             return gs;

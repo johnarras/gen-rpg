@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Genrpg.Shared.Settings.Constants
+{
+    public class SettingNames
+    {
+        public const long None = 0;
+        public const long AchievementSettings = 1;
+        public const long AISettings = 2;
+        public const long BridgeTypeSettings = 3;
+        public const long BuildingSettings = 4;
+        public const long CharmBonusSettings = 5;
+        public const long CharmUseSettings = 6;
+        public const long ChatSettings = 7;
+        public const long ClassSettings = 8;
+        public const long ClutterTypeSettings = 9;
+        public const long CombatActionSettings = 10;
+        public const long CoreSettings = 11;
+        public const long CraftingSettings = 12;
+        public const long CrawlerCombatSettings = 13;
+        public const long CrawlerLootSettings = 14;
+        public const long CrawlerSpellSettings = 15;
+        public const long CrawlerTrainingSettings = 16;
+        public const long CurrencySettings = 17;
+        public const long DamageSettings = 18;
+        public const long DataOverrideSettings = 19;
+        public const long DerivedStatSettings = 20;
+        public const long DungeonArtSettings = 21;
+        public const long EditorMetaDataSettings = 22;
+        public const long ElementTypeSettings = 23;
+        public const long EntitySettings = 24;
+        public const long EquipSlotSettings = 25;
+        public const long FactionSettings = 26;
+        public const long FenceTypeSettings = 27;
+        public const long FtueEffectSettings = 28;
+        public const long FtuePopupTypeSettings = 29;
+        public const long FtueStepSettings = 30;
+        public const long FtueTriggerSettings = 31;
+        public const long GroundObjTypeSettings = 32;
+        public const long InputSettings = 33;
+        public const long ItemTypeSettings = 34;
+        public const long KeyCommSettings = 35;
+        public const long LevelSettings = 36;
+        public const long LootRankSettings = 37;
+        public const long MapModEffectTypeSettings = 38;
+        public const long MonsterCategorySettings = 39;
+        public const long MonsterTypeSettings = 40;
+        public const long MusicTypeSettings = 41;
+        public const long NameSettings = 42;
+        public const long NPCSettings = 43;
+        public const long PartyBuffSettings = 44;
+        public const long PlantTypeSettings = 45;
+        public const long ProcTypeSettings = 46;
+        public const long ProductSkuSettings = 47;
+        public const long QualityTypeSettings = 48;
+        public const long RecipeSettings = 49;
+        public const long ReputationSettings = 50;
+        public const long RockTypeSettings = 51;
+        public const long ScalingTypeSettings = 52;
+        public const long ScreenOverrideSettings = 53;
+        public const long SettingNameSettings = 54;
+        public const long SetTypeSettings = 55;
+        public const long SexTypeSettings = 56;
+        public const long SkillTypeSettings = 57;
+        public const long SpawnSettings = 58;
+        public const long SpecialMagicSettings = 59;
+        public const long SpellModifierSettings = 60;
+        public const long SpellTypeSettings = 61;
+        public const long StatSettings = 62;
+        public const long StatusEffectSettings = 63;
+        public const long StoreFeatureSettings = 64;
+        public const long StoreOfferSettings = 65;
+        public const long StoreProductSettings = 66;
+        public const long StoreSlotSettings = 67;
+        public const long StoreThemeSettings = 68;
+        public const long TargetTypeSettings = 69;
+        public const long TextureChannelSettings = 70;
+        public const long TextureTypeSettings = 71;
+        public const long TreeTypeSettings = 72;
+        public const long TribeSettings = 73;
+        public const long UnitSettings = 74;
+        public const long UserCoinSettings = 75;
+        public const long VendorSettings = 76;
+        public const long VersionSettings = 77;
+        public const long WeatherTypeSettings = 78;
+        public const long ZoneTypeSettings = 79;
+
+    }
+}
