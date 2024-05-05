@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 47,
   "Name": "Dirth",
+  "Art": "Dirth",
   "Size": 8.0,
   "ParentTextureTypeId": 2,
-  "UpdateTime": "2024-02-25T15:48:36.726Z",
+  "UpdateTime": "2024-05-04T15:33:57.362Z",
   "CreateTime": "2024-02-15T23:06:20.363Z"
 }

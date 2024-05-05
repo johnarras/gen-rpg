@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 100,
   "Name": "RockRipple",
+  "Art": "RockRipple",
   "Size": 8.0,
   "ParentTextureTypeId": 3,
-  "UpdateTime": "2024-02-25T15:48:32.357Z",
+  "UpdateTime": "2024-05-04T15:33:57.6Z",
   "CreateTime": "2024-02-15T23:06:20.841Z"
 }

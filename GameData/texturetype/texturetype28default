@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 28,
   "Name": "SandWavy",
+  "Art": "SandWavy",
   "Size": 8.0,
   "ParentTextureTypeId": 5,
-  "UpdateTime": "2024-02-25T15:48:34.673Z",
+  "UpdateTime": "2024-05-04T15:33:57.325Z",
   "CreateTime": "2024-02-15T23:06:20.173Z"
 }

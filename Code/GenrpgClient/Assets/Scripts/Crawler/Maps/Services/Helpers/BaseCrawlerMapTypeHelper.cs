@@ -71,9 +71,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         {
             TextureType ttype = _gameData.Get<TextureTypeSettings>(null).Get(terrainTextureId);
 
-            if (ttype != null && !string.IsNullOrEmpty(ttype.Name))
+            if (ttype != null && !string.IsNullOrEmpty(ttype.Art))
             {
-                _assetService.LoadAssetInto(gs, parent, AssetCategoryNames.TerrainTex, ttype.Name, OnDownloadTerrainTexture,parent, token);
+                _assetService.LoadAssetInto(gs, parent, AssetCategoryNames.TerrainTex, ttype.Art, OnDownloadTerrainTexture,parent, token);
             }
         }
 

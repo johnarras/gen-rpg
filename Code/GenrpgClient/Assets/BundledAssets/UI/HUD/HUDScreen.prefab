@@ -702,7 +702,7 @@ PrefabInstance:
     - target: {fileID: 3154030651267230493, guid: 08725889cad48c74ba7ee2c240de84fc,
         type: 3}
       propertyPath: m_Name
-      value: ActionBars
+      value: ActionBarsScreen
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

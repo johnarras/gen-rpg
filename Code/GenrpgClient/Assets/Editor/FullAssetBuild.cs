@@ -28,7 +28,7 @@ namespace GameAssets.Editor
 
         static void ExecuteEnv (string env)
         {
-           UnityGameState gs = SetupEditorUnityGameState.Setup(null);
+           UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
             
             SetupBundles.SetupAll(gs);
 			CreateAssetBundle.BuildAssetBundles(gs);

@@ -27,11 +27,9 @@ namespace Genrpg.MapServer.Items
         protected override void AddMessage(GameState gs, Unit unit, InventoryData idata, Item item, IMapApiMessage message, EDataUpdateTypes dataUpdateType = EDataUpdateTypes.Save)
         {
             _messageService.SendMessage(unit, message);
-            idata.SetDirty(true);
             if (dataUpdateType == EDataUpdateTypes.Save)
             {
                 item.SetDirty(true);
-                // _repoService.QueueSave(item);
             }
             else if (dataUpdateType == EDataUpdateTypes.Delete)
             {
@@ -42,7 +40,7 @@ namespace Genrpg.MapServer.Items
         protected override void AddMessageNear(GameState gs, Unit unit, InventoryData idata, Item item, IMapApiMessage message, EDataUpdateTypes dataUpdateType = EDataUpdateTypes.Save)
         {
             _messageService.SendMessageNear(unit, message);
-            idata.SetDirty(true);
+            item.SetDirty(true);
             if (dataUpdateType == EDataUpdateTypes.Save)
             {
                 _repoService.QueueSave(item);

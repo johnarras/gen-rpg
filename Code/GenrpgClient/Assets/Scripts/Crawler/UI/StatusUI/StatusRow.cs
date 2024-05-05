@@ -65,6 +65,8 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                 _uIInitializable.SetText(Mana, "");
                 _uIInitializable.SetText(Class, "");
                 _uIInitializable.SetText(Level, "");
+                _uIInitializable.SetText(Summons, "");
+                _uIInitializable.SetText(StatusEffects, "");
                 return;
             }
             else

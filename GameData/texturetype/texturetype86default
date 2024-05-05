@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 86,
   "Name": "Rockb",
+  "Art": "Rockb",
   "Size": 8.0,
   "ParentTextureTypeId": 3,
-  "UpdateTime": "2024-02-25T15:48:40.929Z",
+  "UpdateTime": "2024-05-04T15:33:57.508Z",
   "CreateTime": "2024-02-15T23:06:20.717Z"
 }

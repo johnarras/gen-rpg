@@ -15,8 +15,10 @@ using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Utils;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class ClientInitializer 
 {
@@ -37,6 +39,7 @@ public class ClientInitializer
         gs.loc.Set<IClientGameDataService>(new ClientGameDataService());
         gs.loc.Set<IUIInitializable>(new UIInitializable());
         gs.loc.Set<IFxService>(new FxService());
+        gs.loc.Set<IUnityUpdateService>(gs.AddComponent<UnityUpdateService>());
 
         // Unity-specific overrides
 
@@ -44,7 +47,6 @@ public class ClientInitializer
         {
             gs.loc.Set<IRealtimeNetworkService>(new RealtimeNetworkService(gs, token));
             gs.loc.Set<IWebNetworkService>(new WebNetworkService(gs, token));
-            gs.loc.Set<IUnityUpdateService>(gs.AddComponent<UnityUpdateService>());
             gs.loc.Set<IInputService>(gs.AddComponent<InputService>());
             gs.loc.Set<IMapTerrainManager>(gs.AddComponent<MapTerrainManager>());
             gs.loc.Set<ICrawlerService>(new CrawlerService());
@@ -65,7 +67,8 @@ public class ClientInitializer
 
         gs.loc.ResolveSelf();
 
-        foreach (IInjectable service in gs.loc.GetVals())
+        List<IInjectable> vals = gs.loc.GetVals();
+        foreach (IInjectable service in vals)
         {
             if (service is IInitializable initService)
             {

@@ -17,7 +17,8 @@ namespace Genrpg.ServerShared.MainServer
 {
     public interface IBaseServer
     {
-
+        CancellationToken GetToken();
+        ServerGameState GetServerGameState();
     }
 
 
@@ -32,7 +33,17 @@ namespace Genrpg.ServerShared.MainServer
         protected ICloudCommsService _cloudCommsService;
         protected IServerConfig _config = null;
 
-        public virtual async Task Init(object data, CancellationToken serverToken)
+        public virtual CancellationToken GetToken ()
+        { 
+            return _tokenSource?.Token ?? CancellationToken.None;
+        }
+
+        public virtual ServerGameState GetServerGameState()
+        {
+            return _gs;
+        }
+
+        public virtual async Task Init(object data, object parentObject, CancellationToken serverToken)
         {
             _tokenSource = CancellationTokenSource.CreateLinkedTokenSource(serverToken, _tokenSource.Token);
             _serverId = GetServerId(data);
@@ -45,6 +56,10 @@ namespace Genrpg.ServerShared.MainServer
             _cloudCommsService.SetupPubSubMessageHandlers(_gs);
 
             _cloudCommsService.SendPubSubMessage(_gs, new ServerStartedAdminMessage() { ServerId = _serverId });
+
+            _gs.loc.Resolve(parentObject);
+
+            
 
             await Task.CompletedTask;
         }

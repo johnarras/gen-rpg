@@ -7,7 +7,7 @@ using System.Text;
 namespace Genrpg.Shared.Pathfinding.Entities
 {
     [MessagePackObject]
-    public class WaypointList
+    public class WaypointList : IDisposable
     {
         [Key(0)] public string RetvalType { get; set; }
         [Key(1)] public List<Waypoint> Waypoints { get; set; } = new List<Waypoint>();
@@ -20,6 +20,12 @@ namespace Genrpg.Shared.Pathfinding.Entities
         public void AddWorldLoc(float worldX, float worldZ)
         {
             Waypoints.Add(new Waypoint() { X = (int)worldX, Z = (int)worldZ });
+        }
+
+        public void Dispose()
+        {
+            Waypoints.Clear();
+            Waypoints = null;
         }
     }
 }

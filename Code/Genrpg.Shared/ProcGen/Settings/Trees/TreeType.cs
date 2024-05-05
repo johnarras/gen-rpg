@@ -17,7 +17,7 @@ namespace Genrpg.Shared.ProcGen.Settings.Trees
     }
 
     [MessagePackObject]
-    public class TreeType : ChildSettings, IIndexedGameItem
+    public class TreeType : ChildSettings, IVariationIndexedGameItem
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }

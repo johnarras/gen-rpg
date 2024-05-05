@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 93,
   "Name": "Rocke",
+  "Art": "Rocke",
   "Size": 8.0,
   "ParentTextureTypeId": 3,
-  "UpdateTime": "2024-02-25T15:48:41.7Z",
+  "UpdateTime": "2024-05-04T15:33:57.58Z",
   "CreateTime": "2024-02-15T23:06:20.784Z"
 }

@@ -3,9 +3,11 @@
   "ParentId": "default",
   "IdKey": 36,
   "Name": "DouglasFirPyramid",
-  "Art": "DouglasFurPyramid",
+  "Desc": "",
+  "Icon": "",
+  "Art": "DouglasFirPyramid",
   "Scale": 1.5,
   "VariationCount": 2,
-  "UpdateTime": "2024-02-25T15:48:46.001Z",
-  "CreateTime": "2024-02-15T23:06:21.13Z"
+  "UpdateTime": "2024-05-04T17:44:27.955Z",
+  "CreateTime": "2024-02-16T05:06:21Z"
 }

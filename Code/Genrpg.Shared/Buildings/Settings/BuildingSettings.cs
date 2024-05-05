@@ -18,7 +18,7 @@ namespace Genrpg.Shared.Buildings.Settings
     }
 
     [MessagePackObject]
-    public class BuildingType : ChildSettings, IIndexedGameItem
+    public class BuildingType : ChildSettings, IVariationIndexedGameItem
     {
 
         [Key(0)] public override string Id { get; set; }
@@ -31,7 +31,7 @@ namespace Genrpg.Shared.Buildings.Settings
         [Key(7)] public int Radius { get; set; } = 5;
 
         [Key(8)] public bool IsCrawlerBuilding { get; set; }
-        [Key(9)] public int ArtCount { get; set; } = 1;
+        [Key(9)] public int VariationCount { get; set; } = 1;
     }
 
     [MessagePackObject]

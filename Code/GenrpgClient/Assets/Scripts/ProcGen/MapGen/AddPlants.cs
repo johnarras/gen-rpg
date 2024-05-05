@@ -25,8 +25,10 @@ public class BaseDetailPrototype
 public class AddPlants : BaseZoneGenerator
 {
     public const float GrassBaseScale = 1.0f;
-    public const float GrassDensity = 1.5f;
-    public const float GrassRandomChance = 0.10f;
+    public const float GrassDensityScale = 1.0f;
+    public const float GrassRandomChance = 0.005f;
+
+    public const float GrassFreqScale = 1.0f;
 
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
@@ -94,8 +96,7 @@ public class AddPlants : BaseZoneGenerator
 
     public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
-        if ( zone == null || zoneType == null || startx >= endx || starty >= endy ||
-            gs.map == null)
+        if (startx >= endx || starty >= endy)
         {
             return;
         }
@@ -154,7 +155,7 @@ public class AddPlants : BaseZoneGenerator
                 int octaves = 2;
 
 
-                freq *= genZone.GrassFreq * zoneType.GrassFreq;
+                freq *= genZone.GrassFreq * zoneType.GrassFreq * GrassFreqScale;
 
                 freq *= perlinScale;
 
@@ -164,14 +165,11 @@ public class AddPlants : BaseZoneGenerator
                     freq = 8;
                 }
 
-                density = genZone.GrassDensity * zoneType.GrassDensity;
+                density = genZone.GrassDensity * zoneType.GrassDensity * GrassDensityScale;
 
                 amp *= density;
-
-                if (amp < 0.3f)
-                {
-                    amp = 0.3f;
-                }
+                
+              
 
                 plantChances.Add(_noiseService.Generate(gs, pers, freq, amp, octaves, pseed, perlinSize, perlinSize));
             }
@@ -190,7 +188,7 @@ public class AddPlants : BaseZoneGenerator
             int nearLocation = 0;
             int didSet = 0;
 
-            bool useUniformDensity = gs.rand.NextDouble() < 0.03f;
+            bool useUniformDensity = false;
             for (int x = startx; x <= endx; x++)
             {
                 for (int y = starty; y <= endy; y++)

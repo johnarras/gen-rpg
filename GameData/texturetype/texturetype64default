@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 64,
   "Name": "GrassBrown",
+  "Art": "GrassBrown",
   "Size": 8.0,
   "ParentTextureTypeId": 2,
-  "UpdateTime": "2024-02-25T15:48:38.565Z",
+  "UpdateTime": "2024-05-04T15:33:57.395Z",
   "CreateTime": "2024-02-15T23:06:20.518Z"
 }

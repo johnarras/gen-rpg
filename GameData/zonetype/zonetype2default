@@ -8,7 +8,7 @@
   "GenChance": 20.0,
   "GrassDensity": 1.0,
   "GrassFreq": 1.0,
-  "TreeDensity": 1.0,
+  "TreeDensity": 2.0,
   "BushDensity": 1.0,
   "BushFreq": 1.0,
   "RockDensity": 1.0,
@@ -608,6 +608,6 @@
   "WeatherTypeId": 2,
   "MusicTypeId": 4,
   "AmbientMusicTypeId": 8,
-  "UpdateTime": "2024-02-25T15:49:05.014Z",
+  "UpdateTime": "2024-04-30T18:15:41.782Z",
   "CreateTime": "2023-12-24T15:55:51.276Z"
 }

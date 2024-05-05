@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 37,
   "Name": "DirtDarki",
+  "Art": "DirtDarki",
   "Size": 8.0,
   "ParentTextureTypeId": 38,
-  "UpdateTime": "2024-02-25T15:48:35.662Z",
+  "UpdateTime": "2024-05-04T15:33:57.342Z",
   "CreateTime": "2024-02-15T23:06:20.255Z"
 }

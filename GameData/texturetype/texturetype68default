@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 68,
   "Name": "Grassf",
+  "Art": "Grassf",
   "Size": 8.0,
   "ParentTextureTypeId": 1,
-  "UpdateTime": "2024-02-25T15:48:38.954Z",
+  "UpdateTime": "2024-05-04T15:33:57.403Z",
   "CreateTime": "2024-02-15T23:06:20.554Z"
 }

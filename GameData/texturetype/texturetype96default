@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 96,
   "Name": "RockGraya",
+  "Art": "RockGraya",
   "Size": 8.0,
   "ParentTextureTypeId": 3,
-  "UpdateTime": "2024-02-25T15:48:41.986Z",
+  "UpdateTime": "2024-05-04T15:33:57.591Z",
   "CreateTime": "2024-02-15T23:06:20.812Z"
 }

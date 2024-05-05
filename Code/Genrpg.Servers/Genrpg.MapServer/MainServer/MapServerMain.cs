@@ -31,9 +31,9 @@ namespace Genrpg.MapServer.MainServer
 
         private IMapServerService _mapServerService = null;
 
-        public override async Task Init(object data, CancellationToken serverToken)
+        public override async Task Init(object data, object parentObject, CancellationToken serverToken)
         {
-            await base.Init(data, serverToken);
+            await base.Init(data, parentObject, serverToken);
 
             await _mapServerService.Init(_gs, data as InitMapServerData, serverToken);
         }

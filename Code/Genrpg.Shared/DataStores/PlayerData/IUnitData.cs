@@ -13,7 +13,7 @@ namespace Genrpg.Shared.DataStores.PlayerData
     public interface IUnitData : IStringId, IDirtyable, IEditorMetaDataTarget
     {
         void Save(IRepositoryService repoSystem, bool saveClean);
-        List<BasePlayerData> GetSaveObjects(bool saveClean);
+        List<BasePlayerData> GetSaveObjects(bool saveClean); // Must be concrete generic param for the DB to work
         void Delete(IRepositoryService repoSystem);
         void AddTo(Unit unit);
     }

@@ -53,9 +53,8 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                 else
                 {
                     ai.Index = i;
+                    ai.SetDirty(true);
                 }
-                ch.SetDirty(true);
-                adata.SetDirty(true);
             }
 
             foreach (Spell spell in spellData.GetData())

@@ -64,7 +64,7 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
             spellData.Add(spell);
             _repoService.Save(spell);
             ch.AddMessage(new OnCraftSpell() { CraftedSpell = spell });
-            spellData.SetDirty(true);
+            spell.SetDirty(true);
         }
     }
 }

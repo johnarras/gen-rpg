@@ -3,7 +3,8 @@
   "ParentId": "default",
   "IdKey": 3,
   "Name": "Rock",
+  "Art": "Rock",
   "Size": 8.0,
-  "UpdateTime": "2024-02-25T15:48:35.95Z",
+  "UpdateTime": "2024-05-04T15:33:57.265Z",
   "CreateTime": "2024-02-15T23:06:20.083Z"
 }

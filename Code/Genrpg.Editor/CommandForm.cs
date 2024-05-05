@@ -255,7 +255,7 @@ namespace GameEditor
 
             _gs = await EditorGameDataUtils.SetupFromConfig(this, env);
 
-            this.Invoke((MethodInvoker)
+            this.Invoke((System.Windows.Forms.MethodInvoker)
                 delegate ()
                 {
                     ViewMaps va = new ViewMaps(_gs, _formatter);
@@ -417,7 +417,7 @@ namespace GameEditor
             settingSettings.SetData(allSettingNames);
 
 
-            this.Invoke((MethodInvoker)delegate()
+            this.Invoke((System.Windows.Forms.MethodInvoker)delegate()
                {
                    DataWindow win = new DataWindow(_gs, _formatter, _gs.EditorGameData, this, action);
                    win.Show();

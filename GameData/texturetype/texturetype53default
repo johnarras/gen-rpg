@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 53,
   "Name": "DirtRock",
+  "Art": "DirtRock",
   "Size": 8.0,
   "ParentTextureTypeId": 15,
-  "UpdateTime": "2024-02-25T15:48:37.39Z",
+  "UpdateTime": "2024-05-04T15:33:57.373Z",
   "CreateTime": "2024-02-15T23:06:20.421Z"
 }

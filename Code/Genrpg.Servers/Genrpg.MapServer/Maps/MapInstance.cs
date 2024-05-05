@@ -138,7 +138,7 @@ namespace Genrpg.MapServer.Maps
             UpdatePlayerClientData();
         }
 
-        public override async Task Init(object data, CancellationToken parentToken)
+        public override async Task Init(object data, object parentObject, CancellationToken parentToken)
         {
             InitMapInstanceData initData = data as InitMapInstanceData;
             _mapId = initData.MapId;
@@ -149,7 +149,7 @@ namespace Genrpg.MapServer.Maps
             _instanceTokenSource = CancellationTokenSource.CreateLinkedTokenSource(parentToken, _tokenSource.Token);
 
             // Step 1: basic setup
-            await base.Init(data, _instanceTokenSource.Token);
+            await base.Init(data, parentObject,  _instanceTokenSource.Token);
 
             // Step 2: Load map before setting up messaging and object manager
             _gs.map = await _mapDataService.LoadMap(_gs, _mapId);

@@ -1,11 +1,8 @@
 using MessagePack;
-using Genrpg.Shared.Crawler.Monsters.Entities;
-using Genrpg.Shared.Utils.Data;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Genrpg.Shared.Crawler.Combat.Constants;
-using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Crawler.Monsters.Entities;
 
 namespace Genrpg.Shared.Crawler.Combat.Entities
 {

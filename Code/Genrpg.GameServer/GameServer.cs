@@ -34,15 +34,15 @@ namespace Genrpg.GameServer
                 serverConfig = await ConfigUtils.SetupServerConfig(_serverTokenSource.Token, "GameServer");
 
                 InstanceServerMain instanceServer = new InstanceServerMain();
-                await instanceServer.Init(null, _serverTokenSource.Token);
+                await instanceServer.Init(null, null, _serverTokenSource.Token);
                 _servers.Add(instanceServer);
 
                 PlayerServerMain playerServer = new PlayerServerMain();
-                await playerServer.Init(null, _serverTokenSource.Token);
+                await playerServer.Init(null, null, _serverTokenSource.Token);
                 _servers.Add(playerServer);
 
                 MonsterServerMain monsterServer = new MonsterServerMain();
-                await monsterServer.Init(null, _serverTokenSource.Token);
+                await monsterServer.Init(null, null, _serverTokenSource.Token);
                 _servers.Add(monsterServer);
 
                 int serverCount = 2;
@@ -60,7 +60,7 @@ namespace Genrpg.GameServer
                     
                     MapServerMain mapServer = new MapServerMain();
 
-                    await mapServer.Init(initServerData, _serverTokenSource.Token);
+                    await mapServer.Init(initServerData, null, _serverTokenSource.Token);
 
                     _servers.Add(mapServer);
 

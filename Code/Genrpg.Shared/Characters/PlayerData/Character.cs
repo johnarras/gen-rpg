@@ -27,13 +27,28 @@ namespace Genrpg.Shared.Characters.PlayerData
 
         public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
+
+        public List<PointXZ> NearbyGridsSeen { get; set; } = new List<PointXZ>();
+
+
+        public DateTime LastServerStatTime { get; set; } = DateTime.UtcNow;
+
+        private GameDataOverrideList _overrideList { get; set; }
+
         public Character()
         {
             Level = 1;
             QualityTypeId = QualityTypes.Common;
             EntityId = 1;
             FactionTypeId = FactionTypes.Player;
-            NearbyGridsSeen = new List<PointXZ>();
+            _overrideList = null;
+        }
+
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            NearbyGridsSeen.Clear();
         }
 
         public override string GetGroupId()
@@ -86,19 +101,12 @@ namespace Genrpg.Shared.Characters.PlayerData
 
             List<IUnitData> allValues = new List<IUnitData>(_dataDict.Values.ToList());
             foreach (IUnitData value in allValues)
-            {
+            {                
                 itemsToSave.AddRange(value.GetSaveObjects(saveClean));
             }
             repoSystem.QueueTransactionSave(itemsToSave, Id);
         }
 
-        
-        public List<PointXZ> NearbyGridsSeen { get; set; }
-
-        
-        public DateTime LastServerStatTime { get; set; } = DateTime.UtcNow;
-
-        private GameDataOverrideList _overrideList { get; set; }
         public void SetGameDataOverrideList(GameDataOverrideList overrideList)
         {
             _overrideList = overrideList;
@@ -118,7 +126,5 @@ namespace Genrpg.Shared.Characters.PlayerData
             PlayerSettingsOverrideItem item = _overrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
             return item?.DocId ?? GameDataConstants.DefaultFilename;
         }
-
-
     }
 }

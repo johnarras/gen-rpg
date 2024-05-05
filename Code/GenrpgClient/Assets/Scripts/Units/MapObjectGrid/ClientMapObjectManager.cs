@@ -14,8 +14,7 @@ using Assets.Scripts.Tokens;
 using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using Genrpg.Shared.Entities.Constants;
+using UnityEngine;
 
 public interface IClientMapObjectManager : IInitializable, IMapTokenService
 {
@@ -102,8 +101,10 @@ public class ClientMapObjectManager : IClientMapObjectManager
             _updateService.AddTokenUpdate(this, FrameUpdate, UpdateType.Regular);
             _didAddUpdate = true;
         }
-        _fxParent = GEntityUtils.FindSingleton("FXParent", true);
-
+        if (Application.isPlaying)
+        {
+            _fxParent = GEntityUtils.FindSingleton("FXParent", true);
+        }
 
         _mapObjectLoaders = ReflectionUtils.SetupDictionary<long, IMapObjectLoader>(gs);
 

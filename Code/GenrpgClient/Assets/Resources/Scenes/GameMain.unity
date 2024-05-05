@@ -119,6 +119,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &369581929 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7985136876956973675, guid: a47566d87e2e8f641be7678647c65008,
+    type: 3}
+  m_PrefabInstance: {fileID: 1272537880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &369581932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369581929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b17d4c099197a44ac255a710935f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!850595691 &594709063
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -240,17 +258,32 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: ZoneSize
-      value: 5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
+        type: 3}
+      propertyPath: CurrMapId
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: WorldSize
-      value: 83
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: MapGenSeed
-      value: 182323
+      value: 34313
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
+        type: 3}
+      propertyPath: ForceZoneTypeId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
+        type: 3}
+      propertyPath: LoadIntoMapWithoutServerData
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
@@ -265,7 +298,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7985136876956973675, guid: a47566d87e2e8f641be7678647c65008,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 369581932}
   m_SourcePrefab: {fileID: 100100000, guid: a47566d87e2e8f641be7678647c65008, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -11,13 +11,13 @@ public class CreateAssetBundle
 	[MenuItem("Build/Build Asset Bundles")]
 	static void Execute()
 	{
-        UnityGameState gs = SetupEditorUnityGameState.Setup(null);
+        UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 		BuildAssetBundles(gs);
 	}
 
 	public static void BuildAssetBundles(UnityGameState gs)
     {
-        gs = SetupEditorUnityGameState.Setup(gs);
+        gs = SetupEditorUnityGameState.Setup(gs).GetAwaiter().GetResult();
 
         Debug.Log("Game Target: " + Game.Prefix);
 

@@ -91,7 +91,7 @@ namespace Genrpg.MapServer.Services.Maps
                 Serializer = EMapApiSerializers.MessagePack,
             };
 
-            await mapInstance.Init(initData, serverToken);
+            await mapInstance.Init(initData, null, serverToken);
 
             _instances[mapInstance.GetInstanceId()] = mapInstance;
 

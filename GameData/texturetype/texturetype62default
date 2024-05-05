@@ -3,7 +3,8 @@
   "ParentId": "default",
   "IdKey": 62,
   "Name": "DirtSand",
+  "Art": "DirtSand",
   "Size": 8.0,
-  "UpdateTime": "2024-02-25T15:48:38.368Z",
+  "UpdateTime": "2024-05-04T15:33:57.391Z",
   "CreateTime": "2024-02-15T23:06:20.498Z"
 }

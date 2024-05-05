@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 77,
   "Name": "Leavesb",
+  "Art": "Leavesb",
   "Size": 8.0,
   "ParentTextureTypeId": 80,
-  "UpdateTime": "2024-02-25T15:48:39.938Z",
+  "UpdateTime": "2024-05-04T15:33:57.42Z",
   "CreateTime": "2024-02-15T23:06:20.634Z"
 }

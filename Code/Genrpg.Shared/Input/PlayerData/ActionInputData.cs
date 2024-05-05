@@ -55,7 +55,7 @@ namespace Genrpg.Shared.Input.PlayerData
                     Id = HashUtils.NewGuid(),
                 };
                 _data.Add(input);
-                SetDirty(true);
+                input.SetDirty(true);
             }
             return input;
         }
@@ -72,7 +72,7 @@ namespace Genrpg.Shared.Input.PlayerData
             {
                 input.SpellId = spellTypeId;
             }
-            SetDirty(true);
+            input.SetDirty(true);
         }
     }
     [MessagePackObject]

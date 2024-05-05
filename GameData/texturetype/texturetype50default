@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 50,
   "Name": "Dirtl",
+  "Art": "Dirtl",
   "Size": 8.0,
   "ParentTextureTypeId": 2,
-  "UpdateTime": "2024-02-25T15:48:37.105Z",
+  "UpdateTime": "2024-05-04T15:33:57.367Z",
   "CreateTime": "2024-02-15T23:06:20.395Z"
 }

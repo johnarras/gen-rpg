@@ -250,7 +250,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
         currLayer.ScreenQueue.Add(act);
     }
 
-    private string GetSubdirectory(ScreenId screenName)
+    public string GetSubdirectory(ScreenId screenName)
     {
         ScreenConfig config = _screenConfigs.FirstOrDefault(x => x.ScreenName == screenName);
         return config?.Subdirectory ?? null;

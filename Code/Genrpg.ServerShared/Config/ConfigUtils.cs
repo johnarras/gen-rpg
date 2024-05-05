@@ -20,6 +20,12 @@ namespace Genrpg.ServerShared.Config
         {
             ServerConfig serverConfig = new ServerConfig();
             serverConfig.ServerId = serverId;
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            string filePath = config.FilePath;
+            Console.WriteLine("Config: " + filePath);
+
+
             serverConfig.Env = ConfigurationManager.AppSettings["Env"];
 
             foreach (string dataCategory in DataCategoryTypes.DataCategories)

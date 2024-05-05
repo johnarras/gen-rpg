@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 31,
   "Name": "Dirtc",
+  "Art": "Dirtc",
   "Size": 8.0,
   "ParentTextureTypeId": 2,
-  "UpdateTime": "2024-02-25T15:48:35.068Z",
+  "UpdateTime": "2024-05-04T15:33:57.331Z",
   "CreateTime": "2024-02-15T23:06:20.198Z"
 }

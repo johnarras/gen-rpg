@@ -12,6 +12,7 @@ public class CharacterSelectScreen : BaseScreen
     
 #if UNITY_EDITOR
     public GButton GenWorldButton;
+    public GButton TestAssetsButton;
 #endif
     public GEntity CharacterGridParent;
     public GButton CreateButton;
@@ -40,6 +41,20 @@ public class CharacterSelectScreen : BaseScreen
         }
 
         _uIInitializable.SetButton(GenWorldButton, GetName(), ClickGenerate);
+
+
+        if (TestAssetsButton == null)
+        {
+            GEntity testsAssetsObj = GEntityUtils.FindChild(entity, "TestAssetsButton");
+            if (testsAssetsObj != null)
+            {
+                TestAssetsButton = GEntityUtils.GetComponent<GButton>(testsAssetsObj);
+            }
+        }
+
+        _uIInitializable.SetButton(TestAssetsButton, GetName(), ClickTestAssets);
+
+
 #endif
         GEntityUtils.DestroyAllChildren(CharacterGridParent);
 
@@ -61,6 +76,14 @@ public class CharacterSelectScreen : BaseScreen
 
 
 #if UNITY_EDITOR
+
+    private void ClickTestAssets()
+    {
+        TestAssetDownloads dl = new TestAssetDownloads();
+
+        dl.RunTests(_gs, _token).Forget();
+    }
+
     private void ClickGenerate()
     {
         if (_gs.characterStubs.Count < 1)

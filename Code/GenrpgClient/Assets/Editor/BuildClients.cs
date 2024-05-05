@@ -46,7 +46,7 @@ public class BuildClients
             return;
         }
 
-        UnityGameState gs = SetupEditorUnityGameState.Setup(null);
+        UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
         bool didSetEnv = false;
         ClientConfig clientConfig = ClientConfig.Load();

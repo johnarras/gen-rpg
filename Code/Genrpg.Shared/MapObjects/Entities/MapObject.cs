@@ -16,7 +16,7 @@ using Genrpg.Shared.Entities.Constants;
 namespace Genrpg.Shared.MapObjects.Entities
 {
     // MessagePackIgnore
-    public class MapObject : IMapObject
+    public class MapObject : IMapObject, IDisposable
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -57,6 +57,17 @@ namespace Genrpg.Shared.MapObjects.Entities
             {
                 StatusEffects.SetBit(effect.EntityId);
             }
+        }
+        public virtual void Dispose()
+        {
+            _messageCache.Clear();
+            _messageCache = null;
+            OnActionMessage = null;
+            OnActionLock = null;
+            Waypoints?.Dispose();
+            Waypoints = null;
+            Effects.Clear();
+            Effects = null;
         }
 
         public void RemoveEffect(IDisplayEffect effect)
@@ -244,5 +255,6 @@ namespace Genrpg.Shared.MapObjects.Entities
         }
 
         public virtual void SetGameDataOverrides(GameDataOverrideList list) { }
+
     }
 }

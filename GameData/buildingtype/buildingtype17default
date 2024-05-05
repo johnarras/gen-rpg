@@ -6,7 +6,7 @@
   "Art": "Tavern",
   "Radius": 5,
   "IsCrawlerBuilding": true,
-  "ArtCount": 1,
+  "VariationCount": 1,
   "UpdateTime": "2024-02-25T15:46:06.674Z",
   "CreateTime": "2024-02-18T20:20:49.08Z"
 }

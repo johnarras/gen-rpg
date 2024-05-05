@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 24,
   "Name": "Crackedb",
+  "Art": "Crackedb",
   "Size": 8.0,
   "ParentTextureTypeId": 8,
-  "UpdateTime": "2024-02-25T15:48:34.289Z",
+  "UpdateTime": "2024-05-04T15:33:57.317Z",
   "CreateTime": "2024-02-15T23:06:20.16Z"
 }

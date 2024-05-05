@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 60,
   "Name": "DirtSandh",
+  "Art": "DirtSandh",
   "Size": 8.0,
   "ParentTextureTypeId": 62,
-  "UpdateTime": "2024-02-25T15:48:38.179Z",
+  "UpdateTime": "2024-05-04T15:33:57.387Z",
   "CreateTime": "2024-02-15T23:06:20.483Z"
 }

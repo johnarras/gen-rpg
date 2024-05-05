@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 90,
   "Name": "RockDarkd",
+  "Art": "RockDarkd",
   "Size": 8.0,
   "ParentTextureTypeId": 3,
-  "UpdateTime": "2024-02-25T15:48:41.415Z",
+  "UpdateTime": "2024-05-04T15:33:57.554Z",
   "CreateTime": "2024-02-15T23:06:20.753Z"
 }

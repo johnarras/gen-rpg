@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 48,
   "Name": "Dirti",
+  "Art": "Dirti",
   "Size": 8.0,
   "ParentTextureTypeId": 2,
-  "UpdateTime": "2024-02-25T15:48:36.82Z",
+  "UpdateTime": "2024-05-04T15:33:57.363Z",
   "CreateTime": "2024-02-15T23:06:20.374Z"
 }

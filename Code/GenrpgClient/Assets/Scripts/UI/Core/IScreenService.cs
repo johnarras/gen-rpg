@@ -26,6 +26,7 @@ public interface IScreenService : IInitializable
     void CloseAll(UnityGameState gs, List<ScreenId> ignoreScreens = null);
 
     object GetDragParent();
+    string GetSubdirectory(ScreenId screenName);
 
 }
 

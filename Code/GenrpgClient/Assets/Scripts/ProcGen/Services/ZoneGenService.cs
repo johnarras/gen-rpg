@@ -263,7 +263,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         zone.ZoneTypeId = zoneTypeId;
         zone.Seed = seed;
         zone.Level = 1;
-        zone.Name = GenerateZoneName(gs, zoneTypeId, gs.map.Seed / 7 + zone.Seed / 11 + rand.Next() % 2346234);
+        zone.Name = GenerateZoneName(gs, zoneTypeId, zone.IdKey + zoneType.IdKey + gs.map.Seed / 7 + zone.Seed / 11 + rand.Next() % 2346234);
 
         SetTerrainConstants(gs, gs.map, zone, zoneType, rand);
         SetupFoliage(gs, gs.map, zone, zoneType, rand);

@@ -19,7 +19,7 @@ namespace Assets.Editor
         [MenuItem("Build/CopyMonsterTextures")]
         static void ExecuteLocal()
         {
-            UnityGameState gs = SetupEditorUnityGameState.Setup(null);
+            UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
             IGameData gameData = gs.loc.Get<IGameData>();
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
@@ -51,7 +51,7 @@ namespace Assets.Editor
         [MenuItem("Build/SetupMonsterImagePrefabs")]
         static void SetupMonsterImagePrefabs()
         {
-            UnityGameState gs = SetupEditorUnityGameState.Setup(null);
+            UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
             IGameData gameData = gs.loc.Get<IGameData>();
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
@@ -103,7 +103,7 @@ namespace Assets.Editor
         [MenuItem("Build/SetupMonster3DPrefabs")]
         static void SetupMonster3DPrefabs()
         {
-            UnityGameState gs = SetupEditorUnityGameState.Setup(null);
+            UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
             IGameData gameData = gs.loc.Get<IGameData>();
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();

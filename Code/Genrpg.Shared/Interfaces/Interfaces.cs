@@ -66,6 +66,11 @@ namespace Genrpg.Shared.Interfaces
         string Art { get; set; }
     }
 
+    public interface IVariationIndexedGameItem : IIndexedGameItem
+    {
+        int VariationCount { get; set; }
+    }
+
     public interface INameId
     {
         string NameId { get; set; }

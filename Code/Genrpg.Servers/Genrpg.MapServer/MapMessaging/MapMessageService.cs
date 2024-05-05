@@ -87,7 +87,7 @@ namespace Genrpg.MapServer.MapMessaging
             _token = token;
             _startTime = DateTime.UtcNow;
 
-            _messageQueueCount = Math.Max(2, (int)(gs.map.BlockCount * 0.39));
+            _messageQueueCount = Math.Max(2, (int)(gs.map.BlockCount * 0.44));
 
             if (MapInstanceConstants.ServerTestMode)
             {
@@ -194,25 +194,30 @@ namespace Genrpg.MapServer.MapMessaging
         }
 
         public void SendMessageNear(MapObject obj, IMapMessage message,
-            float dist = MessageConstants.DefaultGridDistance,
+            float distance = MessageConstants.DefaultGridDistance,
             bool playersOnly = false,
             float delaySec = 0, List<long> filters = null)
         {
-            if (_objectManager == null)
+            // Copy this from IMapObjectManager.GetObjectsNear() to avoid making a lot of lists.
+            int gxmin = _objectManager.GetIndexFromCoord(obj.X - distance, false);
+            int gxmax = _objectManager.GetIndexFromCoord(obj.X + distance, true);
+            int gzmin = _objectManager.GetIndexFromCoord(obj.Z - distance, false);
+            int gzmax = _objectManager.GetIndexFromCoord(obj.Z + distance, true);
+          
+            for (int x = gxmin; x<= gxmax; x++)
             {
-                return;
-            }
+                for (int z = gzmin; z <= gzmax; z++)
+                {
+                    IReadOnlyList<MapObject> list = _objectManager.GetObjectsFromGridCell(x, z);
 
-            List<MapObject> nearbyObjects = _objectManager.GetObjectsNear(obj.X, obj.Z, obj, dist, false, filters);
-
-            if (playersOnly)
-            {
-                nearbyObjects = nearbyObjects.Where(x => x is Character ch).ToList();
-            }
-
-            foreach (MapObject nearbyObj in nearbyObjects)
-            {
-                SendMessage(nearbyObj, message, delaySec);
+                    foreach (MapObject obj2 in list)
+                    {
+                        if (!playersOnly || (obj2 is Character ch))
+                        {
+                            SendMessage(obj2, message, delaySec);
+                        }
+                    }
+                }
             }
         }
 

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using TColl = System.Collections.Generic.List<Genrpg.Shared.MapObjects.Entities.MapObject>;
 using Genrpg.Shared.Spawns.WorldData;
 //using TColl = System.Collections.Generic.HashSet<Entities.MapObjects.MapObject>;
 
@@ -23,26 +22,20 @@ namespace Genrpg.Shared.MapObjects.Entities
         /// 
         /// Do we need a volatile field instead?
         /// </summary>
-        protected TColl _objs { get; set; }
-        [Key(2)] public List<MapSpawn> Spawns { get; set; }
+        protected List<MapObject> _objs { get; set; } = new List<MapObject>();
+        [Key(2)] public List<MapSpawn> Spawns { get; set; } = new List<MapSpawn>();
         [Key(3)] public bool SpawnedObjects { get; set; }
 
         public object SpawnLock = new object();
         public object ObjsLock = new object();
 
-        public volatile int PlayerCount;
-        public MapObjectGridData()
-        {
-            _objs = new TColl();
-            Spawns = new List<MapSpawn>();
-            PlayerCount = 0;
-        }
+        public volatile int PlayerCount = 0;
 
         public void AddObj(MapObject obj)
         {
             lock (ObjsLock)
             {
-                TColl set = new TColl(_objs);
+                List<MapObject> set = new List<MapObject>(_objs);
                 set.Add(obj);
                 _objs = set;
             }
@@ -52,13 +45,13 @@ namespace Genrpg.Shared.MapObjects.Entities
         {
             lock (ObjsLock)
             {
-                TColl set = new TColl(_objs);
+                List<MapObject> set = new List<MapObject>(_objs);
                 set.Remove(obj);
                 _objs = set;
             }
         }
 
-        public TColl GetObjects()
+        public IReadOnlyList<MapObject> GetObjects()
         {
             return _objs;
         }

@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 36,
   "Name": "DirtDarkh",
+  "Art": "DirtDarkh",
   "Size": 8.0,
   "ParentTextureTypeId": 38,
-  "UpdateTime": "2024-02-25T15:48:35.563Z",
+  "UpdateTime": "2024-05-04T15:33:57.34Z",
   "CreateTime": "2024-02-15T23:06:20.247Z"
 }

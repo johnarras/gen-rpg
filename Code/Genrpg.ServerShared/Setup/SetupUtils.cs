@@ -1,23 +1,18 @@
 ﻿
-using System;
-using System.Threading.Tasks;
-using Genrpg.Shared.Setup.Services;
-using Genrpg.Shared.Core.Entities;
-using System.Threading;
 using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Core;
-using Genrpg.ServerShared.Logging;
 using Genrpg.ServerShared.GameSettings.Services;
-using Genrpg.ServerShared.DataStores;
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Setup.Services;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.Setup
 {
     public class SetupUtils
     {
-        public static async Task<GS> SetupFromConfig<GS>(object parentObject, string serverId, 
+        public static async Task<GS> SetupFromConfig<GS>(object currentObject, string serverId, 
             SetupService setupService, CancellationToken token, IServerConfig serverConfigIn = null) where GS : ServerGameState
         {
             if (string.IsNullOrEmpty(serverId))
@@ -40,7 +35,7 @@ namespace Genrpg.ServerShared.Setup
 
             await setupService.FinalSetup(gs);
          
-            gs.loc.Resolve(parentObject);
+            gs.loc.Resolve(currentObject);
 
             return gs;
         }

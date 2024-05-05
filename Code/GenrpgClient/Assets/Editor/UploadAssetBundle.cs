@@ -9,19 +9,19 @@ public class UploadAssetBundle
 	[MenuItem("Build/Dev Upload Asset Bundles")]
 	static void ExecuteDev()
     {
-        UnityGameState gs = SetupEditorUnityGameState.Setup(null);
+        UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
         UploadAssetBundles(gs,EnvNames.Dev);
 	}
 
     [MenuItem("Build/Prod Upload Asset Bundles")]
     static void ExecuteProd()
     {
-        UnityGameState gs = SetupEditorUnityGameState.Setup(null);
+        UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
         UploadAssetBundles(gs,EnvNames.Prod);
     }
     public static void UploadAssetBundles(UnityGameState gs,string env)
     {
-        gs = SetupEditorUnityGameState.Setup(gs);
+        gs = SetupEditorUnityGameState.Setup(gs).GetAwaiter().GetResult();
         InnerUploadFiles(gs,env);
 	}
 
@@ -30,7 +30,7 @@ public class UploadAssetBundle
 	{
 
         BinaryFileRepository localRepo = new BinaryFileRepository(gs.loc.Get<ILogService>());
-        gs = SetupEditorUnityGameState.Setup(gs);
+        gs = SetupEditorUnityGameState.Setup(gs).GetAwaiter().GetResult();
 
         List<PlatformBuildData> targets = BuildConfiguration.GetbuildConfigs(gs);
 

@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 67,
   "Name": "Grasse",
+  "Art": "Grasse",
   "Size": 8.0,
   "ParentTextureTypeId": 1,
-  "UpdateTime": "2024-02-25T15:48:38.856Z",
+  "UpdateTime": "2024-05-04T15:33:57.401Z",
   "CreateTime": "2024-02-15T23:06:20.549Z"
 }

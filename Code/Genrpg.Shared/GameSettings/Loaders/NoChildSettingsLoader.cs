@@ -35,5 +35,6 @@ namespace Genrpg.Shared.GameSettings.Loaders
         {
             return settings;
         }
+
     }
 }

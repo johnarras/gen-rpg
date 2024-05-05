@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 78,
   "Name": "Leavesc",
+  "Art": "Leavesc",
   "Size": 8.0,
   "ParentTextureTypeId": 80,
-  "UpdateTime": "2024-02-25T15:48:40.031Z",
+  "UpdateTime": "2024-05-04T15:33:57.429Z",
   "CreateTime": "2024-02-15T23:06:20.644Z"
 }

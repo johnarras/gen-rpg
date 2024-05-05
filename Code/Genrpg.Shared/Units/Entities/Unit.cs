@@ -48,10 +48,41 @@ namespace Genrpg.Shared.Units.Entities
 
         public List<UnitClass> Classes { get; set; } = new List<UnitClass>();
 
+        private List<AttackerInfo> _attackers = new List<AttackerInfo>();
+
+        public override bool IsUnit() { return true; }
+
+        public float BaseSpeed { get; set; }
+
+        public Regen RegenMessage;
+
+        public StatGroup Stats = new StatGroup();
+
+        public List<OldSpellProc> Procs;
+
+        public List<CurrentProc> CurrentProcs;
+
+        public List<SpawnResult> Loot;
+        public List<SpawnResult> SkillLoot;
+
+        private int _flags = 0;
+
+        public DateTime GlobalCooldownEnds = DateTime.UtcNow;
+        public override void Dispose()
+        {
+            base.Dispose();
+            Classes.Clear();
+            _attackers.Clear();
+            _attackers.Clear();
+            Procs?.Clear();
+            CurrentProcs?.Clear();
+            Loot?.Clear();
+            SkillLoot?.Clear();
+            _dataDict.Clear();
+            Stats.Dispose();
+        }
 
         virtual public string GetGroupId() { return null; }
-
-        private List<AttackerInfo> _attackers = new List<AttackerInfo>();
 
         public void AddAttacker(string attackerId, string groupId)
         {
@@ -91,35 +122,11 @@ namespace Genrpg.Shared.Units.Entities
             return _attackers.FirstOrDefault(x => !string.IsNullOrEmpty(x.GroupId));
         }
 
-        public override bool IsUnit() { return true; }
-
-        public float BaseSpeed { get; set; }
-
-        public Regen RegenMessage;
-
-        public StatGroup Stats = new StatGroup();
-
-        public List<OldSpellProc> Procs;
-
-        public List<CurrentProc> CurrentProcs;
-
-        public DateTime GlobalCooldownEnds = DateTime.UtcNow;
 
         public float GetGlobalCooldown(GameState gs)
         {
             return SpellConstants.GlobalCooldownMS * (1 - Stats.Pct(StatTypes.Cooldown)) / 1000.0f;
         }
-
-        public Unit()
-        {
-            Stats = new StatGroup();
-            _attackers = new List<AttackerInfo>();
-        }
-
-        public List<SpawnResult> Loot;
-        public List<SpawnResult> SkillLoot;
-
-        private int _flags = 0;
 
         public bool HasFlag(int flag)
         {
@@ -146,7 +153,6 @@ namespace Genrpg.Shared.Units.Entities
             if (CurrentProcs == null)
             {
                 CurrentProcs = new List<CurrentProc>();
-                SetDirty(true);
             }
 
             CurrentProc proc = CurrentProcs.FirstOrDefault(x => x.SpellTypeId == spellTypeId);

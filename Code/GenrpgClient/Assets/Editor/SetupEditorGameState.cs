@@ -5,10 +5,11 @@ using System.Threading;
 using Genrpg.Shared.GameSettings;
 using Assets.Scripts.GameSettings.Services;
 using System;
+using Cysharp.Threading.Tasks;
 
 public class SetupEditorUnityGameState
 {
-    public static UnityGameState Setup(UnityGameState gs = null)
+    public static async UniTask<UnityGameState> Setup(UnityGameState gs = null)
     {
 
         CancellationTokenSource _cts = new CancellationTokenSource();
@@ -28,7 +29,7 @@ public class SetupEditorUnityGameState
             gs.SetInitObject(initObject);
             SetupService ss = new SetupService();
 
-            ss.SetupGame(gs, _cts.Token).Wait();
+            await ss.SetupGame(gs, _cts.Token);
 
             ClientConfig config = ClientConfig.Load();
 
@@ -37,7 +38,7 @@ public class SetupEditorUnityGameState
             try
             {
                 ClientInitializer clientInitializer = new ClientInitializer();
-                clientInitializer.SetupClientServices(gs, false, _cts.Token).Wait();
+                await clientInitializer.SetupClientServices(gs, false, _cts.Token);
             }
             catch (Exception e)
             {
@@ -45,7 +46,7 @@ public class SetupEditorUnityGameState
             }
             IClientGameDataService _clientGameDataService = gs.loc.Get<IClientGameDataService>();
 
-            _clientGameDataService.LoadCachedSettings(gs);
+            await _clientGameDataService.LoadCachedSettings(gs);
         }
         return gs;
     }

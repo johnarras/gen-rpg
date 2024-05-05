@@ -3,7 +3,8 @@
   "ParentId": "default",
   "IdKey": 15,
   "Name": "WastelandCracked",
+  "Art": "WastelandCracked",
   "Size": 8.0,
-  "UpdateTime": "2024-02-25T15:48:33.328Z",
+  "UpdateTime": "2024-05-04T15:33:57.296Z",
   "CreateTime": "2024-02-15T23:06:20.143Z"
 }

@@ -33,7 +33,6 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
             }
 
             spellData.SetData(spellData.GetData().Where(x => x.IdKey != message.SpellId).ToList());
-            spellData.SetDirty(true);
             foreach (Spell spell in deleteSpells)
             {
                 _repoService.QueueDelete(spell);

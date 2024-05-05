@@ -21,6 +21,7 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.ProcGen.Settings.Texturse;
 
 namespace Genrpg.Editor.Utils
 {

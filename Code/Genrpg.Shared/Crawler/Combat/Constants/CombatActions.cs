@@ -1,11 +1,4 @@
-﻿using Genrpg.Shared.Crawler.Monsters.Entities;
-using Genrpg.Shared.UnitEffects.Constants;
-using Genrpg.Shared.Utils;
-using Genrpg.Shared.Utils.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Genrpg.Shared.Crawler.Combat.Constants
 {
     public class CombatActions

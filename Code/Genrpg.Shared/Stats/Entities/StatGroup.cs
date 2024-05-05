@@ -10,7 +10,7 @@ using System.Xml;
 namespace Genrpg.Shared.Stats.Entities
 {
     [MessagePackObject]
-    public class StatGroup
+    public class StatGroup : IDisposable
     {
 
         private Dictionary<short,Stat>[] _stats = null;
@@ -20,6 +20,13 @@ namespace Genrpg.Shared.Stats.Entities
             return _stats[StatCategories.Base].Values.ToList();
         }
 
+        public void Dispose()
+        {
+            foreach (Dictionary<short,Stat> stats in _stats)
+            {
+                stats.Clear();                
+            }
+        }
         public StatGroup()
         {
             ResetAll();

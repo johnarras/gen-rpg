@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 27,
   "Name": "CrackedGray",
+  "Art": "CrackedGray",
   "Size": 8.0,
   "ParentTextureTypeId": 8,
-  "UpdateTime": "2024-02-25T15:48:34.579Z",
+  "UpdateTime": "2024-05-04T15:33:57.323Z",
   "CreateTime": "2024-02-15T23:06:20.167Z"
 }

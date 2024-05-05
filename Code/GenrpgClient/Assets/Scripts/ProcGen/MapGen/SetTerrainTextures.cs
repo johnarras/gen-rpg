@@ -134,7 +134,7 @@ public class SetTerrainTextures : BaseZoneGenerator
 			textureType = _gameData.Get<TextureTypeSettings>(gs.ch).Get(1);
 		}
 
-        string artName = textureType.Name;
+        string artName = textureType.Art;
 
         DownloadTerrainTextureData newDownloadData = new DownloadTerrainTextureData();
         newDownloadData.TexType = textureType;

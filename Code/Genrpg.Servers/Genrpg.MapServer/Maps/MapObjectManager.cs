@@ -56,6 +56,8 @@ namespace Genrpg.MapServer.Maps
             bool enforceDistance = false,
             List<long> filters = null);
         List<Character> GetAllCharacters();
+        int GetIndexFromCoord(double mapPos, bool useCeiling);
+        IReadOnlyList<MapObject> GetObjectsFromGridCell(int gx, int gz);
     }
 
     public class MapObjectManager : IMapObjectManager
@@ -107,7 +109,6 @@ namespace Genrpg.MapServer.Maps
         {
             MapObjectCounts counts = new MapObjectCounts()
             {
-#if DEBUG
                 CurrentObjectCount = _objectCount,
                 UnitsAdded = _unitsAdded,
                 UnitsRemoved = _unitsRemoved,
@@ -115,7 +116,6 @@ namespace Genrpg.MapServer.Maps
                 TotalQueries = _totalQueries,
                 TotalGridReads = _totalGridReads,
                 TotalGridLocks = _totalGridLocks,
-#endif
                 UnitTotal = _totalUnits,
                 ObjectTotal = _totalObjects,
             };
@@ -302,9 +302,13 @@ namespace Genrpg.MapServer.Maps
 
         }
 
-        protected List<MapObject> GetObjectsFromGrid(int gx, int gz)
+        public IReadOnlyList<MapObject> GetObjectsFromGridCell(int gx, int gz)
         {
-            return GetObjectsFromGridBox(gx, gx, gz, gz);
+            if (gx >= 0 && gz >= 0 && gx < _gridSize && gz <  _gridSize)
+            {
+                return _objectGrid[gx, gz].GetObjects();
+            }
+            return new List<MapObject>();   
         }
 
         protected List<MapObject> GetObjectsFromGridBox(int gxmin, int gxmax, int gzmin, int gzmax)
@@ -385,7 +389,7 @@ namespace Genrpg.MapServer.Maps
             return false;
         }
 
-        protected int GetIndexFromCoord(double mapPos, bool useCeiling)
+        public int GetIndexFromCoord(double mapPos, bool useCeiling)
         {
             if (!useCeiling)
             {
@@ -442,7 +446,7 @@ namespace Genrpg.MapServer.Maps
             return newGridItem;
         }
 
-        public virtual MapObjectGridItem RemoveObject(GameState gs, string objId, float delaySeconds = 0)
+        public MapObjectGridItem RemoveObject(GameState gs, string objId, float delaySeconds = 0)
         {
             if (!GetGridItem(objId, out MapObjectGridItem currentItem))
             {
@@ -464,6 +468,7 @@ namespace Genrpg.MapServer.Maps
                 return null;
             }
             gridItem.Obj.SetDeleted(true);
+            gridItem.Obj.Dispose();
 
             if (gridItem.Obj is Unit unit)
             {
@@ -477,7 +482,6 @@ namespace Genrpg.MapServer.Maps
             if (gridItem.GX >= 0 && gridItem.GX < _gridSize &&
                 gridItem.GZ >= 0 && gridItem.GZ < _gridSize)
             {
-
                 _objectGrid[gridItem.GX, gridItem.GZ].RemoveObj(gridItem.Obj);
                 _totalGridLocks++;
             }
@@ -656,7 +660,7 @@ namespace Genrpg.MapServer.Maps
             {
                 return;
             }
-            List<MapObject> items = GetObjectsFromGrid(gx, gz);
+            IReadOnlyList<MapObject> items = GetObjectsFromGridCell(gx, gz);
 
             if (items.Count < 1)
             {

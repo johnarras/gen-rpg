@@ -60,7 +60,7 @@ public class SetupBundles
 
     public static void SetupAll(UnityGameState gs)
     { 
-        gs = SetupEditorUnityGameState.Setup(gs);
+        gs = SetupEditorUnityGameState.Setup(gs).GetAwaiter().GetResult();
 
         BundleSetupUtils.BundleFilesInDirectory(gs, "", false);
     }

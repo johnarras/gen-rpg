@@ -50,7 +50,7 @@ namespace Genrpg.LoginServer.Core
         {
             _serverSource = new CancellationTokenSource();
 
-            Init(null, _serverSource.Token).Wait();
+            Init(null, null, _serverSource.Token).Wait();
             _clientService = _gs.loc.Get<IClientService>();
             _loginService = _gs.loc.Get<ILoginService>();
             _cryptoService = _gs.loc.Get<ICryptoService>();

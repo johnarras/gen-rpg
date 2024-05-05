@@ -166,9 +166,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             List<BuildingType> crawlerBuildings = buildings.Where(x => x.IsCrawlerBuilding).ToList();
 
-            List<BuildingType> fillerBuildings = crawlerBuildings.Where(x => x.ArtCount > 1).ToList();
+            List<BuildingType> fillerBuildings = crawlerBuildings.Where(x => x.VariationCount > 1).ToList();
 
-            List<BuildingType> requiredBuildings = crawlerBuildings.Where(x => x.ArtCount <= 1).ToList();
+            List<BuildingType> requiredBuildings = crawlerBuildings.Where(x => x.VariationCount <= 1).ToList();
 
             if (fillerBuildings.Count > 0)
             {
@@ -290,9 +290,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                     string suffix = "";
 
-                    if (btype.ArtCount > 1)
+                    if (btype.VariationCount > 1)
                     {
-                        int indexVal = (cell.X * 13 + cell.Z * 41) % btype.ArtCount + 1;
+                        int indexVal = (cell.X * 13 + cell.Z * 41) % btype.VariationCount + 1;
                         suffix = indexVal.ToString();
                     }
 
