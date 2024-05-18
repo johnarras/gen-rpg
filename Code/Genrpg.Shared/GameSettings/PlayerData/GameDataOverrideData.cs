@@ -1,5 +1,6 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,11 @@ namespace Genrpg.Shared.GameSettings.PlayerData
     [MessagePackObject]
     public class SettingsOverrideDataLoader : UnitDataLoader<GameDataOverrideData>
     {
-        public override bool SendToClient() { return false; }
+    }
+
+    [MessagePackObject]
+    public class SettingsOverrideApiMapper : UnitDataMapper<GameDataOverrideData>
+    {
+
     }
 }

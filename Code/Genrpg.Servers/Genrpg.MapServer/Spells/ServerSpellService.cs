@@ -27,12 +27,12 @@ using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Spells.Utils;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Spells.Settings.Skills;
-using Genrpg.Shared.Spells.PlayerData.Abilties;
 using Genrpg.Shared.Spells.Settings.Spells;
 using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Spells.PlayerData;
 
 namespace Genrpg.MapServer.Spells
 {

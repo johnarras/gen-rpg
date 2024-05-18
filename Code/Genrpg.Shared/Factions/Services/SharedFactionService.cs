@@ -5,85 +5,102 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using System.Threading.Tasks;
 using System.Threading;
+using Genrpg.Shared.Factions.PlayerData;
+using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Factions.Messages;
+using Genrpg.Shared.Factions.Settings;
+using Genrpg.Shared.Utils;
+using System.Xml.Linq;
+using Genrpg.Shared.DataStores.Entities;
+using System.Linq;
 
 namespace Genrpg.Shared.Factions.Services
 {
 
     public interface ISharedFactionService : IInitializable
     {
-        long GetRepLevel(GameState gs, Unit unit, long factionTypeId);
-        bool CanInteract(GameState gs, Unit unit, long factionTypeId);
-        bool CanFight(GameState gs, Unit unit, long factionTypeId);
-        bool WillAttack(GameState gs, Unit unit, long factionTypeId);
+        long GetRepLevel(Unit unit, long factionTypeId);
+        bool CanInteract(Unit unit, long factionTypeId);
+        bool CanFight(Unit unit, long factionTypeId);
+        bool WillAttack(Unit unit, long factionTypeId);
+        long GetRep(Unit unit, long factionTypeId);
+        void SetRep(Unit unit, long factionTypeId, long val);
+        void AddRep(Unit unit, long factionTypeId, long val);
     }
 
     public class SharedFactionService : ISharedFactionService
     {
+        private IRepositoryService _repoService;
+        private IGameData _gameData;
 
         public async Task Initialize(GameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
 
-        /// <summary>
-        /// Returns the relative rep level for the two units.
-        /// 
-        /// If both are characters, it's either hated or exalted based on same faction id (need more later)
-        /// If both are not characters, it's based on whether the factions are the same or different.
-        /// 
-        /// If there's exactly one character, return the player's rep level vs that monster's faction.
-        /// 
-        /// </summary>
-        /// <param name="gs"></param>
-        /// <param name="unit1"></param>
-        /// <param name="unit2"></param>
-        /// <returns></returns>
-        public long GetRepLevel(GameState gs, Unit unit, long factionTypeId)
+        private FactionStatus Find(Unit unit, long factionTypeId)
         {
+            return unit.Get<FactionData>().Get(factionTypeId);
+        }
 
-            if (unit == null || unit.FactionTypeId < 0 || factionTypeId < 0)
+        public long GetRep(Unit unit, long factionTypeId)
+        {
+            return Find(unit, factionTypeId).Reputation;
+        }
+
+        public long GetRepLevel(Unit unit, long factionTypeId)
+        {
+            return Find(unit, factionTypeId).RepLevelId;
+        }
+
+        public bool CanInteract(Unit unit, long factionTypeId)
+        {
+            return GetRepLevel(unit, factionTypeId) >= RepLevels.Neutral;
+        }
+
+        public bool CanFight(Unit unit, long factionTypeId)
+        {
+            return GetRepLevel(unit, factionTypeId) <= RepLevels.Unfriendly;
+        }
+
+        public bool WillAttack(Unit unit, long factionTypeId)
+        {
+            return GetRepLevel(unit, factionTypeId) <= RepLevels.Hostile;
+        }
+
+        public void AddRep(Unit unit, long factionTypeId, long quantity)
+        {
+            SetRep(unit, factionTypeId, quantity + GetRep(unit, factionTypeId));
+        }
+
+        public void SetRep(Unit unit, long factionTypeId, long quantity)
+        {
+            if (quantity < 0)
             {
-                return RepLevels.Hated;
+                quantity = 0;
             }
 
-            Character ch = unit as Character;
+            FactionStatus status = Find(unit, factionTypeId); 
+            long diff = quantity - status.Reputation;
+            
 
-            if (ch == null)
+            if (diff == 0)
             {
-                if (unit.FactionTypeId == factionTypeId)
-                {
-                    return RepLevels.Exalted;
-                }
-
-                return RepLevels.Hated;
+                return;        
             }
 
-            if (unit.FactionTypeId == factionTypeId)
-            {
-                return RepLevels.Exalted;
-            }
+            status.Reputation = quantity;
 
+            RepLevel repLevel = _gameData.Get<ReputationSettings>(unit).GetData().FirstOrDefault(x => x.PointsNeeded <= status.Reputation);
+
+            if (repLevel == null)
+            {
+                status.RepLevelId = 1;
+            }
             else
             {
-                return RepLevels.Hated;
+                status.RepLevelId = repLevel.IdKey;
             }
-            // return ch.Factions.Get(gs, factionTypeId);
         }
-
-        public bool CanInteract(GameState gs, Unit unit, long factionTypeId)
-        {
-            return GetRepLevel(gs, unit, factionTypeId) >= RepLevels.Neutral;
-        }
-
-        public bool CanFight(GameState gs, Unit unit, long factionTypeId)
-        {
-            return GetRepLevel(gs, unit, factionTypeId) <= RepLevels.Unfriendly;
-        }
-
-        public bool WillAttack(GameState gs, Unit unit, long factionTypeId)
-        {
-            return GetRepLevel(gs, unit, factionTypeId) <= RepLevels.Hostile;
-        }
-
     }
 }

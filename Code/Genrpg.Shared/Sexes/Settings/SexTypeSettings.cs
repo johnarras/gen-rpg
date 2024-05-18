@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Purchasing.Settings;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -44,6 +46,9 @@ namespace Genrpg.Shared.Sexes.Settings
     [MessagePackObject]
     public class SexTypeSettingsApi : ParentSettingsApi<SexTypeSettings, SexType> { }
     [MessagePackObject]
-    public class SexTypeSettingsLoader : ParentSettingsLoader<SexTypeSettings, SexType, SexTypeSettingsApi> { }
+    public class SexTypeSettingsLoader : ParentSettingsLoader<SexTypeSettings, SexType> { }
+
+    [MessagePackObject]
+    public class SexTypeSettingsMapper : ParentSettingsMapper<SexTypeSettings, SexType, SexTypeSettingsApi> { }
 
 }

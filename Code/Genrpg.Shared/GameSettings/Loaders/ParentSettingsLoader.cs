@@ -13,15 +13,12 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.GameSettings.Loaders
 {
-    public class ParentSettingsLoader<TParent, TChild, TApi> : IGameSettingsLoader
+    public class ParentSettingsLoader<TParent, TChild> : IGameSettingsLoader
         where TParent : ParentSettings<TChild>, new()
         where TChild : ChildSettings, new()
-        where TApi : ParentSettingsApi<TParent, TChild>, new()
     {
 
         public virtual Type GetServerType() { return typeof(TParent); }
-        public virtual Type GetClientType() { return typeof(TApi); }
-        public virtual bool SendToClient() { return true; }
 
         public virtual async Task Setup(IRepositoryService repoSystem)
         {
@@ -58,22 +55,6 @@ namespace Genrpg.Shared.GameSettings.Loaders
             }
 
             return parents.Cast<ITopLevelSettings>().ToList();
-        }
-
-        public virtual ITopLevelSettings MapToApi(ITopLevelSettings settings)
-        {
-            if (settings is TParent tparent)
-            {
-
-                TApi api = new TApi()
-                {
-                    ParentObj = tparent,
-                    Data = tparent.GetData().ToList(),
-                    Id = tparent.Id,
-                };
-                return api;
-            }
-            return settings;
         }
     }
 }

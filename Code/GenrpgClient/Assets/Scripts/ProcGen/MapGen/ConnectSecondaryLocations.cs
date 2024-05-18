@@ -10,11 +10,10 @@ using Genrpg.Shared.ProcGen.Settings.Locations.Constants;
 
 public class ConnectSecondaryLocations : BaseZoneGenerator
 {
+    private IAddRoadService _addRoadService = null;
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
-        AddRoads rg = new AddRoads();
-        gs.loc.Resolve(rg);
 
         // This can happen if there are no secondary locations added.
         if (gs.md.locationGrid == null)
@@ -128,7 +127,7 @@ public class ConnectSecondaryLocations : BaseZoneGenerator
 
             if (roadx > 0 && roady > 0)
             {
-                rg.AddRoad(gs, cx, cy, roadx, roady, cx * 31 + cy * 37 + gs.map.Seed / 3, rand, false);
+                _addRoadService.AddRoad(gs, cx, cy, roadx, roady, cx * 31 + cy * 37 + gs.map.Seed / 3, rand, false);
             }
 
         }

@@ -2,6 +2,7 @@
 using Genrpg.Shared.Combat.Messages;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Spells.Messages;
 using System;
 using System.Collections.Generic;

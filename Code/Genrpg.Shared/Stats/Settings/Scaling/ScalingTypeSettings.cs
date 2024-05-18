@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Stats.Entities;
 using MessagePack;
 using System;
@@ -68,6 +70,9 @@ namespace Genrpg.Shared.Stats.Settings.Scaling
     [MessagePackObject]
     public class ScalingTypeSettingsApi : ParentSettingsApi<ScalingTypeSettings, ScalingType> { }
     [MessagePackObject]
-    public class ScalingTypeSettingsLoader : ParentSettingsLoader<ScalingTypeSettings, ScalingType, ScalingTypeSettingsApi> { }
+    public class ScalingTypeSettingsLoader : ParentSettingsLoader<ScalingTypeSettings, ScalingType> { }
+
+    [MessagePackObject]
+    public class ScalingTypeSettingsMapper : ParentSettingsMapper<ScalingTypeSettings, ScalingType, ScalingTypeSettingsApi> { }
 
 }

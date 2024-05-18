@@ -9,7 +9,7 @@ namespace Genrpg.Shared.Crafting.Entities
     {
         [Key(0)] public long EntityTypeId { get; set; }
         [Key(1)] public long EntityId { get; set; }
-        [Key(2)] public List<Stat> Stats { get; set; }
+        [Key(2)] public List<CraftingStat> Stats { get; set; } = new List<CraftingStat>();
         [Key(3)] public long Level { get; set; }
         [Key(4)] public long QualityTypeId { get; set; }
         [Key(5)] public long RecipeTypeId { get; set; }
@@ -22,9 +22,12 @@ namespace Genrpg.Shared.Crafting.Entities
 
         [Key(10)] public string Message { get; set; }
 
-        public CraftingStats()
-        {
-            Stats = new List<Stat>();
-        }
+    }
+
+    [MessagePackObject]
+    public class CraftingStat
+    {
+        [Key(0)] public short Id { get; set; }
+        [Key(1)] public int Val { get; set; }
     }
 }

@@ -1,5 +1,7 @@
+using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System;
@@ -55,7 +57,11 @@ namespace Genrpg.Shared.Ftue.Settings.Steps
     [MessagePackObject]
     public class FtueStepSettingsApi : ParentSettingsApi<FtueStepSettings, FtueStep> { }
     [MessagePackObject]
-    public class FtueStepSettingsLoader : ParentSettingsLoader<FtueStepSettings, FtueStep, FtueStepSettingsApi> { }
+    public class FtueStepSettingsLoader : ParentSettingsLoader<FtueStepSettings, FtueStep> { }
+
+    [MessagePackObject]
+    public class FtueStepSettingsMapper : ParentSettingsMapper<FtueStepSettings, FtueStep, FtueStepSettingsApi> { }
+
 
 
 }

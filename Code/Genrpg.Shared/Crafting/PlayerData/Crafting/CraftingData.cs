@@ -4,6 +4,7 @@ using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 using MessagePack;
 
 namespace Genrpg.Shared.Crafting.PlayerData.Crafting
@@ -67,5 +68,9 @@ namespace Genrpg.Shared.Crafting.PlayerData.Crafting
     [MessagePackObject]
     public class CraftingApi : OwnerApiList<CraftingData, CraftingStatus> { }
     [MessagePackObject]
-    public class CrafterDataLoader : OwnerIdDataLoader<CraftingData, CraftingStatus, CraftingApi> { }
+    public class CrafterDataLoader : OwnerIdDataLoader<CraftingData, CraftingStatus> { }
+
+
+    [MessagePackObject]
+    public class CrafterDataMapper : OwnerDataMapper<CraftingData, CraftingStatus, CraftingApi> { }
 }

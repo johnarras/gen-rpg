@@ -12,8 +12,9 @@ using Genrpg.Shared.UI.Settings;
 using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.Core.Entities;
 using System.Threading.Tasks;
+using Assets.Scripts.Core.Interfaces;
 
-public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
+public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, IInjectOnLoad<IScreenService>
 {
     private IAnalyticsService _analyticsService;
 
@@ -39,7 +40,6 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService
     public override void Initialize(UnityGameState gs)
     {
         base.Initialize(gs);
-        _gs.loc.Set<IScreenService>(this);
         SetupLayers();
         StartUpdates();
         _screenConfigs = AssetUtils.LoadAllResources<ScreenConfig>("ScreenConfigs");

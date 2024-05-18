@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.Purchasing.Settings;
+using Genrpg.Shared.Quests.PlayerData;
+using Genrpg.Shared.Units.Mappers;
 
 namespace Genrpg.Shared.Purchasing.PlayerData
 {
@@ -24,5 +26,11 @@ namespace Genrpg.Shared.Purchasing.PlayerData
         [Key(1)] public PlayerStoreOffer CurrentOffer { get; set; }
 
         [Key(2)] public PlayerOfferProduct CurrentProduct { get; set; }
+    }
+
+    [MessagePackObject]
+    public class CurrentPurchaseMapper : UnitDataMapper<CurrentPurchaseData> 
+    {
+        public override bool SendToClient() { return false; }
     }
 }

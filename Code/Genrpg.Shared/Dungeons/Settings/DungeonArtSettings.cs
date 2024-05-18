@@ -7,6 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.Currencies.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Dungeons.Settings
 {
@@ -32,5 +34,10 @@ namespace Genrpg.Shared.Dungeons.Settings
     public class DungeonArtSettingsApi : ParentSettingsApi<DungeonArtSettings, DungeonArt> { }
 
     [MessagePackObject]
-    public class DungeonArtSettingsLoader : ParentSettingsLoader<DungeonArtSettings,DungeonArt,DungeonArtSettingsApi> { }
+    public class DungeonArtSettingsLoader : ParentSettingsLoader<DungeonArtSettings, DungeonArt> { }
+
+    [MessagePackObject]
+    public class DungeonArtSettingsMapper : ParentSettingsMapper<DungeonArtSettings, DungeonArt, DungeonArtSettingsApi> { }
+
+
 }

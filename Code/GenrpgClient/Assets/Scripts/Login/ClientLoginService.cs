@@ -42,6 +42,7 @@ public class ClientLoginService : IClientLoginService
     private IRepositoryService _repoService;
     private ILogService _logService;
     protected IGameData _gameData;
+    IPlayerManager _playerManager;
     private string _pwd = "";
 
     public async Task Initialize(GameState gs, CancellationToken token)
@@ -114,7 +115,7 @@ public class ClientLoginService : IClientLoginService
     private void InnerExitMap(UnityGameState gs)
     {
         _zoneGenService.CancelMapToken();
-        PlayerObject.Destroy();
+        _playerManager.SetUnit(null);
         _realtimeNetworkService.CloseClient();
         _mapManager.Clear(gs);
         _objectManager.Reset();

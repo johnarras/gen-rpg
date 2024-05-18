@@ -7,6 +7,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.AI.Settings
 {
@@ -29,7 +30,8 @@ namespace Genrpg.Shared.AI.Settings
 
 
     [MessagePackObject]
-    public class AISettingsLoader : NoChildSettingsLoader<AISettings>
-    {
-    }
+    public class AISettingsLoader : NoChildSettingsLoader<AISettings> {}
+
+    [MessagePackObject]
+    public class AiSettingsMapper : NoChildSettingsMapper<AISettings> { }
 }

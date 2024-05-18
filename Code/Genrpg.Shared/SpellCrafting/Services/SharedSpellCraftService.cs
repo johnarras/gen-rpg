@@ -12,12 +12,15 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
 
 namespace Genrpg.Shared.SpellCrafting.Services
 {
     public class SharedSpellCraftService : ISharedSpellCraftService
     {
         private IGameData _gameData;
+        private IRepositoryService _repoService;   
         private Dictionary<long, ISpellModifierHelper> _modifierHelpers = null;
 
         public virtual async Task Initialize(GameState gs, CancellationToken token)
@@ -132,7 +135,10 @@ namespace Genrpg.Shared.SpellCrafting.Services
 
             if (oldPowerCost != spell.PowerCost)
             {
-                spell.SetDirty(true);
+                if (spell is Spell realSpell)
+                {
+                    _repoService.QueueSave(realSpell);
+                }
             }
 
             if (string.IsNullOrEmpty(spell.Name))

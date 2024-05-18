@@ -13,6 +13,7 @@ using Genrpg.Shared.Interactions.Messages;
 using Genrpg.Shared.Crafting.Constants;
 using Genrpg.Shared.Crafting.PlayerData.Crafting;
 using Genrpg.Shared.Crafting.Settings.Crafters;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.Looting.MessageHandlers
 {

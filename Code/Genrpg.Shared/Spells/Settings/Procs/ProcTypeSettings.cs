@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Purchasing.Settings;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -30,7 +32,10 @@ namespace Genrpg.Shared.Spells.Settings.Procs
     [MessagePackObject]
     public class ProcTypeSettingsApi : ParentSettingsApi<ProcTypeSettings, ProcType> { }
     [MessagePackObject]
-    public class ProcTypeSettingsLoader : ParentSettingsLoader<ProcTypeSettings, ProcType, ProcTypeSettingsApi> { }
+    public class ProcTypeSettingsLoader : ParentSettingsLoader<ProcTypeSettings, ProcType> { }
+
+    [MessagePackObject]
+    public class ProcTypeSettingsMapper : ParentSettingsMapper<ProcTypeSettings, ProcType, ProcTypeSettingsApi> { }
 
 
 }

@@ -8,6 +8,7 @@ public class MapScreen : BaseScreen
 
     public GEntity ArrowParent = null;
     public GRawImage MapImage;
+    private IPlayerManager _playerManager;
 
     GEntity ArrowObject = null;
 
@@ -52,7 +53,7 @@ public class MapScreen : BaseScreen
 
 
         // Show player on map with arrow.
-        GEntity player = PlayerObject.Get();
+        GEntity player = _playerManager.GetEntity();
         if (player == null)
         {
             return;

@@ -14,6 +14,8 @@ using UnityEngine; // Needed
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Characters.Utils;
 
 public class UnityZoneGenService : ZoneGenService
 {
@@ -34,6 +36,7 @@ public class UnityZoneGenService : ZoneGenService
     private CancellationToken _mapToken;
     private CancellationToken _gameToken;
     private IAssetService _assetServce;
+    private IPlayerManager _playerManager;
 
     public override void SetGameToken(CancellationToken token)
     {
@@ -281,12 +284,9 @@ public class UnityZoneGenService : ZoneGenService
 
         _logService.Debug(output.ToString());
 
-
-
         // Wait for everything to get downloaded.
 
         gs.md.ClearGenerationData();
-
 
         await UniTask.NextFrame( cancellationToken: token);
 
@@ -296,7 +296,7 @@ public class UnityZoneGenService : ZoneGenService
         _dispatcher.Dispatch(gs,new MapIsLoadedEvent());
         gs.md.GeneratingMap = false;
         await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
-        PlayerObject.MoveAboveObstacles();
+        _playerManager.MoveAboveObstacles();
         await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
 
 
@@ -753,8 +753,8 @@ public class UnityZoneGenService : ZoneGenService
 
         try
         {
-            gs.ch = data.Char;
-
+            gs.ch = new Character(_repoService);
+            CharacterUtils.CopyDataFromTo(data.Char, gs.ch);
             _assetServce.SetWorldAssetEnv(data.WorldDataEnv);
             _networkService.SetRealtimeEndpoint(data.Host, data.Port, data.Serializer);
             _screenService.CloseAll(gs);
@@ -827,14 +827,14 @@ public class UnityZoneGenService : ZoneGenService
 
 
         terr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Simple;
-        terr.treeDistance = 150;
-        terr.treeBillboardDistance = 100;
+        terr.treeDistance = 400;
+        terr.treeBillboardDistance = 400;
         terr.treeCrossFadeLength = 5;
-        terr.treeMaximumFullLODCount = 30;
+        terr.treeMaximumFullLODCount = 500;
         terr.basemapDistance = 250;      
         terr.heightmapPixelError = 10;
-        terr.detailObjectDensity = 1.0f;
-        terr.detailObjectDistance = 200;
+        terr.detailObjectDensity = 0.5f;
+        terr.detailObjectDistance = 250;
         terr.drawHeightmap = true;
         terr.drawTreesAndFoliage = true;
         terr.collectDetailPatches = false;

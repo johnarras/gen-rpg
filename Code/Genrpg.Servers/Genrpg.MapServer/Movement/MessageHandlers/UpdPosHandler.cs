@@ -11,6 +11,7 @@ using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.MapServer.Messages;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.Movement.MessageHandlers
 {

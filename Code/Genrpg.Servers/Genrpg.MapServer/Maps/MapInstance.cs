@@ -282,7 +282,7 @@ namespace Genrpg.MapServer.Maps
             {
                 return;
             }
-            _playerDataService.SavePlayerData(connState.ch, _repoService, true);
+            _playerDataService.SavePlayerData(connState.ch, true);
             Character ch = connState.ch;
             if (ch != null)
             {
@@ -323,7 +323,7 @@ namespace Genrpg.MapServer.Maps
                         connState.conn.AddMessage(new ErrorMessage("Character does not exist"));
                         return;
                     }
-                    Character ch = new Character();
+                    Character ch = new Character(_repoService);
 
                     CharacterUtils.CopyDataFromTo(coreCh, ch);
                     ch.SetConn(connState.conn);

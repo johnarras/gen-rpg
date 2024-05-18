@@ -8,26 +8,20 @@ using System.Text;
 
 namespace Genrpg.Shared.DataStores.PlayerData
 {
-    public abstract class OwnerIdObjectList<Child> : OwnerObjectList<Child> where Child : OwnerPlayerData, IId, new()
+    public abstract class OwnerIdObjectList<TChild> : OwnerObjectList<TChild> where TChild : OwnerPlayerData, IId, new()
     {
-        protected List<Child> _data { get; set; } = new List<Child>();
         protected object _dataLock = new object();
 
         virtual protected bool CreateMissingChildOnGet() { return true; }
 
-        public override void SetData(List<Child> data)
+        virtual protected void OnCreateChild(TChild newChild)
         {
-            _data = data;
+
         }
 
-        public override List<Child> GetData()
+        public TChild Get(long id)
         {
-            return _data;
-        }
-
-        public Child Get(long id)
-        {
-            Child child = _data.FirstOrDefault(x => x.IdKey == id);
+            TChild child = _data.FirstOrDefault(x => x.IdKey == id);
 
             if (child == null && CreateMissingChildOnGet())
             {
@@ -36,13 +30,15 @@ namespace Genrpg.Shared.DataStores.PlayerData
                     child = _data.FirstOrDefault(x => x.IdKey == id);
                     if (child == null)
                     {
-                        child = new Child()
+                        child = new TChild()
                         {
                             Id = HashUtils.NewGuid(),
                             OwnerId = Id,
                             IdKey = id,
                         };
-                        _data = new List<Child>(_data) { child };
+                        OnCreateChild(child);
+                        _repoService.QueueSave(child);
+                        _data = new List<TChild>(_data) { child };
                     }
                 }
             }

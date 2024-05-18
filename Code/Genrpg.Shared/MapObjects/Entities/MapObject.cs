@@ -12,12 +12,17 @@ using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
 using Genrpg.Shared.Pathfinding.Entities;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Utils;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.Shared.MapObjects.Entities
 {
     // MessagePackIgnore
     public class MapObject : IMapObject, IDisposable
     {
+        protected IRepositoryService _repoService;
+
         public string Id { get; set; }
         public string Name { get; set; }
         public long EntityTypeId { get; set; }
@@ -50,6 +55,43 @@ namespace Genrpg.Shared.MapObjects.Entities
         public List<IDisplayEffect> Effects { get; set; } = new List<IDisplayEffect>();
 
         public BitList StatusEffects { get; set; } = new BitList();
+
+        public MapObject(IRepositoryService repositoryService)
+        {
+            _repoService = repositoryService;
+        }
+
+
+        protected int _idHash { get; set; } = -1;
+        public int GetIdHash()
+        {
+            if (_idHash < 0)
+            {
+                _idHash = StrUtils.GetIdHash(Id);
+            }
+            return _idHash;
+        }
+
+        /// <summary>
+        /// For some reason using a ConcurrentBag here slows things down the way I am using it. Idk, it works
+        /// but it's not really the proper data structure.
+        /// </summary>
+        private ConcurrentQueue<MapMessagePackage> _packageCache = new ConcurrentQueue<MapMessagePackage>();
+
+        public MapMessagePackage TakePackage()
+        {
+            if (_packageCache.TryDequeue(out MapMessagePackage package))
+            {
+                return package;
+            }
+            return new MapMessagePackage();
+        }
+
+        public void ReturnPackage(MapMessagePackage package)
+        {
+            package.Clear();           
+            _packageCache.Enqueue(package);
+        }
 
         public void AddEffect(IDisplayEffect effect)
         {
@@ -147,10 +189,6 @@ namespace Genrpg.Shared.MapObjects.Entities
         private bool _isDirty = false;
         public bool IsDirty() { return _isDirty; }
         public void SetDirty(bool dirty) { _isDirty = dirty; }
-
-        public MapObject()
-        {
-        }
 
         public TAddon GetAddon<TAddon>() where TAddon : IMapObjectAddon
         {

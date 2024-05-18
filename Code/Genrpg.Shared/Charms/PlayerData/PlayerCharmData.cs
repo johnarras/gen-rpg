@@ -2,6 +2,7 @@ using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 using MessagePack;
 using System.Collections.Generic;
 
@@ -46,8 +47,11 @@ namespace Genrpg.Shared.Charms.PlayerData
 
 
     [MessagePackObject]
-    public class CrafterDataLoader : OwnerIdDataLoader<PlayerCharmData, PlayerCharm, PlayerCharmApi>
+    public class CharmDataLoader : OwnerIdDataLoader<PlayerCharmData, PlayerCharm>
     {
         protected override bool IsUserData() { return true; }
     }
+
+    [MessagePackObject]
+    public class CharmDataMapper : OwnerIdDataMapper<PlayerCharmData, PlayerCharm, PlayerCharmApi> { }
 }

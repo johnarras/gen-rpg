@@ -60,6 +60,9 @@ public class AddZoneCenters : BaseZoneGenerator
         sdata.YMax = gs.map.GetHhgt() + blockSize*2;
         sdata.Seed = gs.map.Seed % 1000000000 + 3824821;
 
+        sdata.NoiseAmp = MathUtils.FloatRange(0.3f, 0.8f, gs.rand);
+        sdata.NoiseFreq = MathUtils.FloatRange(3.0f, 10.0f, gs.rand);
+
         List<MyPoint2> centers = _sampleService.PlanePoissonSample(gs, sdata);
         
         centers = centers.Where(p => 

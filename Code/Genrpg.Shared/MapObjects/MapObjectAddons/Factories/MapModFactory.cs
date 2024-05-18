@@ -17,7 +17,7 @@ namespace Genrpg.Shared.MapObjects.MapObjectAddons.Factories
 
         public override MapObject Create(GameState gs, IMapSpawn spawn)
         {
-            MapMod mapMod = new MapMod();
+            MapMod mapMod = new MapMod(_repoService);
             mapMod.CopyDataToMapObjectFromMapSpawn(spawn);
             return mapMod;
         }

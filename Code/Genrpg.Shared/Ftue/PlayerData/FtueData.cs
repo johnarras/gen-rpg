@@ -4,6 +4,7 @@ using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 
 namespace Genrpg.Shared.Ftue.PlayerData
 {
@@ -32,4 +33,7 @@ namespace Genrpg.Shared.Ftue.PlayerData
     }
     [MessagePackObject]
     public class FtueDataLoader : UnitDataLoader<FtueData> { }
+
+    [MessagePackObject]
+    public class FtueDataMapper : UnitDataMapper<FtueData> { }
 }

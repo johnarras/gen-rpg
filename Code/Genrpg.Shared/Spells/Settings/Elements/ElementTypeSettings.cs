@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.Spells.Procs.Entities;
 using Genrpg.Shared.Spells.Settings.Effects;
@@ -128,7 +130,10 @@ namespace Genrpg.Shared.Spells.Settings.Elements
     [MessagePackObject]
     public class ElementTypeSettingsApi : ParentSettingsApi<ElementTypeSettings, ElementType> { }
     [MessagePackObject]
-    public class ElementTypeSettingsLoader : ParentSettingsLoader<ElementTypeSettings, ElementType, ElementTypeSettingsApi> { }
+    public class ElementTypeSettingsLoader : ParentSettingsLoader<ElementTypeSettings, ElementType> { }
+
+    [MessagePackObject]
+    public class ElementTypeSettingsMapper : ParentSettingsMapper<ElementTypeSettings, ElementType, ElementTypeSettingsApi> { }
 
 
 

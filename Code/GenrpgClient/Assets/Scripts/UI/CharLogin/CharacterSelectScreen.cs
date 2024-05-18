@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
 using System.Linq;
+using static UnityEngine.Networking.UnityWebRequest;
 
 public class CharacterSelectScreen : BaseScreen
 {
@@ -88,7 +89,7 @@ public class CharacterSelectScreen : BaseScreen
     {
         if (_gs.characterStubs.Count < 1)
         {
-            FloatingTextScreen.Instance?.ShowError("You need at least one character to generate a map.");
+            _dispatcher.Dispatch(_gs, new ShowFloatingText("You need at least one character to generate a map.", EFloatingTextArt.Error));
         }
         LoadIntoMapCommand lwd = new LoadIntoMapCommand()
         {

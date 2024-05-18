@@ -7,6 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.Currencies.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Factions.Settings
 {
@@ -37,5 +39,9 @@ namespace Genrpg.Shared.Factions.Settings
     public class ReputationSettingsApi : ParentSettingsApi<ReputationSettings, RepLevel> { }
 
     [MessagePackObject]
-    public class ReputationSettingsLoader : ParentSettingsLoader<ReputationSettings,RepLevel,ReputationSettingsApi> { }
+    public class ReputationSettingsLoader : ParentSettingsLoader<ReputationSettings,RepLevel> { }
+
+    [MessagePackObject]
+    public class ReputationSettingsMapper : ParentSettingsMapper<ReputationSettings, RepLevel, ReputationSettingsApi> { }
+
 }

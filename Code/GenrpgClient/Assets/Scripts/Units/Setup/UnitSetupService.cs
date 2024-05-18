@@ -31,6 +31,7 @@ public class UnitSetupService : IUnitSetupService
     protected ILogService _logService;
     protected IDispatcher _dispatcher;
     protected IGameData _gameData;
+    protected IPlayerManager _playerManager;
 
     public async Task Initialize(GameState gs, CancellationToken token)
     {
@@ -213,7 +214,7 @@ public class UnitSetupService : IUnitSetupService
         unit.Speed = _gameData.Get<AISettings>(gs.ch).BaseUnitSpeed;
         unit.BaseSpeed = _gameData.Get<AISettings>(gs.ch).BaseUnitSpeed;
         go.name = "Player" + go.name;
-        PlayerObject.Set(go);
+        _playerManager.SetUnit(pc);
         _assetService.LoadAssetInto(gs, go, AssetCategoryNames.UI,
             "PlayerLight", null, null, token, "Units");
         _dispatcher.Dispatch(gs,new SetMapPlayerEvent() { Ch = unit as Character });

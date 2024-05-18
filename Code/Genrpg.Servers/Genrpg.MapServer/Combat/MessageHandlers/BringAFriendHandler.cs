@@ -4,6 +4,7 @@ using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Factories;
+using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
 using System;

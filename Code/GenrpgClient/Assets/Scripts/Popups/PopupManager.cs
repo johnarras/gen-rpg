@@ -4,13 +4,18 @@ using System.Linq;
 using System.Text;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
-
-
 using ClientEvents;
-
 using UI.Screens.Constants;
+using Assets.Scripts.Core.Interfaces;
+using Genrpg.Shared.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
-public class PopupManager : BaseBehaviour
+public interface IPopupManager : IInitializable, IInjectOnLoad<IPopupManager>
+{
+}
+
+public class PopupManager : BaseBehaviour, IPopupManager
 {
 
     public override void Initialize(UnityGameState gs)
@@ -18,6 +23,10 @@ public class PopupManager : BaseBehaviour
         base.Initialize(gs);
         _dispatcher.AddEvent<ShowLootEvent>(this, OnLootPopup);
 
+    }
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
     }
 
     private ShowLootEvent OnLootPopup (UnityGameState gs, ShowLootEvent ldata)

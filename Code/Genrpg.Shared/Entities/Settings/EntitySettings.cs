@@ -7,6 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.Currencies.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Entities.Settings
 {
@@ -33,6 +35,10 @@ namespace Genrpg.Shared.Entities.Settings
     public class EntitySettingsApi : ParentSettingsApi<EntitySettings, EntityType> { }
 
     [MessagePackObject]
-    public class EntitySettingsLoader : ParentSettingsLoader<EntitySettings, EntityType, EntitySettingsApi> { }
+    public class EntitySettingsLoader : ParentSettingsLoader<EntitySettings, EntityType> { }
+
+    [MessagePackObject]
+    public class EntitySettingsMapper : ParentSettingsMapper<EntitySettings, EntityType, EntitySettingsApi> { }
+
 
 }

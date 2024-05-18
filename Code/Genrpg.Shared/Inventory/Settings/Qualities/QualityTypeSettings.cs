@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -50,6 +52,9 @@ namespace Genrpg.Shared.Inventory.Settings.Qualities
     [MessagePackObject]
     public class QualityTypeSettingsApi : ParentSettingsApi<QualityTypeSettings, QualityType> { }
     [MessagePackObject]
-    public class QualityTypeSettingsLoader : ParentSettingsLoader<QualityTypeSettings, QualityType, QualityTypeSettingsApi> { }
+    public class QualityTypeSettingsLoader : ParentSettingsLoader<QualityTypeSettings, QualityType> { }
+
+    [MessagePackObject]
+    public class QualitySettingsMapper : ParentSettingsMapper<QualityTypeSettings, QualityType, QualityTypeSettingsApi> { }
 
 }

@@ -16,7 +16,7 @@ public class SpellIconPanel : BaseBehaviour
         _screen = screen;
         _prefabName = prefabName;
         _token = token;
-        List<Spell> spells = gs.ch.Get<SpellData>().GetData();
+        IReadOnlyList<Spell> spells = gs.ch.Get<SpellData>().GetData();
 
         if (spells == null)
         {

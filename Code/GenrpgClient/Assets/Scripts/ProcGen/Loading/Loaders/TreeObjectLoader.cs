@@ -20,9 +20,6 @@ public class TreeObjectLoader : BaseObjectLoader
 {
     const int ScaleStepCount = 20;
 
-    public TreeObjectLoader(UnityGameState gs) : base(gs)
-    {
-    }
     public override bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId,
         int x, int y, Zone currZone, ZoneType currZoneType, CancellationToken token)
     {

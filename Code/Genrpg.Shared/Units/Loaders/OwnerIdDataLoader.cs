@@ -10,12 +10,10 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Units.Loaders
 {
-    public class OwnerIdDataLoader<TParent, TChild, TApi> : OwnerDataLoader<TParent,TChild,TApi>
+    public class OwnerIdDataLoader<TParent, TChild> : OwnerDataLoader<TParent,TChild>
         where TParent : OwnerObjectList<TChild>, new()
         where TChild : OwnerPlayerData, IChildUnitData, IId
-        where TApi : OwnerApiList<TParent, TChild>
     {
-
         public override async Task<IChildUnitData> LoadChildByIdkey (Unit unit, long idkey)
         {
 
@@ -25,7 +23,9 @@ namespace Genrpg.Shared.Units.Loaders
 
             if (child != null)
             {
-                parentObj.GetData().Add(child);
+                List<TChild> currList = parentObj.GetData().ToList();
+                currList.Add(child);
+                parentObj.SetData(currList);
             }
 
             return child;

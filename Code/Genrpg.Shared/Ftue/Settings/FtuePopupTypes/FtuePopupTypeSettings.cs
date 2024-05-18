@@ -1,5 +1,7 @@
+using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System;
@@ -30,6 +32,10 @@ namespace Genrpg.Shared.Ftue.Settings.FtuePopupTypes
     [MessagePackObject]
     public class FtuePopupTypeSettingsApi : ParentSettingsApi<FtuePopupTypeSettings, FtuePopupType> { }
     [MessagePackObject]
-    public class FtuePopupTypeSettingsLoader : ParentSettingsLoader<FtuePopupTypeSettings, FtuePopupType, FtuePopupTypeSettingsApi> { }
+    public class FtuePopupTypeSettingsLoader : ParentSettingsLoader<FtuePopupTypeSettings, FtuePopupType> { }
+
+    [MessagePackObject]
+    public class FtuePopupSettingsMapper : ParentSettingsMapper<FtuePopupTypeSettings, FtuePopupType, FtuePopupTypeSettingsApi> { }
+
 
 }

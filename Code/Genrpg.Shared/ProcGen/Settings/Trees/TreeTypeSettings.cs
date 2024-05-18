@@ -1,5 +1,7 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.ProcGen.Settings.Trees;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,10 @@ namespace Genrpg.Shared.ProcGen.Settings.Trees
     [MessagePackObject]
     public class TreeTypeSettingsApi : ParentSettingsApi<TreeTypeSettings, TreeType> { }
     [MessagePackObject]
-    public class TreeTypeSettingsLoader : ParentSettingsLoader<TreeTypeSettings, TreeType, TreeTypeSettingsApi> { }
+    public class TreeTypeSettingsLoader : ParentSettingsLoader<TreeTypeSettings, TreeType> { }
+
+    [MessagePackObject]
+    public class TreeSettingsMapper : ParentSettingsMapper<TreeTypeSettings, TreeType, TreeTypeSettingsApi> { }
+
 
 }

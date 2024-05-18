@@ -2,28 +2,22 @@
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
 using System.Threading;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Interfaces;
 
-public abstract class BaseObjectLoader
+public abstract class BaseObjectLoader : IInjectable
 {
     protected IAssetService _assetService;
     protected IMapTerrainManager _terrainManager;
     protected IGameData _gameData;
-    public BaseObjectLoader(UnityGameState gs)
-    {
-        gs.loc.Resolve(this);
-    }
-
 
     public abstract bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId, int x, int y, 
         Zone currZone, ZoneType currZoneType, CancellationToken token);
-
 
     protected void OnDownloadObject(UnityGameState gs, object obj, object data, CancellationToken token)
     {

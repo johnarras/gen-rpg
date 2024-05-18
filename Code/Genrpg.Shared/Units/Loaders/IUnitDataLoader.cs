@@ -1,13 +1,15 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Units.Loaders
 {
-    public interface IUnitDataLoader
+    public interface IUnitDataLoader : IInitializable
     {
         Type GetServerType();
         Task<ITopLevelUnitData> LoadFullData(Unit unit);
@@ -16,9 +18,6 @@ namespace Genrpg.Shared.Units.Loaders
         Task<IChildUnitData> LoadChildById(Unit unit, string childId);
 
         IUnitData Create(Unit unit);
-        bool SendToClient();
-        IUnitData MapToAPI(IUnitData serverObject);
-        Task Setup(GameState gs);
     }
 
 }

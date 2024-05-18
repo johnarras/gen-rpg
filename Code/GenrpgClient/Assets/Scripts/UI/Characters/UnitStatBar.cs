@@ -22,7 +22,6 @@ public class UnitStatBar : BaseBehaviour
 
     public void Init(UnityGameState gs, Unit unitIn)
     {
-        _gs.loc.Resolve(this);
         _unit = unitIn;
         if (_progressBar != null && _unit != null)
         {

@@ -25,7 +25,7 @@ namespace Assets.Scripts.UI.Crawler.States
 
             IReadOnlyList<SexType> sexes = _gameData.Get<SexTypeSettings>(null).GetData();
 
-            PartyMember member = new PartyMember()
+            PartyMember member = new PartyMember(_repoService)
             {
                 FactionTypeId = FactionTypes.Player,
             };

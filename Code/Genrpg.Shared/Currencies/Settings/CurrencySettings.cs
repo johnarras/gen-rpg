@@ -7,6 +7,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Currencies.Settings
 {
@@ -35,6 +36,9 @@ namespace Genrpg.Shared.Currencies.Settings
     public class CurrencySettingsApi : ParentSettingsApi<CurrencySettings, CurrencyType> { }
 
     [MessagePackObject]
-    public class CurrencySettingsLoader : ParentSettingsLoader<CurrencySettings, CurrencyType, CurrencySettingsApi> { }
+    public class CurrencySettingsLoader : ParentSettingsLoader<CurrencySettings, CurrencyType> { }
+
+    [MessagePackObject]
+    public class CurrencySettingsMapper : ParentSettingsMapper<CurrencySettings, CurrencyType, CurrencySettingsApi> { }
 
 }

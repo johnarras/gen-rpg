@@ -14,6 +14,7 @@ using UnityEngine; // Needed
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Units.Constants;
+using System.Linq;
 
 public class UnitController : BaseBehaviour
 {
@@ -21,6 +22,7 @@ public class UnitController : BaseBehaviour
     protected IMapTerrainManager _terrainManager;
     protected IPathfindingService _pathfindingService;
     protected IInputService _inputService;
+    protected IPlayerManager _playerManager;
     public const int IdleState = 0;
     public const int CombatState = 1;
     public const int LeashState = 2;
@@ -43,6 +45,11 @@ public class UnitController : BaseBehaviour
     public Unit GetUnit()
     {
         return _unit;
+    }
+
+    public string GetUnitId()
+    {
+        return _unit.Id ?? null;
     }
 
     public void Init(Unit unit, CancellationToken token)
@@ -154,6 +161,8 @@ public class UnitController : BaseBehaviour
             moveSpeed *= InitClient.EditorInstance.PlayerSpeedMult;
         }
 #endif 
+        // TODO REMOEV JRAJRA HACK FOR TEST VIDEO 5/17/2024
+        moveSpeed *= 1.5f;
         float animSpeedBase = targetDeltaTime;
 
         float dz = 0.0f;
@@ -350,9 +359,14 @@ public class UnitController : BaseBehaviour
     {
         if (entity == null || anims == null)
         {
+            // JRAJRA TODO REMOVE ONCE REAL ANIMS COME IN
+            transform.Rotate(new Vector3(1, 0, 0), 180);
+            transform.position += new Vector3(0, 1, 0);
             return;
         }
         AnimUtils.Trigger(anims, AnimParams.Die, 1);
+
+
     }
 
     public void StartCasting(OnStartCast msg)
@@ -372,8 +386,17 @@ public class UnitController : BaseBehaviour
 
     public void ShowCombatText(CombatText text)
     {
-        _assetService.LoadAssetInto(_gs, entity, AssetCategoryNames.UI, CombatTextUI.UIPrefabName,
-            OnLoadCombatText, text, _token, "FloatingText" );
+        if (_unit == null || !_playerManager.TryGetUnit(out Unit playerUnit))
+        {
+            return;
+        }
+
+        if (_unit == playerUnit || _unit.TargetId == playerUnit.Id)
+        {
+
+            _assetService.LoadAssetInto(_gs, entity, AssetCategoryNames.UI, CombatTextUI.UIPrefabName,
+                OnLoadCombatText, text, _token, "FloatingText");
+        }
     }
 
     private void OnLoadCombatText(UnityGameState gs, object obj, object data, CancellationToken token)

@@ -1,7 +1,9 @@
+using Genrpg.Shared.Charms.PlayerData;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Quests.WorldData;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 using MessagePack;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,18 +47,6 @@ namespace Genrpg.Shared.Quests.PlayerData
     public class QuestData : OwnerObjectList<QuestStatus>
     {
         [Key(0)] public override string Id { get; set; }
-
-        private List<QuestStatus> _data { get; set; } = new List<QuestStatus>();
-
-        public override List<QuestStatus> GetData()
-        {
-            return _data;
-        }
-
-        public override void SetData(List<QuestStatus> data)
-        {
-            _data = data;
-        }
 
         public QuestStatus GetStatus(QuestType qtype)
         {
@@ -112,5 +102,9 @@ namespace Genrpg.Shared.Quests.PlayerData
     public class QuestApi : OwnerApiList<QuestData, QuestStatus> { }
     
     [MessagePackObject]
-    public class QuestDataLoader : OwnerDataLoader<QuestData, QuestStatus, QuestApi> { }
+    public class QuestDataLoader : OwnerDataLoader<QuestData, QuestStatus> { }
+
+
+    [MessagePackObject]
+    public class QuestDataMapper : OwnerDataMapper<QuestData, QuestStatus, QuestApi> { }
 }

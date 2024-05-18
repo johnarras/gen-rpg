@@ -4,6 +4,7 @@ using Genrpg.Shared.Units.Loaders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Genrpg.Shared.Units.Mappers;
 
 namespace Genrpg.Shared.Purchasing.PlayerData
 {
@@ -11,6 +12,11 @@ namespace Genrpg.Shared.Purchasing.PlayerData
     public class PurchaseHistoryLoader : UnitDataLoader<PurchaseHistoryData>
     {
         protected override bool IsUserData() { return true; }
+    }
+
+    public class PurchaseHistoryMappe : UnitDataMapper<PurchaseHistoryData>
+    {
+        public override bool SendToClient() { return false; }
     }
 
     [MessagePackObject]

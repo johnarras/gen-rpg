@@ -17,7 +17,7 @@ namespace Genrpg.Shared.Buildings.Factories
 
         public override MapObject Create(GameState gs, IMapSpawn spawn)
         {
-            Building obj = new Building();
+            Building obj = new Building(_repoService);
             obj.CopyDataToMapObjectFromMapSpawn(spawn);
             Zone zone = gs.map.Get<Zone>(obj.ZoneId);
             if (zone != null)

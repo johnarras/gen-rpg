@@ -18,7 +18,7 @@ namespace Genrpg.Shared.Login.Messages.LoadIntoMap
     public class LoadIntoMapResult : ILoginResult
     {
         [Key(0)] public Map Map { get; set; }
-        [Key(1)] public Character Char { get; set; }
+        [Key(1)] public CoreCharacter Char { get; set; }
         [Key(2)] public bool Generating { get; set; }
         [Key(3)] public string Host { get; set; }
         [Key(4)] public long Port { get; set; }

@@ -26,6 +26,7 @@ public class CrawlerVendorScreen : ItemIconScreen
     protected ICrawlerService _crawlerService;
     protected IInventoryService _inventoryService;
     protected ILootGenService _lootGenService;
+    private IDispatcher _dispatcher;
     public const string VendorIconName = "VendorItemIcon";
 
     public InventoryPanel PlayerItems;
@@ -141,13 +142,13 @@ public class CrawlerVendorScreen : ItemIconScreen
         Item vendorItem = _party.VendorItems.FirstOrDefault(x => x.Id == icon.GetDataItem().Id);
         if (vendorItem == null)
         {
-            FloatingTextScreen.Instance.ShowError("That item isn't for sale!");
+            _dispatcher.Dispatch(gs, new ShowFloatingText("That item isn't for sale!", EFloatingTextArt.Error));
             return;
         }
 
         if (vendorItem.Cost > _party.Gold)
         {
-            FloatingTextScreen.Instance.ShowError("You need more gold to buy this!");
+            _dispatcher.Dispatch(gs, new ShowFloatingText("You need more gold to buy this!", EFloatingTextArt.Error));
             return;
         }
 
@@ -170,7 +171,7 @@ public class CrawlerVendorScreen : ItemIconScreen
 
         if (item == null)
         {
-            FloatingTextScreen.Instance.ShowError("You don't have that item!");
+            _dispatcher.Dispatch(gs, new ShowFloatingText("You don't have that item!", EFloatingTextArt.Error));
             return;
         }
 

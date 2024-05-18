@@ -13,6 +13,7 @@ using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Spells.Casting;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.Spells.MessageHandlers
 {

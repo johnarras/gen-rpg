@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Purchasing.Settings;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -27,5 +29,8 @@ namespace Genrpg.Shared.UI.Settings
     [MessagePackObject]
     public class ScreenOverrideSettingsApi : ParentSettingsApi<ScreenOverrideSettings, ScreenOverride> { }
     [MessagePackObject]
-    public class ScreenOverrideSettingsLoader : ParentSettingsLoader<ScreenOverrideSettings, ScreenOverride, ScreenOverrideSettingsApi> { }
+    public class ScreenOverrideSettingsLoader : ParentSettingsLoader<ScreenOverrideSettings, ScreenOverride> { }
+
+    [MessagePackObject]
+    public class ScreenOverrideSettingsMapper : ParentSettingsMapper<ScreenOverrideSettings, ScreenOverride, ScreenOverrideSettingsApi> { }
 }

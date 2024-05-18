@@ -54,9 +54,12 @@ namespace Genrpg.Shared.Core.Entities
             return gsNew;
         }
 
-        public virtual T CreateInstance<T>() where T : class, IInjectable, new()
+        public virtual T GetOrCreateInstance<T>(T t = null) where T : class, IInjectable, new()
         {
-            T t = new T();
+            if (t == null)
+            {
+                t = new T();
+            }
             loc.Resolve(t);
             return t;
         }

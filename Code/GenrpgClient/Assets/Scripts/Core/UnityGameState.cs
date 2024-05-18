@@ -22,12 +22,13 @@ public class UnityGameState : GameState
 
     public ClientConfig Config { get; }
 
+    private ILogService _logService;
     public UnityGameState()
     {
         Config = ClientConfig.Load();
-        ILogService logService = new ClientLogger(Config);
+        _logService = new ClientLogger(Config);
         IAnalyticsService analyticsService = new ClientAnalyticsService(Config);
-        loc = new ServiceLocator(logService, analyticsService, new GameData());
+        loc = new ServiceLocator(_logService, analyticsService, new GameData());
         loc.Set<IDispatcher>(new Dispatcher());
     }
 
@@ -73,8 +74,7 @@ public class UnityGameState : GameState
     {
         if (_config == null)
         {
-
-            ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(loc.Get<ILogService>());
+            ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(_logService);
             _config = repo.Load(ConfigFilename).GetAwaiter().GetResult();
             if (_config == null)
             {
@@ -100,7 +100,7 @@ public class UnityGameState : GameState
             };
         }
 
-        ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(loc.Get<ILogService>());
+        ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(_logService);
         repo.Save(_config).Forget();
     }
 

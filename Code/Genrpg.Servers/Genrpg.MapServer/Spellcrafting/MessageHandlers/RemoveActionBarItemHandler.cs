@@ -3,6 +3,7 @@ using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.SpellCrafting.Messages;
 using System;
 using System.Collections.Generic;

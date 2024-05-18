@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.ProcGen.Settings.Rocks;
 using Genrpg.Shared.Utils.Data;
 using MessagePack;
 using System;
@@ -53,6 +55,10 @@ namespace Genrpg.Shared.ProcGen.Settings.Rocks
     [MessagePackObject]
     public class RockTypeSettingsApi : ParentSettingsApi<RockTypeSettings, RockType> { }
     [MessagePackObject]
-    public class RockTypeSettingsLoader : ParentSettingsLoader<RockTypeSettings, RockType, RockTypeSettingsApi> { }
+    public class RockTypeSettingsLoader : ParentSettingsLoader<RockTypeSettings, RockType> { }
+
+    [MessagePackObject]
+    public class RockSettingsMapper : ParentSettingsMapper<RockTypeSettings, RockType, RockTypeSettingsApi> { }
+
 
 }

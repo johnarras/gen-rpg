@@ -12,7 +12,7 @@ public interface ISamplingService : IInitializable
 }
 public class SamplingService : ISamplingService
 {
-
+    private INoiseService _noiseService;
     public async Task Initialize(GameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
@@ -31,7 +31,6 @@ public class SamplingService : ISamplingService
             return list;
         }
 
-
         if (sd.Count < 1 || sd.MaxAttemptsPerItem < 1)
         {
             return list;
@@ -47,6 +46,19 @@ public class SamplingService : ISamplingService
             rand = new MyRandom();
         }
 
+        float[,] noise = null;
+
+        int width = (int)(sd.XMax - sd.XMin + 1);
+        int height = (int)(sd.YMax - sd.YMin + 1);
+        if (sd.NoiseAmp > 0 && sd.NoiseFreq > 0)
+        {
+            float pers = MathUtils.FloatRange(0.2f, 0.6f, rand);
+
+            if (width <= 20000 && height <= 20000)
+            {
+                noise = _noiseService.Generate(gs, pers, sd.NoiseFreq, sd.NoiseAmp, 2, rand.Next(), width, height);
+            }
+        }
 
         int maxNumTimes = sd.Count * sd.MaxAttemptsPerItem;
 
@@ -57,7 +69,18 @@ public class SamplingService : ISamplingService
             newpt.Y = MathUtils.FloatRange(sd.YMin, sd.YMax, rand);
 
             double newDist = GeomUtils.GetMinDistance2(list, newpt);
-            if (newDist > sd.MinSeparation)
+
+            double currSeparation = sd.MinSeparation;
+
+            if (noise != null)
+            {
+                int dx = MathUtils.Clamp(0, (int)(newpt.X - sd.XMin), width - 1);
+                int dy = MathUtils.Clamp(0, (int)(newpt.Y - sd.YMin), height - 1);
+                currSeparation *= (1 + noise[dx,dy]);
+                currSeparation = MathUtils.Clamp(sd.MinSeparation / 4, currSeparation, sd.MinSeparation * 2);
+            }
+
+            if (newDist > currSeparation)
             {
                 list.Add(newpt);
             }

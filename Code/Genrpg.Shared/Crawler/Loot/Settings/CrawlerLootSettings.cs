@@ -1,8 +1,10 @@
+using Genrpg.Shared.Core.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using MessagePack;
 
 namespace Genrpg.Shared.Crawler.Loot.Settings
@@ -22,4 +24,9 @@ namespace Genrpg.Shared.Crawler.Loot.Settings
 
     [MessagePackObject]
     public class CrawlerLootSettingsLoader : NoChildSettingsLoader<CrawlerLootSettings> { }
+
+
+
+    [MessagePackObject]
+    public class CrawlerLootSettingsMapper : NoChildSettingsMapper<CrawlerLootSettings> { }
 }

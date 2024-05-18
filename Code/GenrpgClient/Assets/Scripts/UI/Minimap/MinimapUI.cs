@@ -17,7 +17,8 @@ public class MinimapUI : BaseBehaviour
     public GEntity ArrowObject;
 
     private CancellationToken _token;
-        
+    private IPlayerManager _playerManager;
+
     public void Init(CancellationToken token)
     {
         _token = token;
@@ -62,7 +63,7 @@ public class MinimapUI : BaseBehaviour
 
 	void MinimapUpdate()
 	{
-        GEntity player = PlayerObject.Get ();
+        GEntity player = _playerManager.GetEntity ();
         if (player == null || MapImage ==  null || MapImage.texture == null || _gs.md == null || _gs.md.GeneratingMap)
         {
             return;

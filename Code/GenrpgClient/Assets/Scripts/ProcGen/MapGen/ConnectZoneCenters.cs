@@ -12,14 +12,10 @@ using Genrpg.Shared.Utils.Data;
 
 // Use greedy algo (Kruskal's?) to connect the centers.
 
-
-
-
-
-
 public class ConnectZoneCenters : BaseZoneGenerator
 {
     protected ILineGenService _lineGenService;
+    private IAddRoadService _addRoadService;
 
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
@@ -66,13 +62,11 @@ public class ConnectZoneCenters : BaseZoneGenerator
 
         List<ConnectedPairData> roadsToMake = _lineGenService.ConnectPoints(gs, centers, rand, 0.1f);
 
-        AddRoads rs = new AddRoads();
-        gs.loc.Resolve(rs);
         foreach (ConnectedPairData rd in roadsToMake)
         {
             ConnectPointData center1 = rd.Point1;
             ConnectPointData center2 = rd.Point2;
-            rs.AddRoad(gs, (int)center1.X, (int)center1.Z, (int)center2.X, (int)center2.Z, rand.Next(), rand, true);
+            _addRoadService.AddRoad(gs, (int)center1.X, (int)center1.Z, (int)center2.X, (int)center2.Z, rand.Next(), rand, true);
 
         }
 

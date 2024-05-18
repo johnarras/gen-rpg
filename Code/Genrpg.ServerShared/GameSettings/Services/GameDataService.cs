@@ -9,6 +9,7 @@ using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.GameSettings.Settings;
 using Genrpg.Shared.Login.Messages.Login;
@@ -31,6 +32,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
     {
 
         private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
+        private Dictionary<Type, IGameSettingsMapper> _mapperObjects = null;
         protected IRepositoryService _repoService = null;
         private IGameData _gameData;
 
@@ -64,6 +66,28 @@ namespace Genrpg.ServerShared.GameSettings.Services
             await Task.CompletedTask;
         }
 
+        private async Task SetupMappers(GameState gs, IRepositoryService repoSystem, CancellationToken token)
+        {
+            if (_mapperObjects != null)
+            {
+                return;
+            }
+            List<Type> mapperTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettingsMapper));
+
+            Dictionary<Type, IGameSettingsMapper> newDict = new Dictionary<Type, IGameSettingsMapper>();
+
+            foreach (Type lt in mapperTypes)
+            {
+                if (await ReflectionUtils.CreateInstanceFromType(gs, lt, token) is IGameSettingsMapper newMapper)
+                {
+                    newDict[newMapper.GetServerType()] = newMapper;
+                }
+            }
+
+            _mapperObjects = newDict;
+            await Task.CompletedTask;
+        }
+
         public List<IGameSettingsLoader> GetAllLoaders()
         {
             return _loaderObjects.Values.OrderBy(x=>x.GetType().Name).ToList();
@@ -72,6 +96,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
         public async Task Initialize(GameState gs, CancellationToken token)
         {
             await SetupLoaders(gs, _repoService, token);
+            await SetupMappers(gs, _repoService, token);
         }
 
         public virtual List<string> GetEditorIgnoreFields()
@@ -206,7 +231,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             gameDataOverrideData.GameDataSaveTime = versionSettings.GameDataSaveTime;
             gameDataOverrideData.LastTimeSet = DateTime.UtcNow;
-            gameDataOverrideData.SetDirty(true);
+            _repoService.QueueSave(gameDataOverrideData);
 
             gameDataOverrideList.Items = new List<PlayerSettingsOverrideItem>();
 
@@ -242,9 +267,9 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             foreach (ITopLevelSettings settings in startSettings)
             {
-                if (_loaderObjects.TryGetValue(settings.GetType(), out IGameSettingsLoader loader))
+                if (_mapperObjects.TryGetValue(settings.GetType(), out IGameSettingsMapper mapper))
                 {
-                    retval.Add(loader.MapToApi(settings));
+                    retval.Add(mapper.MapToApi(settings));
                 }
                 else
                 {
@@ -262,11 +287,11 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             List<ITopLevelSettings> allData = _gameData.AllSettings();
 
-            foreach (Type t in _loaderObjects.Keys)
+            foreach (Type t in _mapperObjects.Keys)
             {
-                IGameSettingsLoader loader = _loaderObjects[t];
+                IGameSettingsMapper mapper = _mapperObjects[t];
 
-                if (!loader.SendToClient())
+                if (!mapper.SendToClient())
                 {
                     continue;
                 }
@@ -289,7 +314,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 if (clientCache != null && docName == GameDataConstants.DefaultFilename &&
                     currData != null && currData is IUpdateData updateData)
                 {
-                    ClientCachedGameSettings clientCachedItem = clientCache.FirstOrDefault(x => x.TypeName == loader.GetServerType().Name);
+                    ClientCachedGameSettings clientCachedItem = clientCache.FirstOrDefault(x => x.TypeName == mapper.GetServerType().Name);
 
                     if (clientCachedItem != null && clientCachedItem.ClientSaveTime >= updateData.UpdateTime)
                     {
@@ -297,7 +322,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                     }
 
                 }
-                retval.Add(loader.MapToApi(currData));
+                retval.Add(mapper.MapToApi(currData));
             }
             return retval;
         }

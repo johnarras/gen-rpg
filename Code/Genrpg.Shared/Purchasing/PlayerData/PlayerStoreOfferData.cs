@@ -1,9 +1,11 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 using MessagePack;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Genrpg.Shared.Purchasing.PlayerData
@@ -38,7 +40,6 @@ namespace Genrpg.Shared.Purchasing.PlayerData
     [MessagePackObject]
     public class CurrentStoresLoader : UnitDataLoader<PlayerStoreOfferData>
     {
-        public override bool SendToClient() { return false; }
         protected override bool IsUserData() { return true; }
     }
 
@@ -53,5 +54,11 @@ namespace Genrpg.Shared.Purchasing.PlayerData
         [Key(2)] public DateTime LastTimeSet { get; set; } = DateTime.MinValue;
 
         [Key(3)] public List<PlayerStoreOffer> StoreOffers { get; set; } = new List<PlayerStoreOffer>();
+    }
+
+    [MessagePackObject]
+    public class PlayerStoreOfferDataMapper : UnitDataMapper<PlayerStoreOfferData>
+    {
+        public override bool SendToClient() { return false; }
     }
 }

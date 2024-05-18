@@ -1,5 +1,7 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Purchasing.Settings;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -27,5 +29,8 @@ namespace Genrpg.Shared.Stats.Settings.DerivedStats
     [MessagePackObject]
     public class DerivedStatSettingsApi : ParentSettingsApi<DerivedStatSettings, DerivedStat> { }
     [MessagePackObject]
-    public class DerivedStatSettingLoader : ParentSettingsLoader<DerivedStatSettings, DerivedStat, DerivedStatSettingsApi> { }
+    public class DerivedStatSettingLoader : ParentSettingsLoader<DerivedStatSettings, DerivedStat> { }
+
+    [MessagePackObject]
+    public class DerivedStatSettingsMapper : ParentSettingsMapper<DerivedStatSettings, DerivedStat, DerivedStatSettingsApi> { }
 }

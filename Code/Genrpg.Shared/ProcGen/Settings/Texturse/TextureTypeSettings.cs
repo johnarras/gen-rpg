@@ -1,5 +1,6 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System;
@@ -38,6 +39,10 @@ namespace Genrpg.Shared.ProcGen.Settings.Texturse
     [MessagePackObject]
     public class TextureTypeSettingsApi : ParentSettingsApi<TextureTypeSettings, TextureType> { }
     [MessagePackObject]
-    public class TextureTypeSettingsLoader : ParentSettingsLoader<TextureTypeSettings, TextureType, TextureTypeSettingsApi> { }
+    public class TextureTypeSettingsLoader : ParentSettingsLoader<TextureTypeSettings, TextureType> { }
+
+    [MessagePackObject]
+    public class TextureSettingsMapper : ParentSettingsMapper<TextureTypeSettings, TextureType, TextureTypeSettingsApi> { }
+
 
 }

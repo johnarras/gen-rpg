@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Purchasing.Settings;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -37,5 +39,8 @@ namespace Genrpg.Shared.Spells.Settings.DamageTypes
     [MessagePackObject]
     public class DamageSettingsApi : ParentSettingsApi<DamageSettings, Damage> { }
     [MessagePackObject]
-    public class DamageSettingsLoader : ParentSettingsLoader<DamageSettings, Damage, DamageSettingsApi> { }
+    public class DamageSettingsLoader : ParentSettingsLoader<DamageSettings, Damage> { }
+
+    [MessagePackObject]
+    public class DamageSettingsMapper : ParentSettingsMapper<DamageSettings, Damage, DamageSettingsApi> { }
 }

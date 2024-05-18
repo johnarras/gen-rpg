@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Pathfinding.Constants;
 using Genrpg.Shared.Pathfinding.Entities;
@@ -12,17 +13,22 @@ using UnityEngine;
 
 namespace Assets.Scripts.Pathfinding.Utils
 {
-    public static class ClientPathfindingUtils
+    public interface IClientPathfindingUtils : IInjectable
+    {
+        UniTask ShowPath(UnityGameState _gs, WaypointList list, CancellationToken token);
+    }
+
+    public class ClientPathfindingUtils : IClientPathfindingUtils
     {
 
-        public static async UniTask ShowPath(UnityGameState _gs, WaypointList list, CancellationToken token)
+        private bool _showPath = false;
+        private IMapTerrainManager _terrainManager;
+        private IAssetService _assetService;
+        public async UniTask ShowPath(UnityGameState _gs, WaypointList list, CancellationToken token)
         {
-
-            IMapTerrainManager _terrainManager = _gs.loc.Get<IMapTerrainManager>();
-            IAssetService _assetService = _gs.loc.Get<IAssetService>();
-            ILogService logService = _gs.loc.Get<ILogService>();
+            
             StringBuilder sb = new StringBuilder();
-            if (true || list.Waypoints.Count > 2)
+            if (_showPath)
             {
                 List<Waypoint> dupeList = new List<Waypoint>(list.Waypoints);
                 List<GameObject> pathObjects = new List<GameObject>();
@@ -34,12 +40,12 @@ namespace Assets.Scripts.Pathfinding.Utils
                     GameObject sph = GameObject.Instantiate<GameObject>(basePathSphere);
                     float height = _terrainManager.SampleHeight(_gs, wp.X, wp.Z);
                     sph.transform.position = new Vector3(wp.X, height + 0.5f, wp.Z);
-                    sb.Append("WP: " + wp.X + " " + wp.Z + "\n");
+                    //sb.Append("WP: " + wp.X + " " + wp.Z + "\n");
                     pathObjects.Add(sph);
                     await UniTask.NextFrame();
                 }
 
-                logService.Info("Path:\n" + sb.ToString());
+                //logService.Info("Path:\n" + sb.ToString());
                 DelayDestroyObjects(pathObjects).Forget();
             }
         }
@@ -47,7 +53,7 @@ namespace Assets.Scripts.Pathfinding.Utils
 
 
 
-        private static async UniTask DelayDestroyObjects(List<GameObject> objs)
+        private async UniTask DelayDestroyObjects(List<GameObject> objs)
         {
             await UniTask.Delay(3000);
             foreach (GameObject obj in objs)

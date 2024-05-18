@@ -254,9 +254,9 @@ namespace Genrpg.Shared.Crafting.Services
                 statValDouble *= levelStatAmount * qualityStatScale;
 
                 // now it's scaled relative to all of these factors, add 0.5f to round and then set this as the return value.
-                Stat stat = new Stat()
+                CraftingStat stat = new CraftingStat()
                 {
-                    Id = (short)key,
+                    Id = (short)statType.IdKey,
                 };
                 stat.Val = (int)Math.Ceiling(statValDouble);
                 stats.Stats.Add(stat);

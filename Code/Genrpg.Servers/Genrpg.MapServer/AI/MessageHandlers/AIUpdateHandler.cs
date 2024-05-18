@@ -11,6 +11,7 @@ using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.AI.Settings;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.AI.MessageHandlers
 {

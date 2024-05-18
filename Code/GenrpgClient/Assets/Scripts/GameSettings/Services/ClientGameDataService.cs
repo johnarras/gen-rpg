@@ -12,6 +12,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Assets.Scripts.GameSettings.Services
 {
@@ -21,18 +22,18 @@ namespace Assets.Scripts.GameSettings.Services
         private IRepositoryService _repoService;
         protected IGameData _gameData;
 
-        private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
+        private Dictionary<Type, IGameSettingsMapper> _loaderObjects = null;
 
         public async Task Initialize(GameState gs, CancellationToken token)
         {
-            List<Type> loaderTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettingsLoader));
+            List<Type> mapperTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettingsMapper));
 
-            Dictionary<Type, IGameSettingsLoader> newList = new Dictionary<Type, IGameSettingsLoader>();
-            foreach (Type lt in loaderTypes)
+            Dictionary<Type, IGameSettingsMapper> newList = new Dictionary<Type, IGameSettingsMapper>();
+            foreach (Type lt in mapperTypes)
             {
-                if (Activator.CreateInstance(lt) is IGameSettingsLoader newLoader && newLoader.SendToClient())
+                if (Activator.CreateInstance(lt) is IGameSettingsMapper newLoader && newLoader.SendToClient())
                 {
-                    newList[newLoader.GetClientType()] = newLoader;
+                    newList[newLoader.GetServerType()] = newLoader;
                 }
             }
             _loaderObjects = newList;
@@ -44,9 +45,9 @@ namespace Assets.Scripts.GameSettings.Services
             ClientRepositoryService repo = _repoService as ClientRepositoryService;
 
             List<ITopLevelSettings> allSettings = new List<ITopLevelSettings>();
-            foreach (IGameSettingsLoader loader in _loaderObjects.Values)
+            foreach (IGameSettingsMapper loader in _loaderObjects.Values)
             {
-                object obj = await repo.LoadWithType(loader.GetClientType(), GameDataConstants.DefaultFilename);
+                object obj = await repo.LoadWithType(loader.GetServerType(), GameDataConstants.DefaultFilename);
                 if (obj is ITopLevelSettings settings)
                 {
                     allSettings.Add(settings);

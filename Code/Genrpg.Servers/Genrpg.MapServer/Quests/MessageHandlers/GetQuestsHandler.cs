@@ -11,6 +11,7 @@ using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Quests.Messages;
 using Genrpg.Shared.Quests.WorldData;
 using Genrpg.Shared.Quests.MapObjectAddons;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.Quests.MessageHandlers
 {

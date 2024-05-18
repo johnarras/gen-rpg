@@ -13,13 +13,15 @@ namespace Genrpg.Shared.DataStores.PlayerData
         public string Id { get; set; }
         public virtual void AddTo(Unit unit) { unit.Set(this); }
 
-        public void Delete(IRepositoryService repoSystem) { }
-        public void Save(IRepositoryService repoSystem, bool saveClean) { }
+        public void Delete() { }
+        public void Save() { }
 
-        private bool _isDirty = false;
-        public void SetDirty(bool val) { _isDirty = val; }
-        public bool IsDirty() { return _isDirty; }
         public virtual List<IUnitData> GetChildren() { return new List<IUnitData>(); }
+
+        public virtual void SetRepo(IRepositoryService repoService)
+        {
+
+        }
 
         public List<BasePlayerData> GetSaveObjects(bool saveClean)
         {

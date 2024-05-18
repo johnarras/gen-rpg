@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -51,6 +53,9 @@ namespace Genrpg.Shared.Inventory.Settings.Slots
     [MessagePackObject]
     public class EquipSlotSettingsApi : ParentSettingsApi<EquipSlotSettings, EquipSlot> { }
     [MessagePackObject]
-    public class EquipSlotSettingsLoader : ParentSettingsLoader<EquipSlotSettings, EquipSlot, EquipSlotSettingsApi> { }
+    public class EquipSlotSettingsLoader : ParentSettingsLoader<EquipSlotSettings, EquipSlot> { }
+
+    [MessagePackObject]
+    public class EquipSlotSettingsMapper : ParentSettingsMapper<EquipSlotSettings, EquipSlot, EquipSlotSettingsApi> { }
 
 }

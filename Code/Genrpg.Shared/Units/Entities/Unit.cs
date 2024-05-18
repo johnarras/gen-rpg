@@ -17,6 +17,8 @@ using Genrpg.Shared.Spells.Interfaces;
 using MessagePack;
 using Genrpg.Shared.Utils.Data;
 using Newtonsoft.Json;
+using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Units.Constants;
 
 namespace Genrpg.Shared.Units.Entities
 {
@@ -68,6 +70,11 @@ namespace Genrpg.Shared.Units.Entities
         private int _flags = 0;
 
         public DateTime GlobalCooldownEnds = DateTime.UtcNow;
+
+
+        public Unit(IRepositoryService repositoryService) : base(repositoryService) { }
+
+
         public override void Dispose()
         {
             base.Dispose();
@@ -79,7 +86,6 @@ namespace Genrpg.Shared.Units.Entities
             Loot?.Clear();
             SkillLoot?.Clear();
             _dataDict.Clear();
-            Stats.Dispose();
         }
 
         virtual public string GetGroupId() { return null; }
@@ -105,11 +111,20 @@ namespace Genrpg.Shared.Units.Entities
         public void RemoveAttacker(string attackerId)
         {
             _attackers = _attackers.Where(x => x.AttackerId != attackerId).ToList();
+            if (string.IsNullOrEmpty(TargetId) && _attackers.Count < 1)
+            {
+                RemoveFlag(UnitFlags.DidStartCombat);
+            }
         }
 
-        public void ClearAttackers()
+        public void ClearAttackers(ILogService _logService)
         {
+            if (_attackers.Count > 5)
+            {
+                _logService.Message("AttackerCount: " + _attackers.Count);
+            }
             _attackers.Clear();
+            RemoveFlag(UnitFlags.DidStartCombat);
         }
 
         public List<AttackerInfo> GetAttackers()
@@ -201,7 +216,7 @@ namespace Genrpg.Shared.Units.Entities
 
             if (!IsPlayer())
             {
-                _dataDict[t] = (T)Activator.CreateInstance(typeof(T));
+                Set((T)Activator.CreateInstance(typeof(T)));
                 return (T)_dataDict[t];
             }
 
@@ -212,13 +227,14 @@ namespace Genrpg.Shared.Units.Entities
         public virtual void Set<T>(T obj) where T : IUnitData
         {
             _dataDict[obj.GetType()] = obj;
+            obj.SetRepo(_repoService);
         }
 
         public virtual void Delete<T>(IRepositoryService repoSystem) where T : class, IUnitData, new() { }
 
         public virtual Dictionary<Type, IUnitData> GetAllData() { return new Dictionary<Type, IUnitData>(); }
 
-        public virtual void SaveAll(IRepositoryService repoSystem, bool saveClean)
+        public virtual void SaveData(bool saveAll)
         {
         }
 

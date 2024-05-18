@@ -9,6 +9,8 @@ using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.Currencies.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Input.Settings
 {
@@ -32,6 +34,10 @@ namespace Genrpg.Shared.Input.Settings
     [MessagePackObject]
     public class KeyCommSettingsApi : ParentSettingsApi<KeyCommSettings, KeyCommSetting> { }
     [MessagePackObject]
-    public class KeyCommSettingsLoader : ParentSettingsLoader<KeyCommSettings, KeyCommSetting, KeyCommSettingsApi> { }
+    public class KeyCommSettingsLoader : ParentSettingsLoader<KeyCommSettings, KeyCommSetting> { }
+
+    [MessagePackObject]
+    public class KeyCommSettingsMapper : ParentSettingsMapper<KeyCommSettings, KeyCommSetting, KeyCommSettingsApi> { }
+
 
 }

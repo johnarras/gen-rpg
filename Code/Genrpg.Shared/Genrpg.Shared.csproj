@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Spells\Services\" />
+    <Folder Include="Spells\Loaders\" />
   </ItemGroup>
 
 </Project>

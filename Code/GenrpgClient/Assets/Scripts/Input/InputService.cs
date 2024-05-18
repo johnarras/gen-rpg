@@ -46,7 +46,8 @@ public interface IInputService : IInitializable
 public class InputService : BaseBehaviour, IInputService
 {
 
-    private ICameraController _cameraController = null;
+    private ICameraController _cameraController;
+    private IPlayerManager _playerManager;
 
     IClientMapObjectManager _objectManager;
 
@@ -307,7 +308,7 @@ public class InputService : BaseBehaviour, IInputService
 
         if (playerObject == null)
         {
-            playerObject = PlayerObject.Get();
+            playerObject = _playerManager.GetEntity();
         }
 
         ray = mainCam.ScreenPointToRay(Input.mousePosition);
@@ -385,7 +386,7 @@ public class InputService : BaseBehaviour, IInputService
             if (screens != null && screens.Count > 0)
             {
                 _screenService.CloseAll(_gs);
-                if (PlayerObject.Get() != null)
+                if (_playerManager.GetEntity() != null)
                 {
                     return;
                 }
@@ -450,11 +451,10 @@ public class InputService : BaseBehaviour, IInputService
 
     private void UpdateMovementInputs()
     {
-        if (PlayerController.Instance == null)
+        if (!_playerManager.Exists())
         {
             return;
         }
-
         if (EditingText())
         {
             return;
@@ -462,11 +462,11 @@ public class InputService : BaseBehaviour, IInputService
 
         foreach (string kc in _moveInputsToCheck)
         {
-            PlayerController.Instance.SetKeyPercent(kc, KeyIsDown(_gs, kc) ? 1 : 0);
+            _playerManager.SetKeyPercent(kc, KeyIsDown(_gs, kc) ? 1 : 0);
         }
         if (MouseIsDown(0) && MouseIsDown(1))
         {
-            PlayerController.Instance.SetKeyPercent(KeyComm.Forward, 1.0f);
+            _playerManager.SetKeyPercent(KeyComm.Forward, 1.0f);
         }
     }
 
@@ -474,10 +474,7 @@ public class InputService : BaseBehaviour, IInputService
     {
         if (KeyPressNow(_gs, KeyComm.TargetNext) || forceTarget)
         {
-            if (PlayerController.Instance != null)
-            {
-                PlayerController.Instance.TargetNext(_gs);
-            }
+            _playerManager.TargetNext();
         }
     }
 
@@ -498,7 +495,7 @@ public class InputService : BaseBehaviour, IInputService
 
         _currActionIndexes.Clear();
 
-        if (PlayerController.Instance == null || PlayerController.Instance.GetUnit() == null)
+        if (!_playerManager.Exists())
         {
             return;
         }
@@ -541,21 +538,22 @@ public class InputService : BaseBehaviour, IInputService
 
         Spell spell = _gs.ch.Get<SpellData>().Get(actionKey.SpellId);
 
-        Unit MapUnit = PlayerController.Instance.GetUnit();
-
         if (spell == null)
         {
             return;
         }
-
-
+       
+        if (!_playerManager.TryGetUnit(out Unit playerUnit))
+        {
+            return;
+        }
 
         SkillType skillType = _gameData.Get<SkillTypeSettings>(base._gs.ch).Get(spell.Effects.FirstOrDefault()?.SkillTypeId ?? 0);
-        if (!_objectManager.GetUnit(MapUnit.TargetId, out Unit target))
+        if (!_objectManager.GetUnit(playerUnit.TargetId, out Unit target))
         {
             if (skillType.TargetTypeId == TargetTypes.Ally)
             {
-                target = MapUnit;
+                target = playerUnit;
             }
             else
             {
@@ -563,11 +561,11 @@ public class InputService : BaseBehaviour, IInputService
             }
         }
 
-        if (!SpellUtils.IsValidTarget(_gs, target, MapUnit.FactionTypeId, skillType.TargetTypeId))
+        if (!SpellUtils.IsValidTarget(_gs, target, playerUnit.FactionTypeId, skillType.TargetTypeId))
         {
             if (skillType.TargetTypeId == TargetTypes.Ally)
             {
-                target = MapUnit;
+                target = playerUnit;
             }
             else
             {

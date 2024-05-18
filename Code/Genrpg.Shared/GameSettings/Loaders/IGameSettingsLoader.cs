@@ -12,9 +12,6 @@ namespace Genrpg.Shared.GameSettings.Loaders
     {
         Task Setup(IRepositoryService repoSystem);
         Type GetServerType();
-        Type GetClientType();
-        bool SendToClient();
         Task<List<ITopLevelSettings>> LoadAll(IRepositoryService repoSystem, bool createDefaultIfMissing);
-        ITopLevelSettings MapToApi(ITopLevelSettings settings);
     }
 }

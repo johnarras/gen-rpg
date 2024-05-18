@@ -10,6 +10,7 @@ using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.Stats.Services;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.GameSettings;
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
         private ICrawlerStatService _statService;
         private ICrawlerSpellService _spellService;
         protected IGameData _gameData;
+        private IRepositoryService _repoService;
 
         public async Task Initialize(GameState gs, CancellationToken token)
         {
@@ -181,7 +183,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
                     break;
                 }
 
-                Monster monster = new Monster()
+                Monster monster = new Monster(_repoService)
                 {
                     UnitTypeId = unitType.IdKey,
                     Level = partyData.Combat.Level,

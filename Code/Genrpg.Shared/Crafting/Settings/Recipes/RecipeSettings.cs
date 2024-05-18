@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Crafting.Settings.Recipes
 {
@@ -79,5 +80,8 @@ namespace Genrpg.Shared.Crafting.Settings.Recipes
     [MessagePackObject]
     public class RecipeSettingsApi : ParentSettingsApi<RecipeSettings, RecipeType> { }
     [MessagePackObject]
-    public class RecipeSettingsLoader : ParentSettingsLoader<RecipeSettings, RecipeType, RecipeSettingsApi> { }
+    public class RecipeSettingsLoader : ParentSettingsLoader<RecipeSettings, RecipeType> { }
+
+    [MessagePackObject]
+    public class RecipeSettingsMapper : ParentSettingsMapper<RecipeSettings, RecipeType, RecipeSettingsApi> { }
 }

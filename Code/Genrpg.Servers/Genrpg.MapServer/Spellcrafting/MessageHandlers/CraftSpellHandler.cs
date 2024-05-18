@@ -5,6 +5,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.SpellCrafting.Messages;
 using Genrpg.Shared.SpellCrafting.Services;
 using Genrpg.Shared.Spells.PlayerData.Spells;
@@ -62,9 +63,8 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
             }
 
             spellData.Add(spell);
-            _repoService.Save(spell);
+            _repoService.QueueSave(spell);
             ch.AddMessage(new OnCraftSpell() { CraftedSpell = spell });
-            spell.SetDirty(true);
         }
     }
 }

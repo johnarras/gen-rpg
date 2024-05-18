@@ -17,6 +17,8 @@ public class CreateMinimap : BaseZoneGenerator
     public const int TexSize = 4096;
     public const string CreateMinimapCamera = "CreateMinimapCamera";
     private static GEntity minimapCamera = null;
+
+    
     public override async UniTask Generate (UnityGameState gs, CancellationToken token)
 	{
 
@@ -135,14 +137,14 @@ public class CreateMinimap : BaseZoneGenerator
             await UniTask.Delay(1000, cancellationToken: _token);
         }
 
-        float oldBasemapDist = 500;
+        float oldBasemapDist = 250;
         float oldPixelError = 5;
         int oldLOD = 0;
 
         foreach (Terrain terr in terrains)
         {
             oldBasemapDist = terr.basemapDistance;
-            terr.basemapDistance = 5000;
+            terr.basemapDistance = 250;
             oldPixelError = terr.heightmapPixelError;
             terr.heightmapPixelError = 3;
             oldLOD = terr.heightmapMaximumLOD;
@@ -155,7 +157,7 @@ public class CreateMinimap : BaseZoneGenerator
         await UniTask.NextFrame( cancellationToken: token);
 
 
-        WaterObjectLoader waterLoader = new WaterObjectLoader(gs);
+        BaseObjectLoader waterLoader = _terrainManager.GetLoader(MapConstants.WaterObjectOffset);
 
         int waterObjectCount = 0;
         for (int x = 0; x < gs.map.GetHwid(); x++)

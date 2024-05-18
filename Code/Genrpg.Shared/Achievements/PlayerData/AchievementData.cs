@@ -3,6 +3,7 @@ using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 
 namespace Genrpg.Shared.Achievements.PlayerData
 {
@@ -34,5 +35,9 @@ namespace Genrpg.Shared.Achievements.PlayerData
     [MessagePackObject]
     public class AchievementApi : OwnerApiList<AchievementData, AchievementStatus> { }
     [MessagePackObject]
-    public class AchievementDataLoader : OwnerIdDataLoader<AchievementData, AchievementStatus, AchievementApi> { }
+    public class AchievementDataLoader : OwnerIdDataLoader<AchievementData, AchievementStatus> { }
+
+
+    [MessagePackObject]
+    public class AchievementDataMapper : OwnerDataMapper<AchievementData, AchievementStatus, AchievementApi> { }
 }

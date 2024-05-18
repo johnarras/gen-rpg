@@ -8,6 +8,8 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Spells.Constants;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Purchasing.Settings;
 
 namespace Genrpg.Shared.Spells.Settings.Spells
 {
@@ -38,8 +40,6 @@ namespace Genrpg.Shared.Spells.Settings.Spells
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
 
         [Key(17)] public List<SpellEffect> Effects { get; set; } = new List<SpellEffect>();
-
-        public void SetDirty(bool value) { }
 
         public SpellType()
         {
@@ -73,5 +73,8 @@ namespace Genrpg.Shared.Spells.Settings.Spells
     [MessagePackObject]
     public class SpellTypeSettingsApi : ParentSettingsApi<SpellTypeSettings, SpellType> { }
     [MessagePackObject]
-    public class SpellTypeSettingsLoader : ParentSettingsLoader<SpellTypeSettings, SpellType, SpellTypeSettingsApi> { }
+    public class SpellTypeSettingsLoader : ParentSettingsLoader<SpellTypeSettings, SpellType> { }
+
+    [MessagePackObject]
+    public class SpellTypeSettingsMapper : ParentSettingsMapper<SpellTypeSettings, SpellType, SpellTypeSettingsApi> { }
 }

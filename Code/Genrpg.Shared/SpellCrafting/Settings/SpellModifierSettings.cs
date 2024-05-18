@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Purchasing.Settings;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -44,5 +46,8 @@ namespace Genrpg.Shared.SpellCrafting.Settings
     [MessagePackObject]
     public class SpellModifierSettingsApi : ParentSettingsApi<SpellModifierSettings, SpellModifier> { }
     [MessagePackObject]
-    public class SpellModifierSettingsLoader : ParentSettingsLoader<SpellModifierSettings, SpellModifier, SpellModifierSettingsApi> { }
+    public class SpellModifierSettingsLoader : ParentSettingsLoader<SpellModifierSettings, SpellModifier> { }
+
+    [MessagePackObject]
+    public class SpellModifierSettingsMapper : ParentSettingsMapper<SpellModifierSettings, SpellModifier, SpellModifierSettingsApi> { }
 }

@@ -13,6 +13,7 @@ using Genrpg.Shared.Quests.WorldData;
 using Genrpg.Shared.Spawns.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -70,13 +71,13 @@ namespace Genrpg.MapServer.Quests
                     questStatus.Tasks = new List<QuestTaskStatus>();
                 }
 
+                bool changedSomething = false;
                 foreach (QuestTask task in questStatus.Quest.Tasks)
                 {
                     if (task.TaskEntityTypeId != spawnResult.EntityTypeId || task.TaskEntityId != spawnResult.EntityId)
                     {
                         continue;
                     }
-
 
                     QuestTaskStatus taskStatus = questStatus.Tasks.FirstOrDefault(X => X.Index == task.Index);
                     if (taskStatus == null)
@@ -91,7 +92,7 @@ namespace Genrpg.MapServer.Quests
                     }
 
                     taskStatus.CurrQuantity += spawnResult.Quantity;
-                    questList.SetDirty(true);
+                    changedSomething = true;
 
 
                     if (taskStatus.CurrQuantity > task.Quantity)
@@ -101,6 +102,10 @@ namespace Genrpg.MapServer.Quests
 
                     retval.Message += questStatus.Quest.PrintTaskText(gs, ch, _gameData, task.Index) + "\n";
                     retval.Success = true;
+                }
+                if (changedSomething)
+                {
+                    _repoService.QueueSave(questStatus);
                 }
             }
             return retval;

@@ -23,6 +23,7 @@ using Genrpg.MapServer.Maps.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.MapServer.Spells;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.MapMessaging
 {
@@ -45,10 +46,6 @@ namespace Genrpg.MapServer.MapMessaging
         private int _messageQueueCount = DefaultMessageQueueCount;
 
         private CancellationToken _token;
-
-
-        private int[] _packagePoolCount; // Not quite perfect due to threading
-        private ConcurrentBag<MapMessagePackage>[] _packagePool;
 
         public async Task Initialize(GameState gs, CancellationToken token)
         {
@@ -87,18 +84,11 @@ namespace Genrpg.MapServer.MapMessaging
             _token = token;
             _startTime = DateTime.UtcNow;
 
-            _messageQueueCount = Math.Max(2, (int)(gs.map.BlockCount * 0.44));
+            _messageQueueCount = Math.Max(2, (int)(gs.map.BlockCount * 0.67));
 
             if (MapInstanceConstants.ServerTestMode)
             {
-                _messageQueueCount = 1;
-            }
-            _packagePoolSize = Math.Max(2, _messageQueueCount * 10);
-            _packagePoolCount = new int[_packagePoolSize];
-            _packagePool = new ConcurrentBag<MapMessagePackage>[_packagePoolSize];
-            for (int i = 0; i < _packagePool.Length; i++)
-            {
-                _packagePool[i] = new ConcurrentBag<MapMessagePackage>();
+                _messageQueueCount = 2;
             }
 
             _queues = new List<MapMessageQueue>();
@@ -137,6 +127,15 @@ namespace Genrpg.MapServer.MapMessaging
                          + " AI/Sec: " + aiUpdPerSec + " Cast/Sec: " + castPerSec
 
                         );
+
+                    if (MapInstanceConstants.ServerTestMode)
+                    {
+                        MapObjectCounts mapCounts = _objectManager.GetCounts();
+
+                        _logService.Message("M: " + gs.map.Id + "MapObjs IdDict: " + mapCounts.IdLookupObjectAccount + " Grid: " + mapCounts.GridObjectCount + " Char: " +
+                            mapCounts.ZoneObjectCount);
+
+                    }
                 }
             }
             catch
@@ -183,7 +182,7 @@ namespace Genrpg.MapServer.MapMessaging
 
             if (_eventHandlerDict.TryGetValue(ttype, out IMapMessageHandler handler))
             {
-                MapMessageQueue queue = _queues[StrUtils.GetIdHash(mapObject.Id) % _queues.Count];
+                MapMessageQueue queue = _queues[mapObject.GetIdHash() % _queues.Count];
 
                 queue.AddMessage(message, mapObject, handler, delaySeconds);
             }
@@ -219,35 +218,6 @@ namespace Genrpg.MapServer.MapMessaging
                     }
                 }
             }
-        }
-
-        private long _packageAddIndex = 0; // Approximate incrementing without thread-safety
-        private long _packageGetIndex = 0; // Approximate incrementing without thread-safety
-        private int _packagePoolSize = 10000;
-        public void AddPackage(MapMessagePackage package)
-        {
-
-            long index = ++_packageAddIndex % _packagePoolSize;
-
-            if (_packagePoolCount[index] > 100)
-            {
-                return;
-            }
-            package.Clear();
-            _packagePoolCount[index]++;
-            _packagePool[index].Add(package);
-        }
-
-        public MapMessagePackage GetPackage()
-        {
-            long index = ++_packageGetIndex % _packagePoolSize;
-            if (_packagePool[index].TryTake(out MapMessagePackage package))
-            {
-                _packagePoolCount[index]--;
-                return package;
-            }
-            _packagePoolCount[index] = 0;
-            return new MapMessagePackage();
         }
 
         public void SendMessageToAllPlayers(IMapApiMessage message)

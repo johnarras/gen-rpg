@@ -25,7 +25,7 @@ namespace Genrpg.LoginServer.CommandHandlers
 
             if (gs.coreCh != null && gs.coreCh.UserId == gs.user.Id)
             {
-                Character ch = new Character();
+                Character ch = new Character(_repoService);
                 CharacterUtils.CopyDataFromTo(gs.coreCh, ch);
 
                 await _playerDataService.LoadAllPlayerData(gs, gs.ch);
@@ -35,7 +35,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 {
                     if (data.Id != gs.user.Id) // Do not delete user data
                     {
-                        data.Delete(_repoService);
+                        data.Delete();
                     }
                 }
                 gs.coreCh = null;

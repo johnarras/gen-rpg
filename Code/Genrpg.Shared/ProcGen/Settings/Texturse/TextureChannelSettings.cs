@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.ProcGen.Settings.Bridges;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,10 @@ namespace Genrpg.Shared.ProcGen.Settings.Texturse
     [MessagePackObject]
     public class TextureChannelSettingsApi : ParentSettingsApi<TextureChannelSettings, TextureChannel> { }
     [MessagePackObject]
-    public class TextureChannelSettingsLoader : ParentSettingsLoader<TextureChannelSettings, TextureChannel, TextureChannelSettingsApi> { }
+    public class TextureChannelSettingsLoader : ParentSettingsLoader<TextureChannelSettings, TextureChannel> { }
+
+    [MessagePackObject]
+    public class TextureChannelSettingsMapper : ParentSettingsMapper<TextureChannelSettings, TextureChannel, TextureChannelSettingsApi> { }
+
 
 }

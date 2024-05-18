@@ -8,6 +8,8 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Purchasing.Settings;
 
 namespace Genrpg.Shared.Settings.Settings
 {
@@ -36,6 +38,9 @@ namespace Genrpg.Shared.Settings.Settings
     public class SettingsNameSettingsApi : ParentSettingsApi<SettingsNameSettings, SettingsName> { }
 
     [MessagePackObject]
-    public class SettingsNameSettingsLoader : ParentSettingsLoader<SettingsNameSettings, SettingsName, SettingsNameSettingsApi> { }
+    public class SettingsNameSettingsLoader : ParentSettingsLoader<SettingsNameSettings, SettingsName> { }
+
+    [MessagePackObject]
+    public class SettingsNameSettingsMapper : ParentSettingsMapper<SettingsNameSettings, SettingsName, SettingsNameSettingsApi> { }
 
 }

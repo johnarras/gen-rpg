@@ -15,6 +15,7 @@ using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Spells.Settings.Spells;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
@@ -30,7 +31,7 @@ namespace Genrpg.ServerShared.PlayerData
     {
         protected IRepositoryService _repoService = null;
         private Dictionary<Type, IUnitDataLoader> _loaderObjects = null;
-
+        private Dictionary<Type, IUnitDataMapper> _mapperObjects = null;
         private List<ICharacterLoadUpdater> _loadUpdateHelpers = new List<ICharacterLoadUpdater>();
 
         public async Task Initialize(GameState gs, CancellationToken token)
@@ -49,11 +50,28 @@ namespace Genrpg.ServerShared.PlayerData
                 if (await ReflectionUtils.CreateInstanceFromType(gs, lt, token) is IUnitDataLoader newLoader)
                 {
                     newList[newLoader.GetServerType()] = newLoader;
-                    loaderTasks.Add(newLoader.Setup(gs));
+                    loaderTasks.Add(newLoader.Initialize(gs, token));
                 }
             }
 
             _loaderObjects = newList;
+
+
+            List<Type> mapperTypes = ReflectionUtils.GetTypesImplementing(typeof(IUnitDataMapper));
+
+            Dictionary<Type, IUnitDataMapper> mapperDict = new Dictionary<Type, IUnitDataMapper>();
+
+            foreach (Type mt in mapperTypes)
+            {
+               if (await ReflectionUtils.CreateInstanceFromType(gs,mt,token) is IUnitDataMapper mapper)
+                {
+                    mapperDict[mapper.GetServerType()] = mapper;
+                    loaderTasks.Add(mapper.Initialize(gs, token));
+                }
+            }
+
+            _mapperObjects = mapperDict;
+
 
             List<Type> updateTypes = ReflectionUtils.GetTypesImplementing(typeof(ICharacterLoadUpdater));
             _loadUpdateHelpers = new List<ICharacterLoadUpdater>();
@@ -86,9 +104,9 @@ namespace Genrpg.ServerShared.PlayerData
             return null;
         }
 
-        public void SavePlayerData(Character ch, IRepositoryService repoSystem, bool saveClean)
+        public void SavePlayerData(Character ch, bool saveAll)
         {
-            ch?.SaveAll(repoSystem, saveClean);
+            ch?.SaveData(saveAll);
         }
 
         public async Task<List<IUnitData>> MapToClientApi(List<IUnitData> serverDataList)
@@ -97,12 +115,16 @@ namespace Genrpg.ServerShared.PlayerData
 
             foreach (IUnitData serverData in serverDataList)
             {
-                if (_loaderObjects.TryGetValue(serverData.GetType(), out IUnitDataLoader loader))
+                if (_mapperObjects.TryGetValue(serverData.GetType(), out IUnitDataMapper loader))
                 {
                     if (loader.SendToClient())
                     {
                         retval.Add(loader.MapToAPI(serverData));
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Missing mapper: " + serverData.GetType().Name);
                 }
             }
             await Task.CompletedTask;
@@ -145,6 +167,7 @@ namespace Genrpg.ServerShared.PlayerData
             if (newData == null)
             {
                 newData = loader.Create(ch);
+                _repoService.QueueSave(newData);
             }
             return newData;
         }

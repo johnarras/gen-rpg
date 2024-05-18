@@ -1,4 +1,5 @@
 ﻿using Genrpg.MapServer.MapMessaging.Interfaces;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Levels.Settings;
@@ -90,6 +91,15 @@ namespace Genrpg.MapServer.Stats
             if (baseStat > 0)
             {
                 spiritMult = 1;
+            }
+
+            if (!(unit is Character ch))
+            {
+                if (!unit.HasFlag(UnitFlags.DidStartCombat) ||
+                    unit.HasFlag(UnitFlags.Evading))
+                {
+                    spiritMult *= 25;
+                }
             }
 
             bool haveRegenRemaining = false;

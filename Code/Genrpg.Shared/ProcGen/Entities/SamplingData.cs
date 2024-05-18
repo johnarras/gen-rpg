@@ -14,5 +14,7 @@ namespace Genrpg.Shared.ProcGen.Entities
         [Key(7)] public double MinSeparation { get; set; }
         [Key(8)] public int MaxAttemptsPerItem { get; set; }
         [Key(9)] public long Seed { get; set; }
+        [Key(10)] public float NoiseAmp { get; set; } = 0.0f;
+        [Key(11)] public float NoiseFreq { get; set; } = 1.0f;
     }
 }

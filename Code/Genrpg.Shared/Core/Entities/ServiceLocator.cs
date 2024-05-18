@@ -104,7 +104,7 @@ namespace Genrpg.Shared.Core.Entities
         /// </summary>
         /// <param name="typeName">The name of the type</param>
         /// <returns>An object which may or may not be of the correct type</returns>
-        public object GetByName(string typeName)
+        private object GetByName(string typeName)
         {
             if (string.IsNullOrEmpty(typeName))
             {
@@ -151,22 +151,6 @@ namespace Genrpg.Shared.Core.Entities
             }
 
             _nameDict[type.Name] = obj;
-        }
-
-        /// <summary>
-        ///  Remove the value associated with the type given
-        /// </summary>
-        /// <typeparam name="T">The type to remove</typeparam>
-        public void Remove<T>() where T : IInjectable
-        {
-            if (_typeDict == null)
-            {
-                return;
-            }
-            if (_typeDict.ContainsKey(typeof(T)))
-            {
-                _typeDict.Remove(typeof(T));
-            }
         }
 
         public void Resolve(object obj)

@@ -9,6 +9,8 @@ using Genrpg.Shared.GameSettings.Loaders;
 using System.Linq;
 using Newtonsoft.Json;
 using Genrpg.Shared.PlayerFiltering.Settings;
+using Genrpg.Shared.Currencies.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.GameSettings.Settings
 {
@@ -72,8 +74,12 @@ namespace Genrpg.Shared.GameSettings.Settings
     }
 
     [MessagePackObject]
-    public class DataOverrideApi : ParentSettingsApi<DataOverrideSettings, DataOverrideGroup> { }
+    public class DataOverrideSettingsApi : ParentSettingsApi<DataOverrideSettings, DataOverrideGroup> { }
     [MessagePackObject]
-    public class DataOverrideLoader : ParentSettingsLoader<DataOverrideSettings, DataOverrideGroup, DataOverrideApi> { }
+    public class DataOverrideLoader : ParentSettingsLoader<DataOverrideSettings, DataOverrideGroup> { }
+
+    [MessagePackObject]
+    public class DataOverrideSettingsMapper : ParentSettingsMapper<DataOverrideSettings, DataOverrideGroup, DataOverrideSettingsApi> { }
+
 
 }

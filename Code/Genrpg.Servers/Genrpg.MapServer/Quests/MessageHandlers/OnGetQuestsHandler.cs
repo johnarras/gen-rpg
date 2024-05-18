@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Quests.Messages;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.Quests.MessageHandlers
 {

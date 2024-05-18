@@ -25,7 +25,7 @@ namespace Genrpg.LoginServer.CommandHandlers
         {
 
             gs.coreCh = await _repoService.Load<CoreCharacter>(command.CharId);
-            gs.ch = new Character();
+            gs.ch = new Character(_repoService);
             CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 
             PlayerStoreOfferData offerData = await _purchasingService.GetCurrentStores(gs, gs.user, gs.ch, true);

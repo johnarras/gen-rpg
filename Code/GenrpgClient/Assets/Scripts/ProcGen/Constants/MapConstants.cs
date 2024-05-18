@@ -9,7 +9,7 @@ public class MapConstants : SharedMapConstants
     public const string MapFilename = "MapMap.jpg";
 
     public const int LocCenterEdgeSize = TerrainPatchSize / 2;
-    public const float TerrainBlockVisibilityRadius = 2.7f; //4.0f;
+    public const float TerrainBlockVisibilityRadius = 3.4f; //4.0f;
 
     public const int MountainZoneId = 1;
     public const int OceanZoneId = 2;

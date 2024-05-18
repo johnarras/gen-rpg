@@ -7,6 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Purchasing.Settings;
 
 namespace Genrpg.Shared.UserCoins.Settings
 {
@@ -35,5 +37,8 @@ namespace Genrpg.Shared.UserCoins.Settings
     [MessagePackObject]
     public class UserCoinSettingsApi : ParentSettingsApi<UserCoinSettings, UserCoinType> { }
     [MessagePackObject]
-    public class UnitCoinSettingsLoader : ParentSettingsLoader<UserCoinSettings, UserCoinType, UserCoinSettingsApi> { }
+    public class UnitCoinSettingsLoader : ParentSettingsLoader<UserCoinSettings, UserCoinType> { }
+
+    [MessagePackObject]
+    public class UserCoinSettingsMapper : ParentSettingsMapper<UserCoinSettings, UserCoinType, UserCoinSettingsApi> { }
 }

@@ -8,6 +8,7 @@ using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Spells.Entities;
 using Newtonsoft.Json;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.Shared.Crawler.Monsters.Entities
 {
@@ -23,6 +24,9 @@ namespace Genrpg.Shared.Crawler.Monsters.Entities
 
         [JsonIgnore]
         [Key(4)] public UnitAction Action { get; set; }
+
+        public CrawlerUnit(IRepositoryService repositoryService) : base(repositoryService) { }
+
 
         public long GetAbilityLevel()
         {

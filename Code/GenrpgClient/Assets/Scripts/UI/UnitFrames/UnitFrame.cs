@@ -7,26 +7,18 @@ using GEntity = UnityEngine.GameObject;
 
 public class UnitFrame : BaseBehaviour
 {
-    
     public CoreUnitUI _unitUI;
-
-    
     public List<UnitStatBar> _statBar;
-
-    
     public CastBar _castBar;
-
-    
     public GEntity _contentRoot;
-
-    
     public ExpBar _expBar;
-
-    
     public GEntity _effectParent;
-
     private Unit _unit;
     protected UnitController _controller;
+
+    public GImage _currentTargetIcon;
+
+    private IPlayerManager _playerManager;
 
     private List<OnAddEffect> _addedEffects = new List<OnAddEffect>();
 
@@ -73,18 +65,34 @@ public class UnitFrame : BaseBehaviour
         {
             return;
         }
-        bool shouldShow = (_controller.UnitState == UnitController.CombatState || _controller.AlwaysShowHealthBar());
 
-        if (PlayerObject.GetUnit()?.TargetId == _unit.Id)
+        if (!_playerManager.TryGetUnit(out Unit unit))
+        {
+            return;
+        }
+
+        bool shouldShow = false;
+        bool showStar = false;
+
+        if (unit.TargetId == _unit.Id)
+        {
+            shouldShow = true;
+            showStar = true;
+        }
+
+        if (_unit.TargetId == unit.Id)
         {
             shouldShow = true;
         }
+
         if (_unit.HasFlag(UnitFlags.IsDead))
         {
             shouldShow = false;
+            showStar = false;
         }
 
         GEntityUtils.SetActive(_contentRoot, shouldShow);
+        GEntityUtils.SetActive(_currentTargetIcon, showStar);
     }
 
     private NewLevel OnLevelUpdate(UnityGameState gs, NewLevel newLevel)

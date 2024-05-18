@@ -12,7 +12,6 @@ namespace Genrpg.Shared.GameSettings.Loaders
     public abstract class NoChildSettingsLoader<TServer> : IGameSettingsLoader where TServer : NoChildSettings, new()
     {
         public virtual Type GetServerType() { return typeof(TServer); }
-        public virtual Type GetClientType() { return typeof(TServer); }
         public virtual bool SendToClient() { return true; }
 
         public virtual async Task Setup(IRepositoryService repoSystem)

@@ -1,5 +1,6 @@
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Stats.Entities;
@@ -20,11 +21,13 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(2)] public List<Item> Equipment { get; set; } = new List<Item>();
 
-        [Key(3)] public List<Stat> PermStats { get; set; } = new List<Stat>();
+        [Key(3)] public List<MemberStat> PermStats { get; set; } = new List<MemberStat>();
 
         [Key(4)] public long Exp { get; set; }
 
         [Key(5)] public List<PartySummon> Summons { get; set; } = new List<PartySummon>();
+
+        public PartyMember(IRepositoryService repositoryService) : base(repositoryService) { }  
 
         public override bool IsPlayer() { return true; }
 
@@ -35,21 +38,21 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         public void SetPermStat(long statTypeId, long val)
         {
-            Stat stat = GetPermStatObject(statTypeId);
+            MemberStat stat = GetPermStatObject(statTypeId);
 
             stat.Val = (int)val;
         }
 
         public void AddPermStat(long statTypeId, long val)
         {
-            Stat stat = GetPermStatObject(statTypeId);
+            MemberStat stat = GetPermStatObject(statTypeId);
 
             stat.Val += (int)val;
         }
 
-        private Stat GetPermStatObject(long statTypeId)
+        private MemberStat GetPermStatObject(long statTypeId)
         {
-            Stat stat = PermStats.FirstOrDefault(x => x.Id == statTypeId);
+            MemberStat stat = PermStats.FirstOrDefault(x => x.Id == statTypeId);
 
             if (stat == null)
             {
@@ -59,8 +62,8 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
                     if (stat == null)
                     {
-                        stat = new Stat() { Id = (short)statTypeId };
-                        List<Stat> temp = new List<Stat>(PermStats);
+                        stat = new MemberStat() { Id = (short)statTypeId };
+                        List<MemberStat> temp = new List<MemberStat>(PermStats);
                         temp.Add(stat);
                         PermStats = temp;
                     }
@@ -74,6 +77,13 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         {
             return Equipment.FirstOrDefault(x=>x.EquipSlotId == equipSlotId);
         }
-
     }
+
+    [MessagePackObject]
+    public class MemberStat
+    {
+        [Key(0)] public short Id { get; set; }
+        [Key(1)] public int Val { get; set; }
+    }
+
 }

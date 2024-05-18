@@ -12,6 +12,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 
 namespace Genrpg.Shared.Inventory.PlayerData
 {
@@ -29,16 +30,29 @@ namespace Genrpg.Shared.Inventory.PlayerData
         {
             _equipment = data.Where(x => x.EquipSlotId > 0).ToList();
             _inventory = data.Where(x => x.EquipSlotId == 0).ToList();
+            SetChildRepos();
+        }
+
+        public override void SetRepo(IRepositoryService repoService)
+        {
+            base.SetRepo(repoService);
+            SetChildRepos();
         }
 
         public void SetInvenEquip(List<Item> inventory, List<Item> equipment)
         {
             _inventory = inventory;
             _equipment = equipment;
+            SetChildRepos();
         }
 
+        protected void SetChildRepos()
+        {
+            _inventory.ForEach(x => x.SetRepo(_repoService));
+            _equipment.ForEach(x => x.SetRepo(_repoService));
+        }
 
-        public override List<Item> GetData()
+        public override IReadOnlyList<Item> GetData()
         {
             return _inventory.Concat(_equipment).ToList();
         }
@@ -115,5 +129,8 @@ namespace Genrpg.Shared.Inventory.PlayerData
 
     }
     [MessagePackObject]
-    public class InventoryDataLoader : OwnerDataLoader<InventoryData, Item, InventoryApi> { }
+    public class InventoryDataLoader : OwnerDataLoader<InventoryData, Item> { }
+
+    [MessagePackObject]
+    public class InventoryDataMapper : OwnerDataMapper<InventoryData, Item, InventoryApi> { }
 }

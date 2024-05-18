@@ -1,5 +1,7 @@
+using Genrpg.Shared.Core.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using MessagePack;
 using System.Security;
 
@@ -45,4 +47,9 @@ namespace Genrpg.Shared.Crawler.Training.Settings
 
     [MessagePackObject]
     public class CrawlerTrainingSettingsLoader : NoChildSettingsLoader<CrawlerTrainingSettings> { }
+
+
+
+    [MessagePackObject]
+    public class CrawlerTrainingSettingsMapper : NoChildSettingsMapper<CrawlerTrainingSettings> { }
 }

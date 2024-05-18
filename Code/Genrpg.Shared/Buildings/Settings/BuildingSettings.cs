@@ -8,6 +8,8 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Vendors.WorldData;
+using Genrpg.Shared.Achievements.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Buildings.Settings
 {
@@ -38,6 +40,8 @@ namespace Genrpg.Shared.Buildings.Settings
     public class BuildingSettingsApi : ParentSettingsApi<BuildingSettings, BuildingType> { }
 
     [MessagePackObject]
-    public class BuildingSettingsLoader : ParentSettingsLoader<BuildingSettings, BuildingType, BuildingSettingsApi> { }
+    public class BuildingSettingsLoader : ParentSettingsLoader<BuildingSettings, BuildingType> { }
 
+    [MessagePackObject]
+    public class BuildingSettingsMapper : ParentSettingsMapper<BuildingSettings, BuildingType, BuildingSettingsApi> { }
 }

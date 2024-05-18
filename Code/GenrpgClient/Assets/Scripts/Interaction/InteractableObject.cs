@@ -18,6 +18,7 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
     public const string InteractGlow = "InteractGlow";
     protected GEntity GlowItem = null;
     CancellationToken _token;
+    protected IPlayerManager _playerManager;
 
     public virtual void Init(MapObject worldObj, GEntity go, CancellationToken token)
     {
@@ -105,7 +106,7 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
 
     public virtual bool CanInteract()
     {
-        GEntity go = PlayerObject.Get();
+        GEntity go = _playerManager.GetEntity();
         if (go == null)
         {
             return false;

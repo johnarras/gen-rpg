@@ -36,6 +36,7 @@ public interface IClientMapObjectManager : IInitializable, IMapTokenService
 public class ClientMapObjectManager : IClientMapObjectManager
 {
     private IRealtimeNetworkService _networkService;
+    private IPlayerManager _playerManager;
 
     private List<UnitController> _controllers = new List<UnitController>();
     private Dictionary<long, IMapObjectFactory> _factories = new Dictionary<long, IMapObjectFactory>();
@@ -188,11 +189,11 @@ public class ClientMapObjectManager : IClientMapObjectManager
     protected void FrameUpdate(CancellationToken token)
     {
         _removeUnitList.Clear();
-        if (PlayerObject.Get() == null)
+        if (_playerManager.GetEntity() == null)
         {        
             return;
         }
-        GVector3 playerPos = GVector3.Create(PlayerObject.Get().transform().position);
+        GVector3 playerPos = GVector3.Create(_playerManager.GetEntity().transform().position);
         foreach (UnitController controller in _controllers)
         {
             if (controller != null)

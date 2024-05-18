@@ -74,24 +74,24 @@ namespace Genrpg.LoginServer.CommandHandlers
                 }
             }
 
-            CoreCharacter newCoreChar = await _repoService.Load<CoreCharacter>(command.CharId);
-            if (newCoreChar == null)
+            CoreCharacter coreChar = await _repoService.Load<CoreCharacter>(command.CharId);
+            if (coreChar == null)
             {
                 ShowError(gs, "Couldn't find new character to load " + command.CharId);
                 return;
             }
 
-            if (newCoreChar.UserId != gs.user.Id)
+            if (coreChar.UserId != gs.user.Id)
             {
                 ShowError(gs, "You don't own this character");
                 return;
             }
 
-            gs.coreCh = newCoreChar;
+            gs.coreCh = coreChar;
             gs.coreCh.X = fullCachedMap.Map.SpawnX + 5;
             gs.coreCh.Z = fullCachedMap.Map.SpawnY + 5;            
 
-            gs.ch = new Character();
+            gs.ch = new Character(_repoService);
             CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 
             List<IUnitData> serverDataList = await _playerDataService.LoadAllPlayerData(gs, gs.ch);
@@ -114,7 +114,7 @@ namespace Genrpg.LoginServer.CommandHandlers
             {
                 Map = SerializationUtils.ConvertType<Map, Map>(fullCachedMap.Map),
                 Generating = command.GenerateMap,
-                Char = SerializationUtils.ConvertType<Character, Character>(gs.ch),
+                Char = coreChar,
                 Host = fullCachedMap.MapInstance?.Host,
                 Port = fullCachedMap.MapInstance?.Port ?? 0,
                 Serializer = EMapApiSerializers.MessagePack,

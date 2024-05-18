@@ -62,9 +62,12 @@ namespace Genrpg.MapServer.Services.Maps
             {
                 if (int.TryParse(stub.Id, out int mapStubId))
                 {
-                    if (MapInstanceConstants.ServerTestMode && mapStubId != 1)
+                    if (MapInstanceConstants.ServerTestMode)
                     {
-                        continue;
+                        if (mapStubId != 1)
+                        {
+                            continue;
+                        }
                     }
                     if (mapStubId % _mapServerCount == _mapServerIndex)
                     {

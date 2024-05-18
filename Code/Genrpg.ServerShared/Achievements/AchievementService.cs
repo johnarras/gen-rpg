@@ -4,6 +4,7 @@ using Genrpg.Shared.Achievements.PlayerData;
 using Genrpg.Shared.Achievements.Settings;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
@@ -19,6 +20,7 @@ namespace Genrpg.ServerShared.Achievements
     public class AchievementService : IAchievementService
     {
         private IGameData _gameData;
+        private IRepositoryService _repoService;
         public async Task Initialize(GameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
@@ -40,7 +42,7 @@ namespace Genrpg.ServerShared.Achievements
                 if (quantity > status.Quantity)
                 {
                     status.Quantity = quantity;
-                    status.SetDirty(true);
+                    _repoService.QueueSave(status);
                     ch.AddMessage(new OnUpdateAchievement() { AchievementTypeId = (int)status.IdKey, Quantity = quantity });
                     // Send to clients
                 }
@@ -48,7 +50,7 @@ namespace Genrpg.ServerShared.Achievements
             else
             {
                 status.Quantity += quantity;
-                status.SetDirty(true);
+                _repoService.QueueSave(status);
                 ch.AddMessage(new OnUpdateAchievement() { AchievementTypeId = (int)status.IdKey, Quantity = quantity });
                 // Send to client
             }

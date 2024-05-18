@@ -13,40 +13,40 @@ namespace Genrpg.Shared.DataStores.PlayerData
 {
     public abstract class OwnerObjectList<TChild> : BasePlayerData, ITopLevelUnitData where TChild : OwnerPlayerData
     {
-        public abstract void SetData(List<TChild> data);
-        public abstract List<TChild> GetData();
-
-        public override void Save(IRepositoryService repoSystem, bool saveClean)
+        protected List<TChild> _data = new List<TChild>();
+        public virtual void SetData(List<TChild> data)
         {
-            base.Save(repoSystem, saveClean);
+            _data = data;
+            _data.ForEach(x => x.SetRepo(_repoService));
+        }
+
+        public override void SetRepo(IRepositoryService repoService)
+        {
+            base.SetRepo(repoService);
+            _data.ForEach(x=>x.SetRepo(_repoService));
+        }
+
+        public virtual IReadOnlyList<TChild> GetData()
+        {
+            return _data;
+        }
+
+        public override void Save()
+        {
+            base.Save();
 
             foreach (TChild child in GetData())
             {
-                child.Save(repoSystem, saveClean);
+                child.Save();
             }
         }
 
-        public override List<BasePlayerData> GetSaveObjects(bool saveClean)
+        public override void Delete()
         {
-            List<BasePlayerData> retval = new List<BasePlayerData>();
-
-            retval.AddRange(base.GetSaveObjects(saveClean));
-
+            base.Delete();
             foreach (TChild child in GetData())
             {
-                retval.AddRange(child.GetSaveObjects(saveClean));
-            }
-
-            return retval;
-        }
-
-
-        public override void Delete(IRepositoryService repoSystem)
-        {
-            base.Delete(repoSystem);
-            foreach (TChild child in GetData())
-            {
-                child.Delete(repoSystem);
+                child.Delete();
             }
         }
 

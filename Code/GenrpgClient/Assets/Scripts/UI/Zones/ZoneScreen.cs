@@ -15,6 +15,7 @@ public class ZoneScreen : BaseScreen
     public GEntity ArrowParent;
 
     protected GEntity ArrowObject;
+    private IPlayerManager _playerManager;
 
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
@@ -64,7 +65,7 @@ public class ZoneScreen : BaseScreen
         }
 
         // Show player on map with arrow.
-        GEntity player = PlayerObject.Get();
+        GEntity player = _playerManager.GetEntity();
         if (player == null)
         {
             return;

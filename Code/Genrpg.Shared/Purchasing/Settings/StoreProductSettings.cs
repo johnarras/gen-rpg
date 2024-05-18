@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Spawns.Settings;
 using MessagePack;
 using System.Collections.Generic;
@@ -16,7 +18,12 @@ namespace Genrpg.Shared.Purchasing.Settings
     [MessagePackObject]
     public class StoreProductSettingsApi : ParentSettingsApi<StoreProductSettings, StoreProduct> { }
     [MessagePackObject]
-    public class StoreProductSettingsLoader : ParentSettingsLoader<StoreProductSettings, StoreProduct, StoreProductSettingsApi> 
+    public class StoreProductSettingsLoader : ParentSettingsLoader<StoreProductSettings, StoreProduct> 
+    {
+    }
+
+    [MessagePackObject]
+    public class StoreProductSettingsMapper : ParentSettingsMapper<StoreProductSettings, StoreProduct, StoreProductSettingsApi>
     {
         public override bool SendToClient() { return false; }
     }

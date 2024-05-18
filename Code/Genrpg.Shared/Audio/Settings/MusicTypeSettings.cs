@@ -1,5 +1,7 @@
+using Genrpg.Shared.Achievements.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System;
@@ -31,7 +33,10 @@ namespace Genrpg.Shared.Audio.Settings
     [MessagePackObject]
     public class MusicTypeSettingsApi : ParentSettingsApi<MusicTypeSettings, MusicType> { }
     [MessagePackObject]
-    public class MusicTypeSettingsLoader : ParentSettingsLoader<MusicTypeSettings, MusicType, MusicTypeSettingsApi> { }
+    public class MusicTypeSettingsLoader : ParentSettingsLoader<MusicTypeSettings, MusicType> { }
+
+    [MessagePackObject]
+    public class MusicSettingsMapper : ParentSettingsMapper<MusicTypeSettings, MusicType, MusicTypeSettingsApi> { }
 
 
 }

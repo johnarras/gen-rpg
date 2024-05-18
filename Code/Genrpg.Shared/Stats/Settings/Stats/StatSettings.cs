@@ -9,6 +9,8 @@ using Genrpg.Shared.GameSettings.Loaders;
 using System.Linq;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Purchasing.Settings;
 
 namespace Genrpg.Shared.Stats.Settings.Stats
 {/// <summary>
@@ -51,5 +53,8 @@ namespace Genrpg.Shared.Stats.Settings.Stats
     [MessagePackObject]
     public class StatSettingsApi : ParentSettingsApi<StatSettings, StatType> { }
     [MessagePackObject]
-    public class StatSettingsLoader : ParentSettingsLoader<StatSettings, StatType, StatSettingsApi> { }
+    public class StatSettingsLoader : ParentSettingsLoader<StatSettings, StatType> { }
+
+    [MessagePackObject]
+    public class StatSettingsMapper : ParentSettingsMapper<StatSettings, StatType, StatSettingsApi> { }
 }

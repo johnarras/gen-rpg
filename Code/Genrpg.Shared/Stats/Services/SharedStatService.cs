@@ -10,7 +10,7 @@ using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Interfaces;
-using Genrpg.Shared.Spells.PlayerData.Abilties;
+using Genrpg.Shared.Spells.PlayerData;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
@@ -212,11 +212,11 @@ namespace Genrpg.Shared.Stats.Services
 
                 AbilityData abilityData = ch.Get<AbilityData>();
                 // Now add effects from skills and elements.
-                List<AbilityRank> abilities = abilityData.GetData();
+                IReadOnlyList<AbilityRank> abilities = abilityData.GetData();
 
                 foreach (AbilityRank ab in abilities)
                 {
-                    if (ab.Rank <= AbilityData.DefaultRank)
+                    if (ab.Rank <= AbilityConstants.DefaultRank)
                     {
                         continue;
                     }
@@ -241,9 +241,9 @@ namespace Genrpg.Shared.Stats.Services
 
             if (unit.StatPct != 0 && unit.StatPct != 100)
             {
-                foreach (Stat stat in unit.Stats.GetAllBaseStats())
-                {
-                    Set(gs, unit, stat.Id, StatCategories.Base, unit.Stats.Pct(stat.Id) * unit.StatPct / 100);
+                for (int statTypeId = 1; statTypeId < StatTypes.Max; statTypeId++)
+                { 
+                    Set(gs, unit, statTypeId, StatCategories.Base, unit.Stats.Pct(statTypeId) * unit.StatPct / 100);
                 }
             }
 

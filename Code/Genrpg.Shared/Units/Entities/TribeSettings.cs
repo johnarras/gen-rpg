@@ -5,6 +5,8 @@ using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Purchasing.Settings;
 
 namespace Genrpg.Shared.Units.Entities
 {
@@ -40,6 +42,9 @@ namespace Genrpg.Shared.Units.Entities
         public class TribeSettingsApi : ParentSettingsApi<TribeSettings, TribeType> { }
 
     [MessagePackObject]
-        public class TribeSettingsLoasder : ParentSettingsLoader<TribeSettings, TribeType, TribeSettingsApi> { }
+        public class TribeSettingsLoasder : ParentSettingsLoader<TribeSettings, TribeType> { }
+
+    [MessagePackObject]
+        public class TribeTypeSettingsMapper : ParentSettingsMapper<TribeSettings, TribeType, TribeSettingsApi> { }
     }
 }

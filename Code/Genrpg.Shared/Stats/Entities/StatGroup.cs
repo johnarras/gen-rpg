@@ -10,22 +10,13 @@ using System.Xml;
 namespace Genrpg.Shared.Stats.Entities
 {
     [MessagePackObject]
-    public class StatGroup : IDisposable
+    public class StatGroup
     {
+        private Stat[][] _stats = null;
 
-        private Dictionary<short,Stat>[] _stats = null;
-
-        public List<Stat> GetAllBaseStats()
+        public Stat[] GetAllBaseStats()
         {
-            return _stats[StatCategories.Base].Values.ToList();
-        }
-
-        public void Dispose()
-        {
-            foreach (Dictionary<short,Stat> stats in _stats)
-            {
-                stats.Clear();                
-            }
+            return _stats[StatCategories.Base];
         }
         public StatGroup()
         {
@@ -34,50 +25,23 @@ namespace Genrpg.Shared.Stats.Entities
 
         public void ResetAll()
         {
-            Dictionary<short, Stat>[] statCopy = new Dictionary<short,Stat>[StatCategories.Size];
+            Stat[][] statCopy = new Stat[StatCategories.Size][];
             for (int i = 0; i < StatCategories.Size; i++)
             {
-                statCopy[i] = new Dictionary<short, Stat>();
+                statCopy[i] = new Stat[StatTypes.Max];
             }
             _stats = statCopy;
         }
 
         public int Get(long statTypeId, int statCategory)
         {
-            if (_stats[statCategory].TryGetValue((short)statTypeId, out Stat stat))
-            {
-                return stat.Val;
-            }
-
-            if (statCategory == StatCategories.Curr)
-            {
-                return Max(statTypeId);
-            }
-
-            return 0;
+            return _stats[statCategory][statTypeId].Val;
         }
 
         public void Set(long statTypeId, long statCategory, long val)
         {
+            _stats[statCategory][statTypeId].Val = (int)val;
 
-            if (!_stats[statCategory].TryGetValue((short)statTypeId, out Stat stat))
-            {
-                lock (this)
-                {
-                    if (!_stats[statCategory].TryGetValue((short)statTypeId, out Stat stat2))
-                    {
-                        stat = new Stat() { Id = (short)statTypeId };
-                        Dictionary<short, Stat> newList = new Dictionary<short, Stat>(_stats[statCategory]);
-                        newList[(short)statTypeId] = stat;
-                        _stats[statCategory] = newList;
-                    }
-                    else
-                    {
-                        stat = stat2;
-                    }
-                }
-            }
-            stat.Val = (int)val;
         }
 
         public int Curr(long statTypeId) { return Get(statTypeId, StatCategories.Curr); }
@@ -111,13 +75,10 @@ namespace Genrpg.Shared.Stats.Entities
 
         public List<FullStat> GetSnapshot()
         {
-            List<short> allStatTypes = _stats[StatCategories.Base].Keys.ToList();
-
             List<FullStat> retval = new List<FullStat>();
 
-            foreach (short statTypeId in allStatTypes)
+            for (int statTypeId = 1; statTypeId < StatTypes.Max; statTypeId++)
             {
-
                 FullStat fullStat = GetFullStat(statTypeId);
 
                 if (fullStat != null)

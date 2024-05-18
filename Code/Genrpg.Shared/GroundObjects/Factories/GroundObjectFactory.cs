@@ -16,7 +16,7 @@ namespace Genrpg.Shared.GroundObjects.Factories
 
         public override MapObject Create(GameState gs, IMapSpawn spawn)
         {
-            GroundObject obj = new GroundObject();
+            GroundObject obj = new GroundObject(_repoService);
             obj.CopyDataToMapObjectFromMapSpawn(spawn);
             Zone zone = gs.map.Get<Zone>(obj.ZoneId);
             if (zone != null)

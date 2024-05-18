@@ -1,5 +1,6 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System;
@@ -36,7 +37,10 @@ namespace Genrpg.Shared.ProcGen.Settings.Bridges
     [MessagePackObject]
     public class BridgeTypeSettingsApi : ParentSettingsApi<BridgeTypeSettings, BridgeType> { }
     [MessagePackObject]
-    public class BridgeTypeSettingsLoader : ParentSettingsLoader<BridgeTypeSettings, BridgeType, BridgeTypeSettingsApi> { }
+    public class BridgeTypeSettingsLoader : ParentSettingsLoader<BridgeTypeSettings, BridgeType> { }
+
+    [MessagePackObject]
+    public class BridgeSettingsMapper : ParentSettingsMapper<BridgeTypeSettings, BridgeType, BridgeTypeSettingsApi> { }
 
 
 }

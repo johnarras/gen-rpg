@@ -10,11 +10,12 @@ using UI.Screens.Constants;
 
 public class ClearMapData : BaseZoneGenerator
 {
+    private IPlayerManager _playerManager;
     public override async UniTask Generate (UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
 
-        PlayerObject.Destroy();
+        _playerManager.SetUnit(null);
 
         await _objectManager.Initialize(gs, token);
 

@@ -61,21 +61,21 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
             List<long> buffStatTypes = allClasses.Select(x=>x.BuffStatTypeId).ToList();
 
-            List<Stat> buffStats = GetPartyBuffStats(gs, party);
+            List<MemberStat> buffStats = GetPartyBuffStats(gs, party);
 
             List<long> mutableStatTypes = new List<long>() { StatTypes.Health, StatTypes.Mana };
 
-            List<Stat> currStats = new List<Stat>();
+            List<MemberStat> currStats = new List<MemberStat>();
 
             if (unit is PartyMember member)
             {
                 List<Class> memberClasses = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
 
-                List<Stat> permStats = member.PermStats;
+                List<MemberStat> permStats = member.PermStats;
 
                 foreach (long mutableStatType in mutableStatTypes)
                 {
-                    currStats.Add(new Stat()
+                    currStats.Add(new MemberStat()
                     {
                         Id = (short)mutableStatType,
                         Val = (int)member.Stats.Curr(mutableStatType),
@@ -84,7 +84,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                 member.Stats.ResetAll();
 
-                foreach (Stat permStat in permStats)
+                foreach (MemberStat permStat in permStats)
                 {
                     _statService.Add(gs, member, permStat.Id, StatCategories.Base, permStat.Val);
                 }
@@ -183,11 +183,11 @@ namespace Genrpg.Shared.Crawler.Stats.Services
             }
         }
 
-        public List<Stat> GetPartyBuffStats(GameState gs, PartyData partyData)
+        public List<MemberStat> GetPartyBuffStats(GameState gs, PartyData partyData)
         {
             Dictionary<long, long> buffStatLevels = new Dictionary<long, long>();
 
-            List<Stat> retval = new List<Stat>();
+            List<MemberStat> retval = new List<MemberStat>();
 
             IReadOnlyList<Class> allClasss = _gameData.Get<ClassSettings>(null).GetData();
 
@@ -229,7 +229,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 // has 2 archetypes.
                 int scaledStatValue = (int)((buffStatLevels[statId] * arch.BuffStatPercent) / 100);
 
-                retval.Add(new Stat() { Id = (short)statId, Val = scaledStatValue });
+                retval.Add(new MemberStat() { Id = (short)statId, Val = scaledStatValue });
             }
 
             return retval;

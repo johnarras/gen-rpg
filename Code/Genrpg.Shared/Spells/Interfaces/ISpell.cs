@@ -21,6 +21,5 @@ namespace Genrpg.Shared.Spells.Interfaces
 
         public List<SpellEffect> Effects { get; set; }
 
-        void SetDirty(bool isDirty);
     }
 }

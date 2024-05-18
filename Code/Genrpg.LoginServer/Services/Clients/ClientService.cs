@@ -95,7 +95,7 @@ namespace Genrpg.LoginServer.Services.Clients
 
                 if (gs.coreCh != null)
                 {
-                    gs.ch = new Character();
+                    gs.ch = new Character(_repoService);
                     CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 
                     await gs.ch.GetAsync<GameDataOverrideData>(gs);
@@ -118,7 +118,7 @@ namespace Genrpg.LoginServer.Services.Clients
             {
                 await _repoService.Save(gs.user);
             }
-            _playerDataService.SavePlayerData(gs.ch, _repoService, true);
+            _playerDataService.SavePlayerData(gs.ch, true);
         }
 
     }

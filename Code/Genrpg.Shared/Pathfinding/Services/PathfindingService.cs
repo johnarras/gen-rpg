@@ -1,20 +1,18 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Pathfinding.Constants;
-using Genrpg.Shared.WebRequests.Utils;
-using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Utils;
 using Genrpg.Shared.Pathfinding.Entities;
+using Genrpg.Shared.Utils;
+using Genrpg.Shared.WebRequests.Utils;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Linq;
-using System.ComponentModel.Design;
-using Genrpg.Shared.MapObjects.Entities;
 using System.Threading;
-using Genrpg.Shared.Logging.Interfaces;
+using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Pathfinding.Services
 {
@@ -424,10 +422,6 @@ namespace Genrpg.Shared.Pathfinding.Services
 
         public WaypointList GetPath(GameState gs, int worldStartX, int worldStartZ, int worldEndX, int worldEndZ)
         {
-
-
-
-
             WaypointList retval = new WaypointList();
 
             if (gs.pathfinding == null)
@@ -556,6 +550,7 @@ namespace Genrpg.Shared.Pathfinding.Services
                         if ((bc.X+bc.Z)% 2 == 0)
                         {
                             retval.AddGridCell(bc.X + ddx, bc.Z + ddz);
+                                
                         }
                         else
                         {

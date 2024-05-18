@@ -9,6 +9,7 @@ using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Units.Loaders
@@ -19,16 +20,15 @@ namespace Genrpg.Shared.Units.Loaders
     /// <typeparam name="TParent">Parent container object (Think InventoryData)</typeparam>
     /// <typeparam name="TChild">Child type object (think Items)</typeparam>
     /// <typeparam name="TApi">Type used to send the parent data to the client (since the Parent has no public list.</typeparam>
-    public class OwnerDataLoader<TParent, TChild, TApi> : UnitDataLoader<TParent>
+    public class OwnerDataLoader<TParent, TChild> : UnitDataLoader<TParent>
         where TParent : OwnerObjectList<TChild>, new()
         where TChild : OwnerPlayerData, IChildUnitData
-        where TApi : OwnerApiList<TParent, TChild>
     {
 
         protected IRepositoryService _repoSystem = null;
-        public override async Task Setup(GameState gs)
+        public override async Task Initialize(GameState gs, CancellationToken token)
         {
-            await base.Setup(gs);
+            await base.Initialize(gs,token);
 
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { Ascending = true, MemberName = "OwnerId" });
@@ -72,22 +72,14 @@ namespace Genrpg.Shared.Units.Loaders
 
             if (child != null)
             {
-                parentObj.GetData().Add(child);
+                List<TChild> currList = parentObj.GetData().ToList();
+                currList.Add(child);
+                parentObj.SetData(currList);
+
             }
 
             return child;
         }
 
-        public override IUnitData MapToAPI(IUnitData serverObject)
-        {
-            TParent parent = serverObject as TParent;
-
-            TApi api = Activator.CreateInstance<TApi>();
-
-            api.ParentObj = parent;
-            api.Data = parent.GetData();
-
-            return api;
-        }
     }
 }

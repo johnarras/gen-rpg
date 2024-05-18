@@ -1,5 +1,6 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System;
@@ -29,7 +30,11 @@ namespace Genrpg.Shared.ProcGen.Settings.Clutter
     [MessagePackObject]
     public class ClutterTypeSettingsApi : ParentSettingsApi<ClutterTypeSettings, ClutterType> { }
     [MessagePackObject]
-    public class ClutterTypeSettingsLoader : ParentSettingsLoader<ClutterTypeSettings, ClutterType, ClutterTypeSettingsApi> { }
+    public class ClutterTypeSettingsLoader : ParentSettingsLoader<ClutterTypeSettings, ClutterType> { }
+
+    [MessagePackObject]
+    public class ClutterSettingsMapper : ParentSettingsMapper<ClutterTypeSettings, ClutterType, ClutterTypeSettingsApi> { }
+
 
 
 }

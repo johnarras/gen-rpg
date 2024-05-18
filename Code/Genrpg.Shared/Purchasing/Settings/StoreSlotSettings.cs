@@ -1,5 +1,6 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
 using MessagePack;
@@ -18,7 +19,10 @@ namespace Genrpg.Shared.Purchasing.Settings
     [MessagePackObject]
     public class StoreSlotSettingsApi : ParentSettingsApi<StoreSlotSettings, StoreSlot> { }
     [MessagePackObject]
-    public class StoreSlotSettingsLoader : ParentSettingsLoader<StoreSlotSettings, StoreSlot, StoreSlotSettingsApi> { }
+    public class StoreSlotSettingsLoader : ParentSettingsLoader<StoreSlotSettings, StoreSlot> { }
+
+    [MessagePackObject]
+    public class StoreSlotSettingsMapper : ParentSettingsMapper<StoreSlotSettings, StoreSlot, StoreSlotSettingsApi> { }
 
 
     [MessagePackObject]

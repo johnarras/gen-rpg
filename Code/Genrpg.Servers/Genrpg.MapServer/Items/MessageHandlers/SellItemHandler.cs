@@ -17,6 +17,7 @@ using Genrpg.Shared.Achievements.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.Vendors.MapObjectAddons;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.Items.MessageHandlers
 {

@@ -1,10 +1,7 @@
 ﻿
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Constants;
-
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.Zones.Entities;
 using System.Threading;
 using UnityEngine;
 using Genrpg.Shared.Zones.Settings;
@@ -12,9 +9,6 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class WaterObjectLoader : BaseObjectLoader
 {
-    public WaterObjectLoader(UnityGameState gs) : base(gs)
-    {
-    }
     public override bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId,
         int x, int y, Zone currZone, ZoneType currZoneType, CancellationToken token)
     {

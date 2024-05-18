@@ -10,6 +10,8 @@ using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Spells.Settings.Spells;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Crawler.Buffs.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Crawler.Spells.Settings
 {
@@ -49,9 +51,6 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
         {
             return PowerCost + level * PowerPerLevel;
         }
-
-        public void SetDirty(bool value) { }
-
     }
 
 
@@ -75,5 +74,10 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
     [MessagePackObject]
     public class CrawlerSpellSettingsApi : ParentSettingsApi<CrawlerSpellSettings, CrawlerSpell> { }
     [MessagePackObject]
-    public class CrawlerSpellSettingsLoader : ParentSettingsLoader<CrawlerSpellSettings, CrawlerSpell, CrawlerSpellSettingsApi> { }
+    public class CrawlerSpellSettingsLoader : ParentSettingsLoader<CrawlerSpellSettings, CrawlerSpell> { }
+
+    [MessagePackObject]
+    public class CrawlerSpellSettingsMapper : ParentSettingsMapper<CrawlerSpellSettings, CrawlerSpell, CrawlerSpellSettingsApi> { }
+
+
 }

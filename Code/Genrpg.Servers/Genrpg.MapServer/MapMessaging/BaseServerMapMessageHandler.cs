@@ -17,6 +17,7 @@ using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.MapMessaging
 {

@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Units.Entities;
 
 public class PatchLoadData
 {
@@ -29,10 +30,8 @@ public class PatchLoadData
     public int gx = 0;
     public int gy = 0;
 
+
     public IMapTerrainManager terrManager;
-
-    Action AfterPlaceObject;
-
 
     public int MapX(int x)
     {
@@ -117,9 +116,9 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
     private GEntity _terrainTextureParent = null;
 
     protected IZoneGenService _zoneGenService;
+    private ITerrainPatchLoader _patchLoader;
+    private IPlayerManager _playerManager;
 
-
-    ILoadMap loadGen = null;
 
     private List<MyPoint> _addPatchList = new List<MyPoint>();
     private List<MyPoint> _removePatchList = new List<MyPoint>();
@@ -132,7 +131,6 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
     public async Task Initialize(GameState gs, CancellationToken token)
     {
         AddTokenUpdate(TerrainUpdate, UpdateType.Regular);
-        loadGen = gs.CreateInstance<LoadMap>();
         _prototypeParent = GEntityUtils.FindSingleton(PrototypeParent, true);
         _terrainTextureParent = GEntityUtils.FindSingleton(MapConstants.TerrainTextureRoot, true);
         SetupLoaders();
@@ -319,19 +317,21 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         }
     }
 
+    public BaseObjectLoader GetLoader(long mapObjectOffset)
+    {
+        return _staticLoaders[mapObjectOffset / MapConstants.MapObjectOffsetMult];
+    }
 
 
     private void SetupLoaders()
     {
         _staticLoaders = new Dictionary<long, BaseObjectLoader>();
-        _staticLoaders[MapConstants.TreeObjectOffset / MapConstants.MapObjectOffsetMult] = new TreeObjectLoader(_gs);
-        _staticLoaders[MapConstants.RockObjectOffset / MapConstants.MapObjectOffsetMult] = new RockObjectLoader(_gs);
-        _staticLoaders[MapConstants.FenceObjectOffset / MapConstants.MapObjectOffsetMult] = new FenceObjectLoader(_gs);
-        _staticLoaders[MapConstants.BridgeObjectOffset / MapConstants.MapObjectOffsetMult] = new BridgeObjectLoader(_gs);
-        _staticLoaders[MapConstants.ClutterObjectOffset / MapConstants.MapObjectOffsetMult] = new ClutterObjectLoader(_gs);
-        _staticLoaders[MapConstants.WaterObjectOffset / MapConstants.MapObjectOffsetMult] = new WaterObjectLoader(_gs);
-
-
+        _staticLoaders[MapConstants.TreeObjectOffset / MapConstants.MapObjectOffsetMult] = _gs.GetOrCreateInstance<TreeObjectLoader>();
+        _staticLoaders[MapConstants.RockObjectOffset / MapConstants.MapObjectOffsetMult] = _gs.GetOrCreateInstance<RockObjectLoader>();
+        _staticLoaders[MapConstants.FenceObjectOffset / MapConstants.MapObjectOffsetMult] = _gs.GetOrCreateInstance<FenceObjectLoader>();
+        _staticLoaders[MapConstants.BridgeObjectOffset / MapConstants.MapObjectOffsetMult] = _gs.GetOrCreateInstance<BridgeObjectLoader>();
+        _staticLoaders[MapConstants.ClutterObjectOffset / MapConstants.MapObjectOffsetMult] = _gs.GetOrCreateInstance<ClutterObjectLoader>();
+        _staticLoaders[MapConstants.WaterObjectOffset / MapConstants.MapObjectOffsetMult] = _gs.GetOrCreateInstance<WaterObjectLoader>();
     }
 
     void TerrainUpdate(CancellationToken token)
@@ -432,7 +432,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
     void UpdatePatchVisibility(UnityGameState gs, CancellationToken token)
     {
-        if (PlayerObject.Get() == null)
+        if (!_playerManager.Exists())
         {
             return;
         }
@@ -453,83 +453,87 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
         if (loadUnloadCheckTicks <= 0)
         {
-            MyPointF ppos = PlayerObject.GetUnit()?.GetPos();
-            playerPos = new GVector3(ppos.X, ppos.Y, ppos.Z);
-
-            loadUnloadCheckTicks = MaxLoadUnloadCheckTicks;
-
-            XGrid = (int)((playerPos.x + MapConstants.TerrainPatchSize / 2) / (MapConstants.TerrainPatchSize - 1));
-            YGrid = (int)((playerPos.z + MapConstants.TerrainPatchSize / 2) / (MapConstants.TerrainPatchSize - 1));
-
-
-            loadRad = GetVisbilityRadius() + 0.25f;
-            unloadRad = loadRad + 1.0f;
-            checkRad = unloadRad + 2.0f;
-
-            if (gs.rand.NextDouble() < 0.2f)
+            if (_playerManager.TryGetUnit(out Unit unit))
             {
-                checkRad = gs.map.BlockCount + 1;
-            }
 
-            minx = (int)Math.Max(0, XGrid - checkRad);
-            maxx = (int)Math.Min(gs.map.BlockCount - 1, XGrid + checkRad);
-            miny = (int)Math.Max(0, YGrid - checkRad);
-            maxy = (int)Math.Min(gs.map.BlockCount - 1, YGrid + checkRad);
+                MyPointF ppos = unit.GetPos();
+                playerPos = new GVector3(ppos.X, ppos.Y, ppos.Z);
 
-            for (int x = 0; x < gs.map.BlockCount; x++)
-            {
-                // Loop over all x in the middle range, or the full row check range.
-                if (x < minx || x > maxx)
+                loadUnloadCheckTicks = MaxLoadUnloadCheckTicks;
+
+                XGrid = (int)((playerPos.x + MapConstants.TerrainPatchSize / 2) / (MapConstants.TerrainPatchSize - 1));
+                YGrid = (int)((playerPos.z + MapConstants.TerrainPatchSize / 2) / (MapConstants.TerrainPatchSize - 1));
+
+
+                loadRad = GetVisbilityRadius() + 0.25f;
+                unloadRad = loadRad + 1.0f;
+                checkRad = unloadRad + 2.0f;
+
+                if (gs.rand.NextDouble() < 0.2f)
                 {
-                    continue;
+                    checkRad = gs.map.BlockCount + 1;
                 }
-                // continue;
-                for (int y = miny; y <= maxy; y++)
+
+                minx = (int)Math.Max(0, XGrid - checkRad);
+                maxx = (int)Math.Min(gs.map.BlockCount - 1, XGrid + checkRad);
+                miny = (int)Math.Max(0, YGrid - checkRad);
+                maxy = (int)Math.Min(gs.map.BlockCount - 1, YGrid + checkRad);
+
+                for (int x = 0; x < gs.map.BlockCount; x++)
                 {
-                    // If we are on the full row check and not in the main middle block,
-                    // only check that one row.
-                    if (y < miny || y > maxy)
+                    // Loop over all x in the middle range, or the full row check range.
+                    if (x < minx || x > maxx)
                     {
                         continue;
                     }
-                    dx = playerPos.x - (x + 0.5f) * (MapConstants.TerrainPatchSize - 1);
-                    dy = playerPos.z - (y + 0.5f) * (MapConstants.TerrainPatchSize - 1);
-
-                    dist = (float)Math.Sqrt(dx * dx + dy * dy);
-
-                    // Check if we load the patch if it's near the player's position.
-                    if (dist < loadRad * (MapConstants.TerrainPatchSize-1))
+                    // continue;
+                    for (int y = miny; y <= maxy; y++)
                     {
-                        patch = GetTerrainPatch(gs, x, y);
-                        if (patch != null)
+                        // If we are on the full row check and not in the main middle block,
+                        // only check that one row.
+                        if (y < miny || y > maxy)
                         {
-                            terr = patch.terrain as Terrain;
-                            if (terr == null)
+                            continue;
+                        }
+                        dx = playerPos.x - (x + 0.5f) * (MapConstants.TerrainPatchSize - 1);
+                        dy = playerPos.z - (y + 0.5f) * (MapConstants.TerrainPatchSize - 1);
+
+                        dist = (float)Math.Sqrt(dx * dx + dy * dy);
+
+                        // Check if we load the patch if it's near the player's position.
+                        if (dist < loadRad * (MapConstants.TerrainPatchSize - 1))
+                        {
+                            patch = GetTerrainPatch(gs, x, y);
+                            if (patch != null)
                             {
-                                if (!ListContainsCell(_addPatchList, x, y) &&
-                                    !ListContainsCell(_loadingPatchList, x, y))
+                                terr = patch.terrain as Terrain;
+                                if (terr == null)
                                 {
-                                    AddListCell(_addPatchList, x, y);
-                                    RemoveListCell(_removePatchList, x, y);
+                                    if (!ListContainsCell(_addPatchList, x, y) &&
+                                        !ListContainsCell(_loadingPatchList, x, y))
+                                    {
+                                        AddListCell(_addPatchList, x, y);
+                                        RemoveListCell(_removePatchList, x, y);
+                                    }
                                 }
                             }
                         }
-                    }
-                    // Check if we unload the patch.
-                    else if (dist > unloadRad * (MapConstants.TerrainPatchSize - 1))
-                    {
-                        patch = GetTerrainPatch(gs, x, y, false);
-                        if (patch != null)
+                        // Check if we unload the patch.
+                        else if (dist > unloadRad * (MapConstants.TerrainPatchSize - 1))
                         {
-                            terr = patch.terrain as Terrain;
-                            if (terr != null)
+                            patch = GetTerrainPatch(gs, x, y, false);
+                            if (patch != null)
                             {
-                                if (!ListContainsCell(_loadingPatchList, x, y))
+                                terr = patch.terrain as Terrain;
+                                if (terr != null)
                                 {
-                                    RemoveListCell(_addPatchList, x, y);
-                                    if (!ListContainsCell(_removePatchList, x, y) && terr != null)
+                                    if (!ListContainsCell(_loadingPatchList, x, y))
                                     {
-                                        AddListCell(_removePatchList, x, y);
+                                        RemoveListCell(_addPatchList, x, y);
+                                        if (!ListContainsCell(_removePatchList, x, y) && terr != null)
+                                        {
+                                            AddListCell(_removePatchList, x, y);
+                                        }
                                     }
                                 }
                             }
@@ -564,7 +568,8 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
                     firstItem = _addPatchList[0];
                     _addPatchList.RemoveAt(0);
                     _loadingPatchList.Add(firstItem);
-                    loadGen.LoadOneTerrainPatch(gs, firstItem.X, firstItem.Y, _fastLoading, token);
+                    
+                    _patchLoader.LoadOneTerrainPatch(gs, firstItem.X, firstItem.Y, _fastLoading, token);
                 }
             }
             

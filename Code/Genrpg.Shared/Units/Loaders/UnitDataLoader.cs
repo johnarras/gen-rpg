@@ -4,6 +4,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Units.Loaders
@@ -14,21 +15,15 @@ namespace Genrpg.Shared.Units.Loaders
         protected IRepositoryService _repoService;
 
         public virtual Type GetServerType() { return typeof(TServer); }
-        public virtual bool SendToClient() { return true; }
-        public virtual async Task Setup(GameState gs) { await Task.CompletedTask; }
+        public virtual async Task Initialize(GameState g, CancellationToken token) { await Task.CompletedTask; }
         protected virtual bool IsUserData() { return false; }
 
         public IUnitData Create(Unit unit)
         {
             TServer t = Activator.CreateInstance<TServer>();
             t.Id = GetFileId(unit);
-            t.SetDirty(true);
+            t.SetRepo(_repoService);
             return t;
-        }
-
-        public virtual IUnitData MapToAPI(IUnitData serverObject)
-        {
-            return serverObject;
         }
 
         protected virtual string GetFileId(Unit unit)
@@ -46,7 +41,9 @@ namespace Genrpg.Shared.Units.Loaders
 
         public virtual async Task<ITopLevelUnitData> LoadFullData(Unit unit)
         {
-            return await _repoService.Load<TServer>(GetFileId(unit));
+            ITopLevelUnitData tld = await _repoService.Load<TServer>(GetFileId(unit));
+            tld?.SetRepo(_repoService);
+            return tld;
         }
 
         public async Task<ITopLevelUnitData> LoadTopLevelData(Unit unit)

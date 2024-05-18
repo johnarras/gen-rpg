@@ -7,6 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Purchasing.Settings;
 
 namespace Genrpg.Shared.Spawns.Settings
 {
@@ -56,7 +58,10 @@ namespace Genrpg.Shared.Spawns.Settings
     [MessagePackObject]
         public class SpawnSettingsApi : ParentSettingsApi<SpawnSettings, SpawnTable> { }
     [MessagePackObject]
-        public class SpawnSettingsLoader : ParentSettingsLoader<SpawnSettings, SpawnTable, SpawnSettingsApi> { }
+        public class SpawnSettingsLoader : ParentSettingsLoader<SpawnSettings, SpawnTable> { }
+
+    [MessagePackObject]
+        public class SpawnSettingsMapper : ParentSettingsMapper<SpawnSettings, SpawnTable, SpawnSettingsApi> { }
 
 
     }

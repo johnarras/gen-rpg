@@ -14,8 +14,9 @@ using UnityEngine; // Needed
 using Genrpg.Shared.Audio.Settings;
 using Genrpg.Shared.Core.Entities;
 using System.Threading.Tasks;
+using Assets.Scripts.Core.Interfaces;
 
-public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
+public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService, IInjectOnLoad<IAudioService>
 {
     public const float MusicVolumeScale = 0.3f;
     public List<MusicChannel> MusicChannels;
@@ -40,7 +41,6 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     {
         base.Initialize(gs);
         AddUpdate(AudioUpdate, UpdateType.Regular);
-        _gs.loc.Set<IAudioService>(this);
         if (MusicChannels == null)
         {
             MusicChannels = new List<MusicChannel>();

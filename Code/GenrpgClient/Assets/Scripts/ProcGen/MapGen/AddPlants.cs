@@ -10,6 +10,7 @@ using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.Plants;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using Assets.Scripts.ProcGen.Loading.Utils;
 
 public class BaseDetailPrototype
 {
@@ -30,6 +31,8 @@ public class AddPlants : BaseZoneGenerator
 
     public const float GrassFreqScale = 1.0f;
 
+    private IZonePlantValidator _zonePlantValidator;
+
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
@@ -43,56 +46,7 @@ public class AddPlants : BaseZoneGenerator
 
 
 
-    public void UpdateValidPlantTypeList<DP>(UnityGameState gs, Zone zone, int gx, int gy, List<DP> fullList,
-        bool isMainTerrain, CancellationToken token) where DP : BaseDetailPrototype, new()
-    {
-        if (fullList.Count >= 2*MapConstants.MaxGrass)
-        {
-            return;
-        }
-
-        ZoneType zoneType = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
-
-        List<ZonePlantType> plist = new List<ZonePlantType>(zone.PlantTypes);
-
-        int maxQuantity = isMainTerrain ? MapConstants.MaxGrass : MapConstants.OverrideMaxGrass;
-
-        while (plist.Count > maxQuantity)
-        {
-            plist.RemoveAt(gs.rand.Next() % plist.Count);
-        }
-
-        for (int p = 0; p < plist.Count; p++)
-        {
-            ZonePlantType zpt = plist[p];
-
-            DP currProto = fullList.FirstOrDefault(x => x.zonePlant.PlantTypeId == zpt.PlantTypeId);
-
-            if (currProto != null)
-            {
-                currProto.zoneIds.Add(zone.IdKey);
-                continue;
-            }
-
-            PlantType pt = _gameData.Get<PlantTypeSettings>(gs.ch).Get(zpt.PlantTypeId);
-            if (pt == null || string.IsNullOrEmpty(pt.Art))
-            {
-                continue;
-            }
-
-            DP full = new DP();
-            full.zonePlant = zpt;
-            full.plantType = pt;
-            full.Index = fullList.Count;
-            full.XGrid = gx;
-            full.YGrid = gy;
-            full.noiseSeed = zone.Seed % 12783428 + gs.map.Seed % 543333 + p * 13231;
-            full.zoneIds.Add(zone.IdKey);
-            fullList.Add(full);
-        }
-    }
-
-
+   
 
     public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
@@ -109,7 +63,7 @@ public class AddPlants : BaseZoneGenerator
 
         List<FullDetailPrototype> fullList = new List<FullDetailPrototype>();
 
-        UpdateValidPlantTypeList(gs, zone, -1, -1, fullList,true, _token);
+        _zonePlantValidator.UpdateValidPlantTypeList(gs, zone, -1, -1, fullList,true, _token);
 
         if (fullList == null)
         {

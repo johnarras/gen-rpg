@@ -7,6 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.Currencies.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Input.Settings
 {
@@ -30,6 +32,10 @@ namespace Genrpg.Shared.Input.Settings
     [MessagePackObject]
     public class ActionInputSettingsApi : ParentSettingsApi<InputSettings, ActionInputSetting> { }
     [MessagePackObject]
-    public class ActionInputSettingsLoader : ParentSettingsLoader<InputSettings, ActionInputSetting, ActionInputSettingsApi> { }
+    public class ActionInputSettingsLoader : ParentSettingsLoader<InputSettings, ActionInputSetting> { }
+
+    [MessagePackObject]
+    public class ActionInputSettingsMapper : ParentSettingsMapper<InputSettings, ActionInputSetting, ActionInputSettingsApi> { }
+
 
 }

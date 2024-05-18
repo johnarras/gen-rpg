@@ -5,6 +5,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.Achievements.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Crafting.Settings.Crafters
 {
@@ -54,10 +56,13 @@ namespace Genrpg.Shared.Crafting.Settings.Crafters
     }
 
     [MessagePackObject]
-    public class CraftingSettingsApi : ParentSettingsApi<CraftingSettings, CrafterType> { }
+    public class CrafterSettingsApi : ParentSettingsApi<CraftingSettings, CrafterType> { }
 
     [MessagePackObject]
-    public class CraftingSettingsLoader : ParentSettingsLoader<CraftingSettings, CrafterType, CraftingSettingsApi> { }
+    public class CrafterSettingsLoader : ParentSettingsLoader<CraftingSettings, CrafterType> { }
+
+    [MessagePackObject]
+    public class CraftingSettingsMapper : ParentSettingsMapper<CraftingSettings, CrafterType, CrafterSettingsApi> { }
 
 
 

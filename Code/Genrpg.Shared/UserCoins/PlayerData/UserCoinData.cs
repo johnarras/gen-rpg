@@ -4,6 +4,7 @@ using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 
 namespace Genrpg.Shared.UserCoins.PlayerData
 {
@@ -50,10 +51,13 @@ namespace Genrpg.Shared.UserCoins.PlayerData
     }
 
     [MessagePackObject]
-    public class UserCoinDataLoader : OwnerIdDataLoader<UserCoinData, UserCoinStatus, UserCoinApi>
+    public class UserCoinDataLoader : OwnerIdDataLoader<UserCoinData, UserCoinStatus>
     {
         protected override bool IsUserData() { return true; }
     }
     [MessagePackObject]
     public class UserCoinApi : OwnerApiList<UserCoinData, UserCoinStatus> { }
+
+    [MessagePackObject]
+    public class UserCoinDataMapper : OwnerDataMapper<UserCoinData,UserCoinStatus, UserCoinApi> { }
 }

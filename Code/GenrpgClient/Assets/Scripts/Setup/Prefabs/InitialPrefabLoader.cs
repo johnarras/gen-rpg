@@ -9,12 +9,12 @@ public class InitialPrefabLoader : BaseBehaviour
 
     public async UniTask LoadPrefabs(UnityGameState gs)
     {
-        Initialize(gs);
         if (Prefabs == null)
         {
             return;
         }
 
+        List<GEntity> entities = new List<GEntity>();
         foreach (string prefab in Prefabs)
         {
             GEntity prefabObj = AssetUtils.LoadResource<GEntity>("Prefabs/" + prefab);
@@ -22,12 +22,12 @@ public class InitialPrefabLoader : BaseBehaviour
             {
                 continue;
             }
+            entities.Add(prefabObj);
 
-            GEntity newPrefab = GEntityUtils.FullInstantiate(gs, prefabObj);
+            GEntity newPrefab = GEntityUtils.FullInstantiateAndSet(gs, prefabObj);
             newPrefab.name = newPrefab.name.Replace("(Clone)", "");
-            _gs.loc.ResolveSelf();
-            _gs.loc.Resolve(newPrefab);
         }
+
         await UniTask.CompletedTask;
     }
 }

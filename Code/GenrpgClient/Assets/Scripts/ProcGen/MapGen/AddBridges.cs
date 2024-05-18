@@ -12,11 +12,12 @@ using Genrpg.Shared.ProcGen.Settings.Bridges;
 using Genrpg.Shared.ProcGen.Settings.MapWater;
 using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.Zones.WorldData;
+using Assets.Scripts.ProcGen.Loading.Utils;
 
 public class AddBridges : BaseZoneGenerator
 {
 
-
+    private IAddPoolService _addPoolService;
     private List<WaterGenData> _waterGenData = new List<WaterGenData>();
 
 	public const string DefaultBridgeArtName = "Bridge";
@@ -94,14 +95,10 @@ public class AddBridges : BaseZoneGenerator
 			}
 		}
 
-        AddWater addWater = new AddWater();
-        gs.loc.Resolve(addWater);
-
         foreach (WaterGenData wgd in _waterGenData)
         {
-            addWater.TryAddPool(gs, wgd);
+            _addPoolService.TryAddPool(gs, wgd);
         }
-		
 	}
 	
 	protected void AddOneBridge (UnityGameState gs,

@@ -53,7 +53,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                 else
                 {
                     ai.Index = i;
-                    ai.SetDirty(true);
+                    _repoService.QueueSave(ai);
                 }
             }
 

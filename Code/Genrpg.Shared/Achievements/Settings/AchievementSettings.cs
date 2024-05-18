@@ -7,6 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Achievements.PlayerData;
 
 namespace Genrpg.Shared.Achievements.Settings
 {
@@ -34,6 +36,9 @@ namespace Genrpg.Shared.Achievements.Settings
     public class AchievementSettingsApi : ParentSettingsApi<AchievementSettings, AchievementType> { }
 
     [MessagePackObject]
-    public class AchievementSettingsLoader : ParentSettingsLoader<AchievementSettings, AchievementType, AchievementSettingsApi> { }
+    public class AchievementSettingsLoader : ParentSettingsLoader<AchievementSettings, AchievementType> { }
+
+    [MessagePackObject]
+    public class AchievementSettingsMapper : ParentSettingsMapper<AchievementSettings, AchievementType, AchievementSettingsApi> { }
 
 }

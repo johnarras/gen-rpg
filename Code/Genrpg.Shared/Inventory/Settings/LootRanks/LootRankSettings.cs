@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -45,6 +47,9 @@ namespace Genrpg.Shared.Inventory.Settings.LootRanks
     [MessagePackObject]
     public class LootRankSettingsApi : ParentSettingsApi<LootRankSettings, LootRank> { }
     [MessagePackObject]
-    public class LootRankSettingsLoader : ParentSettingsLoader<LootRankSettings, LootRank, LootRankSettingsApi> { }
+    public class LootRankSettingsLoader : ParentSettingsLoader<LootRankSettings, LootRank> { }
+
+    [MessagePackObject]
+    public class ItemSettingsMapper : ParentSettingsMapper<LootRankSettings, LootRank, LootRankSettingsApi> { }
 
 }

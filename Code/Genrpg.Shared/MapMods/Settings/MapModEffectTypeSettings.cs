@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -27,8 +29,11 @@ namespace Genrpg.Shared.MapMods.Settings
     }
 
     [MessagePackObject]
-    public class MapModEffectSettingsApi : ParentSettingsApi<MapModEffectTypeSettings, MapModEffectType> { }
+    public class MapModEffectTypeSettingsApi : ParentSettingsApi<MapModEffectTypeSettings, MapModEffectType> { }
     [MessagePackObject]
-    public class MapModEffectSettingsLoader : ParentSettingsLoader<MapModEffectTypeSettings, MapModEffectType, MapModEffectSettingsApi> { }
+    public class MapModEffectSettingsLoader : ParentSettingsLoader<MapModEffectTypeSettings, MapModEffectType> { }
+
+    [MessagePackObject]
+    public class MapModEffectSettingsMapper : ParentSettingsMapper<MapModEffectTypeSettings, MapModEffectType, MapModEffectTypeSettingsApi> { }
 
 }

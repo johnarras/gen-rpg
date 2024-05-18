@@ -19,8 +19,6 @@ namespace Genrpg.MapServer.MapMessaging.Interfaces
             float dist = MessageConstants.DefaultGridDistance,
             bool playersOnly = true,
             float delaySec = 0, List<long> filters = null);
-        MapMessagePackage GetPackage();
-        void AddPackage(MapMessagePackage package);
         void UpdateGameData(IGameData gameData);
         void SendMessageToAllPlayers(IMapApiMessage message);
     }

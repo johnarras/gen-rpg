@@ -1,12 +1,15 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Factions.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils;
 using MessagePack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Genrpg.Shared.Input.PlayerData
@@ -76,17 +79,6 @@ namespace Genrpg.Shared.Input.PlayerData
     {
         [Key(0)] public override string Id { get; set; }
 
-        private List<KeyComm> _data { get; set; } = new List<KeyComm>();
-
-        public override void SetData(List<KeyComm> data)
-        {
-            _data = data;
-        }
-
-        public override List<KeyComm> GetData()
-        {
-            return _data;
-        }
         public KeyComm GetKeyComm(string keyComm)
         {
             return _data.FirstOrDefault(x => x.KeyCommand == keyComm);
@@ -105,7 +97,12 @@ namespace Genrpg.Shared.Input.PlayerData
         }
     }
     [MessagePackObject]
-    public class KeyCommDataLoader : OwnerIdDataLoader<KeyCommData, KeyComm, KeyCommApi> { }
+    public class KeyCommDataLoader : OwnerIdDataLoader<KeyCommData, KeyComm> { }
     [MessagePackObject]
     public class KeyCommApi : OwnerApiList<KeyCommData, KeyComm> { }
+
+
+
+    [MessagePackObject]
+    public class KeyCommDataMapper : OwnerDataMapper<KeyCommData, KeyComm, KeyCommApi> { }
 }

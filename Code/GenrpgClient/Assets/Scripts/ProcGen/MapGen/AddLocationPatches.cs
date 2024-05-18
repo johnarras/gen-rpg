@@ -15,11 +15,9 @@ using Genrpg.Shared.Utils.Data;
 public class AddLocationPatches : BaseZoneGenerator
 {
     private ILineGenService _lineGenService = null;
-    public AddRoads _addRoads = null;
+    private IAddRoadService _addRoadService = null;
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
-        _addRoads = new AddRoads();
-        gs.loc.Resolve(_addRoads);
         await base.Generate(gs, token);
         int edgeSize = MapConstants.LocCenterEdgeSize;
         MyRandom smoothnessRand = new MyRandom(gs.rand.NextLong());
@@ -424,7 +422,7 @@ public class AddLocationPatches : BaseZoneGenerator
             {
                 ConnectPointData center1 = rd.Point1;
                 ConnectPointData center2 = rd.Point2;
-                _addRoads.AddRoad(gs, (int)center1.X, (int)center1.Z, (int)center2.X, (int)center2.Z, connectRand.Next(), rand, false, 1, MapGenFlags.MinorRoad);
+                _addRoadService.AddRoad(gs, (int)center1.X, (int)center1.Z, (int)center2.X, (int)center2.Z, connectRand.Next(), rand, false, 1, MapGenFlags.MinorRoad);
             }
         }
     }

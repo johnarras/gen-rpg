@@ -29,7 +29,7 @@ namespace Genrpg.Editor.Utils
                 CoreCharacter coreChar = await repoService.Load<CoreCharacter>(stub.Id);
                 if (coreChar != null)
                 {
-                    Character ch = new Character();
+                    Character ch = new Character(repoService);
                     CharacterUtils.CopyDataFromTo(coreChar, ch);
 
                     EditorCharacter ech = new EditorCharacter() { Character = ch, CoreCharacter = coreChar };
@@ -61,7 +61,7 @@ namespace Genrpg.Editor.Utils
                     {
                         if (gs.LookedAtObjects.Contains(unitData))
                         {
-                            unitData.Save(repoService, false);
+                            unitData.Save();
                         }
                     }
                 }
@@ -80,7 +80,7 @@ namespace Genrpg.Editor.Utils
                     await repoService.Delete(ech.CoreCharacter);
                     foreach (IUnitData unitData in ech.Character.GetAllData().Values)
                     {
-                        unitData.Delete(repoService);
+                        unitData.Delete();
                     }
                 }
             }

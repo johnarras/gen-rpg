@@ -4,6 +4,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Concurrent;
@@ -63,7 +64,7 @@ namespace Genrpg.MapServer.MapMessaging
 
         public void AddMessage(IMapMessage message, MapObject mapObject, IMapMessageHandler handler, float delaySeconds)
         {
-            MapMessagePackage package = _mapMessageService.GetPackage();
+            MapMessagePackage package = mapObject.TakePackage();
 
             package.message = message;
             package.mapObject = mapObject;
@@ -155,7 +156,7 @@ namespace Genrpg.MapServer.MapMessaging
                                 // This is intentionally synchronous
                                 package.Process(_processQueueGameState);
                                 _messagesProcessed++;
-                                _mapMessageService.AddPackage(package);
+                                package.mapObject.ReturnPackage(package);
                             }
                             catch (Exception e)
                             {

@@ -67,7 +67,7 @@ namespace Genrpg.Shared.Units.Factories
             long level = levelZone.GetFinalUnitLevel(gs, spawn.X, spawn.Z, levelZone.Level);
 
 
-            Unit unit = new Unit();
+            Unit unit = new Unit(_repoService);
             unit.Level = level;
             unit.CopyDataToMapObjectFromMapSpawn(spawn);
             unit.EntityTypeId = EntityTypes.Unit;

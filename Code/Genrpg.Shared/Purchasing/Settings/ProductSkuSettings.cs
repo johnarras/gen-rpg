@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.ProcGen.Settings.Bridges;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,11 @@ namespace Genrpg.Shared.Purchasing.Settings
     [MessagePackObject]
     public class ProductSkuSettingsApi : ParentSettingsApi<ProductSkuSettings, ProductSku> { }
     [MessagePackObject]
-    public class ProductSkuSettingsLoader : ParentSettingsLoader<ProductSkuSettings, ProductSku, ProductSkuSettingsApi> { }
+    public class ProductSkuSettingsLoader : ParentSettingsLoader<ProductSkuSettings, ProductSku> { }
+
+    [MessagePackObject]
+    public class BridgeSettingsMapper : ParentSettingsMapper<ProductSkuSettings, ProductSku, ProductSkuSettingsApi> { }
+
 
 
     [MessagePackObject]

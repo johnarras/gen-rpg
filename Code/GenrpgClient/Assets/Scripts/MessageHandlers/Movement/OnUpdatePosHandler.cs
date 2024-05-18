@@ -1,4 +1,6 @@
-﻿using Genrpg.Shared.Characters.PlayerData;
+﻿using Assets.Scripts.Pathfinding.Utils;
+using Cysharp.Threading.Tasks;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Pathfinding.Services;
@@ -14,10 +16,12 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
     {
 
         private IPathfindingService _pathfindingService;
+        private IClientPathfindingUtils _pathfindingUtils;
+        private IPlayerManager _playerManager;
 
         protected override void InnerProcess(UnityGameState gs, OnUpdatePos pos, CancellationToken token)
         {
-            if (pos.ObjId == PlayerObject.GetUnit()?.Id)
+            if (pos.ObjId == _playerManager.GetUnitId())
             {
                 return;
             }
@@ -49,6 +53,7 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
                         oldTarget != obj.TargetId)
                     {
                         _pathfindingService.UpdatePath(gs, obj, (int)obj.FinalX, (int)obj.FinalZ);
+                        _pathfindingUtils.ShowPath(gs, obj.Waypoints, token).Forget();
                     }
 
                     if (obj is Unit unit && unit.HasFlag(UnitFlags.ProxyCharacter))

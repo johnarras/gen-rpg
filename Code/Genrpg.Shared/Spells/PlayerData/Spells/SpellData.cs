@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 
 namespace Genrpg.Shared.Spells.PlayerData.Spells
 {
@@ -27,4 +29,15 @@ namespace Genrpg.Shared.Spells.PlayerData.Spells
             _data = _data.Where(x => x.IdKey != spellId).ToList();
         }
     }
+
+
+    [MessagePackObject]
+    public class SpellApi : OwnerApiList<SpellData, Spell> { }
+
+
+    [MessagePackObject]
+    public class SpellDataLoader : OwnerIdDataLoader<SpellData, Spell> { }
+
+    [MessagePackObject]
+    public class SpellDataMapper : OwnerDataMapper<SpellData, Spell, SpellApi> { }
 }

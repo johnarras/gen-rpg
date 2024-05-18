@@ -8,6 +8,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
 using System.Threading;
 using System.Threading.Tasks;
+using Assets.Scripts.Core.Interfaces;
 
 [Serializable]
 public class CullDistanceOverride
@@ -25,11 +26,12 @@ public interface ICameraController : IInitializable
     List<Camera> GetAllCameras();
 }
 
-public class CameraController : BaseBehaviour, ICameraController
+public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<ICameraController>
 {
 
     private IInputService _inputService;
     private IMapTerrainManager _terrainManager;
+    private IPlayerManager _playerManager;
 
 
     public async Task Initialize(GameState gs, CancellationToken token)
@@ -80,7 +82,6 @@ public class CameraController : BaseBehaviour, ICameraController
     public override void Initialize(UnityGameState gs)
     {
         base.Initialize(gs);
-        gs.loc.Set<ICameraController>(this);
         CameraDistance = StartCameraOffset.magnitude;
         SetupCullDistances();
         int layerMask = LayerUtils.GetMask(new string[] { LayerNames.Default, LayerNames.Water, LayerNames.ObjectLayer, LayerNames.UnitLayer, LayerNames.SpellLayer });
@@ -309,7 +310,7 @@ public class CameraController : BaseBehaviour, ICameraController
         button1 = _inputService.MouseIsDown(1);
 
 
-        player = PlayerObject.Get();
+        player = _playerManager.GetEntity();
 
         if (CheckSwitchPlayerObject())
         {
@@ -451,7 +452,7 @@ public class CameraController : BaseBehaviour, ICameraController
 
     public void UpdateCamera()
 	{
-	    player = PlayerObject.Get();
+	    player = _playerManager.GetEntity();
 		if (player == null || _gs.md == null || _gs.md.GeneratingMap || MainCam == null)
 		{
 			return;

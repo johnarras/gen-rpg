@@ -15,8 +15,8 @@ namespace Genrpg.Shared.DataStores.PlayerData
 
         public override void AddTo(Unit unit)
         {
-            ParentObj.SetData(Data);
             unit.Set(ParentObj);
+            ParentObj.SetData(Data);
         }
     }
 }

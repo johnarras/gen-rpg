@@ -2,6 +2,7 @@
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Currencies.Messages;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

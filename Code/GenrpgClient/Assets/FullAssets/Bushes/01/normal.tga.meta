@@ -3,7 +3,7 @@ guid: 369051e6ef1763d4aa955cd3a9ce6b68
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -149,5 +149,5 @@ TextureImporter:
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
-  assetBundleName: bushesswordfern
+  assetBundleName: 
   assetBundleVariant: 

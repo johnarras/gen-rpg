@@ -59,7 +59,7 @@ namespace Genrpg.Shared.Units.Factories
                 return null;
             }
 
-            Unit unit = new Unit();
+            Unit unit = new Unit(_repoService);
             unit.Level = level;
 
             if (spawn.GetAddons().Any())

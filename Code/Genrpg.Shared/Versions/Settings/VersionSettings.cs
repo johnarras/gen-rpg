@@ -1,8 +1,10 @@
+using Genrpg.Shared.Core.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -23,4 +25,8 @@ namespace Genrpg.Shared.Versions.Settings
 
     [MessagePackObject]
     public class VersionSettingsLoader : NoChildSettingsLoader<VersionSettings> { }
+
+
+    [MessagePackObject]
+    public class VersionSettingsMapper : NoChildSettingsMapper<VersionSettings> { }
 }

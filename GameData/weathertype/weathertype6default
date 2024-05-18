@@ -27,12 +27,12 @@
   },
   "FogScale": 0.003,
   "FogColor": {
-    "R": 0.99607843,
-    "G": 1.0,
-    "B": 0.9411765,
+    "R": 0.9372549,
+    "G": 0.9254902,
+    "B": 0.6313726,
     "A": 1.0
   },
-  "FogDistance": 250.0,
+  "FogDistance": 150.0,
   "CloudScale": 0.15,
   "CloudSpeed": 0.3,
   "CloudColor": {
@@ -45,6 +45,6 @@
   "PrecipScale": 0.1,
   "ParticleScale": 0.3,
   "Particles": "dust",
-  "UpdateTime": "2024-02-25T15:49:03.679Z",
-  "CreateTime": "2024-02-15T23:06:21.544Z"
+  "UpdateTime": "2024-05-18T00:22:40.734Z",
+  "CreateTime": "2024-02-16T05:06:21Z"
 }

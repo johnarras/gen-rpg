@@ -42,7 +42,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 Name = command.Name,
                 UserId = gs.user.Id,
             };
-            gs.ch = new Character();
+            gs.ch = new Character(_repoService);
             CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 
 

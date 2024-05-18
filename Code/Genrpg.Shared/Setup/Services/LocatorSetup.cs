@@ -17,6 +17,7 @@ using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.UnitEffects.Services;
 using Genrpg.Shared.Crawler.Roles.Services;
+using Genrpg.Shared.Spells.Services;
 
 namespace Genrpg.Shared.Setup.Services
 {
@@ -34,6 +35,7 @@ namespace Genrpg.Shared.Setup.Services
             fact.Set<IUnitGenService>(new UnitGenService());
             fact.Set<ISharedQuestService>(new SharedQuestService());
             fact.Set<IPathfindingService>(new PathfindingService());
+            fact.Set<IAbilityService>(new AbilityService());    
             fact.Set<IInventoryService>(new InventoryService());
             fact.Set<ICurrencyService>(new CurrencyService());
             fact.Set<IUserCoinService>(new UserCoinService());

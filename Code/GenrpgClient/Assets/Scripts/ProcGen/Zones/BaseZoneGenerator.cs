@@ -24,7 +24,6 @@ public class BaseZoneGenerator : IZoneGenerator, IInitializable
     public virtual async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         _token = token;
-        gs.loc.Resolve(this);
         await UniTask.CompletedTask;
     }
 

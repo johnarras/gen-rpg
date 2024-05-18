@@ -15,6 +15,8 @@ using Genrpg.Shared.Crawler.Parties.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Newtonsoft.Json;
 using Genrpg.Shared.Crawler.UI.Interfaces;
+using Newtonsoft.Json.Serialization;
+using Genrpg.Shared.Units.Mappers;
 
 namespace Genrpg.Shared.Crawler.Parties.PlayerData
 {
@@ -144,4 +146,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
             return true;
         }
     }
+
+    [MessagePackObject]
+    public class PartyDataMapper : UnitDataMapper<PartyData> { }
 }

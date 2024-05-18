@@ -1,0 +1,21 @@
+{
+  "Id": "weathertype0default",
+  "ParentId": "default",
+  "Name": "None",
+  "AmbientColor": {},
+  "LightColor": {},
+  "LightScale": 1.0,
+  "SkyColor": {},
+  "FogScale": 0.01,
+  "FogColor": {},
+  "FogDistance": 100.0,
+  "CloudScale": 1.0,
+  "CloudSpeed": 1.0,
+  "CloudColor": {},
+  "WindScale": 1.0,
+  "PrecipScale": 1.0,
+  "ParticleScale": 1.0,
+  "Particles": "",
+  "UpdateTime": "2024-05-18T00:21:42.032Z",
+  "CreateTime": "2024-02-15T23:06:21.551Z"
+}

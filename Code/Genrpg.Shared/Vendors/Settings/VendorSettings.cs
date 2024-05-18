@@ -4,6 +4,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.Core.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Vendors.Settings
 {
@@ -18,4 +20,9 @@ namespace Genrpg.Shared.Vendors.Settings
 
     [MessagePackObject]
     public class VendorSettingsLoader : NoChildSettingsLoader<VendorSettings> { }
+
+
+
+    [MessagePackObject]
+    public class VendorettingsMapper : NoChildSettingsMapper<VendorSettings> { }
 }

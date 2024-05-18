@@ -6,6 +6,7 @@ using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Combat.Messages;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.Shared.Units.Entities;
 

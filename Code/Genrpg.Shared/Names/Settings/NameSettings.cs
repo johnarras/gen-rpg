@@ -6,6 +6,8 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
 
 namespace Genrpg.Shared.Names.Settings
 {
@@ -71,6 +73,9 @@ namespace Genrpg.Shared.Names.Settings
     [MessagePackObject]
     public class NameSettingsApi : ParentSettingsApi<NameSettings, NameList> { }
     [MessagePackObject]
-    public class NameSettingsLoader : ParentSettingsLoader<NameSettings, NameList, NameSettingsApi> { }
+    public class NameSettingsLoader : ParentSettingsLoader<NameSettings, NameList> { }
+
+    [MessagePackObject]
+    public class ItemSettingsMapper : ParentSettingsMapper<NameSettings, NameList, NameSettingsApi> { }
 
 }

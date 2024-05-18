@@ -44,4 +44,5 @@ public interface IMapTerrainManager : IInitializable
     Texture2D GetBasicTerrainTexture(UnityGameState gs, int index);
     void SetTerrainLayerData(TerrainLayer tl);
     void SetAllTerrainNeighbors(UnityGameState gs);
+    BaseObjectLoader GetLoader(long mapObjectOffset);
 }

@@ -1,12 +1,8 @@
 ﻿using Genrpg.Shared.PlayerFiltering.Interfaces;
-using Genrpg.Shared.Players.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Genrpg.Shared.MapObjects.Interfaces
 {
-    public interface IMapObject : IDirtyable, IFilteredObject
+    public interface IMapObject : IFilteredObject
     {
         string Id { get; set; }
         string Name { get; set; }
@@ -21,5 +17,7 @@ namespace Genrpg.Shared.MapObjects.Interfaces
         string LocationId { get; set; }
         string LocationPlaceId { get; set; }
         long AddonBits { get; set; }
+        bool IsDirty();
+        void SetDirty(bool val);
     }
 }

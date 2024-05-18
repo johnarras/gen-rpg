@@ -1,5 +1,7 @@
+using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System;
@@ -30,6 +32,10 @@ namespace Genrpg.Shared.Ftue.Settings.Effects
     [MessagePackObject]
     public class FtueEffectSettingsApi : ParentSettingsApi<FtueEffectSettings, FtueEffect> { }
     [MessagePackObject]
-    public class FtueEffectSettingsLoader : ParentSettingsLoader<FtueEffectSettings, FtueEffect, FtueEffectSettingsApi> { }
+    public class FtueEffectSettingsLoader : ParentSettingsLoader<FtueEffectSettings, FtueEffect> { }
+
+    [MessagePackObject]
+    public class FtueEffectSettingsMapper : ParentSettingsMapper<FtueEffectSettings, FtueEffect, FtueEffectSettingsApi> { }
+
 
 }

@@ -7,6 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.AI.Settings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Core.Settings
 {
@@ -23,4 +25,8 @@ namespace Genrpg.Shared.Core.Settings
 
     [MessagePackObject]
     public class CoreSettingsLoader : NoChildSettingsLoader<CoreSettings> { }
+
+
+    [MessagePackObject]
+    public class CoreSettingsMapper : NoChildSettingsMapper<CoreSettings> { }
 }

@@ -3,7 +3,7 @@ guid: 43a8dfa70e8cea74293460e7338986f0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -149,5 +149,5 @@ TextureImporter:
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
-  assetBundleName: bushesthistle
+  assetBundleName: 
   assetBundleVariant: 

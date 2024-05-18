@@ -14,6 +14,7 @@ using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.Combat.MessageHandlers
 {

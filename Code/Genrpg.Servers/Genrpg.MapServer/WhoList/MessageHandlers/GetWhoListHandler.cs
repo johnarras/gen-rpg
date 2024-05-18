@@ -6,6 +6,7 @@ using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.WhoList.Entities;
 using Genrpg.Shared.WhoList.Messages;
 using System;

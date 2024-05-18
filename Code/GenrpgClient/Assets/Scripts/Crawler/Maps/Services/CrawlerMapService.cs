@@ -1,30 +1,17 @@
-﻿using Assets.Scripts.Buildings;
-using Assets.Scripts.Crawler.Maps.Constants;
+﻿using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
-using Assets.Scripts.Crawler.Maps.Loading;
 using Assets.Scripts.Crawler.Maps.Services.Helpers;
 using Assets.Scripts.Dungeons;
 using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using Genrpg.Shared.Dungeons.Settings;
-using Genrpg.Shared.MapObjects.Messages;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Utils.Data;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
@@ -34,6 +21,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         IAssetService _assetService;
         ICameraController _cameraController;
         ICrawlerService _crawlerService;
+        private IDispatcher _dispatcher;
 
         const int ViewRadius = 8;
         CrawlerMapRoot _crawlerMap = null;
@@ -258,7 +246,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                     ez < 0 || ez >= _crawlerMap.Map.ZSize)
                 {
                     // Bonk
-                    FloatingTextScreen.Instance.ShowError("Edge!");
+                    _dispatcher.Dispatch(gs, new ShowFloatingText("Edge!", EFloatingTextArt.Error));
                     return;
                 }
             }
@@ -271,7 +259,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             if (blockBits == WallTypes.Wall || blockBits == WallTypes.Secret)
             {
                 // Bonk
-                FloatingTextScreen.Instance.ShowError("Bonk!");
+                _dispatcher.Dispatch(gs, new ShowFloatingText("Bonk!", EFloatingTextArt.Error));
                 return;
             }
 

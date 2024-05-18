@@ -157,7 +157,7 @@ namespace Genrpg.MapServer.Crafting
             item.Effects = new List<ItemEffect>();
             if (stats.Stats != null)
             {
-                foreach (Stat stat in stats.Stats)
+                foreach (CraftingStat stat in stats.Stats)
                 {
                     ItemEffect ieff = new ItemEffect() { EntityTypeId = EntityTypes.Stat, EntityId = stat.Id, Quantity = stat.Val };
                     item.Effects.Add(ieff);

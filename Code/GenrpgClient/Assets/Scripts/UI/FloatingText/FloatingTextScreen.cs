@@ -5,6 +5,12 @@ using Genrpg.Shared.DataStores.Entities;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
+public enum EFloatingTextArt
+{
+    Message = 0,
+    Error = 1,
+}
+
 public class FloatingTextQueuedItem
 {
     public string Message;
@@ -26,27 +32,29 @@ public class FloatingTextScreen : BaseScreen
     private List<FloatingTextItem> _currentItems;
     private List<FloatingTextQueuedItem> _messageQueue;
 
-    public static FloatingTextScreen Instance = null;
-
     protected override void OnEnable()
     {
         _messageQueue = new List<FloatingTextQueuedItem>();
         _currentItems = new List<FloatingTextItem>();
-        Instance = this;
         base.OnEnable();
     }
 
     protected override void OnDisable()
     {
-        Instance = null;
         base.OnDisable();
     }
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
     {
+        _dispatcher.AddEvent<ShowFloatingText>(this, OnReceiveMessage);
         await UniTask.CompletedTask;
     }
 
+    private ShowFloatingText OnReceiveMessage(UnityGameState gs, ShowFloatingText message)
+    {
+        ShowMessage(message.Text, message.Art);
+        return null;
+    }
 
     DateTime _lastShowTime = DateTime.UtcNow.AddDays(-1);
     float delta = 0;
@@ -90,19 +98,16 @@ public class FloatingTextScreen : BaseScreen
         
     }
 
-    public void ShowMessage(string msg)
+    private void ShowMessage(string msg, EFloatingTextArt art)
     {
-        AddFloatingText(msg, MessageArt);
-    }
+        string prefabName = MessageArt;
+        if (art == EFloatingTextArt.Error)
+        {
+            prefabName = ErrorArt;
+        }
 
-    public void ShowError(string msg)
-    {
-        AddFloatingText(msg, ErrorArt);
-    }
 
-    private void AddFloatingText(string msg, string prefab)
-    {
-        if (_textAnchor == null || string.IsNullOrEmpty(msg) || string.IsNullOrEmpty(prefab))
+        if (_textAnchor == null || string.IsNullOrEmpty(msg) || string.IsNullOrEmpty(prefabName))
         {
             return;
         }
@@ -110,7 +115,7 @@ public class FloatingTextScreen : BaseScreen
         FloatingTextQueuedItem queuedItem = new FloatingTextQueuedItem()
         {
             Message = msg,
-            ArtName = prefab,
+            ArtName = prefabName,
         };
 
         _messageQueue.Add(queuedItem);

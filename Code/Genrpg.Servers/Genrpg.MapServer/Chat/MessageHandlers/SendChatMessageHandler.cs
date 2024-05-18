@@ -4,6 +4,7 @@ using Genrpg.Shared.Chat.Constants;
 using Genrpg.Shared.Chat.Messages;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

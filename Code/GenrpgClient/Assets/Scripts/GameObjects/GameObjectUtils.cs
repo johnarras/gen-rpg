@@ -1,7 +1,11 @@
 using GEntity = UnityEngine.GameObject;
 using GObject = UnityEngine.Object;
 using System.Collections.Generic;
-using UnityEngine; // Needed
+using UnityEngine;
+using System;
+using Assets.Scripts.Core.Interfaces;
+using Genrpg.Shared.Core.Entities;
+using System.Linq; // Needed
 
 public class GEntityUtils
 {
@@ -402,6 +406,27 @@ public class GEntityUtils
         cdupe.name = cdupe.name.Replace("(Clone)", "");
         InitializeHierarchy(gs, cdupe.entity());
         return cdupe;
+    }
+
+    public static GEntity FullInstantiateAndSet (UnityGameState gs, GEntity go)
+    {
+        GEntity dupe = FullInstantiate(gs, go);
+
+        List<BaseBehaviour> allBehaviours = GEntityUtils.GetComponents<BaseBehaviour>(dupe);
+
+        foreach (BaseBehaviour behaviour in allBehaviours)
+        {
+            Type setType = behaviour.GetType().GetInterfaces()
+                .FirstOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IInjectOnLoad<>));
+           
+            if (setType != null)
+            {
+                var setMethod = typeof(ServiceLocator).GetMethod("Set");
+                var genericMethod = setMethod.MakeGenericMethod(setType.GenericTypeArguments[0]);
+                genericMethod.Invoke(gs.loc, new object[] { behaviour } );
+            }
+        }
+        return dupe;
     }
 
     public static GEntity FullInstantiate(UnityGameState gs, GEntity go)

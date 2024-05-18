@@ -23,8 +23,6 @@ namespace Genrpg.ServerShared.Config
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
             string filePath = config.FilePath;
-            Console.WriteLine("Config: " + filePath);
-
 
             serverConfig.Env = ConfigurationManager.AppSettings["Env"];
 

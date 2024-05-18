@@ -9,9 +9,6 @@ using Genrpg.Shared.Zones.Settings;
 
 public class RockObjectLoader : BaseObjectLoader
 {
-    public RockObjectLoader(UnityGameState gs) : base(gs)
-    {
-    }
     public override bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId, 
         int x, int y, Zone currZone, ZoneType currZoneType, CancellationToken token)
     {

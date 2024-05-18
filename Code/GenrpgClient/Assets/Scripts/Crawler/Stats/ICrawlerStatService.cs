@@ -22,6 +22,6 @@ namespace Genrpg.Shared.Crawler.Stats.Services
         /// <param name="gs"></param>
         /// <param name="party"></param>
         /// <returns></returns>
-        List<Stat> GetPartyBuffStats(GameState gs, PartyData party);
+        List<MemberStat> GetPartyBuffStats(GameState gs, PartyData party);
     }
 }

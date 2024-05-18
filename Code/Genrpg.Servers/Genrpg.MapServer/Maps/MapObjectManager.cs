@@ -31,6 +31,11 @@ using MongoDB.Bson.IO;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.GameSettings;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Genrpg.MapServer.Maps.Constants;
+using Microsoft.WindowsAzure.Storage.Blob.Protocol;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -44,7 +49,7 @@ namespace Genrpg.MapServer.Maps
         bool GetChar(string id, out Character ch, GetMapObjectParams objParams = null);
         bool GetUnit(string id, out Unit unit, GetMapObjectParams objParams = null);
         bool GetObject(string id, out MapObject item, GetMapObjectParams objParams = null);
-        void FinalRemoveFromGrid(GameState gs, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item);
+        void FinalRemoveObjectFromOldGrid(GameState gs, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item);
         MapObjectGridItem RemoveObject(GameState gs, string objId, float delaySeconds = 0);
         MapObjectGridItem AddObject(GameState gs, MapObject obj, IMapSpawn spawn);
         List<T> GetTypedObjectsNear<T>(float wx, float wz, MapObject filterObject,
@@ -90,23 +95,51 @@ namespace Genrpg.MapServer.Maps
         protected long _totalUnits = 0;
         protected long _totalObjects = 0;
 
+        protected long _idLookupObjectCount = 0;
+        protected long _gridObjectCount = 0;
+        protected long _zoneObjectCount = 0;
+
         private Dictionary<long, IMapObjectFactory> _factories = new Dictionary<long, IMapObjectFactory>();
         private Dictionary<long, IObjectFilter> _filters = new Dictionary<long, IObjectFilter>();
 
         private IMapMessageService _messageService = null;
         private ILogService _logService = null;
         private IGameData _gameData;
+        protected IRepositoryService _repoService;
 
-        private MapObject _messageTarget = new MapObject() { Id = typeof(MapObjectManager).Name };
-        public MapObject GetMessageTarget()
-        {
-            return _messageTarget;
-        }
-
-
+        // Used when we need messages to mapobjects that no longer exist.
+        const int MessageTargetCount = 100;
+        private long _messageTargetIndex = 0;
+        private MapObject[] _messageTargets = null;
 
         public MapObjectCounts GetCounts()
         {
+
+            if (MapInstanceConstants.ServerTestMode)
+            {
+                _idLookupObjectCount = 0;
+                foreach (ConcurrentDictionary<string,MapObjectGridItem> dict in _idDict.Values)
+                {
+                    _idLookupObjectCount += dict.Count;
+                }
+
+                _gridObjectCount = 0;
+                for (int x = 0; x < _gridSize; x++)
+                {
+                    for (int y = 0; y < _gridSize; y++)
+                    {
+                        _gridObjectCount += _objectGrid[x, y].GetObjects().Count;
+                    }
+                }
+
+                _zoneObjectCount = 0;
+                foreach (ConcurrentDictionary<string,Character> zdict in _zoneDict.Values)
+                {
+                    _zoneObjectCount += zdict.Count;
+                }
+
+            }
+
             MapObjectCounts counts = new MapObjectCounts()
             {
                 CurrentObjectCount = _objectCount,
@@ -118,6 +151,9 @@ namespace Genrpg.MapServer.Maps
                 TotalGridLocks = _totalGridLocks,
                 UnitTotal = _totalUnits,
                 ObjectTotal = _totalObjects,
+                IdLookupObjectAccount = _idLookupObjectCount,
+                GridObjectCount = _gridObjectCount,
+                ZoneObjectCount = _zoneObjectCount,
             };
             return counts;
         }
@@ -171,11 +207,41 @@ namespace Genrpg.MapServer.Maps
                 _didSetupOnce = true;
                 _unitsAdded = 0; 
             }
+
+            _messageTargets = new MapObject[MessageTargetCount];
+            for (int i = 0; i < MessageTargetCount; i++)
+            {
+                _messageTargets[i] = new MapObject(_repoService) { Id = (i * 13 + 17) + ".ObjManager" };
+            }
         }
 
-        public void FinalRemoveFromGrid(GameState gs, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item)
+        public void FinalRemoveObjectFromOldGrid(GameState gs, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item)
         {
             gridData.RemoveObj(item.Obj);
+            // Should be ok to do thsi here becaue this will happen microseconds after the move between grid cells,
+            // and objects can only move between grid cells every 3 seconds.
+            item.OldGX = item.GX;
+            item.OldGZ = item.GZ;
+            _totalGridLocks++;
+        }
+
+        private long _multiRemoveTimes = 0;
+        private void RemoveItemFromOldGridOnRemoveFromMap(MapObjectGridItem item)
+        {
+            int oldgz = item.OldGZ;
+            int oldgx = item.OldGX;
+
+            if ((oldgz != item.GZ || oldgx != item.GX) &&
+            (oldgx >= 0 && oldgx < _gridSize && oldgz >= 0 && oldgz < _gridSize))
+            {
+                if (_objectGrid[oldgx,oldgz].GetObjects().Contains(item.Obj))
+                {
+                    _logService.Message($"Removing object from old grid in middle of destroy {++_multiRemoveTimes}");
+                }
+                _objectGrid[oldgx, oldgz].RemoveObj(item.Obj);
+                item.OldGX = item.GX;
+                item.OldGZ = item.GZ;
+            }
             _totalGridLocks++;
         }
 
@@ -223,6 +289,9 @@ namespace Genrpg.MapServer.Maps
 
                     newGrid.AddObj(gridItem.Obj);
                     _totalGridLocks += 2;
+
+                    gridItem.OldGX = gridItem.GX;
+                    gridItem.OldGZ = gridItem.GZ;
                     gridItem.GX = newGridPos.X;
                     gridItem.GZ = newGridPos.Z;
                     OnAddObjectToGrid(gs, obj, newGridPos.X, newGridPos.Z);
@@ -420,7 +489,7 @@ namespace Genrpg.MapServer.Maps
             _objectGrid[pt.X, pt.Z].AddObj(newGridItem.Obj);
             _totalGridLocks++;
 
-            _idDict[StrUtils.GetIdHash(obj.Id) % IdHashSize].TryAdd(obj.Id, newGridItem);
+            _idDict[obj.GetIdHash() % IdHashSize].TryAdd(obj.Id, newGridItem);
             obj.Spawn = spawn;
             if (obj is Unit unit)
             {
@@ -483,6 +552,8 @@ namespace Genrpg.MapServer.Maps
                 gridItem.GZ >= 0 && gridItem.GZ < _gridSize)
             {
                 _objectGrid[gridItem.GX, gridItem.GZ].RemoveObj(gridItem.Obj);
+                RemoveItemFromOldGridOnRemoveFromMap(gridItem);
+                // JRATODO
                 _totalGridLocks++;
             }
 
@@ -499,6 +570,11 @@ namespace Genrpg.MapServer.Maps
 
             OnRemove(gs, gridItem);
             return gridItem;
+        }
+
+        public MapObject GetMessageTarget()
+        {
+            return _messageTargets[++_messageTargetIndex % MessageTargetCount];
         }
 
         protected virtual void OnRemove(GameState gs, MapObjectGridItem gridItem)

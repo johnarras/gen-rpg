@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Stats.Constants;
 using MessagePack;
@@ -102,7 +104,9 @@ namespace Genrpg.Shared.Spells.Settings.Skills
     [MessagePackObject]
     public class SkillTypeSettingsApi : ParentSettingsApi<SkillTypeSettings, SkillType> { }
     [MessagePackObject]
-    public class SkillTypeSettingsLoader : ParentSettingsLoader<SkillTypeSettings, SkillType, SkillTypeSettingsApi> { }
+    public class SkillTypeSettingsLoader : ParentSettingsLoader<SkillTypeSettings, SkillType> { }
 
+    [MessagePackObject]
+    public class SkillTypeSettingsMapper : ParentSettingsMapper<SkillTypeSettings, SkillType, SkillTypeSettingsApi> { }
 
 }

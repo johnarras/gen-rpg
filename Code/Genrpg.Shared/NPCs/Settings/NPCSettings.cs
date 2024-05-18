@@ -8,6 +8,8 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Vendors.WorldData;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
 
 namespace Genrpg.Shared.NPCs.Settings
 {
@@ -38,6 +40,9 @@ namespace Genrpg.Shared.NPCs.Settings
     public class NPCSettingsApi : ParentSettingsApi<NPCSettings, NPCType> { }
 
     [MessagePackObject]
-    public class NPCSettingsLoader : ParentSettingsLoader<NPCSettings, NPCType, NPCSettingsApi> { }
+    public class NPCSettingsLoader : ParentSettingsLoader<NPCSettings, NPCType> { }
+
+    [MessagePackObject]
+    public class ItemSettingsMapper : ParentSettingsMapper<NPCSettings, NPCType, NPCSettingsApi> { }
 
 }

@@ -1,9 +1,11 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.GameSettings.Settings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Settings;
+using Genrpg.Shared.Purchasing.Settings;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -20,11 +22,16 @@ namespace Genrpg.Shared.Purchasing.Settings
     [MessagePackObject]
     public class StoreOfferSettingsApi : ParentSettingsApi<StoreOfferSettings, StoreOffer> { }
     [MessagePackObject]
-    public class StoreOfferSettingsLoader : ParentSettingsLoader<StoreOfferSettings, StoreOffer, StoreOfferSettingsApi> 
+    public class StoreOfferSettingsLoader : ParentSettingsLoader<StoreOfferSettings, StoreOffer> 
+    {
+    }
+   
+
+    [MessagePackObject]
+    public class StoreOfferSettingsMapper : ParentSettingsMapper<StoreOfferSettings, StoreOffer, StoreOfferSettingsApi> 
     {
         public override bool SendToClient() { return false; }
     }
-
 
     [MessagePackObject]
     public class StoreOffer : ChildSettings, IPlayerFilter, IComplexCopy

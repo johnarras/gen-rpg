@@ -7,16 +7,14 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Networking.Interfaces;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Inventory.Constants;
-using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.GameSettings.PlayerData;
-using Genrpg.Shared.Players.Interfaces;
 using Genrpg.Shared.Characters.Utils;
 
 namespace Genrpg.Shared.Characters.PlayerData
 {
     // MessagePackIgnore
-    public class Character : Unit, IDirtyable, ICoreCharacter
+    public class Character : Unit, ICoreCharacter
     {
 
         public string UserId { get; set; }
@@ -27,15 +25,13 @@ namespace Genrpg.Shared.Characters.PlayerData
 
         public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
-
         public List<PointXZ> NearbyGridsSeen { get; set; } = new List<PointXZ>();
-
 
         public DateTime LastServerStatTime { get; set; } = DateTime.UtcNow;
 
         private GameDataOverrideList _overrideList { get; set; }
 
-        public Character()
+        public Character(IRepositoryService repositoryService) : base(repositoryService)
         {
             Level = 1;
             QualityTypeId = QualityTypes.Common;
@@ -43,7 +39,6 @@ namespace Genrpg.Shared.Characters.PlayerData
             FactionTypeId = FactionTypes.Player;
             _overrideList = null;
         }
-
 
         public override void Dispose()
         {
@@ -85,26 +80,26 @@ namespace Genrpg.Shared.Characters.PlayerData
             return new Dictionary<Type, IUnitData>(_dataDict);
         }
 
-        public override void SaveAll(IRepositoryService repoSystem, bool saveClean)
+        public override void SaveData(bool saveAll)
         {
-            List<BasePlayerData> itemsToSave = new List<BasePlayerData>();
-
-            if (saveClean || IsDirty())
+            if (saveAll || IsDirty())
             {
                 SetDirty(false);
                 CoreCharacter coreChar = new CoreCharacter();
 
                 CharacterUtils.CopyDataFromTo(this, coreChar);
 
-                itemsToSave.Add(coreChar);
+                _repoService.QueueSave(coreChar);
             }
 
-            List<IUnitData> allValues = new List<IUnitData>(_dataDict.Values.ToList());
-            foreach (IUnitData value in allValues)
-            {                
-                itemsToSave.AddRange(value.GetSaveObjects(saveClean));
+            if (saveAll)
+            {
+                List<IUnitData> allValues = new List<IUnitData>(_dataDict.Values.ToList());
+                foreach (IUnitData value in allValues)
+                {
+                    value.Save();
+                }
             }
-            repoSystem.QueueTransactionSave(itemsToSave, Id);
         }
 
         public void SetGameDataOverrideList(GameDataOverrideList overrideList)

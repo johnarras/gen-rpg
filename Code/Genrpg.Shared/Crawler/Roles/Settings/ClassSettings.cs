@@ -1,6 +1,8 @@
+using Genrpg.Shared.Crawler.Buffs.Settings;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using MessagePack;
@@ -83,7 +85,14 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
     [MessagePackObject]
     public class ClassSettingsApi : ParentSettingsApi<ClassSettings, Class> { }
     [MessagePackObject]
-    public class ClassSettingsLoader : ParentSettingsLoader<ClassSettings, Class, ClassSettingsApi> { }
+    public class ClassSettingsLoader : ParentSettingsLoader<ClassSettings, Class> { }
+
+
+
+    [MessagePackObject]
+    public class ClassSettingsMapper : ParentSettingsMapper<ClassSettings, Class, ClassSettingsApi> { }
+
+
 
 
 

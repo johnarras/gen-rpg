@@ -95,12 +95,10 @@ namespace Genrpg.Shared.Interfaces
     public interface IServiceLocator
     {
         T Get<T>() where T : IInjectable;
-        object GetByName(string txt);
         void Set<T>(T t) where T : IInjectable;
         List<Type> GetKeys();
 
         List<IInjectable> GetVals();
-        void Remove<T>() where T : IInjectable;
         void Resolve(object obj);
         void ResolveSelf();
     }

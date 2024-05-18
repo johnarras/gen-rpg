@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Chat.Settings
 {
@@ -29,8 +30,11 @@ namespace Genrpg.Shared.Chat.Settings
     }
 
     [MessagePackObject]
-    public class ChatApi : ParentSettingsApi<ChatSettings, ChatType> { }
+    public class ChatSettingsApi : ParentSettingsApi<ChatSettings, ChatType> { }
 
     [MessagePackObject]
-    public class ChatSettingsLoader : ParentSettingsLoader<ChatSettings, ChatType, ChatApi> { }
+    public class ChatSettingsLoader : ParentSettingsLoader<ChatSettings, ChatType> { }
+
+    [MessagePackObject]
+    public class ChatSettingsMapper : ParentSettingsMapper<ChatSettings, ChatType, ChatSettingsApi> { }
 }

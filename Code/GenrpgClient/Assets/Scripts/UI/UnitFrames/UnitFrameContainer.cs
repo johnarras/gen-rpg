@@ -19,12 +19,16 @@ public class UnitFrameContainer : BaseBehaviour
     public UnitFrame Frame;
 
     private CancellationToken _token;
+
+    private IPlayerManager _playerManager;
+
     public void Init(CancellationToken token)
     {
         _token = token;
         _dispatcher.AddEvent<SetMapPlayerEvent>(this, OnSetMapPlayer);
         _dispatcher.AddEvent<ExitMapEvent>(this, OnExitMap);
-        SetMapPlayer(PlayerObject.GetUnit());
+        _playerManager.TryGetUnit(out Unit unit);
+        SetMapPlayer(unit);
     }
 
     private ExitMapEvent OnExitMap(UnityGameState gs, ExitMapEvent exitMap)

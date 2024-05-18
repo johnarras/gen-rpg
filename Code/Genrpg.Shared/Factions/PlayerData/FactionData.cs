@@ -14,6 +14,7 @@ using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Units.Mappers;
 
 namespace Genrpg.Shared.Factions.PlayerData
 {
@@ -36,135 +37,18 @@ namespace Genrpg.Shared.Factions.PlayerData
     {
         [Key(0)] public override string Id { get; set; }
 
-        /// <summary>
-        ///  Find the FactionStub for a given faction, 
-        /// </summary>
-        /// <param name="factionTypeId">The faction to find</param>
-        /// <param name="createIfNull">Create if null or return null if missing</param>
-        /// <returns>The Reputation found or null</returns>
-        public FactionStatus Find(IGameData gameData, long factionTypeId)
+        protected override void OnCreateChild(FactionStatus newChild)
         {
-
-            FactionStatus currStatus = _data.FirstOrDefault(x => x.IdKey == factionTypeId);
-            if (currStatus == null)
-            {
-                currStatus = new FactionStatus()
-                {
-                    IdKey = factionTypeId,
-                    RepLevelId = RepLevels.Neutral,
-                    Id = HashUtils.NewGuid(),
-                    OwnerId = Id,
-                };
-                _data.Add(currStatus);
-                currStatus.SetDirty(true);
-            }
-            return currStatus;
+            newChild.RepLevelId = (newChild.IdKey == FactionTypes.Player ? RepLevels.Neutral : RepLevels.Hated);
         }
 
-        /// <summary>
-        /// Return the rep level we have with this faction.
-        /// </summary>
-        /// <param name="factionId"></param>
-        /// <returns></returns>
-        public long Get(IGameData gameData, long factionId)
-        {
-            return Find(gameData, factionId).RepLevelId;
-        }
-
-        /// <summary>
-        /// Get an FactionStub value based on faction Id, or 0 if missing
-        /// </summary>
-        /// <param name="factionId">The faction Id to find</param>
-        /// <returns>The FactionStub value or 0 if missing</returns>
-        public long GetRep(IGameData gameData, long factionId)
-        {
-            return Find(gameData, factionId).Reputation;
-        }
-
-        /// <summary>
-        /// Set a reputtation value
-        /// </summary>
-        /// <param name="factionId">Which faction Id to set</param>
-        /// <param name="val">The value to set</param>
-        public RepResult SetRep(IGameData gameData, Unit unit, int factionId, long val)
-        {
-            FactionStatus status = Find(gameData, factionId);
-            RepResult res = new RepResult()
-            {
-                OldRep = status.Reputation,
-                OldRepLevelId = status.RepLevelId,
-            };
-            long diff = val - status.Reputation;
-
-            res.RepChange = diff;
-
-            status.Reputation = val;
-
-            // Negative rep, go down levels.
-            while (status.Reputation < 0)
-            {
-                RepLevel repLevel = gameData.Get<ReputationSettings>(unit).Get(status.RepLevelId - 1);
-                if (repLevel == null || status.RepLevelId <= 1)
-                {
-                    status.Reputation = 0;
-                    break;
-                }
-                else
-                {
-                    status.RepLevelId = repLevel.IdKey;
-                    status.Reputation = repLevel.PointsNeeded - val;
-                }
-            }
-
-            while (true)
-            {
-                RepLevel repLevel = gameData.Get<ReputationSettings>(unit).Get(status.RepLevelId);
-
-
-                if (repLevel == null || status.Reputation <= repLevel.PointsNeeded)
-                {
-                    break;
-                }
-
-                int pointsNeeded = repLevel.PointsNeeded;
-
-                repLevel = gameData.Get<ReputationSettings>(unit).Get(status.RepLevelId + 1);
-                if (repLevel == null)
-                {
-                    status.Reputation = pointsNeeded - 1;
-                    break;
-                }
-                else
-                {
-                    status.RepLevelId = repLevel.IdKey;
-                    status.Reputation -= pointsNeeded;
-                }
-            }
-            res.NewRepLevelId = status.RepLevelId;
-            res.NewRep = status.Reputation;
-
-            if (res.OldRep != res.NewRep || res.OldRepLevelId != res.NewRepLevelId)
-            {
-                status.SetDirty(true);
-            }
-
-            return res;
-        }
-
-
-
-        /// <summary>
-        /// Add reputation to a faction
-        /// </summary>
-        /// <param name="factionId">The faction to add to</param>
-        /// <param name="val">The amount to add</param>
-        public RepResult Add(IGameData gameData, Unit unit, int factionId, long val)
-        {
-            return SetRep(gameData, unit, factionId, GetRep(gameData, factionId) + val);
-        }
     }
     [MessagePackObject]
     public class FactionApi : OwnerApiList<FactionData, FactionStatus> { }
     [MessagePackObject]
-    public class FactionDataLoader : OwnerIdDataLoader<FactionData, FactionStatus, FactionApi> { }
+    public class FactionDataLoader : OwnerIdDataLoader<FactionData, FactionStatus> { }
+
+
+    [MessagePackObject]
+    public class FactionDataMapper : OwnerDataMapper<FactionData, FactionStatus, FactionApi> { }
 }

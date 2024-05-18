@@ -1,5 +1,6 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System;
@@ -17,7 +18,10 @@ namespace Genrpg.Shared.Purchasing.Settings
     [MessagePackObject]
     public class StoreThemeSettingsApi : ParentSettingsApi<StoreThemeSettings, StoreTheme> { }
     [MessagePackObject]
-    public class StoreThemeSettingsLoader : ParentSettingsLoader<StoreThemeSettings, StoreTheme, StoreThemeSettingsApi> { }
+    public class StoreThemeSettingsLoader : ParentSettingsLoader<StoreThemeSettings, StoreTheme> { }
+
+    [MessagePackObject]
+    public class StoreThemeSettingsMapper : ParentSettingsMapper<StoreThemeSettings, StoreTheme, StoreThemeSettingsApi> { }
 
 
     [MessagePackObject]

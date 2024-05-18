@@ -8,9 +8,6 @@ using GEntity = UnityEngine.GameObject;
 
 public class BridgeObjectLoader : BaseObjectLoader
 {
-    public BridgeObjectLoader(UnityGameState gs) :base(gs)
-    {
-    }
     public override bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId,
        int x, int y, Zone currZone, ZoneType currZoneType, CancellationToken token)
     {

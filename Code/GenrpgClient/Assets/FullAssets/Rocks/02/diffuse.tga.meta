@@ -3,7 +3,7 @@ guid: e968a1581b1eca548b3f72d3196db408
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -149,5 +149,5 @@ TextureImporter:
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
-  assetBundleName: rocksrockswamp
+  assetBundleName: 
   assetBundleVariant: 

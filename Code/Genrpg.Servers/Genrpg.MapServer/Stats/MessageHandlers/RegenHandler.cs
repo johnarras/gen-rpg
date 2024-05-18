@@ -8,6 +8,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.Stats.MessageHandlers
 {

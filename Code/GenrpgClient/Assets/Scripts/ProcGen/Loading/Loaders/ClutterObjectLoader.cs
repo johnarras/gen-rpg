@@ -11,9 +11,6 @@ using Genrpg.Shared.Zones.Settings;
 
 public class ClutterObjectLoader : BaseObjectLoader
 {
-    public ClutterObjectLoader(UnityGameState gs) : base(gs)
-    {
-    }
     public override bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId,
        int x, int y, Zone currZone, ZoneType currZoneType, CancellationToken token)
     {

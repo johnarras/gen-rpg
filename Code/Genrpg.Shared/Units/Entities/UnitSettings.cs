@@ -11,6 +11,8 @@ using Genrpg.Shared.Names.Settings;
 using Genrpg.Shared.ProcGen.Settings.Monsters;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Spells.Settings.Effects;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Purchasing.Settings;
 
 namespace Genrpg.Shared.Units.Entities
 {
@@ -71,6 +73,9 @@ namespace Genrpg.Shared.Units.Entities
         public class UnitSettingsApi : ParentSettingsApi<UnitSettings, UnitType> { }
 
     [MessagePackObject]
-        public class UnitSettingsLoasder : ParentSettingsLoader<UnitSettings, UnitType, UnitSettingsApi> { }
+        public class UnitSettingsLoasder : ParentSettingsLoader<UnitSettings, UnitType> { }
+
+    [MessagePackObject]
+        public class UnitSettingsMapper : ParentSettingsMapper<UnitSettings, UnitType, UnitSettingsApi> { }
     }
 }

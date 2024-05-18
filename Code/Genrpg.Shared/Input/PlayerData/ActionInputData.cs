@@ -2,6 +2,7 @@ using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Input.Constants;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils;
 using MessagePack;
 using System;
@@ -26,18 +27,6 @@ namespace Genrpg.Shared.Input.PlayerData
     {
         [Key(0)] public override string Id { get; set; }
 
-        private List<ActionInput> _data { get; set; } = new List<ActionInput>();
-
-        public override List<ActionInput> GetData()
-        {
-            return _data;
-        }
-
-        public override void SetData(List<ActionInput> data)
-        {
-            _data = data;
-        }
-
         public ActionInput GetInput(int actionIndex)
         {
             if (!InputConstants.OkActionIndex(actionIndex))
@@ -55,7 +44,7 @@ namespace Genrpg.Shared.Input.PlayerData
                     Id = HashUtils.NewGuid(),
                 };
                 _data.Add(input);
-                input.SetDirty(true);
+                _repoService.QueueSave(input);
             }
             return input;
         }
@@ -71,14 +60,17 @@ namespace Genrpg.Shared.Input.PlayerData
             if (input.SpellId != spellTypeId)
             {
                 input.SpellId = spellTypeId;
+                _repoService.QueueSave(input);
             }
-            input.SetDirty(true);
         }
     }
     [MessagePackObject]
     public class ActionInputApi : OwnerApiList<ActionInputData, ActionInput> { }
 
     [MessagePackObject]
-    public class ActionInputDataLoader : OwnerDataLoader<ActionInputData, ActionInput, ActionInputApi> { }
+    public class ActionInputDataLoader : OwnerDataLoader<ActionInputData, ActionInput> { }
+
+    [MessagePackObject]
+    public class ActionInputDataMapper : OwnerDataMapper<ActionInputData, ActionInput, ActionInputApi> { }
 
 }

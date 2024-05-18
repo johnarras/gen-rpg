@@ -1,5 +1,6 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using MessagePack;
 using System.Linq;
 
@@ -21,12 +22,14 @@ namespace Genrpg.Editor.Entities.MetaData
     [MessagePackObject]
     public class EditorMetaDataTypeSettingsApi : ParentSettingsApi<EditorMetaDataSettings, TypeMetaData> { }
     [MessagePackObject]
-    public class EditorMetaDataTypeSettingsLoader : ParentSettingsLoader<EditorMetaDataSettings, TypeMetaData, EditorMetaDataTypeSettingsApi>
+    public class EditorMetaDataTypeSettingsLoader : ParentSettingsLoader<EditorMetaDataSettings, TypeMetaData>
     {
-        public override bool SendToClient()
-        {
-            return false;
-        }
+    }
+
+    [MessagePackObject]
+    public class EditorMetaDataTypeSettingsMapper : ParentSettingsMapper<EditorMetaDataSettings, TypeMetaData, EditorMetaDataTypeSettingsApi>
+    {
+        public override bool SendToClient() { return false; }
     }
 
 }

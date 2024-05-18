@@ -8,6 +8,7 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 
 namespace Genrpg.Shared.Levels.Settings
 {
@@ -55,6 +56,9 @@ namespace Genrpg.Shared.Levels.Settings
     public class LevelSettingsApi : ParentSettingsApi<LevelSettings, LevelInfo> { }
 
     [MessagePackObject]
-    public class LevelSettingsLoader : ParentSettingsLoader<LevelSettings, LevelInfo, LevelSettingsApi> { }
+    public class LevelSettingsLoader : ParentSettingsLoader<LevelSettings, LevelInfo> { }
+
+    [MessagePackObject]
+    public class ItemSettingsMapper : ParentSettingsMapper<LevelSettings, LevelInfo, LevelSettingsApi> { }
 
 }

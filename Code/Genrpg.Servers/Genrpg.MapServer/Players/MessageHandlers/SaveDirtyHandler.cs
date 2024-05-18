@@ -3,6 +3,7 @@ using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Players.Constants;
 using Genrpg.Shared.Players.Messages;
 using System;
@@ -21,7 +22,7 @@ namespace Genrpg.MapServer.Players.MessageHandlers
                 return;
             }
 
-            _playerDataService.SavePlayerData(ch, _repoService, false);
+            _playerDataService.SavePlayerData(ch, false);
 
             if (!message.IsCancelled())
             {

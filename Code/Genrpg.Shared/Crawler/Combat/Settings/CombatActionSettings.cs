@@ -1,5 +1,7 @@
+using Genrpg.Shared.Crawler.Buffs.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 
@@ -30,7 +32,12 @@ namespace Genrpg.Shared.Crawler.Combat.Settings
     [MessagePackObject]
     public class CombatActionSettingsApi : ParentSettingsApi<CombatActionSettings, CombatAction> { }
     [MessagePackObject]
-    public class CombatActionSettingsLoader : ParentSettingsLoader<CombatActionSettings, CombatAction, CombatActionSettingsApi> { }
+    public class CombatActionSettingsLoader : ParentSettingsLoader<CombatActionSettings, CombatAction> { }
+
+    [MessagePackObject]
+    public class CombatActionSettingsMapper : ParentSettingsMapper<CombatActionSettings, CombatAction, CombatActionSettingsApi> { }
+
+
 
 
 

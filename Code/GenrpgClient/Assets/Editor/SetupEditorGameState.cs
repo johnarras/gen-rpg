@@ -6,6 +6,9 @@ using Genrpg.Shared.GameSettings;
 using Assets.Scripts.GameSettings.Services;
 using System;
 using Cysharp.Threading.Tasks;
+using Genrpg.Shared.Interfaces;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 public class SetupEditorUnityGameState
 {
@@ -38,7 +41,9 @@ public class SetupEditorUnityGameState
             try
             {
                 ClientInitializer clientInitializer = new ClientInitializer();
-                await clientInitializer.SetupClientServices(gs, false, _cts.Token);
+                clientInitializer.AddClientServices(gs, null, false, _cts.Token);
+
+                await clientInitializer.FinalInitialize(gs, _cts.Token);
             }
             catch (Exception e)
             {

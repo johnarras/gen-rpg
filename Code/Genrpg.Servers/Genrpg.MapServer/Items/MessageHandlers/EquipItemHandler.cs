@@ -4,6 +4,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

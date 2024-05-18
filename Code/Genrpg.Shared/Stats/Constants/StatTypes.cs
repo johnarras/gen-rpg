@@ -49,5 +49,7 @@ namespace Genrpg.Shared.Stats.Constants
         
         public const int Hit = 70; // Chance to hit
         public const int Leadership = 71; // effective attack level
+
+        public const int Max = 72;
     }
 }

@@ -49,6 +49,7 @@ public class ZoneStateController : BaseBehaviour
 {
     private ICameraController _cameraController = null;
     private IMapTerrainManager _terrainManager = null;
+    private IPlayerManager _playerManager;
 
 
     public override void Initialize(UnityGameState gs)
@@ -181,7 +182,7 @@ public class ZoneStateController : BaseBehaviour
 
         if (!_didInitZoneState)
         {
-            GEntity go = PlayerObject.Get();
+            GEntity go = _playerManager.GetEntity();
             if (go != null)
             {
                 ResetColors();
@@ -201,7 +202,7 @@ public class ZoneStateController : BaseBehaviour
         if (ticksToZoneUpdate <= 0)
         {
             ticksToZoneUpdate = MaxTicksBetweenZoneUpdates;
-            GEntity go = PlayerObject.Get();
+            GEntity go = _playerManager.GetEntity();
             if (go == null)
             {
                 return;

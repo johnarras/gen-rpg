@@ -1,5 +1,7 @@
+using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System;
@@ -49,7 +51,11 @@ namespace Genrpg.Shared.GroundObjects.Settings
     [MessagePackObject]
     public class GroundObjTypeSettingsApi : ParentSettingsApi<GroundObjTypeSettings, GroundObjType> { }
     [MessagePackObject]
-    public class GroundObjTypeSettingsLoader : ParentSettingsLoader<GroundObjTypeSettings, GroundObjType, GroundObjTypeSettingsApi> { }
+    public class GroundObjTypeSettingsLoader : ParentSettingsLoader<GroundObjTypeSettings, GroundObjType> { }
+
+    [MessagePackObject]
+    public class GroundObjSettingsMapper : ParentSettingsMapper<GroundObjTypeSettings, GroundObjType, GroundObjTypeSettingsApi> { }
+
 
 
 }

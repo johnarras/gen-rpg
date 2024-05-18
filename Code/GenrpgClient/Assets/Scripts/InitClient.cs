@@ -15,13 +15,18 @@ using Genrpg.Shared.Analytics.Services;
 using ClientEvents;
 using Genrpg.Shared.Core.Entities;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
-public class InitClient : BaseBehaviour
+
+public interface IInitClient : IInjectable
+{
+
+}
+public class InitClient : BaseBehaviour, IInitClient
 {
     public GEntity _splashImage;
 
     private IClientLoginService _loginService;
-    private IAnalyticsService _analyticsService;
 
 #if UNITY_EDITOR
     public string CurrMapId;
@@ -88,34 +93,13 @@ public class InitClient : BaseBehaviour
         SetupService setupService = new SetupService();
         await setupService.SetupGame(_gs, token);
 
-        ClientInitializer clientInitilizer = new ClientInitializer();
-        await clientInitilizer.SetupClientServices(_gs, true, token);
+        ClientInitializer clientInitializer = new ClientInitializer();
+        clientInitializer.AddClientServices(_gs, this, true, token);
 
         InitialPrefabLoader prefabLoader = AssetUtils.LoadResource<InitialPrefabLoader>("Prefabs/PrefabLoader");
         await prefabLoader.LoadPrefabs(_gs);
 
-        _gs.loc.ResolveSelf();
-        _gs.loc.Resolve(this);
-
-        List<Task> setupTasks = new List<Task>();
-
-        foreach (IInjectable service in _gs.loc.GetVals())
-        {
-            if (service is IInitializable initService)
-            {
-                setupTasks.Add(initService.Initialize(_gs, _gameTokenSource.Token));
-            }
-        }
-
-        await Task.WhenAll(setupTasks);
-
-        foreach (IInjectable service in _gs.loc.GetVals())
-        {
-            if (service is IGameTokenService gameTokenService)
-            {
-                gameTokenService.SetGameToken(_gameTokenSource.Token);
-            }
-        }
+        await clientInitializer.FinalInitialize(gs, token);
 
         while (!_assetService.IsInitialized(gs))
         {

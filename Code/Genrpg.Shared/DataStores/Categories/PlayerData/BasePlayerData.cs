@@ -1,57 +1,31 @@
 ﻿using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Players.Interfaces;
 using Genrpg.Shared.Units.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
 
 namespace Genrpg.Shared.DataStores.Categories.PlayerData
 {
     [DataCategory(Category = DataCategoryTypes.PlayerData)]
     public abstract class BasePlayerData : IUnitData
     {
+        protected IRepositoryService _repoService;
+
         [MessagePack.IgnoreMember]
         public abstract string Id { get; set; }
 
         public virtual void AddTo(Unit unit) { unit.Set(this); }
-
-        public virtual void Save(IRepositoryService repoSystem, bool saveClean)
+        public virtual void SetRepo(IRepositoryService repoService)
         {
-            if (saveClean || IsDirty())
-            {
-                repoSystem.QueueSave(this);
-                SetDirty(false);
-            }
+            _repoService = repoService;
         }
 
-        public virtual List<BasePlayerData> GetSaveObjects(bool saveClean)
+        public virtual void Save()
         {
-            List<BasePlayerData> retval = new List<BasePlayerData>();
-            if (saveClean || IsDirty())
-            {
-                SetDirty(false);
-                retval.Add(this);
-            }
-            return retval;
+            _repoService.QueueSave(this);
         }
 
-        public virtual void Delete(IRepositoryService repoSystem)
+        public virtual void Delete()
         {
-            repoSystem.QueueDelete(this);
-        }
-
-        private bool _isDirty = false;
-        public void SetDirty(bool val)
-        {
-            _isDirty = val;
-        }
-
-        public bool IsDirty()
-        {
-            return _isDirty;
+            _repoService.QueueDelete(this);
         }
 
     }

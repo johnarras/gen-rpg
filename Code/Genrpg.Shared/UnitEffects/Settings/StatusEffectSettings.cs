@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Purchasing.Settings;
 using MessagePack;
 
 namespace Genrpg.Shared.UnitEffects.Settings
@@ -29,6 +31,9 @@ namespace Genrpg.Shared.UnitEffects.Settings
     [MessagePackObject]
     public class StatusEffectSettingsApi : ParentSettingsApi<StatusEffectSettings, StatusEffect> { }
     [MessagePackObject]
-    public class StatusEffectSettingsLoader : ParentSettingsLoader<StatusEffectSettings, StatusEffect, StatusEffectSettingsApi> { }
+    public class StatusEffectSettingsLoader : ParentSettingsLoader<StatusEffectSettings, StatusEffect> { }
+
+    [MessagePackObject]
+    public class StatusEffectSettingsMapper : ParentSettingsMapper<StatusEffectSettings, StatusEffect, StatusEffectSettingsApi> { }
 
 }

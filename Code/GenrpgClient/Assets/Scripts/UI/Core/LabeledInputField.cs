@@ -14,7 +14,6 @@ namespace Assets.Scripts.UI.Core
                 
         public void Init(long spellModifierId, Action onValueChangedAction)
         {
-            _gs.loc.Resolve(this);
         }
     }
 }

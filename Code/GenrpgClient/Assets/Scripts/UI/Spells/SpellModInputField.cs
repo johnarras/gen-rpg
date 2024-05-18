@@ -20,7 +20,6 @@ namespace Assets.Scripts.UI.Spells
         private ISharedSpellCraftService _craftingService = null;
         public void Init(long spellModifierId, Action onValueChangedAction)
         {
-            _gs.loc.Resolve(this);
             _spellModifierId = spellModifierId;
 
             _helper = _craftingService.GetSpellModifierHelper(spellModifierId);

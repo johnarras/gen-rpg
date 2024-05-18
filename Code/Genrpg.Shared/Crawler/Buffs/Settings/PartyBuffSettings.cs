@@ -1,5 +1,6 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 
@@ -30,7 +31,11 @@ namespace Genrpg.Shared.Crawler.Buffs.Settings
     [MessagePackObject]
     public class PartyBuffSettingsApi : ParentSettingsApi<PartyBuffSettings, PartyBuff> { }
     [MessagePackObject]
-    public class PartyBuffSettingsLoader : ParentSettingsLoader<PartyBuffSettings, PartyBuff, PartyBuffSettingsApi> { }
+    public class PartyBuffSettingsLoader : ParentSettingsLoader<PartyBuffSettings, PartyBuff> { }
+
+
+    [MessagePackObject]
+    public class PartyBuffSettingsMapper : ParentSettingsMapper<PartyBuffSettings, PartyBuff, PartyBuffSettingsApi> { }
 
 
 

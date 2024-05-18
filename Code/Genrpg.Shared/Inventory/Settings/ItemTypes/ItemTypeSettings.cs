@@ -1,5 +1,7 @@
+using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Inventory.Constants;
 using MessagePack;
 using System;
@@ -41,6 +43,10 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
     [MessagePackObject]
     public class ItemTypeSettingsApi : ParentSettingsApi<ItemTypeSettings, ItemType> { }
     [MessagePackObject]
-    public class ItemTypeSettingsLoader : ParentSettingsLoader<ItemTypeSettings, ItemType, ItemTypeSettingsApi> { }
+    public class ItemTypeSettingsLoader : ParentSettingsLoader<ItemTypeSettings, ItemType> { }
+
+    [MessagePackObject]
+    public class ItemSettingsMapper : ParentSettingsMapper<ItemTypeSettings, ItemType, ItemTypeSettingsApi> { }
+
 
 }

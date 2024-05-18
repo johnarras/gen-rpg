@@ -1,6 +1,8 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.ProcGen.Settings.Plants;
 using Genrpg.Shared.Utils.Data;
 using MessagePack;
 using System;
@@ -61,6 +63,10 @@ namespace Genrpg.Shared.ProcGen.Settings.Plants
     [MessagePackObject]
     public class PlantTypeSettingsApi : ParentSettingsApi<PlantTypeSettings, PlantType> { }
     [MessagePackObject]
-    public class PlantTypeSettingsLoader : ParentSettingsLoader<PlantTypeSettings, PlantType, PlantTypeSettingsApi> { }
+    public class PlantTypeSettingsLoader : ParentSettingsLoader<PlantTypeSettings, PlantType> { }
+
+    [MessagePackObject]
+    public class PlantSettingsMapper : ParentSettingsMapper<PlantTypeSettings, PlantType, PlantTypeSettingsApi> { }
+
 
 }

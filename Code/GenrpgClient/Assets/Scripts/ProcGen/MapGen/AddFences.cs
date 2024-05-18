@@ -14,6 +14,8 @@ public class AddFences : BaseZoneGenerator
 {
     public const int NumCentersAveraged = 8;
 
+    const float MaxFenceHeightAngle = 20;
+
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
 
@@ -257,12 +259,19 @@ public class AddFences : BaseZoneGenerator
 
                 float hangle = (float)(Math.Atan2(-dhy, dhx)*180/Math.PI);
 
+                // Don't allow fences that are too slanted. Looks bad.
+                if (Math.Abs(hangle) >= MaxFenceHeightAngle)
+                {
+                    continue;
+                }
+
                 if (x >= 0 && y >= 0 && x < gs.map.GetHwid()  && y < gs.map.GetHhgt() &&
                     gs.md.mapObjects[x,y] == 0)
                 {
                     gs.md.mapObjects[x, y] = MapConstants.FenceObjectOffset + (int)(fenceType.IdKey);
                     ushort nextVal = (byte)((angle + 360) / 4);
                     int hangle2 = (byte)((hangle + 360) / 4);
+
                     nextVal += (ushort)(hangle2 << 8);
                     gs.md.mapObjects[x, y] |= nextVal << 16;
                     currFences.Add(new MyPointF((float)x, y, 0));

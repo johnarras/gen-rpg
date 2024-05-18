@@ -39,7 +39,7 @@ public class InteractUnit : InteractableObject
         }
         else if (unit.AddonBits > 0)
         {
-            if (_factionService.CanInteract(_gs, _gs.ch, unit.FactionTypeId))
+            if (_factionService.CanInteract(_gs.ch, unit.FactionTypeId))
             {
 
                 if (unit.HasAddon(MapObjectAddonTypes.Vendor))
@@ -101,7 +101,7 @@ public class InteractUnit : InteractableObject
 
         if (_mapObj is Unit unit)
         {
-            PlayerController.Instance.SetCurrentTarget(unit);
+            _playerManager.SetCurrentTarget(unit.Id);
         }
     }
 
@@ -123,7 +123,7 @@ public class InteractUnit : InteractableObject
             return;
         }
 
-        if (_factionService.CanInteract(_gs,_gs.ch,unit.FactionTypeId))
+        if (_factionService.CanInteract(_gs.ch,unit.FactionTypeId))
         {
             if (unit.HasAddon(MapObjectAddonTypes.Vendor))
             {
@@ -161,7 +161,7 @@ public class InteractUnit : InteractableObject
         {
             if (unit.FactionTypeId != _gs.ch.FactionTypeId)
             {
-                PlayerController.Instance.SetCurrentTarget(unit);
+                _playerManager.SetCurrentTarget(unit.Id);
             }
         }
 

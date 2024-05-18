@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.GroundObjects.Settings;
+﻿using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.GroundObjects.Settings;
 using Genrpg.Shared.Interactions.Messages;
 using Genrpg.Shared.MapMods.MapObjects;
 using Genrpg.Shared.MapObjects.Messages;
@@ -12,14 +13,14 @@ namespace Assets.Scripts.GroundObjects
 {
     public class MapModObject : InteractableObject
     {
-
+        private IRepositoryService _repoService;
         private OnSpawn _spawn;
         private MapMod _mod;
         public void Init(OnSpawn spawn)
         {
             _spawn = spawn;
 
-            _mod = new MapMod()
+            _mod = new MapMod(_repoService)
             {
                 EntityTypeId = spawn.EntityTypeId,
                 EntityId = spawn.EntityId,

@@ -1,5 +1,7 @@
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Purchasing.Settings;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,9 @@ namespace Genrpg.Shared.Zones.Settings
     [MessagePackObject]
     public class ZoneTypeSettingsApi : ParentSettingsApi<ZoneTypeSettings, ZoneType> { }
     [MessagePackObject]
-    public class ZoneTypeSettingsLoader : ParentSettingsLoader<ZoneTypeSettings, ZoneType, ZoneTypeSettingsApi> { }
+    public class ZoneTypeSettingsLoader : ParentSettingsLoader<ZoneTypeSettings, ZoneType> { }
+
+    [MessagePackObject]
+    public class ZoneTypeSettingsMapper : ParentSettingsMapper<ZoneTypeSettings, ZoneType, ZoneTypeSettingsApi> { }
 
 }

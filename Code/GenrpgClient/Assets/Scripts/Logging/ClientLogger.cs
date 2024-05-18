@@ -8,12 +8,16 @@ using System.Threading.Tasks;
 
 public class ClientLogger : ILogService
 {
+
+    private UnityGameState _gs;
     public async Task Initialize(GameState gs, CancellationToken token)
     {
+        _gs = gs as UnityGameState;
         await Task.CompletedTask;
     }
 
     private ClientConfig _config = null;
+    private IDispatcher _dispatcher;
     public ClientLogger(ClientConfig config)
     {
         _config = config;
@@ -34,13 +38,13 @@ public class ClientLogger : ILogService
 
     public void Error(string txt)
     {
-        FloatingTextScreen.Instance?.ShowError(txt);
+        _dispatcher.Dispatch(_gs, new ShowFloatingText(txt, EFloatingTextArt.Error));
         UnityEngine.Debug.LogError(txt);
     }
 
     public void Exception(Exception e, string txt)
     {
-        FloatingTextScreen.Instance?.ShowError(txt);
+        _dispatcher.Dispatch(_gs, new ShowFloatingText(txt + " " + e.Message + " " + e.StackTrace, EFloatingTextArt.Error));
         UnityEngine.Debug.LogError(txt + " " + e.Message + " " + e.StackTrace);
     }
 
@@ -51,7 +55,7 @@ public class ClientLogger : ILogService
 
     public void Message(string txt)
     {
-        FloatingTextScreen.Instance?.ShowMessage(txt);
+        _dispatcher.Dispatch(_gs, new ShowFloatingText(txt, EFloatingTextArt.Message));
         UnityEngine.Debug.Log(txt);
     }
 

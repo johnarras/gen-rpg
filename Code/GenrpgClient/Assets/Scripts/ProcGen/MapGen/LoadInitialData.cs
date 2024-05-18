@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Players.Messages;
+using Genrpg.Shared.Units.Entities;
 using GEntity = UnityEngine.GameObject;
 
 
@@ -10,6 +11,7 @@ public class LoadInitialData : BaseZoneGenerator
 {
     protected IScreenService _screenService;
     private IRealtimeNetworkService _networkService;
+    private IPlayerManager _playerManager;
     public override async UniTask Generate(UnityGameState gs, CancellationToken token)
     {
         await base.Generate(gs, token);
@@ -31,17 +33,21 @@ public class LoadInitialData : BaseZoneGenerator
         {
             await UniTask.Delay(TimeSpan.FromSeconds(delaySec), cancellationToken: token);
         }
-        Character ch = PlayerObject.GetUnit() as Character;
-        GEntity go = PlayerObject.Get();
-        if (ch != null && go != null)
+        if (!_playerManager.TryGetUnit(out Unit unit))
+        {
+            return;
+        }
+
+        GEntity go = _playerManager.GetEntity();
+        if (unit != null && go != null)
         {
             float height = 0;
 
             do
             {
-                height = _terrainManager.SampleHeight(gs, ch.X, ch.Z);
-                go.transform().position = GVector3.Create(ch.X, height, ch.Z);
-                go.transform().eulerAngles = GVector3.Create(0, ch.Rot, 0);
+                height = _terrainManager.SampleHeight(gs, unit.X, unit.Z);
+                go.transform().position = GVector3.Create(unit.X, height, unit.Z);
+                go.transform().eulerAngles = GVector3.Create(0, unit.Rot, 0);
                 if (height == 0)
                 {
                     await UniTask.Delay(1000, cancellationToken: token);

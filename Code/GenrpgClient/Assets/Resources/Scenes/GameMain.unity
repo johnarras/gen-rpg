@@ -258,27 +258,32 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: ZoneSize
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: CurrMapId
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: WorldSize
-      value: 4
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: MapGenSeed
-      value: 34313
+      value: 918253
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: ForceZoneTypeId
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
+        type: 3}
+      propertyPath: PlayerSpeedMult
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}

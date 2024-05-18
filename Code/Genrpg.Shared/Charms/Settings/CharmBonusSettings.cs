@@ -1,5 +1,7 @@
+using Genrpg.Shared.Achievements.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
 using MessagePack;
 
@@ -48,5 +50,8 @@ namespace Genrpg.Shared.Charms.Settings
     [MessagePackObject]
     public class CharmBonusSettingsApi : ParentSettingsApi<CharmBonusSettings, CharmBonus> { }
     [MessagePackObject]
-    public class CharmBonusSettingsLoader : ParentSettingsLoader<CharmBonusSettings, CharmBonus, CharmBonusSettingsApi> { }
+    public class CharmBonusSettingsLoader : ParentSettingsLoader<CharmBonusSettings, CharmBonus> { }
+
+    [MessagePackObject]
+    public class CharmBonusSettingsMapper : ParentSettingsMapper<CharmBonusSettings, CharmBonus, CharmBonusSettingsApi> { }
 }

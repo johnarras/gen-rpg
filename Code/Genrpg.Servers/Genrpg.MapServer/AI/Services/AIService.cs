@@ -23,6 +23,7 @@ using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.MapServer.AI.Services
 {
@@ -43,6 +44,8 @@ namespace Genrpg.MapServer.AI.Services
         private IMapObjectManager _objectManager = null;
         private IPathfindingService _pathfindingService = null;
         private IGameData _gameData;
+        private ILogService _logService;
+
         public async Task Initialize(GameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
@@ -122,7 +125,7 @@ namespace Genrpg.MapServer.AI.Services
                 unit.Spawn != null)
             {
 
-                unit.ClearAttackers();
+                unit.ClearAttackers(_logService);
 
                 float wanderRange = 25.0f;
 
@@ -145,7 +148,7 @@ namespace Genrpg.MapServer.AI.Services
 
             SpellData spellData = unit.Get<SpellData>();
             // This does not require an await for monsters
-            List<Spell> spells = spellData.GetData();
+            IReadOnlyList<Spell> spells = spellData.GetData();
 
             if (spells.Count < 1)
             {
@@ -259,7 +262,7 @@ namespace Genrpg.MapServer.AI.Services
 
             if (clearAllAttackers)
             {
-                unit.ClearAttackers();
+                unit.ClearAttackers(_logService);
             }
 
             if (!unit.HasTarget() || unit.TargetId == oldTargetId || unit.TargetId == killedUnitId)
