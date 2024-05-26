@@ -57,7 +57,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
                 _spellService.ShowCombatText(gs, targ, quantity.ToString(), CombatTextColors.Green, isCrit);
             }
 
-            _statService.Add(gs, targ, StatTypes.Health, StatCategories.Curr, quantity);
+            _statService.Add(targ, StatTypes.Health, StatCategories.Curr, quantity);
             if (targ.Stats.Curr(StatTypes.Health) <= 0)
             {
                 _unitService.CheckForDeath(gs, eff, targ);

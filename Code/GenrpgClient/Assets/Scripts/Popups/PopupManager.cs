@@ -29,16 +29,15 @@ public class PopupManager : BaseBehaviour, IPopupManager
         await Task.CompletedTask;
     }
 
-    private ShowLootEvent OnLootPopup (UnityGameState gs, ShowLootEvent ldata)
+    private void OnLootPopup (ShowLootEvent ldata)
     {
         if (ldata == null || ldata.Rewards == null || ldata.Rewards.Count < 1)
         {
-            return null;
+            return;
         }
 
-        _screenService.Open(gs, ScreenId.Loot, ldata.Rewards);
+        _screenService.Open(_gs, ScreenId.Loot, ldata.Rewards);
 
-        return null;
     }
 
 

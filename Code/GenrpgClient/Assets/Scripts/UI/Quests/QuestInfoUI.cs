@@ -124,7 +124,7 @@ public class QuestInfoUI : BaseBehaviour
                     InitItemIconData idata = new InitItemIconData()
                     {
                         Data = item,
-                        entityTypeId = EntityTypes.Item,
+                        EntityTypeId = EntityTypes.Item,
                     };
                     IconHelper.InitItemIcon(_gs, idata, OtherRewards, this._assetService, _token);
                 }
@@ -155,38 +155,38 @@ public class QuestInfoUI : BaseBehaviour
         }
     }
 
-    private UpdateQuestEvent OnUpdateQuest(UnityGameState gs, UpdateQuestEvent data)
+    private void OnUpdateQuest(UpdateQuestEvent data)
     {
         if (data == null)
         {
-            return null;
+            return;
         }
 
         QuestStatus questStatus = data.Status;
 
         if (questStatus == null)
         {
-            return null;
+            return;
         }
 
         QuestType quest = questStatus.Quest;
 
         if (quest == null)
         {
-            return null;
+            return;
         }
 
         if (_qtype == null)
         {
-            return null;
+            return;
         }
 
         if (!_qtype.IsSameQuest(quest))
         {
-            return null;
+            return;
         }
 
-        int state = _questService.GetQuestState(gs, gs.ch, quest);
+        int state = _questService.GetQuestState(_gs, _gs.ch, quest);
 
         if (state == QuestState.Complete)
         {
@@ -198,7 +198,7 @@ public class QuestInfoUI : BaseBehaviour
         }
         ShowQuestInfo();
 
-        return null;
+        return;
     }
 
     private void OnLoadTask (UnityGameState gs, object obj, object data, CancellationToken token)

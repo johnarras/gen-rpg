@@ -105,14 +105,14 @@ namespace Genrpg.LoginServer.Services.Login
                     return gs.Results;
                 }
 
-                string nameError = await ScreenNameError(gs, loginCommand.Email, loginCommand.Email);
+                string nameError = await ScreenNameError(gs, loginCommand.Name, NetworkNames.Username);
                 if (!string.IsNullOrEmpty(nameError))
                 {
                     WebUtils.ShowError(gs, nameError);
                     return gs.Results;
                 }
 
-                string emailError = await EmailError(gs, loginCommand.Email, loginCommand.Email);
+                string emailError = await EmailError(gs, loginCommand.Email, NetworkNames.Username);
 
                 if (!string.IsNullOrEmpty(emailError))
                 {
@@ -228,7 +228,7 @@ namespace Genrpg.LoginServer.Services.Login
             // If this is the username network make sure screen name is unique.
             if (networkName == NetworkNames.Username)
             {
-                Task<Account> acct = _accountService.LoadBy(_config, AccountSearch.Name, screenname);
+                Account acct = await _accountService.LoadBy(_config, AccountSearch.Name, screenname);
                 if (acct != null)
                 {
                     return "This name is already in use.";

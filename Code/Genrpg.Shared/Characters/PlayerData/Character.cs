@@ -10,6 +10,8 @@ using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.Characters.Utils;
+using Genrpg.Shared.Trades.Entities;
+using System.Threading;
 
 namespace Genrpg.Shared.Characters.PlayerData
 {
@@ -30,6 +32,10 @@ namespace Genrpg.Shared.Characters.PlayerData
         public DateTime LastServerStatTime { get; set; } = DateTime.UtcNow;
 
         private GameDataOverrideList _overrideList { get; set; }
+
+        public TradeObject Trade { get; set; }
+        public ulong TradeModifyLockCount = 0;
+        public object TradeLock { get; private set; } = new object();
 
         public Character(IRepositoryService repositoryService) : base(repositoryService)
         {
@@ -97,7 +103,7 @@ namespace Genrpg.Shared.Characters.PlayerData
                 List<IUnitData> allValues = new List<IUnitData>(_dataDict.Values.ToList());
                 foreach (IUnitData value in allValues)
                 {
-                    value.Save();
+                    value.QueueSave(_repoService);
                 }
             }
         }

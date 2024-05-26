@@ -1,4 +1,4 @@
-﻿using Genrpg.MapServer.MapMessaging;
+﻿using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Chat.Constants;
 using Genrpg.Shared.Chat.Messages;

@@ -108,7 +108,7 @@ namespace Genrpg.Shared.Units.Factories
                 }
             }
 
-            _statService.CalcStats(gs, unit, true);
+            _statService.CalcStats(unit, true);
 
             return unit;
         }

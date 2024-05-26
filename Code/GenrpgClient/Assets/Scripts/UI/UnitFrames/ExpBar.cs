@@ -43,15 +43,15 @@ public class ExpBar : BaseBehaviour
         }
     }
 
-    private OnAddCurrency OnAddCurrencyHandler(UnityGameState gs, OnAddCurrency data)
+    private void OnAddCurrencyHandler(OnAddCurrency data)
     {
-        Init(gs, _unit);
-        return null;
+        Init(_gs, _unit);
+        return;
     }
 
-    private LevelUpEvent OnLevelUpdate(UnityGameState gs, LevelUpEvent data)
+    private void OnLevelUpdate(LevelUpEvent data)
     {
-        Init(gs, _unit);
-        return null;
+        Init(_gs, _unit);
+        return;
     }
 }

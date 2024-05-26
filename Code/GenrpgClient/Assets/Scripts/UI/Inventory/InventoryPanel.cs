@@ -73,7 +73,7 @@ public class InventoryPanel : BaseBehaviour
         {
             Data = item,
             Screen = _screen,
-            iconPrefabName = _prefabName,
+            IconPrefabName = _prefabName,
         };
         IconHelper.InitItemIcon(_gs, idata, _iconParent, _assetService, token);
 

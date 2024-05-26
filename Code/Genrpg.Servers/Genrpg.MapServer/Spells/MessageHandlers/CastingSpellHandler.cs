@@ -8,12 +8,12 @@ using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Stats.Entities;
-using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.MapServer.MapMessaging.MessageHandlers;
 
 namespace Genrpg.MapServer.Spells.MessageHandlers
 {
@@ -58,7 +58,7 @@ namespace Genrpg.MapServer.Spells.MessageHandlers
                 return;
             }
 
-            _statService.Add(gs, caster, result.Spell.PowerStatTypeId, StatCategories.Curr, -result.Spell.GetCost(gs, caster));
+            _statService.Add(caster, result.Spell.PowerStatTypeId, StatCategories.Curr, -result.Spell.GetCost(gs, caster));
 
             // Send projectile to target.
             _spellService.SendSpell(gs, caster, result);

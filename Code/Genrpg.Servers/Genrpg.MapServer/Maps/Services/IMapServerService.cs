@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genrpg.MapServer.Services.Maps
+namespace Genrpg.MapServer.Maps.Services
 {
     public interface IMapServerService : IInitializable
     {

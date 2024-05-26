@@ -21,7 +21,7 @@ using Genrpg.Shared.Utils;
 using System.Collections.Concurrent;
 using System.Formats.Asn1;
 
-namespace Genrpg.MapServer.Services.Maps
+namespace Genrpg.MapServer.Maps.Services
 {
     public class MapServerService : IMapServerService
     {
@@ -33,7 +33,7 @@ namespace Genrpg.MapServer.Services.Maps
             await Task.CompletedTask;
         }
 
-        private ConcurrentDictionary<string,MapInstance> _instances = new ConcurrentDictionary<string,MapInstance>();
+        private ConcurrentDictionary<string, MapInstance> _instances = new ConcurrentDictionary<string, MapInstance>();
 
         private string _mapServerId;
         private int _mapServerIndex = -1;
@@ -112,9 +112,9 @@ namespace Genrpg.MapServer.Services.Maps
 
         }
 
-        public IReadOnlyList<MapInstance> GetMapInstances() 
-        { 
-            return _instances.Values.ToList(); 
+        public IReadOnlyList<MapInstance> GetMapInstances()
+        {
+            return _instances.Values.ToList();
         }
 
         private MapInstance GetInstance(string instanceId)
@@ -144,7 +144,7 @@ namespace Genrpg.MapServer.Services.Maps
         public async Task RestartMapsWithId(string mapId)
         {
             IReadOnlyList<MapInstance> restartInstances = GetMapInstances();
-            
+
             foreach (MapInstance restartInstance in restartInstances)
             {
                 if (restartInstance.GetMapId() != mapId)

@@ -1,4 +1,4 @@
-﻿using Genrpg.MapServer.Items;
+﻿using Genrpg.MapServer.Items.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;

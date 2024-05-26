@@ -36,22 +36,21 @@ namespace Genrpg.Shared.Inventory.Services
             return 1000;
         }
 
-        public int InventorySpaceLeft(GameState gs, Character ch, Item item)
+        public int InventorySpaceLeft(Character ch, Item item)
         {
             return 1000;
         }
 
-        protected virtual void AddMessage(GameState gs, Unit unit, InventoryData idata, Item item, IMapApiMessage message, EDataUpdateTypes updateType = EDataUpdateTypes.Save)
+        protected virtual void AddMessage(Unit unit, InventoryData idata, Item item, IMapApiMessage message, EDataUpdateTypes updateType = EDataUpdateTypes.Save)
         {
         }
 
-        protected virtual void AddMessageNear(GameState gs, Unit unit, InventoryData idata, Item item, IMapApiMessage message, EDataUpdateTypes updateType = EDataUpdateTypes.Save)
+        protected virtual void AddMessageNear(Unit unit, InventoryData idata, Item item, IMapApiMessage message, EDataUpdateTypes updateType = EDataUpdateTypes.Save)
         {
 
         }
 
-
-        public bool AddItem(GameState gs, Unit unit, Item item, bool forceAdd)
+        public virtual bool AddItem(Unit unit, Item item, bool forceAdd)
         {
             InventoryData idata = unit.Get<InventoryData>();
             if (idata == null)
@@ -82,19 +81,20 @@ namespace Genrpg.Shared.Inventory.Services
                 if (stackItem != null)
                 {
                     stackItem.Quantity += item.Quantity;
-                    AddMessage(gs, unit, idata, stackItem, new OnUpdateItem { Item = stackItem, UnitId = unit.Id });
+                    AddMessage(unit, idata, stackItem, new OnUpdateItem { Item = stackItem, UnitId = unit.Id });
                     return true;
                 }
             }
             idata.AddInventory(item);
             item.OwnerId = unit.Id;
 
-            AddMessage(gs, unit, idata, item, new OnAddItem() { ItemId = item.Id, UnitId = unit.Id });
+            AddMessage(unit, idata, item, new OnAddItem() { ItemId = item.Id, UnitId = unit.Id });
             return true;
         }
 
-        public virtual Item RemoveItemQuantity(GameState gs, Unit unit, string itemId, int quantity)
+        public virtual Item RemoveItemQuantity(Unit unit, string itemId, int quantity)
         {
+
             if (quantity < 1)
             {
                 return null;
@@ -111,18 +111,18 @@ namespace Genrpg.Shared.Inventory.Services
             item.Quantity -= quantity;
             if (item.Quantity < 1)
             {
-                idata.RemoveInventory(gs, item);
-                AddMessage(gs, unit, idata, item, new OnRemoveItem() { ItemId = item.Id, UnitId = unit.Id }, EDataUpdateTypes.Delete);
+                idata.RemoveInventory(item);
+                AddMessage(unit, idata, item, new OnRemoveItem() { ItemId = item.Id, UnitId = unit.Id }, EDataUpdateTypes.Delete);
             }
             else
             {
-                AddMessage(gs, unit, idata, item, new OnUpdateItem { Item = item, UnitId = unit.Id });
+                AddMessage(unit, idata, item, new OnUpdateItem { Item = item, UnitId = unit.Id });
             }
 
             return item;
         }
 
-        public virtual Item RemoveItem(GameState gs, Unit unit, string itemId,bool deleteItem)
+        public virtual Item RemoveItem(Unit unit, string itemId,bool deleteItem)
         {
             InventoryData idata = unit.Get<InventoryData>();
 
@@ -137,14 +137,14 @@ namespace Genrpg.Shared.Inventory.Services
                 return null;
             }
 
-            idata.RemoveInventory(gs, item);
-            AddMessage(gs, unit, idata, item, new OnRemoveItem() { ItemId = item.Id, UnitId = unit.Id },
+            idata.RemoveInventory(item);
+            AddMessage(unit, idata, item, new OnRemoveItem() { ItemId = item.Id, UnitId = unit.Id },
                 deleteItem ? EDataUpdateTypes.Delete : EDataUpdateTypes.Save);
             return item;
         }
 
 
-        public virtual bool EquipItem(GameState gs, Unit unit, string itemId, long equipSlotId, bool calcStatsNow = true)
+        public virtual bool EquipItem(Unit unit, string itemId, long equipSlotId, bool calcStatsNow = true)
         {
 
             if (equipSlotId < 1 || equipSlotId >= EquipSlots.Max)
@@ -168,7 +168,7 @@ namespace Genrpg.Shared.Inventory.Services
                 if (item != null)
                 {
                     oldEquipSlot = item.EquipSlotId;
-                    UnequipItem(gs, unit, itemId, false);
+                    UnequipItem(unit, itemId, false);
                 }
                 else
                 {
@@ -176,7 +176,7 @@ namespace Genrpg.Shared.Inventory.Services
                 }
             }
 
-            if (!CanEquipItem(gs, unit, item))
+            if (!CanEquipItem(unit, item))
             {
                 return false;
             }
@@ -202,7 +202,7 @@ namespace Genrpg.Shared.Inventory.Services
             {
                 if (itype.HasFlag(ItemFlags.FlagTwoHandedItem) || oldEquipSlot < 1)
                 {
-                    UnequipItem(gs, unit, currEquip.Id, false);
+                    UnequipItem(unit, currEquip.Id, false);
                 }
                 else
                 {
@@ -210,7 +210,7 @@ namespace Genrpg.Shared.Inventory.Services
                     if (currItemType == null || currItemType.HasFlag(ItemFlags.FlagTwoHandedItem) ||
                         currItemType.EquipSlotId == EquipSlots.OffHand)
                     {
-                        UnequipItem(gs, unit, currEquip.Id, false);
+                        UnequipItem(unit, currEquip.Id, false);
                     }
                     else
                     {
@@ -224,7 +224,7 @@ namespace Genrpg.Shared.Inventory.Services
             }
 
             // Remove from inventory.
-            RemoveItem(gs, unit, itemId, false);
+            RemoveItem(unit, itemId, false);
 
             // Two handed weapons remove offhand items.
             if (FlagUtils.IsSet(itype.Flags, ItemFlags.FlagTwoHandedItem))
@@ -232,7 +232,7 @@ namespace Genrpg.Shared.Inventory.Services
                 Item offhandEquip = idata.GetEquipBySlot(EquipSlots.OffHand);
                 if (offhandEquip != null)
                 {
-                    UnequipItem(gs, unit, offhandEquip.Id, false);
+                    UnequipItem(unit, offhandEquip.Id, false);
                 }
             }
 
@@ -244,23 +244,23 @@ namespace Genrpg.Shared.Inventory.Services
                     ItemType mainHandItemType = _gameData.Get<ItemTypeSettings>(unit).Get(mainHandEquip.ItemTypeId);
                     if (mainHandItemType != null && FlagUtils.IsSet(mainHandItemType.Flags, ItemFlags.FlagTwoHandedItem))
                     {
-                        UnequipItem(gs, unit, mainHandEquip.Id, false);
+                        UnequipItem(unit, mainHandEquip.Id, false);
                     }
                 }
             }
 
             item.EquipSlotId = equipSlotId;
             idata.AddEquipment(item);
-            AddMessageNear(gs, unit, idata, item, new OnEquipItem() { Item = item, UnitId = unit.Id });
+            AddMessageNear(unit, idata, item, new OnEquipItem() { Item = item, UnitId = unit.Id });
 
             if (calcStatsNow)
             {
-                _statService.CalcStats(gs, unit, false);
+                _statService.CalcStats(unit, false);
             }
             return true;
         }
 
-        public virtual bool UnequipItem(GameState gs, Unit unit, string itemId, bool calcStatsNow = true)
+        public virtual bool UnequipItem(Unit unit, string itemId, bool calcStatsNow = true)
         {
             InventoryData idata = unit.Get<InventoryData>();
             Item item = idata.GetEquipById(itemId);
@@ -275,15 +275,15 @@ namespace Genrpg.Shared.Inventory.Services
             if (currItem != null)
             {
                 idata.RemoveEquipment(currItem.Id);
-                AddMessageNear(gs, unit, idata, item, new OnUnequipItem() { ItemId = item.Id, UnitId = unit.Id });
+                AddMessageNear(unit, idata, item, new OnUnequipItem() { ItemId = item.Id, UnitId = unit.Id });
                 currItem.EquipSlotId = EquipSlots.None;
                 if (calcStatsNow)
                 {
-                    _statService.CalcStats(gs, unit, false);
+                    _statService.CalcStats(unit, false);
                 }
             }
 
-            AddItem(gs, unit, item, true);
+            AddItem(unit, item, true);
 
 
             return true;
@@ -302,11 +302,11 @@ namespace Genrpg.Shared.Inventory.Services
             {
                 if (eff.EntityTypeId == EntityTypes.Stat)
                 {
-                    _statService.Add(gs, ch, eff.EntityId, StatCategories.Base, eff.Quantity * statMult);
+                    _statService.Add(ch, eff.EntityId, StatCategories.Base, eff.Quantity * statMult);
                 }
                 else if (eff.EntityTypeId == EntityTypes.StatPct)
                 {
-                    _statService.Add(gs, ch, eff.EntityId, StatCategories.Pct, eff.Quantity * statMult);
+                    _statService.Add(ch, eff.EntityId, StatCategories.Pct, eff.Quantity * statMult);
                 }
             }
         }
@@ -323,7 +323,7 @@ namespace Genrpg.Shared.Inventory.Services
             return idata.GetItemsByItemTypeId(itemTypeId);
         }
 
-        public bool CanEquipItem (GameState gs, Unit unit, Item item)
+        public bool CanEquipItem (Unit unit, Item item)
         {
             ItemType itype = _gameData.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
 

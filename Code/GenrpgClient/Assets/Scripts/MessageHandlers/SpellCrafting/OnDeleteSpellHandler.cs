@@ -9,7 +9,7 @@ namespace Assets.Scripts.MessageHandlers.SpellCrafting
         protected override void InnerProcess(UnityGameState gs, OnDeleteSpell msg, CancellationToken token)
         {
             gs.ch.Get<SpellData>().Remove(msg.SpellId);
-            _dispatcher.Dispatch(gs,msg);
+            _dispatcher.Dispatch(msg);
         }
     }
 }

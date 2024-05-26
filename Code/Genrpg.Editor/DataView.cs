@@ -1397,7 +1397,7 @@ namespace GameEditor
 
             if (item is IUnitData unitData)
             {
-                unitData.Delete();
+                unitData.QueueDelete(_repoService);
                 _gs.LookedAtObjects.Remove(unitData);
             }
 

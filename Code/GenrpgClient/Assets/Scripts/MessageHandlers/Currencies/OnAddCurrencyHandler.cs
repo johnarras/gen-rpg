@@ -14,8 +14,8 @@ namespace Assets.Scripts.MessageHandlers.Currency
             {
                 return;
             }
-            _currencyService.Add(gs, gs.ch, msg.CurrencyTypeId, msg.QuantityAdded);
-            _dispatcher.Dispatch(gs,msg);
+            _currencyService.Add(gs.ch, msg.CurrencyTypeId, msg.QuantityAdded);
+            _dispatcher.Dispatch(msg);
         }
     }
 }

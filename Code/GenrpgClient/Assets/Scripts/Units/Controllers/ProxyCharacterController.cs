@@ -4,16 +4,23 @@ using Genrpg.Shared.Units.Entities;
 using System;
 using System.Threading;
 
-public class ProxyCharacterController : UnitController
+public class ProxyCharacterController : MonsterController
 {
-    protected string _lastMoveKey = null;   
+    protected string _lastMoveKey = KeyComm.Forward;
+
+
+    protected override float GetMaxRotation() { return 15; }
+
     public override void OnUpdate(CancellationToken token)
     {
+
+        base.OnUpdate(token); return;
+
         if (_unit == null || !_unit.HasFlag(UnitFlags.ProxyCharacter))
         {
             return;
         }
-
+        
         float delta = _inputService.GetDeltaTime();
         float targetDeltaTime = 1.0f / AppUtils.TargetFrameRate;
         delta = targetDeltaTime;
@@ -41,28 +48,57 @@ public class ProxyCharacterController : UnitController
         float totalDist = (float)Math.Sqrt(ddx * ddx + ddz * ddz);
 
         float minDistToMove = 0.5f;
+      
+        float maxRotDelta = 2;
+
+
 
         bool didErrorCorrectionMove = false;
         if (dx == 0 && totalDist >= minDistToMove)
         {
-           entity.transform().localEulerAngles = GVector3.Create(0, _unit.Rot, 0);
             if (_lastMoveKey == KeyComm.Forward)
             {
-                UnitUtils.TurnTowardNextPosition(_unit, 10);
-               entity.transform().localEulerAngles = GVector3.Create(0, _unit.Rot, 0);
+                UnitUtils.TurnTowardNextPosition(_unit, maxRotDelta);
                 dx = -moveSpeed;
                 didErrorCorrectionMove = true;
             }
             else if (_lastMoveKey == KeyComm.Backward)
             {
-                UnitUtils.TurnTowardNextPosition(_unit, 10);
-               entity.transform().localEulerAngles = GVector3.Create(0, _unit.Rot, 0);
+                UnitUtils.TurnTowardNextPosition(_unit, maxRotDelta);
+                dx = moveSpeed;
                 didErrorCorrectionMove = true;
             }
         }
-        else
+
+        if (totalDist >= minDistToMove)
         {
-           entity.transform().localEulerAngles = GVector3.Create(0, _unit.Rot, 0);
+            float currentRot = entity.transform().localEulerAngles.y;
+            float rotDelta = _unit.Rot - currentRot;
+
+            while (rotDelta > 180)
+            {
+                rotDelta -= 360;
+            }
+            while (rotDelta <= -180)
+            {
+                rotDelta += 360;
+            }
+
+
+            float radTurn = 0;
+
+            if (rotDelta > 0)
+            {
+                radTurn = Math.Min(rotDelta, maxRotDelta);
+            }
+            else
+            {
+                radTurn = Math.Max(rotDelta, -maxRotDelta);
+            }
+
+            float newRot = currentRot + radTurn;
+
+            entity.transform().localEulerAngles = GVector3.Create(0, newRot, 0);
         }
 
         ShowMoveAnimations(dx, dz);

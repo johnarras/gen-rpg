@@ -6,14 +6,14 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 
 // Should probably use 2 generic params, but that's more complicated for now.
-public delegate T GameAction<T>(UnityGameState gs, T t);
+public delegate void GameAction<T>(T t);
 
 
 public interface IDispatcher : IInitializable
 {
     void AddEvent<T>(UnityEngine.MonoBehaviour monoBehaviour, GameAction<T> action) where T : class;
     void RemoveEvent<T>(GameAction<T> action) where T : class;
-    T Dispatch<T>(UnityGameState gs, T actionParam) where T : class;
+    void Dispatch<T>(T actionParam) where T : class;
 
 }
 
@@ -54,26 +54,18 @@ public class Dispatcher : IDispatcher
         }
     }
 
-    public T Dispatch<T>(UnityGameState gs, T actionParam) where T : class
+    public void Dispatch<T>(T actionParam) where T : class
     {
         if (!_dict.ContainsKey(typeof(T)))
         {
-            return default;
+            return;
         }
-
-        T retval = null;
 
         List<GameAction<T>> list = new List<GameAction<T>>((List<GameAction<T>>)_dict[typeof(T)]);
 
         foreach (GameAction<T> gameAction in list)
         {
-            T tempVal = gameAction(gs, actionParam);
-            if (tempVal != null && retval == null)
-            {
-                retval = tempVal;
-            }
+            gameAction(actionParam);
         }
-
-        return retval;
     }
 }

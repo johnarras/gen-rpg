@@ -3,11 +3,5 @@ using System.Threading;
 
 namespace Assets.Scripts.MessageHandlers.Items
 {
-    public class OnUnequipItemHandler : BaseClientMapMessageHandler<OnUnequipItem>
-    {
-        protected override void InnerProcess(UnityGameState gs, OnUnequipItem msg, CancellationToken token)
-        {
-            _dispatcher.Dispatch(gs,msg);
-        }
-    }
+    public class OnUnequipItemHandler : DispatchClientMapMessageHandler<OnUnequipItem> { }
 }

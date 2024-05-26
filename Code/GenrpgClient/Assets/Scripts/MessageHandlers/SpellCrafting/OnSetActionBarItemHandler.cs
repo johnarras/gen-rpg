@@ -3,11 +3,5 @@ using System.Threading;
 
 namespace Assets.Scripts.MessageHandlers.SpellCrafting
 {
-    public class OnSetActionBarItemHandler : BaseClientMapMessageHandler<OnSetActionBarItem>
-    {
-        protected override void InnerProcess(UnityGameState gs, OnSetActionBarItem msg, CancellationToken token)
-        {
-            _dispatcher.Dispatch(gs,msg);
-        }
-    }
+    public class OnSetActionBarItemHandler : DispatchClientMapMessageHandler<OnSetActionBarItem> { }
 }

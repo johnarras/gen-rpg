@@ -80,7 +80,6 @@ namespace Genrpg.Shared.Names.Services
 
         }
 
-        MyRandom doubleWordRand = new MyRandom();
         public string CombinePrefixSuffix(string prefix, string suffix, float hyphenChance, long seed)
         {
 
@@ -91,7 +90,7 @@ namespace Genrpg.Shared.Names.Services
             }
             else
             {
-                hyphenRand = doubleWordRand;
+                hyphenRand = new MyRandom();
             }
 
             if (string.IsNullOrEmpty(prefix))

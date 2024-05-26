@@ -111,7 +111,7 @@ public class PlayerController : UnitController
                     GVector3 extraDist = GVector3.zero;
                     if (_everSentPositionUpdate)
                     {
-                        extraDist = (pos - lastSendPos) * 0.1f;
+                        //extraDist = (pos - lastSendPos) * 0.1f;
                     }
 
                     _unit.Rot =entity.transform().eulerAngles.y;

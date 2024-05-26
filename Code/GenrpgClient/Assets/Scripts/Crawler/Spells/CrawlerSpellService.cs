@@ -490,7 +490,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     if (powerCost > 0)
                     {
                         long currMana = pmember.Stats.Curr(StatTypes.Mana);
-                        _statService.Add(gs, pmember, StatTypes.Mana, StatCategories.Curr, -Math.Min(powerCost, currMana));
+                        _statService.Add(pmember, StatTypes.Mana, StatCategories.Curr, -Math.Min(powerCost, currMana));
                         party.StatusPanel.RefreshUnit(pmember);
                     }
                 }
@@ -744,7 +744,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                             AddToActionDict(actionList, actionWord, newQuantity);
                         }
                         totalDamage += newQuantity;
-                        _statService.Add(gs, target, StatTypes.Health, StatCategories.Curr, -newQuantity);
+                        _statService.Add(target, StatTypes.Health, StatCategories.Curr, -newQuantity);
                     }
                     else if (effect.EntityTypeId == EntityTypes.Unit)
                     {
@@ -809,7 +809,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         {
                             healTarget = caster;
                         }
-                        _statService.Add(gs, healTarget, StatTypes.Health, StatCategories.Curr, newQuantity);
+                        _statService.Add(healTarget, StatTypes.Health, StatCategories.Curr, newQuantity);
                         AddToActionDict(actionList, "Heals", newQuantity);
                     }
                     else if (currHitTimes == 0)

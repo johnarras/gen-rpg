@@ -1,4 +1,4 @@
-﻿using Genrpg.MapServer.MapMessaging;
+﻿using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Input.PlayerData;
@@ -22,7 +22,7 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
 
             ActionInputData actionData = ch.Get<ActionInputData>();
 
-            actionData.SetInput(message.Index, message.SpellId);
+            actionData.SetInput(message.Index, message.SpellId, _repoService);
 
             ch.AddMessage(new OnSetActionBarItem() { Index = message.Index, SpellId = message.SpellId });
 

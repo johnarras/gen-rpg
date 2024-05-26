@@ -1,4 +1,4 @@
-﻿using Genrpg.MapServer.MapMessaging;
+﻿using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Input.PlayerData;
@@ -26,7 +26,7 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
 
             if (input != null)
             {
-                actionData.SetInput(message.Index, 0);
+                actionData.SetInput(message.Index, 0, _repoService);
                 ch.AddMessage(new OnRemoveActionBarItem() { Index = message.Index });
             }
         }

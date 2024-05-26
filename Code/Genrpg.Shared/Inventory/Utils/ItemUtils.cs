@@ -85,7 +85,7 @@ namespace Genrpg.Shared.Inventory.Utils
             ItemType itype = gameData.Get<ItemTypeSettings>(unit).Get(item.ItemTypeId);
             if (itype == null || string.IsNullOrEmpty(itype.Icon))
             {
-                startMainName = RpgConstants.DefaultItemIcon;
+                startMainName = RpgConstants.DefaultItemIconItemName;
             }
             else
             {

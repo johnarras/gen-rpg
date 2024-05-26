@@ -16,7 +16,7 @@ namespace Genrpg.Shared.Inventory.Helpers
             Item startItem = extraData as Item;
             if (startItem != null)
             {
-                _inventoryService.AddItem(gs, ch, startItem, true);
+                _inventoryService.AddItem(ch, startItem, true);
                 return true;
             }
             return true;

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Genrpg.MapServer.MapMessaging;
-using Genrpg.MapServer.Vendors;
+using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.MapServer.Vendors.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;

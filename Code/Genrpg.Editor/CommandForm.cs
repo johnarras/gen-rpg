@@ -31,6 +31,16 @@ using System.Diagnostics;
 using Genrpg.Shared.Settings.Settings;
 using MongoDB.Driver.Core.WireProtocol.Messages.Encoders;
 using System.Text;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.Azure.Amqp.Framing;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.ProcGen.Settings.Names;
+using Genrpg.Shared.Stats.Settings.Scaling;
+using Genrpg.Shared.Inventory.Settings.Slots;
+using Amazon.Runtime.Documents;
+using Genrpg.Shared.DataStores.Entities;
+using Amazon.Runtime.Internal;
+using Genrpg.Shared.Inventory.Constants;
 
 namespace GameEditor
 {
@@ -60,7 +70,7 @@ namespace GameEditor
             buttonCount++;
 
             string[] envWords = { "dev" };
-            string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas".Split(' ');
+            string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas SetupItemIcons".Split(' ');
             int column = 0;
             for (int e = 0; e < envWords.Length; e++)
             {
@@ -307,6 +317,11 @@ namespace GameEditor
                 CopyGameDataFromGitToDatabase(EnvNames.Dev);
                 return;
             }
+            else if (action == "SetupItemIcons")
+            {
+                SetupItemIcons();
+                return;
+            }
 
             if (action == "MessageSetup")
             {
@@ -505,7 +520,7 @@ namespace GameEditor
         {
 
             string strExeFilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            strExeFilePath += "\\..\\..\\..\\..\\Genrpg.Client\\Genrpg\\Genrpg.Game\\";
+            strExeFilePath += "\\..\\..\\..\\..\\Genrpg.Client\\";
             RemoveMetaFiles(strExeFilePath);
         }
 
@@ -532,6 +547,110 @@ namespace GameEditor
                 RemoveMetaFiles(Path.Combine(strExeFilePath, dir));
             }
 
+        }
+
+        private void SetupItemIcons()
+        {
+            Form blocker = UIHelper.ShowBlockingDialog("Setting up Item Icons", _formatter, this);
+            _ = Task.Run(() => SetupItemIconsAsync(this, EnvNames.Dev, blocker, EditorGameState.CTS.Token));
+        }
+
+        private async Task SetupItemIconsAsync(CommandForm form, string env, Form blocker, CancellationToken token)
+        {
+            string strExeFilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            strExeFilePath += "\\..\\..\\..\\..\\GenrpgClient\\Assets\\FullAssets\\Atlas\\Icons";
+
+            List<string> startFilenames = Directory.GetFiles(strExeFilePath).ToList();
+
+            startFilenames = startFilenames.Where(x => x.IndexOf(".meta") < 0).ToList();
+
+
+            List<string> fileNames = new List<string>();
+
+            foreach (string startFileName in startFilenames)
+            {
+                int lastSlash = startFileName.LastIndexOf('\\');
+
+                string finalFileName = startFileName.Substring(lastSlash + 1).Replace(".png", "").Replace(".PNG", "");
+
+                fileNames.Add(finalFileName);
+            }
+
+            _gs = await EditorGameDataUtils.SetupFromConfig(this, env);
+
+            IGameData gameData = _gs.data;
+
+
+            IReadOnlyList<ItemType> itemTypes = gameData.Get<ItemTypeSettings>(null).GetData();
+
+            IReadOnlyList<ScalingType> scalingTypes = gameData.Get<ScalingTypeSettings>(null).GetData();
+
+            _gs.LookedAtObjects.Add(gameData.Get<ItemTypeSettings>(null));
+
+            List<string> prefixNames = new List<string>() { "" };
+
+            foreach (ScalingType scalingType in scalingTypes)
+            {
+                if (scalingType.IdKey < 1 || string.IsNullOrEmpty(scalingType.Icon))
+                {
+                    continue;
+                }
+
+                prefixNames.Add(scalingType.Icon);
+            }
+
+
+            foreach (ItemType itype in itemTypes)
+            {
+                if (itype.EquipSlotId < 1 || string.IsNullOrEmpty(itype.Icon))
+                {
+                    continue;
+                }
+
+                itype.IconCounts = new List<NameCount>();
+
+                _gs.LookedAtObjects.Add(itype);
+
+                foreach (string prefixName in prefixNames)
+                {
+
+                    int maxIndex = 0;
+
+                    for (int i = 1; i < 1000; i++)
+                    {
+                        string fullName = itype.Icon + prefixName + "_" + i.ToString("D3");
+
+                        if (fileNames.Contains(fullName))
+                        {
+                            maxIndex = i;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    if (maxIndex > 0)
+                    {
+                        itype.IconCounts.Add(new NameCount() { Count = maxIndex, Name = prefixName });
+                    }
+                }
+            }
+            IRepositoryService repoService = _gs.loc.Get<IRepositoryService>();
+
+            List<IGameSettings> settingsList = _gs.LookedAtObjects.Cast<IGameSettings>().ToList();
+            try
+            {
+                foreach (IGameSettings settings in settingsList)
+                {
+                    await repoService.Save(settings);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            this.Invoke(blocker.Hide);
         }
     }
 }

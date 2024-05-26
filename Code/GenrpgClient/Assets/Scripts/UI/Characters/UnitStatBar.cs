@@ -32,18 +32,18 @@ public class UnitStatBar : BaseBehaviour
         _dispatcher.AddEvent<LevelUpEvent>(this, OnLevelUpdate);
         _dispatcher.AddEvent<StatUpd>(this, OnStatUpdate);
     }
-    private StatUpd OnStatUpdate(UnityGameState gs, StatUpd sdata)
+    private void OnStatUpdate(StatUpd sdata)
     {
         if (_progressBar == null || sdata == null || _unit == null || _unit.Id != sdata.UnitId)
         {
-            return null;
+            return;
         }
 
         FullStat myUpdate = sdata.Dat.FirstOrDefault(x => x.GetStatId() == _statTypeId);
 
         if (myUpdate == null)
         {
-            return null;
+            return;
         }
 
 
@@ -53,23 +53,23 @@ public class UnitStatBar : BaseBehaviour
         if (_max != max)
         {
             _max = max;
-            _progressBar.InitRange(gs, 0, _max, curr);
+            _progressBar.InitRange(_gs, 0, _max, curr);
         }
         else
         {
             curr = MathUtils.Clamp(0, curr, _max);
-            _progressBar.SetValue(gs, curr);
+            _progressBar.SetValue(_gs, curr);
         }
         _curr = curr;
 
 
-        return null;
+        return;
         
     }
 
-    private LevelUpEvent OnLevelUpdate(UnityGameState gs, LevelUpEvent data)
+    private void OnLevelUpdate(LevelUpEvent data)
     {
-        Init(gs,_unit);
-        return null;
+        Init(_gs,_unit);
+        return;
     }
 }

@@ -86,7 +86,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                 foreach (MemberStat permStat in permStats)
                 {
-                    _statService.Add(gs, member, permStat.Id, StatCategories.Base, permStat.Val);
+                    _statService.Add(member, permStat.Id, StatCategories.Base, permStat.Val);
                 }
 
                 // Now set the default buffs
@@ -95,7 +95,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 {
                     if (arch.BuffStatTypeId > 0 && arch.DefaultLevelPercentBuff > 0)
                     {
-                        _statService.Add(gs, member, arch.BuffStatTypeId, StatCategories.Bonus,
+                        _statService.Add(member, arch.BuffStatTypeId, StatCategories.Bonus,
                             (unit.Level * arch.DefaultLevelPercentBuff) / 100);
                     }
                 }
@@ -105,7 +105,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                     long buffVal = buffStats.FirstOrDefault(x => x.Id == buffStatType)?.Val ?? 0;
 
-                    _statService.Set(gs, member, buffStatType, StatCategories.Bonus, buffVal);
+                    _statService.Set(member, buffStatType, StatCategories.Bonus, buffVal);
                 }
 
                 // Now do equipment.
@@ -116,7 +116,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                     {
                         if (eff.EntityTypeId == EntityTypes.Stat)
                         {
-                            _statService.Add(gs, member, eff.EntityId, StatCategories.Bonus, eff.Quantity);
+                            _statService.Add(member, eff.EntityId, StatCategories.Bonus, eff.Quantity);
                         }
                     }
                 }
@@ -146,8 +146,8 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 long totalHealth = (long)(healthPerLevel * unit.Level);
                 long totalMana = (long)(manaPerLevel * unit.Level);
 
-                _statService.Set(gs, member, StatTypes.Health, StatCategories.Base, totalHealth);
-                _statService.Set(gs, member, StatTypes.Mana, StatCategories.Base, totalMana);
+                _statService.Set(member, StatTypes.Health, StatCategories.Base, totalHealth);
+                _statService.Set(member, StatTypes.Mana, StatCategories.Base, totalMana);
 
                 foreach (long mutableStatType in mutableStatTypes)
                 {
@@ -156,7 +156,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                     if (resetCurrStats || currStatVal > maxStatVal)
                     {
-                        _statService.Set(gs, member, mutableStatType, StatCategories.Curr, maxStatVal);
+                        _statService.Set(member, mutableStatType, StatCategories.Curr, maxStatVal);
                     }
                 }
             }
@@ -167,7 +167,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                     if ((statType.IdKey >= StatConstants.PrimaryStatStart && statType.IdKey <= StatConstants.PrimaryStatEnd) ||
                         buffStatTypes.Contains(statType.IdKey))
                     {
-                        _statService.Set(gs, unit, statType.IdKey, StatCategories.Base, unit.Level);
+                        _statService.Set(unit, statType.IdKey, StatCategories.Base, unit.Level);
                     }
                 }
                 long minHealth = Math.Max(1, unit.Level / 2);
@@ -175,8 +175,8 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                 long startHealth = MathUtils.LongRange(minHealth, maxHealth, gs.rand);
 
-                _statService.Set(gs, unit, StatTypes.Health, StatCategories.Base, startHealth);
-                _statService.Set(gs, unit, StatTypes.Health, StatCategories.Curr, startHealth);
+                _statService.Set(unit, StatTypes.Health, StatCategories.Base, startHealth);
+                _statService.Set(unit, StatTypes.Health, StatCategories.Curr, startHealth);
 
                 monster.MinDam = 1 + unit.Level / 5;
                 monster.MaxDam = 2 + unit.Level / 2;

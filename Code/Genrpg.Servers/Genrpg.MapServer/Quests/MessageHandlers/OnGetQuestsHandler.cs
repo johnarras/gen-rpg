@@ -8,9 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Quests.Messages;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.MapServer.MapMessaging.MessageHandlers;
 
 namespace Genrpg.MapServer.Quests.MessageHandlers
 {

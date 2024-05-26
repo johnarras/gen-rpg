@@ -115,7 +115,7 @@ namespace Genrpg.MapServer.Maps
         public MapObjectCounts GetCounts()
         {
 
-            if (MapInstanceConstants.ServerTestMode)
+            if (!MapInstanceConstants.ServerTestMode)
             {
                 _idLookupObjectCount = 0;
                 foreach (ConcurrentDictionary<string,MapObjectGridItem> dict in _idDict.Values)
@@ -257,6 +257,7 @@ namespace Genrpg.MapServer.Maps
             posMessage.SetZ(obj.Z);
             posMessage.SetRot(obj.Rot);
             posMessage.SetSpeed(obj.Speed);
+            posMessage.SetKeysDown(keysDown);
 
             float distance = MessageConstants.DefaultGridDistance;
             bool playersOnly = false;

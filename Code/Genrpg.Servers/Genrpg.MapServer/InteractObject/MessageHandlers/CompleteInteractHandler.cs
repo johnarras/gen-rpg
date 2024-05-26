@@ -10,8 +10,6 @@ using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Entities.Constants;
-using Genrpg.MapServer.Spawns;
-using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Interactions.Messages;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.Inventory.Constants;
@@ -19,6 +17,8 @@ using Genrpg.ServerShared.Achievements;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.GroundObjects.Settings;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.MapServer.Spawns.Services;
 
 namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {

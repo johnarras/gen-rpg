@@ -7,9 +7,8 @@ namespace Genrpg.Shared.DataStores.PlayerData
 {
     public interface IUnitData : IStringId, IEditorMetaDataTarget
     {
-        void Save();
-        void Delete();
+        void QueueSave(IRepositoryService repoService);
+        void QueueDelete(IRepositoryService repoService);
         void AddTo(Unit unit);
-        void SetRepo(IRepositoryService repoService);
     }
 }

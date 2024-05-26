@@ -167,7 +167,6 @@ namespace Genrpg.ServerShared.PlayerData
             if (newData == null)
             {
                 newData = loader.Create(ch);
-                _repoService.QueueSave(newData);
             }
             return newData;
         }

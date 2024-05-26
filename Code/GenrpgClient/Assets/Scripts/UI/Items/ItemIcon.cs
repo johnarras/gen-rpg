@@ -9,6 +9,7 @@ using Genrpg.Shared.Inventory.Settings;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Cysharp.Threading.Tasks;
 
 public delegate void OnLoadItemIconHandler(UnityGameState gs, InitItemIconData data);
 
@@ -20,22 +21,22 @@ public class ItemIconFlags
     public const int NoDrag = (1 << 3);
 }
 
-public class InitItemIconData : DragItemInitData<Item,ItemIcon,ItemIconScreen,InitItemIconData>
+public class InitItemIconData : DragItemInitData<Item, ItemIcon, ItemIconScreen, InitItemIconData>
 {
-    public long entityTypeId;
-    public long entityId;
-    public long quantity;
-    public long level;
-    public long quality;
-    public ItemType itemType;
+    public long EntityTypeId;
+    public long EntityId;
+    public long Quantity;
+    public long Level;
+    public long Quality;
+    public ItemType ItemType;
 
-    public ItemIcon createdIcon;
+    public ItemIcon CreatedItem;
 
-    public OnLoadItemIconHandler handler;
+    public OnLoadItemIconHandler Handler;
 
-    public string iconPrefabName;
+    public string IconPrefabName;
 
-    public string subdirectory = "Items";
+    public string SubDirectory = "Items";
 };
 
 
@@ -48,7 +49,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
     public GImage Frame;
     public GImage Icon;
     public GText QuantityText;
-    
+
     public override void Init(InitItemIconData data, CancellationToken token)
     {
         base.Init(data, token);
@@ -57,9 +58,8 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             return;
         }
 
-        data.createdIcon = this;
+        data.CreatedItem = this;
         _initData = data;
-
 
         string bgName = IconHelper.GetBackingNameFromQuality(_gameData, 0);
         string frameName = IconHelper.GetFrameNameFromLevel(_gameData, 1);
@@ -74,19 +74,19 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         }
         else
         {
-            IIndexedGameItem dataObject = _entityService.Find(_gs, _gs.ch, data.entityTypeId, data.entityId);
+            IIndexedGameItem dataObject = _entityService.Find(_gs, _gs.ch, data.EntityTypeId, data.EntityId);
             if (dataObject != null && !string.IsNullOrEmpty(dataObject.Icon))
             {
                 iconName = dataObject.Icon;
             }
-            if (data.quality > 0)
+            if (data.Quality > 0)
             {
-                bgName = IconHelper.GetBackingNameFromQuality(_gameData, data.quality);
+                bgName = IconHelper.GetBackingNameFromQuality(_gameData, data.Quality);
             }
 
-            if (data.level > 0)
+            if (data.Level > 0)
             {
-                frameName = IconHelper.GetFrameNameFromLevel(_gameData, data.level);
+                frameName = IconHelper.GetFrameNameFromLevel(_gameData, data.Level);
             }
         }
 
@@ -108,7 +108,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         }
         else
         {
-            _uIInitializable.SetText(QuantityText, data.quantity.ToString());
+            _uIInitializable.SetText(QuantityText, data.Quantity.ToString());
         }
 
         if (FlagUtils.IsSet(_initData.Flags, ItemIconFlags.ShowTooltipNow))
@@ -122,7 +122,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             _canDrag = false;
         }
 
-        data.handler?.Invoke(_gs, data);
+        data.Handler?.Invoke(_gs, data);
     }
 
 
@@ -152,10 +152,12 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         {
             return;
         }
-
-        GEntityUtils.SetActive(_initData.Screen.ToolTip, false);
+        HideTooltipAsync(_token).Forget();
     }
 
-
-
+    private async UniTask HideTooltipAsync(CancellationToken token)
+    {
+        await UniTask.NextFrame(token);
+        GEntityUtils.SetActive(_initData.Screen.ToolTip, false);
+    }
 }

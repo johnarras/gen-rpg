@@ -20,6 +20,7 @@ using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Targets.Messages;
+using Genrpg.Shared.Trades.Messages;
 using Genrpg.Shared.UserCoins.Messages;
 using Genrpg.Shared.WhoList.Messages;
 using MessagePack;
@@ -96,9 +97,18 @@ namespace Genrpg.Shared.MapMessages.Interfaces
     [Union(63,typeof(OnSetTarget))]
     [Union(64,typeof(OnTargetIsDead))]
     [Union(65,typeof(SetTarget))]
-    [Union(66,typeof(OnAddUserCoin))]
-    [Union(67,typeof(GetWhoList))]
-    [Union(68,typeof(OnGetWhoList))]
+    [Union(66,typeof(AcceptTrade))]
+    [Union(67,typeof(CancelTrade))]
+    [Union(68,typeof(OnAcceptTrade))]
+    [Union(69,typeof(OnCancelTrade))]
+    [Union(70,typeof(OnCompleteTrade))]
+    [Union(71,typeof(OnStartTrade))]
+    [Union(72,typeof(OnUpdateTrade))]
+    [Union(73,typeof(StartTrade))]
+    [Union(74,typeof(UpdateTrade))]
+    [Union(75,typeof(OnAddUserCoin))]
+    [Union(76,typeof(GetWhoList))]
+    [Union(77,typeof(OnGetWhoList))]
     public interface IMapApiMessage : IMapMessage
     {
     }

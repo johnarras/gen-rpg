@@ -31,20 +31,20 @@ public class UnitFrameContainer : BaseBehaviour
         SetMapPlayer(unit);
     }
 
-    private ExitMapEvent OnExitMap(UnityGameState gs, ExitMapEvent exitMap)
+    private void OnExitMap(ExitMapEvent exitMap)
     {
         OnUpdatePlayer(exitMap.Ch);
-        return null;
+        return;
     }
 
-    private SetMapPlayerEvent OnSetMapPlayer(UnityGameState gs, SetMapPlayerEvent sdata)
+    private void OnSetMapPlayer(SetMapPlayerEvent sdata)
     {
         if (Frame == null)
         {
-            return null;
+            return;
         }
         OnUpdatePlayer(sdata.Ch);
-        return null;
+        return;
     }
 
     private void OnUpdatePlayer(Character ch)

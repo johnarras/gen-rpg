@@ -205,6 +205,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 519539180666548209, guid: a47566d87e2e8f641be7678647c65008,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1604152586628774692, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -258,7 +263,7 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: ZoneSize
-      value: 6
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
@@ -273,7 +278,7 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: MapGenSeed
-      value: 918253
+      value: 22128922
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
@@ -283,7 +288,7 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: PlayerSpeedMult
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
@@ -293,6 +298,11 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: ForceDownloadFromAssetBundles
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480780464994235373, guid: a47566d87e2e8f641be7678647c65008,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985136876956973675, guid: a47566d87e2e8f641be7678647c65008,

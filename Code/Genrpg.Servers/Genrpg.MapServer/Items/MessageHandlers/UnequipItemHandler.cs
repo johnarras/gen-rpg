@@ -1,4 +1,4 @@
-﻿using Genrpg.MapServer.MapMessaging;
+﻿using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Inventory.Messages;
@@ -28,7 +28,7 @@ namespace Genrpg.MapServer.Items.MessageHandlers
                 return;
             }
 
-            if (!_inventoryService.UnequipItem(gs, ch, message.ItemId))
+            if (!_inventoryService.UnequipItem(ch, message.ItemId))
             {
                 pack.SendError(gs, obj, "That item isn't equipped");
                 return;

@@ -1,4 +1,4 @@
-﻿using Genrpg.MapServer.MapMessaging;
+﻿using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
@@ -46,7 +46,8 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
             foreach (ActionInput removeInput in removeInputs)
             {
                 ch.AddMessage(new OnRemoveActionBarItem() { Index = removeInput.Index });
-                actionData.SetInput(removeInput.Index, 0);
+                actionData.SetInput(removeInput.Index, 0, _repoService);
+             
             }
 
         }

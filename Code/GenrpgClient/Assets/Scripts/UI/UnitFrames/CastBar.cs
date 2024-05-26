@@ -30,32 +30,32 @@ public class CastBar : BaseBehaviour
         HideCast(gs);
     }
 
-    private OnStartCast OnStartCastHandler (UnityGameState gs, OnStartCast onStartCast)
+    private void OnStartCastHandler(OnStartCast onStartCast)
     {
 
         if (_unit == null || 
             onStartCast == null || 
             onStartCast.CasterId != _unit.Id)
         {
-            return null;
+            return;
         }
 
-        ShowCast(gs, (int)(onStartCast.CastSeconds * 1000), onStartCast.CastingName);
+        ShowCast(_gs, (int)(onStartCast.CastSeconds * 1000), onStartCast.CastingName);
 
-        return null;
+        return;
     }
 
 
-    private OnStopCast OnStopCastHandler(UnityGameState gs, OnStopCast onStopCast)
+    private void OnStopCastHandler(OnStopCast onStopCast)
     {
 
         if (onStopCast.CasterId != _unit.Id)
         {
-            return null;
+            return;
         }
-        HideCast(gs);
+        HideCast(_gs);
 
-        return null;
+        return;
     }
 
     public void ShowCast (UnityGameState gs, int castTimeMS, string spellName)

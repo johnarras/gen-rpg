@@ -10,7 +10,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IScreenService _screenService;
         protected override void InnerProcess(UnityGameState gs, ErrorResult result, CancellationToken token)
         {
-            _dispatcher.Dispatch(gs, new ShowFloatingText(result.Error, EFloatingTextArt.Error));
+            _dispatcher.Dispatch( new ShowFloatingText(result.Error, EFloatingTextArt.Error));
             _screenService.CloseAll(gs);
             _screenService.Open(gs, ScreenId.Login);
         }

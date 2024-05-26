@@ -31,6 +31,7 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
 
     protected TInitData _initData;
     protected CancellationToken _token;
+
     public virtual void Init(TInitData initData, CancellationToken token)
     {
         _initData = initData;

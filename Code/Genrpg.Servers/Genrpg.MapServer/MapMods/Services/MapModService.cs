@@ -1,6 +1,6 @@
-﻿using Genrpg.ServerShared.Core;
+﻿using Genrpg.MapServer.MapMods.Helpers;
+using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.MapMods.Helpers;
 using Genrpg.Shared.MapMods.MapObjectAddons;
 using Genrpg.Shared.MapMods.MapObjects;
 using Genrpg.Shared.Utils;

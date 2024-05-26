@@ -168,8 +168,8 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
             _logService.Debug("Screen had no BaseScreen on it");
             return;
         }
-        bs.ScreenId = nextItem.ScreenId;
-        bs.Subdirectory = GetSubdirectory(bs.ScreenId);
+        bs.ScreenID = nextItem.ScreenId;
+        bs.Subdirectory = GetSubdirectory(bs.ScreenID);
 
         Canvas canvas = screen.GetComponent<Canvas>();
 

@@ -29,12 +29,12 @@ namespace Assets.Scripts.UI.Crawler
 
         }
 
-        private CrawlerStateData OnNewStateData(UnityGameState gs, CrawlerStateData data)
+        private void OnNewStateData(CrawlerStateData data)
         {
             WorldPanel.OnNewStateData(data);
             ActionPanel.OnNewStateData(data);
             StatusPanel.OnNewStateData(data);
-            return null;
+            return;
         }
     }
 }

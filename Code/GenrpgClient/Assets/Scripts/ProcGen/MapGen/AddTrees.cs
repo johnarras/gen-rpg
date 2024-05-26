@@ -337,15 +337,15 @@ public class AddTrees : BaseZoneGenerator
 
         for (int cx = 0; cx < gs.map.GetHwid(); cx += skipSize)
         {
-            int x = cx + MathUtils.IntRange(-skipRadius, skipRadius, skipRand);
-            x = MathUtils.Clamp(0, x, gs.map.GetHwid() - 1);
-            int ddx = -x / (MapConstants.TerrainPatchSize - 1);
-            if (x < 0 || x >= gs.map.GetHwid())
-            {
-                continue;
-            }
             for (int cy = 0; cy < gs.map.GetHhgt(); cy += skipSize)
             {
+                int x = cx + MathUtils.IntRange(-skipRadius, skipRadius, skipRand);
+                x = MathUtils.Clamp(0, x, gs.map.GetHwid() - 1);
+                int ddx = -x / (MapConstants.TerrainPatchSize - 1);
+                if (x < 0 || x >= gs.map.GetHwid())
+                {
+                    continue;
+                }
                 int y = cy + MathUtils.IntRange(-skipRadius, skipRadius, skipRand);
                 y = MathUtils.Clamp(0, y, gs.map.GetHhgt() - 1);
                 int ddy = -y / (MapConstants.TerrainPatchSize - 1);

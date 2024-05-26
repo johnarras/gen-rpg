@@ -4,11 +4,6 @@ using System.Threading;
 
 namespace Assets.Scripts.MessageHandlers.Chat
 {
-    public class OnChatMessageHandler : BaseClientMapMessageHandler<OnChatMessage>
-    {
-        protected override void InnerProcess(UnityGameState gs, OnChatMessage msg, CancellationToken token)
-        {
-            _dispatcher.Dispatch(gs,msg);
-        }
-    }
+    public class OnChatMessageHandler : DispatchClientMapMessageHandler<OnChatMessage> { }
+
 }

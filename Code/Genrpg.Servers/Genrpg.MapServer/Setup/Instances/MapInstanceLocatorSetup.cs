@@ -6,12 +6,8 @@ using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Setup.Services;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.ServerShared.GameSettings;
-using Genrpg.MapServer.Vendors;
 using Genrpg.MapServer.AI.Services;
-using Genrpg.MapServer.Crafting;
 using Genrpg.MapServer.Items;
-using Genrpg.MapServer.Spawns;
-using Genrpg.MapServer.Quests;
 using Genrpg.MapServer.Entities;
 using Genrpg.MapServer.Currencies;
 using Genrpg.MapServer.Stats;
@@ -19,13 +15,26 @@ using Genrpg.MapServer.Maps;
 using Genrpg.ServerShared.Setup;
 using Genrpg.MapServer.Units;
 using Genrpg.MapServer.Spells;
-using Genrpg.MapServer.Levelup;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.MapServer.MapMessaging;
 using Genrpg.MapServer.UserCoins;
 using Genrpg.Shared.UserCoins.Services;
+using Genrpg.MapServer.Trades.Services;
+using Genrpg.MapServer.Crafting.Services;
+using Genrpg.MapServer.Items.Services;
+using Genrpg.MapServer.Levelup.Services;
+using Genrpg.MapServer.Quests.Services;
+using Genrpg.MapServer.Spawns.Services;
+using Genrpg.MapServer.Spells.Services;
+using Genrpg.MapServer.Units.Services;
+using Genrpg.MapServer.Vendors.Services;
+using Genrpg.MapServer.MapMessaging.Services;
+using Genrpg.MapServer.Entities.Services;
+using Genrpg.MapServer.Currencies.Services;
+using Genrpg.MapServer.Stats.Services;
+using Genrpg.MapServer.UserCoins.Services;
 
-namespace Genrpg.MapServer.Setup
+namespace Genrpg.MapServer.Setup.Instances
 {
     public class MapInstanceLocatorSetup : BaseServerLocatorSetup
     {
@@ -51,6 +60,7 @@ namespace Genrpg.MapServer.Setup
             fact.Set<IStatService>(new ServerStatService());
             fact.Set<IMapObjectManager>(new MapObjectManager());
             fact.Set<IUserCoinService>(new ServerUserCoinService());
+            fact.Set<ITradeService>(new TradeService());
         }
     }
 }

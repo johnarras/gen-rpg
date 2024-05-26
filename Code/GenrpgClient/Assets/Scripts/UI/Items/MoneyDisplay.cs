@@ -24,11 +24,11 @@ public class MoneyDisplay : BaseBehaviour
         }
     }
 
-    private OnAddCurrency OnCurrencyUpdate(UnityGameState gs, OnAddCurrency data)
+    private void OnCurrencyUpdate(OnAddCurrency data)
     {
         UpdateValue();
 
-        return null;
+        return;
     }
 
     protected void UpdateValue()

@@ -26,7 +26,6 @@ public class CrawlerVendorScreen : ItemIconScreen
     protected ICrawlerService _crawlerService;
     protected IInventoryService _inventoryService;
     protected ILootGenService _lootGenService;
-    private IDispatcher _dispatcher;
     public const string VendorIconName = "VendorItemIcon";
 
     public InventoryPanel PlayerItems;
@@ -97,7 +96,7 @@ public class CrawlerVendorScreen : ItemIconScreen
             {
                 Data = item,
                 Flags = ItemIconFlags.IsVendorItem | ItemIconFlags.ShowTooltipOnRight,
-                iconPrefabName = VendorIconName,
+                IconPrefabName = VendorIconName,
                 Screen = this,
             };
             IconHelper.InitItemIcon(_gs, idata, VendorItems, _assetService, _token);
@@ -142,20 +141,20 @@ public class CrawlerVendorScreen : ItemIconScreen
         Item vendorItem = _party.VendorItems.FirstOrDefault(x => x.Id == icon.GetDataItem().Id);
         if (vendorItem == null)
         {
-            _dispatcher.Dispatch(gs, new ShowFloatingText("That item isn't for sale!", EFloatingTextArt.Error));
+            _dispatcher.Dispatch(new ShowFloatingText("That item isn't for sale!", EFloatingTextArt.Error));
             return;
         }
 
         if (vendorItem.Cost > _party.Gold)
         {
-            _dispatcher.Dispatch(gs, new ShowFloatingText("You need more gold to buy this!", EFloatingTextArt.Error));
+            _dispatcher.Dispatch(new ShowFloatingText("You need more gold to buy this!", EFloatingTextArt.Error));
             return;
         }
 
         _party.Gold -= vendorItem.Cost;
 
         _party.VendorItems.Remove(icon.GetDataItem());
-        _inventoryService.AddItem(gs, _member, icon.GetDataItem(), true);
+        _inventoryService.AddItem(_member, icon.GetDataItem(), true);
         ShowVendorItems();
         InitPanel();
     }
@@ -171,13 +170,13 @@ public class CrawlerVendorScreen : ItemIconScreen
 
         if (item == null)
         {
-            _dispatcher.Dispatch(gs, new ShowFloatingText("You don't have that item!", EFloatingTextArt.Error));
+            _dispatcher.Dispatch(new ShowFloatingText("You don't have that item!", EFloatingTextArt.Error));
             return;
         }
 
         _party.Gold += item.Cost;
 
-        _inventoryService.RemoveItem(gs, _member, icon.GetDataItem().Id, false);
+        _inventoryService.RemoveItem(_member, icon.GetDataItem().Id, false);
         _party.VendorBuyback.Add(item);
 
         while (_party.VendorBuyback.Count > 10)

@@ -10,6 +10,7 @@ using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Constants;
 using Genrpg.Shared.Crafting.Settings.Crafters;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.Trades.Messages;
 
 public class InteractUnit : InteractableObject
 {
@@ -102,6 +103,10 @@ public class InteractUnit : InteractableObject
         if (_mapObj is Unit unit)
         {
             _playerManager.SetCurrentTarget(unit.Id);
+            if (unit.HasFlag(UnitFlags.ProxyCharacter))
+            {
+                _networkService.SendMapMessage(new StartTrade() { CharId = unit.Id });
+            }
         }
     }
 

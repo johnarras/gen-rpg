@@ -21,12 +21,14 @@ namespace Genrpg.ServerShared.DataStores.DbQueues
         {
             using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(1)))
             {
+                IDbAction currItem = null;
                 try
                 {
                     while (true)
                     {
                         while (_queue.TryDequeue(out IDbAction item))
                         {
+                            currItem = item;
                             await item.Execute().ConfigureAwait(false);
                         }
                         await timer.WaitForNextTickAsync(token).ConfigureAwait(false);
@@ -38,13 +40,13 @@ namespace Genrpg.ServerShared.DataStores.DbQueues
                 }
                 catch (Exception e)
                 {
-                    logger.Exception(e, "DbActionLoop");
+                    logger.Exception(e, "DbActionLoop " + currItem?.GetType().Name ?? "None");
                 }
             }
         }
 
         public void Enqueue(IDbAction action)
-        {
+        {            
             _queue.Enqueue(action);
         }
     }

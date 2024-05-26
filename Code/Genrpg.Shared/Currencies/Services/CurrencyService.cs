@@ -22,12 +22,12 @@ namespace Genrpg.Shared.Currencies.Services
 
         protected IRepositoryService _repoService = null;
 
-        public bool Add(GameState gs, Unit unit, long currencyTypeId, long quantity)
+        public bool Add(Unit unit, long currencyTypeId, long quantity)
         {
-            return Set(gs, unit, currencyTypeId, unit.Get<CurrencyData>().GetQuantity(currencyTypeId) + quantity);
+            return Set(unit, currencyTypeId, unit.Get<CurrencyData>().GetQuantity(currencyTypeId) + quantity);
         }
 
-        public bool Set(GameState gs, Unit unit, long currencyTypeId, long newQuantity)
+        public bool Set(Unit unit, long currencyTypeId, long newQuantity)
         {
             if (newQuantity < 0)
             {
@@ -40,11 +40,11 @@ namespace Genrpg.Shared.Currencies.Services
 
             long diff = newQuantity - oldQuantity;
 
-            OnSetCurrency(gs, unit, currencyData, status, diff);
+            OnSetCurrency(unit, currencyData, status, diff);
             return true;
         }
 
-        protected virtual void OnSetCurrency(GameState gs, Unit unit, CurrencyData currencyData, CurrencyStatus status, long diff)
+        protected virtual void OnSetCurrency(Unit unit, CurrencyData currencyData, CurrencyStatus status, long diff)
         {
             if (diff != 0)
             {

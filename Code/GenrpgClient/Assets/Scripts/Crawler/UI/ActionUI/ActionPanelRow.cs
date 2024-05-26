@@ -64,7 +64,7 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
         {
             if (_action != null && !string.IsNullOrEmpty(_action.SpriteName))
             {
-                _dispatcher.Dispatch<ShowWorldPanelImage>(_gs, new ShowWorldPanelImage()
+                _dispatcher.Dispatch<ShowWorldPanelImage>(new ShowWorldPanelImage()
                 {
                     SpriteName = _action.SpriteName
                 });

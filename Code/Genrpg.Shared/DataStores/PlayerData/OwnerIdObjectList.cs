@@ -37,7 +37,6 @@ namespace Genrpg.Shared.DataStores.PlayerData
                             IdKey = id,
                         };
                         OnCreateChild(child);
-                        _repoService.QueueSave(child);
                         _data = new List<TChild>(_data) { child };
                     }
                 }

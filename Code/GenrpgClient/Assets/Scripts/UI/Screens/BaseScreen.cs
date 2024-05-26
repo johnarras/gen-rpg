@@ -7,7 +7,7 @@ using Unity.IO.LowLevel.Unsafe;
 
 public abstract class BaseScreen : AnimatorBehaviour, IScreen
 {
-    public ScreenId ScreenId { get; set; }
+    public ScreenId ScreenID { get; set; }
     public string Subdirectory { get; set; }
     public float IntroTime;
     public float OutroTime;
@@ -133,7 +133,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
     // Called after close animation ends.
     protected virtual void OnFinishClose(CancellationToken token)
     {
-        _screenService.FinishClose(_gs, ScreenId);
+        _screenService.FinishClose(_gs, ScreenID);
     }
 }
 

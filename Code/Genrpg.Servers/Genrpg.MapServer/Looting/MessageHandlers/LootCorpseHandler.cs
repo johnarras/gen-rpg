@@ -7,7 +7,6 @@ using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.PlayerData;
-using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.ServerShared.Achievements;
 using System.Linq;
@@ -16,6 +15,7 @@ using Genrpg.Shared.Currencies.Constants;
 using Microsoft.Identity.Client;
 using Genrpg.Shared.Achievements.Constants;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.MapServer.MapMessaging.MessageHandlers;
 
 namespace Genrpg.MapServer.Looting.MessageHandlers
 {

@@ -67,8 +67,20 @@
       "Count": 4
     },
     {
-      "Name": "Metal",
+      "Name": "Chain",
+      "Count": 1
+    },
+    {
+      "Name": "Plate",
       "Count": 4
+    },
+    {
+      "Name": "Stone",
+      "Count": 1
+    },
+    {
+      "Name": "Jeweled",
+      "Count": 1
     }
   ],
   "Names": [
@@ -133,6 +145,6 @@
       "Desc": ""
     }
   ],
-  "UpdateTime": "2024-02-25T15:47:03.141Z",
+  "UpdateTime": "2024-05-21T15:23:07.894Z",
   "CreateTime": "2023-11-24T16:45:41.48Z"
 }

@@ -30,26 +30,12 @@ namespace Genrpg.Shared.Inventory.PlayerData
         {
             _equipment = data.Where(x => x.EquipSlotId > 0).ToList();
             _inventory = data.Where(x => x.EquipSlotId == 0).ToList();
-            SetChildRepos();
-        }
-
-        public override void SetRepo(IRepositoryService repoService)
-        {
-            base.SetRepo(repoService);
-            SetChildRepos();
         }
 
         public void SetInvenEquip(List<Item> inventory, List<Item> equipment)
         {
             _inventory = inventory;
             _equipment = equipment;
-            SetChildRepos();
-        }
-
-        protected void SetChildRepos()
-        {
-            _inventory.ForEach(x => x.SetRepo(_repoService));
-            _equipment.ForEach(x => x.SetRepo(_repoService));
         }
 
         public override IReadOnlyList<Item> GetData()
@@ -61,7 +47,7 @@ namespace Genrpg.Shared.Inventory.PlayerData
         protected List<Item> _inventory { get; set; } = new List<Item>();
         public List<Item> GetAllInventory() { return _inventory.ToList(); }
         public void AddInventory(Item item) { _inventory.Add(item); }
-        public void RemoveInventory(GameState gs, Item item)
+        public void RemoveInventory(Item item)
         {
             List<Item> removeItems = _inventory.Where(x => x.Id == item.Id).ToList();
 

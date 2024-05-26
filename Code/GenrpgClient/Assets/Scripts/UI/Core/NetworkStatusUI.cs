@@ -19,11 +19,11 @@ namespace Assets.Scripts.UI
             _dispatcher.AddEvent<ServerMessageCounts>(this, OnServerMessageCounts);
         }
 
-        protected ServerMessageCounts OnServerMessageCounts (UnityGameState gs, ServerMessageCounts data)
+        protected void OnServerMessageCounts (ServerMessageCounts data)
         {
             if (Text == null)
             {
-                return null;
+                return;
             }           
 
             StringBuilder sb = new StringBuilder();
@@ -60,7 +60,7 @@ namespace Assets.Scripts.UI
             }
 
             ConnMessageCounts clientCounts = _networkService.GetMessageCounts();
-            long size = gs.map.BlockCount * (MapConstants.TerrainPatchSize - 1);
+            long size = _gs.map.BlockCount * (MapConstants.TerrainPatchSize - 1);
             sb.Append("Client Size: " + size + "x" + size + " units\n");
             sb.Append("Uptime: " + DateUtils.PrintTime(clientCounts.Seconds) + "\n");
 
@@ -92,7 +92,7 @@ namespace Assets.Scripts.UI
             ShowClientVals(sb, "Objects", assetCounts.ObjectsLoaded, assetCounts.ObjectsUnloaded, clientCounts.Seconds);
             _uIInitializable.SetText(Text, sb.ToString());
 
-            return null;
+            return;
         }
 
         protected void ShowClientVals(StringBuilder sb, string prefix, long added, long removed, long seconds)

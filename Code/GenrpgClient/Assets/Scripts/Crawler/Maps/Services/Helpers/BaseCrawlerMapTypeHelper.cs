@@ -21,7 +21,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
     public abstract class BaseCrawlerMapTypeHelper : ICrawlerMapTypeHelper
     {
         protected IAssetService _assetService;
-        protected IUIInitializable _uIInitializable;
+        protected IUIService _uIInitializable;
         protected ILogService _logService;
         protected IGameData _gameData;
 

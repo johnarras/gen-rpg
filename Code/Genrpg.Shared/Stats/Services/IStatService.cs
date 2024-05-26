@@ -8,15 +8,15 @@ using System.Collections.Generic;
 public interface IStatService : IInitializable
 {
     float Pct(Unit unit, long statTypeId);
-    void CalcStats(GameState gs, Unit unit, bool resetMutableStats);
-    List<StatType> GetMutableStatTypes(GameState gs, Unit unit);
-    List<StatType> GetFixedStatTypes(GameState gs, Unit unit);
-    List<StatType> GetPrimaryStatTypes(GameState gs, Unit unit);
-    List<StatType> GetAttackStatTypes(GameState gs, Unit unit);
-    List<StatType> GetSecondaryStatTypes(GameState gs, Unit unit);
+    void CalcStats(Unit unit, bool resetMutableStats);
+    List<StatType> GetMutableStatTypes(Unit unit);
+    List<StatType> GetFixedStatTypes(Unit unit);
+    List<StatType> GetPrimaryStatTypes(Unit unit);
+    List<StatType> GetAttackStatTypes(Unit unit);
+    List<StatType> GetSecondaryStatTypes(Unit unit);
 
-    void Add(GameState gs, Unit unit, long statTypeId, int statCategory, long value);
-    void Set(GameState gs, Unit unit, long statTypeId, int statCategory, long value);
+    void Add(Unit unit, long statTypeId, int statCategory, long value);
+    void Set(Unit unit, long statTypeId, int statCategory, long value);
 
     void RegenerateTick(GameState gs, Unit unit, float regenTickTime = StatConstants.RegenTickSeconds);
 }

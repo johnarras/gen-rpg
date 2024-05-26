@@ -287,16 +287,16 @@ public class CharacterScreen : ItemIconScreen
         _networkService.SendMapMessage(equip);
     }
 
-    protected OnEquipItem OnEquip(UnityGameState gs, OnEquipItem equip)
+    protected void OnEquip(OnEquipItem equip)
     {
         if (equip.Item == null)
         {
-            return null;
+            return;
         }
 
         if (_unit.Id != equip.UnitId)
         {
-            return null;
+            return;
         }
 
         Items.RemoveIcon(equip.Item.Id);
@@ -307,12 +307,12 @@ public class CharacterScreen : ItemIconScreen
 
         if (origItem == null)
         {
-            return null;
+            return;
         }
 
         if (origItem.EquipSlotId == equip.Item.EquipSlotId)
         {
-            return null;
+            return;
         }
 
         long currEquipSlotId = origItem.EquipSlotId;
@@ -324,27 +324,27 @@ public class CharacterScreen : ItemIconScreen
         List<long> equipSlots = itype.GetCompatibleEquipSlots(_gameData, _unit);
         List<long> relatedSlots = itype.GetRelatedEquipSlots(_gameData, _unit);
 
-        EquipSlotIcon currEqIcon = GetIconFromSlot(gs, currEquipSlotId);
-        EquipSlotIcon newEqIcon = GetIconFromSlot(gs, newEquipSlotId);
+        EquipSlotIcon currEqIcon = GetIconFromSlot(_gs, currEquipSlotId);
+        EquipSlotIcon newEqIcon = GetIconFromSlot(_gs, newEquipSlotId);
 
         Item existingItemInNewSlot = inventory.GetEquipBySlot(newEquipSlotId);
 
         Item existingEquipmentInNewSlot = inventory.GetEquipBySlot(newEquipSlotId);
 
-        if (!_inventoryService.EquipItem(gs, _unit, equip.Item.Id, newEquipSlotId, CalcStatsOnEquipUnequip()))
+        if (!_inventoryService.EquipItem(_unit, equip.Item.Id, newEquipSlotId, CalcStatsOnEquipUnequip()))
         {
-            return null;
+            return;
         }
 
-        InitEquipmentIcon(gs, GetIconFromSlot(gs, newEquipSlotId));
+        InitEquipmentIcon(_gs, GetIconFromSlot(_gs, newEquipSlotId));
 
-        InitEquipmentIcon(gs, GetIconFromSlot(gs, currEquipSlotId));
+        InitEquipmentIcon(_gs, GetIconFromSlot(_gs, currEquipSlotId));
 
         foreach (long relSlot in relatedSlots)
         {
             if (relSlot != newEquipSlotId && relSlot != currEquipSlotId)
             {
-                InitEquipmentIcon(gs, GetIconFromSlot(gs, relSlot));
+                InitEquipmentIcon(_gs, GetIconFromSlot(_gs, relSlot));
             }
         }
 
@@ -367,8 +367,6 @@ public class CharacterScreen : ItemIconScreen
         }
      
         ShowStats();
-
-        return null;
     }
 
     protected void UnequipItem(UnityGameState gs, ItemIcon icon)
@@ -392,17 +390,17 @@ public class CharacterScreen : ItemIconScreen
         _networkService.SendMapMessage(uneq);
     }
 
-    protected OnUnequipItem OnUnequip(UnityGameState gs, OnUnequipItem unequipItem)
+    protected void OnUnequip(OnUnequipItem unequipItem)
     {
 
         if (unequipItem.UnitId != _unit.Id)
         {
-            return null;
+            return;
         }
 
-        if (!_inventoryService.UnequipItem(gs, _unit, unequipItem.ItemId, CalcStatsOnEquipUnequip()))
+        if (!_inventoryService.UnequipItem(_unit, unequipItem.ItemId, CalcStatsOnEquipUnequip()))
         {
-            return null;
+            return;
         }
 
         EquipSlotIcon eqSlotIcon = null;
@@ -422,20 +420,19 @@ public class CharacterScreen : ItemIconScreen
 
         if (eqSlotIcon == null)
         {
-            return null;
+            return;
         }
 
 
         Item oldItem = eqSlotIcon.Icon.GetDataItem();
 
-        InitEquipmentIcon(gs, eqSlotIcon);
+        InitEquipmentIcon(_gs, eqSlotIcon);
 
         if (oldItem != null)
         {
             Items.InitIcon(oldItem, _token);
         }
         ShowStats();
-        return null;
     }
 
     protected override void ShowDragTargetIconsGlow(bool visible)
@@ -489,7 +486,7 @@ public class CharacterScreen : ItemIconScreen
         {
             color = GColor.yellow;
 
-            if (item != null && !_inventoryService.CanEquipItem(_gs, _unit, item))
+            if (item != null && !_inventoryService.CanEquipItem(_unit, item))
             {
                 color = GColor.red;
             }

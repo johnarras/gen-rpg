@@ -8,6 +8,7 @@ using Genrpg.Shared.SpellCrafting.Messages;
 using System.Linq;
 using Genrpg.Shared.Input.Constants;
 using Genrpg.Shared.Input.PlayerData;
+using Genrpg.Shared.DataStores.Entities;
 
 internal class ActionButtonDownload
 {
@@ -17,6 +18,8 @@ internal class ActionButtonDownload
 
 public class ActionBars : SpellIconScreen
 {
+    private IRepositoryService _repoService;
+
     public const string ActionButtonPrefab = "ActionButton";
 
     
@@ -31,10 +34,10 @@ public class ActionBars : SpellIconScreen
         return "ActionBars";
     }
 
-    private SetMapPlayerEvent OnSetMapPlayer(UnityGameState gs, SetMapPlayerEvent data)
+    private void OnSetMapPlayer(SetMapPlayerEvent data)
     {
         Reset();
-        return null;
+        return;
     }
 
     public void Init(CancellationToken token)
@@ -56,7 +59,7 @@ public class ActionBars : SpellIconScreen
             return;
         }
 
-        ScreenId = UI.Screens.Constants.ScreenId.ActionBars;
+        ScreenID = UI.Screens.Constants.ScreenId.ActionBars;
 
         _buttons = new Dictionary<int, ActionButton>();
 
@@ -136,34 +139,34 @@ public class ActionBars : SpellIconScreen
 
     }
 
-    private OnStartCast OnStartCastHandler(UnityGameState gs, OnStartCast castEvent)
+    private void OnStartCastHandler(OnStartCast castEvent)
     {
 
-        if (gs.ch == null ||
-            castEvent.CasterId != gs.ch.Id)
+        if (_gs.ch == null ||
+            castEvent.CasterId != _gs.ch.Id)
         {
-            return null;
+            return;
         }
 
 
         foreach (ActionButton button in _buttons.Values)
         {
-            button.SetCooldown(gs, gs.ch);
+            button.SetCooldown(_gs, _gs.ch);
         }
 
-        return null;
+        return;
     }
 
-    private OnDeleteSpell OnDeleteSpellHandler (UnityGameState gs, OnDeleteSpell data)
+    private void OnDeleteSpellHandler (OnDeleteSpell data)
     {
         if (data == null)
         {
-            return null;
+            return;
         }
 
         if (_buttons == null)
         {
-            return null;
+            return;
         }
 
         foreach (ActionButton button in _buttons.Values)
@@ -186,26 +189,26 @@ public class ActionBars : SpellIconScreen
             }
         }
 
-        return null;
+        return;
     }
 
-    private OnCraftSpell OnCraftSpellHandler(UnityGameState gs, OnCraftSpell data)
+    private void OnCraftSpellHandler(OnCraftSpell data)
     {
         if (data == null)
         {
-            return null;
+            return;
         }
 
         Spell spell = data.CraftedSpell;
 
         if (spell == null)
         {
-            return null;
+            return;
         }
 
         if (_buttons == null)
         {
-            return null;
+            return;
         }
 
         foreach (ActionButton button in _buttons.Values)
@@ -229,7 +232,7 @@ public class ActionBars : SpellIconScreen
             }
         }
 
-        return null;
+        return;
     }
 
     protected override void  OnUpdate()
@@ -302,17 +305,17 @@ public class ActionBars : SpellIconScreen
         ResetCurrentDragItem();
     }
 
-    protected OnRemoveActionBarItem OnRemoveActionItem(UnityGameState gs, OnRemoveActionBarItem msg)
+    protected void OnRemoveActionItem(OnRemoveActionBarItem msg)
     {
         UpdateActionInput(msg.Index, 0, false);
-        return null;
+        return;
     }
 
 
-    protected OnSetActionBarItem OnSetActionBarItemHandler(UnityGameState gs, OnSetActionBarItem msg)
+    protected void OnSetActionBarItemHandler(OnSetActionBarItem msg)
     {
         UpdateActionInput(msg.Index, msg.SpellId, false);
-        return null;
+        return;
     }
 
     protected void UpdateActionInput(int actionIndex, long spellTypeId, bool sendCommand = true)
@@ -325,7 +328,7 @@ public class ActionBars : SpellIconScreen
         ActionButton button = _buttons[actionIndex];
 
         ActionInputData actionInputs = _gs.ch.Get<ActionInputData>();
-        actionInputs.SetInput(actionIndex, spellTypeId);
+        actionInputs.SetInput(actionIndex, spellTypeId, _repoService);
         if (button == null || button.GetInitData() == null)
         {
             return;

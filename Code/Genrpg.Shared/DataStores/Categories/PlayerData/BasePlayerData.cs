@@ -7,25 +7,19 @@ namespace Genrpg.Shared.DataStores.Categories.PlayerData
     [DataCategory(Category = DataCategoryTypes.PlayerData)]
     public abstract class BasePlayerData : IUnitData
     {
-        protected IRepositoryService _repoService;
-
         [MessagePack.IgnoreMember]
         public abstract string Id { get; set; }
 
         public virtual void AddTo(Unit unit) { unit.Set(this); }
-        public virtual void SetRepo(IRepositoryService repoService)
+
+        public virtual void QueueSave(IRepositoryService repoService)
         {
-            _repoService = repoService;
+            repoService.QueueSave(this);
         }
 
-        public virtual void Save()
+        public virtual void QueueDelete(IRepositoryService repoService)
         {
-            _repoService.QueueSave(this);
-        }
-
-        public virtual void Delete()
-        {
-            _repoService.QueueDelete(this);
+            repoService.QueueDelete(this);
         }
 
     }

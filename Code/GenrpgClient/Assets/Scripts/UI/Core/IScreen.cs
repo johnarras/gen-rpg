@@ -6,7 +6,7 @@ using UI.Screens.Constants;
 
 public interface IScreen
 {
-    ScreenId ScreenId { get; }
+    ScreenId ScreenID { get; }
     UniTask StartOpen(object data, CancellationToken token);
     void StartClose();
     void ErrorClose(string txt);

@@ -12,6 +12,8 @@ namespace Genrpg.Shared.Constants
 
         public const string DefaultItemIcon = "Ring_001";
 
+        public const string DefaultItemIconItemName = "Ring";
+
 
         public const int BaseStat = 10;
 

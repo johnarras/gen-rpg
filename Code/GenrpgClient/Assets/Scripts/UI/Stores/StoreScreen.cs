@@ -62,11 +62,11 @@ namespace Assets.Scripts.UI.Stores
 
         }
 
-        private RefreshStoresResult OnRefreshStores (UnityGameState gs, RefreshStoresResult result)
+        private void OnRefreshStores (RefreshStoresResult result)
         {
             _offerData = result.Stores;
             SetupData(_token);
-            return null;
+            return;
         }
     }
 }

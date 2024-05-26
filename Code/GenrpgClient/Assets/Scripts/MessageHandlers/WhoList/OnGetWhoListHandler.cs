@@ -8,13 +8,5 @@ using Cysharp.Threading.Tasks;
 
 namespace Assets.Scripts.MessageHandlers.WhoList
 {
-    public class OnGetWhoListHandler : BaseClientMapMessageHandler<OnGetWhoList>
-    {
-        protected override void InnerProcess(UnityGameState gs, OnGetWhoList msg, CancellationToken token)
-        {
-            int count = msg.Items?.Count ?? 0;
-
-            _dispatcher.Dispatch(gs, msg);
-        }
-    }
+    public class OnGetWhoListHandler : DispatchClientMapMessageHandler<OnGetWhoList> { }
 }

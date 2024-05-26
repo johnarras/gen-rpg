@@ -136,7 +136,7 @@ public class UnitSetupService : IUnitSetupService
             OnLoadMonster(gs, go, unit, token);
         }
 
-        _statService.CalcStats(gs, unit, true);
+        _statService.CalcStats(unit, true);
 
         GAnimator animator = GEntityUtils.GetComponent<GAnimator>(go);
         if (animator != null)
@@ -217,7 +217,7 @@ public class UnitSetupService : IUnitSetupService
         _playerManager.SetUnit(pc);
         _assetService.LoadAssetInto(gs, go, AssetCategoryNames.UI,
             "PlayerLight", null, null, token, "Units");
-        _dispatcher.Dispatch(gs,new SetMapPlayerEvent() { Ch = unit as Character });
+        _dispatcher.Dispatch(new SetMapPlayerEvent() { Ch = unit as Character });
         CreateHealthBar(gs, go, unit, token);
     }
 

@@ -1,10 +1,11 @@
+using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System;
 
 namespace Genrpg.Shared.Utils
 {
 
-    public interface IRandom
+    public interface IRandom : IInjectable
     {
         int Next();
         long NextLong();

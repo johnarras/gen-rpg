@@ -17,13 +17,6 @@ namespace Genrpg.Shared.DataStores.PlayerData
         public virtual void SetData(List<TChild> data)
         {
             _data = data;
-            _data.ForEach(x => x.SetRepo(_repoService));
-        }
-
-        public override void SetRepo(IRepositoryService repoService)
-        {
-            base.SetRepo(repoService);
-            _data.ForEach(x=>x.SetRepo(_repoService));
         }
 
         public virtual IReadOnlyList<TChild> GetData()
@@ -31,22 +24,22 @@ namespace Genrpg.Shared.DataStores.PlayerData
             return _data;
         }
 
-        public override void Save()
+        public override void QueueSave(IRepositoryService repoService)
         {
-            base.Save();
+            base.QueueSave(repoService);
 
             foreach (TChild child in GetData())
             {
-                child.Save();
+                child.QueueSave(repoService);
             }
         }
 
-        public override void Delete()
+        public override void QueueDelete(IRepositoryService repoService)
         {
-            base.Delete();
+            base.QueueDelete(repoService);
             foreach (TChild child in GetData())
             {
-                child.Delete();
+                child.QueueDelete(repoService);
             }
         }
 

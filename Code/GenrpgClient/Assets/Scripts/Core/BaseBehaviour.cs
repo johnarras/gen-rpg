@@ -14,7 +14,7 @@ public class BaseBehaviour : StubComponent
     protected IScreenService _screenService;
     protected IRealtimeNetworkService _networkService;
     protected IAssetService _assetService;
-    protected IUIInitializable _uIInitializable;
+    protected IUIService _uIInitializable;
     protected ILogService _logService;
     protected IDispatcher _dispatcher;
     protected IGameData _gameData;

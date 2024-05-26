@@ -255,7 +255,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
  
     public void PlayMusic(UnityGameState gs, IMusicRegion region)
     {
-
+        return;
         if (InitClient.ForceCrawler)
         {
             return;

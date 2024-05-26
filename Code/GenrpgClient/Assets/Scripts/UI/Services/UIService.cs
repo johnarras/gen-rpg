@@ -24,7 +24,7 @@ using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.UI.Services
 {
-    public class UIInitializable : IUIInitializable
+    public class UIInitializable : IUIService
     {
         protected IFtueService _ftueService;
         protected IAudioService _audioService;

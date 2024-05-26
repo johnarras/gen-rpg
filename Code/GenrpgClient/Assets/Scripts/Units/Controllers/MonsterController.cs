@@ -23,7 +23,7 @@ public class MonsterController : UnitController
         _objectManager.RemoveObject(_unit.Id);
     }
 
-
+    
     public Unit GetNearbyTarget(UnityGameState gs)
     {
         return null;
@@ -39,6 +39,7 @@ public class MonsterController : UnitController
         SetState(_gs, CombatState);
     }
 
+    protected virtual float GetMaxRotation() { return 360; }
 
     public override bool CanMoveNow(UnityGameState gs)
     {
@@ -189,8 +190,7 @@ public class MonsterController : UnitController
                 _unit.Z += pct * dz;
             }
 
-            UnitUtils.TurnTowardNextPosition(_unit);
-
+            UnitUtils.TurnTowardNextPosition(_unit, GetMaxRotation());
 
             float height = _terrainManager.SampleHeight(_gs, _unit.X, _unit.Z);
             entity.transform().position = GVector3.Create(_unit.X, height, _unit.Z);

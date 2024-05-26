@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Genrpg.Shared.MapMods.Helpers
+namespace Genrpg.MapServer.MapMods.Helpers
 {
     public interface IMapModEffectHelper : ISetupDictionaryItem<long>
     {

@@ -192,6 +192,10 @@ namespace Genrpg.ServerShared.DataStores
         public void QueueSave<T>(T t) where T : class, IStringId
         {
             SaveAction<T> saveAction = new SaveAction<T>(t, this);
+            if (typeof(T).IsInterface)
+            {
+                Console.Write("cannot queue interface type");
+            }
             _queues[StrUtils.GetIdHash(t.Id) % QueueCount].Enqueue(saveAction);
         }
 
@@ -203,12 +207,19 @@ namespace Genrpg.ServerShared.DataStores
             }
 
             SaveAction<T> saveAction = new SaveAction<T>(list, this);
-
+            if (typeof(T).IsInterface)
+            {
+                Console.Write("cannot queue interface type 2");
+            }
             _queues[StrUtils.GetIdHash(queueId) % QueueCount].Enqueue(saveAction);
         }
 
         public void QueueDelete<T>(T t) where T : class, IStringId
         {
+            if (typeof(T).IsInterface)
+            {
+                Console.Write("cannot queue interface type 3");
+            }
             DeleteAction<T> deleteAction = new DeleteAction<T>(t, this);
             _queues[StrUtils.GetIdHash(t.Id) % QueueCount].Enqueue(deleteAction);
         }

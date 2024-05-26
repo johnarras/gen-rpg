@@ -39,7 +39,7 @@ public class CraftInventoryIcon : ItemIcon, IPointerEnterHandler, IPointerExitHa
         {
             Data = data.Data,
             Flags = data.Flags,
-            handler = data.handler,
+            Handler = data.Handler,
             Screen = data.Screen,
         };
 

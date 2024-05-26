@@ -252,7 +252,7 @@ public class UnityZoneGenService : ZoneGenService
                 CurrStep = currStep,
                 TotalSteps = totalSteps,
             };
-            _dispatcher.Dispatch(gs,showPercent);
+            _dispatcher.Dispatch(showPercent);
             DateTime startTime = DateTime.UtcNow;
             _logService.Info("StageStart: " + currStep + " " + gen.GetType().Name + " Time: " + DateTime.UtcNow);
             try
@@ -293,7 +293,7 @@ public class UnityZoneGenService : ZoneGenService
         await UniTask.NextFrame( cancellationToken: token);
 
 
-        _dispatcher.Dispatch(gs,new MapIsLoadedEvent());
+        _dispatcher.Dispatch(new MapIsLoadedEvent());
         gs.md.GeneratingMap = false;
         await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
         _playerManager.MoveAboveObstacles();

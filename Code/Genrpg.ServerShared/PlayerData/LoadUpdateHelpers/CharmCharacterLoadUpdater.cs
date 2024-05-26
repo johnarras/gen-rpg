@@ -26,7 +26,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                 status.Bonuses = _charmService.CalcBonuses(gs, status.Hash);
             }
 
-            _statService.CalcStats(gs, ch, false);
+            _statService.CalcStats(ch, false);
             await Task.CompletedTask;
         }
     }

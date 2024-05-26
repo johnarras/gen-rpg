@@ -89,7 +89,7 @@ public class CharacterSelectScreen : BaseScreen
     {
         if (_gs.characterStubs.Count < 1)
         {
-            _dispatcher.Dispatch(_gs, new ShowFloatingText("You need at least one character to generate a map.", EFloatingTextArt.Error));
+            _dispatcher.Dispatch(new ShowFloatingText("You need at least one character to generate a map.", EFloatingTextArt.Error));
         }
         LoadIntoMapCommand lwd = new LoadIntoMapCommand()
         {

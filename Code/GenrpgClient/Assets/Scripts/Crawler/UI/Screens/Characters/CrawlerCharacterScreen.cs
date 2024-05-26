@@ -57,13 +57,13 @@ namespace Assets.Scripts.Crawler.UI.Screens.Characters
             InventoryData inventoryData = _unit.Get<InventoryData>();
 
             List<Item> equipment = inventoryData.GetAllEquipment();
-            if (_inventoryService.EquipItem(_gs, _unit, origItem.Id, equipSlotId, false))
+            if (_inventoryService.EquipItem(_unit, origItem.Id, equipSlotId, false))
             {
-                _inventoryService.UnequipItem(_gs, _unit, origItem.Id, false);
+                _inventoryService.UnequipItem(_unit, origItem.Id, false);
 
                 Item newItem = SerializationUtils.SafeMakeCopy(origItem);
                 newItem.EquipSlotId = equipSlotId;
-                OnEquip(_gs, new OnEquipItem() { Item = newItem, UnitId = _unit.Id });
+                OnEquip(new OnEquipItem() { Item = newItem, UnitId = _unit.Id });
 
                 List<Item> removedItems = equipment.Except(inventoryData.GetAllEquipment()).ToList();
 
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Crawler.UI.Screens.Characters
 
         protected override void TryUnequip(Item item)
         {
-            OnUnequip(_gs, new OnUnequipItem() { UnitId = _unit.Id, ItemId = item.Id });
+            OnUnequip(new OnUnequipItem() { UnitId = _unit.Id, ItemId = item.Id });
             CopyDataBack();
         }
 

@@ -11,7 +11,7 @@ namespace Assets.Scripts.MessageHandlers.SpellCrafting
 
             gs.ch.Get<SpellData>().Remove(msg.CraftedSpell.IdKey);
             gs.ch.Get<SpellData>().Add(msg.CraftedSpell);
-            _dispatcher.Dispatch(gs,msg);
+            _dispatcher.Dispatch(msg);
         }
     }
 }

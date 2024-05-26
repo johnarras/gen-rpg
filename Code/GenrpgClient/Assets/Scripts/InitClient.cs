@@ -67,7 +67,7 @@ public class InitClient : BaseBehaviour, IInitClient
 
         // Initial app appearance.
         AppUtils.TargetFrameRate = 30;
-        ScreenUtils.SetupScreenSystem(1920, 1080, true, true, 2);
+        ScreenUtils.SetupScreenSystem(1920, 1080, false, true, 2);
         Cursors.SetCursor(Cursors.Default);
 
         ClientWebRequest req = new ClientWebRequest();
@@ -154,12 +154,8 @@ public class InitClient : BaseBehaviour, IInitClient
         }
     }
 
-    private NewVersionEvent OnNewVersion(GameState gs, NewVersionEvent newVersion)
+    private void OnNewVersion(NewVersionEvent newVersion)
     {
         Caching.ClearCache();
-        return null;
     }
-
-
-
 }

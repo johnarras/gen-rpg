@@ -1,5 +1,4 @@
-﻿using Genrpg.MapServer.Levelup;
-using Genrpg.MapServer.Combat.Messages;
+﻿using Genrpg.MapServer.Combat.Messages;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Currencies.PlayerData;
@@ -10,11 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.MapServer.Levelup.Services;
+using Genrpg.MapServer.MapMessaging.MessageHandlers;
 
 namespace Genrpg.MapServer.Combat.MessageHandlers
 {
@@ -44,7 +44,7 @@ namespace Genrpg.MapServer.Combat.MessageHandlers
 
                     if (level != null)
                     {
-                        _currencyService.Add(gs, ch, CurrencyTypes.Exp, level.MobExp);
+                        _currencyService.Add(ch, CurrencyTypes.Exp, level.MobExp);
                         _levelService.UpdateLevel(gs, ch);
                     }
                 }

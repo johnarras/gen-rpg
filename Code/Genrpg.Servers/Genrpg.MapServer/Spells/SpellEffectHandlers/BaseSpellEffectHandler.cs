@@ -1,6 +1,5 @@
 ﻿using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.AI.Services;
-using Genrpg.MapServer.Units;
 using Genrpg.Shared.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,8 @@ using Genrpg.Shared.Spells.Messages;
 using Genrpg.ServerShared.Achievements;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Spells.Constants;
+using Genrpg.MapServer.Spells.Services;
+using Genrpg.MapServer.Units.Services;
 
 namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 {

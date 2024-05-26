@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.MapServer.Messages;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.MapServer.MapMessaging.Services;
+using Genrpg.MapServer.MapMessaging.MessageHandlers;
 
 namespace Genrpg.MapServer.Movement.MessageHandlers
 {

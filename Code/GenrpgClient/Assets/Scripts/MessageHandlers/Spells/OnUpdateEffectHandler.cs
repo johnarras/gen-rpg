@@ -3,11 +3,5 @@ using System.Threading;
 
 namespace Assets.Scripts.MessageHandlers.Spells
 {
-    public class OnUpdateEffectHandler : BaseClientMapMessageHandler<OnUpdateEffect>
-    {
-        protected override void InnerProcess(UnityGameState gs, OnUpdateEffect msg, CancellationToken token)
-        {
-            _dispatcher.Dispatch(gs,msg);
-        }
-    }
+    public class OnUpdateEffectHandler : DispatchClientMapMessageHandler<OnUpdateEffect> { }
 }

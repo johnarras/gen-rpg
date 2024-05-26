@@ -20,7 +20,6 @@ using Genrpg.ServerShared.PlayerData;
 using Genrpg.ServerShared.Setup;
 using Genrpg.ServerShared.Core;
 using Genrpg.MapServer.Networking;
-using Genrpg.MapServer.Setup;
 using Genrpg.Shared.Crafting.PlayerData;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.MapServer.MapMessaging.Interfaces;
@@ -54,6 +53,7 @@ using MongoDB.Bson.Serialization.Serializers;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.ServerShared.Config;
+using Genrpg.MapServer.Setup.Instances;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -354,7 +354,7 @@ namespace Genrpg.MapServer.Maps
                     return;
                 }
 
-                _statService.CalcStats(_gs, connState.ch, true);
+                _statService.CalcStats(connState.ch, true);
                 if (didLoad)
                 {
                     _messageService.SendMessage(connState.ch, connState.ch.GetCachedMessage<Regen>(true));

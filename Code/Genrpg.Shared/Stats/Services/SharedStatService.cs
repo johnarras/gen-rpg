@@ -41,7 +41,7 @@ namespace Genrpg.Shared.Stats.Services
         /// <param name="gs">GameState</param>
         /// <param name="unit">The monster to set up</param>
         /// <param name="resetMutableStats">Do we reset health and mana to max or not?</param>
-        public virtual void CalcStats(GameState gs, Unit unit, bool resetMutableStats)
+        public virtual void CalcStats(Unit unit, bool resetMutableStats)
         {
             if (unit == null)
             {
@@ -62,7 +62,7 @@ namespace Genrpg.Shared.Stats.Services
             Dictionary<long, long> oldStats = new Dictionary<long, long>();
             Dictionary<long, long> oldMaxStats = new Dictionary<long, long>();
 
-            List<StatType> mutableStats = GetMutableStatTypes(gs, unit);
+            List<StatType> mutableStats = GetMutableStatTypes(unit);
 
             foreach (StatType stat in mutableStats)
             {
@@ -97,11 +97,11 @@ namespace Genrpg.Shared.Stats.Services
             unit.BaseStatAmount = coreStatAmount;
             foreach (StatType stat in coreStats)
             {
-                Set(gs, unit, stat.IdKey, StatCategories.Base, coreStatAmount);
+                Set(unit, stat.IdKey, StatCategories.Base, coreStatAmount);
 
                 if (monsterScalePercent != 0)
                 {
-                    Add(gs, unit, stat.IdKey, StatCategories.Pct, monsterScalePercent);
+                    Add(unit, stat.IdKey, StatCategories.Pct, monsterScalePercent);
                 }
             }
 
@@ -110,7 +110,7 @@ namespace Genrpg.Shared.Stats.Services
             {
                 if (ms.MaxPool > 0)
                 {
-                    Set(gs, unit, ms.IdKey, StatCategories.Base, ms.MaxPool);
+                    Set(unit, ms.IdKey, StatCategories.Base, ms.MaxPool);
                 }
             }
 
@@ -119,7 +119,7 @@ namespace Genrpg.Shared.Stats.Services
             {
                 foreach (UnitEffect eff in utype.Effects)
                 {
-                    AddEffectStat(gs, unit, eff, levelData, 1);
+                    AddEffectStat(unit, eff, levelData, 1);
                 }
             }
 
@@ -127,7 +127,7 @@ namespace Genrpg.Shared.Stats.Services
             {
                 foreach (IDisplayEffect speff in unit.Effects)
                 {
-                    AddEffectStat(gs, unit, speff, levelData, 1);
+                    AddEffectStat(unit, speff, levelData, 1);
                 }
             }
 
@@ -146,7 +146,7 @@ namespace Genrpg.Shared.Stats.Services
                     {
                         for (int l = 0; l < list.Count; l++)
                         {
-                            AddEffectStat(gs, unit, list[l], levelData, 1);
+                            AddEffectStat(unit, list[l], levelData, 1);
 
                             if (list[l].EntityTypeId == EntityTypes.Set && list[l].EntityId > 0)
                             {
@@ -168,7 +168,7 @@ namespace Genrpg.Shared.Stats.Services
                                     {
                                         foreach (OldSpellProc proc in piece.OldProcs)
                                         {
-                                            unit.AddProc(gs, proc);
+                                            unit.AddProc(proc);
                                         }
                                     }
                                 }
@@ -193,7 +193,7 @@ namespace Genrpg.Shared.Stats.Services
                         {
                             if (sb.ItemCount <= quantity)
                             {
-                                Add(gs, unit, sb.StatTypeId, StatCategories.Base, levelData.StatAmount * sb.Percent / 100);
+                                Add(unit, sb.StatTypeId, StatCategories.Base, levelData.StatAmount * sb.Percent / 100);
                             }
                         }
                     }
@@ -204,7 +204,7 @@ namespace Genrpg.Shared.Stats.Services
                         {
                             if (proc.ItemCount <= quantity)
                             {
-                                unit.AddProc(gs, proc);
+                                unit.AddProc(proc);
                             }
                         }
                     }
@@ -233,7 +233,7 @@ namespace Genrpg.Shared.Stats.Services
                     {
                         if (charmBonus.EntityTypeId == EntityTypes.Stat)
                         {
-                            Add(gs, unit, charmBonus.EntityId, StatCategories.Pct, charmBonus.Quantity);
+                            Add(unit, charmBonus.EntityId, StatCategories.Pct, charmBonus.Quantity);
                         }
                     }
                 }
@@ -243,11 +243,11 @@ namespace Genrpg.Shared.Stats.Services
             {
                 for (int statTypeId = 1; statTypeId < StatTypes.Max; statTypeId++)
                 { 
-                    Set(gs, unit, statTypeId, StatCategories.Base, unit.Stats.Pct(statTypeId) * unit.StatPct / 100);
+                    Set(unit, statTypeId, StatCategories.Base, unit.Stats.Pct(statTypeId) * unit.StatPct / 100);
                 }
             }
 
-            AddDerivedStats(gs, unit, levelData);
+            AddDerivedStats(unit, levelData);
 
             // Now for anything mutable, set the current value to the same or new lower value, or perhaps the 
             // old value or max value.
@@ -271,7 +271,7 @@ namespace Genrpg.Shared.Stats.Services
                         newValue = Math.Min(newValue, oldStats[stat.IdKey]);
                     }
                 }
-                Set(gs, unit, stat.IdKey, StatCategories.Curr, newValue);
+                Set(unit, stat.IdKey, StatCategories.Curr, newValue);
 
                 if (resetMutableStats ||
                     oldMaxStats.ContainsKey(stat.IdKey) &&
@@ -281,16 +281,16 @@ namespace Genrpg.Shared.Stats.Services
                 }
             }
             unit.RemoveFlag(UnitFlags.SuppressStatUpdates);
-            SendUpdatedStats(gs, unit, statIdsToSend);
+            SendUpdatedStats(unit, statIdsToSend);
         }
 
 
-        public void Add(GameState gs, Unit unit, long statTypeId, int statCategory, long value)
+        public void Add(Unit unit, long statTypeId, int statCategory, long value)
         {
-            Set(gs, unit, statTypeId, statCategory, unit.Stats.Get(statTypeId, statCategory) + value);
+            Set(unit, statTypeId, statCategory, unit.Stats.Get(statTypeId, statCategory) + value);
         }
 
-        public void Set(GameState gs, Unit unit, long statTypeId, int statCategory, long newVal)
+        public void Set(Unit unit, long statTypeId, int statCategory, long newVal)
         {
             long oldVal = unit.Stats.Get(statTypeId, statCategory);
 
@@ -298,11 +298,11 @@ namespace Genrpg.Shared.Stats.Services
 
             if (oldVal != newVal)
             {
-                SendUpdatedStats(gs, unit, new List<long>() { statTypeId });
+                SendUpdatedStats(unit, new List<long>() { statTypeId });
             }
         }
 
-        protected virtual void SendUpdatedStats(GameState gs, Unit unit, List<long> statIdsToSend)
+        protected virtual void SendUpdatedStats(Unit unit, List<long> statIdsToSend)
         {
         }
 
@@ -316,7 +316,7 @@ namespace Genrpg.Shared.Stats.Services
         /// <param name="gs">GameState</param>
         /// <param name="unit">The monster modified</param>
         /// <param name="levData">The data used for level-scaled stats</param>
-        protected virtual void AddDerivedStats(GameState gs, Unit unit, LevelInfo levData)
+        protected virtual void AddDerivedStats(Unit unit, LevelInfo levData)
         {
             if (unit == null)
             {
@@ -329,32 +329,32 @@ namespace Genrpg.Shared.Stats.Services
             {
                 DerivedStat ds = list[d];
                 int addval = (int)(ds.Percent * unit.Stats.Max(ds.FromStatTypeId) / 100);
-                Add(gs, unit, ds.ToStatTypeId, StatCategories.Base, addval);
+                Add(unit, ds.ToStatTypeId, StatCategories.Base, addval);
             }
         }
 
-        public List<StatType> GetMutableStatTypes(GameState gs, Unit unit)
+        public List<StatType> GetMutableStatTypes(Unit unit)
         {
             return _gameData.Get<StatSettings>(unit).GetData().Where(x => x.IdKey > 0 && x.IdKey <= StatConstants.MaxMutableStatTypeId).ToList();
         }
 
-        public List<StatType> GetPrimaryStatTypes(GameState gs, Unit unit)
+        public List<StatType> GetPrimaryStatTypes(Unit unit)
         {
             return _gameData.Get<StatSettings>(unit).GetData().Where(x => x.IdKey >= StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
         }
 
-        public List<StatType> GetAttackStatTypes(GameState gs, Unit unit)
+        public List<StatType> GetAttackStatTypes(Unit unit)
         {
-            return GetPrimaryStatTypes(gs, unit).Where(x => x.IdKey != StatTypes.Stamina).ToList();
+            return GetPrimaryStatTypes(unit).Where(x => x.IdKey != StatTypes.Stamina).ToList();
         }
 
 
-        public List<StatType> GetFixedStatTypes(GameState gs, Unit unit)
+        public List<StatType> GetFixedStatTypes(Unit unit)
         {
             return _gameData.Get<StatSettings>(unit).GetData().Where(x => x.IdKey > StatConstants.MaxMutableStatTypeId).ToList();
         }
 
-        public List<StatType> GetSecondaryStatTypes(GameState gs, Unit unit)
+        public List<StatType> GetSecondaryStatTypes(Unit unit)
         {
             return _gameData.Get<StatSettings>(unit).GetData().Where(x => x.IdKey > StatConstants.PrimaryStatEnd).ToList();
         }
@@ -366,7 +366,7 @@ namespace Genrpg.Shared.Stats.Services
         /// <param name="unit">Monster/Player to modify</param>
         /// <param name="e">The effect doing the modifiying</param>
         /// <param name="levData">Level data used for the StatLevelPercent effects</param>
-        protected void AddEffectStat(GameState gs, Unit unit, IEffect e, LevelInfo levData, int multiplier)
+        protected void AddEffectStat(Unit unit, IEffect e, LevelInfo levData, int multiplier)
         {
             if (unit == null || e == null)
             {
@@ -375,11 +375,11 @@ namespace Genrpg.Shared.Stats.Services
 
             if (e.EntityTypeId == EntityTypes.Stat)
             {
-                Add(gs, unit, e.EntityId, StatCategories.Base, e.Quantity * multiplier);
+                Add(unit, e.EntityId, StatCategories.Base, e.Quantity * multiplier);
             }
             else if (e.EntityTypeId == EntityTypes.StatPct)
             {
-                Add(gs, unit, e.EntityId, StatCategories.Pct, e.Quantity * multiplier);
+                Add(unit, e.EntityId, StatCategories.Pct, e.Quantity * multiplier);
             }
         }
 

@@ -9,7 +9,7 @@ namespace Genrpg.Shared.Currencies.Services
 {
     public interface ICurrencyService : IInitializable
     {
-        bool Add(GameState gs, Unit unit, long currencyTypeId, long quantity);
-        bool Set(GameState gs, Unit unit, long currencyTypeId, long newQuantity);
+        bool Add(Unit unit, long currencyTypeId, long quantity);
+        bool Set(Unit unit, long currencyTypeId, long newQuantity);
     }
 }

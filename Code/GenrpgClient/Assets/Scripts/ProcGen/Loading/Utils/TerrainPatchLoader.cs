@@ -347,7 +347,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
             patch.MainZoneIdList.Add(zid);
         }
 
-        _terrainTextureManager.SetOneTerrainPatchLayers(gs, patch, token);
+        await _terrainTextureManager.SetOneTerrainPatchLayers(gs, patch, token);
 
         if (!fastLoading)
         {

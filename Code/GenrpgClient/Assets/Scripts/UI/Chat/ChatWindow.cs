@@ -191,14 +191,14 @@ namespace UI
             }
         }
 
-        private OnChatMessage OnChatMessageHandler(UnityGameState gs, OnChatMessage message)
+        private void OnChatMessageHandler(OnChatMessage message)
         {
             if (ChatParent == null || Row == null)
             {
-                return null;
+                return;
             }
-            AddChatRow(gs, message);
-            return null;
+            AddChatRow(_gs, message);
+            return;
         }
 
 
@@ -216,12 +216,12 @@ namespace UI
             }
         }
 
-        private OnGetWhoList OnGetWhoListHandler(UnityGameState gs, OnGetWhoList message)
+        private void OnGetWhoListHandler(OnGetWhoList message)
         {
             foreach (WhoListItem item in message.Items)
             {
 
-                ChatRow newRow = GEntityUtils.FullInstantiate(gs, Row.entity()).GetComponent<ChatRow>();
+                ChatRow newRow = GEntityUtils.FullInstantiate(_gs, Row.entity()).GetComponent<ChatRow>();
                 newRow.entity().SetActive(true);
                 GEntityUtils.AddToParent(newRow.entity(), ChatParent);
                 _rows.Add(newRow);
@@ -232,7 +232,7 @@ namespace UI
                     _rows.RemoveAt(0);
                 }
             }
-            return null;
+            return;
         }
     }
 }

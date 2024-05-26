@@ -35,7 +35,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 {
                     if (data.Id != gs.user.Id) // Do not delete user data
                     {
-                        data.Delete();
+                        data.QueueDelete(_repoService);
                     }
                 }
                 gs.coreCh = null;

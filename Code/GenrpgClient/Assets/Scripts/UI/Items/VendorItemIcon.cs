@@ -36,7 +36,7 @@ public class VendorItemIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandle
         {
             Data = data.Data,
             Flags = data.Flags,
-            handler = data.handler,
+            Handler = data.Handler,
             Screen = data.Screen,
         };
      

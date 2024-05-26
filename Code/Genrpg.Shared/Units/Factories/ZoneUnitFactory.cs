@@ -94,7 +94,7 @@ namespace Genrpg.Shared.Units.Factories
 
             unit.Name = _unitGenService.GenerateUnitName(gs, utype.IdKey, spawnZone.IdKey, gs.rand, null);
 
-            _statService.CalcStats(gs, unit, true);
+            _statService.CalcStats(unit, true);
 
             return unit;
         }

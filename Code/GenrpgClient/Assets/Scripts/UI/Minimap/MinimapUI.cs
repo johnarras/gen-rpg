@@ -25,7 +25,7 @@ public class MinimapUI : BaseBehaviour
         _dispatcher.AddEvent<EnableMinimapEvent>(this, OnEnableMinimap);
         _dispatcher.AddEvent<DisableMinimapEvent>(this, OnDisableMinimap);
         _dispatcher.AddEvent<LoadMinimapEvent>(this, OnLoadMinimap);
-        OnDisableMinimap(_gs, null);
+        OnDisableMinimap(null);
         AddUpdate(MinimapUpdate, UpdateType.Regular);
         if (ArrowParent != null)
         {
@@ -40,20 +40,20 @@ public class MinimapUI : BaseBehaviour
         if (MapImage != null && UnityZoneGenService.mapTexture != null)
         {
             _uIInitializable.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
-            OnEnableMinimap(_gs, null);
+            OnEnableMinimap(null);
             
         }
         else
         {
-            OnDisableMinimap(_gs, null);
+            OnDisableMinimap(null);
         }
     }
 
-    private LoadMinimapEvent OnLoadMinimap (UnityGameState gs, LoadMinimapEvent data)
+    private void OnLoadMinimap (LoadMinimapEvent data)
     {
       
         ShowMapImage();
-        return null;
+        return;
     }
 
     private void OnLoadArrow(UnityGameState gs, object obj, object data, CancellationToken token)
@@ -98,16 +98,16 @@ public class MinimapUI : BaseBehaviour
 
 	}
 
-    private EnableMinimapEvent OnEnableMinimap(UnityGameState gs, EnableMinimapEvent data)
+    private void OnEnableMinimap(EnableMinimapEvent data)
     {
         GEntityUtils.SetActive(MainPanel, true);
-        return null;
+        return;
     }
 
-    private DisableMinimapEvent OnDisableMinimap(UnityGameState gs, DisableMinimapEvent data)
+    private void OnDisableMinimap(DisableMinimapEvent data)
     {
         GEntityUtils.SetActive(MainPanel, false);
-        return null;
+        return;
     }
 
     

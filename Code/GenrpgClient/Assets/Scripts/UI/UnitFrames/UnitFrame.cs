@@ -95,44 +95,44 @@ public class UnitFrame : BaseBehaviour
         GEntityUtils.SetActive(_currentTargetIcon, showStar);
     }
 
-    private NewLevel OnLevelUpdate(UnityGameState gs, NewLevel newLevel)
+    private void OnLevelUpdate(NewLevel newLevel)
     {
         if (_unit == null || _unit.Id != newLevel.UnitId)
         {
-            return null;
+            return;
         }
 
         _unit.Level = newLevel.Level;
         _unitUI?.Init(_unit.Name, _unit.Level);
-        return null;
+        return;
     }
 
-    private OnAddEffect AddVisualEffect (UnityGameState gs, OnAddEffect eff)
+    private void AddVisualEffect(OnAddEffect eff)
     {
         if (_unit == null || eff.TargetId != _unit.Id)
         {
-            return null;
+            return;
         }
 
-        return null;
+        return;
     }
 
-    private OnRemoveEffect RemoveVisualEffect (UnityGameState gs, OnRemoveEffect eff)
+    private void RemoveVisualEffect (OnRemoveEffect eff)
     {
         if (_unit == null || eff.TargetId != _unit.Id)
         {
-            return null;
+            return;
         }
 
-        return null;
+        return;
 
     }
 
-    private OnUpdateEffect UpdateVisualEffect(UnityGameState gs, OnUpdateEffect eff)
+    private void UpdateVisualEffect(OnUpdateEffect eff)
     {
 
         _logService.Debug("Update effect: " + eff.Id);
 
-        return null;
+        return;
     }
 }

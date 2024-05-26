@@ -2,6 +2,8 @@
 using Genrpg.Shared.DataStores.Entities;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using UI.Screens.Constants;
+using Genrpg.Shared.Trades.Messages;
 
 public class MapScreen : BaseScreen
 {
@@ -85,5 +87,8 @@ public class MapScreen : BaseScreen
 
     }
 
+    protected override void OnStartClose()
+    {
+    }
 }
 

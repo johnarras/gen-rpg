@@ -181,7 +181,7 @@ namespace Genrpg.Shared.Units.Entities
         }
 
 
-        public void AddProc(GameState gs, IOldSpellProc proc)
+        public void AddProc(IOldSpellProc proc)
         {
             if (proc == null)
             {
@@ -227,7 +227,6 @@ namespace Genrpg.Shared.Units.Entities
         public virtual void Set<T>(T obj) where T : IUnitData
         {
             _dataDict[obj.GetType()] = obj;
-            obj.SetRepo(_repoService);
         }
 
         public virtual void Delete<T>(IRepositoryService repoSystem) where T : class, IUnitData, new() { }

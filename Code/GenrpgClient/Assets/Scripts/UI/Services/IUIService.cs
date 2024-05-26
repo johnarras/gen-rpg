@@ -7,7 +7,7 @@ using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.UI.Services
 {
-    public interface IUIInitializable : IInitializable
+    public interface IUIService : IInitializable
     {
         void SetText(GText gtext, string txt);
         void SetInputText(GInputField input, object obj);

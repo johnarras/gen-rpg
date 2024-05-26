@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Genrpg.Shared.MapMods.Helpers
+namespace Genrpg.MapServer.MapMods.Helpers
 {
     public class SpawnerMapModEffectHelper : IMapModEffectHelper
     {
@@ -34,7 +34,7 @@ namespace Genrpg.Shared.MapMods.Helpers
                 return;
             }
 
-            List<MapObject> nearbyObjects = _objectManager.GetObjectsNear(mapMod.X, mapMod.Z, null, addon.Radius+10);
+            List<MapObject> nearbyObjects = _objectManager.GetObjectsNear(mapMod.X, mapMod.Z, null, addon.Radius + 10);
 
             int childQuantity = 0;
 
@@ -74,7 +74,7 @@ namespace Genrpg.Shared.MapMods.Helpers
 
                 DynamicSpawnAddon dynamicAddon = new DynamicSpawnAddon() { ParentId = mapMod.Id };
 
-                List<IMapObjectAddon> newAddons = new List<IMapObjectAddon>(){  dynamicAddon };
+                List<IMapObjectAddon> newAddons = new List<IMapObjectAddon>() { dynamicAddon };
 
                 MapSpawn newObjectSpawn = new MapSpawn()
                 {

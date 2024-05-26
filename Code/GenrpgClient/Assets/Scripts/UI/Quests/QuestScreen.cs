@@ -61,10 +61,10 @@ public class QuestScreen : ItemIconScreen
         await UniTask.CompletedTask;
     }
 
-    private AlterQuestStateEvent OnAlterQuestState (UnityGameState gs, AlterQuestStateEvent data)
+    private void OnAlterQuestState (AlterQuestStateEvent data)
     {
         ShowQuests(false);
-        return null;
+        return;
     }
 
     protected void ShowQuests(bool openVendorScreenIfNoQuests)
@@ -76,7 +76,7 @@ public class QuestScreen : ItemIconScreen
         ShowQuestList(new List<QuestType>());
     }
 
-    private OnGetQuests OnGetQuestsHandler(UnityGameState gs, OnGetQuests quests)
+    private void OnGetQuestsHandler(OnGetQuests quests)
     {
         if (quests.ObjId != _unit.Id)
         {
@@ -90,7 +90,7 @@ public class QuestScreen : ItemIconScreen
         foreach (QuestType quest in allQuests)
         {
 
-            int questState = _questService.GetQuestState(gs, gs.ch, quest);
+            int questState = _questService.GetQuestState(_gs, _gs.ch, quest);
 
             if (questState == QuestState.Available || questState == QuestState.Complete ||
                 questState == QuestState.Active)
@@ -102,14 +102,14 @@ public class QuestScreen : ItemIconScreen
         if (questsToShow.Count < 1 && _openVendorScreenIfNoQuests)
         {
             ClickVendor();
-            return null;
+            return;
         }
 
         GEntityUtils.SetActive(VendorButton, _unit.HasAddon(MapObjectAddonTypes.Vendor));
 
         ShowQuestList(questsToShow);
 
-        return null;
+        return;
     }
 
     protected void ShowMyQuests()
@@ -131,7 +131,7 @@ public class QuestScreen : ItemIconScreen
         if (_unit.HasAddon(MapObjectAddonTypes.Vendor))
         {
             _screenService.Open(_gs, ScreenId.Vendor, _unit);
-            _screenService.Close(_gs, ScreenId);
+            _screenService.Close(_gs, ScreenID);
         }
     }
 

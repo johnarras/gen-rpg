@@ -8,7 +8,7 @@ using Genrpg.Shared.Spawns.Entities;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace Genrpg.MapServer.Setup
+namespace Genrpg.MapServer.Setup.Instances
 {
     public class MapInstanceSetupService : SetupService
     {

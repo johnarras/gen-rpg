@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Genrpg.MapServer.Setup
+namespace Genrpg.MapServer.Setup.MapServer
 {
     public class MapServerSetupService : SetupService
     {

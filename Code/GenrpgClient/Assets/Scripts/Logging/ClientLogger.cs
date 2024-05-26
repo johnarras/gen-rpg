@@ -38,13 +38,13 @@ public class ClientLogger : ILogService
 
     public void Error(string txt)
     {
-        _dispatcher.Dispatch(_gs, new ShowFloatingText(txt, EFloatingTextArt.Error));
+        _dispatcher.Dispatch(new ShowFloatingText(txt, EFloatingTextArt.Error));
         UnityEngine.Debug.LogError(txt);
     }
 
     public void Exception(Exception e, string txt)
     {
-        _dispatcher.Dispatch(_gs, new ShowFloatingText(txt + " " + e.Message + " " + e.StackTrace, EFloatingTextArt.Error));
+        _dispatcher.Dispatch(new ShowFloatingText(txt + " " + e.Message + " " + e.StackTrace, EFloatingTextArt.Error));
         UnityEngine.Debug.LogError(txt + " " + e.Message + " " + e.StackTrace);
     }
 
@@ -55,7 +55,7 @@ public class ClientLogger : ILogService
 
     public void Message(string txt)
     {
-        _dispatcher.Dispatch(_gs, new ShowFloatingText(txt, EFloatingTextArt.Message));
+        _dispatcher.Dispatch(new ShowFloatingText(txt, EFloatingTextArt.Message));
         UnityEngine.Debug.Log(txt);
     }
 

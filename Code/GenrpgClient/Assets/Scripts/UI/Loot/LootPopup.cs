@@ -43,11 +43,11 @@ public class LootPopup : BaseScreen
             InitItemIconData iid = new InitItemIconData()
             {
                 Data = rew.Data as Item,
-                entityTypeId = rew.EntityTypeId,
-                entityId = rew.EntityId,
-                quantity = rew.Quantity,
-                level = rew.Level,
-                quality = rew.QualityTypeId,
+                EntityTypeId = rew.EntityTypeId,
+                EntityId = rew.EntityId,
+                Quantity = rew.Quantity,
+                Level = rew.Level,
+                Quality = rew.QualityTypeId,
             };
             IconHelper.InitItemIcon(_gs, iid, _itemAnchor,_assetService, token);
         }

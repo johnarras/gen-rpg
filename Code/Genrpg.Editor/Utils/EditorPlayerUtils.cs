@@ -61,7 +61,7 @@ namespace Genrpg.Editor.Utils
                     {
                         if (gs.LookedAtObjects.Contains(unitData))
                         {
-                            unitData.Save();
+                            unitData.QueueSave(repoService);
                         }
                     }
                 }
@@ -80,7 +80,7 @@ namespace Genrpg.Editor.Utils
                     await repoService.Delete(ech.CoreCharacter);
                     foreach (IUnitData unitData in ech.Character.GetAllData().Values)
                     {
-                        unitData.Delete();
+                        unitData.QueueDelete(repoService);
                     }
                 }
             }

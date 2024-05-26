@@ -50,10 +50,10 @@ public class FloatingTextScreen : BaseScreen
         await UniTask.CompletedTask;
     }
 
-    private ShowFloatingText OnReceiveMessage(UnityGameState gs, ShowFloatingText message)
+    private void OnReceiveMessage(ShowFloatingText message)
     {
         ShowMessage(message.Text, message.Art);
-        return null;
+        return;
     }
 
     DateTime _lastShowTime = DateTime.UtcNow.AddDays(-1);

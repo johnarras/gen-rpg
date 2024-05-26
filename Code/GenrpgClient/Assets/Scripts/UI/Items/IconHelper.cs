@@ -43,13 +43,13 @@ public class IconHelper
     {
         string prefabName = DefaultItemIconName;
 
-        if (data != null && !string.IsNullOrEmpty(data.iconPrefabName))
+        if (data != null && !string.IsNullOrEmpty(data.IconPrefabName))
         {
-            prefabName = data.iconPrefabName;
+            prefabName = data.IconPrefabName;
         }
 
         assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, 
-            prefabName, OnLoadItemIcon, data, token, data.subdirectory);
+            prefabName, OnLoadItemIcon, data, token, data.SubDirectory);
 
     }
 

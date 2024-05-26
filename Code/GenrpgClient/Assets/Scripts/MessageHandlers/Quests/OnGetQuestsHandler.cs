@@ -3,11 +3,5 @@ using System.Threading;
 
 namespace Assets.Scripts.MessageHandlers.Quests
 {
-    public class OnGetQuestsHandler : BaseClientMapMessageHandler<OnGetQuests>
-    {
-        protected override void InnerProcess(UnityGameState gs, OnGetQuests msg, CancellationToken token)
-        {
-            _dispatcher.Dispatch(gs,msg);
-        }
-    }
+    public class OnGetQuestsHandler : DispatchClientMapMessageHandler<OnGetQuests> { }
 }

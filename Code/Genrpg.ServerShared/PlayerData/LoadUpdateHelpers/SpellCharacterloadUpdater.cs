@@ -38,9 +38,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                     Spell newSpell = SerializationUtils.ConvertType<SpellType, Spell>(_gameData.Get<SpellTypeSettings>(ch).Get(i));
                     newSpell.Id = HashUtils.NewGuid();
                     newSpell.OwnerId = ch.Id;
-
                     spellData.Add(newSpell);
-                    _repoService.QueueSave(newSpell);
                 }
 
                 ActionInputData adata = ch.Get<ActionInputData>();
@@ -48,7 +46,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
                 ActionInput ai = adata.GetData().FirstOrDefault(x => x.SpellId == i);
                 if (ai == null)
                 {
-                    adata.SetInput(i, i);
+                    adata.SetInput(i, i, _repoService);
                 }
                 else
                 {

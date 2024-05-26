@@ -8,18 +8,17 @@
 
   <ItemGroup>
     <Compile Remove="Managers\**" />
+    <Compile Remove="Networking\Constants\**" />
     <Compile Remove="Queues\**" />
     <Compile Remove="Services\**" />
     <EmbeddedResource Remove="Managers\**" />
+    <EmbeddedResource Remove="Networking\Constants\**" />
     <EmbeddedResource Remove="Queues\**" />
     <EmbeddedResource Remove="Services\**" />
     <None Remove="Managers\**" />
+    <None Remove="Networking\Constants\**" />
     <None Remove="Queues\**" />
     <None Remove="Services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Networking\Constants\" />
   </ItemGroup>
 
   <ItemGroup>

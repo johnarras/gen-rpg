@@ -84,12 +84,11 @@ public class InputService : BaseBehaviour, IInputService
     private List<int> _currActionIndexes = null;
 
 
-    private MapIsLoadedEvent UpdateInputs(UnityGameState gs, MapIsLoadedEvent worldLoaded)
+    private void UpdateInputs(MapIsLoadedEvent worldLoaded)
     {
 
         SetupAbilityIndexes();
-        UpdateFromInputs(gs);
-        return null;
+        UpdateFromInputs(_gs);
     }
 
     private void UpdateFromInputs (UnityGameState gs)

@@ -7,33 +7,29 @@ public class ZoneUI : BaseBehaviour
 {
     public GText LocationName;
 
+    private IZoneStateController _zoneStateController = null;
+
     private CancellationToken _token;
     public void Init(CancellationToken token)
     {
         _token = token;
         _dispatcher.AddEvent<SetZoneNameEvent>(this, OnSetZoneName);
-        OnSetZoneName(_gs, null);
+        OnSetZoneName(null);
     }
 
-    private SetZoneNameEvent OnSetZoneName(UnityGameState gs, SetZoneNameEvent data)
+    private void OnSetZoneName(SetZoneNameEvent data)
     {
-        GetCurrentZoneEvent sdata = _dispatcher.Dispatch(gs,new GetCurrentZoneEvent());
-
-        if (sdata == null)
-        {
-            return null;
-        }
-
-        Zone zone = sdata.Zone;
+        Zone zone = _zoneStateController.GetCurrentZone();
+        
         if (zone == null)
         {
-            return null;
+            return;
         }
 
-        string txt = "Map " + gs.map.Id + ": " + zone.Name + " [#" + zone.IdKey + "] {Lev " + zone.Level + "}";
+        string txt = "Map " + _gs.map.Id + ": " + zone.Name + " [#" + zone.IdKey + "] {Lev " + zone.Level + "}";
 
         _uIInitializable.SetText(LocationName, txt);
-        return null;
+        return;
     }
 }
 

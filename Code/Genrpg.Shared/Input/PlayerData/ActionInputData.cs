@@ -1,4 +1,5 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Input.Constants;
 using Genrpg.Shared.Units.Loaders;
@@ -44,12 +45,11 @@ namespace Genrpg.Shared.Input.PlayerData
                     Id = HashUtils.NewGuid(),
                 };
                 _data.Add(input);
-                _repoService.QueueSave(input);
             }
             return input;
         }
 
-        public void SetInput(int actionIndex, long spellTypeId)
+        public void SetInput(int actionIndex, long spellTypeId, IRepositoryService repoService)
         {
             ActionInput input = GetInput(actionIndex);
             if (input == null)
@@ -59,8 +59,8 @@ namespace Genrpg.Shared.Input.PlayerData
 
             if (input.SpellId != spellTypeId)
             {
-                input.SpellId = spellTypeId;
-                _repoService.QueueSave(input);
+                input.SpellId = spellTypeId;            
+                input.QueueSave(repoService);
             }
         }
     }

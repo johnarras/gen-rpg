@@ -43,15 +43,14 @@ public class VendorScreen : ItemIconScreen
 
     }
 
-    private OnGetMapObjectStatus OnGetNPCStatusHandler(UnityGameState gs, OnGetMapObjectStatus status)
+    private void OnGetNPCStatusHandler(OnGetMapObjectStatus status)
     {
-
         VendorAddon addon = (VendorAddon)status.Addons.FirstOrDefault(x=>x.GetAddonType() == MapObjectAddonTypes.Vendor);
 
 
         ShowVendorItems(addon);
 
-        return null;
+        return;
     }
 
     private void InitPanel()
@@ -59,11 +58,11 @@ public class VendorScreen : ItemIconScreen
         PlayerItems.Init(InventoryGroup.All, this, _gs.ch, null, _token);
     }
 
-    private OnAddItem OnAddItemHandler (UnityGameState gs, OnAddItem addItem)
+    private void OnAddItemHandler (OnAddItem addItem)
     {
         if (_addon == null)
         {
-            return null;
+            return;
         }
 
         VendorItem vitem = _addon.Items.FirstOrDefault(x => x.Item != null && x.Item.Id == addItem.ItemId);
@@ -71,21 +70,21 @@ public class VendorScreen : ItemIconScreen
         {
             _addon.Items.Remove(vitem);
             ShowVendorItems(_addon);
-            _inventoryService.AddItem(gs, gs.ch, vitem.Item, true);
+            _inventoryService.AddItem(_gs.ch, vitem.Item, true);
             InitPanel();
         }
-        return null;
+        return;
     }
 
 
-    private OnRemoveItem OnRemoveItemHandler(UnityGameState gs, OnRemoveItem removeItem)
+    private void OnRemoveItemHandler(OnRemoveItem removeItem)
     {
         if (removeItem != null && removeItem.ItemId != null)
         {
-            _inventoryService.RemoveItem(gs, gs.ch, removeItem.ItemId,false);
+            _inventoryService.RemoveItem(_gs.ch, removeItem.ItemId,false);
             InitPanel();
         }
-        return null;
+        return;
     }
 
     private void ShowVendorItems(VendorAddon addon)
@@ -104,7 +103,7 @@ public class VendorScreen : ItemIconScreen
             {
                 Data = item.Item,
                 Flags = ItemIconFlags.IsVendorItem | ItemIconFlags.ShowTooltipOnRight,
-                iconPrefabName = VendorIconName,
+                IconPrefabName = VendorIconName,
                 Screen = this,
             };
             IconHelper.InitItemIcon(_gs, idata, VendorItems,_assetService, _token);

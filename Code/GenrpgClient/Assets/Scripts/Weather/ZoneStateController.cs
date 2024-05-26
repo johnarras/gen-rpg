@@ -13,6 +13,10 @@ using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Players.Messages;
 using System.Net;
+using Genrpg.Shared.Interfaces;
+using System.Threading.Tasks;
+using System.Threading;
+using Assets.Scripts.Core.Interfaces;
 
 public struct UpdateColor
 {
@@ -45,19 +49,27 @@ public class WeatherEffectContainer
     public WeatherType Weather;
 }
 
-public class ZoneStateController : BaseBehaviour
+public interface IZoneStateController : IInjectable, IInjectOnLoad<IZoneStateController>
+{
+    Zone GetCurrentZone();
+}
+
+public class ZoneStateController : BaseBehaviour, IZoneStateController
 {
     private ICameraController _cameraController = null;
     private IMapTerrainManager _terrainManager = null;
     private IPlayerManager _playerManager;
 
+    public async Task Initialize(GameState gs, CancellationToken token)
+    {
+        await Task.CompletedTask;
+    }
 
     public override void Initialize(UnityGameState gs)
     {
         base.Initialize(gs);
         RenderSettings.sun = Sun;
         AddUpdate(ZoneUpdate, UpdateType.Regular);
-        _dispatcher.AddEvent<GetCurrentZoneEvent>(this, OnGetCurrentZone);
         _dispatcher.AddEvent<OnFinishLoadPlayer>(this, OnFinishLoadingPlayer);
         ResetColors();
     }
@@ -158,21 +170,19 @@ public class ZoneStateController : BaseBehaviour
             RenderSettings.skybox.SetColor("_Tint", Color.white*2);
         }
     }
-
-
-    private GetCurrentZoneEvent OnGetCurrentZone(GameState gs, GetCurrentZoneEvent edata)
-    {
-        edata.Zone = _currentZone;
-        return edata;
-    }
     
-    private OnFinishLoadPlayer OnFinishLoadingPlayer(GameState gs, OnFinishLoadPlayer edata)
+    public Zone GetCurrentZone()
+    {
+        return _currentZone;
+    }
+
+    private void OnFinishLoadingPlayer(OnFinishLoadPlayer edata)
     {
         ResetColors();
         _currentZone = null;
         _currentZoneType = null;
 
-        return null;
+        return;
     }
 
     private bool _didInitZoneState = false;
@@ -276,7 +286,7 @@ public class ZoneStateController : BaseBehaviour
                         }
                         if (FogDistScale <= 1.0f)
                         {
-                            _dispatcher.Dispatch(_gs,new SetZoneNameEvent());
+                            _dispatcher.Dispatch(new SetZoneNameEvent());
                         }
                     }
                 }

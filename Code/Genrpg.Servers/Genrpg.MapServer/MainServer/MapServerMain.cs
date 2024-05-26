@@ -1,8 +1,8 @@
 ﻿using Genrpg.MapServer.CloudMessaging.Interfaces;
 using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Maps.Constants;
-using Genrpg.MapServer.Services.Maps;
-using Genrpg.MapServer.Setup;
+using Genrpg.MapServer.Maps.Services;
+using Genrpg.MapServer.Setup.MapServer;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
 using Genrpg.ServerShared.Core;

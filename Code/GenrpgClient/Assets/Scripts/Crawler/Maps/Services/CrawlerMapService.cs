@@ -246,7 +246,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                     ez < 0 || ez >= _crawlerMap.Map.ZSize)
                 {
                     // Bonk
-                    _dispatcher.Dispatch(gs, new ShowFloatingText("Edge!", EFloatingTextArt.Error));
+                    _dispatcher.Dispatch(new ShowFloatingText("Edge!", EFloatingTextArt.Error));
                     return;
                 }
             }
@@ -259,7 +259,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             if (blockBits == WallTypes.Wall || blockBits == WallTypes.Secret)
             {
                 // Bonk
-                _dispatcher.Dispatch(gs, new ShowFloatingText("Bonk!", EFloatingTextArt.Error));
+                _dispatcher.Dispatch(new ShowFloatingText("Bonk!", EFloatingTextArt.Error));
                 return;
             }
 

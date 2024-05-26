@@ -143,7 +143,7 @@ namespace Assets.Scripts.Crawler.Services
                 else
                 {
                     _stateData.Push(nextStateData);
-                    _dispatcher.Dispatch(_gs,nextStateData);
+                    _dispatcher.Dispatch(nextStateData);
                 }
             }     
             else

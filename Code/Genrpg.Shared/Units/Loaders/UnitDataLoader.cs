@@ -22,7 +22,7 @@ namespace Genrpg.Shared.Units.Loaders
         {
             TServer t = Activator.CreateInstance<TServer>();
             t.Id = GetFileId(unit);
-            t.SetRepo(_repoService);
+            _repoService.QueueSave(t);
             return t;
         }
 
@@ -42,7 +42,6 @@ namespace Genrpg.Shared.Units.Loaders
         public virtual async Task<ITopLevelUnitData> LoadFullData(Unit unit)
         {
             ITopLevelUnitData tld = await _repoService.Load<TServer>(GetFileId(unit));
-            tld?.SetRepo(_repoService);
             return tld;
         }
 

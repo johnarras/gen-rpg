@@ -151,17 +151,17 @@ public class SpellbookScreen : SpellIconScreen
     }
 
 
-    protected OnCraftSpell OnCraftSpellHandler(UnityGameState gs, OnCraftSpell data)
+    protected void OnCraftSpellHandler(OnCraftSpell data)
     {
-        SpellPanel.Init(gs, this, null, _token);
-        return null;
+        SpellPanel.Init(_gs, this, null, _token);
+        return;
     }
 
 
-    protected OnDeleteSpell OnDeleteSpellHandler(UnityGameState gs, OnDeleteSpell data)
+    protected void OnDeleteSpellHandler(OnDeleteSpell data)
     {
-        SpellPanel.Init(gs, this, null, _token);
-        return null;
+        SpellPanel.Init(_gs, this, null, _token);
+        return;
     }
 
     public void ClickDelete()

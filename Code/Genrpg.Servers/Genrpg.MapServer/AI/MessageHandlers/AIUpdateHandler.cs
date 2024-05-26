@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.MapServer.MapMessaging;
 using Genrpg.Shared.AI.Settings;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.MapServer.MapMessaging.MessageHandlers;
 
 namespace Genrpg.MapServer.AI.MessageHandlers
 {

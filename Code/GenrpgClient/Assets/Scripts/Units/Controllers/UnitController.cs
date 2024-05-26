@@ -112,7 +112,7 @@ public class UnitController : BaseBehaviour
         }
         _unit.Rot = rot;
         GVector3 currEuler = GVector3.Create(entity.transform().eulerAngles);
-       entity.transform().eulerAngles = GVector3.Create(currEuler.x, rot, currEuler.z);
+        entity.transform().eulerAngles = GVector3.Create(currEuler.x, rot, currEuler.z);
     }
 
     protected int GetKeysDown()
@@ -372,7 +372,7 @@ public class UnitController : BaseBehaviour
     public void StartCasting(OnStartCast msg)
     {
         _unit.ActionMessage = msg;
-        _dispatcher.Dispatch(_gs,msg);
+        _dispatcher.Dispatch(msg);
     }
 
     public void SetActionAnimation(int actionId)

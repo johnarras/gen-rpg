@@ -11,11 +11,11 @@ namespace Genrpg.Shared.Inventory.Services
     public interface IInventoryService : IInitializable
     {
         int InventorySpaceLeft(Unit unit, Item item);
-        bool AddItem(GameState gs, Unit unit, Item item, bool forceAdd);
-        bool UnequipItem(GameState gs, Unit unit, string itemId, bool calcStatsNow = true);
-        Item RemoveItemQuantity(GameState gs, Unit unit, string itemId, int quantity);
-        Item RemoveItem(GameState gs, Unit unit, string itemId,bool destroyItem);
-        bool EquipItem(GameState gs, Unit unit, string itemId, long equipSlotId, bool calcStatsNow = true);
-        bool CanEquipItem(GameState gs, Unit unit, Item item);
+        bool AddItem(Unit unit, Item item, bool forceAdd);
+        bool UnequipItem(Unit unit, string itemId, bool calcStatsNow = true);
+        Item RemoveItemQuantity(Unit unit, string itemId, int quantity);
+        Item RemoveItem(Unit unit, string itemId,bool destroyItem);
+        bool EquipItem(Unit unit, string itemId, long equipSlotId, bool calcStatsNow = true);
+        bool CanEquipItem(Unit unit, Item item);
     }
 }

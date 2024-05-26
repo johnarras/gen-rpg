@@ -1,4 +1,5 @@
-﻿using Genrpg.MapServer.Services.Maps;
+﻿using Genrpg.MapServer.Admin.Services;
+using Genrpg.MapServer.Maps.Services;
 using Genrpg.ServerShared.CloudComms.Services.Admin;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Core.Entities;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Genrpg.MapServer.Setup
+namespace Genrpg.MapServer.Setup.MapServer
 {
     public class MapServerLocatorSetup : BaseServerLocatorSetup
     {
@@ -16,7 +17,7 @@ namespace Genrpg.MapServer.Setup
         {
             base.Setup(gs);
             gs.loc.Set<IAdminService>(new MapServerAdminService());
-            gs.loc.Set<IMapServerService>(new MapServerService());  
+            gs.loc.Set<IMapServerService>(new MapServerService());
         }
     }
 }

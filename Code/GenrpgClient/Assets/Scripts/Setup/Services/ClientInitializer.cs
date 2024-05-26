@@ -45,7 +45,7 @@ public class ClientInitializer
         gs.loc.Set<IQuestGenService>(new QuestGenService());
         gs.loc.Set<IClientMapObjectManager>(new ClientMapObjectManager(token));
         gs.loc.Set<IClientGameDataService>(new ClientGameDataService());
-        gs.loc.Set<IUIInitializable>(new UIInitializable());
+        gs.loc.Set<IUIService>(new UIInitializable());
         gs.loc.Set<IFxService>(new FxService());
         gs.loc.Set<IUnityUpdateService>(gs.AddComponent<UnityUpdateService>());
         gs.loc.Set<ITerrainPatchLoader>(new TerrainPatchLoader());

@@ -33,10 +33,10 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             SetPicture(stateData.WorldSpriteName);
         }
 
-        private ShowWorldPanelImage OnShowWorldPanelImage(UnityGameState gs, ShowWorldPanelImage imageToShow)
+        private void OnShowWorldPanelImage(ShowWorldPanelImage imageToShow)
         {
             SetPicture(imageToShow.SpriteName);
-            return null;
+            return;
         }
 
 
