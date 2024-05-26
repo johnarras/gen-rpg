@@ -88,8 +88,12 @@ namespace Genrpg.LoginServer.CommandHandlers
             }
 
             gs.coreCh = coreChar;
-            gs.coreCh.X = fullCachedMap.Map.SpawnX + 5;
-            gs.coreCh.Z = fullCachedMap.Map.SpawnY + 5;            
+            if (gs.coreCh.X == 0 || gs.coreCh.Z == 0)
+            {
+                gs.coreCh.X = fullCachedMap.Map.SpawnX;
+                gs.coreCh.Z = fullCachedMap.Map.SpawnY;
+            }
+            gs.coreCh.Rot = 0;
 
             gs.ch = new Character(_repoService);
             CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);

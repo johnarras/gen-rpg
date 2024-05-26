@@ -14,10 +14,6 @@ class AddPlayerToMap : BaseZoneGenerator
     {
         await base.Generate(gs, token);
 
-
-        gs.ch.X = gs.map.SpawnX;
-        gs.ch.Z = gs.map.SpawnY;
-
         UnitType utype = _gameData.Get<UnitSettings>(gs.ch).Get(gs.ch.EntityId);
 
         if (utype == null || string.IsNullOrEmpty(utype.Art))
