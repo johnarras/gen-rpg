@@ -1,139 +1,160 @@
 ﻿using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using System;
+using System.Security.Policy;
 using System.Threading;
+using UnityEngine;
 
 public class ProxyCharacterController : MonsterController
 {
-    protected string _lastMoveKey = KeyComm.Forward;
+
+    class PositionData
+    {
+        public float FinalX;
+        public float FinalZ;
+        public float FinalRot;
+        public float Speed;
+        public int KeysDown;
+        public bool EverSetData = false;
+    }
 
 
-    protected override float GetMaxRotation() { return 15; }
+    private IMapTerrainManager _mapTerrainManager;
 
+    private float _rotationLerpTime = 0;
+    private DateTime _lastInputSetTime = DateTime.UtcNow;
+
+    PositionData _oldPos = new PositionData();
+    PositionData _newPos = new PositionData();
+
+    private int _ticksSinceSetInput = 0;
+
+    private const int RotationTicks = 3;
+
+    float _lastNonzeroSpeed = 0;
+    float _lastX = 0;
+    float _lastZ = 0;
+    public override void SetInputValues(int keysDown, float rot)
+    {
+        base.SetInputValues(keysDown, rot);
+
+        if (_unit.Speed != 0)
+        {
+            _lastNonzeroSpeed = _unit.Speed;
+        }
+
+        _oldPos.FinalX = _newPos.FinalX;
+        _oldPos.FinalZ = _newPos.FinalZ;
+        _oldPos.FinalRot = _newPos.FinalRot;
+        _oldPos.Speed = _newPos.Speed;
+        _oldPos.KeysDown = _newPos.KeysDown;
+
+        _newPos.FinalX = _unit.FinalX;
+        _newPos.FinalZ = _unit.FinalZ;
+        _newPos.FinalRot = _unit.FinalRot;
+        _newPos.Speed = _unit.Speed;
+        _newPos.KeysDown = keysDown;
+
+        if (_lastX == 0 || _lastZ == 0)
+        {
+            _lastX = _unit.FinalX;
+            _lastZ = _unit.FinalZ;
+        }
+
+        _lastInputSetTime = DateTime.UtcNow;
+        _ticksSinceSetInput = 0;
+    }
     public override void OnUpdate(CancellationToken token)
     {
-
-        base.OnUpdate(token); return;
-
         if (_unit == null || !_unit.HasFlag(UnitFlags.ProxyCharacter))
         {
             return;
         }
-        
-        float delta = _inputService.GetDeltaTime();
-        float targetDeltaTime = 1.0f / AppUtils.TargetFrameRate;
-        delta = targetDeltaTime;
-        float moveSpeed = _unit.Speed * delta;
+        if (_rotationLerpTime == 0)
+        {
+            _rotationLerpTime = ((1.0f * AppUtils.TargetFrameRate * PlayerController.TimeBetweenPlayerUpdates + -1.0f)) / AppUtils.TargetFrameRate;
+        }
+
+
+        float moveSpeed = _unit.Speed != 0 ? _unit.Speed : _lastNonzeroSpeed;
 
         float dz = 0.0f;
         float dx = 0.0f;
-        float sKeyPct = GetKeyPercent(KeyComm.Backward)*BackupSpeedScale;
+        float sKeyPct = GetKeyPercent(KeyComm.Backward) * BackupSpeedScale;
         float wKeyPct = GetKeyPercent(KeyComm.Forward);
 
         dx += sKeyPct * moveSpeed;
         dx -= wKeyPct * moveSpeed;
-        if (wKeyPct > 0)
-        {
-            _lastMoveKey = KeyComm.Forward;
-        }
-        else if (sKeyPct > 0)
-        {
-            _lastMoveKey = KeyComm.Backward;
-        }
-
-        GVector3 startPos = GVector3.Create(entity.transform().position);
-        float ddx = _unit.FinalX - startPos.x;
-        float ddz = _unit.FinalZ - startPos.z;
-        float totalDist = (float)Math.Sqrt(ddx * ddx + ddz * ddz);
-
-        float minDistToMove = 0.5f;
-      
-        float maxRotDelta = 2;
-
-
-
-        bool didErrorCorrectionMove = false;
-        if (dx == 0 && totalDist >= minDistToMove)
-        {
-            if (_lastMoveKey == KeyComm.Forward)
-            {
-                UnitUtils.TurnTowardNextPosition(_unit, maxRotDelta);
-                dx = -moveSpeed;
-                didErrorCorrectionMove = true;
-            }
-            else if (_lastMoveKey == KeyComm.Backward)
-            {
-                UnitUtils.TurnTowardNextPosition(_unit, maxRotDelta);
-                dx = moveSpeed;
-                didErrorCorrectionMove = true;
-            }
-        }
-
-        if (totalDist >= minDistToMove)
-        {
-            float currentRot = entity.transform().localEulerAngles.y;
-            float rotDelta = _unit.Rot - currentRot;
-
-            while (rotDelta > 180)
-            {
-                rotDelta -= 360;
-            }
-            while (rotDelta <= -180)
-            {
-                rotDelta += 360;
-            }
-
-
-            float radTurn = 0;
-
-            if (rotDelta > 0)
-            {
-                radTurn = Math.Min(rotDelta, maxRotDelta);
-            }
-            else
-            {
-                radTurn = Math.Max(rotDelta, -maxRotDelta);
-            }
-
-            float newRot = currentRot + radTurn;
-
-            entity.transform().localEulerAngles = GVector3.Create(0, newRot, 0);
-        }
 
         ShowMoveAnimations(dx, dz);
 
-        if (dx != 0 || dz != 0)
+        float deltaTime = _inputService.GetDeltaTime();
+
+        float totalDX = Math.Abs(_newPos.FinalX - _lastX);
+        float totalDZ = Math.Abs(_newPos.FinalZ - _lastZ);
+
+        if (totalDX > 0.05f || totalDZ > 0.05f)
         {
-            float nrot = entity.transform().localEulerAngles.y;
-            double sin = Math.Sin(nrot * Math.PI / 180.0);
-            double cos = Math.Cos(nrot * Math.PI / 180.0);
+            float speed = _unit.Speed != 0 ? _unit.Speed : _lastNonzeroSpeed;
 
-            float nz = (float)-(dx * cos + dz * sin);
-            float nx = (float)(dz * cos - dx * sin);
-
-            float ny = 0.0f;
-
-            float mx = startPos.x + nx;
-            float my = startPos.y + ny;
-            float mz = startPos.z + nz;
-
-            GVector3 endPos = new GVector3 (mx, my, mz);
-
-            float edx = endPos.x - _unit.FinalX;
-            float edz = endPos.z - _unit.FinalZ;
-
-            float endDist = (float)Math.Sqrt(edx * edx + edz * edz);
-            if (endDist >= totalDist && didErrorCorrectionMove)
+            if (sKeyPct > 0)
             {
-                _lastMoveKey = null;
+                speed *= BackupSpeedScale;
             }
-            _unit.X = endPos.x;
-            _unit.Z = endPos.z;
 
-            float endHeight = _terrainManager.SampleHeight(_gs, endPos.x, endPos.z);
-           entity.transform().position = GVector3.Create(endPos.x, endHeight, endPos.z);
+            float travelDist = Math.Abs(deltaTime * speed);
 
+            float totalDD = MathF.Sqrt(totalDX * totalDX + totalDZ * totalDZ);
+
+            float dxpct = totalDX / totalDD;
+            float dzpct = totalDZ / totalDD;
+
+            float travelPercent = MathUtils.Clamp(0, (travelDist / totalDD), 1.0f);
+
+            float ndx = _newPos.FinalX - _lastX;
+            float ndz = _newPos.FinalZ - _lastZ;
+
+            float angle = (float)(Math.Atan2(ndx, ndz) * 180.0f/ Math.PI);
+
+            if (wKeyPct != 0)
+            {
+                entity.transform.eulerAngles = new Vector3(0, angle, 0);
+            }
+            else if (sKeyPct != 0)
+            {
+                entity.transform.eulerAngles = new Vector3(0, angle + 180, 0);
+            }
+
+            float xpos = _lastX + ndx * travelPercent;
+            float zpos = _lastZ + ndz * travelPercent;
+
+            _lastX = xpos;
+            _lastZ = zpos;
+
+            float endHeight = _terrainManager.SampleHeight(_gs, xpos, zpos);
+
+            entity.transform.position = new Vector3(xpos, endHeight, zpos);
         }
+        else
+        {
+            _lastNonzeroSpeed = 0; float baseLerpPercent = MathUtils.Clamp(0, (float)((DateTime.UtcNow - _lastInputSetTime).TotalSeconds - 0.0f / AppUtils.TargetFrameRate) / _rotationLerpTime, 1);
+
+            while (_newPos.FinalRot - _oldPos.FinalRot > 180)
+            {
+                _newPos.FinalRot -= 360;
+            }
+            while (_newPos.FinalRot - _oldPos.FinalRot <= -180)
+            {
+                _newPos.FinalRot += 360;
+            }
+
+            float rot = _oldPos.FinalRot + baseLerpPercent * (_newPos.FinalRot - _oldPos.FinalRot);
+
+          
+            entity.transform().localEulerAngles = new Vector3(0, rot, 0);
+        }
+
     }
 }

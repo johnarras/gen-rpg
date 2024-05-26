@@ -63,7 +63,6 @@ public class UnitController : BaseBehaviour
     int currMoveSpeed = -1;
 
 
-
     public virtual float SwimSpeedScale() { return 0.5f; }
     public virtual bool HardStopOnSlopes() { return false; }
     public virtual bool IsSwimming() { return false; }
@@ -103,16 +102,14 @@ public class UnitController : BaseBehaviour
         return MathUtils.Clamp(0, _downKeys[commandName], 1);
 	}
     
-    public void SetInputValues(int keysDown, float rot)
+    public virtual void SetInputValues(int keysDown, float rot)
     {
         string[] moveInputsToCheck = _inputService.MoveInputsToCheck();
         for (int i = 0; i < moveInputsToCheck.Length; i++)
         {
             SetKeyPercent(moveInputsToCheck[i], FlagUtils.IsSet(keysDown, 1 << i) ? 1 : 0);
         }
-        _unit.Rot = rot;
-        GVector3 currEuler = GVector3.Create(entity.transform().eulerAngles);
-        entity.transform().eulerAngles = GVector3.Create(currEuler.x, rot, currEuler.z);
+        _unit.FinalRot = rot;
     }
 
     protected int GetKeysDown()
@@ -161,8 +158,6 @@ public class UnitController : BaseBehaviour
             moveSpeed *= InitClient.EditorInstance.PlayerSpeedMult;
         }
 #endif 
-        // TODO REMOEV JRAJRA HACK FOR TEST VIDEO 5/17/2024
-        moveSpeed *= 1.5f;
         float animSpeedBase = targetDeltaTime;
 
         float dz = 0.0f;

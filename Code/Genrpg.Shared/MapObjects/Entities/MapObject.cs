@@ -44,7 +44,7 @@ namespace Genrpg.Shared.MapObjects.Entities
 
         public DateTime LastGridChange { get; set; }
 
-        public float ToRot { get; set; }
+        public float FinalRot { get; set; }
 
         public float FinalX { get; set; }
 

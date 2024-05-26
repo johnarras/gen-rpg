@@ -20,31 +20,28 @@ namespace Genrpg.Shared.Movement.Messages
 
         [Key(0)] public string ObjId { get; set; }
         [Key(1)] public string TargetId { get; set; }
-        [Key(2)] public ushort[] Dat { get; set; }
+        [Key(2)] public float[] Dat { get; set; }
 
         public OnUpdatePos()
         {
-            Dat = new ushort[Max];
+            Dat = new float[Max];
         }
 
-        const float _posDiv = 6.0f;
-        const float _speedDiv = 100.0f;
+        public void SetX(float x) { Dat[X] = x; }
+        public float GetX() { return Dat[X]; }
 
-        public void SetX(float x) { Dat[X] = (ushort)(x*_posDiv); }
-        public float GetX() { return Dat[X]/_posDiv; }
-
-        public void SetY(float y) { Dat[Y] = (ushort)(y*_posDiv); }
-        public float GetY() { return Dat[Y]/_posDiv; }
+        public void SetY(float y) { Dat[Y] = y; }
+        public float GetY() { return Dat[Y]; }
 
 
-        public void SetZ(float z) { Dat[Z] = (ushort)(z*_posDiv); }
-        public float GetZ() { return Dat[Z]/_posDiv; }
+        public void SetZ(float z) { Dat[Z] = z; }
+        public float GetZ() { return Dat[Z]; }
 
-        public void SetRot(float rot) { Dat[Rot] = (ushort)(MathUtils.Clamp(0,rot,360)*_posDiv); }
-        public float GetRot() { return Dat[Rot]/_posDiv; }
+        public void SetRot(float rot) { Dat[Rot] = MathUtils.Clamp(0,rot,360); }
+        public float GetRot() { return Dat[Rot]; }
 
-        public void SetSpeed(float speed) { Dat[Speed] = (ushort)(speed*_speedDiv); }
-        public float GetSpeed() { return Dat[Speed] / _speedDiv; }
+        public void SetSpeed(float speed) { Dat[Speed] = speed; }
+        public float GetSpeed() { return Dat[Speed]; }
 
         public int GetKeysDown() { return (int)Dat[KeysDown]; }
         public void SetKeysDown(int keysDown) { Dat[KeysDown] = (ushort)keysDown; }

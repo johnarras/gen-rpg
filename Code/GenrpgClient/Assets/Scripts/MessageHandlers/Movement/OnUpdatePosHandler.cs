@@ -24,6 +24,7 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
             if (pos.ObjId == _playerManager.GetUnitId())
             {
                 return;
+
             }
 
             if (_objectManager.GetGridItem(pos.ObjId, out ClientMapObjectGridItem gridItem))
@@ -36,35 +37,32 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
 
             if (_objectManager.GetObject(pos.ObjId, out MapObject obj))
             {
-                if (!(obj is Character ch))
+                float oldFX = obj.FinalX;
+                float oldFZ = obj.FinalZ;
+                string oldTarget = obj.TargetId;
+                float oldSpeed = obj.Speed;
+
+                obj.FinalX = pos.GetX();
+                obj.FinalZ = pos.GetZ();
+                obj.Speed = pos.GetSpeed();
+                obj.Moving = true;
+                obj.TargetId = pos.TargetId;
+
+                if (oldFX != obj.FinalX || oldFZ != obj.FinalZ || oldSpeed != obj.Speed ||
+                    oldTarget != obj.TargetId)
                 {
-                    float oldFX = obj.FinalX;
-                    float oldFZ = obj.FinalZ;
-                    string oldTarget = obj.TargetId;
-                    float oldSpeed = obj.Speed;
+                    _pathfindingService.UpdatePath(gs, obj, (int)obj.FinalX, (int)obj.FinalZ);
+                    _pathfindingUtils.ShowPath(gs, obj.Waypoints, token).Forget();
+                }
 
-                    obj.FinalX = pos.GetX();
-                    obj.FinalZ = pos.GetZ();
-                    obj.Speed = pos.GetSpeed();
-                    obj.Moving = true;
-                    obj.TargetId = pos.TargetId;
-                    
-                    if (oldFX != obj.FinalX || oldFZ != obj.FinalZ || oldSpeed != obj.Speed ||
-                        oldTarget != obj.TargetId)
+                if (obj is Unit unit && unit.HasFlag(UnitFlags.ProxyCharacter))
+                {
+                    if (_objectManager.GetController(pos.ObjId, out UnitController unitController))
                     {
-                        _pathfindingService.UpdatePath(gs, obj, (int)obj.FinalX, (int)obj.FinalZ);
-                        _pathfindingUtils.ShowPath(gs, obj.Waypoints, token).Forget();
-                    }
-
-                    if (obj is Unit unit && unit.HasFlag(UnitFlags.ProxyCharacter))
-                    {
-                        if (_objectManager.GetController(pos.ObjId, out UnitController unitController))
-                        {
-                            unitController.SetInputValues(pos.GetKeysDown(), pos.GetRot());
-                        }
+                        unitController.SetInputValues(pos.GetKeysDown(), pos.GetRot());
                     }
                 }
             }
-        }
+        }        
     }
 }

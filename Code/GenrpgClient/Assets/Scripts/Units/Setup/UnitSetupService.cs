@@ -196,6 +196,19 @@ public class UnitSetupService : IUnitSetupService
         go.transform().localScale = GVector3.onePlatform;
 
         pxc.Init(unit, token);
+
+
+        unit.FinalX = unit.X;
+        unit.FinalZ = unit.Z;
+        unit.FinalRot = unit.Rot;
+
+        // Do twice to set old and new values.
+        for (int i = 0; i < 2; i++)
+        {
+            pxc.SetInputValues(0, unit.Rot);
+        }
+
+
         GAnimator animator = GEntityUtils.GetComponent<GAnimator>(go);
         if (animator != null)
         {

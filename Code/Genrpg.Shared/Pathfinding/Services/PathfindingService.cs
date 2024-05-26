@@ -769,8 +769,6 @@ namespace Genrpg.Shared.Pathfinding.Services
         /// <returns>true if the path was altered, false if not</returns>
         public bool UpdatePath(GameState gs, MapObject tracker, int endx, int endz)
         {
-            tracker.FinalX = endx;
-            tracker.FinalZ = endz;
             if (tracker.Waypoints != null && tracker.Waypoints.Waypoints.Count > 0)
             {
                 Waypoint lastWaypoint = tracker.Waypoints.Waypoints.Last();

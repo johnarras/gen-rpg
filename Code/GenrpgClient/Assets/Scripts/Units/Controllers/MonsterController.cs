@@ -17,7 +17,6 @@ public class MonsterController : UnitController
     public float WalkAnimSpeed = 0;
     public float RunAnimSpeed = 0;
 
-    DateTime _lastPathUpdateTime = DateTime.UtcNow.AddDays(-1);
     protected override void OnDestroy()
     {
         _objectManager.RemoveObject(_unit.Id);

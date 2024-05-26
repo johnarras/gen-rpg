@@ -44,9 +44,9 @@ public class PlayerController : UnitController
 
     DateTime lastServerSendTime = DateTime.UtcNow;
 
-    TimeSpan span;
+    TimeSpan timeSinceLastUpdateSent;
 
-    private const float TimeBetweenPlayerUpdates = 0.6f;
+    public const float TimeBetweenPlayerUpdates = 1/10.0f;
     private const float PlayerUpdateMaxDistance = 0.1f;
     private int _keysDown = 0;
     public override void OnUpdate(CancellationToken token)
@@ -77,23 +77,19 @@ public class PlayerController : UnitController
         {
             float oldRot = _unit.Rot;
             _unit.Rot =entity.transform().eulerAngles.y;
-            span = DateTime.UtcNow - lastServerSendTime;
+            timeSinceLastUpdateSent = DateTime.UtcNow - lastServerSendTime;
             if (entity == _playerManager.GetEntity())
             {
-
                 GVector3 pos = GVector3.Create(entity.transform().position);
-
                 GVector3 diff = pos - lastSendPos;
-
 
                 _unit.X = pos.x;
                 _unit.Y = pos.y;
                 _unit.Z = pos.z;
                 int keysDown = GetKeysDown();
                 if ((((diff.magnitude >= PlayerUpdateMaxDistance) ||  oldRot != _unit.Rot) &&
-                    span.TotalSeconds > TimeBetweenPlayerUpdates/2) 
-                    || keysDown != _keysDown ||
-                    span.TotalSeconds > TimeBetweenPlayerUpdates)
+                    timeSinceLastUpdateSent.TotalSeconds >= TimeBetweenPlayerUpdates) 
+                    || keysDown != _keysDown)
                 {
                     _keysDown = keysDown;
                     float moveSpeed = (GetKeyPercent(KeyComm.Forward) - GetKeyPercent(KeyComm.Backward))*_unit.Speed;
@@ -111,13 +107,13 @@ public class PlayerController : UnitController
                     GVector3 extraDist = GVector3.zero;
                     if (_everSentPositionUpdate)
                     {
-                        //extraDist = (pos - lastSendPos) * 0.1f;
+                        extraDist = (pos - lastSendPos) * 0.1f;
                     }
 
                     _unit.Rot =entity.transform().eulerAngles.y;
-                    posMessage.SetX((float)Math.Round(pos.x+extraDist.x, 1));
-                    posMessage.SetY((float)Math.Round(pos.y+extraDist.y, 1));
-                    posMessage.SetZ((float)Math.Round(pos.z+extraDist.z, 1));
+                    posMessage.SetX(pos.x+extraDist.x);
+                    posMessage.SetY(pos.y+extraDist.y);
+                    posMessage.SetZ(pos.z+extraDist.z);
                     posMessage.SetRot(_unit.Rot);
                     posMessage.SetKeysDown(_keysDown);
                     posMessage.SetSpeed(moveSpeed);
