@@ -10,11 +10,11 @@ public class SetupNearbyZones : BaseAddMountains
 {
 
     protected IMapGenService _mapGenService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
         await UniTask.CompletedTask;
 
-        foreach (ConnectedPairData conn in gs.md.zoneConnections)
+        foreach (ConnectedPairData conn in _md.zoneConnections)
         {
             if (conn.Point1 == null || conn.Point2 == null)
             {
@@ -27,22 +27,22 @@ public class SetupNearbyZones : BaseAddMountains
             int ez = (int)conn.Point2.Z;
 
             if (sx < 0 || sz < 0 || ex < 0 || ez < 0 || 
-                sx >= gs.map.GetHwid() || sz >= gs.map.GetHhgt() ||
-                ex >= gs.map.GetHwid() || ez >= gs.map.GetHhgt())
+                sx >= _mapProvider.GetMap().GetHwid() || sz >= _mapProvider.GetMap().GetHhgt() ||
+                ex >= _mapProvider.GetMap().GetHwid() || ez >= _mapProvider.GetMap().GetHhgt())
             {
                 continue;
             }
 
-            short zoneId1 = gs.md.mapZoneIds[sx, sz];
-            short zoneId2 = gs.md.mapZoneIds[ex, ez];
+            short zoneId1 = _md.mapZoneIds[sx, sz];
+            short zoneId2 = _md.mapZoneIds[ex, ez];
 
             if (zoneId1 != zoneId2)
             {
-                Zone zone1 = gs.map.Get<Zone>(zoneId1);
-                Zone zone2 = gs.map.Get<Zone>(zoneId2);
+                Zone zone1 = _mapProvider.GetMap().Get<Zone>(zoneId1);
+                Zone zone2 = _mapProvider.GetMap().Get<Zone>(zoneId2);
 
-                GenZone genZone1 = gs.md.GetGenZone(zone1.IdKey);
-                GenZone genZone2 = gs.md.GetGenZone(zone2.IdKey);
+                GenZone genZone1 = _md.GetGenZone(zone1.IdKey);
+                GenZone genZone2 = _md.GetGenZone(zone2.IdKey);
 
                 if (zone1 != null && zone2 != null)
                 {
@@ -53,14 +53,14 @@ public class SetupNearbyZones : BaseAddMountains
                     int dx = xmid1 - xmid2;
                     int dy = ymid1 - ymid2;
                     float dist = (float)Math.Sqrt(dx * dx + dy * dy);
-                    genZone1.AddNearbyZone(gs, zone2, dist);
-                    genZone2.AddNearbyZone(gs, zone1, dist);
+                    genZone1.AddNearbyZone(zone2, dist);
+                    genZone2.AddNearbyZone(zone1, dist);
                 }
                 
             }
 
         }
-        _mapGenService.SetPrevNextZones(gs);
+        _mapGenService.SetPrevNextZones(_gs);
     }
 
 

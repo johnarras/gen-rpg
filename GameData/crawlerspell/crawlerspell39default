@@ -8,19 +8,17 @@
   "Art": "",
   "MinRange": 20,
   "MaxRange": 100,
+  "ReplacesCrawlerSpellId": 3,
   "CombatActionId": 3,
-  "ClassId": 3,
   "TargetTypeId": 4,
   "Level": 1,
   "Effects": [
     {
       "EntityTypeId": 39,
       "EntityId": 2,
-      "MinQuantity": 2,
-      "MaxQuantity": 2,
       "ElementTypeId": 1
     }
   ],
-  "UpdateTime": "2024-03-23T01:31:09.163Z",
-  "CreateTime": "2024-01-29T20:46:43Z"
+  "UpdateTime": "2024-06-07T23:03:24.26Z",
+  "CreateTime": "2024-01-30T08:46:43Z"
 }

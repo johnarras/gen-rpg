@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Crawler.Services.Combat;
+using Assets.Scripts.ProcGen.RandomNumbers;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Loot.Constants;
 using Genrpg.Shared.Crawler.Loot.Settings;
@@ -36,18 +37,20 @@ namespace Genrpg.Shared.Crawler.Loot.Services
     public class LootGenService : ILootGenService
     {
         protected IGameData _gameData;
-        public async Task Initialize(GameState gs, CancellationToken token)
+        protected IUnityGameState _gs;
+        protected IClientRandom _rand;
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-        public Item GenerateItem(GameState gs, LootGenData lootGenData)
+        public Item GenerateItem(LootGenData lootGenData)
         {
 
-            return GenerateEquipment(gs, lootGenData);
+            return GenerateEquipment(lootGenData);
         }
 
-        public Item GenerateEquipment(GameState gs, LootGenData lootGenData)
+        public Item GenerateEquipment(LootGenData lootGenData)
         {
             long level = lootGenData.Level;
 
@@ -63,7 +66,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             List<LootRank> okRanks = new List<LootRank>();
 
-            while (expectedOffset < ranks.Count - 2 && gs.rand.NextDouble() < rankSettings.ExtraQualityChance)
+            while (expectedOffset < ranks.Count - 2 && _rand.NextDouble() < rankSettings.ExtraQualityChance)
             {
                 expectedOffset++;
             }
@@ -80,7 +83,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             // Pick a quality...
 
-            LootRank chosenRank = okRanks[gs.rand.Next() % okRanks.Count];
+            LootRank chosenRank = okRanks[_rand.Next() % okRanks.Count];
 
             IReadOnlyList<ItemType> allLootItems = _gameData.Get<ItemTypeSettings>(null).GetData();
 
@@ -90,7 +93,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             List<ItemType> armorItems = okLootItems.Where(x => EquipSlots.IsArmor(x.EquipSlotId)).ToList();
 
-            bool isArmor = gs.rand.NextDouble() < rankSettings.ArmorChance;
+            bool isArmor = _rand.NextDouble() < rankSettings.ArmorChance;
 
             List<ItemType> finalList = (isArmor ? armorItems : weaponItems);
 
@@ -99,14 +102,14 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                 return null;
             }
 
-            ItemType itemType = finalList[gs.rand.Next() % finalList.Count];
+            ItemType itemType = finalList[_rand.Next() % finalList.Count];
 
             ScalingType scalingType = null;
             long scalingTypeId = 0;
 
             if (finalList == armorItems)
             {
-                scalingTypeId = MathUtils.IntRange(1, LootConstants.MaxArmorScalingType, gs.rand);
+                scalingTypeId = MathUtils.IntRange(1, LootConstants.MaxArmorScalingType, _rand);
                 scalingType = _gameData.Get<ScalingTypeSettings>(null).Get(scalingTypeId);
             }
 
@@ -150,7 +153,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
             if (itemType.Names.Count > 0)
             {
                 float weightSum = itemType.Names.Sum(x => x.Weight);
-                double valChosen = gs.rand.NextDouble() * weightSum;
+                double valChosen = _rand.NextDouble() * weightSum;
                 foreach (WeightedName wn in itemType.Names)
                 {
                     valChosen -= wn.Weight;
@@ -168,7 +171,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
             {
                 List<ElementType> okElements = _gameData.Get<ElementTypeSettings>(null).GetData().Where(x => x.IdKey > 1).ToList();
 
-                ElementType okElement = okElements[gs.rand.Next() % okElements.Count];
+                ElementType okElement = okElements[_rand.Next() % okElements.Count];
 
                 ItemProc iproc = new ItemProc()
                 {
@@ -195,7 +198,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                     .Where(x => x.IdKey >= StatConstants.PrimaryStatStart &&
                 x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 
-                StatType okStat = okStats[gs.rand.Next() % okStats.Count];
+                StatType okStat = okStats[_rand.Next() % okStats.Count];
 
                 long statTypeId = okStat.IdKey;
 
@@ -246,7 +249,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
             return item;
         }
 
-        public CombatLoot GiveLoot(GameState gs, PartyData party)
+        public CombatLoot GiveLoot(PartyData party)
         {
             CombatLoot loot = new CombatLoot();
             if (party.Combat == null)
@@ -277,9 +280,9 @@ namespace Genrpg.Shared.Crawler.Loot.Services
             foreach (CrawlerUnit crawlerUnit in party.Combat.EnemiesKilled)
             {
                 exp += trainingSettings.GetMonsterExp(party.Combat.Level);
-                gold += MathUtils.LongRange(5+party.Combat.Level, 20+party.Combat.Level*5, gs.rand);
+                gold += MathUtils.LongRange(5+party.Combat.Level, 20+party.Combat.Level*5, _rand);
 
-                if (gs.rand.NextDouble() < itemChance)
+                if (_rand.NextDouble() < itemChance)
                 {
                     itemCount++;
                 }
@@ -295,7 +298,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             for (int i = 0; i < itemCount; i++)
             {
-                Item item = GenerateItem(gs, genData);
+                Item item = GenerateItem(genData);
                 if (item != null)
                 {
                     items.Add(item);

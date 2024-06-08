@@ -47,7 +47,7 @@ public class ProgressBar : BaseBehaviour
         return _currValue;
     }
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         AddUpdate(ProgressUpdate, UpdateType.Regular);
@@ -62,7 +62,7 @@ public class ProgressBar : BaseBehaviour
     /// <param name="currValue"></param>
     /// <param name="textOpt"></param>
     /// <param name="fillTicks"></param>
-    public void InitRange (UnityGameState gs, long minValue, long maxValue, long currValue)
+    public void InitRange (long minValue, long maxValue, long currValue)
     {
         _minValue = minValue;
         _maxValue = maxValue;
@@ -174,7 +174,7 @@ public class ProgressBar : BaseBehaviour
         }
     }
 
-    public void SetValue(UnityGameState gs, long value, string customText = "")
+    public void SetValue(long value, string customText = "")
     {
         _targetValue = value;
         _customText = customText;

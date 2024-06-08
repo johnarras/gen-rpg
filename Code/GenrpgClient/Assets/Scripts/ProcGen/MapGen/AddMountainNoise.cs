@@ -7,14 +7,14 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class AddMountainNoise : BaseAddMountains
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
         await UniTask.CompletedTask;
 
         int radius = 4;
 
-        gs.md.mountainNoise = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
-        foreach (Zone zone in gs.map.Zones)
+        _md.mountainNoise = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
             if (zone.XMin >= zone.XMax || zone.ZMin >= zone.ZMax)
             {
@@ -24,16 +24,16 @@ public class AddMountainNoise : BaseAddMountains
             bool showTerraces = true;
 
             int minx = Math.Max(0, zone.XMin - radius);
-            int maxx = Math.Min(gs.map.GetHwid() - 1, zone.XMax + radius);
+            int maxx = Math.Min(_mapProvider.GetMap().GetHwid() - 1, zone.XMax + radius);
             int miny = Math.Max(0, zone.ZMin - radius);
-            int maxy = Math.Min(gs.map.GetHwid() - 1, zone.ZMax + radius);
+            int maxy = Math.Min(_mapProvider.GetMap().GetHwid() - 1, zone.ZMax + radius);
 
             int xsize = (maxx - minx + 1);
             int ysize = (maxy - miny + 1);
 
             int size = (xsize + ysize) / 2;
 
-            MyRandom rand = new MyRandom(gs.map.Seed % 500000000 + zone.Seed % 500000000 + 328233);
+            MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed % 500000000 + zone.Seed % 500000000 + 328233);
 
             float terraceSize = MathUtils.FloatRange(12.0f, 18.0f, rand);
 
@@ -43,14 +43,14 @@ public class AddMountainNoise : BaseAddMountains
             float persb = MathUtils.FloatRange(0.30f, 0.50f, rand)*1.1f;
 
             int seedNext = rand.Next();
-            float[,] heightsbig = _noiseService.Generate(gs, persb, freqb, ampb, octavesb, seedNext, xsize, ysize);
+            float[,] heightsbig = _noiseService.Generate(persb, freqb, ampb, octavesb, seedNext, xsize, ysize);
 
-            float freqedge = (float)(MathUtils.FloatRange(0.5f, 1.5f, rand) * gs.map.GetHwid() / 40.0f)*0.45f;
+            float freqedge = (float)(MathUtils.FloatRange(0.5f, 1.5f, rand) * _mapProvider.GetMap().GetHwid() / 40.0f)*0.45f;
             float ampedge = MathUtils.FloatRange(0.1f, 0.2f, rand)*2.5f;
             int octavesedge = 1;
             float persedge = 0.1f;
 
-            float[,] edgeDistances = _noiseService.Generate(gs, persedge, freqedge, ampedge, octavesedge, rand.Next(), xsize, ysize);
+            float[,] edgeDistances = _noiseService.Generate(persedge, freqedge, ampedge, octavesedge, rand.Next(), xsize, ysize);
 
             float midMinVal = 0.85f;
             float midMaxVal = 1.0f;
@@ -60,7 +60,7 @@ public class AddMountainNoise : BaseAddMountains
             int midoctaves = 2;
             float midpers = MathUtils.FloatRange(0.3f, 0.45f, rand);
 
-            float[,] midVals = _noiseService.Generate(gs, midpers, midfreq, midamp, midoctaves, rand.Next(), xsize, ysize);
+            float[,] midVals = _noiseService.Generate(midpers, midfreq, midamp, midoctaves, rand.Next(), xsize, ysize);
 
 
             int startPerlinSeed = rand.Next() % 1000000000;
@@ -85,7 +85,7 @@ public class AddMountainNoise : BaseAddMountains
                 freq /= extraScale;
                 amp *= extraScale;
 
-                float[,] heights = _noiseService.Generate(gs, pers, freq, amp, octaves, startPerlinSeed + 1000 * i, xsize, ysize);
+                float[,] heights = _noiseService.Generate(pers, freq, amp, octaves, startPerlinSeed + 1000 * i, xsize, ysize);
 
                 float secondaryWallScale = MathUtils.FloatRange(0.4f, 1.0f, rand);
 
@@ -113,7 +113,7 @@ public class AddMountainNoise : BaseAddMountains
                     {
                         float zoneScale = 1.0f;
 
-                        if (gs.md.mapZoneIds[x, y] == zone.IdKey)
+                        if (_md.mapZoneIds[x, y] == zone.IdKey)
                         {
                             float minDist = radius;
                             for (int xx = x - radius; xx <= x + radius; xx++)
@@ -122,7 +122,7 @@ public class AddMountainNoise : BaseAddMountains
                                 for (int yy = y - radius; yy <= y + radius; yy++)
                                 {
                                     float ddy = y - yy;
-                                    if (gs.md.mapZoneIds[x, y] != zone.IdKey)
+                                    if (_md.mapZoneIds[x, y] != zone.IdKey)
                                     {
                                         float dist = (float)(Math.Sqrt(ddx * ddx + ddy * ddy));
                                         if (dist < minDist)
@@ -144,7 +144,7 @@ public class AddMountainNoise : BaseAddMountains
                                 for (int yy = y - radius; yy <= y + radius; yy++)
                                 {
                                     float ddy = y - yy;
-                                    if (gs.md.mapZoneIds[x, y] == zone.IdKey)
+                                    if (_md.mapZoneIds[x, y] == zone.IdKey)
                                     {
                                         float dist = (float)(Math.Sqrt(ddx * ddx + ddy * ddy));
                                         if (dist < minDist)
@@ -160,15 +160,15 @@ public class AddMountainNoise : BaseAddMountains
                         }
                         float secondaryMidScale = (float)MathUtils.Clamp(0, (midVals[x - minx, y - miny] - midMinVal) / (midMaxVal - midMinVal), 1.0f);
 
-                        if (gs.md.mountainDistPercent[x, y] >= 1.0f)
+                        if (_md.mountainDistPercent[x, y] >= 1.0f)
                         {
 
 
                             if (secondaryMidScale > 0)
                             {
-                                gs.md.flags[x, y] |= MapGenFlags.OverrideWallNoiseScale;
+                                _md.flags[x, y] |= MapGenFlags.OverrideWallNoiseScale;
                                 midTimes++;
-                                gs.md.mountainNoise[x, y] += secondaryMidScale * zoneScale;
+                                _md.mountainNoise[x, y] += secondaryMidScale * zoneScale;
                             }
                             continue;
                         }
@@ -182,17 +182,17 @@ public class AddMountainNoise : BaseAddMountains
 
                         float wallEdgeScale = 1.0f;
 
-                        float wallDistancePct = gs.md.mountainDistPercent[x, y];
-                        float wallDist = gs.md.mountainCenterDist[x, y];
-                        if (gs.md.mountainDistPercent[x, y] > wallEdgeSize)
+                        float wallDistancePct = _md.mountainDistPercent[x, y];
+                        float wallDist = _md.mountainCenterDist[x, y];
+                        if (_md.mountainDistPercent[x, y] > wallEdgeSize)
                         {
-                            wallEdgeScale = 1 - (gs.md.mountainDistPercent[x, y] - wallEdgeSize) / (1.0f - wallEdgeSize);
+                            wallEdgeScale = 1 - (_md.mountainDistPercent[x, y] - wallEdgeSize) / (1.0f - wallEdgeSize);
                         }
 
 
                         if (secondaryMidScale > wallEdgeScale)
                         {
-                            gs.md.flags[x, y] |= MapGenFlags.OverrideWallNoiseScale;
+                            _md.flags[x, y] |= MapGenFlags.OverrideWallNoiseScale;
                             midTimes++;
                             wallEdgeScale = secondaryMidScale * 1.5f;
                         }
@@ -215,11 +215,11 @@ public class AddMountainNoise : BaseAddMountains
                                 hgt *= currDist / currTerraceSize * 0.8f;
                             }
                         }
-                        if (FlagUtils.IsSet(gs.md.flags[x, y], MapGenFlags.IsSecondaryWall) && !showTerraces)
+                        if (FlagUtils.IsSet(_md.flags[x, y], MapGenFlags.IsSecondaryWall) && !showTerraces)
                         {
                             hgt *= secondaryWallScale;
                         }
-                        gs.md.mountainNoise[x, y] += hgt * wallEdgeScale * zoneScale;
+                        _md.mountainNoise[x, y] += hgt * wallEdgeScale * zoneScale;
                         continue;
                     }
                 }

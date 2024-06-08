@@ -20,7 +20,7 @@ public class TreeObjectLoader : BaseObjectLoader
 {
     const int ScaleStepCount = 20;
 
-    public override bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId,
+    public override bool LoadObject(PatchLoadData loadData, uint objectId,
         int x, int y, Zone currZone, ZoneType currZoneType, CancellationToken token)
     {
         FullTreePrototype fullProto = null;
@@ -31,11 +31,11 @@ public class TreeObjectLoader : BaseObjectLoader
             return false;
         }
 
-        SetupZoneTreeCache(gs);
+        SetupZoneTreeCache(_gs);
 
         string assetCategory = AssetCategoryNames.Trees;
 
-        treeType = _gameData.Get<TreeTypeSettings>(gs.ch).Get(objectId);
+        treeType = _gameData.Get<TreeTypeSettings>(_gs.ch).Get(objectId);
 
         if (treeType == null)
         {
@@ -48,25 +48,25 @@ public class TreeObjectLoader : BaseObjectLoader
         }
 
         if (!treeType.HasFlag(TreeFlags.IsWaterItem) &&
-            gs.map.OverrideZoneId > 0 && gs.map.OverrideZonePercent > 0)
+            _mapProvider.GetMap().OverrideZoneId > 0 && _mapProvider.GetMap().OverrideZonePercent > 0)
         {
-            if (loadData.patch.overrideZoneScales[x,y] < gs.map.OverrideZonePercent)
+            if (loadData.patch.overrideZoneScales[x,y] < _mapProvider.GetMap().OverrideZonePercent)
             {
-                Zone zone = gs.map.Get<Zone>(gs.map.OverrideZoneId);
+                Zone zone = _mapProvider.GetMap().Get<Zone>(_mapProvider.GetMap().OverrideZoneId);
                 if (zone != null)
                 {
                     List<long> okTreeIds = new List<long>();
 
                     if (treeType.HasFlag(TreeFlags.IsBush))
                     {
-                        if (gs.md.zoneBushIds.TryGetValue(zone.ZoneTypeId, out List<long> bushIds))
+                        if (_md.zoneBushIds.TryGetValue(zone.ZoneTypeId, out List<long> bushIds))
                         {
                             okTreeIds = bushIds;
                         }
                     }
                     else
                     {
-                        if (gs.md.zoneTreeIds.TryGetValue(zone.ZoneTypeId, out List<long> treeIds))
+                        if (_md.zoneTreeIds.TryGetValue(zone.ZoneTypeId, out List<long> treeIds))
                         {
                             okTreeIds = treeIds;
                         }
@@ -76,7 +76,7 @@ public class TreeObjectLoader : BaseObjectLoader
                     {
                         long treeTypeId = okTreeIds[(loadData.gx * 191 + loadData.gy * 2189 + x * 108061 + y * 857) % okTreeIds.Count];
 
-                        TreeType treeType2 = _gameData.Get<TreeTypeSettings>(gs.ch).Get(treeTypeId);
+                        TreeType treeType2 = _gameData.Get<TreeTypeSettings>(_gs.ch).Get(treeTypeId);
 
                         if (treeType2 != null)
                         {
@@ -89,7 +89,7 @@ public class TreeObjectLoader : BaseObjectLoader
         }
 
 
-        long index = GetIndexForTree(gs, currZone, treeType, loadData.gx * y + loadData.gy * x + x * 11 + y * 31);
+        long index = GetIndexForTree(currZone, treeType, loadData.gx * y + loadData.gy * x + x * 11 + y * 31);
         string artName = treeType.Art + index;
         if (false && treeType.HasFlag(TreeFlags.DirectPlaceObject))
         {
@@ -122,7 +122,7 @@ public class TreeObjectLoader : BaseObjectLoader
             }
             dlo.scale = finalScale;
 
-            _assetService.LoadAsset(gs, assetCategory, artName, OnDownloadObjectDirect, dlo, null, token);
+            _assetService.LoadAsset(assetCategory, artName, OnDownloadObjectDirect, dlo, null, token);
 
         }
         else
@@ -131,18 +131,18 @@ public class TreeObjectLoader : BaseObjectLoader
             fullProto.treeType = treeType;
             
 
-            StartPlaceInstance(gs, loadData, treeType, assetCategory, artName, x, y, null, token);
+            StartPlaceInstance(loadData, treeType, assetCategory, artName, x, y, null, token);
         }
         return true;
     }
 
-    protected void OnDownloadObjectDirect(UnityGameState gs, object obj, object data, CancellationToken token)
+    protected void OnDownloadObjectDirect(object obj, object data, CancellationToken token)
     {
-        OnDownloadObject(gs, obj, data, token);
+        OnDownloadObject(obj, data, token);
     }
 
 
-    public long GetIndexForTree(GameState gs, Zone zone, TreeType treeType, int localSeed)
+    public long GetIndexForTree(Zone zone, TreeType treeType, int localSeed)
     {
         if (zone == null || treeType == null)
         {
@@ -159,7 +159,7 @@ public class TreeObjectLoader : BaseObjectLoader
 
 
 
-    protected void StartPlaceInstance(UnityGameState gs, PatchLoadData loadData,
+    protected void StartPlaceInstance(PatchLoadData loadData,
         IIndexedGameItem dataItem,
         string assetCategory, string artName, int x, int y, object extraData, CancellationToken token)
     {
@@ -205,20 +205,20 @@ public class TreeObjectLoader : BaseObjectLoader
             if (currObject != null)
             {
                 tp.prefab = currObject;
-                PlaceInstance(gs, dataItem, loadData.treeInstances, protoIndex, loadData.gx, loadData.gy, x, y, extraData);
+                PlaceInstance(dataItem, loadData.treeInstances, protoIndex, loadData.gx, loadData.gy, x, y, extraData);
             }
             else
             {
-                _assetService.LoadAsset(gs, assetCategory, artName, OnDownloadPrototype, op, loadData.protoParent, token);
+                _assetService.LoadAsset(assetCategory, artName, OnDownloadPrototype, op, loadData.protoParent, token);
             }
         }
 
-        PlaceInstance(gs, dataItem, loadData.treeInstances, protoIndex, loadData.gx, loadData.gy, x, y, extraData);
+        PlaceInstance(dataItem, loadData.treeInstances, protoIndex, loadData.gx, loadData.gy, x, y, extraData);
     }
 
 
 
-    private void PlaceInstance(UnityGameState gs, IIndexedGameItem dataItem, List<TreeInstance> instances, int protoIndex, int gx, int gy, int x, int y, object data)
+    private void PlaceInstance(IIndexedGameItem dataItem, List<TreeInstance> instances, int protoIndex, int gx, int gy, int x, int y, object data)
     {
 
         long placementSeed = 17041 + x * 9479 + y * 2281 + gx * 5281 + gy * 719 +
@@ -228,7 +228,7 @@ public class TreeObjectLoader : BaseObjectLoader
         int wy = gy * (MapConstants.TerrainPatchSize - 1) + y;
         float ddx = MathUtils.SeedFloatRange(placementSeed * 13, 143, -0.5f, 0.5f, 101);
         float ddy = MathUtils.SeedFloatRange(placementSeed * 17, 149, -0.5f, 0.5f, 101);
-        float height = _terrainManager.SampleHeight(gs, wx, wy);
+        float height = _terrainManager.SampleHeight(wx, wy);
 
         TreeInstance ti = new TreeInstance();
         ti.prototypeIndex = protoIndex;
@@ -258,7 +258,7 @@ public class TreeObjectLoader : BaseObjectLoader
             }
             float finalScale = minScale + (maxScale - minScale) * (placementSeed % (ScaleStepCount + 1)) / ScaleStepCount;
 
-            GVector3 currNormal = _terrainManager.GetInterpolatedNormal(gs, gs.map, wx, wy);
+            GVector3 currNormal = _terrainManager.GetInterpolatedNormal(_mapProvider.GetMap(), wx, wy);
 
             float offsetScale = 1.0f;
             if (!tt.HasFlag(TreeFlags.IsBush))
@@ -281,7 +281,7 @@ public class TreeObjectLoader : BaseObjectLoader
     }
 
 
-    private void OnDownloadPrototype(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnDownloadPrototype(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -338,15 +338,15 @@ public class TreeObjectLoader : BaseObjectLoader
         go.transform().localPosition = GVector3.Create(0, -2000, 0);
     }
 
-    private void SetupZoneTreeCache(UnityGameState gs)
+    private void SetupZoneTreeCache(IUnityGameState gs)
     {
-        if (gs.md.zoneTreeIds != null && gs.md.zoneBushIds != null)
+        if (_md.zoneTreeIds != null && _md.zoneBushIds != null)
         {
             return;
         }
 
-        gs.md.zoneTreeIds = new Dictionary<long, List<long>>();
-        gs.md.zoneBushIds = new Dictionary<long, List<long>>();
+        _md.zoneTreeIds = new Dictionary<long, List<long>>();
+        _md.zoneBushIds = new Dictionary<long, List<long>>();
 
         TreeTypeSettings treeSettings = _gameData.Get<TreeTypeSettings>(gs.ch);
         foreach (IGameSettings settings in _gameData.Get<ZoneTypeSettings>(gs.ch).GetChildren())
@@ -356,8 +356,8 @@ public class TreeObjectLoader : BaseObjectLoader
                 List<long> treeList = new List<long>();
                 List<long> bushList = new List<long>();
 
-                gs.md.zoneTreeIds[zoneType.IdKey] = treeList;
-                gs.md.zoneBushIds[zoneType.IdKey] = bushList;
+                _md.zoneTreeIds[zoneType.IdKey] = treeList;
+                _md.zoneBushIds[zoneType.IdKey] = bushList;
 
                 foreach (ZoneTreeType ztt in zoneType.TreeTypes)
                 {

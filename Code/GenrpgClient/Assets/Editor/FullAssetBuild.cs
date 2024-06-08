@@ -28,11 +28,11 @@ namespace GameAssets.Editor
 
         static void ExecuteEnv (string env)
         {
-           UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+           IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
             
             SetupBundles.SetupAll(gs);
 			CreateAssetBundle.BuildAssetBundles(gs);
-			UploadAssetBundle.UploadAssetBundles(gs, env);
+			UploadAssetBundle.UploadAssetBundles(env);
             
 		}
 	}

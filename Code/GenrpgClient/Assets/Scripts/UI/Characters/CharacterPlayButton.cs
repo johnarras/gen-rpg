@@ -23,6 +23,6 @@ public class CharacterPlayButton : BaseBehaviour
     public void ClickPlay()
     {
         LoadIntoMapCommand lwd = new LoadIntoMapCommand() { Env= _gs.Config.Env, MapId = _mapId, CharId = _charId, GenerateMap = false };
-        _zoneGenService.LoadMap(_gs, lwd);
+        _zoneGenService.LoadMap(lwd);
     }
 }

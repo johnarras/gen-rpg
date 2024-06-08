@@ -7,14 +7,14 @@ namespace Assets.Scripts.MessageHandlers.Currency
 {
     public class OnAddUserCoinsHandler : BaseClientMapMessageHandler<OnAddUserCoin>
     {
-        protected override void InnerProcess(UnityGameState gs, OnAddUserCoin msg, CancellationToken token)
+        protected override void InnerProcess(OnAddUserCoin msg, CancellationToken token)
         {
-            if (msg.CharId != gs.ch.Id)
+            if (msg.CharId != _gs.ch.Id)
             {
                 return;
             }
 
-            UserCoinData coinData = gs.ch.Get<UserCoinData>();
+            UserCoinData coinData = _gs.ch.Get<UserCoinData>();
             coinData.Add(msg.UserCoinTypeId, msg.QuantityAdded);
             _dispatcher.Dispatch(msg);
         }

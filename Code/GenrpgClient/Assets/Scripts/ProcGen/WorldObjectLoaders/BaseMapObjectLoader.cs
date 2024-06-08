@@ -8,6 +8,7 @@ using Genrpg.Shared.MapObjects.Messages;
 using Assets.Scripts.MapTerrain;
 using UnityEngine;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.MapServer.Services;
 
 /// <summary>
 /// Base class for object loaders
@@ -18,7 +19,7 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
 {
     public abstract long GetKey();
 
-    public abstract UniTask Load(UnityGameState gs, OnSpawn message, MapObject loadedObject, CancellationToken token);
+    public abstract UniTask Load(OnSpawn message, MapObject loadedObject, CancellationToken token);
 
     protected abstract string GetLayerName();
 
@@ -26,15 +27,17 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
     protected IAssetService _assetService;
     protected IClientMapObjectManager _objectManager;
     protected IGameData _gameData;
+    protected IMapProvider _mapProvider;
+    protected IUnityGameState _gs;
 
-    public void FinalPlaceObject(UnityGameState gs, GEntity go, SpawnLoadData data, string layerName)
+    public void FinalPlaceObject(GEntity go, SpawnLoadData data, string layerName)
     {
         if (go == null)
         {
             return;
         }
 
-        TerrainPatchData patchData = _terrainManager.GetPatchFromMapPos(gs, data.Spawn.X, data.Spawn.Z);
+        TerrainPatchData patchData = _terrainManager.GetPatchFromMapPos(data.Spawn.X, data.Spawn.Z);
 
         if (patchData == null)
         {
@@ -64,7 +67,7 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
             nz = data.Spawn.Z;
         }
 
-        float height = _terrainManager.SampleHeight(gs, nx, nz);
+        float height = _terrainManager.SampleHeight(nx, nz);
        
         go.transform().position = GVector3.Create(nx, height, nz);
         go.transform().eulerAngles = GVector3.Create(0, data.Spawn.Rot, 0);

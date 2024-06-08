@@ -30,7 +30,7 @@ namespace Genrpg.ServerShared.MapSpawns
 
     public class MapSpawnDataService : IMapSpawnDataService
     {
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = nameof(UnitStatus.OwnerId) });

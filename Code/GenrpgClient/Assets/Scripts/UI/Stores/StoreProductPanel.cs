@@ -47,12 +47,12 @@ namespace Assets.Scripts.UI.Stores
             {
                 foreach (SpawnItem spawnItem in product.Product.Rewards)
                 {
-                    _assetService.LoadAsset(_gs, AssetCategoryNames.Stores, RewardPanelPrefabName, OnDownloadReward, spawnItem, RewardAnchor, token, theme.Art);
+                    _assetService.LoadAsset(AssetCategoryNames.Stores, RewardPanelPrefabName, OnDownloadReward, spawnItem, RewardAnchor, token, theme.Art);
                 }
             }
         }
 
-        private void OnDownloadReward(GameState gs, object obj, object data, CancellationToken token)
+        private void OnDownloadReward(object obj, object data, CancellationToken token)
         {
             if (obj == null)
             {

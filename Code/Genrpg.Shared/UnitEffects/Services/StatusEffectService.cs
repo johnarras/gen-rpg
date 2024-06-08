@@ -12,13 +12,13 @@ namespace Genrpg.Shared.UnitEffects.Services
 {
     public class StatusEffectService : IStatusEffectService
     {
-        private IGameData _gameData;
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        private IGameData _gameData = null;
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
 
-        public string ShowStatusEffects(GameState gs, Unit unit, bool showAbbreviations)
+        public string ShowStatusEffects(Unit unit, bool showAbbreviations)
         {
             StringBuilder sb = new StringBuilder();
             if (unit == null)

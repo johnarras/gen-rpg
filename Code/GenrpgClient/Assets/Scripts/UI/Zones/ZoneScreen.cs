@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
 using Genrpg.Shared.Zones.WorldData;
+using Genrpg.Shared.MapServer.Services;
 
 public class ZoneScreen : BaseScreen
 {
@@ -16,6 +17,7 @@ public class ZoneScreen : BaseScreen
 
     protected GEntity ArrowObject;
     private IPlayerManager _playerManager;
+    private IMapProvider _mapProvider;
 
 
     protected override async UniTask OnStartOpen(object data, CancellationToken token)
@@ -26,15 +28,15 @@ public class ZoneScreen : BaseScreen
 
     private void Setup()
     {
-        _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token, "Maps");
+        _assetService.LoadAssetInto(ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token, "Maps");
 
-        _uIInitializable.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
+        _uIInitializable.SetImageTexture(MapImage, MinimapUI.GetTexture());
         ShowPlayer();
 
     }
 
 
-    private void OnLoadArrow(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadArrow(object obj, object data, CancellationToken token)
     {
         ArrowObject = obj as GEntity;
     }
@@ -88,7 +90,7 @@ public class ZoneScreen : BaseScreen
 
         float minPercentSize = 1.0f * minZonePixelSize / mapSize;
 
-        Zone currZone = _gs.map.Get<Zone>(ZoneStateController.CurrentZoneShown);
+        Zone currZone = _mapProvider.GetMap().Get<Zone>(ZoneStateController.CurrentZoneShown);
 
         float oldminx = 0;
         float oldminy = 0;
@@ -99,17 +101,17 @@ public class ZoneScreen : BaseScreen
         { 
             float minx = currZone.ZMin; float miny = currZone.XMin; float maxx = currZone.ZMax; float maxy = currZone.XMax;
 
-            xminpct = minx * 1.0f / _gs.map.GetHwid();
-            xmaxpct = maxx * 1.0f / _gs.map.GetHhgt();
-            yminpct = miny * 1.0f / _gs.map.GetHhgt();
-            ymaxpct = maxy * 1.0f / _gs.map.GetHhgt();
+            xminpct = minx * 1.0f / _mapProvider.GetMap().GetHwid();
+            xmaxpct = maxx * 1.0f / _mapProvider.GetMap().GetHhgt();
+            yminpct = miny * 1.0f / _mapProvider.GetMap().GetHhgt();
+            ymaxpct = maxy * 1.0f / _mapProvider.GetMap().GetHhgt();
 
             oldminx = xminpct;
             oldminy = yminpct;
             oldmaxx = xmaxpct;
             oldmaxy = ymaxpct;
 
-            float numBlocks = _gs.map.GetHwid() / MapConstants.TerrainPatchSize;
+            float numBlocks = _mapProvider.GetMap().GetHwid() / MapConstants.TerrainPatchSize;
 
             float edgeSize = 0.01f;
 
@@ -188,8 +190,8 @@ public class ZoneScreen : BaseScreen
         }
 
         // Player pct goes from -0.5 to 0.5.
-        float xpctstart = pos.x / _gs.map.GetHwid();
-        float ypctstart = pos.z / _gs.map.GetHhgt();
+        float xpctstart = pos.x / _mapProvider.GetMap().GetHwid();
+        float ypctstart = pos.z / _mapProvider.GetMap().GetHhgt();
 
         float newdx = xmaxpct - xminpct;
         float newdy = ymaxpct - yminpct;

@@ -1,0 +1,10 @@
+{
+  "Id": "stattype34default",
+  "ParentId": "default",
+  "IdKey": 34,
+  "Name": "ManaRegen",
+  "Desc": "Mana Regen",
+  "GenScalePct": 100,
+  "UpdateTime": "2024-06-07T23:19:13.152Z",
+  "CreateTime": "2024-02-15T23:03:14.499Z"
+}

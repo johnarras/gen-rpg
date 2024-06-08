@@ -32,9 +32,10 @@ public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<
     private IInputService _inputService;
     private IMapTerrainManager _terrainManager;
     private IPlayerManager _playerManager;
+    protected IMapGenData _md;
 
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -79,7 +80,7 @@ public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<
 
     public List<Camera> GetAllCameras() { return Cameras; }
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         CameraDistance = StartCameraOffset.magnitude;
@@ -230,7 +231,7 @@ public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<
         CameraHeightAboveGroundTarget = MathUtils.Clamp(-1, CameraHeightAboveGroundTarget, 10);
 
 
-        List<ActiveScreen> screens = _screenService.GetAllScreens(_gs);
+        List<ActiveScreen> screens = _screenService.GetAllScreens();
 
         foreach (ActiveScreen scrn in screens)
         {
@@ -453,7 +454,7 @@ public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<
     public void UpdateCamera()
 	{
 	    player = _playerManager.GetEntity();
-		if (player == null || _gs.md == null || _gs.md.GeneratingMap || MainCam == null)
+		if (player == null || _md.GeneratingMap || MainCam == null)
 		{
 			return;
 		}
@@ -491,7 +492,7 @@ public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<
         MoveCamera(lookAtPos + GQuaternion.MultVector(lookAtRotation,cameraOffset), lookAtPos);
 
         camPos2 = GVector3.Create(MainCam.transform().position);
-		terrainHeightAtCamera = _terrainManager.SampleHeight(_gs, camPos2.x, camPos2.z);
+		terrainHeightAtCamera = _terrainManager.SampleHeight(camPos2.x, camPos2.z);
 
         camDist = GVector3.Distance(lookAtPos, GVector3.Create(MainCam.transform().position))+1.0f;
         camYPos = MainCam.transform().position.y;
@@ -500,7 +501,7 @@ public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<
                     out objHit, camDist, camCollideLayerMask);
 
         playerPosition = GVector3.Create(player.transform().position);
-        terrainHeightAtPlayer = _terrainManager.SampleHeight(_gs, playerPosition.x, playerPosition.z);
+        terrainHeightAtPlayer = _terrainManager.SampleHeight(playerPosition.x, playerPosition.z);
 
         currMinHeightAboveTerrain = minHeightAboveTerrain;
 

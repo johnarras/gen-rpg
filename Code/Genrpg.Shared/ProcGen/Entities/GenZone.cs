@@ -67,7 +67,7 @@ namespace Genrpg.Shared.ProcGen.Entities
             return null;
         }
 
-        public void AddNearbyZone(GameState gs, Zone zone, float distance)
+        public void AddNearbyZone(Zone zone, float distance)
         {
 
             if (zone == null || zone.ZoneTypeId < SharedMapConstants.MapZoneStartId)

@@ -103,13 +103,9 @@ namespace Genrpg.Shared.MapObjects.Entities
         public virtual void Dispose()
         {
             _messageCache.Clear();
-            _messageCache = null;
             OnActionMessage = null;
-            OnActionLock = null;
             Waypoints?.Dispose();
-            Waypoints = null;
             Effects.Clear();
-            Effects = null;
         }
 
         public void RemoveEffect(IDisplayEffect effect)

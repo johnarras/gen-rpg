@@ -36,7 +36,7 @@ namespace Genrpg.ServerShared.DataStores.DbQueues
                 }
                 catch (OperationCanceledException ce)
                 {
-                    logger.Info("Stopped DBQueue");
+                    logger.Info("Stopped DBQueue " + ce.Message);
                 }
                 catch (Exception e)
                 {

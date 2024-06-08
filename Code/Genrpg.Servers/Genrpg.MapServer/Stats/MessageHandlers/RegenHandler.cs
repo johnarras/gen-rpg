@@ -9,27 +9,23 @@ using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Stats.MessageHandlers
 {
-    public class RegenHandler : BaseServerMapMessageHandler<Regen>
+    public class RegenHandler : BaseUnitServerMapMessageHandler<Regen>
     {
         private IStatService _statService = null;
-        public override void Setup(GameState gs)
+        public override void Setup(IGameState gs)
         {
             base.Setup(gs);
         }
 
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, Regen message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, Regen message)
         {
-            if (!(obj is Unit unit))
-            {
-                return;
-            }
-
             float regenSeconds = StatConstants.RegenTickSeconds;
 
-            _statService.RegenerateTick(gs, unit, regenSeconds);
+            _statService.RegenerateTick(rand, unit, regenSeconds);
 
             if (unit.RegenMessage != null && !unit.RegenMessage.IsCancelled())
             {

@@ -10,7 +10,7 @@ namespace Genrpg.Shared.Interfaces
     public delegate void VoidDelegate();
     public delegate void ObjectDelegate(object obj);
     public delegate void StringDelegate(string s);
-    public delegate void GameStateObjectDelegate(GameState gs, object obj);
+    public delegate void GameStateObjectDelegate(IGameState gs, object obj);
     public delegate void TokenDelegate(CancellationToken token);
 
 
@@ -100,6 +100,7 @@ namespace Genrpg.Shared.Interfaces
 
         List<IInjectable> GetVals();
         void Resolve(object obj);
-        void ResolveSelf();
+        void StoreDictionaryItem(object obj);
+        void ResolveSelf();      
     }
 }

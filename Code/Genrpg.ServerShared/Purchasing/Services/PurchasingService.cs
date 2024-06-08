@@ -23,13 +23,13 @@ namespace Genrpg.ServerShared.Purchasing.Services
     public class PurchasingService : IPurchasingService
     {
         protected IRepositoryService _repoService = null;
-        private IGameData _gameData;
-        public async Task Initialize(GameState gs, CancellationToken token)
+        private IGameData _gameData = null;
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-        public async Task<PlayerStoreOfferData> GetCurrentStores(ServerGameState gs, User user, Character ch, bool forceRefresh)
+        public async Task<PlayerStoreOfferData> GetCurrentStores(User user, Character ch, bool forceRefresh)
         {
 
             PlayerStoreOfferData storeOfferData = await _repoService.Load<PlayerStoreOfferData>(user.Id);
@@ -79,7 +79,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
 
             foreach (StoreOffer offer in storeOffers)
             {
-                TryAddOffer(gs, offer, storeDict, user, ch, historyData);
+                TryAddOffer(offer, storeDict, user, ch, historyData);
             }
 
             foreach (StoreOffer storeOffer in storeDict.Values)
@@ -147,7 +147,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
             return storeOfferData;
         }
 
-        protected void TryAddOffer (ServerGameState gs, StoreOffer offer, Dictionary<long,StoreOffer> currentOffers, User user, Character ch, PurchaseHistoryData historyData)
+        protected void TryAddOffer (StoreOffer offer, Dictionary<long,StoreOffer> currentOffers, User user, Character ch, PurchaseHistoryData historyData)
         {
 
             if (!PlayerFilterUtils.IsActive(offer))

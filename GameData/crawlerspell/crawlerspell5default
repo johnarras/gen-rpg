@@ -10,7 +10,6 @@
   "RequiredStatusEffectId": 13,
   "ReplacesCrawlerSpellId": 1,
   "CombatActionId": 1,
-  "ClassId": 2,
   "TargetTypeId": 1,
   "CritChance": 100.0,
   "Level": 1,

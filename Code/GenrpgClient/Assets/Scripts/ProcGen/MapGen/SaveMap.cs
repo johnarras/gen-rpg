@@ -8,26 +8,26 @@ using Genrpg.Shared.Utils;
 
 public class SaveMap : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
-        gs.map.OverrideZonePercent = 0; // MathUtils.IntRange(20, 80, gs.rand);
+        _mapProvider.GetMap().OverrideZonePercent = 0; // MathUtils.IntRange(20, 80, _rand);
 
-        for (int gx = 0; gx < gs.map.BlockCount; gx++)
+        for (int gx = 0; gx < _mapProvider.GetMap().BlockCount; gx++)
         {
-            for (int gy = 0; gy < gs.map.BlockCount; gy++)
+            for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
             {
-                SaveOneTerrainPatch(gs, gx, gy);
+                SaveOneTerrainPatch(gx, gy);
             }
         }
     }
 
 
-    public void SaveOneTerrainPatch(UnityGameState gs, int gx, int gy)
+    public void SaveOneTerrainPatch(int gx, int gy)
     {
 
-        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gx, gy);
 
         if (patch == null)
         {
@@ -68,7 +68,7 @@ public class SaveMap : BaseZoneGenerator
         {
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
             {
-                shortHeight = (ushort)(MapConstants.HeightSaveMult * gs.md.heights[x + startX, y + startY]);
+                shortHeight = (ushort)(MapConstants.HeightSaveMult * _md.heights[x + startX, y + startY]);
 
                 bytes[index++] = (byte)(shortHeight);
                 bytes[index++] = (byte)(shortHeight >> 8);
@@ -85,8 +85,8 @@ public class SaveMap : BaseZoneGenerator
             {
                 int xx = x + objStartX;
                 int yy = y + objStartY;
-                //worldObjectValue = gs.md.mapObjects[x + objStartX, y + objStartY];
-                worldObjectValue = gs.md.mapObjects[y + objStartY, x + objStartX];
+                //worldObjectValue = _md.mapObjects[x + objStartX, y + objStartY];
+                worldObjectValue = _md.mapObjects[y + objStartY, x + objStartX];
 
                 if (x == MapConstants.TerrainPatchSize - 1 || y == MapConstants.TerrainPatchSize - 1)
                 {
@@ -112,7 +112,7 @@ public class SaveMap : BaseZoneGenerator
 
                 for (int i = 0; i < MapConstants.MaxTerrainIndex - 1; i++)
                 {
-                    bytes[index++] = (byte)(gs.md.alphas[x + startX, y + startY, i] * MapConstants.AlphaSaveMult);
+                    bytes[index++] = (byte)(_md.alphas[x + startX, y + startY, i] * MapConstants.AlphaSaveMult);
                 }
             }
         }
@@ -124,7 +124,7 @@ public class SaveMap : BaseZoneGenerator
         {
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
             {
-                byte zid = (byte)gs.md.mapZoneIds[x + startX, y + startY];
+                byte zid = (byte)_md.mapZoneIds[x + startX, y + startY];
                 if (zid <= MapConstants.MountainZoneId)
                 {
                     _logService.Error("Found bad zoneId at " + (x + startX) + " " + (y + startY));
@@ -141,7 +141,7 @@ public class SaveMap : BaseZoneGenerator
         {
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
             {
-                bytes[index++] = (byte)(gs.md.subZoneIds[x + startX, y + startY]);
+                bytes[index++] = (byte)(_md.subZoneIds[x + startX, y + startY]);
             }
         }
 
@@ -151,7 +151,7 @@ public class SaveMap : BaseZoneGenerator
         {
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
             {
-                float val = MathUtils.Clamp(0, Math.Abs(gs.md.overrideZoneScales[x + startX, y + startY]), 1);
+                float val = MathUtils.Clamp(0, Math.Abs(_md.overrideZoneScales[x + startX, y + startY]), 1);
 
                 bytes[index++] = (byte)(val*MapConstants.OverrideZoneScaleMax);
             }
@@ -170,7 +170,7 @@ public class SaveMap : BaseZoneGenerator
         {
             zoneText += zid + " ";
         }
-        repo.SaveBytes(patch.GetFilePath(gs, true), newBytes);
+        repo.SaveBytes(patch.GetFilePath(true), newBytes);
 
     }
 }

@@ -2,7 +2,7 @@
   "Id": "crawlerspell43default",
   "ParentId": "default",
   "IdKey": 43,
-  "Name": "Bring a Friend",
+  "Name": "Summon Elemental",
   "Desc": "",
   "Icon": "",
   "Art": "",
@@ -19,6 +19,6 @@
     }
   ],
   "Flags": 2,
-  "UpdateTime": "2024-03-24T18:00:36.878Z",
-  "CreateTime": "2024-03-24T17:42:16Z"
+  "UpdateTime": "2024-06-07T23:03:24.262Z",
+  "CreateTime": "2024-03-24T22:42:16Z"
 }

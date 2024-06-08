@@ -13,7 +13,7 @@ public interface IShapeService : IInitializable
 
 public class ShapeService : IShapeService
 {
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }

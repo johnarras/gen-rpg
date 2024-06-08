@@ -4,15 +4,16 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Genrpg.MapServer.Spawns.MessageHandlers
 {
-    public class SendSpawnHandler : BaseServerMapMessageHandler<SendSpawn>
+    public class SendSpawnHandler : BaseMapObjectServerMapMessageHandler<SendSpawn>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, SendSpawn message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, SendSpawn message)
         {
             if (!_objectManager.GetChar(message.ToObjId, out Character ch))
             {

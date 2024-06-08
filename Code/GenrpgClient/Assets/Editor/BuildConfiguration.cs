@@ -35,7 +35,7 @@ public class BuildConfiguration
 
 
 
-    public static List<PlatformBuildData> GetbuildConfigs(UnityGameState gs)
+    public static List<PlatformBuildData> GetbuildConfigs(IUnityGameState gs)
     {
         List<PlatformBuildData> list = new List<PlatformBuildData>();
 

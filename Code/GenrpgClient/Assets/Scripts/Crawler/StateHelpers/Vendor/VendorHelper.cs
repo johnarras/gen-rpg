@@ -21,11 +21,11 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.Vendor; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
 
             CrawlerStateData crawlerStateData = CreateStateData();
-            _screenService.Open(gs, ScreenId.CrawlerVendor);
+            _screenService.Open(ScreenId.CrawlerVendor);
             await UniTask.CompletedTask;
             return crawlerStateData;
 

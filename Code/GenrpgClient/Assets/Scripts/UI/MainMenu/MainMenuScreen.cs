@@ -22,7 +22,7 @@ public class MainMenuScreen : BaseScreen
 
     private void ClickLogout()
     {
-        _loginService.Logout(_gs);
+        _loginService.Logout();
     }
 
     private void ClickQuit()
@@ -32,7 +32,7 @@ public class MainMenuScreen : BaseScreen
 
     private void ExitMap()
     {
-        _loginService.ExitMap(_gs);
+        _loginService.ExitMap();
     }
     
 

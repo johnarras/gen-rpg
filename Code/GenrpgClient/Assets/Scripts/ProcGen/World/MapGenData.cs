@@ -13,67 +13,161 @@ using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using System.Linq;
+using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Interfaces;
 
-public class MapGenData
+public interface IMapGenData : IInjectable
 {
 
     // Alphamap width and height
-    public int awid;
-    public int ahgt;
+     int awid { get; set; }
+     int ahgt { get; set; }
 
     // Detail map width and height
-    public int dwid;
-    public int dhgt;
+     int dwid { get; set; }
+     int dhgt { get; set; }
 
-    public byte[,,] grassAmounts;
+     byte[,,] grassAmounts { get; set; }
 
     // heightmap
-    public float[,] heights;
-    public float[,] subZonePercents;
-    public int[,] subZoneIds;
-    public float[,] overrideZoneScales;
+     float[,] heights { get; set; }
+     float[,] subZonePercents { get; set; }
+     int[,] subZoneIds { get; set; }
+     float[,] overrideZoneScales { get; set; }
     // splatmaps
-    public float[,,] alphas;
+     float[,,] alphas { get; set; }
 
-    public float[,] roadDistances;
+     float[,] roadDistances { get; set; }
 
 
     // List of roads created
-    public List<List<MyPointF>> roads;
+     List<List<MyPointF>> roads { get; set; }
 
-    public List<MyPointF> creviceBridges;
+     List<MyPointF> creviceBridges { get; set; }
     // Bridges that have been made
-    public List<MyPointF> currBridges;
+     List<MyPointF> currBridges { get; set; }
 
-    public ushort[,] bridgeDistances;
+     ushort[,] bridgeDistances { get; set; }
 
 
-    public float[,] mountainNoise;
-    public float[,] mountainDecayPower;
+     float[,] mountainNoise { get; set; }
+     float[,] mountainDecayPower { get; set; }
 
-    public List<Location>[,] locationGrid;
+     List<Location>[,] locationGrid { get; set; }
 
     // Ends of ramps where special monsters or quests can be placed.
-    public List<MyPoint> rampTops;
+     List<MyPoint> rampTops { get; set; }
 
-    public float[,] creviceDepths;
+     float[,] creviceDepths { get; set; }
 
-    public int[,] flags;
+     int[,] flags { get; set; }
 
-    public short[,] mapZoneIds;
-    public List<MyPoint> zoneCenters;
-    public List<ConnectedPairData> zoneConnections;
-    public float[,] mountainHeights;
-    public float[,] nearestMountainTopHeight;
-    public float[,] mountainCenterDist;
-    public float[,] mountainDistPercent;
-    public float[,] edgeMountainDistPercent;
-    public int[,] mapObjects;
+     short[,] mapZoneIds { get; set; }
+     List<MyPoint> zoneCenters { get; set; }
+     List<ConnectedPairData> zoneConnections { get; set; }
+     float[,] mountainHeights { get; set; }
+     float[,] nearestMountainTopHeight { get; set; }
+     float[,] mountainCenterDist { get; set; }
+     float[,] mountainDistPercent { get; set; }
+     float[,] edgeMountainDistPercent { get; set; }
+     int[,] mapObjects { get; set; }
+     List<int[]> wallEndpoints { get; set; }
 
-    public List<int[]> wallEndpoints;
+
+     Dictionary<int, List<int>> zoneAdjacencies { get; set; }
 
 
-    public Dictionary<int, List<int>> zoneAdjacencies = new Dictionary<int, List<int>>();
+
+     List<GenZone> GenZones { get; set; }
+
+
+
+    // Have we copied the heightmap data into the TerrainData?
+     bool HaveSetHeights { get; set; }
+    // Have we copied the splatmaps data into the TerrainData?
+     bool HaveSetAlphaSplats { get; set; } 
+
+     bool GeneratingMap { get; set; }
+
+     Dictionary<long, List<long>> zoneTreeIds { get; set; }
+     Dictionary<long, List<long>> zoneBushIds { get; set; }
+
+    void ClearGenerationData();
+
+
+    void ClearAlphasAt(int x, int z);
+
+    GenZone GetGenZone(long zoneId);
+
+    float GetAverageHeightNear(Map map, int hx, int hy, int radius, int terrainType = -1);
+
+    float GetAverageSplatNear(int x, int y, int radius, int channel);
+
+    float EdgeHeightmapAdjustPercent(Map map, int x, int y);
+    void AddMapLocation(IMapProvider _mapProvider, Location loc);
+    float GetMountainDefaultSize(Map map);
+}
+
+
+public class MapGenData : IMapGenData
+{
+
+    // Alphamap width and height
+    public int awid { get; set; }
+    public int ahgt { get; set; }
+
+    // Detail map width and height
+    public int dwid { get; set; }
+    public int dhgt { get; set; }
+
+    public byte[,,] grassAmounts { get; set; }
+
+    // heightmap
+    public float[,] heights { get; set; }
+    public float[,] subZonePercents { get; set; }
+    public int[,] subZoneIds { get; set; }
+    public float[,] overrideZoneScales { get; set; }
+    // splatmaps
+    public float[,,] alphas { get; set; }
+
+    public float[,] roadDistances { get; set; }
+
+
+    // List of roads created
+    public List<List<MyPointF>> roads { get; set; }
+
+    public List<MyPointF> creviceBridges { get; set; }
+    // Bridges that have been made
+    public List<MyPointF> currBridges { get; set; }
+
+    public ushort[,] bridgeDistances { get; set; }
+
+
+    public float[,] mountainNoise { get; set; }
+    public float[,] mountainDecayPower { get; set; }
+
+    public List<Location>[,] locationGrid { get; set; }
+
+    // Ends of ramps where special monsters or quests can be placed.
+    public List<MyPoint> rampTops { get; set; }
+
+    public float[,] creviceDepths { get; set; }
+
+    public int[,] flags { get; set; }
+
+    public short[,] mapZoneIds { get; set; }
+    public List<MyPoint> zoneCenters { get; set; }
+    public List<ConnectedPairData> zoneConnections { get; set; }
+    public float[,] mountainHeights { get; set; }
+    public float[,] nearestMountainTopHeight { get; set; }
+    public float[,] mountainCenterDist { get; set; }
+    public float[,] mountainDistPercent { get; set; }
+    public float[,] edgeMountainDistPercent { get; set; }
+    public int[,] mapObjects { get; set; }
+    public List<int[]> wallEndpoints { get; set; }
+
+
+    public Dictionary<int, List<int>> zoneAdjacencies { get; set; } = new Dictionary<int, List<int>>();
 
 
 
@@ -82,14 +176,14 @@ public class MapGenData
 
 
     // Have we copied the heightmap data into the TerrainData?
-    public bool HaveSetHeights = false;
+    public bool HaveSetHeights { get; set; } = false;
     // Have we copied the splatmaps data into the TerrainData?
-    public bool HaveSetAlphaSplats = false;
+    public bool HaveSetAlphaSplats { get; set; } = false;
 
-    public bool GeneratingMap = false;
+    public bool GeneratingMap { get; set; } = false;
 
-    public Dictionary<long, List<long>> zoneTreeIds = null;
-    public Dictionary<long, List<long>> zoneBushIds = null;
+    public Dictionary<long, List<long>> zoneTreeIds { get; set; } = null;
+    public Dictionary<long, List<long>> zoneBushIds { get; set; } = null;
 
     public virtual void ClearGenerationData()
     {
@@ -126,7 +220,7 @@ public class MapGenData
   
 
  
-    public void ClearAlphasAt(GameState gs, int x, int z)
+    public void ClearAlphasAt(int x, int z)
     {
         if (x < 0 || z < 0 || x >= awid || z >= ahgt)
         {
@@ -150,7 +244,7 @@ public class MapGenData
         return genZone;
     }
 
-    public float GetAverageHeightNear(GameState gs, Map map, int hx, int hy, int radius, int terrainType = -1)
+    public float GetAverageHeightNear(Map map, int hx, int hy, int radius, int terrainType = -1)
     {
         if (heights == null)
         {
@@ -198,7 +292,7 @@ public class MapGenData
 
     }
 
-    public float GetAverageSplatNear(GameState gs, int x, int y, int radius, int channel)
+    public float GetAverageSplatNear(int x, int y, int radius, int channel)
     {
         if (alphas == null || radius < 1 || channel < 0 || channel >= MapConstants.MaxTerrainIndex)
         {
@@ -232,7 +326,7 @@ public class MapGenData
         return totalDirt / cellCount;
     }
 
-    public float EdgeHeightmapAdjustPercent(GameState gs, Map map, int x, int y)
+    public float EdgeHeightmapAdjustPercent(Map map, int x, int y)
     {
         if (x < 0 || y < 0 || x >= map.GetHwid() || y > map.GetHhgt())
         {
@@ -260,7 +354,7 @@ public class MapGenData
     }
 
     protected int locationCount = 0;
-    public void AddMapLocation(GameState gs, Location loc)
+    public void AddMapLocation(IMapProvider _mapProvider, Location loc)
     {
         if (loc == null)
         {
@@ -278,13 +372,13 @@ public class MapGenData
             }
         }
 
-        if (loc.CenterX < 0 || loc.CenterX >= gs.map.GetHwid() ||
-            loc.CenterZ < 0 || loc.CenterZ >= gs.map.GetHhgt())
+        if (loc.CenterX < 0 || loc.CenterX >= _mapProvider.GetMap().GetHwid() ||
+            loc.CenterZ < 0 || loc.CenterZ >= _mapProvider.GetMap().GetHhgt())
         {
             return;
         }
 
-        Zone zone = gs.map.Get<Zone>(mapZoneIds[loc.CenterX, loc.CenterZ]);
+        Zone zone = _mapProvider.GetMap().Get<Zone>(mapZoneIds[loc.CenterX, loc.CenterZ]);
         if (zone != null)
         {
             zone.Locations.Add(loc);
@@ -294,11 +388,11 @@ public class MapGenData
 
             locationGrid[gx, gy].Add(loc);
 
-            loc.Id = gs.map.Id + "-" + (++locationCount);
+            loc.Id = _mapProvider.GetMap().Id + "-" + (++locationCount);
         }
     }
 
-    public float GetMountainDefaultSize(GameState gs, Map map)
+    public float GetMountainDefaultSize(Map map)
     {
         if (map == null)
         {

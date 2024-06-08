@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 
-public delegate bool ExtraPrefabSetupStep(UnityGameState gs, GameObject go);
+public delegate bool ExtraPrefabSetupStep(GameObject go);
 
 public class BundleSetupUtils
 {
@@ -22,7 +22,7 @@ public class BundleSetupUtils
     /// Use this function to 
     /// </summary>
     /// <param name="path"></param>
-    public static void BundleFilesInDirectory(UnityGameState gs, string assetPathSuffix, bool allowAllFiles)
+    public static void BundleFilesInDirectory(string assetPathSuffix, bool allowAllFiles)
     {
         if (_assetService == null)
         {
@@ -43,7 +43,7 @@ public class BundleSetupUtils
 
         foreach (string fileName in files)
         {
-            if (SetupFileAtPath(gs, assetPathSuffix, fileName, false))
+            if (SetupFileAtPath(assetPathSuffix, fileName, false))
             {
                 numAdded++;
             }
@@ -68,16 +68,16 @@ public class BundleSetupUtils
             string subdirectory = directory.Replace(fullPath, "");
             if (string.IsNullOrEmpty(assetPathSuffix))
             {
-                BundleFilesInDirectory(gs, assetPathSuffix + (!string.IsNullOrEmpty(assetPathSuffix) ? "/" : "") + subdirectory, false);
+                BundleFilesInDirectory(assetPathSuffix + (!string.IsNullOrEmpty(assetPathSuffix) ? "/" : "") + subdirectory, false);
             }
             else
             {
-                SetupFileAtPath(gs, assetPathSuffix, directory, true);
+                SetupFileAtPath(assetPathSuffix, directory, true);
             }
         }
     }
 
-    private static bool SetupFileAtPath(UnityGameState gs, string assetPathSuffix, string item, bool allowAllFiles)
+    private static bool SetupFileAtPath(string assetPathSuffix, string item, bool allowAllFiles)
     {
         if (!allowAllFiles && EditorAssetUtils.IsIgnoreFilename(item))
         {
@@ -92,7 +92,7 @@ public class BundleSetupUtils
         if (importer != null)
         {
             string shortFilename = fileName.Replace(AssetConstants.ArtFileSuffix, "");
-            string bundleName = _assetService.GetBundleNameForCategoryAndAsset(gs, assetPathSuffix, shortFilename);
+            string bundleName = _assetService.GetBundleNameForCategoryAndAsset(assetPathSuffix, shortFilename);
             if (importer.assetBundleName != bundleName)
             {
                 importer.assetBundleName = bundleName;

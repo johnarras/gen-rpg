@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using UI.Screens.Constants;
 using Genrpg.Shared.Trades.Messages;
+using Genrpg.Shared.MapServer.Services;
 
 public class MapScreen : BaseScreen
 {
@@ -11,6 +12,8 @@ public class MapScreen : BaseScreen
     public GEntity ArrowParent = null;
     public GRawImage MapImage;
     private IPlayerManager _playerManager;
+    private IMapProvider _mapProvider;
+    protected IMapGenData _md;
 
     GEntity ArrowObject = null;
 
@@ -22,12 +25,12 @@ public class MapScreen : BaseScreen
 
     private void Setup()
     {
-        _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token, Subdirectory);
+        _assetService.LoadAssetInto(ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token, Subdirectory);
 
-        _uIInitializable.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
+        _uIInitializable.SetImageTexture(MapImage, MinimapUI.GetTexture());
     }
 
-    private void OnLoadArrow(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadArrow(object obj, object data, CancellationToken token)
     {
         ArrowObject = obj as GEntity;
         ShowPlayer();
@@ -48,12 +51,6 @@ public class MapScreen : BaseScreen
             return;
         }
 
-        if (_gs.md == null)
-        {
-            return;
-        }
-
-
         // Show player on map with arrow.
         GEntity player = _playerManager.GetEntity();
         if (player == null)
@@ -69,8 +66,8 @@ public class MapScreen : BaseScreen
         }
 
         // Player pct goes from -0.5 to 0.5.
-        float xpct = pos.x / _gs.map.GetHwid() - 0.5f;
-        float ypct = pos.z / _gs.map.GetHhgt() - 0.5f;
+        float xpct = pos.x / _mapProvider.GetMap().GetHwid() - 0.5f;
+        float ypct = pos.z / _mapProvider.GetMap().GetHhgt() - 0.5f;
 
         float rot = player.transform().eulerAngles.y;
 

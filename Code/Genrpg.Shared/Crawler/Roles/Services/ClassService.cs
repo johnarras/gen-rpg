@@ -14,7 +14,7 @@ namespace Genrpg.Shared.Crawler.Roles.Services
     {
 
         private Dictionary<long, IClassHelper> _classHelpers = new Dictionary<long, IClassHelper>();
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             _classHelpers = ReflectionUtils.SetupDictionary<long, IClassHelper>(gs);
             await Task.CompletedTask;

@@ -5,7 +5,7 @@ namespace Genrpg.MonsterServer.Setup
 {
     public class MonsterSetupService : SetupService
     {
-        public override void SetupServiceLocator(GameState gs)
+        public override void SetupServiceLocator(IGameState gs)
         {
             MonsterLocatorSetup iss = new MonsterLocatorSetup();
             iss.Setup(gs);

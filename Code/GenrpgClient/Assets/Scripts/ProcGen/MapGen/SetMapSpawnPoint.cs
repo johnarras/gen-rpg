@@ -8,20 +8,20 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class SetMapSpawnPoint : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        int minx = gs.map.GetHwid() / 2;
-        int miny = gs.map.GetHhgt() / 2;
+        await base.Generate(token);
+        int minx = _mapProvider.GetMap().GetHwid() / 2;
+        int miny = _mapProvider.GetMap().GetHhgt() / 2;
         long minDist = 1000000000;
         Zone minZone = null;
         int edgeSize = MapConstants.LocCenterEdgeSize;
-        foreach (Zone zone in gs.map.Zones)
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
             foreach (Location loc in zone.Locations)
             {
-                if (loc.CenterX < edgeSize || loc.CenterX >= gs.map.GetHwid() - edgeSize ||
-                    loc.CenterZ < edgeSize || loc.CenterZ >= gs.map.GetHhgt() - edgeSize)
+                if (loc.CenterX < edgeSize || loc.CenterX >= _mapProvider.GetMap().GetHwid() - edgeSize ||
+                    loc.CenterZ < edgeSize || loc.CenterZ >= _mapProvider.GetMap().GetHhgt() - edgeSize)
                 {
                     continue;
                 }
@@ -37,8 +37,8 @@ public class SetMapSpawnPoint : BaseZoneGenerator
                 }
             }
         }
-        gs.map.SpawnX = miny;
-        gs.map.SpawnY = minx;
+        _mapProvider.GetMap().SpawnX = miny;
+        _mapProvider.GetMap().SpawnY = minx;
         if (minZone != null)
         {
             minZone.Level = 1;

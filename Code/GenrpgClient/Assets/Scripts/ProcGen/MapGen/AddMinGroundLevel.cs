@@ -25,26 +25,26 @@ using System.Threading;
 
 public class AddMinGroundLevel : BaseZoneGenerator
 {
-    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate (CancellationToken token)
     {
-        await base.Generate(gs, token);
-        AddKillCollider(gs);
+        await base.Generate(token);
+        AddKillCollider(_gs);
         //AddMapOcean(gs);
 
 	}
 
 
     private static GEntity _killCollider = null;
-    public void AddKillCollider(UnityGameState gs)
+    public void AddKillCollider(IUnityGameState gs)
     {
         if (_killCollider != null)
         {
             return;
         }
-        _assetService.LoadAsset(gs, AssetCategoryNames.Prefabs, MapConstants.KillColliderName, OnLoadKillCollider, null, null, _token);
+        _assetService.LoadAsset(AssetCategoryNames.Prefabs, MapConstants.KillColliderName, OnLoadKillCollider, null, null, _token);
     }
 
-    private void OnLoadKillCollider (UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadKillCollider (object obj, object data, CancellationToken token)
     {
         _killCollider = obj as GEntity;
     }

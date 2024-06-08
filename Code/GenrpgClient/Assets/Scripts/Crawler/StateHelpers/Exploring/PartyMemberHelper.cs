@@ -21,7 +21,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.PartyMember; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
 
             PartyData partyData = _crawlerService.GetParty();
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 
             idata.SetInvenEquip(partyData.Inventory, member.Equipment);
 
-            _screenService.Open(gs, ScreenId.CrawlerCharacter, screenData);
+            _screenService.Open(ScreenId.CrawlerCharacter, screenData);
 
             await UniTask.CompletedTask;
             return crawlerStateData;

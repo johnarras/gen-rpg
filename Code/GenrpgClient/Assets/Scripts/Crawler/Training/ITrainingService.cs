@@ -11,7 +11,7 @@ namespace Assets.Scripts.Crawler.Services.Training
 {
     public interface ITrainingService : IInitializable
     {
-        TrainingInfo GetTrainingInfo(GameState gs, PartyData party, PartyMember member);
-        void TrainPartyMemberLevel(GameState gs, PartyData party, PartyMember member);
+        TrainingInfo GetTrainingInfo(PartyData party, PartyMember member);
+        void TrainPartyMemberLevel(PartyData party, PartyMember member);
     }
 }

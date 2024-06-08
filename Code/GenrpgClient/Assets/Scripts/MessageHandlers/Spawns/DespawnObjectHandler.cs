@@ -6,7 +6,7 @@ namespace Assets.Scripts.MessageHandlers.Spawns
 {
     public class DespawnObjectHandler : BaseClientMapMessageHandler<DespawnObject>
     {
-        protected override void InnerProcess(UnityGameState gs, DespawnObject msg, CancellationToken token)
+        protected override void InnerProcess(DespawnObject msg, CancellationToken token)
         {
             _objectManager.RemoveObject(msg.ObjId);
         }

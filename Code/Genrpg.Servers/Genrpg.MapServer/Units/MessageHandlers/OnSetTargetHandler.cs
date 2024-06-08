@@ -3,6 +3,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Targets.Messages;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Units.MessageHandlers
 {
-    public class OnSetTargetHandler : BaseServerMapMessageHandler<OnSetTarget>
+    public class OnSetTargetHandler : BaseMapObjectServerMapMessageHandler<OnSetTarget>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, OnSetTarget message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, OnSetTarget message)
         {
             obj.AddMessage(message);
         }

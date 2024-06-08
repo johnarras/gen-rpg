@@ -20,7 +20,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
         public override bool UseStatScaling() { return true; }
 
 
-        public override List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit hitData)
+        public override List<ActiveSpellEffect> CreateEffects(IRandom rand, SpellHit hitData)
         {
             ActiveSpellEffect eff = new ActiveSpellEffect(hitData);
             eff.EntityTypeId = EntityTypes.Healing;
@@ -28,7 +28,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
             return new List<ActiveSpellEffect>() { eff };
         }
 
-        public override bool HandleEffect(GameState gs, ActiveSpellEffect eff)
+        public override bool HandleEffect(IRandom rand, ActiveSpellEffect eff)
         {
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ) || targ.HasFlag(UnitFlags.IsDead))
             {
@@ -40,16 +40,16 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 
             int variancePct = 20;
                 eff.CurrQuantity = MathUtils.LongRange(eff.Quantity * (100 - variancePct) / 100,
-                    eff.Quantity * (100 + variancePct) / 100, gs.rand);
+                    eff.Quantity * (100 + variancePct) / 100, rand);
 
             if (eff.Quantity != 0 && _objectManager.GetChar(eff.CasterId, out Character ch))
             {
-                _achievementService.UpdateAchievement(gs, ch, AchievementTypes.TotalHealing, eff.Quantity);
-                _achievementService.UpdateAchievement(gs, ch, AchievementTypes.MaxHealing, eff.Quantity);
+                _achievementService.UpdateAchievement(ch, AchievementTypes.TotalHealing, eff.Quantity);
+                _achievementService.UpdateAchievement(ch, AchievementTypes.MaxHealing, eff.Quantity);
             }
 
 
-            return base.HandleEffect(gs, eff);
+            return base.HandleEffect(rand, eff);
         }
     }
 }

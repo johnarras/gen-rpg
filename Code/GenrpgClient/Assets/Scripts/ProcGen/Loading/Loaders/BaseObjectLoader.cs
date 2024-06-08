@@ -9,22 +9,28 @@ using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.MapServer.Services;
+using Assets.Scripts.ProcGen.RandomNumbers;
 
 public abstract class BaseObjectLoader : IInjectable
 {
     protected IAssetService _assetService;
     protected IMapTerrainManager _terrainManager;
     protected IGameData _gameData;
+    protected IMapProvider _mapProvider;
+    protected IUnityGameState _gs;
+    protected IClientRandom _rand;
+    protected IMapGenData _md;
 
-    public abstract bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId, int x, int y, 
+    public abstract bool LoadObject(PatchLoadData loadData, uint objectId, int x, int y, 
         Zone currZone, ZoneType currZoneType, CancellationToken token);
 
-    protected void OnDownloadObject(UnityGameState gs, object obj, object data, CancellationToken token)
+    protected void OnDownloadObject(object obj, object data, CancellationToken token)
     {
-        FinalPlaceObject(gs, obj as GEntity, data as DownloadObjectData, token);
+        FinalPlaceObject(obj as GEntity, data as DownloadObjectData, token);
     }
 
-    public virtual void FinalPlaceObject(UnityGameState gs, GEntity go, DownloadObjectData dlo, CancellationToken token)
+    public virtual void FinalPlaceObject(GEntity go, DownloadObjectData dlo, CancellationToken token)
     {
         if (go == null)
         {
@@ -77,7 +83,7 @@ public abstract class BaseObjectLoader : IInjectable
             dlo.ddx = MathUtils.SeedFloatRange(dlo.placementSeed * 13, 143, -0.5f, 0.5f, 101);
             dlo.ddy = MathUtils.SeedFloatRange(dlo.placementSeed * 17, 149, -0.5f, 0.5f, 101);
         }
-        dlo.height = _terrainManager.SampleHeight(gs, wx, wy);
+        dlo.height = _terrainManager.SampleHeight(wx, wy);
         go.transform().localPosition = GVector3.Create(dlo.x + dlo.ddx, dlo.height + dlo.zOffset, dlo.y + dlo.ddy);
         go.transform().localScale = GVector3.onePlatform;
         if (dlo.finalZ > 0)
@@ -94,7 +100,7 @@ public abstract class BaseObjectLoader : IInjectable
         }
         if (dlo.AfterLoad != null)
         {
-            dlo.AfterLoad(gs, go, dlo, token);
+            dlo.AfterLoad(go, dlo, token);
         }
 
         if (dlo.scale != 1.0f)

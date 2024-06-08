@@ -68,7 +68,7 @@ public class FloatingTextScreen : BaseScreen
             FloatingTextQueuedItem firstItem = _messageQueue[0];
             _messageQueue.RemoveAt(0);
 
-            _assetService.LoadAssetInto(_gs, _textAnchor, AssetCategoryNames.UI, firstItem.ArtName, OnLoadText, firstItem.Message, _token, Subdirectory);
+            _assetService.LoadAssetInto(_textAnchor, AssetCategoryNames.UI, firstItem.ArtName, OnLoadText, firstItem.Message, _token, Subdirectory);
 
         }
 
@@ -121,7 +121,7 @@ public class FloatingTextScreen : BaseScreen
         _messageQueue.Add(queuedItem);
     }
 
-    private void OnLoadText(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadText(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

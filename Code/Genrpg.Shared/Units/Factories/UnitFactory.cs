@@ -25,7 +25,7 @@ namespace Genrpg.Shared.Units.Factories
     {
         private IStatService _statService = null;
         public override long GetKey() { return EntityTypes.Unit; }
-        public override MapObject Create(GameState gs, IMapSpawn spawn)
+        public override MapObject Create(IRandom rand, IMapSpawn spawn)
         {
             UnitType utype = _gameData.Get<UnitSettings>(null).Get(spawn.EntityId);
 
@@ -34,7 +34,7 @@ namespace Genrpg.Shared.Units.Factories
                 utype = null;
             }
 
-            Zone zone = gs?.map?.Get<Zone>(spawn.ZoneId);
+            Zone zone = _mapProvider.GetMap().Get<Zone>(spawn.ZoneId);
 
             long level = zone != null ? zone.Level : 1;
             if (utype == null)
@@ -45,13 +45,13 @@ namespace Genrpg.Shared.Units.Factories
                     {
                         return null;
                     }
-                    utype = _unitGenService.GetRandomUnitType(gs, gs.map, zone);
+                    utype = _unitGenService.GetRandomUnitType(rand, _mapProvider.GetMap(), zone);
                 }
             }
 
             if (zone != null)
             {
-                level = zone.GetFinalUnitLevel(gs, spawn.X, spawn.Z, zone.Level);
+                level = zone.GetFinalUnitLevel(rand, spawn.X, spawn.Z, zone.Level, _mapProvider.GetMap().MaxLevel);
             }
 
             if (utype == null)
@@ -89,7 +89,7 @@ namespace Genrpg.Shared.Units.Factories
 
             IReadOnlyList<ElementType> etypes = _gameData.Get<ElementTypeSettings>(unit).GetData();
 
-            spell.ElementTypeId = etypes[gs.rand.Next() % etypes.Count].IdKey;
+            spell.ElementTypeId = etypes[(rand.Next() % (etypes.Count-1) + 1)].IdKey;
             spell.Id = HashUtils.NewGuid();
 
             SpellData spellData = unit.Get<SpellData>();
@@ -100,7 +100,7 @@ namespace Genrpg.Shared.Units.Factories
             {
                 if (zone != null)
                 {
-                    unit.Name = _unitGenService.GenerateUnitName(gs, utype.IdKey, zone.IdKey, gs.rand, null);
+                    unit.Name = _unitGenService.GenerateUnitName(rand, utype.IdKey, zone.IdKey, null);
                 }
                 else
                 {

@@ -27,7 +27,7 @@ namespace Genrpg.LoginServer.Services.Clients
 {
     public class ClientService : IClientService
     {
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -100,7 +100,7 @@ namespace Genrpg.LoginServer.Services.Clients
 
                     await gs.ch.GetAsync<GameDataOverrideData>(gs);
 
-                    RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs, gs.ch, false);
+                    RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs.ch, false);
 
                     if (result != null)
                     {

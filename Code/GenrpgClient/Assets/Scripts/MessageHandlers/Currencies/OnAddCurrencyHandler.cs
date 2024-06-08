@@ -8,13 +8,13 @@ namespace Assets.Scripts.MessageHandlers.Currency
     public class OnAddCurrencyHandler : BaseClientMapMessageHandler<OnAddCurrency>
     {
         private ICurrencyService _currencyService = null;
-        protected override void InnerProcess(UnityGameState gs, OnAddCurrency msg, CancellationToken token)
+        protected override void InnerProcess(OnAddCurrency msg, CancellationToken token)
         {
-            if (msg.CharId != gs.ch.Id)
+            if (msg.CharId != _gs.ch.Id)
             {
                 return;
             }
-            _currencyService.Add(gs.ch, msg.CurrencyTypeId, msg.QuantityAdded);
+            _currencyService.Add(_gs.ch, msg.CurrencyTypeId, msg.QuantityAdded);
             _dispatcher.Dispatch(msg);
         }
     }

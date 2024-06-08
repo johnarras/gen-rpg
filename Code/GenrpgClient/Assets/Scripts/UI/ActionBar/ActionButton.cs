@@ -79,7 +79,7 @@ public class ActionButton : SpellIcon
             iconName = _spell.Icon;
         }
 
-        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.SkillIcons, iconName, Icon, _token);
+        _assetService.LoadAtlasSpriteInto(AtlasNames.SkillIcons, iconName, Icon, _token);
 
         if (Tint != null && _spell == null)
         {
@@ -108,9 +108,9 @@ public class ActionButton : SpellIcon
         }
     }
 
-    public void SetCooldown(UnityGameState gs, Character ch)
+    public void SetCooldown(Character ch)
     {
-        if (ch != gs.ch || _spell == null)
+        if (ch != _gs.ch || _spell == null)
         {
             return;
         }
@@ -121,9 +121,9 @@ public class ActionButton : SpellIcon
         }
 
         cooldownStart = DateTime.UtcNow;
-        if (gs.ch.GlobalCooldownEnds > _spell.CooldownEnds)
+        if (_gs.ch.GlobalCooldownEnds > _spell.CooldownEnds)
         {
-            cooldownEnd = gs.ch.GlobalCooldownEnds;
+            cooldownEnd = _gs.ch.GlobalCooldownEnds;
         }
         else
         {
@@ -149,7 +149,7 @@ public class ActionButton : SpellIcon
 
                 if (_spell.CurrCharges < _spell.MaxCharges && _spell.CooldownEnds > DateTime.UtcNow)
                 {
-                    SetCooldown(_gs, _gs.ch);
+                    SetCooldown(_gs.ch);
                 }
             }
         }

@@ -12,19 +12,20 @@ using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.AI.MessageHandlers
 {
-    public class AIUpdateHandler : BaseServerMapMessageHandler<AIUpdate>
+    public class AIUpdateHandler : BaseUnitServerMapMessageHandler<AIUpdate>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, AIUpdate message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, AIUpdate message)
         {
-            if (!GetOkUnit(obj, false, out Unit unit))
+            if (!IsOkUnit(unit,false))
             {
                 return;
             }
 
-            if (!_aiService.Update(gs, unit))
+            if (!_aiService.Update(rand, unit))
             {
                 message.SetCancelled(true);
                 return;
@@ -34,8 +35,8 @@ namespace Genrpg.MapServer.AI.MessageHandlers
             {
                 if (!message.IsCancelled())
                 {
-                    float delayTime = _gameData.Get<AISettings>(obj).UpdateSeconds;
-                    _messageService.SendMessage(obj, message, delayTime);
+                    float delayTime = _gameData.Get<AISettings>(unit).UpdateSeconds;
+                    _messageService.SendMessage(unit, message, delayTime);
                 }
             }
         }

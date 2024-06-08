@@ -34,12 +34,12 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         {
             await base.Init(screen, token);
 
-            _assetService.LoadAsset(_gs, AssetCategoryNames.UI, PanelRowPrefab, OnLoadPanelRow, null, this, token, screen.Subdirectory);
-            _assetService.LoadAsset(_gs, AssetCategoryNames.UI, PanelTextPrefab, OnLoadTextRow, null, this, token, screen.Subdirectory);
+            _assetService.LoadAsset(AssetCategoryNames.UI, PanelRowPrefab, OnLoadPanelRow, null, this, token, screen.Subdirectory);
+            _assetService.LoadAsset(AssetCategoryNames.UI, PanelTextPrefab, OnLoadTextRow, null, this, token, screen.Subdirectory);
 
         }
 
-        private void OnLoadPanelRow(GameState gs, object obj, object data, CancellationToken token)
+        private void OnLoadPanelRow(object obj, object data, CancellationToken token)
         {
             GEntity entity = obj as GEntity;
             _panelRow = GEntityUtils.GetComponent<ActionPanelRow>(entity);
@@ -51,7 +51,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             }
         }
 
-        private void OnLoadTextRow(GameState gs, object obj, object data, CancellationToken token)
+        private void OnLoadTextRow(object obj, object data, CancellationToken token)
         {
             GEntity entity = obj as GEntity;
             _panelText = GEntityUtils.GetComponent<ActionPanelText>(entity);

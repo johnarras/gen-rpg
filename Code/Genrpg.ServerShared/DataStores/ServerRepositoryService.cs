@@ -31,7 +31,7 @@ namespace Genrpg.ServerShared.DataStores
     public class ServerRepositoryService : IRepositoryService
     {
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
@@ -58,7 +58,7 @@ namespace Genrpg.ServerShared.DataStores
 
         public int SetupPriorityAscending() { return SetupPriorities.Repositories; }
 
-        public async Task PrioritySetup(GameState gs, CancellationToken token)
+        public async Task PrioritySetup(IGameState gs, CancellationToken token)
         {
 
             _environments = _config.DataEnvs;

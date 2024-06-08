@@ -54,6 +54,8 @@ using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.ServerShared.Config;
 using Genrpg.MapServer.Setup.Instances;
+using Amazon.Runtime.Internal;
+using Genrpg.Shared.MapServer.Services;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -75,7 +77,7 @@ namespace Genrpg.MapServer.Maps
         private IMapDataService _mapDataService = null;
         protected IRepositoryService _repoService = null;
         protected ILogService _logService = null;
-        private IServerConfig _config = null;
+        protected IMapProvider _mapProvider;
 
         public const double UpdateMS = 100.0f;
 
@@ -85,6 +87,9 @@ namespace Genrpg.MapServer.Maps
         private string _host = null;
         private int _port = 0;
         private int _mapSize = 0;
+
+
+        private IRandom _rand = new MyRandom();
 
         private CancellationTokenSource _instanceTokenSource;
 
@@ -133,13 +138,15 @@ namespace Genrpg.MapServer.Maps
 
         private async Task RefreshGameDataAsync(IGameData gameData)
         {
-            await _gameDataService.ReloadGameData(_gs);
+            await _gameDataService.ReloadGameData();
             _messageService.UpdateGameData(gameData);
             UpdatePlayerClientData();
         }
 
-        public override async Task Init(object data, object parentObject, CancellationToken parentToken)
+        protected override async Task FinalInit(ServerGameState gs, object data, object parentObject, CancellationToken parentToken)
         {
+            await base.FinalInit(gs, data, parentObject, parentToken);
+
             InitMapInstanceData initData = data as InitMapInstanceData;
             _mapId = initData.MapId;
             _instanceId = HashUtils.NewGuid();
@@ -148,19 +155,16 @@ namespace Genrpg.MapServer.Maps
             
             _instanceTokenSource = CancellationTokenSource.CreateLinkedTokenSource(parentToken, _tokenSource.Token);
 
-            // Step 1: basic setup
-            await base.Init(data, parentObject,  _instanceTokenSource.Token);
-
             // Step 2: Load map before setting up messaging and object manager
-            _gs.map = await _mapDataService.LoadMap(_gs, _mapId);
-            _gs.spawns = await _mapSpawnDataService.LoadMapSpawnData(_repoService, _gs.map.Id, _gs.map.MapVersion);
+            _mapProvider.SetMap(await _mapDataService.LoadMap(_rand, _mapId));
+            _mapProvider.SetSpawns(await _mapSpawnDataService.LoadMapSpawnData(_repoService, _mapProvider.GetMap().Id, _mapProvider.GetMap().MapVersion));
 
             // Step 3: Setup messaging and object systems
             _messageService.Init(_gs, _tokenSource.Token);
-            _objectManager.Init(_gs, _tokenSource.Token);
+            _objectManager.Init(_rand, _tokenSource.Token);
             _port = initData.Port;
             _host = "127.0.0.1";
-            _mapSize = _gs.map.BlockCount;
+            _mapSize = _mapProvider.GetMap().BlockCount;
             
             if (_config.Env.IndexOf(EnvNames.Test) >= 0 || _config.Env.IndexOf(EnvNames.Prod) >= 0)
             {
@@ -174,7 +178,7 @@ namespace Genrpg.MapServer.Maps
 
             _ = Task.Run(() => ProcessMap(_tokenSource.Token), _tokenSource.Token);
 
-            await _pathfindingService.LoadPathfinding(_gs,
+            await _pathfindingService.LoadPathfinding(
                 _config.ContentRoot + 
                 _config.DataEnvs[DataCategoryTypes.WorldData] + "/");
         }
@@ -249,7 +253,7 @@ namespace Genrpg.MapServer.Maps
             }
             catch (OperationCanceledException ce)
             {
-                _logService.Info("Shutdown MapInstance.ProcessPlayerConnections");
+                _logService.Info("Shutdown MapInstance.ProcessPlayerConnections " + ce.Message);
             }
         }
 
@@ -286,7 +290,7 @@ namespace Genrpg.MapServer.Maps
             Character ch = connState.ch;
             if (ch != null)
             {
-                _objectManager.RemoveObject(_gs, ch.Id);
+                _objectManager.RemoveObject(_rand, ch.Id);
             }
             connState.ch = null;
         }
@@ -295,6 +299,7 @@ namespace Genrpg.MapServer.Maps
         {
             try
             {
+                MyRandom loadRand = new MyRandom();
                 if (connState.ch != null)
                 {
                     connState.conn.AddMessage(new ErrorMessage("Player already loaded"));
@@ -328,15 +333,15 @@ namespace Genrpg.MapServer.Maps
                     CharacterUtils.CopyDataFromTo(coreCh, ch);
                     ch.SetConn(connState.conn);
                     ch.NearbyGridsSeen = new List<PointXZ>();
-                    MapObjectGridItem gridItem = _objectManager.AddObject(_gs, ch, null);
+                    MapObjectGridItem gridItem = _objectManager.AddObject(loadRand, ch, null);
 
                     if (gridItem != null)
                     {
                         connState.ch = (Character)gridItem.Obj;
-                        await _playerDataService.LoadAllPlayerData(_gs, ch);
+                        await _playerDataService.LoadAllPlayerData(loadRand, ch);
                     }
 
-                    _gameDataService.SetGameDataOverrides(_gs, ch, true);
+                    _gameDataService.SetGameDataOverrides(ch, true);
 
                     didLoad = true;
                 }
@@ -401,7 +406,7 @@ namespace Genrpg.MapServer.Maps
 
             foreach (Character ch in allCharacters)
             {
-                _gameDataService.SetGameDataOverrides(_gs, ch, true);
+                _gameDataService.SetGameDataOverrides(ch, true);
             }
         }
 

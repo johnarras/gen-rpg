@@ -8,32 +8,30 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Units.MessageHandlers
 {
-    public class SetTargetHandler : BaseServerMapMessageHandler<SetTarget>
+    public class SetTargetHandler : BaseUnitServerMapMessageHandler<SetTarget>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, SetTarget message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, SetTarget message)
         {
 
             string targetId = null;
-            if (obj is Unit unit)
+            if (!string.IsNullOrEmpty(message.TargetId))
             {
-                if (!string.IsNullOrEmpty(message.TargetId))
+                if (_objectManager.GetUnit(message.TargetId, out Unit targetObject))
                 {
-                    if (_objectManager.GetUnit(message.TargetId, out Unit targetObject))
-                    {
-                        targetId = message.TargetId;
-                    }
+                    targetId = message.TargetId;
                 }
-                unit.TargetId = targetId;
-
-                OnSetTarget onSet = obj.GetCachedMessage<OnSetTarget>(true);
-                onSet.CasterId = obj.Id;
-                onSet.TargetId = targetId;
-
-                _messageService.SendMessageNear(obj, onSet);
             }
+            unit.TargetId = targetId;
+
+            OnSetTarget onSet = unit.GetCachedMessage<OnSetTarget>(true);
+            onSet.CasterId = unit.Id;
+            onSet.TargetId = targetId;
+
+            _messageService.SendMessageNear(unit, onSet);
         }
     }
 }

@@ -19,7 +19,7 @@ using Genrpg.Shared.GameSettings;
 
 public interface IUnitSetupService : IInitializable, IMapTokenService
 {
-    GEntity SetupUnit(UnityGameState gs, GEntity artGo, SpawnLoadData loadData, CancellationToken token);
+    GEntity SetupUnit(GEntity artGo, SpawnLoadData loadData, CancellationToken token);
 }
 
 
@@ -32,8 +32,9 @@ public class UnitSetupService : IUnitSetupService
     protected IDispatcher _dispatcher;
     protected IGameData _gameData;
     protected IPlayerManager _playerManager;
+    protected IUnityGameState _gs;
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -50,7 +51,7 @@ public class UnitSetupService : IUnitSetupService
         return _token;
     }
 
-    public GEntity SetupUnit(UnityGameState gs, GEntity artGo, SpawnLoadData loadData, CancellationToken token)
+    public GEntity SetupUnit(GEntity artGo, SpawnLoadData loadData, CancellationToken token)
     {
 
         if (artGo == null)
@@ -111,7 +112,7 @@ public class UnitSetupService : IUnitSetupService
 
         Unit unit = loadData.Obj as Unit;
         unit.TargetId = loadData.Spawn.TargetId;
-        InteractUnit interactUnit = GEntityUtils.GetOrAddComponent<InteractUnit>(gs, go);
+        InteractUnit interactUnit = GEntityUtils.GetOrAddComponent<InteractUnit>(_gs, go);
         //interactUnit.Initialize(gs);
         interactUnit.Init(unit, go, token);
         if (loadData.Spawn.FirstAttacker != null &&
@@ -125,15 +126,15 @@ public class UnitSetupService : IUnitSetupService
 
         if (unit.IsPlayer())
         {
-            OnLoadPlayer(gs, go, unit, token);
+            OnLoadPlayer(go, unit, token);
         }
         else if (unit.HasFlag(UnitFlags.ProxyCharacter))
         {
-            OnLoadProxyCharacter(gs, go, unit, token);
+            OnLoadProxyCharacter(go, unit, token);
         }
         else
         {
-            OnLoadMonster(gs, go, unit, token);
+            OnLoadMonster(go, unit, token);
         }
 
         _statService.CalcStats(unit, true);
@@ -168,9 +169,9 @@ public class UnitSetupService : IUnitSetupService
         return go;
     }
 
-    protected void OnLoadMonster(UnityGameState gs, GEntity go, Unit unit, CancellationToken token)
+    protected void OnLoadMonster(GEntity go, Unit unit, CancellationToken token)
     {
-        MonsterController mc = GEntityUtils.GetOrAddComponent<MonsterController>(gs, go);
+        MonsterController mc = GEntityUtils.GetOrAddComponent<MonsterController>(_gs, go);
 
         MonsterArtData artData = GEntityUtils.GetComponent<MonsterArtData>(go);
         if (artData != null)
@@ -185,13 +186,13 @@ public class UnitSetupService : IUnitSetupService
             animator.enabled = true;
         }
         // Create health bar after the stats are set up.
-        CreateHealthBar(gs, go, unit, token);
+        CreateHealthBar(go, unit, token);
 
     }
 
-    protected void OnLoadProxyCharacter(UnityGameState gs, GEntity go, Unit unit, CancellationToken token)
+    protected void OnLoadProxyCharacter(GEntity go, Unit unit, CancellationToken token)
     {
-        ProxyCharacterController pxc = GEntityUtils.GetOrAddComponent<ProxyCharacterController>(gs, go);
+        ProxyCharacterController pxc = GEntityUtils.GetOrAddComponent<ProxyCharacterController>(_gs, go);
 
         go.transform().localScale = GVector3.onePlatform;
 
@@ -215,27 +216,27 @@ public class UnitSetupService : IUnitSetupService
             animator.enabled = true;
         }
         // Create health bar after the stats are set up.
-        CreateHealthBar(gs, go, unit, token);
+        CreateHealthBar(go, unit, token);
 
     }
 
 
-    public void OnLoadPlayer(UnityGameState gs, GEntity go, Unit unit, CancellationToken token)
+    public void OnLoadPlayer(GEntity go, Unit unit, CancellationToken token)
     {
-        PlayerController pc = GEntityUtils.GetOrAddComponent<PlayerController>(gs, go);
+        PlayerController pc = GEntityUtils.GetOrAddComponent<PlayerController>(_gs, go);
         pc.Init(unit, token);
-        unit.Speed = _gameData.Get<AISettings>(gs.ch).BaseUnitSpeed;
-        unit.BaseSpeed = _gameData.Get<AISettings>(gs.ch).BaseUnitSpeed;
+        unit.Speed = _gameData.Get<AISettings>(_gs.ch).BaseUnitSpeed;
+        unit.BaseSpeed = _gameData.Get<AISettings>(_gs.ch).BaseUnitSpeed;
         go.name = "Player" + go.name;
         _playerManager.SetUnit(pc);
-        _assetService.LoadAssetInto(gs, go, AssetCategoryNames.UI,
+        _assetService.LoadAssetInto(go, AssetCategoryNames.UI,
             "PlayerLight", null, null, token, "Units");
         _dispatcher.Dispatch(new SetMapPlayerEvent() { Ch = unit as Character });
-        CreateHealthBar(gs, go, unit, token);
+        CreateHealthBar(go, unit, token);
     }
 
 
-    public void CreateHealthBar(UnityGameState gs, GEntity go, Unit unit, CancellationToken token)
+    public void CreateHealthBar(GEntity go, Unit unit, CancellationToken token)
     {
         if (unit == null || go == null)
         {
@@ -251,11 +252,11 @@ public class UnitSetupService : IUnitSetupService
             height = artData.HealthBarHeight / artData.SizeScale;
         }
         healthParent.transform().localPosition = GVector3.Create(0, height, 0);
-        _assetService.LoadAssetInto(gs, healthParent, AssetCategoryNames.UI, 
+        _assetService.LoadAssetInto(healthParent, AssetCategoryNames.UI, 
             "MapHealthBar", OnCreateHealthBar, unit, token, "Units");
     }
 
-    private void OnCreateHealthBar(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnCreateHealthBar(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         Unit unit = data as Unit;
@@ -275,7 +276,7 @@ public class UnitSetupService : IUnitSetupService
 
         if (healthBar != null)
         {
-            healthBar.Init(gs, unit);
+            healthBar.Init(unit);
         }
         
     }

@@ -16,7 +16,7 @@ public class CastBar : BaseBehaviour
     private bool _isCasting = false;
 
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         AddUpdate(CastUpdate, UpdateType.Regular);
@@ -24,10 +24,10 @@ public class CastBar : BaseBehaviour
         _dispatcher.AddEvent<OnStopCast>(this, OnStopCastHandler);
     }
     
-    public void Init(UnityGameState gs, Unit unit)
+    public void Init(Unit unit)
     {
         _unit = unit;
-        HideCast(gs);
+        HideCast();
     }
 
     private void OnStartCastHandler(OnStartCast onStartCast)
@@ -40,7 +40,7 @@ public class CastBar : BaseBehaviour
             return;
         }
 
-        ShowCast(_gs, (int)(onStartCast.CastSeconds * 1000), onStartCast.CastingName);
+        ShowCast((int)(onStartCast.CastSeconds * 1000), onStartCast.CastingName);
 
         return;
     }
@@ -53,12 +53,12 @@ public class CastBar : BaseBehaviour
         {
             return;
         }
-        HideCast(_gs);
+        HideCast();
 
         return;
     }
 
-    public void ShowCast (UnityGameState gs, int castTimeMS, string spellName)
+    public void ShowCast (int castTimeMS, string spellName)
     {
         if (_contentParent == null || _progressBar == null)
         {
@@ -68,12 +68,12 @@ public class CastBar : BaseBehaviour
         _spellName = spellName;
         _isCasting = true;
         GEntityUtils.SetActive(_contentParent, true);
-        _progressBar.InitRange(gs, 0, castTimeMS, 0);
-        _progressBar.SetValue(gs, 0, spellName);
+        _progressBar.InitRange(0, castTimeMS, 0);
+        _progressBar.SetValue(0, spellName);
 
     }
 
-    public void HideCast(UnityGameState gs)
+    public void HideCast()
     {
         GEntityUtils.SetActive(_contentParent, false);
         _isCasting = false;
@@ -93,10 +93,10 @@ public class CastBar : BaseBehaviour
         if (currVal > maxVal)
         {
             currVal = maxVal;
-            HideCast(_gs);
+            HideCast();
         }
 
-        _progressBar.SetValue(_gs, currVal, _spellName);
+        _progressBar.SetValue(currVal, _spellName);
     }
 
 

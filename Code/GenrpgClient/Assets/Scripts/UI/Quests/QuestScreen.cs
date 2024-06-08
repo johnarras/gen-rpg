@@ -90,7 +90,7 @@ public class QuestScreen : ItemIconScreen
         foreach (QuestType quest in allQuests)
         {
 
-            int questState = _questService.GetQuestState(_gs, _gs.ch, quest);
+            int questState = _questService.GetQuestState(_rand, _gs.ch, quest);
 
             if (questState == QuestState.Available || questState == QuestState.Complete ||
                 questState == QuestState.Active)
@@ -130,8 +130,8 @@ public class QuestScreen : ItemIconScreen
     {
         if (_unit.HasAddon(MapObjectAddonTypes.Vendor))
         {
-            _screenService.Open(_gs, ScreenId.Vendor, _unit);
-            _screenService.Close(_gs, ScreenID);
+            _screenService.Open(ScreenId.Vendor, _unit);
+            _screenService.Close(ScreenID);
         }
     }
 
@@ -165,7 +165,7 @@ public class QuestScreen : ItemIconScreen
                 qtype = _allQuests[i],
                 index = i,
             };
-            _assetService.LoadAssetInto(_gs, QuestListParent, AssetCategoryNames.UI, 
+            _assetService.LoadAssetInto(QuestListParent, AssetCategoryNames.UI, 
                 GetQuestRowPrefab(), OnLoadScreenQuest,  questIndexInfo, _token, Subdirectory);
         }
 
@@ -180,7 +180,7 @@ public class QuestScreen : ItemIconScreen
         }
     }
 
-    private void OnLoadScreenQuest(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadScreenQuest(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

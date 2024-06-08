@@ -16,9 +16,10 @@ namespace Genrpg.MapServer.MapMods.Services
     public class MapModService : IMapModService
     {
         private Dictionary<long, IMapModEffectHelper> _effectHelpers = null;
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             _effectHelpers = ReflectionUtils.SetupDictionary<long, IMapModEffectHelper>(gs);
+            await Task.CompletedTask;
         }
 
         protected IMapModEffectHelper GetHelper(long mapModEffectTypeId)
@@ -30,7 +31,7 @@ namespace Genrpg.MapServer.MapMods.Services
             return null;
         }
 
-        public void Process(ServerGameState gs, MapMod mapMod)
+        public void Process(IRandom rand, MapMod mapMod)
         {
             MapModAddon addon = mapMod.GetAddon<MapModAddon>();
             if (addon == null)
@@ -43,7 +44,7 @@ namespace Genrpg.MapServer.MapMods.Services
                 IMapModEffectHelper helper = GetHelper(effect.MapModEffectTypeId);
                 if (helper != null)
                 {
-                    helper.Process(gs, mapMod, addon, effect);
+                    helper.Process(rand, mapMod, addon, effect);
                 }
             }
         }

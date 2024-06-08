@@ -25,7 +25,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
         public override bool UseStatScaling() { return true; }
 
 
-        public override List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit hitData)
+        public override List<ActiveSpellEffect> CreateEffects(IRandom rand, SpellHit hitData)
         {
             ActiveSpellEffect eff = new ActiveSpellEffect(hitData);
             eff.EntityTypeId = EntityTypes.Damage;
@@ -33,7 +33,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
             return new List<ActiveSpellEffect>() { eff };
         }
 
-        public override bool HandleEffect(GameState gs, ActiveSpellEffect eff)
+        public override bool HandleEffect(IRandom rand, ActiveSpellEffect eff)
         {
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ) || targ.HasFlag(UnitFlags.IsDead))
             {
@@ -46,10 +46,10 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
             int variancePct = 20;
             
                 amount = MathUtils.LongRange(startAmount * (100 - variancePct) / 100,
-                    startAmount * (100 + variancePct) / 100, gs.rand);
+                    startAmount * (100 + variancePct) / 100, rand);
 
             long absorbAmount = 0;
-            bool isImmune = targ.IsFullImmune(gs);
+            bool isImmune = targ.IsFullImmune();
 
             if (isImmune)
             {
@@ -58,8 +58,8 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
             if (amount != 0 && _objectManager.GetChar(eff.CasterId, out Character ch))
             {
 
-                _achievementService.UpdateAchievement(gs, ch, AchievementTypes.TotalDamage, amount);
-                _achievementService.UpdateAchievement(gs, ch, AchievementTypes.MaxDamage, amount);
+                _achievementService.UpdateAchievement(ch, AchievementTypes.TotalDamage, amount);
+                _achievementService.UpdateAchievement(ch, AchievementTypes.MaxDamage, amount);
             }
 
             amount = -amount;
@@ -87,7 +87,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
                 }
             }
             eff.CurrQuantity = amount;
-            return base.HandleEffect(gs, eff);
+            return base.HandleEffect(rand, eff);
         }
     }
 }

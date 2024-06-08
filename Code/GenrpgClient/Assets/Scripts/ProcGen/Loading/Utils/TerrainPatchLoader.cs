@@ -13,7 +13,7 @@ using Genrpg.Shared.Interfaces;
 
 public interface ITerrainPatchLoader : IInitializable
 {
-    void LoadOneTerrainPatch(UnityGameState gs, int gx, int gy, bool fastLoading, CancellationToken token);
+    void LoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token);
 }
 
 public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
@@ -23,32 +23,32 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
     private ITerrainTextureManager _terrainTextureManager;
     private IPlayerManager _playerManager;
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     { 
-        await base.Generate(gs, token);
+        await base.Generate(token);
     }
 
-    public void OnError(UnityGameState gs, string txt)
+    public void OnError(string txt)
     {
         _logService.Error("Zone load error: " + txt);
 
     }
 
-    public void LoadOneTerrainPatch(UnityGameState gs, int gx, int gy, bool fastLoading, CancellationToken token)
+    public void LoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)
     {
         _token = token;
-        InnerLoadOneTerrainPatch(gs, gx, gy, fastLoading, token).Forget();
+        InnerLoadOneTerrainPatch(gx, gy, fastLoading, token).Forget();
     }
 
-    private async UniTask InnerLoadOneTerrainPatch(UnityGameState gs, int gx, int gy, bool fastLoading, CancellationToken token)
+    private async UniTask InnerLoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)
     {
-        if ( gx < 0 || gy < 0 ||
-            gs.map == null)
+        if (gx < 0 || gy < 0 ||
+            _mapProvider.GetMap() == null)
         {
-            OnError(gs, "Missing basic data");
+            OnError("Missing basic data");
             return;
         }
-        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gx, gy);
 
         if (patch == null)
         {
@@ -58,12 +58,12 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
         if (patch.DataBytes == null)
         {
 
-            string filePath = patch.GetFilePath(gs, false);
+            string filePath = patch.GetFilePath(false);
 
             ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService);
 
             patch.DataBytes = repo.LoadBytes(filePath);
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
 
             if (patch.DataBytes == null || patch.DataBytes.Length < 1)
             {
@@ -73,32 +73,32 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
                     Handler = OnDownloadTerrainBytes, 
                     Data = patch,
                 };
-                _fileDownloadService.DownloadFile(gs, filePath, ddata, true, token);
+                _fileDownloadService.DownloadFile(filePath, ddata, true, token);
                 return;
             }
             else
             {
-                _terrainManager.SetTerrainPatchAtGridLocation(gs, gx, gy, gs.map, patch);
+                _terrainManager.SetTerrainPatchAtGridLocation(gx, gy, _mapProvider.GetMap(), patch);
             }
         }
 
         _terrainManager.IncrementPatchesAdded();
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
 
         if (patch.terrain == null)
         {
-            await _terrainManager.SetupOneTerrainPatch(gs, gx, gy, token);
+            await _terrainManager.SetupOneTerrainPatch(gx, gy, token);
         }
 
         Terrain terr = patch.terrain as Terrain;
 
         if (terr == null)
         {
-            OnError(gs, "No patch terrain setup at " + patch.X + " " + patch.Y);
+            OnError("No patch terrain setup at " + patch.X + " " + patch.Y);
             return;
         }
 
-        _terrainManager.SetTerrainPatchAtGridLocation(gs, patch.X, patch.Y, gs.map, patch);
+        _terrainManager.SetTerrainPatchAtGridLocation(patch.X, patch.Y, _mapProvider.GetMap(), patch);
 
         int startX = patch.Y * (MapConstants.TerrainPatchSize - 1);
         int startY = patch.X * (MapConstants.TerrainPatchSize - 1);
@@ -146,7 +146,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
         try
         {
@@ -215,7 +215,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
 
         if (patch.baseAlphas == null)
@@ -261,10 +261,10 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
         // 4 ZoneId 1 byte (*divsq)
         List<int> subZoneIds = new List<int>();
         List<int> mainZoneIds = new List<int>();
-        if (gs.map.OverrideZoneId > 0)
+        if (_mapProvider.GetMap().OverrideZoneId > 0)
         {
-            mainZoneIds.Add((int)gs.map.OverrideZoneId);
-            subZoneIds.Add((int)gs.map.OverrideZoneId);
+            mainZoneIds.Add((int)_mapProvider.GetMap().OverrideZoneId);
+            subZoneIds.Add((int)_mapProvider.GetMap().OverrideZoneId);
         }
 
         List<IdVal> mainZoneQuantities = new List<IdVal>();
@@ -273,7 +273,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
         {
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
             {
-                //gs.md.mapZoneIds[x + startX, y + startY] = bytes[index];
+                //_md.mapZoneIds[x + startX, y + startY] = bytes[index];
                 byte newMainZoneId = patch.DataBytes[index++];
                 patch.mainZoneIds[x, y] = newMainZoneId;
                 if (newMainZoneId >= SharedMapConstants.MapZoneStartId)
@@ -304,7 +304,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
 
         // 5 subzoneId 1 byte
@@ -327,9 +327,9 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
             for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
             {
                 patch.overrideZoneScales[x, y] = patch.DataBytes[index++];
-                if (patch.overrideZoneScales[x,y] <= gs.map.OverrideZonePercent)
+                if (patch.overrideZoneScales[x,y] <= _mapProvider.GetMap().OverrideZonePercent)
                 {
-                    patch.subZoneIds[x, y] = (byte)gs.map.OverrideZoneId;
+                    patch.subZoneIds[x, y] = (byte)_mapProvider.GetMap().OverrideZoneId;
                 }
             }
         }
@@ -347,57 +347,57 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
             patch.MainZoneIdList.Add(zid);
         }
 
-        await _terrainTextureManager.SetOneTerrainPatchLayers(gs, patch, token);
+        await _terrainTextureManager.SetOneTerrainPatchLayers(patch, token);
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
         else
         {
             await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token); 
         }
 
-        await _zoneGenService.SetOnePatchAlphamaps(gs, patch, token);
+        await _zoneGenService.SetOnePatchAlphamaps(patch, token);
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
-        _zoneGenService.SetOnePatchHeightmaps(gs, patch, null, patch.heights);
+        _zoneGenService.SetOnePatchHeightmaps(patch, null, patch.heights);
 
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
 
-        _plantAssetLoader.SetupOneMapGrass(gs, patch.X, patch.Y, token);
+        _plantAssetLoader.SetupOneMapGrass(patch.X, patch.Y, token);
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
 
-        _terrainManager.SetOneTerrainNeighbors(gs, patch.X, patch.Y);
+        _terrainManager.SetOneTerrainNeighbors(patch.X, patch.Y);
        
-        _terrainManager.SetOneTerrainNeighbors(gs, patch.X + 1, patch.Y);
+        _terrainManager.SetOneTerrainNeighbors(patch.X + 1, patch.Y);
        
-        _terrainManager.SetOneTerrainNeighbors(gs, patch.X - 1, patch.Y);
+        _terrainManager.SetOneTerrainNeighbors(patch.X - 1, patch.Y);
      
-        _terrainManager.SetOneTerrainNeighbors(gs, patch.X, patch.Y - 1);
+        _terrainManager.SetOneTerrainNeighbors(patch.X, patch.Y - 1);
        
-        _terrainManager.SetOneTerrainNeighbors(gs, patch.X, patch.Y + 1);
+        _terrainManager.SetOneTerrainNeighbors(patch.X, patch.Y + 1);
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
-        await _terrainManager.AddPatchObjects(gs, gx, gy, token);
+        await _terrainManager.AddPatchObjects(gx, gy, token);
 
         _terrainManager.RemoveLoadingPatches(gx, gy);
 
-        if (false && gs.pathfinding != null)
+        if (false && _mapProvider.GetPathfinding() != null)
         {
             for (int px = 0; px < MapConstants.TerrainPatchSize; px += PathfindingConstants.BlockSize)
             {
@@ -409,15 +409,15 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
                     int finalx = worldx / PathfindingConstants.BlockSize;
                     int finalz = worldz / PathfindingConstants.BlockSize;
 
-                    if (finalx < 0 || finalx >= gs.pathfinding.GetLength(0) ||
-                        finalz < 0 || finalz >= gs.pathfinding.GetLength(1))
+                    if (finalx < 0 || finalx >= _mapProvider.GetPathfinding().GetLength(0) ||
+                        finalz < 0 || finalz >= _mapProvider.GetPathfinding().GetLength(1))
                     {
                         continue;
                     }
-                    if (false && gs.pathfinding[finalx,finalz])
+                    if (false && _mapProvider.GetPathfinding()[finalx,finalz])
                     {
-                        float height = _terrainManager.SampleHeight(gs, worldx, worldz);
-                        GameObject sphere = await _assetService.LoadAssetAsync(gs, AssetCategoryNames.Prefabs, "TestSphere", null, token);
+                        float height = _terrainManager.SampleHeight(worldx, worldz);
+                        GameObject sphere = await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, "TestSphere", null, token);
                         sphere.name = "TestSphere_" + worldx + "_" + worldz;
                         GEntityUtils.AddToParent(sphere, patch.terrain.gameObject);
                         sphere.transform.position = new Vector3(worldx, height, worldz);
@@ -427,7 +427,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
         }
     }
 
-    private void OnDownloadTerrainBytes(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnDownloadTerrainBytes(object obj, object data, CancellationToken token)
     {
         TerrainPatchData patch = data as TerrainPatchData;
 
@@ -458,13 +458,13 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
             return;
         }
 
-        string filePath = patch.GetFilePath(gs, false);
+        string filePath = patch.GetFilePath(false);
 
         ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService);
        
         repo.SaveBytes(filePath, bytes);
         patch.DataBytes = bytes;
-        LoadOneTerrainPatch(gs, patch.X, patch.Y, _playerManager.GetEntity() == null, _token);
+        LoadOneTerrainPatch(patch.X, patch.Y, _playerManager.GetEntity() == null, _token);
     }
 }
 	

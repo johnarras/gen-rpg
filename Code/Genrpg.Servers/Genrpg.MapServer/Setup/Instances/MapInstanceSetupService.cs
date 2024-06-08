@@ -12,13 +12,13 @@ namespace Genrpg.MapServer.Setup.Instances
 {
     public class MapInstanceSetupService : SetupService
     {
-        public override void SetupServiceLocator(GameState gs)
+        public override void SetupServiceLocator(IGameState gs)
         {
             MapInstanceLocatorSetup ss = new MapInstanceLocatorSetup();
             ss.Setup(gs);
         }
 
-        public override async Task FinalSetup(GameState gs)
+        public override async Task FinalSetup(IGameState gs)
         {
             await base.FinalSetup(gs);
         }

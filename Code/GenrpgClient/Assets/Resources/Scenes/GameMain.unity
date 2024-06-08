@@ -263,22 +263,22 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: ZoneSize
-      value: 3.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: CurrMapId
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: WorldSize
-      value: 84
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: MapGenSeed
-      value: 22128922
+      value: 11223344
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
@@ -298,7 +298,7 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: ForceDownloadFromAssetBundles
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4480780464994235373, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}

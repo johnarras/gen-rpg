@@ -18,12 +18,13 @@ using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.UnitEffects.Services;
 using Genrpg.Shared.Crawler.Roles.Services;
 using Genrpg.Shared.Spells.Services;
+using Genrpg.Shared.MapServer.Services;
 
 namespace Genrpg.Shared.Setup.Services
 {
     public class LocatorSetup : IFactorySetupService
     {
-        public virtual void Setup(GameState gs)
+        public virtual void Setup(IGameState gs)
         {
             IServiceLocator fact = gs.loc;
             fact.Set<IEntityService>(new EntityService());
@@ -42,6 +43,7 @@ namespace Genrpg.Shared.Setup.Services
             fact.Set<ICharmService>(new CharmService());
             fact.Set<IFtueService>(new FtueService());
             fact.Set<IStatusEffectService>(new StatusEffectService());
+            fact.Set<IMapProvider>(new MapProvider());
 
 
 

@@ -15,13 +15,13 @@ namespace Genrpg.ServerShared.GameSettings.Services;
 
 public interface IGameDataService : IInitializable
 {
-    Task<IGameData> LoadGameData(ServerGameState gs, bool createMissingGameData);
-    Task ReloadGameData(ServerGameState gs);
+    Task<IGameData> LoadGameData(bool createMissingGameData);
+    Task ReloadGameData();
     Task<bool> SaveGameData(IGameData data, IRepositoryService repoSystem);
     List<string> GetEditorIgnoreFields();
     List<IGameSettingsLoader> GetAllLoaders();
-    List<ITopLevelSettings> MapToApi(ServerGameState gs, List<ITopLevelSettings> startSettings);
-    bool SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool forceRefresh);
-    RefreshGameSettingsResult GetNewGameDataUpdates(ServerGameState gs, Character ch, bool forceRefresh);
-    List<ITopLevelSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null);
+    List<ITopLevelSettings> MapToApi(List<ITopLevelSettings> startSettings);
+    bool SetGameDataOverrides(IFilteredObject obj, bool forceRefresh);
+    RefreshGameSettingsResult GetNewGameDataUpdates(Character ch, bool forceRefresh);
+    List<ITopLevelSettings> GetClientGameData(IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null);
 }

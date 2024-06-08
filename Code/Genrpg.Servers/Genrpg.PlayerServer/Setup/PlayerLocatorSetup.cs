@@ -13,7 +13,7 @@ namespace Genrpg.PlayerServer.Setup
 {
     public class PlayerLocatorSetup : BaseServerLocatorSetup
     {
-        public override void Setup(GameState gs)
+        public override void Setup(IGameState gs)
         {
             base.Setup(gs);
             gs.loc.Set<IPlayerService>(new PlayerService());

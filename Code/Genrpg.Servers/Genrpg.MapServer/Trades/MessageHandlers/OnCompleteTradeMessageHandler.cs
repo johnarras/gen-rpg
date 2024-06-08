@@ -5,6 +5,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Trades.Messages;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +14,12 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Trades.MessageHandlers
 {
-    public class OnCompleteTradeHandler : BaseServerMapMessageHandler<OnCompleteTrade>
+    public class OnCompleteTradeHandler : BaseCharacterServerMapMessageHandler<OnCompleteTrade>
     {
-        private ITradeService _tradeService;
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, OnCompleteTrade message)
+        private ITradeService _tradeService = null;
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Character ch, OnCompleteTrade message)
         {
-            if (_objectManager.GetChar(obj.Id, out Character ch))
-            {
-                _tradeService.HandleOnCompleteTrade(ch, message);
-            }
+            _tradeService.HandleOnCompleteTrade(ch, message);
         }
     }
 }

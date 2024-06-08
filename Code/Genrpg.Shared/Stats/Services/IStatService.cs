@@ -3,6 +3,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using System.Collections.Generic;
 
 public interface IStatService : IInitializable
@@ -18,5 +19,5 @@ public interface IStatService : IInitializable
     void Add(Unit unit, long statTypeId, int statCategory, long value);
     void Set(Unit unit, long statTypeId, int statCategory, long value);
 
-    void RegenerateTick(GameState gs, Unit unit, float regenTickTime = StatConstants.RegenTickSeconds);
+    void RegenerateTick(IRandom rand, Unit unit, float regenTickTime = StatConstants.RegenTickSeconds);
 }

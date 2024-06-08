@@ -32,12 +32,10 @@ public interface IRealtimeNetworkService : IInitializable, IMapTokenService
 public class RealtimeNetworkService : IRealtimeNetworkService
 {
     private ILogService _logService;
-
-
-    protected UnityGameState _gs = null;
-    public RealtimeNetworkService(UnityGameState gs, CancellationToken token)
+    protected IUnityGameState _gs = null;
+    protected IMapGenData _md;
+    public RealtimeNetworkService(CancellationToken token)
     {
-        _gs = gs;
         ProcessMessages(token).Forget();
     }
 
@@ -52,9 +50,9 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         _token = _mapTokenSource.Token;
     }
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
-        if (gs is UnityGameState ugs)
+        if (gs is IUnityGameState ugs)
         {
             _mapMessageHandlers = ReflectionUtils.SetupDictionary<Type, IClientMapMessageHandler>(gs);
         }
@@ -102,7 +100,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
     {
         while (true)
         {
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
             while (_messages.TryDequeue(out IMapApiMessage message))
             {                
                 HandleOneMapApiMessage(message, token);
@@ -136,7 +134,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         string userid = "";
         string sessionid = "";
 
-        if (_gs.md == null || _gs.md.GeneratingMap)
+        if (_md.GeneratingMap)
         {
             return;
         }
@@ -191,7 +189,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
                 return;
             }
 
-            _mapMessageHandlers[resType].Process(_gs, message as IMapApiMessage, token);
+            _mapMessageHandlers[resType].Process(message as IMapApiMessage, token);
         }
         catch (Exception ee)
         {

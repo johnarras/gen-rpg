@@ -33,7 +33,7 @@ namespace Genrpg.InstanceServer.Managers
         private List<MapServerData> _mapServers = new List<MapServerData>();
 
         private ILogService _logger = null;
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }

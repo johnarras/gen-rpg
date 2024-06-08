@@ -11,12 +11,12 @@ public class SpellIconPanel : BaseBehaviour
     protected SpellIconScreen _screen = null;
     protected string _prefabName = "";
     protected CancellationToken _token;
-    public void Init(UnityGameState gs, SpellIconScreen screen, string prefabName, CancellationToken token)
+    public void Init(SpellIconScreen screen, string prefabName, CancellationToken token)
     {
         _screen = screen;
         _prefabName = prefabName;
         _token = token;
-        IReadOnlyList<Spell> spells = gs.ch.Get<SpellData>().GetData();
+        IReadOnlyList<Spell> spells = _gs.ch.Get<SpellData>().GetData();
 
         if (spells == null)
         {
@@ -27,11 +27,11 @@ public class SpellIconPanel : BaseBehaviour
 
         foreach (Spell spell in spells)
         {
-            InitIcon(gs, spell, token);
+            InitIcon(spell, token);
         }
     }
 
-    public void InitIcon(UnityGameState gs, Spell stype, CancellationToken token)
+    public void InitIcon(Spell stype, CancellationToken token)
     {
         InitSpellIconData idata = new InitSpellIconData()
         {
@@ -39,7 +39,7 @@ public class SpellIconPanel : BaseBehaviour
             Screen = _screen,
             iconPrefabName = _prefabName,
         };
-        IconHelper.InitSpellIcon(gs,idata, _iconParent,_assetService, token);
+        IconHelper.InitSpellIcon(idata, _iconParent,_assetService, token);
     }
 
 }

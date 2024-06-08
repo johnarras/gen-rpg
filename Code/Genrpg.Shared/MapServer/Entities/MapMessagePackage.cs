@@ -2,6 +2,7 @@
 using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.MapServer.Entities
 {
@@ -12,12 +13,12 @@ namespace Genrpg.Shared.MapServer.Entities
         public IMapMessageHandler handler;
         public float delaySeconds = 0;
 
-        public void Process(GameState gs)
+        public void Process(IRandom rand)
         {
-            handler.Process(gs, this);
+            handler.Process(rand, this);
         }
 
-        public void SendError(GameState gs, MapObject obj, string errorText)
+        public void SendError(MapObject obj, string errorText)
         {
             obj.AddMessage(new ErrorMessage(errorText));
         }

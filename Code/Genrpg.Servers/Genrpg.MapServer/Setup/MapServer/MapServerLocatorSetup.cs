@@ -13,7 +13,7 @@ namespace Genrpg.MapServer.Setup.MapServer
 {
     public class MapServerLocatorSetup : BaseServerLocatorSetup
     {
-        public override void Setup(GameState gs)
+        public override void Setup(IGameState gs)
         {
             base.Setup(gs);
             gs.loc.Set<IAdminService>(new MapServerAdminService());

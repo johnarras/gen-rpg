@@ -24,23 +24,24 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         protected IUIService _uIInitializable;
         protected ILogService _logService;
         protected IGameData _gameData;
+        protected IUnityGameState _gs;
 
         public abstract ECrawlerMapTypes GetKey();
 
-        public abstract UniTask<CrawlerMapRoot> Enter(UnityGameState gs, PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);
+        public abstract UniTask<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);
 
-        public abstract int GetBlockingBits(UnityGameState gs, CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez);
+        public abstract int GetBlockingBits(CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez);
 
-        public abstract UniTask DrawCell(UnityGameState gs, CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token);
+        public abstract UniTask DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token);
 
-        protected void AddWallComponent(UnityGameState gs, GameObject asset, GameObject parent, Vector3 offset, Vector3 euler)
+        protected void AddWallComponent(GameObject asset, GameObject parent, Vector3 offset, Vector3 euler)
         {
-            GameObject obj = GEntityUtils.FullInstantiate(gs, asset);
+            GameObject obj = GEntityUtils.FullInstantiate(_gs, asset);
             GEntityUtils.AddToParent(obj, parent);
             obj.transform.localPosition = offset;
             obj.transform.eulerAngles = euler;
         }
-        protected void OnDownloadBuilding(UnityGameState gs, object obj, object data, CancellationToken token)
+        protected void OnDownloadBuilding(object obj, object data, CancellationToken token)
         {
             GEntity go = obj as GEntity;
 
@@ -67,17 +68,17 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         }
 
-        protected virtual void LoadTerrainTexture (UnityGameState gs, GameObject parent, long terrainTextureId, CancellationToken token)
+        protected virtual void LoadTerrainTexture (GameObject parent, long terrainTextureId, CancellationToken token)
         {
             TextureType ttype = _gameData.Get<TextureTypeSettings>(null).Get(terrainTextureId);
 
             if (ttype != null && !string.IsNullOrEmpty(ttype.Art))
             {
-                _assetService.LoadAssetInto(gs, parent, AssetCategoryNames.TerrainTex, ttype.Art, OnDownloadTerrainTexture,parent, token);
+                _assetService.LoadAssetInto(parent, AssetCategoryNames.TerrainTex, ttype.Art, OnDownloadTerrainTexture,parent, token);
             }
         }
 
-        private void OnDownloadTerrainTexture(UnityGameState gs, object obj, object data, CancellationToken token)
+        private void OnDownloadTerrainTexture(object obj, object data, CancellationToken token)
         {
 
             GEntity parent = data as GEntity;

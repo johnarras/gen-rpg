@@ -8,17 +8,96 @@
   "Art": "",
   "Abbrev": "Cl",
   "LevelsPerMelee": 12,
-  "InitialMeleeAttacks": 1,
-  "LevelsPerRanged": 15,
-  "InitialRangedAttacks": 1,
-  "HealthPerLevel": 10,
-  "ManaPerLevel": 10,
-  "BuffStatTypeId": 31,
-  "BuffStatPercent": 50,
-  "DefaultLevelPercentBuff": 50,
-  "PartyBuffId": 4,
-  "MaxArmorScalingTypeId": 3,
+  "LevelsPerRanged": 12,
+  "LevelsPerDamage": 5,
+  "LevelsPerHeal": 2,
+  "HealthPerLevel": 8,
+  "ManaPerLevel": 20,
+  "MaxArmorScalingTypeId": 1,
+  "CritPercent": 5,
   "ManaStatTypeId": 13,
+  "Bonuses": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 45,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 16,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 20,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 31,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 1,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 8,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 9,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 12,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 40,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 14,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 15,
+      "Quantity": 1
+    }
+  ],
   "AllowedWeapons": [
     {
       "ItemTypeId": 23
@@ -31,6 +110,6 @@
     }
   ],
   "AllowedEquipSlots": [],
-  "UpdateTime": "2024-04-16T14:09:36.044Z",
+  "UpdateTime": "2024-06-08T00:54:15.189Z",
   "CreateTime": "2024-01-27T12:57:37Z"
 }

@@ -5,28 +5,29 @@ using Cysharp.Threading.Tasks;
 using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
 using UnityEngine;
+using ClientEvents;
 
 public class LoadMinimap : BaseZoneGenerator
 {
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
         try
         {
             BinaryFileRepository repo = new BinaryFileRepository(_logService);
-            string filename = MapUtils.GetMapObjectFilename(gs, MapConstants.MapFilename, gs.map.Id, gs.map.MapVersion);
+            string filename = MapUtils.GetMapObjectFilename(MapConstants.MapFilename, _mapProvider.GetMap().Id, _mapProvider.GetMap().MapVersion);
             byte[] bytes = repo.LoadBytes(filename);
             if (bytes != null)
             {
                 Texture2D tex = new Texture2D(2, 2);
                 tex.LoadImage(bytes);
-                OnDownloadMinimap(gs, tex, null, token);
+                OnDownloadMinimap(tex, null, token);
             }
             else
             {
                 DownloadFileData ddata = new DownloadFileData() { IsImage = true, Handler= OnDownloadMinimap };
-                _fileDownloadService.DownloadFile(gs, filename, ddata, true, token);
+                _fileDownloadService.DownloadFile(filename, ddata, true, token);
             }
         }
         catch (Exception e)
@@ -35,16 +36,10 @@ public class LoadMinimap : BaseZoneGenerator
         }
     }
 
-    private void OnDownloadMinimap (UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnDownloadMinimap (object obj, object data, CancellationToken token)
     {
         Texture2D tex = obj as Texture2D;
-        if (tex == null)
-        {
-            return;
-        }
 
-
-        CreateMinimap cm = gs.GetOrCreateInstance<CreateMinimap>(null);
-        cm.ShowMinimap(gs, tex);
+        MinimapUI.SetTexture(tex);
     }
 }

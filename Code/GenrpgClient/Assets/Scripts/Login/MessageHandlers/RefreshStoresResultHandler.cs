@@ -7,9 +7,9 @@ namespace Assets.Scripts.Login.MessageHandlers
 {
     public class RefreshStoresResultHandler : BaseClientLoginResultHandler<RefreshStoresResult>
     {
-        protected override void InnerProcess(UnityGameState gs, RefreshStoresResult result, CancellationToken token)
+        protected override void InnerProcess(RefreshStoresResult result, CancellationToken token)
         {
-            result.Stores?.AddTo(gs.ch);
+            result.Stores?.AddTo(_gs.ch);
             _dispatcher.Dispatch(result);
         }
     }

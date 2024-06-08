@@ -6,6 +6,7 @@ using System.Threading;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.GameSettings;
+using Assets.Scripts.ProcGen.RandomNumbers;
 
 public class BaseBehaviour : StubComponent
 {
@@ -18,13 +19,12 @@ public class BaseBehaviour : StubComponent
     protected ILogService _logService;
     protected IDispatcher _dispatcher;
     protected IGameData _gameData;
-
-    public UnityGameState _gs { get; set; }
+    protected IUnityGameState _gs;
+    protected IClientRandom _rand;
     
-    public virtual void Initialize(UnityGameState gs)
+    public virtual void Initialize(IUnityGameState gs)
     {
-        _gs = gs;
-        _gs.loc.Resolve(this);
+        gs.loc.Resolve(this);
     }
 
     public CancellationToken GetToken()

@@ -7,6 +7,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using System.Threading;
 using UnityEngine;
+using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.MapServer.Entities.MapCache;
 
 public class MinimapUI : BaseBehaviour
 {
@@ -18,18 +20,19 @@ public class MinimapUI : BaseBehaviour
 
     private CancellationToken _token;
     private IPlayerManager _playerManager;
+    private IMapProvider _mapProvider;
+    protected IMapGenData _md;
 
     public void Init(CancellationToken token)
     {
         _token = token;
         _dispatcher.AddEvent<EnableMinimapEvent>(this, OnEnableMinimap);
         _dispatcher.AddEvent<DisableMinimapEvent>(this, OnDisableMinimap);
-        _dispatcher.AddEvent<LoadMinimapEvent>(this, OnLoadMinimap);
         OnDisableMinimap(null);
         AddUpdate(MinimapUpdate, UpdateType.Regular);
         if (ArrowParent != null)
         {
-            _assetService.LoadAssetInto(_gs, ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, token, "Maps");
+            _assetService.LoadAssetInto(ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, token, "Maps");
         }
 
         ShowMapImage();
@@ -37,9 +40,9 @@ public class MinimapUI : BaseBehaviour
 
     private void ShowMapImage()
     {
-        if (MapImage != null && UnityZoneGenService.mapTexture != null)
+        if (_mapTexture != null && MapImage != null)
         {
-            _uIInitializable.SetImageTexture(MapImage, UnityZoneGenService.mapTexture);
+            _uIInitializable.SetImageTexture(MapImage, _mapTexture);
             OnEnableMinimap(null);
             
         }
@@ -49,14 +52,28 @@ public class MinimapUI : BaseBehaviour
         }
     }
 
-    private void OnLoadMinimap (LoadMinimapEvent data)
+
+    private static Texture2D _mapTexture = null;
+    public static void SetTexture(Texture2D tex)
     {
-      
-        ShowMapImage();
-        return;
+        if (tex == null && _mapTexture != null)
+        {
+            Resources.UnloadAsset(_mapTexture);
+        }
+
+        _mapTexture = tex;
+        if (_mapTexture != null)
+        {
+            _mapTexture.wrapMode = TextureWrapMode.Clamp;
+        }
     }
 
-    private void OnLoadArrow(UnityGameState gs, object obj, object data, CancellationToken token)
+    public static Texture2D GetTexture()
+    {
+        return _mapTexture;
+    }
+
+    private void OnLoadArrow(object obj, object data, CancellationToken token)
     {
         ArrowObject = obj as GEntity;
     }
@@ -64,22 +81,22 @@ public class MinimapUI : BaseBehaviour
 	void MinimapUpdate()
 	{
         GEntity player = _playerManager.GetEntity ();
-        if (player == null || MapImage ==  null || MapImage.texture == null || _gs.md == null || _gs.md.GeneratingMap)
+        if (player == null || MapImage ==  null || MapImage.texture == null || _md.GeneratingMap)
         {
             return;
         }
         GVector3 pos = GVector3.Create(player.transform().localPosition);
 
         // Player pct goes from -0.5 to 0.5.
-        float xpct = pos.x / _gs.map.GetHwid();
-        float ypct = pos.z / _gs.map.GetHhgt();
+        float xpct = pos.x / _mapProvider.GetMap().GetHwid();
+        float ypct = pos.z / _mapProvider.GetMap().GetHhgt();
 
         float imageSize = MapImage.rectTransform.sizeDelta.x;
 
 
         if (MapImage.texture != null)
         {
-            float sizePct = 256.0f / _gs.map.GetHwid();
+            float sizePct = 256.0f / _mapProvider.GetMap().GetHwid();
             sizePct = MathUtils.Clamp(0.02f, sizePct, 0.15f);
             float xminpct = xpct - sizePct / 2;
             float yminpct = ypct - sizePct / 2;

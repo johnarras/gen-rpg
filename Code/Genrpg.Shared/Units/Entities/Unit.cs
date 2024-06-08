@@ -138,7 +138,7 @@ namespace Genrpg.Shared.Units.Entities
         }
 
 
-        public float GetGlobalCooldown(GameState gs)
+        public float GetGlobalCooldown()
         {
             return SpellConstants.GlobalCooldownMS * (1 - Stats.Pct(StatTypes.Cooldown)) / 1000.0f;
         }
@@ -197,7 +197,7 @@ namespace Genrpg.Shared.Units.Entities
             Procs.Add(OldSpellProc.CreateFrom(proc));
         }
 
-        public virtual bool CanInteract(GameState gs, Unit otherUnit)
+        public virtual bool CanInteract(Unit otherUnit)
         {
             return FactionTypeId == otherUnit.FactionTypeId;
 
@@ -237,7 +237,7 @@ namespace Genrpg.Shared.Units.Entities
         {
         }
 
-        public bool IsFullImmune(GameState gs)
+        public bool IsFullImmune()
         {
             return false;
         }

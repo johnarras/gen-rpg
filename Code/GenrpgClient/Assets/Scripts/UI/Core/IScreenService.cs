@@ -6,24 +6,24 @@ using UI.Screens.Constants;
 
 public interface IScreenService : IInitializable
 {
-    void Open(UnityGameState gs, ScreenId name, object data = null);
-    void StringOpen(UnityGameState gs, string screenName, object data = null);
-    void Close(UnityGameState gs, ScreenId name);
-    void FinishClose(UnityGameState gs, ScreenId name);
+    void Open(ScreenId name, object data = null);
+    void StringOpen(string screenName, object data = null);
+    void Close(ScreenId name);
+    void FinishClose(ScreenId name);
 
     void StartUpdates();
 
-    ActiveScreen GetScreen(UnityGameState gs, ScreenId name);
+    ActiveScreen GetScreen(ScreenId name);
 
-    ActiveScreen GetLayerScreen(UnityGameState gs, ScreenLayers layerId);
+    ActiveScreen GetLayerScreen(ScreenLayers layerId);
 
-    List<ActiveScreen> GetScreensNamed(UnityGameState gs, ScreenId name);
+    List<ActiveScreen> GetScreensNamed(ScreenId name);
 
-    public ActiveScreen GetScreen(UnityGameState gs, string screenName);
+    public ActiveScreen GetScreen(string screenName);
 
-    List<ActiveScreen> GetAllScreens(UnityGameState gs);
+    List<ActiveScreen> GetAllScreens();
 
-    void CloseAll(UnityGameState gs, List<ScreenId> ignoreScreens = null);
+    void CloseAll(List<ScreenId> ignoreScreens = null);
 
     object GetDragParent();
     string GetSubdirectory(ScreenId screenName);

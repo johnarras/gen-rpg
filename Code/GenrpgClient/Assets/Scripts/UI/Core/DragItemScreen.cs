@@ -34,8 +34,8 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
     }
 
 
-    public virtual void OnRightClickIcon(UnityGameState gs, TDragItem icon) { }
-    public virtual void OnLeftClickIcon(UnityGameState gs, TDragItem icon) { }
+    public virtual void OnRightClickIcon(TDragItem icon) { }
+    public virtual void OnLeftClickIcon(TDragItem icon) { }
 
     protected TDragItem _origItem;
     protected TDragItem _dragItem;

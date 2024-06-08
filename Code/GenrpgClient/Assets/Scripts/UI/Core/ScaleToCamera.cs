@@ -19,7 +19,7 @@ public class ScaleToCamera : BaseBehaviour
     private Camera _mainCam = null;
 
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         LateScaleUpdate();

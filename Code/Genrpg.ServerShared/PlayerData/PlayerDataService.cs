@@ -34,7 +34,7 @@ namespace Genrpg.ServerShared.PlayerData
         private Dictionary<Type, IUnitDataMapper> _mapperObjects = null;
         private List<ICharacterLoadUpdater> _loadUpdateHelpers = new List<ICharacterLoadUpdater>();
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             List<Task> loaderTasks = new List<Task>();
             List<IndexConfig> configs = new List<IndexConfig>();
@@ -131,8 +131,8 @@ namespace Genrpg.ServerShared.PlayerData
             return retval;
         }
 
-        public async Task<T> LoadTopLevelData<T>(ServerGameState gameState, Character ch) where T : class, ITopLevelUnitData, new()
-        {
+        public async Task<T> LoadTopLevelData<T> (Character ch) where T : class, ITopLevelUnitData, new()
+        { 
             IUnitDataLoader loader = GetLoader<T>();
 
             if (loader != null)
@@ -142,7 +142,7 @@ namespace Genrpg.ServerShared.PlayerData
             return default;
         }
 
-        public async Task<List<IUnitData>> LoadAllPlayerData(ServerGameState gs, Character ch)
+        public async Task<List<IUnitData>> LoadAllPlayerData(IRandom rand, Character ch)
         {
             List<Task<IUnitData>> allTasks = new List<Task<IUnitData>>();
             foreach (IUnitDataLoader loader in _loaderObjects.Values)
@@ -157,7 +157,7 @@ namespace Genrpg.ServerShared.PlayerData
                 data.AddTo(ch);
             }
 
-            UpdateOnLoad(gs, ch);
+            UpdateOnLoad(rand, ch);
             return allData.ToList();
         }
 
@@ -171,16 +171,16 @@ namespace Genrpg.ServerShared.PlayerData
             return newData;
         }
 
-        protected async void UpdateOnLoad(ServerGameState gs, Character ch)
+        protected async void UpdateOnLoad(IRandom rand, Character ch)
         {
             foreach (ICharacterLoadUpdater updater in _loadUpdateHelpers)
             {
-                await updater.Update(gs, ch);
+                await updater.Update(rand, ch);
             }
           
         }
 
-        public async Task<List<CharacterStub>> LoadCharacterStubs(ServerGameState gs, string userId)
+        public async Task<List<CharacterStub>> LoadCharacterStubs(string userId)
         {
             // TODO: projection in the repo itself
             List<CoreCharacter> chars = await _repoService.Search<CoreCharacter>(x => x.UserId == userId);

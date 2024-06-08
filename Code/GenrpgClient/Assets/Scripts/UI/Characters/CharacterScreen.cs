@@ -67,11 +67,11 @@ public class CharacterScreen : ItemIconScreen
         List<Item> allEquipment = inventory.GetAllEquipment();
         foreach (EquipSlotIcon icon in EquipmentIcons)
         {
-            InitEquipmentIcon(_gs, icon);
+            InitEquipmentIcon(icon);
         }
     }
 
-    public void InitEquipmentIcon(UnityGameState gs, EquipSlotIcon eqIcon)
+    public void InitEquipmentIcon(EquipSlotIcon eqIcon)
     {
         if (eqIcon == null || _unit == null)
         {
@@ -140,7 +140,7 @@ public class CharacterScreen : ItemIconScreen
                         currUnit = _unit,
                         statTypeId = -1,
                     };
-                    _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategoryNames.UI, 
+                    _assetService.LoadAssetInto(StatGridParent, AssetCategoryNames.UI, 
                         "StatInfoRow", OnDownloadStat, sddFill, _token, GetStatSubdirectory());
                 }
                 StatDownloadData sdd = new StatDownloadData()
@@ -148,7 +148,7 @@ public class CharacterScreen : ItemIconScreen
                     currUnit = _unit,
                     statTypeId = stat.IdKey,
                 };
-                _assetService.LoadAssetInto(_gs, StatGridParent, AssetCategoryNames.UI,
+                _assetService.LoadAssetInto(StatGridParent, AssetCategoryNames.UI,
                     "StatInfoRow", OnDownloadStat, sdd, _token, GetStatSubdirectory());
             }
         }
@@ -161,7 +161,7 @@ public class CharacterScreen : ItemIconScreen
         }
     }
 
-    private void OnDownloadStat (UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnDownloadStat (object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -196,11 +196,11 @@ public class CharacterScreen : ItemIconScreen
     }
 
     // Blank
-    public override void OnLeftClickIcon(UnityGameState gs, ItemIcon icon) { }
+    public override void OnLeftClickIcon(ItemIcon icon) { }
 
 
     // Equip or Unequip item.
-    public override void OnRightClickIcon(UnityGameState gs, ItemIcon icon)
+    public override void OnRightClickIcon(ItemIcon icon)
     {
         if (icon == null || icon.GetDataItem() == null)
         {
@@ -210,7 +210,7 @@ public class CharacterScreen : ItemIconScreen
     }
 
 
-    public EquipSlotIcon GetIconFromSlot(UnityGameState gs, long equipSlotId)
+    public EquipSlotIcon GetIconFromSlot(long equipSlotId)
     {
         if (EquipmentIcons == null)
         {
@@ -227,7 +227,7 @@ public class CharacterScreen : ItemIconScreen
         return null;
     }
 
-    protected void EquipItem(UnityGameState gs, ItemIcon icon, long newEquipSlotId)
+    protected void EquipItem(ItemIcon icon, long newEquipSlotId)
     {
 
         if (icon == null || icon.GetDataItem()== null)
@@ -324,8 +324,8 @@ public class CharacterScreen : ItemIconScreen
         List<long> equipSlots = itype.GetCompatibleEquipSlots(_gameData, _unit);
         List<long> relatedSlots = itype.GetRelatedEquipSlots(_gameData, _unit);
 
-        EquipSlotIcon currEqIcon = GetIconFromSlot(_gs, currEquipSlotId);
-        EquipSlotIcon newEqIcon = GetIconFromSlot(_gs, newEquipSlotId);
+        EquipSlotIcon currEqIcon = GetIconFromSlot(currEquipSlotId);
+        EquipSlotIcon newEqIcon = GetIconFromSlot(newEquipSlotId);
 
         Item existingItemInNewSlot = inventory.GetEquipBySlot(newEquipSlotId);
 
@@ -336,15 +336,15 @@ public class CharacterScreen : ItemIconScreen
             return;
         }
 
-        InitEquipmentIcon(_gs, GetIconFromSlot(_gs, newEquipSlotId));
+        InitEquipmentIcon(GetIconFromSlot(newEquipSlotId));
 
-        InitEquipmentIcon(_gs, GetIconFromSlot(_gs, currEquipSlotId));
+        InitEquipmentIcon(GetIconFromSlot(currEquipSlotId));
 
         foreach (long relSlot in relatedSlots)
         {
             if (relSlot != newEquipSlotId && relSlot != currEquipSlotId)
             {
-                InitEquipmentIcon(_gs, GetIconFromSlot(_gs, relSlot));
+                InitEquipmentIcon(GetIconFromSlot(relSlot));
             }
         }
 
@@ -369,7 +369,7 @@ public class CharacterScreen : ItemIconScreen
         ShowStats();
     }
 
-    protected void UnequipItem(UnityGameState gs, ItemIcon icon)
+    protected void UnequipItem(ItemIcon icon)
     {
         if (icon == null || icon.GetDataItem() == null || EquipmentIcons == null)
         {
@@ -426,7 +426,7 @@ public class CharacterScreen : ItemIconScreen
 
         Item oldItem = eqSlotIcon.Icon.GetDataItem();
 
-        InitEquipmentIcon(_gs, eqSlotIcon);
+        InitEquipmentIcon(eqSlotIcon);
 
         if (oldItem != null)
         {
@@ -534,12 +534,12 @@ public class CharacterScreen : ItemIconScreen
             else
             {
                 // Item is equipped, so unequip it.
-                UnequipItem(_gs, _origItem);
+                UnequipItem(_origItem);
             }
         }
         else // EquipSlot is > 0 so try to equip.
         {
-            EquipItem(_gs, _origItem, equipSlotId);
+            EquipItem(_origItem, equipSlotId);
         }
 
     }

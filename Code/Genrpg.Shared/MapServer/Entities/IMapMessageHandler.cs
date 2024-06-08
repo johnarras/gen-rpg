@@ -2,12 +2,13 @@
 using System;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.MapServer.Entities
 {
     public interface IMapMessageHandler : ISetupDictionaryItem<Type>
     {
-        void Process(GameState gs, MapMessagePackage package);
-        void Setup(GameState gs);
+        void Process(IRandom rand, MapMessagePackage package);
+        void Setup(IGameState gs);
     }
 }

@@ -28,8 +28,8 @@ public class SignupScreen : BaseScreen
 
     public void ClickLogin()
     {
-        _screenService.Open(_gs, ScreenId.Login);
-        _screenService.Close(_gs, ScreenId.Signup);
+        _screenService.Open(ScreenId.Login);
+        _screenService.Close(ScreenId.Signup);
     }
 
 
@@ -71,7 +71,7 @@ public class SignupScreen : BaseScreen
             Name = name,
         };
 
-        _loginService.LoginToServer(_gs, loginCommand, _token).Forget();
+        _loginService.LoginToServer(loginCommand, _token).Forget();
 
     }
 }

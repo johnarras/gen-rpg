@@ -11,9 +11,9 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
     {
         public override long GetKey() { return SpellModifiers.MaxCharges; }
 
-        public override double GetCostScale(GameState gs, MapObject obj, double value)
+        public override double GetCostScale(MapObject obj, double value)
         {
-            value = GetValidValue(gs, obj, value);
+            value = GetValidValue(obj, value);
 
             if (value < 1)
             {

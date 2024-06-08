@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler;
 using Assets.Scripts.UI.Crawler.States;
 using Cysharp.Threading.Tasks;
@@ -35,6 +36,7 @@ namespace Assets.Scripts.Crawler.Services
         protected ILogService _logService;
         protected IRepositoryService _repoService;
         protected IDispatcher _dispatcher;
+        protected IClientRandom _rand;
 
         const string SaveFileSuffix = ".sav";
         const string SaveFileName = "Start" + SaveFileSuffix;
@@ -42,7 +44,7 @@ namespace Assets.Scripts.Crawler.Services
 
         private Dictionary<ECrawlerStates, IStateHelper> _stateHelpers;
 
-        private UnityGameState _gs;
+        private IUnityGameState _gs;
         private CancellationToken _token;
 
 
@@ -59,9 +61,9 @@ namespace Assets.Scripts.Crawler.Services
 
         private Dictionary<KeyCode, KeyCode> _equivalentKeys = new Dictionary<KeyCode, KeyCode>();
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
-            _gs = gs as UnityGameState;
+            _gs = gs as IUnityGameState;
             _token = token;
             _stateHelpers = ReflectionUtils.SetupDictionary<ECrawlerStates, IStateHelper>(gs);
 
@@ -126,7 +128,7 @@ namespace Assets.Scripts.Crawler.Services
 
             if (_stateHelpers.TryGetValue(action.NextState, out IStateHelper stateHelper))
             {
-                nextStateData = await stateHelper.Init(_gs, currData, action, token);
+                nextStateData = await stateHelper.Init(currData, action, token);
 
                 if (stateHelper.IsTopLevelState())
                 {
@@ -153,10 +155,10 @@ namespace Assets.Scripts.Crawler.Services
                 
         }
 
-        private void SetupParty(UnityGameState gs, PartyData party)
+        private void SetupParty(PartyData party)
         {
 
-            ActiveScreen activeScreen = _screenService.GetScreen(gs, ScreenId.Crawler);
+            ActiveScreen activeScreen = _screenService.GetScreen(ScreenId.Crawler);
 
             if (activeScreen != null)
             {
@@ -179,19 +181,19 @@ namespace Assets.Scripts.Crawler.Services
 
             if (_party == null)
             {
-                _party = new PartyData() { Id = SaveFileName, Seed = _gs.rand.Next() };
+                _party = new PartyData() { Id = SaveFileName, Seed = _rand.Next() };
                 await SaveGame();
             }
 
             if (_party.Seed == 0)
             {
-                _party.Seed = _gs.rand.Next();
+                _party.Seed = _rand.Next();
                 await SaveGame();
             }
 
-            SetupParty(_gs, _party);
+            SetupParty(_party);
 
-            _statService.CalcPartyStats(_gs, _party, true);
+            _statService.CalcPartyStats(_party, true);
         }
 
         public async UniTask SaveGame()
@@ -299,7 +301,7 @@ namespace Assets.Scripts.Crawler.Services
 
         private async UniTask UpdateMovementAsync(CancellationToken token)
         {
-            await _crawlerMapService.UpdateMovement(_gs, token);
+            await _crawlerMapService.UpdateMovement(token);
         }
     }
 }

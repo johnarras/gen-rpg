@@ -28,17 +28,17 @@ namespace Genrpg.Shared.Crafting.Services
 {
     public interface ISharedCraftingService : IInitializable
     {
-        CraftingStats CalculateStatsFromReagents(GameState gs, Character ch, CraftingItemData data);
-        ValidityResult HasValidReagents(GameState gs, Character ch, CraftingItemData data, Character crafter);
-        long GetCrafterTypeFromRecipe(GameState gs, Character ch, long recipeTypeId, long scalingTypeId);
+        CraftingStats CalculateStatsFromReagents(IRandom rand, Character ch, CraftingItemData data);
+        ValidityResult HasValidReagents(IRandom rand, Character ch, CraftingItemData data, Character crafter);
+        long GetCrafterTypeFromRecipe(IRandom rand, Character ch, long recipeTypeId, long scalingTypeId);
         int GetReagentQuantity(long recipeTypeId);
     }
 
     public class SharedCraftingService : ISharedCraftingService
     {
 
-        private IGameData _gameData;
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        private IGameData _gameData = null;
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
@@ -53,7 +53,7 @@ namespace Genrpg.Shared.Crafting.Services
         /// <param name="reagents">List of itemType+Quantity pairs</param>
         /// <param name="equipSlotId">What slot this item will go into...needed since different slots have different stat scaling factors</param>
         /// <returns>List of stat values generated</returns>
-        public virtual CraftingStats CalculateStatsFromReagents(GameState gs, Character ch, CraftingItemData data)
+        public virtual CraftingStats CalculateStatsFromReagents(IRandom rand, Character ch, CraftingItemData data)
         {
             CraftingStats stats = new CraftingStats();
 
@@ -297,7 +297,7 @@ namespace Genrpg.Shared.Crafting.Services
             statDict[statTypeId] += pct;
         }
 
-        public ValidityResult HasValidReagents(GameState gs, Character ch, CraftingItemData data, Character crafter)
+        public ValidityResult HasValidReagents(IRandom rand, Character ch, CraftingItemData data, Character crafter)
         {
 
             ValidityResult result = new ValidityResult() { IsValid = false };
@@ -516,7 +516,7 @@ namespace Genrpg.Shared.Crafting.Services
         /// <param name="recipeTypeId"></param>
         /// <param name="scalingTypeId"></param>
         /// <returns></returns>
-        public long GetCrafterTypeFromRecipe(GameState gs, Character ch, long recipeTypeId, long scalingTypeId)
+        public long GetCrafterTypeFromRecipe(IRandom rand, Character ch, long recipeTypeId, long scalingTypeId)
         {
             RecipeType rtype = _gameData.Get<RecipeSettings>(ch).Get(recipeTypeId);
             if (rtype == null)

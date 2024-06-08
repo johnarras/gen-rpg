@@ -12,17 +12,17 @@ namespace Genrpg.Shared.UserCoins.Services
     public class UserCoinService : IUserCoinService
     {
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public virtual async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
 
-        public bool Add(GameState gs, Unit unit, long userCoinTypeId, long quantity)
+        public bool Add(Unit unit, long userCoinTypeId, long quantity)
         {
-            return Set(gs, unit, userCoinTypeId, unit.Get<UserCoinData>().GetQuantity(userCoinTypeId) + quantity);
+            return Set(unit, userCoinTypeId, unit.Get<UserCoinData>().GetQuantity(userCoinTypeId) + quantity);
         }
 
-        public bool Set(GameState gs, Unit unit, long userCoinTypeId, long newQuantity)
+        public bool Set(Unit unit, long userCoinTypeId, long newQuantity)
         {
             if (newQuantity < 0)
             {
@@ -35,11 +35,11 @@ namespace Genrpg.Shared.UserCoins.Services
 
             long diff = newQuantity - oldQuantity;
 
-            OnSetUserCoin(gs, unit, userCoinData, status, diff);
+            OnSetUserCoin(unit, userCoinData, status, diff);
             return true;
         }
 
-        protected virtual void OnSetUserCoin(GameState gs, Unit unit, UserCoinData userCoinData, UserCoinStatus status, long diff)
+        protected virtual void OnSetUserCoin(Unit unit, UserCoinData userCoinData, UserCoinStatus status, long diff)
         {
 
         }

@@ -39,7 +39,7 @@ public class IconHelper
     }
 
 
-    public static void InitItemIcon(UnityGameState gs, InitItemIconData data, GEntity parent, IAssetService assetService, CancellationToken token)
+    public static void InitItemIcon(InitItemIconData data, GEntity parent, IAssetService assetService, CancellationToken token)
     {
         string prefabName = DefaultItemIconName;
 
@@ -48,12 +48,12 @@ public class IconHelper
             prefabName = data.IconPrefabName;
         }
 
-        assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, 
+        assetService.LoadAssetInto(parent, AssetCategoryNames.UI, 
             prefabName, OnLoadItemIcon, data, token, data.SubDirectory);
 
     }
 
-    private static void OnLoadItemIcon(UnityGameState gs, object obj, object data, CancellationToken token)
+    private static void OnLoadItemIcon(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -79,7 +79,7 @@ public class IconHelper
 
     }
 
-    public static void InitSpellIcon(UnityGameState gs, InitSpellIconData data, GEntity parent, IAssetService assetService, CancellationToken token)
+    public static void InitSpellIcon(InitSpellIconData data, GEntity parent, IAssetService assetService, CancellationToken token)
     {
         string prefabName = DefaultSpellIconName;
 
@@ -88,12 +88,12 @@ public class IconHelper
             prefabName = data.iconPrefabName;
         }
 
-        assetService.LoadAssetInto(gs, parent, AssetCategoryNames.UI, 
+        assetService.LoadAssetInto(parent, AssetCategoryNames.UI, 
             prefabName, OnLoadSpellIcon, data, token, data.subdirectory);
 
     }
 
-    private static void OnLoadSpellIcon(UnityGameState gs, object obj, object data, CancellationToken token)
+    private static void OnLoadSpellIcon(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

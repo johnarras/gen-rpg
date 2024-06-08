@@ -89,7 +89,7 @@ namespace Genrpg.Shared.Utils
             return retval;
         }
 
-        public static Dictionary<K, T> SetupDictionary<K, T>(GameState gs) where T : ISetupDictionaryItem<K>
+        public static Dictionary<K, T> SetupDictionary<K, T>(IGameState gs) where T : ISetupDictionaryItem<K>
         {
             Dictionary<K, T> dict = new Dictionary<K, T>();
             Type ttype = typeof(T);
@@ -136,6 +136,7 @@ namespace Genrpg.Shared.Utils
                     dict[inst.GetKey()] = inst;
                     try
                     {
+                        gs.loc.StoreDictionaryItem(inst);
                         gs.loc.Resolve(inst);
                     }
                     catch (Exception e)
@@ -147,7 +148,7 @@ namespace Genrpg.Shared.Utils
             return dict;
         }
 
-        public static async Task<object> CreateInstanceFromType(GameState gs, Type t, CancellationToken token)
+        public static async Task<object> CreateInstanceFromType(IGameState gs, Type t, CancellationToken token)
         {
             object obj = Activator.CreateInstance(t);
             gs.loc.Resolve(obj);
@@ -160,7 +161,7 @@ namespace Genrpg.Shared.Utils
             return obj;
         }
 
-        public static async Task SetupServices(GameState gs, List<IInjectable> services, CancellationToken token)
+        public static async Task SetupServices(IGameState gs, List<IInjectable> services, CancellationToken token)
         {
 
             List<IInitializable> setupServices = new List<IInitializable>();

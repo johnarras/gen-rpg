@@ -15,15 +15,16 @@ using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Core.Entities;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.MapServer.Services;
 
 
 public interface IClientLoginService : IInitializable
 {
-    void StartLogin(UnityGameState gs, CancellationToken token);
-    void Logout(UnityGameState gs);
-    void ExitMap(UnityGameState gs);
-    UniTask LoginToServer(UnityGameState gs, LoginCommand command, CancellationToken token);
-    UniTask SaveLocalUserData(UnityGameState gs, string email);
+    void StartLogin(CancellationToken token);
+    void Logout();
+    void ExitMap();
+    UniTask LoginToServer(LoginCommand command, CancellationToken token);
+    UniTask SaveLocalUserData(string email);
     void NoUserGetGameData(CancellationToken token);
 }
 
@@ -42,15 +43,17 @@ public class ClientLoginService : IClientLoginService
     private IRepositoryService _repoService;
     private ILogService _logService;
     protected IGameData _gameData;
-    IPlayerManager _playerManager;
+    protected IPlayerManager _playerManager;
+    protected IMapProvider _mapProvider;
+    protected IUnityGameState _gs;
     private string _pwd = "";
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
 
-    public void StartLogin(UnityGameState gs, CancellationToken token)
+    public void StartLogin(CancellationToken token)
     {
         LocalUserData localData = _repoService.Load<LocalUserData>(LocalUserFilename).Result;
 
@@ -81,62 +84,58 @@ public class ClientLoginService : IClientLoginService
                 Password = password,
             };
 
-            LoginToServer(gs, loginCommand, token).Forget();
-            _screenService.Open(gs, ScreenId.Loading, true);
+            LoginToServer(loginCommand, token).Forget();
+            _screenService.Open(ScreenId.Loading, true);
             return;
         }
 
         // Otherwise we either had no local login or we had no valid online login, and in this case
         // show the login screen.      
-        _screenService.Open(gs, ScreenId.Login, true);
-        _screenService.Close(gs,ScreenId.Loading);
+        _screenService.Open(ScreenId.Login, true);
+        _screenService.Close(ScreenId.Loading);
 
     }
 
-    public void Logout(UnityGameState gs)
+    public void Logout()
     {
         _logService.Info("Logging out");
-        InnerExitMap(gs);
-        gs.user = null;
-        _screenService.CloseAll(gs);
-        _screenService.Close(gs, ScreenId.HUD);
-        _screenService.Open(gs, ScreenId.Login);
+        InnerExitMap();
+        _gs.user = null;
+        _screenService.CloseAll();
+        _screenService.Close(ScreenId.HUD);
+        _screenService.Open(ScreenId.Login);
     }
 
-    public void ExitMap(UnityGameState gs)
+    public void ExitMap()
     {
         _logService.Info("Exiting Map");
-        InnerExitMap(gs);
-        _screenService.CloseAll(gs);
-        _screenService.Close(gs, ScreenId.HUD);
-        _screenService.Open(gs, ScreenId.CharacterSelect);
+        InnerExitMap();
+        _screenService.CloseAll();
+        _screenService.Close(ScreenId.HUD);
+        _screenService.Open(ScreenId.CharacterSelect);
     }
 
-    private void InnerExitMap(UnityGameState gs)
+    private void InnerExitMap()
     {
         _zoneGenService.CancelMapToken();
         _playerManager.SetUnit(null);
         _realtimeNetworkService.CloseClient();
-        _mapManager.Clear(gs);
+        _mapManager.Clear();
         _objectManager.Reset();
         UnityZoneGenService.LoadedMapId = null;
-        if (gs.md != null)
-        {
-            gs.map = null;
-            gs.md = null;
-            gs.spawns = null;
-        }
-        gs.ch = null;
+        _mapProvider.SetMap(null);
+        _mapProvider.SetSpawns(null);
+        _gs.ch = null;
 
     }
 
-    public async UniTask LoginToServer(UnityGameState gs, LoginCommand command, CancellationToken token)
+    public async UniTask LoginToServer(LoginCommand command, CancellationToken token)
     {
         _pwd = command.Password;
 
         try
         {
-            await _gameDataService.LoadCachedSettings(gs);
+            await _gameDataService.LoadCachedSettings(_gs);
         }
         catch (Exception e)
         {
@@ -164,7 +163,7 @@ public class ClientLoginService : IClientLoginService
         await UniTask.CompletedTask;
     }
 
-    public async UniTask SaveLocalUserData(UnityGameState gs, string userId)
+    public async UniTask SaveLocalUserData(string userId)
     {
         LocalUserData localUserData = new LocalUserData()
         {

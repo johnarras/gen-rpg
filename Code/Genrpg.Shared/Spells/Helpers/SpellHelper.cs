@@ -13,11 +13,11 @@ namespace Genrpg.Shared.Spells.Helpers
 
     public class SpellHelper : IEntityHelper
     {
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public long GetKey() { return EntityTypes.Spell; }
         public string GetDataPropertyName() { return "Spells"; }
 
-        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
+        public IIndexedGameItem Find(IFilteredObject obj, long id)
         {
             return _gameData.Get<SpellTypeSettings>(obj).Get(id);
         }

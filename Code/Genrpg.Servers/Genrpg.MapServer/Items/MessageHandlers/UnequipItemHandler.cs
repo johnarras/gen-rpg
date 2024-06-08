@@ -5,6 +5,8 @@ using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,25 +14,20 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Items.MessageHandlers
 {
-    public class UnequipItemHandler : BaseServerMapMessageHandler<UnequipItem>
+    public class UnequipItemHandler : BaseUnitServerMapMessageHandler<UnequipItem>
     {
 
         private IInventoryService _inventoryService = null;
-        public override void Setup(GameState gs)
+        public override void Setup(IGameState gs)
         {
             base.Setup(gs);
         }
 
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, UnequipItem message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, UnequipItem message)
         {
-            if (!(obj is Character ch))
+            if (!_inventoryService.UnequipItem(unit, message.ItemId))
             {
-                return;
-            }
-
-            if (!_inventoryService.UnequipItem(ch, message.ItemId))
-            {
-                pack.SendError(gs, obj, "That item isn't equipped");
+                pack.SendError(unit, "That item isn't equipped");
                 return;
             }
         }

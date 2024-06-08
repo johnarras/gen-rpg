@@ -21,7 +21,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.StartCombat; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = null;
 
@@ -30,7 +30,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
             CombatState combatState = new CombatState() { Level = party.GetWorldLevel() };
 
 
-            if (_combatService.StartCombat(gs, _crawlerService.GetParty(), combatState))
+            if (_combatService.StartCombat(_crawlerService.GetParty(), combatState))
             {
                 stateData = new CrawlerStateData(ECrawlerStates.CombatFightRun,true);
             }

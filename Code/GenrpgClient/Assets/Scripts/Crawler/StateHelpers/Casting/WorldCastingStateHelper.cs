@@ -18,7 +18,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Casting
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.WorldCast; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Casting
                 return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "World spell had bad data" };
             }
 
-            await _crawlerSpellService.CastSpell(gs, _crawlerService.GetParty(), selectSpellAction.Action.Action);
+            await _crawlerSpellService.CastSpell(_crawlerService.GetParty(), selectSpellAction.Action.Action);
 
             stateData = new CrawlerStateData(ECrawlerStates.ExploreWorld, true);
 

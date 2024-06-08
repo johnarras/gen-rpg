@@ -10,14 +10,14 @@ namespace Assets.Scripts.Interfaces
 {
     public interface IAudioService : IInitializable
     {
-        void PlaySound(UnityGameState gs, string name, object parent = null, float volume = 1.0f);
-        void PlayMusic(UnityGameState gs, IMusicRegion region);
-        void StopAllAudio(UnityGameState gs);
+        void PlaySound(string name, object parent = null, float volume = 1.0f);
+        void PlayMusic(IMusicRegion region);
+        void StopAllAudio(IUnityGameState gs);
 
-        void SetSoundActive(UnityGameState gs, bool val);
-        bool IsSoundActive(UnityGameState gs);
+        void SetSoundActive(bool val);
+        bool IsSoundActive(IUnityGameState gs);
 
-        void SetMusicActive(UnityGameState gs, bool val);
-        bool IsMusicActive(UnityGameState gs);
+        void SetMusicActive(bool val);
+        bool IsMusicActive(IUnityGameState gs);
     }
 }

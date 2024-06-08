@@ -31,11 +31,11 @@ public class CraftingScreen : ItemIconScreen
         await base.OnStartOpen (data, token);
     }
 
-    public override void OnRightClickIcon(UnityGameState gs, ItemIcon icon)
+    public override void OnRightClickIcon(ItemIcon icon)
     {
     }
 
-    public override void OnLeftClickIcon(UnityGameState gs, ItemIcon icon)
+    public override void OnLeftClickIcon(ItemIcon icon)
     {
     }
 
@@ -85,11 +85,11 @@ public class CraftingScreen : ItemIconScreen
             return;
         }
 
-        _assetService.LoadAsset(_gs, AssetCategoryNames.UI, RecipeRow, OnLoadRecipeRow, 
+        _assetService.LoadAsset(AssetCategoryNames.UI, RecipeRow, OnLoadRecipeRow, 
             status, _recipeListParent, _token, Subdirectory);        
     }
 
-    private void OnLoadRecipeRow(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadRecipeRow(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

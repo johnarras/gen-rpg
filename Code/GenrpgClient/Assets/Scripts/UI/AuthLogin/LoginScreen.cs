@@ -26,8 +26,8 @@ public class LoginScreen : BaseScreen
 
     public void ClickSignup()
     {
-        _screenService.Open(_gs, ScreenId.Signup);
-        _screenService.Close(_gs, ScreenId.Login);
+        _screenService.Open(ScreenId.Signup);
+        _screenService.Close(ScreenId.Login);
     }
 
     public void ClickLogin()
@@ -49,7 +49,7 @@ public class LoginScreen : BaseScreen
             Password = PasswordInput.Text,
         };
 
-        _loginService.LoginToServer(_gs, loginCommand, _token).Forget();
+        _loginService.LoginToServer(loginCommand, _token).Forget();
     }
 }
 

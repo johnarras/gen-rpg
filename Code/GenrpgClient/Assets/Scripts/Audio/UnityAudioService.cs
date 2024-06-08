@@ -21,7 +21,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public const float MusicVolumeScale = 0.3f;
     public List<MusicChannel> MusicChannels;
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -37,7 +37,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         CheckRemoveAudio(_token).Forget();
     }
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         AddUpdate(AudioUpdate, UpdateType.Regular);
@@ -53,7 +53,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     }
 
     #region ToggleAudio
-    public void StopAllAudio(UnityGameState gs)
+    public void StopAllAudio(IUnityGameState gs)
     {
         foreach (AudioClipList cont in _audioCache.Values)
         {
@@ -61,43 +61,43 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         }
     }
 
-    public void SetMusicActive(UnityGameState gs, bool val)
+    public void SetMusicActive(bool val)
     {
-        SetAudioActive(gs, UserFlags.MusicActive, val);
+        SetAudioActive(UserFlags.MusicActive, val);
     }
 
-    public void SetSoundActive(UnityGameState gs, bool val)
+    public void SetSoundActive(bool val)
     {
-        SetAudioActive(gs, UserFlags.SoundActive, val);
+        SetAudioActive(UserFlags.SoundActive, val);
     }
 
-    public bool IsMusicActive(UnityGameState gs)
+    public bool IsMusicActive(IUnityGameState gs)
     {
-        return IsAudioActive(gs, UserFlags.MusicActive);
+        return IsAudioActive(UserFlags.MusicActive);
     }
 
-    public bool IsSoundActive(UnityGameState gs)
+    public bool IsSoundActive(IUnityGameState gs)
     {
-        return IsAudioActive(gs, UserFlags.SoundActive);
+        return IsAudioActive(UserFlags.SoundActive);
     }
 
-    protected void SetAudioActive(UnityGameState gs, int flag, bool val)
+    protected void SetAudioActive(int flag, bool val)
     {
-        gs.UpdateUserFlags(flag, val);
+        _gs.UpdateUserFlags(flag, val);
     }
 
-    protected bool IsAudioActive(UnityGameState gs, int flag)
+    protected bool IsAudioActive(int flag)
     {
-        if (gs.user == null)
+        if (_gs.user == null)
         {
-            InitialClientConfig config = gs.GetConfig();
+            InitialClientConfig config = _gs.GetConfig();
             if (config != null)
             {
                 return FlagUtils.IsSet(config.UserFlags, flag);
             }
             return false;
         }
-        return gs.user.HasFlag(flag);
+        return _gs.user.HasFlag(flag);
     }
     #endregion
 
@@ -144,7 +144,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
 
 
 
-    public void PlaySound(UnityGameState gs, string soundName, object parent = null, float volume = 1f)
+    public void PlaySound(string soundName, object parent = null, float volume = 1f)
     {
         PlayAudioData playData = new PlayAudioData()
         {
@@ -154,11 +154,11 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
             category = AudioCategory.Sound,
             looping = false,
         };
-        PlayAudio(gs, playData);
+        PlayAudio(playData);
     }
 
 
-    protected void PlayAudio(UnityGameState gs, PlayAudioData playData)
+    protected void PlayAudio(PlayAudioData playData)
     {
         if (playData == null)
         {
@@ -168,16 +168,16 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         if (_audioCache.ContainsKey(name))
         {
             AudioClipList cont = _audioCache[name];
-            PlayLoadedAudio(gs, cont, playData);
+            PlayLoadedAudio(cont, playData);
             return;
         }
 
 
 
-        _assetService.LoadAsset(gs, AssetCategoryNames.Audio, playData.audioName, OnDownloadAudio, playData, entity, _token);
+        _assetService.LoadAsset(AssetCategoryNames.Audio, playData.audioName, OnDownloadAudio, playData, entity, _token);
     }
 
-    private void OnDownloadAudio(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnDownloadAudio(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -210,11 +210,11 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
             _audioCache[playData.audioName] = cont;
             cont.Name = playData.audioName;
         }
-        PlayLoadedAudio(gs, cont, playData);
+        PlayLoadedAudio(cont, playData);
     }
 
 
-    protected void PlayLoadedAudio(UnityGameState gs, AudioClipList clipList, PlayAudioData playData)
+    protected void PlayLoadedAudio(AudioClipList clipList, PlayAudioData playData)
     {
         if (clipList == null || playData == null)
         {
@@ -253,7 +253,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     /// </summary>
     private Dictionary<AudioCategory, long> _channelIds = new Dictionary<AudioCategory, long>();
  
-    public void PlayMusic(UnityGameState gs, IMusicRegion region)
+    public void PlayMusic(IMusicRegion region)
     {
         return;
         if (InitClient.ForceCrawler)
@@ -293,7 +293,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                 continue;
             }
 
-            MusicType mtype = _gameData.Get<MusicTypeSettings>(gs.ch)?.Get(musicId);
+            MusicType mtype = _gameData.Get<MusicTypeSettings>(_gs.ch)?.Get(musicId);
 
             string musicName = "";
             if (mtype != null)
@@ -325,7 +325,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
             };
 
 
-            PlayAudio(gs, playData);
+            PlayAudio(playData);
         }
     }
 
@@ -401,7 +401,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         if (catCont.curr != null && catCont.curr.GetRandomIzeSeconds() > 0)
         {
             float randTime = catCont.curr.GetRandomIzeSeconds();
-            float newRandTime = MathUtils.FloatRange(randTime / 2, randTime * 3 / 2, _gs.rand);
+            float newRandTime = MathUtils.FloatRange(randTime / 2, randTime * 3 / 2, _rand);
             catCont.curr.NextRandomizeTime = DateTime.UtcNow.AddSeconds(newRandTime);
         }
     }
@@ -438,7 +438,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                 cont.curr.GetRandomIzeSeconds() > 0 && 
                 DateTime.UtcNow > cont.curr.NextRandomizeTime)
             {
-                cont.ChooseNewRandomSound(_gs);
+                cont.ChooseNewRandomSound(_rand);
             }
 
             if (removeList != null)

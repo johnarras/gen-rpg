@@ -15,9 +15,9 @@ using System.Threading;
 
 public class SetBelowLandTerrainTextures : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
     }
 }
         

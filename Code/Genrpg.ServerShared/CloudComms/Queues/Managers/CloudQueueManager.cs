@@ -145,7 +145,7 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
             }
             catch (OperationCanceledException ce)
             {
-                _logService.Info("Shutting down cloud listener for " + _serverId);
+                _logService.Info("Shutting down cloud listener for " + ce.Message + " " + _serverId);
             }
         }
 

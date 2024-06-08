@@ -26,7 +26,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.SelectAlly; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 

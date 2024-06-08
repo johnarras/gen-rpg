@@ -5,12 +5,14 @@ using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Quests.Constants;
 using Genrpg.Shared.Quests.Entities;
 using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.Quests.WorldData;
 using Genrpg.Shared.Spawns.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -24,7 +26,7 @@ namespace Genrpg.MapServer.Quests.Services
 
     public interface IServerQuestService : IInitializable
     {
-        UpdateQuestResult UpdateQuest(GameState gs, MapObject mobj, ISpawnResult spawnResult);
+        UpdateQuestResult UpdateQuest(IRandom rand, MapObject mobj, ISpawnResult spawnResult);
     }
 
     public class ServerQuestService : IServerQuestService
@@ -33,14 +35,15 @@ namespace Genrpg.MapServer.Quests.Services
         private IEntityService _entityService = null;
 
         protected IRepositoryService _repoService = null;
-        private IGameData _gameData;
+        private IMapProvider _mapProvider = null;
+        private IGameData _gameData = null;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-        public virtual UpdateQuestResult UpdateQuest(GameState gs, MapObject mobj, ISpawnResult spawnResult)
+        public virtual UpdateQuestResult UpdateQuest(IRandom rand, MapObject mobj, ISpawnResult spawnResult)
         {
             UpdateQuestResult retval = new UpdateQuestResult();
             if (!(mobj is Character ch))
@@ -100,7 +103,7 @@ namespace Genrpg.MapServer.Quests.Services
                         taskStatus.CurrQuantity = task.Quantity;
                     }
 
-                    retval.Message += questStatus.Quest.PrintTaskText(gs, ch, _gameData, task.Index) + "\n";
+                    retval.Message += questStatus.Quest.PrintTaskText(rand, ch, _gameData, _mapProvider, task.Index) + "\n";
                     retval.Success = true;
                 }
                 if (changedSomething)
@@ -112,7 +115,7 @@ namespace Genrpg.MapServer.Quests.Services
         }
 
 
-        public AlterQuestStateResult AlterQuestState(GameState gs, Character ch, AlterQuestStateData alterData)
+        public AlterQuestStateResult AlterQuestState(IRandom rand, Character ch, AlterQuestStateData alterData)
         {
             AlterQuestStateResult errorResult = new AlterQuestStateResult();
 
@@ -124,7 +127,7 @@ namespace Genrpg.MapServer.Quests.Services
 
             return errorResult;
 
-            QuestType quest = gs.map.Get<QuestType>(alterData.QuestTypeId);
+            QuestType quest = _mapProvider.GetMap().Get<QuestType>(alterData.QuestTypeId);
 
             if (quest == null || quest.Tasks == null)
             {
@@ -136,7 +139,7 @@ namespace Genrpg.MapServer.Quests.Services
 
             QuestStatus questStatus = questData.GetStatus(quest);
 
-            int questState = _questService.GetQuestState(gs, ch, quest);
+            int questState = _questService.GetQuestState(rand, ch, quest);
 
             if (alterData.AlterTypeId == AlterQuestType.Accept)
             {
@@ -211,9 +214,9 @@ namespace Genrpg.MapServer.Quests.Services
                     return errorResult;
                 }
 
-                List<SpawnResult> rewards = _questService.GetRewards(gs, ch, quest, true);
+                List<SpawnResult> rewards = _questService.GetRewards(rand, ch, quest, true);
 
-                _entityService.GiveRewards(gs, ch, rewards);
+                _entityService.GiveRewards(rand, ch, rewards);
                 questData.RemoveStatus(questStatus);
                 _repoService.Delete(questStatus);
 

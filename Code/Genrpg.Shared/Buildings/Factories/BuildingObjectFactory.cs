@@ -7,6 +7,7 @@ using Genrpg.Shared.GroundObjects.MapObjects;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Buildings.MapObjects;
 using Genrpg.Shared.MapObjects.Factories;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Buildings.Factories
 {
@@ -15,11 +16,11 @@ namespace Genrpg.Shared.Buildings.Factories
     {
         public override long GetKey() { return EntityTypes.Building; }
 
-        public override MapObject Create(GameState gs, IMapSpawn spawn)
+        public override MapObject Create(IRandom rand, IMapSpawn spawn)
         {
             Building obj = new Building(_repoService);
             obj.CopyDataToMapObjectFromMapSpawn(spawn);
-            Zone zone = gs.map.Get<Zone>(obj.ZoneId);
+            Zone zone = _mapProvider.GetMap().Get<Zone>(obj.ZoneId);
             if (zone != null)
             {
                 obj.Level = zone.Level;

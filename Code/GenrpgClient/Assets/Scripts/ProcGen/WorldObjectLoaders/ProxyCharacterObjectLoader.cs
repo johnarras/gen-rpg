@@ -11,12 +11,12 @@ public class ProxyCharacterObjectLoader : UnitObjectLoader
         return EntityTypes.ProxyCharacter;
     }
 
-    public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async UniTask Load(OnSpawn spawn, MapObject obj, CancellationToken token)
     {
-        await base.Load(gs, spawn, obj, token);
+        await base.Load(spawn, obj, token);
     }
-    protected override void AfterLoadUnit(UnityGameState gs, object obj, object data, CancellationToken token)
+    protected override void AfterLoadUnit(object obj, object data, CancellationToken token)
     {
-        base.AfterLoadUnit(gs, obj, data, token);
+        base.AfterLoadUnit(obj, data, token);
     }
 }

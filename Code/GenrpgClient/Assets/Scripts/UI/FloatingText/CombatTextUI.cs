@@ -19,13 +19,13 @@ public class CombatTextUI : BaseBehaviour
     int frameCount = 0;
 
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         AddUpdate(CombatTextUpdate, UpdateType.Regular);
     }
 
-    public void Init(UnityGameState gs, CombatText text)
+    public void Init(CombatText text)
     {
         if (CombatText == null)
         {
@@ -47,8 +47,8 @@ public class CombatTextUI : BaseBehaviour
         if (CombatText != null)
         {
             float dmult = 0.03f;
-            float dx = MathUtils.FloatRange(-20, 20, gs.rand)*dmult;
-            float dy = MathUtils.FloatRange(0, 15, gs.rand)*dmult;
+            float dx = MathUtils.FloatRange(-20, 20, _rand)*dmult;
+            float dy = MathUtils.FloatRange(0, 15, _rand)*dmult;
             CombatText.transform().localPosition += GVector3.Create(dx, dy, 0);
 
             switch (text.TextColor)

@@ -14,9 +14,9 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
         const double _radiusDiv = 3;
 
         // Square of radius/3?
-        public override double GetCostScale(GameState gs, MapObject obj, double value)
+        public override double GetCostScale(MapObject obj, double value)
         {
-            value = GetValidValue(gs, obj, value);
+            value = GetValidValue(obj, value);
 
             value /= _radiusDiv;
 

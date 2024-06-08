@@ -33,22 +33,22 @@ public class AddPlants : BaseZoneGenerator
 
     private IZonePlantValidator _zonePlantValidator;
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        foreach (Zone zone in gs.map.Zones)
+        await base.Generate(token);
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
 
-        AddPlantsToMapData(gs);
+        AddPlantsToMapData(_gs);
     }
 
 
 
    
 
-    public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
+    public void GenerateOne(Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
         if (startx >= endx || starty >= endy)
         {
@@ -63,7 +63,7 @@ public class AddPlants : BaseZoneGenerator
 
         List<FullDetailPrototype> fullList = new List<FullDetailPrototype>();
 
-        _zonePlantValidator.UpdateValidPlantTypeList(gs, zone, -1, -1, fullList,true, _token);
+        _zonePlantValidator.UpdateValidPlantTypeList(zone, -1, -1, fullList,true, _token);
 
         if (fullList == null)
         {
@@ -97,7 +97,7 @@ public class AddPlants : BaseZoneGenerator
 
             float midSteepVal = 70f;
 
-            GenZone genZone = gs.md.GetGenZone(zone.IdKey);
+            GenZone genZone = _md.GetGenZone(zone.IdKey);
 
             MyRandom rand = new MyRandom(full.noiseSeed);
             for (int i = 0; i < plantChanceTimes; i++)
@@ -125,7 +125,7 @@ public class AddPlants : BaseZoneGenerator
                 
               
 
-                plantChances.Add(_noiseService.Generate(gs, pers, freq, amp, octaves, pseed, perlinSize, perlinSize));
+                plantChances.Add(_noiseService.Generate(pers, freq, amp, octaves, pseed, perlinSize, perlinSize));
             }
 
             float steepFreq = perlinSize * MathUtils.FloatRange(0.05f, 0.15f, rand);
@@ -134,7 +134,7 @@ public class AddPlants : BaseZoneGenerator
             int steepOctaves = 2;
 
             /// Steepness allowed at each coord for this grass to grow or not.
-            float[,] steepVals = _noiseService.Generate(gs, steepPers, steepFreq, steepAmp, steepOctaves, pseed + 1, perlinSize, perlinSize);
+            float[,] steepVals = _noiseService.Generate(steepPers, steepFreq, steepAmp, steepOctaves, pseed + 1, perlinSize, perlinSize);
 
             int numChecked = 0;
             int badZoneId = 0;
@@ -150,36 +150,36 @@ public class AddPlants : BaseZoneGenerator
                     float currDensityMult = MathUtils.FloatRange(0, 2, rand);
                     numChecked++;
 
-                    if (gs.md.mapZoneIds[x,y] != zone.IdKey) // zoneobject
+                    if (_md.mapZoneIds[x,y] != zone.IdKey) // zoneobject
                     {
                         badZoneId++;
                         continue;
                     }
-                    if (gs.md.mapObjects[x,y] != 0)
+                    if (_md.mapObjects[x,y] != 0)
                     {
                         continue;
                     }
-                    if (FlagUtils.IsSet(gs.md.flags[x, y], MapGenFlags.BelowWater))
+                    if (FlagUtils.IsSet(_md.flags[x, y], MapGenFlags.BelowWater))
                     {
                         continue;
                     }
-                    if (gs.md.alphas[x,y, MapConstants.RoadTerrainIndex] > 0)
+                    if (_md.alphas[x,y, MapConstants.RoadTerrainIndex] > 0)
                     {
                         bool isNearRoad = false;
                         int roadRad = 0;
                         for (int xx = x - roadRad; xx <= x + roadRad; xx++)
                         {
-                            if (xx < 0 || xx >= gs.map.GetHwid())
+                            if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
                             {
                                 continue;
                             }
                             for (int yy = y - roadRad; yy <= y + roadRad; yy++)
                             {
-                                if (yy < 0 || yy >= gs.map.GetHhgt())
+                                if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                                 {
                                     continue;
                                 }
-                                if (gs.md.alphas[xx,yy, MapConstants.RoadTerrainIndex] > 0)
+                                if (_md.alphas[xx,yy, MapConstants.RoadTerrainIndex] > 0)
                                 {
                                     isNearRoad = true;
                                     break;
@@ -192,14 +192,14 @@ public class AddPlants : BaseZoneGenerator
                             continue;
                         }
                     }
-                    float hgt = _terrainManager.SampleHeight(gs, x, y);
+                    float hgt = _terrainManager.SampleHeight(x, y);
                     if (hgt < MapConstants.MinLandHeight*7/10)
                     {
                         continue;
                     }
 
 
-                    float steep = _terrainManager.GetSteepness(gs, x,y);
+                    float steep = _terrainManager.GetSteepness(x,y);
 
                     if (steep > (midSteepVal+steepVals[x-startx,y-starty]))
                     {
@@ -229,7 +229,7 @@ public class AddPlants : BaseZoneGenerator
                     }
                     else
                     {
-                        if (gs.rand.NextDouble() > currDensityMult*density / 20.0f)
+                        if (_rand.NextDouble() > currDensityMult*density / 20.0f)
                         {
                             continue;
                         }
@@ -239,9 +239,9 @@ public class AddPlants : BaseZoneGenerator
                         }
                     }
 
-                    if (_zoneGenService.FindMapLocation(gs, x, y, 1) != null)
+                    if (_zoneGenService.FindMapLocation(x, y, 1) != null)
                     {
-                        if (FlagUtils.IsSet(gs.md.flags[x, y], MapGenFlags.IsLocationPatch))
+                        if (FlagUtils.IsSet(_md.flags[x, y], MapGenFlags.IsLocationPatch))
                         {
                             nearLocation++;
                             continue;
@@ -277,7 +277,7 @@ public class AddPlants : BaseZoneGenerator
                         {                            
                             val = (short)(val * MapConstants.PrefabPlantDensityScale);
                         }
-                        gs.md.grassAmounts[nx, ny, index] = (byte)val;
+                        _md.grassAmounts[nx, ny, index] = (byte)val;
                     }
                 }
 
@@ -285,24 +285,24 @@ public class AddPlants : BaseZoneGenerator
         }
     }
 
-    public void AddPlantsToMapData(UnityGameState gs)
+    public void AddPlantsToMapData(IUnityGameState gs)
     {
 
-        if ( gs.md.grassAmounts == null || gs.md.mapObjects == null)
+        if (base._md.grassAmounts == null || base._md.mapObjects == null)
         {
             return;
         }
-        for (int x = 0; x < gs.map.GetHwid(); x++)
+        for (int x = 0; x < _mapProvider.GetMap().GetHwid(); x++)
         {
-            for (int y = 0; y < gs.map.GetHhgt(); y++)
+            for (int y = 0; y < _mapProvider.GetMap().GetHhgt(); y++)
             {
-                if (gs.md.mapObjects[x, y] == 0)
+                if (base._md.mapObjects[x, y] == 0)
                 {
                     int val = 0;
                     int[] vals = new int[MapConstants.MaxGrass];
                     for (int i = 0; i < MapConstants.MaxGrass; i++)
                     {
-                        int currVal = Math.Min(MapConstants.MaxGrassValue, (int)gs.md.grassAmounts[x, y, i]);
+                        int currVal = Math.Min(MapConstants.MaxGrassValue, (int)base._md.grassAmounts[x, y, i]);
                         vals[i] = currVal;
                         for (int j = 0; j < i; j++)
                         {
@@ -312,7 +312,7 @@ public class AddPlants : BaseZoneGenerator
                     }
                     if (val != 0)
                     {
-                        gs.md.mapObjects[x, y] = (ushort)(MapConstants.GrassMinCellValue + val);
+                        base._md.mapObjects[x, y] = (ushort)(MapConstants.GrassMinCellValue + val);
                     }
                 }
             }

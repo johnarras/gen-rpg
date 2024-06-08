@@ -6,9 +6,9 @@ namespace Assets.Scripts.Login.MessageHandlers
 {
     public class RefreshGameSettingsResultHandler : BaseClientLoginResultHandler<RefreshGameSettingsResult>
     {
-        protected override void InnerProcess(UnityGameState gs, RefreshGameSettingsResult result, CancellationToken token)
+        protected override void InnerProcess(RefreshGameSettingsResult result, CancellationToken token)
         {
-            gs.ch.SetGameDataOverrideList(result.Overrides);         
+            _gs.ch.SetGameDataOverrideList(result.Overrides);         
             _gameData.AddData(result.NewSettings);
         }
     }

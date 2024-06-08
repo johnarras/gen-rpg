@@ -17,6 +17,7 @@ using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Vendors.WorldData;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.MapServer.Services;
 
 namespace Genrpg.Shared.Quests.WorldData
 {
@@ -65,9 +66,9 @@ namespace Genrpg.Shared.Quests.WorldData
             return IdKey == other.IdKey && MapId == other.MapId && ZoneId == other.ZoneId && MapVersion == other.MapVersion;
         }
 
-        public string PrintTaskText(GameState gs, Character ch, IGameData gameData, int index)
+        public string PrintTaskText(IRandom rand, Character ch, IGameData gameData, IMapProvider mapProvider, int index)
         {
-            if (gs.map == null || Tasks == null)
+            if (mapProvider.GetMap() == null || Tasks == null)
             {
                 return "";
             }
@@ -95,7 +96,7 @@ namespace Genrpg.Shared.Quests.WorldData
 
             if (task.TaskEntityTypeId == EntityTypes.Unit)
             {
-                Zone zone = gs.map.Get<Zone>(ZoneId);
+                Zone zone = mapProvider.GetMap().Get<Zone>(ZoneId);
 
                 string namePrefix = "";
                 UnitType utype = gameData.Get<UnitSettings>(ch).Get(task.TaskEntityId);
@@ -129,7 +130,7 @@ namespace Genrpg.Shared.Quests.WorldData
             }
             else if (task.TaskEntityTypeId == EntityTypes.Item)
             {
-                QuestItem qitem = gs.map.Get<QuestItem>(task.TaskEntityId);
+                QuestItem qitem = mapProvider.GetMap().Get<QuestItem>(task.TaskEntityId);
                 if (qitem == null)
                 {
                     return "";

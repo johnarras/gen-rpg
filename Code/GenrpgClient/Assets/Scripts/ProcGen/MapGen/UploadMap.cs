@@ -8,24 +8,24 @@ using System.Threading;
 public class UploadMap : BaseZoneGenerator
 {
     private IWebNetworkService _webNetworkService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
 
-        await base.Generate(gs, token);
-        for (int gx = 0; gx < gs.map.BlockCount; gx++)
+        await base.Generate(token);
+        for (int gx = 0; gx < _mapProvider.GetMap().BlockCount; gx++)
         {
-            for (int gy = 0; gy < gs.map.BlockCount; gy++)
+            for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
             {
-                UploadOneTerrainPatch(gs, gx, gy);
+                UploadOneTerrainPatch(gx, gy);
             }
         }
 
-        await DelaySendMapSizes(gs, token);
+        await DelaySendMapSizes(token);
     }
 
-    private void UploadOneTerrainPatch(UnityGameState gs, int gx, int gy)
+    private void UploadOneTerrainPatch(int gx, int gy)
     {
-        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy, false);
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gx, gy, false);
 
         if (patch == null)
         {
@@ -37,8 +37,8 @@ public class UploadMap : BaseZoneGenerator
             return;
         }
 
-        string localFilePath = patch.GetFilePath(gs, true);
-        string remoteFilePath = patch.GetFilePath(gs, false);
+        string localFilePath = patch.GetFilePath(true);
+        string remoteFilePath = patch.GetFilePath(false);
 
         BinaryFileRepository repo = new BinaryFileRepository(_logService);
         string localPath = repo.GetPath(localFilePath);
@@ -55,23 +55,23 @@ public class UploadMap : BaseZoneGenerator
     }
 
 
-    private async UniTask DelaySendMapSizes(UnityGameState gs, CancellationToken token)
+    private async UniTask DelaySendMapSizes(CancellationToken token)
     {
         await UniTask.Delay(2000, cancellationToken: token);
         UploadMapCommand update = new UploadMapCommand()
         {
-            Map = gs.map,
-            SpawnData = gs.spawns,
+            Map = _mapProvider.GetMap(),
+            SpawnData = _mapProvider.GetSpawns(),
             WorldDataEnv = _assetService.GetWorldDataEnv()
         };
 
-        string oldMapId = gs.map.Id;
-        gs.map.Id = "UploadedMap";
-        await _repoService.Save(gs.map);
-        gs.map.Id = oldMapId;
-        gs.spawns.Id = "UploadedSpawns";
-        await _repoService.Save(gs.spawns);
-        gs.spawns.Id = oldMapId;
+        string oldMapId = _mapProvider.GetMap().Id;
+        _mapProvider.GetMap().Id = "UploadedMap";
+        await _repoService.Save(_mapProvider.GetMap());
+        _mapProvider.GetMap().Id = oldMapId;
+        _mapProvider.GetSpawns().Id = "UploadedSpawns";
+        await _repoService.Save(_mapProvider.GetSpawns());
+        _mapProvider.GetSpawns().Id = oldMapId;
         _webNetworkService.SendClientWebCommand(update, _token);
         await UniTask.CompletedTask;
     }

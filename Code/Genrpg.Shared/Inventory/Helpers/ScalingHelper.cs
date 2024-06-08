@@ -13,11 +13,11 @@ namespace Genrpg.Shared.Inventory.Helpers
 {
     public class ScalingHelper : IEntityHelper
     {
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public long GetKey() { return EntityTypes.Scaling; }
         public string GetDataPropertyName() { return "ScalingTypes"; }
 
-        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
+        public IIndexedGameItem Find(IFilteredObject obj, long id)
         {
             return _gameData.Get<ScalingTypeSettings>(obj).Get(id);
         }

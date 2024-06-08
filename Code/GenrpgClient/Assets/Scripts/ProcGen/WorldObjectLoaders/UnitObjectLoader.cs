@@ -17,10 +17,10 @@ public class UnitObjectLoader : BaseMapObjectLoader
     public override long GetKey() { return EntityTypes.Unit; }
     protected override string GetLayerName() { return LayerNames.UnitLayer; }
 
-    public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async UniTask Load(OnSpawn spawn, MapObject obj, CancellationToken token)
     {
 
-        UnitType utype = _gameData.Get<UnitSettings>(gs.ch).Get(spawn.EntityId);
+        UnitType utype = _gameData.Get<UnitSettings>(_gs.ch).Get(spawn.EntityId);
         if (utype == null)
         {
             return;
@@ -34,13 +34,13 @@ public class UnitObjectLoader : BaseMapObjectLoader
         };
         await UniTask.CompletedTask;
 
-        _assetService.LoadAsset(gs, AssetCategoryNames.Monsters, utype.Art, AfterLoadUnit, loadData, null, token);
+        _assetService.LoadAsset(AssetCategoryNames.Monsters, utype.Art, AfterLoadUnit, loadData, null, token);
     }
 
 
 
     private IUnitSetupService _zoneGenService = null;
-    protected virtual void AfterLoadUnit(UnityGameState gs, object obj, object data, CancellationToken token)
+    protected virtual void AfterLoadUnit(object obj, object data, CancellationToken token)
     {
         SpawnLoadData loadData = data as SpawnLoadData;
         GEntity artGo = obj as GEntity;
@@ -62,10 +62,10 @@ public class UnitObjectLoader : BaseMapObjectLoader
             return;
         }
 
-        GEntity go = _zoneGenService.SetupUnit(gs, artGo, loadData, loadData.Token);
-        float height = _terrainManager.SampleHeight(gs, loadData.Obj.X, loadData.Obj.Z);
+        GEntity go = _zoneGenService.SetupUnit(artGo, loadData, loadData.Token);
+        float height = _terrainManager.SampleHeight(loadData.Obj.X, loadData.Obj.Z);
 
-        TerrainPatchData patch = _terrainManager.GetPatchFromMapPos(gs, loadData.Obj.X, loadData.Obj.Z);
+        TerrainPatchData patch = _terrainManager.GetPatchFromMapPos(loadData.Obj.X, loadData.Obj.Z);
 
         GVector3 oldScale = GVector3.Create(go.transform().localScale);
         if (patch != null)
@@ -99,20 +99,20 @@ public class UnitObjectLoader : BaseMapObjectLoader
 
         if (height == 0)
         {
-            WaitForTerrain(gs, go, loadData, loadData.Token).Forget();
+            WaitForTerrain(go, loadData, loadData.Token).Forget();
         }
 
         _objectManager.AddObject(loadData.Obj, go);
         
     }
 
-    private async UniTask WaitForTerrain(UnityGameState gs, GEntity go, SpawnLoadData loadData, CancellationToken token)
+    private async UniTask WaitForTerrain(GEntity go, SpawnLoadData loadData, CancellationToken token)
     {
         int times = 0;
         while (!token.IsCancellationRequested && ++times < 1000)
         {
-            await UniTask.NextFrame( cancellationToken: token);
-            float height = _terrainManager.SampleHeight(gs, loadData.Obj.X, loadData.Obj.Z);
+            await UniTask.NextFrame(cancellationToken: token);
+            float height = _terrainManager.SampleHeight(loadData.Obj.X, loadData.Obj.Z);
             if (height > 0)
             {
                 go.transform().position = GVector3.Create(loadData.Obj.X, height, loadData.Obj.Z);

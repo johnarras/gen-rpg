@@ -12,12 +12,12 @@ namespace Genrpg.Shared.Stats.Helpers
 {
     public class StatPctHelper : IEntityHelper
     {
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public long GetKey() { return EntityTypes.StatPct; }
         public string GetDataPropertyName() { return "StatTypes"; }
 
 
-        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
+        public IIndexedGameItem Find(IFilteredObject obj, long id)
         {
             return _gameData.Get<StatSettings>(obj).Get(id);
         }

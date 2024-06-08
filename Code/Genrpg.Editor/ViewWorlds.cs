@@ -9,6 +9,7 @@ using Genrpg.ServerShared.Maps;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
+using Genrpg.Shared.MapServer.Services;
 
 namespace GameEditor
 {
@@ -19,6 +20,7 @@ namespace GameEditor
 		private IGameData _gameData = null;
         private List<MapStub> _stubs = new List<MapStub>();
         private UIFormatter _formatter = null;
+        private IMapProvider _mapProvider = null;
 
 		public ViewMaps(EditorGameState gsIn, UIFormatter formatter)
 		{
@@ -86,7 +88,7 @@ namespace GameEditor
         {
             IMapDataService mapDataSerice = _gs.loc.Get<IMapDataService>();
 
-            _stubs = await mapDataSerice.GetMapStubs(_gs);
+            _stubs = await mapDataSerice.GetMapStubs();
 
             this.Invoke(FinalSetupGrid);
         }
@@ -130,7 +132,7 @@ namespace GameEditor
         private async Task OnClickDetailsAsync(MapStub item, Form form)
         {
             IMapDataService mds = _gs.loc.Get<IMapDataService>();
-            Map map = await mds.LoadMap(_gs, item.Id);
+            Map map = await mds.LoadMap(_gs.rand, item.Id);
 
             this.Invoke(()=> AfterLoadMap(map, form));
         }
@@ -142,7 +144,7 @@ namespace GameEditor
                 form.Hide();
             }
 
-            _gs.map = map;
+            _mapProvider.SetMap(map);
 			DataWindow dw = new DataWindow(_gs, _formatter, map, this, "Map");
 			dw.Show();
 		}

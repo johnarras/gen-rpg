@@ -12,36 +12,36 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
 {
     public abstract class BaseSpellModifierHelper : ISpellModifierHelper
     {
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public abstract long GetKey();
-        public abstract double GetCostScale(GameState gs, MapObject obj, double value);
+        public abstract double GetCostScale(MapObject obj, double value);
 
-        protected virtual SpellModifier GetModifier(GameState gs, MapObject obj)
+        protected virtual SpellModifier GetModifier(MapObject obj)
         {
             return _gameData.Get<SpellModifierSettings>(obj).Get(GetKey());
         }
 
-        public virtual double GetMinValue(GameState gs, MapObject obj)
+        public virtual double GetMinValue(MapObject obj)
         {
-            return GetModifier(gs, obj).MinValue;
+            return GetModifier(obj).MinValue;
         }
 
-        public virtual double GetMaxValue(GameState gs, MapObject obj)
+        public virtual double GetMaxValue(MapObject obj)
         {
-            return GetModifier(gs, obj).MaxValue;
+            return GetModifier(obj).MaxValue;
         }
 
-        public virtual double ValueDelta(GameState gs, MapObject obj)
+        public virtual double ValueDelta(MapObject obj)
         {
-            return GetModifier(gs, obj).ValueDelta;
+            return GetModifier(obj).ValueDelta;
         }
 
-        public virtual double GetValidValue(GameState gs, MapObject obj, double value)
+        public virtual double GetValidValue(MapObject obj, double value)
         {
-            value = MathUtils.Clamp(GetMinValue(gs, obj), value, GetMaxValue(gs, obj));
+            value = MathUtils.Clamp(GetMinValue(obj), value, GetMaxValue(obj));
 
-            double minValue = GetMinValue(gs, obj);
-            double valueDelta = ValueDelta(gs, obj);
+            double minValue = GetMinValue(obj);
+            double valueDelta = ValueDelta(obj);
 
             double divDiff = (value - minValue) / valueDelta;
 
@@ -53,16 +53,16 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
 
         }
 
-        public virtual string GetInfoText(GameState gs, MapObject obj)
+        public virtual string GetInfoText(MapObject obj)
         {
-            SpellModifier modifier = GetModifier(gs, obj);
+            SpellModifier modifier = GetModifier(obj);
 
             return modifier.MinValue + " to " + modifier.MaxValue + " by " + modifier.ValueDelta;
         }
 
-        public virtual List<double> GetValidValues(GameState gs, MapObject obj)
+        public virtual List<double> GetValidValues(MapObject obj)
         {
-            SpellModifier modifier = GetModifier(gs, obj);
+            SpellModifier modifier = GetModifier(obj);
             List<double> retval = new List<double>();
 
             if (modifier.ValueDelta <= 0)

@@ -4,6 +4,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Ftue.Constants;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Ftue.Settings.Steps;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,21 +18,21 @@ namespace Assets.Scripts.Ftue.Services
     {
         IScreenService _screenService = null;
 
-        public override FtueStep StartStep(GameState gs, Character ch, long ftueStepId)
+        public override FtueStep StartStep(IRandom random, Character ch, long ftueStepId)
         {
-            FtueStep newStep = base.StartStep(gs, ch, ftueStepId);
+            FtueStep newStep = base.StartStep(random ,ch, ftueStepId);
 
             if (newStep == null)
             {
                 return null;
             }
 
-            ClientStartOpen(gs as UnityGameState, newStep).Forget();
+            ClientStartOpen(newStep).Forget();
 
             return newStep;
         }
 
-        private async UniTask ClientStartOpen(UnityGameState gs, FtueStep newStep)
+        private async UniTask ClientStartOpen(FtueStep newStep)
         {
             await UniTask.CompletedTask;
 
@@ -40,7 +41,7 @@ namespace Assets.Scripts.Ftue.Services
 
             if (newStep.FtuePopupTypeId != FtuePopupTypes.NoWindow)
             {
-                _screenService.Open(gs, ScreenId.Ftue, newStep);
+                _screenService.Open(ScreenId.Ftue, newStep);
             }
         }
     }

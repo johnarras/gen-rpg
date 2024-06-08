@@ -2,9 +2,9 @@
   "Id": "stattype20default",
   "ParentId": "default",
   "IdKey": 20,
-  "Name": "Power",
+  "Name": "DamagePower",
   "Desc": "+All Dam",
   "GenScalePct": 100,
-  "UpdateTime": "2024-02-25T15:48:17.729Z",
+  "UpdateTime": "2024-06-07T23:19:13.141Z",
   "CreateTime": "2024-02-03T22:37:28.625Z"
 }

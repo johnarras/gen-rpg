@@ -11,31 +11,31 @@ using UI.Screens.Constants;
 public class ClearMapData : BaseZoneGenerator
 {
     private IPlayerManager _playerManager;
-    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate (CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
         _playerManager.SetUnit(null);
 
-        await _objectManager.Initialize(gs, token);
+        await _objectManager.Initialize(_gs, token);
 
-        _terrainManager.Clear(gs);
+        _terrainManager.Clear();
 
         RenderSettings.fog = false;
         RenderSettings.ambientIntensity = 1.0f;
 
-        _assetService.ClearBundleCache(gs,token);
+        _assetService.ClearBundleCache(token);
 
-        CleanUpOldMapFolders(gs, token).Forget();
+        CleanUpOldMapFolders(token).Forget();
 
         await UniTask.CompletedTask;
 	}
 
 
 
-    private async UniTask CleanUpOldMapFolders(UnityGameState gs, CancellationToken token)
+    private async UniTask CleanUpOldMapFolders(CancellationToken token)
     {
-        if (gs.map == null)
+        if (_mapProvider.GetMap() == null)
         {
             return;
         }
@@ -46,12 +46,12 @@ public class ClearMapData : BaseZoneGenerator
         }
 
 
-        string worldId = gs.map.Id;
-        int worldVersion = gs.map.MapVersion;
+        string worldId = _mapProvider.GetMap().Id;
+        int worldVersion = _mapProvider.GetMap().MapVersion;
 
-        _logService.Info("Current Map: " + gs.map.Id + " Version: " + gs.map.MapVersion);
+        _logService.Info("Current Map: " + _mapProvider.GetMap().Id + " Version: " + _mapProvider.GetMap().MapVersion);
 
-        string folder = MapUtils.GetMapFolder(gs, worldId, worldVersion);
+        string folder = MapUtils.GetMapFolder(worldId, worldVersion);
 
         folder = folder.Substring(0, folder.Length - 1);
 
@@ -91,7 +91,7 @@ public class ClearMapData : BaseZoneGenerator
                     _logService.Exception(e, "NoDeleteOnClearMap");
                 }
             }
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
     }
 }

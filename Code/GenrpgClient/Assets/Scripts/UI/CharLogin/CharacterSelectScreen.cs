@@ -66,12 +66,12 @@ public class CharacterSelectScreen : BaseScreen
 
         SetupCharacterGrid();
 
-        GetSpellIcons(_gs);
+        GetSpellIcons();
 
         await UniTask.CompletedTask;
     }
 
-    private void GetSpellIcons(UnityGameState gs)
+    private void GetSpellIcons()
     {
     }
 
@@ -99,7 +99,7 @@ public class CharacterSelectScreen : BaseScreen
             Env = _gs.Config.Env,
             WorldDataEnv = _assetService.GetWorldDataEnv(),
         };
-        _zoneGenService.LoadMap(_gs, lwd);
+        _zoneGenService.LoadMap(lwd);
     }
 
 
@@ -113,15 +113,15 @@ public class CharacterSelectScreen : BaseScreen
 
     private void ClickCrawler()
     {
-        _screenService.CloseAll(_gs);
+        _screenService.CloseAll();
         _inputService.SetDisabled(true);
-        _screenService.Open(_gs, ScreenId.Crawler);
+        _screenService.Open(ScreenId.Crawler);
     }
 
     private void ClickCharacterCreate()
     {
-        _screenService.Open(_gs, ScreenId.CharacterCreate);
-        _screenService.Close(_gs, ScreenId.CharacterSelect);
+        _screenService.Open(ScreenId.CharacterCreate);
+        _screenService.Close(ScreenId.CharacterSelect);
 
     }
 
@@ -148,7 +148,7 @@ public class CharacterSelectScreen : BaseScreen
 
     private void ClickLogout()
     {
-        _loginService.Logout(_gs);
+        _loginService.Logout();
     }
 
 
@@ -163,12 +163,12 @@ public class CharacterSelectScreen : BaseScreen
 
         foreach (CharacterStub stub in _gs.characterStubs)
         {
-            _assetService.LoadAssetInto(_gs, CharacterGridParent, AssetCategoryNames.UI, 
+            _assetService.LoadAssetInto(CharacterGridParent, AssetCategoryNames.UI, 
                 CharacterRowArt, OnLoadCharacterRow, stub, _token, Subdirectory);
         }
     }
 
-    private void OnLoadCharacterRow(UnityGameState gs, object row, object data, CancellationToken token)
+    private void OnLoadCharacterRow(object row, object data, CancellationToken token)
     {
         GEntity go = row as GEntity;
         if (go == null)

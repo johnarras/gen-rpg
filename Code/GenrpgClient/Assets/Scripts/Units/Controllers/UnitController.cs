@@ -36,7 +36,6 @@ public class UnitController : BaseBehaviour
     public const float SwimDepth = 1.2f;
 
     protected GAnimator anims = null;
-    protected MapGenData UnityMap = null;
 	protected CharacterController cc = null;
     Rigidbody rb = null;
     protected Unit _unit = null;
@@ -66,17 +65,16 @@ public class UnitController : BaseBehaviour
     public virtual float SwimSpeedScale() { return 0.5f; }
     public virtual bool HardStopOnSlopes() { return false; }
     public virtual bool IsSwimming() { return false; }
-    public virtual bool CanMoveNow(UnityGameState gs) { return true; }
+    public virtual bool CanMoveNow() { return true; }
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         anims = GEntityUtils.GetComponent<GAnimator>(entity);
         cc = GetComponent<CharacterController>();
-        rb = GEntityUtils.GetOrAddComponent<Rigidbody>(gs, entity);
+        rb = GEntityUtils.GetOrAddComponent<Rigidbody>(_gs, entity);
         rb.isKinematic = true;
         rb.freezeRotation = true;
-        UnityMap = _gs.md;
     }
 
 	protected IDictionary<string, float> _downKeys = new Dictionary<string,float>();
@@ -213,7 +211,7 @@ public class UnitController : BaseBehaviour
 
         if (entity.transform().position.y <= 100)
         {
-            float endHeight = _terrainManager.SampleHeight(_gs, endPos.x, endPos.z);
+            float endHeight = _terrainManager.SampleHeight(endPos.x, endPos.z);
 
             if (endHeight > 0)
             {
@@ -279,10 +277,10 @@ public class UnitController : BaseBehaviour
         AnimUtils.Trigger(anims, animName, 1);
     }
 
-    public virtual void ProcessDeath(UnityGameState gs, Unit killer) { }
+    public virtual void ProcessDeath(Unit killer) { }
    
     protected UnitFrame _mapHealthBar = null;
-    public virtual void SetState(UnityGameState gs, int state)
+    public virtual void SetState(int state)
     {
         UnitState = state;
 
@@ -389,12 +387,12 @@ public class UnitController : BaseBehaviour
         if (_unit == playerUnit || _unit.TargetId == playerUnit.Id)
         {
 
-            _assetService.LoadAssetInto(_gs, entity, AssetCategoryNames.UI, CombatTextUI.UIPrefabName,
+            _assetService.LoadAssetInto(entity, AssetCategoryNames.UI, CombatTextUI.UIPrefabName,
                 OnLoadCombatText, text, _token, "FloatingText");
         }
     }
 
-    private void OnLoadCombatText(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadCombatText(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -417,7 +415,7 @@ public class UnitController : BaseBehaviour
             return;
         }
 
-        ui.Init(gs, text);
+        ui.Init(text);
     }
 }
 

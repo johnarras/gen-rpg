@@ -98,6 +98,7 @@ namespace Genrpg.LoginServer.Core
         {
             ServerGameState gs = SetupGameState();
 
+            MyRandom rand = new MyRandom();
             EthereumTransactionList normalList = await _cryptoService.GetTransactionsFromWallet(_gs, address, false);
 
             EthereumTransactionList internalList = await _cryptoService.GetTransactionsFromWallet(_gs, address, true);
@@ -112,12 +113,12 @@ namespace Genrpg.LoginServer.Core
             {
                 retval.Append("TX: " + trans.hash + "\n");
 
-                List<PlayerCharmBonusList> list = _charmService.CalcBonuses(gs, trans.hash);
+                List<PlayerCharmBonusList> list = _charmService.CalcBonuses(trans.hash);
 
                 foreach (PlayerCharmBonusList blist in list)
                 {
 
-                    List<String> bonusTexts = _charmService.PrintBonuses(gs, blist);
+                    List<String> bonusTexts = _charmService.PrintBonuses(blist);
 
                     foreach (string btext in bonusTexts)
                     {

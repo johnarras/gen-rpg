@@ -216,7 +216,6 @@ namespace GameEditor
             MarkSelectedRows();
         }
 
-        private bool _markedZeroIdKey = false;
         private bool _markedOtherItem = false;
         private void MarkSelectedRows()
         {

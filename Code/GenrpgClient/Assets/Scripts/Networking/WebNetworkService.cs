@@ -19,7 +19,7 @@ using Genrpg.Shared.Logging.Interfaces;
 using System.Net;
 using static WebNetworkService;
 
-public delegate void WebResultsHandler(UnityGameState gs, string txt, CancellationToken token);
+public delegate void WebResultsHandler(string txt, CancellationToken token);
 
 public interface IWebNetworkService : IInitializable, IGameTokenService
 {
@@ -51,15 +51,16 @@ public class WebNetworkService : IWebNetworkService
         private List<FullLoginCommand> _pending = new List<FullLoginCommand>();
         private float _delaySeconds;
         private CancellationToken _token;
-        private UnityGameState _gs;
+        private IUnityGameState _gs;
         private DateTime _lastResponseReceivedTime = DateTime.UtcNow;
         private WebRequestQueue _parentQueue;
         private List<WebRequestQueue> _childQueues = new List<WebRequestQueue>();
         private string _fullEndpoint;
         private ILogService _logService;
 
-        public WebRequestQueue(UnityGameState gs, CancellationToken token, string fullEndpoint, float delaySeconds, ILogService logService, WebRequestQueue parentQueue = null)
+        public WebRequestQueue(IUnityGameState gs, CancellationToken token, string fullEndpoint, float delaySeconds, ILogService logService, WebRequestQueue parentQueue = null)
         {
+            _gs = gs;
             _loginResultHandlers = ReflectionUtils.SetupDictionary<Type, IClientLoginResultHandler>(gs);
             _parentQueue = parentQueue;
             _logService = logService;
@@ -67,7 +68,6 @@ public class WebNetworkService : IWebNetworkService
             {
                 _parentQueue.AddChildQueue(this);
             }
-            _gs = gs;
             _delaySeconds = delaySeconds;
             _token = token;         
             _fullEndpoint = fullEndpoint;
@@ -134,10 +134,10 @@ public class WebNetworkService : IWebNetworkService
 
             string commandText = SerializationUtils.Serialize(commandSet);
 
-            req.SendRequest(_gs, _logService, _fullEndpoint, commandText, HandleResults, fullRequestSource.Token).Forget();
+            req.SendRequest(_logService, _fullEndpoint, commandText, HandleResults, fullRequestSource.Token).Forget();
         }
 
-        private void HandleResults(UnityGameState gs, string txt, CancellationToken token)
+        private void HandleResults(string txt, CancellationToken token)
         {
             LoginServerResultSet resultSet = SerializationUtils.Deserialize<LoginServerResultSet>(txt);
 
@@ -163,7 +163,7 @@ public class WebNetworkService : IWebNetworkService
 
             foreach (ResultHandlerPair resultPair in resultPairs)
             {
-                resultPair.Handler.Process(gs, resultPair.Result, token);
+                resultPair.Handler.Process(resultPair.Result, token);
             }
 
             _lastResponseReceivedTime = DateTime.UtcNow;
@@ -171,12 +171,11 @@ public class WebNetworkService : IWebNetworkService
         }
     }
 
-    protected UnityGameState _gs = null;
+    protected IUnityGameState _gs = null;
     private IUnityUpdateService _updateService;
     private ILogService _logService;
-    public WebNetworkService(UnityGameState gs, CancellationToken token)
+    public WebNetworkService(CancellationToken token)
     {
-        _gs = gs;
     }
 
     // Web endpoints.
@@ -196,15 +195,15 @@ public class WebNetworkService : IWebNetworkService
 
     private const float UserRequestDelaySeconds = 0.3f;
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
-        UnityGameState ugs = gs as UnityGameState;
+        IUnityGameState ugs = gs as IUnityGameState;
         
         // This is like this rather than a REST api because in games you want to be able to mix features, so gameplay is one concern and you
         // do not separate it. So your server should be a monolith, and I want to be able to batch requests.
-        _queues[LoginEndpoint] = new WebRequestQueue(_gs, token, ugs.LoginServerURL + LoginEndpoint, UserRequestDelaySeconds, _logService, null);
-        _queues[UserEndpoint] = new WebRequestQueue(_gs, token, ugs.LoginServerURL + UserEndpoint, UserRequestDelaySeconds, _logService, _queues[LoginEndpoint]);
-        _queues[NoUserEndpoint] = new WebRequestQueue(_gs, token, ugs.LoginServerURL + NoUserEndpoint, 0, _logService, null);
+        _queues[LoginEndpoint] = new WebRequestQueue(ugs, token, ugs.LoginServerURL + LoginEndpoint, UserRequestDelaySeconds, _logService, null);
+        _queues[UserEndpoint] = new WebRequestQueue(ugs,token, ugs.LoginServerURL + UserEndpoint, UserRequestDelaySeconds, _logService, _queues[LoginEndpoint]);
+        _queues[NoUserEndpoint] = new WebRequestQueue(ugs, token, ugs.LoginServerURL + NoUserEndpoint, 0, _logService, null);
 
         _updateService.AddUpdate(this, ProcessRequestQueues, UpdateType.Late);
         

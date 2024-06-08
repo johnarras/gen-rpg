@@ -9,33 +9,64 @@ using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Analytics.Services;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Utils;
+using System;
+using Assets.Scripts.ProcGen.RandomNumbers;
 
-public class UnityGameState : GameState
+public interface IUnityGameState : IGameState, IInjectable
 {
-    public GEntity initObject = null;
-	private InitClient initComponent = null;
-    public MapGenData md = null;
+
+    GEntity initObject { get; set; }
+    IMapGenData md { get; set; } 
+    User user { get; set; }
+    Character ch { get; set; }
+    public IServiceLocator loc { get; set; }
+    List<CharacterStub> characterStubs { get; set; }
+    List<MapStub> mapStubs { get; set; }
+    ClientConfig Config { get; }
+    string LoginServerURL { get; set; }
+    string Version { get; set; }
+    string RealtimeHost { get; set; }
+    string RealtimePort { get; set; }
+    void SetInitObject(GEntity go);
+    T AddComponent<T>() where T : MonoBehaviour;
+    T GetComponent<T>() where T : MonoBehaviour;
+    InitialClientConfig GetConfig();
+    void UpdateUserFlags(int flag, bool val);
+}
+
+public class UnityGameState : GameState, IInjectable, IUnityGameState
+{
+    public GEntity initObject { get; set; } = null;
+    public IMapGenData md { get; set; } = null;
     public User user { get; set; }
     public Character ch { get; set; }
-    public List<CharacterStub> characterStubs = new List<CharacterStub>();
-    public List<MapStub> mapStubs = new List<MapStub>();
+    public List<CharacterStub> characterStubs { get; set; }  = new List<CharacterStub>();
+    public List<MapStub> mapStubs { get; set; } = new List<MapStub>(); 
+
 
     public ClientConfig Config { get; }
+
+    public string LoginServerURL { get; set; }
+    public string Version { get; set; }
+    public string RealtimeHost { get; set; }
+    public string RealtimePort { get; set; }
+    public InitClient initComponent = null;
 
     private ILogService _logService;
     public UnityGameState()
     {
         Config = ClientConfig.Load();
         _logService = new ClientLogger(Config);
+       
         IAnalyticsService analyticsService = new ClientAnalyticsService(Config);
         loc = new ServiceLocator(_logService, analyticsService, new GameData());
         loc.Set<IDispatcher>(new Dispatcher());
+        loc.Set<IUnityGameState>(this);
+        loc.Set<IClientRandom>(new ClientRandom());
+        loc.Set<IMapGenData>(new MapGenData());
     }
-
-    public string LoginServerURL { get; set; }
-    public string Version { get; set; }
-    public string RealtimeHost { get; set; }
-    public string RealtimePort { get; set; }
 
     public void SetInitObject(GEntity go)
 	{

@@ -27,7 +27,7 @@ namespace Genrpg.MapServer.MapMods.Helpers
 
         public long GetKey() { return MapModEffects.Spawner; }
 
-        public void Process(ServerGameState gs, MapMod mapMod, MapModAddon addon, MapModEffect effect)
+        public void Process(IRandom rand, MapMod mapMod, MapModAddon addon, MapModEffect effect)
         {
             if (effect.CurrQuantity >= effect.MaxQuantity)
             {
@@ -55,10 +55,10 @@ namespace Genrpg.MapServer.MapMods.Helpers
 
             for (int times = 0; times < 10; times++)
             {
-                int xpos = (int)(mapMod.X + MathUtils.FloatRange(-addon.Radius, addon.Radius, gs.rand));
-                int zpos = (int)(mapMod.Z + MathUtils.FloatRange(-addon.Radius, addon.Radius, gs.rand));
+                int xpos = (int)(mapMod.X + MathUtils.FloatRange(-addon.Radius, addon.Radius, rand));
+                int zpos = (int)(mapMod.Z + MathUtils.FloatRange(-addon.Radius, addon.Radius, rand));
 
-                if (_pathfindingService.CellIsBlocked(gs, xpos, zpos))
+                if (_pathfindingService.CellIsBlocked(xpos, zpos))
                 {
                     continue;
                 }
@@ -90,7 +90,7 @@ namespace Genrpg.MapServer.MapMods.Helpers
                     Addons = newAddons,
                 };
 
-                _objectManager.SpawnObject(gs, newObjectSpawn);
+                _objectManager.SpawnObject(rand, newObjectSpawn);
 
                 if (mapMod.Spawn is MapSpawn mapModSpawn)
                 {

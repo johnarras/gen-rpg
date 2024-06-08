@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 public class ClientAnalyticsService : IAnalyticsService
 {
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -21,7 +21,7 @@ public class ClientAnalyticsService : IAnalyticsService
         _config = config;
     }
 
-    public void Send(GameState gs, string eventId, string eventType, string eventSubtype, Dictionary<string,string> extraData = null)
+    public void Send(string eventId, string eventType, string eventSubtype, Dictionary<string,string> extraData = null)
     {
     }
 

@@ -78,7 +78,7 @@ namespace Assets.Scripts.Crawler.UI.Screens.Characters
 
         protected override void ShowStats()
         {
-            _crawlerStatService.CalcUnitStats(_gs, _crawlerService.GetParty(), _unit as CrawlerUnit, false);
+            _crawlerStatService.CalcUnitStats(_crawlerService.GetParty(), _unit as CrawlerUnit, false);
             base.ShowStats();
         }
 

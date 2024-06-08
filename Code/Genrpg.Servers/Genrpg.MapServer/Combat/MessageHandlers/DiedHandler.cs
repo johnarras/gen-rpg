@@ -9,21 +9,17 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Combat.MessageHandlers
 {
-    public class DiedHandler : BaseServerMapMessageHandler<Died>
+    public class DiedHandler : BaseUnitServerMapMessageHandler<Died>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, Died message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, Died message)
         {
-
-            obj.AddMessage(message);
-            if (!_objectManager.GetUnit(obj.Id, out Unit unit))
-            {
-                return;
-            }
-
+            unit.AddMessage(message);
             unit.RemoveAttacker(message.UnitId);
+
             if (unit.TargetId == message.UnitId)
             {
                 SetTarget setTarget = unit.GetCachedMessage<SetTarget>(true);

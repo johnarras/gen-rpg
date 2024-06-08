@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.GameSettings.Loaders
 {
+    /// <summary>
+    /// Use for mapping between database and server. Split from mapper so client<->server and server<->database can vary independently
+    /// </summary>
     public interface IGameSettingsLoader
     {
         Task Setup(IRepositoryService repoSystem);

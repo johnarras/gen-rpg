@@ -12,18 +12,18 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class AddRandomDirt : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        foreach (Zone zone in gs.map.Zones)
+        await base.Generate(token);
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
-    public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
+    public void GenerateOne(Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
-        if ( gs.md.alphas == null || zone == null || zoneType == null ||
+        if (_md.alphas == null || zone == null || zoneType == null ||
             endx <= startx || endy <= starty)
         {
             return;
@@ -45,7 +45,7 @@ public class AddRandomDirt : BaseZoneGenerator
 
             List<float[,]> maxNoiseHeights = new List<float[,]>();
 
-            MyRandom sizeRand = new MyRandom(gs.map.Seed / 3 + zone.Seed / 2 + 234745 + outertimes);
+            MyRandom sizeRand = new MyRandom(_mapProvider.GetMap().Seed / 3 + zone.Seed / 2 + 234745 + outertimes);
 
             for (int r = 0; r < replaceTextures.Length; r++)
             {
@@ -61,7 +61,7 @@ public class AddRandomDirt : BaseZoneGenerator
                 float pers = MathUtils.FloatRange(0.2f, 0.5f, rand);
                 int octaves = 2;
 
-                float[,] noise = _noiseService.Generate(gs, pers, freq, amp, octaves, rand.Next(), size, size);
+                float[,] noise = _noiseService.Generate(pers, freq, amp, octaves, rand.Next(), size, size);
                 perlinOutputs.Add(noise);
 
                 float maxFreq = MathUtils.FloatRange(size * 0.03f, size * 0.08f, rand);
@@ -69,7 +69,7 @@ public class AddRandomDirt : BaseZoneGenerator
                 float maxPers = MathUtils.FloatRange(0.2f, 0.4f, rand);
                 int maxOctaves = 2;
 
-                float[,] maxNoise = _noiseService.Generate(gs, maxPers, maxFreq, maxAmp, maxOctaves, rand.Next(), size, size);
+                float[,] maxNoise = _noiseService.Generate(maxPers, maxFreq, maxAmp, maxOctaves, rand.Next(), size, size);
                 maxNoiseHeights.Add(maxNoise);
             }
 
@@ -87,7 +87,7 @@ public class AddRandomDirt : BaseZoneGenerator
                 {
                     for (int y = starty; y < endy; y++)
                     {
-                        if (gs.md.mapZoneIds[x, y] != zone.IdKey)
+                        if (_md.mapZoneIds[x, y] != zone.IdKey)
                         {
                             continue;
                         }
@@ -97,7 +97,7 @@ public class AddRandomDirt : BaseZoneGenerator
                             maxPct = 1;
                         }
 
-                        float basePct = gs.md.alphas[x, y, MapConstants.BaseTerrainIndex];
+                        float basePct = _md.alphas[x, y, MapConstants.BaseTerrainIndex];
                         float newPct = Math.Max(changes[x - startx, y - starty], 0);
                         if (newPct > maxPct)
                         {
@@ -108,13 +108,13 @@ public class AddRandomDirt : BaseZoneGenerator
                         {
                             newPct = basePct;
                         }
-                        gs.md.alphas[x, y, MapConstants.BaseTerrainIndex] -= newPct;
-                        gs.md.alphas[x, y, newIndex] += newPct;
-                        if (gs.md.alphas[x, y, newIndex] > 1)
+                        _md.alphas[x, y, MapConstants.BaseTerrainIndex] -= newPct;
+                        _md.alphas[x, y, newIndex] += newPct;
+                        if (_md.alphas[x, y, newIndex] > 1)
                         {
-                            float diff = gs.md.alphas[x, y, newIndex] - 1;
-                            gs.md.alphas[x, y, MapConstants.BaseTerrainIndex] = diff;
-                            gs.md.alphas[x, y, newIndex] = 1;
+                            float diff = _md.alphas[x, y, newIndex] - 1;
+                            _md.alphas[x, y, MapConstants.BaseTerrainIndex] = diff;
+                            _md.alphas[x, y, newIndex] = 1;
                         }
                     }
                 }

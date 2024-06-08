@@ -4,17 +4,17 @@ using System.Threading;
 
 public class SmoothRoadEdges : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
 
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
-		int awid = gs.md.awid;
-		int ahgt = gs.md.ahgt;
-		int hwid = gs.map.GetHwid();
-		int hhgt = gs.map.GetHhgt();
+		int awid = _md.awid;
+		int ahgt = _md.ahgt;
+		int hwid = _mapProvider.GetMap().GetHwid();
+		int hhgt = _mapProvider.GetMap().GetHhgt();
 		
-		float[,] heights2 = new float[gs.map.GetHwid(),gs.map.GetHhgt()];
+		float[,] heights2 = new float[_mapProvider.GetMap().GetHwid(),_mapProvider.GetMap().GetHhgt()];
 
         int radius = 7;
 
@@ -24,7 +24,7 @@ public class SmoothRoadEdges : BaseZoneGenerator
 		{
 			for (int y = 0; y < hhgt; y++)
 			{
-				heights2[x,y] = gs.md.heights[x,y];
+				heights2[x,y] = _md.heights[x,y];
 			}
 		}
 		for (int x = 0; x < hwid; x++)
@@ -35,29 +35,29 @@ public class SmoothRoadEdges : BaseZoneGenerator
 				int ay = (int)(1.0f*y/hhgt*ahgt);
 
 
-				float currSplat = gs.md.alphas[ax,ay,MapConstants.RoadTerrainIndex];
+				float currSplat = _md.alphas[ax,ay,MapConstants.RoadTerrainIndex];
 				if (currSplat > 0.0f)
 				{
 					//continue;
 				}
 
-				if (gs.md.roadDistances[ax,ay] >= radius)
+				if (_md.roadDistances[ax,ay] >= radius)
 				{
 					continue;
 				}
 
-				float aveSplat = gs.md.GetAverageSplatNear(gs, ax,ay,radius,MapConstants.RoadTerrainIndex);
+				float aveSplat = _md.GetAverageSplatNear(ax,ay,radius,MapConstants.RoadTerrainIndex);
 
 				int averad = radius;
 				if (currSplat > 0)
 				{
 					averad = 2;
 				}
-				float aveHeight = gs.md.GetAverageHeightNear(gs, gs.map, x,y,averad);
+				float aveHeight = _md.GetAverageHeightNear(_mapProvider.GetMap(), x,y,averad);
 			
 
 
-				if (currSplat <= 0 && _zoneGenService.FindMapLocation(gs,x,y,5) != null)
+				if (currSplat <= 0 && _zoneGenService.FindMapLocation(x,y,5) != null)
 				{
 					continue;
 				}
@@ -79,7 +79,7 @@ public class SmoothRoadEdges : BaseZoneGenerator
 				}
 
 
-                float bridgeDist = gs.md.bridgeDistances[y, x];
+                float bridgeDist = _md.bridgeDistances[y, x];
 
                 float bridgeScale = 1.0f;
 
@@ -97,7 +97,7 @@ public class SmoothRoadEdges : BaseZoneGenerator
 					continue;
 				}
 
-				float currHeight = gs.md.heights[x,y];
+				float currHeight = _md.heights[x,y];
 
 				if (aveHeight < currHeight)
 				{
@@ -109,7 +109,7 @@ public class SmoothRoadEdges : BaseZoneGenerator
 			}
 		}
 
-		gs.md.heights = heights2;
+		_md.heights = heights2;
 	}
 }
 	

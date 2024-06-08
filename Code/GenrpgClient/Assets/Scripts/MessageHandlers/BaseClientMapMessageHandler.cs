@@ -1,4 +1,7 @@
-﻿using Genrpg.Shared.DataStores.Entities;
+﻿using Assets.Scripts.ProcGen.RandomNumbers;
+using Assets.Scripts.Tokens;
+using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapMessages.Interfaces;
 using System;
@@ -13,12 +16,15 @@ public abstract class BaseClientMapMessageHandler<T> : IClientMapMessageHandler 
     protected IRepositoryService _repoService;
     protected ILogService _logService;
     protected IDispatcher _dispatcher;
+    protected CancellationToken _token;
+    protected IUnityGameState _gs;
+    protected IClientRandom _rand;
 
-    protected abstract void InnerProcess(UnityGameState gs, T msg, CancellationToken token);
+    protected abstract void InnerProcess(T msg, CancellationToken token);
 
-    public void Process(UnityGameState gs, IMapApiMessage msg, CancellationToken token)
+    public void Process(IMapApiMessage msg, CancellationToken token)
     {
-        InnerProcess(gs, msg as T, token);
+        InnerProcess(msg as T, token);
     }
 }
 

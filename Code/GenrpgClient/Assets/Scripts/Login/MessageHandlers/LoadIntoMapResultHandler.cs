@@ -12,9 +12,9 @@ namespace Assets.Scripts.Login.MessageHandlers
         public override int Priority() { return 1000; }
 
         private IZoneGenService _zoneGenService;
-        protected override void InnerProcess(UnityGameState gs, LoadIntoMapResult result, CancellationToken token)
+        protected override void InnerProcess(LoadIntoMapResult result, CancellationToken token)
         {
-            _zoneGenService.OnLoadIntoMap(gs, result, token).Forget();
+            _zoneGenService.OnLoadIntoMap(result, token).Forget();
         }
     }
 }

@@ -34,9 +34,9 @@ namespace Genrpg.ServerShared.GameSettings.Services
         private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
         private Dictionary<Type, IGameSettingsMapper> _mapperObjects = null;
         protected IRepositoryService _repoService = null;
-        private IGameData _gameData;
+        private IGameData _gameData = null;
 
-        private async Task SetupLoaders(GameState gs, IRepositoryService repoSystem, CancellationToken token)
+        private async Task SetupLoaders(IGameState gs, IRepositoryService repoSystem, CancellationToken token)
         {
             if (_loaderObjects != null)
             {
@@ -66,7 +66,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             await Task.CompletedTask;
         }
 
-        private async Task SetupMappers(GameState gs, IRepositoryService repoSystem, CancellationToken token)
+        private async Task SetupMappers(IGameState gs, IRepositoryService repoSystem, CancellationToken token)
         {
             if (_mapperObjects != null)
             {
@@ -93,7 +93,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return _loaderObjects.Values.OrderBy(x=>x.GetType().Name).ToList();
         }
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await SetupLoaders(gs, _repoService, token);
             await SetupMappers(gs, _repoService, token);
@@ -104,7 +104,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return new List<string>() { "_lookup", "DocVersion" };
         }
 
-        public virtual async Task<IGameData> LoadGameData(ServerGameState gs, bool createMissingGameData)
+        public virtual async Task<IGameData> LoadGameData(bool createMissingGameData)
         {
             GameData gameData = new GameData();
 
@@ -148,7 +148,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return true;
         }
 
-        public bool SetGameDataOverrides(ServerGameState gs, IFilteredObject obj, bool forceRefresh)
+        public bool SetGameDataOverrides(IFilteredObject obj, bool forceRefresh)
         {
             if (!(obj is Character ch))
             {
@@ -261,7 +261,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return true;
         }
 
-        public List<ITopLevelSettings> MapToApi(ServerGameState gs, List<ITopLevelSettings> startSettings)
+        public List<ITopLevelSettings> MapToApi(List<ITopLevelSettings> startSettings)
         {
             List<ITopLevelSettings> retval = new List<ITopLevelSettings>();
 
@@ -279,11 +279,11 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return retval;
         }
 
-        public List<ITopLevelSettings> GetClientGameData(ServerGameState gs, IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null)
+        public List<ITopLevelSettings> GetClientGameData(IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null)
         {
 
             List<ITopLevelSettings> retval = new List<ITopLevelSettings>();
-            SetGameDataOverrides(gs, obj, true);
+            SetGameDataOverrides(obj, true);
 
             List<ITopLevelSettings> allData = _gameData.AllSettings();
 
@@ -359,16 +359,16 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return true;
         }
 
-        public async Task ReloadGameData(ServerGameState gs)
+        public async Task ReloadGameData()
         {
-            IGameData newData = await LoadGameData(gs, true);
+            IGameData newData = await LoadGameData(true);
 
             newData.PrevSaveTime = _gameData.CurrSaveTime;
         }
 
-        public RefreshGameSettingsResult GetNewGameDataUpdates(ServerGameState gs, Character ch, bool forceRefresh)
+        public RefreshGameSettingsResult GetNewGameDataUpdates(Character ch, bool forceRefresh)
         {
-            if (!SetGameDataOverrides(gs, ch, forceRefresh))
+            if (!SetGameDataOverrides(ch, forceRefresh))
             {
                 return null;
             }
@@ -417,7 +417,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             }
 
             result.Overrides = overrideList;
-            result.NewSettings = MapToApi(gs, newSettings);
+            result.NewSettings = MapToApi(newSettings);
 
             return result;
 

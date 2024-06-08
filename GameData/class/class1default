@@ -7,16 +7,67 @@
   "Icon": "",
   "Art": "",
   "Abbrev": "Wa",
-  "LevelsPerMelee": 3,
-  "InitialMeleeAttacks": 2,
-  "LevelsPerRanged": 9,
-  "InitialRangedAttacks": 1,
+  "LevelsPerMelee": 4,
+  "LevelsPerRanged": 6,
+  "LevelsPerDamage": 14,
+  "LevelsPerHeal": 14,
   "HealthPerLevel": 20,
-  "BuffStatTypeId": 71,
-  "BuffStatPercent": 100,
-  "DefaultLevelPercentBuff": 50,
-  "PartyBuffId": 1,
+  "ManaPerLevel": 6,
   "MaxArmorScalingTypeId": 4,
+  "CritPercent": 5,
+  "ManaStatTypeId": 13,
+  "Bonuses": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 37,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 31,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 70,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 71,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 48,
+      "Quantity": 1
+    }
+  ],
   "AllowedWeapons": [
     {
       "ItemTypeId": 21
@@ -47,6 +98,6 @@
     }
   ],
   "AllowedEquipSlots": [],
-  "UpdateTime": "2024-03-23T23:02:49.611Z",
+  "UpdateTime": "2024-06-08T00:54:15.178Z",
   "CreateTime": "2024-01-27T18:57:37Z"
 }

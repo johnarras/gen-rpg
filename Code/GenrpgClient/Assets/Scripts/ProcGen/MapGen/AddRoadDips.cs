@@ -11,24 +11,24 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class AddRoadDips : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
-        foreach (Zone zone in gs.map.Zones)
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
-    public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
+    public void GenerateOne(Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     { 
-        if ( zone == null || zoneType == null || startx >= endx || starty >= endy)
+        if (zone == null || zoneType == null || startx >= endx || starty >= endy)
         {
             return;
         }
 
-        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
+        GenZone genZone = _md.GetGenZone(zone.IdKey);
 
 		float dipScale = genZone.RoadDipScale*zoneType.RoadDipScale;
 
@@ -49,7 +49,7 @@ public class AddRoadDips : BaseZoneGenerator
             float pers = MathUtils.FloatRange(0.2f, 0.5f, rand);
             int octaves = 2;
 
-            float[,] noise = _noiseService.Generate(gs, pers, freq, amp, octaves, rand.Next(), dx, dy);
+            float[,] noise = _noiseService.Generate(pers, freq, amp, octaves, rand.Next(), dx, dy);
             noises.Add(noise);
         }
 
@@ -64,7 +64,7 @@ public class AddRoadDips : BaseZoneGenerator
 			for (int y = starty; y < endy; y++)
 			{
 
-                Location loc = _zoneGenService.FindMapLocation(gs, x, y, 5);
+                Location loc = _zoneGenService.FindMapLocation(x, y, 5);
 
                 if (loc != null)
                 {
@@ -72,12 +72,12 @@ public class AddRoadDips : BaseZoneGenerator
                 }
 
 
-                float hx = 1.0f * x / gs.map.GetHwid();
-                float hy = 1.0f * y / gs.map.GetHhgt();
+                float hx = 1.0f * x / _mapProvider.GetMap().GetHwid();
+                float hy = 1.0f * y / _mapProvider.GetMap().GetHhgt();
            
-                float wallDistScale = MathUtils.Clamp(0, gs.md.mountainDistPercent[x,y], 1);
+                float wallDistScale = MathUtils.Clamp(0, _md.mountainDistPercent[x,y], 1);
 
-                if (gs.md.mapZoneIds[x,y] != zone.IdKey)
+                if (_md.mapZoneIds[x,y] != zone.IdKey)
                 {
                     continue;
                 }
@@ -86,18 +86,18 @@ public class AddRoadDips : BaseZoneGenerator
 
                 for (int xx = x-zoneRad; xx <= x+zoneRad; xx++)
                 {
-                    if (xx < 0 || xx >= gs.map.GetHwid())
+                    if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
                     {
                         continue;
                     }
 
                     for (int yy = y - zoneRad; yy <= y+zoneRad; yy++)
                     {
-                        if (yy < 0 || yy >= gs.map.GetHhgt())
+                        if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                         {
                             continue;
                         }
-                        if (gs.md.mapZoneIds[xx,yy] != zone.IdKey)
+                        if (_md.mapZoneIds[xx,yy] != zone.IdKey)
                         {
                             double dist = Math.Sqrt((x - xx) * (x - xx) + (y - yy) * (y - yy));
                             if (dist < closestOtherZoneDist)
@@ -108,7 +108,7 @@ public class AddRoadDips : BaseZoneGenerator
                     }
                 }
 
-                float distToRoad = gs.md.roadDistances[x,y];
+                float distToRoad = _md.roadDistances[x,y];
 
 				if (distToRoad > maxDist)
 				{
@@ -134,7 +134,7 @@ public class AddRoadDips : BaseZoneGenerator
 
                 float val = MapConstants.RoadDipHeight * pct * dipScale * wallDistScale;
 
-				gs.md.heights[x,y] -= Math.Abs(val);
+				_md.heights[x,y] -= Math.Abs(val);
 				
 			}
 		}

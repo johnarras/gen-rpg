@@ -10,7 +10,7 @@ namespace Genrpg.MapServer.MapMessaging.Filters
 {
     public class PlayerFilter : ObjectFilter
     {
-        public override List<MapObject> Filter(GameState gs, IMapApiMessage message, List<MapObject> initialTargets)
+        public override List<MapObject> Filter(IMapApiMessage message, List<MapObject> initialTargets)
         {
             return new List<MapObject>(initialTargets.Where(x => x.IsPlayer()));
         }

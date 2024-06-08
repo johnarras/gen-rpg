@@ -29,8 +29,7 @@ namespace Genrpg.Shared.Core.Entities
             Set(gameData);
         }
 
-        private ILogService _logger;
-        private IAnalyticsService _analytics;
+        private ILogService _logger = null;
 
         /// <summary>
         /// Internal storage indexed by type
@@ -40,6 +39,8 @@ namespace Genrpg.Shared.Core.Entities
         /// Internal storage indexed by the name of the type
         /// </summary>
         private Dictionary<string, IInjectable> _nameDict = new Dictionary<string, IInjectable>();
+
+        private List<object> _storedDictionaryItems = new List<object>();
 
         /// <summary>
         /// Returns an instance of type T
@@ -212,6 +213,16 @@ namespace Genrpg.Shared.Core.Entities
             {
                 Resolve(val);
             }
+
+            foreach (object val in _storedDictionaryItems)
+            {
+                Resolve(val);
+            }
+        }
+
+        public void StoreDictionaryItem(object obj)
+        {
+            _storedDictionaryItems.Add(obj);
         }
     }
 }

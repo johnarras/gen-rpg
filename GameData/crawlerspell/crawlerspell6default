@@ -2,13 +2,12 @@
   "Id": "crawlerspell6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Identifty Monster",
+  "Name": "Identify Monster",
   "Desc": "",
   "Icon": "",
   "Art": "",
   "MaxRange": 100,
   "CombatActionId": 4,
-  "ClassId": 3,
   "TargetTypeId": 1,
   "Level": 11,
   "Effects": [
@@ -17,6 +16,6 @@
       "EntityId": 3
     }
   ],
-  "UpdateTime": "2024-02-25T15:46:26.087Z",
+  "UpdateTime": "2024-06-08T00:21:32.366Z",
   "CreateTime": "2024-01-28T03:05:34Z"
 }

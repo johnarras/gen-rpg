@@ -9,6 +9,8 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Units.Services;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.MapObjects.Factories
 {
@@ -17,12 +19,13 @@ namespace Genrpg.Shared.MapObjects.Factories
         protected IUnitGenService _unitGenService;
         protected IGameData _gameData;
         protected IRepositoryService _repoService;
+        protected IMapProvider _mapProvider;
 
-        public virtual void Setup(GameState gs)
+        public virtual void Setup(IGameState gs)
         {
         }
 
-        public abstract MapObject Create(GameState gs, IMapSpawn spawn);
+        public abstract MapObject Create(IRandom rand, IMapSpawn spawn);
         public abstract long GetKey();
 
     }

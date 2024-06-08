@@ -24,7 +24,7 @@ namespace Genrpg.Shared.Units.Mappers
             return typeof(TServer);
         }
 
-        public virtual async Task Initialize(GameState gs, CancellationToken token)
+        public virtual async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }

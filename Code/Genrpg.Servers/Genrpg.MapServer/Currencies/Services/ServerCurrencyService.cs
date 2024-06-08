@@ -17,12 +17,7 @@ namespace Genrpg.MapServer.Currencies.Services
 {
     public class ServerCurrencyService : CurrencyService, IInitializable
     {
-        protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;
-        public async Task Initialize(GameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         protected override void OnSetCurrency(Unit unit, CurrencyData currencyData, CurrencyStatus status, long diff)
         {

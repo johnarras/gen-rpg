@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Assets.Scripts.Tokens;
+using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Pathfinding.Constants;
@@ -13,9 +14,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.Pathfinding.Utils
 {
-    public interface IClientPathfindingUtils : IInjectable
+    public interface IClientPathfindingUtils : IMapTokenService, IInjectable
     {
-        UniTask ShowPath(UnityGameState _gs, WaypointList list, CancellationToken token);
+        UniTask ShowPath(WaypointList list, CancellationToken token);
+        CancellationToken GetToken();
     }
 
     public class ClientPathfindingUtils : IClientPathfindingUtils
@@ -24,7 +26,19 @@ namespace Assets.Scripts.Pathfinding.Utils
         private bool _showPath = false;
         private IMapTerrainManager _terrainManager;
         private IAssetService _assetService;
-        public async UniTask ShowPath(UnityGameState _gs, WaypointList list, CancellationToken token)
+        private CancellationToken _token;
+
+        public void SetMapToken(CancellationToken token)
+        {
+            _token = token;
+        }
+
+        public CancellationToken GetToken()
+        {
+            return _token;
+        }
+
+        public async UniTask ShowPath(WaypointList list, CancellationToken token)
         {
             
             StringBuilder sb = new StringBuilder();
@@ -33,12 +47,12 @@ namespace Assets.Scripts.Pathfinding.Utils
                 List<Waypoint> dupeList = new List<Waypoint>(list.Waypoints);
                 List<GameObject> pathObjects = new List<GameObject>();
 
-                GameObject basePathSphere = await _assetService.LoadAssetAsync(_gs, AssetCategoryNames.Prefabs, "PathSphere", null, token);
+                GameObject basePathSphere = await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, "PathSphere", null, token);
 
                 foreach (Waypoint wp in dupeList)
                 {
                     GameObject sph = GameObject.Instantiate<GameObject>(basePathSphere);
-                    float height = _terrainManager.SampleHeight(_gs, wp.X, wp.Z);
+                    float height = _terrainManager.SampleHeight(wp.X, wp.Z);
                     sph.transform.position = new Vector3(wp.X, height + 0.5f, wp.Z);
                     //sb.Append("WP: " + wp.X + " " + wp.Z + "\n");
                     pathObjects.Add(sph);

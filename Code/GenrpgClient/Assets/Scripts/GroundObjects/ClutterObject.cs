@@ -1,11 +1,13 @@
-﻿using System.Threading;
+﻿using Genrpg.Shared.MapServer.Services;
+using System.Threading;
 using UnityEngine; // Needed
 
 public class ClutterObject : BaseBehaviour
 {
     IMapTerrainManager _terrainManager;
+    protected IMapProvider _mapProvider;
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         _updateService.AddDelayedUpdate(entity, FullTurnOff, GetToken(), 0.7f);
@@ -53,7 +55,7 @@ public class ClutterObject : BaseBehaviour
 
         didFinalSetPos = true;
 
-        GVector3 normal = _terrainManager.GetInterpolatedNormal(_gs, _gs.map,entity.transform().position.x,entity.transform().position.z);
+        GVector3 normal = _terrainManager.GetInterpolatedNormal(_mapProvider.GetMap(),entity.transform().position.x,entity.transform().position.z);
 
         Quaternion groundTilt = GQuaternion.FromToRotation(GVector3.up, normal);
 

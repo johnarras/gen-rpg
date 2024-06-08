@@ -5,6 +5,7 @@ using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,25 +13,19 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Items.MessageHandlers
 {
-    public class EquipItemHandler : BaseServerMapMessageHandler<EquipItem>
+    public class EquipItemHandler : BaseCharacterServerMapMessageHandler<EquipItem>
     {
 
         private IInventoryService _inventoryService = null;
-        public override void Setup(GameState gs)
+        public override void Setup(IGameState gs)
         {
             base.Setup(gs);
         }
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, EquipItem message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Character ch, EquipItem message)
         {
-            if (!_objectManager.GetChar(obj.Id, out Character ch))
-            {
-                pack.SendError(gs, obj, "Only players can equip items");
-                return;
-            }
-
             if (!_inventoryService.EquipItem(ch, message.ItemId, message.EquipSlot))
             {
-                pack.SendError(gs, obj, "You can't equip that there");
+                pack.SendError(ch, "You can't equip that there");
                 return;
             }
         }

@@ -17,7 +17,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Errors
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.Error; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 

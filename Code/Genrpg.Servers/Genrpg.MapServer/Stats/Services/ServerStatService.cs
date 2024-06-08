@@ -59,7 +59,7 @@ namespace Genrpg.MapServer.Stats.Services
         }
 
         private List<StatType> _mutableStats = null;
-        public override void RegenerateTick(GameState gs, Unit unit, float regenTickTime = StatConstants.RegenTickSeconds)
+        public override void RegenerateTick(IRandom rand, Unit unit, float regenTickTime = StatConstants.RegenTickSeconds)
         {
             if (unit == null || unit.HasFlag(UnitFlags.IsDead))
             {
@@ -128,7 +128,7 @@ namespace Genrpg.MapServer.Stats.Services
 
                 long currRegen = (long)currRegenFloat;
 
-                if (gs.rand.NextDouble() < currRegenFloat - currRegen)
+                if (rand.NextDouble() < currRegenFloat - currRegen)
                 {
                     currRegen += Math.Sign(st.RegenSeconds);
                 }

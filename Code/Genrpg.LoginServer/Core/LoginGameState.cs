@@ -7,6 +7,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Login.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Users.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 
@@ -18,6 +19,7 @@ namespace Genrpg.LoginServer.Core
         public CoreCharacter coreCh { get; set; }
         public Character ch { get; set; }
         public MapStubList mapStubs { get; set; } = new MapStubList();
+        public MyRandom rand { get; set; } = new MyRandom();
         public Dictionary<Type, IClientCommandHandler> commandHandlers = null;
         public Dictionary<Type, INoUserCommandHandler> noUserCommandHandlers = null;
 

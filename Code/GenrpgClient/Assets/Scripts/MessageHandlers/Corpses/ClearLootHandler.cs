@@ -11,7 +11,7 @@ namespace Assets.Scripts.MessageHandlers.Corpses
 {
     public class ClearLootHandler : BaseClientMapMessageHandler<ClearLoot>
     {
-        protected override void InnerProcess(UnityGameState gs, ClearLoot msg, CancellationToken token)
+        protected override void InnerProcess(ClearLoot msg, CancellationToken token)
         {
             if (_objectManager.GetUnit(msg.UnitId,out Unit unit))
             {

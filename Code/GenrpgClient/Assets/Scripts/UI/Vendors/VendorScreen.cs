@@ -106,18 +106,18 @@ public class VendorScreen : ItemIconScreen
                 IconPrefabName = VendorIconName,
                 Screen = this,
             };
-            IconHelper.InitItemIcon(_gs, idata, VendorItems,_assetService, _token);
+            IconHelper.InitItemIcon(idata, VendorItems,_assetService, _token);
         }
     }
 
     // Blank
-    public override void OnLeftClickIcon(UnityGameState gs, ItemIcon icon) { }
+    public override void OnLeftClickIcon(ItemIcon icon) { }
 
   
 
 
     // Equip or Unequip item.
-    public override void OnRightClickIcon(UnityGameState gs, ItemIcon icon)
+    public override void OnRightClickIcon(ItemIcon icon)
     {
         if (icon == null || icon.GetDataItem() == null)
         {
@@ -127,16 +127,16 @@ public class VendorScreen : ItemIconScreen
 
         if (icon.HasFlag(ItemIconFlags.IsVendorItem))
         {
-            BuyItem(gs, icon);
+            BuyItem(icon);
         }
         else
         {
-            SellItem(gs, icon);
+            SellItem(icon);
         }
     }
 
 
-    private void BuyItem (UnityGameState gs, ItemIcon icon)
+    private void BuyItem (ItemIcon icon)
     {
         if (icon == null || icon.GetDataItem() == null)
         {
@@ -147,7 +147,7 @@ public class VendorScreen : ItemIconScreen
 
     }
 
-    private void SellItem (UnityGameState gs, ItemIcon icon)
+    private void SellItem (ItemIcon icon)
     {
         if (icon == null || icon.GetDataItem() == null)
         {

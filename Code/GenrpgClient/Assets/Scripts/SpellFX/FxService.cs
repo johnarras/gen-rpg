@@ -22,21 +22,22 @@ public class FullFX
 
 public interface IFxService : IInitializable
 {
-    void ShowFX(UnityGameState gs, FX fx, CancellationToken token);
+    void ShowFX(FX fx, CancellationToken token);
 }
 
 public class FxService : IFxService
 {
     private IClientMapObjectManager _objectManager;
     private IAssetService _assetService;
+    private IUnityGameState _gs;
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
 
 
-    public void ShowFX(UnityGameState gs, FX fx, CancellationToken token)
+    public void ShowFX(FX fx, CancellationToken token)
     {
         if (!_objectManager.GetGridItem(fx.From, out ClientMapObjectGridItem from))
         {
@@ -62,10 +63,10 @@ public class FxService : IFxService
             return;
         }
 
-        _assetService.LoadAsset(gs, AssetCategoryNames.Magic, fx.Art, OnLoadFX, full, null, token);
+        _assetService.LoadAsset(AssetCategoryNames.Magic, fx.Art, OnLoadFX, full, null, token);
     }
 
-    private void OnLoadFX(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadFX(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
 
@@ -80,7 +81,7 @@ public class FxService : IFxService
             GEntityUtils.Destroy(go);
             return;
         }
-        MapProjectile proj = GEntityUtils.GetOrAddComponent<MapProjectile>(gs, go);
+        MapProjectile proj = GEntityUtils.GetOrAddComponent<MapProjectile>(_gs, go);
 
         proj.Init(full, token);
 

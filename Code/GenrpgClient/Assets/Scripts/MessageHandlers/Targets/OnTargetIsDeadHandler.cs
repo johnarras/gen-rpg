@@ -9,7 +9,7 @@ namespace Assets.Scripts.MessageHandlers.Targets
 {
     public class OnTargetIsDeadHandler : BaseClientMapMessageHandler<OnTargetIsDead>
     {
-        protected override void InnerProcess(UnityGameState gs, OnTargetIsDead msg, CancellationToken token)
+        protected override void InnerProcess(OnTargetIsDead msg, CancellationToken token)
         {
             if (_objectManager.GetUnit(msg.UnitId, out Unit unit))
             {

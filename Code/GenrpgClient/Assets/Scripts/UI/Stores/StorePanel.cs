@@ -38,12 +38,12 @@ namespace Assets.Scripts.UI.Stores
 
             foreach (PlayerOfferProduct product in _offer.Products)
             {
-                _assetService.LoadAssetInto(_gs, ProductParent, AssetCategoryNames.Stores, ProductPanelPrefab, OnLoadStorePanel,
+                _assetService.LoadAssetInto(ProductParent, AssetCategoryNames.Stores, ProductPanelPrefab, OnLoadStorePanel,
                     product, token, _theme.Art);
             }
         }
         
-        private void OnLoadStorePanel(GameState gs, object obj, object data, CancellationToken token)
+        private void OnLoadStorePanel(object obj, object data, CancellationToken token)
         {
             GEntity go = obj as GEntity;
 

@@ -146,11 +146,11 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
             }
             catch (OperationCanceledException ce)
             {
-                _logService.Info("Shut down PubSub listener " + _topicName + ":" + _subscriptionName);
+                _logService.Info("Shut down PubSub listener " + ce.Message + " " + _topicName + ":" + _subscriptionName);
             }
             catch (Exception e)
             {
-                _logService.Exception(e, "PubSubReceiver " + _topicName + ":" + _subscriptionName);
+                _logService.Exception(e, "PubSubReceiver " + e.Message + " " + _topicName + ":" + _subscriptionName);
             }
             finally
             {

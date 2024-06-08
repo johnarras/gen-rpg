@@ -388,8 +388,6 @@ namespace Genrpg.Shared.Entities.Utils
         };
 
 
-        private static bool _didSetupAssembly = false;
-
         /// <summary>
         /// Use this to get an object value from a string and a BaseSystemType
         /// </summary>

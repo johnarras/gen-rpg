@@ -7,42 +7,35 @@ using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Spells.Utils;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Genrpg.MapServer.Spells.MessageHandlers
 {
-    public class ResendSpellHandler : BaseServerMapMessageHandler<ResendSpell>
+    public class ResendSpellHandler : BaseMapObjectServerMapMessageHandler<ResendSpell>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, ResendSpell message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, ResendSpell message)
         {
             if (message.ShotsLeft < 1)
             {
                 return;
-            }
+            }            
 
-            if (!_objectManager.GetUnit(message.SpellMessage.CasterId, out Unit caster))
+            if (!_objectManager.GetUnit(message.SpellMessage.CasterId, out Unit caster) ||
+                !IsOkUnit(caster,true))
             {
                 return;
             }
 
-            if (caster.HasFlag(UnitFlags.IsDead) || caster.IsDeleted())
+            if (!_objectManager.GetUnit(message.TargetId, out Unit target) ||
+                !IsOkUnit(target, true))
             {
                 return;
             }
 
-            if (!_objectManager.GetUnit(message.TargetId, out Unit target))
-            {
-                return;
-            }
-
-            if (target.HasFlag(UnitFlags.IsDead) || target.IsDeleted())
-            {
-                return;
-            }
-
-            _spellService.ResendSpell(gs, caster, target, message.SpellMessage);
+            _spellService.ResendSpell(rand, caster, target, message.SpellMessage);
 
             message.ShotsLeft--;
 

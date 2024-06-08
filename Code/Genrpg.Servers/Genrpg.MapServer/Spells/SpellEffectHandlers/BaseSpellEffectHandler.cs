@@ -12,6 +12,7 @@ using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.MapServer.Spells.Services;
 using Genrpg.MapServer.Units.Services;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 {
@@ -25,13 +26,13 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
         protected IAIService _aiService = null;
         protected IStatService _statService = null;
         protected IAchievementService _achievementService;
-        public virtual void Init(GameState gs)
+        public virtual void Init()
         {
         }
         public virtual float GetTickLength() { return SpellConstants.BaseTickSeconds; }
-        public abstract List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit spellHit);
+        public abstract List<ActiveSpellEffect> CreateEffects(IRandom rand, SpellHit spellHit);
         public abstract long GetKey();
-        public abstract bool HandleEffect(GameState gs, ActiveSpellEffect eff);
+        public abstract bool HandleEffect(IRandom rand, ActiveSpellEffect eff);
         public abstract bool IsModifyStatEffect();
         public abstract bool UseStatScaling();
     }

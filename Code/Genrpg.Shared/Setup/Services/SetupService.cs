@@ -11,18 +11,18 @@ namespace Genrpg.Shared.Setup.Services
     public class SetupService : IInitializable
     {
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
 
-        public virtual void SetupServiceLocator(GameState gs)
+        public virtual void SetupServiceLocator(IGameState gs)
         {
             LocatorSetup ls = new LocatorSetup();
             ls.Setup(gs);
         }
 
-        public virtual async Task SetupGame(GameState gs, CancellationToken token)
+        public virtual async Task SetupGame(IGameState gs, CancellationToken token)
         {
             SetupServiceLocator(gs);
 
@@ -33,7 +33,7 @@ namespace Genrpg.Shared.Setup.Services
 
         }
 
-        public virtual async Task FinalSetup(GameState gs)
+        public virtual async Task FinalSetup(IGameState gs)
         {
             await Task.CompletedTask;
         }

@@ -1,0 +1,31 @@
+{
+  "Id": "class11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Elementalist",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "El",
+  "LevelsPerMelee": 14,
+  "LevelsPerRanged": 12,
+  "HealthPerLevel": 6,
+  "ManaPerLevel": 10,
+  "MaxArmorScalingTypeId": 1,
+  "ManaStatTypeId": 12,
+  "Bonuses": [],
+  "AllowedWeapons": [
+    {
+      "ItemTypeId": 24
+    },
+    {
+      "ItemTypeId": 28
+    },
+    {
+      "ItemTypeId": 21
+    }
+  ],
+  "AllowedEquipSlots": [],
+  "UpdateTime": "2024-06-07T23:06:50.699Z",
+  "CreateTime": "2024-01-27T12:57:37Z"
+}

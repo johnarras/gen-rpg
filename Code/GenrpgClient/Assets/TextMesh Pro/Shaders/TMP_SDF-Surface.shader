@@ -132,7 +132,7 @@ SubShader {
 		float _FaceDilate;
 		float _ScaleRatioA;
 
-		v2f vert( appdata_base v )
+		v2f vert(appdata_base v )
 		{
 			v2f o;
 			TRANSFER_SHADOW_CASTER(o)

@@ -17,11 +17,11 @@ using System.Threading;
 
 public class SmoothTerrainTexturesFinal : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        int awid = gs.md.awid;
-        int ahgt = gs.md.ahgt;
+        await base.Generate(token);
+        int awid = _md.awid;
+        int ahgt = _md.ahgt;
 
         int radius = 1;
         float smoothScale = 0.04f;
@@ -34,7 +34,7 @@ public class SmoothTerrainTexturesFinal : BaseZoneGenerator
             {
                 for (int i = 0; i < MapConstants.MaxTerrainIndex; i++)
                 {
-                    alphas2[x, y, i] = gs.md.alphas[x, y, i];
+                    alphas2[x, y, i] = _md.alphas[x, y, i];
                 }
             }
         }
@@ -49,7 +49,7 @@ public class SmoothTerrainTexturesFinal : BaseZoneGenerator
                     float totalVal = 0;
                     for (int xx = x-radius; xx <= x+radius; xx++)
                     {
-                        if (xx < 0 || xx >= gs.md.awid)
+                        if (xx < 0 || xx >= _md.awid)
                         {
                             continue;
                         }
@@ -57,7 +57,7 @@ public class SmoothTerrainTexturesFinal : BaseZoneGenerator
                         int dx = Math.Abs(xx - x);
                         for (int yy = y-radius; yy <= y+radius; yy++)
                         {
-                            if (yy < 0 || yy >= gs.md.ahgt)
+                            if (yy < 0 || yy >= _md.ahgt)
                             {
                                 continue;
                             }
@@ -66,7 +66,7 @@ public class SmoothTerrainTexturesFinal : BaseZoneGenerator
                             int dist = dx + dy;
                             float currWeight = (float)Math.Pow(smoothScale, dist);
                             totalWeight += currWeight;
-                            totalVal += gs.md.alphas[xx, yy, i] * currWeight;
+                            totalVal += _md.alphas[xx, yy, i] * currWeight;
                         }
                     }
                     alphas2[x, y, i] = totalVal / totalWeight;
@@ -74,9 +74,9 @@ public class SmoothTerrainTexturesFinal : BaseZoneGenerator
             }
         }
 
-        for (int x= 0; x < gs.md.awid; x++)
+        for (int x= 0; x < _md.awid; x++)
         {
-            for (int y = 0; y < gs.md.ahgt; y++)
+            for (int y = 0; y < _md.ahgt; y++)
             {
                 float total = 0;
                 for (int i = 0; i < MapConstants.MaxTerrainIndex; i++)
@@ -90,6 +90,6 @@ public class SmoothTerrainTexturesFinal : BaseZoneGenerator
             }
         }
 
-        gs.md.alphas = alphas2;
+        _md.alphas = alphas2;
     }
 }

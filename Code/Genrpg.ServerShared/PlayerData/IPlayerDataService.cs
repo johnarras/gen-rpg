@@ -4,6 +4,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,8 @@ namespace Genrpg.ServerShared.PlayerData
     {
         void SavePlayerData(Character ch, bool saveAll);
         Task<List<IUnitData>> MapToClientApi(List<IUnitData> serverDataList);
-        Task<List<IUnitData>> LoadAllPlayerData(ServerGameState gs, Character ch);
-        Task<List<CharacterStub>> LoadCharacterStubs(ServerGameState gs, string userId);
+        Task<List<IUnitData>> LoadAllPlayerData(IRandom rand, Character ch);
+        Task<List<CharacterStub>> LoadCharacterStubs(string userId);
         Dictionary<Type, IUnitDataLoader> GetLoaders();
         IUnitDataLoader GetLoader<T>() where T : IUnitData;
         

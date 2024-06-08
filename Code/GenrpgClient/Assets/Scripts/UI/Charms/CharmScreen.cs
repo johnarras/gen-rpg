@@ -19,14 +19,14 @@ namespace Assets.Scripts.UI.Charms
 
             foreach (PlayerCharm status in charmData.GetData())
             {
-                _assetService.LoadAssetInto(_gs, RowParent, AssetCategoryNames.UI, CharmRowPrefabName, OnLoadStatusRow, status, token, "Charms");
+                _assetService.LoadAssetInto(RowParent, AssetCategoryNames.UI, CharmRowPrefabName, OnLoadStatusRow, status, token, "Charms");
             }
 
 
             await UniTask.CompletedTask;
         }
 
-        private void OnLoadStatusRow (UnityGameState gs, object obj, object data, CancellationToken token)
+        private void OnLoadStatusRow (object obj, object data, CancellationToken token)
         {
             GEntity go = obj as GEntity;
 

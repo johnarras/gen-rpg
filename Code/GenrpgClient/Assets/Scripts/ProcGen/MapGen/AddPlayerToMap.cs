@@ -10,22 +10,22 @@ class AddPlayerToMap : BaseZoneGenerator
 {
 
     protected IUnitSetupService _unitSetupService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
-        UnitType utype = _gameData.Get<UnitSettings>(gs.ch).Get(gs.ch.EntityId);
+        UnitType utype = _gameData.Get<UnitSettings>(_gs.ch).Get(_gs.ch.EntityId);
 
         if (utype == null || string.IsNullOrEmpty(utype.Art))
         {
             return;
         }
 
-        _assetService.LoadAssetInto(gs, null, AssetCategoryNames.Monsters, utype.Art, OnLoadPlayer, gs.ch, token);
+        _assetService.LoadAssetInto(null, AssetCategoryNames.Monsters, utype.Art, OnLoadPlayer, _gs.ch, token);
 
     }
 
-    private void OnLoadPlayer(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadPlayer(object obj, object data, CancellationToken token)
     {
         GEntity artGo = obj as GEntity;
 
@@ -42,8 +42,8 @@ class AddPlayerToMap : BaseZoneGenerator
             Token = _token,
         };
         
-        GEntity go = _unitSetupService.SetupUnit(gs, artGo, loadData, _token);
-        float height = _terrainManager.SampleHeight(gs, ch.X, ch.Z);
+        GEntity go = _unitSetupService.SetupUnit(artGo, loadData, _token);
+        float height = _terrainManager.SampleHeight(ch.X, ch.Z);
         go.transform().position = GVector3.Create(ch.X, MapConstants.MapHeight, ch.Z);
         go.transform().eulerAngles = GVector3.Create(0, ch.Rot, 0);
 

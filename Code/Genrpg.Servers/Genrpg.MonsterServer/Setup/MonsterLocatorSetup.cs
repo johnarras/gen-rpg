@@ -12,7 +12,7 @@ namespace Genrpg.MonsterServer.Setup
 {
     public class MonsterLocatorSetup : BaseServerLocatorSetup
     {
-        public override void Setup(GameState gs)
+        public override void Setup(IGameState gs)
         {
             base.Setup(gs);
 

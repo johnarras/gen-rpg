@@ -9,6 +9,6 @@ namespace Assets.Scripts.Login.Messages
     {
 
         int Priority();
-        void Process(UnityGameState gs, ILoginResult result, CancellationToken token);
+        void Process(ILoginResult result, CancellationToken token);
     }
 }

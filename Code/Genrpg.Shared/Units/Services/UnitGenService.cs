@@ -14,6 +14,7 @@ using Genrpg.Shared.Names.Settings;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.MapServer.Services;
 
 namespace Genrpg.Shared.Units.Services
 {
@@ -21,14 +22,15 @@ namespace Genrpg.Shared.Units.Services
     public class UnitGenService : IUnitGenService
     {
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
 
         private INameGenService _nameGenService = null;
-        private IGameData _gameData;
-        public virtual string GenerateUnitName(GameState gs, long unitTypeId, long zoneId, IRandom rand,
+        private IGameData _gameData = null;
+        protected IMapProvider _mapProvider;
+        public virtual string GenerateUnitName(IRandom rand, long unitTypeId, long zoneId,
             Dictionary<string, string> args = null)
         {
 
@@ -39,7 +41,7 @@ namespace Genrpg.Shared.Units.Services
             }
 
 
-            Zone zone = gs.map.Get<Zone>(zoneId);
+            Zone zone = _mapProvider.GetMap().Get<Zone>(zoneId);
             if (zone == null)
             {
                 return utype.Name;
@@ -54,7 +56,7 @@ namespace Genrpg.Shared.Units.Services
 
             ZoneUnitStatus status = zone.GetUnit(unitTypeId);
 
-            string alternateName = _nameGenService.PickWord(gs, utype.AlternateNames, rand.Next());
+            string alternateName = _nameGenService.PickWord(rand, utype.AlternateNames);
             string coreName = utype.Name;
             if (rand.Next() % 8 == 0 && !string.IsNullOrEmpty(alternateName))
             {
@@ -70,7 +72,7 @@ namespace Genrpg.Shared.Units.Services
 
         }
 
-        public virtual string GenerateUnitPrefixName(GameState gs, long unitTypeId, Zone zone, IRandom rand,
+        public virtual string GenerateUnitPrefixName(IRandom rand, long unitTypeId, Zone zone,
             Dictionary<string, string> args = null)
         {
 
@@ -92,10 +94,10 @@ namespace Genrpg.Shared.Units.Services
                 return "";
             }
 
-            string zonePrefix = _nameGenService.PickWord(gs, ztype.CreatureNamePrefixes, rand.Next());
-            string doublePrefix = _nameGenService.PickWord(gs, ztype.CreatureDoubleNamePrefixes, rand.Next());
-            string creaturePrefix = _nameGenService.PickWord(gs, utype.PrefixNames, rand.Next());
-            string doubleSuffix = _nameGenService.PickWord(gs, utype.DoubleNameSuffixes, rand.Next());
+            string zonePrefix = _nameGenService.PickWord(rand, ztype.CreatureNamePrefixes);
+            string doublePrefix = _nameGenService.PickWord(rand, ztype.CreatureDoubleNamePrefixes);
+            string creaturePrefix = _nameGenService.PickWord(rand, utype.PrefixNames);
+            string doubleSuffix = _nameGenService.PickWord(rand, utype.DoubleNameSuffixes);
 
             string categoryName = "";
             string colorName = "";
@@ -109,7 +111,7 @@ namespace Genrpg.Shared.Units.Services
             string overallName = "";
             if (overallList != null)
             {
-                overallName = _nameGenService.PickWord(gs, overallList.Names, rand.Next());
+                overallName = _nameGenService.PickWord(rand, overallList.Names);
             }
 
             ZoneUnitStatus status = zone.GetUnit(unitTypeId);
@@ -119,7 +121,7 @@ namespace Genrpg.Shared.Units.Services
             // All prefixes/names except for the doublename come before colors.
             // Then colors come, then the doublename comes if it exists.
 
-            string doubleName = _nameGenService.CombinePrefixSuffix(doublePrefix, doubleSuffix, 0.14f, rand.Next());
+            string doubleName = _nameGenService.CombinePrefixSuffix(rand, doublePrefix, doubleSuffix, 0.14f);
 
 
             List<string> prefixNames = new List<string>();
@@ -295,9 +297,9 @@ namespace Genrpg.Shared.Units.Services
         /// <param name="map">Map</param>
         /// <param name="zone">Zone</param>
         /// <returns>Creature type Id or 0 if there's some error</returns>
-        public virtual UnitType GetRandomUnitType(GameState gs, Map map, Zone zone)
+        public virtual UnitType GetRandomUnitType(IRandom rand, Map map, Zone zone)
         {
-            if (map == null || zone == null || gs.rand == null)
+            if (map == null || zone == null)
             {
                 return null;
             }
@@ -315,7 +317,7 @@ namespace Genrpg.Shared.Units.Services
 
             if (weightSum > 0)
             {
-                long weightChosen = gs.rand.NextLong() % weightSum;
+                long weightChosen = rand.NextLong() % weightSum;
                 foreach (ZoneUnitStatus mon in zone.Units)
                 {
                     weightChosen -= mon.Pop;
@@ -327,7 +329,7 @@ namespace Genrpg.Shared.Units.Services
             }
 
 
-            return _gameData.Get<UnitSettings>(null).Get(zone.Units[gs.rand.Next() % zone.Units.Count].UnitTypeId);
+            return _gameData.Get<UnitSettings>(null).Get(zone.Units[rand.Next() % zone.Units.Count].UnitTypeId);
         }
     }
 }

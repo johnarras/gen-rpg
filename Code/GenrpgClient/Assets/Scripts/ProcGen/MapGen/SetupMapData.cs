@@ -9,138 +9,106 @@ using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Utils.Data;
+using Assets.Scripts.ProcGen.RandomNumbers;
 
 public class SetupMapData : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        if (gs.md == null)
+        await base.Generate(token);
+        if (_md == null)
         {
-            _zoneGenService.ShowGenError(gs, "Missing MapData");
+            _zoneGenService.ShowGenError("Missing MapData");
             return;
         }
 
-        if (gs.map == null)
+        if (_mapProvider.GetMap() == null)
         {
-            _zoneGenService.ShowGenError(gs, "No world found");
+            _zoneGenService.ShowGenError("No world found");
             return;
         }
-        if (gs.spawns == null || gs.spawns.Data.Count < 1)
+        if (_mapProvider.GetSpawns() == null || _mapProvider.GetSpawns().Data.Count < 1)
         {
-            gs.spawns = new MapSpawnData() { Id = gs.map.Id.ToString() };
+            _mapProvider.SetSpawns(new MapSpawnData() { Id = _mapProvider.GetMap().Id.ToString() });
         }
 
-        bool fixSeeds = false;
+     
 
-#if UNITY_EDITOR
+        int mapSize = _mapProvider.GetMap().GetHwid();
 
-        InitClient initComp = InitClient.EditorInstance;
-
-        
-        if (initComp != null &&
-            initComp.WorldSize >= 3 &&
-            initComp.ZoneSize >= 1 &&
-            initComp.MapGenSeed > 0)
-        {
-            fixSeeds = true;
-            if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId))
-            {
-                gs.map.BlockCount = initComp.WorldSize;
-                gs.map.ZoneSize = initComp.ZoneSize;
-                gs.map.Seed = initComp.MapGenSeed;
-            }
-        }
-
-#endif
-        if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId) && !fixSeeds)
-        {
-            gs.map.Seed = (int)(DateTime.UtcNow.Ticks % 2000000000);
-            foreach (Zone item in gs.map.Zones)
-            {
-                item.Seed = (int)(DateTime.UtcNow.Ticks % 1000000000+item.IdKey *235622);
-            }
-        }
-
-        _terrainManager.ClearPatches(gs);
-
-        int mapSize = gs.map.GetHwid();
-
-        gs.md.dwid = mapSize;
-        gs.md.dhgt = mapSize;
-        gs.md.ahgt = mapSize;
-        gs.md.awid = mapSize;
-
-
+        _md.dwid = mapSize;
+        _md.dhgt = mapSize;
+        _md.ahgt = mapSize;
+        _md.awid = mapSize;
 
         if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId))
         {
-            for (int gx = 0; gx < gs.map.BlockCount; gx++)
+            for (int gx = 0; gx < _mapProvider.GetMap().BlockCount; gx++)
             {
-                for (int gy = 0; gy < gs.map.BlockCount; gy++)
+                for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
                 {
-                    _terrainManager.SetupOneTerrainPatch(gs, gx, gy, token).Forget();
+                    _terrainManager.SetupOneTerrainPatch(gx, gy, token).Forget();
                 }
             }
         }
 
         if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId))
         {
-            gs.md.grassAmounts = new byte[gs.map.GetHwid(), gs.map.GetHhgt(), MapConstants.MaxGrass];
+            _md.grassAmounts = new byte[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt(), MapConstants.MaxGrass];
 
-            gs.md.mapZoneIds = new short[gs.map.GetHwid(), gs.map.GetHhgt()];
+            _md.mapZoneIds = new short[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
 
-            gs.md.subZonePercents = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
-            gs.md.subZoneIds = new int[gs.map.GetHwid(), gs.map.GetHhgt()];
-            gs.md.overrideZoneScales = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
+            _md.subZonePercents = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
+            _md.subZoneIds = new int[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
+            _md.overrideZoneScales = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
 
-            _terrainManager.SetAllTerrainNeighbors(gs);
+            _terrainManager.SetAllTerrainNeighbors();
 
-            gs.md.alphas = new float[gs.md.awid, gs.md.ahgt, MapConstants.MaxTerrainIndex];
-            gs.md.heights = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
+            _md.alphas = new float[_md.awid, _md.ahgt, MapConstants.MaxTerrainIndex];
+            _md.heights = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
 
 
-            gs.md.zoneCenters = new List<MyPoint>();
-            gs.md.mountainHeights = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
-            gs.md.nearestMountainTopHeight = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
-            gs.md.mountainDistPercent = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
-            gs.md.edgeMountainDistPercent = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
-            gs.md.mountainCenterDist = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
-            gs.md.flags = new int[gs.map.GetHwid(), gs.map.GetHhgt()];
-            gs.md.roadDistances = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
+            _md.zoneCenters = new List<MyPoint>();
+            _md.mountainHeights = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
+            _md.nearestMountainTopHeight = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
+            _md.mountainDistPercent = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
+            _md.edgeMountainDistPercent = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
+            _md.mountainCenterDist = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
+            _md.flags = new int[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
+            _md.roadDistances = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
             
-            gs.md.mapObjects = new int[gs.map.GetHwid(), gs.map.GetHhgt()];
+            _md.mapObjects = new int[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
          
-            for (int x = 0; x < gs.map.GetHwid(); x++)
+            for (int x = 0; x < _mapProvider.GetMap().GetHwid(); x++)
             {
-                for (int y = 0; y < gs.map.GetHhgt(); y++)
+                for (int y = 0; y < _mapProvider.GetMap().GetHhgt(); y++)
                 {
-                    gs.md.mapZoneIds[x, y] = 0;
-                    gs.md.roadDistances[x, y] = MapConstants.InitialRoadDistance;
-                    gs.md.mountainDistPercent[x, y] = 1.0f;
-                    gs.md.edgeMountainDistPercent[x, y] = 1.0f;
-                    gs.md.mountainCenterDist[x, y] = MapConstants.InitialMountainDistance;
-                    gs.md.flags[x, y] = 0;
+                    _md.mapZoneIds[x, y] = 0;
+                    _md.roadDistances[x, y] = MapConstants.InitialRoadDistance;
+                    _md.mountainDistPercent[x, y] = 1.0f;
+                    _md.edgeMountainDistPercent[x, y] = 1.0f;
+                    _md.mountainCenterDist[x, y] = MapConstants.InitialMountainDistance;
+                    _md.flags[x, y] = 0;
                 }
 
             }
 
-            for (int x = 0; x < gs.md.awid; x++)
+            for (int x = 0; x < _md.awid; x++)
             {
-                for (int y = 0; y < gs.md.ahgt; y++)
+                for (int y = 0; y < _md.ahgt; y++)
                 {
-                    gs.md.alphas[x, y, MapConstants.BaseTerrainIndex] = 1.0f;
+                    _md.alphas[x, y, MapConstants.BaseTerrainIndex] = 1.0f;
                 }
             }
         }
         else
         {
-            gs.md.flags = null;
-            gs.md.alphas = null;
-            gs.md.heights = null;
-            gs.md.roadDistances = null;
-            gs.md.roads = null;
-            gs.md.bridgeDistances = null;
+            _md.flags = null;
+            _md.alphas = null;
+            _md.heights = null;
+            _md.roadDistances = null;
+            _md.roads = null;
+            _md.bridgeDistances = null;
         }
     }
 }

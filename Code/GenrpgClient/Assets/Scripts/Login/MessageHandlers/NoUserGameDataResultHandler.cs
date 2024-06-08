@@ -24,43 +24,43 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IAssetService _assetService;
         private IWebNetworkService _webNetworkService;
         private IClientGameDataService _gameDataService;
-        protected override void InnerProcess(UnityGameState gs, NoUserGameDataResult result, CancellationToken token)
+        protected override void InnerProcess(NoUserGameDataResult result, CancellationToken token)
         {
-            InnerProcessAsync(gs, result, token).Forget();
+            InnerProcessAsync(result, token).Forget();
         }
 
-        private async UniTask InnerProcessAsync(UnityGameState gs, NoUserGameDataResult result, CancellationToken token)
+        private async UniTask InnerProcessAsync(NoUserGameDataResult result, CancellationToken token)
         {
-            gs.user = new User() { Id = "Crawler" };
-            gs.characterStubs = new List<CharacterStub>();
-            gs.mapStubs = new List<MapStub>();
+            _gs.user = new User() { Id = "Crawler" };
+            _gs.characterStubs = new List<CharacterStub>();
+            _gs.mapStubs = new List<MapStub>();
 
             foreach (IGameSettings settings in result.GameData)
             {
-               await _gameDataService.SaveSettings(gs, settings);
+               await _gameDataService.SaveSettings(settings);
             }
-            if (gs.user != null && !String.IsNullOrEmpty(gs.user.Id))
+            if (_gs.user != null && !String.IsNullOrEmpty(_gs.user.Id))
             {
-                await _loginService.SaveLocalUserData(gs, gs.user.Id);
+                await _loginService.SaveLocalUserData(_gs.user.Id);
             }
 
             _gameData.AddData(result.GameData);
 
-            await UniTask.NextFrame( cancellationToken: token);
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
 
-            _screenService.Open(gs, ScreenId.Crawler);
+            _screenService.Open(ScreenId.Crawler);
 
 
-            while (_screenService.GetScreen(gs, ScreenId.Crawler) == null)
+            while (_screenService.GetScreen(ScreenId.Crawler) == null)
             {
                 await UniTask.NextFrame(token);
             }
 
-            _screenService.CloseAll(gs, new List<ScreenId>() { ScreenId.Crawler });
+            _screenService.CloseAll(new List<ScreenId>() { ScreenId.Crawler });
         }
 
-        public async UniTask RetryUploadMap(UnityGameState gs, CancellationToken token)
+        public async UniTask RetryUploadMap(CancellationToken token)
         {
             // Set the mapId you want to upload to here.
             string mapId = "1";

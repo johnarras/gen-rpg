@@ -14,7 +14,7 @@ namespace Genrpg.Shared.Spells.Services
 {
     public class AbilityService : IAbilityService
     {
-        private IRepositoryService _repoService;
+        private IRepositoryService _repoService = null;
 
         public void AddRank(Unit unit, long abilityCategoryId, long abilityTypeId, int points)
         {

@@ -132,7 +132,7 @@ public class InteractUnit : InteractableObject
         {
             if (unit.HasAddon(MapObjectAddonTypes.Vendor))
             {
-                _screenService.Open(_gs, ScreenId.Quest, unit);
+                _screenService.Open(ScreenId.Quest, unit);
             }
 
             return;

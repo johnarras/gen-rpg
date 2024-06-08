@@ -28,9 +28,9 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
         public override bool IsTopLevelState() { return true; }
         protected override bool ShowSelectText() { return true; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
-            CrawlerStateData stateData = await base.Init(gs, currentData, action, token);
+            CrawlerStateData stateData = await base.Init(currentData, action, token);
 
             PartyData party = _crawlerService.GetParty();
             party.Combat = null;
@@ -67,7 +67,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
                 };
             }
 
-            await _crawlerMapService.EnterMap(gs, party, mapData, token);
+            await _crawlerMapService.EnterMap(party, mapData, token);
 
             return stateData;
 

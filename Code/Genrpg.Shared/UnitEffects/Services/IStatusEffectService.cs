@@ -9,6 +9,6 @@ namespace Genrpg.Shared.UnitEffects.Services
 {
     public interface IStatusEffectService : IInitializable
     {
-        public string ShowStatusEffects(GameState gs, Unit unit, bool showAbbreviations);
+        public string ShowStatusEffects(Unit unit, bool showAbbreviations);
     }
 }

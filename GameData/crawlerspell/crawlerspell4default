@@ -8,7 +8,6 @@
   "Art": "",
   "MaxRange": 100,
   "CombatActionId": 5,
-  "ClassId": 2,
   "TargetTypeId": 9,
   "Level": 1,
   "Effects": [

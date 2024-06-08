@@ -22,7 +22,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.OnSelectSpell; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
 
             PartyData party = _crawlerService.GetParty();
 
-            UnitAction newAction = _combatService.GetActionFromSpell(gs, party, selectSpell.Action.Member,
+            UnitAction newAction = _combatService.GetActionFromSpell(party, selectSpell.Action.Member,
                 selectSpell.Spell, null);
 
             if (newAction == null)

@@ -7,6 +7,7 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.SpellCrafting.Messages;
 using Genrpg.Shared.Spells.PlayerData.Spells;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,23 +15,17 @@ using System.Text;
 
 namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
 {
-    public class DeleteSpellHandler : BaseServerMapMessageHandler<DeleteSpell>
+    public class DeleteSpellHandler : BaseCharacterServerMapMessageHandler<DeleteSpell>
     {
-        protected IRepositoryService _repoService = null;
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, DeleteSpell message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Character ch, DeleteSpell message)
         {
-            if (!_objectManager.GetChar(obj.Id, out Character ch))
-            {
-                return;
-            }
-
             SpellData spellData = ch.Get<SpellData>();
 
             List<Spell> deleteSpells = spellData.GetData().Where(x => x.IdKey == message.SpellId).ToList();
 
             if (deleteSpells.Count < 1)
             {
-                pack.SendError(gs, ch, "Missing spell");
+                pack.SendError(ch, "Missing spell");
             }
 
             spellData.SetData(spellData.GetData().Where(x => x.IdKey != message.SpellId).ToList());

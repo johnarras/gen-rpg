@@ -46,7 +46,7 @@ public class BuildClients
             return;
         }
 
-        UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+        IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
         bool didSetEnv = false;
         ClientConfig clientConfig = ClientConfig.Load();
@@ -114,7 +114,7 @@ public class BuildClients
         ClientRepositoryService repoService = new ClientRepositoryService(logService);
         CancellationTokenSource cts = new CancellationTokenSource();
         SetupService ss = new SetupService();
-        ss.SetupGame(gs, cts.Token);
+        ss.SetupGame(gs as GameState, cts.Token);
 
         Assembly servicesAssembly = Assembly.GetAssembly(typeof(SetupService));
 

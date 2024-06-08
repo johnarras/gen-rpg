@@ -55,13 +55,13 @@ public class InitClient : BaseBehaviour, IInitClient
 
     protected async UniTask OnStart()
     {
-        UnityGameState gs = new UnityGameState();
+        IUnityGameState gs = new UnityGameState();
         Initialize(gs);
 
 #if UNITY_EDITOR
         EditorInstance = this;
 #endif
-        string envName = _gs.Config.Env.ToString();
+        string envName = base._gs.Config.Env.ToString();
 
         DelayRemoveSplashScreen(_gameTokenSource.Token).Forget();
 
@@ -71,17 +71,17 @@ public class InitClient : BaseBehaviour, IInitClient
         Cursors.SetCursor(Cursors.Default);
 
         ClientWebRequest req = new ClientWebRequest();
-        string url = _gs.Config.InitialConfigEndpoint + "?env=" + envName;
-        req.SendRequest(_gs, _logService, url, "", OnGetWebConfig, _gameTokenSource.Token).Forget();
+        string url = base._gs.Config.InitialConfigEndpoint + "?env=" + envName;
+        req.SendRequest(_logService, url, "", OnGetWebConfig, _gameTokenSource.Token).Forget();
         await UniTask.CompletedTask;
     }
 
-    private void OnGetWebConfig(UnityGameState gs, string txt, CancellationToken token)
+    private void OnGetWebConfig(string txt, CancellationToken token)
     {
-        OnGetWebConfigAsync(gs, SerializationUtils.Deserialize<ConfigResponse>(txt), token).Forget();
+        OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token).Forget();
     }
 
-    private async UniTask OnGetWebConfigAsync(UnityGameState gs, ConfigResponse response, CancellationToken token)
+    private async UniTask OnGetWebConfigAsync(ConfigResponse response, CancellationToken token)
     {
         _gs.SetInitObject(entity);
         _dispatcher.AddEvent<NewVersionEvent>(this, OnNewVersion);
@@ -93,31 +93,31 @@ public class InitClient : BaseBehaviour, IInitClient
         SetupService setupService = new SetupService();
         await setupService.SetupGame(_gs, token);
 
-        ClientInitializer clientInitializer = new ClientInitializer();
-        clientInitializer.AddClientServices(_gs, this, true, token);
+        ClientInitializer clientInitializer = new ClientInitializer(_gs);
+        clientInitializer.AddClientServices(this, true, token);
 
         InitialPrefabLoader prefabLoader = AssetUtils.LoadResource<InitialPrefabLoader>("Prefabs/PrefabLoader");
         await prefabLoader.LoadPrefabs(_gs);
 
-        await clientInitializer.FinalInitialize(gs, token);
+        await clientInitializer.FinalInitialize(token);
 
-        while (!_assetService.IsInitialized(gs))
+        while (!_assetService.IsInitialized())
         {
             await UniTask.Delay(1);
         }
 
-        _screenService.Open(_gs, ScreenId.Loading);
+        _screenService.Open(ScreenId.Loading);
 
-        while (_screenService.GetScreen(_gs, ScreenId.Loading) == null)
+        while (_screenService.GetScreen(ScreenId.Loading) == null)
         {
-            await UniTask.NextFrame( cancellationToken: _gameTokenSource.Token);
+            await UniTask.NextFrame(cancellationToken: _gameTokenSource.Token);
         }
 
-        _screenService.Open(_gs, ScreenId.FloatingText);
+        _screenService.Open(ScreenId.FloatingText);
 
         if (!ForceCrawler)
         {
-            _loginService.StartLogin(_gs, token);
+            _loginService.StartLogin(token);
         }
         else
         {
@@ -142,7 +142,7 @@ public class InitClient : BaseBehaviour, IInitClient
 
     private async UniTask DelayRemoveSplashScreen(CancellationToken token)
     {
-        while (_screenService == null || _screenService.GetAllScreens(_gs).Count < 1)
+        while (_screenService == null || _screenService.GetAllScreens().Count < 1)
         {
             await UniTask.NextFrame(token);
         }

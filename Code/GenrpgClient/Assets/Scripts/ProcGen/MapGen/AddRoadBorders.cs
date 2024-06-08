@@ -10,22 +10,22 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class AddRoadBorders : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
 
-        await base.Generate(gs, token);
-        foreach (Zone zone in gs.map.Zones)
+        await base.Generate(token);
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
-    public void GenerateOne (UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
+    public void GenerateOne (Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     { 
         int dx = endx - startx+1;
         int dy = endy - starty+1;
 
-        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
+        GenZone genZone = _md.GetGenZone(zone.IdKey);
 
 		float dirtPercent = 
 			MapConstants.RoadBorderBaseDirtPercent*
@@ -38,7 +38,7 @@ public class AddRoadBorders : BaseZoneGenerator
 			return;
 		}
 
-		MyRandom dirtRand = new MyRandom(gs.map.Seed/19+zone.IdKey *23+zone.Seed+44663);
+		MyRandom dirtRand = new MyRandom(_mapProvider.GetMap().Seed/19+zone.IdKey *23+zone.Seed+44663);
 
 
         int minDirtRadius = 1;
@@ -47,7 +47,7 @@ public class AddRoadBorders : BaseZoneGenerator
         float radfreq = MathUtils.FloatRange(0.4f, 1.5f, dirtRand) * (dx + dy) / 12.0f;
         float radamp = MathUtils.FloatRange(0.8f, 1.2f, dirtRand) * 8.0f;
 
-        float[,] radNoise = _noiseService.Generate(gs, radpers, radfreq, radamp, 2, zone.IdKey * 237 + zone.Seed / 13,dx,dy);
+        float[,] radNoise = _noiseService.Generate(radpers, radfreq, radamp, 2, zone.IdKey * 237 + zone.Seed / 13,dx,dy);
 
 		float perturbPercent = MathUtils.FloatRange (0.3f,0.6f,dirtRand);
 
@@ -56,7 +56,7 @@ public class AddRoadBorders : BaseZoneGenerator
         float freq = MathUtils.FloatRange(0.1f,0.3f,dirtRand)*(dx + dy) / 2.0f;
         float amp = MathUtils.FloatRange(0.3f, 0.8f, dirtRand);
 
-        float[,] dirtAmount = _noiseService.Generate(gs, pers, freq, amp, 2, zone.IdKey * 131 + zone.Seed / 7, dx, dy);
+        float[,] dirtAmount = _noiseService.Generate(pers, freq, amp, 2, zone.IdKey * 131 + zone.Seed / 7, dx, dy);
 
 
         float roadRadius = 2;
@@ -84,12 +84,12 @@ public class AddRoadBorders : BaseZoneGenerator
 			for (int y = starty; y < endy; y++)
 			{
 
-                if (gs.md.mapZoneIds[x, y] != zone.IdKey)
+                if (_md.mapZoneIds[x, y] != zone.IdKey)
                 {
                     continue;
                 }
 
-				float roadVal = gs.md.alphas[x,y,MapConstants.RoadTerrainIndex];
+				float roadVal = _md.alphas[x,y,MapConstants.RoadTerrainIndex];
 				if (roadVal > 0)
 				{
 					continue;
@@ -97,7 +97,7 @@ public class AddRoadBorders : BaseZoneGenerator
 
                 roadRadius = (float)MathUtils.Clamp(minDirtRadius, Math.Abs(radNoise[x - startx, y - starty]), 6);
 
-                float roadDist = gs.md.roadDistances[x, y];
+                float roadDist = _md.roadDistances[x, y];
 
 				if (roadDist >= Math.Max(minDirtRadius,roadRadius) || roadDist <= 0f)
 				{
@@ -110,7 +110,7 @@ public class AddRoadBorders : BaseZoneGenerator
                 {
                     roadDistScale = 1.0f;
                 }
-                float distToRoad = gs.md.roadDistances[x, y];
+                float distToRoad = _md.roadDistances[x, y];
 
                 float posDirtPercent = 0.6f + Math.Abs(dirtAmount[x - startx, y - starty]);
 
@@ -138,9 +138,9 @@ public class AddRoadBorders : BaseZoneGenerator
 
                 for (int c = 0; c < MapConstants.MaxTerrainIndex; c++)
 				{
-					gs.md.alphas[x,y,c] *= (1-currDirtPercent);
+					_md.alphas[x,y,c] *= (1-currDirtPercent);
 				}
-				gs.md.alphas[x,y,MapConstants.DirtTerrainIndex] += currDirtPercent;
+				_md.alphas[x,y,MapConstants.DirtTerrainIndex] += currDirtPercent;
 
 			}
 		}

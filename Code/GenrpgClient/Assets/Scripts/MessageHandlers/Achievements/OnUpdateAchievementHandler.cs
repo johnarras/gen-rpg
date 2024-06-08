@@ -6,9 +6,9 @@ namespace Assets.Scripts.MessageHandlers.Achievements
 {
     public class OnUpdateAchievementHandler : BaseClientMapMessageHandler<OnUpdateAchievement>
     {
-        protected override void InnerProcess(UnityGameState gs, OnUpdateAchievement msg, CancellationToken token)
+        protected override void InnerProcess(OnUpdateAchievement msg, CancellationToken token)
         {
-            gs.ch.Get<AchievementData>().Get(msg.AchievementTypeId).Quantity = msg.Quantity;
+            _gs.ch.Get<AchievementData>().Get(msg.AchievementTypeId).Quantity = msg.Quantity;
         }
     }
 }

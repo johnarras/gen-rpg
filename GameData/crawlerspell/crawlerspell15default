@@ -2,7 +2,7 @@
   "Id": "crawlerspell15default",
   "ParentId": "default",
   "IdKey": 15,
-  "Name": "Holy Storm",
+  "Name": "Holy Nova",
   "Desc": "",
   "Icon": "",
   "Art": "",
@@ -10,7 +10,6 @@
   "PowerPerLevel": 2,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "ClassId": 4,
   "TargetTypeId": 3,
   "Level": 14,
   "Effects": [
@@ -22,6 +21,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-02-25T15:46:23.226Z",
+  "UpdateTime": "2024-06-07T23:01:48.633Z",
   "CreateTime": "2024-01-28T15:21:51Z"
 }

@@ -24,7 +24,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.CombatLoot; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
             PartyData party = _crawlerService.GetParty();
 
-            CombatLoot loot = _lootService.GiveLoot(gs, party);
+            CombatLoot loot = _lootService.GiveLoot(party);
 
             if (loot.Exp > 0)
             {

@@ -9,11 +9,10 @@
   "MaxRange": 100,
   "ReplacesCrawlerSpellId": 2,
   "CombatActionId": 2,
-  "ClassId": 1,
   "TargetTypeId": 9,
   "Level": 1,
   "Effects": [],
   "Flags": 1,
-  "UpdateTime": "2024-03-24T17:39:11.07Z",
+  "UpdateTime": "2024-06-07T23:03:24.256Z",
   "CreateTime": "2024-01-28T14:46:43Z"
 }

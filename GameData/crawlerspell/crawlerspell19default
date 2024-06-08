@@ -9,7 +9,6 @@
   "PowerCost": 50,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "ClassId": 5,
   "TargetTypeId": 7,
   "Level": 3,
   "Effects": [

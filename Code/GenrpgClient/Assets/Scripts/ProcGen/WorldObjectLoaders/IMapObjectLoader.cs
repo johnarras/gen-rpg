@@ -6,5 +6,5 @@ using System.Threading;
 
 public interface IMapObjectLoader : ISetupDictionaryItem<long>
 {
-    UniTask Load(UnityGameState gs, OnSpawn message, MapObject loadedObject, CancellationToken token);
+    UniTask Load(OnSpawn message, MapObject loadedObject, CancellationToken token);
 }

@@ -8,7 +8,7 @@ using GEntity = UnityEngine.GameObject;
 
 public class BridgeObjectLoader : BaseObjectLoader
 {
-    public override bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId,
+    public override bool LoadObject(PatchLoadData loadData, uint objectId,
        int x, int y, Zone currZone, ZoneType currZoneType, CancellationToken token)
     {
 
@@ -20,7 +20,7 @@ public class BridgeObjectLoader : BaseObjectLoader
         int angle = (int)(MapConstants.BridgeAngleDiv * (upperNumber & ((1 << MapConstants.BridgeHeightBitShift) - 1)));
         float bridgeHeight = (upperNumber >> MapConstants.BridgeHeightBitShift) + MapConstants.MinLandHeight;
 
-        BridgeType bridgeType = _gameData.Get<BridgeTypeSettings>(gs.ch).Get ((int)objectId);
+        BridgeType bridgeType = _gameData.Get<BridgeTypeSettings>(_gs.ch).Get ((int)objectId);
         if (bridgeType == null)
         {
             return false;
@@ -42,11 +42,11 @@ public class BridgeObjectLoader : BaseObjectLoader
         dlo.rotation = new MyPointF(0, angle, 0);
         dlo.AfterLoad = AfterLoadObject;
 
-        _assetService.LoadAsset(gs, AssetCategoryNames.Props, dlo.url, OnDownloadObject, dlo, null, token);
+        _assetService.LoadAsset(AssetCategoryNames.Props, dlo.url, OnDownloadObject, dlo, null, token);
 
         return true;
     }
-    public void AfterLoadObject(UnityGameState gs, GEntity go, DownloadObjectData dlo, CancellationToken token)
+    public void AfterLoadObject(GEntity go, DownloadObjectData dlo, CancellationToken token)
     {
         go.transform().localScale = GVector3.onePlatform;
         go.transform().localRotation = GQuaternion.identity;

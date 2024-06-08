@@ -24,7 +24,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
     protected abstract UniTask OnStartOpen(object data, CancellationToken token);
 
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         AddUpdate(ScreenUpdate, UpdateType.Regular);
@@ -133,7 +133,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
     // Called after close animation ends.
     protected virtual void OnFinishClose(CancellationToken token)
     {
-        _screenService.FinishClose(_gs, ScreenID);
+        _screenService.FinishClose(ScreenID);
     }
 }
 

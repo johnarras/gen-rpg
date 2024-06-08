@@ -6,7 +6,7 @@ namespace Assets.Scripts.Login.MessageHandlers.Core
 {
     public class UploadMapResultHandler : BaseClientLoginResultHandler<UploadMapResult>
     {
-        protected override void InnerProcess(UnityGameState gs, UploadMapResult result, CancellationToken token)
+        protected override void InnerProcess(UploadMapResult result, CancellationToken token)
         {
         }
     }

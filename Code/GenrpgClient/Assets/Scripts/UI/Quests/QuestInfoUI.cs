@@ -66,7 +66,7 @@ public class QuestInfoUI : BaseBehaviour
         }
         string rowPrefabName = GetTaskRowPrefabName();
 
-        int state = _questService.GetQuestState(_gs, _gs.ch, _qtype);
+        int state = _questService.GetQuestState(_rand, _gs.ch, _qtype);
 
         string nameText = _qtype.Name;
 
@@ -90,13 +90,13 @@ public class QuestInfoUI : BaseBehaviour
             GEntityUtils.DestroyAllChildren(TaskParent);
             foreach (QuestTask task in _qtype.Tasks)
             {
-                _assetService.LoadAssetInto(_gs, TaskParent, AssetCategoryNames.UI,
+                _assetService.LoadAssetInto(TaskParent, AssetCategoryNames.UI,
                     rowPrefabName, OnLoadTask, task, _token, _screen.Subdirectory);
             }
         }
 
 
-        List<SpawnResult> rewards = _questService.GetRewards(_gs, _gs.ch, _qtype, false);
+        List<SpawnResult> rewards = _questService.GetRewards(_rand, _gs.ch, _qtype, false);
 
         SpawnResult expReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Exp);
         if (expReward != null)
@@ -126,7 +126,7 @@ public class QuestInfoUI : BaseBehaviour
                         Data = item,
                         EntityTypeId = EntityTypes.Item,
                     };
-                    IconHelper.InitItemIcon(_gs, idata, OtherRewards, this._assetService, _token);
+                    IconHelper.InitItemIcon(idata, OtherRewards, this._assetService, _token);
                 }
             }
         }
@@ -186,7 +186,7 @@ public class QuestInfoUI : BaseBehaviour
             return;
         }
 
-        int state = _questService.GetQuestState(_gs, _gs.ch, quest);
+        int state = _questService.GetQuestState(_rand, _gs.ch, quest);
 
         if (state == QuestState.Complete)
         {
@@ -201,7 +201,7 @@ public class QuestInfoUI : BaseBehaviour
         return;
     }
 
-    private void OnLoadTask (UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadTask (object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)

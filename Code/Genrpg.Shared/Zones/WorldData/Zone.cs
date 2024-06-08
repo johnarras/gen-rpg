@@ -130,12 +130,12 @@ namespace Genrpg.Shared.Zones.WorldData
             return null;
         }
 
-        public string GetTitle(GameState gs)
+        public string GetTitle()
         {
             return Name + " [#" + IdKey + "]";
         }
 
-        public long GetFinalUnitLevel(GameState gs, float x, float z, long startLevel)
+        public long GetFinalUnitLevel(IRandom rand, float x, float z, long startLevel, long mapMaxLevel)
         {
             float dmaxx = XMax - x;
             float dmaxz = ZMax - z;
@@ -152,8 +152,8 @@ namespace Genrpg.Shared.Zones.WorldData
                 float minPct = distFromMin / totalDist;
                 float maxPct = 1 - minPct;
 
-                long levelOffset = (int)(4 * (maxPct - minPct) + gs.rand.Next(-1, 1));
-                return MathUtils.Clamp(1, startLevel + levelOffset, gs.map.MaxLevel);
+                long levelOffset = (int)(4 * (maxPct - minPct) + rand.Next(-1, 1));
+                return MathUtils.Clamp(1, startLevel + levelOffset, mapMaxLevel);
             }
             return 1;
         }

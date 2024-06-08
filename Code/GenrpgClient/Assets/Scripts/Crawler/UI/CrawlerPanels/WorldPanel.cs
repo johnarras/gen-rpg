@@ -73,13 +73,13 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                 return;
             }
 
-            _assetService.LoadAsset(_gs, AssetCategoryNames.TextureLists, spriteName, OnDownloadAtlas, spriteName, null, _token); 
+            _assetService.LoadAsset(AssetCategoryNames.TextureLists, spriteName, OnDownloadAtlas, spriteName, null, _token); 
         }
         public void ApplyEffect(string effectName, float duration)
         {
         }
 
-        private void OnDownloadAtlas(UnityGameState gs, object obj, object data, CancellationToken token)
+        private void OnDownloadAtlas(object obj, object data, CancellationToken token)
         {
             GEntity go = obj as GEntity;
 

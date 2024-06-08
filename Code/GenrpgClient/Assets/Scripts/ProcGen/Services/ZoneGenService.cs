@@ -29,29 +29,31 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Core.Entities;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.MapServer.Services;
+using Assets.Scripts.ProcGen.RandomNumbers;
 
 public interface IZoneGenService : IInitializable
 {
     void CancelMapToken();
-    UniTask SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token);
-    void SetOnePatchHeightmaps(UnityGameState gs, TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null);
-    void InstantiateMap(UnityGameState gs, string mapId);
-    Zone Generate(UnityGameState gs, long zoneId, long zoneTypeId, long extraSeed);
+    UniTask SetOnePatchAlphamaps(TerrainPatchData patch, CancellationToken token);
+    void SetOnePatchHeightmaps(TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null);
+    void InstantiateMap(string mapId);
+    Zone Generate(long zoneId, long zoneTypeId, long extraSeed);
 
-    string GenerateZoneName(UnityGameState gs, long zoneTypeId, long extraSeed);
+    string GenerateZoneName(long zoneTypeId, long extraSeed);
 
-    float DistancePercentToLocation(UnityGameState gs, int cx, int cy, float maxDistanceAway);
-    Location FindMapLocation(UnityGameState gs, int centerx, int centery, float extraborder);
+    float DistancePercentToLocation(int cx, int cy, float maxDistanceAway);
+    Location FindMapLocation(int centerx, int centery, float extraborder);
 
-    void ShowGenError(UnityGameState gs, string msg);
+    void ShowGenError(string msg);
 
-    void SetAllAlphamaps(UnityGameState gs, float[,,] alphaMaps, CancellationToken token);
+    void SetAllAlphamaps(float[,,] alphaMaps, CancellationToken token);
 
-    void SetAllHeightmaps(UnityGameState gs, float[,] heights, CancellationToken token); 
+    void SetAllHeightmaps(float[,] heights, CancellationToken token); 
         
-    void LoadMap(UnityGameState gsIn, LoadIntoMapCommand loadData);
-    void InitTerrainSettings(UnityGameState gs, int gx, int gy, int patchSize, CancellationToken token);
-    UniTask OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token);
+    void LoadMap(LoadIntoMapCommand loadData);
+    void InitTerrainSettings(int gx, int gy, int patchSize, CancellationToken token);
+    UniTask OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token);
 }
 
 public class ZoneGenService : IZoneGenService, IGameTokenService
@@ -62,8 +64,12 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
     protected IRepositoryService _repoService;
     protected IDispatcher _dispatcher;
     protected IGameData _gameData;
+    protected IMapProvider _mapProvider;
+    protected IUnityGameState _gs;
+    protected IClientRandom _rand;
+    protected IMapGenData _md;
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -76,32 +82,32 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
     {
 
     }
-    public virtual void LoadMap(UnityGameState gsIn, LoadIntoMapCommand loadData)
+    public virtual void LoadMap(LoadIntoMapCommand loadData)
     {
 
     }
-    public virtual void InitTerrainSettings(UnityGameState gs, int gx, int gy, int patchSize, CancellationToken token)
+    public virtual void InitTerrainSettings(int gx, int gy, int patchSize, CancellationToken token)
     {
 
     }
 
-    public virtual async UniTask OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token)
-    {
-        await UniTask.CompletedTask;
-    }
-
-    public virtual async UniTask SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token)
+    public virtual async UniTask OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token)
     {
         await UniTask.CompletedTask;
     }
 
-    public virtual void SetOnePatchHeightmaps(UnityGameState gs, TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null)
+    public virtual async UniTask SetOnePatchAlphamaps(TerrainPatchData patch, CancellationToken token)
+    {
+        await UniTask.CompletedTask;
+    }
+
+    public virtual void SetOnePatchHeightmaps(TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null)
     {
 
     }
     // Add monsters to the zone.
     private bool _haveSetupRoom = false;
-    public virtual void InstantiateMap(UnityGameState gs, string mapId)
+    public virtual void InstantiateMap(string mapId)
     {
         if (_haveSetupRoom)
         {
@@ -110,9 +116,9 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
     }
 
-    public float DistancePercentToLocation(UnityGameState gs, int cx, int cz, float maxDistanceToLocation)
+    public float DistancePercentToLocation(int cx, int cz, float maxDistanceToLocation)
     {
-        Location loc = FindMapLocation(gs, cx, cz, maxDistanceToLocation);
+        Location loc = FindMapLocation(cx, cz, maxDistanceToLocation);
 
         if (loc == null)
         {
@@ -127,9 +133,9 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         return MathUtils.Clamp(0, distPct - 1, 1);
     }
 
-    public Location FindMapLocation(UnityGameState gs, int cx, int cz, float borderSize)
+    public Location FindMapLocation(int cx, int cz, float borderSize)
     {
-        if ( gs.md.locationGrid == null)
+        if (_md.locationGrid == null)
         {
             return null;
         }
@@ -154,7 +160,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
                     continue;
                 }
 
-                List<Location> list = gs.md.locationGrid[x, z];
+                List<Location> list = _md.locationGrid[x, z];
                 if (list == null)
                 {
                     continue;
@@ -207,18 +213,18 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
     }
 
 
-    public virtual void ShowGenError(UnityGameState gs, string msg)
+    public virtual void ShowGenError(string msg)
     {
         _logService.Error("ZONE GEN ERROR: " + msg);
     }
 
 
-    public virtual void SetAllAlphamaps(UnityGameState gs, float[,,] alphaMaps, CancellationToken token)
+    public virtual void SetAllAlphamaps(float[,,] alphaMaps, CancellationToken token)
     {
 
     }
 
-    public virtual void SetAllHeightmaps(UnityGameState gs, float[,] heights, CancellationToken token)
+    public virtual void SetAllHeightmaps(float[,] heights, CancellationToken token)
     {
 
     }
@@ -233,15 +239,15 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
     /// <param name="zoneId">Id of new zone</param>
     /// <param name="zoneTypeId">Zone type of new zone</param>
     /// <param name="extraSeed">Extra MyRandom seed for this zone</param>
-    public virtual Zone Generate(UnityGameState gs, long zoneId, long zoneTypeId, long extraSeed)
+    public virtual Zone Generate(long zoneId, long zoneTypeId, long extraSeed)
     {
 
-        if ( gs.map == null)
+        if (_mapProvider.GetMap() == null)
         {
             return null;
         }
 
-        long seed = gs.map.Seed / 3 + 431 + extraSeed;
+        long seed = _mapProvider.GetMap().Seed / 3 + 431 + extraSeed;
         MyRandom rand = new MyRandom(seed);
 #if UNITY_EDITOR
         if (InitClient.EditorInstance.ForceZoneTypeId > 0)
@@ -249,38 +255,38 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
             zoneTypeId = InitClient.EditorInstance.ForceZoneTypeId;
         }
 #endif
-        ZoneType zoneType = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zoneTypeId);
+        ZoneType zoneType = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zoneTypeId);
         if (zoneType == null)
         {
             return null;
         }
 
-        int maxLevel = _gameData.Get<LevelSettings>(gs.ch).MaxLevel;
+        int maxLevel = _gameData.Get<LevelSettings>(_gs.ch).MaxLevel;
 
         Zone zone = new Zone();
         zone.IdKey = zoneId++;
-        zone.MapId = gs.map.Id;
+        zone.MapId = _mapProvider.GetMap().Id;
         zone.ZoneTypeId = zoneTypeId;
         zone.Seed = seed;
         zone.Level = 1;
-        zone.Name = GenerateZoneName(gs, zoneTypeId, zone.IdKey + zoneType.IdKey + gs.map.Seed / 7 + zone.Seed / 11 + rand.Next() % 2346234);
+        zone.Name = GenerateZoneName(zoneTypeId, zone.IdKey + zoneType.IdKey + _mapProvider.GetMap().Seed / 7 + zone.Seed / 11 + rand.Next() % 2346234);
 
-        SetTerrainConstants(gs, gs.map, zone, zoneType, rand);
-        SetupFoliage(gs, gs.map, zone, zoneType, rand);
-        SetupMonsters(gs, gs.map, zone, zoneType, rand);
+        SetTerrainConstants(_mapProvider.GetMap(), zone, zoneType, rand);
+        SetupFoliage(_mapProvider.GetMap(), zone, zoneType, rand);
+        SetupMonsters(_mapProvider.GetMap(), zone, zoneType, rand);
         return zone;
 
     }
 
 
-    protected virtual void SetTerrainConstants(UnityGameState gs, Map map, Zone zone, ZoneType zt, MyRandom rand)
+    protected virtual void SetTerrainConstants(Map map, Zone zone, ZoneType zt, MyRandom rand)
     {
-        if ( map == null || zone == null || zt == null || rand == null)
+        if (map == null || zone == null || zt == null || rand == null)
         {
             return;
         }
 
-        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
+        GenZone genZone = _md.GetGenZone(zone.IdKey);
 
         float densityDelta = 0.10f;
         genZone.DetailAmp = MathUtils.FloatRange(1 - densityDelta, 1 + densityDelta, rand);
@@ -299,12 +305,12 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         if (zt.Textures != null)
         {
-            IReadOnlyList<TextureType> allTextures = _gameData.Get<TextureTypeSettings>(gs.ch).GetData();
+            IReadOnlyList<TextureType> allTextures = _gameData.Get<TextureTypeSettings>(_gs.ch).GetData();
             if (allTextures == null)
             {
                 allTextures = new List<TextureType>();
             }
-            IReadOnlyList<TextureChannel> channels = _gameData.Get<TextureChannelSettings>(gs.ch).GetData();
+            IReadOnlyList<TextureChannel> channels = _gameData.Get<TextureChannelSettings>(_gs.ch).GetData();
         
             for (int i = 0; i < channels.Count; i++)
             {
@@ -371,7 +377,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
     /// <param name="zone">This zone</param>
     /// <param name="zt">This zone type</param>
     /// <param name="rand">Extra MyRandom seed</param>
-    protected virtual void SetupFoliage(UnityGameState gs, Map map, Zone zone, ZoneType zt, MyRandom rand)
+    protected virtual void SetupFoliage(Map map, Zone zone, ZoneType zt, MyRandom rand)
     {
         if (map == null || zone == null || zt == null || rand == null)
         {
@@ -380,7 +386,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         MyRandom ztRand = new MyRandom(map.Seed % 500000000 + zone.Seed % 1234567890);
 
-        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
+        GenZone genZone = _md.GetGenZone(zone.IdKey);
 
         if (zt.RockTypes == null)
         {
@@ -446,7 +452,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
             double totalDensity = 0.0;
             foreach (ZonePlantType pt in plantTypeList)
             {
-                PlantType ptype = _gameData.Get<PlantTypeSettings>(gs.ch).Get(pt.PlantTypeId);
+                PlantType ptype = _gameData.Get<PlantTypeSettings>(_gs.ch).Get(pt.PlantTypeId);
                 if (ptype != null)
                 {
                     if (times < MapConstants.MaxGrass / 2)
@@ -531,7 +537,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         List<ZoneTreeType> waterTypes = new List<ZoneTreeType>();
         foreach (ZoneTreeType ztt in zt.TreeTypes)
         {
-            TreeType tt = _gameData.Get<TreeTypeSettings>(gs.ch).Get(ztt.TreeTypeId);
+            TreeType tt = _gameData.Get<TreeTypeSettings>(_gs.ch).Get(ztt.TreeTypeId);
             if (tt == null)
             {
                 continue;
@@ -599,7 +605,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         }
     }
 
-    protected virtual void SetupMonsters(UnityGameState gs, Map map, Zone zone, ZoneType zoneType, MyRandom rand)
+    protected virtual void SetupMonsters(Map map, Zone zone, ZoneType zoneType, MyRandom rand)
     {
         int basePopMult = 10000;
         if (map == null || zone == null || zoneType == null || rand == null)
@@ -609,7 +615,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         zone.Units = new List<ZoneUnitStatus>();
 
-        IReadOnlyList<UnitType> units = _gameData.Get<UnitSettings>(gs.ch).GetData();
+        IReadOnlyList<UnitType> units = _gameData.Get<UnitSettings>(_gs.ch).GetData();
         if (units == null)
         {
             return;
@@ -621,7 +627,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         foreach (SpawnItem spawnItem in zoneType.UnitSpawns)
         {
 
-            List<SpawnItem> newSpawnItems = CreateUnitListFromSpawnItems(gs, spawnItem, 1.0f, 0);
+            List<SpawnItem> newSpawnItems = CreateUnitListFromSpawnItems(spawnItem, 1.0f, 0);
             if (spawnItem.MinQuantity > 0 && spawnItem.MaxQuantity >= spawnItem.MinQuantity)
             {
                 int numChosen = MathUtils.IntRange((int)spawnItem.MinQuantity, (int)spawnItem.MaxQuantity, rand);
@@ -641,7 +647,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
                 continue;
             }
 
-            UnitType utype = _gameData.Get<UnitSettings>(gs.ch).Get(si.EntityId);
+            UnitType utype = _gameData.Get<UnitSettings>(_gs.ch).Get(si.EntityId);
             if (utype == null)
             {
                 continue;
@@ -677,7 +683,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
                 };
 
                 zone.Units.Add(unitStatus);
-                unitStatus.Prefix = _unitGenService.GenerateUnitPrefixName(gs, utype.IdKey, zone, rand, null);
+                unitStatus.Prefix = _unitGenService.GenerateUnitPrefixName(_rand, utype.IdKey, zone, null);
 
             }
         }
@@ -692,7 +698,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
     /// <param name="chance"></param>
     /// <param name="depth"></param>
     /// <returns></returns>
-    private List<SpawnItem> CreateUnitListFromSpawnItems(UnityGameState gs, SpawnItem spawnItemIn, double chance, int depth)
+    private List<SpawnItem> CreateUnitListFromSpawnItems(SpawnItem spawnItemIn, double chance, int depth)
     {
 
         List<SpawnItem> retval = new List<SpawnItem>();
@@ -704,7 +710,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         if (spawnItemIn.EntityTypeId == EntityTypes.Unit)
         {
-            UnitType utype = _gameData.Get<UnitSettings>(gs.ch).Get(spawnItemIn.EntityId);
+            UnitType utype = _gameData.Get<UnitSettings>(_gs.ch).Get(spawnItemIn.EntityId);
             if (utype != null)
             {
                 SpawnItem newSi = new SpawnItem()
@@ -722,12 +728,12 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         }
         else if (spawnItemIn.EntityTypeId == EntityTypes.Spawn)
         {
-            SpawnTable spawnTable = _gameData.Get<SpawnSettings>(gs.ch).Get(spawnItemIn.EntityId);
+            SpawnTable spawnTable = _gameData.Get<SpawnSettings>(_gs.ch).Get(spawnItemIn.EntityId);
             if (spawnTable != null && spawnTable.Items != null)
             {
                 foreach (SpawnItem si in spawnTable.Items)
                 {
-                    retval = retval.Concat(CreateUnitListFromSpawnItems(gs, si, chance * si.Weight / 100.0f * spawnItemIn.Weight / 100.0f, depth + 1)).ToList();
+                    retval = retval.Concat(CreateUnitListFromSpawnItems(si, chance * si.Weight / 100.0f * spawnItemIn.Weight / 100.0f, depth + 1)).ToList();
                 }
             }
         }
@@ -735,13 +741,13 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
     }
 
-    public string GenerateZoneName(UnityGameState gs, long zoneTypeId, long extraSeed)
+    public string GenerateZoneName(long zoneTypeId, long extraSeed)
     {
         string badName = "The Region";
 
         MyRandom rand = new MyRandom(extraSeed);
 
-        ZoneType zt = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zoneTypeId);
+        ZoneType zt = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zoneTypeId);
         if (zt == null)
         {
             return badName;
@@ -752,7 +758,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
             return badName;
         }
 
-        string zoneName = _nameGenService.PickWord(gs, zt.ZoneNames, rand.Next());
+        string zoneName = _nameGenService.PickWord(_rand, zt.ZoneNames);
         string excludeWord = zoneName;
         if (zoneName == null)
         {
@@ -765,21 +771,21 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         }
 
         string excludePrefix = zoneName.Substring(0, 3);
-        string zonePrefix = _nameGenService.PickWord(gs, zt.ZoneAdjectives, rand.Next(), excludeWord, excludePrefix);
+        string zonePrefix = _nameGenService.PickWord(_rand, zt.ZoneAdjectives, excludeWord, excludePrefix);
 
-        string prefixDouble = _nameGenService.PickNameListName(gs, "ItemDoublePrefix", rand.Next(), excludeWord, excludePrefix);
-        string suffixDouble = _nameGenService.PickNameListName(gs, "ItemDoubleSuffix", rand.Next(), excludeWord, excludePrefix);
+        string prefixDouble = _nameGenService.PickNameListName(_rand, "ItemDoublePrefix", excludeWord, excludePrefix);
+        string suffixDouble = _nameGenService.PickNameListName(_rand, "ItemDoubleSuffix", excludeWord, excludePrefix);
 
 
         int times = 0;
         while (prefixDouble != null && suffixDouble != null &&
             prefixDouble.ToLower() == suffixDouble.ToLower() && ++times < 20)
         {
-            suffixDouble = _nameGenService.PickNameListName(gs, "ItemDoubleSuffix", rand.Next(), excludeWord, excludePrefix);
+            suffixDouble = _nameGenService.PickNameListName(_rand, "ItemDoubleSuffix", excludeWord, excludePrefix);
         }
 
-        string doubleName = _nameGenService.CombinePrefixSuffix(prefixDouble, suffixDouble, 0, rand.Next());
-        string prefixName = _nameGenService.PickNameListName(gs, "ZoneNamePrefix", rand.Next(), excludeWord, excludePrefix);
+        string doubleName = _nameGenService.CombinePrefixSuffix(_rand, prefixDouble, suffixDouble, 0);
+        string prefixName = _nameGenService.PickNameListName(_rand, "ZoneNamePrefix", excludeWord, excludePrefix);
 
 
         if (string.IsNullOrEmpty(zoneName))
@@ -804,7 +810,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         {
             // Need to check if the doublename suffix can be used as a single word zone suffix.
             bool canUseSuffix = false;
-            NameList nl = _gameData.Get<NameSettings>(gs.ch).GetNameList("ItemDoubleSuffix");
+            NameList nl = _gameData.Get<NameSettings>(_gs.ch).GetNameList("ItemDoubleSuffix");
             if (nl != null && nl.Names != null)
             {
                 foreach (WeightedName item in nl.Names)

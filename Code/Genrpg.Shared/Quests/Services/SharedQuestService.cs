@@ -12,14 +12,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Quests.Services
 {
     public interface ISharedQuestService : IInitializable
     {
-        int GetQuestState(GameState gs, Character ch, QuestType qtype);
-        bool IsQuestSoonVisible(GameState gs, Character ch, QuestType qtype);
-        List<SpawnResult> GetRewards(GameState gs, Character ch, QuestType qtype, bool createRewards = false);
+        int GetQuestState(IRandom rand, Character ch, QuestType qtype);
+        bool IsQuestSoonVisible(IRandom rand, Character ch, QuestType qtype);
+        List<SpawnResult> GetRewards(IRandom rand, Character ch, QuestType qtype, bool createRewards = false);
 
     }
 
@@ -27,14 +28,14 @@ namespace Genrpg.Shared.Quests.Services
     public class SharedQuestService : ISharedQuestService
     {
 
-        private IGameData _gameData;
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        private IGameData _gameData = null;
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
 
 
-        public int GetQuestState(GameState gs, Character ch, QuestType qtype)
+        public int GetQuestState(IRandom rand, Character ch, QuestType qtype)
         {
             if (qtype == null)
             {
@@ -74,7 +75,7 @@ namespace Genrpg.Shared.Quests.Services
 
         }
 
-        public virtual bool IsQuestSoonVisible(GameState gs, Character ch, QuestType qtype)
+        public virtual bool IsQuestSoonVisible(IRandom rand, Character ch, QuestType qtype)
         {
 
             if (ch.Level < qtype.MinLevel - QuestConstants.QuestAlmostVisibleLevels)
@@ -86,7 +87,7 @@ namespace Genrpg.Shared.Quests.Services
         }
 
 
-        public List<SpawnResult> GetRewards(GameState gs, Character ch, QuestType qtype, bool createRewards = false)
+        public List<SpawnResult> GetRewards(IRandom rand, Character ch, QuestType qtype, bool createRewards = false)
         {
             List<SpawnResult> rewards = new List<SpawnResult>();
 

@@ -16,6 +16,7 @@ using Genrpg.Shared.Inventory.Settings.Qualities;
 using Genrpg.Shared.Inventory.Settings.Slots;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Inventory.Settings.ItemTypes
 {
@@ -66,7 +67,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
         }
 
 
-        public long GetFromRangeLevel(GameState gs, long desiredLevel)
+        public long GetFromRangeLevel(long desiredLevel)
         {
             if (LevelRanges == null || LevelRanges.Count < 1)
             {
@@ -83,7 +84,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
             return (levelRangeWanted.MinLevel + levelRangeWanted.MaxLevel) / 2;
         }
 
-        public LevelRangeName GetRange(GameState gs, long level, int depth = 0)
+        public LevelRangeName GetRange(long level, int depth = 0)
         {
             if (depth >= 10)
             {
@@ -100,7 +101,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
             return null;
         }
 
-        public QualityName GetQuality(GameState gs, int quality, int depth = 0)
+        public QualityName GetQuality(int quality, int depth = 0)
         {
             if (depth >= 10)
             {
@@ -119,7 +120,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
         }
 
 
-        public string GetIcon(GameState gs, long level)
+        public string GetIcon(long level)
         {
             if (LevelRanges == null)
             {
@@ -132,7 +133,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
             }
             return Icon;
         }
-        public string GetNamePrefix(GameState gs, long level, long quality)
+        public string GetNamePrefix(long level, long quality)
         {
             return "";
         }

@@ -19,7 +19,7 @@ namespace Genrpg.LoginServer.CommandHandlers
         protected override async Task InnerHandleMessage(LoginGameState gs, RefreshGameSettingsCommand command, CancellationToken token)
         {
 
-            RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs, gs.ch, true);
+            RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs.ch, true);
 
             if (result != null)
             {

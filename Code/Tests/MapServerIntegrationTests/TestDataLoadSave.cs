@@ -23,8 +23,8 @@ namespace Tests.MapServerTests
         const string serverName = "mapservertests";
 
 
-        private IGameDataService _gameDataService;
-        private IGameData _gameData;
+        private IGameDataService _gameDataService = null!;
+        private IGameData _gameData = null!;
 
         [TestMethod]
         public async Task TestLoadSettings()

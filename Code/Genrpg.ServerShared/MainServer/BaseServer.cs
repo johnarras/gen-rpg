@@ -43,7 +43,13 @@ namespace Genrpg.ServerShared.MainServer
             return _gs;
         }
 
-        public virtual async Task Init(object data, object parentObject, CancellationToken serverToken)
+
+        protected virtual async Task FinalInit(ServerGameState gs, object data, object parentObject, CancellationToken serverToken)
+        {
+            await Task.CompletedTask;
+        }
+
+        public async Task Init(object data, object parentObject, CancellationToken serverToken)
         {
             _tokenSource = CancellationTokenSource.CreateLinkedTokenSource(serverToken, _tokenSource.Token);
             _serverId = GetServerId(data);
@@ -57,9 +63,9 @@ namespace Genrpg.ServerShared.MainServer
 
             _cloudCommsService.SendPubSubMessage(_gs, new ServerStartedAdminMessage() { ServerId = _serverId });
 
-            _gs.loc.Resolve(parentObject);
+            await FinalInit(_gs, data, parentObject, serverToken);
 
-            
+            _gs.loc.Resolve(parentObject);
 
             await Task.CompletedTask;
         }

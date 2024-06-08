@@ -9,9 +9,9 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
         public override long GetKey() { return SpellModifiers.Range; }
 
         // Linear in range, max at 3x at 45 units so 
-        public override double GetCostScale(GameState gs, MapObject obj, double value)
+        public override double GetCostScale(MapObject obj, double value)
         {
-            value = GetValidValue(gs, obj, value);
+            value = GetValidValue(obj, value);
 
             return 1.0f + value * 0.05;
         }

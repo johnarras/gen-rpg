@@ -18,5 +18,6 @@ namespace Genrpg.Shared.MapServer.Messages
         [Key(6)] public long TotalSpells { get; set; }
         [Key(7)] public long TotalUpdates { get; set; }
         [Key(8)] public MapObjectCounts MapCounts { get; set; }
+        [Key(9)] public long PathfindingCount { get; set; }
     }
 }

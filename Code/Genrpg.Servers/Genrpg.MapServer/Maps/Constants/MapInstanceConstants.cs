@@ -11,6 +11,6 @@ namespace Genrpg.MapServer.Maps.Constants
         /// <summary>
         /// Simplifies the game server when active (only 1 small map and only 1 message queue for now)
         /// </summary>
-        public const bool ServerTestMode = true;
+        public const bool ServerTestMode = false;
     }
 }

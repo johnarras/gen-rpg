@@ -5,13 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.Spells.Constants;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Spells.Utils
 {
     [MessagePackObject]
     public class SpellUtils
     {
-        public static bool IsValidTarget(GameState gs, Unit target, long casterFactionId, long targetTypeId)
+        public static bool IsValidTarget(Unit target, long casterFactionId, long targetTypeId)
         {
             if (targetTypeId == TargetTypes.Enemy)
             {

@@ -25,6 +25,14 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
     }
 
     [MessagePackObject]
+    public class ClassBonus
+    {
+        [Key(0)] public long EntityTypeId { get; set; }
+        [Key(1)] public long EntityId { get; set; }
+        [Key(2)] public long Quantity { get; set; }
+    }
+
+    [MessagePackObject]
     public class Class : ChildSettings, IIndexedGameItem
     {
 
@@ -37,25 +45,20 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
         [Key(6)] public string Art { get; set; }
         [Key(7)] public string Abbrev { get; set; }
 
-        
         [Key(8)] public int LevelsPerMelee { get; set; }
-        [Key(9)] public int InitialMeleeAttacks { get; set; } = 1;
-        [Key(10)] public int LevelsPerRanged { get; set; }
-        [Key(11)] public int InitialRangedAttacks { get; set; } = 1;
+        [Key(9)] public int LevelsPerRanged { get; set; }
+        [Key(10)] public int LevelsPerDamage { get; set; }
+        [Key(11)] public int LevelsPerHeal { get; set; }
         [Key(12)] public int HealthPerLevel { get; set; }
         [Key(13)] public int ManaPerLevel { get; set; }
+        [Key(14)] public long MaxArmorScalingTypeId { get; set; }
+        [Key(15)] public long CritPercent { get; set; } = 0; 
+        [Key(16)] public long ManaStatTypeId { get; set; }
 
-        [Key(14)] public long BuffStatTypeId { get; set; }
-        [Key(15)] public long BuffStatPercent { get; set; } = 100;
-        [Key(16)] public long DefaultLevelPercentBuff { get; set; } = 50;
-        [Key(17)] public long PartyBuffId { get; set; }
-        [Key(18)] public long MaxArmorScalingTypeId { get; set; }
-        [Key(19)] public long CritPercent { get; set; } = 0; 
-        [Key(20)] public long ManaStatTypeId { get; set; }
-        
+        [Key(17)] public List<ClassBonus> Bonuses { get; set; } = new List<ClassBonus>();
 
-        [Key(21)] public List<AllowedWeapon> AllowedWeapons { get; set; } = new List<AllowedWeapon>();
-        [Key(22)] public List<AllowedEquipSlot> AllowedEquipSlots { get; set; } = new List<AllowedEquipSlot>();
+        [Key(18)] public List<AllowedWeapon> AllowedWeapons { get; set; } = new List<AllowedWeapon>();
+        [Key(19)] public List<AllowedEquipSlot> AllowedEquipSlots { get; set; } = new List<AllowedEquipSlot>();
 
     }
 
@@ -64,7 +67,6 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
     public class ClassSettings : ParentSettings<Class>
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public double SecondaryClassPowerScale { get; set; } = 0.50;
 
         public List<Class> GetClasses(List<UnitClass> unitClasses)
         {

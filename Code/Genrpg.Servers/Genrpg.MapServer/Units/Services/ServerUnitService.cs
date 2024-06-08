@@ -33,14 +33,14 @@ namespace Genrpg.MapServer.Units.Services
         private IMapMessageService _messageService = null;
         private IMapObjectManager _objectManager = null;
         private ISpawnService _spawnService = null;
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         private IAchievementService _achievementService = null;
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-        public void CheckForDeath(GameState gs, ActiveSpellEffect eff, Unit targ)
+        public void CheckForDeath(IRandom rand, ActiveSpellEffect eff, Unit targ)
         {
             if (targ.HasFlag(UnitFlags.IsDead))
             {
@@ -82,7 +82,7 @@ namespace Genrpg.MapServer.Units.Services
             {
                 targ.SkillLoot = new List<SpawnResult>();
 
-                targ.Loot = _spawnService.Roll(gs, _gameData.Get<SpawnSettings>(targ).MonsterLootSpawnTableId, rollData);
+                targ.Loot = _spawnService.Roll(rand, _gameData.Get<SpawnSettings>(targ).MonsterLootSpawnTableId, rollData);
                 LevelInfo levelData = _gameData.Get<LevelSettings>(targ).Get(targ.Level);
 
                 if (levelData != null)
@@ -91,25 +91,25 @@ namespace Genrpg.MapServer.Units.Services
                     {
                         EntityTypeId = EntityTypes.Currency,
                         EntityId = CurrencyTypes.Money,
-                        Quantity = MathUtils.LongRange(levelData.KillMoney / 2, levelData.KillMoney * 3 / 2, gs.rand),
+                        Quantity = MathUtils.LongRange(levelData.KillMoney / 2, levelData.KillMoney * 3 / 2, rand),
                     });
                 }
 
                 if (utype.LootItems != null)
                 {
-                    targ.Loot.AddRange(_spawnService.Roll(gs, utype.LootItems, rollData));
+                    targ.Loot.AddRange(_spawnService.Roll(rand, utype.LootItems, rollData));
                 }
                 // Quest loot? need list of quests from caster?
 
                 if (utype.InteractLootItems != null)
                 {
-                    targ.SkillLoot = _spawnService.Roll(gs, utype.InteractLootItems, rollData);
+                    targ.SkillLoot = _spawnService.Roll(rand, utype.InteractLootItems, rollData);
                 }
 
                 if (ttype != null)
                 {
-                    targ.Loot.AddRange(_spawnService.Roll(gs, ttype.LootItems, rollData));
-                    targ.SkillLoot.AddRange(_spawnService.Roll(gs, ttype.InteractLootItems, rollData));
+                    targ.Loot.AddRange(_spawnService.Roll(rand, ttype.LootItems, rollData));
+                    targ.SkillLoot.AddRange(_spawnService.Roll(rand, ttype.InteractLootItems, rollData));
                 }
 
                 foreach (AttackerInfo info in targ.GetAttackers())
@@ -117,7 +117,7 @@ namespace Genrpg.MapServer.Units.Services
 
                     if (_objectManager.GetChar(info.AttackerId, out Character ch))
                     {
-                        _achievementService.UpdateAchievement(gs, ch, AchievementConstants.KillMonsterStartId + utype.IdKey, 1);
+                        _achievementService.UpdateAchievement(ch, AchievementConstants.KillMonsterStartId + utype.IdKey, 1);
                     }
                 }
 
@@ -144,7 +144,7 @@ namespace Genrpg.MapServer.Units.Services
                 _messageService.SendMessage(killerUnit, killed);
             }
 
-            _objectManager.RemoveObject(gs, targ.Id, UnitConstants.CorpseDespawnSeconds);
+            _objectManager.RemoveObject(rand, targ.Id, UnitConstants.CorpseDespawnSeconds);
 
         }
     }

@@ -10,7 +10,6 @@
   "PowerPerLevel": 1,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "ClassId": 4,
   "TargetTypeId": 2,
   "Level": 1,
   "Effects": [
@@ -21,6 +20,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-02-25T15:46:26.289Z",
+  "UpdateTime": "2024-06-07T22:37:09.646Z",
   "CreateTime": "2024-01-28T09:12:48Z"
 }

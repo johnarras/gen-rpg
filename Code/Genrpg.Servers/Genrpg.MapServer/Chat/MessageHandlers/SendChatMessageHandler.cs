@@ -5,6 +5,7 @@ using Genrpg.Shared.Chat.Messages;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Chat.MessageHandlers
 {
-    public class SendChatMessageHandler : BaseServerMapMessageHandler<SendChatMessage>
+    public class SendChatMessageHandler : BaseMapObjectServerMapMessageHandler<SendChatMessage>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, SendChatMessage message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, SendChatMessage message)
         {
             float radius = 0;
             if (message.ChatTypeId == ChatTypes.Say)

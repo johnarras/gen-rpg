@@ -2,6 +2,7 @@
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Spells.Settings.Effects;
+using Genrpg.Shared.Utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,14 +13,14 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
     /// </summary>
     public interface ISpellEffectHandler : ISetupDictionaryItem<long>
     {
-        void Init(GameState gs);
+        void Init();
         bool IsModifyStatEffect();
         bool UseStatScaling();
         float GetTickLength();
 
-        List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit spellHit);
+        List<ActiveSpellEffect> CreateEffects(IRandom rand, SpellHit spellHit);
 
-        bool HandleEffect(GameState gs, ActiveSpellEffect eff);
+        bool HandleEffect(IRandom rand, ActiveSpellEffect eff);
 
     }
 }

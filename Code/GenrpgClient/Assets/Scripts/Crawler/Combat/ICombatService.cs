@@ -21,15 +21,15 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
     public interface ICombatService : IInitializable
     {
-        bool StartCombat(GameState gs, PartyData partyData, CombatState combatState);
-        void EndCombatRound(GameState gs, PartyData party);
-        bool SetMonsterActions(GameState gs, PartyData party);
-        bool ReadyForCombat(GameState gs, PartyData party);
-        List<UnitAction> GetActionsForPlayer(GameState gs, PartyData party, CrawlerUnit unit);
-        UnitAction GetActionFromSpell(GameState gs, PartyData party, CrawlerUnit unit, CrawlerSpell spell,
+        bool StartCombat(PartyData partyData, CombatState combatState);
+        void EndCombatRound(PartyData party);
+        bool SetMonsterActions(PartyData party);
+        bool ReadyForCombat(PartyData party);
+        List<UnitAction> GetActionsForPlayer(PartyData party, CrawlerUnit unit);
+        UnitAction GetActionFromSpell(PartyData party, CrawlerUnit unit, CrawlerSpell spell,
             List<UnitAction> currentActions = null);
-        void SetInitialActions(GameState gs, PartyData party);
-        void AddCombatUnits(GameState gs, PartyData partyData, UnitType unitType, long unitQuantity, long factionTypeId,
+        void SetInitialActions(PartyData party);
+        void AddCombatUnits(PartyData partyData, UnitType unitType, long unitQuantity, long factionTypeId,
             int currRange = CrawlerCombatConstants.MinRange);
     }
 }

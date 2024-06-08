@@ -9,13 +9,13 @@ namespace Genrpg.Shared.MapServer.Entities
     [MessagePackObject]
     public class MapUtils
     {
-        public static string GetMapFolder(GameState gs, string MapId, long MapVersion)
+        public static string GetMapFolder(string MapId, long MapVersion)
         {
             return "Map" + MapId + "/V" + MapVersion.ToString("0000") + "/";
         }
-        public static string GetMapObjectFilename(GameState gs, string filename, string mapId, int mapVersion)
+        public static string GetMapObjectFilename(string filename, string mapId, int mapVersion)
         {
-            return GetMapFolder(gs, mapId, mapVersion) + filename;
+            return GetMapFolder(mapId, mapVersion) + filename;
         }
 
     }

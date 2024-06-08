@@ -29,7 +29,7 @@ namespace UI
         private string _chatPrefix = "";
 
 
-        public override void Initialize(UnityGameState gs)
+        public override void Initialize(IUnityGameState gs)
         {
             base.Initialize(gs);
             _dispatcher.AddEvent<OnChatMessage>(this, OnChatMessageHandler);
@@ -197,14 +197,14 @@ namespace UI
             {
                 return;
             }
-            AddChatRow(_gs, message);
+            AddChatRow(message);
             return;
         }
 
 
-        private void AddChatRow(UnityGameState gs, OnChatMessage message)
+        private void AddChatRow(OnChatMessage message)
         { 
-            ChatRow newRow = GEntityUtils.FullInstantiate(gs,Row.entity()).GetComponent<ChatRow>();
+            ChatRow newRow = GEntityUtils.FullInstantiate(_gs, Row.entity()).GetComponent<ChatRow>();
             newRow.entity().SetActive(true);
             GEntityUtils.AddToParent(newRow.entity(), ChatParent);
             _rows.Add(newRow);

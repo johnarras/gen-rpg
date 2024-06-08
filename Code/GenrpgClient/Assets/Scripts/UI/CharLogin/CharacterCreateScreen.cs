@@ -20,8 +20,8 @@ public class CharacterCreateScreen : BaseScreen
 
     public void ClickBack()
     {
-        _screenService.Open(_gs, ScreenId.CharacterSelect);
-        _screenService.Close(_gs, ScreenId.CharacterCreate);
+        _screenService.Open(ScreenId.CharacterSelect);
+        _screenService.Close(ScreenId.CharacterCreate);
     }
     public void ClickCreate()
     {

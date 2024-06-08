@@ -9,24 +9,24 @@ public class UploadAssetBundle
 	[MenuItem("Build/Dev Upload Asset Bundles")]
 	static void ExecuteDev()
     {
-        UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
-        UploadAssetBundles(gs,EnvNames.Dev);
+        IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+        UploadAssetBundles(EnvNames.Dev);
 	}
 
     [MenuItem("Build/Prod Upload Asset Bundles")]
     static void ExecuteProd()
     {
-        UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
-        UploadAssetBundles(gs,EnvNames.Prod);
+        IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+        UploadAssetBundles(EnvNames.Prod);
     }
-    public static void UploadAssetBundles(UnityGameState gs,string env)
+    public static void UploadAssetBundles(string env)
     {
-        gs = SetupEditorUnityGameState.Setup(gs).GetAwaiter().GetResult();
-        InnerUploadFiles(gs,env);
+        IUnityGameState gs = SetupEditorUnityGameState.Setup().GetAwaiter().GetResult();
+        InnerUploadFiles(gs, env);
 	}
 
 
-	private static void InnerUploadFiles(UnityGameState gs,string env)
+	private static void InnerUploadFiles(IUnityGameState gs, string env)
 	{
 
         BinaryFileRepository localRepo = new BinaryFileRepository(gs.loc.Get<ILogService>());

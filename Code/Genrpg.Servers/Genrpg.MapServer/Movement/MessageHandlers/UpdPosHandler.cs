@@ -13,12 +13,13 @@ using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.Services;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Movement.MessageHandlers
 {
-    public class UpdPosHandler : BaseServerMapMessageHandler<UpdatePos>
+    public class UpdPosHandler : BaseMapObjectServerMapMessageHandler<UpdatePos>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, UpdatePos message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, UpdatePos message)
         {
             obj.X = message.GetX();
             obj.Y = message.GetY();
@@ -48,7 +49,7 @@ namespace Genrpg.MapServer.Movement.MessageHandlers
                     ch.LastServerStatTime = DateTime.UtcNow;
                 }
             }
-            _objectManager.UpdatePosition(gs, obj, message.GetKeysDown());
+            _objectManager.UpdatePosition(rand, obj, message.GetKeysDown());
 
         }
     }

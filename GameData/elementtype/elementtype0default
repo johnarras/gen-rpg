@@ -2,12 +2,15 @@
   "Id": "elementtype0default",
   "ParentId": "default",
   "Name": "None",
+  "Art": "Magic",
+  "CasterActionName": "Blast",
+  "ObserverActionName": "Blasts",
   "Skills": [],
   "OldProcs": [],
   "BonusEffects": [],
   "BuffEffects": [],
   "DebuffEffects": [],
   "Procs": [],
-  "UpdateTime": "2024-02-25T15:46:35.679Z",
+  "UpdateTime": "2024-06-08T20:59:58.027Z",
   "CreateTime": "2024-01-27T20:32:45.362Z"
 }

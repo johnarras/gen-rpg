@@ -8,17 +8,17 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class AddSecondaryLocations : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        PlaceOtherLocations(gs);
+        await base.Generate(token);
+        PlaceOtherLocations(_gs);
     }
 
-    private void PlaceOtherLocations (UnityGameState gs)
+    private void PlaceOtherLocations (IUnityGameState gs)
     {
-        long locationsDesired = (int)(gs.map.BlockCount * gs.map.BlockCount * 0.05f);
+        long locationsDesired = (int)(_mapProvider.GetMap().BlockCount * _mapProvider.GetMap().BlockCount * 0.05f);
 
-        MyRandom rand = new MyRandom(gs.map.Seed % 1000000000 + 176283);
+        MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed % 1000000000 + 176283);
 
 
         if (locationsDesired < 1)
@@ -29,7 +29,7 @@ public class AddSecondaryLocations : BaseZoneGenerator
 
         int edgeDistance = 2 * MapConstants.TerrainPatchSize;
 
-        if (gs.map.GetHwid() <= edgeDistance*2 || gs.map.GetHhgt() <= edgeDistance*2)
+        if (_mapProvider.GetMap().GetHwid() <= edgeDistance*2 || _mapProvider.GetMap().GetHhgt() <= edgeDistance*2)
         {
             return;
         }
@@ -42,11 +42,11 @@ public class AddSecondaryLocations : BaseZoneGenerator
 
         for (int times = 0; times < locationsDesired*100 && locationsPlaced < locationsDesired; times++)
         {
-            int cx = edgeDistance + rand.Next() % (gs.map.GetHwid() - 2*edgeDistance);
-            int cy = edgeDistance + rand.Next() % (gs.map.GetHhgt() - 2*edgeDistance);
+            int cx = edgeDistance + rand.Next() % (_mapProvider.GetMap().GetHwid() - 2*edgeDistance);
+            int cy = edgeDistance + rand.Next() % (_mapProvider.GetMap().GetHhgt() - 2*edgeDistance);
 
             // Not near current loc.
-            Location nearLoc = _zoneGenService.FindMapLocation(gs, cx, cy, minDistToFeature);
+            Location nearLoc = _zoneGenService.FindMapLocation(cx, cy, minDistToFeature);
             if (nearLoc != null)
             {
                 continue;
@@ -55,19 +55,19 @@ public class AddSecondaryLocations : BaseZoneGenerator
             bool failed = false;
             for (int xx = cx - mountainCheckRadius; xx <= cx + mountainCheckRadius; xx++)
             {
-                if (xx < 0 || xx >= gs.map.GetHwid())
+                if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
                 {
                     continue;
                 }
 
                 for (int yy = cy - mountainCheckRadius; yy <= cy + mountainCheckRadius; yy++)
                 {
-                    if (yy < 0 || yy >= gs.map.GetHhgt())
+                    if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                     {
                         continue;
                     }
 
-                    if (FlagUtils.IsSet(gs.md.flags[xx,yy],MapGenFlags.IsEdgeWall))
+                    if (FlagUtils.IsSet(base._md.flags[xx, yy], MapGenFlags.IsEdgeWall))
                     {
                         failed = true;
                     }
@@ -79,12 +79,12 @@ public class AddSecondaryLocations : BaseZoneGenerator
                 continue;
             }
 
-            if (gs.md.roadDistances[cx,cy] < minDistToFeature)
+            if (base._md.roadDistances[cx, cy] < minDistToFeature)
             {
                 continue;
             }
 
-            if (gs.md.mapZoneIds[cx,cy] < MapConstants.MapZoneStartId)
+            if (base._md.mapZoneIds[cx, cy] < MapConstants.MapZoneStartId)
             {
                 continue;
             }
@@ -107,7 +107,7 @@ public class AddSecondaryLocations : BaseZoneGenerator
                 ZSize = MathUtils.IntRange(minRad, maxRad, rand),        
             };
 
-            gs.md.AddMapLocation(gs, loc);
+            base._md.AddMapLocation(_mapProvider, loc);
             locationsPlaced++;
         }
     }

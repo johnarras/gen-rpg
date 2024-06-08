@@ -7,6 +7,7 @@ using Genrpg.Shared.MapObjects.Factories;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,28 +16,27 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Combat.MessageHandlers
 {
-    public class BringAFriendHandler : BaseServerMapMessageHandler<BringFriends>
+    public class BringAFriendHandler : BaseUnitServerMapMessageHandler<BringFriends>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, BringFriends message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, BringFriends message)
         {
-            Unit possibleFriend = obj as Unit;
-            if (possibleFriend == null || possibleFriend.IsPlayer() || possibleFriend.HasFlag(UnitFlags.IsDead | UnitFlags.Evading))
+            if (unit.IsPlayer() || unit.HasFlag(UnitFlags.IsDead | UnitFlags.Evading))
             {
                 return;
             }
 
-            if (possibleFriend.FactionTypeId != message.BringerFactionId)
+            if (unit.FactionTypeId != message.BringerFactionId)
             {
                 return;
             }
 
-            if (possibleFriend.HasTarget())
+            if (unit.HasTarget())
             {
-                possibleFriend.AddAttacker(message.TargetId, null);
+                unit.AddAttacker(message.TargetId, null);
             }
             else
             {
-                _aiService.TargetMove(gs, possibleFriend, message.TargetId);
+                _aiService.TargetMove(rand, unit, message.TargetId);
             }
         }
     }

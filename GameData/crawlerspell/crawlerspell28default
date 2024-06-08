@@ -10,7 +10,6 @@
   "PowerPerLevel": 2,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "ClassId": 5,
   "TargetTypeId": 4,
   "Level": 14,
   "Effects": [

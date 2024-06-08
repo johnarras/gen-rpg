@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Units.Factories
 {
@@ -19,7 +20,7 @@ namespace Genrpg.Shared.Units.Factories
     {
         public override long GetKey() { return EntityTypes.ProxyCharacter; }
 
-        public override MapObject Create(GameState gs, IMapSpawn spawn)
+        public override MapObject Create(IRandom rand, IMapSpawn spawn)
         {
 
             MapSpawn unitSpawn = new MapSpawn()
@@ -31,7 +32,7 @@ namespace Genrpg.Shared.Units.Factories
                 Z = spawn.Z,
             };
 
-            Unit unit = base.Create(gs, unitSpawn) as Unit;
+            Unit unit = base.Create(rand, unitSpawn) as Unit;
 
             if (unit == null)
             {

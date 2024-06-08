@@ -94,7 +94,7 @@ namespace Genrpg.Shared.MapServer.Entities
         }
         public virtual void ClearIndex() {}
 
-        public int GetMapSize(GameState gs)
+        public int GetMapSize()
         {
             if (BlockCount < 4)
             {
@@ -104,7 +104,7 @@ namespace Genrpg.Shared.MapServer.Entities
             return BlockCount * (SharedMapConstants.TerrainPatchSize - 1) + 1;
         }
 
-        public bool IsSingleZone(GameState gs)
+        public bool IsSingleZone()
         {
             return ZoneSize >= BlockCount;
         }

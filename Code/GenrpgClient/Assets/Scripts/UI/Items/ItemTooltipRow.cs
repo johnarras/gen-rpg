@@ -7,7 +7,7 @@ public class ItemTooltipRow : BaseBehaviour
     public GText ChangeText;
     public List<GEntity> Stars;
 
-    public void Init(UnityGameState gs, ItemTooltipRowData rowData)
+    public void Init(ItemTooltipRowData rowData)
     {
         if (rowData == null)
         {

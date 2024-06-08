@@ -16,7 +16,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.PartyMembers
     {
 
         protected virtual bool ShowSelectText() { return false; }
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 

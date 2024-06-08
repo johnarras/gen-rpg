@@ -8,13 +8,13 @@ using System.Runtime.InteropServices; // Needed
 
 public class ClientWebRequest
 {
-	private UnityGameState _gs;
+	private IUnityGameState _gs;
 	private string _uri;
     private string _postData;
     private WebResultsHandler _handler = null;
     private ILogService _logService = null;
     const int MaxTimes = 3;
-	public async UniTask SendRequest (UnityGameState gs, ILogService logService, string uri, string postData, WebResultsHandler handler, CancellationToken token)
+	public async UniTask SendRequest (ILogService logService, string uri, string postData, WebResultsHandler handler, CancellationToken token)
     {
         _logService = logService;
         _uri = uri;
@@ -54,7 +54,7 @@ public class ClientWebRequest
                 {
                     if (handler != null)
                     {
-                        handler(gs, text, token);
+                        handler(text, token);
                     }
                 }
                 else

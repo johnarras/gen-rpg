@@ -25,7 +25,7 @@ public class CharacterSelectRow : BaseBehaviour
         _token = token;
         _uIInitializable.SetText(NameText, ch.Name);
         _uIInitializable.SetButton(DeleteButton, screen.GetName(), ClickDelete);
-        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, "HelmetMetal_002", CharImage, token);
+        _assetService.LoadAtlasSpriteInto(AtlasNames.Icons, "HelmetMetal_002", CharImage, token);
 
         if (PlayButtonAnchor == null)
         {
@@ -34,7 +34,7 @@ public class CharacterSelectRow : BaseBehaviour
 
         foreach (MapStub stub in _gs.mapStubs)
         {
-            _assetService.LoadAssetInto(_gs, PlayButtonAnchor, AssetCategoryNames.UI, 
+            _assetService.LoadAssetInto(PlayButtonAnchor, AssetCategoryNames.UI, 
                 "CharacterPlayButton", OnDownloadPlayButton, stub, token, screen.Subdirectory);          
         }
     }
@@ -59,7 +59,7 @@ public class CharacterSelectRow : BaseBehaviour
         _webNetworkService.SendClientWebCommand(com, _token);
     }
 
-    private void OnDownloadPlayButton(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnDownloadPlayButton(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
 

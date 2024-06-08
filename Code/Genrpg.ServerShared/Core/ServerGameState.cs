@@ -33,26 +33,6 @@ namespace Genrpg.ServerShared.Core
         {
             loc = new ServiceLocator(logService, analyticsService, new GameData());
             loc.Set(config);           
-        }     
-
-        protected override GameState CreateGameStateInstance(ILogService logService = null, IAnalyticsService analyticsService = null)
-        {
-            if (logService == null || analyticsService == null)
-            {
-                return (GameState)Activator.CreateInstance(GetType(), new object[] { loc.Get<IServerConfig>() });
-            }
-            else
-            {
-                return (GameState)Activator.CreateInstance(GetType(), new object[] { loc.Get<IServerConfig>(), logService, analyticsService });
-            }
-        }
-
-        public override GameState CreateGameStateCopy()
-        {
-            ServerGameState state = base.CreateGameStateCopy() as ServerGameState;
-            return state;
-        }
-
-
+        }    
     }
 }

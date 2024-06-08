@@ -12,18 +12,14 @@ using Genrpg.Shared.Quests.WorldData;
 using Genrpg.Shared.Quests.MapObjectAddons;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Quests.MessageHandlers
 {
-    public class GetQuestsHandler : BaseServerMapMessageHandler<GetQuests>
+    public class GetQuestsHandler : BaseCharacterServerMapMessageHandler<GetQuests>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, GetQuests message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Character ch, GetQuests message)
         {
-            if (!_objectManager.GetChar(obj.Id, out Character ch))
-            {
-                return;
-            }
-
             if (!_objectManager.GetObject(message.ObjId, out MapObject mobject))
             {
                 return;
@@ -31,7 +27,7 @@ namespace Genrpg.MapServer.Quests.MessageHandlers
 
             QuestAddon addon = mobject.GetAddon<QuestAddon>();
 
-            _messageService.SendMessage(obj, new OnGetQuests() { ObjId = message.ObjId, Quests = addon?.Quests ?? new List<QuestType>() }); ;
+            _messageService.SendMessage(ch, new OnGetQuests() { ObjId = message.ObjId, Quests = addon?.Quests ?? new List<QuestType>() }); ;
         }
     }
 }

@@ -4,6 +4,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Input.Constants;
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Input.Settings;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
 {
     public class InputsCharacterLoadUpdater : BaseCharacterLoadUpdater
     {
-        private IGameData _gameData;
-        public override async Task Update(GameState gs, Character ch)
+        private IGameData _gameData = null;
+        public override async Task Update(IRandom rand, Character ch)
         {
             KeyCommData keyCommands = ch.Get<KeyCommData>();
             ActionInputData actionInputs = ch.Get<ActionInputData>();

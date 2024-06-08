@@ -7,6 +7,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Utils;
 using Genrpg.Shared.WhoList.Entities;
 using Genrpg.Shared.WhoList.Messages;
 using System;
@@ -17,15 +18,10 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.WhoList.MessageHandlers
 {
-    public class GetWhoListHandler : BaseServerMapMessageHandler<GetWhoList>
+    public class GetWhoListHandler : BaseCharacterServerMapMessageHandler<GetWhoList>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, GetWhoList message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Character ch, GetWhoList message)
         {
-            if (!_objectManager.GetChar(obj.Id, out Character ch))
-            {
-                return;
-            }
-
             _cloudCommsService.SendResponseMessageWithHandler<WhoListResponse>(CloudServerNames.Player,
                new WhoListRequest() { Args = message.Args }, (response) => { OnReceiveWhoList(ch.Id, response); });
         }

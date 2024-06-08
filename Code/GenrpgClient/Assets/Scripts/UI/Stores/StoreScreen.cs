@@ -42,11 +42,11 @@ namespace Assets.Scripts.UI.Stores
             {
                 StoreTheme theme = _gameData.Get<StoreThemeSettings>(_gs.ch).Get(offer.StoreThemeId);
 
-                _assetService.LoadAssetInto(_gs, StoreParent, AssetCategoryNames.Stores, StorePanelPrefab, OnLoadStorePanel, offer, token, theme.Art);
+                _assetService.LoadAssetInto(StoreParent, AssetCategoryNames.Stores, StorePanelPrefab, OnLoadStorePanel, offer, token, theme.Art);
             }
         }
 
-        private void OnLoadStorePanel(GameState gs, object obj, object data, CancellationToken token)
+        private void OnLoadStorePanel(object obj, object data, CancellationToken token)
         {
             GEntity go = obj as GEntity;
 

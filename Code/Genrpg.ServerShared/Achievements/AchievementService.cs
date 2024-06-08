@@ -19,14 +19,14 @@ namespace Genrpg.ServerShared.Achievements
 {
     public class AchievementService : IAchievementService
     {
-        private IGameData _gameData;
-        private IRepositoryService _repoService;
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        private IGameData _gameData = null;
+        private IRepositoryService _repoService = null;
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
 
-        public void UpdateAchievement(GameState gs, MapObject mapObject, long achievementTypeId, long quantity)
+        public void UpdateAchievement(MapObject mapObject, long achievementTypeId, long quantity)
         {
             if (!(mapObject is Character ch))
             {

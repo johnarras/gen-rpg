@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
+using Assets.Scripts.ProcGen.RandomNumbers;
 
 
 public interface IPlayerManager : IInitializable, IMapTokenService
@@ -35,7 +36,7 @@ public class PlayerManager : IPlayerManager
     private Unit _unit;
     private UnitController _unitController;
     private GameObject _entity;
-
+    private IClientRandom _rand;
     private CancellationToken _mapToken;
 
     private IClientPathfindingUtils _clientPathfindingUtils;
@@ -43,11 +44,11 @@ public class PlayerManager : IPlayerManager
     private IPathfindingService _pathfindingService;
     private IRealtimeNetworkService _networkService;
 
-    public UnityGameState _gs { get; set; }
+    public IUnityGameState _gs { get; set; }
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
-        _gs = gs as UnityGameState;
+        _gs = gs as IUnityGameState;
         await Task.CompletedTask;
     }
 
@@ -121,9 +122,9 @@ public class PlayerManager : IPlayerManager
             int sz = (int)(_unitController.entity.transform.position.z);
             int ex = (int)(finalUnit.X);
             int ez = (int)(finalUnit.Z);
-            WaypointList list = _pathfindingService.GetPath(_gs, sx, sz, ex, ez);
+            WaypointList list = _pathfindingService.CalcPath(_rand, sx, sz, ex, ez);
 
-            _clientPathfindingUtils.ShowPath(_gs, list, _mapToken).Forget();
+            _clientPathfindingUtils.ShowPath(list, _mapToken).Forget();
         }
         else
         {
@@ -223,7 +224,7 @@ public class PlayerManager : IPlayerManager
                 return;
             }
 
-            int unitPos = _gs.rand.Next() % finalUnits.Count;
+            int unitPos = _rand.Next() % finalUnits.Count;
 
             Unit finalUnit = finalUnits[unitPos];
 

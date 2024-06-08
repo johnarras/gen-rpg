@@ -12,9 +12,9 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 {
     public interface ICrawlerStatService : IInitializable
     {
-        void CalcUnitStats(GameState gs, PartyData party, CrawlerUnit unit, bool resetCurrStats);
+        void CalcUnitStats(PartyData party, CrawlerUnit unit, bool resetCurrStats);
 
-        void CalcPartyStats(GameState gs, PartyData party, bool resetCurrStats);
+        void CalcPartyStats(PartyData party, bool resetCurrStats);
 
         /// <summary>
         /// Get buff stats based on classes and levels of party members
@@ -22,6 +22,6 @@ namespace Genrpg.Shared.Crawler.Stats.Services
         /// <param name="gs"></param>
         /// <param name="party"></param>
         /// <returns></returns>
-        List<MemberStat> GetPartyBuffStats(GameState gs, PartyData party);
+        List<MemberStat> GetPartyBuffStats(PartyData party);
     }
 }

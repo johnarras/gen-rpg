@@ -9,6 +9,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Levels.Messages;
 using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Utils;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -17,9 +18,9 @@ namespace Genrpg.MapServer.Levelup.Services
 {
     public interface ILevelService : IInitializable
     {
-        void UpdateLevel(GameState gs, Character ch);
+        void UpdateLevel(IRandom rand, Character ch);
         void SetupLevels(GameData data);
-        bool GiveLevelRewards(GameState gs, Character ch, LevelInfo lev);
+        bool GiveLevelRewards(IRandom rand, Character ch, LevelInfo lev);
 
     }
 
@@ -29,14 +30,14 @@ namespace Genrpg.MapServer.Levelup.Services
         private IStatService _statService = null;
         private IEntityService _entityService = null;
         private IMapMessageService _messageService = null;
-        private IGameData _gameData;
+        private IGameData _gameData = null;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-        public void UpdateLevel(GameState gs, Character ch)
+        public void UpdateLevel(IRandom rand, Character ch)
         {
             CurrencyData currencies = ch.Get<CurrencyData>();
 
@@ -67,7 +68,7 @@ namespace Genrpg.MapServer.Levelup.Services
                     UnitId = ch.Id,
                 };
                 _messageService.SendMessageNear(ch, levelMessage);
-                GiveLevelRewards(gs, ch, ldata);
+                GiveLevelRewards(rand, ch, ldata);
             }
 
             if (endLevel > startLevel)
@@ -77,7 +78,7 @@ namespace Genrpg.MapServer.Levelup.Services
             }
         }
 
-        public virtual bool GiveLevelRewards(GameState gs, Character ch, LevelInfo lev)
+        public virtual bool GiveLevelRewards(IRandom rand, Character ch, LevelInfo lev)
         {
 
             if (lev == null)
@@ -94,7 +95,7 @@ namespace Genrpg.MapServer.Levelup.Services
 
             if (lev.RewardList != null)
             {
-                _entityService.GiveRewards(gs, ch, lev.RewardList);
+                _entityService.GiveRewards(rand, ch, lev.RewardList);
             }
 
             ch.AbilityPoints += lev.AbilityPoints;

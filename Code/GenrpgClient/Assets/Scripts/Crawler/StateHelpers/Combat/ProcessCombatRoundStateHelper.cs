@@ -18,29 +18,29 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.ProcessCombatRound; }
         
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
             PartyData party = _crawlerService.GetParty();
 
-            if (!_combatService.ReadyForCombat(gs, party))
+            if (!_combatService.ReadyForCombat(party))
             {
-                _combatService.EndCombatRound(gs, party);
+                _combatService.EndCombatRound(party);
                 stateData = new CrawlerStateData(ECrawlerStates.CombatFightRun, true);
             }
 
-            ProcessCombat(gs, party, token).Forget();
+            ProcessCombat(party, token).Forget();
 
             await UniTask.CompletedTask;
             return stateData;
         }
 
-        private async UniTask ProcessCombat(UnityGameState gs, PartyData party, CancellationToken token)
+        private async UniTask ProcessCombat(PartyData party, CancellationToken token)
         {
 
             await UniTask.Delay(100, cancellationToken: token);
-            bool success = await _processCombatService.ProcessCombatRound(gs, party, token);
+            bool success = await _processCombatService.ProcessCombatRound(party, token);
 
             party.ActionPanel.AddText($"\n\nPress {CrawlerUIUtils.HighlightText("Space")} to continue...\n\n");
             

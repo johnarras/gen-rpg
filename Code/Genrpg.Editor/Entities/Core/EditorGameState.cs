@@ -6,6 +6,8 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Users.Entities;
+using Genrpg.Shared.Utils;
+using Microsoft.Identity.Client;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -18,6 +20,7 @@ namespace Genrpg.Editor.Entities.Core
         public EditorUser EditorUser { get; set; }
         public EditorGameData EditorGameData { get; set; }
         public IGameData data { get; set; }
+        public MyRandom rand { get; set; } = new MyRandom();
         public EditorGameState(IServerConfig config): base(config)
         {
             EditorUser = new EditorUser();

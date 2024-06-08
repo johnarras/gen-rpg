@@ -14,8 +14,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
     public interface ICrawlerMapService : IInitializable
     {
-        UniTask EnterMap(UnityGameState gs, PartyData partyData,  EnterCrawlerMapData mapData, CancellationToken token);
-        UniTask UpdateMovement(UnityGameState gs, CancellationToken token);
+        UniTask EnterMap(PartyData partyData,  EnterCrawlerMapData mapData, CancellationToken token);
+        UniTask UpdateMovement(CancellationToken token);
 
         bool UpdatingMovement();
     }

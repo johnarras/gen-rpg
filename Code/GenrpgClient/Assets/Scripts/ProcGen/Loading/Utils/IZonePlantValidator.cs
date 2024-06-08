@@ -1,5 +1,7 @@
-﻿using Genrpg.Shared.GameSettings;
+﻿using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.ProcGen.Settings.Plants;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
@@ -14,7 +16,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
 {
     public interface IZonePlantValidator : IInjectable
     {
-        void UpdateValidPlantTypeList<DP>(UnityGameState gs, Zone zone, int gx, int gy, List<DP> fullList,
+        void UpdateValidPlantTypeList<DP>(Zone zone, int gx, int gy, List<DP> fullList,
         bool isMainTerrain, CancellationToken token) where DP : BaseDetailPrototype, new();
     }
 
@@ -22,7 +24,10 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
     public class ZonePlantValidator : IZonePlantValidator
     {
         private IGameData _gameData;
-        public void UpdateValidPlantTypeList<DP>(UnityGameState gs, Zone zone, int gx, int gy, List<DP> fullList,
+        private IMapProvider _mapProvider;
+        private IUnityGameState _gs;
+        protected IClientRandom _rand;
+        public void UpdateValidPlantTypeList<DP>(Zone zone, int gx, int gy, List<DP> fullList,
         bool isMainTerrain, CancellationToken token) where DP : BaseDetailPrototype, new()
         {
             if (fullList.Count >= 2 * MapConstants.MaxGrass)
@@ -30,7 +35,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
                 return;
             }
 
-            ZoneType zoneType = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
+            ZoneType zoneType = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId);
 
             List<ZonePlantType> plist = new List<ZonePlantType>(zone.PlantTypes);
 
@@ -38,7 +43,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
 
             while (plist.Count > maxQuantity)
             {
-                plist.RemoveAt(gs.rand.Next() % plist.Count);
+                plist.RemoveAt(_rand.Next() % plist.Count);
             }
 
             for (int p = 0; p < plist.Count; p++)
@@ -53,7 +58,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
                     continue;
                 }
 
-                PlantType pt = _gameData.Get<PlantTypeSettings>(gs.ch).Get(zpt.PlantTypeId);
+                PlantType pt = _gameData.Get<PlantTypeSettings>(_gs.ch).Get(zpt.PlantTypeId);
                 if (pt == null || string.IsNullOrEmpty(pt.Art))
                 {
                     continue;
@@ -65,7 +70,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
                 full.Index = fullList.Count;
                 full.XGrid = gx;
                 full.YGrid = gy;
-                full.noiseSeed = zone.Seed % 12783428 + gs.map.Seed % 543333 + p * 13231;
+                full.noiseSeed = zone.Seed % 12783428 + _mapProvider.GetMap().Seed % 543333 + p * 13231;
                 full.zoneIds.Add(zone.IdKey);
                 fullList.Add(full);
             }

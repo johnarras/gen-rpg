@@ -23,7 +23,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         public override ECrawlerMapTypes GetKey() { return ECrawlerMapTypes.City; }
 
-        public override async UniTask<CrawlerMapRoot> Enter(UnityGameState gs, PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
+        public override async UniTask<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
             partyData.MapId = mapData.MapId;
             partyData.MapX = mapData.MapX;
@@ -31,10 +31,10 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             partyData.MapRot = mapData.MapRot;
             string mapId = "City" + mapData.MapId;
 
-            CrawlerMap cmap = GenerateCityMap(gs, partyData, mapData.MapId);
+            CrawlerMap cmap = GenerateCityMap(partyData, mapData.MapId);
 
             GameObject go = new GameObject() { name = "City" };
-            CrawlerMapRoot mapRoot = GEntityUtils.GetOrAddComponent<CrawlerMapRoot>(gs, go);
+            CrawlerMapRoot mapRoot = GEntityUtils.GetOrAddComponent<CrawlerMapRoot>(_gs, go);
             mapRoot.SetupFromMap(cmap);
             mapRoot.name = mapId;
             mapRoot.MapId = mapId;
@@ -46,7 +46,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             return mapRoot;
         }
 
-        CrawlerMap GenerateCityMap(UnityGameState gs, PartyData party, long cityId)
+        CrawlerMap GenerateCityMap(PartyData party, long cityId)
         {
             CrawlerMap cmap = new CrawlerMap();
             cmap.Looping = false;
@@ -237,13 +237,13 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         }
 
 
-        public override int GetBlockingBits(UnityGameState gs, CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez)
+        public override int GetBlockingBits(CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez)
         {
             return mapRoot.Map.ExtraData[mapRoot.Map.GetIndex(ex, ez)] != 0 ? WallTypes.Wall : WallTypes.None;
         }
 
 
-        public override async UniTask DrawCell(UnityGameState gs, CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token)
+        public override async UniTask DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token)
         {
             if (mapRoot.Assets == null)
             {
@@ -264,7 +264,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             ZoneType zoneType = null;
 
-            AddWallComponent(gs, mapRoot.Assets.Floor, cell.Content, new Vector3(0, 0, 0), new Vector3(90, 0, 0));
+            AddWallComponent(mapRoot.Assets.Floor, cell.Content, new Vector3(0, 0, 0), new Vector3(90, 0, 0));
             if (zoneTypeId > 0)
             {
                 zoneType = _gameData.Get<ZoneTypeSettings>(null).Get(zoneTypeId);
@@ -274,7 +274,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                     ZoneTextureType zoneTextureType = zoneType.Textures.FirstOrDefault(x => x.TextureChannelId == MapConstants.BaseTerrainIndex);
                     if (zoneTextureType != null && zoneTextureType.TextureTypeId > 0)
                     {
-                        LoadTerrainTexture(gs, cell.Content, zoneTextureType.TextureTypeId, token);
+                        LoadTerrainTexture(cell.Content, zoneTextureType.TextureTypeId, token);
                     }
                 }
             }
@@ -312,7 +312,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                     };
 
 
-                    _assetService.LoadAssetInto(gs, cell.Content, AssetCategoryNames.Buildings, "Default/" + btype.Art + suffix, OnDownloadBuilding, loadData, token);
+                    _assetService.LoadAssetInto(cell.Content, AssetCategoryNames.Buildings, "Default/" + btype.Art + suffix, OnDownloadBuilding, loadData, token);
                 }
             }
 

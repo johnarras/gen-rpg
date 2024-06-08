@@ -1,0 +1,105 @@
+{
+  "Id": "class10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Paladin",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Pa",
+  "LevelsPerMelee": 4,
+  "LevelsPerRanged": 10,
+  "LevelsPerDamage": 5,
+  "LevelsPerHeal": 4,
+  "HealthPerLevel": 18,
+  "ManaPerLevel": 15,
+  "MaxArmorScalingTypeId": 4,
+  "CritPercent": 5,
+  "ManaStatTypeId": 13,
+  "Bonuses": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 23,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 16,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 31,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 71,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 1,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 8,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 12,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 14,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 15,
+      "Quantity": 1
+    }
+  ],
+  "AllowedWeapons": [
+    {
+      "ItemTypeId": 24
+    },
+    {
+      "ItemTypeId": 28
+    },
+    {
+      "ItemTypeId": 21
+    }
+  ],
+  "AllowedEquipSlots": [],
+  "UpdateTime": "2024-06-08T00:54:15.202Z",
+  "CreateTime": "2024-01-27T12:57:37Z"
+}

@@ -15,6 +15,7 @@ using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
 using System.Threading.Tasks;
 using UnityEngine;
+using Assets.Scripts.ProcGen.RandomNumbers;
 
 public interface IClientMapObjectManager : IInitializable, IMapTokenService
 {
@@ -37,6 +38,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
 {
     private IRealtimeNetworkService _networkService;
     private IPlayerManager _playerManager;
+    protected IClientRandom _rand;
 
     private List<UnitController> _controllers = new List<UnitController>();
     private Dictionary<long, IMapObjectFactory> _factories = new Dictionary<long, IMapObjectFactory>();
@@ -51,7 +53,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
     List<UnitController> _removeUnitList = new List<UnitController>();
     private Dictionary<long, IMapObjectLoader> _mapObjectLoaders = new Dictionary<long, IMapObjectLoader>();
 
-    private GameState _gs;
+    protected IUnityGameState _gs;
 
     public GEntity _fxParent;
 
@@ -88,9 +90,8 @@ public class ClientMapObjectManager : IClientMapObjectManager
     }
 
     private bool _didAddUpdate = false;
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
-        _gs = gs;
         Reset();
         _factories = ReflectionUtils.SetupDictionary<long, IMapObjectFactory>(gs);
         foreach (IMapObjectFactory mapObjFact in _factories.Values)
@@ -327,7 +328,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
         IMapObjectFactory fact = _factories[spawn.EntityTypeId];
 
-        MapObject obj = fact.Create(_gs, spawn);
+        MapObject obj = fact.Create(_rand, spawn);
 
         return obj;
     }

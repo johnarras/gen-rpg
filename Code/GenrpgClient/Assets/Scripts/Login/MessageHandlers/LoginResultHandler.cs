@@ -22,61 +22,61 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IAssetService _assetService;
         private IWebNetworkService _webNetworkService;
         private IClientGameDataService _gameDataService;
-        protected override void InnerProcess(UnityGameState gs, LoginResult result, CancellationToken token)
+        protected override void InnerProcess(LoginResult result, CancellationToken token)
         {
-            InnerProcessAsync(gs, result, token).Forget();
+            InnerProcessAsync(result, token).Forget();
         }
 
-        private async UniTask InnerProcessAsync(UnityGameState gs, LoginResult result, CancellationToken token)
+        private async UniTask InnerProcessAsync(LoginResult result, CancellationToken token)
         { 
             List<ScreenId> keepOpenScreens = new List<ScreenId>();
-            if (_screenService.GetScreen(gs, ScreenId.Signup) != null)
+            if (_screenService.GetScreen(ScreenId.Signup) != null)
             {
                 keepOpenScreens.Add(ScreenId.Signup);
             }
-            if (_screenService.GetScreen(gs, ScreenId.Login) != null)
+            if (_screenService.GetScreen(ScreenId.Login) != null)
             {
                 keepOpenScreens.Add(ScreenId.Login);
             }
 
             if (result == null || result.User == null)
             {
-                _screenService.CloseAll(gs, keepOpenScreens);
+                _screenService.CloseAll(keepOpenScreens);
                 if (keepOpenScreens.Count < 1)
                 {
-                    _screenService.Open(gs, ScreenId.Login);
+                    _screenService.Open(ScreenId.Login);
                 }
                 return;
             }
 
-            gs.user = result.User;
-            gs.characterStubs = result.CharacterStubs;
-            gs.mapStubs = result.MapStubs;
+            _gs.user = result.User;
+            _gs.characterStubs = result.CharacterStubs;
+            _gs.mapStubs = result.MapStubs;
 
             foreach (IGameSettings settings in result.GameData)
             {
-               await _gameDataService.SaveSettings(gs, settings);
+               await _gameDataService.SaveSettings(settings);
             }
 
             List<ITopLevelSettings> loadedSettings = _gameData.AllSettings();
 
             _gameData.AddData(result.GameData);
 
-            if (gs.user != null && !String.IsNullOrEmpty(gs.user.Id))
+            if (_gs.user != null && !String.IsNullOrEmpty(_gs.user.Id))
             {
-                await _loginService.SaveLocalUserData(gs, gs.user.Id);
+                await _loginService.SaveLocalUserData(_gs.user.Id);
             }
 
-            await UniTask.NextFrame( cancellationToken: token);
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
 
-            _screenService.CloseAll(gs);
-            _screenService.Close(gs, ScreenId.HUD);
-            _screenService.Open(gs, ScreenId.CharacterSelect);
+            _screenService.CloseAll();
+            _screenService.Close(ScreenId.HUD);
+            _screenService.Open(ScreenId.CharacterSelect);
 
         }
 
-        public async UniTask RetryUploadMap(UnityGameState gs, CancellationToken token)
+        public async UniTask RetryUploadMap(CancellationToken token)
         {
             // Set the mapId you want to upload to here.
             string mapId = "1";

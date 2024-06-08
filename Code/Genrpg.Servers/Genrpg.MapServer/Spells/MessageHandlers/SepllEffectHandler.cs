@@ -3,17 +3,18 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Spells.Settings.Effects;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Genrpg.MapServer.Spells.MessageHandlers
 {
-    public class SepllEffectHandler : BaseServerMapMessageHandler<ActiveSpellEffect>
+    public class SepllEffectHandler : BaseMapObjectServerMapMessageHandler<ActiveSpellEffect>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, ActiveSpellEffect message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, ActiveSpellEffect message)
         {
-            _spellService.ApplyOneEffect(gs, message);
+            _spellService.ApplyOneEffect(rand, message);
         }
     }
 }

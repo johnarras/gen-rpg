@@ -13,7 +13,7 @@ public class InfoButton : BaseBehaviour
     public GButton Button;
 
     private string _screenName = null;
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         BaseScreen screen = GEntityUtils.FindInParents<BaseScreen>(gameObject);
@@ -34,7 +34,7 @@ public class InfoButton : BaseBehaviour
             if (step != null)
             {
 
-                _ftueService.StartStep(_gs, _gs.ch, step.IdKey);
+                _ftueService.StartStep(_rand, _gs.ch, step.IdKey);
 
                 _logService.Info("Show Info for " + _screenName);
             }

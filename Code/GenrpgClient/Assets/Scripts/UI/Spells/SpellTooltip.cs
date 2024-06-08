@@ -31,9 +31,9 @@ public class SpellTooltip : BaseTooltip
     protected List<SpellTooltipRow> Rows;
 
     protected InitSpellTooltipData _data;
-    public override void Init(UnityGameState gs, InitTooltipData baseData, CancellationToken token)
+    public override void Init(InitTooltipData baseData, CancellationToken token)
     {
-        base.Init(gs, baseData, token);
+        base.Init(baseData, token);
         _data = baseData as InitSpellTooltipData;
         if (_data == null || _data.spell == null)
         {
@@ -58,18 +58,18 @@ public class SpellTooltip : BaseTooltip
         }
     }
 
-    private void ShowTooltipRow(UnityGameState gs, SpellTooltipRowData data)
+    private void ShowTooltipRow(SpellTooltipRowData data)
     {
         if (data == null)
         {
             return;
         }
 
-        _assetService.LoadAssetInto(gs, RowParent, AssetCategoryNames.UI, 
+        _assetService.LoadAssetInto(RowParent, AssetCategoryNames.UI, 
             SpellTooltipRow, OnLoadRow, data, _token, "Spells");
     }
 
-    private void OnLoadRow(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadRow(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -85,7 +85,7 @@ public class SpellTooltip : BaseTooltip
             return;
         }
 
-        row.Init(gs, rowData);
+        row.Init(rowData);
         Rows.Add(row);
     }
 

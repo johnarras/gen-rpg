@@ -12,12 +12,12 @@ namespace Genrpg.Shared.Units.Services
 {
     public interface IUnitGenService : IInitializable
     {
-        string GenerateUnitPrefixName(GameState gs, long unitTypeId, Zone zone, IRandom rand,
+        string GenerateUnitPrefixName(IRandom rand, long unitTypeId, Zone zone,
             Dictionary<string, string> args = null);
 
-        UnitType GetRandomUnitType(GameState gs, Map map, Zone zone);
+        UnitType GetRandomUnitType(IRandom rand, Map map, Zone zone);
 
-        string GenerateUnitName(GameState gs, long unitTypeId, long zoneId, IRandom rand,
+        string GenerateUnitName(IRandom rand, long unitTypeId, long zoneId,
             Dictionary<string, string> args = null);
 
     }

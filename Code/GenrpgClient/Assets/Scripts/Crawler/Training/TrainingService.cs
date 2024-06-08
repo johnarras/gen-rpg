@@ -32,13 +32,13 @@ namespace Assets.Scripts.Crawler.Services.Training
         private ICrawlerStatService _statService;
         protected IGameData _gameData;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
 
-        public TrainingInfo GetTrainingInfo(GameState gs, PartyData party, PartyMember member)
+        public TrainingInfo GetTrainingInfo(PartyData party, PartyMember member)
         {
 
             CrawlerTrainingSettings settings = _gameData.Get<CrawlerTrainingSettings>(null);
@@ -60,9 +60,9 @@ namespace Assets.Scripts.Crawler.Services.Training
 
         }
 
-        public void TrainPartyMemberLevel(GameState gs, PartyData party, PartyMember member)
+        public void TrainPartyMemberLevel(PartyData party, PartyMember member)
         {
-            TrainingInfo info = GetTrainingInfo(gs, party, member);
+            TrainingInfo info = GetTrainingInfo(party, member);
 
             if (info.Cost <= party.Gold && info.TotalExp <= member.Exp)
             {
@@ -74,7 +74,7 @@ namespace Assets.Scripts.Crawler.Services.Training
                     x => x.IdKey >= StatConstants.PrimaryStatStart &&
                     x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 
-                _statService.CalcPartyStats(gs, party, false);
+                _statService.CalcPartyStats(party, false);
 
             }
 

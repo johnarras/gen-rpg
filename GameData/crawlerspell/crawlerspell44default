@@ -1,0 +1,23 @@
+{
+  "Id": "crawlerspell44default",
+  "ParentId": "default",
+  "IdKey": 44,
+  "Name": "Beacon",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 100,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 8,
+  "Level": 8,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 6,
+      "ElementTypeId": 9
+    }
+  ],
+  "UpdateTime": "2024-06-07T23:05:20.27Z",
+  "CreateTime": "2024-01-28T05:48:08Z"
+}

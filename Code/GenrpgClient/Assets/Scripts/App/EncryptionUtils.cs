@@ -19,7 +19,7 @@ public class EncryptionUtils
         SymmetricAlgorithm alg = TripleDES.Create();
         alg.Mode = CipherMode.ECB;
         ICryptoTransform trans = alg.CreateDecryptor(GetKey(), GetIV());
-        return Encoding.UTF8.GetString(trans.TransformFinalBlock( bytes, 0, bytes.Length));
+        return Encoding.UTF8.GetString(trans.TransformFinalBlock(bytes, 0, bytes.Length));
     }
 
     static byte[] GetKey()

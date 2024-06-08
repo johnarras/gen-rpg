@@ -21,7 +21,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Training
         ITrainingService _trainingService;
         public override ECrawlerStates GetKey() { return ECrawlerStates.TrainingLevel; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Training
 
             PartyMember member = action.ExtraData as PartyMember;
 
-            TrainingInfo info = _trainingService.GetTrainingInfo(gs, party, member);
+            TrainingInfo info = _trainingService.GetTrainingInfo(party, member);
 
             stateData.Actions.Add(new CrawlerStateAction($"{member.Name}: Exp for level {member.Level + 1}: {info.TotalExp}.\nYour Exp: {member.Exp}"));
             stateData.Actions.Add(new CrawlerStateAction($"Cost: {info.Cost} Party Gold: {info.PartyGold}"));
@@ -45,7 +45,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Training
                     stateData.Actions.Add(new CrawlerStateAction($"Train level {member.Level + 1} for {info.Cost} Gold", KeyCode.T, ECrawlerStates.TrainingLevel,
                         onClickAction: delegate()
                         {
-                            _trainingService.TrainPartyMemberLevel(gs, party, member);                           
+                            _trainingService.TrainPartyMemberLevel(party, member);                           
                         }, extraData:member));
                 }
             }

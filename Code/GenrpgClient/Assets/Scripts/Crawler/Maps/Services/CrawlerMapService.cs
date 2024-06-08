@@ -34,7 +34,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         private Dictionary<ECrawlerMapTypes, ICrawlerMapTypeHelper> _mapTypeHelpers;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             _cameraParent = _cameraController?.GetCameraParent();
 
@@ -54,7 +54,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         }
       
 
-        public async UniTask EnterMap (UnityGameState gs, PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
+        public async UniTask EnterMap (PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
             CleanMap();
             _party = partyData;
@@ -62,11 +62,11 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             ICrawlerMapTypeHelper helper = GetHelper(mapData.MapId == 1 ? ECrawlerMapTypes.City : ECrawlerMapTypes.Dungeon);
 
-            _crawlerMap = await helper.Enter(gs, partyData, mapData, token);
+            _crawlerMap = await helper.Enter(partyData, mapData, token);
 
-            await LoadDungeonAssets(gs, _crawlerMap, token);
+            await LoadDungeonAssets(_crawlerMap, token);
 
-            await DrawNearbyMap(gs, token);
+            await DrawNearbyMap(token);
 
             await UpdateCameraPos(token);
 
@@ -75,10 +75,10 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             await _crawlerService.SaveGame();
         }
 
-        private async UniTask LoadDungeonAssets(UnityGameState gs, CrawlerMapRoot mapRoot, CancellationToken token)
+        private async UniTask LoadDungeonAssets(CrawlerMapRoot mapRoot, CancellationToken token)
         {
 
-            _assetService.LoadAsset(gs, AssetCategoryNames.Dungeons, mapRoot.Map.DungeonArt.Art, OnLoadDungeonAssets, null, null, token);
+            _assetService.LoadAsset(AssetCategoryNames.Dungeons, mapRoot.Map.DungeonArt.Art, OnLoadDungeonAssets, null, null, token);
 
             while (mapRoot.Assets == null)
             {
@@ -86,7 +86,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
         }
 
-        private void OnLoadDungeonAssets(UnityGameState gs, object obj, object data, CancellationToken token)
+        private void OnLoadDungeonAssets(object obj, object data, CancellationToken token)
         {
             GEntity assetGo = obj as GEntity;
 
@@ -156,7 +156,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         const int maxQueuedMoves = 2;
         Queue<KeyCode> queuedMoves = new Queue<KeyCode>();
 
-        public async UniTask UpdateMovement(UnityGameState gs, CancellationToken token)
+        public async UniTask UpdateMovement(CancellationToken token)
         {
             if (queuedMoves.Count < maxQueuedMoves)
             {
@@ -196,27 +196,27 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             {
                 if (currCommand == KeyCode.W)
                 {
-                    await Move(gs, 1, 0, token);
+                    await Move(1, 0, token);
                 }
                 else if (currCommand == KeyCode.S)
                 {
-                    await Move(gs, -1, 0, token);
+                    await Move(-1, 0, token);
                 }
                 else if (currCommand == KeyCode.Q)
                 {
-                    await Move(gs, 0, -1, token);
+                    await Move(0, -1, token);
                 }
                 else if (currCommand == KeyCode.E)
                 {
-                    await Move(gs, 0, 1, token);
+                    await Move(0, 1, token);
                 }
                 else if (currCommand == KeyCode.A)
                 {
-                    await Rot(gs, -1, token);
+                    await Rot(-1, token);
                 }
                 else if (currCommand == KeyCode.D)
                 {
-                    await Rot(gs, 1, token);
+                    await Rot(1, token);
                 }
             }
             _updatingMovement = false;
@@ -224,7 +224,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
 
         const int moveFrames = 6;
-        private async UniTask Move(UnityGameState gs, int forward, int left, CancellationToken token)
+        private async UniTask Move(int forward, int left, CancellationToken token)
         {
             float sin = (float)Math.Round(MathF.Sin(-_party.MapRot * Mathf.PI / 180f));
             float cos = (float)Math.Round(Mathf.Cos(-_party.MapRot * Mathf.PI / 180f));
@@ -254,7 +254,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             ICrawlerMapTypeHelper helper = GetHelper(_crawlerMap.Map.MapType);
 
 
-            int blockBits = helper.GetBlockingBits(gs, _crawlerMap, sx, sz, ex, ez);
+            int blockBits = helper.GetBlockingBits(_crawlerMap, sx, sz, ex, ez);
 
             if (blockBits == WallTypes.Wall || blockBits == WallTypes.Secret)
             {
@@ -297,11 +297,11 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _party.MapX = ex;
             _party.MapZ = ez;
             await UpdateCameraPos(token);
-            await DrawNearbyMap(gs, token);
+            await DrawNearbyMap(token);
 
         }
 
-        private async UniTask Rot(UnityGameState gs, int delta, CancellationToken token)
+        private async UniTask Rot(int delta, CancellationToken token)
         {
 
             float startRot = _party.MapRot;
@@ -328,7 +328,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         }
 
 
-        private async UniTask DrawNearbyMap(UnityGameState gs, CancellationToken token)
+        private async UniTask DrawNearbyMap(CancellationToken token)
         {
             if (_crawlerMap == null)
             {
@@ -376,7 +376,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                         {
                             ICrawlerMapTypeHelper helper = GetHelper(_crawlerMap.Map.MapType);
 
-                            await helper.DrawCell(gs, _crawlerMap, cell, worldX, worldZ, token);
+                            await helper.DrawCell(_crawlerMap, cell, worldX, worldZ, token);
                         }
                     }
                 }

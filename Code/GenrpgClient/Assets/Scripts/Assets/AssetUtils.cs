@@ -34,7 +34,7 @@ public class AssetUtils
         AsyncOperation op = Resources.UnloadUnusedAssets();
         while (!op.isDone)
         {
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
         _unloadingAssets = false;
     }

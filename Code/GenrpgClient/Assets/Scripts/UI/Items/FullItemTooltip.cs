@@ -37,9 +37,9 @@ public class FullItemTooltip : BaseTooltip
     protected bool _isVendorItem;
     protected bool _tooltipOnRight;
 
-    public override void Init(UnityGameState gs, InitTooltipData baseData, CancellationToken token)
+    public override void Init(InitTooltipData baseData, CancellationToken token)
     {
-        base.Init (gs, baseData, token);
+        base.Init (baseData, token);
         FullItemTooltipInitData initData = baseData as FullItemTooltipInitData;
         if (initData == null)
         {
@@ -96,7 +96,7 @@ public class FullItemTooltip : BaseTooltip
         };
 
 
-        _mainTooltip.Init(gs, mainInitData, _token);
+        _mainTooltip.Init(mainInitData, _token);
         for (int i = 0; i < _equipTooltips.Count; i++)
         {
             GEntityUtils.SetActive(_equipTooltips[i], i < _equips.Count);
@@ -111,7 +111,7 @@ public class FullItemTooltip : BaseTooltip
                     unit = _unit,
                 };
 
-                _equipTooltips[i].Init(gs, otherInitData, _token);
+                _equipTooltips[i].Init(otherInitData, _token);
             }
         }
 

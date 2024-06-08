@@ -12,10 +12,10 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
     public interface ICrawlerMapTypeHelper : ISetupDictionaryItem<ECrawlerMapTypes>
     {
 
-        UniTask<CrawlerMapRoot> Enter(UnityGameState gs, PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);
+        UniTask<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);
 
-        int GetBlockingBits(UnityGameState gs, CrawlerMapRoot mapRoot, int startx, int startz, int endx, int endz);
+        int GetBlockingBits(CrawlerMapRoot mapRoot, int startx, int startz, int endx, int endz);
 
-        UniTask DrawCell(UnityGameState gs, CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token);
+        UniTask DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token);
     }
 }

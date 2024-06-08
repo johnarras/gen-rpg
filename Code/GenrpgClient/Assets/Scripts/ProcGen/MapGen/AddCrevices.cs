@@ -48,35 +48,35 @@ public class AddCrevices : BaseZoneGenerator
 
     protected ILineGenService _lineGenService;
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
-        foreach (Zone zone in gs.map.Zones)
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.XMax, zone.ZMin, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.XMax, zone.ZMin, zone.ZMax);
         }
 
         
-        SetCreviceDepths(gs);
-        gs.md.creviceDepths = null;
+        SetCreviceDepths(_gs);
+        _md.creviceDepths = null;
     }
 
-    private void SetCreviceDepths (UnityGameState gs)
+    private void SetCreviceDepths (IUnityGameState gs)
     {
-        if (gs.md.heights == null || gs.md.creviceDepths == null)
+        if (base._md.heights == null || base._md.creviceDepths == null)
         {
             return;
         }
 
-        for (int x = 0; x < gs.map.GetHwid(); x++)
+        for (int x = 0; x < _mapProvider.GetMap().GetHwid(); x++)
         {
-            for (int y = 0; y < gs.map.GetHhgt(); y++)
+            for (int y = 0; y < _mapProvider.GetMap().GetHhgt(); y++)
             {
-                float lowerValue = gs.md.creviceDepths[x, y] * MapConstants.DefaultCreviceDepth / MapConstants.MapHeight;
+                float lowerValue = base._md.creviceDepths[x, y] * MapConstants.DefaultCreviceDepth / MapConstants.MapHeight;
 
 
-                float roadDist = gs.md.roadDistances[x,y];               
+                float roadDist = base._md.roadDistances[x, y];               
                 if (roadDist < RoadEFfectDist)
                 {
                     if (roadDist < RoadZeroDist)
@@ -91,11 +91,11 @@ public class AddCrevices : BaseZoneGenerator
                 }
 
 
-                gs.md.heights[x, y] += lowerValue;
+                base._md.heights[x, y] += lowerValue;
             }
         }
     }
-    public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int endx, int starty, int endy)
+    public void GenerateOne(Zone zone, ZoneType zoneType, int startx, int endx, int starty, int endy)
     {
         if (zone == null || zoneType == null || startx >= endx || starty >= endy)
         {
@@ -113,14 +113,14 @@ public class AddCrevices : BaseZoneGenerator
             starty = 0;
         }
 
-        if (endx >= gs.map.GetHwid())
+        if (endx >= _mapProvider.GetMap().GetHwid())
         {
-            endx = gs.map.GetHwid() - 1;
+            endx = _mapProvider.GetMap().GetHwid() - 1;
         }
 
-        if (endy >= gs.map.GetHhgt())
+        if (endy >= _mapProvider.GetMap().GetHhgt())
         {
-            endy = gs.map.GetHhgt() - 1;
+            endy = _mapProvider.GetMap().GetHhgt() - 1;
         }
 
         int xsize = endx - startx + 1;
@@ -141,9 +141,9 @@ public class AddCrevices : BaseZoneGenerator
             yEnd = endy,
             zone = zone,
         };
-        if (gs.md.creviceDepths == null)
+        if (_md.creviceDepths == null)
         {
-            gs.md.creviceDepths = new float[gs.map.GetHwid(), gs.map.GetHhgt()];
+            _md.creviceDepths = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
         }
 
         MyRandom rand = new MyRandom(zone.Seed + 2333);
@@ -156,14 +156,14 @@ public class AddCrevices : BaseZoneGenerator
         int depthOctaves = 2;
         float depthPer = 0.3f * MathUtils.FloatRange(0.8f, 1.2f, rand);
 
-        float[,] depthOffsets = _noiseService.Generate(gs, depthPer, depthFreq, depthAmp, depthOctaves, rand.Next() + 1234, perlinSize, perlinSize);
+        float[,] depthOffsets = _noiseService.Generate(depthPer, depthFreq, depthAmp, depthOctaves, rand.Next() + 1234, perlinSize, perlinSize);
 
         float smoothFreq = 5.0f * MathUtils.FloatRange(0.8f, 1.2f, rand);
         float smoothAmp = 0.1f * MathUtils.FloatRange(0.8f, 1.2f, rand);
         int smoothOctaves = 2;
         float smoothPer = 0.3f * MathUtils.FloatRange(0.8f, 1.2f, rand);
 
-        float[,] smoothOffsets = _noiseService.Generate(gs, smoothPer, smoothFreq, smoothAmp, smoothOctaves, rand.Next() % 2345, perlinSize, perlinSize);
+        float[,] smoothOffsets = _noiseService.Generate(smoothPer, smoothFreq, smoothAmp, smoothOctaves, rand.Next() % 2345, perlinSize, perlinSize);
 
 
         float minCrevices = 2.0f;
@@ -180,13 +180,13 @@ public class AddCrevices : BaseZoneGenerator
 
         for (int c = 0; c < numCrevices; c++)
         {
-            AddCreviceDepths(gs, cdata, c, zone, zoneType, depthOffsets, smoothOffsets);
+            AddCreviceDepths(cdata, c, zone, zoneType, depthOffsets, smoothOffsets);
         }
 
 
     }
 
-    public void AddCreviceDepths(UnityGameState gs, CreviceData cdata, int index, Zone zone, ZoneType zoneType, float[,] depthOffsets, float[,] smoothOffsets)
+    public void AddCreviceDepths(CreviceData cdata, int index, Zone zone, ZoneType zoneType, float[,] depthOffsets, float[,] smoothOffsets)
     {
         if (cdata == null || zone == null || zoneType == null)
         {
@@ -244,23 +244,23 @@ public class AddCrevices : BaseZoneGenerator
         MyPoint sp = new MyPoint(sx, sy);
         MyPoint ep = new MyPoint(ex, ey);
 
-        InnerAddCreviceDepths(gs, cdata, zone, zoneType, sp, ep, endPtRand.Next() % 100000000, depthOffsets, smoothOffsets);
+        InnerAddCreviceDepths(cdata, zone, zoneType, sp, ep, endPtRand.Next() % 100000000, depthOffsets, smoothOffsets);
 
     }
 
-    private void InnerAddCreviceDepths(UnityGameState gs, CreviceData cdata, Zone zone, ZoneType zoneType, MyPoint sp, MyPoint ep, int randSeed,
+    private void InnerAddCreviceDepths(CreviceData cdata, Zone zone, ZoneType zoneType, MyPoint sp, MyPoint ep, int randSeed,
         float[,] depthOffsets, float[,] smoothOffsets)
     {
         MyRandom crossRand = new MyRandom(zone.Seed % 1000000000 + 662423 + randSeed);
         MyRandom rand = new MyRandom(zone.Seed % 2010102933 + 783124 + randSeed);
 
-        if (cdata == null || gs.md.creviceDepths == null)
+        if (cdata == null || _md.creviceDepths == null)
         {
             return;
         }
-        if (gs.md.creviceBridges == null)
+        if (_md.creviceBridges == null)
         {
-            gs.md.creviceBridges = new List<MyPointF>();
+            _md.creviceBridges = new List<MyPointF>();
         }
 
         float overallDepthMult = (MathUtils.FloatRange(0.5f, 1.2f, rand) +
@@ -273,7 +273,7 @@ public class AddCrevices : BaseZoneGenerator
 
         LineGenParameters ld = GetCreviceParameters(sp, ep, zoneType, rand.Next(), 0);
 
-        List<MyPointF> line = _lineGenService.GetBressenhamLine(gs, sp, ep, ld);
+        List<MyPointF> line = _lineGenService.GetBressenhamLine(sp, ep, ld);
 
         if (line == null)
         {
@@ -290,7 +290,7 @@ public class AddCrevices : BaseZoneGenerator
         {
             int cx = (int)(item.X);
             int cy = (int)(item.Y);
-            if (cx < 0 || cx >= gs.map.GetHwid() || cy < 0 || cy >= gs.map.GetHhgt())
+            if (cx < 0 || cx >= _mapProvider.GetMap().GetHwid() || cy < 0 || cy >= _mapProvider.GetMap().GetHhgt())
             {
                 continue;
             }
@@ -314,7 +314,7 @@ public class AddCrevices : BaseZoneGenerator
             }
 
             // Min depth to set crevice.
-            gs.md.creviceDepths[cx, cy] = Math.Min(gs.md.creviceDepths[cx, cy], -1 * currDepthMult * overallDepthMult);
+            _md.creviceDepths[cx, cy] = Math.Min(_md.creviceDepths[cx, cy], -1 * currDepthMult * overallDepthMult);
 
 
 
@@ -369,13 +369,13 @@ public class AddCrevices : BaseZoneGenerator
 
             ld = GetCreviceParameters(csp, cep, zoneType, rand.Next(), 1);
 
-            List<MyPointF> line2 = _lineGenService.GetBressenhamLine(gs, csp, cep, ld);
+            List<MyPointF> line2 = _lineGenService.GetBressenhamLine(csp, cep, ld);
             foreach (MyPointF pt2 in line2)
             {
 
                 int cx = (int)(pt2.X);
                 int cy = (int)(pt2.Y);
-                if (cx < 0 || cx >= gs.map.GetHwid() || cy < 0 || cy >= gs.map.GetHhgt())
+                if (cx < 0 || cx >= _mapProvider.GetMap().GetHwid() || cy < 0 || cy >= _mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
@@ -396,7 +396,7 @@ public class AddCrevices : BaseZoneGenerator
                 }
 
                 // Min depth to create crevice.
-                gs.md.creviceDepths[cx, cy] = Math.Min(gs.md.creviceDepths[cx, cy], -1 * currDepthMult * sideDepthMult);
+                _md.creviceDepths[cx, cy] = Math.Min(_md.creviceDepths[cx, cy], -1 * currDepthMult * sideDepthMult);
                 if (pt2.Z == 1)
                 {
                     sideCenterPoints.Add(pt2);
@@ -417,19 +417,19 @@ public class AddCrevices : BaseZoneGenerator
         for (int c = 0; c < centerPoints.Count; c++)
         {
             MyPointF cp = centerPoints[c];
-            int ax = (int)(cp.X * gs.map.GetHwid() / gs.md.awid);
-            int ay = (int)(cp.Y * gs.map.GetHhgt() / gs.md.ahgt);
-            if (ax >= 0 && ax < gs.md.awid && ay >= 0 && ay < gs.md.ahgt)
+            int ax = (int)(cp.X * _mapProvider.GetMap().GetHwid() / _md.awid);
+            int ay = (int)(cp.Y * _mapProvider.GetMap().GetHhgt() / _md.ahgt);
+            if (ax >= 0 && ax < _md.awid && ay >= 0 && ay < _md.ahgt)
             {
-                if (gs.md.roadDistances[ax, ay] <= 2 && rand.NextDouble() < 0.03f)
+                if (_md.roadDistances[ax, ay] <= 2 && rand.NextDouble() < 0.03f)
                 {
-                    gs.md.creviceBridges.Add(cp);
+                    _md.creviceBridges.Add(cp);
                 }
             }
         }
 
         // now save smoothing for later.
-        SmoothNearCrevice(gs, zoneType, cdata, line, smoothOffsets);
+        SmoothNearCrevice(zoneType, cdata, line, smoothOffsets);
     }
 
 
@@ -480,9 +480,9 @@ public class AddCrevices : BaseZoneGenerator
 
     }
 
-    public void SmoothNearCrevice(UnityGameState gs, ZoneType zoneType, CreviceData cdata, List<MyPointF> pts, float[,] smoothChanges)
+    public void SmoothNearCrevice(ZoneType zoneType, CreviceData cdata, List<MyPointF> pts, float[,] smoothChanges)
     {
-        if (gs.md.creviceDepths == null || pts == null || cdata == null || zoneType == null)
+        if (_md.creviceDepths == null || pts == null || cdata == null || zoneType == null)
         {
             return;
         }
@@ -502,12 +502,12 @@ public class AddCrevices : BaseZoneGenerator
             int cx = (int)(pt.X);
             int cy = (int)(pt.Y);
 
-            if (cx < 0 || cy < 0 || cx >= gs.map.GetHwid() || cy >= gs.map.GetHhgt())
+            if (cx < 0 || cy < 0 || cx >= _mapProvider.GetMap().GetHwid() || cy >= _mapProvider.GetMap().GetHhgt())
             {
                 continue;
             }
 
-            float centerDepth = gs.md.creviceDepths[cx, cy];
+            float centerDepth = _md.creviceDepths[cx, cy];
             float smoothRadius = startSmoothRadius;
 
             if (zoneType.CreviceWidthScale > 0)
@@ -531,14 +531,14 @@ public class AddCrevices : BaseZoneGenerator
 
             for (int xx = cx - smoothRadiusInt; xx <= cx + smoothRadiusInt; xx++)
             {
-                if (xx < 0 || xx >= gs.map.GetHwid())
+                if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
                 {
                     continue;
                 }
                 float ddx = cx - xx;
                 for (int yy = cy - smoothRadiusInt; yy <= cy + smoothRadiusInt; yy++)
                 {
-                    if (yy < 0 || yy >= gs.map.GetHhgt())
+                    if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                     {
                         continue;
                     }
@@ -555,11 +555,11 @@ public class AddCrevices : BaseZoneGenerator
 
                     float valueToSet = centerDepth * distMult;
 
-                    float currVal = gs.md.creviceDepths[xx, yy];
+                    float currVal = _md.creviceDepths[xx, yy];
 
                     if (valueToSet < currVal)
                     {
-                        gs.md.creviceDepths[xx, yy] = valueToSet;
+                        _md.creviceDepths[xx, yy] = valueToSet;
                     }
 
                 }

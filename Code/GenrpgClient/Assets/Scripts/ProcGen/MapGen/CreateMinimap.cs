@@ -19,10 +19,10 @@ public class CreateMinimap : BaseZoneGenerator
     private static GEntity minimapCamera = null;
 
     
-    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate (CancellationToken token)
 	{
 
-        await base.Generate(gs, token);
+        await base.Generate(token);
         GEntityUtils.Destroy(minimapCamera);
 
         minimapCamera = new GEntity();
@@ -37,9 +37,9 @@ public class CreateMinimap : BaseZoneGenerator
         cam.useOcclusionCulling = false;
         minimapCamera.name = "CreateMinimapCamera";
 
-        MyRandom rand = new MyRandom(gs.map.Seed + 44235);
+        MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed + 44235);
 
-        int zoneMapSize = (int)(gs.map.GetHwid());
+        int zoneMapSize = (int)(_mapProvider.GetMap().GetHwid());
         List<float[,]> noiseList = new List<float[,]>();
 
 
@@ -51,7 +51,7 @@ public class CreateMinimap : BaseZoneGenerator
             float freq = MathUtils.FloatRange(0.05f, 0.20f, rand) * TexSize * 1.2f;
             float pers = MathUtils.FloatRange(0.15f, 0.3f, rand);
             int octaves = 2;
-            float[,] noise = _noiseService.Generate(gs, pers, freq, amp, octaves, rand.Next(), TexSize, TexSize);
+            float[,] noise = _noiseService.Generate(pers, freq, amp, octaves, rand.Next(), TexSize, TexSize);
             noiseList.Add(noise);
         }
 
@@ -123,9 +123,9 @@ public class CreateMinimap : BaseZoneGenerator
 
         await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
 
-        int numTerrainsNeeded = gs.map.BlockCount * gs.map.BlockCount;
+        int numTerrainsNeeded = _mapProvider.GetMap().BlockCount * _mapProvider.GetMap().BlockCount;
 
-        List<Terrain> terrains = _terrainManager.GetTerrains(gs);
+        List<Terrain> terrains = _terrainManager.GetTerrains();
 
         while (terrains.Count < numTerrainsNeeded)
         {
@@ -153,23 +153,23 @@ public class CreateMinimap : BaseZoneGenerator
 
         GEntity waterRoot = new GEntity();
         waterRoot.name = "WaterRoot";
-        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, 0, 0);
-        await UniTask.NextFrame( cancellationToken: token);
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(0, 0);
+        await UniTask.NextFrame(cancellationToken: token);
 
 
         BaseObjectLoader waterLoader = _terrainManager.GetLoader(MapConstants.WaterObjectOffset);
 
         int waterObjectCount = 0;
-        for (int x = 0; x < gs.map.GetHwid(); x++)
+        for (int x = 0; x < _mapProvider.GetMap().GetHwid(); x++)
         {
-            if (gs.md.mapObjects == null)
+            if (_md.mapObjects == null)
             {
                 break;
             }
 
-            for (int y = 0; y < gs.map.GetHhgt(); y++)
+            for (int y = 0; y < _mapProvider.GetMap().GetHhgt(); y++)
             {
-                uint objectId = (uint)gs.md.mapObjects[x, y];
+                uint objectId = (uint)_md.mapObjects[x, y];
 
                 uint upperNumber = objectId >> 16;
                 uint lowerNumber = objectId % (1 << 16);
@@ -194,16 +194,16 @@ public class CreateMinimap : BaseZoneGenerator
                 };
 
                 waterObjectCount++;
-                waterLoader.LoadObject(gs, loadData, objectId, ny, nx, null, null, token);
+                waterLoader.LoadObject(loadData, objectId, ny, nx, null, null, token);
 
             }
         }
 
-        GEntity fullMapWater = await _assetService.LoadAssetAsync(gs, AssetCategoryNames.Prefabs, MapConstants.FullMinimapWaterName, null, token);
+        GEntity fullMapWater = await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, MapConstants.FullMinimapWaterName, null, token);
 
         GEntityUtils.AddToParent(fullMapWater, waterRoot);
 
-        fullMapWater.transform().position = GVector3.Create(gs.map.GetHwid() / 2, MapConstants.OceanHeight, gs.map.GetHhgt()/2);
+        fullMapWater.transform().position = GVector3.Create(_mapProvider.GetMap().GetHwid() / 2, MapConstants.OceanHeight, _mapProvider.GetMap().GetHhgt()/2);
         fullMapWater.transform().localScale = GVector3.Create(1000000, 1, 1000000);
 
         await UniTask.Delay(50 * waterObjectCount, cancellationToken: token);
@@ -220,7 +220,7 @@ public class CreateMinimap : BaseZoneGenerator
         tex.ReadPixels(new Rect(0, 0, TexSize, TexSize), 0, 0);
         tex.Apply();
 
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
 
         Color[] pixels = tex.GetPixels();
 
@@ -366,7 +366,7 @@ public class CreateMinimap : BaseZoneGenerator
             }
         }
 
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
 
         float minLandHeight = MapConstants.OceanHeight;
         float minLandPct = (minLandHeight) / MapConstants.MapHeight;
@@ -380,12 +380,12 @@ public class CreateMinimap : BaseZoneGenerator
         float blendHigherLandDist = 30;
         for (int x = 0; x < TexSize; x++)
         {
-            int xpos = (int)((shiftScale * 1.0 * x / TexSize) * gs.map.GetHwid());
+            int xpos = (int)((shiftScale * 1.0 * x / TexSize) * _mapProvider.GetMap().GetHwid());
             for (int y = 0; y < TexSize; y++)
             {
-                int ypos = (int)((shiftScale * 1.0 * y / TexSize) * gs.map.GetHhgt());
+                int ypos = (int)((shiftScale * 1.0 * y / TexSize) * _mapProvider.GetMap().GetHhgt());
 
-                float belowMinLandDist = minLandPct - _terrainManager.GetInterpolatedHeight(gs, xpos, ypos) / MapConstants.MapHeight;
+                float belowMinLandDist = minLandPct - _terrainManager.GetInterpolatedHeight(xpos, ypos) / MapConstants.MapHeight;
                     
                 if (belowMinLandDist > 0)
                 {
@@ -449,7 +449,7 @@ public class CreateMinimap : BaseZoneGenerator
         tex.SetPixels(pixels);
 
         BinaryFileRepository repo = new BinaryFileRepository(_logService);
-        string filename = MapUtils.GetMapObjectFilename(gs, MapConstants.MapFilename, gs.map.Id, gs.map.MapVersion);
+        string filename = MapUtils.GetMapObjectFilename(MapConstants.MapFilename, _mapProvider.GetMap().Id, _mapProvider.GetMap().MapVersion);
         repo.SaveBytes(filename, tex.EncodeToJPG(100));
 
 
@@ -469,8 +469,7 @@ public class CreateMinimap : BaseZoneGenerator
 
         FileUploadData uploadData = new FileUploadData();
 
-
-        ShowMinimap(gs, tex);
+        MinimapUI.SetTexture(tex);
 
         RenderSettings.fog = true;
     }
@@ -478,18 +477,6 @@ public class CreateMinimap : BaseZoneGenerator
     protected int GetIndex(int x, int y)
     {
         return x + y * TexSize;
-    }
-
-
-    public void ShowMinimap(UnityGameState gs, Texture2D tex)
-    {
-        if (tex == null)
-        {
-            return;
-        }
-        tex.wrapMode = TextureWrapMode.Clamp;
-        UnityZoneGenService.mapTexture = tex;
-        _dispatcher.Dispatch(new LoadMinimapEvent());
     }
 }
 	

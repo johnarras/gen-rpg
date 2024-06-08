@@ -10,7 +10,7 @@ namespace Genrpg.LoginServer.Setup
 {
     public class LoginLocatorSetup : BaseServerLocatorSetup
     {
-        public override void Setup(GameState gs)
+        public override void Setup(IGameState gs)
         {
             gs.loc.Set<ILoginService>(new LoginService());
             gs.loc.Set<IClientService>(new ClientService());

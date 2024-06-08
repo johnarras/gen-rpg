@@ -20,21 +20,22 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.MapServer.Trades.Services;
 using Genrpg.MapServer.Vendors.Services;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Vendors.MessageHandlers
 {
-    public class SellItemHandler : BaseServerMapMessageHandler<SellItem>
+    public class SellItemHandler : BaseMapObjectServerMapMessageHandler<SellItem>
     {
 
-        private IVendorService _vendorService;
-        public override void Setup(GameState gs)
+        private IVendorService _vendorService = null!;
+        public override void Setup(IGameState gs)
         {
             base.Setup(gs);
         }
 
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, SellItem message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, SellItem message)
         {
-            _vendorService.SellItem(gs, obj, message);
+            _vendorService.SellItem(rand, obj, message);
         }
     }
 }

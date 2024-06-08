@@ -9,7 +9,7 @@ namespace Genrpg.Shared.UserCoins.Services
 {
     public interface IUserCoinService : IInitializable
     {
-        bool Add(GameState gs, Unit unit, long userCoinTypeId, long quantity);
-        bool Set(GameState gs, Unit unit, long userCoinTypeId, long newQuantity);
+        bool Add(Unit unit, long userCoinTypeId, long quantity);
+        bool Set(Unit unit, long userCoinTypeId, long newQuantity);
     }
 }

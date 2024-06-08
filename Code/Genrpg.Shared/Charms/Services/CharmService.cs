@@ -6,6 +6,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Stats.Settings.Stats;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,13 +21,13 @@ namespace Genrpg.Shared.Charms.Services
     public class CharmService : ICharmService
     {
 
-        private IGameData _gameData;
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        private IGameData _gameData = null;
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
 
-        public List<PlayerCharmBonusList> CalcBonuses(GameState gs, string charmId)
+        public List<PlayerCharmBonusList> CalcBonuses(string charmId)
         {
             string hash = charmId.Replace("0x", "");
 
@@ -141,7 +142,7 @@ namespace Genrpg.Shared.Charms.Services
             return retval;
         }
 
-        public List<string> PrintBonuses(GameState gs, PlayerCharmBonusList list)
+        public List<string> PrintBonuses(PlayerCharmBonusList list)
         {
 
             List<string> retval = new List<string>();

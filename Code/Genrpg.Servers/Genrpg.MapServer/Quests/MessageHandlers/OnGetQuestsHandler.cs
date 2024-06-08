@@ -11,18 +11,14 @@ using System.Text;
 using Genrpg.Shared.Quests.Messages;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Quests.MessageHandlers
 {
-    public class OnGetQuestsHandler : BaseServerMapMessageHandler<OnGetQuests>
+    public class OnGetQuestsHandler : BaseCharacterServerMapMessageHandler<OnGetQuests>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, OnGetQuests message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Character ch, OnGetQuests message)
         {
-            if (!_objectManager.GetChar(obj.Id, out Character ch))
-            {
-                return;
-            }
-
             ch.AddMessage(message);
         }
     }

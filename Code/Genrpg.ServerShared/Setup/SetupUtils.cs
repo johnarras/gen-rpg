@@ -31,7 +31,7 @@ namespace Genrpg.ServerShared.Setup
             await setupService.SetupGame(gs, token);
 
             IGameDataService gameDataService = gs.loc.Get<IGameDataService>();
-            IGameData gameData = await gameDataService.LoadGameData(gs, setupService.CreateMissingGameData());
+            IGameData gameData = await gameDataService.LoadGameData(setupService.CreateMissingGameData());
 
             await setupService.FinalSetup(gs);
          

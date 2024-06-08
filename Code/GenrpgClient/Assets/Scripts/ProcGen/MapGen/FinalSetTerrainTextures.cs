@@ -8,36 +8,36 @@ using UnityEditor;
 
 public class SetFinalTerrainTextures : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
-        gs.map.OverrideZonePercent = 0;        
-        _zoneGenService.SetAllAlphamaps(gs, gs.md.alphas, token);
-        await WaitForTerrainLayerLoad(gs,token);
+        _mapProvider.GetMap().OverrideZonePercent = 0;        
+        _zoneGenService.SetAllAlphamaps(_md.alphas, token);
+        await WaitForTerrainLayerLoad(token);
     }
 
-    private async UniTask WaitForTerrainLayerLoad(UnityGameState gs, CancellationToken token)
+    private async UniTask WaitForTerrainLayerLoad(CancellationToken token)
     {
-        for (int x = 0; x < gs.md.awid; x++)
+        for (int x = 0; x < _md.awid; x++)
         {
-            for (int y = 0; y < gs.md.ahgt; y++)
+            for (int y = 0; y < _md.ahgt; y++)
             {
                 float total = 0;
                 for (int i =0; i < MapConstants.MaxTerrainIndex; i++)
                 {
-                    total += gs.md.alphas[x, y, i];
+                    total += _md.alphas[x, y, i];
                 }
                 if (total < 0.1f)
                 {
-                    gs.md.ClearAlphasAt(gs, x, y);
-                    gs.md.alphas[x, y, MapConstants.BaseTerrainIndex] = 1.0f;
+                    _md.ClearAlphasAt(x, y);
+                    _md.alphas[x, y, MapConstants.BaseTerrainIndex] = 1.0f;
                 }
                 else
                 {
                     for (int i = 0; i < MapConstants.MaxTerrainIndex; i++)
                     {
-                        gs.md.alphas[x, y, i] /= total;
+                        _md.alphas[x, y, i] /= total;
                     }
                 }
             }
@@ -45,9 +45,9 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
 
         while (true)
         {
-            if (_assetService.IsDownloading(gs))
+            if (_assetService.IsDownloading(_gs))
             {
-                await UniTask.NextFrame( cancellationToken: token);
+                await UniTask.NextFrame(cancellationToken: token);
             }
             else
             {
@@ -61,20 +61,20 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
         {
             bool missingLayer = false;
 
-            for (int x = 0; x < gs.map.BlockCount; x++)
+            for (int x = 0; x < _mapProvider.GetMap().BlockCount; x++)
             {
                 if (missingLayer)
                 {
                     break;
                 }
-                for (int y = 0; y < gs.map.BlockCount; y++)
+                for (int y = 0; y < _mapProvider.GetMap().BlockCount; y++)
                 {
                     if (missingLayer)
                     {
                         break;
                     }
 
-                    TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, x, y);
+                    TerrainPatchData patch = _terrainManager.GetTerrainPatch(x, y);
 
                     if (patch == null)
                     {
@@ -82,7 +82,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
                         break;
                     }
 
-                    TerrainData tdata = _terrainManager.GetTerrainData(gs, x, y);
+                    TerrainData tdata = _terrainManager.GetTerrainData(x, y);
                     if (tdata == null)
                     {
                         missingLayer = true;
@@ -124,7 +124,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
 
         while (true)
         {
-            if (_assetService.IsDownloading(gs))
+            if (_assetService.IsDownloading(_gs))
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: token);
             }
@@ -137,7 +137,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
 
         await UniTask.Delay(TimeSpan.FromSeconds(10.0f), cancellationToken: token);
 
-        gs.md.HaveSetAlphaSplats = true;
+        _md.HaveSetAlphaSplats = true;
 	}
 }
 	

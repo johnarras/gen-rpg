@@ -82,10 +82,10 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
     private List<object> _toRemoveList { get; set; } = new List<object>();
 
 
-    private UnityGameState _gs;
-    public async Task Initialize(GameState gs, CancellationToken token)
+    private IUnityGameState _gs;
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
-        _gs = gs as UnityGameState;
+        _gs = gs as IUnityGameState;
         _mapToken = token;
         await UniTask.CompletedTask;
     }

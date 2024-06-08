@@ -163,11 +163,11 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            _initData.Screen.OnRightClickIcon(_gs, this as TDragItem);
+            _initData.Screen.OnRightClickIcon(this as TDragItem);
         }
         else if (eventData.button == PointerEventData.InputButton.Left)
         {
-            _initData.Screen.OnLeftClickIcon(_gs, this as TDragItem);
+            _initData.Screen.OnLeftClickIcon(this as TDragItem);
         }
     }
 

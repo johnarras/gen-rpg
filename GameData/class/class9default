@@ -1,0 +1,90 @@
+{
+  "Id": "class9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Barbarian",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Br",
+  "LevelsPerMelee": 3,
+  "LevelsPerRanged": 7,
+  "LevelsPerDamage": 14,
+  "LevelsPerHeal": 14,
+  "HealthPerLevel": 16,
+  "ManaPerLevel": 6,
+  "MaxArmorScalingTypeId": 2,
+  "CritPercent": 15,
+  "ManaStatTypeId": 12,
+  "Bonuses": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 37,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 23,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 63,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 20,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 2,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 48,
+      "Quantity": 1
+    }
+  ],
+  "AllowedWeapons": [
+    {
+      "ItemTypeId": 24
+    },
+    {
+      "ItemTypeId": 28
+    },
+    {
+      "ItemTypeId": 21
+    }
+  ],
+  "AllowedEquipSlots": [],
+  "UpdateTime": "2024-06-08T00:54:15.199Z",
+  "CreateTime": "2024-01-27T12:57:37Z"
+}

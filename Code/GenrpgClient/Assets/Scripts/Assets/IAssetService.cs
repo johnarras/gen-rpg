@@ -7,18 +7,18 @@ using UnityEngine;
 
 public interface IAssetService : IInitializable
 {
-    bool IsInitialized(UnityGameState gs);
-    void LoadAssetInto(UnityGameState gs, object parent, string assetCategory, string assetPath, OnDownloadHandler handler, object data, CancellationToken token, string subdirectory=null);
-    void LoadAsset(UnityGameState gs, string assetCategory, string assetPath, OnDownloadHandler handler, object data, object parent, CancellationToken token,string subdirectory=null);
-    void LoadAtlasSpriteInto(UnityGameState gs, string atlasName, string spriteName, object parentObject, CancellationToken token);
-    void LoadSpriteInto(UnityGameState gs, string spriteName, GImage parentSprite, CancellationToken token);
-    UniTask<GameObject> LoadAssetAsync(UnityGameState gs, string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null);
+    bool IsInitialized();
+    void LoadAssetInto(object parent, string assetCategory, string assetPath, OnDownloadHandler handler, object data, CancellationToken token, string subdirectory=null);
+    void LoadAsset(string assetCategory, string assetPath, OnDownloadHandler handler, object data, object parent, CancellationToken token,string subdirectory=null);
+    void LoadAtlasSpriteInto(string atlasName, string spriteName, object parentObject, CancellationToken token);
+    void LoadSpriteInto(string spriteName, GImage parentSprite, CancellationToken token);
+    UniTask<GameObject> LoadAssetAsync(string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null);
 
 
-    void GetSpriteList(UnityGameState gs, string atlasName, SpriteListDelegate onLoad, CancellationToken token);
+    void GetSpriteList(string atlasName, SpriteListDelegate onLoad, CancellationToken token);
 
-    void ClearBundleCache(UnityGameState gs, CancellationToken token);
-    string GetBundleNameForCategoryAndAsset(UnityGameState gs, string assetCategory, string assetPath);
+    void ClearBundleCache(CancellationToken token);
+    string GetBundleNameForCategoryAndAsset(string assetCategory, string assetPath);
 
     ClientAssetCounts GetAssetCounts();
 
@@ -27,7 +27,7 @@ public interface IAssetService : IInitializable
 
     string GetContentRootURL(bool worldData);
 
-    bool IsDownloading(UnityGameState gs);
+    bool IsDownloading(IUnityGameState gs);
 
     string GetWorldDataEnv();
 

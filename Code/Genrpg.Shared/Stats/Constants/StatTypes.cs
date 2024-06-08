@@ -23,13 +23,15 @@ namespace Genrpg.Shared.Stats.Constants
         // For 20-60 make sure the offsets for +power, +defense, +powerMult , +defenseMult are all offset the same at 2x 3x 4x 5x
         // to simplify calculations.
 
-        public const int Power = 20; // All Attack
+        public const int DamagePower = 20; // All Attack
         public const int AttackPower = 21; // Physical Attack
         public const int SpellPower = 22; // Magical Attack
 
         public const int Defense = 30; // All Defense
         public const int Armor = 31; // Resist phys Armor
         public const int Resist = 32; // Resist magic Resist
+        public const int HealthRegen = 33; // Adds to health regen for players
+        public const int ManaRegen = 34; // Adds to mana regen for players
 
         public const int PowerMult = 40; // multiplier to all dam/healing
         public const int AttackMult = 41; // Multiplier to body dam/healing

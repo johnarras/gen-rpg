@@ -16,19 +16,19 @@ public class AddZoneCenters : BaseZoneGenerator
     protected ISamplingService _sampleService;
 
     public const int WallPatchId = 1;
-	public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+	public override async UniTask Generate (CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
         SamplingData sdata = new SamplingData();
-        gs.md.zoneCenters = new List<MyPoint>();
+        _md.zoneCenters = new List<MyPoint>();
         float edgeSize = MapConstants.TerrainPatchSize*3/4;
 
         float blockSize = MapConstants.TerrainPatchSize;
 
-        blockSize = gs.map.ZoneSize * MapConstants.TerrainPatchSize;
+        blockSize = _mapProvider.GetMap().ZoneSize * MapConstants.TerrainPatchSize;
 
-        int totalSize = gs.map.GetHwid();
-        float searchSize = gs.map.GetHwid() - edgeSize;
+        int totalSize = _mapProvider.GetMap().GetHwid();
+        float searchSize = _mapProvider.GetMap().GetHwid() - edgeSize;
 
         if (searchSize < totalSize/2)
         {
@@ -42,7 +42,7 @@ public class AddZoneCenters : BaseZoneGenerator
 
         }
 
-        if (gs.map.IsSingleZone(gs))
+        if (_mapProvider.GetMap().IsSingleZone())
         {
             sdata.Count = 1;
         }
@@ -55,27 +55,27 @@ public class AddZoneCenters : BaseZoneGenerator
 
 
         sdata.XMin = -blockSize*2;
-        sdata.XMax = gs.map.GetHwid() + blockSize*2;
+        sdata.XMax = _mapProvider.GetMap().GetHwid() + blockSize*2;
         sdata.YMin = -blockSize*2;
-        sdata.YMax = gs.map.GetHhgt() + blockSize*2;
-        sdata.Seed = gs.map.Seed % 1000000000 + 3824821;
+        sdata.YMax = _mapProvider.GetMap().GetHhgt() + blockSize*2;
+        sdata.Seed = _mapProvider.GetMap().Seed % 1000000000 + 3824821;
 
-        sdata.NoiseAmp = MathUtils.FloatRange(0.3f, 0.8f, gs.rand);
-        sdata.NoiseFreq = MathUtils.FloatRange(3.0f, 10.0f, gs.rand);
+        sdata.NoiseAmp = MathUtils.FloatRange(0.3f, 0.8f, _rand);
+        sdata.NoiseFreq = MathUtils.FloatRange(3.0f, 10.0f, _rand);
 
-        List<MyPoint2> centers = _sampleService.PlanePoissonSample(gs, sdata);
+        List<MyPoint2> centers = _sampleService.PlanePoissonSample(sdata);
         
         centers = centers.Where(p => 
         p.X >= edgeSize
         && p.Y >= edgeSize
-        && p.X <= gs.map.GetHwid() - edgeSize
-        && p.Y <= gs.map.GetHhgt() - edgeSize).ToList();
+        && p.X <= _mapProvider.GetMap().GetHwid() - edgeSize
+        && p.Y <= _mapProvider.GetMap().GetHhgt() - edgeSize).ToList();
 
         _logService.Info("Centers Wanted: " + sdata.Count + " Found: " + centers.Count);
 
         if (centers.Count < 1)
         {
-            MyPoint2 center = new MyPoint2(gs.map.GetHwid() / 2, gs.map.GetHhgt() / 2);
+            MyPoint2 center = new MyPoint2(_mapProvider.GetMap().GetHwid() / 2, _mapProvider.GetMap().GetHhgt() / 2);
             centers.Add(center);
         }
         if (centers.Count > 0)
@@ -83,7 +83,7 @@ public class AddZoneCenters : BaseZoneGenerator
             for (int c =0; c < centers.Count; c++)
             {
                 MyPoint2 center = centers[c];
-                gs.md.zoneCenters.Add(new MyPoint((int)center.X, (int)center.Y));
+                _md.zoneCenters.Add(new MyPoint((int)center.X, (int)center.Y));
             }
         }
   	}

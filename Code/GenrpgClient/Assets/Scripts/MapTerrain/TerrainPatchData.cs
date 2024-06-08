@@ -46,9 +46,9 @@ namespace Assets.Scripts.MapTerrain
 
         public List<long> TerrainTextureIndexes { get; set; } = new List<long>();
         
-        public string GetFilePath(GameState gs, bool duringSaveAndUpload)
+        public string GetFilePath(bool duringSaveAndUpload)
         {
-            string path = MapUtils.GetMapFolder(gs, MapId, MapVersion) + "TerrainX" + X.ToString("000") + "Y" + Y.ToString("000");
+            string path = MapUtils.GetMapFolder(MapId, MapVersion) + "TerrainX" + X.ToString("000") + "Y" + Y.ToString("000");
             if (duringSaveAndUpload)
             {
                 path += "Temp";

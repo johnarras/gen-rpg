@@ -20,7 +20,7 @@ namespace Assets.Scripts.Crawler.StateHelpers
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.ChoosePortrait; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 

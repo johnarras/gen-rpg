@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 public class SetupEditorUnityGameState
 {
-    public static async UniTask<UnityGameState> Setup(UnityGameState gs = null)
+    public static async UniTask<IUnityGameState> Setup(IUnityGameState gs = null)
     {
 
         CancellationTokenSource _cts = new CancellationTokenSource();
@@ -40,10 +40,10 @@ public class SetupEditorUnityGameState
 
             try
             {
-                ClientInitializer clientInitializer = new ClientInitializer();
-                clientInitializer.AddClientServices(gs, null, false, _cts.Token);
+                ClientInitializer clientInitializer = new ClientInitializer(gs);
+                clientInitializer.AddClientServices(null, false, _cts.Token);
 
-                await clientInitializer.FinalInitialize(gs, _cts.Token);
+                await clientInitializer.FinalInitialize(_cts.Token);
             }
             catch (Exception e)
             {

@@ -28,10 +28,10 @@ namespace Genrpg.MapServer.Items.Services
 {
     public interface IItemGenService : IInitializable
     {
-        Item Generate(GameState gs, ItemGenData genData);
-        Item CreateSimpleItem(GameState gs, ItemGenData gd);
-        Item GenerateLevelRangeItem(GameState gs, ItemGenData gd);
-        string GenerateName(GameState gs, long itemTypeId, long level, long qualityTypeId, List<FullReagent> reagents);
+        Item Generate(IRandom rand, ItemGenData genData);
+        Item CreateSimpleItem(IRandom rand, ItemGenData gd);
+        Item GenerateLevelRangeItem(IRandom rand, ItemGenData gd);
+        string GenerateName(IRandom rand, long itemTypeId, long level, long qualityTypeId, List<FullReagent> reagents);
 
     }
 
@@ -39,15 +39,15 @@ namespace Genrpg.MapServer.Items.Services
     {
         private INameGenService _nameGenService = null;
         private IStatService _statService = null;
-        private IGameData _gameData;
+        private IGameData _gameData = null;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
         // ACtually generate an item from either an old item or an itemTypeId.
-        public virtual Item Generate(GameState gs, ItemGenData genData)
+        public virtual Item Generate(IRandom rand, ItemGenData genData)
         {
             Item item = null;
 
@@ -69,7 +69,7 @@ namespace Genrpg.MapServer.Items.Services
             }
             if (genData.QualityTypeId <= 0)
             {
-                genData.QualityTypeId = ChooseItemQuality(gs, genData);
+                genData.QualityTypeId = ChooseItemQuality(rand, genData);
             }
 
             if (genData.ItemTypeId < 1)
@@ -80,7 +80,7 @@ namespace Genrpg.MapServer.Items.Services
                     return null;
                 }
 
-                RecipeType recipe = recipes[gs.rand.Next() % recipes.Count];
+                RecipeType recipe = recipes[rand.Next() % recipes.Count];
                 genData.ItemTypeId = recipe.EntityId;
             }
 
@@ -94,15 +94,15 @@ namespace Genrpg.MapServer.Items.Services
 
             if (itype.EquipSlotId > 0)
             {
-                return GenerateEquipment(gs, genData);
+                return GenerateEquipment(rand, genData);
             }
             else
             {
-                return GenerateLevelRangeItem(gs, genData);
+                return GenerateLevelRangeItem(rand, genData);
             }
         }
 
-        public Item CreateSimpleItem(GameState gs, ItemGenData gd)
+        public Item CreateSimpleItem(IRandom rand, ItemGenData gd)
         {
             ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(gd.ItemTypeId);
             if (itype == null)
@@ -138,7 +138,7 @@ namespace Genrpg.MapServer.Items.Services
         }
 
 
-        public Item GenerateLevelRangeItem(GameState gs, ItemGenData gd)
+        public Item GenerateLevelRangeItem(IRandom rand, ItemGenData gd)
         {
             ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(gd.ItemTypeId);
             if (itype == null)
@@ -146,19 +146,19 @@ namespace Genrpg.MapServer.Items.Services
                 return null;
             }
 
-            Item item = CreateSimpleItem(gs, gd);
+            Item item = CreateSimpleItem(rand, gd);
             if (item == null)
             {
                 return null;
             }
 
-            item.Level = itype.GetFromRangeLevel(gs, gd.Level);
+            item.Level = itype.GetFromRangeLevel(gd.Level);
 
             return item;
         }
 
 
-        public string GenerateName(GameState gs, long itemTypeId, long level, long qualityTypeId, List<FullReagent> reagents)
+        public string GenerateName(IRandom rand, long itemTypeId, long level, long qualityTypeId, List<FullReagent> reagents)
         {
 
             string badName = "Armor";
@@ -215,38 +215,38 @@ namespace Genrpg.MapServer.Items.Services
                 return badName;
             }
 
-            string itemName = _nameGenService.PickWord(gs, itemNameList, gs.rand.Next());
+            string itemName = _nameGenService.PickWord(rand, itemNameList);
 
-            string adj1 = _nameGenService.PickWord(gs, adjList.Names, gs.rand.Next());
+            string adj1 = _nameGenService.PickWord(rand, adjList.Names);
             string adj1Prefix = "";
             if (!string.IsNullOrEmpty(adj1))
             {
                 adj1Prefix = adj1.Substring(0, 3);
             }
 
-            string adj2 = _nameGenService.PickWord(gs, adjList.Names, gs.rand.Next(), "", adj1Prefix);
+            string adj2 = _nameGenService.PickWord(rand, adjList.Names, "", adj1Prefix);
             string adj2Prefix = "";
             if (!string.IsNullOrEmpty(adj2))
             {
                 adj2Prefix = adj2.Substring(0, 3);
             }
 
-            string suffixName = _nameGenService.PickWord(gs, nounList.Names, gs.rand.Next(), "", adj2Prefix);
-            string badPrefix = _nameGenService.PickWord(gs, badItemList.Names, gs.rand.Next());
+            string suffixName = _nameGenService.PickWord(rand, nounList.Names, "", adj2Prefix);
+            string badPrefix = _nameGenService.PickWord(rand, badItemList.Names);
 
-            if (gs.rand.Next() % 6 == 0 && reagents != null && reagents.Count > 0)
+            if (rand.Next() % 6 == 0 && reagents != null && reagents.Count > 0)
             {
-                FullReagent nameReagent = reagents[gs.rand.Next() % reagents.Count];
+                FullReagent nameReagent = reagents[rand.Next() % reagents.Count];
                 if (nameReagent != null)
                 {
                     ItemType reagentItemType = _gameData.Get<ItemTypeSettings>(null).Get(nameReagent.ItemTypeId);
                     if (reagentItemType != null && !string.IsNullOrEmpty(reagentItemType.Name))
                     {
-                        if (gs.rand.Next() % 3 == 0)
+                        if (rand.Next() % 3 == 0)
                         {
                             adj1 = reagentItemType.Name;
                         }
-                        else if (gs.rand.Next() % 2 == 0)
+                        else if (rand.Next() % 2 == 0)
                         {
                             adj2 = reagentItemType.Name;
                         }
@@ -259,16 +259,16 @@ namespace Genrpg.MapServer.Items.Services
 
             }
 
-            string doublePrefix = _nameGenService.PickWord(gs, doublePrefixList.Names, gs.rand.Next());
-            string doubleSuffix = _nameGenService.PickWord(gs, doubleSuffixList.Names, gs.rand.Next(), doublePrefix);
+            string doublePrefix = _nameGenService.PickWord(rand, doublePrefixList.Names);
+            string doubleSuffix = _nameGenService.PickWord(rand, doubleSuffixList.Names, doublePrefix);
 
             if (!string.IsNullOrEmpty(doubleSuffix))
             {
                 doubleSuffix = doubleSuffix.ToLower();
             }
-            if (gs.rand.Next() % 7 == 1)
+            if (rand.Next() % 7 == 1)
             {
-                int val = gs.rand.Next() % 3;
+                int val = rand.Next() % 3;
                 if (val == 0)
                 {
                     adj1 = doublePrefix + doubleSuffix;
@@ -290,9 +290,9 @@ namespace Genrpg.MapServer.Items.Services
                 return badPrefix + " " + itemName;
             }
 
-            if (qualityTypeId <= QualityTypes.Uncommon || gs.rand.Next() % 10 == 4)
+            if (qualityTypeId <= QualityTypes.Uncommon || rand.Next() % 10 == 4)
             {
-                if (gs.rand.Next() % 2 == 0)
+                if (rand.Next() % 2 == 0)
                 {
                     return adj1 + " " + itemName;
                 }
@@ -304,12 +304,12 @@ namespace Genrpg.MapServer.Items.Services
 
 
             // Adj Name of Noun
-            if (gs.rand.Next() % 3 != 2)
+            if (rand.Next() % 3 != 2)
             {
                 return adj1 + " " + itemName + " of " + suffixName;
             }
             // Name of Adj Noun
-            else if (gs.rand.Next() % 2 == 1)
+            else if (rand.Next() % 2 == 1)
             {
                 string theSuffix = "";
                 if (suffixName != null && suffixName.IndexOf("the ") == 0)
@@ -336,7 +336,7 @@ namespace Genrpg.MapServer.Items.Services
 
         }
 
-        public Item GenerateEquipment(GameState gs, ItemGenData genData)
+        public Item GenerateEquipment(IRandom rand, ItemGenData genData)
         {
             ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(genData.ItemTypeId);
             if (itype == null)
@@ -368,7 +368,7 @@ namespace Genrpg.MapServer.Items.Services
             }
 
             // Type of armor weapon
-            ScalingType scalingType = scalingTypes[gs.rand.Next() % scalingTypes.Count];
+            ScalingType scalingType = scalingTypes[rand.Next() % scalingTypes.Count];
 
             List<StatType> primaryStats = _statService.GetAttackStatTypes(null);
 
@@ -378,7 +378,7 @@ namespace Genrpg.MapServer.Items.Services
             }
 
             // Base stat applied.
-            StatType coreStat = primaryStats[gs.rand.Next() % primaryStats.Count];
+            StatType coreStat = primaryStats[rand.Next() % primaryStats.Count];
 
             Dictionary<long, long> statTotals = new Dictionary<long, long>();
 
@@ -408,7 +408,7 @@ namespace Genrpg.MapServer.Items.Services
 
                 for (int i = 0; i < numExtraEffects; i++)
                 {
-                    if (gs.rand.Next() % 100 < sameStatPct)
+                    if (rand.Next() % 100 < sameStatPct)
                     {
                         numBaseScale++;
                     }
@@ -437,7 +437,7 @@ namespace Genrpg.MapServer.Items.Services
 
                 for (int i = 0; i < numNewEffects && otherStats.Count > 0; i++)
                 {
-                    StatType otherStat = otherStats[gs.rand.Next() % otherStats.Count];
+                    StatType otherStat = otherStats[rand.Next() % otherStats.Count];
                     AddStatTotal(statTotals, otherStat.IdKey, scalingType.OtherPct);
                 }
 
@@ -502,7 +502,7 @@ namespace Genrpg.MapServer.Items.Services
             item.Quantity = 1;
             item.ScalingTypeId = scalingType.IdKey;
             item.Effects = effs;
-            item.Name = GenerateName(gs, itype.IdKey, item.Level, item.QualityTypeId, new List<FullReagent>());
+            item.Name = GenerateName(rand, itype.IdKey, item.Level, item.QualityTypeId, new List<FullReagent>());
 
             return item;
 
@@ -523,7 +523,7 @@ namespace Genrpg.MapServer.Items.Services
             statTotals[statTypeId] += amount;
         }
 
-        public long ChooseItemQuality(GameState gs, ItemGenData genData)
+        public long ChooseItemQuality(IRandom rand, ItemGenData genData)
         {
             if (_gameData.Get<QualityTypeSettings>(null).GetData() == null)
             {
@@ -544,7 +544,7 @@ namespace Genrpg.MapServer.Items.Services
             // No options return Common or the input quality.
             if (chanceTotal >= 0.0001f)
             {
-                double chanceChosen = gs.rand.NextDouble() * chanceTotal;
+                double chanceChosen = rand.NextDouble() * chanceTotal;
 
                 foreach (QualityType qt in _gameData.Get<QualityTypeSettings>(null).GetData())
                 {
@@ -568,7 +568,7 @@ namespace Genrpg.MapServer.Items.Services
         }
 
 
-        protected void AddItemReagentFromReagent(GameState gs, Reagent reagent, List<FullReagent> reagents, ItemGenData gd)
+        protected void AddItemReagentFromReagent(IRandom rand, Reagent reagent, List<FullReagent> reagents, ItemGenData gd)
         {
             if (reagent.EntityTypeId == EntityTypes.Item)
             {

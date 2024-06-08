@@ -17,6 +17,7 @@ using Genrpg.Shared.Interfaces;
 using System.Threading.Tasks;
 using System.Threading;
 using Assets.Scripts.Core.Interfaces;
+using Genrpg.Shared.MapServer.Services;
 
 public struct UpdateColor
 {
@@ -59,13 +60,14 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
     private ICameraController _cameraController = null;
     private IMapTerrainManager _terrainManager = null;
     private IPlayerManager _playerManager;
+    private IMapProvider _mapProvider;
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         RenderSettings.sun = Sun;
@@ -186,7 +188,6 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
     }
 
     private bool _didInitZoneState = false;
-    IScreenService ss = null;
     private void ZoneUpdate()
     {
 
@@ -222,7 +223,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
                 int wx = (int)go.transform().localPosition.x;
                 int wy = (int)go.transform().localPosition.z;
 
-                if (wx >= 0 && wy >= 0 && _gs.md != null && wx < _gs.map.GetHwid() && wy < _gs.map.GetHhgt())
+                if (wx >= 0 && wy >= 0 && wx < _mapProvider.GetMap().GetHwid() && wy < _mapProvider.GetMap().GetHhgt())
                 {
 
                     int gx = wx / (MapConstants.TerrainPatchSize-1);
@@ -230,7 +231,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
 
 
                     int zoneId = 0;
-                    TerrainPatchData patch = _terrainManager.GetTerrainPatch(_gs, gx, gy);
+                    TerrainPatchData patch = _terrainManager.GetTerrainPatch(gx, gy);
                     if (patch != null && patch.mainZoneIds != null)
                     {
                         wx %= (MapConstants.TerrainPatchSize - 1);
@@ -238,12 +239,12 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
                         zoneId = patch.mainZoneIds[wy, wx];
                     }
 
-                    ActiveScreen hud = ss.GetScreen(_gs, ScreenId.HUD);
+                    ActiveScreen hud = _screenService.GetScreen(ScreenId.HUD);
 
 
                     if (((_currentZone == null || _currentZone.IdKey != zoneId) && zoneId > 1) && hud != null)
                     {
-                        Zone zone = _gs.map.Get<Zone>(zoneId);
+                        Zone zone = _mapProvider.GetMap().Get<Zone>(zoneId);
                         if (zone == null)
                         {
                             return;
@@ -282,7 +283,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
                             FogStart.Target = weatherType.FogDistance;
                             FogEnd.Target = LinearFogEnd;
 
-                            _audioService.PlayMusic(_gs, _currentZoneType);
+                            _audioService.PlayMusic(_currentZoneType);
                         }
                         if (FogDistScale <= 1.0f)
                         {
@@ -376,9 +377,9 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         }
         if (nextWindBurst < DateTime.UtcNow)
         {
-            Wind.windMain = MathUtils.FloatRange(0.66f, 1.33f, _gs.rand) * WindScale.Current;
-            windBurstEnd = DateTime.UtcNow.AddSeconds(MathUtils.FloatRange(4.0f, 7.0f, _gs.rand));
-            nextWindBurst = DateTime.UtcNow.AddSeconds(MathUtils.FloatRange(12.0f, 22.0f, _gs.rand));
+            Wind.windMain = MathUtils.FloatRange(0.66f, 1.33f, _rand) * WindScale.Current;
+            windBurstEnd = DateTime.UtcNow.AddSeconds(MathUtils.FloatRange(4.0f, 7.0f, _rand));
+            nextWindBurst = DateTime.UtcNow.AddSeconds(MathUtils.FloatRange(12.0f, 22.0f, _rand));
         }
     }
 }

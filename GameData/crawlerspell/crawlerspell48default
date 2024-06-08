@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell48default",
+  "ParentId": "default",
+  "IdKey": 48,
+  "Name": "Charge",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 100,
+  "PowerPerLevel": 1,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 3,
+  "Level": 9,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "ElementTypeId": 4
+    }
+  ],
+  "UpdateTime": "2024-06-08T00:21:32.375Z",
+  "CreateTime": "2024-01-28T09:09:08Z"
+}

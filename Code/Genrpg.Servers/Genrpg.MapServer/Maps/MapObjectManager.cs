@@ -36,6 +36,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Genrpg.MapServer.Maps.Constants;
 using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.MapServer.Services;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -43,15 +44,15 @@ namespace Genrpg.MapServer.Maps
     public interface IMapObjectManager : IInitializable, IMessageTarget
     {
         MapObjectCounts GetCounts();
-        void Init(GameState gs, CancellationToken token);
-        void UpdatePosition(GameState gs, MapObject obj, int keysDown);
-        MapObject SpawnObject(GameState gs,IMapSpawn spawn);
+        void Init(IRandom rand, CancellationToken token);
+        void UpdatePosition(IRandom rand, MapObject obj, int keysDown);
+        MapObject SpawnObject(IRandom rand, IMapSpawn spawn);
         bool GetChar(string id, out Character ch, GetMapObjectParams objParams = null);
         bool GetUnit(string id, out Unit unit, GetMapObjectParams objParams = null);
         bool GetObject(string id, out MapObject item, GetMapObjectParams objParams = null);
-        void FinalRemoveObjectFromOldGrid(GameState gs, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item);
-        MapObjectGridItem RemoveObject(GameState gs, string objId, float delaySeconds = 0);
-        MapObjectGridItem AddObject(GameState gs, MapObject obj, IMapSpawn spawn);
+        void FinalRemoveObjectFromOldGrid(IRandom rand, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item);
+        MapObjectGridItem RemoveObject(IRandom rand, string objId, float delaySeconds = 0);
+        MapObjectGridItem AddObject(IRandom rand, MapObject obj, IMapSpawn spawn);
         List<T> GetTypedObjectsNear<T>(float wx, float wz, MapObject filterObject,
             float distance = MessageConstants.DefaultGridDistance,
             bool enforceDistance = false, List<long> filters = null) where T : MapObject;
@@ -104,8 +105,9 @@ namespace Genrpg.MapServer.Maps
 
         private IMapMessageService _messageService = null;
         private ILogService _logService = null;
-        private IGameData _gameData;
-        protected IRepositoryService _repoService;
+        private IGameData _gameData = null;
+        protected IRepositoryService _repoService = null;
+        private IMapProvider _mapProvider = null;
 
         // Used when we need messages to mapobjects that no longer exist.
         const int MessageTargetCount = 100;
@@ -157,7 +159,7 @@ namespace Genrpg.MapServer.Maps
             };
             return counts;
         }
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             _factories = ReflectionUtils.SetupDictionary<long, IMapObjectFactory>(gs);
             foreach (IMapObjectFactory mapObjFact in _factories.Values)
@@ -173,11 +175,11 @@ namespace Genrpg.MapServer.Maps
             await Task.CompletedTask;
         }
 
-        public virtual void Init(GameState gs, CancellationToken token)
+        public virtual void Init(IRandom rand, CancellationToken token)
         {
             _token = token;
 
-            _gridSize = (int)Math.Ceiling(1.0 * gs.map.GetMapSize(gs) / SharedMapConstants.MapObjectGridSize);
+            _gridSize = (int)Math.Ceiling(1.0 * _mapProvider.GetMap().GetMapSize() / SharedMapConstants.MapObjectGridSize);
 
             _objectGrid = new MapObjectGridData[_gridSize, _gridSize];
 
@@ -189,7 +191,7 @@ namespace Genrpg.MapServer.Maps
                 }
             }
 
-            SetupGridSpawns(gs);
+            SetupGridSpawns(rand);
 
             if (!_didSetupOnce)
             {
@@ -201,7 +203,7 @@ namespace Genrpg.MapServer.Maps
                 {
                     for (int z = 0; z < _gridSize; z++)
                     {
-                        SpawnGridObjects(gs, x, z);
+                        SpawnGridObjects(rand, x, z);
                     }
                 }
                 _didSetupOnce = true;
@@ -215,7 +217,7 @@ namespace Genrpg.MapServer.Maps
             }
         }
 
-        public void FinalRemoveObjectFromOldGrid(GameState gs, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item)
+        public void FinalRemoveObjectFromOldGrid(IRandom rand, MapObject obj, MapObjectGridData gridData, MapObjectGridItem item)
         {
             gridData.RemoveObj(item.Obj);
             // Should be ok to do thsi here becaue this will happen microseconds after the move between grid cells,
@@ -245,7 +247,7 @@ namespace Genrpg.MapServer.Maps
             _totalGridLocks++;
         }
 
-        public void UpdatePosition(GameState gs, MapObject obj, int keysDown)
+        public void UpdatePosition(IRandom rand, MapObject obj, int keysDown)
         {
 
             OnUpdatePos posMessage = obj.GetCachedMessage<OnUpdatePos>(true);
@@ -261,7 +263,7 @@ namespace Genrpg.MapServer.Maps
 
             float distance = MessageConstants.DefaultGridDistance;
             bool playersOnly = false;
-            if (gs.rand.NextDouble() < 0.1f)
+            if (rand.NextDouble() < 0.1f)
             {
                 distance *= 2;
                 playersOnly = true;
@@ -295,7 +297,7 @@ namespace Genrpg.MapServer.Maps
                     gridItem.OldGZ = gridItem.GZ;
                     gridItem.GX = newGridPos.X;
                     gridItem.GZ = newGridPos.Z;
-                    OnAddObjectToGrid(gs, obj, newGridPos.X, newGridPos.Z);
+                    OnAddObjectToGrid(rand, obj, newGridPos.X, newGridPos.Z);
 
                     // Slight delay in removing grid item to allow for things processing nearby cells to complete.
                     _messageService.SendMessage(obj, new RemoveObjectFromGridCell() { GridItem = gridItem, GridData = oldGrid });
@@ -476,7 +478,7 @@ namespace Genrpg.MapServer.Maps
             return new PointXZ(GetIndexFromCoord(obj.X, false), GetIndexFromCoord(obj.Z, false));
         }
 
-        public virtual MapObjectGridItem AddObject(GameState gs, MapObject obj, IMapSpawn spawn)
+        public virtual MapObjectGridItem AddObject(IRandom rand, MapObject obj, IMapSpawn spawn)
         {
             PointXZ pt = GetGridCoordinates(obj);
 
@@ -485,7 +487,7 @@ namespace Genrpg.MapServer.Maps
                 return currentGridItem;
             }
 
-            MapObjectGridItem newGridItem = CreateGridItem(obj, pt.X, pt.Z);
+            MapObjectGridItem newGridItem = CreateGridItem(rand, obj, pt.X, pt.Z);
 
             _objectGrid[pt.X, pt.Z].AddObj(newGridItem.Obj);
             _totalGridLocks++;
@@ -498,7 +500,7 @@ namespace Genrpg.MapServer.Maps
                 _unitsAdded++;
                 if (obj is Character ch)
                 {
-                    OnAddObjectToGrid(gs, ch, pt.X, pt.Z);
+                    OnAddObjectToGrid(rand, ch, pt.X, pt.Z);
                 }
             }
             else
@@ -516,7 +518,7 @@ namespace Genrpg.MapServer.Maps
             return newGridItem;
         }
 
-        public MapObjectGridItem RemoveObject(GameState gs, string objId, float delaySeconds = 0)
+        public MapObjectGridItem RemoveObject(IRandom rand, string objId, float delaySeconds = 0)
         {
             if (!GetGridItem(objId, out MapObjectGridItem currentItem))
             {
@@ -569,7 +571,7 @@ namespace Genrpg.MapServer.Maps
                 }
             }
 
-            OnRemove(gs, gridItem);
+            OnRemove(rand, gridItem);
             return gridItem;
         }
 
@@ -578,14 +580,14 @@ namespace Genrpg.MapServer.Maps
             return _messageTargets[++_messageTargetIndex % MessageTargetCount];
         }
 
-        protected virtual void OnRemove(GameState gs, MapObjectGridItem gridItem)
+        protected virtual void OnRemove(IRandom rand, MapObjectGridItem gridItem)
         {
 
             if (gridItem.Obj.Spawn != null)
             {
                 gridItem.Obj.Spawn.SpawnSeconds = 20;
                 _messageService.SendMessage(GetMessageTarget(), new RespawnObject() { Spawn = gridItem.Obj.Spawn },
-                    MathUtils.IntRange(gridItem.Obj.Spawn.SpawnSeconds,gridItem.Obj.Spawn.SpawnSeconds*2,gs.rand));
+                    MathUtils.IntRange(gridItem.Obj.Spawn.SpawnSeconds,gridItem.Obj.Spawn.SpawnSeconds*2, rand));
             }
 
             DespawnObject despawn = new DespawnObject()
@@ -597,7 +599,7 @@ namespace Genrpg.MapServer.Maps
 
         }
 
-        protected virtual MapObjectGridItem CreateGridItem(MapObject obj, int gx, int gz)
+        protected virtual MapObjectGridItem CreateGridItem(IRandom rand, MapObject obj, int gx, int gz)
         {
             MapObjectGridItem item = new MapObjectGridItem()
             {
@@ -607,7 +609,7 @@ namespace Genrpg.MapServer.Maps
             };
             return item;
         }
-        protected virtual void SetupGridSpawns(GameState gs)
+        protected virtual void SetupGridSpawns(IRandom rand)
         {
 
             for (int x = 0; x < _gridSize; x++)
@@ -617,30 +619,30 @@ namespace Genrpg.MapServer.Maps
                     _objectGrid[x, y].Spawns = new List<MapSpawn>();
                 }
             }
-            _totalUnits = gs.spawns.Data
+            _totalUnits = _mapProvider.GetSpawns().Data
                 .Where(x => x.EntityTypeId == EntityTypes.Unit || x.EntityTypeId == EntityTypes.ZoneUnit)
                 .Count();
-            _totalObjects = gs.spawns.Data.Count - _totalUnits;
+            _totalObjects = _mapProvider.GetSpawns().Data.Count - _totalUnits;
 
             List<MapSpawn> copySpawns = new List<MapSpawn>();
-            foreach (MapSpawn spawn in gs.spawns.Data)
+            foreach (MapSpawn spawn in _mapProvider.GetSpawns().Data)
             {
                 if (spawn.EntityTypeId == EntityTypes.Unit || spawn.EntityTypeId== EntityTypes.ZoneUnit)
                 {
-                    int maxTimes = 1;// + _gs.rand.Next() % 3;
+                    int maxTimes = 1;// + _rand.Next() % 3;
                     for (int times = 0; times < maxTimes; times++)
                     {
                         MapSpawn copySpawn = SerializationUtils.FastMakeCopy(spawn);
                         if (times > 0)
                         {
                             int delta = 25;
-                            copySpawn.X += MathUtils.IntRange(-delta, delta, gs.rand);
-                            copySpawn.Z += MathUtils.IntRange(-delta, delta, gs.rand);
+                            copySpawn.X += MathUtils.IntRange(-delta, delta, rand);
+                            copySpawn.Z += MathUtils.IntRange(-delta, delta, rand);
                             copySpawn.ObjId += "." + times.ToString();
                         }
                         if (!copySpawn.GetAddons().Any())
                         {
-                            copySpawn.FactionTypeId = MathUtils.IntRange(1, 4, gs.rand);
+                            copySpawn.FactionTypeId = MathUtils.IntRange(1, 4, rand);
                         }
                         copySpawns.Add(copySpawn);
                     }
@@ -651,11 +653,11 @@ namespace Genrpg.MapServer.Maps
                 }
             }
 
-            gs.spawns.Data = copySpawns;
+            _mapProvider.GetSpawns().Data = copySpawns;
 
-            foreach (MapSpawn spawn in gs.spawns.Data)
+            foreach (MapSpawn spawn in _mapProvider.GetSpawns().Data)
             {
-                if (gs.rand.NextDouble() > _gameData.Get<SpawnSettings>(null).MapSpawnChance)
+                if (rand.NextDouble() > _gameData.Get<SpawnSettings>(null).MapSpawnChance)
                 {
                     continue;
                 }
@@ -667,7 +669,7 @@ namespace Genrpg.MapServer.Maps
             }
         }
 
-        protected virtual bool SpawnGridObjects(GameState gs, int gx, int gy)
+        protected virtual bool SpawnGridObjects(IRandom rand, int gx, int gy)
         {
 
             MapObjectGridData grid = _objectGrid[gx, gy];
@@ -685,7 +687,7 @@ namespace Genrpg.MapServer.Maps
                     List<MapObject> newObjects = new List<MapObject>();
                     foreach (MapSpawn spawn in grid.Spawns)
                     {
-                        SpawnObject(gs, spawn);
+                        SpawnObject(rand, spawn);
                         totalSpawns++;
                     }
                 }
@@ -698,7 +700,7 @@ namespace Genrpg.MapServer.Maps
             return true;
         }
 
-        public virtual MapObject SpawnObject(GameState gs, IMapSpawn spawn)
+        public virtual MapObject SpawnObject(IRandom rand, IMapSpawn spawn)
         {
 
             if (GetObject(spawn.ObjId, out MapObject currObj))
@@ -711,29 +713,29 @@ namespace Genrpg.MapServer.Maps
                 return null;
             }
 
-            MapObject obj = fact.Create(gs, spawn);
-            AfterSpawns(gs, obj);
+            MapObject obj = fact.Create(rand, spawn);
+            AfterSpawns(rand, obj);
             if (obj != null)
             {
-                AddObject(gs, obj, spawn);
+                AddObject(rand, obj, spawn);
             }
 
             return obj;
         }
 
-        protected void AfterSpawns(GameState gs, MapObject obj)
+        protected void AfterSpawns(IRandom rand, MapObject obj)
         {
             if (obj is Unit unit)
             {
                 AIUpdate update = new AIUpdate();
 
-                _messageService.SendMessage(unit, update, MathUtils.FloatRange(0, _gameData.Get<AISettings>(obj).UpdateSeconds, gs.rand));
+                _messageService.SendMessage(unit, update, MathUtils.FloatRange(0, _gameData.Get<AISettings>(obj).UpdateSeconds, rand));
             }
         }
 
-        protected virtual void SendGridItemsToClient(GameState gs, Character ch, int gx, int gz)
+        protected virtual void SendGridItemsToClient(IRandom rand, Character ch, int gx, int gz)
         {
-            if (SpawnGridObjects(gs, gx, gz))
+            if (SpawnGridObjects(rand, gx, gz))
             {
                 return;
             }
@@ -760,7 +762,7 @@ namespace Genrpg.MapServer.Maps
             return _filters.TryGetValue(filterTypeId, out filter);
         }
 
-        protected void OnAddObjectToGrid(GameState gs, MapObject obj, int gx, int gz)
+        protected void OnAddObjectToGrid(IRandom rand, MapObject obj, int gx, int gz)
         {
             if (!(obj is Character ch))
             {
@@ -793,7 +795,7 @@ namespace Genrpg.MapServer.Maps
                     }
 
                     ch.NearbyGridsSeen.Add(new PointXZ(x, z));
-                    SendGridItemsToClient(gs, ch, x, z);
+                    SendGridItemsToClient(rand, ch, x, z);
                 }
             }
             ch.NearbyGridsSeen =

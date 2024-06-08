@@ -11,7 +11,7 @@ namespace Genrpg.ServerShared.Logging
     public class ServerLogService : ILogService
     {
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
@@ -26,7 +26,7 @@ namespace Genrpg.ServerShared.Logging
 
         public int SetupPriorityAscending() { return SetupPriorities.Logging; }
 
-        public async Task PrioritySetup(GameState gs, CancellationToken token)
+        public async Task PrioritySetup(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }

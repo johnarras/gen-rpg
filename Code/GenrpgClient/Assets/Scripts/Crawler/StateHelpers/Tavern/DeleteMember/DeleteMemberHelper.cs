@@ -19,7 +19,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Tavern.AddMember
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.DeleteMember; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 

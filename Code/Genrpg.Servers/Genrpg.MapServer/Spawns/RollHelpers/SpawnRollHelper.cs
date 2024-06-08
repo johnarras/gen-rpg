@@ -19,11 +19,11 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
         public long GetKey() { return EntityTypes.Spawn; }
 
         private ISpawnService _spawnService = null;
-        private IGameData _gameData;
-        public List<SpawnResult> Roll(GameState gs, RollData rollData, SpawnItem item)
+        private IGameData _gameData = null;
+        public List<SpawnResult> Roll(IRandom rand, RollData rollData, SpawnItem item)
         {
             List<SpawnResult> retval = new List<SpawnResult>();
-            long quantity = MathUtils.LongRange(item.MinQuantity, item.MaxQuantity, gs.rand);
+            long quantity = MathUtils.LongRange(item.MinQuantity, item.MaxQuantity, rand);
 
             SpawnTable st = _gameData.Get<SpawnSettings>(null).Get(item.EntityId);
             if (st != null)
@@ -31,7 +31,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
                 for (int j = 0; j < quantity; j++)
                 {
                     rollData.Depth++;
-                    List<SpawnResult> list2 = _spawnService.Roll(gs, st.Items, rollData);
+                    List<SpawnResult> list2 = _spawnService.Roll(rand, st.Items, rollData);
                     rollData.Depth--;
                     retval.AddRange(list2);
                 }

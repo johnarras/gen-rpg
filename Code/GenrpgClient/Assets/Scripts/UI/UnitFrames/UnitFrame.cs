@@ -22,7 +22,7 @@ public class UnitFrame : BaseBehaviour
 
     private List<OnAddEffect> _addedEffects = new List<OnAddEffect>();
 
-    public void Init(UnityGameState gs, Unit unitIn)
+    public void Init(Unit unitIn)
     {
         _dispatcher.AddEvent<NewLevel>(this, OnLevelUpdate);
         _dispatcher.AddEvent<OnAddEffect>(this, AddVisualEffect);
@@ -38,7 +38,7 @@ public class UnitFrame : BaseBehaviour
         {
             if (_statBar[b] != null)
             {
-                _statBar[b].Init(gs, _unit);
+                _statBar[b].Init(_unit);
             }
         }
 
@@ -48,12 +48,12 @@ public class UnitFrame : BaseBehaviour
 
             if (_castBar != null)
             {
-                _castBar.Init(gs, _unit);
+                _castBar.Init(_unit);
             }
 
             if (_expBar != null)
             {
-                _expBar.Init(gs, _unit);
+                _expBar.Init(_unit);
             }
         }
         UpdateVisibility();

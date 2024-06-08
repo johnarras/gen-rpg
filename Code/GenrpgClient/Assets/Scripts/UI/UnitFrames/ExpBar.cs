@@ -15,23 +15,23 @@ public class ExpBar : BaseBehaviour
     private long _max = 0;
     private Unit _unit = null;
 
-    public void Init(UnityGameState gs, Unit unitIn)
+    public void Init(Unit unitIn)
     {
 
         _dispatcher.AddEvent<LevelUpEvent>(this, OnLevelUpdate);
         _dispatcher.AddEvent<OnAddCurrency>(this, OnAddCurrencyHandler);
         _unit = unitIn;
 
-        long currLevelId = gs.ch.Level;
+        long currLevelId = _gs.ch.Level;
 
-        LevelInfo nextLevelData = _gameData.Get<LevelSettings>(gs.ch).Get(gs.ch.Level);
+        LevelInfo nextLevelData = _gameData.Get<LevelSettings>(_gs.ch).Get(_gs.ch.Level);
 
         if (nextLevelData == null)
         {
             return;
         }
 
-        CurrencyData currencies = gs.ch.Get<CurrencyData>();
+        CurrencyData currencies = _gs.ch.Get<CurrencyData>();
 
         long currExp = currencies.GetQuantity(CurrencyTypes.Exp);
 
@@ -39,19 +39,19 @@ public class ExpBar : BaseBehaviour
         {
             _curr = currExp;
             _max = nextLevelData.CurrExp;
-            _progressBar.InitRange(gs, 0, _max, _curr);
+            _progressBar.InitRange(0, _max, _curr);
         }
     }
 
     private void OnAddCurrencyHandler(OnAddCurrency data)
     {
-        Init(_gs, _unit);
+        Init(_unit);
         return;
     }
 
     private void OnLevelUpdate(LevelUpEvent data)
     {
-        Init(_gs, _unit);
+        Init(_unit);
         return;
     }
 }

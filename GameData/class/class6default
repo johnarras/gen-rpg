@@ -2,50 +2,129 @@
   "Id": "class6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Barbarian",
+  "Name": "Engineer",
   "Desc": "",
   "Icon": "",
   "Art": "",
-  "Abbrev": "Ba",
-  "LevelsPerMelee": 3,
-  "InitialMeleeAttacks": 3,
-  "LevelsPerRanged": 8,
-  "InitialRangedAttacks": 1,
+  "Abbrev": "En",
+  "LevelsPerMelee": 5,
+  "LevelsPerRanged": 4,
+  "LevelsPerDamage": 4,
+  "LevelsPerHeal": 6,
   "HealthPerLevel": 16,
-  "BuffStatTypeId": 63,
-  "BuffStatPercent": 100,
-  "DefaultLevelPercentBuff": 50,
-  "MaxArmorScalingTypeId": 2,
+  "ManaPerLevel": 12,
+  "MaxArmorScalingTypeId": 3,
+  "CritPercent": 5,
+  "ManaStatTypeId": 12,
+  "Bonuses": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 39,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 21,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 44,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 17,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 70,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 20,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 3,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 48,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 8,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 12,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 40,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 7,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 19,
+      "Quantity": 1
+    }
+  ],
   "AllowedWeapons": [
     {
-      "ItemTypeId": 21
-    },
-    {
-      "ItemTypeId": 22
-    },
-    {
-      "ItemTypeId": 23
-    },
-    {
       "ItemTypeId": 24
-    },
-    {
-      "ItemTypeId": 25
-    },
-    {
-      "ItemTypeId": 26
-    },
-    {
-      "ItemTypeId": 27
     },
     {
       "ItemTypeId": 28
     },
     {
-      "ItemTypeId": 29
+      "ItemTypeId": 21
     }
   ],
   "AllowedEquipSlots": [],
-  "UpdateTime": "2024-03-23T17:36:47.881Z",
-  "CreateTime": "2024-01-27T18:57:37Z"
+  "UpdateTime": "2024-06-08T00:54:15.192Z",
+  "CreateTime": "2024-01-27T12:57:37Z"
 }

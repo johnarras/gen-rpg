@@ -13,7 +13,7 @@ public class MoneySegment : BaseBehaviour
         return Parent;
     }
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         if (!string.IsNullOrEmpty(_txt))

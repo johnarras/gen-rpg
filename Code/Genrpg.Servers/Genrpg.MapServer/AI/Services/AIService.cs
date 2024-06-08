@@ -24,15 +24,16 @@ using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Pathfinding.Entities;
 
 namespace Genrpg.MapServer.AI.Services
 {
     public interface IAIService : IInitializable
     {
-        bool Update(GameState gs, Unit unit);
-        void TargetMove(GameState gs, Unit unit, string targetUnitId);
-        void EndCombat(GameState gs, Unit unit, string killedUnitId, bool clearAllAttackers);
-        void BringFriends(GameState gs, Unit unit, string targetId);
+        bool Update(IRandom rand, Unit unit);
+        void TargetMove(IRandom rand, Unit unit, string targetUnitId);
+        void EndCombat(IRandom rand, Unit unit, string killedUnitId, bool clearAllAttackers);
+        void BringFriends(IRandom rand, Unit unit, string targetId);
         long GetCastTimes();
         long GetUpdateTimes();
     }
@@ -43,10 +44,10 @@ namespace Genrpg.MapServer.AI.Services
         private IMapMessageService _messageService = null;
         private IMapObjectManager _objectManager = null;
         private IPathfindingService _pathfindingService = null;
-        private IGameData _gameData;
-        private ILogService _logService;
+        private IGameData _gameData = null;
+        private ILogService _logService = null;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -64,7 +65,7 @@ namespace Genrpg.MapServer.AI.Services
             return _castTimes;
         }
 
-        public bool Update(GameState gs, Unit unit)
+        public bool Update(IRandom rand, Unit unit)
         {
             if (unit.HasFlag(UnitFlags.IsDead))
             {
@@ -82,7 +83,7 @@ namespace Genrpg.MapServer.AI.Services
             {
                 if (!unit.HasTarget())
                 {
-                    ScanForTargets(gs, unit);
+                    ScanForTargets(rand, unit);
                     if (!unit.HasTarget())
                     {
                         if (!unit.Moving)
@@ -93,35 +94,35 @@ namespace Genrpg.MapServer.AI.Services
                             }
                             else
                             {
-                                IdleWander(gs, unit);
+                                IdleWander(rand, unit);
                             }
                         }
                         else
                         {
-                            KeepMoving(gs, unit);
+                            KeepMoving(rand, unit);
                         }
                     }
                 }
                 else // Have target
                 {
-                    UpdateCombat(gs, unit);
+                    UpdateCombat(rand, unit);
                 }
             }
             else
             {
-                KeepMoving(gs, unit);
+                KeepMoving(rand, unit);
             }
 
-            UpdateAfterAIStep(gs, unit);
+            UpdateAfterAIStep(rand, unit);
             return true;
         }
 
-        protected void IdleWander(GameState gs, Unit unit)
+        protected void IdleWander(IRandom rand, Unit unit)
         {
             if (!unit.Moving && !unit.HasFlag(UnitFlags.Evading) &&
                 !unit.GetAddons().Any() &&
                 !unit.HasTarget() &&
-                gs.rand.NextDouble() < _gameData.Get<AISettings>(unit).IdleWanderChance &&
+                rand.NextDouble() < _gameData.Get<AISettings>(unit).IdleWanderChance &&
                 unit.Spawn != null)
             {
 
@@ -129,19 +130,19 @@ namespace Genrpg.MapServer.AI.Services
 
                 float wanderRange = 25.0f;
 
-                float targetx = MathUtils.FloatRange(unit.Spawn.X - wanderRange, unit.Spawn.X + wanderRange, gs.rand);
-                float targetz = MathUtils.FloatRange(unit.Spawn.Z - wanderRange, unit.Spawn.Z + wanderRange, gs.rand);
+                float targetx = MathUtils.FloatRange(unit.Spawn.X - wanderRange, unit.Spawn.X + wanderRange, rand);
+                float targetz = MathUtils.FloatRange(unit.Spawn.Z - wanderRange, unit.Spawn.Z + wanderRange, rand);
 
-                LocationMove(gs, unit, targetx, targetz, MathUtils.FloatRange(0.2f, 0.3f, gs.rand));
+                LocationMove(rand, unit, targetx, targetz, MathUtils.FloatRange(0.2f, 0.3f, rand));
             }
         }
 
-        protected void UpdateCombat(GameState gs, Unit unit)
+        protected void UpdateCombat(IRandom rand, Unit unit)
         {
             if (!_objectManager.GetUnit(unit.TargetId, out Unit target) || target.HasFlag(UnitFlags.IsDead))
             {
-                SetTarget(gs, unit, "");
-                EndCombat(gs, unit, unit.TargetId, false);
+                SetTarget(rand, unit, "");
+                EndCombat(rand, unit, unit.TargetId, false);
                 return;
             }
 
@@ -152,7 +153,7 @@ namespace Genrpg.MapServer.AI.Services
 
             if (spells.Count < 1)
             {
-                KeepMoving(gs, unit);
+                KeepMoving(rand, unit);
                 return;
             }
 
@@ -167,10 +168,10 @@ namespace Genrpg.MapServer.AI.Services
 
             _messageService.SendMessage(unit, castSpell);
 
-            KeepMoving(gs, unit);
+            KeepMoving(rand, unit);
         }
 
-        protected void ScanForTargets(GameState gs, Unit unit)
+        protected void ScanForTargets(IRandom rand, Unit unit)
         {
             if (unit.HasFlag(UnitFlags.Evading))
             {
@@ -184,13 +185,13 @@ namespace Genrpg.MapServer.AI.Services
 
             if (nearbyUnits.Count > 0)
             {
-                string newTargetId = nearbyUnits[gs.rand.Next() % nearbyUnits.Count].Id;
-                TargetMove(gs, unit, newTargetId);
-                BringFriends(gs, unit, newTargetId); // When it finds a target, it brings friends.
+                string newTargetId = nearbyUnits[rand.Next() % nearbyUnits.Count].Id;
+                TargetMove(rand, unit, newTargetId);
+                BringFriends(rand, unit, newTargetId); // When it finds a target, it brings friends.
             }
         }
 
-        public void BringFriends(GameState gs, Unit bringer, string targetId)
+        public void BringFriends(IRandom rand, Unit bringer, string targetId)
         {
             if (!_objectManager.GetUnit(targetId, out Unit targetUnit) || targetUnit.HasFlag(UnitFlags.IsDead | UnitFlags.Evading))
             {
@@ -208,17 +209,17 @@ namespace Genrpg.MapServer.AI.Services
             _messageService.SendMessageNear(targetUnit, bringAFriend, _gameData.Get<AISettings>(bringer).BringAFriendRadius, false);
         }
 
-        public void LocationMove(GameState gs, Unit unit, float x, float z, float speedMult)
+        public void LocationMove(IRandom rand, Unit unit, float x, float z, float speedMult)
         {
             unit.Speed = unit.BaseSpeed * speedMult;
             unit.Moving = true;
             unit.FinalX = x;
             unit.FinalZ = z;
 
-            //UpdateAfterAIStep(gs, unit);
+            //UpdateAfterAIStep(rand, unit);
         }
 
-        public void TargetMove(GameState gs, Unit unit, string targetUnitId)
+        public void TargetMove(IRandom rand, Unit unit, string targetUnitId)
         {
             if (unit.HasFlag(UnitFlags.Evading))
             {
@@ -236,7 +237,7 @@ namespace Genrpg.MapServer.AI.Services
                 speedMult = UnitConstants.CombatSpeedMult;
             }
 
-            SetTarget(gs, unit, targetUnit.Id);
+            SetTarget(rand, unit, targetUnit.Id);
 
             float targX = unit.X;
             float targZ = unit.Z;
@@ -246,15 +247,15 @@ namespace Genrpg.MapServer.AI.Services
 
             float dist = (float)Math.Sqrt(dx * dx + dz * dz);
 
-            LocationMove(gs, unit, targX, targZ, speedMult);
+            LocationMove(rand, unit, targX, targZ, speedMult);
 
-            StartCombat(gs, unit, targetUnit);
+            StartCombat(rand, unit, targetUnit);
         }
-        public void EndCombat(GameState gs, Unit unit, string killedUnitId, bool clearAllAttackers)
+        public void EndCombat(IRandom rand, Unit unit, string killedUnitId, bool clearAllAttackers)
         {
             string oldTargetId = unit.TargetId;
-            SetTarget(gs, unit, null);
-            ScanForTargets(gs, unit);
+            SetTarget(rand, unit, null);
+            ScanForTargets(rand, unit);
             if (!string.IsNullOrEmpty(killedUnitId))
             {
                 unit.RemoveAttacker(killedUnitId);
@@ -267,16 +268,16 @@ namespace Genrpg.MapServer.AI.Services
 
             if (!unit.HasTarget() || unit.TargetId == oldTargetId || unit.TargetId == killedUnitId)
             {
-                SetTarget(gs, unit, null);
+                SetTarget(rand, unit, null);
 
                 if (!(unit is Character ch))
                 {
-                    LocationMove(gs, unit, unit.CombatStartX, unit.CombatStartZ, UnitConstants.EvadeSpeedMult);
+                    LocationMove(rand, unit, unit.CombatStartX, unit.CombatStartZ, UnitConstants.EvadeSpeedMult);
                 }
             }
         }
 
-        public void SetTarget(GameState gs, Unit unit, string targetId)
+        public void SetTarget(IRandom rand, Unit unit, string targetId)
         {
             if (unit.TargetId == targetId)
             {
@@ -309,7 +310,7 @@ namespace Genrpg.MapServer.AI.Services
             _messageService.SendMessageNear(unit, onSet);
         }
 
-        public void StartCombat(GameState gs, Unit attacker, Unit victim)
+        public void StartCombat(IRandom rand, Unit attacker, Unit victim)
         {
             if (!attacker.HasFlag(UnitFlags.DidStartCombat))
             {
@@ -324,7 +325,7 @@ namespace Genrpg.MapServer.AI.Services
             }
         }
 
-        public void KeepMoving(GameState gs, Unit unit)
+        public void KeepMoving(IRandom rand, Unit unit)
         {
             if (!unit.Moving || unit.Speed < 0.01f)
             {
@@ -353,7 +354,7 @@ namespace Genrpg.MapServer.AI.Services
                 if (combatDist >= _gameData.Get<AISettings>(unit).LeashDistance)
                 {
                     unit.AddFlag(UnitFlags.Evading);
-                    EndCombat(gs, unit, "", true);
+                    EndCombat(rand, unit, "", true);
                     return;
                 }
             }
@@ -367,7 +368,7 @@ namespace Genrpg.MapServer.AI.Services
             {
                 if (unit.HasTarget() && distToGo > AIConstants.CloseToTargetDistance)
                 {
-                    TargetMove(gs, unit, unit.TargetId);
+                    TargetMove(rand, unit, unit.TargetId);
                 }
                 return;
             }
@@ -431,12 +432,16 @@ namespace Genrpg.MapServer.AI.Services
             }           
         }
 
-        private void UpdateAfterAIStep(GameState gs, Unit unit)
+        private void UpdateAfterAIStep(IRandom rand, Unit unit)
         {
-            _pathfindingService.UpdatePath(gs, unit, (int)unit.FinalX, (int)unit.FinalZ);
-            UnitUtils.TurnTowardNextPosition(unit);
-            _objectManager.UpdatePosition(gs, unit, 0);
+            _pathfindingService.UpdatePath(rand, unit, (int)unit.FinalX, (int)unit.FinalZ, OnUpdatePath);
+        }
 
+        private void OnUpdatePath(IRandom rand, Unit unit, WaypointList list)
+        {
+            unit.Waypoints = list; 
+            UnitUtils.TurnTowardNextPosition(unit);
+            _objectManager.UpdatePosition(rand, unit, 0);
         }
     }
 }

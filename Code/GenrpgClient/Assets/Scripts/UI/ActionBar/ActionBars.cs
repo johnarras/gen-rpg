@@ -83,12 +83,12 @@ public class ActionBars : SpellIconScreen
                     Parent = parent,
                 };
 
-                _assetService.LoadAssetInto(_gs, parent, AssetCategoryNames.UI, ActionButtonPrefab, OnDownloadButton, abDownload, _token, "ActionBars");
+                _assetService.LoadAssetInto(parent, AssetCategoryNames.UI, ActionButtonPrefab, OnDownloadButton, abDownload, _token, "ActionBars");
             }
         }
     }
 
-    private void OnDownloadButton(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnDownloadButton(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
 
@@ -151,7 +151,7 @@ public class ActionBars : SpellIconScreen
 
         foreach (ActionButton button in _buttons.Values)
         {
-            button.SetCooldown(_gs, _gs.ch);
+            button.SetCooldown(_gs.ch);
         }
 
         return;
@@ -249,11 +249,11 @@ public class ActionBars : SpellIconScreen
 
 
 
-    public override void OnRightClickIcon(UnityGameState gs, SpellIcon icon)
+    public override void OnRightClickIcon(SpellIcon icon)
     {
     }
 
-    public override void OnLeftClickIcon(UnityGameState gs, SpellIcon icon)
+    public override void OnLeftClickIcon(SpellIcon icon)
     {
         ActionButton actionButton = icon as ActionButton;
         if (actionButton == null)

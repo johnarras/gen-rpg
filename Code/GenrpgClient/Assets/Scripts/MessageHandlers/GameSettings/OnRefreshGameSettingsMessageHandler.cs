@@ -9,10 +9,10 @@ namespace Assets.Scripts.MessageHandlers.GameSettings
     {
         private IWebNetworkService _webNetworkService = null;
 
-        protected override void InnerProcess(UnityGameState gs, OnRefreshGameSettings msg, CancellationToken token)
+        protected override void InnerProcess(OnRefreshGameSettings msg, CancellationToken token)
         {
-            _webNetworkService.SendClientWebCommand(new RefreshGameSettingsCommand() { CharId = gs.ch.Id }, token);
-            _webNetworkService.SendClientWebCommand(new RefreshStoresCommand() { CharId = gs.ch.Id }, token);
+            _webNetworkService.SendClientWebCommand(new RefreshGameSettingsCommand() { CharId = _gs.ch.Id }, token);
+            _webNetworkService.SendClientWebCommand(new RefreshStoresCommand() { CharId = _gs.ch.Id }, token);
         }
     }
 }

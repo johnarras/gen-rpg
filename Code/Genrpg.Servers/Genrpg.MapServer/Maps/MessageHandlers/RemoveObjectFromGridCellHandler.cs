@@ -3,6 +3,7 @@ using Genrpg.MapServer.Maps.Messaging;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Maps.MessageHandlers
 {
-    public class RemoveObjectFromGridCellHandler : BaseServerMapMessageHandler<RemoveObjectFromGridCell>
+    public class RemoveObjectFromGridCellHandler : BaseMapObjectServerMapMessageHandler<RemoveObjectFromGridCell>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, RemoveObjectFromGridCell message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, RemoveObjectFromGridCell message)
         {
-            _objectManager.FinalRemoveObjectFromOldGrid(gs, obj, message.GridData, message.GridItem);
+            _objectManager.FinalRemoveObjectFromOldGrid(rand, obj, message.GridData, message.GridItem);
         }
     }
 }

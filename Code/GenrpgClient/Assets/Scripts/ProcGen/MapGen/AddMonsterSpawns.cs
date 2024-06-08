@@ -11,28 +11,28 @@ using Genrpg.Shared.Spawns.Entities;
 public class AddMonsterSpawns : BaseZoneGenerator
 {
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        foreach (Zone zone in gs.map.Zones)
+        await base.Generate(token);
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
-    public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
+    public void GenerateOne(Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
-        if ( zone == null || zoneType == null || startx >= endx || starty >= endy ||
-            gs.map == null)
+        if (zone == null || zoneType == null || startx >= endx || starty >= endy ||
+            _mapProvider.GetMap() == null)
         {
             return;
         }
 
-        startx = MathUtils.Clamp(MapConstants.MapEdgeSize, startx, gs.map.GetHwid() - MapConstants.MapEdgeSize);
-        starty = MathUtils.Clamp(MapConstants.MapEdgeSize, starty, gs.map.GetHhgt() - MapConstants.MapEdgeSize);
+        startx = MathUtils.Clamp(MapConstants.MapEdgeSize, startx, _mapProvider.GetMap().GetHwid() - MapConstants.MapEdgeSize);
+        starty = MathUtils.Clamp(MapConstants.MapEdgeSize, starty, _mapProvider.GetMap().GetHhgt() - MapConstants.MapEdgeSize);
 
 
-        endx = MathUtils.Clamp(MapConstants.MapEdgeSize, endx, gs.map.GetHwid() - MapConstants.MapEdgeSize);
-        endy = MathUtils.Clamp(MapConstants.MapEdgeSize, endy, gs.map.GetHhgt() - MapConstants.MapEdgeSize);
+        endx = MathUtils.Clamp(MapConstants.MapEdgeSize, endx, _mapProvider.GetMap().GetHwid() - MapConstants.MapEdgeSize);
+        endy = MathUtils.Clamp(MapConstants.MapEdgeSize, endy, _mapProvider.GetMap().GetHhgt() - MapConstants.MapEdgeSize);
 
         MyRandom rand = new MyRandom(zone.Seed + 1);
 
@@ -48,75 +48,75 @@ public class AddMonsterSpawns : BaseZoneGenerator
                 int cx = x + MathUtils.IntRange(-offsetSize, offsetSize, rand);
                 int cy = y + MathUtils.IntRange(-offsetSize, offsetSize, rand);
 
-                if (cx < 0 || cy < 0 || cx >= gs.map.GetHwid() || cy >= gs.map.GetHhgt())
+                if (cx < 0 || cy < 0 || cx >= _mapProvider.GetMap().GetHwid() || cy >= _mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
 
-                if (cx < 0 || cy < 0 || cx >= gs.map.GetHwid() || cy >= gs.map.GetHhgt())
+                if (cx < 0 || cy < 0 || cx >= _mapProvider.GetMap().GetHwid() || cy >= _mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
-                if (FlagUtils.IsSet(gs.md.flags[cx, cy], MapGenFlags.BelowWater))
-                {
-                    continue;
-                }
-
-                if (!isValidCell(gs.md.mapObjects[cx, cy]))
+                if (FlagUtils.IsSet(_md.flags[cx, cy], MapGenFlags.BelowWater))
                 {
                     continue;
                 }
 
-                if (gs.md.mountainHeights[cx, cy] >= 1.0f)
+                if (!isValidCell(_md.mapObjects[cx, cy]))
                 {
                     continue;
                 }
 
-                if (gs.md.mountainDistPercent[cx,cy] < 0.1f)
+                if (_md.mountainHeights[cx, cy] >= 1.0f)
                 {
                     continue;
                 }
 
-                if (_terrainManager.GetSteepness(gs, cx, cy) > PathfindingConstants.MaxSteepness)
+                if (_md.mountainDistPercent[cx,cy] < 0.1f)
                 {
                     continue;
                 }
 
-                if (gs.md.heights[cx, cy] <= (MapConstants.MinLandHeight*7/10) / MapConstants.MapHeight)
+                if (_terrainManager.GetSteepness(cx, cy) > PathfindingConstants.MaxSteepness)
                 {
                     continue;
                 }
 
-
-                if (gs.md.bridgeDistances[cx,cy] < 20)
-                {
-                    continue;
-                }
-
-                if (_zoneGenService.FindMapLocation(gs, cx, cy, 15) != null)
+                if (_md.heights[cx, cy] <= (MapConstants.MinLandHeight*7/10) / MapConstants.MapHeight)
                 {
                     continue;
                 }
 
 
-                if (gs.md.roadDistances[cx,cy] < 4)
+                if (_md.bridgeDistances[cx,cy] < 20)
+                {
+                    continue;
+                }
+
+                if (_zoneGenService.FindMapLocation(cx, cy, 15) != null)
+                {
+                    continue;
+                }
+
+
+                if (_md.roadDistances[cx,cy] < 4)
                 {
                     continue;
                 }
                 bool nearAnotherZone = false;
                 for (int xx = cx - minZoneDist; xx <= cx + minZoneDist; xx += zoneCheckSkip)
                 {
-                    if (xx < 0 || xx >= gs.map.GetHwid())
+                    if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
                     {
                         continue;
                     }
                     for (int yy = cy-minZoneDist; yy <= cy+minZoneDist; yy+=zoneCheckSkip)
                     {
-                        if (yy < 0 || yy >= gs.map.GetHhgt())
+                        if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                         {
                             continue;
                         }
-                        if (gs.md.mapZoneIds[xx,yy] != zone.IdKey)
+                        if (_md.mapZoneIds[xx,yy] != zone.IdKey)
                         {
                             nearAnotherZone = true;
                             break;
@@ -135,9 +135,9 @@ public class AddMonsterSpawns : BaseZoneGenerator
                 }
 
                 long zoneId = zone.IdKey;
-                if (gs.md.subZoneIds[cx,cy] > 0)
+                if (_md.subZoneIds[cx,cy] > 0)
                 {
-                    zoneId = gs.md.subZoneIds[cx, cy];
+                    zoneId = _md.subZoneIds[cx, cy];
                 }
 
                 InitSpawnData initData = new InitSpawnData()
@@ -146,12 +146,12 @@ public class AddMonsterSpawns : BaseZoneGenerator
                     EntityId = zone.IdKey,
                     SpawnX = cy,
                     SpawnZ = cx,
-                    ZoneId = gs.md.mapZoneIds[cx, cy],
-                    ZoneOverridePercent = (int)(gs.md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax),
+                    ZoneId = _md.mapZoneIds[cx, cy],
+                    ZoneOverridePercent = (int)(_md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax),
                 };
 
 
-                gs.spawns.AddSpawn(initData);
+                _mapProvider.GetSpawns().AddSpawn(initData);
 
             }
         }

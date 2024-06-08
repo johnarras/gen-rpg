@@ -5,6 +5,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,10 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
 {
     public class CoreCharacterLoadUpdater : BaseCharacterLoadUpdater
     {
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public override int Priority => 1;
 
-        public override async Task Update(GameState gs, Character ch)
+        public override async Task Update(IRandom rand, Character ch)
         {
             ch.FactionTypeId = FactionTypes.Player;
             ch.BaseSpeed = _gameData.Get<AISettings>(ch).BaseUnitSpeed;

@@ -8,11 +8,11 @@ namespace Assets.Scripts.Login.MessageHandlers
     public class CreateCharResultHandler : BaseClientLoginResultHandler<CreateCharResult>
     {
         private IScreenService _screenService;
-        protected override void InnerProcess(UnityGameState gs, CreateCharResult result, CancellationToken token)
+        protected override void InnerProcess(CreateCharResult result, CancellationToken token)
         {
-            gs.characterStubs = result.AllCharacters;
-            _screenService.Open(gs, ScreenId.CharacterSelect);
-            _screenService.Close(gs, ScreenId.CharacterCreate);
+            _gs.characterStubs = result.AllCharacters;
+            _screenService.Open(ScreenId.CharacterSelect);
+            _screenService.Close(ScreenId.CharacterCreate);
         }
     }
 }

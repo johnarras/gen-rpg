@@ -9,28 +9,28 @@ using Genrpg.Shared.Zones.WorldData;
 public class AddSteepnessTextures : BaseZoneGenerator
 {
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        foreach (Zone zone in gs.map.Zones)
+        await base.Generate(token);
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
-    public void GenerateOne (UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
+    public void GenerateOne (Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
         
         if (startx >= endx || starty >= endy)
         {
             return;
         }
-        float[,,] alphas = gs.md.alphas;
+        float[,,] alphas = _md.alphas;
 
-        startx = MathUtils.Clamp(0, startx, gs.map.GetHwid() - 1);
-        endx = MathUtils.Clamp(0, endx, gs.map.GetHwid() - 1);
-        starty = MathUtils.Clamp(0, starty, gs.map.GetHhgt() - 1);
-        endy = MathUtils.Clamp(0, endy, gs.map.GetHhgt() - 1);
+        startx = MathUtils.Clamp(0, startx, _mapProvider.GetMap().GetHwid() - 1);
+        endx = MathUtils.Clamp(0, endx, _mapProvider.GetMap().GetHwid() - 1);
+        starty = MathUtils.Clamp(0, starty, _mapProvider.GetMap().GetHhgt() - 1);
+        endy = MathUtils.Clamp(0, endy, _mapProvider.GetMap().GetHhgt() - 1);
 
 
         int maxLen = Math.Max(endx - startx, endy - starty);
@@ -63,7 +63,7 @@ public class AddSteepnessTextures : BaseZoneGenerator
         float ssaoPers = MathUtils.FloatRange(0.3f, 0.6f, detailRand);
         int ssaoOctaves = 3;
 
-        float[,] cleftDirtNoise = _noiseService.Generate(gs, ssaoPers, ssaoFreq, ssaoAmp, ssaoOctaves, detailRand.Next(), width, height);
+        float[,] cleftDirtNoise = _noiseService.Generate(ssaoPers, ssaoFreq, ssaoAmp, ssaoOctaves, detailRand.Next(), width, height);
 
 
         float midFreq = MathUtils.FloatRange(0.3f, 0.7f, detailRand) * maxLen;
@@ -71,7 +71,7 @@ public class AddSteepnessTextures : BaseZoneGenerator
         float midPers = MathUtils.FloatRange(0.2f, 0.3f, detailRand);
         int midOCtaves = 2;
 
-        float[,] midNoise = _noiseService.Generate(gs, midPers, midFreq, midAmp, midOCtaves, detailRand.Next(), width, height);
+        float[,] midNoise = _noiseService.Generate(midPers, midFreq, midAmp, midOCtaves, detailRand.Next(), width, height);
 
 
         int numCheck = 0;
@@ -82,19 +82,19 @@ public class AddSteepnessTextures : BaseZoneGenerator
 			for (int y = starty; y <= endy; y++)
 			{
                 numCheck++;
-                if (gs.md.mapZoneIds[x, y] != zone.IdKey)
+                if (_md.mapZoneIds[x, y] != zone.IdKey)
                 {
                     numBadZone++;
                     continue;
                 }
                 numGoodZone++;
 
-                float edgePct = gs.md.EdgeHeightmapAdjustPercent(gs, gs.map, x, y);
+                float edgePct = _md.EdgeHeightmapAdjustPercent(_mapProvider.GetMap(), x, y);
 
-				float steep = _terrainManager.GetSteepness(gs, y,x);
+				float steep = _terrainManager.GetSteepness(y,x);
 				float roadPercent= alphas[x,y,MapConstants.RoadTerrainIndex];
 
-				if (roadPercent > 0) // && steep < gs.md.MinSteepnessForTexture*1.5f)
+				if (roadPercent > 0) // && steep < _md.MinSteepnessForTexture*1.5f)
 				{
 					continue;
 				}
@@ -128,13 +128,13 @@ public class AddSteepnessTextures : BaseZoneGenerator
 					if (useCleftDirt)
 					{
 
-                        float midhgt = _terrainManager.SampleHeight(gs, y, x);
+                        float midhgt = _terrainManager.SampleHeight(y, x);
 							
 						int numAngles = 40;
 						int innerMinNumAboveMid = numAngles/2+extraRaisedPointsAmount;
 						int innerNumAboveMid = 0;
 						float innerExtraHeight = 0.1f/MapConstants.MapHeight;
-						float innerrad = 1.3f/gs.md.awid;
+						float innerrad = 1.3f/_md.awid;
 							
 						for (int i = 0; i < numAngles; i++)
 						{
@@ -143,7 +143,7 @@ public class AddSteepnessTextures : BaseZoneGenerator
 
 							float xx = x+innerrad*cosx;
 							float yy = y+innerrad*sinx;
-                            float xyhgt = _terrainManager.SampleHeight(gs, yy, xx);
+                            float xyhgt = _terrainManager.SampleHeight(yy, xx);
 							if (xyhgt > midhgt+innerExtraHeight)
 							{
 								innerNumAboveMid++;
@@ -207,7 +207,7 @@ public class AddSteepnessTextures : BaseZoneGenerator
                     }
 					// Add some mixture of dirt and whatnot in there.
 
-					gs.md.ClearAlphasAt(gs,x,y);
+					_md.ClearAlphasAt(x,y);
 					alphas[x,y,MapConstants.BaseTerrainIndex] = groundPercent;
 					alphas[x,y,MapConstants.SteepTerrainIndex] = steepPercent;
 					alphas[x,y,MapConstants.RoadTerrainIndex] = roadPercent;

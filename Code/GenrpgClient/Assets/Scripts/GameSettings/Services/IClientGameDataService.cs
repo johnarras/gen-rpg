@@ -10,8 +10,8 @@ namespace Assets.Scripts.GameSettings.Services
 {
     public interface IClientGameDataService : IInitializable
     {
-        UniTask SaveSettings(UnityGameState gs, IGameSettings settings);
+        UniTask SaveSettings(IGameSettings settings);
 
-        UniTask LoadCachedSettings(UnityGameState gs);
+        UniTask LoadCachedSettings(IUnityGameState gs);
     }
 }

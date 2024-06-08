@@ -17,7 +17,6 @@ namespace Tests.MapServerTests
     public static class MapServerTestSetup
     {
         private static object _setupLock = new object();
-        private static MapServerMain? _cachedMap = null;
         public static async Task<MapServerMain?> GetMapServer(string serverId, object parentObject)
         {
             CancellationTokenSource? newSource = new CancellationTokenSource();

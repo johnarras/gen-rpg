@@ -25,6 +25,8 @@ using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.Entities;
 using Genrpg.MapServer.Spells.Services;
+using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Pathfinding.Services;
 
 namespace Genrpg.MapServer.MapMessaging.Services
 {
@@ -39,8 +41,9 @@ namespace Genrpg.MapServer.MapMessaging.Services
         private List<MapMessageQueue> _queues = new List<MapMessageQueue>();
 
         private IMapObjectManager _objectManager = null;
-        private IServerSpellService _serverSpellService = null;
         private IAIService _aiService = null;
+        private IMapProvider _mapProvider =null;
+        private IPathfindingService _pathfindingService = null;
 
         private DateTime _startTime = DateTime.UtcNow;
 
@@ -48,7 +51,7 @@ namespace Genrpg.MapServer.MapMessaging.Services
 
         private CancellationToken _token;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             _eventHandlerDict = ReflectionUtils.SetupDictionary<Type, IMapMessageHandler>(gs);
 
@@ -80,12 +83,12 @@ namespace Genrpg.MapServer.MapMessaging.Services
         }
 
         private Task _countTask = null;
-        public virtual void Init(GameState gs, CancellationToken token)
+        public virtual void Init(IGameState gs, CancellationToken token)
         {
             _token = token;
             _startTime = DateTime.UtcNow;
 
-            _messageQueueCount = Math.Max(2, (int)(gs.map.BlockCount * 0.67));
+            _messageQueueCount = Math.Max(2, (int)(_mapProvider.GetMap().BlockCount * 0.67));
 
             if (MapInstanceConstants.ServerTestMode)
             {
@@ -109,7 +112,7 @@ namespace Genrpg.MapServer.MapMessaging.Services
             }
         }
 
-        private async Task ShowMessageCounts(GameState gs, CancellationToken token)
+        private async Task ShowMessageCounts(IGameState gs, CancellationToken token)
         {
             try
             {
@@ -120,20 +123,21 @@ namespace Genrpg.MapServer.MapMessaging.Services
 
                     long aiUpdPerSec = _aiService.GetUpdateTimes() / counts.Seconds;
                     long castPerSec = _aiService.GetCastTimes() / counts.Seconds;
+                    long pfPerSec = counts.PathfindingCount / counts.Seconds;
 
 
-                    _logService.Message("M: " + gs.map.Id + " Min/Max " + counts.MinMessages + "/" + counts.MaxMessages
-                        + " Total: " + counts.TotalMessages + " PerSec: " + counts.MessagesPerSecond
+                    _logService.Message("M: " + _mapProvider.GetMap().Id + " Min/Max " + counts.MinMessages + "/" + counts.MaxMessages
+                        + " Tot: " + counts.TotalMessages + " PerSec: " + counts.MessagesPerSecond
 
                          + " AI/Sec: " + aiUpdPerSec + " Cast/Sec: " + castPerSec
-
+                          + " PF/Sec: " + pfPerSec 
                         );
 
                     if (MapInstanceConstants.ServerTestMode)
                     {
                         MapObjectCounts mapCounts = _objectManager.GetCounts();
 
-                        _logService.Message("M: " + gs.map.Id + "MapObjs IdDict: " + mapCounts.IdLookupObjectAccount + " Grid: " + mapCounts.GridObjectCount + " Char: " +
+                        _logService.Message("M: " + _mapProvider.GetMap().Id + "MapObjs IdDict: " + mapCounts.IdLookupObjectAccount + " Grid: " + mapCounts.GridObjectCount + " Char: " +
                             mapCounts.ZoneObjectCount);
 
                     }
@@ -169,6 +173,7 @@ namespace Genrpg.MapServer.MapMessaging.Services
             messageCounts.MessagesPerSecond = messageCounts.TotalMessages / messageCounts.Seconds;
             messageCounts.TotalSpells = _aiService.GetCastTimes();
             messageCounts.TotalUpdates = _aiService.GetUpdateTimes();
+            messageCounts.PathfindingCount = _pathfindingService.GetPathSearchCount();
             return messageCounts;
         }
 

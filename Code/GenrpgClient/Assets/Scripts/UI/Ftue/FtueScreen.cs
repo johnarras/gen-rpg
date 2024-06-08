@@ -48,7 +48,7 @@ namespace Assets.Scripts.UI.Blockers
 
                 if (!string.IsNullOrEmpty(_step.ActionScreenName) && !string.IsNullOrEmpty(_step.ActionButtonName))
                 {
-                    ActiveScreen activeScreen = _screenService.GetScreen(_gs, _step.ActionScreenName);
+                    ActiveScreen activeScreen = _screenService.GetScreen(_step.ActionScreenName);
 
                     if (activeScreen != null)
                     {
@@ -125,7 +125,7 @@ namespace Assets.Scripts.UI.Blockers
 
         private void OnClickBackground()
         {
-            _ftueService.CompleteStep(_gs, _gs.ch, _step.IdKey);
+            _ftueService.CompleteStep(_rand, _gs.ch, _step.IdKey);
             StartClose();
         }
     }

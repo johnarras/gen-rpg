@@ -35,10 +35,10 @@ public class AddResourceNodes : BaseZoneGenerator
     private List<ResourceNodeData> _resources = null;
 
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
 
-        await base.Generate(gs, token);
+        await base.Generate(token);
         _resources = new List<ResourceNodeData>();
         _resources.Add(new ResourceNodeData()
         {
@@ -76,15 +76,15 @@ public class AddResourceNodes : BaseZoneGenerator
 
         });
 
-        foreach (Zone zone in gs.map.Zones)
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
-    public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
+    public void GenerateOne(Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
-        if ( zone == null || endx <= startx || endy <= starty)
+        if (zone == null || endx <= startx || endy <= starty)
         {
             return;
         }
@@ -110,7 +110,7 @@ public class AddResourceNodes : BaseZoneGenerator
         for (int r = 0; r < _resources.Count; r++)
         {
             ResourceNodeData rdata = _resources[r];
-            List<GroundObjType> categoryObjects = _gameData.Get<GroundObjTypeSettings>(gs.ch).GetData().Where(x => x.GroupId == rdata.GroupId).ToList();
+            List<GroundObjType> categoryObjects = _gameData.Get<GroundObjTypeSettings>(_gs.ch).GetData().Where(x => x.GroupId == rdata.GroupId).ToList();
 
             if (categoryObjects.Count < 1)
             {
@@ -159,7 +159,7 @@ public class AddResourceNodes : BaseZoneGenerator
                 break;
             }
 
-            int placeChosen = gs.rand.Next() % totalToPlace;
+            int placeChosen = _rand.Next() % totalToPlace;
 
             ZoneResourceNodeData zdata = null;
 
@@ -179,41 +179,41 @@ public class AddResourceNodes : BaseZoneGenerator
             int cx = x + (int)(x / (MapConstants.TerrainPatchSize - 1));
             int cy = y + (int)(y / (MapConstants.TerrainPatchSize - 1));
 
-            if (cx < 0 || cx >= gs.map.GetHwid() || cy < 0 || cy >= gs.map.GetHhgt())
+            if (cx < 0 || cx >= _mapProvider.GetMap().GetHwid() || cy < 0 || cy >= _mapProvider.GetMap().GetHhgt())
             {
                 continue;
             }
 
-            if (_zoneGenService.FindMapLocation(gs, y, x, zdata.Data.MinDistToFeatures) != null)
+            if (_zoneGenService.FindMapLocation(y, x, zdata.Data.MinDistToFeatures) != null)
             {
                 continue;
             }
 
             
-            if (gs.md.mapZoneIds[cx, cy] != zone.IdKey) // zoneobject
+            if (_md.mapZoneIds[cx, cy] != zone.IdKey) // zoneobject
             {
                 continue;
             }
 
-            if (FlagUtils.IsSet(gs.md.flags[cx, cy], MapGenFlags.BelowWater))
+            if (FlagUtils.IsSet(_md.flags[cx, cy], MapGenFlags.BelowWater))
             {
                 continue;
             }
-            if (gs.md.roadDistances[x, y] < zdata.Data.MinDistToFeatures)
+            if (_md.roadDistances[x, y] < zdata.Data.MinDistToFeatures)
             {
                 continue;
             }
-            if (gs.md.alphas[cx, cy, MapConstants.RoadTerrainIndex] > 0)
-            {
-                continue;
-            }
-
-            if (FlagUtils.IsSet(gs.md.flags[cx,cy],MapGenFlags.NearResourceNode))
+            if (_md.alphas[cx, cy, MapConstants.RoadTerrainIndex] > 0)
             {
                 continue;
             }
 
-            if (zdata.Data.NearMountains != (gs.md.mountainHeights[cx, cy] <= 0))
+            if (FlagUtils.IsSet(_md.flags[cx,cy],MapGenFlags.NearResourceNode))
+            {
+                continue;
+            }
+
+            if (zdata.Data.NearMountains != (_md.mountainHeights[cx, cy] <= 0))
             {
                 continue;
             }
@@ -225,19 +225,19 @@ public class AddResourceNodes : BaseZoneGenerator
 
             for (int xx = cx - maxOffset; xx <= cx + maxOffset; xx++)
             {
-                if (xx < 0 || xx >= gs.map.GetHwid())
+                if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
                 {
                     continue;
                 }
 
                 for (int yy = cy - maxOffset; yy <= cy + maxOffset; yy++)
                 {
-                    if (yy < 0 || yy >= gs.map.GetHhgt())
+                    if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                     {
                         continue;
                     }
 
-                    if (gs.md.mapObjects[xx, yy] != 0)
+                    if (_md.mapObjects[xx, yy] != 0)
                     {
                         continue;
                     }
@@ -268,7 +268,7 @@ public class AddResourceNodes : BaseZoneGenerator
             }
             else
             {
-                int clutterWeight = gs.rand.Next() % zdata.SpawnWeightSum;
+                int clutterWeight = _rand.Next() % zdata.SpawnWeightSum;
                 for (int i = 0; i < zdata.Objects.Count; i++)
                 {
                     clutterWeight -= zdata.Objects[i].SpawnWeight;
@@ -292,17 +292,17 @@ public class AddResourceNodes : BaseZoneGenerator
                 EntityId = goType.IdKey,
                 SpawnX = py,
                 SpawnZ = px,
-                ZoneId = gs.md.mapZoneIds[cx, cy],
-                ZoneOverridePercent = (int)(gs.md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax),
+                ZoneId = _md.mapZoneIds[cx, cy],
+                ZoneOverridePercent = (int)(_md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax),
             };
 
-            gs.spawns.AddSpawn(initData);
+            _mapProvider.GetSpawns().AddSpawn(initData);
 
             zdata.CurrNum++;
 
             for (int xx = px-MapConstants.MinResourceSeparation; xx <= px+MapConstants.MinResourceSeparation; xx++)
             {
-                if (xx < 0 || xx >= gs.map.GetHwid())
+                if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
                 {
                     continue;
                 }
@@ -310,7 +310,7 @@ public class AddResourceNodes : BaseZoneGenerator
                 int ddx = xx - px;
                 for (int yy = py-MapConstants.MinResourceSeparation; yy <= py+MapConstants.MinResourceSeparation; yy++)
                 {
-                    if (yy < 0 || yy >= gs.map.GetHhgt())
+                    if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                     {
                         continue;
                     }
@@ -321,7 +321,7 @@ public class AddResourceNodes : BaseZoneGenerator
                         continue;
                     }
 
-                    gs.md.flags[xx, yy] |= MapGenFlags.NearResourceNode;
+                    _md.flags[xx, yy] |= MapGenFlags.NearResourceNode;
                 }
             }
 

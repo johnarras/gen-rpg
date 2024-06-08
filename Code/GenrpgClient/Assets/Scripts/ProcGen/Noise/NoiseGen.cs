@@ -14,7 +14,7 @@ public class NoiseGen
 
     public const int TSize = 8;
 
-    public float[,] Generate(GameState gs, double pers, double freq, double amp, int octaves, long seedIn,
+    public float[,] Generate(double pers, double freq, double amp, int octaves, long seedIn,
         int width, int height, double lacunarity = 2)
     {
         if (width < 1 || height < 1)

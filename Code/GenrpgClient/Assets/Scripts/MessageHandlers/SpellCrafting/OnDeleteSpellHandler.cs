@@ -6,9 +6,9 @@ namespace Assets.Scripts.MessageHandlers.SpellCrafting
 {
     public class OnDeleteSpellHandler : BaseClientMapMessageHandler<OnDeleteSpell>
     {
-        protected override void InnerProcess(UnityGameState gs, OnDeleteSpell msg, CancellationToken token)
+        protected override void InnerProcess(OnDeleteSpell msg, CancellationToken token)
         {
-            gs.ch.Get<SpellData>().Remove(msg.SpellId);
+            _gs.ch.Get<SpellData>().Remove(msg.SpellId);
             _dispatcher.Dispatch(msg);
         }
     }

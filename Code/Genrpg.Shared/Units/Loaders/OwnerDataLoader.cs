@@ -26,7 +26,7 @@ namespace Genrpg.Shared.Units.Loaders
     {
 
         protected IRepositoryService _repoSystem = null;
-        public override async Task Initialize(GameState gs, CancellationToken token)
+        public override async Task Initialize(IGameState gs, CancellationToken token)
         {
             await base.Initialize(gs,token);
 

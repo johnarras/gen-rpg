@@ -2,11 +2,14 @@ using System;
 using System.Threading;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Input.PlayerData;
+using Genrpg.Shared.MapServer.Services;
 
 public class PlayerController : UnitController
 {
 
     private ICameraController _cameraController = null;
+    protected IMapProvider _mapProvider;
+    protected IMapGenData _md;
 
     public const float SlopeLimit = 60f;
     public const float StepOffset = 1.0f;
@@ -36,7 +39,7 @@ public class PlayerController : UnitController
 
     public override bool HardStopOnSlopes() { return true; }
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         animationSpeed = 0.33f;
@@ -57,7 +60,7 @@ public class PlayerController : UnitController
         _unit.X =entity.transform().position.x;
         _unit.Z =entity.transform().position.z;
 
-        if (CanMoveNow(_gs))
+        if (CanMoveNow())
         {
             base.OnUpdate(token);
         }
@@ -71,8 +74,8 @@ public class PlayerController : UnitController
     private void SendPositionUpdate()
     {
         // Send aentity.transform() update to the server
-        if (_sendUpdates && !_gs.md.GeneratingMap &&
-            _gs.map != null &&
+        if (_sendUpdates && !_md.GeneratingMap &&
+            _mapProvider.GetMap() != null &&
             entity == _playerManager.GetEntity())
         {
             float oldRot = _unit.Rot;

@@ -37,7 +37,7 @@ namespace Genrpg.PlayerServer.Managers
         private ConcurrentDictionary<string, OnlineCharacter> _onlineChars = new ConcurrentDictionary<string, OnlineCharacter>();
 
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }

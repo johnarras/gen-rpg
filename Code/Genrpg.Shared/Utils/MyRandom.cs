@@ -5,6 +5,11 @@ using System;
 namespace Genrpg.Shared.Utils
 {
 
+    /// <summary>
+    /// I am not using Random.Shared because I want more control over the random numbers,
+    /// so this interface is passed everywhere since the environment is multithreaded
+    /// I can't just inject a ref.
+    /// </summary>
     public interface IRandom : IInjectable
     {
         int Next();
@@ -32,7 +37,7 @@ namespace Genrpg.Shared.Utils
 
         private void Reset()
         {
-            _rand = new System.Random((int)(DateTime.UtcNow.Ticks % 1000000000));
+            _rand = new System.Random((int)(DateTime.UtcNow.Ticks));
         }
 
         public int Next()

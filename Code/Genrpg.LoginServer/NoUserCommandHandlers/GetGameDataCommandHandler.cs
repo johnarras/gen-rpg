@@ -16,7 +16,7 @@ namespace Genrpg.LoginServer.NoUserCommandHandlers
         {
             NoUserGameDataResult result = new NoUserGameDataResult();
             
-            result.GameData = _gameDataService.GetClientGameData(gs, null, true);
+            result.GameData = _gameDataService.GetClientGameData(null, true);
 
             await Task.CompletedTask;
             gs.Results.Add(result);

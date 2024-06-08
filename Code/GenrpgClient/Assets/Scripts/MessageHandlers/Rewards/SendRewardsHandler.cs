@@ -8,9 +8,9 @@ namespace Assets.Scripts.MessageHandlers.Rewards
     public class SendRewardsHandler : BaseClientMapMessageHandler<SendRewards>
     {
         protected IEntityService _entityService;
-        protected override void InnerProcess(UnityGameState gs, SendRewards msg, CancellationToken token)
+        protected override void InnerProcess(SendRewards msg, CancellationToken token)
         {
-            _entityService.GiveRewards(gs, gs.ch, msg.Rewards);
+            _entityService.GiveRewards(_rand, _gs.ch, msg.Rewards);
 
             if (msg.ShowPopup)
             {

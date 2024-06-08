@@ -37,18 +37,18 @@ public class AddRocks : BaseZoneGenerator
 {
     public const float RandomRockDensity = 1.0f / 4000.0f;
     public int TriesPerRock = 20;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        foreach (Zone zone in gs.map.Zones)
+        await base.Generate(token);
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
-    public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
+    public void GenerateOne(Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
-        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
+        GenZone genZone = _md.GetGenZone(zone.IdKey);
 
         if (endx <= startx || endy <= starty)
         {
@@ -82,7 +82,7 @@ public class AddRocks : BaseZoneGenerator
                 continue;
             }
 
-            RockType rt = _gameData.Get<RockTypeSettings>(gs.ch).Get(zrt.RockTypeId);
+            RockType rt = _gameData.Get<RockTypeSettings>(_gs.ch).Get(zrt.RockTypeId);
             if (rt == null)
             {
                 continue;
@@ -141,18 +141,18 @@ public class AddRocks : BaseZoneGenerator
 
             
 
-            if (_zoneGenService.FindMapLocation(gs, x, y, 10) != null)
+            if (_zoneGenService.FindMapLocation(x, y, 10) != null)
             {
                 continue;
             }
 
             
-            if (gs.md.mapZoneIds[x,y] != zone.IdKey) // zoneobject
+            if (_md.mapZoneIds[x,y] != zone.IdKey) // zoneobject
             {
                 continue;
             }
 
-            if (gs.md.roadDistances[x, y] < 10)
+            if (_md.roadDistances[x, y] < 10)
             {
                 continue;
             }
@@ -173,7 +173,7 @@ public class AddRocks : BaseZoneGenerator
             for (int p = 0; p < currQuantityToPlace; p++)
             {
 
-                int nearbyItemsCount = nearbyHelper.GetNearbyItemsCount(gs, maxOffset, rand);
+                int nearbyItemsCount = nearbyHelper.GetNearbyItemsCount(maxOffset, rand);
 
                 FullRockType frt = null;
 
@@ -241,28 +241,28 @@ public class AddRocks : BaseZoneGenerator
                 int ipy = (int)(pz);
 
 
-                if (ipx < 0 || ipy < 0 || ipx >= gs.map.GetHwid() || ipy >= gs.map.GetHhgt())
+                if (ipx < 0 || ipy < 0 || ipx >= _mapProvider.GetMap().GetHwid() || ipy >= _mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
 
-                if (gs.md.roadDistances[ipx, ipy] < 3)
+                if (_md.roadDistances[ipx, ipy] < 3)
                 {
                     continue;
                 }
-                float posHeight = _terrainManager.GetInterpolatedHeight(gs, ipx, ipy);
+                float posHeight = _terrainManager.GetInterpolatedHeight(ipx, ipy);
 
                 if (posHeight < MapConstants.MinLandHeight)
                 {
                     continue;
                 }
 
-                if (gs.md.mapObjects != null && 
-                    gs.md.mapObjects[ipx, ipy] == 0)
+                if (_md.mapObjects != null && 
+                    _md.mapObjects[ipx, ipy] == 0)
                 {
                     int offset =  MapConstants.RockObjectOffset;
 
-                    gs.md.mapObjects[ipx, ipy] = (int)(offset + frt.rockType.IdKey);
+                    _md.mapObjects[ipx, ipy] = (int)(offset + frt.rockType.IdKey);
 
                     didFinalPlace = true;
 
@@ -276,7 +276,7 @@ public class AddRocks : BaseZoneGenerator
 
                         float currMaxOffset = MathUtils.FloatRange(1.1f, 2.1f, rand);
                         float currMinOffset = currMaxOffset / 2;
-                        nearbyHelper.AddItemsNear(gs, _gameData, _terrainManager, rand, zoneType, zone, x, y, 0.9f, nearbyItemsCount, currMinOffset, currMaxOffset);
+                        nearbyHelper.AddItemsNear(_gs, _gameData, _terrainManager, _mapProvider, rand, zoneType, zone, x, y, 0.9f, nearbyItemsCount, currMinOffset, currMaxOffset);
                     }
                 }
 

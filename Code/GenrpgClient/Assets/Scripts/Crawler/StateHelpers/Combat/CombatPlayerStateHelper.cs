@@ -23,7 +23,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.CombatPlayer; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
 
             CrawlerStateData stateData = CreateStateData();
@@ -66,7 +66,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
             }
 
             stateData.WorldSpriteName = notReadyUnits[0].PortraitName;
-            List<UnitAction> actions = _combatService.GetActionsForPlayer(gs, party, notReadyUnits[0]);
+            List<UnitAction> actions = _combatService.GetActionsForPlayer(party, notReadyUnits[0]);
 
             if (actions.Count == 1 && actions[0].CombatActionId == CombatActions.Disabled)
             {

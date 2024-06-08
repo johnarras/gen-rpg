@@ -16,17 +16,17 @@ public class SetTerrainTextures : BaseZoneGenerator
 {
 
     private ITerrainTextureManager _terrainTextureManager;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
-        await _terrainTextureManager.DownloadAllTerrainTextures(gs, token);
+        await _terrainTextureManager.DownloadAllTerrainTextures(token);
 
-        for (int gx = 0; gx < gs.map.BlockCount; gx++)
+        for (int gx = 0; gx < _mapProvider.GetMap().BlockCount; gx++)
         {
-            for (int gy = 0; gy < gs.map.BlockCount; gy++)
+            for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
             {
-                _terrainTextureManager.SetOneTerrainPatchLayers(gs, _terrainManager.GetTerrainPatch(gs, gx, gy, true), token, true).Forget();
+                _terrainTextureManager.SetOneTerrainPatchLayers(_terrainManager.GetTerrainPatch(gx, gy, true), token, true).Forget();
             }
             await UniTask.NextFrame(cancellationToken: token);
         }

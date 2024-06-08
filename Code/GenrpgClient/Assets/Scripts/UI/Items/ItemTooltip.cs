@@ -51,9 +51,9 @@ public class ItemTooltip : BaseTooltip
     protected InitItemTooltipData _data;
 
     protected Unit _unit = null;
-    public override void Init(UnityGameState gs, InitTooltipData baseData, CancellationToken token)
+    public override void Init(InitTooltipData baseData, CancellationToken token)
     {
-        base.Init(gs, baseData, token);
+        base.Init(baseData, token);
         InitItemTooltipData data = baseData as InitItemTooltipData;
         _data = data;
         if (_data == null || _data.mainItem == null)
@@ -69,7 +69,7 @@ public class ItemTooltip : BaseTooltip
 
         string bgName = IconHelper.GetBackingNameFromQuality(_gameData, _data.mainItem.QualityTypeId);
 
-        _assetService.LoadAtlasSpriteInto(gs, AtlasNames.Icons, bgName, RarityImage, token);
+        _assetService.LoadAtlasSpriteInto(AtlasNames.Icons, bgName, RarityImage, token);
 
         ShowMoney();
 
@@ -115,7 +115,7 @@ public class ItemTooltip : BaseTooltip
                             change = 0,
                             starsToShow = starsToShow,
                         };
-                        ShowTooltipRow(_gs, rowData);
+                        ShowTooltipRow(rowData);
 
                     }
                 }
@@ -147,7 +147,7 @@ public class ItemTooltip : BaseTooltip
                 change = change,
                 starsToShow = 0,
             };
-            ShowTooltipRow(_gs, rowData);
+            ShowTooltipRow(rowData);
         }
 
         foreach (ItemEffect eff in otherEffects)
@@ -168,22 +168,22 @@ public class ItemTooltip : BaseTooltip
                 change = change,
                 starsToShow = 0,
             };
-            ShowTooltipRow(_gs, rowData);
+            ShowTooltipRow(rowData);
         }
     }
 
-    private void ShowTooltipRow(UnityGameState gs, ItemTooltipRowData data)
+    private void ShowTooltipRow(ItemTooltipRowData data)
     {
         if (data == null)
         {
             return;
         }
 
-        _assetService.LoadAssetInto(gs, RowParent, AssetCategoryNames.UI, 
+        _assetService.LoadAssetInto(RowParent, AssetCategoryNames.UI, 
             ItemTooltipRow, OnLoadRow, data, _token, "Items" );
     }
 
-    private void OnLoadRow(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadRow(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -199,7 +199,7 @@ public class ItemTooltip : BaseTooltip
             return;
         }
 
-        row.Init(gs, rowData);
+        row.Init(rowData);
         _rows.Add(row);
     }
 

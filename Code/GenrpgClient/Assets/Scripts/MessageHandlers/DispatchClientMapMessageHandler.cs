@@ -10,7 +10,7 @@ namespace Assets.Scripts.MessageHandlers
 {
     public abstract class DispatchClientMapMessageHandler<T> : BaseClientMapMessageHandler<T> where T : class, IMapApiMessage
     {
-        protected override void InnerProcess(UnityGameState gs, T msg, CancellationToken token)
+        protected override void InnerProcess(T msg, CancellationToken token)
         {
             _dispatcher.Dispatch(msg);
         }

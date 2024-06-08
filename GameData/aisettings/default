@@ -1,12 +1,12 @@
 {
   "Id": "default",
-  "UpdateSeconds": 0.85,
+  "UpdateSeconds": 1.0,
   "IdleWanderChance": 0.25,
   "EnemyScanDistance": 15.0,
   "LeashDistance": 60.0,
   "BaseUnitSpeed": 5.0,
   "BringAFriendRadius": 20.0,
   "Name": "AISettings",
-  "UpdateTime": "2024-04-28T16:57:42.893Z",
-  "CreateTime": "2023-11-25T10:45:15Z"
+  "UpdateTime": "2024-06-01T01:17:47.336Z",
+  "CreateTime": "2023-11-25T22:45:15Z"
 }

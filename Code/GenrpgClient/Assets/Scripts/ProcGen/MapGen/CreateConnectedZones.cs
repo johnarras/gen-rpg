@@ -6,13 +6,13 @@ using System.Threading;
 public class CreateConnectedZones : BaseAddMountains
 {
     protected IMapGenService _mapGenService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
         await UniTask.CompletedTask;
 
-        _mapGenService.CreateZones(gs);
+        _mapGenService.CreateZones(_gs);
 
-        float zonesDesired = gs.map.BlockCount / gs.map.ZoneSize;
+        float zonesDesired = _mapProvider.GetMap().BlockCount / _mapProvider.GetMap().ZoneSize;
 
         zonesDesired *= zonesDesired;
 

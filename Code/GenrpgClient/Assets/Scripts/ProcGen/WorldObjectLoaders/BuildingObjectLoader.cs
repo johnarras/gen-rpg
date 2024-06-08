@@ -14,9 +14,9 @@ public class BuildingObjectLoader : BaseMapObjectLoader
     public override long GetKey() { return EntityTypes.Building; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 
-    public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async UniTask Load(OnSpawn spawn, MapObject obj, CancellationToken token)
     {
-        BuildingType buildingType = _gameData.Get<BuildingSettings>(gs.ch).Get(spawn.EntityId);
+        BuildingType buildingType = _gameData.Get<BuildingSettings>(_gs.ch).Get(spawn.EntityId);
         if (buildingType == null)
         {
             return;
@@ -31,13 +31,13 @@ public class BuildingObjectLoader : BaseMapObjectLoader
             Token = token,
         };
 
-        _assetService.LoadAsset(gs, AssetCategoryNames.Buildings , "Default/" + buildingType.Art, OnDownloadBuildingObject, loadData, null, token);
+        _assetService.LoadAsset(AssetCategoryNames.Buildings , "Default/" + buildingType.Art, OnDownloadBuildingObject, loadData, null, token);
 
         await UniTask.CompletedTask;
         return;
     }
 
-    private void OnDownloadBuildingObject(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnDownloadBuildingObject(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -51,13 +51,13 @@ public class BuildingObjectLoader : BaseMapObjectLoader
             return;
         }
         loadData.FixedPosition = true;
-        MapBuilding building = GEntityUtils.GetOrAddComponent<MapBuilding>(gs,go);
+        MapBuilding building = GEntityUtils.GetOrAddComponent<MapBuilding>(_gs, go);
 
-        BuildingType buildingType = _gameData.Get<BuildingSettings>(gs.ch).Get(loadData.Spawn.EntityId);
+        BuildingType buildingType = _gameData.Get<BuildingSettings>(_gs.ch).Get(loadData.Spawn.EntityId);
 
         building.Init(buildingType, loadData.Spawn);
  
-        FinalPlaceObject(gs, go, loadData, LayerNames.ObjectLayer);
+        FinalPlaceObject(go, loadData, LayerNames.ObjectLayer);
     }
 }
 

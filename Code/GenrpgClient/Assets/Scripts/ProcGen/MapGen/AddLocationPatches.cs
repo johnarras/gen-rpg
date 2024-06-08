@@ -16,23 +16,23 @@ public class AddLocationPatches : BaseZoneGenerator
 {
     private ILineGenService _lineGenService = null;
     private IAddRoadService _addRoadService = null;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
         int edgeSize = MapConstants.LocCenterEdgeSize;
-        MyRandom smoothnessRand = new MyRandom(gs.rand.NextLong());
+        MyRandom smoothnessRand = new MyRandom(_rand.NextLong());
         for (int pass = 0; pass < 2; pass++)
         {
-            for (int gx = 0; gx < gs.md.locationGrid.GetLength(0); gx++)
+            for (int gx = 0; gx < _md.locationGrid.GetLength(0); gx++)
             {
-                for (int gy = 0; gy < gs.md.locationGrid.GetLength(1); gy++)
+                for (int gy = 0; gy < _md.locationGrid.GetLength(1); gy++)
                 {
-                    if (gs.md.locationGrid[gx, gy] == null)
+                    if (_md.locationGrid[gx, gy] == null)
                     {
                         continue;
                     }
 
-                    foreach (Location loc in gs.md.locationGrid[gx, gy])
+                    foreach (Location loc in _md.locationGrid[gx, gy])
                     {
                         if ((pass == 0) != (loc.LocationTypeId == LocationTypes.ZoneCenter))
                         {
@@ -40,26 +40,26 @@ public class AddLocationPatches : BaseZoneGenerator
                         }
                         Zone zone = null;
 
-                        if (loc.CenterX < edgeSize || loc.CenterX >= gs.map.GetHwid()-edgeSize ||
-                            loc.CenterZ < edgeSize || loc.CenterZ >= gs.map.GetHhgt()-edgeSize)
+                        if (loc.CenterX < edgeSize || loc.CenterX >= _mapProvider.GetMap().GetHwid()-edgeSize ||
+                            loc.CenterZ < edgeSize || loc.CenterZ >= _mapProvider.GetMap().GetHhgt()-edgeSize)
                         {
                             continue;
                         }
 
-                        if (loc.CenterX >= 0 && loc.CenterX < gs.map.GetHwid() &&
-                            loc.CenterZ >= 0 && loc.CenterZ < gs.map.GetHhgt())
+                        if (loc.CenterX >= 0 && loc.CenterX < _mapProvider.GetMap().GetHwid() &&
+                            loc.CenterZ >= 0 && loc.CenterZ < _mapProvider.GetMap().GetHhgt())
                         {
-                            short zoneId = gs.md.mapZoneIds[loc.CenterX, loc.CenterZ];
+                            short zoneId = _md.mapZoneIds[loc.CenterX, loc.CenterZ];
                             if (zoneId == MapConstants.OceanZoneId)
                             {
                                 continue;
                             }
-                            zone = gs.map.Get<Zone>(zoneId);
+                            zone = _mapProvider.GetMap().Get<Zone>(zoneId);
                         }
 
                         if (zone == null)
                         {
-                            zone = gs.map.Zones[0];
+                            zone = _mapProvider.GetMap().Zones[0];
                         }
                        
                         if (zone != null && zone.IdKey == MapConstants.OceanZoneId)
@@ -76,7 +76,7 @@ public class AddLocationPatches : BaseZoneGenerator
                             zone.Locations.Add(loc);
                         }
                         loc.ZoneId = zone.IdKey;
-                        AddOneLocationPatch(gs, loc, MathUtils.FloatRange(0.9f, 1.0f, smoothnessRand));
+                        AddOneLocationPatch(loc, MathUtils.FloatRange(0.9f, 1.0f, smoothnessRand));
                     }
                 }
             }
@@ -84,9 +84,9 @@ public class AddLocationPatches : BaseZoneGenerator
         await UniTask.CompletedTask;
     }
 
-    public void AddOneLocationPatch(UnityGameState gs, Location loc, float flattenFraction)
+    public void AddOneLocationPatch(Location loc, float flattenFraction)
     {
-        Zone zone = gs.map.Get<Zone>(loc.ZoneId);
+        Zone zone = _mapProvider.GetMap().Get<Zone>(loc.ZoneId);
 
         flattenFraction = MathUtils.Clamp(0, flattenFraction, 1);
 
@@ -97,15 +97,15 @@ public class AddLocationPatches : BaseZoneGenerator
 
         int edgeSize = MapConstants.LocCenterEdgeSize;
 
-        if (loc.CenterX < edgeSize || loc.CenterZ < edgeSize || loc.CenterX > gs.map.GetHwid()-edgeSize || loc.CenterZ >= gs.map.GetHhgt() - edgeSize)
+        if (loc.CenterX < edgeSize || loc.CenterZ < edgeSize || loc.CenterX > _mapProvider.GetMap().GetHwid()-edgeSize || loc.CenterZ >= _mapProvider.GetMap().GetHhgt() - edgeSize)
         {
             return;
         }
 
         MyRandom rand = new MyRandom(zone.Seed + loc.Seed);
 
-        int awid = gs.md.awid;
-        int ahgt = gs.md.ahgt;
+        int awid = _md.awid;
+        int ahgt = _md.ahgt;
 
 
         int centerX = loc.CenterX;
@@ -144,7 +144,7 @@ public class AddLocationPatches : BaseZoneGenerator
         // Get average height of location.
         for (int x = centerX-fullXSize; x <= centerX+fullXSize; x++)
         {
-            if (x < 0 || x >= gs.map.GetHwid())
+            if (x < 0 || x >= _mapProvider.GetMap().GetHwid())
             {
                 continue;
             }
@@ -152,7 +152,7 @@ public class AddLocationPatches : BaseZoneGenerator
             int dx = x - centerX;
             for (int z = centerZ-fullZSize; z <= centerZ+fullZSize; z++)
             {
-                if (z < 0 || z >= gs.map.GetHhgt())
+                if (z < 0 || z >= _mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
@@ -163,7 +163,7 @@ public class AddLocationPatches : BaseZoneGenerator
 
                 if (normDist <= 1)
                 {
-                    float hgt = Mathf.Max(MapConstants.StartHeightPercent, gs.md.heights[x, z]);
+                    float hgt = Mathf.Max(MapConstants.StartHeightPercent, _md.heights[x, z]);
                     totalHeight += hgt;
                     if (hgt > maxHeight)
                     {
@@ -206,7 +206,7 @@ public class AddLocationPatches : BaseZoneGenerator
         // Pass 1 set center heights.
         for (int x = centerX - fullXSize; x <= centerX + fullXSize; x++)
         {
-            if (x < 0 || x >= gs.map.GetHwid())
+            if (x < 0 || x >= _mapProvider.GetMap().GetHwid())
             {
                 continue;
             }
@@ -214,7 +214,7 @@ public class AddLocationPatches : BaseZoneGenerator
             float dx = Math.Abs(x - centerX);
             for (int z = centerZ - fullZSize; z <= centerZ + fullZSize; z++)
             {
-                if (z < 0 || z >= gs.map.GetHhgt())
+                if (z < 0 || z >= _mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
@@ -232,7 +232,7 @@ public class AddLocationPatches : BaseZoneGenerator
 
                 float currFlattenFraction = flattenFraction;
 
-                float roadDistance = gs.md.roadDistances[x, z];
+                float roadDistance = _md.roadDistances[x, z];
 
                 float roadDistCheck = 15;
                 float roadFixFlattenPct = 1.0f;
@@ -247,22 +247,22 @@ public class AddLocationPatches : BaseZoneGenerator
 
                 float finalOffsetPercent = currFlattenFraction * changePct;
 
-                gs.md.heights[x, z] += (aveHeight - gs.md.heights[x, z]) * finalOffsetPercent;
+                _md.heights[x, z] += (aveHeight - _md.heights[x, z]) * finalOffsetPercent;
 
                 if (false && changePct == 1 && loc.LocationTypeId == LocationTypes.Patch)
                 {
-                    gs.md.ClearAlphasAt(gs, x, z);
+                    _md.ClearAlphasAt(x, z);
                     float dirtPct = MathUtils.FloatRange(0.9f, 1.0f, rand);
-                    gs.md.alphas[x, z, MapConstants.DirtTerrainIndex] = dirtPct;
-                    gs.md.alphas[x, z, MapConstants.BaseTerrainIndex] = 1 - dirtPct;
+                    _md.alphas[x, z, MapConstants.DirtTerrainIndex] = dirtPct;
+                    _md.alphas[x, z, MapConstants.BaseTerrainIndex] = 1 - dirtPct;
                 }
 
                 if (outsideCenterDist <= minNormDist)
                 {
-                    gs.md.flags[x,z] |= MapGenFlags.IsLocation;
+                    _md.flags[x,z] |= MapGenFlags.IsLocation;
                     if (loc.LocationTypeId == LocationTypes.Patch)
                     {
-                        gs.md.flags[x, z] |= MapGenFlags.IsLocationPatch;
+                        _md.flags[x, z] |= MapGenFlags.IsLocationPatch;
                     }
                 }
             }
@@ -294,8 +294,8 @@ public class AddLocationPatches : BaseZoneGenerator
                 int nx = MathUtils.IntRange(loc.CenterX - xSearchSize, loc.CenterX + xSearchSize, rand);
                 int nz = MathUtils.IntRange(loc.CenterZ - zSearchSize, loc.CenterZ + zSearchSize, rand);
 
-                if (nx < MapConstants.MapEdgeSize || nx >= gs.map.GetHwid()-MapConstants.MapEdgeSize || 
-                    nz <  MapConstants.MapEdgeSize || nz >= gs.map.GetHhgt()-MapConstants.MapEdgeSize)
+                if (nx < MapConstants.MapEdgeSize || nx >= _mapProvider.GetMap().GetHwid()-MapConstants.MapEdgeSize || 
+                    nz <  MapConstants.MapEdgeSize || nz >= _mapProvider.GetMap().GetHhgt()-MapConstants.MapEdgeSize)
                 {
                     continue;
                 }
@@ -351,7 +351,7 @@ public class AddLocationPatches : BaseZoneGenerator
                         LocationTypeId = LocationTypes.Patch,
                     };
 
-                    AddOneLocationPatch(gs, patchLoc, 1.0f);
+                    AddOneLocationPatch(patchLoc, 1.0f);
 
                 }
 
@@ -404,9 +404,9 @@ public class AddLocationPatches : BaseZoneGenerator
                 MinDistToOther = 0,
             });
 
-            MyRandom connectRand = new MyRandom(gs.rand.Next());
+            MyRandom connectRand = new MyRandom(_rand.Next());
 
-            List<ConnectedPairData> roadsToMake = _lineGenService.ConnectPoints(gs, connectPoints, connectRand, 0.1f);
+            List<ConnectedPairData> roadsToMake = _lineGenService.ConnectPoints(connectPoints, connectRand, 0.1f);
 
 
             foreach (LocationPlace place in loc.Places)
@@ -422,7 +422,7 @@ public class AddLocationPatches : BaseZoneGenerator
             {
                 ConnectPointData center1 = rd.Point1;
                 ConnectPointData center2 = rd.Point2;
-                _addRoadService.AddRoad(gs, (int)center1.X, (int)center1.Z, (int)center2.X, (int)center2.Z, connectRand.Next(), rand, false, 1, MapGenFlags.MinorRoad);
+                _addRoadService.AddRoad((int)center1.X, (int)center1.Z, (int)center2.X, (int)center2.Z, connectRand.Next(), rand, false, 1, MapGenFlags.MinorRoad);
             }
         }
     }

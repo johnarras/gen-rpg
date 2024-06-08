@@ -28,7 +28,7 @@ namespace Genrpg.MapServer.Maps.Services
         private IMapDataService _mapDataService = null;
         private ICloudCommsService _cloudCommsService = null;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -56,7 +56,7 @@ namespace Genrpg.MapServer.Maps.Services
 
             SendAddMapServerMessage();
 
-            List<MapStub> mapStubs = await _mapDataService.GetMapStubs(gs);
+            List<MapStub> mapStubs = await _mapDataService.GetMapStubs();
 
             foreach (MapStub stub in mapStubs)
             {

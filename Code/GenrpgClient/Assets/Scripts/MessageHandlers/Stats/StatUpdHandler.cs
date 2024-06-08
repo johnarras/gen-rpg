@@ -8,7 +8,7 @@ namespace Assets.Scripts.MessageHandlers.Stats
 {
     public class StatUpdHandler : BaseClientMapMessageHandler<StatUpd>
     {
-        protected override void InnerProcess(UnityGameState gs, StatUpd msg, CancellationToken token)
+        protected override void InnerProcess(StatUpd msg, CancellationToken token)
         {
             if (!_objectManager.GetUnit(msg.UnitId, out Unit unit))
             {
@@ -16,7 +16,7 @@ namespace Assets.Scripts.MessageHandlers.Stats
             }
 
             unit.Stats.UpdateFromSnapshot(msg.Dat);
-            _dispatcher.Dispatch( msg);
+            _dispatcher.Dispatch(msg);
         }
     }
 }

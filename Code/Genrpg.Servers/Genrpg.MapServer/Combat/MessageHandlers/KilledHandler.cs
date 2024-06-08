@@ -15,37 +15,35 @@ using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.Levelup.Services;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Combat.MessageHandlers
 {
-    public class KilledHandler : BaseServerMapMessageHandler<Killed>
+    public class KilledHandler : BaseUnitServerMapMessageHandler<Killed>
     {
         private ICurrencyService _currencyService = null;
         private ILevelService _levelService = null;
-        public override void Setup(GameState gs)
+        private IMapProvider _mapProvider = null;
+        public override void Setup(IGameState gs)
         {
             base.Setup(gs);
         }
 
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, Killed message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, Killed message)
         {
-            if (!_objectManager.GetUnit(obj.Id, out Unit unit))
-            {
-                return;
-            }
-
-            _aiService.EndCombat(gs, unit, message.UnitId, false);
+            _aiService.EndCombat(rand, unit, message.UnitId, false);
             if (unit is Character ch)
             {
-                Zone zone = gs.map.Get<Zone>(message.ZoneId);
+                Zone zone = _mapProvider.GetMap().Get<Zone>(message.ZoneId);
                 if (zone != null)
                 {
-                    LevelInfo level = _gameData.Get<LevelSettings>(obj).Get(zone.Level);
+                    LevelInfo level = _gameData.Get<LevelSettings>(unit).Get(zone.Level);
 
                     if (level != null)
                     {
                         _currencyService.Add(ch, CurrencyTypes.Exp, level.MobExp);
-                        _levelService.UpdateLevel(gs, ch);
+                        _levelService.UpdateLevel(rand, ch);
                     }
                 }
             }

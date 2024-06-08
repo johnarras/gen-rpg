@@ -20,14 +20,14 @@ public class AddMapMods : BaseZoneGenerator
 {
     const int skip = MapConstants.TerrainPatchSize / 2;
     const int start = skip * 3 / 2;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
         await UniTask.CompletedTask;
-        for (int x = start; x < gs.map.GetHwid()-start; x+= skip)
+        for (int x = start; x < _mapProvider.GetMap().GetHwid()-start; x+= skip)
         {
-            for (int z = start; z < gs.map.GetHhgt()-start; z += skip)
+            for (int z = start; z < _mapProvider.GetMap().GetHhgt()-start; z += skip)
             {
-                if (_zoneGenService.FindMapLocation(gs,x,z,2) != null)
+                if (_zoneGenService.FindMapLocation(x,z,2) != null)
                 {
                     continue;
                 }
@@ -40,7 +40,7 @@ public class AddMapMods : BaseZoneGenerator
                     SpawnZ = z,
                 };
 
-                gs.spawns.AddSpawn(initData);
+                _mapProvider.GetSpawns().AddSpawn(initData);
             }
         }
     }

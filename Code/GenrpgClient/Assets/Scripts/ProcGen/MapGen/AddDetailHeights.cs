@@ -11,16 +11,16 @@ using Genrpg.Shared.Zones.WorldData;
 public class AddDetailHeights : BaseZoneGenerator
 {
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        foreach (Zone zn in gs.map.Zones)
+        await base.Generate(token);
+        foreach (Zone zn in _mapProvider.GetMap().Zones)
         {
-            GenerateOneZone(gs, zn, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zn.ZoneTypeId), zn.XMin, zn.ZMin, zn.XMax, zn.ZMax);
+            GenerateOneZone(zn, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zn.ZoneTypeId), zn.XMin, zn.ZMin, zn.XMax, zn.ZMax);
         }
     }
 
-    public void GenerateOneZone (UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
+    public void GenerateOneZone (Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
         if (zone == null || zoneType == null)
         {
@@ -37,14 +37,14 @@ public class AddDetailHeights : BaseZoneGenerator
             starty = 0;
         }
 
-        if (endx >= gs.map.GetHwid())
+        if (endx >= _mapProvider.GetMap().GetHwid())
         {
-            endx = gs.map.GetHwid()-1;
+            endx = _mapProvider.GetMap().GetHwid()-1;
         }
 
-        if (endy >= gs.map.GetHhgt())
+        if (endy >= _mapProvider.GetMap().GetHhgt())
         {
-            endy = gs.map.GetHhgt()-1;
+            endy = _mapProvider.GetMap().GetHhgt()-1;
         }
 
         if (endx <= startx || endy <= starty)
@@ -60,13 +60,13 @@ public class AddDetailHeights : BaseZoneGenerator
         int wid = endx - startx;
         int hgt = endy - starty;
 
-        int awid = gs.md.awid;
-        int ahgt = gs.md.ahgt;
+        int awid = _md.awid;
+        int ahgt = _md.ahgt;
 
 
-        MyRandom rand = new MyRandom(zone.Seed+gs.map.Seed/7);
+        MyRandom rand = new MyRandom(zone.Seed+_mapProvider.GetMap().Seed/7);
 
-        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
+        GenZone genZone = _md.GetGenZone(zone.IdKey);
 		float hillAmplitudeScale = 1.0f;
         hillAmplitudeScale *= genZone.DetailAmp;
         hillAmplitudeScale *= zoneType.DetailAmp;
@@ -123,7 +123,7 @@ public class AddDetailHeights : BaseZoneGenerator
         amp *= 0.95f;
         pers *= 1.05f;
 
-        float[,] heightsUp = _noiseService.Generate(gs,pers,freq,amp,octaves,pseed,perlinSize,perlinSize, exp);
+        float[,] heightsUp = _noiseService.Generate(pers,freq,amp,octaves,pseed,perlinSize,perlinSize, exp);
 		
 		
         freq = startFreq * MathUtils.FloatRange(1 - freqDelta, 1 + freqDelta, rand)*0.45f;
@@ -134,7 +134,7 @@ public class AddDetailHeights : BaseZoneGenerator
         freq /= extraScale;
         amp *= extraScale;
 
-        float[,] heightsUp2 = _noiseService.Generate (gs,pers,freq,amp,octaves,pseed/6+21412,perlinSize,perlinSize, exp);
+        float[,] heightsUp2 = _noiseService.Generate (pers,freq,amp,octaves,pseed/6+21412,perlinSize,perlinSize, exp);
 		
 		
 		
@@ -148,16 +148,16 @@ public class AddDetailHeights : BaseZoneGenerator
         freq /= extraScale;
         amp *= extraScale;
 
-        float[,] heightsDown = _noiseService.Generate(gs,pers,freq,amp,octaves,rand.Next(),perlinSize,perlinSize,exp);
+        float[,] heightsDown = _noiseService.Generate(pers,freq,amp,octaves,rand.Next(),perlinSize,perlinSize,exp);
 
 
         float effPers = MathUtils.FloatRange(0.05f, 0.2f, rand);
         float effFreq = MathUtils.FloatRange(0.05f, 0.10f, rand)*perlinSize;
         float effAmp = MathUtils.FloatRange(0.04f, 0.12f, rand);
 
-        float[,] roadEffectPercent = _noiseService.Generate(gs, effPers, effFreq, effAmp, 2, rand.Next(), perlinSize,perlinSize);
+        float[,] roadEffectPercent = _noiseService.Generate(effPers, effFreq, effAmp, 2, rand.Next(), perlinSize,perlinSize);
 
-        float[,,] alphamaps = gs.md.alphas;
+        float[,,] alphamaps = _md.alphas;
 
 		float roadAffectedPercent = zoneType.RoadDetailScale*0.15f;
 
@@ -172,7 +172,7 @@ public class AddDetailHeights : BaseZoneGenerator
         float radFreq = MathUtils.FloatRange(0.02f, 0.1f, rand) * perlinSize;
         float radAmp = MathUtils.FloatRange(0.3f, 0.6f, rand)*startRad;
 
-        float[,] radValues = _noiseService.Generate(gs, radPers, radFreq, radAmp, 2, rand.Next(), perlinSize, perlinSize);
+        float[,] radValues = _noiseService.Generate(radPers, radFreq, radAmp, 2, rand.Next(), perlinSize, perlinSize);
 
 
         float startPower = 1.5f;
@@ -181,7 +181,7 @@ public class AddDetailHeights : BaseZoneGenerator
         float powerFreq = MathUtils.FloatRange(0.02f, 0.1f, rand) * perlinSize;
         float powerAmp = MathUtils.FloatRange(0.3f, 0.6f, rand);
 
-        float[,] powerValues = _noiseService.Generate(gs, powerPers, powerFreq, powerAmp, 2, rand.Next(), perlinSize, perlinSize);
+        float[,] powerValues = _noiseService.Generate(powerPers, powerFreq, powerAmp, 2, rand.Next(), perlinSize, perlinSize);
 
         int numTries = 0;
 
@@ -218,7 +218,7 @@ public class AddDetailHeights : BaseZoneGenerator
 				}
 				else
 				{
-                    float roadDist = gs.md.roadDistances[wx, wy];
+                    float roadDist = _md.roadDistances[wx, wy];
 
 
 
@@ -255,7 +255,7 @@ public class AddDetailHeights : BaseZoneGenerator
                 int rad2 = 15;
                 int totalNum = 0;
                 int numOtherNearby = 0;    
-                if (wx >= rad2 && wx < gs.map.GetHwid()-rad2-1 && wy >= rad2 && wy <= gs.map.GetHhgt()-rad2-1)
+                if (wx >= rad2 && wx < _mapProvider.GetMap().GetHwid()-rad2-1 && wy >= rad2 && wy <= _mapProvider.GetMap().GetHhgt()-rad2-1)
                 {
                     double minDist = 100000;
                     for (int xx = wx-rad2; xx <= wx+rad2; xx++)
@@ -263,7 +263,7 @@ public class AddDetailHeights : BaseZoneGenerator
                         for (int yy = wy-rad2; yy <= wy+rad2; yy++)
                         {
                             totalNum++;
-                            if (gs.md.mapZoneIds[xx,yy] != zone.IdKey)
+                            if (_md.mapZoneIds[xx,yy] != zone.IdKey)
                             {
                                 numOtherNearby++;
                                 double newDist = Math.Sqrt((xx - wx) * (xx - wx) + (yy - wy) * (yy - wy));
@@ -298,12 +298,12 @@ public class AddDetailHeights : BaseZoneGenerator
                 // scale down, and add the rest of the part back into the height mult.
 
 
-                float worldEdgePercent = (float)Math.Pow(gs.md.EdgeHeightmapAdjustPercent(gs, gs.map, wx, wy), 0.09f);
+                float worldEdgePercent = (float)Math.Pow(_md.EdgeHeightmapAdjustPercent(_mapProvider.GetMap(), wx, wy), 0.09f);
 
 
                 float finalHeightDiff = heightDiff * roadHeightMult * edgeSmoothMult * worldEdgePercent;
 
-                gs.md.heights[wx, wy] += finalHeightDiff;
+                _md.heights[wx, wy] += finalHeightDiff;
 			}
 		}
 

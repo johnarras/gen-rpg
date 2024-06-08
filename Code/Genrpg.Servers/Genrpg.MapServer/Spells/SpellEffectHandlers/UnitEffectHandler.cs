@@ -4,6 +4,7 @@ using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
         public override bool IsModifyStatEffect() { return false; }
         public override bool UseStatScaling() { return false; }
 
-        public override List<ActiveSpellEffect> CreateEffects(GameState gs, SpellHit hitData)
+        public override List<ActiveSpellEffect> CreateEffects(IRandom rand, SpellHit hitData)
         {
             List<ActiveSpellEffect> retval = new List<ActiveSpellEffect>();
 
@@ -37,7 +38,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
             return retval;
         }
 
-        public override bool HandleEffect(GameState gs, ActiveSpellEffect eff)
+        public override bool HandleEffect(IRandom rand, ActiveSpellEffect eff)
         {
 
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ))

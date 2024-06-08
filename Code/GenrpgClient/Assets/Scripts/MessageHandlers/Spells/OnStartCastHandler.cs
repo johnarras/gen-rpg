@@ -5,7 +5,7 @@ namespace Assets.Scripts.MessageHandlers.Spells
 {
     public class OnStartCastHandler : BaseClientMapMessageHandler<OnStartCast>
     {
-        protected override void InnerProcess(UnityGameState gs, OnStartCast msg, CancellationToken token)
+        protected override void InnerProcess(OnStartCast msg, CancellationToken token)
         {
             if (_objectManager.GetGridItem(msg.CasterId, out ClientMapObjectGridItem gridItem))
             {

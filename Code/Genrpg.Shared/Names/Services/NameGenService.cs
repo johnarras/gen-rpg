@@ -13,13 +13,13 @@ namespace Genrpg.Shared.Names.Services
     public class NameGenService : INameGenService
     {
 
-        private IGameData _gameData;
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        private IGameData _gameData = null;
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
 
-        public string PickWord(GameState gs, List<WeightedName> list, long seed = 0, string excludeName = "", string excludePrefix = "", string excludeDesc = "")
+        public string PickWord(IRandom rand, List<WeightedName> list, string excludeName = "", string excludePrefix = "", string excludeDesc = "")
         {
             if (list == null)
             {
@@ -28,11 +28,6 @@ namespace Genrpg.Shared.Names.Services
 
             float totalWeight = 0;
             float chosenWeight = 0;
-
-            if (seed == 0)
-            {
-                seed = gs.rand.Next();
-            }
 
             for (int times = 0; times < 2; times++)
             {
@@ -57,7 +52,7 @@ namespace Genrpg.Shared.Names.Services
                             chosenWeight -= list[l].Weight;
                             if (chosenWeight < 0)
                             {
-                                return PickDataListName(gs, list[l].Name);
+                                return PickDataListName(rand, list[l].Name);
                             }
                         }
                     }
@@ -69,8 +64,7 @@ namespace Genrpg.Shared.Names.Services
                     {
                         return "";
                     }
-                    MyRandom rand2 = new MyRandom(seed);
-                    chosenWeight = (float)(rand2.NextDouble() * totalWeight);
+                    chosenWeight = (float)(rand.NextDouble() * totalWeight);
                 }
 
 
@@ -80,18 +74,8 @@ namespace Genrpg.Shared.Names.Services
 
         }
 
-        public string CombinePrefixSuffix(string prefix, string suffix, float hyphenChance, long seed)
+        public string CombinePrefixSuffix(IRandom rand, string prefix, string suffix, float hyphenChance)
         {
-
-            MyRandom hyphenRand = null;
-            if (seed > 0)
-            {
-                hyphenRand = new MyRandom(seed);
-            }
-            else
-            {
-                hyphenRand = new MyRandom();
-            }
 
             if (string.IsNullOrEmpty(prefix))
             {
@@ -115,14 +99,14 @@ namespace Genrpg.Shared.Names.Services
             string name = prefix + lowerSuffix;
 
             if (prefix[prefix.Length - 1] == lowerSuffix[0] ||
-                hyphenRand.NextDouble() < hyphenChance)
+                rand.NextDouble() < hyphenChance)
             {
                 name = prefix + "-" + suffix;
             }
             return name;
         }
 
-        public string PickNameListName(GameState gs, string nameListName, long seed = 0, string excludeName = "", string excludePrefix = "", string excludeDesc = "")
+        public string PickNameListName(IRandom rand, string nameListName, string excludeName = "", string excludePrefix = "", string excludeDesc = "")
         {
             if (string.IsNullOrEmpty(nameListName))
             {
@@ -134,14 +118,14 @@ namespace Genrpg.Shared.Names.Services
 
             if (nl != null && nl.Names != null && nl.Names.Count > 0)
             {
-                return PickWord(gs, nl.Names, seed, excludeName, excludePrefix, excludeDesc);
+                return PickWord(rand, nl.Names, excludeName, excludePrefix, excludeDesc);
             }
             return nameListName;
         }
 
 
         // Do a secondary pick from a data list for this word.
-        public string PickDataListName(GameState gs, string name, long seed = 0)
+        public string PickDataListName(IRandom rand, string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -174,7 +158,7 @@ namespace Genrpg.Shared.Names.Services
                 return name;
             }
 
-            string newname = PickItemName(gs, list, seed, onlyShortNames);
+            string newname = PickItemName(rand, list, onlyShortNames);
 
             if (string.IsNullOrEmpty(newname))
             {
@@ -186,7 +170,7 @@ namespace Genrpg.Shared.Names.Services
         }
 
 
-        public string PickItemName(GameState gs, List<IIndexedGameItem> items, long seed = 0, bool onlyShortNames = false)
+        public string PickItemName(IRandom rand, List<IIndexedGameItem> items, bool onlyShortNames = false)
         {
             int totalCount = 0;
             int choice = 0;
@@ -220,18 +204,7 @@ namespace Genrpg.Shared.Names.Services
                     }
 
 
-                    MyRandom rand2 = null;
-                    if (seed < 1)
-                    {
-                        rand2 = new MyRandom(gs.rand.Next());
-                    }
-                    else
-                    {
-                        rand2 = new MyRandom(seed);
-                    }
-
-
-                    choice = rand2.Next() % totalCount;
+                    choice = rand.Next() % totalCount;
                 }
 
             }
@@ -239,18 +212,8 @@ namespace Genrpg.Shared.Names.Services
             return "";
         }
 
-        public string GenOfTheName(GameState gs, List<WeightedName> prefixes, List<WeightedName> suffixes, long seed = 0, int avoidPrefixLength = 0)
+        public string GenOfTheName(IRandom rand, List<WeightedName> prefixes, List<WeightedName> suffixes, int avoidPrefixLength = 0)
         {
-            MyRandom rand2 = null;
-            if (seed == 0)
-            {
-                rand2 = new MyRandom(gs.rand.Next());
-            }
-            else
-            {
-                rand2 = new MyRandom(seed);
-            }
-
             if (prefixes == null || prefixes.Count < 1)
             {
                 return "";
@@ -261,7 +224,7 @@ namespace Genrpg.Shared.Names.Services
                 return "";
             }
 
-            string prefix = PickWord(gs, prefixes, rand2.Next());
+            string prefix = PickWord(rand, prefixes);
             string excludePrefix = "the ";
             // If the first ends in "of" allow "the suffix" suffixes
             if (!string.IsNullOrEmpty(prefix) && prefix.LastIndexOf(" of") >= 0 &&
@@ -283,7 +246,7 @@ namespace Genrpg.Shared.Names.Services
 
             string txt3 = excludePrefix;
 
-            string suffix = PickWord(gs, suffixes, rand2.Next(), excludeWord, excludePrefix);
+            string suffix = PickWord(rand, suffixes, excludeWord, excludePrefix);
 
 
 

@@ -21,21 +21,21 @@ public class CreatePathfindingData : BaseZoneGenerator
 {
 
     protected IPathfindingService _pathfindingService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
         try
         {
             int blockSize = PathfindingConstants.BlockSize;
-            int pxsize = gs.map.GetHwid() / blockSize;
-            int pzsize = gs.map.GetHhgt() / blockSize;
+            int pxsize = _mapProvider.GetMap().GetHwid() / blockSize;
+            int pzsize = _mapProvider.GetMap().GetHhgt() / blockSize;
 
             bool[,] blockedCells = new bool[pxsize, pzsize];
             bool[,] nearBlockedCells = new bool[pxsize, pzsize];
 
-            for (int x = 0; x < gs.map.GetHwid(); x++)
+            for (int x = 0; x < _mapProvider.GetMap().GetHwid(); x++)
             {
-                if (x < MapConstants.MapEdgeSize || x >= gs.map.GetHwid()-MapConstants.MapEdgeSize-1)
+                if (x < MapConstants.MapEdgeSize || x >= _mapProvider.GetMap().GetHwid()-MapConstants.MapEdgeSize-1)
                 {
                     continue;
                 }
@@ -44,9 +44,9 @@ public class CreatePathfindingData : BaseZoneGenerator
                 {
                     continue;
                 }
-                for (int z = 0; z < gs.map.GetHhgt(); z++)
+                for (int z = 0; z < _mapProvider.GetMap().GetHhgt(); z++)
                 {
-                    if (z < MapConstants.MapEdgeSize || z >= gs.map.GetHhgt() - MapConstants.MapEdgeSize-1)
+                    if (z < MapConstants.MapEdgeSize || z >= _mapProvider.GetMap().GetHhgt() - MapConstants.MapEdgeSize-1)
                     {
                         continue;
                     }
@@ -56,14 +56,14 @@ public class CreatePathfindingData : BaseZoneGenerator
                         continue;
                     }
 
-                    float steepness = _terrainManager.GetSteepness(gs, x, z);
+                    float steepness = _terrainManager.GetSteepness(x, z);
 
                     if (steepness > PathfindingConstants.MaxSteepness)
                     {
                         blockedCells[px, pz] = true;
                     }
 
-                    long worldObject = gs.md.mapObjects[x, z];
+                    long worldObject = _md.mapObjects[x, z];
 
                     if (worldObject > 0 &&
                         (worldObject < MapConstants.GrassMinCellValue ||
@@ -73,7 +73,7 @@ public class CreatePathfindingData : BaseZoneGenerator
                             MapConstants.TreeObjectOffset + MapConstants.MapObjectOffsetMult)
                         {
                             long treeTypeId = worldObject - MapConstants.TreeObjectOffset;
-                            TreeType ttype = _gameData.Get<TreeTypeSettings>(gs.ch).Get(treeTypeId);
+                            TreeType ttype = _gameData.Get<TreeTypeSettings>(_gs.ch).Get(treeTypeId);
                             if (ttype != null && !ttype.HasFlag(TreeFlags.IsBush))
                             {
                                 blockedCells[pz,px] = true;
@@ -88,7 +88,7 @@ public class CreatePathfindingData : BaseZoneGenerator
             }
 
             // Now block out all building spawns.
-            foreach (MapSpawn spawn in gs.spawns.Data)
+            foreach (MapSpawn spawn in _mapProvider.GetSpawns().Data)
             {
                 if (spawn.EntityTypeId == EntityTypes.Building)
                 {
@@ -134,7 +134,7 @@ public class CreatePathfindingData : BaseZoneGenerator
                 }
             }
 
-            byte[] output = _pathfindingService.ConvertGridToBytes(gs, nearBlockedCells);
+            byte[] output = _pathfindingService.ConvertGridToBytes(nearBlockedCells);
 
             int startLength = output.Length;
 
@@ -144,7 +144,7 @@ public class CreatePathfindingData : BaseZoneGenerator
 
             BinaryFileRepository repo = new BinaryFileRepository(_logService);
 
-            string filename = MapUtils.GetMapObjectFilename(gs, PathfindingConstants.Filename, gs.map.Id, gs.map.MapVersion);
+            string filename = MapUtils.GetMapObjectFilename(PathfindingConstants.Filename, _mapProvider.GetMap().Id, _mapProvider.GetMap().MapVersion);
             repo.SaveBytes(filename, output);
 
             string localPath = repo.GetPath(filename);

@@ -17,9 +17,9 @@ using System.Threading;
 public class AddNPCs : BaseZoneGenerator
 {
     protected IMapGenService _mapGenService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        _mapGenService.AddNPCs(gs);
+        await base.Generate(token);
+        _mapGenService.AddNPCs(_gs);
     }
 }

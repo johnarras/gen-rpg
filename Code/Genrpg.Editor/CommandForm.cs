@@ -41,6 +41,13 @@ using Amazon.Runtime.Documents;
 using Genrpg.Shared.DataStores.Entities;
 using Amazon.Runtime.Internal;
 using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.Crawler.Buffs.Settings;
+using Genrpg.Shared.Crawler.Spells.Settings;
+using Genrpg.Shared.Stats.Settings.Stats;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Utils;
+using Microsoft.Extensions.Azure;
+using ZstdSharp.Unsafe;
 
 namespace GameEditor
 {
@@ -70,7 +77,7 @@ namespace GameEditor
             buttonCount++;
 
             string[] envWords = { "dev" };
-            string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas SetupItemIcons".Split(' ');
+            string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas SetupItemIcons ImportCrawler".Split(' ');
             int column = 0;
             for (int e = 0; e < envWords.Length; e++)
             {
@@ -339,10 +346,18 @@ namespace GameEditor
                 DeleteAllMetaFiles();
             }
 
-            Task.Run(() => OnClickButtonAsync(action, env));
+            Action<EditorGameState>? afterAction = null;
+            if (action == "ImportCrawler")
+            {
+                afterAction = ImportCrawlerClassSkillData;
+                action = "Data";
+            }
+
+            Task.Run(() => OnClickButtonAsync(action, env, afterAction));
         }
 
-        private async Task OnClickButtonAsync(string action, string env)
+
+        private async Task OnClickButtonAsync(string action, string env, Action<EditorGameState>? afterAction = null)
         { 
 
             _gs = await EditorGameDataUtils.SetupFromConfig(this, env);
@@ -431,6 +446,10 @@ namespace GameEditor
 
             settingSettings.SetData(allSettingNames);
 
+            if (afterAction != null)
+            {
+                afterAction.Invoke(_gs);
+            }
 
             this.Invoke((System.Windows.Forms.MethodInvoker)delegate()
                {
@@ -651,6 +670,150 @@ namespace GameEditor
             }
 
             this.Invoke(blocker.Hide);
+        }
+
+
+
+        private void ImportCrawlerClassSkillData(EditorGameState gs)
+        {
+
+
+            IRepositoryService repoService = gs.loc.Get<IRepositoryService>();
+            try
+            {
+                string missingWords = "";
+
+                string strExeFilePath = Assembly.GetExecutingAssembly().Location;
+
+
+                int lastSlashIndex = strExeFilePath.LastIndexOf("\\");
+
+                strExeFilePath = strExeFilePath.Substring(0, lastSlashIndex);
+
+                string fullFilePath = strExeFilePath + "\\ClassSkillImporter.csv";
+
+                string text = File.ReadAllText(fullFilePath);
+
+                string[] lines = text.Split('\n');
+
+                string[] firstLine = lines[0].Split(',');
+
+
+                IReadOnlyList<Class> classes = gs.data.Get<ClassSettings>(null).GetData();
+
+                int maxClasses = 50;
+                Class[] topRow = new Class[maxClasses];
+
+                for (int s = 0; s < firstLine.Length; s++)
+                {
+                    topRow[s] = classes.FirstOrDefault(x => x.Name == firstLine[s]);
+                    if (topRow[s] != null)
+                    {
+                        _gs.LookedAtObjects.Add(topRow[s]);
+                        topRow[s].Bonuses = new List<ClassBonus>();
+                    }
+                }
+
+                IReadOnlyList<PartyBuff> partyBuffs = gs.data.Get<PartyBuffSettings>(null).GetData();
+
+                IReadOnlyList<CrawlerSpell> crawlerSpells = gs.data.Get<CrawlerSpellSettings>(null).GetData();
+
+                IReadOnlyList<StatType> statTypes = gs.data.Get<StatSettings>(null).GetData();
+
+
+                PropertyInfo[] props = typeof(Class).GetProperties();
+
+                for (int line = 1; line < lines.Length; line++)
+                {
+                    string[] words = lines[line].Split(',');
+
+                    if (words.Length < 2 || string.IsNullOrEmpty(words[0]))
+                    {
+                        continue;
+                    }
+
+                    PartyBuff partyBuff = partyBuffs.FirstOrDefault(x => x.Name == words[0]);
+
+                    if (partyBuff != null)
+                    {
+                        for (int w = 1; w < words.Length && w < maxClasses; w++)
+                        {
+                            if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
+                            {
+                                topRow[w].Bonuses.Add(new ClassBonus() { EntityTypeId = EntityTypes.PartyBuff, EntityId = partyBuff.IdKey, Quantity = 1 });
+                            }
+                        }
+                        continue;
+                    }
+
+                    StatType statType = statTypes.FirstOrDefault(x => x.Name == words[0]);
+
+                    if (statType != null)
+                    {
+                        for (int w = 1; w < words.Length && w < maxClasses; w++)
+                        {
+                            if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
+                            {
+                                topRow[w].Bonuses.Add(new ClassBonus() { EntityTypeId = EntityTypes.Stat, EntityId = statType.IdKey, Quantity = 1 });
+                            }
+                        }
+                        continue;
+                    }
+
+                    CrawlerSpell crawlerSpell = crawlerSpells.FirstOrDefault(x => x.Name == words[0]);
+
+
+                    if (crawlerSpell != null)
+                    {
+                        for (int w = 1; w < words.Length && w < maxClasses; w++)
+                        {
+                            if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
+                            {
+                                topRow[w].Bonuses.Add(new ClassBonus() { EntityTypeId = EntityTypes.CrawlerSpell, EntityId = crawlerSpell.IdKey, Quantity = 1 });
+                            }
+                        }
+                        continue;
+                    }
+
+
+                    PropertyInfo prop = props.FirstOrDefault(x=>x.Name == words[0]);
+
+                    if (prop != null)
+                    {
+                        for (int w = 0; w < words.Length && w < maxClasses; w++)
+                        {
+                            if (topRow[w] != null && !String.IsNullOrEmpty(words[w]))
+                            {
+                                if (Int32.TryParse(words[w], out int val))
+                                {
+                                    EntityUtils.SetObjectValue(topRow[w], prop, val);
+                                }
+                            }
+                        }
+                        continue;
+                    }
+
+
+                    missingWords += words[0] + " ";
+                }
+
+
+                Console.WriteLine(missingWords);
+
+                foreach (object obj in _gs.LookedAtObjects)
+                {
+                    if (obj is IGameSettings settings)
+                    {
+                        settings.SaveAll(repoService);
+                    }
+                }
+
+                _gs.LookedAtObjects.Clear();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message + " " + e.StackTrace);
+            }
         }
     }
 }

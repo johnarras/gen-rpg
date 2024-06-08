@@ -12,11 +12,12 @@ using Genrpg.Shared.Units.Entities;
 public class KillCollider :BaseBehaviour
 {
 
+    protected IMapGenData _md;
     DateTime lastCollideTime = DateTime.UtcNow;
     private void OnTriggerEnter(UnityEngine.Collider other)
     {     
 
-        if (_gs.md == null || _gs.md.GeneratingMap)
+        if (_md.GeneratingMap)
         {
             return;
         }

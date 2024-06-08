@@ -19,7 +19,7 @@ namespace Assets.Scripts.Model
     {
         private ILogService _logger;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Model
 
         public int SetupPriorityAscending() { return SetupPriorities.Repositories; }
 
-        public async Task PrioritySetup(GameState gs, CancellationToken token)
+        public async Task PrioritySetup(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }

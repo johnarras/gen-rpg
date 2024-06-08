@@ -23,6 +23,7 @@ using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
@@ -41,9 +42,9 @@ namespace Genrpg.MapServer.Vendors.Services
 {
     public interface IVendorService : IInitializable
     {
-        void UpdateItems(GameState gs, MapObject mapObject);
-        void BuyItem(GameState gs, MapObject obj, BuyItem buyItem);
-        void SellItem(GameState gs, MapObject obj, SellItem sellItem);
+        void UpdateItems(IRandom rand, MapObject mapObject);
+        void BuyItem(IRandom rand, MapObject obj, BuyItem buyItem);
+        void SellItem(IRandom rand, MapObject obj, SellItem sellItem);
     }
 
 
@@ -53,18 +54,18 @@ namespace Genrpg.MapServer.Vendors.Services
         private ICurrencyService _currencyService = null;
         private IAchievementService _achievementService = null;
         private ITradeService _tradeService = null;
-        private IMapObjectManager _objectManager;
-        private IMapMessageService _mapMessageService;
-        public async Task Initialize(GameState gs, CancellationToken token)
+        private IMapObjectManager _objectManager = null!;
+        private IMapProvider _mapProvider = null!;
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
         private IItemGenService _itemGenService = null;
         protected IRepositoryService _repoService = null;
-        private IGameData _gameData;
+        private IGameData _gameData = null!;
 
-        public void UpdateItems(GameState gs, MapObject mapObject)
+        public void UpdateItems(IRandom rand, MapObject mapObject)
         {
 
             VendorAddon addon = mapObject.GetAddon<VendorAddon>();
@@ -86,9 +87,9 @@ namespace Genrpg.MapServer.Vendors.Services
                 return;
             }
 
-            int currItemCount = MathUtils.IntRange(addon.ItemCount, addon.ItemCount * 2, gs.rand);
+            int currItemCount = MathUtils.IntRange(addon.ItemCount, addon.ItemCount * 2, rand);
             long level = mapObject.Level;
-            Zone zone = gs.map.Get<Zone>(mapObject.ZoneId);
+            Zone zone = _mapProvider.GetMap().Get<Zone>(mapObject.ZoneId);
 
             if (zone != null)
             {
@@ -105,7 +106,7 @@ namespace Genrpg.MapServer.Vendors.Services
                     Quantity = 1,
                 };
 
-                Item item = _itemGenService.Generate(gs, igd);
+                Item item = _itemGenService.Generate(rand, igd);
 
                 if (item != null)
                 {
@@ -132,12 +133,12 @@ namespace Genrpg.MapServer.Vendors.Services
             }
         }
 
-        public void BuyItem(GameState gs, MapObject obj, BuyItem buyItem)
+        public void BuyItem(IRandom rand, MapObject obj, BuyItem buyItem)
         {
-            _tradeService.SafeModifyObject(obj, delegate { BuyItemInternal(gs, obj, buyItem); });
+            _tradeService.SafeModifyObject(obj, delegate { BuyItemInternal(rand, obj, buyItem); });
         }
 
-        private void BuyItemInternal (GameState gs, MapObject obj, BuyItem buyItem)
+        private void BuyItemInternal (IRandom rand, MapObject obj, BuyItem buyItem)
         { 
             if (!_objectManager.GetObject(buyItem.UnitId, out MapObject vendor))
             {
@@ -200,16 +201,16 @@ namespace Genrpg.MapServer.Vendors.Services
             {
                 _currencyService.Add(ch, CurrencyTypes.Money, -itemPrice);
                 _inventoryService.AddItem(ch, vendorItem.Item, true);
-                _achievementService.UpdateAchievement(gs, ch, AchievementTypes.ItemsBought, 1);
+                _achievementService.UpdateAchievement(ch, AchievementTypes.ItemsBought, 1);
             }
         }
 
-        public void SellItem(GameState gs, MapObject obj, SellItem sellItem)
+        public void SellItem(IRandom rand, MapObject obj, SellItem sellItem)
         {
-            _tradeService.SafeModifyObject(obj, delegate { SellItemInternal(gs, obj, sellItem); });
+            _tradeService.SafeModifyObject(obj, delegate { SellItemInternal(rand, obj, sellItem); });
         }
 
-        private void SellItemInternal(GameState gs, MapObject obj, SellItem sellItem)
+        private void SellItemInternal(IRandom rand, MapObject obj, SellItem sellItem)
         { 
             if (!_objectManager.GetObject(sellItem.UnitId, out MapObject mapObject))
             {
@@ -247,9 +248,9 @@ namespace Genrpg.MapServer.Vendors.Services
             long money = ItemUtils.GetSellToVendorPrice(_gameData, ch, item);
 
             _inventoryService.RemoveItem(ch, sellItem.ItemId, true);
-            _achievementService.UpdateAchievement(gs, ch, AchievementTypes.ItemsSold, item.Quantity);
+            _achievementService.UpdateAchievement(ch, AchievementTypes.ItemsSold, item.Quantity);
             _currencyService.Add(ch, CurrencyTypes.Money, money);
-            _achievementService.UpdateAchievement(gs, ch, AchievementTypes.VendorMoney, money);
+            _achievementService.UpdateAchievement(ch, AchievementTypes.VendorMoney, money);
         }
     }
 }

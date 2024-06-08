@@ -8,31 +8,31 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class AddMiddleMountains : BaseAddMountains
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
         await UniTask.CompletedTask;
 
 
-        AddMiddleMapMountains(gs);
+        AddMiddleMapMountains(_gs);
 
     }
 
 
 
-    public void AddMiddleMapMountains(UnityGameState gs)
+    public void AddMiddleMapMountains(IUnityGameState gs)
     {
-        foreach (Zone zone in gs.map.Zones)
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            AddMiddleZoneMountains(gs, zone);
+            AddMiddleZoneMountains(zone);
 
         }
 
        // AddDungeonMountains(gs);
     }
 
-    protected void AddMiddleZoneMountains(UnityGameState gs, Zone zone)
+    protected void AddMiddleZoneMountains(Zone zone)
     {
-        if (gs == null || zone == null || gs.md == null || gs.md.mountainHeights == null)
+        if (_gs == null || zone == null || _md == null || _md.mountainHeights == null)
         {
             return;
         }
@@ -80,12 +80,12 @@ public class AddMiddleMountains : BaseAddMountains
 
             int ey = MathUtils.IntRange(sy - currMaxLen, sx + currMaxLen, middleRand);
 
-            if (ex < 0 || ex >= gs.map.GetHwid() || ey < 0 || ey >= gs.map.GetHhgt())
+            if (ex < 0 || ex >= _mapProvider.GetMap().GetHwid() || ey < 0 || ey >= _mapProvider.GetMap().GetHhgt())
             {
                 continue;
             }
 
-            if (gs.md.mapZoneIds[sx, sy] != zone.IdKey || gs.md.mapZoneIds[ex, ey] != zone.IdKey)
+            if (_md.mapZoneIds[sx, sy] != zone.IdKey || _md.mapZoneIds[ex, ey] != zone.IdKey)
             {
                 continue;
             }
@@ -98,7 +98,7 @@ public class AddMiddleMountains : BaseAddMountains
             if (maxDist >= 10 && maxDist < maxSize)
             {
                 float height = GetMountainHeightMult(middleRand);
-                AddMountainRidge(gs, sx, sy, ex, ey, zone.Seed / 2 + times, false, height, true);
+                AddMountainRidge(sx, sy, ex, ey, zone.Seed / 2 + times, false, height, true);
                 wallsAdded++;
             }
         }

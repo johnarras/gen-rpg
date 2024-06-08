@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Constants;
+﻿using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Units.Entities;
 using System;
@@ -19,8 +20,8 @@ namespace Assets.Editor
         [MenuItem("Build/CopyMonsterTextures")]
         static void ExecuteLocal()
         {
-            UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
-
+            IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+            IClientRandom clientRandom = new ClientRandom();
             IGameData gameData = gs.loc.Get<IGameData>();
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
 
@@ -34,7 +35,7 @@ namespace Assets.Editor
                     continue;
                 }
 
-                int val = gs.rand.Next(1, 5);
+                int val = clientRandom.Next(1, 5);
 
                 string targetFile = directory + unitType.Icon + ".png";
 
@@ -51,11 +52,12 @@ namespace Assets.Editor
         [MenuItem("Build/SetupMonsterImagePrefabs")]
         static void SetupMonsterImagePrefabs()
         {
-            UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+            IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
             IGameData gameData = gs.loc.Get<IGameData>();
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
 
+            IClientRandom clientRandom = new ClientRandom();
             string directory = "Assets/FullAssets/Monsters/Images/";
 
 
@@ -66,7 +68,7 @@ namespace Assets.Editor
                     continue;
                 }
 
-                int val = gs.rand.Next(1, 5);
+                int val = clientRandom.Next(1, 5);
 
                 string startTex = directory + unitType.Icon + ".png";
                 string targetFile = directory + unitType.Icon + ".prefab";
@@ -103,7 +105,7 @@ namespace Assets.Editor
         [MenuItem("Build/SetupMonster3DPrefabs")]
         static void SetupMonster3DPrefabs()
         {
-            UnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+            IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
             IGameData gameData = gs.loc.Get<IGameData>();
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();

@@ -7,7 +7,7 @@ public class InitialPrefabLoader : BaseBehaviour
     public List<string> Prefabs;
 
 
-    public async UniTask LoadPrefabs(UnityGameState gs)
+    public async UniTask LoadPrefabs(IUnityGameState gs)
     {
         if (Prefabs == null)
         {

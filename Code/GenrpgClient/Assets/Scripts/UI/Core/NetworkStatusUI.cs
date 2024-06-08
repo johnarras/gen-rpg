@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.MapServer.Messages;
+using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Networking.Messages;
 using Genrpg.Shared.Utils;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Assets.Scripts.UI
     {
 
         private IMapTerrainManager _terrainManager;
+        protected IMapProvider _mapProvider;
         public GText Text;
 
         private CancellationToken _token;
@@ -60,7 +62,7 @@ namespace Assets.Scripts.UI
             }
 
             ConnMessageCounts clientCounts = _networkService.GetMessageCounts();
-            long size = _gs.map.BlockCount * (MapConstants.TerrainPatchSize - 1);
+            long size = _mapProvider.GetMap().BlockCount * (MapConstants.TerrainPatchSize - 1);
             sb.Append("Client Size: " + size + "x" + size + " units\n");
             sb.Append("Uptime: " + DateUtils.PrintTime(clientCounts.Seconds) + "\n");
 

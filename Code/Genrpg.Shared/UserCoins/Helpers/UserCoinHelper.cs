@@ -12,11 +12,11 @@ namespace Genrpg.Shared.UserCoins.Helpers
     public class UserCoinHelper : IEntityHelper
     {
 
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public long GetKey() { return EntityTypes.UserCoin; }
         public string GetDataPropertyName() { return "UserCoinTypes"; }
 
-        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
+        public IIndexedGameItem Find(IFilteredObject obj, long id)
         {
             return _gameData.Get<UserCoinSettings>(obj).Get(id);
         }

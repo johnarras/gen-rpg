@@ -16,9 +16,9 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 {
     public interface ICrawlerSpellService : IInitializable
     {
-        List<CrawlerSpell> GetSpellsForMember(GameState gs, PartyData party, PartyMember member, bool inCombat);
-        List<CrawlerSpell> GetNonSpellCombatActionsForMember(GameState gs, PartyData party, PartyMember member, bool inCombat);
-        FullSpell GetFullSpell (GameState gs, CrawlerUnit unit, CrawlerSpell spell, long overrideLevel = 0);
-        UniTask CastSpell(GameState gs, PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0);
+        List<CrawlerSpell> GetSpellsForMember(PartyData party, PartyMember member, bool inCombat);
+        List<CrawlerSpell> GetNonSpellCombatActionsForMember(PartyData party, PartyMember member, bool inCombat);
+        FullSpell GetFullSpell (CrawlerUnit unit, CrawlerSpell spell, long overrideLevel = 0);
+        UniTask CastSpell(PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0);
     }
 }

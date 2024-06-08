@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.UI.Crawler.States;
+﻿using Assets.Scripts.ProcGen.RandomNumbers;
+using Assets.Scripts.UI.Crawler.States;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
@@ -25,13 +26,15 @@ namespace Assets.Scripts.Crawler.Services.Combat
         private ICrawlerSpellService _spellService;
         private ICombatService _combatService;
         private ICrawlerService _crawlerService;
+        protected IUnityGameState _gs;
+        protected IClientRandom _rand;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-        public async UniTask<bool> ProcessCombatRound(GameState gs, PartyData party, CancellationToken token)
+        public async UniTask<bool> ProcessCombatRound(PartyData party, CancellationToken token)
         {
             if (party.Combat == null)
             {
@@ -45,7 +48,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 {
                     double averageLuck = 1.0*totalLuck/party.Combat.PartyGroup.Units.Count;
 
-                    if (gs.rand.NextDouble()*party.Combat.Level < averageLuck)
+                    if (_rand.NextDouble()*party.Combat.Level < averageLuck)
                     {
                         party.Combat = null;
                         _crawlerService.ChangeState(ECrawlerStates.ExploreWorld, token);
@@ -54,11 +57,11 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 }
             }
 
-            _combatService.SetInitialActions(gs, party);
+            _combatService.SetInitialActions(party);
 
             // First order things.
 
-            _combatService.SetMonsterActions(gs, party);
+            _combatService.SetMonsterActions(party);
 
             foreach (CombatGroup group in party.Combat.Enemies)
             {
@@ -103,11 +106,11 @@ namespace Assets.Scripts.Crawler.Services.Combat
                     continue;
                 }
 
-                await _spellService.CastSpell(gs, party, unit.Action, unit.Level);
+                await _spellService.CastSpell(party, unit.Action, unit.Level);
 
             }
 
-            _combatService.EndCombatRound(gs, party);
+            _combatService.EndCombatRound(party);
 
             await Task.CompletedTask;
             return true;

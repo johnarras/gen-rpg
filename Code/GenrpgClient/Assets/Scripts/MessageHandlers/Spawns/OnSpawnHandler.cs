@@ -8,7 +8,7 @@ using System.Threading;
 
 public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
 {
-    protected override void InnerProcess(UnityGameState gs, OnSpawn spawnMessage, CancellationToken token)
+    protected override void InnerProcess(OnSpawn spawnMessage, CancellationToken token)
     {
         if (_objectManager.GetObject(spawnMessage.ObjId, out MapObject obj))
         {
@@ -46,7 +46,7 @@ public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
 
             if (loader != null)
             {
-                loader.Load(gs, spawnMessage, newObj, token).Forget();
+                loader.Load(spawnMessage, newObj, token).Forget();
             }
         }
     }

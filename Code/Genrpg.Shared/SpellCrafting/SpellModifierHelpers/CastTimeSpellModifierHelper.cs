@@ -14,9 +14,9 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
 
 
 
-        public override double GetCostScale(GameState gs, MapObject obj, double value)
+        public override double GetCostScale(MapObject obj, double value)
         {
-            value = GetValidValue(gs, obj, value);
+            value = GetValidValue(obj, value);
 
             return MathUtils.Clamp(0.25, 1.0f - value * 0.1f, 1);
         }

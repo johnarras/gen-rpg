@@ -6,32 +6,32 @@ using System.Threading;
 
 public class SetBaseTerrainHeights : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        int wid = gs.map.GetHwid();
-        int hgt = gs.map.GetHhgt();
+        await base.Generate(token);
+        int wid = _mapProvider.GetMap().GetHwid();
+        int hgt = _mapProvider.GetMap().GetHhgt();
 
 
-        MyRandom rand = new MyRandom(gs.map.Seed % 1000000000 + 192873);
+        MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed % 1000000000 + 192873);
 
         float delta = MathUtils.FloatRange(0.07f, 0.12f, rand);
 
         float heightPerGrid = MathUtils.FloatRange(MapConstants.MapHeightPerGrid * (1 - delta), MapConstants.MapHeightPerGrid * (1 + delta), rand);
 
         float minHeight = MapConstants.StartHeightPercent - heightPerGrid * 0.3f;
-        float maxHeight = MapConstants.StartHeightPercent + heightPerGrid * (gs.map.BlockCount / 2 - 1);
+        float maxHeight = MapConstants.StartHeightPercent + heightPerGrid * (_mapProvider.GetMap().BlockCount / 2 - 1);
 
 
         // Good settings for overall wide slopes/big mountains/valleys
-        long pseed = gs.map.Seed + 19383;
+        long pseed = _mapProvider.GetMap().Seed + 19383;
 
         List<float[,]> heightsList = new List<float[,]>();
 
         int heightTimes = 3;
 
 
-        float overworldSizeMult = 1.0f * gs.map.GetHwid() / MapConstants.MapHeight;
+        float overworldSizeMult = 1.0f * _mapProvider.GetMap().GetHwid() / MapConstants.MapHeight;
 
         for (int i = 0; i < heightTimes; i++)
         {
@@ -40,10 +40,10 @@ public class SetBaseTerrainHeights : BaseZoneGenerator
             // This number is here because these ups and downs should be a percent of the overall world height.
             float amp = MathUtils.FloatRange(0.005f, 0.01f, rand) * overworldSizeMult;
             // We want these features to be approx several hundred units across or so.
-            float freq = gs.map.GetHwid() / (MathUtils.FloatRange(6.0f, 9.0f, rand) * MapConstants.TerrainPatchSize);
+            float freq = _mapProvider.GetMap().GetHwid() / (MathUtils.FloatRange(6.0f, 9.0f, rand) * MapConstants.TerrainPatchSize);
             // This number is in this range because we want a few bumps to encompass the whole world.
             int octaves = 2;
-            float[,] heights = _noiseService.Generate(gs, pers, freq, amp, octaves, pseed, wid, hgt);
+            float[,] heights = _noiseService.Generate(pers, freq, amp, octaves, pseed, wid, hgt);
             heightsList.Add(heights);
         }
 
@@ -71,7 +71,7 @@ public class SetBaseTerrainHeights : BaseZoneGenerator
 
                 float heightPct = maxHeight * (1 - pct) + minHeight * pct;
 
-                gs.md.heights[x, y] = heightPct;
+                _md.heights[x, y] = heightPct;
 
                 float perturbScale = 1.0f;
                 if (pct > perturbDampStartPercent)
@@ -95,10 +95,10 @@ public class SetBaseTerrainHeights : BaseZoneGenerator
                     heightAdjust /= 2;
                 }
 
-                gs.md.heights[x, y] += heightAdjust;
-                if (gs.md.heights[x, y] < 0)
+                _md.heights[x, y] += heightAdjust;
+                if (_md.heights[x, y] < 0)
                 {
-                    gs.md.heights[x, y] = 0;
+                    _md.heights[x, y] = 0;
                 }
             }
         }
@@ -109,30 +109,30 @@ public class SetBaseTerrainHeights : BaseZoneGenerator
             for (int y = 0; y < hgt; y++)
             {
 
-                float edgePercent = (float)Math.Pow(gs.md.EdgeHeightmapAdjustPercent(gs, gs.map, x, y), 0.09f);
+                float edgePercent = (float)Math.Pow(_md.EdgeHeightmapAdjustPercent(_mapProvider.GetMap(), x, y), 0.09f);
 
                 if (x < 2 || y < 2 || x >= wid - 3 || y >= hgt - 3)
                 {
                     edgePercent = 0;
                 }
 
-                gs.md.heights[x, y] *= edgePercent;
+                _md.heights[x, y] *= edgePercent;
                 /*
-                if (gs.md.heights[x, y] < MapConstants.StartHeightPercent)
+                if (_md.heights[x, y] < MapConstants.StartHeightPercent)
                 {
-                    float ratio = gs.md.heights[x, y] / MapConstants.StartHeightPercent;
-                    gs.md.heights[x, y] *= (float)(Math.Pow(ratio, 11.0f));
+                    float ratio = _md.heights[x, y] / MapConstants.StartHeightPercent;
+                    _md.heights[x, y] *= (float)(Math.Pow(ratio, 11.0f));
 
                 }
 
             */
                 /*
-                int xedgeDist = Math.Min(x, gs.map.GetHwid() - x);
-                int yedgeDist = Math.Min(y, gs.map.GetHhgt() - y);
+                int xedgeDist = Math.Min(x, _mapProvider.GetMap().GetHwid() - x);
+                int yedgeDist = Math.Min(y, _mapProvider.GetMap().GetHhgt() - y);
                 int edgeDist = Math.Min(xedgeDist, yedgeDist);
                 if (edgeDist < minEdgeDist)
                 {
-                    gs.md.heights[x, y] *= (1.0f * edgeDist) / minEdgeDist;
+                    _md.heights[x, y] *= (1.0f * edgeDist) / minEdgeDist;
                 }
                 */
             }

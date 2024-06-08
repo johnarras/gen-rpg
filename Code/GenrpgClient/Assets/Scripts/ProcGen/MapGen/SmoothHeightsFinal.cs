@@ -5,13 +5,13 @@ using System.Threading;
 
 public class SmoothHeightsFinal : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        int hwid = gs.map.GetHwid();
-		int hhgt = gs.map.GetHhgt();
+        await base.Generate(token);
+        int hwid = _mapProvider.GetMap().GetHwid();
+		int hhgt = _mapProvider.GetMap().GetHhgt();
 
-		float[,] heights2 = new float[gs.map.GetHwid(),gs.map.GetHhgt()];
+		float[,] heights2 = new float[_mapProvider.GetMap().GetHwid(),_mapProvider.GetMap().GetHhgt()];
 
 
         int minRadius = 2;
@@ -23,7 +23,7 @@ public class SmoothHeightsFinal : BaseZoneGenerator
 		{
 			for (int y = 0; y < hhgt; y++)
 			{
-				heights2[x,y] = gs.md.heights[x,y];
+				heights2[x,y] = _md.heights[x,y];
 			}
 		}
 
@@ -41,20 +41,20 @@ public class SmoothHeightsFinal : BaseZoneGenerator
 
                 for (int xx = x - checkRadius; xx <= x + checkRadius; xx++)
                 {
-                    if (xx < 0 || xx >= gs.map.GetHwid())
+                    if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
                     {
                         continue;
                     }
 
                     for (int yy = y - checkRadius; yy <= y + checkRadius; yy++)
                     {
-                        if (yy < 0 || yy >= gs.map.GetHhgt())
+                        if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                         {
                             continue;
                         }
                         numRoadCellsChecked++;
-                        totalRoadPercent += gs.md.alphas[xx, yy, MapConstants.RoadTerrainIndex];
-			            if (gs.md.mapZoneIds[xx,yy] != gs.md.mapZoneIds[x,y])
+                        totalRoadPercent += _md.alphas[xx, yy, MapConstants.RoadTerrainIndex];
+			            if (_md.mapZoneIds[xx,yy] != _md.mapZoneIds[x,y])
                         {
                             float dx = xx - x;
                             float dy = yy - y;
@@ -70,9 +70,9 @@ public class SmoothHeightsFinal : BaseZoneGenerator
 
                 float bridgeDist = 100;
 
-                if (gs.md.bridgeDistances != null)
+                if (_md.bridgeDistances != null)
                 {
-                    bridgeDist = gs.md.bridgeDistances[x,y];
+                    bridgeDist = _md.bridgeDistances[x,y];
                 }
 
                 float bridgeScale = 1.0f;
@@ -113,7 +113,7 @@ public class SmoothHeightsFinal : BaseZoneGenerator
 
 				for (int xx = x-currRadius; xx <= x+currRadius; xx++)
 				{
-					if (xx < 0 || xx >= gs.map.GetHwid())
+					if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
 					{
 						continue;
 					}
@@ -121,7 +121,7 @@ public class SmoothHeightsFinal : BaseZoneGenerator
 					float dx = Math.Abs (xx-x);
 					for (int yy = y-currRadius; yy <= y+currRadius; yy++)
 					{
-						if (yy < 0 || yy >= gs.map.GetHhgt())
+						if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
 						{
 							continue;
 						}
@@ -137,7 +137,7 @@ public class SmoothHeightsFinal : BaseZoneGenerator
 
 
 
-						totalVal += gs.md.heights[xx,yy]*currweight;
+						totalVal += _md.heights[xx,yy]*currweight;
 						totalWeight += currweight;
 					
 					}
@@ -152,7 +152,7 @@ public class SmoothHeightsFinal : BaseZoneGenerator
 			}
 
 		}
-		gs.md.heights = heights2;
+		_md.heights = heights2;
 	}
 }
 	

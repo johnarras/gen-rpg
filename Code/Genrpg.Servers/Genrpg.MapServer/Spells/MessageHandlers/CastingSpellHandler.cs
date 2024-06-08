@@ -17,51 +17,51 @@ using Genrpg.MapServer.MapMessaging.MessageHandlers;
 
 namespace Genrpg.MapServer.Spells.MessageHandlers
 {
-    public class CastingSpellHandler : BaseServerMapMessageHandler<CastingSpell>
+    public class CastingSpellHandler : BaseUnitServerMapMessageHandler<CastingSpell>
     {
         private IStatService _statService = null;
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, CastingSpell message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, CastingSpell message)
         {
-            if (!GetOkUnit(obj, true, out Unit caster))
+            if (!IsOkUnit(unit, true))
             {
-                obj.ActionMessage = null;
-                _spellService.SendStopCast(gs, obj);
+                unit.ActionMessage = null;
+                _spellService.SendStopCast(rand, unit);
                 return;
             }
 
             if (message.Spell == null)
             {
-                obj.ActionMessage = null;
-                _spellService.SendStopCast(gs, obj);
-                pack.SendError(gs, obj, "Spell does not exist");
+                unit.ActionMessage = null;
+                _spellService.SendStopCast(rand, unit);
+                pack.SendError(unit, "Spell does not exist");
                 return;
             }
 
 
-            TryCastResult result = _spellService.TryCast(gs, caster, message.Spell.IdKey, message.TargetId, true);
+            TryCastResult result = _spellService.TryCast(rand, unit, message.Spell.IdKey, message.TargetId, true);
 
             if (result.State != TryCastState.Ok)
             {
-                pack.SendError(gs, obj, result.StateText);
+                pack.SendError(unit, result.StateText);
                 if (result.State == TryCastState.TargetDead)
                 {
-                    caster.AddMessage(new OnTargetIsDead() { UnitId = message.TargetId });
+                    unit.AddMessage(new OnTargetIsDead() { UnitId = message.TargetId });
                 }
-                _spellService.SendStopCast(gs, obj);
+                _spellService.SendStopCast(rand, unit);
                 return;
             }
 
-            if (caster.ActionMessage != message)
+            if (unit.ActionMessage != message)
             {
-                pack.SendError(gs, obj, "You aren't casting this spell");
-                _spellService.SendStopCast(gs, obj);
+                pack.SendError(unit, "You aren't casting this spell");
+                _spellService.SendStopCast(rand, unit);
                 return;
             }
 
-            _statService.Add(caster, result.Spell.PowerStatTypeId, StatCategories.Curr, -result.Spell.GetCost(gs, caster));
+            _statService.Add(unit, result.Spell.PowerStatTypeId, StatCategories.Curr, -result.Spell.GetCost(unit));
 
             // Send projectile to target.
-            _spellService.SendSpell(gs, caster, result);
+            _spellService.SendSpell(rand, unit, result);
         }
     }
 }

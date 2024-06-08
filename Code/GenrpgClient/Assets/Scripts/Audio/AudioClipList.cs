@@ -62,7 +62,7 @@ public class AudioClipList : BaseBehaviour
         AudioClip clip = null;
         if (index < 0 || index >= Clips.Count)
         {
-            clip = Clips[_gs.rand.Next() % Clips.Count];
+            clip = Clips[_rand.Next() % Clips.Count];
         }
         else
         {

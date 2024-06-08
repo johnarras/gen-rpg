@@ -98,9 +98,9 @@ namespace Genrpg.LoginServer.CommandHandlers
             gs.ch = new Character(_repoService);
             CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 
-            List<IUnitData> serverDataList = await _playerDataService.LoadAllPlayerData(gs, gs.ch);
+            List<IUnitData> serverDataList = await _playerDataService.LoadAllPlayerData(gs.rand, gs.ch);
 
-            PlayerStoreOfferData offerData = await _purchasingService.GetCurrentStores(gs, gs.user, gs.ch, true);
+            PlayerStoreOfferData offerData = await _purchasingService.GetCurrentStores(gs.user, gs.ch, true);
 
             List<IUnitData> clientDataList = await _playerDataService.MapToClientApi(serverDataList);
 
@@ -113,7 +113,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 worldDataEnv = command.WorldDataEnv;
             }
 
-            List<ITopLevelSettings> gameData = _gameDataService.GetClientGameData(gs, gs.ch, false);
+            List<ITopLevelSettings> gameData = _gameDataService.GetClientGameData(gs.ch, false);
             LoadIntoMapResult loadResult = new LoadIntoMapResult()
             {
                 Map = SerializationUtils.ConvertType<Map, Map>(fullCachedMap.Map),
@@ -139,7 +139,7 @@ namespace Genrpg.LoginServer.CommandHandlers
         {
             if (!_mapCache.ContainsKey(mapId))
             {
-                Map newMap = await _mapDataService.LoadMap(gs, mapId);
+                Map newMap = await _mapDataService.LoadMap(gs.rand, mapId);
                 if (newMap == null || newMap.Zones == null || newMap.Zones.Count < 1)
                 {
                     return new FullCachedMap();

@@ -13,9 +13,9 @@ public class GroundObjectLoader : BaseMapObjectLoader
     public override long GetKey() { return EntityTypes.GroundObject; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 
-    public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async UniTask Load(OnSpawn spawn, MapObject obj, CancellationToken token)
     {
-        GroundObjType groundObjType = _gameData.Get<GroundObjTypeSettings>(gs.ch).Get(spawn.EntityId);
+        GroundObjType groundObjType = _gameData.Get<GroundObjTypeSettings>(_gs.ch).Get(spawn.EntityId);
         if (groundObjType == null)
         {
             return;
@@ -30,13 +30,13 @@ public class GroundObjectLoader : BaseMapObjectLoader
             Token = token,
         };
 
-        _assetService.LoadAsset(gs, AssetCategoryNames.Props, groundObjType.Art, OnDownloadGroundObject, loadData, null, token);
+        _assetService.LoadAsset(AssetCategoryNames.Props, groundObjType.Art, OnDownloadGroundObject, loadData, null, token);
 
         await UniTask.CompletedTask;
         return;
     }
 
-    private void OnDownloadGroundObject(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnDownloadGroundObject(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -50,9 +50,9 @@ public class GroundObjectLoader : BaseMapObjectLoader
             return;
         }
 
-        MapGroundObject worldGroundObject = GEntityUtils.GetOrAddComponent<MapGroundObject>(gs,go);
+        MapGroundObject worldGroundObject = GEntityUtils.GetOrAddComponent<MapGroundObject>(_gs, go);
 
-        GroundObjType gtype = _gameData.Get<GroundObjTypeSettings>(gs.ch).Get(loadData.Spawn.EntityId);
+        GroundObjType gtype = _gameData.Get<GroundObjTypeSettings>(_gs.ch).Get(loadData.Spawn.EntityId);
 
         worldGroundObject.GroundObjectId = gtype.IdKey;
         worldGroundObject.CrafterTypeId = gtype.CrafterTypeId;
@@ -62,7 +62,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
         worldGroundObject.Z = (int)loadData.Spawn.Z;
         if (loadData.Spawn.ZoneId > 0)
         {
-            Zone zone = gs.map.Get<Zone>(loadData.Spawn.ZoneId);
+            Zone zone = _mapProvider.GetMap().Get<Zone>(loadData.Spawn.ZoneId);
             if (zone != null)
             {
                 worldGroundObject.Level = zone.Level;
@@ -73,7 +73,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
         {
             worldGroundObject.ShowGlow(0);
         }
-        FinalPlaceObject(gs, go, loadData, LayerNames.ObjectLayer);
+        FinalPlaceObject(go, loadData, LayerNames.ObjectLayer);
     }
 }
 

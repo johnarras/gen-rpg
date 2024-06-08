@@ -20,14 +20,14 @@ public class UnitStatBar : BaseBehaviour
     long _curr = 0;
     long _max = 0;
 
-    public void Init(UnityGameState gs, Unit unitIn)
+    public void Init(Unit unitIn)
     {
         _unit = unitIn;
         if (_progressBar != null && _unit != null)
         {
             _curr = _unit.Stats.Curr(_statTypeId);
             _max = _unit.Stats.Max(_statTypeId);
-            _progressBar.InitRange(gs, 0, _max, _curr);
+            _progressBar.InitRange(0, _max, _curr);
         }
         _dispatcher.AddEvent<LevelUpEvent>(this, OnLevelUpdate);
         _dispatcher.AddEvent<StatUpd>(this, OnStatUpdate);
@@ -53,12 +53,12 @@ public class UnitStatBar : BaseBehaviour
         if (_max != max)
         {
             _max = max;
-            _progressBar.InitRange(_gs, 0, _max, curr);
+            _progressBar.InitRange(0, _max, curr);
         }
         else
         {
             curr = MathUtils.Clamp(0, curr, _max);
-            _progressBar.SetValue(_gs, curr);
+            _progressBar.SetValue(curr);
         }
         _curr = curr;
 
@@ -69,7 +69,7 @@ public class UnitStatBar : BaseBehaviour
 
     private void OnLevelUpdate(LevelUpEvent data)
     {
-        Init(_gs,_unit);
+        Init(_unit);
         return;
     }
 }

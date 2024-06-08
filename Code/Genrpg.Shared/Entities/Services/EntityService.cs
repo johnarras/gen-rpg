@@ -16,9 +16,9 @@ namespace Genrpg.Shared.Entities.Services
 {
     public interface IEntityService : IInitializable
     {
-        bool GiveRewards<SR>(GameState gs, MapObject obj, List<SR> resultList) where SR : ISpawnResult;
+        bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList) where SR : ISpawnResult;
         IEntityHelper GetEntityHelper(long entityTypeId);
-        IIndexedGameItem Find(GameState gs, IFilteredObject obj, long entityType, long entityId);
+        IIndexedGameItem Find(IFilteredObject obj, long entityType, long entityId);
     }
 
     public class EntityService : IEntityService
@@ -27,7 +27,7 @@ namespace Genrpg.Shared.Entities.Services
         private Dictionary<long, IRewardHelper> _rewardHelpers = null;
         private Dictionary<long, IEntityHelper> _entityHelpers = null;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             _rewardHelpers = ReflectionUtils.SetupDictionary<long, IRewardHelper>(gs);
             _entityHelpers = ReflectionUtils.SetupDictionary<long, IEntityHelper>(gs);
@@ -35,7 +35,7 @@ namespace Genrpg.Shared.Entities.Services
         }
 
         #region Rewards
-        public virtual bool GiveRewards<SR>(GameState gs, MapObject obj, List<SR> resultList) where SR : ISpawnResult
+        public virtual bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList) where SR : ISpawnResult
         {
             if (resultList == null)
             {
@@ -46,7 +46,7 @@ namespace Genrpg.Shared.Entities.Services
             {
                 foreach (ISpawnResult res in resultList)
                 {
-                    if (!GiveReward(gs, ch, res))
+                    if (!GiveReward(rand, ch, res))
                     {
                         hadFailure = true;
                     }
@@ -60,18 +60,18 @@ namespace Genrpg.Shared.Entities.Services
             return !hadFailure;
         }
 
-        protected bool GiveReward(GameState gs, Character ch, ISpawnResult res)
+        protected bool GiveReward(IRandom rand, Character ch, ISpawnResult res)
         {
             if (res == null)
             {
                 return false;
             }
 
-            return GiveReward(gs, ch, res.EntityTypeId, res.EntityId, res.Quantity, res.Data);
+            return GiveReward(rand, ch, res.EntityTypeId, res.EntityId, res.Quantity, res.Data);
         }
 
 
-        protected virtual bool GiveReward(GameState gs, Character ch, long entityType, long entityId, long quantity, object extraData = null)
+        protected virtual bool GiveReward(IRandom rand, Character ch, long entityType, long entityId, long quantity, object extraData = null)
         {
             IRewardHelper helper = GetRewardHelper(entityType);
 
@@ -81,7 +81,7 @@ namespace Genrpg.Shared.Entities.Services
             }
 
             // This handles any extra results we need to send to the client.
-            return helper.GiveReward(gs, ch, entityId, quantity, extraData);
+            return helper.GiveReward(rand, ch, entityId, quantity, extraData);
         }
         #endregion
 
@@ -103,7 +103,7 @@ namespace Genrpg.Shared.Entities.Services
             }
             return null;
         }
-        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long entityType, long entityId)
+        public IIndexedGameItem Find( IFilteredObject obj, long entityType, long entityId)
         {
             IEntityHelper helper = GetEntityHelper(entityType);
 
@@ -112,7 +112,7 @@ namespace Genrpg.Shared.Entities.Services
                 return null;
             }
 
-            return helper.Find(gs, obj, entityId);
+            return helper.Find(obj, entityId);
 
         }
         #endregion

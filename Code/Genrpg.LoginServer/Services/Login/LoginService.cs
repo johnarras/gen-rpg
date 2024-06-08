@@ -40,7 +40,7 @@ namespace Genrpg.LoginServer.Services.Login
         private ILogService _logService = null;
         private IServerConfig _config = null;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -148,13 +148,13 @@ namespace Genrpg.LoginServer.Services.Login
             LoginResult loginResult = new LoginResult()
             {
                 User = SerializationUtils.ConvertType<User, User>(user),
-                CharacterStubs = await _playerDataService.LoadCharacterStubs(gs, user.Id),
+                CharacterStubs = await _playerDataService.LoadCharacterStubs(user.Id),
                 MapStubs = gs.mapStubs.Stubs,
             };
 
             List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
 
-            loginResult.GameData = _gameDataService.GetClientGameData(gs, gs.user, true, loginCommand.ClientSettings);
+            loginResult.GameData = _gameDataService.GetClientGameData(gs.user, true, loginCommand.ClientSettings);
 
             gs.Results.Add(loginResult);
 

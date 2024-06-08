@@ -10,7 +10,7 @@ namespace Genrpg.InstanceServer.Setup
 {
     public class InstanceSetupService : SetupService
     {
-        public override void SetupServiceLocator(GameState gs)
+        public override void SetupServiceLocator(IGameState gs)
         {
             InstanceLocatorSetup iss = new InstanceLocatorSetup();
             iss.Setup(gs);

@@ -16,14 +16,14 @@ using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Characters.Utils;
+using Genrpg.Shared.MapServer.Services;
+using Assets.Scripts.ProcGen.RandomNumbers;
 
 public class UnityZoneGenService : ZoneGenService
 {
     public const string LoadMapURLSuffix = "/LoadMap";
 
     public static string LoadedMapId = "";
-
-    public static Texture2D mapTexture;
 
     public const float ObjectScale = 1.0f;
 
@@ -50,33 +50,33 @@ public class UnityZoneGenService : ZoneGenService
         _mapTokenSource = null;
     }
 
-    public override void InstantiateMap(UnityGameState gs, string worldId)
+    public override void InstantiateMap(string worldId)
     {
         _mapTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_gameToken);
         _mapToken = _mapTokenSource.Token;
-        foreach (IInjectable service in gs.loc.GetVals())
+        foreach (IInjectable service in _gs.loc.GetVals())
         {
             if (service is IMapTokenService tokenService)
             {
                 tokenService.SetMapToken(_mapToken);
             }
         }
-        InnerGenerate(gs, worldId, _mapToken).Forget();
+        InnerGenerate(worldId, _mapToken).Forget();
     }
 
-    protected async UniTask InnerGenerate(UnityGameState gs, string worldId, CancellationToken token)
+    protected async UniTask InnerGenerate(string worldId, CancellationToken token)
     {
-        if (gs.md.GeneratingMap)
+        if (_md.GeneratingMap)
         {
             return;
         }
 
-        _screenService.CloseAll(gs);
-        _screenService.Open(gs, ScreenId.Loading);
+        _screenService.CloseAll();
+        _screenService.Open(ScreenId.Loading);
         await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: token);
-        gs.md.GeneratingMap = true;
+        _md.GeneratingMap = true;
         RenderSettings.fog = false;
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
         // Now carry out the actual generation steps
         List<IZoneGenerator> genlist = new List<IZoneGenerator>();
 
@@ -234,7 +234,7 @@ public class UnityZoneGenService : ZoneGenService
 
         foreach (IZoneGenerator gen in genlist)
         {
-            gs.loc.Resolve(gen);
+            _gs.loc.Resolve(gen);
         }
 
         StringBuilder output = new StringBuilder();
@@ -257,12 +257,12 @@ public class UnityZoneGenService : ZoneGenService
             _logService.Info("StageStart: " + currStep + " " + gen.GetType().Name + " Time: " + DateTime.UtcNow);
             try
             {
-                await gen.Generate(gs, token);
+                await gen.Generate(token);
                 _logService.Info("StageEnd: " + currStep + " " + gen.GetType().Name + " Time: " + DateTime.UtcNow);
             }
             catch (Exception e)
             {
-                ShowGenError(gs, e.Message + "\n-----------\n" + e.StackTrace);
+                ShowGenError(e.Message + "\n-----------\n" + e.StackTrace);
                 return;
             }
             DateTime endTime = DateTime.UtcNow;
@@ -271,14 +271,14 @@ public class UnityZoneGenService : ZoneGenService
 
             gen = null;
 
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
 
-            await UniTask.NextFrame( cancellationToken: token);
+            await UniTask.NextFrame(cancellationToken: token);
         }
 
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
 
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
         output.Append("------------------\n" +
             (DateTime.UtcNow - totalStartTime).TotalSeconds);
 
@@ -286,76 +286,76 @@ public class UnityZoneGenService : ZoneGenService
 
         // Wait for everything to get downloaded.
 
-        gs.md.ClearGenerationData();
+        _md.ClearGenerationData();
 
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
 
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
 
 
         _dispatcher.Dispatch(new MapIsLoadedEvent());
-        gs.md.GeneratingMap = false;
+        _md.GeneratingMap = false;
         await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
         _playerManager.MoveAboveObstacles();
         await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
 
 
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
     }
 
-    public override void ShowGenError(UnityGameState gs, string msg)
+    public override void ShowGenError(string msg)
     {
-        base.ShowGenError(gs, msg);
-        gs.md.GeneratingMap = false;
+        base.ShowGenError(msg);
+        _md.GeneratingMap = false;
     }
 
 
 
 
-    public override void SetAllAlphamaps(UnityGameState gs, float[,,] alphaMaps, CancellationToken token)
+    public override void SetAllAlphamaps(float[,,] alphaMaps, CancellationToken token)
     {
-        if ( alphaMaps == null)
+        if (alphaMaps == null)
         {
             return;
         }
-        for (int x = 0; x < gs.map.GetHwid(); x++)
+        for (int x = 0; x < _mapProvider.GetMap().GetHwid(); x++)
         {
-            for (int y = 0; y < gs.map.GetHhgt(); y++)
+            for (int y = 0; y < _mapProvider.GetMap().GetHhgt(); y++)
             {
                 float alphaTotal = 0.0f;
                 for (int i = 0; i < MapConstants.MaxTerrainIndex; i++)
                 {
-                    gs.md.alphas[x, y, i] = MathUtils.Clamp(0, gs.md.alphas[x, y, i], 1);
-                    alphaTotal += gs.md.alphas[x, y, i];
+                    _md.alphas[x, y, i] = MathUtils.Clamp(0, _md.alphas[x, y, i], 1);
+                    alphaTotal += _md.alphas[x, y, i];
                 }
                 if (alphaTotal <= 0)
                 {
-                    gs.md.alphas[x, y, MapConstants.BaseTerrainIndex] = 0.75f;
-                    gs.md.alphas[x, y, MapConstants.DirtTerrainIndex] = 0.25f;
+                    _md.alphas[x, y, MapConstants.BaseTerrainIndex] = 0.75f;
+                    _md.alphas[x, y, MapConstants.DirtTerrainIndex] = 0.25f;
                 }
                 else
                 {
                     for (int i = 0; i < MapConstants.MaxTerrainIndex; i++)
                     {
-                        gs.md.alphas[x, y, i] /= alphaTotal;
-                        gs.md.alphas[x, y, i] = MathUtils.Clamp(0, gs.md.alphas[x, y, i], 1);
+                        _md.alphas[x, y, i] /= alphaTotal;
+                        _md.alphas[x, y, i] = MathUtils.Clamp(0, _md.alphas[x, y, i], 1);
                     }                   
                 }
             }
         }
 
 
-        for (int gx = 0; gx < gs.map.BlockCount; gx++)
+        for (int gx = 0; gx < _mapProvider.GetMap().BlockCount; gx++)
         {
-            for (int gy = 0; gy < gs.map.BlockCount; gy++)
+            for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
             {
-                TerrainData tdata = _terrainManager.GetTerrainData(gs, gx, gy);
+                TerrainData tdata = _terrainManager.GetTerrainData(gx, gy);
                 if (tdata == null)
                 {
                     continue;
                 }
 
-                TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
+                TerrainPatchData patch = _terrainManager.GetTerrainPatch(gx, gy);
 
                 if (patch == null)
                 {
@@ -374,17 +374,17 @@ public class UnityZoneGenService : ZoneGenService
                 {
                     for (int y = 0; y < MapConstants.TerrainPatchSize; y++)
                     {
-                        patch.mainZoneIds[x, y] = (byte)gs.md.mapZoneIds[startx + x, starty + y];
-                        patch.subZoneIds[x, y] = (byte)gs.md.subZoneIds[startx + x, starty + y];
+                        patch.mainZoneIds[x, y] = (byte)_md.mapZoneIds[startx + x, starty + y];
+                        patch.subZoneIds[x, y] = (byte)_md.subZoneIds[startx + x, starty + y];
                         for (int index = 0; index < MapConstants.MaxTerrainIndex; index++)
                         {
-                            patch.baseAlphas[x, y, index] = gs.md.alphas[x + startx, y + starty, index];
+                            patch.baseAlphas[x, y, index] = _md.alphas[x + startx, y + starty, index];
                         }
                     }
                 }
 
 
-                SetOnePatchAlphamaps(gs, patch, token).Forget();
+                SetOnePatchAlphamaps(patch, token).Forget();
             }
         }
 
@@ -393,7 +393,7 @@ public class UnityZoneGenService : ZoneGenService
 
 
 
-    public override async UniTask SetOnePatchAlphamaps(UnityGameState gs, TerrainPatchData patch, CancellationToken token)
+    public override async UniTask SetOnePatchAlphamaps(TerrainPatchData patch, CancellationToken token)
     {
         patch.HaveSetAlphamaps = false;
         Terrain terr = patch.terrain as Terrain;
@@ -409,8 +409,7 @@ public class UnityZoneGenService : ZoneGenService
         int pauseSize = MapConstants.TerrainPatchSize / 4;
         int pauseVal = pauseSize / 2;
 
-        MyRandom rand = new MyRandom(patch.X * 13 + patch.Y * 17 + gs.map.Seed / 3);
-
+        MyRandom rand = new MyRandom(patch.X * 13 + patch.Y * 17 + _mapProvider.GetMap().Seed / 3);
 
         if (patch.baseAlphas == null)
         {
@@ -549,7 +548,7 @@ public class UnityZoneGenService : ZoneGenService
                 {
                     if (cellZoneWeights[z] > 0)
                     {
-                        Zone zone = gs.map.Get<Zone>(patch.FullZoneIdList[z]);
+                        Zone zone = _mapProvider.GetMap().Get<Zone>(patch.FullZoneIdList[z]);
 
                         int baseIndex = patch.TerrainTextureIndexes.IndexOf(zone.BaseTextureTypeId);
 
@@ -566,7 +565,7 @@ public class UnityZoneGenService : ZoneGenService
                 if (tempAlphaTotal < 0.01f)
                 {
                     oneCellAlphas[0] = 1;
-                    await UniTask.NextFrame( cancellationToken: token);
+                    await UniTask.NextFrame(cancellationToken: token);
                 }
                 else
                 { 
@@ -610,31 +609,31 @@ public class UnityZoneGenService : ZoneGenService
 
         terr.terrainData.SetAlphamaps(0, 0, newAlphas);
         terr.Flush();
-        _terrainManager.SetOneTerrainNeighbors(gs, patch.X, patch.Y);
+        _terrainManager.SetOneTerrainNeighbors(patch.X, patch.Y);
         patch.HaveSetAlphamaps = true;
     }
 
 
-    public override void SetAllHeightmaps(UnityGameState gs, float[,] heights, CancellationToken token)
+    public override void SetAllHeightmaps(float[,] heights, CancellationToken token)
     {
-        if (  heights == null)
+        if (heights == null)
         {
             return;
         }
 
-        for (int gx = 0; gx < gs.map.BlockCount; gx++)
+        for (int gx = 0; gx < _mapProvider.GetMap().BlockCount; gx++)
         {
-            for (int gy = 0; gy < gs.map.BlockCount; gy++)
+            for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
             {
-                SetOnePatchHeightmaps(gs, _terrainManager.GetTerrainPatch(gs, gx, gy), heights);
+                SetOnePatchHeightmaps(_terrainManager.GetTerrainPatch(gx, gy), heights);
             }
         }
 
     }
 
-    public override void SetOnePatchHeightmaps (UnityGameState gs, TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null)
+    public override void SetOnePatchHeightmaps (TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null)
     { 
-        if (gs == null || patch == null)
+        if (_gs == null || patch == null)
         {
             return;
         }
@@ -650,8 +649,8 @@ public class UnityZoneGenService : ZoneGenService
 
         int gx = patch.X;
         int gy = patch.Y;
-        if (gx < 0 || gy < 0 || gs.md == null || gx >= gs.map.BlockCount ||
-            gy >= gs.map.BlockCount)
+        if (gx < 0 || gy < 0 || _md == null || gx >= _mapProvider.GetMap().BlockCount ||
+            gy >= _mapProvider.GetMap().BlockCount)
         {
             return;
         }
@@ -695,9 +694,8 @@ public class UnityZoneGenService : ZoneGenService
     }
 
     static DateTime lastLoadClick = DateTime.UtcNow.AddMinutes(-1);
-    public override void LoadMap(UnityGameState gsIn, LoadIntoMapCommand loadData)
+    public override void LoadMap(LoadIntoMapCommand loadData)
     {
-        UnityGameState gs = gsIn as UnityGameState;
 
    
 #if UNITY_EDITOR
@@ -721,17 +719,7 @@ public class UnityZoneGenService : ZoneGenService
         }
         lastLoadClick = DateTime.UtcNow;
 
-        if (gs.md != null)
-        {
-            _terrainManager.ClearPatches(gs);
-            _terrainManager.ClearMapObjects(gs);
-        }
 
-        gs.md = new MapGenData();
-        if (gs.ch != null)
-        {
-            gs.ch.MapId = loadData.MapId;
-        }
         if (loadData.GenerateMap)
         {
             _logService.Info("Generating map " + loadData.MapId);
@@ -748,53 +736,99 @@ public class UnityZoneGenService : ZoneGenService
         _webNetworkService.SendClientWebCommand(loadData, _gameToken);
     }
 
-    public override async UniTask OnLoadIntoMap(UnityGameState gs, LoadIntoMapResult data, CancellationToken token)
+    public override async UniTask OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token)
     {
 
         try
         {
-            gs.ch = new Character(_repoService);
-            CharacterUtils.CopyDataFromTo(data.Char, gs.ch);
+            _gs.ch = new Character(_repoService);
+            CharacterUtils.CopyDataFromTo(data.Char, _gs.ch);
             _assetServce.SetWorldAssetEnv(data.WorldDataEnv);
             _networkService.SetRealtimeEndpoint(data.Host, data.Port, data.Serializer);
-            _screenService.CloseAll(gs);
+            _screenService.CloseAll();
+            _terrainManager.ClearPatches();
+            _terrainManager.ClearMapObjects();
 
-            gs.ch.SetGameDataOverrideList(data.OverrideList);
-
-
+            MinimapUI.SetTexture(null);
+            _gs.ch.SetGameDataOverrideList(data.OverrideList);
             _gameData.AddData(data.GameData);
 
             if (data == null || data.Map == null || data.Char == null)
             {
-                _screenService.Open(gs, ScreenId.CharacterSelect);
+                _screenService.Open(ScreenId.CharacterSelect);
                 return;
             }
+
+            _gs.ch.MapId = data.Map.Id;
+
             if (!data.Generating && (data.Map.Zones == null || data.Map.Zones.Count < 1))
             {
-                _screenService.Open(gs, ScreenId.CharacterSelect);
+                _screenService.Open(ScreenId.CharacterSelect);
                 return;
             }
 
             foreach (IUnitData dataSet in data.CharData)
             {
-                dataSet.AddTo(gs.ch);
+                dataSet.AddTo(_gs.ch);
             }
 
-            data.Stores?.AddTo(gs.ch);
+            data.Stores?.AddTo(_gs.ch);
 
-            gs.map = data.Map;
+            _mapProvider.SetMap(data.Map);
 
-            gs.spawns = new MapSpawnData() { Id = gs.map.Id.ToString() };
+            _mapProvider.SetSpawns(new MapSpawnData() { Id = _mapProvider.GetMap().Id.ToString() });
 
-            if (gs.map == null)
+            bool fixSeeds = false;
+
+#if UNITY_EDITOR
+
+            InitClient initComp = InitClient.EditorInstance;
+
+            if (initComp != null &&
+                initComp.WorldSize >= 3 &&
+                initComp.ZoneSize >= 1 &&
+                initComp.MapGenSeed > 0)
             {
-                _screenService.CloseAll(gs);
-                _screenService.Open(gs, ScreenId.CharacterSelect);
+                fixSeeds = true;
+                if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId))
+                {
+                    _mapProvider.GetMap().BlockCount = initComp.WorldSize;
+                    _mapProvider.GetMap().ZoneSize = initComp.ZoneSize;
+                    _mapProvider.GetMap().Seed = initComp.MapGenSeed;
+                }
+            }
+
+#endif
+
+
+
+            if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId) && !fixSeeds)
+            {
+                _mapProvider.GetMap().Seed = (int)(DateTime.UtcNow.Ticks % 2000000000);
+                foreach (Zone item in _mapProvider.GetMap().Zones)
+                {
+                    item.Seed = (int)(DateTime.UtcNow.Ticks % 1000000000 + item.IdKey * 235622);
+                }
+            }
+
+            MapGenData mgd = new MapGenData();
+
+            _gs.loc.Set<IMapGenData>(mgd);
+            IClientRandom clientRandom = new ClientRandom(_mapProvider.GetMap().Seed);
+            _gs.loc.Set(clientRandom);
+            _gs.loc.ResolveSelf();
+
+            _terrainManager.ClearPatches();
+
+            if (_mapProvider.GetMap() == null)
+            {
+                _screenService.CloseAll();
+                _screenService.Open(ScreenId.CharacterSelect);
                 _logService.Message("Map failed to download");
                 return;
             }
 
-            InstantiateMap(gs, gs.map.Id);
+            InstantiateMap(_mapProvider.GetMap().Id);
         }
         catch (Exception e)
         {
@@ -804,15 +838,15 @@ public class UnityZoneGenService : ZoneGenService
     }
 
 
-    public override void InitTerrainSettings(UnityGameState gs, int gx, int gy, int patchSize, CancellationToken token)
+    public override void InitTerrainSettings(int gx, int gy, int patchSize, CancellationToken token)
     {
 
-        if (gs.md == null)
+        if (_md == null)
         {
             return;
         }
 
-        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gx, gy);
         if (patch == null)
         {
             return;

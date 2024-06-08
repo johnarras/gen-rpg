@@ -15,6 +15,7 @@ using Genrpg.Shared.UserCoins.Messages;
 using Genrpg.Shared.UserCoins.PlayerData;
 using Genrpg.Shared.UserCoins.Services;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.UserCoins.Services
 {
@@ -22,12 +23,8 @@ namespace Genrpg.MapServer.UserCoins.Services
     {
         protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;
-        public async Task Initialize(GameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
-        protected override void OnSetUserCoin(GameState gs, Unit unit, UserCoinData userCoinData, UserCoinStatus status, long diff)
+        protected override void OnSetUserCoin(Unit unit, UserCoinData userCoinData, UserCoinStatus status, long diff)
         {
             if (diff == 0)
             {

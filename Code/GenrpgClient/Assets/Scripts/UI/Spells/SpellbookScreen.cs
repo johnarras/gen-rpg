@@ -65,22 +65,22 @@ public class SpellbookScreen : SpellIconScreen
 
         if (LoadSpellIconsOnLoad())
         {
-            _assetService.GetSpriteList(_gs, AtlasNames.SkillIcons, OnLoadSprites, token);
+            _assetService.GetSpriteList(AtlasNames.SkillIcons, OnLoadSprites, token);
         }
         await UniTask.CompletedTask;
     }
 
-    private void OnLoadSprites(UnityGameState gs, Sprite[] sprites)
+    private void OnLoadSprites(Sprite[] sprites)
     {
         _sprites = sprites;
     }
 
-    public override void OnRightClickIcon(UnityGameState gs, SpellIcon icon)
+    public override void OnRightClickIcon(SpellIcon icon)
     {
         SetSelectedSpell(icon.GetSpell());
     }
 
-    public override void OnLeftClickIcon(UnityGameState gs, SpellIcon icon)
+    public override void OnLeftClickIcon(SpellIcon icon)
     {
         SetSelectedSpell(icon.GetSpell());
     }
@@ -89,7 +89,7 @@ public class SpellbookScreen : SpellIconScreen
     {
         if (SpellPanel != null)
         {
-            SpellPanel.Init(_gs, this, null, token);
+            SpellPanel.Init(this, null, token);
         }
     }
 
@@ -129,7 +129,7 @@ public class SpellbookScreen : SpellIconScreen
 
         if (string.IsNullOrEmpty(_editSpell.Icon) && _sprites != null && _sprites.Length > 0)
         {
-            _editSpell.Icon = _sprites[_gs.rand.Next() % _sprites.Length].name.Replace("(Clone)", "");
+            _editSpell.Icon = _sprites[_rand.Next() % _sprites.Length].name.Replace("(Clone)", "");
         }
 
         _networkService.SendMapMessage(new CraftSpell() { CraftedSpell = _editSpell });
@@ -146,21 +146,21 @@ public class SpellbookScreen : SpellIconScreen
         SpellEffect effect = new SpellEffect();
         _editSpell.Effects.Add(effect);
 
-        _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategoryNames.UI, 
+        _assetService.LoadAssetInto(EffectListParent, AssetCategoryNames.UI, 
             SpellEffectEditPrefabName, OnLoadEffect, effect, _token, Subdirectory);
     }
 
 
     protected void OnCraftSpellHandler(OnCraftSpell data)
     {
-        SpellPanel.Init(_gs, this, null, _token);
+        SpellPanel.Init(this, null, _token);
         return;
     }
 
 
     protected void OnDeleteSpellHandler(OnDeleteSpell data)
     {
-        SpellPanel.Init(_gs, this, null, _token);
+        SpellPanel.Init(this, null, _token);
         return;
     }
 
@@ -210,7 +210,7 @@ public class SpellbookScreen : SpellIconScreen
             edit.CopyFromUIToEffect();
         }
 
-        if (_spellCraftService.ValidateSpellData(_gs, _gs.ch, _editSpell))
+        if (_spellCraftService.ValidateSpellData(_gs.ch, _editSpell))
         {
             CopyFromSpellToUI(_editSpell);
             return true;
@@ -262,14 +262,14 @@ public class SpellbookScreen : SpellIconScreen
         // Add new effect edit blocks for things as needed
         for (int e = _effectEdits.Count; e < spell.Effects.Count; e++)
         {
-            _assetService.LoadAssetInto(_gs, EffectListParent, AssetCategoryNames.UI,
+            _assetService.LoadAssetInto(EffectListParent, AssetCategoryNames.UI,
                 SpellEffectEditPrefabName, OnLoadEffect, spell.Effects[e], _token, Subdirectory);
 
         }
     }
 
 
-    private void OnLoadEffect(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadEffect(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
 

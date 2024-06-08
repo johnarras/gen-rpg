@@ -9,7 +9,7 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class WaterObjectLoader : BaseObjectLoader
 {
-    public override bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId,
+    public override bool LoadObject(PatchLoadData loadData, uint objectId,
         int x, int y, Zone currZone, ZoneType currZoneType, CancellationToken token)
     {
         uint upperNumber = objectId >> 16;
@@ -36,12 +36,12 @@ public class WaterObjectLoader : BaseObjectLoader
         dlo.assetCategory = AssetCategoryNames.Prefabs;
         dlo.data = new MyPointF(xSize, heightOffset, zSize);
 
-        _assetService.LoadAsset(gs, AssetCategoryNames.Prefabs, artName, OnDownloadWater, dlo, null, token);
+        _assetService.LoadAsset(AssetCategoryNames.Prefabs, artName, OnDownloadWater, dlo, null, token);
 
         return true;
 
     }
-    public virtual void OnDownloadWater(UnityGameState gs, object obj, object data, CancellationToken token)
+    public virtual void OnDownloadWater(object obj, object data, CancellationToken token)
     {
         DownloadObjectData dlo = data as DownloadObjectData;
         if (dlo == null)

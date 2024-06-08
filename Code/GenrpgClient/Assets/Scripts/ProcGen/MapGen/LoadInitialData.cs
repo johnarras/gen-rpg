@@ -12,16 +12,16 @@ public class LoadInitialData : BaseZoneGenerator
     protected IScreenService _screenService;
     private IRealtimeNetworkService _networkService;
     private IPlayerManager _playerManager;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        LoadInitialMapData(gs, token).Forget();
+        await base.Generate(token);
+        LoadInitialMapData(token).Forget();
     }
 
-    public async UniTask LoadInitialMapData(UnityGameState gs, CancellationToken token)
+    public async UniTask LoadInitialMapData(CancellationToken token)
     {
-        gs.md.HaveSetHeights = true;
-        gs.md.HaveSetAlphaSplats = true;
+        _md.HaveSetHeights = true;
+        _md.HaveSetAlphaSplats = true;
 
         float delaySec = 1.0f;
 
@@ -29,7 +29,7 @@ public class LoadInitialData : BaseZoneGenerator
 
         await UniTask.Delay(TimeSpan.FromSeconds(delaySec), cancellationToken: token);
 
-        while (_terrainManager.AddingPatches(gs))
+        while (_terrainManager.AddingPatches())
         {
             await UniTask.Delay(TimeSpan.FromSeconds(delaySec), cancellationToken: token);
         }
@@ -45,7 +45,7 @@ public class LoadInitialData : BaseZoneGenerator
 
             do
             {
-                height = _terrainManager.SampleHeight(gs, unit.X, unit.Z);
+                height = _terrainManager.SampleHeight(unit.X, unit.Z);
                 go.transform().position = GVector3.Create(unit.X, height, unit.Z);
                 go.transform().eulerAngles = GVector3.Create(0, unit.Rot, 0);
                 if (height == 0)
@@ -57,12 +57,12 @@ public class LoadInitialData : BaseZoneGenerator
         }
         _networkService.SendMapMessage(new AddPlayer()
         {
-            UserId = gs.user.Id,
-            SessionId = gs.user.SessionId,
-            CharacterId = gs.ch.Id,
+            UserId = _gs.user.Id,
+            SessionId = _gs.user.SessionId,
+            CharacterId = _gs.ch.Id,
         });
 
-        _logService.Debug("LOADINTOMAP START " + gs.user.SessionId);
+        _logService.Debug("LOADINTOMAP START " + _gs.user.SessionId);
         await UniTask.CompletedTask;
     }
 

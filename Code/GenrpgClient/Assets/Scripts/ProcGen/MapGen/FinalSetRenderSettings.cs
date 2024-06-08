@@ -5,9 +5,9 @@ using System.Threading;
 
 public class SetFinalRenderSettings: BaseZoneGenerator
 {
-    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate (CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
     }
 }
 	

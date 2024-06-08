@@ -5,11 +5,11 @@ public class AddQuests : BaseZoneGenerator
 {
 
     protected IQuestGenService _questGenService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
-        _questGenService.GenerateQuests(gs);
+        _questGenService.GenerateQuests(_gs);
     }
 
 }

@@ -14,46 +14,41 @@ using Genrpg.Shared.Crafting.PlayerData.Crafting;
 using Genrpg.Shared.Crafting.Settings.Crafters;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Looting.MessageHandlers
 {
-    public class SkillLootCorpseHandler : BaseServerMapMessageHandler<SkillLootCorpse>
+    public class SkillLootCorpseHandler : BaseUnitServerMapMessageHandler<SkillLootCorpse>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, SkillLootCorpse message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, SkillLootCorpse message)
         {
 
-            if (!_objectManager.GetUnit(message.UnitId, out Unit unit))
+            if (unit.ActionMessage != null)
             {
-                pack.SendError(gs, obj, "Corpse does not exist!");
-                return;
-            }
-
-            if (obj.ActionMessage != null)
-            {
-                pack.SendError(gs, obj, "You are already busy");
+                pack.SendError(unit, "You are already busy");
                 return;
             }
 
 
-            UnitType utype = _gameData.Get<UnitSettings>(obj).Get(unit.EntityId);
+            UnitType utype = _gameData.Get<UnitSettings>(unit).Get(unit.EntityId);
             if (utype == null)
             {
-                pack.SendError(gs, obj, "Not a valid target");
+                pack.SendError(unit, "Not a valid target");
                 return;
             }
 
-            TribeType tribeType = _gameData.Get<TribeSettings>(obj).Get(utype.TribeTypeId);
+            TribeType tribeType = _gameData.Get<TribeSettings>(unit).Get(utype.TribeTypeId);
 
             if (tribeType == null)
             {
-                pack.SendError(gs, obj, "Not a valid type");
+                pack.SendError(unit, "Not a valid type");
                 return;
             }
-            CrafterType crafterType = _gameData.Get<CraftingSettings>(obj).Get(tribeType.LootCrafterTypeId);
+            CrafterType crafterType = _gameData.Get<CraftingSettings>(unit).Get(tribeType.LootCrafterTypeId);
 
             if (crafterType == null)
             {
-                pack.SendError(gs, obj, "This unit has no resources");
+                pack.SendError(unit, "This unit has no resources");
                 return;
             }
 
@@ -63,7 +58,7 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
             long level = unit.Level;
             int skillPoints = 0;
 
-            if (obj is Character ch)
+            if (unit is Character ch)
             {
                 CraftingData cdata = ch.Get<CraftingData>();
                 skillPoints = cdata.Get(crafterType.IdKey).GetSkillPoints(CraftingConstants.GatheringSkill);
@@ -71,13 +66,13 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
 
             if (unit.SkillLoot == null || unit.SkillLoot.Count < 1)
             {
-                pack.SendError(gs, obj, "Target has no loot");
+                pack.SendError(unit, "Target has no loot");
                 return;
             }
 
             OnStartCast startCast = new OnStartCast()
             {
-                CasterId = obj.Id,
+                CasterId = unit.Id,
                 CastSeconds = gatherSeconds,
                 CastingName = actionName,
                 AnimName = animName,
@@ -85,7 +80,7 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
 
             CompleteInteract completeInteract = new CompleteInteract()
             {
-                CasterId = obj.Id,
+                CasterId = unit.Id,
                 TargetId = unit.Id,
                 CrafterTypeId = crafterType.IdKey,
                 Level = level,
@@ -99,19 +94,19 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
             {
                 if (unit.OnActionMessage != null && !unit.OnActionMessage.IsCancelled())
                 {
-                    pack.SendError(gs, obj, "Object is in use");
+                    pack.SendError(unit, "Object is in use");
                     return;
                 }
                 else
                 {
                     unit.OnActionMessage = completeInteract;
-                    obj.ActionMessage = completeInteract;
+                    unit.ActionMessage = completeInteract;
                 }
             }
 
-            _messageService.SendMessageNear(obj, startCast);
+            _messageService.SendMessageNear(unit, startCast);
 
-            _messageService.SendMessage(obj, completeInteract, gatherSeconds);
+            _messageService.SendMessage(unit, completeInteract, gatherSeconds);
 
         }
     }

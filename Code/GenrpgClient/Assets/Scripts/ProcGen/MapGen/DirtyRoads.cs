@@ -9,17 +9,17 @@ using Genrpg.Shared.Zones.WorldData;
 
 public class DirtyRoads : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        foreach (Zone zone in gs.map.Zones)
+        await base.Generate(token);
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.XMax, zone.ZMin, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.XMax, zone.ZMin, zone.ZMax);
         }
         await UniTask.CompletedTask;
     }
 
-    public void GenerateOne (UnityGameState gs, Zone zone, ZoneType zoneType, int minx, int maxx, int miny, int maxy)
+    public void GenerateOne (Zone zone, ZoneType zoneType, int minx, int maxx, int miny, int maxy)
     {
         if (zone == null)
         {
@@ -45,7 +45,7 @@ public class DirtyRoads : BaseZoneGenerator
         float pers = MathUtils.FloatRange(0.4f, 0.7f, rand)*globalScale;
 		int octaves = 2;
 
-        float[,] dirtHeights = _noiseService.Generate(gs, pers, freq, amp, octaves, rand.Next(), sizex, sizey);
+        float[,] dirtHeights = _noiseService.Generate(pers, freq, amp, octaves, rand.Next(), sizex, sizey);
 
         float minRoadPercent = 0.20f;
 
@@ -55,7 +55,7 @@ public class DirtyRoads : BaseZoneGenerator
         freq = MathUtils.FloatRange(0.15f, 0.25f, rand) * size * globalScale;
         pers = MathUtils.FloatRange(0.4f, 0.7f, rand) * globalScale;
         octaves = 2;
-        float[,] baseHeights = _noiseService.Generate(gs, pers, freq, amp, octaves, rand.Next(), sizex, sizey);
+        float[,] baseHeights = _noiseService.Generate(pers, freq, amp, octaves, rand.Next(), sizex, sizey);
 
 
         float startMaxPct = 0.85f;
@@ -64,31 +64,31 @@ public class DirtyRoads : BaseZoneGenerator
         float pctfreq = MathUtils.FloatRange(0.1f, 0.2f, rand) * size * globalScale;
         float pctpers = MathUtils.FloatRange(0.0f, 0.4f, rand) * globalScale;
         int pctoctaves = 2;
-        float[,] maxPcts = _noiseService.Generate(gs, pctpers, pctfreq, pctamp, pctoctaves, rand.Next(), sizex, sizey);
+        float[,] maxPcts = _noiseService.Generate(pctpers, pctfreq, pctamp, pctoctaves, rand.Next(), sizex, sizey);
 
 
         float generalPerturb = 0.1f;
 
         for (int x = minx; x <= maxx; x++)
 		{
-            if (x < 0 || x >= gs.map.GetHwid())
+            if (x < 0 || x >= _mapProvider.GetMap().GetHwid())
             {
                 continue;
             }
 
 			for (int z = miny; z <= maxy; z++)
 			{
-                if (z < 0 || z >= gs.map.GetHhgt())
+                if (z < 0 || z >= _mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
 
-				if (gs.md.alphas[x,z,MapConstants.RoadTerrainIndex] < minRoadPercent)
+				if (_md.alphas[x,z,MapConstants.RoadTerrainIndex] < minRoadPercent)
                 {
                     continue;
                 }
 
-                if (gs.md.mapZoneIds[x,z] != zone.IdKey)
+                if (_md.mapZoneIds[x,z] != zone.IdKey)
                 {
                     continue;
                 }
@@ -114,10 +114,10 @@ public class DirtyRoads : BaseZoneGenerator
 					totalPct = maxPct;
 				}
 
-				gs.md.ClearAlphasAt(gs,x,z);
-				gs.md.alphas[x,z,MapConstants.RoadTerrainIndex] = 1-totalPct;
-				gs.md.alphas[x,z,MapConstants.DirtTerrainIndex] = dirtPct;
-				gs.md.alphas[x,z,MapConstants.BaseTerrainIndex] = basePct;
+				_md.ClearAlphasAt(x,z);
+				_md.alphas[x,z,MapConstants.RoadTerrainIndex] = 1-totalPct;
+				_md.alphas[x,z,MapConstants.DirtTerrainIndex] = dirtPct;
+				_md.alphas[x,z,MapConstants.BaseTerrainIndex] = basePct;
 
 			}
 		}

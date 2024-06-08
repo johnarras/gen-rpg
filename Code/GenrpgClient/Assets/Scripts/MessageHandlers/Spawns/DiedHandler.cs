@@ -7,7 +7,7 @@ namespace Assets.Scripts.MessageHandlers.Spawns
 {
     public class DiedHandler : BaseClientMapMessageHandler<Died>
     {
-        protected override void InnerProcess(UnityGameState gs, Died msg, CancellationToken token)
+        protected override void InnerProcess(Died msg, CancellationToken token)
         {
             if (_objectManager.GetUnit(msg.UnitId, out Unit unit))
             {

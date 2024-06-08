@@ -3,6 +3,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Spawns.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,15 +14,15 @@ namespace Genrpg.MapServer.Entities.Services
     public class ServerEntityService : EntityService
     {
         IServerQuestService _questService = null;
-        public override bool GiveRewards<SR>(GameState gs, MapObject obj, List<SR> resultList)
+        public override bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList)
         {
 
             foreach (ISpawnResult spawnResult in resultList)
             {
-                _questService.UpdateQuest(gs, obj, spawnResult);
+                _questService.UpdateQuest(rand, obj, spawnResult);
             }
 
-            return base.GiveRewards(gs, obj, resultList);
+            return base.GiveRewards(rand, obj, resultList);
         }
     }
 }

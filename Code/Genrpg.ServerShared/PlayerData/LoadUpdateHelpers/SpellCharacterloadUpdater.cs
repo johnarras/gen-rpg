@@ -22,12 +22,12 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
     public class SpellCharacterLoadUpdater : BaseCharacterLoadUpdater
     {
         private ISharedSpellCraftService _spellCraftingService = null;
-        private IGameData _gameData;
+        private IGameData _gameData = null;
 
         protected IRepositoryService _repoService = null;
         public override int Priority => 2;
 
-        public override async Task Update(GameState gs, Character ch)
+        public override async Task Update(IRandom rand, Character ch)
         {
             SpellData spellData = ch.Get<SpellData>();
             for (int i = 1; i <= 3; i++)
@@ -57,7 +57,7 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
 
             foreach (Spell spell in spellData.GetData())
             {
-                _spellCraftingService.ValidateSpellData(gs, ch, spell);
+                _spellCraftingService.ValidateSpellData(ch, spell);
             }
 
 

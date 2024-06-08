@@ -15,12 +15,12 @@ public class AddWater : BaseZoneGenerator
 {
 
     private IAddPoolService _addPoolService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        foreach (Zone zone in gs.map.Zones)
+        await base.Generate(token);
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone);
+            GenerateOne(zone);
         }
     }
 
@@ -29,14 +29,14 @@ public class AddWater : BaseZoneGenerator
     /// </summary>
     /// <param name="gs"></param>
     /// <param name="zone"></param>
-    public void GenerateOne(UnityGameState gs, Zone zone)
+    public void GenerateOne(Zone zone)
     {
-        if ( zone == null)
+        if (zone == null)
         {
             return;
         }
 
-        ZoneType ztype = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
+        ZoneType ztype = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId);
         if (ztype == null)
         {
             return;
@@ -89,7 +89,7 @@ public class AddWater : BaseZoneGenerator
                     break;
                 }
 
-                if (x < 0 || x >= gs.map.GetHwid())
+                if (x < 0 || x >= _mapProvider.GetMap().GetHwid())
                 {
                     onEdgeOfMap = true;
                     break;
@@ -97,16 +97,16 @@ public class AddWater : BaseZoneGenerator
                 int dx = x - cx;
                 for (int z = cz-rad; z <= cz+rad; z++)
                 {
-                    if (z < 0 || z >= gs.map.GetHhgt())
+                    if (z < 0 || z >= _mapProvider.GetMap().GetHhgt())
                     {
                         onEdgeOfMap = true;
                         break;
                     }
                     int dy = z - cz;
 
-                    if (gs.md.alphas[x,z,MapConstants.RoadTerrainIndex] > 0 ||
-                        gs.md.mountainHeights[x,z] != 0 ||
-                        FlagUtils.IsSet(gs.md.flags[x,z],MapGenFlags.IsLocation |
+                    if (_md.alphas[x,z,MapConstants.RoadTerrainIndex] > 0 ||
+                        _md.mountainHeights[x,z] != 0 ||
+                        FlagUtils.IsSet(_md.flags[x,z],MapGenFlags.IsLocation |
                         MapGenFlags.NearWater))
                     {
                         float dist = (float)Math.Sqrt(dx * dx + dy * dy);
@@ -146,34 +146,34 @@ public class AddWater : BaseZoneGenerator
 
             int deformSeed = rand.Next();
 
-            AlterHeightsNear(gs, cx, cz, maxRadius, deformSeed, true);
+            AlterHeightsNear(cx, cz, maxRadius, deformSeed, true);
 
 
-            if (!_addPoolService.TryAddPool(gs, poolData))
+            if (!_addPoolService.TryAddPool(poolData))
             {
-                AlterHeightsNear(gs, cx, cz, maxRadius, deformSeed, false);
+                AlterHeightsNear(cx, cz, maxRadius, deformSeed, false);
             }
             else
             {
                 currentPools++;
                 for (int x = cx-maxRadius; x <= cx+maxRadius; x++)
                 {
-                    if (x < 0 || x >= gs.map.GetHwid())
+                    if (x < 0 || x >= _mapProvider.GetMap().GetHwid())
                     {
                         continue;
                     }
 
                     for (int y = cz - maxRadius; y <= cz + maxRadius; y++)
                     {
-                        if (y < 0 || y >= gs.map.GetHhgt())
+                        if (y < 0 || y >= _mapProvider.GetMap().GetHhgt())
                         {
                             continue;
                         }
 
-                        if (gs.md.heights[x,y] < worldBaseHeight &&
-                            FlagUtils.IsSet(gs.md.flags[x,y], MapGenFlags.BelowWater))
+                        if (_md.heights[x,y] < worldBaseHeight &&
+                            FlagUtils.IsSet(_md.flags[x,y], MapGenFlags.BelowWater))
                         {
-                            gs.md.heights[x, y] = worldBaseHeight;
+                            _md.heights[x, y] = worldBaseHeight;
                         }
                     }
                 }
@@ -182,7 +182,7 @@ public class AddWater : BaseZoneGenerator
     }
 
 
-    protected void AlterHeightsNear(UnityGameState gs, int cx, int cy, int maxRadius, int randomSeed, bool lowerHeights)
+    protected void AlterHeightsNear(int cx, int cy, int maxRadius, int randomSeed, bool lowerHeights)
     {
         MyRandom rand = new MyRandom(randomSeed);
 
@@ -194,7 +194,7 @@ public class AddWater : BaseZoneGenerator
         float heightFreq = MathUtils.FloatRange(0.02f, 0.04f, rand) * size;
         float heightPers = MathUtils.FloatRange(0.2f, 0.5f, rand);
         int heightOctaves = 2;
-        float[,] heightNoise = _noiseService.Generate(gs, heightPers, heightFreq, heightAmp, heightOctaves, rand.Next(), size, size);
+        float[,] heightNoise = _noiseService.Generate(heightPers, heightFreq, heightAmp, heightOctaves, rand.Next(), size, size);
 
         int maxRadiusX = MathUtils.IntRange(maxRadius * 2 / 3, maxRadius, rand);
         int maxRadiusY = MathUtils.IntRange(maxRadius * 2 / 3, maxRadius, rand);
@@ -207,7 +207,7 @@ public class AddWater : BaseZoneGenerator
         float radPers = MathUtils.FloatRange(0.2f, 0.8f, rand);
         int radOctaves = 2;
 
-        float[,] radNoise = _noiseService.Generate(gs, radPers, radFreq, radAmp, radOctaves, rand.Next(), 360, 360);
+        float[,] radNoise = _noiseService.Generate(radPers, radFreq, radAmp, radOctaves, rand.Next(), 360, 360);
 
 
         float midPower = MathUtils.FloatRange(0.2f, 0.4f, rand);
@@ -215,7 +215,7 @@ public class AddWater : BaseZoneGenerator
         float powerFreq = MathUtils.FloatRange(5.0f, 12.0f, rand);
         float powerPers = MathUtils.FloatRange(0.2f, 0.3f, rand);
         int powerOctaves = 2;
-        float[,] powerNoise = _noiseService.Generate(gs, powerPers, powerFreq, powerAmp, powerOctaves, rand.Next(), 360, 360);
+        float[,] powerNoise = _noiseService.Generate(powerPers, powerFreq, powerAmp, powerOctaves, rand.Next(), 360, 360);
 
 
 
@@ -226,7 +226,7 @@ public class AddWater : BaseZoneGenerator
         int ymax = cy + maxRadiusY;
         for (int xx = xmin; xx <= xmax; xx++)
         {
-            if (xx < 0 || xx >= gs.map.GetHwid())
+            if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
             {
                 continue;
             }
@@ -238,7 +238,7 @@ public class AddWater : BaseZoneGenerator
             for (int yy = ymin; yy <= ymax; yy++)
             {
                 int dy = yy - cy;
-                if (yy < 0 || yy >= gs.map.GetHhgt())
+                if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
@@ -321,7 +321,7 @@ public class AddWater : BaseZoneGenerator
                 heightDiff /= MapConstants.MapHeight;
 
 
-                gs.md.heights[xx, yy] += heightDiff*raiseLowerMult;
+                _md.heights[xx, yy] += heightDiff*raiseLowerMult;
             }
         }
     }

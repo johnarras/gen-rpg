@@ -95,7 +95,7 @@ namespace Genrpg.MapServer.Networking.Listeners
 
                     TcpClient client = await _server.AcceptTcpClientAsync(_token);
                     _logger.Info("Accepted client on " + _host + " " + _port);
-                    Task.Run(() => AddClient(client));
+                    _ = Task.Run(() => AddClient(client));
                 }
             }
             catch (SocketException e)
@@ -106,7 +106,7 @@ namespace Genrpg.MapServer.Networking.Listeners
             }
             catch (OperationCanceledException ce)
             {
-                _logger.Info("Shutdown listen socket");
+                _logger.Info("Shutdown listen socket " + ce.Message);
                 _server.Stop();
             }
             catch (Exception e)

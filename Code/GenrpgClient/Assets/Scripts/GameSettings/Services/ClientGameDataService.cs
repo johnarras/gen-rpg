@@ -24,7 +24,7 @@ namespace Assets.Scripts.GameSettings.Services
 
         private Dictionary<Type, IGameSettingsMapper> _loaderObjects = null;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             List<Type> mapperTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettingsMapper));
 
@@ -39,7 +39,7 @@ namespace Assets.Scripts.GameSettings.Services
             _loaderObjects = newList;
             await Task.CompletedTask;
         }
-        public async UniTask LoadCachedSettings(UnityGameState gs)
+        public async UniTask LoadCachedSettings(IUnityGameState gs)
         {
             GameData gameData = new GameData();
             ClientRepositoryService repo = _repoService as ClientRepositoryService;
@@ -59,7 +59,7 @@ namespace Assets.Scripts.GameSettings.Services
             await Task.CompletedTask;
         }
 
-        public async UniTask SaveSettings(UnityGameState gs, IGameSettings settings)
+        public async UniTask SaveSettings(IGameSettings settings)
         {
             await _repoService.Save(settings);
         }

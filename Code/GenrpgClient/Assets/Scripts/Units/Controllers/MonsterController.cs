@@ -10,10 +10,12 @@ using System.Linq;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.MapServer.Services;
 
 public class MonsterController : UnitController
 {
 
+    protected IMapProvider _mapProvider;
     public float WalkAnimSpeed = 0;
     public float RunAnimSpeed = 0;
 
@@ -23,7 +25,7 @@ public class MonsterController : UnitController
     }
 
     
-    public Unit GetNearbyTarget(UnityGameState gs)
+    public Unit GetNearbyTarget(IUnityGameState gs)
     {
         return null;
     }
@@ -35,12 +37,12 @@ public class MonsterController : UnitController
         {
             return;
         }
-        SetState(_gs, CombatState);
+        SetState(CombatState);
     }
 
     protected virtual float GetMaxRotation() { return 360; }
 
-    public override bool CanMoveNow(UnityGameState gs)
+    public override bool CanMoveNow()
     {
         return true;
     }
@@ -61,7 +63,7 @@ public class MonsterController : UnitController
         {
             if (!_didDeadUpdate)
             {
-                float height = _terrainManager.SampleHeight(_gs, _unit.X, _unit.Z);
+                float height = _terrainManager.SampleHeight(_unit.X, _unit.Z);
                 if (height > 0)
                 {
                    entity.transform().position = GVector3.Create(_unit.X, height, _unit.Z);
@@ -80,7 +82,7 @@ public class MonsterController : UnitController
             TiltObject();
         }
 
-        canMoveNow = CanMoveNow(_gs);
+        canMoveNow = CanMoveNow();
         if (!canMoveNow || _unit == null)
         {
             return;
@@ -104,12 +106,12 @@ public class MonsterController : UnitController
                     _unit.Waypoints.Waypoints.Last().Z = (int)(_unit.FinalZ);
                 }
 
-                SetState(_gs, CombatState);
+                SetState(CombatState);
             }
         }
         else
         {
-            SetState(_gs, IdleState);
+            SetState(IdleState);
         }
 
         float nextX = _unit.GetNextXPos();
@@ -191,7 +193,7 @@ public class MonsterController : UnitController
 
             UnitUtils.TurnTowardNextPosition(_unit, GetMaxRotation());
 
-            float height = _terrainManager.SampleHeight(_gs, _unit.X, _unit.Z);
+            float height = _terrainManager.SampleHeight(_unit.X, _unit.Z);
             entity.transform().position = GVector3.Create(_unit.X, height, _unit.Z);
             entity.transform().eulerAngles = GVector3.Create(0, _unit.Rot, 0);
             TiltObject();
@@ -214,10 +216,10 @@ public class MonsterController : UnitController
     }
 
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
-        SetState(_gs, IdleState);
+        SetState(IdleState);
 
         float rotDiff =entity.transform().localEulerAngles.y -entity.transform().eulerAngles.y;
         GEntity renderObject = GEntityUtils.FindChild(entity, AnimUtils.RenderObjectName);
@@ -256,10 +258,6 @@ public class MonsterController : UnitController
         { 
             return;
         }
-        if (UnityMap == null)
-        {
-            return;
-        }
 
         currTiltPos = GVector3.Create(entity.transform().position);
 
@@ -268,7 +266,7 @@ public class MonsterController : UnitController
             return;
         }
 
-        currTiltHeight = _terrainManager.SampleHeight(_gs,entity.transform().position.x,entity.transform().position.z);
+        currTiltHeight = _terrainManager.SampleHeight(entity.transform().position.x,entity.transform().position.z);
 
         // Don't tilt things underground.
         if (currTiltPos.y < currTiltHeight-2)
@@ -298,7 +296,7 @@ public class MonsterController : UnitController
         }
 
         currTiltRot = entity.transform().rotation;
-        currTiltNormal = _terrainManager.GetInterpolatedNormal(_gs, _gs.map, currTiltPos.x, currTiltPos.z);
+        currTiltNormal = _terrainManager.GetInterpolatedNormal(_mapProvider.GetMap(), currTiltPos.x, currTiltPos.z);
         groundTilt = GQuaternion.FromToRotation(GVector3.up, currTiltNormal);
 
         if (objectLayer == 0)

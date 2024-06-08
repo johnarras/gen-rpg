@@ -12,16 +12,16 @@ public class AddChests : BaseZoneGenerator
     public const float MaxSteepness = 25;
     public const float ChestChance = 0.1f;
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
-        MyRandom placeRand = new MyRandom(gs.map.Seed % 102839484);
-        MyRandom choiceRand = new MyRandom(gs.map.Seed % 329377421);
+        MyRandom placeRand = new MyRandom(_mapProvider.GetMap().Seed % 102839484);
+        MyRandom choiceRand = new MyRandom(_mapProvider.GetMap().Seed % 329377421);
 
         int skipSize = 40;
 
-        List<GroundObjType> chests = _gameData.Get<GroundObjTypeSettings>(gs.ch).GetData().Where(x => x.GroupId == GroundObjType.ChestGroup).ToList();
+        List<GroundObjType> chests = _gameData.Get<GroundObjTypeSettings>(_gs.ch).GetData().Where(x => x.GroupId == GroundObjType.ChestGroup).ToList();
 
         if (chests == null || chests.Count < 1)
         {
@@ -35,11 +35,11 @@ public class AddChests : BaseZoneGenerator
             return;
         }
 
-        for (int x = MapConstants.TerrainPatchSize; x < gs.map.GetHwid() - MapConstants.TerrainPatchSize; x += skipSize)
+        for (int x = MapConstants.TerrainPatchSize; x < _mapProvider.GetMap().GetHwid() - MapConstants.TerrainPatchSize; x += skipSize)
         {
-            for (int y = MapConstants.TerrainPatchSize; y < gs.map.GetHhgt() - MapConstants.TerrainPatchSize; y += skipSize)
+            for (int y = MapConstants.TerrainPatchSize; y < _mapProvider.GetMap().GetHhgt() - MapConstants.TerrainPatchSize; y += skipSize)
             {
-                if (FlagUtils.IsSet(gs.md.flags[x, y], MapGenFlags.BelowWater | MapGenFlags.IsLocation))
+                if (FlagUtils.IsSet(_md.flags[x, y], MapGenFlags.BelowWater | MapGenFlags.IsLocation))
                 {
                     continue;
                 }
@@ -82,7 +82,7 @@ public class AddChests : BaseZoneGenerator
                     {
                         for (int yy = cy - nearbyRadius; yy <= cy + nearbyRadius; yy++)
                         {
-                            if (gs.md.mapObjects[xx, yy] != 0)
+                            if (_md.mapObjects[xx, yy] != 0)
                             {
                                 haveNearbyItem = true;
                                 break;
@@ -103,19 +103,19 @@ public class AddChests : BaseZoneGenerator
                     int tx = cx - cx / (MapConstants.TerrainPatchSize - 1);
                     int ty = cy - cy / (MapConstants.TerrainPatchSize - 1);
 
-                    if (_zoneGenService.FindMapLocation(gs, tx, ty, 10) != null)
+                    if (_zoneGenService.FindMapLocation(tx, ty, 10) != null)
                     {
                         continue;
                     }
 
 
-                    if (gs.md.roadDistances[cx, cy] < 30)
+                    if (_md.roadDistances[cx, cy] < 30)
                     {
                         continue;
                     }
 
 
-                    if (_terrainManager.GetSteepness(gs, cx, cy) > MaxSteepness)
+                    if (_terrainManager.GetSteepness(cx, cy) > MaxSteepness)
                     {
                         continue;
                     }
@@ -126,12 +126,12 @@ public class AddChests : BaseZoneGenerator
                         EntityId = chosenObj.IdKey,
                         SpawnX = cy,
                         SpawnZ = cx,
-                        ZoneId = gs.md.mapZoneIds[cx, cy],
-                        ZoneOverridePercent = (int)(gs.md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax),
+                        ZoneId = _md.mapZoneIds[cx, cy],
+                        ZoneOverridePercent = (int)(_md.overrideZoneScales[cx, cy] * MapConstants.OverrideZoneScaleMax),
                     };
                     
 
-                    gs.spawns.AddSpawn (initData);
+                    _mapProvider.GetSpawns().AddSpawn (initData);
                 
                     break;
                 }

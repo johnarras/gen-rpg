@@ -4,25 +4,25 @@ using System.Threading;
 
 public class SetfinalTerrainHeights : BaseZoneGenerator
 {
-    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate (CancellationToken token)
     {
-        await base.Generate(gs, token);
-        for (int x = 0; x < gs.map.GetHwid(); x++)
+        await base.Generate(token);
+        for (int x = 0; x < _mapProvider.GetMap().GetHwid(); x++)
         {
-            for (int y = 0; y < gs.map.GetHhgt(); y++)
+            for (int y = 0; y < _mapProvider.GetMap().GetHhgt(); y++)
             {
-                if (x == 0 || x == gs.map.GetHwid()-1 || y == 0 || y == gs.map.GetHhgt()-1)
+                if (x == 0 || x == _mapProvider.GetMap().GetHwid()-1 || y == 0 || y == _mapProvider.GetMap().GetHhgt()-1)
                 {
-                    gs.md.heights[x, y] = 0;
+                    _md.heights[x, y] = 0;
                 }
-                gs.md.heights[x, y] = MathUtils.Clamp(0, gs.md.heights[x, y], 1);
+                _md.heights[x, y] = MathUtils.Clamp(0, _md.heights[x, y], 1);
             }
         }
 
-        _zoneGenService.SetAllHeightmaps(gs, gs.md.heights, token);
+        _zoneGenService.SetAllHeightmaps(_md.heights, token);
 
 
-		gs.md.HaveSetHeights = true;
+		_md.HaveSetHeights = true;
 	}
 }
 	

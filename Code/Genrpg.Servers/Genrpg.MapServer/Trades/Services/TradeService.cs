@@ -29,11 +29,11 @@ namespace Genrpg.MapServer.Trades.Services
 {
     public class TradeService : ITradeService
     {
-        private IMapObjectManager _objManager;
-        private IMapMessageService _messageService;
-        private IInventoryService _inventoryService;
-        private ICurrencyService _currencyService;
-        private IRepositoryService _repoService;
+        private IMapObjectManager _objManager = null;
+        private IMapMessageService _messageService = null;
+        private IInventoryService _inventoryService = null;
+        private ICurrencyService _currencyService = null;
+        private IRepositoryService _repoService = null;
 
         #region Utils
         private void SendError(Character ch, string message)

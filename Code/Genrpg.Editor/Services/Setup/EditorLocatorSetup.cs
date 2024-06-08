@@ -11,7 +11,7 @@ namespace Genrpg.Editor.Services.Setup
 {
     public class EditorLocatorSetup : BaseServerLocatorSetup
     {
-        public override void Setup(GameState gs)
+        public override void Setup(IGameState gs)
         {
             gs.loc.Set<IEditorReflectionService>(new EditorReflectionService());
             base.Setup(gs);

@@ -15,7 +15,7 @@ namespace Genrpg.Shared.Units.Loaders
         protected IRepositoryService _repoService;
 
         public virtual Type GetServerType() { return typeof(TServer); }
-        public virtual async Task Initialize(GameState g, CancellationToken token) { await Task.CompletedTask; }
+        public virtual async Task Initialize(IGameState g, CancellationToken token) { await Task.CompletedTask; }
         protected virtual bool IsUserData() { return false; }
 
         public IUnitData Create(Unit unit)

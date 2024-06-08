@@ -16,9 +16,9 @@ namespace Genrpg.Shared.SpellCrafting.SpellModifierHelpers
 
         // Scaling is just linear, but smaller percent. 0.9?
 
-        public override double GetCostScale(GameState gs, MapObject obj, double value)
+        public override double GetCostScale(MapObject obj, double value)
         {
-            value = GetValidValue(gs, obj, value);
+            value = GetValidValue(obj, value);
 
             return 1.0 + value * _extraTargetMult;
         }

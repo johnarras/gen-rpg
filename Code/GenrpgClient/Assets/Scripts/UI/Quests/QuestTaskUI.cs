@@ -1,8 +1,12 @@
-﻿using Genrpg.Shared.Quests.Entities;
+﻿using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Quests.Entities;
 using Genrpg.Shared.Quests.WorldData;
 
 public class QuestTaskUI : BaseBehaviour
 {
+
+    protected IMapProvider _mapProvider;
+
     public GText TaskText;
 
     private QuestType _qtype = null;
@@ -29,7 +33,7 @@ public class QuestTaskUI : BaseBehaviour
             return;
         }
 
-        _uIInitializable.SetText(TaskText, _qtype.PrintTaskText(_gs, _gs.ch, _gameData, _task.Index));
+        _uIInitializable.SetText(TaskText, _qtype.PrintTaskText(_rand, _gs.ch, _gameData, _mapProvider, _task.Index));
 
     }
 

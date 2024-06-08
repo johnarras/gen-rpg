@@ -23,17 +23,17 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         public override ECrawlerMapTypes GetKey() { return ECrawlerMapTypes.Dungeon; }
 
 
-        public async override UniTask<CrawlerMapRoot> Enter(UnityGameState gs, PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
+        public async override UniTask<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
             partyData.MapId = mapData.MapId;
             partyData.MapX = mapData.MapX;
             partyData.MapZ = mapData.MapZ;
             partyData.MapRot = mapData.MapRot;
 
-            CrawlerMap cmap = GenerateMap(gs, mapData.MapId);
+            CrawlerMap cmap = GenerateMap(mapData.MapId);
 
             GameObject go = new GameObject() { name = "Dungeon" };
-            CrawlerMapRoot mapRoot = GEntityUtils.GetOrAddComponent<CrawlerMapRoot>(gs, go);
+            CrawlerMapRoot mapRoot = GEntityUtils.GetOrAddComponent<CrawlerMapRoot>(_gs, go);
 
             mapRoot.SetupFromMap(cmap);
             mapRoot.DrawX = partyData.MapX * CrawlerMapConstants.BlockSize;
@@ -45,7 +45,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             return mapRoot;
         }
 
-        CrawlerMap GenerateMap(UnityGameState gs, long dungeonId)
+        CrawlerMap GenerateMap(long dungeonId)
         {
             CrawlerMap cmap = new CrawlerMap();
             cmap.Looping = true;
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             return cmap;
         }
 
-        public override int GetBlockingBits(UnityGameState gs, CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez)
+        public override int GetBlockingBits(CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez)
         {
             int blockBits = 0;
             if (ex > sx) // East
@@ -106,7 +106,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             return blockBits;
         }
 
-        public override async UniTask DrawCell(UnityGameState gs, CrawlerMapRoot mapRoot, UnityMapCell cell, int nx, int nz, CancellationToken token)
+        public override async UniTask DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int nx, int nz, CancellationToken token)
         {
             if (mapRoot.Assets == null)
             {
@@ -122,8 +122,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                 cell.Content.transform.position = new Vector3(nx * bz, 0, nz * bz);
             }
 
-            AddWallComponent(gs, mapRoot.Assets.Ceiling, cell.Content, new Vector3(0, bz, 0), new Vector3(90, 0, 0));
-            AddWallComponent(gs, mapRoot.Assets.Floor, cell.Content, new Vector3(0, 0, 0), new Vector3(90, 0, 0));
+            AddWallComponent(mapRoot.Assets.Ceiling, cell.Content, new Vector3(0, bz, 0), new Vector3(90, 0, 0));
+            AddWallComponent(mapRoot.Assets.Floor, cell.Content, new Vector3(0, 0, 0), new Vector3(90, 0, 0));
 
             Vector3 nOffset = new Vector3(0, bz / 2, bz / 2);
             Vector3 nRot = new Vector3(0, 0, 0);
@@ -133,11 +133,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             if (northBits == WallTypes.Wall || northBits == WallTypes.Secret)
             {
-                AddWallComponent(gs, mapRoot.Assets.Wall, cell.Content, nOffset, nRot);
+                AddWallComponent(mapRoot.Assets.Wall, cell.Content, nOffset, nRot);
             }
             else if (northBits == WallTypes.Door)
             {
-                AddWallComponent(gs, mapRoot.Assets.Door, cell.Content, nOffset, nRot);
+                AddWallComponent(mapRoot.Assets.Door, cell.Content, nOffset, nRot);
             }
 
             Vector3 eOffset = new Vector3(bz / 2, bz / 2, 0);
@@ -147,11 +147,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             if (eastBits == WallTypes.Wall || eastBits == WallTypes.Secret)
             {
-                AddWallComponent(gs, mapRoot.Assets.Wall, cell.Content, eOffset, eRot);
+                AddWallComponent(mapRoot.Assets.Wall, cell.Content, eOffset, eRot);
             }
             else if (eastBits == WallTypes.Door)
             {
-                AddWallComponent(gs, mapRoot.Assets.Door, cell.Content, eOffset, eRot);
+                AddWallComponent(mapRoot.Assets.Door, cell.Content, eOffset, eRot);
             }
         }
     }

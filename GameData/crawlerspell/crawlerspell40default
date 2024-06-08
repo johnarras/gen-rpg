@@ -10,7 +10,6 @@
   "MaxRange": 100,
   "ReplacesCrawlerSpellId": 12,
   "CombatActionId": 4,
-  "ClassId": 4,
   "TargetTypeId": 5,
   "Level": 18,
   "Effects": [
@@ -78,6 +77,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-02-25T15:46:25.796Z",
+  "UpdateTime": "2024-06-07T23:03:24.261Z",
   "CreateTime": "2024-01-28T09:17:33Z"
 }

@@ -7,11 +7,11 @@ using System.Threading;
 public class GenerateMap : BaseZoneGenerator
 {
     protected IMapGenService _mapGenService;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        gs.spawns = new MapSpawnData() { Id = gs.map.Id.ToString() };
-        gs.map = _mapGenService.GenerateMap(gs, gs.map);
+        await base.Generate(token);
+        _mapProvider.SetSpawns(new MapSpawnData() { Id = _mapProvider.GetMap().Id.ToString() });
+        _mapProvider.SetMap(_mapGenService.GenerateMap(_mapProvider.GetMap()));
         
     }
 }

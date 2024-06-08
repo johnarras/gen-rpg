@@ -8,7 +8,6 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Utils;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.PlayerData;
 using System.Threading;
@@ -42,18 +41,18 @@ namespace Genrpg.MapServer.Spells.Services
         private IMapObjectManager _objectManager = null;
         private IStatService _statService = null;
         private IAIService _aiService = null;
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         protected Dictionary<long, ISpellEffectHandler> _handlers = null;
 
 
         protected Dictionary<TryCastState, string> _tryCastText;
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             _handlers = ReflectionUtils.SetupDictionary<long, ISpellEffectHandler>(gs);
 
             foreach (ISpellEffectHandler handler in _handlers.Values)
             {
-                handler.Init(gs);
+                handler.Init();
             }
 
             _tryCastText = new Dictionary<TryCastState, string>();
@@ -71,7 +70,7 @@ namespace Genrpg.MapServer.Spells.Services
             result.StateText = _tryCastText[state];
         }
 
-        public TryCastResult TryCast(GameState gs, Unit caster, long spellId, string targetId, bool endOfCast)
+        public TryCastResult TryCast(IRandom rand, Unit caster, long spellId, string targetId, bool endOfCast)
         {
             TryCastResult result = new TryCastResult();
 
@@ -160,13 +159,13 @@ namespace Genrpg.MapServer.Spells.Services
                 }
             }
 
-            if (caster.Stats.Curr(spell.PowerStatTypeId) < spell.GetCost(gs, caster))
+            if (caster.Stats.Curr(spell.PowerStatTypeId) < spell.GetCost(caster))
             {
                 SetResultState(result, TryCastState.NotEnoughPower);
                 return result;
             }
 
-            TargetCastState targState = GetTargetState(gs, spell, targetId);
+            TargetCastState targState = GetTargetState(rand, spell, targetId);
 
             if (targState.State != TryCastState.Ok)
             {
@@ -193,7 +192,7 @@ namespace Genrpg.MapServer.Spells.Services
             SetResultState(result, TryCastState.Ok);
             return result;
         }
-        public TargetCastState GetTargetState(GameState gs, Spell spell, string unitId)
+        public TargetCastState GetTargetState(IRandom rand, Spell spell, string unitId)
         {
             TargetCastState castState = new TargetCastState();
             if (!_objectManager.GetUnit(unitId, out Unit target))
@@ -237,7 +236,7 @@ namespace Genrpg.MapServer.Spells.Services
         }
 
 
-        public void SendStopCast(GameState gs, MapObject obj)
+        public void SendStopCast(IRandom rand, MapObject obj)
         {
 
             OnStopCast stop = obj.GetCachedMessage<OnStopCast>(true);
@@ -245,7 +244,7 @@ namespace Genrpg.MapServer.Spells.Services
             _messageService.SendMessageNear(obj, stop);
         }
 
-        public void SendSpell(GameState gs, Unit caster, TryCastResult result)
+        public void SendSpell(IRandom rand, Unit caster, TryCastResult result)
         {
             // Creating and sending projectiles
 
@@ -260,15 +259,15 @@ namespace Genrpg.MapServer.Spells.Services
                 ElementType = result.ElementType,
             };
 
-            SendOneSpell(gs, caster, result.Target, sendSpell, true);
+            SendOneSpell(rand, caster, result.Target, sendSpell, true);
         }
 
-        public void ResendSpell(GameState gs, Unit caster, Unit target, SendSpell sendSpell)
+        public void ResendSpell(IRandom rand, Unit caster, Unit target, SendSpell sendSpell)
         {
-            SendOneSpell(gs, caster, target, sendSpell, false);
+            SendOneSpell(rand, caster, target, sendSpell, false);
         }
 
-        private void SendOneSpell(GameState gs, Unit caster, Unit target, SendSpell sendSpell, bool isFirstSend)
+        private void SendOneSpell(IRandom rand, Unit caster, Unit target, SendSpell sendSpell, bool isFirstSend)
         {
             float distance1 = MapObjectUtils.DistanceBetween(caster, target);
 
@@ -320,11 +319,11 @@ namespace Genrpg.MapServer.Spells.Services
 
             if (duration1 > 0)
             {
-                ShowProjectile(gs, caster, target, sendSpell.Spell, FXNames.Projectile, SpellConstants.ProjectileSpeed);
+                ShowProjectile(rand, caster, target, sendSpell.Spell, FXNames.Projectile, SpellConstants.ProjectileSpeed);
             }
             else
             {
-                ShowFX(gs, caster.Id, target.Id, sendSpell.Spell.ElementTypeId, FXNames.Projectile, 0);
+                ShowFX(rand, caster.Id, target.Id, sendSpell.Spell.ElementTypeId, FXNames.Projectile, 0);
             }
             //}
             //if (isFirstSend && caster is Character ch)
@@ -335,11 +334,11 @@ namespace Genrpg.MapServer.Spells.Services
             //        ShotsLeft = 2,
             //        SpellMessage = sendSpell,
             //    };
-            //    _ms.AddMessage(gs, caster, resend, SpellUtils.GetResendDelay(sendSpell.Spell.HasFlag(SpellFlags.InstantHit)));
+            //    _ms.AddMessage(rand, caster, resend, SpellUtils.GetResendDelay(sendSpell.Spell.HasFlag(SpellFlags.InstantHit)));
             //}
         }
 
-        public void ShowFX(GameState gs, string fromUnitId, string toUnitId, long elementTypeId, string fxName, float duration)
+        public void ShowFX(IRandom rand, string fromUnitId, string toUnitId, long elementTypeId, string fxName, float duration)
         {
 
             if (string.IsNullOrEmpty(fxName))
@@ -367,7 +366,7 @@ namespace Genrpg.MapServer.Spells.Services
         }
 
 
-        public void ShowProjectile(GameState gs, Unit fromUnit, Unit toUnit, Spell spell, string fxName, float speed)
+        public void ShowProjectile(IRandom rand, Unit fromUnit, Unit toUnit, Spell spell, string fxName, float speed)
         {
             FX fx = new FX()
             {
@@ -386,12 +385,12 @@ namespace Genrpg.MapServer.Spells.Services
             _messageService.SendMessageNear(fromUnit, fx);
         }
 
-        public void OnSendSpell(GameState gs, Unit origTarget, SendSpell sendSpell)
+        public void OnSendSpell(IRandom rand, Unit origTarget, SendSpell sendSpell)
         {
 
             foreach (SpellEffect effect in sendSpell.Spell.Effects)
             {
-                List<SpellHit> hits = GetTargetsHit(gs, origTarget, sendSpell, effect);
+                List<SpellHit> hits = GetTargetsHit(rand, origTarget, sendSpell, effect);
 
                 foreach (SpellHit hit in hits)
                 {
@@ -406,7 +405,7 @@ namespace Genrpg.MapServer.Spells.Services
         /// <param name="gs"></param>
         /// <param name="spellData"></param>
         /// <returns></returns>
-        protected List<SpellHit> GetTargetsHit(GameState gs, Unit origTarget, SendSpell sendSpell, SpellEffect effect)
+        protected List<SpellHit> GetTargetsHit(IRandom rand, Unit origTarget, SendSpell sendSpell, SpellEffect effect)
         {
             List<SpellHit> hits = new List<SpellHit>();
 
@@ -433,7 +432,7 @@ namespace Genrpg.MapServer.Spells.Services
 
             if (effect.ExtraTargets > 0)
             {
-                List<Unit> newTargets = GetTargetUnitsNear(gs, origTarget.X, origTarget.Z, origTarget, SpellConstants.ExtraTargetRadius,
+                List<Unit> newTargets = GetTargetUnitsNear(rand, origTarget.X, origTarget.Z, origTarget, SpellConstants.ExtraTargetRadius,
                     casterFactionId, targetTypeId);
 
                 // Targets for spells are first distinct (since lockless read multithreaded movement allows for
@@ -456,7 +455,7 @@ namespace Genrpg.MapServer.Spells.Services
             {
                 foreach (Unit ptarg in primaryTargets)
                 {
-                    List<Unit> newTargets = GetTargetUnitsNear(gs, ptarg.X, ptarg.Z, ptarg, effect.Radius,
+                    List<Unit> newTargets = GetTargetUnitsNear(rand, ptarg.X, ptarg.Z, ptarg, effect.Radius,
                         casterFactionId, targetTypeId);
 
                     newTargets = newTargets.Distinct().ToList();
@@ -474,7 +473,7 @@ namespace Genrpg.MapServer.Spells.Services
 
                 SpellHit newHit = new SpellHit()
                 {
-                    Id = gs.rand.NextLong(),
+                    Id = rand.NextLong(),
                     OrigTarget = origTarget,
                     Target = targ,
                     SendSpell = sendSpell,
@@ -492,12 +491,12 @@ namespace Genrpg.MapServer.Spells.Services
             return hits;
         }
 
-        protected List<Unit> GetTargetUnitsNear(GameState gs, float x, float z, Unit origTarget, float radius,
+        protected List<Unit> GetTargetUnitsNear(IRandom rand, float x, float z, Unit origTarget, float radius,
             long casterFactionId, long targetTypeId)
         {
             List<Unit> newTargets = _objectManager.GetTypedObjectsNear<Unit>(x, z, origTarget, radius, true);
 
-            newTargets = newTargets.Where(unit => SpellUtils.IsValidTarget(gs, unit, casterFactionId, targetTypeId)).ToList();
+            newTargets = newTargets.Where(unit => SpellUtils.IsValidTarget(unit, casterFactionId, targetTypeId)).ToList();
 
             if (newTargets.Contains(origTarget))
             {
@@ -507,9 +506,9 @@ namespace Genrpg.MapServer.Spells.Services
             return newTargets;
         }
 
-        public void OnSpellHit(GameState gs, SpellHit hit)
+        public void OnSpellHit(IRandom rand, SpellHit hit)
         {
-            List<ActiveSpellEffect> effects = CalcSpellEffects(gs, hit);
+            List<ActiveSpellEffect> effects = CalcSpellEffects(rand, hit);
 
             foreach (ActiveSpellEffect eff in effects)
             {
@@ -528,7 +527,7 @@ namespace Genrpg.MapServer.Spells.Services
         /// <param name="castData"></param>
         /// <param name="hitData"></param>
         /// <param name="cr"></param>
-        public List<ActiveSpellEffect> CalcSpellEffects(GameState gs, SpellHit hit)
+        public List<ActiveSpellEffect> CalcSpellEffects(IRandom rand, SpellHit hit)
         {
             List<ActiveSpellEffect> retval = new List<ActiveSpellEffect>();
             SendSpell sendSpell = hit.SendSpell;
@@ -560,12 +559,12 @@ namespace Genrpg.MapServer.Spells.Services
             if (handler.UseStatScaling())
             {
                 long scalingStatId = skillType.ScalingStatTypeId;
-                if (scalingStatId < StatTypes.Power || scalingStatId >= StatTypes.Power + 10)
+                if (scalingStatId < StatTypes.DamagePower || scalingStatId >= StatTypes.DamagePower + 10)
                 {
-                    scalingStatId = StatTypes.Power;
+                    scalingStatId = StatTypes.DamagePower;
                 }
 
-                long powerOffset = scalingStatId - StatTypes.Power;
+                long powerOffset = scalingStatId - StatTypes.DamagePower;
 
                 StatGroup cStats = sendSpell.CasterStats;
 
@@ -575,7 +574,7 @@ namespace Genrpg.MapServer.Spells.Services
 
                 if (powerOffset > 0)
                 {
-                    powerStat += cStats.Max(StatTypes.Power);
+                    powerStat += cStats.Max(StatTypes.DamagePower);
                     statPowerMult += cStats.Max(StatTypes.PowerMult);
                 }
 
@@ -639,11 +638,11 @@ namespace Genrpg.MapServer.Spells.Services
             }
             hit.BaseQuantity = finalQuantity;
 
-            return handler.CreateEffects(gs, hit);
+            return handler.CreateEffects(rand, hit);
 
         }
 
-        public void ShowCombatText(GameState gs, Unit unit, string txt, int combatTextColorId, bool isCrit = false)
+        public void ShowCombatText(Unit unit, string txt, int combatTextColorId, bool isCrit = false)
         {
             CombatText combatText = new CombatText()
             {
@@ -658,7 +657,7 @@ namespace Genrpg.MapServer.Spells.Services
 
 
 
-        public void ApplyOneEffect(GameState gs, ActiveSpellEffect eff)
+        public void ApplyOneEffect(IRandom rand, ActiveSpellEffect eff)
         {
 
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ))
@@ -668,14 +667,14 @@ namespace Genrpg.MapServer.Spells.Services
 
             if (eff.Id < 0)
             {
-                eff.Id = gs.rand.NextLong();
+                eff.Id = rand.NextLong();
             }
 
-            bool isImmune = targ.IsFullImmune(gs);
+            bool isImmune = targ.IsFullImmune();
 
             if (!isImmune && eff.Radius > 0 && eff.IsOrigTarget)
             {
-                ShowFX(gs, eff.TargetId, eff.TargetId, eff.ElementTypeId, FXNames.Explosion, 2.0f);
+                ShowFX(rand, eff.TargetId, eff.TargetId, eff.ElementTypeId, FXNames.Explosion, 2.0f);
             }
 
             bool allySpell = false;
@@ -699,14 +698,14 @@ namespace Genrpg.MapServer.Spells.Services
                 fxName = FXNames.DoT;
                 fxName = "";
             }
-            ShowFX(gs, eff.TargetId, eff.TargetId, eff.ElementTypeId, fxName, 2.0f);
+            ShowFX(rand, eff.TargetId, eff.TargetId, eff.ElementTypeId, fxName, 2.0f);
 
             if (!GetSpellEffectHandler(eff.EntityTypeId, out ISpellEffectHandler handler))
             {
                 return;
             }
 
-            if (!handler.HandleEffect(gs, eff))
+            if (!handler.HandleEffect(rand, eff))
             {
                 eff.SetCancelled(true);
                 return;
@@ -716,8 +715,8 @@ namespace Genrpg.MapServer.Spells.Services
             {
                 if (!targ.HasTarget())
                 {
-                    _aiService.TargetMove(gs, targ, eff.CasterId);
-                    _aiService.BringFriends(gs, targ, eff.CasterId); // When a target is attacked, it brings friends
+                    _aiService.TargetMove(rand, targ, eff.CasterId);
+                    _aiService.BringFriends(rand, targ, eff.CasterId); // When a target is attacked, it brings friends
                 }
                 if (!targ.HasFlag(UnitFlags.IsDead) && _objectManager.GetChar(eff.CasterId, out Character chCaster))
                 {
@@ -728,12 +727,12 @@ namespace Genrpg.MapServer.Spells.Services
             // If this is the first tick, add the effect.
             if (eff.MaxDuration > 0 && !isImmune && eff.DurationLeft == eff.MaxDuration)
             {
-                AddEffect(gs, eff);
+                AddEffect(rand, eff);
             }
             // If it's the last tick, remove it.
             else if (eff.DurationLeft < 1 || isImmune)
             {
-                RemoveEffect(gs, eff);
+                RemoveEffect(rand, eff);
             }
             // Otherwise middle tick, do nothing.
             else
@@ -745,7 +744,7 @@ namespace Genrpg.MapServer.Spells.Services
             {
                 if (targetTypeId == TargetTypes.Enemy && !string.IsNullOrEmpty(fxName))
                 {
-                    ShowFX(gs, eff.TargetId, eff.TargetId, eff.ElementTypeId, fxName, 1);
+                    ShowFX(rand, eff.TargetId, eff.TargetId, eff.ElementTypeId, fxName, 1);
                 }
             }
 
@@ -762,7 +761,7 @@ namespace Genrpg.MapServer.Spells.Services
         }
 
 
-        protected void AddEffect(GameState gs, ActiveSpellEffect eff)
+        protected void AddEffect(IRandom rand, ActiveSpellEffect eff)
         {
 
             if (!_objectManager.GetUnit(eff.TargetId, out Unit unit))
@@ -784,7 +783,7 @@ namespace Genrpg.MapServer.Spells.Services
             {
                 if (Math.Abs(currEffectData.Quantity) <= Math.Abs(eff.Quantity))
                 {
-                    RemoveEffect(gs, currEffectData);
+                    RemoveEffect(rand, currEffectData);
                 }
                 else if (eff.DurationLeft > currEffectData.DurationLeft)
                 {
@@ -830,7 +829,7 @@ namespace Genrpg.MapServer.Spells.Services
         }
 
 
-        protected void RemoveEffect(GameState gs, IDisplayEffect timedData)
+        protected void RemoveEffect(IRandom rand, IDisplayEffect timedData)
         {
 
             ActiveSpellEffect effData = timedData as ActiveSpellEffect;
@@ -859,9 +858,9 @@ namespace Genrpg.MapServer.Spells.Services
             _statService.CalcStats(unit, false);
         }
 
-        public bool FullTryStartCast(GameState gs, Unit caster, long spellId, string targetId)
+        public bool FullTryStartCast(IRandom rand, Unit caster, long spellId, string targetId)
         {
-            TryCastResult result = TryCast(gs, caster, spellId, targetId, false);
+            TryCastResult result = TryCast(rand, caster, spellId, targetId, false);
 
             if (result.State != TryCastState.Ok)
             {

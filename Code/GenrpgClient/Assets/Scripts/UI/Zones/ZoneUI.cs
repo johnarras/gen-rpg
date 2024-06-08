@@ -1,4 +1,5 @@
 ﻿using ClientEvents;
+using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Zones.WorldData;
 using System.Threading;
@@ -8,6 +9,7 @@ public class ZoneUI : BaseBehaviour
     public GText LocationName;
 
     private IZoneStateController _zoneStateController = null;
+    protected IMapProvider _mapProvider;
 
     private CancellationToken _token;
     public void Init(CancellationToken token)
@@ -26,7 +28,7 @@ public class ZoneUI : BaseBehaviour
             return;
         }
 
-        string txt = "Map " + _gs.map.Id + ": " + zone.Name + " [#" + zone.IdKey + "] {Lev " + zone.Level + "}";
+        string txt = "Map " + _mapProvider.GetMap().Id + ": " + zone.Name + " [#" + zone.IdKey + "] {Lev " + zone.Level + "}";
 
         _uIInitializable.SetText(LocationName, txt);
         return;

@@ -1,6 +1,7 @@
 ﻿using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapMods.MapObjects;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace Genrpg.MapServer.MapMods.Services
 {
     public interface IMapModService : IInitializable
     {
-        void Process(ServerGameState gs, MapMod mapMod);
+        void Process(IRandom rand, MapMod mapMod);
     }
 }

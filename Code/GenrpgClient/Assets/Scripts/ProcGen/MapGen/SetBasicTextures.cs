@@ -17,9 +17,9 @@ public class SetBasicTerrainTextures : BaseZoneGenerator
 
     }
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
         // Set up splat prototypes based on the things given in the zone data, if any
         // and then fall back to the defaults if that fails.
@@ -30,15 +30,15 @@ public class SetBasicTerrainTextures : BaseZoneGenerator
         for (int s = 0; s < layers.Length; s++)
         {
 
-            layers[s] = _terrainManager.CreateTerrainLayer(_terrainManager.GetBasicTerrainTexture(gs, s));
+            layers[s] = _terrainManager.CreateTerrainLayer(_terrainManager.GetBasicTerrainTexture(s));
         }
 
-        for (int gx = 0; gx < gs.map.BlockCount; gx++)
+        for (int gx = 0; gx < _mapProvider.GetMap().BlockCount; gx++)
         {
-            for (int gy = 0; gy < gs.map.BlockCount; gy++)
+            for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
             {
 
-                TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
+                TerrainPatchData patch = _terrainManager.GetTerrainPatch(gx, gy);
                 if (patch == null)
                 {
                     continue;

@@ -6,11 +6,11 @@ namespace Assets.Scripts.MessageHandlers.SpellCrafting
 {
     public class OnCraftSpellHandler : BaseClientMapMessageHandler<OnCraftSpell>
     {
-        protected override void InnerProcess(UnityGameState gs, OnCraftSpell msg, CancellationToken token)
+        protected override void InnerProcess(OnCraftSpell msg, CancellationToken token)
         {
 
-            gs.ch.Get<SpellData>().Remove(msg.CraftedSpell.IdKey);
-            gs.ch.Get<SpellData>().Add(msg.CraftedSpell);
+            _gs.ch.Get<SpellData>().Remove(msg.CraftedSpell.IdKey);
+            _gs.ch.Get<SpellData>().Add(msg.CraftedSpell);
             _dispatcher.Dispatch(msg);
         }
     }

@@ -6,17 +6,17 @@ using System.Threading;
 
 public class RemoveSetupZonePatches : BaseZoneGenerator
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
 
-        await base.Generate(gs, token);
+        await base.Generate(token);
         List<MyPoint2> deltas = new List<MyPoint2>();
         deltas.Add(new MyPoint2(-1, 0));
         deltas.Add(new MyPoint2(1, 0));
         deltas.Add(new MyPoint2(0, 1));
         deltas.Add(new MyPoint2(0, -1));
 
-        MyRandom rand = new MyRandom(gs.map.Seed / 5);
+        MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed / 5);
 
         int numIterations = 0;
         bool somethingchanged = false;
@@ -26,17 +26,17 @@ public class RemoveSetupZonePatches : BaseZoneGenerator
             somethingchanged = false;
             numIterations++;
             List<MyPointF> addedVals = new List<MyPointF>();
-            for (int x = 1; x < gs.map.GetHwid()-1; x++)
+            for (int x = 1; x < _mapProvider.GetMap().GetHwid()-1; x++)
             {
            
-                for (int y = 1; y < gs.map.GetHhgt()-1; y++)
+                for (int y = 1; y < _mapProvider.GetMap().GetHhgt()-1; y++)
                 {
-                    if (gs.md.mapZoneIds[x,y] <= MapConstants.MountainZoneId)
+                    if (_md.mapZoneIds[x,y] <= MapConstants.MountainZoneId)
                     {
                         List<int> choices = new List<int>();
                         foreach (MyPoint2 d in deltas)
                         {
-                            short nearZoneId = gs.md.mapZoneIds[x + (int)(d.X), y + (int)(d.Y)];
+                            short nearZoneId = _md.mapZoneIds[x + (int)(d.X), y + (int)(d.Y)];
                             if (nearZoneId > MapConstants.MountainZoneId)
                             { 
                                 choices.Add(nearZoneId);
@@ -54,7 +54,7 @@ public class RemoveSetupZonePatches : BaseZoneGenerator
 
             foreach (MyPointF val in addedVals)
             {
-                gs.md.mapZoneIds[(int)(val.X),(int)(val.Y)] = (short)(val.Z);
+                _md.mapZoneIds[(int)(val.X),(int)(val.Y)] = (short)(val.Z);
             }
         }
         while (somethingchanged);

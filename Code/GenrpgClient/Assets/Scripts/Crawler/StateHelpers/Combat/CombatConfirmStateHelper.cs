@@ -19,7 +19,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.CombatConfirm; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -52,7 +52,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                 onClickAction: delegate ()
                 {
                     // Need to reset all combat round data and start over.
-                    _combatService.EndCombatRound(gs, party);
+                    _combatService.EndCombatRound(party);
                 }));
 
             await UniTask.CompletedTask;

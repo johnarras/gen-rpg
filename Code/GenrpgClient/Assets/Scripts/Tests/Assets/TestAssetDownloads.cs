@@ -23,7 +23,7 @@ public class TestAssetDownloads : IInjectable
     private IAssetService _assetService;
     private IScreenService _screenService;
     private IGameData _gameData;
-    public async UniTask RunTests(UnityGameState gs, CancellationToken token)
+    public async UniTask RunTests(IUnityGameState gs, CancellationToken token)
     {
         gs.loc.Resolve(this);
 
@@ -32,26 +32,26 @@ public class TestAssetDownloads : IInjectable
         _logService.Info("Test screens");
 
 
-        TestScreens(gs, token);
+        TestScreens(token);
 
 
-        TestAssetCategory<UnitSettings,UnitType>(gs, AssetCategoryNames.Monsters, token);
+        TestAssetCategory<UnitSettings,UnitType>(AssetCategoryNames.Monsters, token);
 
-        TestAssetCategory<TextureTypeSettings,TextureType>(gs, AssetCategoryNames.TerrainTex, token);
+        TestAssetCategory<TextureTypeSettings,TextureType>(AssetCategoryNames.TerrainTex, token);
 
-        TestAssetCategory<TreeTypeSettings, TreeType>(gs, AssetCategoryNames.Trees, token,
+        TestAssetCategory<TreeTypeSettings, TreeType>(AssetCategoryNames.Trees, token,
             x => !x.HasFlag(TreeFlags.IsBush));
 
-        TestAssetCategory<TreeTypeSettings, TreeType>(gs, AssetCategoryNames.Bushes, token,
+        TestAssetCategory<TreeTypeSettings, TreeType>(AssetCategoryNames.Bushes, token,
             x => x.HasFlag(TreeFlags.IsBush));
 
-        TestMagic(gs, token);
+        TestMagic(token);
 
 
         await UniTask.CompletedTask;
     }
 
-    private void OnDownloadAsset(UnityGameState gs, System.Object obj, object data, CancellationToken token)
+    private void OnDownloadAsset(System.Object obj, object data, CancellationToken token)
     {
         if (obj == null)
         {
@@ -62,7 +62,7 @@ public class TestAssetDownloads : IInjectable
        
     }
 
-    private void TestAssetCategory<Parent,Child> (UnityGameState gs, string assetCategoryName, CancellationToken token, Func<Child, bool> filter = null) where Parent : ITopLevelSettings
+    private void TestAssetCategory<Parent,Child> (string assetCategoryName, CancellationToken token, Func<Child, bool> filter = null) where Parent : ITopLevelSettings
     {
         Parent settings = _gameData.Get<Parent>(null);
 
@@ -105,21 +105,21 @@ public class TestAssetDownloads : IInjectable
                     for (int i = 1; i <= variationItem.VariationCount; i++)
                     {
 
-                        _assetService.LoadAsset(gs, assetCategoryName, indexedItem.Art + i,
+                        _assetService.LoadAsset(assetCategoryName, indexedItem.Art + i,
                             OnDownloadAsset, assetCategoryName + "-" + indexedItem.Art + i, null, token);
                     }
                 }
 
                 else
                 {
-                    _assetService.LoadAsset(gs, assetCategoryName, indexedItem.Art,
+                    _assetService.LoadAsset(assetCategoryName, indexedItem.Art,
                         OnDownloadAsset, assetCategoryName + "-" + indexedItem.Art, null, token);
                 }
             }
         }
     }
 
-    private void TestScreens(UnityGameState gs, CancellationToken token)
+    private void TestScreens(CancellationToken token)
     {
         foreach (ScreenId sid in Enum.GetValues(typeof(ScreenId)))
         {
@@ -130,11 +130,11 @@ public class TestAssetDownloads : IInjectable
 
             string subDir = _screenService.GetSubdirectory(sid);
 
-            _assetService.LoadAsset(gs, AssetCategoryNames.UI, sid.ToString() + "Screen", OnDownloadAsset, "Screen: " + sid, null, token, subDir);
+            _assetService.LoadAsset(AssetCategoryNames.UI, sid.ToString() + "Screen", OnDownloadAsset, "Screen: " + sid, null, token, subDir);
         }
     }
 
-    private void TestMagic(UnityGameState gs, CancellationToken token)
+    private void TestMagic(CancellationToken token)
     {
         IReadOnlyList<ElementType> elements = _gameData.Get<ElementTypeSettings>(null).GetData();
 
@@ -151,7 +151,7 @@ public class TestAssetDownloads : IInjectable
             foreach (string fxName in fxNames)
             {
                 string fullName = element.Art + fxName;
-                _assetService.LoadAsset(gs, AssetCategoryNames.Magic, fullName, OnDownloadAsset, fullName, null, token);
+                _assetService.LoadAsset(AssetCategoryNames.Magic, fullName, OnDownloadAsset, fullName, null, token);
             }
         }
 

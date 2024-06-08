@@ -34,7 +34,7 @@ public class DownloadFileData
 
 public class FileDownloadService : IFileDownloadService
 {
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         if (!AppUtils.IsPlaying)
         {
@@ -84,7 +84,7 @@ public class FileDownloadService : IFileDownloadService
     // If it's in downloading, add the handler to the queue.	
     // If it's none of those, start the download.
 
-    public void DownloadFile(UnityGameState gs, string filePath, DownloadFileData downloadData, bool worldData, CancellationToken token)
+    public void DownloadFile(string filePath, DownloadFileData downloadData, bool worldData, CancellationToken token)
     {
         if (!TokenUtils.IsValid(token))
         {
@@ -99,7 +99,7 @@ public class FileDownloadService : IFileDownloadService
         {
             if (downloadData.Handler != null)
             {
-                downloadData.Handler(gs, null, downloadData.Data, token);
+                downloadData.Handler(null, downloadData.Data, token);
             }
             return;
         }
@@ -108,7 +108,7 @@ public class FileDownloadService : IFileDownloadService
         {
             if (downloadData.Handler != null)
             {
-                downloadData.Handler(gs, null, downloadData.Data, token);
+                downloadData.Handler(null, downloadData.Data, token);
             }
             return;
         }
@@ -136,7 +136,7 @@ public class FileDownloadService : IFileDownloadService
             List<InternalFileDownload> list = new List<InternalFileDownload>();
             list.Add(fileDownLoad);
             _downloading[filePath] = list;
-            DownloadFileInternal(gs, fileDownLoad, token).Forget();
+            DownloadFileInternal(fileDownLoad, token).Forget();
         }
     }
 
@@ -158,7 +158,7 @@ public class FileDownloadService : IFileDownloadService
         return AssetUtils.GetPerisistentDataPath() + "/" + url;
     }
 
-    private async UniTask DownloadFileInternal(UnityGameState gs, InternalFileDownload fileDownload, CancellationToken token)
+    private async UniTask DownloadFileInternal(InternalFileDownload fileDownload, CancellationToken token)
     {
 
         if (fileDownload == null)
@@ -293,7 +293,7 @@ public class FileDownloadService : IFileDownloadService
                     continue;
                 }
 
-                fd.DownloadData.Handler(gs, obj, fd.DownloadData.Data, token);
+                fd.DownloadData.Handler(obj, fd.DownloadData.Data, token);
             }
         }
     }

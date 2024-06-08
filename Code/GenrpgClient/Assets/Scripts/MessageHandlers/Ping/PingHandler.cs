@@ -5,7 +5,7 @@ using System.Threading;
 public class PingHandler : BaseClientMapMessageHandler<Ping>
 {
 
-    protected override void InnerProcess(UnityGameState gs,  Ping msg, CancellationToken token)
+    protected override void InnerProcess(Ping msg, CancellationToken token)
     {
     }
 }

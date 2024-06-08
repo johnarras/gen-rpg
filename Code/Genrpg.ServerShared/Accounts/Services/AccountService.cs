@@ -18,7 +18,7 @@ namespace Genrpg.ServerShared.Accounts.Services
     public class AccountService : IAccountService
     {
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }

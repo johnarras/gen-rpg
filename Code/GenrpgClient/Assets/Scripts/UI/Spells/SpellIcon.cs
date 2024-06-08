@@ -4,7 +4,7 @@ using Assets.Scripts.Atlas.Constants;
 using System.Threading;
 using Genrpg.Shared.Inventory.Constants;
 
-public delegate void OnLoadSpellIconHandler(UnityGameState gs, InitSpellIconData data);
+public delegate void OnLoadSpellIconHandler(InitSpellIconData data);
 
 public class InitSpellIconData : DragItemInitData<Spell,SpellIcon,SpellIconScreen,InitSpellIconData>
 { 
@@ -36,7 +36,7 @@ public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIc
             iconName = data.Data.Icon;
         }
 
-        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.SkillIcons, iconName, Icon, _token);
+        _assetService.LoadAtlasSpriteInto(AtlasNames.SkillIcons, iconName, Icon, _token);
 
     }
 
@@ -76,7 +76,7 @@ public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIc
 
         GEntityUtils.SetActive(_initData.Screen.ToolTip, true);
         InitSpellTooltipData tooltipData = new InitSpellTooltipData() { spell = _initData.Data };
-        _initData.Screen.ToolTip.Init(_gs, tooltipData, _token);
+        _initData.Screen.ToolTip.Init(tooltipData, _token);
         UpdateTooltipPosition();
     }
 

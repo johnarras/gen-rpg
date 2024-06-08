@@ -20,18 +20,11 @@ public class ProxyCharacterController : MonsterController
         public bool EverSetData = false;
     }
 
-
-    private IMapTerrainManager _mapTerrainManager;
-
     private float _rotationLerpTime = 0;
     private DateTime _lastInputSetTime = DateTime.UtcNow;
 
     PositionData _oldPos = new PositionData();
     PositionData _newPos = new PositionData();
-
-    private int _ticksSinceSetInput = 0;
-
-    private const int RotationTicks = 3;
 
     float _lastNonzeroSpeed = 0;
     float _lastX = 0;
@@ -64,7 +57,6 @@ public class ProxyCharacterController : MonsterController
         }
 
         _lastInputSetTime = DateTime.UtcNow;
-        _ticksSinceSetInput = 0;
     }
     public override void OnUpdate(CancellationToken token)
     {
@@ -133,7 +125,7 @@ public class ProxyCharacterController : MonsterController
             _lastX = xpos;
             _lastZ = zpos;
 
-            float endHeight = _terrainManager.SampleHeight(_gs, xpos, zpos);
+            float endHeight = _terrainManager.SampleHeight(xpos, zpos);
 
             entity.transform.position = new Vector3(xpos, endHeight, zpos);
         }

@@ -16,10 +16,12 @@ using Unity.Collections;
 using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.MapServer.Services;
+using Assets.Scripts.ProcGen.RandomNumbers;
 
 public interface IQuestGenService : IInitializable
 {
-    void GenerateQuests(UnityGameState gs);
+    void GenerateQuests(IUnityGameState gs);
 }
 
 public class QuestGenService : IQuestGenService
@@ -27,43 +29,46 @@ public class QuestGenService : IQuestGenService
 
     protected IMapGenService _mapGenService;
     protected IGameData _gameData;
+    private IMapProvider _mapProvider;
+    protected IUnityGameState _gs;
+    protected IClientRandom _rand;
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
 
 
-    public void GenerateQuests(UnityGameState gs)
+    public void GenerateQuests(IUnityGameState gs)
     {
-        if ( gs.map == null || gs.map.Zones == null)
+        if (_mapProvider.GetMap() == null || _mapProvider.GetMap().Zones == null)
         {
             return;
         }
 
-        foreach (Zone zone in gs.map.Zones)
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateZoneQuests(gs, zone);
+            GenerateZoneQuests(zone);
         }
     }
 
-    protected void GenerateZoneQuests(UnityGameState gs, Zone zone)
+    protected void GenerateZoneQuests(Zone zone)
     {
-        if ( gs.map == null || zone == null || zone.Units.Count < 1)
+        if (_mapProvider.GetMap() == null || zone == null || zone.Units.Count < 1)
         {
             return;
         }
 
-        ZoneType zoneType = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId);
+        ZoneType zoneType = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId);
 
-        Map map = gs.map;
+        Map map = _mapProvider.GetMap();
         MyRandom rand = new MyRandom(zone.Seed / 2 + 32324 + map.Seed / 3);
         if (map.Quests == null)
         {
             map.Quests = new List<QuestType>();
         }
 
-        List<MapSpawn> zoneNPCs = GetNPCsForZone(gs, map, zone.IdKey);
+        List<MapSpawn> zoneNPCs = GetNPCsForZone(map, zone.IdKey);
 
         List<long> unitTypeIds = zoneType.UnitSpawns.Select(x => x.EntityId).ToList();
 
@@ -80,7 +85,7 @@ public class QuestGenService : IQuestGenService
                     continue;
                 }
 
-                long questId = GetNextQuestTypeId(gs);
+                long questId = GetNextQuestTypeId(_gs);
 
                 QuestType questType = new QuestType() { IdKey = questId };
                 questType.Name = "Quest" + questId;
@@ -94,8 +99,8 @@ public class QuestGenService : IQuestGenService
                 questType.EndObjId = npc.Id;
                 questType.MinLevel = Math.Max(1, zone.Level - QuestConstants.QuestLevelBelowZoneLevel);
                 questType.ZoneId = zone.IdKey;
-                questType.MapId = gs.map.Id;
-                questType.MapVersion = gs.map.MapVersion;
+                questType.MapId = _mapProvider.GetMap().Id;
+                questType.MapVersion = _mapProvider.GetMap().MapVersion;
 
                 int numTasks = (int)MathUtils.FloatRange(1, 2.2f, rand);
 
@@ -107,7 +112,7 @@ public class QuestGenService : IQuestGenService
                         break;
                     }
 
-                    long currUnitTypeId = unitTypeIds[gs.rand.Next() % unitTypeIds.Count];
+                    long currUnitTypeId = unitTypeIds[_rand.Next() % unitTypeIds.Count];
 
                     unitTypeIds.Remove(currUnitTypeId);
 
@@ -176,11 +181,11 @@ public class QuestGenService : IQuestGenService
                     }
                     if (taskEntityTypeId == EntityTypes.QuestItem)
                     {
-                        questItem = new QuestItem() { IdKey = GetNextQuestItemId(gs) };
+                        questItem = new QuestItem() { IdKey = GetNextQuestItemId(_gs) };
                         questItem.Name = "QuestItem" + questType.IdKey;
                         questItem.Icon = "Acorn_001";
                         questItem.Art = "Pottery" + MathUtils.IntRange(1, 27, rand);
-                        gs.map.QuestItems.Add(questItem);
+                        _mapProvider.GetMap().QuestItems.Add(questItem);
                     }
 
 
@@ -228,45 +233,45 @@ public class QuestGenService : IQuestGenService
 
     }
 
-    protected long GetNextQuestTypeId(UnityGameState gs)
+    protected long GetNextQuestTypeId(IUnityGameState gs)
     {
-        if (gs.map == null || gs.map.Quests == null ||
-            gs.map.Quests.Count < 1)
+        if (_mapProvider.GetMap() == null || _mapProvider.GetMap().Quests == null ||
+            _mapProvider.GetMap().Quests.Count < 1)
         {
             return 1;
         }
 
-        return gs.map.Quests.Max(X => X.IdKey) + 1;
+        return _mapProvider.GetMap().Quests.Max(X => X.IdKey) + 1;
     }
 
-    public long GetNextQuestItemId(UnityGameState gs)
+    public long GetNextQuestItemId(IUnityGameState gs)
     {
-        if (gs.map == null || gs.map.QuestItems == null ||
-            gs.map.QuestItems.Count < 1)
+        if (_mapProvider.GetMap() == null || _mapProvider.GetMap().QuestItems == null ||
+            _mapProvider.GetMap().QuestItems.Count < 1)
         {
             return 1;
         }
 
-        return gs.map.QuestItems.Max(X => X.IdKey) + 1;
+        return _mapProvider.GetMap().QuestItems.Max(X => X.IdKey) + 1;
     }
 
-    protected List<MapSpawn> GetNPCsForZone(GameState gs, Map map, long zoneId)
+    protected List<MapSpawn> GetNPCsForZone(Map map, long zoneId)
     {
-        List<MapSpawn> zoneSpawns = gs.spawns.Data.Where(x=>x.ZoneId == zoneId &&
+        List<MapSpawn> zoneSpawns = _mapProvider.GetSpawns().Data.Where(x=>x.ZoneId == zoneId &&
         x.Addons != null && x.Addons.Count > 0).ToList();
 
         return zoneSpawns;
     }
 
 
-    protected List<MapSpawn> GetUnusedSpawnsNearPoint(GameState gs, long zoneId, int px, int py, float radius)
+    protected List<MapSpawn> GetUnusedSpawnsNearPoint(long zoneId, int px, int py, float radius)
     {
-        if (gs.spawns == null || gs.spawns.Data == null)
+        if (_mapProvider.GetSpawns() == null)
         {
             return new List<MapSpawn>();
         }
 
-        List<MapSpawn> desiredUnits = gs.spawns.Data.Where(u =>
+        List<MapSpawn> desiredUnits = _mapProvider.GetSpawns().Data.Where(u =>
         (u.EntityTypeId == EntityTypes.ZoneUnit || u.EntityTypeId == EntityTypes.Unit) &&
         u.EntityId == 0 &&
         Math.Sqrt((u.X - px) * (u.X - px) + (u.Z - py) * (u.Z - py)) <= radius).ToList();

@@ -13,7 +13,7 @@ namespace Genrpg.ServerShared.Analytics.Services
     public class ServerAnalyticsService : IAnalyticsService
     {
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
@@ -26,7 +26,7 @@ namespace Genrpg.ServerShared.Analytics.Services
         }
 
 
-        public void Send(GameState gs, string eventId, string eventType, string eventSubtype, Dictionary<string,string> extraData = null)
+        public void Send(string eventId, string eventType, string eventSubtype, Dictionary<string,string> extraData = null)
         {
         }
 

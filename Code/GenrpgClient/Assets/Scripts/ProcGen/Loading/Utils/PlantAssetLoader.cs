@@ -14,6 +14,7 @@ using System;
 using Genrpg.Shared.Logging.Interfaces;
 using Assets.Scripts.ProcGen.Loading.Utils;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.MapServer.Services;
 
 public class FullDetailPrototype : BaseDetailPrototype
 {
@@ -22,7 +23,7 @@ public class FullDetailPrototype : BaseDetailPrototype
 
 public interface IPlantAssetLoader : IInjectable
 {
-    void SetupOneMapGrass(UnityGameState gs, int gx, int gy, CancellationToken token);
+    void SetupOneMapGrass(int gx, int gy, CancellationToken token);
 }
 public class PlantAssetLoader : IPlantAssetLoader
 {
@@ -30,14 +31,15 @@ public class PlantAssetLoader : IPlantAssetLoader
     private IMapTerrainManager _terrainManager;
     private ILogService _logService;
     private IZonePlantValidator _zonePlantValidator;
+    private IMapProvider _mapProvider;
 
-    public void SetupOneMapGrass(UnityGameState gs, int gx, int gy, CancellationToken token)
+    public void SetupOneMapGrass(int gx, int gy, CancellationToken token)
     {
-        InnerSetupOneMapGrass(gs, gx, gy, token).Forget();
+        InnerSetupOneMapGrass(gx, gy, token).Forget();
     }
-    private async UniTask InnerSetupOneMapGrass(UnityGameState gs, int gx, int gy, CancellationToken token)
+    private async UniTask InnerSetupOneMapGrass(int gx, int gy, CancellationToken token)
     {
-        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gs, gx, gy);
+        TerrainPatchData patch = _terrainManager.GetTerrainPatch(gx, gy);
 
         if (patch == null)
         {
@@ -59,7 +61,7 @@ public class PlantAssetLoader : IPlantAssetLoader
             return;
         }
 
-        MyRandom bendRand = new MyRandom(gs.map.Seed + 3234992);
+        MyRandom bendRand = new MyRandom(_mapProvider.GetMap().Seed + 3234992);
 
         Color color = Color.white;
         float amount = MathUtils.FloatRange(0.20f, 0.40f, bendRand);
@@ -79,14 +81,14 @@ public class PlantAssetLoader : IPlantAssetLoader
         {
             foreach (long zid in patch.MainZoneIdList)
             {
-                Zone zone = gs.map.Get<Zone>(zid);
+                Zone zone = _mapProvider.GetMap().Get<Zone>(zid);
                 if (zone == null)
                 {
                     continue;
                 }
                 currentZones.Add(zone);
                 bool isMainTerrain = patch.MainZoneIdList.Contains(zid);
-                _zonePlantValidator.UpdateValidPlantTypeList(gs, zone, gx, gy, fullProtoList, isMainTerrain, token);
+                _zonePlantValidator.UpdateValidPlantTypeList(zone, gx, gy, fullProtoList, isMainTerrain, token);
 
             }
 
@@ -98,7 +100,7 @@ public class PlantAssetLoader : IPlantAssetLoader
             }
 
 
-            AfterUpdateValidPrototypes(gs, fullProtoList, gx, gy, token);
+            AfterUpdateValidPrototypes(fullProtoList, gx, gy, token);
         }
         else
         {
@@ -138,17 +140,17 @@ public class PlantAssetLoader : IPlantAssetLoader
             }
             if (!haveAllArt)
             {
-                await UniTask.NextFrame( cancellationToken: token);
+                await UniTask.NextFrame(cancellationToken: token);
             }
         }
 
         tdata.detailPrototypes = protos;
 
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
 
         tdata.RefreshPrototypes();
 
-        await UniTask.NextFrame( cancellationToken: token);
+        await UniTask.NextFrame(cancellationToken: token);
 
         List<int[,]> detailblock = new List<int[,]>();
 
@@ -232,7 +234,7 @@ public class PlantAssetLoader : IPlantAssetLoader
         }
     }
 
-    private void AfterUpdateValidPrototypes(UnityGameState gs, List<FullDetailPrototype> fullList, int gx, int gy, CancellationToken token)
+    private void AfterUpdateValidPrototypes(List<FullDetailPrototype> fullList, int gx, int gy, CancellationToken token)
     {
         foreach (FullDetailPrototype full in fullList)
         {
@@ -255,11 +257,11 @@ public class PlantAssetLoader : IPlantAssetLoader
             full.proto = dp;
             if (gx >= 0 && gy >= 0)
             {
-                _assetService.LoadAsset(gs, AssetCategoryNames.Grass, full.plantType.Art, OnDownloadGrass, full, null, token);
+                _assetService.LoadAsset(AssetCategoryNames.Grass, full.plantType.Art, OnDownloadGrass, full, null, token);
             }
         }
     }
-private void OnDownloadGrass(UnityGameState gs, object obj, object data, CancellationToken token)
+private void OnDownloadGrass(object obj, object data, CancellationToken token)
 {
     FullDetailPrototype full = data as FullDetailPrototype;
     if (full == null || full.proto == null)
@@ -290,7 +292,7 @@ private void OnDownloadGrass(UnityGameState gs, object obj, object data, Cancell
         full.proto.dryColor = GColor.white;
     }
 
-    TerrainPatchData grid = _terrainManager.GetMapGrid(gs, full.XGrid, full.YGrid) as TerrainPatchData;
+    TerrainPatchData grid = _terrainManager.GetMapGrid(full.XGrid, full.YGrid) as TerrainPatchData;
     if (grid == null)
     {
         GEntityUtils.Destroy(go);

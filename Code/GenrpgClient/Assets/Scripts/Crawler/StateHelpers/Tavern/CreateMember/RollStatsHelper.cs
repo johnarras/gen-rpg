@@ -24,7 +24,7 @@ namespace Assets.Scripts.UI.Crawler.States
         public override ECrawlerStates GetKey() { return ECrawlerStates.RollStats; }
 
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -51,7 +51,7 @@ namespace Assets.Scripts.UI.Crawler.States
 
                 for (int i = 0; i < rollTimes; i++)
                 {
-                    int currVal = MathUtils.IntRange(minStatVal, maxStatVal, gs.rand);
+                    int currVal = MathUtils.IntRange(minStatVal, maxStatVal, _rand);
 
                     if (currVal > valChosen)
                     {

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Genrpg.Shared.GameSettings.Mappers
 {
+    /// <summary>
+    /// Use for mapping between client and server. Split from loader so client<->server and server<->database can vary independently
+    /// </summary>
     public interface IGameSettingsMapper
     {
         Type GetServerType();

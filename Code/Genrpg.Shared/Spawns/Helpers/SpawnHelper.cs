@@ -14,11 +14,11 @@ namespace Genrpg.Shared.Spawns.Helpers
     public class SpawnHelper : IEntityHelper
     {
 
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public long GetKey() { return EntityTypes.Spawn; }
         public string GetDataPropertyName() { return "SpawnTables"; }
 
-        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
+        public IIndexedGameItem Find(IFilteredObject obj, long id)
         {
             return _gameData.Get<SpawnSettings>(obj).Get(id);
         }

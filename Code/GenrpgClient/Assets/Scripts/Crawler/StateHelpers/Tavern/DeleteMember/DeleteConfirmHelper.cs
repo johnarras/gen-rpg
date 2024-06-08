@@ -17,7 +17,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Tavern.DeleteMember
     {
         public override ECrawlerStates GetKey() {  return ECrawlerStates.DeleteConfirm; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
         {
 
             

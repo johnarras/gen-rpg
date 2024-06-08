@@ -255,7 +255,7 @@ public class GEntityUtils
 	}
 
 
-    public static C GetOrAddComponent<C> (UnityGameState gs, GEntity go) where C: Component
+    public static C GetOrAddComponent<C> (IUnityGameState gs, GEntity go) where C: Component
     {
         if (go == null)
         {
@@ -396,7 +396,7 @@ public class GEntityUtils
         return default(T);
     }
 
-    public static C FullInstantiate<C>(UnityGameState gs, C c) where C : UnityEngine.Component
+    public static C FullInstantiate<C>(IUnityGameState gs, C c) where C : UnityEngine.Component
     {
         if (c == null)
         {
@@ -408,7 +408,7 @@ public class GEntityUtils
         return cdupe;
     }
 
-    public static GEntity FullInstantiateAndSet (UnityGameState gs, GEntity go)
+    public static GEntity FullInstantiateAndSet (IUnityGameState gs, GEntity go)
     {
         GEntity dupe = FullInstantiate(gs, go);
 
@@ -429,14 +429,14 @@ public class GEntityUtils
         return dupe;
     }
 
-    public static GEntity FullInstantiate(UnityGameState gs, GEntity go)
+    public static GEntity FullInstantiate(IUnityGameState gs, GEntity go)
     {
         GEntity dupe = GEntity.Instantiate(go);
         InitializeHierarchy(gs, dupe);
         return dupe;
     }
 
-    public static void InitializeHierarchy(UnityGameState gs, GEntity go)
+    public static void InitializeHierarchy(IUnityGameState gs, GEntity go)
     {
         SetActive(go, true);
         List<BaseBehaviour> allBehaviours = GEntityUtils.GetComponents<BaseBehaviour>(go);

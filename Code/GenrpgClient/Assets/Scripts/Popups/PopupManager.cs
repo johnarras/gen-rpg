@@ -18,13 +18,13 @@ public interface IPopupManager : IInitializable, IInjectOnLoad<IPopupManager>
 public class PopupManager : BaseBehaviour, IPopupManager
 {
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         _dispatcher.AddEvent<ShowLootEvent>(this, OnLootPopup);
 
     }
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -36,7 +36,7 @@ public class PopupManager : BaseBehaviour, IPopupManager
             return;
         }
 
-        _screenService.Open(_gs, ScreenId.Loot, ldata.Rewards);
+        _screenService.Open(ScreenId.Loot, ldata.Rewards);
 
     }
 

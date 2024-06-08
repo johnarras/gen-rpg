@@ -8,7 +8,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 {
     public interface ILootGenService : IInitializable
     {
-        Item GenerateItem(GameState gs, LootGenData lootGenData);
-        CombatLoot GiveLoot(GameState gs, PartyData party);
+        Item GenerateItem(LootGenData lootGenData);
+        CombatLoot GiveLoot(PartyData party);
     }
 }

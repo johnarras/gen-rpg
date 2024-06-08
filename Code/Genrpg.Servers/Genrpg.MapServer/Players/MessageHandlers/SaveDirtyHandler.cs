@@ -6,22 +6,18 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Players.Constants;
 using Genrpg.Shared.Players.Messages;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Genrpg.MapServer.Players.MessageHandlers
 {
-    public class SaveDirtyHandler : BaseServerMapMessageHandler<SaveDirty>
+    public class SaveDirtyHandler : BaseCharacterServerMapMessageHandler<SaveDirty>
     {
         protected IPlayerDataService _playerDataService = null;     
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, SaveDirty message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Character ch, SaveDirty message)
         {
-            if (!_objectManager.GetChar(obj.Id, out Character ch))
-            {
-                return;
-            }
-
             _playerDataService.SavePlayerData(ch, false);
 
             if (!message.IsCancelled())

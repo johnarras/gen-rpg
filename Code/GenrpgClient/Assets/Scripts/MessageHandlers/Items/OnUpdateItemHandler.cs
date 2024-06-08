@@ -7,15 +7,15 @@ namespace Assets.Scripts.MessageHandlers.Items
 {
     public class OnUpdateItemHandler : BaseClientMapMessageHandler<OnUpdateItem>
     {
-        protected override void InnerProcess(UnityGameState gs, OnUpdateItem msg, CancellationToken token)
+        protected override void InnerProcess(OnUpdateItem msg, CancellationToken token)
         {
 
-            if (msg.UnitId != gs.ch.Id)
+            if (msg.UnitId != _gs.ch.Id)
             {
                 return;
             }
 
-            InventoryData inventory = gs.ch.Get<InventoryData>();
+            InventoryData inventory = _gs.ch.Get<InventoryData>();
 
             Item item = inventory.GetItem(msg.Item.Id);
 

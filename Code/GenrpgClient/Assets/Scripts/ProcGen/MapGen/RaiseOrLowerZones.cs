@@ -36,12 +36,12 @@ public class RaiseOrLowerZones : BaseZoneGenerator
 {
 
     public const int StartDist = -1000;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
-        MyRandom rand = new MyRandom(gs.map.Seed % 23432432 + 31234);
+        await base.Generate(token);
+        MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed % 23432432 + 31234);
 
-        int minEdgeDistance = gs.map.BlockCount/5 * MapConstants.TerrainPatchSize;
+        int minEdgeDistance = _mapProvider.GetMap().BlockCount/5 * MapConstants.TerrainPatchSize;
 
         if (minEdgeDistance > 5 * MapConstants.TerrainPatchSize)
         {
@@ -54,8 +54,8 @@ public class RaiseOrLowerZones : BaseZoneGenerator
         }
 
         int minpos = minEdgeDistance;
-        int maxPos = gs.map.GetHwid() - minEdgeDistance;
-        foreach (Zone zone in gs.map.Zones)
+        int maxPos = _mapProvider.GetMap().GetHwid() - minEdgeDistance;
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
 
             if (zone.XMin >= zone.XMax || zone.ZMin > zone.ZMax)
@@ -69,21 +69,21 @@ public class RaiseOrLowerZones : BaseZoneGenerator
             }
 
 
-            RaiseOrLowerZone(gs, zone, rand.Next());
+            RaiseOrLowerZone(zone, rand.Next());
         }
 
     }
 
-    private void RaiseOrLowerZone(UnityGameState gs, Zone zone, int seed)
+    private void RaiseOrLowerZone(Zone zone, int seed)
     {
-        if ( gs.map == null || zone == null)
+        if (_mapProvider.GetMap() == null || zone == null)
         {
             return;
         }
 
         int roadCheckRad = 5;
 
-        int extraWidth = (int)gs.md.GetMountainDefaultSize(gs, gs.map);
+        int extraWidth = (int)_md.GetMountainDefaultSize(_mapProvider.GetMap());
 
         MyRandom rand = new MyRandom(seed);
 
@@ -99,7 +99,7 @@ public class RaiseOrLowerZones : BaseZoneGenerator
         int midx = (zone.XMin + zone.XMax) / 2;
         int midy = (zone.ZMin + zone.ZMax) / 2;
 
-        float midHeight = gs.md.heights[midx, midy];
+        float midHeight = _md.heights[midx, midy];
 
         float centerSpread = 0.3f;
 
@@ -111,9 +111,9 @@ public class RaiseOrLowerZones : BaseZoneGenerator
         float maxPower = 1 + powerSpread;
 
         int minx = (int)Math.Max(0, zone.XMin - extraWidth);
-        int maxx = (int)Math.Min(gs.map.GetHwid() - 1, zone.XMax + extraWidth);
+        int maxx = (int)Math.Min(_mapProvider.GetMap().GetHwid() - 1, zone.XMax + extraWidth);
         int miny = (int)Math.Max(0, zone.ZMin - extraWidth);
-        int maxy = (int)Math.Min(gs.map.GetHhgt() - 1, zone.ZMax + extraWidth);
+        int maxy = (int)Math.Min(_mapProvider.GetMap().GetHhgt() - 1, zone.ZMax + extraWidth);
 
      
 
@@ -127,7 +127,7 @@ public class RaiseOrLowerZones : BaseZoneGenerator
         {
             for (int y = miny+closeCheckEdgeSize; y < maxy-closeCheckEdgeSize; y++)
             {
-                if (FlagUtils.IsSet(gs.md.flags[x, y], MapGenFlags.IsRaisedOrLowered))
+                if (FlagUtils.IsSet(_md.flags[x, y], MapGenFlags.IsRaisedOrLowered))
                 {
                     tooCloseToRaisedOrLowered = true;
                     break;
@@ -135,7 +135,7 @@ public class RaiseOrLowerZones : BaseZoneGenerator
 
                 if (x >= minx && x < maxx && y >= miny && y < maxy)
                 {
-                    if (gs.md.heights[x, y] - heightOffset < waterScaledHeight)
+                    if (_md.heights[x, y] - heightOffset < waterScaledHeight)
                     {
                        tooLowAlready = true;
                     }
@@ -168,8 +168,8 @@ public class RaiseOrLowerZones : BaseZoneGenerator
         
         if (midx < noLowEdgeSize ||
             midy < noLowEdgeSize ||
-            midx > gs.map.GetHwid()-noLowEdgeSize ||
-            midy > gs.map.GetHhgt()-noLowEdgeSize)
+            midx > _mapProvider.GetMap().GetHwid()-noLowEdgeSize ||
+            midy > _mapProvider.GetMap().GetHhgt()-noLowEdgeSize)
         {
             tooLowAlready = true;
         }
@@ -185,14 +185,14 @@ public class RaiseOrLowerZones : BaseZoneGenerator
         float centerPers = MathUtils.FloatRange(0.1f, 0.4f, rand);
         int centerOctaves = 2;
 
-        float[,] centers = _noiseService.Generate(gs, centerPers, centerFreq, centerAmp, centerOctaves, rand.Next(), distx, disty);
+        float[,] centers = _noiseService.Generate(centerPers, centerFreq, centerAmp, centerOctaves, rand.Next(), distx, disty);
 
         float powerAmp = MathUtils.FloatRange(centerSpread,centerSpread*2, rand);
         float powerFreq = MathUtils.FloatRange(size / 40, size / 10, rand);
         float powerPers = MathUtils.FloatRange(0.1f, 0.3f, rand);
         int powerOctaves = 2;
 
-        float[,] powers = _noiseService.Generate(gs, powerPers, powerFreq, powerAmp,powerOctaves, rand.Next(), distx, disty);
+        float[,] powers = _noiseService.Generate(powerPers, powerFreq, powerAmp,powerOctaves, rand.Next(), distx, disty);
 
         int xsize = maxx - minx + 1;
         int ysize = maxy - miny + 1;
@@ -219,7 +219,7 @@ public class RaiseOrLowerZones : BaseZoneGenerator
         for (int x = 0; x < xsize; x++)
         {
             int wx = x + minx;
-            if (wx < 1 || wx >= gs.map.GetHwid() - 1)
+            if (wx < 1 || wx >= _mapProvider.GetMap().GetHwid() - 1)
             {
                 continue;
             }
@@ -227,12 +227,12 @@ public class RaiseOrLowerZones : BaseZoneGenerator
             for (int y = 0; y < ysize; y++)
             {
                 int wy = y + miny;
-                if (wy < 1 || wy >= gs.map.GetHhgt() - 1)
+                if (wy < 1 || wy >= _mapProvider.GetMap().GetHhgt() - 1)
                 {
                     continue;
                 }
 
-                if (gs.md.mapZoneIds[wx, wy] != zone.IdKey)
+                if (_md.mapZoneIds[wx, wy] != zone.IdKey)
                 {
                     continue;
                 }
@@ -242,12 +242,12 @@ public class RaiseOrLowerZones : BaseZoneGenerator
                     int x2 = wx + (int)(offset.X);
                     int y2 = wy + (int)(offset.Y);
 
-                    if (gs.md.mapZoneIds[x2, y2] != zone.IdKey)
+                    if (_md.mapZoneIds[x2, y2] != zone.IdKey)
                     {
 
                         ZoneHeightCellData cell = new ZoneHeightCellData()
                         {
-                            zoneId = gs.md.mapZoneIds[wx, wy],
+                            zoneId = _md.mapZoneIds[wx, wy],
                             wx = wx,
                             wy = wy,
                             x = x,
@@ -267,8 +267,8 @@ public class RaiseOrLowerZones : BaseZoneGenerator
         {
             ZoneHeightCellData firstCell = cellQueue.Dequeue();
 
-            if (firstCell.wx < 1 || firstCell.wx >= gs.map.GetHwid()-1 ||
-                firstCell.wy < 1 || firstCell.wy >= gs.map.GetHhgt()-1 ||
+            if (firstCell.wx < 1 || firstCell.wx >= _mapProvider.GetMap().GetHwid()-1 ||
+                firstCell.wy < 1 || firstCell.wy >= _mapProvider.GetMap().GetHhgt()-1 ||
                 firstCell.x < 1 || firstCell.x >= xsize-1 ||
                 firstCell.y < 1 || firstCell.y >= ysize-1)
             {
@@ -286,7 +286,7 @@ public class RaiseOrLowerZones : BaseZoneGenerator
                     continue;
                 }
 
-                short newZoneId = gs.md.mapZoneIds[nwx, nwy];
+                short newZoneId = _md.mapZoneIds[nwx, nwy];
 
                 int delta = 0;
 
@@ -348,7 +348,7 @@ public class RaiseOrLowerZones : BaseZoneGenerator
 
                     int drx = xx - x;
                     int wx = xx + minx;
-                    if (wx < 0 || wx >= gs.map.GetHwid())
+                    if (wx < 0 || wx >= _mapProvider.GetMap().GetHwid())
                     {
                         continue;
                     }
@@ -362,13 +362,13 @@ public class RaiseOrLowerZones : BaseZoneGenerator
 
                         int dry = yy - y;
                         int wy = yy + miny;
-                        if (wy < 0 || wy >= gs.map.GetHhgt())
+                        if (wy < 0 || wy >= _mapProvider.GetMap().GetHhgt())
                         {
                             continue;
                         }
 
                         // Use wx wy for global alphas value
-                        if (gs.md.alphas[wx, wy, MapConstants.RoadTerrainIndex] > 0)
+                        if (_md.alphas[wx, wy, MapConstants.RoadTerrainIndex] > 0)
                         {
                             if (xx < x)
                             {
@@ -434,8 +434,8 @@ public class RaiseOrLowerZones : BaseZoneGenerator
                 float finalHeightOffset = powerDistPct * heightOffset;
 
 
-                gs.md.flags[x+minx, y+miny] |= MapGenFlags.IsRaisedOrLowered;
-                gs.md.heights[x+minx, y+miny] += finalHeightOffset;
+                _md.flags[x+minx, y+miny] |= MapGenFlags.IsRaisedOrLowered;
+                _md.heights[x+minx, y+miny] += finalHeightOffset;
             }
         }
 

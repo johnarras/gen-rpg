@@ -12,12 +12,12 @@ namespace Genrpg.Shared.Inventory.Helpers
 {
     public class ItemHelper : IEntityHelper
     {
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public long GetKey() { return EntityTypes.Item; }
         public string GetDataPropertyName() { return "ItemTypes"; }
 
 
-        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
+        public IIndexedGameItem Find(IFilteredObject obj, long id)
         {
             return _gameData.Get<ItemTypeSettings>(obj).Get(id);
         }

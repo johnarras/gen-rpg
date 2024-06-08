@@ -20,10 +20,10 @@ namespace Genrpg.MapServer.Items.Services
 {
     public class ServerInventoryService : InventoryService
     {
-        protected IRepositoryService _repoService;
-        private IMapMessageService _messageService;
+        protected IRepositoryService _repoService = null;
+        private IMapMessageService _messageService = null;
         private ITradeService _tradeService;
-        public override async Task Initialize(GameState gs, CancellationToken token)
+        public override async Task Initialize(IGameState gs, CancellationToken token)
         {
             await base.Initialize(gs, token);
         }

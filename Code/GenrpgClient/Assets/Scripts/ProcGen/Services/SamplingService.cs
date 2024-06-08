@@ -8,17 +8,17 @@ using System.Threading;
 using System.Threading.Tasks;
 public interface ISamplingService : IInitializable
 {
-    List<MyPoint2> PlanePoissonSample(GameState gs, SamplingData sd);
+    List<MyPoint2> PlanePoissonSample(SamplingData sd);
 }
 public class SamplingService : ISamplingService
 {
     private INoiseService _noiseService;
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
 
-    public List<MyPoint2> PlanePoissonSample(GameState gs, SamplingData sd)
+    public List<MyPoint2> PlanePoissonSample(SamplingData sd)
     {
         List<MyPoint2> list = new List<MyPoint2>();
         if (sd == null)
@@ -56,7 +56,7 @@ public class SamplingService : ISamplingService
 
             if (width <= 20000 && height <= 20000)
             {
-                noise = _noiseService.Generate(gs, pers, sd.NoiseFreq, sd.NoiseAmp, 2, rand.Next(), width, height);
+                noise = _noiseService.Generate(pers, sd.NoiseFreq, sd.NoiseAmp, 2, rand.Next(), width, height);
             }
         }
 

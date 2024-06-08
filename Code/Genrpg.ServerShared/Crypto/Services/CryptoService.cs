@@ -17,7 +17,7 @@ namespace Genrpg.ServerShared.Crypto.Services
     {
 
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }

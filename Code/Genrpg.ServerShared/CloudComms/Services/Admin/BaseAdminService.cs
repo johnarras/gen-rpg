@@ -15,7 +15,7 @@ namespace Genrpg.ServerShared.CloudComms.Services.Admin
     public class BaseAdminService : IAdminService
     {
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
@@ -26,7 +26,7 @@ namespace Genrpg.ServerShared.CloudComms.Services.Admin
 
         virtual public async Task HandleReloadGameState(ServerGameState gs)
         {
-            await _gameDataService.ReloadGameData(gs);
+            await _gameDataService.ReloadGameData();
         }
 
         public virtual async Task OnMapUploaded(ServerGameState gs, MapUploadedAdminMessage message)

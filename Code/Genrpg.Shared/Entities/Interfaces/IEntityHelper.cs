@@ -12,6 +12,6 @@ namespace Genrpg.Shared.Entities.Interfaces
         string GetDataPropertyName();
 
         // Find an object of the given type.
-        IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id);
+        IIndexedGameItem Find(IFilteredObject obj, long id);
     }
 }

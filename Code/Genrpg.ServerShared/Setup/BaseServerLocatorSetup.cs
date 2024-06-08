@@ -28,7 +28,7 @@ namespace Genrpg.ServerShared.Setup
 {
     public class BaseServerLocatorSetup : LocatorSetup
     {
-        public override void Setup(GameState gs)
+        public override void Setup(IGameState gs)
         {
             base.Setup(gs);
             gs.loc.Set<IRepositoryService>(new ServerRepositoryService());

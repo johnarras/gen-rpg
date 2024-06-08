@@ -76,7 +76,7 @@ public class CrawlerVendorScreen : ItemIconScreen
             _party.LastVendorRefresh = DateTime.UtcNow;
 
 
-            int quantity = MathUtils.IntRange(4, 10, _gs.rand);
+            int quantity = MathUtils.IntRange(4, 10, _rand);
 
             for (int i = 0; i < quantity; i++)
             {
@@ -86,7 +86,7 @@ public class CrawlerVendorScreen : ItemIconScreen
                     Level = _party.GetWorldLevel(),
                 };
 
-                _party.VendorItems.Add(_lootGenService.GenerateItem(_gs, lootGenData));
+                _party.VendorItems.Add(_lootGenService.GenerateItem(lootGenData));
             }
         }
 
@@ -99,20 +99,20 @@ public class CrawlerVendorScreen : ItemIconScreen
                 IconPrefabName = VendorIconName,
                 Screen = this,
             };
-            IconHelper.InitItemIcon(_gs, idata, VendorItems, _assetService, _token);
+            IconHelper.InitItemIcon(idata, VendorItems, _assetService, _token);
         }
 
         _uIInitializable.SetText(PartyGoldText, StrUtils.PrintCommaValue(_party.Gold));
     }
 
     // Blank
-    public override void OnLeftClickIcon(UnityGameState gs, ItemIcon icon) { }
+    public override void OnLeftClickIcon(ItemIcon icon) { }
 
 
 
 
     // Equip or Unequip item.
-    public override void OnRightClickIcon(UnityGameState gs, ItemIcon icon)
+    public override void OnRightClickIcon(ItemIcon icon)
     {
         if (icon == null || icon.GetDataItem() == null)
         {
@@ -122,16 +122,16 @@ public class CrawlerVendorScreen : ItemIconScreen
 
         if (icon.HasFlag(ItemIconFlags.IsVendorItem))
         {
-            BuyItem(gs, icon);
+            BuyItem(icon);
         }
         else
         {
-            SellItem(gs, icon);
+            SellItem(icon);
         }
     }
 
 
-    private void BuyItem(UnityGameState gs, ItemIcon icon)
+    private void BuyItem(ItemIcon icon)
     {
         if (icon == null || icon.GetDataItem() == null)
         {
@@ -159,7 +159,7 @@ public class CrawlerVendorScreen : ItemIconScreen
         InitPanel();
     }
 
-    private void SellItem(UnityGameState gs, ItemIcon icon)
+    private void SellItem(ItemIcon icon)
     {
         if (icon == null || icon.GetDataItem() == null)
         {

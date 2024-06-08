@@ -28,7 +28,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 Character ch = new Character(_repoService);
                 CharacterUtils.CopyDataFromTo(gs.coreCh, ch);
 
-                await _playerDataService.LoadAllPlayerData(gs, gs.ch);
+                await _playerDataService.LoadAllPlayerData(gs.rand, gs.ch);
                 await _repoService.Delete(gs.coreCh);
 
                 foreach (IUnitData data in gs.ch.GetAllData().Values)
@@ -43,7 +43,7 @@ namespace Genrpg.LoginServer.CommandHandlers
 
             DeleteCharResult result = new DeleteCharResult()
             {
-                AllCharacters = await _playerDataService.LoadCharacterStubs(gs, gs.user.Id),
+                AllCharacters = await _playerDataService.LoadCharacterStubs(gs.user.Id),
             };
 
             gs.Results.Add(result);

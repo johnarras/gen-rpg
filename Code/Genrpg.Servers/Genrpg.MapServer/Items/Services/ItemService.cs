@@ -18,12 +18,13 @@ using System.Threading;
 using Genrpg.MapServer.Crafting.Services;
 using Genrpg.MapServer.Spawns.Services;
 using Genrpg.MapServer.Trades.Services;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Items.Services
 {
     public interface IItemService : IInitializable
     {
-        UseItemResult UseItem(GameState gs, Character ch, Item item);
+        UseItemResult UseItem(IRandom rand, Character ch, Item item);
 
     }
 
@@ -37,23 +38,23 @@ namespace Genrpg.MapServer.Items.Services
         private IInventoryService _inventoryService = null;
         private ITradeService _tradeService = null;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
         // This should call out to different functions in different parts of the code.
         // Eventually split these cases into separate functions.
-        public UseItemResult UseItem(GameState gs, Character ch, Item item)
+        public UseItemResult UseItem(IRandom rand, Character ch, Item item)
         {
             return _tradeService.SafeModifyObject(ch, delegate
             {
-                return UseItemInternal(gs, ch, item);
+                return UseItemInternal(rand, ch, item);
             },
             new UseItemResult() { ItemUsed = item, Success = false });
         }
 
-        private UseItemResult UseItemInternal (GameState gs, Character ch, Item item)
+        private UseItemResult UseItemInternal (IRandom rand, Character ch, Item item)
         { 
             UseItemResult res = new UseItemResult() { ItemUsed = item, Success = false };
             if (item == null)
@@ -71,7 +72,7 @@ namespace Genrpg.MapServer.Items.Services
             {
                 theProc = recipeProc;
                 shouldRemoveItem = true;
-                res = _craftingService.LearnRecipe(gs, ch, item);
+                res = _craftingService.LearnRecipe(rand, ch, item);
             }
 
             if (theProc == null)
@@ -88,10 +89,10 @@ namespace Genrpg.MapServer.Items.Services
                         QualityTypeId = item.QualityTypeId,
                         Times = 1
                     };
-                    List<SpawnResult> newItems = _spawnService.Roll(gs, spawnProc.EntityId, rollData);
+                    List<SpawnResult> newItems = _spawnService.Roll(rand, spawnProc.EntityId, rollData);
                     if (newItems != null)
                     {
-                        _entityService.GiveRewards(gs, ch, newItems);
+                        _entityService.GiveRewards(rand, ch, newItems);
                     }
 
                     res.Success = true;

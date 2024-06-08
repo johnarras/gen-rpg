@@ -68,7 +68,7 @@ public class UnitFrameContainer : BaseBehaviour
         else
         {
             GEntityUtils.SetActive(Frame, true);
-            Frame.Init(_gs,unit);
+            Frame.Init(unit);
         }
     }
 }

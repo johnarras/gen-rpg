@@ -109,7 +109,7 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
 
                 _uIInitializable.SetText(Class, classText);
 
-                _uIInitializable.SetText(StatusEffects, _statusEffectService.ShowStatusEffects(_gs, _partyMember, true));
+                _uIInitializable.SetText(StatusEffects, _statusEffectService.ShowStatusEffects(_partyMember, true));
 
 
                 if (_partyMember.Summons != null && _partyMember.Summons.Count > 0)

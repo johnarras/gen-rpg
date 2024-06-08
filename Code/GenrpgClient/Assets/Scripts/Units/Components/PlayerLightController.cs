@@ -20,7 +20,7 @@ namespace Assets.Scripts.Controllers
 
         public GVector3 Offset;
 
-        public override void Initialize(UnityGameState gs)
+        public override void Initialize(IUnityGameState gs)
         {
             base.Initialize(gs);
             AddUpdate(LightUpdate, UpdateType.Late);

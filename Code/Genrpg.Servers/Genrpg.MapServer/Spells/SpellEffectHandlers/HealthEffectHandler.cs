@@ -7,6 +7,7 @@ using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
         public override bool UseStatScaling() { return true; }
         public override float GetTickLength() { return SpellConstants.DotTickSeconds; }
 
-        public override bool HandleEffect(GameState gs, ActiveSpellEffect eff)
+        public override bool HandleEffect(IRandom rand, ActiveSpellEffect eff)
         {
             if (!_objectManager.GetUnit(eff.TargetId, out Unit targ) || targ.HasFlag(UnitFlags.IsDead))
             {
@@ -31,7 +32,7 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 
             bool isCrit = false;
             long quantity = eff.CurrQuantity;
-            if (gs.rand.NextDouble() < eff.CritChance)
+            if (rand.NextDouble() < eff.CritChance)
             {
                 isCrit = true;
                 quantity = (long)(quantity * eff.CritMult);
@@ -42,25 +43,25 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
 
                 if (targ as Character != null)
                 {
-                    _spellService.ShowCombatText(gs, targ, quantity.ToString(), CombatTextColors.Red, isCrit);
+                    _spellService.ShowCombatText(targ, quantity.ToString(), CombatTextColors.Red, isCrit);
                 }
                 else
                 {
                     int textColorId = eff.SpellId == 1 ? CombatTextColors.White : CombatTextColors.Yellow;
 
-                    _spellService.ShowCombatText(gs, targ, quantity.ToString(), textColorId, isCrit);
+                    _spellService.ShowCombatText(targ, quantity.ToString(), textColorId, isCrit);
 
                 }
             }
             else if (quantity > 0)
             {
-                _spellService.ShowCombatText(gs, targ, quantity.ToString(), CombatTextColors.Green, isCrit);
+                _spellService.ShowCombatText(targ, quantity.ToString(), CombatTextColors.Green, isCrit);
             }
 
             _statService.Add(targ, StatTypes.Health, StatCategories.Curr, quantity);
             if (targ.Stats.Curr(StatTypes.Health) <= 0)
             {
-                _unitService.CheckForDeath(gs, eff, targ);
+                _unitService.CheckForDeath(rand, eff, targ);
             }
 
             return true;

@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.ProcGen.Settings.MapWater;
 using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Utils;
@@ -13,29 +14,31 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
 {
     public interface IAddPoolService : IInjectable
     {
-        bool TryAddPool(UnityGameState gs, WaterGenData genData);
+        bool TryAddPool(WaterGenData genData);
     }
 
     public class AddPoolService : IAddPoolService
     {
         private IGameData _gameData = null;
-
+        protected IMapProvider _mapProvider;
+        protected IUnityGameState _gs;
+        protected IMapGenData _md;
         protected List<TreeType> waterPlants = null;
 
-        public bool TryAddPool(UnityGameState gs, WaterGenData genData)
+        public bool TryAddPool(WaterGenData genData)
         {
             if (genData == null ||
                 genData.x < MapConstants.TerrainPatchSize ||
                 genData.z < MapConstants.TerrainPatchSize ||
-                genData.x > gs.map.GetHwid() - MapConstants.TerrainPatchSize ||
-                genData.z > gs.map.GetHhgt() - MapConstants.TerrainPatchSize)
+                genData.x > _mapProvider.GetMap().GetHwid() - MapConstants.TerrainPatchSize ||
+                genData.z > _mapProvider.GetMap().GetHhgt() - MapConstants.TerrainPatchSize)
             {
                 return false;
             }
 
             if (waterPlants == null)
             {
-                waterPlants = _gameData.Get<TreeTypeSettings>(gs.ch).GetData().Where(x => x.HasFlag(TreeFlags.IsWaterItem)).ToList();
+                waterPlants = _gameData.Get<TreeTypeSettings>(_gs.ch).GetData().Where(x => x.HasFlag(TreeFlags.IsWaterItem)).ToList();
             }
 
             if (genData.stepSize < 1)
@@ -50,14 +53,14 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
             int cz = genData.z;
 
 
-            if (gs.md.mapObjects[nx, nz] != 0)
+            if (_md.mapObjects[nx, nz] != 0)
             {
                 bool foundOkPosition = false;
                 for (int xx = nx - 1; xx <= nx + 1; xx++)
                 {
                     for (int zz = nz - 1; zz <= nz + 1; zz++)
                     {
-                        if (gs.md.mapObjects[xx, zz] == 0)
+                        if (_md.mapObjects[xx, zz] == 0)
                         {
                             nz = zz;
                             nx = xx;
@@ -84,7 +87,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
 
             int extraEdge = 4;
 
-            float centerHeight = gs.md.heights[cx, cz] * MapConstants.MapHeight;
+            float centerHeight = _md.heights[cx, cz] * MapConstants.MapHeight;
 
             float minHeightTotal = centerHeight + 3;
 
@@ -104,7 +107,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
                     float minHeightAnywhere = MapConstants.MapHeight;
                     for (int xx = cx - xsize - extraEdge; xx <= cx + xsize + extraEdge; xx++)
                     {
-                        if (xx < 0 || xx >= gs.map.GetHwid() || nearWater)
+                        if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid() || nearWater)
                         {
                             minHeightAroundEdges = 0;
                             minHeightAnywhere = 0;
@@ -116,14 +119,14 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
                         for (int yy = cz - ysize - extraEdge; yy <= cz + ysize + extraEdge; yy++)
                         {
 
-                            if (yy < 0 || yy >= gs.map.GetHwid())
+                            if (yy < 0 || yy >= _mapProvider.GetMap().GetHwid())
                             {
                                 minHeightAroundEdges = 0;
                                 minHeightAnywhere = 0;
                                 continue;
                             }
 
-                            if (FlagUtils.IsSet(gs.md.flags[xx, yy], MapGenFlags.NearWater))
+                            if (FlagUtils.IsSet(_md.flags[xx, yy], MapGenFlags.NearWater))
                             {
                                 nearWater = true;
                                 break;
@@ -133,7 +136,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
                             float ddy = dy * dy;
 
 
-                            float currHeight = gs.md.heights[xx, yy] * MapConstants.MapHeight;
+                            float currHeight = _md.heights[xx, yy] * MapConstants.MapHeight;
                             if (currHeight < minHeightAnywhere)
                             {
                                 minHeightAnywhere = currHeight;
@@ -188,34 +191,34 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
 
                 for (int xx = cx - xSizeMaxHeight - extraEdge; xx <= cx + xSizeMaxHeight + extraEdge; xx++)
                 {
-                    if (xx < 0 || xx >= gs.map.GetHwid())
+                    if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
                     {
                         continue;
                     }
                     for (int yy = cz - ySizeMaxHeight - extraEdge; yy <= cz + ySizeMaxHeight + extraEdge; yy++)
                     {
-                        if (yy < 0 || yy >= gs.map.GetHhgt())
+                        if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                         {
                             continue;
                         }
 
-                        gs.md.flags[xx, yy] |= MapGenFlags.NearWater;
-                        if (gs.md.heights[xx, yy] < waterHeight)
+                        _md.flags[xx, yy] |= MapGenFlags.NearWater;
+                        if (_md.heights[xx, yy] < waterHeight)
                         {
-                            gs.md.flags[xx, yy] |= MapGenFlags.BelowWater;
+                            _md.flags[xx, yy] |= MapGenFlags.BelowWater;
                         }
 
 
                         int tx = xx + 0 * (xx / (MapConstants.TerrainPatchSize - 1));
                         int ty = yy + 0 * (yy / (MapConstants.TerrainPatchSize - 1));
-                        int lowerObject = gs.md.mapObjects[tx, ty] & (1 << 16);
+                        int lowerObject = _md.mapObjects[tx, ty] & (1 << 16);
 
                         if (lowerObject < MapConstants.BridgeObjectOffset ||
                             lowerObject > MapConstants.BridgeObjectOffset + MapConstants.MapObjectOffsetMult)
                         {
-                            if (gs.md.heights[xx, yy] < waterHeight)
+                            if (_md.heights[xx, yy] < waterHeight)
                             {
-                                //gs.md.mapObjects[tx,ty] = 0;
+                                //_md.mapObjects[tx,ty] = 0;
                             }
                             else
                             {
@@ -228,8 +231,8 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
                                 {
                                     int ux = tx + 0 * (xx / (MapConstants.TerrainPatchSize - 1));
                                     int uy = ty + 0 * (yy / (MapConstants.TerrainPatchSize - 1));
-                                    if (gs.md.mapObjects[ux, uy] == 0 && waterPlants.Count > 0 &&
-                                        gs.md.heights[xx, yy] < maxPlantHeight && rand.NextDouble() < plantChance)
+                                    if (_md.mapObjects[ux, uy] == 0 && waterPlants.Count > 0 &&
+                                        _md.heights[xx, yy] < maxPlantHeight && rand.NextDouble() < plantChance)
                                     {
                                         bool nearRealWater = false;
                                         for (int x1 = xx - nearWaterRad; x1 <= xx + nearWaterRad; x1++)
@@ -239,19 +242,19 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
                                                 break;
                                             }
 
-                                            if (x1 < 0 || x1 >= gs.map.GetHwid())
+                                            if (x1 < 0 || x1 >= _mapProvider.GetMap().GetHwid())
                                             {
                                                 continue;
                                             }
 
                                             for (int y1 = yy - nearWaterRad; y1 <= yy + nearWaterRad; y1++)
                                             {
-                                                if (y1 < 0 || y1 >= gs.map.GetHhgt())
+                                                if (y1 < 0 || y1 >= _mapProvider.GetMap().GetHhgt())
                                                 {
                                                     continue;
                                                 }
 
-                                                if (gs.md.heights[x1, y1] < waterHeight)
+                                                if (_md.heights[x1, y1] < waterHeight)
                                                 {
                                                     nearRealWater = true;
                                                     break;
@@ -261,7 +264,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
                                         if (nearRealWater)
                                         {
                                             TreeType plantChosen = waterPlants[rand.Next() % waterPlants.Count];
-                                            gs.md.mapObjects[ux, uy] = (int)(MapConstants.TreeObjectOffset + plantChosen.IdKey);
+                                            _md.mapObjects[ux, uy] = (int)(MapConstants.TreeObjectOffset + plantChosen.IdKey);
                                         }
                                     }
                                 }
@@ -269,9 +272,9 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
                         }
                     }
                 }
-                gs.md.mapObjects[nx, nz] = MapConstants.WaterObjectOffset + (int)maxHeightDiff;
+                _md.mapObjects[nx, nz] = MapConstants.WaterObjectOffset + (int)maxHeightDiff;
                 int szOffset = (int)(xSizeMaxHeight * 256) + ySizeMaxHeight;
-                gs.md.mapObjects[nx, nz] += (szOffset << 16);
+                _md.mapObjects[nx, nz] += (szOffset << 16);
                 return true;
             }
             return false;

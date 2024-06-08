@@ -18,12 +18,15 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.Spells.Services;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.MapMessaging.MessageHandlers
 {
-    public abstract class BaseServerMapMessageHandler<T> : IMapMessageHandler where T : class, IMapMessage
+    public abstract class BaseServerMapMessageHandler<TMapObject,TMapMessage> : IMapMessageHandler 
+        where TMapMessage : class, IMapMessage
+        where TMapObject : MapObject
     {
-        public Type GetKey() { return typeof(T); }
+        public Type GetKey() { return typeof(TMapMessage); }
 
         protected IMapMessageService _messageService = null;
         protected IMapObjectManager _objectManager = null;
@@ -34,47 +37,41 @@ namespace Genrpg.MapServer.MapMessaging.MessageHandlers
         protected ILogService _logService = null;
         protected IRepositoryService _repoService = null;
         protected IGameData _gameData;
-        public virtual void Setup(GameState gs)
+        public virtual void Setup(IGameState gs)
         {
         }
 
+        protected abstract void InnerProcess(IRandom rand, MapMessagePackage pack, TMapObject obj, TMapMessage message);
 
-        protected abstract void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, T message);
-
-        protected virtual bool GetOkUnit(MapObject obj, bool playersOk, out Unit unit)
+        protected virtual bool IsOkUnit(Unit unit, bool playersOk)
         {
-            if (!(obj is Unit objUnit))
+            if (unit == null)
             {
-                unit = null;
                 return false;
             }
 
-            if (!playersOk && obj.IsPlayer())
+            if (!playersOk && unit.IsPlayer())
             {
-                unit = null;
                 return false;
             }
 
-            if (obj.IsDeleted())
+            if (unit.IsDeleted())
             {
-                unit = null;
                 return false;
             }
 
-            if (objUnit.HasFlag(UnitFlags.IsDead))
+            if (unit.HasFlag(UnitFlags.IsDead))
             {
-                unit = null;
                 return false;
             }
-            unit = objUnit;
             return true;
         }
 
-        public void Process(GameState gs, MapMessagePackage pack)
+        public void Process(IRandom rand, MapMessagePackage pack)
         {
-            if (!pack.message.IsCancelled())
+            if (!pack.message.IsCancelled() && pack.mapObject is TMapObject tMapObject)
             {
-                InnerProcess(gs, pack, pack.mapObject, pack.message as T);
+                InnerProcess(rand, pack, tMapObject, pack.message as TMapMessage);
             }
         }
     }

@@ -13,7 +13,7 @@ public class FenceObjectLoader : BaseObjectLoader
 {
 
     private ILogService _logService;
-    public override bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId,
+    public override bool LoadObject(PatchLoadData loadData, uint objectId,
         int x, int y, Zone currZone, ZoneType currZoneType, CancellationToken token)
     {
 
@@ -26,7 +26,7 @@ public class FenceObjectLoader : BaseObjectLoader
         angle = (4 * (angleData & (255)) - 360);
         hangle = ((4 * (angleData >> 8)) - 360);
 
-        FenceType fenceType = _gameData.Get<FenceTypeSettings>(gs.ch).Get((int)objectId);
+        FenceType fenceType = _gameData.Get<FenceTypeSettings>(_gs.ch).Get((int)objectId);
         if (fenceType == null)
         {
             return false;
@@ -47,11 +47,11 @@ public class FenceObjectLoader : BaseObjectLoader
         dlo.rotation = new MyPointF(0, angle, hangle);
         dlo.AfterLoad = AfterLoadObject;
         
-        _assetService.LoadAsset(gs, AssetCategoryNames.Props, dlo.url, OnDownloadObject, dlo, null, token);
+        _assetService.LoadAsset(AssetCategoryNames.Props, dlo.url, OnDownloadObject, dlo, null, token);
 
         return true;
     }
-    public void AfterLoadObject(UnityGameState gs, GEntity go, DownloadObjectData dlo, CancellationToken token)
+    public void AfterLoadObject(GEntity go, DownloadObjectData dlo, CancellationToken token)
     {
         go.transform().localScale = GVector3.onePlatform;
         go.transform().localRotation = GQuaternion.identity;

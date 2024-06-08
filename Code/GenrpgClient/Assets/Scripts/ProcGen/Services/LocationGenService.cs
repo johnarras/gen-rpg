@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public interface ILocationGenService : IInitializable
 {
-    Location Generate(GameState gs,int locationId, int zoneId);
+    Location Generate(IGameState gs,int locationId, int zoneId);
 }
 
 
@@ -15,12 +15,12 @@ public interface ILocationGenService : IInitializable
 public class LocationGenService : ILocationGenService
 {
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
 
-    public virtual Location Generate(GameState gs,int locationId, int zoneId)
+    public virtual Location Generate(IGameState gs,int locationId, int zoneId)
     {
         return null;
     }

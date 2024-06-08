@@ -16,7 +16,7 @@ public class MusicChannel
     public CurrentMusic curr = null;
     public List<CurrentMusic> prevList = new List<CurrentMusic>();
 
-    public void ChooseNewRandomSound(UnityGameState gs)
+    public void ChooseNewRandomSound(IRandom rand)
     {
 
         if (curr == null || curr.clipList == null || 
@@ -27,7 +27,7 @@ public class MusicChannel
         }
 
         float randTime = curr.GetRandomIzeSeconds();
-        float nextRandTime = MathUtils.FloatRange(randTime / 2, randTime * 3 / 2, gs.rand);
+        float nextRandTime = MathUtils.FloatRange(randTime / 2, randTime * 3 / 2, rand);
         curr.NextRandomizeTime = DateTime.UtcNow.AddSeconds(nextRandTime);
         
 
@@ -46,7 +46,7 @@ public class MusicChannel
             }
         }
 
-        int newIndex = gs.rand.Next() % curr.clipList.Clips.Count - 1;
+        int newIndex = rand.Next() % curr.clipList.Clips.Count - 1;
         if (newIndex >= skipIndex)
         {
             newIndex++;

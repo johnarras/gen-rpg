@@ -29,10 +29,11 @@ namespace Genrpg.MapServer.MapMessaging.Entities
         protected CancellationToken _token;
         private ILogService _logService;
         private IMapMessageService _mapMessageService;
+        private IGameData _gameData;
 
         private DateTime _startTime = DateTime.UtcNow;
 
-        public MapMessageQueue(GameState gs, DateTime startTime, int queueIndex, ILogService logService, IMapMessageService mapMessageService, CancellationToken token)
+        public MapMessageQueue(IGameState gs, DateTime startTime, int queueIndex, ILogService logService, IMapMessageService mapMessageService, CancellationToken token)
         {
             _token = token;
             _logService = logService;
@@ -57,8 +58,7 @@ namespace Genrpg.MapServer.MapMessaging.Entities
 
         public void UpdateGameData(IGameData gameData)
         {
-            _processQueueGameState.loc.Get<IGameData>().CopyFrom(gameData);
-            _delayQueueGameState.loc.Get<IGameData>().CopyFrom(gameData);
+            _gameData.CopyFrom(gameData);
             _logService.Message("Update Message Queue Game Data!");
         }
 
@@ -82,12 +82,10 @@ namespace Genrpg.MapServer.MapMessaging.Entities
             }
         }
 
-        private GameState _delayQueueGameState = null;
-        protected async Task ProcessDelayQueue(GameState gsIn)
+        protected async Task ProcessDelayQueue(IGameState gsIn)
         {
             try
             {
-                _delayQueueGameState = gsIn.CreateGameStateCopy();
                 int currentTick = 0;
 
                 using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(MessageConstants.DelayedMessageTimeGranularity)))
@@ -131,20 +129,18 @@ namespace Genrpg.MapServer.MapMessaging.Entities
             }
             catch (OperationCanceledException oce)
             {
-                _logService.Info("Map Instance Shutdown MessageQueue.ProcessDelayed Index: " + _queueIndex);
+                _logService.Info("Map Instance Shutdown MessageQueue.ProcessDelayed Index: " + oce.Message + " " + _queueIndex);
             }
             catch (Exception e)
             {
                 _logService.Exception(e, "MessageQueueDelay");
             }
         }
-
-        private GameState _processQueueGameState = null;
-        protected async Task ProcessQueue(GameState gsIn)
+        protected async Task ProcessQueue(IGameState gsIn)
         {
             try
             {
-                _processQueueGameState = gsIn.CreateGameStateCopy();
+                MyRandom rand = new MyRandom();
                 using (PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(1)))
                 {
                     while (true)
@@ -154,7 +150,7 @@ namespace Genrpg.MapServer.MapMessaging.Entities
                             try
                             {
                                 // This is intentionally synchronous
-                                package.Process(_processQueueGameState);
+                                package.Process(rand);
                                 _messagesProcessed++;
                                 package.mapObject.ReturnPackage(package);
                             }
@@ -169,7 +165,7 @@ namespace Genrpg.MapServer.MapMessaging.Entities
             }
             catch (OperationCanceledException oce)
             {
-                _logService.Info("Map Instance Shutdown MessageQueue.Process Index: " + _queueIndex);
+                _logService.Info("Map Instance Shutdown MessageQueue.Process Index: " + oce.Message + " " + _queueIndex);
             }
             catch (Exception e)
             {

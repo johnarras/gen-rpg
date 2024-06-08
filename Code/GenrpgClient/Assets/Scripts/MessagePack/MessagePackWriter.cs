@@ -697,7 +697,7 @@ namespace MessagePack
                 }
                 else
                 {
-                    // timestamp 96( nanoseconds in 32-bit unsigned int | seconds in 64-bit signed int )
+                    // timestamp 96(nanoseconds in 32-bit unsigned int | seconds in 64-bit signed int )
                     Span<byte> span = this.writer.GetSpan(15);
                     span[0] = MessagePackCode.Ext8;
                     span[1] = 12;

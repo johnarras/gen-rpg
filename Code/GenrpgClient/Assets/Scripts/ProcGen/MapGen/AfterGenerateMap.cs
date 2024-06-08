@@ -7,14 +7,14 @@ public class AfterGenerateMap : BaseZoneGenerator
 {
 
     protected IScreenService _screenService;
-    public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate (CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
         if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId))
         {
-            _screenService.CloseAll(gs);
-            _screenService.Open(gs, ScreenId.CharacterSelect);
+            _screenService.CloseAll();
+            _screenService.Open(ScreenId.CharacterSelect);
         }
         await UniTask.CompletedTask;
 	}

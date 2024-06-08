@@ -29,7 +29,7 @@ namespace Genrpg.LoginServer.Services.Clients
     {
         private ILogService _logService = null;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }

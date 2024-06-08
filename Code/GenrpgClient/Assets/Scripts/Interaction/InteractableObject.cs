@@ -81,11 +81,11 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
         {
             return;
         }
-        _assetService.LoadAssetInto(_gs, entity, AssetCategoryNames.UI,
+        _assetService.LoadAssetInto(entity, AssetCategoryNames.UI,
             InteractGlow, OnLoadGlow, null, token, "Core");
     }
 
-    private void OnLoadGlow(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadGlow(object obj, object data, CancellationToken token)
     {
         GEntity glow = obj as GEntity;
         if (glow == null)

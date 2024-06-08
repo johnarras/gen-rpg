@@ -18,6 +18,7 @@ using Genrpg.Shared.Stats.Settings.DerivedStats;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace Genrpg.Shared.Stats.Services
     {
 
         protected IGameData _gameData;
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }
@@ -306,7 +307,7 @@ namespace Genrpg.Shared.Stats.Services
         {
         }
 
-        public virtual void RegenerateTick(GameState gs, Unit unit, float regenTickTime = StatConstants.RegenTickSeconds)
+        public virtual void RegenerateTick(IRandom rand, Unit unit, float regenTickTime = StatConstants.RegenTickSeconds)
         {
 
         }

@@ -12,11 +12,11 @@ namespace Genrpg.Shared.Currencies.Helpers
     public class CurrencyHelper : IEntityHelper
     {
 
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public long GetKey() { return EntityTypes.Currency; }
         public string GetDataPropertyName() { return "CurrencyTypes"; }
 
-        public IIndexedGameItem Find(GameState gs, IFilteredObject obj, long id)
+        public IIndexedGameItem Find(IFilteredObject obj, long id)
         {
             return _gameData.Get<CurrencySettings>(obj).Get(id);
         }

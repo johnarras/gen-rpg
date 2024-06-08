@@ -16,23 +16,23 @@ using Genrpg.Shared.GroundObjects.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {
-    public class InteractCommandHandler : BaseServerMapMessageHandler<InteractCommand>
+    public class InteractCommandHandler : BaseMapObjectServerMapMessageHandler<InteractCommand>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, InteractCommand message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, InteractCommand message)
         {
-            
             if (!_objectManager.GetObject(message.TargetId, out MapObject target))
             {
-                pack.SendError(gs, obj, "Object does not exist!");
+                pack.SendError(obj, "Object does not exist!");
                 return;
             }
 
             if (obj.ActionMessage != null)
             {
-                pack.SendError(gs, obj, "You are already busy");
+                pack.SendError(obj, "You are already busy");
                 return;
             }
 
@@ -53,7 +53,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
 
                 if (gtype == null)
                 {
-                    pack.SendError(gs, obj, "Invalid object type");
+                    pack.SendError(obj, "Invalid object type");
                     return;
                 }
                 groundObjTypeId = gtype.IdKey;
@@ -97,7 +97,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
             {
                 if (target.OnActionMessage != null && !target.OnActionMessage.IsCancelled())
                 {
-                    pack.SendError(gs, obj, "Object is in use");
+                    pack.SendError(obj, "Object is in use");
                     return;
                 }
                 else

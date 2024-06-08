@@ -19,28 +19,24 @@ using Genrpg.Shared.GroundObjects.Settings;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.MapServer.Spawns.Services;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {
-    public class CompleteInteractHandler : BaseServerMapMessageHandler<CompleteInteract>
+    public class CompleteInteractHandler : BaseCharacterServerMapMessageHandler<CompleteInteract>
     {
         private ISpawnService _spawnService = null;
 
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, CompleteInteract message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Character ch, CompleteInteract message)
         {
-            if (!_objectManager.GetChar(obj.Id, out Character ch))
-            {
-                return;
-            }
-
             _logService.Message("Finish Interact " + DateTime.UtcNow);
             string errorMessage = "";
-            if (obj.ActionMessage == null)
+            if (ch.ActionMessage == null)
             {
                 errorMessage = "You aren't casting";
             }
 
-            if (string.IsNullOrEmpty(errorMessage) && obj.ActionMessage != message)
+            if (string.IsNullOrEmpty(errorMessage) && ch.ActionMessage != message)
             {
                 errorMessage = "You aren't casting this";
             }
@@ -63,11 +59,11 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
 
             if (!string.IsNullOrEmpty(errorMessage))
             {
-                pack.SendError(gs, obj, errorMessage);
+                pack.SendError(ch, errorMessage);
                 message.SetCancelled(true);
-                if (obj.ActionMessage != null)
+                if (ch.ActionMessage != null)
                 {
-                    obj.ActionMessage.SetCancelled(true);
+                    ch.ActionMessage.SetCancelled(true);
                 }
                 if (targetAction != null)
                 {
@@ -78,7 +74,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
 
             if (!message.IsSkillLoot)
             {
-                GroundObjType gtype = _gameData.Get<GroundObjTypeSettings>(obj).Get(message.GroundObjTypeId);
+                GroundObjType gtype = _gameData.Get<GroundObjTypeSettings>(ch).Get(message.GroundObjTypeId);
 
                 if (gtype != null && gtype.SpawnTableId > 0)
                 {
@@ -97,11 +93,11 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                         QualityTypeId = QualityTypes.Common,
                         Times = 1,
                     };
-                    List<SpawnResult> rewards = _spawnService.Roll(gs, lootItems, rollData);
+                    List<SpawnResult> rewards = _spawnService.Roll(rand, lootItems, rollData);
 
                     if (rewards.Count > 0)
                     {
-                        _entityService.GiveRewards(gs, ch, rewards);
+                        _entityService.GiveRewards(rand, ch, rewards);
 
                         SendRewards sendLoot = new SendRewards()
                         {
@@ -118,7 +114,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                 {
                     if (unit.SkillLoot != null && unit.SkillLoot.Count > 0)
                     {
-                        _entityService.GiveRewards(gs, ch, unit.SkillLoot);
+                        _entityService.GiveRewards(rand, ch, unit.SkillLoot);
 
                         SendRewards sendLoot = new SendRewards()
                         {
@@ -131,9 +127,9 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                 }
             }
             message.SetCancelled(true);
-            obj.ActionMessage = null;
+            ch.ActionMessage = null;
             target.OnActionMessage = null;
-            _objectManager.RemoveObject(gs, target.Id, 0);
+            _objectManager.RemoveObject(rand, target.Id, 0);
         }
     }
 }

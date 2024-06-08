@@ -197,7 +197,7 @@ SubShader {
 			alphaClip = min(alphaClip, 1.0 - _GlowOffset * _ScaleRatioB - _GlowOuter * _ScaleRatioB);
 		    #endif
 
-			alphaClip = alphaClip / 2.0 - ( .5 / scale) - weight;
+			alphaClip = alphaClip / 2.0 - (.5 / scale) - weight;
 
 		    #if (UNDERLAY_ON || UNDERLAY_INNER)
 			float4 underlayColor = _UnderlayColor;

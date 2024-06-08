@@ -78,7 +78,7 @@ namespace Genrpg.Shared.Spells.PlayerData.Spells
             return true;
         }
 
-        public float GetCooldownSeconds(GameState gs, Unit caster)
+        public float GetCooldownSeconds(Unit caster)
         {
             if (caster == null)
             {
@@ -88,7 +88,7 @@ namespace Genrpg.Shared.Spells.PlayerData.Spells
             return Cooldown * (1 - caster.Stats.Pct(StatTypes.Cooldown));
         }
 
-        public int GetCost(GameState gs, Unit caster)
+        public int GetCost(Unit caster)
         {
             if (caster == null)
             {

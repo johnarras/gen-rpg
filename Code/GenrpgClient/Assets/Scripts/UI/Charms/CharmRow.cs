@@ -29,7 +29,7 @@ namespace Assets.Scripts.UI.Charms
         private void ShowData(PlayerCharm charm)
         {
             _uIInitializable.SetText(HashText, charm.Hash);
-            List<string> bonuses = _charmService.PrintBonuses(_gs, charm.Bonuses.FirstOrDefault());
+            List<string> bonuses = _charmService.PrintBonuses(charm.Bonuses.FirstOrDefault());
 
             StringBuilder sb = new StringBuilder();
 

@@ -18,7 +18,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
 {
     private IAnalyticsService _analyticsService;
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -37,7 +37,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
         _gameToken = token;
     }
 
-    public override void Initialize(UnityGameState gs)
+    public override void Initialize(IUnityGameState gs)
     {
         base.Initialize(gs);
         SetupLayers();
@@ -120,18 +120,18 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
                 }
             }
 
-            _assetService.LoadAssetInto(_gs, layer.LayerParent, AssetCategoryNames.UI, 
+            _assetService.LoadAssetInto(layer.LayerParent, AssetCategoryNames.UI, 
                 prefabName, OnLoadScreen, nextItem, _gameToken, subdirectory);
             
         }
     }
 
-    private void OnLoadScreen(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnLoadScreen(object obj, object data, CancellationToken token)
     {
-        OnLoadScreenAsync(gs, obj, data, token).Forget();
+        OnLoadScreenAsync(obj, data, token).Forget();
     }
 
-    private async UniTask OnLoadScreenAsync (UnityGameState gs, object obj, object data, CancellationToken token)
+    private async UniTask OnLoadScreenAsync (object obj, object data, CancellationToken token)
     { 
         GEntity screen = obj as GEntity;
         ActiveScreen nextItem = data as ActiveScreen;
@@ -188,23 +188,23 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
 
         layer.CurrentScreen = nextItem;
         layer.CurrentLoading = null;
-        _analyticsService.Send(gs, AnalyticsEvents.OpenScreen, nextItem.Screen.GetName());
+        _analyticsService.Send(AnalyticsEvents.OpenScreen, nextItem.Screen.GetName());
         await nextItem.Screen.StartOpen(nextItem.Data, token);
         ClearAllScreensList();
 
     }
 
-    public void StringOpen (UnityGameState gs, string screenName, object data = null)
+    public void StringOpen (string screenName, object data = null)
     {
         ScreenConfig config = _screenConfigs.FirstOrDefault(x => ScreenUtils.GetFullScreenNameFromEnum(x.ScreenName) == screenName);
 
         if (config != null)
         {
-            Open(gs, config.ScreenName, data);
+            Open(config.ScreenName, data);
         }
     }
 
-    public void Open(UnityGameState gs, ScreenId screenName, object data = null)
+    public void Open(ScreenId screenName, object data = null)
     {
         ScreenLayer currLayer = GetLayer(screenName);
         if (currLayer == null)
@@ -221,7 +221,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
         if (!allowMultiScreens)
         {
 
-            List<ActiveScreen> currScreen = GetScreensNamed(gs, screenName);
+            List<ActiveScreen> currScreen = GetScreensNamed(screenName);
 
             if (currScreen != null && currScreen.Count > 0)
             {
@@ -266,7 +266,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
     }
 
 
-    public void Close(UnityGameState gs, ScreenId screenName)
+    public void Close(ScreenId screenName)
     {
         foreach (ScreenLayer layer in Layers)
         {
@@ -287,7 +287,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
         }
     }
 
-    public void FinishClose(UnityGameState gs, ScreenId screenName)
+    public void FinishClose(ScreenId screenName)
     {
         foreach (ScreenLayer layer in Layers)
         {
@@ -299,7 +299,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
                 {
                     GEntityUtils.Destroy(baseScreen.entity());
                 }
-                _analyticsService.Send(gs, AnalyticsEvents.CloseScreen, baseScreen.GetName());
+                _analyticsService.Send(AnalyticsEvents.CloseScreen, baseScreen.GetName());
                 layer.CurrentScreen = null;
                 ClearAllScreensList();
                 break;
@@ -308,14 +308,14 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
 
     }
 
-    public ActiveScreen GetLayerScreen(UnityGameState gs, ScreenLayers layerId)
+    public ActiveScreen GetLayerScreen(ScreenLayers layerId)
     {
         ScreenLayer layer = Layers.FirstOrDefault(x => x.LayerId == layerId);
 
         return layer?.CurrentScreen ?? null;
     }
 
-    public ActiveScreen GetScreen(UnityGameState gs, ScreenId screenName)
+    public ActiveScreen GetScreen(ScreenId screenName)
     {
         foreach (ScreenLayer layer in Layers)
         {
@@ -332,7 +332,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
         return null;
     }
 
-    public List<ActiveScreen> GetScreensNamed (UnityGameState gs, ScreenId screenName)
+    public List<ActiveScreen> GetScreensNamed (ScreenId screenName)
     {
         List<ActiveScreen> retval = new List<ActiveScreen>();
 
@@ -356,7 +356,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
     }
 
     private List<ActiveScreen> _allScreens = null;
-    public List<ActiveScreen> GetAllScreens(UnityGameState gs)
+    public List<ActiveScreen> GetAllScreens()
     {
 
         if (_allScreens !=null)
@@ -378,7 +378,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
     }
 
 
-    public void CloseAll(UnityGameState gs, List<ScreenId> ignoreScreens = null)
+    public void CloseAll(List<ScreenId> ignoreScreens = null)
     {
         foreach (ScreenLayer layer in Layers)
         {
@@ -392,11 +392,11 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
                 continue;
             }
 
-            Close(gs, layer.CurrentScreen.ScreenId);
+            Close(layer.CurrentScreen.ScreenId);
         }
     }
 
-    public ActiveScreen GetScreen(UnityGameState gs, string screenName)
+    public ActiveScreen GetScreen(string screenName)
     {
         string shortScreenName = screenName.Replace("Screen", "");
 

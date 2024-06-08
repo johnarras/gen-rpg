@@ -21,13 +21,17 @@ using Genrpg.Shared.GameSettings.Utils;
 using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Editor.Entities.Core;
+using Genrpg.Shared.MapServer.Services;
 
 namespace Genrpg.Editor.Services.Reflection
 {
 
     public class EditorReflectionService : IEditorReflectionService
     {
-        public async Task Initialize(GameState gs, CancellationToken token)
+
+        protected IMapProvider _mapProvider;
+
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -1350,12 +1354,12 @@ namespace Genrpg.Editor.Services.Reflection
         protected List<NameValue> GetMapDropdownList(EditorGameState gs, MemberInfo mem)
         {
 
-            if (gs.map == null)
+            if (_mapProvider.GetMap() == null)
             {
                 return null;
             }
 
-            object dataObject = gs.map.GetEditorListFromName(mem.Name);
+            object dataObject = _mapProvider.GetMap().GetEditorListFromName(mem.Name);
 
             if (dataObject == null)
             {
@@ -1386,13 +1390,13 @@ namespace Genrpg.Editor.Services.Reflection
             object etypeVal = GetObjectValue(obj, etypeMem);
 
 
-            if (etypeVal != null && gs.map != null)
+            if (etypeVal != null && _mapProvider.GetMap() != null)
             {
                 string etypeValStr = etypeVal.ToString();
                 int etypeId = -1;
                 if (int.TryParse(etypeValStr, out etypeId))
                 {
-                    object dataObject = gs.map.GetEditorListFromEntityTypeId(etypeId);
+                    object dataObject = _mapProvider.GetMap().GetEditorListFromEntityTypeId(etypeId);
 
                     if (dataObject != null)
                     {

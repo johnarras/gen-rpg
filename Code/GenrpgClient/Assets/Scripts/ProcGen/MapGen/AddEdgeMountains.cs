@@ -8,22 +8,22 @@ using System.Threading;
 
 public class AddEdgeMountains : BaseAddMountains
 {
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
         await UniTask.CompletedTask;
-        MyRandom rand = new MyRandom(gs.map.Seed / 4 + 31433);
-        short[,] zoneIds = gs.md.mapZoneIds;
+        MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed / 4 + 31433);
+        short[,] zoneIds = _md.mapZoneIds;
         List<MyPointF> points = new List<MyPointF>();
-        int mountainWidth = (int)gs.md.GetMountainDefaultSize(gs, gs.map);
+        int mountainWidth = (int)_md.GetMountainDefaultSize(_mapProvider.GetMap());
         int edgeWidth = mountainWidth + MapConstants.TerrainPatchSize / 4;
 
-        int mapSize = gs.map.GetHwid();
+        int mapSize = _mapProvider.GetMap().GetHwid();
         float heightFreq = mapSize * 1.0f / (MapConstants.TerrainPatchSize / 2);
         float heightAmp = 0.6f;
         float heightPers = 0.4f;
         int heightOctaves = 2;
 
-        float[,] heights = _noiseService.Generate(gs, heightPers, heightFreq, heightAmp, heightOctaves, rand.Next(), mapSize, mapSize);
+        float[,] heights = _noiseService.Generate(heightPers, heightFreq, heightAmp, heightOctaves, rand.Next(), mapSize, mapSize);
 
 
         float widthFreq = mapSize * 1.0f / (MapConstants.TerrainPatchSize / 2);
@@ -31,13 +31,13 @@ public class AddEdgeMountains : BaseAddMountains
         float widthPers = 0.4f;
         int widthOctaves = 2;
 
-        float[,] widths = _noiseService.Generate(gs, widthPers, widthFreq, widthAmp, widthOctaves, rand.Next(), mapSize, mapSize);
+        float[,] widths = _noiseService.Generate(widthPers, widthFreq, widthAmp, widthOctaves, rand.Next(), mapSize, mapSize);
 
-        int startMountainWidth = (int)gs.md.GetMountainDefaultSize(gs, gs.map);
+        int startMountainWidth = (int)_md.GetMountainDefaultSize(_mapProvider.GetMap());
 
-        for (int x = edgeWidth; x < gs.map.GetHwid() - 1 - edgeWidth; x++)
+        for (int x = edgeWidth; x < _mapProvider.GetMap().GetHwid() - 1 - edgeWidth; x++)
         {
-            for (int z = edgeWidth; z < gs.map.GetHhgt() - 1 - edgeWidth; z++)
+            for (int z = edgeWidth; z < _mapProvider.GetMap().GetHhgt() - 1 - edgeWidth; z++)
             {
                 if (zoneIds[x, z] != zoneIds[x + 1, z] ||
                     zoneIds[x, z] != zoneIds[x, z + 1] ||
@@ -46,8 +46,8 @@ public class AddEdgeMountains : BaseAddMountains
                     float heightVal = Math.Max(heights[x, z] + 0.5f, 0);
                     if (heightVal > 0)
                     {
-                        gs.md.flags[x, z] |= MapGenFlags.IsWallCenter;
-                        gs.md.mountainHeights[x, z] = heightVal;
+                        _md.flags[x, z] |= MapGenFlags.IsWallCenter;
+                        _md.mountainHeights[x, z] = heightVal;
                         points.Add(new MyPointF(x, z));
                     }
                 }
@@ -59,7 +59,7 @@ public class AddEdgeMountains : BaseAddMountains
             MyPointF item = points[l];
             int cx = (int)(item.X);
             int cz = (int)(item.Y);
-            if (cx < 0 || cz < 0 || cx >= gs.map.GetHwid() || cz >= gs.map.GetHhgt())
+            if (cx < 0 || cz < 0 || cx >= _mapProvider.GetMap().GetHwid() || cz >= _mapProvider.GetMap().GetHhgt())
             {
                 continue;
             }
@@ -67,24 +67,24 @@ public class AddEdgeMountains : BaseAddMountains
 
             int currWallWidth = (int)(startMountainWidth * (1 + widths[cx,cz]));
 
-            if (gs.md.mapZoneIds[cx, cz] < 1)
+            if (_md.mapZoneIds[cx, cz] < 1)
             {
-                gs.md.mapZoneIds[cx, cz] = MapConstants.MountainZoneId;
+                _md.mapZoneIds[cx, cz] = MapConstants.MountainZoneId;
             }
 
             
-            gs.md.mountainDistPercent[cx, cz] = 0f;
-            gs.md.edgeMountainDistPercent[cx, cz] = 0f;
+            _md.mountainDistPercent[cx, cz] = 0f;
+            _md.edgeMountainDistPercent[cx, cz] = 0f;
 
             float topWidth = 2;
-            int mincmidx = Math.Min(gs.map.GetHwid() / 2, cx);
-            int maxcmidx = Math.Max(gs.map.GetHwid() / 2, cx);
-            int mincmidy = Math.Min(gs.map.GetHhgt() / 2, cz);
-            int maxcmidy = Math.Max(gs.map.GetHhgt() / 2, cz);
-            for (int y = Math.Max(0, cz - currWallWidth); y <= Math.Min(gs.map.GetHhgt() - 1, cz + currWallWidth); y++)
+            int mincmidx = Math.Min(_mapProvider.GetMap().GetHwid() / 2, cx);
+            int maxcmidx = Math.Max(_mapProvider.GetMap().GetHwid() / 2, cx);
+            int mincmidy = Math.Min(_mapProvider.GetMap().GetHhgt() / 2, cz);
+            int maxcmidy = Math.Max(_mapProvider.GetMap().GetHhgt() / 2, cz);
+            for (int y = Math.Max(0, cz - currWallWidth); y <= Math.Min(_mapProvider.GetMap().GetHhgt() - 1, cz + currWallWidth); y++)
             {
                 int ddy = Math.Abs(y - cz);
-                for (int x = Math.Max(0, cx - currWallWidth); x <= Math.Min(gs.map.GetHwid() - 1, cx + currWallWidth); x++)
+                for (int x = Math.Max(0, cx - currWallWidth); x <= Math.Min(_mapProvider.GetMap().GetHwid() - 1, cx + currWallWidth); x++)
                 {
                     int ddx = Math.Abs(x - cx);
 
@@ -105,36 +105,36 @@ public class AddEdgeMountains : BaseAddMountains
                         continue;
                     }
 
-                    if (gs.md.mapZoneIds[x, y] == 0)
+                    if (_md.mapZoneIds[x, y] == 0)
                     {
-                        gs.md.mapZoneIds[x, y] = MapConstants.MountainZoneId;
+                        _md.mapZoneIds[x, y] = MapConstants.MountainZoneId;
                     }
-                    if (gs.md.mountainDistPercent[x, y] > distPct)
+                    if (_md.mountainDistPercent[x, y] > distPct)
                     {
-                        gs.md.mountainDistPercent[x, y] = (float)distPct;
+                        _md.mountainDistPercent[x, y] = (float)distPct;
                     }
-                    if (gs.md.mountainCenterDist[x, y] > currDist)
+                    if (_md.mountainCenterDist[x, y] > currDist)
                     {
-                        gs.md.mountainCenterDist[x, y] = (float)(currDist);
-                        gs.md.nearestMountainTopHeight[x, y] = mainHeight;
+                        _md.mountainCenterDist[x, y] = (float)(currDist);
+                        _md.nearestMountainTopHeight[x, y] = mainHeight;
                     }
-                    if (gs.md.edgeMountainDistPercent[x, y] > distPct)
+                    if (_md.edgeMountainDistPercent[x, y] > distPct)
                     {
-                        gs.md.edgeMountainDistPercent[x, y] = (float)distPct;
+                        _md.edgeMountainDistPercent[x, y] = (float)distPct;
                     }
-                    gs.md.flags[x, y] |= MapGenFlags.IsEdgeWall;
+                    _md.flags[x, y] |= MapGenFlags.IsEdgeWall;
 
-                    float currPower = MathUtils.Clamp(0.5f, 1.7f, 1.0f + gs.md.mountainDecayPower[x, y]);
-                    float newPct = gs.md.mountainHeights[cx, cz] * (float)(1.0f - Math.Pow(distPct, currPower));
+                    float currPower = MathUtils.Clamp(0.5f, 1.7f, 1.0f + _md.mountainDecayPower[x, y]);
+                    float newPct = _md.mountainHeights[cx, cz] * (float)(1.0f - Math.Pow(distPct, currPower));
 
-                    if (newPct != 0 && gs.md.mountainHeights[x, y] == 0)
+                    if (newPct != 0 && _md.mountainHeights[x, y] == 0)
                     {
-                        gs.md.flags[x, y] |= MapGenFlags.IsSecondaryWall;
+                        _md.flags[x, y] |= MapGenFlags.IsSecondaryWall;
                     }
 
-                    if (newPct > gs.md.mountainHeights[x, y])
+                    if (newPct > _md.mountainHeights[x, y])
                     {
-                        gs.md.mountainHeights[x, y] = newPct;
+                        _md.mountainHeights[x, y] = newPct;
                     }
                 }
             }

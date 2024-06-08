@@ -11,6 +11,7 @@ using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.MapServer.Services;
 
 
 public class TerrainTextureData
@@ -33,8 +34,8 @@ public class DownloadTerrainTextureData
 
 public interface ITerrainTextureManager : IInjectable
 {
-    UniTask SetOneTerrainPatchLayers(UnityGameState gs, TerrainPatchData patch, CancellationToken token, bool allAtOnce = false);
-    UniTask DownloadAllTerrainTextures(UnityGameState gs, CancellationToken token);
+    UniTask SetOneTerrainPatchLayers(TerrainPatchData patch, CancellationToken token, bool allAtOnce = false);
+    UniTask DownloadAllTerrainTextures(CancellationToken token);
 }
 
 public class TerrainTextureManager : ITerrainTextureManager
@@ -44,8 +45,11 @@ public class TerrainTextureManager : ITerrainTextureManager
     private IGameData _gameData;
     private IAssetService _assetService;
     private IMapTerrainManager _terrainManager;
+    private IMapProvider _mapProvider;
+    protected IUnityGameState _gs;
+    protected IMapGenData _md;
 
-    public async UniTask SetOneTerrainPatchLayers(UnityGameState gs, TerrainPatchData patch, CancellationToken token, bool allAtOnce = false)
+    public async UniTask SetOneTerrainPatchLayers(TerrainPatchData patch, CancellationToken token, bool allAtOnce = false)
     {
         Terrain terr = patch.terrain as Terrain;
         if (terr == null || terr.terrainData == null)
@@ -64,7 +68,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         foreach (long zoneId in zoneIds)
         {
-            Zone zone = gs.map.Get<Zone>(zoneId);
+            Zone zone = _mapProvider.GetMap().Get<Zone>(zoneId);
 
             for (int i = 0; i < MapConstants.MaxTerrainIndex; i++)
             {
@@ -83,10 +87,10 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         terr.terrainData.terrainLayers = terrainLayers;
 
-        await DelayLoadSplats(gs, terr, patch, allAtOnce, token);
+        await DelayLoadSplats(terr, patch, allAtOnce, token);
     }
 
-    private async UniTask DelayLoadSplats(UnityGameState gs, Terrain terr, TerrainPatchData patch, bool allAtOnce, CancellationToken token)
+    private async UniTask DelayLoadSplats(Terrain terr, TerrainPatchData patch, bool allAtOnce, CancellationToken token)
     {
         for (int l = 0; l < patch.TerrainTextureIndexes.Count; l++)
         {
@@ -95,7 +99,7 @@ public class TerrainTextureManager : ITerrainTextureManager
                 await UniTask.NextFrame(cancellationToken: token);
             }
 
-            SetupTerrainTexture(gs, terr, patch.TerrainTextureIndexes[l], l, token);
+            SetupTerrainTexture(terr, patch.TerrainTextureIndexes[l], l, token);
 
         }
     }
@@ -107,20 +111,20 @@ public class TerrainTextureManager : ITerrainTextureManager
     /// <param name="terr"></param>
     /// <param name="textureId"></param>
     /// <param name="index">current index taking into account the zone offset of 4 per zone</param>
-	private void SetupTerrainTexture(UnityGameState gs, Terrain terr, long textureId, int index, CancellationToken token)
+	private void SetupTerrainTexture(Terrain terr, long textureId, int index, CancellationToken token)
     {
-        TerrainTextureData textureData = GetTerrainTextureCacheData(gs, textureId);
+        TerrainTextureData textureData = GetTerrainTextureCacheData(textureId);
         if (textureData != null)
         {
-            SetNewTerrainLayer(gs, terr, index, textureData);
+            SetNewTerrainLayer(terr, index, textureData);
             return;
         }
 
-        TextureType textureType = _gameData.Get<TextureTypeSettings>(gs.ch).Get(textureId);
+        TextureType textureType = _gameData.Get<TextureTypeSettings>(_gs.ch).Get(textureId);
         if (textureType == null)
         {
             _logService.Message("TextureType is null: TextureId: " + textureId + " Index: " + index);
-            textureType = _gameData.Get<TextureTypeSettings>(gs.ch).Get(1);
+            textureType = _gameData.Get<TextureTypeSettings>(_gs.ch).Get(1);
         }
 
         string artName = textureType.Art;
@@ -130,11 +134,11 @@ public class TerrainTextureManager : ITerrainTextureManager
         newDownloadData.Terr = terr;
         newDownloadData.TextureIndex = index;
 
-        _assetService.LoadAssetInto(gs, _terrainManager.GetTerrainTextureParent(), AssetCategoryNames.TerrainTex, artName, OnDownloadArt, newDownloadData, token);
+        _assetService.LoadAssetInto(_terrainManager.GetTerrainTextureParent(), AssetCategoryNames.TerrainTex, artName, OnDownloadArt, newDownloadData, token);
     }
 
 
-    private void SetNewTerrainLayer(UnityGameState gs, Terrain terr, int index, TerrainTextureData tdata)
+    private void SetNewTerrainLayer(Terrain terr, int index, TerrainTextureData tdata)
     {
         if (terr == null || terr.terrainData == null || terr.terrainData == null || terr.terrainData.terrainLayers == null ||
             tdata == null ||
@@ -154,7 +158,7 @@ public class TerrainTextureManager : ITerrainTextureManager
             return;
         }
 
-        IndexList indexes = GEntityUtils.GetOrAddComponent<IndexList>(gs, terr.entity());
+        IndexList indexes = GEntityUtils.GetOrAddComponent<IndexList>(_gs, terr.entity());
 
         if (indexes.Indexes == null || indexes.Indexes.Length != currLayers.Length)
         {
@@ -172,14 +176,9 @@ public class TerrainTextureManager : ITerrainTextureManager
 
     }
 
-    private TerrainTextureData GetTerrainTextureCacheData(UnityGameState gs, long textureTypeId)
+    private TerrainTextureData GetTerrainTextureCacheData(long textureTypeId)
     {
-        if (gs.md == null)
-        {
-            return null;
-        }
-
-        TextureType ttype = _gameData.Get<TextureTypeSettings>(gs.ch).Get(textureTypeId);
+        TextureType ttype = _gameData.Get<TextureTypeSettings>(_gs.ch).Get(textureTypeId);
 
         if (ttype == null || string.IsNullOrEmpty(ttype.Name))
         {
@@ -189,7 +188,7 @@ public class TerrainTextureManager : ITerrainTextureManager
         return _terrainManager.GetFromTerrainTextureCache(ttype.Name);
     }
 
-    private void OnDownloadArt(UnityGameState gs, object obj, object dataIn, CancellationToken token)
+    private void OnDownloadArt(object obj, object dataIn, CancellationToken token)
     {
         GEntity go = obj as GEntity;
 
@@ -205,12 +204,12 @@ public class TerrainTextureManager : ITerrainTextureManager
             return;
         }
 
-        TerrainTextureData currentData = GetTerrainTextureCacheData(gs, ddata.TexType.IdKey);
+        TerrainTextureData currentData = GetTerrainTextureCacheData(ddata.TexType.IdKey);
 
         if (currentData != null && currentData.RegTexture != null)
         {
             GEntityUtils.Destroy(go);
-            SetNewTerrainLayer(gs, ddata.Terr, ddata.TextureIndex, currentData);
+            SetNewTerrainLayer(ddata.Terr, ddata.TextureIndex, currentData);
             return;
         }
 
@@ -242,29 +241,29 @@ public class TerrainTextureManager : ITerrainTextureManager
         tdata.TextureContainer = go;
         tdata.TerrLayer = _terrainManager.CreateTerrainLayer(tdata.RegTexture, tdata.NormTexture);
         _terrainManager.AddToTerrainTextureCache(ddata.TexType.Name, tdata);
-        SetNewTerrainLayer(gs, ddata.Terr, ddata.TextureIndex, tdata);
+        SetNewTerrainLayer(ddata.Terr, ddata.TextureIndex, tdata);
     }
 
-    public async UniTask DownloadAllTerrainTextures(UnityGameState gs, CancellationToken token)
+    public async UniTask DownloadAllTerrainTextures(CancellationToken token)
     {
-        foreach (TextureType textureType in _gameData.Get<TextureTypeSettings>(gs.ch).GetData())
+        foreach (TextureType textureType in _gameData.Get<TextureTypeSettings>(_gs.ch).GetData())
         {
             DownloadTerrainTextureData newDownloadData = new DownloadTerrainTextureData();
             newDownloadData.TexType = textureType;
 
-            _assetService.LoadAssetInto(gs, _terrainManager.GetTerrainTextureParent(), AssetCategoryNames.TerrainTex, textureType.Name, OnDownloadTextureToCache, newDownloadData, token);
+            _assetService.LoadAssetInto(_terrainManager.GetTerrainTextureParent(), AssetCategoryNames.TerrainTex, textureType.Name, OnDownloadTextureToCache, newDownloadData, token);
         }
 
         await UniTask.Delay(1000, cancellationToken: token);
 
-        while (_assetService.IsDownloading(gs))
+        while (_assetService.IsDownloading(_gs))
         {
             await UniTask.NextFrame(cancellationToken: token);
         }
 
-        await UniTask.Delay(100 * _gameData.Get<TextureTypeSettings>(gs.ch).GetData().Count, cancellationToken: token);
+        await UniTask.Delay(100 * _gameData.Get<TextureTypeSettings>(_gs.ch).GetData().Count, cancellationToken: token);
     }
-    private void OnDownloadTextureToCache(UnityGameState gs, object obj, object dataIn, CancellationToken token)
+    private void OnDownloadTextureToCache(object obj, object dataIn, CancellationToken token)
     {
         GEntity go = obj as GEntity;
 
@@ -286,7 +285,7 @@ public class TerrainTextureManager : ITerrainTextureManager
             return;
         }
 
-        TerrainTextureData currentData = GetTerrainTextureCacheData(gs, ddata.TexType.IdKey);
+        TerrainTextureData currentData = GetTerrainTextureCacheData(ddata.TexType.IdKey);
 
         if (currentData != null)
         {

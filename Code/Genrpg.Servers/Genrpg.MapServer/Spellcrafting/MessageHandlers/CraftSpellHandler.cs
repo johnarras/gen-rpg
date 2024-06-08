@@ -17,19 +17,12 @@ using System.Text;
 
 namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
 {
-    public class CraftSpellHandler : BaseServerMapMessageHandler<CraftSpell>
+    public class CraftSpellHandler : BaseCharacterServerMapMessageHandler<CraftSpell>
     {
         private ISharedSpellCraftService _spellCraftService = null;
 
-        protected IRepositoryService _repoService = null;
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, CraftSpell message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Character ch, CraftSpell message)
         {
-
-            if (!_objectManager.GetChar(obj.Id, out Character ch))
-            {
-                return;
-            }
-
             Spell spell = message.CraftedSpell;
 
             if (spell == null)
@@ -43,9 +36,9 @@ namespace Genrpg.MapServer.Spellcrafting.MessageHandlers
                 spell.Id = HashUtils.NewGuid();
             }
 
-            if (!_spellCraftService.ValidateSpellData(gs, ch, spell))
+            if (!_spellCraftService.ValidateSpellData(ch, spell))
             {
-                obj.AddMessage(new ErrorMessage("Failed to craft spell!"));
+                ch.AddMessage(new ErrorMessage("Failed to craft spell!"));
             }
 
             SpellData spellData = ch.Get<SpellData>();

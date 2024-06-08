@@ -34,15 +34,14 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
         [Key(11)] public long RequiredStatusEffectId { get; set; }
         [Key(12)] public long ReplacesCrawlerSpellId { get; set; }
         [Key(13)] public long CombatActionId { get; set; }
-        [Key(14)] public long ClassId { get; set; }
-        [Key(15)] public long TargetTypeId { get; set; }
-        [Key(16)] public double CritChance { get; set; } = 0;
+        [Key(14)] public long TargetTypeId { get; set; }
+        [Key(15)] public double CritChance { get; set; } = 0;
 
-        [Key(17)] public long Level { get; set; }
+        [Key(16)] public long Level { get; set; }
 
-        [Key(18)] public List<CrawlerSpellEffect> Effects { get; set; } = new List<CrawlerSpellEffect>();
+        [Key(17)] public List<CrawlerSpellEffect> Effects { get; set; } = new List<CrawlerSpellEffect>();
 
-        [Key(19)] public int Flags { get; set; }
+        [Key(18)] public int Flags { get; set; }
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }

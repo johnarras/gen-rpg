@@ -48,10 +48,11 @@ public class InputService : BaseBehaviour, IInputService
 
     private ICameraController _cameraController;
     private IPlayerManager _playerManager;
+    protected IMapGenData _md;
 
     IClientMapObjectManager _objectManager;
 
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         AddUpdate(InputUpdate, UpdateType.Regular);
         _dispatcher.AddEvent<MapIsLoadedEvent>(this, UpdateInputs);
@@ -88,12 +89,12 @@ public class InputService : BaseBehaviour, IInputService
     {
 
         SetupAbilityIndexes();
-        UpdateFromInputs(_gs);
+        UpdateFromInputs();
     }
 
-    private void UpdateFromInputs (UnityGameState gs)
+    private void UpdateFromInputs ()
     {
-        KeyCommData inputList = gs.ch.Get<KeyCommData>();
+        KeyCommData inputList = _gs.ch.Get<KeyCommData>();
 
         if (inputList == null || inputList.GetData().Count < 1)
         {
@@ -190,7 +191,7 @@ public class InputService : BaseBehaviour, IInputService
         return GVector3.Create(Input.mousePosition);
     }
 
-    public bool KeyPressNow (UnityGameState gs, string keyCommand)
+    public bool KeyPressNow (string keyCommand)
     {
         if (string.IsNullOrEmpty(keyCommand) || _stringInputs == null || !_stringInputs.ContainsKey(keyCommand))
         {
@@ -226,7 +227,7 @@ public class InputService : BaseBehaviour, IInputService
         return false;
     }
 
-    public bool KeyIsDown (UnityGameState gs, string keyCommand)
+    public bool KeyIsDown (string keyCommand)
     {
         
         if (string.IsNullOrEmpty(keyCommand) || _stringInputs == null || !_stringInputs.ContainsKey(keyCommand))
@@ -266,7 +267,7 @@ public class InputService : BaseBehaviour, IInputService
 
         if (!Input.GetKeyDown(KeyCode.Escape))
         {
-            if (_gs.md == null || _gs.md.GeneratingMap)
+            if (_md.GeneratingMap)
             {
                 return;
             }
@@ -381,10 +382,10 @@ public class InputService : BaseBehaviour, IInputService
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            screens = _screenService.GetAllScreens(_gs);
+            screens = _screenService.GetAllScreens();
             if (screens != null && screens.Count > 0)
             {
-                _screenService.CloseAll(_gs);
+                _screenService.CloseAll();
                 if (_playerManager.GetEntity() != null)
                 {
                     return;
@@ -401,7 +402,7 @@ public class InputService : BaseBehaviour, IInputService
                     screenIsShowing = false;
                     if (screens == null)
                     {
-                        screens = _screenService.GetAllScreens(_gs);
+                        screens = _screenService.GetAllScreens();
                     }
                     foreach (ActiveScreen obj in screens)
                     {
@@ -413,7 +414,7 @@ public class InputService : BaseBehaviour, IInputService
 
                         if (ScreenUtils.GetFullScreenNameFromEnum(ssi.ScreenId) == kci.Command.KeyCommand)
                         {
-                            _screenService.Close(_gs, ssi.ScreenId);
+                            _screenService.Close(ssi.ScreenId);
                             screenIsShowing = true;
                             break;
                         }
@@ -421,7 +422,7 @@ public class InputService : BaseBehaviour, IInputService
 
                     if (!screenIsShowing)
                     {
-                        _screenService.StringOpen(_gs, kci.Command.KeyCommand);
+                        _screenService.StringOpen(kci.Command.KeyCommand);
                     }
                 }
             }
@@ -461,7 +462,7 @@ public class InputService : BaseBehaviour, IInputService
 
         foreach (string kc in _moveInputsToCheck)
         {
-            _playerManager.SetKeyPercent(kc, KeyIsDown(_gs, kc) ? 1 : 0);
+            _playerManager.SetKeyPercent(kc, KeyIsDown(kc) ? 1 : 0);
         }
         if (MouseIsDown(0) && MouseIsDown(1))
         {
@@ -471,7 +472,7 @@ public class InputService : BaseBehaviour, IInputService
 
     private void UpdateTarget(bool forceTarget)
     {
-        if (KeyPressNow(_gs, KeyComm.TargetNext) || forceTarget)
+        if (KeyPressNow(KeyComm.TargetNext) || forceTarget)
         {
             _playerManager.TargetNext();
         }
@@ -499,14 +500,14 @@ public class InputService : BaseBehaviour, IInputService
             return;
         }
 
-        if (_screenService.GetLayerScreen(_gs, ScreenLayers.Screens) != null)
+        if (_screenService.GetLayerScreen(ScreenLayers.Screens) != null)
         {
             return;
         }
 
         for (int k = 0; k < _actionKeysTocheck.Count; k++)
         {
-            if (KeyPressNow(_gs, _actionKeysTocheck[k]))
+            if (KeyPressNow(_actionKeysTocheck[k]))
             {
                 _currActionIndexes.Add(k + 1);
             }
@@ -560,7 +561,7 @@ public class InputService : BaseBehaviour, IInputService
             }
         }
 
-        if (!SpellUtils.IsValidTarget(_gs, target, playerUnit.FactionTypeId, skillType.TargetTypeId))
+        if (!SpellUtils.IsValidTarget(target, playerUnit.FactionTypeId, skillType.TargetTypeId))
         {
             if (skillType.TargetTypeId == TargetTypes.Ally)
             {

@@ -15,7 +15,7 @@ public class MapModObjectLoader : BaseMapObjectLoader
     public override long GetKey() { return EntityTypes.MapMod; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 
-    public override async UniTask Load(UnityGameState gs, OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async UniTask Load(OnSpawn spawn, MapObject obj, CancellationToken token)
     {
         float wx = spawn.X;
         float wz = spawn.Z;
@@ -27,13 +27,13 @@ public class MapModObjectLoader : BaseMapObjectLoader
             Token = token,
         };
 
-        _assetService.LoadAsset(gs, AssetCategoryNames.Props, "MapMod", OnDownloadMapModObject, loadData, null, token);
+        _assetService.LoadAsset(AssetCategoryNames.Props, "MapMod", OnDownloadMapModObject, loadData, null, token);
 
         await UniTask.CompletedTask;
         return;
     }
 
-    private void OnDownloadMapModObject(UnityGameState gs, object obj, object data, CancellationToken token)
+    private void OnDownloadMapModObject(object obj, object data, CancellationToken token)
     {
         GEntity go = obj as GEntity;
         if (go == null)
@@ -50,7 +50,7 @@ public class MapModObjectLoader : BaseMapObjectLoader
         MapModObject mapModObject = go.GetComponent<MapModObject>();
 
         mapModObject.Init(loadData.Spawn);
-        FinalPlaceObject(gs, go, loadData, LayerNames.ObjectLayer);
+        FinalPlaceObject(go, loadData, LayerNames.ObjectLayer);
         go.transform().position += GVector3.Create(0, 1, 0);
     }
 }

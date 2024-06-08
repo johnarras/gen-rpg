@@ -14,6 +14,6 @@ namespace Assets.Scripts.Crawler.Services.Combat
 {
     public interface IProcessCombatRoundCombatService : IInitializable
     {
-        UniTask<bool> ProcessCombatRound(GameState gs, PartyData partyData, CancellationToken token);
+        UniTask<bool> ProcessCombatRound(PartyData partyData, CancellationToken token);
     }
 }

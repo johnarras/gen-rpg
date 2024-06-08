@@ -2,6 +2,7 @@
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,6 @@ namespace Genrpg.MapServer.Units.Services
 {
     public interface IServerUnitService : IInitializable
     {
-        void CheckForDeath(GameState gs, ActiveSpellEffect eff, Unit unit);
+        void CheckForDeath(IRandom rand, ActiveSpellEffect eff, Unit unit);
     }
 }

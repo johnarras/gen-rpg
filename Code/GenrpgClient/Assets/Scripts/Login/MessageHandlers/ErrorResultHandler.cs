@@ -8,11 +8,11 @@ namespace Assets.Scripts.Login.MessageHandlers
     public class ErrorResultHandler : BaseClientLoginResultHandler<ErrorResult>
     {
         private IScreenService _screenService;
-        protected override void InnerProcess(UnityGameState gs, ErrorResult result, CancellationToken token)
+        protected override void InnerProcess(ErrorResult result, CancellationToken token)
         {
-            _dispatcher.Dispatch( new ShowFloatingText(result.Error, EFloatingTextArt.Error));
-            _screenService.CloseAll(gs);
-            _screenService.Open(gs, ScreenId.Login);
+            _dispatcher.Dispatch(new ShowFloatingText(result.Error, EFloatingTextArt.Error));
+            _screenService.CloseAll();
+            _screenService.Open(ScreenId.Login);
         }
     }
 }

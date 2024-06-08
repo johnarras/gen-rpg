@@ -8,7 +8,7 @@ namespace Assets.Scripts.MessageHandlers.Targets
 {
     public class OnSetTargetHandler : BaseClientMapMessageHandler<OnSetTarget>
     {
-        protected override void InnerProcess(UnityGameState gs, OnSetTarget msg, CancellationToken token)
+        protected override void InnerProcess(OnSetTarget msg, CancellationToken token)
         {
             if (_objectManager.GetObject(msg.CasterId,out MapObject obj))
             {

@@ -38,7 +38,7 @@ namespace Genrpg.MapServer.Setup.Instances
 {
     public class MapInstanceLocatorSetup : BaseServerLocatorSetup
     {
-        public override void Setup(GameState gs)
+        public override void Setup(IGameState gs)
         {
             IServiceLocator fact = gs.loc;
             base.Setup(gs);

@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 public class ClientLogger : ILogService
 {
 
-    private UnityGameState _gs;
-    public async Task Initialize(GameState gs, CancellationToken token)
+    private IUnityGameState _gs;
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
-        _gs = gs as UnityGameState;
+        _gs = gs as IUnityGameState;
         await Task.CompletedTask;
     }
 
@@ -23,7 +23,7 @@ public class ClientLogger : ILogService
         _config = config;
     }
 
-    public async Task PrioritySetup(GameState gs, CancellationToken token)
+    public async Task PrioritySetup(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }

@@ -27,9 +27,9 @@ namespace Assets.Scripts.UI.Spells
 
             _uIInitializable.SetText(ModifierName, _modifier.Name);
 
-            _uIInitializable.SetText(InfoText, "");// _helper.GetInfoText(_gs, _gs.ch));
+            _uIInitializable.SetText(InfoText, "");// _helper.GetInfoText(_gs.ch));
 
-            Dropdown?.Init(_helper.GetValidValues(_gs, _gs.ch), onValueChangedAction);
+            Dropdown?.Init(_helper.GetValidValues(_gs.ch), onValueChangedAction);
 
             
         }

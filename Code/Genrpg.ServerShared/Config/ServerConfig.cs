@@ -32,7 +32,7 @@ namespace Genrpg.ServerShared.Config
     public class ServerConfig : IServerConfig
     {
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }

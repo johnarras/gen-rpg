@@ -14,7 +14,7 @@ namespace Assets.Scripts.UI.Crawler.States
 {
     public interface IStateHelper : ISetupDictionaryItem<ECrawlerStates>
     {
-        UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token);
+        UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token);
         bool IsTopLevelState();
     }
 }

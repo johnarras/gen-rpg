@@ -23,11 +23,11 @@ namespace Assets.Scripts.UI.Stores
             _spawnItem = spawnItem;
 
 
-            IIndexedGameItem gameItem = _entityService.Find(_gs, _gs.ch, spawnItem.EntityTypeId, spawnItem.EntityId);
+            IIndexedGameItem gameItem = _entityService.Find(_gs.ch, spawnItem.EntityTypeId, spawnItem.EntityId);
 
             if (gameItem != null)
             {
-                _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, gameItem.Icon, RewardIcon, token);
+                _assetService.LoadAtlasSpriteInto(AtlasNames.Icons, gameItem.Icon, RewardIcon, token);
             }
 
             _uIInitializable.SetText(RewardQuantity, spawnItem.MinQuantity.ToString());

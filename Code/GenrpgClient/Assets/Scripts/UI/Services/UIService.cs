@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Interfaces;
+using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
 using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.Core.Entities;
@@ -31,17 +32,13 @@ namespace Assets.Scripts.UI.Services
         protected IRealtimeNetworkService _realtimeNetworkService;
         protected IAnalyticsService _analyticsService;
         protected IGameData _gameData;
+        protected IClientRandom _rand;
 
-        protected UnityGameState _gs;
+        protected IUnityGameState _gs;
 
-        public void SetText(UnityGameState gs, GText gtext, string txt)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
-            _gs = gs;
-        }
-
-        public async Task Initialize(GameState gs, CancellationToken token)
-        {
-            _gs = gs as UnityGameState;
+            _gs = gs as IUnityGameState;
             await Task.CompletedTask;
         }
 
@@ -125,13 +122,13 @@ namespace Assets.Scripts.UI.Services
                 return;
             }
 
-            if (_ftueService.IsComplete(_gs, _gs.ch))
+            if (_ftueService.IsComplete(_rand, _gs.ch))
             {
                 button.onClick.AddListener(
                    () =>
                    {
-                       _analyticsService.Send(_gs, AnalyticsEvents.ClickButton, button.name, screenName, extraData); 
-                       _audioService.PlaySound(_gs, AudioList.ButtonClick);
+                       _analyticsService.Send(AnalyticsEvents.ClickButton, button.name, screenName, extraData); 
+                       _audioService.PlaySound(AudioList.ButtonClick);
                        action();
                    });
 
@@ -141,30 +138,30 @@ namespace Assets.Scripts.UI.Services
                 button.onClick.AddListener(
                    () =>
                    {
-                       FtueStep step = _ftueService.GetCurrentStep(_gs, _gs.ch);
-                       if (_ftueService.CanClickButton(_gs, _gs.ch, screenName, button.name))
+                       FtueStep step = _ftueService.GetCurrentStep(_rand, _gs.ch);
+                       if (_ftueService.CanClickButton(_rand, _gs.ch, screenName, button.name))
                        {
-                           _audioService.PlaySound(_gs, AudioList.ButtonClick);
+                           _audioService.PlaySound(AudioList.ButtonClick);
 
-                           _analyticsService.Send(_gs, AnalyticsEvents.ClickButton, button.name, screenName, extraData);
+                           _analyticsService.Send(AnalyticsEvents.ClickButton, button.name, screenName, extraData);
                            action();
 
                            if (step != null)
                            {
-                               _ftueService.CompleteStep(_gs, _gs.ch, step.IdKey);
+                               _ftueService.CompleteStep(_rand, _gs.ch, step.IdKey);
                                _realtimeNetworkService.SendMapMessage(new CompleteFtueStepMessage() { FtueStepId = step.IdKey });
                            }                            
                        }
                        else
                        {
-                           _audioService.PlaySound(_gs, AudioList.ErrorClick);
+                           _audioService.PlaySound(AudioList.ErrorClick);
                        }
                    });
             }
 
         }
 
-        public void AddEventListener(UnityGameState gs, GEntity go, EventTriggerType type, UnityAction<BaseEventData> callback)
+        public void AddEventListener(GEntity go, EventTriggerType type, UnityAction<BaseEventData> callback)
         {
             EventTrigger trigger = GEntityUtils.GetOrAddComponent<EventTrigger>(_gs, go);
             EventTrigger.Entry entry = new EventTrigger.Entry();

@@ -7,6 +7,7 @@ using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.MapServer.Services;
 
 /// <summary>
 /// Add items nearby a tree or a rock or something of that sort.
@@ -14,10 +15,10 @@ using Genrpg.Shared.GameSettings;
 public class AddNearbyItemsHelper
 {
 
-    public void AddItemsNear(UnityGameState gs, IGameData gameData, IMapTerrainManager terrainManager, MyRandom rand, ZoneType zoneType, Zone zone, int x, int y, double placeChance, int maxPlaceQuantity, float minOffset, float maxOffset, bool canPlaceTrees = true)
+    public void AddItemsNear(IUnityGameState gs, IGameData gameData, IMapTerrainManager terrainManager, IMapProvider mapProvider, MyRandom rand, ZoneType zoneType, Zone zone, int x, int y, double placeChance, int maxPlaceQuantity, float minOffset, float maxOffset, bool canPlaceTrees = true)
     {
 
-        float posHeight = terrainManager.GetInterpolatedHeight(gs, y, x);
+        float posHeight = terrainManager.GetInterpolatedHeight(y, x);
 
         if (posHeight < MapConstants.OceanHeight)
         {
@@ -150,7 +151,7 @@ public class AddNearbyItemsHelper
                 int ipplantx = (int)(plantx); //+ (int)(plantx / (MapConstants.TerrainPatchSize - 1));
                 int ipplanty = (int)(planty); //+ (int)(planty / (MapConstants.TerrainPatchSize - 1));
 
-                if (ipplantx < 0 || ipplantx >= gs.map.GetHwid() || ipplanty <= 0 || ipplanty >= gs.map.GetHhgt())
+                if (ipplantx < 0 || ipplantx >= mapProvider.GetMap().GetHwid() || ipplanty <= 0 || ipplanty >= mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
@@ -173,7 +174,7 @@ public class AddNearbyItemsHelper
         }
     }
 
-    public int GetNearbyItemsCount (UnityGameState gs, int radius, MyRandom rand)
+    public int GetNearbyItemsCount (int radius, MyRandom rand)
     {
         int nearbyItemsCount = 1;
 

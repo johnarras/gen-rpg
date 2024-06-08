@@ -9,6 +9,6 @@ namespace Genrpg.MapServer.MapMessaging.Filters
 {
     public abstract class ObjectFilter
     {
-        public abstract List<MapObject> Filter(GameState gs, IMapApiMessage message, List<MapObject> initialTargets);
+        public abstract List<MapObject> Filter(IMapApiMessage message, List<MapObject> initialTargets);
     }
 }

@@ -11,29 +11,29 @@ using Genrpg.Shared.ProcGen.Settings.Locations.Constants;
 public class ConnectSecondaryLocations : BaseZoneGenerator
 {
     private IAddRoadService _addRoadService = null;
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
         // This can happen if there are no secondary locations added.
-        if (gs.md.locationGrid == null)
+        if (_md.locationGrid == null)
         {
             return;
         }
 
-        MyRandom rand = new MyRandom(gs.map.Seed/2 + 9977747);
+        MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed/2 + 9977747);
 
         List<Location> locations = new List<Location>();
 
-        for (int x = 0; x < gs.md.locationGrid.GetLength(0); x++)
+        for (int x = 0; x < _md.locationGrid.GetLength(0); x++)
         {
-            for (int y = 0; y < gs.md.locationGrid.GetLength(1); y++)
+            for (int y = 0; y < _md.locationGrid.GetLength(1); y++)
             {
-                if (gs.md.locationGrid[x, y] == null)
+                if (_md.locationGrid[x, y] == null)
                 {
                     continue;
                 }
-                foreach (Location loc in gs.md.locationGrid[x, y])
+                foreach (Location loc in _md.locationGrid[x, y])
                 {
                     if (loc.LocationTypeId != LocationTypes.ZoneCenter)
                     {
@@ -70,17 +70,17 @@ public class ConnectSecondaryLocations : BaseZoneGenerator
 
                 foreach (int y in yvals)
                 {
-                    if (y >= 0 && y < gs.md.ahgt)
+                    if (y >= 0 && y < _md.ahgt)
                     {
                         int dy = y - cy;
                         for (int x = cx - rad; x <= cx + rad; x += rskip)
                         {
-                            if (x < 0 || x >= gs.md.awid)
+                            if (x < 0 || x >= _md.awid)
                             {
                                 continue;
                             }
 
-                            if (gs.md.alphas[x, y, MapConstants.RoadTerrainIndex] > 0)
+                            if (_md.alphas[x, y, MapConstants.RoadTerrainIndex] > 0)
                             {
                                 int dx = x - cx;
                                 double dist = Math.Sqrt(dx * dx + dy * dy);
@@ -99,17 +99,17 @@ public class ConnectSecondaryLocations : BaseZoneGenerator
 
                 foreach (int x in xvals)
                 {
-                    if (x >= 0 && x < gs.md.awid)
+                    if (x >= 0 && x < _md.awid)
                     {
                         int dx = x - cx;
                         for (int y = cy - rad; y <= cy+rad; y+= rskip)
                         {
-                            if (y < 0 || y >= gs.md.ahgt)
+                            if (y < 0 || y >= _md.ahgt)
                             {
                                 continue;
                             }
 
-                            if (gs.md.alphas[x, y, MapConstants.RoadTerrainIndex] > 0)
+                            if (_md.alphas[x, y, MapConstants.RoadTerrainIndex] > 0)
                             {
                                 int dy = y - cy;
                                 double dist = Math.Sqrt(dx * dx + dy * dy);
@@ -127,7 +127,7 @@ public class ConnectSecondaryLocations : BaseZoneGenerator
 
             if (roadx > 0 && roady > 0)
             {
-                _addRoadService.AddRoad(gs, cx, cy, roadx, roady, cx * 31 + cy * 37 + gs.map.Seed / 3, rand, false);
+                _addRoadService.AddRoad(cx, cy, roadx, roady, cx * 31 + cy * 37 + _mapProvider.GetMap().Seed / 3, rand, false);
             }
 
         }

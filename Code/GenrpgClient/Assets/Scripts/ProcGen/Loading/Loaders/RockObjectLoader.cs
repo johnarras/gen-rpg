@@ -9,7 +9,7 @@ using Genrpg.Shared.Zones.Settings;
 
 public class RockObjectLoader : BaseObjectLoader
 {
-    public override bool LoadObject(UnityGameState gs, PatchLoadData loadData, uint objectId, 
+    public override bool LoadObject(PatchLoadData loadData, uint objectId, 
         int x, int y, Zone currZone, ZoneType currZoneType, CancellationToken token)
     {
         if (objectId < MapConstants.RockObjectOffset + MapConstants.MapObjectOffsetMult)
@@ -21,7 +21,7 @@ public class RockObjectLoader : BaseObjectLoader
 
 
 
-        RockType rockType = _gameData.Get<RockTypeSettings>(gs.ch).Get(objectId);
+        RockType rockType = _gameData.Get<RockTypeSettings>(_gs.ch).Get(objectId);
         if (rockType == null || rockType.Art == null)
         {
             return false;
@@ -51,13 +51,13 @@ public class RockObjectLoader : BaseObjectLoader
         dlo.data = (smallObject ? "small" : "");
         dlo.AfterLoad = AfterLoadRock;
 
-        _assetService.LoadAsset(gs, AssetCategoryNames.Rocks, artName, OnDownloadObject, dlo, null, token);
+        _assetService.LoadAsset(AssetCategoryNames.Rocks, artName, OnDownloadObject, dlo, null, token);
 
         return true;
 
     }
 
-    public void AfterLoadRock(UnityGameState gs, GEntity go, DownloadObjectData dlo, CancellationToken token)
+    public void AfterLoadRock(GEntity go, DownloadObjectData dlo, CancellationToken token)
     {
         if (go == null || dlo == null)
         {

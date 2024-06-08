@@ -30,10 +30,9 @@ namespace Genrpg.Shared.Factions.Services
 
     public class SharedFactionService : ISharedFactionService
     {
-        private IRepositoryService _repoService;
-        private IGameData _gameData;
+        private IGameData _gameData = null;
 
-        public async Task Initialize(GameState gs, CancellationToken toke)
+        public async Task Initialize(IGameState gs, CancellationToken toke)
         {
             await Task.CompletedTask;
         }

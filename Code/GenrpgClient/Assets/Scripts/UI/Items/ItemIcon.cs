@@ -11,7 +11,7 @@ using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Cysharp.Threading.Tasks;
 
-public delegate void OnLoadItemIconHandler(UnityGameState gs, InitItemIconData data);
+public delegate void OnLoadItemIconHandler(InitItemIconData data);
 
 public class ItemIconFlags
 {
@@ -74,7 +74,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         }
         else
         {
-            IIndexedGameItem dataObject = _entityService.Find(_gs, _gs.ch, data.EntityTypeId, data.EntityId);
+            IIndexedGameItem dataObject = _entityService.Find(_gs.ch, data.EntityTypeId, data.EntityId);
             if (dataObject != null && !string.IsNullOrEmpty(dataObject.Icon))
             {
                 iconName = dataObject.Icon;
@@ -90,9 +90,9 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             }
         }
 
-        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, bgName, Background, token);
-        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, frameName, Frame, token);
-        _assetService.LoadAtlasSpriteInto(_gs, AtlasNames.Icons, iconName, Icon, token);
+        _assetService.LoadAtlasSpriteInto(AtlasNames.Icons, bgName, Background, token);
+        _assetService.LoadAtlasSpriteInto(AtlasNames.Icons, frameName, Frame, token);
+        _assetService.LoadAtlasSpriteInto(AtlasNames.Icons, iconName, Icon, token);
 
         if (_initData.Data != null)
         {
@@ -122,7 +122,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             _canDrag = false;
         }
 
-        data.Handler?.Invoke(_gs, data);
+        data.Handler?.Invoke(data);
     }
 
 
@@ -142,7 +142,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             item = _initData.Data,
             flags = _initData.Flags,
         };
-        _initData.Screen.ToolTip.Init(_gs, fullTooltipInitData, _token);
+        _initData.Screen.ToolTip.Init(fullTooltipInitData, _token);
         UpdateTooltipPosition();
     }
 

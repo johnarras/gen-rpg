@@ -21,32 +21,36 @@ using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Stats.Settings.Scaling;
+using Assets.Scripts.ProcGen.RandomNumbers;
 
 namespace Genrpg.Shared.Crawler.Stats.Services
 {
     public class CrawlerStatService : ICrawlerStatService
     {
-        IStatService _statService;
+        protected IStatService _statService;
         protected IGameData _gameData;
+        protected IUnityGameState _gs;
+        protected IClientRandom _rand;
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
 
-        public void CalcPartyStats(GameState gs, PartyData party, bool resetCurrStats)
+        public void CalcPartyStats(PartyData party, bool resetCurrStats)
         {
             foreach (PartyMember member in party.Members)
             {
                 if (member.PartySlot > 0)
                 {
-                    CalcUnitStats(gs, party, member, resetCurrStats);
+                    CalcUnitStats(party, member, resetCurrStats);
                 }
             }
         }
 
-        public void CalcUnitStats(GameState gs, PartyData party, CrawlerUnit unit, bool resetCurrStats)
+        public void CalcUnitStats(PartyData party, CrawlerUnit unit, bool resetCurrStats)
         {
             if (unit.Level < 1)
             {
@@ -59,9 +63,16 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
             IReadOnlyList<Class> allClasses = classSettings.GetData();
 
-            List<long> buffStatTypes = allClasses.Select(x=>x.BuffStatTypeId).ToList();
+            List<long> buffStatTypes = new List<long>();
+            
+            foreach (Class cl in allClasses)
+            {
+                buffStatTypes.AddRange(cl.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).Select(x => x.EntityId));
+            }
 
-            List<MemberStat> buffStats = GetPartyBuffStats(gs, party);
+            buffStatTypes = buffStatTypes.Distinct().ToList();
+            
+            List<MemberStat> buffStats = GetPartyBuffStats(party);
 
             List<long> mutableStatTypes = new List<long>() { StatTypes.Health, StatTypes.Mana };
 
@@ -89,16 +100,6 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                     _statService.Add(member, permStat.Id, StatCategories.Base, permStat.Val);
                 }
 
-                // Now set the default buffs
-
-                foreach (Class arch in allClasses)
-                {
-                    if (arch.BuffStatTypeId > 0 && arch.DefaultLevelPercentBuff > 0)
-                    {
-                        _statService.Add(member, arch.BuffStatTypeId, StatCategories.Bonus,
-                            (unit.Level * arch.DefaultLevelPercentBuff) / 100);
-                    }
-                }
 
                 foreach (long buffStatType in buffStatTypes)
                 {
@@ -130,14 +131,12 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 {
                     Class cl = memberClasses[c];
 
-                    double classScaling = (c == 0 ? 1.0f : classSettings.SecondaryClassPowerScale);
-
-                    healthPerLevel += cl.HealthPerLevel * classScaling;
-                    manaPerLevel += cl.ManaPerLevel * classScaling;
+                    healthPerLevel += cl.HealthPerLevel;
+                    manaPerLevel += cl.ManaPerLevel;
 
                     if (cl.ManaStatTypeId > 0)
                     {
-                        manaPerLevel += CrawlerStatUtils.GetStatBonus(member, cl.ManaStatTypeId) * classScaling;
+                        manaPerLevel += CrawlerStatUtils.GetStatBonus(member, cl.ManaStatTypeId);
                     }
                 }
 
@@ -173,7 +172,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 long minHealth = Math.Max(1, unit.Level / 2);
                 long maxHealth = unit.Level * 3 + 10;
 
-                long startHealth = MathUtils.LongRange(minHealth, maxHealth, gs.rand);
+                long startHealth = MathUtils.LongRange(minHealth, maxHealth, _rand);
 
                 _statService.Set(unit, StatTypes.Health, StatCategories.Base, startHealth);
                 _statService.Set(unit, StatTypes.Health, StatCategories.Curr, startHealth);
@@ -183,7 +182,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
             }
         }
 
-        public List<MemberStat> GetPartyBuffStats(GameState gs, PartyData partyData)
+        public List<MemberStat> GetPartyBuffStats(PartyData partyData)
         {
             Dictionary<long, long> buffStatLevels = new Dictionary<long, long>();
 
@@ -198,38 +197,32 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                 List<Class> memberClasses = classSettings.GetClasses(member.Classes);
 
+                long scalingLevel = member.Level;
+
                 for (int c = 0; c < memberClasses.Count(); c++)
                 { 
                     Class cl = memberClasses[c];
 
-                    if (!buffStatLevels.ContainsKey(cl.BuffStatTypeId))
-                    {
-                        buffStatLevels[cl.BuffStatTypeId] = 0;
-                    }
+                    List<ClassBonus> buffStatbonuses = cl.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).ToList();
 
-                    long scalingLevel = member.Level;
-
-                    if (c > 0)
+                    foreach (ClassBonus bonus in buffStatbonuses)
                     {
-                        scalingLevel = (long)(scalingLevel * classSettings.SecondaryClassPowerScale);
-                    }
+                        if (!buffStatLevels.ContainsKey(bonus.EntityId))
+                        {
+                            buffStatLevels[bonus.EntityId] = 0;
+                        }
 
-                    if (buffStatLevels[cl.BuffStatTypeId] < scalingLevel)
-                    {
-                        buffStatLevels[cl.BuffStatTypeId] = scalingLevel;
+                        if (buffStatLevels[bonus.EntityId] < scalingLevel)
+                        {
+                            buffStatLevels[bonus.EntityId] = scalingLevel;
+                        }
                     }
                 }
             }
 
             foreach (long statId in buffStatLevels.Keys)
             {
-                Class arch = allClasss.FirstOrDefault(x => x.BuffStatTypeId == statId);
-
-                // Apply a percent bonus from each archetype (50 to start) and divide by 2 since each player
-                // has 2 archetypes.
-                int scaledStatValue = (int)((buffStatLevels[statId] * arch.BuffStatPercent) / 100);
-
-                retval.Add(new MemberStat() { Id = (short)statId, Val = scaledStatValue });
+                retval.Add(new MemberStat() { Id = (short)statId, Val = (int)buffStatLevels[statId] });
             }
 
             return retval;

@@ -23,7 +23,7 @@ namespace Genrpg.LoginServer.CommandHandlers
     {
         protected override async Task InnerHandleMessage(LoginGameState gs, CreateCharCommand command, CancellationToken token)
         {
-            List<CharacterStub> charStubs = await _playerDataService.LoadCharacterStubs(gs, gs.user.Id);
+            List<CharacterStub> charStubs = await _playerDataService.LoadCharacterStubs(gs.user.Id);
 
             int nextId = 1;
 
@@ -46,7 +46,7 @@ namespace Genrpg.LoginServer.CommandHandlers
             CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
 
 
-            List<IUnitData> list = await _playerDataService.LoadAllPlayerData(gs, gs.ch);
+            List<IUnitData> list = await _playerDataService.LoadAllPlayerData(gs.rand, gs.ch);
 
             charStubs.Add(new CharacterStub() { Id = gs.coreCh.Id, Name = gs.coreCh.Name, Level = gs.coreCh.Level });
 

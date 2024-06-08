@@ -49,7 +49,7 @@ public class LootPopup : BaseScreen
                 Level = rew.Level,
                 Quality = rew.QualityTypeId,
             };
-            IconHelper.InitItemIcon(_gs, iid, _itemAnchor,_assetService, token);
+            IconHelper.InitItemIcon(iid, _itemAnchor,_assetService, token);
         }
         
         while (true)

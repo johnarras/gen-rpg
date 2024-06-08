@@ -11,20 +11,20 @@ using System.Threading;
 using System.Threading.Tasks;
 public interface ILineGenService : IInitializable
 {
-    List<MyPointF> GetBressenhamLine(GameState gs, MyPoint start, MyPoint end, LineGenParameters lg = null);
-    List<MyPointF> GetBressenhamCircle(GameState gs, MyPoint center, LineGenParameters pars);
-    List<ConnectedPairData> ConnectPoints(GameState gs, List<ConnectPointData> points, MyRandom rand, float extraConnectionPct = 0.0f);
+    List<MyPointF> GetBressenhamLine(MyPoint start, MyPoint end, LineGenParameters lg = null);
+    List<MyPointF> GetBressenhamCircle(MyPoint center, LineGenParameters pars);
+    List<ConnectedPairData> ConnectPoints(List<ConnectPointData> points, MyRandom rand, float extraConnectionPct = 0.0f);
 }
 
 public class LineGenService : ILineGenService
 {
     protected INoiseService _noiseService;
-    public async Task Initialize(GameState gs, CancellationToken token)
+    public async Task Initialize(IGameState gs, CancellationToken token)
     {
         await Task.CompletedTask;
     }
 
-    public List<MyPointF> GetBressenhamLine(GameState gs, MyPoint start, MyPoint end, LineGenParameters lg = null)
+    public List<MyPointF> GetBressenhamLine(MyPoint start, MyPoint end, LineGenParameters lg = null)
     {
         if (lg == null)
         {
@@ -118,7 +118,7 @@ public class LineGenService : ILineGenService
             float amp = MathUtils.FloatRange(0.3f, 0.4f, rand);
             int octaves = 2;
             float pers = MathUtils.FloatRange(0.3f, 0.4f, rand);
-            float[,] offsets2 = _noiseService.Generate(gs, pers, freq, amp, octaves, rand.Next(), length + 1, length + 1);
+            float[,] offsets2 = _noiseService.Generate(pers, freq, amp, octaves, rand.Next(), length + 1, length + 1);
             if (offsets2 != null && offsets2.Length > length)
             {
                 for (int x = 0; x < length + 1; x++)
@@ -376,7 +376,7 @@ public class LineGenService : ILineGenService
         }
         return retval;
     }
-    public List<MyPointF> GetBressenhamCircle(GameState gs, MyPoint center, LineGenParameters pars)
+    public List<MyPointF> GetBressenhamCircle(MyPoint center, LineGenParameters pars)
     {
         List<MyPointF> retval = new List<MyPointF>();
         if (center == null || pars == null)
@@ -402,7 +402,7 @@ public class LineGenService : ILineGenService
             MyPoint endPt = new MyPoint((int)endx, (int)endy);
             pars.Seed = circRand.Next();
             pars.MaxWidthPosDrift = 3;
-            List<MyPointF> newPts = GetBressenhamLine(gs, startPt, endPt, pars);
+            List<MyPointF> newPts = GetBressenhamLine(startPt, endPt, pars);
             if (newPts != null)
             {
                 foreach (MyPointF item in newPts)
@@ -415,7 +415,7 @@ public class LineGenService : ILineGenService
         return retval;
     }
 
-    public List<ConnectedPairData> ConnectPoints(GameState gs, List<ConnectPointData> points, MyRandom rand, float extraConnectionPct = 0.0f)
+    public List<ConnectedPairData> ConnectPoints(List<ConnectPointData> points, MyRandom rand, float extraConnectionPct = 0.0f)
     {
         if (points == null || points.Count < 1 || rand == null)
         {

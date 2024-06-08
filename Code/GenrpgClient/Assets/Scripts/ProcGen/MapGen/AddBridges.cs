@@ -21,45 +21,45 @@ public class AddBridges : BaseZoneGenerator
     private List<WaterGenData> _waterGenData = new List<WaterGenData>();
 
 	public const string DefaultBridgeArtName = "Bridge";
-	public override async UniTask Generate (UnityGameState gs, CancellationToken token)
+	public override async UniTask Generate (CancellationToken token)
     {
-        await base.Generate(gs, token);
-        if (gs.md.bridgeDistances == null)
+        await base.Generate(token);
+        if (_md.bridgeDistances == null)
         {
-            gs.md.bridgeDistances = new ushort[gs.map.GetHwid(), gs.map.GetHhgt()];
+            _md.bridgeDistances = new ushort[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
         }
 
-        for (int x = 0; x < gs.map.GetHwid(); x++)
+        for (int x = 0; x < _mapProvider.GetMap().GetHwid(); x++)
         {
-            for (int y = 0; y < gs.map.GetHhgt(); y++)
+            for (int y = 0; y < _mapProvider.GetMap().GetHhgt(); y++)
             {
-                gs.md.bridgeDistances[x, y] = 10000;
+                _md.bridgeDistances[x, y] = 10000;
             }
         }
-        if (gs.md.currBridges == null)
+        if (_md.currBridges == null)
         {
-            gs.md.currBridges = new List<MyPointF>();
+            _md.currBridges = new List<MyPointF>();
         }
 
-        if (gs.md.roads == null)
+        if (_md.roads == null)
         {
             return;
         }
 
-        MyRandom rand = new MyRandom(gs.map.Seed % 12389292 + 333);
+        MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed % 12389292 + 333);
 
-		if (gs.md.creviceBridges != null)
+		if (_md.creviceBridges != null)
 		{
-			foreach (MyPointF bpos in gs.md.creviceBridges)
+			foreach (MyPointF bpos in _md.creviceBridges)
 			{
-				foreach (List<MyPointF> road in gs.md.roads)
+				foreach (List<MyPointF> road in _md.roads)
 				{
 					foreach (MyPointF pt in road)
 					{
 						if (Math.Abs (bpos.X-pt.X) <= 2 && Math.Abs (bpos.Y-pt.Y) <= 2 &&
 						    pt.Z == 1)
 						{
-							AddOneBridge (gs,road,rand,bpos);
+							AddOneBridge (road,rand,bpos);
 						}
 					}
 				}
@@ -68,7 +68,7 @@ public class AddBridges : BaseZoneGenerator
 
 		
 		
-		foreach (List<MyPointF> road in gs.md.roads)
+		foreach (List<MyPointF> road in _md.roads)
 		{
 			int numBridgesToTry = 0;
 			if (rand.Next() % 14 == 0)
@@ -91,17 +91,17 @@ public class AddBridges : BaseZoneGenerator
 		
 			for (int tries = 0; tries < numBridgesToTry; tries++)
 			{
-				AddOneBridge (gs, road, rand);
+				AddOneBridge (road, rand);
 			}
 		}
 
         foreach (WaterGenData wgd in _waterGenData)
         {
-            _addPoolService.TryAddPool(gs, wgd);
+            _addPoolService.TryAddPool(wgd);
         }
 	}
 	
-	protected void AddOneBridge (UnityGameState gs,
+	protected void AddOneBridge (
 	                             List<MyPointF> road,
 	                             MyRandom rand, 
 	                             MyPointF centerPointIn = null)
@@ -135,13 +135,13 @@ public class AddBridges : BaseZoneGenerator
         }
 
         
-        int zoneId = gs.md.mapZoneIds[xpos, ypos]; // zoneobject
+        int zoneId = _md.mapZoneIds[xpos, ypos]; // zoneobject
 
-        Zone zone = gs.map.Get<Zone>(zoneId);
+        Zone zone = _mapProvider.GetMap().Get<Zone>(zoneId);
 
         long zoneTypeId = (zone != null ? zone.ZoneTypeId : 1);
 
-	    BridgeType bt = GetRandomBridgeType (gs,zoneTypeId, rand);
+	    BridgeType bt = GetRandomBridgeType (zoneTypeId, rand);
 		
 		float bridgeLength = 6;
 		string bridgeArt = DefaultBridgeArtName;
@@ -220,10 +220,10 @@ public class AddBridges : BaseZoneGenerator
             }
 
 			
-			int ex = MathUtils.Clamp (0,(int)(fex),gs.map.GetHwid());
-			int ez = MathUtils.Clamp (0,(int)(fey),gs.map.GetHhgt());
-			int sx = MathUtils.Clamp (0,(int)(fsx),gs.map.GetHwid());
-			int sz = MathUtils.Clamp (0,(int)(fsy),gs.map.GetHhgt());
+			int ex = MathUtils.Clamp (0,(int)(fex),_mapProvider.GetMap().GetHwid());
+			int ez = MathUtils.Clamp (0,(int)(fey),_mapProvider.GetMap().GetHhgt());
+			int sx = MathUtils.Clamp (0,(int)(fsx),_mapProvider.GetMap().GetHwid());
+			int sz = MathUtils.Clamp (0,(int)(fsy),_mapProvider.GetMap().GetHhgt());
 
 
             int shrinkMod = rand.Next() % 2;
@@ -265,7 +265,7 @@ public class AddBridges : BaseZoneGenerator
 			int cx = (int)(ex+sx)/2;
 			int cz = (int)(ez+sz)/2;
 
-            Location loc = _zoneGenService.FindMapLocation(gs, cx, cz, 15);
+            Location loc = _zoneGenService.FindMapLocation(cx, cz, 15);
 
             if (loc != null)
             {
@@ -280,8 +280,8 @@ public class AddBridges : BaseZoneGenerator
             // Not too close to the edge of the map
             float edgeSize = MapConstants.TerrainPatchSize;
 
-			if (px < edgeSize || px > gs.map.GetHwid()-edgeSize ||
-			    pz < edgeSize || pz > gs.map.GetHhgt()-edgeSize)
+			if (px < edgeSize || px > _mapProvider.GetMap().GetHwid()-edgeSize ||
+			    pz < edgeSize || pz > _mapProvider.GetMap().GetHhgt()-edgeSize)
 			{
 				continue;
 			}
@@ -294,7 +294,7 @@ public class AddBridges : BaseZoneGenerator
 
             
 			bool nearBridge = false;
-			foreach (MyPointF pt3 in gs.md.currBridges)
+			foreach (MyPointF pt3 in _md.currBridges)
 			{
 
 				if (Math.Abs (px-pt3.X) <= minBridgeSeparation &&
@@ -315,17 +315,17 @@ public class AddBridges : BaseZoneGenerator
 
 			if (cx-halfBridgeLength < 0 ||
 			    cz-halfBridgeLength < 0 ||
-			    cx+halfBridgeLength >= gs.map.GetHwid() ||
-			    cz+halfBridgeLength >= gs.map.GetHhgt())
+			    cx+halfBridgeLength >= _mapProvider.GetMap().GetHwid() ||
+			    cz+halfBridgeLength >= _mapProvider.GetMap().GetHhgt())
 			{	
 				centerpt = null;
 				continue;
 			}
 
 			
-			float sy = gs.md.heights[sx,sz]*MapConstants.MapHeight;
-            float my = gs.md.heights[(sx + ex) / 2, (sz + ez) / 2] * MapConstants.MapHeight;
-			float ey = gs.md.heights[ex,ez]*MapConstants.MapHeight;
+			float sy = _md.heights[sx,sz]*MapConstants.MapHeight;
+            float my = _md.heights[(sx + ex) / 2, (sz + ez) / 2] * MapConstants.MapHeight;
+			float ey = _md.heights[ex,ez]*MapConstants.MapHeight;
 			float cy = (sy+ey+my)/3;
 
             float minHeight = Math.Min(sy, Math.Min(my, ey));
@@ -398,12 +398,12 @@ public class AddBridges : BaseZoneGenerator
             List<int> xvals = new List<int>();
 
             xvals.Add((int)(Math.Max(0, cx - fullcl)));
-            xvals.Add((int)(Math.Min(gs.map.GetHwid() - 1, cx + fullcl)));
+            xvals.Add((int)(Math.Min(_mapProvider.GetMap().GetHwid() - 1, cx + fullcl)));
 
 
             List<int> yvals = new List<int>();
             yvals.Add((int)(Math.Max(0, cy - fullcl)));
-            yvals.Add((int)(Math.Min(gs.map.GetHhgt() - 1, cy + fullcl)));
+            yvals.Add((int)(Math.Min(_mapProvider.GetMap().GetHhgt() - 1, cy + fullcl)));
 
             bool nearWater = false;
 
@@ -416,7 +416,7 @@ public class AddBridges : BaseZoneGenerator
 
                 for (int y = 0; y < yvals.Count; y++)
                 {
-                    if (FlagUtils.IsSet(gs.md.flags[x,y],MapGenFlags.NearWater))
+                    if (FlagUtils.IsSet(_md.flags[x,y],MapGenFlags.NearWater))
                     {
                         nearWater = true;
                         break;
@@ -433,7 +433,7 @@ public class AddBridges : BaseZoneGenerator
 
                 for (int x = 0; x < xvals.Count; x++)
                 {
-                    if (FlagUtils.IsSet(gs.md.flags[x,y], MapGenFlags.NearWater))
+                    if (FlagUtils.IsSet(_md.flags[x,y], MapGenFlags.NearWater))
                     {
                         nearWater = true;
                         break;
@@ -496,7 +496,7 @@ public class AddBridges : BaseZoneGenerator
                 float pers = MathUtils.FloatRange(0.2f, 0.5f, rand);
                 int octaves = 2;
 
-                float[,] noise = _noiseService.Generate(gs, pers, freq, amp, octaves, rand.Next(), noiseSize, noiseSize);
+                float[,] noise = _noiseService.Generate(pers, freq, amp, octaves, rand.Next(), noiseSize, noiseSize);
 				noises.Add(noise);
 			}
 
@@ -515,13 +515,13 @@ public class AddBridges : BaseZoneGenerator
 
             for (int x = cx-fullcl; x <= cx+fullcl; x++)
 			{
-				if (x < 0 || x >= gs.map.GetHwid())
+				if (x < 0 || x >= _mapProvider.GetMap().GetHwid())
 				{
 					continue;
 				}
 				for (int z = cz-fullcl; z <= cz+fullcl; z++)
 				{
-					if (z < 0 || z >= gs.map.GetHhgt())
+					if (z < 0 || z >= _mapProvider.GetMap().GetHhgt())
 					{
 						continue;
 					}
@@ -529,8 +529,8 @@ public class AddBridges : BaseZoneGenerator
 					float sdist = MathUtils.Sqrt ((x-sx)*(x-sx)+(z-sz)*(z-sz));
 					float edist = MathUtils.Sqrt ((x-ex)*(x-ex)+(z-ez)*(z-ez));
 					
-					int ax = (int)(1.0f*x/gs.map.GetHwid()*gs.md.awid);
-					int az = (int)(1.0f*z/gs.map.GetHhgt()*gs.md.ahgt);
+					int ax = (int)(1.0f*x/_mapProvider.GetMap().GetHwid()*_md.awid);
+					int az = (int)(1.0f*z/_mapProvider.GetMap().GetHhgt()*_md.ahgt);
                     // Set splats under the bridge to base terrain
 
                     // Get length of hypotenuse and legs of the b e s triangle.
@@ -541,9 +541,9 @@ public class AddBridges : BaseZoneGenerator
                     if (false && Math.Max(edist, sdist) < bridgeLength + 2.0f)
                     {
                         closeToMid = true;
-                        gs.md.ClearAlphasAt(gs, ax, az);
-                        gs.md.alphas[ax, az, MapConstants.BaseTerrainIndex] = 0.99f;
-                        gs.md.alphas[ax, az, MapConstants.RoadTerrainIndex] = 0.01f;
+                        _md.ClearAlphasAt(ax, az);
+                        _md.alphas[ax, az, MapConstants.BaseTerrainIndex] = 0.99f;
+                        _md.alphas[ax, az, MapConstants.RoadTerrainIndex] = 0.01f;
                     }
 
                     float minEndPtSize = 2.0f;
@@ -559,12 +559,12 @@ public class AddBridges : BaseZoneGenerator
                         {
                             float backDist = Math.Max(0, Math.Max(sdist, edist) - bdist);
                             float delta = bridgeEndRoadSmoothScale * backDist / MapConstants.MapHeight;
-                            gs.md.heights[x, z] = MathUtils.Clamp(heightAtEnds, gs.md.heights[x, z],
+                            _md.heights[x, z] = MathUtils.Clamp(heightAtEnds, _md.heights[x, z],
                                                          heightAtEnds + delta);
                             if (!closeToMid)
                             {
-                                //gs.md.ClearAlphasAt(gs, ax, az);
-                                //gs.md.alphas[ax, az, MapConstants.RoadTerrainIndex] = 1.0f;
+                                //_md.ClearAlphasAt(ax, az);
+                                //_md.alphas[ax, az, MapConstants.RoadTerrainIndex] = 1.0f;
                             }
                             continue;
                         }
@@ -624,19 +624,19 @@ public class AddBridges : BaseZoneGenerator
 
 
 					float aveSplat = 0;
-                    float distToRoad = gs.md.roadDistances[ax, az];
+                    float distToRoad = _md.roadDistances[ax, az];
 					if (distToRoad < rad)
 					{
-						aveSplat = gs.md.GetAverageSplatNear(gs,ax, az, rad, MapConstants.RoadTerrainIndex);
+						aveSplat = _md.GetAverageSplatNear(ax, az, rad, MapConstants.RoadTerrainIndex);
 					}
-					float currSplat = gs.md.alphas[ax,az,MapConstants.RoadTerrainIndex];	
+					float currSplat = _md.alphas[ax,az,MapConstants.RoadTerrainIndex];	
 					float maxRoadSplatAllowed = 0.50f;
 
 					currSplat = 0;
 					// If this cell is near another bridge, don't let it get sunk.
 					if (currSplat > 0)
 					{
-                        if (gs.md.bridgeDistances[x,z] < 20)
+                        if (_md.bridgeDistances[x,z] < 20)
                         {
                             continue;
                         }
@@ -688,8 +688,8 @@ public class AddBridges : BaseZoneGenerator
 
 							if (minDist >= 10)
 							{
-								gs.md.ClearAlphasAt(gs, x, z);
-								gs.md.alphas[x, z, MapConstants.BaseTerrainIndex] = 1;
+								_md.ClearAlphasAt(x, z);
+								_md.alphas[x, z, MapConstants.BaseTerrainIndex] = 1;
 							}
 						}
 					}
@@ -700,7 +700,7 @@ public class AddBridges : BaseZoneGenerator
 					{
 					    loweredPoints.Add (new MyPoint(ax,az));
 					}
-					float locy = gs.md.heights[x,z];
+					float locy = _md.heights[x,z];
 					if (locy < cyscale)
 					{
 						holeDepth -= (cyscale-locy)*0.95f;
@@ -719,26 +719,26 @@ public class AddBridges : BaseZoneGenerator
 
 					holeDepth *= noiseDepthScale;
 
-					gs.md.heights[x,z] -= holeDepth;
+					_md.heights[x,z] -= holeDepth;
 
 					if (cdist < halfBridgeLength+2 && distFromBridgeEnd > 2)
 					{
-                        float currRoad = gs.md.alphas[ax, az, MapConstants.RoadTerrainIndex];
-						gs.md.alphas[ax, az, MapConstants.RoadTerrainIndex] = 0;
-						gs.md.alphas[ax, az, MapConstants.BaseTerrainIndex] += currRoad / 2;
-						gs.md.alphas[ax, az, MapConstants.DirtTerrainIndex] += currRoad / 2;
+                        float currRoad = _md.alphas[ax, az, MapConstants.RoadTerrainIndex];
+						_md.alphas[ax, az, MapConstants.RoadTerrainIndex] = 0;
+						_md.alphas[ax, az, MapConstants.BaseTerrainIndex] += currRoad / 2;
+						_md.alphas[ax, az, MapConstants.DirtTerrainIndex] += currRoad / 2;
 					}
 					
 				}
 			}
 
 
-            if (ipx >= 0 && ipz >= 0 && ipx < gs.map.GetHwid() - 1 && ipz < gs.map.GetHhgt() - 1)
+            if (ipx >= 0 && ipz >= 0 && ipx < _mapProvider.GetMap().GetHwid() - 1 && ipz < _mapProvider.GetMap().GetHhgt() - 1)
             {
 
 
-                gs.md.mapObjects[ipx, ipz] = MapConstants.BridgeObjectOffset + (int)(bt.IdKey);
-                int startval = gs.md.mapObjects[ipx, ipz];
+                _md.mapObjects[ipx, ipz] = MapConstants.BridgeObjectOffset + (int)(bt.IdKey);
+                int startval = _md.mapObjects[ipx, ipz];
                 float clampedAngle = angle;
                 while (clampedAngle < 0)
                 {
@@ -762,8 +762,8 @@ public class AddBridges : BaseZoneGenerator
 
                 int shiftNext = (nextVal << 16);
 
-                gs.md.mapObjects[ipx, ipz] += shiftNext;
-                int currVal = gs.md.mapObjects[ipx, ipz];
+                _md.mapObjects[ipx, ipz] += shiftNext;
+                int currVal = _md.mapObjects[ipx, ipz];
 
 
                 int maxDelta = 3;
@@ -795,9 +795,9 @@ public class AddBridges : BaseZoneGenerator
 
 
 
-                gs.md.mapObjects[ipx, ipz] = currVal;
-                gs.md.currBridges.Add(new MyPointF(ipx, ipz));
-                SetBridgeDistancesNear(gs, (int)(ipx), (int)(ipz));
+                _md.mapObjects[ipx, ipz] = currVal;
+                _md.currBridges.Add(new MyPointF(ipx, ipz));
+                SetBridgeDistancesNear((int)(ipx), (int)(ipz));
 
             }
 
@@ -809,9 +809,9 @@ public class AddBridges : BaseZoneGenerator
 
 
 
-    public BridgeType GetRandomBridgeType(UnityGameState gs, long zoneTypeId, MyRandom rand)
+    public BridgeType GetRandomBridgeType(long zoneTypeId, MyRandom rand)
     {
-        ZoneType zt = _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zoneTypeId);
+        ZoneType zt = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zoneTypeId);
         if (zt == null || zt.BridgeTypes == null || zt.BridgeTypes.Count < 1)
         {
             return null;
@@ -826,7 +826,7 @@ public class AddBridges : BaseZoneGenerator
             for (int b = 0; b < zt.BridgeTypes.Count; b++)
             {
                 ZoneBridgeType zbt = zt.BridgeTypes[b];
-                BridgeType bt = _gameData.Get<BridgeTypeSettings>(gs.ch).Get(zbt.BridgeTypeId);
+                BridgeType bt = _gameData.Get<BridgeTypeSettings>(_gs.ch).Get(zbt.BridgeTypeId);
                 if (bt != null && !string.IsNullOrEmpty(bt.Art))
                 {
                     if (times == 0)
@@ -863,9 +863,9 @@ public class AddBridges : BaseZoneGenerator
 
     }
 
-    protected void SetBridgeDistancesNear (UnityGameState gs, int cx, int cy)
+    protected void SetBridgeDistancesNear (int cx, int cy)
     {
-        if (gs.md.bridgeDistances == null)
+        if (_md.bridgeDistances == null)
         {
             return;
         }
@@ -873,7 +873,7 @@ public class AddBridges : BaseZoneGenerator
         int bridgeRadius = MapConstants.MaxBridgeCheckDistance;
         for (int xx = cx - bridgeRadius; xx <= cx + bridgeRadius; xx++)
         {
-            if (xx < 0 || xx >= gs.map.GetHwid())
+            if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
             {
                 continue;
             }
@@ -881,7 +881,7 @@ public class AddBridges : BaseZoneGenerator
 
             for (int yy = cy - bridgeRadius; yy <= cy + bridgeRadius; yy++)
             {
-                if (yy < 0 || yy >= gs.map.GetHhgt())
+                if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
@@ -889,9 +889,9 @@ public class AddBridges : BaseZoneGenerator
                 float dist = (float)Math.Sqrt(dbx * dbx + dby * dby);
                 if (dist < bridgeRadius)
                 {
-                    if (dist < gs.md.bridgeDistances[xx,yy])
+                    if (dist < _md.bridgeDistances[xx,yy])
                     {
-                        gs.md.bridgeDistances[xx,yy] = (ushort)dist;
+                        _md.bridgeDistances[xx,yy] = (ushort)dist;
                     }
                 }
             }

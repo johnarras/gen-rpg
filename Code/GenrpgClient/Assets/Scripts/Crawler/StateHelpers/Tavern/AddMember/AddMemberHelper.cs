@@ -19,7 +19,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Tavern.AddMember
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.AddMember; }
 
-        public override async UniTask<CrawlerStateData> Init(UnityGameState gs, CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -46,7 +46,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Tavern.AddMember
                         partyData = _crawlerService.GetParty();
 
                         partyData.AddPartyMember(member);
-                        _statService.CalcPartyStats(gs, partyData, true);
+                        _statService.CalcPartyStats(partyData, true);
                         _crawlerService.SaveGame();
 
 

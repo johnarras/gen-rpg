@@ -14,17 +14,17 @@ public class AddClutter : BaseZoneGenerator
     public const float MaxSteepness = 15;
     public const float RandomClutterDensity = 0.00025f;
 
-    public override async UniTask Generate(UnityGameState gs, CancellationToken token)
+    public override async UniTask Generate(CancellationToken token)
     {
-        await base.Generate(gs, token);
+        await base.Generate(token);
 
-        foreach (Zone zone in gs.map.Zones)
+        foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
-            GenerateOne(gs, zone, _gameData.Get<ZoneTypeSettings>(gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
+            GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
     }
 
-    public void GenerateOne(UnityGameState gs, Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
+    public void GenerateOne(Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)
     {
         if (zone == null || endx <= startx || endy <= starty)
         {
@@ -40,7 +40,7 @@ public class AddClutter : BaseZoneGenerator
 
         float clutterDensity = MathUtils.FloatRange(0.0f, 1.0f, rand) * RandomClutterDensity;
 
-        if (_gameData.Get<ClutterTypeSettings>(gs.ch).GetData() == null)
+        if (_gameData.Get<ClutterTypeSettings>(_gs.ch).GetData() == null)
         {
             return;
         }
@@ -68,37 +68,37 @@ public class AddClutter : BaseZoneGenerator
             int x = MathUtils.IntRange(startx, endx, rand);
             int y = MathUtils.IntRange(starty, endy, rand);
 
-            if (FlagUtils.IsSet(gs.md.flags[x, y], MapGenFlags.BelowWater))
+            if (FlagUtils.IsSet(_md.flags[x, y], MapGenFlags.BelowWater))
             {
                 continue;
             }
 
-            if (x < 0 || x >= gs.map.GetHwid() || y < 0 || y >= gs.map.GetHhgt())
+            if (x < 0 || x >= _mapProvider.GetMap().GetHwid() || y < 0 || y >= _mapProvider.GetMap().GetHhgt())
             {
                 continue;
             }
 
-            if (_zoneGenService.FindMapLocation(gs, x,y, 5) != null)
+            if (_zoneGenService.FindMapLocation(x,y, 5) != null)
             {
                 continue;
             }
 
-            if (gs.md.mapZoneIds[x, y] != zone.IdKey) // zoneobject
+            if (_md.mapZoneIds[x, y] != zone.IdKey) // zoneobject
             {
                 continue;
             }
 
-            if (gs.md.roadDistances[x, y] < 10)
+            if (_md.roadDistances[x, y] < 10)
             {
                 continue;
             }
-            if (gs.md.alphas[x, y, MapConstants.RoadTerrainIndex] > 0)
+            if (_md.alphas[x, y, MapConstants.RoadTerrainIndex] > 0)
             {
                 continue;
             }
 
 
-            if (_terrainManager.GetSteepness(gs, x, y) > MaxSteepness)
+            if (_terrainManager.GetSteepness(x, y) > MaxSteepness)
             {
                 continue;
             }
@@ -134,19 +134,19 @@ public class AddClutter : BaseZoneGenerator
 
             for (int xx = x - maxOffset; xx <= x + maxOffset; xx++)
             {
-                if (xx < 0 || xx >= gs.map.GetHwid())
+                if (xx < 0 || xx >= _mapProvider.GetMap().GetHwid())
                 {
                     continue;
                 }
 
                 for (int yy = y - maxOffset; yy <= y + maxOffset; yy++)
                 {
-                    if (yy < 0 || yy >= gs.map.GetHhgt())
+                    if (yy < 0 || yy >= _mapProvider.GetMap().GetHhgt())
                     {
                         continue;
                     }
 
-                    if (gs.md.mapObjects[xx, yy] != 0)
+                    if (_md.mapObjects[xx, yy] != 0)
                     {
                         continue;
                     }
@@ -163,7 +163,7 @@ public class AddClutter : BaseZoneGenerator
 
             int totalClutterChoices = 0;
             Dictionary<ClutterType, int> clutterWeights = new Dictionary<ClutterType, int>();
-            foreach (ClutterType ctype in _gameData.Get<ClutterTypeSettings>(gs.ch).GetData())
+            foreach (ClutterType ctype in _gameData.Get<ClutterTypeSettings>(_gs.ch).GetData())
             {
                 if (ctype.NumChoices > 0)
                 {
@@ -190,7 +190,7 @@ public class AddClutter : BaseZoneGenerator
                 int py = (int)(pos.Y);
                 openPositions.Remove(pos);
 
-                int nearbyItemsCount = nearbyHelper.GetNearbyItemsCount(gs, maxOffset, rand);
+                int nearbyItemsCount = nearbyHelper.GetNearbyItemsCount(maxOffset, rand);
 
                 int clutterTypeChosen = rand.Next() % totalClutterChoices;
 
@@ -210,9 +210,9 @@ public class AddClutter : BaseZoneGenerator
                     continue;
                 }
 
-                if (gs.md.mapObjects[px, py] == 0)
+                if (_md.mapObjects[px, py] == 0)
                 {
-                    gs.md.mapObjects[px, py] = (int)(MapConstants.ClutterObjectOffset + ctypeChosen.IdKey);
+                    _md.mapObjects[px, py] = (int)(MapConstants.ClutterObjectOffset + ctypeChosen.IdKey);
                 }
             }
             int numToPlace = 4 + (currQuantityToPlace + 1) / 2;
@@ -232,7 +232,7 @@ public class AddClutter : BaseZoneGenerator
             }
 
             float currMaxOffset = MathUtils.FloatRange(0.7f, 1.2f, rand);
-            nearbyHelper.AddItemsNear(gs, _gameData, _terrainManager, rand, zoneType, zone, x, y, 0.9f, numToPlace, 1.0f, currMaxOffset);
+            nearbyHelper.AddItemsNear(_gs, _gameData, _terrainManager, _mapProvider, rand, zoneType, zone, x, y, 0.9f, numToPlace, 1.0f, currMaxOffset);
         }
     }
 }

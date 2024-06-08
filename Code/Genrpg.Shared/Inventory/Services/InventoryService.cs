@@ -27,7 +27,7 @@ namespace Genrpg.Shared.Inventory.Services
     {
         private IStatService _statService = null;
         protected IGameData _gameData;
-        public virtual async Task Initialize(GameState gs, CancellationToken token)
+        public virtual async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -289,7 +289,7 @@ namespace Genrpg.Shared.Inventory.Services
             return true;
         }
 
-        private void UpdateEffectsFromItem(GameState gs, Character ch, Item item, bool addStats)
+        private void UpdateEffectsFromItem(Character ch, Item item, bool addStats)
         {
             if (item == null || item.Effects == null)
             {

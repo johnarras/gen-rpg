@@ -24,16 +24,15 @@ namespace Genrpg.Shared.Units.Factories
     public class ZoneUnitFactory : BaseMapObjectFactory
     {
         private IStatService _statService = null;
-        private IGameData _gameData;
         public override long GetKey() { return EntityTypes.ZoneUnit; }
-        public override MapObject Create(GameState gs, IMapSpawn spawn)
+        public override MapObject Create(IRandom rand, IMapSpawn spawn)
         {
 
-            Zone spawnZone = gs.map.Get<Zone>(spawn.EntityId);
+            Zone spawnZone = _mapProvider.GetMap().Get<Zone>(spawn.EntityId);
 
             if (spawnZone == null)
             {
-                spawnZone = gs.map.Get<Zone>(spawn.ZoneId);
+                spawnZone = _mapProvider.GetMap().Get<Zone>(spawn.ZoneId);
             }
 
             if (spawnZone == null)
@@ -41,30 +40,30 @@ namespace Genrpg.Shared.Units.Factories
                 return null;
             }
 
-            if (gs.map.OverrideZoneId > 0 && gs.map.OverrideZonePercent >= spawn.OverrideZonePercent)
+            if (_mapProvider.GetMap().OverrideZoneId > 0 && _mapProvider.GetMap().OverrideZonePercent >= spawn.OverrideZonePercent)
             {
-                Zone newSpawnZone = gs.map.Get<Zone>(gs.map.OverrideZoneId);
+                Zone newSpawnZone = _mapProvider.GetMap().Get<Zone>(_mapProvider.GetMap().OverrideZoneId);
                 if (newSpawnZone != null)
                 {
                     spawnZone = newSpawnZone;
                 }
             }
 
-            Zone levelZone = gs.map.Get<Zone>(spawn.ZoneId);
+            Zone levelZone = _mapProvider.GetMap().Get<Zone>(spawn.ZoneId);
 
             if (levelZone == null)
             {
                 return null;
             }
 
-            UnitType utype = _unitGenService.GetRandomUnitType(gs, gs.map, spawnZone);
+            UnitType utype = _unitGenService.GetRandomUnitType(rand, _mapProvider.GetMap(), spawnZone);
 
             if (utype == null)
             {
                 return null;
             }
 
-            long level = levelZone.GetFinalUnitLevel(gs, spawn.X, spawn.Z, levelZone.Level);
+            long level = levelZone.GetFinalUnitLevel(rand, spawn.X, spawn.Z, levelZone.Level, _mapProvider.GetMap().MaxLevel);
 
 
             Unit unit = new Unit(_repoService);
@@ -86,13 +85,13 @@ namespace Genrpg.Shared.Units.Factories
 
             IReadOnlyList<ElementType> etypes = _gameData.Get<ElementTypeSettings>(unit).GetData();
 
-            spell.ElementTypeId = etypes[gs.rand.Next() % etypes.Count].IdKey;
+            spell.ElementTypeId = etypes[rand.Next() % etypes.Count].IdKey;
             spell.Id = HashUtils.NewGuid();
 
             SpellData spellData = unit.Get<SpellData>();
             spellData.Add(spell);
 
-            unit.Name = _unitGenService.GenerateUnitName(gs, utype.IdKey, spawnZone.IdKey, gs.rand, null);
+            unit.Name = _unitGenService.GenerateUnitName(rand, utype.IdKey, spawnZone.IdKey, null);
 
             _statService.CalcStats(unit, true);
 

@@ -2,24 +2,22 @@
   "Id": "crawlerspell37default",
   "ParentId": "default",
   "IdKey": 37,
-  "Name": "Berserking",
+  "Name": "Whirlwind",
   "Desc": "",
   "Icon": "",
   "Art": "",
   "MaxRange": 10,
+  "ReplacesCrawlerSpellId": 1,
   "CombatActionId": 1,
-  "ClassId": 1,
   "TargetTypeId": 4,
   "Level": 1,
   "Effects": [
     {
       "EntityTypeId": 38,
       "EntityId": 1,
-      "MinQuantity": 2,
-      "MaxQuantity": 2,
       "ElementTypeId": 1
     }
   ],
-  "UpdateTime": "2024-03-23T22:57:20.84Z",
-  "CreateTime": "2024-01-28T18:55:56Z"
+  "UpdateTime": "2024-06-07T23:03:24.258Z",
+  "CreateTime": "2024-01-29T06:55:56Z"
 }

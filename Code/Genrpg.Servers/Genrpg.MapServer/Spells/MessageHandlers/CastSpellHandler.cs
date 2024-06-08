@@ -9,19 +9,15 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
+using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Spells.MessageHandlers
 {
-    public class CastSpellHandler : BaseServerMapMessageHandler<CastSpell>
+    public class CastSpellHandler : BaseUnitServerMapMessageHandler<CastSpell>
     {
-        protected override void InnerProcess(GameState gs, MapMessagePackage pack, MapObject obj, CastSpell message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, CastSpell message)
         {
-            if (!GetOkUnit(obj, true, out Unit caster))
-            {
-                return;
-            }
-
-            _spellService.FullTryStartCast(gs, caster, message.SpellId, message.TargetId);
+            _spellService.FullTryStartCast(rand, unit, message.SpellId, message.TargetId);
 
         }
     }

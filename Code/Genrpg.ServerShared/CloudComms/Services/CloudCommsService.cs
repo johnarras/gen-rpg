@@ -44,7 +44,7 @@ namespace Genrpg.ServerShared.CloudComms.Services
 
 
 
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             _serverGameState = gs as ServerGameState;
             _token = token;

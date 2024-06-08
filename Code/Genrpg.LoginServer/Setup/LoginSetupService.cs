@@ -14,14 +14,14 @@ namespace Genrpg.LoginServer.Setup
     {
         private IMapDataService _mapDataService = null;
         private ICloudCommsService _cloudCommsService = null;
-        public override void SetupServiceLocator(GameState gs)
+        public override void SetupServiceLocator(IGameState gs)
         {
             LoginLocatorSetup els = new LoginLocatorSetup();
             els.Setup(gs);
             gs.loc.ResolveSelf();
         }
 
-        public override async Task FinalSetup(GameState gs)
+        public override async Task FinalSetup(IGameState gs)
         {
             await base.FinalSetup(gs);
             if (gs is LoginGameState lgs)
@@ -29,7 +29,7 @@ namespace Genrpg.LoginServer.Setup
                 gs.loc.Resolve(this);
                 lgs.commandHandlers = ReflectionUtils.SetupDictionary<Type, IClientCommandHandler>(gs);
                 lgs.noUserCommandHandlers = ReflectionUtils.SetupDictionary<Type, INoUserCommandHandler>(gs);
-                lgs.mapStubs.Stubs = await _mapDataService.GetMapStubs(lgs);
+                lgs.mapStubs.Stubs = await _mapDataService.GetMapStubs();
                 _cloudCommsService.SetupPubSubMessageHandlers(lgs);
             }
         }

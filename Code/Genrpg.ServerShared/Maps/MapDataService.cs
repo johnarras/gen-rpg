@@ -18,8 +18,8 @@ namespace Genrpg.ServerShared.Maps
 {
     public interface IMapDataService : IInitializable
     {
-        Task<List<MapStub>> GetMapStubs(ServerGameState gs);
-        Task<Map> LoadMap(ServerGameState gs, string mapId);
+        Task<List<MapStub>> GetMapStubs();
+        Task<Map> LoadMap(IRandom rand, string mapId);
         Task SaveMap(IRepositoryService repoService, Map map);
     }
 
@@ -27,7 +27,7 @@ namespace Genrpg.ServerShared.Maps
     {
         protected IRepositoryService _repoService = null;
         protected ILogService _logService = null;
-        public async Task Initialize(GameState gs, CancellationToken token)
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = nameof(QuestType.OwnerId) });
@@ -39,7 +39,7 @@ namespace Genrpg.ServerShared.Maps
             await Task.CompletedTask;
         }
 
-        public async Task<List<MapStub>> GetMapStubs(ServerGameState gs)
+        public async Task<List<MapStub>> GetMapStubs()
         {
             List<MapRoot> allMaps = await _repoService.Search<MapRoot>(x => true);
 
@@ -54,7 +54,7 @@ namespace Genrpg.ServerShared.Maps
             return allStubs;
         }
 
-        public async Task<Map> LoadMap(ServerGameState gs, string mapId)
+        public async Task<Map> LoadMap(IRandom rand, string mapId)
         {
             MapRoot root = await _repoService.Load<MapRoot>(mapId);
 
@@ -72,9 +72,9 @@ namespace Genrpg.ServerShared.Maps
 
             string mapOwnerId = Map.GetMapOwnerId(map);
 
-            map.Zones = await LoadMapDataList<Zone>(gs, mapOwnerId);
-            map.Quests = await LoadMapDataList<QuestType>(gs, mapOwnerId);
-            map.QuestItems = await LoadMapDataList<QuestItem>(gs, mapOwnerId);
+            map.Zones = await LoadMapDataList<Zone>(rand, mapOwnerId);
+            map.Quests = await LoadMapDataList<QuestType>(rand, mapOwnerId);
+            map.QuestItems = await LoadMapDataList<QuestItem>(rand, mapOwnerId);
 
             return map;
         }
@@ -114,7 +114,7 @@ namespace Genrpg.ServerShared.Maps
             await repoService.SaveAll(list);
         }
 
-        protected async Task<List<T>> LoadMapDataList<T>(ServerGameState gs, string ownerId) where T : class, IStringOwnerId
+        protected async Task<List<T>> LoadMapDataList<T>(IRandom rand, string ownerId) where T : class, IStringOwnerId
         {
             List<T> retval = new List<T>();
 

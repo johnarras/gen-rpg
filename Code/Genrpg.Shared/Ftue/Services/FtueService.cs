@@ -3,6 +3,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Ftue.PlayerData;
 using Genrpg.Shared.Ftue.Settings.Steps;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,34 +15,34 @@ namespace Genrpg.Shared.Ftue.Services
     public class FtueService : IFtueService
     {
 
-        private IGameData _gameData;
-        public async Task Initialize(GameState gs, CancellationToken token)
+        private IGameData _gameData = null;
+        public async Task Initialize(IGameState gs, CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-        public FtueStep GetCurrentStep(GameState gs, Character ch)
+        public FtueStep GetCurrentStep(IRandom rand, Character ch)
         {
             FtueData ftueData = ch.Get<FtueData>();
 
             return _gameData.Get<FtueStepSettings>(ch).Get(ftueData.CurrentFtueStepId);
         }
 
-        public bool CanClickButton(GameState gs, Character ch, string screenName, string buttonName)
+        public bool CanClickButton(IRandom rand, Character ch, string screenName, string buttonName)
         {
             return true;
         }
 
-        public void CompleteStep(GameState gs, Character ch, long FtueStepId)
+        public void CompleteStep(IRandom rand, Character ch, long FtueStepId)
         {
         }
 
-        public long GetNextFtueStepId(GameState gs, Character ch)
+        public long GetNextFtueStepId(IRandom rand, Character ch)
         {
             return 0;
         }
 
-        public virtual FtueStep StartStep(GameState gs, Character ch, long ftueStepId)
+        public virtual FtueStep StartStep(IRandom rand, Character ch, long ftueStepId)
         {
             FtueData ftueData = ch.Get<FtueData>();
 
@@ -58,12 +59,12 @@ namespace Genrpg.Shared.Ftue.Services
             return ftueStep;
         }
 
-        public bool IsComplete(GameState gs, Character ch)
+        public bool IsComplete(IRandom rand, Character ch)
         {
             return true;
         }
 
-        public void SetCurrentStep(GameState gs, Character ch, long ftueStepId)
+        public void SetCurrentStep(IRandom rand, Character ch, long ftueStepId)
         {
             FtueData ftueData = ch.Get<FtueData>();
 
