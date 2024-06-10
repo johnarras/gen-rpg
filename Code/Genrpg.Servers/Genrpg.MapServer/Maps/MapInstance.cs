@@ -143,14 +143,20 @@ namespace Genrpg.MapServer.Maps
             UpdatePlayerClientData();
         }
 
+        protected override async Task PreInit(object data, object parentObject, CancellationToken serverToken)
+        {
+            InitMapInstanceData initData = data as InitMapInstanceData;
+            _mapId = initData.MapId;
+            _instanceId = HashUtils.NewGuid();
+            _serverId = GetServerId(null);
+            await Task.CompletedTask;
+        }
+
         protected override async Task FinalInit(ServerGameState gs, object data, object parentObject, CancellationToken parentToken)
         {
             await base.FinalInit(gs, data, parentObject, parentToken);
 
             InitMapInstanceData initData = data as InitMapInstanceData;
-            _mapId = initData.MapId;
-            _instanceId = HashUtils.NewGuid();
-            _serverId = GetServerId(null);
             _isRunning = true;
             
             _instanceTokenSource = CancellationTokenSource.CreateLinkedTokenSource(parentToken, _tokenSource.Token);
@@ -332,6 +338,13 @@ namespace Genrpg.MapServer.Maps
 
                     CharacterUtils.CopyDataFromTo(coreCh, ch);
                     ch.SetConn(connState.conn);
+
+                    if (ch.MapId != _mapId)
+                    {
+                        ch.X = _mapProvider.GetMap().SpawnX;
+                        ch.Z = _mapProvider.GetMap().SpawnY;
+                        ch.MapId = _mapId;
+                    }
                     ch.NearbyGridsSeen = new List<PointXZ>();
                     MapObjectGridItem gridItem = _objectManager.AddObject(loadRand, ch, null);
 

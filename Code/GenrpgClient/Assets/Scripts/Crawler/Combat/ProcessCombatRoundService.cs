@@ -6,16 +6,23 @@ using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Services;
+using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.Stats.Services;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.UnitEffects.Constants;
+using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using TMPro;
+using UnityEditor.IMGUI.Controls;
 using UnityEngine.Assertions.Must;
 
 namespace Assets.Scripts.Crawler.Services.Combat
@@ -28,6 +35,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
         private ICrawlerService _crawlerService;
         protected IUnityGameState _gs;
         protected IClientRandom _rand;
+        private IGameData _gameData;
 
         public async Task Initialize(IGameState gs, CancellationToken token)
         {
@@ -78,11 +86,42 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             if (party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Advance)
             {
+                CrawlerSpell chargeSpell = _gameData.Get<CrawlerSpellSettings>(null).GetData().FirstOrDefault(x => x.Name == "Charge");
+
+                int advanceRange = CrawlerCombatConstants.RangeDelta;
+
+                if (chargeSpell != null)
+                {
+                    IReadOnlyList<Class> classes = _gameData.Get<ClassSettings>(null).GetData();
+
+                    int chargeCharacters = 0;
+
+                    List<PartyMember> activeParty = party.GetActiveParty();
+
+                    foreach (PartyMember member in activeParty)
+                    {
+                        foreach (UnitClass unitClass in member.Classes)
+                        {
+                            Class cl = classes.FirstOrDefault(x => x.IdKey == unitClass.ClassId);
+
+                            if (cl.Bonuses.Any(x => x.EntityTypeId == EntityTypes.CrawlerSpell && x.EntityId == chargeSpell.IdKey))
+                            {
+                                chargeCharacters++;
+                                break;
+                            }
+                        }
+                    }
+
+                    advanceRange *= (1 + chargeCharacters);
+                }
+
                 foreach (CombatGroup group in party.Combat.Enemies)
                 {
                     if (group.Range > CrawlerCombatConstants.MinRange)
                     {
-                        group.Range -= CrawlerCombatConstants.RangeDelta;
+                        // Yes this can compress groups that are really far away, feels more rewarding
+                        // even if it's weird that spread out groups get piled on top of each other.
+                        group.Range = Math.Max(CrawlerCombatConstants.MinRange, group.Range - advanceRange);
                     }
                 }
                 party.ActionPanel.AddText("You Advance.");

@@ -12,12 +12,8 @@ namespace Genrpg.Shared.Stats.Entities
     [MessagePackObject]
     public class StatGroup
     {
-        private Stat[][] _stats = null;
+        private int[,] _stats = null;
 
-        public Stat[] GetAllBaseStats()
-        {
-            return _stats[StatCategories.Base];
-        }
         public StatGroup()
         {
             ResetAll();
@@ -25,22 +21,17 @@ namespace Genrpg.Shared.Stats.Entities
 
         public void ResetAll()
         {
-            Stat[][] statCopy = new Stat[StatCategories.Size][];
-            for (int i = 0; i < StatCategories.Size; i++)
-            {
-                statCopy[i] = new Stat[StatTypes.Max];
-            }
-            _stats = statCopy;
+            _stats = new int[StatCategories.Size, StatTypes.Max];
         }
 
         public int Get(long statTypeId, int statCategory)
         {
-            return _stats[statCategory][statTypeId].Val;
+            return _stats[statCategory,statTypeId];
         }
 
         public void Set(long statTypeId, long statCategory, long val)
         {
-            _stats[statCategory][statTypeId].Val = (int)val;
+            _stats[statCategory,statTypeId] = (int)val;
 
         }
 

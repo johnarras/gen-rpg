@@ -15,7 +15,12 @@ using Genrpg.Shared.Setup.Constants;
 
 namespace Assets.Scripts.Model
 {
-    public class ClientRepositoryService : IRepositoryService
+    public interface IClientRepositoryService : IRepositoryService
+    {
+        Task<bool> SavePrettyPrint<T>(T t) where T : class, IStringId;
+    }
+
+    public class ClientRepositoryService : IClientRepositoryService
     {
         private ILogService _logger;
 
@@ -191,5 +196,11 @@ namespace Assets.Scripts.Model
             UpdateAction<T>(docId, action).Wait();
         }
 
+        
+        public async Task<bool> SavePrettyPrint<T>(T t) where T : class, IStringId
+        {
+            IClientRepositoryCollection repo = GetRepositoryFromType(t.GetType());
+            return await repo.SavePrettyPrint(t);
+        }
     }
 }

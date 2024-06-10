@@ -77,6 +77,8 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         {
             return Equipment.FirstOrDefault(x=>x.EquipSlotId == equipSlotId);
         }
+
+        protected override bool AlwaysCreateMissingData() { return true; }
     }
 
     [MessagePackObject]

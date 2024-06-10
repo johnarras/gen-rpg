@@ -47,7 +47,6 @@ public class StatInfoRow : BaseBehaviour
         _uIInitializable.SetText(StatName, _statType.Name);
 
         long curr = unit.Stats.Max(_statTypeId);
-
         
         _uIInitializable.SetText(CurrStat, curr.ToString());
 

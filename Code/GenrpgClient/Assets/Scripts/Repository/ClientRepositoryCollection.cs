@@ -8,10 +8,12 @@ using System.IO;
 using System.Linq.Expressions;
 using Cysharp.Threading.Tasks;
 using Genrpg.Shared.Logging.Interfaces;
+using System.Threading.Tasks;
 
 public interface IClientRepositoryCollection
 {
     UniTask<bool> Save(object t);
+    UniTask<bool> SavePrettyPrint(object t);
     UniTask<object> LoadWithType(Type t, string id);
 }
 
@@ -74,7 +76,7 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
     /// <param name="id">Id to save (key)</param>
     /// <param name="data">Data to save (value)</param>
     /// <returns>Were the parameters ok? Not checking actual save success here.</returns>
-    public async UniTask<bool> StringSave(string id, string data)
+    public async UniTask<bool> StringSave(string id, string data, bool verboseSave = false)
     {
         if (string.IsNullOrEmpty(id))
         {
@@ -86,6 +88,16 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
     }
 
     public async UniTask<bool> Save(object t)
+    {
+        return await SaveInternal(t, false);
+    }
+
+    public async UniTask<bool> SavePrettyPrint(object t)
+    {
+        return await SaveInternal(t, true);
+    }
+
+    private async UniTask<bool> SaveInternal(object t, bool savePrettyPrint)
     {
         if (t == null)
         {
@@ -104,7 +116,7 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
                 return false;
             }
             string key = GetKeyFromId(id);
-            string val = SerializationUtils.Serialize(t);
+            string val = (savePrettyPrint ? SerializationUtils.PrettyPrint(t) : SerializationUtils.Serialize(t));
 
             SaveString(key, val);
         }

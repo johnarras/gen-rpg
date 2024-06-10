@@ -43,6 +43,11 @@ namespace Genrpg.ServerShared.MainServer
             return _gs;
         }
 
+        protected virtual async Task PreInit(object data, object parent, CancellationToken serverToken)
+        {
+            await Task.CompletedTask;
+        }
+
 
         protected virtual async Task FinalInit(ServerGameState gs, object data, object parentObject, CancellationToken serverToken)
         {
@@ -51,6 +56,8 @@ namespace Genrpg.ServerShared.MainServer
 
         public async Task Init(object data, object parentObject, CancellationToken serverToken)
         {
+
+            await PreInit(data, parentObject, serverToken);
             _tokenSource = CancellationTokenSource.CreateLinkedTokenSource(serverToken, _tokenSource.Token);
             _serverId = GetServerId(data);
 

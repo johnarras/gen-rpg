@@ -88,7 +88,7 @@ namespace Genrpg.LoginServer.CommandHandlers
             }
 
             gs.coreCh = coreChar;
-            if (gs.coreCh.X == 0 || gs.coreCh.Z == 0)
+            if (gs.coreCh.MapId != command.MapId)
             {
                 gs.coreCh.X = fullCachedMap.Map.SpawnX;
                 gs.coreCh.Z = fullCachedMap.Map.SpawnY;

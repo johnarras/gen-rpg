@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Assets.Scripts.Model;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler;
 using Assets.Scripts.UI.Crawler.States;
@@ -200,7 +201,10 @@ namespace Assets.Scripts.Crawler.Services
         {
             if (_party != null)
             {
-                await _repoService.Save(_party);
+                IClientRepositoryService clientRepoService = _repoService as IClientRepositoryService;
+
+                await clientRepoService.SavePrettyPrint(_party);
+
             }
         }
 

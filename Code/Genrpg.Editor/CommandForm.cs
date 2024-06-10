@@ -690,7 +690,7 @@ namespace GameEditor
 
                 strExeFilePath = strExeFilePath.Substring(0, lastSlashIndex);
 
-                string fullFilePath = strExeFilePath + "\\ClassSkillImporter.csv";
+                string fullFilePath = strExeFilePath + "\\..\\..\\..\\..\\..\\Spreadsheets\\CrawlerSpellsImport.csv";
 
                 string text = File.ReadAllText(fullFilePath);
 

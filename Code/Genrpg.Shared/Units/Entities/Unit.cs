@@ -205,6 +205,7 @@ namespace Genrpg.Shared.Units.Entities
 
         protected Dictionary<Type, IUnitData> _dataDict = new Dictionary<Type, IUnitData>();
 
+        virtual protected bool AlwaysCreateMissingData() { return false; }
         public virtual T Get<T>() where T : class, IUnitData, new()
         {
             Type t = typeof(T);
@@ -214,7 +215,7 @@ namespace Genrpg.Shared.Units.Entities
                 return (T)_dataDict[t];
             }
 
-            if (!IsPlayer())
+            if (!IsPlayer() || AlwaysCreateMissingData())
             {
                 Set((T)Activator.CreateInstance(typeof(T)));
                 return (T)_dataDict[t];

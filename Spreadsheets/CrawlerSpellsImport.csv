@@ -1,0 +1,62 @@
+,,Warrior,Thief,Hunter,Mage,Cleric,Engineer,Bard,Druid,Barbarian,Paladin,Elementalist
+Count,,7,9,11,15,13,16,14,22,8,11,17
+HealthPerLevel,,20,12,14,6,8,16,14,16,16,18,12
+ManaPerLevel,,6,6,10,20,20,12,12,12,6,15,18
+LevelsPerMelee,,4,6,8,12,12,5,7,6,3,4,8
+LevelsPerRanged,,6,6,3,12,12,4,5,8,7,10,8
+LevelsPerDamage,,14,12,12,2,5,4,6,5,14,5,3
+LevelsPerHeal,,14,12,12,8,2,6,4,5,14,4,7
+CritPercent,,5,20,15,10,5,5,5,5,15,5,10
+ManaStatTypeId,,13,12,12,12,13,12,13,13,12,13,12
+MaxArmorScalingTypeId,,4,2,3,1,1,3,2,2,2,4,3
+Attack,,x,x,x,x,x,x,x,x,x,x,x
+Defend,,x,x,x,x,x,x,x,x,x,x,x
+Shoot,,x,x,x,x,x,x,x,x,x,x,x
+Taunt,5,x,,,,,x,,x,x,x,
+Whirlwind,3,x,,,,,,,x,x,,
+Volley,3,,,x,,,x,x,,,,
+Hide,3,,x,,,,,x,x,,,
+Backstab,3,,x,,,,,x,x,,,
+Disarm Traps,2,,x,,x,,,,,,,
+Pick Lock,2,,x,,,,,x,,,,
+Charm,2,,,,,x,,x,,,,
+Weaken,4,,,,,x,x,,x,x,,
+Silence,4,,,,x,,,x,,x,x,
+Teleport,3,,,,x,,x,,x,,,
+Town Portal,6,,,x,,x,,x,x,,x,x
+Beacon,3,,,,,,x,,x,,,x
+Blink,2,,,,,x,,,x,,,
+Phase Door,4,,x,,x,,x,,x,,,
+Armor,4,x,,,,x,,x,,,x,
+Resist,3,,,,x,,,,x,,,x
+Hit,3,x,,x,,,x,,,,,
+Speed,3,,x,,,,,,x,x,,
+HealthRegen,4,x,,,,x,x,,,,x,
+ManaRegen,3,,,,x,,,,x,,,x
+Leadership,3,x,,,,,,x,,,x,
+DamagePower,4,,x,x,,,x,,,x,,
+Light,5,,,x,x,x,,,,,x,x
+Magic Compass,3,,,x,,,x,,x,,,
+Levitate,4,,,,x,,,x,x,,,x
+Second Sight,3,,x,,,,,,,x,,x
+Mapping,4,,,x,x,,,x,x,,,
+Charge,3,x,,,,,x,,,x,,
+Heal Wounds,6,,,,,x,x,x,x,,x,x
+Heal Party,1,,,,,x,,,,,,
+Cleanse,6,,,,,x,x,x,x,,x,x
+Cleanse Party,2,,,,,x,x,,,,,
+Fireball,3,,,,x,,,x,,,,x
+Firestorm,2,,,,x,,,,,,,x
+Frostbolt,2,,,,x,,,,,,,x
+Cone of Cold,2,,,,x,,,,,,,x
+Lightning Bolt,2,,,,,,,,x,,,x
+Chain Lightning,2,,,,,,,,x,,,x
+Holy Beam,2,,,,,x,,,,,x,
+Holy Nova,2,,,,,x,,,,,x,
+Identify Monster,,,,x,,,,,x,,,x
+Mesmerize,,,,x,,,x,,,,,
+Entangle,,,,x,,,,,x,,,
+Identify Item,,,x,,x,,x,,,,,
+Call Beast,,,,x,,,,,,,,
+Conjure Golem,,,,,x,,,,,,,
+Summon Elemental,,,,,,,,,,,,x

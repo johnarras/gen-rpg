@@ -16,6 +16,7 @@ using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.Spells.Utils;
 using Genrpg.Shared.Crawler.Stats.Utils;
+using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
@@ -293,68 +294,53 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 long statUsedForScaling = 0;
 
                 double attacksPerLevel = 0;
-                double initialAttackQuantity = 0;
+
+                bool quantityIsBaseDamage = false;
 
                 if (effect.EntityTypeId == EntityTypes.Attack)
                 {
                     equipSlotToCheck = EquipSlots.MainHand;
                     statUsedForScaling = StatTypes.Strength;
-
-                    for (int c = 0; c < classes.Count; c++)
-                    {
-                        attacksPerLevel += 1.0 / classes[c].LevelsPerMelee;
-                    }
-                    
                     oneEffect.HitType = EHitTypes.Melee;
+                    attacksPerLevel += classes.Sum(x => 1.0 / x.LevelsPerMelee);
                 }
                 else if (effect.EntityTypeId == EntityTypes.Shoot)
                 {
                     oneEffect.HitType = EHitTypes.Ranged;
                     equipSlotToCheck = EquipSlots.Ranged;                    
                     statUsedForScaling = StatTypes.Agility;
-
-                    for (int c = 0; c < classes.Count; c++)
-                    {
-                        attacksPerLevel += 1.0 / classes[c].LevelsPerRanged;
-                    }
-
+                    attacksPerLevel += classes.Sum(x => 1.0 / x.LevelsPerRanged);
                 }
                 else
                 {
-                    oneEffect.MinQuantity = effect.MinQuantity;
-                    oneEffect.MaxQuantity = effect.MaxQuantity;
-
+                    quantityIsBaseDamage = true;
                     oneEffect.HitType = EHitTypes.Spell;
-                    oneEffect.CritChance = 0;
-                    if (attackQuantity == 0)
-                    {
-                        attackQuantity = abilityLevel;
-                    }
-
-                    if (CrawlerSpellUtils.IsEnemyTarget(spell.TargetTypeId))
+                    equipSlotToCheck = EquipSlots.MainHand;
+                    if (effect.EntityTypeId == EntityTypes.Damage)
                     {
                         statUsedForScaling = StatTypes.Intellect;
-                        for (int c = 0; c < classes.Count; c++)
-                        {
-                            attacksPerLevel += 1.0 / classes[c].LevelsPerDamage;
-                        }
+                        attacksPerLevel += classes.Sum(x => 1.0 / x.LevelsPerDamage);
                     }
-                    else
+                    else if (effect.EntityTypeId == EntityTypes.Healing)
                     {
                         statUsedForScaling = StatTypes.Devotion;
-
-                        for (int c = 0; c < classes.Count; c++)
-                        {
-                            attacksPerLevel += 1.0 / classes[c].LevelsPerHeal;
-                        }
+                        attacksPerLevel += classes.Sum(x => 1.0 / x.LevelsPerHeal);
                     }
-
-                    continue;
                 }
+
                 if (fullEffect.InitialEffect)
                 {
-
                     oneEffect.CritChance = (long)critChance;
+                }
+                if (quantityIsBaseDamage)
+                {
+                    oneEffect.MinQuantity = effect.MinQuantity;
+                    oneEffect.MaxQuantity = effect.MaxQuantity;
+                }
+                else
+                {
+                    oneEffect.MinQuantity = 0;
+                    oneEffect.MaxQuantity = 0;
                 }
 
                 Item weapon = caster.GetEquipmentInSlot(equipSlotToCheck);
@@ -362,15 +348,21 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 {
                     ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(weapon.ItemTypeId);
 
-                    oneEffect.MinQuantity = itype.MinVal;
-                    oneEffect.MaxQuantity = itype.MaxVal;
+                    // Weapon affects physical attacks, not magical.
+                    if (!quantityIsBaseDamage)
+                    {
+                        oneEffect.MinQuantity += itype.MinVal;
+                        oneEffect.MaxQuantity += itype.MaxVal;
+                    }
 
+                    // Loot rank affects both.
                     LootRank lootRank = _gameData.Get<LootRankSettings>(null).Get(weapon.LootRankId);
 
                     if (lootRank != null)
                     {
-                        oneEffect.MinQuantity += lootRank.Damage;
-                        oneEffect.MaxQuantity += lootRank.Damage;
+                        // If the base damage is for the spell, this gets double value.
+                        oneEffect.MinQuantity += lootRank.Damage * (quantityIsBaseDamage ? 2 : 1);
+                        oneEffect.MaxQuantity += lootRank.Damage * (quantityIsBaseDamage ? 2 : 1);
                     }
                 }
                 else if (effect.EntityTypeId == EntityTypes.Attack && caster is Monster monster)
@@ -382,28 +374,31 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 oneEffect.MinQuantity += CrawlerStatUtils.GetStatBonus(caster, statUsedForScaling);
                 oneEffect.MaxQuantity += CrawlerStatUtils.GetStatBonus(caster, statUsedForScaling);
 
+                long baseDamageBonus = CrawlerStatUtils.GetStatBonus(caster, StatTypes.DamagePower);
+
+                oneEffect.MinQuantity += baseDamageBonus;
+                oneEffect.MaxQuantity += baseDamageBonus;
+
                 oneEffect.MinQuantity = Math.Max(oneEffect.MinQuantity, CrawlerCombatConstants.BaseMinDamage);
                 oneEffect.MaxQuantity = Math.Max(oneEffect.MaxQuantity, CrawlerCombatConstants.BaseMaxDamage);
 
-                if (effect.MinQuantity == 0 && effect.MaxQuantity == 0 && fullEffect.InitialEffect)
+                if (fullEffect.InitialEffect && caster is PartyMember partyMember)
                 {
-                    long tempAttackQuantity = CrawlerCombatConstants.BaseAttackQuantity;
 
-                    if (initialAttackQuantity > 0)
+                    if (effect.MinQuantity > 0 && effect.MaxQuantity > 0 && !quantityIsBaseDamage)
                     {
-                         tempAttackQuantity = (long)Math.Floor(initialAttackQuantity + attacksPerLevel * abilityLevel);
+                        attackQuantity = MathUtils.LongRange(effect.MinQuantity, effect.MaxQuantity, _rand);
                     }
+                    else
+                    {
+                        double currAttackQuantity = CrawlerCombatConstants.BaseAttackQuantity +
+                            attacksPerLevel * (abilityLevel-1); // -1 here since so level 1 doesn't double dip.
 
-                    if (tempAttackQuantity > 0 &&
-                        (tempAttackQuantity < attackQuantity ||
-                        attackQuantity == 0))
-                    {
-                        attackQuantity = tempAttackQuantity;
+                        if (currAttackQuantity > attackQuantity)
+                        {
+                            attackQuantity = (long)currAttackQuantity;
+                        }
                     }
-                }
-                else
-                {
-                    attackQuantity = MathUtils.LongRange(effect.MinQuantity, effect.MaxQuantity, _rand);
                 }
             }
 
@@ -648,7 +643,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             long newQuantity = 0;
             string fullAction = null;
 
-            long casterHit = caster.Stats.Curr(StatTypes.Hit);
+            long casterHit = caster.Stats.Max(StatTypes.Hit);
             CrawlerUnit healTarget = target;
 
             bool casterIsWeak = caster.StatusEffects.HasBit(StatusEffects.Weak);
@@ -696,9 +691,9 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         else
                         {
                             long defenseStatId = StatTypes.Armor;
-                            long mult = (isSingleTarget || !fullEffect.InitialEffect ? 1 : spell.Level);
+                            long mult = 1;
                             newQuantity = MathUtils.LongRange(hit.MinQuantity * mult, hit.MaxQuantity * mult, _rand);
-                            if (effect.EntityTypeId == EntityTypes.Damage)
+                             if (effect.EntityTypeId == EntityTypes.Damage)
                             {
                                 defenseStatId = StatTypes.Resist;
                                 if (casterIsFeebleMind)
@@ -725,7 +720,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                             }
                             newQuantity = (long)Math.Max(1, newQuantity * damageScale);
 
-                            long defenseStat = target.Stats.Curr(defenseStatId);
+                            long defenseStat = target.Stats.Max(defenseStatId);
 
                             if (casterHit < defenseStat)
                             {
