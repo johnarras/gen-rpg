@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Crawler.Constants;
 using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Tavern.DeleteMember
     {
         public override ECrawlerStates GetKey() {  return ECrawlerStates.DeleteConfirm; }
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
         {
 
             
@@ -50,7 +50,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Tavern.DeleteMember
 
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", KeyCode.Escape, ECrawlerStates.DeleteMember));
-            await UniTask.CompletedTask;
+            
             return stateData;
         }
     }

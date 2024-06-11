@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
@@ -10,6 +10,7 @@ using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.Rocks;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using UnityEngine;
 
 internal class FullRockType
 {
@@ -37,7 +38,7 @@ public class AddRocks : BaseZoneGenerator
 {
     public const float RandomRockDensity = 1.0f / 4000.0f;
     public int TriesPerRock = 20;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         foreach (Zone zone in _mapProvider.GetMap().Zones)

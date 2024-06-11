@@ -1,7 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using System.Threading;
+using UnityEngine;
 
 public interface IZoneGenerator
 {
-    UniTask Generate(CancellationToken token);
+    Awaitable Generate(CancellationToken token);
 }

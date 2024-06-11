@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.Clutter;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using UnityEngine;
 
 public class AddClutter : BaseZoneGenerator
 {
@@ -14,7 +15,7 @@ public class AddClutter : BaseZoneGenerator
     public const float MaxSteepness = 15;
     public const float RandomClutterDensity = 0.00025f;
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
 

@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Constants;
@@ -7,13 +7,14 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.GroundObjects.Settings;
+using UnityEngine;
 
 public class GroundObjectLoader : BaseMapObjectLoader
 {
     public override long GetKey() { return EntityTypes.GroundObject; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 
-    public override async UniTask Load(OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async Awaitable Load(OnSpawn spawn, MapObject obj, CancellationToken token)
     {
         GroundObjType groundObjType = _gameData.Get<GroundObjTypeSettings>(_gs.ch).Get(spawn.EntityId);
         if (groundObjType == null)
@@ -32,7 +33,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
 
         _assetService.LoadAsset(AssetCategoryNames.Props, groundObjType.Art, OnDownloadGroundObject, loadData, null, token);
 
-        await UniTask.CompletedTask;
+        
         return;
     }
 

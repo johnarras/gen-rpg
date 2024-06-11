@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.MapTerrain;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using System.Collections.Generic;
@@ -15,12 +15,12 @@ public interface IMapTerrainManager : IInitializable
     void RemovePatchFromPrototypes(int gx, int gy);
     TerrainTextureData GetFromTerrainTextureCache(string textureName);
     void Clear();
-    UniTask SetupOneTerrainPatch(int gx, int gy, CancellationToken token);
+    Awaitable SetupOneTerrainPatch(int gx, int gy, CancellationToken token);
     bool AddingPatches();
     List<Terrain> GetTerrains();
     TerrainPatchData GetPatchFromMapPos(float worldx, float worldy);
     TerrainPatchData GetMapGrid(int gx, int gy);
-    UniTask AddPatchObjects(int gx, int gy, CancellationToken token);
+    Awaitable AddPatchObjects(int gx, int gy, CancellationToken token);
     void AddToTerrainTextureCache(string textureName, TerrainTextureData data);
     void ClearPatches();
     GEntity GetPrototypeParent();

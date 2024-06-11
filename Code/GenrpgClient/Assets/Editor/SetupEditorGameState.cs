@@ -5,14 +5,14 @@ using System.Threading;
 using Genrpg.Shared.GameSettings;
 using Assets.Scripts.GameSettings.Services;
 using System;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Interfaces;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 public class SetupEditorUnityGameState
 {
-    public static async UniTask<IUnityGameState> Setup(IUnityGameState gs = null)
+    public static async Awaitable<IUnityGameState> Setup(IUnityGameState gs = null)
     {
 
         CancellationTokenSource _cts = new CancellationTokenSource();

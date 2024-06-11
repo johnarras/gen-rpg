@@ -1,7 +1,7 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Charms.PlayerData;
-using System.Collections.Generic;
 using System.Threading;
+using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.UI.Charms
@@ -13,7 +13,7 @@ namespace Assets.Scripts.UI.Charms
         public GEntity RowParent;
 
 
-        protected override async UniTask OnStartOpen(object data, CancellationToken token)
+        protected override async Awaitable OnStartOpen(object data, CancellationToken token)
         {
             PlayerCharmData charmData = _gs.ch.Get<PlayerCharmData>();
 
@@ -23,7 +23,7 @@ namespace Assets.Scripts.UI.Charms
             }
 
 
-            await UniTask.CompletedTask;
+            
         }
 
         private void OnLoadStatusRow (object obj, object data, CancellationToken token)

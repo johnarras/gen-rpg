@@ -6,7 +6,7 @@ using System.Linq;
 using UI.Screens.Utils;
 using System.Threading;
 using Assets.Scripts.Tokens;
-using Cysharp.Threading.Tasks;
+
 using UnityEngine;
 using Genrpg.Shared.UI.Settings;
 using Genrpg.Shared.Analytics.Services;
@@ -128,10 +128,10 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
 
     private void OnLoadScreen(object obj, object data, CancellationToken token)
     {
-        OnLoadScreenAsync(obj, data, token).Forget();
+        OnLoadScreenAsync(obj, data, token);
     }
 
-    private async UniTask OnLoadScreenAsync (object obj, object data, CancellationToken token)
+    private async Awaitable OnLoadScreenAsync (object obj, object data, CancellationToken token)
     { 
         GEntity screen = obj as GEntity;
         ActiveScreen nextItem = data as ActiveScreen;

@@ -1,7 +1,7 @@
 
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
@@ -10,6 +10,7 @@ using System.Threading;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using UnityEngine;
 
 public class AddMountainTextures : BaseZoneGenerator
 {
@@ -19,7 +20,7 @@ public class AddMountainTextures : BaseZoneGenerator
 	public const float MaxSteepnessPerturbDelta = 15f;
 
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         foreach (Zone zone in _mapProvider.GetMap().Zones)

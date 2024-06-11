@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Entities.Constants;
@@ -10,6 +10,7 @@ using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.GroundObjects.Settings;
+using UnityEngine;
 
 public class ZoneResourceNodeData
 {
@@ -35,7 +36,7 @@ public class AddResourceNodes : BaseZoneGenerator
     private List<ResourceNodeData> _resources = null;
 
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
 
         await base.Generate(token);

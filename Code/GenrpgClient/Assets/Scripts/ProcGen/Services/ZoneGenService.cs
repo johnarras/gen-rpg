@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
@@ -31,11 +31,12 @@ using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
 using Assets.Scripts.ProcGen.RandomNumbers;
+using UnityEngine;
 
 public interface IZoneGenService : IInitializable
 {
     void CancelMapToken();
-    UniTask SetOnePatchAlphamaps(TerrainPatchData patch, CancellationToken token);
+    Awaitable SetOnePatchAlphamaps(TerrainPatchData patch, CancellationToken token);
     void SetOnePatchHeightmaps(TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null);
     void InstantiateMap(string mapId);
     Zone Generate(long zoneId, long zoneTypeId, long extraSeed);
@@ -53,7 +54,7 @@ public interface IZoneGenService : IInitializable
         
     void LoadMap(LoadIntoMapCommand loadData);
     void InitTerrainSettings(int gx, int gy, int patchSize, CancellationToken token);
-    UniTask OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token);
+    Awaitable OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token);
 }
 
 public class ZoneGenService : IZoneGenService, IGameTokenService
@@ -91,14 +92,14 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
     }
 
-    public virtual async UniTask OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token)
+    public virtual async Awaitable OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token)
     {
-        await UniTask.CompletedTask;
+        
     }
 
-    public virtual async UniTask SetOnePatchAlphamaps(TerrainPatchData patch, CancellationToken token)
+    public virtual async Awaitable SetOnePatchAlphamaps(TerrainPatchData patch, CancellationToken token)
     {
-        await UniTask.CompletedTask;
+        
     }
 
     public virtual void SetOnePatchHeightmaps(TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null)

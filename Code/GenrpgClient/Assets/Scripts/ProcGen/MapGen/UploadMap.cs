@@ -1,14 +1,15 @@
 using Assets.Scripts.MapTerrain;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Login.Messages.UploadMap;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
+using UnityEngine;
 
 public class UploadMap : BaseZoneGenerator
 {
     private IWebNetworkService _webNetworkService;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
 
         await base.Generate(token);
@@ -55,9 +56,9 @@ public class UploadMap : BaseZoneGenerator
     }
 
 
-    private async UniTask DelaySendMapSizes(CancellationToken token)
+    private async Awaitable DelaySendMapSizes(CancellationToken token)
     {
-        await UniTask.Delay(2000, cancellationToken: token);
+        await Awaitable.WaitForSecondsAsync(2.0f, cancellationToken: token);
         UploadMapCommand update = new UploadMapCommand()
         {
             Map = _mapProvider.GetMap(),
@@ -73,7 +74,7 @@ public class UploadMap : BaseZoneGenerator
         await _repoService.Save(_mapProvider.GetSpawns());
         _mapProvider.GetSpawns().Id = oldMapId;
         _webNetworkService.SendClientWebCommand(update, _token);
-        await UniTask.CompletedTask;
+        
     }
 }
 	

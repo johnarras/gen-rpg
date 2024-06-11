@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
@@ -17,7 +17,7 @@ public class AddZoneNoise : BaseZoneGenerator
     private const float _freqDiv = 1000f;
     private const float _lacunarity = 1.5f;
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         int noiseSize = _mapProvider.GetMap().GetHwid();
         float ampDelta = 0.05f;
@@ -43,6 +43,6 @@ public class AddZoneNoise : BaseZoneGenerator
                 _md.overrideZoneScales[x, y] = 1-MathUtils.Clamp(0, Math.Abs(heights[x, y]), 1);
             }
         }
-        await UniTask.CompletedTask;
+        
     }
 }

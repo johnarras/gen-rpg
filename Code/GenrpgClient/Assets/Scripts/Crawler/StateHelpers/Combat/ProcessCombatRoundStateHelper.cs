@@ -2,12 +2,13 @@
 using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.Crawler.UI.Utils;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Units.Loaders;
 using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEngine;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Combat
 {
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.ProcessCombatRound; }
         
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -30,29 +31,29 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                 stateData = new CrawlerStateData(ECrawlerStates.CombatFightRun, true);
             }
 
-            ProcessCombat(party, token).Forget();
+            ProcessCombat(party, token);
 
-            await UniTask.CompletedTask;
+            
             return stateData;
         }
 
-        private async UniTask ProcessCombat(PartyData party, CancellationToken token)
+        private async Awaitable ProcessCombat(PartyData party, CancellationToken token)
         {
 
-            await UniTask.Delay(100, cancellationToken: token);
+            await Awaitable.WaitForSecondsAsync(0.1f, cancellationToken: token);
             bool success = await _processCombatService.ProcessCombatRound(party, token);
 
             party.ActionPanel.AddText($"\n\nPress {CrawlerUIUtils.HighlightText("Space")} to continue...\n\n");
             
             for (int i = 0; i < 1; i++)
             {
-                await UniTask.NextFrame(token);
+                await Awaitable.NextFrameAsync(token);
                 party.ActionPanel.AddText("\n");
             }
 
             while (!party.SpeedupListener.TriggerSpeedupNow())
             {
-                await UniTask.NextFrame(token);
+                await Awaitable.NextFrameAsync(token);
             }
 
             if (!success || party.Combat == null)

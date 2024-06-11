@@ -1,6 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
-using Genrpg.Shared.Crawler.Parties.PlayerData;
+﻿
+
 using Genrpg.Shared.Crawler.UI.Interfaces;
 using System.Collections.Generic;
 using System.Threading;
@@ -19,7 +18,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
     {
         public GRawImage WorldImage;
 
-        public override async UniTask Init(CrawlerScreen screen, CancellationToken token)
+        public override async Awaitable Init(CrawlerScreen screen, CancellationToken token)
         {
             await base.Init(screen, token);
             _dispatcher.AddEvent<ShowWorldPanelImage>(this, OnShowWorldPanelImage);

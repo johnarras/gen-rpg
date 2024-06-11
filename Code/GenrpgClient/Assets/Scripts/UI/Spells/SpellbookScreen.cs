@@ -2,7 +2,7 @@
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using Assets.Scripts.Atlas.Constants;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using Genrpg.Shared.SpellCrafting.Messages;
 using UnityEngine;
@@ -49,7 +49,7 @@ public class SpellbookScreen : SpellIconScreen
 
     private List<SpellEffectEdit> _effectEdits = new List<SpellEffectEdit>();
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         _dispatcher.AddEvent<OnCraftSpell>(this, OnCraftSpellHandler);
@@ -67,7 +67,7 @@ public class SpellbookScreen : SpellIconScreen
         {
             _assetService.GetSpriteList(AtlasNames.SkillIcons, OnLoadSprites, token);
         }
-        await UniTask.CompletedTask;
+        
     }
 
     private void OnLoadSprites(Sprite[] sprites)

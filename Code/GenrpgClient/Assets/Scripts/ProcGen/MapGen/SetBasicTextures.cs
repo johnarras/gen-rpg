@@ -1,5 +1,5 @@
 
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
@@ -17,7 +17,7 @@ public class SetBasicTerrainTextures : BaseZoneGenerator
 
     }
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
 

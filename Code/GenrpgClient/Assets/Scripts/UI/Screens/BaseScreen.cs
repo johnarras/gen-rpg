@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using UI.Screens.Constants;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using UnityEngine.UI; // FIX
 using Unity.IO.LowLevel.Unsafe;
+using UnityEngine;
 
 public abstract class BaseScreen : AnimatorBehaviour, IScreen
 {
@@ -21,7 +22,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
   
 
     // Called when screen first opens.
-    protected abstract UniTask OnStartOpen(object data, CancellationToken token);
+    protected abstract Awaitable OnStartOpen(object data, CancellationToken token);
 
 
     public override void Initialize(IUnityGameState gs)
@@ -58,7 +59,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
         return _raycasters;
     }
 
-    public virtual async UniTask StartOpen(object data, CancellationToken token)
+    public virtual async Awaitable StartOpen(object data, CancellationToken token)
     {
         _screenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
         _token = _screenSource.Token;

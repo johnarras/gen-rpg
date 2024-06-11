@@ -2,23 +2,10 @@
 using Assets.Scripts.Crawler.StateHelpers.Combat;
 using Assets.Scripts.Crawler.StateHelpers.Selection.Entities;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Crawler.Combat.Entities;
-using Genrpg.Shared.Crawler.Combat.Utils;
-using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using Genrpg.Shared.Crawler.Spells.Entities;
-using Genrpg.Shared.Spells.Constants;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Selection
 {
@@ -26,7 +13,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.SelectAlly; }
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -53,7 +40,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
 
             stateData.Actions.Add(new CrawlerStateAction("", KeyCode.Escape, ECrawlerStates.ExploreWorld));
 
-            await UniTask.CompletedTask;
+            
             return stateData;
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Core.Entities;
 using ClientEvents;
 using UI.Screens.Constants;

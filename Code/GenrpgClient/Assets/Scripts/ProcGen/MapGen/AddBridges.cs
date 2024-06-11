@@ -1,11 +1,9 @@
 
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.ProcGen.Settings.Bridges;
@@ -13,6 +11,7 @@ using Genrpg.Shared.ProcGen.Settings.MapWater;
 using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.Zones.WorldData;
 using Assets.Scripts.ProcGen.Loading.Utils;
+using UnityEngine;
 
 public class AddBridges : BaseZoneGenerator
 {
@@ -21,7 +20,7 @@ public class AddBridges : BaseZoneGenerator
     private List<WaterGenData> _waterGenData = new List<WaterGenData>();
 
 	public const string DefaultBridgeArtName = "Bridge";
-	public override async UniTask Generate (CancellationToken token)
+	public override async Awaitable Generate (CancellationToken token)
     {
         await base.Generate(token);
         if (_md.bridgeDistances == null)

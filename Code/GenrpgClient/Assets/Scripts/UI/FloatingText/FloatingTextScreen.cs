@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.DataStores.Entities;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
+using UnityEngine;
 
 public enum EFloatingTextArt
 {
@@ -44,10 +45,10 @@ public class FloatingTextScreen : BaseScreen
         base.OnDisable();
     }
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         _dispatcher.AddEvent<ShowFloatingText>(this, OnReceiveMessage);
-        await UniTask.CompletedTask;
+        
     }
 
     private void OnReceiveMessage(ShowFloatingText message)

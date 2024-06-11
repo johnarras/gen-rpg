@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using UnityEngine;
 using Genrpg.Shared.Utils;
@@ -12,6 +12,8 @@ using Genrpg.Shared.Logging.Interfaces;
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using Assets.Scripts.ProcGen.RandomNumbers;
+using Assets.Scripts.Assets.Bundles;
+
 
 
 
@@ -69,7 +71,7 @@ public class BundleCacheData
 {
     public string name;
     public AssetBundle assetBundle;
-    public DateTime lastUsed = DateTime.UtcNow;
+    public DateTime LastUsed = DateTime.UtcNow;
     public int LoadingCount;
     public Dictionary<string, object> LoadedAssets = new Dictionary<string, object>();
     public List<object> Instances = new List<object>();
@@ -165,14 +167,14 @@ public class UnityAssetService : IAssetService
         AssetUtils.GetPerisistentDataPath();
         for (int i = 0; i < _maxConcurrentExistingDownloads; i++)
         {
-            LoadFromExistingBundles(true, token).Forget();
+            LoadFromExistingBundles(true, token);
         }
         for (int i = 0; i < _maxConcurrentBundleDownloads; i++)
         {
-            DownloadNewBundles(token).Forget();
+            DownloadNewBundles(token);
         }
 
-        IncrementalClearMemoryCache(token).Forget();
+        IncrementalClearMemoryCache(token);
         LoadLastSaveTimeFile(token);
 
         await Task.CompletedTask;
@@ -220,14 +222,14 @@ public class UnityAssetService : IAssetService
         }
 
         _bundleCache = newBundleCache;
-        AssetUtils.UnloadUnusedAssets(token).Forget();
+        AssetUtils.UnloadUnusedAssets(token);
     }
 
-    protected async UniTask IncrementalClearMemoryCache(CancellationToken token)
+    protected async Awaitable IncrementalClearMemoryCache(CancellationToken token)
     {
         while (true)
         {
-            await UniTask.Delay(5000, cancellationToken: token);
+            await Awaitable.WaitForSecondsAsync(5.0f, cancellationToken: token);
 
             int removeCount = 0;
             List<string> bundleCacheKeys = _bundleCache.Keys.ToList();
@@ -238,7 +240,7 @@ public class UnityAssetService : IAssetService
                     if (bundle.LoadingCount < 1 &&
                         bundle.assetBundle != null &&
                         !bundle.KeepLoaded &&
-                        bundle.lastUsed < DateTime.UtcNow.AddSeconds(-20))
+                        bundle.LastUsed < DateTime.UtcNow.AddSeconds(-20))
                     {
                         if (bundle.Instances.Any(x => x.Equals(null)))
                         {
@@ -258,7 +260,7 @@ public class UnityAssetService : IAssetService
                         {
                             break;
                         }
-                        await UniTask.NextFrame(cancellationToken: token);
+                        await Awaitable.NextFrameAsync(cancellationToken: token);
                     }
                 }
             }
@@ -269,7 +271,7 @@ public class UnityAssetService : IAssetService
         }
     }
 
-    private async UniTask AsyncUnloadAssets(CancellationToken token)
+    private async Awaitable AsyncUnloadAssets(CancellationToken token)
     {
         await AssetUtils.UnloadUnusedAssets(token);
     }
@@ -443,7 +445,7 @@ public class UnityAssetService : IAssetService
 
         if (_bundleCache.ContainsKey(bundleName))
         {
-            _bundleCache[bundleName].lastUsed = DateTime.UtcNow;
+            _bundleCache[bundleName].LastUsed = DateTime.UtcNow;
             _existingDownloads.Enqueue(currentBundleDownload);
             return;
         }
@@ -496,14 +498,14 @@ public class UnityAssetService : IAssetService
         return _isInitialized;
     }
 
-    private async UniTask PermanentLoadFromExistingBundles(CancellationToken token)
+    private async Awaitable PermanentLoadFromExistingBundles(CancellationToken token)
     {
         await LoadFromExistingBundles(true, token);
     }
 
-    private async UniTask LoadFromExistingBundles(bool isPermanentLoader, CancellationToken token)
+    private async Awaitable LoadFromExistingBundles(bool isPermanentLoader, CancellationToken token)
     {
-        await UniTask.NextFrame(cancellationToken: token);
+        await Awaitable.NextFrameAsync(cancellationToken: token);
 
         while (true)
         {
@@ -512,7 +514,7 @@ public class UnityAssetService : IAssetService
                 await LoadAssetFromExistingBundle(_existingDownloads.Dequeue(), token);
                 if (_rand.NextDouble() < _loadDelayChance)
                 {
-                    await UniTask.NextFrame(cancellationToken: token);
+                    await Awaitable.NextFrameAsync(cancellationToken: token);
                 }
             }
             else
@@ -521,12 +523,12 @@ public class UnityAssetService : IAssetService
                 {
                     return;
                 }
-                await UniTask.NextFrame(cancellationToken: token);
+                await Awaitable.NextFrameAsync(cancellationToken: token);
             }
         }
     }
 
-    private async UniTask DownloadNewBundles(CancellationToken token)
+    private async Awaitable DownloadNewBundles(CancellationToken token)
     {
         while (true)
         {
@@ -537,7 +539,7 @@ public class UnityAssetService : IAssetService
                 _bundleDownloadQueue.Remove(firstKey);
                 if (firstDownloadList.Count < 1)
                 {
-                    await UniTask.NextFrame(cancellationToken: token);
+                    await Awaitable.NextFrameAsync(cancellationToken: token);
                 }
                 else
                 {
@@ -562,12 +564,12 @@ public class UnityAssetService : IAssetService
             }
             else
             {
-                await UniTask.NextFrame(cancellationToken: token);
+                await Awaitable.NextFrameAsync(cancellationToken: token);
             }
         }
     }
 
-    private async UniTask LoadAssetFromExistingBundle(BundleDownload bdl, CancellationToken token)
+    private async Awaitable LoadAssetFromExistingBundle(BundleDownload bdl, CancellationToken token)
     {
         // Need to check existence of bundle here since this call is delayed from when 
         if (bdl == null || !_bundleCache.ContainsKey(bdl.bundleName))
@@ -576,7 +578,7 @@ public class UnityAssetService : IAssetService
         }
         BundleCacheData bdata = _bundleCache[bdl.bundleName];
         bdata.LoadingCount++;
-        bdata.lastUsed = DateTime.UtcNow;
+        bdata.LastUsed = DateTime.UtcNow;
         if (!bdata.LoadedAssets.ContainsKey(bdl.assetName))
         {
 
@@ -585,7 +587,7 @@ public class UnityAssetService : IAssetService
             {
                 while (!request.isDone)
                 {
-                    await UniTask.NextFrame(cancellationToken: token);
+                    await Awaitable.NextFrameAsync(cancellationToken: token);
                 }
                 bdata.LoadedAssets[bdl.assetName] = request.asset;
             }
@@ -617,7 +619,7 @@ public class UnityAssetService : IAssetService
         {
             name = bad.bundleName,
             assetBundle = downloadedBundle,
-            lastUsed = DateTime.UtcNow,
+            LastUsed = DateTime.UtcNow,
             KeepLoaded = (bad.bundleName.IndexOf("atlas") == 0
             || bad.bundleName.IndexOf("screen") == 0
             || bad.bundleName.IndexOf("ui") == 0),
@@ -1025,7 +1027,7 @@ public class UnityAssetService : IAssetService
         return GetContentRootURL(false) + AssetUtils.GetRuntimePrefix() + bundleName + "_" + GetBundleHash(bundleName);
     }
 
-    private async UniTask DownloadOneBundle(BundleDownload bad, CancellationToken token)
+    private async Awaitable DownloadOneBundle(BundleDownload bad, CancellationToken token)
     {
         if (string.IsNullOrEmpty(bad.url))
         {
@@ -1047,7 +1049,7 @@ public class UnityAssetService : IAssetService
                 UnityWebRequestAsyncOperation asyncOp = request.SendWebRequest();
                 while (!asyncOp.isDone)
                 {
-                    await UniTask.NextFrame(cancellationToken: token);
+                    await Awaitable.NextFrameAsync(cancellationToken: token);
                 }
 
                 AssetBundle downloadedBundle = null;
@@ -1074,7 +1076,7 @@ public class UnityAssetService : IAssetService
                 else
                 {
                     request.Dispose();
-                    await UniTask.Delay(TimeSpan.FromSeconds(1.1f), cancellationToken: token);
+                    await Awaitable.WaitForSecondsAsync(1.1f, cancellationToken: token);
                 }
             }
         }
@@ -1097,12 +1099,8 @@ public class UnityAssetService : IAssetService
         GEntity go = InstantiateIntoParent(child, parent);
         if (go != null)
         {
-            go.GetCancellationTokenOnDestroy().Register(() => 
-            { 
-                bundleCache.Instances.Remove(go);
-                bundleCache.lastUsed = DateTime.UtcNow;
-            });
-
+            BundleCacheItem cacheItem = go.AddComponent<BundleCacheItem>();
+            cacheItem.RegisterCache(bundleCache);
             bundleCache.Instances.Add(go);
         }
         else
@@ -1204,14 +1202,14 @@ public class UnityAssetService : IAssetService
         return go;
     }
     
-    public async UniTask<GEntity> LoadAssetAsync(string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null)
+    public async Awaitable<GEntity> LoadAssetAsync(string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null)
     {
         GEntityContainer cont = new GEntityContainer();
         LoadAsset(assetCategory, assetPath, OnLoadEntityAsync, cont, null, token, subdirectory);
 
         while (cont.Entity == null && !cont.FailedLoad)
         {
-            await UniTask.NextFrame(token);
+            await Awaitable.NextFrameAsync(token);
         }
 
         return cont.Entity;

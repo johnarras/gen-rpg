@@ -2,7 +2,7 @@
 using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Dungeons.Settings;
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         public override ECrawlerMapTypes GetKey() { return ECrawlerMapTypes.City; }
 
-        public override async UniTask<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
+        public override async Awaitable<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
             partyData.MapId = mapData.MapId;
             partyData.MapX = mapData.MapX;
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             mapRoot.DrawZ = partyData.MapZ * CrawlerMapConstants.BlockSize;
             mapRoot.DrawY = CrawlerMapConstants.BlockSize / 2;
 
-            await UniTask.CompletedTask;
+            
             return mapRoot;
         }
 
@@ -243,13 +243,13 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         }
 
 
-        public override async UniTask DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token)
+        public override async Awaitable DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token)
         {
             if (mapRoot.Assets == null)
             {
                 return;
             }
-            await UniTask.CompletedTask;
+            
             int bz = CrawlerMapConstants.BlockSize;
 
             if (cell.Content == null)

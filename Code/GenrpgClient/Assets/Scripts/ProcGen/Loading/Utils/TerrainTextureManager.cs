@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
@@ -34,8 +34,8 @@ public class DownloadTerrainTextureData
 
 public interface ITerrainTextureManager : IInjectable
 {
-    UniTask SetOneTerrainPatchLayers(TerrainPatchData patch, CancellationToken token, bool allAtOnce = false);
-    UniTask DownloadAllTerrainTextures(CancellationToken token);
+    Awaitable SetOneTerrainPatchLayers(TerrainPatchData patch, CancellationToken token, bool allAtOnce = false);
+    Awaitable DownloadAllTerrainTextures(CancellationToken token);
 }
 
 public class TerrainTextureManager : ITerrainTextureManager
@@ -49,7 +49,7 @@ public class TerrainTextureManager : ITerrainTextureManager
     protected IUnityGameState _gs;
     protected IMapGenData _md;
 
-    public async UniTask SetOneTerrainPatchLayers(TerrainPatchData patch, CancellationToken token, bool allAtOnce = false)
+    public async Awaitable SetOneTerrainPatchLayers(TerrainPatchData patch, CancellationToken token, bool allAtOnce = false)
     {
         Terrain terr = patch.terrain as Terrain;
         if (terr == null || terr.terrainData == null)
@@ -90,13 +90,13 @@ public class TerrainTextureManager : ITerrainTextureManager
         await DelayLoadSplats(terr, patch, allAtOnce, token);
     }
 
-    private async UniTask DelayLoadSplats(Terrain terr, TerrainPatchData patch, bool allAtOnce, CancellationToken token)
+    private async Awaitable DelayLoadSplats(Terrain terr, TerrainPatchData patch, bool allAtOnce, CancellationToken token)
     {
         for (int l = 0; l < patch.TerrainTextureIndexes.Count; l++)
         {
             if (!allAtOnce)
             {
-                await UniTask.NextFrame(cancellationToken: token);
+                await Awaitable.NextFrameAsync(cancellationToken: token);
             }
 
             SetupTerrainTexture(terr, patch.TerrainTextureIndexes[l], l, token);
@@ -244,7 +244,7 @@ public class TerrainTextureManager : ITerrainTextureManager
         SetNewTerrainLayer(ddata.Terr, ddata.TextureIndex, tdata);
     }
 
-    public async UniTask DownloadAllTerrainTextures(CancellationToken token)
+    public async Awaitable DownloadAllTerrainTextures(CancellationToken token)
     {
         foreach (TextureType textureType in _gameData.Get<TextureTypeSettings>(_gs.ch).GetData())
         {
@@ -254,14 +254,14 @@ public class TerrainTextureManager : ITerrainTextureManager
             _assetService.LoadAssetInto(_terrainManager.GetTerrainTextureParent(), AssetCategoryNames.TerrainTex, textureType.Name, OnDownloadTextureToCache, newDownloadData, token);
         }
 
-        await UniTask.Delay(1000, cancellationToken: token);
+        await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: token);
 
         while (_assetService.IsDownloading(_gs))
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
 
-        await UniTask.Delay(100 * _gameData.Get<TextureTypeSettings>(_gs.ch).GetData().Count, cancellationToken: token);
+        await Awaitable.WaitForSecondsAsync(0.1f * _gameData.Get<TextureTypeSettings>(_gs.ch).GetData().Count, cancellationToken: token);
     }
     private void OnDownloadTextureToCache(object obj, object dataIn, CancellationToken token)
     {

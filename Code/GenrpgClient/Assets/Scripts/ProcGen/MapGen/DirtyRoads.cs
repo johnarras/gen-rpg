@@ -1,22 +1,23 @@
 using System;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using UnityEngine;
 
 public class DirtyRoads : BaseZoneGenerator
 {
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
             GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.XMax, zone.ZMin, zone.ZMax);
         }
-        await UniTask.CompletedTask;
+        
     }
 
     public void GenerateOne (Zone zone, ZoneType zoneType, int minx, int maxx, int miny, int maxy)

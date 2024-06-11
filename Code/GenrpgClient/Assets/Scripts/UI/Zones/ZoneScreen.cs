@@ -2,7 +2,7 @@
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using UnityEngine;
 using Genrpg.Shared.Zones.WorldData;
@@ -20,10 +20,10 @@ public class ZoneScreen : BaseScreen
     private IMapProvider _mapProvider;
 
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         Setup();
-        await UniTask.CompletedTask;
+        
     }
 
     private void Setup()

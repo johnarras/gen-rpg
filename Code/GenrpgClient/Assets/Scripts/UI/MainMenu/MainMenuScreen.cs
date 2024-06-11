@@ -1,6 +1,7 @@
 ﻿
 using System.Threading;
-using Cysharp.Threading.Tasks;
+using UnityEngine;
+
 
 public class MainMenuScreen : BaseScreen
 {
@@ -10,13 +11,13 @@ public class MainMenuScreen : BaseScreen
     public GButton QuitGameButton;
 
     protected IClientLoginService _loginService;
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         _uIInitializable.SetButton(LogoutAccountButton, GetName(), ClickLogout);
         _uIInitializable.SetButton(QuitGameButton, GetName(), ClickQuit);
         _uIInitializable.SetButton(ExitMapButton, GetName(), ExitMap);
 
-        await UniTask.CompletedTask;
+        
     }
 
 

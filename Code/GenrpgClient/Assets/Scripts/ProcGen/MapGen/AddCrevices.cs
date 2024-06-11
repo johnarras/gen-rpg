@@ -1,27 +1,13 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using GEntity = UnityEngine.GameObject;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-
-using Cysharp.Threading.Tasks;
-
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
-
 using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.LineGen;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using UnityEngine;
 
 public class CreviceData
 {
@@ -48,7 +34,7 @@ public class AddCrevices : BaseZoneGenerator
 
     protected ILineGenService _lineGenService;
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
 

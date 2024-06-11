@@ -1,10 +1,11 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
+
 using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Logging.Interfaces;
+using UnityEngine;
 
 public class SignupScreen : BaseScreen
 {
@@ -19,11 +20,10 @@ public class SignupScreen : BaseScreen
     protected IClientLoginService _loginService;
     protected IRepositoryService _repoService;
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         _uIInitializable.SetButton(LoginButton, GetName(), ClickLogin);
-        _uIInitializable.SetButton(SignupButton, GetName(), ClickSignup);
-        await UniTask.CompletedTask;
+        _uIInitializable.SetButton(SignupButton, GetName(), ClickSignup);       
     }
 
     public void ClickLogin()
@@ -71,7 +71,7 @@ public class SignupScreen : BaseScreen
             Name = name,
         };
 
-        _loginService.LoginToServer(loginCommand, _token).Forget();
+        _loginService.LoginToServer(loginCommand, _token);
 
     }
 }

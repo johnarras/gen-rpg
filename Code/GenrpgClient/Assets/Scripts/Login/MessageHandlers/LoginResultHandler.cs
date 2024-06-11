@@ -8,10 +8,11 @@ using System.Collections.Generic;
 using UI.Screens.Constants;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Assets.Scripts.GameSettings.Services;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.GameSettings;
+using UnityEngine;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
@@ -24,10 +25,10 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IClientGameDataService _gameDataService;
         protected override void InnerProcess(LoginResult result, CancellationToken token)
         {
-            InnerProcessAsync(result, token).Forget();
+            InnerProcessAsync(result, token);
         }
 
-        private async UniTask InnerProcessAsync(LoginResult result, CancellationToken token)
+        private async Awaitable InnerProcessAsync(LoginResult result, CancellationToken token)
         { 
             List<ScreenId> keepOpenScreens = new List<ScreenId>();
             if (_screenService.GetScreen(ScreenId.Signup) != null)
@@ -67,8 +68,8 @@ namespace Assets.Scripts.Login.MessageHandlers
                 await _loginService.SaveLocalUserData(_gs.user.Id);
             }
 
-            await UniTask.NextFrame(cancellationToken: token);
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
 
             _screenService.CloseAll();
             _screenService.Close(ScreenId.HUD);
@@ -76,7 +77,7 @@ namespace Assets.Scripts.Login.MessageHandlers
 
         }
 
-        public async UniTask RetryUploadMap(CancellationToken token)
+        public async Awaitable RetryUploadMap(CancellationToken token)
         {
             // Set the mapId you want to upload to here.
             string mapId = "1";

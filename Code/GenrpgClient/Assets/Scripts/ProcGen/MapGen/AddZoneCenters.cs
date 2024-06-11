@@ -1,22 +1,18 @@
 
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-
 using System.Linq;
 using System.Threading;
-using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.Utils;
+using UnityEngine;
 
 public class AddZoneCenters : BaseZoneGenerator
 {
     protected ISamplingService _sampleService;
 
     public const int WallPatchId = 1;
-	public override async UniTask Generate (CancellationToken token)
+	public override async Awaitable Generate (CancellationToken token)
     {
         await base.Generate(token);
         SamplingData sdata = new SamplingData();

@@ -1,19 +1,14 @@
 ﻿using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.DataStores.Entities;
-using Cysharp.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
 using Genrpg.Shared.Trades.Entities;
 using Genrpg.Shared.Trades.Messages;
 using Genrpg.Shared.Inventory.Constants;
-using System.Security.Policy;
-using Cysharp.Threading.Tasks.Triggers;
 using Assets.Scripts.UI.Services;
-using Assets.Scripts.UI.Trade;
-using Genrpg.Shared.Entities.Constants;
 using System.Linq;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
+using UnityEngine;
 
 public class TradeScreen : ItemIconScreen
 {
@@ -30,7 +25,7 @@ public class TradeScreen : ItemIconScreen
 
     private TradeObject _tradeObject = null;
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         _dispatcher.AddEvent<OnUpdateTrade>(this, HandleOnUpdateTrade);
@@ -56,7 +51,7 @@ public class TradeScreen : ItemIconScreen
 
         Items?.Init(InventoryGroup.All, this, _gs.ch, null, token);
 
-        await UniTask.CompletedTask;
+        
     }
 
     

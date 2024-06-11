@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Constants;
 using ClientEvents;
 using Genrpg.Shared.Utils;
@@ -19,7 +19,7 @@ public class CreateMinimap : BaseZoneGenerator
     private static GEntity minimapCamera = null;
 
     
-    public override async UniTask Generate (CancellationToken token)
+    public override async Awaitable Generate (CancellationToken token)
 	{
 
         await base.Generate(token);
@@ -121,7 +121,7 @@ public class CreateMinimap : BaseZoneGenerator
         RenderSettings.fog = false;
         // All terrain splats should have been loaded during SetFinalTerrainTextures.
 
-        await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+        await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: token);
 
         int numTerrainsNeeded = _mapProvider.GetMap().BlockCount * _mapProvider.GetMap().BlockCount;
 
@@ -129,12 +129,12 @@ public class CreateMinimap : BaseZoneGenerator
 
         while (terrains.Count < numTerrainsNeeded)
         {
-            await UniTask.Delay(1000, cancellationToken: _token);
+            await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: _token);
         }
 
         while (_terrainManager.IsLoadingPatches())
         {
-            await UniTask.Delay(1000, cancellationToken: _token);
+            await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: _token);
         }
 
         float oldBasemapDist = 250;
@@ -154,7 +154,7 @@ public class CreateMinimap : BaseZoneGenerator
         GEntity waterRoot = new GEntity();
         waterRoot.name = "WaterRoot";
         TerrainPatchData patch = _terrainManager.GetTerrainPatch(0, 0);
-        await UniTask.NextFrame(cancellationToken: token);
+        await Awaitable.NextFrameAsync(cancellationToken: token);
 
 
         BaseObjectLoader waterLoader = _terrainManager.GetLoader(MapConstants.WaterObjectOffset);
@@ -206,7 +206,7 @@ public class CreateMinimap : BaseZoneGenerator
         fullMapWater.transform().position = GVector3.Create(_mapProvider.GetMap().GetHwid() / 2, MapConstants.OceanHeight, _mapProvider.GetMap().GetHhgt()/2);
         fullMapWater.transform().localScale = GVector3.Create(1000000, 1, 1000000);
 
-        await UniTask.Delay(50 * waterObjectCount, cancellationToken: token);
+        await Awaitable.WaitForSecondsAsync(0.05f * waterObjectCount, cancellationToken: token);
 
         Texture2D tex = new Texture2D(TexSize, TexSize, TextureFormat.RGB24, true, true);
 
@@ -220,7 +220,7 @@ public class CreateMinimap : BaseZoneGenerator
         tex.ReadPixels(new Rect(0, 0, TexSize, TexSize), 0, 0);
         tex.Apply();
 
-        await UniTask.NextFrame(cancellationToken: token);
+        await Awaitable.NextFrameAsync(cancellationToken: token);
 
         Color[] pixels = tex.GetPixels();
 
@@ -366,7 +366,7 @@ public class CreateMinimap : BaseZoneGenerator
             }
         }
 
-        await UniTask.NextFrame(cancellationToken: token);
+        await Awaitable.NextFrameAsync(cancellationToken: token);
 
         float minLandHeight = MapConstants.OceanHeight;
         float minLandPct = (minLandHeight) / MapConstants.MapHeight;

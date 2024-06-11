@@ -1,12 +1,13 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEngine;
 
 public class SetBaseTerrainHeights : BaseZoneGenerator
 {
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         int wid = _mapProvider.GetMap().GetHwid();

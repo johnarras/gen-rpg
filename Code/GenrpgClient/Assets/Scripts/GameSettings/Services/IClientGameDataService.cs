@@ -4,14 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Cysharp.Threading.Tasks;
+using UnityEngine;
+
 
 namespace Assets.Scripts.GameSettings.Services
 {
     public interface IClientGameDataService : IInitializable
     {
-        UniTask SaveSettings(IGameSettings settings);
+        Awaitable SaveSettings(IGameSettings settings);
 
-        UniTask LoadCachedSettings(IUnityGameState gs);
+        Awaitable LoadCachedSettings(IUnityGameState gs);
     }
 }

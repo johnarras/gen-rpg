@@ -3,7 +3,7 @@ using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.Stats.Services;
@@ -11,6 +11,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
 using System.Threading;
+using UnityEngine;
 
 namespace Assets.Scripts.Crawler.StateHelpers
 {
@@ -28,7 +29,7 @@ namespace Assets.Scripts.Crawler.StateHelpers
         protected IClientRandom _rand;
 
         public abstract ECrawlerStates GetKey();
-        public abstract UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token);
+        public abstract Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token);
 
         public virtual bool IsTopLevelState() { return false; }
 

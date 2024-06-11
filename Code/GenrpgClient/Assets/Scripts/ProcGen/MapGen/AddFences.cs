@@ -1,7 +1,7 @@
 
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using System.Threading;
@@ -9,6 +9,7 @@ using Genrpg.Shared.ProcGen.Settings.Fences;
 using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using UnityEngine;
 
 public class AddFences : BaseZoneGenerator
 {
@@ -16,7 +17,7 @@ public class AddFences : BaseZoneGenerator
 
     const float MaxFenceHeightAngle = 20;
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
 
         await base.Generate(token);
@@ -24,7 +25,7 @@ public class AddFences : BaseZoneGenerator
         {
             GenerateOne(zone, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone.XMin, zone.ZMin, zone.XMax, zone.ZMax);
         }
-        await UniTask.CompletedTask;
+        
     }
 
     public void GenerateOne(Zone zone, ZoneType zoneType, int startx, int starty, int endx, int endy)

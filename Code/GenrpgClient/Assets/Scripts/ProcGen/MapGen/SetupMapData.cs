@@ -1,19 +1,13 @@
 
-using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Zones.Entities;
-
 using System.Threading;
-using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.Spawns.WorldData;
-using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Utils.Data;
-using Assets.Scripts.ProcGen.RandomNumbers;
+using UnityEngine;
 
 public class SetupMapData : BaseZoneGenerator
 {
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         if (_md == null)
@@ -47,7 +41,7 @@ public class SetupMapData : BaseZoneGenerator
             {
                 for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
                 {
-                    _terrainManager.SetupOneTerrainPatch(gx, gy, token).Forget();
+                    _terrainManager.SetupOneTerrainPatch(gx, gy, token);
                 }
             }
         }

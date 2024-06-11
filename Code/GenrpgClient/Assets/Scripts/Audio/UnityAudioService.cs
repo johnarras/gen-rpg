@@ -8,7 +8,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Users.Entities;
 using System.Threading;
-using Cysharp.Threading.Tasks;
+
 using Assets.Scripts.Tokens;
 using UnityEngine; // Needed
 using Genrpg.Shared.Audio.Settings;
@@ -34,7 +34,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public void SetGameToken(CancellationToken token)
     {
         _token = token;
-        CheckRemoveAudio(_token).Forget();
+        CheckRemoveAudio(_token);
     }
 
     public override void Initialize(IUnityGameState gs)
@@ -102,12 +102,12 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     #endregion
 
 
-    private async UniTask CheckRemoveAudio(CancellationToken token)
+    private async Awaitable CheckRemoveAudio(CancellationToken token)
     {
         List<AudioClipList> _removeList = null;
         while (true)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(1.1f), cancellationToken: token);
+            await Awaitable.WaitForSecondsAsync(1.1f, cancellationToken: token);
 
             foreach (AudioClipList cont in _audioCache.Values)
             { 

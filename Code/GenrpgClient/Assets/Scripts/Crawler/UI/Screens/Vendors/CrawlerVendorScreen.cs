@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Units.Entities;
@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Utils;
 using Assets.Scripts.UI.Crawler.States;
+using UnityEngine;
 
 public class CrawlerVendorScreen : ItemIconScreen
 {
@@ -36,7 +37,7 @@ public class CrawlerVendorScreen : ItemIconScreen
 
     PartyData _party;
     PartyMember _member;
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
 

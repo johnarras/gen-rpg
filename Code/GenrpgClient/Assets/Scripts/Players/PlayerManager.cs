@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
+
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 using Assets.Scripts.ProcGen.RandomNumbers;
@@ -124,7 +124,7 @@ public class PlayerManager : IPlayerManager
             int ez = (int)(finalUnit.Z);
             WaypointList list = _pathfindingService.CalcPath(_rand, sx, sz, ex, ez);
 
-            _clientPathfindingUtils.ShowPath(list, _mapToken).Forget();
+            _clientPathfindingUtils.ShowPath(list, _mapToken);
         }
         else
         {

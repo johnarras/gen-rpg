@@ -3,7 +3,7 @@ using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
 using Assets.Scripts.Crawler.Maps.Services.Helpers;
 using Assets.Scripts.Dungeons;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Utils;
@@ -54,7 +54,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         }
       
 
-        public async UniTask EnterMap (PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
+        public async Awaitable EnterMap (PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
             CleanMap();
             _party = partyData;
@@ -75,14 +75,14 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             await _crawlerService.SaveGame();
         }
 
-        private async UniTask LoadDungeonAssets(CrawlerMapRoot mapRoot, CancellationToken token)
+        private async Awaitable LoadDungeonAssets(CrawlerMapRoot mapRoot, CancellationToken token)
         {
 
             _assetService.LoadAsset(AssetCategoryNames.Dungeons, mapRoot.Map.DungeonArt.Art, OnLoadDungeonAssets, null, null, token);
 
             while (mapRoot.Assets == null)
             {
-                await UniTask.NextFrame(token);
+                await Awaitable.NextFrameAsync(token);
             }
         }
 
@@ -112,9 +112,9 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
         }
         
-        private async UniTask UpdateCameraPos(CancellationToken token)
+        private async Awaitable UpdateCameraPos(CancellationToken token)
         {
-            await UniTask.CompletedTask;
+            
             if (_crawlerMap == null)
             {
                 return;
@@ -156,7 +156,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         const int maxQueuedMoves = 2;
         Queue<KeyCode> queuedMoves = new Queue<KeyCode>();
 
-        public async UniTask UpdateMovement(CancellationToken token)
+        public async Awaitable UpdateMovement(CancellationToken token)
         {
             if (queuedMoves.Count < maxQueuedMoves)
             {
@@ -224,7 +224,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
 
         const int moveFrames = 6;
-        private async UniTask Move(int forward, int left, CancellationToken token)
+        private async Awaitable Move(int forward, int left, CancellationToken token)
         {
             float sin = (float)Math.Round(MathF.Sin(-_party.MapRot * Mathf.PI / 180f));
             float cos = (float)Math.Round(Mathf.Cos(-_party.MapRot * Mathf.PI / 180f));
@@ -286,7 +286,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
                 await UpdateCameraPos(token);
 
-                await UniTask.NextFrame(token);
+                await Awaitable.NextFrameAsync(token);
             }
 
             ex = MathUtils.ModClamp(ex, _crawlerMap.Map.XSize);
@@ -301,7 +301,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         }
 
-        private async UniTask Rot(int delta, CancellationToken token)
+        private async Awaitable Rot(int delta, CancellationToken token)
         {
 
             float startRot = _party.MapRot;
@@ -317,18 +317,18 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 await UpdateCameraPos(token);
                 if (frame < frames)
                 {
-                    await UniTask.NextFrame(token);
+                    await Awaitable.NextFrameAsync(token);
                 }
             }
 
             _party.MapRot = MathUtils.ModClamp((int)endRot, 360);
             _crawlerMap.DrawRot = _party.MapRot;
 
-            await UniTask.CompletedTask;
+            
         }
 
 
-        private async UniTask DrawNearbyMap(CancellationToken token)
+        private async Awaitable DrawNearbyMap(CancellationToken token)
         {
             if (_crawlerMap == null)
             {

@@ -1,20 +1,7 @@
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-
 using GEntity = UnityEngine.GameObject;
-using Cysharp.Threading.Tasks;
-
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
+using UnityEngine;
 
 // Settings for YES reflection
 // Fres Int: 0.1, Pow: 1.08 Bias: 0
@@ -25,7 +12,7 @@ using System.Threading;
 
 public class AddMinGroundLevel : BaseZoneGenerator
 {
-    public override async UniTask Generate (CancellationToken token)
+    public override async Awaitable Generate (CancellationToken token)
     {
         await base.Generate(token);
         AddKillCollider(_gs);

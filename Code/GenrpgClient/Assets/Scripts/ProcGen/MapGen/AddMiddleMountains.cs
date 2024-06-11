@@ -1,20 +1,16 @@
 
 using System;
 using System.Threading;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Zones.WorldData;
+using UnityEngine;
 
 public class AddMiddleMountains : BaseAddMountains
 {
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
-        await UniTask.CompletedTask;
-
-
         AddMiddleMapMountains(_gs);
-
     }
 
 

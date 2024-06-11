@@ -1,16 +1,17 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEngine;
 
 public class AddEdgeMountains : BaseAddMountains
 {
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
-        await UniTask.CompletedTask;
+        
         MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed / 4 + 31433);
         short[,] zoneIds = _md.mapZoneIds;
         List<MyPointF> points = new List<MyPointF>();

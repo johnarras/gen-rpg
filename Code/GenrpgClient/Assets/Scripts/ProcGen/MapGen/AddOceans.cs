@@ -1,18 +1,6 @@
-using System;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 
-
-using Genrpg.Shared.Core.Entities;
-
-
-
-
-using GEntity = UnityEngine.GameObject;
-using Cysharp.Threading.Tasks;
 using System.Threading;
+using UnityEngine;
 
 public class AddOceans : BaseZoneGenerator
 {
@@ -20,7 +8,7 @@ public class AddOceans : BaseZoneGenerator
     public const float ChestChance = 0.1f;
 
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
     }

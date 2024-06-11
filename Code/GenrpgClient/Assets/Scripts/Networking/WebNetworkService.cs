@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
@@ -134,7 +134,7 @@ public class WebNetworkService : IWebNetworkService
 
             string commandText = SerializationUtils.Serialize(commandSet);
 
-            req.SendRequest(_logService, _fullEndpoint, commandText, HandleResults, fullRequestSource.Token).Forget();
+            req.SendRequest(_logService, _fullEndpoint, commandText, HandleResults, fullRequestSource.Token);
         }
 
         private void HandleResults(string txt, CancellationToken token)
@@ -207,7 +207,7 @@ public class WebNetworkService : IWebNetworkService
 
         _updateService.AddUpdate(this, ProcessRequestQueues, UpdateType.Late);
         
-        await UniTask.CompletedTask;
+        
     }
 
     private void ProcessRequestQueues()

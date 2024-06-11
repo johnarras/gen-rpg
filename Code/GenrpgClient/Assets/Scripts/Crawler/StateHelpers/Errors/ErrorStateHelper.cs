@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.UI.Utils;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Errors
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.Error; }
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Errors
 
             stateData.Actions.Add(new CrawlerStateAction($"\n\nPress {CrawlerUIUtils.HighlightText("Space")} to continue...", KeyCode.Space, ECrawlerStates.ExploreWorld));
 
-            await UniTask.CompletedTask;
+            
             return stateData;
         }
     }

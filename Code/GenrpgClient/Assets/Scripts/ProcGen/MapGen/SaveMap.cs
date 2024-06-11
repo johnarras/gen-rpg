@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
-using Genrpg.Shared.Login.Messages.UploadMap;
 using Assets.Scripts.MapTerrain;
 using System;
 using Genrpg.Shared.Utils;
+using UnityEngine;
 
 public class SaveMap : BaseZoneGenerator
 {
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
 

@@ -2,7 +2,7 @@
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.DataStores.Entities;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Constants;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
@@ -17,7 +17,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
     public override long GetKey() { return EntityTypes.Unit; }
     protected override string GetLayerName() { return LayerNames.UnitLayer; }
 
-    public override async UniTask Load(OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async Awaitable Load(OnSpawn spawn, MapObject obj, CancellationToken token)
     {
 
         UnitType utype = _gameData.Get<UnitSettings>(_gs.ch).Get(spawn.EntityId);
@@ -32,7 +32,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
             Obj = obj,
             Token = token,
         };
-        await UniTask.CompletedTask;
+        
 
         _assetService.LoadAsset(AssetCategoryNames.Monsters, utype.Art, AfterLoadUnit, loadData, null, token);
     }
@@ -99,19 +99,19 @@ public class UnitObjectLoader : BaseMapObjectLoader
 
         if (height == 0)
         {
-            WaitForTerrain(go, loadData, loadData.Token).Forget();
+            WaitForTerrain(go, loadData, loadData.Token);
         }
 
         _objectManager.AddObject(loadData.Obj, go);
         
     }
 
-    private async UniTask WaitForTerrain(GEntity go, SpawnLoadData loadData, CancellationToken token)
+    private async Awaitable WaitForTerrain(GEntity go, SpawnLoadData loadData, CancellationToken token)
     {
         int times = 0;
         while (!token.IsCancellationRequested && ++times < 1000)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
             float height = _terrainManager.SampleHeight(loadData.Obj.X, loadData.Obj.Z);
             if (height > 0)
             {

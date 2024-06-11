@@ -1,14 +1,15 @@
 
-using Cysharp.Threading.Tasks;
+
 
 using System.Threading;
+using UnityEngine;
 
 public class CreateConnectedZones : BaseAddMountains
 {
     protected IMapGenService _mapGenService;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
-        await UniTask.CompletedTask;
+        
 
         _mapGenService.CreateZones(_gs);
 

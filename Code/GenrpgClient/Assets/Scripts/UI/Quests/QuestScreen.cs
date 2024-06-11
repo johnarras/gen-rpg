@@ -6,7 +6,7 @@ using Genrpg.Shared.Units.Entities;
 
 using Genrpg.Shared.Quests.Services;
 using UI.Screens.Constants;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using Genrpg.Shared.Quests.Messages;
 using Genrpg.Shared.Quests.WorldData;
@@ -14,6 +14,7 @@ using Genrpg.Shared.Quests.Constants;
 using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Constants;
+using UnityEngine;
 
 internal class QuestTypeWithIndex
 {
@@ -36,7 +37,7 @@ public class QuestScreen : ItemIconScreen
     bool _openVendorScreenIfNoQuests = false;
 
     protected ISharedQuestService _questService = null;
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         _dispatcher.AddEvent<AlterQuestStateEvent>(this, OnAlterQuestState);
@@ -58,7 +59,7 @@ public class QuestScreen : ItemIconScreen
 
         ShowQuests(true);
 
-        await UniTask.CompletedTask;
+        
     }
 
     private void OnAlterQuestState (AlterQuestStateEvent data)

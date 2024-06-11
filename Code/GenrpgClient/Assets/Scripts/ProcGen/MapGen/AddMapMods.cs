@@ -1,28 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-
-using GEntity = UnityEngine.GameObject;
-using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Interfaces;
 
 using System.Threading;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Entities.Constants;
+using UnityEngine;
 
 public class AddMapMods : BaseZoneGenerator
 {
     const int skip = MapConstants.TerrainPatchSize / 2;
     const int start = skip * 3 / 2;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
-        await UniTask.CompletedTask;
+        
         for (int x = start; x < _mapProvider.GetMap().GetHwid()-start; x+= skip)
         {
             for (int z = start; z < _mapProvider.GetMap().GetHhgt()-start; z += skip)

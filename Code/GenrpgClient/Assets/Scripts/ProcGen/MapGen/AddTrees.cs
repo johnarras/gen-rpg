@@ -1,4 +1,4 @@
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.ProcGen.Settings.Trees;
@@ -14,6 +14,7 @@ using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Xml.Schema;
+using UnityEngine;
 
 
 // Trees are now not a part of the terrain system.
@@ -109,7 +110,7 @@ public class AddTrees : BaseZoneGenerator
 
     private float[,] extraTreeHeights;
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         Dictionary<long, ZoneTreeData> ztdict = new Dictionary<long, ZoneTreeData>();

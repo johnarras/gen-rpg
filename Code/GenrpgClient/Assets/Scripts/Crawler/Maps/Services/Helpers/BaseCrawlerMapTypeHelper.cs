@@ -4,11 +4,8 @@ using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
 using Assets.Scripts.Crawler.Maps.Loading;
 using Assets.Scripts.UI.Services;
-using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.ProcGen.Settings.Texturse;
@@ -28,11 +25,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         public abstract ECrawlerMapTypes GetKey();
 
-        public abstract UniTask<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);
+        public abstract Awaitable<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);
 
         public abstract int GetBlockingBits(CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez);
 
-        public abstract UniTask DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token);
+        public abstract Awaitable DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token);
 
         protected void AddWallComponent(GameObject asset, GameObject parent, Vector3 offset, Vector3 euler)
         {

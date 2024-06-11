@@ -9,7 +9,8 @@ using Genrpg.Shared.Inventory.Settings;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
-using Cysharp.Threading.Tasks;
+using UnityEngine;
+
 
 public delegate void OnLoadItemIconHandler(InitItemIconData data);
 
@@ -152,12 +153,12 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         {
             return;
         }
-        HideTooltipAsync(_token).Forget();
+        HideTooltipAsync(_token);
     }
 
-    private async UniTask HideTooltipAsync(CancellationToken token)
+    private async Awaitable HideTooltipAsync(CancellationToken token)
     {
-        await UniTask.NextFrame(token);
+        await Awaitable.NextFrameAsync(token);
         GEntityUtils.SetActive(_initData.Screen.ToolTip, false);
     }
 }

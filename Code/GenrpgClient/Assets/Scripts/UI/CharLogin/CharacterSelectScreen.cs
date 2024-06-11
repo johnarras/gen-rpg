@@ -2,11 +2,12 @@
 using Genrpg.Shared.Characters.PlayerData;
 
 using UI.Screens.Constants;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using Genrpg.Shared.Login.Messages.LoadIntoMap;
 using System.Linq;
 using static UnityEngine.Networking.UnityWebRequest;
+using UnityEngine;
 
 public class CharacterSelectScreen : BaseScreen
 {
@@ -28,7 +29,7 @@ public class CharacterSelectScreen : BaseScreen
 
     public const string CharacterRowArt = "CharacterSelectRow";
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
 #if UNITY_EDITOR
 
@@ -68,7 +69,7 @@ public class CharacterSelectScreen : BaseScreen
 
         GetSpellIcons();
 
-        await UniTask.CompletedTask;
+        
     }
 
     private void GetSpellIcons()
@@ -82,7 +83,7 @@ public class CharacterSelectScreen : BaseScreen
     {
         TestAssetDownloads dl = new TestAssetDownloads();
 
-        dl.RunTests(_gs, _token).Forget();
+        dl.RunTests(_gs, _token);
     }
 
     private void ClickGenerate()

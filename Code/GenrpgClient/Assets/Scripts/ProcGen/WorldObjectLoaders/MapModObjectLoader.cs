@@ -1,21 +1,19 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Constants;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Messages;
-using Genrpg.Shared.Zones.WorldData;
-using Genrpg.Shared.GroundObjects.Settings;
 using Assets.Scripts.GroundObjects;
-using System.Numerics;
+using UnityEngine;
 
 public class MapModObjectLoader : BaseMapObjectLoader
 {
     public override long GetKey() { return EntityTypes.MapMod; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 
-    public override async UniTask Load(OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async Awaitable Load(OnSpawn spawn, MapObject obj, CancellationToken token)
     {
         float wx = spawn.X;
         float wz = spawn.Z;
@@ -29,7 +27,7 @@ public class MapModObjectLoader : BaseMapObjectLoader
 
         _assetService.LoadAsset(AssetCategoryNames.Props, "MapMod", OnDownloadMapModObject, loadData, null, token);
 
-        await UniTask.CompletedTask;
+        
         return;
     }
 

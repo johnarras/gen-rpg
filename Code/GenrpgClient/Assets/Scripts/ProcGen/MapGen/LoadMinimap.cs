@@ -1,6 +1,6 @@
 
 using System;
-using Cysharp.Threading.Tasks;
+
 
 using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
@@ -10,7 +10,7 @@ using ClientEvents;
 public class LoadMinimap : BaseZoneGenerator
 {
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         try

@@ -1,5 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using System.Collections.Generic;
+using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 
 public class InitialPrefabLoader : BaseBehaviour
@@ -7,7 +8,7 @@ public class InitialPrefabLoader : BaseBehaviour
     public List<string> Prefabs;
 
 
-    public async UniTask LoadPrefabs(IUnityGameState gs)
+    public async Awaitable LoadPrefabs(IUnityGameState gs)
     {
         if (Prefabs == null)
         {
@@ -28,6 +29,6 @@ public class InitialPrefabLoader : BaseBehaviour
             newPrefab.name = newPrefab.name.Replace("(Clone)", "");
         }
 
-        await UniTask.CompletedTask;
+        
     }
 }

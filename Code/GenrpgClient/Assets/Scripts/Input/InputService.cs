@@ -1,5 +1,5 @@
 using ClientEvents;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Input.Constants;
@@ -56,7 +56,7 @@ public class InputService : BaseBehaviour, IInputService
     {
         AddUpdate(InputUpdate, UpdateType.Regular);
         _dispatcher.AddEvent<MapIsLoadedEvent>(this, UpdateInputs);
-        await UniTask.CompletedTask;
+        
     }
 
     private bool _isDisabled = false;

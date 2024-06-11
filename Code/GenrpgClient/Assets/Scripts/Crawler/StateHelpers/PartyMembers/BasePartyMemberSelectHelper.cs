@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.PartyMembers
     {
 
         protected virtual bool ShowSelectText() { return false; }
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.PartyMembers
                 }
             }
 
-            await UniTask.CompletedTask;
+            
             return stateData;
         }
     }

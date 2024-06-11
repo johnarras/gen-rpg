@@ -6,7 +6,7 @@ using Genrpg.Shared.Zones.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Cysharp.Threading.Tasks;
+
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Zones.WorldData;
@@ -35,9 +35,9 @@ public class PlantAssetLoader : IPlantAssetLoader
 
     public void SetupOneMapGrass(int gx, int gy, CancellationToken token)
     {
-        InnerSetupOneMapGrass(gx, gy, token).Forget();
+        InnerSetupOneMapGrass(gx, gy, token);
     }
-    private async UniTask InnerSetupOneMapGrass(int gx, int gy, CancellationToken token)
+    private async Awaitable InnerSetupOneMapGrass(int gx, int gy, CancellationToken token)
     {
         TerrainPatchData patch = _terrainManager.GetTerrainPatch(gx, gy);
 
@@ -140,17 +140,17 @@ public class PlantAssetLoader : IPlantAssetLoader
             }
             if (!haveAllArt)
             {
-                await UniTask.NextFrame(cancellationToken: token);
+                await Awaitable.NextFrameAsync(cancellationToken: token);
             }
         }
 
         tdata.detailPrototypes = protos;
 
-        await UniTask.NextFrame(cancellationToken: token);
+        await Awaitable.NextFrameAsync(cancellationToken: token);
 
         tdata.RefreshPrototypes();
 
-        await UniTask.NextFrame(cancellationToken: token);
+        await Awaitable.NextFrameAsync(cancellationToken: token);
 
         List<int[,]> detailblock = new List<int[,]>();
 

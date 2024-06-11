@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Core.Entities;
@@ -18,6 +18,7 @@ using Genrpg.Shared.Networking.MapApiSerializers;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Genrpg.Shared.Logging.Interfaces;
+using UnityEngine;
 
 public interface IRealtimeNetworkService : IInitializable, IMapTokenService
 {
@@ -36,7 +37,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
     protected IMapGenData _md;
     public RealtimeNetworkService(CancellationToken token)
     {
-        ProcessMessages(token).Forget();
+        ProcessMessages(token);
     }
 
 
@@ -56,7 +57,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         {
             _mapMessageHandlers = ReflectionUtils.SetupDictionary<Type, IClientMapMessageHandler>(gs);
         }
-        await UniTask.CompletedTask;
+        
     }
 
 
@@ -96,11 +97,11 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         }
     }
 
-    protected async UniTask ProcessMessages(CancellationToken token)
+    protected async Awaitable ProcessMessages(CancellationToken token)
     {
         while (true)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
             while (_messages.TryDequeue(out IMapApiMessage message))
             {                
                 HandleOneMapApiMessage(message, token);

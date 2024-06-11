@@ -1,5 +1,5 @@
 using GEntity = UnityEngine.GameObject;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Setup.Services;
@@ -50,10 +50,10 @@ public class InitClient : BaseBehaviour, IInitClient
 
     void Start()
     {
-        OnStart().Forget();
+        OnStart();
     }
 
-    protected async UniTask OnStart()
+    protected async Awaitable OnStart()
     {
         IUnityGameState gs = new UnityGameState();
         Initialize(gs);
@@ -63,7 +63,7 @@ public class InitClient : BaseBehaviour, IInitClient
 #endif
         string envName = base._gs.Config.Env.ToString();
 
-        DelayRemoveSplashScreen(_gameTokenSource.Token).Forget();
+        DelayRemoveSplashScreen(_gameTokenSource.Token);
 
         // Initial app appearance.
         AppUtils.TargetFrameRate = 30;
@@ -72,16 +72,16 @@ public class InitClient : BaseBehaviour, IInitClient
 
         ClientWebRequest req = new ClientWebRequest();
         string url = base._gs.Config.InitialConfigEndpoint + "?env=" + envName;
-        req.SendRequest(_logService, url, "", OnGetWebConfig, _gameTokenSource.Token).Forget();
-        await UniTask.CompletedTask;
+        req.SendRequest(_logService, url, "", OnGetWebConfig, _gameTokenSource.Token);
+        
     }
 
     private void OnGetWebConfig(string txt, CancellationToken token)
     {
-        OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token).Forget();
+        OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token);
     }
 
-    private async UniTask OnGetWebConfigAsync(ConfigResponse response, CancellationToken token)
+    private async Awaitable OnGetWebConfigAsync(ConfigResponse response, CancellationToken token)
     {
         _gs.SetInitObject(entity);
         _dispatcher.AddEvent<NewVersionEvent>(this, OnNewVersion);
@@ -103,14 +103,14 @@ public class InitClient : BaseBehaviour, IInitClient
 
         while (!_assetService.IsInitialized())
         {
-            await UniTask.Delay(1);
+            await Awaitable.WaitForSecondsAsync(0.001f);
         }
 
         _screenService.Open(ScreenId.Loading);
 
         while (_screenService.GetScreen(ScreenId.Loading) == null)
         {
-            await UniTask.NextFrame(cancellationToken: _gameTokenSource.Token);
+            await Awaitable.NextFrameAsync(cancellationToken: _gameTokenSource.Token);
         }
 
         _screenService.Open(ScreenId.FloatingText);
@@ -140,11 +140,11 @@ public class InitClient : BaseBehaviour, IInitClient
         return _gameTokenSource.Token;
     }
 
-    private async UniTask DelayRemoveSplashScreen(CancellationToken token)
+    private async Awaitable DelayRemoveSplashScreen(CancellationToken token)
     {
         while (_screenService == null || _screenService.GetAllScreens().Count < 1)
         {
-            await UniTask.NextFrame(token);
+            await Awaitable.NextFrameAsync(token);
         }
 
         if (_splashImage != null)

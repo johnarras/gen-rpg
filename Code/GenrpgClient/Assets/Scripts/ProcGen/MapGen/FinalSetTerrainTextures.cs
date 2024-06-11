@@ -1,6 +1,6 @@
 
 using System;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using UnityEngine; // Needed
 using Assets.Scripts.MapTerrain;
@@ -8,7 +8,7 @@ using UnityEditor;
 
 public class SetFinalTerrainTextures : BaseZoneGenerator
 {
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
 
@@ -17,7 +17,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
         await WaitForTerrainLayerLoad(token);
     }
 
-    private async UniTask WaitForTerrainLayerLoad(CancellationToken token)
+    private async Awaitable WaitForTerrainLayerLoad(CancellationToken token)
     {
         for (int x = 0; x < _md.awid; x++)
         {
@@ -47,7 +47,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
         {
             if (_assetService.IsDownloading(_gs))
             {
-                await UniTask.NextFrame(cancellationToken: token);
+                await Awaitable.NextFrameAsync(cancellationToken: token);
             }
             else
             {
@@ -55,7 +55,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
             }
         }
 
-        await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+        await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: token);
 
         while (true)
         {
@@ -114,7 +114,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
 
             if (missingLayer)
             {
-                await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+                await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: token);
             }
             else
             {
@@ -126,7 +126,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
         {
             if (_assetService.IsDownloading(_gs))
             {
-                await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: token);
+                await Awaitable.WaitForSecondsAsync(2.0f, cancellationToken: token);
             }
             else
             {
@@ -135,7 +135,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
         }
 
 
-        await UniTask.Delay(TimeSpan.FromSeconds(10.0f), cancellationToken: token);
+        await Awaitable.WaitForSecondsAsync(10.0f, cancellationToken: token);
 
         _md.HaveSetAlphaSplats = true;
 	}

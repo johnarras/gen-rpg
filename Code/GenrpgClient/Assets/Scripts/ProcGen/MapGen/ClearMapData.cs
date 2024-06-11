@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
 using UnityEngine; // Needed
@@ -11,7 +11,7 @@ using UI.Screens.Constants;
 public class ClearMapData : BaseZoneGenerator
 {
     private IPlayerManager _playerManager;
-    public override async UniTask Generate (CancellationToken token)
+    public override async Awaitable Generate (CancellationToken token)
     {
         await base.Generate(token);
 
@@ -26,14 +26,14 @@ public class ClearMapData : BaseZoneGenerator
 
         _assetService.ClearBundleCache(token);
 
-        CleanUpOldMapFolders(token).Forget();
+        CleanUpOldMapFolders(token);
 
-        await UniTask.CompletedTask;
+        
 	}
 
 
 
-    private async UniTask CleanUpOldMapFolders(CancellationToken token)
+    private async Awaitable CleanUpOldMapFolders(CancellationToken token)
     {
         if (_mapProvider.GetMap() == null)
         {
@@ -91,7 +91,7 @@ public class ClearMapData : BaseZoneGenerator
                     _logService.Exception(e, "NoDeleteOnClearMap");
                 }
             }
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
     }
 }

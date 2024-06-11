@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
@@ -11,6 +11,7 @@ using Genrpg.Shared.ProcGen.Settings.Plants;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Assets.Scripts.ProcGen.Loading.Utils;
+using UnityEngine;
 
 public class BaseDetailPrototype
 {
@@ -33,7 +34,7 @@ public class AddPlants : BaseZoneGenerator
 
     private IZonePlantValidator _zonePlantValidator;
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         foreach (Zone zone in _mapProvider.GetMap().Zones)

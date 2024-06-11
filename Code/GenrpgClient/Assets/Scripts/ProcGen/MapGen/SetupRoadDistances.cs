@@ -1,23 +1,11 @@
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using GEntity = UnityEngine.GameObject;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-
-using Cysharp.Threading.Tasks;
-
-using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
+using UnityEngine;
 
 public class SetupRoadDistances : BaseZoneGenerator
 {
-    public override async UniTask Generate (CancellationToken token)
+    public override async Awaitable Generate (CancellationToken token)
     {
         await base.Generate(token);
         _md.roadDistances = new float[_md.awid,_md.ahgt];

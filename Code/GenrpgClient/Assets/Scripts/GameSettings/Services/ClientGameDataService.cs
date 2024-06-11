@@ -8,11 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using Cysharp.Threading.Tasks;
+
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Mappers;
+using UnityEngine;
 
 namespace Assets.Scripts.GameSettings.Services
 {
@@ -39,7 +40,7 @@ namespace Assets.Scripts.GameSettings.Services
             _loaderObjects = newList;
             await Task.CompletedTask;
         }
-        public async UniTask LoadCachedSettings(IUnityGameState gs)
+        public async Awaitable LoadCachedSettings(IUnityGameState gs)
         {
             GameData gameData = new GameData();
             ClientRepositoryService repo = _repoService as ClientRepositoryService;
@@ -59,7 +60,7 @@ namespace Assets.Scripts.GameSettings.Services
             await Task.CompletedTask;
         }
 
-        public async UniTask SaveSettings(IGameSettings settings)
+        public async Awaitable SaveSettings(IGameSettings settings)
         {
             await _repoService.Save(settings);
         }

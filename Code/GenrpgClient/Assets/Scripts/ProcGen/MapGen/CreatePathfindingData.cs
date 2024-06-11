@@ -1,27 +1,23 @@
 
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Pathfinding.Constants;
 using Genrpg.Shared.Pathfinding.Services;
-using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.ProcGen.Settings.Trees;
-using MessagePack.Formatters;
-using System.Collections.Concurrent;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Entities.Constants;
 using System;
-using System.Xml.Schema;
-using System.Reflection.Emit;
 using Genrpg.Shared.Buildings.Settings;
+using UnityEngine;
 
 public class CreatePathfindingData : BaseZoneGenerator
 {
 
     protected IPathfindingService _pathfindingService;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         try
@@ -157,7 +153,7 @@ public class CreatePathfindingData : BaseZoneGenerator
             fdata.IsWorldData = true;
 
             FileUploader.UploadFile(fdata);
-            await UniTask.CompletedTask;
+            
         }
         catch (Exception e)
         {

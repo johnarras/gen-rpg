@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapObjects.Entities;
@@ -59,7 +59,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
     public ClientMapObjectManager(CancellationToken token)
     {
-        UpdateRecentlyLoadedSpawns(token).Forget();
+        UpdateRecentlyLoadedSpawns(token);
     }
 
     public void Reset()
@@ -110,7 +110,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
         _mapObjectLoaders = ReflectionUtils.SetupDictionary<long, IMapObjectLoader>(gs);
 
-        await UniTask.CompletedTask;
+        
     }
 
 
@@ -333,11 +333,11 @@ public class ClientMapObjectManager : IClientMapObjectManager
         return obj;
     }
 
-    protected async UniTask UpdateRecentlyLoadedSpawns(CancellationToken token)
+    protected async Awaitable UpdateRecentlyLoadedSpawns(CancellationToken token)
     {
         while (true)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: token);
+            await Awaitable.WaitForSecondsAsync(2.0f, cancellationToken: token);
             _olderSpawns = _recentlyLoadedSpawns;
             _recentlyLoadedSpawns = new List<string>();
         }

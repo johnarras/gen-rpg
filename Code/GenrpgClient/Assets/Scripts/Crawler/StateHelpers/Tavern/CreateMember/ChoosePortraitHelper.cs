@@ -2,7 +2,7 @@
 using Assets.Scripts.Crawler.Constants;
 using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using System;
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Crawler.StateHelpers
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.ChoosePortrait; }
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -44,8 +44,8 @@ namespace Assets.Scripts.Crawler.StateHelpers
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", KeyCode.Escape, ECrawlerStates.ChooseClass,
                 delegate { member.PortraitName = null; }, member));
-            await UniTask.CompletedTask;
-            await UniTask.CompletedTask;
+            
+            
 
             return stateData;
         }

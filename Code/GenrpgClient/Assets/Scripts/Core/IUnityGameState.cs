@@ -5,7 +5,7 @@ using Genrpg.Shared.Characters.PlayerData;
 using System.Collections.Generic;
 using Genrpg.Shared.MapServer.Entities;
 using UnityEngine; // Needed
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Analytics.Services;
@@ -132,7 +132,7 @@ public class UnityGameState : GameState, IInjectable, IUnityGameState
         }
 
         ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(_logService);
-        repo.Save(_config).Forget();
+        repo.Save(_config);
     }
 
     public void UpdateUserFlags(int flag, bool val)

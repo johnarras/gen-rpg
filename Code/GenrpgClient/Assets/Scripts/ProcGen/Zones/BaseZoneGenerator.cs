@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.ProcGen.RandomNumbers;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
@@ -8,6 +8,7 @@ using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapServer.Services;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class BaseZoneGenerator : IZoneGenerator, IInitializable
 {
@@ -27,10 +28,10 @@ public class BaseZoneGenerator : IZoneGenerator, IInitializable
     protected IClientRandom _rand;
     protected IMapGenData _md;
 
-    public virtual async UniTask Generate(CancellationToken token)
+    public virtual async Awaitable Generate(CancellationToken token)
     {
         _token = token;
-        await UniTask.CompletedTask;
+        
     }
 
     public virtual async Task Initialize(IGameState gs, CancellationToken token)

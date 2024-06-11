@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Login.Messages.RefreshStores;
 using Genrpg.Shared.Purchasing.PlayerData;
@@ -6,6 +6,7 @@ using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Stats.Messages;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.UI.Stores
@@ -18,14 +19,14 @@ namespace Assets.Scripts.UI.Stores
 
         private List<StorePanel> _panels = new List<StorePanel>();
         private PlayerStoreOfferData _offerData = null;
-        protected override async UniTask OnStartOpen(object data, CancellationToken token)
+        protected override async Awaitable OnStartOpen(object data, CancellationToken token)
         {
             _offerData = _gs.ch.Get<PlayerStoreOfferData>();
 
             SetupData(token);
 
             _dispatcher.AddEvent<RefreshStoresResult>(this, OnRefreshStores);
-            await UniTask.CompletedTask;
+            
         }
 
         private void SetupData(CancellationToken token)

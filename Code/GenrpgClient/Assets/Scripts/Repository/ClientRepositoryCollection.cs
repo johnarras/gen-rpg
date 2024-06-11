@@ -6,15 +6,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Logging.Interfaces;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public interface IClientRepositoryCollection
 {
-    UniTask<bool> Save(object t);
-    UniTask<bool> SavePrettyPrint(object t);
-    UniTask<object> LoadWithType(Type t, string id);
+    Awaitable<bool> Save(object t);
+    Awaitable<bool> SavePrettyPrint(object t);
+    Awaitable<object> LoadWithType(Type t, string id);
 }
 
 public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T : class, IStringId
@@ -26,7 +27,7 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
         _logger = logger;
     }
 
-    public virtual async UniTask<bool> SaveAll(List<T> list)
+    public virtual async Awaitable<bool> SaveAll(List<T> list)
     {
         if (list == null)
         {
@@ -46,9 +47,9 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
     }
 
 
-    public async UniTask<T> Load(String id)
+    public async Awaitable<T> Load(String id)
     {
-        await UniTask.CompletedTask;
+        
         try
         {
             if (string.IsNullOrEmpty(id))
@@ -76,28 +77,28 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
     /// <param name="id">Id to save (key)</param>
     /// <param name="data">Data to save (value)</param>
     /// <returns>Were the parameters ok? Not checking actual save success here.</returns>
-    public async UniTask<bool> StringSave(string id, string data, bool verboseSave = false)
+    public async Awaitable<bool> StringSave(string id, string data, bool verboseSave = false)
     {
         if (string.IsNullOrEmpty(id))
         {
             return false;
         }
         SaveString(id, data);
-        await UniTask.CompletedTask;
+        
         return true;
     }
 
-    public async UniTask<bool> Save(object t)
+    public async Awaitable<bool> Save(object t)
     {
         return await SaveInternal(t, false);
     }
 
-    public async UniTask<bool> SavePrettyPrint(object t)
+    public async Awaitable<bool> SavePrettyPrint(object t)
     {
         return await SaveInternal(t, true);
     }
 
-    private async UniTask<bool> SaveInternal(object t, bool savePrettyPrint)
+    private async Awaitable<bool> SaveInternal(object t, bool savePrettyPrint)
     {
         if (t == null)
         {
@@ -125,16 +126,16 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
             _logger.Exception(e, "Local Save Error");
             return false;
         }
-        await UniTask.CompletedTask;
+        
         return true;
     }
-    public async UniTask<bool> Delete(T t)
+    public async Awaitable<bool> Delete(T t)
     {
         if (t == null)
         {
             return false;
         }
-        await UniTask.CompletedTask;
+        
         string id = EntityUtils.GetObjId(t);
         if (string.IsNullOrEmpty(id))
         {
@@ -305,21 +306,21 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
         }
     }
 
-    public async UniTask<List<T>> LoadAll(List<string> ids)
+    public async Awaitable<List<T>> LoadAll(List<string> ids)
     {
-        await UniTask.CompletedTask;
+        
         throw new NotImplementedException();
     }
 
-    public async UniTask<List<T>> Search(Expression<Func<T, bool>> func, int quantity=100, int skip = 0)
+    public async Awaitable<List<T>> Search(Expression<Func<T, bool>> func, int quantity=100, int skip = 0)
     {
-        await UniTask.CompletedTask;
+        
         throw new NotImplementedException();
     }
 
-    public async UniTask<object> LoadWithType(Type t, string id)
+    public async Awaitable<object> LoadWithType(Type t, string id)
     {
-        await UniTask.CompletedTask;
+        
         try
         {
             if (string.IsNullOrEmpty(id))

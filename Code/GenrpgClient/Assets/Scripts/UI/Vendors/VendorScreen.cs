@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Units.Entities;
@@ -10,6 +10,7 @@ using Genrpg.Shared.MapObjects.MapObjectAddons.Constants;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Vendors.MapObjectAddons;
 using Genrpg.Shared.Vendors.WorldData;
+using UnityEngine;
 
 public class VendorScreen : ItemIconScreen
 {
@@ -23,7 +24,7 @@ public class VendorScreen : ItemIconScreen
     Unit _unit = null;
 
     VendorAddon _addon = null;
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         _dispatcher.AddEvent<OnGetMapObjectStatus>(this, OnGetNPCStatusHandler);

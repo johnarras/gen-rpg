@@ -1,18 +1,19 @@
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 
 using System.Threading;
 using System;
 using Genrpg.Shared.Zones.WorldData;
+using UnityEngine;
 
 public class SetupNearbyZones : BaseAddMountains
 {
 
     protected IMapGenService _mapGenService;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
-        await UniTask.CompletedTask;
+        
 
         foreach (ConnectedPairData conn in _md.zoneConnections)
         {

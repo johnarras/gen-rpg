@@ -1,7 +1,7 @@
 ﻿
 using GObject = UnityEngine.Object;
 using UnityEngine; // Needed
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using Scripts.Assets.Assets.Constants;
 
@@ -24,7 +24,7 @@ public class AssetUtils
     }
 
     private static bool _unloadingAssets = false;
-    public static async UniTask UnloadUnusedAssets(CancellationToken token)
+    public static async Awaitable UnloadUnusedAssets(CancellationToken token)
     {
         if (_unloadingAssets)
         {
@@ -34,7 +34,7 @@ public class AssetUtils
         AsyncOperation op = Resources.UnloadUnusedAssets();
         while (!op.isDone)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
         _unloadingAssets = false;
     }

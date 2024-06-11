@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Pathfinding.Utils;
 using Assets.Scripts.ProcGen.RandomNumbers;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapObjects.Entities;
@@ -77,7 +77,7 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
         private void OnUpdatePath(IRandom rand, Unit unit, WaypointList list)
         {
             unit.Waypoints = list;
-            _pathfindingUtils.ShowPath(unit.Waypoints, _pathfindingUtils.GetToken()).Forget();
+            _pathfindingUtils.ShowPath(unit.Waypoints, _pathfindingUtils.GetToken());
         }
     }
 }

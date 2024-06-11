@@ -1,6 +1,6 @@
 
 
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Logging.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -136,7 +136,7 @@ public class FileDownloadService : IFileDownloadService
             List<InternalFileDownload> list = new List<InternalFileDownload>();
             list.Add(fileDownLoad);
             _downloading[filePath] = list;
-            DownloadFileInternal(fileDownLoad, token).Forget();
+            DownloadFileInternal(fileDownLoad, token);
         }
     }
 
@@ -158,7 +158,7 @@ public class FileDownloadService : IFileDownloadService
         return AssetUtils.GetPerisistentDataPath() + "/" + url;
     }
 
-    private async UniTask DownloadFileInternal(InternalFileDownload fileDownload, CancellationToken token)
+    private async Awaitable DownloadFileInternal(InternalFileDownload fileDownload, CancellationToken token)
     {
 
         if (fileDownload == null)
@@ -180,7 +180,7 @@ public class FileDownloadService : IFileDownloadService
             {
                 while (_fileDownloadingCount >= _maxConcurrentDownloads)
                 {
-                    await UniTask.NextFrame(cancellationToken: token);
+                    await Awaitable.NextFrameAsync(cancellationToken: token);
                 }
                 _fileDownloadingCount++;
                 using (UnityWebRequest request = UnityWebRequest.Get(fileDownload.FullURL))
@@ -197,7 +197,7 @@ public class FileDownloadService : IFileDownloadService
 
                         while (!asyncOp.isDone)
                         {
-                            await UniTask.NextFrame(cancellationToken: token);
+                            await Awaitable.NextFrameAsync(cancellationToken: token);
                         }
                     }
                     catch (Exception e)
@@ -227,7 +227,7 @@ public class FileDownloadService : IFileDownloadService
                             {
                                 _downloading.Remove(fileDownload.FilePath);
                                 _fileDownloadingCount--;
-                                await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+                                await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: token);
                             }
                         }
                     }
@@ -236,9 +236,9 @@ public class FileDownloadService : IFileDownloadService
                     {
                         byte[] finalBytes = fileDownload.DownloadData.StartBytes;
 
-                        await UniTask.NextFrame(cancellationToken: token);
+                        await Awaitable.NextFrameAsync(cancellationToken: token);
                         _binaryFileRepo.SaveBytes(fileDownload.FilePath, finalBytes);
-                        await UniTask.NextFrame(cancellationToken: token);
+                        await Awaitable.NextFrameAsync(cancellationToken: token);
                         fileDownload.DownloadData.UncompressedBytes = finalBytes;
 
                         request.Dispose();
@@ -261,7 +261,7 @@ public class FileDownloadService : IFileDownloadService
         {
             if (fileDownload.DownloadData.IsImage)
             {
-                await UniTask.NextFrame(cancellationToken: token);
+                await Awaitable.NextFrameAsync(cancellationToken: token);
                 tex = new Texture2D(2, 2);
                 tex.LoadImage(fileDownload.DownloadData.UncompressedBytes);
                 TextureUtils.SetupTexture(tex);

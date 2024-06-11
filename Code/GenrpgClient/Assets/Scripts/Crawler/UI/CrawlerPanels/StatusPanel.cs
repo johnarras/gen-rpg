@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.UI.Crawler.StatusUI;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEditor;
+using UnityEngine;
 
 namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 {
@@ -19,7 +20,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         public List<CrawlerStatusRow> Rows;
 
-        public override async UniTask Init(CrawlerScreen screen, CancellationToken token)
+        public override async Awaitable Init(CrawlerScreen screen, CancellationToken token)
         {
             await base.Init(screen, token);
 

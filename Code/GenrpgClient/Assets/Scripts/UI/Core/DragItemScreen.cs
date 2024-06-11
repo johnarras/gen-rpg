@@ -2,8 +2,9 @@
 using GEntity = UnityEngine.GameObject;
 using UnityEngine.UI; // FIX
 using UnityEngine.EventSystems;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
+using UnityEngine;
 
 public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseScreen 
     where TData : class 
@@ -17,14 +18,14 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
     public BaseTooltip ToolTip;
     public MoneyDisplay _playerMoney;
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         if (ToolTip != null)
         {
             GEntityUtils.InitializeHierarchy(_gs, ToolTip.entity());
             GEntityUtils.SetActive(ToolTip.entity(), false);
         }
-        await UniTask.CompletedTask;
+        
     }
 
     protected override void OnDisable()

@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Tokens;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Pathfinding.Constants;
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Pathfinding.Utils
 {
     public interface IClientPathfindingUtils : IMapTokenService, IInjectable
     {
-        UniTask ShowPath(WaypointList list, CancellationToken token);
+        Awaitable ShowPath(WaypointList list, CancellationToken token);
         CancellationToken GetToken();
     }
 
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Pathfinding.Utils
             return _token;
         }
 
-        public async UniTask ShowPath(WaypointList list, CancellationToken token)
+        public async Awaitable ShowPath(WaypointList list, CancellationToken token)
         {
             
             StringBuilder sb = new StringBuilder();
@@ -56,20 +56,20 @@ namespace Assets.Scripts.Pathfinding.Utils
                     sph.transform.position = new Vector3(wp.X, height + 0.5f, wp.Z);
                     //sb.Append("WP: " + wp.X + " " + wp.Z + "\n");
                     pathObjects.Add(sph);
-                    await UniTask.NextFrame();
+                    await Awaitable.NextFrameAsync();
                 }
 
                 //logService.Info("Path:\n" + sb.ToString());
-                DelayDestroyObjects(pathObjects).Forget();
+                DelayDestroyObjects(pathObjects);
             }
         }
 
 
 
 
-        private async UniTask DelayDestroyObjects(List<GameObject> objs)
+        private async Awaitable DelayDestroyObjects(List<GameObject> objs)
         {
-            await UniTask.Delay(3000);
+            await Awaitable.WaitForSecondsAsync(1.0f);
             foreach (GameObject obj in objs)
             {
                 GameObject.Destroy(obj);

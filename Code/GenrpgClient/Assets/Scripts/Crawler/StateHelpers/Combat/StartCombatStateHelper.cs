@@ -1,16 +1,10 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
-using Assets.Scripts.UI.Crawler;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using UI.Screens.Constants;
+using UnityEngine;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Combat
 {
@@ -21,7 +15,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.StartCombat; }
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = null;
 
@@ -39,7 +33,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                 stateData = new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Failed to start combat." };
             }
 
-            await UniTask.CompletedTask;
+            
             return stateData;
         }
     }

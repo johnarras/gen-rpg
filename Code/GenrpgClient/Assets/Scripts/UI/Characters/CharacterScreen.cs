@@ -3,7 +3,7 @@ using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Constants;
@@ -11,6 +11,7 @@ using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Inventory.Settings.Slots;
 using Genrpg.Shared.Units.Entities;
+using UnityEngine;
 
 public class CharacterScreen : ItemIconScreen
 {
@@ -36,7 +37,7 @@ public class CharacterScreen : ItemIconScreen
 
     public override Unit GetUnit() { return _unit; }
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
         _dispatcher.AddEvent<OnUnequipItem>(this, OnUnequip);

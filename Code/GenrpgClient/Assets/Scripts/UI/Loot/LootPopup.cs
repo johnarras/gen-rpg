@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Spawns.Entities;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
+using UnityEngine;
 
 public class LootPopup : BaseScreen
 {
@@ -16,7 +17,7 @@ public class LootPopup : BaseScreen
 
     public override bool BlockMouse() { return false; }
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         List<SpawnResult> rewards = data as List<SpawnResult>;
         if (rewards == null || rewards.Count < 1)
@@ -25,12 +26,12 @@ public class LootPopup : BaseScreen
             return;
         }
 
-        ShowRewards(rewards, token).Forget();
+        ShowRewards(rewards, token);
 
-        await UniTask.CompletedTask;
+        
     }
 
-    private async UniTask ShowRewards(List<SpawnResult> rewards, CancellationToken token)
+    private async Awaitable ShowRewards(List<SpawnResult> rewards, CancellationToken token)
     {
         if (rewards == null || rewards.Count < 1 || _itemAnchor == null)
         {
@@ -54,7 +55,7 @@ public class LootPopup : BaseScreen
         
         while (true)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(_itemDelay), cancellationToken: token);
+            await Awaitable.WaitForSecondsAsync(_itemDelay, cancellationToken: token);
 
             if (_itemAnchor.transform().childCount < 1)
             {

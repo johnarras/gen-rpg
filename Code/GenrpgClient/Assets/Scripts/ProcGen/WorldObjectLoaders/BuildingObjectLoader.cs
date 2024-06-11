@@ -1,20 +1,20 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Constants;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Messages;
-using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Buildings.Settings;
 using Assets.Scripts.Buildings;
+using UnityEngine;
 
 public class BuildingObjectLoader : BaseMapObjectLoader
 {
     public override long GetKey() { return EntityTypes.Building; }
     protected override string GetLayerName() { return LayerNames.ObjectLayer; }
 
-    public override async UniTask Load(OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async Awaitable Load(OnSpawn spawn, MapObject obj, CancellationToken token)
     {
         BuildingType buildingType = _gameData.Get<BuildingSettings>(_gs.ch).Get(spawn.EntityId);
         if (buildingType == null)
@@ -33,7 +33,7 @@ public class BuildingObjectLoader : BaseMapObjectLoader
 
         _assetService.LoadAsset(AssetCategoryNames.Buildings , "Default/" + buildingType.Art, OnDownloadBuildingObject, loadData, null, token);
 
-        await UniTask.CompletedTask;
+        
         return;
     }
 

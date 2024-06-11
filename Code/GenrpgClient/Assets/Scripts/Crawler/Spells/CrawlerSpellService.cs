@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using ClientEvents;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
@@ -438,7 +438,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             return fullProcEffect;
         }
 
-        public async UniTask CastSpell(PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0)
+        public async Awaitable CastSpell(PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0)
         {
             try
             {
@@ -557,7 +557,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             }
         }
 
-        private async UniTask ShowText(PartyData party, string text, float delay = 0.0f)
+        private async Awaitable ShowText(PartyData party, string text, float delay = 0.0f)
         {
             party.ActionPanel.AddText(text);
 
@@ -596,7 +596,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             public long TotalHits { get; set; }
         }
 
-        public async UniTask CastSpellOnUnit(PartyData party, CrawlerUnit caster, FullSpell spell, CrawlerUnit target,float delay = 0.5f)
+        public async Awaitable CastSpellOnUnit(PartyData party, CrawlerUnit caster, FullSpell spell, CrawlerUnit target,float delay = 0.5f)
         {
             bool isSingleTarget = true;
             if (spell.Spell.TargetTypeId == TargetTypes.EnemyGroup || 

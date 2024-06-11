@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using GEntity = UnityEngine.GameObject;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
@@ -16,7 +16,7 @@ public class SetTerrainTextures : BaseZoneGenerator
 {
 
     private ITerrainTextureManager _terrainTextureManager;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
 
@@ -26,10 +26,10 @@ public class SetTerrainTextures : BaseZoneGenerator
         {
             for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
             {
-                _terrainTextureManager.SetOneTerrainPatchLayers(_terrainManager.GetTerrainPatch(gx, gy, true), token, true).Forget();
+                _terrainTextureManager.SetOneTerrainPatchLayers(_terrainManager.GetTerrainPatch(gx, gy, true), token, true);
             }
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
-        await UniTask.Delay(TimeSpan.FromSeconds(2.0f), cancellationToken: token);
+        await Awaitable.WaitForSecondsAsync(2.0f, cancellationToken: token);
     }
 }

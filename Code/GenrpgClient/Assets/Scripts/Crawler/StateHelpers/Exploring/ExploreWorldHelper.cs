@@ -5,7 +5,7 @@ using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Crawler.StateHelpers.PartyMembers;
 using Assets.Scripts.Crawler.StateHelpers.Selection.Entities;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Spells.Entities;
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
         public override bool IsTopLevelState() { return true; }
         protected override bool ShowSelectText() { return true; }
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = await base.Init(currentData, action, token);
 

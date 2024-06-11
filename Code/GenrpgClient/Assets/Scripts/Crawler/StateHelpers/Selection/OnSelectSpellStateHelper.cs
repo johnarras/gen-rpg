@@ -2,7 +2,7 @@
 using Assets.Scripts.Crawler.StateHelpers.Combat;
 using Assets.Scripts.Crawler.StateHelpers.Selection.Entities;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Spells.Entities;
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.OnSelectSpell; }
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -68,7 +68,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
                 }
             }
 
-            await UniTask.CompletedTask;
+            
             return new CrawlerStateData(nextState,true) {  ExtraData = selectSpell };
         }
     }

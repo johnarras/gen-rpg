@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.ProcGen.Settings.Locations.Constants;
+using UnityEngine;
 
 // Connect these zone centers to "closest object.
 
 public class ConnectSecondaryLocations : BaseZoneGenerator
 {
     private IAddRoadService _addRoadService = null;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
 
@@ -132,7 +133,7 @@ public class ConnectSecondaryLocations : BaseZoneGenerator
 
         }
 
-        await UniTask.CompletedTask;
+        
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.StateHelpers;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Inventory.PlayerData;
@@ -22,7 +22,7 @@ namespace Assets.Scripts.UI.Crawler.States
         public override ECrawlerStates GetKey() { return ECrawlerStates.TavernMain; }
 
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
             PartyData party = _crawlerService.GetParty();
@@ -38,7 +38,7 @@ namespace Assets.Scripts.UI.Crawler.States
             }
             stateData.Actions.Add(new CrawlerStateAction("More Options", KeyCode.M, ECrawlerStates.Options));
 
-            await UniTask.CompletedTask;
+            
             return stateData;
 
         }

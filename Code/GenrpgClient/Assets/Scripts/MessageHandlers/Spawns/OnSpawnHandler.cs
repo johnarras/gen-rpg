@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Combat.Messages;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Messages;
@@ -46,7 +46,7 @@ public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
 
             if (loader != null)
             {
-                loader.Load(spawnMessage, newObj, token).Forget();
+                loader.Load(spawnMessage, newObj, token);
             }
         }
     }

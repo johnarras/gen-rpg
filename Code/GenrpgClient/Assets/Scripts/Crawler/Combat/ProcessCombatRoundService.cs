@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
@@ -23,6 +23,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEditor.IMGUI.Controls;
+using UnityEngine;
 using UnityEngine.Assertions.Must;
 
 namespace Assets.Scripts.Crawler.Services.Combat
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
             await Task.CompletedTask;
         }
 
-        public async UniTask<bool> ProcessCombatRound(PartyData party, CancellationToken token)
+        public async Awaitable<bool> ProcessCombatRound(PartyData party, CancellationToken token)
         {
             if (party.Combat == null)
             {

@@ -1,8 +1,9 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Messages;
 using System.Threading;
+using UnityEngine;
 
 public class ProxyCharacterObjectLoader : UnitObjectLoader
 {
@@ -11,7 +12,7 @@ public class ProxyCharacterObjectLoader : UnitObjectLoader
         return EntityTypes.ProxyCharacter;
     }
 
-    public override async UniTask Load(OnSpawn spawn, MapObject obj, CancellationToken token)
+    public override async Awaitable Load(OnSpawn spawn, MapObject obj, CancellationToken token)
     {
         await base.Load(spawn, obj, token);
     }

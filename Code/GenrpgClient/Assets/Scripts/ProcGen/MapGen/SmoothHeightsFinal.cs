@@ -1,11 +1,12 @@
 
 using System;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
+using UnityEngine;
 
 public class SmoothHeightsFinal : BaseZoneGenerator
 {
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         int hwid = _mapProvider.GetMap().GetHwid();

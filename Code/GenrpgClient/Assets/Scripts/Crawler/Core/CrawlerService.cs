@@ -4,7 +4,7 @@ using Assets.Scripts.Model;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -79,13 +79,13 @@ namespace Assets.Scripts.Crawler.Services
                 _equivalentKeys[(KeyCode)(i + keypad0)] = (KeyCode)(i + alpha0);
             }
 
-            await UniTask.CompletedTask;
+            
         }
 
-        public async UniTask Init(CancellationToken token)
+        public async Awaitable Init(CancellationToken token)
         {
             _token = token;
-            await UniTask.CompletedTask;
+            
             ChangeState(ECrawlerStates.TavernMain, token);
         }
 
@@ -99,10 +99,10 @@ namespace Assets.Scripts.Crawler.Services
         public void ChangeState(CrawlerStateData data, CrawlerStateAction action,  CancellationToken token)
         {
             action.OnClickAction?.Invoke();
-            ChangeStateAsync(data, action, token).Forget();
+            ChangeStateAsync(data, action, token);
         }
 
-        public async UniTask ChangeStateAsync (CrawlerStateData currData, CrawlerStateAction action, CancellationToken token)
+        public async Awaitable ChangeStateAsync (CrawlerStateData currData, CrawlerStateAction action, CancellationToken token)
         {
 
             CrawlerStateData nextStateData = null;
@@ -176,7 +176,7 @@ namespace Assets.Scripts.Crawler.Services
 
         }
 
-        public async UniTask LoadSaveGame()
+        public async Awaitable LoadSaveGame()
         {
             _party = await _repoService.Load<PartyData>(SaveFileName);
 
@@ -197,7 +197,7 @@ namespace Assets.Scripts.Crawler.Services
             _statService.CalcPartyStats(_party, true);
         }
 
-        public async UniTask SaveGame()
+        public async Awaitable SaveGame()
         {
             if (_party != null)
             {
@@ -297,13 +297,13 @@ namespace Assets.Scripts.Crawler.Services
             {
                 if (currentData.Id == ECrawlerStates.ExploreWorld)
                 {
-                    UpdateMovementAsync(token).Forget();
+                    UpdateMovementAsync(token);
                 }
             }
         }
 
 
-        private async UniTask UpdateMovementAsync(CancellationToken token)
+        private async Awaitable UpdateMovementAsync(CancellationToken token)
         {
             await _crawlerMapService.UpdateMovement(token);
         }

@@ -1,16 +1,17 @@
 ﻿
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Units.Entities;
 using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Characters.PlayerData;
 using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
+using UnityEngine;
 
 class AddPlayerToMap : BaseZoneGenerator
 {
 
     protected IUnitSetupService _unitSetupService;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
 

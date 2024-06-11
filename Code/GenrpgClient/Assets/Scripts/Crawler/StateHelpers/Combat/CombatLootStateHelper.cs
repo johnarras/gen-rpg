@@ -2,7 +2,7 @@
 using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.Crawler.UI.Utils;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Inventory.PlayerData;
@@ -24,7 +24,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.CombatLoot; }
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -55,7 +55,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
             await _crawlerService.SaveGame();
 
-            await UniTask.CompletedTask;
+            
             return stateData;
         }
     }

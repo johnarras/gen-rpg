@@ -1,5 +1,5 @@
 
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Pathfinding.Constants;
@@ -7,11 +7,12 @@ using System.Threading;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Spawns.Entities;
+using UnityEngine;
 
 public class AddMonsterSpawns : BaseZoneGenerator
 {
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         foreach (Zone zone in _mapProvider.GetMap().Zones)

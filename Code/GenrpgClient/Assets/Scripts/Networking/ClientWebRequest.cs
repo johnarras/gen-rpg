@@ -1,6 +1,6 @@
 using UnityEngine.Networking;
 using System;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using UnityEngine;
 using Genrpg.Shared.Logging.Interfaces;
@@ -14,7 +14,7 @@ public class ClientWebRequest
     private WebResultsHandler _handler = null;
     private ILogService _logService = null;
     const int MaxTimes = 3;
-	public async UniTask SendRequest (ILogService logService, string uri, string postData, WebResultsHandler handler, CancellationToken token)
+	public async Awaitable SendRequest (ILogService logService, string uri, string postData, WebResultsHandler handler, CancellationToken token)
     {
         _logService = logService;
         _uri = uri;
@@ -31,7 +31,7 @@ public class ClientWebRequest
                 {
                     try
                     {
-                        await UniTask.NextFrame(cancellationToken: token);
+                        await Awaitable.NextFrameAsync(cancellationToken: token);
                     }
                     catch (OperationCanceledException ce)
                     {
@@ -43,7 +43,7 @@ public class ClientWebRequest
                 if (!String.IsNullOrEmpty(request.error))
                 {
                     _logService.Info("HTTP Post Error: " + request.error + " URI: " + _uri);
-                    await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+                    await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: token);
                     continue;
                 }
 
@@ -59,7 +59,7 @@ public class ClientWebRequest
                 }
                 else
                 {
-                    await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
+                    await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: token);
                     continue;
                 }
                 break;

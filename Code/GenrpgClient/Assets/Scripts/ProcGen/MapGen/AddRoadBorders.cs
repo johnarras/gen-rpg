@@ -1,16 +1,17 @@
 
 using System;
-using Cysharp.Threading.Tasks;
+
 
 using Genrpg.Shared.Utils;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
+using UnityEngine;
 
 public class AddRoadBorders : BaseZoneGenerator
 {
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
 
         await base.Generate(token);

@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils.Data;
 using System.Threading;
 using Genrpg.Shared.MapServer.Constants;
@@ -23,7 +23,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
     private ITerrainTextureManager _terrainTextureManager;
     private IPlayerManager _playerManager;
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     { 
         await base.Generate(token);
     }
@@ -37,10 +37,10 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
     public void LoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)
     {
         _token = token;
-        InnerLoadOneTerrainPatch(gx, gy, fastLoading, token).Forget();
+        InnerLoadOneTerrainPatch(gx, gy, fastLoading, token);
     }
 
-    private async UniTask InnerLoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)
+    private async Awaitable InnerLoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)
     {
         if (gx < 0 || gy < 0 ||
             _mapProvider.GetMap() == null)
@@ -63,7 +63,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
             ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService);
 
             patch.DataBytes = repo.LoadBytes(filePath);
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
 
             if (patch.DataBytes == null || patch.DataBytes.Length < 1)
             {
@@ -83,7 +83,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
         }
 
         _terrainManager.IncrementPatchesAdded();
-        await UniTask.NextFrame(cancellationToken: token);
+        await Awaitable.NextFrameAsync(cancellationToken: token);
 
         if (patch.terrain == null)
         {
@@ -146,7 +146,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
         try
         {
@@ -215,7 +215,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
 
         if (patch.baseAlphas == null)
@@ -304,7 +304,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
 
         // 5 subzoneId 1 byte
@@ -351,32 +351,32 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
         else
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token); 
+            await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: token); 
         }
 
         await _zoneGenService.SetOnePatchAlphamaps(patch, token);
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
         _zoneGenService.SetOnePatchHeightmaps(patch, null, patch.heights);
 
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
 
         _plantAssetLoader.SetupOneMapGrass(patch.X, patch.Y, token);
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
 
         _terrainManager.SetOneTerrainNeighbors(patch.X, patch.Y);
@@ -391,7 +391,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
 
         if (!fastLoading)
         {
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
         }
         await _terrainManager.AddPatchObjects(gx, gy, token);
 

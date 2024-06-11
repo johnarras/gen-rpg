@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Stats.Services;
@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEngine;
 
 namespace Assets.Scripts.Crawler.UI.Screens.Characters
 {
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Crawler.UI.Screens.Characters
         protected override string GetStatSubdirectory() { return "CrawlerUnits"; }
         protected override bool ShowZeroStats() { return false; }
 
-        protected override async UniTask OnStartOpen(object data, CancellationToken token)
+        protected override async Awaitable OnStartOpen(object data, CancellationToken token)
         {
             if (data is CrawlerCharacterScreenData csd)
             {

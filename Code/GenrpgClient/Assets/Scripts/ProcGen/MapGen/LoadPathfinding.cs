@@ -1,17 +1,18 @@
 
 
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Pathfinding.Constants;
 using System.Threading;
 using Genrpg.Shared.Utils;
+using UnityEngine;
 
 public class LoadPathfinding : BaseZoneGenerator
 {
 
     protected IPathfindingService _pathfindingService;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         BinaryFileRepository repo = new BinaryFileRepository(_logService);

@@ -1,23 +1,17 @@
 
-using System;
 using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
-using Cysharp.Threading.Tasks;
-
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapServer.Entities;
 
-using System.Text;
-using Genrpg.Shared.Zones.Entities;
 using System.Linq;
 using System.Threading;
 using Genrpg.Shared.MapServer.Constants;
 using Genrpg.Shared.Zones.WorldData;
-using Genrpg.Shared.Core.Entities;
+using UnityEngine;
 
 public class SetupOverrideTerrainPatches : BaseZoneGenerator
 {
-    public override async UniTask Generate (CancellationToken token)
+    public override async Awaitable Generate (CancellationToken token)
     {
         await base.Generate(token);
         int wid = _mapProvider.GetMap().GetHwid();

@@ -8,12 +8,13 @@ using System.Collections.Generic;
 using UI.Screens.Constants;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Assets.Scripts.GameSettings.Services;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Login.Messages.NoUserGameData;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Characters.PlayerData;
+using UnityEngine;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
@@ -26,10 +27,10 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IClientGameDataService _gameDataService;
         protected override void InnerProcess(NoUserGameDataResult result, CancellationToken token)
         {
-            InnerProcessAsync(result, token).Forget();
+            InnerProcessAsync(result, token);
         }
 
-        private async UniTask InnerProcessAsync(NoUserGameDataResult result, CancellationToken token)
+        private async Awaitable InnerProcessAsync(NoUserGameDataResult result, CancellationToken token)
         {
             _gs.user = new User() { Id = "Crawler" };
             _gs.characterStubs = new List<CharacterStub>();
@@ -46,21 +47,21 @@ namespace Assets.Scripts.Login.MessageHandlers
 
             _gameData.AddData(result.GameData);
 
-            await UniTask.NextFrame(cancellationToken: token);
-            await UniTask.NextFrame(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
+            await Awaitable.NextFrameAsync(cancellationToken: token);
 
             _screenService.Open(ScreenId.Crawler);
 
 
             while (_screenService.GetScreen(ScreenId.Crawler) == null)
             {
-                await UniTask.NextFrame(token);
+                await Awaitable.NextFrameAsync(token);
             }
 
             _screenService.CloseAll(new List<ScreenId>() { ScreenId.Crawler });
         }
 
-        public async UniTask RetryUploadMap(CancellationToken token)
+        public async Awaitable RetryUploadMap(CancellationToken token)
         {
             // Set the mapId you want to upload to here.
             string mapId = "1";

@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.UI.Core;
 using Assets.Scripts.UI.Crawler.ActionUI;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.UI.Interfaces;
 using Genrpg.Shared.DataStores.Entities;
@@ -30,7 +30,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         public ScrollRect ScrollRect = null;
 
-        public override async UniTask Init(CrawlerScreen screen, CancellationToken token)
+        public override async Awaitable Init(CrawlerScreen screen, CancellationToken token)
         {
             await base.Init(screen, token);
 

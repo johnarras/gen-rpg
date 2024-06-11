@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
@@ -23,7 +23,7 @@ public class TestAssetDownloads : IInjectable
     private IAssetService _assetService;
     private IScreenService _screenService;
     private IGameData _gameData;
-    public async UniTask RunTests(IUnityGameState gs, CancellationToken token)
+    public async Awaitable RunTests(IUnityGameState gs, CancellationToken token)
     {
         gs.loc.Resolve(this);
 
@@ -48,7 +48,7 @@ public class TestAssetDownloads : IInjectable
         TestMagic(token);
 
 
-        await UniTask.CompletedTask;
+        
     }
 
     private void OnDownloadAsset(System.Object obj, object data, CancellationToken token)

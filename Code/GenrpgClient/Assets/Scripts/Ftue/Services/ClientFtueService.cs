@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Ftue.Constants;
@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UI.Screens.Constants;
+using UnityEngine;
 
 namespace Assets.Scripts.Ftue.Services
 {
@@ -27,14 +28,14 @@ namespace Assets.Scripts.Ftue.Services
                 return null;
             }
 
-            ClientStartOpen(newStep).Forget();
+            ClientStartOpen(newStep);
 
             return newStep;
         }
 
-        private async UniTask ClientStartOpen(FtueStep newStep)
+        private async Awaitable ClientStartOpen(FtueStep newStep)
         {
-            await UniTask.CompletedTask;
+            
 
             // Maybe open another screen or do something else before showing the popup.
 

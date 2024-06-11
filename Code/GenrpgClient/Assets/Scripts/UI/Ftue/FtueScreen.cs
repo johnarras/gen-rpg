@@ -1,9 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
+﻿
+
 using Genrpg.Shared.Ftue.Constants;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Ftue.Settings.Steps;
-using System.Data.Common;
 using System.Threading;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
@@ -24,7 +23,7 @@ namespace Assets.Scripts.UI.Blockers
 
         protected FtueStep _step = null;
 
-        protected override async UniTask OnStartOpen(object data, CancellationToken token)
+        protected override async Awaitable OnStartOpen(object data, CancellationToken token)
         {
 
             await base.OnStartOpen(data, token);
@@ -120,7 +119,7 @@ namespace Assets.Scripts.UI.Blockers
                 }
             }
 
-            await UniTask.CompletedTask;
+            
         }
 
         private void OnClickBackground()

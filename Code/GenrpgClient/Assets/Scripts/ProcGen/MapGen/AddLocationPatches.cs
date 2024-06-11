@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 
 using Genrpg.Shared.Utils;
 using System.Threading;
@@ -16,7 +16,7 @@ public class AddLocationPatches : BaseZoneGenerator
 {
     private ILineGenService _lineGenService = null;
     private IAddRoadService _addRoadService = null;
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         int edgeSize = MapConstants.LocCenterEdgeSize;
@@ -81,7 +81,7 @@ public class AddLocationPatches : BaseZoneGenerator
                 }
             }
         }
-        await UniTask.CompletedTask;
+        
     }
 
     public void AddOneLocationPatch(Location loc, float flattenFraction)

@@ -1,4 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
+﻿
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Genrpg.Shared.Crawler.Spells.Services
 {
@@ -19,6 +20,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         List<CrawlerSpell> GetSpellsForMember(PartyData party, PartyMember member, bool inCombat);
         List<CrawlerSpell> GetNonSpellCombatActionsForMember(PartyData party, PartyMember member, bool inCombat);
         FullSpell GetFullSpell (CrawlerUnit unit, CrawlerSpell spell, long overrideLevel = 0);
-        UniTask CastSpell(PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0);
+        Awaitable CastSpell(PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0);
     }
 }

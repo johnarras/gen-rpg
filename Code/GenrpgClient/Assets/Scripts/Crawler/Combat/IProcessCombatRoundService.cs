@@ -1,19 +1,13 @@
-﻿using Cysharp.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Crawler.Combat.Entities;
+﻿
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Crawler.Services.Combat
 {
     public interface IProcessCombatRoundCombatService : IInitializable
     {
-        UniTask<bool> ProcessCombatRound(PartyData partyData, CancellationToken token);
+        Awaitable<bool> ProcessCombatRound(PartyData partyData, CancellationToken token);
     }
 }

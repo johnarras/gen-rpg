@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.UI.Screens.Characters;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Inventory.PlayerData;
 using System;
@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UI.Screens.Constants;
+using UnityEngine;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 {
@@ -21,7 +22,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.PartyMember; }
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
 
             PartyData partyData = _crawlerService.GetParty();
@@ -40,7 +41,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 
             _screenService.Open(ScreenId.CrawlerCharacter, screenData);
 
-            await UniTask.CompletedTask;
+            
             return crawlerStateData;
 
             

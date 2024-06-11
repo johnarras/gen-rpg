@@ -1,18 +1,19 @@
 using System.Linq;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Utils;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.GroundObjects.Settings;
+using UnityEngine;
 
 public class AddChests : BaseZoneGenerator
 {
     public const float MaxSteepness = 25;
     public const float ChestChance = 0.1f;
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
 

@@ -2,7 +2,7 @@
 using Assets.Scripts.Crawler.StateHelpers.Combat;
 using Assets.Scripts.Crawler.StateHelpers.Selection.Entities;
 using Assets.Scripts.UI.Crawler.States;
-using Cysharp.Threading.Tasks;
+
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.SelectEnemyGroup; }
 
-        public override async UniTask<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
+        public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
 
@@ -62,7 +62,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
 
             stateData.Actions.Add(new CrawlerStateAction("", KeyCode.Escape, ECrawlerStates.CombatPlayer));
 
-            await UniTask.CompletedTask;
+            
             return stateData;
         }
     }

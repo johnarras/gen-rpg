@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
-
 using System.Threading;
-using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.Utils.Data;
+using UnityEngine;
 
 // Use greedy algo (Kruskal's?) to connect the centers.
 
@@ -17,7 +13,7 @@ public class ConnectZoneCenters : BaseZoneGenerator
     protected ILineGenService _lineGenService;
     private IAddRoadService _addRoadService;
 
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         float[] extraConnectionsChances = { 0.5f, 0.2f, 0.1f };
@@ -71,7 +67,7 @@ public class ConnectZoneCenters : BaseZoneGenerator
         }
 
         _md.zoneConnections = roadsToMake;
-        await UniTask.CompletedTask;
+        
     }
 }
 

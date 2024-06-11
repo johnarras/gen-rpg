@@ -1,10 +1,11 @@
 ﻿using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.DataStores.Entities;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using UI.Screens.Constants;
 using Genrpg.Shared.Trades.Messages;
 using Genrpg.Shared.MapServer.Services;
+using UnityEngine;
 
 public class MapScreen : BaseScreen
 {
@@ -17,10 +18,10 @@ public class MapScreen : BaseScreen
 
     GEntity ArrowObject = null;
 
-    protected override async UniTask OnStartOpen(object data, CancellationToken token)
+    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         Setup();
-        await UniTask.CompletedTask;
+        
     }
 
     private void Setup()

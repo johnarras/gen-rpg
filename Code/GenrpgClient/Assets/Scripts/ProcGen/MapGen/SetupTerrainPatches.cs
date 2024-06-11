@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+
 using System.Threading;
 using Genrpg.Shared.MapServer.Constants;
 using Assets.Scripts.MapTerrain;
 using System.Linq;
+using UnityEngine;
 
 public class SetupTerrainPatches : BaseZoneGenerator
 {
-    public override async UniTask Generate(CancellationToken token)
+    public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
 
