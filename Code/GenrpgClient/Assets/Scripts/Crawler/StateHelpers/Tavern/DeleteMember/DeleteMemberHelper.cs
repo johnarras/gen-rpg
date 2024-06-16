@@ -42,7 +42,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Tavern.AddMember
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", KeyCode.Escape, ECrawlerStates.TavernMain, null, null));
 
-            
+            await Task.CompletedTask;
+
             return stateData;
         }
     }

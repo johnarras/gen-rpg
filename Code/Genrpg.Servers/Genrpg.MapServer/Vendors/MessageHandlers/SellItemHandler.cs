@@ -28,10 +28,6 @@ namespace Genrpg.MapServer.Vendors.MessageHandlers
     {
 
         private IVendorService _vendorService = null!;
-        public override void Setup(IGameState gs)
-        {
-            base.Setup(gs);
-        }
 
         protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, SellItem message)
         {

@@ -16,10 +16,10 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Handlers
     {
         public override Type GetKey() { return typeof(UpdateGameDataAdminMessage); }
 
-        protected override async Task InnerHandleMessage(ServerGameState gs, UpdateGameDataAdminMessage message, CancellationToken token)
+        protected override async Task InnerHandleMessage(UpdateGameDataAdminMessage message, CancellationToken token)
         {
             _logService.Message("Received Update Game Data Message ");
-            await _adminService.HandleReloadGameState(gs);
+            await _adminService.HandleReloadGameState();
             await Task.CompletedTask;
         }
     }

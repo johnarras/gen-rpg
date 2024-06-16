@@ -14,12 +14,6 @@ namespace Genrpg.Shared.Currencies.Services
 {
     public class CurrencyService : ICurrencyService
     {
-
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
-
         protected IRepositoryService _repoService = null;
 
         public bool Add(Unit unit, long currencyTypeId, long quantity)

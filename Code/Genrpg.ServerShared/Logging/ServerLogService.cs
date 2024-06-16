@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.Config;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Setup.Constants;
 
@@ -11,13 +12,17 @@ namespace Genrpg.ServerShared.Logging
     public class ServerLogService : ILogService
     {
 
-        public async Task Initialize(IGameState gs, CancellationToken toke)
+        private IServerConfig _config;
+
+        public async Task PrioritySetup(CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-
-        private IServerConfig _config;
+        public async Task Initialize( CancellationToken toke)
+        {
+            await Task.CompletedTask;
+        }
 
         public ServerLogService(IServerConfig config)
         {
@@ -25,11 +30,6 @@ namespace Genrpg.ServerShared.Logging
         }
 
         public int SetupPriorityAscending() { return SetupPriorities.Logging; }
-
-        public async Task PrioritySetup(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         public void Message(string txt)
         {

@@ -26,7 +26,7 @@ using System.Threading;
 using Genrpg.Shared.GameSettings;
 namespace Genrpg.MapServer.Items.Services
 {
-    public interface IItemGenService : IInitializable
+    public interface IItemGenService : IInjectable
     {
         Item Generate(IRandom rand, ItemGenData genData);
         Item CreateSimpleItem(IRandom rand, ItemGenData gd);
@@ -40,11 +40,6 @@ namespace Genrpg.MapServer.Items.Services
         private INameGenService _nameGenService = null;
         private IStatService _statService = null;
         private IGameData _gameData = null;
-
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         // ACtually generate an item from either an old item or an itemTypeId.
         public virtual Item Generate(IRandom rand, ItemGenData genData)

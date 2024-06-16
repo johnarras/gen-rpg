@@ -83,10 +83,10 @@ public class UnityUpdateService : StubComponent, IUnityUpdateService
 
 
     private IUnityGameState _gs;
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
-        _gs = gs as IUnityGameState;
         _mapToken = token;
+        await Task.CompletedTask;
         
     }
 

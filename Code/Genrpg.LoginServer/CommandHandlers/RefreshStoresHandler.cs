@@ -21,14 +21,14 @@ namespace Genrpg.LoginServer.CommandHandlers
     {
         private IPurchasingService _purchasingService = null;
 
-        protected override async Task InnerHandleMessage(LoginGameState gs, RefreshStoresCommand command, CancellationToken token)
+        protected override async Task InnerHandleMessage(LoginContext context, RefreshStoresCommand command, CancellationToken token)
         {
 
-            gs.coreCh = await _repoService.Load<CoreCharacter>(command.CharId);
-            gs.ch = new Character(_repoService);
-            CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
+            context.coreCh = await _repoService.Load<CoreCharacter>(command.CharId);
+            context.ch = new Character(_repoService);
+            CharacterUtils.CopyDataFromTo(context.coreCh, context.ch);
 
-            PlayerStoreOfferData offerData = await _purchasingService.GetCurrentStores(gs.user, gs.ch, true);
+            PlayerStoreOfferData offerData = await _purchasingService.GetCurrentStores(context.user, context.ch, true);
 
             RefreshStoresResult result = new RefreshStoresResult();
 
@@ -36,7 +36,7 @@ namespace Genrpg.LoginServer.CommandHandlers
 
             if (result != null)
             {
-                gs.Results.Add(result);
+                context.Results.Add(result);
             }
 
         }

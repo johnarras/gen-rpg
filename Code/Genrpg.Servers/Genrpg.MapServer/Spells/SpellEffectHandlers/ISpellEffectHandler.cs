@@ -13,7 +13,6 @@ namespace Genrpg.MapServer.Spells.SpellEffectHandlers
     /// </summary>
     public interface ISpellEffectHandler : ISetupDictionaryItem<long>
     {
-        void Init();
         bool IsModifyStatEffect();
         bool UseStatScaling();
         float GetTickLength();

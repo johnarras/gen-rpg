@@ -1,5 +1,6 @@
 ﻿
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -17,7 +18,8 @@ public class MainMenuScreen : BaseScreen
         _uIInitializable.SetButton(QuitGameButton, GetName(), ClickQuit);
         _uIInitializable.SetButton(ExitMapButton, GetName(), ExitMap);
 
-        
+
+        await Task.CompletedTask;
     }
 
 

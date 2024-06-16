@@ -14,9 +14,9 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Handlers
     {
         public override Type GetKey() {  return typeof(ServerStartedAdminMessage); }
 
-        protected override async Task InnerHandleMessage(ServerGameState gs, ServerStartedAdminMessage message, CancellationToken token)
+        protected override async Task InnerHandleMessage(ServerStartedAdminMessage message, CancellationToken token)
         {
-            await _adminService.OnServerStarted(gs, message);
+            await _adminService.OnServerStarted(message);
         }
     }
 }

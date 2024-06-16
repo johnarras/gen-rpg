@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell50default",
+  "ParentId": "default",
+  "IdKey": 50,
+  "Name": "Firestorm",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 80,
+  "PowerPerLevel": 1,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 4,
+  "Level": 14,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 6,
+      "ElementTypeId": 2
+    }
+  ],
+  "UpdateTime": "2024-06-15T00:06:53.202Z",
+  "CreateTime": "2024-01-28T15:21:51Z"
+}

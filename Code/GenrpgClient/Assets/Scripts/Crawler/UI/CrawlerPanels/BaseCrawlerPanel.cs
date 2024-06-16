@@ -25,6 +25,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         {
             _screen = screen;
             _token = token;
+            await Task.CompletedTask;
         }
     }
 }

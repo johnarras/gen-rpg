@@ -1,4 +1,5 @@
 ﻿using Genrpg.LoginServer.Core;
+using Genrpg.LoginServer.Services.LoginServer;
 using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.PlayerData;
@@ -25,8 +26,9 @@ namespace Genrpg.LoginServer.CommandHandlers.Core
         protected ILogService _logService = null;
         protected IRepositoryService _repoService = null;
         protected IServerConfig _config = null;
+        protected ILoginServerService _loginServerService = null;
 
-        protected abstract Task InnerHandleMessage(LoginGameState gs, C command, CancellationToken token);
+        protected abstract Task InnerHandleMessage(LoginContext context, C command, CancellationToken token);
 
         public Type GetKey()
         {
@@ -38,14 +40,14 @@ namespace Genrpg.LoginServer.CommandHandlers.Core
             await Task.CompletedTask;
         }
 
-        public async Task Execute(LoginGameState gs, ILoginCommand command, CancellationToken token)
+        public async Task Execute(LoginContext context, ILoginCommand command, CancellationToken token)
         {
-            await InnerHandleMessage(gs, (C)command, token);
+            await InnerHandleMessage(context, (C)command, token);
         }
 
-        protected void ShowError(LoginGameState gs, string msg)
+        protected void ShowError(LoginContext context, string msg)
         {
-            gs.Results.Add(new ErrorResult() { Error = msg });
+            context.Results.Add(new ErrorResult() { Error = msg });
         }
     }
 

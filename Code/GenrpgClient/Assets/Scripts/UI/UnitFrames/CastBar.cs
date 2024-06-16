@@ -16,9 +16,9 @@ public class CastBar : BaseBehaviour
     private bool _isCasting = false;
 
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         AddUpdate(CastUpdate, UpdateType.Regular);
         _dispatcher.AddEvent<OnStartCast>(this, OnStartCastHandler);
         _dispatcher.AddEvent<OnStopCast>(this, OnStopCastHandler);

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.Services.Clients
 {
-    public interface IClientService : IInitializable
+    public interface IClientService : IInjectable
     {
-        Task<List<ILoginResult>> HandleClient(LoginGameState gs, string postData, CancellationToken token);
+        Task HandleClient(LoginContext context, string postData, CancellationToken token);
     }
 }

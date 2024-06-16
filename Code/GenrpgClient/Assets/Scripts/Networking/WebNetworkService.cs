@@ -18,6 +18,8 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Logging.Interfaces;
 using System.Net;
 using static WebNetworkService;
+using System.Runtime.InteropServices;
+using Genrpg.Shared.HelperClasses;
 
 public delegate void WebResultsHandler(string txt, CancellationToken token);
 
@@ -46,7 +48,7 @@ public class WebNetworkService : IWebNetworkService
 
     private class WebRequestQueue
     {
-        private Dictionary<Type, IClientLoginResultHandler> _loginResultHandlers = new Dictionary<Type, IClientLoginResultHandler>();
+        private SetupDictionaryContainer<Type, IClientLoginResultHandler> _loginResultHandlers = new SetupDictionaryContainer<Type, IClientLoginResultHandler>();
         private List<FullLoginCommand> _queue = new List<FullLoginCommand>();
         private List<FullLoginCommand> _pending = new List<FullLoginCommand>();
         private float _delaySeconds;
@@ -57,11 +59,11 @@ public class WebNetworkService : IWebNetworkService
         private List<WebRequestQueue> _childQueues = new List<WebRequestQueue>();
         private string _fullEndpoint;
         private ILogService _logService;
+        private IServiceLocator _loc;
 
         public WebRequestQueue(IUnityGameState gs, CancellationToken token, string fullEndpoint, float delaySeconds, ILogService logService, WebRequestQueue parentQueue = null)
         {
             _gs = gs;
-            _loginResultHandlers = ReflectionUtils.SetupDictionary<Type, IClientLoginResultHandler>(gs);
             _parentQueue = parentQueue;
             _logService = logService;
             if (_parentQueue != null)
@@ -171,6 +173,7 @@ public class WebNetworkService : IWebNetworkService
         }
     }
 
+    protected IServiceLocator _loc = null;
     protected IUnityGameState _gs = null;
     private IUnityUpdateService _updateService;
     private ILogService _logService;
@@ -195,19 +198,24 @@ public class WebNetworkService : IWebNetworkService
 
     private const float UserRequestDelaySeconds = 0.3f;
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
-        IUnityGameState ugs = gs as IUnityGameState;
-        
         // This is like this rather than a REST api because in games you want to be able to mix features, so gameplay is one concern and you
         // do not separate it. So your server should be a monolith, and I want to be able to batch requests.
-        _queues[LoginEndpoint] = new WebRequestQueue(ugs, token, ugs.LoginServerURL + LoginEndpoint, UserRequestDelaySeconds, _logService, null);
-        _queues[UserEndpoint] = new WebRequestQueue(ugs,token, ugs.LoginServerURL + UserEndpoint, UserRequestDelaySeconds, _logService, _queues[LoginEndpoint]);
-        _queues[NoUserEndpoint] = new WebRequestQueue(ugs, token, ugs.LoginServerURL + NoUserEndpoint, 0, _logService, null);
+        _queues[LoginEndpoint] = new WebRequestQueue(_gs, token, _gs.LoginServerURL + LoginEndpoint, UserRequestDelaySeconds, _logService, null);
+        _queues[UserEndpoint] = new WebRequestQueue(_gs,token, _gs.LoginServerURL + UserEndpoint, UserRequestDelaySeconds, _logService, _queues[LoginEndpoint]);
+        _queues[NoUserEndpoint] = new WebRequestQueue(_gs, token, _gs.LoginServerURL + NoUserEndpoint, 0, _logService, null);
+
+        foreach (var queue in _queues.Values)
+        {
+            _loc.Resolve(queue);
+        }
+
 
         _updateService.AddUpdate(this, ProcessRequestQueues, UpdateType.Late);
-        
-        
+
+
+        await Task.CompletedTask;
     }
 
     private void ProcessRequestQueues()

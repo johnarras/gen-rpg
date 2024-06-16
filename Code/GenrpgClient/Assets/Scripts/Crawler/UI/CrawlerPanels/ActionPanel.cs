@@ -79,7 +79,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                     continue;
                 }
 
-                ActionPanelRow row = GEntityUtils.FullInstantiate<ActionPanelRow>(_gs, _panelRow);
+                ActionPanelRow row = _gameObjectService.FullInstantiate<ActionPanelRow>(_panelRow);
 
                 GEntityUtils.AddToParent(row.gameObject, Content);
 
@@ -113,7 +113,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                 return;
             }
 
-            ActionPanelText panelText = GEntityUtils.FullInstantiate<ActionPanelText>(_gs, _panelText);
+            ActionPanelText panelText = _gameObjectService.FullInstantiate<ActionPanelText>(_panelText);
 
             GEntityUtils.AddToParent(panelText.gameObject, Content);
 

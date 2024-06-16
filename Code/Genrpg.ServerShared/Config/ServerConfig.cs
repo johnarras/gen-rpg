@@ -10,7 +10,7 @@ using System.Threading;
 namespace Genrpg.ServerShared.Config
 {
 
-    public interface IServerConfig : IInitializable, IConnectionConfig
+    public interface IServerConfig : IInjectable, IConnectionConfig
     {
 
         string Env { get; set; }
@@ -31,12 +31,6 @@ namespace Genrpg.ServerShared.Config
 
     public class ServerConfig : IServerConfig
     {
-
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
-
 
         public string Env { get; set; }
 

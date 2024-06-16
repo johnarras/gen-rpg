@@ -4,6 +4,7 @@ using System;
 using Genrpg.Shared.Utils;
 using System.Threading;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class SetMountainHeights : BaseAddMountains
 {
@@ -141,5 +142,6 @@ public class SetMountainHeights : BaseAddMountains
                 _md.heights[x, y] += _md.mountainNoise[x, y] * noiseScale * edgePercent / MapConstants.MapHeight;
             }
         }
+        await Task.CompletedTask;
     }
 }

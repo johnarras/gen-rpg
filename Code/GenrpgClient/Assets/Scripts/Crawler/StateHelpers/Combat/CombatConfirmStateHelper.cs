@@ -55,7 +55,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                     _combatService.EndCombatRound(party);
                 }));
 
-            
+
+            await Task.CompletedTask;
             return stateData;
 
 

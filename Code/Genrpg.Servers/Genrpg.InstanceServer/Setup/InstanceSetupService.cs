@@ -1,4 +1,9 @@
-﻿using Genrpg.Shared.Core.Entities;
+﻿using Genrpg.InstanceServer.Admin;
+using Genrpg.InstanceServer.Managers;
+using Genrpg.ServerShared.CloudComms.Services.Admin;
+using Genrpg.ServerShared.Setup;
+using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Setup.Services;
 using System;
 using System.Collections.Generic;
@@ -8,12 +13,16 @@ using System.Threading.Tasks;
 
 namespace Genrpg.InstanceServer.Setup
 {
-    public class InstanceSetupService : SetupService
+    public class InstanceSetupService : BaseServerSetupService
     {
-        public override void SetupServiceLocator(IGameState gs)
+
+        public InstanceSetupService(IServiceLocator loc) : base(loc) { }
+
+        protected override void AddServices()
         {
-            InstanceLocatorSetup iss = new InstanceLocatorSetup();
-            iss.Setup(gs);
+            base.AddServices();
+            Set<IInstanceManagerService>(new InstanceManagerService());
+            Set<IAdminService>(new InstanceAdminService());
         }
     }
 }

@@ -13,12 +13,14 @@ using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.Core.Entities;
 using System.Threading.Tasks;
 using Assets.Scripts.Core.Interfaces;
+using Genrpg.Shared.Interfaces;
+using Assets.Scripts.Crawler.Services;
 
 public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, IInjectOnLoad<IScreenService>
 {
     private IAnalyticsService _analyticsService;
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -37,9 +39,9 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
         _gameToken = token;
     }
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         SetupLayers();
         StartUpdates();
         _screenConfigs = AssetUtils.LoadAllResources<ScreenConfig>("ScreenConfigs");

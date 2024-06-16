@@ -73,7 +73,8 @@ namespace Assets.Scripts.UI.Crawler.States
                     },
                     extraData: member));
             }
-            
+
+            await Task.CompletedTask;
             return stateData;
 
         }

@@ -4,6 +4,7 @@ using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Combat
@@ -23,7 +24,6 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
             CombatState combatState = new CombatState() { Level = party.GetWorldLevel() };
 
-
             if (_combatService.StartCombat(_crawlerService.GetParty(), combatState))
             {
                 stateData = new CrawlerStateData(ECrawlerStates.CombatFightRun,true);
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                 stateData = new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Failed to start combat." };
             }
 
-            
+            await Task.CompletedTask;
             return stateData;
         }
     }

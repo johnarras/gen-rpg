@@ -49,7 +49,8 @@ namespace Assets.Scripts.UI.Crawler.States
                 delegate { member.Spawn = null;
                    member.RaceId = 0;
                 }, member));
-            
+
+            await Task.CompletedTask;
             return stateData;
 
         }

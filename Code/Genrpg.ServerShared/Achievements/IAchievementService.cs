@@ -4,7 +4,7 @@ using Genrpg.Shared.MapObjects.Entities;
 
 namespace Genrpg.ServerShared.Achievements
 {
-    public interface IAchievementService : IInitializable
+    public interface IAchievementService : IInjectable
     {
         void UpdateAchievement(MapObject mapObject, long achievementTypeId, long quantity);
     }

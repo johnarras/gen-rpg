@@ -64,7 +64,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Training
 
 
             stateData.Actions.Add(new CrawlerStateAction("Back to the city", KeyCode.Escape, ECrawlerStates.TrainingMain));
-            
+
+            await Task.CompletedTask;
             return stateData;
         }
     }

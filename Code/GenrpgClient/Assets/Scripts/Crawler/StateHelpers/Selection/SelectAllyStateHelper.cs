@@ -5,6 +5,7 @@ using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Selection
@@ -40,7 +41,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
 
             stateData.Actions.Add(new CrawlerStateAction("", KeyCode.Escape, ECrawlerStates.ExploreWorld));
 
-            
+
+            await Task.CompletedTask;
             return stateData;
         }
     }

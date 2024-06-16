@@ -41,7 +41,8 @@ namespace Assets.Scripts.UI.Crawler.States
             }
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", KeyCode.Escape, ECrawlerStates.TavernMain, null, null));
-            
+
+            await Task.CompletedTask;
             return stateData;
 
         }

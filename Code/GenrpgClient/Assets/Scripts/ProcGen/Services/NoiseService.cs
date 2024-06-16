@@ -11,7 +11,7 @@ public interface INoiseService : IInitializable
 
 public class NoiseService : INoiseService
 {
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }

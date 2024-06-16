@@ -19,6 +19,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.Spells.Services;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Interfaces;
 
 namespace Genrpg.MapServer.MapMessaging.MessageHandlers
 {
@@ -37,7 +38,8 @@ namespace Genrpg.MapServer.MapMessaging.MessageHandlers
         protected ILogService _logService = null;
         protected IRepositoryService _repoService = null;
         protected IGameData _gameData;
-        public virtual void Setup(IGameState gs)
+
+        public virtual void Setup(IServiceLocator loc)
         {
         }
 

@@ -2,6 +2,7 @@
 using Assets.Scripts.UI;
 
 using System.Threading;
+using System.Threading.Tasks;
 using UI;
 using UnityEngine;
 
@@ -32,6 +33,7 @@ public class HUDScreen : BaseScreen
         _unitFrame?.Init(token);
         _networkStatus?.Init(token);
         _actionBars?.Init(token);
-        
+
+        await Task.CompletedTask;
     }
 }

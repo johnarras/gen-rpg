@@ -67,12 +67,12 @@ public class UnitController : BaseBehaviour
     public virtual bool IsSwimming() { return false; }
     public virtual bool CanMoveNow() { return true; }
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         anims = GEntityUtils.GetComponent<GAnimator>(entity);
         cc = GetComponent<CharacterController>();
-        rb = GEntityUtils.GetOrAddComponent<Rigidbody>(_gs, entity);
+        rb = _gameObjectService.GetOrAddComponent<Rigidbody>(entity);
         rb.isKinematic = true;
         rb.freezeRotation = true;
     }

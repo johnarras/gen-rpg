@@ -13,9 +13,9 @@ public class MoneySegment : BaseBehaviour
         return Parent;
     }
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         if (!string.IsNullOrEmpty(_txt))
         {
             SetQuantityText(_txt);

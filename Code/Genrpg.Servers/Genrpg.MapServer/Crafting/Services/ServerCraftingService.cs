@@ -29,7 +29,7 @@ using ZstdSharp.Unsafe;
 namespace Genrpg.MapServer.Crafting.Services
 {
 
-    public interface IServerCraftingService : IInitializable
+    public interface IServerCraftingService : IInjectable
     {
         CraftingResult CraftItem(IRandom rand, CraftingItemData data, Character ch, bool sendUpdates = false);
         UseItemResult LearnRecipe(IRandom rand, Character ch, Item recipeItem);
@@ -43,10 +43,6 @@ namespace Genrpg.MapServer.Crafting.Services
         private ITradeService _tradeService = null;
         private ISharedCraftingService _sharedCraftingService = null;
         private IItemGenService _itemGenService = null;
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         public CraftingResult CraftItem(IRandom rand, CraftingItemData data, Character ch, bool sendUpdates = false)
         {

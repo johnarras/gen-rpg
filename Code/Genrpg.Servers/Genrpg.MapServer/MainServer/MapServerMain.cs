@@ -31,11 +31,11 @@ namespace Genrpg.MapServer.MainServer
 
         private IMapServerService _mapServerService = null;
 
-        protected override async Task FinalInit(ServerGameState gs, object data, object parentObject, CancellationToken serverToken)
+        protected override async Task FinalInit(object data, object parentObject, CancellationToken serverToken)
         {
-            await base.FinalInit(gs, data, parentObject, serverToken);
+            await base.FinalInit(data, parentObject, serverToken);
 
-            await _mapServerService.Init(gs, data as InitMapServerData, serverToken);
+            await _mapServerService.Init(data as InitMapServerData, serverToken);
         }
 
         protected override string GetServerId(object data)

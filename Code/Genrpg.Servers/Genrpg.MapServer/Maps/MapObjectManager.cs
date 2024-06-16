@@ -37,6 +37,7 @@ using Genrpg.MapServer.Maps.Constants;
 using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.HelperClasses;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -100,8 +101,8 @@ namespace Genrpg.MapServer.Maps
         protected long _gridObjectCount = 0;
         protected long _zoneObjectCount = 0;
 
-        private Dictionary<long, IMapObjectFactory> _factories = new Dictionary<long, IMapObjectFactory>();
-        private Dictionary<long, IObjectFilter> _filters = new Dictionary<long, IObjectFilter>();
+        private SetupDictionaryContainer<long, IMapObjectFactory> _factories = new();
+        private SetupDictionaryContainer<long, IObjectFilter> _filters = new();
 
         private IMapMessageService _messageService = null;
         private ILogService _logService = null;
@@ -159,15 +160,8 @@ namespace Genrpg.MapServer.Maps
             };
             return counts;
         }
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize( CancellationToken token)
         {
-            _factories = ReflectionUtils.SetupDictionary<long, IMapObjectFactory>(gs);
-            foreach (IMapObjectFactory mapObjFact in _factories.Values)
-            {
-                mapObjFact.Setup(gs);
-            }
-            _filters = ReflectionUtils.SetupDictionary<long, IObjectFilter>(gs);
-
             for (int i = 0; i < 256; i++)
             {
                 _zoneDict[i] = new ConcurrentDictionary<string, Character>();

@@ -4,6 +4,8 @@ using Azure.Messaging.ServiceBus.Administration;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.PubSub.Entities;
 using Genrpg.ServerShared.Core;
+using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
@@ -20,7 +22,6 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
 
         protected ServiceBusClient _serviceBusClient = null;
         protected ServiceBusAdministrationClient _adminClient = null;
-        protected ServerGameState _serverGameState = null;
         protected string _topicName = null;
         protected ServiceBusSender _sender = null;
         protected ServiceBusReceiver _receiver = null;
@@ -30,7 +31,7 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
 
         protected ILogService _logService = null;
 
-        protected Dictionary<Type, H> _handlers = null;
+        protected SetupDictionaryContainer<Type, H> _handlers = new();
 
         public bool IsValidMessage(IPubSubMessage message)
         {
@@ -41,9 +42,8 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
             return false;
         }
 
-        public async Task Init(ServerGameState gs, ServiceBusClient client, ServiceBusAdministrationClient adminClient, string serverId, string env,  CancellationToken token)
+        public async Task Init(ServiceBusClient client, ServiceBusAdministrationClient adminClient, string serverId, string env,  CancellationToken token)
         {
-            _serverGameState = gs;
             _serviceBusClient = client;
             _adminClient = adminClient;
             _token = token;
@@ -74,12 +74,7 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
             _ = Task.Run(() => RunReceiver(token));
         }
 
-        public void SetMessageHandlers(ServerGameState gs)
-        {
-            _handlers = ReflectionUtils.SetupDictionary<Type, H>(gs);
-        }
-
-        public void SendMessage(ServerGameState gs, IPubSubMessage message)
+        public void SendMessage(IPubSubMessage message)
         {
             if (message is M m)
             {
@@ -139,7 +134,7 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
 
                         if (_handlers.TryGetValue(envelope.Message.GetType(), out H handler))
                         {
-                            await handler.HandleMessage(_serverGameState, envelope.Message, _token);
+                            await handler.HandleMessage(envelope.Message, _token);
                         }
                     }
                 }

@@ -216,9 +216,9 @@ public class MonsterController : UnitController
     }
 
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         SetState(IdleState);
 
         float rotDiff =entity.transform().localEulerAngles.y -entity.transform().eulerAngles.y;

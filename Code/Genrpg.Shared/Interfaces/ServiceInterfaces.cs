@@ -2,6 +2,9 @@
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using System.Threading;
+using Genrpg.Shared.Utils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Genrpg.Shared.Interfaces
 {
@@ -11,16 +14,21 @@ namespace Genrpg.Shared.Interfaces
 
     }
 
+    public interface IInitOnResolve
+    {
+        void Init();
+    }
+
     // Used for services that need to have a "setup" function run at startup.
     public interface IInitializable : IInjectable
     {
-        Task Initialize(IGameState gs, CancellationToken token);
+        Task Initialize(CancellationToken token);
     }
 
     public interface IPriorityInitializable : IInitializable
     {
         int SetupPriorityAscending();
-        Task PrioritySetup(IGameState gs, CancellationToken token);
+        Task PrioritySetup(CancellationToken token);
     }
 
     /// <summary>
@@ -30,11 +38,6 @@ namespace Genrpg.Shared.Interfaces
     public interface ISetupDictionaryItem<T>
     {
         T GetKey();
-    }
-
-    public interface IFactorySetupService
-    {
-        void Setup(IGameState gs);
     }
 
 }

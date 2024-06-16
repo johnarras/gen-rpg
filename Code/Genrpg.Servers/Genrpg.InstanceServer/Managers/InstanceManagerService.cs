@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.InstanceServer.Managers
 {
-    public interface IInstanceManagerService : IInitializable
+    public interface IInstanceManagerService : IInjectable
     {
         Task AddInstanceData(AddMapInstance mapInstance);
         Task<MapInstanceData> GetInstanceDataForMap(string mapId);
@@ -33,10 +33,6 @@ namespace Genrpg.InstanceServer.Managers
         private List<MapServerData> _mapServers = new List<MapServerData>();
 
         private ILogService _logger = null;
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
         public async Task AddInstanceData(AddMapInstance mapInstance)
         {
             _logger.Info("Add Instance " + mapInstance.MapId + " Host: " + mapInstance.Host + " Port: " + mapInstance.Port);

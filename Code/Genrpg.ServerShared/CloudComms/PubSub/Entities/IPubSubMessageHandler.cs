@@ -8,6 +8,6 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Entities
 {
     public interface IPubSubMessageHandler : ISetupDictionaryItem<Type>
     {
-        Task HandleMessage(ServerGameState gs, IPubSubMessage message, CancellationToken token);
+        Task HandleMessage(IPubSubMessage message, CancellationToken token);
     }
 }

@@ -26,7 +26,7 @@ using Genrpg.Shared.Crafting.Constants;
 
 namespace Genrpg.Shared.Crafting.Services
 {
-    public interface ISharedCraftingService : IInitializable
+    public interface ISharedCraftingService : IInjectable
     {
         CraftingStats CalculateStatsFromReagents(IRandom rand, Character ch, CraftingItemData data);
         ValidityResult HasValidReagents(IRandom rand, Character ch, CraftingItemData data, Character crafter);
@@ -38,10 +38,6 @@ namespace Genrpg.Shared.Crafting.Services
     {
 
         private IGameData _gameData = null;
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
 
         /// <summary>
         /// Get stats generated when the given crafting stats are used

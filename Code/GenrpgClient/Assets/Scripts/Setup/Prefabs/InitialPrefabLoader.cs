@@ -1,12 +1,12 @@
 ﻿
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 
-public class InitialPrefabLoader : BaseBehaviour
+public class InitialPrefabLoader : MonoBehaviour
 {
     public List<string> Prefabs;
-
 
     public async Awaitable LoadPrefabs(IUnityGameState gs)
     {
@@ -14,6 +14,7 @@ public class InitialPrefabLoader : BaseBehaviour
         {
             return;
         }
+        
 
         List<GEntity> entities = new List<GEntity>();
         foreach (string prefab in Prefabs)
@@ -25,10 +26,11 @@ public class InitialPrefabLoader : BaseBehaviour
             }
             entities.Add(prefabObj);
 
-            GEntity newPrefab = GEntityUtils.FullInstantiateAndSet(gs, prefabObj);
+            GEntity newPrefab = gs.loc.Get<IGameObjectService>().FullInstantiateAndSet(prefabObj);
             newPrefab.name = newPrefab.name.Replace("(Clone)", "");
         }
 
-        
+
+        await Task.CompletedTask;
     }
 }

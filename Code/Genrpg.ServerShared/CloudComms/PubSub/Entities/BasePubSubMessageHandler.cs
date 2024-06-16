@@ -12,11 +12,11 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Entities
     {
         public abstract Type GetKey();
 
-        public async Task HandleMessage(ServerGameState gs, IPubSubMessage message, CancellationToken token)
+        public async Task HandleMessage(IPubSubMessage message, CancellationToken token)
         {
-            await InnerHandleMessage(gs,(M)message,token);
+            await InnerHandleMessage((M)message,token);
         }
 
-        protected abstract Task InnerHandleMessage(ServerGameState gs, M message, CancellationToken token);
+        protected abstract Task InnerHandleMessage(M message, CancellationToken token);
     }
 }

@@ -16,6 +16,8 @@ using Genrpg.Shared.MapObjects.Messages;
 using System.Threading.Tasks;
 using UnityEngine;
 using Assets.Scripts.ProcGen.RandomNumbers;
+using NUnit.Framework.Constraints;
+using Genrpg.Shared.HelperClasses;
 
 public interface IClientMapObjectManager : IInitializable, IMapTokenService
 {
@@ -40,8 +42,9 @@ public class ClientMapObjectManager : IClientMapObjectManager
     private IPlayerManager _playerManager;
     protected IClientRandom _rand;
 
+
     private List<UnitController> _controllers = new List<UnitController>();
-    private Dictionary<long, IMapObjectFactory> _factories = new Dictionary<long, IMapObjectFactory>();
+    private SetupDictionaryContainer<long, IMapObjectFactory> _factories = new SetupDictionaryContainer<long, IMapObjectFactory>();
 
     private Dictionary<string, MapObject> _idDict = new Dictionary<string, MapObject>();
     private Dictionary<string, ClientMapObjectGridItem> _gridItems = new Dictionary<string, ClientMapObjectGridItem>();
@@ -51,7 +54,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
     protected List<string> _olderSpawns = new List<string>();
     protected List<string> _recentlyLoadedSpawns = new List<string>();
     List<UnitController> _removeUnitList = new List<UnitController>();
-    private Dictionary<long, IMapObjectLoader> _mapObjectLoaders = new Dictionary<long, IMapObjectLoader>();
+    private SetupDictionaryContainer<long, IMapObjectLoader> _mapObjectLoaders = new SetupDictionaryContainer<long, IMapObjectLoader>();
 
     protected IUnityGameState _gs;
 
@@ -90,14 +93,10 @@ public class ClientMapObjectManager : IClientMapObjectManager
     }
 
     private bool _didAddUpdate = false;
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         Reset();
-        _factories = ReflectionUtils.SetupDictionary<long, IMapObjectFactory>(gs);
-        foreach (IMapObjectFactory mapObjFact in _factories.Values)
-        {
-            mapObjFact.Setup(gs);
-        }
+        
         if (!_didAddUpdate)
         {
             _updateService.AddTokenUpdate(this, FrameUpdate, UpdateType.Regular);
@@ -108,17 +107,15 @@ public class ClientMapObjectManager : IClientMapObjectManager
             _fxParent = GEntityUtils.FindSingleton("FXParent", true);
         }
 
-        _mapObjectLoaders = ReflectionUtils.SetupDictionary<long, IMapObjectLoader>(gs);
-
-        
+        await Task.CompletedTask;
     }
 
 
     public IMapObjectLoader GetMapObjectLoader(long entityTypeId)
     {
-        if (_mapObjectLoaders.ContainsKey(entityTypeId))
+        if (_mapObjectLoaders.TryGetValue(entityTypeId, out IMapObjectLoader loader))
         {
-            return _mapObjectLoaders[entityTypeId];
+            return loader;
         }
         return null;
     }
@@ -321,12 +318,10 @@ public class ClientMapObjectManager : IClientMapObjectManager
             return currObj;
         }
         
-        if (!_factories.ContainsKey(spawn.EntityTypeId))
+        if (!_factories.TryGetValue(spawn.EntityTypeId, out IMapObjectFactory fact))
         {
             return null;
         }
-
-        IMapObjectFactory fact = _factories[spawn.EntityTypeId];
 
         MapObject obj = fact.Create(_rand, spawn);
 

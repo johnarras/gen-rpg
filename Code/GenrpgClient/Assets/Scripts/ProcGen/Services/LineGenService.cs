@@ -19,7 +19,7 @@ public interface ILineGenService : IInitializable
 public class LineGenService : ILineGenService
 {
     protected INoiseService _noiseService;
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }

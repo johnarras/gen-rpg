@@ -6,6 +6,7 @@ using UI.Screens.Constants;
 using Genrpg.Shared.Trades.Messages;
 using Genrpg.Shared.MapServer.Services;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class MapScreen : BaseScreen
 {
@@ -21,7 +22,8 @@ public class MapScreen : BaseScreen
     protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         Setup();
-        
+
+        await Task.CompletedTask;
     }
 
     private void Setup()

@@ -21,7 +21,6 @@ namespace Genrpg.Shared.Units.Entities
         [Key(8)] public int StatPct { get; set; }
         [Key(9)] public bool AllowNoParent { get; set; }
 
-        public GameStateObjectDelegate Handler;
         public object ArtInstance;
 
         public UnitGenData()

@@ -8,7 +8,6 @@ namespace Genrpg.Shared.MapObjects.Factories
 {
     public interface IMapObjectFactory : ISetupDictionaryItem<long>
     {
-        void Setup(IGameState gs);
         MapObject Create(IRandom rand, IMapSpawn spawn);
 
     }

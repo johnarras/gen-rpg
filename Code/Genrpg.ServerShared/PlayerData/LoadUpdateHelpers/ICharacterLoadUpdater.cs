@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
     public interface ICharacterLoadUpdater
     {
         int Priority { get; }
-        Task Setup(IGameState gs);
         Task Update(IRandom rand, Character ch);
     }
 }

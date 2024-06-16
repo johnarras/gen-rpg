@@ -27,7 +27,7 @@ namespace Genrpg.ServerShared.Maps
     {
         protected IRepositoryService _repoService = null;
         protected ILogService _logService = null;
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize( CancellationToken token)
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = nameof(QuestType.OwnerId) });

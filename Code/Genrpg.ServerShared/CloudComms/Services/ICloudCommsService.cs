@@ -22,9 +22,6 @@ namespace Genrpg.ServerShared.CloudComms.Services
         void SendResponseMessageWithHandler<TResponse>(string serverId, IRequestQueueMessage requestMessage,
             Action<TResponse> responseHandler) where TResponse : IResponseQueueMessage;
 
-
-
-        void SendPubSubMessage(ServerGameState gs, IPubSubMessage message);
-        void SetupPubSubMessageHandlers(ServerGameState gs);
+        void SendPubSubMessage(IPubSubMessage message);
     }
 }

@@ -21,10 +21,6 @@ namespace Genrpg.Shared.MapObjects.Factories
         protected IRepositoryService _repoService;
         protected IMapProvider _mapProvider;
 
-        public virtual void Setup(IGameState gs)
-        {
-        }
-
         public abstract MapObject Create(IRandom rand, IMapSpawn spawn);
         public abstract long GetKey();
 

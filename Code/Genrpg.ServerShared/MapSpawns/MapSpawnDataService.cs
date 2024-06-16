@@ -30,15 +30,15 @@ namespace Genrpg.ServerShared.MapSpawns
 
     public class MapSpawnDataService : IMapSpawnDataService
     {
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        private IRepositoryService _repoService = null;
+        public async Task Initialize(CancellationToken token)
         {
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { MemberName = nameof(UnitStatus.OwnerId) });
             configs.Add(new IndexConfig() { MemberName = nameof(UnitStatus.MapId) });
             List<Task> allTasks = new List<Task>();
-            IRepositoryService repoService = gs.loc.Get<IRepositoryService>();
-            allTasks.Add(repoService.CreateIndex<UnitStatus>(configs));
-            allTasks.Add(repoService.CreateIndex<MapSpawn>(configs));
+            allTasks.Add(_repoService.CreateIndex<UnitStatus>(configs));
+            allTasks.Add(_repoService.CreateIndex<MapSpawn>(configs));
             await Task.WhenAll(allTasks);
         }
         public async Task SaveMapSpawnData(IRepositoryService repoService, MapSpawnData data, string mapId, int mapVersion)

@@ -33,7 +33,7 @@ public class QuestGenService : IQuestGenService
     protected IUnityGameState _gs;
     protected IClientRandom _rand;
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }

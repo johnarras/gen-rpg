@@ -23,7 +23,7 @@ namespace Genrpg.ServerShared.CloudComms.Services
 
     public class CloudCommsService : ICloudCommsService
     {
-        private ServerGameState _serverGameState = null;
+        private IServiceLocator _loc = null;
         private string _env;
         private string _serverId;
         private CancellationToken _token = CancellationToken.None;
@@ -44,9 +44,8 @@ namespace Genrpg.ServerShared.CloudComms.Services
 
 
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize(CancellationToken token)
         {
-            _serverGameState = gs as ServerGameState;
             _token = token;
             _env = _config.MessagingEnv.ToLower();
             _serverId = _config.ServerId.ToLower();
@@ -55,10 +54,10 @@ namespace Genrpg.ServerShared.CloudComms.Services
             _adminClient = new ServiceBusAdministrationClient(serviceBusConnectionString);
 
             _queueManager = new CloudQueueManager();
-            await _queueManager.Init(_serverGameState, _logService, _serviceBusClient, _adminClient, _serverId, _env, token);
+            await _queueManager.Init(_logService, _serviceBusClient, _adminClient, _serverId, _env, token);
 
             _pubSubManager = new CloudPubSubManager();
-            await _pubSubManager.Init(_serverGameState, _logService, _serviceBusClient, _adminClient, _serverId, _env, token);
+            await _pubSubManager.Init(_loc, _logService, _serviceBusClient, _adminClient, _serverId, _env, token);
 
         }
 
@@ -109,14 +108,9 @@ namespace Genrpg.ServerShared.CloudComms.Services
 
             #region pubsub
 
-        public void SendPubSubMessage(ServerGameState gs, IPubSubMessage message)
+        public void SendPubSubMessage(IPubSubMessage message)
         {
-            _pubSubManager.SendMessage(gs, message);
-        }
-
-        public void SetupPubSubMessageHandlers(ServerGameState gs)
-        {
-            _pubSubManager.SetupPubSubMessageHandlers(gs);
+            _pubSubManager.SendMessage(message);
         }
 
         #endregion

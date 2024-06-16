@@ -31,18 +31,15 @@ namespace Genrpg.ServerShared.DataStores
     public class ServerRepositoryService : IRepositoryService
     {
 
-        public async Task Initialize(IGameState gs, CancellationToken toke)
+        public async Task Initialize(CancellationToken toke)
         {
             await Task.CompletedTask;
         }
-
-
 
         const int QueueCount = 4;
 
         const string BlobPrefix = "Blob";
         const string NoSQLPrefix = "NoSQL";
-        const string ReplacementString = "XXXX";
 
         private List<DbQueue> _queues = null;
         private ILogService _logger = null;
@@ -58,7 +55,7 @@ namespace Genrpg.ServerShared.DataStores
 
         public int SetupPriorityAscending() { return SetupPriorities.Repositories; }
 
-        public async Task PrioritySetup(IGameState gs, CancellationToken token)
+        public async Task PrioritySetup(CancellationToken token)
         {
 
             _environments = _config.DataEnvs;

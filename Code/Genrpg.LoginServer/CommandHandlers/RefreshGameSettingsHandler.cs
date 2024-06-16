@@ -16,14 +16,14 @@ namespace Genrpg.LoginServer.CommandHandlers
     {
         private IGameDataService _gameDataService = null;
 
-        protected override async Task InnerHandleMessage(LoginGameState gs, RefreshGameSettingsCommand command, CancellationToken token)
+        protected override async Task InnerHandleMessage(LoginContext context, RefreshGameSettingsCommand command, CancellationToken token)
         {
 
-            RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs.ch, true);
+            RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(context.ch, true);
 
             if (result != null)
             {
-                gs.Results.Add(result);
+                context.Results.Add(result);
             }
 
             await Task.CompletedTask;

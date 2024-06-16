@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 using System.Threading;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseScreen 
     where TData : class 
@@ -22,10 +23,11 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
     {
         if (ToolTip != null)
         {
-            GEntityUtils.InitializeHierarchy(_gs, ToolTip.entity());
+            _gameObjectService.InitializeHierarchy(ToolTip.entity());
             GEntityUtils.SetActive(ToolTip.entity(), false);
         }
-        
+
+        await Task.CompletedTask;
     }
 
     protected override void OnDisable()
@@ -85,7 +87,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
 
         ResetCurrentDragItem();
         _origItem = icon;
-        _dragItem = GEntityUtils.FullInstantiate<TDragItem>(_gs, icon);
+        _dragItem = _gameObjectService.FullInstantiate<TDragItem>(icon);
         _dragItem.Init(icon.GetInitData(), _token);
         _dragItem.transform().SetParent(dragParent.transform());
         _dragItem.transform().localScale = icon.transform().lossyScale;

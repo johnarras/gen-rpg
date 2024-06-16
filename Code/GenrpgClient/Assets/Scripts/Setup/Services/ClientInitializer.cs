@@ -3,6 +3,7 @@ using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Crawler.Services.Training;
 using Assets.Scripts.Ftue.Services;
+using Assets.Scripts.GameObjects;
 using Assets.Scripts.GameSettings.Services;
 using Assets.Scripts.Model;
 using Assets.Scripts.Pathfinding.Utils;
@@ -26,95 +27,109 @@ using UnityEngine;
 
 public class ClientInitializer 
 {
-    private IUnityGameState _gs = null;
+    private IServiceLocator _loc = null;
+    private IUnityGameState _gs;
     public ClientInitializer(IUnityGameState gs)
     {
         _gs = gs;
+        _loc = gs.loc;
     }
 
+    private void Set<T>(T obj) where T : IInjectable
+    {
+        _loc.Set(obj);
+    }
 
     public void AddClientServices (InitClient initClient, bool forRealGame, CancellationToken token)
     {
+        _loc.Set(_gs); 
         if (initClient != null)
         {
-            _gs.loc.Set<IInitClient>(initClient);
+            Set<IInitClient>(initClient);
         }
-        _gs.loc.Set<IAssetService>(new UnityAssetService());
-        _gs.loc.Set<IFileDownloadService>(new FileDownloadService());
-        _gs.loc.Set<IRepositoryService>(new ClientRepositoryService(_gs.loc.Get<ILogService>()));
-        _gs.loc.Set<IShapeService>(new ShapeService());
-        _gs.loc.Set<INoiseService>(new NoiseService());
-        _gs.loc.Set<ISamplingService>(new SamplingService());
-        _gs.loc.Set<ILineGenService>(new LineGenService());
-        _gs.loc.Set<ILocationGenService>(new LocationGenService());
-        _gs.loc.Set<IMapGenService>(new MapGenService());
-        _gs.loc.Set<IZoneGenService>(new ZoneGenService());
-        _gs.loc.Set<IQuestGenService>(new QuestGenService());
-        _gs.loc.Set<IClientMapObjectManager>(new ClientMapObjectManager(token));
-        _gs.loc.Set<IClientGameDataService>(new ClientGameDataService());
-        _gs.loc.Set<IUIService>(new UIInitializable());
-        _gs.loc.Set<IFxService>(new FxService());
-        _gs.loc.Set<IUnityUpdateService>(_gs.AddComponent<UnityUpdateService>());
-        _gs.loc.Set<ITerrainPatchLoader>(new TerrainPatchLoader());
-        _gs.loc.Set<IPlantAssetLoader>(new PlantAssetLoader());
-        _gs.loc.Set<IZonePlantValidator>(new ZonePlantValidator());
-        _gs.loc.Set<IAddPoolService>(new AddPoolService());
-        _gs.loc.Set<ITerrainTextureManager>(new TerrainTextureManager());
-        _gs.loc.Set<IPlayerManager>(new  PlayerManager());
+
+        Set<IGameObjectService>(new GameObjectService());
+        _loc.ResolveSelf();
+
+        IGameObjectService gameObjectService = _loc.Get<IGameObjectService>();
+       
+        Set<IAssetService>(new UnityAssetService());
+        Set<IFileDownloadService>(new FileDownloadService());
+        Set<IRepositoryService>(new ClientRepositoryService(_loc.Get<ILogService>()));
+        Set<IShapeService>(new ShapeService());
+        Set<INoiseService>(new NoiseService());
+        Set<ISamplingService>(new SamplingService());
+        Set<ILineGenService>(new LineGenService());
+        Set<ILocationGenService>(new LocationGenService());
+        Set<IMapGenService>(new MapGenService());
+        Set<IZoneGenService>(new ZoneGenService());
+        Set<IQuestGenService>(new QuestGenService()); 
+        Set<ITerrainPatchLoader>(new TerrainPatchLoader());
+        Set<IClientMapObjectManager>(new ClientMapObjectManager(token));
+        Set<IClientGameDataService>(new ClientGameDataService());
+        Set<IUIService>(new UIInitializable());
+        Set<IFxService>(new FxService());
+        Set<IUnityUpdateService>(gameObjectService.GetOrAddComponent<UnityUpdateService>());
+        Set<IPlantAssetLoader>(new PlantAssetLoader());
+        Set<IZonePlantValidator>(new ZonePlantValidator());
+        Set<IAddPoolService>(new AddPoolService());
+        Set<ITerrainTextureManager>(new TerrainTextureManager());
+        Set<IPlayerManager>(new  PlayerManager());
+        Set<IAddNearbyItemsHelper>(new AddNearbyItemsHelper());
 
         // Unity-specific overrides
 
         if (forRealGame)
         {
-            _gs.loc.Set<IRealtimeNetworkService>(new RealtimeNetworkService(token));
-            _gs.loc.Set<IWebNetworkService>(new WebNetworkService(token));
-            _gs.loc.Set<IInputService>(_gs.AddComponent<InputService>());
-            _gs.loc.Set<IMapTerrainManager>(_gs.AddComponent<MapTerrainManager>());
-            _gs.loc.Set<ICrawlerService>(new CrawlerService());
-            _gs.loc.Set<ICrawlerSpellService>(new CrawlerSpellService());
-            _gs.loc.Set<ICombatService>(new CombatService());
-            _gs.loc.Set<ILootGenService>(new LootGenService());
-            _gs.loc.Set<IProcessCombatRoundCombatService>(new ProcessCombatRoundCombatService());
-            _gs.loc.Set<ITrainingService>(new TrainingService());
-            _gs.loc.Set<ICrawlerStatService>(new CrawlerStatService());
-            _gs.loc.Set<ICrawlerMapService>(new CrawlerMapService());
-            _gs.loc.Set<IClientPathfindingUtils>(new ClientPathfindingUtils());
-            _gs.loc.Set<IAddRoadService>(new AddRoadService());  
+            Set<IRealtimeNetworkService>(new RealtimeNetworkService(token));
+            Set<IWebNetworkService>(new WebNetworkService(token));
+            Set<IInputService>(gameObjectService.GetOrAddComponent<InputService>());
+            Set<IMapTerrainManager>(gameObjectService.GetOrAddComponent<MapTerrainManager>());
+            Set<ICrawlerService>(new CrawlerService());
+            Set<ICrawlerSpellService>(new CrawlerSpellService());
+            Set<ICombatService>(new CombatService());
+            Set<ILootGenService>(new LootGenService());
+            Set<IProcessCombatRoundCombatService>(new ProcessCombatRoundCombatService());
+            Set<ITrainingService>(new TrainingService());
+            Set<ICrawlerStatService>(new CrawlerStatService());
+            Set<ICrawlerMapService>(new CrawlerMapService());
+            Set<IClientPathfindingUtils>(new ClientPathfindingUtils());
+            Set<IAddRoadService>(new AddRoadService());  
         }
 
-        _gs.loc.Set<IClientLoginService>(new ClientLoginService());
-		_gs.loc.Set<IUnitSetupService>(new UnitSetupService());
-		_gs.loc.Set<IMapGenService>(new MapGenService());
-		_gs.loc.Set<IZoneGenService> (new UnityZoneGenService());
-        _gs.loc.Set<IFtueService>(new ClientFtueService());
+        Set<IClientLoginService>(new ClientLoginService());
+		Set<IUnitSetupService>(new UnitSetupService());
+		Set<IMapGenService>(new MapGenService());
+		Set<IZoneGenService> (new UnityZoneGenService());
+        Set<IFtueService>(new ClientFtueService());
 
     }
 
     public async Task FinalInitialize(CancellationToken token)
     {
-        _gs.loc.ResolveSelf();
+        _loc.ResolveSelf();
 
-        List<IInjectable> vals = _gs.loc.GetVals();
+        List<IInjectable> vals = _loc.GetVals();
         foreach (IInjectable service in vals)
         {
             if (service is IInitializable initService)
             {
-                await initService.Initialize(_gs, token);
+                await initService.Initialize(token);
             }
         }
         List<Task> setupTasks = new List<Task>();
 
-        foreach (IInjectable service in _gs.loc.GetVals())
+        foreach (IInjectable service in _loc.GetVals())
         {
             if (service is IInitializable initService)
             {
-                setupTasks.Add(initService.Initialize(_gs, token));
+                setupTasks.Add(initService.Initialize(token));
             }
         }
 
         await Task.WhenAll(setupTasks);
 
-        foreach (IInjectable service in _gs.loc.GetVals())
+        foreach (IInjectable service in _loc.GetVals())
         {
             if (service is IGameTokenService gameTokenService)
             {

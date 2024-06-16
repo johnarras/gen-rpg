@@ -1,11 +1,11 @@
 
-using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 
 using System.Threading;
 using System;
 using Genrpg.Shared.Zones.WorldData;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class SetupNearbyZones : BaseAddMountains
 {
@@ -62,6 +62,7 @@ public class SetupNearbyZones : BaseAddMountains
 
         }
         _mapGenService.SetPrevNextZones(_gs);
+        await Task.CompletedTask;
     }
 
 

@@ -18,10 +18,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Tavern.DeleteMember
         public override ECrawlerStates GetKey() {  return ECrawlerStates.DeleteConfirm; }
 
         public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
-        {
-
-            
-
+        { 
             CrawlerStateData stateData = CreateStateData();
 
             PartyMember member = action.ExtraData as PartyMember;
@@ -50,7 +47,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Tavern.DeleteMember
 
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", KeyCode.Escape, ECrawlerStates.DeleteMember));
-            
+
+            await Task.CompletedTask;
             return stateData;
         }
     }

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Crawler.Maps.Entities;
+﻿using Assets.Scripts.Crawler.Maps.Constants;
+using Assets.Scripts.Crawler.Maps.Entities;
 
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -17,7 +18,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
     {
         Awaitable EnterMap(PartyData partyData,  EnterCrawlerMapData mapData, CancellationToken token);
         Awaitable UpdateMovement(CancellationToken token);
-
+        void ClearMovement();
         bool UpdatingMovement();
     }
 }

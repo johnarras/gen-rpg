@@ -19,9 +19,9 @@ public class CollapsableScrollView : BaseBehaviour
     CollapsingScrollViewGroup ParentScrollGroup;
 
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         AddUpdate(ScrollUpdate, UpdateType.Regular);
     }
 

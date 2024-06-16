@@ -29,9 +29,9 @@ namespace UI
         private string _chatPrefix = "";
 
 
-        public override void Initialize(IUnityGameState gs)
+        public override void Init()
         {
-            base.Initialize(gs);
+            base.Init();
             _dispatcher.AddEvent<OnChatMessage>(this, OnChatMessageHandler);
             _dispatcher.AddEvent<OnGetWhoList>(this, OnGetWhoListHandler);
             _updateService.AddUpdate(this, UpdateChat, UpdateType.Regular);
@@ -204,7 +204,7 @@ namespace UI
 
         private void AddChatRow(OnChatMessage message)
         { 
-            ChatRow newRow = GEntityUtils.FullInstantiate(_gs, Row.entity()).GetComponent<ChatRow>();
+            ChatRow newRow = _gameObjectService.FullInstantiate(Row.entity()).GetComponent<ChatRow>();
             newRow.entity().SetActive(true);
             GEntityUtils.AddToParent(newRow.entity(), ChatParent);
             _rows.Add(newRow);
@@ -221,7 +221,7 @@ namespace UI
             foreach (WhoListItem item in message.Items)
             {
 
-                ChatRow newRow = GEntityUtils.FullInstantiate(_gs, Row.entity()).GetComponent<ChatRow>();
+                ChatRow newRow = _gameObjectService.FullInstantiate(Row.entity()).GetComponent<ChatRow>();
                 newRow.entity().SetActive(true);
                 GEntityUtils.AddToParent(newRow.entity(), ChatParent);
                 _rows.Add(newRow);

@@ -12,6 +12,7 @@ using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.UnitEffects.Constants;
 using Genrpg.Shared.Units.Entities;
@@ -21,10 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using TMPro;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 namespace Assets.Scripts.Crawler.Services.Combat
 {
@@ -37,11 +35,6 @@ namespace Assets.Scripts.Crawler.Services.Combat
         protected IUnityGameState _gs;
         protected IClientRandom _rand;
         private IGameData _gameData;
-
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         public async Awaitable<bool> ProcessCombatRound(PartyData party, CancellationToken token)
         {
@@ -151,7 +144,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
             }
 
             _combatService.EndCombatRound(party);
-
+            
             await Task.CompletedTask;
             return true;
         }

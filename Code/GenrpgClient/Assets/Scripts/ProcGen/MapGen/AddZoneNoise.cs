@@ -9,6 +9,7 @@ using Genrpg.Shared.Entities.Constants;
 using System.Text;
 using System;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class AddZoneNoise : BaseZoneGenerator
 {
@@ -43,6 +44,7 @@ public class AddZoneNoise : BaseZoneGenerator
                 _md.overrideZoneScales[x, y] = 1-MathUtils.Clamp(0, Math.Abs(heights[x, y]), 1);
             }
         }
-        
+
+        await Task.CompletedTask;
     }
 }

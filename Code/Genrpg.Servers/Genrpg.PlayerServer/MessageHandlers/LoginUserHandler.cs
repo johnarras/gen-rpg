@@ -10,9 +10,9 @@ namespace Genrpg.PlayerServer.MessageHandlers
 {
     public class LoginUserHandler : BasePlayerMessageHandler<LoginUser>
     {
-        protected override async Task InnerHandleMessage(ServerGameState gs, LoginUser message)
+        protected override async Task InnerHandleMessage(LoginUser message)
         {
-            _playerService.OnLoginUser(gs, message);
+            _playerService.OnLoginUser(message);
             await Task.CompletedTask;
         }
     }

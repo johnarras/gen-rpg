@@ -262,7 +262,7 @@ namespace GameEditor
 
                 gs.LookedAtObjects = new List<object>();
 
-                _cloudCommsService.SendPubSubMessage(gs, new UpdateGameDataAdminMessage());
+                _cloudCommsService.SendPubSubMessage(new UpdateGameDataAdminMessage());
             }
 
             else if (action == "Users")

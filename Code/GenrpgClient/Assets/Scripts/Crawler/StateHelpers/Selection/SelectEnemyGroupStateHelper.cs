@@ -62,7 +62,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
 
             stateData.Actions.Add(new CrawlerStateAction("", KeyCode.Escape, ECrawlerStates.CombatPlayer));
 
-            
+
+            await Task.CompletedTask;
             return stateData;
         }
     }

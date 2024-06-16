@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.CloudComms.Services.Admin
 {
-    public interface IAdminService : IInitializable
+    public interface IAdminService : IInjectable
     {
-        Task HandleReloadGameState(ServerGameState gs);
-        Task OnServerStarted(ServerGameState gs, ServerStartedAdminMessage message);
-        Task OnMapUploaded(ServerGameState gs,  MapUploadedAdminMessage message);
+        Task HandleReloadGameState();
+        Task OnServerStarted(ServerStartedAdminMessage message);
+        Task OnMapUploaded(MapUploadedAdminMessage message);
     }
 }

@@ -3,6 +3,7 @@ using Assets.Scripts.UI.Crawler.States;
 
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Crawler.StateHelpers
@@ -33,7 +34,8 @@ namespace Assets.Scripts.Crawler.StateHelpers
                 }
             });
 
-            
+
+            await Task.CompletedTask;
             return stateData;
         }
     }

@@ -1,4 +1,5 @@
 ﻿
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
@@ -20,15 +21,19 @@ namespace Assets.Scripts.Controllers
 
         public GVector3 Offset;
 
-        public override void Initialize(IUnityGameState gs)
+        public override void Init()
         {
-            base.Initialize(gs);
+            base.Init();
             AddUpdate(LightUpdate, UpdateType.Late);
         }
 
         bool haveSetPosition = false;
         private void LightUpdate()
         {
+            if (CrawlerMapService.MapType == Crawler.Maps.Constants.ECrawlerMapTypes.Dungeon)
+            {
+                return;
+            }
             if (!haveSetPosition)
             {
                entity.transform().localPosition = GVector3.Create(Offset);

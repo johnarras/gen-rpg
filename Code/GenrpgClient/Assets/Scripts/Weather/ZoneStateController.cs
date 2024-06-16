@@ -18,6 +18,11 @@ using System.Threading.Tasks;
 using System.Threading;
 using Assets.Scripts.Core.Interfaces;
 using Genrpg.Shared.MapServer.Services;
+using Assets.Scripts.Interfaces;
+using Assets.Scripts.Crawler.Services;
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Assets.Scripts.Crawler.Maps.Constants;
+using System.Linq;
 
 public struct UpdateColor
 {
@@ -61,15 +66,17 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
     private IMapTerrainManager _terrainManager = null;
     private IPlayerManager _playerManager;
     private IMapProvider _mapProvider;
+    protected IAudioService _audioService;
+    protected ICrawlerMapService _crawlerMapService;
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         RenderSettings.sun = Sun;
         AddUpdate(ZoneUpdate, UpdateType.Regular);
         _dispatcher.AddEvent<OnFinishLoadPlayer>(this, OnFinishLoadingPlayer);
@@ -187,6 +194,8 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         return;
     }
 
+    private bool InCrawlerMode() { return CrawlerMapService.MapType != ECrawlerMapTypes.None; }
+
     private bool _didInitZoneState = false;
     private void ZoneUpdate()
     {
@@ -194,30 +203,25 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         if (!_didInitZoneState)
         {
             GEntity go = _playerManager.GetEntity();
-            if (go != null)
+            if (go != null || InCrawlerMode())
             {
                 ResetColors();
                 _didInitZoneState = true;
             }
         }
 
-
-        float delta = ColorFrameDelta;
+        float delta = (InCrawlerMode() ? 1 : ColorFrameDelta);
 
         if (AmbientScale < 1.0f)
         {
             delta *= 2;
         }
-        UpdateZoneState(delta);
+
         --ticksToZoneUpdate;
         if (ticksToZoneUpdate <= 0)
         {
             ticksToZoneUpdate = MaxTicksBetweenZoneUpdates;
             GEntity go = _playerManager.GetEntity();
-            if (go == null)
-            {
-                return;
-            }
             if (go != null)
             {
                 int wx = (int)go.transform().localPosition.x;
@@ -226,8 +230,8 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
                 if (wx >= 0 && wy >= 0 && wx < _mapProvider.GetMap().GetHwid() && wy < _mapProvider.GetMap().GetHhgt())
                 {
 
-                    int gx = wx / (MapConstants.TerrainPatchSize-1);
-                    int gy = wy / (MapConstants.TerrainPatchSize-1);
+                    int gx = wx / (MapConstants.TerrainPatchSize - 1);
+                    int gy = wy / (MapConstants.TerrainPatchSize - 1);
 
 
                     int zoneId = 0;
@@ -251,48 +255,73 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
                         }
                         _currentZone = zone;
                         CurrentZoneShown = zone.IdKey;
-                        _gs.ch.ZoneId = zone.IdKey;                        
+                        _gs.ch.ZoneId = zone.IdKey;
                         _currentZoneType = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(_currentZone.ZoneTypeId);
-                        if (_currentZoneType != null)
-                        {
-                            WeatherType weatherType = _gameData.Get<WeatherTypeSettings>(_gs.ch).Get(_currentZoneType.WeatherTypeId);
-                            if (weatherType == null)
-                            {
-                                return;
-                            }
-                            DataWeather = weatherType;
-                            SunlightColor.Target = TextureUtils.ConvertMyColorToColor(weatherType.LightColor);
-                            FogColor.Target = TextureUtils.ConvertMyColorToColor(weatherType.FogColor);
-                            CloudColor.Target = TextureUtils.ConvertMyColorToColor(weatherType.CloudColor);
-                            AmbientColor.Target = TextureUtils.ConvertMyColorToColor(weatherType.AmbientColor);
-                            SkyColor.Target = TextureUtils.ConvertMyColorToColor(weatherType.SkyColor);
+                        this.DataWeather = _gameData.Get<WeatherTypeSettings>(_gs.ch).Get(_currentZoneType.WeatherTypeId);
 
-                            FogDensity.Target = weatherType.FogScale;
-                            CloudSpeed.Target = weatherType.CloudSpeed;
-                            CloudDensity.Target = weatherType.CloudScale;
-                            PrecipScale.Target = weatherType.PrecipScale;
-                            WindScale.Target = weatherType.WindScale;
-                            ParticleScale.Target = weatherType.ParticleScale;
-
-                            SunlightIntensity.Target = weatherType.LightScale;
-                            if (SunlightIntensityMultiplier > 0)
-                            {
-                                SunlightIntensity.Target *= SunlightIntensityMultiplier;
-                            }
-
-                            FogStart.Target = weatherType.FogDistance;
-                            FogEnd.Target = LinearFogEnd;
-
-                            _audioService.PlayMusic(_currentZoneType);
-                        }
-                        if (FogDistScale <= 1.0f)
-                        {
-                            _dispatcher.Dispatch(new SetZoneNameEvent());
-                        }
                     }
                 }
             }
+            else if (InCrawlerMode())
+            {
+
+                IReadOnlyList<WeatherType> weatherTypes = _gameData.Get<WeatherTypeSettings>(_gs.ch).GetData();
+                ECrawlerMapTypes mapType = CrawlerMapService.MapType;
+
+                if (mapType == ECrawlerMapTypes.Dungeon)
+                {
+                    DataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerDungeon");
+                }
+                else if (mapType == ECrawlerMapTypes.City)
+                {
+                    DataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerCity");
+                }
+                else if (mapType == ECrawlerMapTypes.Outdoors)
+                {
+                    DataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerOutdoors");
+                }
+
+                if (DataWeather == null)
+                {
+                    DataWeather = weatherTypes.FirstOrDefault(x => x.IdKey > 0);
+                }
+            }
+
+            if (DataWeather == null)
+            {
+                return;
+            }
+
+            SunlightColor.Target = TextureUtils.ConvertMyColorToColor(DataWeather.LightColor);
+            FogColor.Target = TextureUtils.ConvertMyColorToColor(DataWeather.FogColor);
+            CloudColor.Target = TextureUtils.ConvertMyColorToColor(DataWeather.CloudColor);
+            AmbientColor.Target = TextureUtils.ConvertMyColorToColor(DataWeather.AmbientColor);
+            SkyColor.Target = TextureUtils.ConvertMyColorToColor(DataWeather.SkyColor);
+
+            FogDensity.Target = DataWeather.FogScale;
+            CloudSpeed.Target = DataWeather.CloudSpeed;
+            CloudDensity.Target = DataWeather.CloudScale;
+            PrecipScale.Target = DataWeather.PrecipScale;
+            WindScale.Target = DataWeather.WindScale;
+            ParticleScale.Target = DataWeather.ParticleScale;
+
+            SunlightIntensity.Target = DataWeather.LightScale;
+            if (SunlightIntensityMultiplier > 0)
+            {
+                SunlightIntensity.Target *= SunlightIntensityMultiplier;
+            }
+
+            FogStart.Target = DataWeather.FogDistance;
+            FogEnd.Target = LinearFogEnd;
+
+            _audioService.PlayMusic(_currentZoneType);
+            if (FogDistScale <= 1.0f)
+            {
+                _dispatcher.Dispatch(new SetZoneNameEvent());
+            }
         }
+
+        UpdateZoneState(delta);
 
         UpdateWind();
 
@@ -336,7 +365,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         UpdateSettings();
     }
 
-    public void UpdateSettings()
+    private void UpdateSettings()
     {
         RenderSettings.ambientSkyColor = AmbientColor.Current * AmbientIntensityMultiplier * 1.05f;
         RenderSettings.ambientEquatorColor = AmbientColor.Current * AmbientIntensityMultiplier * 0.9f;

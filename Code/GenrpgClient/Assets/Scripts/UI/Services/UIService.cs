@@ -33,12 +33,11 @@ namespace Assets.Scripts.UI.Services
         protected IAnalyticsService _analyticsService;
         protected IGameData _gameData;
         protected IClientRandom _rand;
-
         protected IUnityGameState _gs;
+        protected IGameObjectService _gameObjectService;
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize(CancellationToken token)
         {
-            _gs = gs as IUnityGameState;
             await Task.CompletedTask;
         }
 
@@ -163,7 +162,7 @@ namespace Assets.Scripts.UI.Services
 
         public void AddEventListener(GEntity go, EventTriggerType type, UnityAction<BaseEventData> callback)
         {
-            EventTrigger trigger = GEntityUtils.GetOrAddComponent<EventTrigger>(_gs, go);
+            EventTrigger trigger = _gameObjectService.GetOrAddComponent<EventTrigger>(go);
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerEnter;
             entry.callback.AddListener(callback);

@@ -5,6 +5,7 @@ using Genrpg.Shared.DataStores.Entities;
 
 using System.Threading;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public enum EFloatingTextArt
 {
@@ -48,7 +49,8 @@ public class FloatingTextScreen : BaseScreen
     protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         _dispatcher.AddEvent<ShowFloatingText>(this, OnReceiveMessage);
-        
+        await Task.CompletedTask;
+
     }
 
     private void OnReceiveMessage(ShowFloatingText message)

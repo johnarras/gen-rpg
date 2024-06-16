@@ -38,7 +38,8 @@ namespace Assets.Scripts.UI.Crawler.States
             }
             stateData.Actions.Add(new CrawlerStateAction("More Options", KeyCode.M, ECrawlerStates.Options));
 
-            
+
+            await Task.CompletedTask;
             return stateData;
 
         }

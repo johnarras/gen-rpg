@@ -9,6 +9,5 @@ namespace Genrpg.Shared.MapServer.Entities
     public interface IMapMessageHandler : ISetupDictionaryItem<Type>
     {
         void Process(IRandom rand, MapMessagePackage package);
-        void Setup(IGameState gs);
     }
 }

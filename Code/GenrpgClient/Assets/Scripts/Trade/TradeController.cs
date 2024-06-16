@@ -21,16 +21,10 @@ namespace Assets.Scripts.Trade
     public class TradeController : BaseBehaviour, IInjectOnLoad<ITradeController>, ITradeController
     {
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize(CancellationToken token)
         {
             _dispatcher.AddEvent<OnStartTrade>(this, HandleOnStartTrade);
             await Task.CompletedTask;
-        }
-
-        public override void Initialize(IUnityGameState gs)
-        {
-
-            base.Initialize(gs);
         }
 
         public void HandleOnStartTrade(OnStartTrade onStartTrade)

@@ -5,6 +5,7 @@ using Genrpg.Shared.Utils.Data;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class AddEdgeMountains : BaseAddMountains
@@ -140,5 +141,6 @@ public class AddEdgeMountains : BaseAddMountains
                 }
             }
         }
+        await Task.CompletedTask;
     }
 }

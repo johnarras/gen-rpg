@@ -11,7 +11,7 @@ namespace Genrpg.InstanceServer.MessageHandlers
     public class RemoveMapInstanceHandler : BaseInstanceMessageHandler<RemoveMapInstance>
     {
 
-        protected override async Task InnerHandleMessage(ServerGameState gs, RemoveMapInstance message)
+        protected override async Task InnerHandleMessage(RemoveMapInstance message)
         {
             _logService.Message("Received " + message.GetType().Name + " from " + message.FullInstanceId);
             await _instanceManagerService.RemoveInstanceData(message);

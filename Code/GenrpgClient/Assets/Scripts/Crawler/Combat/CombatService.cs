@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.ProcGen.RandomNumbers;
+﻿using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Assets.Scripts.ProcGen.RandomNumbers;
+using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
@@ -15,11 +17,13 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.UnitEffects.Constants;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,8 +41,10 @@ namespace Assets.Scripts.Crawler.Services.Combat
         private IRepositoryService _repoService;
         protected IUnityGameState _gs;
         protected IClientRandom _rand;
+        private ICrawlerMapService _crawlerMapService;
+        private ICrawlerService _crawlerService;
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize(CancellationToken token)
         {
             await Task.CompletedTask;
         }
@@ -634,6 +640,40 @@ namespace Assets.Scripts.Crawler.Services.Combat
             return retval;
         }
 
-      
+        private DateTime _lastMoveTime = DateTime.UtcNow;
+        private int _movesSinceLastCombat = 0;
+        public void CheckForEncounter(bool atEndOfMove, CancellationToken token)
+        {
+
+            if (atEndOfMove)
+            {
+                _lastMoveTime = DateTime.UtcNow;
+                if (++_movesSinceLastCombat < 15)
+                {
+                    return;
+                }
+
+                if (_rand.NextDouble() > 0.10f)
+                {
+                    return;
+                }
+            }
+            else // Just idle waiting.
+            {
+                if ((DateTime.UtcNow-_lastMoveTime).TotalSeconds < 35)
+                {
+                    return;
+                }
+
+                if (_rand.NextDouble() > 0.002f)
+                {
+                    return;
+                }
+            }
+
+            _crawlerMapService.ClearMovement();
+            _crawlerService.ChangeState(ECrawlerStates.StartCombat, token);
+            _movesSinceLastCombat = 0;
+        }
     }
 }

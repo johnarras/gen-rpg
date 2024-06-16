@@ -11,12 +11,6 @@ namespace Genrpg.Shared.UserCoins.Services
 {
     public class UserCoinService : IUserCoinService
     {
-
-        public virtual async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
-
         public bool Add(Unit unit, long userCoinTypeId, long quantity)
         {
             return Set(unit, userCoinTypeId, unit.Get<UserCoinData>().GetQuantity(userCoinTypeId) + quantity);

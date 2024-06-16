@@ -8,6 +8,7 @@ using Genrpg.Shared.Login.Messages.LoadIntoMap;
 using System.Linq;
 using static UnityEngine.Networking.UnityWebRequest;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class CharacterSelectScreen : BaseScreen
 {
@@ -69,7 +70,8 @@ public class CharacterSelectScreen : BaseScreen
 
         GetSpellIcons();
 
-        
+
+        await Task.CompletedTask;
     }
 
     private void GetSpellIcons()

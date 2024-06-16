@@ -15,7 +15,7 @@ public interface ILocationGenService : IInitializable
 public class LocationGenService : ILocationGenService
 {
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }

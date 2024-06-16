@@ -9,9 +9,9 @@ public class CloseButton : BaseBehaviour
 {
     public GButton Button;
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         BaseScreen screen = GEntityUtils.FindInParents<BaseScreen>(gameObject);
 
         if (screen != null)

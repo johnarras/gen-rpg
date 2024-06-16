@@ -240,7 +240,6 @@ MonoBehaviour:
   _playerMoney: {fileID: 4204289911117842553}
   CraftButton: {fileID: 1133256828474852367}
   ClearButton: {fileID: 3537636532980972044}
-  CloseButton: {fileID: 9021494845590143763}
   _inventoryPanel: {fileID: 8801139829061223506}
   _recipeListParent: {fileID: 3063604925222516132}
   _baseReagents: {fileID: 839628955513096929}
@@ -2494,18 +2493,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4860610228107784915}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9021494845590143763 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4487435691555664320, guid: 5aafc411c19fc3d4e8af6e44e6688e3b,
-    type: 3}
-  m_PrefabInstance: {fileID: 4860610228107784915}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaf1dad36a683474aaf0d651ad6d1d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7469315443677731038
 PrefabInstance:
   m_ObjectHideFlags: 0

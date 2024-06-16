@@ -23,7 +23,6 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
         private IPathfindingService _pathfindingService;
         private IClientPathfindingUtils _pathfindingUtils;
         private IPlayerManager _playerManager;
-        protected IClientRandom _rand;
 
         protected override void InnerProcess(OnUpdatePos pos, CancellationToken token)
         {

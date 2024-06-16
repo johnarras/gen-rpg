@@ -1,12 +1,15 @@
 ﻿using Genrpg.MapServer.MapMods.Helpers;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapMods.MapObjectAddons;
 using Genrpg.Shared.MapMods.MapObjects;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,16 +18,11 @@ namespace Genrpg.MapServer.MapMods.Services
 {
     public class MapModService : IMapModService
     {
-        private Dictionary<long, IMapModEffectHelper> _effectHelpers = null;
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            _effectHelpers = ReflectionUtils.SetupDictionary<long, IMapModEffectHelper>(gs);
-            await Task.CompletedTask;
-        }
-
+        private SetupDictionaryContainer<long, IMapModEffectHelper> _effects = new ();
+       
         protected IMapModEffectHelper GetHelper(long mapModEffectTypeId)
         {
-            if (_effectHelpers.TryGetValue(mapModEffectTypeId, out IMapModEffectHelper helper))
+            if (_effects.TryGetValue(mapModEffectTypeId, out IMapModEffectHelper helper))
             {
                 return helper;
             }

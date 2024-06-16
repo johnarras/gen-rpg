@@ -2,6 +2,7 @@
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using System;
 using System.Threading;
@@ -15,8 +16,8 @@ namespace Genrpg.Shared.Units.Loaders
         protected IRepositoryService _repoService;
 
         public virtual Type GetServerType() { return typeof(TServer); }
-        public virtual async Task Initialize(IGameState g, CancellationToken token) { await Task.CompletedTask; }
         protected virtual bool IsUserData() { return false; }
+        public virtual async Task Initialize( CancellationToken token) { await Task.CompletedTask; }
 
         public IUnitData Create(Unit unit)
         {

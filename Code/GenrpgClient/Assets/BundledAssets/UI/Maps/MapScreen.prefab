@@ -208,7 +208,6 @@ MonoBehaviour:
   OutroTime: 0
   ArrowParent: {fileID: 1598667580840064}
   MapImage: {fileID: 6243732808853880140}
-  CloseButton: {fileID: 7617552239438570974}
 --- !u!223 &223061897437420856
 Canvas:
   m_ObjectHideFlags: 0
@@ -439,15 +438,3 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6336680788307874846}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7617552239438570974 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4487435691555664320, guid: 5aafc411c19fc3d4e8af6e44e6688e3b,
-    type: 3}
-  m_PrefabInstance: {fileID: 6336680788307874846}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaf1dad36a683474aaf0d651ad6d1d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

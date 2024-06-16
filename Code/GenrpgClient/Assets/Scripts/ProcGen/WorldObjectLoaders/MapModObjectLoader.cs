@@ -7,6 +7,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Messages;
 using Assets.Scripts.GroundObjects;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class MapModObjectLoader : BaseMapObjectLoader
 {
@@ -27,7 +28,7 @@ public class MapModObjectLoader : BaseMapObjectLoader
 
         _assetService.LoadAsset(AssetCategoryNames.Props, "MapMod", OnDownloadMapModObject, loadData, null, token);
 
-        
+        await Task.CompletedTask;
         return;
     }
 

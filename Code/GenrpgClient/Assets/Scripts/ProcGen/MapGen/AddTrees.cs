@@ -87,6 +87,7 @@ internal class ZoneTreeData
 
 public class AddTrees : BaseZoneGenerator
 {
+    private IAddNearbyItemsHelper _addNearbyItemsHelper;
 
     public const int TreeIndex = 1;
     public const int BushIndex = 2;
@@ -871,13 +872,12 @@ public class AddTrees : BaseZoneGenerator
                         numNearbyItems += MathUtils.IntRange(2, 9, full.chanceRand);
                     }
                     numNearbyItems += 5;
-                    AddNearbyItemsHelper nearbyHelper = new AddNearbyItemsHelper();
 
 
                     float maxRadius = Math.Max(2.0f, dirtRadius / 2);
                     float minRadius = Math.Max(1.0f, maxRadius / 2);
                        
-                    nearbyHelper.AddItemsNear(_gs, _gameData, _terrainManager, _mapProvider, full.posRand, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone, x, y, 1.0f, numNearbyItems,minRadius,maxRadius, false);
+                    _addNearbyItemsHelper.AddItemsNear(full.posRand, _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zone.ZoneTypeId), zone, x, y, 1.0f, numNearbyItems,minRadius,maxRadius, false);
                 }
             }
         }

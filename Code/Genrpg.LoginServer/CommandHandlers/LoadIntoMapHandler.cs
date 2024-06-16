@@ -53,9 +53,9 @@ namespace Genrpg.LoginServer.CommandHandlers
             await Task.CompletedTask;
         }
 
-        protected override async Task InnerHandleMessage(LoginGameState gs, LoadIntoMapCommand command, CancellationToken token)
+        protected override async Task InnerHandleMessage(LoginContext context, LoadIntoMapCommand command, CancellationToken token)
         {
-            FullCachedMap fullCachedMap = await GetCachedMap(gs, command.Env, command.MapId, command.InstanceId, command.GenerateMap);
+            FullCachedMap fullCachedMap = await GetCachedMap(context, command.Env, command.MapId, command.InstanceId, command.GenerateMap);
 
             // Check case where the map doesn't exist, if not create that map.
             if (fullCachedMap == null || fullCachedMap.Map == null ||
@@ -69,7 +69,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 }
                 else
                 {
-                    ShowError(gs, "Couldn't find map: " + command.MapId);
+                    ShowError(context, "Couldn't find map: " + command.MapId);
                     return;
                 }
             }
@@ -77,30 +77,30 @@ namespace Genrpg.LoginServer.CommandHandlers
             CoreCharacter coreChar = await _repoService.Load<CoreCharacter>(command.CharId);
             if (coreChar == null)
             {
-                ShowError(gs, "Couldn't find new character to load " + command.CharId);
+                ShowError(context, "Couldn't find new character to load " + command.CharId);
                 return;
             }
 
-            if (coreChar.UserId != gs.user.Id)
+            if (coreChar.UserId != context.user.Id)
             {
-                ShowError(gs, "You don't own this character");
+                ShowError(context, "You don't own this character");
                 return;
             }
 
-            gs.coreCh = coreChar;
-            if (gs.coreCh.MapId != command.MapId)
+            context.coreCh = coreChar;
+            if (context.coreCh.MapId != command.MapId)
             {
-                gs.coreCh.X = fullCachedMap.Map.SpawnX;
-                gs.coreCh.Z = fullCachedMap.Map.SpawnY;
+                context.coreCh.X = fullCachedMap.Map.SpawnX;
+                context.coreCh.Z = fullCachedMap.Map.SpawnY;
             }
-            gs.coreCh.Rot = 0;
+            context.coreCh.Rot = 0;
 
-            gs.ch = new Character(_repoService);
-            CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
+            context.ch = new Character(_repoService);
+            CharacterUtils.CopyDataFromTo(context.coreCh, context.ch);
 
-            List<IUnitData> serverDataList = await _playerDataService.LoadAllPlayerData(gs.rand, gs.ch);
+            List<IUnitData> serverDataList = await _playerDataService.LoadAllPlayerData(context.rand, context.ch);
 
-            PlayerStoreOfferData offerData = await _purchasingService.GetCurrentStores(gs.user, gs.ch, true);
+            PlayerStoreOfferData offerData = await _purchasingService.GetCurrentStores(context.user, context.ch, true);
 
             List<IUnitData> clientDataList = await _playerDataService.MapToClientApi(serverDataList);
 
@@ -113,7 +113,7 @@ namespace Genrpg.LoginServer.CommandHandlers
                 worldDataEnv = command.WorldDataEnv;
             }
 
-            List<ITopLevelSettings> gameData = _gameDataService.GetClientGameData(gs.ch, false);
+            List<ITopLevelSettings> gameData = _gameDataService.GetClientGameData(context.ch, false);
             LoadIntoMapResult loadResult = new LoadIntoMapResult()
             {
                 Map = SerializationUtils.ConvertType<Map, Map>(fullCachedMap.Map),
@@ -122,24 +122,24 @@ namespace Genrpg.LoginServer.CommandHandlers
                 Host = fullCachedMap.MapInstance?.Host,
                 Port = fullCachedMap.MapInstance?.Port ?? 0,
                 Serializer = EMapApiSerializers.MessagePack,
-                OverrideList = gs.ch.GetOverrideList(),
+                OverrideList = context.ch.GetOverrideList(),
                 GameData = gameData,
                 CharData = clientDataList,
                 WorldDataEnv = worldDataEnv,
                 Stores = offerData,
             };
 
-            gs.user.CurrCharId = gs.coreCh.Id;
+            context.user.CurrCharId = context.coreCh.Id;
 
-            gs.Results.Add(loadResult);
+            context.Results.Add(loadResult);
 
         }
         // This needs to be sent to another server someplace to handle this synchronization and load balancing.
-        private async Task<FullCachedMap> GetCachedMap(LoginGameState gs, string env, string mapId, string instanceId, bool generatingMap)
+        private async Task<FullCachedMap> GetCachedMap(LoginContext context, string env, string mapId, string instanceId, bool generatingMap)
         {
             if (!_mapCache.ContainsKey(mapId))
             {
-                Map newMap = await _mapDataService.LoadMap(gs.rand, mapId);
+                Map newMap = await _mapDataService.LoadMap(context.rand, mapId);
                 if (newMap == null || newMap.Zones == null || newMap.Zones.Count < 1)
                 {
                     return new FullCachedMap();

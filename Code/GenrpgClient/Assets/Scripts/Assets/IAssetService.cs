@@ -27,7 +27,7 @@ public interface IAssetService : IInitializable
 
     string GetContentRootURL(bool worldData);
 
-    bool IsDownloading(IUnityGameState gs);
+    bool IsDownloading();
 
     string GetWorldDataEnv();
 

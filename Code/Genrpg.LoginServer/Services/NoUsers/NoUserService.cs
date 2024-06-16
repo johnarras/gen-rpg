@@ -1,6 +1,7 @@
 ﻿using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Core;
 using Genrpg.LoginServer.PlayerData;
+using Genrpg.LoginServer.Services.LoginServer;
 using Genrpg.LoginServer.Services.NoUsers;
 using Genrpg.LoginServer.Utils;
 using Genrpg.ServerShared.GameSettings.Services;
@@ -28,13 +29,9 @@ namespace Genrpg.LoginServer.Services.Clients
     public class NoUserService : INoUserService
     {
         private ILogService _logService = null;
+        private ILoginServerService _loginServerService = null;
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
-
-        public async Task<List<ILoginResult>> HandleNoUserCommand(LoginGameState gs, string postData, CancellationToken token)
+        public async Task HandleNoUserCommand(LoginContext context, string postData, CancellationToken token)
         {
             LoginServerCommandSet commandSet = SerializationUtils.Deserialize<LoginServerCommandSet>(postData);
 
@@ -42,15 +39,17 @@ namespace Genrpg.LoginServer.Services.Clients
             {
                 foreach (INoUserCommand comm in commandSet.Commands)
                 {
-                    if (gs.noUserCommandHandlers.TryGetValue(comm.GetType(), out INoUserCommandHandler handler))
+                    INoUserCommandHandler handler = _loginServerService.GetNoUserCommandHandler(comm.GetType());
+
+                    if (handler != null)
                     {
-                        await handler.Execute(gs, comm, token);
+                        await handler.Execute(context, comm, token);
                     }
                 }
 
                 List<ILoginResult> errors = new List<ILoginResult>();
 
-                foreach (ILoginResult result in gs.Results)
+                foreach (ILoginResult result in context.Results)
                 {
                     if (result is ErrorResult error)
                     {
@@ -60,7 +59,9 @@ namespace Genrpg.LoginServer.Services.Clients
 
                 if (errors.Count > 0)
                 {
-                    return errors;
+                    context.Results.Clear();
+                    context.Results.AddRange(errors);
+                    return;
                 }
 
             }
@@ -68,10 +69,10 @@ namespace Genrpg.LoginServer.Services.Clients
             {
                 string errorMessage = "HandleLoginCommand." + commandSet.Commands.Select(x => x.GetType().Name + " ").ToList();
                 _logService.Exception(e, errorMessage);
-                WebUtils.ShowError(gs, errorMessage);
+                WebUtils.ShowError(context, errorMessage);
             }
 
-            return gs.Results;
+            return;
         }
     }
 }

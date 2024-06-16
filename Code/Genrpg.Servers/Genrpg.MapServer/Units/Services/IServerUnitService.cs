@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Units.Services
 {
-    public interface IServerUnitService : IInitializable
+    public interface IServerUnitService : IInjectable
     {
         void CheckForDeath(IRandom rand, ActiveSpellEffect eff, Unit unit);
     }

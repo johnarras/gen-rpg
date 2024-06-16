@@ -11,6 +11,6 @@ public class BlockerScreen : BaseScreen
 {
     protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
-        
+        await Task.CompletedTask;
     }
 }

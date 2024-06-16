@@ -1,6 +1,7 @@
 ﻿using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Core;
 using Genrpg.LoginServer.PlayerData;
+using Genrpg.LoginServer.Services.LoginServer;
 using Genrpg.LoginServer.Utils;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.PlayerData;
@@ -27,84 +28,83 @@ namespace Genrpg.LoginServer.Services.Clients
 {
     public class ClientService : IClientService
     {
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
-
         private IPlayerDataService _playerDataService = null;
         private IGameDataService _gameDataService = null;
         private IRepositoryService _repoService = null;
         private ILogService _logService = null;
+        private ILoginServerService _loginServerService = null;
 
-        public async Task<List<ILoginResult>> HandleClient(LoginGameState gs, string postData, CancellationToken token)
+        public async Task HandleClient(LoginContext context, string postData, CancellationToken token)
         {
             LoginServerCommandSet commandSet = SerializationUtils.Deserialize<LoginServerCommandSet>(postData);
 
-            await LoadLoggedInPlayer(gs, commandSet.UserId, commandSet.SessionId);
+            await LoadLoggedInPlayer(context, commandSet.UserId, commandSet.SessionId);
 
             try
             {
                 foreach (ILoginCommand comm in commandSet.Commands)
                 {
-                    if (gs.commandHandlers.TryGetValue(comm.GetType(), out IClientCommandHandler handler))
+                    IClientCommandHandler handler = _loginServerService.GetCommandHandler(comm.GetType());
+                    if (handler != null)
                     {
-                        await handler.Execute(gs, comm, token);
+                        await handler.Execute(context, comm, token);
                     }
                 }
 
                 List<ILoginResult> errors = new List<ILoginResult>();
 
-                foreach (ILoginResult result in gs.Results)
+                foreach (ILoginResult result in context.Results)
                 {
                     if (result is ErrorResult error)
-                    {
+                    {                        
                         errors.Add(error);
                     }
                 }
 
                 if (errors.Count > 0)
                 {
-                    return errors;
+                    context.Results.Clear();
+                    context.Results.AddRange(errors);
+                    return;
                 }
 
-                await SaveAll(gs);
+                await SaveAll(context);
             }
             catch (Exception e)
             {
                 string errorMessage = "HandleLoginCommand." + commandSet.Commands.Select(x => x.GetType().Name + " ").ToList();
                 _logService.Exception(e, errorMessage);
-                WebUtils.ShowError(gs, errorMessage);
+                WebUtils.ShowError(context, errorMessage);
             }
 
-            return gs.Results;
+            return;
         }
 
-        private async Task LoadLoggedInPlayer(LoginGameState gs, string userId, string sessionId)
+        private async Task LoadLoggedInPlayer(LoginContext context, string userId, string sessionId)
         {
-            gs.user = await _repoService.Load<User>(userId);
+            context.user = await _repoService.Load<User>(userId);
 
-            if (gs.user == null || gs.user.SessionId != sessionId)
+            if (context.user == null || context.user.SessionId != sessionId)
             {
                 return;
             }
 
-            if (!string.IsNullOrEmpty(gs.user.CurrCharId))
+            if (!string.IsNullOrEmpty(context.user.CurrCharId))
             {
-                gs.coreCh = await _repoService.Load<CoreCharacter>(gs.user.CurrCharId);
+                context.coreCh = await _repoService.Load<CoreCharacter>(context.user.CurrCharId);
 
-                if (gs.coreCh != null)
+                if (context.coreCh != null)
                 {
-                    gs.ch = new Character(_repoService);
-                    CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
+                    context.ch = new Character(_repoService);
+                    CharacterUtils.CopyDataFromTo(context.coreCh, context.ch);
 
-                    await gs.ch.GetAsync<GameDataOverrideData>(gs);
+                    await context.ch.GetAsync<GameDataOverrideData>(context);
 
-                    RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(gs.ch, false);
+                    RefreshGameSettingsResult result = _gameDataService.GetNewGameDataUpdates(context.ch, false);
 
                     if (result != null)
                     {
-                        gs.Results.Add(result);
+                        context.Results.Add(result);
                     }
                 }
             }
@@ -112,13 +112,13 @@ namespace Genrpg.LoginServer.Services.Clients
             return;
         }
 
-        private async Task SaveAll(LoginGameState gs)
+        private async Task SaveAll(LoginContext context)
         {
-            if (gs.user != null)
+            if (context.user != null)
             {
-                await _repoService.Save(gs.user);
+                await _repoService.Save(context.user);
             }
-            _playerDataService.SavePlayerData(gs.ch, true);
+            _playerDataService.SavePlayerData(context.ch, true);
         }
 
     }

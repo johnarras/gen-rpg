@@ -12,7 +12,7 @@ namespace Genrpg.MapServer.MapMessaging.Interfaces
 {
     public interface IMapMessageService : IInitializable
     {
-        void Init(IGameState gs, CancellationToken token);
+        void Init(CancellationToken token);
         void SendMessage(MapObject mapObject, IMapMessage message, float delaySeconds = 0);
 
         void SendMessageNear(MapObject obj, IMapMessage message,

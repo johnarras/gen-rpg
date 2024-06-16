@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Editor.Services.Reflection
 {
-    public interface IEditorReflectionService : IInitializable
+    public interface IEditorReflectionService : IInjectable
     {
         bool MemberIsMultiType(MemberInfo mem);
         bool IsMultiType(Type type);

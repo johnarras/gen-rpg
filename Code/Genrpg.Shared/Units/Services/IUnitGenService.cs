@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Genrpg.Shared.Units.Services
 {
-    public interface IUnitGenService : IInitializable
+    public interface IUnitGenService : IInjectable
     {
         string GenerateUnitPrefixName(IRandom rand, long unitTypeId, Zone zone,
             Dictionary<string, string> args = null);

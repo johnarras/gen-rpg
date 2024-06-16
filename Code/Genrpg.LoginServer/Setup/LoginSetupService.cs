@@ -1,8 +1,16 @@
 ﻿using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Core;
+using Genrpg.LoginServer.Services.Admin;
+using Genrpg.LoginServer.Services.Clients;
+using Genrpg.LoginServer.Services.Login;
+using Genrpg.LoginServer.Services.LoginServer;
+using Genrpg.LoginServer.Services.NoUsers;
 using Genrpg.ServerShared.CloudComms.Services;
+using Genrpg.ServerShared.CloudComms.Services.Admin;
 using Genrpg.ServerShared.Maps;
+using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Setup.Services;
 using Genrpg.Shared.Utils;
 using System;
@@ -10,28 +18,27 @@ using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.Setup
 {
-    public class LoginSetupService : SetupService
+    public class LoginSetupService : BaseServerSetupService
     {
-        private IMapDataService _mapDataService = null;
+        public LoginSetupService(IServiceLocator loc) : base(loc) { }   
+
         private ICloudCommsService _cloudCommsService = null;
-        public override void SetupServiceLocator(IGameState gs)
+
+        protected override void AddServices()
         {
-            LoginLocatorSetup els = new LoginLocatorSetup();
-            els.Setup(gs);
-            gs.loc.ResolveSelf();
+            base.AddServices();
+            Set<ILoginService>(new LoginService());
+            Set<IClientService>(new ClientService());
+            Set<IAdminService>(new LoginAdminService());
+            Set<INoUserService>(new NoUserService());
+            Set<ILoginServerService>(new LoginServerService());
+            _loc.ResolveSelf();
+            _loc.Resolve(this);
         }
 
-        public override async Task FinalSetup(IGameState gs)
-        {
-            await base.FinalSetup(gs);
-            if (gs is LoginGameState lgs)
-            {
-                gs.loc.Resolve(this);
-                lgs.commandHandlers = ReflectionUtils.SetupDictionary<Type, IClientCommandHandler>(gs);
-                lgs.noUserCommandHandlers = ReflectionUtils.SetupDictionary<Type, INoUserCommandHandler>(gs);
-                lgs.mapStubs.Stubs = await _mapDataService.GetMapStubs();
-                _cloudCommsService.SetupPubSubMessageHandlers(lgs);
-            }
+        public override async Task FinalSetup()
+        { 
+            await base.FinalSetup();
         }
     }
 }

@@ -10,6 +10,6 @@ namespace Genrpg.LoginServer.CommandHandlers.Core
     public interface IClientCommandHandler : ISetupDictionaryItem<Type>
     {
         Task Reset();
-        Task Execute(LoginGameState gs, ILoginCommand command, CancellationToken token);
+        Task Execute(LoginContext context, ILoginCommand command, CancellationToken token);
     }
 }

@@ -23,12 +23,7 @@ namespace Genrpg.MapServer.Items.Services
         protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;
         private ITradeService _tradeService;
-        public override async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await base.Initialize(gs, token);
-        }
 
-        
         public override bool AddItem(Unit unit, Item item, bool forceAdd)
         {
             return base.AddItem(unit, item, forceAdd);

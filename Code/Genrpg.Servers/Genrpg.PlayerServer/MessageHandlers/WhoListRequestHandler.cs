@@ -5,9 +5,9 @@ namespace Genrpg.PlayerServer.MessageHandlers
 {
     public class WhoListRequestHandler : BasePlayerMessageHandler<WhoListRequest>
     {
-        protected override async Task InnerHandleMessage(ServerGameState gs, WhoListRequest message)
+        protected override async Task InnerHandleMessage(WhoListRequest message)
         {
-            _playerService.OnGetWhoList(gs, message);
+            _playerService.OnGetWhoList(message);
             await Task.CompletedTask;
         }
     }

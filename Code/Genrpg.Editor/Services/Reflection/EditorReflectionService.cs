@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.HelperClasses;
 
 namespace Genrpg.Editor.Services.Reflection
 {
@@ -30,11 +31,6 @@ namespace Genrpg.Editor.Services.Reflection
     {
 
         protected IMapProvider _mapProvider;
-
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         public bool MemberIsMultiType(MemberInfo mem)
         {
@@ -951,7 +947,7 @@ namespace Genrpg.Editor.Services.Reflection
             }
             return list;
         }
-        public IDictionary<long, IEntityHelper> _entityDict = null;
+        public SetupDictionaryContainer<long, IEntityHelper> _entityDict = new();
         public string GetDataTableName(EditorGameState gs, object obj)
         {
             if (gs.data == null || obj == null || string.IsNullOrEmpty(obj.ToString()))
@@ -977,13 +973,9 @@ namespace Genrpg.Editor.Services.Reflection
                 {
                     etypeName = etype.Name;
                 }
-                if (_entityDict == null)
-                {
-                    _entityDict = ReflectionUtils.SetupDictionary<long, IEntityHelper>(gs);
-                }
-                if (_entityDict.ContainsKey(entityTypeId))
-                {
-                    tableName = _entityDict[entityTypeId].GetDataPropertyName();
+                if (_entityDict.TryGetValue(entityTypeId, out IEntityHelper helper))
+                { 
+                    tableName = helper.GetDataPropertyName();
                 }
             }
 

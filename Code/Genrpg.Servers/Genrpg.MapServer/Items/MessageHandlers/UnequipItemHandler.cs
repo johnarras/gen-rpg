@@ -18,10 +18,6 @@ namespace Genrpg.MapServer.Items.MessageHandlers
     {
 
         private IInventoryService _inventoryService = null;
-        public override void Setup(IGameState gs)
-        {
-            base.Setup(gs);
-        }
 
         protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, UnequipItem message)
         {

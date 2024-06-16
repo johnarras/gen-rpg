@@ -13,16 +13,16 @@ namespace Genrpg.LoginServer.MessageHandlers
     public abstract class BaseLoginMessageHandler<T> : ILoginMessageHandler where T : ILoginQueueMessage
     {
 
-        protected abstract Task InnerHandleMessage(ServerGameState gs, T message);
+        protected abstract Task InnerHandleMessage(T message);
 
         public Type GetKey()
         {
             return typeof(T);
         }
 
-        public async Task HandleMessage(ServerGameState gs, IQueueMessage message, CancellationToken token)
+        public async Task HandleMessage(IQueueMessage message, CancellationToken token)
         {
-            await InnerHandleMessage(gs, (T)message);
+            await InnerHandleMessage((T)message);
         }
     }
 }

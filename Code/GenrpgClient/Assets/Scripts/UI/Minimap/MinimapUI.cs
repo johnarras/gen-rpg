@@ -58,7 +58,7 @@ public class MinimapUI : BaseBehaviour
     {
         if (tex == null && _mapTexture != null)
         {
-            Resources.UnloadAsset(_mapTexture);
+            Destroy(_mapTexture);
         }
 
         _mapTexture = tex;

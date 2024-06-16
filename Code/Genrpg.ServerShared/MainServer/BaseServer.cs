@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Genrpg.ServerShared.Config;
+using Genrpg.Shared.HelperClasses;
 
 namespace Genrpg.ServerShared.MainServer
 {
@@ -24,10 +25,10 @@ namespace Genrpg.ServerShared.MainServer
 
     public abstract class BaseServer<TGameState,TSetupService,IQMessageHandler> : IBaseServer 
         where TGameState: ServerGameState
-        where TSetupService: SetupService, new()
+        where TSetupService: SetupService
         where IQMessageHandler : IQueueMessageHandler
     {
-        protected TGameState _gs;
+        protected TGameState _context;
         protected CancellationTokenSource _tokenSource = new CancellationTokenSource();
         protected string _serverId;
         protected ICloudCommsService _cloudCommsService;
@@ -40,7 +41,7 @@ namespace Genrpg.ServerShared.MainServer
 
         public virtual ServerGameState GetServerGameState()
         {
-            return _gs;
+            return _context;
         }
 
         protected virtual async Task PreInit(object data, object parent, CancellationToken serverToken)
@@ -49,30 +50,32 @@ namespace Genrpg.ServerShared.MainServer
         }
 
 
-        protected virtual async Task FinalInit(ServerGameState gs, object data, object parentObject, CancellationToken serverToken)
+        protected virtual async Task FinalInit(object data, object parentObject, CancellationToken serverToken)
         {
             await Task.CompletedTask;
         }
+
+
+        private SetupDictionaryContainer<Type, IQMessageHandler> _queueHandlers = new();
 
         public async Task Init(object data, object parentObject, CancellationToken serverToken)
         {
 
             await PreInit(data, parentObject, serverToken);
+
             _tokenSource = CancellationTokenSource.CreateLinkedTokenSource(serverToken, _tokenSource.Token);
             _serverId = GetServerId(data);
 
-            _gs = await SetupUtils.SetupFromConfig<TGameState>(this, _serverId, new TSetupService(),
+            _context = await SetupUtils.SetupFromConfig<TGameState,TSetupService>(this, _serverId, 
                 _tokenSource.Token);
 
-            _cloudCommsService.SetQueueMessageHandlers(ReflectionUtils.SetupDictionary<Type, IQMessageHandler>(_gs));
+            _cloudCommsService.SetQueueMessageHandlers(_queueHandlers.GetDict());
         
-            _cloudCommsService.SetupPubSubMessageHandlers(_gs);
+            _cloudCommsService.SendPubSubMessage(new ServerStartedAdminMessage() { ServerId = _serverId });
 
-            _cloudCommsService.SendPubSubMessage(_gs, new ServerStartedAdminMessage() { ServerId = _serverId });
-
-            await FinalInit(_gs, data, parentObject, serverToken);
-
-            _gs.loc.Resolve(parentObject);
+            _context.loc.Resolve(parentObject);
+            _context.loc.Resolve(this);
+            await FinalInit(data, parentObject, serverToken);
 
             await Task.CompletedTask;
         }

@@ -113,8 +113,8 @@ public class BuildClients
         ServiceLocator loc = new ServiceLocator(logService, analyicsService, new GameData());
         ClientRepositoryService repoService = new ClientRepositoryService(logService);
         CancellationTokenSource cts = new CancellationTokenSource();
-        SetupService ss = new SetupService();
-        ss.SetupGame(gs as GameState, cts.Token);
+        SetupService ss = new SetupService(gs.loc);
+        ss.SetupGame(cts.Token);
 
         Assembly servicesAssembly = Assembly.GetAssembly(typeof(SetupService));
 

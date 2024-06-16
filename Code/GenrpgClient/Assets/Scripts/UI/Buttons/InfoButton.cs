@@ -13,9 +13,9 @@ public class InfoButton : BaseBehaviour
     public GButton Button;
 
     private string _screenName = null;
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         BaseScreen screen = GEntityUtils.FindInParents<BaseScreen>(gameObject);
 
         if (screen != null)

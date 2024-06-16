@@ -33,8 +33,9 @@ public class UnitSetupService : IUnitSetupService
     protected IGameData _gameData;
     protected IPlayerManager _playerManager;
     protected IUnityGameState _gs;
+    protected IGameObjectService _gameObjectService;
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -112,7 +113,7 @@ public class UnitSetupService : IUnitSetupService
 
         Unit unit = loadData.Obj as Unit;
         unit.TargetId = loadData.Spawn.TargetId;
-        InteractUnit interactUnit = GEntityUtils.GetOrAddComponent<InteractUnit>(_gs, go);
+        InteractUnit interactUnit = _gameObjectService.GetOrAddComponent<InteractUnit>(go);
         //interactUnit.Initialize(gs);
         interactUnit.Init(unit, go, token);
         if (loadData.Spawn.FirstAttacker != null &&
@@ -171,7 +172,7 @@ public class UnitSetupService : IUnitSetupService
 
     protected void OnLoadMonster(GEntity go, Unit unit, CancellationToken token)
     {
-        MonsterController mc = GEntityUtils.GetOrAddComponent<MonsterController>(_gs, go);
+        MonsterController mc = _gameObjectService.GetOrAddComponent<MonsterController>(go);
 
         MonsterArtData artData = GEntityUtils.GetComponent<MonsterArtData>(go);
         if (artData != null)
@@ -192,7 +193,7 @@ public class UnitSetupService : IUnitSetupService
 
     protected void OnLoadProxyCharacter(GEntity go, Unit unit, CancellationToken token)
     {
-        ProxyCharacterController pxc = GEntityUtils.GetOrAddComponent<ProxyCharacterController>(_gs, go);
+        ProxyCharacterController pxc = _gameObjectService.GetOrAddComponent<ProxyCharacterController>(go);
 
         go.transform().localScale = GVector3.onePlatform;
 
@@ -223,7 +224,7 @@ public class UnitSetupService : IUnitSetupService
 
     public void OnLoadPlayer(GEntity go, Unit unit, CancellationToken token)
     {
-        PlayerController pc = GEntityUtils.GetOrAddComponent<PlayerController>(_gs, go);
+        PlayerController pc = _gameObjectService.GetOrAddComponent<PlayerController>(go);
         pc.Init(unit, token);
         unit.Speed = _gameData.Get<AISettings>(_gs.ch).BaseUnitSpeed;
         unit.BaseSpeed = _gameData.Get<AISettings>(_gs.ch).BaseUnitSpeed;

@@ -14,10 +14,6 @@ namespace Genrpg.Shared.Names.Services
     {
 
         private IGameData _gameData = null;
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
 
         public string PickWord(IRandom rand, List<WeightedName> list, string excludeName = "", string excludePrefix = "", string excludeDesc = "")
         {

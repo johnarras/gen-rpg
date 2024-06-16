@@ -22,7 +22,7 @@ using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.Items.Services
 {
-    public interface IItemService : IInitializable
+    public interface IItemService : IInjectable
     {
         UseItemResult UseItem(IRandom rand, Character ch, Item item);
 
@@ -37,11 +37,6 @@ namespace Genrpg.MapServer.Items.Services
         private IMapObjectManager _objectManager = null;
         private IInventoryService _inventoryService = null;
         private ITradeService _tradeService = null;
-
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         // This should call out to different functions in different parts of the code.
         // Eventually split these cases into separate functions.

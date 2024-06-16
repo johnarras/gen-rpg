@@ -49,7 +49,7 @@ public class ClientLoginService : IClientLoginService
     protected IUnityGameState _gs;
     private string _pwd = "";
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }

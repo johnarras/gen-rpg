@@ -27,10 +27,7 @@ namespace Genrpg.Shared.Inventory.Services
     {
         private IStatService _statService = null;
         protected IGameData _gameData;
-        public virtual async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
+
         public virtual int InventorySpaceLeft(Unit unit, Item item)
         {
             return 1000;

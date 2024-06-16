@@ -36,7 +36,7 @@ namespace Genrpg.LoginServer.Core
     /// <summary>
     /// This is a minimal amount of webdev used to get us into code that can be used elsewhere easier.
     /// </summary>
-    public class LoginServer : BaseServer<LoginGameState, LoginSetupService, ILoginMessageHandler>
+    public class LoginServer : BaseServer<LoginContext, LoginSetupService, ILoginMessageHandler>
     {
         protected IClientService _clientService { get; private set; }
         protected ILoginService _loginService { get; private set; }
@@ -51,23 +51,19 @@ namespace Genrpg.LoginServer.Core
             _serverSource = new CancellationTokenSource();
 
             Init(null, null, _serverSource.Token).Wait();
-            _clientService = _gs.loc.Get<IClientService>();
-            _loginService = _gs.loc.Get<ILoginService>();
-            _cryptoService = _gs.loc.Get<ICryptoService>();
-            _charmService = _gs.loc.Get<ICharmService>();
-            _noUserService = _gs.loc.Get<INoUserService>();
+            _clientService = _context.loc.Get<IClientService>();
+            _loginService = _context.loc.Get<ILoginService>();
+            _cryptoService = _context.loc.Get<ICryptoService>();
+            _charmService = _context.loc.Get<ICharmService>();
+            _noUserService = _context.loc.Get<INoUserService>();
         }
 
-        protected LoginGameState SetupGameState()
+        protected LoginContext SetupContext()
         {
-            return new LoginGameState(_config)
+            return new LoginContext(_config)
             {
-                loc = _gs.loc,
-
+                loc = _context.loc,
                 rand = new MyRandom(),
-                commandHandlers = _gs.commandHandlers,
-                noUserCommandHandlers = _gs.noUserCommandHandlers,
-                mapStubs = _gs.mapStubs,
             };
         }
 
@@ -79,29 +75,31 @@ namespace Genrpg.LoginServer.Core
 
         public async Task<string> HandleClient(string postData)
         {
-            return WebUtils.PackageResults(await _clientService.HandleClient(SetupGameState(), postData, _token));
+            LoginContext context = SetupContext(); 
+            await _clientService.HandleClient(context, postData, _token);
+            return WebUtils.PackageResults(context.Results);
         }
 
         public async Task<string> HandleNoUser(string postData)
         {
-            return WebUtils.PackageResults(await _noUserService.HandleNoUserCommand(SetupGameState(), postData, _token));
+            LoginContext context = SetupContext();
+           await _noUserService.HandleNoUserCommand(context, postData, _token);
+            return WebUtils.PackageResults(context.Results);
         }
 
         public async Task<string> HandleLogin(string postData)
         {
-            return WebUtils.PackageResults(await _loginService.Login(SetupGameState(), postData, _token));
+            LoginContext context = SetupContext();
+            await _loginService.Login(context, postData, _token);
+            return WebUtils.PackageResults(context.Results);
         }
-
-
 
         public async Task<string> HandleTxList(string address)
         {
-            ServerGameState gs = SetupGameState();
-
             MyRandom rand = new MyRandom();
-            EthereumTransactionList normalList = await _cryptoService.GetTransactionsFromWallet(_gs, address, false);
+            EthereumTransactionList normalList = await _cryptoService.GetTransactionsFromWallet(address, false);
 
-            EthereumTransactionList internalList = await _cryptoService.GetTransactionsFromWallet(_gs, address, true);
+            EthereumTransactionList internalList = await _cryptoService.GetTransactionsFromWallet(address, true);
 
             List<EthereumTransaction> allTransactions = new List<EthereumTransaction>(normalList.result);
             allTransactions.AddRange(internalList.result);

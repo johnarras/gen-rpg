@@ -8,6 +8,7 @@ using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Buildings.Settings;
 using Assets.Scripts.Buildings;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class BuildingObjectLoader : BaseMapObjectLoader
 {
@@ -33,7 +34,8 @@ public class BuildingObjectLoader : BaseMapObjectLoader
 
         _assetService.LoadAsset(AssetCategoryNames.Buildings , "Default/" + buildingType.Art, OnDownloadBuildingObject, loadData, null, token);
 
-        
+
+        await Task.CompletedTask;
         return;
     }
 
@@ -51,7 +53,7 @@ public class BuildingObjectLoader : BaseMapObjectLoader
             return;
         }
         loadData.FixedPosition = true;
-        MapBuilding building = GEntityUtils.GetOrAddComponent<MapBuilding>(_gs, go);
+        MapBuilding building = _gameObjectService.GetOrAddComponent<MapBuilding>(go);
 
         BuildingType buildingType = _gameData.Get<BuildingSettings>(_gs.ch).Get(loadData.Spawn.EntityId);
 

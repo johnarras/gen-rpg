@@ -9,15 +9,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.CloudComms.PubSub.Entities;
+using Genrpg.Shared.Interfaces;
 
 namespace Genrpg.ServerShared.CloudComms.PubSub.Topics.Core
 {
     public interface IPubSubHelper
     {
-        Task Init(ServerGameState gs, ServiceBusClient client, ServiceBusAdministrationClient adminClient, string env, string serverId, CancellationToken token);
-        void SendMessage(ServerGameState gs, IPubSubMessage message);
+        Task Init(ServiceBusClient client, ServiceBusAdministrationClient adminClient, string env, string serverId, CancellationToken token);
+        void SendMessage(IPubSubMessage message);
         bool IsValidMessage(IPubSubMessage message);
-        void SetMessageHandlers(ServerGameState gs);
 
     }
 }

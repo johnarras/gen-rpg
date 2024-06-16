@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.Assets.Bundles;
+using Genrpg.Shared.Interfaces;
+
 
 
 
@@ -93,10 +95,10 @@ public class UnityAssetService : IAssetService
     private ILogService _logService;
     private IFileDownloadService _fileDownloadService;
     protected IClientRandom _rand;
+    protected IUnityGameState _gs;
+    protected IGameObjectService _gameObjectService;
 
     private static float _loadDelayChance = 0.03f;
-
-    private IUnityGameState _gs;
 
     private const int _maxConcurrentExistingDownloads = 5;
 
@@ -147,19 +149,16 @@ public class UnityAssetService : IAssetService
     { 
         return _worldDataEnv; 
     }
-    public async Task Initialize(IGameState gsIn, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         if (!AppUtils.IsPlaying)
         {
             return;
         }
 
-        IUnityGameState gs = gsIn as IUnityGameState;
-
-        _gs = gs;
-        _contentRootUrl = gs.Config.GetContentRoot();
-        _assetDataEnv = gs.Config.GetAssetDataEnv();
-        _worldDataEnv = gs.Config.GetWorldDataEnv();
+        _contentRootUrl = _gs.Config.GetContentRoot();
+        _assetDataEnv = _gs.Config.GetAssetDataEnv();
+        _worldDataEnv = _gs.Config.GetWorldDataEnv();
         _assetParent = GEntityUtils.FindSingleton(AssetConstants.GlobalAssetParent, true);
         SpriteAtlasManager.atlasRequested += DummyRequestAtlas;
         SpriteAtlasManager.atlasRegistered += DummuRegisterAtlas;
@@ -180,7 +179,7 @@ public class UnityAssetService : IAssetService
         await Task.CompletedTask;
     }
 
-    public bool IsDownloading(IUnityGameState g)
+    public bool IsDownloading()
     {
         return 
             _existingDownloads.Count > 0 ||
@@ -403,7 +402,7 @@ public class UnityAssetService : IAssetService
                     {
                         asset = InstantiateIntoParent(asset, parent);
 
-                        GEntityUtils.InitializeHierarchy(_gs, asset as GEntity);
+                        _gameObjectService.InitializeHierarchy(asset as GEntity);
 
                         if (handler != null)
                         {
@@ -1096,7 +1095,10 @@ public class UnityAssetService : IAssetService
             return tex2d;
         }
 
+        
+
         GEntity go = InstantiateIntoParent(child, parent);
+
         if (go != null)
         {
             BundleCacheItem cacheItem = go.AddComponent<BundleCacheItem>();
@@ -1111,7 +1113,7 @@ public class UnityAssetService : IAssetService
         BaseBehaviour oneBehavior = go.GetComponent<BaseBehaviour>();
         if (oneBehavior != null)
         {
-            GEntityUtils.InitializeHierarchy(_gs, go);
+            _gameObjectService.InitializeHierarchy(go);
         }
         return go;
     }

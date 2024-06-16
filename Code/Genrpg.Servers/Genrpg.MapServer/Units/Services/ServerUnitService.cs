@@ -35,10 +35,6 @@ namespace Genrpg.MapServer.Units.Services
         private ISpawnService _spawnService = null;
         private IGameData _gameData = null;
         private IAchievementService _achievementService = null;
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         public void CheckForDeath(IRandom rand, ActiveSpellEffect eff, Unit targ)
         {

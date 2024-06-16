@@ -18,7 +18,7 @@ using GEntity = UnityEngine.GameObject;
 using Assets.Scripts.ProcGen.RandomNumbers;
 
 
-public interface IPlayerManager : IInitializable, IMapTokenService
+public interface IPlayerManager : IInjectable, IMapTokenService
 {
     void SetUnit(UnitController unitController);
     bool TryGetUnit(out Unit unit);
@@ -44,14 +44,6 @@ public class PlayerManager : IPlayerManager
     private IPathfindingService _pathfindingService;
     private IRealtimeNetworkService _networkService;
 
-    public IUnityGameState _gs { get; set; }
-
-    public async Task Initialize(IGameState gs, CancellationToken token)
-    {
-        _gs = gs as IUnityGameState;
-        await Task.CompletedTask;
-    }
-
     public void SetUnit(UnitController unitController)
     {
         _unitController = unitController;
@@ -63,6 +55,7 @@ public class PlayerManager : IPlayerManager
         }
         else
         {
+            GEntityUtils.Destroy(_entity);
             _entity = null;
             _unit = null;
         }

@@ -6,6 +6,7 @@ using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Logging.Interfaces;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class LoginScreen : BaseScreen
 {
@@ -22,7 +23,8 @@ public class LoginScreen : BaseScreen
     {
         _uIInitializable.SetButton(LoginButton, GetName(), ClickLogin);
         _uIInitializable.SetButton(SignupButton, GetName(), ClickSignup);
-        
+
+        await Task.CompletedTask;
     }
 
     public void ClickSignup()

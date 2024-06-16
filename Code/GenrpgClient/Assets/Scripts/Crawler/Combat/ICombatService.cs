@@ -9,6 +9,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Assets.Scripts.Crawler.Services.Combat
 {
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
     public interface ICombatService : IInitializable
     {
+        void CheckForEncounter(bool atEndOfMove, CancellationToken token);
         bool StartCombat(PartyData partyData, CombatState combatState);
         void EndCombatRound(PartyData party);
         bool SetMonsterActions(PartyData party);

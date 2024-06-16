@@ -11,17 +11,17 @@ using System.Collections.Concurrent;
 namespace Genrpg.PlayerServer.Managers
 {
 
-    public interface IPlayerService : IInitializable
+    public interface IPlayerService : IInjectable
     {
         List<OnlineCharacter> GetPlayersInMap(string mapId);
         List<OnlineCharacter> GetPlayersInZone(string mapId, long zoneId);
         List<OnlineCharacter> GetPlayersInMapInstance(string mapInstanceId);
-        void OnLoginUser(ServerGameState gs, LoginUser login);
-        void OnLogoutUser(ServerGameState gs, LogoutUser logout);
-        void OnPlayerEnterMap(ServerGameState gs, PlayerEnterMap playerEnterMap);
-        void OnPlayerLeaveMap(ServerGameState gs, PlayerLeaveMap playerLeaveMap);
-        void OnPlayerEnterZone(ServerGameState gs, PlayerEnterZone playerEnterZone);
-        void OnGetWhoList(ServerGameState gs, WhoListRequest whoListMessage);
+        void OnLoginUser(LoginUser login);
+        void OnLogoutUser(LogoutUser logout);
+        void OnPlayerEnterMap(PlayerEnterMap playerEnterMap);
+        void OnPlayerLeaveMap(PlayerLeaveMap playerLeaveMap);
+        void OnPlayerEnterZone(PlayerEnterZone playerEnterZone);
+        void OnGetWhoList(WhoListRequest whoListMessage);
     }
 
     public class PlayerService : IPlayerService
@@ -37,10 +37,6 @@ namespace Genrpg.PlayerServer.Managers
         private ConcurrentDictionary<string, OnlineCharacter> _onlineChars = new ConcurrentDictionary<string, OnlineCharacter>();
 
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
         protected string GetMapZoneKey(string mapId, long zoneId)
         {
             return mapId + zoneId;
@@ -61,7 +57,7 @@ namespace Genrpg.PlayerServer.Managers
             return _mapInstanceChars.GetOrAdd(mapInstanceId, new List<OnlineCharacter>());
         }
 
-        public void OnLoginUser(ServerGameState gs, LoginUser login)
+        public void OnLoginUser(LoginUser login)
         {
             _logService.Message("LoginUser: " + login.Id + ": " + login.Name);
             if (_users.TryGetValue(login.Id, out LoggedInUser user))
@@ -76,7 +72,7 @@ namespace Genrpg.PlayerServer.Managers
             };
         }
 
-        public void OnLogoutUser(ServerGameState gs, LogoutUser logout)
+        public void OnLogoutUser(LogoutUser logout)
         {
             _logService.Message("Logout user: " + logout.Id);
             _users.TryRemove(logout.Id, out LoggedInUser user);
@@ -115,7 +111,7 @@ namespace Genrpg.PlayerServer.Managers
             }
         }
 
-        public void OnPlayerEnterMap(ServerGameState gs, PlayerEnterMap playerEnterMap)
+        public void OnPlayerEnterMap(PlayerEnterMap playerEnterMap)
         {
             _logService.Message("PlayerEnterMap: " + playerEnterMap.Id + " Map: " + playerEnterMap.MapId + " Instance: " +
                 playerEnterMap.InstanceId);
@@ -146,7 +142,7 @@ namespace Genrpg.PlayerServer.Managers
             newMapInstanceChars.Add(currChar);
         }
 
-        public void OnPlayerLeaveMap(ServerGameState gs, PlayerLeaveMap playerLeaveMap)
+        public void OnPlayerLeaveMap(PlayerLeaveMap playerLeaveMap)
         {
             _logService.Message("PlayerLeaveMap: " + playerLeaveMap.Id);
             if (_onlineChars.TryGetValue(playerLeaveMap.Id, out OnlineCharacter currChar))
@@ -155,7 +151,7 @@ namespace Genrpg.PlayerServer.Managers
             }
         }
 
-        public void OnPlayerEnterZone(ServerGameState gs, PlayerEnterZone playerEnterZone)
+        public void OnPlayerEnterZone(PlayerEnterZone playerEnterZone)
         {
             _logService.Message("AddToZone: " + playerEnterZone.Id + " to " + playerEnterZone.ZoneId);
             if (_onlineChars.TryGetValue(playerEnterZone.Id, out OnlineCharacter currChar))
@@ -167,7 +163,7 @@ namespace Genrpg.PlayerServer.Managers
             }
         }
 
-        public void OnGetWhoList(ServerGameState gs, WhoListRequest request)
+        public void OnGetWhoList(WhoListRequest request)
         {
             List<OnlineCharacter> onlineChars = _onlineChars.Values.ToList();
 

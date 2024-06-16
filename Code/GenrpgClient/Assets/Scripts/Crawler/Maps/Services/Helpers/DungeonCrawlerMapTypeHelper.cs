@@ -33,7 +33,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             CrawlerMap cmap = GenerateMap(mapData.MapId);
 
             GameObject go = new GameObject() { name = "Dungeon" };
-            CrawlerMapRoot mapRoot = GEntityUtils.GetOrAddComponent<CrawlerMapRoot>(_gs, go);
+            CrawlerMapRoot mapRoot = _gameObjectService.GetOrAddComponent<CrawlerMapRoot>(go);
 
             mapRoot.SetupFromMap(cmap);
             mapRoot.DrawX = partyData.MapX * CrawlerMapConstants.BlockSize;
@@ -41,7 +41,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             mapRoot.DrawY = CrawlerMapConstants.BlockSize / 2;
             mapRoot.DrawRot = partyData.MapRot;
 
-            
+
+            await Task.CompletedTask;
             return mapRoot;
         }
 
@@ -153,6 +154,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             {
                 AddWallComponent(mapRoot.Assets.Door, cell.Content, eOffset, eRot);
             }
+            await Task.CompletedTask;
         }
     }
 }

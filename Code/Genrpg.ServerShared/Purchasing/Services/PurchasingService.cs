@@ -5,6 +5,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.GameSettings.Settings;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Utils;
 using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
@@ -24,7 +25,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
     {
         protected IRepositoryService _repoService = null;
         private IGameData _gameData = null;
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize( CancellationToken token)
         {
             await Task.CompletedTask;
         }

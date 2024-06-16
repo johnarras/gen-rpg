@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Genrpg.Shared.Crawler.Roles.Services
 {
-    public interface IClassService : IInitializable
+    public interface IClassService : IInjectable
     {
         IClassHelper GetClassHelper(long classId);
     }

@@ -33,7 +33,7 @@ namespace Genrpg.MapServer.MapMessaging.Entities
 
         private DateTime _startTime = DateTime.UtcNow;
 
-        public MapMessageQueue(IGameState gs, DateTime startTime, int queueIndex, ILogService logService, IMapMessageService mapMessageService, CancellationToken token)
+        public MapMessageQueue(DateTime startTime, int queueIndex, ILogService logService, IMapMessageService mapMessageService, CancellationToken token)
         {
             _token = token;
             _logService = logService;
@@ -46,9 +46,9 @@ namespace Genrpg.MapServer.MapMessaging.Entities
                 _delayedMessages[d] = new List<MapMessagePackage>();
             }
 
-            _ = Task.Run(() => ProcessDelayQueue(gs), _token);
+            _ = Task.Run(() => ProcessDelayQueue(), _token);
 
-            _ = Task.Run(() => ProcessQueue(gs), _token);
+            _ = Task.Run(() => ProcessQueue(), _token);
         }
 
         public long GetMessagesProcessed()
@@ -82,7 +82,7 @@ namespace Genrpg.MapServer.MapMessaging.Entities
             }
         }
 
-        protected async Task ProcessDelayQueue(IGameState gsIn)
+        protected async Task ProcessDelayQueue()
         {
             try
             {
@@ -136,7 +136,7 @@ namespace Genrpg.MapServer.MapMessaging.Entities
                 _logService.Exception(e, "MessageQueueDelay");
             }
         }
-        protected async Task ProcessQueue(IGameState gsIn)
+        protected async Task ProcessQueue()
         {
             try
             {

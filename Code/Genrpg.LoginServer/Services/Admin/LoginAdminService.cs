@@ -1,6 +1,7 @@
 ﻿
 using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Core;
+using Genrpg.LoginServer.Services.LoginServer;
 using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
 using Genrpg.ServerShared.CloudComms.Services.Admin;
 using Genrpg.ServerShared.Core;
@@ -11,25 +12,16 @@ namespace Genrpg.LoginServer.Services.Admin
 {
     public class LoginAdminService : BaseAdminService, IAdminService
     {
-        public override async Task OnMapUploaded(ServerGameState gs, MapUploadedAdminMessage message)
+        private ILoginServerService _loginServerService;
+        public override async Task OnMapUploaded(MapUploadedAdminMessage message)
         {
             if (message.WorldDataEnv != _config.DataEnvs[DataCategoryTypes.WorldData])
             {
                 return;
             }
 
-            if (gs is LoginGameState lgs)
-            {
-                foreach (IClientCommandHandler handler in lgs.commandHandlers.Values)
-                {
-                    await handler.Reset();
-                }
+            await _loginServerService.ResetCommandHandlers();
 
-                foreach (INoUserCommandHandler handler in lgs.noUserCommandHandlers.Values)
-                {
-                    await handler.Reset();
-                }
-            }
         }
     }
 }

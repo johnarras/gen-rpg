@@ -15,6 +15,8 @@ public class AddClutter : BaseZoneGenerator
     public const float MaxSteepness = 15;
     public const float RandomClutterDensity = 0.00025f;
 
+    protected IAddNearbyItemsHelper _addNearbyItemsHelper;
+
     public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
@@ -45,8 +47,6 @@ public class AddClutter : BaseZoneGenerator
         {
             return;
         }
-
-        AddNearbyItemsHelper nearbyHelper = new AddNearbyItemsHelper();
 
         int totalPlaced = 0;
 
@@ -191,7 +191,7 @@ public class AddClutter : BaseZoneGenerator
                 int py = (int)(pos.Y);
                 openPositions.Remove(pos);
 
-                int nearbyItemsCount = nearbyHelper.GetNearbyItemsCount(maxOffset, rand);
+                int nearbyItemsCount = _addNearbyItemsHelper.GetNearbyItemsCount(maxOffset, rand);
 
                 int clutterTypeChosen = rand.Next() % totalClutterChoices;
 
@@ -233,7 +233,7 @@ public class AddClutter : BaseZoneGenerator
             }
 
             float currMaxOffset = MathUtils.FloatRange(0.7f, 1.2f, rand);
-            nearbyHelper.AddItemsNear(_gs, _gameData, _terrainManager, _mapProvider, rand, zoneType, zone, x, y, 0.9f, numToPlace, 1.0f, currMaxOffset);
+            _addNearbyItemsHelper.AddItemsNear(rand, zoneType, zone, x, y, 0.9f, numToPlace, 1.0f, currMaxOffset);
         }
     }
 }

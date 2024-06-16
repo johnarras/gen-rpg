@@ -13,19 +13,16 @@ using System.Collections.Generic;
 
 namespace Genrpg.LoginServer.Core
 {
-    public class LoginGameState : ServerGameState
+    public class LoginContext : ServerGameState
     {
         public User user { get; set; }
         public CoreCharacter coreCh { get; set; }
         public Character ch { get; set; }
-        public MapStubList mapStubs { get; set; } = new MapStubList();
         public MyRandom rand { get; set; } = new MyRandom();
-        public Dictionary<Type, IClientCommandHandler> commandHandlers = null;
-        public Dictionary<Type, INoUserCommandHandler> noUserCommandHandlers = null;
 
         public List<ILoginResult> Results { get; set; } = new List<ILoginResult>();
 
-        public LoginGameState(IServerConfig config) : base(config) { }
+        public LoginContext(IServerConfig config) : base(config) { }
 
     }
 }

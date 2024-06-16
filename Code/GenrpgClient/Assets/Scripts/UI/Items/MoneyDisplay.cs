@@ -14,9 +14,9 @@ public class MoneyDisplay : BaseBehaviour
     
     public bool UpdateToCharMoney = false;
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         if (UpdateToCharMoney)
         {
             _dispatcher.AddEvent<OnAddCurrency>(this, OnCurrencyUpdate);

@@ -30,8 +30,9 @@ public class FxService : IFxService
     private IClientMapObjectManager _objectManager;
     private IAssetService _assetService;
     private IUnityGameState _gs;
+    protected IGameObjectService _gameObjectService;
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -81,7 +82,7 @@ public class FxService : IFxService
             GEntityUtils.Destroy(go);
             return;
         }
-        MapProjectile proj = GEntityUtils.GetOrAddComponent<MapProjectile>(_gs, go);
+        MapProjectile proj = _gameObjectService.GetOrAddComponent<MapProjectile>(go);
 
         proj.Init(full, token);
 

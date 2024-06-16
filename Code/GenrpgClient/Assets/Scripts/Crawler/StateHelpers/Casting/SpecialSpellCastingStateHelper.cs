@@ -29,7 +29,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Casting
                 return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Missing Special Select Spell" };
             }
 
-            
+
+            await Task.CompletedTask;
             return new CrawlerStateData(ECrawlerStates.ExploreWorld, true);
         }
     }

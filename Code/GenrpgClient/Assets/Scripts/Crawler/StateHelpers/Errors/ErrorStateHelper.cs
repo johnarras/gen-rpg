@@ -34,7 +34,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Errors
 
             stateData.Actions.Add(new CrawlerStateAction($"\n\nPress {CrawlerUIUtils.HighlightText("Space")} to continue...", KeyCode.Space, ECrawlerStates.ExploreWorld));
 
-            
+
+            await Task.CompletedTask;
             return stateData;
         }
     }

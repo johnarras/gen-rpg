@@ -6,6 +6,7 @@ using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
 using System;
@@ -21,10 +22,6 @@ namespace Genrpg.ServerShared.Achievements
     {
         private IGameData _gameData = null;
         private IRepositoryService _repoService = null;
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
 
         public void UpdateAchievement(MapObject mapObject, long achievementTypeId, long quantity)
         {

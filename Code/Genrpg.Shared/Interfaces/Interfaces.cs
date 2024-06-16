@@ -10,7 +10,6 @@ namespace Genrpg.Shared.Interfaces
     public delegate void VoidDelegate();
     public delegate void ObjectDelegate(object obj);
     public delegate void StringDelegate(string s);
-    public delegate void GameStateObjectDelegate(IGameState gs, object obj);
     public delegate void TokenDelegate(CancellationToken token);
 
 

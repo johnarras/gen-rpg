@@ -12,12 +12,12 @@ namespace Assets.Scripts.Interfaces
     {
         void PlaySound(string name, object parent = null, float volume = 1.0f);
         void PlayMusic(IMusicRegion region);
-        void StopAllAudio(IUnityGameState gs);
+        void StopAllAudio();
 
         void SetSoundActive(bool val);
-        bool IsSoundActive(IUnityGameState gs);
+        bool IsSoundActive();
 
         void SetMusicActive(bool val);
-        bool IsMusicActive(IUnityGameState gs);
+        bool IsMusicActive();
     }
 }

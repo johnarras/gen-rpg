@@ -33,12 +33,6 @@ namespace Genrpg.Shared.Crawler.Stats.Services
         protected IUnityGameState _gs;
         protected IClientRandom _rand;
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
-
-
         public void CalcPartyStats(PartyData party, bool resetCurrStats)
         {
             foreach (PartyMember member in party.Members)

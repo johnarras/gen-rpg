@@ -1,5 +1,6 @@
 ﻿
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Setup.Constants;
 using System;
@@ -9,10 +10,8 @@ using System.Threading.Tasks;
 public class ClientLogger : ILogService
 {
 
-    private IUnityGameState _gs;
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
-        _gs = gs as IUnityGameState;
         await Task.CompletedTask;
     }
 
@@ -23,7 +22,7 @@ public class ClientLogger : ILogService
         _config = config;
     }
 
-    public async Task PrioritySetup(IGameState gs, CancellationToken token)
+    public async Task PrioritySetup(CancellationToken token)
     {
         await Task.CompletedTask;
     }

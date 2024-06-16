@@ -6,6 +6,7 @@ using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Logging.Interfaces;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class SignupScreen : BaseScreen
 {
@@ -23,7 +24,8 @@ public class SignupScreen : BaseScreen
     protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         _uIInitializable.SetButton(LoginButton, GetName(), ClickLogin);
-        _uIInitializable.SetButton(SignupButton, GetName(), ClickSignup);       
+        _uIInitializable.SetButton(SignupButton, GetName(), ClickSignup);
+        await Task.CompletedTask;
     }
 
     public void ClickLogin()

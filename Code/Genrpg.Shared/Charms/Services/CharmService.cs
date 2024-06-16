@@ -22,10 +22,6 @@ namespace Genrpg.Shared.Charms.Services
     {
 
         private IGameData _gameData = null;
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
 
         public List<PlayerCharmBonusList> CalcBonuses(string charmId)
         {

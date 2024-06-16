@@ -16,7 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Genrpg.MapServer.Levelup.Services
 {
-    public interface ILevelService : IInitializable
+    public interface ILevelService : IInjectable
     {
         void UpdateLevel(IRandom rand, Character ch);
         void SetupLevels(GameData data);
@@ -31,11 +31,6 @@ namespace Genrpg.MapServer.Levelup.Services
         private IEntityService _entityService = null;
         private IMapMessageService _messageService = null;
         private IGameData _gameData = null;
-
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         public void UpdateLevel(IRandom rand, Character ch)
         {

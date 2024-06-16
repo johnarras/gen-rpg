@@ -29,6 +29,7 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
     protected IGameData _gameData;
     protected IMapProvider _mapProvider;
     protected IUnityGameState _gs;
+    protected IGameObjectService _gameObjectService;
 
     public void FinalPlaceObject(GEntity go, SpawnLoadData data, string layerName)
     {

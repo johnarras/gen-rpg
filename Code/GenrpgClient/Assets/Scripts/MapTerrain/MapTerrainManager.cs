@@ -131,13 +131,14 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
 
     private Dictionary<string, TerrainProtoObject> _terrainProtoObjectData = new Dictionary<string, TerrainProtoObject>();
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         AddTokenUpdate(TerrainUpdate, UpdateType.Regular);
         _prototypeParent = GEntityUtils.FindSingleton(PrototypeParent, true);
         _terrainTextureParent = GEntityUtils.FindSingleton(MapConstants.TerrainTextureRoot, true);
         SetupLoaders();
-        
+
+        await Task.CompletedTask;
     }
 
     private bool _fastLoading = false;
@@ -725,7 +726,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         terr2.terrainData.detailPrototypes = new DetailPrototype[0];
         terr2.terrainData.treePrototypes = new TreePrototype[0];
         terr2.terrainData = GEntity.Instantiate<TerrainData>(terr2.terrainData);
-        TerrainCollider coll = GEntityUtils.GetOrAddComponent<TerrainCollider>(_gs, terrObj2); 
+        TerrainCollider coll = _gameObjectService.GetOrAddComponent<TerrainCollider>(terrObj2); 
         coll.terrainData = terr2.terrainData;
 
   
@@ -1320,7 +1321,7 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
         }
 
         tl.diffuseTexture = diffuse;
-        tl.normalMapTexture = normal;
+        tl.normalMapTexture = normal;      
         SetTerrainLayerData(tl);
         return tl;
     }
@@ -1332,13 +1333,11 @@ public class MapTerrainManager : BaseBehaviour, IMapTerrainManager
             return;
         }
         tl.normalScale = 1.0f;
-        tl.metallic = 0.00f; // Set to 0 if using Standard terrain shader.
-        tl.smoothness = 0.00f;
+        tl.metallic = 0.4f; // Set to 0 if using Standard terrain shader.
+        tl.smoothness = 0.4f;
         tl.specular = (Color.gray * 0.00f);
         tl.tileOffset = new Vector2(MapConstants.TerrainLayerOffset, MapConstants.TerrainLayerOffset);
         tl.tileSize = new Vector2(MapConstants.TerrainLayerTileSize, MapConstants.TerrainLayerTileSize);
-        tl.diffuseRemapMax = Vector4.zero;
-        tl.diffuseRemapMin = Vector4.zero;
     }
 
     public TerrainPatchData GetTerrainPatch(int gx, int gy, bool createIfNotThere = true)

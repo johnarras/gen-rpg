@@ -4,6 +4,7 @@ using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.Crawler.Training.Settings;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
@@ -32,7 +33,7 @@ namespace Assets.Scripts.Crawler.Services.Training
         private ICrawlerStatService _statService;
         protected IGameData _gameData;
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize(CancellationToken token)
         {
             await Task.CompletedTask;
         }

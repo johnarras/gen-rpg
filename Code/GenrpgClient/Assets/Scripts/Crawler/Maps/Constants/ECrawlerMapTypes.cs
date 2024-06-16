@@ -8,8 +8,9 @@ namespace Assets.Scripts.Crawler.Maps.Constants
 {
     public enum ECrawlerMapTypes
     {
-        Dungeon = 0,
-        City = 1,
-        Outdoors = 2,
+        None =0,
+        Dungeon = 1,
+        City = 2,
+        Outdoors = 3,
     };
 }

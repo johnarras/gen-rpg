@@ -11,6 +11,6 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Entities
 {
     public interface IQueueMessageHandler : ISetupDictionaryItem<Type>
     {
-        Task HandleMessage(ServerGameState gs, IQueueMessage message, CancellationToken token);
+        Task HandleMessage(IQueueMessage message, CancellationToken token);
     }
 }

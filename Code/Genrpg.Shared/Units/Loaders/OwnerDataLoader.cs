@@ -4,6 +4,7 @@ using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Units.Entities;
 using System;
@@ -26,9 +27,9 @@ namespace Genrpg.Shared.Units.Loaders
     {
 
         protected IRepositoryService _repoSystem = null;
-        public override async Task Initialize(IGameState gs, CancellationToken token)
+        public override async Task Initialize( CancellationToken token)
         {
-            await base.Initialize(gs,token);
+            await base.Initialize(token);
 
             List<IndexConfig> configs = new List<IndexConfig>();
             configs.Add(new IndexConfig() { Ascending = true, MemberName = "OwnerId" });

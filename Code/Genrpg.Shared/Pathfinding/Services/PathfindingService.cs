@@ -47,7 +47,7 @@ namespace Genrpg.Shared.Pathfinding.Services
             return _pathSearchCount;
         }
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize( CancellationToken token)
         {
             _workbookCache = new ConcurrentQueue<PathWorkbook>[WorkbookCacheCount];
             for (int  i = 0; i < WorkbookCacheCount; i++)

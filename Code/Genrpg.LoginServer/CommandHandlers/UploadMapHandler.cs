@@ -28,35 +28,35 @@ namespace Genrpg.LoginServer.CommandHandlers
         private IMapSpawnDataService _mapSpawnService = null;
         private ICloudCommsService _cloudCommsService = null;    
         
-        protected override async Task InnerHandleMessage(LoginGameState gs, UploadMapCommand command, CancellationToken token)
+        protected override async Task InnerHandleMessage(LoginContext context, UploadMapCommand command, CancellationToken token)
         {
             if (_config.Env == EnvNames.Prod)
             {
-                ShowError(gs, "Cannot update maps in live");
+                ShowError(context, "Cannot update maps in live");
                 return;
             }
 
             if (command == null)
             {
-                ShowError(gs, "No map update data sent");
+                ShowError(context, "No map update data sent");
                 return;
             }
 
             if (command.Map == null)
             {
-                ShowError(gs, "Missing map on update");
+                ShowError(context, "Missing map on update");
                 return;
             }
 
             if (command.Map.Zones == null || command.Map.Zones.Count < 1)
             {
-                ShowError(gs, "Map had no zones");
+                ShowError(context, "Map had no zones");
                 return;
             }
 
             if (command.SpawnData == null || command.SpawnData.Data == null)
             {
-                ShowError(gs, "No spawn data sent to server");
+                ShowError(context, "No spawn data sent to server");
                 return;
             }
 
@@ -67,18 +67,18 @@ namespace Genrpg.LoginServer.CommandHandlers
                 IServerConfig newConfig = SerializationUtils.SafeMakeCopy(_config);
                 newConfig.DataEnvs[DataCategoryTypes.WorldData] = command.WorldDataEnv;
 
-                LoginGameState lgs = await SetupUtils.SetupFromConfig<LoginGameState>(null, _config.ServerId, new LoginSetupService(), token, newConfig);
+                LoginContext newContext = await SetupUtils.SetupFromConfig<LoginContext,LoginSetupService>(null, _config.ServerId, token, newConfig);
 
-                await _mapDataService.SaveMap(currRepoService, command.Map);
+                IRepositoryService newRepoService = newContext.loc.Get<IRepositoryService>();
 
-                await _mapSpawnService.SaveMapSpawnData(currRepoService, command.SpawnData, command.Map.Id, command.Map.MapVersion);
+                await _mapDataService.SaveMap(newRepoService, command.Map);
+
+                await _mapSpawnService.SaveMapSpawnData(newRepoService, command.SpawnData, command.Map.Id, command.Map.MapVersion);
 
             }
-           
-            foreach (IClientCommandHandler handler in gs.commandHandlers.Values)
-            {
-                await handler.Reset();
-            }
+
+
+            await _loginServerService.ResetCommandHandlers();
 
             MapUploadedAdminMessage mapUploadedMessage = new MapUploadedAdminMessage()
             {
@@ -86,9 +86,9 @@ namespace Genrpg.LoginServer.CommandHandlers
                 WorldDataEnv = command.WorldDataEnv,
             };
 
-            _cloudCommsService.SendPubSubMessage(gs, mapUploadedMessage);
+            _cloudCommsService.SendPubSubMessage(mapUploadedMessage);
 
-            gs.Results.Add(new UploadMapResult());
+            context.Results.Add(new UploadMapResult());
         }
     }
 }

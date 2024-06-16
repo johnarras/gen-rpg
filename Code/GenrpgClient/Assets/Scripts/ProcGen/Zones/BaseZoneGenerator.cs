@@ -31,10 +31,11 @@ public class BaseZoneGenerator : IZoneGenerator, IInitializable
     public virtual async Awaitable Generate(CancellationToken token)
     {
         _token = token;
-        
+        await Task.CompletedTask;
+
     }
 
-    public virtual async Task Initialize(IGameState gs, CancellationToken token)
+    public virtual async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }

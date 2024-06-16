@@ -3,6 +3,7 @@ using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Login.Messages.CreateChar;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class CharacterCreateScreen : BaseScreen
 {
@@ -16,7 +17,8 @@ public class CharacterCreateScreen : BaseScreen
     {
         _uIInitializable.SetButton(CreateButton, GetName(), ClickCreate);
         _uIInitializable.SetButton(BackButton, GetName(),ClickBack);
-        
+
+        await Task.CompletedTask;
     }
 
     public void ClickBack()

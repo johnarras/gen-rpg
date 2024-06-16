@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 public class ClientAnalyticsService : IAnalyticsService
 {
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }

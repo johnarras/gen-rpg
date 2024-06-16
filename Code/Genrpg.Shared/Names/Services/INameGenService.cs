@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Genrpg.Shared.Names.Services
 {
 
-    public interface INameGenService : IInitializable
+    public interface INameGenService : IInjectable
     {
         string PickWord(IRandom rand, List<WeightedName> list, string excludeName = "", string excludePrefix = "", string excludeDesc = "");
         string PickDataListName(IRandom rand, string name);

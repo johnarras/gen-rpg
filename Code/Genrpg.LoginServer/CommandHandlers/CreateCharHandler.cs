@@ -21,42 +21,42 @@ namespace Genrpg.LoginServer.CommandHandlers
 {
     public class CreateCharHandler : BaseClientCommandHandler<CreateCharCommand>
     {
-        protected override async Task InnerHandleMessage(LoginGameState gs, CreateCharCommand command, CancellationToken token)
+        protected override async Task InnerHandleMessage(LoginContext context, CreateCharCommand command, CancellationToken token)
         {
-            List<CharacterStub> charStubs = await _playerDataService.LoadCharacterStubs(gs.user.Id);
+            List<CharacterStub> charStubs = await _playerDataService.LoadCharacterStubs(context.user.Id);
 
             int nextId = 1;
 
             while (true)
             {
-                if (charStubs.FirstOrDefault(x => x.Id == gs.user.Id + "." + nextId) == null)
+                if (charStubs.FirstOrDefault(x => x.Id == context.user.Id + "." + nextId) == null)
                 {
                     break;
                 }
                 nextId++;
             }
 
-            gs.coreCh = new CoreCharacter()
+            context.coreCh = new CoreCharacter()
             {
-                Id = gs.user.Id + "." + nextId,
+                Id = context.user.Id + "." + nextId,
                 Name = command.Name,
-                UserId = gs.user.Id,
+                UserId = context.user.Id,
             };
-            gs.ch = new Character(_repoService);
-            CharacterUtils.CopyDataFromTo(gs.coreCh, gs.ch);
+            context.ch = new Character(_repoService);
+            CharacterUtils.CopyDataFromTo(context.coreCh, context.ch);
 
 
-            List<IUnitData> list = await _playerDataService.LoadAllPlayerData(gs.rand, gs.ch);
+            List<IUnitData> list = await _playerDataService.LoadAllPlayerData(context.rand, context.ch);
 
-            charStubs.Add(new CharacterStub() { Id = gs.coreCh.Id, Name = gs.coreCh.Name, Level = gs.coreCh.Level });
+            charStubs.Add(new CharacterStub() { Id = context.coreCh.Id, Name = context.coreCh.Name, Level = context.coreCh.Level });
 
             CreateCharResult result = new CreateCharResult()
             {
-                NewChar = SerializationUtils.ConvertType<Character, Character>(gs.ch),
+                NewChar = SerializationUtils.ConvertType<Character, Character>(context.ch),
                 AllCharacters = charStubs,
             };
 
-            gs.Results.Add(result);
+            context.Results.Add(result);
         }
     }
 }

@@ -16,12 +16,12 @@ using Genrpg.Shared.Core.Entities;
 using System.Threading.Tasks;
 using Assets.Scripts.Core.Interfaces;
 
-public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService, IInjectOnLoad<IAudioService>
+public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService, IInjectOnLoad<IAudioService>, IInitOnResolve
 {
     public const float MusicVolumeScale = 0.3f;
     public List<MusicChannel> MusicChannels;
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -37,9 +37,9 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         CheckRemoveAudio(_token);
     }
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         AddUpdate(AudioUpdate, UpdateType.Regular);
         if (MusicChannels == null)
         {
@@ -53,7 +53,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     }
 
     #region ToggleAudio
-    public void StopAllAudio(IUnityGameState gs)
+    public void StopAllAudio()
     {
         foreach (AudioClipList cont in _audioCache.Values)
         {
@@ -71,12 +71,12 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         SetAudioActive(UserFlags.SoundActive, val);
     }
 
-    public bool IsMusicActive(IUnityGameState gs)
+    public bool IsMusicActive()
     {
         return IsAudioActive(UserFlags.MusicActive);
     }
 
-    public bool IsSoundActive(IUnityGameState gs)
+    public bool IsSoundActive()
     {
         return IsAudioActive(UserFlags.SoundActive);
     }

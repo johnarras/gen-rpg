@@ -20,9 +20,9 @@ namespace Genrpg.MapServer.Admin.Services
         private IMapServerService _mapServerService = null;
         private IGameData _gameData = null;
 
-        public override async Task HandleReloadGameState(ServerGameState gs)
+        public override async Task HandleReloadGameState()
         {
-            await base.HandleReloadGameState(gs);
+            await base.HandleReloadGameState();
             IReadOnlyList<MapInstance> instances = _mapServerService.GetMapInstances();
 
             foreach (MapInstance instance in instances)
@@ -31,7 +31,7 @@ namespace Genrpg.MapServer.Admin.Services
             }
         }
 
-        public override async Task OnServerStarted(ServerGameState gs, ServerStartedAdminMessage message)
+        public override async Task OnServerStarted(ServerStartedAdminMessage message)
         {
             if (message.ServerId == CloudServerNames.Instance)
             {
@@ -58,7 +58,7 @@ namespace Genrpg.MapServer.Admin.Services
             await Task.CompletedTask;
         }
 
-        public override async Task OnMapUploaded(ServerGameState gs, MapUploadedAdminMessage message)
+        public override async Task OnMapUploaded(MapUploadedAdminMessage message)
         {
 
             if (message.WorldDataEnv != _config.DataEnvs[DataCategoryTypes.WorldData])

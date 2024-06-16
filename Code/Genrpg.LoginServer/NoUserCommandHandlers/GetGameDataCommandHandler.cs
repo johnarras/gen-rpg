@@ -12,14 +12,14 @@ namespace Genrpg.LoginServer.NoUserCommandHandlers
 
         IGameDataService _gameDataService;
 
-        protected override async Task InnerHandleMessage(LoginGameState gs, NoUserGameDataCommand command, CancellationToken token)
+        protected override async Task InnerHandleMessage(LoginContext context, NoUserGameDataCommand command, CancellationToken token)
         {
             NoUserGameDataResult result = new NoUserGameDataResult();
             
             result.GameData = _gameDataService.GetClientGameData(null, true);
 
             await Task.CompletedTask;
-            gs.Results.Add(result);
+            context.Results.Add(result);
         }
     }
 }

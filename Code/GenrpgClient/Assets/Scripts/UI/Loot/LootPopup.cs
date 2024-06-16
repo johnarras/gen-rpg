@@ -6,6 +6,7 @@ using Genrpg.Shared.Spawns.Entities;
 
 using System.Threading;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class LootPopup : BaseScreen
 {
@@ -28,7 +29,8 @@ public class LootPopup : BaseScreen
 
         ShowRewards(rewards, token);
 
-        
+
+        await Task.CompletedTask;
     }
 
     private async Awaitable ShowRewards(List<SpawnResult> rewards, CancellationToken token)

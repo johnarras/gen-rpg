@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Maps.Services
 {
-    public interface IMapServerService : IInitializable
+    public interface IMapServerService : IInjectable
     {
-        Task Init(ServerGameState gs, InitMapServerData mapData, CancellationToken serverToken);
+        Task Init(InitMapServerData mapData, CancellationToken serverToken);
         IReadOnlyList<MapInstance> GetMapInstances();
         void SendAddMapServerMessage();
         Task RestartMapsWithId(string mapId);

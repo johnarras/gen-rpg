@@ -15,7 +15,7 @@ using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.MapServer.Currencies.Services
 {
-    public class ServerCurrencyService : CurrencyService, IInitializable
+    public class ServerCurrencyService : CurrencyService, IInjectable
     {
         private IMapMessageService _messageService = null;
 

@@ -127,6 +127,11 @@ MonoBehaviour:
   MainAnimator: {fileID: 0}
   IntroTime: 0
   OutroTime: 0
+  CircleMask: {fileID: 0}
+  DescParent: {fileID: 0}
+  DescText: {fileID: 0}
+  BackgroundImage: {fileID: 0}
+  BackgroundButton: {fileID: 0}
 --- !u!1 &7383658391777890933
 GameObject:
   m_ObjectHideFlags: 0

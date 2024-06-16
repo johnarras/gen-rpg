@@ -5,13 +5,12 @@ using Genrpg.Shared.Utils;
 using System.Threading;
 using Genrpg.Shared.Zones.WorldData;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class AddMountainNoise : BaseAddMountains
 {
     public override async Awaitable Generate(CancellationToken token)
     {
-        
-
         int radius = 4;
 
         _md.mountainNoise = new float[_mapProvider.GetMap().GetHwid(), _mapProvider.GetMap().GetHhgt()];
@@ -226,5 +225,6 @@ public class AddMountainNoise : BaseAddMountains
                 }
             }
         }
+        await Task.CompletedTask;
     }
 }

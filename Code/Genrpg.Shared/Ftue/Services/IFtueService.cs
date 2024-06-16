@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Genrpg.Shared.Ftue.Services
 {
-    public interface IFtueService : IInitializable
+    public interface IFtueService : IInjectable
     {
         bool IsComplete(IRandom rand, Character ch);
         FtueStep GetCurrentStep(IRandom rand, Character ch);

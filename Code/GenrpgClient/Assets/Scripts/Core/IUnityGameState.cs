@@ -16,29 +16,18 @@ using Assets.Scripts.ProcGen.RandomNumbers;
 
 public interface IUnityGameState : IGameState, IInjectable
 {
-
-    GEntity initObject { get; set; }
-    IMapGenData md { get; set; } 
     User user { get; set; }
     Character ch { get; set; }
-    public IServiceLocator loc { get; set; }
     List<CharacterStub> characterStubs { get; set; }
     List<MapStub> mapStubs { get; set; }
     ClientConfig Config { get; }
     string LoginServerURL { get; set; }
-    string Version { get; set; }
-    string RealtimeHost { get; set; }
-    string RealtimePort { get; set; }
-    void SetInitObject(GEntity go);
-    T AddComponent<T>() where T : MonoBehaviour;
-    T GetComponent<T>() where T : MonoBehaviour;
     InitialClientConfig GetConfig();
     void UpdateUserFlags(int flag, bool val);
 }
 
 public class UnityGameState : GameState, IInjectable, IUnityGameState
 {
-    public GEntity initObject { get; set; } = null;
     public IMapGenData md { get; set; } = null;
     public User user { get; set; }
     public Character ch { get; set; }
@@ -52,7 +41,6 @@ public class UnityGameState : GameState, IInjectable, IUnityGameState
     public string Version { get; set; }
     public string RealtimeHost { get; set; }
     public string RealtimePort { get; set; }
-    public InitClient initComponent = null;
 
     private ILogService _logService;
     public UnityGameState()
@@ -67,37 +55,6 @@ public class UnityGameState : GameState, IInjectable, IUnityGameState
         loc.Set<IClientRandom>(new ClientRandom());
         loc.Set<IMapGenData>(new MapGenData());
     }
-
-    public void SetInitObject(GEntity go)
-	{
-		if (go == null)
-		{
-			return;
-		}
-		initObject = go;
-		initComponent = go.GetComponent<InitClient>();
-	}
-
-	public T AddComponent<T> () where T : MonoBehaviour
-	{
-
-		if (initObject == null)
-		{
-			return default(T);
-		}
-
-        return GEntityUtils.GetOrAddComponent<T>(this, initObject);
-
-	}
-
-	public T GetComponent<T>() where T : MonoBehaviour
-	{
-		if (initObject != null)
-		{
-			return initObject.GetComponent<T>();
-		}
-		return default(T);
-	}
 
     protected string ConfigFilename = "InitialClientConfig";
     protected InitialClientConfig _config = null;

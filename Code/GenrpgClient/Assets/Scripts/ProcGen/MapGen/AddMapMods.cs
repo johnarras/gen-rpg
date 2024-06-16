@@ -3,6 +3,7 @@ using System.Threading;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Entities.Constants;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class AddMapMods : BaseZoneGenerator
 {
@@ -31,5 +32,6 @@ public class AddMapMods : BaseZoneGenerator
                 _mapProvider.GetSpawns().AddSpawn(initData);
             }
         }
+        await Task.CompletedTask;
     }
 }

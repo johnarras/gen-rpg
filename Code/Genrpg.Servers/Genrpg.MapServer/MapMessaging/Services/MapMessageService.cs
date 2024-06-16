@@ -27,6 +27,8 @@ using Genrpg.MapServer.MapMessaging.Entities;
 using Genrpg.MapServer.Spells.Services;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Pathfinding.Services;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.HelperClasses;
 
 namespace Genrpg.MapServer.MapMessaging.Services
 {
@@ -35,7 +37,7 @@ namespace Genrpg.MapServer.MapMessaging.Services
         const int DefaultMessageQueueCount = 37;
         public const int CompleteTaskPause = 100; // Must be > 0
 
-        private Dictionary<Type, IMapMessageHandler> _eventHandlerDict = null;
+        private SetupDictionaryContainer<Type, IMapMessageHandler> _eventHandlerDict = new();
         private ILogService _logService = null;
 
         private List<MapMessageQueue> _queues = new List<MapMessageQueue>();
@@ -51,14 +53,8 @@ namespace Genrpg.MapServer.MapMessaging.Services
 
         private CancellationToken _token;
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize(CancellationToken token)
         {
-            _eventHandlerDict = ReflectionUtils.SetupDictionary<Type, IMapMessageHandler>(gs);
-
-            foreach (IMapMessageHandler handler in _eventHandlerDict.Values)
-            {
-                handler.Setup(gs);
-            }
             Type messageInterfaceType = typeof(IMapApiMessage);
 
             List<Type> messageTypes = ReflectionUtils.GetTypesImplementing(messageInterfaceType);
@@ -83,7 +79,7 @@ namespace Genrpg.MapServer.MapMessaging.Services
         }
 
         private Task _countTask = null;
-        public virtual void Init(IGameState gs, CancellationToken token)
+        public virtual void Init(CancellationToken token)
         {
             _token = token;
             _startTime = DateTime.UtcNow;
@@ -98,10 +94,10 @@ namespace Genrpg.MapServer.MapMessaging.Services
             _queues = new List<MapMessageQueue>();
             for (int q = 0; q < _messageQueueCount; q++)
             {
-                _queues.Add(new MapMessageQueue(gs, _startTime, q, _logService, this, _token));
+                _queues.Add(new MapMessageQueue(_startTime, q, _logService, this, _token));
             }
 
-            _countTask = Task.Run(() => ShowMessageCounts(gs, token));
+            _countTask = Task.Run(() => ShowMessageCounts(token));
         }
 
         public void UpdateGameData(IGameData gameData)
@@ -112,7 +108,7 @@ namespace Genrpg.MapServer.MapMessaging.Services
             }
         }
 
-        private async Task ShowMessageCounts(IGameState gs, CancellationToken token)
+        private async Task ShowMessageCounts(CancellationToken token)
         {
             try
             {

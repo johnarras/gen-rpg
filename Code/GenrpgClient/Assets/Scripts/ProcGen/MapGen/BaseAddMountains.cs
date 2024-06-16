@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.LineGen;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class BaseAddMountains : BaseZoneGenerator
 {
@@ -21,7 +22,8 @@ public class BaseAddMountains : BaseZoneGenerator
 
     public override async Awaitable Generate(CancellationToken token)
     {
-        
+
+        await Task.CompletedTask;
     }
 
 

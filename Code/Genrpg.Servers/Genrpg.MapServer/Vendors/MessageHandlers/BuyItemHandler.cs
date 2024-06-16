@@ -32,10 +32,6 @@ namespace Genrpg.MapServer.Vendors.MessageHandlers
     public class BuyItemHandler : BaseMapObjectServerMapMessageHandler<BuyItem>
     {
         private IVendorService _vendorService = null!;
-        public override void Setup(IGameState gs)
-        {
-            base.Setup(gs);
-        }
         protected override void InnerProcess(IRandom rand, MapMessagePackage pack, MapObject obj, BuyItem message)
         {
             _vendorService.BuyItem(rand, obj, message);

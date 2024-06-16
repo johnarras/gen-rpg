@@ -32,6 +32,8 @@ using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Spells.PlayerData;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.HelperClasses;
 
 namespace Genrpg.MapServer.Spells.Services
 {
@@ -42,19 +44,12 @@ namespace Genrpg.MapServer.Spells.Services
         private IStatService _statService = null;
         private IAIService _aiService = null;
         private IGameData _gameData = null;
-        protected Dictionary<long, ISpellEffectHandler> _handlers = null;
+        protected SetupDictionaryContainer<long, ISpellEffectHandler> _handlers = new();
 
 
         protected Dictionary<TryCastState, string> _tryCastText;
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize( CancellationToken token)
         {
-            _handlers = ReflectionUtils.SetupDictionary<long, ISpellEffectHandler>(gs);
-
-            foreach (ISpellEffectHandler handler in _handlers.Values)
-            {
-                handler.Init();
-            }
-
             _tryCastText = new Dictionary<TryCastState, string>();
             foreach (TryCastState state in Enum.GetValues<TryCastState>())
             {

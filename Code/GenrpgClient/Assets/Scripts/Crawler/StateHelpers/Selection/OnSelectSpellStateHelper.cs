@@ -68,7 +68,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
                 }
             }
 
-            
+
+            await Task.CompletedTask;
             return new CrawlerStateData(nextState,true) {  ExtraData = selectSpell };
         }
     }

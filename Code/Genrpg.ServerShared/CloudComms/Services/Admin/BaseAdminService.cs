@@ -3,6 +3,7 @@ using Genrpg.ServerShared.Config;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,27 +15,20 @@ namespace Genrpg.ServerShared.CloudComms.Services.Admin
 {
     public class BaseAdminService : IAdminService
     {
-
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
-
-
         protected IGameDataService _gameDataService = null;
         protected IServerConfig _config = null;
 
-        virtual public async Task HandleReloadGameState(ServerGameState gs)
+        virtual public async Task HandleReloadGameState()
         {
             await _gameDataService.ReloadGameData();
         }
 
-        public virtual async Task OnMapUploaded(ServerGameState gs, MapUploadedAdminMessage message)
+        public virtual async Task OnMapUploaded(MapUploadedAdminMessage message)
         {
             await Task.CompletedTask;
         }
 
-        public virtual async Task OnServerStarted(ServerGameState gs, ServerStartedAdminMessage message)
+        public virtual async Task OnServerStarted(ServerStartedAdminMessage message)
         {
             await Task.CompletedTask;
         }

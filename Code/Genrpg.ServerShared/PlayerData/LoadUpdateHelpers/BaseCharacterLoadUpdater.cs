@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,5 @@ namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers
 
         public abstract Task Update(IRandom rand, Character ch);
 
-        public virtual async Task Setup(IGameState gs)
-        {
-            await Task.CompletedTask;
-        }
     }
 }

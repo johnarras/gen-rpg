@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell52default",
+  "ParentId": "default",
+  "IdKey": 52,
+  "Name": "Blizzard",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 40,
+  "PowerPerLevel": 1,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 4,
+  "Level": 5,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 3,
+      "ElementTypeId": 3
+    }
+  ],
+  "UpdateTime": "2024-06-15T00:06:53.206Z",
+  "CreateTime": "2024-01-28T15:21:51Z"
+}

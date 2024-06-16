@@ -10,6 +10,7 @@ using Genrpg.ServerShared.CloudComms.PubSub.Constants;
 using Genrpg.ServerShared.CloudComms.PubSub.Entities;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Interfaces;
 
 namespace Genrpg.ServerShared.CloudComms.PubSub.Managers
 {
@@ -19,35 +20,29 @@ namespace Genrpg.ServerShared.CloudComms.PubSub.Managers
         Dictionary<string, IPubSubHelper> _helpers = new Dictionary<string, IPubSubHelper>();
 
         private ILogService _logService;
-        public async Task Init(ServerGameState gs, ILogService logService, ServiceBusClient serviceBusClient, ServiceBusAdministrationClient adminClient,
+        private IServiceLocator _loc;
+        public async Task Init(IServiceLocator loc, ILogService logService, ServiceBusClient serviceBusClient, ServiceBusAdministrationClient adminClient,
             string serverId, string env, CancellationToken token)
         {
+            _loc = loc;
             _logService = logService;
-            _helpers[PubSubTopicNames.Admin] = (AdminPubSubHelper)(await ReflectionUtils.CreateInstanceFromType(gs, typeof(AdminPubSubHelper), token));
+            _helpers[PubSubTopicNames.Admin] = (AdminPubSubHelper)(await ReflectionUtils.CreateInstanceFromType(_loc, typeof(AdminPubSubHelper), token));
                 
             foreach (IPubSubHelper helper in _helpers.Values)
             {
-                await helper.Init(gs, serviceBusClient, adminClient, serverId, env, token);
+                await helper.Init(serviceBusClient, adminClient, serverId, env, token);
             }
         }
 
-        public void SendMessage(ServerGameState gs, IPubSubMessage message)
+        public void SendMessage(IPubSubMessage message)
         {
             foreach (IPubSubHelper helper in _helpers.Values)
             {
                 if (helper.IsValidMessage(message))
                 {
-                    helper.SendMessage(gs, message);
+                    helper.SendMessage(message);
                     return;
                 }
-            }
-        }
-
-        public void SetupPubSubMessageHandlers(ServerGameState gs)
-        {
-            foreach (IPubSubHelper helper in _helpers.Values)
-            {
-                helper.SetMessageHandlers(gs);
             }
         }
     }

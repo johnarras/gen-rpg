@@ -28,7 +28,7 @@ using Genrpg.Shared.Pathfinding.Entities;
 
 namespace Genrpg.MapServer.AI.Services
 {
-    public interface IAIService : IInitializable
+    public interface IAIService : IInjectable
     {
         bool Update(IRandom rand, Unit unit);
         void TargetMove(IRandom rand, Unit unit, string targetUnitId);
@@ -46,11 +46,6 @@ namespace Genrpg.MapServer.AI.Services
         private IPathfindingService _pathfindingService = null;
         private IGameData _gameData = null;
         private ILogService _logService = null;
-
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         public long _updateTimes = 0;
         public long _castTimes = 0;

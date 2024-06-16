@@ -10,6 +10,7 @@ using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Input.PlayerData;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.SpellCrafting.Services;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Spells.Settings.Spells;
@@ -29,12 +30,13 @@ namespace Genrpg.ServerShared.PlayerData
 {
     public class PlayerDataService : IPlayerDataService
     {
+        protected IServiceLocator _loc;
         protected IRepositoryService _repoService = null;
         private Dictionary<Type, IUnitDataLoader> _loaderObjects = null;
         private Dictionary<Type, IUnitDataMapper> _mapperObjects = null;
         private List<ICharacterLoadUpdater> _loadUpdateHelpers = new List<ICharacterLoadUpdater>();
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize(CancellationToken token)
         {
             List<Task> loaderTasks = new List<Task>();
             List<IndexConfig> configs = new List<IndexConfig>();
@@ -47,15 +49,14 @@ namespace Genrpg.ServerShared.PlayerData
 
             foreach (Type lt in loadTypes)
             {
-                if (await ReflectionUtils.CreateInstanceFromType(gs, lt, token) is IUnitDataLoader newLoader)
+                if (await ReflectionUtils.CreateInstanceFromType(_loc, lt, token) is IUnitDataLoader newLoader)
                 {
                     newList[newLoader.GetServerType()] = newLoader;
-                    loaderTasks.Add(newLoader.Initialize(gs, token));
+                    loaderTasks.Add(newLoader.Initialize(token));
                 }
             }
 
             _loaderObjects = newList;
-
 
             List<Type> mapperTypes = ReflectionUtils.GetTypesImplementing(typeof(IUnitDataMapper));
 
@@ -63,10 +64,10 @@ namespace Genrpg.ServerShared.PlayerData
 
             foreach (Type mt in mapperTypes)
             {
-               if (await ReflectionUtils.CreateInstanceFromType(gs,mt,token) is IUnitDataMapper mapper)
+               if (await ReflectionUtils.CreateInstanceFromType(_loc,mt,token) is IUnitDataMapper mapper)
                 {
                     mapperDict[mapper.GetServerType()] = mapper;
-                    loaderTasks.Add(mapper.Initialize(gs, token));
+                    loaderTasks.Add(mapper.Initialize(token));
                 }
             }
 
@@ -78,10 +79,9 @@ namespace Genrpg.ServerShared.PlayerData
 
             foreach (Type ut in updateTypes)
             {
-                if (await ReflectionUtils.CreateInstanceFromType(gs, ut, token) is ICharacterLoadUpdater helper)
+                if (await ReflectionUtils.CreateInstanceFromType(_loc, ut, token) is ICharacterLoadUpdater helper)
                 {
                     _loadUpdateHelpers.Add(helper);
-                    loaderTasks.Add(helper.Setup(gs));
                 }
             }
 

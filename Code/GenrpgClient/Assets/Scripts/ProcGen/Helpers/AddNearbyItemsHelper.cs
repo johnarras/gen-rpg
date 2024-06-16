@@ -8,17 +8,30 @@ using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Interfaces;
+
+public interface IAddNearbyItemsHelper : IInjectable
+{
+    int GetNearbyItemsCount(int radius, MyRandom rand);
+    void AddItemsNear(IRandom rand, ZoneType zoneType, Zone zone, int x, int y, double placeChance, int maxPlaceQuantity, float minOffset, float maxOffset, bool canPlaceTrees = true);
+}
+
+
 
 /// <summary>
 /// Add items nearby a tree or a rock or something of that sort.
 /// </summary>
-public class AddNearbyItemsHelper
+public class AddNearbyItemsHelper : IAddNearbyItemsHelper
 {
-
-    public void AddItemsNear(IUnityGameState gs, IGameData gameData, IMapTerrainManager terrainManager, IMapProvider mapProvider, MyRandom rand, ZoneType zoneType, Zone zone, int x, int y, double placeChance, int maxPlaceQuantity, float minOffset, float maxOffset, bool canPlaceTrees = true)
+    private IUnityGameState _gs;
+    private IGameData _gameData;
+    private IMapProvider _mapProvider;
+    private IMapGenData _mapGenData;
+    private IMapTerrainManager _terrainManager;
+    public void AddItemsNear(IRandom rand, ZoneType zoneType, Zone zone, int x, int y, double placeChance, int maxPlaceQuantity, float minOffset, float maxOffset, bool canPlaceTrees = true)
     {
 
-        float posHeight = terrainManager.GetInterpolatedHeight(y, x);
+        float posHeight = _terrainManager.GetInterpolatedHeight(y, x);
 
         if (posHeight < MapConstants.OceanHeight)
         {
@@ -51,7 +64,7 @@ public class AddNearbyItemsHelper
             treesToAdd = 2;
         }
 
-        GenZone genZone = gs.md.GetGenZone(zone.IdKey);
+        GenZone genZone = _mapGenData.GetGenZone(zone.IdKey);
 
         if (zoneType.TreeTypes == null || genZone.TreeTypes == null)
         {
@@ -69,7 +82,7 @@ public class AddNearbyItemsHelper
             {
                 continue;
             }
-            TreeType tt = gameData.Get<TreeTypeSettings>(gs.ch).Get(zt.TreeTypeId);
+            TreeType tt = _gameData.Get<TreeTypeSettings>(_gs.ch).Get(zt.TreeTypeId);
             if (tt == null || tt.Name == null)
             {
                 continue;
@@ -151,22 +164,22 @@ public class AddNearbyItemsHelper
                 int ipplantx = (int)(plantx); //+ (int)(plantx / (MapConstants.TerrainPatchSize - 1));
                 int ipplanty = (int)(planty); //+ (int)(planty / (MapConstants.TerrainPatchSize - 1));
 
-                if (ipplantx < 0 || ipplantx >= mapProvider.GetMap().GetHwid() || ipplanty <= 0 || ipplanty >= mapProvider.GetMap().GetHhgt())
+                if (ipplantx < 0 || ipplantx >= _mapProvider.GetMap().GetHwid() || ipplanty <= 0 || ipplanty >= _mapProvider.GetMap().GetHhgt())
                 {
                     continue;
                 }
 
 
-                if (gs.md.roadDistances[ipplantx, ipplanty] < 3)
+                if (_mapGenData.roadDistances[ipplantx, ipplanty] < 3)
                 {
                     continue;
                 }
 
                 ZoneTreeType item = itemList[rand.Next() % itemList.Count];
 
-                if (gs.md.mapObjects != null && gs.md.mapObjects[ipplantx, ipplanty] == 0)
+                if (_mapGenData.mapObjects != null && _mapGenData.mapObjects[ipplantx, ipplanty] == 0)
                 {
-                    gs.md.mapObjects[ipplantx, ipplanty] = (int)(MapConstants.TreeObjectOffset + item.TreeTypeId);
+                    _mapGenData.mapObjects[ipplantx, ipplanty] = (int)(MapConstants.TreeObjectOffset + item.TreeTypeId);
                     numPlaced++;
                 }
 

@@ -7,6 +7,7 @@ using System.Threading;
 using UnityEngine;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.MapServer.Services;
+using System.Threading.Tasks;
 
 public class ZoneScreen : BaseScreen
 {
@@ -23,7 +24,8 @@ public class ZoneScreen : BaseScreen
     protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         Setup();
-        
+
+        await Task.CompletedTask;
     }
 
     private void Setup()

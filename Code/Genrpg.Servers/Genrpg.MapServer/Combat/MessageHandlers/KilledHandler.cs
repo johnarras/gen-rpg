@@ -25,10 +25,6 @@ namespace Genrpg.MapServer.Combat.MessageHandlers
         private ICurrencyService _currencyService = null;
         private ILevelService _levelService = null;
         private IMapProvider _mapProvider = null;
-        public override void Setup(IGameState gs)
-        {
-            base.Setup(gs);
-        }
 
         protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, Killed message)
         {

@@ -18,6 +18,7 @@ using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Characters.Utils;
 using Genrpg.Shared.MapServer.Services;
 using Assets.Scripts.ProcGen.RandomNumbers;
+using System.Threading.Tasks;
 
 public class UnityZoneGenService : ZoneGenService
 {
@@ -834,7 +835,8 @@ public class UnityZoneGenService : ZoneGenService
         {
             _logService.Exception(e, "OnLoadIntoMap");
         }
-        
+
+        await Task.CompletedTask;
     }
 
 
@@ -868,7 +870,7 @@ public class UnityZoneGenService : ZoneGenService
         terr.basemapDistance = 250;      
         terr.heightmapPixelError = 10;
         terr.detailObjectDensity = 0.5f;
-        terr.detailObjectDistance = 250;
+        terr.detailObjectDistance = 200;
         terr.drawHeightmap = true;
         terr.drawTreesAndFoliage = true;
         terr.collectDetailPatches = false;

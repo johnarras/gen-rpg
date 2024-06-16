@@ -52,11 +52,12 @@ public class InputService : BaseBehaviour, IInputService
 
     IClientMapObjectManager _objectManager;
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         AddUpdate(InputUpdate, UpdateType.Regular);
         _dispatcher.AddEvent<MapIsLoadedEvent>(this, UpdateInputs);
-        
+
+        await Task.CompletedTask;
     }
 
     private bool _isDisabled = false;

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Genrpg.Shared.UserCoins.Services
 {
-    public interface IUserCoinService : IInitializable
+    public interface IUserCoinService : IInjectable
     {
         bool Add(Unit unit, long userCoinTypeId, long quantity);
         bool Set(Unit unit, long userCoinTypeId, long newQuantity);

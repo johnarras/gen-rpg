@@ -96,7 +96,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
 
             stateData.Actions.Add(new CrawlerStateAction("", KeyCode.Escape, selectAction.ReturnState));
 
-            
+
+            await Task.CompletedTask;
             return stateData;
         }
     }

@@ -33,7 +33,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
             ProcessCombat(party, token);
 
-            
+
+            await Task.CompletedTask;
             return stateData;
         }
 

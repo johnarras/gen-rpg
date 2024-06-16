@@ -6,6 +6,7 @@ using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Stats.Messages;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 
@@ -26,7 +27,8 @@ namespace Assets.Scripts.UI.Stores
             SetupData(token);
 
             _dispatcher.AddEvent<RefreshStoresResult>(this, OnRefreshStores);
-            
+
+            await Task.CompletedTask;
         }
 
         private void SetupData(CancellationToken token)

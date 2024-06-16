@@ -25,9 +25,9 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
     protected abstract Awaitable OnStartOpen(object data, CancellationToken token);
 
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         AddUpdate(ScreenUpdate, UpdateType.Regular);
     }
 

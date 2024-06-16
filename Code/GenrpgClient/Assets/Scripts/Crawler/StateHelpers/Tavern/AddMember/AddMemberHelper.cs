@@ -1,14 +1,8 @@
-﻿using Assets.Scripts.Atlas.Constants;
-using Assets.Scripts.Crawler.Constants;
-using Assets.Scripts.Crawler.CrawlerStates;
+﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.UI.Crawler.States;
 
 using Genrpg.Shared.Crawler.Parties.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -55,7 +49,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Tavern.AddMember
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", KeyCode.Escape, ECrawlerStates.TavernMain, null, null));
 
-            
+            await Task.CompletedTask;
             return stateData;
         }
     }

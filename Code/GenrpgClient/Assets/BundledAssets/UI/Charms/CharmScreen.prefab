@@ -124,15 +124,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -355,7 +357,6 @@ MonoBehaviour:
   MainAnimator: {fileID: 0}
   IntroTime: 0
   OutroTime: 0
-  CloseButton: {fileID: 2782033990950396760}
   RowParent: {fileID: 4399201677520496562}
 --- !u!1 &2053471950943037755
 GameObject:
@@ -1018,18 +1019,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aafc411c19fc3d4e8af6e44e6688e3b, type: 3}
---- !u!114 &2782033990950396760 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4487435691555664320, guid: 5aafc411c19fc3d4e8af6e44e6688e3b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1791684780517790360}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaf1dad36a683474aaf0d651ad6d1d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &5760725803365590422 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6282348067021977358, guid: 5aafc411c19fc3d4e8af6e44e6688e3b,

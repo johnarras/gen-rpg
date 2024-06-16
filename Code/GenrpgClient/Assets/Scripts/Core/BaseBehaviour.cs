@@ -7,10 +7,10 @@ using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Interfaces;
 
-public class BaseBehaviour : StubComponent
+public class BaseBehaviour : StubComponent, IInitOnResolve
 {
-    protected IAudioService _audioService;
     protected IUnityUpdateService _updateService;
     protected IScreenService _screenService;
     protected IRealtimeNetworkService _networkService;
@@ -21,17 +21,18 @@ public class BaseBehaviour : StubComponent
     protected IGameData _gameData;
     protected IUnityGameState _gs;
     protected IClientRandom _rand;
-    
-    public virtual void Initialize(IUnityGameState gs)
-    {
-        gs.loc.Resolve(this);
-    }
+    protected IGameObjectService _gameObjectService;
 
     public CancellationToken GetToken()
     {
         return this.GetCancellationToken();
     }
 
+
+    public virtual void Init()
+    {
+
+    }
     public GEntity entity
     {
        get

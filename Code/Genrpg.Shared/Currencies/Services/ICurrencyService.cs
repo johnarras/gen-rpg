@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Genrpg.Shared.Currencies.Services
 {
-    public interface ICurrencyService : IInitializable
+    public interface ICurrencyService : IInjectable
     {
         bool Add(Unit unit, long currencyTypeId, long quantity);
         bool Set(Unit unit, long currencyTypeId, long newQuantity);

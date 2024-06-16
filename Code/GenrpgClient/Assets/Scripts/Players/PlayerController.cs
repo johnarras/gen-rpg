@@ -39,9 +39,9 @@ public class PlayerController : UnitController
 
     public override bool HardStopOnSlopes() { return true; }
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         animationSpeed = 0.33f;
     }
 

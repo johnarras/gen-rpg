@@ -203,15 +203,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -360,7 +362,6 @@ MonoBehaviour:
   ToolTip: {fileID: 2278188329922197071}
   _playerMoney: {fileID: 5405341631584855317}
   VendorButton: {fileID: 298320994451315771}
-  CloseButton: {fileID: 7827414347750293626}
   QuestListParent: {fileID: 7498322283326820051}
   FullQuestInfo: {fileID: 2999787350846824257}
 --- !u!1 &2111655549669158809
@@ -1694,18 +1695,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5973493965354594746}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7827414347750293626 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4487435691555664320, guid: 5aafc411c19fc3d4e8af6e44e6688e3b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5973493965354594746}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaf1dad36a683474aaf0d651ad6d1d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8289928352608482916
 PrefabInstance:
   m_ObjectHideFlags: 0

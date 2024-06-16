@@ -15,6 +15,7 @@ using UnityEngine;
 using System.Linq;
 using Assets.Scripts.Crawler.Maps.Loading;
 using Genrpg.Shared.Zones.Settings;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {
@@ -34,7 +35,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             CrawlerMap cmap = GenerateCityMap(partyData, mapData.MapId);
 
             GameObject go = new GameObject() { name = "City" };
-            CrawlerMapRoot mapRoot = GEntityUtils.GetOrAddComponent<CrawlerMapRoot>(_gs, go);
+            CrawlerMapRoot mapRoot = _gameObjectService.GetOrAddComponent<CrawlerMapRoot>(go);
             mapRoot.SetupFromMap(cmap);
             mapRoot.name = mapId;
             mapRoot.MapId = mapId;
@@ -42,7 +43,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             mapRoot.DrawZ = partyData.MapZ * CrawlerMapConstants.BlockSize;
             mapRoot.DrawY = CrawlerMapConstants.BlockSize / 2;
 
-            
+
+            await Task.CompletedTask;
             return mapRoot;
         }
 
@@ -70,8 +72,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             List<MyPoint> endPoints = new List<MyPoint> { new MyPoint(cmap.XSize / 2, cmap.ZSize / 2) };
 
             int streetCount = (int)(Math.Sqrt((cmap.XSize * cmap.ZSize)) * 0.75f);
-
-            _logService.Info("StreetCount: " + streetCount);
 
             for (int times = 0; times < streetCount; times++)
             {
@@ -316,6 +316,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                 }
             }
 
+            await Task.CompletedTask;
             return;
         }
 

@@ -28,11 +28,6 @@ namespace Genrpg.MapServer.Maps.Services
         private IMapDataService _mapDataService = null;
         private ICloudCommsService _cloudCommsService = null;
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
-
         private ConcurrentDictionary<string, MapInstance> _instances = new ConcurrentDictionary<string, MapInstance>();
 
         private string _mapServerId;
@@ -43,7 +38,7 @@ namespace Genrpg.MapServer.Maps.Services
         private int _currentPort = 0; // Need better way to do this, list of ints we pick from in concurrent bag?
         private object _currentPortLock = new object();
         private CancellationToken _serverToken;
-        public async Task Init(ServerGameState gs, InitMapServerData mapData, CancellationToken serverToken)
+        public async Task Init(InitMapServerData mapData, CancellationToken serverToken)
         {
             _serverToken = serverToken;
             _currentPort = mapData.StartPort;
@@ -94,7 +89,7 @@ namespace Genrpg.MapServer.Maps.Services
                 Serializer = EMapApiSerializers.MessagePack,
             };
 
-            await mapInstance.Init(initData, null, serverToken);
+            await mapInstance.Init(initData, mapInstance, serverToken);
 
             _instances[mapInstance.GetInstanceId()] = mapInstance;
 

@@ -41,7 +41,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 
             _screenService.Open(ScreenId.CrawlerCharacter, screenData);
 
-            
+
+            await Task.CompletedTask;
             return crawlerStateData;
 
             

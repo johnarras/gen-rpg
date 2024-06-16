@@ -10,9 +10,9 @@ namespace Genrpg.PlayerServer.MessageHandlers
 {
     public class PlayerEnterMapHandler : BasePlayerMessageHandler<PlayerEnterMap>
     {
-        protected override async Task InnerHandleMessage(ServerGameState gs, PlayerEnterMap message)
+        protected override async Task InnerHandleMessage(PlayerEnterMap message)
         {
-            _playerService.OnPlayerEnterMap(gs, message);
+            _playerService.OnPlayerEnterMap(message);
             await Task.CompletedTask;
         }
     }

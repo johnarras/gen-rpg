@@ -14,6 +14,7 @@ namespace Assets.Scripts.Crawler.Services
         Awaitable Init(CancellationToken token);
         void ChangeState(ECrawlerStates state, CancellationToken token, object extraData = null);
         void ChangeState(CrawlerStateData currentState, CrawlerStateAction nextStateAction, CancellationToken token);
+        void OnFinishMove(CancellationToken token);
         PartyData GetParty();
         Awaitable LoadSaveGame();
         Awaitable SaveGame();

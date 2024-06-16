@@ -4,6 +4,7 @@ using Genrpg.Shared.Charms.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Settings.ItemSets;
 using Genrpg.Shared.Levels.Settings;
@@ -31,10 +32,6 @@ namespace Genrpg.Shared.Stats.Services
     {
 
         protected IGameData _gameData;
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
 
         /// <summary>
         /// Recalculate stats for a monster/player based on level, equipment and spell effects

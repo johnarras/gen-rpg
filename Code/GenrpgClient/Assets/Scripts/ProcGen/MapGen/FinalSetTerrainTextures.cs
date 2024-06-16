@@ -45,7 +45,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
 
         while (true)
         {
-            if (_assetService.IsDownloading(_gs))
+            if (_assetService.IsDownloading())
             {
                 await Awaitable.NextFrameAsync(cancellationToken: token);
             }
@@ -124,7 +124,7 @@ public class SetFinalTerrainTextures : BaseZoneGenerator
 
         while (true)
         {
-            if (_assetService.IsDownloading(_gs))
+            if (_assetService.IsDownloading())
             {
                 await Awaitable.WaitForSecondsAsync(2.0f, cancellationToken: token);
             }

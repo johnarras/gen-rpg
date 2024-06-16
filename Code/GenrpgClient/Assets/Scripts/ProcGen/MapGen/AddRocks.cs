@@ -38,6 +38,8 @@ public class AddRocks : BaseZoneGenerator
 {
     public const float RandomRockDensity = 1.0f / 4000.0f;
     public int TriesPerRock = 20;
+
+    IAddNearbyItemsHelper _addNearbyItemsHelper;
     public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
@@ -114,19 +116,13 @@ public class AddRocks : BaseZoneGenerator
 
         }
 
-        AddNearbyItemsHelper nearbyHelper = new AddNearbyItemsHelper();
-
-
-
         int size = Math.Max(zone.XMax - zone.XMin, zone.ZMax - zone.ZMin);
 
         long area = (zone.XMax - zone.XMin) * (zone.ZMax - zone.ZMin);
 
         long totalNumber = (long)((area * RandomRockDensity) * zoneType.RockDensity * densityMult);
 
-
         long totalTries = (long)(totalNumber * TriesPerRock);
-
 
         int totalPlaced = 0;
         for (long times = 0; times < totalTries; times++)
@@ -174,7 +170,7 @@ public class AddRocks : BaseZoneGenerator
             for (int p = 0; p < currQuantityToPlace; p++)
             {
 
-                int nearbyItemsCount = nearbyHelper.GetNearbyItemsCount(maxOffset, rand);
+                int nearbyItemsCount = _addNearbyItemsHelper.GetNearbyItemsCount(maxOffset, rand);
 
                 FullRockType frt = null;
 
@@ -277,7 +273,7 @@ public class AddRocks : BaseZoneGenerator
 
                         float currMaxOffset = MathUtils.FloatRange(1.1f, 2.1f, rand);
                         float currMinOffset = currMaxOffset / 2;
-                        nearbyHelper.AddItemsNear(_gs, _gameData, _terrainManager, _mapProvider, rand, zoneType, zone, x, y, 0.9f, nearbyItemsCount, currMinOffset, currMaxOffset);
+                        _addNearbyItemsHelper.AddItemsNear(rand, zoneType, zone, x, y, 0.9f, nearbyItemsCount, currMinOffset, currMaxOffset);
                     }
                 }
 

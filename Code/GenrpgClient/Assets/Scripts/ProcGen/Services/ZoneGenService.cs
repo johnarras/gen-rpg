@@ -70,7 +70,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
     protected IClientRandom _rand;
     protected IMapGenData _md;
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -94,12 +94,14 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
     public virtual async Awaitable OnLoadIntoMap(LoadIntoMapResult data, CancellationToken token)
     {
-        
+
+        await Task.CompletedTask;
     }
 
     public virtual async Awaitable SetOnePatchAlphamaps(TerrainPatchData patch, CancellationToken token)
     {
-        
+
+        await Task.CompletedTask;
     }
 
     public virtual void SetOnePatchHeightmaps(TerrainPatchData patch, float[,] globalHeights, float[,] heightOverrides = null)

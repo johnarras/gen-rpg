@@ -16,7 +16,7 @@ using Genrpg.Shared.Utils;
 
 namespace Genrpg.Shared.Quests.Services
 {
-    public interface ISharedQuestService : IInitializable
+    public interface ISharedQuestService : IInjectable
     {
         int GetQuestState(IRandom rand, Character ch, QuestType qtype);
         bool IsQuestSoonVisible(IRandom rand, Character ch, QuestType qtype);
@@ -29,11 +29,6 @@ namespace Genrpg.Shared.Quests.Services
     {
 
         private IGameData _gameData = null;
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
-
 
         public int GetQuestState(IRandom rand, Character ch, QuestType qtype)
         {

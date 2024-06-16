@@ -19,7 +19,7 @@ public interface IDispatcher : IInitializable
 
 public class Dispatcher : IDispatcher
 {
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }

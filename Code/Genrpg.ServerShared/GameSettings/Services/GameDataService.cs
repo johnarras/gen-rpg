@@ -12,6 +12,7 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.GameSettings.Settings;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Login.Messages.Login;
 using Genrpg.Shared.Login.Messages.RefreshGameSettings;
 using Genrpg.Shared.Loot.Messages;
@@ -31,12 +32,13 @@ namespace Genrpg.ServerShared.GameSettings.Services
     public class GameDataService<D> : IGameDataService where D : GameData, new()
     {
 
+        private IServiceLocator _loc = null;
         private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
         private Dictionary<Type, IGameSettingsMapper> _mapperObjects = null;
         protected IRepositoryService _repoService = null;
         private IGameData _gameData = null;
 
-        private async Task SetupLoaders(IGameState gs, IRepositoryService repoSystem, CancellationToken token)
+        private async Task SetupLoaders(CancellationToken token)
         {
             if (_loaderObjects != null)
             {
@@ -47,7 +49,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             Dictionary<Type, IGameSettingsLoader> newList = new Dictionary<Type, IGameSettingsLoader>();
             foreach (Type lt in loadTypes)
             {
-                if (await ReflectionUtils.CreateInstanceFromType(gs, lt, token) is IGameSettingsLoader newLoader)
+                if (await ReflectionUtils.CreateInstanceFromType(_loc, lt, token) is IGameSettingsLoader newLoader)
                 {
                     newList[newLoader.GetServerType()] = newLoader;
                 }
@@ -57,7 +59,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             foreach (IGameSettingsLoader loader in newList.Values)
             {
-                setupTasks.Add(loader.Setup(repoSystem));
+                setupTasks.Add(loader.Setup(_repoService));
             }
 
             await Task.WhenAll(setupTasks);
@@ -66,7 +68,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             await Task.CompletedTask;
         }
 
-        private async Task SetupMappers(IGameState gs, IRepositoryService repoSystem, CancellationToken token)
+        private async Task SetupMappers(CancellationToken token)
         {
             if (_mapperObjects != null)
             {
@@ -78,7 +80,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             foreach (Type lt in mapperTypes)
             {
-                if (await ReflectionUtils.CreateInstanceFromType(gs, lt, token) is IGameSettingsMapper newMapper)
+                if (await ReflectionUtils.CreateInstanceFromType(_loc, lt, token) is IGameSettingsMapper newMapper)
                 {
                     newDict[newMapper.GetServerType()] = newMapper;
                 }
@@ -93,10 +95,10 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return _loaderObjects.Values.OrderBy(x=>x.GetType().Name).ToList();
         }
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize( CancellationToken token)
         {
-            await SetupLoaders(gs, _repoService, token);
-            await SetupMappers(gs, _repoService, token);
+            await SetupLoaders(token);
+            await SetupMappers(token);
         }
 
         public virtual List<string> GetEditorIgnoreFields()

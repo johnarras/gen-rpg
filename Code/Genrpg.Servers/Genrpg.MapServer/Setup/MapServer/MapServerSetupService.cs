@@ -1,4 +1,9 @@
-﻿using Genrpg.Shared.Core.Entities;
+﻿using Genrpg.MapServer.Admin.Services;
+using Genrpg.MapServer.Maps.Services;
+using Genrpg.ServerShared.CloudComms.Services.Admin;
+using Genrpg.ServerShared.Setup;
+using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Setup.Services;
 using System;
 using System.Collections.Generic;
@@ -8,12 +13,15 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Setup.MapServer
 {
-    public class MapServerSetupService : SetupService
+    public class MapServerSetupService : BaseServerSetupService
     {
-        public override void SetupServiceLocator(IGameState gs)
+        public MapServerSetupService(IServiceLocator loc) : base(loc) { } 
+
+        protected override void AddServices()
         {
-            MapServerLocatorSetup ms = new MapServerLocatorSetup();
-            ms.Setup(gs);
+            base.AddServices();
+            Set<IAdminService>(new MapServerAdminService());
+            Set<IMapServerService>(new MapServerService());
         }
     }
 }

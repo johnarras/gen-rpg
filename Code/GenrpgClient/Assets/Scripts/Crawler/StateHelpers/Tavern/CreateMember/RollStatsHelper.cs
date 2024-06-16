@@ -72,7 +72,8 @@ namespace Assets.Scripts.UI.Crawler.States
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", KeyCode.Escape, ECrawlerStates.ChooseRace,
                 delegate { member.Stats = new StatGroup(); member.RaceId = 0; }, member));
-            
+
+            await Task.CompletedTask;
             return stateData;
 
         }

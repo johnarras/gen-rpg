@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.MapMods.Services
 {
-    public interface IMapModService : IInitializable
+    public interface IMapModService : IInjectable
     {
         void Process(IRandom rand, MapMod mapMod);
     }

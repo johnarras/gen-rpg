@@ -12,7 +12,7 @@ namespace Genrpg.InstanceServer.MessageHandlers
 
         private ICloudCommsService _commsService = null;
 
-        protected override async Task InnerHandleMessage(ServerGameState gs, GetInstanceQueueRequest message)
+        protected override async Task InnerHandleMessage(GetInstanceQueueRequest message)
         {
             MapInstanceData instanceData = await _instanceManagerService.GetInstanceDataForMap(message.MapId);
             _logService.Info("Instance Data for mapId: " + message.MapId + " is " + instanceData);

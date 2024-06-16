@@ -7,6 +7,7 @@ using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
 using UnityEngine; // Needed
 using UI.Screens.Constants;
+using System.Threading.Tasks;
 
 public class ClearMapData : BaseZoneGenerator
 {
@@ -17,7 +18,7 @@ public class ClearMapData : BaseZoneGenerator
 
         _playerManager.SetUnit(null);
 
-        await _objectManager.Initialize(_gs, token);
+        await _objectManager.Initialize(token);
 
         _terrainManager.Clear();
 
@@ -28,8 +29,9 @@ public class ClearMapData : BaseZoneGenerator
 
         CleanUpOldMapFolders(token);
 
-        
-	}
+
+        await Task.CompletedTask;
+    }
 
 
 

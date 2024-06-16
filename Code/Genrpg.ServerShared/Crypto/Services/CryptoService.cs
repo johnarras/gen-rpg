@@ -15,17 +15,9 @@ namespace Genrpg.ServerShared.Crypto.Services
 
     public class CryptoService : ICryptoService
     {
-
-
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
-
-
         private IServerConfig _config = null;
 
-        public async Task<EthereumTransactionList> GetTransactionsFromWallet(ServerGameState gs, string address, bool internalTransactions)
+        public async Task<EthereumTransactionList> GetTransactionsFromWallet(string address, bool internalTransactions)
         {
             if (string.IsNullOrEmpty(address))
             {

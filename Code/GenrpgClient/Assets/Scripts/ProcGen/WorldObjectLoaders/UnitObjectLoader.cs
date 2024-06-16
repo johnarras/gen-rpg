@@ -11,6 +11,7 @@ using Genrpg.Shared.Combat.Messages;
 using Assets.Scripts.MapTerrain;
 using UnityEngine;
 using Genrpg.Shared.Units.Constants;
+using System.Threading.Tasks;
 
 public class UnitObjectLoader : BaseMapObjectLoader
 {
@@ -35,6 +36,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
         
 
         _assetService.LoadAsset(AssetCategoryNames.Monsters, utype.Art, AfterLoadUnit, loadData, null, token);
+        await Task.CompletedTask;
     }
 
 

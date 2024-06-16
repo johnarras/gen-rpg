@@ -35,8 +35,6 @@ namespace Assets.Scripts.Ftue.Services
 
         private async Awaitable ClientStartOpen(FtueStep newStep)
         {
-            
-
             // Maybe open another screen or do something else before showing the popup.
 
 
@@ -44,6 +42,7 @@ namespace Assets.Scripts.Ftue.Services
             {
                 _screenService.Open(ScreenId.Ftue, newStep);
             }
+            await Task.CompletedTask;
         }
     }
 }

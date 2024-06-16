@@ -12,8 +12,8 @@ using Genrpg.Shared.Units.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading;
+using System.Threading.Tasks;
 using UI.Screens.Constants;
 using UnityEngine;
 
@@ -48,7 +48,8 @@ public class TestAssetDownloads : IInjectable
         TestMagic(token);
 
 
-        
+
+        await Task.CompletedTask;
     }
 
     private void OnDownloadAsset(System.Object obj, object data, CancellationToken token)

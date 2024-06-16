@@ -19,7 +19,7 @@ using Genrpg.Shared.Utils;
 
 namespace Genrpg.MapServer.UserCoins.Services
 {
-    public class ServerUserCoinService : UserCoinService, IInitializable
+    public class ServerUserCoinService : UserCoinService, IInjectable
     {
         protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;

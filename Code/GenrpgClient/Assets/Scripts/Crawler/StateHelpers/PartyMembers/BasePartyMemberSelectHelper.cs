@@ -44,7 +44,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.PartyMembers
                 }
             }
 
-            
+
+            await Task.CompletedTask;
             return stateData;
         }
     }

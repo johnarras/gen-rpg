@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace Genrpg.Shared.Crawler.Spells.Services
 {
-    public interface ICrawlerSpellService : IInitializable
+    public interface ICrawlerSpellService : IInjectable
     {
         List<CrawlerSpell> GetSpellsForMember(PartyData party, PartyMember member, bool inCombat);
         List<CrawlerSpell> GetNonSpellCombatActionsForMember(PartyData party, PartyMember member, bool inCombat);

@@ -26,7 +26,7 @@ public interface ICameraController : IInitializable
     List<Camera> GetAllCameras();
 }
 
-public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<ICameraController>
+public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<ICameraController>, IInitOnResolve
 {
 
     private IInputService _inputService;
@@ -35,7 +35,7 @@ public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<
     protected IMapGenData _md;
 
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }
@@ -80,9 +80,8 @@ public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<
 
     public List<Camera> GetAllCameras() { return Cameras; }
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
         CameraDistance = StartCameraOffset.magnitude;
         SetupCullDistances();
         int layerMask = LayerUtils.GetMask(new string[] { LayerNames.Default, LayerNames.Water, LayerNames.ObjectLayer, LayerNames.UnitLayer, LayerNames.SpellLayer });

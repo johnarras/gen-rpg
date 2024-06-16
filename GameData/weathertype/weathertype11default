@@ -1,0 +1,38 @@
+{
+  "Id": "weathertype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "CrawlerDungeon",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "AmbientColor": {
+    "R": 0.3019608,
+    "G": 0.3019608,
+    "B": 0.3019608,
+    "A": 1.0
+  },
+  "LightColor": {
+    "A": 1.0
+  },
+  "LightScale": 1.0,
+  "SkyColor": {
+    "A": 1.0
+  },
+  "FogScale": 0.002,
+  "FogColor": {
+    "A": 1.0
+  },
+  "FogDistance": 100.0,
+  "CloudScale": 0.5,
+  "CloudSpeed": 0.3,
+  "CloudColor": {
+    "A": 1.0
+  },
+  "WindScale": 0.5,
+  "PrecipScale": 0.4,
+  "ParticleScale": 1.0,
+  "Particles": "dust leaves",
+  "UpdateTime": "2024-06-16T13:16:45.047Z",
+  "CreateTime": "2024-02-16T17:06:21Z"
+}

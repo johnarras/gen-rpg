@@ -19,34 +19,34 @@ namespace Genrpg.LoginServer.CommandHandlers
 {
     public class DeleteCharHandler : BaseClientCommandHandler<DeleteCharCommand>
     {
-        protected override async Task InnerHandleMessage(LoginGameState gs, DeleteCharCommand command, CancellationToken token)
+        protected override async Task InnerHandleMessage(LoginContext context, DeleteCharCommand command, CancellationToken token)
         {
-            gs.coreCh = await _repoService.Load<CoreCharacter>(command.CharId);
+            context.coreCh = await _repoService.Load<CoreCharacter>(command.CharId);
 
-            if (gs.coreCh != null && gs.coreCh.UserId == gs.user.Id)
+            if (context.coreCh != null && context.coreCh.UserId == context.user.Id)
             {
                 Character ch = new Character(_repoService);
-                CharacterUtils.CopyDataFromTo(gs.coreCh, ch);
+                CharacterUtils.CopyDataFromTo(context.coreCh, ch);
 
-                await _playerDataService.LoadAllPlayerData(gs.rand, gs.ch);
-                await _repoService.Delete(gs.coreCh);
+                await _playerDataService.LoadAllPlayerData(context.rand, context.ch);
+                await _repoService.Delete(context.coreCh);
 
-                foreach (IUnitData data in gs.ch.GetAllData().Values)
+                foreach (IUnitData data in context.ch.GetAllData().Values)
                 {
-                    if (data.Id != gs.user.Id) // Do not delete user data
+                    if (data.Id != context.user.Id) // Do not delete user data
                     {
                         data.QueueDelete(_repoService);
                     }
                 }
-                gs.coreCh = null;
+                context.coreCh = null;
             }
 
             DeleteCharResult result = new DeleteCharResult()
             {
-                AllCharacters = await _playerDataService.LoadCharacterStubs(gs.user.Id),
+                AllCharacters = await _playerDataService.LoadCharacterStubs(context.user.Id),
             };
 
-            gs.Results.Add(result);
+            context.Results.Add(result);
         }
     }
 }

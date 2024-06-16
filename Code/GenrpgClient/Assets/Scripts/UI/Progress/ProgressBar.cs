@@ -47,9 +47,9 @@ public class ProgressBar : BaseBehaviour
         return _currValue;
     }
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         AddUpdate(ProgressUpdate, UpdateType.Regular);
     }
 

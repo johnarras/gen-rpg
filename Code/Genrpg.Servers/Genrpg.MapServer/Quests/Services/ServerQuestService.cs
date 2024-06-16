@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 namespace Genrpg.MapServer.Quests.Services
 {
 
-    public interface IServerQuestService : IInitializable
+    public interface IServerQuestService : IInjectable
     {
         UpdateQuestResult UpdateQuest(IRandom rand, MapObject mobj, ISpawnResult spawnResult);
     }
@@ -37,11 +37,6 @@ namespace Genrpg.MapServer.Quests.Services
         protected IRepositoryService _repoService = null;
         private IMapProvider _mapProvider = null;
         private IGameData _gameData = null;
-
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         public virtual UpdateQuestResult UpdateQuest(IRandom rand, MapObject mobj, ISpawnResult spawnResult)
         {

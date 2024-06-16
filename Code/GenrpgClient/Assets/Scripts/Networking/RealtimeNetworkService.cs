@@ -19,6 +19,7 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Genrpg.Shared.Logging.Interfaces;
 using UnityEngine;
+using Genrpg.Shared.HelperClasses;
 
 public interface IRealtimeNetworkService : IInitializable, IMapTokenService
 {
@@ -51,13 +52,9 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         _token = _mapTokenSource.Token;
     }
 
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
-        if (gs is IUnityGameState ugs)
-        {
-            _mapMessageHandlers = ReflectionUtils.SetupDictionary<Type, IClientMapMessageHandler>(gs);
-        }
-        
+        await Task.CompletedTask;
     }
 
 
@@ -76,7 +73,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         }
     }
 
-    private Dictionary<Type,IClientMapMessageHandler> _mapMessageHandlers = null;
+    private SetupDictionaryContainer<Type, IClientMapMessageHandler> _mapMessageHandlers = new SetupDictionaryContainer<Type, IClientMapMessageHandler>();
     private string _host = "";
     private long _port = 0;
     private EMapApiSerializers _serializer = EMapApiSerializers.Json;
@@ -184,13 +181,13 @@ public class RealtimeNetworkService : IRealtimeNetworkService
             }
             Type resType = message.GetType();
 
-            if (!_mapMessageHandlers.ContainsKey(resType))
+            if (!_mapMessageHandlers.TryGetValue(resType, out IClientMapMessageHandler handler))
             {
                 _logService.Error("Missing Typed Result Handler for: " + resType);
                 return;
             }
 
-            _mapMessageHandlers[resType].Process(message as IMapApiMessage, token);
+            handler.Process(message as IMapApiMessage, token);
         }
         catch (Exception ee)
         {

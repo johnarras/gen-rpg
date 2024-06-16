@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
+using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Model;
 using Assets.Scripts.ProcGen.RandomNumbers;
@@ -13,6 +14,8 @@ using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Logging.Interfaces;
@@ -38,18 +41,15 @@ namespace Assets.Scripts.Crawler.Services
         protected IRepositoryService _repoService;
         protected IDispatcher _dispatcher;
         protected IClientRandom _rand;
+        protected ICombatService _combatService;
 
         const string SaveFileSuffix = ".sav";
         const string SaveFileName = "Start" + SaveFileSuffix;
 
-
-        private Dictionary<ECrawlerStates, IStateHelper> _stateHelpers;
+        private SetupDictionaryContainer<ECrawlerStates, IStateHelper> _stateHelpers = new SetupDictionaryContainer<ECrawlerStates, IStateHelper>();
 
         private IUnityGameState _gs;
         private CancellationToken _token;
-
-
-
         private PartyData _party { get; set; }
 
         public PartyData GetParty()
@@ -62,12 +62,9 @@ namespace Assets.Scripts.Crawler.Services
 
         private Dictionary<KeyCode, KeyCode> _equivalentKeys = new Dictionary<KeyCode, KeyCode>();
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize(CancellationToken token)
         {
-            _gs = gs as IUnityGameState;
             _token = token;
-            _stateHelpers = ReflectionUtils.SetupDictionary<ECrawlerStates, IStateHelper>(gs);
-
             _updateService.AddTokenUpdate(this, UpdateGame, UpdateType.Regular);
 
             char alpha0 = (char)(KeyCode.Alpha0);
@@ -79,13 +76,15 @@ namespace Assets.Scripts.Crawler.Services
                 _equivalentKeys[(KeyCode)(i + keypad0)] = (KeyCode)(i + alpha0);
             }
 
-            
+
+            await Task.CompletedTask;
         }
 
         public async Awaitable Init(CancellationToken token)
         {
             _token = token;
-            
+
+            await Task.CompletedTask;
             ChangeState(ECrawlerStates.TavernMain, token);
         }
 
@@ -210,18 +209,20 @@ namespace Assets.Scripts.Crawler.Services
 
         private void UpdateGame(CancellationToken token)
         {
-            if (_crawlerMapService.UpdatingMovement())
-            {
-                return;
-            }
             UpdateMovement(token);
 
             if (_crawlerMapService.UpdatingMovement())
             {
                 return;
             }
+
+            UpdateIfNotMoving(false, token);
+        }
+
+        private void UpdateIfNotMoving(bool atEndOfMove, CancellationToken token)
+        { 
             UpdateInputs(token);
-            UpdateEncounters(token);
+            UpdateEncounters(token, atEndOfMove);
         }
 
         private void UpdateInputs(CancellationToken token)
@@ -282,13 +283,16 @@ namespace Assets.Scripts.Crawler.Services
             return false;
         }
 
-        private void UpdateEncounters(CancellationToken token)
+        private void UpdateEncounters(CancellationToken token, bool atEndOfMove)
         {
-            if (_crawlerMapService.UpdatingMovement())
+            if (!atEndOfMove)
             {
-                return;
+                if (_crawlerMapService.UpdatingMovement())
+                {
+                    return;
+                }
             }
-
+            _combatService.CheckForEncounter(atEndOfMove, token);
         }
 
         private void UpdateMovement(CancellationToken token)
@@ -306,6 +310,11 @@ namespace Assets.Scripts.Crawler.Services
         private async Awaitable UpdateMovementAsync(CancellationToken token)
         {
             await _crawlerMapService.UpdateMovement(token);
+        }
+
+        public void OnFinishMove(CancellationToken token)
+        {
+            UpdateIfNotMoving(true, token);
         }
     }
 }

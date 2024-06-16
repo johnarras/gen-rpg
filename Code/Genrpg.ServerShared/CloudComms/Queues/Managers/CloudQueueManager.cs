@@ -17,6 +17,7 @@ using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Queues.Requests.Entities;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Interfaces;
 
 namespace Genrpg.ServerShared.CloudComms.Queues.Managers
 {
@@ -24,12 +25,13 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
     {
         const double QueueRequestTimeoutSeconds = 5.0f;
 
+
+
         private ServiceBusReceiver _queueReceiver;
         private Dictionary<Type, IQueueMessageHandler> _queueHandlers;
         private string _myQueueName;
         private bool _didSetupQueue = false;
 
-        private ServerGameState _serverGameState = null;
         private ServiceBusClient _serviceBusClient = null;
         private ServiceBusAdministrationClient _adminClient = null;
         private CancellationToken _token;
@@ -37,10 +39,9 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
         private string _env = null;
         private string _serverId = null;
 
-        public async Task Init(ServerGameState gs, ILogService logService, ServiceBusClient serviceBusClient, ServiceBusAdministrationClient adminClient,
+        public async Task Init(ILogService logService, ServiceBusClient serviceBusClient, ServiceBusAdministrationClient adminClient,
             string serverId, string env, CancellationToken token)
         {
-            _serverGameState = gs;
             _serviceBusClient = serviceBusClient;
             _adminClient = adminClient;
             _token = token;
@@ -137,7 +138,7 @@ namespace Genrpg.ServerShared.CloudComms.Queues.Managers
                             }
                             else if (_queueHandlers.TryGetValue(queueMessage.GetType(), out IQueueMessageHandler handler))
                             {
-                                await handler.HandleMessage(_serverGameState, queueMessage, _token);
+                                await handler.HandleMessage(queueMessage, _token);
                             }
                         }
                     }

@@ -18,21 +18,17 @@ public class SetupEditorUnityGameState
         CancellationTokenSource _cts = new CancellationTokenSource();
         EditorBuildSettingsScene[] scenes = EditorBuildSettings.scenes;
 
-        bool needInit = false;
         if (gs == null) 
         { 
-            gs = new UnityGameState();
-            needInit = true; 
-        }
-
-        if (needInit)
-        {
-
             GameObject initObject = GameObject.Find("InitClient");
-            gs.SetInitObject(initObject);
-            SetupService ss = new SetupService();
 
-            await ss.SetupGame(gs, _cts.Token);
+            InitClient initClient = initObject.GetComponent<InitClient>();
+
+            gs = initClient.InitialSetup();
+
+            SetupService ss = new SetupService(gs.loc);
+
+            await ss.SetupGame(_cts.Token);
 
             ClientConfig config = ClientConfig.Load();
 
@@ -41,7 +37,7 @@ public class SetupEditorUnityGameState
             try
             {
                 ClientInitializer clientInitializer = new ClientInitializer(gs);
-                clientInitializer.AddClientServices(null, false, _cts.Token);
+                clientInitializer.AddClientServices(initClient, false, _cts.Token);
 
                 await clientInitializer.FinalInitialize(_cts.Token);
             }

@@ -16,10 +16,6 @@ namespace Genrpg.Shared.Ftue.Services
     {
 
         private IGameData _gameData = null;
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         public FtueStep GetCurrentStep(IRandom rand, Character ch)
         {

@@ -1,4 +1,5 @@
 ﻿using Genrpg.LoginServer.Core;
+using Genrpg.LoginServer.Services.LoginServer;
 using Genrpg.LoginServer.Utils;
 using Genrpg.ServerShared.Accounts.Services;
 using Genrpg.ServerShared.CloudComms.Constants;
@@ -39,13 +40,9 @@ namespace Genrpg.LoginServer.Services.Login
         private IRepositoryService _repoService = null;
         private ILogService _logService = null;
         private IServerConfig _config = null;
+        private ILoginServerService _loginServerService = null;
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
-
-        public async Task<List<ILoginResult>> Login(LoginGameState gs, string postData, CancellationToken token)
+        public async Task Login(LoginContext context, string postData, CancellationToken token)
         {
             LoginServerCommandSet commandSet = SerializationUtils.Deserialize<LoginServerCommandSet>(postData);
 
@@ -53,14 +50,14 @@ namespace Genrpg.LoginServer.Services.Login
 
             if (loginCommand == null)
             {
-                WebUtils.ShowError(gs, "Login missing LoginCommand");
-                return gs.Results;
+                WebUtils.ShowError(context, "Login missing LoginCommand");
+                return;
             }
 
             if (string.IsNullOrEmpty(loginCommand.Password))
             {
-                WebUtils.ShowError(gs, "Missing password");
-                return gs.Results;
+                WebUtils.ShowError(context, "Missing password");
+                return;
             }
 
             Account account = null;
@@ -77,47 +74,47 @@ namespace Genrpg.LoginServer.Services.Login
             {
                 if (account.HasFlag(AccountFlags.Banned))
                 {
-                    WebUtils.ShowError(gs, "You have been banned");
-                    return gs.Results;
+                    WebUtils.ShowError(context, "You have been banned");
+                    return;
                 }
 
                 if (string.IsNullOrEmpty(account.PasswordSalt))
                 {
-                    WebUtils.ShowError(gs, "Account data was incorret");
-                    return gs.Results;
+                    WebUtils.ShowError(context, "Account data was incorret");
+                    return;
                 }
 
                 string hashedPassword = PasswordUtils.GetPasswordHash(account.PasswordSalt, loginCommand.Password);
 
                 if (hashedPassword != account.Password)
                 {
-                    WebUtils.ShowError(gs, "Incorrect UserId or Password");
-                    return gs.Results;
+                    WebUtils.ShowError(context, "Incorrect UserId or Password");
+                    return;
                 }
             }
             else
             {
-                string passwordError = await PasswordError(gs, loginCommand.Password);
+                string passwordError = await PasswordError(context, loginCommand.Password);
 
                 if (!string.IsNullOrEmpty(passwordError))
                 {
-                    WebUtils.ShowError(gs, passwordError);
-                    return gs.Results;
+                    WebUtils.ShowError(context, passwordError);
+                    return;
                 }
 
-                string nameError = await ScreenNameError(gs, loginCommand.Name, NetworkNames.Username);
+                string nameError = await ScreenNameError(context, loginCommand.Name, NetworkNames.Username);
                 if (!string.IsNullOrEmpty(nameError))
                 {
-                    WebUtils.ShowError(gs, nameError);
-                    return gs.Results;
+                    WebUtils.ShowError(context, nameError);
+                    return;
                 }
 
-                string emailError = await EmailError(gs, loginCommand.Email, NetworkNames.Username);
+                string emailError = await EmailError(context, loginCommand.Email, NetworkNames.Username);
 
                 if (!string.IsNullOrEmpty(emailError))
                 {
-                    WebUtils.ShowError(gs, emailError);
-                    return gs.Results;
+                    WebUtils.ShowError(context, emailError);
+                    return;
                 }
 
                 account = new Account()
@@ -134,12 +131,12 @@ namespace Genrpg.LoginServer.Services.Login
 
                 if (account == null)
                 {
-                    WebUtils.ShowError(gs, "Failed to save Account");
+                    WebUtils.ShowError(context, "Failed to save Account");
                 }
             }
             User user = await _repoService.Load<User>(account.Id.ToString());
 
-            user = await CreateOrUpdateUserFromAccount(gs, account, user, loginCommand);
+            user = await CreateOrUpdateUserFromAccount(context, account, user, loginCommand);
 
             await _repoService.Save(user);
 
@@ -149,19 +146,19 @@ namespace Genrpg.LoginServer.Services.Login
             {
                 User = SerializationUtils.ConvertType<User, User>(user),
                 CharacterStubs = await _playerDataService.LoadCharacterStubs(user.Id),
-                MapStubs = gs.mapStubs.Stubs,
+                MapStubs = _loginServerService.GetMapStubs().Stubs,
             };
 
             List<IGameSettingsLoader> loaders = _gameDataService.GetAllLoaders();
 
-            loginResult.GameData = _gameDataService.GetClientGameData(gs.user, true, loginCommand.ClientSettings);
+            loginResult.GameData = _gameDataService.GetClientGameData(context.user, true, loginCommand.ClientSettings);
 
-            gs.Results.Add(loginResult);
+            context.Results.Add(loginResult);
 
-            return gs.Results;
+            return;
         }
 
-        private async Task<User> CreateOrUpdateUserFromAccount(LoginGameState gs, Account acct, User user, LoginCommand loginData)
+        private async Task<User> CreateOrUpdateUserFromAccount(LoginContext context, Account acct, User user, LoginCommand loginData)
         {
             if (user == null)
             {
@@ -170,7 +167,7 @@ namespace Genrpg.LoginServer.Services.Login
             }
             user.Id = acct.Id.ToString();
             user.SessionId = HashUtils.NewGuid();
-            gs.user = user;
+            context.user = user;
 
             await _repoService.Save(user);
             User u2 = await _repoService.Load<User>(user.Id);
@@ -178,7 +175,7 @@ namespace Genrpg.LoginServer.Services.Login
             return u2;
         }
 
-        protected async Task<string> EmailError(LoginGameState gs, string email, string networkName)
+        protected async Task<string> EmailError(LoginContext context, string email, string networkName)
         {
             if (string.IsNullOrEmpty(email))
             {
@@ -206,7 +203,7 @@ namespace Genrpg.LoginServer.Services.Login
             return "";
         }
 
-        protected async Task<string> ScreenNameError(LoginGameState gs, string screenname, string networkName)
+        protected async Task<string> ScreenNameError(LoginContext context, string screenname, string networkName)
         {
             if (string.IsNullOrEmpty(screenname))
             {
@@ -238,7 +235,7 @@ namespace Genrpg.LoginServer.Services.Login
             return "";
         }
 
-        public virtual async Task<string> PasswordError(LoginGameState gs, string password)
+        public virtual async Task<string> PasswordError(LoginContext context, string password)
         {
             if (string.IsNullOrEmpty(password))
             {

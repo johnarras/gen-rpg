@@ -39,10 +39,6 @@ namespace Genrpg.Shared.Crawler.Loot.Services
         protected IGameData _gameData;
         protected IUnityGameState _gs;
         protected IClientRandom _rand;
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         public Item GenerateItem(LootGenData lootGenData)
         {

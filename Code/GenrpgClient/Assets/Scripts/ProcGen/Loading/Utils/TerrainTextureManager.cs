@@ -48,6 +48,7 @@ public class TerrainTextureManager : ITerrainTextureManager
     private IMapProvider _mapProvider;
     protected IUnityGameState _gs;
     protected IMapGenData _md;
+    protected IGameObjectService _gameObjectService;
 
     public async Awaitable SetOneTerrainPatchLayers(TerrainPatchData patch, CancellationToken token, bool allAtOnce = false)
     {
@@ -158,7 +159,7 @@ public class TerrainTextureManager : ITerrainTextureManager
             return;
         }
 
-        IndexList indexes = GEntityUtils.GetOrAddComponent<IndexList>(_gs, terr.entity());
+        IndexList indexes = _gameObjectService.GetOrAddComponent<IndexList>(terr.entity());
 
         if (indexes.Indexes == null || indexes.Indexes.Length != currLayers.Length)
         {
@@ -256,7 +257,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: token);
 
-        while (_assetService.IsDownloading(_gs))
+        while (_assetService.IsDownloading())
         {
             await Awaitable.NextFrameAsync(cancellationToken: token);
         }

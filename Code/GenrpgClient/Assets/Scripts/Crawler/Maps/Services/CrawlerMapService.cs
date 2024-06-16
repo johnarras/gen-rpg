@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Crawler.Maps.Constants;
+﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
 using Assets.Scripts.Crawler.Maps.Services.Helpers;
@@ -6,6 +7,9 @@ using Assets.Scripts.Dungeons;
 
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
@@ -22,6 +26,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         ICameraController _cameraController;
         ICrawlerService _crawlerService;
         private IDispatcher _dispatcher;
+        private ILogService _logService;
 
         const int ViewRadius = 8;
         CrawlerMapRoot _crawlerMap = null;
@@ -32,15 +37,17 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         private PartyData _party;
 
-        private Dictionary<ECrawlerMapTypes, ICrawlerMapTypeHelper> _mapTypeHelpers;
+        private SetupDictionaryContainer<ECrawlerMapTypes, ICrawlerMapTypeHelper> _mapTypeHelpers = new SetupDictionaryContainer<ECrawlerMapTypes, ICrawlerMapTypeHelper>();
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public static ECrawlerMapTypes MapType { get; set; } = ECrawlerMapTypes.None;
+
+        private GameObject _playerLightObject = null;
+        private Light _playerLight = null;
+        public async Task Initialize(CancellationToken token)
         {
-            _cameraParent = _cameraController?.GetCameraParent();
-
-            _mapTypeHelpers = ReflectionUtils.SetupDictionary<ECrawlerMapTypes, ICrawlerMapTypeHelper>(gs);
-
+           
             _token = token;
+
             await Task.CompletedTask;
         }
 
@@ -54,23 +61,48 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         }
       
 
+        
+
         public async Awaitable EnterMap (PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
             CleanMap();
             _party = partyData;
 
+            if (_playerLight == null)
+            {
+                _cameraParent = _cameraController?.GetCameraParent();
+                if (_playerLightObject == null)
+                {
+                    _playerLightObject = await _assetService.LoadAssetAsync(AssetCategoryNames.UI, "PlayerLight", _cameraParent, _token, "Units");
+                }
+                _playerLight = GEntityUtils.GetComponent<Light>(_playerLightObject);
 
+                if (_playerLight != null)
+                {
+                    _playerLight.color = new Color(1.0f, 0.9f, 0.8f, 1.0f);
+                }
+                _playerLight.intensity = 0;
+
+                PlayerLightController plc = _playerLightObject.GetComponent<PlayerLightController>();
+                if (plc != null)
+                {
+                    plc.enabled = false;
+                }
+            }
+
+
+            MapType = mapData.MapId == 1 ? ECrawlerMapTypes.City : ECrawlerMapTypes.Dungeon;
             ICrawlerMapTypeHelper helper = GetHelper(mapData.MapId == 1 ? ECrawlerMapTypes.City : ECrawlerMapTypes.Dungeon);
 
             _crawlerMap = await helper.Enter(partyData, mapData, token);
 
             await LoadDungeonAssets(_crawlerMap, token);
 
+            UpdateCameraPos(token);
+
             await DrawNearbyMap(token);
 
-            await UpdateCameraPos(token);
-
-            queuedMoves.Clear();
+            _queuedMoves.Clear();
 
             await _crawlerService.SaveGame();
         }
@@ -112,17 +144,25 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
         }
         
-        private async Awaitable UpdateCameraPos(CancellationToken token)
+        private void UpdateCameraPos(CancellationToken token)
         {
-            
             if (_crawlerMap == null)
             {
                 return;
             }
 
-            if (_cameraParent == null)
+            if (_playerLight != null)
             {
-                _cameraParent = _cameraController.GetCameraParent();
+               
+                if (MapType == ECrawlerMapTypes.Dungeon)
+                {
+                    _playerLight.intensity = 100;
+                    _playerLight.range = 1000;
+                }
+                else
+                {
+                    _playerLight.intensity = 0;
+                }
             }
 
             int bz = CrawlerMapConstants.BlockSize;
@@ -131,7 +171,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             {
 
                 _camera = _cameraController.GetMainCamera();
-                _camera.transform.localPosition = new Vector3(0,0,-bz*0.3f);
+                _camera.transform.localPosition = new Vector3(0, 0, -bz * 0.3f);
                 _camera.transform.eulerAngles = new Vector3(0, 0, 0);
                 _camera.farClipPlane = CrawlerMapConstants.BlockSize * 8;
                 _camera.rect = new Rect(0, 0, 9f / 16f, 1);
@@ -141,7 +181,10 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _cameraParent.transform.position = new Vector3(_crawlerMap.DrawX, _crawlerMap.DrawY, _crawlerMap.DrawZ);
             _cameraParent.transform.eulerAngles = new Vector3(0, _crawlerMap.DrawRot+90, 0);
             _party.WorldPanel.SetPicture(null);
-
+            if (_playerLightObject != null && _camera != null)
+            {
+                _playerLightObject.transform.position = _camera.transform.position;
+            }
         }
 
 
@@ -151,38 +194,43 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         }
         private bool _updatingMovement = false;
 
+        public void ClearMovement()
+        {
+            _queuedMoves.Clear();
+            _updatingMovement = false;
+        }
 
-
-        const int maxQueuedMoves = 2;
-        Queue<KeyCode> queuedMoves = new Queue<KeyCode>();
+        const int maxQueuedMoves = 4;
+        Queue<KeyCode> _queuedMoves = new Queue<KeyCode>();
 
         public async Awaitable UpdateMovement(CancellationToken token)
         {
-            if (queuedMoves.Count < maxQueuedMoves)
+
+            if (_queuedMoves.Count < maxQueuedMoves)
             {
                 if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    queuedMoves.Enqueue(KeyCode.W);
+                    _queuedMoves.Enqueue(KeyCode.W);
                 }
                 else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
                 {
-                    queuedMoves.Enqueue(KeyCode.S);
+                    _queuedMoves.Enqueue(KeyCode.S);
                 }
                 else if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    queuedMoves.Enqueue(KeyCode.Q);
+                    _queuedMoves.Enqueue(KeyCode.Q);
                 }
-                else if (Input.GetKey(KeyCode.E))
+                else if (Input.GetKeyDown(KeyCode.E))
                 {
-                    queuedMoves.Enqueue(KeyCode.E);
+                    _queuedMoves.Enqueue(KeyCode.E);
                 }
-                else if (Input.GetKey(KeyCode.A))
+                else if (Input.GetKeyDown(KeyCode.A))
                 {
-                    queuedMoves.Enqueue(KeyCode.A);
+                    _queuedMoves.Enqueue(KeyCode.A);
                 }
                 else if (Input.GetKeyDown(KeyCode.D))
                 {
-                    queuedMoves.Enqueue(KeyCode.D);
+                    _queuedMoves.Enqueue(KeyCode.D);
                 }
             }
 
@@ -191,8 +239,14 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 return;
             }
 
+            UpdateMovementInternal(token);
+            await Task.CompletedTask;
+        }
+
+        private async Awaitable UpdateMovementInternal(CancellationToken token)
+        { 
             _updatingMovement = true;
-            while (queuedMoves.TryDequeue(out KeyCode currCommand))
+            while (_queuedMoves.TryDequeue(out KeyCode currCommand))
             {
                 if (currCommand == KeyCode.W)
                 {
@@ -218,6 +272,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 {
                     await Rot(1, token);
                 }
+                _crawlerService.OnFinishMove(token);
             }
             _updatingMovement = false;
         }
@@ -281,12 +336,16 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             for (int frame = 1; frame < frames; frame++)
             {
+
                 _crawlerMap.DrawX = startDrawX + frame * dx / frames;
                 _crawlerMap.DrawZ = startDrawZ + frame * dz / frames;
 
-                await UpdateCameraPos(token);
+                UpdateCameraPos(token);
 
-                await Awaitable.NextFrameAsync(token);
+                if (frame < frames - 1)
+                {
+                    await Awaitable.NextFrameAsync(token);
+                }
             }
 
             ex = MathUtils.ModClamp(ex, _crawlerMap.Map.XSize);
@@ -296,8 +355,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _crawlerMap.DrawZ = ez * CrawlerMapConstants.BlockSize;
             _party.MapX = ex;
             _party.MapZ = ez;
-            await UpdateCameraPos(token);
-            await DrawNearbyMap(token);
+            UpdateCameraPos(token);
+            DrawNearbyMap(token);
 
         }
 
@@ -314,7 +373,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             for (int frame = 1; frame <= frames; frame++)
             {              
                 _crawlerMap.DrawRot = startRot + deltaRot * frame/frames;
-                await UpdateCameraPos(token);
+                UpdateCameraPos(token);
                 if (frame < frames)
                 {
                     await Awaitable.NextFrameAsync(token);

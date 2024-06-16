@@ -10,6 +10,7 @@ using UnityEngine.Networking;
 using UnityEngine;
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 
 
 public class DownloadFileData
@@ -34,7 +35,7 @@ public class DownloadFileData
 
 public class FileDownloadService : IFileDownloadService
 {
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         if (!AppUtils.IsPlaying)
         {

@@ -60,11 +60,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         protected IUnityGameState _gs;
         protected IClientRandom _rand;
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
-
         public List<CrawlerSpell> GetNonSpellCombatActionsForMember(
             PartyData party, PartyMember member, bool inCombat)
         {
@@ -442,7 +437,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         {
             try
             {
-                float displayDelay = 0.2f;
+                float displayDelay = 0.05f;
 
                 action.IsComplete = true;
                 if (action.Spell == null)

@@ -22,6 +22,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         protected ILogService _logService;
         protected IGameData _gameData;
         protected IUnityGameState _gs;
+        protected IGameObjectService _gameObjectService;
 
         public abstract ECrawlerMapTypes GetKey();
 
@@ -33,7 +34,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         protected void AddWallComponent(GameObject asset, GameObject parent, Vector3 offset, Vector3 euler)
         {
-            GameObject obj = GEntityUtils.FullInstantiate(_gs, asset);
+            GameObject obj = _gameObjectService.FullInstantiate(asset);
             GEntityUtils.AddToParent(obj, parent);
             obj.transform.localPosition = offset;
             obj.transform.eulerAngles = euler;

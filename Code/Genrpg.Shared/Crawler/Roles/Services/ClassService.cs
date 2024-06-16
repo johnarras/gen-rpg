@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Crawler.Roles.Helpers.ClassHelpers;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.HelperClasses;
 
 namespace Genrpg.Shared.Crawler.Roles.Services
 {
@@ -13,13 +15,8 @@ namespace Genrpg.Shared.Crawler.Roles.Services
     public class ClassService : IClassService
     {
 
-        private Dictionary<long, IClassHelper> _classHelpers = new Dictionary<long, IClassHelper>();
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            _classHelpers = ReflectionUtils.SetupDictionary<long, IClassHelper>(gs);
-            await Task.CompletedTask;
-        }
-
+        private SetupDictionaryContainer<long, IClassHelper> _classHelpers = new SetupDictionaryContainer<long, IClassHelper> ();
+       
         public IClassHelper GetClassHelper(long classId)
         {
             if (_classHelpers.TryGetValue(classId, out IClassHelper classHelper))

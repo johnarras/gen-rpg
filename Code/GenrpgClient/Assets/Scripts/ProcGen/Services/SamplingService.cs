@@ -13,7 +13,7 @@ public interface ISamplingService : IInitializable
 public class SamplingService : ISamplingService
 {
     private INoiseService _noiseService;
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }

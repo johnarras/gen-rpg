@@ -14,6 +14,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Mappers;
 using UnityEngine;
+using Genrpg.Shared.Interfaces;
 
 namespace Assets.Scripts.GameSettings.Services
 {
@@ -25,7 +26,7 @@ namespace Assets.Scripts.GameSettings.Services
 
         private Dictionary<Type, IGameSettingsMapper> _loaderObjects = null;
 
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        public async Task Initialize(CancellationToken token)
         {
             List<Type> mapperTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettingsMapper));
 

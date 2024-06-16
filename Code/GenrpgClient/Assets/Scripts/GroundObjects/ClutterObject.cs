@@ -7,9 +7,9 @@ public class ClutterObject : BaseBehaviour
     IMapTerrainManager _terrainManager;
     protected IMapProvider _mapProvider;
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         _updateService.AddDelayedUpdate(entity, FullTurnOff, GetToken(), 0.7f);
     }
 

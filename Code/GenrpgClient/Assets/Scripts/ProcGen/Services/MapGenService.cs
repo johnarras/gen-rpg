@@ -39,7 +39,7 @@ public interface IMapGenService : IInitializable
 
 public class MapGenService : IMapGenService
 {
-    public async Task Initialize(IGameState gs, CancellationToken token)
+    public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
     }

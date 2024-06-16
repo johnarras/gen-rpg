@@ -15,9 +15,9 @@ namespace Genrpg.LoginServer.Utils
             return SerializationUtils.Serialize(new LoginServerResultSet() { Results = results });
         }
 
-        public static void ShowError(LoginGameState gs, string msg)
+        public static void ShowError(LoginContext context, string msg)
         {
-            gs.Results.Add(new ErrorResult() { Error = msg });
+            context.Results.Add(new ErrorResult() { Error = msg });
         }
     }
 }

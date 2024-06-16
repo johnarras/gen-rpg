@@ -152,9 +152,9 @@ namespace Genrpg.MapServer.Maps
             await Task.CompletedTask;
         }
 
-        protected override async Task FinalInit(ServerGameState gs, object data, object parentObject, CancellationToken parentToken)
+        protected override async Task FinalInit(object data, object parentObject, CancellationToken parentToken)
         {
-            await base.FinalInit(gs, data, parentObject, parentToken);
+            await base.FinalInit(data, parentObject, parentToken);
 
             InitMapInstanceData initData = data as InitMapInstanceData;
             _isRunning = true;
@@ -166,7 +166,7 @@ namespace Genrpg.MapServer.Maps
             _mapProvider.SetSpawns(await _mapSpawnDataService.LoadMapSpawnData(_repoService, _mapProvider.GetMap().Id, _mapProvider.GetMap().MapVersion));
 
             // Step 3: Setup messaging and object systems
-            _messageService.Init(_gs, _tokenSource.Token);
+            _messageService.Init(_tokenSource.Token);
             _objectManager.Init(_rand, _tokenSource.Token);
             _port = initData.Port;
             _host = "127.0.0.1";

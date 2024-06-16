@@ -76,7 +76,7 @@ PrefabInstance:
     - target: {fileID: 5670627786776222177, guid: 95ff5fc923d2fa9439b0c26ad948ee3a,
         type: 3}
       propertyPath: m_Name
-      value: StormMagic
+      value: AirHit
       objectReference: {fileID: 0}
     - target: {fileID: 6446098703783939275, guid: 95ff5fc923d2fa9439b0c26ad948ee3a,
         type: 3}

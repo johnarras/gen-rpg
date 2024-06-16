@@ -52,6 +52,7 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
         
         try
         {
+            await Task.CompletedTask;
             if (string.IsNullOrEmpty(id))
             {
                 return default(T);
@@ -84,7 +85,8 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
             return false;
         }
         SaveString(id, data);
-        
+
+        await Task.CompletedTask;
         return true;
     }
 
@@ -126,7 +128,8 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
             _logger.Exception(e, "Local Save Error");
             return false;
         }
-        
+
+        await Task.CompletedTask;
         return true;
     }
     public async Awaitable<bool> Delete(T t)
@@ -151,6 +154,7 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
             _logger.Exception(e, "LocalRepository.Delete");
             return false;
         }
+        await Task.CompletedTask;
         return true;
     }
 
@@ -308,19 +312,22 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
 
     public async Awaitable<List<T>> LoadAll(List<string> ids)
     {
-        
+
+        await Task.CompletedTask;
         throw new NotImplementedException();
     }
 
     public async Awaitable<List<T>> Search(Expression<Func<T, bool>> func, int quantity=100, int skip = 0)
     {
-        
+
+        await Task.CompletedTask;
         throw new NotImplementedException();
     }
 
     public async Awaitable<object> LoadWithType(Type t, string id)
     {
-        
+
+        await Task.CompletedTask;
         try
         {
             if (string.IsNullOrEmpty(id))

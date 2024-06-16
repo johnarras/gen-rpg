@@ -22,11 +22,6 @@ namespace Genrpg.Shared.Units.Services
     public class UnitGenService : IUnitGenService
     {
 
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
-
         private INameGenService _nameGenService = null;
         private IGameData _gameData = null;
         protected IMapProvider _mapProvider;

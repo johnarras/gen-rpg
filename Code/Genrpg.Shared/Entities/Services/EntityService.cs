@@ -11,10 +11,11 @@ using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.HelperClasses;
 
 namespace Genrpg.Shared.Entities.Services
 {
-    public interface IEntityService : IInitializable
+    public interface IEntityService : IInjectable
     {
         bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList) where SR : ISpawnResult;
         IEntityHelper GetEntityHelper(long entityTypeId);
@@ -24,15 +25,8 @@ namespace Genrpg.Shared.Entities.Services
     public class EntityService : IEntityService
     {
 
-        private Dictionary<long, IRewardHelper> _rewardHelpers = null;
-        private Dictionary<long, IEntityHelper> _entityHelpers = null;
-
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            _rewardHelpers = ReflectionUtils.SetupDictionary<long, IRewardHelper>(gs);
-            _entityHelpers = ReflectionUtils.SetupDictionary<long, IEntityHelper>(gs);
-            await Task.CompletedTask;
-        }
+        private SetupDictionaryContainer<long, IRewardHelper> _rewardHelpers = new SetupDictionaryContainer<long, IRewardHelper>();
+        private SetupDictionaryContainer<long, IEntityHelper> _entityHelpers = new SetupDictionaryContainer<long, IEntityHelper>();
 
         #region Rewards
         public virtual bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList) where SR : ISpawnResult
@@ -88,18 +82,18 @@ namespace Genrpg.Shared.Entities.Services
         #region Helpers
         protected IRewardHelper GetRewardHelper(long entityTypeId)
         {
-            if (_rewardHelpers.ContainsKey(entityTypeId))
+            if (_rewardHelpers.TryGetValue(entityTypeId, out IRewardHelper helper))
             {
-                return _rewardHelpers[entityTypeId];
+                return helper;
             }
             return null;
         }
 
         public IEntityHelper GetEntityHelper(long entityTypeId)
         {
-            if (_entityHelpers.ContainsKey(entityTypeId))
+            if (_entityHelpers.TryGetValue(entityTypeId, out IEntityHelper helper))
             {
-                return _entityHelpers[entityTypeId];
+                return helper;
             }
             return null;
         }

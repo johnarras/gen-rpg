@@ -19,9 +19,9 @@ public class CombatTextUI : BaseBehaviour
     int frameCount = 0;
 
 
-    public override void Initialize(IUnityGameState gs)
+    public override void Init()
     {
-        base.Initialize(gs);
+        base.Init();
         AddUpdate(CombatTextUpdate, UpdateType.Regular);
     }
 

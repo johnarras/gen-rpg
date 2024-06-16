@@ -1,14 +1,21 @@
-﻿using Genrpg.Shared.Core.Entities;
+﻿using Genrpg.MonsterServer.Admin;
+using Genrpg.ServerShared.CloudComms.Services.Admin;
+using Genrpg.ServerShared.Setup;
+using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Setup.Services;
 
 namespace Genrpg.MonsterServer.Setup
 {
-    public class MonsterSetupService : SetupService
+    public class MonsterSetupService : BaseServerSetupService
     {
-        public override void SetupServiceLocator(IGameState gs)
+        public MonsterSetupService(IServiceLocator loc) : base(loc) { }
+
+
+        protected override void AddServices()
         {
-            MonsterLocatorSetup iss = new MonsterLocatorSetup();
-            iss.Setup(gs);
+            base.AddServices();
+            Set<IAdminService>(new MonsterAdminService());
         }
     }
 }

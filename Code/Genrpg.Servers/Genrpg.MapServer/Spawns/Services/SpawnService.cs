@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using static Microsoft.Azure.Amqp.Serialization.SerializableType;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.HelperClasses;
 
 namespace Genrpg.MapServer.Spawns.Services
 {
@@ -37,18 +38,17 @@ namespace Genrpg.MapServer.Spawns.Services
     public class SpawnService : ISpawnService
     {
         private IGameData _gameData  = null;
-        private Dictionary<long, IRollHelper> _rollHelpers = null;
-        public async Task Initialize(IGameState gs, CancellationToken token)
+        private SetupDictionaryContainer<long, IRollHelper> _rollHelpers = new();
+        public async Task Initialize( CancellationToken token)
         {
-            _rollHelpers = ReflectionUtils.SetupDictionary<long, IRollHelper>(gs);
             await Task.CompletedTask;
         }
 
         protected IRollHelper GetRollHelper(long entityTypeId)
         {
-            if (_rollHelpers.ContainsKey(entityTypeId))
+            if (_rollHelpers.TryGetValue(entityTypeId, out IRollHelper helper))
             {
-                return _rollHelpers[entityTypeId];
+                return helper;
             }
             return null;
         }

@@ -17,7 +17,7 @@ using System.Linq;
 namespace Genrpg.Shared.Factions.Services
 {
 
-    public interface ISharedFactionService : IInitializable
+    public interface ISharedFactionService : IInjectable
     {
         long GetRepLevel(Unit unit, long factionTypeId);
         bool CanInteract(Unit unit, long factionTypeId);
@@ -31,11 +31,6 @@ namespace Genrpg.Shared.Factions.Services
     public class SharedFactionService : ISharedFactionService
     {
         private IGameData _gameData = null;
-
-        public async Task Initialize(IGameState gs, CancellationToken toke)
-        {
-            await Task.CompletedTask;
-        }
 
         private FactionStatus Find(Unit unit, long factionTypeId)
         {

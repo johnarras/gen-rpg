@@ -70,7 +70,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
             stateData.Actions.Add(new CrawlerStateAction("", KeyCode.Escape, currentData.Id, extraData:data));
 
 
-            
+            await Task.CompletedTask;
+
             return stateData;
         }
     }

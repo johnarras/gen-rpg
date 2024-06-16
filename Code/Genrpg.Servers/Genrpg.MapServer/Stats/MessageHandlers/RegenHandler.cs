@@ -16,10 +16,6 @@ namespace Genrpg.MapServer.Stats.MessageHandlers
     public class RegenHandler : BaseUnitServerMapMessageHandler<Regen>
     {
         private IStatService _statService = null;
-        public override void Setup(IGameState gs)
-        {
-            base.Setup(gs);
-        }
 
         protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, Regen message)
         {

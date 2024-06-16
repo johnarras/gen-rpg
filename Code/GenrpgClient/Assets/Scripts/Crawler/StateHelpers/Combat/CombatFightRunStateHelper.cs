@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Combat
@@ -81,7 +82,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                }));
             }
 
-            
+
+            await Task.CompletedTask;
             return stateData;
         }
     }

@@ -6,7 +6,7 @@ using Genrpg.Shared.Inventory.PlayerData;
 
 namespace Genrpg.Shared.Crawler.Loot.Services
 {
-    public interface ILootGenService : IInitializable
+    public interface ILootGenService : IInjectable
     {
         Item GenerateItem(LootGenData lootGenData);
         CombatLoot GiveLoot(PartyData party);

@@ -8,6 +8,7 @@ using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.GroundObjects.Settings;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class GroundObjectLoader : BaseMapObjectLoader
 {
@@ -33,7 +34,8 @@ public class GroundObjectLoader : BaseMapObjectLoader
 
         _assetService.LoadAsset(AssetCategoryNames.Props, groundObjType.Art, OnDownloadGroundObject, loadData, null, token);
 
-        
+
+        await Task.CompletedTask;
         return;
     }
 
@@ -51,7 +53,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
             return;
         }
 
-        MapGroundObject worldGroundObject = GEntityUtils.GetOrAddComponent<MapGroundObject>(_gs, go);
+        MapGroundObject worldGroundObject = _gameObjectService.GetOrAddComponent<MapGroundObject>(go);
 
         GroundObjType gtype = _gameData.Get<GroundObjTypeSettings>(_gs.ch).Get(loadData.Spawn.EntityId);
 

@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Spells.PlayerData.Spells;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.HelperClasses;
 
 namespace Genrpg.Shared.SpellCrafting.Services
 {
@@ -21,13 +23,7 @@ namespace Genrpg.Shared.SpellCrafting.Services
     {
         private IGameData _gameData = null;
         private IRepositoryService _repoService = null;   
-        private Dictionary<long, ISpellModifierHelper> _modifierHelpers = null;
-
-        public virtual async Task Initialize(IGameState gs, CancellationToken token)
-        {           
-            _modifierHelpers = ReflectionUtils.SetupDictionary<long, ISpellModifierHelper>(gs);
-            await Task.CompletedTask;
-        }
+        private SetupDictionaryContainer<long, ISpellModifierHelper> _modifierHelpers = new SetupDictionaryContainer<long, ISpellModifierHelper> ();
 
         public ISpellModifierHelper GetSpellModifierHelper(long modifierId)
         {

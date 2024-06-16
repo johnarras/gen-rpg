@@ -124,7 +124,7 @@ public class MapConstants : SharedMapConstants
     public const float MinDungeonHeight = OceanHeight + 125;
     public const float RoadBorderBaseDirtPercent = 0.40f;
 
-    public const int DetailResolutionPerPatch = 16;
+    public const int DetailResolutionPerPatch = 8;
     public const int DetailResolution = (TerrainPatchSize - 1) / GrassResolutionDiv;
 
     public const float MinEdgeMountainChance = 0.9f;

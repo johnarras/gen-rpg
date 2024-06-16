@@ -40,7 +40,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Vendors.Services
 {
-    public interface IVendorService : IInitializable
+    public interface IVendorService : IInjectable
     {
         void UpdateItems(IRandom rand, MapObject mapObject);
         void BuyItem(IRandom rand, MapObject obj, BuyItem buyItem);
@@ -56,10 +56,6 @@ namespace Genrpg.MapServer.Vendors.Services
         private ITradeService _tradeService = null;
         private IMapObjectManager _objectManager = null!;
         private IMapProvider _mapProvider = null!;
-        public async Task Initialize(IGameState gs, CancellationToken token)
-        {
-            await Task.CompletedTask;
-        }
 
         private IItemGenService _itemGenService = null;
         protected IRepositoryService _repoService = null;

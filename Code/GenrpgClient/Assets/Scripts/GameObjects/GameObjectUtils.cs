@@ -2,10 +2,6 @@ using GEntity = UnityEngine.GameObject;
 using GObject = UnityEngine.Object;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using Assets.Scripts.Core.Interfaces;
-using Genrpg.Shared.Core.Entities;
-using System.Linq; // Needed
 
 public class GEntityUtils
 {
@@ -255,29 +251,7 @@ public class GEntityUtils
 	}
 
 
-    public static C GetOrAddComponent<C> (IUnityGameState gs, GEntity go) where C: Component
-    {
-        if (go == null)
-        {
-            return null;
-        }
-
-        C c = go.GetComponent<C>();
-        if (c == null)
-        {
-            c = go.AddComponent<C>();
-        }
-#if UNITY_EDITOR
-        go.hideFlags = 0;
-#endif
-
-        if (c is BaseBehaviour bb)
-        {
-            GEntityUtils.InitializeHierarchy(gs, go);
-        }
-        return c;
-    }
-
+   
 	public static void AddToParent (GEntity child, GEntity parent)
 	{
 		if (parent == null)
@@ -394,57 +368,6 @@ public class GEntityUtils
             return FindComponentInParents<T>(go.transform().parent.entity());
         }
         return default(T);
-    }
-
-    public static C FullInstantiate<C>(IUnityGameState gs, C c) where C : UnityEngine.Component
-    {
-        if (c == null)
-        {
-            return null;
-        }
-        C cdupe = GEntity.Instantiate<C>(c);
-        cdupe.name = cdupe.name.Replace("(Clone)", "");
-        InitializeHierarchy(gs, cdupe.entity());
-        return cdupe;
-    }
-
-    public static GEntity FullInstantiateAndSet (IUnityGameState gs, GEntity go)
-    {
-        GEntity dupe = FullInstantiate(gs, go);
-
-        List<BaseBehaviour> allBehaviours = GEntityUtils.GetComponents<BaseBehaviour>(dupe);
-
-        foreach (BaseBehaviour behaviour in allBehaviours)
-        {
-            Type setType = behaviour.GetType().GetInterfaces()
-                .FirstOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IInjectOnLoad<>));
-           
-            if (setType != null)
-            {
-                var setMethod = typeof(ServiceLocator).GetMethod("Set");
-                var genericMethod = setMethod.MakeGenericMethod(setType.GenericTypeArguments[0]);
-                genericMethod.Invoke(gs.loc, new object[] { behaviour } );
-            }
-        }
-        return dupe;
-    }
-
-    public static GEntity FullInstantiate(IUnityGameState gs, GEntity go)
-    {
-        GEntity dupe = GEntity.Instantiate(go);
-        InitializeHierarchy(gs, dupe);
-        return dupe;
-    }
-
-    public static void InitializeHierarchy(IUnityGameState gs, GEntity go)
-    {
-        SetActive(go, true);
-        List<BaseBehaviour> allBehaviours = GEntityUtils.GetComponents<BaseBehaviour>(go);
-
-        foreach (BaseBehaviour behaviour in allBehaviours)
-        {
-            behaviour.Initialize(gs);
-        }
     }
 }
 

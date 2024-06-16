@@ -57,8 +57,8 @@ namespace Genrpg.Editor.Utils
                 serverConfig = await ConfigUtils.SetupServerConfig(EditorGameState.CTS.Token, CloudServerNames.Editor.ToString().ToLower());
             }
             serverConfig.Env = env;
-            EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState>(parent, CloudServerNames.Editor.ToString().ToLower(), 
-                new EditorSetupService(), EditorGameState.CTS.Token, serverConfig);
+            EditorGameState gs = await SetupUtils.SetupFromConfig<EditorGameState,EditorSetupService>(parent, CloudServerNames.Editor.ToString().ToLower(), 
+              EditorGameState.CTS.Token, serverConfig);
 
             gs.data = gs.loc.Get<IGameData>();
             List<ITopLevelSettings> allSettings = gs.data.AllSettings();

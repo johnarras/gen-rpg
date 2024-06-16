@@ -1,0 +1,50 @@
+{
+  "Id": "weathertype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "CrawlerOutdoors",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "AmbientColor": {
+    "R": 0.7490196,
+    "G": 0.85490197,
+    "B": 0.92941177,
+    "A": 1.0
+  },
+  "LightColor": {
+    "R": 1.0,
+    "G": 1.0,
+    "B": 0.87058824,
+    "A": 1.0
+  },
+  "LightScale": 1.0,
+  "SkyColor": {
+    "R": 0.47058824,
+    "G": 0.7529412,
+    "B": 1.0,
+    "A": 1.0
+  },
+  "FogScale": 0.002,
+  "FogColor": {
+    "R": 0.7176471,
+    "G": 0.72156864,
+    "B": 0.72156864,
+    "A": 1.0
+  },
+  "FogDistance": 100.0,
+  "CloudScale": 0.5,
+  "CloudSpeed": 0.3,
+  "CloudColor": {
+    "R": 0.9019608,
+    "G": 0.8980392,
+    "B": 0.8901961,
+    "A": 1.0
+  },
+  "WindScale": 0.5,
+  "PrecipScale": 0.4,
+  "ParticleScale": 1.0,
+  "Particles": "dust leaves",
+  "UpdateTime": "2024-06-16T12:55:39.111Z",
+  "CreateTime": "2024-02-16T05:06:21Z"
+}

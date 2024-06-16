@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.UI.Crawler.States;
 using System.Threading;
+using System.Threading.Tasks;
 using UI.Screens.Constants;
 using UnityEngine;
 
@@ -17,10 +18,9 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 
             CrawlerStateData crawlerStateData = CreateStateData();
             _screenService.Open(ScreenId.CrawlerVendor);
-            
-            return crawlerStateData;
 
-            
+            await Task.CompletedTask;
+            return crawlerStateData;
         }
     }
 }

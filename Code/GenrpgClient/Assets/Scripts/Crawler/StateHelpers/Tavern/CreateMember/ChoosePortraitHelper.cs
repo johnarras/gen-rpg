@@ -44,8 +44,9 @@ namespace Assets.Scripts.Crawler.StateHelpers
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", KeyCode.Escape, ECrawlerStates.ChooseClass,
                 delegate { member.PortraitName = null; }, member));
-            
-            
+
+
+            await Task.CompletedTask;
 
             return stateData;
         }

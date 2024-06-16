@@ -89,7 +89,7 @@ namespace Genrpg.Shared.Utils
             return retval;
         }
 
-        public static Dictionary<K, T> SetupDictionary<K, T>(IGameState gs) where T : ISetupDictionaryItem<K>
+        public static Dictionary<K, T> SetupDictionary<K, T>(IServiceLocator loc) where T : ISetupDictionaryItem<K>
         {
             Dictionary<K, T> dict = new Dictionary<K, T>();
             Type ttype = typeof(T);
@@ -136,8 +136,8 @@ namespace Genrpg.Shared.Utils
                     dict[inst.GetKey()] = inst;
                     try
                     {
-                        gs.loc.StoreDictionaryItem(inst);
-                        gs.loc.Resolve(inst);
+                        loc.StoreDictionaryItem(inst);
+                        loc.Resolve(inst);
                     }
                     catch (Exception e)
                     {
@@ -148,20 +148,21 @@ namespace Genrpg.Shared.Utils
             return dict;
         }
 
-        public static async Task<object> CreateInstanceFromType(IGameState gs, Type t, CancellationToken token)
+        public static async Task<object> CreateInstanceFromType(IServiceLocator loc, Type t, CancellationToken token)
         {
             object obj = Activator.CreateInstance(t);
-            gs.loc.Resolve(obj);
+
+            loc.Resolve(obj);
 
             if (obj is IInitializable service)
             {
-                await SetupServices(gs, new List<IInjectable> { service }, token);
+                await InitializeServiceList(loc, new List<IInjectable> { service }, token);
             }
 
             return obj;
         }
 
-        public static async Task SetupServices(IGameState gs, List<IInjectable> services, CancellationToken token)
+        public static async Task InitializeServiceList(IServiceLocator loc, List<IInjectable> services, CancellationToken token)
         {
 
             List<IInitializable> setupServices = new List<IInitializable>();
@@ -192,7 +193,7 @@ namespace Genrpg.Shared.Utils
 
                 foreach (IPriorityInitializable service in currentPriorityServices)
                 {
-                    priorityTasks.Add(service.PrioritySetup(gs, token));
+                    priorityTasks.Add(service.PrioritySetup(token));
                 }
 
                 await Task.WhenAll(priorityTasks);
@@ -203,7 +204,7 @@ namespace Genrpg.Shared.Utils
 
             foreach (IInitializable setupService in setupServices)
             {
-                setupTasks.Add(setupService.Initialize(gs, token));
+                setupTasks.Add(setupService.Initialize(token));
             }
 
             await Task.WhenAll(setupTasks);

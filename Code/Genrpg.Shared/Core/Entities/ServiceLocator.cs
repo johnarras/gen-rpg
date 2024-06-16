@@ -166,10 +166,13 @@ namespace Genrpg.Shared.Core.Entities
                 return;
             }
 
+            string serviceTypeName = typeof(IInjectable).Name;
+            string serviceLocatorTypeName = typeof(IServiceLocator).Name;
+            string initOnResolveTypeName = typeof(IInitOnResolve).Name;
+
             while (true)
             {
                 FieldInfo[] fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-                string serviceTypeName = typeof(IInjectable).Name;
 
                 foreach (FieldInfo field in fields)
                 {
@@ -179,6 +182,19 @@ namespace Genrpg.Shared.Core.Entities
                     }
 
                     Type fieldType = field.FieldType;
+
+
+                    if (fieldType.GetInterface(initOnResolveTypeName) != null)
+                    {
+                        Resolve(EntityUtils.GetObjectValue(obj, field));
+                    }
+
+                    if (fieldType.Name == serviceLocatorTypeName)
+                    {
+                        EntityUtils.SetObjectValue(obj, field, this);
+                        continue;
+                    }
+
                     Type serviceType = fieldType.GetInterface(serviceTypeName);
                     if (serviceType == null)
                     {
@@ -198,12 +214,19 @@ namespace Genrpg.Shared.Core.Entities
                     }
 
                     EntityUtils.SetObjectValue(obj, field, serviceObject);
+
                 }
                 type = type.BaseType;
                 if (!type.IsClass || type == typeof(object))
                 {
                     break;
                 }
+            }
+
+            if (obj.GetType().GetInterface(initOnResolveTypeName) != null)
+            {
+                IInitOnResolve initOnResolve = (IInitOnResolve)obj;
+                initOnResolve.Init();
             }
         }
 

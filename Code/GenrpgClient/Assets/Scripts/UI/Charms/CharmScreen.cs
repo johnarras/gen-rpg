@@ -1,6 +1,7 @@
 ﻿
 using Genrpg.Shared.Charms.PlayerData;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 
@@ -22,8 +23,7 @@ namespace Assets.Scripts.UI.Charms
                 _assetService.LoadAssetInto(RowParent, AssetCategoryNames.UI, CharmRowPrefabName, OnLoadStatusRow, status, token, "Charms");
             }
 
-
-            
+            await Task.CompletedTask;
         }
 
         private void OnLoadStatusRow (object obj, object data, CancellationToken token)

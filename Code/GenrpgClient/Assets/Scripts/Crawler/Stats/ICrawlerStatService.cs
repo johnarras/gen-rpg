@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Genrpg.Shared.Crawler.Stats.Services
 {
-    public interface ICrawlerStatService : IInitializable
+    public interface ICrawlerStatService : IInjectable
     {
         void CalcUnitStats(PartyData party, CrawlerUnit unit, bool resetCurrStats);
 

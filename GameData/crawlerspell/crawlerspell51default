@@ -1,0 +1,26 @@
+{
+  "Id": "crawlerspell51default",
+  "ParentId": "default",
+  "IdKey": 51,
+  "Name": "Lightning Storm",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 50,
+  "PowerPerLevel": 1,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 4,
+  "Level": 11,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 4,
+      "ElementTypeId": 4
+    }
+  ],
+  "UpdateTime": "2024-06-15T00:06:53.204Z",
+  "CreateTime": "2024-01-29T03:21:51Z"
+}
