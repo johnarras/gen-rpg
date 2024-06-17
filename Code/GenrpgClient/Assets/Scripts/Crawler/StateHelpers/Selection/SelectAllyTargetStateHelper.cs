@@ -2,22 +2,13 @@
 using Assets.Scripts.Crawler.StateHelpers.Combat;
 using Assets.Scripts.Crawler.StateHelpers.Selection.Entities;
 using Assets.Scripts.UI.Crawler.States;
-
-using Genrpg.Shared.Crawler.Combat.Entities;
-using Genrpg.Shared.Crawler.Combat.Utils;
-using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using Genrpg.Shared.Crawler.Spells.Entities;
-using Genrpg.Shared.Spells.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Selection
 {
@@ -57,7 +48,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
             ECrawlerStates nextAction = ECrawlerStates.SelectSpell;
             if (selectAction.Member == null)
             {
-                partyMembers = partyMembers.Where(x => CombatUtils.CanPerformAction(x)).ToList();
+                partyMembers = partyMembers.Where(x => !_combatService.IsDisabled(x)).ToList();
                 selectingCaster = true;
             }
             else

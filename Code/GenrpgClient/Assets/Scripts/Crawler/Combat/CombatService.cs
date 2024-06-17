@@ -1,11 +1,9 @@
 ﻿using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler.States;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Combat.Settings;
-using Genrpg.Shared.Crawler.Combat.Utils;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Spells.Constants;
@@ -17,13 +15,12 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.UnitEffects.Constants;
+using Genrpg.Shared.UnitEffects.Settings;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -226,8 +223,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
                     {
                         if (unit.Action == null)
                         {
-
-                            if (CombatUtils.CanPerformAction(unit))
+                            if (!IsDisabled(unit))
                             {
                                 return false;
                             }
@@ -605,7 +601,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             List<UnitAction> retval = new List<UnitAction>();
 
-            if (!CombatUtils.CanPerformAction(member))
+            if (IsDisabled(member))
             {
                 retval.Add(new UnitAction()
                 {
@@ -660,6 +656,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
             }
             else // Just idle waiting.
             {
+                return;
                 if ((DateTime.UtcNow-_lastMoveTime).TotalSeconds < 35)
                 {
                     return;
@@ -674,6 +671,81 @@ namespace Assets.Scripts.Crawler.Services.Combat
             _crawlerMapService.ClearMovement();
             _crawlerService.ChangeState(ECrawlerStates.StartCombat, token);
             _movesSinceLastCombat = 0;
+        }
+
+
+        private int _disabledBits = -1;
+        public bool IsDisabled(CrawlerUnit unit)
+        {
+            if (_disabledBits < 0)
+            {
+                _disabledBits = 0;
+                IReadOnlyList<StatusEffect> effects = _gameData.Get<StatusEffectSettings>(null).GetData();
+
+                foreach (StatusEffect eff in effects)
+                {
+                    if (eff.ActionEffects.Count > 0)
+                    {
+                        if (eff.ActionEffects.Any(x=>x.Effect == EActionEffects.Set &&
+                            x.CombatActionId == CombatActions.Disabled))
+                        {
+                            _disabledBits |= (1 << (int)eff.IdKey);
+                        }
+                    }
+                }
+            }
+
+            return unit.HasStatusBits(_disabledBits);
+        }
+
+        Dictionary<long, long> _combatActionBlocks = new Dictionary<long, long>();
+        public bool IsActionBlocked(CrawlerUnit unit, long combatActionId)
+        {
+            if (!_combatActionBlocks.ContainsKey(combatActionId))
+            {
+                _combatActionBlocks[combatActionId] = 0;
+                IReadOnlyList<StatusEffect> effects = _gameData.Get<StatusEffectSettings>(null).GetData();
+
+                foreach (StatusEffect eff in effects)
+                {
+                    if (eff.ActionEffects.Count > 0)
+                    {
+                        if (eff.ActionEffects.Any(x => x.Effect == EActionEffects.Block &&
+                            x.CombatActionId == combatActionId))
+                        {
+                            _combatActionBlocks[combatActionId] += (1 << (int)eff.IdKey);
+                        }
+                    }
+                }
+            }
+
+            return unit.HasStatusBits(_combatActionBlocks[combatActionId]);
+
+        }
+
+        Dictionary<long, long> _combatActionWeaks = new Dictionary<long, long>();
+        public bool IsActionWeak(CrawlerUnit unit, long combatActionId)
+        {
+            if (!_combatActionWeaks.ContainsKey(combatActionId))
+            {
+                _combatActionWeaks[combatActionId] = 0;
+                IReadOnlyList<StatusEffect> effects = _gameData.Get<StatusEffectSettings>(null).GetData();
+
+                foreach (StatusEffect eff in effects)
+                {
+                    if (eff.ActionEffects.Count > 0)
+                    {
+                        if (eff.ActionEffects.Any(x => x.Effect == EActionEffects.Block &&
+                            x.CombatActionId == combatActionId))
+                        {
+                            _combatActionWeaks[combatActionId] += (1 << (int)eff.IdKey);
+                        }
+                    }
+                }
+            }
+
+            return unit.HasStatusBits(_combatActionWeaks[combatActionId]);
+
         }
     }
 }

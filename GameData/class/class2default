@@ -54,12 +54,17 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 17,
+      "EntityId": 18,
       "Quantity": 1
     },
     {
       "EntityTypeId": 31,
       "EntityId": 63,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 16,
       "Quantity": 1
     },
     {
@@ -94,6 +99,6 @@
       "EquipSlotId": 18
     }
   ],
-  "UpdateTime": "2024-06-08T00:54:15.181Z",
+  "UpdateTime": "2024-06-17T01:15:45.934Z",
   "CreateTime": "2024-01-28T00:57:37Z"
 }

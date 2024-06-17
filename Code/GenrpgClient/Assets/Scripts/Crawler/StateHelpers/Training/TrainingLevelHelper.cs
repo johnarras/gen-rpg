@@ -1,14 +1,8 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Services.Training;
-using Assets.Scripts.Crawler.StateHelpers.Selection.Entities;
 using Assets.Scripts.UI.Crawler.States;
 
-using Genrpg.Shared.Crawler.Combat.Utils;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;

@@ -2,8 +2,8 @@
   "Id": "statuseffect17default",
   "ParentId": "default",
   "IdKey": 17,
-  "Name": "Weak",
+  "Name": "Multiply",
   "Abbrev": "Weak",
-  "UpdateTime": "2024-02-25T15:48:20.904Z",
+  "UpdateTime": "2024-06-16T18:56:44.787Z",
   "CreateTime": "2024-01-28T00:41:15.745Z"
 }

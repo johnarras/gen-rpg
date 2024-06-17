@@ -2,8 +2,17 @@
   "Id": "statuseffect9default",
   "ParentId": "default",
   "IdKey": 9,
-  "Name": "Petrified",
+  "Name": "Rooted",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
   "Abbrev": "PEtr",
-  "UpdateTime": "2024-02-25T15:48:21.867Z",
-  "CreateTime": "2024-01-27T17:52:56.657Z"
+  "ActionEffects": [
+    {
+      "CombatActionId": 1,
+      "Effect": 3
+    }
+  ],
+  "UpdateTime": "2024-06-16T20:25:43.901Z",
+  "CreateTime": "2024-01-27T23:52:56Z"
 }

@@ -1,0 +1,110 @@
+{
+  "Id": "crawlerspell57default",
+  "ParentId": "default",
+  "IdKey": 57,
+  "Name": "Full Cure Party",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 90,
+  "MaxRange": 100,
+  "ReplacesCrawlerSpellId": 56,
+  "CombatActionId": 4,
+  "TargetTypeId": 5,
+  "Level": 21,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 1,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 2,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 3,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 4,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 5,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 6,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 7,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 8,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 9,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 10,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 11,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 12,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 13,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    }
+  ],
+  "UpdateTime": "2024-06-16T19:10:35.568Z",
+  "CreateTime": "2024-01-28T21:17:33Z"
+}

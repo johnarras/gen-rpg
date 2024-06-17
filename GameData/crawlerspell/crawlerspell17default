@@ -2,7 +2,7 @@
   "Id": "crawlerspell17default",
   "ParentId": "default",
   "IdKey": 17,
-  "Name": "Phase Door",
+  "Name": "Town Portal",
   "Desc": "",
   "Icon": "",
   "Art": "",
@@ -10,14 +10,14 @@
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 8,
-  "Level": 12,
+  "Level": 11,
   "Effects": [
     {
       "EntityTypeId": 37,
-      "EntityId": 2,
+      "EntityId": 1,
       "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-06-10T00:16:05.49Z",
-  "CreateTime": "2024-01-28T05:48:08Z"
+  "UpdateTime": "2024-06-16T19:14:01.46Z",
+  "CreateTime": "2024-01-28T05:43:55Z"
 }

@@ -39,7 +39,7 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 16,
+      "EntityId": 17,
       "Quantity": 1
     },
     {
@@ -113,6 +113,6 @@
       "EquipSlotId": 19
     }
   ],
-  "UpdateTime": "2024-06-08T00:54:15.184Z",
+  "UpdateTime": "2024-06-17T01:15:45.937Z",
   "CreateTime": "2024-01-28T06:57:37Z"
 }

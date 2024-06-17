@@ -2,8 +2,17 @@
   "Id": "statuseffect13default",
   "ParentId": "default",
   "IdKey": 13,
-  "Name": "Hidden",
+  "Name": "Petrified",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
   "Abbrev": "Hide",
-  "UpdateTime": "2024-02-25T15:48:20.494Z",
-  "CreateTime": "2024-01-27T20:57:02.191Z"
+  "ActionEffects": [
+    {
+      "CombatActionId": 6,
+      "Effect": 2
+    }
+  ],
+  "UpdateTime": "2024-06-16T20:25:43.906Z",
+  "CreateTime": "2024-01-28T02:57:02Z"
 }

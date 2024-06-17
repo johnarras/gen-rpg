@@ -2,8 +2,17 @@
   "Id": "statuseffect12default",
   "ParentId": "default",
   "IdKey": 12,
-  "Name": "Feared",
+  "Name": "Stunned",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
   "Abbrev": "Fear",
-  "UpdateTime": "2024-02-25T15:48:20.397Z",
-  "CreateTime": "2024-01-27T17:52:56.665Z"
+  "ActionEffects": [
+    {
+      "CombatActionId": 6,
+      "Effect": 2
+    }
+  ],
+  "UpdateTime": "2024-06-16T20:25:43.904Z",
+  "CreateTime": "2024-01-27T23:52:56Z"
 }

@@ -2,7 +2,7 @@
   "Id": "crawlerspell13default",
   "ParentId": "default",
   "IdKey": 13,
-  "Name": "Major Cleanse",
+  "Name": "Greater Cure",
   "Desc": "",
   "Icon": "",
   "Art": "",
@@ -10,9 +10,8 @@
   "MaxRange": 100,
   "ReplacesCrawlerSpellId": 12,
   "CombatActionId": 4,
-  "ClassId": 4,
   "TargetTypeId": 2,
-  "Level": 15,
+  "Level": 13,
   "Effects": [
     {
       "EntityTypeId": 36,
@@ -44,6 +43,13 @@
     },
     {
       "EntityTypeId": 36,
+      "EntityId": 5,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
       "EntityId": 6,
       "MinQuantity": -1,
       "MaxQuantity": -1,
@@ -65,7 +71,7 @@
     },
     {
       "EntityTypeId": 36,
-      "EntityId": 5,
+      "EntityId": 9,
       "MinQuantity": -1,
       "MaxQuantity": -1,
       "ElementTypeId": 7
@@ -78,6 +84,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-02-25T15:46:23.017Z",
-  "CreateTime": "2024-01-28T15:17:33Z"
+  "UpdateTime": "2024-06-16T19:10:35.586Z",
+  "CreateTime": "2024-01-28T21:17:33Z"
 }

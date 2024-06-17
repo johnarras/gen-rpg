@@ -2,22 +2,25 @@
   "Id": "crawlerspell16default",
   "ParentId": "default",
   "IdKey": 16,
-  "Name": "Town Portal",
+  "Name": "Holy Nova",
   "Desc": "",
   "Icon": "",
   "Art": "",
-  "PowerCost": 100,
+  "PowerCost": 30,
+  "PowerPerLevel": 1,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 8,
-  "Level": 11,
+  "TargetTypeId": 3,
+  "Level": 14,
   "Effects": [
     {
-      "EntityTypeId": 37,
-      "EntityId": 1,
-      "ElementTypeId": 9
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-06-10T00:16:05.488Z",
-  "CreateTime": "2024-01-28T05:43:55Z"
+  "UpdateTime": "2024-06-16T18:46:05.386Z",
+  "CreateTime": "2024-01-28T15:21:51Z"
 }

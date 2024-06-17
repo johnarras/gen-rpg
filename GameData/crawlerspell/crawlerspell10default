@@ -2,14 +2,13 @@
   "Id": "crawlerspell10default",
   "ParentId": "default",
   "IdKey": 10,
-  "Name": "Minor Cleanse",
+  "Name": "Minor Cure",
   "Desc": "",
   "Icon": "",
   "Art": "",
   "PowerCost": 30,
   "MaxRange": 100,
   "CombatActionId": 4,
-  "ClassId": 4,
   "TargetTypeId": 2,
   "Level": 1,
   "Effects": [
@@ -28,6 +27,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-02-25T15:46:22.684Z",
-  "CreateTime": "2024-01-28T03:17:33Z"
+  "UpdateTime": "2024-06-16T19:10:35.578Z",
+  "CreateTime": "2024-01-28T21:17:33Z"
 }

@@ -2,8 +2,17 @@
   "Id": "statuseffect7default",
   "ParentId": "default",
   "IdKey": 7,
-  "Name": "Insane",
+  "Name": "Jittery",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
   "Abbrev": "Insa",
-  "UpdateTime": "2024-02-25T15:48:21.677Z",
-  "CreateTime": "2024-01-27T17:52:56.65Z"
+  "ActionEffects": [
+    {
+      "CombatActionId": 3,
+      "Effect": 1
+    }
+  ],
+  "UpdateTime": "2024-06-16T20:25:43.894Z",
+  "CreateTime": "2024-01-27T23:52:56Z"
 }

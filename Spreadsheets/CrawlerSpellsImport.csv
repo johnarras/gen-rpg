@@ -1,5 +1,5 @@
 ,,Warrior,Thief,Hunter,Mage,Cleric,Engineer,Bard,Druid,Barbarian,Paladin,Elementalist
-Count,,7,9,11,15,13,16,14,22,8,11,17
+Count,,8,10,11,17,22,18,20,31,9,21,25
 HealthPerLevel,,20,12,14,6,8,16,14,16,16,18,12
 ManaPerLevel,,6,6,10,20,20,12,12,12,6,15,18
 LevelsPerMelee,,4,6,8,12,12,5,7,6,3,4,8
@@ -29,8 +29,9 @@ Blink,2,,,,,x,,,x,,,
 Phase Door,4,,x,,x,,x,,x,,,
 Armor,4,x,,,,x,,x,,,x,
 Resist,3,,,,x,,,,x,,,x
-Hit,3,x,,x,,,x,,,,,
-Speed,3,,x,,,,,,x,x,,
+Hit,4,x,,x,,,x,,,x,,
+Speed,5,x,x,,,,,,x,x,,x
+Luck,4,,x,,,x,,x,,,x,
 HealthRegen,4,x,,,,x,x,,,,x,
 ManaRegen,3,,,,x,,,,x,,,x
 Leadership,3,x,,,,,,x,,,x,
@@ -43,10 +44,8 @@ Mapping,4,,,x,x,,,x,x,,,
 Charge,3,x,,,,,x,,,x,,
 Heal Wounds,6,,,,,x,x,x,x,,x,x
 Heal Party,1,,,,,x,,,,,,
-Cleanse,6,,,,,x,x,x,x,,x,x
-Cleanse Party,2,,,,,x,x,,,,,
 Fireball,3,,,,x,,,x,,,,x
-Firestorm,2,,,,x,,,,,,,x
+Flamestrike,2,,,,x,,,,,,,x
 Frostbolt,2,,,,x,,,,,,,x
 Cone of Cold,2,,,,x,,,,,,,x
 Lightning Bolt,2,,,,,,,,x,,,x
@@ -59,4 +58,18 @@ Entangle,,,,x,,,,,x,,,
 Identify Item,,,x,,x,,x,,,,,
 Call Beast,,,,x,,,,,,,,
 Conjure Golem,,,,,x,,,,,,,
-Summon Elemental,,,,,,,,,,,,x
+Summon Elemental,,,,,,,,,,,x,x
+Holy Storm,,,,,,,,,,,,
+Lightning Storm,,,,,,,,,,,,x
+Firestorm,,,,,x,,,,,,,
+Blizzard,,,,,x,,,,,,,
+Minor Cure,6,,,,,x,x,x,x,,x,x
+Lesser Cure,6,,,,,x,x,x,x,,x,x
+Cure,6,,,,,x,x,x,x,,x,x
+Greater Cure,5,,,,,x,,x,x,,x,x
+Full Cure,3,,,,,x,,,x,,x, 
+Minor Cure Party,6,,,,,x,x,x,x,,x,x
+Lesser Cure Party,5,,,,,x,,x,x,,x,x
+Cure Party,4,,,,,x,,,x,,x,x
+Greater Cure Party,3,,,,,x,,,x,,x,
+Full Cure Party,2,,,,,x,,,x,,, 

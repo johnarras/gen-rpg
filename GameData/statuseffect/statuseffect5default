@@ -2,8 +2,17 @@
   "Id": "statuseffect5default",
   "ParentId": "default",
   "IdKey": 5,
-  "Name": "Stunned",
+  "Name": "Weak",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
   "Abbrev": "Stun",
-  "UpdateTime": "2024-02-25T15:48:21.482Z",
-  "CreateTime": "2024-01-27T17:52:56.645Z"
+  "ActionEffects": [
+    {
+      "CombatActionId": 1,
+      "Effect": 1
+    }
+  ],
+  "UpdateTime": "2024-06-16T20:25:43.89Z",
+  "CreateTime": "2024-01-28T05:52:56Z"
 }

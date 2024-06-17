@@ -48,6 +48,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
 using Microsoft.Extensions.Azure;
 using ZstdSharp.Unsafe;
+using Genrpg.Shared.Names.Settings;
 
 namespace GameEditor
 {
@@ -794,11 +795,20 @@ namespace GameEditor
                     }
 
 
-                    missingWords += words[0] + " ";
+                    if (words[0].ToLower() != "count")
+                    {
+                        missingWords += words[0] + " -- ";
+                    }
                 }
 
+                if (!string.IsNullOrWhiteSpace(missingWords))
+                {
 
-                Console.WriteLine(missingWords);
+                    DialogResult result = MessageBox.Show(missingWords, "Missing Words, Import Aborted:", MessageBoxButtons.OK);
+
+                    _gs.LookedAtObjects.Clear();
+                    return;
+                }
 
                 foreach (object obj in _gs.LookedAtObjects)
                 {

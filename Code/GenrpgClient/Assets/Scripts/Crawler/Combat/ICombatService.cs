@@ -27,6 +27,9 @@ namespace Assets.Scripts.Crawler.Services.Combat
         void EndCombatRound(PartyData party);
         bool SetMonsterActions(PartyData party);
         bool ReadyForCombat(PartyData party);
+        bool IsDisabled(CrawlerUnit unit);
+        bool IsActionBlocked(CrawlerUnit unit, long combatActionId);
+        bool IsActionWeak(CrawlerUnit unit, long combatActionId);
         List<UnitAction> GetActionsForPlayer(PartyData party, CrawlerUnit unit);
         UnitAction GetActionFromSpell(PartyData party, CrawlerUnit unit, CrawlerSpell spell,
             List<UnitAction> currentActions = null);

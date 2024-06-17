@@ -64,7 +64,7 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 16,
+      "EntityId": 17,
       "Quantity": 1
     },
     {
@@ -79,7 +79,7 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 17,
+      "EntityId": 18,
       "Quantity": 1
     },
     {
@@ -119,11 +119,6 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 12,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
       "EntityId": 31,
       "Quantity": 1
     },
@@ -141,6 +136,56 @@
       "EntityTypeId": 100,
       "EntityId": 24,
       "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 11,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 12,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 13,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 14,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 53,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 54,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 55,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 56,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 57,
+      "Quantity": 1
     }
   ],
   "AllowedWeapons": [
@@ -155,6 +200,6 @@
     }
   ],
   "AllowedEquipSlots": [],
-  "UpdateTime": "2024-06-08T00:54:15.197Z",
+  "UpdateTime": "2024-06-17T01:15:45.952Z",
   "CreateTime": "2024-01-27T12:57:37Z"
 }

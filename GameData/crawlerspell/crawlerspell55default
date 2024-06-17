@@ -1,0 +1,68 @@
+{
+  "Id": "crawlerspell55default",
+  "ParentId": "default",
+  "IdKey": 55,
+  "Name": "Cure Party",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 90,
+  "MaxRange": 100,
+  "ReplacesCrawlerSpellId": 54,
+  "CombatActionId": 4,
+  "TargetTypeId": 5,
+  "Level": 13,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 1,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 2,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 3,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 4,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 5,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 6,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 7,
+      "MinQuantity": -1,
+      "MaxQuantity": -1,
+      "ElementTypeId": 7
+    }
+  ],
+  "UpdateTime": "2024-06-16T19:10:35.576Z",
+  "CreateTime": "2024-01-28T21:17:33Z"
+}

@@ -1,0 +1,10 @@
+{
+  "Id": "statuseffect20default",
+  "ParentId": "default",
+  "IdKey": 20,
+  "Name": "Hidden",
+  "Abbrev": "Taunt",
+  "ActionEffects": [],
+  "UpdateTime": "2024-06-16T20:08:25.294Z",
+  "CreateTime": "2024-01-27T21:00:28.109Z"
+}

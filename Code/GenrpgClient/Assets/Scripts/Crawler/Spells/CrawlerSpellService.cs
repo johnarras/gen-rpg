@@ -1,40 +1,31 @@
 ﻿using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.ProcGen.RandomNumbers;
-using ClientEvents;
-
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Combat.Settings;
-using Genrpg.Shared.Crawler.Combat.Utils;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Constants;
 using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.Spells.Utils;
 using Genrpg.Shared.Crawler.Stats.Utils;
-using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
-using Genrpg.Shared.Factions.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Inventory.Settings.LootRanks;
 using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Spells.Procs.Entities;
 using Genrpg.Shared.Spells.Procs.Interfaces;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Spells.Settings.Elements;
-using Genrpg.Shared.Spells.Settings.Spells;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.UnitEffects.Constants;
 using Genrpg.Shared.UnitEffects.Settings;
@@ -85,6 +76,10 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             List<Class> classes = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
 
+            if (_combatService.IsDisabled(member))
+            {
+                return okSpells;
+            }
 
             foreach (CrawlerSpell spell in castSpells)
             {
@@ -104,6 +99,11 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 }
 
                 if (spell.RequiredStatusEffectId > 0 && !member.StatusEffects.HasBit(spell.RequiredStatusEffectId))
+                {
+                    continue;
+                }
+
+                if (_combatService.IsActionBlocked(member, spell.CombatActionId))
                 {
                     continue;
                 }
@@ -445,24 +445,18 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     return;
                 }
 
-                if (!CombatUtils.CanPerformAction(action.Caster))
+                if (_combatService.IsDisabled(action.Caster))
                 {
+                    await ShowText(party, $"{action.Caster.Name} is disabled!", displayDelay);
                     return;
                 }
 
-                if (action.Spell.CombatActionId == CombatActions.Cast && 
-                    action.Caster.StatusEffects.HasBit(StatusEffects.Silenced))
+                if (_combatService.IsActionBlocked(action.Caster, action.Spell.CombatActionId))
                 {
-                    await ShowText(party, $"{action.Caster.Name} is Silenced!", displayDelay);
+                    await ShowText (party, $"{action.Caster.Name} was blocked from performing that action!", displayDelay);
                     return;
                 }
 
-                if (action.Spell.CombatActionId == CombatActions.Attack &&
-                    action.Caster.StatusEffects.HasBit(StatusEffects.Rooted))
-                {
-                    await ShowText(party, $"{action.Caster.Name} is Rooted!", displayDelay);
-                    return;
-                }
 
                 FullSpell fullSpell = GetFullSpell(action.Caster, action.Spell, overrideLevel);
                 
@@ -603,6 +597,11 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 isSingleTarget = false;
             }
 
+            if (caster.StatusEffects.HasBit(StatusEffects.Cursed))
+            {
+                spell.HitsLeft = Math.Max(1, spell.HitsLeft / 2);
+            }
+
             bool isEnemyTarget = CrawlerSpellUtils.IsEnemyTarget(spell.Spell.TargetTypeId);
 
             if (isEnemyTarget && target.StatusEffects.HasBit(StatusEffects.Dead))
@@ -633,7 +632,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             long totalDamage = 0;
             long totalHealing = 0;
 
-
             int currHitTimes = 0;
             long newQuantity = 0;
             string fullAction = null;
@@ -641,8 +639,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             long casterHit = caster.Stats.Max(StatTypes.Hit);
             CrawlerUnit healTarget = target;
 
-            bool casterIsWeak = caster.StatusEffects.HasBit(StatusEffects.Weak);
-            bool casterIsFeebleMind = caster.StatusEffects.HasBit(StatusEffects.FeebleMind);
+            bool casterIsWeakened = _combatService.IsActionWeak(caster, spell.Spell.CombatActionId);
 
             Dictionary<string,ActionListItem> actionList = new Dictionary<string,ActionListItem>();
 
@@ -662,6 +659,20 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     CrawlerSpellEffect effect = fullEffect.Effect;
                     OneEffect hit = fullEffect.Hit;
 
+                    long finalMinQuantity = effect.MinQuantity;
+                    long finalMaxQuantity = effect.MaxQuantity;
+
+                    if (caster.StatusEffects.HasBit(StatusEffects.Poisoned))
+                    {
+                        finalMinQuantity = Math.Max(1, finalMinQuantity * 3 / 4);
+                        finalMaxQuantity = Math.Max(1, finalMaxQuantity * 3 / 4);
+                    }
+                    if (caster.StatusEffects.HasBit(StatusEffects.Diseased))
+                    {
+                        finalMinQuantity = Math.Max(1, finalMinQuantity * 3 / 4);
+                        finalMaxQuantity = Math.Max(1, finalMaxQuantity * 3 / 4);
+                    }
+
                     if (_rand.NextDouble()*100 > fullEffect.PercentChance)
                     {
                         continue;
@@ -677,7 +688,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         }
 
                         if (target.DefendRank == EDefendRanks.None && hit.CritChance > 0 &&
-                            _rand.NextDouble() * 100 < hit.CritChance)
+                            _rand.NextDouble() * 100 < hit.CritChance && !casterIsWeakened)
                         {
                             newQuantity = target.Stats.Curr(StatTypes.Health);
                             AddToActionDict(actionList, "CRITS!", newQuantity);
@@ -686,22 +697,15 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         else
                         {
                             long defenseStatId = StatTypes.Armor;
-                            long mult = 1;
-                            newQuantity = MathUtils.LongRange(hit.MinQuantity * mult, hit.MaxQuantity * mult, _rand);
-                             if (effect.EntityTypeId == EntityTypes.Damage)
+                            newQuantity = MathUtils.LongRange(finalMinQuantity, finalMaxQuantity, _rand);
+                            if (effect.EntityTypeId == EntityTypes.Damage)
                             {
                                 defenseStatId = StatTypes.Resist;
-                                if (casterIsFeebleMind)
-                                {
-                                    newQuantity = Math.Max(1, newQuantity / 2);
-                                }
                             }
-                            else
+
+                            if (casterIsWeakened)
                             {
-                                if (casterIsWeak)
-                                {
-                                    newQuantity = Math.Max(1, newQuantity / 2);
-                                }
+                                newQuantity = Math.Max(1, newQuantity / 2);
                             }
 
                             double damageScale = 1.0f;
@@ -766,7 +770,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                         if (party.Combat != null)
                         {
-                            long quantity = MathUtils.LongRange(effect.MinQuantity, effect.MaxQuantity, _rand);
+                            long quantity = MathUtils.LongRange(finalMinQuantity, finalMaxQuantity, _rand);
                             _combatService.AddCombatUnits(party, unitType, quantity, caster.FactionTypeId);
 
 
@@ -788,10 +792,9 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         {
                             break;
                         }
-                        long mult = (isSingleTarget || !fullEffect.InitialEffect ? 1 : spell.Level);
-                        newQuantity += MathUtils.LongRange(hit.MinQuantity * mult, hit.MaxQuantity * mult, _rand);
+                        newQuantity += MathUtils.LongRange(finalMinQuantity, finalMaxQuantity, _rand);
 
-                        if (casterIsFeebleMind)
+                        if (casterIsWeakened)
                         {
                             newQuantity = Math.Max(1, newQuantity / 2);
                         }
@@ -813,10 +816,11 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     }
                     else if (currHitTimes == 0)
                     {
-                        if (casterIsFeebleMind && _rand.NextDouble() < 0.5f)
+                        if (casterIsWeakened && _rand.NextDouble() < 0.5f)
                         {
                             continue;
                         }
+
                         if (effect.EntityTypeId == EntityTypes.StatusEffect)
                         {
                             StatusEffect statusEffect = _gameData.Get<StatusEffectSettings>(null).Get(effect.EntityId);

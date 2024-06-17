@@ -64,12 +64,17 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 16,
+      "EntityId": 17,
       "Quantity": 1
     },
     {
       "EntityTypeId": 31,
       "EntityId": 31,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 16,
       "Quantity": 1
     },
     {
@@ -94,12 +99,37 @@
     },
     {
       "EntityTypeId": 100,
+      "EntityId": 27,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 11,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
       "EntityId": 12,
       "Quantity": 1
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 27,
+      "EntityId": 13,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 53,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 54,
       "Quantity": 1
     }
   ],
@@ -115,6 +145,6 @@
     }
   ],
   "AllowedEquipSlots": [],
-  "UpdateTime": "2024-06-08T00:54:15.194Z",
+  "UpdateTime": "2024-06-17T01:15:45.949Z",
   "CreateTime": "2024-01-27T12:57:37Z"
 }
