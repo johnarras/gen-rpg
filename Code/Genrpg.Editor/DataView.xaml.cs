@@ -62,11 +62,10 @@ namespace Genrpg.Editor
         public Button CopyButton = null;
         public Button DetailsButton = null;
         protected MyCanvas _singleGrid = null;
-        protected MyDataGrid _multiGrid = null;
+        protected DataGrid _multiGrid = null;
 
         private TypeMetaData _typeMetaData = null;
 
-        private UserControlFactory _factory = new UserControlFactory();
 
         public const int MaxButtonsPerRow = 8;
         public const int SingleItemWidth = 120;
@@ -223,7 +222,7 @@ namespace Genrpg.Editor
             }
             int sx = _window.Width - 16;
             int sy = _window.Height - SingleItemTopPad - 37;
-            _multiGrid = UIHelper.CreateDataGridView(_gs, this, "MultiGrid", (int)Width - 16, (int)Height - SingleItemHeight - 37,
+            _multiGrid = UIHelper.CreateDataGridView(this, "MultiGrid", (int)Width - 16, (int)Height - SingleItemHeight - 37,
                 0, SingleItemTopPad);
 
 
@@ -823,7 +822,7 @@ namespace Genrpg.Editor
                 Int32.TryParse(szVal.ToString(), out sz);
             }
 
-          
+            UserControlFactory dvf = new UserControlFactory();
 
             MethodInfo readMethod = arrType.GetMethod("GetValue", new[] { typeof(Int32) });
 
@@ -867,7 +866,7 @@ namespace Genrpg.Editor
             {
                 if (currObject != null)
                 {
-                    UserControl dv = _factory.Create(_gs, _window, currObject, datalist, Obj, this);
+                    UserControl dv = dvf.Create(_gs, _window, currObject, datalist, Obj, this);
                 }
                 return;
             }
@@ -875,7 +874,7 @@ namespace Genrpg.Editor
             // Go to list
             if (ctrlIsDown)
             {
-                UserControl uc = _factory.Create(_gs, _window, datalist, Obj, _parent, this);
+                UserControl uc = dvf.Create(_gs, _window, datalist, Obj, _parent, this);
                 DataView dv = uc as DataView;
                 if (dv != null)
                 {
@@ -900,7 +899,7 @@ namespace Genrpg.Editor
                             _gameData.Set(settings);
                         }
                     }
-                    UserControl uc = _factory.Create(_gs, _window, newObj, datalist, this, this);
+                    UserControl uc = dvf.Create(_gs, _window, newObj, datalist, this, this);
                     object idObj = _reflectionService.GetObjectValue(newObj, GameDataConstants.IdKey);
                     int nid = -1;
                     if (idObj != null)
@@ -1198,7 +1197,8 @@ namespace Genrpg.Editor
         private void OnClickSingleObjectButton(object childObj)
         {
             SaveChanges();
-            UserControl view = _factory.Create(_gs, _window, childObj, Obj, _parent, this);
+            UserControlFactory ucf = new UserControlFactory();
+            UserControl view = ucf.Create(_gs, _window, childObj, Obj, _parent, this);
 
         }
 
@@ -1248,7 +1248,8 @@ namespace Genrpg.Editor
             }
 
             SaveChanges();
-            UserControl view = _factory.Create(_gs, _window, childObj, Obj, _parent, this);
+            UserControlFactory ucf = new UserControlFactory();
+            UserControl view = ucf.Create(_gs, _window, childObj, Obj, _parent, this);
 
         }
 
@@ -1419,17 +1420,19 @@ namespace Genrpg.Editor
                 return;
             }
 
-            UserControl uc = _factory.Create(_gs, _window, item, this, this, this);
+            UserControlFactory ucf = new UserControlFactory();
+            UserControl uc = ucf.Create(_gs, _window, item, this, this, this);
         }
 
-        public int GetSelectedRow(DataGrid dataGrid)
+        public int GetSelectedRow(DataGrid dgv)
         {
-            if (dataGrid == null)
+            if (dgv == null)
             {
                 return -1;
             }
 
-            IList rows = dataGrid.SelectedItems;
+
+            IList rows = dgv.SelectedItems;
 
             if (rows == null || rows.Count < 1)
             {
@@ -1439,7 +1442,7 @@ namespace Genrpg.Editor
             object row = rows[0];
 
             int index = 0;
-            foreach (object item in dataGrid.ItemsSource)
+            foreach (object item in dgv.ItemsSource)
             {
                 object row2 = item;
 

@@ -12,7 +12,6 @@ using System;
 using MongoDB.Driver;
 using System.Net.Http.Headers;
 using Genrpg.Shared.ProcGen.Settings.MapWater;
-using Genrpg.Editor.Entities.Core;
 
 namespace Genrpg.Editor.UI
 {
@@ -115,10 +114,10 @@ namespace Genrpg.Editor.UI
             Canvas.SetTop(elem, y);
         }
 
-        public static MyDataGrid CreateDataGridView(EditorGameState gs, IUICanvas canvas,
+        public static DataGrid CreateDataGridView(IUICanvas canvas,
             string name, double width, double height, double xpos, double ypos)
         {
-            MyDataGrid dataGridView = new MyDataGrid(gs)
+            DataGrid dataGridView = new DataGrid()
             {
                 Name = name,
                 Width = width,

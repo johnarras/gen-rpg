@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\AppConfig\App.config" Link="App.config" />
+    <None Include="..\..\AppConfig\App.config" Link="App.config" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&#xD;&#xA;copy $(SolutionDir)AppConfig\App.config $(TargetDir)\testhost.dll.config" />
+    <Exec Command="&#xD;&#xA;copy $(SolutionDir)..\AppConfig\App.config $(TargetDir)\testhost.dll.config" />
   </Target>
 
 </Project>

@@ -27,9 +27,7 @@ namespace Genrpg.Editor
         private DataWindow _win = null;
         private TextBox _queryInput = null;
         private ComboBox _queryType = null;
-        private MyDataGrid Grid = null;
-
-        private UserControlFactory _factory = null;
+        private DataGrid Grid = null;
 
         private Canvas _canvas = new Canvas();
         public void Add(UIElement elem, double x, double y)
@@ -108,11 +106,11 @@ namespace Genrpg.Editor
 
             UIHelper.CreateButton(this, EButtonTypes.TopBar, "DeleteButton", "Delete", width, height, currX, ypos, OnClickDelete);
 
-            Grid = UIHelper.CreateDataGridView(_gs, this, "UserGrid", _win.Width - 17, _win.Height - 180, 0, 140);
+            Grid = UIHelper.CreateDataGridView(this, "UserGrid", _win.Width - 17, _win.Height - 180, 0, 140);
         }
         private void OnClickClear(object sender, RoutedEventArgs e)
         {
-            Grid.SelectedItems.Clear();
+            Grid.ItemsSource = null;
         }
 
         private void OnClickDetails(object sender, RoutedEventArgs e)
@@ -125,6 +123,11 @@ namespace Genrpg.Editor
                 return;
             }
 
+            if (_gs == null || _gs.loc == null)
+            {
+                return;
+            }
+
             SmallPopup form = UIHelper.ShowBlockingDialog(_win, "Loading user data");
             Task.Run(() => EditorPlayerUtils.LoadEditorUserData(_gs, _repoService, acct.Id)).GetAwaiter().GetResult();
             form.StartClose();
@@ -133,7 +136,9 @@ namespace Genrpg.Editor
                 UIHelper.ShowMessageBox(_win, "User Not Found").Wait();
                 return;
             }
-            UserControl view = _factory.Create(_gs, _win, _gs.EditorUser, null, null, null);
+
+            UserControlFactory ucf = new UserControlFactory();
+            UserControl view = ucf.Create(_gs, _win, _gs.EditorUser, null, null, null);
 
 
         }

@@ -671,7 +671,7 @@ namespace Genrpg.Editor
 
                 strExeFilePath = strExeFilePath.Substring(0, lastSlashIndex);
 
-                string fullFilePath = strExeFilePath + "\\..\\..\\..\\..\\..\\Spreadsheets\\CrawlerSpellsImport.csv";
+                string fullFilePath = strExeFilePath + "\\..\\..\\..\\..\\..\\..\\..\\Spreadsheets\\CrawlerSpellsImport.csv";
 
                 string text = File.ReadAllText(fullFilePath);
 
@@ -687,7 +687,7 @@ namespace Genrpg.Editor
 
                 for (int s = 0; s < firstLine.Length; s++)
                 {
-                    topRow[s] = classes.FirstOrDefault(x => x.Name == firstLine[s]);
+                    topRow[s] = classes.FirstOrDefault(x => x.Name == firstLine[s].Trim());
                     if (topRow[s] != null)
                     {
                         _gs.LookedAtObjects.Add(topRow[s]);
@@ -708,7 +708,7 @@ namespace Genrpg.Editor
                 {
                     string[] words = lines[line].Split(',');
 
-                    if (words.Length < 2 || string.IsNullOrEmpty(words[0]))
+                    if (words.Length < 2 || string.IsNullOrEmpty(words[0].Trim()))
                     {
                         continue;
                     }
@@ -727,7 +727,7 @@ namespace Genrpg.Editor
                         continue;
                     }
 
-                    StatType statType = statTypes.FirstOrDefault(x => x.Name == words[0]);
+                    StatType statType = statTypes.FirstOrDefault(x => x.Name == words[0].Trim());
 
                     if (statType != null)
                     {

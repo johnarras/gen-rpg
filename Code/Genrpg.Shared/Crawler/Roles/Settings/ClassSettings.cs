@@ -49,16 +49,17 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
         [Key(9)] public int LevelsPerRanged { get; set; }
         [Key(10)] public int LevelsPerDamage { get; set; }
         [Key(11)] public int LevelsPerHeal { get; set; }
-        [Key(12)] public int HealthPerLevel { get; set; }
-        [Key(13)] public int ManaPerLevel { get; set; }
-        [Key(14)] public long MaxArmorScalingTypeId { get; set; }
-        [Key(15)] public long CritPercent { get; set; } = 0; 
-        [Key(16)] public long ManaStatTypeId { get; set; }
+        [Key(12)] public int LevelsPerSummon { get; set; }
+        [Key(13)] public int HealthPerLevel { get; set; }
+        [Key(14)] public int ManaPerLevel { get; set; }
+        [Key(15)] public long MaxArmorScalingTypeId { get; set; }
+        [Key(16)] public long CritPercent { get; set; } = 0; 
+        [Key(17)] public long ManaStatTypeId { get; set; }
 
-        [Key(17)] public List<ClassBonus> Bonuses { get; set; } = new List<ClassBonus>();
+        [Key(18)] public List<ClassBonus> Bonuses { get; set; } = new List<ClassBonus>();
 
-        [Key(18)] public List<AllowedWeapon> AllowedWeapons { get; set; } = new List<AllowedWeapon>();
-        [Key(19)] public List<AllowedEquipSlot> AllowedEquipSlots { get; set; } = new List<AllowedEquipSlot>();
+        [Key(19)] public List<AllowedWeapon> AllowedWeapons { get; set; } = new List<AllowedWeapon>();
+        [Key(20)] public List<AllowedEquipSlot> AllowedEquipSlots { get; set; } = new List<AllowedEquipSlot>();
 
     }
 

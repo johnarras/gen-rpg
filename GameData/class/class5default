@@ -11,6 +11,7 @@
   "LevelsPerRanged": 12,
   "LevelsPerDamage": 2,
   "LevelsPerHeal": 8,
+  "LevelsPerSummon": 6,
   "HealthPerLevel": 6,
   "ManaPerLevel": 20,
   "MaxArmorScalingTypeId": 1,
@@ -130,6 +131,6 @@
     }
   ],
   "AllowedEquipSlots": [],
-  "UpdateTime": "2024-06-17T01:15:45.94Z",
+  "UpdateTime": "2024-06-23T17:15:10.731Z",
   "CreateTime": "2024-01-27T12:57:37Z"
 }

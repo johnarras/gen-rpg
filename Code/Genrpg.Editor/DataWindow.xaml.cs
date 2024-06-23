@@ -40,8 +40,6 @@ namespace Genrpg.Editor
         public String action = "";
         private Window _parentForm;
 
-        private UserControlFactory _factory = new UserControlFactory();
-
 
         int width = 1600;
         int height = 900;
@@ -88,6 +86,7 @@ namespace Genrpg.Editor
         }
         public void AddView(String action)
         {
+            UserControlFactory ucf = new UserControlFactory();
             UserControl view = null;
             if (action == "Users")
             {
@@ -95,11 +94,11 @@ namespace Genrpg.Editor
             }
             else if (action == "Data")
             {
-                view = _factory.Create(gs, this, obj, null, null, null);
+                view = ucf.Create(gs, this, obj, null, null, null);
             }
             else if (action == "Map")
             {
-                view = _factory.Create(gs, this, obj, null, null, null);
+                view = ucf.Create(gs, this, obj, null, null, null);
             }
             else if (action == "CopyToTest")
             {

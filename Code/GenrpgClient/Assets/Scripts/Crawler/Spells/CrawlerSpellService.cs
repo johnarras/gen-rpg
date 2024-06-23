@@ -768,10 +768,9 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                         if (party.Combat != null)
                         {
+                            
                             long quantity = MathUtils.LongRange(finalMinQuantity, finalMaxQuantity, _rand);
                             _combatService.AddCombatUnits(party, unitType, quantity, caster.FactionTypeId);
-
-
                         }
                         else if (partyMember != null)
                         {

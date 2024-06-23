@@ -6,6 +6,7 @@ using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Constants;
 using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Services;
@@ -65,6 +66,11 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
                     if (unitType != null)
                     {
+
+                        List<Class> classes = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
+
+                        long quantity = (long)(1 + classes.Sum(x => 1.0f / x.LevelsPerSummon)) * (member.GetAbilityLevel());
+                                
                         AddCombatUnits(partyData, unitType, 1, FactionTypes.Player);
                     }
                 }
