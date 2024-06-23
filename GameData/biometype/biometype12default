@@ -1,0 +1,12 @@
+{
+  "Id": "biometype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "PointOfInterest",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MinLevel": 1000,
+  "UpdateTime": "2024-06-22T17:58:59.87Z",
+  "CreateTime": "2024-06-22T17:58:59.869Z"
+}

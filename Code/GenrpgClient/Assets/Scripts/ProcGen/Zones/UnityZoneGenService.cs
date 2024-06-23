@@ -62,7 +62,7 @@ public class UnityZoneGenService : ZoneGenService
                 tokenService.SetMapToken(_mapToken);
             }
         }
-        InnerGenerate(worldId, _mapToken);
+        AwaitableUtils.ForgetAwaitable(InnerGenerate(worldId, _mapToken));
     }
 
     protected async Awaitable InnerGenerate(string worldId, CancellationToken token)
@@ -385,7 +385,7 @@ public class UnityZoneGenService : ZoneGenService
                 }
 
 
-                SetOnePatchAlphamaps(patch, token);
+                AwaitableUtils.ForgetAwaitable(SetOnePatchAlphamaps(patch, token));
             }
         }
 

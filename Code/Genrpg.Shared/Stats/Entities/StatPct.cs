@@ -13,5 +13,6 @@ namespace Genrpg.Shared.Stats.Entities
     {
         [Key(0)] public long StatTypeId { get; set; }
         [Key(1)] public int Percent { get; set; }
+        [Key(2)] public string Name { get; set; }
     }
 }

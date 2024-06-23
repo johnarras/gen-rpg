@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Dungeons;
 
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             partyData.MapZ = mapData.MapZ;
             partyData.MapRot = mapData.MapRot;
 
-            CrawlerMap cmap = GenerateMap(mapData.MapId);
+            CrawlerMap cmap = mapData.Map;
 
             GameObject go = new GameObject() { name = "Dungeon" };
             CrawlerMapRoot mapRoot = _gameObjectService.GetOrAddComponent<CrawlerMapRoot>(go);
@@ -46,22 +47,19 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             return mapRoot;
         }
 
-        CrawlerMap GenerateMap(long dungeonId)
+        public override CrawlerMap Generate(CrawlerMapGenData genData)
         {
-            CrawlerMap cmap = new CrawlerMap();
-            cmap.Looping = true;
-            cmap.MapType = ECrawlerMapTypes.Dungeon;
-            MyRandom rand = new MyRandom(StrUtils.GetIdHash(dungeonId + "Dungeon"));
 
-            cmap.XSize = MathUtils.IntRange(15, 25, rand);
-            cmap.ZSize = MathUtils.IntRange(15, 25, rand);
+            MyRandom rand = new MyRandom(genData.World.IdKey * 5 + genData.World.GetMaxMapId() * 19);
+
+            CrawlerMap cmap = genData.World.CreateMap(ECrawlerMapTypes.Dungeon, true, MathUtils.IntRange(15, 25, rand), MathUtils.IntRange(15, 25, rand));
 
             cmap.SetupDataBlocks();
 
             float chance = 0.6f;
-            for (int x = 0; x < cmap.XSize; x++)
+            for (int x = 0; x < cmap.Width; x++)
             {
-                for (int z = 0; z < cmap.ZSize; z++)
+                for (int z = 0; z < cmap.Height; z++)
                 {
                     int index = cmap.GetIndex(x, z);
                     if (rand.NextDouble() < chance)
@@ -94,7 +92,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             }
             else if (ex < sx) // West
             {
-                blockBits = mapRoot.EastWall((sx + mapRoot.Map.XSize - 1) % mapRoot.Map.XSize, sz);
+                blockBits = mapRoot.EastWall((sx + mapRoot.Map.Width - 1) % mapRoot.Map.Width, sz);
             }
             else if (ez > sz) // Up
             {
@@ -102,7 +100,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             }
             else if (ez < sz) // Down
             {
-                blockBits = mapRoot.NorthWall(sx, (sz + mapRoot.Map.ZSize - 1) % mapRoot.Map.ZSize);
+                blockBits = mapRoot.NorthWall(sx, (sz + mapRoot.Map.Height - 1) % mapRoot.Map.Height);
             }
             return blockBits;
         }

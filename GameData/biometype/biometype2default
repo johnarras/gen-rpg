@@ -1,0 +1,9 @@
+{
+  "Id": "biometype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Forest",
+  "MinLevel": 5,
+  "UpdateTime": "2024-06-21T22:37:23.106Z",
+  "CreateTime": "2024-06-21T22:25:29.788Z"
+}

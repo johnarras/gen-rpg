@@ -51,7 +51,7 @@ public class InitClient : BaseBehaviour, IInitClient
 
     void Start()
     {
-        OnStart();
+        AwaitableUtils.ForgetAwaitable(OnStart());
     }
 
     public IUnityGameState InitialSetup()
@@ -70,7 +70,7 @@ public class InitClient : BaseBehaviour, IInitClient
 #endif
         string envName = base._gs.Config.Env.ToString();
 
-        DelayRemoveSplashScreen(_gameTokenSource.Token);
+        AwaitableUtils.ForgetAwaitable(DelayRemoveSplashScreen(_gameTokenSource.Token));
 
         // Initial app appearance.
         AppUtils.TargetFrameRate = 30;
@@ -79,14 +79,14 @@ public class InitClient : BaseBehaviour, IInitClient
 
         ClientWebRequest req = new ClientWebRequest();
         string url = base._gs.Config.InitialConfigEndpoint + "?env=" + envName;
-        req.SendRequest(_logService, url, "", OnGetWebConfig, _gameTokenSource.Token);
+        AwaitableUtils.ForgetAwaitable(req.SendRequest(_logService, url, "", OnGetWebConfig, _gameTokenSource.Token));
 
         await Task.CompletedTask;
     }
 
     private void OnGetWebConfig(string txt, CancellationToken token)
     {
-        OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token);
+        AwaitableUtils.ForgetAwaitable(OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token));
     }
 
     private async Awaitable OnGetWebConfigAsync(ConfigResponse response, CancellationToken token)

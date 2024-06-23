@@ -98,7 +98,7 @@ namespace Assets.Scripts.Crawler.Services
         public void ChangeState(CrawlerStateData data, CrawlerStateAction action,  CancellationToken token)
         {
             action.OnClickAction?.Invoke();
-            ChangeStateAsync(data, action, token);
+            AwaitableUtils.ForgetAwaitable(ChangeStateAsync(data, action, token));
         }
 
         public async Awaitable ChangeStateAsync (CrawlerStateData currData, CrawlerStateAction action, CancellationToken token)
@@ -175,7 +175,7 @@ namespace Assets.Scripts.Crawler.Services
 
         }
 
-        public async Awaitable LoadSaveGame()
+        public async Awaitable LoadParty()
         {
             _party = await _repoService.Load<PartyData>(SaveFileName);
 
@@ -301,7 +301,7 @@ namespace Assets.Scripts.Crawler.Services
             {
                 if (currentData.Id == ECrawlerStates.ExploreWorld)
                 {
-                    UpdateMovementAsync(token);
+                    AwaitableUtils.ForgetAwaitable(UpdateMovementAsync(token));
                 }
             }
         }

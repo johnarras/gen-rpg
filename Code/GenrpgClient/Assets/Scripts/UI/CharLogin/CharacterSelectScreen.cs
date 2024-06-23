@@ -85,7 +85,7 @@ public class CharacterSelectScreen : BaseScreen
     {
         TestAssetDownloads dl = new TestAssetDownloads();
 
-        dl.RunTests(_gs, _token);
+        AwaitableUtils.ForgetAwaitable(dl.RunTests(_gs, _token));
     }
 
     private void ClickGenerate()

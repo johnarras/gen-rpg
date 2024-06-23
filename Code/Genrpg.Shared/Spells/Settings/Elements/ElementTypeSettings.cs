@@ -112,6 +112,7 @@ namespace Genrpg.Shared.Spells.Settings.Elements
 
         [Key(3)] public long OverrideEntityTypeId { get; set; }
         [Key(4)] public long OverrideEntityId { get; set; }
+        [Key(5)] public string Name { get; set; }
 
         public ElementSkill()
         {

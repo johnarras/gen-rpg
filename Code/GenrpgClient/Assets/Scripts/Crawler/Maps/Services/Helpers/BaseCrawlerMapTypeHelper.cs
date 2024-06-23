@@ -3,12 +3,14 @@ using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
 using Assets.Scripts.Crawler.Maps.Loading;
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.ProcGen.Settings.Texturse;
+using System.Security.Policy;
 using System.Threading;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
@@ -23,8 +25,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         protected IGameData _gameData;
         protected IUnityGameState _gs;
         protected IGameObjectService _gameObjectService;
+        protected ICrawlerWorldService _worldService;
 
         public abstract ECrawlerMapTypes GetKey();
+
+        public abstract CrawlerMap Generate(CrawlerMapGenData crawlerMapGenData);
 
         public abstract Awaitable<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);
 

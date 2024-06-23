@@ -137,7 +137,7 @@ public class FileDownloadService : IFileDownloadService
             List<InternalFileDownload> list = new List<InternalFileDownload>();
             list.Add(fileDownLoad);
             _downloading[filePath] = list;
-            DownloadFileInternal(fileDownLoad, token);
+            AwaitableUtils.ForgetAwaitable(DownloadFileInternal(fileDownLoad, token));
         }
     }
 

@@ -19,5 +19,6 @@ namespace Genrpg.Shared.Spells.Procs.Entities
         [Key(7)] public long CooldownSeconds { get; set; }
         [Key(8)] public DateTime LastUsedTime { get; set; } = DateTime.MinValue;
         [Key(9)] public long ElementTypeId { get; set; }
+        [Key(10)] public string Name { get; set; }
     }
 }

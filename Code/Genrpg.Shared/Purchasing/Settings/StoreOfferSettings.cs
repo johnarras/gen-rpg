@@ -97,5 +97,6 @@ namespace Genrpg.Shared.Purchasing.Settings
         [Key(1)] public long Index { get; set; }
         [Key(2)] public long StoreProductId { get; set; }
         [Key(3)] public long ProductSkuId { get; set; }
+        [Key(4)] public string Name { get; set; }
     }
 }

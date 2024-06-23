@@ -37,7 +37,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
     public void LoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)
     {
         _token = token;
-        InnerLoadOneTerrainPatch(gx, gy, fastLoading, token);
+        AwaitableUtils.ForgetAwaitable(InnerLoadOneTerrainPatch(gx, gy, fastLoading, token));
     }
 
     private async Awaitable InnerLoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)

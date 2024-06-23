@@ -16,5 +16,6 @@ namespace Genrpg.Shared.Spells.Settings.Effects
         [Key(0)] public long EntityTypeId { get; set; }
         [Key(1)] public long Quantity { get; set; }
         [Key(2)] public long EntityId { get; set; }
+        [Key(3)] public string Name { get; set; }
     }
 }

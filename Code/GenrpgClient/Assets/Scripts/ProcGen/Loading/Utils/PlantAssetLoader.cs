@@ -35,7 +35,7 @@ public class PlantAssetLoader : IPlantAssetLoader
 
     public void SetupOneMapGrass(int gx, int gy, CancellationToken token)
     {
-        InnerSetupOneMapGrass(gx, gy, token);
+        AwaitableUtils.ForgetAwaitable(InnerSetupOneMapGrass(gx, gy, token));
     }
     private async Awaitable InnerSetupOneMapGrass(int gx, int gy, CancellationToken token)
     {

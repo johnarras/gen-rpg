@@ -21,6 +21,7 @@ namespace Genrpg.Shared.Spawns.Settings
         [Key(3)] public long MaxQuantity { get; set; }
         [Key(4)] public double Weight { get; set; }
         [Key(5)] public int GroupId { get; set; }
+        [Key(6)] public string Name { get; set; }
 
         public SpawnItem()
         {

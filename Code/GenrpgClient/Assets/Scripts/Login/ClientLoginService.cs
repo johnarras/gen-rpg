@@ -85,7 +85,7 @@ public class ClientLoginService : IClientLoginService
                 Password = password,
             };
 
-            LoginToServer(loginCommand, token);
+            AwaitableUtils.ForgetAwaitable(LoginToServer(loginCommand, token));
             _screenService.Open(ScreenId.Loading, true);
             return;
         }

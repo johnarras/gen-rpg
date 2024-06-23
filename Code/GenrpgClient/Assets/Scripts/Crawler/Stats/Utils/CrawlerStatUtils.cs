@@ -11,6 +11,11 @@ namespace Genrpg.Shared.Crawler.Stats.Utils
     {
         public static long GetStatBonus(CrawlerUnit unit, long statTypeId)
         {
+            if (statTypeId < 1)
+            {
+                return 0;
+            }
+
             long statValue = unit.Stats.Max(statTypeId);
 
             long baseBonus = 0;

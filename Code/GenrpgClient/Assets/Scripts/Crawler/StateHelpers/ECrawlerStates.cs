@@ -53,6 +53,8 @@ namespace Assets.Scripts.UI.Crawler.States
         TrainingMain,
         TrainingLevel,
 
+        EnterHouse,
+
         TempleBase,
 
         StartCombat,
@@ -64,5 +66,6 @@ namespace Assets.Scripts.UI.Crawler.States
         CombatChest,
         CombatLoot,
         
+
     }
 }

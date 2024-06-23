@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Genrpg.Editor (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Genrpg.Editor (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

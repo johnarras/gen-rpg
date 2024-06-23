@@ -11,9 +11,10 @@ namespace Genrpg.Shared.Zones.Settings
     {
         [Key(0)] public long RockTypeId { get; set; }
         [Key(1)] public float ChanceScale { get; set; }
+        [Key(2)] public string Name { get; set; }
 
 
-        [Key(2)] public MyColorF BaseColor { get; set; }
+        [Key(3)] public MyColorF BaseColor { get; set; }
 
         public ZoneRockType()
         {

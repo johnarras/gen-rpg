@@ -34,7 +34,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public void SetGameToken(CancellationToken token)
     {
         _token = token;
-        CheckRemoveAudio(_token);
+        AwaitableUtils.ForgetAwaitable(CheckRemoveAudio(_token));
     }
 
     public override void Init()

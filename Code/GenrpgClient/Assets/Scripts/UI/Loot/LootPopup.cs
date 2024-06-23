@@ -27,7 +27,7 @@ public class LootPopup : BaseScreen
             return;
         }
 
-        ShowRewards(rewards, token);
+        AwaitableUtils.ForgetAwaitable(ShowRewards(rewards, token));
 
 
         await Task.CompletedTask;

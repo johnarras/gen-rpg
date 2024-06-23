@@ -12,5 +12,6 @@ namespace Genrpg.Shared.Zones.Entities
         /// The reason for the override, cold, hot, wet, dry, radiation...
         /// </summary>
         [Key(1)] public int Reason { get; set; }
+        [Key(2)] public string Name { get; set; }
     }
 }

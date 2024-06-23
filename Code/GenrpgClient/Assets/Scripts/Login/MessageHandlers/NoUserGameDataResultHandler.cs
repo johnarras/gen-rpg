@@ -27,7 +27,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IClientGameDataService _gameDataService;
         protected override void InnerProcess(NoUserGameDataResult result, CancellationToken token)
         {
-            InnerProcessAsync(result, token);
+            AwaitableUtils.ForgetAwaitable(InnerProcessAsync(result, token));
         }
 
         private async Awaitable InnerProcessAsync(NoUserGameDataResult result, CancellationToken token)

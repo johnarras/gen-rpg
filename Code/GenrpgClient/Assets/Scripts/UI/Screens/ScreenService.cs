@@ -130,7 +130,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
 
     private void OnLoadScreen(object obj, object data, CancellationToken token)
     {
-        OnLoadScreenAsync(obj, data, token);
+        AwaitableUtils.ForgetAwaitable(OnLoadScreenAsync(obj, data, token));
     }
 
     private async Awaitable OnLoadScreenAsync (object obj, object data, CancellationToken token)

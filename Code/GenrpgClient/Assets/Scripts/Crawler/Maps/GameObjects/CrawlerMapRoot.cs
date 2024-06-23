@@ -44,7 +44,7 @@ namespace Assets.Scripts.Crawler.Maps.GameObjects
         {
             Map = map;
 
-            int dataSize = map.XSize * map.ZSize;
+            int dataSize = map.Width * map.Height;
 
             foreach (MapCellDetail detail in map.Details)
             {

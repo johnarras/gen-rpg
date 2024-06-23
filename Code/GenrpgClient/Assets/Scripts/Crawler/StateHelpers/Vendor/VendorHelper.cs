@@ -1,5 +1,7 @@
-﻿using Assets.Scripts.Crawler.CrawlerStates;
+﻿using Assets.Scripts.Crawler.Constants;
+using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.UI.Crawler.States;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Threading.Tasks;
 using UI.Screens.Constants;
@@ -17,6 +19,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
         {
 
             CrawlerStateData crawlerStateData = CreateStateData();
+            crawlerStateData.WorldSpriteName = CrawlerClientConstants.VendorImage;
             _screenService.Open(ScreenId.CrawlerVendor);
 
             await Task.CompletedTask;

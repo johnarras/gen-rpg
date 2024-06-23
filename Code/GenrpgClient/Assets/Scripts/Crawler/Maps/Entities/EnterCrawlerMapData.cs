@@ -12,5 +12,8 @@ namespace Assets.Scripts.Crawler.Maps.Entities
         public int MapX { get; set; }
         public int MapZ { get; set; }
         public int MapRot { get; set; }
+
+        public CrawlerWorld World { get; set; }
+        public CrawlerMap Map { get; set; }
     }
 }

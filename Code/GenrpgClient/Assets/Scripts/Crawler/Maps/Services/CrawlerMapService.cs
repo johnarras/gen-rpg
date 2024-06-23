@@ -4,11 +4,11 @@ using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
 using Assets.Scripts.Crawler.Maps.Services.Helpers;
 using Assets.Scripts.Dungeons;
-
-using Genrpg.Shared.Core.Entities;
+using Assets.Scripts.UI.Crawler.States;
+using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
@@ -20,6 +20,16 @@ using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
+
+    public class CrawlerMapGenData
+    {
+        public CrawlerWorld World;
+        public ECrawlerMapTypes MapType;
+        public int MinLevel { get; set; } = 0;
+        public int MaxLevel { get; set; } = 100;
+    }
+
+
     public class CrawlerMapService : ICrawlerMapService
     {
         IAssetService _assetService;
@@ -27,6 +37,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         ICrawlerService _crawlerService;
         private IDispatcher _dispatcher;
         private ILogService _logService;
+        private IGameData _gameData;
 
         const int ViewRadius = 8;
         CrawlerMapRoot _crawlerMap = null;
@@ -51,7 +62,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             await Task.CompletedTask;
         }
 
-        private ICrawlerMapTypeHelper GetHelper(ECrawlerMapTypes mapType)
+        public ICrawlerMapTypeHelper GetHelper(ECrawlerMapTypes mapType)
         {
             if (_mapTypeHelpers.TryGetValue(mapType, out ICrawlerMapTypeHelper helper))
             {
@@ -239,7 +250,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 return;
             }
 
-            UpdateMovementInternal(token);
+            AwaitableUtils.ForgetAwaitable(UpdateMovementInternal(token));
             await Task.CompletedTask;
         }
 
@@ -297,8 +308,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             if (!_crawlerMap.Map.Looping)
             {
-                if (ex < 0 || ex >= _crawlerMap.Map.XSize ||
-                    ez < 0 || ez >= _crawlerMap.Map.ZSize)
+                if (ex < 0 || ex >= _crawlerMap.Map.Width ||
+                    ez < 0 || ez >= _crawlerMap.Map.Height)
                 {
                     // Bonk
                     _dispatcher.Dispatch(new ShowFloatingText("Edge!", EFloatingTextArt.Error));
@@ -316,6 +327,13 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 // Bonk
                 _dispatcher.Dispatch(new ShowFloatingText("Bonk!", EFloatingTextArt.Error));
                 return;
+            }
+            if (blockBits == WallTypes.Building)
+            {
+                if (TryEnterBuilding(_crawlerMap, ex, ez, token))
+                {
+                    return;
+                }
             }
 
             float endDrawX = _crawlerMap.DrawX + nx * bs;
@@ -348,15 +366,15 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 }
             }
 
-            ex = MathUtils.ModClamp(ex, _crawlerMap.Map.XSize);
-            ez = MathUtils.ModClamp(ez, _crawlerMap.Map.ZSize);
+            ex = MathUtils.ModClamp(ex, _crawlerMap.Map.Width);
+            ez = MathUtils.ModClamp(ez, _crawlerMap.Map.Height);
 
             _crawlerMap.DrawX = ex * CrawlerMapConstants.BlockSize;
             _crawlerMap.DrawZ = ez * CrawlerMapConstants.BlockSize;
             _party.MapX = ex;
             _party.MapZ = ez;
             UpdateCameraPos(token);
-            DrawNearbyMap(token);
+            AwaitableUtils.ForgetAwaitable(DrawNearbyMap(token));
 
         }
 
@@ -411,21 +429,21 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
                     while (cellX < 0)
                     {
-                        cellX += _crawlerMap.Map.XSize;
+                        cellX += _crawlerMap.Map.Width;
                     }
                     while (cellZ < 0)
                     {
-                        cellZ += _crawlerMap.Map.ZSize;
+                        cellZ += _crawlerMap.Map.Height;
                     }
 
-                    cellX %= _crawlerMap.Map.XSize;
-                    cellZ %= _crawlerMap.Map.ZSize;
+                    cellX %= _crawlerMap.Map.Width;
+                    cellZ %= _crawlerMap.Map.Height;
 
                     UnityMapCell cell = _crawlerMap.GetCell(cellX, cellZ);
 
                     if (_crawlerMap.Map.Looping || 
-                        (worldX >= 0 && worldX < _crawlerMap.Map.XSize &&
-                        worldZ >= 0 && worldZ < _crawlerMap.Map.ZSize))
+                        (worldX >= 0 && worldX < _crawlerMap.Map.Width &&
+                        worldZ >= 0 && worldZ < _crawlerMap.Map.Height))
                     {
                         if (cell.Content != null)
                         {
@@ -440,6 +458,59 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                     }
                 }
             }
+        }
+
+        private bool TryEnterBuilding(CrawlerMapRoot mapRoot, int ex, int ez, CancellationToken token)
+        {
+
+            byte info = mapRoot.Map.ExtraData[mapRoot.Map.GetIndex(ex, ez)];
+
+            BuildingType btype = _gameData.Get<BuildingSettings>(null).Get(info);
+
+            if (btype == null)
+            {
+                return false;
+            }
+
+            if (btype.Name == "Vendor")
+            {
+                EnterBuilding(ECrawlerStates.Vendor, token);
+                return true;
+            }
+            else if (btype.Name == "Guild")
+            {
+                EnterBuilding(ECrawlerStates.TavernMain, token);
+                return true;
+            }
+            else if (btype.Name == "Trainer")
+            {
+                EnterBuilding(ECrawlerStates.TrainingMain, token);
+                return true;
+            }
+            else if (btype.Name == "House")
+            {
+                EnterBuilding(ECrawlerStates.EnterHouse, token);
+                return true;
+            }
+            return true;
+        }
+        private void EnterBuilding(ECrawlerStates state, CancellationToken token)
+        {
+            _crawlerService.ChangeState(state, token);
+        }
+
+        public string GetBuildingArtPrefix()
+        {
+            return "Default";
+        }
+
+        public CrawlerMap Generate(CrawlerMapGenData genData)
+        {
+
+            ICrawlerMapTypeHelper helper = GetHelper(genData.MapType);
+
+            return helper.Generate(genData);
+
         }
     }
 }

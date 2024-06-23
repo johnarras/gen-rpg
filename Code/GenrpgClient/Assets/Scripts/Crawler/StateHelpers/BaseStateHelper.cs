@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.Crawler.Services.Combat;
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler.States;
 

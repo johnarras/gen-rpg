@@ -1,16 +1,7 @@
 
-using System;
-using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
 
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
-using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
-using Genrpg.Shared.ProcGen.Settings.Texturse;
-using Genrpg.Shared.Zones.WorldData;
 
 public class SetTerrainTextures : BaseZoneGenerator
 {
@@ -26,7 +17,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         {
             for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
             {
-                _terrainTextureManager.SetOneTerrainPatchLayers(_terrainManager.GetTerrainPatch(gx, gy, true), token, true);
+                AwaitableUtils.ForgetAwaitable(_terrainTextureManager.SetOneTerrainPatchLayers(_terrainManager.GetTerrainPatch(gx, gy, true), token, true));
             }
             await Awaitable.NextFrameAsync(cancellationToken: token);
         }

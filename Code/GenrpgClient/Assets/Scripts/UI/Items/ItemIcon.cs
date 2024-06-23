@@ -153,7 +153,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         {
             return;
         }
-        HideTooltipAsync(_token);
+        AwaitableUtils.ForgetAwaitable(HideTooltipAsync(_token));
     }
 
     private async Awaitable HideTooltipAsync(CancellationToken token)

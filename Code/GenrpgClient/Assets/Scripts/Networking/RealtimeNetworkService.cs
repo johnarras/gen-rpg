@@ -38,7 +38,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
     protected IMapGenData _md;
     public RealtimeNetworkService(CancellationToken token)
     {
-        ProcessMessages(token);
+        AwaitableUtils.ForgetAwaitable(ProcessMessages(token));
     }
 
 

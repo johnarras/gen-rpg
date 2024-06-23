@@ -24,6 +24,7 @@ namespace Genrpg.Shared.UnitEffects.Settings
     {
         [Key(0)] public long CombatActionId { get; set; }
         [Key(1)] public EActionEffects Effect { get; set; } = EActionEffects.None;
+        [Key(2)] public string Name { get; set; }
     }
         
 

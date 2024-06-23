@@ -63,6 +63,7 @@ namespace Genrpg.Shared.GameSettings.Settings
         [Key(0)] public bool Enabled { get; set; } = true;
         [Key(1)] public long SettingsNameId { get; set; }
         [Key(2)] public string DocId { get; set; }
+        [Key(3)] public string Name { get; set; }
     }
 
     [MessagePackObject]
@@ -71,6 +72,7 @@ namespace Genrpg.Shared.GameSettings.Settings
         [Key(0)] public long SettingsNameId { get; set; }
         [Key(1)] public string DocId { get; set; }
         [Key(2)] public long Priority { get; set; }
+        [Key(3)] public string Name { get; set; }
     }
 
     [MessagePackObject]

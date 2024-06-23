@@ -60,7 +60,7 @@ namespace Assets.Scripts.Pathfinding.Utils
                 }
 
                 //logService.Info("Path:\n" + sb.ToString());
-                DelayDestroyObjects(pathObjects);
+                AwaitableUtils.ForgetAwaitable(DelayDestroyObjects(pathObjects));
             }
         }
 

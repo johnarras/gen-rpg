@@ -644,20 +644,19 @@ namespace Assets.Scripts.Crawler.Services.Combat
             if (atEndOfMove)
             {
                 _lastMoveTime = DateTime.UtcNow;
-                if (++_movesSinceLastCombat < 15)
+                if (++_movesSinceLastCombat < 30)
                 {
                     return;
                 }
 
-                if (_rand.NextDouble() > 0.10f)
+                if (_rand.NextDouble() > 0.01f)
                 {
                     return;
                 }
             }
             else // Just idle waiting.
             {
-                return;
-                if ((DateTime.UtcNow-_lastMoveTime).TotalSeconds < 35)
+                if ((DateTime.UtcNow-_lastMoveTime).TotalSeconds < 60)
                 {
                     return;
                 }
@@ -666,6 +665,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 {
                     return;
                 }
+                return;
             }
 
             _crawlerMapService.ClearMovement();

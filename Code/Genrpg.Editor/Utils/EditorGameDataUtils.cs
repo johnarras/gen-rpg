@@ -3,14 +3,7 @@ using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Services.Setup;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Constants;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Genrpg.ServerShared.Config;
-using System.Threading;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using Genrpg.ServerShared.GameSettings.Services;
@@ -21,13 +14,21 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.ProcGen.Settings.Texturse;
+using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System;
+using System.Threading;
+using System.IO;
+using System.Linq;
+using Genrpg.Editor.UI;
+using Genrpg.Shared.MapMessages;
 
 namespace Genrpg.Editor.Utils
 {
     public static class EditorGameDataUtils
     {
-        public static async Task<FullGameDataCopy> LoadFullGameData(Form form, string env, CancellationToken token)
+        public static async Task<FullGameDataCopy> LoadFullGameData(IUICanvas form, string env, CancellationToken token)
         {
 
             EditorGameState gs = await SetupFromConfig(form, env);
@@ -77,7 +78,7 @@ namespace Genrpg.Editor.Utils
             return gs;
         }
 
-        public static async Task SaveFullGameData(Form form, FullGameDataCopy dataCopy, string env, bool deleteExistingData, CancellationToken token)
+        public static async Task SaveFullGameData(IUICanvas form, FullGameDataCopy dataCopy, string env, bool deleteExistingData, CancellationToken token)
         {
 
             EditorGameState gs = await SetupFromConfig(form, env);
@@ -88,11 +89,16 @@ namespace Genrpg.Editor.Utils
             }
         }
 
-        const string GitOffsetPath = "..\\..\\..\\..\\..\\..\\GameData";
+        public static void InitMessages()
+        {
+            MapMessageInit.InitMapMessages(Application.ExecutablePath);
+        }
+
+        const string GitOffsetPath = "..\\..\\..\\..\\..\\..\\..\\..\\..\\GameData";
         public static void WriteGameDataToDisk(FullGameDataCopy dataCopy)
         {
 
-            string dirName = Directory.GetCurrentDirectory();
+            string dirName = Application.ExecutablePath;
 
             dirName += GitOffsetPath;
 
@@ -178,7 +184,7 @@ namespace Genrpg.Editor.Utils
             File.WriteAllText(fullPath, SerializationUtils.PrettyPrint(idObj));
         }
 
-        public static async Task<FullGameDataCopy> LoadDataFromDisk(Form form, CancellationToken token)
+        public static async Task<FullGameDataCopy> LoadDataFromDisk(IUICanvas form, CancellationToken token)
         {
 
             EditorGameState gs = await SetupFromConfig(form, EnvNames.Dev);

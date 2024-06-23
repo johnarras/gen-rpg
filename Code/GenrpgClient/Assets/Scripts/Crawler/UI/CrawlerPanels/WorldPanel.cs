@@ -1,5 +1,6 @@
 ﻿
 
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Genrpg.Shared.Crawler.UI.Interfaces;
 using System.Collections.Generic;
 using System.Threading;
@@ -16,6 +17,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
     public class WorldPanel : BaseCrawlerPanel, IWorldPanel
     {
+        private ICrawlerMapService _mapService;
+
         public GRawImage WorldImage;
 
         public override async Awaitable Init(CrawlerScreen screen, CancellationToken token)
@@ -44,6 +47,12 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         private Dictionary<string, TextureList> _cachedSprites = new Dictionary<string, TextureList>();
         public void SetPicture(string spriteName)
         {
+
+            if (!string.IsNullOrEmpty(spriteName) && spriteName.IndexOf("Building") >= 0)
+            {
+                spriteName = _mapService.GetBuildingArtPrefix() + spriteName;
+            }
+
             if (WorldImage == null)
             {
                 return;
@@ -52,6 +61,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             {
                 WorldImage.texture = null;
                 GEntityUtils.SetActive(WorldImage, false);
+                _currentSpriteName = spriteName;
                 return;
             }
             if (_currentSpriteName == spriteName)

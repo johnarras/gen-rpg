@@ -9,6 +9,7 @@ namespace Genrpg.Shared.Zones.Settings
     {
         [Key(0)] public long TreeTypeId { get; set; }
         [Key(1)] public float PopulationScale { get; set; }
+        [Key(2)] public string Name { get; set; }
 
         public ZoneTreeType()
         {

@@ -1,0 +1,10 @@
+{
+  "Id": "biometype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Road",
+  "Desc": "",
+  "MinLevel": 1000,
+  "UpdateTime": "2024-06-22T17:54:12.885Z",
+  "CreateTime": "2024-06-22T17:48:58.299Z"
+}

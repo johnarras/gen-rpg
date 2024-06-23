@@ -18,5 +18,6 @@ namespace Genrpg.Shared.MapMods.MapObjectAddons
         [Key(2)] public string OwnerId { get; set; }
         [Key(3)] public float Radius { get; set; }
         [Key(4)] public int TriggerTimes { get; set; }
+        [Key(5)] public string Name { get; set; }
     }
 }

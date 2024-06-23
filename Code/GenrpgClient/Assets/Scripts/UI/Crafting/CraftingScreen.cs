@@ -55,8 +55,9 @@ public class CraftingScreen : ItemIconScreen
         
     }
 
-    public void Init()
+    public override void Init()
     {
+        base.Init();
         _uIInitializable.SetButton(ClearButton, GetName(), ClickClear);
         _uIInitializable.SetButton(CraftButton, GetName(), ClickCraft);
 

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Crawler.CrawlerStates;
+﻿using Assets.Scripts.Crawler.Constants;
+using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Services.Training;
 using Assets.Scripts.UI.Crawler.States;
 
@@ -18,6 +19,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Training
         public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
+
+            stateData.WorldSpriteName = CrawlerClientConstants.TrainerImage;
 
             PartyData party = _crawlerService.GetParty();
 

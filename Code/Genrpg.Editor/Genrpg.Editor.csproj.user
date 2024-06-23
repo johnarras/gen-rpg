@@ -2,34 +2,29 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="CommandForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="CopyDataView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="DataView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="DataWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="FindUserView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="MyColorFDataView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="ViewWorlds.cs">
-      <SubType>Form</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="CommandForm.resx">
+    <None Update="App.xaml">
       <SubType>Designer</SubType>
-    </EmbeddedResource>
+    </None>
+    <Page Update="CopyDataView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DataView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="FindUserView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DataWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <None Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </None>
+    <Page Update="SmallPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

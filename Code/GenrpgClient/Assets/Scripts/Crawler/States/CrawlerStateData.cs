@@ -28,7 +28,7 @@ public class CrawlerStateData
     public PartyMember Member { get; set; } 
     public List<CrawlerStateAction> Actions = new List<CrawlerStateAction>();
     public List<String> LoreText = new List<string>();
-    public string WorldSpriteName = CrawlerClientConstants.WorldDefaultSpriteName;
+    public string WorldSpriteName = CrawlerClientConstants.WorldImage;
     public bool ForceNextState { get; set; } = false;
     public string ErrorMessage { get; set; }
 

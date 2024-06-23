@@ -13,6 +13,8 @@ namespace Assets.Scripts.Crawler.Maps.Constants
         public const int Door = 2;
         public const int Secret = 3;
         public const int Max = 4;
+
+        public const int Building = 12;
     }
 
 }

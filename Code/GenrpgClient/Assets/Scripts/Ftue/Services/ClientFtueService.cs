@@ -28,7 +28,7 @@ namespace Assets.Scripts.Ftue.Services
                 return null;
             }
 
-            ClientStartOpen(newStep);
+            AwaitableUtils.ForgetAwaitable(ClientStartOpen(newStep));
 
             return newStep;
         }

@@ -587,14 +587,12 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
         public async Awaitable CastSpellOnUnit(PartyData party, CrawlerUnit caster, FullSpell spell, CrawlerUnit target,float delay = 0.5f)
         {
-            bool isSingleTarget = true;
             if (spell.Spell.TargetTypeId == TargetTypes.EnemyGroup || 
                 spell.Spell.TargetTypeId == TargetTypes.AllAllies ||
                 spell.Spell.TargetTypeId == TargetTypes.AllEnemies)
             {
 
                 spell.HitsLeft = Math.Max(spell.HitQuantity, 1);
-                isSingleTarget = false;
             }
 
             if (caster.StatusEffects.HasBit(StatusEffects.Cursed))

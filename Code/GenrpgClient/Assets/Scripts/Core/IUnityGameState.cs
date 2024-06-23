@@ -89,7 +89,7 @@ public class UnityGameState : GameState, IInjectable, IUnityGameState
         }
 
         ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(_logService);
-        repo.Save(_config);
+        AwaitableUtils.ForgetAwaitable(repo.Save(_config));
     }
 
     public void UpdateUserFlags(int flag, bool val)

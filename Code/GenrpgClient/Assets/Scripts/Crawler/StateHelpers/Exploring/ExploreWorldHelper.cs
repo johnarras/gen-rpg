@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Maps.Entities;
+using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Crawler.StateHelpers.PartyMembers;
@@ -11,6 +12,7 @@ using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Units.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -24,6 +26,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
     public class ExploreWorldHelper : BasePartyMemberSelectHelper
     {
         private ICrawlerMapService _crawlerMapService;
+        private ICrawlerWorldService _worldService;
+
         public override ECrawlerStates GetKey() { return ECrawlerStates.ExploreWorld; }
         public override bool IsTopLevelState() { return true; }
         protected override bool ShowSelectText() { return true; }
@@ -32,8 +36,22 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
         {
             CrawlerStateData stateData = await base.Init(currentData, action, token);
 
+            stateData.WorldSpriteName = null;
+
             PartyData party = _crawlerService.GetParty();
             party.Combat = null;
+
+
+            long worldId = _rand.Next() % 5000000;
+
+#if UNITY_EDITOR
+            if (InitClient.EditorInstance.MapGenSeed > 0)
+            {
+                worldId = InitClient.EditorInstance.MapGenSeed;
+            }
+#endif
+
+            CrawlerWorld world = await _worldService.GetWorld(worldId);
 
             EnterCrawlerMapData mapData = action.ExtraData as EnterCrawlerMapData;
 
@@ -54,6 +72,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
                     MapX = 13,
                     MapZ = 13,
                     MapRot = 0,
+                    World = world,
+                    Map = world.GetMap(1),
                 }));
 
             if (mapData == null)
@@ -64,6 +84,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
                     MapX = party.MapX,
                     MapZ = party.MapZ,
                     MapRot = party.MapRot,
+                    World = world,
+                    Map = world.GetMap(party.MapId),
                 };
             }
 

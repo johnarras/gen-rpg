@@ -101,7 +101,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
 
         if (height == 0)
         {
-            WaitForTerrain(go, loadData, loadData.Token);
+            AwaitableUtils.ForgetAwaitable(WaitForTerrain(go, loadData, loadData.Token));
         }
 
         _objectManager.AddObject(loadData.Obj, go);

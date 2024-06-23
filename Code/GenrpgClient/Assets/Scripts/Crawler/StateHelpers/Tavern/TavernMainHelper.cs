@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Crawler.CrawlerStates;
+﻿using Assets.Scripts.Crawler.Constants;
+using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.StateHelpers;
 
 using Genrpg.Shared.Crawler.Loot.Services;
@@ -25,6 +26,9 @@ namespace Assets.Scripts.UI.Crawler.States
         public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
         {
             CrawlerStateData stateData = CreateStateData();
+            stateData.WorldSpriteName = CrawlerClientConstants.TavernImage;
+
+
             PartyData party = _crawlerService.GetParty();
 
             stateData.Actions.Add(new CrawlerStateAction("Add Party Member", KeyCode.A, ECrawlerStates.AddMember));

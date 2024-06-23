@@ -62,7 +62,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
     public ClientMapObjectManager(CancellationToken token)
     {
-        UpdateRecentlyLoadedSpawns(token);
+        AwaitableUtils.ForgetAwaitable(UpdateRecentlyLoadedSpawns(token));
     }
 
     public void Reset()

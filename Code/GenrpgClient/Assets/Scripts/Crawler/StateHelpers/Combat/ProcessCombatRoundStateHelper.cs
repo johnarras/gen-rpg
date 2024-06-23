@@ -31,7 +31,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                 stateData = new CrawlerStateData(ECrawlerStates.CombatFightRun, true);
             }
 
-            ProcessCombat(party, token);
+            AwaitableUtils.ForgetAwaitable(ProcessCombat(party, token));
 
 
             await Task.CompletedTask;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace Assets.Scripts.Crawler.Maps.Entities
         public long EntityTypeId { get; set; }
         public long EntityId { get; set; }
         public long Quantity { get; set; }
+        public long ToX { get; set; }
+        public long ToZ { get; set; }
     }
-
 }

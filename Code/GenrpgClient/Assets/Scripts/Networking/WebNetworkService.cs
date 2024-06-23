@@ -136,7 +136,7 @@ public class WebNetworkService : IWebNetworkService
 
             string commandText = SerializationUtils.Serialize(commandSet);
 
-            req.SendRequest(_logService, _fullEndpoint, commandText, HandleResults, fullRequestSource.Token);
+            AwaitableUtils.ForgetAwaitable(req.SendRequest(_logService, _fullEndpoint, commandText, HandleResults, fullRequestSource.Token));
         }
 
         private void HandleResults(string txt, CancellationToken token)

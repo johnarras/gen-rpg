@@ -19,20 +19,21 @@ namespace Genrpg.Shared.Stats.Entities
             ResetAll();
         }
 
+        const int _cacheLineOffset = 1;
         public void ResetAll()
         {
-            _stats = new int[StatCategories.Size, StatTypes.Max];
+            // Offset = 1 to make the mutable stats all be in one cache line I hope
+            _stats = new int[StatCategories.Size, StatTypes.Max-_cacheLineOffset];
         }
 
         public int Get(long statTypeId, int statCategory)
         {
-            return _stats[statCategory,statTypeId];
+            return _stats[statCategory,statTypeId-_cacheLineOffset];
         }
 
         public void Set(long statTypeId, long statCategory, long val)
         {
-            _stats[statCategory,statTypeId] = (int)val;
-
+            _stats[statCategory,statTypeId-_cacheLineOffset] = (int)val;
         }
 
         public int Curr(long statTypeId) { return Get(statTypeId, StatCategories.Curr); }

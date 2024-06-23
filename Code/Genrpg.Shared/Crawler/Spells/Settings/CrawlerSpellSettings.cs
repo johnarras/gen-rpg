@@ -61,6 +61,7 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
         [Key(2)] public long MinQuantity { get; set; }
         [Key(3)] public long MaxQuantity { get; set; }
         [Key(4)] public long ElementTypeId { get; set; }
+        [Key(5)] public string Name { get; set; }
 
     }
 

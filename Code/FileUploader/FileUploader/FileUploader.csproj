@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\AppConfig\App.config" Link="App.config" />
+    <None Include="..\..\..\AppConfig\App.config" Link="App.config" />
   </ItemGroup>
 
   <ItemGroup>

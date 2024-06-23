@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Crawler.CrawlerStates;
+﻿using Assets.Scripts.Crawler.Constants;
+using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System.Threading;
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Training
         {
             CrawlerStateData stateData = CreateStateData();
 
+            stateData.WorldSpriteName = CrawlerClientConstants.TrainerImage;
             PartyData party = _crawlerService.GetParty();
 
             foreach (PartyMember member in party.GetActiveParty())

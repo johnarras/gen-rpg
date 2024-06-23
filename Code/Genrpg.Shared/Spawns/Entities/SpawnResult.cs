@@ -24,6 +24,7 @@ namespace Genrpg.Shared.Spawns.Entities
         [Key(3)] public long QualityTypeId { get; set; }
         [Key(4)] public long Level { get; set; }
         [Key(5)] public Item Data { get; set; }
+        [Key(6)] public string Name { get; set; }
 
     }
 }

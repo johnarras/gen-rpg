@@ -40,6 +40,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemSets
         [Key(0)] public int ItemCount { get; set; }
         [Key(1)] public long StatTypeId { get; set; }
         [Key(2)] public int Percent { get; set; }
+        [Key(3)] public string Name { get; set; }
     }
     [MessagePackObject]
     public class SetSpellProc : IOldSpellProc
@@ -52,6 +53,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemSets
         [Key(5)] public long FromSkillTypeId { get; set; }
         [Key(6)] public int Scale { get; set; }
         [Key(7)] public int ItemCount { get; set; }
+        [Key(8)] public string Name { get; set; }
     }
     [MessagePackObject]
     public class SetPiece

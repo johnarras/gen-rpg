@@ -18,6 +18,7 @@ namespace Genrpg.Shared.ProcGen.Settings.Locations
         [Key(7)] public int EntranceZ { get; set; }
         [Key(8)] public int XSize { get; set; }
         [Key(9)] public int ZSize { get; set; }
+        [Key(10)] public string Name { get; set; }
 
     }
 }

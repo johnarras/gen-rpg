@@ -58,6 +58,7 @@ namespace Genrpg.Shared.Spells.Settings.Spells
         [Key(5)] public int ExtraTargets { get; set; }
         [Key(6)] public int Scale { get; set; }
         [Key(7)] public int Flags { get; set; }
+        [Key(8)] public string Name { get; set; }
 
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }

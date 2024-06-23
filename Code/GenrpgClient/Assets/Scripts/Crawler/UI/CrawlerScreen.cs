@@ -15,7 +15,7 @@ namespace Assets.Scripts.UI.Crawler
 
         protected override async Awaitable OnStartOpen(object data, CancellationToken token)
         {
-            await _crawlerService.LoadSaveGame();
+            await _crawlerService.LoadParty();
             _dispatcher.AddEvent<CrawlerStateData>(this, OnNewStateData);
             await WorldPanel.Init(this,token);
             await ActionPanel.Init(this, token);

@@ -6,5 +6,6 @@ namespace Genrpg.Shared.Zones.Settings
     {
         [Key(0)] public long TextureTypeId { get; set; }
         [Key(1)] public int TextureChannelId { get; set; }
+        [Key(2)] public string Name { get; set; }
     }
 }

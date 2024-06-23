@@ -1,0 +1,9 @@
+{
+  "Id": "biometype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Field",
+  "MinLevel": 1,
+  "UpdateTime": "2024-06-21T22:37:23.106Z",
+  "CreateTime": "2024-06-21T22:25:29.787Z"
+}

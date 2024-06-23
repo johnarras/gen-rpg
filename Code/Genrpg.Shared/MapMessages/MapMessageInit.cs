@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Genrpg.Shared.MapMessages
 {
@@ -49,15 +50,13 @@ namespace Genrpg.Shared.MapMessages
             };
         }
 
-        public static void InitMapMessages()
+        public static void InitMapMessages(string dirName)
         {
             Assembly assembly = Assembly.GetAssembly(typeof(MapMessageInit));
 
             MessageInitData data = new MessageInitData();
 
-            string dirName = Directory.GetCurrentDirectory();
-
-            dirName += "..\\..\\..\\..\\..\\Genrpg.Shared";
+            dirName += "..\\..\\..\\..\\..\\..\\..\\..\\Genrpg.Shared";
 
             List<string> mapTypeNames = new List<string>();
 

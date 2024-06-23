@@ -166,14 +166,14 @@ public class UnityAssetService : IAssetService
         AssetUtils.GetPerisistentDataPath();
         for (int i = 0; i < _maxConcurrentExistingDownloads; i++)
         {
-            LoadFromExistingBundles(true, token);
+            AwaitableUtils.ForgetAwaitable(LoadFromExistingBundles(true, token));
         }
         for (int i = 0; i < _maxConcurrentBundleDownloads; i++)
         {
-            DownloadNewBundles(token);
+            AwaitableUtils.ForgetAwaitable(DownloadNewBundles(token));
         }
 
-        IncrementalClearMemoryCache(token);
+        AwaitableUtils.ForgetAwaitable(IncrementalClearMemoryCache(token));
         LoadLastSaveTimeFile(token);
 
         await Task.CompletedTask;
@@ -221,7 +221,7 @@ public class UnityAssetService : IAssetService
         }
 
         _bundleCache = newBundleCache;
-        AssetUtils.UnloadUnusedAssets(token);
+        AwaitableUtils.ForgetAwaitable(AssetUtils.UnloadUnusedAssets(token));
     }
 
     protected async Awaitable IncrementalClearMemoryCache(CancellationToken token)

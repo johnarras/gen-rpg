@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
-
+using Assets.Scripts.Crawler.Maps.Services.Helpers;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Interfaces;
@@ -20,5 +20,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         Awaitable UpdateMovement(CancellationToken token);
         void ClearMovement();
         bool UpdatingMovement();
+        string GetBuildingArtPrefix();
+        ICrawlerMapTypeHelper GetHelper(ECrawlerMapTypes mapType);
+        CrawlerMap Generate(CrawlerMapGenData genData);
     }
 }

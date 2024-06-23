@@ -6,8 +6,8 @@ namespace Genrpg.Shared.UnitEffects.Constants
 {
     public class StatusEffects
     {
-        public const int Poisoned = 1; // Minor lowering of combat quantity
-        public const int Diseased = 2; // Major lowering of combat quantity
+        public const int Poisoned = 1; // No health regen, some DoT
+        public const int Diseased = 2; // No mana regen, some Mana Loss Over Time
 
         public const int Cursed = 3; // Lower effective level
         public const int Slowed = 4; // Slower attacks/speed

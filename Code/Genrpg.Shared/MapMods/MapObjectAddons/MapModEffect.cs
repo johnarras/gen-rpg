@@ -14,5 +14,6 @@ namespace Genrpg.Shared.MapMods.MapObjectAddons
         [Key(3)] public long MaxQuantity { get; set; }
         [Key(4)] public DateTime EndTime { get; set; } = DateTime.MinValue;
         [Key(5)] public long CurrQuantity { get; set; }
+        [Key(6)] public string Name { get; set; }
     }
 }

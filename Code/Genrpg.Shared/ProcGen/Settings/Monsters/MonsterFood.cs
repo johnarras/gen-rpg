@@ -17,6 +17,7 @@ namespace Genrpg.Shared.ProcGen.Settings.Monsters
         /// What the entity key is for this food type.
         /// </summary>
         [Key(1)] public int FoodEntityId { get; set; }
+        [Key(2)] public string Name { get; set; }
 
     }
 }

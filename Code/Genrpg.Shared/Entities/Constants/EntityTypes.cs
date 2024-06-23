@@ -38,6 +38,7 @@ namespace Genrpg.Shared.Entities.Constants
         // Crawler-specific entitytypes
         public const long CrawlerSpell = 100;
         public const long PartyBuff = 101;
+        public const long Map = 102;
 
         // User Reward Types
         public const long UserCoin = 200;
