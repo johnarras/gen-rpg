@@ -58,8 +58,8 @@ namespace Assets.Editor
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
 
             IClientRandom clientRandom = new ClientRandom();
-            string directory = "Assets/FullAssets/Monsters/Images/";
-
+            string imageDirectory = "Assets/FullAssets/Crawler/Images/Monsters/";
+            string prefabDirectory = "Assets/BundledAssets/TextureLists/";
 
             foreach (UnitType unitType in unitTypes)
             {
@@ -68,10 +68,8 @@ namespace Assets.Editor
                     continue;
                 }
 
-                int val = clientRandom.Next(1, 5);
-
-                string startTex = directory + unitType.Icon + ".png";
-                string targetFile = directory + unitType.Icon + ".prefab";
+                string startTex = imageDirectory + unitType.Icon + ".png";
+                string targetFile = prefabDirectory + unitType.Icon + ".prefab";
 
                 if (File.Exists(targetFile))
                 {
@@ -82,7 +80,9 @@ namespace Assets.Editor
 
                 if (tex == null)
                 {
-                    continue;
+                    int val = clientRandom.Next(1, 5);
+                    File.Copy(imageDirectory + "Full" + val + ".png", startTex);
+                    tex = AssetDatabase.LoadAssetAtPath<Texture2D>(startTex);
                 }
 
                 GameObject go = new GameObject();
@@ -97,7 +97,6 @@ namespace Assets.Editor
 
                 PrefabUtility.SaveAsPrefabAsset(go, targetFile);
                 GameObject.DestroyImmediate(go);
-
             }
         }
 

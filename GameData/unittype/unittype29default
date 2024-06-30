@@ -2,12 +2,13 @@
   "Id": "unittype29default",
   "ParentId": "default",
   "IdKey": 29,
-  "Name": "Goblin",
-  "PluralName": "Goblins",
-  "Icon": "Goblin",
-  "Art": "Goblin",
-  "Height": 3.0,
-  "TribeTypeId": 1,
+  "Name": "Swordsman",
+  "PluralName": "Swordsman",
+  "Icon": "Swordsman",
+  "Art": "Swordsman",
+  "TribeTypeId": 11,
+  "MinLevel": 10,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:57.21Z",
-  "CreateTime": "2024-02-04T21:57:21.947Z"
+  "UpdateTime": "2024-06-29T22:48:27.305Z",
+  "CreateTime": "2024-06-29T22:48:27.305Z"
 }

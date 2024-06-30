@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Crawler.Maps.Constants;
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Interfaces;
 using System;
@@ -34,17 +35,21 @@ namespace Assets.Scripts.Crawler.Maps.Entities
            return GetMaxMapId() + 1;
         }
 
-        public CrawlerMap CreateMap(ECrawlerMapTypes mapType, bool looping, int width, int height)
+        public CrawlerMap CreateMap(CrawlerMapGenData genData)
         {
             CrawlerMap map = new CrawlerMap()
             {
-                MapType = mapType,
-                Looping = looping,
-                Width = width,
-                Height = height,
-                IdKey = GetNextMapId(),
+                MapType = genData.MapType,
+                Looping = genData.Looping,
+                Width = genData.Width,
+                Height = genData.Height,
+                Level = genData.Level,
+                IdKey = GetNextMapId(),             
             };
+
+            map.SetupDataBlocks();
             Maps.Add(map);
+            
             return map;
         }
 

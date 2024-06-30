@@ -2,12 +2,13 @@
   "Id": "unittype15default",
   "ParentId": "default",
   "IdKey": 15,
-  "Name": "Rabbit",
-  "PluralName": "Rabbits",
-  "Icon": "Rabbit",
-  "Art": "Rabbit",
-  "Height": 1.0,
-  "TribeTypeId": 6,
+  "Name": "Halfling Archer",
+  "PluralName": "Halfling Archers",
+  "Icon": "HalflingArcher",
+  "Art": "HalflingArcher",
+  "TribeTypeId": 1,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:55.77Z",
-  "CreateTime": "2024-02-04T21:57:21.915Z"
+  "UpdateTime": "2024-06-29T22:48:27.276Z",
+  "CreateTime": "2024-06-29T22:48:27.276Z"
 }

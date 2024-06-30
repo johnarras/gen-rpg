@@ -56,6 +56,10 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             IReadOnlyList<LootRank> ranks = rankSettings.GetData();
 
+            List<EquipSlot> okEquipSlots = _gameData.Get<EquipSlotSettings>(null).GetData().Where(x=>x.IsCrawlerSlot).ToList();
+
+            List<long> okEquipSlotIds = okEquipSlots.Select(x => x.IdKey).ToList();
+
             int expectedOffset = (int)(level / rankSettings.LevelsPerQuality + 1);
 
             expectedOffset = MathUtils.Clamp(1, expectedOffset, ranks.Count - 2);
@@ -83,7 +87,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             IReadOnlyList<ItemType> allLootItems = _gameData.Get<ItemTypeSettings>(null).GetData();
 
-            List<ItemType> okLootItems = allLootItems.Where(x => x.EquipSlotId > 0).ToList();
+            List<ItemType> okLootItems = allLootItems.Where(x => okEquipSlotIds.Contains(x.EquipSlotId)).ToList();
 
             List<ItemType> weaponItems = okLootItems.Where(x => EquipSlots.IsWeapon(x.EquipSlotId)).ToList();
 

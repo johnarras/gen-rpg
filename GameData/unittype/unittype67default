@@ -1,0 +1,21 @@
+{
+  "Id": "unittype67default",
+  "ParentId": "default",
+  "IdKey": 67,
+  "Name": "Iron Golem",
+  "PluralName": "Iron Golems",
+  "Icon": "IronGolem",
+  "Art": "IronGolem",
+  "TribeTypeId": 17,
+  "MinLevel": 15,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.379Z",
+  "CreateTime": "2024-06-29T22:48:27.379Z"
+}

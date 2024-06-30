@@ -1,0 +1,29 @@
+{
+  "Id": "zonetype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Road",
+  "Desc": "",
+  "Icon": "",
+  "Textures": [
+    {
+      "TextureTypeId": 4,
+      "Name": "Road/Base"
+    }
+  ],
+  "ZoneNames": [],
+  "ZoneAdjectives": [],
+  "BridgeTypes": [],
+  "FenceTypes": [],
+  "RockTypes": [],
+  "CreatureNamePrefixes": [],
+  "CreatureDoubleNamePrefixes": [],
+  "Overrides": [],
+  "ZoneUnitSpawns": [],
+  "PlantChoices": "",
+  "Art": "",
+  "MusicTypeId": 1,
+  "AmbientMusicTypeId": 1,
+  "UpdateTime": "2024-06-29T22:57:02.844Z",
+  "CreateTime": "2024-06-29T18:39:56Z"
+}

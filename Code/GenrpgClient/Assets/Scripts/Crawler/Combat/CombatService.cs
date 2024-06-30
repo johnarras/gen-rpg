@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Crawler.Services.CrawlerMaps;
+﻿using Assets.Scripts.Crawler.Maps.Entities;
+using Assets.Scripts.Crawler.Maps.Services;
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Crawler.Combat.Constants;
@@ -22,6 +24,7 @@ using Genrpg.Shared.UnitEffects.Constants;
 using Genrpg.Shared.UnitEffects.Settings;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Zones.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,13 +44,18 @@ namespace Assets.Scripts.Crawler.Services.Combat
         protected IClientRandom _rand;
         private ICrawlerMapService _crawlerMapService;
         private ICrawlerService _crawlerService;
+        private ICrawlerWorldService _worldService;
+
+
+
+
 
         public async Task Initialize(CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-        public bool StartCombat(PartyData partyData, CombatState combatState)
+        public async Awaitable<bool> StartCombat(PartyData partyData, CombatState combatState)
         {
             if (partyData.Combat != null)
             {
@@ -80,13 +88,33 @@ namespace Assets.Scripts.Crawler.Services.Combat
             combatState.Allies.Add(partyGroup);
             combatState.PartyGroup = partyGroup;
 
+            IReadOnlyList<UnitType> allUnitTypes = _gameData.Get<UnitSettings>(null).GetData();
+
             foreach (PartyMember member in members)
             {
                 partyGroup.Units.Add(member);           
             }
 
-            IReadOnlyList<UnitType> allUnitTypes = _gameData.Get<UnitSettings>(null).GetData();
+            ZoneType zoneType = await _worldService.GetCurrentZone(partyData);
 
+
+            List<ZoneUnitSpawn> spawns = new List<ZoneUnitSpawn>();
+
+            if (zoneType != null && zoneType.ZoneUnitSpawns.Count > 0)
+            {
+                spawns = new List<ZoneUnitSpawn>(zoneType.ZoneUnitSpawns);
+            }
+            else
+            {
+                foreach (UnitType utype in allUnitTypes)
+                {
+                    if (utype.IdKey > 0)
+                    {
+                        spawns.Add(new ZoneUnitSpawn() { UnitTypeId = utype.IdKey, Chance = 1 });
+                    }
+                }
+
+            }
 
             int groupCount = CrawlerCombatConstants.MaxStartCombatGroups;
 
@@ -103,12 +131,26 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             List<UnitType> chosenUnitTypes = new List<UnitType>();
 
-            while (chosenUnitTypes.Count < groupCount)
+            while (chosenUnitTypes.Count < groupCount && spawns.Count > 0)
             {
-                UnitType utype = allUnitTypes[_rand.Next() % allUnitTypes.Count];
-                if (utype.IdKey > 0)
+
+                double chanceSum = spawns.Sum(x => x.Chance);
+
+                double chanceChosen = _rand.NextDouble() * chanceSum;
+
+                foreach (ZoneUnitSpawn sp in spawns)
                 {
-                    chosenUnitTypes.Add(utype);
+                    chanceChosen -= sp.Chance;
+                    if (chanceChosen <= 0)
+                    {
+                        UnitType newUnitType = allUnitTypes.FirstOrDefault(x=>x.IdKey == sp.UnitTypeId);
+                        if (newUnitType != null)
+                        {
+                            chosenUnitTypes.Add(newUnitType);
+                        }
+                        spawns.Remove(sp);
+                        break;
+                    }
                 }
             }
 

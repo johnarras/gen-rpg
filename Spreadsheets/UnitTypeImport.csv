@@ -1,0 +1,136 @@
+Name,PluralName,TribeName,Suffixes,PlayerRace,MinLevel,ExtraHpPercent,ExtraDamPercent
+Human,Humans,Humanoid,,TRUE,1,0,0
+Elf,Elves,Humanoid,Archer Mage,TRUE,1,0,0
+Dwarf,Dwarves,Humanoid,Priest,TRUE,1,0,0
+Mongrel,Mongrels,Barbaric,Archer Shaman,TRUE,5,0,0
+Gnome,Gnomes,Humanoid,Priest Mage,TRUE,1,0,0
+Halfling,Halflings,Humanoid,Thief Archer,TRUE,1,0,0
+Goblin,Goblins,Barbaric,Archer Lieutenant Chieftain Shaman,FALSE,5,0,0
+Hobgoblin,Hobgoblins,Barbaric,Archer Lieutenant Chieftain Shaman,FALSE,1,0,0
+Warrior,Warriors,Warrior,,FALSE,1,0,0
+Fighter,Fighters,Warrior,,FALSE,1,0,0
+Bladesman,Bladesmen,Warrior,,FALSE,10,0,0
+Swordsman,Swordsman,Warrior,,FALSE,10,0,0
+Scrapper,Scrappers,Warrior,,FALSE,15,0,0
+Monk,Monks,Warrior,,FALSE,10,0,0
+Barbarian,Barbarians,Warrior,,FALSE,15,0,0
+Mage,Mages,Mage,,FALSE,5,0,0
+Magician,Magicians,Mage,,FALSE,10,0,0
+Conjurer,Conjurers,Mage,,FALSE,10,0,0
+Sorcerer,Sorcerers,Mage,,FALSE,15,0,0
+Wizard,Wizards,Mage,,FALSE,20,0,0
+Faerie,Faeries,Mythological,,FALSE,20,0,0
+Cleric,Clerics,Priest,,FALSE,1,0,0
+Medusa,Medusae,Mythological,,FALSE,1,0,0
+Dog,Dogs,Beast,,FALSE,1,0,0
+Hound,Hounds,Beast,,FALSE,10,0,0
+Wolf,Wolves,Beast,,FALSE,15,0,0
+Coyote,Coyotes,Beast,,FALSE,5,0,0
+Cat,Cats,Beast,,FALSE,1,0,0
+Tiger,Tigers,Beast,,FALSE,15,0,0
+Lion,Lions,Beast,,FALSE,20,0,0
+Skeleon,Skeletons,Undead,,FALSE,1,0,0
+Zombie,Zombies,Undead,,FALSE,1,0,0
+Ghoul,Ghouls,Undead,,FALSE,5,0,0
+Wight,Wights,Undead,,FALSE,5,0,0
+Wraith,Wraiths,Undead,,FALSE,10,0,0
+Ghost,Ghosts,Undead,,FALSE,10,0,0
+Spectre,Spectres,Undead,,FALSE,15,0,0
+Lich,Liches,Undead,,FALSE,20,0,0
+Thief,Thieves,Thief,,FALSE,1,0,0
+Rogue,Rogues,Thief,,FALSE,1,0,0
+Assassin,Assassins,Thief,,FALSE,15,0,0
+Demon,Demons,Demon,Lord,FALSE,20,0,0
+Blue Dragon,Blue Dragons,Dragon,,FALSE,20,0,0
+Red Dragon,Red Dragons,Dragon,,FALSE,20,0,0
+White Dragon,White Dragons,Dragon,,FALSE,20,0,0
+Black Dragon,Black Dragons,Dragon,,FALSE,20,0,0
+Green Dragon,Green Dragons,Dragon,,FALSE,20,0,0
+Stone Golem,Stone Golems,Golem,,FALSE,15,0,0
+Iron Golem,Iron Golems,Golem,,FALSE,15,0,0
+Flesh Golem,Flesh Golems,Golem,,FALSE,15,0,0
+Air Elemental,Air Elementals,Elemental,,FALSE,15,0,0
+Earth Elemental,Earth Elementals,Elemental,,FALSE,15,0,0
+Fire Elemental,Fire Elementals,Elemental,,FALSE,15,0,0
+Water Elemental,Water Elementals,Elemental,,FALSE,15,0,0
+Bear,Bears,Beast,,FALSE,1,0,0
+Slime,Slimes,Vermin,,FALSE,5,0,0
+Spider,Spiders,Beast,,FALSE,1,0,0
+Scorpion,Scorpions,Beast,,FALSE,1,0,0
+Chimera,Chimera,Mythological,,FALSE,15,0,0
+Orc,Orcs,Barbaric,Archer Lieutenant Chieftain Shaman,FALSE,1,0,0
+Ogre,Ogres,Giant,Archer Lieutenant Chieftain Shaman,FALSE,10,0,0
+Rat,Rats,Vermin,,FALSE,1,0,0
+Bat,Bats,Beast,,FALSE,1,0,0
+Salamander,Salamanders,Beast,,FALSE,1,0,0
+Wyvern,Wyverns,Mythological,,FALSE,20,0,0
+Frog,Frogs,Beast,,FALSE,1,0,0
+Lizardman,Lizardmen,Barbaric,,FALSE,5,0,0
+Werewolf,Werewolves,Barbaric,,FALSE,10,0,0
+Troll,Trolls,Giant,Archer Lieutenant Chieftain Shaman,FALSE,10,0,0
+Vampire,Vampires,Undead,Lord,FALSE,20,0,0
+Mummy,Mummies,Undead,Lord,FALSE,10,0,0
+Harpy,Harpies,Mythological,,FALSE,10,0,0
+Griffon,Griffons,Mythological,,FALSE,15,0,0
+Manticore,Manticores,Mythological,,FALSE,15,0,0
+Snake,Snakes,Beast,,FALSE,1,0,0
+Steed,Steeds,Beast,,FALSE,1,0,0
+Basilisk,Basilisks,Mythological,,FALSE,20,0,0
+Giant,Giants,Giant,,FALSE,15,0,0
+Guard,Guards,Warrior,,FALSE,1,0,0
+Gnoll,Gnolls,Barbaric,Archer Lieutenant Chieftain Shaman,FALSE,5,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0
+,,,,FALSE,1,0,0

@@ -13,8 +13,8 @@ namespace Assets.Scripts.Crawler.Maps.Entities
         public int Z { get; set; }
         public long EntityTypeId { get; set; }
         public long EntityId { get; set; }
-        public long Quantity { get; set; }
-        public long ToX { get; set; }
-        public long ToZ { get; set; }
+        public long Value { get; set; }
+        public int ToX { get; set; }
+        public int ToZ { get; set; }
     }
 }

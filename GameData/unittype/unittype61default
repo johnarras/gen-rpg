@@ -1,0 +1,21 @@
+{
+  "Id": "unittype61default",
+  "ParentId": "default",
+  "IdKey": 61,
+  "Name": "Blue Dragon",
+  "PluralName": "Blue Dragons",
+  "Icon": "BlueDragon",
+  "Art": "BlueDragon",
+  "TribeTypeId": 16,
+  "MinLevel": 20,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.367Z",
+  "CreateTime": "2024-06-29T22:48:27.367Z"
+}

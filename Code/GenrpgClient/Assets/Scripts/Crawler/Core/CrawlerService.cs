@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
+using Assets.Scripts.Crawler.Maps.Entities;
+using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Model;
@@ -42,6 +44,7 @@ namespace Assets.Scripts.Crawler.Services
         protected IDispatcher _dispatcher;
         protected IClientRandom _rand;
         protected ICombatService _combatService;
+        protected ICrawlerWorldService _worldService;
 
         const string SaveFileSuffix = ".sav";
         const string SaveFileName = "Start" + SaveFileSuffix;
@@ -103,56 +106,61 @@ namespace Assets.Scripts.Crawler.Services
 
         public async Awaitable ChangeStateAsync (CrawlerStateData currData, CrawlerStateAction action, CancellationToken token)
         {
-
-            CrawlerStateData nextStateData = null;
-            foreach (CrawlerStateData stackData in _stateData)
+            try
             {
-                if (stackData.Id == action.NextState)
+                CrawlerStateData nextStateData = null;
+                foreach (CrawlerStateData stackData in _stateData)
                 {
-                    nextStateData = stackData;
-                    break;
+                    if (stackData.Id == action.NextState)
+                    {
+                        nextStateData = stackData;
+                        break;
+                    }
                 }
-            }
 
-            if (nextStateData != null)
-            {
-                while (_stateData.Count > 0 && _stateData.Peek().Id != nextStateData.Id)
+                if (nextStateData != null)
                 {
-                    _stateData.Pop();
+                    while (_stateData.Count > 0 && _stateData.Peek().Id != nextStateData.Id)
+                    {
+                        _stateData.Pop();
+                    }
+                    if (_stateData.Count > 0)
+                    {
+                        _stateData.Pop();
+                    }
                 }
-                if (_stateData.Count > 0)
+
+                if (_stateHelpers.TryGetValue(action.NextState, out IStateHelper stateHelper))
                 {
-                    _stateData.Pop();
+                    nextStateData = await stateHelper.Init(currData, action, token);
+
+                    if (stateHelper.IsTopLevelState())
+                    {
+                        _stateData.Clear();
+                    }
                 }
-            }
 
-            if (_stateHelpers.TryGetValue(action.NextState, out IStateHelper stateHelper))
-            {
-                nextStateData = await stateHelper.Init(currData, action, token);
-
-                if (stateHelper.IsTopLevelState())
+                if (nextStateData != null)
                 {
-                    _stateData.Clear();
-                }
-            }
-
-            if (nextStateData != null)
-            {
-                if (nextStateData.ForceNextState)
-                {
-                    ChangeState(nextStateData.Id, token, nextStateData.ExtraData);
+                    if (nextStateData.ForceNextState)
+                    {
+                        ChangeState(nextStateData.Id, token, nextStateData.ExtraData);
+                    }
+                    else
+                    {
+                        _stateData.Push(nextStateData);
+                        _dispatcher.Dispatch(nextStateData);
+                    }
                 }
                 else
                 {
-                    _stateData.Push(nextStateData);
-                    _dispatcher.Dispatch(nextStateData);
+                    _logService.Error("State not found: " + action.NextState);
                 }
-            }     
-            else
-            {
-                _logService.Error("State not found: " + action.NextState);
             }
-                
+            catch (Exception e)
+            {
+                _logService.Exception(e, "CrawlerChangeState");
+            }
         }
 
         private void SetupParty(PartyData party)
@@ -312,9 +320,26 @@ namespace Assets.Scripts.Crawler.Services
             await _crawlerMapService.UpdateMovement(token);
         }
 
-        public void OnFinishMove(CancellationToken token)
+        public async Awaitable OnFinishMove(bool movedPosition, CancellationToken token)
         {
+
+
+            if (movedPosition)
+            {
+                CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
+                CrawlerMap map = world.GetMap(_party.MapId);
+
+                MapCellDetail detail = map.Details.FirstOrDefault(x => x.X == _party.MapX && x.Z == _party.MapZ);
+                if (detail != null && detail.EntityTypeId == EntityTypes.Map)
+                {
+                    ChangeState(ECrawlerStates.MapExit, token, detail);
+                }
+            }
+
             UpdateIfNotMoving(true, token);
+
+
+
         }
     }
 }

@@ -17,6 +17,8 @@ using Assets.Scripts.Crawler.Maps.Loading;
 using Genrpg.Shared.Zones.Settings;
 using System.Threading.Tasks;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using UnityEditor.iOS.Extensions.Common;
+using Genrpg.Shared.Entities.Constants;
 
 namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {
@@ -36,12 +38,13 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             GameObject go = new GameObject() { name = "City" };
             CrawlerMapRoot mapRoot = _gameObjectService.GetOrAddComponent<CrawlerMapRoot>(go);
+            mapRoot.SetupFromMap(mapData.Map);
             mapRoot.name = mapId;
             mapRoot.MapId = mapId;
             mapRoot.DrawX = partyData.MapX * CrawlerMapConstants.BlockSize;
             mapRoot.DrawZ = partyData.MapZ * CrawlerMapConstants.BlockSize;
             mapRoot.DrawY = CrawlerMapConstants.BlockSize / 2;
-
+                
 
             await Task.CompletedTask;
             return mapRoot;
@@ -51,23 +54,21 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         {
             MyRandom rand = new MyRandom(genData.World.IdKey*3 + genData.World.GetMaxMapId()*17);
 
-            int minSize = 12;
-            int maxSize = 18;
+            long cityZoneTypeId = _gameData.Get<ZoneTypeSettings>(null).GetData().FirstOrDefault(x => x.Name == "City")?.IdKey ?? 0;
 
-            CrawlerMap cmap = genData.World.CreateMap(ECrawlerMapTypes.City, false, MathUtils.IntRange(minSize, maxSize, rand),
-                MathUtils.IntRange(minSize, maxSize, rand));
+            CrawlerMap map = genData.World.CreateMap(genData);
 
-            cmap.SetupDataBlocks();
+            map.SetupDataBlocks();
 
-            long seed = cmap.IdKey % 1238921 + genData.World.IdKey;
+            long seed = map.IdKey % 1238921 + genData.World.IdKey;
 
-            bool[,] clearCells = new bool[cmap.Width, cmap.Height];
+            bool[,] clearCells = new bool[map.Width, map.Height];
 
-            clearCells[cmap.Width / 2, cmap.Height / 2] = true;
+            clearCells[map.Width / 2, map.Height / 2] = true;
 
-            List<MyPoint> endPoints = new List<MyPoint> { new MyPoint(cmap.Width / 2, cmap.Height / 2) };
+            List<MyPoint> endPoints = new List<MyPoint> { new MyPoint(map.Width / 2, map.Height / 2) };
 
-            int streetCount = (int)(Math.Sqrt((cmap.Width * cmap.Height)) * 0.75f);
+            int streetCount = (int)(Math.Sqrt((map.Width * map.Height)) * 0.75f);
 
             for (int times = 0; times < streetCount; times++)
             {
@@ -79,7 +80,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                 {
                     int sx = startPoint.X + x;
 
-                    if (sx < 2 || sx >= cmap.Width - 2)
+                    if (sx < 2 || sx >= map.Width - 2)
                     {
                         continue;
                     }
@@ -93,7 +94,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                         int sy = startPoint.Y + y;
 
-                        if (sy < 2 || sy >= cmap.Height - 2)
+                        if (sy < 2 || sy >= map.Height - 2)
                         {
                             continue;
                         }
@@ -122,8 +123,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                     int lx = startPoint.X + l * offset.X;
                     int ly = startPoint.Y + l * offset.Y;
 
-                    if (lx < 1 || lx >= cmap.Width - 1 ||
-                        ly < 1 || ly >= cmap.Height - 1)
+                    if (lx < 1 || lx >= map.Width - 1 ||
+                        ly < 1 || ly >= map.Height - 1)
                     {
                         continue;
                     }
@@ -139,24 +140,80 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                 }
             }
 
-            int cityBiomeId = 0;
+            int gateX = -1;
+            int gateZ = -1;
 
-            List<ZoneType> zoneTypes = _gameData.Get<ZoneTypeSettings>(null).GetData().Where(x => x.IdKey > 0).ToList();
-
-            for (int x = 0; x < cmap.Width; x++)
+            // X on border, y in middle.
+            if (rand.NextDouble() < 0.5f)
             {
-                for (int z = 0; z < cmap.Height; z++)
-                {
-                    long zoneTypeId = cityBiomeId;
-                    if (rand.NextDouble() < 0.3f && zoneTypes.Count > 0)
-                    {
-                        zoneTypeId = zoneTypes[rand.Next() % zoneTypes.Count].IdKey;
-                    }
+                gateX = (rand.NextDouble() < 0.5 ? 0 : map.Width - 1);
+                gateZ = MathUtils.IntRange(map.Height / 3, map.Height * 2 / 3, rand);
+                int start = gateX;                
+                int dir = (gateX == 0 ? 1 : -1);
 
-                    cmap.CoreData[cmap.GetIndex(x, z)] = (byte)zoneTypeId;
+                int xx = start;
+                while (true)
+                {
+                    if (clearCells[xx,gateZ])
+                    {
+                        break;
+                    }
+                    clearCells[xx, gateZ] = true;
+                    xx += dir;
+                    if (xx < 0 || xx >= map.Width)
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                gateZ = (rand.NextDouble() < 0.5 ? 0 : map.Height - 1);
+                gateX = MathUtils.IntRange(map.Width/3, map.Width * 2 / 3, rand);
+                int start = gateZ;
+                int dir = (gateZ == 0 ? 1 : -1);
+
+                int zz = start;
+                while (true)
+                {
+                    if (clearCells[gateX,zz])
+                    {
+                        break;
+                    }
+                    clearCells[gateX,zz] = true;
+                    zz += dir;
+                    if (zz < 0 || zz >= map.Height)
+                    {
+                        break;
+                    }
                 }
             }
 
+
+            map.Details.Add(new MapCellDetail()
+            {
+                EntityTypeId = EntityTypes.Map,
+                EntityId = genData.FromMapId,
+                ToX = genData.FromMapX,
+                ToZ = genData.FromMapZ,
+                X = gateX,
+                Z = gateZ
+            });
+
+            CrawlerMap fromMap = genData.World.GetMap(genData.FromMapId);
+
+            if (fromMap != null)
+            {
+                MapCellDetail fromDetail = fromMap.Details.FirstOrDefault(x=>x.X == genData.FromMapX && x.Z == genData.FromMapZ);  
+
+                if (fromDetail != null)
+                {
+                    fromDetail.ToX = gateX;
+                    fromDetail.ToZ = gateZ;
+                    fromDetail.EntityId = map.IdKey;
+                }
+            }
+            
 
             IReadOnlyList<BuildingType> buildings = _gameData.Get<BuildingSettings>(null).GetData();
 
@@ -186,7 +243,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                         {
                             int sx = xx + x;
 
-                            if (sx < 1 || sx >= cmap.Width - 1)
+                            if (sx < 0 || sx >= map.Width - 1)
                             {
                                 continue;
                             }
@@ -200,7 +257,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                                 int sy = yy + y;
 
-                                if (sy < 1 || sy >= cmap.Height - 1)
+                                if (sy < 0 || sy >= map.Height)
                                 {
                                     continue;
                                 }
@@ -220,11 +277,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                             dir = (dir + 1) % 4;
 
-                            cmap.CoreData[cmap.GetIndex(xx, yy)] |= (byte)(dir << CrawlerMapConstants.CityDirBitShiftSize);
+                            map.CoreData[map.GetIndex(xx, yy)] |= (byte)(dir << CrawlerMapConstants.CityDirBitShiftSize);
 
                             BuildingType btype = fillerBuildings[rand.Next() % fillerBuildings.Count];
 
-                            cmap.ExtraData[cmap.GetIndex(xx, yy)] = (byte)(btype.IdKey);
+                            map.ExtraData[map.GetIndex(xx, yy)] = (byte)(btype.IdKey);
 
                             points.Add(new MyPoint2(xx, yy));
                         }
@@ -242,13 +299,13 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                 MyPoint2 currPoint = points[rand.Next() % points.Count];
                 points.Remove(currPoint);
-                cmap.ExtraData[cmap.GetIndex((int)currPoint.X, (int)currPoint.Y)] = (byte)btype.IdKey;
+                map.ExtraData[map.GetIndex((int)currPoint.X, (int)currPoint.Y)] = (byte)btype.IdKey;
             }
 
 
-            cmap.DungeonArt = _gameData.Get<DungeonArtSettings>(null).Get(cmap.DungeonArtId);
+            map.DungeonArt = _gameData.Get<DungeonArtSettings>(null).Get(map.DungeonArtId);
 
-            return cmap;
+            return map;
         }
 
 

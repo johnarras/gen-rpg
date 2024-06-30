@@ -1011,8 +1011,10 @@ namespace Genrpg.Editor
             if (comboBox.SelectedItem == null)
             {
                 NameValue errorItem = new NameValue() { Name = "ErrorItem", IdKey = idVal };
-                comboBox.Items.Add(errorItem);
-                comboBox.SelectedItem = errorItem;
+                if (comboBox.Items.Count > 0)
+                {
+                    comboBox.SelectedItem = comboBox.Items[0];
+                }
             }
 
             comboBox.SelectionChanged += OnComboBoxChanged; 
@@ -1472,10 +1474,13 @@ namespace Genrpg.Editor
 
             if (rid < 0 || rid >= newItems.Count) 
             {
-                rid = newItems.Count - 1;
+                rid = newItems.Count -1;
             }
 
-            dgv.SelectedItem = newItems[rid];
+            if (rid >= 0)
+            {
+                dgv.SelectedItem = newItems[rid];
+            }
         }
 
         public void SaveChanges()

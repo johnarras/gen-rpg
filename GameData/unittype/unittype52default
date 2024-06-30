@@ -2,12 +2,13 @@
   "Id": "unittype52default",
   "ParentId": "default",
   "IdKey": 52,
-  "Name": "Zombie",
-  "PluralName": "Zombies",
-  "Icon": "Zombie",
-  "Art": "Zombie",
-  "Height": 2.0,
+  "Name": "Wraith",
+  "PluralName": "Wraiths",
+  "Icon": "Wraith",
+  "Art": "Wraith",
   "TribeTypeId": 3,
+  "MinLevel": 10,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:59.716Z",
-  "CreateTime": "2024-02-04T21:57:21.993Z"
+  "UpdateTime": "2024-06-29T22:48:27.35Z",
+  "CreateTime": "2024-06-29T22:48:27.35Z"
 }

@@ -627,36 +627,21 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
 
         List<SpawnItem> spawnItems = new List<SpawnItem>();
 
-        foreach (SpawnItem spawnItem in zoneType.UnitSpawns)
+        foreach (ZoneUnitSpawn spawnItem in zoneType.ZoneUnitSpawns)
         {
 
-            List<SpawnItem> newSpawnItems = CreateUnitListFromSpawnItems(spawnItem, 1.0f, 0);
-            if (spawnItem.MinQuantity > 0 && spawnItem.MaxQuantity >= spawnItem.MinQuantity)
-            {
-                int numChosen = MathUtils.IntRange((int)spawnItem.MinQuantity, (int)spawnItem.MaxQuantity, rand);
-                while (newSpawnItems.Count > numChosen)
-                {
-                    newSpawnItems.RemoveAt(rand.Next() % newSpawnItems.Count);
-                }
-            }
-            spawnItems = spawnItems.Concat(newSpawnItems).ToList();
-        }
-
-
-        foreach (SpawnItem si in spawnItems)
-        {
-            if (si.EntityTypeId != EntityTypes.Unit)
+            if (spawnItem.Chance <= 0)
             {
                 continue;
             }
 
-            UnitType utype = _gameData.Get<UnitSettings>(_gs.ch).Get(si.EntityId);
+            UnitType utype = _gameData.Get<UnitSettings>(_gs.ch).Get(spawnItem.UnitTypeId);
             if (utype == null)
             {
                 continue;
             }
 
-            float chance = (float)si.Weight;
+            double chance = spawnItem.Chance;
 
             chance = MathUtils.FloatRange(chance / 2, chance * 2, rand);
 
@@ -692,57 +677,6 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         }
     }
 
-    /// <summary>
-    /// This recursively builds a list of spawn items with chances based on the list and makes sure the depth 
-    /// </summary>
-    /// <param name="gs"></param>
-    /// <param name="spawnItemIn"></param>
-    /// <param name="retval"></param>
-    /// <param name="chance"></param>
-    /// <param name="depth"></param>
-    /// <returns></returns>
-    private List<SpawnItem> CreateUnitListFromSpawnItems(SpawnItem spawnItemIn, double chance, int depth)
-    {
-
-        List<SpawnItem> retval = new List<SpawnItem>();
-
-        if (depth >= 4)
-        {
-            return retval;
-        }
-
-        if (spawnItemIn.EntityTypeId == EntityTypes.Unit)
-        {
-            UnitType utype = _gameData.Get<UnitSettings>(_gs.ch).Get(spawnItemIn.EntityId);
-            if (utype != null)
-            {
-                SpawnItem newSi = new SpawnItem()
-                {
-                    EntityTypeId = EntityTypes.Unit,
-                    EntityId = utype.IdKey,
-                    MinQuantity = 1,
-                    MaxQuantity = 1,
-                    GroupId = 0,
-                    Weight = spawnItemIn.Weight / 100.0f * chance,
-
-                };
-                retval.Add(newSi);
-            }
-        }
-        else if (spawnItemIn.EntityTypeId == EntityTypes.Spawn)
-        {
-            SpawnTable spawnTable = _gameData.Get<SpawnSettings>(_gs.ch).Get(spawnItemIn.EntityId);
-            if (spawnTable != null && spawnTable.Items != null)
-            {
-                foreach (SpawnItem si in spawnTable.Items)
-                {
-                    retval = retval.Concat(CreateUnitListFromSpawnItems(si, chance * si.Weight / 100.0f * spawnItemIn.Weight / 100.0f, depth + 1)).ToList();
-                }
-            }
-        }
-        return retval;
-
-    }
 
     public string GenerateZoneName(long zoneTypeId, long extraSeed)
     {

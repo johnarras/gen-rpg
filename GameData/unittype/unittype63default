@@ -1,0 +1,21 @@
+{
+  "Id": "unittype63default",
+  "ParentId": "default",
+  "IdKey": 63,
+  "Name": "White Dragon",
+  "PluralName": "White Dragons",
+  "Icon": "WhiteDragon",
+  "Art": "WhiteDragon",
+  "TribeTypeId": 16,
+  "MinLevel": 20,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.371Z",
+  "CreateTime": "2024-06-29T22:48:27.371Z"
+}

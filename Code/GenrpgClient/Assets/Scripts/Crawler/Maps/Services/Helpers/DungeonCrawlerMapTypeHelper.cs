@@ -8,6 +8,7 @@ using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Zones.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -49,10 +50,17 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         public override CrawlerMap Generate(CrawlerMapGenData genData)
         {
-
             MyRandom rand = new MyRandom(genData.World.IdKey * 5 + genData.World.GetMaxMapId() * 19);
 
-            CrawlerMap cmap = genData.World.CreateMap(ECrawlerMapTypes.Dungeon, true, MathUtils.IntRange(15, 25, rand), MathUtils.IntRange(15, 25, rand));
+            List<string> zoneNames = new List<string>() { "Dungeon", "Cave", "Tower" };
+
+            string nameChosen = zoneNames[rand.Next() % zoneNames.Count];
+
+            long zoneTypeId = _gameData.Get<ZoneTypeSettings>(null).GetData().FirstOrDefault(x => x.Name == nameChosen)?.IdKey ?? 0;
+
+            genData.ZoneTypeId = zoneTypeId;
+
+            CrawlerMap cmap = genData.World.CreateMap(genData);
 
             cmap.SetupDataBlocks();
 

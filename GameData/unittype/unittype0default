@@ -2,9 +2,7 @@
   "Id": "unittype0default",
   "ParentId": "default",
   "Name": "None",
-  "Icon": "None",
-  "Art": "None",
-  "TribeTypeId": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -12,6 +10,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:55.109Z",
-  "CreateTime": "2024-01-28T21:19:53.288Z"
+  "UpdateTime": "2024-06-29T22:48:27.24Z",
+  "CreateTime": "2024-06-29T22:48:27.24Z"
 }

@@ -4,6 +4,7 @@
   "IdKey": 15,
   "Name": "MainHand",
   "Active": true,
-  "UpdateTime": "2024-02-25T15:46:41.642Z",
+  "IsCrawlerSlot": true,
+  "UpdateTime": "2024-06-29T14:10:32.085Z",
   "CreateTime": "2023-11-24T16:45:26.891Z"
 }

@@ -1,0 +1,21 @@
+{
+  "Id": "unittype83default",
+  "ParentId": "default",
+  "IdKey": 83,
+  "Name": "Ogre",
+  "PluralName": "Ogres",
+  "Icon": "Ogre",
+  "Art": "Ogre",
+  "TribeTypeId": 7,
+  "MinLevel": 10,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.434Z",
+  "CreateTime": "2024-06-29T22:48:27.434Z"
+}

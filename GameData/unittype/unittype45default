@@ -2,12 +2,13 @@
   "Id": "unittype45default",
   "ParentId": "default",
   "IdKey": 45,
-  "Name": "Vampire",
-  "PluralName": "Vampires",
-  "Icon": "Vampire",
-  "Art": "Vampire",
-  "Height": 3.0,
-  "TribeTypeId": 3,
+  "Name": "Cat",
+  "PluralName": "Cats",
+  "Icon": "Cat",
+  "Art": "Cat",
+  "TribeTypeId": 2,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:58.948Z",
-  "CreateTime": "2024-02-04T21:57:21.979Z"
+  "UpdateTime": "2024-06-29T22:48:27.336Z",
+  "CreateTime": "2024-06-29T22:48:27.336Z"
 }

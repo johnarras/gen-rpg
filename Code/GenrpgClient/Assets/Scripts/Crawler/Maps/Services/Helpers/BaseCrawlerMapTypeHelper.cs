@@ -10,6 +10,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.ProcGen.Settings.Texturse;
+using System;
 using System.Security.Policy;
 using System.Threading;
 using UnityEngine;
@@ -55,7 +56,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             CrawlerObjectLoadData loadData = data as CrawlerObjectLoadData;
 
-            if (loadData == null || loadData.MapCell == null || loadData.BuildingType == null || loadData.MapRoot == null)
+            if (loadData == null || loadData.MapCell == null || loadData.BuildingType == null || loadData.MapRoot == null ||
+                go.transform.parent == null)
             {
                 GEntityUtils.Destroy(go);
                 return;
@@ -77,7 +79,14 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             if (ttype != null && !string.IsNullOrEmpty(ttype.Art))
             {
-                _assetService.LoadAssetInto(parent, AssetCategoryNames.TerrainTex, ttype.Art, OnDownloadTerrainTexture,parent, token);
+                try
+                {
+                    _assetService.LoadAssetInto(parent, AssetCategoryNames.TerrainTex, ttype.Art, OnDownloadTerrainTexture, parent, token);
+                }
+                catch (Exception ee)
+                {
+                    _logService.Info("Inner Load Error: " + ee.Message);   
+                }
             }
         }
 

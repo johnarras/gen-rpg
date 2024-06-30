@@ -2,12 +2,13 @@
   "Id": "unittype17default",
   "ParentId": "default",
   "IdKey": 17,
-  "Name": "Salamander",
-  "PluralName": "Salamanders",
-  "Icon": "Salamander",
-  "Art": "Salamander",
-  "Height": 1.0,
-  "TribeTypeId": 2,
+  "Name": "Goblin Archer",
+  "PluralName": "Goblin Archers",
+  "Icon": "GoblinArcher",
+  "Art": "GoblinArcher",
+  "TribeTypeId": 10,
+  "MinLevel": 5,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:55.957Z",
-  "CreateTime": "2024-02-04T21:57:21.919Z"
+  "UpdateTime": "2024-06-29T22:48:27.281Z",
+  "CreateTime": "2024-06-29T22:48:27.281Z"
 }

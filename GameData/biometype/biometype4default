@@ -1,9 +1,0 @@
-{
-  "Id": "biometype4default",
-  "ParentId": "default",
-  "IdKey": 4,
-  "Name": "Hills",
-  "MinLevel": 15,
-  "UpdateTime": "2024-06-21T22:37:23.107Z",
-  "CreateTime": "2024-06-21T22:25:29.791Z"
-}

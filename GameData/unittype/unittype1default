@@ -4,12 +4,12 @@
   "IdKey": 1,
   "Name": "Human",
   "PluralName": "Humans",
-  "Desc": "",
-  "Icon": "HumanMale",
-  "Art": "HumanMale",
-  "Height": 2.0,
+  "Icon": "Human",
+  "Art": "Human",
   "TribeTypeId": 1,
   "PlayerRace": true,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -17,6 +17,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:56.239Z",
-  "CreateTime": "2024-01-28T21:19:53.309Z"
+  "UpdateTime": "2024-06-29T22:48:27.244Z",
+  "CreateTime": "2024-06-29T22:48:27.244Z"
 }

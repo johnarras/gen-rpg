@@ -2,12 +2,13 @@
   "Id": "unittype40default",
   "ParentId": "default",
   "IdKey": 40,
-  "Name": "Manticore",
-  "PluralName": "Manticores",
-  "Icon": "Manticore",
-  "Art": "Manticore",
-  "Height": 4.0,
+  "Name": "Medusa",
+  "PluralName": "Medusae",
+  "Icon": "Medusa",
+  "Art": "Medusa",
   "TribeTypeId": 8,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:58.468Z",
-  "CreateTime": "2024-02-04T21:57:21.969Z"
+  "UpdateTime": "2024-06-29T22:48:27.327Z",
+  "CreateTime": "2024-06-29T22:48:27.327Z"
 }

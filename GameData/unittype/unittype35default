@@ -2,12 +2,13 @@
   "Id": "unittype35default",
   "ParentId": "default",
   "IdKey": 35,
-  "Name": "Harpy",
-  "PluralName": "Harpies",
-  "Icon": "HarpyNaked",
-  "Art": "HarpyNaked",
-  "Height": 3.0,
-  "TribeTypeId": 1,
+  "Name": "Conjurer",
+  "PluralName": "Conjurers",
+  "Icon": "Conjurer",
+  "Art": "Conjurer",
+  "TribeTypeId": 12,
+  "MinLevel": 10,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:57.885Z",
-  "CreateTime": "2024-02-04T21:57:21.959Z"
+  "UpdateTime": "2024-06-29T22:48:27.317Z",
+  "CreateTime": "2024-06-29T22:48:27.317Z"
 }

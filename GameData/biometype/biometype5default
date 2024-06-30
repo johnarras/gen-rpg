@@ -1,9 +1,0 @@
-{
-  "Id": "biometype5default",
-  "ParentId": "default",
-  "IdKey": 5,
-  "Name": "Swamp",
-  "MinLevel": 20,
-  "UpdateTime": "2024-06-21T22:37:23.107Z",
-  "CreateTime": "2024-06-21T22:25:29.792Z"
-}

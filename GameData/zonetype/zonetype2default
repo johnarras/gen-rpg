@@ -5,6 +5,7 @@
   "Name": "Forest",
   "Desc": "",
   "Icon": "",
+  "MinLevel": 5,
   "GenChance": 20.0,
   "GrassDensity": 1.0,
   "GrassFreq": 1.0,
@@ -565,41 +566,314 @@
     }
   ],
   "Overrides": [],
-  "UnitSpawns": [
+  "ZoneUnitSpawns": [
     {
-      "EntityTypeId": 5,
-      "EntityId": 15,
-      "MinQuantity": 4,
-      "MaxQuantity": 10,
-      "Weight": 100.0
+      "UnitTypeId": 1,
+      "Chance": 1.0
     },
     {
-      "EntityTypeId": 5,
-      "EntityId": 10,
-      "MinQuantity": 2,
-      "MaxQuantity": 4,
-      "Weight": 10.0
+      "UnitTypeId": 2,
+      "Chance": 1.0
     },
     {
-      "EntityTypeId": 5,
-      "EntityId": 11,
-      "MinQuantity": 1,
-      "MaxQuantity": 3,
-      "Weight": 1.0
+      "UnitTypeId": 3,
+      "Chance": 1.0
     },
     {
-      "EntityTypeId": 5,
-      "EntityId": 12,
-      "MinQuantity": 1,
-      "MaxQuantity": 3,
-      "Weight": 0.1
+      "UnitTypeId": 4,
+      "Chance": 1.0
     },
     {
-      "EntityTypeId": 5,
-      "EntityId": 13,
-      "MinQuantity": 1,
-      "MaxQuantity": 3,
-      "Weight": 2.0
+      "UnitTypeId": 5,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 6,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 7,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 8,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 9,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 10,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 11,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 12,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 13,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 14,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 15,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 16,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 17,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 18,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 19,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 20,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 21,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 22,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 23,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 24,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 25,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 26,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 27,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 28,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 29,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 30,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 31,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 32,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 33,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 34,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 35,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 36,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 37,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 38,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 39,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 41,
+      "Chance": 2.0
+    },
+    {
+      "UnitTypeId": 42,
+      "Chance": 2.0
+    },
+    {
+      "UnitTypeId": 43,
+      "Chance": 10.0
+    },
+    {
+      "UnitTypeId": 44,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 45,
+      "Chance": 1.0
+    },
+    {
+      "UnitTypeId": 46,
+      "Chance": 2.0
+    },
+    {
+      "UnitTypeId": 47,
+      "Chance": 2.0
+    },
+    {
+      "UnitTypeId": 48,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 73,
+      "Chance": 10.0
+    },
+    {
+      "UnitTypeId": 75,
+      "Chance": 10.0
+    },
+    {
+      "UnitTypeId": 78,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 79,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 80,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 81,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 82,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 83,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 84,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 85,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 86,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 87,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 89,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 90,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 92,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 93,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 94,
+      "Chance": 2.0
+    },
+    {
+      "UnitTypeId": 95,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 96,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 97,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 98,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 99,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 107,
+      "Chance": 10.0
+    },
+    {
+      "UnitTypeId": 108,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 110,
+      "Chance": 2.0
+    },
+    {
+      "UnitTypeId": 112,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 113,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 114,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 115,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 116,
+      "Chance": 5.0
     }
   ],
   "PlantChoices": "2 5 8 10 20 21 23 24 27 29 30 7 15 25 3 16 18 26 9",
@@ -607,7 +881,7 @@
   "Art": "",
   "WeatherTypeId": 2,
   "MusicTypeId": 4,
-  "AmbientMusicTypeId": 9,
-  "UpdateTime": "2024-06-21T21:55:14.666Z",
+  "AmbientMusicTypeId": 8,
+  "UpdateTime": "2024-06-29T22:57:02.815Z",
   "CreateTime": "2023-12-24T15:55:51.276Z"
 }

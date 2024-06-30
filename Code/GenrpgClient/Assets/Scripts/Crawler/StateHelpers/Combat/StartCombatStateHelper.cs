@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
+using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.UI.Crawler.States;
 
 using Genrpg.Shared.Crawler.Combat.Entities;
@@ -12,7 +13,6 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
     public class StartCombatStateHelper : BaseCombatStateHelper
     {
         private IScreenService _screenService;
-        
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.StartCombat; }
 
@@ -22,9 +22,9 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
             PartyData party = _crawlerService.GetParty();
 
-            CombatState combatState = new CombatState() { Level = party.GetWorldLevel() };
+            CombatState combatState = new CombatState() { Level = await _worldService.GetMapLevelAtParty(party) };
 
-            if (_combatService.StartCombat(_crawlerService.GetParty(), combatState))
+            if (await _combatService.StartCombat(_crawlerService.GetParty(), combatState))
             {
                 stateData = new CrawlerStateData(ECrawlerStates.CombatFightRun,true);
             }

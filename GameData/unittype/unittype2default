@@ -4,12 +4,12 @@
   "IdKey": 2,
   "Name": "Elf",
   "PluralName": "Elves",
-  "Desc": "",
-  "Icon": "ElfMale",
-  "Art": "ElfMale",
-  "Height": 2.0,
+  "Icon": "Elf",
+  "Art": "Elf",
   "TribeTypeId": 1,
   "PlayerRace": true,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -17,6 +17,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:57.304Z",
-  "CreateTime": "2024-01-28T21:19:53.301Z"
+  "UpdateTime": "2024-06-29T22:48:27.246Z",
+  "CreateTime": "2024-06-29T22:48:27.246Z"
 }

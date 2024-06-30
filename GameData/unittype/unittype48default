@@ -2,12 +2,13 @@
   "Id": "unittype48default",
   "ParentId": "default",
   "IdKey": 48,
-  "Name": "Spider",
-  "PluralName": "Spiders",
-  "Icon": "Spider",
-  "Art": "Spider",
-  "Height": 1.0,
-  "TribeTypeId": 7,
+  "Name": "Skeleon",
+  "PluralName": "Skeletons",
+  "Icon": "Skeleon",
+  "Art": "Skeleon",
+  "TribeTypeId": 3,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:59.234Z",
-  "CreateTime": "2024-02-04T21:57:21.985Z"
+  "UpdateTime": "2024-06-29T22:48:27.343Z",
+  "CreateTime": "2024-06-29T22:48:27.343Z"
 }

@@ -6,6 +6,7 @@ LevelsPerMelee,,4,6,8,12,12,5,7,6,3,4,8
 LevelsPerRanged,,6,6,3,12,12,4,5,8,7,10,8
 LevelsPerDamage,,14,12,12,2,5,4,6,5,14,5,3
 LevelsPerHeal,,14,12,12,8,2,6,4,5,14,4,7
+LevelsPerSummon,,10,8,4,6,10,6,7,3,7,10,5
 CritPercent,,5,20,15,10,5,5,5,5,15,5,10
 ManaStatTypeId,,13,12,12,12,13,12,13,13,12,13,12
 MaxArmorScalingTypeId,,4,2,3,1,1,3,2,2,2,4,3

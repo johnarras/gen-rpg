@@ -1,0 +1,21 @@
+{
+  "Id": "unittype74default",
+  "ParentId": "default",
+  "IdKey": 74,
+  "Name": "Slime",
+  "PluralName": "Slimes",
+  "Icon": "Slime",
+  "Art": "Slime",
+  "TribeTypeId": 6,
+  "MinLevel": 5,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.393Z",
+  "CreateTime": "2024-06-29T22:48:27.393Z"
+}

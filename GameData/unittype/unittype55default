@@ -1,0 +1,21 @@
+{
+  "Id": "unittype55default",
+  "ParentId": "default",
+  "IdKey": 55,
+  "Name": "Lich",
+  "PluralName": "Liches",
+  "Icon": "Lich",
+  "Art": "Lich",
+  "TribeTypeId": 3,
+  "MinLevel": 20,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.356Z",
+  "CreateTime": "2024-06-29T22:48:27.356Z"
+}

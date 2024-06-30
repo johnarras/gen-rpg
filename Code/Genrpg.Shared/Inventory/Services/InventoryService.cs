@@ -345,11 +345,7 @@ namespace Genrpg.Shared.Inventory.Services
                     foreach (UnitClass uc in unit.Classes)
                     {
                         Class cl = classSettings.Get(uc.ClassId);
-                        if (slot.ClassRestricted && cl.AllowedEquipSlots.Any(x => x.EquipSlotId == slot.IdKey))
-                        {
-                            return true;
-                        }
-                        else if (slot.IdKey == EquipSlots.MainHand && cl.AllowedWeapons.Any(x => x.ItemTypeId == itype.IdKey))
+                        if (slot.IdKey == EquipSlots.MainHand && cl.AllowedWeapons.Any(x => x.ItemTypeId == itype.IdKey))
                         {
                             return true;
                         }

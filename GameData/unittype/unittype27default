@@ -2,12 +2,13 @@
   "Id": "unittype27default",
   "ParentId": "default",
   "IdKey": 27,
-  "Name": "Dragon",
-  "PluralName": "Dragons",
-  "Icon": "Dragon",
-  "Art": "Dragon",
-  "Height": 5.0,
-  "TribeTypeId": 5,
+  "Name": "Fighter",
+  "PluralName": "Fighters",
+  "Icon": "Fighter",
+  "Art": "Fighter",
+  "TribeTypeId": 11,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:57.014Z",
-  "CreateTime": "2024-02-04T21:57:21.943Z"
+  "UpdateTime": "2024-06-29T22:48:27.302Z",
+  "CreateTime": "2024-06-29T22:48:27.302Z"
 }

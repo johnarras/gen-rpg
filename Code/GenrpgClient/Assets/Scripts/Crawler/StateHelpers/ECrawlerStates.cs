@@ -9,6 +9,7 @@ namespace Assets.Scripts.UI.Crawler.States
     public enum ECrawlerStates
     {
         None,
+        PopState,
         Lore,
         TavernMain,
         AddMember,
@@ -31,6 +32,7 @@ namespace Assets.Scripts.UI.Crawler.States
         Back,
 
         ExploreWorld,
+        MapExit,
         Error,
 
         WorldCast,

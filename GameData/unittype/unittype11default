@@ -2,12 +2,13 @@
   "Id": "unittype11default",
   "ParentId": "default",
   "IdKey": 11,
-  "Name": "Doe",
-  "PluralName": "Does",
-  "Icon": "Doe",
-  "Art": "Doe",
-  "Height": 1.5,
-  "TribeTypeId": 2,
+  "Name": "Gnome Priest",
+  "PluralName": "Gnome Priests",
+  "Icon": "GnomePriest",
+  "Art": "GnomePriest",
+  "TribeTypeId": 1,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:55.39Z",
-  "CreateTime": "2024-02-04T21:57:21.903Z"
+  "UpdateTime": "2024-06-29T22:48:27.267Z",
+  "CreateTime": "2024-06-29T22:48:27.267Z"
 }

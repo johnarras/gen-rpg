@@ -11,6 +11,7 @@ namespace Genrpg.Shared.GameSettings.Mappers
     public interface IGameSettingsMapper
     {
         Type GetServerType();
+        Type GetClientType();
         bool SendToClient();
         ITopLevelSettings MapToApi(ITopLevelSettings settings);
     }

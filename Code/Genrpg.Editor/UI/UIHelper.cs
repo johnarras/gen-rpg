@@ -12,6 +12,7 @@ using System;
 using MongoDB.Driver;
 using System.Net.Http.Headers;
 using Genrpg.Shared.ProcGen.Settings.MapWater;
+using Microsoft.UI.Xaml.Media;
 
 namespace Genrpg.Editor.UI
 {
@@ -23,19 +24,19 @@ namespace Genrpg.Editor.UI
 
             if (width == 0)
             {
-                width = 100;
+                width = 400;
             }
 
             if (height == 0)
             {
-                height = 80;
+                height = 480;
             }
 
             SmallPopup win = new SmallPopup();
 
+            UIHelper.SetWindowRect(win, 500, 500, width, height);
 
-            CreateLabel(win, ELabelTypes.Default, "DialogText", text, width - 20, height - 40, 0, 0, 20);
-
+            TextBlock tb = CreateLabel(win, ELabelTypes.Default, "DialogText", text, width - 20, height - 40, 0, 0);
 
             win.Activate();
 
@@ -96,11 +97,14 @@ namespace Genrpg.Editor.UI
         {
             TextBlock label = new TextBlock()
             {
+                RequestedTheme = ElementTheme.Default,
                 Height = height,
                 Width = width,
                 Text = text,
                 Name = name,
                 TextAlignment = alignment,
+                FontSize = fontSize,
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 255, 255)),
             };
 
             canvas.Add(label, xpos, ypos);

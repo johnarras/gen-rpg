@@ -3,14 +3,8 @@
   "ParentId": "default",
   "Name": "None",
   "Enabled": true,
-  "Items": [
-    {
-      "Enabled": true,
-      "SettingsNameId": 17,
-      "DocId": "abtest"
-    }
-  ],
+  "Items": [],
   "AllowedPlayers": [],
-  "UpdateTime": "2024-04-26T23:51:53.901Z",
-  "CreateTime": "2024-04-27T04:50:32Z"
+  "UpdateTime": "2024-06-29T14:10:31.62Z",
+  "CreateTime": "2024-04-27T09:50:32Z"
 }

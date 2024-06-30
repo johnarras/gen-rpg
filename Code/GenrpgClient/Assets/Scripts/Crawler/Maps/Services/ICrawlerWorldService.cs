@@ -1,10 +1,7 @@
 ﻿using Assets.Scripts.Crawler.Maps.Entities;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Genrpg.Shared.Zones.Settings;
 using UnityEngine;
 
 namespace Assets.Scripts.Crawler.Maps.Services
@@ -18,6 +15,10 @@ namespace Assets.Scripts.Crawler.Maps.Services
         Awaitable SaveWorld(CrawlerWorld world);
 
         CrawlerWorld Generate(long worldId);
+
+
+        Awaitable<ZoneType> GetCurrentZone(PartyData partyData);
+        Awaitable<long> GetMapLevelAtParty(PartyData partyData);
 
     }
 }

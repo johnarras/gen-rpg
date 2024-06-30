@@ -2,12 +2,13 @@
   "Id": "unittype6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Butterfly",
-  "PluralName": "Butterflies",
-  "Icon": "Butterfly",
-  "Art": "Butterfly",
-  "Height": 1.0,
-  "TribeTypeId": 6,
+  "Name": "Dwarf Priest",
+  "PluralName": "Dwarf Priests",
+  "Icon": "DwarfPriest",
+  "Art": "DwarfPriest",
+  "TribeTypeId": 1,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:49:00.11Z",
-  "CreateTime": "2024-02-04T21:57:21.894Z"
+  "UpdateTime": "2024-06-29T22:48:27.255Z",
+  "CreateTime": "2024-06-29T22:48:27.255Z"
 }

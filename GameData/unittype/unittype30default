@@ -2,12 +2,13 @@
   "Id": "unittype30default",
   "ParentId": "default",
   "IdKey": 30,
-  "Name": "Golem",
-  "PluralName": "Golems",
-  "Icon": "GolemIce",
-  "Art": "GolemIce",
-  "Height": 4.0,
-  "TribeTypeId": 4,
+  "Name": "Scrapper",
+  "PluralName": "Scrappers",
+  "Icon": "Scrapper",
+  "Art": "Scrapper",
+  "TribeTypeId": 11,
+  "MinLevel": 15,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:57.401Z",
-  "CreateTime": "2024-02-04T21:57:21.949Z"
+  "UpdateTime": "2024-06-29T22:48:27.307Z",
+  "CreateTime": "2024-06-29T22:48:27.307Z"
 }

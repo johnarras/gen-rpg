@@ -1,0 +1,21 @@
+{
+  "Id": "unittype64default",
+  "ParentId": "default",
+  "IdKey": 64,
+  "Name": "Black Dragon",
+  "PluralName": "Black Dragons",
+  "Icon": "BlackDragon",
+  "Art": "BlackDragon",
+  "TribeTypeId": 16,
+  "MinLevel": 20,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.373Z",
+  "CreateTime": "2024-06-29T22:48:27.373Z"
+}

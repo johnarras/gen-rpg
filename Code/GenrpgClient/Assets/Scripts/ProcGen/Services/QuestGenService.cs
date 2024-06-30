@@ -70,7 +70,7 @@ public class QuestGenService : IQuestGenService
 
         List<MapSpawn> zoneNPCs = GetNPCsForZone(map, zone.IdKey);
 
-        List<long> unitTypeIds = zoneType.UnitSpawns.Select(x => x.EntityId).ToList();
+        List<long> unitTypeIds = zoneType.ZoneUnitSpawns.Select(x => x.UnitTypeId).ToList();
 
         // Make standard quests first.
         foreach (MapSpawn npc in zoneNPCs)

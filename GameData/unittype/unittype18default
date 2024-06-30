@@ -2,12 +2,13 @@
   "Id": "unittype18default",
   "ParentId": "default",
   "IdKey": 18,
-  "Name": "Scorpion",
-  "PluralName": "Scorpions",
-  "Icon": "Scorpion",
-  "Art": "Scorpion",
-  "Height": 1.0,
-  "TribeTypeId": 7,
+  "Name": "Goblin Lieutenant",
+  "PluralName": "Goblin Lieutenants",
+  "Icon": "GoblinLieutenant",
+  "Art": "GoblinLieutenant",
+  "TribeTypeId": 10,
+  "MinLevel": 5,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:56.053Z",
-  "CreateTime": "2024-02-04T21:57:21.921Z"
+  "UpdateTime": "2024-06-29T22:48:27.284Z",
+  "CreateTime": "2024-06-29T22:48:27.284Z"
 }

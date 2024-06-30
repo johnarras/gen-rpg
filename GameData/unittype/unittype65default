@@ -1,0 +1,21 @@
+{
+  "Id": "unittype65default",
+  "ParentId": "default",
+  "IdKey": 65,
+  "Name": "Green Dragon",
+  "PluralName": "Green Dragons",
+  "Icon": "GreenDragon",
+  "Art": "GreenDragon",
+  "TribeTypeId": 16,
+  "MinLevel": 20,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.375Z",
+  "CreateTime": "2024-06-29T22:48:27.375Z"
+}

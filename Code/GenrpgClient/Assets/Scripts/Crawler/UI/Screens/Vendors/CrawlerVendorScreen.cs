@@ -20,6 +20,7 @@ using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Utils;
 using Assets.Scripts.UI.Crawler.States;
 using UnityEngine;
+using Assets.Scripts.Crawler.Maps.Services;
 
 public class CrawlerVendorScreen : ItemIconScreen
 {
@@ -27,6 +28,7 @@ public class CrawlerVendorScreen : ItemIconScreen
     protected ICrawlerService _crawlerService;
     protected IInventoryService _inventoryService;
     protected ILootGenService _lootGenService;
+    private ICrawlerWorldService _crawlerWorldService;
     public const string VendorIconName = "VendorItemIcon";
 
     public InventoryPanel PlayerItems;
@@ -59,7 +61,7 @@ public class CrawlerVendorScreen : ItemIconScreen
     }
 
 
-    private void ShowVendorItems()
+    private async void ShowVendorItems()
     {
         GEntityUtils.DestroyAllChildren(VendorItems);
 
@@ -84,7 +86,7 @@ public class CrawlerVendorScreen : ItemIconScreen
 
                 LootGenData lootGenData = new LootGenData()
                 {
-                    Level = _party.GetWorldLevel(),
+                    Level = await _crawlerWorldService.GetMapLevelAtParty(_party)
                 };
 
                 _party.VendorItems.Add(_lootGenService.GenerateItem(lootGenData));

@@ -1,0 +1,21 @@
+{
+  "Id": "unittype104default",
+  "ParentId": "default",
+  "IdKey": 104,
+  "Name": "Harpy",
+  "PluralName": "Harpies",
+  "Icon": "Harpy",
+  "Art": "Harpy",
+  "TribeTypeId": 8,
+  "MinLevel": 10,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.532Z",
+  "CreateTime": "2024-06-29T22:48:27.532Z"
+}

@@ -33,6 +33,13 @@ using System.Threading.Tasks;
 using System.Threading;
 using Windows.Foundation;
 using Windows.UI.Popups;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Genrpg.Shared.Interfaces;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.HelperClasses;
+using Genrpg.Editor.Constants;
+using Genrpg.Editor.Importers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -50,6 +57,8 @@ namespace Genrpg.Editor
         private string _prefix;
 
         private IGameData _gameData;
+        private SetupDictionaryContainer<EImportTypes, ICsvImporter> _importers = new();
+
         private Canvas _canvas = new Canvas();
 
         public void Add(UIElement elem, double x, double y)
@@ -81,7 +90,7 @@ namespace Genrpg.Editor
             buttonCount++;
 
             string[] envWords = { "dev" };
-            string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas SetupItemIcons ImportCrawler".Split(' ');
+            string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas SetupItemIcons ImportCrawler ImportUnits ImportUnitSpawns".Split(' ');
             int column = 0;
             for (int e = 0; e < envWords.Length; e++)
             {
@@ -355,9 +364,20 @@ namespace Genrpg.Editor
             Action<EditorGameState>? afterAction = null;
             if (action == "ImportCrawler")
             {
-                afterAction = ImportCrawlerClassSkillData;
+                afterAction = (gs) => { ImportData(gs, EImportTypes.CrawlerSpells); };
                 action = "Data";
             }
+            if (action == "ImportUnits")
+            {
+                afterAction = (gs) => { ImportData(gs, EImportTypes.UnitTypes); };
+                action = "Data";
+            }
+            if (action == "ImportUnitSpawns")
+            {
+                afterAction = (gs) => { ImportData(gs, EImportTypes.UnitSpawns); };
+                action = "Data";
+            }
+
 
             Task.Run(() => OnClickButtonAsync(action, env, afterAction));
         }
@@ -655,158 +675,24 @@ namespace Genrpg.Editor
 
 
 
-        private void ImportCrawlerClassSkillData(EditorGameState gs)
+
+        private void ImportData(EditorGameState gs, EImportTypes importType)
         {
 
+            _ = Task.Run(() => ImportDataAsync(gs, importType));
+        }
 
-            IRepositoryService repoService = gs.loc.Get<IRepositoryService>();
-            try
+        private async Task ImportDataAsync (EditorGameState gs, EImportTypes importType)
+        { 
+            gs.loc.Resolve(_importers);
+
+            if (_importers.TryGetValue(importType, out ICsvImporter importer))
             {
-                string missingWords = "";
-
-                string strExeFilePath = Assembly.GetExecutingAssembly().Location;
-
-
-                int lastSlashIndex = strExeFilePath.LastIndexOf("\\");
-
-                strExeFilePath = strExeFilePath.Substring(0, lastSlashIndex);
-
-                string fullFilePath = strExeFilePath + "\\..\\..\\..\\..\\..\\..\\..\\Spreadsheets\\CrawlerSpellsImport.csv";
-
-                string text = File.ReadAllText(fullFilePath);
-
-                string[] lines = text.Split('\n');
-
-                string[] firstLine = lines[0].Split(',');
-
-
-                IReadOnlyList<Class> classes = gs.data.Get<ClassSettings>(null).GetData();
-
-                int maxClasses = 50;
-                Class[] topRow = new Class[maxClasses];
-
-                for (int s = 0; s < firstLine.Length; s++)
-                {
-                    topRow[s] = classes.FirstOrDefault(x => x.Name == firstLine[s].Trim());
-                    if (topRow[s] != null)
-                    {
-                        _gs.LookedAtObjects.Add(topRow[s]);
-                        topRow[s].Bonuses = new List<ClassBonus>();
-                    }
-                }
-
-                IReadOnlyList<PartyBuff> partyBuffs = gs.data.Get<PartyBuffSettings>(null).GetData();
-
-                IReadOnlyList<CrawlerSpell> crawlerSpells = gs.data.Get<CrawlerSpellSettings>(null).GetData();
-
-                IReadOnlyList<StatType> statTypes = gs.data.Get<StatSettings>(null).GetData();
-
-
-                PropertyInfo[] props = typeof(Class).GetProperties();
-
-                for (int line = 1; line < lines.Length; line++)
-                {
-                    string[] words = lines[line].Split(',');
-
-                    if (words.Length < 2 || string.IsNullOrEmpty(words[0].Trim()))
-                    {
-                        continue;
-                    }
-
-                    PartyBuff partyBuff = partyBuffs.FirstOrDefault(x => x.Name == words[0]);
-
-                    if (partyBuff != null)
-                    {
-                        for (int w = 1; w < words.Length && w < maxClasses; w++)
-                        {
-                            if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
-                            {
-                                topRow[w].Bonuses.Add(new ClassBonus() { EntityTypeId = EntityTypes.PartyBuff, EntityId = partyBuff.IdKey, Quantity = 1 });
-                            }
-                        }
-                        continue;
-                    }
-
-                    StatType statType = statTypes.FirstOrDefault(x => x.Name == words[0].Trim());
-
-                    if (statType != null)
-                    {
-                        for (int w = 1; w < words.Length && w < maxClasses; w++)
-                        {
-                            if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
-                            {
-                                topRow[w].Bonuses.Add(new ClassBonus() { EntityTypeId = EntityTypes.Stat, EntityId = statType.IdKey, Quantity = 1 });
-                            }
-                        }
-                        continue;
-                    }
-
-                    CrawlerSpell crawlerSpell = crawlerSpells.FirstOrDefault(x => x.Name == words[0]);
-
-
-                    if (crawlerSpell != null)
-                    {
-                        for (int w = 1; w < words.Length && w < maxClasses; w++)
-                        {
-                            if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
-                            {
-                                topRow[w].Bonuses.Add(new ClassBonus() { EntityTypeId = EntityTypes.CrawlerSpell, EntityId = crawlerSpell.IdKey, Quantity = 1 });
-                            }
-                        }
-                        continue;
-                    }
-
-
-                    PropertyInfo prop = props.FirstOrDefault(x => x.Name == words[0]);
-
-                    if (prop != null)
-                    {
-                        for (int w = 0; w < words.Length && w < maxClasses; w++)
-                        {
-                            if (topRow[w] != null && !String.IsNullOrEmpty(words[w]))
-                            {
-                                if (Int32.TryParse(words[w], out int val))
-                                {
-                                    EntityUtils.SetObjectValue(topRow[w], prop, val);
-                                }
-                            }
-                        }
-                        continue;
-                    }
-
-
-                    if (words[0].ToLower() != "count")
-                    {
-                        missingWords += words[0] + " -- ";
-                    }
-                }
-
-                if (!string.IsNullOrWhiteSpace(missingWords))
-                {
-                    MessageDialog dialog = new MessageDialog("Missing Words, Import Aborted:", "Aborted");
-                    dialog.Commands.Add(new UICommand("Ok"));
-
-                    dialog.ShowAsync().GetAwaiter().GetResult();
-
-                    _gs.LookedAtObjects.Clear();
-                    return;
-                }
-
-                foreach (object obj in _gs.LookedAtObjects)
-                {
-                    if (obj is IGameSettings settings)
-                    {
-                        settings.SaveAll(repoService);
-                    }
-                }
-
-                _gs.LookedAtObjects.Clear();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message + " " + e.StackTrace);
+                await importer.ImportData(gs);
             }
         }
+
+        
     }
 }
 

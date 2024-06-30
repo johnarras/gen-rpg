@@ -2,12 +2,13 @@
   "Id": "unittype14default",
   "ParentId": "default",
   "IdKey": 14,
-  "Name": "Ibex",
-  "PluralName": "Ibexes",
-  "Icon": "Ibex",
-  "Art": "Ibex",
-  "Height": 1.5,
-  "TribeTypeId": 2,
+  "Name": "Halfling Thief",
+  "PluralName": "Halfling Thiefs",
+  "Icon": "HalflingThief",
+  "Art": "HalflingThief",
+  "TribeTypeId": 1,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:55.675Z",
-  "CreateTime": "2024-02-04T21:57:21.913Z"
+  "UpdateTime": "2024-06-29T22:48:27.274Z",
+  "CreateTime": "2024-06-29T22:48:27.274Z"
 }

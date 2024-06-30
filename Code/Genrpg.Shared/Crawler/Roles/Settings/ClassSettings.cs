@@ -59,7 +59,6 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
         [Key(18)] public List<ClassBonus> Bonuses { get; set; } = new List<ClassBonus>();
 
         [Key(19)] public List<AllowedWeapon> AllowedWeapons { get; set; } = new List<AllowedWeapon>();
-        [Key(20)] public List<AllowedEquipSlot> AllowedEquipSlots { get; set; } = new List<AllowedEquipSlot>();
 
     }
 

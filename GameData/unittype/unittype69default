@@ -1,0 +1,21 @@
+{
+  "Id": "unittype69default",
+  "ParentId": "default",
+  "IdKey": 69,
+  "Name": "Air Elemental",
+  "PluralName": "Air Elementals",
+  "Icon": "AirElemental",
+  "Art": "AirElemental",
+  "TribeTypeId": 4,
+  "MinLevel": 15,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.383Z",
+  "CreateTime": "2024-06-29T22:48:27.383Z"
+}

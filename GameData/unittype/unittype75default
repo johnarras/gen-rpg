@@ -1,0 +1,21 @@
+{
+  "Id": "unittype75default",
+  "ParentId": "default",
+  "IdKey": 75,
+  "Name": "Spider",
+  "PluralName": "Spiders",
+  "Icon": "Spider",
+  "Art": "Spider",
+  "TribeTypeId": 2,
+  "MinLevel": 1,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.395Z",
+  "CreateTime": "2024-06-29T22:48:27.395Z"
+}

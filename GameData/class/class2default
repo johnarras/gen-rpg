@@ -95,11 +95,6 @@
       "ItemTypeId": 308
     }
   ],
-  "AllowedEquipSlots": [
-    {
-      "EquipSlotId": 18
-    }
-  ],
-  "UpdateTime": "2024-06-23T17:15:10.725Z",
+  "UpdateTime": "2024-06-29T22:18:05.995Z",
   "CreateTime": "2024-01-28T00:57:37Z"
 }

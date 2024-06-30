@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
+using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
@@ -28,6 +29,7 @@ namespace Assets.Scripts.Crawler.StateHelpers
         protected IGameData _gameData;
         protected IUnityGameState _gs;
         protected IClientRandom _rand;
+        protected ICrawlerWorldService _worldService;
 
         public abstract ECrawlerStates GetKey();
         public abstract Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token);

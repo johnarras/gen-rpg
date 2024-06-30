@@ -35,7 +35,7 @@ namespace Assets.Scripts.GameSettings.Services
             {
                 if (Activator.CreateInstance(lt) is IGameSettingsMapper newLoader && newLoader.SendToClient())
                 {
-                    newList[newLoader.GetServerType()] = newLoader;
+                    newList[newLoader.GetClientType()] = newLoader;
                 }
             }
             _loaderObjects = newList;
@@ -49,7 +49,7 @@ namespace Assets.Scripts.GameSettings.Services
             List<ITopLevelSettings> allSettings = new List<ITopLevelSettings>();
             foreach (IGameSettingsMapper loader in _loaderObjects.Values)
             {
-                object obj = await repo.LoadWithType(loader.GetServerType(), GameDataConstants.DefaultFilename);
+                object obj = await repo.LoadWithType(loader.GetClientType(), GameDataConstants.DefaultFilename);
                 if (obj is ITopLevelSettings settings)
                 {
                     allSettings.Add(settings);

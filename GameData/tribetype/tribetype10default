@@ -1,0 +1,22 @@
+{
+  "Id": "tribetype10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Barbaric",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "LootItems": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 5,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 66.0
+    }
+  ],
+  "InteractLootItems": [],
+  "LootCrafterTypeId": 1,
+  "UpdateTime": "2024-06-29T19:51:17.967Z",
+  "CreateTime": "2024-02-15T23:06:21.436Z"
+}

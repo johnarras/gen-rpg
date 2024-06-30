@@ -2,12 +2,13 @@
   "Id": "unittype32default",
   "ParentId": "default",
   "IdKey": 32,
-  "Name": "Griffon",
-  "PluralName": "Griffons",
-  "Icon": "GriffonSingleSided",
-  "Art": "GriffonSingleSided",
-  "Height": 4.0,
-  "TribeTypeId": 8,
+  "Name": "Barbarian",
+  "PluralName": "Barbarians",
+  "Icon": "Barbarian",
+  "Art": "Barbarian",
+  "TribeTypeId": 11,
+  "MinLevel": 15,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:57.601Z",
-  "CreateTime": "2024-02-04T21:57:21.953Z"
+  "UpdateTime": "2024-06-29T22:48:27.311Z",
+  "CreateTime": "2024-06-29T22:48:27.311Z"
 }

@@ -1,0 +1,29 @@
+{
+  "Id": "tribetype15default",
+  "ParentId": "default",
+  "IdKey": 15,
+  "Name": "Demon",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "LootItems": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 28,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 5,
+      "EntityId": 1,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    }
+  ],
+  "InteractLootItems": [],
+  "LootCrafterTypeId": 8,
+  "UpdateTime": "2024-06-29T19:51:17.974Z",
+  "CreateTime": "2024-02-15T23:06:21.485Z"
+}

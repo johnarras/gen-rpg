@@ -1,0 +1,21 @@
+{
+  "Id": "unittype60default",
+  "ParentId": "default",
+  "IdKey": 60,
+  "Name": "Demon Lord",
+  "PluralName": "Demon Lords",
+  "Icon": "DemonLord",
+  "Art": "DemonLord",
+  "TribeTypeId": 15,
+  "MinLevel": 20,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.365Z",
+  "CreateTime": "2024-06-29T22:48:27.365Z"
+}

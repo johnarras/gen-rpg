@@ -2,12 +2,13 @@
   "Id": "unittype16default",
   "ParentId": "default",
   "IdKey": 16,
-  "Name": "Rat",
-  "PluralName": "Rats",
-  "Icon": "Rat",
-  "Art": "Rat",
-  "Height": 1.0,
-  "TribeTypeId": 6,
+  "Name": "Goblin",
+  "PluralName": "Goblins",
+  "Icon": "Goblin",
+  "Art": "Goblin",
+  "TribeTypeId": 10,
+  "MinLevel": 5,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:55.861Z",
-  "CreateTime": "2024-02-04T21:57:21.917Z"
+  "UpdateTime": "2024-06-29T22:48:27.278Z",
+  "CreateTime": "2024-06-29T22:48:27.278Z"
 }

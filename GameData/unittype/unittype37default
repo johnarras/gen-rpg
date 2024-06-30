@@ -2,12 +2,13 @@
   "Id": "unittype37default",
   "ParentId": "default",
   "IdKey": 37,
-  "Name": "Hydra",
-  "PluralName": "Hydras",
-  "Icon": "Hydra",
-  "Art": "Hydra",
-  "Height": 5.0,
-  "TribeTypeId": 5,
+  "Name": "Wizard",
+  "PluralName": "Wizards",
+  "Icon": "Wizard",
+  "Art": "Wizard",
+  "TribeTypeId": 12,
+  "MinLevel": 20,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:58.086Z",
-  "CreateTime": "2024-02-04T21:57:21.963Z"
+  "UpdateTime": "2024-06-29T22:48:27.32Z",
+  "CreateTime": "2024-06-29T22:48:27.32Z"
 }

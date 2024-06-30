@@ -2,12 +2,13 @@
   "Id": "unittype34default",
   "ParentId": "default",
   "IdKey": 34,
-  "Name": "Harpy",
-  "PluralName": "Harpies",
-  "Icon": "HarpyClothed",
-  "Art": "HarpyClothed",
-  "Height": 3.0,
-  "TribeTypeId": 1,
+  "Name": "Magician",
+  "PluralName": "Magicians",
+  "Icon": "Magician",
+  "Art": "Magician",
+  "TribeTypeId": 12,
+  "MinLevel": 10,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:57.792Z",
-  "CreateTime": "2024-02-04T21:57:21.957Z"
+  "UpdateTime": "2024-06-29T22:48:27.315Z",
+  "CreateTime": "2024-06-29T22:48:27.315Z"
 }

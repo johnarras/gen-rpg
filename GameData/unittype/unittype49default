@@ -2,12 +2,13 @@
   "Id": "unittype49default",
   "ParentId": "default",
   "IdKey": 49,
-  "Name": "Treant",
-  "PluralName": "Treants",
-  "Icon": "Treant",
-  "Art": "Treant",
-  "Height": 4.0,
-  "TribeTypeId": 9,
+  "Name": "Zombie",
+  "PluralName": "Zombies",
+  "Icon": "Zombie",
+  "Art": "Zombie",
+  "TribeTypeId": 3,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:59.33Z",
-  "CreateTime": "2024-02-04T21:57:21.986Z"
+  "UpdateTime": "2024-06-29T22:48:27.345Z",
+  "CreateTime": "2024-06-29T22:48:27.345Z"
 }

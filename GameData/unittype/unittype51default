@@ -2,12 +2,13 @@
   "Id": "unittype51default",
   "ParentId": "default",
   "IdKey": 51,
-  "Name": "Wyvern",
-  "PluralName": "Wyverns",
-  "Icon": "Wyvern",
-  "Art": "Wyvern",
-  "Height": 4.0,
-  "TribeTypeId": 5,
+  "Name": "Wight",
+  "PluralName": "Wights",
+  "Icon": "Wight",
+  "Art": "Wight",
+  "TribeTypeId": 3,
+  "MinLevel": 5,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:59.622Z",
-  "CreateTime": "2024-02-04T21:57:21.991Z"
+  "UpdateTime": "2024-06-29T22:48:27.348Z",
+  "CreateTime": "2024-06-29T22:48:27.348Z"
 }

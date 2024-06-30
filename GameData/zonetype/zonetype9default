@@ -374,49 +374,13 @@
     }
   ],
   "Overrides": [],
-  "UnitSpawns": [
-    {
-      "EntityTypeId": 5,
-      "EntityId": 19,
-      "MinQuantity": 3,
-      "MaxQuantity": 7,
-      "Weight": 100.0
-    },
-    {
-      "EntityTypeId": 5,
-      "EntityId": 10,
-      "MinQuantity": 2,
-      "MaxQuantity": 4,
-      "Weight": 3.0
-    },
-    {
-      "EntityTypeId": 5,
-      "EntityId": 11,
-      "MinQuantity": 1,
-      "MaxQuantity": 2,
-      "Weight": 0.2
-    },
-    {
-      "EntityTypeId": 5,
-      "EntityId": 12,
-      "MinQuantity": 1,
-      "MaxQuantity": 2,
-      "Weight": 0.2
-    },
-    {
-      "EntityTypeId": 5,
-      "EntityId": 13,
-      "MinQuantity": 1,
-      "MaxQuantity": 3,
-      "Weight": 0.6
-    }
-  ],
+  "ZoneUnitSpawns": [],
   "PlantChoices": "0",
   "FenceChance": 0.1,
   "Art": "0",
   "WeatherTypeId": 8,
   "MusicTypeId": 3,
-  "AmbientMusicTypeId": 9,
-  "UpdateTime": "2024-06-21T09:58:37.998Z",
+  "AmbientMusicTypeId": 8,
+  "UpdateTime": "2024-06-29T22:57:02.835Z",
   "CreateTime": "2024-02-15T23:06:21.554Z"
 }

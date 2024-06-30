@@ -1,0 +1,21 @@
+{
+  "Id": "unittype57default",
+  "ParentId": "default",
+  "IdKey": 57,
+  "Name": "Rogue",
+  "PluralName": "Rogues",
+  "Icon": "Rogue",
+  "Art": "Rogue",
+  "TribeTypeId": 14,
+  "MinLevel": 1,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.36Z",
+  "CreateTime": "2024-06-29T22:48:27.36Z"
+}

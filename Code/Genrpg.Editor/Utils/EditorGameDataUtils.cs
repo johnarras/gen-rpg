@@ -83,10 +83,17 @@ namespace Genrpg.Editor.Utils
 
             EditorGameState gs = await SetupFromConfig(form, env);
             IRepositoryService repoService = gs.loc.Get<IRepositoryService>();
+
+            List<IGameSettings> dataList = new List<IGameSettings>();
+
+
+            List<Task> saveTasks = new List<Task>();
             foreach (IGameSettings data in dataCopy.Data)
             {
-                await repoService.Save(data);
+                saveTasks.Add(repoService.Save(data));
             }
+
+            await Task.WhenAll(saveTasks);
         }
 
         public static void InitMessages()
@@ -102,11 +109,15 @@ namespace Genrpg.Editor.Utils
 
             dirName += GitOffsetPath;
 
+
+            if (Directory.Exists(dirName))
+            {
+                Directory.Delete(dirName, true);
+            }
             if (!Directory.Exists(dirName))
             {
                 Directory.CreateDirectory(dirName);
             }
-
             foreach (string file in Directory.GetFiles(dirName))
             {
                 File.Delete(file);
@@ -193,7 +204,7 @@ namespace Genrpg.Editor.Utils
 
             List<Type> settingsTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettings));
 
-            string mainDirName = Directory.GetCurrentDirectory();
+            string mainDirName = Application.ExecutablePath;
 
             mainDirName += GitOffsetPath;
 

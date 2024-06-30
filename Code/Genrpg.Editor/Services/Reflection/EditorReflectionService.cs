@@ -18,6 +18,7 @@ using Genrpg.Shared.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Genrpg.Shared.Entities.Services;
 
 namespace Genrpg.Editor.Services.Reflection
 {
@@ -26,6 +27,7 @@ namespace Genrpg.Editor.Services.Reflection
     {
 
         protected IMapProvider _mapProvider;
+        protected IEntityService _entityService;
 
         public bool MemberIsMultiType(MemberInfo mem)
         {
@@ -942,7 +944,6 @@ namespace Genrpg.Editor.Services.Reflection
             }
             return list;
         }
-        public SetupDictionaryContainer<long, IEntityHelper> _entityDict = new();
         public string GetDataTableName(EditorGameState gs, object obj)
         {
             if (gs.data == null || obj == null || string.IsNullOrEmpty(obj.ToString()))
@@ -968,8 +969,11 @@ namespace Genrpg.Editor.Services.Reflection
                 {
                     etypeName = etype.Name;
                 }
-                if (_entityDict.TryGetValue(entityTypeId, out IEntityHelper helper))
-                { 
+
+                IEntityHelper helper = _entityService.GetEntityHelper(entityTypeId);
+
+                if (helper != null)
+                {
                     tableName = helper.GetDataPropertyName();
                 }
             }
@@ -1373,6 +1377,8 @@ namespace Genrpg.Editor.Services.Reflection
             {
                 return null;
             }
+
+
 
             object etypeVal = GetObjectValue(obj, etypeMem);
 

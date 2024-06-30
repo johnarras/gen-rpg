@@ -1,9 +1,0 @@
-{
-  "Id": "biometype8default",
-  "ParentId": "default",
-  "IdKey": 8,
-  "Name": "Desert",
-  "MinLevel": 35,
-  "UpdateTime": "2024-06-22T19:47:07.874Z",
-  "CreateTime": "2024-06-21T22:25:29.795Z"
-}

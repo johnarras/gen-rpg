@@ -1,0 +1,11 @@
+{
+  "Id": "texturetype106default",
+  "ParentId": "default",
+  "IdKey": 106,
+  "Name": "Lava",
+  "Desc": "",
+  "Icon": "",
+  "Art": "Lava",
+  "UpdateTime": "2024-06-29T19:07:04.74Z",
+  "CreateTime": "2024-06-29T19:07:04.74Z"
+}

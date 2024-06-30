@@ -2,12 +2,13 @@
   "Id": "unittype44default",
   "ParentId": "default",
   "IdKey": 44,
-  "Name": "Skeleton",
-  "PluralName": "Skeletons",
-  "Icon": "Skeleton",
-  "Art": "Skeleton",
-  "Height": 3.0,
-  "TribeTypeId": 3,
+  "Name": "Coyote",
+  "PluralName": "Coyotes",
+  "Icon": "Coyote",
+  "Art": "Coyote",
+  "TribeTypeId": 2,
+  "MinLevel": 5,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:58.852Z",
-  "CreateTime": "2024-02-04T21:57:21.977Z"
+  "UpdateTime": "2024-06-29T22:48:27.334Z",
+  "CreateTime": "2024-06-29T22:48:27.334Z"
 }

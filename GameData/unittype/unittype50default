@@ -2,12 +2,13 @@
   "Id": "unittype50default",
   "ParentId": "default",
   "IdKey": 50,
-  "Name": "Troll",
-  "PluralName": "Trolls",
-  "Icon": "Troll",
-  "Art": "Troll",
-  "Height": 4.0,
-  "TribeTypeId": 1,
+  "Name": "Ghoul",
+  "PluralName": "Ghouls",
+  "Icon": "Ghoul",
+  "Art": "Ghoul",
+  "TribeTypeId": 3,
+  "MinLevel": 5,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:59.527Z",
-  "CreateTime": "2024-02-04T21:57:21.989Z"
+  "UpdateTime": "2024-06-29T22:48:27.347Z",
+  "CreateTime": "2024-06-29T22:48:27.347Z"
 }

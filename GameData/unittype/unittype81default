@@ -1,0 +1,21 @@
+{
+  "Id": "unittype81default",
+  "ParentId": "default",
+  "IdKey": 81,
+  "Name": "Orc Chieftain",
+  "PluralName": "Orc Chieftains",
+  "Icon": "OrcChieftain",
+  "Art": "OrcChieftain",
+  "TribeTypeId": 10,
+  "MinLevel": 1,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.418Z",
+  "CreateTime": "2024-06-29T22:48:27.418Z"
+}

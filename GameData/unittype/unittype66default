@@ -1,0 +1,21 @@
+{
+  "Id": "unittype66default",
+  "ParentId": "default",
+  "IdKey": 66,
+  "Name": "Stone Golem",
+  "PluralName": "Stone Golems",
+  "Icon": "StoneGolem",
+  "Art": "StoneGolem",
+  "TribeTypeId": 17,
+  "MinLevel": 15,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.377Z",
+  "CreateTime": "2024-06-29T22:48:27.377Z"
+}

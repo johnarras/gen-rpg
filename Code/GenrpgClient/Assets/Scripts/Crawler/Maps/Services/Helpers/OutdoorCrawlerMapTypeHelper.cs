@@ -1,26 +1,24 @@
 ﻿using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
+using Assets.Scripts.Crawler.Maps.Loading;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
-using Assets.Scripts.ProcGen.RandomNumbers;
-using Genrpg.Shared.Biomes.Settings;
+using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Dungeons.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.ProcGen.Entities;
+using Genrpg.Shared.ProcGen.Settings.Texturse;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
+using Genrpg.Shared.Zones.Settings;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Unity.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {
@@ -33,18 +31,27 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         public override ECrawlerMapTypes GetKey() { return ECrawlerMapTypes.Outdoors; }
 
-
-        public override Awaitable<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
+        public override async Awaitable<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
+            partyData.MapId = mapData.MapId;
+            partyData.MapX = mapData.MapX;
+            partyData.MapZ = mapData.MapZ;
+            partyData.MapRot = mapData.MapRot;
+            string mapId = "Outdoors" + mapData.MapId;
 
-            return null;
-        }
-        public override async Awaitable DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token)
-        {
 
+            GameObject go = new GameObject() { name = "Outdoors" };
+            CrawlerMapRoot mapRoot = _gameObjectService.GetOrAddComponent<CrawlerMapRoot>(go);
+            mapRoot.SetupFromMap(mapData.Map);
+            mapRoot.name = mapId;
+            mapRoot.MapId = mapId;
+            mapRoot.DrawX = partyData.MapX * CrawlerMapConstants.BlockSize;
+            mapRoot.DrawZ = partyData.MapZ * CrawlerMapConstants.BlockSize;
+            mapRoot.DrawY = CrawlerMapConstants.BlockSize / 2;
+            
             await Task.CompletedTask;
+            return mapRoot;
         }
-
 
         public override int GetBlockingBits(CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez)
         {
@@ -53,7 +60,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
 
         private List<Color> _biomeColors = null;
-        private List<Color> GetBiomeColors()
+        private List<Color> GetZoneColors()
         {
             if (_biomeColors == null)
             {
@@ -79,34 +86,34 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         public override CrawlerMap Generate(CrawlerMapGenData genData)
         {
 
-            CrawlerMap map = genData.World.CreateMap(ECrawlerMapTypes.Outdoors, false, 96, 64);
 
+
+            CrawlerMap map = genData.World.CreateMap(genData);
+            map.DungeonArt = _gameData.Get<DungeonArtSettings>(null).Get(map.DungeonArtId);
             IRandom rand = new MyRandom(genData.World.IdKey * 13 + map.IdKey*131);
 
             byte[,] overrides = new byte[map.Width, map.Height];
             long[,] terrain = new long[map.Width, map.Height];
             SpawnResult[,] objects = new SpawnResult[map.Width, map.Height];
 
-            List<BiomeRegion> regions = new List<BiomeRegion>();
+            List<ZoneRegion> regions = new List<ZoneRegion>();
 
-            List<BiomeType> biomes = _gameData.Get<BiomeSettings>(null).GetData().Where(x=>x.IdKey > 0).OrderBy(x=>x.MinLevel).ToList();
+            List<ZoneType> allZones = _gameData.Get<ZoneTypeSettings>(null).GetData().OrderBy(x=>x.MinLevel).ToList();
 
-            List<long> okBiomeIds = biomes.Where(x => x.IdKey > 0 && x.MinLevel < 1000).Select(x=>x.IdKey).ToList();
+            List<long> okZoneIds = allZones.Where(x => x.GenChance > 0).Select(x=>x.IdKey).ToList();
 
-            List<BiomeType> origBiomes = new List<BiomeType>(biomes);
-
-            List<Color> biomeColors = GetBiomeColors();
+            List<Color> biomeColors = GetZoneColors();
 
             int startMapEdgeSize = 4;
 
             int cityDistanceFromEdge = startMapEdgeSize * 2;
 
 
-            int fullRegionBiomes = biomes.Where(x => x.MinLevel <= 100).Count();
+            int fullRegionZones = allZones.Where(x => x.MinLevel <= 100).Count();
 
             SamplingData samplingData = new SamplingData()
             {
-                Count = fullRegionBiomes,
+                Count = fullRegionZones,
                 MaxAttemptsPerItem = 20,
                 XMin = cityDistanceFromEdge,
                 XMax = map.Width - cityDistanceFromEdge,
@@ -140,17 +147,17 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             float spreadDelta = 0.2f;
             float dirDelta = 0.3f;
 
-            long cityBiomeId = 0;
-            long waterBiomeId = origBiomes.FirstOrDefault(x => x.Name == "Water").IdKey;
-            long roadBiomeId = origBiomes.FirstOrDefault(x => x.Name == "Road").IdKey;
-            long poiBiomeId = origBiomes.FirstOrDefault(x => x.Name == "PointOfInterest").IdKey;
-            long mountainBiomeId = origBiomes.FirstOrDefault(x => x.Name == "Mountains").IdKey;
+            long cityZoneId = 0;
+            long waterZoneId = allZones.FirstOrDefault(x => x.Name == "Water").IdKey;
+            long roadZoneId = allZones.FirstOrDefault(x => x.Name == "Road").IdKey;
+            long poiZoneId = allZones.FirstOrDefault(x => x.Name == "PointOfInterest").IdKey;
+            long mountainZoneId = allZones.FirstOrDefault(x => x.Name == "Mountains").IdKey;
 
-            while (points.Count > 0 && biomes.Count > 0)
+            while (points.Count > 0 && allZones.Count > 0)
             {
-                List<BiomeType> okBiomes = biomes.Where(x => x.MinLevel <= level).ToList();
+                List<ZoneType> okZones = allZones.Where(x => x.MinLevel <= level).ToList();
 
-                if (okBiomes.Count < 1)
+                if (okZones.Count < 1)
                 {
                     break;
                 }
@@ -159,23 +166,23 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                 points.Remove(centerPoint);
 
-                BiomeType biomeType = okBiomes[rand.Next() % okBiomes.Count];
+                ZoneType biomeType = okZones[rand.Next() % okZones.Count];
 
-                biomes.Remove(biomeType);
+                allZones.Remove(biomeType);
 
-                BiomeRegion region = new BiomeRegion()
+                ZoneRegion region = new ZoneRegion()
                 {
                     CenterX = (int)centerPoint.X,
                     CenterY = (int)centerPoint.Y,
                     SpreadX = MathUtils.FloatRange(1 - spreadDelta, 1 + spreadDelta, rand),
                     SpreadY = MathUtils.FloatRange(1 - spreadDelta, 1 + spreadDelta, rand),
-                    BiomeTypeId = biomeType.IdKey,
+                    ZoneTypeId = biomeType.IdKey,
                     DirX = MathUtils.FloatRange(-dirDelta, dirDelta, rand),
                     DirY = MathUtils.FloatRange(-dirDelta, dirDelta, rand),
+                    Level = level,
                 };
 
                 level += levelDelta;
-
 
                 regions.Add(region);
 
@@ -215,7 +222,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                 radius++;
 
-                foreach (BiomeRegion region in regions)
+                foreach (ZoneRegion region in regions)
                 {
                     float currRadius = MathUtils.FloatRange(radius * (1 - radiusDelta), radius * (1 + radiusDelta), rand);
 
@@ -250,7 +257,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                             if (distScale <= 1)
                             {
-                                terrain[x, y] = region.BiomeTypeId;
+                                terrain[x, y] = region.ZoneTypeId;
                             }
                         }
                     }
@@ -314,7 +321,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                     if ((x < mapEdgeSize || x >= map.Width - mapEdgeSize) ||
                         (y < mapEdgeSize || y >= map.Height - mapEdgeSize))
                     {
-                        terrain[x, y] = waterBiomeId;
+                        terrain[x, y] = waterZoneId;
                     }
 
 
@@ -369,9 +376,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                         currDist += MathUtils.FloatRange(-1, 1, rand);
 
-                        if (currDist >= currRadius && terrain[x, y] != waterBiomeId)                
+                        if (currDist >= currRadius && terrain[x, y] != waterZoneId)                
                         {
-                            terrain[x, y] = waterBiomeId;
+                            terrain[x, y] = waterZoneId;
                         }
                     }
                 }
@@ -379,10 +386,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             origPoints = origPoints.OrderBy(x => x.X).ToList();
 
-
-
             // Roads between cities
-
 
             List<MyPoint2> remainingPoints = new List<MyPoint2>(origPoints);
 
@@ -390,8 +394,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             MyPoint2 prevPoint = null;
             MyPoint2 currPoint = remainingPoints[0];
             remainingPoints.RemoveAt(0);
-
-            float skipMidChance = 0.20f;
 
             while (remainingPoints.Count > 0)
             {
@@ -416,16 +418,16 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                 // First checkbackwards to see if there's a matching road.
                 for (int x = nx; x >= px; x--)
                 {
-                    if (terrain[x,ny] == roadBiomeId)
+                    if (terrain[x,ny] == roadZoneId)
                     {
                         foundRoad = true;
                         for (int xx = nx; xx > x; xx--)
                         {
-                            if (terrain[xx, ny] == roadBiomeId)
+                            if (terrain[xx, ny] == roadZoneId)
                             {
                                 break;
                             }
-                            terrain[xx,ny] = roadBiomeId;
+                            terrain[xx,ny] = roadZoneId;
 
                         }
                     }
@@ -463,22 +465,22 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                     {
                         for (int xx = Math.Min(sx,ex); xx <= Math.Max(sx,ex); xx++)
                         {
-                            terrain[xx, sy] = roadBiomeId;
+                            terrain[xx, sy] = roadZoneId;
                         }
                         for (int yy = Math.Min(sy,ey); yy <= Math.Max(sy,ey); yy++)
                         {
-                            terrain[ex, yy] = roadBiomeId;
+                            terrain[ex, yy] = roadZoneId;
                         }
                     }
                     else
                     {
                         for (int xx = Math.Min(sx, ex); xx <= Math.Max(sx, ex); xx++)
                         {
-                            terrain[xx, ey] = roadBiomeId;
+                            terrain[xx, ey] = roadZoneId;
                         }
                         for (int yy = Math.Min(sy, ey); yy <= Math.Max(sy, ey); yy++)
                         {
-                            terrain[sx, yy] = roadBiomeId;
+                            terrain[sx, yy] = roadZoneId;
                         }
                     }
                 }
@@ -490,7 +492,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
 
             // Rivers
-            // Mountains at zone borders. (okBiomeIds if  two diff make a small blob...only replacing things in ok biomeIds
+            // Mountains at zone borders. (okZoneIds if  two diff make a small blob...only replacing things in ok biomeIds
 
             int crad = 1;
             int rrad = 2;
@@ -499,8 +501,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             {
                 for (int y = trad; y < map.Height-trad; y++)
                 {
-                    List<long> currOkBiomeIds = new List<long>();
-                    bool foundBadBiomeId = false;
+                    List<long> currOkZoneIds = new List<long>();
+                    bool foundBadZoneId = false;
 
 
                     // Check for roads.
@@ -508,15 +510,15 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                     {
                         for (int yy = y - rrad; yy <= y + rrad; yy++)
                         {
-                            if (terrain[xx, yy] == roadBiomeId)
+                            if (terrain[xx, yy] == roadZoneId)
                             {
-                                foundBadBiomeId = true;
+                                foundBadZoneId = true;
                                 break;
                             }
                         }
                     }
 
-                    if (foundBadBiomeId)
+                    if (foundBadZoneId)
                     {
                         continue;
                     }
@@ -527,16 +529,16 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                         for (int yy = y-crad; yy <= y+crad; yy++)
                         {
                             long tid = terrain[xx, yy];
-                            if (okBiomeIds.Contains(tid))
+                            if (okZoneIds.Contains(tid))
                             {
-                                if (!currOkBiomeIds.Contains(tid))
+                                if (!currOkZoneIds.Contains(tid))
                                 {
-                                    currOkBiomeIds.Add(tid);
+                                    currOkZoneIds.Add(tid);
                                 }
                             }
-                            else if (tid != mountainBiomeId)
+                            else if (tid != mountainZoneId)
                             {
-                                foundBadBiomeId = true;
+                                foundBadZoneId = true;
                                 break;
                             }
                         }
@@ -544,39 +546,58 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                     int nrad = rand.NextDouble() < 0.2f ? 1 : 0;
 
-                    if (!foundBadBiomeId && currOkBiomeIds.Count > 1)
+                    if (!foundBadZoneId && currOkZoneIds.Count > 1)
                     {
                         for (int xx = x - nrad; xx <= x + nrad; xx++)
                         {
                             for (int yy = y - nrad; yy <= y + nrad; yy++)
                             {
-                                terrain[xx, yy] = mountainBiomeId;
+                                terrain[xx, yy] = mountainZoneId;
                             }
                         }
                     }
                 }
             }
 
+            for (int x = 0; x < map.Width; x++)
+            {
+                for (int y = 0; y < map.Height; y++)
+                {
+                    map.CoreData[map.GetIndex(x,y)] = (byte)(terrain[x,y]);
+                }
+            }
 
-
-            int cityLevel = 1;
             for (int c = 0; c < origPoints.Count; c++)
             {
                 MyPoint2 pt = origPoints[c];
 
-                terrain[(int)pt.X, (int)pt.Y] = cityBiomeId;
+
+                int cityLevel = 1;
+                ZoneRegion zoneRegion = regions.FirstOrDefault(x=>x.CenterX == pt.X && x.CenterY == pt.Y);  
+
+                if (zoneRegion != null)
+                {
+                    cityLevel = (int)zoneRegion.Level;
+                }
+
+                terrain[(int)pt.X, (int)pt.Y] = cityZoneId;
                 CrawlerMapGenData cityGenData = new CrawlerMapGenData()
                 {
                     World = genData.World,
                     MapType = ECrawlerMapTypes.City,
-                    MinLevel = cityLevel,
-                    MaxLevel = cityLevel + levelDelta - 1,                   
+                    Level = cityLevel,                
+                    Width = MathUtils.IntRange(15,25,rand),
+                    Height = MathUtils.IntRange(15,25,rand),
+                    FromMapId = map.IdKey,
+                    FromMapX = (int)(pt.X),
+                    FromMapZ = (int)(pt.Y),
                 };
-
+                map.Details.Add(new MapCellDetail() { EntityTypeId = EntityTypes.Map, EntityId = -1, Value = cityLevel, X = (int)pt.X, Z = (int)pt.Y });
                 CrawlerMap cityMap = _mapService.Generate(cityGenData);
 
                 cityLevel += levelDelta;
 
+                
             }
 
             try
@@ -604,5 +625,87 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             return map;
         }
+
+
+
+        public override async Awaitable DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token)
+        {
+            int bz = CrawlerMapConstants.BlockSize;
+
+            if (cell.Content == null)
+            {
+                cell.Content = new GameObject() { name = "Cell" + cell.X + "." + cell.Z };
+                GEntityUtils.AddToParent(cell.Content, mapRoot.gameObject);
+                cell.Content.AddComponent<GImage>();
+                Canvas canvas = cell.Content.AddComponent<Canvas>();
+                canvas.renderMode = RenderMode.WorldSpace;
+                RectTransform rectTransform = cell.Content.GetComponent<RectTransform>();
+                rectTransform.sizeDelta = new Vector3(bz,bz);
+                cell.Content.transform.eulerAngles = new Vector3(90, 0, 0);               
+                cell.Content.transform.position = new Vector3(xpos * bz, 0, zpos * bz);
+            }
+
+            long biomeTypeId = mapRoot.Map.CoreData[mapRoot.Map.GetIndex(cell.X, cell.Z)];
+
+            try
+            {
+                //AddWallComponent(mapRoot.Assets.Floor, cell.Content, new Vector3(0, 0, 0), new Vector3(90, 0, 0));
+                if (biomeTypeId > 0)
+                {
+                    ZoneType biomeType = _gameData.Get<ZoneTypeSettings>(null).Get(biomeTypeId);
+
+                    if (biomeType != null)
+                    {
+                        LoadTerrainTexture(cell.Content, biomeType.Textures.Where(x=>x.TextureChannelId == MapConstants.BaseTerrainIndex).First().TextureTypeId, token);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                _logService.Info("Draw Cell Error: " + e.Message);
+            }
+
+            byte extraData = mapRoot.Map.ExtraData[mapRoot.Map.GetIndex(cell.X, cell.Z)];
+
+            if (extraData > 0)
+            {
+                BuildingType btype = _gameData.Get<BuildingSettings>(null).Get(extraData);
+
+                if (btype != null)
+                {
+
+                    string suffix = "";
+
+                    if (btype.VariationCount > 1)
+                    {
+                        int indexVal = (cell.X * 13 + cell.Z * 41) % btype.VariationCount + 1;
+                        suffix = indexVal.ToString();
+                    }
+
+                    byte coreData = mapRoot.Map.CoreData[mapRoot.Map.GetIndex(cell.X, cell.Z)];
+
+                    int dir = (int)(coreData >> CrawlerMapConstants.CityDirBitShiftSize);
+
+                    int angle = dir * 90;
+
+
+                    CrawlerObjectLoadData loadData = new CrawlerObjectLoadData()
+                    {
+                        MapCell = cell,
+                        BuildingType = btype,
+                        Angle = angle,
+                        MapRoot = mapRoot,
+                    };
+
+
+                    _assetService.LoadAssetInto(cell.Content, AssetCategoryNames.Buildings, "Default/" + btype.Art + suffix, OnDownloadBuilding, loadData, token);
+                }
+            }
+
+            await Task.CompletedTask;
+            return;
+        }
+
+
     }
 }

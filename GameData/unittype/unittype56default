@@ -1,0 +1,21 @@
+{
+  "Id": "unittype56default",
+  "ParentId": "default",
+  "IdKey": 56,
+  "Name": "Thief",
+  "PluralName": "Thieves",
+  "Icon": "Thief",
+  "Art": "Thief",
+  "TribeTypeId": 14,
+  "MinLevel": 1,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.358Z",
+  "CreateTime": "2024-06-29T22:48:27.358Z"
+}

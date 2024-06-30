@@ -2,12 +2,13 @@
   "Id": "unittype47default",
   "ParentId": "default",
   "IdKey": 47,
-  "Name": "Werewolf",
-  "PluralName": "Werewolves",
-  "Icon": "Werewolf",
-  "Art": "Werewolf",
-  "Height": 4.0,
-  "TribeTypeId": 1,
+  "Name": "Lion",
+  "PluralName": "Lions",
+  "Icon": "Lion",
+  "Art": "Lion",
+  "TribeTypeId": 2,
+  "MinLevel": 20,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:59.137Z",
-  "CreateTime": "2024-02-04T21:57:21.983Z"
+  "UpdateTime": "2024-06-29T22:48:27.341Z",
+  "CreateTime": "2024-06-29T22:48:27.341Z"
 }

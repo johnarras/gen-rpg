@@ -12,6 +12,7 @@ namespace Genrpg.Shared.GameSettings.Mappers
     public abstract class NoChildSettingsMapper<TServer> : IGameSettingsMapper where TServer : NoChildSettings, new()
     {
         public virtual Type GetServerType() { return typeof(TServer); }
+        public virtual Type GetClientType() { return typeof(TServer); }
         public virtual bool SendToClient() { return true; }
 
         public virtual ITopLevelSettings MapToApi(ITopLevelSettings settings)

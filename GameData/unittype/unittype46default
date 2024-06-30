@@ -2,12 +2,13 @@
   "Id": "unittype46default",
   "ParentId": "default",
   "IdKey": 46,
-  "Name": "Watcher",
-  "PluralName": "Watchers",
-  "Icon": "Watcher",
-  "Art": "Watcher",
-  "Height": 4.0,
-  "TribeTypeId": 8,
+  "Name": "Tiger",
+  "PluralName": "Tigers",
+  "Icon": "Tiger",
+  "Art": "Tiger",
+  "TribeTypeId": 2,
+  "MinLevel": 15,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:59.043Z",
-  "CreateTime": "2024-02-04T21:57:21.981Z"
+  "UpdateTime": "2024-06-29T22:48:27.339Z",
+  "CreateTime": "2024-06-29T22:48:27.339Z"
 }

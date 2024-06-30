@@ -41,33 +41,23 @@ namespace Genrpg.Shared.Units.Entities
 
         [Key(10)] public bool PlayerRace { get; set; }
 
-        [Key(11)] public List<UnitEffect> Effects { get; set; }
+        [Key(11)] public long MinLevel { get; set; }
 
-        [Key(12)] public List<WeightedName> PrefixNames { get; set; }
+        [Key(12)] public List<UnitEffect> Effects { get; set; } = new List<UnitEffect>();
 
-        [Key(13)] public List<WeightedName> DoubleNameSuffixes { get; set; }
+        [Key(13)] public List<WeightedName> PrefixNames { get; set; } = new List<WeightedName>();
 
-        [Key(14)] public List<WeightedName> SuffixNames { get; set; }
+        [Key(14)] public List<WeightedName> DoubleNameSuffixes { get; set; } = new List<WeightedName>();
+
+        [Key(15)] public List<WeightedName> SuffixNames { get; set; } = new List<WeightedName>();
 
 
-        [Key(15)] public List<WeightedName> AlternateNames { get; set; }
+        [Key(16)] public List<WeightedName> AlternateNames { get; set; } = new List<WeightedName>();
 
-        [Key(16)] public List<MonsterFood> FoodSources { get; set; }
+        [Key(17)] public List<MonsterFood> FoodSources { get; set; } = new List<MonsterFood>();
 
-        [Key(17)] public List<SpawnItem> LootItems { get; set; }
-        [Key(18)] public List<SpawnItem> InteractLootItems { get; set; }
-
-        public UnitType()
-        {
-            PrefixNames = new List<WeightedName>();
-            DoubleNameSuffixes = new List<WeightedName>();
-            SuffixNames = new List<WeightedName>();
-            AlternateNames = new List<WeightedName>();
-            FoodSources = new List<MonsterFood>();
-            LootItems = new List<SpawnItem>();
-            InteractLootItems = new List<SpawnItem>();
-
-        }
+        [Key(18)] public List<SpawnItem> LootItems { get; set; } = new List<SpawnItem>();
+        [Key(19)] public List<SpawnItem> InteractLootItems { get; set; } = new List<SpawnItem>();
 
     [MessagePackObject]
         public class UnitSettingsApi : ParentSettingsApi<UnitSettings, UnitType> { }

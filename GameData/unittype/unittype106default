@@ -1,0 +1,21 @@
+{
+  "Id": "unittype106default",
+  "ParentId": "default",
+  "IdKey": 106,
+  "Name": "Manticore",
+  "PluralName": "Manticores",
+  "Icon": "Manticore",
+  "Art": "Manticore",
+  "TribeTypeId": 8,
+  "MinLevel": 15,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.548Z",
+  "CreateTime": "2024-06-29T22:48:27.548Z"
+}

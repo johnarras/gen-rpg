@@ -2,12 +2,12 @@
   "Id": "tribetype6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Critter",
+  "Name": "Vermin",
   "Desc": "",
   "Icon": "",
   "Art": "",
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:53.785Z",
+  "UpdateTime": "2024-06-29T19:51:17.979Z",
   "CreateTime": "2024-02-15T23:06:21.467Z"
 }

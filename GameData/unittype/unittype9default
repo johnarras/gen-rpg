@@ -2,12 +2,13 @@
   "Id": "unittype9default",
   "ParentId": "default",
   "IdKey": 9,
-  "Name": "Crab",
-  "PluralName": "Crabs",
-  "Icon": "Crab",
-  "Art": "Crab",
-  "Height": 1.0,
-  "TribeTypeId": 7,
+  "Name": "Mongrel Shaman",
+  "PluralName": "Mongrel Shamans",
+  "Icon": "MongrelShaman",
+  "Art": "MongrelShaman",
+  "TribeTypeId": 10,
+  "MinLevel": 5,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:49:00.407Z",
-  "CreateTime": "2024-02-04T21:57:21.899Z"
+  "UpdateTime": "2024-06-29T22:48:27.262Z",
+  "CreateTime": "2024-06-29T22:48:27.262Z"
 }

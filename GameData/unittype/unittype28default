@@ -2,12 +2,13 @@
   "Id": "unittype28default",
   "ParentId": "default",
   "IdKey": 28,
-  "Name": "Ghoul",
-  "PluralName": "Ghouls",
-  "Icon": "Ghoul",
-  "Art": "Ghoul",
-  "Height": 3.0,
-  "TribeTypeId": 3,
+  "Name": "Bladesman",
+  "PluralName": "Bladesmen",
+  "Icon": "Bladesman",
+  "Art": "Bladesman",
+  "TribeTypeId": 11,
+  "MinLevel": 10,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:57.109Z",
-  "CreateTime": "2024-02-04T21:57:21.945Z"
+  "UpdateTime": "2024-06-29T22:48:27.303Z",
+  "CreateTime": "2024-06-29T22:48:27.303Z"
 }

@@ -2,13 +2,13 @@
   "Id": "unittype3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "Dwarf",
-  "PluralName": "Dwarves",
-  "Icon": "DwarfMale",
-  "Art": "DwarfMale",
-  "Height": 1.5,
+  "Name": "Elf Archer",
+  "PluralName": "Elf Archers",
+  "Icon": "ElfArcher",
+  "Art": "ElfArcher",
   "TribeTypeId": 1,
-  "PlayerRace": true,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -16,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:58.371Z",
-  "CreateTime": "2024-01-28T21:19:53.296Z"
+  "UpdateTime": "2024-06-29T22:48:27.249Z",
+  "CreateTime": "2024-06-29T22:48:27.249Z"
 }

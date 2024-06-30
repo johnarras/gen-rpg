@@ -1,9 +1,0 @@
-{
-  "Id": "biometype7default",
-  "ParentId": "default",
-  "IdKey": 7,
-  "Name": "Mountains",
-  "MinLevel": 1000,
-  "UpdateTime": "2024-06-22T19:47:07.877Z",
-  "CreateTime": "2024-06-21T22:25:29.794Z"
-}

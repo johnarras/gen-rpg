@@ -1,0 +1,21 @@
+{
+  "Id": "unittype111default",
+  "ParentId": "default",
+  "IdKey": 111,
+  "Name": "Guard",
+  "PluralName": "Guards",
+  "Icon": "Guard",
+  "Art": "Guard",
+  "TribeTypeId": 11,
+  "MinLevel": 1,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.571Z",
+  "CreateTime": "2024-06-29T22:48:27.571Z"
+}

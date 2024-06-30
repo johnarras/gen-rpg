@@ -4,7 +4,8 @@
   "IdKey": 5,
   "Name": "Back",
   "Active": true,
+  "IsCrawlerSlot": true,
   "BaseBonusStatTypeId": 32,
-  "UpdateTime": "2024-02-25T15:46:42.492Z",
+  "UpdateTime": "2024-06-29T14:10:32.177Z",
   "CreateTime": "2023-11-24T16:45:27.663Z"
 }

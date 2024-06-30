@@ -1,0 +1,21 @@
+{
+  "Id": "unittype110default",
+  "ParentId": "default",
+  "IdKey": 110,
+  "Name": "Giant",
+  "PluralName": "Giants",
+  "Icon": "Giant",
+  "Art": "Giant",
+  "TribeTypeId": 7,
+  "MinLevel": 15,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-06-29T22:48:27.569Z",
+  "CreateTime": "2024-06-29T22:48:27.569Z"
+}

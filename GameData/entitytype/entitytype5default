@@ -2,7 +2,7 @@
   "Id": "entitytype5default",
   "ParentId": "default",
   "IdKey": 5,
-  "Name": "Spawn",
-  "UpdateTime": "2024-02-25T15:46:40.457Z",
+  "Name": "SpawnTable",
+  "UpdateTime": "2024-06-29T14:27:48.761Z",
   "CreateTime": "2023-11-24T16:45:25.568Z"
 }

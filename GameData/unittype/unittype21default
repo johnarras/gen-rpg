@@ -2,12 +2,13 @@
   "Id": "unittype21default",
   "ParentId": "default",
   "IdKey": 21,
-  "Name": "Wolf",
-  "PluralName": "Wolves",
-  "Icon": "Wolf",
-  "Art": "Wolf",
-  "Height": 1.5,
-  "TribeTypeId": 2,
+  "Name": "Hobgoblin",
+  "PluralName": "Hobgoblins",
+  "Icon": "Hobgoblin",
+  "Art": "Hobgoblin",
+  "TribeTypeId": 10,
+  "MinLevel": 1,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:56.43Z",
-  "CreateTime": "2024-02-04T21:57:21.927Z"
+  "UpdateTime": "2024-06-29T22:48:27.29Z",
+  "CreateTime": "2024-06-29T22:48:27.29Z"
 }

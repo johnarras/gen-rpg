@@ -43,11 +43,13 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(7)] public long Seed { get; set; }
 
-        [Key(8)] public long MapId { get; set; }
+        [Key(8)] public long WorldId { get; set; }
 
-        [Key(9)] public int MapX { get; set; }
-        [Key(10)] public int MapZ { get; set; }
-        [Key(11)] public int MapRot { get; set; }
+        [Key(9)] public long MapId { get; set; }
+
+        [Key(10)] public int MapX { get; set; }
+        [Key(11)] public int MapZ { get; set; }
+        [Key(12)] public int MapRot { get; set; }
 
         [JsonIgnore] public IWorldPanel WorldPanel = null;
         [JsonIgnore] public IActionPanel ActionPanel = null;
@@ -124,17 +126,6 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
                 }
             }
             return retval;
-        }
-
-        public int GetWorldLevel()
-        {
-            List<PartyMember> partyMembers = GetActiveParty();
-            if (partyMembers.Count < 1)
-            {
-                return 1;
-            }
-
-            return (int)Math.Max(1, Math.Ceiling(1.0 * partyMembers.Sum(x => x.Level) / partyMembers.Count));
         }
     }
 

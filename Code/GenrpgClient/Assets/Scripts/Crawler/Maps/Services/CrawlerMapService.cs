@@ -25,8 +25,14 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
     {
         public CrawlerWorld World;
         public ECrawlerMapTypes MapType;
-        public int MinLevel { get; set; } = 0;
-        public int MaxLevel { get; set; } = 100;
+        public int Level { get; set; } = 0;
+        public long ZoneTypeId { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public bool Looping { get; set; }
+        public long FromMapId { get; set; }
+        public int FromMapX { get; set; }
+        public int FromMapZ { get; set; }
     }
 
 
@@ -79,6 +85,10 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             CleanMap();
             _party = partyData;
 
+            if (mapData.Map == null)
+            {
+            }
+
             if (_playerLight == null)
             {
                 _cameraParent = _cameraController?.GetCameraParent();
@@ -102,8 +112,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
 
 
-            MapType = mapData.MapId == 1 ? ECrawlerMapTypes.City : ECrawlerMapTypes.Dungeon;
-            ICrawlerMapTypeHelper helper = GetHelper(mapData.MapId == 1 ? ECrawlerMapTypes.City : ECrawlerMapTypes.Dungeon);
+            MapType = mapData.Map.MapType;
+            ICrawlerMapTypeHelper helper = GetHelper(MapType);
 
             _crawlerMap = await helper.Enter(partyData, mapData, token);
 
@@ -259,21 +269,26 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _updatingMovement = true;
             while (_queuedMoves.TryDequeue(out KeyCode currCommand))
             {
+                bool movedPosition = false;
                 if (currCommand == KeyCode.W)
                 {
                     await Move(1, 0, token);
+                    movedPosition = true;
                 }
                 else if (currCommand == KeyCode.S)
                 {
                     await Move(-1, 0, token);
+                    movedPosition = true;
                 }
                 else if (currCommand == KeyCode.Q)
                 {
                     await Move(0, -1, token);
+                    movedPosition = true;
                 }
                 else if (currCommand == KeyCode.E)
                 {
                     await Move(0, 1, token);
+                    movedPosition = true;
                 }
                 else if (currCommand == KeyCode.A)
                 {
@@ -283,7 +298,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 {
                     await Rot(1, token);
                 }
-                _crawlerService.OnFinishMove(token);
+                await _crawlerService.OnFinishMove(movedPosition, token);
             }
             _updatingMovement = false;
         }
@@ -417,10 +432,17 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             int cx = (int)(_party.MapX);
             int cz = (int)(_party.MapZ);
 
-            for (int x = cx-ViewRadius; x<= cx+ViewRadius; x++)
+            int BigViewRadius = ViewRadius * 2;
+
+            int viewBufferSize = 2;
+
+            for (int x = cx-BigViewRadius; x<= cx+BigViewRadius; x++)
             {
-                for (int z = cz-ViewRadius; z<= cz+ViewRadius; z++)
+                int offsetX = Math.Abs(x - cx);
+                for (int z = cz-BigViewRadius; z<= cz+BigViewRadius; z++)
                 {
+                    int offsetZ = Math.Abs(z - cz);
+
                     int worldX = x;
                     int worldZ = z;
 
@@ -440,6 +462,18 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                     cellZ %= _crawlerMap.Map.Height;
 
                     UnityMapCell cell = _crawlerMap.GetCell(cellX, cellZ);
+
+                    if (_crawlerMap.Map.MapType == ECrawlerMapTypes.Outdoors && 
+                        (offsetX >= ViewRadius + viewBufferSize ||
+                        offsetZ >= ViewRadius + viewBufferSize))
+                    {
+                        if (cell.Content != null)
+                        {
+                            GEntityUtils.Destroy(cell.Content);
+                            cell.Content = null;
+                        }
+                        continue;
+                    }
 
                     if (_crawlerMap.Map.Looping || 
                         (worldX >= 0 && worldX < _crawlerMap.Map.Width &&

@@ -13,7 +13,7 @@ namespace Genrpg.Editor.UI.Constants
 
         public const FontStyle DefaultFontStyle = FontStyle.Regular;
 
-        public const int DefaultLabelFontSize = 10;
+        public const int DefaultLabelFontSize = 12;
         public const int SmallLabelFontSize = 8;
         public const int TinyLabelFontSize = 7;
     }

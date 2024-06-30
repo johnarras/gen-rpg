@@ -4,7 +4,8 @@
   "IdKey": 4,
   "Name": "Torso",
   "Active": true,
+  "IsCrawlerSlot": true,
   "BaseBonusStatTypeId": 31,
-  "UpdateTime": "2024-02-25T15:46:42.397Z",
+  "UpdateTime": "2024-06-29T14:10:32.166Z",
   "CreateTime": "2023-11-24T16:45:27.551Z"
 }

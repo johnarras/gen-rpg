@@ -2,12 +2,13 @@
   "Id": "unittype20default",
   "ParentId": "default",
   "IdKey": 20,
-  "Name": "Snake",
-  "PluralName": "Snakes",
-  "Icon": "Snake",
-  "Art": "Snake",
-  "Height": 1.0,
-  "TribeTypeId": 2,
+  "Name": "Goblin Shaman",
+  "PluralName": "Goblin Shamans",
+  "Icon": "GoblinShaman",
+  "Art": "GoblinShaman",
+  "TribeTypeId": 10,
+  "MinLevel": 5,
+  "Effects": [],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -15,6 +16,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-02-25T15:48:56.336Z",
-  "CreateTime": "2024-02-04T21:57:21.925Z"
+  "UpdateTime": "2024-06-29T22:48:27.288Z",
+  "CreateTime": "2024-06-29T22:48:27.288Z"
 }

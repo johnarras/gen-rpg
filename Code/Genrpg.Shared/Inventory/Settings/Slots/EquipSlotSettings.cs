@@ -34,7 +34,7 @@ namespace Genrpg.Shared.Inventory.Settings.Slots
 
         [Key(8)] public bool Active { get; set; }
 
-        [Key(9)] public bool ClassRestricted { get; set; }
+        [Key(9)] public bool IsCrawlerSlot { get; set; }
 
         [Key(10)] public long BaseBonusStatTypeId { get; set; }
 

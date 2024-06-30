@@ -1,9 +1,0 @@
-{
-  "Id": "statuseffect16default",
-  "ParentId": "default",
-  "IdKey": 16,
-  "Name": "Hasted",
-  "Abbrev": "Haste",
-  "UpdateTime": "2024-06-16T18:56:44.785Z",
-  "CreateTime": "2024-01-27T23:55:16.163Z"
-}
