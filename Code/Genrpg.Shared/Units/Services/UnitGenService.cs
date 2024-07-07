@@ -8,13 +8,13 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Names.Services;
 using Genrpg.Shared.Names.Settings;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Units.Settings;
 
 namespace Genrpg.Shared.Units.Services
 {

@@ -1,0 +1,30 @@
+{
+  "Id": "unitkeyword6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Lord",
+  "Icon": "Lord",
+  "Art": "Lord",
+  "Effects": [
+    {
+      "EntityTypeId": 32,
+      "Quantity": 50,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 32,
+      "Quantity": 50,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 11
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 8
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.442Z",
+  "CreateTime": "2024-07-06T23:25:26.442Z"
+}

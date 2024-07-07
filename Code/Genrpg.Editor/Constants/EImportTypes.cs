@@ -11,5 +11,6 @@ namespace Genrpg.Editor.Constants
         CrawlerSpells = 0,
         UnitTypes = 1,
         UnitSpawns = 2,
+        UnitKeywords=3,
     };
 }

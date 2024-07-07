@@ -1,9 +1,9 @@
-﻿using Genrpg.MapServer.Items.Services;
-using Genrpg.Shared.Core.Entities;
+﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Interfaces;

@@ -25,6 +25,7 @@ using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.MapServer.Spawns.Services;
+using Genrpg.Shared.Units.Settings;
 
 namespace Genrpg.MapServer.Units.Services
 {

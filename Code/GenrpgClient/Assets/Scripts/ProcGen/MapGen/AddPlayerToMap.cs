@@ -6,6 +6,7 @@ using Genrpg.Shared.Characters.PlayerData;
 using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
 using UnityEngine;
+using Genrpg.Shared.Units.Settings;
 
 class AddPlayerToMap : BaseZoneGenerator
 {

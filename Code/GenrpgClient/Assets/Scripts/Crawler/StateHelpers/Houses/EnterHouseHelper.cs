@@ -24,7 +24,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Training
             stateData.WorldSpriteName = CrawlerClientConstants.HouseImage + (index + 1);
 
 
-            if (_rand.NextDouble() < 10.3f)
+            if (_rand.NextDouble() < 0.3f)
             {
                 stateData = new CrawlerStateData(ECrawlerStates.StartCombat, true)
                 {
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Training
             else
             {
                 stateData.Actions.Add(new CrawlerStateAction("Exit House", KeyCode.Escape, ECrawlerStates.ExploreWorld));
-                stateData.Actions.Add(new CrawlerStateAction("Exit House", KeyCode.Escape, ECrawlerStates.ExploreWorld));
+                stateData.Actions.Add(new CrawlerStateAction("Exit House", KeyCode.Space, ECrawlerStates.ExploreWorld));
             }
             await Task.CompletedTask;
             return stateData;

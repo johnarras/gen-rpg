@@ -228,6 +228,18 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
         }
     }
 
+    public async Task<T> LoadObjectFromString(string id)
+    {
+        string txt = LoadString(id);
+        if (string.IsNullOrEmpty(txt))
+        {
+            return default(T);
+        }
+        await Task.CompletedTask;
+        return SerializationUtils.Deserialize<T>(txt);
+
+    }
+
     public string LoadString(string id)
     {
         string path = GetPath(id);

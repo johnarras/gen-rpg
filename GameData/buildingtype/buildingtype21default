@@ -1,0 +1,13 @@
+{
+  "Id": "buildingtype21default",
+  "ParentId": "default",
+  "IdKey": 21,
+  "Name": "City",
+  "Desc": "",
+  "Icon": "",
+  "Art": "City",
+  "Radius": 5,
+  "VariationCount": 2,
+  "UpdateTime": "2024-07-05T03:52:28.206Z",
+  "CreateTime": "2024-02-18T20:20:49.08Z"
+}

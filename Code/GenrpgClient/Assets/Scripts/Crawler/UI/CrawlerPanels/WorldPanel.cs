@@ -1,10 +1,19 @@
 ﻿
 
+using Assets.Scripts.Crawler.Events;
+using Assets.Scripts.Crawler.Maps.Constants;
+using Assets.Scripts.Crawler.Maps.Entities;
+using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Assets.Scripts.UI.Services;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.UI.Interfaces;
+using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.Utils;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.UI.Crawler.CrawlerPanels
@@ -17,14 +26,24 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
     public class WorldPanel : BaseCrawlerPanel, IWorldPanel
     {
+
         private ICrawlerMapService _mapService;
+        private IUIService _uiService;
 
         public GRawImage WorldImage;
+        public GText WorldPosText;
+        public GText MapNameText;
+
+        public GImage NoMeleeImage;
+        public GImage NoRangedImage;
+        public GImage NoMagicImage;
+
 
         public override async Awaitable Init(CrawlerScreen screen, CancellationToken token)
         {
             await base.Init(screen, token);
             _dispatcher.AddEvent<ShowWorldPanelImage>(this, OnShowWorldPanelImage);
+            _dispatcher.AddEvent<CrawlerUIUpdate>(this, OnUpdateWorldUI);
 
             _updateService.AddUpdate(this, IncrementTextureFrame, UpdateType.Late);
             SetPicture(null);
@@ -41,13 +60,27 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             return;
         }
 
+        private void OnUpdateWorldUI(CrawlerUIUpdate update)
+        {
+            _uiService.SetText(MapNameText, update.Map.GetName(update.Party.MapX, update.Party.MapZ));
+
+            string txt = MapUtils.DirFromAngle(update.Party.MapRot) + "(" + update.Party.MapX + "," + update.Party.MapZ + ")";
+
+            _uiService.SetText(WorldPosText, txt);
+
+            byte disables = update.Map.Get(update.Party.MapX, update.Party.MapZ, CellIndex.Disables);
+
+            GEntityUtils.SetActive(NoMeleeImage, FlagUtils.IsSet(disables, MapDisables.NoMelee));
+            GEntityUtils.SetActive(NoRangedImage, FlagUtils.IsSet(disables, MapDisables.NoRanged));
+            GEntityUtils.SetActive(NoMagicImage, FlagUtils.IsSet(disables, MapDisables.NoMagic));
+
+        }
 
 
         private string _currentSpriteName = null;
         private Dictionary<string, TextureList> _cachedSprites = new Dictionary<string, TextureList>();
         public void SetPicture(string spriteName)
         {
-
             if (!string.IsNullOrEmpty(spriteName) && spriteName.IndexOf("Building") >= 0)
             {
                 spriteName = _mapService.GetBuildingArtPrefix() + spriteName;

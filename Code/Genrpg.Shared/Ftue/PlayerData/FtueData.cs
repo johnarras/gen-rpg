@@ -17,7 +17,7 @@ namespace Genrpg.Shared.Ftue.PlayerData
     {
         [Key(0)] public override string Id { get; set; }
 
-        [Key(1)] public BitList CompletedFtues { get; set; } = new BitList();
+        [Key(1)] public SmallIndexBitList CompletedFtues { get; set; } = new SmallIndexBitList();
 
         [Key(2)] public long CurrentFtueStepId { get; set; }
 

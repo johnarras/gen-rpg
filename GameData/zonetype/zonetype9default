@@ -7,7 +7,7 @@
   "Icon": "",
   "Textures": [
     {
-      "TextureTypeId": 19
+      "TextureTypeId": 13
     },
     {
       "TextureTypeId": 20,
@@ -381,6 +381,6 @@
   "WeatherTypeId": 8,
   "MusicTypeId": 3,
   "AmbientMusicTypeId": 8,
-  "UpdateTime": "2024-06-29T22:57:02.835Z",
-  "CreateTime": "2024-02-15T23:06:21.554Z"
+  "UpdateTime": "2024-07-04T13:13:37.602Z",
+  "CreateTime": "2024-02-16T05:06:21Z"
 }

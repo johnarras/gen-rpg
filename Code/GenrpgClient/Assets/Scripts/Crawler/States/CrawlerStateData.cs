@@ -31,6 +31,7 @@ public class CrawlerStateData
     public string WorldSpriteName = CrawlerClientConstants.WorldImage;
     public bool ForceNextState { get; set; } = false;
     public string ErrorMessage { get; set; }
+    public bool DoNotTransitionToThisState { get; set; }
 
     public GInputField InputField;
 

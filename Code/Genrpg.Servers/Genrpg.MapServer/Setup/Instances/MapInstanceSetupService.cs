@@ -47,7 +47,6 @@ namespace Genrpg.MapServer.Setup.Instances
             Set<IServerCraftingService>(new ServerCraftingService());
             Set<IItemService>(new ItemService());
             Set<ISpawnService>(new SpawnService());
-            Set<IItemGenService>(new ItemGenService());
             Set<ILevelService>(new LevelService());
             Set<IMapMessageService>(new MapMessageService());
             Set<IServerQuestService>(new ServerQuestService());

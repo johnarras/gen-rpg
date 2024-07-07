@@ -1,5 +1,4 @@
-﻿using Genrpg.MapServer.Items.Services;
-using Genrpg.MapServer.Trades.Services;
+﻿using Genrpg.MapServer.Trades.Services;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crafting.Constants;

@@ -11,7 +11,68 @@
       "Name": "Road/Base"
     }
   ],
-  "ZoneNames": [],
+  "ZoneNames": [
+    {
+      "Weight": 1000.0,
+      "Name": "Castle",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Keep",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tower",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Redoubt",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Stronghold",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Citadel",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Manor",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mansion",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fort",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fortress",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hold",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Spire",
+      "Desc": ""
+    }
+  ],
   "ZoneAdjectives": [],
   "BridgeTypes": [],
   "FenceTypes": [],
@@ -373,6 +434,6 @@
   "Art": "",
   "MusicTypeId": 1,
   "AmbientMusicTypeId": 1,
-  "UpdateTime": "2024-06-29T22:57:02.859Z",
-  "CreateTime": "2024-06-29T23:39:56Z"
+  "UpdateTime": "2024-07-04T22:56:49.519Z",
+  "CreateTime": "2024-06-30T04:39:56Z"
 }

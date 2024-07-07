@@ -1,12 +1,9 @@
-﻿using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Services.CrawlerMaps;
-using Assets.Scripts.UI.Crawler.States;
+﻿
+using ClientEvents;
 using Genrpg.Shared.Interfaces;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.Scripts.Crawler.Maps.Entities
 {
@@ -16,40 +13,32 @@ namespace Assets.Scripts.Crawler.Maps.Entities
         public long IdKey { get; set; }
         public string Name { get; set; }
 
-
-
-
+        [JsonIgnore]
         public List<CrawlerMap> Maps { get; set; } = new List<CrawlerMap>();
 
-        public long GetMaxMapId()
-        {
-            if (Maps.Count < 1)
-            {
-                return 0;
-            }
-            return Maps.Max(x => x.IdKey);
-        }
+        public List<WorldQuestItem> QuestItems { get; set; } = new List<WorldQuestItem>();
 
-        private long GetNextMapId()
-        {
-           return GetMaxMapId() + 1;
-        }
+        public long MaxMapId { get; set; } = 0;
 
-        public CrawlerMap CreateMap(CrawlerMapGenData genData)
+        public CrawlerMap CreateMap(CrawlerMapGenData genData, int width, int height)
         {
+            long mapId = ++MaxMapId;
             CrawlerMap map = new CrawlerMap()
             {
+                Id = "Map" + mapId,
                 MapType = genData.MapType,
                 Looping = genData.Looping,
-                Width = genData.Width,
-                Height = genData.Height,
+                Width = width,
+                Height = height,
                 Level = genData.Level,
-                IdKey = GetNextMapId(),             
+                IdKey = mapId,       
+                ZoneTypeId = genData.ZoneTypeId,
+                MapFloor = genData.CurrFloor,
             };
 
             map.SetupDataBlocks();
             Maps.Add(map);
-            
+
             return map;
         }
 

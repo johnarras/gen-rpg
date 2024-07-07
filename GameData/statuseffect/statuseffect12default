@@ -6,13 +6,13 @@
   "Desc": "",
   "Icon": "",
   "Art": "",
-  "Abbrev": "Fear",
+  "Abbrev": "Stun",
   "ActionEffects": [
     {
       "CombatActionId": 6,
       "Effect": 2
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:35.852Z",
+  "UpdateTime": "2024-07-02T20:05:38.584Z",
   "CreateTime": "2024-01-27T23:52:56Z"
 }

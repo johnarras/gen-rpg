@@ -181,8 +181,6 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
             return;
         }
 
-        //Tooltip.transform().position =entity.transform().position;
-
         RectTransform transTooltip = _initData.Screen.ToolTip.GetComponent<RectTransform>();
         RectTransform transIcon = GetComponent<RectTransform>();
 
@@ -193,8 +191,6 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
 
         Rect trect = transTooltip.rect;
         Rect irect = transIcon.rect;
-
-
 
         float dy = -trect.height / 4;
 

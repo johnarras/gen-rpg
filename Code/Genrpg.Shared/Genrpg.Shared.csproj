@@ -7,20 +7,16 @@
 
   <ItemGroup>
     <Compile Remove="MapMessages\Messages\**" />
-    <Compile Remove="Units\Settings\**" />
+    <Compile Remove="Spells\Loaders\**" />
     <EmbeddedResource Remove="MapMessages\Messages\**" />
-    <EmbeddedResource Remove="Units\Settings\**" />
+    <EmbeddedResource Remove="Spells\Loaders\**" />
     <None Remove="MapMessages\Messages\**" />
-    <None Remove="Units\Settings\**" />
+    <None Remove="Spells\Loaders\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MessagePack" Version="2.5.140" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Spells\Loaders\" />
   </ItemGroup>
 
 </Project>

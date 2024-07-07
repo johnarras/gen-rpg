@@ -16,5 +16,7 @@ namespace Assets.Scripts.Crawler.Constants
         public const string VendorImage = "VendorBuilding";
         public const string TrainerImage = "TrainerBuilding";
         public const string HouseImage = "HouseBuilding";
+
+        public const string TreasureImage = "Treasure";
     }
 }

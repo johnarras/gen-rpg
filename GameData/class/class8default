@@ -19,6 +19,21 @@
   "ManaStatTypeId": 13,
   "Bonuses": [
     {
+      "EntityTypeId": 31,
+      "EntityId": 32,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 34,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 63,
+      "Quantity": 1
+    },
+    {
       "EntityTypeId": 100,
       "EntityId": 1,
       "Quantity": 1
@@ -35,97 +50,12 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 36,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 37,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
       "EntityId": 4,
       "Quantity": 1
     },
     {
       "EntityTypeId": 100,
       "EntityId": 5,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 33,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 21,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 17,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 44,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 20,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 18,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 32,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 63,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 34,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 101,
-      "EntityId": 3,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 101,
-      "EntityId": 4,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 101,
-      "EntityId": 5,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 8,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 31,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 32,
       "Quantity": 1
     },
     {
@@ -135,7 +65,7 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 24,
+      "EntityId": 8,
       "Quantity": 1
     },
     {
@@ -165,6 +95,56 @@
     },
     {
       "EntityTypeId": 100,
+      "EntityId": 17,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 18,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 20,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 21,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 24,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 31,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 32,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 37,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
       "EntityId": 53,
       "Quantity": 1
     },
@@ -187,6 +167,36 @@
       "EntityTypeId": 100,
       "EntityId": 57,
       "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 58,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 59,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 60,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 3,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 4,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 5,
+      "Quantity": 1
     }
   ],
   "AllowedWeapons": [
@@ -200,6 +210,6 @@
       "ItemTypeId": 21
     }
   ],
-  "UpdateTime": "2024-06-29T22:18:06.012Z",
-  "CreateTime": "2024-01-27T12:57:37Z"
+  "UpdateTime": "2024-07-04T19:17:28.628Z",
+  "CreateTime": "2024-01-27T18:57:37Z"
 }

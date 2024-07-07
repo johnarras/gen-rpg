@@ -1,0 +1,20 @@
+{
+  "Id": "unitkeyword22default",
+  "ParentId": "default",
+  "IdKey": 22,
+  "Name": "Water",
+  "Icon": "Water",
+  "Art": "Water",
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 29
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 30
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.489Z",
+  "CreateTime": "2024-07-06T23:25:26.489Z"
+}

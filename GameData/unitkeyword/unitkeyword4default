@@ -1,0 +1,28 @@
+{
+  "Id": "unitkeyword4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Mage",
+  "Icon": "Mage",
+  "Art": "Mage",
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 27
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 30
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 29
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.435Z",
+  "CreateTime": "2024-07-06T23:25:26.435Z"
+}

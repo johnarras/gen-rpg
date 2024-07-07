@@ -15,10 +15,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         Awaitable<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);
 
-        CrawlerMap Generate(CrawlerMapGenData crawlerMapGenData);
-
         int GetBlockingBits(CrawlerMapRoot mapRoot, int startx, int startz, int endx, int endz);
 
-        Awaitable DrawCell(CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token);
+        Awaitable DrawCell(CrawlerWorld world, PartyData party, CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token);
     }
 }

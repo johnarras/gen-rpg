@@ -213,11 +213,6 @@ namespace Genrpg.Editor
 
                     List<IGrouping<string, ITopLevelSettings>> nameGroups = items.GroupBy(x => x.Id).ToList();
 
-                    if (group.Key == typeof(CurrencySettings))
-                    {
-                        Console.WriteLine("Looking at currencies");
-                    }
-
                     if (items.Count != nameGroups.Count)
                     {
                         ContentDialogResult result2 = await UIHelper.ShowMessageBox(this, "Setting " + group.Key.Name + " has duplicate DocId");

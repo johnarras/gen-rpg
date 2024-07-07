@@ -17,5 +17,6 @@ namespace Genrpg.Shared.Spells.Constants
         public const long Item = 7;
         public const long Special = 8;
         public const long Self = 9;
+        public const long AllEnemyGroups = 10;
     }
 }

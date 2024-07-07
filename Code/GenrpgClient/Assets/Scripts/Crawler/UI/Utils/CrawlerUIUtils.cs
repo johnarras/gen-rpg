@@ -9,17 +9,17 @@ namespace Assets.Scripts.Crawler.UI.Utils
 {
     public static class CrawlerUIUtils
     {
+        public const string ColorWhite = "#FFFFFF";
+        public const string ColorYellow = "#FFD800";
 
-        const string _highlightColor = "#FFD800";
-        public static string HighlightText(string text)
+        public static string HighlightText(string text, string color = ColorYellow)
         {
-            return $"<color={_highlightColor}>{text}</color>";
+            return $"<color={color}>{text}</color>";
         }
 
-        public static string HighlightText(char c)
+        public static string HighlightText(char c, string color = ColorYellow) 
         {
-
-            return $"<color={_highlightColor}>{c}</color>";
+            return $"<color={color}>{c}</color>";
         }
     }
 }

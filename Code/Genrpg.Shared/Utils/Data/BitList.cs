@@ -8,68 +8,72 @@ namespace Genrpg.Shared.Utils.Data
     [MessagePackObject]
     public class BitList
     {
-
-        [Key(0)] public List<BitListItem> Data { get; set; }
-
-        public BitList()
-        {
-            Data = new List<BitListItem>();
-        }
+        const int BitsPerItem = 32;
+        [Key(0)] public List<int[]> Dat { get; set; } = new List<int[]>();
 
         public bool HasBit(long index)
         {
-            BitListItem bitem = GetBitListItem(index);
-            if (bitem != null)
+            int subIndex = (int)(index / BitsPerItem);
+
+            int bitRemainder = (int)(index % BitsPerItem);
+
+            int[] item = Dat.FirstOrDefault(x => x[0] == subIndex);
+
+            if (item != null)
             {
-                return bitem.HasBit(index);
+                return (item[1] & (1 << bitRemainder)) != 0;
             }
 
             return false;
         }
 
+        public void Clear()
+        {
+            Dat = new List<int[]>();
+        }
+
         public void SetBit(long index)
         {
-            BitListItem bitem = GetBitListItem(index, true);
-            if (bitem == null)
+            int subIndex = (int)(index / BitsPerItem);
+
+            int bitRemainder = (int)(index % BitsPerItem);
+
+            int[] item = Dat.FirstOrDefault(x => x[0] == subIndex);
+
+            if (item == null)
             {
-                return;
+                item = new int[2];
+                item[0] = subIndex;
+                Dat.Add(item);
             }
 
-            bitem.SetBit(index);
+            item[1] |= (1 << bitRemainder);
         }
 
         public void RemoveBit(long index)
         {
-            BitListItem bitem = GetBitListItem(index);
-            if (bitem == null)
+            int subIndex = (int)(index / BitsPerItem);
+
+            int bitRemainder = (int)(index % BitsPerItem);
+
+            int[] item = Dat.FirstOrDefault(x => x[0] == subIndex);
+
+            if (item ==null)
             {
                 return;
             }
 
-            bitem.RemoveBit(index);
+            item[1] &= ~(1 << bitRemainder);   
         }
 
-        protected BitListItem GetBitListItem(long index, bool createIfNotExist = false)
+        public bool MatchAnyBits(int bits)
         {
-            if (index < 0)
+            int[] item = Dat.FirstOrDefault(x => x[0] == 0);
+            if (item != null)
             {
-                return null;
+                return (item[1] & bits) != 0;   
             }
-
-            if (Data == null)
-            {
-                Data = new List<BitListItem>();
-            }
-            int desiredIndex = (int)(index / BitListItem.BitsPerItem);
-
-            BitListItem currItem = Data.FirstOrDefault(x => x.StartIndex == desiredIndex);
-
-            if (currItem == null && createIfNotExist)
-            {
-                currItem = new BitListItem() { StartIndex = desiredIndex };
-                Data.Add(currItem);
-            }
-            return currItem;
+            return false;
         }
     }
 }

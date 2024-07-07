@@ -1,0 +1,20 @@
+{
+  "Id": "unitkeyword8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Undead",
+  "Icon": "Undead",
+  "Art": "Undead",
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 3
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.448Z",
+  "CreateTime": "2024-07-06T23:25:26.448Z"
+}

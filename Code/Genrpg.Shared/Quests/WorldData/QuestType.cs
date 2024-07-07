@@ -3,7 +3,6 @@ using Genrpg.Shared.Core.Entities;
 
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
-using Genrpg.Shared.Units.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +17,7 @@ using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Vendors.WorldData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Units.Settings;
 
 namespace Genrpg.Shared.Quests.WorldData
 {

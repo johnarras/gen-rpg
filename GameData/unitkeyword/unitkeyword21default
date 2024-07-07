@@ -1,0 +1,20 @@
+{
+  "Id": "unitkeyword21default",
+  "ParentId": "default",
+  "IdKey": 21,
+  "Name": "Fire",
+  "Icon": "Fire",
+  "Art": "Fire",
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 27
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 50
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.486Z",
+  "CreateTime": "2024-07-06T23:25:26.486Z"
+}

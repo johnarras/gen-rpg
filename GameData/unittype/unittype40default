@@ -8,7 +8,12 @@
   "Art": "Medusa",
   "TribeTypeId": 8,
   "MinLevel": 1,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 13
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -16,6 +21,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-06-29T22:48:27.327Z",
-  "CreateTime": "2024-06-29T22:48:27.327Z"
+  "UpdateTime": "2024-07-06T17:31:01.808Z",
+  "CreateTime": "2024-07-06T17:31:01.808Z"
 }

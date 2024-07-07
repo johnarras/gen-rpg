@@ -13,6 +13,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
     public class StartCombatStateHelper : BaseCombatStateHelper
     {
         private IScreenService _screenService;
+        private ICrawlerWorldService _crawlerWorldService;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.StartCombat; }
 
@@ -22,9 +23,14 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
             PartyData party = _crawlerService.GetParty();
 
-            CombatState combatState = new CombatState() { Level = await _worldService.GetMapLevelAtParty(party) };
+            InitialCombatState initialState = action.ExtraData as InitialCombatState;
 
-            if (await _combatService.StartCombat(_crawlerService.GetParty(), combatState))
+            if (initialState == null)
+            {
+                initialState = new InitialCombatState();
+            }
+
+            if (await _combatService.StartCombat(_crawlerService.GetParty(), initialState))
             {
                 stateData = new CrawlerStateData(ECrawlerStates.CombatFightRun,true);
             }

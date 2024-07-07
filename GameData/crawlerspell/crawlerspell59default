@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell59default",
+  "ParentId": "default",
+  "IdKey": 59,
+  "Name": "Return to Beacon",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 50,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 8,
+  "Level": 8,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 10,
+      "ElementTypeId": 9,
+      "Name": ""
+    }
+  ],
+  "UpdateTime": "2024-07-04T19:02:08.358Z",
+  "CreateTime": "2024-01-28T11:48:08Z"
+}

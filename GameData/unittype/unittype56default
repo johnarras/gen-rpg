@@ -8,7 +8,12 @@
   "Art": "Thief",
   "TribeTypeId": 14,
   "MinLevel": 1,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 1
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -16,6 +21,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-06-29T22:48:27.358Z",
-  "CreateTime": "2024-06-29T22:48:27.358Z"
+  "UpdateTime": "2024-07-06T17:31:01.829Z",
+  "CreateTime": "2024-07-06T17:31:01.829Z"
 }

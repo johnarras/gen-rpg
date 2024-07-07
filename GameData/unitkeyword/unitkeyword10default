@@ -1,0 +1,17 @@
+{
+  "Id": "unitkeyword10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Dragon",
+  "Icon": "Dragon",
+  "Art": "Dragon",
+  "MinRange": 30,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 11
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.454Z",
+  "CreateTime": "2024-07-06T23:25:26.454Z"
+}

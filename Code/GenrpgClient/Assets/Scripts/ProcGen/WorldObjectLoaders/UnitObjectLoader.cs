@@ -12,6 +12,7 @@ using Assets.Scripts.MapTerrain;
 using UnityEngine;
 using Genrpg.Shared.Units.Constants;
 using System.Threading.Tasks;
+using Genrpg.Shared.Units.Settings;
 
 public class UnitObjectLoader : BaseMapObjectLoader
 {

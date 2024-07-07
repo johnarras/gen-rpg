@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using Genrpg.Shared.Crawler.UI.Interfaces;
 using Newtonsoft.Json.Serialization;
 using Genrpg.Shared.Units.Mappers;
+using Genrpg.Shared.Utils.Data;
 
 namespace Genrpg.Shared.Crawler.Parties.PlayerData
 {
@@ -37,19 +38,25 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(4)] public List<Item> VendorItems { get; set; } = new List<Item>();
 
-        [Key(5)] public DateTime LastVendorRefresh { get; set; }
+        [Key(5)] public List<PartyQuestItem> QuestItems { get; set; } = new List<PartyQuestItem>();
 
-        [Key(6)] public long Gold { get; set; } = 0;
+        [Key(6)] public DateTime LastVendorRefresh { get; set; }
 
-        [Key(7)] public long Seed { get; set; }
+        [Key(7)] public long Gold { get; set; } = 0;
 
-        [Key(8)] public long WorldId { get; set; }
+        [Key(8)] public long Seed { get; set; }
 
-        [Key(9)] public long MapId { get; set; }
+        [Key(9)] public long WorldId { get; set; }
 
-        [Key(10)] public int MapX { get; set; }
-        [Key(11)] public int MapZ { get; set; }
-        [Key(12)] public int MapRot { get; set; }
+        [Key(10)] public long MapId { get; set; }
+
+        [Key(11)] public int MapX { get; set; }
+        [Key(12)] public int MapZ { get; set; }
+        [Key(13)] public int MapRot { get; set; }
+
+        [Key(14)] public List<CrawlerMapStatus> Maps { get; set; } = new List<CrawlerMapStatus>();
+
+        [Key(15)] public CrawlerMapStatus CurrentMap { get; set; } = new CrawlerMapStatus();
 
         [JsonIgnore] public IWorldPanel WorldPanel = null;
         [JsonIgnore] public IActionPanel ActionPanel = null;

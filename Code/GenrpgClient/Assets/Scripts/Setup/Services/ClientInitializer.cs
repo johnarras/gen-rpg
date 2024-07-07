@@ -1,3 +1,4 @@
+using Assets.Scripts.Crawler.Maps;
 using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.Crawler.Services.Combat;
@@ -95,6 +96,7 @@ public class ClientInitializer
             Set<ICrawlerStatService>(new CrawlerStatService());
             Set<ICrawlerMapService>(new CrawlerMapService());
             Set<ICrawlerWorldService>(new CrawlerWorldService());
+            Set<ICrawlerMapGenService>(new CrawlerMapGenService());
             Set<IClientPathfindingUtils>(new ClientPathfindingUtils());
             Set<IAddRoadService>(new AddRoadService());  
         }

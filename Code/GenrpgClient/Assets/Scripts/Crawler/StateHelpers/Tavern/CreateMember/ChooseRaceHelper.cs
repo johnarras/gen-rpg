@@ -6,6 +6,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Sexes.Settings;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

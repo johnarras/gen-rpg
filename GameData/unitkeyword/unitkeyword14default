@@ -1,0 +1,17 @@
+{
+  "Id": "unitkeyword14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Archer",
+  "Icon": "Archer",
+  "Art": "Archer",
+  "MinRange": 40,
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.466Z",
+  "CreateTime": "2024-07-06T23:25:26.466Z"
+}

@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
+using Assets.Scripts.Crawler.Events;
+using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Services.Combat;
@@ -7,21 +9,14 @@ using Assets.Scripts.Model;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler;
 using Assets.Scripts.UI.Crawler.States;
-
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Entities;
+using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using Genrpg.Shared.Crawler.Roles.Constants;
-using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.HelperClasses;
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Inventory.Constants;
-using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
@@ -30,6 +25,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UI.Screens.Constants;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace Assets.Scripts.Crawler.Services
 {
@@ -45,9 +41,10 @@ namespace Assets.Scripts.Crawler.Services
         protected IClientRandom _rand;
         protected ICombatService _combatService;
         protected ICrawlerWorldService _worldService;
+        protected ILootGenService _lootGenService;
 
-        const string SaveFileSuffix = ".sav";
-        const string SaveFileName = "Start" + SaveFileSuffix;
+        public const string SaveFileSuffix = ".sav";
+        public const string StartSaveFileName = "Start" + SaveFileSuffix;
 
         private SetupDictionaryContainer<ECrawlerStates, IStateHelper> _stateHelpers = new SetupDictionaryContainer<ECrawlerStates, IStateHelper>();
 
@@ -60,7 +57,7 @@ namespace Assets.Scripts.Crawler.Services
             return _party;
         }
 
-        private Stack<CrawlerStateData> _stateData { get; set; } = new Stack<CrawlerStateData>();
+        private Stack<CrawlerStateData> _stateStack { get; set; } = new Stack<CrawlerStateData>();
 
 
         private Dictionary<KeyCode, KeyCode> _equivalentKeys = new Dictionary<KeyCode, KeyCode>();
@@ -83,12 +80,26 @@ namespace Assets.Scripts.Crawler.Services
             await Task.CompletedTask;
         }
 
-        public async Awaitable Init(CancellationToken token)
+        public async Awaitable Init(PartyData party, CancellationToken token)
         {
             _token = token;
+            _party = party;
+
+            if (party.WorldId < 1)
+            {
+                party.WorldId = _rand.Next() % 5000000;
+            }
+#if UNITY_EDITOR
+            if (InitClient.EditorInstance.MapGenSeed > 0)
+            {
+                party.WorldId = InitClient.EditorInstance.MapGenSeed;
+            }
+#endif
+            CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
 
             await Task.CompletedTask;
             ChangeState(ECrawlerStates.TavernMain, token);
+            await UpdateCrawlerUI();
         }
 
         public void ChangeState(ECrawlerStates crawlerState, CancellationToken token, object extraData = null)
@@ -98,18 +109,40 @@ namespace Assets.Scripts.Crawler.Services
             ChangeState(stateData, action, token);
         }
 
-        public void ChangeState(CrawlerStateData data, CrawlerStateAction action,  CancellationToken token)
+        public void ChangeState(CrawlerStateData data, CrawlerStateAction action, CancellationToken token)
         {
             action.OnClickAction?.Invoke();
             AwaitableUtils.ForgetAwaitable(ChangeStateAsync(data, action, token));
         }
 
-        public async Awaitable ChangeStateAsync (CrawlerStateData currData, CrawlerStateAction action, CancellationToken token)
+        public CrawlerStateData PopState()
+        {
+            if (_stateStack.Count > 1)
+            {
+                _stateStack.Pop();
+            }
+            CrawlerStateData stateData = _stateStack.Peek();
+            _dispatcher.Dispatch(stateData);
+            return stateData;
+        }
+
+        public CrawlerStateData GetTopLevelState()
+        {
+            while (_stateStack.Count > 1)
+            {
+                _stateStack.Pop();
+            }
+            return _stateStack.Peek();
+        }
+
+
+
+        public async Awaitable ChangeStateAsync(CrawlerStateData currData, CrawlerStateAction action, CancellationToken token)
         {
             try
             {
                 CrawlerStateData nextStateData = null;
-                foreach (CrawlerStateData stackData in _stateData)
+                foreach (CrawlerStateData stackData in _stateStack)
                 {
                     if (stackData.Id == action.NextState)
                     {
@@ -120,23 +153,26 @@ namespace Assets.Scripts.Crawler.Services
 
                 if (nextStateData != null)
                 {
-                    while (_stateData.Count > 0 && _stateData.Peek().Id != nextStateData.Id)
+                    while (_stateStack.Count > 1 && _stateStack.Peek().Id != nextStateData.Id)
                     {
-                        _stateData.Pop();
-                    }
-                    if (_stateData.Count > 0)
-                    {
-                        _stateData.Pop();
+                        _stateStack.Pop();
                     }
                 }
 
-                if (_stateHelpers.TryGetValue(action.NextState, out IStateHelper stateHelper))
+
+                IStateHelper stateHelper = GetStateHelper(action.NextState);
+                if (stateHelper != null)
                 {
                     nextStateData = await stateHelper.Init(currData, action, token);
 
+                    if (nextStateData.DoNotTransitionToThisState)
+                    {
+                        return;
+                    }
+
                     if (stateHelper.IsTopLevelState())
                     {
-                        _stateData.Clear();
+                        _stateStack.Clear();
                     }
                 }
 
@@ -148,7 +184,7 @@ namespace Assets.Scripts.Crawler.Services
                     }
                     else
                     {
-                        _stateData.Push(nextStateData);
+                        _stateStack.Push(nextStateData);
                         _dispatcher.Dispatch(nextStateData);
                     }
                 }
@@ -161,6 +197,15 @@ namespace Assets.Scripts.Crawler.Services
             {
                 _logService.Exception(e, "CrawlerChangeState");
             }
+        }
+
+        private IStateHelper GetStateHelper(ECrawlerStates state)
+        {
+            if (_stateHelpers.TryGetValue(state, out IStateHelper stateHelper))
+            {
+                return stateHelper;
+            }
+            return null;
         }
 
         private void SetupParty(PartyData party)
@@ -183,13 +228,18 @@ namespace Assets.Scripts.Crawler.Services
 
         }
 
-        public async Awaitable LoadParty()
+        public async Awaitable<PartyData> LoadParty(string filename = null)
         {
-            _party = await _repoService.Load<PartyData>(SaveFileName);
+            if (string.IsNullOrEmpty(filename))
+            {
+                filename = StartSaveFileName;
+            }
+
+            _party = await _repoService.Load<PartyData>(filename);
 
             if (_party == null)
             {
-                _party = new PartyData() { Id = SaveFileName, Seed = _rand.Next() };
+                _party = new PartyData() { Id = filename, Seed = _rand.Next() };
                 await SaveGame();
             }
 
@@ -202,7 +252,14 @@ namespace Assets.Scripts.Crawler.Services
             SetupParty(_party);
 
             _statService.CalcPartyStats(_party, true);
+            return _party;
         }
+
+        public void ClearAllStates()
+        {
+            _stateStack.Clear();
+        }
+
 
         public async Awaitable SaveGame()
         {
@@ -228,7 +285,7 @@ namespace Assets.Scripts.Crawler.Services
         }
 
         private void UpdateIfNotMoving(bool atEndOfMove, CancellationToken token)
-        { 
+        {
             UpdateInputs(token);
             UpdateEncounters(token, atEndOfMove);
         }
@@ -239,7 +296,7 @@ namespace Assets.Scripts.Crawler.Services
             {
                 return;
             }
-            if (_stateData.TryPeek(out CrawlerStateData currentData))
+            if (_stateStack.TryPeek(out CrawlerStateData currentData))
             {
                 if (currentData.Actions.Count > 0)
                 {
@@ -257,11 +314,11 @@ namespace Assets.Scripts.Crawler.Services
                                 ChangeState(currentData, action, token);
                             }
                         }
-                        
+
                     }
                 }
 
-                if (currentData.ShouldCheckInput() && 
+                if (currentData.ShouldCheckInput() &&
                     (Input.GetKeyDown(KeyCode.Return) ||
                     Input.GetKeyDown(KeyCode.KeypadEnter)))
                 {
@@ -305,7 +362,7 @@ namespace Assets.Scripts.Crawler.Services
 
         private void UpdateMovement(CancellationToken token)
         {
-            if (_stateData.TryPeek(out CrawlerStateData currentData))
+            if (_stateStack.TryPeek(out CrawlerStateData currentData))
             {
                 if (currentData.Id == ECrawlerStates.ExploreWorld)
                 {
@@ -320,26 +377,75 @@ namespace Assets.Scripts.Crawler.Services
             await _crawlerMapService.UpdateMovement(token);
         }
 
+
+        public async Awaitable UpdateCrawlerUI()
+        {
+            CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
+            CrawlerMap map = world.GetMap(_party.MapId);
+
+            _dispatcher.Dispatch(new CrawlerUIUpdate() { Map = map, World = world, Party = _party });
+
+        }
         public async Awaitable OnFinishMove(bool movedPosition, CancellationToken token)
         {
+            CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
+            CrawlerMap map = world.GetMap(_party.MapId);
 
+            MapCellDetail detail = map.Details.FirstOrDefault(x => x.X == _party.MapX && x.Z == _party.MapZ);
+
+            await UpdateCrawlerUI();
 
             if (movedPosition)
             {
-                CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
-                CrawlerMap map = world.GetMap(_party.MapId);
-
-                MapCellDetail detail = map.Details.FirstOrDefault(x => x.X == _party.MapX && x.Z == _party.MapZ);
                 if (detail != null && detail.EntityTypeId == EntityTypes.Map)
                 {
                     ChangeState(ECrawlerStates.MapExit, token, detail);
                 }
+                else if (detail != null && detail.EntityTypeId == EntityTypes.QuestItem)
+                {
+                    PartyQuestItem pqi = _party.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == detail.EntityId);
+                    if (pqi == null || pqi.Quantity < 1)
+                    {
+                        InitialCombatState initialCombatState = new InitialCombatState()
+                        {
+                            Difficulty = 3,
+                        };
+                        ChangeState(ECrawlerStates.StartCombat,token, initialCombatState);
+                        return;
+                    }
+                }
+            }
+
+            int encounterBits = map.Get(_party.MapX, _party.MapZ, CellIndex.Encounter);
+
+            if (encounterBits != 0 && encounterBits != MapEncounters.OtherFeature)
+            {
+                bool thisRunOnly = encounterBits != MapEncounters.Treasure;
+                string encounterName = encounterBits == MapEncounters.Treasure ? nameof(MapEncounters.Treasure)
+                    : encounterBits == MapEncounters.Trap ? nameof(MapEncounters.Trap) :
+                    encounterBits == MapEncounters.Monsters ? nameof(MapEncounters.Monsters) : "Unknown";
+
+                bool didVisit = _crawlerMapService.PartyHasVisited(_party.MapId, _party.MapX, _party.MapZ, thisRunOnly);
+
+                if (!didVisit)
+                {
+                    if (FlagUtils.IsSet(encounterBits, MapEncounters.Monsters))
+                    {
+                        InitialCombatState initialCombatState = new InitialCombatState()
+                        {
+                            Difficulty = 2,
+                        };
+                        ChangeState(ECrawlerStates.StartCombat, token, initialCombatState);
+                        return;
+                    }
+                    else if (FlagUtils.IsSet(encounterBits, MapEncounters.Treasure))
+                    {
+                        ChangeState(ECrawlerStates.GiveLoot, token);
+                    }  
+                }
             }
 
             UpdateIfNotMoving(true, token);
-
-
-
         }
     }
 }

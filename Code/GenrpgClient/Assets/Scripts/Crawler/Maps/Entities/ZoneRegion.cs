@@ -9,6 +9,7 @@ namespace Assets.Scripts.Crawler.Maps.Entities
     public class ZoneRegion
     {
         public long ZoneTypeId { get; set; }
+        public string Name { get; set; }
         public int CenterX { get; set; }
         public int CenterY { get; set; }
         public float SpreadX { get; set; }

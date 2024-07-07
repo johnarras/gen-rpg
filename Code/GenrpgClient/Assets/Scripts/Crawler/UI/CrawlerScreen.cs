@@ -1,5 +1,7 @@
-﻿using Assets.Scripts.Crawler.Services;
+﻿using Assets.Scripts.Crawler.Maps.Services;
+using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System.Threading;
 using UnityEngine;
 
@@ -15,13 +17,12 @@ namespace Assets.Scripts.UI.Crawler
 
         protected override async Awaitable OnStartOpen(object data, CancellationToken token)
         {
-            await _crawlerService.LoadParty();
+            PartyData partyData = await _crawlerService.LoadParty();
             _dispatcher.AddEvent<CrawlerStateData>(this, OnNewStateData);
-            await WorldPanel.Init(this,token);
+            await WorldPanel.Init(this, token);
             await ActionPanel.Init(this, token);
             await StatusPanel.Init(this, token);
-            await _crawlerService.Init(token);
-
+            await _crawlerService.Init(partyData, token);
         }
 
         private void OnNewStateData(CrawlerStateData data)

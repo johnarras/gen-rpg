@@ -32,6 +32,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using UnityEngine;
+using Genrpg.Shared.Units.Settings;
 
 public interface IZoneGenService : IInitializable
 {
@@ -41,7 +42,7 @@ public interface IZoneGenService : IInitializable
     void InstantiateMap(string mapId);
     Zone Generate(long zoneId, long zoneTypeId, long extraSeed);
 
-    string GenerateZoneName(long zoneTypeId, long extraSeed);
+    string GenerateZoneName(long zoneTypeId, long extraSeed, bool forceDoubleWord);
 
     float DistancePercentToLocation(int cx, int cy, float maxDistanceAway);
     Location FindMapLocation(int centerx, int centery, float extraborder);
@@ -272,7 +273,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         zone.ZoneTypeId = zoneTypeId;
         zone.Seed = seed;
         zone.Level = 1;
-        zone.Name = GenerateZoneName(zoneTypeId, zone.IdKey + zoneType.IdKey + _mapProvider.GetMap().Seed / 7 + zone.Seed / 11 + rand.Next() % 2346234);
+        zone.Name = GenerateZoneName(zoneTypeId, zone.IdKey + zoneType.IdKey + _mapProvider.GetMap().Seed / 7 + zone.Seed / 11 + rand.Next() % 2346234, false);
 
         SetTerrainConstants(_mapProvider.GetMap(), zone, zoneType, rand);
         SetupFoliage(_mapProvider.GetMap(), zone, zoneType, rand);
@@ -678,7 +679,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
     }
 
 
-    public string GenerateZoneName(long zoneTypeId, long extraSeed)
+    public string GenerateZoneName(long zoneTypeId, long extraSeed, bool forceDoubleWord)
     {
         string badName = "The Region";
 
@@ -687,12 +688,12 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         ZoneType zt = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(zoneTypeId);
         if (zt == null)
         {
-            return badName;
+            return badName + " No Zone Type";
         }
 
         if (zt.ZoneNames == null || zt.ZoneNames.Count < 1)
         {
-            return badName;
+            return badName + " No Zone Name";
         }
 
         string zoneName = _nameGenService.PickWord(_rand, zt.ZoneNames);
@@ -724,10 +725,21 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
         string doubleName = _nameGenService.CombinePrefixSuffix(_rand, prefixDouble, suffixDouble, 0);
         string prefixName = _nameGenService.PickNameListName(_rand, "ZoneNamePrefix", excludeWord, excludePrefix);
 
+        if (forceDoubleWord)
+        {
+            if (rand.NextDouble() < 0.5f)
+            {
+                return doubleName + " " + zoneName;
+            }
+            else
+            {
+                return doubleName;
+            }
+        }
 
         if (string.IsNullOrEmpty(zoneName))
         {
-            return badName;
+            return badName + " No Name 1";
         }
 
         if (!string.IsNullOrEmpty(zonePrefix) && rand.NextDouble() < 0.25)

@@ -5,6 +5,7 @@ using Assets.Scripts.UI.Crawler.States;
 
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

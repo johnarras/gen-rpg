@@ -1,8 +1,11 @@
 ﻿using Genrpg.Editor.Constants;
 using Genrpg.Editor.Entities.Core;
+using Genrpg.Editor.UI;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +27,7 @@ namespace Genrpg.Editor.Importers
 
         public abstract EImportTypes GetKey();
 
-        protected abstract Task<bool> ImportFromLines(EditorGameState gs, string[] lines);
+        protected abstract Task<bool> ImportFromLines(Window window, EditorGameState gs, string[] lines);
 
 
         string csvOffsetPath = "\\..\\..\\..\\..\\..\\..\\..\\Spreadsheets\\";
@@ -52,7 +55,7 @@ namespace Genrpg.Editor.Importers
             return lines;
         }
 
-        public async Task<bool> ImportData(EditorGameState gs)
+        public async Task<bool> ImportData(Window window, EditorGameState gs)
         {
             try
             {
@@ -63,9 +66,10 @@ namespace Genrpg.Editor.Importers
                     return false;
                 }
 
-                if (!await ImportFromLines(gs, lines))
+                if (!await ImportFromLines(window, gs, lines))
                 {
                     gs.LookedAtObjects = new List<object>();
+             
                 }
 
             }

@@ -176,27 +176,42 @@
     },
     {
       "Weight": 1000.0,
-      "Name": "Craggy",
+      "Name": "Snowy",
       "Desc": ""
     },
     {
       "Weight": 1000.0,
-      "Name": "Gentle",
+      "Name": "Frigid",
       "Desc": ""
     },
     {
       "Weight": 1000.0,
-      "Name": "Graded",
+      "Name": "Winter",
       "Desc": ""
     },
     {
       "Weight": 1000.0,
-      "Name": "Sheer",
+      "Name": "White",
       "Desc": ""
     },
     {
       "Weight": 1000.0,
-      "Name": "Steep",
+      "Name": "Frozen",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Icy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sleet",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hailstorm",
       "Desc": ""
     }
   ],
@@ -656,6 +671,6 @@
   "WeatherTypeId": 3,
   "MusicTypeId": 5,
   "AmbientMusicTypeId": 8,
-  "UpdateTime": "2024-06-29T22:57:02.841Z",
-  "CreateTime": "2023-12-25T09:55:51Z"
+  "UpdateTime": "2024-07-04T22:43:53.305Z",
+  "CreateTime": "2023-12-25T15:55:51Z"
 }

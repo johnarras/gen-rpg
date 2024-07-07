@@ -8,7 +8,12 @@
   "Art": "Wizard",
   "TribeTypeId": 12,
   "MinLevel": 20,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 7
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -16,6 +21,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-06-29T22:48:27.32Z",
-  "CreateTime": "2024-06-29T22:48:27.32Z"
+  "UpdateTime": "2024-07-06T17:31:01.805Z",
+  "CreateTime": "2024-07-06T17:31:01.805Z"
 }

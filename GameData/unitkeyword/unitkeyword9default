@@ -1,0 +1,16 @@
+{
+  "Id": "unitkeyword9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Thief",
+  "Icon": "Thief",
+  "Art": "Thief",
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 1
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.451Z",
+  "CreateTime": "2024-07-06T23:25:26.451Z"
+}

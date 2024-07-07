@@ -11,8 +11,135 @@
       "Name": "Road/Base"
     }
   ],
-  "ZoneNames": [],
-  "ZoneAdjectives": [],
+  "ZoneNames": [
+    {
+      "Weight": 1000.0,
+      "Name": "Cave",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Caves",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Caverns",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tunnels",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Labyrinth",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Catacombs",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cavern",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cave",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Grotto",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Den",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Abyss",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lair",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Burrow",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Burrows",
+      "Desc": ""
+    }
+  ],
+  "ZoneAdjectives": [
+    {
+      "Weight": 1000.0,
+      "Name": "Dark",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Twisty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Ancient",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Forgotten",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dusty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Forbidden",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Immense",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Serpentine",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Cursed",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fel",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fallen",
+      "Desc": ""
+    }
+  ],
   "BridgeTypes": [],
   "FenceTypes": [],
   "RockTypes": [],
@@ -393,6 +520,6 @@
   "Art": "",
   "MusicTypeId": 1,
   "AmbientMusicTypeId": 1,
-  "UpdateTime": "2024-06-29T22:57:02.856Z",
-  "CreateTime": "2024-06-29T23:39:56Z"
+  "UpdateTime": "2024-07-04T22:54:41.661Z",
+  "CreateTime": "2024-06-30T04:39:56Z"
 }

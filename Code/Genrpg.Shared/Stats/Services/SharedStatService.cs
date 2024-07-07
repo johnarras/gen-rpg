@@ -19,6 +19,7 @@ using Genrpg.Shared.Stats.Settings.DerivedStats;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Settings;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;

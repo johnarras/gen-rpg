@@ -8,7 +8,12 @@
   "Art": "Wraith",
   "TribeTypeId": 3,
   "MinLevel": 10,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 5
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -16,6 +21,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-06-29T22:48:27.35Z",
-  "CreateTime": "2024-06-29T22:48:27.35Z"
+  "UpdateTime": "2024-07-06T17:31:01.824Z",
+  "CreateTime": "2024-07-06T17:31:01.824Z"
 }

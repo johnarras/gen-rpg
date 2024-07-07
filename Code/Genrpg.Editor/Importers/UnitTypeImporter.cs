@@ -8,7 +8,10 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
+using Genrpg.Shared.UnitEffects.Settings;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Settings;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +40,7 @@ namespace Genrpg.Editor.Importers
 
         const int ColumnCount = 8;
 
-        protected override async Task<bool> ImportFromLines(EditorGameState gs, string[] lines)
+        protected override async Task<bool> ImportFromLines(Window window, EditorGameState gs, string[] lines)
         {
             string[] firstLine = lines[0].Split(',');
 
@@ -46,6 +49,10 @@ namespace Genrpg.Editor.Importers
             UnitSettings settings = gs.data.Get<UnitSettings>(null);
 
             IReadOnlyList<UnitType> startUnitTypes = settings.GetData();
+
+            IReadOnlyList<CrawlerSpell> crawlerSpells = gs.data.Get<CrawlerSpellSettings>(null).GetData();
+
+            IReadOnlyList<StatusEffect> statusEffects = gs.data.Get<StatusEffectSettings>(null).GetData();  
 
             gs.LookedAtObjects.Add(gs.data.Get<UnitSettings>(null));
 
@@ -136,6 +143,47 @@ namespace Genrpg.Editor.Importers
                         }
                     }
 
+                    unitType.Effects = new List<UnitEffect>();
+
+                    for (int col = ColumnCount; col < ColumnCount+20; col++)
+                    {
+                        if (words.Length <= col)
+                        {
+                            break;
+                        }
+
+                        string word = words[col];
+
+                        if (string.IsNullOrEmpty(word))
+                        {
+                            continue;
+                        }
+
+                        CrawlerSpell matchingSpell = crawlerSpells.FirstOrDefault(x=>x.Name.ToLower() == 
+                        word.ToLower());
+
+                        if (matchingSpell != null)
+                        {
+                            unitType.Effects.Add(new UnitEffect()
+                            {
+                                EntityTypeId = EntityTypes.CrawlerSpell,
+                                EntityId = matchingSpell.IdKey
+                            });
+                            continue;
+                        }
+
+                        StatusEffect eff = statusEffects.FirstOrDefault(x=>x.Name.ToLower() == word.ToLower());
+
+                        if (eff != null)
+                        {
+                            unitType.Effects.Add(new UnitEffect()
+                            {
+                                EntityTypeId = EntityTypes.StatusEffect,
+                                EntityId = eff.IdKey,
+                            });
+                            continue;
+                        }
+                    }
                     newList.Add(unitType);
                 }
             }

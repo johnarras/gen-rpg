@@ -11,6 +11,7 @@ using Genrpg.Shared.MapObjects.MapObjectAddons.Constants;
 using Genrpg.Shared.Crafting.Settings.Crafters;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Trades.Messages;
+using Genrpg.Shared.Units.Settings;
 
 public class InteractUnit : InteractableObject
 {

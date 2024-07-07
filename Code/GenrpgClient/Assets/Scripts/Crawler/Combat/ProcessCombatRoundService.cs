@@ -45,7 +45,7 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             if (party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Run)
             {
-                long totalLuck = party.Combat.PartyGroup.Units.Sum(x => x.Stats.Get(StatTypes.Luck, StatCategories.Curr));
+                long totalLuck = party.Combat.PartyGroup.Units.Sum(x => x.Stats.Max(StatTypes.Luck));
                 if (totalLuck > 0)
                 {
                     double averageLuck = 1.0*totalLuck/party.Combat.PartyGroup.Units.Count;
@@ -128,8 +128,6 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             List<CrawlerUnit> attackSequence = SequenceUnitActions(allUnits);
 
-        
-
             for (int s = 0; s < attackSequence.Count; s++)
             {
                 CrawlerUnit unit = attackSequence[s];
@@ -140,7 +138,6 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 }
 
                 await _spellService.CastSpell(party, unit.Action, unit.Level);
-
             }
 
             _combatService.EndCombatRound(party);

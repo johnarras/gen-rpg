@@ -18,5 +18,34 @@ namespace Genrpg.Shared.MapServer.Entities
             return GetMapFolder(mapId, mapVersion) + filename;
         }
 
-    }
+        public static string DirFromAngle(long angle)
+        {
+            while (angle < 0)
+            {
+                angle += 360;
+            }
+            while (angle >= 360)
+            {
+                angle -= 360;
+            }
+
+            if (angle == 0)
+            {
+                return "E";
+            }
+            else if (angle == 90)
+            {
+                return "S";
+            }
+            else if (angle == 180)
+            {
+                return "W";
+            }
+            else if (angle == 270)
+            {
+                return "N";
+            }
+            return "?";
+        }
+    }  
 }

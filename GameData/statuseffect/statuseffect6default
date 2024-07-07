@@ -6,13 +6,13 @@
   "Desc": "",
   "Icon": "",
   "Art": "",
-  "Abbrev": "Poss",
+  "Abbrev": "Feeb",
   "ActionEffects": [
     {
       "CombatActionId": 4,
       "Effect": 1
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:35.915Z",
+  "UpdateTime": "2024-07-02T20:05:38.575Z",
   "CreateTime": "2024-01-27T23:52:56Z"
 }

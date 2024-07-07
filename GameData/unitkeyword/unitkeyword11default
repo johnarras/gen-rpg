@@ -1,0 +1,16 @@
+{
+  "Id": "unitkeyword11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Golem",
+  "Icon": "Golem",
+  "Art": "Golem",
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 12
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.457Z",
+  "CreateTime": "2024-07-06T23:25:26.457Z"
+}

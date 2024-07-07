@@ -19,6 +19,21 @@
   "ManaStatTypeId": 12,
   "Bonuses": [
     {
+      "EntityTypeId": 31,
+      "EntityId": 16,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 20,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 63,
+      "Quantity": 1
+    },
+    {
       "EntityTypeId": 100,
       "EntityId": 1,
       "Quantity": 1
@@ -45,7 +60,12 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 47,
+      "EntityId": 18,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 19,
       "Quantity": 1
     },
     {
@@ -55,32 +75,17 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 18,
+      "EntityId": 47,
       "Quantity": 1
     },
     {
-      "EntityTypeId": 31,
-      "EntityId": 63,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 16,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 20,
+      "EntityTypeId": 100,
+      "EntityId": 60,
       "Quantity": 1
     },
     {
       "EntityTypeId": 101,
       "EntityId": 2,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 19,
       "Quantity": 1
     }
   ],
@@ -95,6 +100,6 @@
       "ItemTypeId": 308
     }
   ],
-  "UpdateTime": "2024-06-29T22:18:05.995Z",
+  "UpdateTime": "2024-07-04T19:17:28.613Z",
   "CreateTime": "2024-01-28T00:57:37Z"
 }

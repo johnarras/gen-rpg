@@ -25,6 +25,8 @@ namespace Genrpg.Shared.Crawler.Monsters.Entities
         [JsonIgnore]
         [Key(4)] public UnitAction Action { get; set; }
 
+        [Key(5)] public int CombatGroupId { get; set; }
+
         public CrawlerUnit(IRepositoryService repositoryService) : base(repositoryService) { }
 
 

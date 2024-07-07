@@ -1,0 +1,26 @@
+{
+  "Id": "unitkeyword2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Barbaric",
+  "Icon": "Barbaric",
+  "Art": "Barbaric",
+  "Effects": [
+    {
+      "EntityTypeId": 32,
+      "Quantity": 10,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 32,
+      "Quantity": 10,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 5
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.429Z",
+  "CreateTime": "2024-07-06T23:25:26.429Z"
+}

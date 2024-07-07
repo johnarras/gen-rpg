@@ -121,22 +121,22 @@
   "ZoneAdjectives": [
     {
       "Weight": 1000.0,
-      "Name": "Arid",
+      "Name": "Flame",
       "Desc": ""
     },
     {
       "Weight": 1000.0,
-      "Name": "Barren",
+      "Name": "Fire",
       "Desc": ""
     },
     {
       "Weight": 1000.0,
-      "Name": "Bleached",
+      "Name": "Fiery",
       "Desc": ""
     },
     {
       "Weight": 1000.0,
-      "Name": "Bleak",
+      "Name": "Lava",
       "Desc": ""
     },
     {
@@ -146,22 +146,7 @@
     },
     {
       "Weight": 1000.0,
-      "Name": "Desolate",
-      "Desc": ""
-    },
-    {
-      "Weight": 1000.0,
-      "Name": "Dry",
-      "Desc": ""
-    },
-    {
-      "Weight": 1000.0,
-      "Name": "Empty",
-      "Desc": ""
-    },
-    {
-      "Weight": 1000.0,
-      "Name": "Endless",
+      "Name": "Magma",
       "Desc": ""
     },
     {
@@ -171,17 +156,7 @@
     },
     {
       "Weight": 1000.0,
-      "Name": "Lifeless",
-      "Desc": ""
-    },
-    {
-      "Weight": 1000.0,
       "Name": "Parched",
-      "Desc": ""
-    },
-    {
-      "Weight": 1000.0,
-      "Name": "Sandy",
       "Desc": ""
     },
     {
@@ -191,7 +166,12 @@
     },
     {
       "Weight": 1000.0,
-      "Name": "Vast",
+      "Name": "Inferno",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Infernal",
       "Desc": ""
     }
   ],
@@ -534,6 +514,6 @@
   "CreviceWidthScale": 2.0,
   "MusicTypeId": 5,
   "AmbientMusicTypeId": 9,
-  "UpdateTime": "2024-06-29T22:57:02.863Z",
-  "CreateTime": "2023-12-24T21:55:51Z"
+  "UpdateTime": "2024-07-04T22:45:15.744Z",
+  "CreateTime": "2023-12-25T03:55:51Z"
 }

@@ -5,22 +5,15 @@ using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
 using Genrpg.Editor.Utils;
 using Genrpg.Shared.Constants;
-using Genrpg.Shared.Crawler.Buffs.Settings;
-using Genrpg.Shared.Crawler.Roles.Settings;
-using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Interfaces;
-using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
-using Genrpg.Shared.MapMessages;
 using Genrpg.Shared.ProcGen.Settings.Names;
 using Genrpg.Shared.Settings.Settings;
 using Genrpg.Shared.Stats.Settings.Scaling;
-using Genrpg.Shared.Stats.Settings.Stats;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -31,15 +24,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Threading;
-using Windows.Foundation;
-using Windows.UI.Popups;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Genrpg.Shared.Interfaces;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.HelperClasses;
-using Genrpg.Editor.Constants;
-using Genrpg.Editor.Importers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -57,7 +41,6 @@ namespace Genrpg.Editor
         private string _prefix;
 
         private IGameData _gameData;
-        private SetupDictionaryContainer<EImportTypes, ICsvImporter> _importers = new();
 
         private Canvas _canvas = new Canvas();
 
@@ -90,7 +73,7 @@ namespace Genrpg.Editor
             buttonCount++;
 
             string[] envWords = { "dev" };
-            string[] actionWords = "Data Users Maps CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas SetupItemIcons ImportCrawler ImportUnits ImportUnitSpawns".Split(' ');
+            string[] actionWords = "Data Users Maps Importer CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas SetupItemIcons".Split(' ');
             int column = 0;
             for (int e = 0; e < envWords.Length; e++)
             {
@@ -282,18 +265,6 @@ namespace Genrpg.Editor
 
             _gs = await EditorGameDataUtils.SetupFromConfig(this, env);
 
-
-
-
-
-            // TODO
-            //this.Invoke((System.Windows.Forms.MethodInvoker)
-            //    delegate ()
-            //    {
-            //        ViewMaps va = new ViewMaps(_gs, _formatter);
-            //        va.Show();
-            //    });
-
         }
 
         private void OnClickButton(object sender, RoutedEventArgs e)
@@ -360,26 +331,16 @@ namespace Genrpg.Editor
             {
                 DeleteAllMetaFiles();
             }
+            
+            if (action == "Importer")
+            {
+                ImportWindow importer = new ImportWindow();
+                importer.Activate();
+                return;
 
-            Action<EditorGameState>? afterAction = null;
-            if (action == "ImportCrawler")
-            {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.CrawlerSpells); };
-                action = "Data";
-            }
-            if (action == "ImportUnits")
-            {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.UnitTypes); };
-                action = "Data";
-            }
-            if (action == "ImportUnitSpawns")
-            {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.UnitSpawns); };
-                action = "Data";
             }
 
-
-            Task.Run(() => OnClickButtonAsync(action, env, afterAction));
+            Task.Run(() => OnClickButtonAsync(action, env, null));
         }
 
 
@@ -672,27 +633,6 @@ namespace Genrpg.Editor
 
             blocker.StartClose();
         }
-
-
-
-
-        private void ImportData(EditorGameState gs, EImportTypes importType)
-        {
-
-            _ = Task.Run(() => ImportDataAsync(gs, importType));
-        }
-
-        private async Task ImportDataAsync (EditorGameState gs, EImportTypes importType)
-        { 
-            gs.loc.Resolve(_importers);
-
-            if (_importers.TryGetValue(importType, out ICsvImporter importer))
-            {
-                await importer.ImportData(gs);
-            }
-        }
-
-        
     }
 }
 

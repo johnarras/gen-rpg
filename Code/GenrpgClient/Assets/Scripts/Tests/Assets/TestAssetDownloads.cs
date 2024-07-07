@@ -9,6 +9,7 @@ using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

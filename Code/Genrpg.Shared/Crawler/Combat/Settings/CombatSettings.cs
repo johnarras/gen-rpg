@@ -15,6 +15,8 @@ namespace Genrpg.Shared.Crawler.Combat.Settings
         [Key(3)] public double DefendDamageScale { get; set; } = 0.5f;
         [Key(4)] public double TauntDamageScale { get; set; } = 0.25f;
         [Key(5)] public long MaxGroupSize { get; set; } = 99;
+        [Key(6)] public double LuckCritChanceAtLevel { get; set; } = 0.05f;
+        [Key(7)] public double MaxLuckCritRatio { get; set; } = 2.0f;
     }
 
 

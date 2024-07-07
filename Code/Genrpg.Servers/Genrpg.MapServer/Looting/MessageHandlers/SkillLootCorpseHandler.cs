@@ -15,6 +15,7 @@ using Genrpg.Shared.Crafting.Settings.Crafters;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Units.Settings;
 
 namespace Genrpg.MapServer.Looting.MessageHandlers
 {

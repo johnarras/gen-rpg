@@ -6,13 +6,13 @@
   "Desc": "",
   "Icon": "",
   "Art": "",
-  "Abbrev": "Insa",
+  "Abbrev": "Jitt",
   "ActionEffects": [
     {
       "CombatActionId": 3,
       "Effect": 1
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:35.92Z",
+  "UpdateTime": "2024-07-02T20:05:38.573Z",
   "CreateTime": "2024-01-27T23:52:56Z"
 }

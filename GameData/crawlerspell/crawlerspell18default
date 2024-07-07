@@ -2,7 +2,7 @@
   "Id": "crawlerspell18default",
   "ParentId": "default",
   "IdKey": 18,
-  "Name": "Phase Door",
+  "Name": "Phase Wall",
   "Desc": "",
   "Icon": "",
   "Art": "",
@@ -14,10 +14,11 @@
   "Effects": [
     {
       "EntityTypeId": 37,
-      "EntityId": 1,
-      "ElementTypeId": 9
+      "EntityId": 2,
+      "ElementTypeId": 9,
+      "Name": ""
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:30.92Z",
-  "CreateTime": "2024-01-28T05:43:55Z"
+  "UpdateTime": "2024-07-04T20:35:47.944Z",
+  "CreateTime": "2024-01-28T17:43:55Z"
 }

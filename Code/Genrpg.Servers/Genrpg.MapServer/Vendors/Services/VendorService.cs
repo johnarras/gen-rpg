@@ -1,7 +1,6 @@
 ﻿using Amazon.Runtime.Internal.Util;
 using AutoMapper.Internal.Mappers;
 using Azure.ResourceManager.ServiceBus;
-using Genrpg.MapServer.Items.Services;
 using Genrpg.MapServer.MapMessaging.Interfaces;
 using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Trades.Services;

@@ -8,7 +8,16 @@
   "Art": "Wight",
   "TribeTypeId": 3,
   "MinLevel": 5,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 5
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 3
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -16,6 +25,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-06-29T22:48:27.348Z",
-  "CreateTime": "2024-06-29T22:48:27.348Z"
+  "UpdateTime": "2024-07-06T17:31:01.823Z",
+  "CreateTime": "2024-07-06T17:31:01.823Z"
 }

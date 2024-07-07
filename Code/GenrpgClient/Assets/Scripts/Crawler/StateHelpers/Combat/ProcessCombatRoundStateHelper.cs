@@ -69,7 +69,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                 }
                 else
                 {
-                    _crawlerService.ChangeState(ECrawlerStates.CombatLoot, token);
+                    _crawlerService.ChangeState(ECrawlerStates.GiveLoot, token, party.Combat);
+                    party.Combat = null;
                 }
             }               
         }

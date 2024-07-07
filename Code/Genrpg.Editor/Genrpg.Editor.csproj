@@ -17,6 +17,7 @@
     <None Remove="DataView.xaml" />
     <None Remove="DataWindow.xaml" />
     <None Remove="FindUserView.xaml" />
+    <None Remove="ImportWindow.xaml" />
     <None Remove="SmallPopup.xaml" />
   </ItemGroup>
 
@@ -54,6 +55,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\AppConfig\App.config" Link="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ImportWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="CopyDataView.xaml">

@@ -6,6 +6,25 @@ using Genrpg.Shared.UnitEffects.Constants;
 
 namespace Genrpg.Shared.Crawler.Combat.Entities
 {
+
+    [MessagePackObject]
+    public class InitialCombatState
+    {
+        [Key(0)] public long Level { get; set; }
+        [Key(1)] public double Difficulty { get; set; } = 1.0f;
+        [Key(2)] public List<InitialCombatGroup> CombatGroups { get; set; } = new List<InitialCombatGroup>();
+    }
+
+
+    [MessagePackObject]
+    public class InitialCombatGroup
+    {
+        [Key(0)] public long UnitTypeId { get; set; }
+        [Key(1)] public long Quantity { get; set; }
+        [Key(2)] public int Range { get; set; }
+    }
+
+
     [MessagePackObject]
     public class CombatState
     {

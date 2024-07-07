@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Assets.Scripts.Crawler.UI.Utils;
 using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Entities.Constants;
@@ -43,8 +44,40 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
                 return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "No such map exists." };
             }
 
+            if (map.QuestItemsNeeded.Count > 0)
+            {
+                List<WorldQuestItem> itemsNeeded = new List<WorldQuestItem>();
 
-            stateData.Actions.Add(new CrawlerStateAction("Go to " + map.IdKey + "?\n\n", KeyCode.None, ECrawlerStates.None, null, null));
+                foreach (MapQuestItem mqi in map.QuestItemsNeeded)
+                {
+                    PartyQuestItem pqi = partyData.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == mqi.QuestItemId);
+
+                    if (pqi == null)
+                    {
+                        WorldQuestItem wqi = world.QuestItems.FirstOrDefault(x => x.IdKey == mqi.QuestItemId);
+                        if (wqi != null)
+                        {
+                            itemsNeeded.Add(wqi);
+                        }
+                    }
+                }
+
+                if (itemsNeeded.Count > 1)
+                {
+                    stateData.Actions.Add(new CrawlerStateAction(map.Name + " requires the following to enter: "));
+
+                    foreach (WorldQuestItem wqi in itemsNeeded) 
+                    {
+                        stateData.Actions.Add(new CrawlerStateAction(wqi.Name));
+                    }
+
+                    stateData.Actions.Add(new CrawlerStateAction($"\n\nPress {CrawlerUIUtils.HighlightText("Space")} to continue...", KeyCode.Space, ECrawlerStates.ExploreWorld));
+
+                    return stateData;
+                }
+            }
+
+            stateData.Actions.Add(new CrawlerStateAction("Go to " + map.GetName(detail.ToX, detail.ToZ) + "?\n\n", KeyCode.None, ECrawlerStates.None, null, null));
 
             stateData.Actions.Add(new CrawlerStateAction("Yes", KeyCode.Y, ECrawlerStates.ExploreWorld, null,
                new EnterCrawlerMapData()
@@ -57,16 +90,8 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
                    Map = map,
                }));
 
-            stateData.Actions.Add(new CrawlerStateAction("No", KeyCode.N, ECrawlerStates.ExploreWorld, null,
-                 new EnterCrawlerMapData()
-                 {
-                     MapId = partyData.MapId,
-                     MapX = partyData.MapX,
-                     MapZ = partyData.MapZ,
-                     MapRot = partyData.MapRot,
-                     World = world,
-                     Map = world.GetMap(partyData.MapId),
-                 }));
+            stateData.Actions.Add(new CrawlerStateAction("No", KeyCode.N, ECrawlerStates.ExploreWorld));
+               
 
             await Task.CompletedTask;
             return stateData;

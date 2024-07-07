@@ -1,6 +1,7 @@
 ﻿using Genrpg.Editor.Constants;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Shared.Interfaces;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace Genrpg.Editor.Importers
     {
         string CSVFilename { get; }
 
-        Task<bool> ImportData(EditorGameState gs);
+        Task<bool> ImportData(Window window, EditorGameState gs);
     }
 }

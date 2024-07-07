@@ -8,14 +8,15 @@
   "Art": "",
   "MaxRange": 100,
   "CombatActionId": 4,
-  "TargetTypeId": 1,
+  "TargetTypeId": 8,
   "Level": 11,
   "Effects": [
     {
       "EntityTypeId": 37,
-      "EntityId": 3
+      "EntityId": 3,
+      "Name": ""
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:31.206Z",
-  "CreateTime": "2024-01-28T03:05:34Z"
+  "UpdateTime": "2024-07-04T19:49:48.777Z",
+  "CreateTime": "2024-01-28T09:05:34Z"
 }

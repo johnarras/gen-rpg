@@ -11,7 +11,28 @@
       "Name": "Road/Base"
     }
   ],
-  "ZoneNames": [],
+  "ZoneNames": [
+    {
+      "Weight": 1000.0,
+      "Name": "City",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Town",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Village",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hamlet",
+      "Desc": ""
+    }
+  ],
   "ZoneAdjectives": [],
   "BridgeTypes": [],
   "FenceTypes": [],
@@ -213,6 +234,6 @@
   "Art": "",
   "MusicTypeId": 1,
   "AmbientMusicTypeId": 1,
-  "UpdateTime": "2024-06-29T22:57:02.85Z",
-  "CreateTime": "2024-06-29T23:39:56Z"
+  "UpdateTime": "2024-07-04T23:02:48.62Z",
+  "CreateTime": "2024-06-30T09:39:56Z"
 }

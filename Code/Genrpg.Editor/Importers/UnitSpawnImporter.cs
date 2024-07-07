@@ -4,7 +4,9 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Settings;
 using Genrpg.Shared.Zones.Settings;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,7 @@ namespace Genrpg.Editor.Importers
         public override EImportTypes GetKey() { return EImportTypes.UnitSpawns; }
 
 
-        protected override async Task<bool> ImportFromLines(EditorGameState gs, string[] lines)
+        protected override async Task<bool> ImportFromLines(Window window, EditorGameState gs, string[] lines)
         {
             string[] firstLine = lines[0].Split(',');
 

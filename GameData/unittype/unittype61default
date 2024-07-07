@@ -8,7 +8,12 @@
   "Art": "BlueDragon",
   "TribeTypeId": 16,
   "MinLevel": 20,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 51
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -16,6 +21,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-06-29T22:48:27.367Z",
-  "CreateTime": "2024-06-29T22:48:27.367Z"
+  "UpdateTime": "2024-07-06T17:31:01.836Z",
+  "CreateTime": "2024-07-06T17:31:01.836Z"
 }

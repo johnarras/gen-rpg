@@ -2,6 +2,7 @@
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;

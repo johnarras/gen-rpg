@@ -2,7 +2,7 @@
   "Id": "crawlerspell44default",
   "ParentId": "default",
   "IdKey": 44,
-  "Name": "Beacon",
+  "Name": "UNUSED",
   "Desc": "",
   "Icon": "",
   "Art": "",
@@ -18,6 +18,6 @@
       "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:31.116Z",
+  "UpdateTime": "2024-07-04T19:49:48.79Z",
   "CreateTime": "2024-01-28T05:48:08Z"
 }

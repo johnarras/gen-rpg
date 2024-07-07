@@ -1,40 +1,33 @@
 ﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Crawler.Events;
 using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
+using Assets.Scripts.Crawler.Maps.Services;
+using Assets.Scripts.Crawler.Maps.Services.GenerateMaps;
 using Assets.Scripts.Crawler.Maps.Services.Helpers;
 using Assets.Scripts.Dungeons;
 using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Dungeons.Settings;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
-
-    public class CrawlerMapGenData
-    {
-        public CrawlerWorld World;
-        public ECrawlerMapTypes MapType;
-        public int Level { get; set; } = 0;
-        public long ZoneTypeId { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public bool Looping { get; set; }
-        public long FromMapId { get; set; }
-        public int FromMapX { get; set; }
-        public int FromMapZ { get; set; }
-    }
-
 
     public class CrawlerMapService : ICrawlerMapService
     {
@@ -44,31 +37,32 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         private IDispatcher _dispatcher;
         private ILogService _logService;
         private IGameData _gameData;
+        private ICrawlerWorldService _worldService;
 
         const int ViewRadius = 8;
-        CrawlerMapRoot _crawlerMap = null;
+        CrawlerMapRoot _crawlerMapRoot = null;
         private CancellationToken _token;
 
         private GameObject _cameraParent = null;
         private Camera _camera = null;
 
         private PartyData _party;
+        private CrawlerWorld _world;
 
         private SetupDictionaryContainer<ECrawlerMapTypes, ICrawlerMapTypeHelper> _mapTypeHelpers = new SetupDictionaryContainer<ECrawlerMapTypes, ICrawlerMapTypeHelper>();
-
         public static ECrawlerMapTypes MapType { get; set; } = ECrawlerMapTypes.None;
 
         private GameObject _playerLightObject = null;
         private Light _playerLight = null;
         public async Task Initialize(CancellationToken token)
         {
-           
+
             _token = token;
 
             await Task.CompletedTask;
         }
 
-        public ICrawlerMapTypeHelper GetHelper(ECrawlerMapTypes mapType)
+        public ICrawlerMapTypeHelper GetMapHelper(ECrawlerMapTypes mapType)
         {
             if (_mapTypeHelpers.TryGetValue(mapType, out ICrawlerMapTypeHelper helper))
             {
@@ -76,18 +70,12 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
             return null;
         }
-      
 
-        
-
-        public async Awaitable EnterMap (PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
+        public async Awaitable EnterMap(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
             CleanMap();
             _party = partyData;
-
-            if (mapData.Map == null)
-            {
-            }
+            _world = await _worldService.GetWorld(_party.WorldId);
 
             if (_playerLight == null)
             {
@@ -111,19 +99,20 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 }
             }
 
-
             MapType = mapData.Map.MapType;
-            ICrawlerMapTypeHelper helper = GetHelper(MapType);
+            ICrawlerMapTypeHelper helper = GetMapHelper(MapType);
 
-            _crawlerMap = await helper.Enter(partyData, mapData, token);
+            _crawlerMapRoot = await helper.Enter(partyData, mapData, token);
 
-            await LoadDungeonAssets(_crawlerMap, token);
+            await LoadDungeonAssets(_crawlerMapRoot, token);
 
             UpdateCameraPos(token);
 
             await DrawNearbyMap(token);
 
             _queuedMoves.Clear();
+
+            MarkCurrentCellVisited();
 
             await _crawlerService.SaveGame();
         }
@@ -148,33 +137,33 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 return;
             }
 
-            _crawlerMap.Assets = assetGo.GetComponent<DungeonAssets>();
+            _crawlerMapRoot.Assets = assetGo.GetComponent<DungeonAssets>();
         }
 
-        private void CleanMap()
+        public void CleanMap()
         {
-            if (_crawlerMap != null && _crawlerMap.Assets != null)
+            if (_crawlerMapRoot != null && _crawlerMapRoot.Assets != null)
             {
-                GEntityUtils.Destroy(_crawlerMap.Assets.gameObject);
-                _crawlerMap.Assets = null;
+                GEntityUtils.Destroy(_crawlerMapRoot.Assets.gameObject);
+                _crawlerMapRoot.Assets = null;
             }
-            if (_crawlerMap != null)
+            if (_crawlerMapRoot != null)
             {
-                GEntityUtils.Destroy(_crawlerMap.gameObject);
-                _crawlerMap = null;
+                GEntityUtils.Destroy(_crawlerMapRoot.gameObject);
+                _crawlerMapRoot = null;
             }
         }
-        
+
         private void UpdateCameraPos(CancellationToken token)
         {
-            if (_crawlerMap == null)
+            if (_crawlerMapRoot == null)
             {
                 return;
             }
 
             if (_playerLight != null)
             {
-               
+
                 if (MapType == ECrawlerMapTypes.Dungeon)
                 {
                     _playerLight.intensity = 100;
@@ -199,8 +188,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 _camera.fieldOfView = 60f;
             }
 
-            _cameraParent.transform.position = new Vector3(_crawlerMap.DrawX, _crawlerMap.DrawY, _crawlerMap.DrawZ);
-            _cameraParent.transform.eulerAngles = new Vector3(0, _crawlerMap.DrawRot+90, 0);
+            _cameraParent.transform.position = new Vector3(_crawlerMapRoot.DrawX, _crawlerMapRoot.DrawY, _crawlerMapRoot.DrawZ);
+            _cameraParent.transform.eulerAngles = new Vector3(0, _crawlerMapRoot.DrawRot + 90, 0);
             _party.WorldPanel.SetPicture(null);
             if (_playerLightObject != null && _camera != null)
             {
@@ -265,7 +254,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         }
 
         private async Awaitable UpdateMovementInternal(CancellationToken token)
-        { 
+        {
             _updatingMovement = true;
             while (_queuedMoves.TryDequeue(out KeyCode currCommand))
             {
@@ -300,6 +289,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 }
                 await _crawlerService.OnFinishMove(movedPosition, token);
             }
+            MarkCurrentCellVisited();
             _updatingMovement = false;
         }
 
@@ -321,21 +311,20 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             int ex = (int)(_party.MapX + nx);
             int ez = (int)(_party.MapZ + nz);
 
-            if (!_crawlerMap.Map.Looping)
+            if (!_crawlerMapRoot.Map.Looping)
             {
-                if (ex < 0 || ex >= _crawlerMap.Map.Width ||
-                    ez < 0 || ez >= _crawlerMap.Map.Height)
+                if (ex < 0 || ex >= _crawlerMapRoot.Map.Width ||
+                    ez < 0 || ez >= _crawlerMapRoot.Map.Height)
                 {
                     // Bonk
-                    _dispatcher.Dispatch(new ShowFloatingText("Edge!", EFloatingTextArt.Error));
+                    _dispatcher.Dispatch(new ShowFloatingText("Bonk!", EFloatingTextArt.Error));
                     return;
                 }
             }
 
-            ICrawlerMapTypeHelper helper = GetHelper(_crawlerMap.Map.MapType);
+            ICrawlerMapTypeHelper helper = GetMapHelper(_crawlerMapRoot.Map.MapType);
 
-
-            int blockBits = helper.GetBlockingBits(_crawlerMap, sx, sz, ex, ez);
+            int blockBits = helper.GetBlockingBits(_crawlerMapRoot, sx, sz, ex, ez);
 
             if (blockBits == WallTypes.Wall || blockBits == WallTypes.Secret)
             {
@@ -343,19 +332,20 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 _dispatcher.Dispatch(new ShowFloatingText("Bonk!", EFloatingTextArt.Error));
                 return;
             }
+
             if (blockBits == WallTypes.Building)
             {
-                if (TryEnterBuilding(_crawlerMap, ex, ez, token))
-                {
+                if (TryEnterBuilding(_crawlerMapRoot, ex, ez, token))
+                {                    
                     return;
                 }
             }
 
-            float endDrawX = _crawlerMap.DrawX + nx * bs;
-            float endDrawZ = _crawlerMap.DrawZ + nz * bs;
+            float endDrawX = _crawlerMapRoot.DrawX + nx * bs;
+            float endDrawZ = _crawlerMapRoot.DrawZ + nz * bs;
 
-            float startDrawX = _crawlerMap.DrawX;
-            float startDrawZ = _crawlerMap.DrawZ;
+            float startDrawX = _crawlerMapRoot.DrawX;
+            float startDrawZ = _crawlerMapRoot.DrawZ;
 
             int frames = moveFrames;
 
@@ -370,8 +360,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             for (int frame = 1; frame < frames; frame++)
             {
 
-                _crawlerMap.DrawX = startDrawX + frame * dx / frames;
-                _crawlerMap.DrawZ = startDrawZ + frame * dz / frames;
+                _crawlerMapRoot.DrawX = startDrawX + frame * dx / frames;
+                _crawlerMapRoot.DrawZ = startDrawZ + frame * dz / frames;
 
                 UpdateCameraPos(token);
 
@@ -381,11 +371,11 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 }
             }
 
-            ex = MathUtils.ModClamp(ex, _crawlerMap.Map.Width);
-            ez = MathUtils.ModClamp(ez, _crawlerMap.Map.Height);
+            ex = MathUtils.ModClamp(ex, _crawlerMapRoot.Map.Width);
+            ez = MathUtils.ModClamp(ez, _crawlerMapRoot.Map.Height);
 
-            _crawlerMap.DrawX = ex * CrawlerMapConstants.BlockSize;
-            _crawlerMap.DrawZ = ez * CrawlerMapConstants.BlockSize;
+            _crawlerMapRoot.DrawX = ex * CrawlerMapConstants.BlockSize;
+            _crawlerMapRoot.DrawZ = ez * CrawlerMapConstants.BlockSize;
             _party.MapX = ex;
             _party.MapZ = ez;
             UpdateCameraPos(token);
@@ -404,8 +394,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             int frames = moveFrames * 1;
 
             for (int frame = 1; frame <= frames; frame++)
-            {              
-                _crawlerMap.DrawRot = startRot + deltaRot * frame/frames;
+            {
+                _crawlerMapRoot.DrawRot = startRot + deltaRot * frame / frames;
                 UpdateCameraPos(token);
                 if (frame < frames)
                 {
@@ -413,16 +403,19 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 }
             }
 
-            _party.MapRot = MathUtils.ModClamp((int)endRot, 360);
-            _crawlerMap.DrawRot = _party.MapRot;
+            SetFullRot(endRot);
+        }
 
-            
+        private void SetFullRot(float endRot)
+        {
+            _party.MapRot = MathUtils.ModClamp((int)endRot, 360);
+            _crawlerMapRoot.DrawRot = _party.MapRot;
         }
 
 
         private async Awaitable DrawNearbyMap(CancellationToken token)
         {
-            if (_crawlerMap == null)
+            if (_crawlerMapRoot == null)
             {
                 return;
             }
@@ -432,14 +425,19 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             int cx = (int)(_party.MapX);
             int cz = (int)(_party.MapZ);
 
-            int BigViewRadius = ViewRadius * 2;
+            int bigViewRadius = ViewRadius + 2;
 
-            int viewBufferSize = 2;
+            if (_crawlerMapRoot.Map.MapType == ECrawlerMapTypes.Outdoors)
+            {
+                bigViewRadius += 2;
+            }
 
-            for (int x = cx-BigViewRadius; x<= cx+BigViewRadius; x++)
+            int viewBufferSize = bigViewRadius + 2;
+
+            for (int x = cx - bigViewRadius; x <= cx + bigViewRadius; x++)
             {
                 int offsetX = Math.Abs(x - cx);
-                for (int z = cz-BigViewRadius; z<= cz+BigViewRadius; z++)
+                for (int z = cz - bigViewRadius; z <= cz + bigViewRadius; z++)
                 {
                     int offsetZ = Math.Abs(z - cz);
 
@@ -451,19 +449,19 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
                     while (cellX < 0)
                     {
-                        cellX += _crawlerMap.Map.Width;
+                        cellX += _crawlerMapRoot.Map.Width;
                     }
                     while (cellZ < 0)
                     {
-                        cellZ += _crawlerMap.Map.Height;
+                        cellZ += _crawlerMapRoot.Map.Height;
                     }
 
-                    cellX %= _crawlerMap.Map.Width;
-                    cellZ %= _crawlerMap.Map.Height;
+                    cellX %= _crawlerMapRoot.Map.Width;
+                    cellZ %= _crawlerMapRoot.Map.Height;
 
-                    UnityMapCell cell = _crawlerMap.GetCell(cellX, cellZ);
+                    UnityMapCell cell = _crawlerMapRoot.GetCell(cellX, cellZ);
 
-                    if (_crawlerMap.Map.MapType == ECrawlerMapTypes.Outdoors && 
+                    if (_crawlerMapRoot.Map.MapType == ECrawlerMapTypes.Outdoors &&
                         (offsetX >= ViewRadius + viewBufferSize ||
                         offsetZ >= ViewRadius + viewBufferSize))
                     {
@@ -474,10 +472,10 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                         }
                         continue;
                     }
-
-                    if (_crawlerMap.Map.Looping || 
-                        (worldX >= 0 && worldX < _crawlerMap.Map.Width &&
-                        worldZ >= 0 && worldZ < _crawlerMap.Map.Height))
+                    if (_crawlerMapRoot.Map.Looping ||
+                        _crawlerMapRoot.Map.MapType == ECrawlerMapTypes.Dungeon ||
+                            worldX >= 0 && worldX < _crawlerMapRoot.Map.Width &&
+                            worldZ >= 0 && worldZ < _crawlerMapRoot.Map.Height)
                     {
                         if (cell.Content != null)
                         {
@@ -485,9 +483,9 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                         }
                         else
                         {
-                            ICrawlerMapTypeHelper helper = GetHelper(_crawlerMap.Map.MapType);
+                            ICrawlerMapTypeHelper helper = GetMapHelper(_crawlerMapRoot.Map.MapType);
 
-                            await helper.DrawCell(_crawlerMap, cell, worldX, worldZ, token);
+                            await helper.DrawCell(_world, _party, _crawlerMapRoot, cell, worldX, worldZ, token);
                         }
                     }
                 }
@@ -497,16 +495,25 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         private bool TryEnterBuilding(CrawlerMapRoot mapRoot, int ex, int ez, CancellationToken token)
         {
 
-            byte info = mapRoot.Map.ExtraData[mapRoot.Map.GetIndex(ex, ez)];
+            byte buildingId = mapRoot.Map.Get(ex, ez, CellIndex.Building);
 
-            BuildingType btype = _gameData.Get<BuildingSettings>(null).Get(info);
+            BuildingType btype = _gameData.Get<BuildingSettings>(null).Get(buildingId);
 
             if (btype == null)
             {
                 return false;
             }
 
-            if (btype.Name == "Vendor")
+            MapCellDetail detail = mapRoot.Map.Details.FirstOrDefault(x=>x.EntityTypeId == EntityTypes.Map &&
+            x.EntityId > 0 && x.X == ex && x.Z == ez);
+
+            if (detail != null)
+            {
+                EnterBuilding(ECrawlerStates.MapExit, token, detail);
+                return true;
+            }
+
+            if (btype.Name == "Equipment")
             {
                 EnterBuilding(ECrawlerStates.Vendor, token);
                 return true;
@@ -528,9 +535,12 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
             return true;
         }
-        private void EnterBuilding(ECrawlerStates state, CancellationToken token)
+        private void EnterBuilding(ECrawlerStates state, CancellationToken token, object extraData = null)
         {
-            _crawlerService.ChangeState(state, token);
+            SetFullRot(_party.MapRot + 180);
+            UpdateCameraPos(token);
+            _crawlerService.ChangeState(state, token, extraData);
+            
         }
 
         public string GetBuildingArtPrefix()
@@ -538,13 +548,73 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             return "Default";
         }
 
-        public CrawlerMap Generate(CrawlerMapGenData genData)
+        public void MarkCurrentCellVisited()
+        {
+            if (_party == null || _party.Combat != null &&
+                _crawlerMapRoot == null || _crawlerMapRoot.Map == null ||
+                _party.MapId != _crawlerMapRoot.Map.IdKey ||
+                _party.MapX < 0 || _party.MapZ < 0 ||
+                _party.MapX >= _crawlerMapRoot.Map.Width ||
+                _party.MapZ >= _crawlerMapRoot.Map.Height)
+            {
+                return;
+            }
+
+            MarkCellVisited(_party.MapId, _party.MapX, _party.MapZ);
+        }
+
+        public void MarkCellVisited(long mapId, int x, int z)
         {
 
-            ICrawlerMapTypeHelper helper = GetHelper(genData.MapType);
+            if (_party == null || _world == null)
+            {
+                return;
+            }
 
-            return helper.Generate(genData);
+            CrawlerMap map = _world.GetMap(mapId);
+            if (map == null)
+            {
+                return;
+            }
+            CrawlerMapStatus status = _party.Maps.FirstOrDefault(x => x.MapId == mapId);
+            if (status == null)
+            {
+                status = new CrawlerMapStatus() { MapId = mapId };
+                _party.Maps.Add(status);
+            }
+            status.Visited.SetBit(map.GetIndex(x, z));
 
+            _party.CurrentMap.Visited.SetBit(map.GetIndex(x, z));
         }
+
+        public bool PartyHasVisited(long mapId, int x, int z, bool thisRunOnly = false)
+        {
+            if (_party == null || _world == null)
+            {
+                return false;
+            }
+
+            CrawlerMap map = _world.GetMap(mapId);
+            if (map == null)
+            {
+                return false;
+            }
+
+            if (thisRunOnly)
+            {
+                return _party.CurrentMap.Visited.HasBit(map.GetIndex(x, z));
+            }
+
+            int index = map.GetIndex(x, z);
+
+            CrawlerMapStatus status = _party.Maps.FirstOrDefault(x => x.MapId == mapId);
+            if (status == null)
+            {
+                return false;
+            }
+
+            return status.Visited.HasBit(index); 
+        }
+
     }
 }

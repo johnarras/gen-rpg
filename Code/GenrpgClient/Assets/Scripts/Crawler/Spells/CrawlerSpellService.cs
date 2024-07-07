@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Crawler.Services.Combat;
+using Assets.Scripts.Crawler.StateHelpers.Casting.SpecialMagicHelpers;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
@@ -15,6 +16,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
@@ -30,6 +32,7 @@ using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.UnitEffects.Constants;
 using Genrpg.Shared.UnitEffects.Settings;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Settings;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
@@ -51,6 +54,17 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         protected IUnityGameState _gs;
         protected IClientRandom _rand;
 
+        private SetupDictionaryContainer<long, ISpecialMagicHelper> _effectHelpers = new SetupDictionaryContainer<long, ISpecialMagicHelper>();
+        
+        public ISpecialMagicHelper GetSpecialEffectHelper(long specialEffectId)
+        {
+            if (_effectHelpers.TryGetValue(specialEffectId, out ISpecialMagicHelper specialEffectHelper))
+            {
+                return specialEffectHelper;
+            }
+            return null;
+        }
+
         public List<CrawlerSpell> GetNonSpellCombatActionsForMember(
             PartyData party, PartyMember member, bool inCombat)
         {
@@ -66,7 +80,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         private List<CrawlerSpell> GetAbilitiesForMember(PartyData party, 
             PartyMember member, bool inCombat, bool chooseSpells)
         { 
-
             IReadOnlyList<CrawlerSpell> allSpells = _gameData.Get<CrawlerSpellSettings>(null).GetData();
 
             List<CrawlerSpell> castSpells = allSpells.Where(x => 
@@ -103,7 +116,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     continue;
                 }
 
-                if (_combatService.IsActionBlocked(member, spell.CombatActionId))
+                if (_combatService.IsActionBlocked(party, member, spell.CombatActionId))
                 {
                     continue;
                 }
@@ -325,6 +338,15 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                 if (fullEffect.InitialEffect)
                 {
+                    
+                    long luck = caster.Stats.Max(StatTypes.Luck);
+
+                    double luckRatio = luck * 1.0 / caster.Level;
+
+                    luckRatio = Math.Min(luckRatio, combatSettings.MaxLuckCritRatio);
+
+                    critChance += luckRatio * combatSettings.LuckCritChanceAtLevel;
+
                     oneEffect.CritChance = (long)critChance;
                 }
                 if (quantityIsBaseDamage)
@@ -364,7 +386,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 {
                     oneEffect.MinQuantity = monster.MinDam;
                     oneEffect.MaxQuantity = monster.MaxDam;
-                }
+                } 
 
                 oneEffect.MinQuantity += CrawlerStatUtils.GetStatBonus(caster, statUsedForScaling);
                 oneEffect.MaxQuantity += CrawlerStatUtils.GetStatBonus(caster, statUsedForScaling);
@@ -447,11 +469,14 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                 if (_combatService.IsDisabled(action.Caster))
                 {
-                    await ShowText(party, $"{action.Caster.Name} is disabled!", displayDelay);
+                     if (!action.Caster.StatusEffects.HasBit(StatusEffects.Dead))
+                    {
+                        await ShowText(party, $"{action.Caster.Name} is disabled!", displayDelay);
+                    }
                     return;
                 }
 
-                if (_combatService.IsActionBlocked(action.Caster, action.Spell.CombatActionId))
+                if (_combatService.IsActionBlocked(party, action.Caster, action.Spell.CombatActionId))
                 {
                     await ShowText (party, $"{action.Caster.Name} was blocked from performing that action!", displayDelay);
                     return;
@@ -535,9 +560,22 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     }
                 }
 
-                foreach (CrawlerUnit target in action.FinalTargets)
+
+                if (action.FinalTargets.Count > 0)
                 {
-                    await CastSpellOnUnit(party, action.Caster, fullSpell, target, displayDelay);
+                    long originalHitsLeft = fullSpell.HitsLeft;
+                    long combatGroupId = action.FinalTargets[0].CombatGroupId;
+                    foreach (CrawlerUnit target in action.FinalTargets)
+                    {
+                        if (fullSpell.Spell.TargetTypeId == TargetTypes.AllEnemyGroups &&
+                            target.CombatGroupId != combatGroupId)
+                        {
+                              fullSpell.HitsLeft = originalHitsLeft;
+                            combatGroupId = target.CombatGroupId;
+                        }
+
+                        await CastSpellOnUnit(party, action.Caster, fullSpell, target, displayDelay);
+                    }
                 }
             }
             catch (Exception e)
@@ -591,10 +629,8 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 spell.Spell.TargetTypeId == TargetTypes.AllAllies ||
                 spell.Spell.TargetTypeId == TargetTypes.AllEnemies)
             {
-
                 spell.HitsLeft = Math.Max(spell.HitQuantity, 1);
             }
-
             if (caster.StatusEffects.HasBit(StatusEffects.Cursed))
             {
                 spell.HitsLeft = Math.Max(1, spell.HitsLeft / 2);
@@ -657,8 +693,8 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     CrawlerSpellEffect effect = fullEffect.Effect;
                     OneEffect hit = fullEffect.Hit;
 
-                    long finalMinQuantity = effect.MinQuantity;
-                    long finalMaxQuantity = effect.MaxQuantity;
+                    long finalMinQuantity = hit.MinQuantity;
+                    long finalMaxQuantity = hit.MaxQuantity;
 
                     if (caster.StatusEffects.HasBit(StatusEffects.Poisoned))
                     {

@@ -17,6 +17,8 @@ using Genrpg.Shared.Core.Entities;
 using UnityEngine;
 using System.Runtime.InteropServices;
 using System;
+using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Assets.Scripts.Crawler.Services;
 
 
 public interface IInitClient : IInjectable
@@ -30,6 +32,7 @@ public class InitClient : BaseBehaviour, IInitClient
 
 
     private IClientLoginService _loginService;
+    private ICrawlerService _crawlerService;
 
 #if UNITY_EDITOR
     public string CurrMapId;
@@ -148,6 +151,7 @@ public class InitClient : BaseBehaviour, IInitClient
         _gameTokenSource.Dispose();
         _gameTokenSource = null;
         _networkService?.CloseClient();
+        _crawlerService?.SaveGame();
     }
 
     public CancellationToken GetGameToken()

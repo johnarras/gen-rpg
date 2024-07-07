@@ -1,6 +1,7 @@
-﻿using Assets.Scripts.Crawler.Services.Combat;
+﻿using Assets.Scripts.Crawler.Maps.Entities;
+using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.ProcGen.RandomNumbers;
-using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.Crafting.Entities;
 using Genrpg.Shared.Crawler.Loot.Constants;
 using Genrpg.Shared.Crawler.Loot.Settings;
 using Genrpg.Shared.Crawler.Monsters.Entities;
@@ -10,6 +11,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Inventory.Settings.LootRanks;
 using Genrpg.Shared.Inventory.Settings.Slots;
@@ -23,30 +25,46 @@ using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Security.Policy;
 
 namespace Genrpg.Shared.Crawler.Loot.Services
 {
-    public class LootGenData
+    public class ItemGenData
     {
         public long Level { get; set; }
     }
 
+    public class LootGenData
+    {
+        public long Exp { get; set; }
+        public long Gold { get; set; }
+        public int ItemCount { get; set; }
+        public long Level { get; set; }
+        public List<long> QuestItems { get; set; } = new List<long>();
+    }
+
+    public class PartyLoot
+    {
+        public long Gold { get; set; }
+        public long Exp { get; set; }
+        public List<Item> Items { get; set; } = new List<Item>();
+        public List<long> NewQuestItems { get; set; } = new List<long>();
+    }
 
     public class LootGenService : ILootGenService
     {
         protected IGameData _gameData;
         protected IUnityGameState _gs;
         protected IClientRandom _rand;
-
-        public Item GenerateItem(LootGenData lootGenData)
+        protected IItemGenService _itemGenService;
+        protected ICrawlerWorldService _worldService;
+        public Item GenerateItem(ItemGenData lootGenData)
         {
 
             return GenerateEquipment(lootGenData);
         }
 
-        public Item GenerateEquipment(LootGenData lootGenData)
+        public Item GenerateEquipment(ItemGenData lootGenData)
         {
             long level = lootGenData.Level;
 
@@ -249,60 +267,81 @@ namespace Genrpg.Shared.Crawler.Loot.Services
             return item;
         }
 
-        public CombatLoot GiveLoot(PartyData party)
+        public PartyLoot GiveCombatLoot(PartyData party)
         {
-            CombatLoot loot = new CombatLoot();
             if (party.Combat == null)
             {
-                return loot;
+                return new PartyLoot();
             }
-            List<PartyMember> activeMembers = party.GetActiveParty()
-                .Where(x => !x.StatusEffects.HasBit(StatusEffects.Dead)).ToList();
-
-            int aliveCount = activeMembers.Count;
-
-            if (aliveCount < 1)
-            {
-                return loot;
-            }
-
-            CrawlerLootSettings lootSettings = _gameData.Get<CrawlerLootSettings>(null);
 
             CrawlerTrainingSettings trainingSettings = _gameData.Get<CrawlerTrainingSettings>(null);
+
+            CrawlerLootSettings lootSettings = _gameData.Get<CrawlerLootSettings>(null);
 
             double itemChance = lootSettings.ItemChancePerMonster;
 
             long exp = 0;
             long gold = 0;
 
-            long itemCount = 0;
+            int itemCount = 0;
 
             foreach (CrawlerUnit crawlerUnit in party.Combat.EnemiesKilled)
             {
                 exp += trainingSettings.GetMonsterExp(party.Combat.Level);
-                gold += MathUtils.LongRange(5+party.Combat.Level, 20+party.Combat.Level*5, _rand);
+                gold += MathUtils.LongRange(5 + party.Combat.Level, 20 + party.Combat.Level * 5, _rand);
 
                 if (_rand.NextDouble() < itemChance)
                 {
                     itemCount++;
                 }
-
             }
+
+            LootGenData allLootGenData = new LootGenData()
+            {
+                Gold = gold,
+                Exp = exp,
+                Level = party.Combat.Level,
+                ItemCount = itemCount,
+            };
+
+            return GiveLoot(party, allLootGenData);
+        }
+
+        public PartyLoot GiveLoot(PartyData party, LootGenData genData)
+        {
+            PartyLoot loot = new PartyLoot();
+            CrawlerLootSettings lootSettings = _gameData.Get<CrawlerLootSettings>(null);
 
             List<Item> items = new List<Item>();
 
-            LootGenData genData = new LootGenData()
+            ItemGenData itemGenData = new ItemGenData()
             {
-                Level = party.Combat.Level,
+                Level = genData.Level,
             };
 
-            for (int i = 0; i < itemCount; i++)
+            for (int i = 0; i < genData.ItemCount; i++)
             {
-                Item item = GenerateItem(genData);
+                Item item = GenerateItem(itemGenData);
                 if (item != null)
                 {
                     items.Add(item);
                 }
+            }
+
+            CrawlerMap map = _worldService.GetMap(party.MapId);
+
+            List<long> questItems = map.Details.Where(x => x.EntityTypeId == EntityTypes.QuestItem && x.EntityId > 0).Select(x => x.EntityId).ToList();
+
+            foreach (long questItemId in questItems)
+            {
+                loot.NewQuestItems.Add(questItemId);
+                PartyQuestItem pqi = party.QuestItems.FirstOrDefault(x=>x.CrawlerQuestItemId == questItemId);
+                if (pqi == null)
+                {
+                    pqi = new PartyQuestItem() { CrawlerQuestItemId = questItemId };
+                    party.QuestItems.Add(pqi);   
+                }
+                pqi.Quantity++;
             }
 
             items = items.OrderByDescending(x => x.Cost).ToList();
@@ -312,27 +351,57 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                 Item lastItem = items.Last();
                 items.Remove(lastItem);
 
-                gold += lastItem.Cost;
+                genData.Gold += lastItem.Cost;
             }
 
             loot.Items = items;
 
-            party.Gold += gold;
+            party.Gold += genData.Gold;
 
-            loot.Gold = gold;
-            
+            loot.Gold = genData.Gold;
 
-            exp /= aliveCount;
-            loot.Exp = exp;
+            List<PartyMember> activeMembers = party.GetActiveParty()
+                .Where(x => !x.StatusEffects.HasBit(StatusEffects.Dead)).ToList();
+
+            int aliveCount = activeMembers.Count;
+
+            if (aliveCount < 1)
+            {
+                return new PartyLoot();
+            }
+            loot.Exp = genData.Exp / aliveCount;
 
             foreach (PartyMember member in activeMembers)
             {
-                member.Exp += exp;
+                member.Exp += loot.Exp;
             }
 
             party.Inventory.AddRange(loot.Items);
 
             return loot;
         }
+
+
+        List<long> okEquipSlotIds = new List<long>() { EquipSlots.Necklace, EquipSlots.Ring1, EquipSlots.Jewelry1, EquipSlots.OffHand };
+        public List<string> GenerateItemNames(IRandom rand, int itemCount)
+        {
+            List<ItemType> okItemTypes = _gameData.Get<ItemTypeSettings>(null).GetData().Where(x => okEquipSlotIds.Contains(x.EquipSlotId)).ToList();
+
+            okItemTypes = okItemTypes.Where(x => x.Name != "Shield").ToList();
+
+            List<string> retval = new List<string>();
+
+            for (int i = 0; i < itemCount; i++)
+            {
+                long lootQualityId = QualityTypes.Legendary;
+
+                long itemTypeId = okItemTypes[rand.Next() % okItemTypes.Count].IdKey;
+
+                retval.Add(_itemGenService.GenerateName(rand, itemTypeId, 100, lootQualityId, new List<FullReagent>()));
+            }
+
+            return retval;
+        }
+
     }
 }

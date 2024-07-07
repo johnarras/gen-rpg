@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Dungeons;
+using Genrpg.Shared.Utils.Data;
 using System.Collections.Generic;
 using System.Security.Policy;
 using GEntity = UnityEngine.GameObject;
@@ -56,12 +57,12 @@ namespace Assets.Scripts.Crawler.Maps.GameObjects
         public byte EastWall(int x, int y)
         {
             
-            return (byte)((Map.CoreData[Map.GetIndex(x,y)] >> DungeonCoreMapCellBits.EWallStart) % (1 << DungeonCoreMapCellBits.WallBitSize));
+            return (byte)((Map.Get(x,y,CellIndex.Walls) >> MapWallBits.EWallStart) % (1 << MapWallBits.WallBitSize));
         }
 
         public byte NorthWall(int x, int y)
         {
-            return (byte)((Map.CoreData[Map.GetIndex(x, y)] >> DungeonCoreMapCellBits.NWallStart) % (1 << DungeonCoreMapCellBits.WallBitSize));
+            return (byte)((Map.Get(x, y, CellIndex.Walls) >> MapWallBits.NWallStart) % (1 << MapWallBits.WallBitSize));
         }
 
     }

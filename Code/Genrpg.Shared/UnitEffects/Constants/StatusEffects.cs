@@ -26,11 +26,11 @@ namespace Genrpg.Shared.UnitEffects.Constants
 
         public const int Possessed = 14; // Attack allies?
 
-        public const int Hidden = 14; // Special state to allow special attacks
-        public const int Taunt = 15; // Monsters attack you
-        public const int Hasted = 16; // Faster attacks
-        public const int Multiply = 17; // Next spell to heal/dam is multiplied 
-        public const int Dead = 18;
+        public const int Hidden = 15; // Special state to allow special attacks
+        public const int Taunt = 16; // Monsters attack you
+        public const int Hasted = 17; // Faster attacks
+        public const int Multiply = 18; // Next spell to heal/dam is multiplied 
+        public const int Dead = 19;
 
     }
 }

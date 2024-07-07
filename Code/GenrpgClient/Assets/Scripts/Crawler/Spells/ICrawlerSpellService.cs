@@ -1,4 +1,5 @@
 ﻿
+using Assets.Scripts.Crawler.StateHelpers.Casting.SpecialMagicHelpers;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
@@ -21,5 +22,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         List<CrawlerSpell> GetNonSpellCombatActionsForMember(PartyData party, PartyMember member, bool inCombat);
         FullSpell GetFullSpell (CrawlerUnit unit, CrawlerSpell spell, long overrideLevel = 0);
         Awaitable CastSpell(PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0);
+        ISpecialMagicHelper GetSpecialEffectHelper(long effectEntityId);
     }
 }

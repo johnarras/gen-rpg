@@ -4,10 +4,10 @@ using Genrpg.Shared.Entities.Interfaces;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
-using Genrpg.Shared.Units.Entities;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Units.Settings;
 namespace Genrpg.Shared.Units.Helpers
 {
     public class UnitHelper : IEntityHelper

@@ -66,6 +66,8 @@ SpriteAtlas:
     - 06e6f4661c1c3a7468078f7b507f0308: 21300000
     - abbe8e2751e2779499587437d27d462f: 21300000
     - f7fe0067a0a783a4ebabb0ccbc08d818: 21300000
+    - 015c36b764e80014886f29b67342b438: 21300000
+    - 325773c7aa3214d4695bee98cd338b1d: 21300000
     - 589cd1d7280d00746965b6859c3c0f02: 21300000
     - 8ab8b288fb666ef42bad8ee4a3c4daf1: 21300000
     - feb8f3b8261152b4f96a0ed1ac12b032: 21300000
@@ -80,6 +82,7 @@ SpriteAtlas:
     - 85fa51bc325fdb245b388b69a1625b52: 21300000
     - ca1716ecefe071e4cab20fdc10aa0b7b: 21300000
     - 99c5b02d525db77439b85e50dd74be52: 21300000
+    - c0a644ed990f9fb4d9346cc58b828b47: 21300000
     - cdcab9ceeacc32e47baae13128dae9db: 21300000
     - d7f7b1efb1a434c4e877198ff391de9a: 21300000
   m_MasterAtlas: {fileID: 0}
@@ -100,6 +103,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 06e6f4661c1c3a7468078f7b507f0308, type: 3}
   - {fileID: 21300000, guid: abbe8e2751e2779499587437d27d462f, type: 3}
   - {fileID: 21300000, guid: f7fe0067a0a783a4ebabb0ccbc08d818, type: 3}
+  - {fileID: 21300000, guid: 015c36b764e80014886f29b67342b438, type: 3}
+  - {fileID: 21300000, guid: 325773c7aa3214d4695bee98cd338b1d, type: 3}
   - {fileID: 21300000, guid: 589cd1d7280d00746965b6859c3c0f02, type: 3}
   - {fileID: 21300000, guid: 8ab8b288fb666ef42bad8ee4a3c4daf1, type: 3}
   - {fileID: 21300000, guid: feb8f3b8261152b4f96a0ed1ac12b032, type: 3}
@@ -114,6 +119,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 85fa51bc325fdb245b388b69a1625b52, type: 3}
   - {fileID: 21300000, guid: ca1716ecefe071e4cab20fdc10aa0b7b, type: 3}
   - {fileID: 21300000, guid: 99c5b02d525db77439b85e50dd74be52, type: 3}
+  - {fileID: 21300000, guid: c0a644ed990f9fb4d9346cc58b828b47, type: 3}
   - {fileID: 21300000, guid: cdcab9ceeacc32e47baae13128dae9db, type: 3}
   - {fileID: 21300000, guid: d7f7b1efb1a434c4e877198ff391de9a, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -133,6 +139,8 @@ SpriteAtlas:
   - DirRight
   - BGDark
   - PurpleBar
+  - NoMagic
+  - NoMelee
   - BarBGBrown2
   - ButtonInfo
   - IconGems
@@ -147,6 +155,7 @@ SpriteAtlas:
   - SilverBar
   - Blank
   - BGInfo
+  - NoRanged
   - WhiteCircle256
   - IconCopper
   m_RenderDataMap: {}

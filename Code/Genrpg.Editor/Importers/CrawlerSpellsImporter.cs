@@ -1,11 +1,14 @@
 ﻿using Genrpg.Editor.Constants;
 using Genrpg.Editor.Entities.Core;
+using Genrpg.Editor.UI;
 using Genrpg.Shared.Crawler.Buffs.Settings;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Stats.Settings.Stats;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +25,7 @@ namespace Genrpg.Editor.Importers
 
         public override EImportTypes GetKey() { return EImportTypes.CrawlerSpells; }
 
-        protected override async Task<bool> ImportFromLines(EditorGameState gs, string[] lines)
+        protected override async Task<bool> ImportFromLines(Window window, EditorGameState gs, string[] lines)
         {
             string[] firstLine = lines[0].Split(',');
 
@@ -47,7 +50,6 @@ namespace Genrpg.Editor.Importers
             IReadOnlyList<CrawlerSpell> crawlerSpells = gs.data.Get<CrawlerSpellSettings>(null).GetData();
 
             IReadOnlyList<StatType> statTypes = gs.data.Get<StatSettings>(null).GetData();
-
 
             PropertyInfo[] props = typeof(Class).GetProperties();
 
@@ -130,10 +132,17 @@ namespace Genrpg.Editor.Importers
 
             if (!string.IsNullOrWhiteSpace(missingWords))
             {
-                ShowErrorDialog(gs, "Missing words: " + missingWords);
+                ContentDialogResult result2 = await UIHelper.ShowMessageBox(window, "Bad Import Data:"  + missingWords);
                 return false;
             }
 
+            for (int c = 0; c < topRow.Length; c++)
+            {
+                if (topRow[c] != null)
+                {
+                    topRow[c].Bonuses = topRow[c].Bonuses.OrderBy(x=>x.EntityTypeId).ThenBy(x=>x.EntityId).ToList();    
+                }
+            }
 
             await Task.CompletedTask;
             return true;

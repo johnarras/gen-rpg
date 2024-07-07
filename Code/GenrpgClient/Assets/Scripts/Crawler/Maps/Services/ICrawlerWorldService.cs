@@ -9,16 +9,15 @@ namespace Assets.Scripts.Crawler.Maps.Services
     public interface ICrawlerWorldService : IInjectable
     {
 
+        Awaitable<CrawlerWorld> GenerateWorld(PartyData partyData);
         Awaitable<CrawlerWorld> GetWorld(long worldId);
-        void SetWorld(CrawlerWorld world);
+        CrawlerMap GetMap(long mapId);
 
         Awaitable SaveWorld(CrawlerWorld world);
 
-        CrawlerWorld Generate(long worldId);
-
-
         Awaitable<ZoneType> GetCurrentZone(PartyData partyData);
-        Awaitable<long> GetMapLevelAtParty(PartyData partyData);
+        Awaitable<long> GetMapLevelAtPoint(CrawlerWorld world, long mapId, int x, int z);
+        Awaitable<long> GetMapLevelAtParty(CrawlerWorld world, PartyData partyData);
 
     }
 }

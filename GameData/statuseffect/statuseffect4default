@@ -3,8 +3,8 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Slowed",
-  "Abbrev": "Para",
+  "Abbrev": "Slow",
   "ActionEffects": [],
-  "UpdateTime": "2024-06-29T14:10:35.909Z",
+  "UpdateTime": "2024-07-02T20:05:38.579Z",
   "CreateTime": "2024-01-27T17:52:56.642Z"
 }

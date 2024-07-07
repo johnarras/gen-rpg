@@ -6,8 +6,7 @@
   "Desc": "",
   "Icon": "",
   "Art": "",
-  "PowerCost": 40,
-  "PowerPerLevel": 1,
+  "PowerCost": 20,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 3,
@@ -21,6 +20,6 @@
       "ElementTypeId": 3
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:31.017Z",
+  "UpdateTime": "2024-07-04T18:52:36.656Z",
   "CreateTime": "2024-01-28T15:21:51Z"
 }

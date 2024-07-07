@@ -19,6 +19,26 @@
   "ManaStatTypeId": 13,
   "Bonuses": [
     {
+      "EntityTypeId": 31,
+      "EntityId": 16,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 31,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 71,
+      "Quantity": 1
+    },
+    {
       "EntityTypeId": 100,
       "EntityId": 1,
       "Quantity": 1
@@ -35,62 +55,7 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 36,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 23,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 17,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 31,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 16,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 33,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 71,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 101,
-      "EntityId": 1,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
       "EntityId": 8,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 15,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 16,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 43,
       "Quantity": 1
     },
     {
@@ -120,6 +85,36 @@
     },
     {
       "EntityTypeId": 100,
+      "EntityId": 15,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 16,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 17,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 23,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 43,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
       "EntityId": 53,
       "Quantity": 1
     },
@@ -137,6 +132,11 @@
       "EntityTypeId": 100,
       "EntityId": 56,
       "Quantity": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 1,
+      "Quantity": 1
     }
   ],
   "AllowedWeapons": [
@@ -150,6 +150,6 @@
       "ItemTypeId": 21
     }
   ],
-  "UpdateTime": "2024-06-29T22:18:06.018Z",
+  "UpdateTime": "2024-07-04T19:17:28.633Z",
   "CreateTime": "2024-01-27T12:57:37Z"
 }

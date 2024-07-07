@@ -19,6 +19,21 @@
   "ManaStatTypeId": 12,
   "Bonuses": [
     {
+      "EntityTypeId": 31,
+      "EntityId": 20,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 70,
+      "Quantity": 1
+    },
+    {
       "EntityTypeId": 100,
       "EntityId": 1,
       "Quantity": 1
@@ -35,72 +50,12 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 36,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 39,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 33,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 21,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 44,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 18,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 70,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 33,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 31,
-      "EntityId": 20,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 101,
-      "EntityId": 3,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 48,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 8,
-      "Quantity": 1
-    },
-    {
-      "EntityTypeId": 100,
       "EntityId": 7,
       "Quantity": 1
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 19,
+      "EntityId": 8,
       "Quantity": 1
     },
     {
@@ -120,7 +75,57 @@
     },
     {
       "EntityTypeId": 100,
+      "EntityId": 18,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 19,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 21,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 33,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 39,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 48,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
       "EntityId": 53,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 58,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 59,
+      "Quantity": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 3,
       "Quantity": 1
     }
   ],
@@ -135,6 +140,6 @@
       "ItemTypeId": 21
     }
   ],
-  "UpdateTime": "2024-06-29T22:18:06.006Z",
+  "UpdateTime": "2024-07-04T19:17:28.623Z",
   "CreateTime": "2024-01-27T12:57:37Z"
 }

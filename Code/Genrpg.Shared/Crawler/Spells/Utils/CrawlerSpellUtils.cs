@@ -12,7 +12,8 @@ namespace Genrpg.Shared.Crawler.Spells.Utils
         {
             return targetTypeId == TargetTypes.Enemy ||
                 targetTypeId == TargetTypes.EnemyGroup ||
-                targetTypeId == TargetTypes.AllEnemies;
+                targetTypeId == TargetTypes.AllEnemies ||
+                targetTypeId == TargetTypes.AllEnemyGroups;
         }
 
         public static bool IsNonCombatTarget(long targetTypeId)

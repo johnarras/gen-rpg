@@ -10,8 +10,7 @@ namespace Genrpg.Shared.Crawler.Combat.Constants
         public const int MaxRange = 100;
         public const int RangeDelta = 10;
 
-        public const int MaxStartCombatGroups = 4;
-        public const int MaxCombatGroups = 6;
+        public const int MaxStartEnemyGroupCount = 6;
 
         public const int BaseAttackQuantity = 1;
 

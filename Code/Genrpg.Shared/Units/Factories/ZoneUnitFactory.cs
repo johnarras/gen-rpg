@@ -17,6 +17,7 @@ using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.MapObjects.Factories;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Units.Settings;
 
 namespace Genrpg.Shared.Units.Factories
 {

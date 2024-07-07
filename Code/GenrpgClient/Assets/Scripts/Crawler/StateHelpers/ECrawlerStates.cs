@@ -29,14 +29,21 @@ namespace Assets.Scripts.UI.Crawler.States
         SaveGame,
         QuitGame,
         Help,
-        Back,
 
-        ExploreWorld,
+        ExploreWorld,    
         MapExit,
         Error,
+        GiveLoot,
 
         WorldCast,
         SpecialSpellCast,
+
+        SetWorldPortal,
+        ReturnWorldPortal,
+        TownPortal,
+        TeleportPosition,
+        JumpLength,
+        PassWall,
 
         UseItemExplore,
         UseItemCombat,
@@ -65,9 +72,5 @@ namespace Assets.Scripts.UI.Crawler.States
         CombatConfirm,
         ProcessCombatRound,
         CombatDeath,
-        CombatChest,
-        CombatLoot,
-        
-
     }
 }

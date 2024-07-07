@@ -1,12 +1,7 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.UI.Core;
 using Assets.Scripts.UI.Crawler.ActionUI;
-
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.UI.Interfaces;
-using Genrpg.Shared.DataStores.Entities;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;

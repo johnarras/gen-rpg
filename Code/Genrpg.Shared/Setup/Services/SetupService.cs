@@ -1,4 +1,3 @@
-
 using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crafting.Services;
@@ -65,7 +64,8 @@ namespace Genrpg.Shared.Setup.Services
             Set<IFtueService>(new FtueService());
             Set<IStatusEffectService>(new StatusEffectService());
             Set<IMapProvider>(new MapProvider());
-            
+            Set<IItemGenService>(new ItemGenService());
+
             // Use for crawler
             Set<IClassService>(new ClassService());
 

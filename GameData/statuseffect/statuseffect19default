@@ -1,0 +1,18 @@
+{
+  "Id": "statuseffect19default",
+  "ParentId": "default",
+  "IdKey": 19,
+  "Name": "Dead",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Dead",
+  "ActionEffects": [
+    {
+      "CombatActionId": 6,
+      "Effect": 2
+    }
+  ],
+  "UpdateTime": "2024-07-02T20:06:09.94Z",
+  "CreateTime": "2024-01-27T23:52:56Z"
+}

@@ -54,7 +54,7 @@ namespace Genrpg.Shared.MapObjects.Entities
 
         public List<IDisplayEffect> Effects { get; set; } = new List<IDisplayEffect>();
 
-        public BitList StatusEffects { get; set; } = new BitList();
+        public SmallIndexBitList StatusEffects { get; set; } = new SmallIndexBitList();
 
         public MapObject(IRepositoryService repositoryService)
         {

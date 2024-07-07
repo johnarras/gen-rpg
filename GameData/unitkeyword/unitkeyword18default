@@ -1,0 +1,20 @@
+{
+  "Id": "unitkeyword18default",
+  "ParentId": "default",
+  "IdKey": 18,
+  "Name": "Priest",
+  "Icon": "Priest",
+  "Art": "Priest",
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 5
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 7
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.479Z",
+  "CreateTime": "2024-07-06T23:25:26.479Z"
+}

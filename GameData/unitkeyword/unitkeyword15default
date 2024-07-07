@@ -1,0 +1,22 @@
+{
+  "Id": "unitkeyword15default",
+  "ParentId": "default",
+  "IdKey": 15,
+  "Name": "Lieutenant",
+  "Icon": "Lieutenant",
+  "Art": "Lieutenant",
+  "Effects": [
+    {
+      "EntityTypeId": 32,
+      "Quantity": 20,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 32,
+      "Quantity": 20,
+      "EntityId": 20
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.469Z",
+  "CreateTime": "2024-07-06T23:25:26.469Z"
+}

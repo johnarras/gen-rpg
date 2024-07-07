@@ -99,6 +99,12 @@ namespace Assets.Scripts.Model
             return await repo.StringSave(id, data);
         }
 
+        public async Task<T> LoadObjectFromString<T>(string id) where T : class, IStringId
+        {
+            ClientRepositoryCollection<T> repo = GetRepository<T>();
+            return await repo.LoadObjectFromString(id);
+        }
+
         public async Task<List<T>> LoadAll<T>(List<string> ids) where T : class, IStringId
         {
             ClientRepositoryCollection<T> repo = GetRepository<T>();

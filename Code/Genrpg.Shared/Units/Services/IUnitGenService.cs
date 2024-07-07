@@ -1,7 +1,7 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Units.Settings;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.WorldData;
 using System;

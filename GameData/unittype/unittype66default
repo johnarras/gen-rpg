@@ -8,7 +8,12 @@
   "Art": "StoneGolem",
   "TribeTypeId": 17,
   "MinLevel": 15,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 9
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -16,6 +21,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-06-29T22:48:27.377Z",
-  "CreateTime": "2024-06-29T22:48:27.377Z"
+  "UpdateTime": "2024-07-06T17:31:01.843Z",
+  "CreateTime": "2024-07-06T17:31:01.843Z"
 }

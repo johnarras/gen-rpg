@@ -84,9 +84,9 @@ public class CrawlerVendorScreen : ItemIconScreen
             for (int i = 0; i < quantity; i++)
             {
 
-                LootGenData lootGenData = new LootGenData()
+                ItemGenData lootGenData = new ItemGenData()
                 {
-                    Level = await _crawlerWorldService.GetMapLevelAtParty(_party)
+                    Level = await _crawlerWorldService.GetMapLevelAtParty(await _crawlerWorldService.GetWorld(_party.WorldId), _party)
                 };
 
                 _party.VendorItems.Add(_lootGenService.GenerateItem(lootGenData));

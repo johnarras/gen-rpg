@@ -4,11 +4,21 @@
   "IdKey": 64,
   "Name": "Black Dragon",
   "PluralName": "Black Dragons",
+  "Desc": "",
   "Icon": "BlackDragon",
   "Art": "BlackDragon",
   "TribeTypeId": 16,
   "MinLevel": 20,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 5
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -16,6 +26,6 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-06-29T22:48:27.373Z",
-  "CreateTime": "2024-06-29T22:48:27.373Z"
+  "UpdateTime": "2024-07-06T17:31:01.84Z",
+  "CreateTime": "2024-07-06T17:31:01.84Z"
 }

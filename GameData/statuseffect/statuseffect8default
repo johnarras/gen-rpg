@@ -6,13 +6,13 @@
   "Desc": "",
   "Icon": "",
   "Art": "",
-  "Abbrev": "FbMind",
+  "Abbrev": "Sile",
   "ActionEffects": [
     {
       "CombatActionId": 4,
       "Effect": 3
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:35.925Z",
+  "UpdateTime": "2024-07-02T20:05:38.57Z",
   "CreateTime": "2024-01-27T23:52:56Z"
 }

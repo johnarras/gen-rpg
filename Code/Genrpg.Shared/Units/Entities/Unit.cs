@@ -77,9 +77,7 @@ namespace Genrpg.Shared.Units.Entities
             public bool HasStatusBits(long statusBits)
         {
             return StatusEffects != null &&
-                StatusEffects.Data != null &&
-                StatusEffects.Data.Count > 0 &&
-                (StatusEffects.Data[0].Bits & statusBits) != 0;
+                StatusEffects.MatchAnyBits((int)statusBits);
         }
 
         public override void Dispose()

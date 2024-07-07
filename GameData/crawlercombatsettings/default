@@ -5,7 +5,9 @@
   "DefendDamageScale": 0.5,
   "TauntDamageScale": 0.25,
   "MaxGroupSize": 99,
+  "LuckCritChanceAtLevel": 0.05000000074505806,
+  "MaxLuckCritRatio": 2.0,
   "Name": "CrawlerCombatSettings",
-  "UpdateTime": "2024-06-29T14:10:30.772Z",
+  "UpdateTime": "2024-07-05T21:40:33.384Z",
   "CreateTime": "2024-02-12T14:44:39Z"
 }

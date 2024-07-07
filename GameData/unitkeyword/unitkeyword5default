@@ -1,0 +1,16 @@
+{
+  "Id": "unitkeyword5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Mythological",
+  "Icon": "Mythological",
+  "Art": "Mythological",
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 13
+    }
+  ],
+  "UpdateTime": "2024-07-06T23:25:26.438Z",
+  "CreateTime": "2024-07-06T23:25:26.438Z"
+}

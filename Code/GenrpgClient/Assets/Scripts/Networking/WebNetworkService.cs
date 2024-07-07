@@ -20,6 +20,7 @@ using System.Net;
 using static WebNetworkService;
 using System.Runtime.InteropServices;
 using Genrpg.Shared.HelperClasses;
+using System.Text.RegularExpressions;
 
 public delegate void WebResultsHandler(string txt, CancellationToken token);
 
@@ -141,33 +142,42 @@ public class WebNetworkService : IWebNetworkService
 
         private void HandleResults(string txt, CancellationToken token)
         {
-            LoginServerResultSet resultSet = SerializationUtils.Deserialize<LoginServerResultSet>(txt);
 
-            List<ResultHandlerPair> resultPairs = new List<ResultHandlerPair>();
-
-            foreach (ILoginResult result in resultSet.Results)
+            try
             {
-                if (_loginResultHandlers.TryGetValue(result.GetType(), out IClientLoginResultHandler handler))
+                LoginServerResultSet resultSet = SerializationUtils.Deserialize<LoginServerResultSet>(txt);
+
+                List<ResultHandlerPair> resultPairs = new List<ResultHandlerPair>();
+
+                foreach (ILoginResult result in resultSet.Results)
                 {
-                    resultPairs.Add(new ResultHandlerPair()
+                    if (_loginResultHandlers.TryGetValue(result.GetType(), out IClientLoginResultHandler handler))
                     {
-                        Result = result,
-                        Handler = handler,
-                    });
+                        resultPairs.Add(new ResultHandlerPair()
+                        {
+                            Result = result,
+                            Handler = handler,
+                        });
+                    }
+                    else
+                    {
+                        _logService.Error("Unknown Message From Login Server: " + result.GetType().Name);
+                    }
                 }
-                else
+
+                resultPairs = resultPairs.OrderByDescending(x => x.Handler.Priority()).ToList();
+
+                foreach (ResultHandlerPair resultPair in resultPairs)
                 {
-                    _logService.Error("Unknown Message From Login Server: " + result.GetType().Name);
+                    resultPair.Handler.Process(resultPair.Result, token);
                 }
             }
-
-            resultPairs = resultPairs.OrderByDescending(x => x.Handler.Priority()).ToList();
-
-            foreach (ResultHandlerPair resultPair in resultPairs)
+            catch(Exception ex)
             {
-                resultPair.Handler.Process(resultPair.Result, token);
+                _logService.Exception(ex, "ProcessWebResponses");
             }
-
+                
+        
             _lastResponseReceivedTime = DateTime.UtcNow;
             _pending.Clear();
         }

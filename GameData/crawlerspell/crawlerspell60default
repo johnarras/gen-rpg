@@ -1,0 +1,24 @@
+{
+  "Id": "crawlerspell60default",
+  "ParentId": "default",
+  "IdKey": 60,
+  "Name": "Sense Area",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "PowerCost": 2,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 8,
+  "Level": 8,
+  "Effects": [
+    {
+      "EntityTypeId": 37,
+      "EntityId": 8,
+      "ElementTypeId": 9,
+      "Name": ""
+    }
+  ],
+  "UpdateTime": "2024-07-04T19:02:08.36Z",
+  "CreateTime": "2024-01-28T11:48:08Z"
+}
