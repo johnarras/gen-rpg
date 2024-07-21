@@ -77,60 +77,21 @@ Setup
 	be swapped out for something on prem or on AWS or whatever you like
 	
 	As of now it contains the following:
-	
-	SQL:
-	
-	SQLPlatformConnection -- Account/Login database
-			
-	Create the following table:
-			
-			
-			CREATE TABLE [dbo].[Accounts] (
-			
-			    [Id]           BIGINT         IDENTITY (1, 1) NOT NULL,
-			
-			    [Name]         NVARCHAR (50)  DEFAULT ('') NOT NULL,
-			
-			    [Email]        NVARCHAR (100) DEFAULT ('') NOT NULL,
-			    
-			    [Flags]        INT            DEFAULT ((0)) NOT NULL,
-			    
-			    [Password]     NVARCHAR (50)  DEFAULT ('') NOT NULL,
-			    
-			    [PasswordSalt] NVARCHAR (100) DEFAULT ('') NOT NULL,
-			    
-			    [CreatedOn]    DATETIME       DEFAULT (getdate()) NOT NULL,
-			    
-			    CONSTRAINT [PK_Accounts] PRIMARY KEY CLUSTERED ([Id] ASC)
-
-			  );
-			
-			
-			GO
-			
-			CREATE NONCLUSTERED INDEX [IX_Accounts_Name]
-			
-			    ON [dbo].[Accounts]([Name] ASC);
-			
-			
-			GO
-			
-			CREATE NONCLUSTERED INDEX [IX_Accounts_Email]
-			
-			    ON [dbo].[Accounts]([Email] ASC);
-			
-				
-			
+		
 	Blob Storage/S3:
 		
 	BlobContentConnection -- Stores data large data players can download like images, terrain chunks and asset bundles.
 										(Should be public read/private write)
-				
+		
+	(SQL HAS BEEN REMOVED IN LEIU OF USING ATOMIC INCREMENT IN NOSQL FOR ACCOUNT IDS)									
+												
 	Mongo/NoSQL:
 		
 	The current DB for this is serverless CosmosDB with a mongo frontend. As of this writing, I believe
 		Mongo itself has a serverless MongoDBAtlas option, as well.
-																
+
+	NoSQLAccountDataConnection -- used for account data (moved from SQL)	
+																		
 	NoSQLWorldDataConnection -- used to store map gameplay data: generated maps, zones, spawns etc..
 			
 	NoSQLGameDataConnection -- used to store the core game metadata/settings like item list, monster data etc...
@@ -143,7 +104,7 @@ Setup
 						
 	Classes may be tagged with a DataCategory attribute:
 		
-    [DataCategory(Category = DataCategory.PlayerData)]   
+    [DataCategory(Category = DataCategory.AccountData)]   
      	
     [DataCategory(Category = DataCategory.PlayerData)]	    
     
