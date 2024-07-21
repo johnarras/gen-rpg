@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 15,
   "Name": "Holy Beam",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Hit one or more monsters with holy damage.",
   "PowerCost": 10,
   "PowerPerLevel": 1,
   "MaxRange": 100,
@@ -21,6 +19,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:30.878Z",
+  "UpdateTime": "2024-07-14T19:15:39.182Z",
   "CreateTime": "2024-01-28T09:21:51Z"
 }

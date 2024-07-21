@@ -415,12 +415,12 @@ namespace Genrpg.MapServer.AI.Services
                     {
                         if (unit.Waypoints.Waypoints.Count > 0)
                         {
-                            unit.Waypoints.Waypoints.RemoveAt(0);
+                            unit.Waypoints.RemoveWaypointAt(0);
                         }
 
                         if (unit.Waypoints.Waypoints.Count == 0)
                         {
-                            unit.Waypoints = null;
+                            unit.Waypoints.Clear();
                         }
                     }
                 }
@@ -429,12 +429,11 @@ namespace Genrpg.MapServer.AI.Services
 
         private void UpdateAfterAIStep(IRandom rand, Unit unit)
         {
-            _pathfindingService.UpdatePath(rand, unit, (int)unit.FinalX, (int)unit.FinalZ, OnUpdatePath);
+            _pathfindingService.UpdatePath(unit, rand, (int)unit.FinalX, (int)unit.FinalZ, OnUpdatePath);
         }
 
-        private void OnUpdatePath(IRandom rand, Unit unit, WaypointList list)
+        private void OnUpdatePath(IRandom rand, Unit unit)
         {
-            unit.Waypoints = list; 
             UnitUtils.TurnTowardNextPosition(unit);
             _objectManager.UpdatePosition(rand, unit, 0);
         }

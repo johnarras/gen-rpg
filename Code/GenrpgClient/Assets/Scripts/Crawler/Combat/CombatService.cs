@@ -289,7 +289,6 @@ namespace Assets.Scripts.Crawler.Services.Combat
             if (true)
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append("Unit " + unitType.Name + ": ");
 
                 if (spells.Count > 0)
                 {

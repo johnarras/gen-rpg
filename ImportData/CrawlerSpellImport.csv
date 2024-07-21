@@ -1,0 +1,170 @@
+spellheaders,IdKey,Name,Desc,Icon,Art,PowerCost,PowerPerLevel,MinRange,MaxRange,RequiredStatusEffectId,ReplacesCrawlerSpellId,CombatActionId,TargetTypeId,CritChance,Level,Flags
+effectheaders,EntityTypeId,EntityId,MinQuantity,MaxQuantity,ElementTypeId,Name,,,,,,,,,,
+spell,0,None,,,,0,0,0,100,0,1,0,0,0,0,0
+spell,1,Attack,Melee attack one or more monsters.,,,0,0,0,10,0,0,1,1,0,1,1
+effect,38,1,0,0,1,,,,,,,,,,,
+spell,2,Defend,Take half damage this turn if you get hit.,,,0,0,0,100,0,0,2,9,0,1,1
+spell,3,Shoot,Attack one or more monsters that are out of melee range.,,,0,0,20,100,0,0,3,1,0,1,1
+effect,39,2,0,0,1,,,,,,,,,,,
+spell,4,Hide,Meld into the shadows to prepare for backstabbing.,,,0,0,0,100,0,0,5,9,0,1,0
+effect,36,13,1,1,0,,,,,,,,,,,
+spell,5,Backstab,Leap from the shadows and kill one or more monsters in a group.,,,0,0,0,10,13,1,1,1,100,1,0
+effect,38,1,0,0,1,,,,,,,,,,,
+spell,6,Identify Monster,Get some information about a monster.,,,0,0,0,100,0,0,4,8,0,11,0
+effect,37,3,0,0,0,,,,,,,,,,,
+spell,7,Mesmerize,Make  group of monsters unable to act.,,,100,1,0,100,0,0,4,3,0,9,0
+effect,36,4,1,2,4,,,,,,,,,,,
+spell,8,Heal Wounds,Heal the wounds of a party member.,,,20,1,0,100,0,0,4,2,0,1,0
+effect,34,0,1,9,7,,,,,,,,,,,
+spell,9,Heal Party,Heal the wounds of all party members.,,,50,1,0,100,0,0,4,5,0,9,0
+effect,34,0,1,3,7,,,,,,,,,,,
+spell,10,Minor Cure,Cure a single party member Tier 1,,,30,0,0,100,0,0,4,2,0,1,0
+effect,36,1,-1,-1,7,,,,,,,,,,,
+effect,36,2,-1,-1,7,,,,,,,,,,,
+spell,11,Lesser Cure,Cure a single party member Tier 2,,,30,0,0,100,0,10,4,2,0,5,0
+effect,36,1,-1,-1,7,,,,,,,,,,,
+effect,36,2,-1,-1,7,,,,,,,,,,,
+effect,36,3,-1,-1,7,,,,,,,,,,,
+effect,36,4,-1,-1,7,,,,,,,,,,,
+spell,12,Cure,Cure a single party member Tier 3,,,30,0,0,100,0,11,4,2,0,9,0
+effect,36,1,-1,-1,7,,,,,,,,,,,
+effect,36,2,-1,-1,7,,,,,,,,,,,
+effect,36,3,-1,-1,7,,,,,,,,,,,
+effect,36,4,-1,-1,7,,,,,,,,,,,
+effect,36,5,-1,-1,7,,,,,,,,,,,
+effect,36,6,-1,-1,7,,,,,,,,,,,
+effect,36,7,-1,-1,7,,,,,,,,,,,
+spell,13,Greater Cure,Cure a single party member Tier 4,,,30,0,0,100,0,12,4,2,0,13,0
+effect,36,1,-1,-1,7,,,,,,,,,,,
+effect,36,2,-1,-1,7,,,,,,,,,,,
+effect,36,3,-1,-1,7,,,,,,,,,,,
+effect,36,4,-1,-1,7,,,,,,,,,,,
+effect,36,5,-1,-1,7,,,,,,,,,,,
+effect,36,6,-1,-1,7,,,,,,,,,,,
+effect,36,7,-1,-1,7,,,,,,,,,,,
+effect,36,8,-1,-1,7,,,,,,,,,,,
+effect,36,9,-1,-1,7,,,,,,,,,,,
+effect,36,10,-1,-1,7,,,,,,,,,,,
+spell,14,Full Cure,Cure a single party member Tier 5,,,30,0,0,100,0,13,4,2,0,17,0
+effect,36,1,-1,-1,7,,,,,,,,,,,
+effect,36,2,-1,-1,7,,,,,,,,,,,
+effect,36,3,-1,-1,7,,,,,,,,,,,
+effect,36,4,-1,-1,7,,,,,,,,,,,
+effect,36,5,-1,-1,7,,,,,,,,,,,
+effect,36,6,-1,-1,7,,,,,,,,,,,
+effect,36,7,-1,-1,7,,,,,,,,,,,
+effect,36,8,-1,-1,7,,,,,,,,,,,
+effect,36,9,-1,-1,7,,,,,,,,,,,
+effect,36,10,-1,-1,7,,,,,,,,,,,
+effect,36,11,-1,-1,7,,,,,,,,,,,
+effect,36,12,-1,-1,7,,,,,,,,,,,
+effect,36,13,-1,-1,7,,,,,,,,,,,
+spell,15,Holy Beam,Hit one or more monsters with holy damage.,,,10,1,0,100,0,0,4,1,0,1,0
+effect,33,3,1,9,7,,,,,,,,,,,
+spell,16,Holy Nova,Hit all monsters in a group with holy damage.,,,30,1,0,100,0,0,4,3,0,14,0
+effect,33,3,1,2,7,,,,,,,,,,,
+spell,17,Town Portal,Teleport to a town on the overworld map.,,,100,0,0,100,0,0,4,8,0,11,0
+effect,37,1,0,0,9,,,,,,,,,,,
+spell,18,Phase Wall,Pass through a wall in front of you if the square behind it exists.,,,100,0,0,100,0,0,4,8,0,11,0
+effect,37,2,0,0,9,,,,,,,,,,,
+spell,19,Identify Item,Find out the stats an item has.,,,50,0,0,100,0,0,4,8,0,3,0
+effect,37,4,0,0,9,,,,,,,,,,,
+spell,20,Blink,Jump forward 1-9 squares if you are not impeded by anything.,,,50,0,0,100,0,0,4,8,0,5,0
+effect,37,5,0,0,9,,,,,,,,,,,
+spell,21,Teleport,Move to a different location in the current map.,,,100,0,0,100,0,0,4,8,0,8,0
+effect,37,6,0,0,9,,,,,,,,,,,
+spell,23,Silence,Prevent a group from casting spells.,,,200,0,0,100,0,0,4,3,0,13,0
+effect,36,10,1,2,6,,,,,,,,,,,
+spell,24,Entangle,Prevent a group from use melee attacks.,,,100,1,0,100,0,0,4,3,0,5,0
+effect,36,11,2,3,8,,,,,,,,,,,
+spell,27,Fireball,Hit one or more monsters in a group with fire damage.,,,10,1,0,100,0,0,4,1,0,7,0
+effect,33,3,1,24,2,,,,,,,,,,,
+spell,28,Flamestrike,Hit all monsters in a group with fire damage.,,,20,1,0,100,0,0,4,3,0,14,0
+effect,33,3,1,6,2,,,,,,,,,,,
+spell,29,Frostbolt,Hit one or more monsters in a group with cold damage.,,,10,0,0,100,0,0,4,1,0,1,0
+effect,33,3,1,18,3,,,,,,,,,,,
+spell,30,Cone of Cold,Hit all monsters in a group with cold damage.,,,20,0,0,100,0,0,4,3,0,5,0
+effect,33,3,1,3,3,,,,,,,,,,,
+spell,31,Lightning Bolt,Hit one or more monsters with electric damage.,,,10,0,0,100,0,0,4,1,0,3,0
+effect,33,3,1,12,4,,,,,,,,,,,
+spell,32,Chain Lightning,Hit all monsters in a group with electric damage.,,,20,0,0,100,0,0,4,3,0,11,0
+effect,33,3,1,4,4,,,,,,,,,,,
+spell,33,Weaken,Reduce the melee damage of a group of foes.,,,1,1,0,100,0,0,4,3,0,6,0
+effect,36,17,100,100,9,,,,,,,,,,,
+spell,36,Taunt,Take 1/4 damage and monsters attack you.,,,0,0,0,100,0,2,2,9,0,1,1
+spell,37,Whirlwind,Hit one or more monsters in all groups within melee range.,,,0,0,0,10,0,1,1,10,0,1,0
+effect,38,1,0,0,1,,,,,,,,,,,
+spell,39,Volley,Hit one or more monsters in all groups with ranged damage.,,,0,0,20,100,0,3,3,10,0,1,0
+effect,39,2,0,0,1,,,,,,,,,,,
+spell,40,UNUSED,,,,50,0,0,100,0,12,4,5,0,18,0
+spell,41,Call Beast,Summon a beast.,,,50,0,0,100,0,0,4,9,0,1,0
+effect,4,4,1,1,8,,,,,,,,,,,
+spell,42,Conjure Golem,Summon a golem.,,,50,0,0,100,0,0,4,9,0,1,0
+effect,4,31,1,1,8,,,,,,,,,,,
+spell,43,Summon Elemental,Summon an elemental.,,,50,0,0,100,0,0,4,9,0,1,2
+effect,4,0,1,1,8,,,,,,,,,,,
+spell,44,UNUSED,,,,20,0,0,100,0,0,4,8,0,8,0
+effect,37,6,0,0,9,,,,,,,,,,,
+spell,45,Charm,Convince a monster to join your side.,,,20,1,0,100,0,0,4,3,0,9,0
+effect,36,4,1,2,4,,,,,,,,,,,
+spell,46,Pick Lock,Open a locked door or chest.,,,0,1,0,100,0,0,4,8,0,9,0
+effect,36,4,1,2,4,,,,,,,,,,,
+spell,47,Disarm Traps,Disarm any traps nearby.,,,0,1,0,100,0,0,4,8,0,9,0
+effect,37,4,1,2,4,,,,,,,,,,,
+spell,48,Charge,Passive buff to move the party forward more when advancing.,,,0,1,0,100,0,0,4,3,0,9,0
+effect,36,4,1,2,4,,,,,,,,,,,
+spell,49,Holy Storm,Hit all monsters with holy damage.,,,50,1,0,100,0,0,4,4,0,14,0
+effect,33,3,1,2,7,,,,,,,,,,,
+spell,50,Firestorm,Hit all monsters with fire damage.,,,50,1,0,100,0,0,4,4,0,14,0
+effect,33,3,1,6,2,,,,,,,,,,,
+spell,51,Lightning Storm,Hit all monsters with electric damage.,,,50,1,0,100,0,0,4,4,0,11,0
+effect,33,3,1,4,4,,,,,,,,,,,
+spell,52,Blizzard,Hit all monsters with cold damage.,,,40,1,0,100,0,0,4,4,0,5,0
+effect,33,3,1,3,3,,,,,,,,,,,
+spell,53,Minor Cure Party,Cure all party members Tier 1,,,90,0,0,100,0,0,4,5,0,5,0
+effect,36,1,-1,-1,7,,,,,,,,,,,
+effect,36,2,-1,-1,7,,,,,,,,,,,
+spell,54,Lesser Cure Party,Cure all party members Tier 2,,,90,0,0,100,0,53,4,5,0,9,0
+effect,36,1,-1,-1,7,,,,,,,,,,,
+effect,36,2,-1,-1,7,,,,,,,,,,,
+effect,36,3,-1,-1,7,,,,,,,,,,,
+effect,36,4,-1,-1,7,,,,,,,,,,,
+spell,55,Cure Party,Cure all party members Tier 3,,,90,0,0,100,0,54,4,5,0,13,0
+effect,36,1,-1,-1,7,,,,,,,,,,,
+effect,36,2,-1,-1,7,,,,,,,,,,,
+effect,36,3,-1,-1,7,,,,,,,,,,,
+effect,36,4,-1,-1,7,,,,,,,,,,,
+effect,36,5,-1,-1,7,,,,,,,,,,,
+effect,36,6,-1,-1,7,,,,,,,,,,,
+effect,36,7,-1,-1,7,,,,,,,,,,,
+spell,56,Greater Cure Party,Cure all party members Tier 4,,,90,0,0,100,0,55,4,5,0,17,0
+effect,36,1,-1,-1,7,,,,,,,,,,,
+effect,36,2,-1,-1,7,,,,,,,,,,,
+effect,36,3,-1,-1,7,,,,,,,,,,,
+effect,36,4,-1,-1,7,,,,,,,,,,,
+effect,36,5,-1,-1,7,,,,,,,,,,,
+effect,36,6,-1,-1,7,,,,,,,,,,,
+effect,36,7,-1,-1,7,,,,,,,,,,,
+effect,36,8,-1,-1,7,,,,,,,,,,,
+effect,36,9,-1,-1,7,,,,,,,,,,,
+effect,36,10,-1,-1,7,,,,,,,,,,,
+spell,57,Full Cure Party,Cure all party members Tier 5,,,90,0,0,100,0,56,4,5,0,21,0
+effect,36,1,-1,-1,7,,,,,,,,,,,
+effect,36,2,-1,-1,7,,,,,,,,,,,
+effect,36,3,-1,-1,7,,,,,,,,,,,
+effect,36,4,-1,-1,7,,,,,,,,,,,
+effect,36,5,-1,-1,7,,,,,,,,,,,
+effect,36,6,-1,-1,7,,,,,,,,,,,
+effect,36,7,-1,-1,7,,,,,,,,,,,
+effect,36,8,-1,-1,7,,,,,,,,,,,
+effect,36,9,-1,-1,7,,,,,,,,,,,
+effect,36,10,-1,-1,7,,,,,,,,,,,
+effect,36,11,-1,-1,7,,,,,,,,,,,
+effect,36,12,-1,-1,7,,,,,,,,,,,
+effect,36,13,-1,-1,7,,,,,,,,,,,
+spell,58,Set Beacon,Set a teleport location (per player),,,50,0,0,100,0,0,4,8,0,8,0
+effect,37,9,0,0,9,,,,,,,,,,,
+spell,59,Return to Beacon,Return to the player's teleport location.,,,50,0,0,100,0,0,4,8,0,8,0
+effect,37,10,0,0,9,,,,,,,,,,,
+spell,60,Sense Area,Determine if any traps or interesting things are nearby.,,,2,0,0,100,0,0,4,8,0,8,0
+effect,37,8,0,0,9,,,,,,,,,,,

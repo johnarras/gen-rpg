@@ -14,7 +14,6 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
-using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
@@ -23,6 +22,7 @@ using System.IO;
 using System.Linq;
 using Genrpg.Editor.UI;
 using Genrpg.Shared.MapMessages;
+using Microsoft.UI.Xaml;
 
 namespace Genrpg.Editor.Utils
 {
@@ -98,14 +98,16 @@ namespace Genrpg.Editor.Utils
 
         public static void InitMessages()
         {
-            MapMessageInit.InitMapMessages(Application.ExecutablePath);
+            MapMessageInit.InitMapMessages(GetCodeFolderPath());
         }
 
-        const string GitOffsetPath = "..\\..\\..\\..\\..\\..\\..\\..\\..\\GameData";
+        static string GetCodeFolderPath() { return AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\..\\..\\..\\";  }
+
+        const string GitOffsetPath = "..\\GameData";
         public static void WriteGameDataToDisk(FullGameDataCopy dataCopy)
         {
 
-            string dirName = Application.ExecutablePath;
+            string dirName = GetCodeFolderPath();
 
             dirName += GitOffsetPath;
 
@@ -204,7 +206,7 @@ namespace Genrpg.Editor.Utils
 
             List<Type> settingsTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettings));
 
-            string mainDirName = Application.ExecutablePath;
+            string mainDirName = GetCodeFolderPath() + GitOffsetPath;
 
             mainDirName += GitOffsetPath;
 

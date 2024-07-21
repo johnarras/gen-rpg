@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Genrpg.Shared.Login.Messages.Login;
-using Genrpg.Shared.Login.Messages.UploadMap;
+using Genrpg.Shared.Website.Messages.Login;
+using Genrpg.Shared.Website.Messages.UploadMap;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using System;
@@ -19,10 +19,11 @@ namespace Assets.Scripts.Login.MessageHandlers
     public class LoginResultHandler : BaseClientLoginResultHandler<LoginResult>
     {
         private IScreenService _screenService;
-        private IClientLoginService _loginService;
+        private IClientAuthService _loginService;
         private IAssetService _assetService;
-        private IWebNetworkService _webNetworkService;
+        private IClientWebService _webNetworkService;
         private IClientGameDataService _gameDataService;
+        private IClientGameDataService _clientGameDataService;
         protected override void InnerProcess(LoginResult result, CancellationToken token)
         {
             AwaitableUtils.ForgetAwaitable(InnerProcessAsync(result, token));
@@ -60,7 +61,6 @@ namespace Assets.Scripts.Login.MessageHandlers
             }
 
             List<ITopLevelSettings> loadedSettings = _gameData.AllSettings();
-
             _gameData.AddData(result.GameData);
 
             if (_gs.user != null && !String.IsNullOrEmpty(_gs.user.Id))
@@ -73,8 +73,14 @@ namespace Assets.Scripts.Login.MessageHandlers
 
             _screenService.CloseAll();
             _screenService.Close(ScreenId.HUD);
-            _screenService.Open(ScreenId.CharacterSelect);
-
+            if (_gs.CrawlerMode)
+            {
+                _screenService.Open(ScreenId.Crawler);
+            }
+            else
+            {
+                _screenService.Open(ScreenId.CharacterSelect);
+            }
         }
 
         public async Awaitable RetryUploadMap(CancellationToken token)

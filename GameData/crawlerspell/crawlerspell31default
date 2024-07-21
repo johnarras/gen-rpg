@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 31,
   "Name": "Lightning Bolt",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Hit one or more monsters with electric damage.",
   "PowerCost": 10,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -20,6 +18,6 @@
       "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2024-07-04T18:52:36.657Z",
+  "UpdateTime": "2024-07-14T19:15:39.202Z",
   "CreateTime": "2024-01-28T15:21:51Z"
 }

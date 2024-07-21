@@ -1,0 +1,9 @@
+{
+  "Id": "riddle40default",
+  "ParentId": "default",
+  "IdKey": 40,
+  "Name": "Spell",
+  "Desc": "A word or phrase with power vast,\r\nWhen spoken true, it's spells are cast.\r\nWith magic force it does compel,\r\nThe world to change with just a spell.\r\n",
+  "UpdateTime": "2024-07-21T16:07:52.179Z",
+  "CreateTime": "2024-07-21T16:07:52.179Z"
+}

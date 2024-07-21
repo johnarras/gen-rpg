@@ -1,0 +1,85 @@
+{
+  "Data": [
+    {
+      "Id": "achievementtype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Total Damage",
+      "UpdateTime": "2024-06-29T14:10:30.226Z",
+      "CreateTime": "2023-11-24T16:45:13.884Z"
+    },
+    {
+      "Id": "achievementtype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Max Damage",
+      "Category": 1,
+      "UpdateTime": "2024-06-29T14:10:30.23Z",
+      "CreateTime": "2023-11-24T16:45:14.031Z"
+    },
+    {
+      "Id": "achievementtype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Total Healing",
+      "UpdateTime": "2024-06-29T14:10:30.233Z",
+      "CreateTime": "2023-11-24T16:45:14.141Z"
+    },
+    {
+      "Id": "achievementtype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Max Healing",
+      "Category": 1,
+      "UpdateTime": "2024-06-29T14:10:30.235Z",
+      "CreateTime": "2023-11-24T16:45:14.27Z"
+    },
+    {
+      "Id": "achievementtype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Money Looted",
+      "UpdateTime": "2024-06-29T14:10:30.238Z",
+      "CreateTime": "2023-11-24T16:45:14.413Z"
+    },
+    {
+      "Id": "achievementtype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Items Looted",
+      "UpdateTime": "2024-06-29T14:10:30.241Z",
+      "CreateTime": "2023-11-24T16:45:14.529Z"
+    },
+    {
+      "Id": "achievementtype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Vendor Money",
+      "UpdateTime": "2024-06-29T14:10:30.244Z",
+      "CreateTime": "2023-11-24T16:45:14.639Z"
+    },
+    {
+      "Id": "achievementtype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Items Sold",
+      "UpdateTime": "2024-06-29T14:10:30.247Z",
+      "CreateTime": "2023-11-24T16:45:14.763Z"
+    },
+    {
+      "Id": "achievementtype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Items Bought",
+      "UpdateTime": "2024-06-29T14:10:30.25Z",
+      "CreateTime": "2023-11-24T16:45:14.88Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "AchievementSettings",
+    "UpdateTime": "2024-07-04T23:03:06.047Z",
+    "CreateTime": "2023-11-24T16:45:13.655Z"
+  },
+  "Id": "default"
+}

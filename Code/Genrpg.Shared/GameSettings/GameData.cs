@@ -7,6 +7,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.GameSettings.PlayerData;
 
 namespace Genrpg.Shared.GameSettings
 {
@@ -20,7 +21,7 @@ namespace Genrpg.Shared.GameSettings
         T Get<T>(IFilteredObject obj) where T : IGameSettings;
         void Set<T>(T t) where T : ITopLevelSettings;
         void AddData(List<ITopLevelSettings> settingsList);
-        string DataObjectName(string typeName, IFilteredObject obj);
+        string SettingObjectName(string typeName, IFilteredObject obj);
         void CopyFrom(IGameData data);
     }
 
@@ -81,7 +82,7 @@ namespace Genrpg.Shared.GameSettings
         {
             SetupDataDict(false);
 
-            string dataName = DataObjectName(typeof(T).Name, obj);
+            string dataName = SettingObjectName(typeof(T).Name, obj);
 
             if (_dataDict.TryGetValue(typeof(T), out Dictionary<string, IGameSettings> typeDict))
             {
@@ -126,10 +127,14 @@ namespace Genrpg.Shared.GameSettings
             SetupDataDict(true);
         }
 
-        public string DataObjectName(string typeName, IFilteredObject obj)
+        public string SettingObjectName(string settingName, IFilteredObject obj)
         {
-            return obj?.GetName(typeName) ?? GameDataConstants.DefaultFilename;
-            
+            if (obj == null || obj.DataOverrides == null || obj.DataOverrides.Items == null)
+            {
+                return GameDataConstants.DefaultFilename;
+            }
+            PlayerSettingsOverrideItem item = obj.DataOverrides.Items.FirstOrDefault(x => x.SettingId == settingName);
+            return item?.DocId ?? GameDataConstants.DefaultFilename;
         }
     }
 }

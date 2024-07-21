@@ -1,0 +1,51 @@
+{
+  "Data": [
+    {
+      "Id": "cluttertype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Barrel",
+      "Art": "Barrel",
+      "NumChoices": 2,
+      "UpdateTime": "2024-06-29T14:10:30.532Z",
+      "CreateTime": "2023-11-24T16:45:16.97Z"
+    },
+    {
+      "Id": "cluttertype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Bucket",
+      "Art": "Bucket",
+      "NumChoices": 1,
+      "UpdateTime": "2024-06-29T14:10:30.542Z",
+      "CreateTime": "2023-11-24T16:45:17.1Z"
+    },
+    {
+      "Id": "cluttertype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Crate",
+      "Art": "Crate",
+      "NumChoices": 3,
+      "UpdateTime": "2024-06-29T14:10:30.555Z",
+      "CreateTime": "2023-11-24T16:45:17.23Z"
+    },
+    {
+      "Id": "cluttertype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Pottery",
+      "Art": "Pottery",
+      "NumChoices": 37,
+      "UpdateTime": "2024-06-29T14:10:30.557Z",
+      "CreateTime": "2023-11-24T16:45:17.341Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "ClutterTypeSettings",
+    "UpdateTime": "2024-07-04T23:03:06.087Z",
+    "CreateTime": "2023-11-24T16:45:17.46Z"
+  },
+  "Id": "default"
+}

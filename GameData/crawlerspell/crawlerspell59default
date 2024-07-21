@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 59,
   "Name": "Return to Beacon",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Return to the player's teleport location.",
   "PowerCost": 50,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -15,10 +13,9 @@
     {
       "EntityTypeId": 37,
       "EntityId": 10,
-      "ElementTypeId": 9,
-      "Name": ""
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-07-04T19:02:08.358Z",
+  "UpdateTime": "2024-07-14T19:15:39.234Z",
   "CreateTime": "2024-01-28T11:48:08Z"
 }

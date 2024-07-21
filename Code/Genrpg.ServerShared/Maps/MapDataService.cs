@@ -29,13 +29,13 @@ namespace Genrpg.ServerShared.Maps
         protected ILogService _logService = null;
         public async Task Initialize( CancellationToken token)
         {
-            List<IndexConfig> configs = new List<IndexConfig>();
-            configs.Add(new IndexConfig() { MemberName = nameof(QuestType.OwnerId) });
-            configs.Add(new IndexConfig() { MemberName =  nameof(QuestType.MapId) });
+            CreateIndexData data = new CreateIndexData();
+            data.Configs.Add(new IndexConfig() { MemberName = nameof(QuestType.OwnerId) });
+            data.Configs.Add(new IndexConfig() { MemberName =  nameof(QuestType.MapId) });
             List<Task> allTasks = new List<Task>();
-            allTasks.Add(_repoService.CreateIndex<QuestType>(configs));
-            allTasks.Add(_repoService.CreateIndex<QuestItem>(configs));
-            allTasks.Add(_repoService.CreateIndex<Zone>(configs));
+            allTasks.Add(_repoService.CreateIndex<QuestType>(data));
+            allTasks.Add(_repoService.CreateIndex<QuestItem>(data));
+            allTasks.Add(_repoService.CreateIndex<Zone>(data));
             await Task.CompletedTask;
         }
 

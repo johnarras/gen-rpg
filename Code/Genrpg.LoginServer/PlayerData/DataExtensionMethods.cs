@@ -6,7 +6,6 @@ using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Units.Loaders;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.Threading.Tasks;
 
 namespace Genrpg.LoginServer.PlayerData

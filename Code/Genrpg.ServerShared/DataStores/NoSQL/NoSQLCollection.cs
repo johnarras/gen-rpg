@@ -5,23 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
-using System.Runtime.InteropServices;
 using MongoDB.Driver;
-using System.Reflection.Metadata;
-using Genrpg.Shared.Utils;
 using System.Reflection;
 using Genrpg.Shared.DataStores.Indexes;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using MongoDB.Driver.Core.Clusters;
-using MongoDB.Bson.IO;
-using System.Reflection.Metadata.Ecma335;
-using Genrpg.Shared.Inventory.PlayerData;
-using Amazon.Runtime.Internal.Util;
-using AutoMapper.Execution;
-using System.Security.Cryptography;
 using Genrpg.Shared.Logging.Interfaces;
 
 namespace Genrpg.ServerShared.DataStores.NoSQL
@@ -37,9 +25,10 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         Task<bool> DeleteAll(object func);
         Task<bool> UpdateDict(string id, Dictionary<string, object> fieldNameUpdates);
         Task<bool> UpdateAction(string id, object action);
-        Task CreateIndex(List<IndexConfig> configs);
+        Task CreateIndex(CreateIndexData options);
         Task<List<object>> Search(object func, int quantity = 1000, int skip = 0);
         Task<bool> SaveAll(object itemList);
+        Task<object> AtomicIncrement(string docId, string fieldName, long increment);
     }
 
 
@@ -215,9 +204,9 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         }
 
         private static ConcurrentDictionary<string, List<IndexConfig>> _configs = new ConcurrentDictionary<string, List<IndexConfig>>();
-        public async Task CreateIndex(List<IndexConfig> configs)
+        public async Task CreateIndex(CreateIndexData data)
         {
-            List<IndexConfig> orderedConfigs = configs.OrderBy(x => x.MemberName).ToList();
+            List<IndexConfig> orderedConfigs = data.Configs.OrderBy(x => x.MemberName).ToList();
 
             string totalIndex = "";
             foreach (IndexConfig config in orderedConfigs)
@@ -230,32 +219,32 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                 return;
             }
 
-            CreateIndexOptions<T> options = new CreateIndexOptions<T>();
-
             Type thisType = typeof(T);
             IndexKeysDefinitionBuilder<T> builder = new IndexKeysDefinitionBuilder<T>();
-            List<IndexKeysDefinition<T>> indexes = new List<IndexKeysDefinition<T>>();
-            foreach (IndexConfig config in configs)
+            foreach (IndexConfig config in data.Configs)
             {
+                CreateIndexOptions<T> options = new CreateIndexOptions<T>()
+                {
+                    Unique = config.Unique,
+                };
+
                 MemberInfo mem = thisType.GetMembers().FirstOrDefault(x => x.Name == config.MemberName);
                 if (mem == null)
                 {
                     continue;
                 }
                 StringFieldDefinition<T> fieldDef = new StringFieldDefinition<T>(config.MemberName);
+              
 
-                indexes.Add(config.Ascending ? builder.Ascending(fieldDef)
-                    : builder.Descending(fieldDef));
+                IndexKeysDefinition<T> indexKeys = (config.Ascending ?
+                    new IndexKeysDefinitionBuilder<T>().Ascending(fieldDef) :
+                    new IndexKeysDefinitionBuilder<T>().Descending(fieldDef));
+
+                CreateIndexModel<T> indexModel = new CreateIndexModel<T>(indexKeys, options);
+
+                await _collection.Indexes.CreateOneAsync(indexModel);
             }
 
-            CreateIndexModel<T> indexModel = new CreateIndexModel<T>(builder.Combine(indexes),
-                new CreateIndexOptions()
-                {
-                    Sparse = true,
-                    Unique = false,
-                });
-
-            await _collection.Indexes.CreateOneAsync(indexModel);
         }
 
         public async Task<bool> SaveAll(object listObj)
@@ -371,6 +360,31 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 
             }
             return false;
+        }
+
+        /// <summary>
+        /// This exists to let us do atomic increments. It's very low level so not exposed in the general IRepositoryService
+        /// and requires a few steps to get to it.
+        /// </summary>
+        /// <param name="docId"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public async Task<object> AtomicIncrement(string docId, string fieldName, long value)
+        {
+
+            FilterDefinition<T> filter = Builders<T>.Filter.Eq(doc => doc.Id, docId);
+
+            UpdateDefinition<T> update = Builders<T>.Update.Inc(fieldName, value);
+
+            FindOneAndUpdateOptions<T> options = new FindOneAndUpdateOptions<T>() 
+            { 
+                ReturnDocument = ReturnDocument.After,
+                BypassDocumentValidation = true,
+            };
+
+            return await _collection.FindOneAndUpdateAsync(filter, update,options);
+
         }
     }
 }

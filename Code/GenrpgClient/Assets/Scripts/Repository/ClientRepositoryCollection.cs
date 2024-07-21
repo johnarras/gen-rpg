@@ -49,7 +49,6 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
 
     public async Awaitable<T> Load(String id)
     {
-        
         try
         {
             await Task.CompletedTask;

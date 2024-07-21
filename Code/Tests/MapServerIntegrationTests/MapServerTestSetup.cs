@@ -1,16 +1,5 @@
 ﻿using Genrpg.MapServer.MainServer;
-using Genrpg.ServerShared.Config;
-using Genrpg.ServerShared.Core;
-using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Utils;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tests.MapServerTests
 {

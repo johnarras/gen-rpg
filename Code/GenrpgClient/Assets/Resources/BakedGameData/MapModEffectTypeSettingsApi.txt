@@ -1,0 +1,10 @@
+{
+  "Data": [],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "MapModEffectTypeSettings",
+    "UpdateTime": "2024-07-04T23:03:06.212Z",
+    "CreateTime": "2023-12-28T20:03:30.178Z"
+  },
+  "Id": "default"
+}

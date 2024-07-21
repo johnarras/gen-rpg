@@ -3,9 +3,6 @@
   "ParentId": "default",
   "IdKey": 44,
   "Name": "UNUSED",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
   "PowerCost": 20,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -18,6 +15,6 @@
       "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-07-04T19:49:48.79Z",
+  "UpdateTime": "2024-07-14T19:15:39.215Z",
   "CreateTime": "2024-01-28T05:48:08Z"
 }

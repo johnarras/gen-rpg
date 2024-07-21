@@ -1,0 +1,21 @@
+{
+  "Data": [
+    {
+      "Id": "dataoverridegroup0default",
+      "ParentId": "default",
+      "Name": "None",
+      "Enabled": true,
+      "Items": [],
+      "AllowedPlayers": [],
+      "UpdateTime": "2024-06-29T14:10:31.62Z",
+      "CreateTime": "2024-04-27T09:50:32Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "DataOverrideSettings",
+    "UpdateTime": "2024-07-04T23:03:06.134Z",
+    "CreateTime": "2023-11-23T07:57:19Z"
+  },
+  "Id": "default"
+}

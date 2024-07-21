@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 53,
   "Name": "Minor Cure Party",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Cure all party members Tier 1",
   "PowerCost": 90,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -27,6 +25,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:31.176Z",
+  "UpdateTime": "2024-07-14T19:15:39.226Z",
   "CreateTime": "2024-01-28T21:17:33Z"
 }

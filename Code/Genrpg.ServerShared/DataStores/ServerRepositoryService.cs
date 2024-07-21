@@ -4,31 +4,31 @@ using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Genrpg.ServerShared.DataStores.NoSQL;
 using Genrpg.ServerShared.DataStores.Blobs;
 using System.Threading;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Genrpg.ServerShared.DataStores.DbQueues;
 using Genrpg.ServerShared.DataStores.DbQueues.Actions;
 using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Setup.Constants;
 
 namespace Genrpg.ServerShared.DataStores
 {
+    public interface IServerRepositoryService : IRepositoryService
+    {
+        Task<T> AtomicIncrement<T>(string docId, string fieldName, long increment) where T : class, IStringId;
+    }
+
     // The original goal of this was to have an outer repository factory that could have different inner ones
     // for different platforms, which is why there's so much indirection here. Currently, it's just the
     // AzureRepositoryfactory, although the first implementation of all of this used AWS.
 
-    public class ServerRepositoryService : IRepositoryService
+    public class ServerRepositoryService : IServerRepositoryService
     {
 
         public async Task Initialize(CancellationToken toke)
@@ -227,10 +227,10 @@ namespace Genrpg.ServerShared.DataStores
             return await repo.Search<T>(func, quantity, skip);
         }
 
-        public async Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId
+        public async Task CreateIndex<T>(CreateIndexData data) where T : class, IStringId
         {
             IRepository repo = FindRepo(typeof(T));
-            await repo.CreateIndex<T>(configs);
+            await repo.CreateIndex<T>(data);
             return;
         }
 
@@ -261,5 +261,12 @@ namespace Genrpg.ServerShared.DataStores
             _queues[StrUtils.GetIdHash(docId) % QueueCount].Enqueue(updateAction);
         }
 
+        public async Task<T> AtomicIncrement<T>(string docId, string fieldName, long increment) where T : class, IStringId
+        {
+            IServerRepository repo = FindRepo(typeof(T)) as IServerRepository;
+
+            return await repo.AtomicIncrement<T>(docId, fieldName, increment);
+
+        }
     }
 }

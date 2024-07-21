@@ -11,7 +11,6 @@ using UnityEngine;
 public class LoadPathfinding : BaseZoneGenerator
 {
 
-    protected IPathfindingService _pathfindingService;
     public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
@@ -40,7 +39,7 @@ public class LoadPathfinding : BaseZoneGenerator
         }
         byte[] decompressedBytes = CompressionUtils.DecompressBytes(compressedBytes);
 
-        _mapProvider.SetPathfinding(_pathfindingService.ConvertBytesToGrid(decompressedBytes));
+        _pathfindingService.SetPathfinding(_pathfindingService.ConvertBytesToGrid(decompressedBytes));
 
     }
 }

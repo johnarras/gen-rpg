@@ -23,7 +23,7 @@ namespace Genrpg.Shared.UserCoins.PlayerData
     /// </summary>
 
     [MessagePackObject]
-    public class UserCoinData : OwnerIdObjectList<UserCoinStatus>
+    public class UserCoinData : OwnerIdObjectList<UserCoinStatus>, IUserData
     {
         [Key(0)] public override string Id { get; set; }
         public long GetQuantity(long userCoinTypeId)
@@ -53,7 +53,6 @@ namespace Genrpg.Shared.UserCoins.PlayerData
     [MessagePackObject]
     public class UserCoinDataLoader : OwnerIdDataLoader<UserCoinData, UserCoinStatus>
     {
-        protected override bool IsUserData() { return true; }
     }
     [MessagePackObject]
     public class UserCoinApi : OwnerApiList<UserCoinData, UserCoinStatus> { }

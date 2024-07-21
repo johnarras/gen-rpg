@@ -25,11 +25,11 @@ namespace Assets.Scripts.Crawler.StateHelpers.Errors
 
             party.Combat = null;
 
-            stateData.Actions.Add(new CrawlerStateAction("An error occurred. Returning you to the main map."));
+            stateData.Actions.Add(new CrawlerStateAction("An error occurred.\nReturning you to the main map."));
 
-            if (!string.IsNullOrEmpty(currentData.ErrorMessage))
+            if (currentData.ExtraData != null && !string.IsNullOrEmpty(currentData.ExtraData.ToString()))
             {
-                stateData.Actions.Add(new CrawlerStateAction("\n" + currentData.ErrorMessage + "\n"));
+                stateData.Actions.Add(new CrawlerStateAction(CrawlerUIUtils.HighlightText("\n" + currentData.ExtraData.ToString() + "\n", CrawlerUIUtils.ColorRed)));
             }
 
             stateData.Actions.Add(new CrawlerStateAction($"\n\nPress {CrawlerUIUtils.HighlightText("Space")} to continue...", KeyCode.Space, ECrawlerStates.ExploreWorld));

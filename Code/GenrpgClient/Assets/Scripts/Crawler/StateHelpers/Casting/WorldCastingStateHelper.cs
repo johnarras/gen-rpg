@@ -32,7 +32,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Casting
                 selectSpellAction.Action.Action == null ||
                 selectSpellAction.Action.Action.FinalTargets == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "World spell had bad data" };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "World spell had bad data" };
             }
 
             await _crawlerSpellService.CastSpell(_crawlerService.GetParty(), selectSpellAction.Action.Action);

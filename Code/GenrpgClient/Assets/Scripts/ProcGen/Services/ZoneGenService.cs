@@ -10,7 +10,7 @@ using Genrpg.Shared.Units.Entities;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
 using Assets.Scripts.Tokens;
-using Genrpg.Shared.Login.Messages.LoadIntoMap;
+using Genrpg.Shared.Website.Messages.LoadIntoMap;
 using Assets.Scripts.MapTerrain;
 using Genrpg.Shared.Units.Services;
 using Genrpg.Shared.Names.Services;

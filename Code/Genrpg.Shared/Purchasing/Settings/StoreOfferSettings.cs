@@ -6,6 +6,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Settings;
 using Genrpg.Shared.Purchasing.Settings;
+using Genrpg.Shared.Utils;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace Genrpg.Shared.Purchasing.Settings
         [Key(5)] public string Desc { get; set; }
         [Key(6)] public string Icon { get; set; }
         [Key(7)] public string Art { get; set; }
-        [Key(8)] public string OfferId { get; set; } = Guid.NewGuid().ToString();
+        [Key(8)] public string OfferId { get; set; } = HashUtils.NewGuid();
 
         [Key(9)] public long TotalModSize { get; set; }
         [Key(10)] public long MaxAcceptableModValue { get; set; }
@@ -76,7 +77,7 @@ namespace Genrpg.Shared.Purchasing.Settings
         [Key(31)] public List<AllowedPlayer> AllowedPlayers { get; set; } = new List<AllowedPlayer>();
         public void DeepCopyFrom(IComplexCopy from)
         {
-            OfferId = Guid.NewGuid().ToString();
+            OfferId = HashUtils.NewGuid();
         }
 
         public object GetDeepCopyData()

@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 32,
   "Name": "Chain Lightning",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Hit all monsters in a group with electric damage.",
   "PowerCost": 20,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -20,6 +18,6 @@
       "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2024-07-04T18:52:36.659Z",
+  "UpdateTime": "2024-07-14T19:15:39.203Z",
   "CreateTime": "2024-01-29T03:21:51Z"
 }

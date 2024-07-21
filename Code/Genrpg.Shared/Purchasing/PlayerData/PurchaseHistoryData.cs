@@ -5,22 +5,22 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.Units.Mappers;
+using Genrpg.Shared.DataStores.PlayerData;
 
 namespace Genrpg.Shared.Purchasing.PlayerData
 {
 
     public class PurchaseHistoryLoader : UnitDataLoader<PurchaseHistoryData>
     {
-        protected override bool IsUserData() { return true; }
     }
 
-    public class PurchaseHistoryMappe : UnitDataMapper<PurchaseHistoryData>
+    public class PurchaseHistoryMapper : UnitDataMapper<PurchaseHistoryData>
     {
         public override bool SendToClient() { return false; }
     }
 
     [MessagePackObject]
-    public class PurchaseHistoryData : NoChildPlayerData
+    public class PurchaseHistoryData : NoChildPlayerData, IUserData
     {
         public const int MaxRecentPurchasesCount = 10;
 

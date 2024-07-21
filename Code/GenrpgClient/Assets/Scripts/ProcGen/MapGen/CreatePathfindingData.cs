@@ -15,8 +15,6 @@ using UnityEngine;
 
 public class CreatePathfindingData : BaseZoneGenerator
 {
-
-    protected IPathfindingService _pathfindingService;
     public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);

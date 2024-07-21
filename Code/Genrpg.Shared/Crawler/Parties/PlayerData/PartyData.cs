@@ -26,7 +26,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
     /// </summary>
 
     [MessagePackObject]
-    public class PartyData : NoChildPlayerData
+    public class PartyData : NoChildPlayerData, IUserData
     {
         [Key(0)] public override string Id { get; set; }
 
@@ -139,10 +139,6 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
     [MessagePackObject]
     public class PartyDataLoader : UnitDataLoader<PartyData>
     {
-        protected override bool IsUserData()
-        {
-            return true;
-        }
     }
 
     [MessagePackObject]

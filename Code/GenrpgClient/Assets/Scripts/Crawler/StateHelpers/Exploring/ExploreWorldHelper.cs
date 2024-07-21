@@ -28,7 +28,6 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
     public class ExploreWorldHelper : BasePartyMemberSelectHelper
     {
         private ICrawlerMapService _crawlerMapService;
-        private IDispatcher _dispatcher;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.ExploreWorld; }
         public override bool IsTopLevelState() { return true; }

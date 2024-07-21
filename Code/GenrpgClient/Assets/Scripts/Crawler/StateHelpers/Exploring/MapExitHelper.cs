@@ -30,7 +30,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 
             if (detail == null || detail.EntityTypeId != EntityTypes.Map)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Missing map at this coordinate." };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Missing map at this coordinate." };
             }
 
             PartyData partyData = _crawlerService.GetParty();
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 
             if (map == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "No such map exists." };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "No such map exists." };
             }
 
             if (map.QuestItemsNeeded.Count > 0)

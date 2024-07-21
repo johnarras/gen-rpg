@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 50,
   "Name": "Firestorm",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Hit all monsters with fire damage.",
   "PowerCost": 50,
   "PowerPerLevel": 1,
   "MaxRange": 100,
@@ -21,6 +19,6 @@
       "ElementTypeId": 2
     }
   ],
-  "UpdateTime": "2024-07-04T18:52:36.643Z",
+  "UpdateTime": "2024-07-14T19:15:39.222Z",
   "CreateTime": "2024-01-28T15:21:51Z"
 }

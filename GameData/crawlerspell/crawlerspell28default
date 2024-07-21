@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 28,
   "Name": "Flamestrike",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Hit all monsters in a group with fire damage.",
   "PowerCost": 20,
   "PowerPerLevel": 1,
   "MaxRange": 100,
@@ -21,6 +19,6 @@
       "ElementTypeId": 2
     }
   ],
-  "UpdateTime": "2024-07-04T18:52:36.653Z",
+  "UpdateTime": "2024-07-14T19:15:39.198Z",
   "CreateTime": "2024-01-28T15:21:51Z"
 }

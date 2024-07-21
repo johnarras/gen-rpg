@@ -15,8 +15,5 @@ namespace Genrpg.Shared.MapServer.Services
         MapSpawnData GetSpawns();
         void SetSpawns(MapSpawnData mapSpawnData);
 
-        void SetPathfinding(bool[,] pathfinding);
-        bool[,] GetPathfinding();
-
     }
 }

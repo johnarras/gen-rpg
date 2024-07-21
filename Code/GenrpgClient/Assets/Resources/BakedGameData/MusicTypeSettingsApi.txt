@@ -1,0 +1,115 @@
+{
+  "Data": [
+    {
+      "Id": "musictype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Intro",
+      "Art": "IntroMusic",
+      "UpdateTime": "2024-06-29T14:10:33.872Z",
+      "CreateTime": "2023-11-24T16:45:55.026Z"
+    },
+    {
+      "Id": "musictype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Dungeon",
+      "Art": "DungeonMusic",
+      "UpdateTime": "2024-06-29T14:10:33.877Z",
+      "CreateTime": "2023-11-24T16:45:55.134Z"
+    },
+    {
+      "Id": "musictype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Field",
+      "Art": "FieldMusic",
+      "UpdateTime": "2024-06-29T14:10:33.882Z",
+      "CreateTime": "2023-11-24T16:45:55.244Z"
+    },
+    {
+      "Id": "musictype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Forest",
+      "Art": "ForestMusic",
+      "UpdateTime": "2024-06-29T14:10:33.885Z",
+      "CreateTime": "2023-11-24T16:45:55.353Z"
+    },
+    {
+      "Id": "musictype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Hills",
+      "Art": "HillsMusic",
+      "UpdateTime": "2024-06-29T14:10:33.888Z",
+      "CreateTime": "2023-11-24T16:45:55.464Z"
+    },
+    {
+      "Id": "musictype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Swamp",
+      "Art": "SwampMusic",
+      "UpdateTime": "2024-06-29T14:10:33.891Z",
+      "CreateTime": "2023-11-24T16:45:55.573Z"
+    },
+    {
+      "Id": "musictype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Dark Ambience",
+      "Art": "DarkAmbience",
+      "RandomizeSeconds": 10.0,
+      "UpdateTime": "2024-06-29T14:10:33.894Z",
+      "CreateTime": "2023-11-24T16:45:55.674Z"
+    },
+    {
+      "Id": "musictype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Default Ambience",
+      "Art": "DefaultAmbience",
+      "RandomizeSeconds": 10.0,
+      "UpdateTime": "2024-06-29T14:10:33.898Z",
+      "CreateTime": "2023-11-24T16:45:55.785Z"
+    },
+    {
+      "Id": "musictype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Dry Ambience",
+      "Art": "DryAmbience",
+      "RandomizeSeconds": 15.0,
+      "UpdateTime": "2024-06-29T14:10:33.901Z",
+      "CreateTime": "2023-11-24T16:45:55.895Z"
+    },
+    {
+      "Id": "musictype10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Dungeon Ambience",
+      "Art": "DungeonAmbience",
+      "RandomizeSeconds": 10.0,
+      "UpdateTime": "2024-06-29T14:10:33.86Z",
+      "CreateTime": "2023-11-24T16:45:54.81Z"
+    },
+    {
+      "Id": "musictype11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Wet Ambience",
+      "Art": "WetAmbience",
+      "RandomizeSeconds": 10.0,
+      "UpdateTime": "2024-06-29T14:10:33.869Z",
+      "CreateTime": "2023-11-24T16:45:54.917Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "MusicTypeSettings",
+    "UpdateTime": "2024-07-04T23:03:06.215Z",
+    "CreateTime": "2023-11-24T16:45:56.005Z"
+  },
+  "Id": "default"
+}

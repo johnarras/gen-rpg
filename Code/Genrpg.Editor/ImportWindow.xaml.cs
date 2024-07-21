@@ -18,6 +18,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Genrpg.Shared.Crawler.Spells.Settings;
+using System.Text;
+using System.Reflection;
+using Genrpg.Shared.Entities.Utils;
+using System.IO;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,7 +40,7 @@ namespace Genrpg.Editor
         private string _prefix;
 
         private IGameData _gameData;
-        private SetupDictionaryContainer<EImportTypes, ICsvImporter> _importers = new();
+        private SetupDictionaryContainer<EImportTypes, IDataImporter> _importers = new();
 
         private Canvas _canvas = new Canvas();
 
@@ -68,7 +73,16 @@ namespace Genrpg.Editor
             buttonCount++;
 
             string[] envWords = { "dev" };
-            string[] actionWords = "ImportCrawler ImportUnits ImportUnitSpawns ImportUnitKeywords".Split(' ');
+            string[] actionWords = 
+            {
+                "ImportClasses",
+                "ImportUnits",
+                "ImportUnitSpawns",
+                "ImportUnitKeywords",
+                "ImportSpells",
+                "ImportRiddles"
+            };
+
             int column = 0;
             for (int e = 0; e < envWords.Length; e++)
             {
@@ -146,9 +160,9 @@ namespace Genrpg.Editor
             String action = words[1];
 
             Action<EditorGameState>? afterAction = null;
-            if (action == "ImportCrawler")
+            if (action == "ImportClasses")
             {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.CrawlerSpells); };
+                afterAction = (gs) => { ImportData(gs, EImportTypes.CrawlerClasses); };
                 action = "Data";
             }
             if (action == "ImportUnits")
@@ -164,6 +178,16 @@ namespace Genrpg.Editor
             if (action == "ImportUnitKeywords")
             {
                 afterAction = (gs) => { ImportData(gs, EImportTypes.UnitKeywords); };
+                action = "Data";
+            }
+            if (action == "ImportSpells")
+            {
+                afterAction = (gs) => { ImportData(gs, EImportTypes.CrawlerSpells); };
+                action = "Data";
+            }
+            if (action == "ImportRiddles")
+            {
+                afterAction = (gs) => { ImportData(gs, EImportTypes.Riddles); };
                 action = "Data";
             }
 
@@ -283,7 +307,7 @@ namespace Genrpg.Editor
         {
             gs.loc.Resolve(_importers);
 
-            if (_importers.TryGetValue(importType, out ICsvImporter importer))
+            if (_importers.TryGetValue(importType, out IDataImporter importer))
             {
                 await importer.ImportData(this, gs);
             }

@@ -26,7 +26,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
             if (partyData.Combat == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Party is not in combat." };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Party is not in combat." };
             }
 
             bool didShowPortrait = false;

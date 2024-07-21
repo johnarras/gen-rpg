@@ -256,10 +256,6 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public void PlayMusic(IMusicRegion region)
     {
         return;
-        if (InitClient.ForceCrawler)
-        {
-            return;
-        }
         if (MusicChannels == null)
         {
             return;

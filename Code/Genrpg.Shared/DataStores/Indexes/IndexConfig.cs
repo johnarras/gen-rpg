@@ -12,5 +12,6 @@ namespace Genrpg.Shared.DataStores.Indexes
     {
         [Key(0)] public string MemberName { get; set; }
         [Key(1)] public bool Ascending { get; set; } = true;
+        [Key(2)] public bool Unique { get; set; }  = false;
     }
 }

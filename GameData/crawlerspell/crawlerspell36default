@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 36,
   "Name": "Taunt",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Take 1/4 damage and monsters attack you.",
   "MaxRange": 100,
   "ReplacesCrawlerSpellId": 2,
   "CombatActionId": 2,
@@ -13,6 +11,6 @@
   "Level": 1,
   "Effects": [],
   "Flags": 1,
-  "UpdateTime": "2024-06-29T14:10:31.064Z",
+  "UpdateTime": "2024-07-14T19:15:39.206Z",
   "CreateTime": "2024-01-28T14:46:43Z"
 }

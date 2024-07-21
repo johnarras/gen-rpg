@@ -1,0 +1,19 @@
+{
+  "Data": [
+    {
+      "Id": "charmuse1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Character Use",
+      "UpdateTime": "2024-06-29T14:10:30.412Z",
+      "CreateTime": "2023-12-18T14:16:23.606Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "CharmUseSettings",
+    "UpdateTime": "2024-07-04T23:03:06.072Z",
+    "CreateTime": "2023-12-18T20:16:23Z"
+  },
+  "Id": "default"
+}

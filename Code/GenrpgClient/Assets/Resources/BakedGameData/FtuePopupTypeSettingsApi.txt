@@ -1,0 +1,34 @@
+{
+  "Data": [
+    {
+      "Id": "ftuepopuptype0default",
+      "ParentId": "default",
+      "Name": "TintedWindow",
+      "UpdateTime": "2024-06-29T14:10:32.275Z",
+      "CreateTime": "2024-01-13T19:27:36.456Z"
+    },
+    {
+      "Id": "ftuepopuptype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "NoTintWindow",
+      "UpdateTime": "2024-06-29T14:10:32.278Z",
+      "CreateTime": "2024-01-13T19:27:36.462Z"
+    },
+    {
+      "Id": "ftuepopuptype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "NoWindow",
+      "UpdateTime": "2024-06-29T14:10:32.28Z",
+      "CreateTime": "2024-01-13T19:27:36.465Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "FtuePopupTypeSettings",
+    "UpdateTime": "2024-07-04T23:03:06.176Z",
+    "CreateTime": "2024-01-14T01:27:36Z"
+  },
+  "Id": "default"
+}

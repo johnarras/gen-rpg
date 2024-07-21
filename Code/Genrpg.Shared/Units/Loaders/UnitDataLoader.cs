@@ -16,7 +16,7 @@ namespace Genrpg.Shared.Units.Loaders
         protected IRepositoryService _repoService;
 
         public virtual Type GetServerType() { return typeof(TServer); }
-        protected virtual bool IsUserData() { return false; }
+        protected bool IsUserData() { return typeof(IUserData).IsAssignableFrom(typeof(TServer)); } 
         public virtual async Task Initialize( CancellationToken token) { await Task.CompletedTask; }
 
         public IUnitData Create(Unit unit)

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Atlas.Constants;
 using Assets.Scripts.Crawler.Constants;
 using Assets.Scripts.Crawler.CrawlerStates;
+using Assets.Scripts.UI.Core;
 using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System;
@@ -12,6 +13,14 @@ using System.Threading.Tasks;
 using Unity.Profiling.LowLevel;
 using UnityEngine;
 
+
+public class CrawlerInputData
+{
+    public string InputLabel;
+    public Action<string> ValidateTextAction;
+    public LabeledInputField InputField;
+}
+
 public class CrawlerStateData
 {
     public CrawlerStateData(ECrawlerStates state, bool forceNextState = false)
@@ -20,9 +29,8 @@ public class CrawlerStateData
         ForceNextState = forceNextState;
     }
 
-    public string InputLabel { get; set; }
+    public List<CrawlerInputData> Inputs { get; set; } = new List<CrawlerInputData>();
     public object ExtraData { get; set; }
-    public Action<string> ValidateText { get; set; }
     public string InputPlaceholderText { get; set; }
     public ECrawlerStates Id { get; private set; }
     public PartyMember Member { get; set; } 
@@ -30,28 +38,28 @@ public class CrawlerStateData
     public List<String> LoreText = new List<string>();
     public string WorldSpriteName = CrawlerClientConstants.WorldImage;
     public bool ForceNextState { get; set; } = false;
-    public string ErrorMessage { get; set; }
     public bool DoNotTransitionToThisState { get; set; }
-
-    public GInputField InputField;
 
     public bool HasInput()
     {
-        return !string.IsNullOrEmpty(InputLabel) && ValidateText != null;
+        return Inputs.Count > 0;
     }
 
 
     public bool ShouldCheckInput()
     {
-        return HasInput() && InputField != null;
+        return HasInput();
     }
 
     public bool CheckInput()
     {
         if (ShouldCheckInput())
         {
-            ValidateText(InputField.text);
-            return true;
+
+            foreach (CrawlerInputData input in Inputs)
+            {
+                input.ValidateTextAction(input.InputField.Input.Text);
+            }
         }
         return false;
     }
@@ -60,8 +68,7 @@ public class CrawlerStateData
     {
         if (!string.IsNullOrEmpty(prompt) && validationHandler != null)
         {
-            InputLabel = prompt;
-            ValidateText = validationHandler;
+            Inputs.Add(new CrawlerInputData() { InputLabel = prompt, ValidateTextAction = validationHandler });
         }
     }
 }

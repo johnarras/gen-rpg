@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 21,
   "Name": "Teleport",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Move to a different location in the current map.",
   "PowerCost": 100,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -15,10 +13,9 @@
     {
       "EntityTypeId": 37,
       "EntityId": 6,
-      "ElementTypeId": 9,
-      "Name": ""
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-07-04T19:05:42.878Z",
+  "UpdateTime": "2024-07-14T19:15:39.193Z",
   "CreateTime": "2024-01-28T11:48:08Z"
 }

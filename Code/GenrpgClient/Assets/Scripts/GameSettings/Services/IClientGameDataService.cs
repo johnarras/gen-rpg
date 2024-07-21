@@ -14,5 +14,6 @@ namespace Assets.Scripts.GameSettings.Services
         Awaitable SaveSettings(IGameSettings settings);
 
         Awaitable LoadCachedSettings(IUnityGameState gs);
+
     }
 }

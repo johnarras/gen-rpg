@@ -88,9 +88,12 @@ public class MonsterController : UnitController
             return;
         }
 
-        if ((DateTime.UtcNow - LastPosUpdate).TotalSeconds > 10)
+        if ((DateTime.UtcNow - LastPosUpdate).TotalSeconds > 2)
         {
-            return;
+            _unit.TargetId = null;
+            _unit.FinalX = _unit.CombatStartX;
+            _unit.FinalZ = _unit.CombatStartZ;
+            _unit.AddFlag(UnitFlags.Evading);
         }
 
         if (_unit.HasTarget() && !_unit.HasFlag(UnitFlags.IsDead))
@@ -122,7 +125,7 @@ public class MonsterController : UnitController
         if (_unit.HasTarget() && _unit.Waypoints != null && _unit.Waypoints.Waypoints.Count < 3 &&
             _unit.Waypoints.Waypoints.Count > 0)
         {
-            if (_objectManager.GetObject(_unit.TargetId, out MapObject mapObject))
+            if (_objectManager.GetMapObject(_unit.TargetId, out MapObject mapObject))
             {
                 nextX = mapObject.X;
                 nextZ = mapObject.Z;

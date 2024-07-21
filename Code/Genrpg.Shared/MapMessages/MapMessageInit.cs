@@ -56,7 +56,7 @@ namespace Genrpg.Shared.MapMessages
 
             MessageInitData data = new MessageInitData();
 
-            dirName += "..\\..\\..\\..\\..\\..\\..\\..\\Genrpg.Shared";
+            dirName += "Genrpg.Shared";
 
             List<string> mapTypeNames = new List<string>();
 

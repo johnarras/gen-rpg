@@ -1,0 +1,83 @@
+{
+  "Data": [
+    {
+      "Id": "replevel1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Hated",
+      "PointsNeeded": 36000,
+      "UpdateTime": "2024-06-29T14:10:34.941Z",
+      "CreateTime": "2024-02-24T21:01:03.358Z"
+    },
+    {
+      "Id": "replevel2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Hostile",
+      "PointsNeeded": 12000,
+      "UpdateTime": "2024-06-29T14:10:34.948Z",
+      "CreateTime": "2024-02-24T21:01:03.399Z"
+    },
+    {
+      "Id": "replevel3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Unfriendly",
+      "PointsNeeded": 3000,
+      "UpdateTime": "2024-06-29T14:10:34.951Z",
+      "CreateTime": "2024-02-24T21:01:03.402Z"
+    },
+    {
+      "Id": "replevel4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Neutral",
+      "PointsNeeded": 3000,
+      "UpdateTime": "2024-06-29T14:10:34.953Z",
+      "CreateTime": "2024-02-24T21:01:03.404Z"
+    },
+    {
+      "Id": "replevel5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Friendly",
+      "PointsNeeded": 6000,
+      "UpdateTime": "2024-06-29T14:10:34.957Z",
+      "CreateTime": "2024-02-24T21:01:03.406Z"
+    },
+    {
+      "Id": "replevel6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Honored",
+      "PointsNeeded": 12000,
+      "UpdateTime": "2024-06-29T14:10:34.964Z",
+      "CreateTime": "2024-02-24T21:01:03.408Z"
+    },
+    {
+      "Id": "replevel7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Revered",
+      "PointsNeeded": 21000,
+      "UpdateTime": "2024-06-29T14:10:34.966Z",
+      "CreateTime": "2024-02-24T21:01:03.411Z"
+    },
+    {
+      "Id": "replevel8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Exalted",
+      "PointsNeeded": 1000000,
+      "UpdateTime": "2024-06-29T14:10:34.969Z",
+      "CreateTime": "2024-02-24T21:01:03.413Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "ReputationSettings",
+    "UpdateTime": "2024-07-04T23:03:06.244Z",
+    "CreateTime": "2023-12-23T23:13:14.239Z"
+  },
+  "Id": "default"
+}

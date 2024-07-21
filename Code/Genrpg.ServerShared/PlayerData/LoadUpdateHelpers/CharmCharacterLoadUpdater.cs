@@ -1,13 +1,7 @@
 ﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Charms.PlayerData;
 using Genrpg.Shared.Charms.Services;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Utils;
-using Microsoft.Identity.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.PlayerData.LoadUpdateHelpers

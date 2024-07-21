@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.PlayerFiltering.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Genrpg.Shared.Characters.PlayerData
 {
-    public interface ICoreCharacter
+    public interface ICoreCharacter : IFilteredObject
     {
         string Id { get; set; }
         string Name { get; set; }
@@ -22,6 +24,8 @@ namespace Genrpg.Shared.Characters.PlayerData
         long FactionTypeId { get; set; }
         long EntityTypeId { get; set; }
         long EntityId { get; set; }
+        long SexTypeId { get; set; }
+        
     }
 
 }

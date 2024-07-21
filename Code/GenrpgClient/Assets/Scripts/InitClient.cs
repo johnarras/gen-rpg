@@ -31,20 +31,22 @@ public class InitClient : BaseBehaviour, IInitClient
     public GameObject go { get { return gameObject; } }
 
 
-    private IClientLoginService _loginService;
+    private IClientAuthService _loginService;
     private ICrawlerService _crawlerService;
+    private IClientWebService _webService;
 
 #if UNITY_EDITOR
     public string CurrMapId;
     public static InitClient EditorInstance { get; set; }
     public bool ForceDownloadFromAssetBundles = false;
-    public int WorldSize;
+    public int BlockCount;
     public float ZoneSize;
     public int ForceZoneTypeId;
     public int MapGenSeed;
     public float PlayerSpeedMult;
+    public long AccountSuffixId;
 #endif
-    public const bool ForceCrawler = false;
+    public bool CrawlerMode = false;
     private CancellationTokenSource _gameTokenSource = new CancellationTokenSource();
 
     private void Awake()
@@ -80,6 +82,14 @@ public class InitClient : BaseBehaviour, IInitClient
         ScreenUtils.SetupScreenSystem(1920, 1080, false, true, 2);
         Cursors.SetCursor(Cursors.Default);
 
+        _gs.CrawlerMode = CrawlerMode;
+
+        if (_gs.CrawlerMode)
+        {
+            await SetupGame(_gameTokenSource.Token);
+            return;
+        }
+
         ClientWebRequest req = new ClientWebRequest();
         string url = base._gs.Config.InitialConfigEndpoint + "?env=" + envName;
         AwaitableUtils.ForgetAwaitable(req.SendRequest(_logService, url, "", OnGetWebConfig, _gameTokenSource.Token));
@@ -101,49 +111,55 @@ public class InitClient : BaseBehaviour, IInitClient
             _gs.LoginServerURL = response.ServerURL;
             _gs.Config.ResponseContentRoot = response.ContentRoot;
             _gs.Config.ResponseAssetEnv = response.AssetEnv;
-
-            // Basic game setup
-            SetupService setupService = new SetupService(_gs.loc);
-            await setupService.SetupGame(token);
-
-            ClientInitializer clientInitializer = new ClientInitializer(_gs);
-            clientInitializer.AddClientServices(this, true, token);
-
-            InitialPrefabLoader prefabLoader = AssetUtils.LoadResource<InitialPrefabLoader>("Prefabs/PrefabLoader");
-            await prefabLoader.LoadPrefabs(_gs);
-
-            await clientInitializer.FinalInitialize(token);
-
-            while (!_assetService.IsInitialized())
-            {
-                await Awaitable.WaitForSecondsAsync(0.001f);
-            }
-
-            _screenService.Open(ScreenId.Loading);
-
-            while (_screenService.GetScreen(ScreenId.Loading) == null)
-            {
-                await Awaitable.NextFrameAsync(cancellationToken: _gameTokenSource.Token);
-            }
-
-            _screenService.Open(ScreenId.FloatingText);
-
-            if (!ForceCrawler)
-            {
-                _loginService.StartLogin(token);
-            }
-            else
-            {
-                _loginService.NoUserGetGameData(token);
-            }
-            string txt2 = "ScreenWH: " + ScreenUtils.Width + "x" + ScreenUtils.Height + " -- " + Game.Prefix + " -- " + _gs.Config.Env + " -- " + AppUtils.Platform;
-            _logService.Info(txt2);
+            await SetupGame(token);
         }
         catch (Exception e)
         {
             _logService.Exception(e, "AfterConfig");
         }
     }
+
+    private async Awaitable SetupGame(CancellationToken token)
+    {
+
+        // Basic game setup
+        SetupService setupService = new SetupService(_gs.loc);
+        await setupService.SetupGame(token);
+
+        ClientInitializer clientInitializer = new ClientInitializer(_gs);
+        clientInitializer.AddClientServices(this, true, token);
+
+        InitialPrefabLoader prefabLoader = AssetUtils.LoadResource<InitialPrefabLoader>("Prefabs/PrefabLoader");
+        await prefabLoader.LoadPrefabs(_gs);
+
+        await clientInitializer.FinalInitialize(token);
+
+        while (!_assetService.IsInitialized())
+        {
+            await Awaitable.WaitForSecondsAsync(0.001f);
+        }
+
+        _screenService.Open(ScreenId.Loading);
+
+        while (_screenService.GetScreen(ScreenId.Loading) == null)
+        {
+            await Awaitable.NextFrameAsync(cancellationToken: _gameTokenSource.Token);
+        }
+
+        _screenService.Open(ScreenId.FloatingText);
+
+        if (!_gs.CrawlerMode)
+        {
+            _loginService.StartAuth(token);
+        }
+        else
+        {
+            await _loginService.StartNoUser(token);
+        }
+        string txt2 = "ScreenWH: " + ScreenUtils.Width + "x" + ScreenUtils.Height + " -- " + Game.Prefix + " -- " + _gs.Config.Env + " -- " + AppUtils.Platform;
+        _logService.Info(txt2);
+    }
+    
 
     void OnApplicationQuit()
     {

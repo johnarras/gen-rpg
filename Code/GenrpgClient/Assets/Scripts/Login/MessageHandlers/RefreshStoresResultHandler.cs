@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Genrpg.Shared.Login.Messages.RefreshGameSettings;
-using Genrpg.Shared.Login.Messages.RefreshStores;
+using Genrpg.Shared.Website.Messages.RefreshGameSettings;
+using Genrpg.Shared.Website.Messages.RefreshStores;
 using System.Threading;
 
 namespace Assets.Scripts.Login.MessageHandlers

@@ -1,0 +1,21 @@
+{
+  "Data": [
+    {
+      "Id": "usercointype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Gem",
+      "PluralName": "Gems",
+      "Icon": "IconGems",
+      "UpdateTime": "2024-06-29T14:10:37.102Z",
+      "CreateTime": "2023-12-29T15:22:06.527Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "UserCoinSettings",
+    "UpdateTime": "2024-07-04T23:03:06.396Z",
+    "CreateTime": "2023-12-23T23:13:14.163Z"
+  },
+  "Id": "default"
+}

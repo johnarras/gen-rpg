@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 20,
   "Name": "Blink",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Jump forward 1-9 squares if you are not impeded by anything.",
   "PowerCost": 50,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -15,10 +13,9 @@
     {
       "EntityTypeId": 37,
       "EntityId": 5,
-      "ElementTypeId": 9,
-      "Name": ""
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-07-04T19:05:42.872Z",
+  "UpdateTime": "2024-07-14T19:15:39.192Z",
   "CreateTime": "2024-01-28T11:48:08Z"
 }

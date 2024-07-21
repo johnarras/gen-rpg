@@ -1,5 +1,4 @@
-﻿using Azure.ResourceManager.ServiceBus;
-using Genrpg.MapServer.MainServer;
+﻿using Genrpg.MapServer.MainServer;
 using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.Shared.GameSettings;
@@ -7,13 +6,6 @@ using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Settings;
 using Genrpg.Shared.Settings.Settings;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tests.MapServerTests
 {

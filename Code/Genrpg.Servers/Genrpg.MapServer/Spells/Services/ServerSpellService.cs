@@ -437,7 +437,7 @@ namespace Genrpg.MapServer.Spells.Services
                 newTargets = newTargets
                     .Except(primaryTargets)
                     .Distinct()
-                    .OrderBy(x => Guid.NewGuid())
+                    .OrderBy(x => HashUtils.NewGuid())
                     .Take(effect.ExtraTargets)
                     .ToList();
 

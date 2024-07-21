@@ -1,0 +1,9 @@
+{
+  "Id": "riddle23default",
+  "ParentId": "default",
+  "IdKey": 23,
+  "Name": "Rune",
+  "Desc": "Carved in stone or written scroll,\r\nA symbol with a mystic role.\r\nIt holds the power, ancient, grand,\r\nIts meaning known to mage's hand.\r\n",
+  "UpdateTime": "2024-07-21T16:07:52.152Z",
+  "CreateTime": "2024-07-21T16:07:52.152Z"
+}

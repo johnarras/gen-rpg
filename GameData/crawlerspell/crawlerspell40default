@@ -3,9 +3,6 @@
   "ParentId": "default",
   "IdKey": 40,
   "Name": "UNUSED",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
   "PowerCost": 50,
   "MaxRange": 100,
   "ReplacesCrawlerSpellId": 12,
@@ -13,6 +10,6 @@
   "TargetTypeId": 5,
   "Level": 18,
   "Effects": [],
-  "UpdateTime": "2024-06-29T14:10:31.074Z",
+  "UpdateTime": "2024-07-14T19:15:39.21Z",
   "CreateTime": "2024-01-28T15:17:33Z"
 }

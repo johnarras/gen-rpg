@@ -16,8 +16,6 @@ using Genrpg.Shared.Trades.Messages;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Users.Entities;
-using Microsoft.Identity.Client;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 using System.Collections.Generic;
 using System.Linq;

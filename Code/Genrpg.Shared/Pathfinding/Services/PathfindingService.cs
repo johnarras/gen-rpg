@@ -27,20 +27,22 @@ namespace Genrpg.Shared.Pathfinding.Services
         /// <summary>
         /// Update path. This uses a callback so that it can be put onto a different server eventually.
         /// </summary>
-        void UpdatePath(IRandom rand, Unit tracker, int endx, int endz, Action<IRandom,Unit,WaypointList> callback);
-        WaypointList CalcPath(IRandom rand, int worldStartX, int worldStartZ, int worldEndX, int worldEndZ);
+        void UpdatePath(Unit tracker, IRandom rand, int endx, int endz, Action<IRandom, Unit> callback, bool showFullLine = false);
+        void CalcPath(Unit tracker, IRandom rand, int worldStartX, int worldStartZ, int worldEndX, int worldEndZ, bool showFullLine = false);
         bool CellIsBlocked(int x, int z);
         long GetPathSearchCount();
+        void SetPathfinding(bool[,] grid);
+        bool[,] GetPathfinding();
     }
 
     public class PathfindingService : IPathfindingService
     {
 
-        const int WorkbookCacheCount = 10;
-        ConcurrentQueue<PathWorkbook>[] _workbookCache = null;
+        ConcurrentQueue<PathWorkbook> _workbookCache = new ConcurrentQueue<PathWorkbook>();
         private ILogService _logService = null;
         private IMapProvider _mapProvider = null;
 
+        private bool[,] _grid = null;
         private long _pathSearchCount = 0;
         public long GetPathSearchCount()
         {
@@ -49,17 +51,22 @@ namespace Genrpg.Shared.Pathfinding.Services
 
         public async Task Initialize( CancellationToken token)
         {
-            _workbookCache = new ConcurrentQueue<PathWorkbook>[WorkbookCacheCount];
-            for (int  i = 0; i < WorkbookCacheCount; i++)
-            {
-                _workbookCache[i] = new ConcurrentQueue<PathWorkbook>();
-            }
             await Task.CompletedTask;
+        }
+
+        public void SetPathfinding(bool[,] grid)
+        {
+            _grid = grid;
+        }
+
+        public bool[,] GetPathfinding()
+        {
+            return _grid;
         }
 
         public async Task LoadPathfinding(string urlPrefix)
         {
-            if (_mapProvider.GetPathfinding() != null || _mapProvider.GetMap() == null)
+            if (_grid != null || _mapProvider.GetMap() == null)
             {
                 return;
             }
@@ -74,7 +81,7 @@ namespace Genrpg.Shared.Pathfinding.Services
 
                 byte[] decompressedBytes = CompressionUtils.DecompressBytes(compressedBytes);
 
-                _mapProvider.SetPathfinding(ConvertBytesToGrid(decompressedBytes));
+                SetPathfinding(ConvertBytesToGrid(decompressedBytes));
             }
             catch (Exception e)
             {
@@ -167,14 +174,15 @@ namespace Genrpg.Shared.Pathfinding.Services
         }
 
 
-        class Cell
+        class PathCell
         {
             public int X;
             public int Z;
             public float Cost;
             public float MoveCost;
-            public Cell CameFrom;
+            public PathCell CameFrom;
             public bool IsClosed;
+            public bool IsOpen;
 
             public void Clear()
             {
@@ -184,6 +192,7 @@ namespace Genrpg.Shared.Pathfinding.Services
                 X = -1;
                 Z = -1;
                 IsClosed = false;
+                IsOpen = false;
             }
         }
 
@@ -210,91 +219,63 @@ namespace Genrpg.Shared.Pathfinding.Services
             public int MaxOpenCellZ { get; set; } = GridCenter;
             public int MinOpenCellZ { get; set; } = GridCenter;
 
-            public Cell[,] Cells { get; set; } = new Cell[GridSize, GridSize];
-            public int CellCacheCount { get; set; } = 0;
-            public Cell[] CellCache { get; set; } = new Cell[CellCacheInitialLength];
+            public PathCell[,] Cells { get; set; } = new PathCell[GridSize, GridSize];
 
-            public List<Cell>[] OpenSet { get; set; }
+
+            public List<PathCell>[] OpenSet { get; set; }
             public int OpenSetMinIndex { get; set; }
             public int OpenSetMaxIndex { get; set; }
 
-            public List<Cell> CameFrom { get; set; } = new List<Cell>();
-            public List<Cell> LineCells { get;set; } = new List<Cell>();
+            public List<PathCell> CameFrom { get; set; } = new List<PathCell>();
+            public List<PathCell> LineCellCache { get;set; } = new List<PathCell>();
 
 
             public int MaxBlockedCellsInARow = 0;
             public int CurrentBlockedCellsCount = 0;
             public bool DidFindBlockedCell = false;
 
-            public List<Cell> BlockedCells { get; set; } = new List<Cell>();
+            public List<PathCell> BlockedCells { get; set; } = new List<PathCell>();
 
             public PathWorkbook()
             {
-                OpenSet = new List<Cell>[OpenSetInitialLength];
+                OpenSet = new List<PathCell>[OpenSetInitialLength];
                 for (int i = 0; i < OpenSet.Length; i++)
                 {
-                    OpenSet[i] = new List<Cell>();
+                    OpenSet[i] = new List<PathCell>();
+                }
+
+                for (int x =0; x < GridSize; x++)
+                {
+                    for (int y =0; y < GridSize; y++)
+                    {
+                        Cells[x,y] = new PathCell();
+                    }
+                }
+                for (int i = 0; i< GridSize*4; i++)
+                {
+                    LineCellCache.Add(new PathCell());
                 }
 
                 Clear();
             }
 
-            public Cell CheckoutCell()
-            {
-                if (CellCacheCount > 0)
-                {
-                    Cell cell = CellCache[CellCacheCount - 1];
-                    CellCache[CellCacheCount] = null;
-                    CellCacheCount--;
-                    return cell;
-                }
-                return new Cell();
-            }
-
-            public void ReturnCell(Cell cell)
-            {
-                if (CellCacheCount >= CellCache.Length-1)
-                {
-                    Cell[] newCellCache = new Cell[CellCache.Length * 2];
-                    for (int i = 0; i < CellCacheCount; i++)
-                    {
-                        newCellCache[i] = CellCache[i];
-                    }
-                    CellCache = newCellCache;
-                }
-                CellCache[CellCacheCount++] = cell;
-            }
-
-            public void ReturnCells(IEnumerable<Cell> cells)
-            {
-                foreach (Cell cell in cells)
-                {
-                    ReturnCell(cell);
-                }
-            }
-
             public void Clear()
             {
-                ReturnCells(CameFrom);
                 CameFrom.Clear();
 
                 for (int i = 0; i < OpenSet.Length; i++)
                 {
-                    ReturnCells(OpenSet[i]);
                     OpenSet[i].Clear();
                 }
                 OpenSetMinIndex = 0;
                 OpenSetMaxIndex = 0;
-
-                ReturnCells(LineCells);
-                LineCells.Clear();
 
                 BlockedCells.Clear();
                 for (int x = MinOpenCellX; x <= MaxOpenCellX; x++)
                 {
                     for (int z = MinOpenCellZ; z <= MaxOpenCellZ; z++)  
                     {
-                        Cells[x, z] = null;
+                        Cells[x, z].Clear();
                     }
                 }
                 MinOpenCellX = GridCenter;
@@ -303,7 +284,7 @@ namespace Genrpg.Shared.Pathfinding.Services
                 MaxOpenCellZ = GridCenter;
             }
 
-            public Cell GetNextOpenCell()
+            public PathCell GetNextOpenCell()
             {
                 if (OpenSetMinIndex >= OpenSet.Length)
                 {
@@ -324,15 +305,18 @@ namespace Genrpg.Shared.Pathfinding.Services
                     return null;
                 }
 
-                Cell cell = OpenSet[OpenSetMinIndex][0];
+                PathCell cell = OpenSet[OpenSetMinIndex][0];
                 OpenSet[OpenSetMinIndex].RemoveAt(0);
 
                 return cell;
             }
 
-            public void RemoveOpenCell (Cell cell)
+            public void RemoveOpenCell (PathCell cell)
             {
-
+                if (!cell.IsOpen)
+                {
+                    return;
+                }
                 int index = MathUtils.Clamp(0, (int)cell.Cost, OpenSet.Length - 1);
 
                 if (index >= 0 && index < OpenSet.Length)
@@ -341,9 +325,9 @@ namespace Genrpg.Shared.Pathfinding.Services
                 }
             }
 
-            public void AddOpenCell(Cell cell, Cell fromCell)
+            public void AddOpenCell(PathCell cell, PathCell fromCell)
             {
-                if (cell.IsClosed)
+                if (cell.IsClosed || cell.IsOpen)
                 {
                     return;
                 }
@@ -351,17 +335,6 @@ namespace Genrpg.Shared.Pathfinding.Services
                 int gx = cell.X - MinX;
                 int gz = cell.Z - MinZ;
 
-                if (gx < 0 || gx >= Cells.GetLength(0) ||
-                    gz < 0 || gz >= Cells.GetLength(1))
-                {
-                    return;
-                }
-
-                if (Cells[gx,gz] != null && Cells[gx,gz] != cell)
-                {
-                    throw new Exception("Added duplicate cell");
-                }
-                Cells[gx, gz] = cell;
                 MinOpenCellX = Math.Min(gx, MinOpenCellX);
                 MaxOpenCellX = Math.Max(gx, MaxOpenCellX);
                 MinOpenCellZ = Math.Min(gz, MinOpenCellZ);
@@ -369,8 +342,8 @@ namespace Genrpg.Shared.Pathfinding.Services
 
                 int index = MathUtils.Clamp(0, (int)cell.Cost, OpenSet.Length-1);
 
-                List<Cell> openList = OpenSet[index];
-
+                List<PathCell> openList = OpenSet[index];
+                cell.IsOpen = true;
                 cell.CameFrom = fromCell;
                 if (fromCell != null)
                 {
@@ -412,31 +385,30 @@ namespace Genrpg.Shared.Pathfinding.Services
 
         private PathWorkbook CheckoutWorkbook(IRandom rand)
         {
-            int index = rand.Next() % WorkbookCacheCount;
-
-            if (_workbookCache[index].TryDequeue(out PathWorkbook workbook))
+            if (_workbookCache.TryDequeue(out PathWorkbook workbook))
             {
                 workbook.Clear();
                 return workbook;
             }
-            return new PathWorkbook();
+           return new PathWorkbook();
         }
 
         private void ReturnWorkbook(IRandom rand, PathWorkbook workbook)
         {
-            int index = rand.Next() % WorkbookCacheCount;
-
-            _workbookCache[index].Enqueue(workbook);
+            _workbookCache.Enqueue(workbook);
         }
 
-        public WaypointList CalcPath(IRandom rand, int worldStartX, int worldStartZ, int worldEndX, int worldEndZ)
+        public void CalcPath(Unit tracker, IRandom rand, int worldStartX, int worldStartZ, int worldEndX, int worldEndZ, bool showFullLine = false)
         {
-            WaypointList retval = new WaypointList();
-
-            if (_mapProvider.GetPathfinding() == null)
+            tracker.Waypoints.Clear();
+            if (worldEndX < 0 || worldEndZ < 0)
             {
-                retval.RetvalType = "No pathfinding data";
-                return retval;
+                return;
+            }
+            if (_grid == null)
+            {
+                tracker.Waypoints.RetvalType = "No pathfinding data";
+                return;
             }
             _pathSearchCount++;
 
@@ -451,13 +423,13 @@ namespace Genrpg.Shared.Pathfinding.Services
 
             if (startGridX == endGridX && startGridZ == endGridZ)
             {
-                retval.AddGridCell(endGridX, endGridZ);
+                tracker.Waypoints.AddGridCell(endGridX, endGridZ);
                 ReturnWorkbook(rand, workbook);
-                retval.RetvalType = "Start Is End";
-                return retval;
+                tracker.Waypoints.RetvalType = "Start Is End";
+                return;
             }
 
-            List<Cell> lineCells = GetLine(workbook, startGridX, startGridZ, endGridX, endGridZ);
+            List<PathCell> lineCells = GetLine(workbook, startGridX, startGridZ, endGridX, endGridZ);
 
             workbook.DidFindBlockedCell = false;
             workbook.MaxBlockedCellsInARow = 0;
@@ -465,17 +437,17 @@ namespace Genrpg.Shared.Pathfinding.Services
             workbook.BlockedCells.Clear();
             for (int i = 1; i < lineCells.Count-1; i++)
             {
-                Cell lineCell = lineCells[i];
+                PathCell lineCell = lineCells[i];
 
-                if (lineCell.X < 1 || lineCell.X >= _mapProvider.GetPathfinding().GetLength(0)-1 ||
-                    lineCell.Z < 1 || lineCell.Z >= _mapProvider.GetPathfinding().GetLength(1)-1)
+                if (lineCell.X < 1 || lineCell.X >= _grid.GetLength(0)-1 ||
+                    lineCell.Z < 1 || lineCell.Z >= _grid.GetLength(1)-1)
                 {
                     workbook.DidFindBlockedCell = true;
                     workbook.MaxBlockedCellsInARow = 100;
                     break;
                 }
 
-                if (_mapProvider.GetPathfinding()[lineCell.X,lineCell.Z] == true)
+                if (_grid[lineCell.X,lineCell.Z] == true)
                 {
                     workbook.CurrentBlockedCellsCount++;
                     workbook.DidFindBlockedCell = true;
@@ -493,10 +465,20 @@ namespace Genrpg.Shared.Pathfinding.Services
 
             if (!workbook.DidFindBlockedCell)
             {
-                retval.AddWorldLoc(worldEndX, worldEndZ);
+                if (showFullLine)
+                {
+                    for (int i = 1; i < lineCells.Count - 1; i++)
+                    {
+                        tracker.Waypoints.AddGridCell(lineCells[i].X, lineCells[i].Z);
+                    }
+                }
+                else
+                {
+                    tracker.Waypoints.AddGridCell(endGridX, endGridZ); 
+                }
                 ReturnWorkbook(rand, workbook);
-                retval.RetvalType = "Straight Path";
-                return retval;
+                tracker.Waypoints.RetvalType = "Straight Path";
+                return;
             }
 
             int dx = Math.Abs(endGridX - startGridX);
@@ -526,13 +508,13 @@ namespace Genrpg.Shared.Pathfinding.Services
                 bool allAdjacentCellsClear = true;
                 for (int b = 0; b < workbook.BlockedCells.Count; b++)
                 {
-                    Cell bc = workbook.BlockedCells[b];
+                    PathCell bc = workbook.BlockedCells[b];
 
                     for (int xx = bc.X-1; xx <= bc.X+1; xx++)
                     {
                         for (int zz = bc.Z- 1; zz <= bc.Z+1; zz++)
                         {
-                            if (_mapProvider.GetPathfinding()[xx,zz])
+                            if (_grid[xx,zz])
                             {
                                 allAdjacentCellsClear = false;
                                 break;
@@ -555,39 +537,39 @@ namespace Genrpg.Shared.Pathfinding.Services
                 {
                     for (int b = 0; b < workbook.BlockedCells.Count; b++)
                     {
-                        Cell bc = workbook.BlockedCells[b];
+                        PathCell bc = workbook.BlockedCells[b];
 
                         if ((bc.X+bc.Z)% 2 == 0)
                         {
-                            retval.AddGridCell(bc.X + ddx, bc.Z + ddz);
+                            tracker.Waypoints.AddGridCell(bc.X + ddx, bc.Z + ddz);
                                 
                         }
                         else
                         {
-                            retval.AddGridCell(bc.X - ddx, bc.Z - ddz);
+                            tracker.Waypoints.AddGridCell(bc.X - ddx, bc.Z - ddz);
                         }
                     }
-                    retval.AddGridCell(endGridX, endGridZ);
+                    tracker.Waypoints.AddGridCell(endGridX, endGridZ);
                     ReturnWorkbook(rand, workbook);
-                    retval.RetvalType = "Small Bad Points";
-                    return retval;
+                    tracker.Waypoints.RetvalType = "Small Bad Points";
+                    return;
                 }
             }
 
 
             // More than 1 cell in a row blocked, do real A*
 
-            Cell startCell = workbook.CheckoutCell();
+            PathCell startCell = workbook.Cells[GridCenter,GridCenter];
             startCell.X = startGridX;
             startCell.Z = startGridZ;
             startCell.Cost = CalcCost(startCell, null, endGridX, endGridZ);
 
             workbook.CenterX = startGridX;
             workbook.CenterZ = startGridZ;
-            workbook.MinX = MathUtils.Clamp(0, workbook.CenterX - GridCenter, _mapProvider.GetPathfinding().GetLength(0) - 1);
-            workbook.MaxX = MathUtils.Clamp(0, workbook.CenterX + GridCenter - 1, _mapProvider.GetPathfinding().GetLength(0) - 1);
-            workbook.MinZ = MathUtils.Clamp(0, workbook.CenterZ - GridCenter, _mapProvider.GetPathfinding().GetLength(1) - 1);
-            workbook.MaxZ = MathUtils.Clamp(0, workbook.CenterZ + GridCenter - 1, _mapProvider.GetPathfinding().GetLength(1) - 1);
+            workbook.MinX = MathUtils.Clamp(0, workbook.CenterX - GridCenter, _grid.GetLength(0) - 1);
+            workbook.MaxX = MathUtils.Clamp(0, workbook.CenterX + GridCenter - 1, _grid.GetLength(0) - 1);
+            workbook.MinZ = MathUtils.Clamp(0, workbook.CenterZ - GridCenter, _grid.GetLength(1) - 1);
+            workbook.MaxZ = MathUtils.Clamp(0, workbook.CenterZ + GridCenter - 1, _grid.GetLength(1) - 1);
 
             workbook.AddOpenCell(startCell, null);
 
@@ -595,26 +577,26 @@ namespace Genrpg.Shared.Pathfinding.Services
             while (true)
             {
                 openCellIteration++;
-                Cell activeCell = workbook.GetNextOpenCell();
+                PathCell activeCell = workbook.GetNextOpenCell();
                 if (activeCell == null)
                 {
                     ReturnWorkbook(rand, workbook);
-                    retval.RetvalType = "No Open Cells Left " + openCellIteration;
-                    return retval;
+                    tracker.Waypoints.RetvalType = "No Open Cells Left " + openCellIteration;
+                    return;
                 }
                 activeCell.IsClosed = true;
 
                 if (activeCell.X == endGridX && activeCell.Z == endGridZ)
                 {
-                    retval.AddGridCell(endGridX, endGridZ);
+                    tracker.Waypoints.AddGridCell(endGridX, endGridZ);
 
-                    Cell prevCell = activeCell;
+                    PathCell prevCell = activeCell;
                     while (prevCell != null)
                     {
                         prevCell = prevCell.CameFrom;
                         if (prevCell != null)
                         {
-                            Waypoint currentWaypoint = retval.Waypoints.FirstOrDefault(x => x.X == prevCell.X && x.Z == prevCell.Z);
+                            Waypoint currentWaypoint = tracker.Waypoints.Waypoints.FirstOrDefault(x => x.X == prevCell.X && x.Z == prevCell.Z);
 
                             if (currentWaypoint != null)
                             {
@@ -623,15 +605,15 @@ namespace Genrpg.Shared.Pathfinding.Services
                             }
                             else
                             {
-                                retval.AddGridCell(prevCell.X, prevCell.Z);
+                                tracker.Waypoints.AddGridCell(prevCell.X, prevCell.Z);
                             }
                         }
                     }
 
-                    retval.Waypoints.Reverse();
+                    tracker.Waypoints.Waypoints.Reverse();
                     ReturnWorkbook(rand, workbook);
-                    retval.RetvalType = "ASTAR SUCCESS";
-                    return retval;
+                    tracker.Waypoints.RetvalType = "ASTAR SUCCESS";
+                    return;
                 }
 
                 for (int xx = activeCell.X-1; xx <= activeCell.X+1; xx++)
@@ -648,7 +630,7 @@ namespace Genrpg.Shared.Pathfinding.Services
                             continue;
                         }
 
-                        if (_mapProvider.GetPathfinding()[xx,zz])
+                        if (_grid[xx,zz]) // Blocked anyway.
                         {
                             continue;
                         }
@@ -656,39 +638,30 @@ namespace Genrpg.Shared.Pathfinding.Services
                         int gx = xx - workbook.MinX;
                         int gz = zz - workbook.MinZ;
 
-                        Cell currentCellInSpot = workbook.Cells[gx, gz];
-
-                        if (currentCellInSpot != null)
+                        PathCell currentCellInSpot = workbook.Cells[gx, gz];
+                       
+                        if (currentCellInSpot.IsClosed)
                         {
-                            if (currentCellInSpot.IsClosed)
-                            {
-                                continue;
-                            }
-                            float newCost = CalcCost(currentCellInSpot, activeCell, endGridX, endGridZ);
-                            if (newCost < currentCellInSpot.Cost)
-                            {
-                                currentCellInSpot.Cost = newCost;
-                                workbook.RemoveOpenCell(currentCellInSpot);
-                                workbook.AddOpenCell(currentCellInSpot, activeCell);
-                            }
+                            continue;
                         }
-                        else
+                        currentCellInSpot.X = xx;
+                        currentCellInSpot.Z = zz;
+
+                        float oldCost = currentCellInSpot.Cost;
+                        float newCost = CalcCost(currentCellInSpot, activeCell, endGridX, endGridZ);
+
+                        if (oldCost != newCost)
                         {
-                            currentCellInSpot = workbook.CheckoutCell();
-                            currentCellInSpot.X = xx;
-                            currentCellInSpot.Z = zz;
-
-                            currentCellInSpot.Cost = CalcCost(currentCellInSpot, activeCell, endGridX, endGridZ);
-
+                            currentCellInSpot.Cost = newCost;
+                            workbook.RemoveOpenCell(currentCellInSpot);
                             workbook.AddOpenCell(currentCellInSpot, activeCell);
-
                         }
                     }
                 }
             }
         }
        
-        private float CalcCost(Cell cell, Cell fromCell, int endx, int endz)
+        private float CalcCost(PathCell cell, PathCell fromCell, int endx, int endz)
         {
             float distCost = DistanceCostScale * (float)Math.Sqrt((cell.X - endx) * (cell.X - endx) + (cell.Z - endz) * (cell.Z - endz));
 
@@ -707,9 +680,9 @@ namespace Genrpg.Shared.Pathfinding.Services
         /// <param name="endx"></param>
         /// <param name="endz"></param>
         /// <returns></returns>
-        private List<Cell> GetLine(PathWorkbook workbook, int startx, int startz, int endx, int endz)
+        private List<PathCell> GetLine(PathWorkbook workbook, int startx, int startz, int endx, int endz)
         {
-            List<Cell> retval = new List<Cell>();
+            List<PathCell> retval = new List<PathCell>();
 
             int cx = startx;
             int cz = startz;
@@ -720,47 +693,65 @@ namespace Genrpg.Shared.Pathfinding.Services
             int error = dx + dz;
             int error2 = 2 * error;
 
+            int lineCellIndex = 0;
+            PathCell cell = workbook.LineCellCache[lineCellIndex++];
+            cell.X = cx;
+            cell.Z = cz;
+            retval.Add(cell);
+
             while (true)
             {
-                Cell cell = workbook.CheckoutCell();
-                cell.X = cx;
-                cell.Z = cz;
-                retval.Add(cell);
 
-                if (cx == endx && cz == endz)
+                try
                 {
-                    break;
-                }
 
-                error2 = 2 * error;
-
-                if (error2 >= dz)
-                {
-                    if (cx == endx)
+                    if (cx == endx && cz == endz)
                     {
                         break;
                     }
 
-                    error = error + dz;
+                    error2 = 2 * error;
 
-                    cx = cx + sx; 
-                    cell = workbook.CheckoutCell();
-                    cell.X = cx;
-                    cell.Z = cz;
-                    retval.Add(cell);
-                }
-                if (error2 <= dx)
-                {
-                    if (cz == endz)
+                    if (error2 >= dz)
                     {
-                        break;
+                        if (lineCellIndex >= workbook.LineCellCache.Count)
+                        {
+                            break;
+                        }
+                        if (cx == endx)
+                        {
+                            break;
+                        }
+
+                        error = error + dz;
+
+                        cx = cx + sx;
+                        cell = workbook.LineCellCache[lineCellIndex++];
+                        cell.X = cx;
+                        cell.Z = cz;
+                        retval.Add(cell);
                     }
-                    error = error + dx;
-                    cz = cz + sz; 
-                    cell = workbook.CheckoutCell();
-                    cell.X = cx;
-                    cell.Z = cz;
-                    retval.Add(cell);
+                    if (error2 <= dx)
+                    {
+                        if (lineCellIndex >= workbook.LineCellCache.Count)
+                        {
+                            break;
+                        }
+                        if (cz == endz)
+                        {
+                            break;
+                        }
+                        error = error + dx;
+                        cz = cz + sz;
+                        cell = workbook.LineCellCache[lineCellIndex++];
+                        cell.X = cx;
+                        cell.Z = cz;
+                        retval.Add(cell);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logService.Exception(ex, "Pathfinding.GetLine");
                 }
             }
 
@@ -776,8 +767,12 @@ namespace Genrpg.Shared.Pathfinding.Services
         /// <param name="endx"></param>
         /// <param name="endz"></param>
         /// <returns>true if the path was altered, false if not</returns>
-        public void UpdatePath(IRandom rand, Unit tracker, int endx, int endz, Action<IRandom,Unit,WaypointList> callback)
+        public void UpdatePath(Unit tracker, IRandom rand, int endx, int endz, Action<IRandom,Unit> callback, bool showFullLine = false)
         {
+            if (endx < 0 || endz < 0)
+            {
+                return;
+            }
             if (tracker.Waypoints != null && tracker.Waypoints.Waypoints.Count > 0)
             {
                 Waypoint lastWaypoint = tracker.Waypoints.Waypoints.Last();
@@ -797,9 +792,9 @@ namespace Genrpg.Shared.Pathfinding.Services
                 if (Math.Abs(lastGridX-newGridX) <= 1 &&
                     Math.Abs(lastGridZ-newGridZ) <= 1 &&
                     newGridX >= 0 && newGridZ >= 0 &&
-                    newGridX < _mapProvider.GetPathfinding().GetLength(0) &&
-                    newGridZ < _mapProvider.GetPathfinding().GetLength(1) &&
-                    !_mapProvider.GetPathfinding()[newGridX,newGridZ])
+                    newGridX < _grid.GetLength(0) &&
+                    newGridZ < _grid.GetLength(1) &&
+                    !_grid[newGridX,newGridZ])
                 {
                     int oldWaypointIndex = -1;
                     for (int w = tracker.Waypoints.Waypoints.Count-1; w >=0; w--)
@@ -817,7 +812,7 @@ namespace Genrpg.Shared.Pathfinding.Services
                     {                      
                         while (tracker.Waypoints.Waypoints.Count > oldWaypointIndex)
                         {
-                            tracker.Waypoints.Waypoints.RemoveAt(tracker.Waypoints.Waypoints.Count - 1);
+                            tracker.Waypoints.RemoveWaypointAt(tracker.Waypoints.Waypoints.Count - 1);
                         }
                         return;
                     }
@@ -829,17 +824,17 @@ namespace Genrpg.Shared.Pathfinding.Services
                 }
             }
 
-            WaypointList newWaypoints = CalcPath(rand, (int)tracker.X, (int)tracker.Z, endx, endz);
-            callback(rand, tracker, newWaypoints);
+            CalcPath(tracker, rand, (int)tracker.X, (int)tracker.Z, endx, endz);
+            callback(rand, tracker);
             return;
         }
 
         public bool CellIsBlocked(int x, int z)
         {
-            if (_mapProvider.GetPathfinding() == null || 
-                x < 0 || x >= _mapProvider.GetPathfinding().GetLength(0) ||
-                z < 0 || z >= _mapProvider.GetPathfinding().GetLength(1) ||
-                _mapProvider.GetPathfinding()[x,z] == true)
+            if (_grid == null || 
+                x < 0 || x >= _grid.GetLength(0) ||
+                z < 0 || z >= _grid.GetLength(1) ||
+                _grid[x,z] == true)
             {
                 return true;
             }

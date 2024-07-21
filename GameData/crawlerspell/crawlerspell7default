@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 7,
   "Name": "Mesmerize",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Make  group of monsters unable to act.",
   "PowerCost": 100,
   "PowerPerLevel": 1,
   "MaxRange": 100,
@@ -21,6 +19,6 @@
       "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:31.223Z",
+  "UpdateTime": "2024-07-14T19:15:39.168Z",
   "CreateTime": "2024-01-28T09:09:08Z"
 }

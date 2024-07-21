@@ -46,21 +46,22 @@ namespace Genrpg.Shared.MapObjects.Entities
 
         public float FinalRot { get; set; }
 
-        public float FinalX { get; set; }
+        public float FinalX { get; set; } = -1;
 
-        public float FinalZ { get; set; }
+        public float FinalZ { get; set; } = -1;
 
-        public WaypointList Waypoints { get; set; }
+        public WaypointList Waypoints { get; private set; } = new WaypointList();
 
         public List<IDisplayEffect> Effects { get; set; } = new List<IDisplayEffect>();
 
         public SmallIndexBitList StatusEffects { get; set; } = new SmallIndexBitList();
 
+        public GameDataOverrideList DataOverrides { get; set; } = new GameDataOverrideList();
+
         public MapObject(IRepositoryService repositoryService)
         {
             _repoService = repositoryService;
         }
-
 
         protected int _idHash { get; set; } = -1;
         public int GetIdHash()
@@ -104,7 +105,7 @@ namespace Genrpg.Shared.MapObjects.Entities
         {
             _messageCache.Clear();
             OnActionMessage = null;
-            Waypoints?.Dispose();
+            Waypoints.Clear();
             Effects.Clear();
         }
 
@@ -141,9 +142,6 @@ namespace Genrpg.Shared.MapObjects.Entities
             }
         }
 
-     
-
-
         public float GetNextXPos()
         {
             if (Waypoints != null && Waypoints.Waypoints.Count > 0)
@@ -162,23 +160,17 @@ namespace Genrpg.Shared.MapObjects.Entities
             return FinalZ;
         }
 
-
-
         public bool Moving { get; set; }
-
         
         public string TargetId { get; set; }
-
         
         public object OnActionLock = new object();
-
         
         public IMapApiMessage OnActionMessage { get; set; }
         
         public IMapApiMessage ActionMessage { get; set; }
         
         public IMapSpawn Spawn { get; set; }
-
         
         private bool _isDeleted { get; set; }
 
@@ -214,11 +206,6 @@ namespace Genrpg.Shared.MapObjects.Entities
         public void SetDeleted(bool val)
         {
             _isDeleted = val;
-        }
-
-        public virtual string GetName(string typeName)
-        {
-            return GameDataConstants.DefaultFilename;
         }
 
         protected ConcurrentDictionary<Type, object> _messageCache = new ConcurrentDictionary<Type, object>();
@@ -288,7 +275,6 @@ namespace Genrpg.Shared.MapObjects.Entities
             return (float)Math.Sqrt(dx * dx + dz * dz);
         }
 
-        public virtual void SetGameDataOverrides(GameDataOverrideList list) { }
 
     }
 }

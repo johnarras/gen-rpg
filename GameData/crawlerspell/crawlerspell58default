@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 58,
   "Name": "Set Beacon",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Set a teleport location (per player)",
   "PowerCost": 50,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -15,10 +13,9 @@
     {
       "EntityTypeId": 37,
       "EntityId": 9,
-      "ElementTypeId": 9,
-      "Name": ""
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-07-04T19:49:48.799Z",
+  "UpdateTime": "2024-07-14T19:15:39.233Z",
   "CreateTime": "2024-01-28T11:48:08Z"
 }

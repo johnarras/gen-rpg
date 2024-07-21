@@ -1,14 +1,9 @@
 ﻿using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Logging.Interfaces;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.DataStores.NoSQL

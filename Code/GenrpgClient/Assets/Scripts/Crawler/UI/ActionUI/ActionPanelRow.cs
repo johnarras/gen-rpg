@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Crawler.CrawlerStates;
+﻿using Assets.Scripts.ClientEvents;
+using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.Crawler.UI.Utils;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
@@ -10,7 +11,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.UI.Crawler.ActionUI
 {
-    public class ActionPanelRow : BaseBehaviour, IPointerEnterHandler
+    public class ActionPanelRow : BaseBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
 
         private ICrawlerService _crawlerService;
@@ -60,14 +61,36 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
             }
         }
 
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            Text.alpha = 1.0f;
+            if (_action != null && _action.OnPointerExit != null)
+            {
+                _action?.OnPointerExit();
+            }
+            else
+            {
+                _dispatcher.Dispatch(new HideCrawlerTooltipEvent());
+            }
+        }
+
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (_action != null && !string.IsNullOrEmpty(_action.SpriteName))
-            {
-                _dispatcher.Dispatch<ShowWorldPanelImage>(new ShowWorldPanelImage()
+
+            Text.alpha = 0.5f;
+            if (_action != null)
+            { 
+                if (!string.IsNullOrEmpty(_action.SpriteName))
                 {
-                    SpriteName = _action.SpriteName
-                });
+                    _dispatcher.Dispatch<ShowWorldPanelImage>(new ShowWorldPanelImage()
+                    {
+                        SpriteName = _action.SpriteName
+                    });
+                }
+                if (_action.OnPointerEnter != null)
+                {
+                    _action.OnPointerEnter();
+                }
             }
         }
     }

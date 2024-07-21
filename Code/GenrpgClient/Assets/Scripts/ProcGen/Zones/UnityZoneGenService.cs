@@ -8,7 +8,7 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
 using UI.Screens.Constants;
 using Assets.Scripts.Tokens;
-using Genrpg.Shared.Login.Messages.LoadIntoMap;
+using Genrpg.Shared.Website.Messages.LoadIntoMap;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
 using Genrpg.Shared.DataStores.PlayerData;
@@ -30,7 +30,7 @@ public class UnityZoneGenService : ZoneGenService
 
     protected IScreenService _screenService;
     protected IMapTerrainManager _terrainManager;
-    private IWebNetworkService _webNetworkService;
+    private IClientWebService _webNetworkService;
     private IRealtimeNetworkService _networkService;
 
     private CancellationTokenSource _mapTokenSource;
@@ -751,7 +751,7 @@ public class UnityZoneGenService : ZoneGenService
             _terrainManager.ClearMapObjects();
 
             MinimapUI.SetTexture(null);
-            _gs.ch.SetGameDataOverrideList(data.OverrideList);
+            _gs.ch.DataOverrides = data.DataOverrides;
             _gameData.AddData(data.GameData);
 
             if (data == null || data.Map == null || data.Char == null)
@@ -784,25 +784,24 @@ public class UnityZoneGenService : ZoneGenService
 #if UNITY_EDITOR
 
             InitClient initComp = InitClient.EditorInstance;
-
-            if (initComp != null &&
-                initComp.WorldSize >= 3 &&
-                initComp.ZoneSize >= 1 &&
-                initComp.MapGenSeed > 0)
-            {
-                fixSeeds = true;
-                if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId))
+            if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId))
+            { 
+                if (initComp.BlockCount >= 3)
                 {
-                    _mapProvider.GetMap().BlockCount = initComp.WorldSize;
+                    _mapProvider.GetMap().BlockCount = initComp.BlockCount;
+                }
+                if(initComp.ZoneSize >= 1)
+                {
                     _mapProvider.GetMap().ZoneSize = initComp.ZoneSize;
+                }
+                if (initComp.MapGenSeed > 0)
+                {
                     _mapProvider.GetMap().Seed = initComp.MapGenSeed;
+                    fixSeeds = true;
                 }
             }
-
 #endif
-
-
-
+            
             if (string.IsNullOrEmpty(UnityZoneGenService.LoadedMapId) && !fixSeeds)
             {
                 _mapProvider.GetMap().Seed = (int)(DateTime.UtcNow.Ticks % 2000000000);

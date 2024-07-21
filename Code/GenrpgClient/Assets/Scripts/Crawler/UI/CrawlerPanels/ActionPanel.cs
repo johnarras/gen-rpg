@@ -2,6 +2,7 @@
 using Assets.Scripts.UI.Core;
 using Assets.Scripts.UI.Crawler.ActionUI;
 using Genrpg.Shared.Crawler.UI.Interfaces;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,9 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         public GEntity Content;
 
-        public LabeledInputField Input;
+
+        public const int InputCount = 3;
+        public List<LabeledInputField> Inputs;
 
         private ActionPanelRow _panelRow = null; // Need to load once and then use over and over;
         private ActionPanelText _panelText = null;
@@ -81,18 +84,22 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                 row.Init(stateData, stateData.Actions[a], _token);
             }
 
-            if (stateData.HasInput() && Input != null)
+            List<CrawlerInputData> stateInputs = stateData.Inputs;
+
+            for (int i = 0; i < Inputs.Count; i++)
             {
-                GEntityUtils.SetActive(Input, true);
-                stateData.InputField = Input.Input;
-                _uIInitializable.SetText(Input.Placeholder, stateData.InputPlaceholderText);
-                _uIInitializable.SetText(Input.Label, stateData.InputLabel);
-                _uIInitializable.SetInputText(Input.Input, "");
+                GEntityUtils.SetActive(Inputs[i], false);
             }
-            else
+
+            for (int i = 0; i < Inputs.Count && i < stateInputs.Count; i++)
             {
-                GEntityUtils.SetActive(Input, false);
+                GEntityUtils.SetActive(Inputs[i], true);
+                stateInputs[i].InputField = Inputs[i];
+                _uIInitializable.SetText(Inputs[i].Placeholder, stateData.InputPlaceholderText);
+                _uIInitializable.SetText(Inputs[i].Label, stateInputs[i].InputLabel);
+                _uIInitializable.SetInputText(Inputs[i].Input, "");
             }
+
             ScrollRect?.ScrollToBottom();
         }
 

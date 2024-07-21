@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 24,
   "Name": "Entangle",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Prevent a group from use melee attacks.",
   "PowerCost": 100,
   "PowerPerLevel": 1,
   "MaxRange": 100,
@@ -21,6 +19,6 @@
       "ElementTypeId": 8
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:30.964Z",
+  "UpdateTime": "2024-07-14T19:15:39.196Z",
   "CreateTime": "2024-01-28T05:51:33Z"
 }

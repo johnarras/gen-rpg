@@ -1,0 +1,41 @@
+{
+  "Data": [
+    {
+      "Id": "bridgetype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Default Footbridge",
+      "Art": "Bridge",
+      "Length": 10,
+      "UpdateTime": "2024-07-05T03:51:16.946Z",
+      "CreateTime": "2023-11-24T16:45:15.218Z"
+    },
+    {
+      "Id": "bridgetype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Medium Footbridge",
+      "Art": "BridgeMedium",
+      "Length": 15,
+      "UpdateTime": "2024-06-29T14:10:30.261Z",
+      "CreateTime": "2023-11-24T16:45:15.352Z"
+    },
+    {
+      "Id": "bridgetype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Large Footbridge",
+      "Art": "BridgeLarge",
+      "Length": 20,
+      "UpdateTime": "2024-06-29T14:10:30.264Z",
+      "CreateTime": "2023-11-24T16:45:15.491Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "BridgeTypeSettings",
+    "UpdateTime": "2024-07-05T03:51:16.94Z",
+    "CreateTime": "2023-11-24T22:45:15Z"
+  },
+  "Id": "default"
+}

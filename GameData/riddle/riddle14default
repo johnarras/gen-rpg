@@ -1,0 +1,9 @@
+{
+  "Id": "riddle14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Tavern",
+  "Desc": "A place of rest, where stories flow,\r\nWhere weary travelers come and go.\r\nWith ale and song, by hearth so warm,\r\nIt offers shelter from the storm.\r\n",
+  "UpdateTime": "2024-07-21T16:07:52.135Z",
+  "CreateTime": "2024-07-21T16:07:52.135Z"
+}

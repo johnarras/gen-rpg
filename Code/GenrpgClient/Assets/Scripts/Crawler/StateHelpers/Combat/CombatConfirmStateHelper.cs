@@ -27,7 +27,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
             if (party.Combat == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Party is not in combat." };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Party is not in combat." };
             }
 
             if (party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Advance)

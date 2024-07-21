@@ -49,6 +49,7 @@ public class TestAssetDownloads : IInjectable
         TestMagic(token);
 
 
+        _logService.Info("Download Tests Complete");
 
         await Task.CompletedTask;
     }

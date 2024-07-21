@@ -17,18 +17,12 @@ namespace Genrpg.Shared.Spawns.Settings
     {
         [Key(0)] public long EntityTypeId { get; set; }
         [Key(1)] public long EntityId { get; set; }
-        [Key(2)] public long MinQuantity { get; set; }
-        [Key(3)] public long MaxQuantity { get; set; }
-        [Key(4)] public double Weight { get; set; }
+        [Key(2)] public long MinQuantity { get; set; } = 1;
+        [Key(3)] public long MaxQuantity { get; set; } = 1;
+        [Key(4)] public double Weight { get; set; } = 100;
         [Key(5)] public int GroupId { get; set; }
         [Key(6)] public string Name { get; set; }
 
-        public SpawnItem()
-        {
-            MinQuantity = 1;
-            MaxQuantity = 1;
-            Weight = 100.0;
-        }
     }
     [MessagePackObject]
     public class SpawnSettings : ParentSettings<SpawnTable>

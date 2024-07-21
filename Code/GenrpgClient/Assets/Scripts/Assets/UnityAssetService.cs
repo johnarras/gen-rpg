@@ -1104,6 +1104,20 @@ public class UnityAssetService : IAssetService
             BundleCacheItem cacheItem = go.AddComponent<BundleCacheItem>();
             cacheItem.RegisterCache(bundleCache);
             bundleCache.Instances.Add(go);
+            //MonoBehaviour behavior = GEntityUtils.GetComponent<MonoBehaviour>(go);
+
+            //if (behavior == null)
+            //{
+            //    behavior = go.AddComponent<BundleCacheItem>();
+            //}
+
+            //behavior.destroyCancellationToken.Register(() =>
+            //           {
+            //               bundleCache.Instances.Remove(go);
+            //               bundleCache.LastUsed = DateTime.UtcNow;
+            //               _logService.Info("Remove Bundle " + bundleCache.assetBundle.name);
+            //           });
+
         }
         else
         {

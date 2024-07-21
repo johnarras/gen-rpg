@@ -1,0 +1,309 @@
+{
+  "Data": [
+    {
+      "Id": "keycommsetting0default",
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "k",
+      "KeyCommand": "QuestScreen",
+      "UpdateTime": "2024-06-29T14:10:33.109Z",
+      "CreateTime": "2023-11-24T16:45:42.591Z"
+    },
+    {
+      "Id": "keycommsetting1default",
+      "IdKey": 1,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "k",
+      "KeyCommand": "QuestScreen",
+      "UpdateTime": "2024-06-29T14:10:33.152Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting2default",
+      "IdKey": 2,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "1",
+      "KeyCommand": "Action1",
+      "UpdateTime": "2024-06-29T14:10:33.198Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting3default",
+      "IdKey": 3,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "2",
+      "KeyCommand": "Action2",
+      "UpdateTime": "2024-06-29T14:10:33.203Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting4default",
+      "IdKey": 4,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "3",
+      "KeyCommand": "Action3",
+      "UpdateTime": "2024-06-29T14:10:33.207Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting5default",
+      "IdKey": 5,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "4",
+      "KeyCommand": "Action4",
+      "UpdateTime": "2024-06-29T14:10:33.21Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting6default",
+      "IdKey": 6,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "5",
+      "KeyCommand": "Action5",
+      "UpdateTime": "2024-06-29T14:10:33.213Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting7default",
+      "IdKey": 7,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "6",
+      "KeyCommand": "Action6",
+      "UpdateTime": "2024-06-29T14:10:33.221Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting8default",
+      "IdKey": 8,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "7",
+      "KeyCommand": "Action7",
+      "UpdateTime": "2024-06-29T14:10:33.226Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting9default",
+      "IdKey": 9,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "8",
+      "KeyCommand": "Action8",
+      "UpdateTime": "2024-06-29T14:10:33.228Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting10default",
+      "IdKey": 10,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "9",
+      "KeyCommand": "Action9",
+      "UpdateTime": "2024-06-29T14:10:33.114Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting11default",
+      "IdKey": 11,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "0",
+      "KeyCommand": "Action10",
+      "UpdateTime": "2024-06-29T14:10:33.118Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting12default",
+      "IdKey": 12,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "w",
+      "KeyCommand": "Forward",
+      "UpdateTime": "2024-06-29T14:10:33.121Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting13default",
+      "IdKey": 13,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "a",
+      "KeyCommand": "TurnLeft",
+      "UpdateTime": "2024-06-29T14:10:33.124Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting14default",
+      "IdKey": 14,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "s",
+      "KeyCommand": "Backward",
+      "UpdateTime": "2024-06-29T14:10:33.126Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting15default",
+      "IdKey": 15,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "d",
+      "KeyCommand": "TurnRight",
+      "UpdateTime": "2024-06-29T14:10:33.129Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting16default",
+      "IdKey": 16,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "q",
+      "KeyCommand": "StrafeLeft",
+      "UpdateTime": "2024-06-29T14:10:33.131Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting17default",
+      "IdKey": 17,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "e",
+      "KeyCommand": "StrafeRight",
+      "UpdateTime": "2024-06-29T14:10:33.139Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting18default",
+      "IdKey": 18,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "j",
+      "KeyCommand": "Jump",
+      "UpdateTime": "2024-06-29T14:10:33.144Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting19default",
+      "IdKey": 19,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "mouse0",
+      "KeyCommand": "Fire0",
+      "UpdateTime": "2024-06-29T14:10:33.149Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting20default",
+      "IdKey": 20,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "mouse1",
+      "KeyCommand": "Fire1",
+      "UpdateTime": "2024-06-29T14:10:33.159Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting21default",
+      "IdKey": 21,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "esc",
+      "KeyCommand": "MainMenuScreen",
+      "UpdateTime": "2024-06-29T14:10:33.162Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting22default",
+      "IdKey": 22,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "m",
+      "KeyCommand": "MapScreen",
+      "UpdateTime": "2024-06-29T14:10:33.166Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting23default",
+      "IdKey": 23,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "n",
+      "KeyCommand": "ZoneScreen",
+      "UpdateTime": "2024-06-29T14:10:33.169Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting24default",
+      "IdKey": 24,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "p",
+      "KeyCommand": "CraftingScreen",
+      "UpdateTime": "2024-06-29T14:10:33.171Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting25default",
+      "IdKey": 25,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "c",
+      "KeyCommand": "CharacterScreen",
+      "UpdateTime": "2024-06-29T14:10:33.177Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting26default",
+      "IdKey": 26,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "b",
+      "KeyCommand": "SpellbookScreen",
+      "UpdateTime": "2024-06-29T14:10:33.18Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting27default",
+      "IdKey": 27,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "tab",
+      "KeyCommand": "TargetNext",
+      "UpdateTime": "2024-06-29T14:10:33.184Z",
+      "CreateTime": "2023-11-24T22:45:42Z"
+    },
+    {
+      "Id": "keycommsetting28default",
+      "IdKey": 28,
+      "Name": "KeyCommSetting",
+      "ParentId": "default",
+      "KeyPress": "k",
+      "KeyCommand": "QuestScreen",
+      "UpdateTime": "2024-06-29T14:10:33.187Z",
+      "CreateTime": "2023-11-24T16:45:42.591Z"
+    },
+    {
+      "Id": "keycommsetting29default",
+      "IdKey": 29,
+      "ParentId": "default",
+      "KeyPress": "l",
+      "KeyCommand": "StoreScreen",
+      "UpdateTime": "2024-06-29T14:10:33.193Z",
+      "CreateTime": "2023-12-29T16:39:20.024Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "KeyCommSettings",
+    "UpdateTime": "2024-07-04T23:03:06.196Z",
+    "CreateTime": "2023-11-24T22:45:42Z"
+  },
+  "Id": "default"
+}

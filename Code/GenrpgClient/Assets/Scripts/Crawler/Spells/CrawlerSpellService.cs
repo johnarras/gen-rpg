@@ -31,13 +31,11 @@ using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.UnitEffects.Constants;
 using Genrpg.Shared.UnitEffects.Settings;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Units.Settings;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -455,6 +453,19 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             return fullProcEffect;
         }
 
+        public void RemoveSpellPowerCost(PartyData party, PartyMember member, CrawlerSpell spell)
+        {
+
+            long powerCost = spell.GetPowerCost(member.Level);
+
+            if (powerCost > 0)
+            {
+                long currMana = member.Stats.Curr(StatTypes.Mana);
+                _statService.Add(member, StatTypes.Mana, StatCategories.Curr, -Math.Min(powerCost, currMana));
+                party.StatusPanel.RefreshUnit(member);
+            }
+        }
+
         public async Awaitable CastSpell(PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0)
         {
             try
@@ -511,14 +522,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                 if (action.Caster is PartyMember pmember)
                 {
-                    long powerCost = action.Spell.GetPowerCost(pmember.Level);
-
-                    if (powerCost > 0)
-                    {
-                        long currMana = pmember.Stats.Curr(StatTypes.Mana);
-                        _statService.Add(pmember, StatTypes.Mana, StatCategories.Curr, -Math.Min(powerCost, currMana));
-                        party.StatusPanel.RefreshUnit(pmember);
-                    }
+                    RemoveSpellPowerCost(party, pmember, action.Spell);
                 }
 
                 if (party.Combat != null)

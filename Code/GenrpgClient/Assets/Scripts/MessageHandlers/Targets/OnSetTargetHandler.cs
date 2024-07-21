@@ -10,7 +10,7 @@ namespace Assets.Scripts.MessageHandlers.Targets
     {
         protected override void InnerProcess(OnSetTarget msg, CancellationToken token)
         {
-            if (_objectManager.GetObject(msg.CasterId,out MapObject obj))
+            if (_objectManager.GetMapObject(msg.CasterId,out MapObject obj))
             {
                 if (obj is Unit unit)
                 {

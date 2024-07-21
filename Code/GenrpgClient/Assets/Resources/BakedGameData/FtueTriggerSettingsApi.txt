@@ -1,0 +1,57 @@
+{
+  "Data": [
+    {
+      "Id": "ftuetrigger0default",
+      "ParentId": "default",
+      "UpdateTime": "2024-06-29T14:10:32.299Z",
+      "CreateTime": "2024-01-13T15:15:13.703Z"
+    },
+    {
+      "Id": "ftuetrigger1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "CompleteFtue",
+      "UpdateTime": "2024-06-29T14:10:32.314Z",
+      "CreateTime": "2024-01-13T15:15:13.706Z"
+    },
+    {
+      "Id": "ftuetrigger2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "OpenScreen",
+      "UpdateTime": "2024-06-29T14:10:32.316Z",
+      "CreateTime": "2024-01-13T15:15:13.708Z"
+    },
+    {
+      "Id": "ftuetrigger3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "CloseScreen",
+      "UpdateTime": "2024-06-29T14:10:32.319Z",
+      "CreateTime": "2024-01-13T15:15:13.713Z"
+    },
+    {
+      "Id": "ftuetrigger4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "ReachLevel",
+      "UpdateTime": "2024-06-29T14:10:32.334Z",
+      "CreateTime": "2024-01-13T15:15:13.715Z"
+    },
+    {
+      "Id": "ftuetrigger5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "InfoButton",
+      "UpdateTime": "2024-06-29T14:10:32.347Z",
+      "CreateTime": "2024-01-13T15:15:13.722Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "FtueTriggerSettings",
+    "UpdateTime": "2024-07-04T23:03:06.186Z",
+    "CreateTime": "2024-01-13T15:15:13.7Z"
+  },
+  "Id": "default"
+}

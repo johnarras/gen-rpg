@@ -15,6 +15,8 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Mappers;
 using UnityEngine;
 using Genrpg.Shared.Interfaces;
+using System.IO;
+using Genrpg.Shared.Logging.Interfaces;
 
 namespace Assets.Scripts.GameSettings.Services
 {
@@ -23,6 +25,7 @@ namespace Assets.Scripts.GameSettings.Services
 
         private IRepositoryService _repoService;
         protected IGameData _gameData;
+        private ILogService _logService;
 
         private Dictionary<Type, IGameSettingsMapper> _loaderObjects = null;
 
@@ -41,6 +44,10 @@ namespace Assets.Scripts.GameSettings.Services
             _loaderObjects = newList;
             await Task.CompletedTask;
         }
+#if UNITY_EDITOR
+        static readonly string FullBakedGameDataPath = AppUtils.DataPath  + "/Resources/" + BakedGameDataPathSuffix;
+#endif
+        static readonly string BakedGameDataPathSuffix = "BakedGameData/";
         public async Awaitable LoadCachedSettings(IUnityGameState gs)
         {
             GameData gameData = new GameData();
@@ -49,10 +56,25 @@ namespace Assets.Scripts.GameSettings.Services
             List<ITopLevelSettings> allSettings = new List<ITopLevelSettings>();
             foreach (IGameSettingsMapper loader in _loaderObjects.Values)
             {
-                object obj = await repo.LoadWithType(loader.GetClientType(), GameDataConstants.DefaultFilename);
-                if (obj is ITopLevelSettings settings)
+                ITopLevelSettings bakedSettings = null;
+
+                string bakedResourcesPath = BakedGameDataPathSuffix + loader.GetClientType().Name;
+
+                TextAsset textAsset = Resources.Load<TextAsset>(bakedResourcesPath);
+                _logService.Info("TextAssetLoaded: " + loader.GetClientType().Name + " " + (textAsset != null ? 1 : 0));
+                if (textAsset != null && !string.IsNullOrEmpty(textAsset.text))
                 {
-                    allSettings.Add(settings);
+                    bakedSettings = (ITopLevelSettings)SerializationUtils.DeserializeWithType(textAsset.text, loader.GetClientType());
+                }
+
+                object obj = await repo.LoadWithType(loader.GetClientType(), GameDataConstants.DefaultFilename);
+                if (obj is ITopLevelSettings downloadedSettings)
+                {
+                    allSettings.Add(downloadedSettings);
+                }
+                else if (bakedSettings != null)
+                {
+                    allSettings.Add(bakedSettings);
                 }
             }
             gameData.AddData(allSettings);
@@ -64,6 +86,22 @@ namespace Assets.Scripts.GameSettings.Services
         public async Awaitable SaveSettings(IGameSettings settings)
         {
             await _repoService.Save(settings);
+
+#if UNITY_EDITOR
+
+            string dirName = FullBakedGameDataPath + BakedGameDataPathSuffix;
+
+            if (!Directory.Exists(dirName))
+            {
+                Directory.CreateDirectory(dirName);
+            }
+
+            string path = dirName + settings.GetType().Name + ".txt";
+
+            string serializedData = SerializationUtils.PrettyPrint(settings);
+
+            File.WriteAllText(path, serializedData);
+#endif
         }
     }
 }

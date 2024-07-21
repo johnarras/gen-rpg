@@ -17,6 +17,7 @@ using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -293,6 +294,12 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _updatingMovement = false;
         }
 
+        public int GetBlockingBits(int sx, int sz, int ex, int ez, bool allowBuildingEntry)
+        {
+            ICrawlerMapTypeHelper helper = GetMapHelper(_crawlerMapRoot.Map.MapType);
+
+            return helper.GetBlockingBits(_crawlerMapRoot, sx, sz, ex, ez, allowBuildingEntry);
+        }
 
         const int moveFrames = 6;
         private async Awaitable Move(int forward, int left, CancellationToken token)
@@ -322,9 +329,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 }
             }
 
-            ICrawlerMapTypeHelper helper = GetMapHelper(_crawlerMapRoot.Map.MapType);
-
-            int blockBits = helper.GetBlockingBits(_crawlerMapRoot, sx, sz, ex, ez);
+            int blockBits = GetBlockingBits(sx, sz, ex, ez, true);
 
             if (blockBits == WallTypes.Wall || blockBits == WallTypes.Secret)
             {
@@ -374,12 +379,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             ex = MathUtils.ModClamp(ex, _crawlerMapRoot.Map.Width);
             ez = MathUtils.ModClamp(ez, _crawlerMapRoot.Map.Height);
 
-            _crawlerMapRoot.DrawX = ex * CrawlerMapConstants.BlockSize;
-            _crawlerMapRoot.DrawZ = ez * CrawlerMapConstants.BlockSize;
-            _party.MapX = ex;
-            _party.MapZ = ez;
-            UpdateCameraPos(token);
-            AwaitableUtils.ForgetAwaitable(DrawNearbyMap(token));
+            MovePartyTo(_party, ex, ez, _party.MapRot, token);
 
         }
 
@@ -616,5 +616,24 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             return status.Visited.HasBit(index); 
         }
 
+        public void MovePartyTo(PartyData partyData, int x, int z, int rot, CancellationToken token)
+        {
+            if (_crawlerMapRoot == null)
+            {
+                return;
+            }
+
+            x = MathUtils.Clamp(0, x, _crawlerMapRoot.Map.Width - 1);
+            z = MathUtils.Clamp(0, z, _crawlerMapRoot.Map.Height - 1);
+
+            _crawlerMapRoot.DrawX = x * CrawlerMapConstants.BlockSize;
+            _crawlerMapRoot.DrawZ = z * CrawlerMapConstants.BlockSize;
+            _party.MapX = x;
+            _party.MapZ = z;
+            _party.MapRot = rot;
+            UpdateCameraPos(token);
+            AwaitableUtils.ForgetAwaitable(DrawNearbyMap(token));
+
+        }
     }
 }

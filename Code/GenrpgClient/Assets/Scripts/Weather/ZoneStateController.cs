@@ -111,7 +111,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
 
     public const float WeatherTransitionTime = 20.0f;
     WeatherType Weather;
-    public WeatherType DataWeather = new WeatherType();
+    private WeatherType _dataWeather = null;
 
     public DateTime NextWeatherTransition = DateTime.UtcNow.AddSeconds(1000000);
 
@@ -245,7 +245,6 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
 
                     ActiveScreen hud = _screenService.GetScreen(ScreenId.HUD);
 
-
                     if (((_currentZone == null || _currentZone.IdKey != zoneId) && zoneId > 1) && hud != null)
                     {
                         Zone zone = _mapProvider.GetMap().Get<Zone>(zoneId);
@@ -257,7 +256,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
                         CurrentZoneShown = zone.IdKey;
                         _gs.ch.ZoneId = zone.IdKey;
                         _currentZoneType = _gameData.Get<ZoneTypeSettings>(_gs.ch).Get(_currentZone.ZoneTypeId);
-                        this.DataWeather = _gameData.Get<WeatherTypeSettings>(_gs.ch).Get(_currentZoneType.WeatherTypeId);
+                        _dataWeather = _gameData.Get<WeatherTypeSettings>(_gs.ch).Get(_currentZoneType.WeatherTypeId);
 
                     }
                 }
@@ -270,48 +269,48 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
 
                 if (mapType == ECrawlerMapTypes.Dungeon)
                 {
-                    DataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerDungeon");
+                    _dataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerDungeon");
                 }
                 else if (mapType == ECrawlerMapTypes.City)
                 {
-                    DataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerCity");
+                    _dataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerCity");
                 }
                 else if (mapType == ECrawlerMapTypes.Outdoors)
                 {
-                    DataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerOutdoors");
+                    _dataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerOutdoors");
                 }
 
-                if (DataWeather == null)
+                if (_dataWeather == null)
                 {
-                    DataWeather = weatherTypes.FirstOrDefault(x => x.IdKey > 0);
+                    _dataWeather = weatherTypes.FirstOrDefault(x => x.IdKey > 0);
                 }
             }
 
-            if (DataWeather == null)
+            if (_dataWeather == null)
             {
                 return;
             }
 
-            SunlightColor.Target = TextureUtils.ConvertMyColorToColor(DataWeather.LightColor);
-            FogColor.Target = TextureUtils.ConvertMyColorToColor(DataWeather.FogColor);
-            CloudColor.Target = TextureUtils.ConvertMyColorToColor(DataWeather.CloudColor);
-            AmbientColor.Target = TextureUtils.ConvertMyColorToColor(DataWeather.AmbientColor);
-            SkyColor.Target = TextureUtils.ConvertMyColorToColor(DataWeather.SkyColor);
+            SunlightColor.Target = TextureUtils.ConvertMyColorToColor(_dataWeather.LightColor);
+            FogColor.Target = TextureUtils.ConvertMyColorToColor(_dataWeather.FogColor);
+            CloudColor.Target = TextureUtils.ConvertMyColorToColor(_dataWeather.CloudColor);
+            AmbientColor.Target = TextureUtils.ConvertMyColorToColor(_dataWeather.AmbientColor);
+            SkyColor.Target = TextureUtils.ConvertMyColorToColor(_dataWeather.SkyColor);
 
-            FogDensity.Target = DataWeather.FogScale;
-            CloudSpeed.Target = DataWeather.CloudSpeed;
-            CloudDensity.Target = DataWeather.CloudScale;
-            PrecipScale.Target = DataWeather.PrecipScale;
-            WindScale.Target = DataWeather.WindScale;
-            ParticleScale.Target = DataWeather.ParticleScale;
+            FogDensity.Target = _dataWeather.FogScale;
+            CloudSpeed.Target = _dataWeather.CloudSpeed;
+            CloudDensity.Target = _dataWeather.CloudScale;
+            PrecipScale.Target = _dataWeather.PrecipScale;
+            WindScale.Target = _dataWeather.WindScale;
+            ParticleScale.Target = _dataWeather.ParticleScale;
 
-            SunlightIntensity.Target = DataWeather.LightScale;
+            SunlightIntensity.Target = _dataWeather.LightScale;
             if (SunlightIntensityMultiplier > 0)
             {
                 SunlightIntensity.Target *= SunlightIntensityMultiplier;
             }
 
-            FogStart.Target = DataWeather.FogDistance;
+            FogStart.Target = _dataWeather.FogDistance;
             FogEnd.Target = LinearFogEnd;
 
             _audioService.PlayMusic(_currentZoneType);

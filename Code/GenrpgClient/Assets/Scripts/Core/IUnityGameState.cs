@@ -23,6 +23,7 @@ public interface IUnityGameState : IGameState, IInjectable
     ClientConfig Config { get; }
     string LoginServerURL { get; set; }
     InitialClientConfig GetConfig();
+    bool CrawlerMode { get; set; }
     void UpdateUserFlags(int flag, bool val);
 }
 
@@ -31,6 +32,7 @@ public class UnityGameState : GameState, IInjectable, IUnityGameState
     public IMapGenData md { get; set; } = null;
     public User user { get; set; }
     public Character ch { get; set; }
+    public bool CrawlerMode { get; set; } = false;
     public List<CharacterStub> characterStubs { get; set; }  = new List<CharacterStub>();
     public List<MapStub> mapStubs { get; set; } = new List<MapStub>(); 
 

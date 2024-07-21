@@ -4,6 +4,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Stats.Entities;
+using Genrpg.Shared.Utils.Data;
 using MessagePack;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,11 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         [Key(4)] public long Exp { get; set; }
 
         [Key(5)] public List<PartySummon> Summons { get; set; } = new List<PartySummon>();
+
+        [Key(6)] public long WarpMapId { get; set; }
+        [Key(7)] public int WarpMapX { get; set; }
+        [Key(8)] public int WarpMapZ { get; set; }
+        [Key(9)] public int WarpRot { get; set; }
 
         public PartyMember(IRepositoryService repositoryService) : base(repositoryService) { }  
 

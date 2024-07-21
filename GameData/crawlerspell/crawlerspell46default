@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 46,
   "Name": "Pick Lock",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Open a locked door or chest.",
   "PowerPerLevel": 1,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -17,10 +15,9 @@
       "EntityId": 4,
       "MinQuantity": 1,
       "MaxQuantity": 2,
-      "ElementTypeId": 4,
-      "Name": ""
+      "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2024-07-04T19:49:48.794Z",
+  "UpdateTime": "2024-07-14T19:15:39.218Z",
   "CreateTime": "2024-01-28T15:09:08Z"
 }

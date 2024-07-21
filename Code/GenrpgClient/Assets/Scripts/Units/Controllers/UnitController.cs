@@ -352,9 +352,12 @@ public class UnitController : BaseBehaviour
     {
         if (entity == null || anims == null)
         {
-            // JRAJRA TODO REMOVE ONCE REAL ANIMS COME IN
-            transform.Rotate(new Vector3(1, 0, 0), 180);
-            transform.position += new Vector3(0, 1, 0);
+            if (entity != null && entity.transform.childCount > 0)
+            {
+                // JRAJRA TODO REMOVE ONCE REAL ANIMS COME IN
+                entity.transform.GetChild(0).transform.Rotate(new Vector3(1, 0, 0), 180);
+                entity.transform.GetChild(0).transform.position += new Vector3(0, 1, 0);
+            }   
             return;
         }
         AnimUtils.Trigger(anims, AnimParams.Die, 1);

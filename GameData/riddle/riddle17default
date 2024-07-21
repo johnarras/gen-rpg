@@ -1,0 +1,9 @@
+{
+  "Id": "riddle17default",
+  "ParentId": "default",
+  "IdKey": 17,
+  "Name": "Spellbook",
+  "Desc": "Pages filled with mystic lore,\r\nWithin its texts, great power's store.\r\nA guide to spells both weak and strong,\r\nIts knowledge helps the mage along.\r\n",
+  "UpdateTime": "2024-07-21T16:07:52.142Z",
+  "CreateTime": "2024-07-21T16:07:52.142Z"
+}

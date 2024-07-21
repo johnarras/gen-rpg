@@ -4,10 +4,11 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Login.Messages.Login;
-using Genrpg.Shared.Login.Messages.RefreshGameSettings;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
+using Genrpg.Shared.Website.Messages.Login;
+using Genrpg.Shared.Website.Messages.RefreshGameSettings;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ public interface IGameDataService : IInitializable
     List<string> GetEditorIgnoreFields();
     List<IGameSettingsLoader> GetAllLoaders();
     List<ITopLevelSettings> MapToApi(List<ITopLevelSettings> startSettings);
-    bool SetGameDataOverrides(IFilteredObject obj, bool forceRefresh);
-    RefreshGameSettingsResult GetNewGameDataUpdates(Character ch, bool forceRefresh);
-    List<ITopLevelSettings> GetClientGameData(IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null);
+    bool SetGameDataOverrides(ICoreCharacter ch, bool forceRefresh);
+    RefreshGameSettingsResult GetNewGameDataUpdates(ICoreCharacter ch, bool forceRefresh);
+    List<ITopLevelSettings> GetClientGameData(ICoreCharacter ch, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null);
 }

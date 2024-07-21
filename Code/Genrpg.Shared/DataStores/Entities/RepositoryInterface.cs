@@ -37,7 +37,7 @@ namespace Genrpg.Shared.DataStores.Entities
         void QueueUpdateAction<T>(string docId, Action<T> action) where T : class, IStringId;
 
         Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity = 1000, int skip = 0) where T : class, IStringId;
-        Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId;
+        Task CreateIndex<T>(CreateIndexData data) where T : class, IStringId;
         Task<bool> TransactionSave<T>(List<T> list) where T : class, IStringId;
         void QueueTransactionSave<T>(List<T> list, string queueId) where T : class, IStringId;
     }
@@ -52,9 +52,13 @@ namespace Genrpg.Shared.DataStores.Entities
         Task<bool> UpdateAction<T>(string docId, Action<T> action) where T : class, IStringId;
 
         Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity = 1000, int skip = 0) where T : class, IStringId;
-        Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId;
+        Task CreateIndex<T>(CreateIndexData data) where T : class, IStringId;
         Task<bool> SaveAll<T>(List<T> tlist) where T : class, IStringId;
         Task<bool> TransactionSave<T>(List<T> list) where T : class, IStringId;
     }
 
+    public interface IServerRepository : IRepository
+    {
+        Task<T> AtomicIncrement<T>(string docId, string fieldName, long increment) where T : class, IStringId;
+    }
 }

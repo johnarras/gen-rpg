@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Windows.UI.Text;
 
 namespace Genrpg.Editor.UI.Constants
 {
     public class FormatterConstants
     {
         public const string DefaultFontFamily = "Arial";
-
-        public const FontStyle DefaultFontStyle = FontStyle.Regular;
 
         public const int DefaultLabelFontSize = 12;
         public const int SmallLabelFontSize = 8;

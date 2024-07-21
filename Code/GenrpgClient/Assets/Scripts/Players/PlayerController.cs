@@ -17,7 +17,7 @@ public class PlayerController : UnitController
     GVector3 lastSendPos = GVector3.zero;
 
     public float UpDistance = 0.0f;
-    protected bool _sendUpdates = true;
+    protected bool _sendUpdates = false;
     protected float _lastSendSpeed = 0.0f;
     public float SpeedMult = 1.0f;
     public float RotateMult = 1.0f;
@@ -69,7 +69,6 @@ public class PlayerController : UnitController
         _cameraController.AfterMoveUpdate();
     }
 
-
     private bool _everSentPositionUpdate = false;
     private void SendPositionUpdate()
     {
@@ -79,7 +78,7 @@ public class PlayerController : UnitController
             entity == _playerManager.GetEntity())
         {
             float oldRot = _unit.Rot;
-            _unit.Rot =entity.transform().eulerAngles.y;
+            _unit.Rot = entity.transform().eulerAngles.y;
             timeSinceLastUpdateSent = DateTime.UtcNow - lastServerSendTime;
             if (entity == _playerManager.GetEntity())
             {

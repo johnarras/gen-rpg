@@ -1,4 +1,5 @@
 ﻿using ClientEvents;
+using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Zones.WorldData;
@@ -28,7 +29,14 @@ public class ZoneUI : BaseBehaviour
             return;
         }
 
-        string txt = "Map " + _mapProvider.GetMap().Id + ": " + zone.Name + " [#" + zone.IdKey + "] {Lev " + zone.Level + "}";
+        Map map = _mapProvider.GetMap();
+
+        if (map == null)
+        {
+            return;
+        }
+
+        string txt = "Map " + map.Id + ": " + zone.Name + " [#" + zone.IdKey + "] {Lev " + zone.Level + "}";
 
         _uIInitializable.SetText(LocationName, txt);
         return;

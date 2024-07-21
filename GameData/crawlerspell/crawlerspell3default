@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 3,
   "Name": "Shoot",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Attack one or more monsters that are out of melee range.",
   "MinRange": 20,
   "MaxRange": 100,
   "CombatActionId": 3,
@@ -19,6 +17,6 @@
     }
   ],
   "Flags": 1,
-  "UpdateTime": "2024-06-29T14:10:31.071Z",
-  "CreateTime": "2024-01-29T08:46:43Z"
+  "UpdateTime": "2024-07-14T19:15:39.161Z",
+  "CreateTime": "2024-01-29T14:46:43Z"
 }

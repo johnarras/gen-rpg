@@ -17,7 +17,7 @@ namespace Genrpg.Editor.Utils
             gs.EditorUser = new EditorUser();
         }
 
-        public static async Task LoadEditorUserData(EditorGameState gs, IRepositoryService repoService, long userId)
+        public static async Task LoadEditorUserData(EditorGameState gs, IRepositoryService repoService, string userId)
         {        
 
             gs.EditorUser.User = await repoService.Load<User>(userId.ToString());

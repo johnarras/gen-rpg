@@ -56,6 +56,7 @@ using Genrpg.ServerShared.Config;
 using Genrpg.MapServer.Setup.Instances;
 using Amazon.Runtime.Internal;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.GameSettings.PlayerData;
 
 namespace Genrpg.MapServer.Maps
 {

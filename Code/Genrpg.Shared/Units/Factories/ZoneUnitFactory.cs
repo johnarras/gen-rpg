@@ -18,6 +18,7 @@ using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.MapObjects.Factories;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Units.Settings;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.Shared.Units.Factories
 {
@@ -28,6 +29,8 @@ namespace Genrpg.Shared.Units.Factories
         public override long GetKey() { return EntityTypes.ZoneUnit; }
         public override MapObject Create(IRandom rand, IMapSpawn spawn)
         {
+
+            Map map = _mapProvider.GetMap();
 
             Zone spawnZone = _mapProvider.GetMap().Get<Zone>(spawn.EntityId);
 

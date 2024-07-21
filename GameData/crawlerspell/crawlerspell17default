@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 17,
   "Name": "Town Portal",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Teleport to a town on the overworld map.",
   "PowerCost": 100,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -15,10 +13,9 @@
     {
       "EntityTypeId": 37,
       "EntityId": 1,
-      "ElementTypeId": 9,
-      "Name": ""
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-07-04T19:49:48.785Z",
+  "UpdateTime": "2024-07-14T19:15:39.185Z",
   "CreateTime": "2024-01-28T11:43:55Z"
 }

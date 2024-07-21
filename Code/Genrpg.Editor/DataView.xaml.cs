@@ -78,7 +78,6 @@ namespace Genrpg.Editor
         private bool _everShownMultigrid = false;
 
         private IList<MyCanvas> colorPanels = new List<MyCanvas>();
-        private IDictionary<string, Graphics> panelGraphics = new Dictionary<string, Graphics>();
 
         Timer timer = null;
 
@@ -1034,7 +1033,6 @@ namespace Genrpg.Editor
 
             _numSingleTopButtonsShown = 0;
 
-            panelGraphics = new Dictionary<String, Graphics>();
             colorPanels = new List<MyCanvas>();
             int numButtonsPerRow = 8;
 
@@ -1102,7 +1100,6 @@ namespace Genrpg.Editor
             _numSingleTopButtonsShown = 0;
             List<MemberInfo> members = _reflectionService.GetMembers(Obj);
 
-            panelGraphics = new Dictionary<String, Graphics>();
             colorPanels = new List<MyCanvas>();
             int numButtonsPerRow = 8;
 

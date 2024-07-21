@@ -43,21 +43,21 @@ namespace Genrpg.Shared.Zones.Settings
         [Key(21)] public float ZoneListGenScale { get; set; }
 
 
-        [Key(22)] public List<ZoneTextureType> Textures { get; set; }
+        [Key(22)] public List<ZoneTextureType> Textures { get; set; } = new List<ZoneTextureType>();
 
-        [Key(23)] public List<WeightedName> ZoneNames { get; set; }
-        [Key(24)] public List<WeightedName> ZoneAdjectives { get; set; }
+        [Key(23)] public List<WeightedName> ZoneNames { get; set; } = new List<WeightedName>();  
+        [Key(24)] public List<WeightedName> ZoneAdjectives { get; set; } = new List<WeightedName>();
 
-        [Key(25)] public List<ZoneBridgeType> BridgeTypes { get; set; }
-        [Key(26)] public List<ZoneFenceType> FenceTypes { get; set; }
-        [Key(27)] public List<ZoneRockType> RockTypes { get; set; }
-        [Key(28)] public List<ZoneTreeType> TreeTypes { get; set; }
+        [Key(25)] public List<ZoneBridgeType> BridgeTypes { get; set; } = new List<ZoneBridgeType>();
+        [Key(26)] public List<ZoneFenceType> FenceTypes { get; set; } = new List<ZoneFenceType>();
+        [Key(27)] public List<ZoneRockType> RockTypes { get; set; } = new List<ZoneRockType>();
+        [Key(28)] public List<ZoneTreeType> TreeTypes { get; set; } = new List<ZoneTreeType>();
 
-        [Key(29)] public List<WeightedName> CreatureNamePrefixes { get; set; }
-        [Key(30)] public List<WeightedName> CreatureDoubleNamePrefixes { get; set; }
+        [Key(29)] public List<WeightedName> CreatureNamePrefixes { get; set; } = new List<WeightedName>();
+        [Key(30)] public List<WeightedName> CreatureDoubleNamePrefixes { get; set; } = new List<WeightedName>();
 
-        [Key(31)] public List<ZoneTypeOverride> Overrides { get; set; }
-        [Key(32)] public List<ZoneUnitSpawn> ZoneUnitSpawns { get; set; }
+        [Key(31)] public List<ZoneTypeOverride> Overrides { get; set; } = new List<ZoneTypeOverride>();
+        [Key(32)] public List<ZoneUnitSpawn> ZoneUnitSpawns { get; set; } = new List<ZoneUnitSpawn>();
 
 
         [Key(33)] public string PlantChoices { get; set; }

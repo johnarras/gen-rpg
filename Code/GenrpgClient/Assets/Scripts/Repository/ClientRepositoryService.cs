@@ -117,7 +117,7 @@ namespace Assets.Scripts.Model
             return await repo.Search(func);
         }
 
-        public Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId
+        public Task CreateIndex<T>(CreateIndexData data) where T : class, IStringId
         {
             throw new NotImplementedException();
         }

@@ -1,0 +1,9 @@
+{
+  "Id": "riddle11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Orc",
+  "Desc": "With tusks and strength, they lead the charge,\r\nIn battle fierce, their roars are large.\r\nSavage and strong, they wield their might,\r\nIn war, they are a daunting sight.\r\n",
+  "UpdateTime": "2024-07-21T16:07:52.128Z",
+  "CreateTime": "2024-07-21T16:07:52.128Z"
+}

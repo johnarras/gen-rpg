@@ -119,6 +119,10 @@ public class FileDownloadService : IFileDownloadService
         if (string.IsNullOrEmpty(contentRootURL))
         {
             contentRootURL = _assetService.GetContentRootURL(worldData);
+            if (string.IsNullOrEmpty(contentRootURL))
+            {
+                return;
+            }
         }
 
         InternalFileDownload fileDownLoad = new InternalFileDownload(downloadData, contentRootURL, filePath, token);

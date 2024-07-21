@@ -3,11 +3,11 @@ using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.MapServer.Entities;
 using Assets.Scripts.Atlas.Constants;
 using System.Threading;
-using Genrpg.Shared.Login.Messages.DeleteChar;
+using Genrpg.Shared.Website.Messages.DeleteChar;
 
 public class CharacterSelectRow : BaseBehaviour
 {
-    private IWebNetworkService _webNetworkService;
+    private IClientWebService _webNetworkService;
 
     public GText NameText;
     public GImage CharImage;

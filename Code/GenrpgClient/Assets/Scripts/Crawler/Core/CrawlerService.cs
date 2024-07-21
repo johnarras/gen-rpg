@@ -42,6 +42,7 @@ namespace Assets.Scripts.Crawler.Services
         protected ICombatService _combatService;
         protected ICrawlerWorldService _worldService;
         protected ILootGenService _lootGenService;
+        private IInputService _inputService;
 
         public const string SaveFileSuffix = ".sav";
         public const string StartSaveFileName = "Start" + SaveFileSuffix;
@@ -82,6 +83,7 @@ namespace Assets.Scripts.Crawler.Services
 
         public async Awaitable Init(PartyData party, CancellationToken token)
         {
+            _inputService.SetDisabled(true);
             _token = token;
             _party = party;
 
@@ -104,7 +106,7 @@ namespace Assets.Scripts.Crawler.Services
 
         public void ChangeState(ECrawlerStates crawlerState, CancellationToken token, object extraData = null)
         {
-            CrawlerStateData stateData = new CrawlerStateData(ECrawlerStates.None);
+            CrawlerStateData stateData = new CrawlerStateData(ECrawlerStates.None) { ExtraData = extraData };
             CrawlerStateAction action = new CrawlerStateAction(null, KeyCode.None, crawlerState, extraData: extraData);
             ChangeState(stateData, action, token);
         }
@@ -158,7 +160,6 @@ namespace Assets.Scripts.Crawler.Services
                         _stateStack.Pop();
                     }
                 }
-
 
                 IStateHelper stateHelper = GetStateHelper(action.NextState);
                 if (stateHelper != null)

@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 56,
   "Name": "Greater Cure Party",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Cure all party members Tier 4",
   "PowerCost": 90,
   "MaxRange": 100,
   "ReplacesCrawlerSpellId": 55,
@@ -84,6 +82,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:31.197Z",
+  "UpdateTime": "2024-07-14T19:15:39.23Z",
   "CreateTime": "2024-01-28T21:17:33Z"
 }

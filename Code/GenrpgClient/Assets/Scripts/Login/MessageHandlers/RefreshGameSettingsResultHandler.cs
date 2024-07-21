@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Genrpg.Shared.Login.Messages.RefreshGameSettings;
+using Genrpg.Shared.Website.Messages.RefreshGameSettings;
 using System.Threading;
 
 namespace Assets.Scripts.Login.MessageHandlers
@@ -8,7 +8,7 @@ namespace Assets.Scripts.Login.MessageHandlers
     {
         protected override void InnerProcess(RefreshGameSettingsResult result, CancellationToken token)
         {
-            _gs.ch.SetGameDataOverrideList(result.Overrides);         
+            _gs.ch.DataOverrides = result.DataOverrides;
             _gameData.AddData(result.NewSettings);
         }
     }

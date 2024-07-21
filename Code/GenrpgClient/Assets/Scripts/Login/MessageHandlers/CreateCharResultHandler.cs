@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Genrpg.Shared.Login.Messages.CreateChar;
+using Genrpg.Shared.Website.Messages.CreateChar;
 using System.Threading;
 using UI.Screens.Constants;
 

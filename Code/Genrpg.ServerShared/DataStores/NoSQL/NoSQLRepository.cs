@@ -18,7 +18,7 @@ using ZstdSharp.Unsafe;
 
 namespace Genrpg.ServerShared.DataStores.NoSQL
 {
-    public class NoSQLRepository : IRepository
+    public class NoSQLRepository : IServerRepository
     {
 
         private static ConcurrentDictionary<string, MongoClient> _clientCache = new ConcurrentDictionary<string, MongoClient>();
@@ -135,10 +135,12 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         /// a list of some base class/interface and still be
         /// able to do database operations through the dynamic type
         /// of the object.
+        /// 
+        /// This is public, but not in an interface to expose a few helper functions.
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        private INoSQLCollection GetCollection(Type t) 
+        public INoSQLCollection GetCollection(Type t) 
         {
             if (_collections.TryGetValue(t, out INoSQLCollection coll))
             {
@@ -211,10 +213,10 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         /// <typeparam name="T"></typeparam>
         /// <param name="configs"></param>
         /// <returns></returns>
-        public async Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId
+        public async Task CreateIndex<T>(CreateIndexData data) where T : class, IStringId
         {
             INoSQLCollection collection = GetCollection(typeof(T));
-            await collection.CreateIndex(configs);
+            await collection.CreateIndex(data);
         }
 
         /// <summary>
@@ -288,6 +290,13 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             INoSQLCollection collection = GetCollection(typeof(T));
 
             return await collection.UpdateAction(docId, action);
+        }
+
+        public async Task<T> AtomicIncrement<T>(string docId, string fieldName, long increment) where T : class, IStringId
+        {
+            INoSQLCollection collection = GetCollection(typeof(T));
+
+            return (T)await collection.AtomicIncrement(docId, fieldName, increment);
         }
     }
 }

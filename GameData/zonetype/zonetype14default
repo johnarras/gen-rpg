@@ -37,6 +37,7 @@
   "BridgeTypes": [],
   "FenceTypes": [],
   "RockTypes": [],
+  "TreeTypes": [],
   "CreatureNamePrefixes": [],
   "CreatureDoubleNamePrefixes": [],
   "Overrides": [],

@@ -31,13 +31,13 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             long cityZoneTypeId = allZoneTypes.FirstOrDefault(x => x.Name == "City")?.IdKey ?? 1;
             long roadZoneTypeId = allZoneTypes.FirstOrDefault(x => x.Name == "Road")?.IdKey ?? 1;
 
-            int width = MathUtils.IntRange(15, 25, rand);
-            int height = MathUtils.IntRange(15, 25, rand);
+            int width = MathUtils.IntRange(14, 18, rand);
+            int height = width;
             genData.ZoneTypeId = cityZoneTypeId;
             CrawlerMap map = genData.World.CreateMap(genData, width, height);
 
             map.Name = _zoneGenService.GenerateZoneName(genData.ZoneTypeId, rand.Next(), true);
-            bool[,] clearCells = AddCorridors(map, genData, rand, 0.75f);
+            bool[,] clearCells = AddCorridors(map, genData, rand, 1.0f);
 
             int gateX = -1;
             int gateZ = -1;
@@ -117,7 +117,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                         {
                             int sx = xx + x;
 
-                            if (sx < 0 || sx >= map.Width - 1)
+                            if (sx < 0 || sx >= map.Width)
                             {
                                 continue;
                             }
@@ -218,13 +218,19 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             {
                 for (int y = 0; y < map.Height; y++)
                 {
+
                     if (map.Get(x, y, CellIndex.Building) != 0)
                     {
                         map.Set(x, y, CellIndex.Terrain, cityZoneTypeId);
                     }
-                    else
+                    else if (clearCells[x,y])
                     {
                         map.Set(x, y, CellIndex.Terrain, roadZoneTypeId);
+                    }
+                    else
+                    {
+
+                        map.Set(x, y, CellIndex.Terrain, 1);
                     }
                 }
             }

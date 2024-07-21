@@ -1,6 +1,7 @@
 ﻿using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.Utils;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Characters.Utils;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
@@ -13,14 +14,14 @@ using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.GameSettings.Settings;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Login.Messages.Login;
-using Genrpg.Shared.Login.Messages.RefreshGameSettings;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Utils;
 using Genrpg.Shared.Settings.Settings;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Settings;
+using Genrpg.Shared.Website.Messages.Login;
+using Genrpg.Shared.Website.Messages.RefreshGameSettings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,10 +93,10 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
         public List<IGameSettingsLoader> GetAllLoaders()
         {
-            return _loaderObjects.Values.OrderBy(x=>x.GetType().Name).ToList();
+            return _loaderObjects.Values.OrderBy(x => x.GetType().Name).ToList();
         }
 
-        public async Task Initialize( CancellationToken token)
+        public async Task Initialize(CancellationToken token)
         {
             await SetupLoaders(token);
             await SetupMappers(token);
@@ -150,23 +151,15 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return true;
         }
 
-        public bool SetGameDataOverrides(IFilteredObject obj, bool forceRefresh)
+        public bool SetGameDataOverrides(ICoreCharacter ch, bool forceRefresh)
         {
-            if (!(obj is Character ch))
+
+            if (ch == null || ch.DataOverrides == null)
             {
-                return false;
+                return true;
             }
 
-            GameDataOverrideData gameDataOverrideData = ch.Get<GameDataOverrideData>();
-
-            if (gameDataOverrideData.OverrideList == null)
-            {
-                gameDataOverrideData.OverrideList = new GameDataOverrideList();
-            }
-
-            GameDataOverrideList gameDataOverrideList = gameDataOverrideData.OverrideList;
-
-            VersionSettings versionSettings = _gameData.Get<VersionSettings>(ch);
+            VersionSettings versionSettings = _gameData.Get<VersionSettings>(null);
 
             DataOverrideSettings dataOverrideSettings = _gameData.Get<DataOverrideSettings>(null);
 
@@ -183,12 +176,11 @@ namespace Genrpg.ServerShared.GameSettings.Services
             // player has the most recent data and the next data hasn't changed, so don't make 
             // any changes.
 
-            if (!forceRefresh && 
-                versionSettings.GameDataSaveTime == gameDataOverrideData.GameDataSaveTime &&
-                gameDataOverrideData.LastTimeSet >= dataOverrideSettings.PrevUpdateTime &&
-                gameDataOverrideData.LastTimeSet < dataOverrideSettings.NextUpdateTime)
-            { 
-                ch.SetGameDataOverrideList(gameDataOverrideList);
+            if (!forceRefresh &&
+                versionSettings.GameDataSaveTime == ch.DataOverrides.LastTimeSet &&
+                ch.DataOverrides.LastTimeSet >= dataOverrideSettings.PrevUpdateTime &&
+                ch.DataOverrides.LastTimeSet < dataOverrideSettings.NextUpdateTime)
+            {
                 return false;
             }
 
@@ -201,7 +193,6 @@ namespace Genrpg.ServerShared.GameSettings.Services
             {
                 if (AcceptedByFilter(ch, overrideGroup))
                 {
-
                     // Each group.Items is ordered on load by SettingsId then by DocId
                     foreach (DataOverrideItem groupItem in overrideGroup.Items)
                     {
@@ -231,34 +222,42 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 }
             }
 
-            gameDataOverrideData.GameDataSaveTime = versionSettings.GameDataSaveTime;
-            gameDataOverrideData.LastTimeSet = DateTime.UtcNow;
-            _repoService.QueueSave(gameDataOverrideData);
+            ch.DataOverrides.GameDataSaveTime = versionSettings.GameDataSaveTime;
+            ch.DataOverrides.LastTimeSet = DateTime.UtcNow;
 
-            gameDataOverrideList.Items = new List<PlayerSettingsOverrideItem>();
+            ch.DataOverrides.Items = new List<PlayerSettingsOverrideItem>();
 
             foreach (DataOverrideItemPriority priority in priorityOverrides)
             {
-                gameDataOverrideList.Items.Add(new PlayerSettingsOverrideItem()
+                ch.DataOverrides.Items.Add(new PlayerSettingsOverrideItem()
                 {
                     SettingId = settingsNameSettings.Get(priority.SettingsNameId).Name,
                     DocId = priority.DocId,
                 });
             }
 
-            gameDataOverrideList.Items = gameDataOverrideList.Items.OrderBy(x => x.SettingId).ToList();
+            ch.DataOverrides.Items = ch.DataOverrides.Items.OrderBy(x => x.SettingId).ToList();
 
             // This should be deterministic across machines because the player has a set
             // of overrides that should be the same for anyone who's in the same bucket
             // and then the game data save time and the prev update time (last time the
             // overrides changed) will be the same.
-            string fullString = SerializationUtils.Serialize(gameDataOverrideList.Items) +
+            string fullString = SerializationUtils.Serialize(ch.DataOverrides.Items) +
                 versionSettings.GameDataSaveTime.Ticks.ToString() + "." +
                 dataOverrideSettings.PrevUpdateTime.Ticks.ToString();
 
-            gameDataOverrideList.Hash = PasswordUtils.Sha256(fullString);
+            ch.DataOverrides.Hash = PasswordUtils.Sha256(fullString);
 
-            ch.SetGameDataOverrideList(gameDataOverrideList);
+            if (ch is CoreCharacter cch)
+            {
+                _repoService.QueueSave(cch);
+            }
+            else
+            {
+                CoreCharacter cch2 = new CoreCharacter();
+                CharacterUtils.CopyDataFromTo(ch, cch2);
+                _repoService.QueueSave(cch2);
+            }
 
             return true;
         }
@@ -281,11 +280,11 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return retval;
         }
 
-        public List<ITopLevelSettings> GetClientGameData(IFilteredObject obj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null)
+        public List<ITopLevelSettings> GetClientGameData(ICoreCharacter ch, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null)
         {
 
             List<ITopLevelSettings> retval = new List<ITopLevelSettings>();
-            SetGameDataOverrides(obj, true);
+            SetGameDataOverrides(ch, true);
 
             List<ITopLevelSettings> allData = _gameData.AllSettings();
 
@@ -302,7 +301,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
                 if (!sendAllDefault)
                 {
-                    docName = _gameData.DataObjectName(t.Name, obj);
+                    docName = _gameData.SettingObjectName(t.Name, ch);
                     if (docName == GameDataConstants.DefaultFilename)
                     {
                         continue;
@@ -329,7 +328,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return retval;
         }
 
-        private bool AcceptedByFilter(Character ch, IPlayerFilter filter)
+        private bool AcceptedByFilter(ICoreCharacter ch, IPlayerFilter filter)
         {
             if (!PlayerFilterUtils.IsActive(filter))
             {
@@ -368,7 +367,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             newData.PrevSaveTime = _gameData.CurrSaveTime;
         }
 
-        public RefreshGameSettingsResult GetNewGameDataUpdates(Character ch, bool forceRefresh)
+        public RefreshGameSettingsResult GetNewGameDataUpdates(ICoreCharacter ch, bool forceRefresh)
         {
             if (!SetGameDataOverrides(ch, forceRefresh))
             {
@@ -380,11 +379,10 @@ namespace Genrpg.ServerShared.GameSettings.Services
             List<ITopLevelSettings> newSettings = new List<ITopLevelSettings>();
 
             // Always load this on client commands/always have in mapserver.
-            GameDataOverrideData overrideData = ch.Get<GameDataOverrideData>();
 
-            List<PlayerSettingsOverrideItem> oldPlayerOverrides = new List<PlayerSettingsOverrideItem>(overrideData.OverrideList.Items);
+            List<PlayerSettingsOverrideItem> oldPlayerOverrides = new List<PlayerSettingsOverrideItem>(ch.DataOverrides.Items);
 
-            GameDataOverrideList overrideList = ch.GetOverrideList();
+            GameDataOverrideList overrideList = ch.DataOverrides;
 
             List<ITopLevelSettings> allSettings = _gameData.AllSettings();
 
@@ -418,7 +416,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 }
             }
 
-            result.Overrides = overrideList;
+            result.DataOverrides = overrideList;
             result.NewSettings = MapToApi(newSettings);
 
             return result;

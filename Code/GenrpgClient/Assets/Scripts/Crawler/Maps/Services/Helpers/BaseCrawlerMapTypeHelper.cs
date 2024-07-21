@@ -145,7 +145,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                 return;
             }
 
-
             GImage image = GEntityUtils.GetComponent<GImage>(parent);
 
             if (image == null)
@@ -169,7 +168,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         /// <param name="ex">Can be out of range 0-map.Width-1</param>
         /// <param name="ez">Can be out of range 0-map.Height-1</param>
         /// <returns></returns>
-        public virtual int GetBlockingBits(CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez)
+        public virtual int GetBlockingBits(CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez, bool allowBuildingEntry)
         {
             int blockBits = 0;
             if (ex > sx) // East
@@ -196,12 +195,16 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             {
                 return WallTypes.Wall;
             }
+            byte buildingId = mapRoot.Map.Get(safeEx, safeEz, CellIndex.Building);
 
-            if (mapRoot.Map.MapType == ECrawlerMapTypes.City)
+            if (buildingId > 0)
             {
-                byte buildingId = mapRoot.Map.Get(safeEx, safeEz, CellIndex.Building);
+                if (!allowBuildingEntry)
+                {
+                    return WallTypes.Wall;
+                }
 
-                if (buildingId > 0)
+                if (mapRoot.Map.MapType == ECrawlerMapTypes.City)
                 {
                     int angle = mapRoot.Map.Get(safeEx, safeEz, CellIndex.Dir) * CrawlerMapConstants.DirToAngleMult;
 
@@ -235,12 +238,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             cell.Content = new GameObject() { name = "Cell" + cell.X + "." + cell.Z };
             GEntityUtils.AddToParent(cell.Content, mapRoot.gameObject);
             cell.Content.transform.position = new Vector3(nx * bz, 0, nz * bz);
-
-
-            if (cell.X == mapRoot.Map.Width-1 && cell.Z == 11)
-            {
-                _logService.Info("Drawcell");
-            }
 
             bool isRoom = (mapRoot.Map.Get(cell.X, cell.Z, CellIndex.Walls) & (1 << MapWallBits.IsRoomBitOffset)) != 0;
 

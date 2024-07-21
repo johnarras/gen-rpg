@@ -1,5 +1,4 @@
 ﻿
-using Genrpg.LoginServer.CommandHandlers.Core;
 using Genrpg.LoginServer.Core;
 using Genrpg.LoginServer.Services.LoginServer;
 using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
@@ -12,7 +11,7 @@ namespace Genrpg.LoginServer.Services.Admin
 {
     public class LoginAdminService : BaseAdminService, IAdminService
     {
-        private ILoginServerService _loginServerService;
+        private IWebServerService _loginServerService;
         public override async Task OnMapUploaded(MapUploadedAdminMessage message)
         {
             if (message.WorldDataEnv != _config.DataEnvs[DataCategoryTypes.WorldData])

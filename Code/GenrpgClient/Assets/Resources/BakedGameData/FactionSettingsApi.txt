@@ -1,0 +1,28 @@
+{
+  "Data": [
+    {
+      "Id": "factiontype0default",
+      "ParentId": "default",
+      "Name": "Neutral",
+      "StartRepLevelId": 1,
+      "UpdateTime": "2024-06-29T14:10:32.225Z",
+      "CreateTime": "2023-12-24T17:22:28.816Z"
+    },
+    {
+      "Id": "factiontype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Player",
+      "StartRepLevelId": 4,
+      "UpdateTime": "2024-06-29T14:10:32.245Z",
+      "CreateTime": "2023-12-24T17:22:29.035Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "FactionSettings",
+    "UpdateTime": "2024-07-04T23:03:06.163Z",
+    "CreateTime": "2023-11-24T16:45:28.395Z"
+  },
+  "Id": "default"
+}

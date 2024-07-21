@@ -71,7 +71,6 @@ namespace Genrpg.Shared.Units.Entities
 
         public DateTime GlobalCooldownEnds = DateTime.UtcNow;
 
-
         public Unit(IRepositoryService repositoryService) : base(repositoryService) { }
 
             public bool HasStatusBits(long statusBits)

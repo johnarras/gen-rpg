@@ -1,13 +1,13 @@
 ﻿using Genrpg.Shared.GameSettings.Messages;
-using Genrpg.Shared.Login.Messages.RefreshGameSettings;
-using Genrpg.Shared.Login.Messages.RefreshStores;
+using Genrpg.Shared.Website.Messages.RefreshGameSettings;
+using Genrpg.Shared.Website.Messages.RefreshStores;
 using System.Threading;
 
 namespace Assets.Scripts.MessageHandlers.GameSettings
 {
     public class OnRefreshGameSettingsMessageHandler : BaseClientMapMessageHandler<OnRefreshGameSettings>
     {
-        private IWebNetworkService _webNetworkService = null;
+        private IClientWebService _webNetworkService = null;
 
         protected override void InnerProcess(OnRefreshGameSettings msg, CancellationToken token)
         {

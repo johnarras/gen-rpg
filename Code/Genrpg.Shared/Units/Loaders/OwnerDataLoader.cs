@@ -31,9 +31,9 @@ namespace Genrpg.Shared.Units.Loaders
         {
             await base.Initialize(token);
 
-            List<IndexConfig> configs = new List<IndexConfig>();
-            configs.Add(new IndexConfig() { Ascending = true, MemberName = "OwnerId" });
-            await _repoSystem.CreateIndex<TChild>(configs);
+            CreateIndexData data = new CreateIndexData();
+            data.Configs.Add(new IndexConfig() { Ascending = true, MemberName = "OwnerId" });
+            await _repoSystem.CreateIndex<TChild>(data);
         }
 
         public override async Task<ITopLevelUnitData> LoadFullData(Unit unit)

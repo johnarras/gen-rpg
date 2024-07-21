@@ -12,7 +12,6 @@ using Genrpg.ServerShared.Achievements;
 using System.Linq;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Currencies.Constants;
-using Microsoft.Identity.Client;
 using Genrpg.Shared.Achievements.Constants;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;

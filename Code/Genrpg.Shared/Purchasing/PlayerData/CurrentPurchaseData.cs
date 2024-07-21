@@ -14,11 +14,10 @@ namespace Genrpg.Shared.Purchasing.PlayerData
 
     public class CurrentPurchaseLoader : UnitDataLoader<CurrentPurchaseData>
     {
-        protected override bool IsUserData() { return true; }
     }
 
     [MessagePackObject]
-    public class CurrentPurchaseData : NoChildPlayerData, IUnitData
+    public class CurrentPurchaseData : NoChildPlayerData, IUserData
     {
 
         [Key(0)] public override string Id { get; set; }

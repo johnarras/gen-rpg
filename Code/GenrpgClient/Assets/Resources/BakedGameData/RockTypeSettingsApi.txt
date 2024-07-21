@@ -1,0 +1,64 @@
+{
+  "Data": [
+    {
+      "Id": "rocktype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "RockRock",
+      "Art": "RockRock",
+      "ChanceScale": 1.0,
+      "BaseColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 1.0,
+        "A": 1.0
+      },
+      "MaxIndex": 10,
+      "UpdateTime": "2024-06-29T14:10:34.982Z",
+      "CreateTime": "2024-02-15T23:06:19.754Z"
+    },
+    {
+      "Id": "rocktype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "RockSand",
+      "Art": "RockSand",
+      "ChanceScale": 1.0,
+      "BaseColor": {},
+      "MaxIndex": 10,
+      "UpdateTime": "2024-06-29T14:10:34.985Z",
+      "CreateTime": "2024-02-15T23:06:19.757Z"
+    },
+    {
+      "Id": "rocktype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "RockRed",
+      "Art": "RockRed",
+      "ChanceScale": 1.0,
+      "BaseColor": {},
+      "MaxIndex": 10,
+      "UpdateTime": "2024-06-29T14:10:34.987Z",
+      "CreateTime": "2024-02-15T23:06:19.76Z"
+    },
+    {
+      "Id": "rocktype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "RockSwamp",
+      "Art": "RockSwamp",
+      "ChanceScale": 1.0,
+      "BaseColor": {},
+      "MaxIndex": 10,
+      "UpdateTime": "2024-06-29T14:10:34.99Z",
+      "CreateTime": "2024-02-15T23:06:19.762Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "RockTypeSettings",
+    "UpdateTime": "2024-07-04T23:03:06.247Z",
+    "CreateTime": "2023-12-23T23:13:14.23Z"
+  },
+  "Id": "default"
+}

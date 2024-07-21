@@ -1,0 +1,475 @@
+Beneath the sky with wings of fire,
+A creature feared, a great empire.
+Its breath can scorch, its scales gleam bright,
+A fearsome foe, a thrilling sight.
+
+Dragon
+
+With robes of silk and staff in hand,
+They conjure spells both grand and grand.
+With wisdom vast and magic true,
+They wield the power, old and new.
+
+Wizard
+
+Forged in fire, held with might,
+A warrior's tool, in battles bright.
+Its edge is sharp, its gleam is true,
+A hero's weapon through and through.
+
+Sword
+
+A fortress tall with towers high,
+It touches clouds and scrapes the sky.
+A royal home with moat around,
+In legends, it's where kings are crowned.
+
+Castle
+
+In forests deep, they make their home,
+With pointed ears, through woods they roam.
+With bows in hand and eyes so keen,
+Their grace and beauty oft are seen.
+
+Elf
+
+A vial filled with liquid rare,
+It heals or harms, handle with care.
+In battles fierce or times of need,
+This magic drink can do the deed.
+
+Potion
+
+Beneath the ground, in darkness deep,
+Where creatures lurk and shadows creep.
+Adventurers brave with torches bright,
+Explore its depths by flickering light.
+
+Dungeon
+
+In armor clad from head to toe,
+With shield and sword, they face the foe.
+A noble heart and courage bright,
+In battles fought, they are the knight.
+
+Knight
+
+With skin of green and eyes that gleam,
+They skulk in shadows, sly and mean.
+Small and quick with mischief rife,
+They cause much trouble in their life.
+
+Goblin
+
+A call to arms, a hero's test,
+To find a treasure or save the blessed.
+A journey long through peril's way,
+A story told by end of day.
+
+Quest
+
+With tusks and strength, they lead the charge,
+In battle fierce, their roars are large.
+Savage and strong, they wield their might,
+In war, they are a daunting sight.
+
+Orc
+
+With arcane arts, they weave their fate,
+With chants and runes, they demonstrate.
+Their power vast, their wisdom old,
+In spells, their magic does unfold.
+
+Mage
+
+In shadows deep, they move unseen,
+A dagger’s flash, a silent scene.
+With nimble hands and eyes so sly,
+They steal and sneak, they live to spy.
+
+Rogue
+
+A place of rest, where stories flow,
+Where weary travelers come and go.
+With ale and song, by hearth so warm,
+It offers shelter from the storm.
+
+Tavern
+
+With bones and spirits, they do play,
+To summon death in night or day.
+A master of the dark’s embrace,
+They call the dead to show their face.
+
+Necromancer
+
+In shining armor, pure and bright,
+They fight for good, defend the right.
+With holy power, they protect,
+In righteous cause, they do reflect.
+
+Paladin
+
+Pages filled with mystic lore,
+Within its texts, great power’s store.
+A guide to spells both weak and strong,
+Its knowledge helps the mage along.
+
+Spellbook
+
+With wings of eagle, body of beast,
+A creature wild, a sight to feast.
+In sky it soars, with talons keen,
+A mix of two in legends seen.
+
+Griffin
+
+With magic flowing through her veins,
+She casts her spells, controls the reins.
+Her beauty fierce, her power grand,
+She holds the world within her hand.
+
+Sorceress
+
+A chest of gold, a gem so rare,
+A prize for those who brave the dare.
+In hidden caves or dungeons deep,
+A reward for those who secrets keep.
+
+Treasure
+
+With lute in hand and voice so clear,
+They sing of tales both far and near.
+With songs of joy or sorrow’s tone,
+They weave a magic all their own.
+
+Bard
+
+In forests wild, they find their peace,
+With nature’s power, their strength increase.
+They shape-shift forms, with wisdom old,
+In earth and sky, their magic’s told.
+
+Druid
+
+Carved in stone or written scroll,
+A symbol with a mystic role.
+It holds the power, ancient, grand,
+Its meaning known to mage’s hand.
+
+Rune
+
+A creature small, a partner true,
+In magic’s work, it aids you through.
+A loyal friend with senses keen,
+By mage’s side, it’s often seen.
+
+Familiar
+
+A spell that binds, a charm so sweet,
+It changes hearts, it can’t be beat.
+With magic’s touch, it alters all,
+Its power’s great, yet often small.
+
+Enchantment
+
+From stone or clay, they come to life,
+A guardian strong in times of strife.
+With silent watch and endless might,
+They stand to guard both day and night.
+
+Golem
+
+Small of stature, brave and spry,
+With nimble feet, they dart and fly.
+A merry folk with hearts so light,
+In adventures grand, they find delight.
+
+Halfling
+
+A lich so feared, with death’s embrace,
+In shadows dark, it finds its place.
+With life prolonged and power vast,
+It holds the secrets of the past.
+
+Lich
+
+With pacts they make, their power grand,
+They wield dark magic, rule the land.
+With demons bound to their command,
+They cast their spells with practiced hand.
+
+Warlock
+
+From ashes born, in fire’s glow,
+A bird of flame that you should know.
+It dies to live, with life anew,
+In fiery flight, its legend grew.
+
+Phoenix
+
+An ancient relic, power grand,
+In hero's grasp, it saves the land.
+With history deep and magic bright,
+It shines with an eternal light.
+
+Artifact
+
+With lion’s mane and serpent’s tail,
+A beast so fierce it will prevail.
+A mix of parts, both wild and free,
+In legends old, it’s feared, you see.
+
+Chimera
+
+With holy power, prayers they say,
+To heal the sick and guide the way.
+A beacon bright, in darkness clear,
+They banish evil, calm the fear.
+
+Cleric
+
+Of fire, water, earth, and air,
+They manifest from everywhere.
+With elemental force they bind,
+The magic of the world combined.
+
+Elemental
+
+With wings that glimmer in the night,
+They dance and play in moon’s soft light.
+Small and quick, with magic bright,
+In forests deep, they take their flight.
+
+Faerie
+
+A glove of strength, a hero’s tool,
+With power vast, it’s no mere jewel.
+On hand it fits, both snug and tight,
+In battles fought, it shows its might.
+
+Gauntlet
+
+A trick of mind, a sight untrue,
+It twists reality for you.
+With vision blurred and senses tricked,
+You see a world that’s magic picked.
+
+Illusion
+
+With horns of bull and body grand,
+They guard the maze, a fearsome stand.
+Half-man, half-beast, with strength so bold,
+Their legends in the labyrinths told.
+
+Minotaur
+
+With hammer strong and anvil bright,
+They craft the runes by fire’s light.
+Imbuing power in every stroke,
+Their creations are no joke.
+
+Runesmith
+
+A word or phrase with power vast,
+When spoken true, it’s spells are cast.
+With magic force it does compel,
+The world to change with just a spell.
+
+Spell
+
+Under bridges, dark and cold,
+A creature large with strength untold.
+They guard their lairs with greedy glee,
+From their wrath, you’d best to flee.
+
+Troll
+
+A serpent long with scales of steel,
+Its power grand, its bite can heal.
+In myths and lore, its tale is told,
+A creature feared and yet so old.
+
+Wyrm
+
+With potions brewed and secrets kept,
+In shadows deep, their magic slept.
+They change the world with liquid lore,
+Transforming life forevermore.
+
+Alchemist
+
+A giant beast with massive size,
+It roams the lands, it shakes the skies.
+With strength unmatched, it stands so tall,
+In every fight, it will not fall.
+
+Behemoth
+
+A cup of gold with magic bright,
+It holds the power, pure delight.
+In holy hands or dark’s embrace,
+Its liquid grants a special grace.
+
+Chalice
+
+With fangs so sharp and fur of night,
+A wolf so fierce, a daunting sight.
+In packs they hunt, with deadly skill,
+In moonlit woods, they stalk and kill.
+
+Direwolf
+
+A ghostly form that drifts and fades,
+Between the worlds, it never stays.
+With otherworldly grace it moves,
+In shadows deep, its presence proves.
+
+Ethereal
+
+A touch so cold, it burns like fire,
+With winter’s breath, it takes you higher.
+It numbs the skin, it chills the bone,
+In icy lands, it’s all you’ve known.
+
+Frostbite
+
+A group of peers with common goal,
+They work as one to reach their role.
+In halls of stone, their secrets keep,
+In unity, their plans they reap.
+
+Guild
+
+With wings of bird and face of maid,
+A creature wild, in sky it stayed.
+Its song a lure, its claws a vice,
+Beware its charm, for it’s not nice.
+
+Harpy
+
+Carved in stone or parchment thin,
+A text of old, a secret’s spin.
+It tells of power, of lore untold,
+In ancient scripts, its tales unfold.
+
+Inscription
+
+A force of nature, strong and vast,
+It crushes all that it’s amassed.
+With power raw and might so great,
+It charges forth, it seals your fate.
+
+Juggernaut
+
+A stone of power, a lock’s great key,
+It holds the secret, sets you free.
+In arches grand, it finds its place,
+A cornerstone in time and space.
+
+Keystone
+
+A twisted maze with paths unclear,
+It challenges all who enter here.
+With walls so high and turns so tight,
+It tests your wits both day and night.
+
+Labyrinth
+
+A cloak of power, shoulders bear,
+With strength and grace, beyond compare.
+It grants its wearer mystic might,
+In battles fierce, it aids the fight.
+
+Mantle
+
+In rivers clear or forests green,
+A spirit pure, a maiden seen.
+With nature’s charm and beauty bright,
+She dances in the soft moonlight.
+
+Nymph
+
+A pillar tall, it reaches sky,
+A monument where secrets lie.
+With ancient runes and stories told,
+It stands as witness to the old.
+
+Obelisk
+
+A gathering of gods so grand,
+In myth and lore, they rule the land.
+With power vast and legends bright,
+They shape the world with might and light.
+
+Pantheon
+
+A holder for the arrows true,
+In battles fierce, it’s there with you.
+Strapped upon your back so tight,
+It aids your aim both day and night.
+
+Quiver
+
+An artifact of ages past,
+With power grand and spells so vast.
+It holds the secrets, old and grand,
+A piece of history in your hand.
+
+Relic
+
+A place of peace, a haven pure,
+Where troubled souls can find their cure.
+With holy light and blessings bright,
+It shields from darkness, gives respite.
+
+Sanctuary
+
+A book of wisdom, spells, and lore,
+Its pages hold the magic’s core.
+With ink of old and knowledge deep,
+Its secrets in your mind you keep.
+
+Tome
+
+Once alive, now death’s embrace,
+They walk the earth, a ghastly race.
+With hollow eyes and skin so cold,
+Their stories in the dark unfold.
+
+Undead
+
+The front line strong in battle’s heat,
+With courage vast, they face defeat.
+They lead the charge, they hold the ground,
+In every fight, they’re duty-bound.
+
+Vanguard
+
+A guardian strong with watchful eye,
+They keep the peace, they never lie.
+With duty firm and justice fair,
+They hold the balance everywhere.
+
+Warden
+
+A paradise of dreams untold,
+With treasures vast and beauty bold.
+A land of wonder, myth, and lore,
+Its name in whispers evermore.
+
+Xanadu
+
+A common man with skills so fine,
+In fields and farms, their talents shine.
+With bow and arrow, strong and true,
+They stand to guard and see things through.
+
+Yeoman
+
+A gentle breeze that whispers light,
+It dances in the soft moonlight.
+With touch so soft, it cools the day,
+It’s nature’s breath in every way.
+
+Zephyr

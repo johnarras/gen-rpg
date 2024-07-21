@@ -1,5 +1,4 @@
-﻿using Genrpg.LoginServer.CommandHandlers.Core;
-using Genrpg.LoginServer.Core;
+﻿using Genrpg.LoginServer.Core;
 using Genrpg.LoginServer.Services.Admin;
 using Genrpg.LoginServer.Services.Clients;
 using Genrpg.LoginServer.Services.Login;
@@ -27,11 +26,11 @@ namespace Genrpg.LoginServer.Setup
         protected override void AddServices()
         {
             base.AddServices();
-            Set<ILoginService>(new LoginService());
-            Set<IClientService>(new ClientService());
+            Set<IAuthWebService>(new AuthWebService());
+            Set<IClientWebService>(new ClientWebService());
             Set<IAdminService>(new LoginAdminService());
-            Set<INoUserService>(new NoUserService());
-            Set<ILoginServerService>(new LoginServerService());
+            Set<INoUserWebService>(new NoUserWebService());
+            Set<IWebServerService>(new WebServerService());
             _loc.ResolveSelf();
             _loc.Resolve(this);
         }

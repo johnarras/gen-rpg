@@ -30,7 +30,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
             await Task.CompletedTask;
         }
 
-        public async Task<PlayerStoreOfferData> GetCurrentStores(User user, Character ch, bool forceRefresh)
+        public async Task<PlayerStoreOfferData> GetCurrentStores(User user, ICoreCharacter ch, bool forceRefresh)
         {
 
             PlayerStoreOfferData storeOfferData = await _repoService.Load<PlayerStoreOfferData>(user.Id);
@@ -148,7 +148,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
             return storeOfferData;
         }
 
-        protected void TryAddOffer (StoreOffer offer, Dictionary<long,StoreOffer> currentOffers, User user, Character ch, PurchaseHistoryData historyData)
+        protected void TryAddOffer (StoreOffer offer, Dictionary<long,StoreOffer> currentOffers, User user, ICoreCharacter ch, PurchaseHistoryData historyData)
         {
 
             if (!PlayerFilterUtils.IsActive(offer))

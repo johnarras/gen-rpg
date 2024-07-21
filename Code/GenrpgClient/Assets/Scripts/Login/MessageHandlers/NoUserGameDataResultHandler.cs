@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Genrpg.Shared.Login.Messages.Login;
-using Genrpg.Shared.Login.Messages.UploadMap;
+using Genrpg.Shared.Website.Messages.Login;
+using Genrpg.Shared.Website.Messages.UploadMap;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using System;
@@ -11,7 +11,7 @@ using Assets.Scripts.GameSettings.Services;
 
 using System.Threading;
 using Genrpg.Shared.Spawns.WorldData;
-using Genrpg.Shared.Login.Messages.NoUserGameData;
+using Genrpg.Shared.Website.Messages.NoUserGameData;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Characters.PlayerData;
 using UnityEngine;
@@ -21,9 +21,9 @@ namespace Assets.Scripts.Login.MessageHandlers
     public class NoUserGameDataResultHandler : BaseClientLoginResultHandler<NoUserGameDataResult>
     {
         private IScreenService _screenService;
-        private IClientLoginService _loginService;
+        private IClientAuthService _loginService;
         private IAssetService _assetService;
-        private IWebNetworkService _webNetworkService;
+        private IClientWebService _webNetworkService;
         private IClientGameDataService _gameDataService;
         protected override void InnerProcess(NoUserGameDataResult result, CancellationToken token)
         {

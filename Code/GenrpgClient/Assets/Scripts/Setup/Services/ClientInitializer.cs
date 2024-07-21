@@ -84,7 +84,7 @@ public class ClientInitializer
         if (forRealGame)
         {
             Set<IRealtimeNetworkService>(new RealtimeNetworkService(token));
-            Set<IWebNetworkService>(new WebNetworkService(token));
+            Set<IClientWebService>(new ClientWebService(token));
             Set<IInputService>(gameObjectService.GetOrAddComponent<InputService>());
             Set<IMapTerrainManager>(gameObjectService.GetOrAddComponent<MapTerrainManager>());
             Set<ICrawlerService>(new CrawlerService());
@@ -101,7 +101,7 @@ public class ClientInitializer
             Set<IAddRoadService>(new AddRoadService());  
         }
 
-        Set<IClientLoginService>(new ClientLoginService());
+        Set<IClientAuthService>(new ClientAuthService());
 		Set<IUnitSetupService>(new UnitSetupService());
 		Set<IMapGenService>(new MapGenService());
 		Set<IZoneGenService> (new UnityZoneGenService());

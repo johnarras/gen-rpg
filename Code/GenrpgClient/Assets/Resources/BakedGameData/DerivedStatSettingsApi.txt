@@ -1,0 +1,91 @@
+{
+  "Data": [
+    {
+      "Id": "derivedstat3a84c9ce-c89b-42cc-b579-442944763112default",
+      "ParentId": "default",
+      "Name": "DerivedStat",
+      "FromStatTypeId": 11,
+      "ToStatTypeId": 61,
+      "Percent": 100,
+      "UpdateTime": "2024-06-29T14:10:31.652Z",
+      "CreateTime": "2023-11-24T16:45:21.314Z"
+    },
+    {
+      "Id": "derivedstat458b05b6-dfaa-49c8-99d9-236f7c03efb4default",
+      "ParentId": "default",
+      "Name": "DerivedStat",
+      "FromStatTypeId": 11,
+      "ToStatTypeId": 21,
+      "Percent": 100,
+      "UpdateTime": "2024-06-29T14:10:31.662Z",
+      "CreateTime": "2023-11-24T16:45:21.464Z"
+    },
+    {
+      "Id": "derivedstat582788f4-ebb1-40b5-9637-2312a9dcf003default",
+      "ParentId": "default",
+      "Name": "DerivedStat",
+      "FromStatTypeId": 12,
+      "ToStatTypeId": 22,
+      "Percent": 200,
+      "UpdateTime": "2024-06-29T14:10:31.672Z",
+      "CreateTime": "2023-11-24T16:45:21.583Z"
+    },
+    {
+      "Id": "derivedstat5db38de3-7e10-4b6e-beea-9666e7ebbc5fdefault",
+      "ParentId": "default",
+      "Name": "DerivedStat",
+      "FromStatTypeId": 13,
+      "ToStatTypeId": 22,
+      "Percent": 200,
+      "UpdateTime": "2024-06-29T14:10:31.68Z",
+      "CreateTime": "2023-11-24T16:45:21.708Z"
+    },
+    {
+      "Id": "derivedstat63dd6d8c-9ae1-463e-9459-85868021fc2cdefault",
+      "ParentId": "default",
+      "Name": "DerivedStat",
+      "FromStatTypeId": 14,
+      "ToStatTypeId": 21,
+      "Percent": 100,
+      "UpdateTime": "2024-06-29T14:10:31.69Z",
+      "CreateTime": "2023-11-24T16:45:21.822Z"
+    },
+    {
+      "Id": "derivedstat7d362341-d91d-4c26-9972-140aba7bb774default",
+      "ParentId": "default",
+      "Name": "DerivedStat",
+      "FromStatTypeId": 14,
+      "ToStatTypeId": 22,
+      "Percent": 100,
+      "UpdateTime": "2024-06-29T14:10:31.693Z",
+      "CreateTime": "2023-11-24T16:45:21.932Z"
+    },
+    {
+      "Id": "derivedstatbc89c1c4-f897-4622-8fed-22a2dfbfc244default",
+      "ParentId": "default",
+      "Name": "DerivedStat",
+      "FromStatTypeId": 15,
+      "ToStatTypeId": 1,
+      "Percent": 1000,
+      "UpdateTime": "2024-06-29T14:10:31.695Z",
+      "CreateTime": "2023-11-24T16:45:22.042Z"
+    },
+    {
+      "Id": "derivedstatf53d6a29-b90d-438f-a266-a737def529dadefault",
+      "ParentId": "default",
+      "Name": "DerivedStat",
+      "FromStatTypeId": 15,
+      "ToStatTypeId": 31,
+      "Percent": 100,
+      "UpdateTime": "2024-06-29T14:10:31.698Z",
+      "CreateTime": "2023-11-24T16:45:22.152Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "DerivedStatSettings",
+    "UpdateTime": "2024-07-04T23:03:06.138Z",
+    "CreateTime": "2023-11-25T04:45:22Z"
+  },
+  "Id": "default"
+}

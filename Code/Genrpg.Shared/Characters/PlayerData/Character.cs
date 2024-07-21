@@ -31,8 +31,6 @@ namespace Genrpg.Shared.Characters.PlayerData
 
         public DateTime LastServerStatTime { get; set; } = DateTime.UtcNow;
 
-        private GameDataOverrideList _overrideList { get; set; }
-
         public TradeObject Trade { get; set; }
         public ulong TradeModifyLockCount = 0;
         public object TradeLock { get; private set; } = new object();
@@ -43,7 +41,6 @@ namespace Genrpg.Shared.Characters.PlayerData
             QualityTypeId = QualityTypes.Common;
             EntityId = 1;
             FactionTypeId = FactionTypes.Player;
-            _overrideList = null;
         }
 
         public override void Dispose()
@@ -106,26 +103,6 @@ namespace Genrpg.Shared.Characters.PlayerData
                     value.QueueSave(_repoService);
                 }
             }
-        }
-
-        public void SetGameDataOverrideList(GameDataOverrideList overrideList)
-        {
-            _overrideList = overrideList;
-        }
-
-        public GameDataOverrideList GetOverrideList()
-        {
-            return _overrideList;
-        }
-
-        public override string GetName(string settingName)
-        {
-            if (_overrideList == null)
-            {
-                return GameDataConstants.DefaultFilename;
-            }
-            PlayerSettingsOverrideItem item = _overrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
-            return item?.DocId ?? GameDataConstants.DefaultFilename;
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
                 selectAction.Action == null ||
                 selectAction.Member == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Cannot select ally without select action" };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Cannot select ally without select action" };
             }
 
             List<PartyMember> partyMembers = party.GetActiveParty();

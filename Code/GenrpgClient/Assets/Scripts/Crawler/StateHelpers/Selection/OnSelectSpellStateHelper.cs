@@ -26,51 +26,50 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
         {
             CrawlerStateData stateData = CreateStateData();
 
-            SelectSpellAction selectSpell = action.ExtraData as SelectSpellAction;
+            SelectSpellAction selectSpellAction = action.ExtraData as SelectSpellAction;
 
-            if (selectSpell == null)
+            if (selectSpellAction == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Select Spell Action missing on select" };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Select Spell Action missing on select" };
             }
 
             PartyData party = _crawlerService.GetParty();
 
-            UnitAction newAction = _combatService.GetActionFromSpell(party, selectSpell.Action.Member,
-                selectSpell.Spell, null);
+            UnitAction newAction = _combatService.GetActionFromSpell(party, selectSpellAction.Action.Member,
+                selectSpellAction.Spell, null);
 
             if (newAction == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Failed to create action after selecting spell" };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Failed to create action after selecting spell" };
             }
 
-            selectSpell.Action.Action = newAction;
-            selectSpell.Action.Member.Action = newAction;
+            selectSpellAction.Action.Action = newAction;
+            selectSpellAction.Action.Member.Action = newAction;
 
-            if (selectSpell.Spell.TargetTypeId == TargetTypes.Special)
+            if (selectSpellAction.Spell.TargetTypeId == TargetTypes.Special)
             {
-                return new CrawlerStateData(ECrawlerStates.SpecialSpellCast, true) { ExtraData = selectSpell };
+                return new CrawlerStateData(ECrawlerStates.SpecialSpellCast, true) { ExtraData = selectSpellAction };
             }
 
-            ECrawlerStates nextState = selectSpell.Action.NextState;
+            ECrawlerStates nextState = selectSpellAction.Action.NextState;
             if (newAction.FinalTargets.Count < 1)
             {
                 if (newAction.PossibleTargetGroups.Count > 0)
                 {
-                    return new CrawlerStateData(ECrawlerStates.SelectEnemyGroup, true) { ExtraData = selectSpell };
+                    return new CrawlerStateData(ECrawlerStates.SelectEnemyGroup, true) { ExtraData = selectSpellAction };
                 }
                 else if (newAction.PossibleTargetUnits.Count > 0)
                 {
-                    return new CrawlerStateData(ECrawlerStates.SelectAllyTarget, true) { ExtraData = selectSpell };
+                    return new CrawlerStateData(ECrawlerStates.SelectAllyTarget, true) { ExtraData = selectSpellAction };
                 }
                 else
                 {
-                    return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Selected spell but no targets available" };
+                    return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Selected spell but no targets available" };
                 }
             }
 
-
             await Task.CompletedTask;
-            return new CrawlerStateData(nextState,true) {  ExtraData = selectSpell };
+            return new CrawlerStateData(nextState,true) {  ExtraData = selectSpellAction };
         }
     }
 }

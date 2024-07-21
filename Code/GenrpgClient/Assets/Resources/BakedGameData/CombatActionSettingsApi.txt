@@ -1,0 +1,66 @@
+{
+  "Data": [
+    {
+      "Id": "combataction0default",
+      "ParentId": "default",
+      "Name": "None",
+      "UpdateTime": "2024-06-29T14:10:30.607Z",
+      "CreateTime": "2024-02-04T20:06:31.89Z"
+    },
+    {
+      "Id": "combataction1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Attack",
+      "UpdateTime": "2024-06-29T14:10:30.638Z",
+      "CreateTime": "2024-02-04T20:06:31.893Z"
+    },
+    {
+      "Id": "combataction2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Defend",
+      "UpdateTime": "2024-06-29T14:10:30.64Z",
+      "CreateTime": "2024-02-04T20:06:31.896Z"
+    },
+    {
+      "Id": "combataction3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Shoot",
+      "UpdateTime": "2024-06-29T14:10:30.642Z",
+      "CreateTime": "2024-02-04T20:06:31.898Z"
+    },
+    {
+      "Id": "combataction4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Cast",
+      "UpdateTime": "2024-06-29T14:10:30.649Z",
+      "CreateTime": "2024-02-04T20:06:31.9Z"
+    },
+    {
+      "Id": "combataction5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Hide",
+      "UpdateTime": "2024-06-29T14:10:30.658Z",
+      "CreateTime": "2024-02-04T20:06:31.902Z"
+    },
+    {
+      "Id": "combataction6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Disabled",
+      "UpdateTime": "2024-06-29T14:10:30.66Z",
+      "CreateTime": "2024-02-04T23:59:03.58Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "CombatActionSettings",
+    "UpdateTime": "2024-07-04T23:03:06.093Z",
+    "CreateTime": "2024-01-29T01:35:37Z"
+  },
+  "Id": "default"
+}

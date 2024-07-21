@@ -11,8 +11,6 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using Genrpg.Shared.Spawns.Interfaces;
 using System.Linq;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using static Microsoft.Azure.Amqp.Serialization.SerializableType;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;

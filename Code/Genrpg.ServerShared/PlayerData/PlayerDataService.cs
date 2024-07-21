@@ -1,28 +1,15 @@
-﻿using Genrpg.ServerShared.Core;
-using Genrpg.ServerShared.PlayerData.LoadUpdateHelpers;
-using Genrpg.Shared.AI.Settings;
+﻿using Genrpg.ServerShared.PlayerData.LoadUpdateHelpers;
 using Genrpg.Shared.Characters.PlayerData;
-using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.PlayerData;
-using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.Factions.Constants;
-using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.SpellCrafting.Services;
-using Genrpg.Shared.Spells.PlayerData.Spells;
-using Genrpg.Shared.Spells.Settings.Spells;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,9 +26,9 @@ namespace Genrpg.ServerShared.PlayerData
         public async Task Initialize(CancellationToken token)
         {
             List<Task> loaderTasks = new List<Task>();
-            List<IndexConfig> configs = new List<IndexConfig>();
-            configs.Add(new IndexConfig() { Ascending = true, MemberName = nameof(CoreCharacter.UserId) });
-            loaderTasks.Add(_repoService.CreateIndex<CoreCharacter>(configs));
+            CreateIndexData data = new CreateIndexData();
+            data.Configs.Add(new IndexConfig() { Ascending = true, MemberName = nameof(CoreCharacter.UserId) });
+            loaderTasks.Add(_repoService.CreateIndex<CoreCharacter>(data));
 
             List<Type> loadTypes = ReflectionUtils.GetTypesImplementing(typeof(IUnitDataLoader));
 

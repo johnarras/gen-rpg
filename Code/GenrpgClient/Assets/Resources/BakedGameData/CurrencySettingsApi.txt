@@ -1,0 +1,100 @@
+{
+  "Data": [
+    {
+      "Id": "currencytype0default",
+      "ParentId": "default",
+      "Name": "None",
+      "UpdateTime": "2024-06-29T14:10:31.351Z",
+      "CreateTime": "2023-11-19T18:31:48.733Z"
+    },
+    {
+      "Id": "currencytype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Money",
+      "PluralName": "",
+      "Desc": "",
+      "Icon": "IconCopper",
+      "Art": "updated tuning",
+      "UpdateTime": "2024-06-29T14:10:31.539Z",
+      "CreateTime": "2023-11-21T18:31:48Z"
+    },
+    {
+      "Id": "currencytype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Exp",
+      "Icon": "IconStarGold",
+      "UpdateTime": "2024-06-29T14:10:31.544Z",
+      "CreateTime": "2023-11-19T18:31:48.734Z"
+    },
+    {
+      "Id": "currencytype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Ability",
+      "Art": "new text blah",
+      "UpdateTime": "2024-06-29T14:10:31.548Z",
+      "CreateTime": "2023-11-24T16:45:20.785Z"
+    },
+    {
+      "Id": "currencytype101default",
+      "ParentId": "default",
+      "IdKey": 101,
+      "Name": "Alignment Tokens",
+      "UpdateTime": "2024-06-29T14:10:31.363Z",
+      "CreateTime": "2023-11-24T16:45:19.76Z"
+    },
+    {
+      "Id": "currencytype102default",
+      "ParentId": "default",
+      "IdKey": 102,
+      "Name": "Race Tokens",
+      "Art": "aaa",
+      "UpdateTime": "2024-06-29T14:10:31.413Z",
+      "CreateTime": "2023-11-24T16:45:19.88Z"
+    },
+    {
+      "Id": "currencytype103default",
+      "ParentId": "default",
+      "IdKey": 103,
+      "Name": "Religion Tokens",
+      "Icon": "IconCross",
+      "Art": "bbb",
+      "UpdateTime": "2024-06-29T14:10:31.438Z",
+      "CreateTime": "2023-11-24T16:45:19.99Z"
+    },
+    {
+      "Id": "currencytype104default",
+      "ParentId": "default",
+      "IdKey": 104,
+      "Name": "Job Tokens",
+      "Icon": "IconHammer",
+      "UpdateTime": "2024-06-29T14:10:31.451Z",
+      "CreateTime": "2023-11-24T16:45:20.1Z"
+    },
+    {
+      "Id": "currencytype106default",
+      "ParentId": "default",
+      "IdKey": 106,
+      "Name": "Monster Tokens",
+      "UpdateTime": "2024-06-29T14:10:31.482Z",
+      "CreateTime": "2023-11-24T16:45:20.24Z"
+    },
+    {
+      "Id": "currencytype107default",
+      "ParentId": "default",
+      "IdKey": 107,
+      "Name": "Player Tokens",
+      "UpdateTime": "2024-06-29T14:10:31.492Z",
+      "CreateTime": "2023-11-24T16:45:20.349Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "CurrencySettings",
+    "UpdateTime": "2024-07-04T23:03:06.122Z",
+    "CreateTime": "2023-11-24T18:31:48Z"
+  },
+  "Id": "default"
+}

@@ -1,5 +1,5 @@
 ﻿using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Login.Interfaces;
+using Genrpg.Shared.Website.Interfaces;
 using System;
 using System.Threading;
 
@@ -9,6 +9,6 @@ namespace Assets.Scripts.Login.Messages
     {
 
         int Priority();
-        void Process(ILoginResult result, CancellationToken token);
+        void Process(IWebResult result, CancellationToken token);
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Genrpg.Shared.Core.Entities;
 using System.Threading;
+using Genrpg.Shared.GameSettings;
 
 namespace Genrpg.Shared.Interfaces
 {
@@ -63,6 +64,16 @@ namespace Genrpg.Shared.Interfaces
         string Desc { get; set; }
         string Icon { get; set; }
         string Art { get; set; }
+    }
+
+    public interface IExtraDescItem
+    {
+        string GetExtraDesc(IGameData gameData);
+    }
+
+    public interface IOrderedItem
+    {
+        long GetOrder();
     }
 
     public interface IVariationIndexedGameItem : IIndexedGameItem

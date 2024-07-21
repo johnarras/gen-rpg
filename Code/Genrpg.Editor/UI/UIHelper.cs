@@ -5,13 +5,9 @@ using Microsoft.UI.Xaml.Controls;
 using CommunityToolkit.WinUI.UI.Controls;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Microsoft.Identity.Client;
 using Windows.System;
 using Windows.UI.Core;
 using System;
-using MongoDB.Driver;
-using System.Net.Http.Headers;
-using Genrpg.Shared.ProcGen.Settings.MapWater;
 using Microsoft.UI.Xaml.Media;
 
 namespace Genrpg.Editor.UI

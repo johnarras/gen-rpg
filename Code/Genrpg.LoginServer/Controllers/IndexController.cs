@@ -18,10 +18,10 @@ namespace Genrpg.LoginServer.Controllers
         }
 
         [HttpPost]
-        [Route("/login")]
-        public async Task<string> PostLogin(Core.LoginServer loginServer, [FromForm] string Data)
+        [Route("/auth")]
+        public async Task<string> PostAuth(Core.LoginServer loginServer, [FromForm] string Data)
         {
-            return await loginServer.HandleLogin(Data);
+            return await loginServer.HandleAuth(Data);
         }
 
         [HttpPost]
@@ -31,19 +31,18 @@ namespace Genrpg.LoginServer.Controllers
             return await loginServer.HandleClient(Data);
         }
 
-        [HttpGet]
-        [Route("/txlist")]
-        public async Task<string> PostTxList(Core.LoginServer loginServer, string address)
-        {
-            return await loginServer.HandleTxList(address);
-        }
-
-
         [HttpPost]
         [Route("/nouser")]
         public async Task<string> PostNoUser(Core.LoginServer loginServer, [FromForm] string Data)
         {
             return await loginServer.HandleNoUser(Data);
+        }
+
+        [HttpGet]
+        [Route("/txlist")]
+        public async Task<string> PostTxList(Core.LoginServer loginServer, string address)
+        {
+            return await loginServer.HandleTxList(address);
         }
     }
 }

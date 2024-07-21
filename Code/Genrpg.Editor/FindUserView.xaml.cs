@@ -2,11 +2,10 @@ using System;
 using System.Threading.Tasks;
 
 using System.Reflection;
-using Genrpg.Shared.Accounts.Entities;
+using Genrpg.Shared.Accounts.PlayerData;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor;
 using Genrpg.Editor.Utils;
-using Genrpg.ServerShared.Accounts.Services;
 using Genrpg.Editor.UI;
 using Genrpg.Editor.UI.Constants;
 using Genrpg.Shared.DataStores.Entities;
@@ -15,6 +14,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
 using CommunityToolkit.WinUI.UI.Controls;
 using System.Collections.Generic;
+using Genrpg.ServerShared.Accounts.Services;
 
 namespace Genrpg.Editor
 {
@@ -190,7 +190,7 @@ namespace Genrpg.Editor
             }
 
             Account acct = null;
-            acct = await _accountService.LoadBy(_config, key, val);
+            // TODO UPDATE TO NEW ACCOUNT SEARCH          
             List<Account> list = new List<Account>();
             if (acct != null)
             {
@@ -201,6 +201,7 @@ namespace Genrpg.Editor
             {
                 Grid.ItemsSource = list;
             });
+            await Task.CompletedTask;
         }
 
 

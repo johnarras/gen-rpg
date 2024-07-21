@@ -1,18 +1,14 @@
 ﻿using Genrpg.ServerShared.Config;
-using Genrpg.Shared.Accounts.Entities;
+using Genrpg.Shared.Accounts.PlayerData;
 using Genrpg.Shared.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.Accounts.Services
 {
-    public interface IAccountService : IInjectable
+    public interface IAccountService : IInitializable
     {
-        Task<Account> LoadBy(IServerConfig config, string type, string id);
-        Task<bool> SaveAccount(IServerConfig config, Account acct);
-    }
+        void AddAccountToProductGraph(Account account, long accountProductId, string referrerId);
 
+        Task<long> GetNextAccountId();
+    }
 }

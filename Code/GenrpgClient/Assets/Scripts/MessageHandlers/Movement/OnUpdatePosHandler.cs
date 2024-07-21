@@ -40,7 +40,7 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
                 }
             }
 
-            if (_objectManager.GetObject(pos.ObjId, out MapObject obj))
+            if (_objectManager.GetMapObject(pos.ObjId, out MapObject obj))
             {
                 float oldFX = obj.FinalX;
                 float oldFZ = obj.FinalZ;
@@ -59,7 +59,17 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
                     if (oldFX != obj.FinalX || oldFZ != obj.FinalZ || oldSpeed != obj.Speed ||
                         oldTarget != obj.TargetId)
                     {
-                        _pathfindingService.UpdatePath(_rand, unit, (int)obj.FinalX, (int)obj.FinalZ, OnUpdatePath);
+                        if (!string.IsNullOrEmpty(obj.TargetId))
+                        {
+                            if (_objectManager.GetMapObject(obj.TargetId,out MapObject mapObject))
+                            {
+                                obj.FinalX = mapObject.X;
+                                obj.FinalZ = mapObject.Z;
+                            }
+                        }
+
+
+                        _pathfindingService.UpdatePath(unit, _rand, (int)obj.FinalX, (int)obj.FinalZ, OnUpdatePath);
                     }
 
                     if (unit.HasFlag(UnitFlags.ProxyCharacter))
@@ -73,10 +83,8 @@ namespace Assets.Scripts.ResultHandlers.TypedHandlers
             }
         }     
         
-        private void OnUpdatePath(IRandom rand, Unit unit, WaypointList list)
+        private void OnUpdatePath(IRandom rand, Unit unit)
         {
-            unit.Waypoints = list;
-            _pathfindingUtils.ShowPath(unit.Waypoints, _pathfindingUtils.GetToken());
         }
     }
 }

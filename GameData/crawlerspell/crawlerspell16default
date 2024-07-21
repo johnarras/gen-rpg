@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 16,
   "Name": "Holy Nova",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Hit all monsters in a group with holy damage.",
   "PowerCost": 30,
   "PowerPerLevel": 1,
   "MaxRange": 100,
@@ -21,6 +19,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:30.915Z",
+  "UpdateTime": "2024-07-14T19:15:39.183Z",
   "CreateTime": "2024-01-28T15:21:51Z"
 }

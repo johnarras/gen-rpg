@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 23,
   "Name": "Silence",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Prevent a group from casting spells.",
   "PowerCost": 200,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -20,6 +18,6 @@
       "ElementTypeId": 6
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:30.937Z",
+  "UpdateTime": "2024-07-14T19:15:39.195Z",
   "CreateTime": "2024-01-27T23:51:33.019Z"
 }

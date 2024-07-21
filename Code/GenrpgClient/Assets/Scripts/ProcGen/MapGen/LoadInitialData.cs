@@ -32,11 +32,13 @@ public class LoadInitialData : BaseZoneGenerator
 
         while (_terrainManager.AddingPatches())
         {
-            await Awaitable.WaitForSecondsAsync(delaySec    , cancellationToken: token);
+            await Awaitable.WaitForSecondsAsync(delaySec, cancellationToken: token);
         }
-        if (!_playerManager.TryGetUnit(out Unit unit))
+
+        Unit unit = null;
+        while (!_playerManager.TryGetUnit(out unit))
         {
-            return;
+            await Awaitable.WaitForSecondsAsync(delaySec, cancellationToken: token);
         }
 
         GEntity go = _playerManager.GetEntity();
@@ -62,6 +64,12 @@ public class LoadInitialData : BaseZoneGenerator
             SessionId = _gs.user.SessionId,
             CharacterId = _gs.ch.Id,
         });
+
+        PlayerController controller = go.GetComponent<PlayerController>();
+        if (controller != null)
+        {
+            controller.StartUpdates();
+        }
 
         _logService.Debug("LOADINTOMAP START " + _gs.user.SessionId);
         

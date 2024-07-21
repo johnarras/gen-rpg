@@ -23,7 +23,7 @@ public interface IClientMapObjectManager : IInitializable, IMapTokenService
 {
     bool GetUnit(string id, out Unit unit, bool downloadIfNotExist = true);
     bool GetChar(string id, out Character ch, bool downloadIfNotExist = true);
-    bool GetObject(string id, out MapObject item, bool downloadIfNotExist = true);
+    bool GetMapObject(string id, out MapObject item, bool downloadIfNotExist = true);
     bool GetGridItem(string id, out ClientMapObjectGridItem gridItem);
     bool GetController(string unitId, out UnitController controller);
     IMapObjectLoader GetMapObjectLoader(long entityTypeId);
@@ -124,7 +124,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
     public bool GetUnit (string id, out Unit unit, bool downloadIfNotExist = true)
     {
         unit = null;
-        if (GetObject(id, out MapObject obj, downloadIfNotExist))
+        if (GetMapObject(id, out MapObject obj, downloadIfNotExist))
         {
             unit = obj as Unit;
         }
@@ -134,14 +134,14 @@ public class ClientMapObjectManager : IClientMapObjectManager
     public bool GetChar(string id, out Character ch, bool downloadIfNotExist = true)
     {
         ch = null;
-        if (GetObject(id, out MapObject obj, downloadIfNotExist))
+        if (GetMapObject(id, out MapObject obj, downloadIfNotExist))
         {
             ch = obj as Character;
         }
         return ch != null;
     }
 
-    public bool GetObject(string id, out MapObject item, bool downloadIfNotExist = true)
+    public bool GetMapObject(string id, out MapObject item, bool downloadIfNotExist = true)
     {
         item = null;
         if (string.IsNullOrEmpty(id))
@@ -313,7 +313,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
     public virtual MapObject SpawnObject(IMapSpawn spawn)
     {
-        if (GetObject(spawn.ObjId, out MapObject currObj))
+        if (GetMapObject(spawn.ObjId, out MapObject currObj))
         {
             return currObj;
         }

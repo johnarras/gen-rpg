@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Hide",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Meld into the shadows to prepare for backstabbing.",
   "MaxRange": 100,
   "CombatActionId": 5,
   "TargetTypeId": 9,
@@ -18,6 +16,6 @@
       "MaxQuantity": 1
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:31.165Z",
+  "UpdateTime": "2024-07-14T19:15:39.162Z",
   "CreateTime": "2024-01-28T14:46:43Z"
 }

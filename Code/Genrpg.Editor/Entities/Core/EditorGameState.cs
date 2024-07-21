@@ -7,7 +7,6 @@ using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
-using Microsoft.Identity.Client;
 using System.Collections.Generic;
 using System.Threading;
 

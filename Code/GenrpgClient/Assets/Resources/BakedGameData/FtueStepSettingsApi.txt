@@ -1,0 +1,27 @@
+{
+  "Data": [
+    {
+      "Id": "ftuestep1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "",
+      "Desc": "This is the Zone Screen!",
+      "Icon": "",
+      "Art": "",
+      "PrereqFtueStepId": 1,
+      "FtueTriggerId": 5,
+      "TriggerName": "ZoneScreen",
+      "ActionScreenName": "",
+      "ActionButtonName": "",
+      "UpdateTime": "2024-06-29T14:10:32.286Z",
+      "CreateTime": "2024-01-14T09:40:52Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "FtueStepSettings",
+    "UpdateTime": "2024-07-04T23:03:06.181Z",
+    "CreateTime": "2024-01-14T15:15:13Z"
+  },
+  "Id": "default"
+}

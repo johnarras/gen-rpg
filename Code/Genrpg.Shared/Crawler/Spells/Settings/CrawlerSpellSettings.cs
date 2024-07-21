@@ -16,7 +16,7 @@ using Genrpg.Shared.GameSettings.Mappers;
 namespace Genrpg.Shared.Crawler.Spells.Settings
 {
     [MessagePackObject]
-    public class CrawlerSpell : ChildSettings, IIdName
+    public class CrawlerSpell : ChildSettings, IIndexedGameItem, IExtraDescItem, IOrderedItem
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
@@ -49,6 +49,30 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
         public long GetPowerCost(long level)
         {
             return PowerCost + level * PowerPerLevel;
+        }
+
+        public string GetExtraDesc(IGameData gameData)
+        {
+            string txt = "(Level: " + Level + ")";
+            if (PowerCost > 0)
+            {
+                if (PowerPerLevel > 0)
+                {
+                    txt += " Mana: " + PowerCost + "+" + PowerPerLevel + "/Lev";
+                }
+                else
+                {
+                    txt += " Mana: " + PowerCost;
+                }
+            }
+
+
+            return txt;
+        }
+
+        public long GetOrder()
+        {
+            return Level;
         }
     }
 

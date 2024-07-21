@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 33,
   "Name": "Weaken",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Reduce the melee damage of a group of foes.",
   "PowerCost": 1,
   "PowerPerLevel": 1,
   "MaxRange": 100,
@@ -21,6 +19,6 @@
       "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-07-04T18:52:36.66Z",
+  "UpdateTime": "2024-07-14T19:15:39.205Z",
   "CreateTime": "2024-01-28T06:41:15Z"
 }

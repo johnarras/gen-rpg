@@ -26,13 +26,11 @@ namespace Assets.Scripts.Crawler.StateHelpers.Casting
         {
             CrawlerStateData stateData = CreateStateData();
 
-            _logService.Info("Special spellcast");
-
             SelectSpellAction selectSpellAction = action.ExtraData as SelectSpellAction;
 
             if (selectSpellAction == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Missing Special Select Spell" };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Missing Special Select Spell" };
             }
 
             CrawlerSpell spell = selectSpellAction.Spell;
@@ -41,15 +39,15 @@ namespace Assets.Scripts.Crawler.StateHelpers.Casting
 
             if (specialEffect == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Missing Special Select Spell Effect" };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Missing Special Select Spell Effect" };
             }
 
             ISpecialMagicHelper helper = _spellService.GetSpecialEffectHelper(specialEffect.EntityId);
             if (helper != null)
             {
-                return await helper.HandleEffect(selectSpellAction, spell, specialEffect);
+                return await helper.HandleEffect(stateData, selectSpellAction, spell, specialEffect, token);
             }
-            return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "That spell is missing a special effect." };
+            return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "That spell is missing a special effect." };
         }
     }
 }

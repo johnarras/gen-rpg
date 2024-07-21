@@ -31,7 +31,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
 
             if (party.Combat == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Cannot select enemies out of combat" };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Cannot select enemies out of combat" };
             }
 
             SelectSpellAction selectAction = action.ExtraData as SelectSpellAction;
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
                 selectAction.Action.Member == null ||
                 selectAction.Action.Action.PossibleTargetGroups.Count < 1)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "No enemy groups to select" };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "No enemy groups to select" };
             }
 
             CrawlerUnit currUnit = selectAction.Action.Member;

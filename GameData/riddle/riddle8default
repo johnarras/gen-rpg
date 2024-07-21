@@ -1,0 +1,9 @@
+{
+  "Id": "riddle8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Knight",
+  "Desc": "In armor clad from head to toe,\r\nWith shield and sword, they face the foe.\r\nA noble heart and courage bright,\r\nIn battles fought, they are the knight.\r\n",
+  "UpdateTime": "2024-07-21T16:07:52.122Z",
+  "CreateTime": "2024-07-21T16:07:52.122Z"
+}

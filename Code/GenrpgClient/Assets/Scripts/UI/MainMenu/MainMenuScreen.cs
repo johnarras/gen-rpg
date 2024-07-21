@@ -11,7 +11,7 @@ public class MainMenuScreen : BaseScreen
     public GButton LogoutAccountButton;
     public GButton QuitGameButton;
 
-    protected IClientLoginService _loginService;
+    protected IClientAuthService _loginService;
     protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
         _uIInitializable.SetButton(LogoutAccountButton, GetName(), ClickLogout);

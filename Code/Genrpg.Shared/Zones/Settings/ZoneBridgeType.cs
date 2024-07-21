@@ -7,7 +7,6 @@ namespace Genrpg.Shared.Zones.Settings
         [Key(0)] public long BridgeTypeId { get; set; }
         [Key(1)] public int Chance { get; set; }
         [Key(2)] public string Name { get; set; }
-
         public ZoneBridgeType()
         {
         }

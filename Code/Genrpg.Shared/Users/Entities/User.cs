@@ -33,20 +33,7 @@ namespace Genrpg.Shared.Users.Entities
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
 
-        [Key(5)] public GameDataOverrideList OverrideList { get; set; }
-        public virtual void SetGameDataOverrides (GameDataOverrideList list)
-        {
-            OverrideList = list;
-        }
+        [Key(5)] public GameDataOverrideList DataOverrides { get; set; } = new GameDataOverrideList();
 
-        public virtual string GetName(string settingName)
-        {
-            if (OverrideList == null)
-            {
-                return GameDataConstants.DefaultFilename;
-            }
-            PlayerSettingsOverrideItem item = OverrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
-            return item?.DocId ?? GameDataConstants.DefaultFilename;
-        }
     }
 }

@@ -73,7 +73,7 @@ namespace Genrpg.Editor
             buttonCount++;
 
             string[] envWords = { "dev" };
-            string[] actionWords = "Data Users Maps Importer CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas SetupItemIcons".Split(' ');
+            string[] actionWords = "Data Users Maps Importer CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas SetupItemIcons TestAccountSetup".Split(' ');
             int column = 0;
             for (int e = 0; e < envWords.Length; e++)
             {

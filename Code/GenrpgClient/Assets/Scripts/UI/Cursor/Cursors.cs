@@ -20,6 +20,8 @@ public class Cursors
 
 
     private static Dictionary<string, Texture2D> _cursorCache = new Dictionary<string, Texture2D>();
+
+    private static readonly Vector2 _cursorHotspot = new Vector2(-16, 16);
     public static void SetCursor(string cursorName)
     {
         if (string.IsNullOrEmpty(cursorName))
@@ -39,7 +41,7 @@ public class Cursors
         }
 
         Texture2D tex = _cursorCache[cursorName];
-        Cursor.SetCursor(tex, Vector2.zero , CursorMode.Auto);
+        Cursor.SetCursor(tex, _cursorHotspot, CursorMode.Auto);
     }
 
 }

@@ -23,5 +23,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         FullSpell GetFullSpell (CrawlerUnit unit, CrawlerSpell spell, long overrideLevel = 0);
         Awaitable CastSpell(PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0);
         ISpecialMagicHelper GetSpecialEffectHelper(long effectEntityId);
+        void RemoveSpellPowerCost(PartyData party, PartyMember member, CrawlerSpell spell);
     }
 }

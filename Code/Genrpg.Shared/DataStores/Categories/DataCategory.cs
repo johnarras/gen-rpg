@@ -18,7 +18,8 @@ namespace Genrpg.Shared.DataStores.Categories
         public const string WorldData = "WorldData";
         public const string GameData = "GameData";
         public const string PlayerData = "PlayerData";
+        public const string AccountData = "AccountData";
 
-        public static readonly List<String> DataCategories = new List<string>() { ContentData, WorldData, GameData, PlayerData };
+        public static readonly List<String> DataCategories = new List<string>() { AccountData, ContentData, WorldData, GameData, PlayerData };
     }
 }

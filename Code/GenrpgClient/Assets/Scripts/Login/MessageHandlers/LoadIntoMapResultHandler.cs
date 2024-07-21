@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
 
-using Genrpg.Shared.Login.Messages.LoadIntoMap;
+using Genrpg.Shared.Website.Messages.LoadIntoMap;
 using System.Threading;
 using Genrpg.Shared.DataStores.Categories;
 

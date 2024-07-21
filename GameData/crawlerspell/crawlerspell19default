@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 19,
   "Name": "Identify Item",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Find out the stats an item has.",
   "PowerCost": 50,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -15,10 +13,9 @@
     {
       "EntityTypeId": 37,
       "EntityId": 4,
-      "ElementTypeId": 9,
-      "Name": ""
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-07-04T19:49:48.787Z",
+  "UpdateTime": "2024-07-14T19:15:39.19Z",
   "CreateTime": "2024-01-28T11:48:08Z"
 }

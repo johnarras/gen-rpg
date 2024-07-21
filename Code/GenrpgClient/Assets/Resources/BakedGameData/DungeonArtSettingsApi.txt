@@ -1,0 +1,29 @@
+{
+  "Data": [
+    {
+      "Id": "dungeonart0default",
+      "ParentId": "default",
+      "Name": "None",
+      "UpdateTime": "2024-06-29T14:10:31.706Z",
+      "CreateTime": "2024-02-24T20:48:26.842Z"
+    },
+    {
+      "Id": "dungeonart1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Basic Dungeon",
+      "Desc": "Basic Art Assets",
+      "Icon": "",
+      "Art": "Basic",
+      "UpdateTime": "2024-06-29T14:10:31.725Z",
+      "CreateTime": "2024-02-24T20:48:37.703Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "DungeonArtSettings",
+    "UpdateTime": "2024-07-04T23:03:06.142Z",
+    "CreateTime": "2024-02-25T12:24:27Z"
+  },
+  "Id": "default"
+}

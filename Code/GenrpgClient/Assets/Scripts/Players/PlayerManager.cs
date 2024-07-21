@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Logging.Interfaces;
 
 
 public interface IPlayerManager : IInjectable, IMapTokenService
@@ -43,6 +44,7 @@ public class PlayerManager : IPlayerManager
     private IClientMapObjectManager _mapObjectManager;
     private IPathfindingService _pathfindingService;
     private IRealtimeNetworkService _networkService;
+    private ILogService _logService;
 
     public void SetUnit(UnitController unitController)
     {
@@ -115,9 +117,9 @@ public class PlayerManager : IPlayerManager
             int sz = (int)(_unitController.entity.transform.position.z);
             int ex = (int)(finalUnit.X);
             int ez = (int)(finalUnit.Z);
-            WaypointList list = _pathfindingService.CalcPath(_rand, sx, sz, ex, ez);
+            //WaypointList list = _pathfindingService.CalcPath(_unit, _rand, sx, sz, ex, ez, true);
 
-            _clientPathfindingUtils.ShowPath(list, _mapToken);
+            //_clientPathfindingUtils.ShowPath(list, _mapToken);
         }
         else
         {

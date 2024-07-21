@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 8,
   "Name": "Heal Wounds",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Heal the wounds of a party member.",
   "PowerCost": 20,
   "PowerPerLevel": 1,
   "MaxRange": 100,
@@ -20,6 +18,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-07-04T19:49:48.783Z",
+  "UpdateTime": "2024-07-14T19:15:39.169Z",
   "CreateTime": "2024-01-28T09:12:48Z"
 }

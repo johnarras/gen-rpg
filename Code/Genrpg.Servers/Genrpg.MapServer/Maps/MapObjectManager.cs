@@ -31,8 +31,6 @@ using MongoDB.Bson.IO;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.GameSettings;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Genrpg.MapServer.Maps.Constants;
 using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using Genrpg.Shared.DataStores.Entities;

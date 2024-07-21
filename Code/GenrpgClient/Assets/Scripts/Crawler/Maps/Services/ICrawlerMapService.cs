@@ -26,5 +26,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         void MarkCurrentCellVisited();
         void MarkCellVisited(long mapId, int x, int z);
         bool PartyHasVisited(long mapId, int x, int z, bool thisRunOnly = false);
+        int GetBlockingBits(int sx, int sz, int ex, int ez, bool allowBuildingEntry);
+        void MovePartyTo(PartyData partyData, int x, int z, int rot, CancellationToken token);
     }
 }

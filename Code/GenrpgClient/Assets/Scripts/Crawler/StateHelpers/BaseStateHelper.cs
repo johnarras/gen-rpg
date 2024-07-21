@@ -30,6 +30,7 @@ namespace Assets.Scripts.Crawler.StateHelpers
         protected IUnityGameState _gs;
         protected IClientRandom _rand;
         protected ICrawlerWorldService _worldService;
+        protected IDispatcher _dispatcher;
 
         public abstract ECrawlerStates GetKey();
         public abstract Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token);

@@ -1,0 +1,76 @@
+{
+  "Data": [
+    {
+      "Id": "spelltype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Attack",
+      "Desc": "",
+      "Icon": "520271",
+      "Art": "",
+      "ElementTypeId": 1,
+      "PowerStatTypeId": 3,
+      "PowerCost": 40,
+      "MaxRange": 30,
+      "Effects": [
+        {
+          "SkillTypeId": 1,
+          "Scale": 100,
+          "Name": ""
+        }
+      ],
+      "UpdateTime": "2024-07-20T20:31:16.761Z",
+      "CreateTime": "2024-02-16T05:06:19Z"
+    },
+    {
+      "Id": "spelltype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Heal",
+      "Desc": "",
+      "Icon": "520091",
+      "Art": "",
+      "ElementTypeId": 8,
+      "PowerStatTypeId": 2,
+      "PowerCost": 250,
+      "MaxRange": 100,
+      "Effects": [
+        {
+          "SkillTypeId": 3,
+          "Scale": 75,
+          "Name": ""
+        }
+      ],
+      "UpdateTime": "2024-07-20T20:31:16.766Z",
+      "CreateTime": "2024-02-16T05:06:19Z"
+    },
+    {
+      "Id": "spelltype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Fireball",
+      "Desc": "",
+      "Icon": "520092",
+      "Art": "",
+      "ElementTypeId": 2,
+      "PowerStatTypeId": 2,
+      "PowerCost": 150,
+      "MaxRange": 100,
+      "Effects": [
+        {
+          "SkillTypeId": 2,
+          "Scale": 125
+        }
+      ],
+      "UpdateTime": "2024-07-20T20:31:16.768Z",
+      "CreateTime": "2024-02-16T05:06:19Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "SpellTypeSettings",
+    "UpdateTime": "2024-07-20T20:31:16.731Z",
+    "CreateTime": "2023-12-24T05:13:14Z"
+  },
+  "Id": "default"
+}

@@ -1,6 +1,6 @@
 ﻿
 using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Login.Messages.RefreshStores;
+using Genrpg.Shared.Website.Messages.RefreshStores;
 using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Stats.Messages;

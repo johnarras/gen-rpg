@@ -1,0 +1,300 @@
+{
+  "Data": [
+    {
+      "Id": "statuseffect0default",
+      "ParentId": "default",
+      "Name": "None",
+      "ActionEffects": [],
+      "UpdateTime": "2024-06-29T14:10:35.841Z",
+      "CreateTime": "2024-01-27T17:52:56.628Z"
+    },
+    {
+      "Id": "statuseffect1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Poisoned",
+      "Abbrev": "Pois",
+      "ActionEffects": [],
+      "UpdateTime": "2024-06-29T14:10:35.87Z",
+      "CreateTime": "2024-01-27T17:52:56.633Z"
+    },
+    {
+      "Id": "statuseffect2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Diseased",
+      "Abbrev": "Dise",
+      "ActionEffects": [],
+      "UpdateTime": "2024-06-29T14:10:35.902Z",
+      "CreateTime": "2024-01-27T17:52:56.637Z"
+    },
+    {
+      "Id": "statuseffect3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Cursed",
+      "Abbrev": "Curs",
+      "ActionEffects": [],
+      "UpdateTime": "2024-06-29T14:10:35.905Z",
+      "CreateTime": "2024-01-27T17:52:56.64Z"
+    },
+    {
+      "Id": "statuseffect4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Slowed",
+      "Abbrev": "Slow",
+      "ActionEffects": [],
+      "UpdateTime": "2024-07-02T20:05:38.579Z",
+      "CreateTime": "2024-01-27T17:52:56.642Z"
+    },
+    {
+      "Id": "statuseffect5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Weak",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Weak",
+      "ActionEffects": [
+        {
+          "CombatActionId": 1,
+          "Effect": 1
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:05:38.577Z",
+      "CreateTime": "2024-01-28T05:52:56Z"
+    },
+    {
+      "Id": "statuseffect6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Feeblemind",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Feeb",
+      "ActionEffects": [
+        {
+          "CombatActionId": 4,
+          "Effect": 1
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:05:38.575Z",
+      "CreateTime": "2024-01-27T23:52:56Z"
+    },
+    {
+      "Id": "statuseffect7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Jittery",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Jitt",
+      "ActionEffects": [
+        {
+          "CombatActionId": 3,
+          "Effect": 1
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:05:38.573Z",
+      "CreateTime": "2024-01-27T23:52:56Z"
+    },
+    {
+      "Id": "statuseffect8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Silenced",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Sile",
+      "ActionEffects": [
+        {
+          "CombatActionId": 4,
+          "Effect": 3
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:05:38.57Z",
+      "CreateTime": "2024-01-27T23:52:56Z"
+    },
+    {
+      "Id": "statuseffect9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Rooted",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Root",
+      "ActionEffects": [
+        {
+          "CombatActionId": 1,
+          "Effect": 3
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:05:38.572Z",
+      "CreateTime": "2024-01-27T23:52:56Z"
+    },
+    {
+      "Id": "statuseffect10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Nearsighted",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "NrSgt",
+      "ActionEffects": [
+        {
+          "CombatActionId": 3,
+          "Effect": 3
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:05:38.58Z",
+      "CreateTime": "2024-01-27T23:52:56Z"
+    },
+    {
+      "Id": "statuseffect11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Feared",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Fear",
+      "ActionEffects": [
+        {
+          "CombatActionId": 6,
+          "Effect": 2
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:05:38.582Z",
+      "CreateTime": "2024-01-27T23:52:56Z"
+    },
+    {
+      "Id": "statuseffect12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "Stunned",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Stun",
+      "ActionEffects": [
+        {
+          "CombatActionId": 6,
+          "Effect": 2
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:05:38.584Z",
+      "CreateTime": "2024-01-27T23:52:56Z"
+    },
+    {
+      "Id": "statuseffect13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "Petrified",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Petri",
+      "ActionEffects": [
+        {
+          "CombatActionId": 6,
+          "Effect": 2
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:05:38.585Z",
+      "CreateTime": "2024-01-28T02:57:02Z"
+    },
+    {
+      "Id": "statuseffect14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "Possessed",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Poss",
+      "ActionEffects": [
+        {
+          "CombatActionId": 6,
+          "Effect": 2
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:05:38.587Z",
+      "CreateTime": "2024-01-28T02:57:02Z"
+    },
+    {
+      "Id": "statuseffect15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "Hidden",
+      "Abbrev": "Hide",
+      "ActionEffects": [],
+      "UpdateTime": "2024-07-02T20:05:38.563Z",
+      "CreateTime": "2024-01-27T21:00:28.109Z"
+    },
+    {
+      "Id": "statuseffect16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "Taunt",
+      "Abbrev": "Taunt",
+      "ActionEffects": [],
+      "UpdateTime": "2024-07-02T20:05:38.565Z",
+      "CreateTime": "2024-01-27T23:55:16.161Z"
+    },
+    {
+      "Id": "statuseffect17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "Hasted",
+      "Abbrev": "Haste",
+      "ActionEffects": [],
+      "UpdateTime": "2024-07-02T20:05:38.567Z",
+      "CreateTime": "2024-01-27T23:55:16.163Z"
+    },
+    {
+      "Id": "statuseffect18default",
+      "ParentId": "default",
+      "IdKey": 18,
+      "Name": "Mult",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Mult",
+      "ActionEffects": [],
+      "UpdateTime": "2024-07-02T20:05:38.568Z",
+      "CreateTime": "2024-01-28T00:41:15.745Z"
+    },
+    {
+      "Id": "statuseffect19default",
+      "ParentId": "default",
+      "IdKey": 19,
+      "Name": "Dead",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Dead",
+      "ActionEffects": [
+        {
+          "CombatActionId": 6,
+          "Effect": 2
+        }
+      ],
+      "UpdateTime": "2024-07-02T20:06:09.94Z",
+      "CreateTime": "2024-01-27T23:52:56Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "StatusEffectSettings",
+    "UpdateTime": "2024-07-04T23:03:06.344Z",
+    "CreateTime": "2024-01-31T17:52:56Z"
+  },
+  "Id": "default"
+}

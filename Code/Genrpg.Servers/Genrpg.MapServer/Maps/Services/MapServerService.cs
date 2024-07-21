@@ -7,7 +7,6 @@ using Genrpg.ServerShared.Maps;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Networking.Constants;
-using Microsoft.Identity.Client;
 using MongoDB.Driver.Core.Servers;
 using System;
 using System.Collections.Generic;

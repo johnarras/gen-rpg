@@ -1,4 +1,5 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.Units.Mappers;
@@ -40,12 +41,11 @@ namespace Genrpg.Shared.Purchasing.PlayerData
     [MessagePackObject]
     public class CurrentStoresLoader : UnitDataLoader<PlayerStoreOfferData>
     {
-        protected override bool IsUserData() { return true; }
     }
 
 
     [MessagePackObject]
-    public class PlayerStoreOfferData : NoChildPlayerData
+    public class PlayerStoreOfferData : NoChildPlayerData, IUserData
     {
         [Key(0)] public override string Id { get; set; }
 

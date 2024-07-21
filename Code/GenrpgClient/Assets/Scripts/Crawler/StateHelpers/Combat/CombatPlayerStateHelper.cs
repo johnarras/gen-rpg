@@ -34,7 +34,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
             if (party.Combat == null || party.Combat.Allies.Count < 1 ||
                 party.Combat.PartyGroup.CombatGroupAction != ECombatGroupActions.Fight)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Party is not fighting in combat" };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Party is not fighting in combat" };
             }
 
             CombatGroup group = party.Combat.PartyGroup;
@@ -160,7 +160,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                     }
                     else
                     {
-                        return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Bad target list for combat spell" };
+                        return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Bad target list for combat spell" };
                     }
                 }
                 else

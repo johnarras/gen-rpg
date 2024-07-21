@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 55,
   "Name": "Cure Party",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Cure all party members Tier 3",
   "PowerCost": 90,
   "MaxRange": 100,
   "ReplacesCrawlerSpellId": 54,
@@ -63,6 +61,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:31.194Z",
+  "UpdateTime": "2024-07-14T19:15:39.229Z",
   "CreateTime": "2024-01-28T21:17:33Z"
 }

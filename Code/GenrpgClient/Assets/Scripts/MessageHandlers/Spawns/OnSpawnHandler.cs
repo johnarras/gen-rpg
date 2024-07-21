@@ -10,7 +10,7 @@ public class OnSpawnHandler : BaseClientMapMessageHandler<OnSpawn>
 {
     protected override void InnerProcess(OnSpawn spawnMessage, CancellationToken token)
     {
-        if (_objectManager.GetObject(spawnMessage.ObjId, out MapObject obj))
+        if (_objectManager.GetMapObject(spawnMessage.ObjId, out MapObject obj))
         {
             if (obj is Unit existingUnit)
             {

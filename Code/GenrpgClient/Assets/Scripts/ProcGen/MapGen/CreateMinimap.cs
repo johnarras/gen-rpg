@@ -35,7 +35,6 @@ public class CreateMinimap : BaseZoneGenerator
         cam.allowMSAA = false;
         cam.allowHDR = false;
         cam.useOcclusionCulling = false;
-        minimapCamera.name = "CreateMinimapCamera";
 
         MyRandom rand = new MyRandom(_mapProvider.GetMap().Seed + 44235);
 
@@ -209,7 +208,6 @@ public class CreateMinimap : BaseZoneGenerator
         await Awaitable.WaitForSecondsAsync(0.05f * waterObjectCount, cancellationToken: token);
 
         Texture2D tex = new Texture2D(TexSize, TexSize, TextureFormat.RGB24, true, true);
-
 
         RenderTexture rt = new RenderTexture(TexSize, TexSize, 24);
         //rt.anisoLevel = 3;

@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 54,
   "Name": "Lesser Cure Party",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Cure all party members Tier 2",
   "PowerCost": 90,
   "MaxRange": 100,
   "ReplacesCrawlerSpellId": 53,
@@ -42,6 +40,6 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-07-04T18:52:36.642Z",
+  "UpdateTime": "2024-07-14T19:15:39.228Z",
   "CreateTime": "2024-01-28T21:17:33Z"
 }

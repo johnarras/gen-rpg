@@ -1,0 +1,343 @@
+{
+  "Data": [
+    {
+      "Id": "stattype0default",
+      "ParentId": "default",
+      "Name": "None",
+      "UpdateTime": "2024-06-29T14:10:35.713Z",
+      "CreateTime": "2024-01-27T19:57:19.973Z"
+    },
+    {
+      "Id": "stattype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Health",
+      "RegenSeconds": 75,
+      "UpdateTime": "2024-06-29T14:10:35.743Z",
+      "CreateTime": "2024-02-15T23:03:14.48Z"
+    },
+    {
+      "Id": "stattype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Mana",
+      "Desc": "1->Slow Use/Fill",
+      "MaxPool": 1000,
+      "RegenSeconds": 75,
+      "UpdateTime": "2024-06-29T14:10:35.761Z",
+      "CreateTime": "2024-02-15T23:03:14.481Z"
+    },
+    {
+      "Id": "stattype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Energy",
+      "Desc": "1->Fast Use/Fill",
+      "MaxPool": 100,
+      "RegenSeconds": 15,
+      "UpdateTime": "2024-06-29T14:10:35.781Z",
+      "CreateTime": "2024-02-15T23:03:14.483Z"
+    },
+    {
+      "Id": "stattype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Combo",
+      "Desc": "Start Empty, filll",
+      "MaxPool": 100,
+      "RegenSeconds": -30,
+      "UpdateTime": "2024-06-29T14:10:35.796Z",
+      "CreateTime": "2024-02-15T23:03:14.484Z"
+    },
+    {
+      "Id": "stattype11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Strength",
+      "Abbrev": "",
+      "Desc": "+1 AP +1 SP",
+      "Icon": "",
+      "Art": "",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.716Z",
+      "CreateTime": "2024-02-16T05:03:14Z"
+    },
+    {
+      "Id": "stattype12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "Intellect",
+      "Desc": "+2 AP",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.718Z",
+      "CreateTime": "2024-02-15T23:03:14.492Z"
+    },
+    {
+      "Id": "stattype13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "Devotion",
+      "Desc": "+2 Healer SP",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.721Z",
+      "CreateTime": "2024-02-15T23:03:14.478Z"
+    },
+    {
+      "Id": "stattype14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "Agility",
+      "Desc": "+2 RAP",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.725Z",
+      "CreateTime": "2024-02-15T23:03:14.486Z"
+    },
+    {
+      "Id": "stattype15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "Stamina",
+      "Desc": "+10 Health",
+      "GenScalePct": 150,
+      "UpdateTime": "2024-06-29T14:10:35.732Z",
+      "CreateTime": "2024-02-03T22:37:28.629Z"
+    },
+    {
+      "Id": "stattype16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "Luck",
+      "Desc": "Helps with ?",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.737Z",
+      "CreateTime": "2024-02-15T23:03:14.478Z"
+    },
+    {
+      "Id": "stattype20default",
+      "ParentId": "default",
+      "IdKey": 20,
+      "Name": "DamagePower",
+      "Desc": "+All Dam",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.746Z",
+      "CreateTime": "2024-02-03T22:37:28.625Z"
+    },
+    {
+      "Id": "stattype21default",
+      "ParentId": "default",
+      "IdKey": 21,
+      "Name": "AttackPower",
+      "Desc": "Phys Power",
+      "GenScalePct": 150,
+      "UpdateTime": "2024-06-29T14:10:35.749Z",
+      "CreateTime": "2024-02-15T23:03:14.495Z"
+    },
+    {
+      "Id": "stattype22default",
+      "ParentId": "default",
+      "IdKey": 22,
+      "Name": "SpellPower",
+      "Desc": "Magic Power",
+      "GenScalePct": 150,
+      "UpdateTime": "2024-06-29T14:10:35.757Z",
+      "CreateTime": "2024-02-15T23:03:14.493Z"
+    },
+    {
+      "Id": "stattype30default",
+      "ParentId": "default",
+      "IdKey": 30,
+      "Name": "Defense",
+      "Desc": "All Defense",
+      "UpdateTime": "2024-06-29T14:10:35.764Z",
+      "CreateTime": "2024-02-15T23:03:14.496Z"
+    },
+    {
+      "Id": "stattype31default",
+      "ParentId": "default",
+      "IdKey": 31,
+      "Name": "Armor",
+      "Desc": "Resist Attack",
+      "GenScalePct": 200,
+      "UpdateTime": "2024-06-29T14:10:35.767Z",
+      "CreateTime": "2024-02-15T23:03:14.498Z"
+    },
+    {
+      "Id": "stattype32default",
+      "ParentId": "default",
+      "IdKey": 32,
+      "Name": "Resist",
+      "Desc": "Resist Spell",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.77Z",
+      "CreateTime": "2024-02-15T23:03:14.499Z"
+    },
+    {
+      "Id": "stattype33default",
+      "ParentId": "default",
+      "IdKey": 33,
+      "Name": "HealthRegen",
+      "Desc": "Health Regen",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.775Z",
+      "CreateTime": "2024-02-15T23:03:14.499Z"
+    },
+    {
+      "Id": "stattype34default",
+      "ParentId": "default",
+      "IdKey": 34,
+      "Name": "ManaRegen",
+      "Desc": "Mana Regen",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.778Z",
+      "CreateTime": "2024-02-15T23:03:14.499Z"
+    },
+    {
+      "Id": "stattype40default",
+      "ParentId": "default",
+      "IdKey": 40,
+      "Name": "PowerMult",
+      "Desc": "All Dam Mult",
+      "GenScalePct": 10,
+      "UpdateTime": "2024-06-29T14:10:35.786Z",
+      "CreateTime": "2024-01-27T19:57:19.984Z"
+    },
+    {
+      "Id": "stattype41default",
+      "ParentId": "default",
+      "IdKey": 41,
+      "Name": "AttackMult",
+      "Desc": "Phys Dam Mult",
+      "GenScalePct": 10,
+      "UpdateTime": "2024-06-29T14:10:35.789Z",
+      "CreateTime": "2024-02-15T23:06:19.953Z"
+    },
+    {
+      "Id": "stattype42default",
+      "ParentId": "default",
+      "IdKey": 42,
+      "Name": "SpellMult",
+      "Desc": "Spell Dam Mult",
+      "GenScalePct": 10,
+      "UpdateTime": "2024-06-29T14:10:35.791Z",
+      "CreateTime": "2024-02-15T23:03:14.502Z"
+    },
+    {
+      "Id": "stattype50default",
+      "ParentId": "default",
+      "IdKey": 50,
+      "Name": "DefenseMult",
+      "Desc": "All Dam Reduced",
+      "GenScalePct": 10,
+      "UpdateTime": "2024-06-29T14:10:35.799Z",
+      "CreateTime": "2024-02-15T23:06:19.956Z"
+    },
+    {
+      "Id": "stattype51default",
+      "ParentId": "default",
+      "IdKey": 51,
+      "Name": "AttackDefMult",
+      "Desc": "Phys Dam Reduced",
+      "GenScalePct": 10,
+      "UpdateTime": "2024-06-29T14:10:35.802Z",
+      "CreateTime": "2024-02-15T23:03:14.504Z"
+    },
+    {
+      "Id": "stattype52default",
+      "ParentId": "default",
+      "IdKey": 52,
+      "Name": "SpellDefMult",
+      "Desc": "Spell Dam Reduced",
+      "GenScalePct": 10,
+      "UpdateTime": "2024-06-29T14:10:35.806Z",
+      "CreateTime": "2024-02-15T23:03:14.505Z"
+    },
+    {
+      "Id": "stattype61default",
+      "ParentId": "default",
+      "IdKey": 61,
+      "Name": "Crit",
+      "Desc": "Extra damage",
+      "GenScalePct": 200,
+      "UpdateTime": "2024-06-29T14:10:35.808Z",
+      "CreateTime": "2024-02-15T22:35:07.986Z"
+    },
+    {
+      "Id": "stattype62default",
+      "ParentId": "default",
+      "IdKey": 62,
+      "Name": "Haste",
+      "Desc": "Faster Cast",
+      "GenScalePct": 200,
+      "UpdateTime": "2024-06-29T14:10:35.812Z",
+      "CreateTime": "2024-02-03T23:14:42.875Z"
+    },
+    {
+      "Id": "stattype63default",
+      "ParentId": "default",
+      "IdKey": 63,
+      "Name": "Speed",
+      "Desc": "Move Speed",
+      "GenScalePct": 200,
+      "UpdateTime": "2024-06-29T14:10:35.815Z",
+      "CreateTime": "2024-02-15T23:03:14.513Z"
+    },
+    {
+      "Id": "stattype64default",
+      "ParentId": "default",
+      "IdKey": 64,
+      "Name": "Efficiency",
+      "Desc": "Lower Cost",
+      "GenScalePct": 200,
+      "UpdateTime": "2024-06-29T14:10:35.818Z",
+      "CreateTime": "2024-02-15T22:48:39.217Z"
+    },
+    {
+      "Id": "stattype65default",
+      "ParentId": "default",
+      "IdKey": 65,
+      "Name": "Cooldown",
+      "Desc": "Lower Cooldown",
+      "GenScalePct": 200,
+      "UpdateTime": "2024-06-29T14:10:35.82Z",
+      "CreateTime": "2024-02-15T23:06:19.958Z"
+    },
+    {
+      "Id": "stattype66default",
+      "ParentId": "default",
+      "IdKey": 66,
+      "Name": "CritDamage",
+      "Desc": "More Crit Damage",
+      "GenScalePct": 300,
+      "UpdateTime": "2024-06-29T14:10:35.83Z",
+      "CreateTime": "2024-01-27T19:57:19.98Z"
+    },
+    {
+      "Id": "stattype70default",
+      "ParentId": "default",
+      "IdKey": 70,
+      "Name": "Hit",
+      "Desc": "Chance to Hit",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.833Z",
+      "CreateTime": "2024-01-27T19:57:19.982Z"
+    },
+    {
+      "Id": "stattype71default",
+      "ParentId": "default",
+      "IdKey": 71,
+      "Name": "Leadership",
+      "Desc": "Higher Attack Levl",
+      "GenScalePct": 100,
+      "UpdateTime": "2024-06-29T14:10:35.835Z",
+      "CreateTime": "2024-02-03T23:14:42.87Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "StatConstantUnitMultiple": 10,
+    "Name": "StatSettings",
+    "UpdateTime": "2024-07-04T23:03:06.34Z",
+    "CreateTime": "2023-12-27T11:13:14Z"
+  },
+  "Id": "default"
+}

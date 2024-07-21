@@ -1,0 +1,1608 @@
+{
+  "Data": [
+    {
+      "Id": "class0default",
+      "ParentId": "default",
+      "Name": "None",
+      "MaxArmorScalingTypeId": 1,
+      "Bonuses": [],
+      "AllowedWeapons": [],
+      "UpdateTime": "2024-06-29T14:10:30.498Z",
+      "CreateTime": "2024-01-27T00:57:37.613Z"
+    },
+    {
+      "Id": "class1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Warrior",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Wa",
+      "LevelsPerMelee": 4,
+      "LevelsPerRanged": 6,
+      "LevelsPerDamage": 14,
+      "LevelsPerHeal": 14,
+      "LevelsPerSummon": 10,
+      "HealthPerLevel": 20,
+      "ManaPerLevel": 6,
+      "MaxArmorScalingTypeId": 4,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 31,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 70,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 71,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 36,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 21
+        },
+        {
+          "ItemTypeId": 22
+        },
+        {
+          "ItemTypeId": 23
+        },
+        {
+          "ItemTypeId": 24
+        },
+        {
+          "ItemTypeId": 25
+        },
+        {
+          "ItemTypeId": 26
+        },
+        {
+          "ItemTypeId": 27
+        },
+        {
+          "ItemTypeId": 28
+        },
+        {
+          "ItemTypeId": 29
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.575Z",
+      "CreateTime": "2024-01-27T18:57:37Z"
+    },
+    {
+      "Id": "class2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Thief",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Th",
+      "LevelsPerMelee": 6,
+      "LevelsPerRanged": 6,
+      "LevelsPerDamage": 12,
+      "LevelsPerHeal": 12,
+      "LevelsPerSummon": 8,
+      "HealthPerLevel": 12,
+      "ManaPerLevel": 6,
+      "MaxArmorScalingTypeId": 2,
+      "CritPercent": 20,
+      "ManaStatTypeId": 12,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 16,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 20,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 4,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 5,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 18,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 19,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 46,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 47,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 60,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 2,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 21
+        },
+        {
+          "ItemTypeId": 24
+        },
+        {
+          "ItemTypeId": 308
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.613Z",
+      "CreateTime": "2024-01-28T00:57:37Z"
+    },
+    {
+      "Id": "class3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Hunter",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Hu",
+      "LevelsPerMelee": 8,
+      "LevelsPerRanged": 3,
+      "LevelsPerDamage": 12,
+      "LevelsPerHeal": 12,
+      "LevelsPerSummon": 4,
+      "HealthPerLevel": 14,
+      "ManaPerLevel": 10,
+      "MaxArmorScalingTypeId": 3,
+      "CritPercent": 15,
+      "ManaStatTypeId": 12,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 20,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 70,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 6,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 7,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 24,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 39,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 41,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 60,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 5,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 21
+        },
+        {
+          "ItemTypeId": 22
+        },
+        {
+          "ItemTypeId": 24
+        },
+        {
+          "ItemTypeId": 25
+        },
+        {
+          "ItemTypeId": 26
+        },
+        {
+          "ItemTypeId": 309
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.616Z",
+      "CreateTime": "2024-01-28T06:57:37Z"
+    },
+    {
+      "Id": "class4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Cleric",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Cl",
+      "LevelsPerMelee": 12,
+      "LevelsPerRanged": 12,
+      "LevelsPerDamage": 5,
+      "LevelsPerHeal": 2,
+      "LevelsPerSummon": 10,
+      "HealthPerLevel": 8,
+      "ManaPerLevel": 20,
+      "MaxArmorScalingTypeId": 1,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 16,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 31,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 9,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 11,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 12,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 13,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 14,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 15,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 16,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 20,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 33,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 45,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 54,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 55,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 56,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 57,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 1,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 23
+        },
+        {
+          "ItemTypeId": 28
+        },
+        {
+          "ItemTypeId": 24
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.621Z",
+      "CreateTime": "2024-01-27T18:57:37Z"
+    },
+    {
+      "Id": "class5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Mage",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Ma",
+      "LevelsPerMelee": 12,
+      "LevelsPerRanged": 12,
+      "LevelsPerDamage": 2,
+      "LevelsPerHeal": 8,
+      "LevelsPerSummon": 6,
+      "HealthPerLevel": 6,
+      "ManaPerLevel": 20,
+      "MaxArmorScalingTypeId": 1,
+      "CritPercent": 10,
+      "ManaStatTypeId": 12,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 32,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 34,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 18,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 19,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 21,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 23,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 27,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 28,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 29,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 42,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 47,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 50,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 52,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 58,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 59,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 60,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 4,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 5,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 24
+        },
+        {
+          "ItemTypeId": 28
+        },
+        {
+          "ItemTypeId": 21
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.618Z",
+      "CreateTime": "2024-01-28T00:57:37Z"
+    },
+    {
+      "Id": "class6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Engineer",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "En",
+      "LevelsPerMelee": 5,
+      "LevelsPerRanged": 4,
+      "LevelsPerDamage": 4,
+      "LevelsPerHeal": 6,
+      "LevelsPerSummon": 6,
+      "HealthPerLevel": 16,
+      "ManaPerLevel": 12,
+      "MaxArmorScalingTypeId": 3,
+      "CritPercent": 5,
+      "ManaStatTypeId": 12,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 20,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 70,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 7,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 11,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 12,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 18,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 19,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 21,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 33,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 36,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 39,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 58,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 59,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 3,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 24
+        },
+        {
+          "ItemTypeId": 28
+        },
+        {
+          "ItemTypeId": 21
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.623Z",
+      "CreateTime": "2024-01-27T12:57:37Z"
+    },
+    {
+      "Id": "class7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Bard",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Bd",
+      "LevelsPerMelee": 7,
+      "LevelsPerRanged": 5,
+      "LevelsPerDamage": 6,
+      "LevelsPerHeal": 4,
+      "LevelsPerSummon": 7,
+      "HealthPerLevel": 14,
+      "ManaPerLevel": 12,
+      "MaxArmorScalingTypeId": 2,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 16,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 31,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 71,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 4,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 5,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 11,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 12,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 13,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 23,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 27,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 39,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 45,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 46,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 54,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 4,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 5,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 24
+        },
+        {
+          "ItemTypeId": 28
+        },
+        {
+          "ItemTypeId": 21
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.625Z",
+      "CreateTime": "2024-01-27T12:57:37Z"
+    },
+    {
+      "Id": "class8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Druid",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Dr",
+      "LevelsPerMelee": 6,
+      "LevelsPerRanged": 8,
+      "LevelsPerDamage": 5,
+      "LevelsPerHeal": 5,
+      "LevelsPerSummon": 3,
+      "HealthPerLevel": 16,
+      "ManaPerLevel": 12,
+      "MaxArmorScalingTypeId": 2,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 32,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 34,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 4,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 5,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 6,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 11,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 12,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 13,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 14,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 18,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 20,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 21,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 24,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 31,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 32,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 33,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 36,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 54,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 55,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 56,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 57,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 58,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 59,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 60,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 4,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 5,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 24
+        },
+        {
+          "ItemTypeId": 28
+        },
+        {
+          "ItemTypeId": 21
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.628Z",
+      "CreateTime": "2024-01-27T18:57:37Z"
+    },
+    {
+      "Id": "class9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Barbarian",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Br",
+      "LevelsPerMelee": 3,
+      "LevelsPerRanged": 7,
+      "LevelsPerDamage": 14,
+      "LevelsPerHeal": 14,
+      "LevelsPerSummon": 7,
+      "HealthPerLevel": 16,
+      "ManaPerLevel": 6,
+      "MaxArmorScalingTypeId": 2,
+      "CritPercent": 15,
+      "ManaStatTypeId": 12,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 20,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 70,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 23,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 33,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 36,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 2,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 24
+        },
+        {
+          "ItemTypeId": 28
+        },
+        {
+          "ItemTypeId": 21
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.63Z",
+      "CreateTime": "2024-01-27T12:57:37Z"
+    },
+    {
+      "Id": "class10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Paladin",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "Pa",
+      "LevelsPerMelee": 4,
+      "LevelsPerRanged": 10,
+      "LevelsPerDamage": 5,
+      "LevelsPerHeal": 4,
+      "LevelsPerSummon": 10,
+      "HealthPerLevel": 18,
+      "ManaPerLevel": 15,
+      "MaxArmorScalingTypeId": 4,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 16,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 31,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 71,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 11,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 12,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 13,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 14,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 15,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 16,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 23,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 36,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 43,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 54,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 55,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 56,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 1,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 24
+        },
+        {
+          "ItemTypeId": 28
+        },
+        {
+          "ItemTypeId": 21
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.633Z",
+      "CreateTime": "2024-01-27T12:57:37Z"
+    },
+    {
+      "Id": "class11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Elementalist",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Abbrev": "El",
+      "LevelsPerMelee": 8,
+      "LevelsPerRanged": 8,
+      "LevelsPerDamage": 3,
+      "LevelsPerHeal": 7,
+      "LevelsPerSummon": 5,
+      "HealthPerLevel": 12,
+      "ManaPerLevel": 18,
+      "MaxArmorScalingTypeId": 3,
+      "CritPercent": 10,
+      "ManaStatTypeId": 12,
+      "Bonuses": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 32,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 34,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 6,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 11,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 12,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 13,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 27,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 28,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 29,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 31,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 32,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 43,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 51,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 54,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 55,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 58,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 59,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 60,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 1,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 2,
+          "Quantity": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 4,
+          "Quantity": 1
+        }
+      ],
+      "AllowedWeapons": [
+        {
+          "ItemTypeId": 24
+        },
+        {
+          "ItemTypeId": 28
+        },
+        {
+          "ItemTypeId": 21
+        }
+      ],
+      "UpdateTime": "2024-07-04T19:17:28.636Z",
+      "CreateTime": "2024-01-27T12:57:37Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "ClassSettings",
+    "UpdateTime": "2024-07-04T23:03:06.08Z",
+    "CreateTime": "2024-02-05T00:57:37Z"
+  },
+  "Id": "default"
+}

@@ -18,7 +18,7 @@ public class ClientConfig : ScriptableObject, IConnectionConfig
     public string AssetDataEnv = EnvNames.Dev;
     public string WorldDataEnv = EnvNames.Dev;
     public string InitialConfigEndpoint = "https://genrpgconfig.azurewebsites.net/api/GenrpgConfig";
-
+    public int AccountProductId = 2;
 
     public string ResponseContentRoot { get; set; }
     public string ResponseAssetEnv { get; set; }

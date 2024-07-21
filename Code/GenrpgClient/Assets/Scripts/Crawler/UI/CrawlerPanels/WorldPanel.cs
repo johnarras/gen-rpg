@@ -1,16 +1,21 @@
 ﻿
 
+using Assets.Scripts.ClientEvents;
+using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Events;
 using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Assets.Scripts.UI.Crawler.ActionUI;
+using Assets.Scripts.UI.Crawler.WorldUI;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.UI.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
@@ -27,6 +32,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
     public class WorldPanel : BaseCrawlerPanel, IWorldPanel
     {
 
+        const string PanelTextPrefab = "WorldPanelText";
         private ICrawlerMapService _mapService;
         private IUIService _uiService;
 
@@ -38,15 +44,37 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         public GImage NoRangedImage;
         public GImage NoMagicImage;
 
+        public GEntity TooltipParent;
+        public GEntity TooltipContent;
+
+        public GButton CloseTooltipButton;
+
+       private WorldPanelText _textRow;
 
         public override async Awaitable Init(CrawlerScreen screen, CancellationToken token)
         {
             await base.Init(screen, token);
             _dispatcher.AddEvent<ShowWorldPanelImage>(this, OnShowWorldPanelImage);
             _dispatcher.AddEvent<CrawlerUIUpdate>(this, OnUpdateWorldUI);
+            _dispatcher.AddEvent<ShowCrawlerTooltipEvent>(this, OnShowTooltip);
+            _dispatcher.AddEvent<HideCrawlerTooltipEvent>(this, OnHideTooltip);
+
+            GEntityUtils.SetActive(TooltipParent, false);
+
+            _uiService.SetButton(CloseTooltipButton, name, () => { OnHideTooltip(new HideCrawlerTooltipEvent()); });
+
+            _assetService.LoadAsset(AssetCategoryNames.UI, PanelTextPrefab, OnLoadTextRow, null, this, token, screen.Subdirectory);
 
             _updateService.AddUpdate(this, IncrementTextureFrame, UpdateType.Late);
             SetPicture(null);
+        }
+
+        private void OnLoadTextRow(object obj, object data, CancellationToken token)
+        {
+            GEntity entity = obj as GEntity;
+            _textRow = GEntityUtils.GetComponent<WorldPanelText>(entity);
+            GEntityUtils.SetActive(entity, false);
+            GEntityUtils.AddToParent(entity, gameObject);
         }
 
         public override void OnNewStateData(CrawlerStateData stateData)
@@ -74,6 +102,29 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             GEntityUtils.SetActive(NoRangedImage, FlagUtils.IsSet(disables, MapDisables.NoRanged));
             GEntityUtils.SetActive(NoMagicImage, FlagUtils.IsSet(disables, MapDisables.NoMagic));
 
+        }
+
+        private void OnShowTooltip(ShowCrawlerTooltipEvent showEvent)
+        {        
+            if (showEvent.Lines.Count < 1)
+            {
+                return;
+            }
+
+            GEntityUtils.DestroyAllChildren(TooltipContent);
+            GEntityUtils.SetActive(TooltipParent, true);
+
+            for (int i = 0; i < showEvent.Lines.Count; i++)
+            {
+                WorldPanelText text = _gameObjectService.FullInstantiate<WorldPanelText>(_textRow);
+                GEntityUtils.AddToParent(text.gameObject, TooltipContent);
+                text.Init(showEvent.Lines[i], _token);
+            }
+        }
+
+        private void OnHideTooltip(HideCrawlerTooltipEvent hideEvent)
+        {
+            GEntityUtils.SetActive(TooltipParent, false);
         }
 
 

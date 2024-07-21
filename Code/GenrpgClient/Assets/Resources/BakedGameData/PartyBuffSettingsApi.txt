@@ -1,0 +1,58 @@
+{
+  "Data": [
+    {
+      "Id": "partybuff0default",
+      "ParentId": "default",
+      "Name": "None",
+      "UpdateTime": "2024-06-29T14:10:34.274Z",
+      "CreateTime": "2024-01-27T01:00:05.357Z"
+    },
+    {
+      "Id": "partybuff1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Light",
+      "UpdateTime": "2024-06-29T14:10:34.277Z",
+      "CreateTime": "2024-01-27T01:00:05.362Z"
+    },
+    {
+      "Id": "partybuff2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Second Sight",
+      "UpdateTime": "2024-06-29T14:10:34.279Z",
+      "CreateTime": "2024-01-27T01:00:05.365Z"
+    },
+    {
+      "Id": "partybuff3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Magic Compass",
+      "UpdateTime": "2024-06-29T14:10:34.282Z",
+      "CreateTime": "2024-01-27T01:00:05.368Z"
+    },
+    {
+      "Id": "partybuff4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Levitate",
+      "UpdateTime": "2024-06-29T14:10:34.29Z",
+      "CreateTime": "2024-01-27T01:00:05.371Z"
+    },
+    {
+      "Id": "partybuff5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Mapping",
+      "UpdateTime": "2024-06-29T14:10:34.298Z",
+      "CreateTime": "2024-01-27T01:00:05.374Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "PartyBuffSettings",
+    "UpdateTime": "2024-07-04T23:03:06.225Z",
+    "CreateTime": "2024-01-27T12:57:37Z"
+  },
+  "Id": "default"
+}

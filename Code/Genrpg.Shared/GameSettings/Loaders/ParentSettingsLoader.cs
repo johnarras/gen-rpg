@@ -22,9 +22,9 @@ namespace Genrpg.Shared.GameSettings.Loaders
 
         public virtual async Task Setup(IRepositoryService repoSystem)
         {
-            List<IndexConfig> configs = new List<IndexConfig>();
-            configs.Add(new IndexConfig() { Ascending = true, MemberName = "ParentId" });
-            await repoSystem.CreateIndex<TChild>(configs);
+            CreateIndexData data = new CreateIndexData();
+            data.Configs.Add(new IndexConfig() { Ascending = true, MemberName = "ParentId" });
+            await repoSystem.CreateIndex<TChild>(data);
         }
 
         public virtual async Task<List<ITopLevelSettings>> LoadAll(IRepositoryService repoSystem, bool createDefaultIfMissing)

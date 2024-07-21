@@ -36,7 +36,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
             }
             else
             {
-                stateData = new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Failed to start combat." };
+                stateData = new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Failed to start combat." };
             }
 
             await Task.CompletedTask;

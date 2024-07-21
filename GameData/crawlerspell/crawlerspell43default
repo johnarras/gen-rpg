@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 43,
   "Name": "Summon Elemental",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Summon an elemental.",
   "PowerCost": 50,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -20,6 +18,6 @@
     }
   ],
   "Flags": 2,
-  "UpdateTime": "2024-07-04T18:52:36.65Z",
+  "UpdateTime": "2024-07-14T19:15:39.214Z",
   "CreateTime": "2024-03-24T22:42:16Z"
 }

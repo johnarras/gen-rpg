@@ -56,7 +56,6 @@ namespace Assets.Scripts.Crawler.Maps.GameObjects
 
         public byte EastWall(int x, int y)
         {
-            
             return (byte)((Map.Get(x,y,CellIndex.Walls) >> MapWallBits.EWallStart) % (1 << MapWallBits.WallBitSize));
         }
 

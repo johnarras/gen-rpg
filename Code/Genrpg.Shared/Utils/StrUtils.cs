@@ -566,5 +566,36 @@ namespace Genrpg.Shared.Utils
             return substring.Substring(0, endIndex);
 
         }
+
+
+        public static string SanitizeSingleEnglishLine(string txt)
+        {
+            if (string.IsNullOrEmpty(txt))
+            {
+                return txt;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for (int c = 0; c < txt.Length; c++)
+            {
+                if (txt[c] < 32 || txt[c] >= 127)
+                {
+                    int val = (int)txt[c];
+                    if (val == 65533) // ChatGPT error character
+                    {
+                        sb.Append("'");
+                    }
+                    else
+                    {
+                        sb.Append(txt[c]);
+                    }
+                }
+                else
+                {
+                    sb.Append(txt[c]);
+                }
+            }
+            return sb.ToString();
+        }
     }
 }

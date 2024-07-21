@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 60,
   "Name": "Sense Area",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Determine if any traps or interesting things are nearby.",
   "PowerCost": 2,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -15,10 +13,9 @@
     {
       "EntityTypeId": 37,
       "EntityId": 8,
-      "ElementTypeId": 9,
-      "Name": ""
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-07-04T19:02:08.36Z",
+  "UpdateTime": "2024-07-14T19:15:39.236Z",
   "CreateTime": "2024-01-28T11:48:08Z"
 }

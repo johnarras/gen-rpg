@@ -1,14 +1,14 @@
 using Assets.Scripts.MapTerrain;
 
 using Genrpg.Shared.Constants;
-using Genrpg.Shared.Login.Messages.UploadMap;
+using Genrpg.Shared.Website.Messages.UploadMap;
 using Genrpg.Shared.ProcGen.Entities;
 using System.Threading;
 using UnityEngine;
 
 public class UploadMap : BaseZoneGenerator
 {
-    private IWebNetworkService _webNetworkService;
+    private IClientWebService _webNetworkService;
     public override async Awaitable Generate(CancellationToken token)
     {
 

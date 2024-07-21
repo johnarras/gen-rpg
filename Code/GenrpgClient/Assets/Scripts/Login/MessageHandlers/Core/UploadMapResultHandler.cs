@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Genrpg.Shared.Login.Messages.UploadMap;
+using Genrpg.Shared.Website.Messages.UploadMap;
 using System.Threading;
 
 namespace Assets.Scripts.Login.MessageHandlers.Core

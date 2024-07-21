@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 37,
   "Name": "Whirlwind",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Hit one or more monsters in all groups within melee range.",
   "MaxRange": 10,
   "ReplacesCrawlerSpellId": 1,
   "CombatActionId": 1,
@@ -18,6 +16,6 @@
       "ElementTypeId": 1
     }
   ],
-  "UpdateTime": "2024-07-02T20:27:31.627Z",
+  "UpdateTime": "2024-07-14T19:15:39.207Z",
   "CreateTime": "2024-01-29T06:55:56Z"
 }

@@ -15,9 +15,7 @@ using System.Threading.Tasks;
 using Genrpg.ServerShared.CloudComms.Queues.Entities;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Queues.Requests.Entities;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.Interfaces;
 
 namespace Genrpg.ServerShared.CloudComms.Queues.Managers
 {

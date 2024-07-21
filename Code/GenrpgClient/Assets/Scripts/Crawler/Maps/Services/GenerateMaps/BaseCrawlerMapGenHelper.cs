@@ -74,6 +74,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             int streetCount = (int)(Math.Sqrt((map.Width * map.Height)) * density);
 
+            int edgeSize = 1;
             for (int times = 0; times < streetCount; times++)
             {
                 MyPoint startPoint = endPoints[rand.Next() % endPoints.Count];
@@ -84,7 +85,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 {
                     int sx = startPoint.X + x;
 
-                    if (sx < 1 || sx >= map.Width - 2)
+                    if (sx < edgeSize || sx >= map.Width-edgeSize)
                     {
                         continue;
                     }
@@ -98,7 +99,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                         int sy = startPoint.Y + y;
 
-                        if (sy < 1 || sy >= map.Height - 2)
+                        if (sy < edgeSize || sy >= map.Height-edgeSize)
                         {
                             continue;
                         }
@@ -126,8 +127,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                     int lx = startPoint.X + l * offset.X;
                     int ly = startPoint.Y + l * offset.Y;
 
-                    if (lx < 1 || lx >= map.Width - 1 ||
-                        ly < 1 || ly >= map.Height - 1)
+                    if (lx < edgeSize || lx >= map.Width - edgeSize ||
+                        ly < edgeSize || ly >= map.Height - edgeSize)
                     {
                         continue;
                     }

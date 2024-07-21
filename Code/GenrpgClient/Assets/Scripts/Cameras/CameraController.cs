@@ -137,7 +137,6 @@ public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<
             }
 
             MainCam.layerCullDistances = cullDistances;
-            MainCam.layerCullSpherical = true;
         }
 
 	}

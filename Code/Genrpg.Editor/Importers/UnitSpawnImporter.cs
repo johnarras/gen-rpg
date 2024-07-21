@@ -15,14 +15,14 @@ using System.Threading.Tasks;
 namespace Genrpg.Editor.Importers
 {
 
-    public class UnitSpawnImporter : BaseCSVImporter
+    public class UnitSpawnImporter : BaseDataImporter
     {
-        public override string CSVFilename => "UnitSpawnImport.csv";
+        public override string ImportDataFilename => "UnitSpawnImport.csv";
 
         public override EImportTypes GetKey() { return EImportTypes.UnitSpawns; }
 
 
-        protected override async Task<bool> ImportFromLines(Window window, EditorGameState gs, string[] lines)
+        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
         {
             string[] firstLine = lines[0].Split(',');
 

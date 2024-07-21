@@ -23,9 +23,9 @@ using Windows.UI.Popups;
 namespace Genrpg.Editor.Importers
 {
 
-    public class UnitTypeImporter : BaseCSVImporter
+    public class UnitTypeImporter : BaseDataImporter
     {
-        public override string CSVFilename => "UnitTypeImport.csv";
+        public override string ImportDataFilename => "UnitTypeImport.csv";
 
         public override EImportTypes GetKey() { return EImportTypes.UnitTypes; }
 
@@ -40,7 +40,7 @@ namespace Genrpg.Editor.Importers
 
         const int ColumnCount = 8;
 
-        protected override async Task<bool> ImportFromLines(Window window, EditorGameState gs, string[] lines)
+        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
         {
             string[] firstLine = lines[0].Split(',');
 

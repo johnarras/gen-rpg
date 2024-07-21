@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 29,
   "Name": "Frostbolt",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Hit one or more monsters in a group with cold damage.",
   "PowerCost": 10,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -20,6 +18,6 @@
       "ElementTypeId": 3
     }
   ],
-  "UpdateTime": "2024-07-04T18:52:36.655Z",
+  "UpdateTime": "2024-07-14T19:15:39.2Z",
   "CreateTime": "2024-01-28T09:21:51Z"
 }

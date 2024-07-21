@@ -6,7 +6,7 @@
   "Desc": "",
   "Icon": "520092",
   "Art": "",
-  "ElementTypeId": 3,
+  "ElementTypeId": 2,
   "PowerStatTypeId": 2,
   "PowerCost": 150,
   "MaxRange": 100,
@@ -16,6 +16,6 @@
       "Scale": 125
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:35.698Z",
-  "CreateTime": "2024-02-15T23:06:19.951Z"
+  "UpdateTime": "2024-07-20T20:31:16.768Z",
+  "CreateTime": "2024-02-16T05:06:19Z"
 }

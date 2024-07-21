@@ -1,0 +1,26 @@
+{
+  "Data": [
+    {
+      "Id": "ftueeffect0default",
+      "ParentId": "default",
+      "Name": "None",
+      "UpdateTime": "2024-06-29T14:10:32.253Z",
+      "CreateTime": "2024-01-13T15:15:13.717Z"
+    },
+    {
+      "Id": "ftueeffect1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "GiveReward",
+      "UpdateTime": "2024-06-29T14:10:32.257Z",
+      "CreateTime": "2024-01-13T15:15:13.72Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "FtueEffectSettings",
+    "UpdateTime": "2024-07-04T23:03:06.171Z",
+    "CreateTime": "2024-01-13T15:15:13.619Z"
+  },
+  "Id": "default"
+}

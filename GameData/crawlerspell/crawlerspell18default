@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 18,
   "Name": "Phase Wall",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Pass through a wall in front of you if the square behind it exists.",
   "PowerCost": 100,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -15,10 +13,9 @@
     {
       "EntityTypeId": 37,
       "EntityId": 2,
-      "ElementTypeId": 9,
-      "Name": ""
+      "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-07-04T20:35:47.944Z",
+  "UpdateTime": "2024-07-14T19:15:39.187Z",
   "CreateTime": "2024-01-28T17:43:55Z"
 }

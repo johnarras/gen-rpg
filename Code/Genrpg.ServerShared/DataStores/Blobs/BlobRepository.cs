@@ -1,6 +1,4 @@
-﻿using Amazon.Runtime;
-using Genrpg.Shared.Accounts.Entities;
-using Genrpg.Shared.DataStores.Entities;
+﻿using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Interfaces;
@@ -17,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.DataStores.Blobs
 {
-    public class BlobRepository : IRepository
+    public class BlobRepository : IServerRepository
     {
         private CloudStorageAccount _account = null;
         private CloudBlobClient _client = null;
@@ -57,7 +55,8 @@ namespace Genrpg.ServerShared.DataStores.Blobs
             return container;
         }
 
-        public async Task CreateIndex<T>(List<IndexConfig> configs) where T : class, IStringId
+        // Breakd LSP
+        public async Task CreateIndex<T>(CreateIndexData data) where T : class, IStringId
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -200,13 +199,21 @@ namespace Genrpg.ServerShared.DataStores.Blobs
         #endregion
 
         #region Search
+        // Breaks LSP
         public async Task<List<T>> Search<T>(Expression<Func<T, bool>> func, int quantity, int skip) where T : class, IStringId
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
         }
-
+        // Breaks LSP
         public async Task<bool> TransactionSave<T>(List<T> list) where T : class, IStringId
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        // Breaks LSP
+        public async Task<T> AtomicIncrement<T>(string docId, string fieldName, long increment) where T : class, IStringId
         {
             await Task.CompletedTask;
             throw new NotImplementedException();

@@ -1,13 +1,13 @@
 ﻿
 using UI.Screens.Constants;
 using System.Threading;
-using Genrpg.Shared.Login.Messages.CreateChar;
+using Genrpg.Shared.Website.Messages.CreateChar;
 using UnityEngine;
 using System.Threading.Tasks;
 
 public class CharacterCreateScreen : BaseScreen
 {
-    private IWebNetworkService _webNetworkService;
+    private IClientWebService _webNetworkService;
     
     public GInputField NameInput;
     public GButton CreateButton;

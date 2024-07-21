@@ -1,0 +1,84 @@
+{
+  "Data": [
+    {
+      "Id": "chattype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "ChatType",
+      "UpdateTime": "2024-06-29T14:10:30.46Z",
+      "CreateTime": "2023-11-24T16:45:15.861Z"
+    },
+    {
+      "Id": "chattype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "ChatType",
+      "UpdateTime": "2024-06-29T14:10:30.469Z",
+      "CreateTime": "2023-11-24T16:45:16.056Z"
+    },
+    {
+      "Id": "chattype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "ChatType",
+      "UpdateTime": "2024-06-29T14:10:30.472Z",
+      "CreateTime": "2023-11-24T16:45:16.18Z"
+    },
+    {
+      "Id": "chattype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "ChatType",
+      "UpdateTime": "2024-06-29T14:10:30.474Z",
+      "CreateTime": "2023-11-24T16:45:16.307Z"
+    },
+    {
+      "Id": "chattype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "ChatType",
+      "Icon": "Nope",
+      "UpdateTime": "2024-06-29T14:10:30.477Z",
+      "CreateTime": "2023-11-24T16:45:16.42Z"
+    },
+    {
+      "Id": "chattype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "ChatType",
+      "UpdateTime": "2024-06-29T14:10:30.479Z",
+      "CreateTime": "2023-11-24T16:45:16.529Z"
+    },
+    {
+      "Id": "chattype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "ChatType",
+      "UpdateTime": "2024-06-29T14:10:30.482Z",
+      "CreateTime": "2023-11-24T16:45:16.637Z"
+    },
+    {
+      "Id": "chattype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "ChatType",
+      "UpdateTime": "2024-06-29T14:10:30.487Z",
+      "CreateTime": "2023-11-24T16:45:16.75Z"
+    },
+    {
+      "Id": "chattype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "ChatType",
+      "UpdateTime": "2024-06-29T14:10:30.494Z",
+      "CreateTime": "2023-11-24T16:45:16.861Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "ChatSettings",
+    "UpdateTime": "2024-07-04T23:03:06.076Z",
+    "CreateTime": "2023-11-24T22:45:15Z"
+  },
+  "Id": "default"
+}

@@ -6,16 +6,17 @@
   "Desc": "",
   "Icon": "520271",
   "Art": "",
-  "ElementTypeId": 2,
+  "ElementTypeId": 1,
   "PowerStatTypeId": 3,
   "PowerCost": 40,
-  "MaxRange": 100,
+  "MaxRange": 30,
   "Effects": [
     {
       "SkillTypeId": 1,
-      "Scale": 100
+      "Scale": 100,
+      "Name": ""
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:35.689Z",
-  "CreateTime": "2024-02-15T23:06:19.946Z"
+  "UpdateTime": "2024-07-20T20:31:16.761Z",
+  "CreateTime": "2024-02-16T05:06:19Z"
 }

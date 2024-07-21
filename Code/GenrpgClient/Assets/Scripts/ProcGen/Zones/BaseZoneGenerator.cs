@@ -6,6 +6,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Pathfinding.Services;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class BaseZoneGenerator : IZoneGenerator, IInitializable
     protected IUnityGameState _gs;
     protected IClientRandom _rand;
     protected IMapGenData _md;
+    protected IPathfindingService _pathfindingService;
 
     public virtual async Awaitable Generate(CancellationToken token)
     {

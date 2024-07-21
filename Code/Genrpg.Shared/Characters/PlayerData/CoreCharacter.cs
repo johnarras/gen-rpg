@@ -1,8 +1,10 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.GameSettings.PlayerData;
 using MessagePack;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 
@@ -26,8 +28,33 @@ namespace Genrpg.Shared.Characters.PlayerData
         [Key(11)] public float Rot { get; set; }
         [Key(12)] public float Speed { get; set; }
         [Key(13)] public long ZoneId { get; set; }
-        [Key(14)] public long Level { get; set; }
+        [Key(14)] public long Level { get; set; } = 1;
         [Key(15)] public long FactionTypeId { get; set; }
         [Key(16)] public long AddonBits { get; set; }
+        [Key(17)] public long SexTypeId { get; set; }
+        [Key(18)] public GameDataOverrideList DataOverrides { get; set; } = new GameDataOverrideList();
+
+        public string GetDocName(string settingName)
+        {
+            if (_overrideList == null)
+            {
+                return GameDataConstants.DefaultFilename;
+            }
+            PlayerSettingsOverrideItem item = _overrideList.Items.FirstOrDefault(x => x.SettingId == settingName);
+            return item?.DocId ?? GameDataConstants.DefaultFilename;
+        }
+
+
+        private GameDataOverrideList _overrideList = null;
+
+        public GameDataOverrideList GetGameDataOverrides()
+        {
+            return _overrideList;
+        }
+
+        public void SetGameDataOverrides(GameDataOverrideList overrideList)
+        {
+            _overrideList = overrideList;
+        }
     }
 }

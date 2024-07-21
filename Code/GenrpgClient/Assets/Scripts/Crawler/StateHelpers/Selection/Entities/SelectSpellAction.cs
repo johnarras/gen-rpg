@@ -13,5 +13,6 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection.Entities
         public CrawlerSpell Spell { get; set; }
         public SelectAction Action { get; set; }
         public long PowerCost { get; set; }
+        public string PreviousError { get; set; }
     }
 }

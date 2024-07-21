@@ -32,7 +32,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
 
             if (data == null)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ErrorMessage = "Cannot select a spell without a select action" };
+                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Cannot select a spell without a select action" };
             }
 
             bool inCombat = party.Combat != null;

@@ -1,0 +1,42 @@
+{
+  "Data": [
+    {
+      "Id": "damage0default",
+      "ParentId": "default",
+      "Name": "None",
+      "UpdateTime": "2024-06-29T14:10:31.551Z",
+      "CreateTime": "2024-01-27T20:53:48.768Z"
+    },
+    {
+      "Id": "damage1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Melee",
+      "UpdateTime": "2024-06-29T14:10:31.554Z",
+      "CreateTime": "2024-01-27T20:53:48.772Z"
+    },
+    {
+      "Id": "damage2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Ranged",
+      "UpdateTime": "2024-06-29T14:10:31.556Z",
+      "CreateTime": "2024-01-27T20:53:48.775Z"
+    },
+    {
+      "Id": "damage3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Spell",
+      "UpdateTime": "2024-06-29T14:10:31.561Z",
+      "CreateTime": "2024-01-27T20:53:48.778Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "DamageSettings",
+    "UpdateTime": "2024-07-04T23:03:06.13Z",
+    "CreateTime": "2024-01-28T02:53:48Z"
+  },
+  "Id": "default"
+}

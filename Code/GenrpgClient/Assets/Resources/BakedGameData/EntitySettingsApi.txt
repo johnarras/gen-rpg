@@ -1,0 +1,266 @@
+{
+  "Data": [
+    {
+      "Id": "entitytype0default",
+      "ParentId": "default",
+      "Name": "None",
+      "UpdateTime": "2024-06-29T14:10:31.822Z",
+      "CreateTime": "2023-11-24T16:45:23.729Z"
+    },
+    {
+      "Id": "entitytype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Currency",
+      "UpdateTime": "2024-06-29T14:10:31.912Z",
+      "CreateTime": "2023-11-24T16:45:24.517Z"
+    },
+    {
+      "Id": "entitytype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Item",
+      "UpdateTime": "2024-06-29T14:10:31.931Z",
+      "CreateTime": "2023-11-24T16:45:24.628Z"
+    },
+    {
+      "Id": "entitytype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Spell",
+      "UpdateTime": "2024-06-29T14:10:32.006Z",
+      "CreateTime": "2023-11-24T16:45:25.338Z"
+    },
+    {
+      "Id": "entitytype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Unit",
+      "UpdateTime": "2024-06-29T14:10:32.011Z",
+      "CreateTime": "2023-11-24T16:45:25.45Z"
+    },
+    {
+      "Id": "entitytype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "SpawnTable",
+      "UpdateTime": "2024-06-29T14:27:48.761Z",
+      "CreateTime": "2023-11-24T16:45:25.568Z"
+    },
+    {
+      "Id": "entitytype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Tutorial",
+      "UpdateTime": "2024-06-29T14:27:48.762Z",
+      "CreateTime": "2023-11-24T16:45:25.677Z"
+    },
+    {
+      "Id": "entitytype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Scaling",
+      "UpdateTime": "2024-06-29T14:10:32.028Z",
+      "CreateTime": "2023-11-24T16:45:25.787Z"
+    },
+    {
+      "Id": "entitytype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Recipe",
+      "UpdateTime": "2024-06-29T14:10:32.031Z",
+      "CreateTime": "2023-11-24T16:45:25.907Z"
+    },
+    {
+      "Id": "entitytype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Quest",
+      "UpdateTime": "2024-06-29T14:10:32.033Z",
+      "CreateTime": "2023-11-24T16:45:26.017Z"
+    },
+    {
+      "Id": "entitytype10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Set",
+      "UpdateTime": "2024-06-29T14:10:31.847Z",
+      "CreateTime": "2023-11-24T16:45:23.91Z"
+    },
+    {
+      "Id": "entitytype11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "NPC",
+      "UpdateTime": "2024-06-29T14:10:31.85Z",
+      "CreateTime": "2023-11-24T16:45:24.027Z"
+    },
+    {
+      "Id": "entitytype12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "QuestItem",
+      "UpdateTime": "2024-06-29T14:10:31.852Z",
+      "CreateTime": "2023-11-24T16:45:24.157Z"
+    },
+    {
+      "Id": "entitytype13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "GroundObject",
+      "UpdateTime": "2024-06-29T14:10:31.854Z",
+      "CreateTime": "2023-11-24T16:45:24.268Z"
+    },
+    {
+      "Id": "entitytype14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "Zone",
+      "UpdateTime": "2024-06-29T14:10:31.868Z",
+      "CreateTime": "2024-03-24T06:57:49.808Z"
+    },
+    {
+      "Id": "entitytype15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "ZoneUnit",
+      "UpdateTime": "2024-06-29T14:10:31.877Z",
+      "CreateTime": "2024-03-24T06:57:49.809Z"
+    },
+    {
+      "Id": "entitytype16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "ProxyCharacter",
+      "UpdateTime": "2024-06-29T14:10:31.88Z",
+      "CreateTime": "2024-03-24T06:57:49.811Z"
+    },
+    {
+      "Id": "entitytype17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "Building",
+      "UpdateTime": "2024-06-29T14:10:31.883Z",
+      "CreateTime": "2024-03-24T06:57:49.813Z"
+    },
+    {
+      "Id": "entitytype18default",
+      "ParentId": "default",
+      "IdKey": 18,
+      "Name": "MapMod",
+      "UpdateTime": "2024-06-29T14:10:31.888Z",
+      "CreateTime": "2024-03-24T06:57:49.815Z"
+    },
+    {
+      "Id": "entitytype19default",
+      "ParentId": "default",
+      "IdKey": 19,
+      "Name": "Tribe",
+      "UpdateTime": "2024-06-29T14:10:31.894Z",
+      "CreateTime": "2024-03-24T06:57:49.818Z"
+    },
+    {
+      "Id": "entitytype31default",
+      "ParentId": "default",
+      "IdKey": 31,
+      "Name": "Stat",
+      "UpdateTime": "2024-06-29T14:10:31.951Z",
+      "CreateTime": "2023-11-24T16:45:24.747Z"
+    },
+    {
+      "Id": "entitytype32default",
+      "ParentId": "default",
+      "IdKey": 32,
+      "Name": "StatPct",
+      "UpdateTime": "2024-06-29T14:10:31.955Z",
+      "CreateTime": "2023-11-24T16:45:24.868Z"
+    },
+    {
+      "Id": "entitytype33default",
+      "ParentId": "default",
+      "IdKey": 33,
+      "Name": "Damage",
+      "UpdateTime": "2024-06-29T14:10:31.961Z",
+      "CreateTime": "2023-11-24T16:45:24.981Z"
+    },
+    {
+      "Id": "entitytype34default",
+      "ParentId": "default",
+      "IdKey": 34,
+      "Name": "Healing",
+      "UpdateTime": "2024-06-29T14:10:31.982Z",
+      "CreateTime": "2023-11-24T16:45:25.097Z"
+    },
+    {
+      "Id": "entitytype35default",
+      "ParentId": "default",
+      "IdKey": 35,
+      "Name": "Shield",
+      "UpdateTime": "2024-06-29T14:10:31.985Z",
+      "CreateTime": "2023-11-24T16:45:25.227Z"
+    },
+    {
+      "Id": "entitytype36default",
+      "ParentId": "default",
+      "IdKey": 36,
+      "Name": "StatusEffect",
+      "UpdateTime": "2024-06-29T14:10:31.987Z",
+      "CreateTime": "2024-01-27T17:45:06.394Z"
+    },
+    {
+      "Id": "entitytype37default",
+      "ParentId": "default",
+      "IdKey": 37,
+      "Name": "SpecialMagic",
+      "UpdateTime": "2024-06-29T14:10:31.99Z",
+      "CreateTime": "2024-01-27T23:38:33.134Z"
+    },
+    {
+      "Id": "entitytype38default",
+      "ParentId": "default",
+      "IdKey": 38,
+      "Name": "Attack",
+      "UpdateTime": "2024-06-29T14:10:31.999Z",
+      "CreateTime": "2024-02-06T21:42:01.023Z"
+    },
+    {
+      "Id": "entitytype39default",
+      "ParentId": "default",
+      "IdKey": 39,
+      "Name": "Shoot",
+      "UpdateTime": "2024-06-29T14:10:32.002Z",
+      "CreateTime": "2024-02-06T21:42:01.026Z"
+    },
+    {
+      "Id": "entitytype100default",
+      "ParentId": "default",
+      "IdKey": 100,
+      "Name": "CrawlerSpell",
+      "UpdateTime": "2024-06-29T14:10:31.826Z",
+      "CreateTime": "2024-01-28T01:07:02.691Z"
+    },
+    {
+      "Id": "entitytype101default",
+      "ParentId": "default",
+      "IdKey": 101,
+      "Name": "PartyBuff",
+      "UpdateTime": "2024-06-29T14:10:31.832Z",
+      "CreateTime": "2024-01-28T01:07:02.691Z"
+    },
+    {
+      "Id": "entitytype200default",
+      "ParentId": "default",
+      "IdKey": 200,
+      "Name": "UserCoins",
+      "UpdateTime": "2024-06-29T14:10:31.915Z",
+      "CreateTime": "2023-12-29T17:22:00.57Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "EntitySettings",
+    "UpdateTime": "2024-07-04T23:03:06.155Z",
+    "CreateTime": "2023-11-26T10:45:23Z"
+  },
+  "Id": "default"
+}

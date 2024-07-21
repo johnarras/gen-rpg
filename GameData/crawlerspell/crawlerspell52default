@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 52,
   "Name": "Blizzard",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Hit all monsters with cold damage.",
   "PowerCost": 40,
   "PowerPerLevel": 1,
   "MaxRange": 100,
@@ -21,6 +19,6 @@
       "ElementTypeId": 3
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:31.174Z",
+  "UpdateTime": "2024-07-14T19:15:39.225Z",
   "CreateTime": "2024-01-28T15:21:51Z"
 }

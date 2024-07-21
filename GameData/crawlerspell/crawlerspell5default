@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 5,
   "Name": "Backstab",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Leap from the shadows and kill one or more monsters in a group.",
   "MaxRange": 10,
   "RequiredStatusEffectId": 13,
   "ReplacesCrawlerSpellId": 1,
@@ -20,6 +18,6 @@
       "ElementTypeId": 1
     }
   ],
-  "UpdateTime": "2024-06-29T14:10:31.202Z",
+  "UpdateTime": "2024-07-14T19:15:39.164Z",
   "CreateTime": "2024-01-29T14:58:39Z"
 }

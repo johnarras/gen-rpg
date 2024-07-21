@@ -4,13 +4,14 @@ using Genrpg.Shared.Characters.PlayerData;
 using UI.Screens.Constants;
 
 using System.Threading;
-using Genrpg.Shared.Login.Messages.LoadIntoMap;
+using Genrpg.Shared.Website.Messages.LoadIntoMap;
 using System.Linq;
 using static UnityEngine.Networking.UnityWebRequest;
 using UnityEngine;
 using System.Threading.Tasks;
+using Assets.Scripts.UI.Screens;
 
-public class CharacterSelectScreen : BaseScreen
+public class CharacterSelectScreen : ErrorMessageScreen
 {
     
 #if UNITY_EDITOR
@@ -22,9 +23,10 @@ public class CharacterSelectScreen : BaseScreen
     public GButton LogoutButton;
     public GButton QuitButton;
     public GButton CrawlerButton;
+    public GText ErrorText;
 
     protected IZoneGenService _zoneGenService;
-    protected IClientLoginService _loginService;
+    protected IClientAuthService _loginService;
     protected INoiseService _noiseService;
     protected IInputService _inputService;
 
@@ -68,24 +70,21 @@ public class CharacterSelectScreen : BaseScreen
 
         SetupCharacterGrid();
 
-        GetSpellIcons();
-
-
         await Task.CompletedTask;
     }
 
-    private void GetSpellIcons()
+    public override void ShowError(string errorMessage)
     {
+        _uiService.SetText(ErrorText, errorMessage);
     }
-
 
 #if UNITY_EDITOR
 
-    private void ClickTestAssets()
+    private async Awaitable ClickTestAssets(CancellationToken token)
     {
         TestAssetDownloads dl = new TestAssetDownloads();
 
-        AwaitableUtils.ForgetAwaitable(dl.RunTests(_gs, _token));
+        await dl.RunTests(_gs, _token);
     }
 
     private void ClickGenerate()
@@ -117,7 +116,6 @@ public class CharacterSelectScreen : BaseScreen
     private void ClickCrawler()
     {
         _screenService.CloseAll();
-        _inputService.SetDisabled(true);
         _screenService.Open(ScreenId.Crawler);
     }
 

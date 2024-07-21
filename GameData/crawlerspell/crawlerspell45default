@@ -3,9 +3,7 @@
   "ParentId": "default",
   "IdKey": 45,
   "Name": "Charm",
-  "Desc": "",
-  "Icon": "",
-  "Art": "",
+  "Desc": "Convince a monster to join your side.",
   "PowerCost": 20,
   "PowerPerLevel": 1,
   "MaxRange": 100,
@@ -21,6 +19,6 @@
       "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2024-07-04T19:49:48.792Z",
+  "UpdateTime": "2024-07-14T19:15:39.216Z",
   "CreateTime": "2024-01-28T09:09:08Z"
 }

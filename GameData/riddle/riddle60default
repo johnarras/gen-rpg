@@ -1,0 +1,9 @@
+{
+  "Id": "riddle60default",
+  "ParentId": "default",
+  "IdKey": 60,
+  "Name": "Relic",
+  "Desc": "An artifact of ages past,\r\nWith power grand and spells so vast.\r\nIt holds the secrets, old and grand,\r\nA piece of history in your hand.\r\n",
+  "UpdateTime": "2024-07-21T16:07:52.213Z",
+  "CreateTime": "2024-07-21T16:07:52.213Z"
+}

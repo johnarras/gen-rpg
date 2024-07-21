@@ -7,7 +7,6 @@ namespace Genrpg.Shared.PlayerFiltering.Interfaces
 {
     public interface IFilteredObject
     {
-        string GetName(string docType);
-        void SetGameDataOverrides(GameDataOverrideList list);
+        GameDataOverrideList DataOverrides { get; set; }
     }
 }

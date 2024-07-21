@@ -10,13 +10,12 @@ namespace Genrpg.Shared.Utils
     {
         public static string NewGuid()
         {
-            return Guid.NewGuid().ToString();
+            return Guid.NewGuid().ToString(); // only spot we should use this method
         }
 
         private static List<char> _idChars = null;
         public static List<char> GetIdChars()
         {
-
             if (_idChars != null)
             {
                 return _idChars;

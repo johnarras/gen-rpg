@@ -26,6 +26,8 @@ namespace Genrpg.Shared.Characters.Utils
             to.Y = from.Y;
             to.Z = from.Z;
             to.MapId = from.MapId;
+            to.SexTypeId = from.SexTypeId;
+            to.DataOverrides = from.DataOverrides;
         }
     }
 }

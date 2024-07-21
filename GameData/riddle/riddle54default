@@ -1,0 +1,9 @@
+{
+  "Id": "riddle54default",
+  "ParentId": "default",
+  "IdKey": 54,
+  "Name": "Labyrinth",
+  "Desc": "A twisted maze with paths unclear,\r\nIt challenges all who enter here.\r\nWith walls so high and turns so tight,\r\nIt tests your wits both day and night.\r\n",
+  "UpdateTime": "2024-07-21T16:07:52.203Z",
+  "CreateTime": "2024-07-21T16:07:52.203Z"
+}
