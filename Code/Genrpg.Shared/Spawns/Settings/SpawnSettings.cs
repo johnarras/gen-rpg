@@ -22,6 +22,8 @@ namespace Genrpg.Shared.Spawns.Settings
         [Key(4)] public double Weight { get; set; } = 100;
         [Key(5)] public int GroupId { get; set; }
         [Key(6)] public string Name { get; set; }
+        [Key(7)] public long MinLevel { get; set; }
+        [Key(8)] public double MinScale { get; set; }
 
     }
     [MessagePackObject]

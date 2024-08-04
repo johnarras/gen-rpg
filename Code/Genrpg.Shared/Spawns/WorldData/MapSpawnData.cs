@@ -38,27 +38,7 @@ namespace Genrpg.Shared.Spawns.WorldData
                 return;
             }
 
-            MaxId++;
-
-            List<char> idChars = HashUtils.GetIdChars();
-
-            string strId = "";
-
-            if (idChars.Count < 1)
-            {
-                strId = MaxId.ToString();
-            }
-            else
-            {
-                int idval = MaxId;
-
-                while (idval > 0)
-                {
-                    strId += idChars[idval % idChars.Count];
-                    idval /= idChars.Count;
-                }
-                strId.Reverse();
-            }
+            string strId = HashUtils.GetIdFromVal(MaxId++);
 
             MapSpawn spawn = new MapSpawn()
             {

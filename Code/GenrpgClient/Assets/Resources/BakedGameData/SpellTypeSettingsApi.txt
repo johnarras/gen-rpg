@@ -19,8 +19,7 @@
           "Name": ""
         }
       ],
-      "UpdateTime": "2024-07-20T20:31:16.761Z",
-      "CreateTime": "2024-02-16T05:06:19Z"
+      "UpdateTime": "2024-08-01T00:28:12.937Z"
     },
     {
       "Id": "spelltype2default",
@@ -41,8 +40,7 @@
           "Name": ""
         }
       ],
-      "UpdateTime": "2024-07-20T20:31:16.766Z",
-      "CreateTime": "2024-02-16T05:06:19Z"
+      "UpdateTime": "2024-08-01T00:28:12.941Z"
     },
     {
       "Id": "spelltype3default",
@@ -62,15 +60,13 @@
           "Scale": 125
         }
       ],
-      "UpdateTime": "2024-07-20T20:31:16.768Z",
-      "CreateTime": "2024-02-16T05:06:19Z"
+      "UpdateTime": "2024-08-01T00:28:12.944Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "SpellTypeSettings",
-    "UpdateTime": "2024-07-20T20:31:16.731Z",
-    "CreateTime": "2023-12-24T05:13:14Z"
+    "UpdateTime": "2024-08-01T00:28:12.946Z"
   },
   "Id": "default"
 }

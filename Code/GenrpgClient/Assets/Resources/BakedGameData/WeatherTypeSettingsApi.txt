@@ -18,8 +18,7 @@
       "PrecipScale": 1.0,
       "ParticleScale": 1.0,
       "Particles": "",
-      "UpdateTime": "2024-06-29T14:10:37.112Z",
-      "CreateTime": "2024-02-15T23:06:21.551Z"
+      "UpdateTime": "2024-08-01T00:28:16.8Z"
     },
     {
       "Id": "weathertype1default",
@@ -68,8 +67,7 @@
       "PrecipScale": 0.4,
       "ParticleScale": 1.0,
       "Particles": "dust leaves",
-      "UpdateTime": "2024-06-29T14:10:37.127Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.808Z"
     },
     {
       "Id": "weathertype2default",
@@ -118,8 +116,7 @@
       "PrecipScale": 0.3,
       "ParticleScale": 1.0,
       "Particles": "dust leaves mist",
-      "UpdateTime": "2024-06-29T14:10:37.134Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.81Z"
     },
     {
       "Id": "weathertype3default",
@@ -169,8 +166,7 @@
       "IsCold": true,
       "ParticleScale": 1.0,
       "Particles": "pineneedles leaves mist",
-      "UpdateTime": "2024-06-29T14:10:37.141Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.813Z"
     },
     {
       "Id": "weathertype4default",
@@ -219,8 +215,7 @@
       "PrecipScale": 0.7,
       "ParticleScale": 3.0,
       "Particles": "mist",
-      "UpdateTime": "2024-06-29T14:10:37.149Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.815Z"
     },
     {
       "Id": "weathertype5default",
@@ -269,8 +264,7 @@
       "PrecipScale": 0.15,
       "ParticleScale": 0.5,
       "Particles": "dust",
-      "UpdateTime": "2024-06-29T14:10:37.155Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.817Z"
     },
     {
       "Id": "weathertype6default",
@@ -319,8 +313,7 @@
       "PrecipScale": 0.1,
       "ParticleScale": 0.3,
       "Particles": "dust",
-      "UpdateTime": "2024-06-29T14:10:37.16Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.82Z"
     },
     {
       "Id": "weathertype7default",
@@ -369,8 +362,7 @@
       "PrecipScale": 0.45,
       "ParticleScale": 2.0,
       "Particles": "mist",
-      "UpdateTime": "2024-06-29T14:10:37.164Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.822Z"
     },
     {
       "Id": "weathertype8default",
@@ -419,8 +411,7 @@
       "PrecipScale": 0.5,
       "ParticleScale": 1.0,
       "Particles": "leaves",
-      "UpdateTime": "2024-06-29T14:10:37.168Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.825Z"
     },
     {
       "Id": "weathertype9default",
@@ -469,8 +460,7 @@
       "PrecipScale": 0.4,
       "ParticleScale": 1.0,
       "Particles": "dust leaves",
-      "UpdateTime": "2024-06-29T14:10:37.171Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.827Z"
     },
     {
       "Id": "weathertype10default",
@@ -519,8 +509,7 @@
       "PrecipScale": 0.4,
       "ParticleScale": 1.0,
       "Particles": "dust leaves",
-      "UpdateTime": "2024-06-29T14:10:37.118Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.803Z"
     },
     {
       "Id": "weathertype11default",
@@ -557,15 +546,13 @@
       "PrecipScale": 0.4,
       "ParticleScale": 1.0,
       "Particles": "dust leaves",
-      "UpdateTime": "2024-06-29T14:10:37.121Z",
-      "CreateTime": "2024-02-16T17:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:16.806Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "WeatherTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.427Z",
-    "CreateTime": "2023-12-25T05:13:14Z"
+    "UpdateTime": "2024-08-01T00:28:16.83Z"
   },
   "Id": "default"
 }

@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Logging.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,8 @@ namespace Assets.Scripts.GameObjects
     {
         protected IServiceLocator _loc = null;
         protected IInitClient _initClient = null;
+        protected IUIService _uiService = null;
+        protected ILogService _logService = null;
         public GameObject FullInstantiateAndSet(GameObject go)
         {
             GameObject dupe = FullInstantiate(go);
@@ -57,11 +61,18 @@ namespace Assets.Scripts.GameObjects
         public void InitializeHierarchy(GameObject go)
         {
             GEntityUtils.SetActive(go, true);
-            List<BaseBehaviour> allBehaviours = GEntityUtils.GetComponents<BaseBehaviour>(go);
+            List<MonoBehaviour> allBehaviours = GEntityUtils.GetComponents<MonoBehaviour>(go);
 
-            foreach (BaseBehaviour behaviour in allBehaviours)
+            foreach (MonoBehaviour behaviour in allBehaviours)
             {
-                _loc.Resolve(behaviour);
+                if (behaviour is BaseBehaviour baseBehaviour)
+                {
+                    _loc.Resolve(baseBehaviour);
+                }
+                else if (behaviour is GText gtext && !string.IsNullOrEmpty(gtext.text))
+                {
+                    _uiService.SetText(gtext, gtext.text);
+                }
             }
         }
 

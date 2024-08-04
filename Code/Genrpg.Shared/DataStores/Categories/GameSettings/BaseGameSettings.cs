@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Genrpg.Shared.DataStores.Categories.GameSettings
 {
     [DataCategory(Category = DataCategoryTypes.GameData)]
-    public abstract class BaseGameSettings : IGameSettings, IUpdateData
+    public abstract class BaseGameSettings : IGameSettings
     {
         [MessagePack.IgnoreMember]
         public abstract string Id { get; set; }
@@ -25,8 +25,6 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
         }
         [MessagePack.IgnoreMember]
         public DateTime UpdateTime { get; set; } = DateTime.MinValue;
-        [MessagePack.IgnoreMember]
-        public DateTime CreateTime { get; set; } = DateTime.MinValue;
 
         public abstract void AddTo(GameData data);
 

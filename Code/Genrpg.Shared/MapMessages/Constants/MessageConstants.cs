@@ -7,7 +7,7 @@ using System.Text;
     [MessagePackObject]
 public class MessageConstants
 {
-    public const float DefaultGridDistance = SharedMapConstants.TerrainPatchSize*40/100;
+    public const float DefaultGridDistance = SharedMapConstants.TerrainPatchSize*60/100;
 
     public const float DefaultUpdatePosDistance = DefaultGridDistance;
 

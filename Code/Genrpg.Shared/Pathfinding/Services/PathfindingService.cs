@@ -429,15 +429,23 @@ namespace Genrpg.Shared.Pathfinding.Services
                 return;
             }
 
-            List<PathCell> lineCells = GetLine(workbook, startGridX, startGridZ, endGridX, endGridZ);
+            int lineLength = GetLineLength(workbook, startGridX, startGridZ, endGridX, endGridZ);
+
+            if (lineLength <= 0 || lineLength > workbook.LineCellCache.Count)
+            {
+                ReturnWorkbook(rand, workbook);
+                tracker.Waypoints.RetvalType = "No direct path found";
+                return;
+            }
+
 
             workbook.DidFindBlockedCell = false;
             workbook.MaxBlockedCellsInARow = 0;
             workbook.CurrentBlockedCellsCount = 0;
             workbook.BlockedCells.Clear();
-            for (int i = 1; i < lineCells.Count-1; i++)
+            for (int i = 1; i < workbook.LineCellCache.Count && i < lineLength; i++)
             {
-                PathCell lineCell = lineCells[i];
+                PathCell lineCell = workbook.LineCellCache[i];
 
                 if (lineCell.X < 1 || lineCell.X >= _grid.GetLength(0)-1 ||
                     lineCell.Z < 1 || lineCell.Z >= _grid.GetLength(1)-1)
@@ -467,9 +475,9 @@ namespace Genrpg.Shared.Pathfinding.Services
             {
                 if (showFullLine)
                 {
-                    for (int i = 1; i < lineCells.Count - 1; i++)
+                    for (int i = 1; i < lineLength; i++)
                     {
-                        tracker.Waypoints.AddGridCell(lineCells[i].X, lineCells[i].Z);
+                        tracker.Waypoints.AddGridCell(workbook.LineCellCache[i].X, workbook.LineCellCache[i].Z);
                     }
                 }
                 else
@@ -680,8 +688,11 @@ namespace Genrpg.Shared.Pathfinding.Services
         /// <param name="endx"></param>
         /// <param name="endz"></param>
         /// <returns></returns>
-        private List<PathCell> GetLine(PathWorkbook workbook, int startx, int startz, int endx, int endz)
+        private int GetLineLength(PathWorkbook workbook, int startx, int startz, int endx, int endz)
         {
+
+
+           
             List<PathCell> retval = new List<PathCell>();
 
             int cx = startx;
@@ -755,7 +766,7 @@ namespace Genrpg.Shared.Pathfinding.Services
                 }
             }
 
-            return retval;
+            return lineCellIndex;
         }
 
 

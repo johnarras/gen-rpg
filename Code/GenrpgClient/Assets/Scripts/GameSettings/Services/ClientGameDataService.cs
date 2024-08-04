@@ -61,7 +61,6 @@ namespace Assets.Scripts.GameSettings.Services
                 string bakedResourcesPath = BakedGameDataPathSuffix + loader.GetClientType().Name;
 
                 TextAsset textAsset = Resources.Load<TextAsset>(bakedResourcesPath);
-                _logService.Info("TextAssetLoaded: " + loader.GetClientType().Name + " " + (textAsset != null ? 1 : 0));
                 if (textAsset != null && !string.IsNullOrEmpty(textAsset.text))
                 {
                     bakedSettings = (ITopLevelSettings)SerializationUtils.DeserializeWithType(textAsset.text, loader.GetClientType());

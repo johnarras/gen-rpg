@@ -241,11 +241,11 @@ namespace Genrpg.ServerShared.Accounts.Services
 
         }
 
-        public async Task<long> GetNextAccountId()
+        public async Task<string> GetNextAccountId()
         {
             AccountIdIncrement increment = await _serverRepositoryService.AtomicIncrement<AccountIdIncrement>(AccountIdIncrement.DocId, nameof(AccountIdIncrement.AccountId), 1) as AccountIdIncrement;
 
-            return increment.AccountId;
+            return HashUtils.GetIdFromVal(increment.AccountId);
         }
     }
 }

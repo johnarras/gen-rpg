@@ -88,14 +88,6 @@ public class MonsterController : UnitController
             return;
         }
 
-        if ((DateTime.UtcNow - LastPosUpdate).TotalSeconds > 2)
-        {
-            _unit.TargetId = null;
-            _unit.FinalX = _unit.CombatStartX;
-            _unit.FinalZ = _unit.CombatStartZ;
-            _unit.AddFlag(UnitFlags.Evading);
-        }
-
         if (_unit.HasTarget() && !_unit.HasFlag(UnitFlags.IsDead))
         {
             if (_objectManager.GetUnit(_unit.TargetId, out Unit targetUnit))

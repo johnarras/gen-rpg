@@ -241,7 +241,7 @@ namespace Genrpg.Editor
 
 
                 List<IGameSettings> settingsToSave = new List<IGameSettings>();
-                foreach (object obj in gs.LookedAtObjects)
+                foreach (object obj in gs.LookedAtObjects) // Grouping, not saving
                 {
                     if (obj is IGameSettings settings)
                     {
@@ -282,11 +282,12 @@ namespace Genrpg.Editor
                 }
 
                 List<BaseGameSettings> settingsList = new List<BaseGameSettings>();
-                foreach (object obj in gs.LookedAtObjects)
+                foreach (object obj in gs.LookedAtObjects) // Saving
                 {
                     if (obj is BaseGameSettings baseGameSetting)
                     {
                         settingsList.Add(baseGameSetting);
+                        baseGameSetting.UpdateTime = versionSettings.GameDataSaveTime;
                     }
                 }
 

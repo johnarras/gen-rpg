@@ -10,8 +10,7 @@
       "CraftingSeconds": 1000.0,
       "GatherActionName": "None",
       "CraftActionName": "None",
-      "UpdateTime": "2024-06-29T14:10:30.675Z",
-      "CreateTime": "2023-11-24T16:45:17.804Z"
+      "UpdateTime": "2024-08-01T00:28:05.689Z"
     },
     {
       "Id": "craftertype1default",
@@ -24,8 +23,7 @@
       "CraftingSeconds": 6.0,
       "GatherActionName": "Gathering",
       "CraftActionName": "Sewing",
-      "UpdateTime": "2024-06-29T14:10:30.692Z",
-      "CreateTime": "2023-11-24T16:45:17.979Z"
+      "UpdateTime": "2024-08-01T00:28:05.693Z"
     },
     {
       "Id": "craftertype2default",
@@ -38,8 +36,7 @@
       "CraftingSeconds": 6.0,
       "GatherActionName": "Chopping",
       "CraftActionName": "Building",
-      "UpdateTime": "2024-06-29T14:10:30.698Z",
-      "CreateTime": "2023-11-24T16:45:18.106Z"
+      "UpdateTime": "2024-08-01T00:28:05.695Z"
     },
     {
       "Id": "craftertype3default",
@@ -52,8 +49,7 @@
       "CraftingSeconds": 6.0,
       "GatherActionName": "Skinning",
       "CraftActionName": "Assembling",
-      "UpdateTime": "2024-06-29T14:10:30.721Z",
-      "CreateTime": "2023-11-24T16:45:18.217Z"
+      "UpdateTime": "2024-08-01T00:28:05.698Z"
     },
     {
       "Id": "craftertype4default",
@@ -66,8 +62,7 @@
       "CraftingSeconds": 6.0,
       "GatherActionName": "Mining",
       "CraftActionName": "Smithing",
-      "UpdateTime": "2024-06-29T14:10:30.726Z",
-      "CreateTime": "2023-11-24T16:45:18.326Z"
+      "UpdateTime": "2024-08-01T00:28:05.7Z"
     },
     {
       "Id": "craftertype5default",
@@ -80,8 +75,7 @@
       "CraftingSeconds": 6.0,
       "GatherActionName": "Mining",
       "CraftActionName": "Building",
-      "UpdateTime": "2024-06-29T14:10:30.732Z",
-      "CreateTime": "2023-11-24T16:45:18.446Z"
+      "UpdateTime": "2024-08-01T00:28:05.702Z"
     },
     {
       "Id": "craftertype6default",
@@ -94,8 +88,7 @@
       "CraftingSeconds": 6.0,
       "GatherActionName": "Mining",
       "CraftActionName": "Crafting",
-      "UpdateTime": "2024-06-29T14:10:30.738Z",
-      "CreateTime": "2023-11-24T16:45:18.557Z"
+      "UpdateTime": "2024-08-01T00:28:05.704Z"
     },
     {
       "Id": "craftertype7default",
@@ -108,8 +101,7 @@
       "CraftingSeconds": 6.0,
       "GatherActionName": "Picking",
       "CraftActionName": "Brewing",
-      "UpdateTime": "2024-06-29T14:10:30.745Z",
-      "CreateTime": "2023-11-24T16:45:18.668Z"
+      "UpdateTime": "2024-08-01T00:28:05.707Z"
     },
     {
       "Id": "craftertype8default",
@@ -122,8 +114,7 @@
       "CraftingSeconds": 6.0,
       "GatherActionName": "Draining",
       "CraftActionName": "Enchanting",
-      "UpdateTime": "2024-06-29T14:10:30.748Z",
-      "CreateTime": "2023-11-24T16:45:18.778Z"
+      "UpdateTime": "2024-08-01T00:28:05.709Z"
     },
     {
       "Id": "craftertype9default",
@@ -136,8 +127,7 @@
       "CraftingSeconds": 6.0,
       "GatherActionName": "Opening",
       "CraftActionName": "Opening",
-      "UpdateTime": "2024-06-29T14:10:30.75Z",
-      "CreateTime": "2023-11-24T16:45:18.905Z"
+      "UpdateTime": "2024-08-01T00:28:05.711Z"
     }
   ],
   "ParentObj": {
@@ -149,8 +139,7 @@
     "LevelsPerExtraEffect": 4,
     "MaxExtraEffects": 5,
     "Name": "CraftingSettings",
-    "UpdateTime": "2024-07-04T23:03:06.101Z",
-    "CreateTime": "2023-11-24T22:45:19Z"
+    "UpdateTime": "2024-08-01T00:28:05.714Z"
   },
   "Id": "default"
 }

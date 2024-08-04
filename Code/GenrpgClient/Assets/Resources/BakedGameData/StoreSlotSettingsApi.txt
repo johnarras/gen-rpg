@@ -4,39 +4,34 @@
       "Id": "storeslot0default",
       "ParentId": "default",
       "Name": "None",
-      "UpdateTime": "2024-06-29T14:10:36.008Z",
-      "CreateTime": "2023-12-28T01:53:47.339Z"
+      "UpdateTime": "2024-08-01T00:28:13.679Z"
     },
     {
       "Id": "storeslot1default",
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Gem Store",
-      "UpdateTime": "2024-06-29T14:10:36.011Z",
-      "CreateTime": "2023-12-28T01:53:47.345Z"
+      "UpdateTime": "2024-08-01T00:28:13.682Z"
     },
     {
       "Id": "storeslot2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Gold Store",
-      "UpdateTime": "2024-06-29T14:10:36.015Z",
-      "CreateTime": "2023-12-28T01:53:47.348Z"
+      "UpdateTime": "2024-08-01T00:28:13.685Z"
     },
     {
       "Id": "storeslot3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "Bundle Store",
-      "UpdateTime": "2024-06-29T14:10:36.018Z",
-      "CreateTime": "2023-12-29T23:42:14.286Z"
+      "UpdateTime": "2024-08-01T00:28:13.687Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "StoreSlotSettings",
-    "UpdateTime": "2024-07-04T23:03:06.36Z",
-    "CreateTime": "2023-12-28T07:53:00Z"
+    "UpdateTime": "2024-08-01T00:28:13.69Z"
   },
   "Id": "default"
 }

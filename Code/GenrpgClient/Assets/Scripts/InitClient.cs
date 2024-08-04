@@ -82,6 +82,7 @@ public class InitClient : BaseBehaviour, IInitClient
         ScreenUtils.SetupScreenSystem(1920, 1080, false, true, 2);
         Cursors.SetCursor(Cursors.Default);
 
+        _dispatcher.AddEvent<NewVersionEvent>(this, OnNewVersion);
         _gs.CrawlerMode = CrawlerMode;
 
         if (_gs.CrawlerMode)
@@ -107,7 +108,6 @@ public class InitClient : BaseBehaviour, IInitClient
 
         try
         {
-            _dispatcher.AddEvent<NewVersionEvent>(this, OnNewVersion);
             _gs.LoginServerURL = response.ServerURL;
             _gs.Config.ResponseContentRoot = response.ContentRoot;
             _gs.Config.ResponseAssetEnv = response.AssetEnv;

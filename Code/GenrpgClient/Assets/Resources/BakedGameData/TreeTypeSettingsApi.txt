@@ -8,8 +8,7 @@
       "Art": "Cedar",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.557Z",
-      "CreateTime": "2024-02-15T23:06:20.89Z"
+      "UpdateTime": "2024-08-01T00:28:14.599Z"
     },
     {
       "Id": "treetype2default",
@@ -19,8 +18,7 @@
       "Art": "CedarYoung",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.595Z",
-      "CreateTime": "2024-02-15T23:06:20.92Z"
+      "UpdateTime": "2024-08-01T00:28:14.642Z"
     },
     {
       "Id": "treetype3default",
@@ -30,8 +28,7 @@
       "Art": "Elm",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.631Z",
-      "CreateTime": "2024-02-15T23:06:20.929Z"
+      "UpdateTime": "2024-08-01T00:28:14.67Z"
     },
     {
       "Id": "treetype4default",
@@ -41,8 +38,7 @@
       "Art": "Broadleaf",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.668Z",
-      "CreateTime": "2024-02-15T23:06:20.939Z"
+      "UpdateTime": "2024-08-01T00:28:14.698Z"
     },
     {
       "Id": "treetype5default",
@@ -52,8 +48,7 @@
       "Art": "Conifer",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.707Z",
-      "CreateTime": "2024-02-15T23:06:20.946Z"
+      "UpdateTime": "2024-08-01T00:28:14.992Z"
     },
     {
       "Id": "treetype6default",
@@ -63,8 +58,7 @@
       "Art": "Palm",
       "Scale": 1.0,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.765Z",
-      "CreateTime": "2024-02-15T23:06:20.949Z"
+      "UpdateTime": "2024-08-01T00:28:15.018Z"
     },
     {
       "Id": "treetype7default",
@@ -74,8 +68,7 @@
       "Art": "Spruce",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.8Z",
-      "CreateTime": "2024-02-15T23:06:20.951Z"
+      "UpdateTime": "2024-08-01T00:28:15.044Z"
     },
     {
       "Id": "treetype8default",
@@ -85,8 +78,7 @@
       "Art": "DouglasFir",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.844Z",
-      "CreateTime": "2024-02-15T23:06:20.953Z"
+      "UpdateTime": "2024-08-01T00:28:15.063Z"
     },
     {
       "Id": "treetype9default",
@@ -96,8 +88,7 @@
       "Art": "Birch",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.847Z",
-      "CreateTime": "2024-02-15T23:06:20.955Z"
+      "UpdateTime": "2024-08-01T00:28:15.066Z"
     },
     {
       "Id": "treetype10default",
@@ -107,8 +98,7 @@
       "Art": "LondonPlane",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.524Z",
-      "CreateTime": "2024-02-15T23:06:20.957Z"
+      "UpdateTime": "2024-08-01T00:28:14.563Z"
     },
     {
       "Id": "treetype11default",
@@ -118,8 +108,7 @@
       "Art": "RedMaple",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.528Z",
-      "CreateTime": "2024-02-15T23:06:20.966Z"
+      "UpdateTime": "2024-08-01T00:28:14.567Z"
     },
     {
       "Id": "treetype12default",
@@ -129,8 +118,7 @@
       "Art": "ScotsPine",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.531Z",
-      "CreateTime": "2024-02-15T23:06:20.974Z"
+      "UpdateTime": "2024-08-01T00:28:14.57Z"
     },
     {
       "Id": "treetype13default",
@@ -140,8 +128,7 @@
       "Art": "WhiteOak",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.534Z",
-      "CreateTime": "2024-02-15T23:06:20.981Z"
+      "UpdateTime": "2024-08-01T00:28:14.581Z"
     },
     {
       "Id": "treetype14default",
@@ -151,8 +138,7 @@
       "Art": "WhiteOakYoung",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.538Z",
-      "CreateTime": "2024-02-15T23:06:20.988Z"
+      "UpdateTime": "2024-08-01T00:28:14.583Z"
     },
     {
       "Id": "treetype15default",
@@ -162,8 +148,7 @@
       "Art": "Cactus",
       "Scale": 1.0,
       "VariationCount": 4,
-      "UpdateTime": "2024-06-29T14:10:36.541Z",
-      "CreateTime": "2024-02-15T23:06:20.995Z"
+      "UpdateTime": "2024-08-01T00:28:14.586Z"
     },
     {
       "Id": "treetype16default",
@@ -174,8 +159,7 @@
       "Scale": 1.0,
       "VariationCount": 2,
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:36.544Z",
-      "CreateTime": "2024-02-15T23:06:21.005Z"
+      "UpdateTime": "2024-08-01T00:28:14.588Z"
     },
     {
       "Id": "treetype17default",
@@ -186,8 +170,7 @@
       "Scale": 1.0,
       "VariationCount": 2,
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:36.547Z",
-      "CreateTime": "2024-02-15T23:06:21.014Z"
+      "UpdateTime": "2024-08-01T00:28:14.591Z"
     },
     {
       "Id": "treetype18default",
@@ -198,8 +181,7 @@
       "Scale": 1.0,
       "VariationCount": 2,
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:36.55Z",
-      "CreateTime": "2024-02-15T23:06:21.027Z"
+      "UpdateTime": "2024-08-01T00:28:14.593Z"
     },
     {
       "Id": "treetype19default",
@@ -210,8 +192,7 @@
       "Scale": 1.0,
       "VariationCount": 2,
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:36.554Z",
-      "CreateTime": "2024-02-15T23:06:21.039Z"
+      "UpdateTime": "2024-08-01T00:28:14.596Z"
     },
     {
       "Id": "treetype20default",
@@ -222,8 +203,7 @@
       "Scale": 1.0,
       "VariationCount": 4,
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:36.56Z",
-      "CreateTime": "2024-02-15T23:06:21.047Z"
+      "UpdateTime": "2024-08-01T00:28:14.602Z"
     },
     {
       "Id": "treetype21default",
@@ -234,8 +214,7 @@
       "Scale": 1.0,
       "VariationCount": 4,
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:36.563Z",
-      "CreateTime": "2024-02-15T23:06:21.056Z"
+      "UpdateTime": "2024-08-01T00:28:14.604Z"
     },
     {
       "Id": "treetype22default",
@@ -246,8 +225,7 @@
       "Scale": 1.2,
       "VariationCount": 2,
       "Flags": 3,
-      "UpdateTime": "2024-06-29T14:10:36.567Z",
-      "CreateTime": "2024-02-15T23:06:21.064Z"
+      "UpdateTime": "2024-08-01T00:28:14.621Z"
     },
     {
       "Id": "treetype23default",
@@ -258,8 +236,7 @@
       "Scale": 0.5,
       "VariationCount": 2,
       "Flags": 3,
-      "UpdateTime": "2024-06-29T14:10:36.57Z",
-      "CreateTime": "2024-02-15T23:06:21.073Z"
+      "UpdateTime": "2024-08-01T00:28:14.624Z"
     },
     {
       "Id": "treetype24default",
@@ -269,8 +246,7 @@
       "Art": "Juniper",
       "Scale": 3.0,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.573Z",
-      "CreateTime": "2024-02-15T23:06:21.075Z"
+      "UpdateTime": "2024-08-01T00:28:14.627Z"
     },
     {
       "Id": "treetype25default",
@@ -281,8 +257,7 @@
       "Scale": 0.5,
       "VariationCount": 2,
       "Flags": 3,
-      "UpdateTime": "2024-06-29T14:10:36.576Z",
-      "CreateTime": "2024-02-15T23:06:21.077Z"
+      "UpdateTime": "2024-08-01T00:28:14.629Z"
     },
     {
       "Id": "treetype26default",
@@ -293,8 +268,7 @@
       "Scale": 1.0,
       "VariationCount": 2,
       "Flags": 3,
-      "UpdateTime": "2024-06-29T14:10:36.579Z",
-      "CreateTime": "2024-02-15T23:06:21.082Z"
+      "UpdateTime": "2024-08-01T00:28:14.631Z"
     },
     {
       "Id": "treetype27default",
@@ -305,8 +279,7 @@
       "Scale": 1.0,
       "VariationCount": 2,
       "Flags": 3,
-      "UpdateTime": "2024-06-29T14:10:36.584Z",
-      "CreateTime": "2024-02-15T23:06:21.088Z"
+      "UpdateTime": "2024-08-01T00:28:14.634Z"
     },
     {
       "Id": "treetype28default",
@@ -317,8 +290,7 @@
       "Scale": 1.0,
       "VariationCount": 2,
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:36.588Z",
-      "CreateTime": "2024-02-15T23:06:21.09Z"
+      "UpdateTime": "2024-08-01T00:28:14.637Z"
     },
     {
       "Id": "treetype29default",
@@ -329,8 +301,7 @@
       "Scale": 1.0,
       "VariationCount": 2,
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:36.592Z",
-      "CreateTime": "2024-02-15T23:06:21.092Z"
+      "UpdateTime": "2024-08-01T00:28:14.64Z"
     },
     {
       "Id": "treetype30default",
@@ -340,8 +311,7 @@
       "Art": "BroadleafSmall",
       "Scale": 2.0,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.598Z",
-      "CreateTime": "2024-02-15T23:06:21.094Z"
+      "UpdateTime": "2024-08-01T00:28:14.645Z"
     },
     {
       "Id": "treetype31default",
@@ -351,8 +321,7 @@
       "Art": "CedarBare",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.601Z",
-      "CreateTime": "2024-02-15T23:06:21.096Z"
+      "UpdateTime": "2024-08-01T00:28:14.647Z"
     },
     {
       "Id": "treetype32default",
@@ -362,8 +331,7 @@
       "Art": "ElmFall",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.605Z",
-      "CreateTime": "2024-02-15T23:06:21.098Z"
+      "UpdateTime": "2024-08-01T00:28:14.65Z"
     },
     {
       "Id": "treetype33default",
@@ -373,8 +341,7 @@
       "Art": "SpruceBare",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.608Z",
-      "CreateTime": "2024-02-15T23:06:21.107Z"
+      "UpdateTime": "2024-08-01T00:28:14.652Z"
     },
     {
       "Id": "treetype34default",
@@ -384,8 +351,7 @@
       "Art": "SpruceWinter",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.611Z",
-      "CreateTime": "2024-02-15T23:06:21.112Z"
+      "UpdateTime": "2024-08-01T00:28:14.655Z"
     },
     {
       "Id": "treetype35default",
@@ -395,8 +361,7 @@
       "Art": "DouglasFirBare",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.614Z",
-      "CreateTime": "2024-02-15T23:06:21.121Z"
+      "UpdateTime": "2024-08-01T00:28:14.657Z"
     },
     {
       "Id": "treetype36default",
@@ -408,8 +373,7 @@
       "Art": "DouglasFirPyramid",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.617Z",
-      "CreateTime": "2024-02-16T05:06:21Z"
+      "UpdateTime": "2024-08-01T00:28:14.66Z"
     },
     {
       "Id": "treetype37default",
@@ -419,8 +383,7 @@
       "Art": "BirchFall",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.62Z",
-      "CreateTime": "2024-02-15T23:06:21.134Z"
+      "UpdateTime": "2024-08-01T00:28:14.662Z"
     },
     {
       "Id": "treetype38default",
@@ -430,8 +393,7 @@
       "Art": "BirchWinter",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.623Z",
-      "CreateTime": "2024-02-15T23:06:21.143Z"
+      "UpdateTime": "2024-08-01T00:28:14.665Z"
     },
     {
       "Id": "treetype39default",
@@ -441,8 +403,7 @@
       "Art": "RedMapleYoung",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.626Z",
-      "CreateTime": "2024-02-15T23:06:21.151Z"
+      "UpdateTime": "2024-08-01T00:28:14.668Z"
     },
     {
       "Id": "treetype40default",
@@ -452,8 +413,7 @@
       "Art": "RedMapleFall",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.636Z",
-      "CreateTime": "2024-02-15T23:06:21.159Z"
+      "UpdateTime": "2024-08-01T00:28:14.673Z"
     },
     {
       "Id": "treetype41default",
@@ -463,8 +423,7 @@
       "Art": "RedMapleFallYoung",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.639Z",
-      "CreateTime": "2024-02-15T23:06:21.17Z"
+      "UpdateTime": "2024-08-01T00:28:14.675Z"
     },
     {
       "Id": "treetype42default",
@@ -474,8 +433,7 @@
       "Art": "RedMapleWinter",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.642Z",
-      "CreateTime": "2024-02-15T23:06:21.175Z"
+      "UpdateTime": "2024-08-01T00:28:14.678Z"
     },
     {
       "Id": "treetype43default",
@@ -485,8 +443,7 @@
       "Art": "RedMapleWinterYoung",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.645Z",
-      "CreateTime": "2024-02-15T23:06:21.181Z"
+      "UpdateTime": "2024-08-01T00:28:14.68Z"
     },
     {
       "Id": "treetype44default",
@@ -496,8 +453,7 @@
       "Art": "LondonPlaneFall",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.648Z",
-      "CreateTime": "2024-02-15T23:06:21.189Z"
+      "UpdateTime": "2024-08-01T00:28:14.683Z"
     },
     {
       "Id": "treetype45default",
@@ -507,8 +463,7 @@
       "Art": "LondonPlaneWinter",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.652Z",
-      "CreateTime": "2024-02-15T23:06:21.193Z"
+      "UpdateTime": "2024-08-01T00:28:14.686Z"
     },
     {
       "Id": "treetype46default",
@@ -518,8 +473,7 @@
       "Art": "ScotsPineBare",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.655Z",
-      "CreateTime": "2024-02-15T23:06:21.194Z"
+      "UpdateTime": "2024-08-01T00:28:14.688Z"
     },
     {
       "Id": "treetype47default",
@@ -529,8 +483,7 @@
       "Art": "ScotsPineWinter",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.658Z",
-      "CreateTime": "2024-02-15T23:06:21.197Z"
+      "UpdateTime": "2024-08-01T00:28:14.691Z"
     },
     {
       "Id": "treetype48default",
@@ -540,8 +493,7 @@
       "Art": "WhiteOakFall",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.661Z",
-      "CreateTime": "2024-02-15T23:06:21.2Z"
+      "UpdateTime": "2024-08-01T00:28:14.693Z"
     },
     {
       "Id": "treetype49default",
@@ -551,8 +503,7 @@
       "Art": "WhiteOakWinter",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.664Z",
-      "CreateTime": "2024-02-15T23:06:21.203Z"
+      "UpdateTime": "2024-08-01T00:28:14.696Z"
     },
     {
       "Id": "treetype50default",
@@ -562,8 +513,7 @@
       "Art": "WhiteOakFallYoung",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.671Z",
-      "CreateTime": "2024-02-15T23:06:21.205Z"
+      "UpdateTime": "2024-08-01T00:28:14.701Z"
     },
     {
       "Id": "treetype51default",
@@ -573,8 +523,7 @@
       "Art": "WhiteOakWinterYoung",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.673Z",
-      "CreateTime": "2024-02-15T23:06:21.207Z"
+      "UpdateTime": "2024-08-01T00:28:14.703Z"
     },
     {
       "Id": "treetype52default",
@@ -584,8 +533,7 @@
       "Art": "JuniperBare",
       "Scale": 3.0,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.676Z",
-      "CreateTime": "2024-02-15T23:06:21.209Z"
+      "UpdateTime": "2024-08-01T00:28:14.706Z"
     },
     {
       "Id": "treetype53default",
@@ -595,8 +543,7 @@
       "Art": "Baobab",
       "Scale": 0.4,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.679Z",
-      "CreateTime": "2024-02-15T23:06:21.211Z"
+      "UpdateTime": "2024-08-01T00:28:14.972Z"
     },
     {
       "Id": "treetype54default",
@@ -606,8 +553,7 @@
       "Art": "BaobabSmall",
       "Scale": 0.6,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.683Z",
-      "CreateTime": "2024-02-15T23:06:21.213Z"
+      "UpdateTime": "2024-08-01T00:28:14.978Z"
     },
     {
       "Id": "treetype55default",
@@ -617,8 +563,7 @@
       "Art": "AmurCork",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.685Z",
-      "CreateTime": "2024-02-15T23:06:21.215Z"
+      "UpdateTime": "2024-08-01T00:28:14.98Z"
     },
     {
       "Id": "treetype56default",
@@ -628,8 +573,7 @@
       "Art": "AmurCorkFall",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.688Z",
-      "CreateTime": "2024-02-15T23:06:21.223Z"
+      "UpdateTime": "2024-08-01T00:28:14.983Z"
     },
     {
       "Id": "treetype57default",
@@ -639,8 +583,7 @@
       "Art": "AmurCorkBare",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.69Z",
-      "CreateTime": "2024-02-15T23:06:21.232Z"
+      "UpdateTime": "2024-08-01T00:28:14.985Z"
     },
     {
       "Id": "treetype58default",
@@ -650,8 +593,7 @@
       "Art": "CypressFull",
       "Scale": 1.0,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.693Z",
-      "CreateTime": "2024-02-15T23:06:21.243Z"
+      "UpdateTime": "2024-08-01T00:28:14.987Z"
     },
     {
       "Id": "treetype59default",
@@ -661,8 +603,7 @@
       "Art": "CypressThin",
       "Scale": 1.0,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.7Z",
-      "CreateTime": "2024-02-15T23:06:21.249Z"
+      "UpdateTime": "2024-08-01T00:28:14.99Z"
     },
     {
       "Id": "treetype60default",
@@ -672,8 +613,7 @@
       "Art": "CypressGold",
       "Scale": 1.0,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.716Z",
-      "CreateTime": "2024-02-15T23:06:21.259Z"
+      "UpdateTime": "2024-08-01T00:28:14.994Z"
     },
     {
       "Id": "treetype61default",
@@ -683,8 +623,7 @@
       "Art": "BanyanThin",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.723Z",
-      "CreateTime": "2024-02-15T23:06:21.267Z"
+      "UpdateTime": "2024-08-01T00:28:14.997Z"
     },
     {
       "Id": "treetype62default",
@@ -694,8 +633,7 @@
       "Art": "BanyanThick",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.726Z",
-      "CreateTime": "2024-02-15T23:06:21.275Z"
+      "UpdateTime": "2024-08-01T00:28:14.999Z"
     },
     {
       "Id": "treetype63default",
@@ -705,8 +643,7 @@
       "Art": "Aspen",
       "Scale": 2.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.728Z",
-      "CreateTime": "2024-02-15T23:06:21.287Z"
+      "UpdateTime": "2024-08-01T00:28:15.001Z"
     },
     {
       "Id": "treetype64default",
@@ -716,8 +653,7 @@
       "Art": "AspenFall",
       "Scale": 2.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.735Z",
-      "CreateTime": "2024-02-15T23:06:21.297Z"
+      "UpdateTime": "2024-08-01T00:28:15.004Z"
     },
     {
       "Id": "treetype65default",
@@ -727,8 +663,7 @@
       "Art": "AspenBare",
       "Scale": 2.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.74Z",
-      "CreateTime": "2024-02-15T23:06:21.3Z"
+      "UpdateTime": "2024-08-01T00:28:15.006Z"
     },
     {
       "Id": "treetype66default",
@@ -738,8 +673,7 @@
       "Art": "JapaneseMaple",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.752Z",
-      "CreateTime": "2024-02-15T23:06:21.302Z"
+      "UpdateTime": "2024-08-01T00:28:15.009Z"
     },
     {
       "Id": "treetype67default",
@@ -749,8 +683,7 @@
       "Art": "JapaneseMapleYoung",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.757Z",
-      "CreateTime": "2024-02-15T23:06:21.304Z"
+      "UpdateTime": "2024-08-01T00:28:15.011Z"
     },
     {
       "Id": "treetype68default",
@@ -760,8 +693,7 @@
       "Art": "JapaneseMapleFall",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.76Z",
-      "CreateTime": "2024-02-15T23:06:21.307Z"
+      "UpdateTime": "2024-08-01T00:28:15.013Z"
     },
     {
       "Id": "treetype69default",
@@ -771,8 +703,7 @@
       "Art": "JapaneseMapleFallYoung",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.763Z",
-      "CreateTime": "2024-02-15T23:06:21.315Z"
+      "UpdateTime": "2024-08-01T00:28:15.016Z"
     },
     {
       "Id": "treetype70default",
@@ -782,8 +713,7 @@
       "Art": "Apple",
       "Scale": 2.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.767Z",
-      "CreateTime": "2024-02-15T23:06:21.323Z"
+      "UpdateTime": "2024-08-01T00:28:15.02Z"
     },
     {
       "Id": "treetype71default",
@@ -793,8 +723,7 @@
       "Art": "AppleFall",
       "Scale": 2.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.772Z",
-      "CreateTime": "2024-02-15T23:06:21.335Z"
+      "UpdateTime": "2024-08-01T00:28:15.023Z"
     },
     {
       "Id": "treetype72default",
@@ -804,8 +733,7 @@
       "Art": "AppleBare",
       "Scale": 2.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.774Z",
-      "CreateTime": "2024-02-15T23:06:21.346Z"
+      "UpdateTime": "2024-08-01T00:28:15.025Z"
     },
     {
       "Id": "treetype73default",
@@ -815,8 +743,7 @@
       "Art": "RiverBirch",
       "Scale": 2.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.776Z",
-      "CreateTime": "2024-02-15T23:06:21.359Z"
+      "UpdateTime": "2024-08-01T00:28:15.028Z"
     },
     {
       "Id": "treetype74default",
@@ -826,8 +753,7 @@
       "Art": "RiverBirchFall",
       "Scale": 2.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.779Z",
-      "CreateTime": "2024-02-15T23:06:21.366Z"
+      "UpdateTime": "2024-08-01T00:28:15.03Z"
     },
     {
       "Id": "treetype75default",
@@ -837,8 +763,7 @@
       "Art": "RiverBirchBare",
       "Scale": 2.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.782Z",
-      "CreateTime": "2024-02-15T23:06:21.369Z"
+      "UpdateTime": "2024-08-01T00:28:15.032Z"
     },
     {
       "Id": "treetype76default",
@@ -848,8 +773,7 @@
       "Art": "Magnolia",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.784Z",
-      "CreateTime": "2024-02-15T23:06:21.371Z"
+      "UpdateTime": "2024-08-01T00:28:15.035Z"
     },
     {
       "Id": "treetype77default",
@@ -859,8 +783,7 @@
       "Art": "MagnoliaPink",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.787Z",
-      "CreateTime": "2024-02-15T23:06:21.373Z"
+      "UpdateTime": "2024-08-01T00:28:15.037Z"
     },
     {
       "Id": "treetype78default",
@@ -870,8 +793,7 @@
       "Art": "MagnoliaWhite",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.789Z",
-      "CreateTime": "2024-02-15T23:06:21.375Z"
+      "UpdateTime": "2024-08-01T00:28:15.04Z"
     },
     {
       "Id": "treetype79default",
@@ -881,8 +803,7 @@
       "Art": "MagnoliaBare",
       "Scale": 1.5,
       "VariationCount": 2,
-      "UpdateTime": "2024-06-29T14:10:36.797Z",
-      "CreateTime": "2024-02-15T23:06:21.377Z"
+      "UpdateTime": "2024-08-01T00:28:15.042Z"
     },
     {
       "Id": "treetype80default",
@@ -893,8 +814,7 @@
       "Scale": 3.0,
       "VariationCount": 1,
       "Flags": 13,
-      "UpdateTime": "2024-06-29T14:10:36.81Z",
-      "CreateTime": "2024-02-15T23:06:21.388Z"
+      "UpdateTime": "2024-08-01T00:28:15.047Z"
     },
     {
       "Id": "treetype81default",
@@ -905,8 +825,7 @@
       "Scale": 3.0,
       "VariationCount": 1,
       "Flags": 13,
-      "UpdateTime": "2024-06-29T14:10:36.823Z",
-      "CreateTime": "2024-02-15T23:06:21.402Z"
+      "UpdateTime": "2024-08-01T00:28:15.049Z"
     },
     {
       "Id": "treetype82default",
@@ -917,8 +836,7 @@
       "Scale": 3.0,
       "VariationCount": 1,
       "Flags": 13,
-      "UpdateTime": "2024-06-29T14:10:36.828Z",
-      "CreateTime": "2024-02-15T23:06:21.413Z"
+      "UpdateTime": "2024-08-01T00:28:15.052Z"
     },
     {
       "Id": "treetype83default",
@@ -929,8 +847,7 @@
       "Scale": 3.0,
       "VariationCount": 1,
       "Flags": 9,
-      "UpdateTime": "2024-06-29T14:10:36.831Z",
-      "CreateTime": "2024-02-15T23:06:21.422Z"
+      "UpdateTime": "2024-08-01T00:28:15.054Z"
     },
     {
       "Id": "treetype84default",
@@ -941,8 +858,7 @@
       "Scale": 3.0,
       "VariationCount": 1,
       "Flags": 13,
-      "UpdateTime": "2024-06-29T14:10:36.834Z",
-      "CreateTime": "2024-02-15T23:06:21.427Z"
+      "UpdateTime": "2024-08-01T00:28:15.056Z"
     },
     {
       "Id": "treetype85default",
@@ -953,8 +869,7 @@
       "Scale": 3.0,
       "VariationCount": 1,
       "Flags": 13,
-      "UpdateTime": "2024-06-29T14:10:36.837Z",
-      "CreateTime": "2024-02-15T23:06:21.431Z"
+      "UpdateTime": "2024-08-01T00:28:15.059Z"
     },
     {
       "Id": "treetype86default",
@@ -965,8 +880,7 @@
       "Scale": 3.0,
       "VariationCount": 1,
       "Flags": 13,
-      "UpdateTime": "2024-06-29T14:10:36.84Z",
-      "CreateTime": "2024-02-15T23:06:21.433Z"
+      "UpdateTime": "2024-08-01T00:28:15.061Z"
     }
   ],
   "ParentObj": {
@@ -974,8 +888,7 @@
     "TallChance": 0.5,
     "TreeDirtRadius": 9.0,
     "Name": "TreeTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.39Z",
-    "CreateTime": "2023-12-24T05:13:14Z"
+    "UpdateTime": "2024-08-01T00:28:15.069Z"
   },
   "Id": "default"
 }

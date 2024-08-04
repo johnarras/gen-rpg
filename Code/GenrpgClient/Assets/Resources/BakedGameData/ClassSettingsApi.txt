@@ -7,8 +7,7 @@
       "MaxArmorScalingTypeId": 1,
       "Bonuses": [],
       "AllowedWeapons": [],
-      "UpdateTime": "2024-06-29T14:10:30.498Z",
-      "CreateTime": "2024-01-27T00:57:37.613Z"
+      "UpdateTime": "2024-08-01T00:27:58.768Z"
     },
     {
       "Id": "class1default",
@@ -115,8 +114,7 @@
           "ItemTypeId": 29
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.575Z",
-      "CreateTime": "2024-01-27T18:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.78Z"
     },
     {
       "Id": "class2default",
@@ -220,8 +218,7 @@
           "ItemTypeId": 308
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.613Z",
-      "CreateTime": "2024-01-28T00:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.782Z"
     },
     {
       "Id": "class3default",
@@ -339,8 +336,7 @@
           "ItemTypeId": 309
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.616Z",
-      "CreateTime": "2024-01-28T06:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.784Z"
     },
     {
       "Id": "class4default",
@@ -499,8 +495,7 @@
           "ItemTypeId": 24
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.621Z",
-      "CreateTime": "2024-01-27T18:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.786Z"
     },
     {
       "Id": "class5default",
@@ -649,8 +644,7 @@
           "ItemTypeId": 21
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.618Z",
-      "CreateTime": "2024-01-28T00:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.788Z"
     },
     {
       "Id": "class6default",
@@ -794,8 +788,7 @@
           "ItemTypeId": 21
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.623Z",
-      "CreateTime": "2024-01-27T12:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.79Z"
     },
     {
       "Id": "class7default",
@@ -944,8 +937,7 @@
           "ItemTypeId": 21
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.625Z",
-      "CreateTime": "2024-01-27T12:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.792Z"
     },
     {
       "Id": "class8default",
@@ -1159,8 +1151,7 @@
           "ItemTypeId": 21
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.628Z",
-      "CreateTime": "2024-01-27T18:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.793Z"
     },
     {
       "Id": "class9default",
@@ -1254,8 +1245,7 @@
           "ItemTypeId": 21
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.63Z",
-      "CreateTime": "2024-01-27T12:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.795Z"
     },
     {
       "Id": "class10default",
@@ -1409,8 +1399,7 @@
           "ItemTypeId": 21
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.633Z",
-      "CreateTime": "2024-01-27T12:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.774Z"
     },
     {
       "Id": "class11default",
@@ -1594,15 +1583,13 @@
           "ItemTypeId": 21
         }
       ],
-      "UpdateTime": "2024-07-04T19:17:28.636Z",
-      "CreateTime": "2024-01-27T12:57:37Z"
+      "UpdateTime": "2024-08-01T00:27:58.778Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ClassSettings",
-    "UpdateTime": "2024-07-04T23:03:06.08Z",
-    "CreateTime": "2024-02-05T00:57:37Z"
+    "UpdateTime": "2024-08-01T00:27:58.797Z"
   },
   "Id": "default"
 }

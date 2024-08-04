@@ -10,6 +10,7 @@ using Assets.Scripts.GameSettings.Services;
 using Assets.Scripts.Model;
 using Assets.Scripts.Pathfinding.Utils;
 using Assets.Scripts.ProcGen.Loading.Utils;
+using Assets.Scripts.ProcGen.Services;
 using Assets.Scripts.Tokens;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Analytics.Services;
@@ -62,6 +63,7 @@ public class ClientInitializer
         Set<INoiseService>(new NoiseService());
         Set<ISamplingService>(new SamplingService());
         Set<ILineGenService>(new LineGenService());
+        Set<ICurveGenService>(new CurveGenService());
         Set<ILocationGenService>(new LocationGenService());
         Set<IMapGenService>(new MapGenService());
         Set<IZoneGenService>(new ZoneGenService());

@@ -6,15 +6,13 @@
       "IdKey": 1,
       "Name": "CharacterCreate",
       "NewName": "SpiffyCharacterCreate",
-      "UpdateTime": "2024-06-29T14:10:35.038Z",
-      "CreateTime": "2024-02-11T15:14:32.26Z"
+      "UpdateTime": "2024-08-01T00:28:11.38Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ScreenOverrideSettings",
-    "UpdateTime": "2024-07-04T23:03:06.303Z",
-    "CreateTime": "2024-02-11T21:14:32Z"
+    "UpdateTime": "2024-08-01T00:28:11.382Z"
   },
   "Id": "default"
 }

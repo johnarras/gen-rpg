@@ -13,8 +13,7 @@
       "KillMoney": 16,
       "StatAmount": 10,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.298Z",
-      "CreateTime": "2023-11-24T16:45:44.791Z"
+      "UpdateTime": "2024-08-01T00:28:08.16Z"
     },
     {
       "Id": "levelinfo2default",
@@ -29,8 +28,7 @@
       "KillMoney": 18,
       "StatAmount": 11,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.355Z",
-      "CreateTime": "2023-11-24T16:45:46.031Z"
+      "UpdateTime": "2024-08-01T00:28:08.209Z"
     },
     {
       "Id": "levelinfo3default",
@@ -45,8 +43,7 @@
       "KillMoney": 18,
       "StatAmount": 13,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.436Z",
-      "CreateTime": "2023-11-24T16:45:47.23Z"
+      "UpdateTime": "2024-08-01T00:28:08.258Z"
     },
     {
       "Id": "levelinfo4default",
@@ -61,8 +58,7 @@
       "KillMoney": 19,
       "StatAmount": 14,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.471Z",
-      "CreateTime": "2023-11-24T16:45:48.41Z"
+      "UpdateTime": "2024-08-01T00:28:08.293Z"
     },
     {
       "Id": "levelinfo5default",
@@ -77,8 +73,7 @@
       "KillMoney": 21,
       "StatAmount": 16,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.556Z",
-      "CreateTime": "2023-11-24T16:45:49.622Z"
+      "UpdateTime": "2024-08-01T00:28:08.752Z"
     },
     {
       "Id": "levelinfo6default",
@@ -94,8 +89,7 @@
       "StatAmount": 18,
       "MonsterStatScale": 5,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.629Z",
-      "CreateTime": "2023-11-24T16:45:50.842Z"
+      "UpdateTime": "2024-08-01T00:28:08.779Z"
     },
     {
       "Id": "levelinfo7default",
@@ -111,8 +105,7 @@
       "StatAmount": 20,
       "MonsterStatScale": 5,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.685Z",
-      "CreateTime": "2023-11-24T16:45:52.042Z"
+      "UpdateTime": "2024-08-01T00:28:08.807Z"
     },
     {
       "Id": "levelinfo8default",
@@ -128,8 +121,7 @@
       "StatAmount": 22,
       "MonsterStatScale": 5,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.729Z",
-      "CreateTime": "2023-11-24T16:45:53.292Z"
+      "UpdateTime": "2024-08-01T00:28:08.834Z"
     },
     {
       "Id": "levelinfo9default",
@@ -145,8 +137,7 @@
       "StatAmount": 24,
       "MonsterStatScale": 5,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.778Z",
-      "CreateTime": "2023-11-24T16:45:54.501Z"
+      "UpdateTime": "2024-08-01T00:28:08.868Z"
     },
     {
       "Id": "levelinfo10default",
@@ -162,8 +153,7 @@
       "StatAmount": 27,
       "MonsterStatScale": 5,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.268Z",
-      "CreateTime": "2023-11-24T16:45:43.65Z"
+      "UpdateTime": "2024-08-01T00:28:08.133Z"
     },
     {
       "Id": "levelinfo11default",
@@ -179,8 +169,7 @@
       "StatAmount": 30,
       "MonsterStatScale": 5,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.27Z",
-      "CreateTime": "2023-11-24T16:45:43.779Z"
+      "UpdateTime": "2024-08-01T00:28:08.135Z"
     },
     {
       "Id": "levelinfo12default",
@@ -196,8 +185,7 @@
       "StatAmount": 33,
       "MonsterStatScale": 10,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.273Z",
-      "CreateTime": "2023-11-24T16:45:43.892Z"
+      "UpdateTime": "2024-08-01T00:28:08.137Z"
     },
     {
       "Id": "levelinfo13default",
@@ -213,8 +201,7 @@
       "StatAmount": 36,
       "MonsterStatScale": 10,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.275Z",
-      "CreateTime": "2023-11-24T16:45:44Z"
+      "UpdateTime": "2024-08-01T00:28:08.139Z"
     },
     {
       "Id": "levelinfo14default",
@@ -230,8 +217,7 @@
       "StatAmount": 39,
       "MonsterStatScale": 10,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.277Z",
-      "CreateTime": "2023-11-24T16:45:44.112Z"
+      "UpdateTime": "2024-08-01T00:28:08.141Z"
     },
     {
       "Id": "levelinfo15default",
@@ -247,8 +233,7 @@
       "StatAmount": 42,
       "MonsterStatScale": 10,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.28Z",
-      "CreateTime": "2023-11-24T16:45:44.231Z"
+      "UpdateTime": "2024-08-01T00:28:08.142Z"
     },
     {
       "Id": "levelinfo16default",
@@ -264,8 +249,7 @@
       "StatAmount": 45,
       "MonsterStatScale": 10,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.282Z",
-      "CreateTime": "2023-11-24T16:45:44.34Z"
+      "UpdateTime": "2024-08-01T00:28:08.144Z"
     },
     {
       "Id": "levelinfo17default",
@@ -281,8 +265,7 @@
       "StatAmount": 49,
       "MonsterStatScale": 10,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.286Z",
-      "CreateTime": "2023-11-24T16:45:44.451Z"
+      "UpdateTime": "2024-08-01T00:28:08.146Z"
     },
     {
       "Id": "levelinfo18default",
@@ -298,8 +281,7 @@
       "StatAmount": 52,
       "MonsterStatScale": 15,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.288Z",
-      "CreateTime": "2023-11-24T16:45:44.561Z"
+      "UpdateTime": "2024-08-01T00:28:08.148Z"
     },
     {
       "Id": "levelinfo19default",
@@ -315,8 +297,7 @@
       "StatAmount": 55,
       "MonsterStatScale": 15,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.291Z",
-      "CreateTime": "2023-11-24T16:45:44.671Z"
+      "UpdateTime": "2024-08-01T00:28:08.154Z"
     },
     {
       "Id": "levelinfo20default",
@@ -332,8 +313,7 @@
       "StatAmount": 59,
       "MonsterStatScale": 15,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.301Z",
-      "CreateTime": "2023-11-24T16:45:44.903Z"
+      "UpdateTime": "2024-08-01T00:28:08.166Z"
     },
     {
       "Id": "levelinfo21default",
@@ -349,8 +329,7 @@
       "StatAmount": 63,
       "MonsterStatScale": 15,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.304Z",
-      "CreateTime": "2023-11-24T16:45:45.015Z"
+      "UpdateTime": "2024-08-01T00:28:08.173Z"
     },
     {
       "Id": "levelinfo22default",
@@ -366,8 +345,7 @@
       "StatAmount": 67,
       "MonsterStatScale": 15,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.306Z",
-      "CreateTime": "2023-11-24T16:45:45.142Z"
+      "UpdateTime": "2024-08-01T00:28:08.178Z"
     },
     {
       "Id": "levelinfo23default",
@@ -383,8 +361,7 @@
       "StatAmount": 71,
       "MonsterStatScale": 15,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.309Z",
-      "CreateTime": "2023-11-24T16:45:45.25Z"
+      "UpdateTime": "2024-08-01T00:28:08.18Z"
     },
     {
       "Id": "levelinfo24default",
@@ -400,8 +377,7 @@
       "StatAmount": 74,
       "MonsterStatScale": 20,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.317Z",
-      "CreateTime": "2023-11-24T16:45:45.371Z"
+      "UpdateTime": "2024-08-01T00:28:08.187Z"
     },
     {
       "Id": "levelinfo25default",
@@ -417,8 +393,7 @@
       "StatAmount": 79,
       "MonsterStatScale": 20,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.328Z",
-      "CreateTime": "2023-11-24T16:45:45.48Z"
+      "UpdateTime": "2024-08-01T00:28:08.189Z"
     },
     {
       "Id": "levelinfo26default",
@@ -434,8 +409,7 @@
       "StatAmount": 83,
       "MonsterStatScale": 20,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.338Z",
-      "CreateTime": "2023-11-24T16:45:45.592Z"
+      "UpdateTime": "2024-08-01T00:28:08.191Z"
     },
     {
       "Id": "levelinfo27default",
@@ -451,8 +425,7 @@
       "StatAmount": 88,
       "MonsterStatScale": 20,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.34Z",
-      "CreateTime": "2023-11-24T16:45:45.7Z"
+      "UpdateTime": "2024-08-01T00:28:08.195Z"
     },
     {
       "Id": "levelinfo28default",
@@ -468,8 +441,7 @@
       "StatAmount": 92,
       "MonsterStatScale": 20,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.343Z",
-      "CreateTime": "2023-11-24T16:45:45.811Z"
+      "UpdateTime": "2024-08-01T00:28:08.197Z"
     },
     {
       "Id": "levelinfo29default",
@@ -485,8 +457,7 @@
       "StatAmount": 97,
       "MonsterStatScale": 20,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.353Z",
-      "CreateTime": "2023-11-24T16:45:45.92Z"
+      "UpdateTime": "2024-08-01T00:28:08.204Z"
     },
     {
       "Id": "levelinfo30default",
@@ -502,8 +473,7 @@
       "StatAmount": 102,
       "MonsterStatScale": 25,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.358Z",
-      "CreateTime": "2023-11-24T16:45:46.139Z"
+      "UpdateTime": "2024-08-01T00:28:08.216Z"
     },
     {
       "Id": "levelinfo31default",
@@ -519,8 +489,7 @@
       "StatAmount": 107,
       "MonsterStatScale": 25,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.379Z",
-      "CreateTime": "2023-11-24T16:45:46.245Z"
+      "UpdateTime": "2024-08-01T00:28:08.218Z"
     },
     {
       "Id": "levelinfo32default",
@@ -536,8 +505,7 @@
       "StatAmount": 112,
       "MonsterStatScale": 25,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.381Z",
-      "CreateTime": "2023-11-24T16:45:46.35Z"
+      "UpdateTime": "2024-08-01T00:28:08.22Z"
     },
     {
       "Id": "levelinfo33default",
@@ -553,8 +521,7 @@
       "StatAmount": 118,
       "MonsterStatScale": 25,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.397Z",
-      "CreateTime": "2023-11-24T16:45:46.46Z"
+      "UpdateTime": "2024-08-01T00:28:08.227Z"
     },
     {
       "Id": "levelinfo34default",
@@ -570,8 +537,7 @@
       "StatAmount": 123,
       "MonsterStatScale": 25,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.405Z",
-      "CreateTime": "2023-11-24T16:45:46.569Z"
+      "UpdateTime": "2024-08-01T00:28:08.234Z"
     },
     {
       "Id": "levelinfo35default",
@@ -587,8 +553,7 @@
       "StatAmount": 129,
       "MonsterStatScale": 25,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.41Z",
-      "CreateTime": "2023-11-24T16:45:46.68Z"
+      "UpdateTime": "2024-08-01T00:28:08.241Z"
     },
     {
       "Id": "levelinfo36default",
@@ -604,8 +569,7 @@
       "StatAmount": 135,
       "MonsterStatScale": 30,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.42Z",
-      "CreateTime": "2023-11-24T16:45:46.79Z"
+      "UpdateTime": "2024-08-01T00:28:08.244Z"
     },
     {
       "Id": "levelinfo37default",
@@ -621,8 +585,7 @@
       "StatAmount": 141,
       "MonsterStatScale": 30,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.428Z",
-      "CreateTime": "2023-11-24T16:45:46.901Z"
+      "UpdateTime": "2024-08-01T00:28:08.246Z"
     },
     {
       "Id": "levelinfo38default",
@@ -638,8 +601,7 @@
       "StatAmount": 147,
       "MonsterStatScale": 30,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.431Z",
-      "CreateTime": "2023-11-24T16:45:47.011Z"
+      "UpdateTime": "2024-08-01T00:28:08.25Z"
     },
     {
       "Id": "levelinfo39default",
@@ -655,8 +617,7 @@
       "StatAmount": 153,
       "MonsterStatScale": 30,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.433Z",
-      "CreateTime": "2023-11-24T16:45:47.119Z"
+      "UpdateTime": "2024-08-01T00:28:08.255Z"
     },
     {
       "Id": "levelinfo40default",
@@ -672,8 +633,7 @@
       "StatAmount": 160,
       "MonsterStatScale": 30,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.438Z",
-      "CreateTime": "2023-11-24T16:45:47.333Z"
+      "UpdateTime": "2024-08-01T00:28:08.264Z"
     },
     {
       "Id": "levelinfo41default",
@@ -689,8 +649,7 @@
       "StatAmount": 167,
       "MonsterStatScale": 30,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.441Z",
-      "CreateTime": "2023-11-24T16:45:47.44Z"
+      "UpdateTime": "2024-08-01T00:28:08.267Z"
     },
     {
       "Id": "levelinfo42default",
@@ -706,8 +665,7 @@
       "StatAmount": 174,
       "MonsterStatScale": 35,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.443Z",
-      "CreateTime": "2023-11-24T16:45:47.551Z"
+      "UpdateTime": "2024-08-01T00:28:08.269Z"
     },
     {
       "Id": "levelinfo43default",
@@ -723,8 +681,7 @@
       "StatAmount": 181,
       "MonsterStatScale": 35,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.453Z",
-      "CreateTime": "2023-11-24T16:45:47.651Z"
+      "UpdateTime": "2024-08-01T00:28:08.271Z"
     },
     {
       "Id": "levelinfo44default",
@@ -740,8 +697,7 @@
       "StatAmount": 188,
       "MonsterStatScale": 35,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.456Z",
-      "CreateTime": "2023-11-24T16:45:47.761Z"
+      "UpdateTime": "2024-08-01T00:28:08.273Z"
     },
     {
       "Id": "levelinfo45default",
@@ -757,8 +713,7 @@
       "StatAmount": 196,
       "MonsterStatScale": 35,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.458Z",
-      "CreateTime": "2023-11-24T16:45:47.872Z"
+      "UpdateTime": "2024-08-01T00:28:08.275Z"
     },
     {
       "Id": "levelinfo46default",
@@ -774,8 +729,7 @@
       "StatAmount": 204,
       "MonsterStatScale": 35,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.461Z",
-      "CreateTime": "2023-11-24T16:45:47.982Z"
+      "UpdateTime": "2024-08-01T00:28:08.278Z"
     },
     {
       "Id": "levelinfo47default",
@@ -791,8 +745,7 @@
       "StatAmount": 212,
       "MonsterStatScale": 35,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.464Z",
-      "CreateTime": "2023-11-24T16:45:48.09Z"
+      "UpdateTime": "2024-08-01T00:28:08.28Z"
     },
     {
       "Id": "levelinfo48default",
@@ -808,8 +761,7 @@
       "StatAmount": 221,
       "MonsterStatScale": 40,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.466Z",
-      "CreateTime": "2023-11-24T16:45:48.193Z"
+      "UpdateTime": "2024-08-01T00:28:08.282Z"
     },
     {
       "Id": "levelinfo49default",
@@ -825,8 +777,7 @@
       "StatAmount": 229,
       "MonsterStatScale": 40,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.469Z",
-      "CreateTime": "2023-11-24T16:45:48.3Z"
+      "UpdateTime": "2024-08-01T00:28:08.284Z"
     },
     {
       "Id": "levelinfo50default",
@@ -842,8 +793,7 @@
       "StatAmount": 238,
       "MonsterStatScale": 40,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.474Z",
-      "CreateTime": "2023-11-24T16:45:48.521Z"
+      "UpdateTime": "2024-08-01T00:28:08.295Z"
     },
     {
       "Id": "levelinfo51default",
@@ -859,8 +809,7 @@
       "StatAmount": 248,
       "MonsterStatScale": 40,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.489Z",
-      "CreateTime": "2023-11-24T16:45:48.631Z"
+      "UpdateTime": "2024-08-01T00:28:08.301Z"
     },
     {
       "Id": "levelinfo52default",
@@ -876,8 +825,7 @@
       "StatAmount": 257,
       "MonsterStatScale": 40,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.498Z",
-      "CreateTime": "2023-11-24T16:45:48.743Z"
+      "UpdateTime": "2024-08-01T00:28:08.303Z"
     },
     {
       "Id": "levelinfo53default",
@@ -893,8 +841,7 @@
       "StatAmount": 267,
       "MonsterStatScale": 40,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.514Z",
-      "CreateTime": "2023-11-24T16:45:48.851Z"
+      "UpdateTime": "2024-08-01T00:28:08.305Z"
     },
     {
       "Id": "levelinfo54default",
@@ -910,8 +857,7 @@
       "StatAmount": 277,
       "MonsterStatScale": 45,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.517Z",
-      "CreateTime": "2023-11-24T16:45:48.962Z"
+      "UpdateTime": "2024-08-01T00:28:08.733Z"
     },
     {
       "Id": "levelinfo55default",
@@ -927,8 +873,7 @@
       "StatAmount": 288,
       "MonsterStatScale": 45,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.519Z",
-      "CreateTime": "2023-11-24T16:45:49.072Z"
+      "UpdateTime": "2024-08-01T00:28:08.739Z"
     },
     {
       "Id": "levelinfo56default",
@@ -944,8 +889,7 @@
       "StatAmount": 299,
       "MonsterStatScale": 45,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.532Z",
-      "CreateTime": "2023-11-24T16:45:49.18Z"
+      "UpdateTime": "2024-08-01T00:28:08.742Z"
     },
     {
       "Id": "levelinfo57default",
@@ -961,8 +905,7 @@
       "StatAmount": 311,
       "MonsterStatScale": 45,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.544Z",
-      "CreateTime": "2023-11-24T16:45:49.291Z"
+      "UpdateTime": "2024-08-01T00:28:08.744Z"
     },
     {
       "Id": "levelinfo58default",
@@ -978,8 +921,7 @@
       "StatAmount": 323,
       "MonsterStatScale": 45,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.551Z",
-      "CreateTime": "2023-11-24T16:45:49.4Z"
+      "UpdateTime": "2024-08-01T00:28:08.746Z"
     },
     {
       "Id": "levelinfo59default",
@@ -995,8 +937,7 @@
       "StatAmount": 335,
       "MonsterStatScale": 45,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.554Z",
-      "CreateTime": "2023-11-24T16:45:49.513Z"
+      "UpdateTime": "2024-08-01T00:28:08.749Z"
     },
     {
       "Id": "levelinfo60default",
@@ -1012,8 +953,7 @@
       "StatAmount": 348,
       "MonsterStatScale": 50,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.559Z",
-      "CreateTime": "2023-11-24T16:45:49.731Z"
+      "UpdateTime": "2024-08-01T00:28:08.754Z"
     },
     {
       "Id": "levelinfo61default",
@@ -1029,8 +969,7 @@
       "StatAmount": 362,
       "MonsterStatScale": 50,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.562Z",
-      "CreateTime": "2023-11-24T16:45:49.841Z"
+      "UpdateTime": "2024-08-01T00:28:08.757Z"
     },
     {
       "Id": "levelinfo62default",
@@ -1046,8 +985,7 @@
       "StatAmount": 375,
       "MonsterStatScale": 50,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.571Z",
-      "CreateTime": "2023-11-24T16:45:49.951Z"
+      "UpdateTime": "2024-08-01T00:28:08.759Z"
     },
     {
       "Id": "levelinfo63default",
@@ -1063,8 +1001,7 @@
       "StatAmount": 389,
       "MonsterStatScale": 50,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.584Z",
-      "CreateTime": "2023-11-24T16:45:50.06Z"
+      "UpdateTime": "2024-08-01T00:28:08.762Z"
     },
     {
       "Id": "levelinfo64default",
@@ -1080,8 +1017,7 @@
       "StatAmount": 404,
       "MonsterStatScale": 50,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.587Z",
-      "CreateTime": "2023-11-24T16:45:50.17Z"
+      "UpdateTime": "2024-08-01T00:28:08.764Z"
     },
     {
       "Id": "levelinfo65default",
@@ -1097,8 +1033,7 @@
       "StatAmount": 419,
       "MonsterStatScale": 50,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.59Z",
-      "CreateTime": "2023-11-24T16:45:50.282Z"
+      "UpdateTime": "2024-08-01T00:28:08.767Z"
     },
     {
       "Id": "levelinfo66default",
@@ -1114,8 +1049,7 @@
       "StatAmount": 435,
       "MonsterStatScale": 55,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.599Z",
-      "CreateTime": "2023-11-24T16:45:50.391Z"
+      "UpdateTime": "2024-08-01T00:28:08.769Z"
     },
     {
       "Id": "levelinfo67default",
@@ -1131,8 +1065,7 @@
       "StatAmount": 452,
       "MonsterStatScale": 55,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.608Z",
-      "CreateTime": "2023-11-24T16:45:50.5Z"
+      "UpdateTime": "2024-08-01T00:28:08.772Z"
     },
     {
       "Id": "levelinfo68default",
@@ -1148,8 +1081,7 @@
       "StatAmount": 469,
       "MonsterStatScale": 55,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.611Z",
-      "CreateTime": "2023-11-24T16:45:50.63Z"
+      "UpdateTime": "2024-08-01T00:28:08.774Z"
     },
     {
       "Id": "levelinfo69default",
@@ -1165,8 +1097,7 @@
       "StatAmount": 487,
       "MonsterStatScale": 55,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.619Z",
-      "CreateTime": "2023-11-24T16:45:50.731Z"
+      "UpdateTime": "2024-08-01T00:28:08.777Z"
     },
     {
       "Id": "levelinfo70default",
@@ -1182,8 +1113,7 @@
       "StatAmount": 506,
       "MonsterStatScale": 55,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.636Z",
-      "CreateTime": "2023-11-24T16:45:50.95Z"
+      "UpdateTime": "2024-08-01T00:28:08.782Z"
     },
     {
       "Id": "levelinfo71default",
@@ -1199,8 +1129,7 @@
       "StatAmount": 525,
       "MonsterStatScale": 55,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.64Z",
-      "CreateTime": "2023-11-24T16:45:51.063Z"
+      "UpdateTime": "2024-08-01T00:28:08.784Z"
     },
     {
       "Id": "levelinfo72default",
@@ -1216,8 +1145,7 @@
       "StatAmount": 545,
       "MonsterStatScale": 60,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.648Z",
-      "CreateTime": "2023-11-24T16:45:51.17Z"
+      "UpdateTime": "2024-08-01T00:28:08.787Z"
     },
     {
       "Id": "levelinfo73default",
@@ -1233,8 +1161,7 @@
       "StatAmount": 566,
       "MonsterStatScale": 60,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.651Z",
-      "CreateTime": "2023-11-24T16:45:51.272Z"
+      "UpdateTime": "2024-08-01T00:28:08.789Z"
     },
     {
       "Id": "levelinfo74default",
@@ -1250,8 +1177,7 @@
       "StatAmount": 588,
       "MonsterStatScale": 60,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.658Z",
-      "CreateTime": "2023-11-24T16:45:51.38Z"
+      "UpdateTime": "2024-08-01T00:28:08.792Z"
     },
     {
       "Id": "levelinfo75default",
@@ -1267,8 +1193,7 @@
       "StatAmount": 611,
       "MonsterStatScale": 60,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.662Z",
-      "CreateTime": "2023-11-24T16:45:51.491Z"
+      "UpdateTime": "2024-08-01T00:28:08.794Z"
     },
     {
       "Id": "levelinfo76default",
@@ -1284,8 +1209,7 @@
       "StatAmount": 634,
       "MonsterStatScale": 60,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.668Z",
-      "CreateTime": "2023-11-24T16:45:51.601Z"
+      "UpdateTime": "2024-08-01T00:28:08.797Z"
     },
     {
       "Id": "levelinfo77default",
@@ -1301,8 +1225,7 @@
       "StatAmount": 659,
       "MonsterStatScale": 60,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.673Z",
-      "CreateTime": "2023-11-24T16:45:51.712Z"
+      "UpdateTime": "2024-08-01T00:28:08.799Z"
     },
     {
       "Id": "levelinfo78default",
@@ -1318,8 +1241,7 @@
       "StatAmount": 685,
       "MonsterStatScale": 65,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.677Z",
-      "CreateTime": "2023-11-24T16:45:51.823Z"
+      "UpdateTime": "2024-08-01T00:28:08.802Z"
     },
     {
       "Id": "levelinfo79default",
@@ -1335,8 +1257,7 @@
       "StatAmount": 711,
       "MonsterStatScale": 65,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.679Z",
-      "CreateTime": "2023-11-24T16:45:51.927Z"
+      "UpdateTime": "2024-08-01T00:28:08.804Z"
     },
     {
       "Id": "levelinfo80default",
@@ -1352,8 +1273,7 @@
       "StatAmount": 739,
       "MonsterStatScale": 65,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.689Z",
-      "CreateTime": "2023-11-24T16:45:52.161Z"
+      "UpdateTime": "2024-08-01T00:28:08.809Z"
     },
     {
       "Id": "levelinfo81default",
@@ -1369,8 +1289,7 @@
       "StatAmount": 768,
       "MonsterStatScale": 65,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.694Z",
-      "CreateTime": "2023-11-24T16:45:52.27Z"
+      "UpdateTime": "2024-08-01T00:28:08.812Z"
     },
     {
       "Id": "levelinfo82default",
@@ -1386,8 +1305,7 @@
       "StatAmount": 798,
       "MonsterStatScale": 65,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.697Z",
-      "CreateTime": "2023-11-24T16:45:52.38Z"
+      "UpdateTime": "2024-08-01T00:28:08.814Z"
     },
     {
       "Id": "levelinfo83default",
@@ -1403,8 +1321,7 @@
       "StatAmount": 830,
       "MonsterStatScale": 65,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.7Z",
-      "CreateTime": "2023-11-24T16:45:52.49Z"
+      "UpdateTime": "2024-08-01T00:28:08.817Z"
     },
     {
       "Id": "levelinfo84default",
@@ -1420,8 +1337,7 @@
       "StatAmount": 862,
       "MonsterStatScale": 70,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.705Z",
-      "CreateTime": "2023-11-24T16:45:52.62Z"
+      "UpdateTime": "2024-08-01T00:28:08.819Z"
     },
     {
       "Id": "levelinfo85default",
@@ -1437,8 +1353,7 @@
       "StatAmount": 897,
       "MonsterStatScale": 70,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.71Z",
-      "CreateTime": "2023-11-24T16:45:52.736Z"
+      "UpdateTime": "2024-08-01T00:28:08.822Z"
     },
     {
       "Id": "levelinfo86default",
@@ -1454,8 +1369,7 @@
       "StatAmount": 932,
       "MonsterStatScale": 70,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.712Z",
-      "CreateTime": "2023-11-24T16:45:52.854Z"
+      "UpdateTime": "2024-08-01T00:28:08.824Z"
     },
     {
       "Id": "levelinfo87default",
@@ -1471,8 +1385,7 @@
       "StatAmount": 969,
       "MonsterStatScale": 70,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.719Z",
-      "CreateTime": "2023-11-24T16:45:52.962Z"
+      "UpdateTime": "2024-08-01T00:28:08.827Z"
     },
     {
       "Id": "levelinfo88default",
@@ -1488,8 +1401,7 @@
       "StatAmount": 1008,
       "MonsterStatScale": 70,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.724Z",
-      "CreateTime": "2023-11-24T16:45:53.073Z"
+      "UpdateTime": "2024-08-01T00:28:08.83Z"
     },
     {
       "Id": "levelinfo89default",
@@ -1505,8 +1417,7 @@
       "StatAmount": 1048,
       "MonsterStatScale": 70,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.726Z",
-      "CreateTime": "2023-11-24T16:45:53.181Z"
+      "UpdateTime": "2024-08-01T00:28:08.832Z"
     },
     {
       "Id": "levelinfo90default",
@@ -1522,8 +1433,7 @@
       "StatAmount": 1090,
       "MonsterStatScale": 75,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.734Z",
-      "CreateTime": "2023-11-24T16:45:53.401Z"
+      "UpdateTime": "2024-08-01T00:28:08.835Z"
     },
     {
       "Id": "levelinfo91default",
@@ -1539,8 +1449,7 @@
       "StatAmount": 1134,
       "MonsterStatScale": 75,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.738Z",
-      "CreateTime": "2023-11-24T16:45:53.512Z"
+      "UpdateTime": "2024-08-01T00:28:08.837Z"
     },
     {
       "Id": "levelinfo92default",
@@ -1556,8 +1465,7 @@
       "StatAmount": 1180,
       "MonsterStatScale": 75,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.745Z",
-      "CreateTime": "2023-11-24T16:45:53.622Z"
+      "UpdateTime": "2024-08-01T00:28:08.839Z"
     },
     {
       "Id": "levelinfo93default",
@@ -1573,8 +1481,7 @@
       "StatAmount": 1227,
       "MonsterStatScale": 75,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.752Z",
-      "CreateTime": "2023-11-24T16:45:53.741Z"
+      "UpdateTime": "2024-08-01T00:28:08.841Z"
     },
     {
       "Id": "levelinfo94default",
@@ -1590,8 +1497,7 @@
       "StatAmount": 1277,
       "MonsterStatScale": 75,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.757Z",
-      "CreateTime": "2023-11-24T16:45:53.853Z"
+      "UpdateTime": "2024-08-01T00:28:08.843Z"
     },
     {
       "Id": "levelinfo95default",
@@ -1607,8 +1513,7 @@
       "StatAmount": 1329,
       "MonsterStatScale": 75,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.761Z",
-      "CreateTime": "2023-11-24T16:45:53.961Z"
+      "UpdateTime": "2024-08-01T00:28:08.845Z"
     },
     {
       "Id": "levelinfo96default",
@@ -1624,8 +1529,7 @@
       "StatAmount": 1383,
       "MonsterStatScale": 80,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.764Z",
-      "CreateTime": "2023-11-24T16:45:54.07Z"
+      "UpdateTime": "2024-08-01T00:28:08.847Z"
     },
     {
       "Id": "levelinfo97default",
@@ -1641,8 +1545,7 @@
       "StatAmount": 1439,
       "MonsterStatScale": 80,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.767Z",
-      "CreateTime": "2023-11-24T16:45:54.183Z"
+      "UpdateTime": "2024-08-01T00:28:08.849Z"
     },
     {
       "Id": "levelinfo98default",
@@ -1658,8 +1561,7 @@
       "StatAmount": 1497,
       "MonsterStatScale": 80,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.77Z",
-      "CreateTime": "2023-11-24T16:45:54.293Z"
+      "UpdateTime": "2024-08-01T00:28:08.857Z"
     },
     {
       "Id": "levelinfo99default",
@@ -1675,8 +1577,7 @@
       "StatAmount": 1558,
       "MonsterStatScale": 80,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.775Z",
-      "CreateTime": "2023-11-24T16:45:54.4Z"
+      "UpdateTime": "2024-08-01T00:28:08.864Z"
     },
     {
       "Id": "levelinfo100default",
@@ -1692,8 +1593,7 @@
       "StatAmount": 1622,
       "MonsterStatScale": 80,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.236Z",
-      "CreateTime": "2023-11-24T16:45:42.892Z"
+      "UpdateTime": "2024-08-01T00:28:08.107Z"
     },
     {
       "Id": "levelinfo101default",
@@ -1709,8 +1609,7 @@
       "StatAmount": 1689,
       "MonsterStatScale": 80,
       "AbilityPoints": 5,
-      "UpdateTime": "2024-06-29T14:10:33.252Z",
-      "CreateTime": "2023-11-24T16:45:43.094Z"
+      "UpdateTime": "2024-08-01T00:28:08.11Z"
     },
     {
       "Id": "levelinfo102default",
@@ -1726,8 +1625,7 @@
       "StatAmount": 1758,
       "MonsterStatScale": 85,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.255Z",
-      "CreateTime": "2023-11-24T16:45:43.208Z"
+      "UpdateTime": "2024-08-01T00:28:08.116Z"
     },
     {
       "Id": "levelinfo103default",
@@ -1743,8 +1641,7 @@
       "StatAmount": 1830,
       "MonsterStatScale": 85,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.257Z",
-      "CreateTime": "2023-11-24T16:45:43.321Z"
+      "UpdateTime": "2024-08-01T00:28:08.118Z"
     },
     {
       "Id": "levelinfo104default",
@@ -1760,8 +1657,7 @@
       "StatAmount": 1905,
       "MonsterStatScale": 85,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.26Z",
-      "CreateTime": "2023-11-24T16:45:43.432Z"
+      "UpdateTime": "2024-08-01T00:28:08.125Z"
     },
     {
       "Id": "levelinfo105default",
@@ -1777,16 +1673,14 @@
       "StatAmount": 1983,
       "MonsterStatScale": 85,
       "AbilityPoints": 3,
-      "UpdateTime": "2024-06-29T14:10:33.266Z",
-      "CreateTime": "2023-11-24T16:45:43.542Z"
+      "UpdateTime": "2024-08-01T00:28:08.128Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "MaxLevel": 100,
     "Name": "LevelSettings",
-    "UpdateTime": "2024-07-04T23:03:06.199Z",
-    "CreateTime": "2023-11-24T22:45:54Z"
+    "UpdateTime": "2024-08-01T00:28:08.872Z"
   },
   "Id": "default"
 }

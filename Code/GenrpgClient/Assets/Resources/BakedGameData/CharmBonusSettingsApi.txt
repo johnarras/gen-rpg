@@ -16,8 +16,7 @@
       "QuantityMod": 38,
       "QuantityBitSkip": 22,
       "QuantityStartBit": 1514,
-      "UpdateTime": "2024-06-29T14:10:30.346Z",
-      "CreateTime": "2023-12-18T14:31:38.918Z"
+      "UpdateTime": "2024-08-01T00:27:58.653Z"
     },
     {
       "Id": "charmbonus2default",
@@ -34,8 +33,7 @@
       "QuantityMod": 43,
       "QuantityBitSkip": 7,
       "QuantityStartBit": 1651,
-      "UpdateTime": "2024-06-29T14:10:30.358Z",
-      "CreateTime": "2023-12-18T14:31:42.111Z"
+      "UpdateTime": "2024-08-01T00:27:58.675Z"
     },
     {
       "Id": "charmbonus3default",
@@ -53,8 +51,7 @@
       "QuantityMod": 48,
       "QuantityBitSkip": 23,
       "QuantityStartBit": 1788,
-      "UpdateTime": "2024-06-29T14:10:30.36Z",
-      "CreateTime": "2023-12-18T14:31:42.2Z"
+      "UpdateTime": "2024-08-01T00:27:58.677Z"
     },
     {
       "Id": "charmbonus4default",
@@ -71,8 +68,7 @@
       "QuantityMod": 53,
       "QuantityBitSkip": 8,
       "QuantityStartBit": 1925,
-      "UpdateTime": "2024-06-29T14:10:30.362Z",
-      "CreateTime": "2023-12-18T14:31:42.307Z"
+      "UpdateTime": "2024-08-01T00:27:58.679Z"
     },
     {
       "Id": "charmbonus5default",
@@ -90,8 +86,7 @@
       "QuantityMod": 21,
       "QuantityBitSkip": 24,
       "QuantityStartBit": 2062,
-      "UpdateTime": "2024-06-29T14:10:30.364Z",
-      "CreateTime": "2023-12-18T14:31:42.44Z"
+      "UpdateTime": "2024-08-01T00:27:58.681Z"
     },
     {
       "Id": "charmbonus6default",
@@ -108,8 +103,7 @@
       "QuantityMod": 46,
       "QuantityBitSkip": 11,
       "QuantityStartBit": 2747,
-      "UpdateTime": "2024-06-29T14:10:30.367Z",
-      "CreateTime": "2023-12-18T14:31:42.531Z"
+      "UpdateTime": "2024-08-01T00:27:58.682Z"
     },
     {
       "Id": "charmbonus7default",
@@ -127,8 +121,7 @@
       "QuantityMod": 51,
       "QuantityBitSkip": 27,
       "QuantityStartBit": 2884,
-      "UpdateTime": "2024-06-29T14:10:30.369Z",
-      "CreateTime": "2023-12-18T14:31:42.615Z"
+      "UpdateTime": "2024-08-01T00:27:58.684Z"
     },
     {
       "Id": "charmbonus8default",
@@ -145,8 +138,7 @@
       "QuantityMod": 56,
       "QuantityBitSkip": 12,
       "QuantityStartBit": 3021,
-      "UpdateTime": "2024-06-29T14:10:30.371Z",
-      "CreateTime": "2023-12-18T14:31:42.702Z"
+      "UpdateTime": "2024-08-01T00:27:58.686Z"
     },
     {
       "Id": "charmbonus9default",
@@ -163,8 +155,7 @@
       "QuantityMod": 22,
       "QuantityBitSkip": 16,
       "QuantityStartBit": 4117,
-      "UpdateTime": "2024-06-29T14:10:30.374Z",
-      "CreateTime": "2023-12-18T14:31:42.793Z"
+      "UpdateTime": "2024-08-01T00:27:58.701Z"
     },
     {
       "Id": "charmbonus10default",
@@ -182,8 +173,7 @@
       "QuantityMod": 27,
       "QuantityBitSkip": 1,
       "QuantityStartBit": 4254,
-      "UpdateTime": "2024-06-29T14:10:30.32Z",
-      "CreateTime": "2023-12-18T14:31:42.877Z"
+      "UpdateTime": "2024-08-01T00:27:58.633Z"
     },
     {
       "Id": "charmbonus11default",
@@ -200,8 +190,7 @@
       "QuantityMod": 32,
       "QuantityBitSkip": 17,
       "QuantityStartBit": 4391,
-      "UpdateTime": "2024-06-29T14:10:30.323Z",
-      "CreateTime": "2023-12-18T14:31:42.966Z"
+      "UpdateTime": "2024-08-01T00:27:58.635Z"
     },
     {
       "Id": "charmbonus12default",
@@ -218,8 +207,7 @@
       "QuantityMod": 35,
       "QuantityBitSkip": 21,
       "QuantityStartBit": 5487,
-      "UpdateTime": "2024-06-29T14:10:30.326Z",
-      "CreateTime": "2023-12-18T14:31:43.069Z"
+      "UpdateTime": "2024-08-01T00:27:58.637Z"
     },
     {
       "Id": "charmbonus13default",
@@ -237,8 +225,7 @@
       "QuantityMod": 40,
       "QuantityBitSkip": 6,
       "QuantityStartBit": 5624,
-      "UpdateTime": "2024-06-29T14:10:30.328Z",
-      "CreateTime": "2023-12-18T14:31:43.157Z"
+      "UpdateTime": "2024-08-01T00:27:58.639Z"
     },
     {
       "Id": "charmbonus14default",
@@ -255,8 +242,7 @@
       "QuantityMod": 45,
       "QuantityBitSkip": 22,
       "QuantityStartBit": 5761,
-      "UpdateTime": "2024-06-29T14:10:30.33Z",
-      "CreateTime": "2023-12-18T14:31:43.249Z"
+      "UpdateTime": "2024-08-01T00:27:58.641Z"
     },
     {
       "Id": "charmbonus15default",
@@ -273,8 +259,7 @@
       "QuantityMod": 48,
       "QuantityBitSkip": 26,
       "QuantityStartBit": 6857,
-      "UpdateTime": "2024-06-29T14:10:30.333Z",
-      "CreateTime": "2023-12-18T14:31:43.34Z"
+      "UpdateTime": "2024-08-01T00:27:58.644Z"
     },
     {
       "Id": "charmbonus16default",
@@ -292,8 +277,7 @@
       "QuantityMod": 53,
       "QuantityBitSkip": 11,
       "QuantityStartBit": 6994,
-      "UpdateTime": "2024-06-29T14:10:30.336Z",
-      "CreateTime": "2023-12-18T14:31:43.435Z"
+      "UpdateTime": "2024-08-01T00:27:58.645Z"
     },
     {
       "Id": "charmbonus17default",
@@ -310,8 +294,7 @@
       "QuantityMod": 21,
       "QuantityBitSkip": 27,
       "QuantityStartBit": 7131,
-      "UpdateTime": "2024-06-29T14:10:30.338Z",
-      "CreateTime": "2023-12-18T14:31:43.525Z"
+      "UpdateTime": "2024-08-01T00:27:58.647Z"
     },
     {
       "Id": "charmbonus18default",
@@ -329,8 +312,7 @@
       "QuantityMod": 29,
       "QuantityBitSkip": 16,
       "QuantityStartBit": 8364,
-      "UpdateTime": "2024-06-29T14:10:30.341Z",
-      "CreateTime": "2023-12-18T14:31:43.616Z"
+      "UpdateTime": "2024-08-01T00:27:58.649Z"
     },
     {
       "Id": "charmbonus19default",
@@ -347,8 +329,7 @@
       "QuantityMod": 34,
       "QuantityBitSkip": 1,
       "QuantityStartBit": 8501,
-      "UpdateTime": "2024-06-29T14:10:30.343Z",
-      "CreateTime": "2023-12-18T14:31:43.706Z"
+      "UpdateTime": "2024-08-01T00:27:58.651Z"
     },
     {
       "Id": "charmbonus20default",
@@ -366,8 +347,7 @@
       "QuantityMod": 39,
       "QuantityBitSkip": 17,
       "QuantityStartBit": 8638,
-      "UpdateTime": "2024-06-29T14:10:30.348Z",
-      "CreateTime": "2023-12-18T14:31:43.796Z"
+      "UpdateTime": "2024-08-01T00:27:58.655Z"
     },
     {
       "Id": "charmbonus21default",
@@ -384,8 +364,7 @@
       "QuantityMod": 44,
       "QuantityBitSkip": 2,
       "QuantityStartBit": 8775,
-      "UpdateTime": "2024-06-29T14:10:30.35Z",
-      "CreateTime": "2023-12-18T14:31:43.886Z"
+      "UpdateTime": "2024-08-01T00:27:58.657Z"
     },
     {
       "Id": "charmbonus22default",
@@ -403,8 +382,7 @@
       "QuantityMod": 49,
       "QuantityBitSkip": 18,
       "QuantityStartBit": 8912,
-      "UpdateTime": "2024-06-29T14:10:30.353Z",
-      "CreateTime": "2023-12-18T14:31:43.978Z"
+      "UpdateTime": "2024-08-01T00:27:58.659Z"
     },
     {
       "Id": "charmbonus23default",
@@ -421,15 +399,13 @@
       "QuantityMod": 54,
       "QuantityBitSkip": 3,
       "QuantityStartBit": 9049,
-      "UpdateTime": "2024-06-29T14:10:30.355Z",
-      "CreateTime": "2023-12-18T14:31:44.07Z"
+      "UpdateTime": "2024-08-01T00:27:58.661Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "CharmBonusSettings",
-    "UpdateTime": "2024-07-04T23:03:06.068Z",
-    "CreateTime": "2023-12-18T14:16:23.612Z"
+    "UpdateTime": "2024-08-01T00:27:58.705Z"
   },
   "Id": "default"
 }

@@ -5,8 +5,7 @@
       "ParentId": "default",
       "Name": "None",
       "Art": "None",
-      "UpdateTime": "2024-06-29T14:10:36.128Z",
-      "CreateTime": "2024-02-15T23:06:20.037Z"
+      "UpdateTime": "2024-08-01T00:28:13.757Z"
     },
     {
       "Id": "texturetype1default",
@@ -15,8 +14,7 @@
       "Name": "Grass",
       "Art": "Grass",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.192Z",
-      "CreateTime": "2024-02-15T23:06:20.056Z"
+      "UpdateTime": "2024-08-01T00:28:13.808Z"
     },
     {
       "Id": "texturetype2default",
@@ -25,8 +23,7 @@
       "Name": "Dirt",
       "Art": "Dirt",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.233Z",
-      "CreateTime": "2024-02-15T23:06:20.076Z"
+      "UpdateTime": "2024-08-01T00:28:13.837Z"
     },
     {
       "Id": "texturetype3default",
@@ -35,8 +32,7 @@
       "Name": "Rock",
       "Art": "Rock",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.284Z",
-      "CreateTime": "2024-02-15T23:06:20.083Z"
+      "UpdateTime": "2024-08-01T00:28:13.873Z"
     },
     {
       "Id": "texturetype4default",
@@ -45,8 +41,7 @@
       "Name": "Road",
       "Art": "Road",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.321Z",
-      "CreateTime": "2024-02-15T23:06:20.09Z"
+      "UpdateTime": "2024-08-01T00:28:13.9Z"
     },
     {
       "Id": "texturetype5default",
@@ -55,8 +50,7 @@
       "Name": "Sand",
       "Art": "Sand",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.365Z",
-      "CreateTime": "2024-02-15T23:06:20.103Z"
+      "UpdateTime": "2024-08-01T00:28:14.451Z"
     },
     {
       "Id": "texturetype6default",
@@ -65,8 +59,7 @@
       "Name": "Forest",
       "Art": "Forest",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.406Z",
-      "CreateTime": "2024-02-15T23:06:20.114Z"
+      "UpdateTime": "2024-08-01T00:28:14.478Z"
     },
     {
       "Id": "texturetype7default",
@@ -75,8 +68,7 @@
       "Name": "Swamp",
       "Art": "Swamp",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.441Z",
-      "CreateTime": "2024-02-15T23:06:20.123Z"
+      "UpdateTime": "2024-08-01T00:28:14.504Z"
     },
     {
       "Id": "texturetype8default",
@@ -85,8 +77,7 @@
       "Name": "Cracked",
       "Art": "Cracked",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.476Z",
-      "CreateTime": "2024-02-15T23:06:20.127Z"
+      "UpdateTime": "2024-08-01T00:28:14.531Z"
     },
     {
       "Id": "texturetype9default",
@@ -95,8 +86,7 @@
       "Name": "WastelandRock",
       "Art": "WastelandRock",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.516Z",
-      "CreateTime": "2024-02-15T23:06:20.13Z"
+      "UpdateTime": "2024-08-01T00:28:14.558Z"
     },
     {
       "Id": "texturetype10default",
@@ -105,8 +95,7 @@
       "Name": "SandRock",
       "Art": "SandRock",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.152Z",
-      "CreateTime": "2024-02-15T23:06:20.133Z"
+      "UpdateTime": "2024-08-01T00:28:13.778Z"
     },
     {
       "Id": "texturetype11default",
@@ -115,8 +104,7 @@
       "Name": "Wasteland",
       "Art": "Wasteland",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.155Z",
-      "CreateTime": "2024-02-15T23:06:20.135Z"
+      "UpdateTime": "2024-08-01T00:28:13.78Z"
     },
     {
       "Id": "texturetype12default",
@@ -126,8 +114,7 @@
       "Art": "Path",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.158Z",
-      "CreateTime": "2024-02-15T23:06:20.137Z"
+      "UpdateTime": "2024-08-01T00:28:13.782Z"
     },
     {
       "Id": "texturetype13default",
@@ -136,8 +123,7 @@
       "Name": "Water",
       "Art": "Water",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.163Z",
-      "CreateTime": "2024-02-15T23:06:20.139Z"
+      "UpdateTime": "2024-08-01T00:28:13.784Z"
     },
     {
       "Id": "texturetype14default",
@@ -146,8 +132,7 @@
       "Name": "Hills",
       "Art": "Hills",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.166Z",
-      "CreateTime": "2024-02-15T23:06:20.141Z"
+      "UpdateTime": "2024-08-01T00:28:13.786Z"
     },
     {
       "Id": "texturetype15default",
@@ -156,8 +141,7 @@
       "Name": "WastelandCracked",
       "Art": "WastelandCracked",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.169Z",
-      "CreateTime": "2024-02-15T23:06:20.143Z"
+      "UpdateTime": "2024-08-01T00:28:13.793Z"
     },
     {
       "Id": "texturetype16default",
@@ -166,8 +150,7 @@
       "Name": "SandRoad",
       "Art": "SandRoad",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.173Z",
-      "CreateTime": "2024-02-15T23:06:20.145Z"
+      "UpdateTime": "2024-08-01T00:28:13.796Z"
     },
     {
       "Id": "texturetype17default",
@@ -176,8 +159,7 @@
       "Name": "WastelandRoad",
       "Art": "WastelandRoad",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.175Z",
-      "CreateTime": "2024-02-15T23:06:20.147Z"
+      "UpdateTime": "2024-08-01T00:28:13.801Z"
     },
     {
       "Id": "texturetype18default",
@@ -186,8 +168,7 @@
       "Name": "SwampRoad",
       "Art": "SwampRoad",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.178Z",
-      "CreateTime": "2024-02-15T23:06:20.149Z"
+      "UpdateTime": "2024-08-01T00:28:13.804Z"
     },
     {
       "Id": "texturetype19default",
@@ -196,8 +177,7 @@
       "Name": "Savannah",
       "Art": "Savannah",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.185Z",
-      "CreateTime": "2024-02-15T23:06:20.151Z"
+      "UpdateTime": "2024-08-01T00:28:13.806Z"
     },
     {
       "Id": "texturetype20default",
@@ -206,8 +186,7 @@
       "Name": "SavannahDirt",
       "Art": "SavannahDirt",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.195Z",
-      "CreateTime": "2024-02-15T23:06:20.152Z"
+      "UpdateTime": "2024-08-01T00:28:13.812Z"
     },
     {
       "Id": "texturetype21default",
@@ -216,8 +195,7 @@
       "Name": "SavannahRock",
       "Art": "SavannahRock",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.198Z",
-      "CreateTime": "2024-02-15T23:06:20.154Z"
+      "UpdateTime": "2024-08-01T00:28:13.814Z"
     },
     {
       "Id": "texturetype22default",
@@ -226,8 +204,7 @@
       "Name": "SavannahRoad",
       "Art": "SavannahRoad",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.2Z",
-      "CreateTime": "2024-02-15T23:06:20.156Z"
+      "UpdateTime": "2024-08-01T00:28:13.818Z"
     },
     {
       "Id": "texturetype23default",
@@ -237,8 +214,7 @@
       "Art": "Cobblea",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.207Z",
-      "CreateTime": "2024-02-15T23:06:20.158Z"
+      "UpdateTime": "2024-08-01T00:28:13.822Z"
     },
     {
       "Id": "texturetype24default",
@@ -248,8 +224,7 @@
       "Art": "Crackedb",
       "Size": 8.0,
       "ParentTextureTypeId": 8,
-      "UpdateTime": "2024-06-29T14:10:36.212Z",
-      "CreateTime": "2024-02-15T23:06:20.16Z"
+      "UpdateTime": "2024-08-01T00:28:13.825Z"
     },
     {
       "Id": "texturetype25default",
@@ -259,8 +234,7 @@
       "Art": "Crackedc",
       "Size": 8.0,
       "ParentTextureTypeId": 8,
-      "UpdateTime": "2024-06-29T14:10:36.215Z",
-      "CreateTime": "2024-02-15T23:06:20.163Z"
+      "UpdateTime": "2024-08-01T00:28:13.827Z"
     },
     {
       "Id": "texturetype26default",
@@ -270,8 +244,7 @@
       "Art": "CrackedGraySmall",
       "Size": 8.0,
       "ParentTextureTypeId": 8,
-      "UpdateTime": "2024-06-29T14:10:36.219Z",
-      "CreateTime": "2024-02-15T23:06:20.165Z"
+      "UpdateTime": "2024-08-01T00:28:13.83Z"
     },
     {
       "Id": "texturetype27default",
@@ -281,8 +254,7 @@
       "Art": "CrackedGray",
       "Size": 8.0,
       "ParentTextureTypeId": 8,
-      "UpdateTime": "2024-06-29T14:10:36.222Z",
-      "CreateTime": "2024-02-15T23:06:20.167Z"
+      "UpdateTime": "2024-08-01T00:28:13.832Z"
     },
     {
       "Id": "texturetype28default",
@@ -292,8 +264,7 @@
       "Art": "SandWavy",
       "Size": 8.0,
       "ParentTextureTypeId": 5,
-      "UpdateTime": "2024-06-29T14:10:36.225Z",
-      "CreateTime": "2024-02-15T23:06:20.173Z"
+      "UpdateTime": "2024-08-01T00:28:13.834Z"
     },
     {
       "Id": "texturetype29default",
@@ -303,8 +274,7 @@
       "Art": "DarkRock",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.23Z",
-      "CreateTime": "2024-02-15T23:06:20.183Z"
+      "UpdateTime": "2024-08-01T00:28:13.835Z"
     },
     {
       "Id": "texturetype30default",
@@ -314,8 +284,7 @@
       "Art": "Dirta",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.235Z",
-      "CreateTime": "2024-02-15T23:06:20.191Z"
+      "UpdateTime": "2024-08-01T00:28:13.844Z"
     },
     {
       "Id": "texturetype31default",
@@ -325,8 +294,7 @@
       "Art": "Dirtc",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.243Z",
-      "CreateTime": "2024-02-15T23:06:20.198Z"
+      "UpdateTime": "2024-08-01T00:28:13.849Z"
     },
     {
       "Id": "texturetype32default",
@@ -336,8 +304,7 @@
       "Art": "DirtDarkc",
       "Size": 8.0,
       "ParentTextureTypeId": 38,
-      "UpdateTime": "2024-06-29T14:10:36.247Z",
-      "CreateTime": "2024-02-15T23:06:20.206Z"
+      "UpdateTime": "2024-08-01T00:28:13.852Z"
     },
     {
       "Id": "texturetype33default",
@@ -347,8 +314,7 @@
       "Art": "DirtDarkd",
       "Size": 8.0,
       "ParentTextureTypeId": 38,
-      "UpdateTime": "2024-06-29T14:10:36.249Z",
-      "CreateTime": "2024-02-15T23:06:20.22Z"
+      "UpdateTime": "2024-08-01T00:28:13.854Z"
     },
     {
       "Id": "texturetype34default",
@@ -358,8 +324,7 @@
       "Art": "DirtDarke",
       "Size": 8.0,
       "ParentTextureTypeId": 38,
-      "UpdateTime": "2024-06-29T14:10:36.256Z",
-      "CreateTime": "2024-02-15T23:06:20.228Z"
+      "UpdateTime": "2024-08-01T00:28:13.857Z"
     },
     {
       "Id": "texturetype35default",
@@ -369,8 +334,7 @@
       "Art": "DirtDarkf",
       "Size": 8.0,
       "ParentTextureTypeId": 38,
-      "UpdateTime": "2024-06-29T14:10:36.264Z",
-      "CreateTime": "2024-02-15T23:06:20.239Z"
+      "UpdateTime": "2024-08-01T00:28:13.859Z"
     },
     {
       "Id": "texturetype36default",
@@ -380,8 +344,7 @@
       "Art": "DirtDarkh",
       "Size": 8.0,
       "ParentTextureTypeId": 38,
-      "UpdateTime": "2024-06-29T14:10:36.27Z",
-      "CreateTime": "2024-02-15T23:06:20.247Z"
+      "UpdateTime": "2024-08-01T00:28:13.862Z"
     },
     {
       "Id": "texturetype37default",
@@ -391,8 +354,7 @@
       "Art": "DirtDarki",
       "Size": 8.0,
       "ParentTextureTypeId": 38,
-      "UpdateTime": "2024-06-29T14:10:36.273Z",
-      "CreateTime": "2024-02-15T23:06:20.255Z"
+      "UpdateTime": "2024-08-01T00:28:13.864Z"
     },
     {
       "Id": "texturetype38default",
@@ -402,8 +364,7 @@
       "Art": "DirtDark",
       "Size": 8.0,
       "ParentTextureTypeId": 38,
-      "UpdateTime": "2024-06-29T14:10:36.277Z",
-      "CreateTime": "2024-02-15T23:06:20.262Z"
+      "UpdateTime": "2024-08-01T00:28:13.868Z"
     },
     {
       "Id": "texturetype39default",
@@ -413,8 +374,7 @@
       "Art": "Dirtd",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.28Z",
-      "CreateTime": "2024-02-15T23:06:20.272Z"
+      "UpdateTime": "2024-08-01T00:28:13.87Z"
     },
     {
       "Id": "texturetype40default",
@@ -424,8 +384,7 @@
       "Art": "Dirte",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.287Z",
-      "CreateTime": "2024-02-15T23:06:20.275Z"
+      "UpdateTime": "2024-08-01T00:28:13.875Z"
     },
     {
       "Id": "texturetype41default",
@@ -435,8 +394,7 @@
       "Art": "Dirtf",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.29Z",
-      "CreateTime": "2024-02-15T23:06:20.3Z"
+      "UpdateTime": "2024-08-01T00:28:13.878Z"
     },
     {
       "Id": "texturetype42default",
@@ -446,8 +404,7 @@
       "Art": "DirtGrassb",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.294Z",
-      "CreateTime": "2024-02-15T23:06:20.31Z"
+      "UpdateTime": "2024-08-01T00:28:13.88Z"
     },
     {
       "Id": "texturetype43default",
@@ -457,8 +414,7 @@
       "Art": "DirtGrass",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.298Z",
-      "CreateTime": "2024-02-15T23:06:20.323Z"
+      "UpdateTime": "2024-08-01T00:28:13.883Z"
     },
     {
       "Id": "texturetype44default",
@@ -468,8 +424,7 @@
       "Art": "DirtGraya",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.301Z",
-      "CreateTime": "2024-02-15T23:06:20.335Z"
+      "UpdateTime": "2024-08-01T00:28:13.885Z"
     },
     {
       "Id": "texturetype45default",
@@ -479,8 +434,7 @@
       "Art": "DirtGray",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.304Z",
-      "CreateTime": "2024-02-15T23:06:20.345Z"
+      "UpdateTime": "2024-08-01T00:28:13.888Z"
     },
     {
       "Id": "texturetype46default",
@@ -490,8 +444,7 @@
       "Art": "Dirtg",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.308Z",
-      "CreateTime": "2024-02-15T23:06:20.354Z"
+      "UpdateTime": "2024-08-01T00:28:13.89Z"
     },
     {
       "Id": "texturetype47default",
@@ -501,8 +454,7 @@
       "Art": "Dirth",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.311Z",
-      "CreateTime": "2024-02-15T23:06:20.363Z"
+      "UpdateTime": "2024-08-01T00:28:13.893Z"
     },
     {
       "Id": "texturetype48default",
@@ -512,8 +464,7 @@
       "Art": "Dirti",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.314Z",
-      "CreateTime": "2024-02-15T23:06:20.374Z"
+      "UpdateTime": "2024-08-01T00:28:13.895Z"
     },
     {
       "Id": "texturetype49default",
@@ -523,8 +474,7 @@
       "Art": "Dirtj",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.318Z",
-      "CreateTime": "2024-02-15T23:06:20.386Z"
+      "UpdateTime": "2024-08-01T00:28:13.898Z"
     },
     {
       "Id": "texturetype50default",
@@ -534,8 +484,7 @@
       "Art": "Dirtl",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.324Z",
-      "CreateTime": "2024-02-15T23:06:20.395Z"
+      "UpdateTime": "2024-08-01T00:28:13.903Z"
     },
     {
       "Id": "texturetype51default",
@@ -545,8 +494,7 @@
       "Art": "Dirtm",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.328Z",
-      "CreateTime": "2024-02-15T23:06:20.404Z"
+      "UpdateTime": "2024-08-01T00:28:13.905Z"
     },
     {
       "Id": "texturetype52default",
@@ -556,8 +504,7 @@
       "Art": "DirtRed",
       "Size": 8.0,
       "ParentTextureTypeId": 15,
-      "UpdateTime": "2024-06-29T14:10:36.331Z",
-      "CreateTime": "2024-02-15T23:06:20.412Z"
+      "UpdateTime": "2024-08-01T00:28:13.908Z"
     },
     {
       "Id": "texturetype53default",
@@ -567,8 +514,7 @@
       "Art": "DirtRock",
       "Size": 8.0,
       "ParentTextureTypeId": 15,
-      "UpdateTime": "2024-06-29T14:10:36.334Z",
-      "CreateTime": "2024-02-15T23:06:20.421Z"
+      "UpdateTime": "2024-08-01T00:28:14.43Z"
     },
     {
       "Id": "texturetype54default",
@@ -578,8 +524,7 @@
       "Art": "DirtSandb",
       "Size": 8.0,
       "ParentTextureTypeId": 19,
-      "UpdateTime": "2024-06-29T14:10:36.339Z",
-      "CreateTime": "2024-02-15T23:06:20.431Z"
+      "UpdateTime": "2024-08-01T00:28:14.437Z"
     },
     {
       "Id": "texturetype55default",
@@ -589,8 +534,7 @@
       "Art": "DirtSandc",
       "Size": 8.0,
       "ParentTextureTypeId": 62,
-      "UpdateTime": "2024-06-29T14:10:36.341Z",
-      "CreateTime": "2024-02-15T23:06:20.441Z"
+      "UpdateTime": "2024-08-01T00:28:14.439Z"
     },
     {
       "Id": "texturetype56default",
@@ -600,8 +544,7 @@
       "Art": "DirtSandd",
       "Size": 8.0,
       "ParentTextureTypeId": 62,
-      "UpdateTime": "2024-06-29T14:10:36.344Z",
-      "CreateTime": "2024-02-15T23:06:20.447Z"
+      "UpdateTime": "2024-08-01T00:28:14.442Z"
     },
     {
       "Id": "texturetype57default",
@@ -611,8 +554,7 @@
       "Art": "DirtSande",
       "Size": 8.0,
       "ParentTextureTypeId": 62,
-      "UpdateTime": "2024-06-29T14:10:36.35Z",
-      "CreateTime": "2024-02-15T23:06:20.454Z"
+      "UpdateTime": "2024-08-01T00:28:14.444Z"
     },
     {
       "Id": "texturetype58default",
@@ -622,8 +564,7 @@
       "Art": "DirtSandf",
       "Size": 8.0,
       "ParentTextureTypeId": 62,
-      "UpdateTime": "2024-06-29T14:10:36.354Z",
-      "CreateTime": "2024-02-15T23:06:20.463Z"
+      "UpdateTime": "2024-08-01T00:28:14.446Z"
     },
     {
       "Id": "texturetype59default",
@@ -633,8 +574,7 @@
       "Art": "DirtSandg",
       "Size": 8.0,
       "ParentTextureTypeId": 62,
-      "UpdateTime": "2024-06-29T14:10:36.36Z",
-      "CreateTime": "2024-02-15T23:06:20.474Z"
+      "UpdateTime": "2024-08-01T00:28:14.448Z"
     },
     {
       "Id": "texturetype60default",
@@ -644,8 +584,7 @@
       "Art": "DirtSandh",
       "Size": 8.0,
       "ParentTextureTypeId": 62,
-      "UpdateTime": "2024-06-29T14:10:36.368Z",
-      "CreateTime": "2024-02-15T23:06:20.483Z"
+      "UpdateTime": "2024-08-01T00:28:14.453Z"
     },
     {
       "Id": "texturetype61default",
@@ -655,8 +594,7 @@
       "Art": "DirtSandi",
       "Size": 8.0,
       "ParentTextureTypeId": 62,
-      "UpdateTime": "2024-06-29T14:10:36.371Z",
-      "CreateTime": "2024-02-15T23:06:20.49Z"
+      "UpdateTime": "2024-08-01T00:28:14.456Z"
     },
     {
       "Id": "texturetype62default",
@@ -665,8 +603,7 @@
       "Name": "DirtSand",
       "Art": "DirtSand",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.374Z",
-      "CreateTime": "2024-02-15T23:06:20.498Z"
+      "UpdateTime": "2024-08-01T00:28:14.458Z"
     },
     {
       "Id": "texturetype63default",
@@ -676,8 +613,7 @@
       "Art": "GrassBrownb",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.378Z",
-      "CreateTime": "2024-02-15T23:06:20.509Z"
+      "UpdateTime": "2024-08-01T00:28:14.461Z"
     },
     {
       "Id": "texturetype64default",
@@ -687,8 +623,7 @@
       "Art": "GrassBrown",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.38Z",
-      "CreateTime": "2024-02-15T23:06:20.518Z"
+      "UpdateTime": "2024-08-01T00:28:14.463Z"
     },
     {
       "Id": "texturetype65default",
@@ -698,8 +633,7 @@
       "Art": "Grassb",
       "Size": 8.0,
       "ParentTextureTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:36.383Z",
-      "CreateTime": "2024-02-15T23:06:20.526Z"
+      "UpdateTime": "2024-08-01T00:28:14.466Z"
     },
     {
       "Id": "texturetype66default",
@@ -709,8 +643,7 @@
       "Art": "Grassc",
       "Size": 8.0,
       "ParentTextureTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:36.389Z",
-      "CreateTime": "2024-02-15T23:06:20.536Z"
+      "UpdateTime": "2024-08-01T00:28:14.468Z"
     },
     {
       "Id": "texturetype67default",
@@ -720,8 +653,7 @@
       "Art": "Grasse",
       "Size": 8.0,
       "ParentTextureTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:36.394Z",
-      "CreateTime": "2024-02-15T23:06:20.549Z"
+      "UpdateTime": "2024-08-01T00:28:14.471Z"
     },
     {
       "Id": "texturetype68default",
@@ -731,8 +663,7 @@
       "Art": "Grassf",
       "Size": 8.0,
       "ParentTextureTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:36.4Z",
-      "CreateTime": "2024-02-15T23:06:20.554Z"
+      "UpdateTime": "2024-08-01T00:28:14.473Z"
     },
     {
       "Id": "texturetype69default",
@@ -742,8 +673,7 @@
       "Art": "Grassg",
       "Size": 8.0,
       "ParentTextureTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:36.403Z",
-      "CreateTime": "2024-02-15T23:06:20.56Z"
+      "UpdateTime": "2024-08-01T00:28:14.475Z"
     },
     {
       "Id": "texturetype70default",
@@ -753,8 +683,7 @@
       "Art": "Grassh",
       "Size": 8.0,
       "ParentTextureTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:36.409Z",
-      "CreateTime": "2024-02-15T23:06:20.568Z"
+      "UpdateTime": "2024-08-01T00:28:14.48Z"
     },
     {
       "Id": "texturetype71default",
@@ -764,8 +693,7 @@
       "Art": "Grassi",
       "Size": 8.0,
       "ParentTextureTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:36.412Z",
-      "CreateTime": "2024-02-15T23:06:20.578Z"
+      "UpdateTime": "2024-08-01T00:28:14.483Z"
     },
     {
       "Id": "texturetype72default",
@@ -775,8 +703,7 @@
       "Art": "Grassk",
       "Size": 8.0,
       "ParentTextureTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:36.415Z",
-      "CreateTime": "2024-02-15T23:06:20.586Z"
+      "UpdateTime": "2024-08-01T00:28:14.485Z"
     },
     {
       "Id": "texturetype73default",
@@ -786,8 +713,7 @@
       "Art": "GrassLeafb",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.418Z",
-      "CreateTime": "2024-02-15T23:06:20.6Z"
+      "UpdateTime": "2024-08-01T00:28:14.488Z"
     },
     {
       "Id": "texturetype74default",
@@ -797,8 +723,7 @@
       "Art": "GrassLeafc",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.422Z",
-      "CreateTime": "2024-02-15T23:06:20.607Z"
+      "UpdateTime": "2024-08-01T00:28:14.49Z"
     },
     {
       "Id": "texturetype75default",
@@ -808,8 +733,7 @@
       "Art": "GrassLeaf",
       "Size": 8.0,
       "ParentTextureTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.425Z",
-      "CreateTime": "2024-02-15T23:06:20.618Z"
+      "UpdateTime": "2024-08-01T00:28:14.492Z"
     },
     {
       "Id": "texturetype76default",
@@ -819,8 +743,7 @@
       "Art": "GrassRock",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.428Z",
-      "CreateTime": "2024-02-15T23:06:20.625Z"
+      "UpdateTime": "2024-08-01T00:28:14.495Z"
     },
     {
       "Id": "texturetype77default",
@@ -830,8 +753,7 @@
       "Art": "Leavesb",
       "Size": 8.0,
       "ParentTextureTypeId": 80,
-      "UpdateTime": "2024-06-29T14:10:36.431Z",
-      "CreateTime": "2024-02-15T23:06:20.634Z"
+      "UpdateTime": "2024-08-01T00:28:14.497Z"
     },
     {
       "Id": "texturetype78default",
@@ -841,8 +763,7 @@
       "Art": "Leavesc",
       "Size": 8.0,
       "ParentTextureTypeId": 80,
-      "UpdateTime": "2024-06-29T14:10:36.434Z",
-      "CreateTime": "2024-02-15T23:06:20.644Z"
+      "UpdateTime": "2024-08-01T00:28:14.5Z"
     },
     {
       "Id": "texturetype79default",
@@ -852,8 +773,7 @@
       "Art": "Leavesd",
       "Size": 8.0,
       "ParentTextureTypeId": 80,
-      "UpdateTime": "2024-06-29T14:10:36.438Z",
-      "CreateTime": "2024-02-15T23:06:20.652Z"
+      "UpdateTime": "2024-08-01T00:28:14.502Z"
     },
     {
       "Id": "texturetype80default",
@@ -862,8 +782,7 @@
       "Name": "Leaves",
       "Art": "Leaves",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.444Z",
-      "CreateTime": "2024-02-15T23:06:20.662Z"
+      "UpdateTime": "2024-08-01T00:28:14.507Z"
     },
     {
       "Id": "texturetype81default",
@@ -873,8 +792,7 @@
       "Art": "PebblesGrayb",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.447Z",
-      "CreateTime": "2024-02-15T23:06:20.671Z"
+      "UpdateTime": "2024-08-01T00:28:14.509Z"
     },
     {
       "Id": "texturetype82default",
@@ -884,8 +802,7 @@
       "Art": "PebblesGray",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.451Z",
-      "CreateTime": "2024-02-15T23:06:20.679Z"
+      "UpdateTime": "2024-08-01T00:28:14.512Z"
     },
     {
       "Id": "texturetype83default",
@@ -895,8 +812,7 @@
       "Art": "Roadc",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.454Z",
-      "CreateTime": "2024-02-15T23:06:20.688Z"
+      "UpdateTime": "2024-08-01T00:28:14.514Z"
     },
     {
       "Id": "texturetype84default",
@@ -906,8 +822,7 @@
       "Art": "Roadf",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.457Z",
-      "CreateTime": "2024-02-15T23:06:20.699Z"
+      "UpdateTime": "2024-08-01T00:28:14.517Z"
     },
     {
       "Id": "texturetype85default",
@@ -917,8 +832,7 @@
       "Art": "RoadRed",
       "Size": 8.0,
       "ParentTextureTypeId": 17,
-      "UpdateTime": "2024-06-29T14:10:36.46Z",
-      "CreateTime": "2024-02-15T23:06:20.708Z"
+      "UpdateTime": "2024-08-01T00:28:14.519Z"
     },
     {
       "Id": "texturetype86default",
@@ -928,8 +842,7 @@
       "Art": "Rockb",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.463Z",
-      "CreateTime": "2024-02-15T23:06:20.717Z"
+      "UpdateTime": "2024-08-01T00:28:14.521Z"
     },
     {
       "Id": "texturetype87default",
@@ -939,8 +852,7 @@
       "Art": "Rockc",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.467Z",
-      "CreateTime": "2024-02-15T23:06:20.725Z"
+      "UpdateTime": "2024-08-01T00:28:14.524Z"
     },
     {
       "Id": "texturetype88default",
@@ -950,8 +862,7 @@
       "Art": "RockDarkb",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.47Z",
-      "CreateTime": "2024-02-15T23:06:20.735Z"
+      "UpdateTime": "2024-08-01T00:28:14.526Z"
     },
     {
       "Id": "texturetype89default",
@@ -961,8 +872,7 @@
       "Art": "RockDarkc",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.473Z",
-      "CreateTime": "2024-02-15T23:06:20.744Z"
+      "UpdateTime": "2024-08-01T00:28:14.528Z"
     },
     {
       "Id": "texturetype90default",
@@ -972,8 +882,7 @@
       "Art": "RockDarkd",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.479Z",
-      "CreateTime": "2024-02-15T23:06:20.753Z"
+      "UpdateTime": "2024-08-01T00:28:14.533Z"
     },
     {
       "Id": "texturetype91default",
@@ -983,8 +892,7 @@
       "Art": "RockDarkf",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.483Z",
-      "CreateTime": "2024-02-15T23:06:20.761Z"
+      "UpdateTime": "2024-08-01T00:28:14.535Z"
     },
     {
       "Id": "texturetype92default",
@@ -994,8 +902,7 @@
       "Art": "Rockd",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.486Z",
-      "CreateTime": "2024-02-15T23:06:20.771Z"
+      "UpdateTime": "2024-08-01T00:28:14.538Z"
     },
     {
       "Id": "texturetype93default",
@@ -1005,8 +912,7 @@
       "Art": "Rocke",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.49Z",
-      "CreateTime": "2024-02-15T23:06:20.784Z"
+      "UpdateTime": "2024-08-01T00:28:14.541Z"
     },
     {
       "Id": "texturetype94default",
@@ -1016,8 +922,7 @@
       "Art": "Rockf",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.497Z",
-      "CreateTime": "2024-02-15T23:06:20.794Z"
+      "UpdateTime": "2024-08-01T00:28:14.543Z"
     },
     {
       "Id": "texturetype95default",
@@ -1027,8 +932,7 @@
       "Art": "RockGrass",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.5Z",
-      "CreateTime": "2024-02-15T23:06:20.802Z"
+      "UpdateTime": "2024-08-01T00:28:14.546Z"
     },
     {
       "Id": "texturetype96default",
@@ -1038,8 +942,7 @@
       "Art": "RockGraya",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.503Z",
-      "CreateTime": "2024-02-15T23:06:20.812Z"
+      "UpdateTime": "2024-08-01T00:28:14.548Z"
     },
     {
       "Id": "texturetype97default",
@@ -1049,8 +952,7 @@
       "Art": "RockGrayb",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.507Z",
-      "CreateTime": "2024-02-15T23:06:20.82Z"
+      "UpdateTime": "2024-08-01T00:28:14.55Z"
     },
     {
       "Id": "texturetype98default",
@@ -1060,8 +962,7 @@
       "Art": "RockGrayRed",
       "Size": 8.0,
       "ParentTextureTypeId": 9,
-      "UpdateTime": "2024-06-29T14:10:36.51Z",
-      "CreateTime": "2024-02-15T23:06:20.829Z"
+      "UpdateTime": "2024-08-01T00:28:14.553Z"
     },
     {
       "Id": "texturetype99default",
@@ -1071,8 +972,7 @@
       "Art": "RockRed",
       "Size": 8.0,
       "ParentTextureTypeId": 17,
-      "UpdateTime": "2024-06-29T14:10:36.513Z",
-      "CreateTime": "2024-02-15T23:06:20.835Z"
+      "UpdateTime": "2024-08-01T00:28:14.555Z"
     },
     {
       "Id": "texturetype100default",
@@ -1082,8 +982,7 @@
       "Art": "RockRipple",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.133Z",
-      "CreateTime": "2024-02-15T23:06:20.841Z"
+      "UpdateTime": "2024-08-01T00:28:13.76Z"
     },
     {
       "Id": "texturetype101default",
@@ -1093,8 +992,7 @@
       "Art": "RockSmall",
       "Size": 8.0,
       "ParentTextureTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.136Z",
-      "CreateTime": "2024-02-15T23:06:20.85Z"
+      "UpdateTime": "2024-08-01T00:28:13.763Z"
     },
     {
       "Id": "texturetype102default",
@@ -1104,8 +1002,7 @@
       "Art": "RockTan",
       "Size": 8.0,
       "ParentTextureTypeId": 9,
-      "UpdateTime": "2024-06-29T14:10:36.139Z",
-      "CreateTime": "2024-02-15T23:06:20.86Z"
+      "UpdateTime": "2024-08-01T00:28:13.765Z"
     },
     {
       "Id": "texturetype103default",
@@ -1115,8 +1012,7 @@
       "Art": "SandGrayb",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.142Z",
-      "CreateTime": "2024-02-15T23:06:20.868Z"
+      "UpdateTime": "2024-08-01T00:28:13.768Z"
     },
     {
       "Id": "texturetype104default",
@@ -1126,8 +1022,7 @@
       "Art": "SandGray",
       "Size": 8.0,
       "ParentTextureTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:36.146Z",
-      "CreateTime": "2024-02-15T23:06:20.879Z"
+      "UpdateTime": "2024-08-01T00:28:13.77Z"
     },
     {
       "Id": "texturetype105default",
@@ -1138,8 +1033,7 @@
       "Icon": "",
       "Art": "Snow",
       "Size": 8.0,
-      "UpdateTime": "2024-06-29T14:10:36.149Z",
-      "CreateTime": "2024-06-23T20:05:54.18Z"
+      "UpdateTime": "2024-08-01T00:28:13.773Z"
     },
     {
       "Id": "texturetype106default",
@@ -1149,15 +1043,13 @@
       "Desc": "",
       "Icon": "",
       "Art": "Lava",
-      "UpdateTime": "2024-06-29T19:07:04.74Z",
-      "CreateTime": "2024-06-29T19:07:04.74Z"
+      "UpdateTime": "2024-08-01T00:28:13.775Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "TextureTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.386Z",
-    "CreateTime": "2023-12-24T17:13:14Z"
+    "UpdateTime": "2024-08-01T00:28:14.56Z"
   },
   "Id": "default"
 }

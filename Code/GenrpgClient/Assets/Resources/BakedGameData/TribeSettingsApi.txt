@@ -19,8 +19,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 1,
-      "UpdateTime": "2024-06-29T19:51:17.965Z",
-      "CreateTime": "2024-02-15T23:06:21.436Z"
+      "UpdateTime": "2024-08-01T00:28:15.099Z"
     },
     {
       "Id": "tribetype2default",
@@ -49,8 +48,7 @@
         }
       ],
       "LootCrafterTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.865Z",
-      "CreateTime": "2024-02-15T23:06:21.44Z"
+      "UpdateTime": "2024-08-01T00:28:15.101Z"
     },
     {
       "Id": "tribetype3default",
@@ -71,8 +69,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:36.868Z",
-      "CreateTime": "2024-02-15T23:06:21.442Z"
+      "UpdateTime": "2024-08-01T00:28:15.104Z"
     },
     {
       "Id": "tribetype4default",
@@ -93,8 +90,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 6,
-      "UpdateTime": "2024-06-29T14:10:36.871Z",
-      "CreateTime": "2024-02-15T23:06:21.444Z"
+      "UpdateTime": "2024-08-01T00:28:15.106Z"
     },
     {
       "Id": "tribetype5default",
@@ -115,8 +111,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 3,
-      "UpdateTime": "2024-06-29T14:10:36.874Z",
-      "CreateTime": "2024-02-15T23:06:21.451Z"
+      "UpdateTime": "2024-08-01T00:28:15.109Z"
     },
     {
       "Id": "tribetype6default",
@@ -128,8 +123,7 @@
       "Art": "",
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-06-29T19:51:17.979Z",
-      "CreateTime": "2024-02-15T23:06:21.467Z"
+      "UpdateTime": "2024-08-01T00:28:15.111Z"
     },
     {
       "Id": "tribetype7default",
@@ -149,8 +143,7 @@
         }
       ],
       "InteractLootItems": [],
-      "UpdateTime": "2024-06-29T19:51:17.98Z",
-      "CreateTime": "2024-02-15T23:06:21.48Z"
+      "UpdateTime": "2024-08-01T00:28:15.114Z"
     },
     {
       "Id": "tribetype8default",
@@ -178,8 +171,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 8,
-      "UpdateTime": "2024-06-29T19:51:17.973Z",
-      "CreateTime": "2024-02-15T23:06:21.485Z"
+      "UpdateTime": "2024-08-01T00:28:15.116Z"
     },
     {
       "Id": "tribetype9default",
@@ -200,8 +192,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 2,
-      "UpdateTime": "2024-06-29T14:10:36.887Z",
-      "CreateTime": "2024-02-15T23:06:21.487Z"
+      "UpdateTime": "2024-08-01T00:28:15.119Z"
     },
     {
       "Id": "tribetype10default",
@@ -222,8 +213,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 1,
-      "UpdateTime": "2024-06-29T19:51:17.967Z",
-      "CreateTime": "2024-02-15T23:06:21.436Z"
+      "UpdateTime": "2024-08-01T00:28:15.075Z"
     },
     {
       "Id": "tribetype11default",
@@ -244,8 +234,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 1,
-      "UpdateTime": "2024-06-29T19:51:17.968Z",
-      "CreateTime": "2024-02-15T23:06:21.436Z"
+      "UpdateTime": "2024-08-01T00:28:15.078Z"
     },
     {
       "Id": "tribetype12default",
@@ -266,8 +255,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 1,
-      "UpdateTime": "2024-06-29T19:51:17.97Z",
-      "CreateTime": "2024-02-15T23:06:21.436Z"
+      "UpdateTime": "2024-08-01T00:28:15.081Z"
     },
     {
       "Id": "tribetype13default",
@@ -288,8 +276,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 1,
-      "UpdateTime": "2024-06-29T19:51:17.971Z",
-      "CreateTime": "2024-02-15T23:06:21.436Z"
+      "UpdateTime": "2024-08-01T00:28:15.084Z"
     },
     {
       "Id": "tribetype14default",
@@ -310,8 +297,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 1,
-      "UpdateTime": "2024-06-29T19:51:17.972Z",
-      "CreateTime": "2024-02-15T23:06:21.436Z"
+      "UpdateTime": "2024-08-01T00:28:15.086Z"
     },
     {
       "Id": "tribetype15default",
@@ -339,8 +325,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 8,
-      "UpdateTime": "2024-06-29T19:51:17.974Z",
-      "CreateTime": "2024-02-15T23:06:21.485Z"
+      "UpdateTime": "2024-08-01T00:28:15.089Z"
     },
     {
       "Id": "tribetype16default",
@@ -368,8 +353,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 8,
-      "UpdateTime": "2024-06-29T19:51:17.975Z",
-      "CreateTime": "2024-02-15T23:06:21.485Z"
+      "UpdateTime": "2024-08-01T00:28:15.091Z"
     },
     {
       "Id": "tribetype17default",
@@ -397,8 +381,7 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 8,
-      "UpdateTime": "2024-06-29T19:51:17.976Z",
-      "CreateTime": "2024-02-15T23:06:21.485Z"
+      "UpdateTime": "2024-08-01T00:28:15.094Z"
     },
     {
       "Id": "tribetype18default",
@@ -426,15 +409,13 @@
       ],
       "InteractLootItems": [],
       "LootCrafterTypeId": 8,
-      "UpdateTime": "2024-06-29T19:51:17.977Z",
-      "CreateTime": "2024-02-15T23:06:21.485Z"
+      "UpdateTime": "2024-08-01T00:28:15.096Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "TribeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.393Z",
-    "CreateTime": "2023-12-24T05:13:14Z"
+    "UpdateTime": "2024-08-01T00:28:15.072Z"
   },
   "Id": "default"
 }

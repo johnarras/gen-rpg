@@ -13,8 +13,7 @@
       "MaxRolls": 2,
       "QualityTypeId": 2,
       "OneTimeOnly": true,
-      "UpdateTime": "2024-06-29T14:10:32.374Z",
-      "CreateTime": "2023-11-24T16:45:29.241Z"
+      "UpdateTime": "2024-08-01T00:28:06.813Z"
     },
     {
       "Id": "groundobjtype2default",
@@ -29,8 +28,7 @@
       "MaxRolls": 3,
       "QualityTypeId": 2,
       "OneTimeOnly": true,
-      "UpdateTime": "2024-06-29T14:10:32.381Z",
-      "CreateTime": "2023-11-24T16:45:29.361Z"
+      "UpdateTime": "2024-08-01T00:28:06.821Z"
     },
     {
       "Id": "groundobjtype3default",
@@ -45,8 +43,7 @@
       "MaxRolls": 4,
       "QualityTypeId": 2,
       "OneTimeOnly": true,
-      "UpdateTime": "2024-06-29T14:10:32.383Z",
-      "CreateTime": "2023-11-24T16:45:29.482Z"
+      "UpdateTime": "2024-08-01T00:28:06.823Z"
     },
     {
       "Id": "groundobjtype4default",
@@ -61,8 +58,7 @@
       "MaxRolls": 5,
       "QualityTypeId": 3,
       "OneTimeOnly": true,
-      "UpdateTime": "2024-06-29T14:10:32.386Z",
-      "CreateTime": "2023-11-24T16:45:29.605Z"
+      "UpdateTime": "2024-08-01T00:28:07.211Z"
     },
     {
       "Id": "groundobjtype5default",
@@ -79,8 +75,7 @@
       "MinRolls": 1,
       "MaxRolls": 1,
       "QualityTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:32.388Z",
-      "CreateTime": "2023-11-24T16:45:29.73Z"
+      "UpdateTime": "2024-08-01T00:28:07.217Z"
     },
     {
       "Id": "groundobjtype6default",
@@ -94,8 +89,7 @@
       "MinRolls": 1,
       "MaxRolls": 1,
       "QualityTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:32.396Z",
-      "CreateTime": "2023-11-24T16:45:29.839Z"
+      "UpdateTime": "2024-08-01T00:28:07.221Z"
     },
     {
       "Id": "groundobjtype7default",
@@ -109,8 +103,7 @@
       "MinRolls": 1,
       "MaxRolls": 1,
       "QualityTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:32.41Z",
-      "CreateTime": "2023-11-24T16:45:29.959Z"
+      "UpdateTime": "2024-08-01T00:28:07.223Z"
     },
     {
       "Id": "groundobjtype8default",
@@ -124,15 +117,13 @@
       "MinRolls": 1,
       "MaxRolls": 1,
       "QualityTypeId": 1,
-      "UpdateTime": "2024-06-29T14:10:32.413Z",
-      "CreateTime": "2023-11-24T16:45:30.069Z"
+      "UpdateTime": "2024-08-01T00:28:07.226Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "GroundObjTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.19Z",
-    "CreateTime": "2023-11-24T16:45:30.179Z"
+    "UpdateTime": "2024-08-01T00:28:07.228Z"
   },
   "Id": "default"
 }

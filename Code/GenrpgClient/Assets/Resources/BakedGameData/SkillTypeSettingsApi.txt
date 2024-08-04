@@ -15,8 +15,7 @@
       "ScalingStatTypeId": 21,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 33,
-      "UpdateTime": "2024-06-29T14:10:35.445Z",
-      "CreateTime": "2024-01-27T19:35:37.696Z"
+      "UpdateTime": "2024-08-01T00:28:12.263Z"
     },
     {
       "Id": "skilltype2default",
@@ -30,8 +29,7 @@
       "ScalingStatTypeId": 22,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 33,
-      "UpdateTime": "2024-06-29T14:10:35.458Z",
-      "CreateTime": "2024-02-15T23:06:19.768Z"
+      "UpdateTime": "2024-08-01T00:28:12.265Z"
     },
     {
       "Id": "skilltype3default",
@@ -45,8 +43,7 @@
       "ScalingStatTypeId": 22,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 34,
-      "UpdateTime": "2024-06-29T14:10:35.462Z",
-      "CreateTime": "2024-02-15T23:06:19.772Z"
+      "UpdateTime": "2024-08-01T00:28:12.267Z"
     },
     {
       "Id": "skilltype4default",
@@ -63,8 +60,7 @@
       "ScalingStatTypeId": 21,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 35,
-      "UpdateTime": "2024-06-29T14:10:35.465Z",
-      "CreateTime": "2024-02-15T23:06:19.774Z"
+      "UpdateTime": "2024-08-01T00:28:12.271Z"
     },
     {
       "Id": "skilltype5default",
@@ -72,8 +68,7 @@
       "IdKey": 5,
       "Name": "Gathering",
       "StatScalePercent": 100,
-      "UpdateTime": "2024-06-29T14:10:35.468Z",
-      "CreateTime": "2024-02-15T23:06:19.777Z"
+      "UpdateTime": "2024-08-01T00:28:12.28Z"
     },
     {
       "Id": "skilltype6default",
@@ -81,8 +76,7 @@
       "IdKey": 6,
       "Name": "Crafting",
       "StatScalePercent": 100,
-      "UpdateTime": "2024-06-29T14:10:35.472Z",
-      "CreateTime": "2024-02-15T23:06:19.779Z"
+      "UpdateTime": "2024-08-01T00:28:12.282Z"
     },
     {
       "Id": "skilltype7default",
@@ -96,8 +90,7 @@
       "ScalingStatTypeId": 22,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 31,
-      "UpdateTime": "2024-06-29T14:10:35.475Z",
-      "CreateTime": "2024-01-27T19:35:37.705Z"
+      "UpdateTime": "2024-08-01T00:28:12.284Z"
     },
     {
       "Id": "skilltype8default",
@@ -114,8 +107,7 @@
       "ScalingStatTypeId": 22,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 31,
-      "UpdateTime": "2024-06-29T14:10:35.479Z",
-      "CreateTime": "2024-01-27T19:35:37.708Z"
+      "UpdateTime": "2024-08-01T00:28:12.289Z"
     },
     {
       "Id": "skilltype9default",
@@ -129,8 +121,7 @@
       "ScalingStatTypeId": 21,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 4,
-      "UpdateTime": "2024-06-29T14:10:35.483Z",
-      "CreateTime": "2024-01-27T19:35:37.702Z"
+      "UpdateTime": "2024-08-01T00:28:12.292Z"
     },
     {
       "Id": "skilltype10default",
@@ -140,8 +131,7 @@
       "TargetTypeId": 1,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 36,
-      "UpdateTime": "2024-06-29T14:10:35.427Z",
-      "CreateTime": "2024-01-27T19:35:37.71Z"
+      "UpdateTime": "2024-08-01T00:28:12.245Z"
     },
     {
       "Id": "skilltype11default",
@@ -151,8 +141,7 @@
       "TargetTypeId": 2,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 36,
-      "UpdateTime": "2024-06-29T14:10:35.431Z",
-      "CreateTime": "2024-01-27T19:35:37.713Z"
+      "UpdateTime": "2024-08-01T00:28:12.248Z"
     },
     {
       "Id": "skilltype12default",
@@ -163,8 +152,7 @@
       "ScalingStatTypeId": 21,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 33,
-      "UpdateTime": "2024-06-29T14:10:35.435Z",
-      "CreateTime": "2024-01-27T20:07:00.146Z"
+      "UpdateTime": "2024-08-01T00:28:12.25Z"
     },
     {
       "Id": "skilltype13default",
@@ -174,8 +162,7 @@
       "TargetTypeId": 2,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 36,
-      "UpdateTime": "2024-06-29T14:10:35.439Z",
-      "CreateTime": "2024-01-27T20:14:52.861Z"
+      "UpdateTime": "2024-08-01T00:28:12.252Z"
     },
     {
       "Id": "skilltype14default",
@@ -185,15 +172,13 @@
       "TargetTypeId": 1,
       "StatScalePercent": 100,
       "EffectEntityTypeId": 36,
-      "UpdateTime": "2024-06-29T14:10:35.442Z",
-      "CreateTime": "2024-01-27T20:14:52.865Z"
+      "UpdateTime": "2024-08-01T00:28:12.259Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "SkillTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.319Z",
-    "CreateTime": "2023-12-24T17:13:14Z"
+    "UpdateTime": "2024-08-01T00:28:12.298Z"
   },
   "Id": "default"
 }

@@ -9,6 +9,6 @@ namespace Genrpg.ServerShared.Accounts.Services
     {
         void AddAccountToProductGraph(Account account, long accountProductId, string referrerId);
 
-        Task<long> GetNextAccountId();
+        Task<string> GetNextAccountId();
     }
 }

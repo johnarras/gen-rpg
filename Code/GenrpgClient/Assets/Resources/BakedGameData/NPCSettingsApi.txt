@@ -8,8 +8,7 @@
       "CrafterTypeId": 1,
       "BuildingTypeId": 1,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.231Z",
-      "CreateTime": "2023-12-22T13:40:16.913Z"
+      "UpdateTime": "2024-08-01T00:28:09.618Z"
     },
     {
       "Id": "npctype2default",
@@ -19,8 +18,7 @@
       "CrafterTypeId": 2,
       "BuildingTypeId": 2,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.234Z",
-      "CreateTime": "2023-12-22T13:40:16.917Z"
+      "UpdateTime": "2024-08-01T00:28:09.62Z"
     },
     {
       "Id": "npctype3default",
@@ -30,8 +28,7 @@
       "CrafterTypeId": 3,
       "BuildingTypeId": 3,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.239Z",
-      "CreateTime": "2023-12-22T13:40:16.92Z"
+      "UpdateTime": "2024-08-01T00:28:09.625Z"
     },
     {
       "Id": "npctype4default",
@@ -41,8 +38,7 @@
       "CrafterTypeId": 4,
       "BuildingTypeId": 4,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.246Z",
-      "CreateTime": "2023-12-22T13:40:16.922Z"
+      "UpdateTime": "2024-08-01T00:28:09.633Z"
     },
     {
       "Id": "npctype5default",
@@ -52,8 +48,7 @@
       "CrafterTypeId": 5,
       "BuildingTypeId": 5,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.254Z",
-      "CreateTime": "2023-12-22T13:40:16.925Z"
+      "UpdateTime": "2024-08-01T00:28:09.638Z"
     },
     {
       "Id": "npctype6default",
@@ -63,8 +58,7 @@
       "CrafterTypeId": 6,
       "BuildingTypeId": 6,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.261Z",
-      "CreateTime": "2023-12-22T13:40:16.928Z"
+      "UpdateTime": "2024-08-01T00:28:09.642Z"
     },
     {
       "Id": "npctype7default",
@@ -74,8 +68,7 @@
       "CrafterTypeId": 7,
       "BuildingTypeId": 7,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.263Z",
-      "CreateTime": "2023-12-22T13:40:16.93Z"
+      "UpdateTime": "2024-08-01T00:28:09.647Z"
     },
     {
       "Id": "npctype8default",
@@ -85,8 +78,7 @@
       "CrafterTypeId": 8,
       "BuildingTypeId": 8,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.266Z",
-      "CreateTime": "2023-12-22T13:40:16.932Z"
+      "UpdateTime": "2024-08-01T00:28:09.649Z"
     },
     {
       "Id": "npctype9default",
@@ -96,8 +88,7 @@
       "CrafterTypeId": 9,
       "BuildingTypeId": 9,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.271Z",
-      "CreateTime": "2023-12-22T13:40:16.934Z"
+      "UpdateTime": "2024-08-01T00:28:09.651Z"
     },
     {
       "Id": "npctype10default",
@@ -106,8 +97,7 @@
       "Name": "Citizen",
       "BuildingTypeId": 10,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.212Z",
-      "CreateTime": "2023-12-22T13:40:16.934Z"
+      "UpdateTime": "2024-08-01T00:28:09.612Z"
     },
     {
       "Id": "npctype11default",
@@ -116,8 +106,7 @@
       "Name": "Tower Guard",
       "BuildingTypeId": 11,
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.226Z",
-      "CreateTime": "2023-12-22T13:40:16.934Z"
+      "UpdateTime": "2024-08-01T00:28:09.614Z"
     },
     {
       "Id": "npctype12default",
@@ -125,15 +114,13 @@
       "IdKey": 12,
       "Name": "Guard",
       "DefaultVendorItems": [],
-      "UpdateTime": "2024-06-29T14:10:34.229Z",
-      "CreateTime": "2023-12-22T13:40:16.934Z"
+      "UpdateTime": "2024-08-01T00:28:09.616Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "NPCSettings",
-    "UpdateTime": "2024-07-04T23:03:06.223Z",
-    "CreateTime": "2023-12-23T15:03:10Z"
+    "UpdateTime": "2024-08-01T00:28:09.609Z"
   },
   "Id": "default"
 }

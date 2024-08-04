@@ -4,23 +4,20 @@
       "Id": "ftueeffect0default",
       "ParentId": "default",
       "Name": "None",
-      "UpdateTime": "2024-06-29T14:10:32.253Z",
-      "CreateTime": "2024-01-13T15:15:13.717Z"
+      "UpdateTime": "2024-08-01T00:28:06.734Z"
     },
     {
       "Id": "ftueeffect1default",
       "ParentId": "default",
       "IdKey": 1,
       "Name": "GiveReward",
-      "UpdateTime": "2024-06-29T14:10:32.257Z",
-      "CreateTime": "2024-01-13T15:15:13.72Z"
+      "UpdateTime": "2024-08-01T00:28:06.737Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "FtueEffectSettings",
-    "UpdateTime": "2024-07-04T23:03:06.171Z",
-    "CreateTime": "2024-01-13T15:15:13.619Z"
+    "UpdateTime": "2024-08-01T00:28:06.74Z"
   },
   "Id": "default"
 }

@@ -3,6 +3,9 @@ using Genrpg.Shared.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Genrpg.Shared.MapServer.Constants;
+using Genrpg.Shared.Utils;
+using Genrpg.Shared.Utils.Data;
 
 namespace Genrpg.Shared.MapServer.Entities
 {
@@ -46,6 +49,28 @@ namespace Genrpg.Shared.MapServer.Entities
                 return "N";
             }
             return "?";
+        }
+
+        public static int GetGridIndexFromCoord(double mapPos, int gridSize, bool useCeiling)
+        {
+            if (!useCeiling)
+            {
+                return MathUtils.Clamp(0, (int)(mapPos / SharedMapConstants.MapObjectGridSize), gridSize - 1);
+            }
+            else
+            {
+                return MathUtils.Clamp(0, (int)Math.Ceiling(mapPos / SharedMapConstants.MapObjectGridSize), gridSize - 1);
+            }
+        }
+
+        public static PointXZ GetGridCoordinates(double x, double z, int gridSize)
+        {
+            return new PointXZ(GetGridIndexFromCoord(x, gridSize, false), GetGridIndexFromCoord(z, gridSize, false));
+        }
+
+        public static int GetMapObjectGridSize(Map map)
+        {
+            return (int)Math.Ceiling(1.0 * map.GetMapSize() / SharedMapConstants.MapObjectGridSize);
         }
     }  
 }

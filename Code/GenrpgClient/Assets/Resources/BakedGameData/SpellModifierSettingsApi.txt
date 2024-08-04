@@ -13,8 +13,7 @@
       "DisplayMult": 1.0,
       "MaxValue": 300.0,
       "ValueDelta": 6.0,
-      "UpdateTime": "2024-06-29T14:10:35.637Z",
-      "CreateTime": "2024-02-15T23:06:19.902Z"
+      "UpdateTime": "2024-08-01T00:28:12.909Z"
     },
     {
       "Id": "spellmodifier2default",
@@ -29,8 +28,7 @@
       "DisplayMult": 1.0,
       "MaxValue": 40.0,
       "ValueDelta": 5.0,
-      "UpdateTime": "2024-06-29T14:10:35.643Z",
-      "CreateTime": "2024-02-15T23:06:19.923Z"
+      "UpdateTime": "2024-08-01T00:28:12.913Z"
     },
     {
       "Id": "spellmodifier3default",
@@ -45,8 +43,7 @@
       "DisplayMult": 1.0,
       "MaxValue": 5.0,
       "ValueDelta": 1.0,
-      "UpdateTime": "2024-06-29T14:10:35.646Z",
-      "CreateTime": "2024-02-15T23:06:19.932Z"
+      "UpdateTime": "2024-08-01T00:28:12.915Z"
     },
     {
       "Id": "spellmodifier4default",
@@ -61,8 +58,7 @@
       "DisplayMult": 1.0,
       "MaxValue": 15.0,
       "ValueDelta": 3.0,
-      "UpdateTime": "2024-06-29T14:10:35.648Z",
-      "CreateTime": "2024-02-15T23:06:19.934Z"
+      "UpdateTime": "2024-08-01T00:28:12.918Z"
     },
     {
       "Id": "spellmodifier5default",
@@ -79,8 +75,7 @@
       "MaxValue": 300.0,
       "ValueDelta": 10.0,
       "DefaultValue": 100.0,
-      "UpdateTime": "2024-06-29T14:10:35.659Z",
-      "CreateTime": "2024-02-15T23:06:19.936Z"
+      "UpdateTime": "2024-08-01T00:28:12.921Z"
     },
     {
       "Id": "spellmodifier6default",
@@ -95,8 +90,7 @@
       "DisplayMult": 1.0,
       "MaxValue": 30.0,
       "ValueDelta": 1.0,
-      "UpdateTime": "2024-06-29T14:10:35.667Z",
-      "CreateTime": "2024-02-15T23:06:19.938Z"
+      "UpdateTime": "2024-08-01T00:28:12.923Z"
     },
     {
       "Id": "spellmodifier7default",
@@ -111,8 +105,7 @@
       "DisplayMult": 1.0,
       "MaxValue": 4.0,
       "ValueDelta": 1.0,
-      "UpdateTime": "2024-06-29T14:10:35.672Z",
-      "CreateTime": "2024-02-15T23:06:19.94Z"
+      "UpdateTime": "2024-08-01T00:28:12.926Z"
     },
     {
       "Id": "spellmodifier8default",
@@ -127,8 +120,7 @@
       "DisplayMult": 1.0,
       "MaxValue": 3.0,
       "ValueDelta": 1.0,
-      "UpdateTime": "2024-06-29T14:10:35.674Z",
-      "CreateTime": "2024-02-15T23:06:19.942Z"
+      "UpdateTime": "2024-08-01T00:28:12.928Z"
     },
     {
       "Id": "spellmodifier9default",
@@ -143,15 +135,13 @@
       "DisplayMult": 1.0,
       "MaxValue": 6.0,
       "ValueDelta": 0.5,
-      "UpdateTime": "2024-06-29T14:10:35.679Z",
-      "CreateTime": "2024-02-15T23:06:19.944Z"
+      "UpdateTime": "2024-08-01T00:28:12.931Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "SpellModifierSettings",
-    "UpdateTime": "2024-07-04T23:03:06.332Z",
-    "CreateTime": "2023-12-23T23:13:14.186Z"
+    "UpdateTime": "2024-08-01T00:28:12.934Z"
   },
   "Id": "default"
 }

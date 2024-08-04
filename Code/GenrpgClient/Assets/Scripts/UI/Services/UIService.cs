@@ -45,6 +45,8 @@ namespace Assets.Scripts.UI.Services
 
         public void SetText(GText gtext, string txt)
         {
+
+            // TODO Localization
             if (gtext != null)
             {
                 gtext.text = txt;
@@ -154,6 +156,10 @@ namespace Assets.Scripts.UI.Services
             try
             {
                 _canClickButton = false;
+                if (button != null)
+                {
+                    button.interactable = false;
+                }
                 if (_ftueService.IsComplete(_rand, _gs.ch))
                 {
                     _analyticsService.Send(AnalyticsEvents.ClickButton, button.name, screenName, extraData);
@@ -200,6 +206,10 @@ namespace Assets.Scripts.UI.Services
             }
             finally
             {
+                if (button != null)
+                {
+                    button.interactable = true;
+                }
                 _canClickButton = true;
             }
         }

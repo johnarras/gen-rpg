@@ -34,6 +34,7 @@ namespace Genrpg.Shared.Entities.Constants
         public const long SpecialMagic = 37;
         public const long Attack = 38;
         public const long Shoot = 39;
+        public const long Riddle = 40;
 
         // Crawler-specific entitytypes
         public const long CrawlerSpell = 100;

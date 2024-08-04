@@ -6,8 +6,7 @@
       "Name": "None",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.275Z",
-      "CreateTime": "2023-12-22T19:32:35.29Z"
+      "UpdateTime": "2024-08-01T00:27:58.579Z"
     },
     {
       "Id": "buildingtype1default",
@@ -17,8 +16,7 @@
       "Art": "ClothingStore",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.298Z",
-      "CreateTime": "2023-12-22T13:43:47.862Z"
+      "UpdateTime": "2024-08-01T00:27:58.61Z"
     },
     {
       "Id": "buildingtype2default",
@@ -28,8 +26,7 @@
       "Art": "WoodworkingShop",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.301Z",
-      "CreateTime": "2023-12-22T13:43:47.867Z"
+      "UpdateTime": "2024-08-01T00:27:58.617Z"
     },
     {
       "Id": "buildingtype3default",
@@ -39,8 +36,7 @@
       "Art": "Tannery",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.303Z",
-      "CreateTime": "2023-12-22T13:43:47.869Z"
+      "UpdateTime": "2024-08-01T00:27:58.619Z"
     },
     {
       "Id": "buildingtype4default",
@@ -50,8 +46,7 @@
       "Art": "Smithy",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.305Z",
-      "CreateTime": "2023-12-22T13:43:47.871Z"
+      "UpdateTime": "2024-08-01T00:27:58.621Z"
     },
     {
       "Id": "buildingtype5default",
@@ -61,8 +56,7 @@
       "Art": "Stonecarver",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.308Z",
-      "CreateTime": "2023-12-22T13:43:47.874Z"
+      "UpdateTime": "2024-08-01T00:27:58.623Z"
     },
     {
       "Id": "buildingtype6default",
@@ -72,8 +66,7 @@
       "Art": "JewelryShop",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.31Z",
-      "CreateTime": "2023-12-22T13:43:47.876Z"
+      "UpdateTime": "2024-08-01T00:27:58.625Z"
     },
     {
       "Id": "buildingtype7default",
@@ -83,8 +76,7 @@
       "Art": "AlchemyLab",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-07-05T03:45:52.784Z",
-      "CreateTime": "2023-12-22T13:43:47.879Z"
+      "UpdateTime": "2024-08-01T00:27:58.627Z"
     },
     {
       "Id": "buildingtype8default",
@@ -94,8 +86,7 @@
       "Art": "EnchantersHut",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.316Z",
-      "CreateTime": "2023-12-22T13:43:47.888Z"
+      "UpdateTime": "2024-08-01T00:27:58.628Z"
     },
     {
       "Id": "buildingtype9default",
@@ -105,8 +96,7 @@
       "Art": "ThievesGuild",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.318Z",
-      "CreateTime": "2023-12-22T13:43:47.89Z"
+      "UpdateTime": "2024-08-01T00:27:58.631Z"
     },
     {
       "Id": "buildingtype10default",
@@ -117,8 +107,7 @@
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 5,
-      "UpdateTime": "2024-06-29T14:10:30.279Z",
-      "CreateTime": "2023-12-22T13:43:47.89Z"
+      "UpdateTime": "2024-08-01T00:27:58.583Z"
     },
     {
       "Id": "buildingtype11default",
@@ -128,8 +117,7 @@
       "Art": "GuardTower",
       "Radius": 4,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.281Z",
-      "CreateTime": "2023-12-22T13:43:47.89Z"
+      "UpdateTime": "2024-08-01T00:27:58.586Z"
     },
     {
       "Id": "buildingtype12default",
@@ -140,8 +128,7 @@
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.284Z",
-      "CreateTime": "2024-02-18T20:20:49.069Z"
+      "UpdateTime": "2024-08-01T00:27:58.588Z"
     },
     {
       "Id": "buildingtype13default",
@@ -152,8 +139,7 @@
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.286Z",
-      "CreateTime": "2024-02-18T20:20:49.074Z"
+      "UpdateTime": "2024-08-01T00:27:58.591Z"
     },
     {
       "Id": "buildingtype14default",
@@ -164,8 +150,7 @@
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.289Z",
-      "CreateTime": "2024-02-18T20:20:49.075Z"
+      "UpdateTime": "2024-08-01T00:27:58.593Z"
     },
     {
       "Id": "buildingtype15default",
@@ -176,8 +161,7 @@
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.291Z",
-      "CreateTime": "2024-02-18T20:20:49.077Z"
+      "UpdateTime": "2024-08-01T00:27:58.596Z"
     },
     {
       "Id": "buildingtype16default",
@@ -188,8 +172,7 @@
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-06-29T14:10:30.293Z",
-      "CreateTime": "2024-02-18T20:20:49.078Z"
+      "UpdateTime": "2024-08-01T00:27:58.599Z"
     },
     {
       "Id": "buildingtype17default",
@@ -200,8 +183,7 @@
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-07-05T03:08:53.523Z",
-      "CreateTime": "2024-02-18T20:20:49.08Z"
+      "UpdateTime": "2024-08-01T00:27:58.603Z"
     },
     {
       "Id": "buildingtype18default",
@@ -213,8 +195,7 @@
       "Art": "Cave",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-07-05T03:52:28.213Z",
-      "CreateTime": "2024-02-18T20:20:49.08Z"
+      "UpdateTime": "2024-08-01T00:27:58.606Z"
     },
     {
       "Id": "buildingtype19default",
@@ -226,8 +207,7 @@
       "Art": "Dungeon",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-07-05T03:52:28.211Z",
-      "CreateTime": "2024-02-18T20:20:49.08Z"
+      "UpdateTime": "2024-08-01T00:27:58.608Z"
     },
     {
       "Id": "buildingtype20default",
@@ -239,8 +219,7 @@
       "Art": "Tower",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-07-05T03:52:28.208Z",
-      "CreateTime": "2024-02-18T20:20:49.08Z"
+      "UpdateTime": "2024-08-01T00:27:58.612Z"
     },
     {
       "Id": "buildingtype21default",
@@ -252,15 +231,13 @@
       "Art": "City",
       "Radius": 5,
       "VariationCount": 2,
-      "UpdateTime": "2024-07-05T03:52:28.206Z",
-      "CreateTime": "2024-02-18T20:20:49.08Z"
+      "UpdateTime": "2024-08-01T00:27:58.615Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "BuildingSettings",
-    "UpdateTime": "2024-07-05T03:52:28.202Z",
-    "CreateTime": "2023-12-25T09:03:10Z"
+    "UpdateTime": "2024-08-01T00:27:58.577Z"
   },
   "Id": "default"
 }

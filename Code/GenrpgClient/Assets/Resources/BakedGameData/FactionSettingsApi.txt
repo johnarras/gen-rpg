@@ -5,8 +5,7 @@
       "ParentId": "default",
       "Name": "Neutral",
       "StartRepLevelId": 1,
-      "UpdateTime": "2024-06-29T14:10:32.225Z",
-      "CreateTime": "2023-12-24T17:22:28.816Z"
+      "UpdateTime": "2024-08-01T00:28:06.707Z"
     },
     {
       "Id": "factiontype1default",
@@ -14,15 +13,13 @@
       "IdKey": 1,
       "Name": "Player",
       "StartRepLevelId": 4,
-      "UpdateTime": "2024-06-29T14:10:32.245Z",
-      "CreateTime": "2023-12-24T17:22:29.035Z"
+      "UpdateTime": "2024-08-01T00:28:06.721Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "FactionSettings",
-    "UpdateTime": "2024-07-04T23:03:06.163Z",
-    "CreateTime": "2023-11-24T16:45:28.395Z"
+    "UpdateTime": "2024-08-01T00:28:06.703Z"
   },
   "Id": "default"
 }

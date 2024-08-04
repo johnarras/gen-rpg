@@ -1,5 +1,6 @@
 ﻿
 
+// This must match the ConfigResponse class in GenrpgConfig project
 public class ConfigResponse
 {
     public string ServerURL { get; set; }

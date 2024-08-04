@@ -15,5 +15,6 @@ namespace Genrpg.Shared.GameSettings.Interfaces
         void ClearIndex();
         Task SaveAll(IRepositoryService repo);
         List<IGameSettings> GetChildren();
+        DateTime UpdateTime { get; set; }
     }
 }

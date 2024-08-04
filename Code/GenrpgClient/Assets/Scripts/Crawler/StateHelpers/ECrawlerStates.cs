@@ -34,6 +34,7 @@ namespace Assets.Scripts.UI.Crawler.States
         MapExit,
         Error,
         GiveLoot,
+        Riddle,
 
         WorldCast,
         SpecialSpellCast,

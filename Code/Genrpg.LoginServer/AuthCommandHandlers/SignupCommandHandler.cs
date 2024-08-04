@@ -114,7 +114,7 @@ namespace Genrpg.LoginServer.AuthCommandHandlers
                 string passwordHash = PasswordUtils.GetPasswordHash(passwordSalt, command.Password);
 
 
-                string newId = (await _accountService.GetNextAccountId()).ToString();
+                string newId = await _accountService.GetNextAccountId();
                 account = new Account()
                 {
                     Id = newId,

@@ -5,8 +5,7 @@
       "ParentId": "default",
       "Name": "None",
       "CostPct": 100,
-      "UpdateTime": "2024-06-29T14:10:33.786Z",
-      "CreateTime": "2024-01-28T02:21:35.693Z"
+      "UpdateTime": "2024-08-01T00:28:08.877Z"
     },
     {
       "Id": "lootrank1default",
@@ -14,8 +13,7 @@
       "IdKey": 1,
       "Armor": 1,
       "CostPct": 125,
-      "UpdateTime": "2024-06-29T14:10:33.821Z",
-      "CreateTime": "2024-01-28T02:21:35.701Z"
+      "UpdateTime": "2024-08-01T00:28:08.902Z"
     },
     {
       "Id": "lootrank2default",
@@ -25,8 +23,7 @@
       "Armor": 2,
       "Damage": 1,
       "CostPct": 150,
-      "UpdateTime": "2024-06-29T14:10:33.824Z",
-      "CreateTime": "2024-01-28T02:21:35.704Z"
+      "UpdateTime": "2024-08-01T00:28:08.905Z"
     },
     {
       "Id": "lootrank3default",
@@ -36,8 +33,7 @@
       "Armor": 3,
       "Damage": 2,
       "CostPct": 200,
-      "UpdateTime": "2024-06-29T14:10:33.827Z",
-      "CreateTime": "2024-01-28T02:21:35.706Z"
+      "UpdateTime": "2024-08-01T00:28:08.907Z"
     },
     {
       "Id": "lootrank4default",
@@ -47,8 +43,7 @@
       "Armor": 4,
       "Damage": 3,
       "CostPct": 300,
-      "UpdateTime": "2024-06-29T14:10:33.829Z",
-      "CreateTime": "2024-01-28T02:21:35.708Z"
+      "UpdateTime": "2024-08-01T00:28:08.91Z"
     },
     {
       "Id": "lootrank5default",
@@ -58,8 +53,7 @@
       "Armor": 6,
       "Damage": 4,
       "CostPct": 400,
-      "UpdateTime": "2024-06-29T14:10:33.835Z",
-      "CreateTime": "2024-01-28T02:21:35.709Z"
+      "UpdateTime": "2024-08-01T00:28:08.912Z"
     },
     {
       "Id": "lootrank6default",
@@ -69,8 +63,7 @@
       "Armor": 8,
       "Damage": 5,
       "CostPct": 500,
-      "UpdateTime": "2024-06-29T14:10:33.84Z",
-      "CreateTime": "2024-01-28T02:21:35.711Z"
+      "UpdateTime": "2024-08-01T00:28:08.915Z"
     },
     {
       "Id": "lootrank7default",
@@ -80,8 +73,7 @@
       "Armor": 10,
       "Damage": 6,
       "CostPct": 750,
-      "UpdateTime": "2024-06-29T14:10:33.843Z",
-      "CreateTime": "2024-01-28T02:21:35.713Z"
+      "UpdateTime": "2024-08-01T00:28:08.917Z"
     },
     {
       "Id": "lootrank8default",
@@ -91,8 +83,7 @@
       "Armor": 13,
       "Damage": 7,
       "CostPct": 1000,
-      "UpdateTime": "2024-06-29T14:10:33.846Z",
-      "CreateTime": "2024-01-28T02:21:35.715Z"
+      "UpdateTime": "2024-08-01T00:28:08.919Z"
     },
     {
       "Id": "lootrank9default",
@@ -102,8 +93,7 @@
       "Armor": 16,
       "Damage": 8,
       "CostPct": 1250,
-      "UpdateTime": "2024-06-29T14:10:33.849Z",
-      "CreateTime": "2024-01-28T02:21:35.718Z"
+      "UpdateTime": "2024-08-01T00:28:08.923Z"
     },
     {
       "Id": "lootrank10default",
@@ -113,8 +103,7 @@
       "Armor": 20,
       "Damage": 10,
       "CostPct": 1500,
-      "UpdateTime": "2024-06-29T14:10:33.789Z",
-      "CreateTime": "2024-01-28T02:21:35.72Z"
+      "UpdateTime": "2024-08-01T00:28:08.883Z"
     },
     {
       "Id": "lootrank11default",
@@ -124,8 +113,7 @@
       "Armor": 25,
       "Damage": 12,
       "CostPct": 2000,
-      "UpdateTime": "2024-06-29T14:10:33.791Z",
-      "CreateTime": "2024-01-28T02:21:35.722Z"
+      "UpdateTime": "2024-08-01T00:28:08.887Z"
     },
     {
       "Id": "lootrank12default",
@@ -135,8 +123,7 @@
       "Armor": 30,
       "Damage": 15,
       "CostPct": 3000,
-      "UpdateTime": "2024-06-29T14:10:33.794Z",
-      "CreateTime": "2024-01-28T02:21:35.724Z"
+      "UpdateTime": "2024-08-01T00:28:08.89Z"
     },
     {
       "Id": "lootrank13default",
@@ -146,8 +133,7 @@
       "Armor": 35,
       "Damage": 18,
       "CostPct": 4000,
-      "UpdateTime": "2024-06-29T14:10:33.797Z",
-      "CreateTime": "2024-01-28T02:21:35.726Z"
+      "UpdateTime": "2024-08-01T00:28:08.892Z"
     },
     {
       "Id": "lootrank14default",
@@ -157,8 +143,7 @@
       "Armor": 40,
       "Damage": 21,
       "CostPct": 5000,
-      "UpdateTime": "2024-06-29T14:10:33.805Z",
-      "CreateTime": "2024-01-28T02:21:35.727Z"
+      "UpdateTime": "2024-08-01T00:28:08.895Z"
     },
     {
       "Id": "lootrank15default",
@@ -168,8 +153,7 @@
       "Armor": 50,
       "Damage": 25,
       "CostPct": 7500,
-      "UpdateTime": "2024-06-29T14:10:33.808Z",
-      "CreateTime": "2024-01-28T02:21:35.73Z"
+      "UpdateTime": "2024-08-01T00:28:08.897Z"
     },
     {
       "Id": "lootrank16default",
@@ -179,8 +163,7 @@
       "Armor": 60,
       "Damage": 30,
       "CostPct": 10000,
-      "UpdateTime": "2024-06-29T14:10:33.815Z",
-      "CreateTime": "2024-01-28T02:21:35.731Z"
+      "UpdateTime": "2024-08-01T00:28:08.9Z"
     }
   ],
   "ParentObj": {
@@ -189,8 +172,7 @@
     "ExtraQualityChance": 0.25,
     "ArmorChance": 0.75,
     "Name": "LootRankSettings",
-    "UpdateTime": "2024-07-04T23:03:06.205Z",
-    "CreateTime": "2024-02-04T04:13:18Z"
+    "UpdateTime": "2024-08-01T00:28:08.925Z"
   },
   "Id": "default"
 }

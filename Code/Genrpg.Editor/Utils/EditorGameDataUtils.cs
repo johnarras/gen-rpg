@@ -88,12 +88,17 @@ namespace Genrpg.Editor.Utils
 
 
             List<Task> saveTasks = new List<Task>();
-            foreach (IGameSettings data in dataCopy.Data)
+            for (int i = 0; i < dataCopy.Data.Count; i++)
             {
-                saveTasks.Add(repoService.Save(data));
-            }
+                saveTasks.Add(repoService.Save(dataCopy.Data[i]));
 
-            await Task.WhenAll(saveTasks);
+                if (i % 100 == 99 || i == dataCopy.Data.Count-1)
+                {
+                    await Task.WhenAll(saveTasks);
+                    saveTasks = new List<Task>();
+                    await Task.Delay(100);
+                }
+            }
         }
 
         public static void InitMessages()
@@ -193,8 +198,11 @@ namespace Genrpg.Editor.Utils
                 Directory.CreateDirectory(fullDir);
             }
 
+
             string fullPath = Path.Combine(fullDir, idObj.Id);
-            File.WriteAllText(fullPath, SerializationUtils.PrettyPrint(idObj));
+
+            string txt = SerializationUtils.PrettyPrint(idObj);
+            File.WriteAllText(fullPath, txt);
         }
 
         public static async Task<FullGameDataCopy> LoadDataFromDisk(IUICanvas form, CancellationToken token)
@@ -207,8 +215,6 @@ namespace Genrpg.Editor.Utils
             List<Type> settingsTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettings));
 
             string mainDirName = GetCodeFolderPath() + GitOffsetPath;
-
-            mainDirName += GitOffsetPath;
 
             if (!Directory.Exists(mainDirName))
             {
@@ -236,6 +242,10 @@ namespace Genrpg.Editor.Utils
 
                 try
                 {
+                    if (subDirName.IndexOf("version") >= 0)
+                    {
+                        Console.Write("Version settings");
+                    }
                     string fullDirectoryName = Path.Combine(mainDirName, subDirName);
 
                     if (!Directory.Exists(fullDirectoryName))

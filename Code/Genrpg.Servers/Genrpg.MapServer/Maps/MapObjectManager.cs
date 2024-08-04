@@ -36,6 +36,7 @@ using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.MapServer.Entities;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -61,7 +62,7 @@ namespace Genrpg.MapServer.Maps
             bool enforceDistance = false,
             List<long> filters = null);
         List<Character> GetAllCharacters();
-        int GetIndexFromCoord(double mapPos, bool useCeiling);
+        int GetGridIndexFromCoord(double mapPos, bool useCeiling);
         IReadOnlyList<MapObject> GetObjectsFromGridCell(int gx, int gz);
     }
 
@@ -171,7 +172,7 @@ namespace Genrpg.MapServer.Maps
         {
             _token = token;
 
-            _gridSize = (int)Math.Ceiling(1.0 * _mapProvider.GetMap().GetMapSize() / SharedMapConstants.MapObjectGridSize);
+            _gridSize = MapUtils.GetMapObjectGridSize(_mapProvider.GetMap());
 
             _objectGrid = new MapObjectGridData[_gridSize, _gridSize];
 
@@ -253,18 +254,9 @@ namespace Genrpg.MapServer.Maps
             posMessage.SetSpeed(obj.Speed);
             posMessage.SetKeysDown(keysDown);
 
-            float distance = MessageConstants.DefaultGridDistance;
-            bool playersOnly = false;
-            if (rand.NextDouble() < 0.1f)
-            {
-                distance *= 2;
-                playersOnly = true;
-            }
+            _messageService.SendMessageNear(obj, posMessage, playersOnly: false);
 
-            _messageService.SendMessageNear(obj, posMessage, distance, playersOnly);
-
-
-            PointXZ newGridPos = GetGridCoordinates(obj);
+            PointXZ newGridPos = MapUtils.GetGridCoordinates(obj.X, obj.Z, _gridSize);
 
             if (GetGridItem(obj.Id, out MapObjectGridItem gridItem))
             {
@@ -312,10 +304,10 @@ namespace Genrpg.MapServer.Maps
             bool enforceDistance = false,
             List<long> filters = null)
         {
-            int gxmin = GetIndexFromCoord(wx - distance, false);
-            int gxmax = GetIndexFromCoord(wx + distance, true);
-            int gzmin = GetIndexFromCoord(wz - distance, false);
-            int gzmax = GetIndexFromCoord(wz + distance, true);
+            int gxmin = GetGridIndexFromCoord(wx - distance, false);
+            int gxmax = GetGridIndexFromCoord(wx + distance, true);
+            int gzmin = GetGridIndexFromCoord(wz - distance, false);
+            int gzmax = GetGridIndexFromCoord(wz + distance, true);
 
             List<MapObject> tempObjects = GetObjectsFromGridBox(gxmin, gxmax, gzmin, gzmax);
 
@@ -453,26 +445,15 @@ namespace Genrpg.MapServer.Maps
             return false;
         }
 
-        public int GetIndexFromCoord(double mapPos, bool useCeiling)
+        public int GetGridIndexFromCoord(double mapPos, bool useCeiling)
         {
-            if (!useCeiling)
-            {
-                return MathUtils.Clamp(0, (int)(mapPos / SharedMapConstants.MapObjectGridSize), _gridSize - 1);
-            }
-            else
-            {
-                return MathUtils.Clamp(0, (int)Math.Ceiling(mapPos / SharedMapConstants.MapObjectGridSize), _gridSize - 1);
-            }
-        }
-
-        protected PointXZ GetGridCoordinates(MapObject obj)
-        {
-            return new PointXZ(GetIndexFromCoord(obj.X, false), GetIndexFromCoord(obj.Z, false));
+            return MapUtils.GetGridIndexFromCoord(mapPos, _gridSize, useCeiling);
+            
         }
 
         public virtual MapObjectGridItem AddObject(IRandom rand, MapObject obj, IMapSpawn spawn)
         {
-            PointXZ pt = GetGridCoordinates(obj);
+            PointXZ pt = MapUtils.GetGridCoordinates(obj.X, obj.Z, _gridSize);
 
             if (GetGridItem(obj.Id, out MapObjectGridItem currentGridItem))
             {
@@ -654,8 +635,8 @@ namespace Genrpg.MapServer.Maps
                     continue;
                 }
 
-                int gx = GetIndexFromCoord(spawn.X, false);
-                int gz = GetIndexFromCoord(spawn.Z, false);
+                int gx = GetGridIndexFromCoord(spawn.X, false);
+                int gz = GetGridIndexFromCoord(spawn.Z, false);
 
                 _objectGrid[gx, gz].Spawns.Add(spawn);
             }
@@ -761,6 +742,7 @@ namespace Genrpg.MapServer.Maps
                 return;
             }
 
+            obj.AddMessage(new OnAddToGrid() { GridX = gx, GridZ = gz, UserId = obj.Id });
             for (int x = gx - UnitConstants.PlayerObjectVisRadius; x <= gx + UnitConstants.PlayerObjectVisRadius; x++)
             {
                 if (x < 0 || x >= _gridSize)

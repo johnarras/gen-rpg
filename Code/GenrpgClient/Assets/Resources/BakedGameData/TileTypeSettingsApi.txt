@@ -1,0 +1,48 @@
+{
+  "Data": [
+    {
+      "Id": "tiletype0default",
+      "ParentId": "default",
+      "Name": "None",
+      "UpdateTime": "2024-08-03T23:23:01.721Z"
+    },
+    {
+      "Id": "tiletype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Gold",
+      "Art": "Gold",
+      "UpdateTime": "2024-08-03T23:23:01.721Z"
+    },
+    {
+      "Id": "tiletype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Home",
+      "Art": "Home",
+      "UpdateTime": "2024-08-03T23:23:01.721Z"
+    },
+    {
+      "Id": "tiletype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Gems",
+      "Art": "Gems",
+      "UpdateTime": "2024-08-03T23:23:01.721Z"
+    },
+    {
+      "Id": "tiletype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Dice",
+      "Art": "Dice",
+      "UpdateTime": "2024-08-03T23:23:01.721Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "TileTypeSettings",
+    "UpdateTime": "2024-08-03T23:23:01.721Z"
+  },
+  "Id": "default"
+}

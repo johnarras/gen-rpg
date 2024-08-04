@@ -1,0 +1,30 @@
+{
+  "Data": [
+    {
+      "Id": "boardmode0default",
+      "ParentId": "default",
+      "Name": "None",
+      "UpdateTime": "2024-08-03T23:20:55.71Z"
+    },
+    {
+      "Id": "boardmode1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Parimary",
+      "UpdateTime": "2024-08-03T23:20:55.71Z"
+    },
+    {
+      "Id": "boardmode2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "FreeRolls",
+      "UpdateTime": "2024-08-03T23:20:55.71Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "BoardModeSettings",
+    "UpdateTime": "2024-08-03T23:20:55.71Z"
+  },
+  "Id": "default"
+}

@@ -4,39 +4,34 @@
       "Id": "texturechannel0default",
       "ParentId": "default",
       "Name": "Base",
-      "UpdateTime": "2024-06-29T14:10:36.102Z",
-      "CreateTime": "2024-02-15T23:06:19.991Z"
+      "UpdateTime": "2024-08-01T00:28:13.743Z"
     },
     {
       "Id": "texturechannel1default",
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Dirt",
-      "UpdateTime": "2024-06-29T14:10:36.108Z",
-      "CreateTime": "2024-02-15T23:06:20.01Z"
+      "UpdateTime": "2024-08-01T00:28:13.746Z"
     },
     {
       "Id": "texturechannel2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Road",
-      "UpdateTime": "2024-06-29T14:10:36.111Z",
-      "CreateTime": "2024-02-15T23:06:20.018Z"
+      "UpdateTime": "2024-08-01T00:28:13.749Z"
     },
     {
       "Id": "texturechannel3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "Steep",
-      "UpdateTime": "2024-06-29T14:10:36.115Z",
-      "CreateTime": "2024-02-15T23:06:20.027Z"
+      "UpdateTime": "2024-08-01T00:28:13.751Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "TextureChannelSettings",
-    "UpdateTime": "2024-07-04T23:03:06.38Z",
-    "CreateTime": "2023-12-23T23:13:14.224Z"
+    "UpdateTime": "2024-08-01T00:28:13.754Z"
   },
   "Id": "default"
 }

@@ -6,8 +6,7 @@
       "IdKey": 1,
       "Name": "Intro",
       "Art": "IntroMusic",
-      "UpdateTime": "2024-06-29T14:10:33.872Z",
-      "CreateTime": "2023-11-24T16:45:55.026Z"
+      "UpdateTime": "2024-08-01T00:28:08.938Z"
     },
     {
       "Id": "musictype2default",
@@ -15,8 +14,7 @@
       "IdKey": 2,
       "Name": "Dungeon",
       "Art": "DungeonMusic",
-      "UpdateTime": "2024-06-29T14:10:33.877Z",
-      "CreateTime": "2023-11-24T16:45:55.134Z"
+      "UpdateTime": "2024-08-01T00:28:08.939Z"
     },
     {
       "Id": "musictype3default",
@@ -24,8 +22,7 @@
       "IdKey": 3,
       "Name": "Field",
       "Art": "FieldMusic",
-      "UpdateTime": "2024-06-29T14:10:33.882Z",
-      "CreateTime": "2023-11-24T16:45:55.244Z"
+      "UpdateTime": "2024-08-01T00:28:08.941Z"
     },
     {
       "Id": "musictype4default",
@@ -33,8 +30,7 @@
       "IdKey": 4,
       "Name": "Forest",
       "Art": "ForestMusic",
-      "UpdateTime": "2024-06-29T14:10:33.885Z",
-      "CreateTime": "2023-11-24T16:45:55.353Z"
+      "UpdateTime": "2024-08-01T00:28:08.943Z"
     },
     {
       "Id": "musictype5default",
@@ -42,8 +38,7 @@
       "IdKey": 5,
       "Name": "Hills",
       "Art": "HillsMusic",
-      "UpdateTime": "2024-06-29T14:10:33.888Z",
-      "CreateTime": "2023-11-24T16:45:55.464Z"
+      "UpdateTime": "2024-08-01T00:28:08.945Z"
     },
     {
       "Id": "musictype6default",
@@ -51,8 +46,7 @@
       "IdKey": 6,
       "Name": "Swamp",
       "Art": "SwampMusic",
-      "UpdateTime": "2024-06-29T14:10:33.891Z",
-      "CreateTime": "2023-11-24T16:45:55.573Z"
+      "UpdateTime": "2024-08-01T00:28:08.95Z"
     },
     {
       "Id": "musictype7default",
@@ -61,8 +55,7 @@
       "Name": "Dark Ambience",
       "Art": "DarkAmbience",
       "RandomizeSeconds": 10.0,
-      "UpdateTime": "2024-06-29T14:10:33.894Z",
-      "CreateTime": "2023-11-24T16:45:55.674Z"
+      "UpdateTime": "2024-08-01T00:28:08.952Z"
     },
     {
       "Id": "musictype8default",
@@ -71,8 +64,7 @@
       "Name": "Default Ambience",
       "Art": "DefaultAmbience",
       "RandomizeSeconds": 10.0,
-      "UpdateTime": "2024-06-29T14:10:33.898Z",
-      "CreateTime": "2023-11-24T16:45:55.785Z"
+      "UpdateTime": "2024-08-01T00:28:08.954Z"
     },
     {
       "Id": "musictype9default",
@@ -81,8 +73,7 @@
       "Name": "Dry Ambience",
       "Art": "DryAmbience",
       "RandomizeSeconds": 15.0,
-      "UpdateTime": "2024-06-29T14:10:33.901Z",
-      "CreateTime": "2023-11-24T16:45:55.895Z"
+      "UpdateTime": "2024-08-01T00:28:08.959Z"
     },
     {
       "Id": "musictype10default",
@@ -91,8 +82,7 @@
       "Name": "Dungeon Ambience",
       "Art": "DungeonAmbience",
       "RandomizeSeconds": 10.0,
-      "UpdateTime": "2024-06-29T14:10:33.86Z",
-      "CreateTime": "2023-11-24T16:45:54.81Z"
+      "UpdateTime": "2024-08-01T00:28:08.932Z"
     },
     {
       "Id": "musictype11default",
@@ -101,15 +91,13 @@
       "Name": "Wet Ambience",
       "Art": "WetAmbience",
       "RandomizeSeconds": 10.0,
-      "UpdateTime": "2024-06-29T14:10:33.869Z",
-      "CreateTime": "2023-11-24T16:45:54.917Z"
+      "UpdateTime": "2024-08-01T00:28:08.936Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "MusicTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.215Z",
-    "CreateTime": "2023-11-24T16:45:56.005Z"
+    "UpdateTime": "2024-08-01T00:28:08.967Z"
   },
   "Id": "default"
 }

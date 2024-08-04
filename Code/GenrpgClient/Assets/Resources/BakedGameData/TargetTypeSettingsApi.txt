@@ -4,95 +4,83 @@
       "Id": "targettype0default",
       "ParentId": "default",
       "Name": "None",
-      "UpdateTime": "2024-06-29T14:10:36.045Z",
-      "CreateTime": "2024-01-27T20:00:37.476Z"
+      "UpdateTime": "2024-08-01T00:28:13.712Z"
     },
     {
       "Id": "targettype1default",
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Enemy",
-      "UpdateTime": "2024-06-29T14:10:36.048Z",
-      "CreateTime": "2024-02-15T23:06:19.962Z"
+      "UpdateTime": "2024-08-01T00:28:13.718Z"
     },
     {
       "Id": "targettype2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Ally",
-      "UpdateTime": "2024-06-29T14:10:36.05Z",
-      "CreateTime": "2024-02-15T23:06:19.983Z"
+      "UpdateTime": "2024-08-01T00:28:13.72Z"
     },
     {
       "Id": "targettype3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "EnemyGroup",
-      "UpdateTime": "2024-06-29T14:10:36.056Z",
-      "CreateTime": "2024-01-27T20:00:37.481Z"
+      "UpdateTime": "2024-08-01T00:28:13.723Z"
     },
     {
       "Id": "targettype4default",
       "ParentId": "default",
       "IdKey": 4,
       "Name": "AllEnemies",
-      "UpdateTime": "2024-06-29T14:10:36.062Z",
-      "CreateTime": "2024-01-27T20:00:37.484Z"
+      "UpdateTime": "2024-08-01T00:28:13.725Z"
     },
     {
       "Id": "targettype5default",
       "ParentId": "default",
       "IdKey": 5,
       "Name": "AllAllies",
-      "UpdateTime": "2024-06-29T14:10:36.068Z",
-      "CreateTime": "2024-01-27T20:00:37.487Z"
+      "UpdateTime": "2024-08-01T00:28:13.728Z"
     },
     {
       "Id": "targettype6default",
       "ParentId": "default",
       "IdKey": 6,
       "Name": "Location",
-      "UpdateTime": "2024-06-29T14:10:36.071Z",
-      "CreateTime": "2024-01-27T20:00:37.49Z"
+      "UpdateTime": "2024-08-01T00:28:13.73Z"
     },
     {
       "Id": "targettype7default",
       "ParentId": "default",
       "IdKey": 7,
       "Name": "Item",
-      "UpdateTime": "2024-06-29T14:10:36.077Z",
-      "CreateTime": "2024-01-27T20:00:37.493Z"
+      "UpdateTime": "2024-08-01T00:28:13.732Z"
     },
     {
       "Id": "targettype8default",
       "ParentId": "default",
       "IdKey": 8,
       "Name": "Special",
-      "UpdateTime": "2024-06-29T14:10:36.081Z",
-      "CreateTime": "2024-01-27T20:00:37.496Z"
+      "UpdateTime": "2024-08-01T00:28:13.735Z"
     },
     {
       "Id": "targettype9default",
       "ParentId": "default",
       "IdKey": 9,
       "Name": "Self",
-      "UpdateTime": "2024-07-02T20:27:05.146Z",
-      "CreateTime": "2024-01-27T21:09:08.68Z"
+      "UpdateTime": "2024-08-01T00:28:13.737Z"
     },
     {
       "Id": "targettype10default",
       "ParentId": "default",
       "IdKey": 10,
       "Name": "AllEnemyGroups",
-      "UpdateTime": "2024-07-02T20:27:05.15Z",
-      "CreateTime": "2024-07-02T20:27:05.15Z"
+      "UpdateTime": "2024-08-01T00:28:13.715Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "TargetTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.376Z",
-    "CreateTime": "2023-12-25T05:13:14Z"
+    "UpdateTime": "2024-08-01T00:28:13.74Z"
   },
   "Id": "default"
 }

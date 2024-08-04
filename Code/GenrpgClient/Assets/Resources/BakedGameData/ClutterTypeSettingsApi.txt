@@ -7,8 +7,7 @@
       "Name": "Barrel",
       "Art": "Barrel",
       "NumChoices": 2,
-      "UpdateTime": "2024-06-29T14:10:30.532Z",
-      "CreateTime": "2023-11-24T16:45:16.97Z"
+      "UpdateTime": "2024-08-01T00:27:58.8Z"
     },
     {
       "Id": "cluttertype2default",
@@ -17,8 +16,7 @@
       "Name": "Bucket",
       "Art": "Bucket",
       "NumChoices": 1,
-      "UpdateTime": "2024-06-29T14:10:30.542Z",
-      "CreateTime": "2023-11-24T16:45:17.1Z"
+      "UpdateTime": "2024-08-01T00:27:58.806Z"
     },
     {
       "Id": "cluttertype3default",
@@ -27,8 +25,7 @@
       "Name": "Crate",
       "Art": "Crate",
       "NumChoices": 3,
-      "UpdateTime": "2024-06-29T14:10:30.555Z",
-      "CreateTime": "2023-11-24T16:45:17.23Z"
+      "UpdateTime": "2024-08-01T00:27:58.809Z"
     },
     {
       "Id": "cluttertype4default",
@@ -37,15 +34,13 @@
       "Name": "Pottery",
       "Art": "Pottery",
       "NumChoices": 37,
-      "UpdateTime": "2024-06-29T14:10:30.557Z",
-      "CreateTime": "2023-11-24T16:45:17.341Z"
+      "UpdateTime": "2024-08-01T00:27:58.815Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ClutterTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.087Z",
-    "CreateTime": "2023-11-24T16:45:17.46Z"
+    "UpdateTime": "2024-08-01T00:27:58.819Z"
   },
   "Id": "default"
 }

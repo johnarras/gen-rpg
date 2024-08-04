@@ -14,8 +14,7 @@
         "A": 1.0
       },
       "MaxIndex": 10,
-      "UpdateTime": "2024-06-29T14:10:34.982Z",
-      "CreateTime": "2024-02-15T23:06:19.754Z"
+      "UpdateTime": "2024-08-01T00:28:11.345Z"
     },
     {
       "Id": "rocktype2default",
@@ -26,8 +25,7 @@
       "ChanceScale": 1.0,
       "BaseColor": {},
       "MaxIndex": 10,
-      "UpdateTime": "2024-06-29T14:10:34.985Z",
-      "CreateTime": "2024-02-15T23:06:19.757Z"
+      "UpdateTime": "2024-08-01T00:28:11.35Z"
     },
     {
       "Id": "rocktype3default",
@@ -38,8 +36,7 @@
       "ChanceScale": 1.0,
       "BaseColor": {},
       "MaxIndex": 10,
-      "UpdateTime": "2024-06-29T14:10:34.987Z",
-      "CreateTime": "2024-02-15T23:06:19.76Z"
+      "UpdateTime": "2024-08-01T00:28:11.353Z"
     },
     {
       "Id": "rocktype4default",
@@ -50,15 +47,13 @@
       "ChanceScale": 1.0,
       "BaseColor": {},
       "MaxIndex": 10,
-      "UpdateTime": "2024-06-29T14:10:34.99Z",
-      "CreateTime": "2024-02-15T23:06:19.762Z"
+      "UpdateTime": "2024-08-01T00:28:11.355Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "RockTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.247Z",
-    "CreateTime": "2023-12-23T23:13:14.23Z"
+    "UpdateTime": "2024-08-01T00:28:11.358Z"
   },
   "Id": "default"
 }

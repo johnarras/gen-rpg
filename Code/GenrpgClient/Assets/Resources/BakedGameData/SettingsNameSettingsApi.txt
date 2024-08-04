@@ -5,663 +5,601 @@
       "ParentId": "default",
       "IdKey": 1,
       "Name": "AchievementSettings",
-      "UpdateTime": "2024-06-29T14:10:35.097Z",
-      "CreateTime": "2024-04-26T23:49:10.113Z"
+      "UpdateTime": "2024-08-01T00:28:11.408Z"
     },
     {
       "Id": "settingsname2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "AISettings",
-      "UpdateTime": "2024-06-29T14:10:35.138Z",
-      "CreateTime": "2024-04-26T23:49:10.117Z"
+      "UpdateTime": "2024-08-01T00:28:12.072Z"
     },
     {
       "Id": "settingsname3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "BridgeTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.176Z",
-      "CreateTime": "2024-04-26T23:49:10.119Z"
+      "UpdateTime": "2024-08-01T00:28:12.097Z"
     },
     {
       "Id": "settingsname4default",
       "ParentId": "default",
       "IdKey": 4,
       "Name": "BuildingSettings",
-      "UpdateTime": "2024-06-29T14:10:35.233Z",
-      "CreateTime": "2024-04-26T23:49:10.12Z"
+      "UpdateTime": "2024-08-01T00:28:12.123Z"
     },
     {
       "Id": "settingsname5default",
       "ParentId": "default",
       "IdKey": 5,
       "Name": "CharmBonusSettings",
-      "UpdateTime": "2024-06-29T14:10:35.285Z",
-      "CreateTime": "2024-04-26T23:49:10.122Z"
+      "UpdateTime": "2024-08-01T00:28:12.151Z"
     },
     {
       "Id": "settingsname6default",
       "ParentId": "default",
       "IdKey": 6,
       "Name": "CharmUseSettings",
-      "UpdateTime": "2024-06-29T14:10:35.342Z",
-      "CreateTime": "2024-04-26T23:49:10.124Z"
+      "UpdateTime": "2024-08-01T00:28:12.179Z"
     },
     {
       "Id": "settingsname7default",
       "ParentId": "default",
       "IdKey": 7,
       "Name": "ChatSettings",
-      "UpdateTime": "2024-06-29T14:10:35.379Z",
-      "CreateTime": "2024-04-26T23:49:10.126Z"
+      "UpdateTime": "2024-08-01T00:28:12.207Z"
     },
     {
       "Id": "settingsname8default",
       "ParentId": "default",
       "IdKey": 8,
       "Name": "ClassSettings",
-      "UpdateTime": "2024-06-29T14:10:35.393Z",
-      "CreateTime": "2024-04-26T23:49:10.127Z"
+      "UpdateTime": "2024-08-01T00:28:12.219Z"
     },
     {
       "Id": "settingsname9default",
       "ParentId": "default",
       "IdKey": 9,
       "Name": "ClutterTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.397Z",
-      "CreateTime": "2024-04-26T23:49:10.129Z"
+      "UpdateTime": "2024-08-01T00:28:12.222Z"
     },
     {
       "Id": "settingsname10default",
       "ParentId": "default",
       "IdKey": 10,
       "Name": "CombatActionSettings",
-      "UpdateTime": "2024-06-29T14:10:35.063Z",
-      "CreateTime": "2024-04-26T23:49:10.131Z"
+      "UpdateTime": "2024-08-01T00:28:11.384Z"
     },
     {
       "Id": "settingsname11default",
       "ParentId": "default",
       "IdKey": 11,
       "Name": "CoreSettings",
-      "UpdateTime": "2024-06-29T14:10:35.067Z",
-      "CreateTime": "2024-04-26T23:49:10.133Z"
+      "UpdateTime": "2024-08-01T00:28:11.387Z"
     },
     {
       "Id": "settingsname12default",
       "ParentId": "default",
       "IdKey": 12,
       "Name": "CraftingSettings",
-      "UpdateTime": "2024-06-29T14:10:35.07Z",
-      "CreateTime": "2024-04-26T23:49:10.135Z"
+      "UpdateTime": "2024-08-01T00:28:11.389Z"
     },
     {
       "Id": "settingsname13default",
       "ParentId": "default",
       "IdKey": 13,
       "Name": "CrawlerCombatSettings",
-      "UpdateTime": "2024-06-29T14:10:35.074Z",
-      "CreateTime": "2024-04-26T23:49:10.137Z"
+      "UpdateTime": "2024-08-01T00:28:11.394Z"
     },
     {
       "Id": "settingsname14default",
       "ParentId": "default",
       "IdKey": 14,
       "Name": "CrawlerLootSettings",
-      "UpdateTime": "2024-06-29T14:10:35.078Z",
-      "CreateTime": "2024-04-26T23:49:10.139Z"
+      "UpdateTime": "2024-08-01T00:28:11.396Z"
     },
     {
       "Id": "settingsname15default",
       "ParentId": "default",
       "IdKey": 15,
       "Name": "CrawlerSpellSettings",
-      "UpdateTime": "2024-06-29T14:10:35.081Z",
-      "CreateTime": "2024-04-26T23:49:10.141Z"
+      "UpdateTime": "2024-08-01T00:28:11.398Z"
     },
     {
       "Id": "settingsname16default",
       "ParentId": "default",
       "IdKey": 16,
       "Name": "CrawlerTrainingSettings",
-      "UpdateTime": "2024-06-29T14:10:35.084Z",
-      "CreateTime": "2024-04-26T23:49:10.142Z"
+      "UpdateTime": "2024-08-01T00:28:11.4Z"
     },
     {
       "Id": "settingsname17default",
       "ParentId": "default",
       "IdKey": 17,
       "Name": "CurrencySettings",
-      "UpdateTime": "2024-06-29T14:10:35.088Z",
-      "CreateTime": "2024-04-26T23:49:10.144Z"
+      "UpdateTime": "2024-08-01T00:28:11.402Z"
     },
     {
       "Id": "settingsname18default",
       "ParentId": "default",
       "IdKey": 18,
       "Name": "DamageSettings",
-      "UpdateTime": "2024-06-29T14:10:35.091Z",
-      "CreateTime": "2024-04-26T23:49:10.146Z"
+      "UpdateTime": "2024-08-01T00:28:11.404Z"
     },
     {
       "Id": "settingsname19default",
       "ParentId": "default",
       "IdKey": 19,
       "Name": "DataOverrideSettings",
-      "UpdateTime": "2024-06-29T14:10:35.094Z",
-      "CreateTime": "2024-04-26T23:49:10.148Z"
+      "UpdateTime": "2024-08-01T00:28:11.406Z"
     },
     {
       "Id": "settingsname20default",
       "ParentId": "default",
       "IdKey": 20,
       "Name": "DerivedStatSettings",
-      "UpdateTime": "2024-06-29T14:10:35.1Z",
-      "CreateTime": "2024-04-26T23:49:10.15Z"
+      "UpdateTime": "2024-08-01T00:28:11.409Z"
     },
     {
       "Id": "settingsname21default",
       "ParentId": "default",
       "IdKey": 21,
       "Name": "DungeonArtSettings",
-      "UpdateTime": "2024-06-29T14:10:35.104Z",
-      "CreateTime": "2024-04-26T23:49:10.153Z"
+      "UpdateTime": "2024-08-01T00:28:11.428Z"
     },
     {
       "Id": "settingsname22default",
       "ParentId": "default",
       "IdKey": 22,
       "Name": "EditorMetaDataSettings",
-      "UpdateTime": "2024-06-29T14:10:35.107Z",
-      "CreateTime": "2024-04-26T23:49:10.155Z"
+      "UpdateTime": "2024-08-01T00:28:11.434Z"
     },
     {
       "Id": "settingsname23default",
       "ParentId": "default",
       "IdKey": 23,
       "Name": "ElementTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.11Z",
-      "CreateTime": "2024-04-26T23:49:10.156Z"
+      "UpdateTime": "2024-08-01T00:28:12.053Z"
     },
     {
       "Id": "settingsname24default",
       "ParentId": "default",
       "IdKey": 24,
       "Name": "EntitySettings",
-      "UpdateTime": "2024-06-29T14:10:35.114Z",
-      "CreateTime": "2024-04-26T23:49:10.158Z"
+      "UpdateTime": "2024-08-01T00:28:12.058Z"
     },
     {
       "Id": "settingsname25default",
       "ParentId": "default",
       "IdKey": 25,
       "Name": "EquipSlotSettings",
-      "UpdateTime": "2024-06-29T14:10:35.117Z",
-      "CreateTime": "2024-04-26T23:49:10.159Z"
+      "UpdateTime": "2024-08-01T00:28:12.061Z"
     },
     {
       "Id": "settingsname26default",
       "ParentId": "default",
       "IdKey": 26,
       "Name": "FactionSettings",
-      "UpdateTime": "2024-06-29T14:10:35.119Z",
-      "CreateTime": "2024-04-26T23:49:10.161Z"
+      "UpdateTime": "2024-08-01T00:28:12.063Z"
     },
     {
       "Id": "settingsname27default",
       "ParentId": "default",
       "IdKey": 27,
       "Name": "FenceTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.126Z",
-      "CreateTime": "2024-04-26T23:49:10.162Z"
+      "UpdateTime": "2024-08-01T00:28:12.065Z"
     },
     {
       "Id": "settingsname28default",
       "ParentId": "default",
       "IdKey": 28,
       "Name": "FtueEffectSettings",
-      "UpdateTime": "2024-06-29T14:10:35.129Z",
-      "CreateTime": "2024-04-26T23:49:10.163Z"
+      "UpdateTime": "2024-08-01T00:28:12.067Z"
     },
     {
       "Id": "settingsname29default",
       "ParentId": "default",
       "IdKey": 29,
       "Name": "FtuePopupTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.136Z",
-      "CreateTime": "2024-04-26T23:49:10.165Z"
+      "UpdateTime": "2024-08-01T00:28:12.07Z"
     },
     {
       "Id": "settingsname30default",
       "ParentId": "default",
       "IdKey": 30,
       "Name": "FtueStepSettings",
-      "UpdateTime": "2024-06-29T14:10:35.141Z",
-      "CreateTime": "2024-04-26T23:49:10.166Z"
+      "UpdateTime": "2024-08-01T00:28:12.074Z"
     },
     {
       "Id": "settingsname31default",
       "ParentId": "default",
       "IdKey": 31,
       "Name": "FtueTriggerSettings",
-      "UpdateTime": "2024-06-29T14:10:35.145Z",
-      "CreateTime": "2024-04-26T23:49:10.168Z"
+      "UpdateTime": "2024-08-01T00:28:12.076Z"
     },
     {
       "Id": "settingsname32default",
       "ParentId": "default",
       "IdKey": 32,
       "Name": "GroundObjTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.149Z",
-      "CreateTime": "2024-04-26T23:49:10.169Z"
+      "UpdateTime": "2024-08-01T00:28:12.078Z"
     },
     {
       "Id": "settingsname33default",
       "ParentId": "default",
       "IdKey": 33,
       "Name": "InputSettings",
-      "UpdateTime": "2024-06-29T14:10:35.154Z",
-      "CreateTime": "2024-04-26T23:49:10.17Z"
+      "UpdateTime": "2024-08-01T00:28:12.081Z"
     },
     {
       "Id": "settingsname34default",
       "ParentId": "default",
       "IdKey": 34,
       "Name": "ItemTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.156Z",
-      "CreateTime": "2024-04-26T23:49:10.172Z"
+      "UpdateTime": "2024-08-01T00:28:12.083Z"
     },
     {
       "Id": "settingsname35default",
       "ParentId": "default",
       "IdKey": 35,
       "Name": "KeyCommSettings",
-      "UpdateTime": "2024-06-29T14:10:35.159Z",
-      "CreateTime": "2024-04-26T23:49:10.173Z"
+      "UpdateTime": "2024-08-01T00:28:12.085Z"
     },
     {
       "Id": "settingsname36default",
       "ParentId": "default",
       "IdKey": 36,
       "Name": "LevelSettings",
-      "UpdateTime": "2024-06-29T14:10:35.161Z",
-      "CreateTime": "2024-04-26T23:49:10.174Z"
+      "UpdateTime": "2024-08-01T00:28:12.088Z"
     },
     {
       "Id": "settingsname37default",
       "ParentId": "default",
       "IdKey": 37,
       "Name": "LootRankSettings",
-      "UpdateTime": "2024-06-29T14:10:35.163Z",
-      "CreateTime": "2024-04-26T23:49:10.176Z"
+      "UpdateTime": "2024-08-01T00:28:12.09Z"
     },
     {
       "Id": "settingsname38default",
       "ParentId": "default",
       "IdKey": 38,
       "Name": "MapModEffectTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.17Z",
-      "CreateTime": "2024-04-26T23:49:10.177Z"
+      "UpdateTime": "2024-08-01T00:28:12.092Z"
     },
     {
       "Id": "settingsname39default",
       "ParentId": "default",
       "IdKey": 39,
       "Name": "MonsterCategorySettings",
-      "UpdateTime": "2024-06-29T14:10:35.173Z",
-      "CreateTime": "2024-04-26T23:49:10.179Z"
+      "UpdateTime": "2024-08-01T00:28:12.095Z"
     },
     {
       "Id": "settingsname40default",
       "ParentId": "default",
       "IdKey": 40,
       "Name": "MonsterTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.186Z",
-      "CreateTime": "2024-04-26T23:49:10.18Z"
+      "UpdateTime": "2024-08-01T00:28:12.1Z"
     },
     {
       "Id": "settingsname41default",
       "ParentId": "default",
       "IdKey": 41,
       "Name": "MusicTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.189Z",
-      "CreateTime": "2024-04-26T23:49:10.181Z"
+      "UpdateTime": "2024-08-01T00:28:12.102Z"
     },
     {
       "Id": "settingsname42default",
       "ParentId": "default",
       "IdKey": 42,
       "Name": "NameSettings",
-      "UpdateTime": "2024-06-29T14:10:35.191Z",
-      "CreateTime": "2024-04-26T23:49:10.183Z"
+      "UpdateTime": "2024-08-01T00:28:12.104Z"
     },
     {
       "Id": "settingsname43default",
       "ParentId": "default",
       "IdKey": 43,
       "Name": "NPCSettings",
-      "UpdateTime": "2024-06-29T14:10:35.194Z",
-      "CreateTime": "2024-04-26T23:49:10.184Z"
+      "UpdateTime": "2024-08-01T00:28:12.107Z"
     },
     {
       "Id": "settingsname44default",
       "ParentId": "default",
       "IdKey": 44,
       "Name": "PartyBuffSettings",
-      "UpdateTime": "2024-06-29T14:10:35.196Z",
-      "CreateTime": "2024-04-26T23:49:10.185Z"
+      "UpdateTime": "2024-08-01T00:28:12.109Z"
     },
     {
       "Id": "settingsname45default",
       "ParentId": "default",
       "IdKey": 45,
       "Name": "PlantTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.203Z",
-      "CreateTime": "2024-04-26T23:49:10.187Z"
+      "UpdateTime": "2024-08-01T00:28:12.111Z"
     },
     {
       "Id": "settingsname46default",
       "ParentId": "default",
       "IdKey": 46,
       "Name": "ProcTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.208Z",
-      "CreateTime": "2024-04-26T23:49:10.188Z"
+      "UpdateTime": "2024-08-01T00:28:12.114Z"
     },
     {
       "Id": "settingsname47default",
       "ParentId": "default",
       "IdKey": 47,
       "Name": "ProductSkuSettings",
-      "UpdateTime": "2024-06-29T14:10:35.214Z",
-      "CreateTime": "2024-04-26T23:49:10.19Z"
+      "UpdateTime": "2024-08-01T00:28:12.116Z"
     },
     {
       "Id": "settingsname48default",
       "ParentId": "default",
       "IdKey": 48,
       "Name": "QualityTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.217Z",
-      "CreateTime": "2024-04-26T23:49:10.191Z"
+      "UpdateTime": "2024-08-01T00:28:12.119Z"
     },
     {
       "Id": "settingsname49default",
       "ParentId": "default",
       "IdKey": 49,
       "Name": "RecipeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.23Z",
-      "CreateTime": "2024-04-26T23:49:10.193Z"
+      "UpdateTime": "2024-08-01T00:28:12.121Z"
     },
     {
       "Id": "settingsname50default",
       "ParentId": "default",
       "IdKey": 50,
       "Name": "ReputationSettings",
-      "UpdateTime": "2024-06-29T14:10:35.235Z",
-      "CreateTime": "2024-04-26T23:49:10.195Z"
+      "UpdateTime": "2024-08-01T00:28:12.126Z"
     },
     {
       "Id": "settingsname51default",
       "ParentId": "default",
       "IdKey": 51,
       "Name": "RockTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.237Z",
-      "CreateTime": "2024-04-26T23:49:10.196Z"
+      "UpdateTime": "2024-08-01T00:28:12.128Z"
     },
     {
       "Id": "settingsname52default",
       "ParentId": "default",
       "IdKey": 52,
       "Name": "ScalingTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.249Z",
-      "CreateTime": "2024-04-26T23:49:10.197Z"
+      "UpdateTime": "2024-08-01T00:28:12.131Z"
     },
     {
       "Id": "settingsname53default",
       "ParentId": "default",
       "IdKey": 53,
       "Name": "ScreenOverrideSettings",
-      "UpdateTime": "2024-06-29T14:10:35.256Z",
-      "CreateTime": "2024-04-26T23:49:10.199Z"
+      "UpdateTime": "2024-08-01T00:28:12.133Z"
     },
     {
       "Id": "settingsname54default",
       "ParentId": "default",
       "IdKey": 54,
       "Name": "SettingsNameSettings",
-      "UpdateTime": "2024-06-29T14:10:35.259Z",
-      "CreateTime": "2024-04-26T23:49:10.2Z"
+      "UpdateTime": "2024-08-01T00:28:12.136Z"
     },
     {
       "Id": "settingsname55default",
       "ParentId": "default",
       "IdKey": 55,
       "Name": "SetTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.261Z",
-      "CreateTime": "2024-04-26T23:49:10.203Z"
+      "UpdateTime": "2024-08-01T00:28:12.138Z"
     },
     {
       "Id": "settingsname56default",
       "ParentId": "default",
       "IdKey": 56,
       "Name": "SexTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.267Z",
-      "CreateTime": "2024-04-26T23:49:10.205Z"
+      "UpdateTime": "2024-08-01T00:28:12.141Z"
     },
     {
       "Id": "settingsname57default",
       "ParentId": "default",
       "IdKey": 57,
       "Name": "SkillTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.27Z",
-      "CreateTime": "2024-04-26T23:49:10.206Z"
+      "UpdateTime": "2024-08-01T00:28:12.143Z"
     },
     {
       "Id": "settingsname58default",
       "ParentId": "default",
       "IdKey": 58,
       "Name": "SpawnSettings",
-      "UpdateTime": "2024-06-29T14:10:35.276Z",
-      "CreateTime": "2024-04-26T23:49:10.207Z"
+      "UpdateTime": "2024-08-01T00:28:12.146Z"
     },
     {
       "Id": "settingsname59default",
       "ParentId": "default",
       "IdKey": 59,
       "Name": "SpecialMagicSettings",
-      "UpdateTime": "2024-06-29T14:10:35.278Z",
-      "CreateTime": "2024-04-26T23:49:10.209Z"
+      "UpdateTime": "2024-08-01T00:28:12.148Z"
     },
     {
       "Id": "settingsname60default",
       "ParentId": "default",
       "IdKey": 60,
       "Name": "SpellModifierSettings",
-      "UpdateTime": "2024-06-29T14:10:35.287Z",
-      "CreateTime": "2024-04-26T23:49:10.21Z"
+      "UpdateTime": "2024-08-01T00:28:12.153Z"
     },
     {
       "Id": "settingsname61default",
       "ParentId": "default",
       "IdKey": 61,
       "Name": "SpellTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.291Z",
-      "CreateTime": "2024-04-26T23:49:10.212Z"
+      "UpdateTime": "2024-08-01T00:28:12.156Z"
     },
     {
       "Id": "settingsname62default",
       "ParentId": "default",
       "IdKey": 62,
       "Name": "StatSettings",
-      "UpdateTime": "2024-06-29T14:10:35.3Z",
-      "CreateTime": "2024-04-26T23:49:10.213Z"
+      "UpdateTime": "2024-08-01T00:28:12.158Z"
     },
     {
       "Id": "settingsname63default",
       "ParentId": "default",
       "IdKey": 63,
       "Name": "StatusEffectSettings",
-      "UpdateTime": "2024-06-29T14:10:35.31Z",
-      "CreateTime": "2024-04-26T23:49:10.215Z"
+      "UpdateTime": "2024-08-01T00:28:12.161Z"
     },
     {
       "Id": "settingsname64default",
       "ParentId": "default",
       "IdKey": 64,
       "Name": "StoreFeatureSettings",
-      "UpdateTime": "2024-06-29T14:10:35.314Z",
-      "CreateTime": "2024-04-26T23:49:10.216Z"
+      "UpdateTime": "2024-08-01T00:28:12.163Z"
     },
     {
       "Id": "settingsname65default",
       "ParentId": "default",
       "IdKey": 65,
       "Name": "StoreOfferSettings",
-      "UpdateTime": "2024-06-29T14:10:35.316Z",
-      "CreateTime": "2024-04-26T23:49:10.218Z"
+      "UpdateTime": "2024-08-01T00:28:12.166Z"
     },
     {
       "Id": "settingsname66default",
       "ParentId": "default",
       "IdKey": 66,
       "Name": "StoreProductSettings",
-      "UpdateTime": "2024-06-29T14:10:35.319Z",
-      "CreateTime": "2024-04-26T23:49:10.219Z"
+      "UpdateTime": "2024-08-01T00:28:12.168Z"
     },
     {
       "Id": "settingsname67default",
       "ParentId": "default",
       "IdKey": 67,
       "Name": "StoreSlotSettings",
-      "UpdateTime": "2024-06-29T14:10:35.329Z",
-      "CreateTime": "2024-04-26T23:49:10.22Z"
+      "UpdateTime": "2024-08-01T00:28:12.17Z"
     },
     {
       "Id": "settingsname68default",
       "ParentId": "default",
       "IdKey": 68,
       "Name": "StoreThemeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.336Z",
-      "CreateTime": "2024-04-26T23:49:10.222Z"
+      "UpdateTime": "2024-08-01T00:28:12.172Z"
     },
     {
       "Id": "settingsname69default",
       "ParentId": "default",
       "IdKey": 69,
       "Name": "TargetTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.339Z",
-      "CreateTime": "2024-04-26T23:49:10.223Z"
+      "UpdateTime": "2024-08-01T00:28:12.175Z"
     },
     {
       "Id": "settingsname70default",
       "ParentId": "default",
       "IdKey": 70,
       "Name": "TextureChannelSettings",
-      "UpdateTime": "2024-06-29T14:10:35.346Z",
-      "CreateTime": "2024-04-26T23:49:10.225Z"
+      "UpdateTime": "2024-08-01T00:28:12.183Z"
     },
     {
       "Id": "settingsname71default",
       "ParentId": "default",
       "IdKey": 71,
       "Name": "TextureTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.35Z",
-      "CreateTime": "2024-04-26T23:49:10.226Z"
+      "UpdateTime": "2024-08-01T00:28:12.186Z"
     },
     {
       "Id": "settingsname72default",
       "ParentId": "default",
       "IdKey": 72,
       "Name": "TreeTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.353Z",
-      "CreateTime": "2024-04-26T23:49:10.227Z"
+      "UpdateTime": "2024-08-01T00:28:12.188Z"
     },
     {
       "Id": "settingsname73default",
       "ParentId": "default",
       "IdKey": 73,
       "Name": "TribeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.356Z",
-      "CreateTime": "2024-04-26T23:49:10.229Z"
+      "UpdateTime": "2024-08-01T00:28:12.191Z"
     },
     {
       "Id": "settingsname74default",
       "ParentId": "default",
       "IdKey": 74,
       "Name": "UnitSettings",
-      "UpdateTime": "2024-06-29T14:10:35.358Z",
-      "CreateTime": "2024-04-26T23:49:10.23Z"
+      "UpdateTime": "2024-08-01T00:28:12.193Z"
     },
     {
       "Id": "settingsname75default",
       "ParentId": "default",
       "IdKey": 75,
       "Name": "UserCoinSettings",
-      "UpdateTime": "2024-06-29T14:10:35.362Z",
-      "CreateTime": "2024-04-26T23:49:10.232Z"
+      "UpdateTime": "2024-08-01T00:28:12.195Z"
     },
     {
       "Id": "settingsname76default",
       "ParentId": "default",
       "IdKey": 76,
       "Name": "VendorSettings",
-      "UpdateTime": "2024-06-29T14:10:35.365Z",
-      "CreateTime": "2024-04-26T23:49:10.233Z"
+      "UpdateTime": "2024-08-01T00:28:12.198Z"
     },
     {
       "Id": "settingsname77default",
       "ParentId": "default",
       "IdKey": 77,
       "Name": "VersionSettings",
-      "UpdateTime": "2024-06-29T14:10:35.369Z",
-      "CreateTime": "2024-04-26T23:49:10.234Z"
+      "UpdateTime": "2024-08-01T00:28:12.201Z"
     },
     {
       "Id": "settingsname78default",
       "ParentId": "default",
       "IdKey": 78,
       "Name": "WeatherTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.373Z",
-      "CreateTime": "2024-04-26T23:49:10.236Z"
+      "UpdateTime": "2024-08-01T00:28:12.204Z"
     },
     {
       "Id": "settingsname79default",
       "ParentId": "default",
       "IdKey": 79,
       "Name": "ZoneTypeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.376Z",
-      "CreateTime": "2024-04-26T23:49:10.237Z"
+      "UpdateTime": "2024-08-01T00:28:12.205Z"
     },
     {
       "Id": "settingsname80default",
       "ParentId": "default",
       "IdKey": 80,
       "Name": "BiomeSettings",
-      "UpdateTime": "2024-06-29T14:10:35.388Z",
-      "CreateTime": "2024-06-21T22:25:29.781Z"
+      "UpdateTime": "2024-08-01T00:28:12.212Z"
     },
     {
       "Id": "settingsname81default",
       "ParentId": "default",
       "IdKey": 81,
       "Name": "UnitKeywordSettings",
-      "UpdateTime": "2024-07-06T17:48:19.472Z",
-      "CreateTime": "2024-07-06T17:48:19.472Z"
+      "UpdateTime": "2024-08-01T00:28:12.215Z"
     },
     {
       "Id": "settingsname82default",
       "ParentId": "default",
       "IdKey": 82,
       "Name": "RiddleSettings",
-      "UpdateTime": "2024-07-21T16:07:52.099Z",
-      "CreateTime": "2024-07-21T16:07:52.099Z"
+      "UpdateTime": "2024-08-01T00:28:12.217Z"
+    },
+    {
+      "Id": "settingsname83default",
+      "ParentId": "default",
+      "IdKey": 83,
+      "Name": "BoardModeSettings",
+      "UpdateTime": "2024-08-03T23:20:55.71Z"
+    },
+    {
+      "Id": "settingsname84default",
+      "ParentId": "default",
+      "IdKey": 84,
+      "Name": "TileSettings",
+      "UpdateTime": "2024-08-03T23:20:55.71Z"
+    },
+    {
+      "Id": "settingsname85default",
+      "ParentId": "default",
+      "IdKey": 85,
+      "Name": "TileTypeSettings",
+      "UpdateTime": "2024-08-03T23:23:01.721Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "SettingsNameSettings",
-    "UpdateTime": "2024-07-04T23:03:06.307Z",
-    "CreateTime": "2024-04-26T23:49:10.073Z"
+    "UpdateTime": "2024-08-01T00:28:12.224Z"
   },
   "Id": "default"
 }

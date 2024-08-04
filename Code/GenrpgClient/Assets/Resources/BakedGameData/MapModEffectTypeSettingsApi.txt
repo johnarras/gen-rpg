@@ -3,8 +3,7 @@
   "ParentObj": {
     "Id": "default",
     "Name": "MapModEffectTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.212Z",
-    "CreateTime": "2023-12-28T20:03:30.178Z"
+    "UpdateTime": "2024-08-01T00:28:08.928Z"
   },
   "Id": "default"
 }

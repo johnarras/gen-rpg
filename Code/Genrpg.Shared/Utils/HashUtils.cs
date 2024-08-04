@@ -24,13 +24,29 @@ namespace Genrpg.Shared.Utils
             for (int i = 0; i < 128; i++)
             {
                 char c = (char)i;
-                if (char.IsLetterOrDigit(c) && c != 'x')
+                if (char.IsLetterOrDigit(c))
                 {
                     retval.Add(c);
                 }
             }
             _idChars = retval;
             return _idChars;
+        }
+
+        public static string GetIdFromVal(long val)
+        {
+            List<char> idChars = GetIdChars();
+
+            StringBuilder sb = new StringBuilder();
+
+            long idval = val;
+
+            while (idval > 0)
+            {
+                sb.Append(idChars[(int)(idval % idChars.Count)]);
+                idval /= idChars.Count;
+            }
+            return sb.ToString();
         }
     }
 }

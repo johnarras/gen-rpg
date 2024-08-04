@@ -22,5 +22,6 @@ namespace Assets.Scripts.Crawler.Services
         CrawlerStateData PopState();
         CrawlerStateData GetTopLevelState();
         Awaitable UpdateCrawlerUI();
+        void CreateSpline();
     }
 }

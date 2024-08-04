@@ -12,8 +12,7 @@
       "UnitSpawnWeight": 100,
       "UnitHealthPct": 100,
       "UnitDamPct": 100,
-      "UpdateTime": "2024-06-29T14:10:34.683Z",
-      "CreateTime": "2024-02-15T23:06:19.537Z"
+      "UpdateTime": "2024-08-01T00:28:10.384Z"
     },
     {
       "Id": "qualitytype2default",
@@ -28,8 +27,7 @@
       "UnitMinLevel": 3,
       "UnitHealthPct": 150,
       "UnitDamPct": 125,
-      "UpdateTime": "2024-06-29T14:10:34.696Z",
-      "CreateTime": "2024-02-15T23:06:19.643Z"
+      "UpdateTime": "2024-08-01T00:28:10.388Z"
     },
     {
       "Id": "qualitytype3default",
@@ -45,8 +43,7 @@
       "UnitMinLevel": 6,
       "UnitHealthPct": 200,
       "UnitDamPct": 150,
-      "UpdateTime": "2024-06-29T14:10:34.702Z",
-      "CreateTime": "2024-02-15T23:06:19.647Z"
+      "UpdateTime": "2024-08-01T00:28:10.393Z"
     },
     {
       "Id": "qualitytype4default",
@@ -62,8 +59,7 @@
       "UnitMinLevel": 9,
       "UnitHealthPct": 300,
       "UnitDamPct": 200,
-      "UpdateTime": "2024-06-29T14:10:34.705Z",
-      "CreateTime": "2024-02-15T23:06:19.65Z"
+      "UpdateTime": "2024-08-01T00:28:10.396Z"
     },
     {
       "Id": "qualitytype5default",
@@ -79,8 +75,7 @@
       "UnitMinLevel": 12,
       "UnitHealthPct": 1000,
       "UnitDamPct": 300,
-      "UpdateTime": "2024-06-29T14:10:34.712Z",
-      "CreateTime": "2024-02-15T23:06:19.652Z"
+      "UpdateTime": "2024-08-01T00:28:10.398Z"
     },
     {
       "Id": "qualitytype6default",
@@ -96,15 +91,13 @@
       "UnitMinLevel": 15,
       "UnitHealthPct": 5000,
       "UnitDamPct": 400,
-      "UpdateTime": "2024-06-29T14:10:34.72Z",
-      "CreateTime": "2024-02-15T23:06:19.655Z"
+      "UpdateTime": "2024-08-01T00:28:10.4Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "QualityTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.238Z",
-    "CreateTime": "2023-12-23T23:13:14.233Z"
+    "UpdateTime": "2024-08-01T00:28:10.404Z"
   },
   "Id": "default"
 }

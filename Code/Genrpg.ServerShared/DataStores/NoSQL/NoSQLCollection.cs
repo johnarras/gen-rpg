@@ -135,6 +135,12 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             {
                 return false;
             }
+
+            if (typeof(T).Name == "VersionSettings")
+            {
+                Console.Write("Saving versionsettings");
+            }
+
             try
             {
                 if (string.IsNullOrEmpty(t.Id))

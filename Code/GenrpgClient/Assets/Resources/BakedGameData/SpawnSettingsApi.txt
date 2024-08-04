@@ -46,8 +46,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.539Z",
-      "CreateTime": "2024-02-15T23:06:19.781Z"
+      "UpdateTime": "2024-08-01T00:28:12.829Z"
     },
     {
       "Id": "spawntable2default",
@@ -268,8 +267,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.573Z",
-      "CreateTime": "2024-02-15T23:06:19.784Z"
+      "UpdateTime": "2024-08-01T00:28:12.855Z"
     },
     {
       "Id": "spawntable3default",
@@ -345,8 +343,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.575Z",
-      "CreateTime": "2024-02-15T23:06:19.786Z"
+      "UpdateTime": "2024-08-01T00:28:12.858Z"
     },
     {
       "Id": "spawntable4default",
@@ -387,8 +384,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.578Z",
-      "CreateTime": "2024-02-15T23:06:19.788Z"
+      "UpdateTime": "2024-08-01T00:28:12.861Z"
     },
     {
       "Id": "spawntable5default",
@@ -408,8 +404,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.58Z",
-      "CreateTime": "2024-02-15T23:06:19.79Z"
+      "UpdateTime": "2024-08-01T00:28:12.863Z"
     },
     {
       "Id": "spawntable6default",
@@ -429,8 +424,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.587Z",
-      "CreateTime": "2024-02-15T23:06:19.793Z"
+      "UpdateTime": "2024-08-01T00:28:12.866Z"
     },
     {
       "Id": "spawntable7default",
@@ -464,8 +458,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.595Z",
-      "CreateTime": "2024-02-15T23:06:19.796Z"
+      "UpdateTime": "2024-08-01T00:28:12.868Z"
     },
     {
       "Id": "spawntable8default",
@@ -548,8 +541,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.598Z",
-      "CreateTime": "2024-02-15T23:06:19.798Z"
+      "UpdateTime": "2024-08-01T00:28:12.871Z"
     },
     {
       "Id": "spawntable9default",
@@ -583,8 +575,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.601Z",
-      "CreateTime": "2024-02-15T23:06:19.801Z"
+      "UpdateTime": "2024-08-01T00:28:12.873Z"
     },
     {
       "Id": "spawntable10default",
@@ -639,8 +630,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.504Z",
-      "CreateTime": "2024-02-15T23:06:19.803Z"
+      "UpdateTime": "2024-08-01T00:28:12.313Z"
     },
     {
       "Id": "spawntable11default",
@@ -695,8 +685,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.509Z",
-      "CreateTime": "2024-02-15T23:06:19.806Z"
+      "UpdateTime": "2024-08-01T00:28:12.317Z"
     },
     {
       "Id": "spawntable12default",
@@ -768,8 +757,7 @@
           "Weight": 100.0
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:35.513Z",
-      "CreateTime": "2024-02-15T23:06:19.809Z"
+      "UpdateTime": "2024-08-01T00:28:12.32Z"
     },
     {
       "Id": "spawntable13default",
@@ -838,8 +826,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.516Z",
-      "CreateTime": "2024-02-15T23:06:19.812Z"
+      "UpdateTime": "2024-08-01T00:28:12.323Z"
     },
     {
       "Id": "spawntable14default",
@@ -946,8 +933,7 @@
           "Weight": 100.0
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:35.519Z",
-      "CreateTime": "2024-02-15T23:06:19.815Z"
+      "UpdateTime": "2024-08-01T00:28:12.325Z"
     },
     {
       "Id": "spawntable15default",
@@ -1033,8 +1019,7 @@
           "Weight": 100.0
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:35.523Z",
-      "CreateTime": "2024-02-15T23:06:19.817Z"
+      "UpdateTime": "2024-08-01T00:28:12.329Z"
     },
     {
       "Id": "spawntable16default",
@@ -1117,8 +1102,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.526Z",
-      "CreateTime": "2024-02-15T23:06:19.819Z"
+      "UpdateTime": "2024-08-01T00:28:12.332Z"
     },
     {
       "Id": "spawntable17default",
@@ -1222,8 +1206,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.529Z",
-      "CreateTime": "2024-02-15T23:06:19.821Z"
+      "UpdateTime": "2024-08-01T00:28:12.335Z"
     },
     {
       "Id": "spawntable18default",
@@ -1302,8 +1285,7 @@
           "Weight": 100.0
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:35.532Z",
-      "CreateTime": "2024-02-15T23:06:19.823Z"
+      "UpdateTime": "2024-08-01T00:28:12.337Z"
     },
     {
       "Id": "spawntable19default",
@@ -1417,8 +1399,7 @@
           "Weight": 100.0
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:35.535Z",
-      "CreateTime": "2024-02-15T23:06:19.826Z"
+      "UpdateTime": "2024-08-01T00:28:12.825Z"
     },
     {
       "Id": "spawntable20default",
@@ -1452,8 +1433,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.542Z",
-      "CreateTime": "2024-02-15T23:06:19.828Z"
+      "UpdateTime": "2024-08-01T00:28:12.832Z"
     },
     {
       "Id": "spawntable21default",
@@ -1494,8 +1474,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.545Z",
-      "CreateTime": "2024-02-15T23:06:19.83Z"
+      "UpdateTime": "2024-08-01T00:28:12.834Z"
     },
     {
       "Id": "spawntable22default",
@@ -1515,8 +1494,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.548Z",
-      "CreateTime": "2024-02-15T23:06:19.833Z"
+      "UpdateTime": "2024-08-01T00:28:12.837Z"
     },
     {
       "Id": "spawntable23default",
@@ -1536,8 +1514,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.551Z",
-      "CreateTime": "2024-02-15T23:06:19.838Z"
+      "UpdateTime": "2024-08-01T00:28:12.84Z"
     },
     {
       "Id": "spawntable24default",
@@ -1557,8 +1534,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.555Z",
-      "CreateTime": "2024-02-15T23:06:19.845Z"
+      "UpdateTime": "2024-08-01T00:28:12.842Z"
     },
     {
       "Id": "spawntable25default",
@@ -1654,8 +1630,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.558Z",
-      "CreateTime": "2024-02-15T23:06:19.859Z"
+      "UpdateTime": "2024-08-01T00:28:12.845Z"
     },
     {
       "Id": "spawntable26default",
@@ -1703,8 +1678,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.563Z",
-      "CreateTime": "2024-02-15T23:06:19.878Z"
+      "UpdateTime": "2024-08-01T00:28:12.848Z"
     },
     {
       "Id": "spawntable27default",
@@ -1766,8 +1740,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.566Z",
-      "CreateTime": "2024-02-15T23:06:19.888Z"
+      "UpdateTime": "2024-08-01T00:28:12.85Z"
     },
     {
       "Id": "spawntable28default",
@@ -1822,8 +1795,7 @@
         }
       ],
       "Art": "",
-      "UpdateTime": "2024-06-29T14:10:35.569Z",
-      "CreateTime": "2024-02-15T23:06:19.895Z"
+      "UpdateTime": "2024-08-01T00:28:12.853Z"
     }
   ],
   "ParentObj": {
@@ -1831,8 +1803,7 @@
     "MapSpawnChance": 1.0,
     "MonsterLootSpawnTableId": 1,
     "Name": "SpawnSettings",
-    "UpdateTime": "2024-07-04T23:03:06.324Z",
-    "CreateTime": "2023-12-24T05:13:14Z"
+    "UpdateTime": "2024-08-01T00:28:12.31Z"
   },
   "Id": "default"
 }

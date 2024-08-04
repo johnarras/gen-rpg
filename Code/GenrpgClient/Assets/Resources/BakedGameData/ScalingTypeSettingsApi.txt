@@ -21,8 +21,7 @@
         }
       ],
       "ArmorPct": 100,
-      "UpdateTime": "2024-06-29T14:10:35.001Z",
-      "CreateTime": "2024-01-28T02:15:19.619Z"
+      "UpdateTime": "2024-08-01T00:28:11.361Z"
     },
     {
       "Id": "scalingtype2default",
@@ -45,8 +44,7 @@
         }
       ],
       "ArmorPct": 200,
-      "UpdateTime": "2024-06-29T14:10:35.005Z",
-      "CreateTime": "2024-02-03T21:40:49.658Z"
+      "UpdateTime": "2024-08-01T00:28:11.365Z"
     },
     {
       "Id": "scalingtype3default",
@@ -69,8 +67,7 @@
         }
       ],
       "ArmorPct": 300,
-      "UpdateTime": "2024-06-29T14:10:35.01Z",
-      "CreateTime": "2024-02-03T21:40:49.651Z"
+      "UpdateTime": "2024-08-01T00:28:11.368Z"
     },
     {
       "Id": "scalingtype4default",
@@ -93,8 +90,7 @@
         }
       ],
       "ArmorPct": 400,
-      "UpdateTime": "2024-06-29T14:10:35.015Z",
-      "CreateTime": "2024-02-03T21:40:49.655Z"
+      "UpdateTime": "2024-08-01T00:28:11.37Z"
     },
     {
       "Id": "scalingtype5default",
@@ -117,8 +113,7 @@
         }
       ],
       "ArmorPct": 100,
-      "UpdateTime": "2024-06-29T14:10:35.024Z",
-      "CreateTime": "2024-02-03T21:40:49.66Z"
+      "UpdateTime": "2024-08-01T00:28:11.372Z"
     },
     {
       "Id": "scalingtype6default",
@@ -141,15 +136,13 @@
         }
       ],
       "ArmorPct": 100,
-      "UpdateTime": "2024-06-29T14:10:35.032Z",
-      "CreateTime": "2024-02-03T21:40:49.663Z"
+      "UpdateTime": "2024-08-01T00:28:11.375Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ScalingTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.299Z",
-    "CreateTime": "2023-12-25T05:13:14Z"
+    "UpdateTime": "2024-08-01T00:28:11.377Z"
   },
   "Id": "default"
 }

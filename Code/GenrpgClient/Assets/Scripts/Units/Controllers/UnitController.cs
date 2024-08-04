@@ -46,6 +46,12 @@ public class UnitController : BaseBehaviour
         return _unit;
     }
 
+    protected bool _shouldRemoveNow = false;
+    public virtual bool ShouldRemoveNow()
+    {
+        return _shouldRemoveNow;
+    }
+
     public string GetUnitId()
     {
         return _unit.Id ?? null;

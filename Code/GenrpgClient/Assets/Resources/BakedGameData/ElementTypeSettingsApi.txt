@@ -13,8 +13,7 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-06-29T14:10:31.736Z",
-      "CreateTime": "2024-01-27T20:32:45.362Z"
+      "UpdateTime": "2024-08-01T00:28:06.507Z"
     },
     {
       "Id": "elementtype1default",
@@ -30,8 +29,7 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-06-29T14:10:31.747Z",
-      "CreateTime": "2024-01-27T20:32:45.369Z"
+      "UpdateTime": "2024-08-01T00:28:06.51Z"
     },
     {
       "Id": "elementtype2default",
@@ -48,8 +46,7 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-06-29T14:10:31.753Z",
-      "CreateTime": "2024-01-27T20:32:45.372Z"
+      "UpdateTime": "2024-08-01T00:28:06.513Z"
     },
     {
       "Id": "elementtype3default",
@@ -78,8 +75,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:31.76Z",
-      "CreateTime": "2024-01-28T02:32:45Z"
+      "UpdateTime": "2024-08-01T00:28:06.515Z"
     },
     {
       "Id": "elementtype4default",
@@ -108,8 +104,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:31.784Z",
-      "CreateTime": "2024-01-28T02:32:45Z"
+      "UpdateTime": "2024-08-01T00:28:06.519Z"
     },
     {
       "Id": "elementtype5default",
@@ -126,8 +121,7 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-06-29T14:10:31.787Z",
-      "CreateTime": "2024-01-27T20:32:45.38Z"
+      "UpdateTime": "2024-08-01T00:28:06.522Z"
     },
     {
       "Id": "elementtype6default",
@@ -144,8 +138,7 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-06-29T14:10:31.789Z",
-      "CreateTime": "2024-01-27T20:32:45.383Z"
+      "UpdateTime": "2024-08-01T00:28:06.526Z"
     },
     {
       "Id": "elementtype7default",
@@ -162,8 +155,7 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-06-29T14:10:31.792Z",
-      "CreateTime": "2024-01-27T20:32:45.386Z"
+      "UpdateTime": "2024-08-01T00:28:06.529Z"
     },
     {
       "Id": "elementtype8default",
@@ -180,8 +172,7 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-06-29T14:10:31.794Z",
-      "CreateTime": "2024-01-27T20:32:45.389Z"
+      "UpdateTime": "2024-08-01T00:28:06.531Z"
     },
     {
       "Id": "elementtype9default",
@@ -198,15 +189,13 @@
       "BuffEffects": [],
       "DebuffEffects": [],
       "Procs": [],
-      "UpdateTime": "2024-06-29T14:10:31.812Z",
-      "CreateTime": "2024-01-27T20:32:45.362Z"
+      "UpdateTime": "2024-08-01T00:28:06.534Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ElementTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.151Z",
-    "CreateTime": "2023-11-27T04:45:23Z"
+    "UpdateTime": "2024-08-01T00:28:06.537Z"
   },
   "Id": "default"
 }

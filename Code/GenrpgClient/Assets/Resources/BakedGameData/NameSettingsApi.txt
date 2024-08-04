@@ -17,8 +17,7 @@
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:33.908Z",
-      "CreateTime": "2023-11-24T16:45:56.124Z"
+      "UpdateTime": "2024-08-01T00:28:08.975Z"
     },
     {
       "Id": "namelist058cf97c-5c8a-4325-9f3e-ad2a2e1f7a83default",
@@ -187,78 +186,7 @@
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:33.912Z",
-      "CreateTime": "2023-11-24T16:45:56.35Z"
-    },
-    {
-      "Id": "namelist07678ca6-b987-417a-a74c-e526aac70125default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "DesertHerbPrefix",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Burn",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Day",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Desert",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dry",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Mirage",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Noon",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Parch",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sand",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sear",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Silt",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Storm",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sun",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.915Z",
-      "CreateTime": "2023-11-24T16:45:56.47Z"
+      "UpdateTime": "2024-08-01T00:28:08.981Z"
     },
     {
       "Id": "namelist07a93444-ac28-475d-b43b-df12bca57092default",
@@ -377,1086 +305,76 @@
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:33.917Z",
-      "CreateTime": "2023-11-24T16:45:56.579Z"
+      "UpdateTime": "2024-08-01T00:28:08.986Z"
     },
     {
-      "Id": "namelist096636bf-0511-448d-8082-c5e16edda848default",
+      "Id": "namelist07678ca6-b987-417a-a74c-e526aac70125default",
       "ParentId": "default",
       "Name": "NameList",
-      "ListName": "GemLevel",
-      "Names": [
-        {
-          "Weight": 9.0,
-          "Name": "Sliver of",
-          "Desc": ""
-        },
-        {
-          "Weight": 19.0,
-          "Name": "Tiny",
-          "Desc": ""
-        },
-        {
-          "Weight": 29.0,
-          "Name": "Small",
-          "Desc": ""
-        },
-        {
-          "Weight": 39.0,
-          "Name": "Medium",
-          "Desc": ""
-        },
-        {
-          "Weight": 49.0,
-          "Name": "Large",
-          "Desc": ""
-        },
-        {
-          "Weight": 59.0,
-          "Name": "Huge",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.92Z",
-      "CreateTime": "2023-11-24T16:45:56.71Z"
-    },
-    {
-      "Id": "namelist0a00b0a4-460c-40c6-8599-46ba945ac88adefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "ClothLevel",
-      "Names": [
-        {
-          "Weight": 5.0,
-          "Name": "Linen",
-          "Desc": ""
-        },
-        {
-          "Weight": 15.0,
-          "Name": "Flax",
-          "Desc": ""
-        },
-        {
-          "Weight": 25.0,
-          "Name": "Hemp",
-          "Desc": ""
-        },
-        {
-          "Weight": 35.0,
-          "Name": "Wool",
-          "Desc": ""
-        },
-        {
-          "Weight": 45.0,
-          "Name": "Cotton",
-          "Desc": ""
-        },
-        {
-          "Weight": 55.0,
-          "Name": "Silk",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.922Z",
-      "CreateTime": "2023-11-24T16:45:56.821Z"
-    },
-    {
-      "Id": "namelist0c093b8a-68a6-427b-ac5d-d5800c012bfbdefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "ZoneNamePrefix",
+      "ListName": "DesertHerbPrefix",
       "Names": [
         {
           "Weight": 1000.0,
-          "Name": "Ancient",
+          "Name": "Burn",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Breeze",
+          "Name": "Day",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Crow",
+          "Name": "Desert",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Crying",
+          "Name": "Dry",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Cursed",
+          "Name": "Mirage",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Dawn",
+          "Name": "Noon",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Desolate",
+          "Name": "Parch",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Dreadful",
+          "Name": "Sand",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Dusk",
+          "Name": "Sear",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Dust",
+          "Name": "Silt",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Eagle",
+          "Name": "Storm",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "East",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Eastern",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Fallen",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Forbidden",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Forgotten",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Great",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Haunted",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Hawk",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "High",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Lost",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Low",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Lower",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Midnight",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Misty",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Night",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "North",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Northern",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Old",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Ominous",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Raven",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Scarlet",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Screaming",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shadowed",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shadowy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sorrowful",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "South",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Southern",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sunrise",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sunset",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Twilight",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Upper",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Wailing",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Weeping",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "West",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Western",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Wind",
+          "Name": "Sun",
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:33.925Z",
-      "CreateTime": "2023-11-24T16:45:56.95Z"
-    },
-    {
-      "Id": "namelist104fa290-3a9c-4dd6-98f5-8c97fb416a1fdefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "CreatureShellNames",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Broken",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Cracked",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Damaged",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Hard",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Hardened",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Heavy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Solid",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Spiked",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Tough",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Toughened",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.927Z",
-      "CreateTime": "2023-11-24T16:45:57.059Z"
-    },
-    {
-      "Id": "namelist116d6533-c36a-40e2-a879-9e10936e6b8ddefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "IceHerbPrefix",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Arctic",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Chill",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Cold",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Freeze",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Frost",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Glacier",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Ice",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Polar",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Rime",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Snow",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "White",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.93Z",
-      "CreateTime": "2023-11-24T16:45:57.171Z"
-    },
-    {
-      "Id": "namelist170cc3a1-9f95-4b9b-bb8d-f4edcd551ccedefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "CreatureFurColors",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Black",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Brown",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dark",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dusky",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Gray",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Grey",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Mangy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Mottled",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Night",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Patchy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Ragged",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Red",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sandy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shadowy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shaggy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Tan",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "White",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.932Z",
-      "CreateTime": "2023-11-24T16:45:57.281Z"
-    },
-    {
-      "Id": "namelist194b5bad-49f7-4528-89a6-a906b1dcb5d0default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "MagicQuality",
-      "Names": [
-        {
-          "Weight": 100.0,
-          "Name": "Essence",
-          "Desc": ""
-        },
-        {
-          "Weight": 150.0,
-          "Name": "Dust",
-          "Desc": ""
-        },
-        {
-          "Weight": 200.0,
-          "Name": "Shard",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.934Z",
-      "CreateTime": "2023-11-24T16:45:57.392Z"
-    },
-    {
-      "Id": "namelist1baed83f-d929-4784-96b0-331497ec62b6default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "PreciousQuality",
-      "Names": [
-        {
-          "Weight": 100.0,
-          "Name": "",
-          "Desc": ""
-        },
-        {
-          "Weight": 150.0,
-          "Name": "Shimmering",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.937Z",
-      "CreateTime": "2023-11-24T16:45:57.531Z"
-    },
-    {
-      "Id": "namelist28371593-daa7-44bb-b88e-82b4643860f3default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "FireHerbPrefix",
-      "Names": [],
-      "UpdateTime": "2024-06-29T14:10:33.943Z",
-      "CreateTime": "2023-11-24T16:45:57.66Z"
-    },
-    {
-      "Id": "namelist302ea2fb-079e-4cd1-9920-13649f697364default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "BodySilkWords",
-      "Names": [
-        {
-          "Weight": 6.0,
-          "Name": "Ruined",
-          "Desc": ""
-        },
-        {
-          "Weight": 12.0,
-          "Name": "Thick",
-          "Desc": ""
-        },
-        {
-          "Weight": 18.0,
-          "Name": "Tangled",
-          "Desc": ""
-        },
-        {
-          "Weight": 24.0,
-          "Name": "Messy",
-          "Desc": ""
-        },
-        {
-          "Weight": 30.0,
-          "Name": "Coarse",
-          "Desc": ""
-        },
-        {
-          "Weight": 36.0,
-          "Name": "Fibrous",
-          "Desc": ""
-        },
-        {
-          "Weight": 42.0,
-          "Name": "Heavy",
-          "Desc": ""
-        },
-        {
-          "Weight": 48.0,
-          "Name": "Medium",
-          "Desc": ""
-        },
-        {
-          "Weight": 54.0,
-          "Name": "Light",
-          "Desc": ""
-        },
-        {
-          "Weight": 60.0,
-          "Name": "Thin",
-          "Desc": ""
-        },
-        {
-          "Weight": 66.0,
-          "Name": "Delicate",
-          "Desc": ""
-        },
-        {
-          "Weight": 72.0,
-          "Name": "Gauzy",
-          "Desc": ""
-        },
-        {
-          "Weight": 78.0,
-          "Name": "Sheer",
-          "Desc": ""
-        },
-        {
-          "Weight": 84.0,
-          "Name": "Translucent",
-          "Desc": ""
-        },
-        {
-          "Weight": 90.0,
-          "Name": "Diaphanous",
-          "Desc": ""
-        },
-        {
-          "Weight": 96.0,
-          "Name": "Transparent",
-          "Desc": ""
-        },
-        {
-          "Weight": 102.0,
-          "Name": "Gossamer",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.946Z",
-      "CreateTime": "2023-11-24T16:45:57.775Z"
-    },
-    {
-      "Id": "namelist36ab87de-489b-4a65-a4fe-3cce37e7c3e8default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "HerbSuffix",
-      "Names": [
-        {
-          "Weight": 100.0,
-          "Name": "Aloe",
-          "Desc": "Separate"
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Bane",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Blood",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Bloom",
-          "Desc": ""
-        },
-        {
-          "Weight": 500.0,
-          "Name": "Blossom",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Bramble",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Briar",
-          "Desc": ""
-        },
-        {
-          "Weight": 100.0,
-          "Name": "Bud",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Bush",
-          "Desc": ""
-        },
-        {
-          "Weight": 200.0,
-          "Name": "Cap",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Clover",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Flower",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Grass",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Leaf",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Lichen",
-          "Desc": "Separate"
-        },
-        {
-          "Weight": 200.0,
-          "Name": "Lily",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Lotus",
-          "Desc": ""
-        },
-        {
-          "Weight": 100.0,
-          "Name": "Moss",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Mushroom",
-          "Desc": "Separate"
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Petal",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Root",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Rose",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sage",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shoot",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sprout",
-          "Desc": ""
-        },
-        {
-          "Weight": 100.0,
-          "Name": "Thistle",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Thorn",
-          "Desc": ""
-        },
-        {
-          "Weight": 100.0,
-          "Name": "Veil",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Vine",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Weed",
-          "Desc": ""
-        },
-        {
-          "Weight": 200.0,
-          "Name": "Wort",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.949Z",
-      "CreateTime": "2023-11-24T16:45:57.901Z"
-    },
-    {
-      "Id": "namelist3b0dedfd-d05f-445f-858b-43b1d7fc2433default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "HillHerbPrefix",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Chill",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Cliff",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Crag",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Highland",
-          "Desc": "Separate"
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Hill",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Knoll",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Mountain",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Peak",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Rock",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Slope",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Stone",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Wild",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.951Z",
-      "CreateTime": "2023-11-24T16:45:58.017Z"
-    },
-    {
-      "Id": "namelist412a661d-351c-4a56-b064-d4c3c6ba509ddefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "BushHerbPrefix",
-      "Names": [],
-      "UpdateTime": "2024-06-29T14:10:33.954Z",
-      "CreateTime": "2023-11-24T16:45:58.13Z"
-    },
-    {
-      "Id": "namelist467371b4-edc4-4a90-a223-c599c3e2b2d2default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "ElementQuality",
-      "Names": [
-        {
-          "Weight": 100.0,
-          "Name": "",
-          "Desc": ""
-        },
-        {
-          "Weight": 150.0,
-          "Name": "Pure",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.956Z",
-      "CreateTime": "2023-11-24T16:45:58.24Z"
-    },
-    {
-      "Id": "namelist6d8e48ee-4125-4378-b216-60e23f4a60b2default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "CreatureBugColors",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Black",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Blue",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Brown",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dark",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Gray",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Green",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Grey",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Mottled",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Night",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Orange",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Red",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Ridged",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sandy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Scintillating",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shadowy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shimmering",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Spotted",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Striped",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Tan",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Translucent",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Transparent",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "White",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:33.958Z",
-      "CreateTime": "2023-11-24T16:45:58.351Z"
+      "UpdateTime": "2024-08-01T00:28:08.984Z"
     },
     {
       "Id": "namelist6da70cc0-1b90-4854-b564-5526d47b5b93default",
@@ -2450,106 +1368,304 @@
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:33.967Z",
-      "CreateTime": "2023-11-24T16:45:58.464Z"
+      "UpdateTime": "2024-08-01T00:28:09.513Z"
     },
     {
-      "Id": "namelist70247539-aa21-4d2e-b744-a80d7c130335default",
+      "Id": "namelist116d6533-c36a-40e2-a879-9e10936e6b8ddefault",
       "ParentId": "default",
       "Name": "NameList",
-      "ListName": "SwampHerbPrefix",
-      "Names": [],
-      "UpdateTime": "2024-06-29T14:10:33.969Z",
-      "CreateTime": "2023-11-24T16:45:58.621Z"
-    },
-    {
-      "Id": "namelist711c59f3-f760-4f03-906d-9cc85d58e4dadefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "BodyThickWords",
+      "ListName": "IceHerbPrefix",
       "Names": [
         {
-          "Weight": 7.0,
-          "Name": "Cracked",
+          "Weight": 1000.0,
+          "Name": "Arctic",
           "Desc": ""
         },
         {
-          "Weight": 14.0,
-          "Name": "Delicate",
+          "Weight": 1000.0,
+          "Name": "Chill",
           "Desc": ""
         },
         {
-          "Weight": 21.0,
-          "Name": "Damaged",
+          "Weight": 1000.0,
+          "Name": "Cold",
           "Desc": ""
         },
         {
-          "Weight": 28.0,
-          "Name": "Broken",
+          "Weight": 1000.0,
+          "Name": "Freeze",
           "Desc": ""
         },
         {
-          "Weight": 35.0,
-          "Name": "Thin",
+          "Weight": 1000.0,
+          "Name": "Frost",
           "Desc": ""
         },
         {
-          "Weight": 42.0,
-          "Name": "Medium",
+          "Weight": 1000.0,
+          "Name": "Glacier",
           "Desc": ""
         },
         {
-          "Weight": 49.0,
-          "Name": "Heavy",
+          "Weight": 1000.0,
+          "Name": "Ice",
           "Desc": ""
         },
         {
-          "Weight": 56.0,
-          "Name": "Thick",
+          "Weight": 1000.0,
+          "Name": "Polar",
           "Desc": ""
         },
         {
-          "Weight": 63.0,
-          "Name": "Sturdy",
+          "Weight": 1000.0,
+          "Name": "Rime",
           "Desc": ""
         },
         {
-          "Weight": 70.0,
-          "Name": "Rugged",
+          "Weight": 1000.0,
+          "Name": "Snow",
           "Desc": ""
         },
         {
-          "Weight": 77.0,
-          "Name": "Strong",
-          "Desc": ""
-        },
-        {
-          "Weight": 84.0,
-          "Name": "Tough",
-          "Desc": ""
-        },
-        {
-          "Weight": 91.0,
-          "Name": "Solid",
-          "Desc": ""
-        },
-        {
-          "Weight": 98.0,
-          "Name": "Reinforced",
+          "Weight": 1000.0,
+          "Name": "White",
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:33.978Z",
-      "CreateTime": "2023-11-24T16:45:58.731Z"
+      "UpdateTime": "2024-08-01T00:28:09.002Z"
     },
     {
-      "Id": "namelist76851eee-ffb1-4068-bd7d-21d58d718885default",
+      "Id": "namelist3b0dedfd-d05f-445f-858b-43b1d7fc2433default",
       "ParentId": "default",
       "Name": "NameList",
-      "ListName": "BuildingHerbPrefix",
-      "Names": [],
-      "UpdateTime": "2024-06-29T14:10:33.987Z",
-      "CreateTime": "2023-11-24T16:45:58.84Z"
+      "ListName": "HillHerbPrefix",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Chill",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cliff",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Crag",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Highland",
+          "Desc": "Separate"
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hill",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Knoll",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Mountain",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Peak",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Rock",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Slope",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Stone",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wild",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.02Z"
+    },
+    {
+      "Id": "namelist36ab87de-489b-4a65-a4fe-3cce37e7c3e8default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "HerbSuffix",
+      "Names": [
+        {
+          "Weight": 100.0,
+          "Name": "Aloe",
+          "Desc": "Separate"
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bane",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Blood",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bloom",
+          "Desc": ""
+        },
+        {
+          "Weight": 500.0,
+          "Name": "Blossom",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bramble",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Briar",
+          "Desc": ""
+        },
+        {
+          "Weight": 100.0,
+          "Name": "Bud",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bush",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Cap",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Clover",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Flower",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Grass",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Leaf",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lichen",
+          "Desc": "Separate"
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Lily",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lotus",
+          "Desc": ""
+        },
+        {
+          "Weight": 100.0,
+          "Name": "Moss",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Mushroom",
+          "Desc": "Separate"
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Petal",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Root",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Rose",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sage",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shoot",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sprout",
+          "Desc": ""
+        },
+        {
+          "Weight": 100.0,
+          "Name": "Thistle",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Thorn",
+          "Desc": ""
+        },
+        {
+          "Weight": 100.0,
+          "Name": "Veil",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Vine",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Weed",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Wort",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.018Z"
     },
     {
       "Id": "namelist775e6075-0a26-4892-92b7-124d888b949ddefault",
@@ -2583,818 +1699,7 @@
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:33.996Z",
-      "CreateTime": "2023-11-24T16:45:58.95Z"
-    },
-    {
-      "Id": "namelist78e1ce5f-0e52-4a08-913f-8a2c6e51dcccdefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "BloodQuality",
-      "Names": [
-        {
-          "Weight": 100.0,
-          "Name": "Fetid",
-          "Desc": ""
-        },
-        {
-          "Weight": 150.0,
-          "Name": "Purified",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.004Z",
-      "CreateTime": "2023-11-24T16:45:59.06Z"
-    },
-    {
-      "Id": "namelist79b499dc-9f3c-4f06-887d-47824cee1e56default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "CreatureReptileNames",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Cold",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Diseased",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Festering",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Fetid",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Ridged",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Scaled",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Scaly",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Tough",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Vicious",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Water",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.006Z",
-      "CreateTime": "2023-11-24T16:45:59.17Z"
-    },
-    {
-      "Id": "namelist79c60f5c-bda5-417d-8d2b-7c665b266b59default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "ElementLevel",
-      "Names": [
-        {
-          "Weight": 6.0,
-          "Name": "Speck of",
-          "Desc": ""
-        },
-        {
-          "Weight": 16.0,
-          "Name": "Shard of",
-          "Desc": ""
-        },
-        {
-          "Weight": 26.0,
-          "Name": "Essence of",
-          "Desc": ""
-        },
-        {
-          "Weight": 36.0,
-          "Name": "Piece of",
-          "Desc": ""
-        },
-        {
-          "Weight": 46.0,
-          "Name": "Glimmering",
-          "Desc": ""
-        },
-        {
-          "Weight": 56.0,
-          "Name": "Elemental",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.008Z",
-      "CreateTime": "2023-11-24T16:45:59.28Z"
-    },
-    {
-      "Id": "namelist7c7edbfb-d923-452d-82e7-441b66bc77b3default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "PreciousLevel",
-      "Names": [
-        {
-          "Weight": 15.0,
-          "Name": "Silver",
-          "Desc": ""
-        },
-        {
-          "Weight": 35.0,
-          "Name": "Electrum",
-          "Desc": ""
-        },
-        {
-          "Weight": 55.0,
-          "Name": "Gold",
-          "Desc": ""
-        },
-        {
-          "Weight": 75.0,
-          "Name": "Platinum",
-          "Desc": ""
-        },
-        {
-          "Weight": 95.0,
-          "Name": "Starshimmer",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.019Z",
-      "CreateTime": "2023-11-24T16:45:59.389Z"
-    },
-    {
-      "Id": "namelist7cec97c9-bd90-4c0b-9fa9-a5d5990e11b5default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "ItemDoublePrefix",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Azure",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Battle",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Bear",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Beast",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Black",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Blood",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Blue",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Bone",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Cloud",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Cold",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Crow",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dark",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dawn",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Day",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Death",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Demon",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Drake",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dread",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dusk",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dwarf",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Eagle",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Earth",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Ebon",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Elf",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Ever",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Falcon",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Feral",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Fire",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Ghost",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Giant",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Gnome",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Gold",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Gray",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Green",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Grim",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Hate",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Hawk",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Heart",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Hearth",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Holy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Ice",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Iron",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Lich",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Light",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Lightning",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Long",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Mage",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Mist",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Moon",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Night",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Oak",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Oath",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Orc",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Owl",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Pain",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Raven",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Red",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Rock",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shadow",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shock",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Short",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Silver",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Skull",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sky",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Star",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Steel",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Stone",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Storm",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Stout",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sun",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Tall",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Thunder",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Vile",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "War",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Whisper",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "White",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Wild",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Wind",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Wolf",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Wyrm",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.032Z",
-      "CreateTime": "2023-11-24T16:45:59.503Z"
-    },
-    {
-      "Id": "namelist7eaaafc2-c437-4fa5-a4b9-ab04d656b385default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "TreeHerbPrefix",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Bark",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Branch",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Green",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Leaf",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shade",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shadow",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Tree",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.04Z",
-      "CreateTime": "2023-11-24T16:45:59.624Z"
-    },
-    {
-      "Id": "namelist7f816b07-f34e-4436-b11a-535144e8e148default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "BodyEyeWords",
-      "Names": [
-        {
-          "Weight": 5.0,
-          "Name": "Shriveled",
-          "Desc": ""
-        },
-        {
-          "Weight": 10.0,
-          "Name": "Squishy",
-          "Desc": ""
-        },
-        {
-          "Weight": 15.0,
-          "Name": "Punctured",
-          "Desc": ""
-        },
-        {
-          "Weight": 20.0,
-          "Name": "Dried",
-          "Desc": ""
-        },
-        {
-          "Weight": 25.0,
-          "Name": "Cloudy",
-          "Desc": ""
-        },
-        {
-          "Weight": 30.0,
-          "Name": "Damaged",
-          "Desc": ""
-        },
-        {
-          "Weight": 35.0,
-          "Name": "Dented",
-          "Desc": ""
-        },
-        {
-          "Weight": 40.0,
-          "Name": "Leaky",
-          "Desc": ""
-        },
-        {
-          "Weight": 45.0,
-          "Name": "Dull",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Lifeless",
-          "Desc": ""
-        },
-        {
-          "Weight": 55.0,
-          "Name": "Clear",
-          "Desc": ""
-        },
-        {
-          "Weight": 60.0,
-          "Name": "Bright",
-          "Desc": ""
-        },
-        {
-          "Weight": 65.0,
-          "Name": "Fresh",
-          "Desc": ""
-        },
-        {
-          "Weight": 70.0,
-          "Name": "Preserved",
-          "Desc": ""
-        },
-        {
-          "Weight": 75.0,
-          "Name": "Beautiful",
-          "Desc": ""
-        },
-        {
-          "Weight": 80.0,
-          "Name": "Perfect",
-          "Desc": ""
-        },
-        {
-          "Weight": 85.0,
-          "Name": "Shimmering",
-          "Desc": ""
-        },
-        {
-          "Weight": 90.0,
-          "Name": "Glowing",
-          "Desc": ""
-        },
-        {
-          "Weight": 95.0,
-          "Name": "Iridescent",
-          "Desc": ""
-        },
-        {
-          "Weight": 100.0,
-          "Name": "Dragon",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.048Z",
-      "CreateTime": "2023-11-24T16:45:59.732Z"
-    },
-    {
-      "Id": "namelist85785610-3da2-410b-a667-025851841cc1default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "ZoneNameSuffix",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Breeze",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Desolation",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Doom",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dust",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Fear",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Hate",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Misery",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Pain",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Screams",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sorrows",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "the Ancients",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Wind",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.054Z",
-      "CreateTime": "2023-11-24T16:45:59.84Z"
-    },
-    {
-      "Id": "namelist87348995-926d-4bc0-894a-eb83715c43e1default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "ClothQuality",
-      "Names": [
-        {
-          "Weight": 100.0,
-          "Name": "",
-          "Desc": ""
-        },
-        {
-          "Weight": 150.0,
-          "Name": "Imbued",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.063Z",
-      "CreateTime": "2023-11-24T16:45:59.951Z"
+      "UpdateTime": "2024-08-01T00:28:09.523Z"
     },
     {
       "Id": "namelist8afd1814-018e-4a12-ab89-be9955b76d35default",
@@ -3483,368 +1788,7 @@
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:34.073Z",
-      "CreateTime": "2023-11-24T16:46:00.062Z"
-    },
-    {
-      "Id": "namelist9091d98d-607e-4bec-b76e-272cee6b187fdefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "CreatureFurNames",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Angry",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Diseased",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Drooling",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Growling",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Rabid",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Shaggy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sinewy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Slobbering",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Snarling",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Vicious",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.082Z",
-      "CreateTime": "2023-11-24T16:46:00.17Z"
-    },
-    {
-      "Id": "namelist96a5196e-a614-4283-99b4-0e682e0c6845default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "BodyGrossWords",
-      "Names": [
-        {
-          "Weight": 50.0,
-          "Name": "Icky",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Old",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Infested",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Repulsive",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Nasty",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Foul",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Sickening",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Putrid",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Vile",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Abhorrent",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Disgusting",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Gross",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Smelly",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Stinky",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Tainted",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Spoiled",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Fetid",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Rancid",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Reeking",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Rank",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Decayed",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Rotten",
-          "Desc": ""
-        },
-        {
-          "Weight": 40.0,
-          "Name": "Ruined",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.085Z",
-      "CreateTime": "2023-11-24T16:46:00.289Z"
-    },
-    {
-      "Id": "namelista12414c3-c5fd-4830-bf41-8acccfbd2accdefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "CreatureOverallNames",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Crafty",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Dire",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Ghostly",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Lumbering",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Primal",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Savage",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Spirit",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Swift",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.089Z",
-      "CreateTime": "2023-11-24T16:46:00.413Z"
-    },
-    {
-      "Id": "namelista225c810-a0df-43af-b88e-8f4477bd3a97default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "ShoreHerbPrefix",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Glow",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Kelp",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Lake",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Life",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "River",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sea",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Stream",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Water",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.094Z",
-      "CreateTime": "2023-11-24T16:46:00.52Z"
-    },
-    {
-      "Id": "namelista71cd07a-0af3-44ae-b8c5-c46090439ad9default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "CreatureReptileColors",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Brown",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Gray",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Green",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Grey",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Mottled",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Muddy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Olive",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Orange",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Sandy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Spotted",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Tan",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "White",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Yellow",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.099Z",
-      "CreateTime": "2023-11-24T16:46:00.63Z"
+      "UpdateTime": "2024-08-01T00:28:09.547Z"
     },
     {
       "Id": "namelistb17e1a4f-de11-43b4-a8ea-990524e67beedefault",
@@ -4918,48 +2862,1359 @@
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:34.101Z",
-      "CreateTime": "2023-11-24T16:46:00.74Z"
+      "UpdateTime": "2024-08-01T00:28:09.562Z"
     },
     {
-      "Id": "namelistb94db97b-3775-4827-9d94-fd1a99df6262default",
+      "Id": "namelist70247539-aa21-4d2e-b744-a80d7c130335default",
       "ParentId": "default",
       "Name": "NameList",
-      "ListName": "LeatherLevel",
+      "ListName": "SwampHerbPrefix",
+      "Names": [],
+      "UpdateTime": "2024-08-01T00:28:09.516Z"
+    },
+    {
+      "Id": "namelist96a5196e-a614-4283-99b4-0e682e0c6845default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BodyGrossWords",
       "Names": [
         {
-          "Weight": 5.0,
-          "Name": "Strip of",
+          "Weight": 50.0,
+          "Name": "Icky",
           "Desc": ""
         },
         {
-          "Weight": 15.0,
-          "Name": "Thin",
+          "Weight": 50.0,
+          "Name": "Old",
           "Desc": ""
         },
         {
-          "Weight": 25.0,
-          "Name": "Light",
+          "Weight": 50.0,
+          "Name": "Infested",
           "Desc": ""
         },
         {
-          "Weight": 35.0,
-          "Name": "Medium",
+          "Weight": 50.0,
+          "Name": "Repulsive",
           "Desc": ""
         },
         {
-          "Weight": 45.0,
+          "Weight": 50.0,
+          "Name": "Nasty",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Foul",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Sickening",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Putrid",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Vile",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Abhorrent",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Disgusting",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Gross",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Smelly",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Stinky",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Tainted",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Spoiled",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Fetid",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Rancid",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Reeking",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Rank",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Decayed",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Rotten",
+          "Desc": ""
+        },
+        {
+          "Weight": 40.0,
+          "Name": "Ruined",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.552Z"
+    },
+    {
+      "Id": "namelist87348995-926d-4bc0-894a-eb83715c43e1default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "ClothQuality",
+      "Names": [
+        {
+          "Weight": 100.0,
+          "Name": "",
+          "Desc": ""
+        },
+        {
+          "Weight": 150.0,
+          "Name": "Imbued",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.545Z"
+    },
+    {
+      "Id": "namelist1baed83f-d929-4784-96b0-331497ec62b6default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "PreciousQuality",
+      "Names": [
+        {
+          "Weight": 100.0,
+          "Name": "",
+          "Desc": ""
+        },
+        {
+          "Weight": 150.0,
+          "Name": "Shimmering",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.01Z"
+    },
+    {
+      "Id": "namelist79b499dc-9f3c-4f06-887d-47824cee1e56default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "CreatureReptileNames",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Cold",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Diseased",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Festering",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Fetid",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Ridged",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Scaled",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Scaly",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tough",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Vicious",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Water",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.528Z"
+    },
+    {
+      "Id": "namelist302ea2fb-079e-4cd1-9920-13649f697364default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BodySilkWords",
+      "Names": [
+        {
+          "Weight": 6.0,
+          "Name": "Ruined",
+          "Desc": ""
+        },
+        {
+          "Weight": 12.0,
+          "Name": "Thick",
+          "Desc": ""
+        },
+        {
+          "Weight": 18.0,
+          "Name": "Tangled",
+          "Desc": ""
+        },
+        {
+          "Weight": 24.0,
+          "Name": "Messy",
+          "Desc": ""
+        },
+        {
+          "Weight": 30.0,
+          "Name": "Coarse",
+          "Desc": ""
+        },
+        {
+          "Weight": 36.0,
+          "Name": "Fibrous",
+          "Desc": ""
+        },
+        {
+          "Weight": 42.0,
           "Name": "Heavy",
           "Desc": ""
         },
         {
-          "Weight": 55.0,
-          "Name": "Solid",
+          "Weight": 48.0,
+          "Name": "Medium",
+          "Desc": ""
+        },
+        {
+          "Weight": 54.0,
+          "Name": "Light",
+          "Desc": ""
+        },
+        {
+          "Weight": 60.0,
+          "Name": "Thin",
+          "Desc": ""
+        },
+        {
+          "Weight": 66.0,
+          "Name": "Delicate",
+          "Desc": ""
+        },
+        {
+          "Weight": 72.0,
+          "Name": "Gauzy",
+          "Desc": ""
+        },
+        {
+          "Weight": 78.0,
+          "Name": "Sheer",
+          "Desc": ""
+        },
+        {
+          "Weight": 84.0,
+          "Name": "Translucent",
+          "Desc": ""
+        },
+        {
+          "Weight": 90.0,
+          "Name": "Diaphanous",
+          "Desc": ""
+        },
+        {
+          "Weight": 96.0,
+          "Name": "Transparent",
+          "Desc": ""
+        },
+        {
+          "Weight": 102.0,
+          "Name": "Gossamer",
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:34.104Z",
-      "CreateTime": "2023-11-24T16:46:00.86Z"
+      "UpdateTime": "2024-08-01T00:28:09.014Z"
+    },
+    {
+      "Id": "namelist412a661d-351c-4a56-b064-d4c3c6ba509ddefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BushHerbPrefix",
+      "Names": [],
+      "UpdateTime": "2024-08-01T00:28:09.022Z"
+    },
+    {
+      "Id": "namelista225c810-a0df-43af-b88e-8f4477bd3a97default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "ShoreHerbPrefix",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Glow",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Kelp",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lake",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Life",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "River",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sea",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Stream",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Water",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.557Z"
+    },
+    {
+      "Id": "namelist711c59f3-f760-4f03-906d-9cc85d58e4dadefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BodyThickWords",
+      "Names": [
+        {
+          "Weight": 7.0,
+          "Name": "Cracked",
+          "Desc": ""
+        },
+        {
+          "Weight": 14.0,
+          "Name": "Delicate",
+          "Desc": ""
+        },
+        {
+          "Weight": 21.0,
+          "Name": "Damaged",
+          "Desc": ""
+        },
+        {
+          "Weight": 28.0,
+          "Name": "Broken",
+          "Desc": ""
+        },
+        {
+          "Weight": 35.0,
+          "Name": "Thin",
+          "Desc": ""
+        },
+        {
+          "Weight": 42.0,
+          "Name": "Medium",
+          "Desc": ""
+        },
+        {
+          "Weight": 49.0,
+          "Name": "Heavy",
+          "Desc": ""
+        },
+        {
+          "Weight": 56.0,
+          "Name": "Thick",
+          "Desc": ""
+        },
+        {
+          "Weight": 63.0,
+          "Name": "Sturdy",
+          "Desc": ""
+        },
+        {
+          "Weight": 70.0,
+          "Name": "Rugged",
+          "Desc": ""
+        },
+        {
+          "Weight": 77.0,
+          "Name": "Strong",
+          "Desc": ""
+        },
+        {
+          "Weight": 84.0,
+          "Name": "Tough",
+          "Desc": ""
+        },
+        {
+          "Weight": 91.0,
+          "Name": "Solid",
+          "Desc": ""
+        },
+        {
+          "Weight": 98.0,
+          "Name": "Reinforced",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.518Z"
+    },
+    {
+      "Id": "namelist0c093b8a-68a6-427b-ac5d-d5800c012bfbdefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "ZoneNamePrefix",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Ancient",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Breeze",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Crow",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Crying",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cursed",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dawn",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Desolate",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dreadful",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dusk",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dust",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Eagle",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "East",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Eastern",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Fallen",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Forbidden",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Forgotten",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Great",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Haunted",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hawk",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "High",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lost",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Low",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lower",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Midnight",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Misty",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Night",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "North",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Northern",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Old",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Ominous",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Raven",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Scarlet",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Screaming",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shadowed",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shadowy",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sorrowful",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "South",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Southern",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sunrise",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sunset",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Twilight",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Upper",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wailing",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Weeping",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "West",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Western",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wind",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:08.992Z"
+    },
+    {
+      "Id": "namelista71cd07a-0af3-44ae-b8c5-c46090439ad9default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "CreatureReptileColors",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Brown",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Gray",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Green",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Grey",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Mottled",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Muddy",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Olive",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Orange",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sandy",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Spotted",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tan",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "White",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Yellow",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.559Z"
+    },
+    {
+      "Id": "namelist104fa290-3a9c-4dd6-98f5-8c97fb416a1fdefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "CreatureShellNames",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Broken",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cracked",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Damaged",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hard",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hardened",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Heavy",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Solid",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Spiked",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tough",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Toughened",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:08.997Z"
+    },
+    {
+      "Id": "namelist79c60f5c-bda5-417d-8d2b-7c665b266b59default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "ElementLevel",
+      "Names": [
+        {
+          "Weight": 6.0,
+          "Name": "Speck of",
+          "Desc": ""
+        },
+        {
+          "Weight": 16.0,
+          "Name": "Shard of",
+          "Desc": ""
+        },
+        {
+          "Weight": 26.0,
+          "Name": "Essence of",
+          "Desc": ""
+        },
+        {
+          "Weight": 36.0,
+          "Name": "Piece of",
+          "Desc": ""
+        },
+        {
+          "Weight": 46.0,
+          "Name": "Glimmering",
+          "Desc": ""
+        },
+        {
+          "Weight": 56.0,
+          "Name": "Elemental",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.53Z"
+    },
+    {
+      "Id": "namelistddb40261-8089-4640-b896-92402df78416default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "MetalQuality",
+      "Names": [
+        {
+          "Weight": 100.0,
+          "Name": "",
+          "Desc": ""
+        },
+        {
+          "Weight": 150.0,
+          "Name": "Hardened",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.585Z"
+    },
+    {
+      "Id": "namelist7cec97c9-bd90-4c0b-9fa9-a5d5990e11b5default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "ItemDoublePrefix",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Azure",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Battle",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bear",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Beast",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Black",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Blood",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Blue",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Bone",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cloud",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Cold",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Crow",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dark",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dawn",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Day",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Death",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Demon",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Drake",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dread",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dusk",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dwarf",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Eagle",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Earth",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Ebon",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Elf",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Ever",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Falcon",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Feral",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Fire",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Ghost",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Giant",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Gnome",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Gold",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Gray",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Green",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Grim",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hate",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hawk",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Heart",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hearth",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Holy",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Ice",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Iron",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lich",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Light",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lightning",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Long",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Mage",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Mist",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Moon",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Night",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Oak",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Oath",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Orc",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Owl",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pain",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Raven",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Red",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Rock",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shadow",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shock",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Short",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Silver",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Skull",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sky",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Star",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Steel",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Stone",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Storm",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Stout",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sun",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tall",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Thunder",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Vile",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "War",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Whisper",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "White",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wild",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wind",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wolf",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wyrm",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.535Z"
+    },
+    {
+      "Id": "namelista12414c3-c5fd-4830-bf41-8acccfbd2accdefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "CreatureOverallNames",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Crafty",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dire",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Ghostly",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Lumbering",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Primal",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Savage",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Spirit",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Swift",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.554Z"
     },
     {
       "Id": "namelistb96841c6-e483-4b7c-ad18-a1d3aa3febb5default",
@@ -4967,8 +4222,623 @@
       "Name": "NameList",
       "ListName": "RareHerbPrefix",
       "Names": [],
-      "UpdateTime": "2024-06-29T14:10:34.106Z",
-      "CreateTime": "2023-11-24T16:46:00.971Z"
+      "UpdateTime": "2024-08-01T00:28:09.567Z"
+    },
+    {
+      "Id": "namelistfe3550d4-feb8-498f-9061-5ee01b0e9f41default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "CreatureBirdNames",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Downy",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Feathery",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Flapping",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Flustered",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Mean",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pecking",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Squawking",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Vicious",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.602Z"
+    },
+    {
+      "Id": "namelistf268b23e-d949-4967-bad8-d1f9d7f48744default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "CreatureBirdColors",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Black",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Brown",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Gray",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Mottled",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Red",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Striped",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.595Z"
+    },
+    {
+      "Id": "namelist7f816b07-f34e-4436-b11a-535144e8e148default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BodyEyeWords",
+      "Names": [
+        {
+          "Weight": 5.0,
+          "Name": "Shriveled",
+          "Desc": ""
+        },
+        {
+          "Weight": 10.0,
+          "Name": "Squishy",
+          "Desc": ""
+        },
+        {
+          "Weight": 15.0,
+          "Name": "Punctured",
+          "Desc": ""
+        },
+        {
+          "Weight": 20.0,
+          "Name": "Dried",
+          "Desc": ""
+        },
+        {
+          "Weight": 25.0,
+          "Name": "Cloudy",
+          "Desc": ""
+        },
+        {
+          "Weight": 30.0,
+          "Name": "Damaged",
+          "Desc": ""
+        },
+        {
+          "Weight": 35.0,
+          "Name": "Dented",
+          "Desc": ""
+        },
+        {
+          "Weight": 40.0,
+          "Name": "Leaky",
+          "Desc": ""
+        },
+        {
+          "Weight": 45.0,
+          "Name": "Dull",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Lifeless",
+          "Desc": ""
+        },
+        {
+          "Weight": 55.0,
+          "Name": "Clear",
+          "Desc": ""
+        },
+        {
+          "Weight": 60.0,
+          "Name": "Bright",
+          "Desc": ""
+        },
+        {
+          "Weight": 65.0,
+          "Name": "Fresh",
+          "Desc": ""
+        },
+        {
+          "Weight": 70.0,
+          "Name": "Preserved",
+          "Desc": ""
+        },
+        {
+          "Weight": 75.0,
+          "Name": "Beautiful",
+          "Desc": ""
+        },
+        {
+          "Weight": 80.0,
+          "Name": "Perfect",
+          "Desc": ""
+        },
+        {
+          "Weight": 85.0,
+          "Name": "Shimmering",
+          "Desc": ""
+        },
+        {
+          "Weight": 90.0,
+          "Name": "Glowing",
+          "Desc": ""
+        },
+        {
+          "Weight": 95.0,
+          "Name": "Iridescent",
+          "Desc": ""
+        },
+        {
+          "Weight": 100.0,
+          "Name": "Dragon",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.54Z"
+    },
+    {
+      "Id": "namelist85785610-3da2-410b-a667-025851841cc1default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "ZoneNameSuffix",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Breeze",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Desolation",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Doom",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dust",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Fear",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Hate",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Misery",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Pain",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Screams",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sorrows",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "the Ancients",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Wind",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.542Z"
+    },
+    {
+      "Id": "namelist194b5bad-49f7-4528-89a6-a906b1dcb5d0default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "MagicQuality",
+      "Names": [
+        {
+          "Weight": 100.0,
+          "Name": "Essence",
+          "Desc": ""
+        },
+        {
+          "Weight": 150.0,
+          "Name": "Dust",
+          "Desc": ""
+        },
+        {
+          "Weight": 200.0,
+          "Name": "Shard",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.008Z"
+    },
+    {
+      "Id": "namelist78e1ce5f-0e52-4a08-913f-8a2c6e51dcccdefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BloodQuality",
+      "Names": [
+        {
+          "Weight": 100.0,
+          "Name": "Fetid",
+          "Desc": ""
+        },
+        {
+          "Weight": 150.0,
+          "Name": "Purified",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.525Z"
+    },
+    {
+      "Id": "namelisteda1c877-33c2-4386-bc58-57e37e20d25fdefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "CreatureShellColors",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Black",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Blue",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Dark",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Night",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Orange",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Red",
+          "Desc": ""
+        },
+        {
+          "Weight": 3000.0,
+          "Name": "White",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.592Z"
+    },
+    {
+      "Id": "namelistddea97d8-5066-4780-9494-35e310ad92b7default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "GemQuality",
+      "Names": [
+        {
+          "Weight": 100.0,
+          "Name": "",
+          "Desc": ""
+        },
+        {
+          "Weight": 150.0,
+          "Name": "Perfect",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.587Z"
+    },
+    {
+      "Id": "nameliste2a11d74-2483-4659-85a5-c54b214238f7default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BodyBloodWords",
+      "Names": [
+        {
+          "Weight": 8.0,
+          "Name": "Fetid",
+          "Desc": ""
+        },
+        {
+          "Weight": 14.0,
+          "Name": "Turgid",
+          "Desc": ""
+        },
+        {
+          "Weight": 20.0,
+          "Name": "Rancid",
+          "Desc": ""
+        },
+        {
+          "Weight": 26.0,
+          "Name": "Foul",
+          "Desc": ""
+        },
+        {
+          "Weight": 32.0,
+          "Name": "Befouled",
+          "Desc": ""
+        },
+        {
+          "Weight": 38.0,
+          "Name": "Congealed",
+          "Desc": ""
+        },
+        {
+          "Weight": 44.0,
+          "Name": "Viscous",
+          "Desc": ""
+        },
+        {
+          "Weight": 50.0,
+          "Name": "Syrupy",
+          "Desc": ""
+        },
+        {
+          "Weight": 56.0,
+          "Name": "Gooey",
+          "Desc": ""
+        },
+        {
+          "Weight": 62.0,
+          "Name": "Gelatinous",
+          "Desc": ""
+        },
+        {
+          "Weight": 68.0,
+          "Name": "Thickened",
+          "Desc": ""
+        },
+        {
+          "Weight": 74.0,
+          "Name": "Flowing",
+          "Desc": ""
+        },
+        {
+          "Weight": 80.0,
+          "Name": "Thinned",
+          "Desc": ""
+        },
+        {
+          "Weight": 86.0,
+          "Name": "Filtered",
+          "Desc": ""
+        },
+        {
+          "Weight": 92.0,
+          "Name": "Clarified",
+          "Desc": ""
+        },
+        {
+          "Weight": 98.0,
+          "Name": "Purified",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.59Z"
+    },
+    {
+      "Id": "namelist467371b4-edc4-4a90-a223-c599c3e2b2d2default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "ElementQuality",
+      "Names": [
+        {
+          "Weight": 100.0,
+          "Name": "",
+          "Desc": ""
+        },
+        {
+          "Weight": 150.0,
+          "Name": "Pure",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.502Z"
+    },
+    {
+      "Id": "namelist76851eee-ffb1-4068-bd7d-21d58d718885default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BuildingHerbPrefix",
+      "Names": [],
+      "UpdateTime": "2024-08-01T00:28:09.521Z"
+    },
+    {
+      "Id": "namelistfed73492-228d-41ae-90be-9bdf5f434901default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BodyPearlWords",
+      "Names": [
+        {
+          "Weight": 9.0,
+          "Name": "Broken",
+          "Desc": ""
+        },
+        {
+          "Weight": 15.0,
+          "Name": "Cracked",
+          "Desc": ""
+        },
+        {
+          "Weight": 21.0,
+          "Name": "Rough",
+          "Desc": ""
+        },
+        {
+          "Weight": 27.0,
+          "Name": "Dull",
+          "Desc": ""
+        },
+        {
+          "Weight": 33.0,
+          "Name": "Gray",
+          "Desc": ""
+        },
+        {
+          "Weight": 39.0,
+          "Name": "Lustrous",
+          "Desc": ""
+        },
+        {
+          "Weight": 45.0,
+          "Name": "Burnished",
+          "Desc": ""
+        },
+        {
+          "Weight": 51.0,
+          "Name": "Shiny",
+          "Desc": ""
+        },
+        {
+          "Weight": 57.0,
+          "Name": "Glinting",
+          "Desc": ""
+        },
+        {
+          "Weight": 63.0,
+          "Name": "Shimmering",
+          "Desc": ""
+        },
+        {
+          "Weight": 69.0,
+          "Name": "Glowing",
+          "Desc": ""
+        },
+        {
+          "Weight": 75.0,
+          "Name": "Luminescent",
+          "Desc": ""
+        },
+        {
+          "Weight": 81.0,
+          "Name": "Iridescent",
+          "Desc": ""
+        },
+        {
+          "Weight": 87.0,
+          "Name": "Brilliant",
+          "Desc": ""
+        },
+        {
+          "Weight": 93.0,
+          "Name": "Chromatic",
+          "Desc": ""
+        },
+        {
+          "Weight": 99.0,
+          "Name": "Dragonstar",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.605Z"
+    },
+    {
+      "Id": "namelistdba59861-2f94-4b59-a451-3cc147b079d0default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "MetalLevel",
+      "Names": [
+        {
+          "Weight": 5.0,
+          "Name": "Copper",
+          "Desc": ""
+        },
+        {
+          "Weight": 15.0,
+          "Name": "Tin",
+          "Desc": ""
+        },
+        {
+          "Weight": 25.0,
+          "Name": "Iron",
+          "Desc": ""
+        },
+        {
+          "Weight": 35.0,
+          "Name": "Titanium",
+          "Desc": ""
+        },
+        {
+          "Weight": 45.0,
+          "Name": "Mithril",
+          "Desc": ""
+        },
+        {
+          "Weight": 55.0,
+          "Name": "Adamantium",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.582Z"
     },
     {
       "Id": "namelistbe073fff-d25a-4499-acb8-adaf9015daa8default",
@@ -5532,327 +5402,107 @@
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:34.109Z",
-      "CreateTime": "2023-11-24T16:46:01.08Z"
+      "UpdateTime": "2024-08-01T00:28:09.57Z"
     },
     {
-      "Id": "namelistc4e10a0d-ea55-44ff-b359-dfb34233397cdefault",
+      "Id": "namelist170cc3a1-9f95-4b9b-bb8d-f4edcd551ccedefault",
       "ParentId": "default",
       "Name": "NameList",
-      "ListName": "CaveHerbPrefix",
-      "Names": [],
-      "UpdateTime": "2024-06-29T14:10:34.111Z",
-      "CreateTime": "2023-11-24T16:46:01.21Z"
-    },
-    {
-      "Id": "namelistc53e4f6d-9ed8-44d7-a7ce-873bb44e8519default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "CursedHerbPrefix",
-      "Names": [],
-      "UpdateTime": "2024-06-29T14:10:34.114Z",
-      "CreateTime": "2023-11-24T16:46:01.333Z"
-    },
-    {
-      "Id": "namelistc76cd68f-cb7c-4c76-a533-18ee4e4678fbdefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "BodyFeatherWords",
+      "ListName": "CreatureFurColors",
       "Names": [
         {
-          "Weight": 7.0,
-          "Name": "Broken",
+          "Weight": 1000.0,
+          "Name": "Black",
           "Desc": ""
         },
         {
-          "Weight": 12.0,
-          "Name": "Mangled",
+          "Weight": 1000.0,
+          "Name": "Brown",
           "Desc": ""
         },
         {
-          "Weight": 17.0,
-          "Name": "Torn",
+          "Weight": 1000.0,
+          "Name": "Dark",
           "Desc": ""
         },
         {
-          "Weight": 22.0,
-          "Name": "Stripped",
+          "Weight": 1000.0,
+          "Name": "Dusky",
           "Desc": ""
         },
         {
-          "Weight": 27.0,
-          "Name": "Damaged",
+          "Weight": 1000.0,
+          "Name": "Gray",
           "Desc": ""
         },
         {
-          "Weight": 32.0,
-          "Name": "Ruffled",
+          "Weight": 1000.0,
+          "Name": "Grey",
           "Desc": ""
         },
         {
-          "Weight": 37.0,
-          "Name": "Plucked",
+          "Weight": 1000.0,
+          "Name": "Mangy",
           "Desc": ""
         },
         {
-          "Weight": 42.0,
-          "Name": "Light",
+          "Weight": 1000.0,
+          "Name": "Mottled",
           "Desc": ""
         },
         {
-          "Weight": 47.0,
-          "Name": "Downy",
+          "Weight": 1000.0,
+          "Name": "Night",
           "Desc": ""
         },
         {
-          "Weight": 52.0,
-          "Name": "Soft",
+          "Weight": 1000.0,
+          "Name": "Patchy",
           "Desc": ""
         },
         {
-          "Weight": 57.0,
-          "Name": "Colorful",
+          "Weight": 1000.0,
+          "Name": "Ragged",
           "Desc": ""
         },
         {
-          "Weight": 62.0,
-          "Name": "Slender",
+          "Weight": 1000.0,
+          "Name": "Red",
           "Desc": ""
         },
         {
-          "Weight": 67.0,
-          "Name": "Fluffy",
+          "Weight": 1000.0,
+          "Name": "Sandy",
           "Desc": ""
         },
         {
-          "Weight": 72.0,
-          "Name": "Silky",
+          "Weight": 1000.0,
+          "Name": "Shadowy",
           "Desc": ""
         },
         {
-          "Weight": 77.0,
-          "Name": "Smooth",
+          "Weight": 1000.0,
+          "Name": "Shaggy",
           "Desc": ""
         },
         {
-          "Weight": 82.0,
-          "Name": "Fuzzy",
+          "Weight": 1000.0,
+          "Name": "Tan",
           "Desc": ""
         },
         {
-          "Weight": 87.0,
-          "Name": "Delicate",
-          "Desc": ""
-        },
-        {
-          "Weight": 92.0,
-          "Name": "Vibrant",
-          "Desc": ""
-        },
-        {
-          "Weight": 97.0,
-          "Name": "Dragonflight",
+          "Weight": 1000.0,
+          "Name": "White",
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:34.116Z",
-      "CreateTime": "2023-11-24T16:46:01.479Z"
+      "UpdateTime": "2024-08-01T00:28:09.005Z"
     },
     {
-      "Id": "namelistd76d5580-0300-42de-8179-3aba9575a6fddefault",
+      "Id": "namelist6d8e48ee-4125-4378-b216-60e23f4a60b2default",
       "ParentId": "default",
       "Name": "NameList",
-      "ListName": "BodyQuality",
-      "Names": [
-        {
-          "Weight": 100.0,
-          "Name": "",
-          "Desc": ""
-        },
-        {
-          "Weight": 150.0,
-          "Name": "Pristine",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.119Z",
-      "CreateTime": "2023-11-24T16:46:01.59Z"
-    },
-    {
-      "Id": "namelistdba59861-2f94-4b59-a451-3cc147b079d0default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "MetalLevel",
-      "Names": [
-        {
-          "Weight": 5.0,
-          "Name": "Copper",
-          "Desc": ""
-        },
-        {
-          "Weight": 15.0,
-          "Name": "Tin",
-          "Desc": ""
-        },
-        {
-          "Weight": 25.0,
-          "Name": "Iron",
-          "Desc": ""
-        },
-        {
-          "Weight": 35.0,
-          "Name": "Titanium",
-          "Desc": ""
-        },
-        {
-          "Weight": 45.0,
-          "Name": "Mithril",
-          "Desc": ""
-        },
-        {
-          "Weight": 55.0,
-          "Name": "Adamantium",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.121Z",
-      "CreateTime": "2023-11-24T16:46:01.704Z"
-    },
-    {
-      "Id": "namelistddb40261-8089-4640-b896-92402df78416default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "MetalQuality",
-      "Names": [
-        {
-          "Weight": 100.0,
-          "Name": "",
-          "Desc": ""
-        },
-        {
-          "Weight": 150.0,
-          "Name": "Hardened",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.124Z",
-      "CreateTime": "2023-11-24T16:46:01.811Z"
-    },
-    {
-      "Id": "namelistddea97d8-5066-4780-9494-35e310ad92b7default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "GemQuality",
-      "Names": [
-        {
-          "Weight": 100.0,
-          "Name": "",
-          "Desc": ""
-        },
-        {
-          "Weight": 150.0,
-          "Name": "Perfect",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.126Z",
-      "CreateTime": "2023-11-24T16:46:01.92Z"
-    },
-    {
-      "Id": "nameliste2a11d74-2483-4659-85a5-c54b214238f7default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "BodyBloodWords",
-      "Names": [
-        {
-          "Weight": 8.0,
-          "Name": "Fetid",
-          "Desc": ""
-        },
-        {
-          "Weight": 14.0,
-          "Name": "Turgid",
-          "Desc": ""
-        },
-        {
-          "Weight": 20.0,
-          "Name": "Rancid",
-          "Desc": ""
-        },
-        {
-          "Weight": 26.0,
-          "Name": "Foul",
-          "Desc": ""
-        },
-        {
-          "Weight": 32.0,
-          "Name": "Befouled",
-          "Desc": ""
-        },
-        {
-          "Weight": 38.0,
-          "Name": "Congealed",
-          "Desc": ""
-        },
-        {
-          "Weight": 44.0,
-          "Name": "Viscous",
-          "Desc": ""
-        },
-        {
-          "Weight": 50.0,
-          "Name": "Syrupy",
-          "Desc": ""
-        },
-        {
-          "Weight": 56.0,
-          "Name": "Gooey",
-          "Desc": ""
-        },
-        {
-          "Weight": 62.0,
-          "Name": "Gelatinous",
-          "Desc": ""
-        },
-        {
-          "Weight": 68.0,
-          "Name": "Thickened",
-          "Desc": ""
-        },
-        {
-          "Weight": 74.0,
-          "Name": "Flowing",
-          "Desc": ""
-        },
-        {
-          "Weight": 80.0,
-          "Name": "Thinned",
-          "Desc": ""
-        },
-        {
-          "Weight": 86.0,
-          "Name": "Filtered",
-          "Desc": ""
-        },
-        {
-          "Weight": 92.0,
-          "Name": "Clarified",
-          "Desc": ""
-        },
-        {
-          "Weight": 98.0,
-          "Name": "Purified",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.129Z",
-      "CreateTime": "2023-11-24T16:46:02.03Z"
-    },
-    {
-      "Id": "namelisteda1c877-33c2-4386-bc58-57e37e20d25fdefault",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "CreatureShellColors",
+      "ListName": "CreatureBugColors",
       "Names": [
         {
           "Weight": 1000.0,
@@ -5866,7 +5516,32 @@
         },
         {
           "Weight": 1000.0,
+          "Name": "Brown",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
           "Name": "Dark",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Gray",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Green",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Grey",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Mottled",
           "Desc": ""
         },
         {
@@ -5885,53 +5560,181 @@
           "Desc": ""
         },
         {
-          "Weight": 3000.0,
-          "Name": "White",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.131Z",
-      "CreateTime": "2023-11-24T16:46:02.14Z"
-    },
-    {
-      "Id": "namelistf268b23e-d949-4967-bad8-d1f9d7f48744default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "CreatureBirdColors",
-      "Names": [
-        {
           "Weight": 1000.0,
-          "Name": "Black",
+          "Name": "Ridged",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Brown",
+          "Name": "Sandy",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Gray",
+          "Name": "Scintillating",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Mottled",
+          "Name": "Shadowy",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
-          "Name": "Red",
+          "Name": "Shimmering",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Spotted",
           "Desc": ""
         },
         {
           "Weight": 1000.0,
           "Name": "Striped",
           "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tan",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Translucent",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Transparent",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "White",
+          "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:34.134Z",
-      "CreateTime": "2023-11-24T16:46:02.252Z"
+      "UpdateTime": "2024-08-01T00:28:09.51Z"
+    },
+    {
+      "Id": "namelistc4e10a0d-ea55-44ff-b359-dfb34233397cdefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "CaveHerbPrefix",
+      "Names": [],
+      "UpdateTime": "2024-08-01T00:28:09.572Z"
+    },
+    {
+      "Id": "namelistc53e4f6d-9ed8-44d7-a7ce-873bb44e8519default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "CursedHerbPrefix",
+      "Names": [],
+      "UpdateTime": "2024-08-01T00:28:09.575Z"
+    },
+    {
+      "Id": "namelist7eaaafc2-c437-4fa5-a4b9-ab04d656b385default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "TreeHerbPrefix",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Bark",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Branch",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Green",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Leaf",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shade",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shadow",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Tree",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.537Z"
+    },
+    {
+      "Id": "namelist9091d98d-607e-4bec-b76e-272cee6b187fdefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "CreatureFurNames",
+      "Names": [
+        {
+          "Weight": 1000.0,
+          "Name": "Angry",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Diseased",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Drooling",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Growling",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Rabid",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Shaggy",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Sinewy",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Slobbering",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Snarling",
+          "Desc": ""
+        },
+        {
+          "Weight": 1000.0,
+          "Name": "Vicious",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.55Z"
     },
     {
       "Id": "namelistf66e38ae-f3bb-43d3-8a1d-c9b2d045a2d4default",
@@ -6160,8 +5963,211 @@
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:34.142Z",
-      "CreateTime": "2023-11-24T16:46:02.361Z"
+      "UpdateTime": "2024-08-01T00:28:09.597Z"
+    },
+    {
+      "Id": "namelistd76d5580-0300-42de-8179-3aba9575a6fddefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BodyQuality",
+      "Names": [
+        {
+          "Weight": 100.0,
+          "Name": "",
+          "Desc": ""
+        },
+        {
+          "Weight": 150.0,
+          "Name": "Pristine",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.58Z"
+    },
+    {
+      "Id": "namelistc76cd68f-cb7c-4c76-a533-18ee4e4678fbdefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "BodyFeatherWords",
+      "Names": [
+        {
+          "Weight": 7.0,
+          "Name": "Broken",
+          "Desc": ""
+        },
+        {
+          "Weight": 12.0,
+          "Name": "Mangled",
+          "Desc": ""
+        },
+        {
+          "Weight": 17.0,
+          "Name": "Torn",
+          "Desc": ""
+        },
+        {
+          "Weight": 22.0,
+          "Name": "Stripped",
+          "Desc": ""
+        },
+        {
+          "Weight": 27.0,
+          "Name": "Damaged",
+          "Desc": ""
+        },
+        {
+          "Weight": 32.0,
+          "Name": "Ruffled",
+          "Desc": ""
+        },
+        {
+          "Weight": 37.0,
+          "Name": "Plucked",
+          "Desc": ""
+        },
+        {
+          "Weight": 42.0,
+          "Name": "Light",
+          "Desc": ""
+        },
+        {
+          "Weight": 47.0,
+          "Name": "Downy",
+          "Desc": ""
+        },
+        {
+          "Weight": 52.0,
+          "Name": "Soft",
+          "Desc": ""
+        },
+        {
+          "Weight": 57.0,
+          "Name": "Colorful",
+          "Desc": ""
+        },
+        {
+          "Weight": 62.0,
+          "Name": "Slender",
+          "Desc": ""
+        },
+        {
+          "Weight": 67.0,
+          "Name": "Fluffy",
+          "Desc": ""
+        },
+        {
+          "Weight": 72.0,
+          "Name": "Silky",
+          "Desc": ""
+        },
+        {
+          "Weight": 77.0,
+          "Name": "Smooth",
+          "Desc": ""
+        },
+        {
+          "Weight": 82.0,
+          "Name": "Fuzzy",
+          "Desc": ""
+        },
+        {
+          "Weight": 87.0,
+          "Name": "Delicate",
+          "Desc": ""
+        },
+        {
+          "Weight": 92.0,
+          "Name": "Vibrant",
+          "Desc": ""
+        },
+        {
+          "Weight": 97.0,
+          "Name": "Dragonflight",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.577Z"
+    },
+    {
+      "Id": "namelist7c7edbfb-d923-452d-82e7-441b66bc77b3default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "PreciousLevel",
+      "Names": [
+        {
+          "Weight": 15.0,
+          "Name": "Silver",
+          "Desc": ""
+        },
+        {
+          "Weight": 35.0,
+          "Name": "Electrum",
+          "Desc": ""
+        },
+        {
+          "Weight": 55.0,
+          "Name": "Gold",
+          "Desc": ""
+        },
+        {
+          "Weight": 75.0,
+          "Name": "Platinum",
+          "Desc": ""
+        },
+        {
+          "Weight": 95.0,
+          "Name": "Starshimmer",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.533Z"
+    },
+    {
+      "Id": "namelist28371593-daa7-44bb-b88e-82b4643860f3default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "FireHerbPrefix",
+      "Names": [],
+      "UpdateTime": "2024-08-01T00:28:09.012Z"
+    },
+    {
+      "Id": "namelistb94db97b-3775-4827-9d94-fd1a99df6262default",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "LeatherLevel",
+      "Names": [
+        {
+          "Weight": 5.0,
+          "Name": "Strip of",
+          "Desc": ""
+        },
+        {
+          "Weight": 15.0,
+          "Name": "Thin",
+          "Desc": ""
+        },
+        {
+          "Weight": 25.0,
+          "Name": "Light",
+          "Desc": ""
+        },
+        {
+          "Weight": 35.0,
+          "Name": "Medium",
+          "Desc": ""
+        },
+        {
+          "Weight": 45.0,
+          "Name": "Heavy",
+          "Desc": ""
+        },
+        {
+          "Weight": 55.0,
+          "Name": "Solid",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:09.565Z"
     },
     {
       "Id": "namelistf8a355d7-4a42-493a-be34-e897fa0bdba5default",
@@ -6250,155 +6256,91 @@
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:34.155Z",
-      "CreateTime": "2023-11-24T16:46:02.494Z"
+      "UpdateTime": "2024-08-01T00:28:09.6Z"
     },
     {
-      "Id": "namelistfe3550d4-feb8-498f-9061-5ee01b0e9f41default",
+      "Id": "namelist096636bf-0511-448d-8082-c5e16edda848default",
       "ParentId": "default",
       "Name": "NameList",
-      "ListName": "CreatureBirdNames",
-      "Names": [
-        {
-          "Weight": 1000.0,
-          "Name": "Downy",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Feathery",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Flapping",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Flustered",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Mean",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Pecking",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Squawking",
-          "Desc": ""
-        },
-        {
-          "Weight": 1000.0,
-          "Name": "Vicious",
-          "Desc": ""
-        }
-      ],
-      "UpdateTime": "2024-06-29T14:10:34.165Z",
-      "CreateTime": "2023-11-24T16:46:02.613Z"
-    },
-    {
-      "Id": "namelistfed73492-228d-41ae-90be-9bdf5f434901default",
-      "ParentId": "default",
-      "Name": "NameList",
-      "ListName": "BodyPearlWords",
+      "ListName": "GemLevel",
       "Names": [
         {
           "Weight": 9.0,
-          "Name": "Broken",
+          "Name": "Sliver of",
           "Desc": ""
         },
         {
-          "Weight": 15.0,
-          "Name": "Cracked",
+          "Weight": 19.0,
+          "Name": "Tiny",
           "Desc": ""
         },
         {
-          "Weight": 21.0,
-          "Name": "Rough",
-          "Desc": ""
-        },
-        {
-          "Weight": 27.0,
-          "Name": "Dull",
-          "Desc": ""
-        },
-        {
-          "Weight": 33.0,
-          "Name": "Gray",
+          "Weight": 29.0,
+          "Name": "Small",
           "Desc": ""
         },
         {
           "Weight": 39.0,
-          "Name": "Lustrous",
+          "Name": "Medium",
+          "Desc": ""
+        },
+        {
+          "Weight": 49.0,
+          "Name": "Large",
+          "Desc": ""
+        },
+        {
+          "Weight": 59.0,
+          "Name": "Huge",
+          "Desc": ""
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:08.988Z"
+    },
+    {
+      "Id": "namelist0a00b0a4-460c-40c6-8599-46ba945ac88adefault",
+      "ParentId": "default",
+      "Name": "NameList",
+      "ListName": "ClothLevel",
+      "Names": [
+        {
+          "Weight": 5.0,
+          "Name": "Linen",
+          "Desc": ""
+        },
+        {
+          "Weight": 15.0,
+          "Name": "Flax",
+          "Desc": ""
+        },
+        {
+          "Weight": 25.0,
+          "Name": "Hemp",
+          "Desc": ""
+        },
+        {
+          "Weight": 35.0,
+          "Name": "Wool",
           "Desc": ""
         },
         {
           "Weight": 45.0,
-          "Name": "Burnished",
+          "Name": "Cotton",
           "Desc": ""
         },
         {
-          "Weight": 51.0,
-          "Name": "Shiny",
-          "Desc": ""
-        },
-        {
-          "Weight": 57.0,
-          "Name": "Glinting",
-          "Desc": ""
-        },
-        {
-          "Weight": 63.0,
-          "Name": "Shimmering",
-          "Desc": ""
-        },
-        {
-          "Weight": 69.0,
-          "Name": "Glowing",
-          "Desc": ""
-        },
-        {
-          "Weight": 75.0,
-          "Name": "Luminescent",
-          "Desc": ""
-        },
-        {
-          "Weight": 81.0,
-          "Name": "Iridescent",
-          "Desc": ""
-        },
-        {
-          "Weight": 87.0,
-          "Name": "Brilliant",
-          "Desc": ""
-        },
-        {
-          "Weight": 93.0,
-          "Name": "Chromatic",
-          "Desc": ""
-        },
-        {
-          "Weight": 99.0,
-          "Name": "Dragonstar",
+          "Weight": 55.0,
+          "Name": "Silk",
           "Desc": ""
         }
       ],
-      "UpdateTime": "2024-06-29T14:10:34.172Z",
-      "CreateTime": "2023-11-24T16:46:02.73Z"
+      "UpdateTime": "2024-08-01T00:28:08.99Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "NameSettings",
-    "UpdateTime": "2024-07-04T23:03:06.219Z",
-    "CreateTime": "2023-11-24T16:46:02.841Z"
+    "UpdateTime": "2024-08-01T00:28:09.607Z"
   },
   "Id": "default"
 }

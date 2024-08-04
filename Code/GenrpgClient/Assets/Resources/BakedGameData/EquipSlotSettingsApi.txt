@@ -4,8 +4,7 @@
       "Id": "equipslot0default",
       "ParentId": "default",
       "Name": "None",
-      "UpdateTime": "2024-06-29T14:10:32.036Z",
-      "CreateTime": "2023-11-24T16:45:26.128Z"
+      "UpdateTime": "2024-08-01T00:28:06.631Z"
     },
     {
       "Id": "equipslot1default",
@@ -18,8 +17,7 @@
       "Active": true,
       "IsCrawlerSlot": true,
       "BaseBonusStatTypeId": 31,
-      "UpdateTime": "2024-06-29T14:10:32.13Z",
-      "CreateTime": "2023-11-24T22:45:27Z"
+      "UpdateTime": "2024-08-01T00:28:06.666Z"
     },
     {
       "Id": "equipslot2default",
@@ -28,8 +26,7 @@
       "Name": "Neck",
       "Active": true,
       "BaseBonusStatTypeId": 32,
-      "UpdateTime": "2024-06-29T14:10:32.133Z",
-      "CreateTime": "2023-11-24T16:45:27.331Z"
+      "UpdateTime": "2024-08-01T00:28:06.67Z"
     },
     {
       "Id": "equipslot3default",
@@ -38,8 +35,7 @@
       "Name": "Shoulders",
       "Active": true,
       "BaseBonusStatTypeId": 30,
-      "UpdateTime": "2024-06-29T14:10:32.136Z",
-      "CreateTime": "2023-11-24T16:45:27.442Z"
+      "UpdateTime": "2024-08-01T00:28:06.674Z"
     },
     {
       "Id": "equipslot4default",
@@ -49,8 +45,7 @@
       "Active": true,
       "IsCrawlerSlot": true,
       "BaseBonusStatTypeId": 31,
-      "UpdateTime": "2024-06-29T14:10:32.166Z",
-      "CreateTime": "2023-11-24T16:45:27.551Z"
+      "UpdateTime": "2024-08-01T00:28:06.676Z"
     },
     {
       "Id": "equipslot5default",
@@ -60,8 +55,7 @@
       "Active": true,
       "IsCrawlerSlot": true,
       "BaseBonusStatTypeId": 32,
-      "UpdateTime": "2024-06-29T14:10:32.177Z",
-      "CreateTime": "2023-11-24T16:45:27.663Z"
+      "UpdateTime": "2024-08-01T00:28:06.678Z"
     },
     {
       "Id": "equipslot6default",
@@ -70,8 +64,7 @@
       "Name": "Waist",
       "Active": true,
       "BaseBonusStatTypeId": 31,
-      "UpdateTime": "2024-06-29T14:10:32.19Z",
-      "CreateTime": "2023-11-24T16:45:27.782Z"
+      "UpdateTime": "2024-08-01T00:28:06.687Z"
     },
     {
       "Id": "equipslot7default",
@@ -80,8 +73,7 @@
       "Name": "Legs",
       "Active": true,
       "BaseBonusStatTypeId": 31,
-      "UpdateTime": "2024-06-29T14:10:32.192Z",
-      "CreateTime": "2023-11-24T16:45:27.891Z"
+      "UpdateTime": "2024-08-01T00:28:06.693Z"
     },
     {
       "Id": "equipslot8default",
@@ -91,8 +83,7 @@
       "Active": true,
       "IsCrawlerSlot": true,
       "BaseBonusStatTypeId": 31,
-      "UpdateTime": "2024-06-29T14:10:32.194Z",
-      "CreateTime": "2023-11-24T16:45:28.001Z"
+      "UpdateTime": "2024-08-01T00:28:06.696Z"
     },
     {
       "Id": "equipslot9default",
@@ -101,8 +92,7 @@
       "Name": "Wrists",
       "Active": true,
       "BaseBonusStatTypeId": 31,
-      "UpdateTime": "2024-06-29T14:10:32.197Z",
-      "CreateTime": "2023-11-24T16:45:28.111Z"
+      "UpdateTime": "2024-08-01T00:28:06.698Z"
     },
     {
       "Id": "equipslot10default",
@@ -112,8 +102,7 @@
       "Active": true,
       "IsCrawlerSlot": true,
       "BaseBonusStatTypeId": 31,
-      "UpdateTime": "2024-06-29T14:10:32.039Z",
-      "CreateTime": "2023-11-24T16:45:26.292Z"
+      "UpdateTime": "2024-08-01T00:28:06.634Z"
     },
     {
       "Id": "equipslot11default",
@@ -122,8 +111,7 @@
       "Name": "LeftFinger",
       "Active": true,
       "BaseBonusStatTypeId": 32,
-      "UpdateTime": "2024-06-29T14:10:32.043Z",
-      "CreateTime": "2023-11-24T16:45:26.401Z"
+      "UpdateTime": "2024-08-01T00:28:06.638Z"
     },
     {
       "Id": "equipslot12default",
@@ -133,8 +121,7 @@
       "ParentEquipSlotId": 11,
       "Active": true,
       "BaseBonusStatTypeId": 32,
-      "UpdateTime": "2024-06-29T14:10:32.064Z",
-      "CreateTime": "2023-11-24T16:45:26.532Z"
+      "UpdateTime": "2024-08-01T00:28:06.645Z"
     },
     {
       "Id": "equipslot13default",
@@ -143,8 +130,7 @@
       "Name": "Jewelry1",
       "Active": true,
       "BaseBonusStatTypeId": 32,
-      "UpdateTime": "2024-06-29T14:10:32.071Z",
-      "CreateTime": "2023-11-24T16:45:26.647Z"
+      "UpdateTime": "2024-08-01T00:28:06.652Z"
     },
     {
       "Id": "equipslot14default",
@@ -154,8 +140,7 @@
       "ParentEquipSlotId": 13,
       "Active": true,
       "BaseBonusStatTypeId": 32,
-      "UpdateTime": "2024-06-29T14:10:32.077Z",
-      "CreateTime": "2023-11-24T16:45:26.769Z"
+      "UpdateTime": "2024-08-01T00:28:06.658Z"
     },
     {
       "Id": "equipslot15default",
@@ -164,8 +149,7 @@
       "Name": "MainHand",
       "Active": true,
       "IsCrawlerSlot": true,
-      "UpdateTime": "2024-06-29T14:10:32.085Z",
-      "CreateTime": "2023-11-24T16:45:26.891Z"
+      "UpdateTime": "2024-08-01T00:28:06.66Z"
     },
     {
       "Id": "equipslot16default",
@@ -176,8 +160,7 @@
       "Active": true,
       "IsCrawlerSlot": true,
       "BaseBonusStatTypeId": 31,
-      "UpdateTime": "2024-06-29T14:10:32.125Z",
-      "CreateTime": "2023-11-24T16:45:27.002Z"
+      "UpdateTime": "2024-08-01T00:28:06.662Z"
     },
     {
       "Id": "equipslot17default",
@@ -186,15 +169,13 @@
       "Name": "Ranged",
       "Active": true,
       "IsCrawlerSlot": true,
-      "UpdateTime": "2024-06-29T14:10:32.128Z",
-      "CreateTime": "2023-11-24T16:45:27.114Z"
+      "UpdateTime": "2024-08-01T00:28:06.664Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "EquipSlotSettings",
-    "UpdateTime": "2024-07-04T23:03:06.159Z",
-    "CreateTime": "2023-11-27T16:45:28Z"
+    "UpdateTime": "2024-08-01T00:28:06.7Z"
   },
   "Id": "default"
 }

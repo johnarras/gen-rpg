@@ -7,15 +7,13 @@
       "Name": "Fence",
       "Art": "Fence",
       "Length": 0.8,
-      "UpdateTime": "2024-06-29T14:10:32.247Z",
-      "CreateTime": "2023-11-24T16:45:28.866Z"
+      "UpdateTime": "2024-08-01T00:28:06.726Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "FenceTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.167Z",
-    "CreateTime": "2023-11-25T04:45:29Z"
+    "UpdateTime": "2024-08-01T00:28:06.731Z"
   },
   "Id": "default"
 }

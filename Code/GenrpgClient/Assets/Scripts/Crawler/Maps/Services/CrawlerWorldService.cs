@@ -76,7 +76,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
                 _logService.Warning("Bad map load: " + ex.Message);
             }
 
-            if (world == null)
+            if (world == null || world.IdKey != worldId)
             {
                 world = await GenerateInternal(worldId);
             }

@@ -110,6 +110,10 @@ namespace Genrpg.MapServer.Spawns.Services
             List<SpawnItem> rollEachList = new List<SpawnItem>();
             foreach (SpawnItem si in items)
             {
+                if (si.MinLevel > rollData.Level)
+                {
+                    continue;
+                }
                 if (si.GroupId < 1)
                 {
                     if (rand.NextDouble() * 100 < si.Weight)

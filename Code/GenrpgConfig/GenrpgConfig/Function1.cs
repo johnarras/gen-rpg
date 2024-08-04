@@ -24,29 +24,32 @@ namespace GenrpgConfig
             }
             env = env.ToLower();
 
+
+            string contentRoot = "https://oxdbcontent.azureedge.net/genrpg";
+
             ConfigResponse response = new ConfigResponse();
             if (env == "dev")
             {
                 response.ServerURL = "http://localhost:5000";
-                response.ContentRoot = "http://oxdbcontent.blob.core.windows.net/genrpg";
+                response.ContentRoot = contentRoot;
                 response.AssetEnv = "dev";
             }
             else if (env == "test")
             {
                 response.ServerURL = "https://genrpgtest.azurewebsites.net";
-                response.ContentRoot = "http://oxdbcontent.blob.core.windows.net/genrpg";
+                response.ContentRoot = contentRoot;
                 response.AssetEnv = "dev";
             }
             else if (env == "prod")
             {
                 response.ServerURL = "https://genrpg.azurewebsites.net";
-                response.ContentRoot = "http://oxdbcontent.blob.core.windows.net/genrpg";
+                response.ContentRoot = contentRoot;
                 response.AssetEnv = "prod";
             }
             else if (env == "local")
             {
                 response.ServerURL = "http://localhost:5000";
-                response.ContentRoot = "http://oxdbcontent.blob.core.windows.net/genrpg";
+                response.ContentRoot = contentRoot;
                 response.AssetEnv = "dev";
             }
 

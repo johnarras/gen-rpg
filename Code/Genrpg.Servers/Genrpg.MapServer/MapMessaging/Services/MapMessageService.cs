@@ -200,10 +200,10 @@ namespace Genrpg.MapServer.MapMessaging.Services
             float delaySec = 0, List<long> filters = null)
         {
             // Copy this from IMapObjectManager.GetObjectsNear() to avoid making a lot of lists.
-            int gxmin = _objectManager.GetIndexFromCoord(obj.X - distance, false);
-            int gxmax = _objectManager.GetIndexFromCoord(obj.X + distance, true);
-            int gzmin = _objectManager.GetIndexFromCoord(obj.Z - distance, false);
-            int gzmax = _objectManager.GetIndexFromCoord(obj.Z + distance, true);
+            int gxmin = _objectManager.GetGridIndexFromCoord(obj.X - distance, false);
+            int gxmax = _objectManager.GetGridIndexFromCoord(obj.X + distance, true);
+            int gzmin = _objectManager.GetGridIndexFromCoord(obj.Z - distance, false);
+            int gzmax = _objectManager.GetGridIndexFromCoord(obj.Z + distance, true);
 
             for (int x = gxmin; x <= gxmax; x++)
             {

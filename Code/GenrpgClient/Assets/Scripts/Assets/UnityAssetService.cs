@@ -333,6 +333,16 @@ public class UnityAssetService : IAssetService
             return;
         }
         GEntity parent = parentIn as GEntity;
+
+        if (parent == null)
+        {
+            MonoBehaviour mb = parentIn as MonoBehaviour;
+            if (mb != null)
+            {
+                parent = mb.gameObject;
+            }
+        }
+
         if (string.IsNullOrEmpty(assetName))
         {
             if (handler != null)
@@ -1095,29 +1105,22 @@ public class UnityAssetService : IAssetService
             return tex2d;
         }
 
-        
-
         GEntity go = InstantiateIntoParent(child, parent);
 
         if (go != null)
         {
-            BundleCacheItem cacheItem = go.AddComponent<BundleCacheItem>();
-            cacheItem.RegisterCache(bundleCache);
-            bundleCache.Instances.Add(go);
-            //MonoBehaviour behavior = GEntityUtils.GetComponent<MonoBehaviour>(go);
+            MonoBehaviour mbh = go.GetComponent<MonoBehaviour>();
 
-            //if (behavior == null)
-            //{
-            //    behavior = go.AddComponent<BundleCacheItem>();
-            //}
+            if (mbh == null)
+            {
+                mbh = go.AddComponent<BaseBehaviour>();
+            }
 
-            //behavior.destroyCancellationToken.Register(() =>
-            //           {
-            //               bundleCache.Instances.Remove(go);
-            //               bundleCache.LastUsed = DateTime.UtcNow;
-            //               _logService.Info("Remove Bundle " + bundleCache.assetBundle.name);
-            //           });
-
+            bundleCache.Instances.Add(mbh);
+            mbh.destroyCancellationToken.Register(() =>
+            {
+                bundleCache.Instances.Remove(mbh);
+            });
         }
         else
         {

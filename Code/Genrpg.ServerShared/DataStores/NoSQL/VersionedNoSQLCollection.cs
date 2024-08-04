@@ -16,10 +16,6 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 
         protected override async Task<ReplaceOneResult> ReplaceDocument(T t, ReplaceOptions options, IClientSessionHandle session)
         {
-            if (t.CreateTime == DateTime.MinValue)
-            {
-                t.CreateTime = DateTime.UtcNow;
-            }
             t.UpdateTime = DateTime.UtcNow;
             if (session != null)
             {

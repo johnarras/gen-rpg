@@ -18,6 +18,13 @@ using UnityEngine;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using NUnit.Framework.Constraints;
 using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.Movement.Messages;
+using Genrpg.Shared.MapServer.Constants;
+using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.Utils.Data;
+using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Logging.Interfaces;
 
 public interface IClientMapObjectManager : IInitializable, IMapTokenService
 {
@@ -34,6 +41,7 @@ public interface IClientMapObjectManager : IInitializable, IMapTokenService
     ClientMapObjectGridItem AddObject(MapObject obj, GEntity go);
     GEntity GetFXParent();
     void AddController(ClientMapObjectGridItem gridItem, GEntity go);
+    void OnServerAddtoGrid(OnAddToGrid onAddToGrid);
 }
 
 public class ClientMapObjectManager : IClientMapObjectManager
@@ -41,6 +49,8 @@ public class ClientMapObjectManager : IClientMapObjectManager
     private IRealtimeNetworkService _networkService;
     private IPlayerManager _playerManager;
     protected IClientRandom _rand;
+    protected IMapProvider _mapProvider;
+    private ILogService _logService;
 
 
     private List<UnitController> _controllers = new List<UnitController>();
@@ -54,6 +64,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
     protected List<string> _olderSpawns = new List<string>();
     protected List<string> _recentlyLoadedSpawns = new List<string>();
     List<UnitController> _removeUnitList = new List<UnitController>();
+    List<ClientMapObjectGridItem> _removeGridItems = new List<ClientMapObjectGridItem>();
     private SetupDictionaryContainer<long, IMapObjectLoader> _mapObjectLoaders = new SetupDictionaryContainer<long, IMapObjectLoader>();
 
     protected IUnityGameState _gs;
@@ -197,11 +208,18 @@ public class ClientMapObjectManager : IClientMapObjectManager
             if (controller != null)
             {
                 controller.OnUpdate(token);
-                GVector3 pos = GVector3.Create(controller.transform().position);
-                if (Math.Abs(pos.x-playerPos.x) >= MessageConstants.DefaultGridDistance*2 ||
-                    Math.Abs(pos.z-playerPos.z) >= MessageConstants.DefaultGridDistance*2)
+                if (controller.ShouldRemoveNow())
                 {
                     _removeUnitList.Add(controller);
+                }
+                else
+                {
+                    GVector3 pos = GVector3.Create(controller.transform().position);
+                    if (Math.Abs(pos.x - playerPos.x) >= MessageConstants.DefaultGridDistance * 3/2 ||
+                        Math.Abs(pos.z - playerPos.z) >= MessageConstants.DefaultGridDistance * 3/2)
+                    {
+                        _removeUnitList.Add(controller);
+                    }
                 }
             }
         }
@@ -210,6 +228,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
         {
             RemoveObject(controller.GetUnit().Id);
         }
+        _removeUnitList.Clear();
     }
 
     public bool GetGridItem(string id, out ClientMapObjectGridItem gridItem)
@@ -270,13 +289,12 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
     public void RemoveObject(string objId)
     {
-       if (!GetGridItem(objId, out ClientMapObjectGridItem gridItem))
+        if (!GetGridItem(objId, out ClientMapObjectGridItem gridItem))
         {
             return;
         }
 
-
-       if (gridItem.Controller != null)
+        if (gridItem.Controller != null)
         {
             _controllers.Remove(gridItem.Controller);
         }
@@ -288,7 +306,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
         if (gridItem.GameObj != null)
         {
             _updateService.AddDelayedUpdate(gridItem.GameObj, (_token) => { FadeOutObject(gridItem.GameObj); }, _token, 1.5f);
-       }
+        }
 
         return;
     }
@@ -354,5 +372,39 @@ public class ClientMapObjectManager : IClientMapObjectManager
             }
         }
         return retval;
+    }
+
+    public void OnServerAddtoGrid(OnAddToGrid onAddToGrid)
+    {
+        if (onAddToGrid.UserId != _gs.ch.Id)
+        {
+            return;
+        }
+
+        int minX = onAddToGrid.GridX - UnitConstants.PlayerObjectVisRadius;
+        int maxX = onAddToGrid.GridX + UnitConstants.PlayerObjectVisRadius; 
+        int minZ = onAddToGrid.GridZ - UnitConstants.PlayerObjectVisRadius;
+        int maxZ = onAddToGrid.GridZ + UnitConstants.PlayerObjectVisRadius;
+
+        int gridSize = MapUtils.GetMapObjectGridSize(_mapProvider.GetMap());
+
+        _removeGridItems.Clear();
+        foreach (ClientMapObjectGridItem gridItem in _gridItems.Values)
+        {
+            PointXZ gridPos = MapUtils.GetGridCoordinates(gridItem.Obj.X, gridItem.Obj.Z, gridSize);
+
+            if (gridPos.X < minX || gridPos.X > maxX || gridPos.Z < minZ || gridPos.Z > maxZ)
+            {
+                _removeGridItems.Add(gridItem);
+            }
+        }
+
+        foreach (ClientMapObjectGridItem removeItem in _removeGridItems)
+        {
+            RemoveObject(removeItem.Obj.Id);
+        }
+
+
+        _removeGridItems.Clear();
     }
 }

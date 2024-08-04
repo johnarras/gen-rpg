@@ -1,24 +1,20 @@
 ﻿
 
 using Assets.Scripts.ClientEvents;
-using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Events;
 using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
-using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
-using Assets.Scripts.UI.Crawler.ActionUI;
+using Assets.Scripts.ProcGen.Components;
+using Assets.Scripts.ProcGen.Services;
 using Assets.Scripts.UI.Crawler.WorldUI;
 using Assets.Scripts.UI.Services;
-using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.UI.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
 using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.UI.Crawler.CrawlerPanels
@@ -35,6 +31,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         const string PanelTextPrefab = "WorldPanelText";
         private ICrawlerMapService _mapService;
         private IUIService _uiService;
+        private ICurveGenService _curveGenService;
+        private IGameObjectService _gameObjectService;
 
         public GRawImage WorldImage;
         public GText WorldPosText;
@@ -49,7 +47,9 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         public GButton CloseTooltipButton;
 
-       private WorldPanelText _textRow;
+        private WorldPanelText _textRow;
+
+        private MarkedSpline _spline { get; set; }
 
         public override async Awaitable Init(CrawlerScreen screen, CancellationToken token)
         {
@@ -251,6 +251,17 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             float xmin = 1.0f * currFrame / frameCount;
             float xmax = 1.0f * (currFrame + 1) / frameCount;
             WorldImage.uvRect = new UnityEngine.Rect(new Vector2(xmin, 0), new Vector2(1.0f / frameCount, 1));
+        }
+
+        public void CreateSpline()
+        {
+
+            _spline = _gameObjectService.GetOrAddComponent<MarkedSpline>(gameObject);
+            _spline.GenParams.MarkerQuantity = 40;
+            _spline.GenParams.BreakChance = 0.15f;
+            _spline.GenParams.MinRadius = 40;
+            _spline.GenParams.MaxRadius = _spline.GenParams.MinRadius * 5 / 4;
+            _curveGenService.CreateSpline(_spline, _rand, _token);
         }
     }
 }

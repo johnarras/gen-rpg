@@ -13,8 +13,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.375Z",
-      "CreateTime": "2023-11-24T16:46:05.359Z"
+      "UpdateTime": "2024-08-01T00:28:09.741Z"
     },
     {
       "Id": "planttype3default",
@@ -29,8 +28,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.403Z",
-      "CreateTime": "2023-11-24T16:46:06.503Z"
+      "UpdateTime": "2024-08-01T00:28:09.773Z"
     },
     {
       "Id": "planttype4default",
@@ -46,8 +44,7 @@
         "A": 1.0
       },
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:34.406Z",
-      "CreateTime": "2023-11-24T16:46:06.622Z"
+      "UpdateTime": "2024-08-01T00:28:09.779Z"
     },
     {
       "Id": "planttype5default",
@@ -62,8 +59,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.409Z",
-      "CreateTime": "2023-11-24T16:46:06.725Z"
+      "UpdateTime": "2024-08-01T00:28:09.781Z"
     },
     {
       "Id": "planttype6default",
@@ -78,8 +74,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.417Z",
-      "CreateTime": "2023-11-24T16:46:06.844Z"
+      "UpdateTime": "2024-08-01T00:28:09.782Z"
     },
     {
       "Id": "planttype7default",
@@ -94,8 +89,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.424Z",
-      "CreateTime": "2023-11-24T16:46:06.954Z"
+      "UpdateTime": "2024-08-01T00:28:09.784Z"
     },
     {
       "Id": "planttype8default",
@@ -110,8 +104,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.428Z",
-      "CreateTime": "2023-11-24T16:46:07.064Z"
+      "UpdateTime": "2024-08-01T00:28:09.786Z"
     },
     {
       "Id": "planttype9default",
@@ -126,8 +119,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.43Z",
-      "CreateTime": "2023-11-24T16:46:07.174Z"
+      "UpdateTime": "2024-08-01T00:28:09.792Z"
     },
     {
       "Id": "planttype10default",
@@ -142,8 +134,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.307Z",
-      "CreateTime": "2023-11-24T16:46:03.014Z"
+      "UpdateTime": "2024-08-01T00:28:09.677Z"
     },
     {
       "Id": "planttype11default",
@@ -158,8 +149,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.311Z",
-      "CreateTime": "2023-11-24T16:46:03.245Z"
+      "UpdateTime": "2024-08-01T00:28:09.679Z"
     },
     {
       "Id": "planttype12default",
@@ -174,8 +164,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.314Z",
-      "CreateTime": "2023-11-24T16:46:03.367Z"
+      "UpdateTime": "2024-08-01T00:28:09.682Z"
     },
     {
       "Id": "planttype13default",
@@ -191,8 +180,7 @@
         "A": 1.0
       },
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:34.318Z",
-      "CreateTime": "2023-11-24T16:46:03.474Z"
+      "UpdateTime": "2024-08-01T00:28:09.683Z"
     },
     {
       "Id": "planttype14default",
@@ -207,8 +195,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.321Z",
-      "CreateTime": "2023-11-24T16:46:03.584Z"
+      "UpdateTime": "2024-08-01T00:28:09.688Z"
     },
     {
       "Id": "planttype15default",
@@ -223,8 +210,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.324Z",
-      "CreateTime": "2023-11-24T16:46:03.694Z"
+      "UpdateTime": "2024-08-01T00:28:09.691Z"
     },
     {
       "Id": "planttype16default",
@@ -239,8 +225,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.327Z",
-      "CreateTime": "2023-11-24T16:46:03.807Z"
+      "UpdateTime": "2024-08-01T00:28:09.693Z"
     },
     {
       "Id": "planttype17default",
@@ -255,8 +240,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.331Z",
-      "CreateTime": "2023-11-24T16:46:03.914Z"
+      "UpdateTime": "2024-08-01T00:28:09.695Z"
     },
     {
       "Id": "planttype18default",
@@ -271,8 +255,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.334Z",
-      "CreateTime": "2023-11-24T16:46:04.033Z"
+      "UpdateTime": "2024-08-01T00:28:09.697Z"
     },
     {
       "Id": "planttype19default",
@@ -287,8 +270,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.338Z",
-      "CreateTime": "2023-11-24T16:46:04.144Z"
+      "UpdateTime": "2024-08-01T00:28:09.701Z"
     },
     {
       "Id": "planttype20default",
@@ -303,8 +285,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.341Z",
-      "CreateTime": "2023-11-24T16:46:04.253Z"
+      "UpdateTime": "2024-08-01T00:28:09.706Z"
     },
     {
       "Id": "planttype21default",
@@ -319,8 +300,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.344Z",
-      "CreateTime": "2023-11-24T16:46:04.365Z"
+      "UpdateTime": "2024-08-01T00:28:09.708Z"
     },
     {
       "Id": "planttype22default",
@@ -335,8 +315,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.347Z",
-      "CreateTime": "2023-11-24T16:46:04.473Z"
+      "UpdateTime": "2024-08-01T00:28:09.71Z"
     },
     {
       "Id": "planttype23default",
@@ -351,8 +330,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.351Z",
-      "CreateTime": "2023-11-24T16:46:04.584Z"
+      "UpdateTime": "2024-08-01T00:28:09.716Z"
     },
     {
       "Id": "planttype24default",
@@ -367,8 +345,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.353Z",
-      "CreateTime": "2023-11-24T16:46:04.694Z"
+      "UpdateTime": "2024-08-01T00:28:09.719Z"
     },
     {
       "Id": "planttype25default",
@@ -383,8 +360,7 @@
         "B": 1.0,
         "A": 1.0
       },
-      "UpdateTime": "2024-06-29T14:10:34.358Z",
-      "CreateTime": "2023-11-24T16:46:04.805Z"
+      "UpdateTime": "2024-08-01T00:28:09.721Z"
     },
     {
       "Id": "planttype26default",
@@ -400,8 +376,7 @@
         "A": 1.0
       },
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:34.361Z",
-      "CreateTime": "2023-11-24T16:46:04.916Z"
+      "UpdateTime": "2024-08-01T00:28:09.723Z"
     },
     {
       "Id": "planttype27default",
@@ -411,8 +386,7 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.364Z",
-      "CreateTime": "2023-11-24T16:46:05.023Z"
+      "UpdateTime": "2024-08-01T00:28:09.725Z"
     },
     {
       "Id": "planttype28default",
@@ -423,8 +397,7 @@
       "MaxScale": 1.5,
       "BaseColor": {},
       "Flags": 1,
-      "UpdateTime": "2024-06-29T14:10:34.37Z",
-      "CreateTime": "2023-11-24T16:46:05.135Z"
+      "UpdateTime": "2024-08-01T00:28:09.734Z"
     },
     {
       "Id": "planttype29default",
@@ -434,8 +407,7 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.372Z",
-      "CreateTime": "2023-11-24T16:46:05.245Z"
+      "UpdateTime": "2024-08-01T00:28:09.739Z"
     },
     {
       "Id": "planttype30default",
@@ -445,8 +417,7 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.378Z",
-      "CreateTime": "2023-11-24T16:46:05.483Z"
+      "UpdateTime": "2024-08-01T00:28:09.746Z"
     },
     {
       "Id": "planttype31default",
@@ -456,8 +427,7 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.38Z",
-      "CreateTime": "2023-11-24T16:46:05.594Z"
+      "UpdateTime": "2024-08-01T00:28:09.748Z"
     },
     {
       "Id": "planttype32default",
@@ -467,8 +437,7 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.383Z",
-      "CreateTime": "2023-11-24T16:46:05.708Z"
+      "UpdateTime": "2024-08-01T00:28:09.752Z"
     },
     {
       "Id": "planttype33default",
@@ -478,8 +447,7 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.389Z",
-      "CreateTime": "2023-11-24T16:46:05.815Z"
+      "UpdateTime": "2024-08-01T00:28:09.754Z"
     },
     {
       "Id": "planttype34default",
@@ -489,8 +457,7 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.391Z",
-      "CreateTime": "2023-11-24T16:46:05.925Z"
+      "UpdateTime": "2024-08-01T00:28:09.756Z"
     },
     {
       "Id": "planttype35default",
@@ -500,8 +467,7 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.394Z",
-      "CreateTime": "2023-11-24T16:46:06.037Z"
+      "UpdateTime": "2024-08-01T00:28:09.757Z"
     },
     {
       "Id": "planttype36default",
@@ -511,8 +477,7 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.396Z",
-      "CreateTime": "2023-11-24T16:46:06.153Z"
+      "UpdateTime": "2024-08-01T00:28:09.759Z"
     },
     {
       "Id": "planttype37default",
@@ -522,8 +487,7 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.398Z",
-      "CreateTime": "2023-11-24T16:46:06.278Z"
+      "UpdateTime": "2024-08-01T00:28:09.761Z"
     },
     {
       "Id": "planttype38default",
@@ -533,15 +497,13 @@
       "MinScale": 0.75,
       "MaxScale": 1.5,
       "BaseColor": {},
-      "UpdateTime": "2024-06-29T14:10:34.401Z",
-      "CreateTime": "2023-11-24T16:46:06.395Z"
+      "UpdateTime": "2024-08-01T00:28:09.769Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "PlantTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.229Z",
-    "CreateTime": "2023-11-24T16:46:07.284Z"
+    "UpdateTime": "2024-08-01T00:28:09.799Z"
   },
   "Id": "default"
 }

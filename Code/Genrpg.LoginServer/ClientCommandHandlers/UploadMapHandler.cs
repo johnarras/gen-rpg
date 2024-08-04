@@ -61,12 +61,12 @@ namespace Genrpg.LoginServer.ClientCommandHandlers
 
             if (!string.IsNullOrEmpty(command.WorldDataEnv))
             {
-
                 IRepositoryService currRepoService = _repoService;
                 IServerConfig newConfig = SerializationUtils.SafeMakeCopy(_config);
                 newConfig.DataEnvs[DataCategoryTypes.WorldData] = command.WorldDataEnv;
 
                 WebContext newContext = await SetupUtils.SetupFromConfig<WebContext, LoginSetupService>(null, _config.ServerId, token, newConfig);
+
 
                 IRepositoryService newRepoService = newContext.loc.Get<IRepositoryService>();
 

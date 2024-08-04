@@ -5,8 +5,7 @@
       "ParentId": "default",
       "Name": "None",
       "CostPercent": 100,
-      "UpdateTime": "2024-06-29T14:10:35.413Z",
-      "CreateTime": "2024-01-28T21:23:54.875Z"
+      "UpdateTime": "2024-08-01T00:28:12.235Z"
     },
     {
       "Id": "sextype1default",
@@ -14,8 +13,7 @@
       "IdKey": 1,
       "Name": "Female",
       "CostPercent": 100,
-      "UpdateTime": "2024-06-29T14:10:35.417Z",
-      "CreateTime": "2024-01-28T21:23:54.881Z"
+      "UpdateTime": "2024-08-01T00:28:12.238Z"
     },
     {
       "Id": "sextype2default",
@@ -23,8 +21,7 @@
       "IdKey": 2,
       "Name": "Male",
       "CostPercent": 100,
-      "UpdateTime": "2024-06-29T14:10:35.42Z",
-      "CreateTime": "2024-01-28T21:23:54.883Z"
+      "UpdateTime": "2024-08-01T00:28:12.241Z"
     }
   ],
   "ParentObj": {
@@ -32,8 +29,7 @@
     "LevelsPerQuality": 5.0,
     "ExtraQualityChance": 0.25,
     "Name": "SexTypeSettings",
-    "UpdateTime": "2024-07-04T23:03:06.315Z",
-    "CreateTime": "2024-01-28T21:23:54.795Z"
+    "UpdateTime": "2024-08-01T00:28:12.243Z"
   },
   "Id": "default"
 }

@@ -8,6 +8,7 @@ using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Model;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.UI.Crawler;
+using Assets.Scripts.UI.Crawler.CrawlerPanels;
 using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Loot.Services;
@@ -393,26 +394,33 @@ namespace Assets.Scripts.Crawler.Services
             CrawlerMap map = world.GetMap(_party.MapId);
 
             MapCellDetail detail = map.Details.FirstOrDefault(x => x.X == _party.MapX && x.Z == _party.MapZ);
-
+            
             await UpdateCrawlerUI();
 
             if (movedPosition)
             {
-                if (detail != null && detail.EntityTypeId == EntityTypes.Map)
+                if (detail != null)
                 {
-                    ChangeState(ECrawlerStates.MapExit, token, detail);
-                }
-                else if (detail != null && detail.EntityTypeId == EntityTypes.QuestItem)
-                {
-                    PartyQuestItem pqi = _party.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == detail.EntityId);
-                    if (pqi == null || pqi.Quantity < 1)
+                    if (detail.EntityTypeId == EntityTypes.Map)
                     {
-                        InitialCombatState initialCombatState = new InitialCombatState()
+                        ChangeState(ECrawlerStates.MapExit, token, detail);
+                    }
+                    else if (detail != null && detail.EntityTypeId == EntityTypes.QuestItem)
+                    {
+                        PartyQuestItem pqi = _party.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == detail.EntityId);
+                        if (pqi == null || pqi.Quantity < 1)
                         {
-                            Difficulty = 3,
-                        };
-                        ChangeState(ECrawlerStates.StartCombat,token, initialCombatState);
-                        return;
+                            InitialCombatState initialCombatState = new InitialCombatState()
+                            {
+                                Difficulty = 3,
+                            };
+                            ChangeState(ECrawlerStates.StartCombat, token, initialCombatState);
+                            return;
+                        }
+                    }
+                    else if (detail.EntityTypeId == EntityTypes.Riddle)
+                    {
+                        ChangeState(ECrawlerStates.Riddle, token, detail);
                     }
                 }
             }
@@ -447,6 +455,13 @@ namespace Assets.Scripts.Crawler.Services
             }
 
             UpdateIfNotMoving(true, token);
+        }
+
+        public void CreateSpline()
+        {
+            WorldPanel worldPanel = _party.WorldPanel as WorldPanel;
+
+            worldPanel.CreateSpline();
         }
     }
 }

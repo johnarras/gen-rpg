@@ -52,6 +52,7 @@ namespace Assets.Scripts.UI.Crawler.States
             stateData.Actions.Add(new CrawlerStateAction("Remove Party Member", KeyCode.R, ECrawlerStates.RemoveMember));
             stateData.Actions.Add(new CrawlerStateAction("Delete Party Member", KeyCode.D, ECrawlerStates.DeleteMember));
             stateData.Actions.Add(new CrawlerStateAction("Create Party Member", KeyCode.C, ECrawlerStates.ChooseSex));
+            stateData.Actions.Add(new CrawlerStateAction("Bezier Curve", KeyCode.B, ECrawlerStates.TavernMain, onClickAction: () => { _crawlerService.CreateSpline(); }));
             stateData.Actions.Add(new CrawlerStateAction("New Game", KeyCode.N, ECrawlerStates.TavernMain, null, "GenerateWorld"));
             if (party.GetActiveParty().Count > 0)
             {

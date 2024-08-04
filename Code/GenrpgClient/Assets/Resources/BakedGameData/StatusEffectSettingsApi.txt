@@ -5,8 +5,7 @@
       "ParentId": "default",
       "Name": "None",
       "ActionEffects": [],
-      "UpdateTime": "2024-06-29T14:10:35.841Z",
-      "CreateTime": "2024-01-27T17:52:56.628Z"
+      "UpdateTime": "2024-08-01T00:28:13.057Z"
     },
     {
       "Id": "statuseffect1default",
@@ -15,8 +14,7 @@
       "Name": "Poisoned",
       "Abbrev": "Pois",
       "ActionEffects": [],
-      "UpdateTime": "2024-06-29T14:10:35.87Z",
-      "CreateTime": "2024-01-27T17:52:56.633Z"
+      "UpdateTime": "2024-08-01T00:28:13.094Z"
     },
     {
       "Id": "statuseffect2default",
@@ -25,8 +23,7 @@
       "Name": "Diseased",
       "Abbrev": "Dise",
       "ActionEffects": [],
-      "UpdateTime": "2024-06-29T14:10:35.902Z",
-      "CreateTime": "2024-01-27T17:52:56.637Z"
+      "UpdateTime": "2024-08-01T00:28:13.097Z"
     },
     {
       "Id": "statuseffect3default",
@@ -35,8 +32,7 @@
       "Name": "Cursed",
       "Abbrev": "Curs",
       "ActionEffects": [],
-      "UpdateTime": "2024-06-29T14:10:35.905Z",
-      "CreateTime": "2024-01-27T17:52:56.64Z"
+      "UpdateTime": "2024-08-01T00:28:13.099Z"
     },
     {
       "Id": "statuseffect4default",
@@ -45,8 +41,7 @@
       "Name": "Slowed",
       "Abbrev": "Slow",
       "ActionEffects": [],
-      "UpdateTime": "2024-07-02T20:05:38.579Z",
-      "CreateTime": "2024-01-27T17:52:56.642Z"
+      "UpdateTime": "2024-08-01T00:28:13.102Z"
     },
     {
       "Id": "statuseffect5default",
@@ -63,8 +58,7 @@
           "Effect": 1
         }
       ],
-      "UpdateTime": "2024-07-02T20:05:38.577Z",
-      "CreateTime": "2024-01-28T05:52:56Z"
+      "UpdateTime": "2024-08-01T00:28:13.104Z"
     },
     {
       "Id": "statuseffect6default",
@@ -81,8 +75,7 @@
           "Effect": 1
         }
       ],
-      "UpdateTime": "2024-07-02T20:05:38.575Z",
-      "CreateTime": "2024-01-27T23:52:56Z"
+      "UpdateTime": "2024-08-01T00:28:13.108Z"
     },
     {
       "Id": "statuseffect7default",
@@ -99,8 +92,7 @@
           "Effect": 1
         }
       ],
-      "UpdateTime": "2024-07-02T20:05:38.573Z",
-      "CreateTime": "2024-01-27T23:52:56Z"
+      "UpdateTime": "2024-08-01T00:28:13.111Z"
     },
     {
       "Id": "statuseffect8default",
@@ -117,8 +109,7 @@
           "Effect": 3
         }
       ],
-      "UpdateTime": "2024-07-02T20:05:38.57Z",
-      "CreateTime": "2024-01-27T23:52:56Z"
+      "UpdateTime": "2024-08-01T00:28:13.114Z"
     },
     {
       "Id": "statuseffect9default",
@@ -135,8 +126,7 @@
           "Effect": 3
         }
       ],
-      "UpdateTime": "2024-07-02T20:05:38.572Z",
-      "CreateTime": "2024-01-27T23:52:56Z"
+      "UpdateTime": "2024-08-01T00:28:13.116Z"
     },
     {
       "Id": "statuseffect10default",
@@ -153,8 +143,7 @@
           "Effect": 3
         }
       ],
-      "UpdateTime": "2024-07-02T20:05:38.58Z",
-      "CreateTime": "2024-01-27T23:52:56Z"
+      "UpdateTime": "2024-08-01T00:28:13.06Z"
     },
     {
       "Id": "statuseffect11default",
@@ -171,8 +160,7 @@
           "Effect": 2
         }
       ],
-      "UpdateTime": "2024-07-02T20:05:38.582Z",
-      "CreateTime": "2024-01-27T23:52:56Z"
+      "UpdateTime": "2024-08-01T00:28:13.062Z"
     },
     {
       "Id": "statuseffect12default",
@@ -189,8 +177,7 @@
           "Effect": 2
         }
       ],
-      "UpdateTime": "2024-07-02T20:05:38.584Z",
-      "CreateTime": "2024-01-27T23:52:56Z"
+      "UpdateTime": "2024-08-01T00:28:13.064Z"
     },
     {
       "Id": "statuseffect13default",
@@ -207,8 +194,7 @@
           "Effect": 2
         }
       ],
-      "UpdateTime": "2024-07-02T20:05:38.585Z",
-      "CreateTime": "2024-01-28T02:57:02Z"
+      "UpdateTime": "2024-08-01T00:28:13.066Z"
     },
     {
       "Id": "statuseffect14default",
@@ -225,8 +211,7 @@
           "Effect": 2
         }
       ],
-      "UpdateTime": "2024-07-02T20:05:38.587Z",
-      "CreateTime": "2024-01-28T02:57:02Z"
+      "UpdateTime": "2024-08-01T00:28:13.068Z"
     },
     {
       "Id": "statuseffect15default",
@@ -235,8 +220,7 @@
       "Name": "Hidden",
       "Abbrev": "Hide",
       "ActionEffects": [],
-      "UpdateTime": "2024-07-02T20:05:38.563Z",
-      "CreateTime": "2024-01-27T21:00:28.109Z"
+      "UpdateTime": "2024-08-01T00:28:13.071Z"
     },
     {
       "Id": "statuseffect16default",
@@ -245,8 +229,7 @@
       "Name": "Taunt",
       "Abbrev": "Taunt",
       "ActionEffects": [],
-      "UpdateTime": "2024-07-02T20:05:38.565Z",
-      "CreateTime": "2024-01-27T23:55:16.161Z"
+      "UpdateTime": "2024-08-01T00:28:13.079Z"
     },
     {
       "Id": "statuseffect17default",
@@ -255,8 +238,7 @@
       "Name": "Hasted",
       "Abbrev": "Haste",
       "ActionEffects": [],
-      "UpdateTime": "2024-07-02T20:05:38.567Z",
-      "CreateTime": "2024-01-27T23:55:16.163Z"
+      "UpdateTime": "2024-08-01T00:28:13.086Z"
     },
     {
       "Id": "statuseffect18default",
@@ -268,8 +250,7 @@
       "Art": "",
       "Abbrev": "Mult",
       "ActionEffects": [],
-      "UpdateTime": "2024-07-02T20:05:38.568Z",
-      "CreateTime": "2024-01-28T00:41:15.745Z"
+      "UpdateTime": "2024-08-01T00:28:13.089Z"
     },
     {
       "Id": "statuseffect19default",
@@ -286,15 +267,13 @@
           "Effect": 2
         }
       ],
-      "UpdateTime": "2024-07-02T20:06:09.94Z",
-      "CreateTime": "2024-01-27T23:52:56Z"
+      "UpdateTime": "2024-08-01T00:28:13.091Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "StatusEffectSettings",
-    "UpdateTime": "2024-07-04T23:03:06.344Z",
-    "CreateTime": "2024-01-31T17:52:56Z"
+    "UpdateTime": "2024-08-01T00:28:13.119Z"
   },
   "Id": "default"
 }

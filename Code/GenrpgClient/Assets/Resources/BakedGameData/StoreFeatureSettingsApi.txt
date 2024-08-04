@@ -4,31 +4,27 @@
       "Id": "storefeature0default",
       "ParentId": "default",
       "Name": "None",
-      "UpdateTime": "2024-06-29T14:10:35.935Z",
-      "CreateTime": "2023-12-28T01:54:26.521Z"
+      "UpdateTime": "2024-08-01T00:28:13.627Z"
     },
     {
       "Id": "storefeature1default",
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Unlimited Purchase",
-      "UpdateTime": "2024-06-29T14:10:35.939Z",
-      "CreateTime": "2023-12-28T01:54:26.526Z"
+      "UpdateTime": "2024-08-01T00:28:13.633Z"
     },
     {
       "Id": "storefeature2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Single Purchase",
-      "UpdateTime": "2024-06-29T14:10:35.942Z",
-      "CreateTime": "2023-12-28T01:54:26.53Z"
+      "UpdateTime": "2024-08-01T00:28:13.635Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "StoreFeatureSettings",
-    "UpdateTime": "2024-07-04T23:03:06.348Z",
-    "CreateTime": "2023-12-28T13:53:00Z"
+    "UpdateTime": "2024-08-01T00:28:13.637Z"
   },
   "Id": "default"
 }
