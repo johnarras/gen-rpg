@@ -18,29 +18,31 @@ namespace Genrpg.ServerShared.Accounts.Services
 
         private IRepositoryService _repoService = null;
 
-
         private IServerRepositoryService _serverRepositoryService { get; set; } = null;
 
         public async Task Initialize(CancellationToken token)
         {
+            List<Task> tasks = new List<Task>();
             CreateIndexData data = new CreateIndexData();
             data.Configs.Add(new IndexConfig() { MemberName = nameof(Account.LowerShareId), Unique=true });
             data.Configs.Add(new IndexConfig() { MemberName = nameof(Account.LowerEmail), Unique = true });
             data.Configs.Add(new IndexConfig() { MemberName = nameof(Account.LowerName) });
             data.Configs.Add(new IndexConfig() { MemberName = nameof(Account.ReferrerAccountId) });
-            await _repoService.CreateIndex<Account>(data);
+            tasks.Add(_repoService.CreateIndex<Account>(data));
 
             data = new CreateIndexData();
             data.Configs.Add(new IndexConfig() { MemberName = nameof(AccountConnection.AccountId) });
             data.Configs.Add(new IndexConfig() { MemberName = nameof(AccountConnection.Index) });
             data.Configs.Add(new IndexConfig() { MemberName = nameof(AccountConnection.ProductId) });
-            await _repoService.CreateIndex<AccountConnection>(data);
+            tasks.Add(_repoService.CreateIndex<AccountConnection>(data));
 
             data = new CreateIndexData();
             data.Configs.Add(new IndexConfig() { MemberName = nameof(ConnectionCount.AccountId)});
             data.Configs.Add(new IndexConfig() { MemberName = nameof(ConnectionCount.Index) });
             data.Configs.Add(new IndexConfig() { MemberName = nameof(ConnectionCount.ProductId) });
-            await _repoService.CreateIndex<ConnectionCount>(data);
+            tasks.Add(_repoService.CreateIndex<ConnectionCount>(data));
+
+            await Task.WhenAll(tasks);
 
             AccountIdIncrement increment = await _repoService.Load<AccountIdIncrement>(AccountIdIncrement.DocId);
 

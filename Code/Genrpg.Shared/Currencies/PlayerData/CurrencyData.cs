@@ -1,15 +1,7 @@
 using MessagePack;
-using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Units.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
-using Genrpg.Shared.Factions.PlayerData;
 using Genrpg.Shared.Units.Mappers;
 
 namespace Genrpg.Shared.Currencies.PlayerData
@@ -19,7 +11,7 @@ namespace Genrpg.Shared.Currencies.PlayerData
     /// </summary>
 
     [MessagePackObject]
-    public class CurrencyData : OwnerIdObjectList<CurrencyStatus>
+    public class CurrencyData : OwnerQuantityObjectList<CurrencyStatus>
     {
         [Key(0)] public override string Id { get; set; }
 
@@ -30,12 +22,12 @@ namespace Genrpg.Shared.Currencies.PlayerData
     }
 
     [MessagePackObject]
-    public class CurrencyStatus : OwnerPlayerData, IId
+    public class CurrencyStatus : OwnerQuantityChild
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string OwnerId { get; set; }
-        [Key(2)] public long IdKey { get; set; }
-        [Key(3)] public long Quantity { get; set; }
+        [Key(2)] public override long IdKey { get; set; }
+        [Key(3)] public override long Quantity { get; set; }
 
     }
 

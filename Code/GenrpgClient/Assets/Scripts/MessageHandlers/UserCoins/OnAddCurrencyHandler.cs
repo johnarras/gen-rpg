@@ -1,7 +1,8 @@
 ﻿
 using Genrpg.Shared.UserCoins.Messages;
-using Genrpg.Shared.UserCoins.PlayerData;
+using Genrpg.Shared.Users.PlayerData;
 using System.Threading;
+using UnityEngine;
 
 namespace Assets.Scripts.MessageHandlers.Currency
 {
@@ -14,8 +15,8 @@ namespace Assets.Scripts.MessageHandlers.Currency
                 return;
             }
 
-            UserCoinData coinData = _gs.ch.Get<UserCoinData>();
-            coinData.Add(msg.UserCoinTypeId, msg.QuantityAdded);
+            CoreUserData coreUserData = _gs.ch.Get<CoreUserData>();
+            coreUserData.Coins.Add(msg.UserCoinTypeId, msg.QuantityAdded);
             _dispatcher.Dispatch(msg);
         }
     }

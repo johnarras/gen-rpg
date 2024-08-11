@@ -6,21 +6,17 @@ using System.Collections.Generic;
 using System.Text;
 using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.DataStores.Interfaces;
 
 namespace Genrpg.Shared.Purchasing.PlayerData
 {
 
-    public class PurchaseHistoryLoader : UnitDataLoader<PurchaseHistoryData>
-    {
-    }
+    public class PurchaseHistoryLoader : UnitDataLoader<PurchaseHistoryData> { }
 
-    public class PurchaseHistoryMapper : UnitDataMapper<PurchaseHistoryData>
-    {
-        public override bool SendToClient() { return false; }
-    }
+    public class PurchaseHistoryMapper : UnitDataMapper<PurchaseHistoryData> { }
 
     [MessagePackObject]
-    public class PurchaseHistoryData : NoChildPlayerData, IUserData
+    public class PurchaseHistoryData : NoChildPlayerData, IUserData, IServerOnlyData
     {
         public const int MaxRecentPurchasesCount = 10;
 

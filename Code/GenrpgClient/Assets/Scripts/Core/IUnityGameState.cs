@@ -13,6 +13,9 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
 using Assets.Scripts.ProcGen.RandomNumbers;
+using Assets.Scripts.GameSettings.Entities;
+using Genrpg.Shared.DataStores.Entities;
+using Assets.Scripts.Model;
 
 public interface IUnityGameState : IGameState, IInjectable
 {
@@ -51,11 +54,12 @@ public class UnityGameState : GameState, IInjectable, IUnityGameState
         _logService = new ClientLogger(Config);
        
         IAnalyticsService analyticsService = new ClientAnalyticsService(Config);
-        loc = new ServiceLocator(_logService, analyticsService, new GameData());
+        loc = new ServiceLocator(_logService, analyticsService, new ClientGameData());
         loc.Set<IDispatcher>(new Dispatcher());
         loc.Set<IUnityGameState>(this);
         loc.Set<IClientRandom>(new ClientRandom());
         loc.Set<IMapGenData>(new MapGenData());
+        loc.Set<IRepositoryService>(new ClientRepositoryService(_logService));  
     }
 
     protected string ConfigFilename = "InitialClientConfig";

@@ -7,6 +7,8 @@ using Genrpg.Shared.Pathfinding.Constants;
 using System.Threading;
 using Genrpg.Shared.Utils;
 using UnityEngine;
+using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.DataGroups;
 
 public class LoadPathfinding : BaseZoneGenerator
 {
@@ -23,8 +25,13 @@ public class LoadPathfinding : BaseZoneGenerator
         }
         else
         {
-            DownloadFileData ddata = new DownloadFileData() { IsImage = false, Handler= OnDownloadPathfinding };
-            _fileDownloadService.DownloadFile(filename, ddata, true, token);
+            DownloadFileData ddata = new DownloadFileData()
+            {
+                IsImage = false,
+                Handler = OnDownloadPathfinding,
+                Category = EDataCategories.Worlds,
+            };
+            _fileDownloadService.DownloadFile(filename, ddata, token);
         }
     }
 

@@ -11,7 +11,9 @@ using UnityEngine;
 using System.Threading.Tasks;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
-
+using Genrpg.Shared.Utils;
+using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.DataGroups;
 
 public class DownloadFileData
 {
@@ -20,6 +22,8 @@ public class DownloadFileData
     public bool ForceDownload { get; set; }
 
     public bool IsText { get; set; }
+
+    public EDataCategories Category { get; set; }
 
     public OnDownloadHandler Handler { get; set; }
 
@@ -30,6 +34,11 @@ public class DownloadFileData
     public byte[] UncompressedBytes { get; set; }
 
     public string URLPrefixOverride { get; set; }
+}
+
+public class TypedDownloadFileData<T> : DownloadFileData
+{
+    public Action<T, DownloadFileData> OnDownloadAction { get; set; }
 }
 
 
@@ -85,7 +94,7 @@ public class FileDownloadService : IFileDownloadService
     // If it's in downloading, add the handler to the queue.	
     // If it's none of those, start the download.
 
-    public void DownloadFile(string filePath, DownloadFileData downloadData, bool worldData, CancellationToken token)
+    public void DownloadFile(string filePath, DownloadFileData downloadData, CancellationToken token)
     {
         if (!TokenUtils.IsValid(token))
         {
@@ -118,7 +127,7 @@ public class FileDownloadService : IFileDownloadService
 
         if (string.IsNullOrEmpty(contentRootURL))
         {
-            contentRootURL = _assetService.GetContentRootURL(worldData);
+            contentRootURL = _assetService.GetContentRootURL(downloadData.Category);
             if (string.IsNullOrEmpty(contentRootURL))
             {
                 return;
@@ -212,6 +221,7 @@ public class FileDownloadService : IFileDownloadService
 
                     DownloadHandler handler = request.downloadHandler;
                     fileDownload.DownloadData.StartBytes = handler.data;
+
                     txt = handler.text;
                     if (fileDownload.DownloadData.StartBytes != null &&
                         fileDownload.DownloadData.StartBytes.Length < 300)
@@ -275,6 +285,10 @@ public class FileDownloadService : IFileDownloadService
             else if (fileDownload.DownloadData.IsText ||
                 fileDownload.FilePath.IndexOf(".txt") > 0)
             {
+                if (string.IsNullOrEmpty(txt))
+                {
+                    txt = System.Text.Encoding.UTF8.GetString(fileDownload.DownloadData.UncompressedBytes);
+                }
                 obj = txt;
             }
             else
@@ -301,5 +315,32 @@ public class FileDownloadService : IFileDownloadService
                 fd.DownloadData.Handler(obj, fd.DownloadData.Data, token);
             }
         }
+    }
+
+    public void DownloadTypedFile<T>(string url, Action<T> handler, EDataCategories category, CancellationToken token)
+    {
+
+        string newUrl = typeof(T).Name.ToLower() + "/" + url;
+        DownloadFileData fileData = new DownloadFileData()
+        {
+            Data = handler,
+            IsText = true,
+            ForceDownload = false,
+            Category = category,
+            Handler =
+              (obj, data, token) =>
+              {
+                  if (obj == null || string.IsNullOrEmpty(obj.ToString()))
+                  {
+                      handler(default(T));
+                      return;
+                  }
+
+                  T t = SerializationUtils.Deserialize<T>(obj.ToString());
+                  handler(t);
+              },
+        };
+
+        DownloadFile(newUrl, fileData, token);
     }
 }

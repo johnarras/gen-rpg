@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,8 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BoardGame\Services\" />
-    <Folder Include="BoardGame\PlayerData\" />
+    <Folder Include="Chests\Constants\" />
+    <Folder Include="Chests\Services\" />
+    <Folder Include="Inventory\Settings\Slots\" />
+    <Folder Include="UserAbilities\Constants\" />
+    <Folder Include="Currencies\Messages\" />
   </ItemGroup>
 
 </Project>

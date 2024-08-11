@@ -4,7 +4,6 @@ namespace Genrpg.Shared.MapObjects.Interfaces
 {
     public interface IMapObject : IFilteredObject
     {
-        string Id { get; set; }
         string Name { get; set; }
         long EntityTypeId { get; set; }
         long EntityId { get; set; }

@@ -17,12 +17,12 @@ using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Stats.Settings.Scaling;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Inventory.Settings.Qualities;
-using Genrpg.Shared.Inventory.Settings.Slots;
 using Genrpg.Shared.Crafting.Entities;
 using Genrpg.Shared.Crafting.Settings.Recipes;
 using System.Threading;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Crafting.Constants;
+using Genrpg.Shared.Inventory.Settings.Slots;
 
 namespace Genrpg.Shared.Crafting.Services
 {

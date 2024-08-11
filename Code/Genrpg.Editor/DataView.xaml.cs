@@ -593,7 +593,7 @@ namespace Genrpg.Editor
                 return UIHelper.CreateCheckBox(coll, mem.Name + "Edit", width, height, xpos, ypos);
             }
 
-            List<NameValue> ddList = _reflectionService.GetDropdownList(_gs, mem, Obj);
+            List<IIdName> ddList = _reflectionService.GetDropdownList(_gs, mem, Obj);
 
             if (ddList != null && ddList.Count > 0)
             {
@@ -631,7 +631,7 @@ namespace Genrpg.Editor
 
             String memberName = cb.Name.Replace("Edit", "");
 
-            NameValue selItem = cb.SelectedItem as NameValue;
+            IIdName selItem = cb.SelectedItem as IIdName;
 
             if (selItem != null)
             {
@@ -678,14 +678,8 @@ namespace Genrpg.Editor
                 return;
             }
 
-            string tname = helper.GetDataPropertyName();
-            List<NameValue> dataList = _reflectionService.CreateDataList(_gs, tname);
 
-            if (dataList == null)
-            {
-                return;
-            }
-
+            List<IIdName> dataList = helper.GetChildList(null);
 
             // Do this first, or the value gets wiped due to the event here
             object currObj = _reflectionService.GetObjectValue(Obj, newpropname);
@@ -703,7 +697,7 @@ namespace Genrpg.Editor
 
             for (int i = 0; i < dataList.Count; i++)
             {
-                NameValue nv = dataList[i] as NameValue;
+                IIdName nv = dataList[i] as IIdName;
                 if (nv.IdKey == currVal)
                 {
                     keyCont.SelectedItem = nv;
@@ -780,19 +774,7 @@ namespace Genrpg.Editor
                 return;
             }
 
-            string dataname = helper.GetDataPropertyName();
-
-            if (String.IsNullOrEmpty(dataname))
-            {
-                return;
-            }
-
-            object datalist = _reflectionService.GetObjectValue(_gs.data, dataname);
-
-            if (datalist == null)
-            {
-                return;
-            }
+            List<IIdName> datalist = helper.GetChildList(null);
 
             Type dataType = datalist.GetType();
 
@@ -925,7 +907,7 @@ namespace Genrpg.Editor
 
             string propName = cb.Name.Replace("Edit", "");
 
-            NameValue selItem = cb.SelectedItem as NameValue;
+            IIdName selItem = cb.SelectedItem as IIdName;
             if (selItem == null)
             {
                 return;
@@ -998,7 +980,7 @@ namespace Genrpg.Editor
                 }
                 for (int i = 0; i < comboBox.Items.Count; i++)
                 {
-                    NameValue item = comboBox.Items[i] as NameValue;
+                    IIdName item = comboBox.Items[i] as IIdName;
                     if (item != null && item.IdKey.ToString() == val.ToString())
                     {
                         comboBox.SelectedItem = item;
@@ -1009,7 +991,7 @@ namespace Genrpg.Editor
 
             if (comboBox.SelectedItem == null)
             {
-                NameValue errorItem = new NameValue() { Name = "ErrorItem", IdKey = idVal };
+                IIdName errorItem = new NameValue() { Name = "ErrorItem", IdKey = idVal };
                 if (comboBox.Items.Count > 0)
                 {
                     comboBox.SelectedItem = comboBox.Items[0];
@@ -1541,7 +1523,7 @@ namespace Genrpg.Editor
                 {
                     object item = cb.SelectedItem;
 
-                    NameValue nv = item as NameValue;
+                    IIdName nv = item as IIdName;
                     if (nv != null)
                     {
                         _reflectionService.SetObjectValue(Obj, mem.Name, nv.IdKey);
@@ -1731,7 +1713,7 @@ namespace Genrpg.Editor
 
                         Array values = Enum.GetValues(mtype);
 
-                        List<NameValue> enumIds = new List<NameValue>();
+                        List<IIdName> enumIds = new List<IIdName>();
 
                         foreach (object eobj in values)
                         {
@@ -1746,7 +1728,7 @@ namespace Genrpg.Editor
                     {
                         MemberInfo mem = members[i];
 
-                        List<NameValue> dropdownList = _reflectionService.GetDropdownList(_gs, mem, null);
+                        List<IIdName> dropdownList = _reflectionService.GetDropdownList(_gs, mem, null);
 
                         if (dropdownList == null || dropdownList.Count < 1)
                         {
@@ -1776,7 +1758,7 @@ namespace Genrpg.Editor
             });
         }
 
-        private void AddComboBoxColumn(DataGridColumn col, MemberInfo mem, Type underlyingType, MemberInfo nameMember, List<NameValue> dropdownList)
+        private void AddComboBoxColumn(DataGridColumn col, MemberInfo mem, Type underlyingType, MemberInfo nameMember, List<IIdName> dropdownList)
         {
             long firstKey = dropdownList.FirstOrDefault()?.IdKey ?? 1;
 
@@ -1790,7 +1772,7 @@ namespace Genrpg.Editor
             // Name property.
             List<object> newDropdown = new List<object>();
 
-            foreach (NameValue nv in dropdownList)
+            foreach (IIdName nv in dropdownList)
             {
                 object newObj = Activator.CreateInstance(underlyingType);
 

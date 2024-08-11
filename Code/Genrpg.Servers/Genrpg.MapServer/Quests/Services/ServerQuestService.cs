@@ -11,6 +11,7 @@ using Genrpg.Shared.Quests.Entities;
 using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.Quests.WorldData;
+using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Utils;
 using System;
@@ -31,8 +32,8 @@ namespace Genrpg.MapServer.Quests.Services
 
     public class ServerQuestService : IServerQuestService
     {
-        private ISharedQuestService _questService = null;
-        private IEntityService _entityService = null;
+        //private ISharedQuestService _questService = null;
+        //private IRewardService _rewardService = null;
 
         protected IRepositoryService _repoService = null;
         private IMapProvider _mapProvider = null;
@@ -122,110 +123,110 @@ namespace Genrpg.MapServer.Quests.Services
 
             return errorResult;
 
-            QuestType quest = _mapProvider.GetMap().Get<QuestType>(alterData.QuestTypeId);
+            //QuestType quest = _mapProvider.GetMap().Get<QuestType>(alterData.QuestTypeId);
 
-            if (quest == null || quest.Tasks == null)
-            {
-                errorResult.Message = "Missing Quest info";
-                return errorResult;
-            }
+            //if (quest == null || quest.Tasks == null)
+            //{
+            //    errorResult.Message = "Missing Quest info";
+            //    return errorResult;
+            //}
 
-            QuestData questData = ch.Get<QuestData>();
+            //QuestData questData = ch.Get<QuestData>();
 
-            QuestStatus questStatus = questData.GetStatus(quest);
+            //QuestStatus questStatus = questData.GetStatus(quest);
 
-            int questState = _questService.GetQuestState(rand, ch, quest);
+            //int questState = _questService.GetQuestState(rand, ch, quest);
 
-            if (alterData.AlterTypeId == AlterQuestType.Accept)
-            {
-                if (questStatus != null)
-                {
-                    errorResult.Message = "Already on this quest";
-                    return errorResult;
-                }
+            //if (alterData.AlterTypeId == AlterQuestType.Accept)
+            //{
+            //    if (questStatus != null)
+            //    {
+            //        errorResult.Message = "Already on this quest";
+            //        return errorResult;
+            //    }
 
-                if (questState == QuestState.Complete)
-                {
-                    errorResult.Message = "Already completed this quest";
-                    return errorResult;
-                }
-                else if (questState == QuestState.NotAvailable || questState == QuestState.NotAvailable)
-                {
-                    errorResult.Message = "Quest is not available";
-                    return errorResult;
-                }
-                else if (questState == QuestState.Active)
-                {
-                    errorResult.Message = "Already on this quest";
-                    return errorResult;
-                }
-                else if (questState == QuestState.Available)
-                {
-                    if (questStatus != null)
-                    {
-                        errorResult.Message = "Already on this quest";
-                        return errorResult;
-                    }
+            //    if (questState == QuestState.Complete)
+            //    {
+            //        errorResult.Message = "Already completed this quest";
+            //        return errorResult;
+            //    }
+            //    else if (questState == QuestState.NotAvailable || questState == QuestState.NotAvailable)
+            //    {
+            //        errorResult.Message = "Quest is not available";
+            //        return errorResult;
+            //    }
+            //    else if (questState == QuestState.Active)
+            //    {
+            //        errorResult.Message = "Already on this quest";
+            //        return errorResult;
+            //    }
+            //    else if (questState == QuestState.Available)
+            //    {
+            //        if (questStatus != null)
+            //        {
+            //            errorResult.Message = "Already on this quest";
+            //            return errorResult;
+            //        }
 
-                    questStatus = quest.CreateStatus(questData);
-                    questData.AddStatus(questStatus);
-                    _repoService.Delete(questStatus);
-                    AlterQuestStateResult alterResult = new AlterQuestStateResult()
-                    {
-                        AlterTypeId = AlterQuestType.Accept,
-                        Status = questStatus,
-                        Success = true,
-                    };
-                    return alterResult;
-                }
-            }
-            else if (alterData.AlterTypeId == AlterQuestType.Abandon)
-            {
-                if (questStatus == null)
-                {
-                    errorResult.Message = "You aren't on this quest.";
-                    return errorResult;
-                }
-                questData.RemoveStatus(questStatus);
-                _repoService.Delete(questStatus);
-                AlterQuestStateResult alterResult = new AlterQuestStateResult()
-                {
-                    AlterTypeId = AlterQuestType.Abandon,
-                    Status = questStatus,
-                    Success = true,
-                };
-                return alterResult;
-            }
-            else if (alterData.AlterTypeId == AlterQuestType.Complete)
-            {
-                if (questStatus == null)
-                {
-                    errorResult.Message = "You're not on this quest.";
-                    return errorResult;
-                }
-                if (questState != QuestState.Complete)
-                {
-                    errorResult.Message = "The Quest is not Complete.";
-                    return errorResult;
-                }
+            //        questStatus = quest.CreateStatus(questData);
+            //        questData.AddStatus(questStatus);
+            //        _repoService.Delete(questStatus);
+            //        AlterQuestStateResult alterResult = new AlterQuestStateResult()
+            //        {
+            //            AlterTypeId = AlterQuestType.Accept,
+            //            Status = questStatus,
+            //            Success = true,
+            //        };
+            //        return alterResult;
+            //    }
+            //}
+            //else if (alterData.AlterTypeId == AlterQuestType.Abandon)
+            //{
+            //    if (questStatus == null)
+            //    {
+            //        errorResult.Message = "You aren't on this quest.";
+            //        return errorResult;
+            //    }
+            //    questData.RemoveStatus(questStatus);
+            //    _repoService.Delete(questStatus);
+            //    AlterQuestStateResult alterResult = new AlterQuestStateResult()
+            //    {
+            //        AlterTypeId = AlterQuestType.Abandon,
+            //        Status = questStatus,
+            //        Success = true,
+            //    };
+            //    return alterResult;
+            //}
+            //else if (alterData.AlterTypeId == AlterQuestType.Complete)
+            //{
+            //    if (questStatus == null)
+            //    {
+            //        errorResult.Message = "You're not on this quest.";
+            //        return errorResult;
+            //    }
+            //    if (questState != QuestState.Complete)
+            //    {
+            //        errorResult.Message = "The Quest is not Complete.";
+            //        return errorResult;
+            //    }
 
-                List<SpawnResult> rewards = _questService.GetRewards(rand, ch, quest, true);
+            //    List<SpawnResult> rewards = _questService.GetRewards(rand, ch, quest, true);
 
-                _entityService.GiveRewards(rand, ch, rewards);
-                questData.RemoveStatus(questStatus);
-                _repoService.Delete(questStatus);
+            //    _rewardService.GiveRewards(rand, ch, rewards);
+            //    questData.RemoveStatus(questStatus);
+            //    _repoService.Delete(questStatus);
 
-                AlterQuestStateResult alterResult = new AlterQuestStateResult()
-                {
-                    AlterTypeId = AlterQuestType.Complete,
-                    Status = questStatus,
-                    Rewards = rewards,
-                    Success = true,
-                };
-                return alterResult;
-            }
-            errorResult.Message = "Unknown quest command";
-            return errorResult;
+            //    AlterQuestStateResult alterResult = new AlterQuestStateResult()
+            //    {
+            //        AlterTypeId = AlterQuestType.Complete,
+            //        Status = questStatus,
+            //        Rewards = rewards,
+            //        Success = true,
+            //    };
+            //    return alterResult;
+            //}
+            //errorResult.Message = "Unknown quest command";
+            //return errorResult;
         }
 
 

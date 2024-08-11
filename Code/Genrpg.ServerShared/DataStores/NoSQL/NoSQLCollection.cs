@@ -226,7 +226,9 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             }
 
             Type thisType = typeof(T);
-            IndexKeysDefinitionBuilder<T> builder = new IndexKeysDefinitionBuilder<T>();
+            IndexKeysDefinitionBuilder<T> indexBuilder = Builders<T>.IndexKeys;
+
+            List<IndexKeysDefinition<T>> allKeys = new List<IndexKeysDefinition<T>>();
             foreach (IndexConfig config in data.Configs)
             {
                 CreateIndexOptions<T> options = new CreateIndexOptions<T>()
@@ -240,17 +242,25 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
                     continue;
                 }
                 StringFieldDefinition<T> fieldDef = new StringFieldDefinition<T>(config.MemberName);
-              
 
-                IndexKeysDefinition<T> indexKeys = (config.Ascending ?
-                    new IndexKeysDefinitionBuilder<T>().Ascending(fieldDef) :
-                    new IndexKeysDefinitionBuilder<T>().Descending(fieldDef));
+                allKeys.Add(config.Ascending ?
+                    indexBuilder.Ascending(fieldDef) :
+                    indexBuilder.Descending(fieldDef));
 
-                CreateIndexModel<T> indexModel = new CreateIndexModel<T>(indexKeys, options);
+                if (config.CompoundContinue)
+                {
+                    continue;
+                }
+                else
+                {
+                    IndexKeysDefinition<T> indexDef = Builders<T>.IndexKeys.Combine(allKeys.ToArray());
+                    CreateIndexModel<T> indexModel = new CreateIndexModel<T>(indexDef, options);
 
-                await _collection.Indexes.CreateOneAsync(indexModel);
+                    await _collection.Indexes.CreateOneAsync(indexModel);
+
+                    allKeys.Clear();
+                }
             }
-
         }
 
         public async Task<bool> SaveAll(object listObj)

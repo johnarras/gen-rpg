@@ -1,0 +1,16 @@
+{
+  "Id": "activity2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Weekly Quests",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "ResetDays": 7,
+  "BaseCost": 250,
+  "IncrementalCost": 25,
+  "MaxLevel": 10,
+  "BaseReward": 50,
+  "IncrementalReward": 10,
+  "UpdateTime": "2024-08-10T16:56:22.374Z"
+}

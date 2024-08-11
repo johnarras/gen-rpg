@@ -13,6 +13,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Quests.WorldData;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Vendors.WorldData;
+using Genrpg.Shared.ProcGen.Settings.Names;
 
 namespace Genrpg.Shared.MapServer.Entities
 {
@@ -109,19 +110,19 @@ namespace Genrpg.Shared.MapServer.Entities
             return ZoneSize >= BlockCount;
         }
 
-        public object GetEditorListFromEntityTypeId(int entityTypeId)
+        public List<IIdName> GetEditorListFromEntityTypeId(long entityTypeId)
         {
             if (entityTypeId == EntityTypes.Quest)
             {
-                return Quests;
+                return Quests.Cast<IIdName>().ToList();
             }
             else if (entityTypeId == EntityTypes.QuestItem || entityTypeId == EntityTypes.GroundObject)
             {
-                return QuestItems;
+                return QuestItems.Cast<IIdName>().ToList(); ;
             }
             else if (entityTypeId == EntityTypes.Zone)
             {
-                return Zones;
+                return Zones.Cast<IIdName>().ToList();
             }
 
             return null;

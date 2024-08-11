@@ -10,6 +10,8 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Vendors.WorldData;
 using Genrpg.Shared.Achievements.Settings;
 using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Spawns.Settings;
+using Genrpg.Shared.Characters.PlayerData;
 
 namespace Genrpg.Shared.BoardGame.Settings
 {
@@ -17,6 +19,20 @@ namespace Genrpg.Shared.BoardGame.Settings
     public class BoardModeSettings : ParentSettings<BoardMode>
     {
         [Key(0)] public override string Id { get; set; }
+    }
+
+
+    [MessagePackObject]
+    public class BoardModePrizeRule
+    {
+        [Key(0)] public long PathIndex { get; set; }
+
+        [Key(1)] public double PassRewardPercent { get; set; }
+        [Key(2)] public double LandRewardPercent { get; set; }
+        [Key(3)] public bool SpawnOnce { get; set; }
+
+        [Key(4)] public List<PrizeSpawn> PassRewards { get; set; } = new List<PrizeSpawn>();
+        [Key(5)] public List<PrizeSpawn> LandRewards { get; set; } = new List<PrizeSpawn>();
     }
 
     [MessagePackObject]
@@ -30,6 +46,11 @@ namespace Genrpg.Shared.BoardGame.Settings
         [Key(4)] public string Desc { get; set; }
         [Key(5)] public string Icon { get; set; }
         [Key(6)] public string Art { get; set; }
+
+        [Key(7)] public int DiceCount { get; set; }
+        [Key(8)] public bool FreeRolls { get; set; }
+
+        [Key(9)] public List<BoardModePrizeRule> PrizeRules { get; set; }
 
     }
 

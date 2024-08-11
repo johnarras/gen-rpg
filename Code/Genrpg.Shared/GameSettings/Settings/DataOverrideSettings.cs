@@ -47,8 +47,11 @@ namespace Genrpg.Shared.GameSettings.Settings
         [Key(17)] public int RepeatHours { get; set; }
         [Key(18)] public bool RepeatMonthly { get; set; }
 
-        [Key(19)] public List<DataOverrideItem> Items { get; set; }
-        [Key(20)] public List<AllowedPlayer> AllowedPlayers { get; set; } = new List<AllowedPlayer>();
+        [Key(19)] public string MaxClientVersion { get; set; }
+        [Key(20)] public string MinClientVersion { get; set; }
+
+        [Key(21)] public List<DataOverrideItem> Items { get; set; }
+        [Key(22)] public List<AllowedPlayer> AllowedPlayers { get; set; } = new List<AllowedPlayer>();
 
         public void OrderSelf()
         {

@@ -116,7 +116,7 @@
       "ParentId": "default",
       "IdKey": 16,
       "Name": "ProxyCharacter",
-      "UpdateTime": "2024-08-01T00:28:06.569Z"
+      "UpdateTime": "2024-08-11T14:51:59.701Z"
     },
     {
       "Id": "entitytype17default",
@@ -138,6 +138,21 @@
       "IdKey": 19,
       "Name": "Tribe",
       "UpdateTime": "2024-08-01T00:28:06.575Z"
+    },
+    {
+      "Id": "entitytype20default",
+      "ParentId": "default",
+      "IdKey": 20,
+      "Name": "Reputation",
+      "UpdateTime": "2024-08-11T14:51:59.701Z"
+    },
+    {
+      "Id": "entitytype21default",
+      "ParentId": "default",
+      "IdKey": 21,
+      "Name": "Chest",
+      "Desc": "",
+      "UpdateTime": "2024-08-11T14:51:59.701Z"
     },
     {
       "Id": "entitytype31default",
@@ -186,7 +201,7 @@
       "ParentId": "default",
       "IdKey": 37,
       "Name": "SpecialMagic",
-      "UpdateTime": "2024-08-01T00:28:06.599Z"
+      "UpdateTime": "2024-08-11T14:51:59.701Z"
     },
     {
       "Id": "entitytype38default",
@@ -203,6 +218,14 @@
       "UpdateTime": "2024-08-01T00:28:06.608Z"
     },
     {
+      "Id": "entitytype40default",
+      "ParentId": "default",
+      "IdKey": 40,
+      "Name": "Riddle",
+      "Desc": "",
+      "UpdateTime": "2024-08-11T14:51:59.701Z"
+    },
+    {
       "Id": "entitytype100default",
       "ParentId": "default",
       "IdKey": 100,
@@ -217,17 +240,25 @@
       "UpdateTime": "2024-08-01T00:28:06.552Z"
     },
     {
+      "Id": "entitytype102default",
+      "ParentId": "default",
+      "IdKey": 102,
+      "Name": "Map",
+      "Desc": "",
+      "UpdateTime": "2024-08-11T14:51:59.701Z"
+    },
+    {
       "Id": "entitytype200default",
       "ParentId": "default",
       "IdKey": 200,
       "Name": "UserCoins",
-      "UpdateTime": "2024-08-01T00:28:06.579Z"
+      "UpdateTime": "2024-08-11T14:51:59.701Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "EntitySettings",
-    "UpdateTime": "2024-08-01T00:28:06.54Z"
+    "UpdateTime": "2024-08-11T14:51:59.701Z"
   },
   "Id": "default"
 }

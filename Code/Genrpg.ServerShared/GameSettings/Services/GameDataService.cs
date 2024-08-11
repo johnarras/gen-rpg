@@ -13,11 +13,13 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.GameSettings.Settings;
+using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Utils;
 using Genrpg.Shared.Settings.Settings;
+using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Settings;
 using Genrpg.Shared.Website.Messages.Login;
@@ -32,74 +34,15 @@ namespace Genrpg.ServerShared.GameSettings.Services
 {
     public class GameDataService<D> : IGameDataService where D : GameData, new()
     {
+        SetupDictionaryContainer<Type, IGameSettingsLoader> _loaderObjects = new SetupDictionaryContainer<Type, IGameSettingsLoader>();    
+        SetupDictionaryContainer<Type, IGameSettingsMapper> _mapperObjects = new SetupDictionaryContainer<Type, IGameSettingsMapper>();
 
-        private IServiceLocator _loc = null;
-        private Dictionary<Type, IGameSettingsLoader> _loaderObjects = null;
-        private Dictionary<Type, IGameSettingsMapper> _mapperObjects = null;
         protected IRepositoryService _repoService = null;
         private IGameData _gameData = null;
 
-        private async Task SetupLoaders(CancellationToken token)
-        {
-            if (_loaderObjects != null)
-            {
-                return;
-            }
-            List<Type> loadTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettingsLoader));
-
-            Dictionary<Type, IGameSettingsLoader> newList = new Dictionary<Type, IGameSettingsLoader>();
-            foreach (Type lt in loadTypes)
-            {
-                if (await ReflectionUtils.CreateInstanceFromType(_loc, lt, token) is IGameSettingsLoader newLoader)
-                {
-                    newList[newLoader.GetServerType()] = newLoader;
-                }
-            }
-
-            List<Task> setupTasks = new List<Task>();
-
-            foreach (IGameSettingsLoader loader in newList.Values)
-            {
-                setupTasks.Add(loader.Setup(_repoService));
-            }
-
-            await Task.WhenAll(setupTasks);
-
-            _loaderObjects = newList;
-            await Task.CompletedTask;
-        }
-
-        private async Task SetupMappers(CancellationToken token)
-        {
-            if (_mapperObjects != null)
-            {
-                return;
-            }
-            List<Type> mapperTypes = ReflectionUtils.GetTypesImplementing(typeof(IGameSettingsMapper));
-
-            Dictionary<Type, IGameSettingsMapper> newDict = new Dictionary<Type, IGameSettingsMapper>();
-
-            foreach (Type lt in mapperTypes)
-            {
-                if (await ReflectionUtils.CreateInstanceFromType(_loc, lt, token) is IGameSettingsMapper newMapper)
-                {
-                    newDict[newMapper.GetServerType()] = newMapper;
-                }
-            }
-
-            _mapperObjects = newDict;
-            await Task.CompletedTask;
-        }
-
         public List<IGameSettingsLoader> GetAllLoaders()
         {
-            return _loaderObjects.Values.OrderBy(x => x.GetType().Name).ToList();
-        }
-
-        public async Task Initialize(CancellationToken token)
-        {
-            await SetupLoaders(token);
-            await SetupMappers(token);
+            return _loaderObjects.GetDict().Values.OrderBy(x => x.GetType().Name).ToList();
         }
 
         public virtual List<string> GetEditorIgnoreFields()
@@ -113,7 +56,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
             List<Task<List<ITopLevelSettings>>> allTasks = new List<Task<List<ITopLevelSettings>>>();
 
-            foreach (IGameSettingsLoader loader in _loaderObjects.Values)
+            foreach (IGameSettingsLoader loader in _loaderObjects.GetDict().Values)
             {
                 allTasks.Add(loader.LoadAll(_repoService, createMissingGameData));
             }
@@ -151,7 +94,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return true;
         }
 
-        public bool SetGameDataOverrides(ICoreCharacter ch, bool forceRefresh)
+        public bool SetGameDataOverrides(IFilteredObject ch, bool forceRefresh)
         {
 
             if (ch == null || ch.DataOverrides == null)
@@ -246,30 +189,37 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 versionSettings.GameDataSaveTime.Ticks.ToString() + "." +
                 dataOverrideSettings.PrevUpdateTime.Ticks.ToString();
 
-            ch.DataOverrides.Hash = PasswordUtils.Sha256(fullString);
+            ch.DataOverrides.Hash = PasswordUtils.QuickHash(fullString);
 
-            if (ch is CoreCharacter cch)
+            if (ch is CoreCharacter coreChar)
             {
-                _repoService.QueueSave(cch);
+                _repoService.QueueSave(coreChar);
             }
-            else
-            {
-                CoreCharacter cch2 = new CoreCharacter();
-                CharacterUtils.CopyDataFromTo(ch, cch2);
-                _repoService.QueueSave(cch2);
+            else if (ch is ICoreCharacter icoreChar)
+            { 
+                CoreCharacter coreCharCopy = new CoreCharacter();
+                CharacterUtils.CopyDataFromTo(icoreChar, coreCharCopy);
+                _repoService.QueueSave(coreCharCopy);
             }
 
             return true;
         }
 
-        public List<ITopLevelSettings> MapToApi(List<ITopLevelSettings> startSettings)
+        public List<ITopLevelSettings> MapToApi(IFilteredObject obj, List<ITopLevelSettings> startSettings)
         {
             List<ITopLevelSettings> retval = new List<ITopLevelSettings>();
+
+            Version clientVersion = new Version(obj.ClientVersion);
 
             foreach (ITopLevelSettings settings in startSettings)
             {
                 if (_mapperObjects.TryGetValue(settings.GetType(), out IGameSettingsMapper mapper))
                 {
+                    if (clientVersion < mapper.MinClientVersion)
+                    {
+                        continue;
+                    }
+
                     retval.Add(mapper.MapToApi(settings));
                 }
                 else
@@ -280,17 +230,19 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return retval;
         }
 
-        public List<ITopLevelSettings> GetClientGameData(ICoreCharacter ch, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null)
+        public List<ITopLevelSettings> GetClientGameData(IFilteredObject fobj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null)
         {
 
             List<ITopLevelSettings> retval = new List<ITopLevelSettings>();
-            SetGameDataOverrides(ch, true);
+            SetGameDataOverrides(fobj, true);
 
             List<ITopLevelSettings> allData = _gameData.AllSettings();
 
-            foreach (Type t in _mapperObjects.Keys)
+            Dictionary<Type,IGameSettingsMapper> mapperDict = _mapperObjects.GetDict();
+
+            foreach (Type t in mapperDict.Keys)
             {
-                IGameSettingsMapper mapper = _mapperObjects[t];
+                IGameSettingsMapper mapper = mapperDict[t];
 
                 if (!mapper.SendToClient())
                 {
@@ -301,7 +253,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
                 if (!sendAllDefault)
                 {
-                    docName = _gameData.SettingObjectName(t.Name, ch);
+                    docName = _gameData.SettingObjectName(t.Name, fobj);
                     if (docName == GameDataConstants.DefaultFilename)
                     {
                         continue;
@@ -315,7 +267,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 if (clientCache != null && docName == GameDataConstants.DefaultFilename &&
                     currData != null && currData is IUpdateData updateData)
                 {
-                    ClientCachedGameSettings clientCachedItem = clientCache.FirstOrDefault(x => x.TypeName == mapper.GetServerType().Name);
+                    ClientCachedGameSettings clientCachedItem = clientCache.FirstOrDefault(x => x.TypeName == mapper.GetKey().Name);
 
                     if (clientCachedItem != null && clientCachedItem.ClientSaveTime >= updateData.UpdateTime)
                     {
@@ -328,27 +280,27 @@ namespace Genrpg.ServerShared.GameSettings.Services
             return retval;
         }
 
-        private bool AcceptedByFilter(ICoreCharacter ch, IPlayerFilter filter)
+        public bool AcceptedByFilter(IFilteredObject obj, IPlayerFilter filter)
         {
             if (!PlayerFilterUtils.IsActive(filter))
             {
                 return false;
             }
 
-            if (filter.AllowedPlayers.Any(x=>x.PlayerId == ch.Id))
+            if (filter.AllowedPlayers.Any(x=>x.PlayerId == obj.Id))
             {
                 return true;
             }
 
             if (filter.MinLevel > 0 && filter.MaxLevel > 0 &&
-                (filter.MinLevel > ch.Level || filter.MaxLevel < ch.Level))
+                (filter.MinLevel > obj.Level || filter.MaxLevel < obj.Level))
             {
                 return false;
             }
 
             if (filter.TotalModSize > 0 && filter.MaxAcceptableModValue > 0)
             {
-                long idHash = StrUtils.GetIdHash(filter.IdKey + ch.Id);
+                long idHash = StrUtils.GetIdHash(filter.IdKey + obj.Id);
 
                 if (idHash % filter.TotalModSize >= filter.MaxAcceptableModValue)
                 {
@@ -356,6 +308,41 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 }
             }
 
+            if (filter.MaxUserDaysSinceInstall > 0 && (DateTime.UtcNow - obj.CreationDate).Days > filter.MaxUserDaysSinceInstall)
+            {
+                return false;
+            }
+
+            if (filter.MinUserDaysSinceInstall > 0 && (DateTime.UtcNow - obj.CreationDate).Days < filter.MinUserDaysSinceInstall)
+            {
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(filter.MinClientVersion) || !string.IsNullOrEmpty(filter.MaxClientVersion))
+            {
+                if (string.IsNullOrEmpty(obj.ClientVersion))
+                {
+                    return false;
+                }
+                Version clientVersion = new Version(obj.ClientVersion);
+                if (!string.IsNullOrEmpty(filter.MinClientVersion))
+                {
+                    Version minVersion = new Version(filter.MinClientVersion);  
+
+                    if (clientVersion < minVersion)
+                    {
+                        return false;
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(filter.MaxClientVersion))
+                {
+                    Version maxVersion = new Version(filter.MaxClientVersion);
+                    if (clientVersion > maxVersion)
+                    {
+                        return false;
+                    }
+                }
+            }
 
             return true;
         }
@@ -367,7 +354,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             newData.PrevSaveTime = _gameData.CurrSaveTime;
         }
 
-        public RefreshGameSettingsResult GetNewGameDataUpdates(ICoreCharacter ch, bool forceRefresh)
+        public RefreshGameSettingsResult GetNewGameDataUpdates(IFilteredObject ch, bool forceRefresh)
         {
             if (!SetGameDataOverrides(ch, forceRefresh))
             {
@@ -417,7 +404,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             }
 
             result.DataOverrides = overrideList;
-            result.NewSettings = MapToApi(newSettings);
+            result.NewSettings = MapToApi(ch, newSettings);
 
             return result;
 

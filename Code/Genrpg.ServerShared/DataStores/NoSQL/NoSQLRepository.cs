@@ -31,8 +31,9 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
         static object _connectionLock = new object();
 
         #region Core
-        public NoSQLRepository(ILogService logger, string databaseName, string connectionString)
+        public NoSQLRepository(ILogService logger, string env, string dataCategory, string connectionString)
         {
+            string databaseName = (env+dataCategory).ToLower();
             _logger = logger;
             try
             {
@@ -250,31 +251,31 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
             }
             else // Only use this if we have replica sets, does not work in serverless cosmos apparently
             {
-                using (IClientSessionHandle session = await _client.StartSessionAsync())
-                {
-                    try
-                    {
-                        session.StartTransaction();
+                //using (IClientSessionHandle session = await _client.StartSessionAsync())
+                //{
+                //    try
+                //    {
+                //        session.StartTransaction();
 
 
-                        List<Task<bool>> saves = new List<Task<bool>>();
+                //        List<Task<bool>> saves = new List<Task<bool>>();
 
-                        foreach (T item in list)
-                        {
-                            INoSQLCollection collection = GetCollection(item.GetType());
-                            await collection.TransactionSave(item, session);
-                        }
+                //        foreach (T item in list)
+                //        {
+                //            INoSQLCollection collection = GetCollection(item.GetType());
+                //            await collection.TransactionSave(item, session);
+                //        }
 
-                        await session.CommitTransactionAsync();
-                    }
-                    catch (Exception e)
-                    {
-                        _logger.Exception(e, "NoSQLRepository.TransactionSave");
-                        await session.AbortTransactionAsync();
-                        throw new Exception("Failed Transaction", e);
-                    }
-                    return true;
-                }
+                //        await session.CommitTransactionAsync();
+                //    }
+                //    catch (Exception e)
+                //    {
+                //        _logger.Exception(e, "NoSQLRepository.TransactionSave");
+                //        await session.AbortTransactionAsync();
+                //        throw new Exception("Failed Transaction", e);
+                //    }
+                //    return true;
+                //}
             }
         }
 

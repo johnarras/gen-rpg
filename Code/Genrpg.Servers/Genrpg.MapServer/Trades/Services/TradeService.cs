@@ -4,12 +4,13 @@ using Genrpg.MapServer.Maps;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Currencies.PlayerData;
-using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.Trades.Constants;
 using Genrpg.Shared.Trades.Entities;
 using Genrpg.Shared.Trades.Messages;
@@ -30,8 +31,8 @@ namespace Genrpg.MapServer.Trades.Services
         private IMapObjectManager _objManager = null;
         private IMapMessageService _messageService = null;
         private IInventoryService _inventoryService = null;
-        private ICurrencyService _currencyService = null;
         private IRepositoryService _repoService = null;
+        private IRewardService _rewardService = null;
 
         #region Utils
         private void SendError(Character ch, string message)
@@ -184,8 +185,8 @@ namespace Genrpg.MapServer.Trades.Services
 
                 if (currTrade.Money > 0)
                 {
-                    _currencyService.Add(currChar, CurrencyTypes.Money, -currTrade.Money);
-                    _currencyService.Add(otherChar, CurrencyTypes.Money, currTrade.Money);
+                    _rewardService.Add(currChar, EntityTypes.Currency, CurrencyTypes.Money, -currTrade.Money);
+                    _rewardService.Add(otherChar, EntityTypes.Currency, CurrencyTypes.Money, currTrade.Money);
                 }
 
                 for (int i = 0; i < currTrade.Items.Length; i++)

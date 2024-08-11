@@ -119,7 +119,7 @@ namespace Assets.Scripts.Model
 
         public Task CreateIndex<T>(CreateIndexData data) where T : class, IStringId
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         Task<bool> IRepositoryService.TransactionSave<T>(List<T> list)

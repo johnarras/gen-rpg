@@ -209,11 +209,11 @@ namespace Genrpg.Shared.Stats.Services
                     }
                 }
 
-                AbilityData abilityData = ch.Get<AbilityData>();
+                CombatAbilityData abilityData = ch.Get<CombatAbilityData>();
                 // Now add effects from skills and elements.
-                IReadOnlyList<AbilityRank> abilities = abilityData.GetData();
+                IReadOnlyList<CombatAbilityRank> abilities = abilityData.GetData();
 
-                foreach (AbilityRank ab in abilities)
+                foreach (CombatAbilityRank ab in abilities)
                 {
                     if (ab.Rank <= AbilityConstants.DefaultRank)
                     {

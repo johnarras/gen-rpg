@@ -1,6 +1,5 @@
 ﻿using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.ServerShared.Config;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
@@ -16,6 +15,7 @@ using Genrpg.ServerShared.DataStores.DbQueues;
 using Genrpg.ServerShared.DataStores.DbQueues.Actions;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Setup.Constants;
+using Genrpg.Shared.DataStores.DataGroups;
 
 namespace Genrpg.ServerShared.DataStores
 {
@@ -37,9 +37,6 @@ namespace Genrpg.ServerShared.DataStores
         }
 
         const int QueueCount = 4;
-
-        const string BlobPrefix = "Blob";
-        const string NoSQLPrefix = "NoSQL";
 
         private List<DbQueue> _queues = null;
         private ILogService _logger = null;
@@ -66,50 +63,46 @@ namespace Genrpg.ServerShared.DataStores
                 _queues.Add(new DbQueue(_logger, token));
             }
 
+            string blobRepoTypeName = ERepoTypes.Blob.ToString();
+            string noSqlRepoTypeName = ERepoTypes.NoSQL.ToString();   
+
             foreach (string key in _connectionStrings.Keys)
             {
-                if (key.IndexOf(BlobPrefix) == 0)
+                if (key.IndexOf(blobRepoTypeName) == 0)
                 {
-                    string dataCategory = key.Replace(BlobPrefix, "");
-                    string blobEnv = _environments[dataCategory];
-                    AddBlobRepo(dataCategory, blobEnv);
+                    string dataCategory = key.Replace(blobRepoTypeName, "");
+                    string env = _environments[dataCategory];
+                    await AddBlobRepo(_connectionStrings[key], env, dataCategory, blobRepoTypeName);
                 }
 
-                else if (key.IndexOf(NoSQLPrefix) == 0)
+                else if (key.IndexOf(noSqlRepoTypeName) == 0)
                 {
-                    string dataCategory = key.Replace(NoSQLPrefix, "");
-                    string dbEnv = _environments[dataCategory];
-                    AddNoSqlRepo(dataCategory, dbEnv);
+                    string dataCategory = key.Replace(noSqlRepoTypeName, "");
+                    string env = _environments[dataCategory];
+                    AddNoSqlRepo(_connectionStrings[key], env, dataCategory, noSqlRepoTypeName);
                 }
             }
             await Task.CompletedTask;
         }
 
-        public BlobRepository AddBlobRepo(string dataCategory, string blobEnv)
+        public async Task AddBlobRepo(string connectionString, string env, string dataCategory, string dataStoreType)
         {
-            string typeKey = (_environments[dataCategory] + dataCategory).ToLower();
-            if (!_blobRepos.TryGetValue(typeKey, out BlobRepository currentBlobRepo))
-            {
-                string blobConnection = _connectionStrings[BlobPrefix + dataCategory];
-                BlobRepository blobRepo = new BlobRepository(_logger, blobConnection);
-                _blobRepos[typeKey] = blobRepo;
-                _repos[typeKey] = blobRepo;
-                return blobRepo;
-            }
-            return currentBlobRepo;
+            await Task.CompletedTask;
+            string typeKey = GetEnvCategoryStoreTypeKey(env, dataCategory, dataStoreType);
+            BlobRepository blobRepo = new BlobRepository(_logger, _config, connectionString, dataCategory, env);
+            _repos[typeKey] = blobRepo;
         }
 
-        public NoSQLRepository AddNoSqlRepo(string dataCategory, string dbEnv)
+        public void AddNoSqlRepo(string connectionString, string env, string dataCategory, string dataStoreType)
         {
-            string typeKey = (_environments[dataCategory] + dataCategory).ToLower();
-            if (!_noSQLRepos.TryGetValue(typeKey, out NoSQLRepository currentNoSqlRepo))
-            {
-                NoSQLRepository noSQLRepo = new NoSQLRepository(_logger, typeKey, _connectionStrings[NoSQLPrefix+dataCategory]);
-                _noSQLRepos[typeKey] = noSQLRepo;
-                _repos[typeKey] = noSQLRepo;
-                return noSQLRepo;
-            }
-            return currentNoSqlRepo;
+            string typeKey = GetEnvCategoryStoreTypeKey(env, dataCategory, dataStoreType);
+
+            _repos[typeKey] = new NoSQLRepository(_logger, env, dataCategory, connectionString);
+        }
+
+        private string GetEnvCategoryStoreTypeKey(string env, string dataCategory, string dataStoreType)
+        {
+            return (env + dataCategory + dataStoreType).ToLower();
         }
 
         /// <summary>
@@ -124,24 +117,22 @@ namespace Genrpg.ServerShared.DataStores
                 return repo;
             }
 
-            string dataCategoryName = DataCategoryTypes.Default;
+            DataGroup dataGroup = Attribute.GetCustomAttribute(t, typeof(DataGroup), true) as DataGroup;
 
-            DataCategory category = Attribute.GetCustomAttribute(t, typeof(DataCategory), true) as DataCategory;
+            if (dataGroup == null)
+            {
+                throw new Exception("Missing DataCategory on type " + t.Name);
+            }
 
-            if (category != null)
-            {
-                dataCategoryName = category.Category;
-            }
-            else
-            {
-                throw new Exception("Missing DataCategory");
-            }
+            string dataCategoryName = dataGroup.Category.ToString();
 
             string dbEnv = _environments[dataCategoryName];
 
-            dataCategoryName = (dbEnv + dataCategoryName).ToLower();
+            string repoTypeName = dataGroup.RepoType.ToString();
 
-            if (_repos.TryGetValue(dataCategoryName, out IRepository existingRepo))
+            string typeKey = GetEnvCategoryStoreTypeKey(dbEnv, dataCategoryName, repoTypeName);
+
+            if (_repos.TryGetValue(typeKey, out IRepository existingRepo))
             {               
                 _repoTypeDict[t] = existingRepo;
                 return existingRepo;

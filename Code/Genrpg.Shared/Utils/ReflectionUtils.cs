@@ -10,6 +10,9 @@ using Genrpg.Shared.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using Genrpg.Shared.GameSettings.Loaders;
+using Genrpg.Shared.DataStores.Interfaces;
+using Genrpg.Shared.DataStores.Entities;
 
 namespace Genrpg.Shared.Utils
 {
@@ -115,6 +118,11 @@ namespace Genrpg.Shared.Utils
                         continue;
                     }
 
+                    if (t.ContainsGenericParameters)
+                    {
+                        continue;
+                    }
+
                     Type inter = t.GetInterface(ttype.Name);
                     if (inter == null)
                     {
@@ -206,6 +214,8 @@ namespace Genrpg.Shared.Utils
             {
                 setupTasks.Add(setupService.Initialize(token));
             }
+
+            await loc.InitializeDictionaryItems(token);
 
             await Task.WhenAll(setupTasks);
 

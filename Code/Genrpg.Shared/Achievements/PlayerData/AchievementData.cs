@@ -12,7 +12,7 @@ namespace Genrpg.Shared.Achievements.PlayerData
     /// </summary>
 
     [MessagePackObject]
-    public class AchievementData : OwnerIdObjectList<AchievementStatus>
+    public class AchievementData : OwnerQuantityObjectList<AchievementStatus>
     {
         [Key(0)] public override string Id { get; set; }
 
@@ -23,12 +23,12 @@ namespace Genrpg.Shared.Achievements.PlayerData
 
     }
     [MessagePackObject]
-    public class AchievementStatus : OwnerPlayerData, IId
+    public class AchievementStatus : OwnerQuantityChild
     {
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string OwnerId { get; set; }
-        [Key(2)] public long IdKey { get; set; }
-        [Key(3)] public long Quantity { get; set; }
+        [Key(2)] public override long IdKey { get; set; }
+        [Key(3)] public override long Quantity { get; set; }
 
     }
 

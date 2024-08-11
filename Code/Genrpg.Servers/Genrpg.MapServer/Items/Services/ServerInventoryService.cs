@@ -22,7 +22,7 @@ namespace Genrpg.MapServer.Items.Services
     {
         protected IRepositoryService _repoService = null;
         private IMapMessageService _messageService = null;
-        private ITradeService _tradeService;
+        private ITradeService _tradeService = null;
 
         public override bool AddItem(Unit unit, Item item, bool forceAdd)
         {

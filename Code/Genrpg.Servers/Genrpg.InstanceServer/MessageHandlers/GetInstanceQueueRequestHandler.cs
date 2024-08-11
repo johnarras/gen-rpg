@@ -1,7 +1,7 @@
 ﻿using Azure.Core;
 using Genrpg.InstanceServer.Entities;
 using Genrpg.ServerShared.CloudComms.Servers.InstanceServer.Queues;
-using Genrpg.ServerShared.CloudComms.Servers.LoginServer;
+using Genrpg.ServerShared.CloudComms.Servers.WebServer;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Core;
 

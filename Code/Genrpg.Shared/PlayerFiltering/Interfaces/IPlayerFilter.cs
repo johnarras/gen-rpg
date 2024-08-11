@@ -24,6 +24,8 @@ namespace Genrpg.Shared.PlayerFiltering.Interfaces
         int RepeatHours { get; set; }
         bool RepeatMonthly { get; set; }
         void OrderSelf();
+        string MinClientVersion { get; set; }
+        string MaxClientVersion { get; set; }
         List<AllowedPlayer> AllowedPlayers { get; set; }
     }
 }

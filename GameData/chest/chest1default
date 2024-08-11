@@ -1,0 +1,13 @@
+{
+  "Id": "chest1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Common Chest",
+  "Icon": "CommonChest",
+  "Art": "CommonChest",
+  "UnlockMinutes": 240,
+  "Tier": 1,
+  "TieredLootMult": 1,
+  "Loot": [],
+  "UpdateTime": "2024-08-11T15:18:30.912Z"
+}

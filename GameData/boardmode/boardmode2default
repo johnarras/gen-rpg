@@ -2,6 +2,8 @@
   "Id": "boardmode2default",
   "ParentId": "default",
   "IdKey": 2,
-  "Name": "FreeRolls",
-  "UpdateTime": "2024-08-03T23:20:55.71Z"
+  "Name": "Bonus",
+  "DiceCount": 2,
+  "FreeRolls": true,
+  "UpdateTime": "2024-08-11T18:10:43.748Z"
 }

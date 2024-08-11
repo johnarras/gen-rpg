@@ -31,9 +31,9 @@ using Genrpg.Shared.Spells.Casting;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.Spells.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.Spells.PlayerData;
 
 namespace Genrpg.MapServer.Spells.Services
 {
@@ -181,7 +181,7 @@ namespace Genrpg.MapServer.Spells.Services
 
             if (caster is Character ch)
             {
-                AbilityData adata = ch.Get<AbilityData>();
+                CombatAbilityData adata = ch.Get<CombatAbilityData>();
             }
 
             SetResultState(result, TryCastState.Ok);

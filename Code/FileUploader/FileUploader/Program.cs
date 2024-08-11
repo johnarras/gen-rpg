@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Configuration;
+using static System.Net.WebRequestMethods;
 
 namespace FileUploader
 {
@@ -16,7 +17,7 @@ namespace FileUploader
             try
             {
                 string connectionStringVar = (args[0] == "True" ?
-                    "BlobWorldDataConnection" : "BlobContentDataConnection");
+                    "BlobWorldsConnection" : "BlobAssetsConnection");
 
                 var _connectionString = ConfigurationManager.AppSettings[connectionStringVar];
                 if (args.Length < 3)
@@ -62,7 +63,7 @@ namespace FileUploader
                 output += "Esception: " + e.Message + " " + e.StackTrace;
             }
 
-            File.WriteAllText("output.txt", output);
+            System.IO.File.WriteAllText("output.txt", output);
         }
     }
 }

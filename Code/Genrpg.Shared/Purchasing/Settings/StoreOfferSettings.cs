@@ -57,14 +57,15 @@ namespace Genrpg.Shared.Purchasing.Settings
 
         [Key(15)] public double MinUserDaysSinceInstall { get; set; }
         [Key(16)] public double MaxUserDaysSinceInstall { get; set; }
-        [Key(17)] public double MinCharDaysSinceInstall { get; set; }
-        [Key(18)] public double MaxCharDaysSinceInstall { get; set; }
-        [Key(19)] public long MinLevel { get; set; }
-        [Key(20)] public long MaxLevel { get; set; }
-        [Key(21)] public long MinPurchaseCount { get; set; }
-        [Key(22)] public long MaxPurchaseCount { get; set; }
-        [Key(23)] public double MinPurchaseTotal { get; set; }
-        [Key(24)] public double MaxPurchaseTotal { get; set; }
+        [Key(17)] public long MinLevel { get; set; }
+        [Key(18)] public long MaxLevel { get; set; }
+        [Key(19)] public long MinPurchaseCount { get; set; }
+        [Key(20)] public long MaxPurchaseCount { get; set; }
+        [Key(21)] public double MinPurchaseTotal { get; set; }
+        [Key(22)] public double MaxPurchaseTotal { get; set; }
+
+        [Key(23)] public string MinClientVersion { get; set; }
+        [Key(24)] public string MaxClientVersion { get; set; }
         
         [Key(25)] public bool UseDateRange { get; set; }
         [Key(26)] public DateTime StartDate { get; set; }

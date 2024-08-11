@@ -33,6 +33,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private async Awaitable InnerProcessAsync(NoUserGameDataResult result, CancellationToken token)
         {
             _gs.user = new User() { Id = "Crawler" };
+            _gs.ch = new Character(_repoService) { Id = _gs.user.Id, UserId = _gs.user.Id };
             _gs.characterStubs = new List<CharacterStub>();
             _gs.mapStubs = new List<MapStub>();
 
@@ -40,9 +41,12 @@ namespace Assets.Scripts.Login.MessageHandlers
             {
                await _gameDataService.SaveSettings(settings);
             }
+
             if (_gs.user != null && !String.IsNullOrEmpty(_gs.user.Id))
-            {
-                await _loginService.SaveLocalUserData(_gs.user.Id);
+            {                
+                LocalUserData localUserData = await _repoService.Load<LocalUserData>(_gs.user.Id);
+                string loginToken = localUserData != null ? localUserData.LoginToken : "Crawler";
+                await _loginService.SaveLocalUserData(_gs.user.Id, loginToken);
             }
 
             _gameData.AddData(result.GameData);

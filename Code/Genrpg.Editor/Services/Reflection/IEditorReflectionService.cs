@@ -25,9 +25,9 @@ namespace Genrpg.Editor.Services.Reflection
         bool MemberIsPrimitive(MemberInfo mem);
         List<MemberInfo> GetMembers(object obj);
         Type GetMemberType(MemberInfo mem);
-        List<NameValue> CreateDataList(EditorGameState gs, string listName);
+        List<IIdName> CreateDataList(EditorGameState gs, string listName);
         string GetMemberName(object parent, object child);
-        List<NameValue> GetDropdownList(EditorGameState gs, MemberInfo mem, object obj);
+        List<IIdName> GetDropdownList(EditorGameState gs, MemberInfo mem, object obj);
         void SetObjectValue(object obj, string name, object val);
         object AddItems(object obj, object parent, IRepositoryService repoSystem, out List<object> newItems,
             object copyFrom = null, int maxCount = 0);
@@ -37,7 +37,6 @@ namespace Genrpg.Editor.Services.Reflection
         MemberInfo GetMemberInfo(object obj, string name);
         string GetIdString(string txt);
         Type GetUnderlyingType(object obj);
-        string GetOnClickDropdownName(EditorGameState gs, object obj, MemberInfo mem);
         object DeleteItem(object obj, object parent, object item);
         IEnumerable SortOnParameter(IEnumerable elist, bool ascending = true);
         void ReplaceIndexedItems(EditorGameState gs, object list, List<IIdName> newList);

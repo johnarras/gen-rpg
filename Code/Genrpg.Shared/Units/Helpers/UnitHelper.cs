@@ -8,17 +8,11 @@ using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Units.Settings;
+using Genrpg.Shared.Entities.Helpers;
 namespace Genrpg.Shared.Units.Helpers
 {
-    public class UnitHelper : IEntityHelper
+    public class UnitHelper : BaseEntityHelper<UnitSettings,UnitType>
     {
-        private IGameData _gameData = null;
-        public long GetKey() { return EntityTypes.Unit; }
-        public string GetDataPropertyName() { return "UnitTypes"; }
-
-        public IIndexedGameItem Find(IFilteredObject obj, long id)
-        {
-            return _gameData.Get<UnitSettings>(obj).Get(id);
-        }
+        public override long GetKey() { return EntityTypes.Unit; }
     }
 }

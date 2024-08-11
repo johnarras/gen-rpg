@@ -57,7 +57,7 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
             _achievementService.UpdateAchievement(ch, AchievementTypes.MoneyLooted, moneyTotal);
             _achievementService.UpdateAchievement(ch,AchievementTypes.ItemsLooted, itemTotel);
 
-            _entityService.GiveRewards(rand, ch, loot);
+            _rewardService.GiveRewards(rand, ch, loot);
             SendRewards sendLoot = new SendRewards()
             {
                 ShowPopup = true,

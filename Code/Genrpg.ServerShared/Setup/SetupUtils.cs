@@ -16,30 +16,39 @@ namespace Genrpg.ServerShared.Setup
             where GS : ServerGameState
             where TSetupService : SetupService
         {
-            if (string.IsNullOrEmpty(serverId))
+
+            try
             {
-                throw new Exception("Missing ServerId in setup code!");
+                if (string.IsNullOrEmpty(serverId))
+                {
+                    throw new Exception("Missing ServerId in setup code!");
+                }
+
+                IServerConfig config = serverConfigIn;
+
+                if (config == null)
+                {
+                    config = await ConfigUtils.SetupServerConfig(token, serverId);
+                }
+
+                GS gs = (GS)Activator.CreateInstance(typeof(GS), new object[] { config });
+                TSetupService setupService = (TSetupService)Activator.CreateInstance(typeof(TSetupService), new object[] { gs.loc });
+                await setupService.SetupGame(token);
+
+                IGameDataService gameDataService = gs.loc.Get<IGameDataService>();
+                IGameData gameData = await gameDataService.LoadGameData(setupService.CreateMissingGameData());
+
+                await setupService.FinalSetup();
+
+                gs.loc.Resolve(currentObject);
+
+                return gs;
             }
-
-            IServerConfig config = serverConfigIn;
-
-            if (config == null)
+            catch (Exception e)
             {
-                config = await ConfigUtils.SetupServerConfig(token, serverId);
+                Console.WriteLine(e.Message);
             }
-
-            GS gs = (GS)Activator.CreateInstance(typeof(GS), new object[] { config });
-            TSetupService setupService = (TSetupService)Activator.CreateInstance(typeof(TSetupService), new object[] { gs.loc });
-            await setupService.SetupGame(token);
-
-            IGameDataService gameDataService = gs.loc.Get<IGameDataService>();
-            IGameData gameData = await gameDataService.LoadGameData(setupService.CreateMissingGameData());
-
-            await setupService.FinalSetup();
-         
-            gs.loc.Resolve(currentObject);
-
-            return gs;
+            return null;
         }
     }
 }

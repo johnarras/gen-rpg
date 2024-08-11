@@ -131,6 +131,8 @@ public class SignupScreen : ErrorMessageScreen
             ShareId = shareId,
             ReferrerId = referrerId,
             Name = name,
+            ClientVersion = AppUtils.Version,
+            DeviceId = CryptoUtils.GetDeviceId(),
         };
 
         _authService.Signup(signupCommand, _token);

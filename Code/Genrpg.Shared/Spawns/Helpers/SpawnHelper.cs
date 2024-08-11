@@ -8,19 +8,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Spawns.Helpers
 {
-    public class SpawnHelper : IEntityHelper
+    public class SpawnHelper : BaseEntityHelper<SpawnSettings,SpawnTable>
     {
-
-        private IGameData _gameData = null;
-        public long GetKey() { return EntityTypes.Spawn; }
-        public string GetDataPropertyName() { return "SpawnTables"; }
-
-        public IIndexedGameItem Find(IFilteredObject obj, long id)
-        {
-            return _gameData.Get<SpawnSettings>(obj).Get(id);
-        }
+        public override long GetKey() { return EntityTypes.Spawn; }
     }
 }

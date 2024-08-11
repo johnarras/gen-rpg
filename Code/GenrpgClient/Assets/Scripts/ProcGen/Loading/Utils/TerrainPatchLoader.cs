@@ -10,6 +10,8 @@ using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
 using Genrpg.Shared.Pathfinding.Constants;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.DataGroups;
 
 public interface ITerrainPatchLoader : IInitializable
 {
@@ -75,8 +77,9 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
                     {
                         Handler = OnDownloadTerrainBytes,
                         Data = patch,
+                        Category = EDataCategories.Worlds,
                     };
-                    _fileDownloadService.DownloadFile(filePath, ddata, true, token);
+                    _fileDownloadService.DownloadFile(filePath, ddata, token);
                     return;
                 }
                 else
@@ -262,8 +265,8 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
             }
 
             // 4 ZoneId 1 byte (*divsq)
-            List<int> subZoneIds = new List<int>();
-            List<int> mainZoneIds = new List<int>();
+            List<long> subZoneIds = new List<long>();
+            List<long> mainZoneIds = new List<long>();
             if (_mapProvider.GetMap().OverrideZoneId > 0)
             {
                 mainZoneIds.Add((int)_mapProvider.GetMap().OverrideZoneId);

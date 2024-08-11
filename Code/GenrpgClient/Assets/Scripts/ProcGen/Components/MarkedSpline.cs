@@ -1,8 +1,17 @@
-﻿using Assets.Scripts.ProcGen.Services;
+﻿using Assets.Scripts.ProcGen.RandomNumbers;
+using Assets.Scripts.ProcGen.Services;
+using Genrpg.Shared.BoardGame.Constants;
+using Genrpg.Shared.BoardGame.Entities;
+using Genrpg.Shared.BoardGame.PlayerData;
+using Genrpg.Shared.BoardGame.Services;
+using Genrpg.Shared.BoardGame.Settings;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -21,9 +30,11 @@ namespace Assets.Scripts.ProcGen.Components
 
         public SplineContainer Container { get; set; }
 
-
         private List<MarkerPosition> _markers = new List<MarkerPosition>();
         public SplineLoopGenParams GenParams { get; set; } = new SplineLoopGenParams();
+
+
+        public float3 Offset { get; set; }
 
         private int _markerCount = 0;
 
@@ -48,24 +59,51 @@ namespace Assets.Scripts.ProcGen.Components
             _markers.Clear();
         }
 
+        int pipsPerGoldTile = 3;
+        int pipsPerOtherTile = 4;
         public void LoadMarkers(IRandom rand, CancellationToken token)
         {
             float length = Container.Splines[0].GetLength();
             _markerCount = (int)(length*GenParams.MarkerDensity);
-            if (GenParams.MarkerQuantity > 0)
+
+
+            BoardData boardData = _gs.ch.Get<BoardData>();
+
+            if (boardData == null || boardData.Length == 0)
             {
-                _markerCount = GenParams.MarkerQuantity;
+                return;
             }
 
-            _logService.Info("LENGTH: " + length);
+            float desiredLength = 8 * boardData.Length;
 
-            for (int i = 0; i < _markerCount; i++)
+            float lengthRatio = desiredLength/Container.Splines[0].GetLength();
+
+            IReadOnlyList<TileType> tileTypes = _gameData.Get<TileTypeSettings>(_gs.ch).GetData();
+
+            short[] tiles = boardData.Tiles.Data;
+
+            int pipTotal = boardData.Length * pipsPerGoldTile +
+                tiles.Where(x=>x != TileTypes.Gold).ToList().Count * (pipsPerOtherTile-pipsPerGoldTile)*2;
+
+            int pipsUsed = 0;
+
+            for (int i = 0; i < tiles.Length; i++)
             {
-                float percent = i * 1.0f / _markerCount;
-                Vector3 pos = Container.Splines[0].EvaluatePosition(percent);
-                pos += new Vector3(0, i, 0);
+
+                TileType tileType = tileTypes.FirstOrDefault(x => x.IdKey == tiles[i]);
+
+                int currPips = tileType.IdKey == TileTypes.Gold ? pipsPerGoldTile : pipsPerOtherTile;
+
+                pipsUsed += currPips-pipsPerGoldTile;
+
+                float percent = pipsUsed * 1.0f / (pipTotal);
+
+                pipsUsed += currPips;
+                Vector3 pos = (Container.Splines[0].EvaluatePosition(percent) + Offset);
+                pos *= lengthRatio;
                 MarkerPosition markerPos = new MarkerPosition() { Percent = percent, Index = i, Position = pos };
-                _assetService.LoadAssetInto(this, AssetCategoryNames.Buildings, "Default/House1", OnLoadMarker, markerPos, token);
+
+                _assetService.LoadAssetInto(this, AssetCategoryNames.Tiles, tileType.Art, OnLoadMarker, markerPos, token);
             }
         }
 
@@ -73,18 +111,33 @@ namespace Assets.Scripts.ProcGen.Components
         {
             GameObject go = obj as GameObject;
 
+            MarkerPosition markerPos = data as MarkerPosition;
+            _markers.Add(markerPos);
+            if (go == null)
+            {
+                Console.WriteLine("MarkerPos: " + markerPos.Index);
+                return;
+            }
+
             if (Container == null || Container.Splines.Count < 1)
             {
                 GEntityUtils.Destroy(go);
                 return;
             }
 
-            MarkerPosition markerPos = data as MarkerPosition;
-            _markers.Add(markerPos);
 
             markerPos.GameObject = go;
 
             go.transform.position = markerPos.Position;
+
+            float tileWidth = 5;
+
+            if (go.name.IndexOf("Gold") < 0)
+            {
+                tileWidth = 6.5f;
+            }
+            go.transform.localScale = new Vector3(tileWidth, 0.2f, tileWidth);
+            go.name = "Tile" + markerPos.Index + " (" + (int)go.transform.position.x + "," + (int)go.transform.position.z + "): " + markerPos.Percent + "%";
 
             if (_markers.Count >= _markerCount)
             {

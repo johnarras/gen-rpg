@@ -5,6 +5,7 @@ using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
 using Genrpg.ServerShared.CloudComms.Services.Admin;
 using Genrpg.ServerShared.Core;
 using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.DataGroups;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Inventory.Entities;
 using System;
@@ -61,7 +62,7 @@ namespace Genrpg.MapServer.Admin.Services
         public override async Task OnMapUploaded(MapUploadedAdminMessage message)
         {
 
-            if (message.WorldDataEnv != _config.DataEnvs[DataCategoryTypes.WorldData])
+            if (message.WorldDataEnv != _config.DataEnvs[EDataCategories.Worlds.ToString()])
             {
                 return;
             }

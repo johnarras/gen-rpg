@@ -1,16 +1,17 @@
 ﻿using ClientEvents;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Loot.Messages;
+using Genrpg.Shared.Rewards.Services;
 using System.Threading;
 
 namespace Assets.Scripts.MessageHandlers.Rewards
 {
     public class SendRewardsHandler : BaseClientMapMessageHandler<SendRewards>
     {
-        protected IEntityService _entityService;
+        protected IRewardService _rewardService;
         protected override void InnerProcess(SendRewards msg, CancellationToken token)
         {
-            _entityService.GiveRewards(_rand, _gs.ch, msg.Rewards);
+            _rewardService.GiveRewards(_rand, _gs.ch, msg.Rewards);
 
             if (msg.ShowPopup)
             {

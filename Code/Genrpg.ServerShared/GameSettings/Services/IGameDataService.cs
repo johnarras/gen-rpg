@@ -14,15 +14,16 @@ using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.GameSettings.Services;
 
-public interface IGameDataService : IInitializable
+public interface IGameDataService : IInjectable
 {
     Task<IGameData> LoadGameData(bool createMissingGameData);
     Task ReloadGameData();
     Task<bool> SaveGameData(IGameData data, IRepositoryService repoSystem);
     List<string> GetEditorIgnoreFields();
     List<IGameSettingsLoader> GetAllLoaders();
-    List<ITopLevelSettings> MapToApi(List<ITopLevelSettings> startSettings);
-    bool SetGameDataOverrides(ICoreCharacter ch, bool forceRefresh);
-    RefreshGameSettingsResult GetNewGameDataUpdates(ICoreCharacter ch, bool forceRefresh);
-    List<ITopLevelSettings> GetClientGameData(ICoreCharacter ch, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null);
+    bool AcceptedByFilter(IFilteredObject obj, IPlayerFilter filter);
+    List<ITopLevelSettings> MapToApi(IFilteredObject obj, List<ITopLevelSettings> startSettings);
+    bool SetGameDataOverrides(IFilteredObject fobj, bool forceRefresh);
+    RefreshGameSettingsResult GetNewGameDataUpdates(IFilteredObject fobj, bool forceRefresh);
+    List<ITopLevelSettings> GetClientGameData(IFilteredObject fobj, bool sendAllDefault, List<ClientCachedGameSettings> clientCache = null);
 }

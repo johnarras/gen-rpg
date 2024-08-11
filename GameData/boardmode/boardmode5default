@@ -1,0 +1,9 @@
+{
+  "Id": "boardmode5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Defend",
+  "DiceCount": 1,
+  "FreeRolls": true,
+  "UpdateTime": "2024-08-11T18:10:43.748Z"
+}

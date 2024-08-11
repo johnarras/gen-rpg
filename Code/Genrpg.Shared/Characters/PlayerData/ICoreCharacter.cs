@@ -8,13 +8,10 @@ namespace Genrpg.Shared.Characters.PlayerData
 {
     public interface ICoreCharacter : IFilteredObject
     {
-        string Id { get; set; }
         string Name { get; set; }
         string UserId { get; set; }
         string MapId { get; set; }
         int Version { get; set; }
-        DateTime CreationDate { get; set; }
-        long Level { get; set; }
         float X { get; set; }
         float Y { get; set; }
         float Z { get; set; }

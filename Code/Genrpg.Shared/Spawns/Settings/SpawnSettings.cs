@@ -12,8 +12,22 @@ using Genrpg.Shared.Purchasing.Settings;
 
 namespace Genrpg.Shared.Spawns.Settings
 {
+    public interface ISpawnItem
+    {
+        long EntityTypeId { get; }
+        long EntityId { get; }
+        long MinQuantity { get; }
+        long MaxQuantity { get; }
+        double Weight { get; }
+        int GroupId { get;}
+        string Name { get; }
+        long MinLevel { get;}
+        double MinScale { get; }
+    }
+
+
     [MessagePackObject]
-    public class SpawnItem
+    public class SpawnItem : ISpawnItem
     {
         [Key(0)] public long EntityTypeId { get; set; }
         [Key(1)] public long EntityId { get; set; }

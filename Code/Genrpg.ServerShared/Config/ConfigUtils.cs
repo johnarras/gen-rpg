@@ -1,6 +1,4 @@
-﻿
-using Genrpg.Shared.DataStores.Categories;
-using Genrpg.Shared.DataStores.Constants;
+﻿using Genrpg.Shared.DataStores.DataGroups;
 using Genrpg.Shared.Entities.Utils;
 using System;
 using System.Collections.Generic;
@@ -26,7 +24,7 @@ namespace Genrpg.ServerShared.Config
 
             serverConfig.Env = ConfigurationManager.AppSettings["Env"];
 
-            foreach (string dataCategory in DataCategoryTypes.DataCategories)
+            foreach (string dataCategory in Enum.GetNames(typeof(EDataCategories)))
             {
                 serverConfig.DataEnvs[dataCategory] = GetEnvOrDefault(dataCategory + "Env", serverConfig.Env);
             }

@@ -256,73 +256,73 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public void PlayMusic(IMusicRegion region)
     {
         return;
-        if (MusicChannels == null)
-        {
-            return;
-        }
+        //if (MusicChannels == null)
+        //{
+        //    return;
+        //}
 
-        _channelIds[AudioCategory.Music] = 1;
-        _channelIds[AudioCategory.Ambient] = 0;
+        //_channelIds[AudioCategory.Music] = 1;
+        //_channelIds[AudioCategory.Ambient] = 0;
         
-        if (region != null)
-        {
-            _channelIds[AudioCategory.Music] = region.MusicTypeId;
-            _channelIds[AudioCategory.Ambient] = region.AmbientMusicTypeId;
-        }
+        //if (region != null)
+        //{
+        //    _channelIds[AudioCategory.Music] = region.MusicTypeId;
+        //    _channelIds[AudioCategory.Ambient] = region.AmbientMusicTypeId;
+        //}
 
-        for (int i = 0; i < MusicChannels.Count; i++)
-        {
-            if (i == (int)AudioCategory.Ambient)
-            {
-                continue;
-            }
+        //for (int i = 0; i < MusicChannels.Count; i++)
+        //{
+        //    if (i == (int)AudioCategory.Ambient)
+        //    {
+        //        continue;
+        //    }
 
 
-            MusicChannel ch = MusicChannels[i];
-            long musicId = 0;
-            if(_channelIds.ContainsKey(ch.category))
-            {
-                musicId = _channelIds[ch.category];
-            }
-            else
-            {
-                continue;
-            }
+        //    MusicChannel ch = MusicChannels[i];
+        //    long musicId = 0;
+        //    if(_channelIds.ContainsKey(ch.category))
+        //    {
+        //        musicId = _channelIds[ch.category];
+        //    }
+        //    else
+        //    {
+        //        continue;
+        //    }
 
-            MusicType mtype = _gameData.Get<MusicTypeSettings>(_gs.ch)?.Get(musicId);
+        //    MusicType mtype = _gameData.Get<MusicTypeSettings>(_gs.ch)?.Get(musicId);
 
-            string musicName = "";
-            if (mtype != null)
-            {
-                musicName = mtype.Art;
-            }
-            else
-            {
-                musicName = "IntroMusic";
-            }
+        //    string musicName = "";
+        //    if (mtype != null)
+        //    {
+        //        musicName = mtype.Art;
+        //    }
+        //    else
+        //    {
+        //        musicName = "IntroMusic";
+        //    }
 
-            if (ch.curr != null && ch.curr.playData != null &&
-                ch.curr.playData.audioName == musicName)
-            {
-                continue;
-            }
+        //    if (ch.curr != null && ch.curr.playData != null &&
+        //        ch.curr.playData.audioName == musicName)
+        //    {
+        //        continue;
+        //    }
 
-            FadeOutMusic(ch.category);
+        //    FadeOutMusic(ch.category);
 
-            PlayAudioData playData = new PlayAudioData()
-            {
-                musicData=mtype,
-                audioName = musicName,
-                volume = ch.Volume,
-                category = ch.category,
-                looping = ch.Looping,
-                parent = entity,
+        //    PlayAudioData playData = new PlayAudioData()
+        //    {
+        //        musicData=mtype,
+        //        audioName = musicName,
+        //        volume = ch.Volume,
+        //        category = ch.category,
+        //        looping = ch.Looping,
+        //        parent = entity,
                 
-            };
+        //    };
 
 
-            PlayAudio(playData);
-        }
+        //    PlayAudio(playData);
+        //}
     }
 
 

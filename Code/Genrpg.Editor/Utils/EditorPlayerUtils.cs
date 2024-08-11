@@ -34,7 +34,7 @@ namespace Genrpg.Editor.Utils
 
                     EditorCharacter ech = new EditorCharacter() { Character = ch, CoreCharacter = coreChar };
                     gs.EditorUser.Characters.Add(ech);
-                    await gs.loc.Get<IPlayerDataService>().LoadAllPlayerData(gs.rand, ch);
+                    await gs.loc.Get<IPlayerDataService>().LoadAllPlayerData(gs.rand, gs.EditorUser.User, ch);
                     foreach (IUnitData dataCont in ch.GetAllData().Values)
                     {
                         ech.Data.Add(new EditorUnitData() { Data = dataCont });
@@ -53,7 +53,7 @@ namespace Genrpg.Editor.Utils
             {
                 foreach (EditorCharacter ech in gs.EditorUser.Characters)
                 {
-                    if (gs.LookedAtObjects.Contains(ech.Character))
+                    if (gs.LookedAtObjects.Contains(ech.CoreCharacter))
                     {
                         await repoService.Save(ech.CoreCharacter);
                     }

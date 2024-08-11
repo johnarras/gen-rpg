@@ -20,6 +20,7 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.Spells.Services;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Rewards.Services;
 
 namespace Genrpg.MapServer.MapMessaging.MessageHandlers
 {
@@ -33,7 +34,7 @@ namespace Genrpg.MapServer.MapMessaging.MessageHandlers
         protected IMapObjectManager _objectManager = null;
         protected IServerSpellService _spellService = null;
         protected IAIService _aiService = null;
-        protected IEntityService _entityService = null;
+        protected IRewardService _rewardService = null;
         protected ICloudCommsService _cloudCommsService = null;
         protected ILogService _logService = null;
         protected IRepositoryService _repoService = null;

@@ -1,0 +1,17 @@
+{
+  "Id": "tiletype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Defend",
+  "Desc": "Monsters attack you",
+  "Icon": "DefendTile",
+  "Art": "DefendTile",
+  "MaxQuantity": 1,
+  "SpawnPriority": 5.0,
+  "MinPosition": 5,
+  "OnMainPath": true,
+  "ActivationCostScale": 10.0,
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-08-11T00:19:54.103Z"
+}

@@ -1,13 +1,14 @@
 ﻿using Assets.Scripts.Interfaces;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Genrpg.Shared.Analytics.Services;
+using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Ftue.Messages;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Ftue.Settings.Steps;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.GameSettings.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.ProcGen.Settings.Names;
 using Scripts.Assets.Audio.Constants;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace Assets.Scripts.UI.Services
         protected IClientRandom _rand;
         protected IUnityGameState _gs;
         protected IGameObjectService _gameObjectService;
+        protected IEntityService _entityService;
         private ILogService _logService;
         private CancellationToken _token;
         public async Task Initialize(CancellationToken token)
@@ -78,7 +80,7 @@ namespace Assets.Scripts.UI.Services
 
         public long GetSelectedIdFromName(Type iidNameType, GDropdown dropdown)
         {
-            List<IIdName> items = GameDataUtils.GetIdNameList(_gameData, iidNameType.Name);
+            List<IIdName> items = _entityService.GetChildList(_gs.ch, iidNameType.Name);
 
             string selectedText = dropdown.captionText.text;
 

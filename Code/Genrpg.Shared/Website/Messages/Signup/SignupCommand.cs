@@ -1,11 +1,12 @@
 using MessagePack;
 using System.Collections.Generic;
 using Genrpg.Shared.Website.Interfaces;
+using System;
 
 namespace Genrpg.Shared.Website.Messages.Signup
 {
     [MessagePackObject]
-    public class SignupCommand : IAuthCommand
+    public class SignupCommand : IAuthLoginCommand
     {
         [Key(0)] public string Email { get; set; }
         [Key(1)] public string Password { get; set; }
@@ -13,5 +14,8 @@ namespace Genrpg.Shared.Website.Messages.Signup
         [Key(3)] public string ShareId { get; set; }
         [Key(4)] public string ReferrerId { get; set; }
         [Key(5)] public long AccountProductId { get; set; }
+        [Key(6)] public string ClientVersion { get; set; }
+
+        [Key(7)] public string DeviceId { get; set; }
     }
 }

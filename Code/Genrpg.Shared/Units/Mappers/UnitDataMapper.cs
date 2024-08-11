@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Interfaces;
 using System;
@@ -19,12 +20,12 @@ namespace Genrpg.Shared.Units.Mappers
             return serverObject;
         }
 
-        public virtual bool SendToClient()
+        public bool SendToClient()
         {
-            return true;
+            return !typeof(IServerOnlyData).IsAssignableFrom(typeof(TServer));
         }
 
-        public virtual Type GetServerType()
+        public virtual Type GetKey()
         {
             return typeof(TServer);
         }

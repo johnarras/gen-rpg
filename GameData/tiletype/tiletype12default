@@ -1,0 +1,16 @@
+{
+  "Id": "tiletype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Chest",
+  "Desc": "Chest unlock tile",
+  "Icon": "ChestTile",
+  "Art": "ChestTile",
+  "MaxQuantity": 1,
+  "SpawnPriority": 6.0,
+  "MinPosition": 1,
+  "OnMainPath": true,
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-08-11T00:19:54.103Z"
+}

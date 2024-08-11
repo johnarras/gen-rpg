@@ -3,12 +3,13 @@ using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Currencies.PlayerData;
-using Genrpg.Shared.Currencies.Services;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Levels.Messages;
 using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.Utils;
 using System;
 using System.Runtime.InteropServices;
@@ -26,9 +27,8 @@ namespace Genrpg.MapServer.Levelup.Services
 
     public class LevelService : ILevelService
     {
-        private ICurrencyService _currencyService = null;
+        private IRewardService _rewardService = null;
         private IStatService _statService = null;
-        private IEntityService _entityService = null;
         private IMapMessageService _messageService = null;
         private IGameData _gameData = null;
 
@@ -68,7 +68,7 @@ namespace Genrpg.MapServer.Levelup.Services
 
             if (endLevel > startLevel)
             {
-                _currencyService.Set(ch, CurrencyTypes.Exp, currExp);
+                _rewardService.Set(ch, EntityTypes.Currency, CurrencyTypes.Exp, currExp);
                 _statService.CalcStats(ch, true);
             }
         }
@@ -90,7 +90,7 @@ namespace Genrpg.MapServer.Levelup.Services
 
             if (lev.RewardList != null)
             {
-                _entityService.GiveRewards(rand, ch, lev.RewardList);
+                _rewardService.GiveRewards(rand, ch, lev.RewardList);
             }
 
             ch.AbilityPoints += lev.AbilityPoints;

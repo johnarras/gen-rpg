@@ -1,0 +1,12 @@
+{
+  "Id": "userabilitytype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "MaxStorage",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "BaseQuantity": 60,
+  "QuantityPerRank": 10,
+  "UpdateTime": "2024-08-10T14:42:52.81Z"
+}

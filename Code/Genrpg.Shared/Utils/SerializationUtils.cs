@@ -119,7 +119,7 @@ namespace Genrpg.Shared.Utils
             }
             catch (Exception ex)
             {
-               // Ignore bad deserialize
+                Console.WriteLine(ex.Message);
             }
             return default(T);
         }

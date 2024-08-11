@@ -56,12 +56,12 @@ namespace Genrpg.Shared.Crafting.PlayerData.Recipes
         }
 
         protected IdVal GetObject() { return GetById(LevelId, CraftingConstants.StartSkillLevel); }
-        public int Get() { return GetObject().Val; }
+        public int Get() { return (int)GetObject().Val; }
         public void SetLevel(int level) { GetObject().Val = level; }
         public void AddLevel(int level) { GetObject().Val += level; }
 
         protected IdVal GetMaxLevelObject() { return GetById(MaxLevelId, CraftingConstants.StartMaxSkillLevel); }
-        public int GetMaxLevel() { return GetMaxLevelObject().Val; }
+        public int GetMaxLevel() { return (int)GetMaxLevelObject().Val; }
         public void SetMaxLevel(int level) { GetMaxLevelObject().Val = level; }
         public void AddMaxLevel(int level) { GetMaxLevelObject().Val += level; }
     }

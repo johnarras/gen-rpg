@@ -7,19 +7,14 @@ using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.ProcGen.Settings.Names;
+using System.Collections.Generic;
+using Genrpg.Shared.Entities.Helpers;
+using Genrpg.Shared.Zones.WorldData;
 namespace Genrpg.Shared.Zones.Helpers
 {
-    public class ZoneHelper : IEntityHelper
+    public class ZoneHelper : BaseMapEntityHelper<Zone>
     {
-
-
-        protected IMapProvider _mapProvider;
-        public long GetKey() { return EntityTypes.Zone; }
-        public string GetDataPropertyName() { return "Zones"; }
-
-        public IIndexedGameItem Find(IFilteredObject obj, long id)
-        {
-            return _mapProvider.GetMap().Zones.FirstOrDefault(x => x.IdKey == id);
-        }
+        public override long GetKey() { return EntityTypes.Zone; }
     }
 }

@@ -25,6 +25,10 @@
     <ProjectReference Include="..\..\Genrpg.ServerShared\Genrpg.ServerShared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Currencies\" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy $(TargetDir)Genrpg.Shared.dll $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.dll&#xD;&#xA;copy $(TargetDir)Genrpg.Shared.pdb $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.pdb" />
   </Target>

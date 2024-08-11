@@ -6,7 +6,6 @@ using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Currencies.PlayerData;
-using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Inventory.Messages;

@@ -75,7 +75,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         }
         else
         {
-            IIndexedGameItem dataObject = _entityService.Find(_gs.ch, data.EntityTypeId, data.EntityId);
+            IIndexedGameItem dataObject = (IIndexedGameItem)_entityService.Find(_gs.ch, data.EntityTypeId, data.EntityId);
             if (dataObject != null && !string.IsNullOrEmpty(dataObject.Icon))
             {
                 iconName = dataObject.Icon;

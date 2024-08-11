@@ -1,0 +1,9 @@
+{
+  "Id": "boardmode3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "PVP",
+  "DiceCount": 1,
+  "FreeRolls": true,
+  "UpdateTime": "2024-08-11T18:10:43.748Z"
+}

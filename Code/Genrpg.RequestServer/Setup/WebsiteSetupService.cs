@@ -1,0 +1,47 @@
+﻿
+using Genrpg.ServerShared.CloudComms.Services;
+using Genrpg.ServerShared.CloudComms.Services.Admin;
+using Genrpg.ServerShared.Setup;
+using Genrpg.Shared.Interfaces;
+using Genrpg.RequestServer.Services.Clients;
+using Genrpg.RequestServer.Services.Login;
+using Genrpg.RequestServer.Rewards.Services;
+using Genrpg.RequestServer.Services.WebServer;
+using Genrpg.RequestServer.Services.NoUsers;
+using Genrpg.RequestServer.Services.Admin;
+using Genrpg.Shared.BoardGame.Services;
+using Genrpg.RequestServer.BoardGame.Services;
+using Genrpg.RequestServer.PlayerData.Services;
+
+namespace Genrpg.RequestServer.Setup
+{
+    public class WebsiteSetupService : BaseServerSetupService
+    {
+        public WebsiteSetupService(IServiceLocator loc) : base(loc) { }
+
+        protected override void AddServices()
+        {
+            base.AddServices();
+            Set<IAuthWebService>(new AuthWebService());
+            Set<IClientWebService>(new ClientWebService());
+            Set<IAdminService>(new LoginAdminService());
+            Set<INoUserWebService>(new NoUserWebService());
+            Set<IWebServerService>(new WebServerService());
+            Set<IWebRewardService>(new WebRewardService());
+            Set<ILoginPlayerDataService>(new LoginPlayerDataService());
+
+            // Board game
+            Set<IBoardService>(new BoardService()); 
+            Set<IBoardGenService>(new BoardGenService());   
+
+
+            _loc.ResolveSelf();
+            _loc.Resolve(this);
+        }
+
+        public override async Task FinalSetup()
+        {
+            await base.FinalSetup();
+        }
+    }
+}

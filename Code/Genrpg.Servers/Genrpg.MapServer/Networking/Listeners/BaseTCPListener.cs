@@ -66,6 +66,7 @@ namespace Genrpg.MapServer.Networking.Listeners
             IConnection conn = CreateTCPConnection(client, connState, _logger, _seralizer);
             connState.conn = conn;
             _addConnectionHandler(connState);
+            await Task.CompletedTask;
         }
 
         protected IConnection CreateTCPConnection(TcpClient client, ServerConnectionState connState, ILogService logger, EMapApiSerializers serializer)

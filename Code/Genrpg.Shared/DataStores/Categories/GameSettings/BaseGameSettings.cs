@@ -1,6 +1,5 @@
-﻿using Genrpg.Shared.DataStores.Categories;
+﻿using Genrpg.Shared.DataStores.DataGroups;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.DataStores.Categories.GameSettings
 {
-    [DataCategory(Category = DataCategoryTypes.GameData)]
+    [DataGroup(EDataCategories.Settings,ERepoTypes.NoSQL)]
     public abstract class BaseGameSettings : IGameSettings
     {
         [MessagePack.IgnoreMember]

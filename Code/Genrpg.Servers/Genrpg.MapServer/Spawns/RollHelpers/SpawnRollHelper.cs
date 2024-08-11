@@ -20,7 +20,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
 
         private ISpawnService _spawnService = null;
         private IGameData _gameData = null;
-        public List<SpawnResult> Roll(IRandom rand, RollData rollData, SpawnItem item)
+        public List<SpawnResult> Roll<SI>(IRandom rand, RollData rollData, SI item) where SI : ISpawnItem
         {
             List<SpawnResult> retval = new List<SpawnResult>();
             long quantity = MathUtils.LongRange(item.MinQuantity, item.MaxQuantity, rand);

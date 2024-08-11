@@ -19,6 +19,7 @@ using Genrpg.MapServer.Crafting.Services;
 using Genrpg.MapServer.Spawns.Services;
 using Genrpg.MapServer.Trades.Services;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Rewards.Services;
 
 namespace Genrpg.MapServer.Items.Services
 {
@@ -33,7 +34,7 @@ namespace Genrpg.MapServer.Items.Services
     {
         private ISpawnService _spawnService = null;
         private IServerCraftingService _craftingService = null;
-        private IEntityService _entityService = null;
+        private IRewardService _rewardService = null;
         private IMapObjectManager _objectManager = null;
         private IInventoryService _inventoryService = null;
         private ITradeService _tradeService = null;
@@ -87,7 +88,7 @@ namespace Genrpg.MapServer.Items.Services
                     List<SpawnResult> newItems = _spawnService.Roll(rand, spawnProc.EntityId, rollData);
                     if (newItems != null)
                     {
-                        _entityService.GiveRewards(rand, ch, newItems);
+                        _rewardService.GiveRewards(rand, ch, newItems);
                     }
 
                     res.Success = true;

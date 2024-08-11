@@ -1,5 +1,7 @@
 ﻿
 
+using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.DataGroups;
 using Genrpg.Shared.Interfaces;
 using System.Collections.Generic;
 using System.Threading;
@@ -25,7 +27,7 @@ public interface IAssetService : IInitializable
     string StripPathPrefix(string path);
     void SetWorldAssetEnv(string worldAssetEnv);
 
-    string GetContentRootURL(bool worldData);
+    string GetContentRootURL(EDataCategories category);
 
     bool IsDownloading();
 

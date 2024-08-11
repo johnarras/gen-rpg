@@ -1,0 +1,16 @@
+{
+  "Id": "activity4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Yearly Quests",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "ResetDays": 365,
+  "BaseCost": 2500,
+  "IncrementalCost": 250,
+  "MaxLevel": 100,
+  "BaseReward": 250,
+  "IncrementalReward": 50,
+  "UpdateTime": "2024-08-10T16:56:22.374Z"
+}

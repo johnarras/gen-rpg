@@ -1,18 +1,10 @@
-﻿using Genrpg.Shared.Characters.PlayerData;
-using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Factions.Constants;
+﻿using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Entities;
-using System.Threading.Tasks;
-using System.Threading;
-using Genrpg.Shared.Factions.PlayerData;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.Factions.Messages;
 using Genrpg.Shared.Factions.Settings;
-using Genrpg.Shared.Utils;
-using System.Xml.Linq;
-using Genrpg.Shared.DataStores.Entities;
 using System.Linq;
+using Genrpg.Shared.Factions.PlayerData;
 
 namespace Genrpg.Shared.Factions.Services
 {
@@ -32,14 +24,14 @@ namespace Genrpg.Shared.Factions.Services
     {
         private IGameData _gameData = null;
 
-        private FactionStatus Find(Unit unit, long factionTypeId)
+        private ReputationStatus Find(Unit unit, long factionTypeId)
         {
-            return unit.Get<FactionData>().Get(factionTypeId);
+            return unit.Get<ReputationData>().Get(factionTypeId);
         }
 
         public long GetRep(Unit unit, long factionTypeId)
         {
-            return Find(unit, factionTypeId).Reputation;
+            return Find(unit, factionTypeId).Quantity;
         }
 
         public long GetRepLevel(Unit unit, long factionTypeId)
@@ -74,8 +66,8 @@ namespace Genrpg.Shared.Factions.Services
                 quantity = 0;
             }
 
-            FactionStatus status = Find(unit, factionTypeId); 
-            long diff = quantity - status.Reputation;
+            ReputationStatus status = Find(unit, factionTypeId); 
+            long diff = quantity - status.Quantity;
             
 
             if (diff == 0)
@@ -83,9 +75,9 @@ namespace Genrpg.Shared.Factions.Services
                 return;        
             }
 
-            status.Reputation = quantity;
+            status.Quantity = quantity;
 
-            RepLevel repLevel = _gameData.Get<ReputationSettings>(unit).GetData().FirstOrDefault(x => x.PointsNeeded <= status.Reputation);
+            RepLevel repLevel = _gameData.Get<ReputationSettings>(unit).GetData().FirstOrDefault(x => x.PointsNeeded <= status.Quantity);
 
             if (repLevel == null)
             {

@@ -14,6 +14,14 @@ using Genrpg.Shared.Core.Entities;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Assets.Scripts.Assets.Bundles;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Constants;
+using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.Utils;
+using Genrpg.Shared.DataStores.DataGroups;
+
+
+
+
 
 
 
@@ -114,6 +122,8 @@ public class UnityAssetService : IAssetService
 
     protected Dictionary<string, List<BundleDownload>> _bundleDownloadQueue = new Dictionary<string, List<BundleDownload>>();
 
+    private Dictionary<EDataCategories, string> _urlPrefixes = new Dictionary<EDataCategories, string>();
+    private Dictionary<EDataCategories, string> _assetEnvs = new Dictionary<EDataCategories, string>();
 
     protected HashSet<string> _bundleFailedDownloads = new HashSet<string>();
 
@@ -134,8 +144,6 @@ public class UnityAssetService : IAssetService
 
 
     private string _contentRootUrl = null;
-    private string _assetDataEnv = null;
-    private string _worldDataEnv = null;
 
 
     private ClientAssetCounts _assetCounts = new ClientAssetCounts();
@@ -147,7 +155,7 @@ public class UnityAssetService : IAssetService
 
     public string GetWorldDataEnv() 
     { 
-        return _worldDataEnv; 
+        return _assetEnvs[EDataCategories.Worlds]; 
     }
     public async Task Initialize(CancellationToken token)
     {
@@ -157,11 +165,12 @@ public class UnityAssetService : IAssetService
         }
 
         _contentRootUrl = _gs.Config.GetContentRoot();
-        _assetDataEnv = _gs.Config.GetAssetDataEnv();
-        _worldDataEnv = _gs.Config.GetWorldDataEnv();
+        SetAssetEnv(EDataCategories.Assets, _gs.Config.GetAssetDataEnv());
+        SetAssetEnv(EDataCategories.Worlds, _gs.Config.GetWorldDataEnv()); 
+
         _assetParent = GEntityUtils.FindSingleton(AssetConstants.GlobalAssetParent, true);
         SpriteAtlasManager.atlasRequested += DummyRequestAtlas;
-        SpriteAtlasManager.atlasRegistered += DummuRegisterAtlas;
+        SpriteAtlasManager.atlasRegistered += DummyRegisterAtlas;
         _localRepo = new BinaryFileRepository(_logService);
         AssetUtils.GetPerisistentDataPath();
         for (int i = 0; i < _maxConcurrentExistingDownloads; i++)
@@ -192,7 +201,7 @@ public class UnityAssetService : IAssetService
 
     }
 
-    private void DummuRegisterAtlas(SpriteAtlas callback)
+    private void DummyRegisterAtlas(SpriteAtlas callback)
     {
 
     }
@@ -482,24 +491,26 @@ public class UnityAssetService : IAssetService
 
     public void SetWorldAssetEnv(string worldAssetEnv)
     {
-        _urlPrefixes.Remove(true);
-        _worldDataEnv = worldAssetEnv;
-        GetContentRootURL(true);
+        SetAssetEnv(EDataCategories.Worlds, worldAssetEnv);
     }
 
-    private Dictionary<bool, string> _urlPrefixes = new Dictionary<bool, string>();
-    public string GetContentRootURL(bool worldData)
+    private void SetAssetEnv(EDataCategories category, string env)
     {
-        if (_urlPrefixes.TryGetValue(worldData, out string prefix))
+
+        string containerName = BlobUtils.GetBlobContainerName(category.ToString(), Game.Prefix, env);
+
+        _urlPrefixes[category] = _contentRootUrl + "/" + containerName + "/";
+        _assetEnvs[category] = env;
+    }
+
+    public string GetContentRootURL(EDataCategories dataCategory)
+    {
+        if (_urlPrefixes.TryGetValue(dataCategory, out string url))
         {
-            return prefix;
+            return url;
         }
 
-        string newUrl = _contentRootUrl + (worldData ? _worldDataEnv : _assetDataEnv) + "/";
-
-        _urlPrefixes[worldData] = newUrl;
-
-        return newUrl;
+        return null;
     }
 
     public bool IsInitialized()
@@ -984,8 +995,14 @@ public class UnityAssetService : IAssetService
     protected void LoadLastSaveTimeFile(CancellationToken token)
     {
         string path = AssetUtils.GetRuntimePrefix() + AssetConstants.BundleUpdateFile;
-        DownloadFileData ddata = new DownloadFileData() { ForceDownload = true, Handler = OnDownloadLastSaveTimeText, IsText = true };
-        _fileDownloadService.DownloadFile(path, ddata, false, token);
+        DownloadFileData ddata = new DownloadFileData()
+        {
+            ForceDownload = true,
+            Handler = OnDownloadLastSaveTimeText,
+            IsText = true,
+            Category = EDataCategories.Assets,
+        };
+        _fileDownloadService.DownloadFile(path, ddata, token);
     }
 
     private void OnDownloadLastSaveTimeText(object obj, object data, CancellationToken token)
@@ -999,7 +1016,13 @@ public class UnityAssetService : IAssetService
     {
         _bundleVersions = _localRepo.LoadObject<BundleVersions>(AssetConstants.BundleVersionsFile);
 
-        DownloadFileData ddata = new DownloadFileData() { ForceDownload = true, Handler = OnDownloadBundleVersions, IsText = true };
+        DownloadFileData ddata = new DownloadFileData()
+        {
+            ForceDownload = true,
+            Handler = OnDownloadBundleVersions,
+            IsText = true,
+            Category = EDataCategories.Assets,
+        };
 
         if (_bundleVersions == null || _bundleVersions.UpdateInfo == null ||
             _bundleUpdateInfo == null ||
@@ -1007,7 +1030,7 @@ public class UnityAssetService : IAssetService
             _bundleVersions.UpdateInfo.UpdateTime != _bundleUpdateInfo.UpdateTime)
         {
             string path = AssetUtils.GetRuntimePrefix() + AssetConstants.BundleVersionsFile;
-            _fileDownloadService.DownloadFile(path, ddata, false, token);
+            _fileDownloadService.DownloadFile(path, ddata, token);
             _logService.Info("YES DOWNLOAD BUNDLE VERSIONS!");
         }
         else
@@ -1033,7 +1056,7 @@ public class UnityAssetService : IAssetService
 
     protected string GetFullBundleURL(string bundleName)
     {
-        return GetContentRootURL(false) + AssetUtils.GetRuntimePrefix() + bundleName + "_" + GetBundleHash(bundleName);
+        return GetContentRootURL(EDataCategories.Assets) + AssetUtils.GetRuntimePrefix() + bundleName + "_" + GetBundleHash(bundleName);
     }
 
     private async Awaitable DownloadOneBundle(BundleDownload bad, CancellationToken token)

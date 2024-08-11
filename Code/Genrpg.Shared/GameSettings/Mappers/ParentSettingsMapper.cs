@@ -16,9 +16,11 @@ namespace Genrpg.Shared.GameSettings.Mappers
       where TChild : ChildSettings, new()
       where TApi : ParentSettingsApi<TParent, TChild>, new()
     {
-        public virtual Type GetServerType() { return typeof(TParent); }
+        public virtual Version MinClientVersion => new Version();
         public virtual Type GetClientType() { return typeof(TApi); }
         public virtual bool SendToClient() { return true; }
+        public virtual Type GetKey() { return typeof(TParent); }
+
 
         public virtual ITopLevelSettings MapToApi(ITopLevelSettings settings)
         {

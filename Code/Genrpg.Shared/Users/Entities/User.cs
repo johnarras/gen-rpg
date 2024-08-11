@@ -28,12 +28,20 @@ namespace Genrpg.Shared.Users.Entities
         [Key(2)] public DateTime CreationDate { get; set; } = DateTime.UtcNow;
         [Key(3)] public string CurrCharId { get; set; }
 
-        [Key(4)] public int Flags { get; set; }
+
+        [Key(4)] public long Level { get; set; }
+
+        [Key(5)] public string ClientVersion { get; set; }
+
+        [Key(6)] public GameDataOverrideList DataOverrides { get; set; } = new GameDataOverrideList();
+
+
+
+        [Key(7)] public int Flags { get; set; }
         public bool HasFlag(int flagBits) { return (Flags & flagBits) != 0; }
         public void AddFlags(int flagBits) { Flags |= flagBits; }
         public void RemoveFlags(int flagBits) { Flags &= ~flagBits; }
 
-        [Key(5)] public GameDataOverrideList DataOverrides { get; set; } = new GameDataOverrideList();
 
     }
 }

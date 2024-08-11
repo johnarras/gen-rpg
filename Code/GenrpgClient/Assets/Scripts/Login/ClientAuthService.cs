@@ -31,7 +31,7 @@ public interface IClientAuthService : IInitializable
     void ExitMap();
     Awaitable LoginToServer(LoginCommand command, CancellationToken token);
     Awaitable Signup(SignupCommand command, CancellationToken token);
-    Awaitable SaveLocalUserData(string email);
+    Awaitable SaveLocalUserData(string email, string loginToken);
     Awaitable StartNoUser(CancellationToken token);
 }
 
@@ -52,7 +52,6 @@ public class ClientAuthService : IClientAuthService
     protected IPlayerManager _playerManager;
     protected IMapProvider _mapProvider;
     protected IUnityGameState _gs;
-    private string _pwd = "";
 
     public async Task Initialize(CancellationToken token)
     {
@@ -72,8 +71,7 @@ public class ClientAuthService : IClientAuthService
             try
             {
                 userid = localData.UserId;
-                password = EncryptionUtils.DecryptString(localData.Password);
-
+                password = CryptoUtils.DecryptString(localData.LoginToken);
             }
             catch (Exception ex)
             {
@@ -82,11 +80,13 @@ public class ClientAuthService : IClientAuthService
         }
         if ((!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(userid)) && !string.IsNullOrEmpty(password))
         {
-           LoginCommand loginCommand = new LoginCommand()
+            LoginCommand loginCommand = new LoginCommand()
             {
                 UserId = userid,
                 Email = email,
                 Password = password,
+                ClientVersion = AppUtils.Version,
+                DeviceId = CryptoUtils.GetDeviceId(),
             };
 
             AwaitableUtils.ForgetAwaitable(LoginToServer(loginCommand, token));
@@ -136,8 +136,6 @@ public class ClientAuthService : IClientAuthService
 
     public async Awaitable LoginToServer(LoginCommand command, CancellationToken token)
     {
-        _pwd = command.Password;
-
         command.AccountProductId = _gs.Config.AccountProductId;
 
         try
@@ -168,13 +166,13 @@ public class ClientAuthService : IClientAuthService
         _clientWebService.SendAuthWebCommand(command, token);
     }
 
-    public async Awaitable SaveLocalUserData(string userId)
+    public async Awaitable SaveLocalUserData(string userId, string loginToken)
     {
         LocalUserData localUserData = new LocalUserData()
         {
             Id = LocalUserFilename,
             UserId = userId,
-            Password = EncryptionUtils.EncryptString(_pwd),
+            LoginToken = CryptoUtils.EncryptString(loginToken),
         };
 
         await _repoService.Save(localUserData);

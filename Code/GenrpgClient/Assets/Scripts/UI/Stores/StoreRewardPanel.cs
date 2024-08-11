@@ -2,12 +2,7 @@
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Assets.Scripts.UI.Stores
 {
@@ -23,7 +18,7 @@ namespace Assets.Scripts.UI.Stores
             _spawnItem = spawnItem;
 
 
-            IIndexedGameItem gameItem = _entityService.Find(_gs.ch, spawnItem.EntityTypeId, spawnItem.EntityId);
+            IIndexedGameItem gameItem = (IIndexedGameItem)_entityService.Find(_gs.ch, spawnItem.EntityTypeId, spawnItem.EntityId);
 
             if (gameItem != null)
             {

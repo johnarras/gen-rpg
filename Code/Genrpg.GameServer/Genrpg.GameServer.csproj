@@ -4,18 +4,19 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Genrpg.Servers\Genrpg.InstanceServer\Genrpg.InstanceServer.csproj" />
     <ProjectReference Include="..\Genrpg.Servers\Genrpg.MapServer\Genrpg.MapServer.csproj" />
     <ProjectReference Include="..\Genrpg.Servers\Genrpg.MonsterServer\Genrpg.MonsterServer.csproj" />
     <ProjectReference Include="..\Genrpg.Servers\Genrpg.PlayerServer\Genrpg.PlayerServer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,9 +6,8 @@ namespace Genrpg.Shared.ProcGen.Settings.Names
 {
 
     [MessagePackObject]
-    public class NameValue : IId, IName
+    public class NameValue : IIdName
     {
-
         [Key(0)] public long IdKey { get; set; }
         [Key(1)] public string Name { get; set; }
     }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.Shared.GameSettings.Loaders
@@ -18,13 +19,17 @@ namespace Genrpg.Shared.GameSettings.Loaders
         where TChild : ChildSettings, new()
     {
 
-        public virtual Type GetServerType() { return typeof(TParent); }
+        protected IRepositoryService _repoService;
 
-        public virtual async Task Setup(IRepositoryService repoSystem)
+        public virtual Version MinClientVersion => new Version();
+        public virtual Type GetKey() { return typeof(TParent); }
+        public virtual Type GetChildType() { return typeof(TChild); }
+
+        public virtual async Task Initialize(CancellationToken token)
         {
             CreateIndexData data = new CreateIndexData();
-            data.Configs.Add(new IndexConfig() { Ascending = true, MemberName = "ParentId" });
-            await repoSystem.CreateIndex<TChild>(data);
+            data.Configs.Add(new IndexConfig() { Ascending = true, MemberName = nameof(ChildSettings.ParentId) });
+            await _repoService?.CreateIndex<TChild>(data);
         }
 
         public virtual async Task<List<ITopLevelSettings>> LoadAll(IRepositoryService repoSystem, bool createDefaultIfMissing)

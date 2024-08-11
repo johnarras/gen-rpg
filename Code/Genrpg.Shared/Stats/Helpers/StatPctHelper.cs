@@ -7,19 +7,16 @@ using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Threading.Tasks;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Entities.Helpers;
+using Genrpg.Shared.Stats.Entities;
 
 namespace Genrpg.Shared.Stats.Helpers
 {
-    public class StatPctHelper : IEntityHelper
+    /// <summary>
+    /// Note: This returns a list of Stat NameValues since the pct needs it.
+    /// </summary>
+    public class StatPctHelper : BaseEntityHelper<StatSettings,StatType>
     {
-        private IGameData _gameData = null;
-        public long GetKey() { return EntityTypes.StatPct; }
-        public string GetDataPropertyName() { return "StatTypes"; }
-
-
-        public IIndexedGameItem Find(IFilteredObject obj, long id)
-        {
-            return _gameData.Get<StatSettings>(obj).Get(id);
-        }
+        public override long GetKey() { return EntityTypes.StatPct; }
     }
 }

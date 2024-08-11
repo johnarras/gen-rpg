@@ -8,24 +8,19 @@ using Genrpg.Shared.Networking.Interfaces;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.DataStores.PlayerData;
-using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.Characters.Utils;
 using Genrpg.Shared.Trades.Entities;
-using System.Threading;
 
 namespace Genrpg.Shared.Characters.PlayerData
 {
     // MessagePackIgnore
     public class Character : Unit, ICoreCharacter
     {
-
         public string UserId { get; set; }
         public int Version { get; set; }
 
         public int AbilityPoints { get; set; }
         public string MapId { get; set; }
-
-        public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
         public List<PointXZ> NearbyGridsSeen { get; set; } = new List<PointXZ>();
 

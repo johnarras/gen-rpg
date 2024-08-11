@@ -9,6 +9,7 @@ namespace Genrpg.Shared.DataStores.Categories.PlayerData
 {
     public abstract class OwnerPlayerData : BasePlayerData, IStringOwnerId, IChildUnitData
     {
+        
         [MessagePack.IgnoreMember]
         public abstract string OwnerId { get; set; }
     }

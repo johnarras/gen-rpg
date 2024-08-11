@@ -1,10 +1,11 @@
-﻿using Genrpg.Shared.DataStores.Entities;
+﻿using Genrpg.Shared.DataStores.DataGroups;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Units.Entities;
 
 namespace Genrpg.Shared.DataStores.Categories.PlayerData
 {
-    [DataCategory(Category = DataCategoryTypes.PlayerData)]
+    [DataGroup(EDataCategories.Players,ERepoTypes.NoSQL)]
     public abstract class BasePlayerData : IUnitData
     {
         [MessagePack.IgnoreMember]

@@ -594,6 +594,90 @@
       "IdKey": 85,
       "Name": "TileTypeSettings",
       "UpdateTime": "2024-08-03T23:23:01.721Z"
+    },
+    {
+      "Id": "settingsname86default",
+      "ParentId": "default",
+      "IdKey": 86,
+      "Name": "ActivationSettings",
+      "UpdateTime": "2024-08-08T21:47:14.108Z"
+    },
+    {
+      "Id": "settingsname87default",
+      "ParentId": "default",
+      "IdKey": 87,
+      "Name": "BoardGenSettings",
+      "UpdateTime": "2024-08-08T21:47:14.108Z"
+    },
+    {
+      "Id": "settingsname88default",
+      "ParentId": "default",
+      "IdKey": 88,
+      "Name": "BoardPrizeSettings",
+      "UpdateTime": "2024-08-08T21:47:14.108Z"
+    },
+    {
+      "Id": "settingsname89default",
+      "ParentId": "default",
+      "IdKey": 89,
+      "Name": "BonusModeSettings",
+      "UpdateTime": "2024-08-08T21:47:14.108Z"
+    },
+    {
+      "Id": "settingsname90default",
+      "ParentId": "default",
+      "IdKey": 90,
+      "Name": "EnhancementSettings",
+      "UpdateTime": "2024-08-08T21:47:14.108Z"
+    },
+    {
+      "Id": "settingsname91default",
+      "ParentId": "default",
+      "IdKey": 91,
+      "Name": "RollMultSettings",
+      "UpdateTime": "2024-08-08T21:47:14.108Z"
+    },
+    {
+      "Id": "settingsname92default",
+      "ParentId": "default",
+      "IdKey": 92,
+      "Name": "UpgradeBoardSettings",
+      "UpdateTime": "2024-08-08T21:47:14.108Z"
+    },
+    {
+      "Id": "settingsname93default",
+      "ParentId": "default",
+      "IdKey": 93,
+      "Name": "BoardGameSettings",
+      "UpdateTime": "2024-08-08T23:23:52.275Z"
+    },
+    {
+      "Id": "settingsname94default",
+      "ParentId": "default",
+      "IdKey": 94,
+      "Name": "ActivitySettings",
+      "UpdateTime": "2024-08-09T23:26:13.236Z"
+    },
+    {
+      "Id": "settingsname95default",
+      "ParentId": "default",
+      "IdKey": 95,
+      "Name": "AbilitySettings",
+      "UpdateTime": "2024-08-10T12:11:08.704Z"
+    },
+    {
+      "Id": "settingsname96default",
+      "ParentId": "default",
+      "IdKey": 96,
+      "Name": "UserAbilitySettings",
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "settingsname97default",
+      "ParentId": "default",
+      "IdKey": 97,
+      "Name": "ChestSettings",
+      "UpdateTime": "2024-08-10T17:14:46.012Z"
     }
   ],
   "ParentObj": {

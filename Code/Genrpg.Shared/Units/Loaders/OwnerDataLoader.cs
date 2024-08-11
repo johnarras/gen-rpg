@@ -21,19 +21,15 @@ namespace Genrpg.Shared.Units.Loaders
     /// <typeparam name="TParent">Parent container object (Think InventoryData)</typeparam>
     /// <typeparam name="TChild">Child type object (think Items)</typeparam>
     /// <typeparam name="TApi">Type used to send the parent data to the client (since the Parent has no public list.</typeparam>
-    public class OwnerDataLoader<TParent, TChild> : UnitDataLoader<TParent>
+    public abstract class OwnerDataLoader<TParent, TChild> : UnitDataLoader<TParent>
         where TParent : OwnerObjectList<TChild>, new()
         where TChild : OwnerPlayerData, IChildUnitData
     {
-
-        protected IRepositoryService _repoSystem = null;
-        public override async Task Initialize( CancellationToken token)
+        public override async Task Initialize(CancellationToken token)
         {
-            await base.Initialize(token);
-
             CreateIndexData data = new CreateIndexData();
-            data.Configs.Add(new IndexConfig() { Ascending = true, MemberName = "OwnerId" });
-            await _repoSystem.CreateIndex<TChild>(data);
+            data.Configs.Add(new IndexConfig() { Ascending = true, MemberName = nameof(OwnerPlayerData.OwnerId) });
+            await _repoService.CreateIndex<TChild>(data);
         }
 
         public override async Task<ITopLevelUnitData> LoadFullData(Unit unit)
@@ -45,8 +41,8 @@ namespace Genrpg.Shared.Units.Loaders
                 id = ch.UserId;
             }
 
-            Task<TParent> parentTask = _repoSystem.Load<TParent>(id);
-            Task<List<TChild>> childTask = _repoSystem.Search<TChild>(x => x.OwnerId == id);
+            Task<TParent> parentTask = _repoService.Load<TParent>(id);
+            Task<List<TChild>> childTask = _repoService.Search<TChild>(x => x.OwnerId == id);
 
             await Task.WhenAll(parentTask, childTask).ConfigureAwait(false);
 

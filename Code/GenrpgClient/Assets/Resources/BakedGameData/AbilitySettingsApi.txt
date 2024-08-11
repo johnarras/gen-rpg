@@ -1,0 +1,12 @@
+{
+  "Data": [],
+  "ParentObj": {
+    "Id": "default",
+    "BaseUpgradeCost": 3,
+    "LinearUpgradeCost": 5,
+    "QuadraticUpgradeCost": 2,
+    "Name": "AbilitySettings",
+    "UpdateTime": "2024-08-10T12:11:08.704Z"
+  },
+  "Id": "default"
+}

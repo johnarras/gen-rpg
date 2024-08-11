@@ -3,6 +3,14 @@
   "ParentId": "default",
   "IdKey": 3,
   "Name": "Gems",
-  "Art": "Gems",
-  "UpdateTime": "2024-08-03T23:23:01.721Z"
+  "Desc": "Gives out some gems",
+  "Icon": "GemsTile",
+  "Art": "GemsTile",
+  "MaxQuantity": 1,
+  "SpawnPriority": 20.0,
+  "MinPosition": 1,
+  "OnMainPath": true,
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-08-11T00:19:54.103Z"
 }

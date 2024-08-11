@@ -19,7 +19,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
         public long GetKey() { return EntityTypes.Recipe; }
 
         private IServerCraftingService _craftingService = null;
-        public List<SpawnResult> Roll(IRandom rand, RollData rollData, SpawnItem item)
+        public List<SpawnResult> Roll<SI>(IRandom rand, RollData rollData, SI spawnItem) where SI : ISpawnItem
         {
             List<SpawnResult> retval = new List<SpawnResult>();
 

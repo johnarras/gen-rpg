@@ -17,6 +17,7 @@ public class AssetCategoryNames
     public const string Stores = "Stores";
     public const string TerrainTex = "TerrainTex";
     public const string TextureLists = "TextureLists";
+    public const string Tiles = "Tiles";
     public const string Trees = "Trees";
     public const string UI = "UI";
 }

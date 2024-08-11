@@ -1,0 +1,13 @@
+{
+  "Id": "activity3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Monthly Quests",
+  "ResetDays": 30,
+  "BaseCost": 400,
+  "IncrementalCost": 40,
+  "MaxLevel": 50,
+  "BaseReward": 100,
+  "IncrementalReward": 25,
+  "UpdateTime": "2024-08-10T16:56:22.374Z"
+}

@@ -6,19 +6,12 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Currencies.Helpers
 {
-    public class CurrencyHelper : IEntityHelper
+    public class CurrencyHelper : BaseEntityHelper<CurrencySettings,CurrencyType>
     {
-
-        private IGameData _gameData = null;
-        public long GetKey() { return EntityTypes.Currency; }
-        public string GetDataPropertyName() { return "CurrencyTypes"; }
-
-        public IIndexedGameItem Find(IFilteredObject obj, long id)
-        {
-            return _gameData.Get<CurrencySettings>(obj).Get(id);
-        }
+        public override long GetKey() { return EntityTypes.Currency; }
     }
 }

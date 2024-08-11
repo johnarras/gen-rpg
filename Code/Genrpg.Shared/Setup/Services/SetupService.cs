@@ -1,8 +1,7 @@
+using Genrpg.Shared.BoardGame.Services;
 using Genrpg.Shared.Charms.Services;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crafting.Services;
 using Genrpg.Shared.Crawler.Roles.Services;
-using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Factions.Services;
 using Genrpg.Shared.Ftue.Services;
@@ -12,14 +11,14 @@ using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Names.Services;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Quests.Services;
+using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.SpellCrafting.Services;
 using Genrpg.Shared.Spells.Services;
 using Genrpg.Shared.Stats.Services;
 using Genrpg.Shared.UnitEffects.Services;
 using Genrpg.Shared.Units.Services;
-using Genrpg.Shared.UserCoins.Services;
+using Genrpg.Shared.UserAbilities.Services;
 using Genrpg.Shared.Utils;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -56,19 +55,21 @@ namespace Genrpg.Shared.Setup.Services
             Set<IUnitGenService>(new UnitGenService());
             Set<ISharedQuestService>(new SharedQuestService());
             Set<IPathfindingService>(new PathfindingService());
-            Set<IAbilityService>(new AbilityService());
+            Set<ICombatAbilityService>(new CombatAbilityService());
             Set<IInventoryService>(new InventoryService());
-            Set<ICurrencyService>(new CurrencyService());
-            Set<IUserCoinService>(new UserCoinService());
             Set<ICharmService>(new CharmService());
             Set<IFtueService>(new FtueService());
             Set<IStatusEffectService>(new StatusEffectService());
             Set<IMapProvider>(new MapProvider());
             Set<IItemGenService>(new ItemGenService());
+            Set<IRewardService>(new RewardService());
+            Set<IUserAbilityService>(new UserAbilityService());
 
             // Use for crawler
             Set<IClassService>(new ClassService());
 
+            // Board game
+            Set<ISharedBoardGenService>(new SharedBoardGenService());   
         }
 
         public virtual async Task SetupGame(CancellationToken token)

@@ -1,0 +1,60 @@
+{
+  "Id": "boardprize4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Chests",
+  "VisualEntityTypeId": 21,
+  "LootTable": [
+    {
+      "EntityTypeId": 21,
+      "EntityId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "Name": "",
+      "MinLevel": 4,
+      "MinScale": 3.0
+    },
+    {
+      "EntityTypeId": 21,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 50.0,
+      "Name": "",
+      "MinLevel": 4,
+      "MinScale": 5.0
+    },
+    {
+      "EntityTypeId": 21,
+      "EntityId": 4,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 30.0,
+      "Name": "",
+      "MinLevel": 4,
+      "MinScale": 5.0
+    },
+    {
+      "EntityTypeId": 21,
+      "EntityId": 5,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 10.0,
+      "Name": "",
+      "MinLevel": 4,
+      "MinScale": 10.0
+    },
+    {
+      "EntityTypeId": 21,
+      "EntityId": 6,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 4.0,
+      "Name": "",
+      "MinLevel": 4,
+      "MinScale": 20.0
+    }
+  ],
+  "UpdateTime": "2024-08-11T15:18:30.912Z"
+}

@@ -1,0 +1,16 @@
+{
+  "Id": "activity1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Daily Quests",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "ResetDays": 1,
+  "BaseCost": 50,
+  "IncrementalCost": 10,
+  "MaxLevel": 5,
+  "BaseReward": 10,
+  "IncrementalReward": 5,
+  "UpdateTime": "2024-08-10T16:56:22.374Z"
+}

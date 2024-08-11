@@ -9,6 +9,7 @@ using Assets.Scripts.GameObjects;
 using Assets.Scripts.GameSettings.Services;
 using Assets.Scripts.Model;
 using Assets.Scripts.Pathfinding.Utils;
+using Assets.Scripts.PlayerSearch;
 using Assets.Scripts.ProcGen.Loading.Utils;
 using Assets.Scripts.ProcGen.Services;
 using Assets.Scripts.Tokens;
@@ -58,7 +59,6 @@ public class ClientInitializer
        
         Set<IAssetService>(new UnityAssetService());
         Set<IFileDownloadService>(new FileDownloadService());
-        Set<IRepositoryService>(new ClientRepositoryService(_loc.Get<ILogService>()));
         Set<IShapeService>(new ShapeService());
         Set<INoiseService>(new NoiseService());
         Set<ISamplingService>(new SamplingService());
@@ -80,6 +80,7 @@ public class ClientInitializer
         Set<ITerrainTextureManager>(new TerrainTextureManager());
         Set<IPlayerManager>(new  PlayerManager());
         Set<IAddNearbyItemsHelper>(new AddNearbyItemsHelper());
+        Set<IPlayerSearchService>(new PlayerSearchService());
 
         // Unity-specific overrides
 

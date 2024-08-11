@@ -1,8 +1,9 @@
 ﻿using Assets.Scripts.Crawler.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Currencies.Constants;
-using Genrpg.Shared.Currencies.Messages;
 using Genrpg.Shared.Currencies.PlayerData;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Rewards.Messages;
 using System.Collections.Generic;
 
 public class MoneyDisplay : BaseBehaviour
@@ -19,15 +20,18 @@ public class MoneyDisplay : BaseBehaviour
         base.Init();
         if (UpdateToCharMoney)
         {
-            _dispatcher.AddEvent<OnAddCurrency>(this, OnCurrencyUpdate);
+            _dispatcher.AddEvent<OnAddQuantityReward>(this, OnCurrencyUpdate);
             UpdateValue();
         }
     }
 
-    private void OnCurrencyUpdate(OnAddCurrency data)
+    private void OnCurrencyUpdate(OnAddQuantityReward data)
     {
-        UpdateValue();
 
+        if (data.EntityTypeId == EntityTypes.Currency && data.EntityId == CurrencyTypes.Money)
+        {
+            UpdateValue();
+        }
         return;
     }
 
@@ -54,7 +58,6 @@ public class MoneyDisplay : BaseBehaviour
         }
 
         _money = money;
-
         if (_segments == null || _segments.Count < 1)
         {
             return;

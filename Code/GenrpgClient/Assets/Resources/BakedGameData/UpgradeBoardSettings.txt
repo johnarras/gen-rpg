@@ -1,0 +1,7 @@
+{
+  "Id": "default",
+  "MaxTiers": 5,
+  "StartPoints": 10,
+  "Name": "UpgradeBoardSettings",
+  "UpdateTime": "2024-08-08T21:47:14.108Z"
+}

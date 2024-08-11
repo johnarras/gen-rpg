@@ -493,7 +493,14 @@ namespace Genrpg.Shared.Entities.Utils
             PropertyInfo prop = mem2 as PropertyInfo;
             if (prop != null)
             {
-                prop.SetValue(obj, val, null);
+                try
+                {
+                    prop.SetValue(obj, val, null);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Bad data set " + e.Message);
+                }
             }
             if (mem2 != null && mem2.GetType().Name == "DBNull")
             {

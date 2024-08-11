@@ -189,14 +189,9 @@ namespace Genrpg.Editor
                 return;
             }
 
-            Account acct = null;
-            // TODO UPDATE TO NEW ACCOUNT SEARCH          
-            List<Account> list = new List<Account>();
-            if (acct != null)
-            {
-                list.Add(acct);
-            }
+            List<Account> list = await _repoService.Search<Account>(x => x.Id == val);
 
+           
             DispatcherQueue.TryEnqueue(() =>
             {
                 Grid.ItemsSource = list;

@@ -110,7 +110,7 @@ namespace Genrpg.Shared.Networking.Entities.TCP
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
         }
 

@@ -7,6 +7,8 @@ using System.Reflection;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.GameSettings;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Genrpg.Shared.Core.Entities
 {
@@ -246,6 +248,21 @@ namespace Genrpg.Shared.Core.Entities
         public void StoreDictionaryItem(object obj)
         {
             _storedDictionaryItems.Add(obj);
+        }
+
+        public async Task InitializeDictionaryItems(CancellationToken token)
+        {
+            List<Task> tasks = new List<Task>();
+
+            foreach (object obj in _storedDictionaryItems)
+            {
+                if (obj is IInitializable initz)
+                {
+                    tasks.Add(initz.Initialize(token));
+                }
+            }
+
+            await Task.WhenAll(tasks);  
         }
     }
 }

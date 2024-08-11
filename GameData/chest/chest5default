@@ -1,0 +1,14 @@
+{
+  "Id": "chest5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Legendary Chest",
+  "Desc": "",
+  "Icon": "LegendaryChest",
+  "Art": "LegendaryChest",
+  "UnlockMinutes": 2880,
+  "Tier": 5,
+  "TieredLootMult": 14,
+  "Loot": [],
+  "UpdateTime": "2024-08-10T17:23:08.661Z"
+}

@@ -462,13 +462,13 @@ namespace Genrpg.Editor
             form.StartClose();
         }
 
-        protected void CopyGameDataFromDatabaseToGit(string env)
+        private void CopyGameDataFromDatabaseToGit(string env)
         {
             SmallPopup form = UIHelper.ShowBlockingDialog(this, "Copying to Git");
             _ = Task.Run(() => CopyGameDataFromDatabaseToGitAsync(env, form, EditorGameState.CTS.Token));
         }
 
-        protected async Task CopyGameDataFromDatabaseToGitAsync(string env, SmallPopup form, CancellationToken token)
+        private async Task CopyGameDataFromDatabaseToGitAsync(string env, SmallPopup form, CancellationToken token)
         {
             FullGameDataCopy dataCopy = await EditorGameDataUtils.LoadFullGameData(this, env, token);
 
@@ -477,13 +477,13 @@ namespace Genrpg.Editor
             form.StartClose();
         }
 
-        protected void UpdateAssets(string env)
+        private void UpdateAssets(string env)
         {
             SmallPopup form = UIHelper.ShowBlockingDialog(this, "Updating Assets");
             _ = Task.Run(() => UpdateAssetUtils.UpdateAssetsAsync(env));
         }
 
-        protected void CopyGameDataFromGitToDatabase(string env)
+        private void CopyGameDataFromGitToDatabase(string env)
         {
             SmallPopup form = UIHelper.ShowBlockingDialog(this, "Copying to Mongo");
             _ = Task.Run(() => CopyGameDataFromGitToDatabaseAsync(form, env, EditorGameState.CTS.Token));

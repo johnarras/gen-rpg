@@ -1,9 +1,10 @@
 
 using ClientEvents;
 using Genrpg.Shared.Currencies.Constants;
-using Genrpg.Shared.Currencies.Messages;
 using Genrpg.Shared.Currencies.PlayerData;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Rewards.Messages;
 using Genrpg.Shared.Units.Entities;
 
 public class ExpBar : BaseBehaviour
@@ -19,7 +20,7 @@ public class ExpBar : BaseBehaviour
     {
 
         _dispatcher.AddEvent<LevelUpEvent>(this, OnLevelUpdate);
-        _dispatcher.AddEvent<OnAddCurrency>(this, OnAddCurrencyHandler);
+        _dispatcher.AddEvent<OnAddQuantityReward>(this, OnAddQuantityRewardHandler);
         _unit = unitIn;
 
         long currLevelId = _gs.ch.Level;
@@ -43,9 +44,12 @@ public class ExpBar : BaseBehaviour
         }
     }
 
-    private void OnAddCurrencyHandler(OnAddCurrency data)
+    private void OnAddQuantityRewardHandler(OnAddQuantityReward data)
     {
-        Init(_unit);
+        if (data.EntityTypeId == EntityTypes.Currency && data.EntityId == CurrencyTypes.Money)
+        {
+            Init(_unit);
+        }
         return;
     }
 

@@ -32,10 +32,11 @@ namespace Genrpg.ServerShared.Maps
             CreateIndexData data = new CreateIndexData();
             data.Configs.Add(new IndexConfig() { MemberName = nameof(QuestType.OwnerId) });
             data.Configs.Add(new IndexConfig() { MemberName =  nameof(QuestType.MapId) });
-            List<Task> allTasks = new List<Task>();
-            allTasks.Add(_repoService.CreateIndex<QuestType>(data));
-            allTasks.Add(_repoService.CreateIndex<QuestItem>(data));
-            allTasks.Add(_repoService.CreateIndex<Zone>(data));
+            List<Task> tasks = new List<Task>();
+            tasks.Add(_repoService.CreateIndex<QuestType>(data));
+            tasks.Add(_repoService.CreateIndex<QuestItem>(data));
+            tasks.Add(_repoService.CreateIndex<Zone>(data));
+            await Task.WhenAll(tasks);
             await Task.CompletedTask;
         }
 

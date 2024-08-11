@@ -15,6 +15,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Characters.PlayerData;
 
 namespace Genrpg.Shared.MapObjects.Entities
 {
@@ -32,6 +33,8 @@ namespace Genrpg.Shared.MapObjects.Entities
         public float Z { get; set; }
         public float Rot { get; set; }
         public float Speed { get; set; }
+        public DateTime CreationDate { get; set; }
+        public string ClientVersion { get; set; }
 
         public long ZoneId { get; set; }
         public string LocationId { get; set; }

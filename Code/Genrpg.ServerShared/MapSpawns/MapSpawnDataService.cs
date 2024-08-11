@@ -34,12 +34,11 @@ namespace Genrpg.ServerShared.MapSpawns
         public async Task Initialize(CancellationToken token)
         {
             CreateIndexData data = new CreateIndexData();
-            data.Configs.Add(new IndexConfig() { MemberName = nameof(UnitStatus.OwnerId) });
             data.Configs.Add(new IndexConfig() { MemberName = nameof(UnitStatus.MapId) });
-            List<Task> allTasks = new List<Task>();
-            allTasks.Add(_repoService.CreateIndex<UnitStatus>(data));
-            allTasks.Add(_repoService.CreateIndex<MapSpawn>(data));
-            await Task.WhenAll(allTasks);
+            List<Task> tasks = new List<Task>();
+            tasks.Add(_repoService.CreateIndex<UnitStatus>(data));
+            tasks.Add(_repoService.CreateIndex<MapSpawn>(data));
+            await Task.WhenAll(tasks); 
         }
         public async Task SaveMapSpawnData(IRepositoryService repoService, MapSpawnData data, string mapId, int mapVersion)
         {

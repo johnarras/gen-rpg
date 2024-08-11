@@ -1,0 +1,43 @@
+{
+  "Id": "boardprize2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Gems",
+  "VisualEntityTypeId": 200,
+  "VisualEntityId": 1,
+  "LootTable": [
+    {
+      "EntityTypeId": 200,
+      "EntityId": 1,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 70.0,
+      "Name": ""
+    },
+    {
+      "EntityTypeId": 200,
+      "EntityId": 1,
+      "MinQuantity": 2,
+      "MaxQuantity": 3,
+      "Weight": 25.0,
+      "Name": ""
+    },
+    {
+      "EntityTypeId": 200,
+      "EntityId": 1,
+      "MinQuantity": 4,
+      "MaxQuantity": 6,
+      "Weight": 4.0,
+      "Name": ""
+    },
+    {
+      "EntityTypeId": 200,
+      "EntityId": 1,
+      "MinQuantity": 7,
+      "MaxQuantity": 12,
+      "Weight": 1.0,
+      "Name": ""
+    }
+  ],
+  "UpdateTime": "2024-08-11T14:48:17.476Z"
+}

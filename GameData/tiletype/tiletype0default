@@ -2,5 +2,8 @@
   "Id": "tiletype0default",
   "ParentId": "default",
   "Name": "None",
-  "UpdateTime": "2024-08-03T23:23:01.721Z"
+  "MaxQuantity": 1,
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-08-10T23:21:20.517Z"
 }

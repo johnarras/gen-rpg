@@ -7,19 +7,12 @@ using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Threading.Tasks;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Inventory.Helpers
 {
-    public class ItemHelper : IEntityHelper
+    public class ItemHelper : BaseEntityHelper<ItemTypeSettings,ItemType>
     {
-        private IGameData _gameData = null;
-        public long GetKey() { return EntityTypes.Item; }
-        public string GetDataPropertyName() { return "ItemTypes"; }
-
-
-        public IIndexedGameItem Find(IFilteredObject obj, long id)
-        {
-            return _gameData.Get<ItemTypeSettings>(obj).Get(id);
-        }
+        public override long GetKey() { return EntityTypes.Item; }
     }
 }

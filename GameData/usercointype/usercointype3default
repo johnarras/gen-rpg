@@ -1,0 +1,9 @@
+{
+  "Id": "usercointype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Energy",
+  "PluralName": "Energy",
+  "Icon": "IconEnergy",
+  "UpdateTime": "2024-08-10T14:23:54.115Z"
+}

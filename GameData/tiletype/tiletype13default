@@ -1,0 +1,12 @@
+{
+  "Id": "tiletype13default",
+  "ParentId": "default",
+  "IdKey": 13,
+  "Name": "Teleport Start",
+  "Desc": "Start a teleport",
+  "Icon": "TeleportStartTile",
+  "Art": "TeleportStartTile",
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-08-11T00:22:11.82Z"
+}

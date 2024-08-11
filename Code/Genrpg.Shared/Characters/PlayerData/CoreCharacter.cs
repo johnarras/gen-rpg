@@ -20,19 +20,20 @@ namespace Genrpg.Shared.Characters.PlayerData
         [Key(3)] public int Version { get; set; }
         [Key(4)] public string MapId { get; set; }
         [Key(5)] public DateTime CreationDate { get; set; } = DateTime.UtcNow;
-        [Key(6)] public long EntityTypeId { get; set; }
-        [Key(7)] public long EntityId { get; set; }
-        [Key(8)] public float X { get; set; }
-        [Key(9)] public float Y { get; set; }
-        [Key(10)] public float Z { get; set; }
-        [Key(11)] public float Rot { get; set; }
-        [Key(12)] public float Speed { get; set; }
-        [Key(13)] public long ZoneId { get; set; }
-        [Key(14)] public long Level { get; set; } = 1;
-        [Key(15)] public long FactionTypeId { get; set; }
-        [Key(16)] public long AddonBits { get; set; }
-        [Key(17)] public long SexTypeId { get; set; }
-        [Key(18)] public GameDataOverrideList DataOverrides { get; set; } = new GameDataOverrideList();
+        [Key(6)] public string ClientVersion { get; set; }
+        [Key(7)] public long EntityTypeId { get; set; }
+        [Key(8)] public long EntityId { get; set; }
+        [Key(9)] public float X { get; set; }
+        [Key(10)] public float Y { get; set; }
+        [Key(11)] public float Z { get; set; }
+        [Key(12)] public float Rot { get; set; }
+        [Key(13)] public float Speed { get; set; }
+        [Key(14)] public long ZoneId { get; set; }
+        [Key(15)] public long Level { get; set; } = 1;
+        [Key(16)] public long FactionTypeId { get; set; }
+        [Key(17)] public long AddonBits { get; set; }
+        [Key(18)] public long SexTypeId { get; set; }
+        [Key(19)] public GameDataOverrideList DataOverrides { get; set; } = new GameDataOverrideList();
 
         public string GetDocName(string settingName)
         {

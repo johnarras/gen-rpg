@@ -1,0 +1,17 @@
+{
+  "Id": "tiletype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "Portal",
+  "Desc": "Takes you to a bonus board.",
+  "Icon": "PortalTIle",
+  "Art": "PortalTile",
+  "MaxQuantity": 1,
+  "SpawnPriority": 4.0,
+  "MinPosition": 6,
+  "OnMainPath": true,
+  "ActivationCostScale": 4.0,
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-08-11T09:38:42.13Z"
+}

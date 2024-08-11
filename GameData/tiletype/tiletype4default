@@ -3,6 +3,14 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Dice",
-  "Art": "Dice",
-  "UpdateTime": "2024-08-03T23:23:01.721Z"
+  "Desc": "Gives out some dice.",
+  "Icon": "DiceTile",
+  "Art": "DiceTile",
+  "MaxQuantity": 1,
+  "SpawnPriority": 15.0,
+  "MinPosition": 1,
+  "OnMainPath": true,
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-08-11T00:19:54.103Z"
 }

@@ -17,6 +17,7 @@ using UnityEngine;
 using Genrpg.Shared.Interfaces;
 using System.IO;
 using Genrpg.Shared.Logging.Interfaces;
+using Assets.Scripts.GameSettings.Entities;
 
 namespace Assets.Scripts.GameSettings.Services
 {
@@ -50,7 +51,7 @@ namespace Assets.Scripts.GameSettings.Services
         static readonly string BakedGameDataPathSuffix = "BakedGameData/";
         public async Awaitable LoadCachedSettings(IUnityGameState gs)
         {
-            GameData gameData = new GameData();
+            GameData gameData = new ClientGameData();
             ClientRepositoryService repo = _repoService as ClientRepositoryService;
 
             List<ITopLevelSettings> allSettings = new List<ITopLevelSettings>();

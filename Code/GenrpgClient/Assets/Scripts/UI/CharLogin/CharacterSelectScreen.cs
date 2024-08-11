@@ -10,6 +10,9 @@ using static UnityEngine.Networking.UnityWebRequest;
 using UnityEngine;
 using System.Threading.Tasks;
 using Assets.Scripts.UI.Screens;
+using Assets.Scripts.PlayerSearch;
+using Genrpg.Shared.Accounts.PlayerData;
+using Genrpg.Shared.Users.PlayerData;
 
 public class CharacterSelectScreen : ErrorMessageScreen
 {
@@ -29,12 +32,15 @@ public class CharacterSelectScreen : ErrorMessageScreen
     protected IClientAuthService _loginService;
     protected INoiseService _noiseService;
     protected IInputService _inputService;
+    protected IPlayerSearchService _playerSearchService;
 
     public const string CharacterRowArt = "CharacterSelectRow";
 
     protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
 #if UNITY_EDITOR
+
+       
 
         if (GenWorldButton == null)
         {

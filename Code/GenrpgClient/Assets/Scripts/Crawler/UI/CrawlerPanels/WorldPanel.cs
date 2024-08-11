@@ -14,6 +14,7 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.Hierarchy;
 using UnityEngine;
 using GEntity = UnityEngine.GameObject;
 
@@ -32,7 +33,6 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         private ICrawlerMapService _mapService;
         private IUIService _uiService;
         private ICurveGenService _curveGenService;
-        private IGameObjectService _gameObjectService;
 
         public GRawImage WorldImage;
         public GText WorldPosText;
@@ -257,10 +257,11 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         {
 
             _spline = _gameObjectService.GetOrAddComponent<MarkedSpline>(gameObject);
-            _spline.GenParams.MarkerQuantity = 40;
-            _spline.GenParams.BreakChance = 0.15f;
-            _spline.GenParams.MinRadius = 40;
-            _spline.GenParams.MaxRadius = _spline.GenParams.MinRadius * 5 / 4;
+            _spline.GenParams.BreakChance = MathUtils.FloatRange(0.1f,0.7f,_rand);
+            _spline.GenParams.MinRadius = 45;
+            _spline.GenParams.MaxRadius = _spline.GenParams.MinRadius * 5/4;
+            float maxOffset = 50;
+            _spline.Offset = new Vector3(MathUtils.FloatRange(-maxOffset, maxOffset, _rand), 0, MathUtils.FloatRange(-maxOffset, maxOffset, _rand));
             _curveGenService.CreateSpline(_spline, _rand, _token);
         }
     }

@@ -97,7 +97,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
 
                     if (rewards.Count > 0)
                     {
-                        _entityService.GiveRewards(rand, ch, rewards);
+                        _rewardService.GiveRewards(rand, ch, rewards);
 
                         SendRewards sendLoot = new SendRewards()
                         {
@@ -114,7 +114,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                 {
                     if (unit.SkillLoot != null && unit.SkillLoot.Count > 0)
                     {
-                        _entityService.GiveRewards(rand, ch, unit.SkillLoot);
+                        _rewardService.GiveRewards(rand, ch, unit.SkillLoot);
 
                         SendRewards sendLoot = new SendRewards()
                         {

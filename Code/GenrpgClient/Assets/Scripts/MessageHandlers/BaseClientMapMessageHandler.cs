@@ -4,6 +4,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapMessages.Interfaces;
+using Genrpg.Shared.Rewards.Services;
 using System;
 using System.Threading;
 

@@ -78,7 +78,7 @@ namespace Genrpg.Shared.GameSettings
         }
 
         private Dictionary<Type, Dictionary<string,IGameSettings>> _dataDict = null!;
-        public T Get<T>(IFilteredObject obj) where T : IGameSettings
+        public virtual T Get<T>(IFilteredObject obj) where T : IGameSettings
         {
             SetupDataDict(false);
 

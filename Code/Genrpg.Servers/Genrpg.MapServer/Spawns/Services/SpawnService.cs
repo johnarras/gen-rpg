@@ -22,7 +22,7 @@ namespace Genrpg.MapServer.Spawns.Services
     {
         List<SpawnResult> Roll(IRandom rand, long spawnTableId, RollData rollData);
         List<SpawnResult> Roll(IRandom rand, SpawnTable st, RollData rollData);
-        List<SpawnResult> Roll(IRandom rand, List<SpawnItem> items, RollData rollData);
+        List<SpawnResult> Roll<SI>(IRandom rand, List<SI> items, RollData rollData) where SI : ISpawnItem;
     }
 
     /// <summary>
@@ -68,12 +68,12 @@ namespace Genrpg.MapServer.Spawns.Services
             return Roll(rand, st.Items, rollData);
         }
 
-        public List<SpawnResult> Roll(IRandom rand, List<SpawnItem> items, RollData rollData)
+        public List<SpawnResult> Roll<SI>(IRandom rand, List<SI> items, RollData rollData) where SI : ISpawnItem
         {
             return InnerRoll(rand, items, rollData);
         }
 
-        private List<SpawnResult> InnerRoll(IRandom rand, List<SpawnItem> items, RollData rollData)
+        private List<SpawnResult> InnerRoll<SI>(IRandom rand, List<SI> items, RollData rollData) where SI: ISpawnItem
         {
             List<SpawnResult> list = new List<SpawnResult>();
 
@@ -97,7 +97,7 @@ namespace Genrpg.MapServer.Spawns.Services
         /// <param name="qualityTypeId">Power of the loot</param>
         /// <param name="depth">Depth of the recursion</param>
         /// <returns>A list of spawn results</returns>
-        private List<SpawnResult> RollOnce(IRandom rand, List<SpawnItem> items, RollData rollData)
+        private List<SpawnResult> RollOnce<SI>(IRandom rand, List<SI> items, RollData rollData) where SI : ISpawnItem
         {
             if (items == null)
             {
@@ -106,9 +106,9 @@ namespace Genrpg.MapServer.Spawns.Services
 
             List<SpawnResult> retval = new List<SpawnResult>();
 
-            Dictionary<int, List<SpawnItem>> groupDict = new Dictionary<int, List<SpawnItem>>();
-            List<SpawnItem> rollEachList = new List<SpawnItem>();
-            foreach (SpawnItem si in items)
+            Dictionary<int, List<SI>> groupDict = new Dictionary<int, List<SI>>();
+            List<SI> rollEachList = new List<SI>();
+            foreach (SI si in items)
             {
                 if (si.MinLevel > rollData.Level)
                 {
@@ -126,7 +126,7 @@ namespace Genrpg.MapServer.Spawns.Services
                 }
                 if (!groupDict.ContainsKey(si.GroupId))
                 {
-                    groupDict[si.GroupId] = new List<SpawnItem>();
+                    groupDict[si.GroupId] = new List<SI>();
                 }
                 groupDict[si.GroupId].Add(si);
 
@@ -135,8 +135,8 @@ namespace Genrpg.MapServer.Spawns.Services
             foreach (int key in groupDict.Keys)
             {
                 double totalRollWeight = 0;
-                List<SpawnItem> groupList = groupDict[key];
-                foreach (SpawnItem si in groupList)
+                List<SI> groupList = groupDict[key];
+                foreach (SI si in groupList)
                 {
                     totalRollWeight += si.Weight;
                 }
@@ -148,7 +148,7 @@ namespace Genrpg.MapServer.Spawns.Services
 
                 double weightChosen = rand.NextDouble() * totalRollWeight;
 
-                foreach (SpawnItem si in groupList)
+                foreach (SI si in groupList)
                 {
                     weightChosen -= si.Weight;
                     if (weightChosen <= 0)
@@ -164,7 +164,7 @@ namespace Genrpg.MapServer.Spawns.Services
         }
 
 
-        private List<SpawnResult> RollOneItem(IRandom rand, SpawnItem si, RollData rollData)
+        private List<SpawnResult> RollOneItem<SI>(IRandom rand, SI si, RollData rollData) where SI : ISpawnItem
         {
             List<SpawnResult> retval = new List<SpawnResult>();
 

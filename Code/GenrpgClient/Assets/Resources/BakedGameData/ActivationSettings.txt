@@ -1,0 +1,10 @@
+{
+  "Id": "default",
+  "StartTotalCharge": 3000,
+  "LandCharge": 500,
+  "PassCharge": 200,
+  "ChargePerLevel": 100,
+  "MaxTotalCharge": 10000,
+  "Name": "ActivationSettings",
+  "UpdateTime": "2024-08-10T23:12:41.084Z"
+}

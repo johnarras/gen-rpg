@@ -1,0 +1,12 @@
+{
+  "Id": "userabilitytype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "WarbandHealth",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "BaseQuantity": 100,
+  "QuantityPerRank": 10,
+  "UpdateTime": "2024-08-10T14:42:52.81Z"
+}

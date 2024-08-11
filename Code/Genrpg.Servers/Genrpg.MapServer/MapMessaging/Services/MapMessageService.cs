@@ -37,7 +37,7 @@ namespace Genrpg.MapServer.MapMessaging.Services
         const int DefaultMessageQueueCount = 37;
         public const int CompleteTaskPause = 100; // Must be > 0
 
-        private SetupDictionaryContainer<Type, IMapMessageHandler> _eventHandlerDict = new();
+        private SetupDictionaryContainer<Type, IMapMessageHandler> _eventHandlerDict = new SetupDictionaryContainer<Type, IMapMessageHandler>();
         private ILogService _logService = null;
 
         private List<MapMessageQueue> _queues = new List<MapMessageQueue>();

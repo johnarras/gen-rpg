@@ -1,0 +1,14 @@
+{
+  "Id": "chest6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Heroic Chest",
+  "Desc": "",
+  "Icon": "HeroicChest",
+  "Art": "HeroicChest",
+  "UnlockMinutes": 4320,
+  "Tier": 6,
+  "TieredLootMult": 22,
+  "Loot": [],
+  "UpdateTime": "2024-08-10T17:23:08.661Z"
+}

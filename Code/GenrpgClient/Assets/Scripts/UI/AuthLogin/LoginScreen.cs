@@ -8,6 +8,7 @@ using Genrpg.Shared.Logging.Interfaces;
 using UnityEngine;
 using System.Threading.Tasks;
 using Assets.Scripts.UI.Screens;
+using System;
 
 public class LoginScreen : ErrorMessageScreen
 {
@@ -58,6 +59,8 @@ public class LoginScreen : ErrorMessageScreen
         {
             Email = EmailInput.Text,
             Password = PasswordInput.Text,
+            ClientVersion = AppUtils.Version,
+            DeviceId = CryptoUtils.GetDeviceId(),
         };
 
         _loginService.LoginToServer(loginCommand, _token);

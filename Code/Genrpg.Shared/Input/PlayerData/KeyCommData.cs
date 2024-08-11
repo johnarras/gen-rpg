@@ -1,16 +1,11 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
-using Genrpg.Shared.Factions.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils;
 using MessagePack;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Genrpg.Shared.Input.PlayerData
 {

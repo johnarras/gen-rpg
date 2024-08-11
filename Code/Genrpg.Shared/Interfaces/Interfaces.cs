@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Genrpg.Shared.Core.Entities;
 using System.Threading;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.DataStores.PlayerData;
+using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Interfaces
 {
@@ -31,6 +33,11 @@ namespace Genrpg.Shared.Interfaces
     public interface IMapOwnerId : IStringOwnerId
     {
         string MapId { get; set; }
+    }
+
+    public interface IOwnerQuantityChild : IStringOwnerId, IChildUnitData, IId
+    {
+        long Quantity { get; set; }
     }
 
     public interface IId
@@ -111,6 +118,7 @@ namespace Genrpg.Shared.Interfaces
         List<IInjectable> GetVals();
         void Resolve(object obj);
         void StoreDictionaryItem(object obj);
+        Task InitializeDictionaryItems(CancellationToken token);
         void ResolveSelf();      
     }
 }

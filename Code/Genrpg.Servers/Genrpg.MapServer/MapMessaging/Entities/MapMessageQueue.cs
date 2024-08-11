@@ -28,8 +28,8 @@ namespace Genrpg.MapServer.MapMessaging.Entities
         protected long _messagesProcessed = 0;
         protected CancellationToken _token;
         private ILogService _logService;
-        private IMapMessageService _mapMessageService;
-        private IGameData _gameData;
+        private IMapMessageService _mapMessageService = null;
+        private IGameData _gameData = null;
 
         private DateTime _startTime = DateTime.UtcNow;
 

@@ -8,16 +8,14 @@ using System.Text;
 using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Units.Mappers;
+using Genrpg.Shared.DataStores.Interfaces;
 
 namespace Genrpg.Shared.Purchasing.PlayerData
 {
 
-    public class CurrentPurchaseLoader : UnitDataLoader<CurrentPurchaseData>
-    {
-    }
 
     [MessagePackObject]
-    public class CurrentPurchaseData : NoChildPlayerData, IUserData
+    public class CurrentPurchaseData : NoChildPlayerData, IUserData, IServerOnlyData
     {
 
         [Key(0)] public override string Id { get; set; }
@@ -28,8 +26,7 @@ namespace Genrpg.Shared.Purchasing.PlayerData
     }
 
     [MessagePackObject]
-    public class CurrentPurchaseMapper : UnitDataMapper<CurrentPurchaseData> 
-    {
-        public override bool SendToClient() { return false; }
-    }
+    public class CurrentPurchaseMapper : UnitDataMapper<CurrentPurchaseData> { }
+    [MessagePackObject]
+    public class CurrentPurchaseLoader : UnitDataLoader<CurrentPurchaseData> { }
 }

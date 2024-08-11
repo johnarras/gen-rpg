@@ -4,27 +4,57 @@
       "Id": "boardmode0default",
       "ParentId": "default",
       "Name": "None",
-      "UpdateTime": "2024-08-03T23:20:55.71Z"
+      "UpdateTime": "2024-08-11T18:10:43.748Z"
     },
     {
       "Id": "boardmode1default",
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Parimary",
-      "UpdateTime": "2024-08-03T23:20:55.71Z"
+      "DiceCount": 2,
+      "UpdateTime": "2024-08-11T18:10:43.748Z"
     },
     {
       "Id": "boardmode2default",
       "ParentId": "default",
       "IdKey": 2,
-      "Name": "FreeRolls",
-      "UpdateTime": "2024-08-03T23:20:55.71Z"
+      "Name": "Bonus",
+      "DiceCount": 2,
+      "FreeRolls": true,
+      "UpdateTime": "2024-08-11T18:10:43.748Z"
+    },
+    {
+      "Id": "boardmode3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "PVP",
+      "DiceCount": 1,
+      "FreeRolls": true,
+      "UpdateTime": "2024-08-11T18:10:43.748Z"
+    },
+    {
+      "Id": "boardmode4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Adventure",
+      "DiceCount": 1,
+      "FreeRolls": true,
+      "UpdateTime": "2024-08-11T18:10:43.748Z"
+    },
+    {
+      "Id": "boardmode5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Defend",
+      "DiceCount": 1,
+      "FreeRolls": true,
+      "UpdateTime": "2024-08-11T18:10:43.748Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "BoardModeSettings",
-    "UpdateTime": "2024-08-03T23:20:55.71Z"
+    "UpdateTime": "2024-08-11T18:10:43.748Z"
   },
   "Id": "default"
 }

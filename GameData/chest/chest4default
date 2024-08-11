@@ -1,0 +1,14 @@
+{
+  "Id": "chest4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Epic Chest",
+  "Desc": "",
+  "Icon": "EpicChest",
+  "Art": "EpicChest",
+  "UnlockMinutes": 1440,
+  "Tier": 4,
+  "TieredLootMult": 7,
+  "Loot": [],
+  "UpdateTime": "2024-08-10T17:23:08.661Z"
+}

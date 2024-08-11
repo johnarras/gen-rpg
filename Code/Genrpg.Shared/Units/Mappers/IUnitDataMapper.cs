@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Genrpg.Shared.Units.Mappers
 {
-    public interface IUnitDataMapper : IInitializable
+    public interface IUnitDataMapper : ISetupDictionaryItem<Type>
     {
-        Type GetServerType();
+        public virtual Version MinClientVersion => new Version();
         IUnitData MapToAPI(IUnitData serverObject);
         bool SendToClient();
     }

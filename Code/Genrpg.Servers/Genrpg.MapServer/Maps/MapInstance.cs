@@ -57,6 +57,7 @@ using Genrpg.MapServer.Setup.Instances;
 using Amazon.Runtime.Internal;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.DataStores.DataGroups;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -186,8 +187,8 @@ namespace Genrpg.MapServer.Maps
             _ = Task.Run(() => ProcessMap(_tokenSource.Token), _tokenSource.Token);
 
             await _pathfindingService.LoadPathfinding(
-                _config.ContentRoot + 
-                _config.DataEnvs[DataCategoryTypes.WorldData] + "/");
+                _config.ContentRoot + "/" + Game.Prefix.ToLower() +
+                _config.DataEnvs[EDataCategories.Worlds.ToString()] + "/");
         }
 
         public void SendAddInstanceMessage()
@@ -352,7 +353,7 @@ namespace Genrpg.MapServer.Maps
                     if (gridItem != null)
                     {
                         connState.ch = (Character)gridItem.Obj;
-                        await _playerDataService.LoadAllPlayerData(loadRand, ch);
+                        await _playerDataService.LoadAllPlayerData(loadRand, user, ch);
                     }
 
                     _gameDataService.SetGameDataOverrides(ch, true);

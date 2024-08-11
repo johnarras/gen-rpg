@@ -11,6 +11,6 @@ namespace Genrpg.Shared.Spawns.Interfaces
 {
     public interface IRollHelper : ISetupDictionaryItem<long>
     {
-        List<SpawnResult> Roll(IRandom rand, RollData rollData, SpawnItem item);
+        List<SpawnResult> Roll<SI>(IRandom rand, RollData rollData, SI item) where SI : ISpawnItem;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Genrpg.ServerShared.Core;
+using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
@@ -6,6 +7,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.GameSettings.Settings;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Utils;
 using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
@@ -25,12 +27,14 @@ namespace Genrpg.ServerShared.Purchasing.Services
     {
         protected IRepositoryService _repoService = null;
         private IGameData _gameData = null;
+        private IGameDataService _gameDataService = null;
+
         public async Task Initialize( CancellationToken token)
         {
             await Task.CompletedTask;
         }
 
-        public async Task<PlayerStoreOfferData> GetCurrentStores(User user, ICoreCharacter ch, bool forceRefresh)
+        public async Task<PlayerStoreOfferData> GetCurrentStores(User user, bool forceRefresh)
         {
 
             PlayerStoreOfferData storeOfferData = await _repoService.Load<PlayerStoreOfferData>(user.Id);
@@ -42,13 +46,13 @@ namespace Genrpg.ServerShared.Purchasing.Services
 
             DateTime currentTime = DateTime.UtcNow;
 
-            VersionSettings versionSettings = _gameData.Get<VersionSettings>(ch);
+            VersionSettings versionSettings = _gameData.Get<VersionSettings>(user);
 
-            StoreOfferSettings storeOfferSettings = _gameData.Get<StoreOfferSettings>(ch);
-            ProductSkuSettings skuSettings = _gameData.Get<ProductSkuSettings>(ch);
-            StoreFeatureSettings featureSettings = _gameData.Get<StoreFeatureSettings>(ch);
-            StoreSlotSettings slotSettings = _gameData.Get<StoreSlotSettings>(ch);
-            StoreProductSettings productSettings = _gameData.Get<StoreProductSettings>(ch);
+            StoreOfferSettings storeOfferSettings = _gameData.Get<StoreOfferSettings>(user);
+            ProductSkuSettings skuSettings = _gameData.Get<ProductSkuSettings>(user);
+            StoreFeatureSettings featureSettings = _gameData.Get<StoreFeatureSettings>(user);
+            StoreSlotSettings slotSettings = _gameData.Get<StoreSlotSettings>(user);
+            StoreProductSettings productSettings = _gameData.Get<StoreProductSettings>(user);
 
             if (storeOfferSettings.NextUpdateTime <= DateTime.UtcNow)
             {
@@ -64,7 +68,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
                 return storeOfferData;
             }
 
-            IReadOnlyList<StoreOffer> storeOffers = _gameData.Get<StoreOfferSettings>(ch).GetData();
+            IReadOnlyList<StoreOffer> storeOffers = _gameData.Get<StoreOfferSettings>(user).GetData();
 
             Dictionary<long, StoreOffer> storeDict = new Dictionary<long, StoreOffer>();
 
@@ -80,7 +84,7 @@ namespace Genrpg.ServerShared.Purchasing.Services
 
             foreach (StoreOffer offer in storeOffers)
             {
-                TryAddOffer(offer, storeDict, user, ch, historyData);
+                TryAddOffer(offer, storeDict, user, historyData);
             }
 
             foreach (StoreOffer storeOffer in storeDict.Values)
@@ -148,10 +152,10 @@ namespace Genrpg.ServerShared.Purchasing.Services
             return storeOfferData;
         }
 
-        protected void TryAddOffer (StoreOffer offer, Dictionary<long,StoreOffer> currentOffers, User user, ICoreCharacter ch, PurchaseHistoryData historyData)
+        protected void TryAddOffer (StoreOffer offer, Dictionary<long,StoreOffer> currentOffers, IFilteredObject user, PurchaseHistoryData historyData)
         {
 
-            if (!PlayerFilterUtils.IsActive(offer))
+            if (!_gameDataService.AcceptedByFilter(user, offer))
             {
                 return;
             }
@@ -162,31 +166,18 @@ namespace Genrpg.ServerShared.Purchasing.Services
                 return;
             }
 
-            if (!offer.AllowedPlayers.Any(x => x.PlayerId == user.Id || (ch != null && x.PlayerId == ch.Id)))
+            bool forceAddThroughId = false;
+
+            if (offer.AllowedPlayers.Count > 0)
             {
-
-                if (offer.MaxUserDaysSinceInstall > 0 && (DateTime.UtcNow - user.CreationDate).Days > offer.MaxUserDaysSinceInstall)
+                if (offer.AllowedPlayers.Any(x=>x.PlayerId == user.Id))
                 {
-                    return;
+                    forceAddThroughId = true;
                 }
+            }
 
-                if (offer.MinUserDaysSinceInstall > 0 && (DateTime.UtcNow - user.CreationDate).Days < offer.MinUserDaysSinceInstall)
-                {
-                    return;
-                }
-
-                if (ch != null)
-                {
-                    if (offer.MaxCharDaysSinceInstall > 0 && (DateTime.UtcNow - ch.CreationDate).Days > offer.MaxCharDaysSinceInstall)
-                    {
-                        return;
-                    }
-
-                    if (offer.MinCharDaysSinceInstall > 0 && (DateTime.UtcNow - ch.CreationDate).Days < offer.MinCharDaysSinceInstall)
-                    {
-                        return;
-                    }
-                }
+            if (!forceAddThroughId)
+            {
 
                 if (offer.MinPurchaseCount > 0 && historyData.PurchaseCount < offer.MinPurchaseCount)
                 {
@@ -208,18 +199,6 @@ namespace Genrpg.ServerShared.Purchasing.Services
                     return;
                 }
 
-                if (ch != null)
-                {
-                    if (offer.MinLevel > 0 && ch.Level < offer.MinLevel)
-                    {
-                        return;
-                    }
-
-                    if (offer.MaxLevel > 0 && ch.Level > offer.MaxLevel)
-                    {
-                        return;
-                    }
-                }
             }
 
             currentOffers[offer.StoreSlotId] = offer;

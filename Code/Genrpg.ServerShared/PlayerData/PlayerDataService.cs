@@ -1,11 +1,12 @@
-﻿using Genrpg.ServerShared.PlayerData.LoadUpdateHelpers;
-using Genrpg.Shared.Characters.PlayerData;
+﻿using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.Units.Mappers;
+using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
@@ -19,67 +20,22 @@ namespace Genrpg.ServerShared.PlayerData
     {
         protected IServiceLocator _loc;
         protected IRepositoryService _repoService = null;
-        private Dictionary<Type, IUnitDataLoader> _loaderObjects = null;
-        private Dictionary<Type, IUnitDataMapper> _mapperObjects = null;
-        private List<ICharacterLoadUpdater> _loadUpdateHelpers = new List<ICharacterLoadUpdater>();
+
+        SetupDictionaryContainer<Type,IUnitDataLoader> _loaderObjects = new SetupDictionaryContainer<Type, IUnitDataLoader>();
+        SetupDictionaryContainer<Type, IUnitDataMapper> _mapperObjects = new SetupDictionaryContainer<Type, IUnitDataMapper>();
 
         public async Task Initialize(CancellationToken token)
         {
             List<Task> loaderTasks = new List<Task>();
             CreateIndexData data = new CreateIndexData();
             data.Configs.Add(new IndexConfig() { Ascending = true, MemberName = nameof(CoreCharacter.UserId) });
-            loaderTasks.Add(_repoService.CreateIndex<CoreCharacter>(data));
-
-            List<Type> loadTypes = ReflectionUtils.GetTypesImplementing(typeof(IUnitDataLoader));
-
-            Dictionary<Type, IUnitDataLoader> newList = new Dictionary<Type, IUnitDataLoader>();
-
-            foreach (Type lt in loadTypes)
-            {
-                if (await ReflectionUtils.CreateInstanceFromType(_loc, lt, token) is IUnitDataLoader newLoader)
-                {
-                    newList[newLoader.GetServerType()] = newLoader;
-                    loaderTasks.Add(newLoader.Initialize(token));
-                }
-            }
-
-            _loaderObjects = newList;
-
-            List<Type> mapperTypes = ReflectionUtils.GetTypesImplementing(typeof(IUnitDataMapper));
-
-            Dictionary<Type, IUnitDataMapper> mapperDict = new Dictionary<Type, IUnitDataMapper>();
-
-            foreach (Type mt in mapperTypes)
-            {
-               if (await ReflectionUtils.CreateInstanceFromType(_loc,mt,token) is IUnitDataMapper mapper)
-                {
-                    mapperDict[mapper.GetServerType()] = mapper;
-                    loaderTasks.Add(mapper.Initialize(token));
-                }
-            }
-
-            _mapperObjects = mapperDict;
-
-
-            List<Type> updateTypes = ReflectionUtils.GetTypesImplementing(typeof(ICharacterLoadUpdater));
-            _loadUpdateHelpers = new List<ICharacterLoadUpdater>();
-
-            foreach (Type ut in updateTypes)
-            {
-                if (await ReflectionUtils.CreateInstanceFromType(_loc, ut, token) is ICharacterLoadUpdater helper)
-                {
-                    _loadUpdateHelpers.Add(helper);
-                }
-            }
-
-            await Task.WhenAll(loaderTasks);
-
-            _loadUpdateHelpers = _loadUpdateHelpers.OrderBy(x => x.Priority).ToList();
+            await _repoService.CreateIndex<CoreCharacter>(data);
+            await Task.CompletedTask;
         }
 
         public Dictionary<Type,IUnitDataLoader> GetLoaders()
         {
-            return _loaderObjects;
+            return _loaderObjects.GetDict();
         }
 
         public IUnitDataLoader GetLoader<T>() where T : IUnitData
@@ -102,11 +58,11 @@ namespace Genrpg.ServerShared.PlayerData
 
             foreach (IUnitData serverData in serverDataList)
             {
-                if (_mapperObjects.TryGetValue(serverData.GetType(), out IUnitDataMapper loader))
+                if (_mapperObjects.TryGetValue(serverData.GetType(), out IUnitDataMapper mapper))
                 {
-                    if (loader.SendToClient())
+                    if (mapper.SendToClient())
                     {
-                        retval.Add(loader.MapToAPI(serverData));
+                        retval.Add(mapper.MapToAPI(serverData));
                     }
                 }
                 else
@@ -129,23 +85,29 @@ namespace Genrpg.ServerShared.PlayerData
             return default;
         }
 
-        public async Task<List<IUnitData>> LoadAllPlayerData(IRandom rand, Character ch)
+        public async Task<List<IUnitData>> LoadAllPlayerData(IRandom rand, User user, Character ch = null)
         {
+            bool haveCharacter = ch != null;
+
+            if (!haveCharacter)
+            {
+                ch = new Character(_repoService) { Id = user.Id, UserId = user.Id };
+            }
+
             List<Task<IUnitData>> allTasks = new List<Task<IUnitData>>();
-            foreach (IUnitDataLoader loader in _loaderObjects.Values)
+            foreach (IUnitDataLoader loader in _loaderObjects.GetDict().Values)
             {
-                allTasks.Add(LoadOrCreateData(loader, _repoService, ch));
+                if (haveCharacter || loader.IsUserData())
+                {
+                    allTasks.Add(LoadOrCreateData(loader, _repoService, ch));
+                }
             }
 
-            IUnitData[] allData = await Task.WhenAll(allTasks.ToList());
+            IUnitData[] dataArray = await Task.WhenAll(allTasks);
 
-            foreach (IUnitData data in allData)
-            {
-                data.AddTo(ch);
-            }
-
-            UpdateOnLoad(rand, ch);
-            return allData.ToList();
+            List<IUnitData> dataList = dataArray.ToList();
+           
+            return dataList;
         }
 
         protected async Task<IUnitData> LoadOrCreateData(IUnitDataLoader loader, IRepositoryService repoSystem, Character ch)
@@ -156,15 +118,6 @@ namespace Genrpg.ServerShared.PlayerData
                 newData = loader.Create(ch);
             }
             return newData;
-        }
-
-        protected async void UpdateOnLoad(IRandom rand, Character ch)
-        {
-            foreach (ICharacterLoadUpdater updater in _loadUpdateHelpers)
-            {
-                await updater.Update(rand, ch);
-            }
-          
         }
 
         public async Task<List<CharacterStub>> LoadCharacterStubs(string userId)

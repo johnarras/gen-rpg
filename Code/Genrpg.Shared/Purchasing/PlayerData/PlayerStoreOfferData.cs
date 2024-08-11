@@ -1,4 +1,5 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
+using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Units.Loaders;
@@ -38,14 +39,9 @@ namespace Genrpg.Shared.Purchasing.PlayerData
     }
 
 
-    [MessagePackObject]
-    public class CurrentStoresLoader : UnitDataLoader<PlayerStoreOfferData>
-    {
-    }
-
 
     [MessagePackObject]
-    public class PlayerStoreOfferData : NoChildPlayerData, IUserData
+    public class PlayerStoreOfferData : NoChildPlayerData, IUserData, IServerOnlyData
     {
         [Key(0)] public override string Id { get; set; }
 
@@ -57,8 +53,9 @@ namespace Genrpg.Shared.Purchasing.PlayerData
     }
 
     [MessagePackObject]
-    public class PlayerStoreOfferDataMapper : UnitDataMapper<PlayerStoreOfferData>
-    {
-        public override bool SendToClient() { return false; }
-    }
+    public class PlayerStoreOfferDataMapper : UnitDataMapper<PlayerStoreOfferData> { }
+
+
+    [MessagePackObject]
+    public class CurrentStoresLoader : UnitDataLoader<PlayerStoreOfferData> { }
 }

@@ -10,8 +10,8 @@ using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Currencies.PlayerData;
-using Genrpg.Shared.Currencies.Services;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Errors.Messages;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
@@ -23,6 +23,7 @@ using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
@@ -50,7 +51,7 @@ namespace Genrpg.MapServer.Vendors.Services
     public class VendorService : IVendorService
     {
         private IInventoryService _inventoryService = null;
-        private ICurrencyService _currencyService = null;
+        private IRewardService _rewardService = null;
         private IAchievementService _achievementService = null;
         private ITradeService _tradeService = null;
         private IMapObjectManager _objectManager = null!;
@@ -194,7 +195,7 @@ namespace Genrpg.MapServer.Vendors.Services
 
             if (vendorItem != null)
             {
-                _currencyService.Add(ch, CurrencyTypes.Money, -itemPrice);
+                _rewardService.Add(ch, EntityTypes.Currency, CurrencyTypes.Money, -itemPrice);
                 _inventoryService.AddItem(ch, vendorItem.Item, true);
                 _achievementService.UpdateAchievement(ch, AchievementTypes.ItemsBought, 1);
             }
@@ -244,7 +245,7 @@ namespace Genrpg.MapServer.Vendors.Services
 
             _inventoryService.RemoveItem(ch, sellItem.ItemId, true);
             _achievementService.UpdateAchievement(ch, AchievementTypes.ItemsSold, item.Quantity);
-            _currencyService.Add(ch, CurrencyTypes.Money, money);
+            _rewardService.Add(ch, EntityTypes.Currency, CurrencyTypes.Money, money);
             _achievementService.UpdateAchievement(ch, AchievementTypes.VendorMoney, money);
         }
     }

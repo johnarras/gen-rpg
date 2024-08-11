@@ -7,19 +7,13 @@ using Genrpg.Shared.PlayerFiltering.Interfaces;
 using System.Threading.Tasks;
 using Genrpg.Shared.Spells.Settings.Spells;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Spells.Helpers
 {
 
-    public class SpellHelper : IEntityHelper
+    public class SpellHelper : BaseEntityHelper<SpellTypeSettings,SpellType>
     {
-        private IGameData _gameData = null;
-        public long GetKey() { return EntityTypes.Spell; }
-        public string GetDataPropertyName() { return "Spells"; }
-
-        public IIndexedGameItem Find(IFilteredObject obj, long id)
-        {
-            return _gameData.Get<SpellTypeSettings>(obj).Get(id);
-        }
+        public override long GetKey() { return EntityTypes.Spell; }
     }
 }

@@ -1,0 +1,7 @@
+{
+  "Id": "default",
+  "RollGoldMult": 25.0,
+  "GemRollGoldFraction": 0.5,
+  "Name": "BoardGameSettings",
+  "UpdateTime": "2024-08-08T23:23:52.275Z"
+}

@@ -11,10 +11,8 @@ using System.Collections;
 using System.Reflection;
 using Genrpg.Shared.Entities.Settings;
 using Genrpg.Shared.ProcGen.Settings.Names;
-using Genrpg.Shared.GameSettings.Utils;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Shared.MapServer.Services;
-using Genrpg.Shared.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -266,9 +264,9 @@ namespace Genrpg.Editor.Services.Reflection
             return list;
         }
 
-        protected List<NameValue> CreateEnumList(Type type)
+        protected List<IIdName> CreateEnumList(Type type)
         {
-            List<NameValue> retval = new List<NameValue>();
+            List<IIdName> retval = new List<IIdName>();
             if (type == null || !type.IsEnum)
             {
                 return retval;
@@ -881,9 +879,9 @@ namespace Genrpg.Editor.Services.Reflection
 
         }
 
-        public List<NameValue> GetConstantsList(Type t)
+        public List<IIdName> GetConstantsList(Type t)
         {
-            List<NameValue> retval = new List<NameValue>();
+            List<IIdName> retval = new List<IIdName>();
 
             List<int> ints = GetStaticInts(t);
             if (ints == null)
@@ -944,79 +942,6 @@ namespace Genrpg.Editor.Services.Reflection
             }
             return list;
         }
-        public string GetDataTableName(EditorGameState gs, object obj)
-        {
-            if (gs.data == null || obj == null || string.IsNullOrEmpty(obj.ToString()))
-            {
-                return "";
-            }
-
-            if (obj.ToString() == "Entity")
-            {
-                return null;
-            }
-
-
-            int entityTypeId = 0;
-            string etypeName = obj.ToString();
-            int.TryParse(obj.ToString(), out entityTypeId);
-            string tableName = StrUtils.MakePlural(etypeName);
-
-            if (entityTypeId > 0)
-            {
-                EntityType etype = gs.data.Get<EntitySettings>(null).Get(entityTypeId);
-                if (etype != null && !string.IsNullOrEmpty(etype.Name))
-                {
-                    etypeName = etype.Name;
-                }
-
-                IEntityHelper helper = _entityService.GetEntityHelper(entityTypeId);
-
-                if (helper != null)
-                {
-                    tableName = helper.GetDataPropertyName();
-                }
-            }
-
-            List<IIdName> list = GameDataUtils.GetIdNameList(gs.data, etypeName);
-
-            if (list != null && list.Count > 0)
-            {
-                return etypeName;
-            }
-
-            list = GameDataUtils.GetIdNameList(gs.data, tableName);
-            if (list != null && list.Count > 0)
-            {
-                return tableName;
-            }
-
-            do
-            {
-                MemberInfo mem = GetMemberInfo(gs.data, tableName);
-                if (mem != null)
-                {
-                    return tableName;
-                }
-
-                tableName = tableName.Substring(1);
-            }
-            while (tableName.Length > 1);
-
-
-
-            if (etypeName != null && etypeName != "Zone" && etypeName.IndexOf("Type") < 0)
-            {
-                return GetDataTableName(gs, etypeName + "Type");
-            }
-
-            List<IIdName> items = GameDataUtils.GetIdNameList(gs.data, etypeName);
-
-
-            return items != null && items.Count > 0 ? etypeName : "";
-
-        }
-
 
         public string GetStaticNameFromValue(Type t, object val)
         {
@@ -1104,34 +1029,20 @@ namespace Genrpg.Editor.Services.Reflection
             return EntityUtils.GetObjId(obj, IdName);
         }
 
-        public List<NameValue> CreateDataList(EditorGameState gs, string listName)
+        public List<IIdName> CreateDataList(EditorGameState gs, string listName)
         {
-            List<NameValue> list = new List<NameValue>();
+            List<IIdName> list = new List<IIdName>();
             if (gs.data == null || string.IsNullOrEmpty(listName))
             {
                 return list;
             }
 
-            List<IIdName> itemList = GameDataUtils.GetIdNameList(gs.data, listName);
-
-            if (itemList == null || itemList.Count < 1)
-            {
-                return list;
-            }
-
-            itemList = itemList.OrderBy(x => x.IdKey).ToList();
-
-            foreach (IIdName item in itemList)
-            {
-                list.Add(new NameValue() { IdKey = item.IdKey, Name = item.Name, });
-            }
-
-            return list;
+            return _entityService.GetChildList(null, listName);
         }
 
-        public List<NameValue> CreateDataList(EditorGameState gs, object prop)
+        public List<IIdName> CreateDataList(EditorGameState gs, object prop)
         {
-            List<NameValue> list = new List<NameValue>();
+            List<IIdName> list = new List<IIdName>();
 
             if (prop == null)
             {
@@ -1225,99 +1136,11 @@ namespace Genrpg.Editor.Services.Reflection
             return list;
         }
 
-        public string GetOnClickDropdownName(EditorGameState gs, object obj, MemberInfo mem)
-        {
-            if (obj == null || mem == null)
-            {
-                return "";
-            }
-
-            Type mType = GetMemberType(mem);
-
-            string dataListName = GetListName(gs, obj, mem);
-            if (string.IsNullOrEmpty(dataListName))
-            {
-                return "";
-            }
-
-            object prop = GetObjectValue(gs.data, dataListName);
-            if (prop == null)
-            {
-                return "";
-            }
-
-            return dataListName;
-        }
-
-
-        // Get the list used int the game object to that's put into this member
-        // at this time. It's either of the form XYZFooId for an item of type Foo,
-        // or it's XYZEntityId where XYZEntityTypeId is of type EntityTypes.Foo.
-        protected string GetListName(EditorGameState gs, object obj, MemberInfo mem)
-        {
-            if (gs.data == null || obj == null || mem == null || string.IsNullOrEmpty(mem.Name))
-            {
-                return "";
-            }
-
-            Type mType = GetMemberType(mem);
-
-            if (mType == null || mType.FullName != "System.Int32" && mType.FullName != "System.Int64")
-            {
-                return "";
-            }
-
-
-            string nm = mem.Name;
-            string subs = nm.Substring(nm.Length - 2);
-
-            // Check for XYZFooId.
-            if (nm != null && nm.Length >= 2 && nm.Substring(nm.Length - 2) == GameDataConstants.IdSuffix)
-            {
-                string currname = nm.Substring(0, nm.Length - 2);
-
-                while (currname.Length > 0)
-                {
-                    string nm2 = GetDataTableName(gs, currname);
-
-                    object prop = GetObjectValue(gs, nm2);
-                    if (prop != null)
-                    {
-                        return nm2;
-                    }
-
-                    currname = currname.Substring(1);
-                }
-            }
-
-            nm = mem.Name;
-            if (nm.IndexOf("EntityId") >= 0)
-            {
-                string etypeName = nm.Replace("EntityId", "EntityTypeId");
-
-                MemberInfo etypeMem = GetMemberInfo(obj, etypeName);
-                if (etypeMem == null)
-                {
-                    return "";
-                }
-
-                object etypeValObj = GetObjectValue(obj, etypeMem);
-                return GetDataTableName(gs, etypeValObj);
-            }
-
-            return "";
-        }
-
-        public List<NameValue> GetDropdownList(EditorGameState gs, MemberInfo mem, object obj)
+        public List<IIdName> GetDropdownList(EditorGameState gs, MemberInfo mem, object obj)
         {
             if (gs.data == null || mem == null)
             {
-                return new List<NameValue>();
-            }
-
-            if (mem.Name == "EquipSlotId")
-            {
-                Console.WriteLine("EquipSlotId");
+                return new List<IIdName>();
             }
 
             Type memType = mem.GetType();
@@ -1326,7 +1149,7 @@ namespace Genrpg.Editor.Services.Reflection
                 return CreateEnumList(memType);
             }
 
-            List<NameValue> mapDataList = GetMapDropdownList(gs, mem);
+            List<IIdName> mapDataList = GetMapDropdownList(gs, mem);
 
             if (mapDataList != null && mapDataList.Count > 0)
             {
@@ -1342,7 +1165,7 @@ namespace Genrpg.Editor.Services.Reflection
             return GetEntityTypeDropdownList(gs, mem);
         }
 
-        protected List<NameValue> GetMapDropdownList(EditorGameState gs, MemberInfo mem)
+        protected List<IIdName> GetMapDropdownList(EditorGameState gs, MemberInfo mem)
         {
 
             if (_mapProvider.GetMap() == null)
@@ -1362,86 +1185,81 @@ namespace Genrpg.Editor.Services.Reflection
         }
 
 
-        protected List<NameValue> GetEntityIdDropdownList(EditorGameState gs, MemberInfo mem, object obj)
+        protected List<IIdName> GetEntityIdDropdownList(EditorGameState gs, MemberInfo mem, object obj)
         {
+            List<IIdName> list = new List<IIdName>();
             if (obj == null || mem == null)
             {
-                return null;
+                return list;
             }
 
-            List<NameValue> list = new List<NameValue>();
             string prefix = mem.Name.Replace("EntityId", "");
             string etypeName = prefix + "EntityTypeId";
             MemberInfo etypeMem = GetMemberInfo(obj, etypeName);
             if (etypeMem == null)
             {
-                return null;
+                return list;
             }
-
-
 
             object etypeVal = GetObjectValue(obj, etypeMem);
 
+            if (etypeVal == null)
+            {
+                return list;
+            }
 
-            if (etypeVal != null && _mapProvider.GetMap() != null)
+            if (!Int64.TryParse(etypeVal.ToString(), out long entityTypeId))
+            {
+                return list;
+            }
+
+            if (_mapProvider.GetMap() != null)
             {
                 string etypeValStr = etypeVal.ToString();
                 int etypeId = -1;
                 if (int.TryParse(etypeValStr, out etypeId))
                 {
-                    object dataObject = _mapProvider.GetMap().GetEditorListFromEntityTypeId(etypeId);
+                    list = _mapProvider.GetMap().GetEditorListFromEntityTypeId(etypeId);
 
-                    if (dataObject != null)
+                    if (list != null)
                     {
-                        return CreateDataList(gs, dataObject);
+                        return list;
                     }
                 }
             }
 
-            string datalistname = GetDataTableName(gs, etypeVal);
-            if (string.IsNullOrEmpty(datalistname))
-            {
-                return list;
-            }
-
-            List<NameValue> datalist = CreateDataList(gs, datalistname);
-            if (datalist == null || datalist.Count < 1)
-            {
-                return list;
-            }
-
-            return datalist;
+            return _entityService.GetChildList(null, entityTypeId);
         }
 
 
         // This adds an entity list dropdown for things that are named XXXId where XXXs is something in the game data.
 
-        protected List<NameValue> GetEntityTypeDropdownList(EditorGameState gs, MemberInfo mem)
+        protected List<IIdName> GetEntityTypeDropdownList(EditorGameState gs, MemberInfo mem)
         {
-            List<NameValue> badList = new List<NameValue>();
+            List<IIdName> emptyList = new List<IIdName>();
             if (gs.data == null || mem == null)
             {
-                return badList;
+                return emptyList;
             }
 
             Type mType = GetMemberType(mem);
 
             if (mType == null || mType.FullName != "System.Int64")
             {
-                return badList;
+                return emptyList;
             }
 
             // See if the last 2 letters are "Id".
             string nm = mem.Name;
             if (nm.Length < 2)
             {
-                return badList;
+                return emptyList;
             }
 
             string subs = nm.Substring(nm.Length - 2);
             if (subs != GameDataConstants.IdSuffix)
             {
-                return badList;
+                return emptyList;
             }
 
             nm = nm.Substring(0, nm.Length - 2);
@@ -1452,10 +1270,8 @@ namespace Genrpg.Editor.Services.Reflection
 
             while (currname.Length > 0)
             {
-                string nm2 = GetDataTableName(gs, currname);
 
-                List<NameValue> list = CreateDataList(gs, nm2);
-
+                List<IIdName> list = _entityService.GetChildList(null, currname);
                 if (list != null && list.Count > 0)
                 {
                     return list;
@@ -1465,7 +1281,7 @@ namespace Genrpg.Editor.Services.Reflection
 
             }
 
-            return badList;
+            return emptyList;
 
         }
 

@@ -25,7 +25,7 @@ namespace GenrpgConfig
             env = env.ToLower();
 
 
-            string contentRoot = "https://oxdbcontent.azureedge.net/genrpg";
+            string contentRoot = "https://oxdbassets.azureedge.net";
 
             ConfigResponse response = new ConfigResponse();
             if (env == "dev")

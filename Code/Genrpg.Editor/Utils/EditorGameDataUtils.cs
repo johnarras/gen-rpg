@@ -86,7 +86,8 @@ namespace Genrpg.Editor.Utils
 
             List<IGameSettings> dataList = new List<IGameSettings>();
 
-
+            // This will overload Cosmos serverless...soo put breakpoints here to slow down the saving
+            // to avoid 429 errors
             List<Task> saveTasks = new List<Task>();
             for (int i = 0; i < dataCopy.Data.Count; i++)
             {

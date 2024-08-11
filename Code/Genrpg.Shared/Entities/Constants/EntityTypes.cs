@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Genrpg.Shared.Characters.PlayerData;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,6 +25,9 @@ namespace Genrpg.Shared.Entities.Constants
         public const long Building = 17;
         public const long MapMod = 18;
         public const long Tribe = 19;
+        public const long Reputation = 20;
+        public const long Chest = 21;
+        public const long BoardPrize = 22;
 
         public const long Stat = 31;
         public const long StatPct = 32;

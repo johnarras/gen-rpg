@@ -1,0 +1,17 @@
+{
+  "Id": "tiletype10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Bonus",
+  "Desc": "Starts several bonus rolls",
+  "Icon": "BonusTile",
+  "Art": "BonusTile",
+  "MaxQuantity": 1,
+  "SpawnPriority": 4.0,
+  "MinPosition": 3,
+  "OnMainPath": true,
+  "ActivationCostScale": 7.0,
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-08-11T00:19:54.103Z"
+}

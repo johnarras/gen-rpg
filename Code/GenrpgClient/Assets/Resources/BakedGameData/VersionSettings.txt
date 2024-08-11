@@ -2,9 +2,9 @@
   "Id": "default",
   "ClientVersion": 1,
   "ServerVersion": 1,
-  "GameDataSaveTime": "2024-08-03T23:23:01.721Z",
+  "GameDataSaveTime": "2024-08-11T18:10:43.748Z",
   "UserVersion": 1,
   "CharacterVersion": 1,
   "Name": "VersionSettings",
-  "UpdateTime": "2024-08-03T23:23:01.721Z"
+  "UpdateTime": "2024-08-11T18:10:43.748Z"
 }

@@ -3,6 +3,12 @@
   "ParentId": "default",
   "IdKey": 1,
   "Name": "Gold",
-  "Art": "Gold",
-  "UpdateTime": "2024-08-03T23:23:01.721Z"
+  "Desc": "Gives out basic gold rewards.",
+  "Icon": "GoldTile",
+  "Art": "GoldTile",
+  "HasPrizes": true,
+  "OnMainPath": true,
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-08-11T00:22:11.82Z"
 }

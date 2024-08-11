@@ -11,6 +11,6 @@ namespace Genrpg.Shared.Accounts.PlayerData
         public const string DocId = "Default";
 
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public long AccountId { get; set; } = 1;
+        [Key(1)] public long AccountId { get; set; } = 0;
     }
 }

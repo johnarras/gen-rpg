@@ -1,5 +1,10 @@
-﻿using Genrpg.Shared.DataStores.Entities;
+﻿using Amazon.Runtime.Internal;
+using Genrpg.ServerShared.Config;
+using Genrpg.Shared.Constants;
+using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
+using Genrpg.Shared.DataStores.Utils;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
@@ -10,49 +15,62 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.DataStores.Blobs
 {
     public class BlobRepository : IServerRepository
     {
-        private CloudStorageAccount _account = null;
-        private CloudBlobClient _client = null;
-        private ILogService _logger = null;
-        private ConcurrentDictionary<Type, string> _collectionNames = new ConcurrentDictionary<Type, string>();
-        private ConcurrentDictionary<Type, CloudBlobContainer> _containers = new ConcurrentDictionary<Type, CloudBlobContainer>();
-    
-        public BlobRepository(ILogService logger, string connectionString)
+        class BlobConnection
         {
-            _account = CloudStorageAccount.Parse(connectionString);
-            _client = _account.CreateCloudBlobClient();
+            public string ConnectionString { get; set; }
+            public CloudStorageAccount Account { get; set; }
+            public CloudBlobClient Client { get; set; }
+            public ConcurrentDictionary<string, CloudBlobContainer> Containers { get; set; }= new ConcurrentDictionary<string, CloudBlobContainer>();
+        }
+
+        private static ConcurrentDictionary<string, BlobConnection> _connections { get; set; }= new ConcurrentDictionary<string, BlobConnection>();    
+
+        private ILogService _logger = null;
+        private CloudBlobContainer _container = null;
+
+        public BlobRepository(ILogService logger, IServerConfig config, string connectionString, string dataCategory, string blobEnv)
+        {
+            _ = Task.Run(()=>Init(logger,config,connectionString,dataCategory,blobEnv));    
+        }
+
+        public async Task Init(ILogService logger, IServerConfig config, string connectionString, string dataCategory, string blobEnv)
+        {
+
             _logger = logger;
+
+            if (!_connections.TryGetValue(connectionString, out BlobConnection connection))
+            {
+                connection = new BlobConnection();
+                connection.Account = CloudStorageAccount.Parse(connectionString);
+                connection.Client = connection.Account.CreateCloudBlobClient();
+                _connections[connectionString] = connection;
+            }
+
+            string containerName = BlobUtils.GetBlobContainerName(dataCategory, Game.Prefix, blobEnv);
+
+            if (!connection.Containers.TryGetValue(containerName, out CloudBlobContainer container))
+            {
+                container = connection.Client.GetContainerReference(containerName);
+                _container = container;
+                await container.CreateIfNotExistsAsync(BlobContainerPublicAccessType.Container, null, null);
+                connection.Containers[containerName] = container;
+            }
+
         }
 
         #region Core
-        public CloudStorageAccount GetAccount()
+        private CloudBlockBlob GetBlockBlobReference(Type t, string id)
         {
-            return _account;
-        }
-
-        public CloudBlobClient GetClient()
-        {
-            return _client;
-        }
-
-        private async Task<CloudBlobContainer> GetContainer(Type t)
-        {
-            if (_containers.TryGetValue(t, out CloudBlobContainer container))
-            {
-                return container;
-            }
-            string newCollectionName = (t.Name.ToLower() + "doc");
-
-            container = _client.GetContainerReference(newCollectionName);
-            await container.CreateIfNotExistsAsync().ConfigureAwait(false);
-            _containers[t] = container;
-            return container;
+            return _container.GetBlockBlobReference(t.Name.ToLower() + "/" + id);
         }
 
         // Breakd LSP
@@ -68,9 +86,7 @@ namespace Genrpg.ServerShared.DataStores.Blobs
         {
             string data = SerializationUtils.Serialize(t);
 
-            CloudBlobContainer container = await GetContainer(t.GetType());
-
-            CloudBlockBlob blob = container.GetBlockBlobReference(t.Id);
+            CloudBlockBlob blob = GetBlockBlobReference(t.GetType(), t.Id);
 
             bool success = false;
             int maxTimes = 2;
@@ -94,7 +110,7 @@ namespace Genrpg.ServerShared.DataStores.Blobs
             return success;
         }
 
-        async Task<bool> IRepository.SaveAll<T>(List<T> tlist)
+        public async Task<bool> SaveAll<T>(List<T> tlist) where T : class, IStringId
         {
             bool allOk = true;
             foreach (T t in tlist)
@@ -114,9 +130,7 @@ namespace Genrpg.ServerShared.DataStores.Blobs
         #region Delete
         public async Task<bool> Delete<T>(T t) where T : class, IStringId
         {
-            CloudBlobContainer container = await GetContainer(t.GetType());
-
-            CloudBlockBlob blob = container.GetBlockBlobReference(t.Id);
+            CloudBlockBlob blob = GetBlockBlobReference(t.GetType(), t.Id);
 
             bool success = false;
             try
@@ -157,9 +171,7 @@ namespace Genrpg.ServerShared.DataStores.Blobs
             T obj = default;
             try
             {
-                CloudBlobContainer container = await GetContainer(typeof(T));
-
-                CloudBlockBlob blob = container.GetBlockBlobReference(id);
+                CloudBlockBlob blob = GetBlockBlobReference(typeof(T), id);
 
                 int maxTimes = 1;
                 for (int times = 0; times < maxTimes; times++)
@@ -208,8 +220,7 @@ namespace Genrpg.ServerShared.DataStores.Blobs
         // Breaks LSP
         public async Task<bool> TransactionSave<T>(List<T> list) where T : class, IStringId
         {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
+            return await SaveAll<T>(list);
         }
 
         // Breaks LSP

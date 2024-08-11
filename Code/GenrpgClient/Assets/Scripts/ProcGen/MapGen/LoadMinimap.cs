@@ -6,6 +6,8 @@ using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
 using UnityEngine;
 using ClientEvents;
+using Genrpg.Shared.DataStores.Categories;
+using Genrpg.Shared.DataStores.DataGroups;
 
 public class LoadMinimap : BaseZoneGenerator
 {
@@ -26,8 +28,13 @@ public class LoadMinimap : BaseZoneGenerator
             }
             else
             {
-                DownloadFileData ddata = new DownloadFileData() { IsImage = true, Handler= OnDownloadMinimap };
-                _fileDownloadService.DownloadFile(filename, ddata, true, token);
+                DownloadFileData ddata = new DownloadFileData()
+                {
+                    IsImage = true,
+                    Handler = OnDownloadMinimap,
+                    Category = EDataCategories.Worlds,
+                };
+                _fileDownloadService.DownloadFile(filename, ddata, token);
             }
         }
         catch (Exception e)
