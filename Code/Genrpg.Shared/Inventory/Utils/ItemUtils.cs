@@ -219,35 +219,22 @@ namespace Genrpg.Shared.Inventory.Utils
             return sb.ToString();
         }
 
-        public static long GetBuyFromVendorPrice(IGameData gameData, Unit unit, Item item)
+        public static long CalcBuyCost(IGameData gameData, Unit unit, Item item)
         {
             long buyPrice = 0;
-
+            int minBuyPrice = 8;
             if (buyPrice < 1)
             {
-                buyPrice = (long)(GetSellToVendorPrice(gameData, unit, item) * Math.Max(2.0f,
-                    gameData.Get<VendorSettings>(unit).BuyFromVendorPriceMult));
-            }
-
-            return buyPrice;
-        }
-
-        public static long GetSellToVendorPrice(IGameData gameData, Unit unit, Item item)
-        {
-            long sellPrice = 0;
-            int minSellPrice = 8;
-            if (sellPrice < 1)
-            {
-                long itemValue = minSellPrice;
+                long itemValue = minBuyPrice;
                 LevelInfo levelData = gameData.Get<LevelSettings>(unit).Get(item.Level);
                 if (levelData != null)
                 {
-                    itemValue = levelData.KillMoney * 3;
+                    itemValue = levelData.KillMoney * 5;
                 }
 
-                if (itemValue < sellPrice)
+                if (itemValue < buyPrice)
                 {
-                    itemValue = sellPrice;
+                    itemValue = buyPrice;
                 }
 
                 QualityType quality = gameData.Get<QualityTypeSettings>(unit).Get(item.QualityTypeId);
@@ -272,9 +259,9 @@ namespace Genrpg.Shared.Inventory.Utils
 
                 itemValue /= 10000;
 
-                if (itemValue < minSellPrice)
+                if (itemValue < minBuyPrice)
                 {
-                    itemValue = minSellPrice;
+                    itemValue = minBuyPrice;
                 }
 
                 if (item.Quantity > 1)
@@ -282,11 +269,11 @@ namespace Genrpg.Shared.Inventory.Utils
                     itemValue *= item.Quantity;
                 }
 
-                sellPrice = itemValue;
+                buyPrice = itemValue;
 
             }
 
-            return sellPrice;
+            return buyPrice;
         }
 
         public static void CopyStatsFrom(Item fromItem, Item toItem)

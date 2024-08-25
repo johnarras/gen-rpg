@@ -1,107 +1,12 @@
 {
   "Data": [
     {
-      "Id": "zonetype0default",
-      "ParentId": "default",
-      "Name": "None",
-      "GrassDensity": 1.0,
-      "GrassFreq": 1.0,
-      "TreeDensity": 1.0,
-      "TreeFreq": 1.0,
-      "BushDensity": 1.0,
-      "BushFreq": 1.0,
-      "RockDensity": 1.0,
-      "DetailAmp": 1.0,
-      "DetailFreq": 1.0,
-      "RoadDipScale": 1.0,
-      "RoadDirtScale": 1.0,
-      "ZoneListGenScale": 1.0,
-      "Textures": [],
-      "ZoneNames": [],
-      "ZoneAdjectives": [],
-      "BridgeTypes": [
-        {
-          "BridgeTypeId": 1,
-          "Chance": 100
-        }
-      ],
-      "FenceTypes": [
-        {
-          "FenceTypeId": 1,
-          "Chance": 100.0
-        }
-      ],
-      "RockTypes": [
-        {
-          "RockTypeId": 1,
-          "ChanceScale": 1.0,
-          "BaseColor": {
-            "R": 1.0,
-            "G": 1.0,
-            "B": 1.0,
-            "A": 1.0
-          }
-        },
-        {
-          "RockTypeId": 2,
-          "ChanceScale": 1.0,
-          "BaseColor": {
-            "R": 1.0,
-            "G": 1.0,
-            "B": 1.0,
-            "A": 1.0
-          }
-        },
-        {
-          "RockTypeId": 3,
-          "ChanceScale": 1.0,
-          "BaseColor": {
-            "R": 1.0,
-            "G": 1.0,
-            "B": 1.0,
-            "A": 1.0
-          }
-        },
-        {
-          "RockTypeId": 4,
-          "ChanceScale": 1.0,
-          "BaseColor": {
-            "R": 1.0,
-            "G": 1.0,
-            "B": 1.0,
-            "A": 1.0
-          }
-        },
-        {
-          "RockTypeId": 5,
-          "ChanceScale": 1.0,
-          "BaseColor": {
-            "R": 1.0,
-            "G": 1.0,
-            "B": 1.0,
-            "A": 1.0
-          }
-        }
-      ],
-      "TreeTypes": [],
-      "CreatureNamePrefixes": [],
-      "CreatureDoubleNamePrefixes": [],
-      "Overrides": [],
-      "ZoneUnitSpawns": [],
-      "PlantChoices": "",
-      "FenceChance": 0.1,
-      "WeatherTypeId": 1,
-      "MusicTypeId": 1,
-      "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-01T00:28:16.833Z"
-    },
-    {
       "Id": "zonetype1default",
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Field",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Field",
       "GenChance": 5.0,
       "GrassDensity": 1.5,
       "GrassFreq": 1.0,
@@ -816,7 +721,7 @@
       "CreviceWidthScale": 0.6,
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-01T00:28:16.862Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype2default",
@@ -824,7 +729,7 @@
       "IdKey": 2,
       "Name": "Forest",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Forest",
       "MinLevel": 5,
       "GenChance": 20.0,
       "GrassDensity": 1.0,
@@ -1702,7 +1607,7 @@
       "WeatherTypeId": 2,
       "MusicTypeId": 4,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-01T00:28:16.865Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype3default",
@@ -1710,7 +1615,7 @@
       "IdKey": 3,
       "Name": "Hills",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Hills",
       "MinLevel": 5,
       "GenChance": 5.0,
       "GrassDensity": 0.8,
@@ -2489,7 +2394,7 @@
       "WeatherTypeId": 3,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
-      "UpdateTime": "2024-08-01T00:28:16.868Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype4default",
@@ -2497,7 +2402,7 @@
       "IdKey": 4,
       "Name": "Swamp",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Swamp",
       "MinLevel": 10,
       "GenChance": 3.0,
       "GrassDensity": 2.0,
@@ -3316,7 +3221,7 @@
       "WeatherTypeId": 4,
       "MusicTypeId": 6,
       "AmbientMusicTypeId": 11,
-      "UpdateTime": "2024-08-01T00:28:16.871Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype5default",
@@ -3324,7 +3229,7 @@
       "IdKey": 5,
       "Name": "Badlands",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Badlands",
       "MinLevel": 15,
       "GenChance": 1.0,
       "GrassDensity": 0.25,
@@ -4036,7 +3941,7 @@
       "CreviceWidthScale": 1.5,
       "MusicTypeId": 6,
       "AmbientMusicTypeId": 9,
-      "UpdateTime": "2024-08-01T00:28:16.873Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype6default",
@@ -4044,7 +3949,7 @@
       "IdKey": 6,
       "Name": "Desert",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Desert",
       "MinLevel": 20,
       "GenChance": 1.0,
       "GrassDensity": 0.05,
@@ -4814,7 +4719,7 @@
       "CreviceWidthScale": 2.0,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
-      "UpdateTime": "2024-08-01T00:28:16.876Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype7default",
@@ -4822,7 +4727,7 @@
       "IdKey": 7,
       "Name": "DarkForest",
       "Desc": "",
-      "Icon": "",
+      "Icon": "DarkForest",
       "MinLevel": 10,
       "GenChance": 4.0,
       "GrassDensity": 0.75,
@@ -5557,7 +5462,7 @@
       "WeatherTypeId": 7,
       "MusicTypeId": 2,
       "AmbientMusicTypeId": 7,
-      "UpdateTime": "2024-08-01T00:28:16.878Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype8default",
@@ -5565,7 +5470,7 @@
       "IdKey": 8,
       "Name": "Savannah",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Savannah",
       "MinLevel": 15,
       "GenChance": 2.0,
       "GrassDensity": 1.25,
@@ -6234,7 +6139,7 @@
       "WeatherTypeId": 8,
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-01T00:28:16.884Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype9default",
@@ -6242,7 +6147,7 @@
       "IdKey": 9,
       "Name": "Water",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Water",
       "Textures": [
         {
           "TextureTypeId": 13
@@ -6619,7 +6524,7 @@
       "WeatherTypeId": 8,
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-01T00:28:16.887Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype10default",
@@ -6627,7 +6532,7 @@
       "IdKey": 10,
       "Name": "Mountains",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Mountains",
       "MinLevel": 25,
       "GenChance": 5.0,
       "GrassDensity": 0.8,
@@ -7406,7 +7311,7 @@
       "WeatherTypeId": 3,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-01T00:28:16.838Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype11default",
@@ -7414,7 +7319,7 @@
       "IdKey": 11,
       "Name": "Snow",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Snow",
       "MinLevel": 25,
       "GenChance": 5.0,
       "GrassDensity": 0.8,
@@ -8081,7 +7986,7 @@
       "WeatherTypeId": 3,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-01T00:28:16.842Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype12default",
@@ -8089,7 +7994,7 @@
       "IdKey": 12,
       "Name": "Road",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Road",
       "Textures": [
         {
           "TextureTypeId": 4,
@@ -8110,7 +8015,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-01T00:28:16.844Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype13default",
@@ -8118,7 +8023,7 @@
       "IdKey": 13,
       "Name": "PointOfInterest",
       "Desc": "",
-      "Icon": "",
+      "Icon": "PointOfInterest",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -8139,7 +8044,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-01T00:28:16.847Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype14default",
@@ -8147,7 +8052,7 @@
       "IdKey": 14,
       "Name": "City",
       "Desc": "",
-      "Icon": "",
+      "Icon": "City",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -8378,7 +8283,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-01T00:28:16.849Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype15default",
@@ -8386,7 +8291,7 @@
       "IdKey": 15,
       "Name": "Dungeon",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Dungeon",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -8851,7 +8756,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-01T00:28:16.852Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype16default",
@@ -8859,7 +8764,7 @@
       "IdKey": 16,
       "Name": "Cave",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Cave",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -9376,7 +9281,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-01T00:28:16.855Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype17default",
@@ -9384,7 +9289,7 @@
       "IdKey": 17,
       "Name": "Tower",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Tower",
       "Textures": [
         {
           "TextureTypeId": 99,
@@ -9815,7 +9720,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-01T00:28:16.857Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     },
     {
       "Id": "zonetype18default",
@@ -9823,7 +9728,7 @@
       "IdKey": 18,
       "Name": "Lava",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Lava",
       "MinLevel": 20,
       "GenChance": 1.0,
       "GrassDensity": 0.05,
@@ -10333,13 +10238,13 @@
       "CreviceWidthScale": 2.0,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
-      "UpdateTime": "2024-08-01T00:28:16.86Z"
+      "UpdateTime": "2024-08-24T13:55:17.061Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ZoneTypeSettings",
-    "UpdateTime": "2024-08-01T00:28:16.889Z"
+    "UpdateTime": "2024-08-24T14:32:46.576Z"
   },
   "Id": "default"
 }

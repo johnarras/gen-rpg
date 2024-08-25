@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Genrpg.ServerShared.Spawns.Services;
 
 namespace Genrpg.ServerShared.Setup
 {
@@ -39,6 +40,7 @@ namespace Genrpg.ServerShared.Setup
             Set<IAccountService>(new AccountService());
             Set<IAdminService>(new BaseAdminService());
             Set<ICryptoService>(new CryptoService());
+            Set<ISpawnService>(new SpawnService());
         }
     }
 }

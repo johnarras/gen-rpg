@@ -1,15 +1,6 @@
 {
   "Data": [
     {
-      "Id": "crawlerspell0default",
-      "ParentId": "default",
-      "Name": "None",
-      "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 1,
-      "Effects": [],
-      "UpdateTime": "2024-08-01T00:28:05.724Z"
-    },
-    {
       "Id": "crawlerspell1default",
       "ParentId": "default",
       "IdKey": 1,
@@ -27,7 +18,7 @@
         }
       ],
       "Flags": 1,
-      "UpdateTime": "2024-08-01T00:28:05.752Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell2default",
@@ -41,7 +32,7 @@
       "Level": 1,
       "Effects": [],
       "Flags": 1,
-      "UpdateTime": "2024-08-01T00:28:05.772Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell3default",
@@ -62,7 +53,7 @@
         }
       ],
       "Flags": 1,
-      "UpdateTime": "2024-08-01T00:28:05.786Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell4default",
@@ -82,7 +73,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.807Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell5default",
@@ -104,7 +95,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.859Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell6default",
@@ -122,7 +113,7 @@
           "EntityId": 3
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.871Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell7default",
@@ -145,7 +136,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.877Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell8default",
@@ -167,7 +158,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.882Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell9default",
@@ -189,14 +180,14 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.889Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell10default",
       "ParentId": "default",
       "IdKey": 10,
-      "Name": "Minor Cure",
-      "Desc": "Cure a single party member Tier 1",
+      "Name": "Cure",
+      "Desc": "Cure a single party member",
       "PowerCost": 30,
       "MaxRange": 100,
       "CombatActionId": 4,
@@ -205,322 +196,12 @@
       "Effects": [
         {
           "EntityTypeId": 36,
-          "EntityId": 1,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2,
           "MinQuantity": -1,
           "MaxQuantity": -1,
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.728Z"
-    },
-    {
-      "Id": "crawlerspell11default",
-      "ParentId": "default",
-      "IdKey": 11,
-      "Name": "Lesser Cure",
-      "Desc": "Cure a single party member Tier 2",
-      "PowerCost": 30,
-      "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 10,
-      "CombatActionId": 4,
-      "TargetTypeId": 2,
-      "Level": 5,
-      "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 1,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 3,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 4,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        }
-      ],
-      "UpdateTime": "2024-08-01T00:28:05.731Z"
-    },
-    {
-      "Id": "crawlerspell12default",
-      "ParentId": "default",
-      "IdKey": 12,
-      "Name": "Cure",
-      "Desc": "Cure a single party member Tier 3",
-      "PowerCost": 30,
-      "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 11,
-      "CombatActionId": 4,
-      "TargetTypeId": 2,
-      "Level": 9,
-      "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 1,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 3,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 4,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 5,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 6,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 7,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        }
-      ],
-      "UpdateTime": "2024-08-01T00:28:05.733Z"
-    },
-    {
-      "Id": "crawlerspell13default",
-      "ParentId": "default",
-      "IdKey": 13,
-      "Name": "Greater Cure",
-      "Desc": "Cure a single party member Tier 4",
-      "PowerCost": 30,
-      "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 12,
-      "CombatActionId": 4,
-      "TargetTypeId": 2,
-      "Level": 13,
-      "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 1,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 3,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 4,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 5,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 6,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 7,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 8,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 9,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 10,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        }
-      ],
-      "UpdateTime": "2024-08-01T00:28:05.735Z"
-    },
-    {
-      "Id": "crawlerspell14default",
-      "ParentId": "default",
-      "IdKey": 14,
-      "Name": "Full Cure",
-      "Desc": "Cure a single party member Tier 5",
-      "PowerCost": 30,
-      "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 13,
-      "CombatActionId": 4,
-      "TargetTypeId": 2,
-      "Level": 17,
-      "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 1,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 3,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 4,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 5,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 6,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 7,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 8,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 9,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 10,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 11,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 12,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 13,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        }
-      ],
-      "UpdateTime": "2024-08-01T00:28:05.738Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell15default",
@@ -543,7 +224,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.74Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell16default",
@@ -566,7 +247,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.743Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell17default",
@@ -586,7 +267,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.745Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell18default",
@@ -606,7 +287,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.747Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell19default",
@@ -626,7 +307,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.75Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell20default",
@@ -646,7 +327,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.754Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell21default",
@@ -666,7 +347,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.757Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell23default",
@@ -688,7 +369,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.76Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell24default",
@@ -711,7 +392,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.765Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell27default",
@@ -734,7 +415,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.767Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell28default",
@@ -757,7 +438,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.769Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell29default",
@@ -779,7 +460,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.77Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell30default",
@@ -801,7 +482,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.774Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell31default",
@@ -823,7 +504,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.775Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell32default",
@@ -845,7 +526,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.777Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell33default",
@@ -868,7 +549,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.779Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell36default",
@@ -883,7 +564,7 @@
       "Level": 1,
       "Effects": [],
       "Flags": 1,
-      "UpdateTime": "2024-08-01T00:28:05.781Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell37default",
@@ -903,7 +584,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.783Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell39default",
@@ -924,7 +605,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.785Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell40default",
@@ -938,7 +619,7 @@
       "TargetTypeId": 5,
       "Level": 18,
       "Effects": [],
-      "UpdateTime": "2024-08-01T00:28:05.788Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell41default",
@@ -960,7 +641,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.79Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell42default",
@@ -982,7 +663,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.792Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell43default",
@@ -1004,7 +685,7 @@
         }
       ],
       "Flags": 2,
-      "UpdateTime": "2024-08-01T00:28:05.794Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell44default",
@@ -1023,7 +704,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.796Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell45default",
@@ -1046,7 +727,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.797Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell46default",
@@ -1068,7 +749,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.799Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell47default",
@@ -1090,7 +771,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.802Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell48default",
@@ -1112,7 +793,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.803Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell49default",
@@ -1135,7 +816,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.805Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell50default",
@@ -1158,7 +839,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.815Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell51default",
@@ -1181,7 +862,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.822Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell52default",
@@ -1204,14 +885,14 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.828Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell53default",
       "ParentId": "default",
       "IdKey": 53,
-      "Name": "Minor Cure Party",
-      "Desc": "Cure all party members Tier 1",
+      "Name": "Cure Party",
+      "Desc": "Cure all party members",
       "PowerCost": 90,
       "MaxRange": 100,
       "CombatActionId": 4,
@@ -1220,322 +901,12 @@
       "Effects": [
         {
           "EntityTypeId": 36,
-          "EntityId": 1,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2,
           "MinQuantity": -1,
           "MaxQuantity": -1,
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.831Z"
-    },
-    {
-      "Id": "crawlerspell54default",
-      "ParentId": "default",
-      "IdKey": 54,
-      "Name": "Lesser Cure Party",
-      "Desc": "Cure all party members Tier 2",
-      "PowerCost": 90,
-      "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 53,
-      "CombatActionId": 4,
-      "TargetTypeId": 5,
-      "Level": 9,
-      "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 1,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 3,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 4,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        }
-      ],
-      "UpdateTime": "2024-08-01T00:28:05.833Z"
-    },
-    {
-      "Id": "crawlerspell55default",
-      "ParentId": "default",
-      "IdKey": 55,
-      "Name": "Cure Party",
-      "Desc": "Cure all party members Tier 3",
-      "PowerCost": 90,
-      "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 54,
-      "CombatActionId": 4,
-      "TargetTypeId": 5,
-      "Level": 13,
-      "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 1,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 3,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 4,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 5,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 6,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 7,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        }
-      ],
-      "UpdateTime": "2024-08-01T00:28:05.848Z"
-    },
-    {
-      "Id": "crawlerspell56default",
-      "ParentId": "default",
-      "IdKey": 56,
-      "Name": "Greater Cure Party",
-      "Desc": "Cure all party members Tier 4",
-      "PowerCost": 90,
-      "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 55,
-      "CombatActionId": 4,
-      "TargetTypeId": 5,
-      "Level": 17,
-      "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 1,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 3,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 4,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 5,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 6,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 7,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 8,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 9,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 10,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        }
-      ],
-      "UpdateTime": "2024-08-01T00:28:05.851Z"
-    },
-    {
-      "Id": "crawlerspell57default",
-      "ParentId": "default",
-      "IdKey": 57,
-      "Name": "Full Cure Party",
-      "Desc": "Cure all party members Tier 5",
-      "PowerCost": 90,
-      "MaxRange": 100,
-      "ReplacesCrawlerSpellId": 56,
-      "CombatActionId": 4,
-      "TargetTypeId": 5,
-      "Level": 21,
-      "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 1,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 2,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 3,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 4,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 5,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 6,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 7,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 8,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 9,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 10,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 11,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 12,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        },
-        {
-          "EntityTypeId": 36,
-          "EntityId": 13,
-          "MinQuantity": -1,
-          "MaxQuantity": -1,
-          "ElementTypeId": 7
-        }
-      ],
-      "UpdateTime": "2024-08-01T00:28:05.853Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell58default",
@@ -1555,7 +926,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.855Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell59default",
@@ -1575,7 +946,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.857Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     },
     {
       "Id": "crawlerspell60default",
@@ -1595,13 +966,13 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:05.861Z"
+      "UpdateTime": "2024-08-20T13:13:16.189Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "CrawlerSpellSettings",
-    "UpdateTime": "2024-08-01T00:28:05.895Z"
+    "UpdateTime": "2024-08-20T13:20:02.729Z"
   },
   "Id": "default"
 }

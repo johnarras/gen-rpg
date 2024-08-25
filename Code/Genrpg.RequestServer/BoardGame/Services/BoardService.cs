@@ -1,4 +1,8 @@
-﻿using Genrpg.RequestServer.BoardGame.Helpers.TileTypeHelpers;
+﻿using Genrpg.RequestServer.BoardGame.BoardModeHelpers;
+using Genrpg.RequestServer.BoardGame.Helpers.TileTypeHelpers;
+using Genrpg.RequestServer.Core;
+using Genrpg.Shared.BoardGame.Settings;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;
 using System;
 using System.Collections.Generic;
@@ -8,9 +12,9 @@ namespace Genrpg.RequestServer.BoardGame.Services
 {
     public class BoardService : IBoardService
     {
-        protected IBoardGenService _boardGenService = null!;
-
-        SetupDictionaryContainer<long, ITileTypeHelper> _tileTypeHelpers = new SetupDictionaryContainer<long, ITileTypeHelper>();
+        private IBoardGenService _boardGenService = null!;
+        private IGameData _gameData;
+        private SetupDictionaryContainer<long, ITileTypeHelper> _tileTypeHelpers = new SetupDictionaryContainer<long, ITileTypeHelper>();
 
         public ITileTypeHelper GetTileTypeHelper(long tileTypeId)
         {
@@ -21,5 +25,9 @@ namespace Genrpg.RequestServer.BoardGame.Services
             return null;
         }
 
+        public List<long> GetTileTypesWithPrizes(WebContext context)
+        {
+            return _gameData.Get<TileTypeSettings>(context.user).GetData().Where(x => x.HasPrizes).Select(X => X.IdKey).ToList();
+        }
     }
 }

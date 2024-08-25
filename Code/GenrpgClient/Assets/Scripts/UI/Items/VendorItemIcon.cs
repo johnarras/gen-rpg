@@ -44,8 +44,7 @@ public class VendorItemIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandle
         _uIInitializable.SetText(ItemName, ItemUtils.GetName(_gameData, _gs.ch, data.Data));
         _uIInitializable.SetText(ItemInfo, ItemUtils.GetBasicInfo(_gameData, _gs.ch, data.Data));
 
-        _price = (isVendorItem ? ItemUtils.GetBuyFromVendorPrice(_gameData, _gs.ch, data.Data)
-            : ItemUtils.GetSellToVendorPrice(_gameData, _gs.ch, data.Data));
+        _price = (isVendorItem ? data.Data.BuyCost : data.Data.SellValue);
 
         if (_moneyDisplay != null)
         {

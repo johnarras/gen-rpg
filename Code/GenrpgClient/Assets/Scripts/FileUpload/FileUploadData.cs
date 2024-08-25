@@ -12,4 +12,5 @@ public class FileUploadData
     public string LocalPath;
     public string RemotePath;
     public bool IsWorldData;
+    public bool WaitForComplete = false;
 }

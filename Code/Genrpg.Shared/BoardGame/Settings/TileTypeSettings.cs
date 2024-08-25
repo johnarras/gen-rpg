@@ -37,6 +37,10 @@ namespace Genrpg.Shared.BoardGame.Settings
         [Key(9)] public int MinPosition { get; set; } = 0;
         [Key(10)] public bool HasPrizes { get; set; } = false;
         [Key(11)] public bool OnMainPath { get; set; } = false;
+
+        /// <summary>
+        /// If this is > 0, then this tile doesn't autotrigger on pass/land but instead charges up.
+        /// </summary>
         [Key(12)] public double ActivationCostScale { get; set; } = 0.0;
        
         [Key(13)] public List<SpawnItem> PassRewards { get; set; } = new List<SpawnItem>();

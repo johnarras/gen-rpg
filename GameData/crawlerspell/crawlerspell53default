@@ -2,8 +2,8 @@
   "Id": "crawlerspell53default",
   "ParentId": "default",
   "IdKey": 53,
-  "Name": "Minor Cure Party",
-  "Desc": "Cure all party members Tier 1",
+  "Name": "Cure Party",
+  "Desc": "Cure all party members",
   "PowerCost": 90,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -12,18 +12,10 @@
   "Effects": [
     {
       "EntityTypeId": 36,
-      "EntityId": 1,
-      "MinQuantity": -1,
-      "MaxQuantity": -1,
-      "ElementTypeId": 7
-    },
-    {
-      "EntityTypeId": 36,
-      "EntityId": 2,
       "MinQuantity": -1,
       "MaxQuantity": -1,
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-08-01T00:28:05.831Z"
+  "UpdateTime": "2024-08-20T13:13:16.189Z"
 }

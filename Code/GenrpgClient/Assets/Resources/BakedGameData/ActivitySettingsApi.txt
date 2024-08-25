@@ -1,12 +1,6 @@
 {
   "Data": [
     {
-      "Id": "activity0default",
-      "ParentId": "default",
-      "Name": "None",
-      "UpdateTime": "2024-08-10T16:56:22.374Z"
-    },
-    {
       "Id": "activity1default",
       "ParentId": "default",
       "IdKey": 1,
@@ -17,10 +11,11 @@
       "ResetDays": 1,
       "BaseCost": 50,
       "IncrementalCost": 10,
-      "MaxLevel": 5,
+      "MaxRewardTier": 5,
       "BaseReward": 10,
       "IncrementalReward": 5,
-      "UpdateTime": "2024-08-10T16:56:22.374Z"
+      "MinLevel": 5,
+      "UpdateTime": "2024-08-11T22:42:21.151Z"
     },
     {
       "Id": "activity2default",
@@ -33,10 +28,11 @@
       "ResetDays": 7,
       "BaseCost": 250,
       "IncrementalCost": 25,
-      "MaxLevel": 10,
+      "MaxRewardTier": 10,
       "BaseReward": 50,
       "IncrementalReward": 10,
-      "UpdateTime": "2024-08-10T16:56:22.374Z"
+      "MinLevel": 5,
+      "UpdateTime": "2024-08-11T22:42:21.151Z"
     },
     {
       "Id": "activity3default",
@@ -46,10 +42,11 @@
       "ResetDays": 30,
       "BaseCost": 400,
       "IncrementalCost": 40,
-      "MaxLevel": 50,
+      "MaxRewardTier": 50,
       "BaseReward": 100,
       "IncrementalReward": 25,
-      "UpdateTime": "2024-08-10T16:56:22.374Z"
+      "MinLevel": 5,
+      "UpdateTime": "2024-08-11T22:42:21.151Z"
     },
     {
       "Id": "activity4default",
@@ -62,16 +59,17 @@
       "ResetDays": 365,
       "BaseCost": 2500,
       "IncrementalCost": 250,
-      "MaxLevel": 100,
+      "MaxRewardTier": 100,
       "BaseReward": 250,
       "IncrementalReward": 50,
-      "UpdateTime": "2024-08-10T16:56:22.374Z"
+      "MinLevel": 5,
+      "UpdateTime": "2024-08-11T22:42:21.151Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ActivitySettings",
-    "UpdateTime": "2024-08-10T20:16:52.153Z"
+    "UpdateTime": "2024-08-11T22:42:21.151Z"
   },
   "Id": "default"
 }

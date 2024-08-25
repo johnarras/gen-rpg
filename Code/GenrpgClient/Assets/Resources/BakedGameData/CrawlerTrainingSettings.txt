@@ -6,6 +6,8 @@
   "ExtraKillsNeeded": 2,
   "StartMonsterExp": 100,
   "ExtraMonsterExp": 25,
+  "LowerStatIncreaseChance": 0.75,
+  "MaxStatIncreaseChance": 0.5,
   "Name": "CrawlerTrainingSettings",
-  "UpdateTime": "2024-08-01T00:28:05.899Z"
+  "UpdateTime": "2024-08-20T15:34:45.003Z"
 }

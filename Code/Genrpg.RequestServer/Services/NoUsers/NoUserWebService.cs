@@ -5,9 +5,9 @@ using Genrpg.Shared.Website.Interfaces;
 using Genrpg.Shared.Website.Messages;
 using Genrpg.Shared.Website.Messages.Error;
 using Genrpg.RequestServer.Utils;
-using Genrpg.RequestServer.NoUserCommandHandlers;
 using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Core;
+using Genrpg.RequestServer.NoUserCommands;
 
 namespace Genrpg.RequestServer.Services.NoUsers
 {

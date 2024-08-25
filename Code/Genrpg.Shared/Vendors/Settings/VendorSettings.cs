@@ -13,9 +13,8 @@ namespace Genrpg.Shared.Vendors.Settings
     public class VendorSettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public float BuyFromVendorPriceMult { get; set; }
-        [Key(2)] public float SellToVendorPriceMult { get; set; }
-        [Key(3)] public float VendorRefreshMinutes { get; set; }
+        [Key(1)] public float SellToVendorPriceMult { get; set; }
+        [Key(2)] public float VendorRefreshMinutes { get; set; }
     }
 
     [MessagePackObject]

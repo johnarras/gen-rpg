@@ -13,7 +13,7 @@ namespace Genrpg.Shared.BoardGame.Services
     public class SharedBoardGenService : ISharedBoardGenService
     {
         protected IGameData _gameData;       
-        public List<long> GetTiles(IFilteredObject filtered, BoardGenData genData)
+        public List<long> GenerateTiles(IFilteredObject filtered, BoardGenArgs genData)
         {
             List<long> retval = new List<long>();
 
@@ -25,6 +25,8 @@ namespace Genrpg.Shared.BoardGame.Services
             MyRandom rand = new MyRandom(genData.Seed);
 
             IReadOnlyList<TileType> tileTypes = _gameData.Get<TileTypeSettings>(filtered).GetData();
+
+            BoardGenSettings genSettings = _gameData.Get<BoardGenSettings>(filtered);
 
 
             List<TileType> okTileTypes = tileTypes.Where(x => x.IdKey > 0 && x.OnMainPath).ToList();
@@ -76,6 +78,25 @@ namespace Genrpg.Shared.BoardGame.Services
                 {
                     break;
                 }
+            }
+
+            int sidePathQuantity = 0;
+            
+            if (genData.BoardModeId == BoardModes.Primary)
+            {
+                sidePathQuantity = 1;
+            }
+
+            for (int s = 0; s < sidePathQuantity; s++) 
+            {
+                long sidePathLength = MathUtils.LongRange(genSettings.SidePathMinLength, genSettings.SidePathMaxLength, rand);
+
+                retval.Add(TileTypes.StartPath);
+                for (int i = 0; i < sidePathLength; i++)
+                {
+                    retval.Add(TileTypes.SidePath);
+                }
+                retval.Add(TileTypes.EndPath);
             }
 
             return retval;

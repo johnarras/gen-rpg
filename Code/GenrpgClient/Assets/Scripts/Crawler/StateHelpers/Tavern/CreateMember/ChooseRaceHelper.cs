@@ -1,7 +1,9 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.StateHelpers;
-
+using Assets.Scripts.Crawler.StateHelpers.Tavern.CreateMember;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Roles.Constants;
+using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Sexes.Settings;
 using Genrpg.Shared.Spawns.WorldData;
@@ -17,7 +19,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.UI.Crawler.States
 {
-    public class ChooseRaceHelper : BaseStateHelper
+    public class ChooseRaceHelper : BaseRoleStateHelper
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.ChooseRace; }
 
@@ -28,27 +30,24 @@ namespace Assets.Scripts.UI.Crawler.States
 
             PartyMember member = action.ExtraData as PartyMember;
 
-            IReadOnlyList<UnitType> unitTypes = _gameData.Get<UnitSettings>(null).GetData();
+            List<Role> races = _gameData.Get<RoleSettings>(_gs.ch).GetData().Where(x => x.RoleCategoryId == RoleCategories.Origin).ToList();
 
-            foreach (UnitType utype in unitTypes)
-            {
-                if (utype.IdKey < 1 || !utype.PlayerRace)
-                {
-                    continue;
-                }
+            foreach (Role race in races)
+            { 
 
-                stateData.Actions.Add(new CrawlerStateAction(utype.Name, (KeyCode)char.ToLower(utype.Name[0]), ECrawlerStates.RollStats,
+                stateData.Actions.Add(new CrawlerStateAction(race.Name, KeyCode.None, ECrawlerStates.RollStats,
                     delegate 
                     {
-                        member.RaceId = utype.IdKey;
-                        member.UnitTypeId = utype.IdKey;
-                    }, member
+                        member.Roles.Add(new UnitRole() { RoleId = race.IdKey });
+                        member.UnitTypeId = 1;
+                    }, member, null, () => { OnPointerEnter(race); }
                     ));
             }
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", KeyCode.Escape, ECrawlerStates.ChooseSex,
                 delegate { member.Spawn = null;
-                   member.RaceId = 0;
+                    member.Roles.Clear();
+                    member.UnitTypeId = 0;
                 }, member));
 
             await Task.CompletedTask;

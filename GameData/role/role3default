@@ -1,0 +1,130 @@
+{
+  "Id": "role3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Mage",
+  "Desc": "Spell Damage",
+  "Abbrev": "Ma",
+  "RoleCategoryId": 1,
+  "MeleeScaling": 0.125,
+  "RangedScaling": 0.1,
+  "SpellDamScaling": 0.5,
+  "HealingScaling": 0.2,
+  "SummonScaling": 0.25,
+  "HealthPerLevel": 12,
+  "ManaPerLevel": 22,
+  "MaxArmorScalingTypeId": 1,
+  "CritPercent": 10,
+  "ManaStatTypeId": 12,
+  "Bonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 32
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 32
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 34
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 18
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 19
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 27
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 29
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 30
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 42
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 47
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 50
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 52
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 58
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 59
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 60
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 4
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 5
+    }
+  ],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

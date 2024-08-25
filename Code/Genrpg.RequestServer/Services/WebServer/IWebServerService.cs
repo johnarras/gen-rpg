@@ -1,7 +1,7 @@
 ﻿using Genrpg.RequestServer.AuthCommandHandlers;
-using Genrpg.RequestServer.ClientCommandHandlers;
+using Genrpg.RequestServer.ClientCommands;
 using Genrpg.RequestServer.Maps;
-using Genrpg.RequestServer.NoUserCommandHandlers;
+using Genrpg.RequestServer.NoUserCommands;
 using Genrpg.Shared.Interfaces;
 using System;
 using System.Threading.Tasks;

@@ -64,29 +64,16 @@ namespace Assets.Scripts.Crawler.Services.Combat
             // First order things.
 
             _combatService.SetMonsterActions(party);
-
-            foreach (CombatGroup group in party.Combat.Enemies)
-            {
-                if (group.CombatGroupAction == ECombatGroupActions.Advance)
-                {
-                    if (group.Range > CrawlerCombatConstants.MinRange)
-                    {
-                        group.Range -= CrawlerCombatConstants.RangeDelta;
-                    }
-                    party.ActionPanel.AddText("Group of " + group.PluralName + " Advances");
-                    party.ActionPanel.AddText(group.ShowStatus());
-                }
-            }
-
             if (party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Advance)
             {
-                CrawlerSpell chargeSpell = _gameData.Get<CrawlerSpellSettings>(null).GetData().FirstOrDefault(x => x.Name == "Charge");
+                CrawlerSpell chargeSpell = _gameData.Get<CrawlerSpellSettings>(_gs.ch).GetData().FirstOrDefault(x => x.Name == "Charge");
 
                 int advanceRange = CrawlerCombatConstants.RangeDelta;
 
                 if (chargeSpell != null)
                 {
-                    IReadOnlyList<Class> classes = _gameData.Get<ClassSettings>(null).GetData();
+
+                    RoleSettings roleSettings = _gameData.Get<RoleSettings>(_gs.ch);
 
                     int chargeCharacters = 0;
 
@@ -94,15 +81,10 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
                     foreach (PartyMember member in activeParty)
                     {
-                        foreach (UnitClass unitClass in member.Classes)
+                        if (roleSettings.HasBonus(member.Roles, EntityTypes.CrawlerSpell, chargeSpell.IdKey))
                         {
-                            Class cl = classes.FirstOrDefault(x => x.IdKey == unitClass.ClassId);
-
-                            if (cl.Bonuses.Any(x => x.EntityTypeId == EntityTypes.CrawlerSpell && x.EntityId == chargeSpell.IdKey))
-                            {
-                                chargeCharacters++;
-                                break;
-                            }
+                            chargeCharacters++;
+                            break;
                         }
                     }
 
@@ -118,8 +100,22 @@ namespace Assets.Scripts.Crawler.Services.Combat
                         group.Range = Math.Max(CrawlerCombatConstants.MinRange, group.Range - advanceRange);
                     }
                 }
-                party.ActionPanel.AddText("You Advance.");
-            }
+                party.ActionPanel.AddText($"You Advance. {advanceRange}'.");
+            } 
+            foreach (CombatGroup group in party.Combat.Enemies)
+            {
+                if (group.CombatGroupAction == ECombatGroupActions.Advance)
+                {
+                    if (group.Range > CrawlerCombatConstants.MinRange)
+                    {
+                        group.Range -= CrawlerCombatConstants.RangeDelta;
+                    }
+                    party.ActionPanel.AddText($"Group of {group.PluralName} Advances {CrawlerCombatConstants.MinRange}");
+                    party.ActionPanel.AddText(group.ShowStatus());
+                }
+            } 
+
+          
 
             List<CrawlerUnit> allUnits = party.Combat.GetAllUnits();
 

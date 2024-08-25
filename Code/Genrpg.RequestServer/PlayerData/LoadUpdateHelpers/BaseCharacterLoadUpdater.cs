@@ -15,7 +15,7 @@ namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
     {
 
         public Type GetKey() { return GetType(); }
-        public virtual int Priority => 0;
+        public virtual int Order => 0;
 
         public abstract Task Update(WebContext context, Character ch);
 

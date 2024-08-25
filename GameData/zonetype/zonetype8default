@@ -4,7 +4,7 @@
   "IdKey": 8,
   "Name": "Savannah",
   "Desc": "",
-  "Icon": "",
+  "Icon": "Savannah",
   "MinLevel": 15,
   "GenChance": 2.0,
   "GrassDensity": 1.25,
@@ -673,5 +673,5 @@
   "WeatherTypeId": 8,
   "MusicTypeId": 3,
   "AmbientMusicTypeId": 8,
-  "UpdateTime": "2024-08-01T00:28:16.884Z"
+  "UpdateTime": "2024-08-24T13:55:17.061Z"
 }

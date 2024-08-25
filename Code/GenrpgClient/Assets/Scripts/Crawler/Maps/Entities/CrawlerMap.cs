@@ -2,6 +2,7 @@
 using Assets.Scripts.Crawler.Maps.GameObjects;
 using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.MapServer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,5 +109,16 @@ namespace Assets.Scripts.Crawler.Maps.Entities
             }
             return Name;
         }
+
+        public byte EastWall(int x, int y)
+        {
+            return (byte)((Get(x, y, CellIndex.Walls) >> MapWallBits.EWallStart) % (1 << MapWallBits.WallBitSize));
+        }
+
+        public byte NorthWall(int x, int y)
+        {
+            return (byte)((Get(x, y, CellIndex.Walls) >> MapWallBits.NWallStart) % (1 << MapWallBits.WallBitSize));
+        }
+
     }
 }

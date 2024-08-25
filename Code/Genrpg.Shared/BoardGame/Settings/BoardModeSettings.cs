@@ -31,8 +31,8 @@ namespace Genrpg.Shared.BoardGame.Settings
         [Key(2)] public double LandRewardPercent { get; set; }
         [Key(3)] public bool SpawnOnce { get; set; }
 
-        [Key(4)] public List<PrizeSpawn> PassRewards { get; set; } = new List<PrizeSpawn>();
-        [Key(5)] public List<PrizeSpawn> LandRewards { get; set; } = new List<PrizeSpawn>();
+        [Key(4)] public List<PrizeSpawn> PassPrizes { get; set; } = new List<PrizeSpawn>();
+        [Key(5)] public List<PrizeSpawn> LandPrizes { get; set; } = new List<PrizeSpawn>();
     }
 
     [MessagePackObject]
@@ -49,8 +49,9 @@ namespace Genrpg.Shared.BoardGame.Settings
 
         [Key(7)] public int DiceCount { get; set; }
         [Key(8)] public bool FreeRolls { get; set; }
+        [Key(9)] public bool GiveDefaultTileRewards { get; set; }
 
-        [Key(9)] public List<BoardModePrizeRule> PrizeRules { get; set; }
+        [Key(10)] public List<BoardModePrizeRule> PrizeRules { get; set; }
 
     }
 

@@ -6,7 +6,7 @@ using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
-using Genrpg.Shared.Spawns.Entities;
+using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
@@ -33,7 +33,7 @@ namespace Genrpg.Shared.Rewards.Services
             return null;
         }
 
-        public virtual bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList) where SR : ISpawnResult
+        public virtual bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList) where SR : Reward
         {
             if (resultList == null)
             {
@@ -42,7 +42,7 @@ namespace Genrpg.Shared.Rewards.Services
             bool hadFailure = false;
             if (obj is Character ch)
             {
-                foreach (ISpawnResult res in resultList)
+                foreach (Reward res in resultList)
                 {
                     if (!GiveReward(rand, ch, res))
                     {
@@ -58,9 +58,9 @@ namespace Genrpg.Shared.Rewards.Services
             return !hadFailure;
         }
 
-        public virtual bool GiveReward(IRandom rand, Unit unit, ISpawnResult res)
+        public virtual bool GiveReward(IRandom rand, Unit unit, Reward res)
         {
-            return GiveReward(rand, unit, res.EntityTypeId, res.EntityId, res.Quantity, res.Data);
+            return GiveReward(rand, unit, res.EntityTypeId, res.EntityId, res.Quantity, res.ExtraData);
         }
 
         public virtual bool GiveReward(IRandom rand, Unit unit, long entityType, long entityId, long quantity, object extraData = null)

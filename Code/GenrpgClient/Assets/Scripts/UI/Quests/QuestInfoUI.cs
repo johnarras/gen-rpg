@@ -14,6 +14,7 @@ using Genrpg.Shared.Quests.Constants;
 using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Inventory.Settings.Qualities;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.Rewards.Entities;
 
 public class QuestInfoUI : BaseBehaviour
 {
@@ -96,29 +97,29 @@ public class QuestInfoUI : BaseBehaviour
         }
 
 
-        List<SpawnResult> rewards = _questService.GetRewards(_rand, _gs.ch, _qtype, false);
+        List<Reward> rewards = _questService.GetRewards(_rand, _gs.ch, _qtype, false);
 
-        SpawnResult expReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Exp);
+        Reward expReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Exp);
         if (expReward != null)
         {
             _uIInitializable.SetText(Experience, "XP: " + expReward.Quantity.ToString());
         }
-        SpawnResult moneyReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Money);
+        Reward moneyReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Money);
         if (moneyReward != null && Money != null)
         {
             Money.SetMoney(moneyReward.Quantity);
         }
 
-        List<SpawnResult> itemRewards = rewards.Where(X => X.EntityTypeId == EntityTypes.Item && (X.Data as Item) != null).ToList();
+        List<Reward> itemRewards = rewards.Where(X => X.EntityTypeId == EntityTypes.Item && (X.ExtraData as Item) != null).ToList();
 
 
         _uIInitializable.SetText(ItemRewardText, "");
         if (itemRewards.Count > 0)
         {
 
-            foreach (SpawnResult ireward in itemRewards)
+            foreach (Reward ireward in itemRewards)
             {
-                Item item = ireward.Data as Item;
+                Item item = ireward.ExtraData as Item;
                 if (item != null)
                 {
                     InitItemIconData idata = new InitItemIconData()

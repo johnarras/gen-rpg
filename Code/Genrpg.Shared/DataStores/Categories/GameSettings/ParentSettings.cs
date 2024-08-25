@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
@@ -21,7 +22,7 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
             _data = data;
             if (_data.Count > 0 && _data[0] is IId iTempId)
             {
-                List<IId> idList = _data.Cast<IId>().ToList();
+                List<IId> idList = _data.Cast<IId>().Where(x=>x.IdKey > 0).ToList();
                 idList = idList.OrderBy(x => x.IdKey).ToList();
                 _data = idList.Cast<TChild>().ToList();
             }
@@ -45,7 +46,7 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
 
         public TChild Get(long idkey)
         {
-            if (_dict.TryGetValue(idkey, out TChild child))
+            if (idkey > 0 && _dict.TryGetValue(idkey, out TChild child))
             {
                 return child;
             }
@@ -81,13 +82,11 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
             }
         }
 
-
         public override async Task SaveAll(IRepositoryService repo)
         {
             await repo.Save(this);
             await repo.SaveAll(_data);
         }
-
 
         public override List<IGameSettings> GetChildren() { return new List<IGameSettings>(_data); }
 
@@ -113,6 +112,34 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
         public object GetDeepCopyData()
         {
             return _data;
+        }
+
+
+        public override void SetupForEditor()
+        {
+
+            if (typeof(TChild).GetInterface(typeof(IIdName).Name) == null)
+            {
+                return;
+            }
+            List<IIdName> idList = _data.Cast<IIdName>().ToList();
+
+            IIdName zeroElement = idList.FirstOrDefault(x => x.IdKey == 0);
+
+            if (zeroElement != null)
+            {
+                return;
+            }
+
+
+            zeroElement = (IIdName)(Activator.CreateInstance(typeof(TChild)));
+
+            zeroElement.IdKey = 0;
+            zeroElement.Name = "None";
+
+            TChild zeroChild = (TChild)zeroElement;
+
+            _data.Insert(0, zeroChild);
         }
     }
 }

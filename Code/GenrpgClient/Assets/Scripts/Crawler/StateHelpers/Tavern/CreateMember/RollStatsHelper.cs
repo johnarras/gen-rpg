@@ -3,8 +3,6 @@ using Assets.Scripts.Crawler.StateHelpers;
 
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roles.Settings;
-using Genrpg.Shared.Sexes.Settings;
-using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Stats.Settings.Stats;
@@ -32,10 +30,6 @@ namespace Assets.Scripts.UI.Crawler.States
 
             IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(null).GetData().Where(x=>x.IdKey >=
             StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
-
-            List<Class> memberClasses = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
-
-
 
             int minStatVal = 3;
             int maxStatVal = 18;
@@ -71,7 +65,7 @@ namespace Assets.Scripts.UI.Crawler.States
                 delegate { member.Stats = new StatGroup(); }, member));
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", KeyCode.Escape, ECrawlerStates.ChooseRace,
-                delegate { member.Stats = new StatGroup(); member.RaceId = 0; }, member));
+                delegate { member.Stats = new StatGroup(); member.Roles.Clear(); }, member));
 
             await Task.CompletedTask;
             return stateData;

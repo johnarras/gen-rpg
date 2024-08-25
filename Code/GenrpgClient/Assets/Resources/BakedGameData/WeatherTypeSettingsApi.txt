@@ -1,26 +1,6 @@
 {
   "Data": [
     {
-      "Id": "weathertype0default",
-      "ParentId": "default",
-      "Name": "None",
-      "AmbientColor": {},
-      "LightColor": {},
-      "LightScale": 1.0,
-      "SkyColor": {},
-      "FogScale": 0.01,
-      "FogColor": {},
-      "FogDistance": 100.0,
-      "CloudScale": 1.0,
-      "CloudSpeed": 1.0,
-      "CloudColor": {},
-      "WindScale": 1.0,
-      "PrecipScale": 1.0,
-      "ParticleScale": 1.0,
-      "Particles": "",
-      "UpdateTime": "2024-08-01T00:28:16.8Z"
-    },
-    {
       "Id": "weathertype1default",
       "ParentId": "default",
       "IdKey": 1,

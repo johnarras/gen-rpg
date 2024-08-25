@@ -11,6 +11,6 @@ namespace Genrpg.Shared.BoardGame.Services
 {
     public interface ISharedBoardGenService : IInjectable
     {
-        List<long> GetTiles(IFilteredObject filtered, BoardGenData genData);
+        List<long> GenerateTiles(IFilteredObject filtered, BoardGenArgs genData);
     }
 }

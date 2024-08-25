@@ -1,14 +1,6 @@
 {
   "Data": [
     {
-      "Id": "keycommsetting0default",
-      "Name": "KeyCommSetting",
-      "ParentId": "default",
-      "KeyPress": "k",
-      "KeyCommand": "QuestScreen",
-      "UpdateTime": "2024-08-01T00:28:08.027Z"
-    },
-    {
       "Id": "keycommsetting1default",
       "IdKey": 1,
       "Name": "KeyCommSetting",

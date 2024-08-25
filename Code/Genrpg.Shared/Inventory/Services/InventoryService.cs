@@ -1,5 +1,4 @@
 ﻿using Genrpg.Shared.Characters.PlayerData;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.DataStores.Constants;
 using Genrpg.Shared.Entities.Constants;
@@ -11,15 +10,11 @@ using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Inventory.Settings.Slots;
 using Genrpg.Shared.MapMessages.Interfaces;
 using Genrpg.Shared.Stats.Constants;
-using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Inventory.Services
 {
@@ -338,24 +333,20 @@ namespace Genrpg.Shared.Inventory.Services
                     return false;
                 }
 
-                if (unit.Classes.Count > 0)
-                {
-                    ClassSettings classSettings = _gameData.Get<ClassSettings>(null);
+                List<Role> roles = _gameData.Get<RoleSettings>(unit).GetRoles(unit.Roles);
 
-                    foreach (UnitClass uc in unit.Classes)
+                if ((slot.IdKey == EquipSlots.MainHand || slot.IdKey == EquipSlots.Ranged))
+                {
+                    if (roles.Any(x => x.Bonuses.Any(x => x.EntityTypeId == EntityTypes.Item && x.EntityId == itype.IdKey)))
                     {
-                        Class cl = classSettings.Get(uc.ClassId);
-                        if (slot.IdKey == EquipSlots.MainHand && cl.AllowedWeapons.Any(x => x.ItemTypeId == itype.IdKey))
-                        {
-                            return true;
-                        }
-                        else if (cl.MaxArmorScalingTypeId >= item.ScalingTypeId)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
-                    return false;
                 }
+                else if (roles.Any(x=>x.MaxArmorScalingTypeId >= item.ScalingTypeId))
+                {
+                    return true;                       
+                }
+                return false;
             }
 
             return true;

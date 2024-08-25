@@ -10,7 +10,25 @@
   "SpawnPriority": 15.0,
   "MinPosition": 1,
   "OnMainPath": true,
-  "PassRewards": [],
-  "LandRewards": [],
-  "UpdateTime": "2024-08-11T00:19:54.103Z"
+  "PassRewards": [
+    {
+      "EntityTypeId": 200,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "Name": "None"
+    }
+  ],
+  "LandRewards": [
+    {
+      "EntityTypeId": 200,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "Name": "None"
+    }
+  ],
+  "UpdateTime": "2024-08-15T22:20:25.993Z"
 }

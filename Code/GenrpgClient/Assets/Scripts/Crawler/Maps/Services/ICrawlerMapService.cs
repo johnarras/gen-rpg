@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
+using Assets.Scripts.Crawler.Maps.GameObjects;
 using Assets.Scripts.Crawler.Maps.Services.GenerateMaps;
 using Assets.Scripts.Crawler.Maps.Services.Helpers;
 using Genrpg.Shared.Core.Entities;
@@ -28,5 +29,6 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         bool PartyHasVisited(long mapId, int x, int z, bool thisRunOnly = false);
         int GetBlockingBits(int sx, int sz, int ex, int ez, bool allowBuildingEntry);
         void MovePartyTo(PartyData partyData, int x, int z, int rot, CancellationToken token);
+        FullWallTileImage GetMinimapWallFilename(CrawlerMap map, int x, int z);
     }
 }

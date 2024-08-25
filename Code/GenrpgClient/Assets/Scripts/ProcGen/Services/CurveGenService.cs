@@ -18,7 +18,8 @@ namespace Assets.Scripts.ProcGen.Services
 {
     public interface ICurveGenService : IInjectable
     {
-        MarkedSpline CreateSpline(MarkedSpline spline, IRandom rand, CancellationToken token);
+        MarkedSpline CreateCircularSpline(MarkedSpline markedSpline, IRandom rand, CancellationToken token);
+        MarkedSpline CreateLinearSpline(MarkedSpline markedSpline, int splineIndex, int pathLength, float sx, float sy, float dx, float dz, IRandom rand, CancellationToken token);
     }
 
     public class SplineLoopGenParams
@@ -42,7 +43,64 @@ namespace Assets.Scripts.ProcGen.Services
         private ISharedBoardGenService _boardGenService;
         private IGameData _gameData;
 
-        public MarkedSpline CreateSpline(MarkedSpline markedSpline, IRandom rand, CancellationToken token)
+
+        public MarkedSpline CreateLinearSpline(MarkedSpline markedSpline, int splineIndex, int pathLength, float sx, float sz, float dx, float dz, IRandom rand, CancellationToken token)
+        {
+
+            markedSpline.Container = _gameObjectService.GetOrAddComponent<SplineContainer>(markedSpline.gameObject);
+
+            while (markedSpline.Container.Splines.Count <= splineIndex)
+            {
+                markedSpline.Container.AddSpline();
+            }
+
+            Spline spline = markedSpline.Container.Splines.Last();
+
+            spline.Closed = false;
+
+            float x = 0;
+            float z = 0;
+
+            float totalDist = Mathf.Sqrt(dx * dx + dz * dz);
+
+            dx /= totalDist;
+            dz /= totalDist;
+
+            int startDist = 6;
+
+            x = sx + dx * startDist;
+            z = sz + dz * startDist;
+
+            float distDelta = 0.5f;
+
+            int segmentLength = 18;
+
+            spline.Add(new Vector3(x, 0, z), TangentMode.Continuous);
+            while (true)
+            {
+                int newDist = MathUtils.IntRange(segmentLength/2, segmentLength*3/2, rand);
+
+                x += dx * newDist * MathUtils.FloatRange(1 - distDelta, 1 + distDelta, rand);
+                z += dz * newDist * MathUtils.FloatRange(1 - distDelta, 1 + distDelta, rand);
+
+                float deltaLength = newDist * 2 / 3;
+
+                x += MathUtils.FloatRange(-deltaLength, deltaLength, rand);
+                z += MathUtils.FloatRange(-deltaLength, deltaLength, rand);
+
+                TangentMode tmode = (rand.NextDouble() < markedSpline.GenParams.BreakChance ? TangentMode.Broken : TangentMode.Continuous);
+                spline.Add(new Vector3(x+sx, 0, z+sz), tmode);
+
+                if (spline.GetLength() >= 7*pathLength)
+                {
+                    break;
+                }
+            }
+
+            return markedSpline;
+        }
+
+        public MarkedSpline CreateCircularSpline(MarkedSpline markedSpline, IRandom rand, CancellationToken token)
         {
 
             markedSpline.Container = _gameObjectService.GetOrAddComponent<SplineContainer>(markedSpline.gameObject);
@@ -64,7 +122,7 @@ namespace Assets.Scripts.ProcGen.Services
             float minRad = markedSpline.GenParams.MinRadius;
             float maxRad = markedSpline.GenParams.MaxRadius;
 
-            markedSpline.GenParams.StartAngle = MathUtils.FloatRange(0, Mathf.PI * 2, rand);
+            markedSpline.GenParams.StartAngle = MathUtils.FloatRange(0, 360, rand);
 
             float xrad = MathUtils.FloatRange(minRad, maxRad, rand);
             float zrad = MathUtils.FloatRange(minRad, maxRad, rand);
@@ -92,9 +150,9 @@ namespace Assets.Scripts.ProcGen.Services
                 float x = Mathf.Cos(currAngle * Mathf.PI / 180) * xrad * radPct;
                 float z = Mathf.Sin(currAngle * Mathf.PI / 180) * xrad * radPct;
 
-                TangentMode knotTmode = (rand.NextDouble() < markedSpline.GenParams.BreakChance ? TangentMode.Broken : tmode);
+                TangentMode knotMode = (rand.NextDouble() < markedSpline.GenParams.BreakChance ? TangentMode.Broken : tmode);
 
-                spline.Add(new Vector3(x+markedSpline.GenParams.Position.x, markedSpline.GenParams.Position.y, z+markedSpline.GenParams.Position.z), knotTmode);
+                spline.Add(new Vector3(x+markedSpline.GenParams.Position.x, markedSpline.GenParams.Position.y, z+markedSpline.GenParams.Position.z), knotMode);
 
                 float oldRadPct = radPct;
                 radPct = MathUtils.FloatRange(1 - radDelta, 1 + radDelta, rand);

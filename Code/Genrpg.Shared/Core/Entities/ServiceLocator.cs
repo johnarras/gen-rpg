@@ -9,6 +9,7 @@ using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.GameSettings;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Linq;
 
 namespace Genrpg.Shared.Core.Entities
 {
@@ -254,7 +255,9 @@ namespace Genrpg.Shared.Core.Entities
         {
             List<Task> tasks = new List<Task>();
 
-            foreach (object obj in _storedDictionaryItems)
+
+            List<object> dictItems = new List<object>();
+            foreach (object obj in dictItems)
             {
                 if (obj is IInitializable initz)
                 {

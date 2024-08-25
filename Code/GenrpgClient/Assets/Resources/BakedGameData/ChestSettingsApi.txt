@@ -1,15 +1,6 @@
 {
   "Data": [
     {
-      "Id": "chest0default",
-      "ParentId": "default",
-      "Name": "Mystery Chest",
-      "Icon": "Mystery Chest",
-      "Art": "MysteryChest",
-      "Loot": [],
-      "UpdateTime": "2024-08-11T15:18:30.912Z"
-    },
-    {
       "Id": "chest1default",
       "ParentId": "default",
       "IdKey": 1,
@@ -26,6 +17,19 @@
       "Id": "chest2default",
       "ParentId": "default",
       "IdKey": 2,
+      "Name": "Common Chest",
+      "Icon": "CommonChest",
+      "Art": "CommonChest",
+      "UnlockMinutes": 240,
+      "Tier": 1,
+      "TieredLootMult": 1,
+      "Loot": [],
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
+    },
+    {
+      "Id": "chest3default",
+      "ParentId": "default",
+      "IdKey": 3,
       "Name": "Uncommon Chest",
       "Icon": "UncommonChest",
       "Art": "UncommonChest",
@@ -33,12 +37,12 @@
       "Tier": 2,
       "TieredLootMult": 2,
       "Loot": [],
-      "UpdateTime": "2024-08-10T17:23:08.661Z"
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
     },
     {
-      "Id": "chest3default",
+      "Id": "chest4default",
       "ParentId": "default",
-      "IdKey": 3,
+      "IdKey": 4,
       "Name": "Rare Chest",
       "Desc": "",
       "Icon": "RareChest",
@@ -47,12 +51,12 @@
       "Tier": 3,
       "TieredLootMult": 3,
       "Loot": [],
-      "UpdateTime": "2024-08-10T17:23:08.661Z"
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
     },
     {
-      "Id": "chest4default",
+      "Id": "chest5default",
       "ParentId": "default",
-      "IdKey": 4,
+      "IdKey": 5,
       "Name": "Epic Chest",
       "Desc": "",
       "Icon": "EpicChest",
@@ -61,12 +65,12 @@
       "Tier": 4,
       "TieredLootMult": 7,
       "Loot": [],
-      "UpdateTime": "2024-08-10T17:23:08.661Z"
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
     },
     {
-      "Id": "chest5default",
+      "Id": "chest6default",
       "ParentId": "default",
-      "IdKey": 5,
+      "IdKey": 6,
       "Name": "Legendary Chest",
       "Desc": "",
       "Icon": "LegendaryChest",
@@ -75,12 +79,12 @@
       "Tier": 5,
       "TieredLootMult": 14,
       "Loot": [],
-      "UpdateTime": "2024-08-10T17:23:08.661Z"
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
     },
     {
-      "Id": "chest6default",
+      "Id": "chest7default",
       "ParentId": "default",
-      "IdKey": 6,
+      "IdKey": 7,
       "Name": "Heroic Chest",
       "Desc": "",
       "Icon": "HeroicChest",
@@ -89,7 +93,19 @@
       "Tier": 6,
       "TieredLootMult": 22,
       "Loot": [],
-      "UpdateTime": "2024-08-10T17:23:08.661Z"
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
+    },
+    {
+      "Id": "chest8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Random Chest",
+      "Desc": "",
+      "Icon": "RandomChest",
+      "Art": "RandomChest",
+      "UnlockMinutes": -1,
+      "Loot": [],
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
     }
   ],
   "ParentObj": {
@@ -121,7 +137,7 @@
       }
     ],
     "Name": "ChestSettings",
-    "UpdateTime": "2024-08-11T15:18:30.912Z"
+    "UpdateTime": "2024-08-24T14:32:46.576Z"
   },
   "Id": "default"
 }

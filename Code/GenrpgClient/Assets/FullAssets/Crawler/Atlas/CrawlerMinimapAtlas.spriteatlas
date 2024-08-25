@@ -1,0 +1,258 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CrawlerMinimapAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 4d8010dcde55f9f46ac3c36841b76102, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 50834e00019b34240a0862b06b7069ec: 21300000
+    - 215bd4306728f834892dba90120abcd5: 21300000
+    - 917c80400f842bb428cb5606e1e55d9b: 21300000
+    - ca2cbb80f950f0046ab7b472c7cabe4e: 21300000
+    - 8a2cf3b06ba37744d8ab3e55a59c53f5: 21300000
+    - 950bd3e0e23fb7849a8556e9670e16ba: 21300000
+    - 4fab74e09985e7349b7b66f553626f23: 21300000
+    - d90ef7f0338ce5b4194c68e88bcad15f: 21300000
+    - 9088e9111fd3c954aa7f9d349dcc3f72: 21300000
+    - 3d696f2117b8b49408676eeb8883f125: 21300000
+    - 4a3fb8f1860aa294d8d32d23f0998c7a: 21300000
+    - 3207d5322d4f7a748a52a638d15ce791: 21300000
+    - 32a13f3242bfac64eae5a3a5f11346ae: 21300000
+    - d946bcc285593264281d551f3a9e33b9: 21300000
+    - a5f722f28491778459ef23b9b1fa51af: 21300000
+    - 0f058123d9deb974186cdc29a9eef02f: 21300000
+    - 4fcea52318122e4419f6b509ca5d0f00: 21300000
+    - 488bf833354f4f9428bfeb9f6590f05f: 21300000
+    - cf3342932e23ea2458f5039d8d81f12c: 21300000
+    - 45d4de93a9636d64f8e64cb26bc5e422: 21300000
+    - 8d30aeb328e6e5249adfb4d40dc75bb3: 21300000
+    - c16590f56deaa984ebe714df002f3e09: 21300000
+    - 6cee54065da675542bc69a6418dd9c2b: 21300000
+    - 9bd940166b1b04e41bd3dfdf71fbec17: 21300000
+    - 54ef6266969632442a8697f0c0eafd2b: 21300000
+    - 40449476f405e0b4f9d9ddab468f10e2: 21300000
+    - 337489a6be5d9cb40a5ee0cf1ccbed27: 21300000
+    - 458cc6d65c3c2744b8c3f6b53b0d01fb: 21300000
+    - 8b9c494712ea12b4992e518cf2a62f25: 21300000
+    - 8a84a8670258abc4f8b58890aca7f13b: 21300000
+    - f9582f6723077da4a8dc003e4eedf293: 21300000
+    - 5553bde7f23f349428c625a94fdb9e71: 21300000
+    - 45e281f708b25e247a570aa1fb69a7f5: 21300000
+    - c1957208b7711b340b090229994d3433: 21300000
+    - 6bf2b128df6f16641870839d5511ba16: 21300000
+    - 8444fc280c80d194e901d30fe2d55bdf: 21300000
+    - 46ffb1381288b464aae563ebe3af6df3: 21300000
+    - 72a8bda896b7f414fb9ade04ca15644f: 21300000
+    - 17fd32b80a175424fb83fedaf612ebb0: 21300000
+    - 681412f8c5c718a41976306af102639b: 21300000
+    - e0113df8643351847bc10d877ace857a: 21300000
+    - 8b9da249d291e4d49bbe845c07addee7: 21300000
+    - e841ca69e3d1b75408e20b8e9fa54c49: 21300000
+    - d9cf8cbabb099c64083084d0cc5180ce: 21300000
+    - 07c2eeba9f9e8cc40b04981792516837: 21300000
+    - 54edf2dabe70db3458e805c5fcb22807: 21300000
+    - 8488201b4983da84bb2af40c601e7d40: 21300000
+    - 60f8124b7a587af43be184953f936780: 21300000
+    - 0d02678ba08af664aac0c7b058648c8f: 21300000
+    - d4343bbb952ae8d488989175b50be0b4: 21300000
+    - 7259802c9d24d0143a65abed60e48cd3: 21300000
+    - 72f1094c5c1b66640bf0fb18131ef600: 21300000
+    - 86d5dcecabd08254493b489e84546ac4: 21300000
+    - 70e9ecec1e24a1a4baf772b2163bafbe: 21300000
+    - de8dc7fcc587094408bf99da27bdf851: 21300000
+    - 8eea591da32ade34794e9d478e3dc4a8: 21300000
+    - b3e3773dcfa33b54cbc2f95628cb1381: 21300000
+    - 977d485df76db684280df52220306b49: 21300000
+    - 6219938d8d309fc498dd47ea7a18582f: 21300000
+    - 22ce68cd15b35ea489916d7d37464bab: 21300000
+    - c06291dddbc54714dbc6e2ed9e1767c5: 21300000
+    - 28e309dd4cb5bfa4f99235ae986c6eb9: 21300000
+    - d7f5beed552bb9c4faf1d34e7198bf66: 21300000
+    - 4c03c22e651f04348816445470a985ec: 21300000
+    - cd2ac53e6cea4f94dbe4eb9fa7d4b98a: 21300000
+    - 5de4ed3eb063cf243ae0b14269c21338: 21300000
+    - 9291887e1606c5a41a348693064032ec: 21300000
+    - fb4f58ae896ad804d9c25f6f98351b1e: 21300000
+    - ad98f3bed278767488d1cd462e64dcf0: 21300000
+    - b9f409be1b2a3d64e8db2a94afedaa5b: 21300000
+    - 8f7ed3bff4dc40c4bacb3f0ce5b6bbfa: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 50834e00019b34240a0862b06b7069ec, type: 3}
+  - {fileID: 21300000, guid: 215bd4306728f834892dba90120abcd5, type: 3}
+  - {fileID: 21300000, guid: 917c80400f842bb428cb5606e1e55d9b, type: 3}
+  - {fileID: 21300000, guid: ca2cbb80f950f0046ab7b472c7cabe4e, type: 3}
+  - {fileID: 21300000, guid: 8a2cf3b06ba37744d8ab3e55a59c53f5, type: 3}
+  - {fileID: 21300000, guid: 950bd3e0e23fb7849a8556e9670e16ba, type: 3}
+  - {fileID: 21300000, guid: 4fab74e09985e7349b7b66f553626f23, type: 3}
+  - {fileID: 21300000, guid: d90ef7f0338ce5b4194c68e88bcad15f, type: 3}
+  - {fileID: 21300000, guid: 9088e9111fd3c954aa7f9d349dcc3f72, type: 3}
+  - {fileID: 21300000, guid: 3d696f2117b8b49408676eeb8883f125, type: 3}
+  - {fileID: 21300000, guid: 4a3fb8f1860aa294d8d32d23f0998c7a, type: 3}
+  - {fileID: 21300000, guid: 3207d5322d4f7a748a52a638d15ce791, type: 3}
+  - {fileID: 21300000, guid: 32a13f3242bfac64eae5a3a5f11346ae, type: 3}
+  - {fileID: 21300000, guid: d946bcc285593264281d551f3a9e33b9, type: 3}
+  - {fileID: 21300000, guid: a5f722f28491778459ef23b9b1fa51af, type: 3}
+  - {fileID: 21300000, guid: 0f058123d9deb974186cdc29a9eef02f, type: 3}
+  - {fileID: 21300000, guid: 4fcea52318122e4419f6b509ca5d0f00, type: 3}
+  - {fileID: 21300000, guid: 488bf833354f4f9428bfeb9f6590f05f, type: 3}
+  - {fileID: 21300000, guid: cf3342932e23ea2458f5039d8d81f12c, type: 3}
+  - {fileID: 21300000, guid: 45d4de93a9636d64f8e64cb26bc5e422, type: 3}
+  - {fileID: 21300000, guid: 8d30aeb328e6e5249adfb4d40dc75bb3, type: 3}
+  - {fileID: 21300000, guid: c16590f56deaa984ebe714df002f3e09, type: 3}
+  - {fileID: 21300000, guid: 6cee54065da675542bc69a6418dd9c2b, type: 3}
+  - {fileID: 21300000, guid: 9bd940166b1b04e41bd3dfdf71fbec17, type: 3}
+  - {fileID: 21300000, guid: 54ef6266969632442a8697f0c0eafd2b, type: 3}
+  - {fileID: 21300000, guid: 40449476f405e0b4f9d9ddab468f10e2, type: 3}
+  - {fileID: 21300000, guid: 337489a6be5d9cb40a5ee0cf1ccbed27, type: 3}
+  - {fileID: 21300000, guid: 458cc6d65c3c2744b8c3f6b53b0d01fb, type: 3}
+  - {fileID: 21300000, guid: 8b9c494712ea12b4992e518cf2a62f25, type: 3}
+  - {fileID: 21300000, guid: 8a84a8670258abc4f8b58890aca7f13b, type: 3}
+  - {fileID: 21300000, guid: f9582f6723077da4a8dc003e4eedf293, type: 3}
+  - {fileID: 21300000, guid: 5553bde7f23f349428c625a94fdb9e71, type: 3}
+  - {fileID: 21300000, guid: 45e281f708b25e247a570aa1fb69a7f5, type: 3}
+  - {fileID: 21300000, guid: c1957208b7711b340b090229994d3433, type: 3}
+  - {fileID: 21300000, guid: 6bf2b128df6f16641870839d5511ba16, type: 3}
+  - {fileID: 21300000, guid: 8444fc280c80d194e901d30fe2d55bdf, type: 3}
+  - {fileID: 21300000, guid: 46ffb1381288b464aae563ebe3af6df3, type: 3}
+  - {fileID: 21300000, guid: 72a8bda896b7f414fb9ade04ca15644f, type: 3}
+  - {fileID: 21300000, guid: 17fd32b80a175424fb83fedaf612ebb0, type: 3}
+  - {fileID: 21300000, guid: 681412f8c5c718a41976306af102639b, type: 3}
+  - {fileID: 21300000, guid: e0113df8643351847bc10d877ace857a, type: 3}
+  - {fileID: 21300000, guid: 8b9da249d291e4d49bbe845c07addee7, type: 3}
+  - {fileID: 21300000, guid: e841ca69e3d1b75408e20b8e9fa54c49, type: 3}
+  - {fileID: 21300000, guid: d9cf8cbabb099c64083084d0cc5180ce, type: 3}
+  - {fileID: 21300000, guid: 07c2eeba9f9e8cc40b04981792516837, type: 3}
+  - {fileID: 21300000, guid: 54edf2dabe70db3458e805c5fcb22807, type: 3}
+  - {fileID: 21300000, guid: 8488201b4983da84bb2af40c601e7d40, type: 3}
+  - {fileID: 21300000, guid: 60f8124b7a587af43be184953f936780, type: 3}
+  - {fileID: 21300000, guid: 0d02678ba08af664aac0c7b058648c8f, type: 3}
+  - {fileID: 21300000, guid: d4343bbb952ae8d488989175b50be0b4, type: 3}
+  - {fileID: 21300000, guid: 7259802c9d24d0143a65abed60e48cd3, type: 3}
+  - {fileID: 21300000, guid: 72f1094c5c1b66640bf0fb18131ef600, type: 3}
+  - {fileID: 21300000, guid: 86d5dcecabd08254493b489e84546ac4, type: 3}
+  - {fileID: 21300000, guid: 70e9ecec1e24a1a4baf772b2163bafbe, type: 3}
+  - {fileID: 21300000, guid: de8dc7fcc587094408bf99da27bdf851, type: 3}
+  - {fileID: 21300000, guid: 8eea591da32ade34794e9d478e3dc4a8, type: 3}
+  - {fileID: 21300000, guid: b3e3773dcfa33b54cbc2f95628cb1381, type: 3}
+  - {fileID: 21300000, guid: 977d485df76db684280df52220306b49, type: 3}
+  - {fileID: 21300000, guid: 6219938d8d309fc498dd47ea7a18582f, type: 3}
+  - {fileID: 21300000, guid: 22ce68cd15b35ea489916d7d37464bab, type: 3}
+  - {fileID: 21300000, guid: c06291dddbc54714dbc6e2ed9e1767c5, type: 3}
+  - {fileID: 21300000, guid: 28e309dd4cb5bfa4f99235ae986c6eb9, type: 3}
+  - {fileID: 21300000, guid: d7f5beed552bb9c4faf1d34e7198bf66, type: 3}
+  - {fileID: 21300000, guid: 4c03c22e651f04348816445470a985ec, type: 3}
+  - {fileID: 21300000, guid: cd2ac53e6cea4f94dbe4eb9fa7d4b98a, type: 3}
+  - {fileID: 21300000, guid: 5de4ed3eb063cf243ae0b14269c21338, type: 3}
+  - {fileID: 21300000, guid: 9291887e1606c5a41a348693064032ec, type: 3}
+  - {fileID: 21300000, guid: fb4f58ae896ad804d9c25f6f98351b1e, type: 3}
+  - {fileID: 21300000, guid: ad98f3bed278767488d1cd462e64dcf0, type: 3}
+  - {fileID: 21300000, guid: b9f409be1b2a3d64e8db2a94afedaa5b, type: 3}
+  - {fileID: 21300000, guid: 8f7ed3bff4dc40c4bacb3f0ce5b6bbfa, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - SandObject
+  - WaterObject
+  - DungeonTerrain
+  - WOWOWall
+  - DarkForestTerrain
+  - SwampTerrain
+  - FieldObject
+  - ForestObject
+  - DDWOWall
+  - CaveObject
+  - CityBuilding
+  - DDWWWall
+  - TowerTerrain
+  - GuildBuilding
+  - DDOOWall
+  - CityTerrain
+  - PointOfInterestObject
+  - DOOOWall
+  - BadlandsObject
+  - MountainsTerrain
+  - WWWOWall
+  - RoadObject
+  - SavannahObject
+  - OOOOWall
+  - SavannahTerrain
+  - DWDOWall
+  - CaveTerrain
+  - CityObject
+  - WaterTerrain
+  - TrainerBuilding
+  - DDDWWall
+  - PlayerArrow
+  - TowerBuilding
+  - WDDOWall
+  - DungeonObject
+  - DWOOWall
+  - DODOWall
+  - HillsObject
+  - DOWOWall
+  - DDDOWall
+  - ForestTerrain
+  - DWWOWall
+  - WWOOWall
+  - RegenBuilding
+  - LavaObject
+  - TavernBuilding
+  - SandTerrain
+  - WDWOWall
+  - DWDWWall
+  - HillsTerrain
+  - DDDDWall
+  - LavaTerrain
+  - PointOfInterestTerrain
+  - FieldTerrain
+  - SwampObject
+  - Blank
+  - HouseBuilding
+  - DWWWWall
+  - TowerObject
+  - WWWWWall
+  - DungeonBuilding
+  - RoadTerrain
+  - MountainsObject
+  - WOOOWall
+  - WWDOWall
+  - DarkForestObject
+  - EquipmentBuilding
+  - CaveBuilding
+  - TempleBuilding
+  - WDOOWall
+  - BadlandsTerrain
+  m_RenderDataMap: {}
+  m_Tag: CrawlerMinimapAtlas
+  m_IsVariant: 0

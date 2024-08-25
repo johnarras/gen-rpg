@@ -1,0 +1,158 @@
+{
+  "Id": "role8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Druid",
+  "Desc": "Full Hybrid",
+  "Abbrev": "Dr",
+  "RoleCategoryId": 1,
+  "MeleeScaling": 0.2,
+  "RangedScaling": 0.17,
+  "SpellDamScaling": 0.25,
+  "HealingScaling": 0.34,
+  "SummonScaling": 0.2,
+  "HealthPerLevel": 18,
+  "ManaPerLevel": 18,
+  "MaxArmorScalingTypeId": 2,
+  "CritPercent": 5,
+  "ManaStatTypeId": 13,
+  "Bonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 27
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 29
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 32
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 34
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 63
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 4
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 5
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 6
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 8
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 17
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 18
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 32
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 33
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 37
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 53
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 58
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 59
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 60
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 4
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 5
+    }
+  ],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

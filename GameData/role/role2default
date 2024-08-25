@@ -1,0 +1,106 @@
+{
+  "Id": "role2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Cleric",
+  "Desc": "Healing",
+  "Abbrev": "Cl",
+  "RoleCategoryId": 1,
+  "MeleeScaling": 0.144,
+  "RangedScaling": 0.1,
+  "SpellDamScaling": 0.34,
+  "HealingScaling": 0.5,
+  "SummonScaling": 0.144,
+  "HealthPerLevel": 14,
+  "ManaPerLevel": 22,
+  "MaxArmorScalingTypeId": 1,
+  "CritPercent": 5,
+  "ManaStatTypeId": 13,
+  "Bonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 32
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 16
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 8
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 9
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 15
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 16
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 17
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 33
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 45
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 53
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 1
+    }
+  ],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

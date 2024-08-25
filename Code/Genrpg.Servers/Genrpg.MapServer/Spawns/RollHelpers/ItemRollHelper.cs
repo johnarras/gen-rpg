@@ -5,6 +5,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Spawns.Settings;
@@ -23,9 +24,9 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
         private IItemGenService _itemGenService = null;
         private IGameData _gameData = null;
 
-        public List<SpawnResult> Roll<SI>(IRandom rand, RollData rollData, SI spawnItem) where SI : ISpawnItem
+        public List<Reward> Roll<SI>(IRandom rand, RollData rollData, SI spawnItem) where SI : ISpawnItem
         {
-            List<SpawnResult> retval = new List<SpawnResult>();
+            List<Reward> retval = new List<Reward>();
 
             ItemType itype = _gameData.Get<ItemTypeSettings>(null).Get(spawnItem.EntityId);
 
@@ -46,7 +47,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
 
             if (itype.CanStack())
             {
-                SpawnResult sr = new SpawnResult();
+                Reward sr = new Reward();
                 sr.EntityId = spawnItem.EntityId;
                 sr.EntityTypeId = EntityTypes.Item;
                 sr.Quantity = 1;
@@ -54,14 +55,14 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
                 sr.Level = rollData.Level;
                 retval.Add(sr);
 
-                sr.Data = _itemGenService.Generate(rand, igd);
+                sr.ExtraData = _itemGenService.Generate(rand, igd);
                 sr.Quantity = rollData.QualityTypeId;
             }
             else
             {
                 for (int i = 0; i < quantity; i++)
                 {
-                    SpawnResult sr = new SpawnResult();
+                    Reward sr = new Reward();
                     sr.EntityId = spawnItem.EntityId;
                     sr.EntityTypeId = EntityTypes.Item;
                     sr.Quantity = 1;
@@ -69,7 +70,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
                     sr.Level = rollData.Level;
                     retval.Add(sr);
 
-                    sr.Data = _itemGenService.Generate(rand, igd);
+                    sr.ExtraData = _itemGenService.Generate(rand, igd);
                 }
             }
             return retval;

@@ -85,7 +85,9 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             List<CrawlerSpell> okSpells = new List<CrawlerSpell>();
 
-            List<Class> classes = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
+            RoleSettings roleSettings = _gameData.Get<RoleSettings>(_gs.ch);
+
+            List<Role> roles = roleSettings.GetRoles(member.Roles);
 
             if (_combatService.IsDisabled(member))
             {
@@ -119,29 +121,11 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     continue;
                 }
 
-                bool foundSpellInClass = false;
-
-                foreach (Class cl in classes)
-                {
-                    if (cl.Bonuses.Any(x => x.EntityTypeId == EntityTypes.CrawlerSpell && x.EntityId == spell.IdKey))
-                    {
-                        {
-                            foundSpellInClass = true;
-                            break;
-                        }
-                    }
-
-                    if (foundSpellInClass)
-                    {
-                        break;
-                    }
-                }
-
-                if (!foundSpellInClass)
+                
+                if (!roleSettings.HasBonus(member.Roles, EntityTypes.CrawlerSpell, spell.IdKey))
                 {
                     continue;
                 }
-
 
                 if (!inCombat)
                 {
@@ -184,11 +168,9 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         {
             FullSpell fullSpell = new FullSpell() { Spell = spell };
 
-            List<Class> classes = new List<Class>();
-
             CrawlerCombatSettings combatSettings = _gameData.Get<CrawlerCombatSettings>(null);
 
-            ClassSettings classSettings = _gameData.Get<ClassSettings>(null);
+            RoleSettings roleSettings = _gameData.Get<RoleSettings>(null);
 
             double critChance = 0;
 
@@ -196,19 +178,14 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             long casterLevel = caster.GetAbilityLevel();
 
+            List<Role> roles = new List<Role>();
+
             if (caster is PartyMember member)
             {
-                classes = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
-
-                for (int c = 0; c < classes.Count; c++)
-                {
-                    critChance += classes[c].CritPercent;
-                }
-
+                critChance += _gameData.Get<RoleSettings>(_gs.ch).GetRoles(member.Roles).Sum(x => x.CritPercent);
                 if (spell.CritChance > 0)
                 {
-                    double spellCritChance = spell.CritChance;
-                    critChance += spellCritChance;
+                    critChance += spell.CritChance;
                 }
             }
 
@@ -303,21 +280,23 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                 bool quantityIsBaseDamage = false;
 
+                bool finalQuantityIsNegativeAttackCount = false;
+
                 if (effect.EntityTypeId == EntityTypes.Attack)
                 {
                     equipSlotToCheck = EquipSlots.MainHand;
                     statUsedForScaling = StatTypes.Strength;
                     oneEffect.HitType = EHitTypes.Melee;
-                    attacksPerLevel += classes.Sum(x => 1.0 / x.LevelsPerMelee);
+                    attacksPerLevel += roleSettings.GetScalingBonusPerLevel(roles.Select(x => x.MeleeScaling).ToList());
                 }
                 else if (effect.EntityTypeId == EntityTypes.Shoot)
                 {
                     oneEffect.HitType = EHitTypes.Ranged;
                     equipSlotToCheck = EquipSlots.Ranged;                    
                     statUsedForScaling = StatTypes.Agility;
-                    attacksPerLevel += classes.Sum(x => 1.0 / x.LevelsPerRanged);
+                    attacksPerLevel += roleSettings.GetScalingBonusPerLevel(roles.Select(x => x.RangedScaling).ToList());
                 }
-                else
+                else 
                 {
                     quantityIsBaseDamage = true;
                     oneEffect.HitType = EHitTypes.Spell;
@@ -325,12 +304,20 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     if (effect.EntityTypeId == EntityTypes.Damage)
                     {
                         statUsedForScaling = StatTypes.Intellect;
-                        attacksPerLevel += classes.Sum(x => 1.0 / x.LevelsPerDamage);
+                        attacksPerLevel += roleSettings.GetScalingBonusPerLevel(roles.Select(x => x.SpellDamScaling).ToList());
                     }
                     else if (effect.EntityTypeId == EntityTypes.Healing)
                     {
                         statUsedForScaling = StatTypes.Devotion;
-                        attacksPerLevel += classes.Sum(x => 1.0 / x.LevelsPerHeal);
+                        attacksPerLevel += roleSettings.GetScalingBonusPerLevel(roles.Select(x => x.HealingScaling).ToList());
+                    }
+                    else if (effect.EntityTypeId == EntityTypes.StatusEffect)
+                    {
+                        if (effect.MaxQuantity < 0)
+                        {
+                            attacksPerLevel += roleSettings.GetScalingBonusPerLevel(roles.Select(x => x.HealingScaling).ToList());
+                            finalQuantityIsNegativeAttackCount = true;
+                        } 
                     }
                 }
 
@@ -347,6 +334,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                     oneEffect.CritChance = (long)critChance;
                 }
+
                 if (quantityIsBaseDamage)
                 {
                     oneEffect.MinQuantity = effect.MinQuantity;
@@ -399,7 +387,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                 if (fullEffect.InitialEffect && caster is PartyMember partyMember)
                 {
-
+                    
                     if (effect.MinQuantity > 0 && effect.MaxQuantity > 0 && !quantityIsBaseDamage)
                     {
                         attackQuantity = MathUtils.LongRange(effect.MinQuantity, effect.MaxQuantity, _rand);
@@ -414,6 +402,14 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                             attackQuantity = (long)currAttackQuantity;
                         }
                     }
+                    // Used for cures.
+                    if (finalQuantityIsNegativeAttackCount)
+                    {
+                        effect.MinQuantity = -attackQuantity;
+                        effect.MaxQuantity = -attackQuantity;
+                    }
+
+
                 }
             }
 
@@ -648,7 +644,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             }
 
             CrawlerCombatSettings combatSettings = _gameData.Get<CrawlerCombatSettings>(null);
-            ClassSettings classSettings = _gameData.Get<ClassSettings>(null);
+            RoleSettings roleSettings = _gameData.Get<RoleSettings>(null);
 
             long currHealth = target.Stats.Curr(StatTypes.Health);
             long maxHealth = target.Stats.Max(StatTypes.Health);
@@ -656,13 +652,13 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             long maxDamage = currHealth;
             long maxHealing = maxHealth - currHealth;
 
-            bool haveDamageOrHealing = spell.Effects.Any(x => 
+            bool haveMultiHitEffect = spell.Effects.Any(x => 
             x.Effect.EntityTypeId == EntityTypes.Damage || 
             x.Effect.EntityTypeId == EntityTypes.Healing ||
             x.Effect.EntityTypeId == EntityTypes.Attack ||
             x.Effect.EntityTypeId == EntityTypes.Shoot);
             
-            if (!haveDamageOrHealing)
+            if (!haveMultiHitEffect)
             {
                 spell.HitsLeft = 1;
             }
@@ -860,49 +856,62 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                         if (effect.EntityTypeId == EntityTypes.StatusEffect)
                         {
-                            StatusEffect statusEffect = _gameData.Get<StatusEffectSettings>(null).Get(effect.EntityId);
-                            if (statusEffect == null)
-                            {
-                                continue;
-                            }
+                            IReadOnlyList<StatusEffect> allEffects = _gameData.Get<StatusEffectSettings>(null).GetData();
+
                             if (effect.MaxQuantity < 0)
                             {
-                                if (target.StatusEffects.HasBit(effect.EntityId))
+                                long quantityRemoved = Math.Abs(effect.MaxQuantity);
+                               
+                                for (int i = 0; i < allEffects.Count && quantityRemoved > 0; i++)
                                 {
-                                    target.RemoveStatusBit(effect.EntityId);
-                                    fullAction = $"{caster.Name} Cleanses {target.Name} of {statusEffect.Name}";
+                                  
+                                    if (allEffects[i].IdKey < 1)
+                                    {
+                                        continue;
+                                    }
+                                    quantityRemoved--;
+                                    if (target.StatusEffects.HasBit(allEffects[i].IdKey))
+                                    {
+                                        target.RemoveStatusBit(effect.EntityId);
+                                        fullAction = $"{caster.Name} Cleanses {target.Name} of {allEffects[i].Name}";
+                                    }
                                 }
+
                             }
                             else
                             {
-                                IDisplayEffect currentEffect = target.Effects.FirstOrDefault(x =>
-                                x.EntityTypeId == EntityTypes.StatusEffect &&
-                                x.EntityId == effect.EntityId);
-                                if (currentEffect != null)
+                                StatusEffect statusEffect = allEffects.FirstOrDefault(x=>x.IdKey == effect.EntityId);   
+                                if (effect != null)
                                 {
-                                    if (currentEffect.MaxDuration > 0)
+                                    IDisplayEffect currentEffect = target.Effects.FirstOrDefault(x =>
+                                    x.EntityTypeId == EntityTypes.StatusEffect &&
+                                    x.EntityId == effect.EntityId);
+                                    if (currentEffect != null)
                                     {
-                                        if (hit.MaxQuantity > currentEffect.MaxDuration)
+                                        if (currentEffect.MaxDuration > 0)
                                         {
-                                            currentEffect.MaxDuration = effect.MaxQuantity;
-                                        }
-                                        if (hit.MaxQuantity > currentEffect.DurationLeft)
-                                        {
-                                            currentEffect.DurationLeft = effect.MaxQuantity;
+                                            if (hit.MaxQuantity > currentEffect.MaxDuration)
+                                            {
+                                                currentEffect.MaxDuration = effect.MaxQuantity;
+                                            }
+                                            if (hit.MaxQuantity > currentEffect.DurationLeft)
+                                            {
+                                                currentEffect.DurationLeft = effect.MaxQuantity;
+                                            }
                                         }
                                     }
-                                }
-                                else
-                                {
-                                    DisplayEffect displayEffect = new DisplayEffect()
+                                    else
                                     {
-                                        MaxDuration = effect.MaxQuantity,
-                                        DurationLeft = effect.MaxQuantity, // MaxQuantity == 0 means infinite
-                                        EntityTypeId = EntityTypes.StatusEffect,
-                                        EntityId = effect.EntityId,
-                                    };
-                                    target.AddEffect(displayEffect);
-                                    fullAction = $"{target.Name} is affected by {statusEffect.Name}";
+                                        DisplayEffect displayEffect = new DisplayEffect()
+                                        {
+                                            MaxDuration = effect.MaxQuantity,
+                                            DurationLeft = effect.MaxQuantity, // MaxQuantity == 0 means infinite
+                                            EntityTypeId = EntityTypes.StatusEffect,
+                                            EntityId = effect.EntityId,
+                                        };
+                                        target.AddEffect(displayEffect);
+                                        fullAction = $"{target.Name} is affected by {statusEffect.Name}";
+                                    }
                                 }
                             }
                         }

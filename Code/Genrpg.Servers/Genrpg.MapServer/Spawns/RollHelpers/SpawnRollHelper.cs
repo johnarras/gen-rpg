@@ -3,6 +3,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Spawns.Settings;
@@ -20,9 +21,9 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
 
         private ISpawnService _spawnService = null;
         private IGameData _gameData = null;
-        public List<SpawnResult> Roll<SI>(IRandom rand, RollData rollData, SI item) where SI : ISpawnItem
+        public List<Reward> Roll<SI>(IRandom rand, RollData rollData, SI item) where SI : ISpawnItem
         {
-            List<SpawnResult> retval = new List<SpawnResult>();
+            List<Reward> retval = new List<Reward>();
             long quantity = MathUtils.LongRange(item.MinQuantity, item.MaxQuantity, rand);
 
             SpawnTable st = _gameData.Get<SpawnSettings>(null).Get(item.EntityId);
@@ -31,7 +32,7 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
                 for (int j = 0; j < quantity; j++)
                 {
                     rollData.Depth++;
-                    List<SpawnResult> list2 = _spawnService.Roll(rand, st.Items, rollData);
+                    List<Reward> list2 = _spawnService.Roll(rand, st.Items, rollData);
                     rollData.Depth--;
                     retval.AddRange(list2);
                 }

@@ -72,13 +72,16 @@ public class FullItemTooltip : BaseTooltip
             if (itype.EquipSlotId > 0)
             {
                 InventoryData inventory = _unit.Get<InventoryData>();
-                List<long> compatibleSlots = itype.GetCompatibleEquipSlots(_gameData, _unit);
-                for (int i = 0; i < compatibleSlots.Count; i++)
+                if (inventory != null)
                 {
-                    Item equipItem = inventory.GetEquipBySlot(compatibleSlots[i]);
-                    if (equipItem != null && equipItem != initData.item)
+                    List<long> compatibleSlots = itype.GetCompatibleEquipSlots(_gameData, _unit);
+                    for (int i = 0; i < compatibleSlots.Count; i++)
                     {
-                        _equips.Add(equipItem);
+                        Item equipItem = inventory.GetEquipBySlot(compatibleSlots[i]);
+                        if (equipItem != null && equipItem != initData.item)
+                        {
+                            _equips.Add(equipItem);
+                        }
                     }
                 }
             }

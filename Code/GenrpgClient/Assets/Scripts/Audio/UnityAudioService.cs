@@ -15,6 +15,7 @@ using Genrpg.Shared.Audio.Settings;
 using Genrpg.Shared.Core.Entities;
 using System.Threading.Tasks;
 using Assets.Scripts.Core.Interfaces;
+using UnityEngine.Rendering;
 
 public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService, IInjectOnLoad<IAudioService>, IInitOnResolve
 {
@@ -404,20 +405,24 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
 
     int fadeFrames = 50;
     List<CurrentMusic> removeList = null;
+    private MusicChannel cont = null;
+    private CurrentMusic prevMusic = null;
     private void UpdateMusic()
     {
-        foreach (MusicChannel cont in MusicChannels)
+        for (int m = 0; m < MusicChannels.Count; m++) 
         {
+            cont = MusicChannels[m];
             removeList = null;
             if (cont.curr != null)
             {
                 FadeSourceTo(cont.curr.source, MusicVolumeScale, fadeFrames);
                 FadeSourceTo(cont.curr.prevSource, 0.0f, fadeFrames);
             }
-            foreach (CurrentMusic music in cont.prevList)
+            for (int mp = 0; mp < cont.prevList.Count; mp++) 
             {
-                float volume = FadeSourceTo(music.source, 0, fadeFrames);
-                FadeSourceTo(music.prevSource, 0, fadeFrames);
+                prevMusic = cont.prevList[mp];
+                float volume = FadeSourceTo(prevMusic.source, 0, fadeFrames);
+                FadeSourceTo(prevMusic.prevSource, 0, fadeFrames);
                 if (volume <= 0)
                 {
                     if (removeList == null)
@@ -425,7 +430,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                         removeList = new List<CurrentMusic>();
                     }
 
-                    removeList.Add(music);
+                    removeList.Add(prevMusic);
                 }
             }
 
@@ -439,7 +444,6 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
 
             if (removeList != null)
             {
-
                 foreach (CurrentMusic item in removeList)
                 {
                     item.StopAll();
@@ -454,6 +458,11 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         if (source == null)
         {
             return 0.0f;
+        }
+
+        if (source.volume == targetVolume)
+        {
+            return source.volume;
         }
 
         float deltaIncrement = 1.0f;

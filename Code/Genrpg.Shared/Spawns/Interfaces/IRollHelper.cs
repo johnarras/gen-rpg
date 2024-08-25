@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Utils;
@@ -11,6 +12,6 @@ namespace Genrpg.Shared.Spawns.Interfaces
 {
     public interface IRollHelper : ISetupDictionaryItem<long>
     {
-        List<SpawnResult> Roll<SI>(IRandom rand, RollData rollData, SI item) where SI : ISpawnItem;
+        List<Reward> Roll<SI>(IRandom rand, RollData rollData, SI item) where SI : ISpawnItem;
     }
 }

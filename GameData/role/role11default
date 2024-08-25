@@ -1,0 +1,142 @@
+{
+  "Id": "role11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Elementalist",
+  "Desc": "Spell Dam and Heals",
+  "Abbrev": "El",
+  "RoleCategoryId": 1,
+  "MeleeScaling": 6.0,
+  "RangedScaling": 8.0,
+  "SpellDamScaling": 3.0,
+  "HealingScaling": 4.0,
+  "SummonScaling": 4.0,
+  "HealthPerLevel": 16,
+  "ManaPerLevel": 20,
+  "MaxArmorScalingTypeId": 3,
+  "CritPercent": 10,
+  "ManaStatTypeId": 12,
+  "Bonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 32
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 32
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 34
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 63
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 6
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 8
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 17
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 27
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 29
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 30
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 32
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 43
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 51
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 53
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 58
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 59
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 60
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 4
+    }
+  ],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

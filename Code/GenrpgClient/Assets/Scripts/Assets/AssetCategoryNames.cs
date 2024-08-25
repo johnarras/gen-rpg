@@ -13,7 +13,6 @@ public class AssetCategoryNames
     public const string Props = "Props";
     public const string Rocks = "Rocks";
 
-    public const string Sprites = "Sprites";
     public const string Stores = "Stores";
     public const string TerrainTex = "TerrainTex";
     public const string TextureLists = "TextureLists";

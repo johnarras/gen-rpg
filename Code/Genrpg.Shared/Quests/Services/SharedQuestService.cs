@@ -7,12 +7,12 @@ using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Quests.Constants;
 using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Quests.WorldData;
-using Genrpg.Shared.Spawns.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Rewards.Entities;
 
 namespace Genrpg.Shared.Quests.Services
 {
@@ -20,7 +20,7 @@ namespace Genrpg.Shared.Quests.Services
     {
         int GetQuestState(IRandom rand, Character ch, QuestType qtype);
         bool IsQuestSoonVisible(IRandom rand, Character ch, QuestType qtype);
-        List<SpawnResult> GetRewards(IRandom rand, Character ch, QuestType qtype, bool createRewards = false);
+        List<Reward> GetRewards(IRandom rand, Character ch, QuestType qtype, bool createRewards = false);
 
     }
 
@@ -82,9 +82,9 @@ namespace Genrpg.Shared.Quests.Services
         }
 
 
-        public List<SpawnResult> GetRewards(IRandom rand, Character ch, QuestType qtype, bool createRewards = false)
+        public List<Reward> GetRewards(IRandom rand, Character ch, QuestType qtype, bool createRewards = false)
         {
-            List<SpawnResult> rewards = new List<SpawnResult>();
+            List<Reward> rewards = new List<Reward>();
 
             if (qtype == null)
             {
@@ -98,13 +98,13 @@ namespace Genrpg.Shared.Quests.Services
                 return rewards;
             }
 
-            rewards.Add(new SpawnResult()
+            rewards.Add(new Reward()
             {
                 EntityTypeId = EntityTypes.Currency,
                 EntityId = CurrencyTypes.Exp,
                 Quantity = qtype.CurrencyScale * level.QuestExp
             });
-            rewards.Add(new SpawnResult()
+            rewards.Add(new Reward()
             {
                 EntityTypeId = EntityTypes.Currency,
                 EntityId = CurrencyTypes.Money,

@@ -1,0 +1,10 @@
+{
+  "Id": "default",
+  "HourlyRegenPercent": 0.25,
+  "StartStorage": 40,
+  "LevelsPerIncrement": 5,
+  "IncrementQuantity": 5,
+  "StorageCap": 80,
+  "Name": "UserEnergySettings",
+  "UpdateTime": "2024-08-18T20:27:42.502Z"
+}

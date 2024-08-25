@@ -10,6 +10,7 @@ using Genrpg.Shared.Crawler.Training.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
@@ -22,6 +23,7 @@ using Genrpg.Shared.Stats.Settings.Scaling;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.UnitEffects.Constants;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Vendors.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,11 +31,6 @@ using System.Security.Policy;
 
 namespace Genrpg.Shared.Crawler.Loot.Services
 {
-    public class ItemGenData
-    {
-        public long Level { get; set; }
-    }
-
     public class LootGenData
     {
         public long Exp { get; set; }
@@ -74,10 +71,6 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             IReadOnlyList<LootRank> ranks = rankSettings.GetData();
 
-            List<EquipSlot> okEquipSlots = _gameData.Get<EquipSlotSettings>(null).GetData().Where(x=>x.IsCrawlerSlot).ToList();
-
-            List<long> okEquipSlotIds = okEquipSlots.Select(x => x.IdKey).ToList();
-
             int expectedOffset = (int)(level / rankSettings.LevelsPerQuality + 1);
 
             expectedOffset = MathUtils.Clamp(1, expectedOffset, ranks.Count - 2);
@@ -103,29 +96,44 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             LootRank chosenRank = okRanks[_rand.Next() % okRanks.Count];
 
-            IReadOnlyList<ItemType> allLootItems = _gameData.Get<ItemTypeSettings>(null).GetData();
+            ItemType itemType = null;
 
-            List<ItemType> okLootItems = allLootItems.Where(x => okEquipSlotIds.Contains(x.EquipSlotId)).ToList();
-
-            List<ItemType> weaponItems = okLootItems.Where(x => EquipSlots.IsWeapon(x.EquipSlotId)).ToList();
-
-            List<ItemType> armorItems = okLootItems.Where(x => EquipSlots.IsArmor(x.EquipSlotId)).ToList();
-
-            bool isArmor = _rand.NextDouble() < rankSettings.ArmorChance;
-
-            List<ItemType> finalList = (isArmor ? armorItems : weaponItems);
-
-            if (finalList.Count < 1)
+            if (lootGenData.ItemTypeId > 0)
             {
-                return null;
+                itemType = _gameData.Get<ItemTypeSettings>(_gs.ch).Get(lootGenData.ItemTypeId);
+            }
+            if (itemType == null)
+            {
+                List<EquipSlot> okEquipSlots = _gameData.Get<EquipSlotSettings>(null).GetData().Where(x => x.IsCrawlerSlot).ToList();
+
+                List<long> okEquipSlotIds = okEquipSlots.Select(x => x.IdKey).ToList();
+
+                IReadOnlyList<ItemType> allLootItems = _gameData.Get<ItemTypeSettings>(null).GetData();
+
+                List<ItemType> okLootItems = allLootItems.Where(x => okEquipSlotIds.Contains(x.EquipSlotId)).ToList();
+
+                List<ItemType> weaponItems = okLootItems.Where(x => EquipSlots.IsWeapon(x.EquipSlotId)).ToList();
+
+                List<ItemType> armorItems = okLootItems.Where(x => EquipSlots.IsArmor(x.EquipSlotId)).ToList();
+
+                bool armorItem = _rand.NextDouble() < rankSettings.ArmorChance;
+
+                List<ItemType> finalList = (armorItem ? armorItems : weaponItems);
+
+                if (finalList.Count < 1)
+                {
+                    return null;
+                }
+
+                itemType = finalList[_rand.Next() % finalList.Count];
             }
 
-            ItemType itemType = finalList[_rand.Next() % finalList.Count];
+            bool isArmor = EquipSlots.IsArmor(itemType.EquipSlotId);
 
             ScalingType scalingType = null;
             long scalingTypeId = 0;
 
-            if (finalList == armorItems)
+            if (isArmor)
             {
                 scalingTypeId = MathUtils.IntRange(1, LootConstants.MaxArmorScalingType, _rand);
                 scalingType = _gameData.Get<ScalingTypeSettings>(null).Get(scalingTypeId);
@@ -263,7 +271,8 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             cost = cost * chosenRank.CostPct / 100.0f;
 
-            item.Cost = (long)cost;
+            item.BuyCost = (long)cost;
+            item.SellValue = (long)(cost * _gameData.Get<VendorSettings>(_gs.ch).SellToVendorPriceMult);
             return item;
         }
 
@@ -285,10 +294,12 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             int itemCount = 0;
 
+            long minGold = 1+party.Combat.Level;
+            long maxGold = minGold * 3;
             foreach (CrawlerUnit crawlerUnit in party.Combat.EnemiesKilled)
             {
                 exp += trainingSettings.GetMonsterExp(party.Combat.Level);
-                gold += MathUtils.LongRange(5 + party.Combat.Level, 20 + party.Combat.Level * 5, _rand);
+                gold += MathUtils.LongRange(minGold, maxGold, _rand);
 
                 if (_rand.NextDouble() < itemChance)
                 {
@@ -344,14 +355,14 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                 pqi.Quantity++;
             }
 
-            items = items.OrderByDescending(x => x.Cost).ToList();
+            items = items.OrderByDescending(x => x.BuyCost).ToList();
 
             while (items.Count > lootSettings.MaxLootItems)
             {
                 Item lastItem = items.Last();
                 items.Remove(lastItem);
 
-                genData.Gold += lastItem.Cost;
+                genData.Gold += lastItem.BuyCost;
             }
 
             loot.Items = items;

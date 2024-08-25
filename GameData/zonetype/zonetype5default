@@ -4,7 +4,7 @@
   "IdKey": 5,
   "Name": "Badlands",
   "Desc": "",
-  "Icon": "",
+  "Icon": "Badlands",
   "MinLevel": 15,
   "GenChance": 1.0,
   "GrassDensity": 0.25,
@@ -716,5 +716,5 @@
   "CreviceWidthScale": 1.5,
   "MusicTypeId": 6,
   "AmbientMusicTypeId": 9,
-  "UpdateTime": "2024-08-01T00:28:16.873Z"
+  "UpdateTime": "2024-08-24T13:55:17.061Z"
 }

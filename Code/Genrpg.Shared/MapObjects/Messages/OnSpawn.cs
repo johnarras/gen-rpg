@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapObjects.Interfaces;
-using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapMessages;
@@ -16,6 +15,7 @@ using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Entities;
 using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Rewards.Entities;
 
 namespace Genrpg.Shared.MapObjects.Messages
 {
@@ -43,8 +43,8 @@ namespace Genrpg.Shared.MapObjects.Messages
         [Key(18)] public long Level { get; set; }
         [Key(19)] public int OverrideZonePercent { get; set; }
         [Key(20)] public AttackerInfo FirstAttacker { get; set; }
-        [Key(21)] public List<SpawnResult> Loot { get; set; }
-        [Key(22)] public List<SpawnResult> SkillLoot { get; set; }
+        [Key(21)] public List<Reward> Loot { get; set; }
+        [Key(22)] public List<Reward> SkillLoot { get; set; }
         [Key(23)] public List<DisplayEffect> Effects { get; set; }
         [Key(24)] public List<FullStat> Stats { get; set; }
         [Key(25)] public long AddonBits { get; set; }

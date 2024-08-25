@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 2,
   "Name": "Woodworking Shop",
+  "Icon": "WoodworkingShop",
   "Art": "WoodworkingShop",
   "Radius": 5,
   "VariationCount": 1,
-  "UpdateTime": "2024-08-01T00:27:58.617Z"
+  "UpdateTime": "2024-08-24T23:03:45.66Z"
 }

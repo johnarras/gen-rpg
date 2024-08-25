@@ -62,6 +62,33 @@ namespace Genrpg.RequestServer.Core
             _unitData.Add(GetFullKey<T>(id), doc);
         }
 
+        public void Remove<T>(string docId) where T : class, IUnitData, new()
+        {
+            string fullKey = GetFullKey<T>(docId);
+
+            if (_unitData.ContainsKey(fullKey))
+            {
+                _unitData.Remove(fullKey);
+            }
+        }
+
+        public T TryGetFromCache<T>(string docId = null) where T : class, IUnitData, new()
+        {
+            if (string.IsNullOrEmpty(docId))
+            {
+                docId = user.Id;
+            }
+
+            string cacheKey = GetFullKey<T>(docId);
+
+            if (_unitData.ContainsKey(cacheKey))
+            {
+                return (T)_unitData[cacheKey];
+            }
+            return null;
+        }
+
+
         string GetFullKey<T>(object idObj) where T : class, IUnitData, new()
         {
             return (typeof(T).Name + idObj.ToString()).ToLower();

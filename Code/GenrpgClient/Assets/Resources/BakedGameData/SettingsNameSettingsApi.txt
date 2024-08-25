@@ -678,6 +678,55 @@
       "IdKey": 97,
       "Name": "ChestSettings",
       "UpdateTime": "2024-08-10T17:14:46.012Z"
+    },
+    {
+      "Id": "settingsname98default",
+      "ParentId": "default",
+      "IdKey": 98,
+      "Name": "RewardSourceSettings",
+      "UpdateTime": "2024-08-13T22:38:42.48Z"
+    },
+    {
+      "Id": "settingsname99default",
+      "ParentId": "default",
+      "IdKey": 99,
+      "Name": "UserStatSettings",
+      "UpdateTime": "2024-08-16T23:07:36.622Z"
+    },
+    {
+      "Id": "settingsname100default",
+      "ParentId": "default",
+      "IdKey": 100,
+      "Name": "NewUserSettings",
+      "UpdateTime": "2024-08-17T14:59:37.991Z"
+    },
+    {
+      "Id": "settingsname101default",
+      "ParentId": "default",
+      "IdKey": 101,
+      "Name": "PlayMultSettings",
+      "UpdateTime": "2024-08-17T18:29:13.925Z"
+    },
+    {
+      "Id": "settingsname102default",
+      "ParentId": "default",
+      "IdKey": 102,
+      "Name": "ResetSettings",
+      "UpdateTime": "2024-08-18T01:12:32.096Z"
+    },
+    {
+      "Id": "settingsname103default",
+      "ParentId": "default",
+      "IdKey": 103,
+      "Name": "UserEnergySettings",
+      "UpdateTime": "2024-08-18T01:12:32.096Z"
+    },
+    {
+      "Id": "settingsname104default",
+      "ParentId": "default",
+      "IdKey": 104,
+      "Name": "RoleSettings",
+      "UpdateTime": "2024-08-25T18:15:18.739Z"
     }
   ],
   "ParentObj": {

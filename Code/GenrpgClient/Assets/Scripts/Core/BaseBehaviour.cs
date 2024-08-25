@@ -1,7 +1,5 @@
 using GEntity = UnityEngine.GameObject;
 using System;
-
-using Assets.Scripts.Interfaces;
 using System.Threading;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Logging.Interfaces;

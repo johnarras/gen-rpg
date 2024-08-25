@@ -6,6 +6,7 @@ namespace Genrpg.Shared.Crawler.Parties.Constants
 {
     public class PartyConstants
     {
-        public const int PartySize = 7;
+        // Idk maybe should be configurable.
+        public const int PartySize = 6;
     }
 }

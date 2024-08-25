@@ -1,18 +1,6 @@
 {
   "Data": [
     {
-      "Id": "craftertype0default",
-      "ParentId": "default",
-      "Name": "None",
-      "MousePointer": "Shop",
-      "ReagentItemTypeId": 101,
-      "GatherSeconds": 1000.0,
-      "CraftingSeconds": 1000.0,
-      "GatherActionName": "None",
-      "CraftActionName": "None",
-      "UpdateTime": "2024-08-01T00:28:05.689Z"
-    },
-    {
       "Id": "craftertype1default",
       "ParentId": "default",
       "IdKey": 1,

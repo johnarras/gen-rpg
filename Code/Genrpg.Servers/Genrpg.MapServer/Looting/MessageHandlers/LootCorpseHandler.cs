@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Loot.Messages;
@@ -16,6 +15,8 @@ using Genrpg.Shared.Achievements.Constants;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Rewards.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
 
 namespace Genrpg.MapServer.Looting.MessageHandlers
 {
@@ -39,7 +40,7 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
             }
 
 
-            List<SpawnResult> loot = new List<SpawnResult>();
+            List<Reward> loot = new List<Reward>();
             lock (unit.OnActionLock)
             {
                 if (unit.Loot == null || unit.Loot.Count < 1)
@@ -52,10 +53,10 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
             }
 
             long moneyTotal = loot.Where(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Money).Sum(x => x.Quantity);
-            long itemTotel = loot.Where(x => x.EntityTypeId == EntityTypes.Item && x.Data != null).Sum(x => x.Data.Quantity);
+            long itemTotal = loot.Where(x=>x.EntityTypeId == EntityTypes.Item && x.ExtraData != null).Sum(x => x.Quantity);
 
             _achievementService.UpdateAchievement(ch, AchievementTypes.MoneyLooted, moneyTotal);
-            _achievementService.UpdateAchievement(ch,AchievementTypes.ItemsLooted, itemTotel);
+            _achievementService.UpdateAchievement(ch,AchievementTypes.ItemsLooted, itemTotal);
 
             _rewardService.GiveRewards(rand, ch, loot);
             SendRewards sendLoot = new SendRewards()

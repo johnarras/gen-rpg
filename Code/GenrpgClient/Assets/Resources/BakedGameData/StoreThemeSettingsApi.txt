@@ -1,12 +1,6 @@
 {
   "Data": [
     {
-      "Id": "storetheme0default",
-      "ParentId": "default",
-      "Name": "None",
-      "UpdateTime": "2024-08-01T00:28:13.699Z"
-    },
-    {
       "Id": "storetheme1default",
       "ParentId": "default",
       "IdKey": 1,

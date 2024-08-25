@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Core.Entities;
+﻿using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Stats.Services;
@@ -32,6 +33,8 @@ namespace Assets.Scripts.Crawler.Services.Training
 
         private ICrawlerStatService _statService;
         protected IGameData _gameData;
+        protected IClientRandom _rand;
+        protected IUnityGameState _gs;
 
         public async Task Initialize(CancellationToken token)
         {
@@ -65,21 +68,52 @@ namespace Assets.Scripts.Crawler.Services.Training
         {
             TrainingInfo info = GetTrainingInfo(party, member);
 
+            CrawlerTrainingSettings settings = _gameData.Get<CrawlerTrainingSettings>(null);
+
             if (info.Cost <= party.Gold && info.TotalExp <= member.Exp)
             {
                 party.Gold -= info.Cost;
                 member.Exp -= info.TotalExp;
                 member.Level++;
-
+                party.ActionPanel.AddText($"{member.Name} reaches level {member.Level}!");
                 List<StatType> primaryStats = _gameData.Get<StatSettings>(null).GetData().Where(
                     x => x.IdKey >= StatConstants.PrimaryStatStart &&
                     x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 
-                _statService.CalcPartyStats(party, false);
+                long maxStat = -1;
+
+                foreach (StatType stype in primaryStats) 
+                {
+                    if (member.GetPermStat(stype.IdKey) > maxStat) 
+                    {
+                        maxStat = member.GetPermStat(stype.IdKey);
+                    }
+                }
+
+                foreach (StatType stype in primaryStats)
+                {
+                    long currPermStat = member.GetPermStat(stype.IdKey);
+                    long increment = 0;
+                    if (currPermStat < maxStat && _rand.NextDouble() < settings.LowerStatIncreaseChance)
+                    {
+                        member.AddPermStat(stype.IdKey, 1);
+                        increment++;
+                    }
+                    if (_rand.NextDouble() < settings.MaxStatIncreaseChance)
+                    {
+                        member.AddPermStat(stype.IdKey, 1);
+                        increment++;
+                    }
+
+                    if (increment> 0)
+                    {
+                        party.ActionPanel.AddText($"+{increment} {stype.Name}");
+                    }
+                }
+
+                _statService.CalcUnitStats(party, member, true);
 
             }
-
-
         }
     }
 }

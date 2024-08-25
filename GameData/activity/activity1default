@@ -9,8 +9,9 @@
   "ResetDays": 1,
   "BaseCost": 50,
   "IncrementalCost": 10,
-  "MaxLevel": 5,
+  "MaxRewardTier": 5,
   "BaseReward": 10,
   "IncrementalReward": 5,
-  "UpdateTime": "2024-08-10T16:56:22.374Z"
+  "MinLevel": 5,
+  "UpdateTime": "2024-08-11T22:42:21.151Z"
 }

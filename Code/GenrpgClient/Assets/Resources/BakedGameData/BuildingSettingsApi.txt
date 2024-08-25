@@ -1,189 +1,198 @@
 {
   "Data": [
     {
-      "Id": "buildingtype0default",
-      "ParentId": "default",
-      "Name": "None",
-      "Radius": 5,
-      "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.579Z"
-    },
-    {
       "Id": "buildingtype1default",
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Clothing Store",
+      "Icon": "ClothingStore",
       "Art": "ClothingStore",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.61Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype2default",
       "ParentId": "default",
       "IdKey": 2,
       "Name": "Woodworking Shop",
+      "Icon": "WoodworkingShop",
       "Art": "WoodworkingShop",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.617Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype3default",
       "ParentId": "default",
       "IdKey": 3,
       "Name": "Tannery",
+      "Icon": "Tannery",
       "Art": "Tannery",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.619Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype4default",
       "ParentId": "default",
       "IdKey": 4,
       "Name": "The Smithy",
+      "Icon": "Smithy",
       "Art": "Smithy",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.621Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype5default",
       "ParentId": "default",
       "IdKey": 5,
       "Name": "Stonecarver's",
+      "Icon": "Stonecarver",
       "Art": "Stonecarver",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.623Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype6default",
       "ParentId": "default",
       "IdKey": 6,
       "Name": "Jewelry Shop",
+      "Icon": "JewelryShop",
       "Art": "JewelryShop",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.625Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype7default",
       "ParentId": "default",
       "IdKey": 7,
       "Name": "Alchemy Lab",
+      "Icon": "AlchemyLab",
       "Art": "AlchemyLab",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.627Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype8default",
       "ParentId": "default",
       "IdKey": 8,
       "Name": "Enchanter's Hut",
+      "Icon": "EnchantersHut",
       "Art": "EnchantersHut",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.628Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype9default",
       "ParentId": "default",
       "IdKey": 9,
       "Name": "Thieves' Guild",
+      "Icon": "ThievesGuild",
       "Art": "ThievesGuild",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.631Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype10default",
       "ParentId": "default",
       "IdKey": 10,
       "Name": "House",
+      "Icon": "House",
       "Art": "House",
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 5,
-      "UpdateTime": "2024-08-01T00:27:58.583Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype11default",
       "ParentId": "default",
       "IdKey": 11,
       "Name": "Guard Tower",
+      "Icon": "GuardTower",
       "Art": "GuardTower",
       "Radius": 4,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.586Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype12default",
       "ParentId": "default",
       "IdKey": 12,
       "Name": "Guild",
+      "Icon": "Guild",
       "Art": "Guild",
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.588Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype13default",
       "ParentId": "default",
       "IdKey": 13,
       "Name": "Equipment",
+      "Icon": "Equipment",
       "Art": "Equipment",
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.591Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype14default",
       "ParentId": "default",
       "IdKey": 14,
       "Name": "Temple",
+      "Icon": "Temple",
       "Art": "Temple",
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.593Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype15default",
       "ParentId": "default",
       "IdKey": 15,
       "Name": "Trainer",
+      "Icon": "Trainer",
       "Art": "Trainer",
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.596Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype16default",
       "ParentId": "default",
       "IdKey": 16,
       "Name": "Regen",
+      "Icon": "Regen",
       "Art": "Regen",
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.599Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype17default",
       "ParentId": "default",
       "IdKey": 17,
       "Name": "Tavern",
+      "Icon": "Tavern",
       "Art": "Tavern",
       "Radius": 5,
       "IsCrawlerBuilding": true,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.603Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype18default",
@@ -191,11 +200,11 @@
       "IdKey": 18,
       "Name": "Cave",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Cave",
       "Art": "Cave",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.606Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype19default",
@@ -203,11 +212,11 @@
       "IdKey": 19,
       "Name": "Dungeon",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Dungeon",
       "Art": "Dungeon",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.608Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype20default",
@@ -215,11 +224,11 @@
       "IdKey": 20,
       "Name": "Tower",
       "Desc": "",
-      "Icon": "",
+      "Icon": "Tower",
       "Art": "Tower",
       "Radius": 5,
       "VariationCount": 1,
-      "UpdateTime": "2024-08-01T00:27:58.612Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     },
     {
       "Id": "buildingtype21default",
@@ -227,17 +236,17 @@
       "IdKey": 21,
       "Name": "City",
       "Desc": "",
-      "Icon": "",
+      "Icon": "City",
       "Art": "City",
       "Radius": 5,
       "VariationCount": 2,
-      "UpdateTime": "2024-08-01T00:27:58.615Z"
+      "UpdateTime": "2024-08-24T23:03:45.66Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "BuildingSettings",
-    "UpdateTime": "2024-08-01T00:27:58.577Z"
+    "UpdateTime": "2024-08-24T23:03:45.66Z"
   },
   "Id": "default"
 }

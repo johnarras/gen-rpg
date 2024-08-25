@@ -41,9 +41,7 @@ namespace Genrpg.MapServer.Setup.Instances
             Set<IServerUnitService>(new ServerUnitService());
             Set<IVendorService>(new VendorService());
             Set<IAIService>(new AIService());
-            Set<IServerCraftingService>(new ServerCraftingService());
             Set<IItemService>(new ItemService());
-            Set<ISpawnService>(new SpawnService());
             Set<ILevelService>(new LevelService());
             Set<IMapMessageService>(new MapMessageService());
             Set<IServerQuestService>(new ServerQuestService());
@@ -52,6 +50,7 @@ namespace Genrpg.MapServer.Setup.Instances
             Set<IStatService>(new ServerStatService());
             Set<IMapObjectManager>(new MapObjectManager());
             Set<ITradeService>(new TradeService());
+            Set<IServerCraftingService>(new ServerCraftingService());
         }
 
         public override async Task FinalSetup()

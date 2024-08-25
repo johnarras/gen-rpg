@@ -6,6 +6,7 @@ using Genrpg.Shared.BoardGame.Services;
 using Genrpg.Shared.BoardGame.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Users.PlayerData;
+using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Settings;
 
 namespace Genrpg.RequestServer.BoardGame.Services
@@ -21,12 +22,12 @@ namespace Genrpg.RequestServer.BoardGame.Services
 
         public int UserUpdatePriority { get; } = 0;
 
-        public async Task<BoardData> GenerateBoard(WebContext context, BoardGenData genData = null)
+        public async Task<BoardData> GenerateBoard(WebContext context, BoardGenArgs args = null)
         {
-            if (genData == null)
+            if (args == null)
             {
                 // These are reasonable defaults for making a regular board for this user.
-                genData = new BoardGenData()
+                args = new BoardGenArgs()
                 {
                     BoardModeId = BoardModes.Primary,
                 };
@@ -52,20 +53,20 @@ namespace Genrpg.RequestServer.BoardGame.Services
                 context.Set(boardData);
             }
 
-            boardData.OwnerId = genData.OwnerId;
-            boardData.BoardModeId = genData.BoardModeId;
-            boardData.Seed = genData.Seed;
+            boardData.OwnerId = args.OwnerId;
+            boardData.BoardModeId = args.BoardModeId;
+            boardData.Seed = args.Seed;
 
             if (string.IsNullOrEmpty(boardData.OwnerId))
             {
                 boardData.OwnerId = context.user.Id;
             }
 
-            List<long> tiletypeIds = _sharedBoardGenService.GetTiles(context.user, genData);
+            List<long> tiletypeIds = _sharedBoardGenService.GenerateTiles(context.user, args);
 
             boardData.CreateData(tiletypeIds);
 
-            if (genData.ForceZoneTypeId == 0)
+            if (args.ForceZoneTypeId == 0)
             {
                 IReadOnlyList<ZoneType> zoneTypes = _gameData.Get<ZoneTypeSettings>(context.user).GetData();
 
@@ -82,7 +83,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
             }
             else
             {
-                boardData.ZoneTypeId = genData.ForceZoneTypeId;
+                boardData.ZoneTypeId = args.ForceZoneTypeId;
             }
 
             return boardData;

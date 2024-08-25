@@ -1,13 +1,10 @@
-﻿using Amazon.Runtime.Internal.Util;
-using AutoMapper.Internal.Mappers;
-using Azure.ResourceManager.ServiceBus;
-using Genrpg.MapServer.MapMessaging.Interfaces;
+﻿
+
 using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Trades.Services;
 using Genrpg.ServerShared.Achievements;
 using Genrpg.Shared.Achievements.Constants;
 using Genrpg.Shared.Characters.PlayerData;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Currencies.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
@@ -21,11 +18,9 @@ using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.MapObjects.Entities;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.Spawns.WorldData;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Vendors.MapObjectAddons;
 using Genrpg.Shared.Vendors.Settings;
@@ -34,9 +29,6 @@ using Genrpg.Shared.Zones.WorldData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Genrpg.MapServer.Vendors.Services
 {
@@ -182,7 +174,7 @@ namespace Genrpg.MapServer.Vendors.Services
                         return;
                     }
 
-                    itemPrice = ItemUtils.GetBuyFromVendorPrice(_gameData, ch, vendorItem.Item);
+                    itemPrice = vendorItem.Item.BuyCost;
 
                     if (itemPrice > playerMoney)
                     {
@@ -241,7 +233,7 @@ namespace Genrpg.MapServer.Vendors.Services
                 return;
             }
 
-            long money = ItemUtils.GetSellToVendorPrice(_gameData, ch, item);
+            long money = (long)(item.BuyCost * _gameData.Get<VendorSettings>(obj).SellToVendorPriceMult);
 
             _inventoryService.RemoveItem(ch, sellItem.ItemId, true);
             _achievementService.UpdateAchievement(ch, AchievementTypes.ItemsSold, item.Quantity);

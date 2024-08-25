@@ -5,6 +5,7 @@ using Assets.Scripts.Crawler.Events;
 using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Assets.Scripts.Crawler.TIlemaps;
 using Assets.Scripts.ProcGen.Components;
 using Assets.Scripts.ProcGen.Services;
 using Assets.Scripts.UI.Crawler.WorldUI;
@@ -28,7 +29,6 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
     public class WorldPanel : BaseCrawlerPanel, IWorldPanel
     {
-
         const string PanelTextPrefab = "WorldPanelText";
         private ICrawlerMapService _mapService;
         private IUIService _uiService;
@@ -47,7 +47,10 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         public GButton CloseTooltipButton;
 
+        public CrawlerTilemap Minimap;
+
         private WorldPanelText _textRow;
+
 
         private MarkedSpline _spline { get; set; }
 
@@ -66,6 +69,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             _assetService.LoadAsset(AssetCategoryNames.UI, PanelTextPrefab, OnLoadTextRow, null, this, token, screen.Subdirectory);
 
             _updateService.AddUpdate(this, IncrementTextureFrame, UpdateType.Late);
+
+            Minimap?.Init();
             SetPicture(null);
         }
 
@@ -262,7 +267,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             _spline.GenParams.MaxRadius = _spline.GenParams.MinRadius * 5/4;
             float maxOffset = 50;
             _spline.Offset = new Vector3(MathUtils.FloatRange(-maxOffset, maxOffset, _rand), 0, MathUtils.FloatRange(-maxOffset, maxOffset, _rand));
-            _curveGenService.CreateSpline(_spline, _rand, _token);
+            _curveGenService.CreateCircularSpline(_spline, _rand, _token);
         }
     }
 }

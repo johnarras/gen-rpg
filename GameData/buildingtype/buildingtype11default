@@ -3,8 +3,9 @@
   "ParentId": "default",
   "IdKey": 11,
   "Name": "Guard Tower",
+  "Icon": "GuardTower",
   "Art": "GuardTower",
   "Radius": 4,
   "VariationCount": 1,
-  "UpdateTime": "2024-08-01T00:27:58.586Z"
+  "UpdateTime": "2024-08-24T23:03:45.66Z"
 }

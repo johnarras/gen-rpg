@@ -1,7 +1,7 @@
 using MessagePack;
-using Genrpg.Shared.Spawns.Entities;
 using System.Collections.Generic;
 using Genrpg.Shared.Quests.PlayerData;
+using Genrpg.Shared.Rewards.Entities;
 
 namespace Genrpg.Shared.Quests.Entities
 {
@@ -11,7 +11,7 @@ namespace Genrpg.Shared.Quests.Entities
         [Key(0)] public long AlterTypeId { get; set; }
         [Key(1)] public QuestStatus Status { get; set; }
 
-        [Key(2)] public List<SpawnResult> Rewards { get; set; }
+        [Key(2)] public List<Reward> Rewards { get; set; }
 
         [Key(3)] public string Message { get; set; }
 

@@ -4,5 +4,6 @@
   "IdKey": 1,
   "Name": "Parimary",
   "DiceCount": 2,
-  "UpdateTime": "2024-08-11T18:10:43.748Z"
+  "GiveDefaultTileRewards": true,
+  "UpdateTime": "2024-08-22T23:23:11.131Z"
 }

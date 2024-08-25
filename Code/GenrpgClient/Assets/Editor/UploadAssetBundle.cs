@@ -53,7 +53,10 @@ public class UploadAssetBundle
                 fdata.Env = env;
                 fdata.LocalPath = localPath;
                 fdata.RemotePath = remotePath;
-
+                if (uploadCount % 20 == 10)
+                {
+                    fdata.WaitForComplete = true;
+                }
                 FileUploader.UploadFile(fdata);
                 ++uploadCount;
                 if (uploadCount % 10 == 0)

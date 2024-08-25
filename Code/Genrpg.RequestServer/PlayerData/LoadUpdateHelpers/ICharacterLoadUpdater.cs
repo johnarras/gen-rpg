@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
 {
-    public interface ICharacterLoadUpdater : ISetupDictionaryItem<Type>
+    public interface ICharacterLoadUpdater : IOrderedSetupDictionaryItem<Type>
     {
-        int Priority { get; }
+        int Order { get; }
         Task Update(WebContext context, Character ch);
     }
 }

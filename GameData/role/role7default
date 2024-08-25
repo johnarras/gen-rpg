@@ -1,0 +1,122 @@
+{
+  "Id": "role7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Bard",
+  "Desc": "Hybrid Spell",
+  "Abbrev": "Bd",
+  "RoleCategoryId": 1,
+  "MeleeScaling": 0.2,
+  "RangedScaling": 0.2,
+  "SpellDamScaling": 0.2,
+  "HealingScaling": 0.25,
+  "SummonScaling": 0.2,
+  "HealthPerLevel": 16,
+  "ManaPerLevel": 16,
+  "MaxArmorScalingTypeId": 2,
+  "CritPercent": 5,
+  "ManaStatTypeId": 13,
+  "Bonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 22
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 30
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 16
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 71
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 4
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 5
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 8
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 17
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 27
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 39
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 45
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 46
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 53
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 4
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 5
+    }
+  ],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

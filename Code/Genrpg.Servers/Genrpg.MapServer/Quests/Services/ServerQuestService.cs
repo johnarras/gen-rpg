@@ -11,8 +11,8 @@ using Genrpg.Shared.Quests.Entities;
 using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.Quests.WorldData;
+using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Rewards.Services;
-using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace Genrpg.MapServer.Quests.Services
 
     public interface IServerQuestService : IInjectable
     {
-        UpdateQuestResult UpdateQuest(IRandom rand, MapObject mobj, ISpawnResult spawnResult);
+        UpdateQuestResult UpdateQuest(IRandom rand, MapObject mobj, Reward spawnResult);
     }
 
     public class ServerQuestService : IServerQuestService
@@ -39,7 +39,7 @@ namespace Genrpg.MapServer.Quests.Services
         private IMapProvider _mapProvider = null;
         private IGameData _gameData = null;
 
-        public virtual UpdateQuestResult UpdateQuest(IRandom rand, MapObject mobj, ISpawnResult spawnResult)
+        public virtual UpdateQuestResult UpdateQuest(IRandom rand, MapObject mobj, Reward spawnResult)
         {
             UpdateQuestResult retval = new UpdateQuestResult();
             if (!(mobj is Character ch))

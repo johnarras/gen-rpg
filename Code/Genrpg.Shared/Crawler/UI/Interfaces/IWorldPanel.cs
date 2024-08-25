@@ -9,5 +9,6 @@ namespace Genrpg.Shared.Crawler.UI.Interfaces
         void SetPicture(string image);
 
         void ApplyEffect(string effectName, float duration);
+
     }
 }

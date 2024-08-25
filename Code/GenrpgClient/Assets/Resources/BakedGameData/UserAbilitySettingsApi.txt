@@ -1,12 +1,6 @@
 {
   "Data": [
     {
-      "Id": "userabilitytype0default",
-      "ParentId": "default",
-      "Name": "None",
-      "UpdateTime": "2024-08-10T14:42:52.81Z"
-    },
-    {
       "Id": "userabilitytype1default",
       "ParentId": "default",
       "IdKey": 1,

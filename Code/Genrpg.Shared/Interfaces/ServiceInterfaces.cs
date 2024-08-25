@@ -40,4 +40,8 @@ namespace Genrpg.Shared.Interfaces
         T GetKey();
     }
 
+    public interface IOrderedSetupDictionaryItem<T> :ISetupDictionaryItem<T>
+    {
+       int Order { get; }
+    }
 }

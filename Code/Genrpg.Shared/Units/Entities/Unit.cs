@@ -4,7 +4,6 @@ using System.Linq;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Stats.Messages;
 using Genrpg.Shared.Stats.Constants;
@@ -19,6 +18,7 @@ using Genrpg.Shared.Utils.Data;
 using Newtonsoft.Json;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Units.Constants;
+using Genrpg.Shared.Rewards.Entities;
 
 namespace Genrpg.Shared.Units.Entities
 {
@@ -48,9 +48,9 @@ namespace Genrpg.Shared.Units.Entities
 
         public long SexTypeId { get; set; }
 
-        public List<UnitClass> Classes { get; set; } = new List<UnitClass>();
-
         private List<AttackerInfo> _attackers = new List<AttackerInfo>();
+
+        public List<UnitRole> Roles { get; set; } = new List<UnitRole>();
 
         public override bool IsUnit() { return true; }
 
@@ -64,8 +64,8 @@ namespace Genrpg.Shared.Units.Entities
 
         public List<CurrentProc> CurrentProcs;
 
-        public List<SpawnResult> Loot;
-        public List<SpawnResult> SkillLoot;
+        public List<Reward> Loot;
+        public List<Reward> SkillLoot;
 
         private int _flags = 0;
 
@@ -82,7 +82,6 @@ namespace Genrpg.Shared.Units.Entities
         public override void Dispose()
         {
             base.Dispose();
-            Classes.Clear();
             _attackers.Clear();
             _attackers.Clear();
             Procs?.Clear();

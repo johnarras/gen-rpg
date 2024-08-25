@@ -12,6 +12,8 @@ namespace Genrpg.Shared.Spawns.Entities
         public long QualityTypeId = 0;
         public int Times = 1;
         public int Depth = 0;
-        public float Scale = 1.0f;
+        public double Scale = 1.0f;
+        public long RewardSourceId = 0;
+        public long EntityId = 0;
     }
 }

@@ -25,8 +25,10 @@ public class FileUploader
         psi.WindowStyle = ProcessWindowStyle.Hidden;
         psi.CreateNoWindow = true;
         Process process = Process.Start(psi);
-        process.WaitForExit();
-
+        if (fdata.WaitForComplete)
+        {
+            process.WaitForExit();
+        }
         return;
     }
 }

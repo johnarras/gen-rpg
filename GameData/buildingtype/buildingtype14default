@@ -3,9 +3,10 @@
   "ParentId": "default",
   "IdKey": 14,
   "Name": "Temple",
+  "Icon": "Temple",
   "Art": "Temple",
   "Radius": 5,
   "IsCrawlerBuilding": true,
   "VariationCount": 1,
-  "UpdateTime": "2024-08-01T00:27:58.593Z"
+  "UpdateTime": "2024-08-24T23:03:45.66Z"
 }

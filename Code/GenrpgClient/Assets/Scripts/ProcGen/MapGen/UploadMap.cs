@@ -50,7 +50,10 @@ public class UploadMap : BaseZoneGenerator
 
         fdata.LocalPath = localPath;
         fdata.RemotePath = remoteFilePath;
-
+        if (gx % 10 == 0)
+        {
+            fdata.WaitForComplete = true;
+        }
         FileUploader.UploadFile(fdata);
 
     }

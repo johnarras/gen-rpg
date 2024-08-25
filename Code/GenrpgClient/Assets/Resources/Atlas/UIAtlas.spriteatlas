@@ -82,6 +82,7 @@ SpriteAtlas:
     - 85fa51bc325fdb245b388b69a1625b52: 21300000
     - ca1716ecefe071e4cab20fdc10aa0b7b: 21300000
     - 99c5b02d525db77439b85e50dd74be52: 21300000
+    - 3db7926dc2feff042a9eee0537ae5c36: 21300000
     - c0a644ed990f9fb4d9346cc58b828b47: 21300000
     - cdcab9ceeacc32e47baae13128dae9db: 21300000
     - d7f7b1efb1a434c4e877198ff391de9a: 21300000
@@ -119,6 +120,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 85fa51bc325fdb245b388b69a1625b52, type: 3}
   - {fileID: 21300000, guid: ca1716ecefe071e4cab20fdc10aa0b7b, type: 3}
   - {fileID: 21300000, guid: 99c5b02d525db77439b85e50dd74be52, type: 3}
+  - {fileID: 21300000, guid: 3db7926dc2feff042a9eee0537ae5c36, type: 3}
   - {fileID: 21300000, guid: c0a644ed990f9fb4d9346cc58b828b47, type: 3}
   - {fileID: 21300000, guid: cdcab9ceeacc32e47baae13128dae9db, type: 3}
   - {fileID: 21300000, guid: d7f7b1efb1a434c4e877198ff391de9a, type: 3}
@@ -155,6 +157,7 @@ SpriteAtlas:
   - SilverBar
   - Blank
   - BGInfo
+  - BGHole
   - NoRanged
   - WhiteCircle256
   - IconCopper

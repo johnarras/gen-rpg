@@ -1,12 +1,20 @@
 ﻿using Genrpg.Editor.Constants;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.UI;
+using Genrpg.Shared.Crawler.Buffs.Constants;
 using Genrpg.Shared.Crawler.Buffs.Settings;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Settings;
+using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
+using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.GameSettings.Interfaces;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.SpellCrafting.SpellModifierHelpers;
 using Genrpg.Shared.Stats.Settings.Stats;
+using Microsoft.Extensions.Azure;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -15,33 +23,56 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices.SmartCards;
+using Windows.Security.Cryptography.Core;
 using Windows.UI.Popups;
 
 namespace Genrpg.Editor.Importers
 {
-    public class CrawlerClassImporter : BaseDataImporter
+    public class CrawlerRoleImporter : BaseDataImporter
     {
-        public override string ImportDataFilename => "CrawlerClassImport.csv";
+        public override string ImportDataFilename => "CrawlerRoleImport.csv";
 
-        public override EImportTypes GetKey() { return EImportTypes.CrawlerClasses; }
+        public override EImportTypes GetKey() { return EImportTypes.CrawlerRoles; }
+
+        const int MaxRoles = 100;
 
         protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
         {
             string[] firstLine = lines[0].Split(',');
 
             string missingWords = "";
-            IReadOnlyList<Class> classes = gs.data.Get<ClassSettings>(null).GetData();
+            IReadOnlyList<Role> roles = gs.data.Get<RoleSettings>(null).GetData();
 
-            int maxClasses = 50;
-            Class[] topRow = new Class[maxClasses];
+            Role[] topRow = new Role[MaxRoles];
 
-            for (int s = 0; s < firstLine.Length; s++)
+            long maxRoleId = 0;
+            if (roles.Count > 0)
             {
-                topRow[s] = classes.FirstOrDefault(x => x.Name == firstLine[s].Trim());
+                maxRoleId = roles.Max(x => x.IdKey);
+            }
+            for (int s = 1; s < firstLine.Length; s++)
+            {
+
+                string roleName = firstLine[s].Trim();
+                if (string.IsNullOrEmpty(roleName))
+                {
+                    continue;
+                }
+                if (roleName.Length < 3)
+                {
+                    missingWords += "BadRoleName:(" + roleName + ")";
+                    break;
+                }
+                topRow[s] = roles.FirstOrDefault(x => x.Name == roleName);
+                if (topRow[s] == null)
+                {
+                    topRow[s] = new Role() { IdKey = ++maxRoleId, Name = roleName };
+                }
                 if (topRow[s] != null)
                 {
                     gs.LookedAtObjects.Add(topRow[s]);
-                    topRow[s].Bonuses = new List<ClassBonus>();
+                    topRow[s].Bonuses = new List<RoleBonus>();
                 }
             }
 
@@ -51,7 +82,11 @@ namespace Genrpg.Editor.Importers
 
             IReadOnlyList<StatType> statTypes = gs.data.Get<StatSettings>(null).GetData();
 
-            PropertyInfo[] props = typeof(Class).GetProperties();
+            IReadOnlyList<ItemType> itemTypes = gs.data.Get<ItemTypeSettings>(null).GetData();
+
+            PropertyInfo[] props = typeof(Role).GetProperties();
+
+            
 
             for (int line = 1; line < lines.Length; line++)
             {
@@ -62,61 +97,42 @@ namespace Genrpg.Editor.Importers
                     continue;
                 }
 
-                PartyBuff partyBuff = partyBuffs.FirstOrDefault(x => x.Name == words[0]);
-
-                if (partyBuff != null)
+                if (TryAddBonus<PartyBuffSettings>(gs.data, EntityTypes.PartyBuff, words, topRow))
                 {
-                    for (int w = 1; w < words.Length && w < maxClasses; w++)
-                    {
-                        if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
-                        {
-                            topRow[w].Bonuses.Add(new ClassBonus() { EntityTypeId = EntityTypes.PartyBuff, EntityId = partyBuff.IdKey, Quantity = 1 });
-                        }
-                    }
                     continue;
                 }
-
-                StatType statType = statTypes.FirstOrDefault(x => x.Name == words[0].Trim());
-
-                if (statType != null)
+                if (TryAddBonus<StatSettings>(gs.data, EntityTypes.Stat, words, topRow))
                 {
-                    for (int w = 1; w < words.Length && w < maxClasses; w++)
-                    {
-                        if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
-                        {
-                            topRow[w].Bonuses.Add(new ClassBonus() { EntityTypeId = EntityTypes.Stat, EntityId = statType.IdKey, Quantity = 1 });
-                        }
-                    }
                     continue;
                 }
-
-                CrawlerSpell crawlerSpell = crawlerSpells.FirstOrDefault(x => x.Name == words[0]);
-
-
-                if (crawlerSpell != null)
+                if (TryAddBonus<CrawlerSpellSettings>(gs.data, EntityTypes.CrawlerSpell, words, topRow))
                 {
-                    for (int w = 1; w < words.Length && w < maxClasses; w++)
-                    {
-                        if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
-                        {
-                            topRow[w].Bonuses.Add(new ClassBonus() { EntityTypeId = EntityTypes.CrawlerSpell, EntityId = crawlerSpell.IdKey, Quantity = 1 });
-                        }
-                    }
                     continue;
                 }
-
+                if (TryAddBonus<ItemTypeSettings>(gs.data, EntityTypes.Item, words, topRow))
+                {
+                    continue;
+                }
 
                 PropertyInfo prop = props.FirstOrDefault(x => x.Name == words[0]);
 
                 if (prop != null)
                 {
-                    for (int w = 0; w < words.Length && w < maxClasses; w++)
+                    for (int w = 0; w < words.Length && w < MaxRoles; w++)
                     {
                         if (topRow[w] != null && !String.IsNullOrEmpty(words[w]))
                         {
-                            if (Int32.TryParse(words[w], out int val))
+                            if (Int32.TryParse(words[w], out int ival))
                             {
-                                EntityUtils.SetObjectValue(topRow[w], prop, val);
+                                EntityUtils.SetObjectValue(topRow[w], prop, ival);
+                            }
+                            else if (double.TryParse(words[w], out double dval))
+                            {
+                                EntityUtils.SetObjectValue(topRow[w], prop, dval);
+                            }
+                            else if (prop.PropertyType == typeof(string))
+                            {
+                                EntityUtils.SetObjectValue(topRow[w], prop, words[w]);
                             }
                         }
                     }
@@ -144,8 +160,40 @@ namespace Genrpg.Editor.Importers
                 }
             }
 
+            List<Role> newRoles = topRow.Where(x=>x != null).ToList();
+
+            gs.data.Get<RoleSettings>(null).SetData(newRoles);
+
             await Task.CompletedTask;
             return true;
+        }
+
+        private bool TryAddBonus<T>(IGameData gameData, long entityTypeId, string[] words, Role[] topRow) where T : ITopLevelSettings
+        {
+
+            try
+            {
+                List<IIdName> children = gameData.Get<T>(null).GetChildren().Cast<IIdName>().ToList();
+
+                IIdName child = children.FirstOrDefault(x => x.Name == words[0]);
+
+                if (child != null)
+                {
+                    for (int w = 1; w < words.Length && w < MaxRoles; w++)
+                    {
+                        if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
+                        {
+                            topRow[w].Bonuses.Add(new RoleBonus() { EntityTypeId = entityTypeId, EntityId = child.IdKey });
+                        }
+                    }
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Invalid cast");
+            }
+            return false;
         }
     }
 }

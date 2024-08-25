@@ -32,7 +32,6 @@ using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.MapServer.Maps.Constants;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.HelperClasses;
@@ -529,7 +528,6 @@ namespace Genrpg.MapServer.Maps
             {
                 _objectGrid[gridItem.GX, gridItem.GZ].RemoveObj(gridItem.Obj);
                 RemoveItemFromOldGridOnRemoveFromMap(gridItem);
-                // JRATODO
                 _totalGridLocks++;
             }
 

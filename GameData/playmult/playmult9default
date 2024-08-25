@@ -1,0 +1,8 @@
+{
+  "Id": "playmult9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Mult": 500,
+  "MinEnergy": 10000,
+  "UpdateTime": "2024-08-17T18:29:13.925Z"
+}

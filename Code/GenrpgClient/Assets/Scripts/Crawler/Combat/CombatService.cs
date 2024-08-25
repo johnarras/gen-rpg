@@ -35,7 +35,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using static UnityEngine.Rendering.PostProcessing.SubpixelMorphologicalAntialiasing;
 
 namespace Assets.Scripts.Crawler.Services.Combat
 {
@@ -51,10 +50,6 @@ namespace Assets.Scripts.Crawler.Services.Combat
         private ICrawlerService _crawlerService;
         private ICrawlerWorldService _worldService;
         private ILogService _logService;
-
-
-
-
 
         public async Task Initialize(CancellationToken token)
         {
@@ -91,19 +86,20 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             List<PartyMember> members = party.GetActiveParty();
 
+            RoleSettings roleSettings = _gameData.Get<RoleSettings>(_gs.ch);
+
             foreach (PartyMember member in members)
             {
+                List<Role> roles = roleSettings.GetRoles(member.Roles);
+
+                long quantity = (long)(1 + (roleSettings.GetScalingBonusPerLevel(roles.Select(x => x.SummonScaling).ToList()) * member.GetAbilityLevel()));
+
                 foreach (PartySummon summon in member.Summons)
                 {
                     UnitType unitType = _gameData.Get<UnitSettings>(null).Get(summon.UnitTypeId);
 
                     if (unitType != null)
-                    {
-
-                        List<Class> classes = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
-
-                        long quantity = (long)(1 + classes.Sum(x => 1.0f / x.LevelsPerSummon)) * (member.GetAbilityLevel());
-                                
+                    { 
                         AddCombatUnits(party, unitType, 1, FactionTypes.Player);
                     }
                 }
@@ -240,7 +236,6 @@ namespace Assets.Scripts.Crawler.Services.Combat
         public void AddCombatUnits(PartyData partyData, UnitType unitType, long unitQuantity, long factionTypeId,
             int currRange = CrawlerCombatConstants.MinRange)
         {
-
             if (partyData.Combat == null)
             {
                 return;
@@ -518,7 +513,10 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             foreach (CombatGroup group in combat.Allies)
             {
-                SelectGroupActions(party, group, new List<CrawlerUnit>(), combat.Allies, combat.Enemies, monsterSpells);
+                if (group == party.Combat.PartyGroup && party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Fight)
+                {
+                    SelectGroupActions(party, group, new List<CrawlerUnit>(), combat.Allies, combat.Enemies, monsterSpells);
+                }
             }
 
             foreach (CombatGroup group in combat.Enemies)

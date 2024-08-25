@@ -26,6 +26,7 @@ using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.MapServer.Spawns.Services;
 using Genrpg.Shared.Units.Settings;
+using Genrpg.Shared.Rewards.Entities;
 
 namespace Genrpg.MapServer.Units.Services
 {
@@ -64,8 +65,8 @@ namespace Genrpg.MapServer.Units.Services
                 FirstAttacker = firstAttacker,
             };
 
-            targ.Loot = new List<SpawnResult>();
-            targ.SkillLoot = new List<SpawnResult>();
+            targ.Loot = new List<Reward>();
+            targ.SkillLoot = new List<Reward>();
 
             RollData rollData = new RollData()
             {
@@ -77,14 +78,14 @@ namespace Genrpg.MapServer.Units.Services
 
             if (firstAttacker != null)
             {
-                targ.SkillLoot = new List<SpawnResult>();
+                targ.SkillLoot = new List<Reward>();
 
                 targ.Loot = _spawnService.Roll(rand, _gameData.Get<SpawnSettings>(targ).MonsterLootSpawnTableId, rollData);
                 LevelInfo levelData = _gameData.Get<LevelSettings>(targ).Get(targ.Level);
 
                 if (levelData != null)
                 {
-                    targ.Loot.Add(new SpawnResult()
+                    targ.Loot.Add(new Reward()
                     {
                         EntityTypeId = EntityTypes.Currency,
                         EntityId = CurrencyTypes.Money,

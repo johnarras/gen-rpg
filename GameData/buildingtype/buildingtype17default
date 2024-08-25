@@ -3,9 +3,10 @@
   "ParentId": "default",
   "IdKey": 17,
   "Name": "Tavern",
+  "Icon": "Tavern",
   "Art": "Tavern",
   "Radius": 5,
   "IsCrawlerBuilding": true,
   "VariationCount": 1,
-  "UpdateTime": "2024-08-01T00:27:58.603Z"
+  "UpdateTime": "2024-08-24T23:03:45.66Z"
 }

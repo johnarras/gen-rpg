@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 using System.Configuration;
-using static System.Net.WebRequestMethods;
+using Azure.Storage.Blobs;
+using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Reflection.Metadata;
 
 namespace FileUploader
 {
@@ -13,6 +14,12 @@ namespace FileUploader
         public static void Main(string[] args)
         {
             string output = "";
+
+            //args = new string[3];
+            //args[0] = "False";
+            //args[1] = "C:/Data/genrpg/Code/GenrpgClient/Assets/../AssetBundles/win/tilesadventuretile";
+            //args[2] = "genrpgdev/0.0.5/win/tilesadventuretile_592db9d979b2b5805fc87e1cf6843a2b";
+
 
             try
             {
@@ -34,33 +41,21 @@ namespace FileUploader
                 fdata.SetLocalPath(args[1]);
                 fdata.SetRemotePath(args[2]);
 
+                BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
 
-                var account = CloudStorageAccount.Parse(_connectionString);
+                BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(fdata.GetContainerName());
 
-                var client = account.CreateCloudBlobClient();
+                BlobClient blobClient = containerClient.GetBlobClient(fdata.GetBlobPath());
 
-                string containerName = fdata.GetContainerName();
-                var cont = client.GetContainerReference(containerName);
-                BlobContainerPublicAccessType accessType = BlobContainerPublicAccessType.Container;
+                using var stream = new MemoryStream (File.ReadAllBytes(fdata.GetLocalPath()));
 
-                var opts = new BlobRequestOptions();
-
-                var context = new OperationContext();
-                cont.CreateIfNotExistsAsync(accessType, opts, context).GetAwaiter().GetResult();
-
-                var remotePathRemainder = fdata.GetBlobPath();
+                blobClient.Upload(stream, overwrite: true);
 
 
-                CloudBlockBlob blockBlob = cont.GetBlockBlobReference(remotePathRemainder);
-
-                if (blockBlob != null)
-                {
-                    Task.Run(() => blockBlob.UploadFromFileAsync(fdata.GetLocalPath())).Wait();
-                }
             }
             catch (Exception e)
             {
-                output += "Esception: " + e.Message + " " + e.StackTrace;
+                output += "Exception: " + e.Message + " " + e.StackTrace;
             }
 
             System.IO.File.WriteAllText("output.txt", output);

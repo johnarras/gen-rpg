@@ -1,12 +1,6 @@
 {
   "Data": [
     {
-      "Id": "targettype0default",
-      "ParentId": "default",
-      "Name": "None",
-      "UpdateTime": "2024-08-01T00:28:13.712Z"
-    },
-    {
       "Id": "targettype1default",
       "ParentId": "default",
       "IdKey": 1,

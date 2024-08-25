@@ -23,7 +23,6 @@ using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.Accounts.Services;
 using Genrpg.Shared.Accounts.PlayerData;
-using System.Security.Principal;
 using Genrpg.Shared.Users.PlayerData;
 using Genrpg.ServerShared.Utils;
 using MongoDB.Driver;
@@ -31,7 +30,6 @@ using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Core;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.RequestServer.PlayerData.Services;
-using AutoMapper.Execution;
 
 namespace Genrpg.RequestServer.AuthCommandHandlers
 {

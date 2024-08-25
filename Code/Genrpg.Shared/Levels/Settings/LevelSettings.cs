@@ -6,9 +6,9 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Rewards.Entities;
 
 namespace Genrpg.Shared.Levels.Settings
 {
@@ -22,7 +22,7 @@ namespace Genrpg.Shared.Levels.Settings
         [Key(3)] public override string Name { get; set; }
         [Key(4)] public string Desc { get; set; }
         [Key(5)] public string Icon { get; set; }
-        [Key(6)] public List<SpawnResult> RewardList { get; set; }
+        [Key(6)] public List<Reward> RewardList { get; set; }
 
         [Key(7)] public long CurrExp { get; set; }
         [Key(8)] public float MobCount { get; set; }
@@ -41,7 +41,7 @@ namespace Genrpg.Shared.Levels.Settings
 
         public LevelInfo()
         {
-            RewardList = new List<SpawnResult>();
+            RewardList = new List<Reward>();
         }
     }
 

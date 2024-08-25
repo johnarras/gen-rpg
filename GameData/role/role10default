@@ -1,0 +1,118 @@
+{
+  "Id": "role10default",
+  "ParentId": "default",
+  "IdKey": 10,
+  "Name": "Paladin",
+  "Desc": "Tanky Heals",
+  "Abbrev": "Pa",
+  "RoleCategoryId": 1,
+  "MeleeScaling": 0.34,
+  "RangedScaling": 0.17,
+  "SpellDamScaling": 0.25,
+  "HealingScaling": 0.34,
+  "SummonScaling": 0.17,
+  "HealthPerLevel": 20,
+  "ManaPerLevel": 18,
+  "MaxArmorScalingTypeId": 4,
+  "CritPercent": 5,
+  "ManaStatTypeId": 13,
+  "Bonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 22
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 25
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 26
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 27
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 16
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 71
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 8
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 15
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 16
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 17
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 43
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 53
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 1
+    }
+  ],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

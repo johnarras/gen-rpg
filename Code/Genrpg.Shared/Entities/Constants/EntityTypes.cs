@@ -28,6 +28,8 @@ namespace Genrpg.Shared.Entities.Constants
         public const long Reputation = 20;
         public const long Chest = 21;
         public const long BoardPrize = 22;
+        public const long BoardMode = 23;
+
 
         public const long Stat = 31;
         public const long StatPct = 32;

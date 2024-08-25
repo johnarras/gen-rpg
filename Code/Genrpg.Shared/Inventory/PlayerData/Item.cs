@@ -24,9 +24,10 @@ namespace Genrpg.Shared.Inventory.PlayerData
         [Key(8)] public long Level { get; set; }
         [Key(9)] public long ScalingTypeId { get; set; }
         [Key(10)] public long EquipSlotId { get; set; }
-        [Key(11)] public long Cost { get; set; }
+        [Key(11)] public long BuyCost { get; set; }
+        [Key(12)] public long SellValue { get; set; }
 
-        [Key(12)] public List<ItemProc> Procs { get; set; } = new List<ItemProc>();
+        [Key(13)] public List<ItemProc> Procs { get; set; } = new List<ItemProc>();
 
         /// <summary>
         /// Cache this on the item when it's in memory so we don't have to keep looking it up.

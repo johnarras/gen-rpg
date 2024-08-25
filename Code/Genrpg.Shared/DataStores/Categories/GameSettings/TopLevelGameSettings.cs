@@ -13,5 +13,9 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
             gameData.Set(this);
         }
 
+        public virtual void SetupForEditor()
+        {
+
+        }
     }
 }

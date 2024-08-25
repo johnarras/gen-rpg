@@ -1,0 +1,9 @@
+{
+  "Id": "default",
+  "StartCreditsMult": 10,
+  "StartGems": 50,
+  "StartEnergy": 100,
+  "StartCredits": 250,
+  "Name": "NewUserSettings",
+  "UpdateTime": "2024-08-17T14:59:37.991Z"
+}

@@ -7,6 +7,7 @@ using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.ProcGen.Settings.Trees;
+using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
@@ -73,7 +74,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             byte[,] overrides = new byte[map.Width, map.Height];
             long[,] terrain = new long[map.Width, map.Height];
             long[,] regionCells = new long[map.Width, map.Height];
-            SpawnResult[,] objects = new SpawnResult[map.Width, map.Height];
+            Reward[,] objects = new Reward[map.Width, map.Height];
 
             List<ZoneRegion> regions = new List<ZoneRegion>();
 

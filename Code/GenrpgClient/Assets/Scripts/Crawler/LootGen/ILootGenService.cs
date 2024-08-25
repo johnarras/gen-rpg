@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Crawler.Services.Combat;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Utils;
 using System.Collections.Generic;

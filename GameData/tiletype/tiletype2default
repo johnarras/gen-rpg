@@ -8,7 +8,16 @@
   "Art": "HomeTile",
   "MaxQuantity": 1,
   "OnMainPath": true,
-  "PassRewards": [],
+  "PassRewards": [
+    {
+      "EntityTypeId": 200,
+      "EntityId": 2,
+      "MinQuantity": 10,
+      "MaxQuantity": 20,
+      "Weight": 100.0,
+      "Name": "None"
+    }
+  ],
   "LandRewards": [],
-  "UpdateTime": "2024-08-11T00:22:11.82Z"
+  "UpdateTime": "2024-08-17T15:09:18.977Z"
 }

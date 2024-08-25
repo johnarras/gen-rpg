@@ -1,13 +1,6 @@
 {
   "Data": [
     {
-      "Id": "sextype0default",
-      "ParentId": "default",
-      "Name": "None",
-      "CostPercent": 100,
-      "UpdateTime": "2024-08-01T00:28:12.235Z"
-    },
-    {
       "Id": "sextype1default",
       "ParentId": "default",
       "IdKey": 1,

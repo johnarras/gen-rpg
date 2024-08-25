@@ -1,20 +1,6 @@
 {
   "Data": [
     {
-      "Id": "unittype0default",
-      "ParentId": "default",
-      "Name": "None",
-      "Effects": [],
-      "PrefixNames": [],
-      "DoubleNameSuffixes": [],
-      "SuffixNames": [],
-      "AlternateNames": [],
-      "FoodSources": [],
-      "LootItems": [],
-      "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.19Z"
-    },
-    {
       "Id": "unittype1default",
       "ParentId": "default",
       "IdKey": 1,

@@ -8,7 +8,7 @@ namespace Genrpg.Editor.Constants
 {
     public enum EImportTypes
     {
-        CrawlerClasses = 0,
+        CrawlerRoles = 0,
         UnitTypes = 1,
         UnitSpawns = 2,
         UnitKeywords=3,

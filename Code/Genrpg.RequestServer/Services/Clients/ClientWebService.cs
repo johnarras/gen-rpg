@@ -12,8 +12,9 @@ using Genrpg.Shared.Website.Messages.Error;
 using Genrpg.RequestServer.Utils;
 using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Core;
-using Genrpg.RequestServer.ClientCommandHandlers;
 using Genrpg.Shared.Users.PlayerData;
+using Genrpg.RequestServer.ClientCommands;
+using Genrpg.RequestServer.Resets.Services;
 
 namespace Genrpg.RequestServer.Services.Clients
 {
@@ -23,8 +24,9 @@ namespace Genrpg.RequestServer.Services.Clients
         private IRepositoryService _repoService = null;
         private ILogService _logService = null;
         private IWebServerService _loginServerService = null;
+        private IHourlyUpdateService _hourlyUpdateService = null;
 
-        public async Task HandleWebCommand(WebContext context, string postData, CancellationToken token)
+        public async Task HandleClientWebCommand(WebContext context, string postData, CancellationToken token)
         {
             WebServerCommandSet commandSet = SerializationUtils.Deserialize<WebServerCommandSet>(postData);
 
@@ -80,6 +82,7 @@ namespace Genrpg.RequestServer.Services.Clients
             }
 
             _gameDataService.SetGameDataOverrides(context.user, false);
+            await _hourlyUpdateService.CheckHourlyUpdate(context);
 
             return;
         }

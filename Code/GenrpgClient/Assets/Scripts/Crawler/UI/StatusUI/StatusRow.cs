@@ -1,9 +1,10 @@
 ﻿using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.UnitEffects.Services;
-using Genrpg.Shared.Units.Entities;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.UI.Crawler.StatusUI
 {
@@ -88,23 +89,22 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                     _uIInitializable.SetText(Mana, currMana + "/" + maxMana);
                 }
 
-                ClassSettings classSettings = _gameData.Get<ClassSettings>(_gs.ch);
+                RoleSettings roleSettings = _gameData.Get<RoleSettings>(_gs.ch);
                 string classText = "";
 
-                foreach (UnitClass uc in _partyMember.Classes)
+                List<Role> roles = roleSettings.GetRoles(_partyMember.Roles);
+                
+                if (!string.IsNullOrEmpty(classText))
                 {
-                    Class cl = classSettings.Get(uc.ClassId);
+                    classText += "/";
+                }
 
-                    if (cl == null)
+                foreach (Role role in roles)
+                {
+                    if (role.RoleCategoryId == RoleCategories.Class)
                     {
-                        continue;
+                        classText += role.Abbrev;
                     }
-
-                    if (!string.IsNullOrEmpty(classText))
-                    {
-                        classText += "/";
-                    }
-                    classText += cl.Abbrev;
                 }
 
                 _uIInitializable.SetText(Class, classText);

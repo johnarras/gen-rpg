@@ -19,6 +19,9 @@ using System.Runtime.InteropServices;
 using System;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Crawler.Services;
+using Genrpg.Shared.Website.Messages;
+using Genrpg.Shared.Website.Interfaces;
+using static ClientWebService;
 
 
 public interface IInitClient : IInjectable
@@ -93,12 +96,13 @@ public class InitClient : BaseBehaviour, IInitClient
 
         ClientWebRequest req = new ClientWebRequest();
         string url = base._gs.Config.InitialConfigEndpoint + "?env=" + envName;
-        AwaitableUtils.ForgetAwaitable(req.SendRequest(_logService, url, "", OnGetWebConfig, _gameTokenSource.Token));
+
+        AwaitableUtils.ForgetAwaitable(req.SendRequest(_logService, url, null, null, OnGetWebConfig, _gameTokenSource.Token));
 
         await Task.CompletedTask;
     }
 
-    private void OnGetWebConfig(string txt, CancellationToken token)
+    private void OnGetWebConfig(string txt, List<FullWebCommand> commands,  CancellationToken token)
     {
         AwaitableUtils.ForgetAwaitable(OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token));
     }

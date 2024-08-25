@@ -1,0 +1,134 @@
+{
+  "Id": "role1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Engineer",
+  "Desc": "Hybrid ",
+  "Abbrev": "En",
+  "RoleCategoryId": 1,
+  "MeleeScaling": 0.25,
+  "RangedScaling": 0.34,
+  "SpellDamScaling": 0.25,
+  "HealingScaling": 0.2,
+  "SummonScaling": 0.25,
+  "HealthPerLevel": 18,
+  "ManaPerLevel": 14,
+  "MaxArmorScalingTypeId": 3,
+  "CritPercent": 5,
+  "ManaStatTypeId": 12,
+  "Bonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 25
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 26
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 27
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 29
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 30
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 70
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 7
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 8
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 18
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 19
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 33
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 39
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 48
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 53
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 58
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 59
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 3
+    }
+  ],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

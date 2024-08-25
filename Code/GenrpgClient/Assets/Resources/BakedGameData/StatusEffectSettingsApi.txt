@@ -1,13 +1,6 @@
 {
   "Data": [
     {
-      "Id": "statuseffect0default",
-      "ParentId": "default",
-      "Name": "None",
-      "ActionEffects": [],
-      "UpdateTime": "2024-08-01T00:28:13.057Z"
-    },
-    {
       "Id": "statuseffect1default",
       "ParentId": "default",
       "IdKey": 1,

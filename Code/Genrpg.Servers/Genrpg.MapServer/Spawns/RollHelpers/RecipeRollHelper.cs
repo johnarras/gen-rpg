@@ -3,6 +3,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Spawns.Settings;
@@ -19,14 +20,14 @@ namespace Genrpg.MapServer.Spawns.RollHelpers
         public long GetKey() { return EntityTypes.Recipe; }
 
         private IServerCraftingService _craftingService = null;
-        public List<SpawnResult> Roll<SI>(IRandom rand, RollData rollData, SI spawnItem) where SI : ISpawnItem
+        public List<Reward> Roll<SI>(IRandom rand, RollData rollData, SI spawnItem) where SI : ISpawnItem
         {
-            List<SpawnResult> retval = new List<SpawnResult>();
+            List<Reward> retval = new List<Reward>();
 
             Item newItem = _craftingService.GenerateRecipeReward(rand, rollData.Level);
             if (newItem != null)
             {
-                SpawnResult sr = new SpawnResult();
+                Reward sr = new Reward();
                 sr.EntityId = newItem.ItemTypeId;
                 sr.EntityTypeId = EntityTypes.Item;
                 sr.Quantity = 1;

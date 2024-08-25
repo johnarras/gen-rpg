@@ -10,6 +10,7 @@ using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Inventory.Constants;
 
 public class InitItemTooltipData : InitTooltipData
 {
@@ -81,6 +82,7 @@ public class ItemTooltip : BaseTooltip
         GEntityUtils.DestroyAllChildren(RowParent);
         _rows = new List<ItemTooltipRow>();
 
+
         List<ItemEffect> otherEffects = new List<ItemEffect>();
         if (_data.compareToItem != null && _data.compareToItem.Effects != null)
         {
@@ -91,11 +93,27 @@ public class ItemTooltip : BaseTooltip
         {
             return;
         }
+        if (_data.mainItemType != null)
+        {
+            if (_data.mainItemType.EquipSlotId == EquipSlots.MainHand ||
+                _data.mainItem.EquipSlotId == EquipSlots.Ranged)
+            {
 
-        if (_data.mainItem.Effects == null || _data.mainItem.Effects.Count < 1)
+                ItemTooltipRowData rowData = new ItemTooltipRowData()
+                {
+                    text = "Dam: " + _data.mainItemType.MinVal + "-" + _data.mainItemType.MaxVal,
+                    isCurrent = false,
+                    change = 0,
+                    starsToShow = 0
+                };
+                ShowTooltipRow(rowData);
+            }
+        }
+
+            if (_data.mainItem.Effects == null || _data.mainItem.Effects.Count < 1)
         {
             if (_data.mainItemType != null && _data.mainItemType.Effects != null)
-            {
+                {
                 foreach (ItemEffect eff in _data.mainItemType.Effects)
                 {
                     if (eff.EntityTypeId == EntityTypes.Stat || eff.EntityTypeId == EntityTypes.StatPct)
@@ -217,12 +235,12 @@ public class ItemTooltip : BaseTooltip
             if (!_data.isVendorItem)
             {
                 _uIInitializable.SetText(MoneyText, "Sell:");
-                cost = ItemUtils.GetSellToVendorPrice(_gameData, _unit, _data.mainItem);
+                cost = _data.mainItem.SellValue;
             }
             else
             {
                 _uIInitializable.SetText(MoneyText, "Price:");
-                cost = ItemUtils.GetBuyFromVendorPrice(_gameData, _unit, _data.mainItem);
+                cost = _data.mainItem.BuyCost;
             }
 
             Money.SetMoney(cost);

@@ -1,0 +1,12 @@
+{
+  "Id": "chest8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "Random Chest",
+  "Desc": "",
+  "Icon": "RandomChest",
+  "Art": "RandomChest",
+  "UnlockMinutes": -1,
+  "Loot": [],
+  "UpdateTime": "2024-08-24T14:32:46.576Z"
+}

@@ -23,6 +23,9 @@ using System.Linq;
 using Genrpg.Editor.UI;
 using Genrpg.Shared.MapMessages;
 using Microsoft.UI.Xaml;
+using CommunityToolkit.WinUI.UI.Controls;
+using Genrpg.Shared.Utils.Data;
+using Genrpg.Shared.Entities.Utils;
 
 namespace Genrpg.Editor.Utils
 {
@@ -66,6 +69,7 @@ namespace Genrpg.Editor.Utils
 
             foreach (ITopLevelSettings settings in allSettings)
             {
+                settings.SetupForEditor();
                 if (settings is BaseGameSettings baseSettings)
                 {
                     if (baseSettings.UpdateTime == DateTime.MinValue)
@@ -77,6 +81,7 @@ namespace Genrpg.Editor.Utils
 
             return gs;
         }
+
 
         public static async Task SaveFullGameData(IUICanvas form, FullGameDataCopy dataCopy, string env, bool deleteExistingData, CancellationToken token)
         {

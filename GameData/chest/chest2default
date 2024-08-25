@@ -2,12 +2,12 @@
   "Id": "chest2default",
   "ParentId": "default",
   "IdKey": 2,
-  "Name": "Uncommon Chest",
-  "Icon": "UncommonChest",
-  "Art": "UncommonChest",
-  "UnlockMinutes": 480,
-  "Tier": 2,
-  "TieredLootMult": 2,
+  "Name": "Common Chest",
+  "Icon": "CommonChest",
+  "Art": "CommonChest",
+  "UnlockMinutes": 240,
+  "Tier": 1,
+  "TieredLootMult": 1,
   "Loot": [],
-  "UpdateTime": "2024-08-10T17:23:08.661Z"
+  "UpdateTime": "2024-08-24T14:32:46.576Z"
 }

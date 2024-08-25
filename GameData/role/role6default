@@ -1,0 +1,114 @@
+{
+  "Id": "role6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Hunter",
+  "Desc": "Ranged Combat",
+  "Abbrev": "Hu",
+  "RoleCategoryId": 1,
+  "MeleeScaling": 0.17,
+  "RangedScaling": 0.5,
+  "SpellDamScaling": 0.17,
+  "HealingScaling": 0.125,
+  "SummonScaling": 0.34,
+  "HealthPerLevel": 18,
+  "ManaPerLevel": 14,
+  "MaxArmorScalingTypeId": 3,
+  "CritPercent": 15,
+  "ManaStatTypeId": 12,
+  "Bonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 22
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 25
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 26
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 29
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 30
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 70
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 6
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 7
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 17
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 39
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 41
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 60
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 5
+    }
+  ],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

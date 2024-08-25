@@ -52,17 +52,5 @@ namespace Assets.Scripts.Crawler.Maps.GameObjects
                 GetCell(detail.X, detail.Z).Details.Add(detail);
             }
         }
-
-
-        public byte EastWall(int x, int y)
-        {
-            return (byte)((Map.Get(x,y,CellIndex.Walls) >> MapWallBits.EWallStart) % (1 << MapWallBits.WallBitSize));
-        }
-
-        public byte NorthWall(int x, int y)
-        {
-            return (byte)((Map.Get(x, y, CellIndex.Walls) >> MapWallBits.NWallStart) % (1 << MapWallBits.WallBitSize));
-        }
-
     }
 }

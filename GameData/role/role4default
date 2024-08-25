@@ -1,0 +1,110 @@
+{
+  "Id": "role4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Warrior",
+  "Desc": "Tough Fighter",
+  "Abbrev": "Wa",
+  "RoleCategoryId": 1,
+  "MeleeScaling": 0.34,
+  "RangedScaling": 0.17,
+  "SpellDamScaling": 0.144,
+  "HealingScaling": 0.125,
+  "SummonScaling": 0.125,
+  "HealthPerLevel": 22,
+  "ManaPerLevel": 10,
+  "MaxArmorScalingTypeId": 4,
+  "CritPercent": 5,
+  "ManaStatTypeId": 13,
+  "Bonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 22
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 25
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 26
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 27
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 28
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 29
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 30
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 33
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 63
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 70
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 71
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 36
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 37
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 48
+    }
+  ],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

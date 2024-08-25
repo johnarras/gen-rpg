@@ -173,19 +173,19 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             int blockBits = 0;
             if (ex > sx) // East
             {
-                blockBits = mapRoot.EastWall(sx, sz);
+                blockBits = mapRoot.Map.EastWall(sx, sz);
             }
             else if (ex < sx) // West
             {
-                blockBits = mapRoot.EastWall((sx + mapRoot.Map.Width - 1) % mapRoot.Map.Width, sz);
+                blockBits = mapRoot.Map.EastWall((sx + mapRoot.Map.Width - 1) % mapRoot.Map.Width, sz);
             }
             else if (ez > sz) // Up
             {
-                blockBits = mapRoot.NorthWall(sx, sz);
+                blockBits = mapRoot.Map.NorthWall(sx, sz);
             }
             else if (ez < sz) // Down
             {
-                blockBits = mapRoot.NorthWall(sx, (sz + mapRoot.Map.Height - 1) % mapRoot.Map.Height);
+                blockBits = mapRoot.Map.NorthWall(sx, (sz + mapRoot.Map.Height - 1) % mapRoot.Map.Height);
             }
 
             int safeEx = (ex + mapRoot.Map.Width) % mapRoot.Map.Width;
@@ -277,7 +277,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             Vector3 nOffset = new Vector3(0, bz / 2, bz / 2);
             Vector3 nRot = new Vector3(0, 0, 0);
 
-            int northBits = mapRoot.NorthWall(cell.X, cell.Z);
+            int northBits = mapRoot.Map.NorthWall(cell.X, cell.Z);
 
             if (northBits == WallTypes.Wall || northBits == WallTypes.Secret)
             {
@@ -297,7 +297,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             Vector3 eOffset = new Vector3(bz / 2, bz / 2, 0);
             Vector3 eRot = new Vector3(0, 90, 0);
 
-            int eastBits = mapRoot.EastWall(cell.X, cell.Z);
+            int eastBits = mapRoot.Map.EastWall(cell.X, cell.Z);
 
             if (eastBits == WallTypes.Wall || eastBits == WallTypes.Secret)
             {

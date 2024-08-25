@@ -2,13 +2,12 @@
   "Id": "chest3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "Rare Chest",
-  "Desc": "",
-  "Icon": "RareChest",
-  "Art": "RareChest",
-  "UnlockMinutes": 720,
-  "Tier": 3,
-  "TieredLootMult": 3,
+  "Name": "Uncommon Chest",
+  "Icon": "UncommonChest",
+  "Art": "UncommonChest",
+  "UnlockMinutes": 480,
+  "Tier": 2,
+  "TieredLootMult": 2,
   "Loot": [],
-  "UpdateTime": "2024-08-10T17:23:08.661Z"
+  "UpdateTime": "2024-08-24T14:32:46.576Z"
 }

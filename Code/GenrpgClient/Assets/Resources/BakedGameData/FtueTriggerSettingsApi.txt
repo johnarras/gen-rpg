@@ -1,11 +1,6 @@
 {
   "Data": [
     {
-      "Id": "ftuetrigger0default",
-      "ParentId": "default",
-      "UpdateTime": "2024-08-01T00:28:06.762Z"
-    },
-    {
       "Id": "ftuetrigger1default",
       "ParentId": "default",
       "IdKey": 1,

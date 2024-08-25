@@ -18,7 +18,7 @@ namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
     public class CoreCharacterLoadUpdater : BaseCharacterLoadUpdater
     {
         private IGameData _gameData = null;
-        public override int Priority => 1;
+        public override int Order => 1;
 
         public override async Task Update(WebContext context, Character ch)
         {

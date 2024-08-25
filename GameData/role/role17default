@@ -1,0 +1,12 @@
+{
+  "Id": "role17default",
+  "ParentId": "default",
+  "IdKey": 17,
+  "Name": "Halfling",
+  "Desc": "More Crit",
+  "Abbrev": "Hf",
+  "RoleCategoryId": 2,
+  "CritPercent": 5,
+  "Bonuses": [],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

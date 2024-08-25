@@ -18,20 +18,18 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
     {
         [Key(0)] public int PartySlot { get; set; }
 
-        [Key(1)] public long RaceId { get; set; }
+        [Key(1)] public List<Item> Equipment { get; set; } = new List<Item>();
 
-        [Key(2)] public List<Item> Equipment { get; set; } = new List<Item>();
+        [Key(2)] public List<MemberStat> PermStats { get; set; } = new List<MemberStat>();
 
-        [Key(3)] public List<MemberStat> PermStats { get; set; } = new List<MemberStat>();
+        [Key(3)] public long Exp { get; set; }
 
-        [Key(4)] public long Exp { get; set; }
+        [Key(4)] public List<PartySummon> Summons { get; set; } = new List<PartySummon>();
 
-        [Key(5)] public List<PartySummon> Summons { get; set; } = new List<PartySummon>();
-
-        [Key(6)] public long WarpMapId { get; set; }
-        [Key(7)] public int WarpMapX { get; set; }
-        [Key(8)] public int WarpMapZ { get; set; }
-        [Key(9)] public int WarpRot { get; set; }
+        [Key(5)] public long WarpMapId { get; set; }
+        [Key(6)] public int WarpMapX { get; set; }
+        [Key(7)] public int WarpMapZ { get; set; }
+        [Key(8)] public int WarpRot { get; set; }
 
         public PartyMember(IRepositoryService repositoryService) : base(repositoryService) { }  
 

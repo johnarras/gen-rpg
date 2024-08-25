@@ -10,8 +10,8 @@ namespace Genrpg.Shared.HelperClasses
 {
     public class SetupDictionaryContainer<Key, Val> : IInitOnResolve where Val : ISetupDictionaryItem<Key>
     {
-        private IServiceLocator _loc = null!;
-        private Dictionary<Key, Val> _dictionary = new Dictionary<Key, Val>();
+        protected IServiceLocator _loc = null!;
+        protected Dictionary<Key, Val> _dictionary = new Dictionary<Key, Val>();
         public void Init()
         {
             _dictionary = ReflectionUtils.SetupDictionary<Key, Val>(_loc);

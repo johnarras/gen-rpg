@@ -20,6 +20,9 @@ namespace Genrpg.Shared.Crawler.Training.Settings
         [Key(5)] public long StartMonsterExp { get; set; } = 100;
         [Key(6)] public long ExtraMonsterExp { get; set; } = 25;
 
+        [Key(7)] public double LowerStatIncreaseChance { get; set; } = 0.75;
+        [Key(8)] public double MaxStatIncreaseChance { get; set; } = 0.50;
+
         public long GetExpToLevel(long level)
         {
             if (level < 1)

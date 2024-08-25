@@ -1,0 +1,102 @@
+{
+  "Id": "role5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Thief",
+  "Desc": "Sneaky Fighter",
+  "Abbrev": "Th",
+  "RoleCategoryId": 1,
+  "MeleeScaling": 0.2,
+  "RangedScaling": 0.2,
+  "SpellDamScaling": 0.17,
+  "HealingScaling": 0.125,
+  "SummonScaling": 0.125,
+  "HealthPerLevel": 16,
+  "ManaPerLevel": 10,
+  "MaxArmorScalingTypeId": 2,
+  "CritPercent": 20,
+  "ManaStatTypeId": 12,
+  "Bonuses": [
+    {
+      "EntityTypeId": 2,
+      "EntityId": 21
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 22
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 23
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 24
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 30
+    },
+    {
+      "EntityTypeId": 2,
+      "EntityId": 31
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 16
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 31,
+      "EntityId": 63
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 4
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 5
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 18
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 19
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 46
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 47
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 60
+    },
+    {
+      "EntityTypeId": 101,
+      "EntityId": 2
+    }
+  ],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

@@ -29,9 +29,12 @@ namespace Genrpg.Shared.Activities.Settings
 
         [Key(10)] public long BaseCost { get; set; }
         [Key(11)] public long IncrementalCost { get; set; }
-        [Key(12)] public long MaxLevel { get; set; }
+        [Key(12)] public int MaxRewardTier { get; set; }
         [Key(13)] public long BaseReward { get; set; }
         [Key(14)] public long IncrementalReward { get; set; }
+
+        [Key(15)] public long MinLevel { get; set; } = 5;
+        [Key(16)] public long MaxLevel { get; set; } = 0;
 
         public long GetCost(long nextLevel)
         {
@@ -42,9 +45,9 @@ namespace Genrpg.Shared.Activities.Settings
         {
             long total = baseAmount + (level - 1) * increment;
 
-            if (level > MaxLevel/2)
+            if (level > MaxRewardTier/2)
             {
-                total += increment * (MaxLevel / 2 - level - 1);
+                total += increment * (MaxRewardTier / 2 - level - 1);
             }
             return total;
         }

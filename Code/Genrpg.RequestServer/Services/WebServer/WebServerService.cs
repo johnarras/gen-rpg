@@ -2,8 +2,8 @@
 using Genrpg.Shared.HelperClasses;
 using Genrpg.RequestServer.AuthCommandHandlers;
 using Genrpg.RequestServer.Maps;
-using Genrpg.RequestServer.NoUserCommandHandlers;
-using Genrpg.RequestServer.ClientCommandHandlers;
+using Genrpg.RequestServer.NoUserCommands;
+using Genrpg.RequestServer.ClientCommands;
 
 namespace Genrpg.RequestServer.Services.WebServer
 {

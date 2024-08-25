@@ -17,18 +17,10 @@ namespace Genrpg.Shared.BoardGame.Settings
 {
 
     [MessagePackObject]
-    public class PrizeSpawn : ISpawnItem
+    public class PrizeSpawn
     {
-        public long EntityTypeId { get { return EntityTypes.BoardPrize; } set { } }
-        [Key(0)] public long EntityId { get; set; }
-        [Key(1)] public long MinQuantity { get; set; }
-        [Key(2)] public long MaxQuantity { get; set; }
-        [Key(3)] public double Weight { get; set; }
-        [Key(4)] public string Name { get; set; }
-
-        [Key(5)] public int GroupId { get; set; }
-        [Key(6)] public long MinLevel { get; set; }
-        [Key(7)] public double MinScale { get; set; }
+        [Key(0)] public long BoardPrizeId { get; set; }
+        [Key(1)] public double Weight { get; set; }
     }
 
 

@@ -1,9 +1,0 @@
-{
-  "Id": "chest0default",
-  "ParentId": "default",
-  "Name": "Mystery Chest",
-  "Icon": "Mystery Chest",
-  "Art": "MysteryChest",
-  "Loot": [],
-  "UpdateTime": "2024-08-11T15:18:30.912Z"
-}

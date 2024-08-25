@@ -389,29 +389,7 @@ public class UnityAssetService : IAssetService
 
                     if (fullPath.IndexOf(AssetConstants.ArtFileSuffix) < 0)
                     {
-                        if (categoryPath.IndexOf(AssetCategoryNames.Sprites) == 0)
-                        {
-                            string loadPath = fullPath;
-                            if (fullPath.LastIndexOf(".png") != fullPath.Length-4)
-                            {
-                                loadPath = fullPath + ".png"; 
-                            }
-                            Sprite spriteAsset = AssetDatabase.LoadAssetAtPath<Sprite>(loadPath);
-
-                            if (spriteAsset != null)
-                            {
-                                handler(spriteAsset, data, token);
-                            }
-                            else
-                            {
-                                _failedAssetPathLoads.Add(assetName);
-                            }
-                            return;
-                        }
-                        else
-                        {
-                            asset = AssetDatabase.LoadAssetAtPath<GEntity>(fullPath + AssetConstants.ArtFileSuffix);
-                        }
+                        asset = AssetDatabase.LoadAssetAtPath<GEntity>(fullPath + AssetConstants.ArtFileSuffix);
                     }
                     else
                     {
@@ -676,6 +654,21 @@ public class UnityAssetService : IAssetService
         }
         return null;
     }
+
+
+    public void LoadSpriteWithAtlasNameInto(string atlasSlashSpriteName, object parentObject, CancellationToken token)
+    {
+        string[] words = atlasSlashSpriteName.Split('/');
+        if (words.Length != 2 || string.IsNullOrEmpty(words[0]) || string.IsNullOrEmpty(words[1]))
+        {
+            _logService.Warning("Full Sprite name doesn't have format Atlas/Sprite: " + atlasSlashSpriteName);
+            return;
+        }
+
+
+        LoadAtlasSpriteInto(words[0], words[1], parentObject, token);
+    }
+
     public void LoadAtlasSpriteInto(string atlasName, string spriteName, object parentObject, CancellationToken token)
     {
         LoadAtlasSprite(atlasName, spriteName, null, parentObject, token);
@@ -849,119 +842,6 @@ public class UnityAssetService : IAssetService
         Sprite[] retval = new Sprite[atlas.spriteCount];
         atlas.GetSprites(retval);
         spriteDelegate(retval);
-    }
-
-    private Dictionary<string, CachedSpriteTexture> _spriteCache = new Dictionary<string, CachedSpriteTexture>();
-    public void LoadSpriteInto(string spriteName, GImage parent, CancellationToken token)
-    {
-        if (parent == null)
-        {
-            return;
-        }
-
-        string finalSpriteName = spriteName.Replace("/", "");
-        if (_spriteCache.ContainsKey(finalSpriteName))
-        {     
-            SpriteWithImage swi = new SpriteWithImage()
-            {
-                Cache = _spriteCache[finalSpriteName],
-                Image = parent,
-            };
-            OnLoadRawSprite(_spriteCache[finalSpriteName].CurrSprite, swi, token);
-        }
-        else
-        {
-            SpriteWithImage swi = new SpriteWithImage()
-            {
-                Cache = new CachedSpriteTexture() { SpriteName = finalSpriteName },
-                Image = parent,
-            };
-            LoadAsset(AssetCategoryNames.Sprites, spriteName, OnLoadRawSprite, swi, null, token);
-        }
-
-    }
-
-    protected void OnLoadRawSprite(object obj, object data, CancellationToken token)
-    {
-
-        SpriteWithImage swi = data as SpriteWithImage;
-
-        if (swi == null || swi.Image == null)
-        {
-            return;
-        }
-
-        Sprite currSprite = swi.Cache.CurrSprite;
-        Texture2D justDownloadedTex = obj as Texture2D;
-
-        Sprite finalSprite = null;
-
-        if (currSprite == null)
-        {
-            if (justDownloadedTex == null)
-            {
-                return;
-            }
-            else
-            {
-                finalSprite = Sprite.Create(justDownloadedTex, new Rect(0, 0, justDownloadedTex.width, justDownloadedTex.height), Vector2.zero);
-                swi.Cache.CurrSprite = finalSprite;
-                finalSprite.name = swi.Cache.SpriteName;
-            }
-        }
-        else
-        {
-            finalSprite = currSprite;
-        }
-
-        CachedSpriteTexture nameCache = swi.Cache;
-        if (nameCache == null)
-        {
-            return;
-        }
-
-        if (_spriteCache.ContainsKey(nameCache.SpriteName) &&
-            _spriteCache[nameCache.SpriteName] != nameCache)
-        {
-            nameCache = _spriteCache[nameCache.SpriteName];
-        }
-        else
-        {
-            _spriteCache[nameCache.SpriteName] = nameCache;
-        }
-        
-        if (swi.Image.sprite != null)
-        {
-            Sprite oldSprite = swi.Image.sprite;
-
-            if (finalSprite != oldSprite)
-            {
-                if (_spriteCache.TryGetValue(oldSprite.name, out CachedSpriteTexture oldTexCache))
-                {
-                    if (_spriteCache.Keys.Count > 50 && oldTexCache.Count == 0)
-                    {
-                        List<CachedSpriteTexture> oldTextures = _spriteCache.Values.Where(x=>x.Count == 0 && x.LastTimeUsed < DateTime.UtcNow.AddSeconds(-5)).ToList();
-
-                        foreach (CachedSpriteTexture oldTexture in oldTextures)
-                        { 
-                            _spriteCache.Remove(oldTexture.SpriteName);
-                            Resources.UnloadAsset(oldSprite.texture);
-                        }
-                    }
-                    oldTexCache.Count--;
-                    oldTexCache.LastTimeUsed = DateTime.UtcNow;
-                }
-            }
-            else
-            {
-                return;
-            }
-        }
-
-        nameCache.Count++;
-
-        swi.Image.sprite = finalSprite;
-
     }
 
     protected string GetBundleHash(string bundleName)

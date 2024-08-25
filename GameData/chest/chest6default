@@ -2,13 +2,13 @@
   "Id": "chest6default",
   "ParentId": "default",
   "IdKey": 6,
-  "Name": "Heroic Chest",
+  "Name": "Legendary Chest",
   "Desc": "",
-  "Icon": "HeroicChest",
-  "Art": "HeroicChest",
-  "UnlockMinutes": 4320,
-  "Tier": 6,
-  "TieredLootMult": 22,
+  "Icon": "LegendaryChest",
+  "Art": "LegendaryChest",
+  "UnlockMinutes": 2880,
+  "Tier": 5,
+  "TieredLootMult": 14,
   "Loot": [],
-  "UpdateTime": "2024-08-10T17:23:08.661Z"
+  "UpdateTime": "2024-08-24T14:32:46.576Z"
 }

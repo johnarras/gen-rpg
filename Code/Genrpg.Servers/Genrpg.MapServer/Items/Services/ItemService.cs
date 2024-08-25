@@ -20,6 +20,7 @@ using Genrpg.MapServer.Spawns.Services;
 using Genrpg.MapServer.Trades.Services;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Rewards.Services;
+using Genrpg.Shared.Rewards.Entities;
 
 namespace Genrpg.MapServer.Items.Services
 {
@@ -85,7 +86,7 @@ namespace Genrpg.MapServer.Items.Services
                         QualityTypeId = item.QualityTypeId,
                         Times = 1
                     };
-                    List<SpawnResult> newItems = _spawnService.Roll(rand, spawnProc.EntityId, rollData);
+                    List<Reward> newItems = _spawnService.Roll(rand, spawnProc.EntityId, rollData);
                     if (newItems != null)
                     {
                         _rewardService.GiveRewards(rand, ch, newItems);

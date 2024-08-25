@@ -57,7 +57,7 @@ namespace Genrpg.RequestServer.Core
         public async Task<string> HandleClient(string postData)
         {
             WebContext context = SetupContext();
-            await _clientWebService.HandleWebCommand(context, postData, _token);
+            await _clientWebService.HandleClientWebCommand(context, postData, _token);
             return WebUtils.PackageResults(context.Results);
         }
 

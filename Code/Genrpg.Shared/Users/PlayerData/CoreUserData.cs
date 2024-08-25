@@ -21,9 +21,9 @@ namespace Genrpg.Shared.Users.PlayerData
     {
         [Key(0)] public override string Id { get; set; }
 
-        [Key(1)] public DateTime LastResetTime { get; set; }
+        [Key(1)] public DateTime LastDailyReset { get; set; }
 
-        [Key(2)] public long EnergyMult { get; set; }
+        [Key(2)] public long PlayMult { get; set; }
 
         [Key(3)] public double AvgMult { get; set; } = 1.0f;
 
@@ -39,10 +39,11 @@ namespace Genrpg.Shared.Users.PlayerData
         [Key(6)] public IdValList Coins { get; set; } = new IdValList();
         [Key(7)] public IdValList Abilties { get; set; } = new IdValList();
 
-        [Key(8)] public long Level { get; set; } = 1;
+        [Key(8)] public IdValList Stats { get; set; } = new IdValList();
 
         [Key(9)] public DateTime CreationDate { get; set; }
 
+        [Key(10)] public DateTime LastHourlyReset { get; set; }
     }
 
     [MessagePackObject]

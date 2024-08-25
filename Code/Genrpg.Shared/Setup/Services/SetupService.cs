@@ -1,7 +1,6 @@
 using Genrpg.Shared.BoardGame.Services;
 using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Crafting.Services;
-using Genrpg.Shared.Crawler.Roles.Services;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Factions.Services;
 using Genrpg.Shared.Ftue.Services;
@@ -10,6 +9,7 @@ using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Names.Services;
 using Genrpg.Shared.Pathfinding.Services;
+using Genrpg.Shared.PlayMultiplier.Services;
 using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.SpellCrafting.Services;
@@ -64,9 +64,8 @@ namespace Genrpg.Shared.Setup.Services
             Set<IItemGenService>(new ItemGenService());
             Set<IRewardService>(new RewardService());
             Set<IUserAbilityService>(new UserAbilityService());
-
+            Set<ISharedPlayMultService>(new SharedPlayMultService());
             // Use for crawler
-            Set<IClassService>(new ClassService());
 
             // Board game
             Set<ISharedBoardGenService>(new SharedBoardGenService());   

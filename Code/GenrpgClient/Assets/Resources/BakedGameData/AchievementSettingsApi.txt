@@ -69,7 +69,7 @@
   "ParentObj": {
     "Id": "default",
     "Name": "AchievementSettings",
-    "UpdateTime": "2024-08-01T00:27:58.512Z"
+    "UpdateTime": "2024-08-17T18:29:13.925Z"
   },
   "Id": "default"
 }

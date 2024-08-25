@@ -1,7 +1,15 @@
 ﻿using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.UI.Crawler.States;
-
+using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Roles.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -10,6 +18,7 @@ namespace Assets.Scripts.Crawler.StateHelpers
 {
     public class ChooseNameHelper : BaseStateHelper
     {
+        ILootGenService _lootGenService;
         public override ECrawlerStates GetKey() { return ECrawlerStates.ChooseName; }
 
         public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
@@ -29,7 +38,72 @@ namespace Assets.Scripts.Crawler.StateHelpers
                 {
                     member.Name = text;
                     _crawlerService.GetParty().Members.Add(member);                  
-                    _crawlerService.ChangeState(ECrawlerStates.TavernMain, token);              
+                    _crawlerService.ChangeState(ECrawlerStates.TavernMain, token);
+
+                    IReadOnlyList<ItemType> itemTypes = _gameData.Get<ItemTypeSettings>(_gs.ch).GetData();
+
+                    List<Role> roles = _gameData.Get<RoleSettings>(_gs.ch).GetRoles(member.Roles);
+
+                    List<RoleBonus> weaponBonuses = new List<RoleBonus>();
+
+                    foreach (Role role in roles)
+                    {
+                        weaponBonuses.AddRange(role.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Item));
+                    }
+
+                    List<long> okWeaponTypes = weaponBonuses.Where(x=>x.EntityTypeId == EntityTypes.Item).Select(x=>x.EntityId).ToList();
+
+                    List<ItemType> okMelee = new List<ItemType>();
+                    List<ItemType> okRanged = itemTypes.Where(x=>x.EquipSlotId == EquipSlots.Ranged).ToList();
+
+                    foreach (long wt in okWeaponTypes)
+                    {
+                        ItemType itype = itemTypes.FirstOrDefault(x=>x.IdKey == wt);
+                        if (itype != null)
+                        {
+                            if (itype.EquipSlotId == EquipSlots.MainHand)
+                            {
+                                okMelee.Add(itype);
+                            }
+                            else if (itype.EquipSlotId == EquipSlots.Ranged)
+                            {
+                                okRanged.Add(itype);
+                            }
+                        }
+                    }
+
+                    if (okMelee.Count > 0)
+                    {
+                        ItemGenData igd = new ItemGenData()
+                        {
+                            Level = 1,
+                            ItemTypeId = okMelee[_rand.Next() % okMelee.Count].IdKey,
+                        };
+                        Item newItem = _lootGenService.GenerateItem(igd);
+                        if (newItem != null)
+                        {
+                            member.Equipment.Add(newItem);
+                            newItem.EquipSlotId = EquipSlots.MainHand;
+                        }
+                    }
+                    if (okRanged.Count > 0)
+                    {
+                        ItemGenData igd = new ItemGenData()
+                        {
+                            Level = 1,
+                            ItemTypeId = okRanged[_rand.Next() % okRanged.Count].IdKey,
+                        };
+                        Item newItem = _lootGenService.GenerateItem(igd);
+                        if (newItem != null)
+                        {
+                            member.Equipment.Add(newItem);
+                            newItem.EquipSlotId = EquipSlots.Ranged;
+                        }
+                    }
+
+                    _statService.CalcUnitStats(_crawlerService.GetParty(), member, true);
+
+
                     _crawlerService.SaveGame();
                 }
             });

@@ -14,15 +14,16 @@ using System.Linq;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.Rewards.Entities;
 
 namespace Genrpg.MapServer.Spawns.Services
 {
 
     public interface ISpawnService : IInitializable
     {
-        List<SpawnResult> Roll(IRandom rand, long spawnTableId, RollData rollData);
-        List<SpawnResult> Roll(IRandom rand, SpawnTable st, RollData rollData);
-        List<SpawnResult> Roll<SI>(IRandom rand, List<SI> items, RollData rollData) where SI : ISpawnItem;
+        List<Reward> Roll(IRandom rand, long spawnTableId, RollData rollData);
+        List<Reward> Roll(IRandom rand, SpawnTable st, RollData rollData);
+        List<Reward> Roll<SI>(IRandom rand, List<SI> items, RollData rollData) where SI : ISpawnItem;
     }
 
     /// <summary>
@@ -51,31 +52,31 @@ namespace Genrpg.MapServer.Spawns.Services
             return null;
         }
 
-        public List<SpawnResult> Roll(IRandom rand, long spawnTableId, RollData rollData)
+        public List<Reward> Roll(IRandom rand, long spawnTableId, RollData rollData)
         {
             return Roll(rand, _gameData.Get<SpawnSettings>(null).Get(spawnTableId), rollData);
         }
 
         // Different public roll methods.
 
-        public List<SpawnResult> Roll(IRandom rand, SpawnTable st, RollData rollData)
+        public List<Reward> Roll(IRandom rand, SpawnTable st, RollData rollData)
         {
             if (st == null)
             {
-                return new List<SpawnResult>();
+                return new List<Reward>();
             }
 
             return Roll(rand, st.Items, rollData);
         }
 
-        public List<SpawnResult> Roll<SI>(IRandom rand, List<SI> items, RollData rollData) where SI : ISpawnItem
+        public List<Reward> Roll<SI>(IRandom rand, List<SI> items, RollData rollData) where SI : ISpawnItem
         {
             return InnerRoll(rand, items, rollData);
         }
 
-        private List<SpawnResult> InnerRoll<SI>(IRandom rand, List<SI> items, RollData rollData) where SI: ISpawnItem
+        private List<Reward> InnerRoll<SI>(IRandom rand, List<SI> items, RollData rollData) where SI: ISpawnItem
         {
-            List<SpawnResult> list = new List<SpawnResult>();
+            List<Reward> list = new List<Reward>();
 
             for (int i = 0; i < rollData.Times; i++)
             {
@@ -97,14 +98,14 @@ namespace Genrpg.MapServer.Spawns.Services
         /// <param name="qualityTypeId">Power of the loot</param>
         /// <param name="depth">Depth of the recursion</param>
         /// <returns>A list of spawn results</returns>
-        private List<SpawnResult> RollOnce<SI>(IRandom rand, List<SI> items, RollData rollData) where SI : ISpawnItem
+        private List<Reward> RollOnce<SI>(IRandom rand, List<SI> items, RollData rollData) where SI : ISpawnItem
         {
             if (items == null)
             {
-                return new List<SpawnResult>();
+                return new List<Reward>();
             }
 
-            List<SpawnResult> retval = new List<SpawnResult>();
+            List<Reward> retval = new List<Reward>();
 
             Dictionary<int, List<SI>> groupDict = new Dictionary<int, List<SI>>();
             List<SI> rollEachList = new List<SI>();
@@ -164,9 +165,9 @@ namespace Genrpg.MapServer.Spawns.Services
         }
 
 
-        private List<SpawnResult> RollOneItem<SI>(IRandom rand, SI si, RollData rollData) where SI : ISpawnItem
+        private List<Reward> RollOneItem<SI>(IRandom rand, SI si, RollData rollData) where SI : ISpawnItem
         {
-            List<SpawnResult> retval = new List<SpawnResult>();
+            List<Reward> retval = new List<Reward>();
 
             if (rollData.Depth > 10)
             {
@@ -183,7 +184,7 @@ namespace Genrpg.MapServer.Spawns.Services
 
             long quantity = MathUtils.LongRange(si.MinQuantity, si.MaxQuantity, rand);
 
-            SpawnResult sr = new SpawnResult();
+            Reward sr = new Reward();
             sr.EntityId = si.EntityId;
             sr.EntityTypeId = si.EntityTypeId;
             sr.Quantity = quantity;

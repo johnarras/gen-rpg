@@ -7,14 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Currencies\**" />
     <Compile Remove="Managers\**" />
     <Compile Remove="Networking\Constants\**" />
     <Compile Remove="Queues\**" />
     <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Currencies\**" />
     <EmbeddedResource Remove="Managers\**" />
     <EmbeddedResource Remove="Networking\Constants\**" />
     <EmbeddedResource Remove="Queues\**" />
     <EmbeddedResource Remove="Services\**" />
+    <None Remove="Currencies\**" />
     <None Remove="Managers\**" />
     <None Remove="Networking\Constants\**" />
     <None Remove="Queues\**" />
@@ -23,10 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Genrpg.ServerShared\Genrpg.ServerShared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Currencies\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

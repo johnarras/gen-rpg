@@ -13,7 +13,7 @@ namespace Genrpg.RequestServer.BoardGame.Helpers
         protected IBoardGenService _boardGenService = null!;
         protected IRepositoryService _repoService = null!;
 
-        public int UserUpdatePriority => 0;
+        public int Order => 0;
         public Type GetKey() { return GetType(); }
 
         public async Task Update(WebContext context, List<IUnitData> unitData)

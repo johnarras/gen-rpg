@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
 {
-    public interface IUserLoadUpdater : ISetupDictionaryItem<Type>
+    public interface IUserLoadUpdater : IOrderedSetupDictionaryItem<Type>
     {
-        int UserUpdatePriority { get; }
+        int Order { get; }
         Task Update(WebContext context, List<IUnitData> unitData);
     }
 }

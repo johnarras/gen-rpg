@@ -1,12 +1,6 @@
 {
   "Data": [
     {
-      "Id": "partybuff0default",
-      "ParentId": "default",
-      "Name": "None",
-      "UpdateTime": "2024-08-01T00:28:09.653Z"
-    },
-    {
       "Id": "partybuff1default",
       "ParentId": "default",
       "IdKey": 1,

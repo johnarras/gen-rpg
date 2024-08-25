@@ -20,6 +20,7 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.MapServer.Spawns.Services;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Rewards.Entities;
 
 namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {
@@ -93,7 +94,7 @@ namespace Genrpg.MapServer.InteractObject.MessageHandlers
                         QualityTypeId = QualityTypes.Common,
                         Times = 1,
                     };
-                    List<SpawnResult> rewards = _spawnService.Roll(rand, lootItems, rollData);
+                    List<Reward> rewards = _spawnService.Roll(rand, lootItems, rollData);
 
                     if (rewards.Count > 0)
                     {

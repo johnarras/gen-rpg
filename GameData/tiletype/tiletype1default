@@ -3,12 +3,21 @@
   "ParentId": "default",
   "IdKey": 1,
   "Name": "Gold",
-  "Desc": "Gives out basic gold rewards.",
+  "Desc": "Gives out basic credits rewards.",
   "Icon": "GoldTile",
   "Art": "GoldTile",
   "HasPrizes": true,
   "OnMainPath": true,
-  "PassRewards": [],
+  "PassRewards": [
+    {
+      "EntityTypeId": 200,
+      "EntityId": 2,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 100.0,
+      "Name": "None"
+    }
+  ],
   "LandRewards": [],
-  "UpdateTime": "2024-08-11T00:22:11.82Z"
+  "UpdateTime": "2024-08-17T15:13:09.155Z"
 }

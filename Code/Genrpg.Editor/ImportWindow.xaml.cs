@@ -75,7 +75,7 @@ namespace Genrpg.Editor
             string[] envWords = { "dev" };
             string[] actionWords = 
             {
-                "ImportClasses",
+                "ImportRoles",
                 "ImportUnits",
                 "ImportUnitSpawns",
                 "ImportUnitKeywords",
@@ -160,9 +160,9 @@ namespace Genrpg.Editor
             String action = words[1];
 
             Action<EditorGameState>? afterAction = null;
-            if (action == "ImportClasses")
+            if (action == "ImportRoles")
             {
-                afterAction = (gs) => { ImportData(gs, EImportTypes.CrawlerClasses); };
+                afterAction = (gs) => { ImportData(gs, EImportTypes.CrawlerRoles); };
                 action = "Data";
             }
             if (action == "ImportUnits")

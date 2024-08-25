@@ -7,6 +7,7 @@ using Genrpg.Shared.Spawns.Entities;
 using System.Threading;
 using UnityEngine;
 using System.Threading.Tasks;
+using Genrpg.Shared.Rewards.Entities;
 
 public class LootPopup : BaseScreen
 {
@@ -20,7 +21,7 @@ public class LootPopup : BaseScreen
 
     protected override async Awaitable OnStartOpen(object data, CancellationToken token)
     {
-        List<SpawnResult> rewards = data as List<SpawnResult>;
+        List<Reward> rewards = data as List<Reward>;
         if (rewards == null || rewards.Count < 1)
         {
             StartClose();
@@ -33,7 +34,7 @@ public class LootPopup : BaseScreen
         await Task.CompletedTask;
     }
 
-    private async Awaitable ShowRewards(List<SpawnResult> rewards, CancellationToken token)
+    private async Awaitable ShowRewards(List<Reward> rewards, CancellationToken token)
     {
         if (rewards == null || rewards.Count < 1 || _itemAnchor == null)
         {
@@ -41,11 +42,11 @@ public class LootPopup : BaseScreen
             return;
         }
 
-        foreach (SpawnResult rew in rewards)
+        foreach (Reward rew in rewards)
         {
             InitItemIconData iid = new InitItemIconData()
             {
-                Data = rew.Data as Item,
+                Data = rew.ExtraData as Item,
                 EntityTypeId = rew.EntityTypeId,
                 EntityId = rew.EntityId,
                 Quantity = rew.Quantity,

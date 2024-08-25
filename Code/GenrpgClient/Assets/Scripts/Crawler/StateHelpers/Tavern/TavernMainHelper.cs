@@ -2,7 +2,7 @@
 using Assets.Scripts.Crawler.CrawlerStates;
 using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.StateHelpers;
-
+using Genrpg.Shared.BoardGame.Messages.RollDice;
 using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Inventory.PlayerData;
@@ -23,6 +23,7 @@ namespace Assets.Scripts.UI.Crawler.States
 
         private ILootGenService _lootGenService;
         private ICrawlerWorldService _crawlerWorldService;
+        private IClientWebService _clientWebService;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.TavernMain; }
 
@@ -54,6 +55,9 @@ namespace Assets.Scripts.UI.Crawler.States
             stateData.Actions.Add(new CrawlerStateAction("Create Party Member", KeyCode.C, ECrawlerStates.ChooseSex));
             stateData.Actions.Add(new CrawlerStateAction("Bezier Curve", KeyCode.B, ECrawlerStates.TavernMain, onClickAction: () => { _crawlerService.CreateSpline(); }));
             stateData.Actions.Add(new CrawlerStateAction("New Game", KeyCode.N, ECrawlerStates.TavernMain, null, "GenerateWorld"));
+            stateData.Actions.Add(new CrawlerStateAction("Play Board Game", KeyCode.P, ECrawlerStates.TavernMain,
+                onClickAction: () => { _clientWebService.SendClientWebCommand(new RollDiceCommand(), token); }
+                ));
             if (party.GetActiveParty().Count > 0)
             {
                 stateData.Actions.Add(new CrawlerStateAction("Enter Map", KeyCode.E, ECrawlerStates.ExploreWorld));

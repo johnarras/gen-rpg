@@ -80,8 +80,5 @@ public class MoneyDisplay : BaseBehaviour
             }
             amountLeft /= SegmentDiv;
         }
-
-
-      
     }
 }

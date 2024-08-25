@@ -26,7 +26,7 @@ namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
         private IGameData _gameData = null;
 
         protected IRepositoryService _repoService = null;
-        public override int Priority => 2;
+        public override int Order => 2;
 
         public override async Task Update(WebContext context, Character ch)
         {

@@ -42,7 +42,6 @@ using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.GameSettings.Messages;
-using Microsoft.WindowsAzure.Storage.Blob;
 using Genrpg.ServerShared.MainServer;
 using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;

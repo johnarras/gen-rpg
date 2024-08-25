@@ -1,7 +1,8 @@
 {
   "Id": "default",
-  "RollGoldMult": 25.0,
-  "GemRollGoldFraction": 0.5,
+  "PlayCreditsMult": 25.0,
+  "PlaysPerGem": 0.5,
+  "PlayMultBonusDivisor": 20.0,
   "Name": "BoardGameSettings",
-  "UpdateTime": "2024-08-08T23:23:52.275Z"
+  "UpdateTime": "2024-08-18T20:36:43.801Z"
 }

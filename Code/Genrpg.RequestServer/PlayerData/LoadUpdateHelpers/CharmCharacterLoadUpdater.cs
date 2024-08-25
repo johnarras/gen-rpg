@@ -11,7 +11,7 @@ namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
     {
         private ICharmService _charmService = null;
         private IStatService _statService = null;
-        public override int Priority => 3;
+        public override int Order => 3;
 
         public override async Task Update(WebContext context, Character ch)
         {

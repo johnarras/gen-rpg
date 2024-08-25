@@ -23,16 +23,18 @@ namespace Assets.Scripts.ProcGen.Components
         public float Percent { get; set; }
         public GameObject GameObject { get; set; }
         public Vector3 Position { get; set; }
+        public long EntityId { get; set; }
     }
 
     public class MarkedSpline : BaseBehaviour
     {
 
         public SplineContainer Container { get; set; }
-
+        private ICurveGenService _curveGenService { get; set; }
         private List<MarkerPosition> _markers = new List<MarkerPosition>();
         public SplineLoopGenParams GenParams { get; set; } = new SplineLoopGenParams();
 
+        private float3 _center = Vector3.zero;
 
         public float3 Offset { get; set; }
 
@@ -80,17 +82,55 @@ namespace Assets.Scripts.ProcGen.Components
 
             IReadOnlyList<TileType> tileTypes = _gameData.Get<TileTypeSettings>(_gs.ch).GetData();
 
-            short[] tiles = boardData.Tiles.Data;
+            short[] allTiles = boardData.Tiles.Data;
 
-            int pipTotal = boardData.Length * pipsPerGoldTile +
-                tiles.Where(x=>x != TileTypes.Gold).ToList().Count * (pipsPerOtherTile-pipsPerGoldTile)*2;
+
+            List<short> mainPath = new List<short>();
+
+            List<List<short>> sidePaths = new List<List<short>>();
+
+            int mainPathLength = -1;
+            for (int i = 0; i < allTiles.Length; i++)
+            {
+                if (allTiles[i] != TileTypes.StartPath)
+                {
+                    mainPath.Add(allTiles[i]);
+                }
+                else
+                {
+                    mainPathLength = i;
+                    break;
+                }
+            }
+
+            List<short> currentPath = null;
+
+            for (int i = mainPathLength+1; i < allTiles.Length; i++)
+            {
+                if (currentPath == null)
+                {
+                    currentPath = new List<short>();    
+                    currentPath.Add(allTiles[i]);
+                    continue;
+                }
+                currentPath.Add(allTiles[i]);
+                if (allTiles[i] == TileTypes.EndPath)
+                {
+                    sidePaths.Add(currentPath);
+                    currentPath = new List<short>();
+                }
+            }
+
+
+            int pipTotal = mainPath.Count * pipsPerGoldTile +
+                mainPath.Where(x=>x != TileTypes.Gold).ToList().Count * (pipsPerOtherTile-pipsPerGoldTile)*2;
 
             int pipsUsed = 0;
 
-            for (int i = 0; i < tiles.Length; i++)
+            for (int i = 0; i < mainPath.Count; i++)
             {
 
-                TileType tileType = tileTypes.FirstOrDefault(x => x.IdKey == tiles[i]);
+                TileType tileType = tileTypes.FirstOrDefault(x => x.IdKey == mainPath[i]);
 
                 int currPips = tileType.IdKey == TileTypes.Gold ? pipsPerGoldTile : pipsPerOtherTile;
 
@@ -99,12 +139,76 @@ namespace Assets.Scripts.ProcGen.Components
                 float percent = pipsUsed * 1.0f / (pipTotal);
 
                 pipsUsed += currPips;
-                Vector3 pos = (Container.Splines[0].EvaluatePosition(percent) + Offset);
+                Vector3 pos = (Container.Splines[0].EvaluatePosition(percent));
                 pos *= lengthRatio;
-                MarkerPosition markerPos = new MarkerPosition() { Percent = percent, Index = i, Position = pos };
+                MarkerPosition markerPos = new MarkerPosition() { Percent = percent, Index = i, Position = pos, EntityId = tileType.IdKey };
 
+                _markers.Add(markerPos);
                 _assetService.LoadAssetInto(this, AssetCategoryNames.Tiles, tileType.Art, OnLoadMarker, markerPos, token);
             }
+
+            if (_markers.Count > 0)
+            {
+                float xcenter = _markers.Sum(m => m.Position.x) / _markers.Count;
+                float zcenter = _markers.Sum(m => m.Position.z) / _markers.Count;
+
+                _center = new Vector3(xcenter, 0, zcenter);
+
+                MarkerPosition centerMarker = new MarkerPosition() { Percent = 0, Index = -1, Position = _center, EntityId = 1 };
+                _assetService.LoadAssetInto(this, AssetCategoryNames.Tiles, "GoldTile", OnLoadMarker, centerMarker, token);
+            }
+
+
+            if (sidePaths.Count > 0)
+            {
+                for (int s = 0; s < sidePaths.Count; s++)
+                {
+
+                    if (sidePaths[s].Count < 2)
+                    {
+                        continue;
+                    }
+
+                    pipTotal = sidePaths[s].Count * pipsPerGoldTile;
+                    pipsUsed = 0;
+
+                    float3 sidePathStart = new Vector3(-50, 0, -50);
+
+                    MarkerPosition pos = _markers.FirstOrDefault(x => x.EntityId == TileTypes.PathEntrance);
+
+                    if (pos != null)
+                    {
+                        sidePathStart = pos.Position;
+                    }
+                    Vector3 dirToSidePath = sidePathStart - _center;
+
+                    _curveGenService.CreateLinearSpline(this, s + 1, sidePaths[s].Count, sidePathStart.x, sidePathStart.z, dirToSidePath.x, dirToSidePath.z, rand, token);
+
+                    Spline spline = Container.Splines[s+1];
+
+                    for (int i = 0; i < sidePaths[s].Count; i++)
+                    {
+
+                        TileType tileType = tileTypes.FirstOrDefault(x => x.IdKey == sidePaths[s][i]);
+
+                        int currPips = pipsPerGoldTile;
+
+                        pipsUsed += currPips - pipsPerGoldTile;
+
+                        float percent = pipsUsed * 1.0f / (pipTotal);
+
+                        pipsUsed += currPips;
+                        Vector3 evalPos = (spline.EvaluatePosition(percent));
+                        
+                        MarkerPosition markerPos = new MarkerPosition() { Percent = percent, Index = i+mainPath.Count, Position = evalPos, EntityId = tileType.IdKey };
+
+                        _markers.Add(markerPos);
+                        _assetService.LoadAssetInto(this, AssetCategoryNames.Tiles, tileType.Art, OnLoadMarker, markerPos, token);
+                    }
+
+                }
+            }
+
         }
 
         private void OnLoadMarker(object obj, object data, CancellationToken token)
@@ -136,8 +240,18 @@ namespace Assets.Scripts.ProcGen.Components
             {
                 tileWidth = 6.5f;
             }
+            TileType tileType = _gameData.Get<TileTypeSettings>(null).Get(markerPos.EntityId);
+
+            string ttName = "(?)";
+
+            if (tileType !=null)
+            {
+                ttName = "(" + tileType.Name +")";  
+            }
+
+
             go.transform.localScale = new Vector3(tileWidth, 0.2f, tileWidth);
-            go.name = "Tile" + markerPos.Index + " (" + (int)go.transform.position.x + "," + (int)go.transform.position.z + "): " + markerPos.Percent + "%";
+            go.name = "Tile" + markerPos.Index + " (" + (int)go.transform.position.x + "," + (int)go.transform.position.z + "): " + markerPos.Percent + "% " + ttName;
 
             if (_markers.Count >= _markerCount)
             {

@@ -21,6 +21,7 @@ using Genrpg.Shared.Utils;
 using Assets.Scripts.UI.Crawler.States;
 using UnityEngine;
 using Assets.Scripts.Crawler.Maps.Services;
+using Genrpg.Shared.Inventory.Entities;
 
 public class CrawlerVendorScreen : ItemIconScreen
 {
@@ -148,13 +149,13 @@ public class CrawlerVendorScreen : ItemIconScreen
             return;
         }
 
-        if (vendorItem.Cost > _party.Gold)
+        if (vendorItem.BuyCost > _party.Gold)
         {
             _dispatcher.Dispatch(new ShowFloatingText("You need more gold to buy this!", EFloatingTextArt.Error));
             return;
         }
 
-        _party.Gold -= vendorItem.Cost;
+        _party.Gold -= vendorItem.BuyCost;
 
         _party.VendorItems.Remove(icon.GetDataItem());
         _inventoryService.AddItem(_member, icon.GetDataItem(), true);
@@ -177,7 +178,7 @@ public class CrawlerVendorScreen : ItemIconScreen
             return;
         }
 
-        _party.Gold += item.Cost;
+        _party.Gold += (long)(item.SellValue);
 
         _inventoryService.RemoveItem(_member, icon.GetDataItem().Id, false);
         _party.VendorBuyback.Add(item);

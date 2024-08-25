@@ -4,7 +4,7 @@
   "IdKey": 6,
   "Name": "Desert",
   "Desc": "",
-  "Icon": "",
+  "Icon": "Desert",
   "MinLevel": 20,
   "GenChance": 1.0,
   "GrassDensity": 0.05,
@@ -774,5 +774,5 @@
   "CreviceWidthScale": 2.0,
   "MusicTypeId": 5,
   "AmbientMusicTypeId": 9,
-  "UpdateTime": "2024-08-01T00:28:16.876Z"
+  "UpdateTime": "2024-08-24T13:55:17.061Z"
 }

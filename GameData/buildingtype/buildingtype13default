@@ -3,9 +3,10 @@
   "ParentId": "default",
   "IdKey": 13,
   "Name": "Equipment",
+  "Icon": "Equipment",
   "Art": "Equipment",
   "Radius": 5,
   "IsCrawlerBuilding": true,
   "VariationCount": 1,
-  "UpdateTime": "2024-08-01T00:27:58.591Z"
+  "UpdateTime": "2024-08-24T23:03:45.66Z"
 }

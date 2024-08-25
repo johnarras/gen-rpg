@@ -1,0 +1,12 @@
+{
+  "Id": "role14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Dwarf",
+  "Desc": "More health",
+  "Abbrev": "Dw",
+  "RoleCategoryId": 2,
+  "HealthPerLevel": 5,
+  "Bonuses": [],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

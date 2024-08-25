@@ -1,9 +1,0 @@
-{
-  "Id": "crawlerspell0default",
-  "ParentId": "default",
-  "Name": "None",
-  "MaxRange": 100,
-  "ReplacesCrawlerSpellId": 1,
-  "Effects": [],
-  "UpdateTime": "2024-08-01T00:28:05.724Z"
-}

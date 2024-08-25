@@ -6,9 +6,13 @@ namespace Genrpg.Shared.BoardGame.Constants
 {
     public class BoardGameConstants
     {
-        public const long MinDiceMult = 1;
+        public const int FirstTileIndex = 0;
+        public const long MinPlayMult = 1;
         public const long StartPathIndex = 1;
 
-        public const int GoldTilesBetweenEachSpecialTile = 2;
+        public const int GoldTilesBetweenEachSpecialTile = 3;
+
+
+        public const string NewBoardModeTempFilename = "NewBoard";
     }
 }

@@ -1,0 +1,12 @@
+{
+  "Id": "role16default",
+  "ParentId": "default",
+  "IdKey": 16,
+  "Name": "Gnome",
+  "Desc": "More Spell Dam",
+  "Abbrev": "Gn",
+  "RoleCategoryId": 2,
+  "SpellDamScaling": 0.1,
+  "Bonuses": [],
+  "UpdateTime": "2024-08-25T19:34:00.802Z"
+}

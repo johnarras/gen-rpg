@@ -1,10 +1,5 @@
-﻿using Genrpg.Shared.Core.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Stats.Settings.Stats;
@@ -12,16 +7,10 @@ using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using System.Linq;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Stats.Entities;
-using Genrpg.Shared.MapObjects.Entities;
-using System.Security.Cryptography.X509Certificates;
-using Genrpg.Shared.Crawler.Parties.Constants;
 using Genrpg.Shared.Crawler.Stats.Utils;
-using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.Stats.Settings.Scaling;
 using Assets.Scripts.ProcGen.RandomNumbers;
 
 namespace Genrpg.Shared.Crawler.Stats.Services
@@ -51,17 +40,17 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 unit.Level = 1;
             }
 
-            ClassSettings classSettings = _gameData.Get<ClassSettings>(null);
+            RoleSettings roleSettings = _gameData.Get<RoleSettings>(null);
 
             IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(null).GetData();
 
-            IReadOnlyList<Class> allClasses = classSettings.GetData();
+            IReadOnlyList<Role> allRoles = roleSettings.GetData();
 
             List<long> buffStatTypes = new List<long>();
             
-            foreach (Class cl in allClasses)
+            foreach (Role role in allRoles)
             {
-                buffStatTypes.AddRange(cl.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).Select(x => x.EntityId));
+                buffStatTypes.AddRange(role.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).Select(x => x.EntityId));
             }
 
             buffStatTypes = buffStatTypes.Distinct().ToList();
@@ -74,7 +63,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
             if (unit is PartyMember member)
             {
-                List<Class> memberClasses = _gameData.Get<ClassSettings>(null).GetClasses(member.Classes);
+                List<Role> roles = _gameData.Get<RoleSettings>(_gs.ch).GetRoles(member.Roles);
 
                 List<MemberStat> permStats = member.PermStats;
 
@@ -121,16 +110,14 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                 long stamBonus = CrawlerStatUtils.GetStatBonus(member,StatTypes.Stamina);
 
-                for (int c = 0; c < memberClasses.Count; c++)
+                foreach (Role role in roles)
                 {
-                    Class cl = memberClasses[c];
+                    healthPerLevel += role.HealthPerLevel;
+                    manaPerLevel += role.ManaPerLevel;
 
-                    healthPerLevel += cl.HealthPerLevel;
-                    manaPerLevel += cl.ManaPerLevel;
-
-                    if (cl.ManaStatTypeId > 0)
+                    if (role.ManaStatTypeId > 0)
                     {
-                        manaPerLevel += CrawlerStatUtils.GetStatBonus(member, cl.ManaStatTypeId);
+                        manaPerLevel += CrawlerStatUtils.GetStatBonus(member, role.ManaStatTypeId);
                     }
                 }
 
@@ -182,24 +169,21 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
             List<MemberStat> retval = new List<MemberStat>();
 
-            IReadOnlyList<Class> allClasss = _gameData.Get<ClassSettings>(null).GetData();
+            IReadOnlyList<Role> allClasss = _gameData.Get<RoleSettings>(null).GetData();
 
-            ClassSettings classSettings = _gameData.Get<ClassSettings>(null);
+            RoleSettings roleSettings = _gameData.Get<RoleSettings>(null);
 
             foreach (PartyMember member in partyData.GetActiveParty())
             {
-
-                List<Class> memberClasses = classSettings.GetClasses(member.Classes);
+                List<Role> roles = roleSettings.GetRoles(member.Roles);
 
                 long scalingLevel = member.Level;
 
-                for (int c = 0; c < memberClasses.Count(); c++)
-                { 
-                    Class cl = memberClasses[c];
+                foreach (Role role in roles)
+                {
+                    List<RoleBonus> buffStatbonuses = role.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).ToList();
 
-                    List<ClassBonus> buffStatbonuses = cl.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).ToList();
-
-                    foreach (ClassBonus bonus in buffStatbonuses)
+                    foreach (RoleBonus bonus in buffStatbonuses)
                     {
                         if (!buffStatLevels.ContainsKey(bonus.EntityId))
                         {

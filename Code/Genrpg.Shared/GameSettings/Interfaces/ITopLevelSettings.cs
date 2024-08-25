@@ -6,5 +6,6 @@ namespace Genrpg.Shared.GameSettings.Interfaces
 {
     public interface ITopLevelSettings : IGameSettings
     {
+        void SetupForEditor();
     }
 }

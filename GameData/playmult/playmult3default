@@ -1,0 +1,12 @@
+{
+  "Id": "playmult3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Mult": 5,
+  "MinLevel": 4,
+  "UpdateTime": "2024-08-17T18:29:13.925Z"
+}

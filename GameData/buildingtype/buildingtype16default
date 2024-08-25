@@ -3,9 +3,10 @@
   "ParentId": "default",
   "IdKey": 16,
   "Name": "Regen",
+  "Icon": "Regen",
   "Art": "Regen",
   "Radius": 5,
   "IsCrawlerBuilding": true,
   "VariationCount": 1,
-  "UpdateTime": "2024-08-01T00:27:58.599Z"
+  "UpdateTime": "2024-08-24T23:03:45.66Z"
 }

@@ -23,5 +23,12 @@ namespace Genrpg.Shared.DataStores.Categories.GameSettings
             ParentObj.SetData(Data);
             gameData.Set(ParentObj);
         }
+
+        public void SetupForEditor()
+        {
+
+        }
+
+      
     }
 }

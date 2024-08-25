@@ -17,8 +17,8 @@ namespace Genrpg.RequestServer.PlayerData.Services
     public class LoginPlayerDataService : ILoginPlayerDataService
     {
 
-        SetupDictionaryContainer<Type, ICharacterLoadUpdater> _characterLoadUpdateHelpers = new SetupDictionaryContainer<Type, ICharacterLoadUpdater>();
-        SetupDictionaryContainer<Type, IUserLoadUpdater> _userLoadUpdateHelpers = new SetupDictionaryContainer<Type, IUserLoadUpdater>();
+        OrderedSetupDictionaryContainer<Type, ICharacterLoadUpdater> _characterLoadUpdateHelpers = new OrderedSetupDictionaryContainer<Type, ICharacterLoadUpdater>();
+        OrderedSetupDictionaryContainer<Type, IUserLoadUpdater> _userLoadUpdateHelpers = new OrderedSetupDictionaryContainer<Type, IUserLoadUpdater>();
         private IPlayerDataService _playerDataService = null!;
 
         public async Task Initialize(CancellationToken token)
@@ -48,7 +48,7 @@ namespace Genrpg.RequestServer.PlayerData.Services
 
         protected async Task UpdateCharacterOnLoad(WebContext context, Character ch)
         {
-            foreach (ICharacterLoadUpdater updater in _characterLoadUpdateHelpers.GetDict().Values.OrderBy(x => x.Priority))
+            foreach (ICharacterLoadUpdater updater in _characterLoadUpdateHelpers.OrderedItems())
             {
                 await updater.Update(context, ch);
             }
@@ -56,11 +56,10 @@ namespace Genrpg.RequestServer.PlayerData.Services
 
         protected async Task UpdateUserOnLoad(WebContext context, List<IUnitData> userUnitData)
         {
-            foreach (IUserLoadUpdater updater in _userLoadUpdateHelpers.GetDict().Values.OrderBy(x => x.UserUpdatePriority))
+            foreach (IUserLoadUpdater updater in _userLoadUpdateHelpers.OrderedItems())
             {
                 await updater.Update(context, userUnitData);
-            }
-        
+            }        
         }
     }
 }

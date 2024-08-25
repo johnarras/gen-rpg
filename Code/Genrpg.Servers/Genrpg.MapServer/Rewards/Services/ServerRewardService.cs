@@ -3,9 +3,9 @@ using Genrpg.MapServer.Quests.Services;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
+using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Rewards.Messages;
 using Genrpg.Shared.Rewards.Services;
-using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System;
@@ -23,7 +23,7 @@ namespace Genrpg.MapServer.Rewards.Services
 
         public override bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList)
         {
-            foreach (ISpawnResult spawnResult in resultList)
+            foreach (Reward spawnResult in resultList)
             {
                 _questService.UpdateQuest(rand, obj, spawnResult);
             }

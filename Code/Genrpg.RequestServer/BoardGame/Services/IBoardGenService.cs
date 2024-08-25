@@ -11,6 +11,6 @@ namespace Genrpg.RequestServer.BoardGame.Services
 {
     public interface IBoardGenService : IInjectable
     {
-        Task<BoardData> GenerateBoard(WebContext context, BoardGenData genData = null);
+        Task<BoardData> GenerateBoard(WebContext context, BoardGenArgs genData = null);
     }
 }

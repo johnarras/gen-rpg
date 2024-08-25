@@ -15,6 +15,7 @@ using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Units.Constants;
 using System.Linq;
+using Genrpg.Shared.Rewards.Entities;
 
 public class UnitController : BaseBehaviour
 {
@@ -348,8 +349,8 @@ public class UnitController : BaseBehaviour
         }
         else
         {
-            _unit.Loot = new List<SpawnResult>();
-            _unit.SkillLoot = new List<SpawnResult>();
+            _unit.Loot = new List<Reward>();
+            _unit.SkillLoot = new List<Reward>();
         }
         _updateService.AddDelayedUpdate(entity, ShowDeathAnim, token, 0.1f);
     }

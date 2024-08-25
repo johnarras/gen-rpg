@@ -2,10 +2,10 @@
   "Id": "tiletype9default",
   "ParentId": "default",
   "IdKey": 9,
-  "Name": "Portal",
+  "Name": "Adventure",
   "Desc": "Takes you to a bonus board.",
-  "Icon": "PortalTIle",
-  "Art": "PortalTile",
+  "Icon": "AdventureTile",
+  "Art": "AdventureTile",
   "MaxQuantity": 1,
   "SpawnPriority": 4.0,
   "MinPosition": 6,
@@ -13,5 +13,5 @@
   "ActivationCostScale": 4.0,
   "PassRewards": [],
   "LandRewards": [],
-  "UpdateTime": "2024-08-11T09:38:42.13Z"
+  "UpdateTime": "2024-08-13T22:41:31.68Z"
 }

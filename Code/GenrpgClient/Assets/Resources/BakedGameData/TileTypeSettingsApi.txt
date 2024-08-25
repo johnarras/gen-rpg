@@ -1,27 +1,27 @@
 {
   "Data": [
     {
-      "Id": "tiletype0default",
-      "ParentId": "default",
-      "Name": "None",
-      "MaxQuantity": 1,
-      "PassRewards": [],
-      "LandRewards": [],
-      "UpdateTime": "2024-08-10T23:21:20.517Z"
-    },
-    {
       "Id": "tiletype1default",
       "ParentId": "default",
       "IdKey": 1,
       "Name": "Gold",
-      "Desc": "Gives out basic gold rewards.",
+      "Desc": "Gives out basic credits rewards.",
       "Icon": "GoldTile",
       "Art": "GoldTile",
       "HasPrizes": true,
       "OnMainPath": true,
-      "PassRewards": [],
+      "PassRewards": [
+        {
+          "EntityTypeId": 200,
+          "EntityId": 2,
+          "MinQuantity": 1,
+          "MaxQuantity": 2,
+          "Weight": 100.0,
+          "Name": "None"
+        }
+      ],
       "LandRewards": [],
-      "UpdateTime": "2024-08-11T00:22:11.82Z"
+      "UpdateTime": "2024-08-17T15:13:09.155Z"
     },
     {
       "Id": "tiletype2default",
@@ -33,9 +33,18 @@
       "Art": "HomeTile",
       "MaxQuantity": 1,
       "OnMainPath": true,
-      "PassRewards": [],
+      "PassRewards": [
+        {
+          "EntityTypeId": 200,
+          "EntityId": 2,
+          "MinQuantity": 10,
+          "MaxQuantity": 20,
+          "Weight": 100.0,
+          "Name": "None"
+        }
+      ],
       "LandRewards": [],
-      "UpdateTime": "2024-08-11T00:22:11.82Z"
+      "UpdateTime": "2024-08-17T15:09:18.977Z"
     },
     {
       "Id": "tiletype3default",
@@ -49,9 +58,27 @@
       "SpawnPriority": 20.0,
       "MinPosition": 1,
       "OnMainPath": true,
-      "PassRewards": [],
-      "LandRewards": [],
-      "UpdateTime": "2024-08-11T00:19:54.103Z"
+      "PassRewards": [
+        {
+          "EntityTypeId": 200,
+          "EntityId": 1,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "Weight": 100.0,
+          "Name": "None"
+        }
+      ],
+      "LandRewards": [
+        {
+          "EntityTypeId": 200,
+          "EntityId": 1,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "Weight": 100.0,
+          "Name": "None"
+        }
+      ],
+      "UpdateTime": "2024-08-15T22:19:52.652Z"
     },
     {
       "Id": "tiletype4default",
@@ -65,9 +92,27 @@
       "SpawnPriority": 15.0,
       "MinPosition": 1,
       "OnMainPath": true,
-      "PassRewards": [],
-      "LandRewards": [],
-      "UpdateTime": "2024-08-11T00:19:54.103Z"
+      "PassRewards": [
+        {
+          "EntityTypeId": 200,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "Weight": 100.0,
+          "Name": "None"
+        }
+      ],
+      "LandRewards": [
+        {
+          "EntityTypeId": 200,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "Weight": 100.0,
+          "Name": "None"
+        }
+      ],
+      "UpdateTime": "2024-08-15T22:20:25.993Z"
     },
     {
       "Id": "tiletype5default",
@@ -139,10 +184,10 @@
       "Id": "tiletype9default",
       "ParentId": "default",
       "IdKey": 9,
-      "Name": "Portal",
+      "Name": "Adventure",
       "Desc": "Takes you to a bonus board.",
-      "Icon": "PortalTIle",
-      "Art": "PortalTile",
+      "Icon": "AdventureTile",
+      "Art": "AdventureTile",
       "MaxQuantity": 1,
       "SpawnPriority": 4.0,
       "MinPosition": 6,
@@ -150,7 +195,7 @@
       "ActivationCostScale": 4.0,
       "PassRewards": [],
       "LandRewards": [],
-      "UpdateTime": "2024-08-11T09:38:42.13Z"
+      "UpdateTime": "2024-08-13T22:41:31.68Z"
     },
     {
       "Id": "tiletype10default",
@@ -167,7 +212,7 @@
       "ActivationCostScale": 7.0,
       "PassRewards": [],
       "LandRewards": [],
-      "UpdateTime": "2024-08-11T00:19:54.103Z"
+      "UpdateTime": "2024-08-13T22:41:31.68Z"
     },
     {
       "Id": "tiletype11default",
@@ -250,12 +295,24 @@
       "PassRewards": [],
       "LandRewards": [],
       "UpdateTime": "2024-08-11T18:10:43.748Z"
+    },
+    {
+      "Id": "tiletype17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "StartPath",
+      "Desc": "Starts a path",
+      "Icon": "StartPathTile",
+      "Art": "StartPathTile",
+      "PassRewards": [],
+      "LandRewards": [],
+      "UpdateTime": "2024-08-15T00:27:25.611Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "TileTypeSettings",
-    "UpdateTime": "2024-08-11T18:10:43.748Z"
+    "UpdateTime": "2024-08-17T15:13:09.155Z"
   },
   "Id": "default"
 }

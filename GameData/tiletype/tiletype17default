@@ -1,0 +1,12 @@
+{
+  "Id": "tiletype17default",
+  "ParentId": "default",
+  "IdKey": 17,
+  "Name": "StartPath",
+  "Desc": "Starts a path",
+  "Icon": "StartPathTile",
+  "Art": "StartPathTile",
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-08-15T00:27:25.611Z"
+}

@@ -13,7 +13,7 @@ public interface IAssetService : IInitializable
     void LoadAssetInto(object parent, string assetCategory, string assetPath, OnDownloadHandler handler, object data, CancellationToken token, string subdirectory=null);
     void LoadAsset(string assetCategory, string assetPath, OnDownloadHandler handler, object data, object parent, CancellationToken token,string subdirectory=null);
     void LoadAtlasSpriteInto(string atlasName, string spriteName, object parentObject, CancellationToken token);
-    void LoadSpriteInto(string spriteName, GImage parentSprite, CancellationToken token);
+    void LoadSpriteWithAtlasNameInto(string atlasSlashSpriteName, object parentObject, CancellationToken token);
     Awaitable<GameObject> LoadAssetAsync(string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null);
 
 

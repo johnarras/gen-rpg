@@ -1,12 +1,6 @@
 {
   "Data": [
     {
-      "Id": "combataction0default",
-      "ParentId": "default",
-      "Name": "None",
-      "UpdateTime": "2024-08-01T00:27:58.825Z"
-    },
-    {
       "Id": "combataction1default",
       "ParentId": "default",
       "IdKey": 1,
