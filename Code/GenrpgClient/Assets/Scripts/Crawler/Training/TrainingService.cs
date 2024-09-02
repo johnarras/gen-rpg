@@ -81,34 +81,49 @@ namespace Assets.Scripts.Crawler.Services.Training
                     x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
 
                 long maxStat = -1;
-
+                long minStat = 1000000;
                 foreach (StatType stype in primaryStats) 
                 {
                     if (member.GetPermStat(stype.IdKey) > maxStat) 
                     {
                         maxStat = member.GetPermStat(stype.IdKey);
                     }
+                    if (member.GetPermStat(stype.IdKey) < minStat)
+                    {
+                        minStat = member.GetPermStat(stype.IdKey);  
+                    }
                 }
 
+                int totalIncrements = 0;
                 foreach (StatType stype in primaryStats)
                 {
                     long currPermStat = member.GetPermStat(stype.IdKey);
                     long increment = 0;
-                    if (currPermStat < maxStat && _rand.NextDouble() < settings.LowerStatIncreaseChance)
+                    if (currPermStat < maxStat && _rand.NextDouble() < settings.LowerStatIncreaseChance || currPermStat == minStat)
                     {
                         member.AddPermStat(stype.IdKey, 1);
                         increment++;
+                        totalIncrements++;
                     }
                     if (_rand.NextDouble() < settings.MaxStatIncreaseChance)
                     {
                         member.AddPermStat(stype.IdKey, 1);
                         increment++;
+                        totalIncrements++;
                     }
 
                     if (increment> 0)
                     {
                         party.ActionPanel.AddText($"+{increment} {stype.Name}");
                     }
+                }
+
+                if (totalIncrements == 0)
+                {
+                    StatType stype = primaryStats[_rand.Next() % primaryStats.Count];
+                    int increment = 1;
+                    member.AddPermStat(stype.IdKey, increment);
+                    party.ActionPanel.AddText($"+{increment} {stype.Name}");
                 }
 
                 _statService.CalcUnitStats(party, member, true);

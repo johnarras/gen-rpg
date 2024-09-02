@@ -5,6 +5,7 @@ using Assets.Scripts.Crawler.UI.Utils;
 using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Riddles.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Exploring
 {
@@ -26,7 +28,16 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
         {
             CrawlerStateData stateData = CreateStateData();
 
+            string errorText = null;
             MapCellDetail detail = action.ExtraData as MapCellDetail;
+
+            ErrorMapCellDetail errorDetail = action.ExtraData as ErrorMapCellDetail;
+
+            if (errorDetail != null)
+            {
+                detail = errorDetail.Detail;
+                errorText = errorDetail.ErrorText;
+            }
 
             if (detail == null || detail.EntityTypeId != EntityTypes.Map)
             {
@@ -44,36 +55,89 @@ namespace Assets.Scripts.Crawler.StateHelpers.Exploring
                 return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "No such map exists." };
             }
 
-            if (map.QuestItemsNeeded.Count > 0)
-            {
-                List<WorldQuestItem> itemsNeeded = new List<WorldQuestItem>();
+            CrawlerMapStatus partyMap = partyData.Maps.FirstOrDefault(x=>x.MapId == detail.EntityId);
 
-                foreach (MapQuestItem mqi in map.QuestItemsNeeded)
+            if (partyMap == null)
+            {
+                if (map.MapQuestItemId > 0)
                 {
-                    PartyQuestItem pqi = partyData.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == mqi.QuestItemId);
+
+                    WorldQuestItem itemNeeded = null;
+
+                    PartyQuestItem pqi = partyData.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == map.MapQuestItemId);
 
                     if (pqi == null)
                     {
-                        WorldQuestItem wqi = world.QuestItems.FirstOrDefault(x => x.IdKey == mqi.QuestItemId);
+                        WorldQuestItem wqi = world.QuestItems.FirstOrDefault(x => x.IdKey == map.MapQuestItemId);
                         if (wqi != null)
                         {
-                            itemsNeeded.Add(wqi);
+                            itemNeeded = wqi;
                         }
                     }
-                }
 
-                if (itemsNeeded.Count > 1)
-                {
-                    stateData.Actions.Add(new CrawlerStateAction(map.Name + " requires the following to enter: "));
 
-                    foreach (WorldQuestItem wqi in itemsNeeded) 
+                    if (itemNeeded != null)
                     {
-                        stateData.Actions.Add(new CrawlerStateAction(wqi.Name));
+                        stateData.Actions.Add(new CrawlerStateAction(map.Name + " requires the following to enter: "));
+
+                        stateData.Actions.Add(new CrawlerStateAction(itemNeeded.Name));
+
+                        stateData.Actions.Add(new CrawlerStateAction($"\n\nPress {CrawlerUIUtils.HighlightText("Space")} to continue...", KeyCode.Space, ECrawlerStates.ExploreWorld));
+
+                        return stateData;
                     }
 
-                    stateData.Actions.Add(new CrawlerStateAction($"\n\nPress {CrawlerUIUtils.HighlightText("Space")} to continue...", KeyCode.Space, ECrawlerStates.ExploreWorld));
+                    if (map.RiddleId < 0)
+                    {
+                        Riddle riddle = _gameData.Get<RiddleSettings>(_gs.ch).Get(map.RiddleId);
+                        if (riddle != null && !string.IsNullOrEmpty(riddle.Desc) && !string.IsNullOrEmpty(riddle.Name))
+                        {
+                            string[] descLines = riddle.Desc.Split('\n');
 
-                    return stateData;
+                            stateData.Actions.Add(new CrawlerStateAction("Answer me this to enter:\n"));
+                            for (int d = 0; d < descLines.Length; d++)
+                            {
+                                stateData.Actions.Add(new CrawlerStateAction(descLines[d]));
+                            }
+
+                            if (string.IsNullOrEmpty(errorText))
+                            {
+                                stateData.Actions.Add(new CrawlerStateAction(" "));
+                            }
+                            else
+                            {
+                                stateData.Actions.Add(new CrawlerStateAction(CrawlerUIUtils.HighlightText(errorText, CrawlerUIUtils.ColorRed)));
+                            }
+
+                            stateData.AddInputField("Your Answer:\n", delegate (string text)
+                            {
+                                string normalizedRiddleName = riddle.Name.ToLower().Trim();
+                                if (!string.IsNullOrEmpty(text) && text.ToLower().Trim() == normalizedRiddleName)
+                                {
+                                    EnterCrawlerMapData enterMapData = new EnterCrawlerMapData()
+                                    {
+                                        MapId = map.IdKey,
+                                        MapX = detail.ToX,
+                                        MapZ = detail.ToZ,
+                                        MapRot = 0,
+                                        World = world,
+                                        Map = map,
+                                    };
+
+                                    _crawlerService.ChangeState(ECrawlerStates.ExploreWorld, token, enterMapData);
+                                }
+                                else
+                                {
+                                    ErrorMapCellDetail newErrorDetail = new ErrorMapCellDetail()
+                                    {
+                                        Detail = detail,
+                                        ErrorText = "Sorry, that is not correct! Search for clues nearby and try again.",
+                                    };
+                                    _crawlerService.ChangeState(ECrawlerStates.MapExit, token, newErrorDetail);
+                                }
+                            });
+                        }                            
+                    }
                 }
             }
 

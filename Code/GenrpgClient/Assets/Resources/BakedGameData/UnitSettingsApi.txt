@@ -19,7 +19,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.988Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype2default",
@@ -40,7 +40,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.014Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype3default",
@@ -60,7 +60,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.041Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype4default",
@@ -80,7 +80,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.069Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype5default",
@@ -101,7 +101,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.096Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype6default",
@@ -121,7 +121,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.124Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype7default",
@@ -142,7 +142,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.151Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype8default",
@@ -162,7 +162,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.178Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype9default",
@@ -182,7 +182,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.784Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype10default",
@@ -203,7 +203,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.219Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype11default",
@@ -223,7 +223,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.966Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype12default",
@@ -243,7 +243,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.969Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype13default",
@@ -264,7 +264,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.971Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype14default",
@@ -284,7 +284,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.973Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype15default",
@@ -304,7 +304,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.976Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype16default",
@@ -324,7 +324,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.978Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype17default",
@@ -344,7 +344,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.981Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype18default",
@@ -364,7 +364,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.983Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype19default",
@@ -384,7 +384,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.985Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype20default",
@@ -404,7 +404,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.99Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype21default",
@@ -424,7 +424,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.992Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype22default",
@@ -444,7 +444,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.995Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype23default",
@@ -464,7 +464,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.997Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype24default",
@@ -484,7 +484,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype25default",
@@ -504,7 +504,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.002Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype26default",
@@ -524,7 +524,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.005Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype27default",
@@ -544,7 +544,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.007Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype28default",
@@ -564,7 +564,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.01Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype29default",
@@ -584,7 +584,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.012Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype30default",
@@ -604,7 +604,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.017Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype31default",
@@ -624,7 +624,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.019Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype32default",
@@ -644,7 +644,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.022Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype33default",
@@ -664,7 +664,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.024Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype34default",
@@ -684,7 +684,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.027Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype35default",
@@ -704,7 +704,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.029Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype36default",
@@ -724,7 +724,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.031Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype37default",
@@ -749,7 +749,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.034Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype38default",
@@ -769,7 +769,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.036Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype39default",
@@ -789,7 +789,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.039Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype40default",
@@ -814,7 +814,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.044Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype41default",
@@ -834,7 +834,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.046Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype42default",
@@ -854,7 +854,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.049Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype43default",
@@ -874,7 +874,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.051Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype44default",
@@ -894,7 +894,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.054Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype45default",
@@ -914,7 +914,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.056Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype46default",
@@ -934,7 +934,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.059Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype47default",
@@ -954,7 +954,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.061Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype48default",
@@ -974,7 +974,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.064Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype49default",
@@ -994,7 +994,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.066Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype50default",
@@ -1023,7 +1023,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.071Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype51default",
@@ -1052,7 +1052,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.074Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype52default",
@@ -1077,7 +1077,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.076Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype53default",
@@ -1102,7 +1102,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.079Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype54default",
@@ -1127,7 +1127,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.081Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype55default",
@@ -1156,7 +1156,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.084Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype56default",
@@ -1181,7 +1181,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.086Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype57default",
@@ -1206,7 +1206,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.089Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype58default",
@@ -1226,7 +1226,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.091Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype59default",
@@ -1246,7 +1246,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.094Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype60default",
@@ -1266,7 +1266,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.099Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype61default",
@@ -1291,7 +1291,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.101Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype62default",
@@ -1316,7 +1316,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.104Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype63default",
@@ -1341,7 +1341,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.106Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype64default",
@@ -1349,7 +1349,6 @@
       "IdKey": 64,
       "Name": "Black Dragon",
       "PluralName": "Black Dragons",
-      "Desc": "",
       "Icon": "BlackDragon",
       "Art": "BlackDragon",
       "TribeTypeId": 16,
@@ -1371,7 +1370,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.109Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype65default",
@@ -1396,7 +1395,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.111Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype66default",
@@ -1421,7 +1420,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.114Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype67default",
@@ -1446,7 +1445,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.116Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype68default",
@@ -1471,7 +1470,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.119Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype69default",
@@ -1491,7 +1490,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.121Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype70default",
@@ -1511,7 +1510,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.126Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype71default",
@@ -1531,7 +1530,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.129Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype72default",
@@ -1551,7 +1550,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.131Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype73default",
@@ -1571,7 +1570,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.134Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype74default",
@@ -1591,7 +1590,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.136Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype75default",
@@ -1611,7 +1610,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.139Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype76default",
@@ -1631,7 +1630,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.141Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype77default",
@@ -1651,7 +1650,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.144Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype78default",
@@ -1671,7 +1670,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.146Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype79default",
@@ -1691,7 +1690,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.149Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype80default",
@@ -1711,7 +1710,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.153Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype81default",
@@ -1731,7 +1730,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.156Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype82default",
@@ -1751,7 +1750,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.158Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype83default",
@@ -1771,7 +1770,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.161Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype84default",
@@ -1791,7 +1790,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.163Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype85default",
@@ -1811,7 +1810,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.166Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype86default",
@@ -1831,7 +1830,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.168Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype87default",
@@ -1851,7 +1850,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.171Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype88default",
@@ -1871,7 +1870,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.173Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype89default",
@@ -1891,7 +1890,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.176Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype90default",
@@ -1911,7 +1910,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.181Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype91default",
@@ -1931,7 +1930,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.183Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype92default",
@@ -1951,7 +1950,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.186Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype93default",
@@ -1971,7 +1970,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.189Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype94default",
@@ -1991,7 +1990,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.191Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype95default",
@@ -2011,7 +2010,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.194Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype96default",
@@ -2031,7 +2030,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.196Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype97default",
@@ -2051,7 +2050,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.199Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype98default",
@@ -2071,7 +2070,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.201Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype99default",
@@ -2091,7 +2090,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:16.778Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype100default",
@@ -2111,7 +2110,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.194Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype101default",
@@ -2131,7 +2130,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.197Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype102default",
@@ -2151,7 +2150,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.199Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype103default",
@@ -2171,7 +2170,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.202Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype104default",
@@ -2191,7 +2190,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.204Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype105default",
@@ -2211,7 +2210,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.207Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype106default",
@@ -2231,7 +2230,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.209Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype107default",
@@ -2251,7 +2250,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.212Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype108default",
@@ -2271,7 +2270,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.214Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype109default",
@@ -2291,7 +2290,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.217Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype110default",
@@ -2311,7 +2310,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.222Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype111default",
@@ -2331,7 +2330,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.224Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype112default",
@@ -2351,7 +2350,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.227Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype113default",
@@ -2371,7 +2370,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.954Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype114default",
@@ -2391,7 +2390,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.959Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype115default",
@@ -2411,7 +2410,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.962Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
     },
     {
       "Id": "unittype116default",
@@ -2431,13 +2430,54 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-08-01T00:28:15.964Z"
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
+    },
+    {
+      "Id": "unittype117default",
+      "ParentId": "default",
+      "IdKey": 117,
+      "Name": "Iron Golem",
+      "PluralName": "Iron Golems",
+      "Icon": "IronGolem",
+      "Art": "IronGolem",
+      "TribeTypeId": 8,
+      "MinLevel": 1,
+      "Effects": [],
+      "PrefixNames": [],
+      "DoubleNameSuffixes": [],
+      "SuffixNames": [],
+      "AlternateNames": [],
+      "FoodSources": [],
+      "LootItems": [],
+      "InteractLootItems": [],
+      "UpdateTime": "2024-08-31T18:55:35.49Z"
+    },
+    {
+      "Id": "unittype118default",
+      "ParentId": "default",
+      "IdKey": 118,
+      "Name": "Stone Golem",
+      "PluralName": "Stone Golems",
+      "Desc": "",
+      "Icon": "StoneGolem",
+      "Art": "StoneGolem",
+      "TribeTypeId": 8,
+      "MinLevel": 1,
+      "Effects": [],
+      "PrefixNames": [],
+      "DoubleNameSuffixes": [],
+      "SuffixNames": [],
+      "AlternateNames": [],
+      "FoodSources": [],
+      "LootItems": [],
+      "InteractLootItems": [],
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "UnitSettings",
-    "UpdateTime": "2024-08-01T00:28:15.187Z"
+    "UpdateTime": "2024-08-31T18:57:58.824Z"
   },
   "Id": "default"
 }

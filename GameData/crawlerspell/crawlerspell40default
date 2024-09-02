@@ -3,12 +3,11 @@
   "ParentId": "default",
   "IdKey": 40,
   "Name": "UNUSED",
-  "PowerCost": 50,
   "MaxRange": 100,
   "ReplacesCrawlerSpellId": 12,
   "CombatActionId": 4,
   "TargetTypeId": 5,
   "Level": 18,
   "Effects": [],
-  "UpdateTime": "2024-08-20T13:13:16.189Z"
+  "UpdateTime": "2024-08-31T18:58:09.831Z"
 }

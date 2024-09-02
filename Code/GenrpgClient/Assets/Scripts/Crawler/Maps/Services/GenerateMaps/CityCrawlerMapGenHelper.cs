@@ -10,16 +10,15 @@ using System.Linq;
 using Genrpg.Shared.Zones.Settings;
 using UnityEngine;
 using System.Threading.Tasks;
+using Genrpg.Shared.Crawler.MapGen.Constants;
+using Genrpg.Shared.Crawler.MapGen.Settings;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
-
-
-   
     public class CityCrawlerMapGenHelper : BaseCrawlerMapGenHelper
     {
 
-        public override ECrawlerMapTypes GetKey() { return ECrawlerMapTypes.City; }
+        public override long GetKey() { return CrawlerMapTypes.City; }
 
         public override async Awaitable<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
         {
@@ -31,8 +30,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             long cityZoneTypeId = allZoneTypes.FirstOrDefault(x => x.Name == "City")?.IdKey ?? 1;
             long roadZoneTypeId = allZoneTypes.FirstOrDefault(x => x.Name == "Road")?.IdKey ?? 1;
 
-            int width = MathUtils.IntRange(14, 18, rand);
-            int height = width;
+            CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(CrawlerMapTypes.City);
+
+
+            int width = (int)MathUtils.LongRange(mapType.MinWidth, mapType.MaxWidth, rand);
+            int height = (int)MathUtils.LongRange(mapType.MinHeight, mapType.MaxHeight, rand);
             genData.ZoneTypeId = cityZoneTypeId;
             CrawlerMap map = genData.World.CreateMap(genData, width, height);
 
@@ -102,9 +104,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             if (fillerBuildings.Count > 0)
             {
-                for (int xx = 0; xx < clearCells.GetLength(0); xx++)
+                for (int xx = 1; xx < clearCells.GetLength(0)-1; xx++)
                 {
-                    for (int yy = 0; yy < clearCells.GetLength(1); yy++)
+                    for (int yy = 1; yy < clearCells.GetLength(1)-1; yy++)
                     {
                         if (clearCells[xx, yy])
                         {
@@ -195,7 +197,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 CrawlerMapGenData dungeonGenData = new CrawlerMapGenData()
                 {
                     World = genData.World,
-                    MapType = ECrawlerMapTypes.Dungeon,
+                    MapType = CrawlerMapTypes.Dungeon,
                     ZoneTypeId = newZoneTypeId,
                     Level = dungeonLevel++,
                     FromMapId = map.IdKey,

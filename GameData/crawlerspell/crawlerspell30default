@@ -4,7 +4,8 @@
   "IdKey": 30,
   "Name": "Cone of Cold",
   "Desc": "Hit all monsters in a group with cold damage.",
-  "PowerCost": 20,
+  "PowerCost": 8,
+  "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 3,
@@ -18,5 +19,5 @@
       "ElementTypeId": 3
     }
   ],
-  "UpdateTime": "2024-08-20T13:13:16.189Z"
+  "UpdateTime": "2024-08-31T18:58:09.831Z"
 }

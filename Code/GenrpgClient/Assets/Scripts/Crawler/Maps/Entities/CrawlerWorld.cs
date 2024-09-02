@@ -26,7 +26,7 @@ namespace Assets.Scripts.Crawler.Maps.Entities
             CrawlerMap map = new CrawlerMap()
             {
                 Id = "Map" + mapId,
-                MapType = genData.MapType,
+                CrawlerMapTypeId = genData.MapType,
                 Looping = genData.Looping,
                 Width = width,
                 Height = height,

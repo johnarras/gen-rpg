@@ -55,8 +55,9 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
         [Key(16)] public long MaxArmorScalingTypeId { get; set; }
         [Key(17)] public long CritPercent { get; set; } = 0; 
         [Key(18)] public long ManaStatTypeId { get; set; }
+        [Key(19)] public bool Guardian { get; set; } = false;
 
-        [Key(19)] public List<RoleBonus> Bonuses { get; set; } = new List<RoleBonus>();
+        [Key(20)] public List<RoleBonus> Bonuses { get; set; } = new List<RoleBonus>();
     }
 
 
@@ -94,19 +95,14 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
         }
 
         /// <summary>
-        /// Take product of scaling bonuses then subtract 1 to get scaling bonus per level.
+        /// This is a function in case I want to make this more complex.
         /// </summary>
         /// <param name="scales"></param>
         /// <returns></returns>
         public double GetScalingBonusPerLevel(List<double> scales)
         {
-            double retval = 1;
 
-            foreach (double scale in scales)
-            {
-                retval *= (1 + scale);
-            }
-            return retval - 1;
+            return scales.Sum(x => x);
         }
           
     }

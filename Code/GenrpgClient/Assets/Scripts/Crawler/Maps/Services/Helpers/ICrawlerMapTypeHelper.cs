@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {
-    public interface ICrawlerMapTypeHelper : ISetupDictionaryItem<ECrawlerMapTypes>
+    public interface ICrawlerMapTypeHelper : ISetupDictionaryItem<long>
     {
 
         Awaitable<CrawlerMapRoot> Enter(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);

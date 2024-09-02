@@ -6,7 +6,9 @@
   "ProcMult": 2.0,
   "EffectMult": 2.0,
   "MaxLootItems": 4,
-  "ItemChancePerMonster": 0.20000000298023224,
+  "ItemChancePerMonster": 0.04,
+  "MinGoldPerKillLevelMult": 2.5,
+  "MaxGoldPerKillLevelMult": 5.0,
   "Name": "CrawlerLootSettings",
-  "UpdateTime": "2024-08-01T00:28:05.721Z"
+  "UpdateTime": "2024-08-31T23:36:02.498Z"
 }

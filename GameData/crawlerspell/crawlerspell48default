@@ -4,7 +4,6 @@
   "IdKey": 48,
   "Name": "Charge",
   "Desc": "Passive buff to move the party forward more when advancing.",
-  "PowerPerLevel": 1,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 3,
@@ -18,5 +17,5 @@
       "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2024-08-20T13:13:16.189Z"
+  "UpdateTime": "2024-08-31T18:58:09.831Z"
 }

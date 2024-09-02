@@ -12,6 +12,7 @@ namespace Assets.Scripts.Crawler.UI.Utils
         public const string ColorWhite = "#FFFFFF";
         public const string ColorYellow = "#FFD800";
         public const string ColorRed = "#FF0000";
+        public const string ColorGold = "#CCA500";
 
         public static string HighlightText(string text, string color = ColorYellow)
         {

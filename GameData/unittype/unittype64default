@@ -4,7 +4,6 @@
   "IdKey": 64,
   "Name": "Black Dragon",
   "PluralName": "Black Dragons",
-  "Desc": "",
   "Icon": "BlackDragon",
   "Art": "BlackDragon",
   "TribeTypeId": 16,
@@ -26,5 +25,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-08-01T00:28:16.109Z"
+  "UpdateTime": "2024-08-31T18:55:35.49Z"
 }

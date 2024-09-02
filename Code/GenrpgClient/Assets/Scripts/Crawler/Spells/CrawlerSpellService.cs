@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.Crawler.StateHelpers.Casting.SpecialMagicHelpers;
+using Assets.Scripts.Crawler.UI.Utils;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
@@ -36,6 +37,7 @@ using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -120,7 +122,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 {
                     continue;
                 }
-
                 
                 if (!roleSettings.HasBonus(member.Roles, EntityTypes.CrawlerSpell, spell.IdKey))
                 {
@@ -160,6 +161,11 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             }
 
             okSpells = okSpells.OrderBy(x => x.Name).ToList();
+
+            if (!chooseSpells)
+            {
+                okSpells = okSpells.OrderBy(x=>x.CombatActionId).ToList();  
+            }
             return okSpells;
         }
 
@@ -174,7 +180,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             double critChance = 0;
 
-            long attackQuantity = 0;
+            double attackQuantity = 0;
 
             long casterLevel = caster.GetAbilityLevel();
 
@@ -387,33 +393,49 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
                 if (fullEffect.InitialEffect && caster is PartyMember partyMember)
                 {
-                    
                     if (effect.MinQuantity > 0 && effect.MaxQuantity > 0 && !quantityIsBaseDamage)
                     {
                         attackQuantity = MathUtils.LongRange(effect.MinQuantity, effect.MaxQuantity, _rand);
                     }
                     else
                     {
-                        double currAttackQuantity = CrawlerCombatConstants.BaseAttackQuantity +
+                        double currAttackQuantity = (caster.IsPlayer() ? CrawlerCombatConstants.BasePlayerAttackQuantity : CrawlerCombatConstants.BaseAttackQuantity) +
                             attacksPerLevel * (abilityLevel-1); // -1 here since so level 1 doesn't double dip.
 
                         if (currAttackQuantity > attackQuantity)
                         {
-                            attackQuantity = (long)currAttackQuantity;
+                            attackQuantity = currAttackQuantity;
                         }
                     }
                     // Used for cures.
                     if (finalQuantityIsNegativeAttackCount)
                     {
-                        effect.MinQuantity = -attackQuantity;
-                        effect.MaxQuantity = -attackQuantity;
+                        effect.MinQuantity = -(long)attackQuantity;
+                        effect.MaxQuantity = -(long)attackQuantity;
                     }
-
-
                 }
             }
 
-            fullSpell.HitQuantity = Math.Max(1, attackQuantity);
+            long intAttackQuantity = (long)(attackQuantity);
+            if (_rand.NextDouble() < (attackQuantity-(long)attackQuantity))
+            {
+                attackQuantity++;
+            }
+
+            long luckBonus = CrawlerStatUtils.GetStatBonus(caster, StatTypes.Luck);
+
+            long luckyAttackCount = 0;
+            for (int a = 0; a < attackQuantity; a++)
+            {
+                if (_rand.NextDouble()*100 < luckBonus)
+                {
+                     luckyAttackCount++;
+                }
+            }
+            attackQuantity += luckyAttackCount;
+
+            fullSpell.HitQuantity = Math.Max(1, (long)attackQuantity);
+            fullSpell.LuckyHitQuantity = luckyAttackCount;
             fullSpell.HitsLeft = fullSpell.HitQuantity;
             return fullSpell;
         }
@@ -447,6 +469,11 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                 Effect = procEffect,
             };
             return fullProcEffect;
+        }
+
+        public long GetPowerCost(PartyData party, PartyMember member, CrawlerSpell spell)
+        {
+            return 0;
         }
 
         public void RemoveSpellPowerCost(PartyData party, PartyMember member, CrawlerSpell spell)
@@ -511,9 +538,17 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     return;
                 }
 
-                if (!fullSpell.Spell.HasFlag(CrawlerSpellFlags.SuppressCastText))
+                if (!fullSpell.Spell.HasFlag(CrawlerSpellFlags.SuppressCastText) && fullSpell.LuckyHitQuantity < 1)
                 {
                     await ShowText(party, $"{action.Caster.Name} casts {fullSpell.Spell.Name}", displayDelay);
+                    if (fullSpell.LuckyHitQuantity == 1)
+                    {
+                        await ShowText(party, CrawlerUIUtils.HighlightText("1 Lucky Hit!", CrawlerUIUtils.ColorGold), displayDelay);
+                    }
+                    else if (fullSpell.LuckyHitQuantity > 1)
+                    {
+                        await ShowText(party, CrawlerUIUtils.HighlightText($"{fullSpell.LuckyHitQuantity} Lucky Hits!", CrawlerUIUtils.ColorGold), displayDelay);
+                    }
                 }
 
                 if (action.Caster is PartyMember pmember)
@@ -528,7 +563,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         party.WorldPanel.SetPicture(action.Caster.PortraitName);
                     }
                 
-                    if (action.FinalTargets.Count == 0 || action.FinalTargets[0].DefendRank != EDefendRanks.Taunt)
+                    if (action.FinalTargets.Count == 0 || action.FinalTargets[0].DefendRank < EDefendRanks.Guardian)
                     {
                         List<CombatGroup> groups = new List<CombatGroup>();
 
@@ -721,7 +756,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                             continue;
                         }
 
-                        if (target.DefendRank == EDefendRanks.None && hit.CritChance > 0 &&
+                        if (target.DefendRank == 0 && hit.CritChance > 0 &&
                             _rand.NextDouble() * 100 < hit.CritChance && !casterIsWeakened)
                         {
                             newQuantity = target.Stats.Curr(StatTypes.Health);
@@ -743,14 +778,20 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                             }
 
                             double damageScale = 1.0f;
+
                             if (target.DefendRank == EDefendRanks.Defend)
                             {
                                 damageScale = combatSettings.DefendDamageScale;
                             }
+                            else if (target.DefendRank == EDefendRanks.Guardian)
+                            {
+                                damageScale = combatSettings.GuardianDamageScale;
+                            }
                             else if (target.DefendRank == EDefendRanks.Taunt)
                             {
-                                damageScale = combatSettings.TauntDamageScale;
+                                damageScale *= combatSettings.TauntDamageScale;
                             }
+
                             newQuantity = (long)Math.Max(1, newQuantity * damageScale);
 
                             long defenseStat = target.Stats.Max(defenseStatId);
@@ -948,6 +989,10 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             }
 
             await Task.CompletedTask;
+        }
+
+        public void SetupCombatData(PartyData partyData, PartyMember member)
+        {
         }
     }
 }

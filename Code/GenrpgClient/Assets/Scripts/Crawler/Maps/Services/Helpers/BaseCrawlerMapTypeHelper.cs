@@ -7,6 +7,7 @@ using Assets.Scripts.Crawler.Maps.Services.GenerateMaps;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Buildings.Settings;
+using Genrpg.Shared.Crawler.MapGen.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
@@ -38,7 +39,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         protected ICrawlerMapService _mapService;
         protected ICrawlerMapGenService _mapGenService;
 
-        public abstract ECrawlerMapTypes GetKey();
+        public abstract long GetKey();
 
         protected virtual bool IsIndoors() { return false; }
 
@@ -204,7 +205,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                     return WallTypes.Wall;
                 }
 
-                if (mapRoot.Map.MapType == ECrawlerMapTypes.City)
+                if (mapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.City)
                 {
                     int angle = mapRoot.Map.Get(safeEx, safeEz, CellIndex.Dir) * CrawlerMapConstants.DirToAngleMult;
 

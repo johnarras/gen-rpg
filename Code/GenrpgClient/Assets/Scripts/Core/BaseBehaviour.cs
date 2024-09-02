@@ -26,7 +26,6 @@ public class BaseBehaviour : StubComponent, IInitOnResolve
         return this.GetCancellationToken();
     }
 
-
     public virtual void Init()
     {
 

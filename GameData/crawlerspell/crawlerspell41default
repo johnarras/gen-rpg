@@ -4,7 +4,8 @@
   "IdKey": 41,
   "Name": "Call Beast",
   "Desc": "Summon a beast.",
-  "PowerCost": 50,
+  "PowerCost": 10,
+  "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 9,
@@ -12,11 +13,11 @@
   "Effects": [
     {
       "EntityTypeId": 4,
-      "EntityId": 4,
+      "EntityId": 73,
       "MinQuantity": 1,
       "MaxQuantity": 1,
       "ElementTypeId": 8
     }
   ],
-  "UpdateTime": "2024-08-20T13:13:16.189Z"
+  "UpdateTime": "2024-08-31T18:58:09.831Z"
 }

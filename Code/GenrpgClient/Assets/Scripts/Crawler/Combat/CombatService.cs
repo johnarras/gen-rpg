@@ -15,6 +15,7 @@ using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.Stats.Services;
+using Genrpg.Shared.Crawler.Stats.Utils;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Factions.Constants;
@@ -22,6 +23,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Interfaces;
+using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.UnitEffects.Constants;
 using Genrpg.Shared.UnitEffects.Settings;
 using Genrpg.Shared.Units.Entities;
@@ -92,7 +94,20 @@ namespace Assets.Scripts.Crawler.Services.Combat
             {
                 List<Role> roles = roleSettings.GetRoles(member.Roles);
 
-                long quantity = (long)(1 + (roleSettings.GetScalingBonusPerLevel(roles.Select(x => x.SummonScaling).ToList()) * member.GetAbilityLevel()));
+                // 1.5 here for rounding and not random scaling value combat to combat
+                long quantity = (long)(1.5 + (roleSettings.GetScalingBonusPerLevel(roles.Select(x => x.SummonScaling).ToList()) * member.GetAbilityLevel()));
+
+                long luckBonus = CrawlerStatUtils.GetStatBonus(member, StatTypes.Luck);
+
+                long luckySummonCount = 0;
+                for (int q = 0; q < quantity; q++)
+                {
+                    if (_rand.NextDouble() * 100 < luckBonus)
+                    {
+                        luckySummonCount++;
+                    }
+                }
+                quantity += luckySummonCount;
 
                 foreach (PartySummon summon in member.Summons)
                 {
@@ -455,23 +470,36 @@ namespace Assets.Scripts.Crawler.Services.Combat
         {
             // Pass 1 defend and hide
 
+
+            List<long> defenderRoleIds = _gameData.Get<RoleSettings>(_gs.ch).GetData().Where(x => x.Guardian).Select(x=>x.IdKey).ToList();
+
             foreach (CrawlerUnit unit in party.Combat.PartyGroup.Units)
             {
                 if (unit.Action == null || unit.Action.IsComplete)
                 {
                     continue;
                 }
-                unit.DefendRank = EDefendRanks.None;                
+
+                unit.DefendRank = EDefendRanks.None;
+
+                foreach (UnitRole unitRole in unit.Roles)
+                {
+                    if (defenderRoleIds.Contains(unitRole.RoleId))
+                    {
+                        unit.DefendRank = EDefendRanks.Guardian;
+                        break;
+                    }
+                }
 
                 if (unit.Action.CombatActionId == CombatActions.Defend)
                 {
-                    if (unit.Action.Spell.ReplacesCrawlerSpellId == 0)
+                    if (unit.DefendRank == EDefendRanks.Guardian)
                     {
-                        unit.DefendRank = EDefendRanks.Defend;
+                        unit.DefendRank = EDefendRanks.Taunt;
                     }
                     else
                     {
-                        unit.DefendRank = EDefendRanks.Taunt;
+                        unit.DefendRank = EDefendRanks.Defend;
                     }
                 }
                 else if (unit.Action.CombatActionId == CombatActions.Hide)
@@ -495,25 +523,24 @@ namespace Assets.Scripts.Crawler.Services.Combat
             }
             List<CrawlerSpell> monsterSpells = _gameData.Get<CrawlerSpellSettings>(null).GetData().Where(x => x.HasFlag(CrawlerSpellFlags.MonsterOnly)).ToList();
 
-
             CombatState combat = party.Combat;
 
             List<CrawlerUnit> tauntUnits = new List<CrawlerUnit>();
 
             foreach (CombatGroup combatGroup in combat.Allies)
             {
-                foreach (CrawlerUnit unit in  combatGroup.Units)
-                {
-                    if (unit.DefendRank == EDefendRanks.Taunt)
-                    {
-                        tauntUnits.Add(unit);
-                    }
-                }
+                tauntUnits.AddRange(combatGroup.Units.Where(x => x.DefendRank >= EDefendRanks.Guardian));
+            }
+
+            if (tauntUnits.Count > 0)
+            {
+                EDefendRanks maxDefendRank = tauntUnits.Max(x=>x.DefendRank);
+                tauntUnits = tauntUnits.Where(x=>x.DefendRank == maxDefendRank).ToList();   
             }
 
             foreach (CombatGroup group in combat.Allies)
             {
-                if (group == party.Combat.PartyGroup && party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Fight)
+                if (group != party.Combat.PartyGroup && party.Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Fight)
                 {
                     SelectGroupActions(party, group, new List<CrawlerUnit>(), combat.Allies, combat.Enemies, monsterSpells);
                 }
@@ -751,6 +778,14 @@ namespace Assets.Scripts.Crawler.Services.Combat
                 if (combatAction.Name != spell.Name)
                 {
                     newAction.Text += ": " + spell.Name;
+                }                
+                if (newAction.CombatActionId == CombatActions.Defend)
+                {
+                    if (unit.DefendRank >= EDefendRanks.Guardian)
+                    {
+                        newAction.Text += ": (Taunt)";
+                    }
+
                 }
             }
             else
@@ -814,16 +849,40 @@ namespace Assets.Scripts.Crawler.Services.Combat
 
             if (atEndOfMove)
             {
+                PartyData party = _crawlerService.GetParty();
+
+                CrawlerMap map = _worldService.GetMap(party.MapId);
+
+                bool newlyMarked = false;
+
+                if (!party.CompletedMaps.HasBit(party.MapId))
+                {
+                    CrawlerMapStatus status = party.Maps.FirstOrDefault(x => x.MapId == party.MapId);
+
+                    if (status == null || !status.Visited.HasBit(map.GetIndex(party.MapX, party.MapZ)))
+                    {
+                        newlyMarked = true;
+                    }
+                }
+
+                CrawlerMap cmap = _worldService.GetMap(party.MapId);
+
                 _lastMoveTime = DateTime.UtcNow;
-                if (++_movesSinceLastCombat < 30)
+                if (++_movesSinceLastCombat < 10)
                 {
                     return;
                 }
 
-                if (_rand.NextDouble() > 0.01f)
+                if (_rand.NextDouble() > 0.03f)
                 {
                     return;
                 }
+
+                if (!newlyMarked)
+                {
+                    return;
+                }
+
             }
             else // Just idle waiting.
             {

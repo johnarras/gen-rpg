@@ -109,7 +109,6 @@ namespace Assets.Scripts.Crawler.StateHelpers.Casting.SpecialMagicHelpers
             }
 
             _spellService.RemoveSpellPowerCost(partyData, member, action.Spell);
-
             _mapService.MovePartyTo(partyData, x, z, partyData.MapRot, token);
             _crawlerService.ChangeState(ECrawlerStates.ExploreWorld, token);
         }

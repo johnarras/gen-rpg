@@ -65,8 +65,6 @@ namespace Genrpg.Shared.Crawler.Stats.Services
             {
                 List<Role> roles = _gameData.Get<RoleSettings>(_gs.ch).GetRoles(member.Roles);
 
-                List<MemberStat> permStats = member.PermStats;
-
                 foreach (long mutableStatType in mutableStatTypes)
                 {
                     currStats.Add(new MemberStat()
@@ -78,9 +76,9 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                 member.Stats.ResetAll();
 
-                foreach (MemberStat permStat in permStats)
+                for (int primaryStatId = StatConstants.PrimaryStatStart; primaryStatId < StatConstants.PrimaryStatEnd; primaryStatId++)
                 {
-                    _statService.Add(member, permStat.Id, StatCategories.Base, permStat.Val);
+                    _statService.Add(member, primaryStatId, StatCategories.Base, member.GetPermStat(primaryStatId));
                 }
 
 
@@ -138,6 +136,10 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                     {
                         _statService.Set(member, mutableStatType, StatCategories.Curr, maxStatVal);
                     }
+                    else
+                    {
+                        _statService.Set(member, mutableStatType, StatCategories.Curr, currStatVal);
+                    }
                 }
             }
             else if (unit is Monster monster)
@@ -158,8 +160,8 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 _statService.Set(unit, StatTypes.Health, StatCategories.Base, startHealth);
                 _statService.Set(unit, StatTypes.Health, StatCategories.Curr, startHealth);
 
-                monster.MinDam = 1 + unit.Level / 5;
-                monster.MaxDam = 2 + unit.Level / 2;
+                monster.MinDam = 1 + unit.Level / 3;
+                monster.MaxDam = 3 + unit.Level / 2;
             }
         }
 

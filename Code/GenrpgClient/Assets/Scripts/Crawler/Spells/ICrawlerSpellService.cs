@@ -8,10 +8,7 @@ using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Genrpg.Shared.Crawler.Spells.Services
@@ -24,5 +21,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         Awaitable CastSpell(PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0);
         ISpecialMagicHelper GetSpecialEffectHelper(long effectEntityId);
         void RemoveSpellPowerCost(PartyData party, PartyMember member, CrawlerSpell spell);
+        void SetupCombatData(PartyData partyData, PartyMember member);
+        long GetPowerCost(PartyData party, PartyMember member, CrawlerSpell spell);
     }
 }

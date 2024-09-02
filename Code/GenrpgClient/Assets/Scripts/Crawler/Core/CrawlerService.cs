@@ -11,12 +11,15 @@ using Assets.Scripts.UI.Crawler;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
 using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Crawler.Combat.Entities;
+using Genrpg.Shared.Crawler.Items.Entities;
 using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
@@ -52,6 +55,7 @@ namespace Assets.Scripts.Crawler.Services
 
         private IUnityGameState _gs;
         private CancellationToken _token;
+        private ICrawlerSpellService _spellService;
         private PartyData _party { get; set; }
 
         public PartyData GetParty()
@@ -86,7 +90,7 @@ namespace Assets.Scripts.Crawler.Services
         {
             _inputService.SetDisabled(true);
             _token = token;
-            _party = party;
+            this._party = party;
 
             if (party.WorldId < 1)
             {
@@ -98,7 +102,7 @@ namespace Assets.Scripts.Crawler.Services
                 party.WorldId = InitClient.EditorInstance.MapGenSeed;
             }
 #endif
-            CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
+            CrawlerWorld world = await _worldService.GetWorld(this._party.WorldId);
 
             await Task.CompletedTask;
             ChangeState(ECrawlerStates.TavernMain, token);
@@ -115,6 +119,7 @@ namespace Assets.Scripts.Crawler.Services
         public void ChangeState(CrawlerStateData data, CrawlerStateAction action, CancellationToken token)
         {
             action.OnClickAction?.Invoke();
+            _crawlerMapService.ClearMovement();
             AwaitableUtils.ForgetAwaitable(ChangeStateAsync(data, action, token));
         }
 
@@ -210,9 +215,100 @@ namespace Assets.Scripts.Crawler.Services
             return null;
         }
 
-        private void SetupParty(PartyData party)
+        private List<CrawlerSaveItem> ConvertItemsFromGameToSave(PartyData partyData, List<Item> items)
         {
+            List<CrawlerSaveItem> retval = new List<CrawlerSaveItem>();
 
+            if (items == null)
+            {
+                return retval;
+            }
+
+            foreach (Item item in items)
+            {
+                CrawlerSaveItem newItem = new CrawlerSaveItem()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                };
+
+                if (string.IsNullOrEmpty(newItem.Id) || newItem.Id.Length > 6)
+                {
+                    newItem.Id = (++partyData.NextItemId).ToString();
+                }
+
+                newItem.Set(CIdx.ItemTypeId, item.ItemTypeId);
+                newItem.Set(CIdx.LootRankId, item.LootRankId);
+                newItem.Set(CIdx.Level, item.Level);
+                newItem.Set(CIdx.ScalingTypeId, item.ScalingTypeId);
+                newItem.Set(CIdx.EquipSlotId, item.EquipSlotId);
+                newItem.Set(CIdx.BuyCost, item.BuyCost);
+                newItem.Set(CIdx.SellValue, item.SellValue);
+                newItem.Set(CIdx.QualityTypeId, item.QualityTypeId);
+
+                int statIndex = 0;
+                for (int e = 0; e < item.Effects.Count && statIndex < 4; e++)
+                {
+                    ItemEffect eff = item.Effects[e];
+                    if (eff.EntityTypeId == EntityTypes.Stat &&
+                        eff.EntityId > 0  &&
+                        eff.Quantity > 0)
+                    {
+                        newItem.Set(CIdx.Stat0 + statIndex * 2, eff.EntityId);
+                        newItem.Set(CIdx.Val0 + statIndex * 2, eff.Quantity);
+                        statIndex++;
+                    }
+                }
+                newItem.CreateDatString();
+                retval.Add(newItem);
+            }
+            return retval;
+        }
+
+        private List<Item> ConvertItemsFromSaveToGame(PartyData partyData, List<CrawlerSaveItem> saveItems)
+        {
+            List<Item> retval = new List<Item>();
+            if (saveItems == null)
+            {
+                return retval;
+            }
+
+            foreach (CrawlerSaveItem saveItem in saveItems)
+            {
+                Item newItem = new Item()
+                {
+                    Id = saveItem.Id,
+                    Name = saveItem.Name,
+                    BuyCost = saveItem.Get(CIdx.BuyCost),
+                    ScalingTypeId = saveItem.Get(CIdx.ScalingTypeId),
+                    EquipSlotId = saveItem.Get(CIdx.EquipSlotId),
+                    ItemTypeId = saveItem.Get(CIdx.ItemTypeId),
+                    Level = saveItem.Get(CIdx.Level),
+                    LootRankId = saveItem.Get(CIdx.LootRankId),
+                    QualityTypeId = saveItem.Get(CIdx.QualityTypeId),
+                    Quantity = 1,
+                    SellValue = saveItem.Get(CIdx.SellValue),
+                    Procs = new List<ItemProc>()
+                };
+
+                for (int i = 0; i < 4; i++)
+                {
+                    long statId = saveItem.Get(CIdx.Stat0 + i * 2);
+                    long statVal = saveItem.Get(CIdx.Val0 + i * 2);    
+                    if (statId > 0 && statVal > 0)
+                    {
+                        newItem.Effects.Add(new ItemEffect() { EntityTypeId = EntityTypes.Stat, EntityId = statId, Quantity = statVal });
+                    }
+                }
+
+                retval.Add(newItem);
+
+            }
+            return retval;
+        }
+
+        private void SetupPartyForGameplay(PartyData party)
+        {
             ActiveScreen activeScreen = _screenService.GetScreen(ScreenId.Crawler);
 
             if (activeScreen != null)
@@ -226,7 +322,30 @@ namespace Assets.Scripts.Crawler.Services
                     party.StatusPanel = crawlerScreen.StatusPanel;
                 }
             }
+
             party.SpeedupListener = this;
+
+
+            foreach (PartyMember member in party.GetActiveParty())
+            {
+                _spellService.SetupCombatData(party, member);
+            }
+        }
+
+        private void InitPartyAfterLoad(PartyData party)
+        {
+            if (party == null)
+            {
+                return;
+            }
+
+            this._party.Inventory = ConvertItemsFromSaveToGame(this._party, this._party.SaveInventory);
+
+            foreach (PartyMember member in this._party.Members)
+            {
+                member.Equipment = ConvertItemsFromSaveToGame(this._party, member.SaveEquipment);
+                member.ConvertDataAfterLoad();
+            }
 
         }
 
@@ -238,6 +357,8 @@ namespace Assets.Scripts.Crawler.Services
             }
 
             _party = await _repoService.Load<PartyData>(filename);
+
+            InitPartyAfterLoad(_party);
 
             if (_party == null)
             {
@@ -251,7 +372,8 @@ namespace Assets.Scripts.Crawler.Services
                 await SaveGame();
             }
 
-            SetupParty(_party);
+            SetupPartyForGameplay(_party);
+
 
             _statService.CalcPartyStats(_party, true);
             return _party;
@@ -269,10 +391,20 @@ namespace Assets.Scripts.Crawler.Services
             {
                 IClientRepositoryService clientRepoService = _repoService as IClientRepositoryService;
 
+                _party.SaveInventory = ConvertItemsFromGameToSave(_party, _party.Inventory);
+
+                foreach (PartyMember member in _party.Members)
+                {
+                    member.SaveEquipment = ConvertItemsFromGameToSave(_party, member.Equipment);
+                    member.ConvertDataBeforeSave();
+                }
+
                 await clientRepoService.SavePrettyPrint(_party);
 
             }
         }
+
+        
 
         private void UpdateGame(CancellationToken token)
         {

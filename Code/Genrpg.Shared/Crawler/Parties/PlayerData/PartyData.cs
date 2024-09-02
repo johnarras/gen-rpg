@@ -18,6 +18,7 @@ using Genrpg.Shared.Crawler.UI.Interfaces;
 using Newtonsoft.Json.Serialization;
 using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils.Data;
+using Genrpg.Shared.Crawler.Items.Entities;
 
 namespace Genrpg.Shared.Crawler.Parties.PlayerData
 {
@@ -32,31 +33,40 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(1)] public List<PartyMember> Members { get; set; } = new List<PartyMember>();
 
+        [JsonIgnore]
         [Key(2)] public List<Item> Inventory { get; set; } = new List<Item> ();
 
-        [Key(3)] public List<Item> VendorBuyback { get; set; } = new List<Item>();
+        [Key(3)] public List<CrawlerSaveItem> SaveInventory { get; set; } = new List<CrawlerSaveItem>();
 
-        [Key(4)] public List<Item> VendorItems { get; set; } = new List<Item>();
+        [JsonIgnore]
+        [Key(4)] public List<Item> VendorBuyback { get; set; } = new List<Item>();
 
-        [Key(5)] public List<PartyQuestItem> QuestItems { get; set; } = new List<PartyQuestItem>();
+        [JsonIgnore]
+        [Key(5)] public List<Item> VendorItems { get; set; } = new List<Item>();
 
-        [Key(6)] public DateTime LastVendorRefresh { get; set; }
+        [Key(6)] public List<PartyQuestItem> QuestItems { get; set; } = new List<PartyQuestItem>();
 
-        [Key(7)] public long Gold { get; set; } = 0;
+        [Key(7)] public DateTime LastVendorRefresh { get; set; }
 
-        [Key(8)] public long Seed { get; set; }
+        [Key(8)] public long Gold { get; set; } = 0;
 
-        [Key(9)] public long WorldId { get; set; }
+        [Key(9)] public long Seed { get; set; }
 
-        [Key(10)] public long MapId { get; set; }
+        [Key(10)] public long WorldId { get; set; }
 
-        [Key(11)] public int MapX { get; set; }
-        [Key(12)] public int MapZ { get; set; }
-        [Key(13)] public int MapRot { get; set; }
+        [Key(11)] public long MapId { get; set; }
 
-        [Key(14)] public List<CrawlerMapStatus> Maps { get; set; } = new List<CrawlerMapStatus>();
+        [Key(12)] public int MapX { get; set; }
+        [Key(13)] public int MapZ { get; set; }
+        [Key(14)] public int MapRot { get; set; }
 
-        [Key(15)] public CrawlerMapStatus CurrentMap { get; set; } = new CrawlerMapStatus();
+        [Key(15)] public long NextItemId { get; set; }
+
+        [Key(16)] public List<CrawlerMapStatus> Maps { get; set; } = new List<CrawlerMapStatus>();
+
+        [Key(17)] public CrawlerMapStatus CurrentMap { get; set; } = new CrawlerMapStatus();
+
+        [Key(18)] public SmallIndexBitList CompletedMaps { get; set; } = new SmallIndexBitList();
 
         [JsonIgnore] public IWorldPanel WorldPanel = null;
         [JsonIgnore] public IActionPanel ActionPanel = null;
@@ -66,7 +76,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         public PartyMember GetMemberInSlot(int slot)
         {
-            if (slot >= 1 && slot <= PartyConstants.PartySize)
+            if (slot >= 1 && slot <= PartyConstants.MaxPartySize)
             {
                 return Members.FirstOrDefault(x=>x.PartySlot == slot);
             }
@@ -75,7 +85,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         public void AddPartyMember(PartyMember member)
         {
-            for (int i = 1; i <= PartyConstants.PartySize; i++)
+            for (int i = 1; i <= PartyConstants.MaxPartySize; i++)
             {
                 if (GetMemberInSlot(i) == null)
                 {
@@ -108,7 +118,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
             for (int i = 0; i< currentMembers.Count; i++)
             {
-                if (i < PartyConstants.PartySize)
+                if (i < PartyConstants.MaxPartySize)
                 {
                     currentMembers[i].PartySlot = i + 1;
                 }
@@ -124,7 +134,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         {
             List<PartyMember> retval = new List<PartyMember>();
 
-            for (int i = 1; i <= PartyConstants.PartySize; i++)
+            for (int i = 1; i <= PartyConstants.MaxPartySize; i++)
             {
                 PartyMember member = GetMemberInSlot(i);
                 if (member != null)

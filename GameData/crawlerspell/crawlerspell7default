@@ -4,8 +4,7 @@
   "IdKey": 7,
   "Name": "Mesmerize",
   "Desc": "Make  group of monsters unable to act.",
-  "PowerCost": 100,
-  "PowerPerLevel": 1,
+  "PowerCost": 10,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 3,
@@ -19,5 +18,5 @@
       "ElementTypeId": 4
     }
   ],
-  "UpdateTime": "2024-08-20T13:13:16.189Z"
+  "UpdateTime": "2024-08-31T18:58:09.831Z"
 }

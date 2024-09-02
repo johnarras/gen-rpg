@@ -3,6 +3,7 @@ using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roles.Settings;
+using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Inventory.Entities;
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Crawler.StateHelpers
 {
     public class ChooseNameHelper : BaseStateHelper
     {
-        ILootGenService _lootGenService;
+        private ILootGenService _lootGenService;
         public override ECrawlerStates GetKey() { return ECrawlerStates.ChooseName; }
 
         public override async Awaitable<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
@@ -37,8 +38,7 @@ namespace Assets.Scripts.Crawler.StateHelpers
                 if (!string.IsNullOrEmpty(text))
                 {
                     member.Name = text;
-                    _crawlerService.GetParty().Members.Add(member);                  
-                    _crawlerService.ChangeState(ECrawlerStates.TavernMain, token);
+                    _crawlerService.GetParty().Members.Add(member);      
 
                     IReadOnlyList<ItemType> itemTypes = _gameData.Get<ItemTypeSettings>(_gs.ch).GetData();
 
@@ -101,10 +101,11 @@ namespace Assets.Scripts.Crawler.StateHelpers
                         }
                     }
 
+                    _spellService.SetupCombatData(_crawlerService.GetParty(), member);
                     _statService.CalcUnitStats(_crawlerService.GetParty(), member, true);
 
-
                     _crawlerService.SaveGame();
+                    _crawlerService.ChangeState(ECrawlerStates.TavernMain, token);
                 }
             });
 

@@ -2,6 +2,8 @@
 using Assets.Scripts.Crawler.Maps.Entities;
 using Genrpg.Shared.Buildings.Constants;
 using Genrpg.Shared.Crawler.Loot.Services;
+using Genrpg.Shared.Crawler.MapGen.Constants;
+using Genrpg.Shared.Crawler.MapGen.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Entities.Constants;
@@ -27,7 +29,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         ILineGenService _lineGenService;
         ILootGenService _lootGenService;
 
-        public override ECrawlerMapTypes GetKey() { return ECrawlerMapTypes.Outdoors; }
+        public override long GetKey() { return CrawlerMapTypes.Outdoors; }
 
 
         private List<Color> _biomeColors = null;
@@ -69,7 +71,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             CrawlerMap map = genData.World.CreateMap(genData, width, height);
             map.DungeonArt = _gameData.Get<DungeonArtSettings>(null).Get(map.DungeonArtId);
-            
+
 
             byte[,] overrides = new byte[map.Width, map.Height];
             long[,] terrain = new long[map.Width, map.Height];
@@ -78,9 +80,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             List<ZoneRegion> regions = new List<ZoneRegion>();
 
-            List<ZoneType> allZoneTypes = _gameData.Get<ZoneTypeSettings>(null).GetData().OrderBy(x=>x.MinLevel).ToList();
+            List<ZoneType> allZoneTypes = _gameData.Get<ZoneTypeSettings>(null).GetData().OrderBy(x => x.MinLevel).ToList();
 
-            List<long> okZoneIds = allZoneTypes.Where(x => x.GenChance > 0).Select(x=>x.IdKey).ToList();
+            List<long> okZoneIds = allZoneTypes.Where(x => x.GenChance > 0).Select(x => x.IdKey).ToList();
 
             List<Color> biomeColors = GetZoneColors();
 
@@ -102,13 +104,13 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 Seed = rand.Next(),
             };
 
-            
+
             List<MyPoint2> points = _samplingService.PlanePoissonSample(samplingData);
 
             int sortx = (rand.NextDouble() < 0.5 ? -1 : 1);
             int sorty = (rand.NextDouble() < 0.5 ? -1 : 1);
 
-            points = points.OrderBy(p=>p.X*sortx).ThenBy(p=>p.Y*sorty).ToList();
+            points = points.OrderBy(p => p.X * sortx).ThenBy(p => p.Y * sorty).ToList();
 
             List<MyPoint2> origPoints = new List<MyPoint2>(points);
 
@@ -140,7 +142,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             long poiZoneId = allZoneTypes.FirstOrDefault(x => x.Name == "PointOfInterest").IdKey;
             long mountainZoneId = allZoneTypes.FirstOrDefault(x => x.Name == "Mountains").IdKey;
 
-            List<ZoneType> startOkZones = allZoneTypes.Where(x=>x.GenChance > 0 && x.IdKey != ZoneTypes.Mountains).ToList();  
+            List<ZoneType> startOkZones = allZoneTypes.Where(x => x.GenChance > 0 && x.IdKey != ZoneTypes.Mountains).ToList();
             while (points.Count > 0 && startOkZones.Count > 0)
             {
                 List<ZoneType> okZones = startOkZones.Where(x => x.MinLevel <= level).ToList();
@@ -191,7 +193,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 {
                     for (int y = 0; y < map.Height; y++)
                     {
-                        if (terrain[x,y] == 0)
+                        if (terrain[x, y] == 0)
                         {
                             foundUnsetCell = true;
                             break;
@@ -236,15 +238,15 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                         for (int y = ymin; y <= ymax; y++)
                         {
 
-                            if (terrain[x,y] != 0)
+                            if (terrain[x, y] != 0)
                             {
                                 continue;
                             }
 
-                            float xpct = (x - xcenter)/xrad;
-                            float ypct = (y - ycenter)/yrad;
+                            float xpct = (x - xcenter) / xrad;
+                            float ypct = (y - ycenter) / yrad;
 
-                            float distScale = Mathf.Sqrt(xpct*xpct + ypct*ypct);
+                            float distScale = Mathf.Sqrt(xpct * xpct + ypct * ypct);
 
                             if (distScale <= 1)
                             {
@@ -275,7 +277,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             int ycorner = 0;
             for (int x = 0; x < map.Width; x++)
             {
-                
+
                 for (int y = 0; y < map.Height; y++)
                 {
                     int cornerIndex = -1;
@@ -288,13 +290,13 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                             ycorner = 0;
                             cornerIndex = 0;
                         }
-                        else if (y >= map.Height-maxCheckRadius-1)
-                        { 
+                        else if (y >= map.Height - maxCheckRadius - 1)
+                        {
                             cornerIndex = 1;
                             ycorner = map.Height - 1;
                         }
                     }
-                    else if (x >= map.Width-maxCheckRadius-1)
+                    else if (x >= map.Width - maxCheckRadius - 1)
                     {
                         xcorner = map.Width - 1;
                         if (y <= maxCheckRadius)
@@ -302,7 +304,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                             cornerIndex = 2;
                             ycorner = 0;
                         }
-                        else if (y >= map.Height-maxCheckRadius-1)
+                        else if (y >= map.Height - maxCheckRadius - 1)
                         {
                             cornerIndex = 3;
                             ycorner = map.Height - 1;
@@ -319,7 +321,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                     if (cornerIndex >= 0 && cornerIndex < cornerRadii.Count)
                     {
-                        int currRadius = (int)cornerRadii[cornerIndex]+startMapEdgeSize;
+                        int currRadius = (int)cornerRadii[cornerIndex] + startMapEdgeSize;
 
 
                         int cx = xcorner;
@@ -337,29 +339,29 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                         if (cy > 0)
                         {
                             cy -= currRadius;
-                            
+
                         }
                         else
                         {
                             cy += currRadius;
                         }
 
-                        if (cx < map.Width/2 && x > cx)
+                        if (cx < map.Width / 2 && x > cx)
                         {
                             continue;
                         }
 
-                        if (cx > map.Width/2 && x < cx)
+                        if (cx > map.Width / 2 && x < cx)
                         {
                             continue;
                         }
 
-                        if (cy < map.Height/2 && y > cy)
+                        if (cy < map.Height / 2 && y > cy)
                         {
                             continue;
                         }
 
-                        if (cy > map.Height/2 && y < cy)
+                        if (cy > map.Height / 2 && y < cy)
                         {
                             continue;
                         }
@@ -368,7 +370,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                         currDist += MathUtils.FloatRange(-1, 1, rand);
 
-                        if (currDist >= currRadius && terrain[x, y] != waterZoneId)                
+                        if (currDist >= currRadius && terrain[x, y] != waterZoneId)
                         {
                             terrain[x, y] = waterZoneId;
                         }
@@ -378,7 +380,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             // Roads between cities
 
             List<MyPoint2> remainingPoints = new List<MyPoint2>(origPoints);
-            remainingPoints = remainingPoints.OrderBy(p=>p.X).ToList(); 
+            remainingPoints = remainingPoints.OrderBy(p => p.X).ToList();
 
             MyPoint2 prevPoint = null;
             MyPoint2 currPoint = remainingPoints[0];
@@ -400,14 +402,14 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                 if (prevPoint != null)
                 {
-                    px = (int)(prevPoint.X);    
+                    px = (int)(prevPoint.X);
                 }
 
                 bool foundRoad = false;
                 // First checkbackwards to see if there's a matching road.
                 for (int x = nx; x >= px; x--)
                 {
-                    if (terrain[x,ny] == roadZoneId)
+                    if (terrain[x, ny] == roadZoneId)
                     {
                         foundRoad = true;
                         for (int xx = nx; xx > x; xx--)
@@ -416,7 +418,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                             {
                                 break;
                             }
-                            terrain[xx,ny] = roadZoneId;
+                            terrain[xx, ny] = roadZoneId;
 
                         }
                     }
@@ -435,7 +437,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
 
                 int midx = (int)(cx + (int)MathUtils.FloatRange(0.33f, 0.67f, rand) * dx);
-                int midy = (int)(cy + (int)MathUtils.FloatRange(0.33f, 0.67f, rand)  * dy);
+                int midy = (int)(cy + (int)MathUtils.FloatRange(0.33f, 0.67f, rand) * dy);
 
                 List<int[]> segments = new List<int[]>();
 
@@ -452,11 +454,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                     if (rand.NextDouble() < 0.5f)
                     {
-                        for (int xx = Math.Min(sx,ex); xx <= Math.Max(sx,ex); xx++)
+                        for (int xx = Math.Min(sx, ex); xx <= Math.Max(sx, ex); xx++)
                         {
                             terrain[xx, sy] = roadZoneId;
                         }
-                        for (int yy = Math.Min(sy,ey); yy <= Math.Max(sy,ey); yy++)
+                        for (int yy = Math.Min(sy, ey); yy <= Math.Max(sy, ey); yy++)
                         {
                             terrain[ex, yy] = roadZoneId;
                         }
@@ -483,9 +485,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             int crad = 1;
             int rrad = 2;
             int trad = Math.Max(crad, rrad);
-            for (int x = trad; x < map.Width-trad; x++)
+            for (int x = trad; x < map.Width - trad; x++)
             {
-                for (int y = trad; y < map.Height-trad; y++)
+                for (int y = trad; y < map.Height - trad; y++)
                 {
                     List<long> currOkZoneIds = new List<long>();
                     bool nearRoad = false;
@@ -509,9 +511,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                     }
 
                     // Now check smaller radius for diff biomes.
-                    for (int xx = x-crad; xx <= x+crad; xx++)
+                    for (int xx = x - crad; xx <= x + crad; xx++)
                     {
-                        for (int yy = y-crad; yy <= y+crad; yy++)
+                        for (int yy = y - crad; yy <= y + crad; yy++)
                         {
                             long tid = regionCells[xx, yy];
                             if (tid != mountainZoneId && okZoneIds.Contains(tid))
@@ -553,7 +555,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 MyPoint2 pt = origPoints[c];
 
                 int cityLevel = 1;
-                ZoneRegion zoneRegion = regions.FirstOrDefault(x=>x.CenterX == (int)pt.X && x.CenterY == (int)pt.Y);  
+                ZoneRegion zoneRegion = regions.FirstOrDefault(x => x.CenterX == (int)pt.X && x.CenterY == (int)pt.Y);
 
                 if (zoneRegion != null)
                 {
@@ -564,8 +566,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 CrawlerMapGenData cityGenData = new CrawlerMapGenData()
                 {
                     World = genData.World,
-                    MapType = ECrawlerMapTypes.City,
-                    Level = cityLevel,       
+                    MapType = CrawlerMapTypes.City,
+                    Level = cityLevel,
                     FromMapId = map.IdKey,
                     FromMapX = (int)(pt.X),
                     FromMapZ = (int)(pt.Y),
@@ -580,30 +582,30 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 int dx = 0;
                 int dy = 0;
 
-                if (map.Get(xx,yy+1,CellIndex.Terrain) == ZoneTypes.Road)
+                if (map.Get(xx, yy + 1, CellIndex.Terrain) == ZoneTypes.Road)
                 {
                     dx = 0;
                     dy = 1;
                 }
-                else if (map.Get(xx,yy-1, CellIndex.Terrain) == ZoneTypes.Road)
+                else if (map.Get(xx, yy - 1, CellIndex.Terrain) == ZoneTypes.Road)
                 {
                     dx = 0;
                     dy = -1;
                 }
-                else if (map.Get(xx-1,yy, CellIndex.Terrain) == ZoneTypes.Road)
+                else if (map.Get(xx - 1, yy, CellIndex.Terrain) == ZoneTypes.Road)
                 {
                     dx = -1;
                     dy = 0;
                 }
-                else if (map.Get(xx+1,yy, CellIndex.Terrain) == ZoneTypes.Road)
+                else if (map.Get(xx + 1, yy, CellIndex.Terrain) == ZoneTypes.Road)
                 {
                     dx = 1;
                     dy = 0;
                 }
 
-                int dirAngle = DirUtils.DirDeltaToAngle(dx,dy);
+                int dirAngle = DirUtils.DirDeltaToAngle(dx, dy);
 
-                map.Set(xx, yy, CellIndex.Dir, dirAngle/CrawlerMapConstants.DirToAngleMult);
+                map.Set(xx, yy, CellIndex.Dir, dirAngle / CrawlerMapConstants.DirToAngleMult);
 
                 CrawlerMap cityMap = await _mapGenService.Generate(party, world, cityGenData);
 
@@ -636,7 +638,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 int xx = (int)p.X;
                 int yy = (int)p.Y;
 
-                if (!okZoneIds.Contains(map.Get(xx,yy, CellIndex.Terrain)))
+                if (!okZoneIds.Contains(map.Get(xx, yy, CellIndex.Terrain)))
                 {
                     continue;
                 }
@@ -653,18 +655,18 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                         break;
                     }
                 }
-                
+
                 if (tooCloseToCity)
                 {
                     continue;
                 }
 
-                long dungeonLevel =  2 + await _worldService.GetMapLevelAtPoint(world, map.IdKey, xx, yy)*5/4;
+                long dungeonLevel = 2 + await _worldService.GetMapLevelAtPoint(world, map.IdKey, xx, yy) * 5 / 4;
                 CrawlerMapGenData dungeonGenData = new CrawlerMapGenData()
                 {
                     World = genData.World,
-                    MapType = ECrawlerMapTypes.Dungeon,
-                    Level = (int) dungeonLevel,
+                    MapType = CrawlerMapTypes.Dungeon,
+                    Level = (int)dungeonLevel,
                     FromMapId = map.IdKey,
                     FromMapX = (int)(xx),
                     FromMapZ = (int)(yy),
@@ -674,11 +676,14 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 CrawlerMap dungeonMap = await _mapGenService.Generate(party, world, dungeonGenData);
 
                 long buildingTypeId = GetBuildingIdFromZoneTypeId(dungeonMap.ZoneTypeId);
-                map.Set(xx,yy, CellIndex.Building, buildingTypeId);
+                map.Set(xx, yy, CellIndex.Building, buildingTypeId);
             }
 
+            CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
 
-            List<CrawlerMap> dungeonMaps = world.Maps.Where(x=>x.MapType == ECrawlerMapTypes.Dungeon && x.MapFloor == 1).OrderBy(x=>x.Level).ToList();
+            CrawlerMapType dungeonType = mapSettings.Get(CrawlerMapTypes.Dungeon);
+
+            List<CrawlerMap> dungeonMaps = world.Maps.Where(x => x.CrawlerMapTypeId == CrawlerMapTypes.Dungeon && x.MapFloor == 1).OrderBy(x => x.Level).ToList();
 
 
             List<List<CrawlerMap>> dungeonMapGroups = new List<List<CrawlerMap>>();
@@ -687,8 +692,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             {
                 CrawlerMap dmap = dungeonMaps[d];
 
-                List<CrawlerMap> otherDungeonMaps = world.Maps.Where(x => x.MapType == ECrawlerMapTypes.Dungeon &&
-                x.Name == dmap.Name && x.IdKey >= dmap.IdKey && x.IdKey <= dmap.IdKey + 6).OrderBy(x=>x.MapFloor).ToList();
+                List<CrawlerMap> otherDungeonMaps = world.Maps.Where(x => x.CrawlerMapTypeId == CrawlerMapTypes.Dungeon &&
+                x.Name == dmap.Name && x.IdKey >= dmap.IdKey && x.IdKey <= dmap.IdKey + 6).OrderBy(x => x.MapFloor).ToList();
 
                 dungeonMapGroups.Add(otherDungeonMaps);
 
@@ -723,90 +728,52 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                 CrawlerMap entranceMap = floors.First();
 
-                if (d > 4 || d == dungeonMapGroups.Count-1)
+                if ((d > 4 && rand.NextDouble() < dungeonType.QuestItemEntranceUnlockChance) || d == dungeonMapGroups.Count - 1)
                 {
-                    int numQuestItems = 0;
 
-                    if (d == dungeonMapGroups.Count-1)
-                    {
-                        numQuestItems = MathUtils.IntRange(3, 7, rand);
-                    }
-                    else
-                    {
-                        if (rand.NextDouble() < 0.7f)
-                        {
-                            numQuestItems++;
-                            if (rand.NextDouble() < 0.1f)
-                            {
-                                numQuestItems++;
-                                if (rand.NextDouble() < 0.1f)
-                                {
-                                    numQuestItems++;
-                                }
-                            }
-                        }
-                    }
+                    string questItemName = _lootGenService.GenerateItemNames(rand, 1).First();
 
-                    List<string> questItemNames = _lootGenService.GenerateItemNames(rand, numQuestItems);
-
-                    int lookbackDistance = 3 + 3 * numQuestItems;
+                    int lookbackDistance = Math.Min(d - 1, 4 + d / 3);
 
                     List<int> okIndexes = new List<int>();
 
-                    for (int i = d-1; i >= 0 && d-i <= lookbackDistance+1; i--)
+                    for (int i = d - 1; i >= 0 && d - i <= lookbackDistance + 1; i--)
                     {
                         okIndexes.Add(i);
                     }
 
-                    List<int> chosenIndexes = new List<int>();
+                    int chosenIndex = okIndexes[rand.Next() % okIndexes.Count];
 
-                    for (int i = 0; i < numQuestItems; i++)
+
+
+                    List<CrawlerMap> targetMaps = dungeonMapGroups[chosenIndex];
+
+                    List<MapCellDetail> openQuestDetails = new List<MapCellDetail>();
+
+                    foreach (CrawlerMap cmap in targetMaps)
                     {
-                        int idx = okIndexes[rand.Next()%okIndexes.Count];
-                        okIndexes.Remove(idx);
-                        chosenIndexes.Add(idx);
+                        openQuestDetails.AddRange(cmap.Details.Where(x => x.EntityTypeId == EntityTypes.QuestItem && x.EntityId == 0));
                     }
 
-                    foreach (int index in chosenIndexes)
+                    if (openQuestDetails.Count > 0)
                     {
-                        if (questItemNames.Count< 1)
+                        MapCellDetail chosenDetail = openQuestDetails[rand.Next() % openQuestDetails.Count];
+
+                        long nextQuestItemId = 1;
+                        if (world.QuestItems.Count > 0)
                         {
-                            break;
+                            nextQuestItemId = world.QuestItems.Max(x => x.IdKey) + 1;
                         }
-
-                        string questItemName = questItemNames[rand.Next() % questItemNames.Count];
-                        questItemNames.Remove(questItemName);   
-
-                        List<CrawlerMap> targetMaps = dungeonMapGroups[index];
-
-                        List<MapCellDetail> openQuestDetails = new List<MapCellDetail>();
-
-                        foreach (CrawlerMap cmap in targetMaps)
+                        world.QuestItems.Add(new WorldQuestItem()
                         {
-                            openQuestDetails.AddRange(cmap.Details.Where(x => x.EntityTypeId == EntityTypes.QuestItem && x.EntityId == 0));
-                        }
+                            IdKey = nextQuestItemId,
+                            Name = questItemName,
+                            FoundInMapId = targetMaps[0].IdKey,
+                            UnlocksMapId = entranceMap.IdKey,
+                        });
 
-                        if (openQuestDetails.Count > 0)
-                        {
-                            MapCellDetail chosenDetail = openQuestDetails[rand.Next() % openQuestDetails.Count];
+                        entranceMap.MapQuestItemId = nextQuestItemId;
 
-                            long nextQuestItemId = 1;
-                            if (world.QuestItems.Count > 0)
-                            {
-                                nextQuestItemId = world.QuestItems.Max(x => x.IdKey) + 1;
-                            }
-                            world.QuestItems.Add(new WorldQuestItem()
-                            {
-                                IdKey = nextQuestItemId,
-                                Name = questItemName,
-                                FoundInMapId = targetMaps[0].IdKey,
-                                UnlocksMapId = entranceMap.IdKey,                                    
-                            });
-
-                            entranceMap.QuestItemsNeeded.Add(new MapQuestItem() { QuestItemId = nextQuestItemId, Quantity = 1, FoundInMapId = targetMaps[0].IdKey  });
-
-                            chosenDetail.EntityId = nextQuestItemId;
-                        }
                     }
                 }
             }
@@ -823,18 +790,22 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             foreach (CrawlerMap cmap in world.Maps)
             {
-                foreach (MapQuestItem mqi in cmap.QuestItemsNeeded)
+                if (cmap.MapQuestItemId > 0)
                 {
-                    CrawlerMap otherMap = world.GetMap(mqi.FoundInMapId);
+                    WorldQuestItem wqi = world.QuestItems.FirstOrDefault(x => x.IdKey == cmap.MapQuestItemId);
+                    if (wqi != null)
+                    {
+                        CrawlerMap otherMap = world.GetMap(wqi.FoundInMapId);
 
-                    _logService.Info("Map " 
-                        + cmap.Name 
-                        + " Requires Item "
-                        + world.QuestItems.First(x=>x.IdKey == mqi.QuestItemId).Name 
-                        + " Found in " + otherMap.Name);
+                        _logService.Info("Map "
+                            + cmap.Name
+                            + " Requires Item "
+                            + wqi.Name
+                            + " Found in " + otherMap.Name);
+                    }
                 }
             }
-
+                
             // Now random trees. (1000 + building Id vs building id)
 
             IReadOnlyList<TreeType> treeTypes = _gameData.Get<TreeTypeSettings>(null).GetData();
@@ -843,7 +814,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             {
                 for (int z = 0; z < map.Height; z++)
                 {
-                    if (map.Get(x,z,CellIndex.Building) > 0)
+                    if (map.Get(x, z, CellIndex.Building) > 0)
                     {
                         continue;
                     }
@@ -851,7 +822,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                     if (ztype != null && ztype.TreeTypes != null && ztype.TreeTypes.Count > 0)
                     {
                         double chance = ztype.TreeDensity * CrawlerMapConstants.TreeChanceScale;
-                       
+
                         if (rand.NextDouble() < chance)
                         {
                             long treeTypeId = 0;
@@ -875,37 +846,13 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 }
             }
 
-            int blockSize = 8;
-            Texture2D tex = new Texture2D(map.Width*blockSize, map.Height*blockSize, TextureFormat.RGB24, true, true);
-
-            for (int x = 0; x < map.Width; x++)
-            {
-                for (int y = 0; y < map.Height; y++)
-                {
-                    int sx = x * blockSize;
-                    int sy = y * blockSize; 
-                    for (int bx = 0; bx < blockSize; bx++)
-                    {
-                        for (int by = 0; by < blockSize; by++)
-                        {
-                            int biomeIndex = (int)terrain[x, y];
-
-                            tex.SetPixel(sx + bx, sy + by, biomeColors[(int)terrain[x, y]]);
-                        }
-                    }
-                }
-            }
-
-            BinaryFileRepository repo = new BinaryFileRepository(_logService);
-            repo.SaveBytes("CrawlerOutdoors.png", tex.EncodeToPNG());
-
-
             NewCrawlerMap newMap = new NewCrawlerMap()
             {
                 Map = map,
                 EnterX = -1,
                 EnterZ = -1,
             };
+            map.Name = "The World";
 
             return newMap;
         }

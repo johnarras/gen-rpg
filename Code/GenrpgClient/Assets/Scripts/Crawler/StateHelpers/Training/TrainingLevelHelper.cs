@@ -32,7 +32,6 @@ namespace Assets.Scripts.Crawler.StateHelpers.Training
             stateData.Actions.Add(new CrawlerStateAction($"Cost: {info.Cost} Party Gold: {info.PartyGold}"));
             if (info.ExpLeft < 1)
             {
-                stateData.Actions.Add(new CrawlerStateAction($"Cost: {info.Cost} Party Gold: {info.PartyGold}"));
                 if (info.PartyGold < info.Cost)
                 {
                     stateData.Actions.Add(new CrawlerStateAction("You need more gold before you can train."));

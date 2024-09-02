@@ -35,5 +35,6 @@ namespace UI.Screens.Constants
         CrawlerCharacter=24,
         CrawlerVendor=25,
         Trade=26,
+        CrawlerMap=27,
     }
 }

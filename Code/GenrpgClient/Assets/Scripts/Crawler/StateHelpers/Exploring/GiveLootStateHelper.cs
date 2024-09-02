@@ -22,6 +22,15 @@ using UnityEngine;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Combat
 {
+
+    public class GiveLootParams
+    {
+        public string Header { get; set; }
+        public double LootScale { get; set; } = 1.0f;
+        public long BonusLevels { get; set; } = 0;
+        public long MonsterExpCount { get; set; } = 0;
+    }
+
     public class GiveLootStateHelper : BaseStateHelper
     {
 
@@ -45,10 +54,16 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
                 stateData.Actions.Add(new CrawlerStateAction("\nYou are victorious! You receive!\n"));
 
                loot = _lootService.GiveCombatLoot(party);
-
             }
             else
             {
+                GiveLootParams lootParams = action.ExtraData as GiveLootParams;
+
+                if (lootParams == null)
+                {
+                    lootParams = new GiveLootParams() { LootScale = 1.0f };
+                }
+
                 CrawlerTrainingSettings trainingSettings = _gameData.Get<CrawlerTrainingSettings>(null);
 
                 long level = await _worldService.GetMapLevelAtParty(await _worldService.GetWorld(party.WorldId), party);
@@ -56,14 +71,23 @@ namespace Assets.Scripts.Crawler.StateHelpers.Combat
 
                 long gold = MathUtils.LongRange(trainingCost/2, trainingCost, _rand);
 
+                long monsterExp = _gameData.Get<CrawlerTrainingSettings>(_gs.ch).GetMonsterExp(level+lootParams.BonusLevels);
+
+
                 LootGenData genData = new LootGenData()
                 {
-                    ItemCount = MathUtils.IntRange(3, 6, _rand),
-                    Level = level,
-                    Gold = gold,
+                    ItemCount = (int)(lootParams.LootScale*MathUtils.IntRange(3, 6, _rand)),
+                    Level = level + lootParams.BonusLevels,
+                    Gold = (int)(gold*lootParams.LootScale),
+                    Exp = monsterExp*lootParams.MonsterExpCount*party.GetActiveParty().Count,
                 };
 
-                loot = _lootService.GiveLoot(party, genData); 
+                loot = _lootService.GiveLoot(party, genData);
+
+                if (!string.IsNullOrEmpty(lootParams.Header))
+                {
+                    stateData.Actions.Add(new CrawlerStateAction(lootParams.Header));
+                }
                 stateData.Actions.Add(new CrawlerStateAction("\nYou found Treasure!\n"));
             }
 

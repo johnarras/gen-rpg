@@ -31,7 +31,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         private void UpdatePartyData(int partyIndexToUpdate = 0)
         { 
             PartyData partyData = _crawlerService.GetParty();
-            for (int r = 0; r <= PartyConstants.PartySize; r++)
+            for (int r = 0; r <= PartyConstants.MaxPartySize; r++)
             {
                 if (Rows.Count >= r+1)
                 {

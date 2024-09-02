@@ -13,6 +13,7 @@ namespace Genrpg.Shared.Crawler.Combat.Constants
         public const int MaxStartEnemyGroupCount = 6;
 
         public const int BaseAttackQuantity = 1;
+        public const int BasePlayerAttackQuantity = 2;
 
         public const long BaseMinDamage = 1;
         public const long BaseMaxDamage = 2;

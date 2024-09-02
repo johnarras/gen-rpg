@@ -17,7 +17,7 @@ namespace UI.Screens.Utils
 
         public static void SetupScreenSystem(int width, int height, bool isFullScreen, bool isLandscape, int vsyncCount)
         {
-            Screen.SetResolution(width, height, isFullScreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed);
+            //Screen.SetResolution(width, height, isFullScreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed);
             Screen.orientation = isLandscape ? ScreenOrientation.LandscapeLeft : ScreenOrientation.Portrait;
             Screen.autorotateToPortrait = false;
             Screen.autorotateToPortraitUpsideDown = false;

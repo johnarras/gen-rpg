@@ -14,5 +14,6 @@ namespace Genrpg.Shared.Crawler.Combat.Entities
         [Key(2)] public long HitsLeft { get; set; }
         [Key(3)] public List<FullEffect> Effects { get; set; } = new List<FullEffect>();
         [Key(4)] public long Level { get; set; }
+        [Key(5)] public long LuckyHitQuantity { get; set; }
     }
 }

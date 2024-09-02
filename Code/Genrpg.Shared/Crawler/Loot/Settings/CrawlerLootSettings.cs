@@ -1,3 +1,4 @@
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
@@ -20,6 +21,8 @@ namespace Genrpg.Shared.Crawler.Loot.Settings
         [Key(5)] public double EffectMult { get; set; } = 2;
         [Key(6)] public long MaxLootItems { get; set; } = 4;
         [Key(7)] public double ItemChancePerMonster { get; set; } = 0.2f;
+        [Key(8)] public double MinGoldPerKillLevelMult { get; set; } = 5.0f;
+        [Key(9)] public double MaxGoldPerKillLevelMult { get; set; } = 15.0f;
     }
 
     [MessagePackObject]

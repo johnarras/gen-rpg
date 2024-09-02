@@ -16,4 +16,10 @@ namespace Assets.Scripts.Crawler.Maps.Entities
         public int ToX { get; set; }
         public int ToZ { get; set; }
     }
+
+    public class ErrorMapCellDetail
+    {
+        public MapCellDetail Detail { get; set; }
+        public string ErrorText { get; set; }
+    }
 }

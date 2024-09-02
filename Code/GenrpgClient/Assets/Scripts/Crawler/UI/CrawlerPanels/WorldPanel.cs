@@ -5,7 +5,7 @@ using Assets.Scripts.Crawler.Events;
 using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
-using Assets.Scripts.Crawler.TIlemaps;
+using Assets.Scripts.Crawler.Tilemaps;
 using Assets.Scripts.ProcGen.Components;
 using Assets.Scripts.ProcGen.Services;
 using Assets.Scripts.UI.Crawler.WorldUI;
@@ -70,7 +70,6 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             _updateService.AddUpdate(this, IncrementTextureFrame, UpdateType.Late);
 
-            Minimap?.Init();
             SetPicture(null);
         }
 

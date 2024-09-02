@@ -1,5 +1,6 @@
 ﻿
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
+using Genrpg.Shared.Crawler.MapGen.Constants;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Controllers
         bool haveSetPosition = false;
         private void LightUpdate()
         {
-            if (CrawlerMapService.MapType == Crawler.Maps.Constants.ECrawlerMapTypes.Dungeon)
+            if (CrawlerMapService.MapType == CrawlerMapTypes.Dungeon)
             {
                 return;
             }

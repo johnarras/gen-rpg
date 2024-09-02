@@ -134,6 +134,13 @@ namespace Genrpg.Editor.Importers
                             {
                                 EntityUtils.SetObjectValue(topRow[w], prop, words[w]);
                             }
+                            else if (prop.PropertyType == typeof(bool))
+                            {
+                                if (bool.TryParse(words[w], out bool bval))
+                                {
+                                    EntityUtils.SetObjectValue(topRow[w], prop, bval);
+                                }
+                            }
                         }
                     }
                     continue;

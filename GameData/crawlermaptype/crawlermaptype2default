@@ -1,0 +1,16 @@
+{
+  "Id": "crawlermaptype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "City",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MinWidth": 15,
+  "MaxWidth": 20,
+  "MinHeight": 15,
+  "MaxHeight": 20,
+  "MinFloors": 1,
+  "MaxFloors": 1,
+  "UpdateTime": "2024-09-02T00:46:22.316Z"
+}

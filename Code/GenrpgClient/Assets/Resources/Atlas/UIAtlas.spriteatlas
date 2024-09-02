@@ -72,6 +72,7 @@ SpriteAtlas:
     - 8ab8b288fb666ef42bad8ee4a3c4daf1: 21300000
     - feb8f3b8261152b4f96a0ed1ac12b032: 21300000
     - e51ba9c8f64ce414ba061d4ecad3efc0: 21300000
+    - eb269659350b0ea4eacd287eb88aa24d: 21300000
     - 9be221998bc4e9b42a92f8a355d8e6b8: 21300000
     - 098ff2e989588f64e89bf458922f7f98: 21300000
     - eed8725a14fa6564e86bca71b590ef61: 21300000
@@ -110,6 +111,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8ab8b288fb666ef42bad8ee4a3c4daf1, type: 3}
   - {fileID: 21300000, guid: feb8f3b8261152b4f96a0ed1ac12b032, type: 3}
   - {fileID: 21300000, guid: e51ba9c8f64ce414ba061d4ecad3efc0, type: 3}
+  - {fileID: 21300000, guid: eb269659350b0ea4eacd287eb88aa24d, type: 3}
   - {fileID: 21300000, guid: 9be221998bc4e9b42a92f8a355d8e6b8, type: 3}
   - {fileID: 21300000, guid: 098ff2e989588f64e89bf458922f7f98, type: 3}
   - {fileID: 21300000, guid: eed8725a14fa6564e86bca71b590ef61, type: 3}
@@ -147,6 +149,7 @@ SpriteAtlas:
   - ButtonInfo
   - IconGems
   - BGTan
+  - BGButtonTan
   - BlueBar
   - GreenBar
   - BGCirclePurple

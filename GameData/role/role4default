@@ -16,6 +16,7 @@
   "MaxArmorScalingTypeId": 4,
   "CritPercent": 5,
   "ManaStatTypeId": 13,
+  "Guardian": true,
   "Bonuses": [
     {
       "EntityTypeId": 2,
@@ -95,10 +96,6 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 36
-    },
-    {
-      "EntityTypeId": 100,
       "EntityId": 37
     },
     {
@@ -106,5 +103,5 @@
       "EntityId": 48
     }
   ],
-  "UpdateTime": "2024-08-25T19:34:00.802Z"
+  "UpdateTime": "2024-08-30T22:57:22.623Z"
 }

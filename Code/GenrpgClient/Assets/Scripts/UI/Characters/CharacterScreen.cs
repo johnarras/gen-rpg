@@ -319,7 +319,6 @@ public class CharacterScreen : ItemIconScreen
         long currEquipSlotId = origItem.EquipSlotId;
         long newEquipSlotId = equip.Item.EquipSlotId;
         
-
         ItemType itype = _gameData.Get<ItemTypeSettings>(_unit).Get(equip.Item.ItemTypeId);
 
         List<long> equipSlots = itype.GetCompatibleEquipSlots(_gameData, _unit);

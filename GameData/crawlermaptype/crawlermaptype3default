@@ -1,0 +1,16 @@
+{
+  "Id": "crawlermaptype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Outdoors",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "MinWidth": 70,
+  "MaxWidth": 90,
+  "MinHeight": 50,
+  "MaxHeight": 70,
+  "MinFloors": 1,
+  "MaxFloors": 1,
+  "UpdateTime": "2024-08-28T23:58:20.709Z"
+}

@@ -36,7 +36,7 @@ namespace Assets.Scripts.UI.Crawler.States
 
             int rollTimes = 2;
 
-            member.PermStats = new List<MemberStat>();
+            member.ClearPermStats();
             member.Stats = new StatGroup();
 
             foreach (StatType st in allStats)

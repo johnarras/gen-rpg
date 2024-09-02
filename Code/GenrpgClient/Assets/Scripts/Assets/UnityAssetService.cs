@@ -579,7 +579,6 @@ public class UnityAssetService : IAssetService
         bdata.LastUsed = DateTime.UtcNow;
         if (!bdata.LoadedAssets.ContainsKey(bdl.assetName))
         {
-
             AssetBundleRequest request = StartLoadAssetFromBundle(bdl.bundleName, bdl.assetName);
             if (request != null)
             {

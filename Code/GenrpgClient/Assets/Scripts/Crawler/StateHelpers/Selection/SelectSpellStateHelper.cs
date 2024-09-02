@@ -51,7 +51,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Selection
                 {
                     Action = data,
                     Spell = spell,
-                    PowerCost = spell.PowerCost + spell.PowerPerLevel * level,
+                    PowerCost = spell.GetPowerCost(level),
                 };
 
                 string spellText = spell.Name + "    (" + selectSpell.PowerCost + " Mana)";

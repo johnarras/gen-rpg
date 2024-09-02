@@ -1,11 +1,14 @@
+using Genrpg.Shared.Crawler.Items.Entities;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Utils.Data;
 using MessagePack;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +21,57 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
     {
         [Key(0)] public int PartySlot { get; set; }
 
+        [JsonIgnore]
         [Key(1)] public List<Item> Equipment { get; set; } = new List<Item>();
 
-        [Key(2)] public List<MemberStat> PermStats { get; set; } = new List<MemberStat>();
+        [Key(2)] public List<CrawlerSaveItem> SaveEquipment { get; set; } = new List<CrawlerSaveItem>();
 
-        [Key(3)] public long Exp { get; set; }
+        [Key(3)] public string PermStats { get; set; }
 
-        [Key(4)] public List<PartySummon> Summons { get; set; } = new List<PartySummon>();
+        public const long PermStatSize = StatConstants.PrimaryStatEnd - StatConstants.PrimaryStatStart + 1;
 
-        [Key(5)] public long WarpMapId { get; set; }
-        [Key(6)] public int WarpMapX { get; set; }
-        [Key(7)] public int WarpMapZ { get; set; }
-        [Key(8)] public int WarpRot { get; set; }
+        private long[] _permStats { get; set; } = new long[PermStatSize];
+
+        public void ClearPermStats()
+        {
+            _permStats = new long[PermStatSize];
+        }
+
+        public void ConvertDataAfterLoad()
+        {
+            if (!string.IsNullOrEmpty(PermStats))
+            {
+                string[] words = PermStats.Split(' ');  
+
+                for (int i = 0; i < words.Length && i < _permStats.Length; i++)
+                {
+                    if (Int64.TryParse(words[i], out long val))
+                    {
+                        _permStats[i] = val;
+                    }
+                }
+            }
+        }
+
+        public void ConvertDataBeforeSave()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i =0; i < _permStats.Length; i++)
+            {
+                sb.Append(_permStats[i].ToString() + " ");
+            }
+            PermStats = sb.ToString();  
+        }
+
+
+        [Key(4)] public long Exp { get; set; }
+
+        [Key(5)] public List<PartySummon> Summons { get; set; } = new List<PartySummon>();
+
+        [Key(6)] public long WarpMapId { get; set; }
+        [Key(7)] public int WarpMapX { get; set; }
+        [Key(8)] public int WarpMapZ { get; set; }
+        [Key(9)] public int WarpRot { get; set; }
 
         public PartyMember(IRepositoryService repositoryService) : base(repositoryService) { }  
 
@@ -37,44 +79,17 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         public long GetPermStat(long statTypeId)
         {
-            return PermStats.FirstOrDefault(x => x.Id == statTypeId)?.Val ?? 0;           
+            return _permStats[statTypeId-StatConstants.PrimaryStatStart];          
         }
 
         public void SetPermStat(long statTypeId, long val)
         {
-            MemberStat stat = GetPermStatObject(statTypeId);
-
-            stat.Val = (int)val;
+            _permStats[statTypeId-StatConstants.PrimaryStatStart] = val;
         }
 
         public void AddPermStat(long statTypeId, long val)
         {
-            MemberStat stat = GetPermStatObject(statTypeId);
-
-            stat.Val += (int)val;
-        }
-
-        private MemberStat GetPermStatObject(long statTypeId)
-        {
-            MemberStat stat = PermStats.FirstOrDefault(x => x.Id == statTypeId);
-
-            if (stat == null)
-            {
-                lock (this)
-                {
-                    stat = PermStats.FirstOrDefault(x => x.Id == statTypeId);
-
-                    if (stat == null)
-                    {
-                        stat = new MemberStat() { Id = (short)statTypeId };
-                        List<MemberStat> temp = new List<MemberStat>(PermStats);
-                        temp.Add(stat);
-                        PermStats = temp;
-                    }
-                }
-            }
-
-            return stat;
+            _permStats[statTypeId - StatConstants.PrimaryStatStart] += val;
         }
 
         public override Item GetEquipmentInSlot(long equipSlotId)
@@ -91,5 +106,4 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         [Key(0)] public short Id { get; set; }
         [Key(1)] public int Val { get; set; }
     }
-
 }

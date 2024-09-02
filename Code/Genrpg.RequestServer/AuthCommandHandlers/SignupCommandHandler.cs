@@ -1,4 +1,5 @@
-﻿using Genrpg.RequestServer.Core;
+﻿using Genrpg.RequestServer.AuthCommandHandlers.Constants;
+using Genrpg.RequestServer.Core;
 using Genrpg.RequestServer.Utils;
 using Genrpg.ServerShared.Utils;
 using Genrpg.Shared.Accounts.Constants;
@@ -46,9 +47,12 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
 
             Account account = (await _repoService.Search<Account>(x => x.LowerEmail == command.Email.ToLower())).FirstOrDefault();
 
+            EAuthResult authResult = EAuthResult.Failure;
             if (account != null)
-            {
-                if (!ExistingPasswordIsOk(account, command))
+            { 
+                authResult = ExistingPasswordIsOk(account, command);
+                
+                if (authResult == EAuthResult.Failure)
                 {
                     WebUtils.ShowError(context, "That email is already in use");
                     return;
@@ -145,7 +149,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
                 return;
             }
 
-            await AfterAuthSuccess(context, account, command);
+            await AfterAuthSuccess(context, account, command, authResult);
 
             return;
         }

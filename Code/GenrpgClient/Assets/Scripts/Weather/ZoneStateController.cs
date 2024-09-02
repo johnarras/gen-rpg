@@ -23,6 +23,7 @@ using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Crawler.Maps.Constants;
 using System.Linq;
+using Genrpg.Shared.Crawler.MapGen.Constants;
 
 public struct UpdateColor
 {
@@ -194,7 +195,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         return;
     }
 
-    private bool InCrawlerMode() { return CrawlerMapService.MapType != ECrawlerMapTypes.None; }
+    private bool InCrawlerMode() { return CrawlerMapService.MapType != CrawlerMapTypes.None; }
 
     private bool _didInitZoneState = false;
     private void ZoneUpdate()
@@ -265,17 +266,17 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
             {
 
                 IReadOnlyList<WeatherType> weatherTypes = _gameData.Get<WeatherTypeSettings>(_gs.ch).GetData();
-                ECrawlerMapTypes mapType = CrawlerMapService.MapType;
+                long mapType = CrawlerMapService.MapType;
 
-                if (mapType == ECrawlerMapTypes.Dungeon)
+                if (mapType == CrawlerMapTypes.Dungeon)
                 {
                     _dataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerDungeon");
                 }
-                else if (mapType == ECrawlerMapTypes.City)
+                else if (mapType == CrawlerMapTypes.City)
                 {
                     _dataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerCity");
                 }
-                else if (mapType == ECrawlerMapTypes.Outdoors)
+                else if (mapType == CrawlerMapTypes.Outdoors)
                 {
                     _dataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerOutdoors");
                 }

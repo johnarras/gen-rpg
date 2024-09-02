@@ -3,6 +3,7 @@ using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Maps.Services.GenerateMaps;
 using Assets.Scripts.Crawler.Services;
+using Genrpg.Shared.Crawler.MapGen.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Entities.Constants;
@@ -20,7 +21,7 @@ namespace Assets.Scripts.Crawler.Maps
     public class CrawlerMapGenData
     {
         public CrawlerWorld World;
-        public ECrawlerMapTypes MapType;
+        public long MapType;
         public int Level { get; set; } = 0;
         public long ZoneTypeId { get; set; }
         public bool Looping { get; set; }
@@ -50,8 +51,8 @@ namespace Assets.Scripts.Crawler.Maps
         private PartyData _party;
         private CrawlerWorld _world;
 
-        private SetupDictionaryContainer<ECrawlerMapTypes, ICrawlerMapGenHelper> _mapGenHelpers = new SetupDictionaryContainer<ECrawlerMapTypes, ICrawlerMapGenHelper>();
-        public static ECrawlerMapTypes MapType { get; set; } = ECrawlerMapTypes.None;
+        private SetupDictionaryContainer<long, ICrawlerMapGenHelper> _mapGenHelpers = new SetupDictionaryContainer<long, ICrawlerMapGenHelper>();
+        public static long MapType { get; set; } = CrawlerMapTypes.None;
 
         public async Task Initialize(CancellationToken token)
         {
@@ -60,7 +61,7 @@ namespace Assets.Scripts.Crawler.Maps
 
             await Task.CompletedTask;
         }
-        public ICrawlerMapGenHelper GetGenHelper(ECrawlerMapTypes mapType)
+        public ICrawlerMapGenHelper GetGenHelper(long mapType)
         {
             if (_mapGenHelpers.TryGetValue(mapType, out ICrawlerMapGenHelper helper))
             {

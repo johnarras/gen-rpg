@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.GameObjects;
+using Genrpg.Shared.Crawler.MapGen.Constants;
 using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
@@ -37,7 +38,7 @@ namespace Assets.Scripts.Crawler.Maps.Entities
         public long IdKey { get; set; }
         public string Name { get; set; }
         public List<ZoneRegion> Regions { get; set; } = null;
-        public ECrawlerMapTypes MapType { get; set; } = ECrawlerMapTypes.Dungeon;
+        public long CrawlerMapTypeId { get; set; } = CrawlerMapTypes.Dungeon;
         public long DungeonArtId { get; set; } = 1;
         public int Width { get; set; }
         public int Height { get; set; }
@@ -46,7 +47,8 @@ namespace Assets.Scripts.Crawler.Maps.Entities
         public long ZoneTypeId { get; set; }
         public long MapFloor { get; set; }
         public string FromPlaceName { get; set; }
-        public List<MapQuestItem> QuestItemsNeeded { get; set; } = new List<MapQuestItem>();
+        public long MapQuestItemId { get; set; }
+        public long RiddleId { get; set; }
 
         public byte[] Data { get; set; }
         public List<MapCellDetail> Details = new List<MapCellDetail>();
@@ -86,7 +88,7 @@ namespace Assets.Scripts.Crawler.Maps.Entities
         private string _floorName = null;
         public string GetName(int x, int z)
         {
-            if (MapType == ECrawlerMapTypes.Dungeon)
+            if (CrawlerMapTypeId == CrawlerMapTypes.Dungeon)
             {
                 if (string.IsNullOrEmpty(_floorName))
                 {

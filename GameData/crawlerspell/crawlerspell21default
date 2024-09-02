@@ -4,7 +4,7 @@
   "IdKey": 21,
   "Name": "Teleport",
   "Desc": "Move to a different location in the current map.",
-  "PowerCost": 100,
+  "PowerCost": 25,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 8,
@@ -16,5 +16,5 @@
       "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-08-20T13:13:16.189Z"
+  "UpdateTime": "2024-08-31T18:58:09.831Z"
 }

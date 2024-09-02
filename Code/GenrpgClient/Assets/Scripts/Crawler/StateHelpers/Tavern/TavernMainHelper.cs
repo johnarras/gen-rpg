@@ -1,9 +1,11 @@
 ﻿using Assets.Scripts.Crawler.Constants;
 using Assets.Scripts.Crawler.CrawlerStates;
+using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.StateHelpers;
 using Genrpg.Shared.BoardGame.Messages.RollDice;
 using Genrpg.Shared.Crawler.Loot.Services;
+using Genrpg.Shared.Crawler.MapGen.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Stats.Constants;
@@ -46,7 +48,12 @@ namespace Assets.Scripts.UI.Crawler.States
 
             if (txt != null && txt == "GenerateWorld")
             {
-                await _worldService.GenerateWorld(party); 
+                CrawlerMap map = _worldService.GetMap(party.MapId);
+
+                if (map == null || map.CrawlerMapTypeId == CrawlerMapTypes.City)
+                {
+                    await _worldService.GenerateWorld(party);
+                }
             }
 
             stateData.Actions.Add(new CrawlerStateAction("Add Party Member", KeyCode.A, ECrawlerStates.AddMember));

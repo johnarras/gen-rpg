@@ -1,4 +1,5 @@
-﻿using Genrpg.RequestServer.Core;
+﻿using Genrpg.RequestServer.AuthCommandHandlers.Constants;
+using Genrpg.RequestServer.Core;
 using Genrpg.RequestServer.Utils;
 using Genrpg.ServerShared.Utils;
 using Genrpg.Shared.Accounts.PlayerData;
@@ -39,13 +40,15 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
                 return;
             }
 
-            if (!ExistingPasswordIsOk(account, command))
+            EAuthResult result = ExistingPasswordIsOk(account, command);
+
+            if (result == EAuthResult.Failure)
             {
-                WebUtils.ShowError(context, "Email or password is incorrect.");
+                WebUtils.ShowError(context, "Login information is incorrect.");
                 return;
             }
 
-            await AfterAuthSuccess(context, account, command);
+            await AfterAuthSuccess(context, account, command, result);
 
             await Task.CompletedTask;
         }

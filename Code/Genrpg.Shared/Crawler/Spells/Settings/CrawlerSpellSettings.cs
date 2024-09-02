@@ -26,8 +26,8 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
         [Key(4)] public string Desc { get; set; }
         [Key(5)] public string Icon { get; set; }
         [Key(6)] public string Art { get; set; }
-        [Key(7)] public int PowerCost { get; set; }
-        [Key(8)] public int PowerPerLevel { get; set; }
+        [Key(7)] public long PowerCost { get; set; }
+        [Key(8)] public double PowerPerLevel { get; set; }
         [Key(9)] public int MinRange { get; set; } = SpellConstants.MinRange;
         [Key(10)] public int MaxRange { get; set; } = SpellConstants.MaxRange;
 
@@ -48,7 +48,7 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
 
         public long GetPowerCost(long level)
         {
-            return PowerCost + level * PowerPerLevel;
+            return (long)(PowerCost + level * PowerPerLevel);
         }
 
         public string GetExtraDesc(IGameData gameData)

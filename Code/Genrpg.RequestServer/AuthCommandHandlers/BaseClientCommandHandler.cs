@@ -30,6 +30,7 @@ using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Core;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.RequestServer.PlayerData.Services;
+using Genrpg.RequestServer.AuthCommandHandlers.Constants;
 
 namespace Genrpg.RequestServer.AuthCommandHandlers
 {
@@ -68,7 +69,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
             context.Results.Add(new ErrorResult() { Error = msg });
         }
 
-        protected async Task AfterAuthSuccess(WebContext context, Account account, IAuthLoginCommand command)
+        protected async Task AfterAuthSuccess(WebContext context, Account account, IAuthLoginCommand command, EAuthResult authResult)
         {
             await context.LoadUser(account.Id);
 
@@ -79,7 +80,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
             AuthRecord authRecord = account.AuthRecords.FirstOrDefault(x => x.DeviceId == command.DeviceId);
 
             string clientLoginToken = null;
-            if (authRecord == null || authRecord.TokenExpiry < DateTime.UtcNow)
+            if (authRecord == null || authRecord.TokenExpiry < DateTime.UtcNow || authResult == EAuthResult.UsedPassword)
             {
                 if (authRecord == null)
                 {
@@ -135,25 +136,32 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
 
         }
 
-        protected bool ExistingPasswordIsOk(Account account, IAuthLoginCommand command)
+        protected EAuthResult ExistingPasswordIsOk(Account account, IAuthLoginCommand command)
         {
             string newPasswordHash = PasswordUtils.GetPasswordHash(account.PasswordSalt, command.Password);
 
             if (newPasswordHash == account.PasswordHash)
             {
-                return true;
+                return EAuthResult.UsedPassword;
             }
 
             AuthRecord authRecord = account.AuthRecords.FirstOrDefault(x=>x.DeviceId == command.DeviceId);  
 
             if (authRecord == null)
             {
-                return false;
+                return EAuthResult.Failure;
             }
 
             string newTokenHash = PasswordUtils.GetPasswordHash(authRecord.TokenSalt, command.Password);
 
-            return newTokenHash == authRecord.TokenHash; 
+            if (newTokenHash == authRecord.TokenHash)
+            {
+                return EAuthResult.UsedToken;
+            }
+            else
+            {
+                return EAuthResult.Failure;
+            }
         }
     }
 }

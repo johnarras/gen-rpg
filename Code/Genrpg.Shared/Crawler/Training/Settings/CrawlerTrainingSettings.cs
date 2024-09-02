@@ -3,6 +3,7 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using MessagePack;
+using System;
 using System.Security;
 
 namespace Genrpg.Shared.Crawler.Training.Settings
@@ -14,14 +15,16 @@ namespace Genrpg.Shared.Crawler.Training.Settings
         [Key(1)] public long LinearCostPerLevel { get; set; } = 100;
         [Key(2)] public long QuadraticCostPerLevel { get; set; } = 10;
 
-        [Key(3)] public long StartKillsNeeded { get; set; } = 20;
-        [Key(4)] public long ExtraKillsNeeded { get; set; } = 2;
+        [Key(3)] public double StartKillsNeeded { get; set; } = 20;
+        [Key(4)] public double ExtraKillsNeeded { get; set; } = 2;
 
-        [Key(5)] public long StartMonsterExp { get; set; } = 100;
-        [Key(6)] public long ExtraMonsterExp { get; set; } = 25;
+        [Key(5)] public double StartMonsterExp { get; set; } = 100;
+        [Key(6)] public double ExtraMonsterExp { get; set; } = 25;
 
-        [Key(7)] public double LowerStatIncreaseChance { get; set; } = 0.75;
-        [Key(8)] public double MaxStatIncreaseChance { get; set; } = 0.50;
+        [Key(7)] public long MaxScalingExpLevel { get; set; } = 25;
+
+        [Key(8)] public double LowerStatIncreaseChance { get; set; } = 0.75;
+        [Key(9)] public double MaxStatIncreaseChance { get; set; } = 0.50;
 
         public long GetExpToLevel(long level)
         {
@@ -30,8 +33,13 @@ namespace Genrpg.Shared.Crawler.Training.Settings
                 level = 1;
             }
 
-            return (StartKillsNeeded + ExtraKillsNeeded * (level - 1)) *
-                (StartMonsterExp + ExtraMonsterExp * (level - 1));
+            if (level > MaxScalingExpLevel)
+            {
+                level = MaxScalingExpLevel;
+            }
+
+            return (long)((StartKillsNeeded + ExtraKillsNeeded * (level - 1)) *
+                (StartMonsterExp + ExtraMonsterExp * (level - 1)));
 
         }
 
@@ -43,7 +51,11 @@ namespace Genrpg.Shared.Crawler.Training.Settings
 
         public long GetMonsterExp(long currentLevel)
         {
-            return StartMonsterExp + ExtraMonsterExp * (currentLevel - 1);
+            if (currentLevel > MaxScalingExpLevel)
+            {
+                currentLevel = MaxScalingExpLevel;
+            }
+            return (long)(StartMonsterExp + ExtraMonsterExp * (currentLevel - 1));
         }
     }
 

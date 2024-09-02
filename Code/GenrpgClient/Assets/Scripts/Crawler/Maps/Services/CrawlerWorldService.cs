@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Crawler.Maps.Constants;
+﻿using Assets.Scripts.Crawler.GameEvents;
+using Assets.Scripts.Crawler.Maps.Constants;
 using Assets.Scripts.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.Services.GenerateMaps;
 using Assets.Scripts.Crawler.Services;
@@ -6,6 +7,7 @@ using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Model;
 using Assets.Scripts.ProcGen.RandomNumbers;
 using Genrpg.Shared.Crawler.Loot.Services;
+using Genrpg.Shared.Crawler.MapGen.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
@@ -36,6 +38,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
         private ILogService _logService;
         private ILootGenService _lootGenService;
         private IClientRandom _rand;
+        private IDispatcher _dispatcher;
 
         private CrawlerWorld _world = null;
 
@@ -43,7 +46,8 @@ namespace Assets.Scripts.Crawler.Maps.Services
         {
             partyData.WorldId = DateTime.UtcNow.Ticks % 1000000;
             partyData.Maps = new List<CrawlerMapStatus>();
-
+            partyData.CurrentMap = new CrawlerMapStatus();
+            partyData.LastVendorRefresh = DateTime.UtcNow.AddDays(-1);
             partyData.WorldId = _rand.Next() % 1000000000;
             CrawlerWorld world = await GenerateInternal(partyData.WorldId);
             partyData.MapId = 0;
@@ -87,7 +91,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
         private string WorldPathPrefix(long worldId)
         {
-            return "World" + "/";
+            return (Application.isEditor?"Editor":"") + "World" + "/";
         }
 
         public async Awaitable SaveWorld(CrawlerWorld world)
@@ -155,13 +159,13 @@ namespace Assets.Scripts.Crawler.Maps.Services
             {
                 CrawlerWorld world = new CrawlerWorld() { Id = "World", Name = "World", IdKey = worldId };
                 
-                ICrawlerMapGenHelper helper = _mapGenService.GetGenHelper(Constants.ECrawlerMapTypes.Outdoors);
+                ICrawlerMapGenHelper helper = _mapGenService.GetGenHelper(CrawlerMapTypes.Outdoors);
 
                 MyRandom rand = new MyRandom(worldId + 1);
 
                 CrawlerMapGenData genData = new CrawlerMapGenData()
                 {
-                    MapType = Constants.ECrawlerMapTypes.Outdoors,
+                    MapType = CrawlerMapTypes.Outdoors,
                     World = world,
                     Level = 1,
                     Looping = false,
@@ -180,6 +184,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
                 await _crawlerService.SaveGame();
                 _crawlerService.ClearAllStates();
                 _mapService.CleanMap();
+                _dispatcher.Dispatch(new ClearCrawlerTilemaps());
 
                 return world;
             }
@@ -208,7 +213,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
             int index = map.GetIndex(partyData.MapX, partyData.MapZ);
 
-            if (map.MapType != ECrawlerMapTypes.Outdoors)
+            if (map.CrawlerMapTypeId != CrawlerMapTypes.Outdoors)
             {
                 return allZoneTypes.FirstOrDefault(x => x.IdKey > 0);
             }
@@ -233,7 +238,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
         {
             CrawlerMap map = world.GetMap(mapId);
             
-            if (map == null || map.MapType != ECrawlerMapTypes.Outdoors)
+            if (map == null || map.CrawlerMapTypeId != CrawlerMapTypes.Outdoors)
             {
                 return map.Level;
             }
@@ -246,7 +251,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
             {
                 CrawlerMap cityMap = world.GetMap(detail.EntityId);
 
-                if (cityMap != null && cityMap.MapType == ECrawlerMapTypes.City)
+                if (cityMap != null && cityMap.CrawlerMapTypeId == CrawlerMapTypes.City)
                 {
                     finalDetails.Add(detail);
                 }

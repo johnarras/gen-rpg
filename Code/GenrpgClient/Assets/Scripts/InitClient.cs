@@ -6,21 +6,14 @@ using Genrpg.Shared.Setup.Services;
 using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Interfaces;
-using Assets.Scripts.Tokens;
 using UI.Screens.Utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Reflection;
-using Genrpg.Shared.Analytics.Services;
 using ClientEvents;
-using Genrpg.Shared.Core.Entities;
 using UnityEngine;
-using System.Runtime.InteropServices;
 using System;
-using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Crawler.Services;
-using Genrpg.Shared.Website.Messages;
-using Genrpg.Shared.Website.Interfaces;
 using static ClientWebService;
 
 
@@ -82,7 +75,7 @@ public class InitClient : BaseBehaviour, IInitClient
 
         // Initial app appearance.
         AppUtils.TargetFrameRate = 30;
-        ScreenUtils.SetupScreenSystem(1920, 1080, false, true, 2);
+        ScreenUtils.SetupScreenSystem(2460, 1440, false, true, 2);
         Cursors.SetCursor(Cursors.Default);
 
         _dispatcher.AddEvent<NewVersionEvent>(this, OnNewVersion);

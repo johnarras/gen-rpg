@@ -721,7 +721,7 @@
       "CreviceWidthScale": 0.6,
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype2default",
@@ -1607,7 +1607,7 @@
       "WeatherTypeId": 2,
       "MusicTypeId": 4,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype3default",
@@ -2394,7 +2394,7 @@
       "WeatherTypeId": 3,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype4default",
@@ -3221,7 +3221,7 @@
       "WeatherTypeId": 4,
       "MusicTypeId": 6,
       "AmbientMusicTypeId": 11,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype5default",
@@ -3941,7 +3941,7 @@
       "CreviceWidthScale": 1.5,
       "MusicTypeId": 6,
       "AmbientMusicTypeId": 9,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype6default",
@@ -4719,7 +4719,7 @@
       "CreviceWidthScale": 2.0,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype7default",
@@ -5462,7 +5462,7 @@
       "WeatherTypeId": 7,
       "MusicTypeId": 2,
       "AmbientMusicTypeId": 7,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype8default",
@@ -6139,7 +6139,7 @@
       "WeatherTypeId": 8,
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype9default",
@@ -6524,7 +6524,7 @@
       "WeatherTypeId": 8,
       "MusicTypeId": 3,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype10default",
@@ -7311,7 +7311,7 @@
       "WeatherTypeId": 3,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype11default",
@@ -7986,7 +7986,7 @@
       "WeatherTypeId": 3,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 8,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype12default",
@@ -8015,7 +8015,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype13default",
@@ -8044,7 +8044,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype14default",
@@ -8283,7 +8283,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype15default",
@@ -8756,7 +8756,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype16default",
@@ -9281,7 +9281,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype17default",
@@ -9720,7 +9720,7 @@
       "Art": "",
       "MusicTypeId": 1,
       "AmbientMusicTypeId": 1,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     },
     {
       "Id": "zonetype18default",
@@ -10238,13 +10238,13 @@
       "CreviceWidthScale": 2.0,
       "MusicTypeId": 5,
       "AmbientMusicTypeId": 9,
-      "UpdateTime": "2024-08-24T13:55:17.061Z"
+      "UpdateTime": "2024-08-31T18:56:29.231Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "ZoneTypeSettings",
-    "UpdateTime": "2024-08-24T14:32:46.576Z"
+    "UpdateTime": "2024-08-31T18:56:29.231Z"
   },
   "Id": "default"
 }

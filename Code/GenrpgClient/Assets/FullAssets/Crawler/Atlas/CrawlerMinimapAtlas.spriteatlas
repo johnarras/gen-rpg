@@ -58,6 +58,8 @@ SpriteAtlas:
     - cf3342932e23ea2458f5039d8d81f12c: 21300000
     - 45d4de93a9636d64f8e64cb26bc5e422: 21300000
     - 8d30aeb328e6e5249adfb4d40dc75bb3: 21300000
+    - ee525a25cc0d21948b76883a59f274a5: 21300000
+    - 38205a454e0365b48862b75baee67a6c: 21300000
     - c16590f56deaa984ebe714df002f3e09: 21300000
     - 6cee54065da675542bc69a6418dd9c2b: 21300000
     - 9bd940166b1b04e41bd3dfdf71fbec17: 21300000
@@ -131,6 +133,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cf3342932e23ea2458f5039d8d81f12c, type: 3}
   - {fileID: 21300000, guid: 45d4de93a9636d64f8e64cb26bc5e422, type: 3}
   - {fileID: 21300000, guid: 8d30aeb328e6e5249adfb4d40dc75bb3, type: 3}
+  - {fileID: 21300000, guid: ee525a25cc0d21948b76883a59f274a5, type: 3}
+  - {fileID: 21300000, guid: 38205a454e0365b48862b75baee67a6c, type: 3}
   - {fileID: 21300000, guid: c16590f56deaa984ebe714df002f3e09, type: 3}
   - {fileID: 21300000, guid: 6cee54065da675542bc69a6418dd9c2b, type: 3}
   - {fileID: 21300000, guid: 9bd940166b1b04e41bd3dfdf71fbec17, type: 3}
@@ -203,6 +207,8 @@ SpriteAtlas:
   - BadlandsObject
   - MountainsTerrain
   - WWWOWall
+  - Stairs
+  - Gray
   - RoadObject
   - SavannahObject
   - OOOOWall

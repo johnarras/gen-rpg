@@ -15,7 +15,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
 {
     public interface ICrawlerMapGenService : IInitializable
     {
-        ICrawlerMapGenHelper GetGenHelper(ECrawlerMapTypes mapType);
+        ICrawlerMapGenHelper GetGenHelper(long mapType);
         Awaitable<CrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData);
     }
 }

@@ -6,8 +6,9 @@ namespace Genrpg.Shared.Crawler.Combat.Constants
 {
     public enum EDefendRanks
     {
-        None=0,
-        Defend=1,
-        Taunt=2,
+        None,
+        Defend,
+        Guardian,
+        Taunt,
     };
 }

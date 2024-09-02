@@ -4,11 +4,11 @@
   "IdKey": 18,
   "Name": "Phase Wall",
   "Desc": "Pass through a wall in front of you if the square behind it exists.",
-  "PowerCost": 100,
+  "PowerCost": 50,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 8,
-  "Level": 11,
+  "Level": 1,
   "Effects": [
     {
       "EntityTypeId": 37,
@@ -16,5 +16,5 @@
       "ElementTypeId": 9
     }
   ],
-  "UpdateTime": "2024-08-20T13:13:16.189Z"
+  "UpdateTime": "2024-08-31T18:58:09.831Z"
 }

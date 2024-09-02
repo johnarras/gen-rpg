@@ -35,7 +35,7 @@ namespace Genrpg.Shared.Crawler.Loot.Services
     {
         public long Exp { get; set; }
         public long Gold { get; set; }
-        public int ItemCount { get; set; }
+        public int ItemCount { get; set; } 
         public long Level { get; set; }
         public List<long> QuestItems { get; set; } = new List<long>();
     }
@@ -294,8 +294,8 @@ namespace Genrpg.Shared.Crawler.Loot.Services
 
             int itemCount = 0;
 
-            long minGold = 1+party.Combat.Level;
-            long maxGold = minGold * 3;
+            long minGold = 5 + (long)(party.Combat.Level * lootSettings.MinGoldPerKillLevelMult);
+            long maxGold = (long)(minGold * lootSettings.MaxGoldPerKillLevelMult);
             foreach (CrawlerUnit crawlerUnit in party.Combat.EnemiesKilled)
             {
                 exp += trainingSettings.GetMonsterExp(party.Combat.Level);
@@ -305,6 +305,11 @@ namespace Genrpg.Shared.Crawler.Loot.Services
                 {
                     itemCount++;
                 }
+            }
+
+            if (itemCount < 1 && _rand.NextDouble() < itemChance*2)
+            {
+                itemCount++;
             }
 
             LootGenData allLootGenData = new LootGenData()

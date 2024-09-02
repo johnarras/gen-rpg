@@ -115,18 +115,21 @@ namespace Genrpg.Shared.Inventory.Utils
                 }
             }
 
-
+           if (maxIconIndex < 1)
+            {
+                maxIconIndex = 1;
+            }
             int IdHash = 1;
 
             if (!string.IsNullOrEmpty(item.Id))
             {
-                for (int c = 0; c < item.Id.Length; c++)
+                for (int c = 0; c < Math.Min(3,item.Id.Length); c++)
                 {
-                    IdHash += item.Id[c] * (c + 1) * (c + 1) * 17;
+                    IdHash += item.Id[c] * (c + 1) * (c + 1) * 17;               
                 }
             }
 
-            int iconIndex = (IdHash * 131 + 29) % maxIconIndex + 1;
+            int iconIndex = ((IdHash * 131 + 29) % maxIconIndex) + 1;
 
             if (FlagUtils.IsSet(itype.Flags, ItemFlags.SkipScalingIconName))
             {

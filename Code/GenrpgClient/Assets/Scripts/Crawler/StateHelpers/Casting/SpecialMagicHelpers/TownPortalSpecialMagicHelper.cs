@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Crawler.MapGen.Constants;
 
 namespace Assets.Scripts.Crawler.StateHelpers.Casting.SpecialMagicHelpers
 {
@@ -37,7 +38,7 @@ namespace Assets.Scripts.Crawler.StateHelpers.Casting.SpecialMagicHelpers
 
             CrawlerMap overworld = world.GetMap(1);
 
-            List<CrawlerMap> cities = world.Maps.Where(x => x.MapType == ECrawlerMapTypes.City).OrderBy(x => x.Level).ToList();
+            List<CrawlerMap> cities = world.Maps.Where(x => x.CrawlerMapTypeId == CrawlerMapTypes.City).OrderBy(x => x.Level).ToList();
 
             foreach (CrawlerMap cityMap in cities) 
             {

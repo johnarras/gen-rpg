@@ -42,7 +42,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         protected ICrawlerMapGenService _mapGenService;
         protected IZoneGenService _zoneGenService;
 
-        public abstract ECrawlerMapTypes GetKey();
+        public abstract long GetKey();
 
         public abstract Awaitable<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData crawlerMapGenData);
 

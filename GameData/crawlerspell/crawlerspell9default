@@ -4,8 +4,8 @@
   "IdKey": 9,
   "Name": "Heal Party",
   "Desc": "Heal the wounds of all party members.",
-  "PowerCost": 50,
-  "PowerPerLevel": 1,
+  "PowerCost": 10,
+  "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 5,
@@ -18,5 +18,5 @@
       "ElementTypeId": 7
     }
   ],
-  "UpdateTime": "2024-08-20T13:13:16.189Z"
+  "UpdateTime": "2024-08-31T18:58:09.831Z"
 }
