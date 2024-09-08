@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Units.Entities;
@@ -9,11 +10,11 @@ namespace Genrpg.Shared.Rewards.Services
 {
     public interface IRewardService : IInjectable
     {
-        bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList) where SR : Reward;
-        bool GiveReward(IRandom rand, Unit unit, Reward res);
-        bool GiveReward(IRandom rand, Unit unit, long entityType, long entityId, long quantity, object extraData = null);
-        bool Add(Unit unit, long entityTypeId, long entityId, long quantity);
-        bool Set(Unit unit, long entityTypeId, long entityId, long quantity);
-        void OnSetQuantity<TUpd>(Unit unit, TUpd upd, long entityTypeId, long diff) where TUpd : class, IStringId;
+        bool GiveRewards<RL>(IRandom rand, MapObject obj, List<RL> resultList) where RL : RewardList;
+        bool GiveReward(IRandom rand, MapObject obj, Reward res);
+        bool GiveReward(IRandom rand, MapObject obj, long entityType, long entityId, long quantity, object extraData = null);
+        bool Add(MapObject obj, long entityTypeId, long entityId, long quantity);
+        bool Set(MapObject obj, long entityTypeId, long entityId, long quantity);
+        void OnSetQuantity<TUpd>(MapObject obj, TUpd upd, long entityTypeId, long diff) where TUpd : class, IStringId;
     }
 }

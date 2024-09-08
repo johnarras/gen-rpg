@@ -16,11 +16,11 @@ using System.Linq;
 using System;
 using System.Threading;
 using Genrpg.MapServer.Crafting.Services;
-using Genrpg.MapServer.Spawns.Services;
 using Genrpg.MapServer.Trades.Services;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.Rewards.Entities;
+using Genrpg.ServerShared.Spawns.Services;
 
 namespace Genrpg.MapServer.Items.Services
 {
@@ -86,7 +86,7 @@ namespace Genrpg.MapServer.Items.Services
                         QualityTypeId = item.QualityTypeId,
                         Times = 1
                     };
-                    List<Reward> newItems = _spawnService.Roll(rand, spawnProc.EntityId, rollData);
+                    List<RewardList> newItems = _spawnService.Roll(rand, spawnProc.EntityId, rollData);
                     if (newItems != null)
                     {
                         _rewardService.GiveRewards(rand, ch, newItems);

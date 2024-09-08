@@ -2,6 +2,7 @@
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
@@ -13,7 +14,7 @@ namespace Genrpg.Shared.Spawns.Helpers
     {
         public long GetKey() { return EntityTypes.Spawn; }
 
-        public bool GiveReward(IRandom rand, Unit unit, long entityId, long quantity, object extraData = null)
+        public bool GiveReward(IRandom rand, MapObject obj, long entityId, long quantity, object extraData = null)
         {
             return true;
         }

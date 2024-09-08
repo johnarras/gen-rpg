@@ -6,15 +6,17 @@
       "IdKey": 1,
       "Name": "Dungeon",
       "Desc": "",
-      "MinWidth": 20,
-      "MaxWidth": 25,
-      "MinHeight": 20,
-      "MaxHeight": 25,
+      "Icon": "",
+      "Art": "",
+      "MinWidth": 15,
+      "MaxWidth": 15,
+      "MinHeight": 15,
+      "MaxHeight": 15,
       "MinFloors": 2,
       "MaxFloors": 5,
       "QuestItemEntranceUnlockChance": 0.2,
       "RiddleUnlockChance": 0.2,
-      "UpdateTime": "2024-08-28T23:58:20.709Z"
+      "UpdateTime": "2024-09-02T00:46:22.316Z"
     },
     {
       "Id": "crawlermaptype2default",
@@ -30,7 +32,7 @@
       "MaxHeight": 20,
       "MinFloors": 1,
       "MaxFloors": 1,
-      "UpdateTime": "2024-08-28T23:58:20.709Z"
+      "UpdateTime": "2024-09-02T00:46:22.316Z"
     },
     {
       "Id": "crawlermaptype3default",
@@ -52,7 +54,7 @@
   "ParentObj": {
     "Id": "default",
     "Name": "CrawlerMapSettings",
-    "UpdateTime": "2024-08-28T23:58:20.709Z"
+    "UpdateTime": "2024-09-02T00:46:22.316Z"
   },
   "Id": "default"
 }

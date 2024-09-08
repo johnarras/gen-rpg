@@ -7,6 +7,6 @@ namespace ClientEvents
 {
     public class ShowLootEvent
     {
-        public List<Reward> Rewards { get; set; }
+        public List<RewardList> Rewards { get; set; }
     }
 }

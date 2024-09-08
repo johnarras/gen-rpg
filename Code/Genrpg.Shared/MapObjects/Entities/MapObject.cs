@@ -16,6 +16,8 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Units.Entities;
 
 namespace Genrpg.Shared.MapObjects.Entities
 {
@@ -177,6 +179,8 @@ namespace Genrpg.Shared.MapObjects.Entities
         
         private bool _isDeleted { get; set; }
 
+        public List<UnitRole> Roles { get; set; } = new List<UnitRole>();
+
         private bool _isDirty = false;
         public bool IsDirty() { return _isDirty; }
         public void SetDirty(bool dirty) { _isDirty = dirty; }
@@ -276,6 +280,43 @@ namespace Genrpg.Shared.MapObjects.Entities
             float dz = Z - other.Z;
 
             return (float)Math.Sqrt(dx * dx + dz * dz);
+        }
+
+
+
+        protected Dictionary<Type, IUnitData> _dataDict = new Dictionary<Type, IUnitData>();
+
+        virtual protected bool AlwaysCreateMissingData() { return true; }
+        public virtual T Get<T>() where T : class, IUnitData, new()
+        {
+            Type t = typeof(T);
+
+            if (_dataDict.ContainsKey(t))
+            {
+                return (T)_dataDict[t];
+            }
+
+            if (!IsPlayer() || AlwaysCreateMissingData())
+            {
+                Set((T)Activator.CreateInstance(typeof(T)));
+                return (T)_dataDict[t];
+            }
+
+            return default;
+        }
+
+
+        public virtual void Set<T>(T obj) where T : IUnitData
+        {
+            _dataDict[obj.GetType()] = obj;
+        }
+
+        public virtual void Delete<T>(IRepositoryService repoSystem) where T : class, IUnitData, new() { }
+
+        public virtual Dictionary<Type, IUnitData> GetAllData() { return new Dictionary<Type, IUnitData>(); }
+
+        public virtual void SaveData(bool saveAll)
+        {
         }
 
 

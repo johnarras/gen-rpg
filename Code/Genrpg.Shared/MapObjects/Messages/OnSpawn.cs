@@ -43,8 +43,8 @@ namespace Genrpg.Shared.MapObjects.Messages
         [Key(18)] public long Level { get; set; }
         [Key(19)] public int OverrideZonePercent { get; set; }
         [Key(20)] public AttackerInfo FirstAttacker { get; set; }
-        [Key(21)] public List<Reward> Loot { get; set; }
-        [Key(22)] public List<Reward> SkillLoot { get; set; }
+        [Key(21)] public List<RewardList> Loot { get; set; }
+        [Key(22)] public List<RewardList> SkillLoot { get; set; }
         [Key(23)] public List<DisplayEffect> Effects { get; set; }
         [Key(24)] public List<FullStat> Stats { get; set; }
         [Key(25)] public long AddonBits { get; set; }

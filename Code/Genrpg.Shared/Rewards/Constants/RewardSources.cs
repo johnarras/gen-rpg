@@ -19,6 +19,7 @@ namespace Genrpg.Shared.Rewards.Constants
         public const long Defend = 10;
         public const long Adventure = 11;
         public const long Bonus = 12;
-        public const long PVP = 13;       
+        public const long PVP = 13;
+        public const long Levelup = 14;
     }
 }

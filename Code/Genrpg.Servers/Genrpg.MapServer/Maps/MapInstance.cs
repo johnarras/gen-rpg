@@ -57,6 +57,7 @@ using Amazon.Runtime.Internal;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.DataStores.DataGroups;
+using Genrpg.Shared.DataStores.PlayerData;
 
 namespace Genrpg.MapServer.Maps
 {
@@ -346,16 +347,16 @@ namespace Genrpg.MapServer.Maps
                         ch.Z = _mapProvider.GetMap().SpawnY;
                         ch.MapId = _mapId;
                     }
+
                     ch.NearbyGridsSeen = new List<PointXZ>();
-                    MapObjectGridItem gridItem = _objectManager.AddObject(loadRand, ch, null);
-
-                    if (gridItem != null)
+                    connState.ch = ch;
+                    List<IUnitData> allUnitData = await _playerDataService.LoadAllPlayerData(loadRand, user, ch);
+                    foreach (IUnitData unitData in allUnitData)
                     {
-                        connState.ch = (Character)gridItem.Obj;
-                        await _playerDataService.LoadAllPlayerData(loadRand, user, ch);
+                        unitData.AddTo(ch);
                     }
-
                     _gameDataService.SetGameDataOverrides(ch, true);
+                    MapObjectGridItem gridItem = _objectManager.AddObject(loadRand, ch, null);
 
                     didLoad = true;
                 }

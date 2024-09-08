@@ -11,6 +11,6 @@ namespace Genrpg.Shared.Loot.Messages
     public sealed class SendRewards : BaseMapApiMessage
     {
         [Key(0)] public bool ShowPopup { get; set; }
-        [Key(1)] public List<Reward> Rewards { get; set; }
+        [Key(1)] public List<RewardList> Rewards { get; set; }
     }
 }

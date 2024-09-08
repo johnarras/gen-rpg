@@ -40,7 +40,7 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
             }
 
 
-            List<Reward> loot = new List<Reward>();
+            List<RewardList> loot = new List<RewardList>();
             lock (unit.OnActionLock)
             {
                 if (unit.Loot == null || unit.Loot.Count < 1)
@@ -52,8 +52,13 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
                 unit.Loot = null;
             }
 
-            long moneyTotal = loot.Where(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Money).Sum(x => x.Quantity);
-            long itemTotal = loot.Where(x=>x.EntityTypeId == EntityTypes.Item && x.ExtraData != null).Sum(x => x.Quantity);
+            long moneyTotal = 0;
+            long itemTotal = 0;
+            foreach (RewardList rewardList in loot)
+            {
+                moneyTotal += rewardList.Rewards.Where(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Money).Sum(x => x.Quantity);
+                itemTotal += rewardList.Rewards.Where(x => x.EntityTypeId == EntityTypes.Item && x.ExtraData != null).Sum(x => x.Quantity);
+            }
 
             _achievementService.UpdateAchievement(ch, AchievementTypes.MoneyLooted, moneyTotal);
             _achievementService.UpdateAchievement(ch,AchievementTypes.ItemsLooted, itemTotal);

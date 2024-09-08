@@ -9,9 +9,12 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Levels.Messages;
 using Genrpg.Shared.Levels.Settings;
+using Genrpg.Shared.Rewards.Constants;
+using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.Utils;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -90,7 +93,7 @@ namespace Genrpg.MapServer.Levelup.Services
 
             if (lev.RewardList != null)
             {
-                _rewardService.GiveRewards(rand, ch, lev.RewardList);
+                _rewardService.GiveRewards(rand, ch, new List<RewardList>() { new RewardList() { RewardSourceId = RewardSources.Levelup, Rewards = lev.RewardList } });
             }
 
             ch.AbilityPoints += lev.AbilityPoints;

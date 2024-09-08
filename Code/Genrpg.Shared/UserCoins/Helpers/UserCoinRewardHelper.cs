@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Users.PlayerData;
@@ -11,9 +12,9 @@ namespace Genrpg.Shared.UserCoins.Helpers
     {
         public long GetKey() { return EntityTypes.UserCoin; }
 
-        public bool GiveReward(IRandom rand, Unit unit, long entityId, long quantity, object extraData = null)
+        public bool GiveReward(IRandom rand, MapObject obj, long entityId, long quantity, object extraData = null)
         {
-            CoreUserData userData = unit.Get<CoreUserData>();
+            CoreUserData userData = obj.Get<CoreUserData>();
 
             userData.Coins.Add(entityId, quantity);
 

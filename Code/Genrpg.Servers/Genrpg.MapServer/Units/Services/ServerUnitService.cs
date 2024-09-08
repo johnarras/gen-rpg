@@ -24,9 +24,10 @@ using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Spells.Settings.Effects;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.GameSettings;
-using Genrpg.MapServer.Spawns.Services;
 using Genrpg.Shared.Units.Settings;
 using Genrpg.Shared.Rewards.Entities;
+using Genrpg.ServerShared.Spawns.Services;
+using Genrpg.Shared.Rewards.Constants;
 
 namespace Genrpg.MapServer.Units.Services
 {
@@ -65,8 +66,8 @@ namespace Genrpg.MapServer.Units.Services
                 FirstAttacker = firstAttacker,
             };
 
-            targ.Loot = new List<Reward>();
-            targ.SkillLoot = new List<Reward>();
+            targ.Loot = new List<RewardList>();
+            targ.SkillLoot = new List<RewardList>();
 
             RollData rollData = new RollData()
             {
@@ -74,18 +75,23 @@ namespace Genrpg.MapServer.Units.Services
                 Depth = 0,
                 QualityTypeId = targ.QualityTypeId,
                 Times = 1,
+                RewardSourceId = RewardSources.Kill,
             };
 
             if (firstAttacker != null)
             {
-                targ.SkillLoot = new List<Reward>();
+                targ.SkillLoot = new List<RewardList>();
 
                 targ.Loot = _spawnService.Roll(rand, _gameData.Get<SpawnSettings>(targ).MonsterLootSpawnTableId, rollData);
                 LevelInfo levelData = _gameData.Get<LevelSettings>(targ).Get(targ.Level);
 
                 if (levelData != null)
                 {
-                    targ.Loot.Add(new Reward()
+                    if (targ.Loot.Count < 1)
+                    {
+                        targ.Loot.Add(new RewardList() { RewardSourceId = RewardSources.Kill, });
+                    }
+                    targ.Loot[0].Rewards.Add(new Reward()
                     {
                         EntityTypeId = EntityTypes.Currency,
                         EntityId = CurrencyTypes.Money,

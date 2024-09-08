@@ -33,7 +33,7 @@ namespace Genrpg.Shared.Rewards.Services
             return null;
         }
 
-        public virtual bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList) where SR : Reward
+        public virtual bool GiveRewards<RL>(IRandom rand, MapObject obj, List<RL> resultList) where RL : RewardList            
         {
             if (resultList == null)
             {
@@ -42,11 +42,14 @@ namespace Genrpg.Shared.Rewards.Services
             bool hadFailure = false;
             if (obj is Character ch)
             {
-                foreach (Reward res in resultList)
+                foreach (RewardList rl in resultList)
                 {
-                    if (!GiveReward(rand, ch, res))
+                    foreach (Reward reward in rl.Rewards)
                     {
-                        hadFailure = true;
+                        if (!GiveReward(rand, ch, reward))
+                        {
+                            hadFailure = true;
+                        }
                     }
                 }
             }
@@ -58,12 +61,12 @@ namespace Genrpg.Shared.Rewards.Services
             return !hadFailure;
         }
 
-        public virtual bool GiveReward(IRandom rand, Unit unit, Reward res)
+        public virtual bool GiveReward(IRandom rand, MapObject obj, Reward res)
         {
-            return GiveReward(rand, unit, res.EntityTypeId, res.EntityId, res.Quantity, res.ExtraData);
+            return GiveReward(rand, obj, res.EntityTypeId, res.EntityId, res.Quantity, res.ExtraData);
         }
 
-        public virtual bool GiveReward(IRandom rand, Unit unit, long entityType, long entityId, long quantity, object extraData = null)
+        public virtual bool GiveReward(IRandom rand, MapObject obj, long entityType, long entityId, long quantity, object extraData = null)
         {
             IRewardHelper helper = GetRewardHelper(entityType);
 
@@ -73,30 +76,30 @@ namespace Genrpg.Shared.Rewards.Services
             }
 
             // This handles any extra results we need to send to the client.
-            return helper.GiveReward(rand, unit, entityId, quantity, extraData);
+            return helper.GiveReward(rand, obj, entityId, quantity, extraData);
         }
 
-        public bool Add(Unit unit, long entityTypeId, long entityId, long quantity)
+        public bool Add(MapObject obj, long entityTypeId, long entityId, long quantity)
         {
             IQuantityRewardHelper quantityHelper = GetRewardHelper(entityTypeId) as IQuantityRewardHelper;
             if (quantityHelper != null)
             {
-                return quantityHelper.Add(unit, entityId, quantity);
+                return quantityHelper.Add(obj, entityId, quantity);
             }
             return false;
         }
 
-        public bool Set(Unit unit, long entityTypeId, long entityId, long quantity)
+        public bool Set(MapObject obj, long entityTypeId, long entityId, long quantity)
         {
             IQuantityRewardHelper quantityHelper = GetRewardHelper(entityTypeId) as IQuantityRewardHelper;
             if (quantityHelper != null)
             {
-                return quantityHelper.Set(unit, entityId, quantity);
+                return quantityHelper.Set(obj, entityId, quantity);
             }
             return false;
         }
 
-        public virtual void OnSetQuantity<TUpd>(Unit unit, TUpd upd, long entityTypeId, long diff) where TUpd: class, IStringId
+        public virtual void OnSetQuantity<TUpd>(MapObject obj, TUpd upd, long entityTypeId, long diff) where TUpd: class, IStringId
         {
         }
     }

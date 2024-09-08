@@ -2,6 +2,7 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Units.Entities;
@@ -17,27 +18,27 @@ namespace Genrpg.Shared.Rewards.Helpers
 
         protected IRewardService _rewardService;
 
-        public bool GiveReward(IRandom rand, Unit unit, long entityId, long quantity, object extraData = null)
+        public bool GiveReward(IRandom rand, MapObject obj, long entityId, long quantity, object extraData = null)
         {
-            unit.Get<TParent>().Get(entityId).Quantity += quantity;
+            obj.Get<TParent>().Get(entityId).Quantity += quantity;
             return true;
         }
 
-        public bool Add(Unit unit, long entityId, long quantity)
+        public bool Add(MapObject obj, long entityId, long quantity)
         {
-            return Set(unit, entityId, Get(unit, entityId) + quantity);
+            return Set(obj, entityId, Get(obj, entityId) + quantity);
         }
 
-        public long Get(Unit unit, long entityId)
+        public long Get(MapObject obj, long entityId)
         {
-            return unit.Get<TParent>().Get(entityId).Quantity;
+            return obj.Get<TParent>().Get(entityId).Quantity;
         }
 
         public abstract long GetKey();
 
-        public bool Set(Unit unit, long entityId, long quantity)
+        public bool Set(MapObject obj, long entityId, long quantity)
         {
-            TParent parentData = unit.Get<TParent>();
+            TParent parentData = obj.Get<TParent>();
             TChild status = parentData.Get(entityId);
             long oldQuantity = Math.Max(0, status.Quantity);
             status.Quantity = quantity;
@@ -46,7 +47,7 @@ namespace Genrpg.Shared.Rewards.Helpers
 
             if (diff != 0)
             {
-                _rewardService.OnSetQuantity(unit, status, GetKey(), diff);
+                _rewardService.OnSetQuantity(obj, status, GetKey(), diff);
             }
             return true;
         }

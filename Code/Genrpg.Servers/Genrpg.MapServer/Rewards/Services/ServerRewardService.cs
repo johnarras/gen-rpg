@@ -21,17 +21,20 @@ namespace Genrpg.MapServer.Rewards.Services
         IServerQuestService _questService = null;
         protected IMapMessageService _messageService = null;
 
-        public override bool GiveRewards<SR>(IRandom rand, MapObject obj, List<SR> resultList)
+        public override bool GiveRewards<RL>(IRandom rand, MapObject obj, List<RL> resultList)
         {
-            foreach (Reward spawnResult in resultList)
+            foreach (RewardList rl in resultList)
             {
-                _questService.UpdateQuest(rand, obj, spawnResult);
+                foreach (Reward reward in rl.Rewards)
+                {
+                    _questService.UpdateQuest(rand, obj, reward);
+                }
             }
 
             return base.GiveRewards(rand, obj, resultList);
         }
 
-        public override void OnSetQuantity<TUpd>(Unit unit, TUpd upd, long entityTypeId, long diff)
+        public override void OnSetQuantity<TUpd>(MapObject obj, TUpd upd, long entityTypeId, long diff)
         {
             if (diff == 0)
             {
@@ -43,13 +46,13 @@ namespace Genrpg.MapServer.Rewards.Services
             {
                 OnAddQuantityReward onAdd = new OnAddQuantityReward()
                 {
-                    CharId = unit.Id,
+                    CharId = obj.Id,
                     EntityTypeId = entityTypeId,
                     EntityId = quantityChild.IdKey,
                     Quantity = diff,
                 };
 
-                _messageService.SendMessage(unit, onAdd);
+                _messageService.SendMessage(obj, onAdd);
             }
         }
     }

@@ -349,8 +349,8 @@ public class UnitController : BaseBehaviour
         }
         else
         {
-            _unit.Loot = new List<Reward>();
-            _unit.SkillLoot = new List<Reward>();
+            _unit.Loot = new List<RewardList>();
+            _unit.SkillLoot = new List<RewardList>();
         }
         _updateService.AddDelayedUpdate(entity, ShowDeathAnim, token, 0.1f);
     }

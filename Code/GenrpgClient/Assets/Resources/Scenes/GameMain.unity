@@ -263,7 +263,7 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: ZoneSize
-      value: 1
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
@@ -278,17 +278,17 @@ PrefabInstance:
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: BlockCount
-      value: 4
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: MapGenSeed
-      value: 0
+      value: 23321443
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}
       propertyPath: CrawlerMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3029877380482160996, guid: a47566d87e2e8f641be7678647c65008,
         type: 3}

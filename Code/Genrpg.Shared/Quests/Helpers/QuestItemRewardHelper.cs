@@ -2,6 +2,7 @@
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Spawns.Interfaces;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
@@ -11,7 +12,7 @@ namespace Genrpg.Shared.Quests.Helpers
 {
     public class QuestItemRewardHelper : IRewardHelper
     {
-        public bool GiveReward(IRandom rand, Unit unit, long entityId, long quantity, object extraData = null)
+        public bool GiveReward(IRandom rand, MapObject obj, long entityId, long quantity, object extraData = null)
         {
             if (quantity < 1)
             {

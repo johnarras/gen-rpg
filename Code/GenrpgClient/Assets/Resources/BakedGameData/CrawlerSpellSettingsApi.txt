@@ -279,7 +279,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 8,
-      "Level": 11,
+      "Level": 1,
       "Effects": [
         {
           "EntityTypeId": 37,

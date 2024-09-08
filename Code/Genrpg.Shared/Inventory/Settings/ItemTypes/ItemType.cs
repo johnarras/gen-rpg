@@ -17,6 +17,7 @@ using Genrpg.Shared.Inventory.Settings.Slots;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.MapObjects.Entities;
 
 namespace Genrpg.Shared.Inventory.Settings.ItemTypes
 {
@@ -231,7 +232,7 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
         /// </summary>
         /// <param name="gs"></param>
         /// <returns></returns>
-        public List<long> GetCompatibleEquipSlots(IGameData gameData, Unit unit)
+        public List<long> GetCompatibleEquipSlots(IGameData gameData, MapObject unit)
         {
             List<long> retval = new List<long>();
             if (gameData.Get<EquipSlotSettings>(unit).GetData() == null || EquipSlotId < 1)

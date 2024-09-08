@@ -50,8 +50,6 @@ namespace Genrpg.Shared.Units.Entities
 
         private List<AttackerInfo> _attackers = new List<AttackerInfo>();
 
-        public List<UnitRole> Roles { get; set; } = new List<UnitRole>();
-
         public override bool IsUnit() { return true; }
 
         public float BaseSpeed { get; set; }
@@ -64,8 +62,8 @@ namespace Genrpg.Shared.Units.Entities
 
         public List<CurrentProc> CurrentProcs;
 
-        public List<Reward> Loot;
-        public List<Reward> SkillLoot;
+        public List<RewardList> Loot;
+        public List<RewardList> SkillLoot;
 
         private int _flags = 0;
 
@@ -206,40 +204,6 @@ namespace Genrpg.Shared.Units.Entities
 
         }
 
-        protected Dictionary<Type, IUnitData> _dataDict = new Dictionary<Type, IUnitData>();
-
-        virtual protected bool AlwaysCreateMissingData() { return false; }
-        public virtual T Get<T>() where T : class, IUnitData, new()
-        {
-            Type t = typeof(T);
-
-            if (_dataDict.ContainsKey(t))
-            {
-                return (T)_dataDict[t];
-            }
-
-            if (!IsPlayer() || AlwaysCreateMissingData())
-            {
-                Set((T)Activator.CreateInstance(typeof(T)));
-                return (T)_dataDict[t];
-            }
-
-            return default;
-        }
-
-
-        public virtual void Set<T>(T obj) where T : IUnitData
-        {
-            _dataDict[obj.GetType()] = obj;
-        }
-
-        public virtual void Delete<T>(IRepositoryService repoSystem) where T : class, IUnitData, new() { }
-
-        public virtual Dictionary<Type, IUnitData> GetAllData() { return new Dictionary<Type, IUnitData>(); }
-
-        public virtual void SaveData(bool saveAll)
-        {
-        }
 
         public bool IsFullImmune()
         {
