@@ -3,7 +3,7 @@
   "ParentId": "default",
   "IdKey": 4,
   "Name": "Chests",
-  "VisualEntityTypeId": 21,
+  "Art": "ChestPrize",
   "LootTable": [
     {
       "EntityTypeId": 21,
@@ -56,5 +56,5 @@
       "MinScale": 20.0
     }
   ],
-  "UpdateTime": "2024-08-11T15:18:30.912Z"
+  "UpdateTime": "2024-09-26T20:16:39.347Z"
 }

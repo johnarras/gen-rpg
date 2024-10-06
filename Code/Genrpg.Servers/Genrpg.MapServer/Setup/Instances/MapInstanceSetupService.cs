@@ -7,6 +7,7 @@ using Genrpg.MapServer.MapMessaging.Services;
 using Genrpg.MapServer.Maps;
 using Genrpg.MapServer.Quests.Services;
 using Genrpg.MapServer.Rewards.Services;
+using Genrpg.MapServer.Spawns.Services;
 using Genrpg.MapServer.Spells.Services;
 using Genrpg.MapServer.Stats.Services;
 using Genrpg.MapServer.Trades.Services;
@@ -50,6 +51,7 @@ namespace Genrpg.MapServer.Setup.Instances
             Set<IMapObjectManager>(new MapObjectManager());
             Set<ITradeService>(new TradeService());
             Set<IServerCraftingService>(new ServerCraftingService());
+            Set<ISpawnService>(new SpawnService());
         }
 
         public override async Task FinalSetup()

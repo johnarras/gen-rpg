@@ -1,6 +1,12 @@
 using Genrpg.Shared.BoardGame.Services;
 using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Crafting.Services;
+using Genrpg.Shared.Crawler.Combat.Services;
+using Genrpg.Shared.Crawler.Loot.Services;
+using Genrpg.Shared.Crawler.Spells.Services;
+using Genrpg.Shared.Crawler.Stats.Services;
+using Genrpg.Shared.Crawler.TimeOfDay.Services;
+using Genrpg.Shared.Crawler.Training.Services;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Factions.Services;
 using Genrpg.Shared.Ftue.Services;
@@ -10,6 +16,7 @@ using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Names.Services;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.PlayMultiplier.Services;
+using Genrpg.Shared.ProcGen.Services;
 using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.SpellCrafting.Services;
@@ -65,6 +72,17 @@ namespace Genrpg.Shared.Setup.Services
             Set<IRewardService>(new RewardService());
             Set<IUserAbilityService>(new UserAbilityService());
             Set<ISharedPlayMultService>(new SharedPlayMultService());
+            Set<ILineGenService>(new LineGenService());
+            Set<INoiseService>(new NoiseService());
+            Set<ISamplingService>(new SamplingService());
+            Set<ICrawlerStatService>(new CrawlerStatService());
+            Set<ITrainingService>(new TrainingService());  
+            Set<ILootGenService>(new LootGenService()); 
+            Set<ITimeOfDayService>(new TimeOfDayService()); 
+            Set<ICrawlerCombatService>(new CrawlerCombatService());
+            Set<IProcessCombatRoundCombatService>(new ProcessCombatRoundCombatService());   
+            Set<ICrawlerSpellService>(new CrawlerSpellService()); 
+            Set<ISharedItemService>(new SharedItemService());
             // Use for crawler
 
             // Board game

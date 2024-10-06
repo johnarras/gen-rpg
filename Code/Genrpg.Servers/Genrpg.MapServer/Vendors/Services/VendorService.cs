@@ -16,7 +16,6 @@ using Genrpg.Shared.Inventory.Entities;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
-using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Rewards.Services;

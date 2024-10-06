@@ -26,7 +26,7 @@ public class KillCollider :BaseBehaviour
             return;
         }
 
-        MonsterController cont = GEntityUtils.FindInParents<MonsterController>(other.entity());
+        MonsterController cont = _gameObjectService.FindInParents<MonsterController>(other.gameObject);
 
         if (cont == null)
         {

@@ -133,22 +133,22 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
 
     protected virtual void SetAsDragItem(bool isDragItem)
     {
-        ScrollRect scrollRect = GEntityUtils.FindInParents<ScrollRect>(entity);
+        ScrollRect scrollRect = _gameObjectService.FindInParents<ScrollRect>(entity);
         if (scrollRect != null)
         {
             scrollRect.enabled = !enabled;
         }
 
-        List<GImage> allImages = GEntityUtils.GetComponents<GImage>(entity);
+        List<GImage> allImages = _gameObjectService.GetComponents<GImage>(entity);
         foreach (GImage image in allImages)
         {
             if (isDragItem)
             {
-                image.color = GColor.gray;
+                image.color = Color.gray;
             }
             else
             {
-                image.color = GColor.white;
+                image.color = Color.white;
             }
         }
     }
@@ -208,7 +208,7 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
         }
 
         transTooltip.position = transIcon.position;
-        transTooltip.localPosition += GVector3.Create(dx, dy, 0);
+        transTooltip.localPosition += new Vector3(dx, dy, 0);
     }
 
   

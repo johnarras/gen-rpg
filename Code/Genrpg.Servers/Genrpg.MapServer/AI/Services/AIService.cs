@@ -210,8 +210,6 @@ namespace Genrpg.MapServer.AI.Services
             unit.Moving = true;
             unit.FinalX = x;
             unit.FinalZ = z;
-
-            //UpdateAfterAIStep(rand, unit);
         }
 
         public void TargetMove(IRandom rand, Unit unit, string targetUnitId)
@@ -246,28 +244,33 @@ namespace Genrpg.MapServer.AI.Services
 
             StartCombat(rand, unit, targetUnit);
         }
-        public void EndCombat(IRandom rand, Unit unit, string killedUnitId, bool clearAllAttackers)
+        public void EndCombat(IRandom rand, Unit unit, string killedUnitId, bool isLeashing)
         {
             string oldTargetId = unit.TargetId;
             SetTarget(rand, unit, null);
-            ScanForTargets(rand, unit);
             if (!string.IsNullOrEmpty(killedUnitId))
             {
                 unit.RemoveAttacker(killedUnitId);
             }
 
-            if (clearAllAttackers)
+            if (isLeashing)
             {
+                unit.AddFlag(UnitFlags.Evading);
                 unit.ClearAttackers(_logService);
+                LocationMove(rand, unit, unit.CombatStartX, unit.CombatStartZ, UnitConstants.EvadeSpeedMult);
+                return;
             }
 
+            ScanForTargets(rand, unit);
             if (!unit.HasTarget() || unit.TargetId == oldTargetId || unit.TargetId == killedUnitId)
             {
                 SetTarget(rand, unit, null);
 
                 if (!(unit is Character ch))
                 {
+                    unit.AddFlag(UnitFlags.Evading);
                     LocationMove(rand, unit, unit.CombatStartX, unit.CombatStartZ, UnitConstants.EvadeSpeedMult);
+                    return;
                 }
             }
         }
@@ -348,25 +351,27 @@ namespace Genrpg.MapServer.AI.Services
 
                 if (combatDist >= _gameData.Get<AISettings>(unit).LeashDistance)
                 {
-                    unit.AddFlag(UnitFlags.Evading);
                     EndCombat(rand, unit, "", true);
                     return;
                 }
             }
 
-            float dx = unit.X - unit.FinalX;
-            float dz = unit.Z - unit.FinalZ;
+            float finalDx = unit.X - unit.FinalX;
+            float finalDz = unit.Z - unit.FinalZ;
 
-            float distToGo = (float)Math.Sqrt(dx * dx + dz * dz);
+            float distToGo = (float)Math.Sqrt(finalDx * finalDx + finalDz * finalDz);
 
             if (!unit.Moving)
             {
+                unit.RemoveFlag(UnitFlags.Evading);
                 if (unit.HasTarget() && distToGo > AIConstants.CloseToTargetDistance)
                 {
                     TargetMove(rand, unit, unit.TargetId);
                 }
                 return;
             }
+
+            unit.Speed = Math.Max(unit.Speed, 0.1f);
 
             float distGone = unit.Speed * _gameData.Get<AISettings>(unit).UpdateSeconds;
 
@@ -375,21 +380,45 @@ namespace Genrpg.MapServer.AI.Services
             float pctMove = distGone / distToGo;
             if (pctMove >= 1.0f || distToGo < AIConstants.CloseToTargetDistance)
             {
-                unit.X = unit.FinalX;
-                unit.Z = unit.FinalZ;
-                unit.Speed = 0;
-                unit.Moving = false;
-                if (unit.HasFlag(UnitFlags.Evading))
-                {
-                    unit.RemoveFlag(UnitFlags.Evading | UnitFlags.DidStartCombat);
-                }
+                SetUnitAtFinalLocation(unit);
             }
             else
             {
+                int nextWpIndex = -1;
+                int closestWpIndex = -1;
+                float closestWpDist = 10000;
+                for (int index = 0; index < unit.Waypoints.Waypoints.Count; index++)
+                {
+                    Waypoint wp = unit.Waypoints.Waypoints[index];
+                    float dx = wp.Z - unit.X;
+                    float dz = wp.Z - unit.Z;
+
+                    double distToNext = Math.Sqrt(dx * dx + dz * dz);
+
+                    if (distToNext < closestWpDist)
+                    {
+                        distToNext = closestWpDist;
+                        closestWpIndex = index;
+                    }
+                    else if (closestWpIndex >= 0) // Found closest index
+                    {
+                        nextWpIndex = index;
+                        break;
+                    }
+                }
+
+                if (nextWpIndex < 0 || nextWpIndex >= unit.Waypoints.Waypoints.Count - 1)
+                {
+                    nextWpIndex = unit.Waypoints.Waypoints.Count - 1;
+                }
+
+                for (int i = 0; i < nextWpIndex; i++)
+                {
+                    unit.Waypoints.RemoveWaypointAt(0);
+                }
 
                 float nextXPos = unit.GetNextXPos();
                 float nextZPos = unit.GetNextZPos();
-
 
                 float oldX = unit.X;
                 float oldZ = unit.Z;
@@ -399,32 +428,31 @@ namespace Genrpg.MapServer.AI.Services
                 unit.X = nx;
                 unit.Z = nz;
 
-                float nextToFinalX = nextXPos - unit.FinalX;
-                float nextToFinalZ = nextZPos - unit.FinalZ;
+                float finaldx = unit.X - unit.FinalX;
+                float finaldz = unit.Z - unit.FinalZ;
 
-                float nextToFinalDist = MathF.Sqrt(nextToFinalX*nextToFinalX+nextToFinalZ*nextToFinalZ);
+                double finalDist = Math.Sqrt(finaldx * finaldx + finaldz * finaldz);
 
-                float currToFinalDistX = unit.X - unit.FinalX;
-                float currToFinalDistZ = unit.Z - unit.FinalZ;
-
-                float currToFinalDist = MathF.Sqrt(currToFinalDistX*currToFinalDistX+currToFinalDistZ*currToFinalDistZ);
-
-                if (currToFinalDist < nextToFinalDist+1)
+                if (finalDist > distToGo || finalDist < AIConstants.CloseToTargetDistance)
                 {
-                    if (unit.Waypoints != null)
-                    {
-                        if (unit.Waypoints.Waypoints.Count > 0)
-                        {
-                            unit.Waypoints.RemoveWaypointAt(0);
-                        }
-
-                        if (unit.Waypoints.Waypoints.Count == 0)
-                        {
-                            unit.Waypoints.Clear();
-                        }
-                    }
+                    SetUnitAtFinalLocation(unit);        
                 }
-            }           
+            }
+        }
+
+        private void SetUnitAtFinalLocation(Unit unit)
+        {
+            unit.X = unit.FinalX;
+            unit.Z = unit.FinalZ;
+            unit.Speed = 0;
+            unit.Moving = false;
+            unit.Waypoints.Clear();
+            if (unit.HasFlag(UnitFlags.Evading))
+            {
+                unit.RemoveFlag(UnitFlags.Evading | UnitFlags.DidStartCombat);
+                unit.CombatStartX = unit.X;
+                unit.CombatStartZ = unit.Z;
+            }
         }
 
         private void UpdateAfterAIStep(IRandom rand, Unit unit)

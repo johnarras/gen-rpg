@@ -1,17 +1,17 @@
-﻿
-using System;
-using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
-
+﻿using System.Collections.Generic;
+using UnityEngine;
 using System.Threading;
 using Assets.Scripts.MapTerrain;
-using UnityEngine; // Needed
 using Genrpg.Shared.ProcGen.Settings.Texturse;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Client.Assets;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Assets.Constants;
 
 
 public class TerrainTextureData
@@ -20,7 +20,7 @@ public class TerrainTextureData
 
     public Texture2D RegTexture;
     public Texture2D NormTexture;
-    public GEntity TextureContainer;
+    public GameObject TextureContainer;
     public int InstanceCount = 0;
     public TerrainLayer TerrLayer;
 }
@@ -46,9 +46,9 @@ public class TerrainTextureManager : ITerrainTextureManager
     private IAssetService _assetService;
     private IMapTerrainManager _terrainManager;
     private IMapProvider _mapProvider;
-    protected IUnityGameState _gs;
+    protected IClientGameState _gs;
     protected IMapGenData _md;
-    protected IGameObjectService _gameObjectService;
+    protected IClientEntityService _gameObjectService;
 
     public async Awaitable SetOneTerrainPatchLayers(TerrainPatchData patch, CancellationToken token, bool allAtOnce = false)
     {
@@ -159,7 +159,7 @@ public class TerrainTextureManager : ITerrainTextureManager
             return;
         }
 
-        IndexList indexes = _gameObjectService.GetOrAddComponent<IndexList>(terr.entity());
+        IndexList indexes = _gameObjectService.GetOrAddComponent<IndexList>(terr.gameObject);
 
         if (indexes.Indexes == null || indexes.Indexes.Length != currLayers.Length)
         {
@@ -191,7 +191,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
     private void OnDownloadArt(object obj, object dataIn, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
 
         if (go == null)
         {
@@ -201,7 +201,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (ddata.Terr == null || ddata.TexType == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
@@ -209,7 +209,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (currentData != null && currentData.RegTexture != null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             SetNewTerrainLayer(ddata.Terr, ddata.TextureIndex, currentData);
             return;
         }
@@ -220,7 +220,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (texList == null || texList.Textures == null || texList.Textures.Count < texSize)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
@@ -228,7 +228,7 @@ public class TerrainTextureManager : ITerrainTextureManager
         {
             if (texList.Textures[i] == null)
             {
-                GEntityUtils.Destroy(go);
+                _gameObjectService.Destroy(go);
                 return;
             }
         }
@@ -266,7 +266,7 @@ public class TerrainTextureManager : ITerrainTextureManager
     }
     private void OnDownloadTextureToCache(object obj, object dataIn, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
 
         if (go == null)
         {
@@ -276,7 +276,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (ddata.TexType == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
         TextureList texList = go.GetComponent<TextureList>();
@@ -290,7 +290,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (currentData != null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
@@ -298,7 +298,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (texList == null || texList.Textures == null || texList.Textures.Count < texSize)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
@@ -306,7 +306,7 @@ public class TerrainTextureManager : ITerrainTextureManager
         {
             if (texList.Textures[i] == null)
             {
-                GEntityUtils.Destroy(go);
+                _gameObjectService.Destroy(go);
                 return;
             }
         }

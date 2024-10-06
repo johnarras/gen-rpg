@@ -1,0 +1,157 @@
+{
+  "Data": [
+    {
+      "Id": "userabilitytype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "MaxStorage",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 60,
+      "QuantityPerRank": 10,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "GuardTowers",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 5,
+      "QuantityPerRank": 1,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "WarbandSize",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 5,
+      "QuantityPerRank": 1,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "WarbandHealth",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 100,
+      "QuantityPerRank": 10,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "WarbandDamage",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 10,
+      "QuantityPerRank": 1,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "UpgradeQuantity",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 4,
+      "QuantityPerRank": 1,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "RewardChance",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 10,
+      "QuantityPerRank": 1,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "RewardQuality",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 20,
+      "QuantityPerRank": 1,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "DefendChance",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 10,
+      "QuantityPerRank": 1,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "MaxMana",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 100,
+      "QuantityPerRank": 10,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "SpellDamage",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 25,
+      "QuantityPerRank": 5,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    },
+    {
+      "Id": "userabilitytype12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "HitChance",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "BaseQuantity": 75,
+      "QuantityPerRank": 2,
+      "UpdateTime": "2024-08-10T14:42:52.81Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "BaseUpgradeCost": 3,
+    "LinearUpgradeCost": 5,
+    "QuadraticUpgradeCost": 2,
+    "Name": "UserAbilitySettings",
+    "UpdateTime": "2024-08-10T14:42:52.81Z"
+  },
+  "Id": "default"
+}

@@ -1,5 +1,5 @@
 
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using ClientEvents;
 using Genrpg.Shared.Units.Entities;
 using System.Linq;
@@ -29,8 +29,8 @@ public class UnitStatBar : BaseBehaviour
             _max = _unit.Stats.Max(_statTypeId);
             _progressBar.InitRange(0, _max, _curr);
         }
-        _dispatcher.AddEvent<LevelUpEvent>(this, OnLevelUpdate);
-        _dispatcher.AddEvent<StatUpd>(this, OnStatUpdate);
+        AddListener<LevelUpEvent>(OnLevelUpdate);
+        AddListener<StatUpd>(OnStatUpdate);
     }
     private void OnStatUpdate(StatUpd sdata)
     {

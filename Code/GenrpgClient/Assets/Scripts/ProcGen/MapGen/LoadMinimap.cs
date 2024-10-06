@@ -12,14 +12,14 @@ using Genrpg.Shared.DataStores.DataGroups;
 public class LoadMinimap : BaseZoneGenerator
 {
 
+    private IBinaryFileRepository _binaryFileRepo;
     public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
         try
         {
-            BinaryFileRepository repo = new BinaryFileRepository(_logService);
             string filename = MapUtils.GetMapObjectFilename(MapConstants.MapFilename, _mapProvider.GetMap().Id, _mapProvider.GetMap().MapVersion);
-            byte[] bytes = repo.LoadBytes(filename);
+            byte[] bytes = _binaryFileRepo.LoadBytes(filename);
             if (bytes != null)
             {
                 Texture2D tex = new Texture2D(2, 2);

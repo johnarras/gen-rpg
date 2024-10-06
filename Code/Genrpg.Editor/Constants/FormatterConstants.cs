@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Windows.UI.Text;
 
-namespace Genrpg.Editor.UI.Constants
+namespace Genrpg.Editor.Constants
 {
     public class FormatterConstants
     {

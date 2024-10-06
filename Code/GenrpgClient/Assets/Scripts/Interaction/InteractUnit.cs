@@ -1,9 +1,8 @@
 ﻿
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Factions.Services;
-using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.Stats.Constants;
@@ -12,13 +11,14 @@ using Genrpg.Shared.Crafting.Settings.Crafters;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Trades.Messages;
 using Genrpg.Shared.Units.Settings;
+using Genrpg.Shared.UI.Entities;
 
 public class InteractUnit : InteractableObject
 {
     protected ISharedFactionService _factionService;
     protected string crafterMousePointer = "";
 
-    public override void Init(MapObject worldObj, GEntity go, CancellationToken token)
+    public override void Init(MapObject worldObj, GameObject go, CancellationToken token)
     {
         base.Init(worldObj, go, token);
     }
@@ -46,11 +46,11 @@ public class InteractUnit : InteractableObject
 
                 if (unit.HasAddon(MapObjectAddonTypes.Vendor))
                 {
-                    Cursors.SetCursor(Cursors.Shop);
+                    _cursorService.SetCursor(CursorNames.Shop);
                 }
                 else
                 {
-                    Cursors.SetCursor(Cursors.Chat);
+                    _cursorService.SetCursor(CursorNames.Chat);
                 }
                 return;
             }
@@ -59,12 +59,12 @@ public class InteractUnit : InteractableObject
         {
             if (unit.Stats.Curr(StatTypes.Health) > 0) // alive
             {
-                Cursors.SetCursor(Cursors.Fight);
+                _cursorService.SetCursor(CursorNames.Fight);
             }
             else if (unit.Loot != null && 
                 unit.Loot.Count > 0)
             {
-                Cursors.SetCursor(Cursors.Interact);
+                _cursorService.SetCursor(CursorNames.Interact);
             }
             else if (unit.SkillLoot != null && unit.SkillLoot.Count > 0)
             {
@@ -85,10 +85,10 @@ public class InteractUnit : InteractableObject
                     }
                     if (string.IsNullOrEmpty(crafterMousePointer))
                     {
-                        crafterMousePointer = Cursors.Default;
+                        crafterMousePointer = CursorNames.Default;
                     }
                 }
-                Cursors.SetCursor(crafterMousePointer);
+                _cursorService.SetCursor(crafterMousePointer);
 
             }
         }
@@ -113,7 +113,7 @@ public class InteractUnit : InteractableObject
 
     protected override void _OnPointerExit()
     {
-        Cursors.SetCursor(Cursors.Default);
+        _cursorService.SetCursor(CursorNames.Default);
     }
 
     protected override void _RightClick(float distance)
@@ -150,7 +150,7 @@ public class InteractUnit : InteractableObject
                     if (unit.SkillLoot == null || unit.SkillLoot.Count < 1)
                     {
                         HideGlow(4.0f, false);
-                        Cursors.SetCursor(Cursors.Default);
+                        _cursorService.SetCursor(CursorNames.Default);
                     }
                 }
                 else if (unit.SkillLoot != null && unit.SkillLoot.Count > 0)

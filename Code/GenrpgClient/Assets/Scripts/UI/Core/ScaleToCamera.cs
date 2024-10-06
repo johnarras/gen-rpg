@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
 
 public class ScaleToCamera : BaseBehaviour
 {
@@ -15,7 +10,7 @@ public class ScaleToCamera : BaseBehaviour
     
     public float _minDistToCamera;
     
-    public GEntity _scaledGameObject;
+    public GameObject _scaledGameObject;
     private Camera _mainCam = null;
 
 
@@ -42,11 +37,11 @@ public class ScaleToCamera : BaseBehaviour
         if (_defaultScale > 0 && _scaledGameObject != null)
         {
 
-            _scaledGameObject.transform().LookAt(_mainCam.transform());
+            _scaledGameObject.transform.LookAt(_mainCam.transform);
 
             if (_remainVertical)
             {
-                _scaledGameObject.transform().eulerAngles = GVector3.Create(0, _scaledGameObject.transform().eulerAngles.y + 180, 0);
+                _scaledGameObject.transform.eulerAngles = new Vector3(0, _scaledGameObject.transform.eulerAngles.y + 180, 0);
             }
 
 
@@ -54,7 +49,7 @@ public class ScaleToCamera : BaseBehaviour
 
             if (_minDistToCamera > 0)
             {
-                float dist = GVector3.Distance(entity.transform().position, _mainCam.transform().position);
+                float dist = Vector3.Distance(entity.transform.position, _mainCam.transform.position);
 
                 if (dist > _minDistToCamera)
                 {
@@ -64,7 +59,7 @@ public class ScaleToCamera : BaseBehaviour
                     currScale *= mult;
                 }
             }
-            _scaledGameObject.transform().localScale = GVector3.onePlatform * currScale;
+            _scaledGameObject.transform.localScale = Vector3.one * currScale;
         }
     }
 }

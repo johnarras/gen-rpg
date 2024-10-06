@@ -1,9 +1,4 @@
-﻿using Assets.Scripts.Crawler.Maps.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Genrpg.Shared.Crawler.Maps.Entities;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {

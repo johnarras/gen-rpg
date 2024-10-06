@@ -29,7 +29,7 @@ using Windows.UI.Popups;
 
 namespace Genrpg.Editor.Importers
 {
-    public class CrawlerRoleImporter : BaseDataImporter
+    public class CrawlerRoleImporter : BaseCrawlerDataImporter
     {
         public override string ImportDataFilename => "CrawlerRoleImport.csv";
 
@@ -85,8 +85,6 @@ namespace Genrpg.Editor.Importers
             IReadOnlyList<ItemType> itemTypes = gs.data.Get<ItemTypeSettings>(null).GetData();
 
             PropertyInfo[] props = typeof(Role).GetProperties();
-
-            
 
             for (int line = 1; line < lines.Length; line++)
             {
@@ -145,7 +143,6 @@ namespace Genrpg.Editor.Importers
                     }
                     continue;
                 }
-
 
                 if (words[0].ToLower() != "count")
                 {

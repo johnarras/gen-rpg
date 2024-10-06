@@ -1,22 +1,33 @@
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
 using System.IO;
 
-public class BinaryFileRepository
+public interface IBinaryFileRepository :IInjectable
 {
+    string GetPath(string id);
+    void DeleteAllData();
+    string Load(string id);
+    byte[] LoadBytes(string id);
+    void Save(string id, string val);
+    void SaveBytes(string id, byte[] val);
+    void Delete(string id);
+    void SaveObject(string fileName, object obj);
+    T LoadObject<T>(string fileName) where T : class;
+}
 
+public class BinaryFileRepository : IBinaryFileRepository
+{
     protected const string EDITOR_PREFIX = "Editor";
 
-    private ILogService _logger;
-    public BinaryFileRepository (ILogService logger)
-    {
-        _logger = logger;
-    }
+    private ILogService _logService;
+    private IClientAppService _clientAppService;
 
-    protected static string GetPathPrefix()
+    protected string GetPathPrefix()
     {
-        string prefix = AssetUtils.GetPerisistentDataPath() + "/Data";
+        string prefix = _clientAppService.PersistentDataPath + "/Data";
 #if DEMO_BUILD
         if (InitProject.Env != EnvNames.Prod && !string.IsNullOrEmpty(Application.version))
         {
@@ -98,7 +109,7 @@ public class BinaryFileRepository
 		}
 		catch (Exception e) 
 		{ 
-            _logger.Info("Failed to read file: " + path + " " + e.Message); 
+            _logService.Info("Failed to read file: " + path + " " + e.Message); 
 		}
         return "";
 	}
@@ -117,7 +128,7 @@ public class BinaryFileRepository
         }
         catch (Exception e)
         {
-            _logger.Info("Failed to read bytes: " + " " + path + " " + e.Message);
+            _logService.Info("Failed to read bytes: " + " " + path + " " + e.Message);
         }
         return null;
     }
@@ -132,7 +143,7 @@ public class BinaryFileRepository
 		}
 		catch (Exception e)
 		{
-		    _logger.Info("Failed to save text file: " + path + " " + e.Message);
+		    _logService.Info("Failed to save text file: " + path + " " + e.Message);
 		}
 	}
 
@@ -149,7 +160,7 @@ public class BinaryFileRepository
         }
         catch (Exception e)
         {
-            _logger.Info("Failed to save bytes: " + path + " " + e.Message);
+            _logService.Info("Failed to save bytes: " + path + " " + e.Message);
         }
     }
 
@@ -163,7 +174,7 @@ public class BinaryFileRepository
 		}
 		catch (Exception e)
 		{
-		    _logger.Info("Failed to delete file: " + path + " " + e.Message);
+		    _logService.Info("Failed to delete file: " + path + " " + e.Message);
 		}
 	}
 

@@ -1,0 +1,75 @@
+﻿using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Roles.Settings;
+using Genrpg.Shared.Crawler.States.Constants;
+using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Crawler.States.StateHelpers;
+using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.Stats.Entities;
+using Genrpg.Shared.Stats.Settings.Stats;
+using Genrpg.Shared.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Tavern.CreateMember
+{
+    public class RollStatsHelper : BaseStateHelper
+    {
+        public override ECrawlerStates GetKey() { return ECrawlerStates.RollStats; }
+
+        public override async Task<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
+        {
+            CrawlerStateData stateData = CreateStateData();
+
+            PartyMember member = action.ExtraData as PartyMember;
+
+            IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(null).GetData().Where(x => x.IdKey >=
+            StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).ToList();
+
+            int minStatVal = 3;
+            int maxStatVal = 18;
+
+            int rollTimes = 2;
+
+            member.ClearPermStats();
+            member.Stats = new StatGroup();
+
+            foreach (StatType st in allStats)
+            {
+                int valChosen = -1;
+
+                for (int i = 0; i < rollTimes; i++)
+                {
+                    int currVal = MathUtils.IntRange(minStatVal, maxStatVal, _rand);
+
+                    if (currVal > valChosen)
+                    {
+                        valChosen = currVal;
+                    }
+                }
+
+                member.AddPermStat(st.IdKey, valChosen);
+
+                stateData.Actions.Add(new CrawlerStateAction(st.Name + ": " + valChosen, CharCodes.None, ECrawlerStates.None));
+
+            }
+
+            stateData.Actions.Add(new CrawlerStateAction("Accept", 'A', ECrawlerStates.ChooseClass, extraData: member));
+
+            stateData.Actions.Add(new CrawlerStateAction("Reroll", 'R', ECrawlerStates.RollStats,
+                delegate { member.Stats = new StatGroup(); }, member));
+
+            stateData.Actions.Add(new CrawlerStateAction("Escape", CharCodes.Escape, ECrawlerStates.ChooseRace,
+                delegate { member.Stats = new StatGroup(); member.Roles.Clear(); }, member));
+
+            await Task.CompletedTask;
+            return stateData;
+
+        }
+
+    }
+}

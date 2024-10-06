@@ -1,24 +1,31 @@
-﻿using Assets.Scripts.Crawler.CrawlerStates;
-using Assets.Scripts.Crawler.Services;
+﻿using Assets.Scripts.MVC;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
-using Assets.Scripts.UI.Crawler.States;
-using Genrpg.Shared.Utils;
+using Genrpg.Shared.MVC.Interfaces;
+using Genrpg.Shared.UI.Interfaces;
 using System.Threading;
-using UnityEngine;
-using UnityEngine.EventSystems;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.UI.Crawler.ActionUI
 {
-    public class ActionPanelText : BaseBehaviour
+    public class ActionPanelText : BaseViewController<TextAction,IView>
     {
-
-        public GText Text;
-
+        public IButton Button;
+        public IText Text;
         private string _text = null;
-        public void Init(string text, CancellationToken token)
+
+        public override async Task Init(TextAction model, IView view, CancellationToken token)
         {
-            _text = text;
-            _uIInitializable.SetText(Text, text);
+            await base.Init(model, view, token);
+            Text = _view.Get<IText>("Text");
+            Button = _view.Get<IButton>("Button");
+
+            _text = model.Text;
+            _uiService.SetText(Text, _text);
+
+            if (Button != null && model.ClickAction != null)
+            {
+                _uiService.SetButton(Button, "APT", () => { model.ClickAction(); });
+            }
         }
     }
 }

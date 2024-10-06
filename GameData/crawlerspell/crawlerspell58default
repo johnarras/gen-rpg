@@ -4,7 +4,7 @@
   "IdKey": 58,
   "Name": "Set Beacon",
   "Desc": "Set a teleport location (per player)",
-  "PowerCost": 1,
+  "PowerCost": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 8,

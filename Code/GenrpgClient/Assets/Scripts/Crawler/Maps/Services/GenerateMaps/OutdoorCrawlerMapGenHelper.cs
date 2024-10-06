@@ -1,16 +1,14 @@
-﻿using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
+﻿using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Maps.Entities;
 using Genrpg.Shared.Buildings.Constants;
 using Genrpg.Shared.Crawler.Loot.Services;
-using Genrpg.Shared.Crawler.MapGen.Constants;
-using Genrpg.Shared.Crawler.MapGen.Settings;
+using Genrpg.Shared.Crawler.Maps.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Rewards.Entities;
-using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Constants;
@@ -19,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -32,38 +31,38 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         public override long GetKey() { return CrawlerMapTypes.Outdoors; }
 
 
-        private List<Color> _biomeColors = null;
-        private List<Color> GetZoneColors()
+        private List<UnityEngine.Color> _biomeColors = null;
+        private List<UnityEngine.Color> GetZoneColors()
         {
             if (_biomeColors == null)
             {
-                _biomeColors = new List<Color>()
+                _biomeColors = new List<UnityEngine.Color>()
                 {
-                    Color.black, // City/POI
-                    new Color(0,0.8f,0),  // Field
-                    new Color(0,0.5f,0), // Forest
-                    new Color(0.4f,0.7f,0), // Hills
-                    new Color(0.5f,0.3f,0), // Swamp
-                    new Color(0.8f,0.2f,0), // Badlands
-                    new Color(1,1,0), // Desert
-                    new Color(0.2f,0.2f,0.2f), // DarkForest
-                    new Color(0.7f,0.7f,0), // Savannah
-                    new Color(0.3f,0.3f,1), // Water
-                    new Color(0.5f,0.5f,0.5f), // Mountains
-                    new Color(1,1,1), // Snow
-                    new Color(0.75f,0.75f,0.75f), // Road
-                    new Color(0.5f,0.5f,0.5f), // City
-                    new Color(0.0f,0.0f,0.0f), // PointOfInterest
-                    new Color(0.1f,0.1f,0.1f), // Dungeon
-                    new Color(0.4f,0.2f,0.0f), // Cave
-                    new Color(0.85f,0.85f,0.85f), // Tower
-                    new Color(0.7f,0.2f,0), // Lava
+                    UnityEngine.Color.black, // City/POI
+                    new UnityEngine.Color(0,0.8f,0),  // Field
+                    new UnityEngine.Color(0,0.5f,0), // Forest
+                    new UnityEngine.Color(0.4f,0.7f,0), // Hills
+                    new UnityEngine.Color(0.5f,0.3f,0), // Swamp
+                    new UnityEngine.Color(0.8f,0.2f,0), // Badlands
+                    new UnityEngine.Color(1,1,0), // Desert
+                    new UnityEngine.Color(0.2f,0.2f,0.2f), // DarkForest
+                    new UnityEngine.Color(0.7f,0.7f,0), // Savannah
+                    new UnityEngine.Color(0.3f,0.3f,1), // Water
+                    new UnityEngine.Color(0.5f,0.5f,0.5f), // Mountains
+                    new UnityEngine.Color(1,1,1), // Snow
+                    new UnityEngine.Color(0.75f,0.75f,0.75f), // Road
+                    new UnityEngine.Color(0.5f,0.5f,0.5f), // City
+                    new UnityEngine.Color(0.0f,0.0f,0.0f), // PointOfInterest
+                    new UnityEngine.Color(0.1f,0.1f,0.1f), // Dungeon
+                    new UnityEngine.Color(0.4f,0.2f,0.0f), // Cave
+                    new UnityEngine.Color(0.85f,0.85f,0.85f), // Tower
+                    new UnityEngine.Color(0.7f,0.2f,0), // Lava
                 };
             }
             return _biomeColors;
         }
 
-        public override async Awaitable<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
+        public override async Task<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
         {
             IRandom rand = new MyRandom(genData.World.IdKey * 13 + genData.World.MaxMapId * 131);
             int width = 16 * MathUtils.IntRange(6, 10, rand);
@@ -84,7 +83,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             List<long> okZoneIds = allZoneTypes.Where(x => x.GenChance > 0).Select(x => x.IdKey).ToList();
 
-            List<Color> biomeColors = GetZoneColors();
+            List<UnityEngine.Color> biomeColors = GetZoneColors();
 
             int startMapEdgeSize = 4;
 

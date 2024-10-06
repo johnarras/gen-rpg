@@ -1,8 +1,8 @@
 
-
-using UI.Screens.Constants;
 using System.Threading;
 using UnityEngine;
+using Genrpg.Shared.UI.Services;
+using Genrpg.Shared.UI.Entities;
 
 public class AfterGenerateMap : BaseZoneGenerator
 {

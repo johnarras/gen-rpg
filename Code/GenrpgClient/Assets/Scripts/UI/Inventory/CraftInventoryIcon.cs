@@ -1,7 +1,6 @@
 ﻿using UnityEngine.EventSystems;
-using Genrpg.Shared.Inventory.PlayerData;
 using System.Threading;
-using Genrpg.Shared.Inventory.Utils;
+using Genrpg.Shared.Inventory.Services;
 
 public class CraftInventoryIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
@@ -17,7 +16,7 @@ public class CraftInventoryIcon : ItemIcon, IPointerEnterHandler, IPointerExitHa
             currQuantity = 0;
         }
 
-        _uIInitializable.SetText(QuantityText, currQuantity.ToString());
+        _uiService.SetText(QuantityText, currQuantity.ToString());
     }
     
     public long GetQuantity()
@@ -43,7 +42,7 @@ public class CraftInventoryIcon : ItemIcon, IPointerEnterHandler, IPointerExitHa
             Screen = data.Screen,
         };
 
-        _uIInitializable.SetText(InfoText, ItemUtils.GetBasicInfo(_gameData, _gs.ch, data.Data));
+        _uiService.SetText(InfoText, _sharedItemService.GetBasicInfo(_gameData, _gs.ch, data.Data));
 
         currQuantity = idata.Data.Quantity;
     }

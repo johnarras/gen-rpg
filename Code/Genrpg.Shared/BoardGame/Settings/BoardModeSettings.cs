@@ -51,7 +51,7 @@ namespace Genrpg.Shared.BoardGame.Settings
         [Key(8)] public bool FreeRolls { get; set; }
         [Key(9)] public bool GiveDefaultTileRewards { get; set; }
 
-        [Key(10)] public List<BoardModePrizeRule> PrizeRules { get; set; }
+        [Key(10)] public List<BoardModePrizeRule> PrizeRules { get; set; } = new List<BoardModePrizeRule>();
 
     }
 

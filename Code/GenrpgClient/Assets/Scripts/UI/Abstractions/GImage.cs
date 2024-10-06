@@ -1,5 +1,6 @@
 ﻿
-public class GImage : UnityEngine.UI.Image
+using Genrpg.Shared.UI.Interfaces;
+public class GImage : UnityEngine.UI.Image, IImage
 {
     public float FillAmount { get { return fillAmount; } set { fillAmount = value; } }
 

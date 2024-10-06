@@ -3,6 +3,7 @@ using Genrpg.Shared.Spells.PlayerData.Spells;
 using Assets.Scripts.Atlas.Constants;
 using System.Threading;
 using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public delegate void OnLoadSpellIconHandler(InitSpellIconData data);
 
@@ -74,7 +75,7 @@ public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIc
             return;
         }
 
-        GEntityUtils.SetActive(_initData.Screen.ToolTip, true);
+        _gameObjectService.SetActive(_initData.Screen.ToolTip, true);
         InitSpellTooltipData tooltipData = new InitSpellTooltipData() { spell = _initData.Data };
         _initData.Screen.ToolTip.Init(tooltipData, _token);
         UpdateTooltipPosition();
@@ -87,7 +88,7 @@ public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIc
             return;
         }
 
-        GEntityUtils.SetActive(_initData.Screen.ToolTip, false);
+        _gameObjectService.SetActive(_initData.Screen.ToolTip, false);
     }
 
 

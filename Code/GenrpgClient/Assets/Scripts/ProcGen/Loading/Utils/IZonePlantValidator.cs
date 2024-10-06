@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.ProcGen.RandomNumbers;
+﻿using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Services;
@@ -25,7 +25,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
     {
         private IGameData _gameData;
         private IMapProvider _mapProvider;
-        private IUnityGameState _gs;
+        private IClientGameState _gs;
         protected IClientRandom _rand;
         public void UpdateValidPlantTypeList<DP>(Zone zone, int gx, int gy, List<DP> fullList,
         bool isMainTerrain, CancellationToken token) where DP : BaseDetailPrototype, new()

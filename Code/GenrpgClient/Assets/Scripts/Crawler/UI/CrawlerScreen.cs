@@ -1,9 +1,11 @@
-﻿using Assets.Scripts.Crawler.Maps.Services;
-using Assets.Scripts.Crawler.Services;
+﻿
+using Assets.Scripts.MVC;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
+using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.States.Services;
 using System.Threading;
-using UnityEngine;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.UI.Crawler
 {
@@ -11,26 +13,47 @@ namespace Assets.Scripts.UI.Crawler
     {
         private ICrawlerService _crawlerService;
 
-        public WorldPanel WorldPanel;
-        public ActionPanel ActionPanel;
-        public StatusPanel StatusPanel;
+        private WorldPanel _worldPanel;
+        private ActionPanel _actionPanel;
+        private StatusPanel _statusPanel;
 
-        protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+        private object _leftParent;
+        private object _rightParent;
+
+        public BaseView View;
+
+        protected override async Task OnStartOpen(object data, CancellationToken token)
         {
             PartyData partyData = await _crawlerService.LoadParty();
-            _dispatcher.AddEvent<CrawlerStateData>(this, OnNewStateData);
-            await WorldPanel.Init(this, token);
-            await ActionPanel.Init(this, token);
-            await StatusPanel.Init(this, token);
+            AddListener<CrawlerStateData>(OnNewStateData);
+
+            _leftParent = View.Get<object>("Left");
+            _rightParent = View.Get<object>("Right");
+
+            _worldPanel = await _assetService.CreateAsync<WorldPanel, CrawlerScreen>(this,
+                AssetCategoryNames.UI, "WorldPanel", _leftParent, _token, Subdirectory);
+            _actionPanel = await _assetService.CreateAsync<ActionPanel, CrawlerScreen>(this,
+                AssetCategoryNames.UI, "ActionPanel", _rightParent, _token, Subdirectory);
+            _statusPanel = await _assetService.CreateAsync<StatusPanel, CrawlerScreen>(this,
+                AssetCategoryNames.UI, "StatusPanel", _rightParent, _token, Subdirectory);
+
+            partyData.WorldPanel = _worldPanel;
+            partyData.StatusPanel = _statusPanel;
+            partyData.ActionPanel = _actionPanel;
+
             await _crawlerService.Init(partyData, token);
         }
 
         private void OnNewStateData(CrawlerStateData data)
         {
-            WorldPanel.OnNewStateData(data);
-            ActionPanel.OnNewStateData(data);
-            StatusPanel.OnNewStateData(data);
-            return;
+            TaskUtils.ForgetTask(OnNewStatDataAsync(data, _token));
+        }
+
+        private async Task OnNewStatDataAsync(CrawlerStateData data, CancellationToken token)
+        {
+            await _worldPanel.OnNewStateData(data, token);
+            await _statusPanel.OnNewStateData(data, token);
+            await _actionPanel.OnNewStateData(data, token);
         }
     }
 }

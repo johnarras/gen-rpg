@@ -6,12 +6,12 @@ using System.IO;
 using Genrpg.Shared.MapServer.Entities;
 using System.Threading;
 using UnityEngine; // Needed
-using UI.Screens.Constants;
 using System.Threading.Tasks;
 
 public class ClearMapData : BaseZoneGenerator
 {
     private IPlayerManager _playerManager;
+    private IClientAppService _clientAppService;
     public override async Awaitable Generate (CancellationToken token)
     {
         await base.Generate(token);
@@ -27,7 +27,7 @@ public class ClearMapData : BaseZoneGenerator
 
         _assetService.ClearBundleCache(token);
 
-        AwaitableUtils.ForgetAwaitable(CleanUpOldMapFolders(token));
+        TaskUtils.ForgetAwaitable(CleanUpOldMapFolders(token));
 
 
         await Task.CompletedTask;
@@ -62,13 +62,22 @@ public class ClearMapData : BaseZoneGenerator
             return;
         }
 
-        string desiredFolder = AssetUtils.GetPerisistentDataPath() + "/Data/" + folder;
+        string desiredFolder = _clientAppService.PersistentDataPath + "/Data/" + folder;
 
 
         string parentFolder = desiredFolder.Substring(0, desiredFolder.Length - 5);
 
         string[] dirs = new string[0];
 
+
+        if (!Directory.Exists(parentFolder))
+        {
+            Directory.CreateDirectory(parentFolder);
+        }
+        if (!Directory.Exists(desiredFolder))
+        {
+            Directory.CreateDirectory(desiredFolder);
+        }
         try
         {
             dirs = Directory.GetDirectories(parentFolder);

@@ -4,7 +4,7 @@
   "IdKey": 15,
   "Name": "Holy Beam",
   "Desc": "Hit one or more monsters with holy damage.",
-  "PowerCost": 4,
+  "PowerCost": 4.0,
   "PowerPerLevel": 0.5,
   "MaxRange": 100,
   "CombatActionId": 4,

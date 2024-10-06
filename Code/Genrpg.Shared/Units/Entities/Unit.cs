@@ -47,6 +47,10 @@ namespace Genrpg.Shared.Units.Entities
         public float CombatStartRot { get; set; }
 
         public long SexTypeId { get; set; }
+        public bool DidFailAIUpdate { get; set; }
+        public bool UnitWasNotOk { get; set; }
+
+        public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;
 
         private List<AttackerInfo> _attackers = new List<AttackerInfo>();
 
@@ -120,10 +124,6 @@ namespace Genrpg.Shared.Units.Entities
 
         public void ClearAttackers(ILogService _logService)
         {
-            if (_attackers.Count > 5)
-            {
-                _logService.Message("AttackerCount: " + _attackers.Count);
-            }
             _attackers.Clear();
             RemoveFlag(UnitFlags.DidStartCombat);
         }

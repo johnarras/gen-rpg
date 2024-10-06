@@ -5,6 +5,7 @@ using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.ProcGen.Settings.Locations.Constants;
 using UnityEngine;
+using Genrpg.Shared.Client.Core;
 
 public class AddSecondaryLocations : BaseZoneGenerator
 {
@@ -14,7 +15,7 @@ public class AddSecondaryLocations : BaseZoneGenerator
         PlaceOtherLocations(_gs);
     }
 
-    private void PlaceOtherLocations (IUnityGameState gs)
+    private void PlaceOtherLocations (IClientGameState gs)
     {
         long locationsDesired = (int)(_mapProvider.GetMap().BlockCount * _mapProvider.GetMap().BlockCount * 0.05f);
 

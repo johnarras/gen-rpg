@@ -5,21 +5,24 @@ using UnityEditor;
 using System.IO;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Client.Core;
 
 public class CreateAssetBundle
 {
 	[MenuItem("Build/Build Asset Bundles")]
 	static void Execute()
 	{
-        IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+        IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 		BuildAssetBundles(gs);
 	}
 
-	public static void BuildAssetBundles(IUnityGameState gs)
+	public static void BuildAssetBundles(IClientGameState gs)
     {
         gs = SetupEditorUnityGameState.Setup(gs).GetAwaiter().GetResult();
 
         Debug.Log("Game Target: " + Game.Prefix);
+
+        IClientAppService clientAppService = gs.loc.Get<IClientAppService>();
 
         List<PlatformBuildData> targets = BuildConfiguration.GetbuildConfigs(gs);
 
@@ -35,7 +38,7 @@ public class CreateAssetBundle
             }
             DirectoryInfo di = new DirectoryInfo(basePath);
 
-            BundleUpdateInfo updateData = new BundleUpdateInfo() { ClientVersion = AppUtils.Version, UpdateTime = DateTime.UtcNow };
+            BundleUpdateInfo updateData = new BundleUpdateInfo() { ClientVersion = clientAppService.Version, UpdateTime = DateTime.UtcNow };
 
             BundleVersions versionData = new BundleVersions() { UpdateInfo = updateData };
            

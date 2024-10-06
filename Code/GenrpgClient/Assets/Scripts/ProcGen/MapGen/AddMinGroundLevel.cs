@@ -1,7 +1,8 @@
 
-using GEntity = UnityEngine.GameObject;
-using System.Threading;
 using UnityEngine;
+using System.Threading;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Client.Assets.Constants;
 
 // Settings for YES reflection
 // Fres Int: 0.1, Pow: 1.08 Bias: 0
@@ -16,13 +17,11 @@ public class AddMinGroundLevel : BaseZoneGenerator
     {
         await base.Generate(token);
         AddKillCollider(_gs);
-        //AddMapOcean(gs);
-
 	}
 
 
-    private static GEntity _killCollider = null;
-    public void AddKillCollider(IUnityGameState gs)
+    private static GameObject _killCollider = null;
+    public void AddKillCollider(IClientGameState gs)
     {
         if (_killCollider != null)
         {
@@ -33,7 +32,7 @@ public class AddMinGroundLevel : BaseZoneGenerator
 
     private void OnLoadKillCollider (object obj, object data, CancellationToken token)
     {
-        _killCollider = obj as GEntity;
+        _killCollider = obj as GameObject;
     }
 
 }

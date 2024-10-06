@@ -1,6 +1,3 @@
-
-
-
 using Genrpg.Shared.Logging.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,11 +6,9 @@ using System.Threading;
 using UnityEngine.Networking;
 using UnityEngine;
 using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.DataGroups;
+using Genrpg.Shared.Client.Assets.Services;
 
 public class DownloadFileData
 {
@@ -44,14 +39,15 @@ public class TypedDownloadFileData<T> : DownloadFileData
 
 public class FileDownloadService : IFileDownloadService
 {
+    private IClientAppService _appService;
+    private IModTextureService _modTextureService;
     public async Task Initialize(CancellationToken token)
     {
-        if (!AppUtils.IsPlaying)
+        if (!_appService.IsPlaying)
         {
             return;
         }
 
-        _binaryFileRepo = new BinaryFileRepository(_logService);
         await Task.CompletedTask;
     }
 
@@ -75,8 +71,8 @@ public class FileDownloadService : IFileDownloadService
     }
 
     private ILogService _logService;
-    private BinaryFileRepository _binaryFileRepo = null;
     private IAssetService _assetService;
+    private IBinaryFileRepository _binaryFileRepo = null;
 
     private int _fileDownloadingCount = 0;
 
@@ -150,26 +146,8 @@ public class FileDownloadService : IFileDownloadService
             List<InternalFileDownload> list = new List<InternalFileDownload>();
             list.Add(fileDownLoad);
             _downloading[filePath] = list;
-            AwaitableUtils.ForgetAwaitable(DownloadFileInternal(fileDownLoad, token));
+            TaskUtils.ForgetAwaitable(DownloadFileInternal(fileDownLoad, token));
         }
-    }
-
-    public static string GetCachedFilenameFromUrl(string url)
-    {
-        if (string.IsNullOrEmpty(url))
-        {
-            return "";
-        }
-
-        while (url.IndexOf("/") >= 0)
-        {
-            url = url.Replace("/", "_");
-        }
-        while (url.IndexOf("\\") >= 0)
-        {
-            url = url.Replace("\\", "_");
-        }
-        return AssetUtils.GetPerisistentDataPath() + "/" + url;
     }
 
     private async Awaitable DownloadFileInternal(InternalFileDownload fileDownload, CancellationToken token)
@@ -279,7 +257,7 @@ public class FileDownloadService : IFileDownloadService
                 await Awaitable.NextFrameAsync(cancellationToken: token);
                 tex = new Texture2D(2, 2);
                 tex.LoadImage(fileDownload.DownloadData.UncompressedBytes);
-                TextureUtils.SetupTexture(tex);
+                _modTextureService.SetupTexture(tex);
                 obj = tex;
             }
             else if (fileDownload.DownloadData.IsText ||

@@ -1,0 +1,30 @@
+{
+  "Id": "default",
+  "Tiers": [
+    {
+      "Tier": 1
+    },
+    {
+      "Tier": 2,
+      "MinQuantity": 10
+    },
+    {
+      "Tier": 3,
+      "MinQuantity": 50
+    },
+    {
+      "Tier": 4,
+      "MinQuantity": 250
+    },
+    {
+      "Tier": 5,
+      "MinQuantity": 1000
+    },
+    {
+      "Tier": 6,
+      "MinQuantity": 2500
+    }
+  ],
+  "Name": "MarkerSettings",
+  "UpdateTime": "2024-09-21T13:50:28.65Z"
+}

@@ -9,6 +9,7 @@ using Genrpg.Shared.Core.Entities;
 
 
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.Client.Core;
 
 public class SetupBundles
 {
@@ -58,7 +59,7 @@ public class SetupBundles
         SetupAll(null);
     }
 
-    public static void SetupAll(IUnityGameState gs)
+    public static void SetupAll(IClientGameState gs)
     { 
         gs = SetupEditorUnityGameState.Setup(gs).GetAwaiter().GetResult();
 

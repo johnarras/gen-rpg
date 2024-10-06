@@ -1,22 +1,18 @@
 
-using System;
-using System.Collections;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using ClientEvents;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Utils;
 using System.Threading;
-using UnityEngine;
 using Genrpg.Shared.MapServer.Services;
-using Genrpg.Shared.MapServer.Entities.MapCache;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class MinimapUI : BaseBehaviour
 {
     
-    public GEntity MainPanel;
+    public GameObject MainPanel;
     public GRawImage MapImage;
-    public GEntity ArrowParent;
-    public GEntity ArrowObject;
+    public GameObject ArrowParent;
+    public GameObject ArrowObject;
 
     private CancellationToken _token;
     private IPlayerManager _playerManager;
@@ -26,8 +22,8 @@ public class MinimapUI : BaseBehaviour
     public void Init(CancellationToken token)
     {
         _token = token;
-        _dispatcher.AddEvent<EnableMinimapEvent>(this, OnEnableMinimap);
-        _dispatcher.AddEvent<DisableMinimapEvent>(this, OnDisableMinimap);
+        AddListener<EnableMinimapEvent>(OnEnableMinimap);
+        AddListener<DisableMinimapEvent>(OnDisableMinimap);
         OnDisableMinimap(null);
         AddUpdate(MinimapUpdate, UpdateType.Regular);
         if (ArrowParent != null)
@@ -42,7 +38,7 @@ public class MinimapUI : BaseBehaviour
     {
         if (_mapTexture != null && MapImage != null)
         {
-            _uIInitializable.SetImageTexture(MapImage, _mapTexture);
+            _uiService.SetImageTexture(MapImage, _mapTexture);
             OnEnableMinimap(null);
             
         }
@@ -75,17 +71,17 @@ public class MinimapUI : BaseBehaviour
 
     private void OnLoadArrow(object obj, object data, CancellationToken token)
     {
-        ArrowObject = obj as GEntity;
+        ArrowObject = obj as GameObject;
     }
 
 	void MinimapUpdate()
 	{
-        GEntity player = _playerManager.GetEntity ();
+        GameObject player = _playerManager.GetPlayerGameObject ();
         if (player == null || MapImage ==  null || MapImage.texture == null || _md.GeneratingMap)
         {
             return;
         }
-        GVector3 pos = GVector3.Create(player.transform().localPosition);
+        Vector3 pos = player.transform.localPosition;
 
         // Player pct goes from -0.5 to 0.5.
         float xpct = pos.x / _mapProvider.GetMap().GetHwid();
@@ -104,11 +100,11 @@ public class MinimapUI : BaseBehaviour
         }
 
 
-        float rot = player.transform().eulerAngles.y;
+        float rot = player.transform.eulerAngles.y;
 
 		if (ArrowObject != null)
 		{
-			ArrowObject.transform().eulerAngles = GVector3.Create(0,0,-rot);
+			ArrowObject.transform.eulerAngles = new Vector3(0,0,-rot);
 		}
 
 
@@ -117,13 +113,13 @@ public class MinimapUI : BaseBehaviour
 
     private void OnEnableMinimap(EnableMinimapEvent data)
     {
-        GEntityUtils.SetActive(MainPanel, true);
+        _gameObjectService.SetActive(MainPanel, true);
         return;
     }
 
     private void OnDisableMinimap(DisableMinimapEvent data)
     {
-        GEntityUtils.SetActive(MainPanel, false);
+        _gameObjectService.SetActive(MainPanel, false);
         return;
     }
 

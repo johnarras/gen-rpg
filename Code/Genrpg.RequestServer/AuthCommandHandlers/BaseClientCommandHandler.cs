@@ -1,19 +1,10 @@
 ﻿using Genrpg.ServerShared.Config;
-using Genrpg.ServerShared.Core;
 using Genrpg.ServerShared.PlayerData;
-using Genrpg.ServerShared.Purchasing.Services;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Website.Messages.Error;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Website.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Genrpg.ServerShared.CloudComms.Constants;
 using Genrpg.ServerShared.CloudComms.Servers.PlayerServer.Queues;
 using Genrpg.Shared.GameSettings.Loaders;
@@ -24,13 +15,13 @@ using Genrpg.ServerShared.GameSettings.Services;
 using Genrpg.ServerShared.Accounts.Services;
 using Genrpg.Shared.Accounts.PlayerData;
 using Genrpg.Shared.Users.PlayerData;
-using Genrpg.ServerShared.Utils;
 using MongoDB.Driver;
 using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Core;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.RequestServer.PlayerData.Services;
 using Genrpg.RequestServer.AuthCommandHandlers.Constants;
+using Genrpg.ServerShared.Crypto.Services;
 
 namespace Genrpg.RequestServer.AuthCommandHandlers
 {
@@ -47,6 +38,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
         protected ICloudCommsService _cloudCommsService = null!;
         protected IWebServerService _webServerService = null!;
         protected IAccountService _accountService = null!;
+        protected ICryptoService _cryptoService = null!;
 
         protected abstract Task InnerHandleMessage(WebContext context, C command, CancellationToken token);
 
@@ -90,9 +82,9 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
                     };
                     account.AuthRecords.Add(authRecord);
                 }
-                clientLoginToken = PasswordUtils.GetRandomBytes();
-                authRecord.TokenSalt = PasswordUtils.GetRandomBytes();
-                authRecord.TokenHash = PasswordUtils.GetPasswordHash(authRecord.TokenSalt, clientLoginToken);
+                clientLoginToken = _cryptoService.GetRandomBytes();
+                authRecord.TokenSalt = _cryptoService.GetRandomBytes();
+                authRecord.TokenHash = _cryptoService.GetPasswordHash(authRecord.TokenSalt, clientLoginToken);
                 authRecord.TokenExpiry = DateTime.UtcNow.AddDays(7);
                 await _repoService.Save(account);
             }
@@ -138,7 +130,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
 
         protected EAuthResult ExistingPasswordIsOk(Account account, IAuthLoginCommand command)
         {
-            string newPasswordHash = PasswordUtils.GetPasswordHash(account.PasswordSalt, command.Password);
+            string newPasswordHash = _cryptoService.GetPasswordHash(account.PasswordSalt, command.Password);
 
             if (newPasswordHash == account.PasswordHash)
             {
@@ -152,7 +144,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
                 return EAuthResult.Failure;
             }
 
-            string newTokenHash = PasswordUtils.GetPasswordHash(authRecord.TokenSalt, command.Password);
+            string newTokenHash = _cryptoService.GetPasswordHash(authRecord.TokenSalt, command.Password);
 
             if (newTokenHash == authRecord.TokenHash)
             {

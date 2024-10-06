@@ -2,23 +2,16 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
+using UnityEngine;
 
-// Should probably use 2 generic params, but that's more complicated for now.
-public delegate void GameAction<T>(T t);
-
-
-public interface IDispatcher : IInitializable
-{
-    void AddEvent<T>(UnityEngine.MonoBehaviour monoBehaviour, GameAction<T> action) where T : class;
-    void RemoveEvent<T>(GameAction<T> action) where T : class;
-    void Dispatch<T>(T actionParam) where T : class;
-
-}
 
 public class Dispatcher : IDispatcher
 {
+    private IInitClient _initClient;
+
     public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
@@ -26,9 +19,10 @@ public class Dispatcher : IDispatcher
 
     private Dictionary<Type, object> _dict = new Dictionary<Type, object>();
 
-    public void AddEvent<T>(UnityEngine.MonoBehaviour monoBehaviour, GameAction<T> action) where T : class
+    public void AddListener<T>(GameAction<T> action, CancellationToken token) where T : class
     {
-        monoBehaviour.GetCancellationToken().Register(() => { RemoveEvent(action); });
+        token.Register(() => { RemoveListener(action); });
+
         if (!_dict.ContainsKey(typeof(T)))
         {
             _dict[typeof(T)] = new List<GameAction<T>>();
@@ -41,7 +35,12 @@ public class Dispatcher : IDispatcher
         }
     }
 
-    public void RemoveEvent<T>(GameAction<T> action) where T : class
+    /// <summary>
+    /// May need to make this public someday, but these events seem to stick around for the life of the object.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="action"></param>
+    private void RemoveListener<T>(GameAction<T> action) where T : class
     {
         if (!_dict.ContainsKey(typeof(T)))
         {

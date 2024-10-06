@@ -8,6 +8,6 @@ namespace Genrpg.Shared.Crawler.UI.Interfaces
     {
         void Clear();
 
-        void AddText(string text);
+        void AddText(string text, Action onClickHandler = null);
     }
 }

@@ -1,25 +1,21 @@
-﻿using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.DataStores.Entities;
-
+﻿using UnityEngine;
 using System.Threading;
-using UI.Screens.Constants;
-using Genrpg.Shared.Trades.Messages;
 using Genrpg.Shared.MapServer.Services;
-using UnityEngine;
 using System.Threading.Tasks;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class MapScreen : BaseScreen
 {
 
-    public GEntity ArrowParent = null;
+    public GameObject ArrowParent = null;
     public GRawImage MapImage;
     private IPlayerManager _playerManager;
     private IMapProvider _mapProvider;
     protected IMapGenData _md;
 
-    GEntity ArrowObject = null;
+    GameObject ArrowObject = null;
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         Setup();
 
@@ -30,12 +26,12 @@ public class MapScreen : BaseScreen
     {
         _assetService.LoadAssetInto(ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token, Subdirectory);
 
-        _uIInitializable.SetImageTexture(MapImage, MinimapUI.GetTexture());
+        _uiService.SetImageTexture(MapImage, MinimapUI.GetTexture());
     }
 
     private void OnLoadArrow(object obj, object data, CancellationToken token)
     {
-        ArrowObject = obj as GEntity;
+        ArrowObject = obj as GameObject;
         ShowPlayer();
     }
 
@@ -48,20 +44,20 @@ public class MapScreen : BaseScreen
 
     void ShowPlayer()
     {
-        GEntity arrow = ArrowObject;
+        GameObject arrow = ArrowObject;
         if (arrow == null)
         {
             return;
         }
 
         // Show player on map with arrow.
-        GEntity player = _playerManager.GetEntity();
+        GameObject player = _playerManager.GetPlayerGameObject();
         if (player == null)
         {
             return;
         }
 
-        GVector3 pos = GVector3.Create(player.transform().localPosition);
+        Vector3 pos = player.transform.localPosition;
 
         if (MapImage == null)
         {
@@ -72,17 +68,17 @@ public class MapScreen : BaseScreen
         float xpct = pos.x / _mapProvider.GetMap().GetHwid() - 0.5f;
         float ypct = pos.z / _mapProvider.GetMap().GetHhgt() - 0.5f;
 
-        float rot = player.transform().eulerAngles.y;
+        float rot = player.transform.eulerAngles.y;
 
         float imageSize = MapImage.rectTransform.sizeDelta.x;
 
         float sx = xpct * imageSize;
         float sy = ypct * imageSize;
 
-        GVector3 cpos = GVector3.Create(arrow.transform().localPosition);
-        arrow.transform().localPosition = GVector3.Create(sx, sy, cpos.z);
+        Vector3 cpos = arrow.transform.localPosition;
+        arrow.transform.localPosition = new Vector3(sx, sy, cpos.z);
 
-        arrow.transform().eulerAngles = GVector3.Create(0, 0, -rot);
+        arrow.transform.eulerAngles = new Vector3(0, 0, -rot);
 
 
     }

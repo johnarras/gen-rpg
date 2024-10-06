@@ -19,8 +19,8 @@ public class ExpBar : BaseBehaviour
     public void Init(Unit unitIn)
     {
 
-        _dispatcher.AddEvent<LevelUpEvent>(this, OnLevelUpdate);
-        _dispatcher.AddEvent<OnAddQuantityReward>(this, OnAddQuantityRewardHandler);
+        AddListener<LevelUpEvent>(OnLevelUpdate);
+        AddListener<OnAddQuantityReward>(OnAddQuantityRewardHandler);
         _unit = unitIn;
 
         long currLevelId = _gs.ch.Level;

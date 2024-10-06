@@ -3,18 +3,17 @@ using Genrpg.Shared.Chat.Messages;
 using Genrpg.Shared.WhoList.Entities;
 using Genrpg.Shared.WhoList.Messages;
 using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
-using UnityEngine.EventSystems; // Needed
+using UnityEngine;
+using UnityEngine.EventSystems; 
 using Genrpg.Shared.Chat.Constants;
 using Genrpg.Shared.Chat.Settings;
-using UnityEngine;
 
 namespace UI
 {
     public class ChatWindow : BaseBehaviour
     {
             
-        public GEntity ChatParent;
+        public GameObject ChatParent;
         public GInputField ChatInput;
         public GText ChatTextPrefix;
         public GImage InputBackground;
@@ -32,9 +31,9 @@ namespace UI
         public override void Init()
         {
             base.Init();
-            _dispatcher.AddEvent<OnChatMessage>(this, OnChatMessageHandler);
-            _dispatcher.AddEvent<OnGetWhoList>(this, OnGetWhoListHandler);
-            _updateService.AddUpdate(this, UpdateChat, UpdateType.Regular);
+            AddListener<OnChatMessage>(OnChatMessageHandler);
+            AddListener<OnGetWhoList>(OnGetWhoListHandler);
+            AddUpdate(UpdateChat, UpdateType.Regular);
         }
 
         private void UpdateChat()
@@ -55,10 +54,10 @@ namespace UI
                 if (_editing)
                 {
                     _logService.Info("Edit Now!");
-                    EventSystem.current.SetSelectedGameObject(ChatInput.entity());
+                    EventSystem.current.SetSelectedGameObject(ChatInput.gameObject);
                     if (InputBackground != null)
                     {
-                        InputBackground.color = GColor.white;
+                        InputBackground.color = Color.white;
                     }
                     if (_currentChatType == null)
                     {
@@ -73,9 +72,9 @@ namespace UI
                     EventSystem.current.SetSelectedGameObject(null);
                     if (InputBackground != null)
                     {
-                        InputBackground.color = GColor.gray;
+                        InputBackground.color = Color.gray;
                     }
-                    _uIInitializable.SetText(ChatTextPrefix, "");
+                    _uiService.SetText(ChatTextPrefix, "");
                 }
             }
         }
@@ -187,7 +186,7 @@ namespace UI
             if (_currentChatType != null && ChatInput != null)
             {
                 _chatPrefix = "[" + _currentChatType.Name + "]: ";
-                _uIInitializable.SetText(ChatTextPrefix, _chatPrefix);
+                _uiService.SetText(ChatTextPrefix, _chatPrefix);
             }
         }
 
@@ -204,14 +203,14 @@ namespace UI
 
         private void AddChatRow(OnChatMessage message)
         { 
-            ChatRow newRow = _gameObjectService.FullInstantiate(Row.entity()).GetComponent<ChatRow>();
-            newRow.entity().SetActive(true);
-            GEntityUtils.AddToParent(newRow.entity(), ChatParent);
+            ChatRow newRow = _gameObjectService.FullInstantiate(Row.gameObject).GetComponent<ChatRow>();
+            newRow.gameObject.SetActive(true);
+            _gameObjectService.AddToParent(newRow.gameObject, ChatParent);
             _rows.Add(newRow);
             newRow.Init(message);
             while (_rows.Count > _maxRows)
             {
-                GEntityUtils.Destroy(_rows[0].entity());
+                _gameObjectService.Destroy(_rows[0].gameObject);
                 _rows.RemoveAt(0);
             }
         }
@@ -221,14 +220,14 @@ namespace UI
             foreach (WhoListItem item in message.Items)
             {
 
-                ChatRow newRow = _gameObjectService.FullInstantiate(Row.entity()).GetComponent<ChatRow>();
-                newRow.entity().SetActive(true);
-                GEntityUtils.AddToParent(newRow.entity(), ChatParent);
+                ChatRow newRow = _gameObjectService.FullInstantiate(Row.gameObject).GetComponent<ChatRow>();
+                newRow.gameObject.SetActive(true);
+                _gameObjectService.AddToParent(newRow.gameObject, ChatParent);
                 _rows.Add(newRow);
                 newRow.InitTextOnly(item.Name + " :" + item.Level);
                 while (_rows.Count > _maxRows)
                 {
-                    GEntityUtils.Destroy(_rows[0].entity());
+                    _gameObjectService.Destroy(_rows[0].gameObject);
                     _rows.RemoveAt(0);
                 }
             }

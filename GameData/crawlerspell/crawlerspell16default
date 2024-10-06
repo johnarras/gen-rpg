@@ -4,7 +4,7 @@
   "IdKey": 16,
   "Name": "Holy Nova",
   "Desc": "Hit all monsters in a group with holy damage.",
-  "PowerCost": 8,
+  "PowerCost": 8.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,

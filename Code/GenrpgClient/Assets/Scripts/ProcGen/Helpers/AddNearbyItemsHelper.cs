@@ -9,6 +9,7 @@ using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Client.Core;
 
 public interface IAddNearbyItemsHelper : IInjectable
 {
@@ -23,7 +24,7 @@ public interface IAddNearbyItemsHelper : IInjectable
 /// </summary>
 public class AddNearbyItemsHelper : IAddNearbyItemsHelper
 {
-    private IUnityGameState _gs;
+    private IClientGameState _gs;
     private IGameData _gameData;
     private IMapProvider _mapProvider;
     private IMapGenData _mapGenData;

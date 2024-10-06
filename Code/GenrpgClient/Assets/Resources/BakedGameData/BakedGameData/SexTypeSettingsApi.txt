@@ -1,0 +1,28 @@
+{
+  "Data": [
+    {
+      "Id": "sextype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Female",
+      "CostPercent": 100,
+      "UpdateTime": "2024-08-01T00:28:12.238Z"
+    },
+    {
+      "Id": "sextype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Male",
+      "CostPercent": 100,
+      "UpdateTime": "2024-08-01T00:28:12.241Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "LevelsPerQuality": 5.0,
+    "ExtraQualityChance": 0.25,
+    "Name": "SexTypeSettings",
+    "UpdateTime": "2024-08-01T00:28:12.243Z"
+  },
+  "Id": "default"
+}

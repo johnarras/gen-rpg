@@ -43,6 +43,7 @@ namespace Genrpg.Editor.Services.Reflection
         object GetItemWithIndex(object list, int index);
         object GetObjectValue(object obj, MemberInfo mem);
         void SetObjectValue(object obj, MemberInfo mem, object val);
+        List<T> OrderOn<T>(List<T> list, string memberName, bool numeric = false, bool descending = false);
     }
 
 }

@@ -1,12 +1,9 @@
-﻿using Genrpg.ServerShared.Core;
-using Genrpg.ServerShared.Utils;
+﻿using Genrpg.ServerShared.Crypto.Services;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Characters.Utils;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Interfaces;
-using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
@@ -14,12 +11,9 @@ using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.GameSettings.Settings;
 using Genrpg.Shared.HelperClasses;
-using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Loot.Messages;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Utils;
 using Genrpg.Shared.Settings.Settings;
-using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Settings;
 using Genrpg.Shared.Website.Messages.Login;
@@ -27,7 +21,6 @@ using Genrpg.Shared.Website.Messages.RefreshGameSettings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.ServerShared.GameSettings.Services
@@ -39,6 +32,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
 
         protected IRepositoryService _repoService = null;
         private IGameData _gameData = null;
+        private ICryptoService _cryptoService = null;
 
         public List<IGameSettingsLoader> GetAllLoaders()
         {
@@ -189,7 +183,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
                 versionSettings.GameDataSaveTime.Ticks.ToString() + "." +
                 dataOverrideSettings.PrevUpdateTime.Ticks.ToString();
 
-            ch.DataOverrides.Hash = PasswordUtils.QuickHash(fullString);
+            ch.DataOverrides.Hash = _cryptoService.QuickHash(fullString);
 
             if (ch is CoreCharacter coreChar)
             {

@@ -4,32 +4,33 @@ using Genrpg.Shared.Inventory.Services;
 using Genrpg.Shared.Units.Entities;
 using System.Linq;
 using System.Threading;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.MapObjects.MapObjectAddons.Constants;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Vendors.MapObjectAddons;
 using Genrpg.Shared.Vendors.WorldData;
-using UnityEngine;
+using System.Threading.Tasks;
 
 public class VendorScreen : ItemIconScreen
 {
     protected IInventoryService _inventoryService;
+    protected IIconService _iconService;
     public const string VendorIconName = "VendorItemIcon";
 
     public InventoryPanel PlayerItems;
-    public GEntity VendorItems;
+    public GameObject VendorItems;
 
 
     Unit _unit = null;
 
     VendorAddon _addon = null;
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        _dispatcher.AddEvent<OnGetMapObjectStatus>(this, OnGetNPCStatusHandler);
-        _dispatcher.AddEvent<OnAddItem>(this, OnAddItemHandler);
-        _dispatcher.AddEvent<OnRemoveItem>(this, OnRemoveItemHandler);
+        AddListener<OnGetMapObjectStatus>(OnGetNPCStatusHandler);
+        AddListener<OnAddItem>(OnAddItemHandler);
+        AddListener<OnRemoveItem>(OnRemoveItemHandler);
         _unit = data as Unit;
 
         if (_unit == null || !_unit.HasAddon(MapObjectAddonTypes.Vendor))
@@ -90,7 +91,7 @@ public class VendorScreen : ItemIconScreen
 
     private void ShowVendorItems(VendorAddon addon)
     {
-        GEntityUtils.DestroyAllChildren(VendorItems);
+        _gameObjectService.DestroyAllChildren(VendorItems);
 
         _addon = addon;
         if (VendorItems == null || addon == null || addon.Items == null)
@@ -107,7 +108,7 @@ public class VendorScreen : ItemIconScreen
                 IconPrefabName = VendorIconName,
                 Screen = this,
             };
-            IconHelper.InitItemIcon(idata, VendorItems,_assetService, _token);
+            _iconService.InitItemIcon(idata, VendorItems,_assetService, _token);
         }
     }
 

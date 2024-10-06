@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using ClientEvents;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using System.Threading;
@@ -9,11 +9,13 @@ using System.Linq;
 using Genrpg.Shared.Input.Constants;
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
+using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.Client.Assets.Constants;
 
 internal class ActionButtonDownload
 {
     public int Index;
-    public GEntity Parent;
+    public GameObject Parent;
 }
 
 public class ActionBars : SpellIconScreen
@@ -43,12 +45,12 @@ public class ActionBars : SpellIconScreen
     public void Init(CancellationToken token)
     {
         _token = token;
-        _dispatcher.AddEvent<OnDeleteSpell>(this, OnDeleteSpellHandler);
-        _dispatcher.AddEvent<OnStartCast>(this, OnStartCastHandler);
-        _dispatcher.AddEvent<OnCraftSpell>(this, OnCraftSpellHandler);
-        _dispatcher.AddEvent<SetMapPlayerEvent>(this, OnSetMapPlayer);
-        _dispatcher.AddEvent<OnRemoveActionBarItem>(this, OnRemoveActionItem);
-        _dispatcher.AddEvent<OnSetActionBarItem>(this, OnSetActionBarItemHandler);
+        AddListener<OnDeleteSpell>(OnDeleteSpellHandler);
+        AddListener<OnStartCast>(OnStartCastHandler);
+        AddListener<OnCraftSpell>(OnCraftSpellHandler);
+        AddListener<SetMapPlayerEvent>(OnSetMapPlayer);
+        AddListener<OnRemoveActionBarItem>(OnRemoveActionItem);
+        AddListener<OnSetActionBarItem>(OnSetActionBarItemHandler);
         Reset();
     }
 
@@ -59,16 +61,16 @@ public class ActionBars : SpellIconScreen
             return;
         }
 
-        ScreenID = UI.Screens.Constants.ScreenId.ActionBars;
+        ScreenID = ScreenId.ActionBars;
 
         _buttons = new Dictionary<int, ActionButton>();
 
         for (int b = 0; b < _buttonSetParents.Count; b++)
         {
-            GEntity parent = _buttonSetParents[b].entity();
+            GameObject parent = _buttonSetParents[b].gameObject;
 
-            GEntityUtils.SetActive(parent, true); // Config user bars
-            GEntityUtils.DestroyAllChildren(parent);
+            _gameObjectService.SetActive(parent, true); // Config user bars
+            _gameObjectService.DestroyAllChildren(parent);
 
             for (int i = _buttonSetParents[b].MinIndex; i <= _buttonSetParents[b].MaxIndex; i++)
             {
@@ -90,7 +92,7 @@ public class ActionBars : SpellIconScreen
 
     private void OnDownloadButton(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
 
         if (go == null)
         {
@@ -106,14 +108,14 @@ public class ActionBars : SpellIconScreen
 
         if (!InputConstants.OkActionIndex(abDownload.Index))
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
         ActionButton button = go.GetComponent<ActionButton>();
         if (button == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
@@ -133,8 +135,8 @@ public class ActionBars : SpellIconScreen
 
         foreach (ActionButton ab in buttons)
         {
-            ab.transform().SetParent(null);
-            GEntityUtils.AddToParent(ab.entity(), abDownload.Parent);
+            ab.transform.SetParent(null);
+            _gameObjectService.AddToParent(ab.gameObject, abDownload.Parent);
         }
 
     }
@@ -264,7 +266,7 @@ public class ActionBars : SpellIconScreen
         _inputService.PerformAction(actionButton.ActionIndex);
     }
 
-    protected override void HandleDragDrop(SpellIconScreen screen, SpellIcon dragItem, SpellIcon otherIconHit, GEntity finalObjectHit)
+    protected override void HandleDragDrop(SpellIconScreen screen, SpellIcon dragItem, SpellIcon otherIconHit, GameObject finalObjectHit)
     {
         if (dragItem == null || screen == null)
         {

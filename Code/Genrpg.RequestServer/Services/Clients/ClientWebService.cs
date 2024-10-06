@@ -1,18 +1,13 @@
 ﻿using Genrpg.ServerShared.GameSettings.Services;
-using Genrpg.ServerShared.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
-using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Website.Interfaces;
 using Genrpg.Shared.Website.Messages;
 using Genrpg.Shared.Website.Messages.Error;
-using Genrpg.RequestServer.Utils;
 using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Core;
-using Genrpg.Shared.Users.PlayerData;
 using Genrpg.RequestServer.ClientCommands;
 using Genrpg.RequestServer.Resets.Services;
 
@@ -66,7 +61,7 @@ namespace Genrpg.RequestServer.Services.Clients
             {
                 string errorMessage = "HandleLoginCommand." + commandSet.Commands.Select(x => x.GetType().Name + " ").ToList();
                 _logService.Exception(e, errorMessage);
-                WebUtils.ShowError(context, errorMessage);
+                context.ShowError(errorMessage);
             }
 
             return;

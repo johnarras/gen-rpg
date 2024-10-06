@@ -1,0 +1,103 @@
+{
+  "Data": [
+    {
+      "Id": "musictype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Intro",
+      "Art": "IntroMusic",
+      "UpdateTime": "2024-08-01T00:28:08.938Z"
+    },
+    {
+      "Id": "musictype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Dungeon",
+      "Art": "DungeonMusic",
+      "UpdateTime": "2024-08-01T00:28:08.939Z"
+    },
+    {
+      "Id": "musictype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Field",
+      "Art": "FieldMusic",
+      "UpdateTime": "2024-08-01T00:28:08.941Z"
+    },
+    {
+      "Id": "musictype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Forest",
+      "Art": "ForestMusic",
+      "UpdateTime": "2024-08-01T00:28:08.943Z"
+    },
+    {
+      "Id": "musictype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Hills",
+      "Art": "HillsMusic",
+      "UpdateTime": "2024-08-01T00:28:08.945Z"
+    },
+    {
+      "Id": "musictype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Swamp",
+      "Art": "SwampMusic",
+      "UpdateTime": "2024-08-01T00:28:08.95Z"
+    },
+    {
+      "Id": "musictype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Dark Ambience",
+      "Art": "DarkAmbience",
+      "RandomizeSeconds": 10.0,
+      "UpdateTime": "2024-08-01T00:28:08.952Z"
+    },
+    {
+      "Id": "musictype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Default Ambience",
+      "Art": "DefaultAmbience",
+      "RandomizeSeconds": 10.0,
+      "UpdateTime": "2024-08-01T00:28:08.954Z"
+    },
+    {
+      "Id": "musictype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Dry Ambience",
+      "Art": "DryAmbience",
+      "RandomizeSeconds": 15.0,
+      "UpdateTime": "2024-08-01T00:28:08.959Z"
+    },
+    {
+      "Id": "musictype10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Dungeon Ambience",
+      "Art": "DungeonAmbience",
+      "RandomizeSeconds": 10.0,
+      "UpdateTime": "2024-08-01T00:28:08.932Z"
+    },
+    {
+      "Id": "musictype11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Wet Ambience",
+      "Art": "WetAmbience",
+      "RandomizeSeconds": 10.0,
+      "UpdateTime": "2024-08-01T00:28:08.936Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "MusicTypeSettings",
+    "UpdateTime": "2024-08-01T00:28:08.967Z"
+  },
+  "Id": "default"
+}

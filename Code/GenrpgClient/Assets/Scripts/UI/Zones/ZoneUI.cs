@@ -16,7 +16,7 @@ public class ZoneUI : BaseBehaviour
     public void Init(CancellationToken token)
     {
         _token = token;
-        _dispatcher.AddEvent<SetZoneNameEvent>(this, OnSetZoneName);
+        AddListener<SetZoneNameEvent>(OnSetZoneName);
         OnSetZoneName(null);
     }
 
@@ -38,7 +38,7 @@ public class ZoneUI : BaseBehaviour
 
         string txt = "Map " + map.Id + ": " + zone.Name + " [#" + zone.IdKey + "] {Lev " + zone.Level + "}";
 
-        _uIInitializable.SetText(LocationName, txt);
+        _uiService.SetText(LocationName, txt);
         return;
     }
 }

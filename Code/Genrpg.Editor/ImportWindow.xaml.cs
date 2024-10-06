@@ -2,7 +2,6 @@ using Genrpg.Editor.Constants;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Importers;
 using Genrpg.Editor.Services.Reflection;
-using Genrpg.Editor.UI.Constants;
 using Genrpg.Editor.UI;
 using Genrpg.Editor.Utils;
 using Genrpg.Shared.Constants;

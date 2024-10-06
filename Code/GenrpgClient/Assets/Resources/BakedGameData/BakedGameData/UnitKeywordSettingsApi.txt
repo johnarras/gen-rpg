@@ -1,0 +1,411 @@
+{
+  "Data": [
+    {
+      "Id": "unitkeyword1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Humanoid",
+      "Icon": "Humanoid",
+      "Art": "Humanoid",
+      "Effects": [],
+      "UpdateTime": "2024-08-01T00:28:15.154Z"
+    },
+    {
+      "Id": "unitkeyword2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Barbaric",
+      "Icon": "Barbaric",
+      "Art": "Barbaric",
+      "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 10,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 10,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 36,
+          "EntityId": 5
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.164Z"
+    },
+    {
+      "Id": "unitkeyword3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Warrior",
+      "Icon": "Warrior",
+      "Art": "Warrior",
+      "Effects": [
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.167Z"
+    },
+    {
+      "Id": "unitkeyword4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Mage",
+      "Icon": "Mage",
+      "Art": "Mage",
+      "Effects": [
+        {
+          "EntityTypeId": 100,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 29
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.169Z"
+    },
+    {
+      "Id": "unitkeyword5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Mythological",
+      "Icon": "Mythological",
+      "Art": "Mythological",
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 13
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.172Z"
+    },
+    {
+      "Id": "unitkeyword6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Lord",
+      "Icon": "Lord",
+      "Art": "Lord",
+      "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 36,
+          "EntityId": 11
+        },
+        {
+          "EntityTypeId": 36,
+          "EntityId": 8
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.174Z"
+    },
+    {
+      "Id": "unitkeyword7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Beast",
+      "Icon": "Beast",
+      "Art": "Beast",
+      "Effects": [],
+      "UpdateTime": "2024-08-01T00:28:15.177Z"
+    },
+    {
+      "Id": "unitkeyword8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Undead",
+      "Icon": "Undead",
+      "Art": "Undead",
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 36,
+          "EntityId": 3
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.179Z"
+    },
+    {
+      "Id": "unitkeyword9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Thief",
+      "Icon": "Thief",
+      "Art": "Thief",
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 1
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.182Z"
+    },
+    {
+      "Id": "unitkeyword10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Dragon",
+      "Icon": "Dragon",
+      "Art": "Dragon",
+      "MinRange": 30,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 11
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.129Z"
+    },
+    {
+      "Id": "unitkeyword11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Golem",
+      "Icon": "Golem",
+      "Art": "Golem",
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 12
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.132Z"
+    },
+    {
+      "Id": "unitkeyword12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "Vermin",
+      "Icon": "Vermin",
+      "Art": "Vermin",
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 36,
+          "EntityId": 2
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.134Z"
+    },
+    {
+      "Id": "unitkeyword13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "Giant",
+      "Icon": "Giant",
+      "Art": "Giant",
+      "Effects": [],
+      "UpdateTime": "2024-08-01T00:28:15.137Z"
+    },
+    {
+      "Id": "unitkeyword14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "Archer",
+      "Icon": "Archer",
+      "Art": "Archer",
+      "MinRange": 40,
+      "Effects": [
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.139Z"
+    },
+    {
+      "Id": "unitkeyword15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "Lieutenant",
+      "Icon": "Lieutenant",
+      "Art": "Lieutenant",
+      "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 20,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 20,
+          "EntityId": 20
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.142Z"
+    },
+    {
+      "Id": "unitkeyword16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "Chieftain",
+      "Icon": "Chieftain",
+      "Art": "Chieftain",
+      "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.144Z"
+    },
+    {
+      "Id": "unitkeyword17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "Shaman",
+      "Icon": "Shaman",
+      "Art": "Shaman",
+      "Effects": [
+        {
+          "EntityTypeId": 100,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 32
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.147Z"
+    },
+    {
+      "Id": "unitkeyword18default",
+      "ParentId": "default",
+      "IdKey": 18,
+      "Name": "Priest",
+      "Icon": "Priest",
+      "Art": "Priest",
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 5
+        },
+        {
+          "EntityTypeId": 36,
+          "EntityId": 7
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.149Z"
+    },
+    {
+      "Id": "unitkeyword19default",
+      "ParentId": "default",
+      "IdKey": 19,
+      "Name": "Demon",
+      "Icon": "Demon",
+      "Art": "Demon",
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 6
+        },
+        {
+          "EntityTypeId": 36,
+          "EntityId": 11
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.152Z"
+    },
+    {
+      "Id": "unitkeyword20default",
+      "ParentId": "default",
+      "IdKey": 20,
+      "Name": "Air",
+      "Icon": "Air",
+      "Art": "Air",
+      "Effects": [
+        {
+          "EntityTypeId": 100,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 32
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.157Z"
+    },
+    {
+      "Id": "unitkeyword21default",
+      "ParentId": "default",
+      "IdKey": 21,
+      "Name": "Fire",
+      "Icon": "Fire",
+      "Art": "Fire",
+      "Effects": [
+        {
+          "EntityTypeId": 100,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 50
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.159Z"
+    },
+    {
+      "Id": "unitkeyword22default",
+      "ParentId": "default",
+      "IdKey": 22,
+      "Name": "Water",
+      "Icon": "Water",
+      "Art": "Water",
+      "Effects": [
+        {
+          "EntityTypeId": 100,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30
+        }
+      ],
+      "UpdateTime": "2024-08-01T00:28:15.162Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "UnitKeywordSettings",
+    "UpdateTime": "2024-08-01T00:28:15.184Z"
+  },
+  "Id": "default"
+}

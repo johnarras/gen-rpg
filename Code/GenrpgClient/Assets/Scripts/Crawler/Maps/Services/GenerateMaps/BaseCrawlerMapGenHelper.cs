@@ -1,27 +1,20 @@
-﻿using Assets.Scripts.Buildings;
-using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
-using Assets.Scripts.Crawler.Maps.GameObjects;
-using Assets.Scripts.Crawler.Maps.Loading;
-using Assets.Scripts.Crawler.Maps.Services.Helpers;
-using Assets.Scripts.Crawler.Services.CrawlerMaps;
+﻿using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Buildings.Constants;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.MapObjects.Messages;
-using Genrpg.Shared.ProcGen.Settings.Texturse;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Constants;
 using System;
 using System.Collections.Generic;
-using System.Security.Policy;
-using System.Threading;
-using UnityEngine;
-using UnityEngine.XR;
-using GEntity = UnityEngine.GameObject;
+using System.Threading.Tasks;
+using Genrpg.Shared.Client.Assets;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.UI.Services;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -35,8 +28,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         protected IUIService _uIInitializable;
         protected ILogService _logService;
         protected IGameData _gameData;
-        protected IUnityGameState _gs;
-        protected IGameObjectService _gameObjectService;
+        protected IClientGameState _gs;
+        protected IClientEntityService _gameObjectService;
         protected ICrawlerWorldService _worldService;
         protected ICrawlerMapService _mapService;
         protected ICrawlerMapGenService _mapGenService;
@@ -44,9 +37,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
         public abstract long GetKey();
 
-        public abstract Awaitable<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData crawlerMapGenData);
+        public abstract Task<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData crawlerMapGenData);
 
-        protected static readonly long[] _newMapZoneIds = new long[] { ZoneTypes.Cave, ZoneTypes.Dungeon, ZoneTypes.Tower };
+        protected readonly long[] _newMapZoneIds = new long[] { ZoneTypes.Cave, ZoneTypes.Dungeon, ZoneTypes.Tower };
 
 
         protected long GetBuildingIdFromZoneTypeId(long zoneTypeId)

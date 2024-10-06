@@ -23,13 +23,12 @@ namespace Assets.Scripts.Model
     public class ClientRepositoryService : IClientRepositoryService
     {
         private ILogService _logger;
+        private IClientAppService _clientAppService;
 
         public async Task Initialize(CancellationToken token)
         {
             await Task.CompletedTask;
         }
-
-
         public ClientRepositoryService(ILogService logService)
         {
             _logger = logService;
@@ -142,7 +141,7 @@ namespace Assets.Scripts.Model
 
             Type baseRepoType = typeof(ClientRepositoryCollection<>);
             Type genericType = baseRepoType.MakeGenericType(t);
-            object newRepo = Activator.CreateInstance(genericType, new object[] { _logger });
+            object newRepo = Activator.CreateInstance(genericType, new object[] { _logger, _clientAppService });
 
             _repoCache[t] = newRepo;
 

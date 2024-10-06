@@ -1,16 +1,14 @@
 using System;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Units.Entities;
 using System.Threading;
-using UnityEngine; // Needed
 using Genrpg.Shared.AI.Settings;
-using Genrpg.Shared.Pathfinding.Entities;
 using System.Linq;
 using Genrpg.Shared.MapObjects.Entities;
-using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Client.Core;
 
 public class MonsterController : UnitController
 {
@@ -25,7 +23,7 @@ public class MonsterController : UnitController
     }
 
     
-    public Unit GetNearbyTarget(IUnityGameState gs)
+    public Unit GetNearbyTarget(IClientGameState gs)
     {
         return null;
     }
@@ -66,8 +64,8 @@ public class MonsterController : UnitController
                 float height = _terrainManager.SampleHeight(_unit.X, _unit.Z);
                 if (height > 0)
                 {
-                   entity.transform().position = GVector3.Create(_unit.X, height, _unit.Z);
-                   entity.transform().eulerAngles = GVector3.Create(0, _unit.Rot, 0);
+                   entity.transform.position = new Vector3(_unit.X, height, _unit.Z);
+                   entity.transform.eulerAngles = new Vector3(0, _unit.Rot, 0);
                     TiltObject();
                     UpdateUnitFrame();
                     _didDeadUpdate = true;
@@ -149,7 +147,7 @@ public class MonsterController : UnitController
 
             float dist = (float)Math.Sqrt(dx * dx + dz * dz);
 
-            float distThisTick = speed / AppUtils.TargetFrameRate;
+            float distThisTick = speed / _clientAppService.TargetFrameRate;
 
             float pct = 0.01f;
 
@@ -189,8 +187,8 @@ public class MonsterController : UnitController
             UnitUtils.TurnTowardNextPosition(_unit, GetMaxRotation());
 
             float height = _terrainManager.SampleHeight(_unit.X, _unit.Z);
-            entity.transform().position = GVector3.Create(_unit.X, height, _unit.Z);
-            entity.transform().eulerAngles = GVector3.Create(0, _unit.Rot, 0);
+            entity.transform.position = new Vector3(_unit.X, height, _unit.Z);
+            entity.transform.eulerAngles = new Vector3(0, _unit.Rot, 0);
             TiltObject();
             if (speed > _gameData.Get<AISettings>(_gs.ch).BaseUnitSpeed)
             {
@@ -216,11 +214,11 @@ public class MonsterController : UnitController
         base.Init();
         SetState(IdleState);
 
-        float rotDiff =entity.transform().localEulerAngles.y -entity.transform().eulerAngles.y;
-        GEntity renderObject = GEntityUtils.FindChild(entity, AnimUtils.RenderObjectName);
+        float rotDiff =entity.transform.localEulerAngles.y -entity.transform.eulerAngles.y;
+        GameObject renderObject = (GameObject)_gameObjectService.FindChild(entity, AnimUtils.RenderObjectName);
         if (renderObject != null)
-        {
-            renderObject.transform().localEulerAngles = GVector3.Create(0, rotDiff, 0);
+        {   
+            renderObject.transform.localEulerAngles = new Vector3(0, rotDiff, 0);
         }
 
         animationSpeed = 1.0f;
@@ -229,18 +227,18 @@ public class MonsterController : UnitController
 
 
     private bool triedToFindInnerPlayer = false;
-    public GEntity innerPlayer = null;
-    GVector3 oldAngles = GVector3.zero;
-    GEntity raycastHit;
+    public GameObject innerPlayer = null;
+    Vector3 oldAngles = Vector3.zero;
+    GameObject raycastHit;
 
     public bool TerrainTilt = false;
 
 
-    GVector3 lastTiltPos = GVector3.zero;
-    GVector3 currTiltPos = GVector3.zero;
-    Quaternion currTiltRot = GQuaternion.identity;
-    GVector3 currTiltNormal = GVector3.zero;
-    Quaternion groundTilt = GQuaternion.identity;
+    Vector3 lastTiltPos = Vector3.zero;
+    Vector3 currTiltPos = Vector3.zero;
+    Quaternion currTiltRot = Quaternion.identity;
+    Vector3 currTiltNormal = Vector3.zero;
+    Quaternion groundTilt = Quaternion.identity;
     float currTiltHeight = 0;
 
     int objectLayer = 0;
@@ -254,14 +252,14 @@ public class MonsterController : UnitController
             return;
         }
 
-        currTiltPos = GVector3.Create(entity.transform().position);
+        currTiltPos = entity.transform.position;
 
-        if (GVector3.Distance(lastTiltPos, currTiltPos) < 0.01f)
+        if (Vector3.Distance(lastTiltPos, currTiltPos) < 0.01f)
         {
             return;
         }
 
-        currTiltHeight = _terrainManager.SampleHeight(entity.transform().position.x,entity.transform().position.z);
+        currTiltHeight = _terrainManager.SampleHeight(entity.transform.position.x,entity.transform.position.z);
 
         // Don't tilt things underground.
         if (currTiltPos.y < currTiltHeight-2)
@@ -276,36 +274,36 @@ public class MonsterController : UnitController
                 return;
             }
             triedToFindInnerPlayer = true;
-            innerPlayer = GEntityUtils.FindChild(entity, AnimUtils.RenderObjectName);
+            innerPlayer = (GameObject)_gameObjectService.FindChild(entity, AnimUtils.RenderObjectName);
             if (innerPlayer == null)
             {
                 return;
             }
         }
 
-        oldAngles = GVector3.Create(innerPlayer.transform().eulerAngles);
+        oldAngles = innerPlayer.transform.eulerAngles;
         if (IsSwimming())
         {
-            innerPlayer.transform().eulerAngles = GVector3.Create(0, oldAngles.y, 0);
+            innerPlayer.transform.eulerAngles = new Vector3(0, oldAngles.y, 0);
             return;
         }
 
-        currTiltRot = entity.transform().rotation;
+        currTiltRot = entity.transform.rotation;
         currTiltNormal = _terrainManager.GetInterpolatedNormal(_mapProvider.GetMap(), currTiltPos.x, currTiltPos.z);
-        groundTilt = GQuaternion.FromToRotation(GVector3.up, currTiltNormal);
+        groundTilt = Quaternion.FromToRotation(Vector3.up, currTiltNormal);
 
         if (objectLayer == 0)
         {
             objectLayer = (1 << LayerUtils.NameToLayer(LayerNames.ObjectLayer));
         }
 
-        if (GPhysics.Raycast(GVector3.Create(entity.transform().position), GVector3.down, out raycastHit, 3, objectLayer) || ++ticksSinceLastFlat < 4)
+        if (Physics.Raycast(entity.transform.position, Vector3.down, out RaycastHit hitInfo, 3) || ++ticksSinceLastFlat < 4)
         {
-            groundTilt = GQuaternion.identity;
+            groundTilt = Quaternion.identity;
             ticksSinceLastFlat = 0;
         }
 
-        innerPlayer.transform().rotation = groundTilt * currTiltRot;
+        innerPlayer.transform.rotation = groundTilt * currTiltRot;
         lastTiltPos = currTiltPos;
     }
 

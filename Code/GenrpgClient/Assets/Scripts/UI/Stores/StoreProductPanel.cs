@@ -1,10 +1,11 @@
 ﻿
+using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
 using Genrpg.Shared.Spawns.Settings;
 using System.Collections.Generic;
 using System.Threading;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 namespace Assets.Scripts.UI.Stores
 {
@@ -13,7 +14,7 @@ namespace Assets.Scripts.UI.Stores
         public GText PriceAmount;
         public GText Name;
         public GText Description;
-        public GEntity RewardAnchor;
+        public GameObject RewardAnchor;
         public GButton PurchaseButton;
 
         const string RewardPanelPrefabName = "StoreRewardPanel";
@@ -36,10 +37,10 @@ namespace Assets.Scripts.UI.Stores
             _theme = theme;
             _token = token;
 
-            _uIInitializable.SetText(Name, product.Product.Name);
-            _uIInitializable.SetText(PriceAmount, "$" + product.Sku.DollarPrice);
-            _uIInitializable.SetText(Description, product.Product.Desc);
-            _uIInitializable.SetButton(PurchaseButton, screenName, OnPurchaseItem);
+            _uiService.SetText(Name, product.Product.Name);
+            _uiService.SetText(PriceAmount, "$" + product.Sku.DollarPrice);
+            _uiService.SetText(Description, product.Product.Desc);
+            _uiService.SetButton(PurchaseButton, screenName, OnPurchaseItem);
 
             if (RewardAnchor != null)
             {
@@ -57,7 +58,7 @@ namespace Assets.Scripts.UI.Stores
                 return;
             }
 
-            GEntity go = obj as GEntity;
+            GameObject go = obj as GameObject;
 
             if (go == null)
             {

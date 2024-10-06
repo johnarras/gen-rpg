@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Genrpg.Editor.UI.Constants
+namespace Genrpg.Editor.Constants
 {
     public enum ELabelTypes
     {
-        Default=0,
+        Default = 0,
     }
 }

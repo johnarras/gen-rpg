@@ -1,13 +1,12 @@
 ﻿using Assets.Scripts.Buildings;
-using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
+using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
 using Assets.Scripts.Crawler.Maps.Loading;
-using Assets.Scripts.Crawler.Maps.Services.GenerateMaps;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Buildings.Settings;
-using Genrpg.Shared.Crawler.MapGen.Constants;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
@@ -19,11 +18,13 @@ using Genrpg.Shared.Zones.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.UI.Services;
 
 namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {
@@ -33,8 +34,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         protected IUIService _uIInitializable;
         protected ILogService _logService;
         protected IGameData _gameData;
-        protected IUnityGameState _gs;
-        protected IGameObjectService _gameObjectService;
+        protected IClientGameState _gs;
+        protected IClientEntityService _gameObjectService;
         protected ICrawlerWorldService _worldService;
         protected ICrawlerMapService _mapService;
         protected ICrawlerMapGenService _mapGenService;
@@ -72,13 +73,13 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         protected void AddWallComponent(GameObject asset, GameObject parent, Vector3 offset, Vector3 euler)
         {
             GameObject obj = _gameObjectService.FullInstantiate(asset);
-            GEntityUtils.AddToParent(obj, parent);
+            _gameObjectService.AddToParent(obj, parent);
             obj.transform.localPosition = offset;
             obj.transform.eulerAngles = euler;
         }
         protected void OnDownloadBuilding(object obj, object data, CancellationToken token)
         {
-            GEntity go = obj as GEntity;
+            GameObject go = obj as GameObject;
 
             if (go == null)
             {
@@ -90,11 +91,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             if (loadData == null || loadData.MapCell == null || loadData.BuildingType == null || loadData.MapRoot == null ||
                 go.transform.parent == null)
             {
-                GEntityUtils.Destroy(go);
+                _gameObjectService.Destroy(go);
                 return;
             }
 
-            MapBuilding mapBuilding = GEntityUtils.GetComponent<MapBuilding>(go);
+            MapBuilding mapBuilding = _gameObjectService.GetComponent<MapBuilding>(go);
 
             if (mapBuilding != null)
             {
@@ -124,33 +125,33 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         private void OnDownloadTerrainTexture(object obj, object data, CancellationToken token)
         {
 
-            GEntity parent = data as GEntity;
+            GameObject parent = data as GameObject;
 
             if (parent == null)
             {
                 return;
             }
 
-            GEntity go = obj as GEntity;
+            GameObject go = obj as GameObject;
 
             if (go == null)
             {
                 return;
             }
 
-            TextureList tlist = GEntityUtils.GetComponent<TextureList>(go);
+            TextureList tlist = _gameObjectService.GetComponent<TextureList>(go);
 
             if (tlist == null || tlist.Textures == null || tlist.Textures.Count < 1 || tlist.Textures[0] == null)
             {
-                GEntityUtils.Destroy(go);
+                _gameObjectService.Destroy(go);
                 return;
             }
 
-            GImage image = GEntityUtils.GetComponent<GImage>(parent);
+            GImage image = _gameObjectService.GetComponent<GImage>(parent);
 
             if (image == null)
             {
-                GEntityUtils.Destroy(go);
+                _gameObjectService.Destroy(go);
                 return;
             }
 
@@ -227,7 +228,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             return blockBits;
         }
 
-        public virtual async Awaitable DrawCell(CrawlerWorld world, PartyData party, CrawlerMapRoot mapRoot, UnityMapCell cell, int nx, int nz, CancellationToken token)
+        public virtual async Awaitable DrawCell(CrawlerWorld world, PartyData party, CrawlerMapRoot mapRoot, ClientMapCell cell, int nx, int nz, CancellationToken token)
         {
             if (mapRoot.Assets == null || cell.Content != null)
             {
@@ -236,9 +237,10 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             int bz = CrawlerMapConstants.BlockSize;
 
-            cell.Content = new GameObject() { name = "Cell" + cell.X + "." + cell.Z };
-            GEntityUtils.AddToParent(cell.Content, mapRoot.gameObject);
-            cell.Content.transform.position = new Vector3(nx * bz, 0, nz * bz);
+            GameObject go = new GameObject() { name = "Cell" + cell.X + "." + cell.Z };
+            cell.Content = go;           
+            _gameObjectService.AddToParent(go, mapRoot.gameObject);
+            go.transform.position = new Vector3(nx * bz, 0, nz * bz);
 
             bool isRoom = (mapRoot.Map.Get(cell.X, cell.Z, CellIndex.Walls) & (1 << MapWallBits.IsRoomBitOffset)) != 0;
 
@@ -261,7 +263,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             if (!IsIndoors())
             {
                 GameObject imageChild = new GameObject() { name = "Image" };
-                GEntityUtils.AddToParent(imageChild, cell.Content);
+                _gameObjectService.AddToParent(imageChild, go);
                 imageChild.AddComponent<GImage>();
                 Canvas canvas = imageChild.AddComponent<Canvas>();
                 canvas.renderMode = RenderMode.WorldSpace;
@@ -271,8 +273,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             }
             else if (mapRoot.Map.Get(cell.X, cell.Z, CellIndex.Terrain) != 0)
             {
-                AddWallComponent(mapRoot.Assets.Ceiling, cell.Content, new Vector3(0, bz * (isRoom?2:1), 0), new Vector3(90, 0, 0));
-                AddWallComponent(mapRoot.Assets.Floor, cell.Content, new Vector3(0, 0, 0), new Vector3(90, 0, 0));
+                AddWallComponent(mapRoot.Assets.Ceiling, go, new Vector3(0, bz * (isRoom?2:1), 0), new Vector3(90, 0, 0));
+                AddWallComponent(mapRoot.Assets.Floor, go, new Vector3(0, 0, 0), new Vector3(90, 0, 0));
             }
 
             Vector3 nOffset = new Vector3(0, bz / 2, bz / 2);
@@ -282,16 +284,16 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             if (northBits == WallTypes.Wall || northBits == WallTypes.Secret)
             {
-                AddWallComponent(mapRoot.Assets.Wall, cell.Content, nOffset, nRot);
+                AddWallComponent(mapRoot.Assets.Wall, go, nOffset, nRot);
                  
             }
             else if (northBits == WallTypes.Door)
             {
-                AddWallComponent(mapRoot.Assets.Door, cell.Content, nOffset, nRot);
+                AddWallComponent(mapRoot.Assets.Door, go, nOffset, nRot);
             }
             if (isRoom != nIsRoom)
             {
-                AddWallComponent(mapRoot.Assets.Wall, cell.Content, nOffset + new Vector3(0, bz, 0), nRot);
+                AddWallComponent(mapRoot.Assets.Wall, go, nOffset + new Vector3(0, bz, 0), nRot);
             }
 
 
@@ -302,16 +304,16 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             if (eastBits == WallTypes.Wall || eastBits == WallTypes.Secret)
             {
-                AddWallComponent(mapRoot.Assets.Wall, cell.Content, eOffset, eRot);              
+                AddWallComponent(mapRoot.Assets.Wall, go, eOffset, eRot);              
             }
             else if (eastBits == WallTypes.Door)
             {
-                AddWallComponent(mapRoot.Assets.Door, cell.Content, eOffset, eRot);
+                AddWallComponent(mapRoot.Assets.Door, go, eOffset, eRot);
             }
 
             if (isRoom != eIsRoom)
             {
-                AddWallComponent(mapRoot.Assets.Wall, cell.Content, eOffset + new Vector3(0, bz, 0), eRot);
+                AddWallComponent(mapRoot.Assets.Wall, go, eOffset + new Vector3(0, bz, 0), eRot);
             }
 
             byte biomeTypeId = mapRoot.Map.Get(cell.X, cell.Z, CellIndex.Terrain);
@@ -324,7 +326,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
                     if (biomeType != null)
                     {
-                        LoadTerrainTexture(cell.Content, biomeType.Textures.Where(x => x.TextureChannelId == MapConstants.BaseTerrainIndex).First().TextureTypeId, token);
+                        LoadTerrainTexture(go, biomeType.Textures.Where(x => x.TextureChannelId == MapConstants.BaseTerrainIndex).First().TextureTypeId, token);
                     }
                 }
             }
@@ -390,14 +392,14 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         protected void OnDownloadTree(object obj, object data, CancellationToken token)
         {
-            GEntity go = obj as GEntity;
+            GameObject go = obj as GameObject;
 
             if (go == null)
             {
                 return;    
             }
 
-            UnityMapCell cell = data as UnityMapCell;
+            ClientMapCell cell = data as ClientMapCell;
 
             if (cell != null)
             {

@@ -1,13 +1,13 @@
 ﻿
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Constants;
 using System.Threading;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Messages;
 using Assets.Scripts.GroundObjects;
-using UnityEngine;
 using System.Threading.Tasks;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class MapModObjectLoader : BaseMapObjectLoader
 {
@@ -34,7 +34,7 @@ public class MapModObjectLoader : BaseMapObjectLoader
 
     private void OnDownloadMapModObject(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
         if (go == null)
         {
             return;
@@ -50,7 +50,7 @@ public class MapModObjectLoader : BaseMapObjectLoader
 
         mapModObject.Init(loadData.Spawn);
         FinalPlaceObject(go, loadData, LayerNames.ObjectLayer);
-        go.transform().position += GVector3.Create(0, 1, 0);
+        go.transform.position += new Vector3(0, 1, 0);
     }
 }
 

@@ -15,6 +15,8 @@ using UnityEngine;
 
 public class CreatePathfindingData : BaseZoneGenerator
 {
+    private IClientAppService _clientAppService;
+    private IBinaryFileRepository _binaryFileRepo;
     public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
@@ -136,16 +138,15 @@ public class CreatePathfindingData : BaseZoneGenerator
 
             int endLength = output.Length;
 
-            BinaryFileRepository repo = new BinaryFileRepository(_logService);
-
             string filename = MapUtils.GetMapObjectFilename(PathfindingConstants.Filename, _mapProvider.GetMap().Id, _mapProvider.GetMap().MapVersion);
-            repo.SaveBytes(filename, output);
+            _binaryFileRepo.SaveBytes(filename, output);
 
-            string localPath = repo.GetPath(filename);
+            string localPath = _binaryFileRepo.GetPath(filename);
             string remotePath = filename;
             FileUploadData fdata = new FileUploadData();
             fdata.GamePrefix = Game.Prefix;
             fdata.Env = _assetService.GetWorldDataEnv();
+            fdata.LocalDataPath = _clientAppService.DataPath;
             fdata.LocalPath = localPath;
             fdata.RemotePath = remotePath;
             fdata.IsWorldData = true;

@@ -1,12 +1,9 @@
-﻿
-
-using Genrpg.Shared.Units.Entities;
-using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Characters.PlayerData;
+﻿using Genrpg.Shared.Characters.PlayerData;
 using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
 using UnityEngine;
 using Genrpg.Shared.Units.Settings;
+using Genrpg.Shared.Client.Assets.Constants;
 
 class AddPlayerToMap : BaseZoneGenerator
 {
@@ -29,7 +26,7 @@ class AddPlayerToMap : BaseZoneGenerator
 
     private void OnLoadPlayer(object obj, object data, CancellationToken token)
     {
-        GEntity artGo = obj as GEntity;
+        GameObject artGo = obj as GameObject;
 
         Character ch = data as Character;
 
@@ -44,10 +41,10 @@ class AddPlayerToMap : BaseZoneGenerator
             Token = _token,
         };
         
-        GEntity go = _unitSetupService.SetupUnit(artGo, loadData, _token);
+        GameObject go = _unitSetupService.SetupUnit(artGo, loadData, _token);
         float height = _terrainManager.SampleHeight(ch.X, ch.Z);
-        go.transform().position = GVector3.Create(ch.X, MapConstants.MapHeight, ch.Z);
-        go.transform().eulerAngles = GVector3.Create(0, ch.Rot, 0);
+        go.transform.position = new Vector3(ch.X, MapConstants.MapHeight, ch.Z);
+        go.transform.eulerAngles = new Vector3(0, ch.Rot, 0);
 
     }
 }

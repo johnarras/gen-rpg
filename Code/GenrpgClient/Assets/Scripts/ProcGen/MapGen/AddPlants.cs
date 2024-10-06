@@ -12,6 +12,7 @@ using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Assets.Scripts.ProcGen.Loading.Utils;
 using UnityEngine;
+using Genrpg.Shared.Client.Core;
 
 public class BaseDetailPrototype
 {
@@ -286,7 +287,7 @@ public class AddPlants : BaseZoneGenerator
         }
     }
 
-    public void AddPlantsToMapData(IUnityGameState gs)
+    public void AddPlantsToMapData(IClientGameState gs)
     {
 
         if (base._md.grassAmounts == null || base._md.mapObjects == null)

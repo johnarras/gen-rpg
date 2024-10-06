@@ -1,18 +1,15 @@
-﻿using Genrpg.Shared.Utils.Data;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using UnityEngine.Splines;
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Utils;
 using Assets.Scripts.ProcGen.Components;
-using System.Security.Policy;
 using Genrpg.Shared.Logging.Interfaces;
-using Unity.Properties;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.BoardGame.Services;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Client.Assets;
+using Genrpg.Shared.Client.Assets.Services;
 
 namespace Assets.Scripts.ProcGen.Services
 {
@@ -39,7 +36,7 @@ namespace Assets.Scripts.ProcGen.Services
     {
         private ILogService _logService;
         private IAssetService _assetService;
-        private IGameObjectService _gameObjectService;
+        private IClientEntityService _gameObjectService;
         private ISharedBoardGenService _boardGenService;
         private IGameData _gameData;
 
@@ -66,19 +63,19 @@ namespace Assets.Scripts.ProcGen.Services
             dx /= totalDist;
             dz /= totalDist;
 
-            int startDist = 6;
+            int startDist = 3;
 
             x = sx + dx * startDist;
             z = sz + dz * startDist;
 
             float distDelta = 0.5f;
 
-            int segmentLength = 18;
+            int segmentLength = 2;
 
             spline.Add(new Vector3(x, 0, z), TangentMode.Continuous);
             while (true)
             {
-                int newDist = MathUtils.IntRange(segmentLength/2, segmentLength*3/2, rand);
+               float newDist = MathUtils.IntRange(segmentLength/2, segmentLength*3/2, rand);
 
                 x += dx * newDist * MathUtils.FloatRange(1 - distDelta, 1 + distDelta, rand);
                 z += dz * newDist * MathUtils.FloatRange(1 - distDelta, 1 + distDelta, rand);
@@ -89,9 +86,9 @@ namespace Assets.Scripts.ProcGen.Services
                 z += MathUtils.FloatRange(-deltaLength, deltaLength, rand);
 
                 TangentMode tmode = (rand.NextDouble() < markedSpline.GenParams.BreakChance ? TangentMode.Broken : TangentMode.Continuous);
-                spline.Add(new Vector3(x+sx, 0, z+sz), tmode);
+                spline.Add(new Vector3(x, 0, z), tmode);
 
-                if (spline.GetLength() >= 7*pathLength)
+                if (spline.GetLength() >= 2.3*pathLength)
                 {
                     break;
                 }

@@ -1,15 +1,7 @@
-﻿using Assets.Scripts.Crawler.CrawlerStates;
-using Assets.Scripts.Crawler.Events;
-using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
-using Assets.Scripts.Crawler.Maps.Services;
-using Assets.Scripts.Crawler.Services.Combat;
-using Assets.Scripts.Crawler.Services.CrawlerMaps;
+﻿using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Model;
-using Assets.Scripts.ProcGen.RandomNumbers;
-using Assets.Scripts.UI.Crawler;
-using Assets.Scripts.UI.Crawler.CrawlerPanels;
-using Assets.Scripts.UI.Crawler.States;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Items.Entities;
 using Genrpg.Shared.Crawler.Loot.Services;
@@ -27,15 +19,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using UI.Screens.Constants;
-using UnityEngine;
-using UnityEngine.Assertions.Must;
+using Genrpg.Shared.Crawler.GameEvents;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Crawler.States.Constants;
+using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.UI.Services;
+using Genrpg.Shared.Crawler.Combat.Services;
+using Genrpg.Shared.Crawler.States.StateHelpers;
+using System.Collections.Concurrent;
 
 namespace Assets.Scripts.Crawler.Services
 {
     public class CrawlerService : ICrawlerService
     {
-        private IUnityUpdateService _updateService;
+        private IClientUpdateService _updateService;
         private ICrawlerStatService _statService;
         private IScreenService _screenService;
         private ICrawlerMapService _crawlerMapService;
@@ -43,7 +41,7 @@ namespace Assets.Scripts.Crawler.Services
         protected IRepositoryService _repoService;
         protected IDispatcher _dispatcher;
         protected IClientRandom _rand;
-        protected ICombatService _combatService;
+        protected ICrawlerCombatService _combatService;
         protected ICrawlerWorldService _worldService;
         protected ILootGenService _lootGenService;
         private IInputService _inputService;
@@ -53,7 +51,7 @@ namespace Assets.Scripts.Crawler.Services
 
         private SetupDictionaryContainer<ECrawlerStates, IStateHelper> _stateHelpers = new SetupDictionaryContainer<ECrawlerStates, IStateHelper>();
 
-        private IUnityGameState _gs;
+        private IClientGameState _gs;
         private CancellationToken _token;
         private ICrawlerSpellService _spellService;
         private PartyData _party { get; set; }
@@ -66,27 +64,17 @@ namespace Assets.Scripts.Crawler.Services
         private Stack<CrawlerStateData> _stateStack { get; set; } = new Stack<CrawlerStateData>();
 
 
-        private Dictionary<KeyCode, KeyCode> _equivalentKeys = new Dictionary<KeyCode, KeyCode>();
+        private Dictionary<char, char> _equivalentKeys = new Dictionary<char, char>();
 
         public async Task Initialize(CancellationToken token)
         {
             _token = token;
-            _updateService.AddTokenUpdate(this, UpdateGame, UpdateType.Regular);
-
-            char alpha0 = (char)(KeyCode.Alpha0);
-            char keypad0 = (char)(KeyCode.Keypad0);
-
-            for (int i = 0; i <= 9; i++)
-            {
-                _equivalentKeys[(KeyCode)(i + alpha0)] = (KeyCode)(i + keypad0);
-                _equivalentKeys[(KeyCode)(i + keypad0)] = (KeyCode)(i + alpha0);
-            }
-
-
+            _updateService.AddTokenUpdate(this, UpdateGame, UpdateType.Regular, token);
+            _updateService.AddTokenUpdate(this,OnLateUpdate, UpdateType.Late, token);
             await Task.CompletedTask;
         }
 
-        public async Awaitable Init(PartyData party, CancellationToken token)
+        public async Task Init(PartyData party, CancellationToken token)
         {
             _inputService.SetDisabled(true);
             _token = token;
@@ -109,18 +97,43 @@ namespace Assets.Scripts.Crawler.Services
             await UpdateCrawlerUI();
         }
 
-        public void ChangeState(ECrawlerStates crawlerState, CancellationToken token, object extraData = null)
+        public void ChangeState(ECrawlerStates crawlerState, CancellationToken token, object extraData = null , ECrawlerStates returnState= ECrawlerStates.None)
         {
-            CrawlerStateData stateData = new CrawlerStateData(ECrawlerStates.None) { ExtraData = extraData };
-            CrawlerStateAction action = new CrawlerStateAction(null, KeyCode.None, crawlerState, extraData: extraData);
+            CrawlerStateData stateData = new CrawlerStateData(returnState) { ExtraData = extraData };
+            CrawlerStateAction action = new CrawlerStateAction(null, CharCodes.None, crawlerState, extraData: extraData);
             ChangeState(stateData, action, token);
         }
 
+        class FullCrawlerState
+        {
+            public CrawlerStateData StateData;
+            public CrawlerStateAction Action;
+        }
+
+        private ConcurrentQueue<FullCrawlerState> _stateQueue = new ConcurrentQueue<FullCrawlerState>();
+
         public void ChangeState(CrawlerStateData data, CrawlerStateAction action, CancellationToken token)
         {
-            action.OnClickAction?.Invoke();
-            _crawlerMapService.ClearMovement();
-            AwaitableUtils.ForgetAwaitable(ChangeStateAsync(data, action, token));
+            _stateQueue.Enqueue(new FullCrawlerState() { Action = action, StateData = data });
+        }
+
+        private void OnLateUpdate(CancellationToken token)
+        {
+
+            if (_stateQueue.TryDequeue(out FullCrawlerState fullCrawlerState))
+            {
+                fullCrawlerState.Action.OnClickAction?.Invoke();
+
+                // This lets you enter commands without changing state.
+                if (fullCrawlerState.Action.NextState == ECrawlerStates.DoNotChangeState)
+                {
+                    return;
+                }
+
+                _crawlerMapService.ClearMovement();
+
+                TaskUtils.ForgetTask(ChangeStateAsync(fullCrawlerState, token));
+            }
         }
 
         public CrawlerStateData PopState()
@@ -143,12 +156,22 @@ namespace Assets.Scripts.Crawler.Services
             return _stateStack.Peek();
         }
 
+        public ECrawlerStates GetState()
+        {
+            if (_stateStack.Count < 1)
+            {
+                return ECrawlerStates.None;
+            }
+            return _stateStack.Peek().Id;
+        }
 
 
-        public async Awaitable ChangeStateAsync(CrawlerStateData currData, CrawlerStateAction action, CancellationToken token)
+        private async Task ChangeStateAsync(FullCrawlerState fullState, CancellationToken token)
         {
             try
             {
+                CrawlerStateData currData = fullState.StateData;
+                CrawlerStateAction action = fullState.Action;
                 CrawlerStateData nextStateData = null;
                 foreach (CrawlerStateData stackData in _stateStack)
                 {
@@ -309,20 +332,7 @@ namespace Assets.Scripts.Crawler.Services
 
         private void SetupPartyForGameplay(PartyData party)
         {
-            ActiveScreen activeScreen = _screenService.GetScreen(ScreenId.Crawler);
-
-            if (activeScreen != null)
-            {
-                CrawlerScreen crawlerScreen = activeScreen.Screen as CrawlerScreen;
-
-                if (crawlerScreen != null)
-                {
-                    party.WorldPanel = crawlerScreen.WorldPanel;
-                    party.ActionPanel = crawlerScreen.ActionPanel;
-                    party.StatusPanel = crawlerScreen.StatusPanel;
-                }
-            }
-
+            
             party.SpeedupListener = this;
 
 
@@ -349,7 +359,7 @@ namespace Assets.Scripts.Crawler.Services
 
         }
 
-        public async Awaitable<PartyData> LoadParty(string filename = null)
+        public async Task<PartyData> LoadParty(string filename = null)
         {
             if (string.IsNullOrEmpty(filename))
             {
@@ -385,7 +395,7 @@ namespace Assets.Scripts.Crawler.Services
         }
 
 
-        public async Awaitable SaveGame()
+        public async Task SaveGame()
         {
             if (_party != null)
             {
@@ -404,13 +414,11 @@ namespace Assets.Scripts.Crawler.Services
             }
         }
 
-        
-
         private void UpdateGame(CancellationToken token)
         {
             UpdateMovement(token);
 
-            if (_crawlerMapService.UpdatingMovement())
+            if (_crawlerMapService.UpdatingMovement() || _stateQueue.Count > 0)
             {
                 return;
             }
@@ -437,13 +445,13 @@ namespace Assets.Scripts.Crawler.Services
                     foreach (CrawlerStateAction action in currentData.Actions)
                     {
                         //Explcitly set Escape to go back up a level, Do not have a global escape
-                        if (Input.GetKeyDown(action.Key))
+                        if (_inputService.GetKeyDown(action.Key))
                         {
                             ChangeState(currentData, action, token);
                         }
-                        else if (_equivalentKeys.TryGetValue(action.Key, out KeyCode otherKey))
+                        else if (_equivalentKeys.TryGetValue(action.Key, out char otherKey))
                         {
-                            if (Input.GetKey(otherKey))
+                            if (_inputService.GetKey(otherKey))
                             {
                                 ChangeState(currentData, action, token);
                             }
@@ -453,14 +461,14 @@ namespace Assets.Scripts.Crawler.Services
                 }
 
                 if (currentData.ShouldCheckInput() &&
-                    (Input.GetKeyDown(KeyCode.Return) ||
-                    Input.GetKeyDown(KeyCode.KeypadEnter)))
+                    (_inputService.GetKeyDown(CharCodes.Return) ||
+                    _inputService.GetKeyDown(CharCodes.Enter)))
                 {
                     currentData.CheckInput();
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            if (_inputService.GetKeyDown(CharCodes.Escape) || _inputService.GetKeyDown(CharCodes.Space) || _inputService.GetKeyDown(CharCodes.Enter))
             {
                 _shouldTriggerSpeedup = true;
             }
@@ -500,27 +508,27 @@ namespace Assets.Scripts.Crawler.Services
             {
                 if (currentData.Id == ECrawlerStates.ExploreWorld)
                 {
-                    AwaitableUtils.ForgetAwaitable(UpdateMovementAsync(token));
+                    TaskUtils.ForgetTask(UpdateMovementAsync(token));
                 }
             }
         }
 
 
-        private async Awaitable UpdateMovementAsync(CancellationToken token)
+        private async Task UpdateMovementAsync(CancellationToken token)
         {
             await _crawlerMapService.UpdateMovement(token);
         }
 
 
-        public async Awaitable UpdateCrawlerUI()
+        public async Task UpdateCrawlerUI()
         {
             CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
             CrawlerMap map = world.GetMap(_party.MapId);
 
-            _dispatcher.Dispatch(new CrawlerUIUpdate() { Map = map, World = world, Party = _party });
+            _dispatcher.Dispatch(new CrawlerUIUpdate());
 
         }
-        public async Awaitable OnFinishMove(bool movedPosition, CancellationToken token)
+        public async Task OnFinishMove(bool movedPosition, CancellationToken token)
         {
             CrawlerWorld world = await _worldService.GetWorld(_party.WorldId);
             CrawlerMap map = world.GetMap(_party.MapId);
@@ -589,11 +597,5 @@ namespace Assets.Scripts.Crawler.Services
             UpdateIfNotMoving(true, token);
         }
 
-        public void CreateSpline()
-        {
-            WorldPanel worldPanel = _party.WorldPanel as WorldPanel;
-
-            worldPanel.CreateSpline();
-        }
     }
 }

@@ -2,14 +2,12 @@
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils;
-using Assets.Scripts.Atlas.Constants;
 using Genrpg.Shared.Entities.Services;
 using System.Threading;
-using Genrpg.Shared.Inventory.Settings;
 using Genrpg.Shared.Inventory.Constants;
-using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
-using UnityEngine;
+using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Inventory.Services;
 
 
 public delegate void OnLoadItemIconHandler(InitItemIconData data);
@@ -44,7 +42,9 @@ public class InitItemIconData : DragItemInitData<Item, ItemIcon, ItemIconScreen,
 public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
 {
 
+    protected ISharedItemService _sharedItemService;
     protected IEntityService _entityService;
+    protected IIconService _iconService;
 
     public GImage Background;
     public GImage Frame;
@@ -62,16 +62,16 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         data.CreatedItem = this;
         _initData = data;
 
-        string bgName = IconHelper.GetBackingNameFromQuality(_gameData, 0);
-        string frameName = IconHelper.GetFrameNameFromLevel(_gameData, 1);
+        string bgName = _iconService.GetBackingNameFromQuality(_gameData, 0);
+        string frameName = _iconService.GetFrameNameFromLevel(_gameData, 1);
 
         string iconName = ItemConstants.BlankIconName;
 
         if (_initData.Data != null)
         {
-            frameName = IconHelper.GetFrameNameFromLevel(_gameData, _initData.Data.Level);
-            bgName = IconHelper.GetBackingNameFromQuality(_gameData, _initData.Data.QualityTypeId);
-            iconName = ItemUtils.GetIcon(_gameData, _gs.ch, _initData.Data);
+            frameName = _iconService.GetFrameNameFromLevel(_gameData, _initData.Data.Level);
+            bgName = _iconService.GetBackingNameFromQuality(_gameData, _initData.Data.QualityTypeId);
+            iconName = _sharedItemService.GetIcon(_gameData, _gs.ch, _initData.Data);
         }
         else
         {
@@ -82,12 +82,12 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             }
             if (data.Quality > 0)
             {
-                bgName = IconHelper.GetBackingNameFromQuality(_gameData, data.Quality);
+                bgName = _iconService.GetBackingNameFromQuality(_gameData, data.Quality);
             }
 
             if (data.Level > 0)
             {
-                frameName = IconHelper.GetFrameNameFromLevel(_gameData, data.Level);
+                frameName = _iconService.GetFrameNameFromLevel(_gameData, data.Level);
             }
         }
 
@@ -100,16 +100,16 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             ItemType itype = _gameData.Get<ItemTypeSettings>(_gs.ch).Get(_initData.Data.ItemTypeId);
             if (itype.EquipSlotId > 0)
             {
-                _uIInitializable.SetText(QuantityText, "");
+                _uiService.SetText(QuantityText, "");
             }
             else
             {
-                _uIInitializable.SetText(QuantityText, _initData.Data.Quantity.ToString());
+                _uiService.SetText(QuantityText, _initData.Data.Quantity.ToString());
             }
         }
         else
         {
-            _uIInitializable.SetText(QuantityText, data.Quantity.ToString());
+            _uiService.SetText(QuantityText, data.Quantity.ToString());
         }
 
         if (FlagUtils.IsSet(_initData.Flags, ItemIconFlags.ShowTooltipNow))
@@ -135,7 +135,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             return;
         }
 
-        GEntityUtils.SetActive(_initData.Screen.ToolTip, true);
+        _gameObjectService.SetActive(_initData.Screen.ToolTip, true);
         FullItemTooltipInitData fullTooltipInitData = new FullItemTooltipInitData()
         {
             unit = _initData.Screen.GetUnit(),
@@ -153,6 +153,6 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         {
             return;
         }
-        GEntityUtils.SetActive(_initData.Screen.ToolTip, false);
+        _gameObjectService.SetActive(_initData.Screen.ToolTip, false);
     }
 }

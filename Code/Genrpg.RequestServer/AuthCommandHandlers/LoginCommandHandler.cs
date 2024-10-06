@@ -1,12 +1,7 @@
 ﻿using Genrpg.RequestServer.AuthCommandHandlers.Constants;
 using Genrpg.RequestServer.Core;
-using Genrpg.RequestServer.Utils;
-using Genrpg.ServerShared.Utils;
 using Genrpg.Shared.Accounts.PlayerData;
 using Genrpg.Shared.Website.Messages.Login;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Genrpg.RequestServer.AuthCommandHandlers
 {
@@ -20,7 +15,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
                 account = await _repoService.Load<Account>(command.UserId);
                 if (account == null)
                 {
-                    WebUtils.ShowError(context, "That account doesn't exist.");
+                    context.ShowError("That account doesn't exist.");
                     return;
                 }
             }
@@ -30,13 +25,13 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
 
                 if (account == null)
                 {
-                    WebUtils.ShowError(context, "That email isn't linked to an account.");
+                    context.ShowError("That email isn't linked to an account.");
                     return;
                 }
             }
             else
             {
-                WebUtils.ShowError(context, "You must specify a UserId or an email to log in.");
+                context.ShowError("You must specify a UserId or an email to log in.");
                 return;
             }
 
@@ -44,7 +39,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
 
             if (result == EAuthResult.Failure)
             {
-                WebUtils.ShowError(context, "Login information is incorrect.");
+                context.ShowError("Login information is incorrect.");
                 return;
             }
 

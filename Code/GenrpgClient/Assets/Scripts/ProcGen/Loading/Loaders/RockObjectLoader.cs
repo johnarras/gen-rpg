@@ -1,11 +1,12 @@
 ﻿
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Entities;
 using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.Rocks;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class RockObjectLoader : BaseObjectLoader
 {
@@ -57,7 +58,7 @@ public class RockObjectLoader : BaseObjectLoader
 
     }
 
-    public void AfterLoadRock(GEntity go, DownloadObjectData dlo, CancellationToken token)
+    public void AfterLoadRock(GameObject go, DownloadObjectData dlo, CancellationToken token)
     {
         if (go == null || dlo == null)
         {
@@ -83,7 +84,7 @@ public class RockObjectLoader : BaseObjectLoader
 
 
 
-        go.transform().localScale = GVector3.Create(newScale, newScale, newScale);
+        go.transform.localScale = new Vector3(newScale, newScale, newScale);
 
         float xrot = MathUtils.SeedFloatRange(dlo.placementSeed, 103, 0, 359, 360);
         float yrot = MathUtils.SeedFloatRange(dlo.placementSeed, 461, 0, 359, 360);
@@ -91,9 +92,9 @@ public class RockObjectLoader : BaseObjectLoader
 
 
 
-        go.transform().Rotate(xrot, yrot, zrot);
+        go.transform.Rotate(xrot, yrot, zrot);
 
 
-        //go.transform().position = GVector3.Create(dlo.x, go.transform().position.y, dlo.y);
+        //go.transform.position = Gnew Vector3(dlo.x, go.transform.position.y, dlo.y);
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Genrpg.Shared.MapObjects.Entities;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 public class ClientMapObjectGridItem : MapObjectGridItem
 {
-    public GEntity GameObj;
+    public GameObject GameObj;
     public UnitController Controller;
 }

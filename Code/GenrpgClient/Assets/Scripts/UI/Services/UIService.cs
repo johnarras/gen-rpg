@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Interfaces;
-using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Ftue.Messages;
@@ -8,7 +8,6 @@ using Genrpg.Shared.Ftue.Settings.Steps;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.ProcGen.Settings.Names;
 using Scripts.Assets.Audio.Constants;
 using System;
 using System.Collections.Generic;
@@ -16,13 +15,20 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using GEntity = UnityEngine.GameObject;
+using Genrpg.Shared.UI.Interfaces;
+using Genrpg.Shared.UI.Services;
+using Assets.Scripts.UI.Abstractions;
+using Assets.Scripts.UI.Pointers;
+using UnityEngine.UI;
+using Genrpg.Shared.MVC.Interfaces;
+using Assets.Scripts.MVC;
+using UnityEditor.Build;
+using Genrpg.Shared.ProcGen.Settings.Names;
 
 namespace Assets.Scripts.UI.Services
 {
-    public class UIInitializable : IUIService
+    public class UIService : IUIService
     {
         protected IFtueService _ftueService;
         protected IAudioService _audioService;
@@ -30,11 +36,13 @@ namespace Assets.Scripts.UI.Services
         protected IAnalyticsService _analyticsService;
         protected IGameData _gameData;
         protected IClientRandom _rand;
-        protected IUnityGameState _gs;
-        protected IGameObjectService _gameObjectService;
+        protected IClientGameState _gs;
+        protected IClientEntityService _gameObjectService;
         protected IEntityService _entityService;
         private ILogService _logService;
+        private IClientUpdateService _updateService;
         private CancellationToken _token;
+     
         public async Task Initialize(CancellationToken token)
         {
             await Task.CompletedTask;
@@ -45,70 +53,64 @@ namespace Assets.Scripts.UI.Services
             _token = token;
         }
 
-        public void SetText(GText gtext, string txt)
+        public void SetText(IText itext, string txt)
         {
+            _updateService.RunOnMainThread(
+                () =>
+                {
+                    if (itext is GText gtext)
+                    {
+                        gtext.text = txt;
+                    }
+                });
+        }
 
-            // TODO Localization
-            if (gtext != null)
+        public void SetInputText(IInputField iInput, object obj)
+        {
+            if (obj != null && iInput is GInputField ginput)
             {
-                gtext.text = txt;
+                ginput.text = obj.ToString();
             }
         }
 
-        public void SetInputText(GInputField input, object obj)
+        public int GetIntInput(IInputField iinput)
         {
-            if (input != null && obj != null)
+            if (iinput is GInputField ginput)
             {
-                input.text = obj.ToString();
+                if (Int32.TryParse(ginput.text, out int value))
+                {
+                    return value;
+                }
             }
+            return 0;
         }
 
-        public int GetIntInput(GInputField field)
+        public long GetSelectedIdFromName(Type iidNameType, IDropdown idropdown)
         {
-            if (field == null)
+            if (!(idropdown is GDropdown gdropdown))
             {
                 return 0;
             }
 
-            if (Int32.TryParse(field.text, out int value))
-            {
-                return value;
-            }
-
-            return 0;
-        }
-
-        public long GetSelectedIdFromName(Type iidNameType, GDropdown dropdown)
-        {
             List<IIdName> items = _entityService.GetChildList(_gs.ch, iidNameType.Name);
 
-            string selectedText = dropdown.captionText.text;
+            string selectedText = gdropdown.captionText.text;
 
-            IIdName selectedItem = items.FirstOrDefault(x => x.Name == dropdown.captionText.text);
+            IIdName selectedItem = items.FirstOrDefault(x => x.Name == gdropdown.captionText.text);
 
             return selectedItem?.IdKey ?? 0;
 
         }
 
-        public void AddEventListener(GEntity go, EventTriggerType type, UnityAction<BaseEventData> callback)
+        public void SetImageTexture(IRawImage image, object texObj)
         {
-            EventTrigger trigger = _gameObjectService.GetOrAddComponent<EventTrigger>(go);
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = EventTriggerType.PointerEnter;
-            entry.callback.AddListener(callback);
-        }
-
-        public void SetImageTexture(GRawImage image, Texture tex)
-        {
-            if (image == null)
+            if (image is GRawImage gimage && texObj is Texture tex)
             {
-                return;
+                gimage.texture = tex;
             }
-
-            image.texture = tex;
         }
 
-        public GEntity GetSelected()
+        public object GetSelected()
         {
             if (EventSystem.current == null)
             {
@@ -118,38 +120,41 @@ namespace Assets.Scripts.UI.Services
         }
 
 
-        public void SetColor(GText text, UnityEngine.Color color)
+        public void SetColor(IText text, object colorObj)
         {
-            if (text == null)
+            if (text is GText gtext && colorObj is UnityEngine.Color color)
             {
-                return;
+                gtext.color = color;
             }
-
-            text.color = color;
         }
 
-
-        public void SetButton(GButton button, string screenName, UnityAction action, Dictionary<string, string> extraData = null)
+        public void SetButton(IButton button, string screenName, Action action, Dictionary<string, string> extraData = null)
         {
-            button.onClick.AddListener(
-               () =>
-               {
-                   AwaitableUtils.ForgetAwaitable(InnerButtonClick(button, screenName, action, null, extraData));
+            if (button is GButton gbutton)
+            {
+                gbutton.onClick.AddListener(
+                   () =>
+                   {
+                       TaskUtils.ForgetAwaitable(InnerButtonClick(gbutton, screenName, action, null, extraData));
 
-               });
+                   });
+            }
         }
-        public void SetButton(GButton button, string screenName, Func<CancellationToken,Awaitable> awaitableAction, Dictionary<string, string> extraData = null)
+        public void SetButton(IButton button, string screenName, Func<CancellationToken,Task> awaitableAction, Dictionary<string, string> extraData = null)
         {
-            button.onClick.AddListener(
-               () =>
-               {
-                   AwaitableUtils.ForgetAwaitable(InnerButtonClick(button, screenName, null, awaitableAction, extraData));
+            if (button is GButton gbutton)
+            {
+                gbutton.onClick.AddListener(
+                   () =>
+                   {
+                       TaskUtils.ForgetAwaitable(InnerButtonClick(gbutton, screenName, null, awaitableAction, extraData));
 
-               });
+                   });
+            }
         }
 
         private bool _canClickButton = true;
-        private async Awaitable InnerButtonClick (GButton button, string screenName, UnityAction action, Func<CancellationToken,Awaitable> awaitableAction, Dictionary<string, string> extraData = null)
+        private async Awaitable InnerButtonClick (GButton button, string screenName, Action action, Func<CancellationToken,Task> awaitableAction, Dictionary<string, string> extraData = null)
         {
             if (!_canClickButton)
             {
@@ -213,6 +218,98 @@ namespace Assets.Scripts.UI.Services
                     button.interactable = true;
                 }
                 _canClickButton = true;
+            }
+        }
+
+        public void SetAlpha(IText text, float alpha)
+        { 
+            if (text is GText gText)
+            {
+                gText.alpha = alpha;
+            }
+        }
+
+        public void SetAutoSizing(IText text, bool autoScaling)
+        {
+            if (text is GText gtext)
+            {
+                gtext.enableAutoSizing = autoScaling;
+            }
+        }
+
+        public void ResizeGridLayout(IGridLayoutGroup group, float xscale, float yscale)
+        {
+            if (group is GGridLayoutGroup ggroup)
+            {
+                ggroup.constraintCount = (int) (ggroup.constraintCount / xscale);
+                ggroup.cellSize = new Vector2(ggroup.cellSize.x * xscale, ggroup.cellSize.y * yscale);
+            }
+        }
+
+        public void AddPointerHandlers(IView view, Action enterHandler, Action exitHandler)
+        {
+            if (view is MonoBehaviour mb)
+            {
+                PointerHandler ph = _gameObjectService.GetOrAddComponent<PointerHandler>(mb.gameObject);
+                ph.SetEnterExitHandlers(enterHandler, exitHandler);
+            }
+        }
+
+        public void ScrollToBottom(object scrollRectObj)
+        {
+            if (scrollRectObj is ScrollRect scrollRect)
+            {
+                scrollRect.normalizedPosition = new Vector2(0, 0);
+            }
+        }
+        public void ScrollToTop(object scrollRectObj)
+        {
+            if (scrollRectObj is ScrollRect scrollRect)
+            {
+                scrollRect.normalizedPosition = new Vector2(0, 1);
+            }
+        }
+
+        public void SetTextAlignemnt(IText text, int offset)
+        {
+            if (text is GText gtext)
+            {
+                gtext.alignment = (offset < 0 ? TMPro.TextAlignmentOptions.Left : offset > 0 ? TMPro.TextAlignmentOptions.Right : TMPro.TextAlignmentOptions.Center);
+            }
+        }
+
+        public object GetImageTexture(IRawImage image)
+        {
+            if (image is GRawImage gimage)
+            {
+                return gimage.texture;
+            }
+            return null;
+        }
+
+        public int GetImageHeight(IRawImage image)
+        {
+            if (image is GRawImage gimage)
+            {
+                return gimage.texture?.height ?? 0;
+            }
+            return 0;
+        }
+
+        public int GetImageWidth(IRawImage image)
+        {
+            if (image is GRawImage gimage)
+            {
+                return gimage.texture?.width ?? 0;
+            }
+            return 0;
+        }
+
+        public void SetUVRect(IRawImage image, float xpos, float ypos, float xsize, float ysize)
+        {
+            if (image is GRawImage gimage)
+            {
+                gimage.uvRect = new UnityEngine.Rect(new Vector2(xpos,ypos), new Vector2(xsize,ysize));
             }
         }
     }

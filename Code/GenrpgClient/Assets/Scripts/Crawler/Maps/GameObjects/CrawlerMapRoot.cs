@@ -1,10 +1,6 @@
-﻿using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
+﻿using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Dungeons;
-using Genrpg.Shared.Utils.Data;
 using System.Collections.Generic;
-using System.Security.Policy;
-using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.Crawler.Maps.GameObjects
 {
@@ -13,28 +9,26 @@ namespace Assets.Scripts.Crawler.Maps.GameObjects
 
         public string MapId { get; set; }
 
-        public Dictionary<long, UnityMapCell> Cells { get; set; } = new Dictionary<long, UnityMapCell>();
+        public Dictionary<long, ClientMapCell> Cells { get; set; } = new Dictionary<long, ClientMapCell>();
 
         public DungeonAssets Assets { get; set; }
 
-        public UnityMapCell GetCell(int x, int y)
+        public ClientMapCell GetCell(int x, int y)
         {
             int index = Map.GetIndex(x, y);
 
-            if (Cells.TryGetValue(index, out UnityMapCell cell))
+            if (Cells.TryGetValue(index, out ClientMapCell cell))
             {
                 return cell;
             }
 
-            cell = new UnityMapCell() { X = x, Z = y };
+            cell = new ClientMapCell() { X = x, Z = y };
 
             Cells[index] = cell;
             return cell;
         }
 
         public CrawlerMap Map { get; set; }
-
-        public GEntity ContentRoot { get; set; }
 
         public float DrawX { get; set; }
         public float DrawZ { get; set; }

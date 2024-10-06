@@ -1,13 +1,13 @@
 ﻿
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 using Genrpg.Shared.Utils.Data;
 using System.Threading;
-using UnityEngine;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.ProcGen.Settings.Clutter;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Zones.Settings;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class ClutterObjectLoader : BaseObjectLoader
 {
@@ -71,7 +71,7 @@ public class ClutterObjectLoader : BaseObjectLoader
         return true;
     }
 
-    public void AfterLoadObject(GEntity go, DownloadObjectData dlo, CancellationToken token)
+    public void AfterLoadObject(GameObject go, DownloadObjectData dlo, CancellationToken token)
     {
         float ddscale = 0.5f;
 
@@ -82,10 +82,10 @@ public class ClutterObjectLoader : BaseObjectLoader
             collider.convex = true;
         }
 
-        go.transform().localPosition = GVector3.Create(dlo.x + dlo.ddx * ddscale, dlo.height + dlo.zOffset, dlo.y + dlo.ddy * ddscale);
+        go.transform.localPosition = new Vector3(dlo.x + dlo.ddx * ddscale, dlo.height + dlo.zOffset, dlo.y + dlo.ddy * ddscale);
         if (dlo.rotation != null)
         {
-            go.transform().eulerAngles = GVector3.Create(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
+            go.transform.eulerAngles = new Vector3(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
         }
     }
 }

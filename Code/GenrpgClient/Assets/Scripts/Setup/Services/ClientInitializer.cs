@@ -1,39 +1,38 @@
+using Assets.Scripts.Assets;
+using Assets.Scripts.BoardGame.Controllers;
+using Assets.Scripts.BoardGame.Services;
 using Assets.Scripts.Crawler.Maps;
 using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Services;
-using Assets.Scripts.Crawler.Services.Combat;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
-using Assets.Scripts.Crawler.Services.Training;
 using Assets.Scripts.Ftue.Services;
 using Assets.Scripts.GameObjects;
 using Assets.Scripts.GameSettings.Services;
-using Assets.Scripts.Model;
 using Assets.Scripts.Pathfinding.Utils;
 using Assets.Scripts.PlayerSearch;
 using Assets.Scripts.ProcGen.Loading.Utils;
 using Assets.Scripts.ProcGen.Services;
-using Assets.Scripts.Tokens;
 using Assets.Scripts.UI.Services;
-using Genrpg.Shared.Analytics.Services;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Client.Tokens;
 using Genrpg.Shared.Crawler.Loot.Services;
+using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.Spells.Services;
+using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.Stats.Services;
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.Utils;
-using Newtonsoft.Json.Linq;
+using Genrpg.Shared.UI.Services;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class ClientInitializer 
 {
     private IServiceLocator _loc = null;
-    private IUnityGameState _gs;
-    public ClientInitializer(IUnityGameState gs)
+    private IClientGameState _gs;
+    public ClientInitializer(IClientGameState gs)
     {
         _gs = gs;
         _loc = gs.loc;
@@ -52,17 +51,14 @@ public class ClientInitializer
             Set<IInitClient>(initClient);
         }
 
-        Set<IGameObjectService>(new GameObjectService());
+        Set<IClientEntityService>(new ClientEntityService());
         _loc.ResolveSelf();
 
-        IGameObjectService gameObjectService = _loc.Get<IGameObjectService>();
-       
+        IClientEntityService gameObjectService = _loc.Get<IClientEntityService>();
+        
         Set<IAssetService>(new UnityAssetService());
         Set<IFileDownloadService>(new FileDownloadService());
         Set<IShapeService>(new ShapeService());
-        Set<INoiseService>(new NoiseService());
-        Set<ISamplingService>(new SamplingService());
-        Set<ILineGenService>(new LineGenService());
         Set<ICurveGenService>(new CurveGenService());
         Set<ILocationGenService>(new LocationGenService());
         Set<IMapGenService>(new MapGenService());
@@ -71,9 +67,9 @@ public class ClientInitializer
         Set<ITerrainPatchLoader>(new TerrainPatchLoader());
         Set<IClientMapObjectManager>(new ClientMapObjectManager(token));
         Set<IClientGameDataService>(new ClientGameDataService());
-        Set<IUIService>(new UIInitializable());
+        Set<IUIService>(new UIService());
         Set<IFxService>(new FxService());
-        Set<IUnityUpdateService>(gameObjectService.GetOrAddComponent<UnityUpdateService>());
+        Set<IClientUpdateService>(new ClientUpdateService());
         Set<IPlantAssetLoader>(new PlantAssetLoader());
         Set<IZonePlantValidator>(new ZonePlantValidator());
         Set<IAddPoolService>(new AddPoolService());
@@ -81,6 +77,12 @@ public class ClientInitializer
         Set<IPlayerManager>(new  PlayerManager());
         Set<IAddNearbyItemsHelper>(new AddNearbyItemsHelper());
         Set<IPlayerSearchService>(new PlayerSearchService());
+        Set<ITextService>(new TextService());
+        Set<IIconService>(new IconService());   
+        Set<IClientCryptoService>(new ClientCryptoService());
+        Set<IBinaryFileRepository>(new BinaryFileRepository()); 
+        Set<ICursorService>(new CursorService());
+        Set<IModTextureService>(new ModTextureService());   
 
         // Unity-specific overrides
 
@@ -88,20 +90,16 @@ public class ClientInitializer
         {
             Set<IRealtimeNetworkService>(new RealtimeNetworkService(token));
             Set<IClientWebService>(new ClientWebService(token));
-            Set<IInputService>(gameObjectService.GetOrAddComponent<InputService>());
-            Set<IMapTerrainManager>(gameObjectService.GetOrAddComponent<MapTerrainManager>());
+            Set<IMapTerrainManager>(new MapTerrainManager());
+            Set<IInputService>(new InputService());
             Set<ICrawlerService>(new CrawlerService());
-            Set<ICrawlerSpellService>(new CrawlerSpellService());
-            Set<ICombatService>(new CombatService());
-            Set<ILootGenService>(new LootGenService());
-            Set<IProcessCombatRoundCombatService>(new ProcessCombatRoundCombatService());
-            Set<ITrainingService>(new TrainingService());
-            Set<ICrawlerStatService>(new CrawlerStatService());
             Set<ICrawlerMapService>(new CrawlerMapService());
             Set<ICrawlerWorldService>(new CrawlerWorldService());
             Set<ICrawlerMapGenService>(new CrawlerMapGenService());
             Set<IClientPathfindingUtils>(new ClientPathfindingUtils());
             Set<IAddRoadService>(new AddRoadService());  
+            Set<IShowDiceRollService>(new ShowDiceRollService());   
+            Set<IBoardPrizeService>(new BoardPrizeService());   
         }
 
         Set<IClientAuthService>(new ClientAuthService());
@@ -110,6 +108,8 @@ public class ClientInitializer
 		Set<IZoneGenService> (new UnityZoneGenService());
         Set<IFtueService>(new ClientFtueService());
 
+        Set<IBoardGameController>(new  BoardGameController());  
+        Set<ILoadBoardService>(new LoadBoardService());
     }
 
     public async Task FinalInitialize(CancellationToken token)
@@ -117,6 +117,7 @@ public class ClientInitializer
         _loc.ResolveSelf();
 
         List<IInjectable> vals = _loc.GetVals();
+
         foreach (IInjectable service in vals)
         {
             if (service is IInitializable initService)

@@ -1,0 +1,24 @@
+{
+  "Data": [
+    {
+      "Id": "ftuepopuptype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "NoTintWindow",
+      "UpdateTime": "2024-08-01T00:28:06.75Z"
+    },
+    {
+      "Id": "ftuepopuptype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "NoWindow",
+      "UpdateTime": "2024-08-01T00:28:06.752Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "FtuePopupTypeSettings",
+    "UpdateTime": "2024-08-01T00:28:06.754Z"
+  },
+  "Id": "default"
+}

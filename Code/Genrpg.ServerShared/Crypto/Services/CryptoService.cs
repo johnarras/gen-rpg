@@ -7,6 +7,7 @@ using Genrpg.Shared.WebRequests.Utils;
 using MongoDB.Driver;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -49,6 +50,41 @@ namespace Genrpg.ServerShared.Crypto.Services
             }
             return new EthereumTransactionList();
 
+        }
+
+        public string GetPasswordHash(string salt, string passwordOrToken)
+        {
+            if (string.IsNullOrEmpty(passwordOrToken) || string.IsNullOrEmpty(salt))
+            {
+                return "";
+            }
+
+            string txt2 = salt + passwordOrToken;
+
+            return PasswordHash(txt2);
+        }
+
+        public string GetRandomBytes()
+        {
+            byte[] buff = RandomNumberGenerator.GetBytes(16);
+            return Convert.ToBase64String(buff);
+        }
+
+        public string QuickHash(string txt)
+        {
+            MD5 algo = MD5.Create();
+            byte[] arr = System.Text.Encoding.UTF8.GetBytes(txt);
+            byte[] arr2 = algo.ComputeHash(arr);
+            return Convert.ToBase64String(arr2);
+        }
+
+        private string PasswordHash(string txt)
+        {
+            // For now to avoid adding keygen lib...stronger hashes don't work always too.
+            SHA256 algo = SHA256.Create();
+            byte[] arr = System.Text.Encoding.UTF8.GetBytes(txt);
+            byte[] arr2 = algo.ComputeHash(arr);
+            return Convert.ToBase64String(arr2);
         }
     }
 }

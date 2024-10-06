@@ -2,10 +2,10 @@
   "Id": "tiletype3default",
   "ParentId": "default",
   "IdKey": 3,
-  "Name": "Gems",
+  "Name": "Gem",
   "Desc": "Gives out some gems",
-  "Icon": "GemsTile",
-  "Art": "GemsTile",
+  "Icon": "GemTile",
+  "Art": "GemTile",
   "MaxQuantity": 1,
   "SpawnPriority": 20.0,
   "MinPosition": 1,
@@ -30,5 +30,5 @@
       "Name": "None"
     }
   ],
-  "UpdateTime": "2024-08-15T22:19:52.652Z"
+  "UpdateTime": "2024-09-26T21:11:49.191Z"
 }

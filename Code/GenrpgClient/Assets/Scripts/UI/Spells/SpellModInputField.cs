@@ -25,9 +25,9 @@ namespace Assets.Scripts.UI.Spells
             _helper = _craftingService.GetSpellModifierHelper(spellModifierId);
             _modifier = _gameData.Get<SpellModifierSettings>(_gs.ch).Get(spellModifierId);
 
-            _uIInitializable.SetText(ModifierName, _modifier.Name);
+            _uiService.SetText(ModifierName, _modifier.Name);
 
-            _uIInitializable.SetText(InfoText, "");// _helper.GetInfoText(_gs.ch));
+            _uiService.SetText(InfoText, "");// _helper.GetInfoText(_gs.ch));
 
             Dropdown?.Init(_helper.GetValidValues(_gs.ch), onValueChangedAction);
 

@@ -1,4 +1,6 @@
-﻿using Genrpg.Shared.MapServer.Messages;
+﻿using Genrpg.Shared.Client.Assets;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.MapServer.Messages;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Networking.Messages;
 using Genrpg.Shared.Utils;
@@ -18,7 +20,7 @@ namespace Assets.Scripts.UI
         public void Init(CancellationToken token)
         {
             _token = token;
-            _dispatcher.AddEvent<ServerMessageCounts>(this, OnServerMessageCounts);
+            AddListener<ServerMessageCounts>(OnServerMessageCounts);
         }
 
         protected void OnServerMessageCounts (ServerMessageCounts data)
@@ -94,7 +96,7 @@ namespace Assets.Scripts.UI
             ShowClientVals(sb, "Bundles", assetCounts.BundlesLoaded, assetCounts.BundlesUnloaded, clientCounts.Seconds);
             ShowClientVals(sb, "TerrainPatches", _terrainManager.GetPatchesAdded(), _terrainManager.GetPatchesRemoved(), clientCounts.Seconds);
             ShowClientVals(sb, "Objects", assetCounts.ObjectsLoaded, assetCounts.ObjectsUnloaded, clientCounts.Seconds);
-            _uIInitializable.SetText(Text, sb.ToString());
+            _uiService.SetText(Text, sb.ToString());
 
             return;
         }

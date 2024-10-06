@@ -1,0 +1,7 @@
+{
+  "Id": "default",
+  "SellToVendorPriceMult": 0.25,
+  "VendorRefreshMinutes": 15.0,
+  "Name": "VendorSettings",
+  "UpdateTime": "2024-08-01T00:28:16.793Z"
+}

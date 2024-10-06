@@ -1,14 +1,13 @@
-﻿using Assets.Scripts.Crawler.GameEvents;
-using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
+﻿using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.Services.GenerateMaps;
 using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Assets.Scripts.Model;
-using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Loot.Services;
-using Genrpg.Shared.Crawler.MapGen.Constants;
+using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.TimeOfDay.Settings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
@@ -17,19 +16,19 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Settings;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using Genrpg.Shared.Crawler.GameEvents;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Crawler.States.Services;
 
 namespace Assets.Scripts.Crawler.Maps.Services
 {
     public class CrawlerWorldService : ICrawlerWorldService
     {
-
         private IRepositoryService _repoService;
         private IGameData _gameData;
         private ICrawlerMapService _mapService;
@@ -39,10 +38,11 @@ namespace Assets.Scripts.Crawler.Maps.Services
         private ILootGenService _lootGenService;
         private IClientRandom _rand;
         private IDispatcher _dispatcher;
+        private IClientAppService _clientAppService;
 
         private CrawlerWorld _world = null;
 
-        public async Awaitable<CrawlerWorld> GenerateWorld(PartyData partyData)
+        public async Task<CrawlerWorld> GenerateWorld(PartyData partyData)
         {
             partyData.WorldId = DateTime.UtcNow.Ticks % 1000000;
             partyData.Maps = new List<CrawlerMapStatus>();
@@ -53,6 +53,9 @@ namespace Assets.Scripts.Crawler.Maps.Services
             partyData.MapId = 0;
             partyData.MapX = 0;
             partyData.MapZ = 0;
+            partyData.DaysPlayed = 0;
+            partyData.HourOfDay = _gameData.Get<TimeOfDaySettings>(null).DailyResetHour;
+            _dispatcher.Dispatch(new CrawlerUIUpdate());
             return world;
         }
 
@@ -61,7 +64,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
             return _world?.GetMap(mapId) ?? null;
         }
 
-        public async Awaitable<CrawlerWorld> GetWorld(long worldId)
+        public async Task<CrawlerWorld> GetWorld(long worldId)
         {
 
             if (_world != null && _world.IdKey == worldId)
@@ -94,7 +97,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
             return (Application.isEditor?"Editor":"") + "World" + "/";
         }
 
-        public async Awaitable SaveWorld(CrawlerWorld world)
+        public async Task SaveWorld(CrawlerWorld world)
         {
             ClientRepositoryService clientRepoService = _repoService as ClientRepositoryService;
 
@@ -118,7 +121,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
             }
         }
 
-        private async Awaitable<CrawlerWorld> LoadWorld(long worldId)
+        private async Task<CrawlerWorld> LoadWorld(long worldId)
         {
 
             ClientRepositoryService clientRepoService = _repoService as ClientRepositoryService;
@@ -153,7 +156,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
             return world;
         }
 
-        private async Awaitable<CrawlerWorld> GenerateInternal(long worldId)
+        private async Task<CrawlerWorld> GenerateInternal(long worldId)
         {
             try
             {
@@ -174,7 +177,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
                 CrawlerMap outdoorMap = await _mapGenService.Generate(_crawlerService.GetParty(), world, genData);
 
-                string path = AppUtils.PersistentDataPath + "/Data/World";
+                string path = _clientAppService.PersistentDataPath + "/Data/World";
                 if (Directory.Exists(path))
                 {
                     Directory.Delete(path, true);
@@ -196,7 +199,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
         }
 
 
-        public async Awaitable<ZoneType> GetCurrentZone(PartyData partyData)
+        public async Task<ZoneType> GetCurrentZone(PartyData partyData)
         {
 
             CrawlerWorld world = await GetWorld(partyData.WorldId);
@@ -229,12 +232,12 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
         }
 
-        public async Awaitable<long> GetMapLevelAtParty(CrawlerWorld world, PartyData party)
+        public async Task<long> GetMapLevelAtParty(CrawlerWorld world, PartyData party)
         {
             return await GetMapLevelAtPoint(world, party.MapId, party.MapX, party.MapZ);
         }
 
-        public async Awaitable<long> GetMapLevelAtPoint(CrawlerWorld world, long mapId, int x, int z)
+        public async Task<long> GetMapLevelAtPoint(CrawlerWorld world, long mapId, int x, int z)
         {
             CrawlerMap map = world.GetMap(mapId);
             

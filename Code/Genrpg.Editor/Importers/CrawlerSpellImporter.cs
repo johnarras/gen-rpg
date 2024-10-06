@@ -1,30 +1,17 @@
-﻿using Amazon.Runtime.Internal.Util;
-using Genrpg.Editor.Constants;
+﻿using Genrpg.Editor.Constants;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Utils;
-using Genrpg.Shared.Crawler.Buffs.Settings;
-using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Settings;
-using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.Entities.Utils;
-using Genrpg.Shared.Stats.Constants;
-using Genrpg.Shared.Stats.Settings.Stats;
-using Genrpg.Shared.UnitEffects.Settings;
-using Genrpg.Shared.Units.Entities;
-using Genrpg.Shared.Units.Settings;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
 
 namespace Genrpg.Editor.Importers
 {
 
-    public class CrawlerSpellImporter : BaseDataImporter
+    public class CrawlerSpellImporter : BaseCrawlerDataImporter
     {
         public override string ImportDataFilename => "CrawlerSpellImport.csv";
 

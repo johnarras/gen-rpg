@@ -44,7 +44,7 @@ namespace Assets.Scripts.GroundObjects
 
         protected override void _OnPointerEnter()
         {
-            Cursors.SetCursor(Cursors.Interact);
+            _cursorService.SetCursor(CursorNames.Interact);
         }
     }
 }

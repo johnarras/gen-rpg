@@ -1,18 +1,17 @@
-﻿using GEntity = UnityEngine.GameObject;
+﻿using UnityEngine;
 using System.Threading;
 using System.Collections.Generic;
 using Genrpg.Shared.Trades.Entities;
 using Genrpg.Shared.Trades.Messages;
 using Genrpg.Shared.Inventory.Constants;
-using Assets.Scripts.UI.Services;
 using System.Linq;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
-using UnityEngine;
+using System.Threading.Tasks;
+using Genrpg.Shared.Client.GameEvents;
 
 public class TradeScreen : ItemIconScreen
 {
-    private IUIService _uiService;
     private IInventoryService _inventoryService;
 
     public List<TradeCharUI> TradeChars;
@@ -25,13 +24,13 @@ public class TradeScreen : ItemIconScreen
 
     private TradeObject _tradeObject = null;
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        _dispatcher.AddEvent<OnUpdateTrade>(this, HandleOnUpdateTrade);
-        _dispatcher.AddEvent<OnCancelTrade>(this, HandleOnCancelTrade);
-        _dispatcher.AddEvent<OnCompleteTrade>(this, HandleOnCompleteTrade);
-        _dispatcher.AddEvent<OnAcceptTrade>(this, HandleOnAcceptTrade);
+        AddListener<OnUpdateTrade>(HandleOnUpdateTrade);
+        AddListener<OnCancelTrade>(HandleOnCancelTrade);
+        AddListener<OnCompleteTrade>(HandleOnCompleteTrade);
+        AddListener<OnAcceptTrade>(HandleOnAcceptTrade);
 
         _uiService.SetButton(AcceptButton, GetName(), ClickAccept);
 
@@ -150,14 +149,14 @@ public class TradeScreen : ItemIconScreen
     }
 
 
-    protected override void HandleDragDrop(ItemIconScreen startScreen, ItemIcon dragIcon, ItemIcon otherIconHit, GEntity finalObjectHit)
+    protected override void HandleDragDrop(ItemIconScreen startScreen, ItemIcon dragIcon, ItemIcon otherIconHit, GameObject finalObjectHit)
     {
 
         bool changedSomething = false;
         TradeCharUI parentUI = null;
         if (otherIconHit != null)
         {
-            parentUI = GEntityUtils.FindInParents<TradeCharUI>(otherIconHit.gameObject);
+            parentUI = _gameObjectService.FindInParents<TradeCharUI>(otherIconHit.gameObject);
         }
 
         // If landing spot is not one of our icons, bail out.

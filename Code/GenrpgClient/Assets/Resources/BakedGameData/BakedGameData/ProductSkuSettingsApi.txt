@@ -1,0 +1,410 @@
+{
+  "Data": [
+    {
+      "Id": "productsku1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "$0.99 Product",
+      "DollarPrice": 0.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle001",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle001",
+      "UpdateTime": "2024-08-01T00:28:10.299Z"
+    },
+    {
+      "Id": "productsku2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "$1.99 Product",
+      "DollarPrice": 1.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle002",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle002",
+      "UpdateTime": "2024-08-01T00:28:10.321Z"
+    },
+    {
+      "Id": "productsku3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "$2.99 Product",
+      "DollarPrice": 2.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle003",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle003",
+      "UpdateTime": "2024-08-01T00:28:10.329Z"
+    },
+    {
+      "Id": "productsku4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "$3.99 Product",
+      "DollarPrice": 3.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle004",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle004",
+      "UpdateTime": "2024-08-01T00:28:10.337Z"
+    },
+    {
+      "Id": "productsku5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "$4.99 Product",
+      "DollarPrice": 4.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle005",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle005",
+      "UpdateTime": "2024-08-01T00:28:10.345Z"
+    },
+    {
+      "Id": "productsku6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "$5.99 Product",
+      "DollarPrice": 5.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle006",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle006",
+      "UpdateTime": "2024-08-01T00:28:10.353Z"
+    },
+    {
+      "Id": "productsku7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "$6.99 Product",
+      "DollarPrice": 6.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle007",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle007",
+      "UpdateTime": "2024-08-01T00:28:10.361Z"
+    },
+    {
+      "Id": "productsku8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "$7.99 Product",
+      "DollarPrice": 7.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle008",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle008",
+      "UpdateTime": "2024-08-01T00:28:10.369Z"
+    },
+    {
+      "Id": "productsku9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "$8.99 Product",
+      "DollarPrice": 8.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle009",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle009",
+      "UpdateTime": "2024-08-01T00:28:10.378Z"
+    },
+    {
+      "Id": "productsku10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "$9.99 Product",
+      "DollarPrice": 9.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle010",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle010",
+      "UpdateTime": "2024-08-01T00:28:10.272Z"
+    },
+    {
+      "Id": "productsku11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "$10.99 Product",
+      "DollarPrice": 10.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle011",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle011",
+      "UpdateTime": "2024-08-01T00:28:10.274Z"
+    },
+    {
+      "Id": "productsku12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "$11.99 Product",
+      "DollarPrice": 11.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle012",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle012",
+      "UpdateTime": "2024-08-01T00:28:10.277Z"
+    },
+    {
+      "Id": "productsku13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "$12.99 Product",
+      "DollarPrice": 12.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle013",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle013",
+      "UpdateTime": "2024-08-01T00:28:10.279Z"
+    },
+    {
+      "Id": "productsku14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "$13.99 Product",
+      "DollarPrice": 13.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle014",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle014",
+      "UpdateTime": "2024-08-01T00:28:10.282Z"
+    },
+    {
+      "Id": "productsku15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "$14.99 Product",
+      "DollarPrice": 14.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle015",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle015",
+      "UpdateTime": "2024-08-01T00:28:10.284Z"
+    },
+    {
+      "Id": "productsku16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "$15.99 Product",
+      "DollarPrice": 15.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle016",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle016",
+      "UpdateTime": "2024-08-01T00:28:10.287Z"
+    },
+    {
+      "Id": "productsku17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "$16.99 Product",
+      "DollarPrice": 16.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle017",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle017",
+      "UpdateTime": "2024-08-01T00:28:10.29Z"
+    },
+    {
+      "Id": "productsku18default",
+      "ParentId": "default",
+      "IdKey": 18,
+      "Name": "$17.99 Product",
+      "DollarPrice": 17.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle018",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle018",
+      "UpdateTime": "2024-08-01T00:28:10.294Z"
+    },
+    {
+      "Id": "productsku19default",
+      "ParentId": "default",
+      "IdKey": 19,
+      "Name": "$18.99 Product",
+      "DollarPrice": 18.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle019",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle019",
+      "UpdateTime": "2024-08-01T00:28:10.297Z"
+    },
+    {
+      "Id": "productsku20default",
+      "ParentId": "default",
+      "IdKey": 20,
+      "Name": "$19.99 Product",
+      "DollarPrice": 19.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle020",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle020",
+      "UpdateTime": "2024-08-01T00:28:10.303Z"
+    },
+    {
+      "Id": "productsku21default",
+      "ParentId": "default",
+      "IdKey": 21,
+      "Name": "$20.99 Product",
+      "DollarPrice": 20.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle021",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle021",
+      "UpdateTime": "2024-08-01T00:28:10.306Z"
+    },
+    {
+      "Id": "productsku22default",
+      "ParentId": "default",
+      "IdKey": 22,
+      "Name": "$21.99 Product",
+      "DollarPrice": 21.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle022",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle022",
+      "UpdateTime": "2024-08-01T00:28:10.309Z"
+    },
+    {
+      "Id": "productsku23default",
+      "ParentId": "default",
+      "IdKey": 23,
+      "Name": "$22.99 Product",
+      "DollarPrice": 22.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle023",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle023",
+      "UpdateTime": "2024-08-01T00:28:10.312Z"
+    },
+    {
+      "Id": "productsku24default",
+      "ParentId": "default",
+      "IdKey": 24,
+      "Name": "$23.99 Product",
+      "DollarPrice": 23.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle024",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle024",
+      "UpdateTime": "2024-08-01T00:28:10.315Z"
+    },
+    {
+      "Id": "productsku25default",
+      "ParentId": "default",
+      "IdKey": 25,
+      "Name": "$24.99 Product",
+      "DollarPrice": 24.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle025",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle025",
+      "UpdateTime": "2024-08-01T00:28:10.318Z"
+    },
+    {
+      "Id": "productsku30default",
+      "ParentId": "default",
+      "IdKey": 30,
+      "Name": "$29.99 Product",
+      "DollarPrice": 29.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle030",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle030",
+      "UpdateTime": "2024-08-01T00:28:10.323Z"
+    },
+    {
+      "Id": "productsku35default",
+      "ParentId": "default",
+      "IdKey": 35,
+      "Name": "$34.99 Product",
+      "DollarPrice": 34.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle035",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle035",
+      "UpdateTime": "2024-08-01T00:28:10.326Z"
+    },
+    {
+      "Id": "productsku40default",
+      "ParentId": "default",
+      "IdKey": 40,
+      "Name": "$39.99 Product",
+      "DollarPrice": 39.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle040",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle040",
+      "UpdateTime": "2024-08-01T00:28:10.332Z"
+    },
+    {
+      "Id": "productsku45default",
+      "ParentId": "default",
+      "IdKey": 45,
+      "Name": "$44.99 Product",
+      "DollarPrice": 44.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle045",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle045",
+      "UpdateTime": "2024-08-01T00:28:10.334Z"
+    },
+    {
+      "Id": "productsku50default",
+      "ParentId": "default",
+      "IdKey": 50,
+      "Name": "$49.99 Product",
+      "DollarPrice": 49.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle050",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle050",
+      "UpdateTime": "2024-08-01T00:28:10.34Z"
+    },
+    {
+      "Id": "productsku55default",
+      "ParentId": "default",
+      "IdKey": 55,
+      "Name": "$54.99 Product",
+      "DollarPrice": 54.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle055",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle055",
+      "UpdateTime": "2024-08-01T00:28:10.342Z"
+    },
+    {
+      "Id": "productsku60default",
+      "ParentId": "default",
+      "IdKey": 60,
+      "Name": "$59.99 Product",
+      "DollarPrice": 59.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle060",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle060",
+      "UpdateTime": "2024-08-01T00:28:10.348Z"
+    },
+    {
+      "Id": "productsku65default",
+      "ParentId": "default",
+      "IdKey": 65,
+      "Name": "$64.99 Product",
+      "DollarPrice": 64.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle065",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle065",
+      "UpdateTime": "2024-08-01T00:28:10.351Z"
+    },
+    {
+      "Id": "productsku70default",
+      "ParentId": "default",
+      "IdKey": 70,
+      "Name": "$69.99 Product",
+      "DollarPrice": 69.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle070",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle070",
+      "UpdateTime": "2024-08-01T00:28:10.356Z"
+    },
+    {
+      "Id": "productsku75default",
+      "ParentId": "default",
+      "IdKey": 75,
+      "Name": "$74.99 Product",
+      "DollarPrice": 74.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle075",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle075",
+      "UpdateTime": "2024-08-01T00:28:10.359Z"
+    },
+    {
+      "Id": "productsku80default",
+      "ParentId": "default",
+      "IdKey": 80,
+      "Name": "$79.99 Product",
+      "DollarPrice": 79.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle080",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle080",
+      "UpdateTime": "2024-08-01T00:28:10.364Z"
+    },
+    {
+      "Id": "productsku85default",
+      "ParentId": "default",
+      "IdKey": 85,
+      "Name": "$84.99 Product",
+      "DollarPrice": 84.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle085",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle085",
+      "UpdateTime": "2024-08-01T00:28:10.367Z"
+    },
+    {
+      "Id": "productsku90default",
+      "ParentId": "default",
+      "IdKey": 90,
+      "Name": "$89.99 Product",
+      "DollarPrice": 89.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle090",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle090",
+      "UpdateTime": "2024-08-01T00:28:10.372Z"
+    },
+    {
+      "Id": "productsku95default",
+      "ParentId": "default",
+      "IdKey": 95,
+      "Name": "$94.99 Product",
+      "DollarPrice": 94.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle095",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle095",
+      "UpdateTime": "2024-08-01T00:28:10.375Z"
+    },
+    {
+      "Id": "productsku100default",
+      "ParentId": "default",
+      "IdKey": 100,
+      "Name": "$99.99 Product",
+      "DollarPrice": 99.99,
+      "GoogleProductId": "com.oxdeadbeefgames.genrpg.bundle100",
+      "AppleProductId": "com.oxdeadbeefgames.genrpg.bundle100",
+      "UpdateTime": "2024-08-01T00:28:10.266Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "ProductSkuSettings",
+    "UpdateTime": "2024-08-01T00:28:10.381Z"
+  },
+  "Id": "default"
+}

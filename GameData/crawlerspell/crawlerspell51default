@@ -4,7 +4,7 @@
   "IdKey": 51,
   "Name": "Lightning Storm",
   "Desc": "Hit all monsters with electric damage.",
-  "PowerCost": 18,
+  "PowerCost": 18.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 4,

@@ -1,0 +1,18 @@
+{
+  "Data": [
+    {
+      "Id": "factiontype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Player",
+      "StartRepLevelId": 4,
+      "UpdateTime": "2024-08-01T00:28:06.721Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "FactionSettings",
+    "UpdateTime": "2024-08-01T00:28:06.703Z"
+  },
+  "Id": "default"
+}

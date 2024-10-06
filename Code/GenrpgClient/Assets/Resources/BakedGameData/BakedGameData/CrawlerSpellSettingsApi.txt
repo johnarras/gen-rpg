@@ -1,0 +1,1152 @@
+{
+  "Data": [
+    {
+      "Id": "crawlerspell1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Attack",
+      "Desc": "Melee attack one or more monsters.",
+      "MaxRange": 10,
+      "CombatActionId": 1,
+      "TargetTypeId": 1,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 38,
+          "EntityId": 1,
+          "ElementTypeId": 1
+        }
+      ],
+      "Flags": 1,
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Defend",
+      "Desc": "Take half damage this turn if you get hit.",
+      "MaxRange": 100,
+      "CombatActionId": 2,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [],
+      "Flags": 1,
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Shoot",
+      "Desc": "Attack one or more monsters that are out of melee range.",
+      "MinRange": 20,
+      "MaxRange": 100,
+      "CombatActionId": 3,
+      "TargetTypeId": 1,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 39,
+          "EntityId": 2,
+          "ElementTypeId": 1
+        }
+      ],
+      "Flags": 1,
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Hide",
+      "Desc": "Meld into the shadows to prepare for backstabbing.",
+      "MaxRange": 100,
+      "CombatActionId": 5,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 13,
+          "MinQuantity": 1,
+          "MaxQuantity": 1
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Backstab",
+      "Desc": "Leap from the shadows and kill one or more monsters in a group.",
+      "MaxRange": 10,
+      "RequiredStatusEffectId": 13,
+      "ReplacesCrawlerSpellId": 1,
+      "CombatActionId": 1,
+      "TargetTypeId": 1,
+      "CritChance": 100.0,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 38,
+          "EntityId": 1,
+          "ElementTypeId": 1
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Identify Monster",
+      "Desc": "Get some information about a monster.",
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 11,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 3
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Mesmerize",
+      "Desc": "Make  group of monsters unable to act.",
+      "PowerCost": 10.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 3,
+      "Level": 9,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 4,
+          "MinQuantity": 1,
+          "MaxQuantity": 2,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Heal Wounds",
+      "Desc": "Heal the wounds of a party member.",
+      "PowerCost": 3.0,
+      "PowerPerLevel": 0.5,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 2,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 34,
+          "MinQuantity": 1,
+          "MaxQuantity": 9,
+          "ElementTypeId": 7
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Heal Party",
+      "Desc": "Heal the wounds of all party members.",
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 5,
+      "Level": 9,
+      "Effects": [
+        {
+          "EntityTypeId": 34,
+          "MinQuantity": 1,
+          "MaxQuantity": 3,
+          "ElementTypeId": 7
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Cure",
+      "Desc": "Cure a single party member",
+      "PowerCost": 5.0,
+      "PowerPerLevel": 0.5,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 2,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "MinQuantity": -1,
+          "MaxQuantity": -1,
+          "ElementTypeId": 7
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "Holy Beam",
+      "Desc": "Hit one or more monsters with holy damage.",
+      "PowerCost": 4.0,
+      "PowerPerLevel": 0.5,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 1,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 9,
+          "ElementTypeId": 7
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "Holy Nova",
+      "Desc": "Hit all monsters in a group with holy damage.",
+      "PowerCost": 8.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 3,
+      "Level": 14,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 2,
+          "ElementTypeId": 7
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "Town Portal",
+      "Desc": "Teleport to a town on the overworld map.",
+      "PowerCost": 20.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 11,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 1,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell18default",
+      "ParentId": "default",
+      "IdKey": 18,
+      "Name": "Phase Wall",
+      "Desc": "Pass through a wall in front of you if the square behind it exists.",
+      "PowerCost": 50.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 2,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell19default",
+      "ParentId": "default",
+      "IdKey": 19,
+      "Name": "Identify Item",
+      "Desc": "Find out the stats an item has.",
+      "PowerCost": 10.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 3,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 4,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell20default",
+      "ParentId": "default",
+      "IdKey": 20,
+      "Name": "Blink",
+      "Desc": "Jump forward 1-9 squares if you are not impeded by anything.",
+      "PowerCost": 10.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 5,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 5,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell21default",
+      "ParentId": "default",
+      "IdKey": 21,
+      "Name": "Teleport",
+      "Desc": "Move to a different location in the current map.",
+      "PowerCost": 25.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 8,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 6,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell23default",
+      "ParentId": "default",
+      "IdKey": 23,
+      "Name": "Silence",
+      "Desc": "Prevent a group from casting spells.",
+      "PowerCost": 15.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 3,
+      "Level": 13,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 10,
+          "MinQuantity": 1,
+          "MaxQuantity": 2,
+          "ElementTypeId": 6
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell24default",
+      "ParentId": "default",
+      "IdKey": 24,
+      "Name": "Entangle",
+      "Desc": "Prevent a group from use melee attacks.",
+      "PowerCost": 15.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 3,
+      "Level": 5,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 11,
+          "MinQuantity": 2,
+          "MaxQuantity": 3,
+          "ElementTypeId": 8
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell27default",
+      "ParentId": "default",
+      "IdKey": 27,
+      "Name": "Fireball",
+      "Desc": "Hit one or more monsters in a group with fire damage.",
+      "PowerCost": 5.0,
+      "PowerPerLevel": 0.5,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 1,
+      "Level": 7,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 24,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell28default",
+      "ParentId": "default",
+      "IdKey": 28,
+      "Name": "Flamestrike",
+      "Desc": "Hit all monsters in a group with fire damage.",
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 3,
+      "Level": 14,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 6,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell29default",
+      "ParentId": "default",
+      "IdKey": 29,
+      "Name": "Frostbolt",
+      "Desc": "Hit one or more monsters in a group with cold damage.",
+      "PowerCost": 4.0,
+      "PowerPerLevel": 0.5,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 1,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 18,
+          "ElementTypeId": 3
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell30default",
+      "ParentId": "default",
+      "IdKey": 30,
+      "Name": "Cone of Cold",
+      "Desc": "Hit all monsters in a group with cold damage.",
+      "PowerCost": 8.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 3,
+      "Level": 5,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 3,
+          "ElementTypeId": 3
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell31default",
+      "ParentId": "default",
+      "IdKey": 31,
+      "Name": "Lightning Bolt",
+      "Desc": "Hit one or more monsters with electric damage.",
+      "PowerCost": 6.0,
+      "PowerPerLevel": 0.5,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 1,
+      "Level": 3,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 12,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell32default",
+      "ParentId": "default",
+      "IdKey": 32,
+      "Name": "Chain Lightning",
+      "Desc": "Hit all monsters in a group with electric damage.",
+      "PowerCost": 12.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 3,
+      "Level": 11,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 4,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell33default",
+      "ParentId": "default",
+      "IdKey": 33,
+      "Name": "Weaken",
+      "Desc": "Reduce the melee damage of a group of foes.",
+      "PowerCost": 5.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 3,
+      "Level": 6,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 17,
+          "MinQuantity": 100,
+          "MaxQuantity": 100,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell37default",
+      "ParentId": "default",
+      "IdKey": 37,
+      "Name": "Whirlwind",
+      "Desc": "Hit one or more monsters in all groups within melee range.",
+      "MaxRange": 10,
+      "ReplacesCrawlerSpellId": 1,
+      "CombatActionId": 1,
+      "TargetTypeId": 10,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 38,
+          "EntityId": 1,
+          "ElementTypeId": 1
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell39default",
+      "ParentId": "default",
+      "IdKey": 39,
+      "Name": "Volley",
+      "Desc": "Hit one or more monsters in all groups with ranged damage.",
+      "MinRange": 20,
+      "MaxRange": 100,
+      "ReplacesCrawlerSpellId": 3,
+      "CombatActionId": 3,
+      "TargetTypeId": 10,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 39,
+          "EntityId": 2,
+          "ElementTypeId": 1
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell40default",
+      "ParentId": "default",
+      "IdKey": 40,
+      "Name": "UNUSED",
+      "MaxRange": 100,
+      "ReplacesCrawlerSpellId": 12,
+      "CombatActionId": 4,
+      "TargetTypeId": 5,
+      "Level": 18,
+      "Effects": [],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell41default",
+      "ParentId": "default",
+      "IdKey": 41,
+      "Name": "Call Beast",
+      "Desc": "Summon a beast.",
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 73,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 8
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell42default",
+      "ParentId": "default",
+      "IdKey": 42,
+      "Name": "Conjure Golem",
+      "Desc": "Summon a golem.",
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 118,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 8
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell43default",
+      "ParentId": "default",
+      "IdKey": 43,
+      "Name": "Summon Elemental",
+      "Desc": "Summon an elemental.",
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 4,
+          "EntityId": 70,
+          "MinQuantity": 1,
+          "MaxQuantity": 1,
+          "ElementTypeId": 8
+        }
+      ],
+      "Flags": 2,
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell44default",
+      "ParentId": "default",
+      "IdKey": 44,
+      "Name": "UNUSED",
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 8,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 6,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell45default",
+      "ParentId": "default",
+      "IdKey": 45,
+      "Name": "Charm",
+      "Desc": "Convince a monster to join your side.",
+      "PowerCost": 25.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 3,
+      "Level": 9,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 4,
+          "MinQuantity": 1,
+          "MaxQuantity": 2,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell46default",
+      "ParentId": "default",
+      "IdKey": 46,
+      "Name": "Pick Lock",
+      "Desc": "Open a locked door or chest.",
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 9,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 4,
+          "MinQuantity": 1,
+          "MaxQuantity": 2,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell47default",
+      "ParentId": "default",
+      "IdKey": 47,
+      "Name": "Disarm Traps",
+      "Desc": "Disarm any traps nearby.",
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 9,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 4,
+          "MinQuantity": 1,
+          "MaxQuantity": 2,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell48default",
+      "ParentId": "default",
+      "IdKey": 48,
+      "Name": "Charge",
+      "Desc": "Passive buff to move the party forward more when advancing.",
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 3,
+      "Level": 9,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "EntityId": 4,
+          "MinQuantity": 1,
+          "MaxQuantity": 2,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell49default",
+      "ParentId": "default",
+      "IdKey": 49,
+      "Name": "Holy Storm",
+      "Desc": "Hit all monsters with holy damage.",
+      "PowerCost": 12.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 4,
+      "Level": 14,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 2,
+          "ElementTypeId": 7
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell50default",
+      "ParentId": "default",
+      "IdKey": 50,
+      "Name": "Firestorm",
+      "Desc": "Hit all monsters with fire damage.",
+      "PowerCost": 15.0,
+      "PowerPerLevel": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 4,
+      "Level": 14,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 6,
+          "ElementTypeId": 2
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell51default",
+      "ParentId": "default",
+      "IdKey": 51,
+      "Name": "Lightning Storm",
+      "Desc": "Hit all monsters with electric damage.",
+      "PowerCost": 18.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 4,
+      "Level": 11,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 4,
+          "ElementTypeId": 4
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell52default",
+      "ParentId": "default",
+      "IdKey": 52,
+      "Name": "Blizzard",
+      "Desc": "Hit all monsters with cold damage.",
+      "PowerCost": 12.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 4,
+      "Level": 5,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 3,
+          "ElementTypeId": 3
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell53default",
+      "ParentId": "default",
+      "IdKey": 53,
+      "Name": "Cure Party",
+      "Desc": "Cure all party members",
+      "PowerCost": 15.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 5,
+      "Level": 5,
+      "Effects": [
+        {
+          "EntityTypeId": 36,
+          "MinQuantity": -1,
+          "MaxQuantity": -1,
+          "ElementTypeId": 7
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell58default",
+      "ParentId": "default",
+      "IdKey": 58,
+      "Name": "Set Beacon",
+      "Desc": "Set a teleport location (per player)",
+      "PowerCost": 1.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 8,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 9,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell59default",
+      "ParentId": "default",
+      "IdKey": 59,
+      "Name": "Return to Beacon",
+      "Desc": "Return to the player's teleport location.",
+      "PowerCost": 20.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 8,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 10,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell60default",
+      "ParentId": "default",
+      "IdKey": 60,
+      "Name": "Sense Area",
+      "Desc": "Determine if any traps or interesting things are nearby.",
+      "PowerCost": 2.0,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 8,
+      "Level": 8,
+      "Effects": [
+        {
+          "EntityTypeId": 37,
+          "EntityId": 8,
+          "ElementTypeId": 9
+        }
+      ],
+      "UpdateTime": "2024-08-31T18:58:09.831Z"
+    },
+    {
+      "Id": "crawlerspell10016default",
+      "ParentId": "default",
+      "IdKey": 10016,
+      "Name": "Enhance Luck",
+      "PowerCost": 3.0,
+      "PowerPerLevel": 0.25,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 16,
+          "MinQuantity": 1,
+          "MaxQuantity": 1
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "crawlerspell10020default",
+      "ParentId": "default",
+      "IdKey": 10020,
+      "Name": "Enhance DamagePower",
+      "PowerCost": 3.0,
+      "PowerPerLevel": 0.25,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 20,
+          "MinQuantity": 1,
+          "MaxQuantity": 1
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "crawlerspell10031default",
+      "ParentId": "default",
+      "IdKey": 10031,
+      "Name": "Enhance Armor",
+      "PowerCost": 3.0,
+      "PowerPerLevel": 0.25,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 31,
+          "MinQuantity": 1,
+          "MaxQuantity": 1
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "crawlerspell10032default",
+      "ParentId": "default",
+      "IdKey": 10032,
+      "Name": "Enhance Resist",
+      "PowerCost": 3.0,
+      "PowerPerLevel": 0.25,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 32,
+          "MinQuantity": 1,
+          "MaxQuantity": 1
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "crawlerspell10033default",
+      "ParentId": "default",
+      "IdKey": 10033,
+      "Name": "Enhance HealthRegen",
+      "PowerCost": 3.0,
+      "PowerPerLevel": 0.25,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33,
+          "MinQuantity": 1,
+          "MaxQuantity": 1
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "crawlerspell10034default",
+      "ParentId": "default",
+      "IdKey": 10034,
+      "Name": "Enhance ManaRegen",
+      "PowerCost": 3.0,
+      "PowerPerLevel": 0.25,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 34,
+          "MinQuantity": 1,
+          "MaxQuantity": 1
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "crawlerspell10063default",
+      "ParentId": "default",
+      "IdKey": 10063,
+      "Name": "Enhance Speed",
+      "PowerCost": 3.0,
+      "PowerPerLevel": 0.25,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63,
+          "MinQuantity": 1,
+          "MaxQuantity": 1
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "crawlerspell10070default",
+      "ParentId": "default",
+      "IdKey": 10070,
+      "Name": "Enhance Hit",
+      "PowerCost": 3.0,
+      "PowerPerLevel": 0.25,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 70,
+          "MinQuantity": 1,
+          "MaxQuantity": 1
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "crawlerspell10071default",
+      "ParentId": "default",
+      "IdKey": 10071,
+      "Name": "Enhance Leadership",
+      "PowerCost": 3.0,
+      "PowerPerLevel": 0.25,
+      "MaxRange": 100,
+      "CombatActionId": 4,
+      "TargetTypeId": 9,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 31,
+          "EntityId": 71,
+          "MinQuantity": 1,
+          "MaxQuantity": 1
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "StatBuffPowerCost": 3.0,
+    "StatBuffPowerPerLevel": 0.25,
+    "Name": "CrawlerSpellSettings",
+    "UpdateTime": "2024-09-14T16:08:22.823Z"
+  },
+  "Id": "default"
+}

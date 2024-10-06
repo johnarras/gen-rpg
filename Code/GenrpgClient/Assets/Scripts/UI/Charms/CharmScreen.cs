@@ -1,9 +1,9 @@
 ﻿
 using Genrpg.Shared.Charms.PlayerData;
+using Genrpg.Shared.Client.Assets.Constants;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.UI.Charms
 {
@@ -11,10 +11,10 @@ namespace Assets.Scripts.UI.Charms
     public class CharmScreen : BaseScreen
     {
         const string CharmRowPrefabName = "CharmRow";
-        public GEntity RowParent;
+        public GameObject RowParent;
 
 
-        protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+        protected override async Task OnStartOpen(object data, CancellationToken token)
         {
             PlayerCharmData charmData = _gs.ch.Get<PlayerCharmData>();
 
@@ -28,7 +28,7 @@ namespace Assets.Scripts.UI.Charms
 
         private void OnLoadStatusRow (object obj, object data, CancellationToken token)
         {
-            GEntity go = obj as GEntity;
+            GameObject go = obj as GameObject;
 
             if (go == null)
             {
@@ -38,7 +38,7 @@ namespace Assets.Scripts.UI.Charms
             CharmRow row = go.GetComponent<CharmRow>();
             if (row == null)
             {
-                GEntityUtils.Destroy(go);
+                _gameObjectService.Destroy(go);
                 return;
             }
 

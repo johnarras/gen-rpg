@@ -1,14 +1,14 @@
 ﻿
 using System.Globalization;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 public class MoneySegment : BaseBehaviour
 {
-    public GEntity Parent;
+    public GameObject Parent;
     public GText QuantityText;
     public GImage Icon;
 
-    public GEntity GetParent()
+    public GameObject GetParent()
     {
         return Parent;
     }
@@ -26,6 +26,6 @@ public class MoneySegment : BaseBehaviour
     public void SetQuantityText(string txt)
     {
         _txt = txt;
-        _uIInitializable?.SetText(QuantityText, txt);
+        _uiService?.SetText(QuantityText, txt);
     }
 }

@@ -7,6 +7,7 @@ using Genrpg.Shared.Core.Entities;
 
 using UnityEditor;
 using Genrpg.Shared.Constants;
+using Genrpg.Shared.Client.Core;
 
 namespace GameAssets.Editor
 {
@@ -28,7 +29,7 @@ namespace GameAssets.Editor
 
         static void ExecuteEnv (string env)
         {
-           IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+           IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
             
             SetupBundles.SetupAll(gs);
 			CreateAssetBundle.BuildAssetBundles(gs);

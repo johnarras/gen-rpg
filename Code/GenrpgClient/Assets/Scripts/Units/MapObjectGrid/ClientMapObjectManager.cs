@@ -1,30 +1,26 @@
 ﻿
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Characters.PlayerData;
 using System;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Interfaces;
-using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapObjects.Factories;
-using Assets.Scripts.Tokens;
 using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
 using System.Threading.Tasks;
-using UnityEngine;
-using Assets.Scripts.ProcGen.RandomNumbers;
-using NUnit.Framework.Constraints;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Movement.Messages;
-using Genrpg.Shared.MapServer.Constants;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Client.Tokens;
+using Assets.Scripts.GameObjects;
 
 public interface IClientMapObjectManager : IInitializable, IMapTokenService
 {
@@ -38,9 +34,9 @@ public interface IClientMapObjectManager : IInitializable, IMapTokenService
     void Reset();
     List<T> GetTypedObjectsNear<T>(float x, float z, float radius) where T : MapObject;
     void RemoveObject(string objId);
-    ClientMapObjectGridItem AddObject(MapObject obj, GEntity go);
-    GEntity GetFXParent();
-    void AddController(ClientMapObjectGridItem gridItem, GEntity go);
+    ClientMapObjectGridItem AddObject(MapObject obj, GameObject go);
+    GameObject GetFXParent();
+    void AddController(ClientMapObjectGridItem gridItem, GameObject go);
     void OnServerAddtoGrid(OnAddToGrid onAddToGrid);
 }
 
@@ -51,6 +47,10 @@ public class ClientMapObjectManager : IClientMapObjectManager
     protected IClientRandom _rand;
     protected IMapProvider _mapProvider;
     private ILogService _logService;
+    private ISingletonContainer _singletonContainer;
+    protected IClientEntityService _gameObjectService;
+
+    private const string FXParentName = "FXParent";
 
 
     private List<UnitController> _controllers = new List<UnitController>();
@@ -60,20 +60,20 @@ public class ClientMapObjectManager : IClientMapObjectManager
     private Dictionary<string, ClientMapObjectGridItem> _gridItems = new Dictionary<string, ClientMapObjectGridItem>();
 
 
-    protected IUnityUpdateService _updateService;
+    protected IClientUpdateService _updateService;
     protected List<string> _olderSpawns = new List<string>();
     protected List<string> _recentlyLoadedSpawns = new List<string>();
     List<UnitController> _removeUnitList = new List<UnitController>();
     List<ClientMapObjectGridItem> _removeGridItems = new List<ClientMapObjectGridItem>();
     private SetupDictionaryContainer<long, IMapObjectLoader> _mapObjectLoaders = new SetupDictionaryContainer<long, IMapObjectLoader>();
 
-    protected IUnityGameState _gs;
+    protected IClientGameState _gs;
 
-    public GEntity _fxParent;
+    public GameObject _fxParent;
 
     public ClientMapObjectManager(CancellationToken token)
     {
-        AwaitableUtils.ForgetAwaitable(UpdateRecentlyLoadedSpawns(token));
+        TaskUtils.ForgetAwaitable(UpdateRecentlyLoadedSpawns(token));
     }
 
     public void Reset()
@@ -84,10 +84,10 @@ public class ClientMapObjectManager : IClientMapObjectManager
         _olderSpawns = new List<string>();
         _recentlyLoadedSpawns = new List<string>();
         _removeUnitList = new List<UnitController>();
-        GEntityUtils.DestroyAllChildren(_fxParent);
+        _gameObjectService.DestroyAllChildren(_fxParent);
     }
 
-    public GEntity GetFXParent()
+    public GameObject GetFXParent()
     {
         return _fxParent;
     }
@@ -110,12 +110,12 @@ public class ClientMapObjectManager : IClientMapObjectManager
         
         if (!_didAddUpdate)
         {
-            _updateService.AddTokenUpdate(this, FrameUpdate, UpdateType.Regular);
+            _updateService.AddTokenUpdate(this, FrameUpdate, UpdateType.Regular, token);
             _didAddUpdate = true;
         }
         if (Application.isPlaying)
         {
-            _fxParent = GEntityUtils.FindSingleton("FXParent", true);
+            _fxParent = _singletonContainer.GetSingleton("FXParent");
         }
 
         await Task.CompletedTask;
@@ -198,11 +198,11 @@ public class ClientMapObjectManager : IClientMapObjectManager
     protected void FrameUpdate(CancellationToken token)
     {
         _removeUnitList.Clear();
-        if (_playerManager.GetEntity() == null)
+        if (_playerManager.GetPlayerGameObject() == null)
         {        
             return;
         }
-        GVector3 playerPos = GVector3.Create(_playerManager.GetEntity().transform().position);
+        Vector3 playerPos = _playerManager.GetPlayerGameObject().transform.position;
         foreach (UnitController controller in _controllers)
         {
             if (controller != null)
@@ -214,7 +214,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
                 }
                 else
                 {
-                    GVector3 pos = GVector3.Create(controller.transform().position);
+                    Vector3 pos = controller.transform.position;
                     if (Math.Abs(pos.x - playerPos.x) >= MessageConstants.DefaultGridDistance * 3/2 ||
                         Math.Abs(pos.z - playerPos.z) >= MessageConstants.DefaultGridDistance * 3/2)
                     {
@@ -241,7 +241,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
         return gridItem != null;
     }
 
-    public void AddController(ClientMapObjectGridItem gridItem, GEntity go)
+    public void AddController(ClientMapObjectGridItem gridItem, GameObject go)
     {
         if (!TokenUtils.IsValid(_token))
         {
@@ -254,7 +254,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
         }
     }
 
-    public ClientMapObjectGridItem AddObject(MapObject obj, GEntity go)
+    public ClientMapObjectGridItem AddObject(MapObject obj, GameObject go)
     {
         if (!TokenUtils.IsValid(_token))
         {
@@ -305,15 +305,15 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
         if (gridItem.GameObj != null)
         {
-            _updateService.AddDelayedUpdate(gridItem.GameObj, (_token) => { FadeOutObject(gridItem.GameObj); }, _token, 1.5f);
+            _updateService.AddDelayedUpdate(this, (_token) => { FadeOutObject(gridItem.GameObj); }, 1.5f, _token);
         }
 
         return;
     }
 
-    protected void FadeOutObject(GEntity go)
+    protected void FadeOutObject(GameObject go)
     {
-        GEntityUtils.Destroy(go);
+        _gameObjectService.Destroy(go);
     }
 
     public bool GetController (string unitId, out UnitController controller)

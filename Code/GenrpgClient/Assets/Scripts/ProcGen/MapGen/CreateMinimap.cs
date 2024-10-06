@@ -1,31 +1,32 @@
 
 using System;
 using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 using Genrpg.Shared.Constants;
-using ClientEvents;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapServer.Entities;
 
 using System.Threading;
 using Assets.Scripts.MapTerrain;
-using UnityEngine; // Needed
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class CreateMinimap : BaseZoneGenerator
 {
     public const int TexSize = 4096;
     public const string CreateMinimapCamera = "CreateMinimapCamera";
-    private static GEntity minimapCamera = null;
+    private GameObject minimapCamera = null;
 
+    private IZoneStateController _zoneStateController;
+    private IBinaryFileRepository _binaryFileRepository;
     
     public override async Awaitable Generate (CancellationToken token)
 	{
 
         await base.Generate(token);
-        GEntityUtils.Destroy(minimapCamera);
+        _gameObjectService.Destroy(minimapCamera);
 
-        minimapCamera = new GEntity();
+        minimapCamera = new GameObject();
         minimapCamera.name = "CreateMinimapCamera";
         minimapCamera.AddComponent<Camera>();
 
@@ -57,59 +58,32 @@ public class CreateMinimap : BaseZoneGenerator
 
         cam.orthographic = true;
         cam.orthographicSize = zoneMapSize / 2;
-        cam.transform().position = GVector3.Create(zoneMapSize / 2, MapConstants.MapHeight*2, zoneMapSize / 2);
-        cam.transform().LookAt(GVector3.Create(zoneMapSize / 2, 0, zoneMapSize / 2));
+        cam.transform.position = new Vector3(zoneMapSize / 2, MapConstants.MapHeight*2, zoneMapSize / 2);
+        cam.transform.LookAt(new Vector3(zoneMapSize / 2, 0, zoneMapSize / 2));
         cam.clearFlags = CameraClearFlags.Skybox;
         cam.renderingPath = RenderingPath.DeferredShading;
         cam.cullingMask = -1;
 
-        Color ambientColor = RenderSettings.ambientSkyColor;
+        UnityEngine.Color ambientColor = RenderSettings.ambientSkyColor;
         float ambientScale = 0.6f;
-        RenderSettings.ambientLight = GColor.Create(ambientScale, ambientScale, ambientScale, 1);
+        RenderSettings.ambientLight = new Color(ambientScale, ambientScale, ambientScale, 1);
 
         List<string> sunNames = new List<String>() { "Sun", "Sunlight" };
 
-        GEntity sun = null;
 
-        foreach (string nm in sunNames)
-        {
-            if (sun != null)
-            {
-                break;
-            }
-
-            sun = GEntityUtils.FindSingleton(nm);
-            if (sun != null)
-            {
-                break;
-            }
-
-            sun = GEntityUtils.FindSingleton(nm.ToLower());
-            if (sun != null)
-            {
-                break;
-            }
-        }
-
-
-        Light light = null;
-        if (sun != null)
-        {
-            light = sun.GetComponent<Light>();
-        }
-
+        Light light = _zoneStateController.GetSun();
 
         float lightIntensity = 1.0f;
-        Color sunColor = GColor.white;
-        GVector3 oldAngles = new GVector3(90, 0, 0);
+        UnityEngine.Color sunColor = Color.white;
+        Vector3 oldAngles = new Vector3(90, 0, 0);
         if (light != null)
         {
             lightIntensity = light.intensity;
             light.intensity = 0.9f;
             sunColor = light.color;
-            light.color = GColor.Create(1.0f, 0.95f, 0.9f);
-            oldAngles = GVector3.Create(light.transform().localEulerAngles);
-            light.transform().localEulerAngles = GVector3.Create(80, 0, 0);
+            light.color = new Color(1.0f, 0.95f, 0.9f);
+            oldAngles = light.transform.localEulerAngles;
+            light.transform.localEulerAngles = new Vector3(80, 0, 0);
         }
 
         float waterRed = 0.5f;
@@ -150,7 +124,7 @@ public class CreateMinimap : BaseZoneGenerator
             terr.heightmapMaximumLOD = 0;
         }
 
-        GEntity waterRoot = new GEntity();
+        GameObject waterRoot = new GameObject();
         waterRoot.name = "WaterRoot";
         TerrainPatchData patch = _terrainManager.GetTerrainPatch(0, 0);
         await Awaitable.NextFrameAsync(cancellationToken: token);
@@ -198,12 +172,12 @@ public class CreateMinimap : BaseZoneGenerator
             }
         }
 
-        GEntity fullMapWater = await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, MapConstants.FullMinimapWaterName, null, token);
+        GameObject fullMapWater = (GameObject)(await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, MapConstants.FullMinimapWaterName, null, token));
 
-        GEntityUtils.AddToParent(fullMapWater, waterRoot);
+        _gameObjectService.AddToParent(fullMapWater, waterRoot);
 
-        fullMapWater.transform().position = GVector3.Create(_mapProvider.GetMap().GetHwid() / 2, MapConstants.OceanHeight, _mapProvider.GetMap().GetHhgt()/2);
-        fullMapWater.transform().localScale = GVector3.Create(1000000, 1, 1000000);
+        fullMapWater.transform.position = new Vector3(_mapProvider.GetMap().GetHwid() / 2, MapConstants.OceanHeight, _mapProvider.GetMap().GetHhgt()/2);
+        fullMapWater.transform.localScale = new Vector3(1000000, 1, 1000000);
 
         await Awaitable.WaitForSecondsAsync(0.05f * waterObjectCount, cancellationToken: token);
 
@@ -220,7 +194,7 @@ public class CreateMinimap : BaseZoneGenerator
 
         await Awaitable.NextFrameAsync(cancellationToken: token);
 
-        Color[] pixels = tex.GetPixels();
+        UnityEngine.Color[] pixels = tex.GetPixels();
 
         bool[,] bluePixels = new bool[TexSize, TexSize];
 
@@ -230,7 +204,7 @@ public class CreateMinimap : BaseZoneGenerator
         {
             for (int y = 0; y < TexSize; y++)
             {
-                Color pix = pixels[GetIndex(x, y)];
+                UnityEngine.Color pix = pixels[GetIndex(x, y)];
                 if (pix.r < colorDelta &&
                     pix.g < colorDelta &&
                     pix.b > 1 - colorDelta)
@@ -298,12 +272,12 @@ public class CreateMinimap : BaseZoneGenerator
                     newColor[1] = (startVal * waterGreen) * (1 + distPct * lossPct);
                     newColor[2] = (startVal * waterBlue) * (1 + distPct * lossPct);
 
-                    pixels[GetIndex(x,y)] = GColor.Create(newColor[0], newColor[1], newColor[2]);
+                    pixels[GetIndex(x,y)] = new Color(newColor[0], newColor[1], newColor[2]);
                 }
                 else
                 {
                     // move toward target tint.
-                    Color pcolor = pixels[GetIndex(x, y)];
+                    UnityEngine.Color pcolor = pixels[GetIndex(x, y)];
                     newColor[0] = pcolor.r;
                     newColor[1] = pcolor.g;
                     newColor[2] = pcolor.b;
@@ -311,14 +285,14 @@ public class CreateMinimap : BaseZoneGenerator
                     { 
                         newColor[i] = (1 - tintPct) * newColor[i] + tintPct * tint[i];
                     }
-                    pixels[GetIndex(x, y)] = GColor.Create(newColor[0], newColor[1], newColor[2]);
+                    pixels[GetIndex(x, y)] = new Color(newColor[0], newColor[1], newColor[2]);
                 }
             }
         }
 
 
         float smoothDivisor = 12.2f;
-        Color[] smoothingPixels = new Color[pixels.Length];
+        UnityEngine.Color[] smoothingPixels = new UnityEngine.Color[pixels.Length];
         Array.Copy(pixels, smoothingPixels, pixels.Length);
         double[] totals = new double[3];
         for (int x = 0; x < TexSize; x++)
@@ -345,7 +319,7 @@ public class CreateMinimap : BaseZoneGenerator
                         }
                         float dy = Math.Abs(y - yy);
                         float scaleFactor = 1.0f / (1 + smoothDivisor*(dx + dy + dx * dy));
-                        Color pix = smoothingPixels[GetIndex(xx, yy)];
+                        UnityEngine.Color pix = smoothingPixels[GetIndex(xx, yy)];
 
                         totals[0] += pix.r * scaleFactor;
                         totals[1] += pix.g * scaleFactor;
@@ -360,7 +334,7 @@ public class CreateMinimap : BaseZoneGenerator
                     totals[i] = Math.Max(0, contrast * (totals[i] - 0.5f) + 0.5f + bright);
                 }
 
-                pixels[GetIndex(x, y)] = GColor.Create((float)totals[0], (float)totals[1], (float)totals[2]);
+                pixels[GetIndex(x, y)] = new Color((float)totals[0], (float)totals[1], (float)totals[2]);
             }
         }
 
@@ -371,7 +345,7 @@ public class CreateMinimap : BaseZoneGenerator
 
         int blackBorderWidth = 2;
 
-        Color waterColor = GColor.Create(waterRed, waterGreen, waterBlue);
+        UnityEngine.Color waterColor = new Color(waterRed, waterGreen, waterBlue);
 
         float shiftScale = (MapConstants.TerrainPatchSize - 1) * 1.0f / (MapConstants.TerrainPatchSize - 0);
         float darkenStartPercent = 0.30f;
@@ -396,7 +370,7 @@ public class CreateMinimap : BaseZoneGenerator
                         belowMinLandDist = 0.90f;
                     }
 
-                    Color color = waterColor * belowMinLandDist + Color.white * (1 - belowMinLandDist) * 0.9f;
+                    UnityEngine.Color color = waterColor * belowMinLandDist + UnityEngine.Color.white * (1 - belowMinLandDist) * 0.9f;
 
 
 
@@ -422,8 +396,8 @@ public class CreateMinimap : BaseZoneGenerator
 
         cam.targetTexture = null;
         RenderTexture.active = null;
-        GEntityUtils.Destroy(rt);        
-        GEntityUtils.Destroy(minimapCamera);
+        _gameObjectService.Destroy(rt);        
+        _gameObjectService.Destroy(minimapCamera);
         minimapCamera = null;
 
         RenderSettings.ambientSkyColor= ambientColor;
@@ -433,7 +407,7 @@ public class CreateMinimap : BaseZoneGenerator
         {
             light.intensity = lightIntensity;
             light.color = sunColor;
-            light.transform().localEulerAngles = GVector3.Create(oldAngles);
+            light.transform.localEulerAngles = oldAngles;
         }
 
         foreach (Terrain terr in terrains)
@@ -446,13 +420,12 @@ public class CreateMinimap : BaseZoneGenerator
 
         tex.SetPixels(pixels);
 
-        BinaryFileRepository repo = new BinaryFileRepository(_logService);
         string filename = MapUtils.GetMapObjectFilename(MapConstants.MapFilename, _mapProvider.GetMap().Id, _mapProvider.GetMap().MapVersion);
-        repo.SaveBytes(filename, tex.EncodeToJPG(100));
+        _binaryFileRepository.SaveBytes(filename, tex.EncodeToJPG(100));
 
 
 
-        string localPath = repo.GetPath(filename);
+        string localPath = _binaryFileRepository.GetPath(filename);
         string remotePath = filename;
         FileUploadData fdata = new FileUploadData();
         fdata.GamePrefix = Game.Prefix;
@@ -463,7 +436,7 @@ public class CreateMinimap : BaseZoneGenerator
 
         FileUploader.UploadFile(fdata);
 
-        GEntityUtils.DestroyAllChildren(waterRoot);
+        _gameObjectService.DestroyAllChildren(waterRoot);
 
         FileUploadData uploadData = new FileUploadData();
 

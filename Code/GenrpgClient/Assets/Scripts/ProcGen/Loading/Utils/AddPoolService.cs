@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.GameSettings;
+﻿using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.ProcGen.Settings.MapWater;
@@ -21,7 +22,7 @@ namespace Assets.Scripts.ProcGen.Loading.Utils
     {
         private IGameData _gameData = null;
         protected IMapProvider _mapProvider;
-        protected IUnityGameState _gs;
+        protected IClientGameState _gs;
         protected IMapGenData _md;
         protected List<TreeType> waterPlants = null;
 

@@ -2,13 +2,15 @@
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.MapObjects.Entities;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using System.Threading;
 using Genrpg.Shared.MapObjects.Messages;
 using Assets.Scripts.MapTerrain;
-using UnityEngine;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Client.Assets;
+using Genrpg.Shared.Client.Assets.Services;
 
 /// <summary>
 /// Base class for object loaders
@@ -28,10 +30,10 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
     protected IClientMapObjectManager _objectManager;
     protected IGameData _gameData;
     protected IMapProvider _mapProvider;
-    protected IUnityGameState _gs;
-    protected IGameObjectService _gameObjectService;
+    protected IClientGameState _gs;
+    protected IClientEntityService _gameObjectService;
 
-    public void FinalPlaceObject(GEntity go, SpawnLoadData data, string layerName)
+    public void FinalPlaceObject(GameObject go, SpawnLoadData data, string layerName)
     {
         if (go == null)
         {
@@ -47,15 +49,15 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
         Terrain terrain = patchData.terrain as Terrain;
         if (terrain != null)
         {
-            GEntityUtils.AddToParent(go, terrain.entity());
+            _gameObjectService.AddToParent(go, terrain.gameObject);
         }
         else
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
-        GEntityUtils.SetLayer(go, LayerUtils.NameToLayer(layerName));
+        _gameObjectService.SetLayer(go, LayerUtils.NameToLayer(layerName));
 
         long placementSeed = (long)(data.Spawn.X * 131 + data.Spawn.Z * 517);
 
@@ -70,12 +72,12 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
 
         float height = _terrainManager.SampleHeight(nx, nz);
        
-        go.transform().position = GVector3.Create(nx, height, nz);
-        go.transform().eulerAngles = GVector3.Create(0, data.Spawn.Rot, 0);
+        go.transform.position = new Vector3(nx, height, nz);
+        go.transform.eulerAngles = new Vector3(0, data.Spawn.Rot, 0);
 
         if (data.Obj is Character ch)
         {
-            go.transform().position += GVector3.Create(0, 2, 0);
+            go.transform.position += new Vector3(0, 2, 0);
         }
 
         _objectManager.AddObject(data.Obj, go);

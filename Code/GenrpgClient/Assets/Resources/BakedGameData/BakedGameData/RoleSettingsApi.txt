@@ -1,0 +1,1574 @@
+{
+  "Data": [
+    {
+      "Id": "role1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Engineer",
+      "Desc": "Hybrid ",
+      "Abbrev": "En",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.25,
+      "RangedScaling": 0.34,
+      "SpellDamScaling": 0.25,
+      "HealingScaling": 0.2,
+      "SummonScaling": 0.25,
+      "HealthPerLevel": 18,
+      "ManaPerLevel": 14,
+      "MaxArmorScalingTypeId": 3,
+      "CritPercent": 5,
+      "ManaStatTypeId": 12,
+      "Guardian": true,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 25
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 26
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 70
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 7
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 18
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 19
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 39
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 58
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 59
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10020
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10070
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Cleric",
+      "Desc": "Healing",
+      "Abbrev": "Cl",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.144,
+      "RangedScaling": 0.1,
+      "SpellDamScaling": 0.34,
+      "HealingScaling": 0.5,
+      "SummonScaling": 0.144,
+      "HealthPerLevel": 14,
+      "ManaPerLevel": 22,
+      "MaxArmorScalingTypeId": 1,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 16
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 9
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 16
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 45
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10016
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10031
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Mage",
+      "Desc": "Spell Damage",
+      "Abbrev": "Ma",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.125,
+      "RangedScaling": 0.1,
+      "SpellDamScaling": 0.5,
+      "HealingScaling": 0.2,
+      "SummonScaling": 0.25,
+      "HealthPerLevel": 12,
+      "ManaPerLevel": 22,
+      "MaxArmorScalingTypeId": 1,
+      "CritPercent": 10,
+      "ManaStatTypeId": 12,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 34
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 18
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 19
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 42
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 47
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 50
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 52
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 58
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 59
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 60
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 4
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 5
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10032
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10034
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Warrior",
+      "Desc": "Tough Fighter",
+      "Abbrev": "Wa",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.34,
+      "RangedScaling": 0.17,
+      "SpellDamScaling": 0.144,
+      "HealingScaling": 0.125,
+      "SummonScaling": 0.125,
+      "HealthPerLevel": 22,
+      "ManaPerLevel": 10,
+      "MaxArmorScalingTypeId": 4,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "Guardian": true,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 22
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 25
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 26
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 70
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 71
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10031
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10063
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10070
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10071
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Thief",
+      "Desc": "Sneaky Fighter",
+      "Abbrev": "Th",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.2,
+      "RangedScaling": 0.2,
+      "SpellDamScaling": 0.17,
+      "HealingScaling": 0.125,
+      "SummonScaling": 0.125,
+      "HealthPerLevel": 16,
+      "ManaPerLevel": 10,
+      "MaxArmorScalingTypeId": 2,
+      "CritPercent": 20,
+      "ManaStatTypeId": 12,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 22
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 16
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 4
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 5
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 18
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 19
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 46
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 47
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 60
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10016
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10020
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10063
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Hunter",
+      "Desc": "Ranged Combat",
+      "Abbrev": "Hu",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.17,
+      "RangedScaling": 0.5,
+      "SpellDamScaling": 0.17,
+      "HealingScaling": 0.125,
+      "SummonScaling": 0.34,
+      "HealthPerLevel": 18,
+      "ManaPerLevel": 14,
+      "MaxArmorScalingTypeId": 3,
+      "CritPercent": 15,
+      "ManaStatTypeId": 12,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 22
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 25
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 26
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 70
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 7
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 39
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 41
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 60
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 5
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10020
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10070
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Bard",
+      "Desc": "Hybrid Spell",
+      "Abbrev": "Bd",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.2,
+      "RangedScaling": 0.2,
+      "SpellDamScaling": 0.2,
+      "HealingScaling": 0.25,
+      "SummonScaling": 0.2,
+      "HealthPerLevel": 16,
+      "ManaPerLevel": 16,
+      "MaxArmorScalingTypeId": 2,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 22
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 16
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 71
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 4
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 5
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 39
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 45
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 46
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 4
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 5
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10016
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10031
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10071
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Druid",
+      "Desc": "Full Hybrid",
+      "Abbrev": "Dr",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.2,
+      "RangedScaling": 0.17,
+      "SpellDamScaling": 0.25,
+      "HealingScaling": 0.34,
+      "SummonScaling": 0.2,
+      "HealthPerLevel": 18,
+      "ManaPerLevel": 18,
+      "MaxArmorScalingTypeId": 2,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "Guardian": true,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 34
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 4
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 5
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 18
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 58
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 59
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 60
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 4
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 5
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10032
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10034
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10063
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Barbarian",
+      "Desc": "Big Melee Dam",
+      "Abbrev": "Bb",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.5,
+      "RangedScaling": 0.25,
+      "SpellDamScaling": 0.125,
+      "HealingScaling": 0.1,
+      "SummonScaling": 0.25,
+      "HealthPerLevel": 18,
+      "ManaPerLevel": 8,
+      "MaxArmorScalingTypeId": 2,
+      "CritPercent": 15,
+      "ManaStatTypeId": 12,
+      "Guardian": true,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 22
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 25
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 26
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 20
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 70
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 48
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10020
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10063
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10070
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Paladin",
+      "Desc": "Tanky Heals",
+      "Abbrev": "Pa",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.34,
+      "RangedScaling": 0.17,
+      "SpellDamScaling": 0.25,
+      "HealingScaling": 0.34,
+      "SummonScaling": 0.17,
+      "HealthPerLevel": 20,
+      "ManaPerLevel": 18,
+      "MaxArmorScalingTypeId": 4,
+      "CritPercent": 5,
+      "ManaStatTypeId": 13,
+      "Guardian": true,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 22
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 25
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 26
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 16
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 33
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 71
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 15
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 16
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 43
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10016
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10031
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10071
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Elementalist",
+      "Desc": "Spell Dam and Heals",
+      "Abbrev": "El",
+      "RoleCategoryId": 1,
+      "MeleeScaling": 0.17,
+      "RangedScaling": 0.125,
+      "SpellDamScaling": 0.34,
+      "HealingScaling": 0.25,
+      "SummonScaling": 0.25,
+      "HealthPerLevel": 16,
+      "ManaPerLevel": 20,
+      "MaxArmorScalingTypeId": 3,
+      "CritPercent": 10,
+      "ManaStatTypeId": 12,
+      "TrainingXpScale": 1.0,
+      "TrainingGoldScale": 1.0,
+      "Bonuses": [
+        {
+          "EntityTypeId": 2,
+          "EntityId": 21
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 23
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 24
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 2,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 34
+        },
+        {
+          "EntityTypeId": 31,
+          "EntityId": 63
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 6
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 8
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 17
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 27
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 28
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 29
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 30
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 31
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 32
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 43
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 51
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 53
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 58
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 59
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 60
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 101,
+          "EntityId": 4
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10032
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10034
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10063
+        }
+      ],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "Human",
+      "Desc": "Normal people",
+      "Abbrev": "Hu",
+      "RoleCategoryId": 2,
+      "Bonuses": [],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "Elf",
+      "Desc": "Slightly more Ranged",
+      "Abbrev": "Elf",
+      "RoleCategoryId": 2,
+      "RangedScaling": 0.1,
+      "Bonuses": [],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "Dwarf",
+      "Desc": "More health",
+      "Abbrev": "Dw",
+      "RoleCategoryId": 2,
+      "HealthPerLevel": 5,
+      "Bonuses": [],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "Half-Orc",
+      "Desc": "More Melee",
+      "Abbrev": "Hc",
+      "RoleCategoryId": 2,
+      "MeleeScaling": 0.1,
+      "Bonuses": [],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "Gnome",
+      "Desc": "More Spell Dam",
+      "Abbrev": "Gn",
+      "RoleCategoryId": 2,
+      "SpellDamScaling": 0.1,
+      "Bonuses": [],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    },
+    {
+      "Id": "role17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "Halfling",
+      "Desc": "More Crit",
+      "Abbrev": "Hf",
+      "RoleCategoryId": 2,
+      "CritPercent": 5,
+      "Bonuses": [],
+      "UpdateTime": "2024-10-05T23:56:53.124Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "RoleSettings",
+    "UpdateTime": "2024-10-06T00:01:20.802Z"
+  },
+  "Id": "default"
+}

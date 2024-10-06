@@ -4,11 +4,8 @@
 using System;
 using System.Collections.Generic;
 
-using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.MapMessages.Interfaces;
-using Assets.Scripts.Tokens;
 using System.Threading;
 using Genrpg.Shared.Networking.Messages;
 using Genrpg.Shared.Networking.Interfaces;
@@ -20,13 +17,15 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Logging.Interfaces;
 using UnityEngine;
 using Genrpg.Shared.HelperClasses;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Client.Tokens;
 
 public interface IRealtimeNetworkService : IInitializable, IMapTokenService
 {
     void CloseClient();
     void SetRealtimeEndpoint(string host, long port, EMapApiSerializers serializer);
     ConnMessageCounts GetMessageCounts();
-    void SendMapMessage(IMapApiMessage message);
+    void SendMapMessage(IPlayerCommand message);
 
 }
 
@@ -34,11 +33,11 @@ public interface IRealtimeNetworkService : IInitializable, IMapTokenService
 public class RealtimeNetworkService : IRealtimeNetworkService
 {
     private ILogService _logService;
-    protected IUnityGameState _gs = null;
+    protected IClientGameState _gs = null;
     protected IMapGenData _md;
     public RealtimeNetworkService(CancellationToken token)
     {
-        AwaitableUtils.ForgetAwaitable(ProcessMessages(token));
+        TaskUtils.ForgetAwaitable(ProcessMessages(token));
     }
 
 
@@ -106,17 +105,17 @@ public class RealtimeNetworkService : IRealtimeNetworkService
         }
     }
 
-    public void SendMapMessage(IMapApiMessage message)
+    public void SendMapMessage(IPlayerCommand message)
     {
-        SendMessageList(new List<IMapApiMessage>() { message });
+        SendMessageList(new List<IPlayerCommand>() { message });
     }
 
-    public void SendMessages(List<IMapApiMessage> messages)
+    public void SendMessages(List<IPlayerCommand> messages)
     {
         SendMessageList(messages);
     }
 
-    protected void SendMessageList (List<IMapApiMessage> messages)
+    protected void SendMessageList (List<IPlayerCommand> messages)
     {
 
 #if SHOW_SEND_RECEIVE_MESSAGES
@@ -152,7 +151,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
 
         }
 
-        foreach (IMapApiMessage message in messages)
+        foreach (IPlayerCommand message in messages)
         {
             _clientConn.AddMessage(message);
         }

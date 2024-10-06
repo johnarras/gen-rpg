@@ -1,21 +1,20 @@
 
 using System;
 using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Spawns.Entities;
 using System.Threading;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Combat.Messages;
-using UnityEngine; // Needed
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Units.Constants;
 using System.Linq;
 using Genrpg.Shared.Rewards.Entities;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class UnitController : BaseBehaviour
 {
@@ -24,6 +23,7 @@ public class UnitController : BaseBehaviour
     protected IPathfindingService _pathfindingService;
     protected IInputService _inputService;
     protected IPlayerManager _playerManager;
+    protected IClientAppService _clientAppService;
     public const int IdleState = 0;
     public const int CombatState = 1;
     public const int LeashState = 2;
@@ -77,7 +77,7 @@ public class UnitController : BaseBehaviour
     public override void Init()
     {
         base.Init();
-        anims = GEntityUtils.GetComponent<GAnimator>(entity);
+        anims = _gameObjectService.GetComponent<GAnimator>(entity);
         cc = GetComponent<CharacterController>();
         rb = _gameObjectService.GetOrAddComponent<Rigidbody>(entity);
         rb.isKinematic = true;
@@ -152,7 +152,7 @@ public class UnitController : BaseBehaviour
         }
 
         float delta = _inputService.GetDeltaTime();
-        float targetDeltaTime = 1.0f / AppUtils.TargetFrameRate;
+        float targetDeltaTime = 1.0f / _clientAppService.TargetFrameRate;
         delta = targetDeltaTime;
 
         float rotSpeed = UnitConstants.RotSpeedPerFrame;
@@ -187,19 +187,19 @@ public class UnitController : BaseBehaviour
 
         if (IsSwimming()) { dx *= SwimSpeedScale(); }
        
-        GVector3 startPos = GVector3.Create(entity.transform().position);
+        Vector3 startPos = entity.transform.position;
         float rotateAmount = 0.0f;
         rotateAmount -= GetKeyPercent(KeyComm.TurnLeft) * rotSpeed;
         rotateAmount += GetKeyPercent(KeyComm.TurnRight) * rotSpeed;
-        if (rotateAmount != 0) {entity.transform().rotation *= Quaternion.Euler(0, rotateAmount, 0); }
+        if (rotateAmount != 0) {entity.transform.rotation *= Quaternion.Euler(0, rotateAmount, 0); }
 
         ShowMoveAnimations(dx, dz);
 
-        GVector3 endPos = startPos;
+        Vector3 endPos = startPos;
 		if (dx != 0 || dz != 0)
 		{
             //dz *= (100.0f + _unit.Stats.Pct(StatType.Speed) / 100);
-            float nrot = entity.transform().localEulerAngles.y;
+            float nrot = entity.transform.localEulerAngles.y;
             double sin = Math.Sin (nrot*Math.PI/180.0);
             double cos = Math.Cos(nrot*Math.PI/180.0);
 
@@ -212,28 +212,28 @@ public class UnitController : BaseBehaviour
             float my = startPos.y+ny;
             float mz = startPos.z+nz;
 
-            endPos = new GVector3(mx, my, mz);
+            endPos = new Vector3(mx, my, mz);
 
         }
 
-        if (entity.transform().position.y <= 100)
+        if (entity.transform.position.y <= 100)
         {
             float endHeight = _terrainManager.SampleHeight(endPos.x, endPos.z);
 
             if (endHeight > 0)
             {
-                endPos = new GVector3(endPos.x, endHeight + 1, endPos.z);
-                entity.transform().position = GVector3.Create(endPos);
+                endPos = new Vector3(endPos.x, endHeight + 1, endPos.z);
+                entity.transform.position = endPos;
                 startPos = endPos;
                 return;
 
             }
         }
 
-        GVector3 diff = (endPos - startPos) / _inputService.GetDeltaTime();
+        Vector3 diff = (endPos - startPos) / _inputService.GetDeltaTime();
         if (cc != null && diff.magnitude > 0)
         {
-            cc.SimpleMove(GVector3.Create(diff));
+            cc.SimpleMove(diff);
         }
 	}
 
@@ -308,7 +308,7 @@ public class UnitController : BaseBehaviour
     {
         if (_unitFrame == null)
         {
-            _unitFrame = GEntityUtils.GetComponent<UnitFrame>(entity);
+            _unitFrame = _gameObjectService.GetComponent<UnitFrame>(entity);
         }
         if (_unitFrame == null)
         {
@@ -352,7 +352,7 @@ public class UnitController : BaseBehaviour
             _unit.Loot = new List<RewardList>();
             _unit.SkillLoot = new List<RewardList>();
         }
-        _updateService.AddDelayedUpdate(entity, ShowDeathAnim, token, 0.1f);
+        _updateService.AddDelayedUpdate(this, ShowDeathAnim, 0.1f, token);
     }
 
     private void ShowDeathAnim(CancellationToken token)
@@ -404,7 +404,7 @@ public class UnitController : BaseBehaviour
 
     private void OnLoadCombatText(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
         if (go == null)
         {
             return;
@@ -414,14 +414,14 @@ public class UnitController : BaseBehaviour
 
         if (text == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
         CombatTextUI ui = go.GetComponent<CombatTextUI>();
         if (ui == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 

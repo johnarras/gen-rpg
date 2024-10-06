@@ -31,7 +31,7 @@ public class MapConstants : SharedMapConstants
     public const int SteepTerrainIndex = 3;
     public const int MaxTerrainIndex = 4;
 
-    public const int MonsterSpawnSkipSize = 30;
+    public const int MonsterSpawnSkipSize = 25;
 
     public const int MaxBridgeCheckDistance = 40;
 

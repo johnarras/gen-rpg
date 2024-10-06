@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Crawler.Services;
-using Genrpg.Shared.Crawler.Parties.PlayerData;
+﻿
+using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Currencies.Constants;
 using Genrpg.Shared.Currencies.PlayerData;
 using Genrpg.Shared.Entities.Constants;
@@ -20,7 +20,7 @@ public class MoneyDisplay : BaseBehaviour
         base.Init();
         if (UpdateToCharMoney)
         {
-            _dispatcher.AddEvent<OnAddQuantityReward>(this, OnCurrencyUpdate);
+            AddListener<OnAddQuantityReward>(OnCurrencyUpdate);
             UpdateValue();
         }
     }
@@ -71,11 +71,11 @@ public class MoneyDisplay : BaseBehaviour
             long currAmount = amountLeft % SegmentDiv;
             if (currAmount == 0 && (money > 0 || s < _segments.Count-1))
             {
-                GEntityUtils.SetActive(seg.GetParent(), false);               
+                _gameObjectService.SetActive(seg.GetParent(), false);               
             }
             else
             {
-                GEntityUtils.SetActive(seg.GetParent(), true);
+                _gameObjectService.SetActive(seg.GetParent(), true);
                 seg.SetQuantityText(currAmount.ToString());
             }
             amountLeft /= SegmentDiv;

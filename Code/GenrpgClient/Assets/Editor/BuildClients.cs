@@ -16,6 +16,9 @@ using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Analytics.Services;
 using Genrpg.Shared.GameSettings;
 using Assets.Scripts.GameSettings.Entities;
+using Genrpg.Shared.Client.Core;
+using Assets.Editor;
+using Assets.Scripts.Assets;
 
 public class BuildClients
 {
@@ -47,10 +50,10 @@ public class BuildClients
             return;
         }
 
-        IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+        IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
         bool didSetEnv = false;
-        ClientConfig clientConfig = ClientConfig.Load();
+        ClientConfig clientConfig = ClientConfig.Load(new LocalLoadService());
 
         if (clientConfig == null)
         {
@@ -111,6 +114,7 @@ public class BuildClients
 
         ILogService logService = gs.loc.Get<ILogService>();
         IAnalyticsService analyicsService = gs.loc.Get<IAnalyticsService>();
+        IClientAppService appService = gs.loc.Get<IClientAppService>();
         ServiceLocator loc = new ServiceLocator(logService, analyicsService, new ClientGameData());
         ClientRepositoryService repoService = new ClientRepositoryService(logService);
         CancellationTokenSource cts = new CancellationTokenSource();
@@ -126,7 +130,7 @@ public class BuildClients
             string appsuffix = ClientPlatformNames.GetApplicationSuffix(platformString);
             string outputFilesFolder = "../../../Build/" + lowerPrefix + "/" + platformString + "/" + lowerEnv + "/";
             string outputPath = outputFilesFolder + lowerPrefix + appsuffix;
-            string localFolderPath = AppUtils.DataPath + "/" + outputFilesFolder;
+            string localFolderPath = appService.DataPath + "/" + outputFilesFolder;
 
             if (!Directory.Exists(outputFilesFolder))
             {
@@ -139,7 +143,7 @@ public class BuildClients
         string versionFilePath = outputZipFolder + PatcherUtils.GetPatchVersionFilename();
         File.WriteAllText(versionFilePath, String.Empty);
         File.WriteAllText(versionFilePath, version.ToString());
-        string localVersionPath = AppUtils.DataPath + "/../" + versionFilePath;
+        string localVersionPath =   appService.DataPath + "/../" + versionFilePath;
         string remoteVersionPath = PatcherUtils.GetPatchClientPrefix(gamePrefix, env, PlatformAssetPrefixes.Win, version) + PatcherUtils.GetPatchVersionFilename();
 
 
@@ -150,7 +154,7 @@ public class BuildClients
         vfdata.RemotePath = remoteVersionPath;
 
         FileUploader.UploadFile(vfdata);
-        clientConfig = ClientConfig.Load();
+        clientConfig = ClientConfig.Load(new LocalLoadService());
         clientConfig.Env = oldEnv;
         EditorUtility.SetDirty(clientConfig);
         AssetDatabase.SaveAssets();

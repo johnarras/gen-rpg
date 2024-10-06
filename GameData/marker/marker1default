@@ -1,0 +1,11 @@
+{
+  "Id": "marker1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Red",
+  "Icon": "RedMarker",
+  "Art": "RedMarker",
+  "MaxTier": 2,
+  "QualityTypeId": 1,
+  "UpdateTime": "2024-09-21T13:50:28.65Z"
+}

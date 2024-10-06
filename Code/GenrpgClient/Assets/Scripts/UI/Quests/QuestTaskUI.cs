@@ -16,7 +16,7 @@ public class QuestTaskUI : BaseBehaviour
     {
         if (qtype == null || task == null)
         {
-            GEntityUtils.Destroy(entity);
+            _gameObjectService.Destroy(entity);
             return;
         }
 
@@ -33,7 +33,7 @@ public class QuestTaskUI : BaseBehaviour
             return;
         }
 
-        _uIInitializable.SetText(TaskText, _qtype.PrintTaskText(_rand, _gs.ch, _gameData, _mapProvider, _task.Index));
+        _uiService.SetText(TaskText, _qtype.PrintTaskText(_rand, _gs.ch, _gameData, _mapProvider, _task.Index));
 
     }
 

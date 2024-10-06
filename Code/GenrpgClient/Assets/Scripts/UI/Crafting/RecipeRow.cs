@@ -2,6 +2,7 @@
 using Genrpg.Shared.Crafting.PlayerData.Recipes;
 using Genrpg.Shared.Crafting.Settings.Recipes;
 using Genrpg.Shared.Stats.Settings.Scaling;
+using UnityEngine;
 
 public class RecipeRow : BaseBehaviour
 {
@@ -31,16 +32,16 @@ public class RecipeRow : BaseBehaviour
             return;
         }
 
-        _uIInitializable.SetText(RecipeName, _recipe.Name);
+        _uiService.SetText(RecipeName, _recipe.Name);
 
-        _uIInitializable.SetText(RecipeRank, _status.Get().ToString() + "/" + status.GetMaxLevel());
+        _uiService.SetText(RecipeRank, _status.Get().ToString() + "/" + status.GetMaxLevel());
 
         SetIsActive(false);
     }
 
     private void OnError()
     {
-        GEntityUtils.Destroy(entity);
+        _gameObjectService.Destroy(entity);
         return;
     }
 
@@ -56,7 +57,7 @@ public class RecipeRow : BaseBehaviour
     {
         if (BGImage != null)
         {
-            BGImage.Color = (active?GColor.yellow : GColor.gray);
+            BGImage.Color = (active?Color.yellow : Color.gray);
         }
     }
 

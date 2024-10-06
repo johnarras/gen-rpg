@@ -1,11 +1,8 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
-using Genrpg.Shared.Website.Messages.Login;
 using Genrpg.Shared.Website.Messages.UploadMap;
 using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.Spawns.Entities;
 using System;
 using System.Collections.Generic;
-using UI.Screens.Constants;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Assets.Scripts.GameSettings.Services;
 
@@ -15,6 +12,10 @@ using Genrpg.Shared.Website.Messages.NoUserGameData;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Characters.PlayerData;
 using UnityEngine;
+using Genrpg.Shared.Client.Assets;
+using Genrpg.Shared.UI.Services;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.UI.Entities;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
@@ -27,7 +28,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IClientGameDataService _gameDataService;
         protected override void InnerProcess(NoUserGameDataResult result, CancellationToken token)
         {
-            AwaitableUtils.ForgetAwaitable(InnerProcessAsync(result, token));
+            TaskUtils.ForgetAwaitable(InnerProcessAsync(result, token));
         }
 
         private async Awaitable InnerProcessAsync(NoUserGameDataResult result, CancellationToken token)

@@ -1,16 +1,13 @@
 ﻿using System;
 
-using UI.Screens.Constants;
 using System.Threading;
-using Genrpg.Shared.Website.Messages.Login;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Logging.Interfaces;
-using UnityEngine;
 using System.Threading.Tasks;
 using Genrpg.Shared.Website.Messages.Signup;
 using Genrpg.Shared.Accounts.Constants;
 using Genrpg.Shared.Utils;
 using Assets.Scripts.UI.Screens;
+using Genrpg.Shared.UI.Entities;
 
 public class SignupScreen : ErrorMessageScreen
 {
@@ -27,16 +24,18 @@ public class SignupScreen : ErrorMessageScreen
 
     protected IClientAuthService _authService;
     protected IRepositoryService _repoService;
+    protected IClientAppService _clientAppService;
+    protected IClientCryptoService _clientCryptoService;
 
     public override void ShowError(string errorMessage)
     {
         _uiService.SetText(ErrorText, errorMessage);
     }
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
-        _uIInitializable.SetButton(LoginButton, GetName(), ClickLogin);
-        _uIInitializable.SetButton(SignupButton, GetName(), ClickSignup);
+        _uiService.SetButton(LoginButton, GetName(), ClickLogin);
+        _uiService.SetButton(SignupButton, GetName(), ClickSignup);
         await Task.CompletedTask;
     }
 
@@ -131,8 +130,8 @@ public class SignupScreen : ErrorMessageScreen
             ShareId = shareId,
             ReferrerId = referrerId,
             Name = name,
-            ClientVersion = AppUtils.Version,
-            DeviceId = CryptoUtils.GetDeviceId(),
+            ClientVersion = _clientAppService.Version,
+            DeviceId = _clientCryptoService.GetDeviceId(),
         };
 
         _authService.Signup(signupCommand, _token);

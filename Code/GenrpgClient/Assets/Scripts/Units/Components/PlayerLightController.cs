@@ -1,12 +1,13 @@
 ﻿
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
-using Genrpg.Shared.Crawler.MapGen.Constants;
+using Genrpg.Shared.Crawler.Maps.Constants;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
     public class PlayerLightController : BaseBehaviour
     {
+        private IModTextureService _modTextureService;
         public float TargetIntensityScale = 0;
 
         public float Range = 75;
@@ -20,7 +21,7 @@ namespace Assets.Scripts.Controllers
 
         public float MaxIntensity = 1.5f;
 
-        public GVector3 Offset;
+        public Vector3 Offset;
 
         public override void Init()
         {
@@ -37,13 +38,13 @@ namespace Assets.Scripts.Controllers
             }
             if (!haveSetPosition)
             {
-               entity.transform().localPosition = GVector3.Create(Offset);
+               entity.transform.localPosition = Offset;
             }
             haveSetPosition = true;
             targetIntensity = MaxIntensity * (1.0f - ZoneStateController.AmbientScale);
 
 
-            currentIntensity = TextureUtils.MoveCurrFloatToTarget(currentIntensity, targetIntensity, IntensityDelta);
+            currentIntensity = _modTextureService.MoveCurrFloatToTarget(currentIntensity, targetIntensity, IntensityDelta);
 
             if (Headlight != null)
             {

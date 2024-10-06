@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenrpgEditor.Constants
+namespace Genrpg.Editor.Constants
 {
     public class ScalingConstants
     {

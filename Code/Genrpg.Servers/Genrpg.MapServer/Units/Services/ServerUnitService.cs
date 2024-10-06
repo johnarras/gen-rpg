@@ -26,8 +26,8 @@ using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Units.Settings;
 using Genrpg.Shared.Rewards.Entities;
-using Genrpg.ServerShared.Spawns.Services;
 using Genrpg.Shared.Rewards.Constants;
+using Genrpg.MapServer.Spawns.Services;
 
 namespace Genrpg.MapServer.Units.Services
 {
@@ -78,8 +78,10 @@ namespace Genrpg.MapServer.Units.Services
                 RewardSourceId = RewardSources.Kill,
             };
 
-            if (firstAttacker != null)
+            if (firstAttacker != null && _objectManager.GetChar(firstAttacker.AttackerId, out Character ch))
             {
+
+
                 targ.SkillLoot = new List<RewardList>();
 
                 targ.Loot = _spawnService.Roll(rand, _gameData.Get<SpawnSettings>(targ).MonsterLootSpawnTableId, rollData);
@@ -99,6 +101,8 @@ namespace Genrpg.MapServer.Units.Services
                     });
                 }
 
+                targ.Loot = targ.Loot.Where(x=>x.Rewards.Count > 0).ToList();   
+
                 if (utype.LootItems != null)
                 {
                     targ.Loot.AddRange(_spawnService.Roll(rand, utype.LootItems, rollData));
@@ -116,15 +120,15 @@ namespace Genrpg.MapServer.Units.Services
                     targ.SkillLoot.AddRange(_spawnService.Roll(rand, ttype.InteractLootItems, rollData));
                 }
 
+                targ.SkillLoot = targ.SkillLoot.Where(x=>x.Rewards.Count > 0).ToList(); 
+
                 foreach (AttackerInfo info in targ.GetAttackers())
                 {
-
-                    if (_objectManager.GetChar(info.AttackerId, out Character ch))
+                    if (_objectManager.GetChar(info.AttackerId, out Character ch2))
                     {
-                        _achievementService.UpdateAchievement(ch, AchievementConstants.KillMonsterStartId + utype.IdKey, 1);
+                        _achievementService.UpdateAchievement(ch2, AchievementConstants.KillMonsterStartId + utype.IdKey, 1);
                     }
                 }
-
             }
 
             died.Loot = targ.Loot;

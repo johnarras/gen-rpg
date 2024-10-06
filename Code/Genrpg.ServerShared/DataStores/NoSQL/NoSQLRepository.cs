@@ -32,7 +32,7 @@ namespace Genrpg.ServerShared.DataStores.NoSQL
 
         #region Core
         public NoSQLRepository(ILogService logger, string env, string dataCategory, string connectionString)
-        {
+        { 
             string databaseName = (env+dataCategory).ToLower();
             _logger = logger;
             try

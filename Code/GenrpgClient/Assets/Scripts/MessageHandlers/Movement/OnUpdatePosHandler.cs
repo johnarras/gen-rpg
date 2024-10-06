@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Pathfinding.Utils;
-using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Client.Core;
 
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Entities;
@@ -13,7 +13,7 @@ using Genrpg.Shared.Utils;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Threading;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 namespace Assets.Scripts.ResultHandlers.TypedHandlers
 {

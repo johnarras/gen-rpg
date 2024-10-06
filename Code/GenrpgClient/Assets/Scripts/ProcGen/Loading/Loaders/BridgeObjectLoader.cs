@@ -1,10 +1,11 @@
-﻿using Genrpg.Shared.ProcGen.Settings.Bridges;
+﻿using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.ProcGen.Settings.Bridges;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Entities;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using System.Threading;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 public class BridgeObjectLoader : BaseObjectLoader
 {
@@ -46,13 +47,13 @@ public class BridgeObjectLoader : BaseObjectLoader
 
         return true;
     }
-    public void AfterLoadObject(GEntity go, DownloadObjectData dlo, CancellationToken token)
+    public void AfterLoadObject(GameObject go, DownloadObjectData dlo, CancellationToken token)
     {
-        go.transform().localScale = GVector3.onePlatform;
-        go.transform().localRotation = GQuaternion.identity;
+        go.transform.localScale = Vector3.one;
+        go.transform.localRotation = Quaternion.identity;
         if (dlo.rotation != null)
         {
-            go.transform().Rotate(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
+            go.transform.Rotate(dlo.rotation.X, dlo.rotation.Y, dlo.rotation.Z);
         }
     }
 }

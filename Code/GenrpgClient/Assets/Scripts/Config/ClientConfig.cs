@@ -3,6 +3,10 @@ using UnityEngine; // Needed
 using static System.Net.WebRequestMethods;
 using Genrpg.Shared.Configs.Interfaces;
 using System.Collections.Generic;
+using Genrpg.Shared.Interfaces;
+using Assets.Scripts.Assets;
+
+
 
 
 #if UNITY_EDITOR
@@ -10,6 +14,16 @@ using UnityEditor;
 #endif
 using Genrpg.Shared.Constants;
 
+
+public interface IClientConfigContainer : IInjectable
+{
+   ClientConfig Config { get; set; }
+}
+
+public class ClientConfigContainer : IClientConfigContainer
+{
+    public ClientConfig Config { get; set; }
+}
 
 [Serializable]
 public class ClientConfig : ScriptableObject, IConnectionConfig
@@ -54,9 +68,9 @@ public class ClientConfig : ScriptableObject, IConnectionConfig
     }
 #endif
 
-    public static ClientConfig Load()
+    public static ClientConfig Load(ILocalLoadService localLoadService)
     {
-        return AssetUtils.LoadResource<ClientConfig>("Config/ClientConfig");
+        return localLoadService.LocalLoad<ClientConfig>("Config/ClientConfig");
     }
 
     public string GetConnectionString(string key)

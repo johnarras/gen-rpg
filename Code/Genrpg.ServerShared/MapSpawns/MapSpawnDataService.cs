@@ -1,4 +1,5 @@
 ﻿using Genrpg.ServerShared.Core;
+using Genrpg.ServerShared.Maps;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.Indexes;
@@ -31,6 +32,7 @@ namespace Genrpg.ServerShared.MapSpawns
     public class MapSpawnDataService : IMapSpawnDataService
     {
         private IRepositoryService _repoService = null;
+        private IMapDataService _mapDataService = null;
         public async Task Initialize(CancellationToken token)
         {
             CreateIndexData data = new CreateIndexData();
@@ -43,7 +45,7 @@ namespace Genrpg.ServerShared.MapSpawns
         public async Task SaveMapSpawnData(IRepositoryService repoService, MapSpawnData data, string mapId, int mapVersion)
         {
             await repoService.DeleteAll<MapSpawn>(x => x.MapId == mapId);
-            string ownerId = Map.GetMapOwnerId(mapId, mapVersion);
+            string ownerId = _mapDataService.GetMapOwnerId(mapId, mapVersion);
             foreach (MapSpawn spawn in data.Data)
             {
                 spawn.Id = spawn.ObjId + "-" + ownerId;
@@ -64,7 +66,7 @@ namespace Genrpg.ServerShared.MapSpawns
         {
             MapSpawnData spawnData = new MapSpawnData();
 
-            string mapOwnerId = Map.GetMapOwnerId(mapId, mapVersion);
+            string mapOwnerId = _mapDataService.GetMapOwnerId(mapId, mapVersion);
 
             spawnData.Data = await repoService.Search<MapSpawn>(x => x.OwnerId == mapOwnerId, 1000000);
 

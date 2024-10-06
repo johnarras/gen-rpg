@@ -1,27 +1,26 @@
 ﻿using System;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
 
 using System.Threading;
-using UnityEngine;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.MapServer.Services;
 using System.Threading.Tasks;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class ZoneScreen : BaseScreen
 {
     
     public GText ZoneName;
     public GRawImage MapImage;
-    public GEntity ArrowParent;
+    public GameObject ArrowParent;
 
-    protected GEntity ArrowObject;
+    protected GameObject ArrowObject;
     private IPlayerManager _playerManager;
     private IMapProvider _mapProvider;
 
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         Setup();
 
@@ -32,7 +31,7 @@ public class ZoneScreen : BaseScreen
     {
         _assetService.LoadAssetInto(ArrowParent, AssetCategoryNames.UI, "PlayerArrow", OnLoadArrow, null, _token, "Maps");
 
-        _uIInitializable.SetImageTexture(MapImage, MinimapUI.GetTexture());
+        _uiService.SetImageTexture(MapImage, MinimapUI.GetTexture());
         ShowPlayer();
 
     }
@@ -40,7 +39,7 @@ public class ZoneScreen : BaseScreen
 
     private void OnLoadArrow(object obj, object data, CancellationToken token)
     {
-        ArrowObject = obj as GEntity;
+        ArrowObject = obj as GameObject;
     }
 
     protected override void ScreenUpdate()
@@ -61,7 +60,7 @@ public class ZoneScreen : BaseScreen
     void ShowPlayer()
     {
 
-        GEntity arrow = ArrowObject;
+        GameObject arrow = ArrowObject;
 
         if (arrow == null)
         {
@@ -69,13 +68,13 @@ public class ZoneScreen : BaseScreen
         }
 
         // Show player on map with arrow.
-        GEntity player = _playerManager.GetEntity();
+        GameObject player = _playerManager.GetPlayerGameObject();
         if (player == null)
         {
             return;
         }
 
-        GVector3 pos = GVector3.Create(player.transform().localPosition);
+        Vector3 pos = player.transform.localPosition;
 
         if (MapImage == null || MapImage.texture == null)
         {
@@ -176,7 +175,7 @@ public class ZoneScreen : BaseScreen
             
             _lastZoneShown = currZone.IdKey;
 
-            _uIInitializable.SetText(ZoneName, currZone.Name);
+            _uiService.SetText(ZoneName, currZone.Name);
         }
         else if (currZone == null)
         {
@@ -201,15 +200,15 @@ public class ZoneScreen : BaseScreen
         float xpct = MathUtils.Clamp(0, (xpctstart - xminpct) / (xmaxpct - xminpct), 1) - 0.5f;
         float ypct = MathUtils.Clamp(0, (ypctstart - yminpct) / (ymaxpct - yminpct), 1) - 0.5f;
 
-        float rot = player.transform().eulerAngles.y;
+        float rot = player.transform.eulerAngles.y;
 
         float sx = xpct * imageSize;
         float sy = ypct * imageSize;
 
-        GVector3 cpos = GVector3.Create(arrow.transform().localPosition);
-        arrow.transform().localPosition = GVector3.Create(sx, sy, cpos.z);
+        Vector3 cpos = arrow.transform.localPosition;
+        arrow.transform.localPosition = new Vector3(sx, sy, cpos.z);
 
-        arrow.transform().eulerAngles = GVector3.Create(0, 0, -rot);
+        arrow.transform.eulerAngles = new Vector3(0, 0, -rot);
 
 
     }

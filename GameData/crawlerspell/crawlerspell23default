@@ -4,7 +4,7 @@
   "IdKey": 23,
   "Name": "Silence",
   "Desc": "Prevent a group from casting spells.",
-  "PowerCost": 15,
+  "PowerCost": 15.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 3,

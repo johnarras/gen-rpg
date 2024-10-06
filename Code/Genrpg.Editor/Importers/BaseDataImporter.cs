@@ -14,6 +14,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices.AllJoyn;
 using Windows.UI.Popups;
 
 namespace Genrpg.Editor.Importers
@@ -30,7 +31,10 @@ namespace Genrpg.Editor.Importers
 
         protected abstract Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines);
 
-
+        protected virtual Task<bool> UpdateAfterImport(Window window, EditorGameState gs)
+        {
+            return Task.FromResult(true);
+        }
 
         string dataFolderOffsetPath = "\\..\\..\\..\\..\\..\\..\\..\\ImportData\\";
         protected string[] ReadImportDataLines(string importFilename)
@@ -66,12 +70,11 @@ namespace Genrpg.Editor.Importers
                     return false;
                 }
 
-                if (!await ParseInputFromLines(window, gs, lines))
+                if (!await ParseInputFromLines(window, gs, lines) ||
+                    !await UpdateAfterImport(window,gs))
                 {
                     gs.LookedAtObjects = new List<object>();
-             
                 }
-
             }
             catch (Exception ex)
             {

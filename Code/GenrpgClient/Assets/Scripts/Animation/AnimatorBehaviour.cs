@@ -60,6 +60,6 @@ public class AnimatorBehaviour : BaseBehaviour
             //return;
         }
 
-        _updateService.AddDelayedUpdate(null, action, token, delay);
+        AddDelayedUpdate(action, delay);
     }
 }

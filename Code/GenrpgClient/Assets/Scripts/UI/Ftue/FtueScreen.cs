@@ -1,11 +1,10 @@
-﻿
-
-using Genrpg.Shared.Ftue.Constants;
+﻿using Genrpg.Shared.Ftue.Constants;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Ftue.Settings.Steps;
+using Genrpg.Shared.UI.Entities;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.UI.Blockers
 {
@@ -13,9 +12,9 @@ namespace Assets.Scripts.UI.Blockers
     {
         protected IFtueService _ftueService = null;
 
-        public GEntity CircleMask;
+        public GameObject CircleMask;
 
-        public GEntity DescParent;
+        public GameObject DescParent;
         public GText DescText;
 
         public GImage BackgroundImage;
@@ -23,11 +22,10 @@ namespace Assets.Scripts.UI.Blockers
 
         protected FtueStep _step = null;
 
-        protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+        protected override async Task OnStartOpen(object data, CancellationToken token)
         {
 
             await base.OnStartOpen(data, token);
-
 
             this._step = data as FtueStep;
 
@@ -43,7 +41,7 @@ namespace Assets.Scripts.UI.Blockers
             }
             else
             {
-                GEntity entity = null;
+                GameObject entity = null;
 
                 if (!string.IsNullOrEmpty(_step.ActionScreenName) && !string.IsNullOrEmpty(_step.ActionButtonName))
                 {
@@ -55,7 +53,7 @@ namespace Assets.Scripts.UI.Blockers
 
                         if (baseScreen != null)
                         {
-                            entity = GEntityUtils.FindChild(baseScreen.gameObject, _step.ActionButtonName);
+                            entity = (GameObject)_gameObjectService.FindChild(baseScreen.gameObject, _step.ActionButtonName);
                         }
                     }
                 }
@@ -83,7 +81,7 @@ namespace Assets.Scripts.UI.Blockers
                     }
                     if (BackgroundImage != null)
                     {
-                        GEntityUtils.SetActive(BackgroundImage, false);
+                        _gameObjectService.SetActive(BackgroundImage, false);
                     }
                 }
                 else
@@ -93,15 +91,15 @@ namespace Assets.Scripts.UI.Blockers
                         RectTransform maskRect = CircleMask.GetComponent<RectTransform>();
                         maskRect.position = Vector3.zero;
                         maskRect.sizeDelta = Vector2.zero;
-                        GEntityUtils.SetActive(CircleMask, false);
+                        _gameObjectService.SetActive(CircleMask, false);
                     }
 
                     if (BackgroundImage != null)
                     {
                         BackgroundImage.raycastTarget = true;
-                        GEntityUtils.SetActive(BackgroundImage, true);
+                        _gameObjectService.SetActive(BackgroundImage, true);
 
-                        _uIInitializable.SetButton(BackgroundButton, GetName(), OnClickBackground);
+                        _uiService.SetButton(BackgroundButton, GetName(), OnClickBackground);
                     }
                 }
             }
@@ -115,7 +113,7 @@ namespace Assets.Scripts.UI.Blockers
                 else
                 {
                     DescParent.SetActive(true);
-                    _uIInitializable.SetText(DescText, _step.Desc);
+                    _uiService.SetText(DescText, _step.Desc);
                 }
             }
 

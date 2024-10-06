@@ -1,9 +1,8 @@
-﻿using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
+﻿using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Maps.Services.GenerateMaps;
-using Assets.Scripts.Crawler.Services;
-using Genrpg.Shared.Crawler.MapGen.Constants;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Entities.Constants;
@@ -11,30 +10,16 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Logging.Interfaces;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Crawler.States.Services;
 
 namespace Assets.Scripts.Crawler.Maps
 {
-    public class CrawlerMapGenData
-    {
-        public CrawlerWorld World;
-        public long MapType;
-        public int Level { get; set; } = 0;
-        public long ZoneTypeId { get; set; }
-        public bool Looping { get; set; }
-        public long FromMapId { get; set; }
-        public int FromMapX { get; set; }
-        public int FromMapZ { get; set; }
-        public int CurrFloor { get; set; } = 1;
-        public int MaxFloor { get; set; } = 1;
-        public string Name { get; set; }         
-        public bool SimpleDungeon { get; set; }
-        public CrawlerMap PrevMap { get; set; }
-    }
-
+   
 
     public class CrawlerMapGenService : ICrawlerMapGenService
     {
@@ -52,8 +37,7 @@ namespace Assets.Scripts.Crawler.Maps
         private CrawlerWorld _world;
 
         private SetupDictionaryContainer<long, ICrawlerMapGenHelper> _mapGenHelpers = new SetupDictionaryContainer<long, ICrawlerMapGenHelper>();
-        public static long MapType { get; set; } = CrawlerMapTypes.None;
-
+        
         public async Task Initialize(CancellationToken token)
         {
 

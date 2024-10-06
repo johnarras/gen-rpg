@@ -1,4 +1,5 @@
 ﻿
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Login.Messages.Core
         protected IRepositoryService _repoService;
         protected IDispatcher _dispatcher;
         protected IGameData _gameData;
-        protected IUnityGameState _gs;
+        protected IClientGameState _gs;
         public Type GetKey() { return typeof(T); }
 
         virtual public int Priority() { return 0; }

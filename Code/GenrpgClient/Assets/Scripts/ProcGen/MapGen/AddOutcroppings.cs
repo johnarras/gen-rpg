@@ -1,29 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-
-
-using Genrpg.Shared.Core.Entities;
-
-
-
-
-using GEntity = UnityEngine.GameObject;
-
-
-using Genrpg.Shared.Interfaces;
+using UnityEngine;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
-using Genrpg.Shared.Zones.Entities;
-using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.ProcGen.Entities;
-
 using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.LineGen;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
-using UnityEngine;
 
 public class AddOutcroppings : BaseZoneGenerator
 {

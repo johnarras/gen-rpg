@@ -1,36 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using Genrpg.Shared.Core.Entities;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using ClientEvents;
 using Genrpg.Shared.Utils;
-
-using UI.Screens.Constants;
 using Assets.Scripts.MapTerrain;
-using UnityEngine; // Needed
 using Genrpg.Shared.ProcGen.Settings.Weather;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Players.Messages;
-using System.Net;
 using Genrpg.Shared.Interfaces;
 using System.Threading.Tasks;
 using System.Threading;
 using Assets.Scripts.Core.Interfaces;
 using Genrpg.Shared.MapServer.Services;
 using Assets.Scripts.Interfaces;
-using Assets.Scripts.Crawler.Services;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
-using Assets.Scripts.Crawler.Maps.Constants;
 using System.Linq;
-using Genrpg.Shared.Crawler.MapGen.Constants;
+using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.UI.Entities;
 
 public struct UpdateColor
 {
-    public Color Current;
-    public Color Target;
+    public UnityEngine.Color Current;
+    public UnityEngine.Color Target;
 
-    public void Set(Color val)
+    public void Set(UnityEngine.Color val)
     {
         Current = val;
         Target = val;
@@ -59,6 +54,8 @@ public class WeatherEffectContainer
 public interface IZoneStateController : IInjectable, IInjectOnLoad<IZoneStateController>
 {
     Zone GetCurrentZone();
+    Camera GetMainCamera();
+    Light GetSun();
 }
 
 public class ZoneStateController : BaseBehaviour, IZoneStateController
@@ -69,6 +66,13 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
     private IMapProvider _mapProvider;
     protected IAudioService _audioService;
     protected ICrawlerMapService _crawlerMapService;
+    private IModTextureService _modTextureService;
+
+    public Camera MainCamera;
+    public Light SunLight;
+    public WindZone Wind;
+    public Light Sun;
+    public Material SkyboxMaterial;
 
     public async Task Initialize(CancellationToken token)
     {
@@ -80,10 +84,19 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         base.Init();
         RenderSettings.sun = Sun;
         AddUpdate(ZoneUpdate, UpdateType.Regular);
-        _dispatcher.AddEvent<OnFinishLoadPlayer>(this, OnFinishLoadingPlayer);
+        AddListener<OnFinishLoadPlayer>(OnFinishLoadingPlayer);
         ResetColors();
     }
 
+    public Camera GetMainCamera()
+    {
+        return MainCamera;
+    }
+
+    public Light GetSun()
+    {
+        return Sun;
+    }
     
 
     public static float AmbientScale = 1.0f;
@@ -97,10 +110,6 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
     public static long CurrentZoneShown = -1;
     public bool PauseUpdates = false;
     public const int MaxTicksBetweenZoneUpdates = 3;
-    public WindZone Wind;
-
-    public Light Sun;
-    public Material SkyboxMaterial;
 
   
     public float LinearFogEnd = 300;
@@ -162,11 +171,11 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         WindScale.Set(0.0f);
         ParticleScale.Set(0.0f);
         CloudDensity.Set(0.0f);
-        CloudColor.Set(GColor.gray);
-        SkyColor.Set(GColor.cyan);
-        SunlightColor.Set(GColor.white);
-        AmbientColor.Set(GColor.white);
-        FogColor.Set(GColor.gray);
+        CloudColor.Set(Color.gray);
+        SkyColor.Set(Color.cyan);
+        SunlightColor.Set(Color.white);
+        AmbientColor.Set(Color.white);
+        FogColor.Set(Color.gray);
         RenderSettings.fog = true;
         SetupSkybox();
         
@@ -177,7 +186,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         RenderSettings.skybox = SkyboxMaterial;
         if (RenderSettings.skybox != null)
         {
-            RenderSettings.skybox.SetColor("_Tint", Color.white*2);
+            RenderSettings.skybox.SetColor("_Tint", UnityEngine.Color.white*2);
         }
     }
     
@@ -203,7 +212,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
 
         if (!_didInitZoneState)
         {
-            GEntity go = _playerManager.GetEntity();
+            GameObject go = _playerManager.GetPlayerGameObject();
             if (go != null || InCrawlerMode())
             {
                 ResetColors();
@@ -222,11 +231,11 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         if (ticksToZoneUpdate <= 0)
         {
             ticksToZoneUpdate = MaxTicksBetweenZoneUpdates;
-            GEntity go = _playerManager.GetEntity();
+            GameObject go = _playerManager.GetPlayerGameObject();
             if (go != null)
             {
-                int wx = (int)go.transform().localPosition.x;
-                int wy = (int)go.transform().localPosition.z;
+                int wx = (int)go.transform.localPosition.x;
+                int wy = (int)go.transform.localPosition.z;
 
                 if (wx >= 0 && wy >= 0 && wx < _mapProvider.GetMap().GetHwid() && wy < _mapProvider.GetMap().GetHhgt())
                 {
@@ -292,11 +301,11 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
                 return;
             }
 
-            SunlightColor.Target = TextureUtils.ConvertMyColorToColor(_dataWeather.LightColor);
-            FogColor.Target = TextureUtils.ConvertMyColorToColor(_dataWeather.FogColor);
-            CloudColor.Target = TextureUtils.ConvertMyColorToColor(_dataWeather.CloudColor);
-            AmbientColor.Target = TextureUtils.ConvertMyColorToColor(_dataWeather.AmbientColor);
-            SkyColor.Target = TextureUtils.ConvertMyColorToColor(_dataWeather.SkyColor);
+            SunlightColor.Target = _modTextureService.ConvertMyColorToColor(_dataWeather.LightColor);
+            FogColor.Target = _modTextureService.ConvertMyColorToColor(_dataWeather.FogColor);
+            CloudColor.Target = _modTextureService.ConvertMyColorToColor(_dataWeather.CloudColor);
+            AmbientColor.Target = _modTextureService.ConvertMyColorToColor(_dataWeather.AmbientColor);
+            SkyColor.Target = _modTextureService.ConvertMyColorToColor(_dataWeather.SkyColor);
 
             FogDensity.Target = _dataWeather.FogScale;
             CloudSpeed.Target = _dataWeather.CloudSpeed;
@@ -336,12 +345,12 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
 
         float fogDensityMult = (FogDistScale > 0 ? 1 / FogDistScale : 1.0f);
         fogDensityMult = 0;
-        AmbientColor.Current = TextureUtils.MoveCurrToTargetColor(AmbientColor.Current, AmbientColor.Target * AmbientScale, delta);
-        FogColor.Current = TextureUtils.MoveCurrToTargetColor(FogColor.Current, FogColor.Target, delta);
-        SunlightColor.Current = TextureUtils.MoveCurrToTargetColor(SunlightColor.Current, SunlightColor.Target, delta);
-        SkyColor.Current = TextureUtils.MoveCurrToTargetColor(SkyColor.Current, SkyColor.Target, delta);
-        CloudColor.Current = TextureUtils.MoveCurrToTargetColor(CloudColor.Current, CloudColor.Target, delta);
-        FogDensity.Current = TextureUtils.MoveCurrFloatToTarget(FogDensity.Current, FogDensity.Target*fogDensityMult, delta * 0.01f);
+        AmbientColor.Current = _modTextureService.MoveCurrToTargetColor(AmbientColor.Current, AmbientColor.Target * AmbientScale, delta);
+        FogColor.Current = _modTextureService.MoveCurrToTargetColor(FogColor.Current, FogColor.Target, delta);
+        SunlightColor.Current = _modTextureService.MoveCurrToTargetColor(SunlightColor.Current, SunlightColor.Target, delta);
+        SkyColor.Current = _modTextureService.MoveCurrToTargetColor(SkyColor.Current, SkyColor.Target, delta);
+        CloudColor.Current = _modTextureService.MoveCurrToTargetColor(CloudColor.Current, CloudColor.Target, delta);
+        FogDensity.Current = _modTextureService.MoveCurrFloatToTarget(FogDensity.Current, FogDensity.Target*fogDensityMult, delta * 0.01f);
 
         if (_cameraController != null)
         {
@@ -352,15 +361,15 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
             }
         }
 
-        FogStart.Current = TextureUtils.MoveCurrFloatToTarget(FogStart.Current, FogStart.Target * FogDistScale, FogDistDelta * FogDistScale);
-        FogEnd.Current = TextureUtils.MoveCurrFloatToTarget(FogEnd.Current, FogEnd.Target * FogDistScale, FogDistDelta * FogDistScale);
+        FogStart.Current = _modTextureService.MoveCurrFloatToTarget(FogStart.Current, FogStart.Target * FogDistScale, FogDistDelta * FogDistScale);
+        FogEnd.Current = _modTextureService.MoveCurrFloatToTarget(FogEnd.Current, FogEnd.Target * FogDistScale, FogDistDelta * FogDistScale);
 
-        SunlightIntensity.Current = TextureUtils.MoveCurrFloatToTarget(SunlightIntensity.Current, SunlightIntensity.Target * SunlightScale, delta);
-        CloudSpeed.Current = TextureUtils.MoveCurrFloatToTarget(CloudSpeed.Current, CloudSpeed.Target, delta);
-        WindScale.Current = TextureUtils.MoveCurrFloatToTarget(WindScale.Current, WindScale.Target, delta);
-        PrecipScale.Current = TextureUtils.MoveCurrFloatToTarget(PrecipScale.Current, PrecipScale.Target, delta);
-        ParticleScale.Current = TextureUtils.MoveCurrFloatToTarget(ParticleScale.Current, ParticleScale.Target, delta);
-        CloudDensity.Current = TextureUtils.MoveCurrFloatToTarget(CloudDensity.Current, CloudDensity.Target, delta);
+        SunlightIntensity.Current = _modTextureService.MoveCurrFloatToTarget(SunlightIntensity.Current, SunlightIntensity.Target * SunlightScale, delta);
+        CloudSpeed.Current = _modTextureService.MoveCurrFloatToTarget(CloudSpeed.Current, CloudSpeed.Target, delta);
+        WindScale.Current = _modTextureService.MoveCurrFloatToTarget(WindScale.Current, WindScale.Target, delta);
+        PrecipScale.Current = _modTextureService.MoveCurrFloatToTarget(PrecipScale.Current, PrecipScale.Target, delta);
+        ParticleScale.Current = _modTextureService.MoveCurrFloatToTarget(ParticleScale.Current, ParticleScale.Target, delta);
+        CloudDensity.Current = _modTextureService.MoveCurrFloatToTarget(CloudDensity.Current, CloudDensity.Target, delta);
 
         UpdateSettings();
     }

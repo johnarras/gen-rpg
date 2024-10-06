@@ -6,16 +6,18 @@
   "Desc": "Spell Dam and Heals",
   "Abbrev": "El",
   "RoleCategoryId": 1,
-  "MeleeScaling": 6.0,
-  "RangedScaling": 8.0,
-  "SpellDamScaling": 3.0,
-  "HealingScaling": 4.0,
-  "SummonScaling": 4.0,
+  "MeleeScaling": 0.17,
+  "RangedScaling": 0.125,
+  "SpellDamScaling": 0.34,
+  "HealingScaling": 0.25,
+  "SummonScaling": 0.25,
   "HealthPerLevel": 16,
   "ManaPerLevel": 20,
   "MaxArmorScalingTypeId": 3,
   "CritPercent": 10,
   "ManaStatTypeId": 12,
+  "TrainingXpScale": 1.0,
+  "TrainingGoldScale": 1.0,
   "Bonuses": [
     {
       "EntityTypeId": 2,
@@ -136,7 +138,19 @@
     {
       "EntityTypeId": 101,
       "EntityId": 4
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10032
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10034
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10063
     }
   ],
-  "UpdateTime": "2024-08-30T22:57:22.623Z"
+  "UpdateTime": "2024-10-05T23:56:53.124Z"
 }

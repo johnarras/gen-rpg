@@ -1,26 +1,29 @@
-﻿using Assets.Scripts.UI.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Assets.Scripts.MVC;
+using Assets.Scripts.UI.Crawler;
+using Assets.Scripts.UI.Crawler.CrawlerPanels;
+using Genrpg.Shared.MVC.Interfaces;
+using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.UI.Interfaces;
+using System.Threading;
 using System.Threading.Tasks;
-using UI.Screens.Constants;
 
 namespace Assets.Scripts.Crawler.UI.WorldUI
 {
-    public class WorldPanelButtons : BaseBehaviour
+    public class WorldPanelButtons : BaseViewController<WorldPanel,IView>
     {
-        public GButton MapButton;
-
-        private IUIService _uiService;
-        public override void Init()
+        private IButton _mapButton;
+        public override async Task Init(WorldPanel model, IView view, CancellationToken token)
         {
-            _uiService.SetButton(MapButton, name, ClickMapScreen);
+            await base.Init(model, view, token);
+
+            _mapButton = view.Get<IButton>("MapButton");
+
+            _uiService.SetButton(_mapButton, GetType().Name, ClickMapScreen);
         }
 
         private void ClickMapScreen()
         {
             _screenService.Open(ScreenId.CrawlerMap);
-        }
+        }      
     }
 }

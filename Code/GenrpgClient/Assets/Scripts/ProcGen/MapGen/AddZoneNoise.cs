@@ -1,15 +1,9 @@
-using System.Linq;
-using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
 
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.ProcGen.Entities;
-using System.Threading;
-using Genrpg.Shared.Entities.Constants;
-using System.Text;
 using System;
-using UnityEngine;
+using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class AddZoneNoise : BaseZoneGenerator
 {

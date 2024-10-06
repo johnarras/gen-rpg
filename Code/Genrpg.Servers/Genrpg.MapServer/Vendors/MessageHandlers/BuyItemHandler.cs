@@ -14,7 +14,6 @@ using Genrpg.Shared.Currencies.Constants;
 using Genrpg.ServerShared.Achievements;
 using Genrpg.Shared.Achievements.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
-using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.Vendors.WorldData;
 using Genrpg.Shared.Vendors.MapObjectAddons;
 using Genrpg.Shared.MapServer.Entities;

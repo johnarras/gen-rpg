@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using System.Threading;
 
 public class SpellIconPanel : BaseBehaviour
 {
-    
-    public GEntity _iconParent;
+
+    protected IIconService _iconService;
+    public GameObject _iconParent;
 
     protected SpellIconScreen _screen = null;
     protected string _prefabName = "";
@@ -23,7 +24,7 @@ public class SpellIconPanel : BaseBehaviour
             return;
         }
 
-        GEntityUtils.DestroyAllChildren(_iconParent);
+        _gameObjectService.DestroyAllChildren(_iconParent);
 
         foreach (Spell spell in spells)
         {
@@ -39,7 +40,7 @@ public class SpellIconPanel : BaseBehaviour
             Screen = _screen,
             iconPrefabName = _prefabName,
         };
-        IconHelper.InitSpellIcon(idata, _iconParent,_assetService, token);
+        _iconService.InitSpellIcon(idata, _iconParent,_assetService, token);
     }
 
 }

@@ -1,4 +1,3 @@
-using GEntity = UnityEngine.GameObject;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -9,13 +8,11 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Users.Entities;
 using System.Threading;
 
-using Assets.Scripts.Tokens;
 using UnityEngine; // Needed
-using Genrpg.Shared.Audio.Settings;
-using Genrpg.Shared.Core.Entities;
 using System.Threading.Tasks;
 using Assets.Scripts.Core.Interfaces;
-using UnityEngine.Rendering;
+using Genrpg.Shared.Client.Tokens;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService, IInjectOnLoad<IAudioService>, IInitOnResolve
 {
@@ -35,7 +32,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public void SetGameToken(CancellationToken token)
     {
         _token = token;
-        AwaitableUtils.ForgetAwaitable(CheckRemoveAudio(_token));
+        TaskUtils.ForgetAwaitable(CheckRemoveAudio(_token));
     }
 
     public override void Init()
@@ -133,7 +130,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                     }
                     _audioCache.Remove(cont.Name);
                     cont.Clear();
-                    GEntityUtils.Destroy(cont.entity());
+                    _gameObjectService.Destroy(cont.gameObject);
                 }
             }
             else
@@ -151,7 +148,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         {
             audioName = soundName,
             volume = volume,
-            parent = parent as GEntity,
+            parent = parent as GameObject,
             category = AudioCategory.Sound,
             looping = false,
         };
@@ -180,7 +177,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
 
     private void OnDownloadAudio(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
         if (go == null)
         {
             return;
@@ -189,20 +186,20 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         AudioClipList cont = go.GetComponent<AudioClipList>();
         if (cont == null || !cont.IsValid())
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
         PlayAudioData playData = data as PlayAudioData;
         if (playData == null || string.IsNullOrEmpty(playData.audioName))
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
         if (_audioCache.ContainsKey(playData.audioName))
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             cont = _audioCache[playData.audioName];
                 
         }

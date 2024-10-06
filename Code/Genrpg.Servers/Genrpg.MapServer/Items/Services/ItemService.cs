@@ -20,7 +20,7 @@ using Genrpg.MapServer.Trades.Services;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.Rewards.Entities;
-using Genrpg.ServerShared.Spawns.Services;
+using Genrpg.MapServer.Spawns.Services;
 
 namespace Genrpg.MapServer.Items.Services
 {

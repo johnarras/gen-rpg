@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using Genrpg.Shared.Constants;
 using Scripts.Assets.Assets.Constants;
+using Genrpg.Shared.Client.Core;
+using Assets.Editor;
 
 public class PlatformBuildData
 {
@@ -35,7 +37,7 @@ public class BuildConfiguration
 
 
 
-    public static List<PlatformBuildData> GetbuildConfigs(IUnityGameState gs)
+    public static List<PlatformBuildData> GetbuildConfigs(IClientGameState gs)
     {
         List<PlatformBuildData> list = new List<PlatformBuildData>();
 

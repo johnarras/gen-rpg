@@ -2,6 +2,7 @@
 using Genrpg.MapServer.CharMail.Services;
 using Genrpg.MapServer.Maps.Services;
 using Genrpg.MapServer.Rewards.Services;
+using Genrpg.MapServer.Spawns.Services;
 using Genrpg.ServerShared.CloudComms.Services.Admin;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Charms.Services;
@@ -24,10 +25,11 @@ namespace Genrpg.MapServer.Setup.MapServer
         protected override void AddServices()
         {
             base.AddServices();
+            // This should contain very few sevices. Only those associated with managing the map server itself,
+            // anything related to things happening in a specific instance should be placed in the
+            // MapInstanceSetupService.
             Set<IAdminService>(new MapServerAdminService());
             Set<IMapServerService>(new MapServerService());
-            Set<IRewardService>(new ServerRewardService());
-            Set<ICharMailService>(new CharMailService());
         }
     }
 }

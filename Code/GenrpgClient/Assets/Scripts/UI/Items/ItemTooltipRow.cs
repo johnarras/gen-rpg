@@ -1,48 +1,48 @@
 ﻿using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 public class ItemTooltipRow : BaseBehaviour
 {
     public GText TextRow;
     public GText ChangeText;
-    public List<GEntity> Stars;
+    public List<GameObject> Stars;
 
     public void Init(ItemTooltipRowData rowData)
     {
         if (rowData == null)
         {
-            GEntityUtils.Destroy(entity);
+            _gameObjectService.Destroy(entity);
             return;
         }
 
-        _uIInitializable.SetText(TextRow, rowData.text);
+        _uiService.SetText(TextRow, rowData.text);
 
         if (TextRow != null)
         {
             if (rowData.isCurrent)
             {
-                _uIInitializable.SetColor(TextRow, GColor.white);
+                _uiService.SetColor(TextRow, Color.white);
             }
             else
             {
-                _uIInitializable.SetColor(TextRow, GColor.gray);
+                _uiService.SetColor(TextRow, Color.gray);
             }
         }
         if (rowData.change == 0)
         {
-            _uIInitializable.SetText(ChangeText, "");
+            _uiService.SetText(ChangeText, "");
         }
         else if (ChangeText != null)
         {
             if (rowData.change < 0)
             {
-                _uIInitializable.SetColor(ChangeText, GColor.red);
-                _uIInitializable.SetText(ChangeText, "(" + rowData.change + ")");
+                _uiService.SetColor(ChangeText, Color.red);
+                _uiService.SetText(ChangeText, "(" + rowData.change + ")");
             }
             else
             {
-                _uIInitializable.SetColor(ChangeText, GColor.green);
-                _uIInitializable.SetText(ChangeText, "(+" + rowData.change + ")");
+                _uiService.SetColor(ChangeText, Color.green);
+                _uiService.SetText(ChangeText, "(+" + rowData.change + ")");
             }
         }
 
@@ -50,7 +50,7 @@ public class ItemTooltipRow : BaseBehaviour
         {
             for (int i = 0; i < Stars.Count; i++)
             {
-                GEntityUtils.SetActive(Stars[i], i < rowData.starsToShow);
+                _gameObjectService.SetActive(Stars[i], i < rowData.starsToShow);
             }
         }
 

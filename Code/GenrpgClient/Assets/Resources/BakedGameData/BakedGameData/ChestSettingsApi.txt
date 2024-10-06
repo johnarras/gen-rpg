@@ -1,0 +1,143 @@
+{
+  "Data": [
+    {
+      "Id": "chest1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Common Chest",
+      "Icon": "CommonChest",
+      "Art": "CommonChest",
+      "UnlockMinutes": 240,
+      "Tier": 1,
+      "TieredLootMult": 1,
+      "Loot": [],
+      "UpdateTime": "2024-08-11T15:18:30.912Z"
+    },
+    {
+      "Id": "chest2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Common Chest",
+      "Icon": "CommonChest",
+      "Art": "CommonChest",
+      "UnlockMinutes": 240,
+      "Tier": 1,
+      "TieredLootMult": 1,
+      "Loot": [],
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
+    },
+    {
+      "Id": "chest3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Uncommon Chest",
+      "Icon": "UncommonChest",
+      "Art": "UncommonChest",
+      "UnlockMinutes": 480,
+      "Tier": 2,
+      "TieredLootMult": 2,
+      "Loot": [],
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
+    },
+    {
+      "Id": "chest4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Rare Chest",
+      "Desc": "",
+      "Icon": "RareChest",
+      "Art": "RareChest",
+      "UnlockMinutes": 720,
+      "Tier": 3,
+      "TieredLootMult": 3,
+      "Loot": [],
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
+    },
+    {
+      "Id": "chest5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Epic Chest",
+      "Desc": "",
+      "Icon": "EpicChest",
+      "Art": "EpicChest",
+      "UnlockMinutes": 1440,
+      "Tier": 4,
+      "TieredLootMult": 7,
+      "Loot": [],
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
+    },
+    {
+      "Id": "chest6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Legendary Chest",
+      "Desc": "",
+      "Icon": "LegendaryChest",
+      "Art": "LegendaryChest",
+      "UnlockMinutes": 2880,
+      "Tier": 5,
+      "TieredLootMult": 14,
+      "Loot": [],
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
+    },
+    {
+      "Id": "chest7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Heroic Chest",
+      "Desc": "",
+      "Icon": "HeroicChest",
+      "Art": "HeroicChest",
+      "UnlockMinutes": 4320,
+      "Tier": 6,
+      "TieredLootMult": 22,
+      "Loot": [],
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
+    },
+    {
+      "Id": "chest8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Random Chest",
+      "Desc": "",
+      "Icon": "RandomChest",
+      "Art": "RandomChest",
+      "UnlockMinutes": -1,
+      "Loot": [],
+      "UpdateTime": "2024-08-24T14:32:46.576Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "TieredCurrencyLoot": [
+      {
+        "EntityTypeId": 200,
+        "EntityId": 1,
+        "MinQuantity": 5,
+        "MaxQuantity": 15,
+        "Weight": 100.0,
+        "Name": ""
+      },
+      {
+        "EntityTypeId": 200,
+        "EntityId": 3,
+        "MinQuantity": 5,
+        "MaxQuantity": 15,
+        "Weight": 100.0,
+        "Name": ""
+      },
+      {
+        "EntityTypeId": 200,
+        "EntityId": 2,
+        "MinQuantity": 5,
+        "MaxQuantity": 15,
+        "Weight": 100.0,
+        "Name": ""
+      }
+    ],
+    "Name": "ChestSettings",
+    "UpdateTime": "2024-08-24T14:32:46.576Z"
+  },
+  "Id": "default"
+}

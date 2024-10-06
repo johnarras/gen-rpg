@@ -8,6 +8,6 @@ namespace Genrpg.MapServer.AI.Constants
 {
     public class AIConstants
     {
-        public const float CloseToTargetDistance = 2.0f;
+        public const float CloseToTargetDistance = 3.0f;
     }
 }

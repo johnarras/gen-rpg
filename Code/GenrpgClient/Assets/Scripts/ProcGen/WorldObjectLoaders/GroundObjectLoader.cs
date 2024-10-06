@@ -1,5 +1,5 @@
 ﻿
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Constants;
 using System.Threading;
@@ -7,8 +7,8 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.MapObjects.Messages;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.GroundObjects.Settings;
-using UnityEngine;
 using System.Threading.Tasks;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class GroundObjectLoader : BaseMapObjectLoader
 {
@@ -41,7 +41,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
 
     private void OnDownloadGroundObject(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
         if (go == null)
         {
             return;

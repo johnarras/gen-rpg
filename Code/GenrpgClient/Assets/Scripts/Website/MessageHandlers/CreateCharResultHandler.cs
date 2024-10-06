@@ -1,7 +1,8 @@
 ﻿using Assets.Scripts.Login.Messages.Core;
+using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Website.Messages.CreateChar;
 using System.Threading;
-using UI.Screens.Constants;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {

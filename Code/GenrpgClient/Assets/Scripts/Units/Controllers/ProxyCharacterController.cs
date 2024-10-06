@@ -66,7 +66,7 @@ public class ProxyCharacterController : MonsterController
         }
         if (_rotationLerpTime == 0)
         {
-            _rotationLerpTime = ((1.0f * AppUtils.TargetFrameRate * PlayerController.TimeBetweenPlayerUpdates + -1.0f)) / AppUtils.TargetFrameRate;
+            _rotationLerpTime = ((1.0f * _clientAppService.TargetFrameRate * PlayerController.TimeBetweenPlayerUpdates + -1.0f)) / _clientAppService.TargetFrameRate;
         }
 
 
@@ -131,7 +131,7 @@ public class ProxyCharacterController : MonsterController
         }
         else
         {
-            _lastNonzeroSpeed = 0; float baseLerpPercent = MathUtils.Clamp(0, (float)((DateTime.UtcNow - _lastInputSetTime).TotalSeconds - 0.0f / AppUtils.TargetFrameRate) / _rotationLerpTime, 1);
+            _lastNonzeroSpeed = 0; float baseLerpPercent = MathUtils.Clamp(0, (float)((DateTime.UtcNow - _lastInputSetTime).TotalSeconds - 0.0f / _clientAppService.TargetFrameRate) / _rotationLerpTime, 1);
 
             while (_newPos.FinalRot - _oldPos.FinalRot > 180)
             {
@@ -145,7 +145,7 @@ public class ProxyCharacterController : MonsterController
             float rot = _oldPos.FinalRot + baseLerpPercent * (_newPos.FinalRot - _oldPos.FinalRot);
 
           
-            entity.transform().localEulerAngles = new Vector3(0, rot, 0);
+            entity.transform.localEulerAngles = new Vector3(0, rot, 0);
         }
 
     }

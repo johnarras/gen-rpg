@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TMPro.EditorUtilities;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -29,7 +30,7 @@ public class BundleSetupUtils
             _assetService = new UnityAssetService();
         }
 
-        string endOfPath = AssetUtils.GetAssetPath(assetPathSuffix);
+        string endOfPath = _assetService.GetAssetPath(assetPathSuffix);
 
         string pathWithoutSlash = endOfPath.Replace("/", "");
 

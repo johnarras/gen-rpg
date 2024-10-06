@@ -12,6 +12,7 @@ using Genrpg.Shared.Pathfinding.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.DataGroups;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public interface ITerrainPatchLoader : IInitializable
 {
@@ -24,6 +25,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
     private IPlantAssetLoader _plantAssetLoader;
     private ITerrainTextureManager _terrainTextureManager;
     private IPlayerManager _playerManager;
+    private IClientAppService _clientAppService;
 
     public override async Awaitable Generate(CancellationToken token)
     { 
@@ -39,7 +41,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
     public void LoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)
     {
         _token = token;
-        AwaitableUtils.ForgetAwaitable(InnerLoadOneTerrainPatch(gx, gy, fastLoading, token));
+        TaskUtils.ForgetAwaitable(InnerLoadOneTerrainPatch(gx, gy, fastLoading, token));
     }
 
     private async Awaitable InnerLoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)
@@ -65,7 +67,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
 
                 string filePath = patch.GetFilePath(false);
 
-                ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService);
+                ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService, _clientAppService);
 
                 patch.DataBytes = repo.LoadBytes(filePath);
                 await Awaitable.NextFrameAsync(cancellationToken: token);
@@ -423,9 +425,9 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
                         if (false && _pathfindingService.GetPathfinding()[finalx, finalz])
                         {
                             float height = _terrainManager.SampleHeight(worldx, worldz);
-                            GameObject sphere = await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, "TestSphere", null, token);
+                            GameObject sphere = (GameObject)(await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, "TestSphere", null, token));
                             sphere.name = "TestSphere_" + worldx + "_" + worldz;
-                            GEntityUtils.AddToParent(sphere, patch.terrain.gameObject);
+                            _gameObjectService.AddToParent(sphere, patch.terrain.gameObject);
                             sphere.transform.position = new Vector3(worldx, height, worldz);
                         }
                     }
@@ -471,11 +473,11 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
 
         string filePath = patch.GetFilePath(false);
 
-        ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService);
+        ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService, _clientAppService);
        
         repo.SaveBytes(filePath, bytes);
         patch.DataBytes = bytes;
-        LoadOneTerrainPatch(patch.X, patch.Y, _playerManager.GetEntity() == null, _token);
+        LoadOneTerrainPatch(patch.X, patch.Y, _playerManager.GetPlayerGameObject() == null, _token);
     }
 }
 	

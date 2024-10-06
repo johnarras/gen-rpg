@@ -1,6 +1,4 @@
-﻿using Genrpg.Editor.UI.Constants;
-using GenrpgEditor.Constants;
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using CommunityToolkit.WinUI.UI.Controls;
 using System.Threading.Tasks;
@@ -9,6 +7,7 @@ using Windows.System;
 using Windows.UI.Core;
 using System;
 using Microsoft.UI.Xaml.Media;
+using Genrpg.Editor.Constants;
 
 namespace Genrpg.Editor.UI
 {

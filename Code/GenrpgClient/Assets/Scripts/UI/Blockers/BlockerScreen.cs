@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class BlockerScreen : BaseScreen
 {
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await Task.CompletedTask;
     }

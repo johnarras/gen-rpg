@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
 
 public class CurrentMusic
 {

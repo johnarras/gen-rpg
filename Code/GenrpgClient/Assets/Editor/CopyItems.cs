@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.ProcGen.RandomNumbers;
+﻿using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Units.Entities;
@@ -21,7 +21,7 @@ namespace Assets.Editor
         [MenuItem("Build/CopyMonsterTextures")]
         static void ExecuteLocal()
         {
-            IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+            IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
             IClientRandom clientRandom = new ClientRandom();
             IGameData gameData = gs.loc.Get<IGameData>();
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
@@ -53,7 +53,7 @@ namespace Assets.Editor
         [MenuItem("Build/SetupMonsterImagePrefabs")]
         static void SetupMonsterImagePrefabs()
         {
-            IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+            IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
             IGameData gameData = gs.loc.Get<IGameData>();
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
@@ -105,7 +105,7 @@ namespace Assets.Editor
         [MenuItem("Build/SetupMonster3DPrefabs")]
         static void SetupMonster3DPrefabs()
         {
-            IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+            IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
             IGameData gameData = gs.loc.Get<IGameData>();
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();

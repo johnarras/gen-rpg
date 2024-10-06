@@ -1,0 +1,80 @@
+{
+  "Data": [
+    {
+      "Id": "specialmagic1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "TownPortal",
+      "UpdateTime": "2024-08-01T00:28:12.882Z"
+    },
+    {
+      "Id": "specialmagic2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "PassWalll",
+      "UpdateTime": "2024-08-01T00:28:12.885Z"
+    },
+    {
+      "Id": "specialmagic3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "IdentifyMonster",
+      "UpdateTime": "2024-08-01T00:28:12.888Z"
+    },
+    {
+      "Id": "specialmagic4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "IdentifyItem",
+      "UpdateTime": "2024-08-01T00:28:12.89Z"
+    },
+    {
+      "Id": "specialmagic5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Jump",
+      "UpdateTime": "2024-08-01T00:28:12.893Z"
+    },
+    {
+      "Id": "specialmagic6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Teleport",
+      "UpdateTime": "2024-08-01T00:28:12.895Z"
+    },
+    {
+      "Id": "specialmagic7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "RevealSecret",
+      "UpdateTime": "2024-08-01T00:28:12.898Z"
+    },
+    {
+      "Id": "specialmagic8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "RevealLocation",
+      "UpdateTime": "2024-08-01T00:28:12.901Z"
+    },
+    {
+      "Id": "specialmagic9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "SetWarpTarget",
+      "UpdateTime": "2024-08-01T00:28:12.903Z"
+    },
+    {
+      "Id": "specialmagic10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "ReturnWarpTarget",
+      "UpdateTime": "2024-08-01T00:28:12.88Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "SpecialMagicSettings",
+    "UpdateTime": "2024-08-01T00:28:12.906Z"
+  },
+  "Id": "default"
+}

@@ -11,6 +11,7 @@ using Genrpg.Shared.ProcGen.Settings.Rocks;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using UnityEngine;
+using Genrpg.Shared.Client.Assets.Constants;
 
 internal class FullRockType
 {

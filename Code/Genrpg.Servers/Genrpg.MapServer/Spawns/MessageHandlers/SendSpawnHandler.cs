@@ -19,6 +19,12 @@ namespace Genrpg.MapServer.Spawns.MessageHandlers
             {
                 return;
             }
+
+            if (obj.IsDeleted())
+            {
+                return;
+            }
+
             _messageService.SendMessage(ch, new OnSpawn(obj));
         }
     }

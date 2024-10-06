@@ -63,6 +63,7 @@ namespace Genrpg.MapServer.Spells.Services
         {
             result.State = state;
             result.StateText = _tryCastText[state];
+
         }
 
         public TryCastResult TryCast(IRandom rand, Unit caster, long spellId, string targetId, bool endOfCast)
@@ -164,7 +165,6 @@ namespace Genrpg.MapServer.Spells.Services
 
             if (targState.State != TryCastState.Ok)
             {
-
                 SetResultState(result, targState.State);
                 return result;
             }
@@ -859,6 +859,27 @@ namespace Genrpg.MapServer.Spells.Services
 
             if (result.State != TryCastState.Ok)
             {
+                if (result.State == TryCastState.Evading)
+                {
+                    if (false && _objectManager.GetUnit(targetId, out Unit target))
+                    {
+                        string moreText = "Del: " + target.IsDeleted() + "\nMV " + target.Moving + "\nSPD: " + target.Speed + "\nTID: " + target.TargetId
+                            + "\nFail: " + target.DidFailAIUpdate + "\nNotOk: " + target.UnitWasNotOk + "\nLastUpd: " + target.LastUpdateTime 
+                            + "\nNow: " + DateTime.UtcNow
+                            + "\nATC: " + target.GetAttackers().Count + "\nWP: " + target.Waypoints.Waypoints.Count +
+                            "\nXZ: (" + target.X + "," + target.Z + ")\nFXZ: (" +
+                            target.FinalX + "," + target.FinalZ + ")\nCSXZ: (" +
+                            target.CombatStartX + "," + target.CombatStartZ + ")\nNXZ: ("
+                            + target.GetNextXPos() + "," + target.GetNextZPos() + ") "
+                            + "\nEvade: " + target.HasFlag(UnitFlags.Evading) + "\nDead: " + target.HasFlag(UnitFlags.IsDead)
+                            + "\nHps: " + target.Stats.Curr(StatTypes.Health)
+                            + "\nDidStartCombat: " + target.HasFlag(UnitFlags.DidStartCombat) 
+
+                            ;
+                        result.StateText += moreText;
+                    }
+                }
+
                 caster.AddMessage(new ErrorMessage(result.StateText));
                 if (result.State == TryCastState.TargetDead)
                 {

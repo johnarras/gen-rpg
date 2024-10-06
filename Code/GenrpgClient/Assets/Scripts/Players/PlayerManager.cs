@@ -1,8 +1,5 @@
 ﻿using Assets.Scripts.Pathfinding.Utils;
-using Assets.Scripts.Tokens;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Pathfinding.Entities;
 using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.Targets.Messages;
 using Genrpg.Shared.Units.Constants;
@@ -11,25 +8,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
-using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Client.Tokens;
 
 
 public interface IPlayerManager : IInjectable, IMapTokenService
 {
     void SetUnit(UnitController unitController);
     bool TryGetUnit(out Unit unit);
-    GEntity GetEntity();
+    GameObject GetPlayerGameObject();
     string GetUnitId();
     bool Exists();
     void SetCurrentTarget(string targetId);
     void TargetNext(); 
     void SetKeyPercent(string commandName, float percent);
     void MoveAboveObstacles();
+    void SetEntity(GameObject entity);
 }
 
 public class PlayerManager : IPlayerManager
@@ -45,6 +41,12 @@ public class PlayerManager : IPlayerManager
     private IPathfindingService _pathfindingService;
     private IRealtimeNetworkService _networkService;
     private ILogService _logService;
+    private IClientEntityService _gameObjectService;
+
+    public void SetEntity(GameObject entity)
+    {
+        _entity = entity;
+    }
 
     public void SetUnit(UnitController unitController)
     {
@@ -57,7 +59,7 @@ public class PlayerManager : IPlayerManager
         }
         else
         {
-            GEntityUtils.Destroy(_entity);
+            _gameObjectService.Destroy(_entity);
             _entity = null;
             _unit = null;
         }
@@ -85,7 +87,7 @@ public class PlayerManager : IPlayerManager
         return _unit?.Id ?? null;
     }
 
-    public GEntity GetEntity()
+    public GameObject GetPlayerGameObject()
     {
         return _entity;
     }
@@ -142,7 +144,7 @@ public class PlayerManager : IPlayerManager
 
         if (_unit != null)
         {
-            GVector3 newPos = GVector3.Create(_unitController.entity.transform().position + _unitController.entity.transform().forward * dist);
+            Vector3 newPos = _unitController.entity.transform.position + _unitController.entity.transform.forward * dist;
             List<Unit> units = _mapObjectManager.GetTypedObjectsNear<Unit>(newPos.x, newPos.z, rad);
             if (units.Count < 1)
             {
@@ -236,19 +238,19 @@ public class PlayerManager : IPlayerManager
         {
             return;
         }
-        List<GEntity> hits = GPhysics.RaycastAll(GVector3.Create(_entity.transform().position) + GVector3.up * 500, GVector3.down);
+        RaycastHit[] hits = Physics.RaycastAll(_entity.transform.position + Vector3.up * 500, Vector3.down);
 
-        foreach (GEntity hit in hits)
+        foreach (RaycastHit hit in hits)
         {
-            if (hit.name.IndexOf("Water") >= 0)
+            if (hit.collider.name.IndexOf("Water") >= 0)
             {
-                if (hit.transform().position.y > _entity.transform().position.y)
+                if (hit.transform.position.y > _entity.transform.position.y)
                 {
-                    _entity.transform().position = GVector3.Create(_entity.transform().position.x, hit.transform().position.y + 1,
-                        _entity.transform().position.z);
+                    _entity.transform.position = new Vector3(_entity.transform.position.x, hit.transform.position.y + 1,
+                        _entity.transform.position.z);
                 }
             }
         }
-        _entity.transform().position += GVector3.Create(0, 10, 0);
+        _entity.transform.position += new Vector3(0, 10, 0);
     }
 }

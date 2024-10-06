@@ -4,7 +4,7 @@
   "IdKey": 18,
   "Name": "Phase Wall",
   "Desc": "Pass through a wall in front of you if the square behind it exists.",
-  "PowerCost": 50,
+  "PowerCost": 50.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 8,

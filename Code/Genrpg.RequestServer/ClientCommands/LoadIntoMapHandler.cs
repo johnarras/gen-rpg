@@ -30,7 +30,7 @@ namespace Genrpg.RequestServer.ClientCommands
         private ICloudCommsService _cloudCommsService = null;
         private IPurchasingService _purchasingService = null;
 
-        private static ConcurrentDictionary<string, CachedMap> _mapCache = new ConcurrentDictionary<string, CachedMap>();
+        private ConcurrentDictionary<string, CachedMap> _mapCache = new ConcurrentDictionary<string, CachedMap>();
         public override async Task Reset()
         {
             _mapCache = new ConcurrentDictionary<string, CachedMap>();

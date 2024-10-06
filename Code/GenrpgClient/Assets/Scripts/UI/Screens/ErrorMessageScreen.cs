@@ -10,8 +10,6 @@ namespace Assets.Scripts.UI.Screens
 {
     public abstract class ErrorMessageScreen : BaseScreen
     {
-        protected IUIService _uiService;
-
         public abstract void ShowError(string errorMessage);
     }
 }

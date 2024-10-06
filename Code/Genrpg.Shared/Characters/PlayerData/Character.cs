@@ -8,8 +8,8 @@ using Genrpg.Shared.Networking.Interfaces;
 using Genrpg.Shared.Factions.Constants;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.DataStores.PlayerData;
-using Genrpg.Shared.Characters.Utils;
 using Genrpg.Shared.Trades.Entities;
+using Genrpg.Shared.Characters.Utils;
 
 namespace Genrpg.Shared.Characters.PlayerData
 {

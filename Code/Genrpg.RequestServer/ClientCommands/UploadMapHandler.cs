@@ -3,22 +3,14 @@ using Genrpg.RequestServer.Setup;
 using Genrpg.ServerShared.CloudComms.PubSub.Topics.Admin.Messages;
 using Genrpg.ServerShared.CloudComms.Services;
 using Genrpg.ServerShared.Config;
-using Genrpg.ServerShared.Core;
-using Genrpg.ServerShared.DataStores;
 using Genrpg.ServerShared.Maps;
 using Genrpg.ServerShared.MapSpawns;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Constants;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.DataGroups;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Website.Messages.UploadMap;
-using Microsoft.Azure.Amqp.Framing;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Genrpg.RequestServer.ClientCommands
 {
@@ -66,7 +58,7 @@ namespace Genrpg.RequestServer.ClientCommands
                 IServerConfig newConfig = SerializationUtils.SafeMakeCopy(_config);
                 newConfig.DataEnvs[EDataCategories.Worlds.ToString()] = command.WorldDataEnv;
 
-                WebContext newContext = await SetupUtils.SetupFromConfig<WebContext, WebsiteSetupService>(null, _config.ServerId, token, newConfig);
+                WebContext newContext = await new ServerSetup().SetupFromConfig<WebContext, WebsiteSetupService>(null, _config.ServerId, token, newConfig);
 
 
                 IRepositoryService newRepoService = newContext.loc.Get<IRepositoryService>();

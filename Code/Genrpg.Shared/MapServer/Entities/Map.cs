@@ -47,17 +47,6 @@ namespace Genrpg.Shared.MapServer.Entities
         [Key(16)] public List<QuestItem> QuestItems { get; set; }
         [Key(17)] public List<Zone> Zones { get; set; }
 
-
-        public static string GetMapOwnerId(IMapRoot mapRoot)
-        {
-            return GetMapOwnerId(mapRoot.Id, mapRoot.MapVersion);
-        }
-
-        public static string GetMapOwnerId(string mapId, int mapVersion)
-        {
-            return mapId + "-" + mapVersion;
-        }
-
         public Map()
         {
             Quests = new List<QuestType>();

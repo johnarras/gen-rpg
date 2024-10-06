@@ -16,12 +16,12 @@ public class InfoButton : BaseBehaviour
     public override void Init()
     {
         base.Init();
-        BaseScreen screen = GEntityUtils.FindInParents<BaseScreen>(gameObject);
+        BaseScreen screen = _gameObjectService.FindInParents<BaseScreen>(gameObject);
 
         if (screen != null)
         {
             _screenName = screen.GetName();
-            _uIInitializable.SetButton(Button, screen.GetName(), ClickInfoButton);
+            _uiService.SetButton(Button, screen.GetName(), ClickInfoButton);
         }
     }
 

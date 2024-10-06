@@ -1,14 +1,10 @@
 ﻿
-
-using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Website.Messages.Login;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Logging.Interfaces;
-using UnityEngine;
 using System.Threading.Tasks;
 using Assets.Scripts.UI.Screens;
-using System;
+using Genrpg.Shared.UI.Entities;
 
 public class LoginScreen : ErrorMessageScreen
 {
@@ -21,11 +17,12 @@ public class LoginScreen : ErrorMessageScreen
 
     protected IClientAuthService _loginService;
     protected IRepositoryService _repoService;
-
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected IClientAppService _clientAppService;
+    protected IClientCryptoService _clientCryptoService;    
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
-        _uIInitializable.SetButton(LoginButton, GetName(), ClickLogin);
-        _uIInitializable.SetButton(SignupButton, GetName(), ClickSignup);
+        _uiService.SetButton(LoginButton, GetName(), ClickLogin);
+        _uiService.SetButton(SignupButton, GetName(), ClickSignup);
 
         await Task.CompletedTask;
     }
@@ -59,8 +56,8 @@ public class LoginScreen : ErrorMessageScreen
         {
             Email = EmailInput.Text,
             Password = PasswordInput.Text,
-            ClientVersion = AppUtils.Version,
-            DeviceId = CryptoUtils.GetDeviceId(),
+            ClientVersion = _clientAppService.Version,
+            DeviceId = _clientCryptoService.GetDeviceId(),
         };
 
         _loginService.LoginToServer(loginCommand, _token);

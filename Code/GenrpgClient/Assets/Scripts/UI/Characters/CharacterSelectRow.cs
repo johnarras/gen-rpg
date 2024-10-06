@@ -1,9 +1,10 @@
 ﻿using Genrpg.Shared.Characters.PlayerData;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.MapServer.Entities;
 using Assets.Scripts.Atlas.Constants;
 using System.Threading;
 using Genrpg.Shared.Website.Messages.DeleteChar;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class CharacterSelectRow : BaseBehaviour
 {
@@ -11,7 +12,7 @@ public class CharacterSelectRow : BaseBehaviour
 
     public GText NameText;
     public GImage CharImage;
-    public GEntity PlayButtonAnchor;
+    public GameObject PlayButtonAnchor;
     public GButton DeleteButton;
     
     private CharacterStub _characterStub;
@@ -23,8 +24,8 @@ public class CharacterSelectRow : BaseBehaviour
         _screen = screen;
         _characterStub = ch;
         _token = token;
-        _uIInitializable.SetText(NameText, ch.Name);
-        _uIInitializable.SetButton(DeleteButton, screen.GetName(), ClickDelete);
+        _uiService.SetText(NameText, ch.Name);
+        _uiService.SetButton(DeleteButton, screen.GetName(), ClickDelete);
         _assetService.LoadAtlasSpriteInto(AtlasNames.Icons, "HelmetMetal_002", CharImage, token);
 
         if (PlayButtonAnchor == null)
@@ -61,7 +62,7 @@ public class CharacterSelectRow : BaseBehaviour
 
     private void OnDownloadPlayButton(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
 
         if (go == null)
         {

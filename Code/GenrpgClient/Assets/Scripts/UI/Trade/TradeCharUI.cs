@@ -11,14 +11,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 
 public class TradeCharUI : BaseBehaviour
 {
-    private IUIService _uiService;
-
     public GInputField MoneyInput;
 
     public List<ItemIcon> ItemIcons;
@@ -119,7 +118,7 @@ public class TradeCharUI : BaseBehaviour
     {
         if (Background != null)
         {
-            Background.Color = (accepted ? GColor.gray : GColor.white);
+            Background.Color = (accepted ? Color.gray : Color.white);
         }
     }
 }

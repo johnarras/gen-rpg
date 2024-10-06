@@ -4,7 +4,7 @@
   "IdKey": 45,
   "Name": "Charm",
   "Desc": "Convince a monster to join your side.",
-  "PowerCost": 25,
+  "PowerCost": 25.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 3,

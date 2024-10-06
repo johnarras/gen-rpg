@@ -56,9 +56,26 @@ namespace Genrpg.RequestServer.BoardGame.Services
 
                 await args.Helper.SetupRollDiceArgs(context, args);
 
+                if (!args.Result.FreeRolls)
+                {
+                    if (userData.Coins.Get(UserCoinTypes.Energy) < userData.PlayMult)
+                    {
+                        args.Result.DiceRollResult = DiceRollResults.OutOfDice;
+                        context.Results.Add(args.Result);
+                        return;
+                    }
+                    else
+                    {
+                        userData.Coins.Add(UserCoinTypes.Energy, -userData.PlayMult);
+                        args.Result.DiceCost = userData.PlayMult;
+                    }
+                }
+
                 await GetTilesReached(context, args);
 
                 await GetRewards(context, args);
+
+                await UpdateAfterRoll(context, args);
 
                 args.Result.NextBoard = args.Board;
 
@@ -78,6 +95,8 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     userData.LastHourlyReset = DateTime.UtcNow;
                     context.Results.Add(new UpdateUserEnergyResult() { EnergyAdded = 0, LastHourlyReset = userData.LastHourlyReset });
                 }
+
+                context.Results.Add(args.Result);
             }
             catch (Exception ex)
             {
@@ -164,36 +183,13 @@ namespace Genrpg.RequestServer.BoardGame.Services
                 }
             }
 
-            await _boardPrizeService.UpdatePrizesForBoard(context, args.Board);
-
             args.Result.RollTotal = endRollTotal;
             args.Result.RollValues = rollValues;
             args.Result.TilesIndexesReached = tileIndexesReached;
             args.Board.TileIndex = tileIndexesReached.Last();
-
-            NextBoardData nextData = context.TryGetFromCache<NextBoardData>();
-
-            if (nextData != null && nextData.NextBoard != null)
-            {
-                BoardStackData stackData = await context.GetAsync<BoardStackData>();
-
-                BoardData existingBoardData = stackData.Boards.FirstOrDefault(x => x.BoardModeId == args.Board.BoardModeId &&
-                x.ZoneTypeId == args.Board.ZoneTypeId && x.OwnerId == args.Board.OwnerId);
-                
-                if (existingBoardData == null)
-                {
-                    stackData.Boards.Add(args.Board);
-                }
-                context.Remove<BoardData>(context.user.Id);
-
-                context.Set<BoardData>(nextData.NextBoard);
-
-                args.Result.NextBoard = nextData.NextBoard;
-
-            }
-
-            context.Results.Add(args.Result);
-
+            args.Result.StartIndex = tileIndexesReached[0];
+            args.Result.EndIndex = tileIndexesReached.Last();
+           
             await Task.CompletedTask;
         }
 
@@ -316,6 +312,33 @@ namespace Genrpg.RequestServer.BoardGame.Services
                         }
                     }
                 }
+            }
+        }
+
+        private async Task UpdateAfterRoll(WebContext context, RollDiceArgs args)
+        {
+            await _boardPrizeService.UpdatePrizesForBoard(context, args.Board);
+
+            NextBoardData nextData = context.TryGetFromCache<NextBoardData>();
+
+            if (nextData != null && nextData.NextBoard != null)
+            {
+                BoardStackData stackData = await context.GetAsync<BoardStackData>();
+
+                BoardData existingBoardData = stackData.Boards.FirstOrDefault(x => x.BoardModeId == args.Board.BoardModeId &&
+                x.ZoneTypeId == args.Board.ZoneTypeId && x.OwnerId == args.Board.OwnerId);
+
+                if (existingBoardData == null)
+                {
+                    stackData.Boards.Add(args.Board);
+                }
+                context.Remove<BoardData>(context.user.Id);
+
+                context.Set<BoardData>(nextData.NextBoard);
+
+                args.Result.NextBoard = nextData.NextBoard;
+
+                await _boardPrizeService.UpdatePrizesForBoard(context, nextData.NextBoard);
             }
         }
     }

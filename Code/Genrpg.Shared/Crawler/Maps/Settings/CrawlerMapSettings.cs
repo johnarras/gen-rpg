@@ -6,7 +6,7 @@ using Genrpg.Shared.Interfaces;
 using MessagePack;
 using System.Transactions;
 
-namespace Genrpg.Shared.Crawler.MapGen.Settings
+namespace Genrpg.Shared.Crawler.Maps.Settings
 {
     [MessagePackObject]
     public class CrawlerMapSettings : ParentSettings<CrawlerMapType>

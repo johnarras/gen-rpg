@@ -24,30 +24,7 @@ namespace Genrpg.Shared.Crawler.Training.Settings
         [Key(7)] public long MaxScalingExpLevel { get; set; } = 25;
 
         [Key(8)] public double LowerStatIncreaseChance { get; set; } = 0.75;
-        [Key(9)] public double MaxStatIncreaseChance { get; set; } = 0.50;
-
-        public long GetExpToLevel(long level)
-        {
-            if (level < 1)
-            {
-                level = 1;
-            }
-
-            if (level > MaxScalingExpLevel)
-            {
-                level = MaxScalingExpLevel;
-            }
-
-            return (long)((StartKillsNeeded + ExtraKillsNeeded * (level - 1)) *
-                (StartMonsterExp + ExtraMonsterExp * (level - 1)));
-
-        }
-
-        public long GetNextLevelTrainingCost(long currentLevel)
-        {
-            currentLevel--;
-            return LinearCostPerLevel * (currentLevel + 1) + QuadraticCostPerLevel * currentLevel * currentLevel;
-        }
+        [Key(9)] public double MaxStatIncreaseChance { get; set; } = 0.50; 
 
         public long GetMonsterExp(long currentLevel)
         {

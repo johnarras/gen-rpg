@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.ProcGen.RandomNumbers;
+﻿using Genrpg.Shared.Client.Core;
 using Assets.Scripts.ProcGen.Services;
 using Genrpg.Shared.BoardGame.Constants;
 using Genrpg.Shared.BoardGame.Entities;
@@ -14,6 +14,7 @@ using System.Threading;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
+using Genrpg.Shared.Client.Assets.Constants;
 
 namespace Assets.Scripts.ProcGen.Components
 {
@@ -44,6 +45,12 @@ namespace Assets.Scripts.ProcGen.Components
         {
             return _markerCount;
         }
+
+        public List<MarkerPosition> GetMarkers()
+        {
+            return _markers;
+        }
+
         public void Clear()
         {
             if (Container != null)
@@ -68,7 +75,6 @@ namespace Assets.Scripts.ProcGen.Components
             float length = Container.Splines[0].GetLength();
             _markerCount = (int)(length*GenParams.MarkerDensity);
 
-
             BoardData boardData = _gs.ch.Get<BoardData>();
 
             if (boardData == null || boardData.Length == 0)
@@ -76,14 +82,9 @@ namespace Assets.Scripts.ProcGen.Components
                 return;
             }
 
-            float desiredLength = 8 * boardData.Length;
-
-            float lengthRatio = desiredLength/Container.Splines[0].GetLength();
-
             IReadOnlyList<TileType> tileTypes = _gameData.Get<TileTypeSettings>(_gs.ch).GetData();
 
             short[] allTiles = boardData.Tiles.Data;
-
 
             List<short> mainPath = new List<short>();
 
@@ -103,9 +104,11 @@ namespace Assets.Scripts.ProcGen.Components
                 }
             }
 
+            _markerCount = mainPathLength;
+
             List<short> currentPath = null;
 
-            for (int i = mainPathLength+1; i < allTiles.Length; i++)
+            for (int i = mainPathLength; i < allTiles.Length; i++)
             {
                 if (currentPath == null)
                 {
@@ -136,13 +139,13 @@ namespace Assets.Scripts.ProcGen.Components
 
                 pipsUsed += currPips-pipsPerGoldTile;
 
-                float percent = pipsUsed * 1.0f / (pipTotal);
+                float percent = 1 - pipsUsed * 1.0f / (pipTotal);
 
                 pipsUsed += currPips;
                 Vector3 pos = (Container.Splines[0].EvaluatePosition(percent));
-                pos *= lengthRatio;
                 MarkerPosition markerPos = new MarkerPosition() { Percent = percent, Index = i, Position = pos, EntityId = tileType.IdKey };
 
+                _logService.Info("LoadTile: " + tileType.Art + " " + tileType.IdKey + " " + markerPos.Index);
                 _markers.Add(markerPos);
                 _assetService.LoadAssetInto(this, AssetCategoryNames.Tiles, tileType.Art, OnLoadMarker, markerPos, token);
             }
@@ -161,6 +164,7 @@ namespace Assets.Scripts.ProcGen.Components
 
             if (sidePaths.Count > 0)
             {
+                int pathLengthSoFar = mainPath.Count;
                 for (int s = 0; s < sidePaths.Count; s++)
                 {
 
@@ -180,6 +184,7 @@ namespace Assets.Scripts.ProcGen.Components
                     {
                         sidePathStart = pos.Position;
                     }
+
                     Vector3 dirToSidePath = sidePathStart - _center;
 
                     _curveGenService.CreateLinearSpline(this, s + 1, sidePaths[s].Count, sidePathStart.x, sidePathStart.z, dirToSidePath.x, dirToSidePath.z, rand, token);
@@ -188,7 +193,6 @@ namespace Assets.Scripts.ProcGen.Components
 
                     for (int i = 0; i < sidePaths[s].Count; i++)
                     {
-
                         TileType tileType = tileTypes.FirstOrDefault(x => x.IdKey == sidePaths[s][i]);
 
                         int currPips = pipsPerGoldTile;
@@ -200,15 +204,15 @@ namespace Assets.Scripts.ProcGen.Components
                         pipsUsed += currPips;
                         Vector3 evalPos = (spline.EvaluatePosition(percent));
                         
-                        MarkerPosition markerPos = new MarkerPosition() { Percent = percent, Index = i+mainPath.Count, Position = evalPos, EntityId = tileType.IdKey };
+                        MarkerPosition markerPos = new MarkerPosition() { Percent = percent, Index = i+pathLengthSoFar, Position = evalPos, EntityId = tileType.IdKey };
 
                         _markers.Add(markerPos);
+                        _logService.Info("LoadTile: " + tileType.Art + " " + tileType.IdKey + " " + markerPos.Index);
                         _assetService.LoadAssetInto(this, AssetCategoryNames.Tiles, tileType.Art, OnLoadMarker, markerPos, token);
                     }
-
+                    pathLengthSoFar += sidePaths[s].Count;
                 }
             }
-
         }
 
         private void OnLoadMarker(object obj, object data, CancellationToken token)
@@ -225,7 +229,7 @@ namespace Assets.Scripts.ProcGen.Components
 
             if (Container == null || Container.Splines.Count < 1)
             {
-                GEntityUtils.Destroy(go);
+                _gameObjectService.Destroy(go);
                 return;
             }
 
@@ -234,11 +238,11 @@ namespace Assets.Scripts.ProcGen.Components
 
             go.transform.position = markerPos.Position;
 
-            float tileWidth = 5;
+            float tileWidth = 1;
 
             if (go.name.IndexOf("Gold") < 0)
             {
-                tileWidth = 6.5f;
+                tileWidth = 1.5f;
             }
             TileType tileType = _gameData.Get<TileTypeSettings>(null).Get(markerPos.EntityId);
 
@@ -249,8 +253,10 @@ namespace Assets.Scripts.ProcGen.Components
                 ttName = "(" + tileType.Name +")";  
             }
 
-
-            go.transform.localScale = new Vector3(tileWidth, 0.2f, tileWidth);
+            if (go.transform.childCount > 0)
+            {
+                go.transform.GetChild(0).localScale = new Vector3(tileWidth, 0.2f, tileWidth);
+            }
             go.name = "Tile" + markerPos.Index + " (" + (int)go.transform.position.x + "," + (int)go.transform.position.z + "): " + markerPos.Percent + "% " + ttName;
 
             if (_markers.Count >= _markerCount)

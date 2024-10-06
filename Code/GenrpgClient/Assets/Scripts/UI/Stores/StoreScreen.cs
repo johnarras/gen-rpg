@@ -1,32 +1,30 @@
 ﻿
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Website.Messages.RefreshStores;
 using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
-using Genrpg.Shared.Stats.Messages;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
+using Genrpg.Shared.Client.Assets.Constants;
 
 namespace Assets.Scripts.UI.Stores
 {
     public class StoreScreen : BaseScreen
     {
-        public GEntity StoreParent;
+        public GameObject StoreParent;
 
         const string StorePanelPrefab = "StorePanel";
 
         private List<StorePanel> _panels = new List<StorePanel>();
         private PlayerStoreOfferData _offerData = null;
-        protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+        protected override async Task OnStartOpen(object data, CancellationToken token)
         {
             _offerData = _gs.ch.Get<PlayerStoreOfferData>();
 
             SetupData(token);
 
-            _dispatcher.AddEvent<RefreshStoresResult>(this, OnRefreshStores);
+            AddListener<RefreshStoresResult>(OnRefreshStores);
 
             await Task.CompletedTask;
         }
@@ -39,7 +37,7 @@ namespace Assets.Scripts.UI.Stores
                 return;
             }
 
-            GEntityUtils.DestroyAllChildren(StoreParent);
+            _gameObjectService.DestroyAllChildren(StoreParent);
 
             foreach (PlayerStoreOffer offer in _offerData.StoreOffers)
             {
@@ -51,7 +49,7 @@ namespace Assets.Scripts.UI.Stores
 
         private void OnLoadStorePanel(object obj, object data, CancellationToken token)
         {
-            GEntity go = obj as GEntity;
+            GameObject go = obj as GameObject;
 
             if (go == null)
             {

@@ -1,11 +1,9 @@
-﻿using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Utils;
+﻿using UnityEngine;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using Assets.Scripts.Atlas.Constants;
 
 using System.Threading;
 using Genrpg.Shared.SpellCrafting.Messages;
-using UnityEngine;
 using Genrpg.Shared.SpellCrafting.Services;
 using Assets.Scripts.UI.Spells;
 using Genrpg.Shared.SpellCrafting.Constants;
@@ -14,7 +12,9 @@ using Genrpg.Shared.Spells.Settings.Spells;
 using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Logging.Interfaces;
+using System.Linq;
+using System.Threading.Tasks;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class SpellbookScreen : SpellIconScreen
 {
@@ -42,23 +42,23 @@ public class SpellbookScreen : SpellIconScreen
     public SpellModInputField ShotsInput;
     public SpellModInputField MaxChargesInput;
 
-    public GEntity EffectListParent;
+    public GameObject EffectListParent;
 
     private Spell _selectedSpell = null;
     private Sprite[] _sprites = null;
 
     private List<SpellEffectEdit> _effectEdits = new List<SpellEffectEdit>();
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        _dispatcher.AddEvent<OnCraftSpell>(this, OnCraftSpellHandler);
-        _dispatcher.AddEvent<OnDeleteSpell>(this, OnDeleteSpellHandler);
-        _uIInitializable.SetButton(CraftButton, GetName(), ClickCraft);
-        _uIInitializable.SetButton(DeleteButton, GetName(), ClickDelete);
-        _uIInitializable.SetButton(ClearButton, GetName(), ClickClear);
-        _uIInitializable.SetButton(AddEffectButton, GetName(), ClickAddEffect);
-        _uIInitializable.SetButton(ValidateButton, GetName(), ClickValidate);
+        AddListener<OnCraftSpell>(OnCraftSpellHandler);
+        AddListener<OnDeleteSpell>(OnDeleteSpellHandler);
+        _uiService.SetButton(CraftButton, GetName(), ClickCraft);
+        _uiService.SetButton(DeleteButton, GetName(), ClickDelete);
+        _uiService.SetButton(ClearButton, GetName(), ClickClear);
+        _uiService.SetButton(AddEffectButton, GetName(), ClickAddEffect);
+        _uiService.SetButton(ValidateButton, GetName(), ClickValidate);
         InitScreenInputs();
         SetSelectedSpell(null);
         ShowSpells(token);
@@ -70,9 +70,9 @@ public class SpellbookScreen : SpellIconScreen
         
     }
 
-    private void OnLoadSprites(Sprite[] sprites)
+    private void OnLoadSprites(object[] sprites)
     {
-        _sprites = sprites;
+        _sprites = sprites.Cast<Sprite>().ToArray();
     }
 
     public override void OnRightClickIcon(SpellIcon icon)
@@ -196,8 +196,8 @@ public class SpellbookScreen : SpellIconScreen
         IReadOnlyList<ElementType> elements = _gameData.Get<ElementTypeSettings>(_gs.ch).GetData();
         IReadOnlyList<StatType> statTypes = _gameData.Get<StatSettings>(_gs.ch).GetData();
 
-        _editSpell.ElementTypeId = _uIInitializable.GetSelectedIdFromName(typeof(ElementType), ElementDropdown);
-        _editSpell.PowerStatTypeId = _uIInitializable.GetSelectedIdFromName(typeof(StatType), PowerTypeDropdown);
+        _editSpell.ElementTypeId = _uiService.GetSelectedIdFromName(typeof(ElementType), ElementDropdown);
+        _editSpell.PowerStatTypeId = _uiService.GetSelectedIdFromName(typeof(StatType), PowerTypeDropdown);
 
         _editSpell.Cooldown = (int)CooldownInput?.GetSelectedValue();
         _editSpell.MaxRange = (int)RangeInput?.GetSelectedValue();
@@ -241,12 +241,12 @@ public class SpellbookScreen : SpellIconScreen
         RangeInput?.SetSelectedValue(spell.MaxRange);
         MaxChargesInput?.SetSelectedValue(spell.MaxCharges);
 
-        _uIInitializable.SetText(PowerCostText, spell.PowerCost.ToString());
+        _uiService.SetText(PowerCostText, spell.PowerCost.ToString());
 
         // Get rid of extra effect blocks
         while (_effectEdits.Count > spell.Effects.Count)
         {
-            GEntityUtils.Destroy(_effectEdits[_effectEdits.Count - 1].gameObject);
+            _gameObjectService.Destroy(_effectEdits[_effectEdits.Count - 1].gameObject);
             _effectEdits.RemoveAt(_effectEdits.Count - 1);
         }
 
@@ -271,7 +271,7 @@ public class SpellbookScreen : SpellIconScreen
 
     private void OnLoadEffect(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
 
         if (obj == null)
         {

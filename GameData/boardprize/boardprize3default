@@ -3,8 +3,7 @@
   "ParentId": "default",
   "IdKey": 3,
   "Name": "Energy",
-  "VisualEntityTypeId": 200,
-  "VisualEntityId": 3,
+  "Art": "EnergyPrize",
   "LootTable": [
     {
       "EntityTypeId": 200,
@@ -39,5 +38,5 @@
       "Name": ""
     }
   ],
-  "UpdateTime": "2024-08-11T14:48:17.476Z"
+  "UpdateTime": "2024-09-26T20:16:39.347Z"
 }

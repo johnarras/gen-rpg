@@ -17,11 +17,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
-using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Client.Core;
 
 public interface IQuestGenService : IInitializable
 {
-    void GenerateQuests(IUnityGameState gs);
+    void GenerateQuests(IClientGameState gs);
 }
 
 public class QuestGenService : IQuestGenService
@@ -30,7 +30,7 @@ public class QuestGenService : IQuestGenService
     protected IMapGenService _mapGenService;
     protected IGameData _gameData;
     private IMapProvider _mapProvider;
-    protected IUnityGameState _gs;
+    protected IClientGameState _gs;
     protected IClientRandom _rand;
 
     public async Task Initialize(CancellationToken token)
@@ -39,7 +39,7 @@ public class QuestGenService : IQuestGenService
     }
 
 
-    public void GenerateQuests(IUnityGameState gs)
+    public void GenerateQuests(IClientGameState gs)
     {
         if (_mapProvider.GetMap() == null || _mapProvider.GetMap().Zones == null)
         {
@@ -233,7 +233,7 @@ public class QuestGenService : IQuestGenService
 
     }
 
-    protected long GetNextQuestTypeId(IUnityGameState gs)
+    protected long GetNextQuestTypeId(IClientGameState gs)
     {
         if (_mapProvider.GetMap() == null || _mapProvider.GetMap().Quests == null ||
             _mapProvider.GetMap().Quests.Count < 1)
@@ -244,7 +244,7 @@ public class QuestGenService : IQuestGenService
         return _mapProvider.GetMap().Quests.Max(X => X.IdKey) + 1;
     }
 
-    public long GetNextQuestItemId(IUnityGameState gs)
+    public long GetNextQuestItemId(IClientGameState gs)
     {
         if (_mapProvider.GetMap() == null || _mapProvider.GetMap().QuestItems == null ||
             _mapProvider.GetMap().QuestItems.Count < 1)

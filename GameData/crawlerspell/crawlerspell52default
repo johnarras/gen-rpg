@@ -4,7 +4,7 @@
   "IdKey": 52,
   "Name": "Blizzard",
   "Desc": "Hit all monsters with cold damage.",
-  "PowerCost": 12,
+  "PowerCost": 12.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 4,

@@ -10,7 +10,7 @@ namespace Genrpg.Shared.Units.Constants
 
         public const float CombatSpeedMult = 1.2f;
 
-        public const float EvadeSpeedMult = 2.0f;
+        public const float EvadeSpeedMult = 1.5f;
 
         public const float RotSpeedPerFrame = 20.0f;
 

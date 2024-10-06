@@ -1,0 +1,21 @@
+{
+  "Id": "crawlerspell10020default",
+  "ParentId": "default",
+  "IdKey": 10020,
+  "Name": "Enhance DamagePower",
+  "PowerCost": 3.0,
+  "PowerPerLevel": 0.25,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 9,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 31,
+      "EntityId": 20,
+      "MinQuantity": 1,
+      "MaxQuantity": 1
+    }
+  ],
+  "UpdateTime": "2024-10-05T23:56:53.124Z"
+}

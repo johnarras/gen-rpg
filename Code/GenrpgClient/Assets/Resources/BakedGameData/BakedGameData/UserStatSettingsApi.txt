@@ -1,0 +1,24 @@
+{
+  "Data": [
+    {
+      "Id": "userstattype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Credits Mult",
+      "UpdateTime": "2024-08-18T20:01:34.057Z"
+    },
+    {
+      "Id": "userstattype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Total Upgrade Cost",
+      "UpdateTime": "2024-08-18T20:01:34.057Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "UserStatSettings",
+    "UpdateTime": "2024-08-18T20:27:42.502Z"
+  },
+  "Id": "default"
+}

@@ -6,11 +6,8 @@ using System.Collections.Generic;
 
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Core.Entities;
-using Assets.Scripts.Tokens;
 using System.Threading;
 using Genrpg.Shared.Website.Interfaces;
-using Genrpg.Shared.Website.Messages.Login;
 using Genrpg.Shared.Website.Messages;
 using Assets.Scripts.Login.Messages;
 using System.Linq;
@@ -18,11 +15,28 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.HelperClasses;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using Genrpg.Shared.Website.Messages.Error;
-using static ClientWebService;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Client.Tokens;
 
 public delegate void WebResultsHandler(string txt, List<FullWebCommand> commands, CancellationToken token);
+
+
+public enum EWebCommandState
+{
+    Pending,
+    Complete,
+}
+
+public class FullWebCommand
+{
+    public IWebCommand Command;
+    public CancellationToken Token;
+    public Type ResultType { get; set; }
+    public object ResultObject { get; set; }
+    public ErrorResult ErrorResult { get; set; }
+    public EWebCommandState State { get; set; } = EWebCommandState.Pending;
+}
 
 public interface IClientWebService : IInitializable, IGameTokenService
 {
@@ -41,13 +55,21 @@ public interface IClientWebService : IInitializable, IGameTokenService
 
 public class ClientWebService : IClientWebService
 {
+    private class ResultHandlerPair
+    {
+        public IWebResult Result { get; set; } = null;
+        public IClientLoginResultHandler Handler { get; set; } = null;
+    }
+
+
+
     private Dictionary<string,WebRequestQueue> _queues = new Dictionary<string,WebRequestQueue>();
 
     private SetupDictionaryContainer<Type, IClientLoginResultHandler> _loginResultHandlers = new SetupDictionaryContainer<Type, IClientLoginResultHandler>();
 
     protected IServiceLocator _loc = null;
-    protected IUnityGameState _gs = null;
-    private IUnityUpdateService _updateService;
+    protected IClientGameState _gs = null;
+    private IClientUpdateService _updateService;
     protected ILogService _logService;
     public ClientWebService(CancellationToken token)
     {
@@ -89,32 +111,10 @@ public class ClientWebService : IClientWebService
         }
 
 
-        _updateService.AddUpdate(this, ProcessRequestQueues, UpdateType.Late);
+        _updateService.AddUpdate(this, ProcessRequestQueues, UpdateType.Late, token);
 
 
         await Task.CompletedTask;
-    }
-
-    public enum EWebCommandState
-    {
-        Pending,
-        Complete,
-    }
-   
-    public class FullWebCommand
-    {
-        public IWebCommand Command;
-        public CancellationToken Token;
-        public Type ResultType { get; set; }
-        public object ResultObject { get; set; }
-        public ErrorResult ErrorResult { get; set; }
-        public EWebCommandState State { get; set; } = EWebCommandState.Pending;
-    }
-
-    private class ResultHandlerPair
-    {
-        public IWebResult Result { get; set; } = null;
-        public IClientLoginResultHandler Handler { get; set; } = null;
     }
 
     public void HandleResults(string txt, List<FullWebCommand> commands, CancellationToken token)
@@ -181,7 +181,7 @@ public class ClientWebService : IClientWebService
         private List<FullWebCommand> _pending = new List<FullWebCommand>();
         private float _delaySeconds;
         private CancellationToken _token;
-        private IUnityGameState _gs;
+        private IClientGameState _gs;
         private DateTime _lastResponseReceivedTime = DateTime.UtcNow;
         private WebRequestQueue _parentQueue;
         private List<WebRequestQueue> _childQueues = new List<WebRequestQueue>();
@@ -189,7 +189,7 @@ public class ClientWebService : IClientWebService
         private ILogService _logService;
         private IClientWebService _clientWebService;
 
-        public WebRequestQueue(IUnityGameState gs, CancellationToken token, string fullEndpoint, float delaySeconds, ILogService logService, IClientWebService _clientWebService, WebRequestQueue parentQueue = null)
+        public WebRequestQueue(IClientGameState gs, CancellationToken token, string fullEndpoint, float delaySeconds, ILogService logService, IClientWebService _clientWebService, WebRequestQueue parentQueue = null)
         {
             _gs = gs;
             _parentQueue = parentQueue;
@@ -267,7 +267,7 @@ public class ClientWebService : IClientWebService
 
             string commandText = SerializationUtils.Serialize(commandSet);
 
-            AwaitableUtils.ForgetAwaitable(req.SendRequest(_logService, _fullEndpoint, commandText, _pending.ToList(), HandleResults, fullRequestSource.Token));
+            TaskUtils.ForgetAwaitable(req.SendRequest(_logService, _fullEndpoint, commandText, _pending.ToList(), HandleResults, fullRequestSource.Token));
         }
 
         public void HandleResults(string txt, List<FullWebCommand> commands, CancellationToken token)
@@ -345,4 +345,6 @@ public class ClientWebService : IClientWebService
 
         return (T)fullCommand.ResultObject;
     }
+
+
 }

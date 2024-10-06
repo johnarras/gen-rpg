@@ -1,18 +1,17 @@
-﻿using GEntity = UnityEngine.GameObject;
+﻿using UnityEngine;
 using Genrpg.Shared.Characters.PlayerData;
-
-using UI.Screens.Constants;
 
 using System.Threading;
 using Genrpg.Shared.Website.Messages.LoadIntoMap;
 using System.Linq;
-using static UnityEngine.Networking.UnityWebRequest;
-using UnityEngine;
 using System.Threading.Tasks;
 using Assets.Scripts.UI.Screens;
 using Assets.Scripts.PlayerSearch;
-using Genrpg.Shared.Accounts.PlayerData;
-using Genrpg.Shared.Users.PlayerData;
+using Assets.Scripts.BoardGame.Controllers;
+using Genrpg.Shared.ProcGen.Services;
+using Genrpg.Shared.Client.GameEvents;
+using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class CharacterSelectScreen : ErrorMessageScreen
 {
@@ -21,11 +20,12 @@ public class CharacterSelectScreen : ErrorMessageScreen
     public GButton GenWorldButton;
     public GButton TestAssetsButton;
 #endif
-    public GEntity CharacterGridParent;
+    public GameObject CharacterGridParent;
     public GButton CreateButton;
     public GButton LogoutButton;
     public GButton QuitButton;
     public GButton CrawlerButton;
+    public GButton BoardGameButton;
     public GText ErrorText;
 
     protected IZoneGenService _zoneGenService;
@@ -33,46 +33,48 @@ public class CharacterSelectScreen : ErrorMessageScreen
     protected INoiseService _noiseService;
     protected IInputService _inputService;
     protected IPlayerSearchService _playerSearchService;
+    private IBoardGameController _boardGameController;
+    private IClientConfigContainer _configContainer;
+    private IClientAppService _clientAppService;
 
     public const string CharacterRowArt = "CharacterSelectRow";
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
 #if UNITY_EDITOR
 
-       
-
         if (GenWorldButton == null)
         {
-            GEntity genWorldObj = GEntityUtils.FindChild(entity, "GenWorldButton");
+            GameObject genWorldObj = (GameObject)_gameObjectService.FindChild(entity, "GenWorldButton");
             if (genWorldObj != null)
             {
-                GenWorldButton = GEntityUtils.GetComponent<GButton>(genWorldObj);
+                GenWorldButton = _gameObjectService.GetComponent<GButton>(genWorldObj);
             }
         }
 
-        _uIInitializable.SetButton(GenWorldButton, GetName(), ClickGenerate);
+        _uiService.SetButton(GenWorldButton, GetName(), ClickGenerate);
 
 
         if (TestAssetsButton == null)
         {
-            GEntity testsAssetsObj = GEntityUtils.FindChild(entity, "TestAssetsButton");
+            GameObject testsAssetsObj = (GameObject)_gameObjectService.FindChild(entity, "TestAssetsButton");
             if (testsAssetsObj != null)
             {
-                TestAssetsButton = GEntityUtils.GetComponent<GButton>(testsAssetsObj);
+                TestAssetsButton = _gameObjectService.GetComponent<GButton>(testsAssetsObj);
             }
         }
 
-        _uIInitializable.SetButton(TestAssetsButton, GetName(), ClickTestAssets);
+        _uiService.SetButton(TestAssetsButton, GetName(), ClickTestAssets);
 
 
 #endif
-        GEntityUtils.DestroyAllChildren(CharacterGridParent);
+        _gameObjectService.DestroyAllChildren(CharacterGridParent);
 
-        _uIInitializable.SetButton(LogoutButton, GetName(), ClickLogout);
-        _uIInitializable.SetButton(CreateButton, GetName(), ClickCharacterCreate);
-        _uIInitializable.SetButton(QuitButton, GetName(), ClickQuit);
-        _uIInitializable.SetButton(CrawlerButton, GetName(), ClickCrawler);
+        _uiService.SetButton(LogoutButton, GetName(), ClickLogout);
+        _uiService.SetButton(CreateButton, GetName(), ClickCharacterCreate);
+        _uiService.SetButton(QuitButton, GetName(), ClickQuit);
+        _uiService.SetButton(CrawlerButton, GetName(), ClickCrawler);
+        _uiService.SetButton(BoardGameButton, GetName(), ClickBoardGame);
 
         SetupCharacterGrid();
 
@@ -86,11 +88,11 @@ public class CharacterSelectScreen : ErrorMessageScreen
 
 #if UNITY_EDITOR
 
-    private async Awaitable ClickTestAssets(CancellationToken token)
+    private void ClickTestAssets()
     {
         TestAssetDownloads dl = new TestAssetDownloads();
 
-        await dl.RunTests(_gs, _token);
+        TaskUtils.ForgetAwaitable(dl.RunTests(_gs, _token));
     }
 
     private void ClickGenerate()
@@ -104,7 +106,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
             MapId = InitClient.EditorInstance.CurrMapId,
             CharId = _gs.characterStubs.Select(x => x.Id).FirstOrDefault(),
             GenerateMap = true,
-            Env = _gs.Config.Env,
+            Env = _configContainer.Config.Env,
             WorldDataEnv = _assetService.GetWorldDataEnv(),
         };
         _zoneGenService.LoadMap(lwd);
@@ -125,6 +127,13 @@ public class CharacterSelectScreen : ErrorMessageScreen
         _screenService.Open(ScreenId.Crawler);
     }
 
+    private void ClickBoardGame()
+    {
+        _screenService.CloseAll();
+        _screenService.Open(ScreenId.MobileHUD);
+        _boardGameController.LoadCurrentBoard();
+    }
+
     private void ClickCharacterCreate()
     {
         _screenService.Open(ScreenId.CharacterCreate);
@@ -138,7 +147,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
     {
         CharacterStub currStub = null;
 
-        GEntity selected = _uIInitializable.GetSelected();
+        GameObject selected = (GameObject)_uiService.GetSelected();
 
         CharacterSelectRow currRow = null;
 
@@ -166,7 +175,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
             return;
         }
 
-        GEntityUtils.DestroyAllChildren(CharacterGridParent);
+        _gameObjectService.DestroyAllChildren(CharacterGridParent);
 
         foreach (CharacterStub stub in _gs.characterStubs)
         {
@@ -177,7 +186,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
 
     private void OnLoadCharacterRow(object row, object data, CancellationToken token)
     {
-        GEntity go = row as GEntity;
+        GameObject go = row as GameObject;
         if (go == null)
         {
             return;
@@ -186,14 +195,14 @@ public class CharacterSelectScreen : ErrorMessageScreen
         CharacterStub ch = data as CharacterStub;
         if (ch ==null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
         CharacterSelectRow charRow = go.GetComponent<CharacterSelectRow>();
         if (charRow == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
         charRow.Init(ch, this, token);
@@ -201,7 +210,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
 
     private void ClickQuit()
     {
-        AppUtils.Quit();
+        _clientAppService.Quit();
     }
 
 }

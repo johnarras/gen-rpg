@@ -4,7 +4,7 @@
   "IdKey": 29,
   "Name": "Frostbolt",
   "Desc": "Hit one or more monsters in a group with cold damage.",
-  "PowerCost": 4,
+  "PowerCost": 4.0,
   "PowerPerLevel": 0.5,
   "MaxRange": 100,
   "CombatActionId": 4,

@@ -68,11 +68,17 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(18)] public SmallIndexBitList CompletedMaps { get; set; } = new SmallIndexBitList();
 
+        [Key(19)] public double HourOfDay { get; set; } = 0;
+
+        [Key(20)] public long DaysPlayed { get; set; } = 0;
+
+        [Key(21)] public bool InTavern { get; set; }
+
         [JsonIgnore] public IWorldPanel WorldPanel = null;
         [JsonIgnore] public IActionPanel ActionPanel = null;
         [JsonIgnore] public IStatusPanel StatusPanel = null;
         [JsonIgnore] public ISpeedupListener SpeedupListener = null;
-        [JsonIgnore] public CombatState Combat = null;
+        [JsonIgnore] public CrawlerCombatState Combat = null;
 
         public PartyMember GetMemberInSlot(int slot)
         {

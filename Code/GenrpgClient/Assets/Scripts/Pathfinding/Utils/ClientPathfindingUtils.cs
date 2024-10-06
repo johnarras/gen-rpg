@@ -1,15 +1,15 @@
-﻿using Assets.Scripts.Tokens;
-
+﻿
+using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Tokens;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.Pathfinding.Constants;
 using Genrpg.Shared.Pathfinding.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Pathfinding.Utils
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Pathfinding.Utils
                 List<Waypoint> dupeList = new List<Waypoint>(list.Waypoints);
                 List<GameObject> pathObjects = new List<GameObject>();
 
-                GameObject basePathSphere = await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, "PathSphere", null, token);
+                GameObject basePathSphere = (GameObject)(await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, "PathSphere", null, token));
 
                 foreach (Waypoint wp in dupeList)
                 {
@@ -62,7 +62,7 @@ namespace Assets.Scripts.Pathfinding.Utils
                 }
 
                 _logService.Info("Path:\n" + sb.ToString());
-                AwaitableUtils.ForgetAwaitable(DelayDestroyObjects(pathObjects));
+                TaskUtils.ForgetAwaitable(DelayDestroyObjects(pathObjects));
             }
         }
 

@@ -5,6 +5,9 @@ using Genrpg.Shared.ProcGen.Entities;
 
 public class MapGroundObject : InteractableObject
 {
+
+    
+
     public long GroundObjectId;
     public long CrafterTypeId;
     public long Level;
@@ -33,6 +36,6 @@ public class MapGroundObject : InteractableObject
 
     protected override void _OnPointerEnter()
     {
-        Cursors.SetCursor(Cursors.Interact);
+        _cursorService.SetCursor(CursorNames.Interact);
     }
 }

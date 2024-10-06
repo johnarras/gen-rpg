@@ -4,7 +4,7 @@
   "IdKey": 17,
   "Name": "Town Portal",
   "Desc": "Teleport to a town on the overworld map.",
-  "PowerCost": 20,
+  "PowerCost": 20.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 8,

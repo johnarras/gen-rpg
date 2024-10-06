@@ -4,7 +4,7 @@
   "IdKey": 50,
   "Name": "Firestorm",
   "Desc": "Hit all monsters with fire damage.",
-  "PowerCost": 15,
+  "PowerCost": 15.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,

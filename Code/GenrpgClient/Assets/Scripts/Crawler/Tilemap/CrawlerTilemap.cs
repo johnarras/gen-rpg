@@ -1,10 +1,6 @@
-﻿using Assets.Scripts.Crawler.GameEvents;
-using Assets.Scripts.Crawler.Maps.Entities;
-using Assets.Scripts.Crawler.Maps.Services;
-using Assets.Scripts.Crawler.Services;
-using Assets.Scripts.Crawler.Services.CrawlerMaps;
+﻿using Genrpg.Shared.Crawler.Maps.Entities;
 using Genrpg.Shared.Buildings.Settings;
-using Genrpg.Shared.Crawler.MapGen.Constants;
+using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Zones.Settings;
@@ -15,6 +11,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
+using Genrpg.Shared.Crawler.GameEvents;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.Client.Assets.Constants;
 
 namespace Assets.Scripts.Crawler.Tilemaps
 {
@@ -42,8 +42,6 @@ namespace Assets.Scripts.Crawler.Tilemaps
         public const string Object = "Object";
         public const string Wall = "Wall";
         public const string Building = "Building";
-
-        public static readonly string[] AllTerrainSuffixes = { Terrain, Object };
     }
 
     public class CrawlerTilemap : BaseBehaviour
@@ -88,8 +86,8 @@ namespace Assets.Scripts.Crawler.Tilemaps
             {
                 return;
             }
-            _dispatcher.AddEvent<ShowPartyMinimap>(this, OnShowPartyMinimap);
-            _dispatcher.AddEvent<ClearCrawlerTilemaps>(this, OnClearCrawlerTilemaps);
+            AddListener<ShowPartyMinimap>(OnShowPartyMinimap);
+            AddListener<ClearCrawlerTilemaps>(OnClearCrawlerTilemaps);
             if (_spriteCache.Keys.Count < 1)
             {
                 _assetService.LoadAssetInto(this, AssetCategoryNames.Atlas, "CrawlerMinimap", OnLoadAtlas, null, GetToken());
@@ -117,7 +115,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
                 rect.sizeDelta = new Vector2(_tileSize, _tileSize);
             }
 
-            GEntityUtils.DestroyAllChildren(ImageParent);
+            _gameObjectService.DestroyAllChildren(ImageParent);
 
             _mapDepth = (_isBigMap ? TilemapIndexes.SimpleMax : TilemapIndexes.Max);
 
@@ -176,6 +174,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
             await Task.CompletedTask;
         }
 
+        private string[] _allTerrainSuffixes = new string[] { SpriteNameSuffixes.Terrain, SpriteNameSuffixes.Object };
         private void OnLoadAtlas(object obj, object data, CancellationToken token)
         {
             GameObject go = obj as GameObject;
@@ -207,7 +206,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
                 string spriteName = _sprites[i].name;
 
                 bool foundSuffix = false;
-                foreach (string suffix in SpriteNameSuffixes.AllTerrainSuffixes)
+                foreach (string suffix in _allTerrainSuffixes)
                 {
                     if (spriteName.IndexOf(suffix) >= 0)
                     {
@@ -344,23 +343,20 @@ namespace Assets.Scripts.Crawler.Tilemaps
                         Image tile = _tiles[partyXCell, partyZCell, 0];
                         PartyImage.sprite = playerArrow;
                         PartyImage.transform.position = tile.transform.position;
-                        //PartyImage.transform.localPosition = new Vector3((partyXCell+0 )*_tileSize,(partyZCell+0)*_tileSize, 4);
 
                         RectTransform rectTransform = PartyImage.GetComponent<RectTransform>();
                         if (rectTransform != null)
                         {
-                            RectTransform otherRect = tile.GetComponent<RectTransform>();
-                            if (otherRect != null)
-                            {
-                                //rectTransform.localPosition = new Vector3(otherRect.localPosition.x, otherRect.localPosition.y, 4);
-                            }
-
                             int mapRot = _party.MapRot;
                             if (mapRot % 180 == 0)
                             {
-                                mapRot += 180;
+                                mapRot += 90;
                             }
-                            rectTransform.localEulerAngles = new Vector3(0, 0, mapRot - 90);
+                            else
+                            {
+                                mapRot -= 90;
+                            }
+                            rectTransform.localEulerAngles = new Vector3(0, 0, mapRot);
                         }
                     }
                 }

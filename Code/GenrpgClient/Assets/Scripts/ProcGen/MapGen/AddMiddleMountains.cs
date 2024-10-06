@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.WorldData;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class AddMiddleMountains : BaseAddMountains
 
 
 
-    public void AddMiddleMapMountains(IUnityGameState gs)
+    public void AddMiddleMapMountains(IClientGameState gs)
     {
         foreach (Zone zone in _mapProvider.GetMap().Zones)
         {

@@ -41,7 +41,7 @@ public class SetupMapData : BaseZoneGenerator
             {
                 for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
                 {
-                    AwaitableUtils.ForgetAwaitable(_terrainManager.SetupOneTerrainPatch(gx, gy, token));
+                    TaskUtils.ForgetAwaitable(_terrainManager.SetupOneTerrainPatch(gx, gy, token));
                 }
             }
         }

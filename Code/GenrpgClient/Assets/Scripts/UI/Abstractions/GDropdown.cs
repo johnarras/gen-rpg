@@ -1,13 +1,14 @@
 ﻿
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.ProcGen.Settings.Names;
+using Genrpg.Shared.UI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using UnityEngine.EventSystems;
 
-public class GDropdown : TMPro.TMP_Dropdown
+public class GDropdown : TMPro.TMP_Dropdown, IDropdown
 {
     public GText DropdownName;
 

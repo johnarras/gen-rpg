@@ -4,7 +4,7 @@
   "IdKey": 19,
   "Name": "Identify Item",
   "Desc": "Find out the stats an item has.",
-  "PowerCost": 10,
+  "PowerCost": 10.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 8,

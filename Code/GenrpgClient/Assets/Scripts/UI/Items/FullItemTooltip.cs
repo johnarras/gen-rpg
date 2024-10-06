@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System.Threading;
-using UnityEngine; // Needed
 using Genrpg.Shared.Inventory.Settings;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 
@@ -24,7 +23,7 @@ public class FullItemTooltip : BaseTooltip
     public List<ItemTooltip> _equipTooltips;
 
     
-    public GEntity _equipParent;
+    public GameObject _equipParent;
 
     protected ItemIconScreen _screen;
     private Item _mainItem;
@@ -102,7 +101,7 @@ public class FullItemTooltip : BaseTooltip
         _mainTooltip.Init(mainInitData, _token);
         for (int i = 0; i < _equipTooltips.Count; i++)
         {
-            GEntityUtils.SetActive(_equipTooltips[i], i < _equips.Count);
+            _gameObjectService.SetActive(_equipTooltips[i], i < _equips.Count);
             if (i < _equips.Count)
             {
                 InitItemTooltipData otherInitData = new InitItemTooltipData()
@@ -142,17 +141,17 @@ public class FullItemTooltip : BaseTooltip
             eqiconx = 0;
         }
 
-        GVector3 mpos = GVector3.Create(_mainTooltip.transform().localPosition);
-        _mainTooltip.transform().localPosition = GVector3.Create(iconx, mpos.y, mpos.z);
+        Vector3 mpos = _mainTooltip.transform.localPosition;
+        _mainTooltip.transform.localPosition = new Vector3(iconx, mpos.y, mpos.z);
 
-        GVector3 epos = GVector3.Create(_equipParent.transform().localPosition);
-        _equipParent.transform().localPosition = GVector3.Create(eqiconx, epos.y, epos.z);
+        Vector3 epos = _equipParent.transform.localPosition;
+        _equipParent.transform.localPosition = new Vector3(eqiconx, epos.y, epos.z);
 
     }
 
     public void OnExit(string msg = "")
     {
-        GEntityUtils.SetActive(entity, false);
+        _gameObjectService.SetActive(entity, false);
     }
 
 }

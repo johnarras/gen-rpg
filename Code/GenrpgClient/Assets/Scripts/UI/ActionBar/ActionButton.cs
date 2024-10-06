@@ -9,6 +9,7 @@ using GPointerEventData = UnityEngine.EventSystems.PointerEventData;
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Input.Constants;
 using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class InitActionIconData : InitSpellIconData
 {
@@ -37,7 +38,7 @@ public class ActionButton : SpellIcon
             return;
         }
         name = GetType().Name + initData.actionIndex;
-        _uIInitializable.SetButton(SelfButton, spellIconData.Screen.GetName(), ClickButton);
+        _uiService.SetButton(SelfButton, spellIconData.Screen.GetName(), ClickButton);
         base.Init(spellIconData, token); 
         if (_gs.ch == null)
         {
@@ -62,7 +63,7 @@ public class ActionButton : SpellIcon
         }
         initData.Data = _spell;
 
-        _uIInitializable.SetText(KeyBind, "");
+        _uiService.SetText(KeyBind, "");
 
         KeyCommData keyCommData = _gs.ch.Get<KeyCommData>();
 
@@ -70,7 +71,7 @@ public class ActionButton : SpellIcon
 
         if (keyCode != null)
         {
-            _uIInitializable.SetText(KeyBind, keyCode.ShowName());
+            _uiService.SetText(KeyBind, keyCode.ShowName());
         }
 
         string iconName = ItemConstants.BlankIconName;
@@ -86,7 +87,7 @@ public class ActionButton : SpellIcon
             Tint.FillAmount = 0;
         }
 
-        _uIInitializable.SetText(Charges, "");
+        _uiService.SetText(Charges, "");
     }
 
     protected void ClickButton()
@@ -145,7 +146,7 @@ public class ActionButton : SpellIcon
             if (_spell.CurrCharges != _lastCharges)
             {
                 _lastCharges = _spell.CurrCharges;
-                _uIInitializable.SetText(Charges, _lastCharges.ToString());
+                _uiService.SetText(Charges, _lastCharges.ToString());
 
                 if (_spell.CurrCharges < _spell.MaxCharges && _spell.CooldownEnds > DateTime.UtcNow)
                 {

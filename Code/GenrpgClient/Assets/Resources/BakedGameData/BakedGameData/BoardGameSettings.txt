@@ -1,0 +1,8 @@
+{
+  "Id": "default",
+  "PlayCreditsMult": 25.0,
+  "PlaysPerGem": 0.5,
+  "PlayMultBonusDivisor": 20.0,
+  "Name": "BoardGameSettings",
+  "UpdateTime": "2024-08-18T20:36:43.801Z"
+}

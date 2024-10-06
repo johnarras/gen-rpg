@@ -13,12 +13,6 @@ using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Setup.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Genrpg.ServerShared.Spawns.Services;
 
 namespace Genrpg.ServerShared.Setup
 {
@@ -40,7 +34,6 @@ namespace Genrpg.ServerShared.Setup
             Set<IAccountService>(new AccountService());
             Set<IAdminService>(new BaseAdminService());
             Set<ICryptoService>(new CryptoService());
-            Set<ISpawnService>(new SpawnService());
         }
     }
 }

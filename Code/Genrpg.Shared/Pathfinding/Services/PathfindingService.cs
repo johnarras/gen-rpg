@@ -6,6 +6,7 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Pathfinding.Constants;
 using Genrpg.Shared.Pathfinding.Entities;
+using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.WebRequests.Utils;
@@ -28,7 +29,7 @@ namespace Genrpg.Shared.Pathfinding.Services
         /// Update path. This uses a callback so that it can be put onto a different server eventually.
         /// </summary>
         void UpdatePath(Unit tracker, IRandom rand, int endx, int endz, Action<IRandom, Unit> callback, bool showFullLine = false);
-        void CalcPath(Unit tracker, IRandom rand, int worldStartX, int worldStartZ, int worldEndX, int worldEndZ, bool showFullLine = false);
+        void CalcPath(Unit tracker, IRandom rand, int worldStartX, int worldStartZ, int worldEndX, int worldEndZ, bool showFullLine = false, bool forcePathIfNeeded = false);
         bool CellIsBlocked(int x, int z);
         long GetPathSearchCount();
         void SetPathfinding(bool[,] grid);
@@ -196,10 +197,10 @@ namespace Genrpg.Shared.Pathfinding.Services
             }
         }
 
-        const int GridSize = 64;
+        const int GridSize = 128;
         const int GridCenter = GridSize / 2;
-        const int CellCacheInitialLength = 128;
-        const int OpenSetInitialLength = 128;
+        const int CellCacheInitialLength = GridSize*4;
+        const int OpenSetInitialLength = GridSize*4;
 
         const float DistanceCostScale = 3.0f;
         const float BaseMoveCost = 1.0f;
@@ -398,7 +399,7 @@ namespace Genrpg.Shared.Pathfinding.Services
             _workbookCache.Enqueue(workbook);
         }
 
-        public void CalcPath(Unit tracker, IRandom rand, int worldStartX, int worldStartZ, int worldEndX, int worldEndZ, bool showFullLine = false)
+        public void CalcPath(Unit tracker, IRandom rand, int worldStartX, int worldStartZ, int worldEndX, int worldEndZ, bool showFullLine = false, bool forcePathIfNeeded = false)
         {
             tracker.Waypoints.Clear();
             if (worldEndX < 0 || worldEndZ < 0)
@@ -433,6 +434,10 @@ namespace Genrpg.Shared.Pathfinding.Services
 
             if (lineLength <= 0 || lineLength > workbook.LineCellCache.Count)
             {
+                if (forcePathIfNeeded)
+                {
+                    CreateOverridePath(tracker, startGridX, startGridZ, endGridX, endGridZ);
+                }
                 ReturnWorkbook(rand, workbook);
                 tracker.Waypoints.RetvalType = "No direct path found";
                 return;
@@ -588,6 +593,10 @@ namespace Genrpg.Shared.Pathfinding.Services
                 PathCell activeCell = workbook.GetNextOpenCell();
                 if (activeCell == null)
                 {
+                    if (forcePathIfNeeded)
+                    {
+                        CreateOverridePath(tracker, startGridX, startGridZ, endGridX, endGridZ);
+                    }
                     ReturnWorkbook(rand, workbook);
                     tracker.Waypoints.RetvalType = "No Open Cells Left " + openCellIteration;
                     return;
@@ -669,6 +678,13 @@ namespace Genrpg.Shared.Pathfinding.Services
             }
         }
        
+        private void CreateOverridePath(Unit tracker, int startGridX, int startGridZ, int endGridx, int endGridZ)
+        {
+            _logService.Info("Create Override Path");
+            tracker.Waypoints.Clear();
+            tracker.Waypoints.AddGridCell(endGridx, endGridZ);
+        }
+
         private float CalcCost(PathCell cell, PathCell fromCell, int endx, int endz)
         {
             float distCost = DistanceCostScale * (float)Math.Sqrt((cell.X - endx) * (cell.X - endx) + (cell.Z - endz) * (cell.Z - endz));
@@ -835,7 +851,7 @@ namespace Genrpg.Shared.Pathfinding.Services
                 }
             }
 
-            CalcPath(tracker, rand, (int)tracker.X, (int)tracker.Z, endx, endz);
+            CalcPath(tracker, rand, (int)tracker.X, (int)tracker.Z, endx, endz, tracker.HasFlag(UnitFlags.Evading));
             callback(rand, tracker);
             return;
         }

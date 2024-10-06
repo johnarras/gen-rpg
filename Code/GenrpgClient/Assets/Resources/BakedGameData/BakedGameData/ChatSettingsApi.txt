@@ -1,0 +1,74 @@
+{
+  "Data": [
+    {
+      "Id": "chattype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "ChatType",
+      "UpdateTime": "2024-08-01T00:27:58.73Z"
+    },
+    {
+      "Id": "chattype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "ChatType",
+      "UpdateTime": "2024-08-01T00:27:58.732Z"
+    },
+    {
+      "Id": "chattype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "ChatType",
+      "UpdateTime": "2024-08-01T00:27:58.738Z"
+    },
+    {
+      "Id": "chattype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "ChatType",
+      "UpdateTime": "2024-08-01T00:27:58.742Z"
+    },
+    {
+      "Id": "chattype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "ChatType",
+      "Icon": "Nope",
+      "UpdateTime": "2024-08-01T00:27:58.744Z"
+    },
+    {
+      "Id": "chattype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "ChatType",
+      "UpdateTime": "2024-08-01T00:27:58.748Z"
+    },
+    {
+      "Id": "chattype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "ChatType",
+      "UpdateTime": "2024-08-01T00:27:58.754Z"
+    },
+    {
+      "Id": "chattype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "ChatType",
+      "UpdateTime": "2024-08-01T00:27:58.758Z"
+    },
+    {
+      "Id": "chattype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "ChatType",
+      "UpdateTime": "2024-08-01T00:27:58.763Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "ChatSettings",
+    "UpdateTime": "2024-08-10T17:16:08.361Z"
+  },
+  "Id": "default"
+}

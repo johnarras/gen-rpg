@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Characters.PlayerData;
+using UnityEngine;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Services;
 
@@ -11,7 +10,8 @@ using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Inventory.Settings.Slots;
 using Genrpg.Shared.Units.Entities;
-using UnityEngine;
+using System.Threading.Tasks;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class CharacterScreen : ItemIconScreen
 {
@@ -19,7 +19,7 @@ public class CharacterScreen : ItemIconScreen
     public InventoryPanel Items;
     public List<EquipSlotIcon> EquipmentIcons;
     public List<StatInfoRow> Stats;
-    public GEntity StatGridParent;
+    public GameObject StatGridParent;
 
     protected virtual bool CalcStatsOnEquipUnequip() { return true; }
     protected virtual string GetStatSubdirectory() { return "Units"; }
@@ -37,11 +37,11 @@ public class CharacterScreen : ItemIconScreen
 
     public override Unit GetUnit() { return _unit; }
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
-        _dispatcher.AddEvent<OnUnequipItem>(this, OnUnequip);
-        _dispatcher.AddEvent<OnEquipItem>(this, OnEquip);
+        AddListener<OnUnequipItem>(OnUnequip);
+        AddListener<OnEquipItem>(OnEquip);
 
         if (_unit == null)
         {
@@ -81,7 +81,7 @@ public class CharacterScreen : ItemIconScreen
 
         if (eqIcon.Icon == null)
         {
-            GEntityUtils.SetActive(eqIcon.entity(), false);
+            _gameObjectService.SetActive(eqIcon.gameObject, false);
         }
 
         InventoryData inventory = _unit.Get<InventoryData>();
@@ -93,7 +93,7 @@ public class CharacterScreen : ItemIconScreen
         };
         EquipSlot slot = _gameData.Get<EquipSlotSettings>(_unit).Get(eqIcon.EquipSlotId);
         eqIcon.Icon.Init(iconInitData, _token);
-        _uIInitializable.SetText(eqIcon.Name, slot?.Name ?? "");
+        _uiService.SetText(eqIcon.Name, slot?.Name ?? "");
     }
 
     protected virtual void ShowStats()
@@ -164,7 +164,7 @@ public class CharacterScreen : ItemIconScreen
 
     private void OnDownloadStat (object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
         if (go == null)
         {
             return;
@@ -174,7 +174,7 @@ public class CharacterScreen : ItemIconScreen
 
         if (downloadData == null || downloadData.currUnit == null || downloadData.statTypeId < 1)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
@@ -182,7 +182,7 @@ public class CharacterScreen : ItemIconScreen
         StatInfoRow statRow = go.GetComponent<StatInfoRow>();
         if (statRow == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
         if (Stats == null)
@@ -356,7 +356,7 @@ public class CharacterScreen : ItemIconScreen
             EquipSlotIcon eqIcon = newEqIcon.GetComponent<EquipSlotIcon>();
             if (eqIcon == null)
             {
-                GEntityUtils.Destroy(newEqIcon.entity());
+                _gameObjectService.Destroy(newEqIcon.gameObject);
             }
         }
         else // Otherwise set the icon data that we were dragging to the currently equipped item data.
@@ -480,15 +480,15 @@ public class CharacterScreen : ItemIconScreen
         }
 
 
-        UnityEngine.Color color = GColor.white;
+        UnityEngine.Color color = Color.white;
 
         if (visible)
         {
-            color = GColor.yellow;
+            color = Color.yellow;
 
             if (item != null && !_inventoryService.CanEquipItem(_unit, item))
             {
-                color = GColor.red;
+                color = Color.red;
             }
         }
 
@@ -501,7 +501,7 @@ public class CharacterScreen : ItemIconScreen
         }
 
     }
-    protected override void HandleDragDrop(ItemIconScreen screen, ItemIcon dragItem, ItemIcon otherIconHit, GEntity finalObjectHit)
+    protected override void HandleDragDrop(ItemIconScreen screen, ItemIcon dragItem, ItemIcon otherIconHit, GameObject finalObjectHit)
     {
         if (dragItem != _dragItem)
         {

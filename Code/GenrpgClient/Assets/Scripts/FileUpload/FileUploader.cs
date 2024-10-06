@@ -10,7 +10,7 @@ public class FileUploader
 
         ProcessStartInfo psi = new ProcessStartInfo();
 
-        string filePath = AppUtils.DataPath.Replace("Assets", "../FileUploader/Output/FileUploader.exe");
+        string filePath = fdata.LocalDataPath.Replace("Assets", "../FileUploader/Output/FileUploader.exe");
 
         psi.FileName = filePath;
 

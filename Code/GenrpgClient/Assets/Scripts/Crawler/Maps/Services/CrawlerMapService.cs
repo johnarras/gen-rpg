@@ -1,17 +1,14 @@
 ﻿using Assets.Scripts.Controllers;
-using Assets.Scripts.Crawler.GameEvents;
-using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
+using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
-using Assets.Scripts.Crawler.Maps.Services;
 using Assets.Scripts.Crawler.Maps.Services.Helpers;
-using Assets.Scripts.Crawler.StateHelpers.Combat;
 using Assets.Scripts.Crawler.Tilemaps;
 using Assets.Scripts.Dungeons;
-using Assets.Scripts.UI.Crawler.States;
 using Genrpg.Shared.Buildings.Settings;
-using Genrpg.Shared.Crawler.MapGen.Constants;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.TimeOfDay.Constants;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;
@@ -19,26 +16,54 @@ using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Genrpg.Shared.Crawler.GameEvents;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Crawler.TimeOfDay.Services;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Client.GameEvents;
+using Genrpg.Shared.Crawler.States.Constants;
+using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
 
     public class CrawlerMapService : ICrawlerMapService
     {
+        class MovementKeyCode
+        {
+            public char Key { get; private set; } 
+            public int RotationAmount { get; private set; }
+            public int ForwardAmount { get; private set; }
+            public int RightAmount { get; private set; }
+
+            public MovementKeyCode(char key, int rotationAmount, int forwardAmount, int rightAmount)
+            {
+                Key = key;
+                RotationAmount = rotationAmount;
+                ForwardAmount = forwardAmount;  
+                RightAmount = rightAmount;    
+            }
+        }
+
+        private List<MovementKeyCode> _movementKeyCodes = new List<MovementKeyCode>();
+
         IAssetService _assetService;
         ICameraController _cameraController;
         ICrawlerService _crawlerService;
+        private IInputService _inputService;
         private IDispatcher _dispatcher;
         private ILogService _logService;
         private IGameData _gameData;
         private ICrawlerWorldService _worldService;
+        private ITimeOfDayService _timeService;
+        private IClientEntityService _gameObjectService;
 
         const int ViewRadius = 8;
         CrawlerMapRoot _crawlerMapRoot = null;
@@ -60,6 +85,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             _token = token;
 
+            SetupMovementKeyCodes();
             CreateWallImageGrid();
             await Task.CompletedTask;
         }
@@ -73,10 +99,33 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             return null;
         }
 
-        public async Awaitable EnterMap(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
+        private void SetupMovementKeyCodes()
+        {
+            _movementKeyCodes = new List<MovementKeyCode>
+            {
+                new MovementKeyCode('W', 0, 1, 0),
+                new MovementKeyCode((char)273, 0, 1, 0),
+
+                new MovementKeyCode('S', 0, -1, 0),
+                new MovementKeyCode((char)274, 0, -1, 0),
+
+                new MovementKeyCode('A', -1, 0, 0),
+                new MovementKeyCode((char)276, -1, 0, 0),
+
+                new MovementKeyCode('D', 1, 0, 0),
+                new MovementKeyCode((char)275, 1, 0, 0),
+
+                new MovementKeyCode('Q', 0, 0, -1),
+                new MovementKeyCode('E', 0, 0, 1),
+            };
+
+        }
+
+        public async Task EnterMap(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token)
         {
             CleanMap();
             _party = partyData;
+            _party.InTavern = false;
             _world = await _worldService.GetWorld(_party.WorldId);
 
             if (_playerLight == null)
@@ -84,13 +133,13 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 _cameraParent = _cameraController?.GetCameraParent();
                 if (_playerLightObject == null)
                 {
-                    _playerLightObject = await _assetService.LoadAssetAsync(AssetCategoryNames.UI, "PlayerLight", _cameraParent, _token, "Units");
+                    _playerLightObject = (GameObject)(await _assetService.LoadAssetAsync(AssetCategoryNames.UI, "PlayerLight", _cameraParent, _token, "Units"));
                 }
-                _playerLight = GEntityUtils.GetComponent<Light>(_playerLightObject);
+                _playerLight = _gameObjectService.GetComponent<Light>(_playerLightObject);
 
                 if (_playerLight != null)
                 {
-                    _playerLight.color = new Color(1.0f, 0.9f, 0.8f, 1.0f);
+                    _playerLight.color = new UnityEngine.Color(1.0f, 0.9f, 0.8f, 1.0f);
                 }
                 _playerLight.intensity = 0;
 
@@ -112,23 +161,24 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             MovePartyTo(partyData, _party.MapX, _party.MapZ, _party.MapRot, token);
 
+            _dispatcher.Dispatch(new CrawlerUIUpdate());
             await _crawlerService.SaveGame();
         }
 
-        private async Awaitable LoadDungeonAssets(CrawlerMapRoot mapRoot, CancellationToken token)
+        private async Task LoadDungeonAssets(CrawlerMapRoot mapRoot, CancellationToken token)
         {
 
             _assetService.LoadAsset(AssetCategoryNames.Dungeons, mapRoot.Map.DungeonArt.Art, OnLoadDungeonAssets, null, null, token);
 
             while (mapRoot.Assets == null)
             {
-                await Awaitable.NextFrameAsync(token);
+                await Task.Delay(1);
             }
         }
 
         private void OnLoadDungeonAssets(object obj, object data, CancellationToken token)
         {
-            GEntity assetGo = obj as GEntity;
+            GameObject assetGo = obj as GameObject;
 
             if (assetGo == null)
             {
@@ -142,12 +192,12 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         {
             if (_crawlerMapRoot != null && _crawlerMapRoot.Assets != null)
             {
-                GEntityUtils.Destroy(_crawlerMapRoot.Assets.gameObject);
+                _gameObjectService.Destroy(_crawlerMapRoot.Assets.gameObject);
                 _crawlerMapRoot.Assets = null;
             }
             if (_crawlerMapRoot != null)
             {
-                GEntityUtils.Destroy(_crawlerMapRoot.gameObject);
+                _gameObjectService.Destroy(_crawlerMapRoot.gameObject);
                 _crawlerMapRoot = null;
             }
         }
@@ -196,11 +246,11 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         }
 
 
+        private bool _updatingMovement = false;
         public bool UpdatingMovement()
         {
             return _updatingMovement;
         }
-        private bool _updatingMovement = false;
 
         public void ClearMovement()
         {
@@ -208,36 +258,22 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _updatingMovement = false;
         }
 
-        const int maxQueuedMoves = 4;
-        Queue<KeyCode> _queuedMoves = new Queue<KeyCode>();
+        public void SetUpdatingMovement(bool updatingMovement)
+        {
+            _updatingMovement = updatingMovement;
+        }
 
-        public async Awaitable UpdateMovement(CancellationToken token)
+        const int maxQueuedMoves = 4;
+        Queue<char> _queuedMoves = new Queue<char>();
+
+
+        public async Task AddKeyInput(char keyChar, CancellationToken token)
         {
             if (_queuedMoves.Count < maxQueuedMoves)
             {
-                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+                if (_movementKeyCodes.Any(x=>x.Key == keyChar))
                 {
-                    _queuedMoves.Enqueue(KeyCode.W);
-                }
-                else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    _queuedMoves.Enqueue(KeyCode.S);
-                }
-                else if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    _queuedMoves.Enqueue(KeyCode.Q);
-                }
-                else if (Input.GetKeyDown(KeyCode.E))
-                {
-                    _queuedMoves.Enqueue(KeyCode.E);
-                }
-                else if (Input.GetKeyDown(KeyCode.A))
-                {
-                    _queuedMoves.Enqueue(KeyCode.A);
-                }
-                else if (Input.GetKeyDown(KeyCode.D))
-                {
-                    _queuedMoves.Enqueue(KeyCode.D);
+                    _queuedMoves.Enqueue(keyChar);
                 }
             }
 
@@ -247,49 +283,60 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
 
             _updatingMovement = true;
-            AwaitableUtils.ForgetAwaitable(UpdateMovementInternal(token));
+            TaskUtils.ForgetTask(UpdateMovementInternal(token));
             await Task.CompletedTask;
         }
 
-        private async Awaitable UpdateMovementInternal(CancellationToken token)
+
+        public async Task UpdateMovement(CancellationToken token)
+        {
+            if (_queuedMoves.Count < maxQueuedMoves)
+            {
+                foreach (MovementKeyCode kc in _movementKeyCodes)
+                {
+                    if (_inputService.GetKeyDown(kc.Key))
+                    {
+                        _queuedMoves.Enqueue(kc.Key);
+                        break;
+                    }
+                }
+            }
+
+            if (_updatingMovement)
+            {
+                return;
+            }
+
+            _updatingMovement = true;
+            TaskUtils.ForgetTask(UpdateMovementInternal(token));
+            await Task.CompletedTask;
+        }
+
+        private async Task UpdateMovementInternal(CancellationToken token)
         {
             _updatingMovement = true;
             bool isRotation = false;
-            while (_queuedMoves.TryDequeue(out KeyCode currCommand))
+            while (_queuedMoves.TryDequeue(out char currCommand))
             {
-                bool movedPosition = false;
-                if (currCommand == KeyCode.W)
+                MovementKeyCode kc = _movementKeyCodes.FirstOrDefault(x => x.Key == currCommand);
+                if (kc == null)
                 {
-                    await Move(1, 0, token);
-                    movedPosition = true;
+                    continue;
                 }
-                else if (currCommand == KeyCode.S)
+
+                if (kc.RotationAmount == 0)
                 {
-                    await Move(-1, 0, token);
-                    movedPosition = true;
+                    await Move(kc.ForwardAmount, kc.RightAmount, token);
                 }
-                else if (currCommand == KeyCode.Q)
+                else
                 {
-                    await Move(0, -1, token);
-                    movedPosition = true;
+                    await Rot(kc.RotationAmount, token);
                 }
-                else if (currCommand == KeyCode.E)
-                {
-                    await Move(0, 1, token);
-                    movedPosition = true;
-                }
-                else if (currCommand == KeyCode.A)
-                {
-                    await Rot(-1, token);
-                    isRotation = true;
-                }
-                else if (currCommand == KeyCode.D)
-                {
-                    await Rot(1, token);
-                    isRotation = true;
-                }
-                await _crawlerService.OnFinishMove(movedPosition, token);
+
+                await _crawlerService.OnFinishMove(kc.RotationAmount == 0, token);
                 MovePartyTo(_party, _party.MapX, _party.MapZ, _party.MapRot, token, isRotation);
+
+                await _timeService.UpdateTime(_party, ECrawlerTimeUpdateTypes.Move);
             }
             _updatingMovement = false;
         }
@@ -302,13 +349,13 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         }
 
         const int moveFrames = 6;
-        private async Awaitable Move(int forward, int left, CancellationToken token)
+        private async Task Move(int forward, int right, CancellationToken token)
         {
             float sin = (float)Math.Round(MathF.Sin(-_party.MapRot * Mathf.PI / 180f));
             float cos = (float)Math.Round(Mathf.Cos(-_party.MapRot * Mathf.PI / 180f));
 
-            float nx = cos * forward + sin * left;
-            float nz = sin * forward - cos * left;
+            float nx = cos * forward + sin * right;
+            float nz = sin * forward - cos * right;
 
             float bs = CrawlerMapConstants.BlockSize;
 
@@ -355,7 +402,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             int frames = moveFrames;
 
-            if (left != 0)
+            if (right != 0)
             {
                 frames = frames * 1;
             }
@@ -373,7 +420,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
                 if (frame < frames - 1)
                 {
-                    await Awaitable.NextFrameAsync(token);
+                    await Task.Delay(1);
                 }
             }
 
@@ -384,7 +431,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _party.MapZ = ez;
         }
 
-        private async Awaitable Rot(int delta, CancellationToken token)
+        private async Task Rot(int delta, CancellationToken token)
         {
 
             float startRot = _party.MapRot;
@@ -400,7 +447,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 UpdateCameraPos(token);
                 if (frame < frames)
                 {
-                    await Awaitable.NextFrameAsync(token);
+                    await Task.Delay(1);
                 }
             }
 
@@ -415,7 +462,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         }
 
 
-        private async Awaitable DrawNearbyMap(CancellationToken token)
+        private async Task DrawNearbyMap(CancellationToken token)
         {
             if (_crawlerMapRoot == null)
             {
@@ -461,7 +508,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                     cellX %= _crawlerMapRoot.Map.Width;
                     cellZ %= _crawlerMapRoot.Map.Height;
 
-                    UnityMapCell cell = _crawlerMapRoot.GetCell(cellX, cellZ);
+                    ClientMapCell cell = _crawlerMapRoot.GetCell(cellX, cellZ);
 
                     if (_crawlerMapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.Outdoors &&
                         (offsetX >= ViewRadius + viewBufferSize ||
@@ -469,7 +516,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                     {
                         if (cell.Content != null)
                         {
-                            GEntityUtils.Destroy(cell.Content);
+                            _gameObjectService.Destroy(cell.Content);
                             cell.Content = null;
                         }
                         continue;
@@ -479,9 +526,10 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                             worldX >= 0 && worldX < _crawlerMapRoot.Map.Width &&
                             worldZ >= 0 && worldZ < _crawlerMapRoot.Map.Height)
                     {
-                        if (cell.Content != null)
+                        GameObject go = (GameObject)cell.Content;
+                        if (go != null)
                         {
-                            cell.Content.transform.position = new Vector3(worldX * bz, 0, worldZ * bz);
+                            go.transform.position = new Vector3(worldX * bz, 0, worldZ * bz);
                         }
                         else
                         {
@@ -687,7 +735,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _party.MapRot = rot;
             UpdateCameraPos(token);
             MarkCurrentCellVisited();
-            AwaitableUtils.ForgetAwaitable(DrawNearbyMap(token));
+            TaskUtils.ForgetTask(DrawNearbyMap(token));
             _dispatcher.Dispatch(new ShowPartyMinimap() { Party = _party, PartyArrowOnly = rotationOnly });
 
         }
@@ -793,108 +841,11 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                     sb.Append(_wallLetterList[TileImages[i].WallIds[w]]);
                 }
             }
-
-            if (false)
-            {
-                int size = 64;
-
-                int wallThickness = 2;
-                int doorThickness = 3;
-
-                int doorStart = 20;
-                int doorEnd = 63 - doorStart - 1;
-
-                string crawlerMinimapAtlasPath = AppUtils.DataPath + "/FullAssets/Crawler/Atlas/CrawlerMinimapAtlas";
-                foreach (WallTileImage wti in _refImages)
-                {
-
-                    Texture2D tex2d = new Texture2D(size, size, TextureFormat.ARGB32, false);
-
-                    for (int x = 0; x < tex2d.width; x++)
-                    {
-                        for (int y = 0; y < tex2d.height; y++)
-                        {
-                            tex2d.SetPixel(x, y, new Color32(0, 0, 0, 0));
-                        }
-                    }
-                    for (int i = 0; i < 4; i++)
-                    {
-                        int sx = (i != 0 ? 0 : size - wallThickness - 1);
-                        int sy = (i != 1 ? 0 : size - wallThickness - 1);
-
-                        int ex = (i != 2 ? size - 1 : wallThickness);
-                        int ey = (i != 3 ? size - 1 : wallThickness);
-
-                        int dsx = (i == 0 ? sx - doorThickness : i == 2 ? wallThickness : doorStart);
-                        int dex = (i % 2 == 0 ? dsx + doorThickness : doorEnd);
-
-                        int dsy = (i == 3 ? wallThickness : i == 1 ? size - wallThickness - 1 - doorThickness : doorStart);
-                        int dey = (i % 2 == 1 ? dsy + doorThickness : doorEnd);
-
-                        if (wti.WallIds[i] == WallTypes.None)
-                        {
-                            continue;
-                        }
-                        for (int x = sx; x <= ex; x++)
-                        {
-                            for (int y = sy; y <= ey; y++)
-                            {
-                                tex2d.SetPixel(x, y, Color.white);
-                            }
-                        }
-
-
-                        if (wti.WallIds[i] == WallTypes.Door)
-                        {
-                            for (int x = dsx; x <= dex; x++)
-                            {
-                                for (int y = dsy; y <= dey; y++)
-                                {
-                                    tex2d.SetPixel(x, y, Color.white);
-                                }
-                            }
-                        }
-                    }
-
-                    byte[] bytes = tex2d.EncodeToPNG();
-
-                    File.WriteAllBytes(crawlerMinimapAtlasPath + "/" + wti.Filename + ".png", bytes);
-                }
-            }
         }
 
         private FullWallTileImage[] TileImages { get; set; }
 
         private List<WallTileImage> _refImages { get; set; } = new List<WallTileImage>();
-    }
-
-
-    public class TileImageConstants
-    {
-        public const int WallCount = 4;
-        public const int Images = 3;
-
-        public const int ArraySize = 81; // 3^4
-    }
-
-    public class FullWallTileImage
-    {
-
-        public int Index { get; set; }
-        public int[] WallIds { get; set; } = new int[TileImageConstants.WallCount];
-        public long RotAngle { get; set; } = 0;
-
-        public string ValText { get; set; }
-
-        public WallTileImage RefImage { get; set; }
-    }
-
-
-    public class WallTileImage
-    {
-        public int[] WallIds { get; set; } = new int[TileImageConstants.WallCount];
-        public string Filename { get; set; } = "OOOO";
-
     }
 
 }

@@ -4,15 +4,12 @@ using System;
 using System.Threading;
 using UnityEngine;
 using Genrpg.Shared.Logging.Interfaces;
-using System.Runtime.InteropServices;
-using Genrpg.Shared.Website.Messages;
-using Genrpg.Shared.Utils;
-using static ClientWebService;
-using System.Collections.Generic; // Needed
+using System.Collections.Generic;
+using Genrpg.Shared.Client.Core; // Needed
 
 public class ClientWebRequest
 {
-	private IUnityGameState _gs;
+	private IClientGameState _gs;
 	private string _uri;
     private string _postData;
     private WebResultsHandler _handler = null;

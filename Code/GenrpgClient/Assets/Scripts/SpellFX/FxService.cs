@@ -1,21 +1,22 @@
-﻿using Genrpg.Shared.Core.Entities;
-using Genrpg.Shared.DataStores.Entities;
+﻿
+using Genrpg.Shared.Client.Assets;
+using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Spells.Messages;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using UnityEngine; // Needed
-using GEntity = UnityEngine.GameObject;
+using UnityEngine; 
 
 public class FullFX
 {
     public FX fx;
     public MapObject from;
     public MapObject to;
-    public GEntity fromObj;
-    public GEntity toObj;
+    public GameObject fromObj;
+    public GameObject toObj;
     public CancellationToken token;
 
 }
@@ -29,8 +30,8 @@ public class FxService : IFxService
 {
     private IClientMapObjectManager _objectManager;
     private IAssetService _assetService;
-    private IUnityGameState _gs;
-    protected IGameObjectService _gameObjectService;
+    private IClientGameState _gs;
+    protected IClientEntityService _gameObjectService;
 
     public async Task Initialize(CancellationToken token)
     {
@@ -54,8 +55,8 @@ public class FxService : IFxService
             from = from.Obj,
             to = to.Obj,
             fx = fx,
-            fromObj = from?.Controller?.entity(),
-            toObj = to?.Controller?.entity(),
+            fromObj = from?.Controller?.gameObject,
+            toObj = to?.Controller?.gameObject,
             token = token,
         };
 
@@ -69,7 +70,7 @@ public class FxService : IFxService
 
     private void OnLoadFX(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
 
         if (go == null)
         {
@@ -79,7 +80,7 @@ public class FxService : IFxService
         FullFX full = data as FullFX;
         if (full ==null || !TokenUtils.IsValid(full.token))
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
         MapProjectile proj = _gameObjectService.GetOrAddComponent<MapProjectile>(go);

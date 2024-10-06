@@ -9,10 +9,12 @@ using System;
 using Genrpg.Shared.Interfaces;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using Genrpg.Shared.Client.Core;
+using Assets.Scripts.Assets;
 
 public class SetupEditorUnityGameState
 {
-    public static async Awaitable<IUnityGameState> Setup(IUnityGameState gs = null)
+    public static async Awaitable<IClientGameState> Setup(IClientGameState gs = null)
     {
 
         CancellationTokenSource _cts = new CancellationTokenSource();
@@ -30,7 +32,7 @@ public class SetupEditorUnityGameState
 
             await ss.SetupGame(_cts.Token);
 
-            ClientConfig config = ClientConfig.Load();
+            ClientConfig config = ClientConfig.Load(new LocalLoadService());
 
             config.ResponseContentRoot = AssetConstants.DefaultDevContentRoot;
 

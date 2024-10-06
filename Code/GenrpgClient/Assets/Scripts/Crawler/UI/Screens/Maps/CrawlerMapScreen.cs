@@ -1,13 +1,11 @@
-﻿using Assets.Scripts.Crawler.Maps.Entities;
-using Assets.Scripts.Crawler.Maps.Services;
-using Assets.Scripts.Crawler.Services;
-using Assets.Scripts.Crawler.Services.CrawlerMaps;
+﻿using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Tilemaps;
-using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Crawler.States.Services;
 
 namespace Assets.Scripts.Crawler.UI.Screens.Maps
 {
@@ -17,14 +15,13 @@ namespace Assets.Scripts.Crawler.UI.Screens.Maps
         private ICrawlerService _crawlerService;
         private ICrawlerWorldService _worldService;
         private ICrawlerMapService _mapService;
-        private IUIService _uiService;
         public CrawlerTilemap Tilemap;
         public GText MapName;
 
         private PartyData _party;
         private CrawlerWorld _world;
         private CrawlerMap _map;
-        protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+        protected override async Task OnStartOpen(object data, CancellationToken token)
         {
 
             if (Tilemap == null)

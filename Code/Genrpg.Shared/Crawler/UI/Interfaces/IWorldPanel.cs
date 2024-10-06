@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Genrpg.Shared.Crawler.Parties.PlayerData;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,5 @@ namespace Genrpg.Shared.Crawler.UI.Interfaces
         void SetPicture(string image);
 
         void ApplyEffect(string effectName, float duration);
-
     }
 }

@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Atlas.Constants;
+﻿using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Entities.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Spawns.Settings;
@@ -25,7 +25,7 @@ namespace Assets.Scripts.UI.Stores
                 _assetService.LoadAtlasSpriteInto(AtlasNames.Icons, gameItem.Icon, RewardIcon, token);
             }
 
-            _uIInitializable.SetText(RewardQuantity, spawnItem.MinQuantity.ToString());
+            _uiService.SetText(RewardQuantity, spawnItem.MinQuantity.ToString());
 
         }
     }

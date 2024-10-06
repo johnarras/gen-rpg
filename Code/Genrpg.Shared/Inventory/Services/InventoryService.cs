@@ -336,6 +336,11 @@ namespace Genrpg.Shared.Inventory.Services
 
                 List<Role> roles = _gameData.Get<RoleSettings>(unit).GetRoles(unit.Roles);
 
+                if (roles.Count < 1)
+                {
+                    return true;
+                }
+
                 if ((slot.IdKey == EquipSlots.MainHand || slot.IdKey == EquipSlots.Ranged))
                 {
                     if (roles.Any(x => x.Bonuses.Any(x => x.EntityTypeId == EntityTypes.Item && x.EntityId == itype.IdKey)))
@@ -343,10 +348,11 @@ namespace Genrpg.Shared.Inventory.Services
                         return true;
                     }
                 }
-                else if (roles.Any(x=>x.MaxArmorScalingTypeId >= item.ScalingTypeId))
+                else if (roles.Any(x => x.MaxArmorScalingTypeId >= item.ScalingTypeId))
                 {
-                    return true;                       
+                    return true;
                 }
+
                 return false;
             }
 

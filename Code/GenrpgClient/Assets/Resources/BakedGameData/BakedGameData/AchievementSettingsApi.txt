@@ -1,0 +1,75 @@
+{
+  "Data": [
+    {
+      "Id": "achievementtype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Total Damage",
+      "UpdateTime": "2024-08-01T00:27:58.536Z"
+    },
+    {
+      "Id": "achievementtype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Max Damage",
+      "Category": 1,
+      "UpdateTime": "2024-08-01T00:27:58.54Z"
+    },
+    {
+      "Id": "achievementtype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Total Healing",
+      "UpdateTime": "2024-08-01T00:27:58.543Z"
+    },
+    {
+      "Id": "achievementtype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Max Healing",
+      "Category": 1,
+      "UpdateTime": "2024-08-01T00:27:58.545Z"
+    },
+    {
+      "Id": "achievementtype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Money Looted",
+      "UpdateTime": "2024-08-01T00:27:58.548Z"
+    },
+    {
+      "Id": "achievementtype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Items Looted",
+      "UpdateTime": "2024-08-01T00:27:58.55Z"
+    },
+    {
+      "Id": "achievementtype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Vendor Money",
+      "UpdateTime": "2023-08-01T00:27:58.553Z"
+    },
+    {
+      "Id": "achievementtype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Items Sold",
+      "UpdateTime": "2024-08-01T00:27:58.555Z"
+    },
+    {
+      "Id": "achievementtype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Items Bought",
+      "UpdateTime": "2024-08-01T00:27:58.558Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "AchievementSettings",
+    "UpdateTime": "2024-08-17T18:29:13.925Z"
+  },
+  "Id": "default"
+}

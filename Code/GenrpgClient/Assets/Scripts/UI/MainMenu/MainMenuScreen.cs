@@ -12,11 +12,12 @@ public class MainMenuScreen : BaseScreen
     public GButton QuitGameButton;
 
     protected IClientAuthService _loginService;
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    private IClientAppService _clientAppService;
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
-        _uIInitializable.SetButton(LogoutAccountButton, GetName(), ClickLogout);
-        _uIInitializable.SetButton(QuitGameButton, GetName(), ClickQuit);
-        _uIInitializable.SetButton(ExitMapButton, GetName(), ExitMap);
+        _uiService.SetButton(LogoutAccountButton, GetName(), ClickLogout);
+        _uiService.SetButton(QuitGameButton, GetName(), ClickQuit);
+        _uiService.SetButton(ExitMapButton, GetName(), ExitMap);
 
 
         await Task.CompletedTask;
@@ -30,7 +31,7 @@ public class MainMenuScreen : BaseScreen
 
     private void ClickQuit()
     {
-        AppUtils.Quit();
+        _clientAppService.Quit();
     }
 
     private void ExitMap()

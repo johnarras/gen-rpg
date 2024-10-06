@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using UnityEngine;
 using UnityEditor;
+using Genrpg.Shared.Client.Core;
 
 
 public delegate void CheckPrefab (GameObject go, string path, System.Object returnData, StringBuilder logTxt);
@@ -17,9 +18,14 @@ public class PrefabChecker
 		if (logTxt == null || checker == null)
 		{
 			return;
-		}
+        }
+        IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
-		CheckPath("/", extraData, logTxt, checker);
+        IClientAppService _appService = gs.loc.Get<IClientAppService>();
+
+        string dataPath = _appService.DataPath;
+
+        CheckPath("/", extraData, logTxt, checker, dataPath);
 
 		string txt = logTxt.ToString();
 		Debug.Log(txt);
@@ -28,13 +34,13 @@ public class PrefabChecker
 
 
 	
-	public static void CheckPath (string path, System.Object extraData, StringBuilder logTxt, CheckPrefab checker)
+	public static void CheckPath (string path, System.Object extraData, StringBuilder logTxt, CheckPrefab checker, string dataPath)
 	{
 		if (string.IsNullOrEmpty(path))
 		{
 			return;
 		}
-		string fullPath = AppUtils.DataPath + path;
+		string fullPath = dataPath + path;
 		string[] fileEntries = Directory.GetFiles(fullPath);
 		string[] directories = Directory.GetDirectories(fullPath);
 		foreach (string entry in fileEntries)
@@ -43,7 +49,7 @@ public class PrefabChecker
 			{
 				continue;
 			}
-            string newEntry = "Assets" + entry.Replace(AppUtils.DataPath, "");
+            string newEntry = "Assets" + entry.Replace(dataPath, "");
 			GameObject go = null;
 			try
 			{
@@ -62,7 +68,7 @@ public class PrefabChecker
 
 		foreach (string dir in directories)
 		{
-			CheckPath(dir.Replace(AppUtils.DataPath, ""), extraData, logTxt, checker);
+			CheckPath(dir.Replace(dataPath, ""), extraData, logTxt, checker, dataPath);
 		}
 	}
 

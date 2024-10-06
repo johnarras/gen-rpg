@@ -23,7 +23,6 @@ using Genrpg.Editor.Interfaces;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Editor.UI;
-using Genrpg.Editor.UI.Constants;
 using Genrpg.Shared.ProcGen.Settings.Names;
 using Genrpg.Editor.Entities.MetaData;
 using Genrpg.Editor.Services.Reflection;
@@ -43,6 +42,7 @@ using Windows.ApplicationModel.VoiceCommands;
 using Windows.Graphics.Printing.PrintSupport;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
+using Genrpg.Editor.Constants;
 
 namespace Genrpg.Editor
 {
@@ -1770,6 +1770,17 @@ namespace Genrpg.Editor
             // to new objects of the current type that have
             // the correct property name and almost always a 
             // Name property.
+
+            // And I am not doing "Corporate Enterprise Web Dev Best Practices"
+            // This is "Indie Game Dev META (Most Effective Techniques Available)
+            // since IMO "Best Practices" is a thought terminating cliche where
+            // Anyway, the editor is not something the players interact with,
+            // and in order to make it simpler to add new features and still
+            // have the "foreign key dropdowns" generated without making a bunch
+            // of small auxilitary classes or dynamic objects...idk seems
+            // simplest way to make this small, but very useful and powerful
+            // corner of the tooling work without having to remember to update
+            // it with every new feature.
             List<object> newDropdown = new List<object>();
 
             foreach (IIdName nv in dropdownList)

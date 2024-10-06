@@ -1,11 +1,11 @@
 ﻿using Genrpg.Shared.Spells.PlayerData.Spells;
 
 using System.Threading;
-using UnityEngine;
+using System.Threading.Tasks;
 
 public class SpellIconScreen : DragItemScreen<Spell,SpellIcon,SpellIconScreen,InitSpellIconData>
 {
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
     }

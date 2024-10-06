@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Genrpg.Editor.UI.Constants
+namespace Genrpg.Editor.Constants
 {
     public enum EButtonTypes
     {

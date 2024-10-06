@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
-using UnityEngine.UI; // FIX
+using UnityEngine;
+using UnityEngine.UI; 
 using UnityEngine.EventSystems;
 
 using System.Threading;
-using UnityEngine;
 using System.Threading.Tasks;
 
 public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseScreen 
@@ -19,12 +18,12 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
     public BaseTooltip ToolTip;
     public MoneyDisplay _playerMoney;
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         if (ToolTip != null)
         {
-            _gameObjectService.InitializeHierarchy(ToolTip.entity());
-            GEntityUtils.SetActive(ToolTip.entity(), false);
+            _gameObjectService.InitializeHierarchy(ToolTip.gameObject);
+            _gameObjectService.SetActive(ToolTip.gameObject, false);
         }
 
         await Task.CompletedTask;
@@ -58,7 +57,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
 
         if (_dragItem != null)
         {
-            _dragItem.transform().position = GVector3.Create(_inputService.MousePosition());
+            _dragItem.transform.position = _inputService.MousePosition();
             if (!_inputService.MouseIsDown(0))
             {
                 OnPointerUp();
@@ -78,7 +77,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
         {
             return;
         }
-        GEntity dragParent = _screenService.GetDragParent() as GEntity;
+        GameObject dragParent = _screenService.GetDragParent() as GameObject;
 
         if (dragParent == null)
         {
@@ -89,8 +88,8 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
         _origItem = icon;
         _dragItem = _gameObjectService.FullInstantiate<TDragItem>(icon);
         _dragItem.Init(icon.GetInitData(), _token);
-        _dragItem.transform().SetParent(dragParent.transform());
-        _dragItem.transform().localScale = icon.transform().lossyScale;
+        _dragItem.transform.SetParent(dragParent.transform);
+        _dragItem.transform.localScale = icon.transform.lossyScale;
         UpdateDragIconPosition();
         ShowDragTargetIconsGlow(true);
 
@@ -108,7 +107,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
             return;
         }
 
-        GEntityUtils.Destroy(_dragItem.entity());
+        _gameObjectService.Destroy(_dragItem.gameObject);
         _dragItem = null;
         _origItem = null;
         ShowDragTargetIconsGlow(false);
@@ -128,7 +127,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
         bool didHitItem = false;
 
         PointerEventData pointerData = new PointerEventData(EventSystem.current);
-        pointerData.position = GVector3.Create(_inputService.MousePosition());
+        pointerData.position = _inputService.MousePosition();
 
         foreach (GraphicRaycaster gr in raycasters)
         {
@@ -136,14 +135,14 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
 
             gr.Raycast(pointerData, results);
 
-            GEntity lastTargetHit = null;
+            GameObject lastTargetHit = null;
             TDragItem dropTargetIcon = null;
 
             if (results.Count > 0)
             {
                 foreach (RaycastResult res in results)
                 {
-                    TDragItem iconParent = GEntityUtils.FindInParents<TDragItem>(res.entity());
+                    TDragItem iconParent = _gameObjectService.FindInParents<TDragItem>(res.gameObject);
                     if (dropTargetIcon == null && iconParent != null && iconParent != _dragItem)
                     {
                         dropTargetIcon = iconParent;
@@ -151,7 +150,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
                 }
                 if (results.Count > 0)
                 {
-                    lastTargetHit = results[results.Count - 1].entity();
+                    lastTargetHit = results[results.Count - 1].gameObject;
                 }
 
                 if (dropTargetIcon != null && dropTargetIcon.GetScreen() != null)
@@ -179,7 +178,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
 
         ResetCurrentDragItem();
     }
-    protected virtual void HandleDragDrop(TScreen startScreen, TDragItem dragIcon, TDragItem otherIconHit, GEntity finalObjectHit)
+    protected virtual void HandleDragDrop(TScreen startScreen, TDragItem dragIcon, TDragItem otherIconHit, GameObject finalObjectHit)
     {
         // _dragIcon and _origIcon should already exist here!
     }
@@ -193,7 +192,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
     {
         if (_dragItem != null)
         {
-            _dragItem.transform().position = GVector3.Create(_inputService.MousePosition());
+            _dragItem.transform.position = _inputService.MousePosition();
         }
     }
 }

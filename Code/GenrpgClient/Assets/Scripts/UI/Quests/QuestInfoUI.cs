@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using ClientEvents;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Inventory.PlayerData;
@@ -15,29 +15,31 @@ using Genrpg.Shared.Quests.PlayerData;
 using Genrpg.Shared.Inventory.Settings.Qualities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Rewards.Entities;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class QuestInfoUI : BaseBehaviour
 {
 
     protected ISharedQuestService _questService;
+    protected IIconService _iconService;
 
     public const string ScreenTaskPrefab = "QuestScreenTaskRow";
     public const string HUDTaskPrefab = "QuestHUDTaskRow";
 
     
-    public GEntity ContentParent;
+    public GameObject ContentParent;
     public GImage StatusIcon;
     public GText QuestName;
     public GText Description;
-    public GEntity TaskParent;
+    public GameObject TaskParent;
     public GText Experience;
     public MoneyDisplay Money;
-    public GEntity OtherRewards;
+    public GameObject OtherRewards;
     public GText ItemRewardText;
     public bool ShowWord = false;
-    public GEntity AcceptButton;
-    public GEntity AbandonButton;
-    public GEntity CompleteButton;
+    public GameObject AcceptButton;
+    public GameObject AbandonButton;
+    public GameObject CompleteButton;
 
     QuestType _qtype = null;
     QuestScreen _screen = null;
@@ -45,7 +47,7 @@ public class QuestInfoUI : BaseBehaviour
     MapObject _obj = null;
     public void Init(QuestType qtype, int index, QuestScreen screen, MapObject mapObject, CancellationToken token)
     {
-        _dispatcher.AddEvent<UpdateQuestEvent>(this, OnUpdateQuest);
+        AddListener<UpdateQuestEvent>(OnUpdateQuest);
         _token = token;
         _qtype = qtype;
         _screen = screen;
@@ -60,7 +62,7 @@ public class QuestInfoUI : BaseBehaviour
 
     protected virtual void ShowQuestInfo()
     {
-        GEntityUtils.SetActive(ContentParent, _qtype != null);
+        _gameObjectService.SetActive(ContentParent, _qtype != null);
         if (_qtype == null)
         {            
             return;
@@ -82,13 +84,13 @@ public class QuestInfoUI : BaseBehaviour
         UpdateButtonsFromState(state);
 
 
-        _uIInitializable.SetText(QuestName, nameText);
-        _uIInitializable.SetText(Description, _qtype.Desc);
+        _uiService.SetText(QuestName, nameText);
+        _uiService.SetText(Description, _qtype.Desc);
 
-        GEntityUtils.DestroyAllChildren(TaskParent);
+        _gameObjectService.DestroyAllChildren(TaskParent);
         if (_qtype.Tasks != null && TaskParent != null)
         {
-            GEntityUtils.DestroyAllChildren(TaskParent);
+            _gameObjectService.DestroyAllChildren(TaskParent);
             foreach (QuestTask task in _qtype.Tasks)
             {
                 _assetService.LoadAssetInto(TaskParent, AssetCategoryNames.UI,
@@ -102,7 +104,7 @@ public class QuestInfoUI : BaseBehaviour
         Reward expReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Exp);
         if (expReward != null)
         {
-            _uIInitializable.SetText(Experience, "XP: " + expReward.Quantity.ToString());
+            _uiService.SetText(Experience, "XP: " + expReward.Quantity.ToString());
         }
         Reward moneyReward = rewards.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Currency && x.EntityId == CurrencyTypes.Money);
         if (moneyReward != null && Money != null)
@@ -113,7 +115,7 @@ public class QuestInfoUI : BaseBehaviour
         List<Reward> itemRewards = rewards.Where(X => X.EntityTypeId == EntityTypes.Item && (X.ExtraData as Item) != null).ToList();
 
 
-        _uIInitializable.SetText(ItemRewardText, "");
+        _uiService.SetText(ItemRewardText, "");
         if (itemRewards.Count > 0)
         {
 
@@ -127,7 +129,7 @@ public class QuestInfoUI : BaseBehaviour
                         Data = item,
                         EntityTypeId = EntityTypes.Item,
                     };
-                    IconHelper.InitItemIcon(idata, OtherRewards, this._assetService, _token);
+                    _iconService.InitItemIcon(idata, OtherRewards, this._assetService, _token);
                 }
             }
         }
@@ -144,7 +146,7 @@ public class QuestInfoUI : BaseBehaviour
                 }
             }
             string txt = "Create " + _qtype.ItemQuantity + "" + qualityString + " Item" + (_qtype.ItemQuantity==1?"":"s");
-            _uIInitializable.SetText(ItemRewardText, txt);
+            _uiService.SetText(ItemRewardText, txt);
         }
     }
 
@@ -204,7 +206,7 @@ public class QuestInfoUI : BaseBehaviour
 
     private void OnLoadTask (object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
         if (go == null)
         {
             return;
@@ -214,7 +216,7 @@ public class QuestInfoUI : BaseBehaviour
 
         if (task == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
@@ -222,7 +224,7 @@ public class QuestInfoUI : BaseBehaviour
 
         if (taskRow == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
@@ -231,21 +233,21 @@ public class QuestInfoUI : BaseBehaviour
 
     public void UpdateButtonsFromState(int state)
     {
-        GEntityUtils.SetActive(AcceptButton, false);
-        GEntityUtils.SetActive(AbandonButton, false);
-        GEntityUtils.SetActive(CompleteButton, false);
+        _gameObjectService.SetActive(AcceptButton, false);
+        _gameObjectService.SetActive(AbandonButton, false);
+        _gameObjectService.SetActive(CompleteButton, false);
 
         if (state == QuestState.Available)
         {
-            GEntityUtils.SetActive(AcceptButton, true);
+            _gameObjectService.SetActive(AcceptButton, true);
         }
         else if (state == QuestState.Active)
         {
-            GEntityUtils.SetActive(AbandonButton, true);
+            _gameObjectService.SetActive(AbandonButton, true);
         }
         else if (state == QuestState.Complete)
         {
-            GEntityUtils.SetActive(CompleteButton, true);
+            _gameObjectService.SetActive(CompleteButton, true);
         }
     }
 

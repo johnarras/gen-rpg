@@ -1,12 +1,12 @@
-﻿using Assets.Scripts.ProcGen.RandomNumbers;
-
-using Genrpg.Shared.Core.Entities;
+﻿using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Pathfinding.Services;
+using Genrpg.Shared.ProcGen.Services;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -25,10 +25,11 @@ public class BaseZoneGenerator : IZoneGenerator, IInitializable
     protected IDispatcher _dispatcher;
     protected IGameData _gameData;
     protected IMapProvider _mapProvider;
-    protected IUnityGameState _gs;
+    protected IClientGameState _gs;
     protected IClientRandom _rand;
     protected IMapGenData _md;
     protected IPathfindingService _pathfindingService;
+    protected IClientEntityService _gameObjectService;
 
     public virtual async Awaitable Generate(CancellationToken token)
     {

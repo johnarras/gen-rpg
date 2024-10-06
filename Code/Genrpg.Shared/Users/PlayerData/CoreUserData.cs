@@ -10,6 +10,7 @@ using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.BoardGame.Constants;
 
 namespace Genrpg.Shared.Users.PlayerData
 {
@@ -23,7 +24,7 @@ namespace Genrpg.Shared.Users.PlayerData
 
         [Key(1)] public DateTime LastDailyReset { get; set; }
 
-        [Key(2)] public long PlayMult { get; set; }
+        [Key(2)] public long PlayMult { get; set; } = BoardGameConstants.MinPlayMult;
 
         [Key(3)] public double AvgMult { get; set; } = 1.0f;
 
@@ -44,6 +45,9 @@ namespace Genrpg.Shared.Users.PlayerData
         [Key(9)] public DateTime CreationDate { get; set; }
 
         [Key(10)] public DateTime LastHourlyReset { get; set; }
+
+        [Key(11)] public long MarkerId { get; set; } = 1;
+        [Key(12)] public long MarkerTier { get; set; } = 1;
     }
 
     [MessagePackObject]

@@ -4,7 +4,7 @@
   "IdKey": 59,
   "Name": "Return to Beacon",
   "Desc": "Return to the player's teleport location.",
-  "PowerCost": 20,
+  "PowerCost": 20.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 8,

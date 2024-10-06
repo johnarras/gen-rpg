@@ -6,8 +6,6 @@ using ClientEvents;
 using System.Threading;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Interfaces;
-using UI.Screens.Constants;
-using Assets.Scripts.Tokens;
 using Genrpg.Shared.Website.Messages.LoadIntoMap;
 using Assets.Scripts.MapTerrain;
 using UnityEngine; // Needed
@@ -16,9 +14,12 @@ using Genrpg.Shared.Spawns.WorldData;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Characters.Utils;
-using Genrpg.Shared.MapServer.Services;
-using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Client.Core;
 using System.Threading.Tasks;
+using Genrpg.Shared.UI.Services;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Tokens;
+using Genrpg.Shared.UI.Entities;
 
 public class UnityZoneGenService : ZoneGenService
 {
@@ -62,7 +63,7 @@ public class UnityZoneGenService : ZoneGenService
                 tokenService.SetMapToken(_mapToken);
             }
         }
-        AwaitableUtils.ForgetAwaitable(InnerGenerate(worldId, _mapToken));
+        TaskUtils.ForgetAwaitable(InnerGenerate(worldId, _mapToken));
     }
 
     protected async Awaitable InnerGenerate(string worldId, CancellationToken token)
@@ -385,7 +386,7 @@ public class UnityZoneGenService : ZoneGenService
                 }
 
 
-                AwaitableUtils.ForgetAwaitable(SetOnePatchAlphamaps(patch, token));
+                TaskUtils.ForgetAwaitable(SetOnePatchAlphamaps(patch, token));
             }
         }
 
@@ -694,7 +695,7 @@ public class UnityZoneGenService : ZoneGenService
 
     }
 
-    static DateTime lastLoadClick = DateTime.UtcNow.AddMinutes(-1);
+    DateTime lastLoadClick = DateTime.UtcNow.AddMinutes(-1);
     public override void LoadMap(LoadIntoMapCommand loadData)
     {
 
@@ -858,7 +859,7 @@ public class UnityZoneGenService : ZoneGenService
         {
             return;
         }
-        LODGroup lg = terr.entity().GetComponent<LODGroup>();
+        LODGroup lg = terr.gameObject.GetComponent<LODGroup>();
 
 
         terr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Simple;

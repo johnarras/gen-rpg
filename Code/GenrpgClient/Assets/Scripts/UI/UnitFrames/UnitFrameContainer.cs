@@ -6,7 +6,7 @@ using System.Text;
 using Genrpg.Shared.Core.Entities;
 
 
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Characters.PlayerData;
 using ClientEvents;
 using Genrpg.Shared.Interfaces;
@@ -25,8 +25,8 @@ public class UnitFrameContainer : BaseBehaviour
     public void Init(CancellationToken token)
     {
         _token = token;
-        _dispatcher.AddEvent<SetMapPlayerEvent>(this, OnSetMapPlayer);
-        _dispatcher.AddEvent<ExitMapEvent>(this, OnExitMap);
+        AddListener<SetMapPlayerEvent>(OnSetMapPlayer);
+        AddListener<ExitMapEvent>(OnExitMap);
         _playerManager.TryGetUnit(out Unit unit);
         SetMapPlayer(unit);
     }
@@ -63,11 +63,11 @@ public class UnitFrameContainer : BaseBehaviour
     {
         if (unit == null)
         {
-            GEntityUtils.SetActive(Frame, false);
+            _gameObjectService.SetActive(Frame, false);
         }
         else
         {
-            GEntityUtils.SetActive(Frame, true);
+            _gameObjectService.SetActive(Frame, true);
             Frame.Init(unit);
         }
     }

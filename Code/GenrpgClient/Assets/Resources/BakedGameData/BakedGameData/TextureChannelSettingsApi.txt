@@ -1,0 +1,31 @@
+{
+  "Data": [
+    {
+      "Id": "texturechannel1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Dirt",
+      "UpdateTime": "2024-08-01T00:28:13.746Z"
+    },
+    {
+      "Id": "texturechannel2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Road",
+      "UpdateTime": "2024-08-01T00:28:13.749Z"
+    },
+    {
+      "Id": "texturechannel3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Steep",
+      "UpdateTime": "2024-08-01T00:28:13.751Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "TextureChannelSettings",
+    "UpdateTime": "2024-08-01T00:28:13.754Z"
+  },
+  "Id": "default"
+}

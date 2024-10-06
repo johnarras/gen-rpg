@@ -12,13 +12,12 @@ using Genrpg.Shared.DataStores.DataGroups;
 
 public class LoadPathfinding : BaseZoneGenerator
 {
-
+    private IBinaryFileRepository _binaryFileRepo;
     public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
-        BinaryFileRepository repo = new BinaryFileRepository(_logService);
         string filename = MapUtils.GetMapObjectFilename(PathfindingConstants.Filename, _mapProvider.GetMap().Id, _mapProvider.GetMap().MapVersion);
-        byte[] bytes = repo.LoadBytes(filename);
+        byte[] bytes = _binaryFileRepo.LoadBytes(filename);
         if (bytes != null)
         {
             OnDownloadPathfinding(bytes, null, token);

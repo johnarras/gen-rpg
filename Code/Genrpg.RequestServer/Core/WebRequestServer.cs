@@ -10,10 +10,10 @@ using Genrpg.Shared.Charms.PlayerData;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.RequestServer.Services.Clients;
 using Genrpg.RequestServer.MessageHandlers;
-using Genrpg.RequestServer.Utils;
 using Genrpg.RequestServer.Services.Login;
 using Genrpg.RequestServer.Setup;
 using Genrpg.RequestServer.Services.NoUsers;
+using Genrpg.Shared.Website.Messages;
 
 namespace Genrpg.RequestServer.Core
 {
@@ -58,21 +58,26 @@ namespace Genrpg.RequestServer.Core
         {
             WebContext context = SetupContext();
             await _clientWebService.HandleClientWebCommand(context, postData, _token);
-            return WebUtils.PackageResults(context.Results);
+            return PackageResults(context);
         }
 
         public async Task<string> HandleNoUser(string postData)
         {
             WebContext context = SetupContext();
             await _noUserWebService.HandleNoUserCommand(context, postData, _token);
-            return WebUtils.PackageResults(context.Results);
+            return PackageResults(context);
         }
 
         public async Task<string> HandleAuth(string postData)
         {
             WebContext context = SetupContext();
             await _authWebService.HandleAuthCommand(context, postData, _token);
-            return WebUtils.PackageResults(context.Results);
+            return PackageResults(context);
+        }
+
+        private string PackageResults(WebContext context)
+        {
+            return SerializationUtils.Serialize(new LoginServerResultSet() { Results = context.Results });
         }
 
         public async Task<string> HandleTxList(string address)

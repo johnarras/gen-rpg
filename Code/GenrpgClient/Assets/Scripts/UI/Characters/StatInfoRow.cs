@@ -3,6 +3,7 @@ using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
+using UnityEngine;
 
 public class StatInfoRow : BaseBehaviour
 {
@@ -23,10 +24,10 @@ public class StatInfoRow : BaseBehaviour
         }
         else
         {
-            _uIInitializable.SetText(StatName, "=============");
-            _uIInitializable.SetText(CurrStat, "");
-            _uIInitializable.SetText(Percent, "");
-            _uIInitializable.SetText(Modifier, "");
+            _uiService.SetText(StatName, "=============");
+            _uiService.SetText(CurrStat, "");
+            _uiService.SetText(Percent, "");
+            _uiService.SetText(Modifier, "");
         }
 
         if (unit == null)
@@ -44,17 +45,17 @@ public class StatInfoRow : BaseBehaviour
             return;
         }
 
-        _uIInitializable.SetText(StatName, _statType.Name);
+        _uiService.SetText(StatName, _statType.Name);
 
         long curr = unit.Stats.Max(_statTypeId);
         
-        _uIInitializable.SetText(CurrStat, curr.ToString());
+        _uiService.SetText(CurrStat, curr.ToString());
 
         float pct = 0.0f;
 
         if (_statTypeId <= StatConstants.PrimaryStatEnd)
         {
-            _uIInitializable.SetText(Percent, "");
+            _uiService.SetText(Percent, "");
         }
         else if (_statTypeId >= StatConstants.ScaleDownBegin && _statTypeId <= StatConstants.ScaleDownEnd)
         {
@@ -71,26 +72,26 @@ public class StatInfoRow : BaseBehaviour
 
         if (Math.Abs(pct) < 0.001f)
         {
-            _uIInitializable.SetText(Percent, "");
+            _uiService.SetText(Percent, "");
         }
         else
         {
-            _uIInitializable.SetText(Percent, (100 * pct).ToString("F2") + "%");
+            _uiService.SetText(Percent, (100 * pct).ToString("F2") + "%");
         }
 
         if (modifier == 0)
         {
-            _uIInitializable.SetText(Modifier, "");
+            _uiService.SetText(Modifier, "");
         }
         else if (modifier > 0)
         {
-            _uIInitializable.SetText(Modifier, "+" + modifier);
-            _uIInitializable.SetColor(Modifier, GColor.green);
+            _uiService.SetText(Modifier, "+" + modifier);
+            _uiService.SetColor(Modifier, Color.green);
         }
         else if (modifier < 0) // Just be explicit here
         {
-            _uIInitializable.SetText(Modifier, "-" + modifier);
-            _uIInitializable.SetColor(Modifier, GColor.red);
+            _uiService.SetText(Modifier, "-" + modifier);
+            _uiService.SetColor(Modifier, Color.red);
         }
     }
 

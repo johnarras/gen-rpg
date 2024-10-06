@@ -4,7 +4,7 @@
   "IdKey": 53,
   "Name": "Cure Party",
   "Desc": "Cure all party members",
-  "PowerCost": 15,
+  "PowerCost": 15.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 5,

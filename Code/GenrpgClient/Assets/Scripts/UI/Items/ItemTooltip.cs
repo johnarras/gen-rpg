@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Entities.Constants;
-using Assets.Scripts.Atlas.Constants;
 using Genrpg.Shared.Entities.Utils;
 using System.Threading;
-using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.Inventory.Settings.ItemTypes;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Inventory.Constants;
+using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Inventory.Services;
 
 public class InitItemTooltipData : InitTooltipData
 {
@@ -33,6 +33,8 @@ public class ItemTooltipRowData
 
 public class ItemTooltip : BaseTooltip
 {
+    protected ISharedItemService _sharedItemService;
+    protected IIconService _iconService;
     public const string ItemTooltipRow = "ItemTooltipRow";
 
     public const int StarBaseAmount = 25;
@@ -43,7 +45,7 @@ public class ItemTooltip : BaseTooltip
     public GText ItemName;
     public GText BasicInfo;
     public GImage RarityImage;
-    public GEntity RowParent;
+    public GameObject RowParent;
     public GText MoneyText;
     public MoneyDisplay Money;
 
@@ -64,11 +66,11 @@ public class ItemTooltip : BaseTooltip
         }
         _unit = data.unit;
 
-        _uIInitializable.SetText(Message, _data.message);
-        _uIInitializable.SetText(ItemName, ItemUtils.GetName(_gameData, _unit, _data.mainItem));
-        _uIInitializable.SetText(BasicInfo, ItemUtils.GetBasicInfo(_gameData, _unit, _data.mainItem));
+        _uiService.SetText(Message, _data.message);
+        _uiService.SetText(ItemName, _sharedItemService.GetName(_gameData, _unit, _data.mainItem));
+        _uiService.SetText(BasicInfo, _sharedItemService.GetBasicInfo(_gameData, _unit, _data.mainItem));
 
-        string bgName = IconHelper.GetBackingNameFromQuality(_gameData, _data.mainItem.QualityTypeId);
+        string bgName = _iconService.GetBackingNameFromQuality(_gameData, _data.mainItem.QualityTypeId);
 
         _assetService.LoadAtlasSpriteInto(AtlasNames.Icons, bgName, RarityImage, token);
 
@@ -79,7 +81,7 @@ public class ItemTooltip : BaseTooltip
 
     private void ShowEffects()
     {
-        GEntityUtils.DestroyAllChildren(RowParent);
+        _gameObjectService.DestroyAllChildren(RowParent);
         _rows = new List<ItemTooltipRow>();
 
 
@@ -203,7 +205,7 @@ public class ItemTooltip : BaseTooltip
 
     private void OnLoadRow(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
         if (go == null)
         {
             return;
@@ -213,7 +215,7 @@ public class ItemTooltip : BaseTooltip
         ItemTooltipRowData rowData = data as ItemTooltipRowData;       
         if(row == null || rowData == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 
@@ -234,12 +236,12 @@ public class ItemTooltip : BaseTooltip
 
             if (!_data.isVendorItem)
             {
-                _uIInitializable.SetText(MoneyText, "Sell:");
+                _uiService.SetText(MoneyText, "Sell:");
                 cost = _data.mainItem.SellValue;
             }
             else
             {
-                _uIInitializable.SetText(MoneyText, "Price:");
+                _uiService.SetText(MoneyText, "Price:");
                 cost = _data.mainItem.BuyCost;
             }
 

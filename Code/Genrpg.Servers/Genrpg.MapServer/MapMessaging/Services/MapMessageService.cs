@@ -84,7 +84,7 @@ namespace Genrpg.MapServer.MapMessaging.Services
             _token = token;
             _startTime = DateTime.UtcNow;
 
-            _messageQueueCount = Math.Max(2, (int)(_mapProvider.GetMap().BlockCount * 0.67));
+            _messageQueueCount = Math.Max(2, (int)(_mapProvider.GetMap().BlockCount * 0.90));
 
             if (MapInstanceConstants.ServerTestMode)
             {

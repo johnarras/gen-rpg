@@ -12,5 +12,8 @@ namespace Genrpg.ServerShared.Crypto.Services
     public interface ICryptoService : IInjectable
     {
         Task<EthereumTransactionList> GetTransactionsFromWallet(string walletAddress, bool internalTransactions);
+        string GetPasswordHash(string salt, string passwordOrToken);
+        string GetRandomBytes(); 
+        string QuickHash(string txt);
     }
 }

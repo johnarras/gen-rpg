@@ -1,20 +1,16 @@
-﻿
-
-using Assets.Scripts.MapTerrain;
+﻿using Assets.Scripts.MapTerrain;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Zones.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
 using Genrpg.Shared.Zones.WorldData;
-using System;
 using Genrpg.Shared.Logging.Interfaces;
 using Assets.Scripts.ProcGen.Loading.Utils;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class FullDetailPrototype : BaseDetailPrototype
 {
@@ -32,10 +28,11 @@ public class PlantAssetLoader : IPlantAssetLoader
     private ILogService _logService;
     private IZonePlantValidator _zonePlantValidator;
     private IMapProvider _mapProvider;
+    protected IClientEntityService _gameObjectService;
 
     public void SetupOneMapGrass(int gx, int gy, CancellationToken token)
     {
-        AwaitableUtils.ForgetAwaitable(InnerSetupOneMapGrass(gx, gy, token));
+        TaskUtils.ForgetAwaitable(InnerSetupOneMapGrass(gx, gy, token));
     }
     private async Awaitable InnerSetupOneMapGrass(int gx, int gy, CancellationToken token)
     {
@@ -63,12 +60,12 @@ public class PlantAssetLoader : IPlantAssetLoader
 
         MyRandom bendRand = new MyRandom(_mapProvider.GetMap().Seed + 3234992);
 
-        Color color = Color.white;
+        UnityEngine.Color color = UnityEngine.Color.white;
         float amount = MathUtils.FloatRange(0.20f, 0.40f, bendRand);
         float speed = MathUtils.FloatRange(0.30f, 0.70f, bendRand);
         float strength = MathUtils.FloatRange(0.30f, 0.70f, bendRand);
 
-        tdata.wavingGrassTint = Color.white;
+        tdata.wavingGrassTint = UnityEngine.Color.white;
         tdata.wavingGrassAmount = amount;
         tdata.wavingGrassSpeed = speed;
         tdata.wavingGrassStrength = strength;
@@ -240,8 +237,8 @@ public class PlantAssetLoader : IPlantAssetLoader
         {
             DetailPrototype dp = new DetailPrototype();
             dp.renderMode = DetailRenderMode.Grass;
-            dp.healthyColor = GColor.white;
-            dp.dryColor = GColor.white;
+            dp.healthyColor = Color.white;
+            dp.dryColor = Color.white;
 
             // Now we know the plant object exists, so use the zone type plant data also.
 
@@ -269,11 +266,11 @@ private void OnDownloadGrass(object obj, object data, CancellationToken token)
         return;
     }
 
-    GEntity go = obj as GEntity;
+    GameObject go = obj as GameObject;
 
     if (go == null)
     {
-        _logService.Error("no GEntity: " + obj + " " + full.plantType.Art);
+        _logService.Error("no GameObject: " + obj + " " + full.plantType.Art);
         return;
     }
 
@@ -287,24 +284,24 @@ private void OnDownloadGrass(object obj, object data, CancellationToken token)
     else
     {
         full.proto.prototypeTexture = tlist.Textures[0];
-        full.proto.healthyColor = GColor.white;
+        full.proto.healthyColor = Color.white;
         full.proto.renderMode = DetailRenderMode.GrassBillboard;
-        full.proto.dryColor = GColor.white;
+        full.proto.dryColor = Color.white;
     }
 
     TerrainPatchData grid = _terrainManager.GetMapGrid(full.XGrid, full.YGrid) as TerrainPatchData;
     if (grid == null)
     {
-        GEntityUtils.Destroy(go);
+        _gameObjectService.Destroy(go);
         return;
     }
     Terrain terr = grid.terrain as Terrain;
     if (terr == null)
     {
-        GEntityUtils.Destroy(go);
+        _gameObjectService.Destroy(go);
         return;
     }
-    GEntityUtils.AddToParent(go, terr.entity());
+    _gameObjectService.AddToParent(go, terr.gameObject);
     go.SetActive(false);
 }
 }

@@ -3,6 +3,7 @@ using System.Threading;
 using Genrpg.Shared.Movement.Messages;
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.MapServer.Services;
+using UnityEngine;
 
 public class PlayerController : UnitController
 {
@@ -14,7 +15,7 @@ public class PlayerController : UnitController
     public const float SlopeLimit = 60f;
     public const float StepOffset = 1.0f;
 
-    GVector3 lastSendPos = GVector3.zero;
+    Vector3 lastSendPos = Vector3.zero;
 
     public float UpDistance = 0.0f;
     protected bool _sendUpdates = false;
@@ -57,8 +58,8 @@ public class PlayerController : UnitController
            
         _cameraController.BeforeMoveUpdate();
 
-        _unit.X =entity.transform().position.x;
-        _unit.Z =entity.transform().position.z;
+        _unit.X =entity.transform.position.x;
+        _unit.Z =entity.transform.position.z;
 
         if (CanMoveNow())
         {
@@ -72,18 +73,18 @@ public class PlayerController : UnitController
     private bool _everSentPositionUpdate = false;
     private void SendPositionUpdate()
     {
-        // Send aentity.transform() update to the server
+        // Send aentity.transform update to the server
         if (_sendUpdates && !_md.GeneratingMap &&
             _mapProvider.GetMap() != null &&
-            entity == _playerManager.GetEntity())
+            entity == _playerManager.GetPlayerGameObject())
         {
             float oldRot = _unit.Rot;
-            _unit.Rot = entity.transform().eulerAngles.y;
+            _unit.Rot = entity.transform.eulerAngles.y;
             timeSinceLastUpdateSent = DateTime.UtcNow - lastServerSendTime;
-            if (entity == _playerManager.GetEntity())
+            if (entity == _playerManager.GetPlayerGameObject())
             {
-                GVector3 pos = GVector3.Create(entity.transform().position);
-                GVector3 diff = pos - lastSendPos;
+                Vector3 pos = entity.transform.position;
+                Vector3 diff = pos - lastSendPos;
 
                 _unit.X = pos.x;
                 _unit.Y = pos.y;
@@ -106,13 +107,13 @@ public class PlayerController : UnitController
                         ZoneId = _gs.ch.ZoneId,
                     };
 
-                    GVector3 extraDist = GVector3.zero;
+                    Vector3 extraDist = Vector3.zero;
                     if (_everSentPositionUpdate)
                     {
                         extraDist = (pos - lastSendPos) * 0.1f;
                     }
 
-                    _unit.Rot =entity.transform().eulerAngles.y;
+                    _unit.Rot =entity.transform.eulerAngles.y;
                     posMessage.SetX(pos.x+extraDist.x);
                     posMessage.SetY(pos.y+extraDist.y);
                     posMessage.SetZ(pos.z+extraDist.z);

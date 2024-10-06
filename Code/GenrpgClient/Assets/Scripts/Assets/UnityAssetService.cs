@@ -1,4 +1,3 @@
-using GEntity = UnityEngine.GameObject;
 using UnityEngine.U2D;
 using UnityEngine.Networking;
 using System.Collections.Generic;
@@ -10,14 +9,15 @@ using UnityEngine;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Logging.Interfaces;
 using System.Threading.Tasks;
-using Genrpg.Shared.Core.Entities;
-using Assets.Scripts.ProcGen.RandomNumbers;
-using Assets.Scripts.Assets.Bundles;
-using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Constants;
-using Genrpg.Shared.DataStores.Categories;
 using Genrpg.Shared.DataStores.Utils;
 using Genrpg.Shared.DataStores.DataGroups;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Assets.Constants;
+using Assets.Scripts.GameObjects;
+using Genrpg.Shared.MVC.Interfaces;
+using Assets.Scripts.MVC;
 
 
 
@@ -34,14 +34,10 @@ using Genrpg.Shared.DataStores.DataGroups;
 using UnityEditor;
 #endif
 
-public delegate void OnDownloadHandler(object obj, object data, CancellationToken token);
 
-public delegate void SpriteListDelegate (Sprite[] sprites);
-
-
-internal class GEntityContainer
+internal class GameObjectContainer
 {
-    public GEntity Entity;
+    public GameObject Entity;
     public bool FailedLoad;
 }
 
@@ -74,7 +70,7 @@ public class BundleDownload
 	public string assetName;
 	public OnDownloadHandler handler;
 	public System.Object data;
-    public GEntity parent;
+    public GameObject parent;
 }
 
 public class BundleCacheData
@@ -89,22 +85,17 @@ public class BundleCacheData
 }
 
 
-public class ClientAssetCounts
-{
-    public long BundlesLoaded = 0;
-    public long BundlesUnloaded = 0;
-    public long ObjectsLoaded = 0;
-    public long ObjectsUnloaded = 0;
-
-}
-
 public class UnityAssetService : IAssetService
 {
     private ILogService _logService;
     private IFileDownloadService _fileDownloadService;
     protected IClientRandom _rand;
-    protected IUnityGameState _gs;
-    protected IGameObjectService _gameObjectService;
+    protected IClientGameState _gs;
+    protected IClientEntityService _gameObjectService;
+    private IClientConfigContainer _config; 
+    private ISingletonContainer _singletonContainer;
+    private IClientAppService _clientAppService;
+    private IBinaryFileRepository _binaryFileRepo;
 
     private static float _loadDelayChance = 0.03f;
 
@@ -137,9 +128,6 @@ public class UnityAssetService : IAssetService
     protected BundleVersions _bundleVersions = null;
     protected BundleUpdateInfo _bundleUpdateInfo = null;
 
-
-    private BinaryFileRepository _localRepo = null;
-
     private Queue<BundleDownload> _existingDownloads = new Queue<BundleDownload>();
 
 
@@ -159,30 +147,29 @@ public class UnityAssetService : IAssetService
     }
     public async Task Initialize(CancellationToken token)
     {
-        if (!AppUtils.IsPlaying)
+        if (!_clientAppService.IsPlaying)
         {
             return;
         }
 
-        _contentRootUrl = _gs.Config.GetContentRoot();
-        SetAssetEnv(EDataCategories.Assets, _gs.Config.GetAssetDataEnv());
-        SetAssetEnv(EDataCategories.Worlds, _gs.Config.GetWorldDataEnv()); 
+        _contentRootUrl = _config.Config.GetContentRoot();
+        SetAssetEnv(EDataCategories.Assets, _config.Config.GetAssetDataEnv());
+        SetAssetEnv(EDataCategories.Worlds, _config.Config.GetWorldDataEnv());
 
-        _assetParent = GEntityUtils.FindSingleton(AssetConstants.GlobalAssetParent, true);
+        _assetParent = _singletonContainer.GetSingleton(AssetConstants.GlobalAssetParent);
         SpriteAtlasManager.atlasRequested += DummyRequestAtlas;
         SpriteAtlasManager.atlasRegistered += DummyRegisterAtlas;
-        _localRepo = new BinaryFileRepository(_logService);
-        AssetUtils.GetPerisistentDataPath();
+        string persPath = _clientAppService.PersistentDataPath;
         for (int i = 0; i < _maxConcurrentExistingDownloads; i++)
         {
-            AwaitableUtils.ForgetAwaitable(LoadFromExistingBundles(true, token));
+            TaskUtils.ForgetAwaitable(LoadFromExistingBundles(true, token));
         }
         for (int i = 0; i < _maxConcurrentBundleDownloads; i++)
         {
-            AwaitableUtils.ForgetAwaitable(DownloadNewBundles(token));
+            TaskUtils.ForgetAwaitable(DownloadNewBundles(token));
         }
 
-        AwaitableUtils.ForgetAwaitable(IncrementalClearMemoryCache(token));
+        TaskUtils.ForgetAwaitable(IncrementalClearMemoryCache(token));
         LoadLastSaveTimeFile(token);
 
         await Task.CompletedTask;
@@ -224,13 +211,13 @@ public class UnityAssetService : IAssetService
                 {
                     bdata.assetBundle.Unload(true);
                     _assetCounts.BundlesUnloaded++;
-                    GEntityUtils.Destroy(bdata.assetBundle);
+                    _gameObjectService.Destroy(bdata.assetBundle);
                 }
             }
         }
 
         _bundleCache = newBundleCache;
-        AwaitableUtils.ForgetAwaitable(AssetUtils.UnloadUnusedAssets(token));
+        TaskUtils.ForgetAwaitable(UnloadUnusedAssets(token));
     }
 
     protected async Awaitable IncrementalClearMemoryCache(CancellationToken token)
@@ -261,7 +248,7 @@ public class UnityAssetService : IAssetService
 
                         bundle.assetBundle.Unload(true);
                         _assetCounts.BundlesUnloaded++;
-                        GEntityUtils.Destroy(bundle.assetBundle);
+                        _gameObjectService.Destroy(bundle.assetBundle);
                         _bundleCache.Remove(item);
                         removeCount++;
                         if (removeCount > 5)
@@ -274,18 +261,26 @@ public class UnityAssetService : IAssetService
             }
             if (removeCount > 0)
             {
-                await AsyncUnloadAssets(token);
+                await UnloadUnusedAssets(token);
             }
         }
     }
 
-    private async Awaitable AsyncUnloadAssets(CancellationToken token)
+    private static bool _unloadingAssets = false;
+    private async Awaitable UnloadUnusedAssets(CancellationToken token)
     {
-        await AssetUtils.UnloadUnusedAssets(token);
+        if (_unloadingAssets)
+        {
+            return;
+        }
+        _unloadingAssets = true;
+        AsyncOperation op = Resources.UnloadUnusedAssets();
+        while (!op.isDone)
+        {
+            await Awaitable.NextFrameAsync(cancellationToken: token);
+        }
+_unloadingAssets = false;
     }
-
-
-   
 
     private string GetAssetNameFromPath(AssetBundle assetBundle, string assetName)
     {
@@ -315,24 +310,28 @@ public class UnityAssetService : IAssetService
         }
         return fullAssetName;
     }
-
-    /// <summary>
-    /// Download something from an asset bundle (Async)
-    /// </summary>
-    /// <param name="gs"></param>
-    /// <param name="assetPathSuffix">This is the category where the asset resides. It exists here so that
-    /// the URLs being stored by the game aren't as long and so that we can move the categories on disk
-    /// in a single spot (enforced here rather than making sure all data items use it.) It's a tradeoff
-    /// and I've gone back and forth, but if it isn't here, then it would have to be in each
-    /// piece of data stored in game data, OR each time the asset is loaded, we would have to do
-    /// a lookup to get the path from the category OR it would have to be hardcoded. So this seems
-    /// like the best way to do it to avoid mistakes later on even though it costs a bit extra in
-    /// terms of programming time to put the category in the load. </param>
-    /// <param name="assetName"></param>
-    /// <param name="handler"></param>
-    /// <param name="data"></param>
-    /// <param name="assetPathSuffix">optional category used for certain specific naming conventions for bundles</param>
-	public void LoadAsset(string assetPathSuffix, string assetName,
+     
+    public string GetAssetPath(string assetCategoryName)
+    {
+        return assetCategoryName + "/";
+    }
+/// <summary>
+/// Download something from an asset bundle (Async)
+/// </summary>
+/// <param name="gs"></param>
+/// <param name="assetPathSuffix">This is the category where the asset resides. It exists here so that
+/// the URLs being stored by the game aren't as long and so that we can move the categories on disk
+/// in a single spot (enforced here rather than making sure all data items use it.) It's a tradeoff
+/// and I've gone back and forth, but if it isn't here, then it would have to be in each
+/// piece of data stored in game data, OR each time the asset is loaded, we would have to do
+/// a lookup to get the path from the category OR it would have to be hardcoded. So this seems
+/// like the best way to do it to avoid mistakes later on even though it costs a bit extra in
+/// terms of programming time to put the category in the load. </param>
+/// <param name="assetName"></param>
+/// <param name="handler"></param>
+/// <param name="data"></param>
+/// <param name="assetPathSuffix">optional category used for certain specific naming conventions for bundles</param>
+public void LoadAsset(string assetPathSuffix, string assetName,
         OnDownloadHandler handler,
         System.Object data, object parentIn,
         CancellationToken token, string subdirectory = null)
@@ -341,7 +340,7 @@ public class UnityAssetService : IAssetService
         {
             return;
         }
-        GEntity parent = parentIn as GEntity;
+        GameObject parent = parentIn as GameObject;
 
         if (parent == null)
         {
@@ -381,7 +380,7 @@ public class UnityAssetService : IAssetService
             bool tryLocalLoad = !InitClient.EditorInstance.ForceDownloadFromAssetBundles;
             if (tryLocalLoad)
             {
-                string categoryPath = AssetUtils.GetAssetPath(assetPathSuffix);
+                string categoryPath = GetAssetPath(assetPathSuffix);
                 if (!string.IsNullOrEmpty(categoryPath))
                 {
                     UnityEngine.Object asset = null;
@@ -389,17 +388,17 @@ public class UnityAssetService : IAssetService
 
                     if (fullPath.IndexOf(AssetConstants.ArtFileSuffix) < 0)
                     {
-                        asset = AssetDatabase.LoadAssetAtPath<GEntity>(fullPath + AssetConstants.ArtFileSuffix);
+                        asset = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath + AssetConstants.ArtFileSuffix);
                     }
                     else
                     {
-                        asset = AssetDatabase.LoadAssetAtPath<GEntity>(fullPath);
+                        asset = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath);
                     }
                     if (asset != null)
                     {
                         asset = InstantiateIntoParent(asset, parent);
 
-                        _gameObjectService.InitializeHierarchy(asset as GEntity);
+                        _gameObjectService.InitializeHierarchy(asset as GameObject);
 
                         if (handler != null)
                         {
@@ -674,7 +673,7 @@ public class UnityAssetService : IAssetService
     }
 
 
-    public GEntity _assetParent = null;
+    public GameObject _assetParent = null;
     private void LoadAtlasSprite(string atlasName, string spriteName, OnDownloadHandler handler, object parentSprite, CancellationToken token)
     {
         if (string.IsNullOrEmpty(atlasName))
@@ -700,11 +699,6 @@ public class UnityAssetService : IAssetService
             return;
         }
 
-        if (_assetParent == null)
-        {
-            _assetParent = GEntityUtils.FindSingleton(AssetConstants.GlobalAssetParent, true);
-        }
-
         LoadAssetInto(_assetParent, AssetCategoryNames.Atlas, atlasName, OnDownloadAtlas, atlasDownload, token);
 
     }
@@ -712,7 +706,7 @@ public class UnityAssetService : IAssetService
     private void OnDownloadAtlas(object obj, object data, CancellationToken token)
     {
         AtlasSpriteDownload atlasSpriteDownload = data as AtlasSpriteDownload;
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
 
         if (go == null)
         {
@@ -726,7 +720,7 @@ public class UnityAssetService : IAssetService
 
         if (atlasSpriteDownload == null || string.IsNullOrEmpty(atlasSpriteDownload.atlasName))
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
 
             if (atlasSpriteDownload != null && atlasSpriteDownload.finalHandler != null)
             {
@@ -746,7 +740,7 @@ public class UnityAssetService : IAssetService
 
         if (_atlasCache.ContainsKey(atlasSpriteDownload.atlasName))
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
         }
         else
         {
@@ -873,7 +867,7 @@ public class UnityAssetService : IAssetService
 
     protected void LoadLastSaveTimeFile(CancellationToken token)
     {
-        string path = AssetUtils.GetRuntimePrefix() + AssetConstants.BundleUpdateFile;
+        string path = _clientAppService.GetRuntimePrefix() + AssetConstants.BundleUpdateFile;
         DownloadFileData ddata = new DownloadFileData()
         {
             ForceDownload = true,
@@ -893,7 +887,7 @@ public class UnityAssetService : IAssetService
 
     void LoadAssetBundleList(CancellationToken token)
     {
-        _bundleVersions = _localRepo.LoadObject<BundleVersions>(AssetConstants.BundleVersionsFile);
+        _bundleVersions = _binaryFileRepo.LoadObject<BundleVersions>(AssetConstants.BundleVersionsFile);
 
         DownloadFileData ddata = new DownloadFileData()
         {
@@ -908,7 +902,7 @@ public class UnityAssetService : IAssetService
             _bundleVersions.UpdateInfo.ClientVersion != _bundleUpdateInfo.ClientVersion ||
             _bundleVersions.UpdateInfo.UpdateTime != _bundleUpdateInfo.UpdateTime)
         {
-            string path = AssetUtils.GetRuntimePrefix() + AssetConstants.BundleVersionsFile;
+            string path = _clientAppService.GetRuntimePrefix() + AssetConstants.BundleVersionsFile;
             _fileDownloadService.DownloadFile(path, ddata, token);
             _logService.Info("YES DOWNLOAD BUNDLE VERSIONS!");
         }
@@ -929,13 +923,13 @@ public class UnityAssetService : IAssetService
             newVersions.Versions != null && newVersions.Versions.Keys.Count > 0)
         {
             _bundleVersions = newVersions;
-            _localRepo.SaveObject(AssetConstants.BundleVersionsFile, _bundleVersions);
+            _binaryFileRepo.SaveObject(AssetConstants.BundleVersionsFile, _bundleVersions);
         }
     }
 
     protected string GetFullBundleURL(string bundleName)
     {
-        return GetContentRootURL(EDataCategories.Assets) + AssetUtils.GetRuntimePrefix() + bundleName + "_" + GetBundleHash(bundleName);
+        return GetContentRootURL(EDataCategories.Assets) + _clientAppService.GetRuntimePrefix() + bundleName + "_" + GetBundleHash(bundleName);
     }
 
     private async Awaitable DownloadOneBundle(BundleDownload bad, CancellationToken token)
@@ -998,7 +992,7 @@ public class UnityAssetService : IAssetService
     }
 
 
-    protected object InstantiateBundledAsset(object child, GEntity parent, string bundleName, string assetName)
+    protected object InstantiateBundledAsset(object child, GameObject parent, string bundleName, string assetName)
     {
         BundleCacheData bundleCache = _bundleCache[bundleName];
         if (child is Texture2D tex2d)
@@ -1007,7 +1001,7 @@ public class UnityAssetService : IAssetService
             return tex2d;
         }
 
-        GEntity go = InstantiateIntoParent(child, parent);
+        GameObject go = InstantiateIntoParent(child, parent);
 
         if (go != null)
         {
@@ -1104,48 +1098,59 @@ public class UnityAssetService : IAssetService
     }
 
 
-    private GEntity InstantiateIntoParent(object child, GEntity parent)
+    private GameObject InstantiateIntoParent(object child, GameObject parent)
     {
-        GEntity go = child as GEntity;
+        GameObject go = child as GameObject;
         if (go == null)
         {
             return null;
         }
-        go = GEntity.Instantiate<GEntity>(go);
+        go = GameObject.Instantiate<GameObject>(go);
 
         go.name = go.name.Replace("(Clone)", "");
         go.name = go.name.Replace(AssetConstants.ArtFileSuffix, "");
 
         if (parent != null)
         {
-            GEntityUtils.AddToParent(go, parent);
+            _gameObjectService.AddToParent(go, parent);
         }
         return go;
     }
-    
-    public async Awaitable<GEntity> LoadAssetAsync(string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null)
+    public async Task<object> LoadAssetAsync(string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null)
     {
-        GEntityContainer cont = new GEntityContainer();
-        LoadAsset(assetCategory, assetPath, OnLoadEntityAsync, cont, null, token, subdirectory);
+        return await LoadAssetAsync<object>(assetCategory, assetPath, parent, token, subdirectory);
+    }
+
+    public async Task<T> LoadAssetAsync<T>(string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null) where T : class
+    {
+        GameObjectContainer cont = new GameObjectContainer();
+        LoadAssetInto(parent, assetCategory, assetPath, OnLoadEntityAsync, cont, token, subdirectory);
 
         while (cont.Entity == null && !cont.FailedLoad)
         {
             await Awaitable.NextFrameAsync(token);
         }
-
-        return cont.Entity;
+           
+        if (typeof(T) == typeof(object))
+        {
+            return cont.Entity as T;
+        }
+        else
+        {
+            return _gameObjectService.GetComponent<T>(cont.Entity);
+        }
     }
 
     private void OnLoadEntityAsync(object obj, object data, CancellationToken token)
     {
-        GEntityContainer cont = data as GEntityContainer;
+        GameObjectContainer cont = data as GameObjectContainer;
 
         if (cont == null)
         {
             return;
         }
 
-        cont.Entity = obj as GEntity;
+        cont.Entity = obj as GameObject;
 
         if (cont.Entity == null)
         {
@@ -1154,5 +1159,78 @@ public class UnityAssetService : IAssetService
 
     }
 
+    public void UnloadAsset(object obj)
+    {
+        if (obj is UnityEngine.Object uobj)
+        {
+            Resources.UnloadAsset(uobj);
+        }
+    }
+
+    public List<T> LoadAllResources<T>(string path)
+    {
+        UnityEngine.Object[] objs = Resources.LoadAll(path);
+        List<T> retval = new List<T>(); 
+
+        foreach (UnityEngine.Object obj in objs)
+        {
+            if (obj is T t)
+            {
+                retval.Add(t);
+            }
+        }
+        return retval;
+
+        
+      
+    }
+
+    public async Task<VC> CreateAsync<VC, TModel>(TModel model, string assetCategoryName, string assetPath, object parent, CancellationToken token, string subdirectory) where VC : class, IViewController<TModel, IView>, new()
+    {
+        IView view = await LoadAssetAsync<IView>(assetCategoryName, assetPath, parent, token, subdirectory);
+        if (view != null)
+        {
+            return await InitViewControllerInternal<VC, TModel>(model, view, parent, token, false);
+        }
+        return default(VC); 
+    }
+
+    public async Task<VC> InitViewController<VC, TModel>(TModel model, object viewObj, object parent, CancellationToken token) where VC : class, IViewController<TModel, IView>, new()
+    {
+        return await InitViewControllerInternal<VC, TModel>(model, viewObj, parent, token, true);
+    }
+
+    private async Task<VC> InitViewControllerInternal<VC,TModel>(TModel model, object viewObj, object parent, CancellationToken token, bool dupeObject) where VC : class, IViewController<TModel, IView>, new()
+    {
+        if (dupeObject)
+        {
+            viewObj = _gameObjectService.FullInstantiate(viewObj);
+        }
+        if (viewObj is BaseView viewDupe)
+        {
+            VC viewController = new VC();
+            _gs.loc.Resolve(viewController);
+            await viewController.Init(model, viewDupe, token);
+            _gameObjectService.AddToParent(viewDupe.gameObject, parent);
+            _gameObjectService.SetActive(viewDupe.gameObject, true);
+            return viewController;
+        }
+        return default(VC);
+    }
+
+    public void Create<VC, TModel>(TModel model, string assetCategoryName, string assetPath, object parent, Action<VC, CancellationToken> handler, CancellationToken token, string subdirectory) where VC : class, IViewController<TModel, IView>, new()
+    {
+        LoadAssetInto(parent, assetCategoryName, assetPath,
+            (obj, data, token) =>
+            {
+                Task.Run( async () => 
+                {
+                    VC vc = await InitViewController<VC, TModel>(model, obj, parent, token);
+                    handler?.Invoke(vc, token);
+                });
+            },
+            model, token, subdirectory);
+   
+    }
 }
 

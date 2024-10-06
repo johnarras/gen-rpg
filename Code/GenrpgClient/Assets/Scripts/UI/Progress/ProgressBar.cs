@@ -126,11 +126,11 @@ public class ProgressBar : BaseBehaviour
         _didInit = true;
         if (currPct <= 0 && bar.IsActive())
         {
-            GEntityUtils.SetActive(bar, false);
+            _gameObjectService.SetActive(bar, false);
         }
         else if (currPct > 0 && !bar.IsActive())
         {
-            GEntityUtils.SetActive(bar, true);
+            _gameObjectService.SetActive(bar, true);
         }
         UnityEngine.RectTransform rectTransform = GetComponent<UnityEngine.RectTransform>();
         MaxBarWidth = rectTransform.rect.width;
@@ -150,26 +150,26 @@ public class ProgressBar : BaseBehaviour
 
         if (_textOption == ShowTextOption.Hide)
         {
-            _uIInitializable.SetText(BarText, "");
+            _uiService.SetText(BarText, "");
         }
         else if (_textOption == ShowTextOption.Current)
         {
-            _uIInitializable.SetText(BarText, _currValue.ToString());
+            _uiService.SetText(BarText, _currValue.ToString());
         }
         else if (_textOption == ShowTextOption.CurrentOverMax)
         {
-            _uIInitializable.SetText(BarText, _currValue + "/" + _maxValue);
+            _uiService.SetText(BarText, _currValue + "/" + _maxValue);
         }
         else if (_textOption == ShowTextOption.Custom)
         {
-            _uIInitializable.SetText(BarText, _customText);
+            _uiService.SetText(BarText, _customText);
         }
         else if (_textOption == ShowTextOption.Percent)
         {
             if (_maxValue > _minValue)
             {
                 double pct = 100.0 * (_currValue - _minValue) / (_maxValue - _minValue);
-                _uIInitializable.SetText(BarText, (int)(pct) + "%");
+                _uiService.SetText(BarText, (int)(pct) + "%");
             }
         }
     }

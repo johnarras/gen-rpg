@@ -77,6 +77,7 @@ SpriteAtlas:
     - 5b309de012510934f84e0ff2b0ce048f: 21300000
     - 9e27fcf09caec9347a3490a8308bd614: 21300000
     - 20946201deebe524d8319c01ca1fbe3f: 21300000
+    - 9e6c26010f475d04f86ec8f2d2e9ae42: 21300000
     - 37b8dd01e3baae84dbabbaf28950a534: 21300000
     - 6ec319114869bf844bd2bb28fcde7d91: 21300000
     - da9f832198deb7f4daae994e62a03bc9: 21300000
@@ -115,6 +116,7 @@ SpriteAtlas:
     - 890d1542a8fc68d48bc8f83eadc4c2a7: 21300000
     - d91b9052bf5989e479a3821cdddbac5e: 21300000
     - cc8e145285589214c93e6b52581d9ba1: 21300000
+    - a2e79f52b13628a4d892176ce554cf98: 21300000
     - 77a4d26218ff4e24782dced3533c6d36: 21300000
     - cd2ee2620fde60840b0a847a5e0104bf: 21300000
     - a5103362fdebb564595ab42f27a639fd: 21300000
@@ -503,6 +505,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5b309de012510934f84e0ff2b0ce048f, type: 3}
   - {fileID: 21300000, guid: 9e27fcf09caec9347a3490a8308bd614, type: 3}
   - {fileID: 21300000, guid: 20946201deebe524d8319c01ca1fbe3f, type: 3}
+  - {fileID: 21300000, guid: 9e6c26010f475d04f86ec8f2d2e9ae42, type: 3}
   - {fileID: 21300000, guid: 37b8dd01e3baae84dbabbaf28950a534, type: 3}
   - {fileID: 21300000, guid: 6ec319114869bf844bd2bb28fcde7d91, type: 3}
   - {fileID: 21300000, guid: da9f832198deb7f4daae994e62a03bc9, type: 3}
@@ -541,6 +544,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 890d1542a8fc68d48bc8f83eadc4c2a7, type: 3}
   - {fileID: 21300000, guid: d91b9052bf5989e479a3821cdddbac5e, type: 3}
   - {fileID: 21300000, guid: cc8e145285589214c93e6b52581d9ba1, type: 3}
+  - {fileID: 21300000, guid: a2e79f52b13628a4d892176ce554cf98, type: 3}
   - {fileID: 21300000, guid: 77a4d26218ff4e24782dced3533c6d36, type: 3}
   - {fileID: 21300000, guid: cd2ee2620fde60840b0a847a5e0104bf, type: 3}
   - {fileID: 21300000, guid: a5103362fdebb564595ab42f27a639fd, type: 3}
@@ -928,6 +932,7 @@ SpriteAtlas:
   - Necklace_001
   - ChestLeather_004
   - Thrown_001
+  - IconEnergy
   - HelmetLeather_005
   - Offhand_002
   - HelmetPlate_003
@@ -966,6 +971,7 @@ SpriteAtlas:
   - BracersCloth_001
   - Frame_105
   - BeltLeather_002
+  - IconCredits
   - GlovesMetal_006
   - Scroll_012
   - GlovesCloth_005

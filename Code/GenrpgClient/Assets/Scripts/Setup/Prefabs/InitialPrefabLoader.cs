@@ -1,14 +1,16 @@
 ﻿
+using Assets.Scripts.Assets;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
 
 public class InitialPrefabLoader : MonoBehaviour
 {
     public List<string> Prefabs;
 
-    public async Awaitable LoadPrefabs(IUnityGameState gs)
+    public async Awaitable LoadPrefabs(IClientGameState gs, IClientEntityService entityService, ILocalLoadService localLoadService)
     {
         if (Prefabs == null)
         {
@@ -16,17 +18,17 @@ public class InitialPrefabLoader : MonoBehaviour
         }
         
 
-        List<GEntity> entities = new List<GEntity>();
+        List<GameObject> entities = new List<GameObject>();
         foreach (string prefab in Prefabs)
         {
-            GEntity prefabObj = AssetUtils.LoadResource<GEntity>("Prefabs/" + prefab);
+            GameObject prefabObj =  localLoadService.LocalLoad<GameObject>("Prefabs/" + prefab);
             if (prefabObj == null)
             {
                 continue;
             }
             entities.Add(prefabObj);
 
-            GEntity newPrefab = gs.loc.Get<IGameObjectService>().FullInstantiateAndSet(prefabObj);
+            GameObject newPrefab = (GameObject)entityService.FullInstantiateAndSet(prefabObj);
             newPrefab.name = newPrefab.name.Replace("(Clone)", "");
         }
 

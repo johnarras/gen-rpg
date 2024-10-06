@@ -16,12 +16,12 @@ namespace Assets.Scripts.UI.Chat
 
             ChatType chatType = _gameData.Get<ChatSettings>(_gs.ch).Get(message.ChatTypeId);
 
-            _uIInitializable.SetText(Text, "[" + chatType?.Name + "] " + message.SenderName + ": " + message.Message);
+            _uiService.SetText(Text, "[" + chatType?.Name + "] " + message.SenderName + ": " + message.Message);
         }
 
         public void InitTextOnly(string text)
         {
-            _uIInitializable.SetText(Text, text);
+            _uiService.SetText(Text, text);
         }
     }
 }

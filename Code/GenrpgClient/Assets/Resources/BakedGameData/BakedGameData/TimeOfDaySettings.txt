@@ -1,0 +1,19 @@
+{
+  "Id": "default",
+  "DailyResetHour": 8.0,
+  "BaseMoveMinutes": 1.0,
+  "CombatRoundMinutes": 1.0,
+  "RestHours": 8.0,
+  "RegenHours": [
+    {
+      "StatTypeId": 1,
+      "RegenHours": 4.0
+    },
+    {
+      "StatTypeId": 2,
+      "RegenHours": 2.0
+    }
+  ],
+  "Name": "TimeOfDaySettings",
+  "UpdateTime": "2024-09-14T21:54:26.403Z"
+}

@@ -21,59 +21,64 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
 {
     public class SkillLootCorpseHandler : BaseUnitServerMapMessageHandler<SkillLootCorpse>
     {
-        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit unit, SkillLootCorpse message)
+        protected override void InnerProcess(IRandom rand, MapMessagePackage pack, Unit looter, SkillLootCorpse message)
         {
 
-            if (unit.ActionMessage != null)
+            if (looter.ActionMessage != null)
             {
-                pack.SendError(unit, "You are already busy");
+                pack.SendError(looter, "You are already busy");
                 return;
             }
 
+            if (!_objectManager.GetUnit(message.UnitId, out Unit target))
+            {
+                pack.SendError(looter, "Target does not exist");
+                return;
+            }
 
-            UnitType utype = _gameData.Get<UnitSettings>(unit).Get(unit.EntityId);
+            if (target.SkillLoot == null || target.SkillLoot.Count < 1)
+            {
+                pack.SendError(looter, "Target has no loot");
+                return;
+            }
+
+            UnitType utype = _gameData.Get<UnitSettings>(target).Get(target.EntityId);
             if (utype == null)
             {
-                pack.SendError(unit, "Not a valid target");
+                pack.SendError(looter, "Not a valid target");
                 return;
             }
 
-            TribeType tribeType = _gameData.Get<TribeSettings>(unit).Get(utype.TribeTypeId);
+            TribeType tribeType = _gameData.Get<TribeSettings>(target).Get(utype.TribeTypeId);
 
             if (tribeType == null)
             {
-                pack.SendError(unit, "Not a valid type");
+                pack.SendError(looter, "Not a valid type");
                 return;
             }
-            CrafterType crafterType = _gameData.Get<CraftingSettings>(unit).Get(tribeType.LootCrafterTypeId);
+            CrafterType crafterType = _gameData.Get<CraftingSettings>(looter).Get(tribeType.LootCrafterTypeId);
 
             if (crafterType == null)
             {
-                pack.SendError(unit, "This unit has no resources");
+                pack.SendError(looter, "This unit has no resources");
                 return;
             }
 
             string actionName = crafterType.GatherActionName;
             string animName = crafterType.GatherAnimation;
             float gatherSeconds = crafterType.GatherSeconds;
-            long level = unit.Level;
+            long level = looter.Level;
             int skillPoints = 0;
 
-            if (unit is Character ch)
+            if (looter is Character ch)
             {
                 CraftingData cdata = ch.Get<CraftingData>();
                 skillPoints = cdata.Get(crafterType.IdKey).GetSkillPoints(CraftingConstants.GatheringSkill);
             }
 
-            if (unit.SkillLoot == null || unit.SkillLoot.Count < 1)
-            {
-                pack.SendError(unit, "Target has no loot");
-                return;
-            }
-
             OnStartCast startCast = new OnStartCast()
             {
-                CasterId = unit.Id,
+                CasterId = looter.Id,
                 CastSeconds = gatherSeconds,
                 CastingName = actionName,
                 AnimName = animName,
@@ -81,8 +86,8 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
 
             CompleteInteract completeInteract = new CompleteInteract()
             {
-                CasterId = unit.Id,
-                TargetId = unit.Id,
+                CasterId = looter.Id,
+                TargetId = target.Id,
                 CrafterTypeId = crafterType.IdKey,
                 Level = level,
                 SkillPoints = skillPoints,
@@ -91,23 +96,23 @@ namespace Genrpg.MapServer.Looting.MessageHandlers
             };
 
 
-            lock (unit.OnActionLock)
+            lock (looter.OnActionLock)
             {
-                if (unit.OnActionMessage != null && !unit.OnActionMessage.IsCancelled())
+                if (target.OnActionMessage != null && !target.OnActionMessage.IsCancelled())
                 {
-                    pack.SendError(unit, "Object is in use");
+                    pack.SendError(looter, "Object is in use");
                     return;
                 }
                 else
                 {
-                    unit.OnActionMessage = completeInteract;
-                    unit.ActionMessage = completeInteract;
+                    target.OnActionMessage = completeInteract;
+                    looter.ActionMessage = completeInteract;
                 }
             }
 
-            _messageService.SendMessageNear(unit, startCast);
+            _messageService.SendMessageNear(looter, startCast);
 
-            _messageService.SendMessage(unit, completeInteract, gatherSeconds);
+            _messageService.SendMessage(looter, completeInteract, gatherSeconds);
 
         }
     }

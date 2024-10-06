@@ -45,9 +45,9 @@ namespace Genrpg.ServerShared.DataStores
         private Dictionary<string, string> _environments = new Dictionary<string, string>();
         private Dictionary<string, string> _connectionStrings = new Dictionary<string, string>();
 
-        private static ConcurrentDictionary<string, IRepository> _repos = new ConcurrentDictionary<string, IRepository>();
-        private static ConcurrentDictionary<string, BlobRepository> _blobRepos = new ConcurrentDictionary<string, BlobRepository>();
-        private static ConcurrentDictionary<string, NoSQLRepository> _noSQLRepos = new ConcurrentDictionary<string, NoSQLRepository>();
+        private ConcurrentDictionary<string, IRepository> _repos = new ConcurrentDictionary<string, IRepository>();
+        private ConcurrentDictionary<string, BlobRepository> _blobRepos = new ConcurrentDictionary<string, BlobRepository>();
+        private ConcurrentDictionary<string, NoSQLRepository> _noSQLRepos = new ConcurrentDictionary<string, NoSQLRepository>();
         private ConcurrentDictionary<Type, IRepository> _repoTypeDict = new ConcurrentDictionary<Type, IRepository>();
 
         public int SetupPriorityAscending() { return SetupPriorities.Repositories; }

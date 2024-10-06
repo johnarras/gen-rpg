@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 using System.Threading;
 using Genrpg.Shared.Inventory.Constants;
 using Genrpg.Shared.Crafting.PlayerData.Recipes;
 using Genrpg.Shared.Crafting.Settings.Recipes;
-using UnityEngine;
+using System.Threading.Tasks;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class CraftingScreen : ItemIconScreen
 {
@@ -17,7 +18,7 @@ public class CraftingScreen : ItemIconScreen
     public GButton CraftButton;
     public GButton ClearButton;
     public InventoryPanel _inventoryPanel;
-    public GEntity _recipeListParent;
+    public GameObject _recipeListParent;
     public ReagentRow _baseReagents;
     public ReagentRow _coreReagents;
     public ReagentRow _optionalReagents;
@@ -26,7 +27,7 @@ public class CraftingScreen : ItemIconScreen
 
     private RecipeRow _currentRecipe = null;
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         Init();
         await base.OnStartOpen (data, token);
@@ -58,8 +59,8 @@ public class CraftingScreen : ItemIconScreen
     public override void Init()
     {
         base.Init();
-        _uIInitializable.SetButton(ClearButton, GetName(), ClickClear);
-        _uIInitializable.SetButton(CraftButton, GetName(), ClickCraft);
+        _uiService.SetButton(ClearButton, GetName(), ClickClear);
+        _uiService.SetButton(CraftButton, GetName(), ClickCraft);
 
         _recipes = new List<RecipeRow>();
 
@@ -93,7 +94,7 @@ public class CraftingScreen : ItemIconScreen
 
     private void OnLoadRecipeRow(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
         if (go == null)
         {
             return;
@@ -103,7 +104,7 @@ public class CraftingScreen : ItemIconScreen
         RecipeStatus status = data as RecipeStatus;
         if (status == null || row == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 

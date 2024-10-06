@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.DataStores.Entities;
+using UnityEngine;
 
 using System.Threading;
-using UnityEngine;
 using System.Threading.Tasks;
-
-public enum EFloatingTextArt
-{
-    Message = 0,
-    Error = 1,
-}
+using Genrpg.Shared.Client.GameEvents;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class FloatingTextQueuedItem
 {
@@ -23,7 +17,7 @@ public class FloatingTextScreen : BaseScreen
 {
     private IInputService _inputService;
     
-    public GEntity _textAnchor;
+    public GameObject _textAnchor;
 
     private string MessageArt = "FloatingMessageText";
     private string ErrorArt = "FloatingErrorText";
@@ -46,9 +40,9 @@ public class FloatingTextScreen : BaseScreen
         base.OnDisable();
     }
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
-        _dispatcher.AddEvent<ShowFloatingText>(this, OnReceiveMessage);
+        AddListener<ShowFloatingText>(OnReceiveMessage);
         await Task.CompletedTask;
 
     }
@@ -82,7 +76,7 @@ public class FloatingTextScreen : BaseScreen
 
         foreach (FloatingTextItem ft in _currentItems)
         {
-            ft.transform().localPosition += GVector3.Create(0, delta * ft.PixelsPerSecond, 0);
+            ft.transform.localPosition += new Vector3(0, delta * ft.PixelsPerSecond, 0);
             ft.ElapsedSeconds += delta;
 
             if (ft.ElapsedSeconds > ft.DurationSeconds)
@@ -96,7 +90,7 @@ public class FloatingTextScreen : BaseScreen
             {
                 _currentItems.Remove(item);
             }
-            GEntityUtils.Destroy(item.entity());
+            _gameObjectService.Destroy(item.gameObject);
         }
         
     }
@@ -126,7 +120,7 @@ public class FloatingTextScreen : BaseScreen
 
     private void OnLoadText(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
         if (go == null)
         {
             return;
@@ -134,16 +128,16 @@ public class FloatingTextScreen : BaseScreen
         string txt = data as String;
         if (string.IsNullOrEmpty(txt))
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
         FloatingTextItem ft = go.GetComponent<FloatingTextItem>();
         if (ft == null || ft.TextString == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
-        _uIInitializable.SetText(ft.TextString, txt);
+        _uiService.SetText(ft.TextString, txt);
         if (_currentItems == null)
         {
             _currentItems = new List<FloatingTextItem>();

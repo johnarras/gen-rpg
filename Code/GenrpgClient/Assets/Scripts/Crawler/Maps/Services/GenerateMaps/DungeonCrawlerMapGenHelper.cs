@@ -1,18 +1,14 @@
-﻿using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
-using Genrpg.Shared.Crawler.MapGen.Constants;
-using Genrpg.Shared.Crawler.MapGen.Settings;
+﻿using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Maps.Entities;
+using Genrpg.Shared.Crawler.Maps.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Entities.Constants;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Constants;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -20,19 +16,16 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
     {
         public override long GetKey() { return CrawlerMapTypes.Dungeon; }
 
-        public override async Awaitable<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
+        public override async Task<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
         {
             await Task.CompletedTask;
             MyRandom rand = new MyRandom(genData.World.IdKey * 5 + genData.World.MaxMapId * 19 + genData.CurrFloor);
 
             CrawlerMap map = null;
 
-
             CrawlerMapSettings settings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
 
-
             CrawlerMapType mapType = settings.Get(CrawlerMapTypes.Dungeon);
-            
 
             int roomEdgeDist = 3;
             if (genData.MaxFloor == 0 || genData.PrevMap == null)

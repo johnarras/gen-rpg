@@ -1,4 +1,7 @@
 ﻿
+using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Client.Assets.Services;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
@@ -8,14 +11,14 @@ using Genrpg.Shared.ProcGen.Settings.Texturse;
 using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Settings.Elements;
-using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Units.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using UI.Screens.Constants;
 using UnityEngine;
 
 public class TestAssetDownloads : IInjectable
@@ -24,7 +27,8 @@ public class TestAssetDownloads : IInjectable
     private IAssetService _assetService;
     private IScreenService _screenService;
     private IGameData _gameData;
-    public async Awaitable RunTests(IUnityGameState gs, CancellationToken token)
+    protected IClientEntityService _gameObjectService;
+    public async Awaitable RunTests(IClientGameState gs, CancellationToken token)
     {
         gs.loc.Resolve(this);
 
@@ -60,7 +64,7 @@ public class TestAssetDownloads : IInjectable
         {
            _logService.Info("Failed Download: " + data);
         }
-        GEntityUtils.Destroy(obj as GameObject);
+        _gameObjectService.Destroy(obj);
 
        
     }

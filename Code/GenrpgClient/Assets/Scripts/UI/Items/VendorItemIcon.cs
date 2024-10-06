@@ -1,13 +1,12 @@
 ﻿
 using UnityEngine.EventSystems;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Inventory.PlayerData;
 using System.Threading;
-using Genrpg.Shared.Inventory.Utils;
+using Genrpg.Shared.Inventory.Services;
 
 public class VendorItemIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerClickHandler
 {
-    
+
     public GText ItemName;
     public GText ItemInfo;
     public MoneyDisplay _moneyDisplay;
@@ -41,8 +40,8 @@ public class VendorItemIcon : ItemIcon, IPointerEnterHandler, IPointerExitHandle
         };
      
 
-        _uIInitializable.SetText(ItemName, ItemUtils.GetName(_gameData, _gs.ch, data.Data));
-        _uIInitializable.SetText(ItemInfo, ItemUtils.GetBasicInfo(_gameData, _gs.ch, data.Data));
+        _uiService.SetText(ItemName, _sharedItemService.GetName(_gameData, _gs.ch, data.Data));
+        _uiService.SetText(ItemInfo, _sharedItemService.GetBasicInfo(_gameData, _gs.ch, data.Data));
 
         _price = (isVendorItem ? data.Data.BuyCost : data.Data.SellValue);
 

@@ -1,7 +1,7 @@
 using ClientEvents;
-
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Constants;
-using Genrpg.Shared.Core.Entities;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Input.Constants;
 using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Interfaces;
@@ -11,18 +11,17 @@ using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using Genrpg.Shared.Spells.Settings.Skills;
 using Genrpg.Shared.Spells.Utils;
+using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Units.Entities;
+using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Text;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using UI.Screens.Constants;
-using UI.Screens.Utils;
-using UnityEngine; // Needed
+using UnityEngine;
 using UnityEngine.EventSystems;
-using GEntity = UnityEngine.GameObject;
 
 internal class InputContainer
 {
@@ -36,28 +35,57 @@ public interface IInputService : IInitializable
     bool MouseClickNow(int index);
     float GetDeltaTime();
     bool MouseIsDown(int mouseIndex);
-    GVector3 MousePosition();
+    Vector3 MousePosition();
     void PerformAction(int actionButtonIndex);
     bool ModifierIsActive(string keyCommand);
     string[] MoveInputsToCheck();
     void SetDisabled(bool isDisabled);
+    bool GetKeyDown(char key);
+    bool GetKey(char key);
 }
 
-public class InputService : BaseBehaviour, IInputService
+public class InputService : IInputService
 {
 
     private ICameraController _cameraController;
     private IPlayerManager _playerManager;
     protected IMapGenData _md;
-
+    private IClientUpdateService _updateService;
+    private IDispatcher _dispatcher;
+    private IClientGameState _gs;
+    private ILogService _logService;
+    private IScreenService _screenService;
+    private IGameData _gameData;
+    private IRealtimeNetworkService _networkService;
     IClientMapObjectManager _objectManager;
+    private IClientEntityService _gameObjectService;
 
     public async Task Initialize(CancellationToken token)
     {
-        AddUpdate(InputUpdate, UpdateType.Regular);
-        _dispatcher.AddEvent<MapIsLoadedEvent>(this, UpdateInputs);
+        _updateService.AddUpdate(this, InputUpdate, UpdateType.Regular, token);
+        _dispatcher.AddListener<MapIsLoadedEvent>(UpdateInputs, token);
 
         await Task.CompletedTask;
+    }
+
+    public bool GetKeyDown(char c)
+    {
+        char c2 = (c < 256 ? char.ToLower(c) : c);
+        if (Input.GetKeyDown((KeyCode)c2))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool GetKey(char c)
+    {
+        char c2 = (c < 256 ? char.ToLower(c) : c);
+        if (Input.GetKey((KeyCode)c2))
+        {
+            return true;
+        }
+        return false;
     }
 
     private bool _isDisabled = false;
@@ -68,7 +96,7 @@ public class InputService : BaseBehaviour, IInputService
 
     private bool EditingText()
     {
-        return GEntityUtils.GetComponent<GInputField>(EventSystem.current.currentSelectedGameObject) != null;
+        return _gameObjectService.GetComponent<GInputField>(EventSystem.current.currentSelectedGameObject) != null;
     }
 
     private Dictionary<string, InputContainer> _stringInputs = null;
@@ -114,12 +142,12 @@ public class InputService : BaseBehaviour, IInputService
             }
             item.KeyPress = item.KeyPress.ToLower();
             int mouseButton = -1;
-            KeyCode kc = KeyCode.None;
+            char kc = CharCodes.None;
             if (item.KeyPress.Length == 1)
             {
                 try
                 {
-                    kc = (KeyCode)(item.KeyPress[0]);
+                    kc = (char)(item.KeyPress[0]);
                 }
                 catch (Exception e)
                 {
@@ -129,15 +157,15 @@ public class InputService : BaseBehaviour, IInputService
             }
             else if (item.KeyPress == "space")
             {
-                kc = KeyCode.Space;
+                kc = CharCodes.Space;
             }
             else if (item.KeyPress == "esc")
             {
-                kc = KeyCode.Escape;
+                kc = CharCodes.Escape;
             }
             else if (item.KeyPress == "tab")
             {
-                kc = KeyCode.Tab;
+                kc = CharCodes.Tab;
             }
             else if (item.KeyPress.IndexOf("mouse") == 0)
             {
@@ -145,17 +173,17 @@ public class InputService : BaseBehaviour, IInputService
                 Int32.TryParse(mouseButtonString, out mouseButton);              
             }
 
-            if (kc == KeyCode.None && mouseButton < 0)
+            if (kc == CharCodes.None && mouseButton < 0)
             {
                 continue;
             }
 
             if (mouseButton >= 0 && mouseButton < 6)
             {
-                kc = (KeyCode)((int)(KeyCode.Mouse0) + mouseButton);
+                kc = (char)((int)(KeyCode.Mouse0) + mouseButton);
             }
 
-            InputContainer kci = new InputContainer() { Code = kc, Command = item, MouseButton = mouseButton };
+            InputContainer kci = new InputContainer() { Code = (KeyCode)kc, Command = item, MouseButton = mouseButton };
             if (!_stringInputs.ContainsKey(item.KeyCommand))
             {
                 _stringInputs[item.KeyCommand] = kci;
@@ -187,9 +215,9 @@ public class InputService : BaseBehaviour, IInputService
         return Input.GetMouseButton(index);
     }
      
-    public GVector3 MousePosition()
+    public Vector3 MousePosition()
     {
-        return GVector3.Create(Input.mousePosition);
+        return Input.mousePosition;
     }
 
     public bool KeyPressNow (string keyCommand)
@@ -288,12 +316,12 @@ public class InputService : BaseBehaviour, IInputService
 
     RaycastHit hit;
     Ray ray;
-    GEntity hitObject = null;
+    GameObject hitObject = null;
     InteractableObject interactObject = null;
     bool didHitObject = false;
     Camera mainCam = null;
     float hitObjectDistance = 0;
-    GEntity playerObject = null;
+    GameObject playerObject = null;
     float errorDistance = 1000000;
     private void GetMapMouseHit()
     {
@@ -309,21 +337,21 @@ public class InputService : BaseBehaviour, IInputService
 
         if (playerObject == null)
         {
-            playerObject = _playerManager.GetEntity();
+            playerObject = _playerManager.GetPlayerGameObject();
         }
 
         ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
-        didHitObject = GPhysics.Raycast(ray, out hit, MapConstants.MaxMouseRaycastDistance, mouseLayerMask);
+        didHitObject = Physics.Raycast(ray, out hit, MapConstants.MaxMouseRaycastDistance, mouseLayerMask);
        
-        if (didHitObject && hit.transform() != null)
+        if (didHitObject && hit.transform != null)
         {
             
-            hitObject = hit.transform().entity();
+            hitObject = hit.transform.gameObject;
 
             if (playerObject != null)
             {
-                hitObjectDistance = GVector3.Distance(GVector3.Create(hit.transform().position), GVector3.Create(playerObject.transform().position));
+                hitObjectDistance = Vector3.Distance(hit.transform.position, playerObject.transform.position    );
             }
             else
             {
@@ -335,9 +363,9 @@ public class InputService : BaseBehaviour, IInputService
 
             // Add this for cases where the collider is nested in the prefab and 
             // the interactable object component is added to the root object.
-            if (newInteractObject == null && hitObject.transform().parent != null)
+            if (newInteractObject == null && hitObject.transform.parent != null)
             {
-                newInteractObject = GEntityUtils.FindInParents<InteractableObject>(hitObject);
+                newInteractObject = _gameObjectService.FindInParents<InteractableObject>(hitObject);
             }
 
 
@@ -387,7 +415,7 @@ public class InputService : BaseBehaviour, IInputService
             if (screens != null && screens.Count > 0)
             {
                 _screenService.CloseAll();
-                if (_playerManager.GetEntity() != null)
+                if (_playerManager.GetPlayerGameObject() != null)
                 {
                     return;
                 }
@@ -413,7 +441,7 @@ public class InputService : BaseBehaviour, IInputService
                             continue;
                         }
 
-                        if (ScreenUtils.GetFullScreenNameFromEnum(ssi.ScreenId) == kci.Command.KeyCommand)
+                        if (_screenService.GetFullScreenNameFromEnum(ssi.ScreenId) == kci.Command.KeyCommand)
                         {
                             _screenService.Close(ssi.ScreenId);
                             screenIsShowing = true;
@@ -549,7 +577,7 @@ public class InputService : BaseBehaviour, IInputService
             return;
         }
 
-        SkillType skillType = _gameData.Get<SkillTypeSettings>(base._gs.ch).Get(spell.Effects.FirstOrDefault()?.SkillTypeId ?? 0);
+        SkillType skillType = _gameData.Get<SkillTypeSettings>(_gs.ch).Get(spell.Effects.FirstOrDefault()?.SkillTypeId ?? 0);
         if (!_objectManager.GetUnit(playerUnit.TargetId, out Unit target))
         {
             if (skillType.TargetTypeId == TargetTypes.Ally)

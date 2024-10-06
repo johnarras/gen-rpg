@@ -15,6 +15,7 @@ using Genrpg.RequestServer.PlayerData.Services;
 using Genrpg.RequestServer.Activities.Services;
 using Genrpg.RequestServer.Resets.Services;
 using Genrpg.RequestServer.UserMail.Services;
+using Genrpg.RequestServer.Spawns.Services;
 
 namespace Genrpg.RequestServer.Setup
 {
@@ -32,6 +33,7 @@ namespace Genrpg.RequestServer.Setup
             Set<IWebServerService>(new WebServerService());
             Set<IWebRewardService>(new WebRewardService());
             Set<ILoginPlayerDataService>(new LoginPlayerDataService());
+            
 
             // Board game
             Set<IBoardService>(new BoardService()); 
@@ -43,6 +45,7 @@ namespace Genrpg.RequestServer.Setup
             Set<IHourlyUpdateService>(new HourlyUpdateService());
             Set<IBoardModeService>(new BoardModeService());
             Set<IBoardPrizeService>(new BoardPrizeService());   
+            Set<IWebSpawnService>(new WebSpawnService());   
 
             _loc.ResolveSelf();
             _loc.Resolve(this);

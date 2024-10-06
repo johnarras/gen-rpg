@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class SaveMap : BaseZoneGenerator
 {
+
+    private IClientAppService _clientAppService;
     public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
@@ -163,7 +165,7 @@ public class SaveMap : BaseZoneGenerator
             newBytes[i] = bytes[i];
         }
 
-        ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService);
+        ClientRepositoryCollection<TerrainPatchData> repo = new ClientRepositoryCollection<TerrainPatchData>(_logService, _clientAppService);
 
         string zoneText = "";
         foreach (long zid in zoneIds)

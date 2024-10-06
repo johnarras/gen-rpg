@@ -35,7 +35,7 @@ namespace Genrpg.Shared.MapObjects.Entities
         {
             lock (ObjsLock)
             {
-                List<MapObject> set = new List<MapObject>(_objs);
+                List<MapObject> set = new List<MapObject>(_objs.Where(x=>!x.IsDeleted()));
                 set.Add(obj);
                 _objs = set;
             }

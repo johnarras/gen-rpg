@@ -5,12 +5,11 @@ using Genrpg.Shared.MapServer.Entities;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
 
 public interface IMapTerrainManager : IInitializable
 {
-    GEntity GetTerrainTextureParent();
-    GEntity GetTerrainProtoObject(string name);
+    GameObject GetTerrainTextureParent();
+    GameObject GetTerrainProtoObject(string name);
     void AddTerrainProtoPatch(string name, int gx, int gy);
     void RemovePatchFromPrototypes(int gx, int gy);
     TerrainTextureData GetFromTerrainTextureCache(string textureName);
@@ -23,8 +22,8 @@ public interface IMapTerrainManager : IInitializable
     Awaitable AddPatchObjects(int gx, int gy, CancellationToken token);
     void AddToTerrainTextureCache(string textureName, TerrainTextureData data);
     void ClearPatches();
-    GEntity GetPrototypeParent();
-    GEntity AddOrReuseTerrainProtoObject(string name, GEntity go);
+    GameObject GetPrototypeParent();
+    GameObject AddOrReuseTerrainProtoObject(string name, GameObject go);
     void ClearMapObjects();
     void SetFastLoading();
     long GetPatchesRemoved();
@@ -32,7 +31,7 @@ public interface IMapTerrainManager : IInitializable
     void IncrementPatchesAdded();
     bool IsLoadingPatches();
     void RemoveLoadingPatches(int gx, int gy);
-    GVector3 GetInterpolatedNormal(Map map, float x, float y);
+    Vector3 GetInterpolatedNormal(Map map, float x, float y);
     float SampleHeight(float x, float z);
     float GetInterpolatedHeight(float xpos, float ypos);
     TerrainPatchData GetTerrainPatch(int gx, int gy, bool createIfNotExist = false);
@@ -45,4 +44,5 @@ public interface IMapTerrainManager : IInitializable
     void SetTerrainLayerData(TerrainLayer tl);
     void SetAllTerrainNeighbors();
     BaseObjectLoader GetLoader(long mapObjectOffset);
+    Awaitable SetupOneTerrainPatch(TerrainPatchData patch, CancellationToken token);
 }

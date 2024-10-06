@@ -54,13 +54,12 @@ namespace Genrpg.Shared.Core.Entities
         {
             if (!typeof(T).IsInterface)
             {
-                _logger.Error("ServiceLocator only allows interface lookups not: " + typeof(T).Name);
-                throw new Exception("ServiceLocator: Attempted to Get non-interface type: " + typeof(T).Name);
+                return default(T);
             }
 
             if (!_typeDict.ContainsKey(typeof(T)))
             {
-                return default;
+                return default(T);
             }
 
             return (T)_typeDict[typeof(T)];
@@ -138,7 +137,7 @@ namespace Genrpg.Shared.Core.Entities
             if (!typeof(T).IsInterface)
             {
                 _logger.Message("ServiceLocator can only set Interfaces Not: " + typeof(T).Name + " ");
-                throw new Exception("ServiceLocator: Attempted to Get non-interface type. " + typeof(T).Name);               
+                throw new Exception("ServiceLocator: Attempted to Set non-interface type. " + typeof(T).Name);               
             }
 
             if (_typeDict.ContainsKey(typeof(T)))
@@ -206,8 +205,7 @@ namespace Genrpg.Shared.Core.Entities
 
                     if (!fieldType.IsInterface)
                     {
-                        _logger.Message("ServiceLocator Concrete service type " + fieldType.Name + " in " + obj.GetType().Name);
-                        throw new Exception("ServiceLocator: Attempted to resolve non-interface type: " + fieldType.Name + " in " + obj.GetType().Name);
+                        continue;
                     }
 
                     object serviceObject = GetByName(fieldType.Name);

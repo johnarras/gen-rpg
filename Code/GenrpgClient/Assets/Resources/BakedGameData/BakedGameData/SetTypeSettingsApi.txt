@@ -1,0 +1,37 @@
+{
+  "Data": [
+    {
+      "Id": "settype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "Pieces": [
+        {
+          "Stats": [],
+          "OldProcs": []
+        },
+        {
+          "Stats": [],
+          "OldProcs": []
+        }
+      ],
+      "Stats": [
+        {}
+      ],
+      "Procs": [
+        {}
+      ],
+      "UpdateTime": "2024-08-01T00:28:12.228Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "SetTypeSettings",
+    "UpdateTime": "2024-08-01T00:28:12.232Z"
+  },
+  "Id": "default"
+}

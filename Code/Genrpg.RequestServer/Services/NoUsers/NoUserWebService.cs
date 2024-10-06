@@ -4,7 +4,6 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Website.Interfaces;
 using Genrpg.Shared.Website.Messages;
 using Genrpg.Shared.Website.Messages.Error;
-using Genrpg.RequestServer.Utils;
 using Genrpg.RequestServer.Services.WebServer;
 using Genrpg.RequestServer.Core;
 using Genrpg.RequestServer.NoUserCommands;
@@ -54,7 +53,7 @@ namespace Genrpg.RequestServer.Services.NoUsers
             {
                 string errorMessage = "HandleLoginCommand." + commandSet.Commands.Select(x => x.GetType().Name + " ").ToList();
                 _logService.Exception(e, errorMessage);
-                WebUtils.ShowError(context, errorMessage);
+                context.ShowError(errorMessage);
             }
 
             return;

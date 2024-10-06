@@ -12,11 +12,11 @@ public class CloseButton : BaseBehaviour
     public override void Init()
     {
         base.Init();
-        BaseScreen screen = GEntityUtils.FindInParents<BaseScreen>(gameObject);
+        BaseScreen screen = _gameObjectService.FindInParents<BaseScreen>(gameObject);
 
         if (screen != null)
         {
-            _uIInitializable.SetButton(Button, screen.GetName(), screen.StartClose);
+            _uiService.SetButton(Button, screen.GetName(), screen.StartClose);
         }
     }
 }

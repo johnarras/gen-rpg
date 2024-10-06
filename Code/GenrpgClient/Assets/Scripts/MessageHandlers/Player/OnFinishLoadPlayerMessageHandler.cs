@@ -1,7 +1,8 @@
 ﻿
 using Genrpg.Shared.Players.Messages;
+using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.UI.Services;
 using System.Threading;
-using UI.Screens.Constants;
 
 namespace Assets.Scripts.MessageHandlers.Player
 {

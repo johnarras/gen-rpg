@@ -1,0 +1,20 @@
+{
+  "Data": [
+    {
+      "Id": "dungeonart1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Basic Dungeon",
+      "Desc": "Basic Art Assets",
+      "Icon": "",
+      "Art": "Basic",
+      "UpdateTime": "2024-08-01T00:28:06.498Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "DungeonArtSettings",
+    "UpdateTime": "2024-08-01T00:28:06.501Z"
+  },
+  "Id": "default"
+}

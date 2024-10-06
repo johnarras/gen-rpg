@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using System.Threading;
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class InitSpellTooltipData : InitTooltipData
 {
@@ -24,7 +25,7 @@ public class SpellTooltip : BaseTooltip
 
     public GText SpellName;
     public GText BasicInfo;
-    public GEntity RowParent;
+    public GameObject RowParent;
     public GText MoneyText;
     public MoneyDisplay Money;
 
@@ -41,15 +42,15 @@ public class SpellTooltip : BaseTooltip
             return;
         }
 
-        _uIInitializable.SetText(SpellName, _data.spell.Name);
-        _uIInitializable.SetText(BasicInfo, "");
+        _uiService.SetText(SpellName, _data.spell.Name);
+        _uiService.SetText(BasicInfo, "");
 
         ShowEffects();
     }
 
     private void ShowEffects()
     {
-        GEntityUtils.DestroyAllChildren(RowParent);
+        _gameObjectService.DestroyAllChildren(RowParent);
         Rows = new List<SpellTooltipRow>();
 
         if (_data.spell == null)
@@ -71,7 +72,7 @@ public class SpellTooltip : BaseTooltip
 
     private void OnLoadRow(object obj, object data, CancellationToken token)
     {
-        GEntity go = obj as GEntity;
+        GameObject go = obj as GameObject;
         if (go == null)
         {
             return;
@@ -81,7 +82,7 @@ public class SpellTooltip : BaseTooltip
         SpellTooltipRowData rowData = data as SpellTooltipRowData;
         if (row == null || rowData == null)
         {
-            GEntityUtils.Destroy(go);
+            _gameObjectService.Destroy(go);
             return;
         }
 

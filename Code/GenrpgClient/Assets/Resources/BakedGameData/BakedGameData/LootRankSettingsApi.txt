@@ -1,0 +1,171 @@
+{
+  "Data": [
+    {
+      "Id": "lootrank1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Armor": 1,
+      "CostPct": 125,
+      "UpdateTime": "2024-08-01T00:28:08.902Z"
+    },
+    {
+      "Id": "lootrank2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Copper",
+      "Armor": 2,
+      "Damage": 1,
+      "CostPct": 150,
+      "UpdateTime": "2024-08-01T00:28:08.905Z"
+    },
+    {
+      "Id": "lootrank3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Brass",
+      "Armor": 3,
+      "Damage": 2,
+      "CostPct": 200,
+      "UpdateTime": "2024-08-01T00:28:08.907Z"
+    },
+    {
+      "Id": "lootrank4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Bronze",
+      "Armor": 4,
+      "Damage": 3,
+      "CostPct": 300,
+      "UpdateTime": "2024-08-01T00:28:08.91Z"
+    },
+    {
+      "Id": "lootrank5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Iron",
+      "Armor": 6,
+      "Damage": 4,
+      "CostPct": 400,
+      "UpdateTime": "2024-08-01T00:28:08.912Z"
+    },
+    {
+      "Id": "lootrank6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Steel",
+      "Armor": 8,
+      "Damage": 5,
+      "CostPct": 500,
+      "UpdateTime": "2024-08-01T00:28:08.915Z"
+    },
+    {
+      "Id": "lootrank7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Silver",
+      "Armor": 10,
+      "Damage": 6,
+      "CostPct": 750,
+      "UpdateTime": "2024-08-01T00:28:08.917Z"
+    },
+    {
+      "Id": "lootrank8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Gold",
+      "Armor": 13,
+      "Damage": 7,
+      "CostPct": 1000,
+      "UpdateTime": "2024-08-01T00:28:08.919Z"
+    },
+    {
+      "Id": "lootrank9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Platinum",
+      "Armor": 16,
+      "Damage": 8,
+      "CostPct": 1250,
+      "UpdateTime": "2024-08-01T00:28:08.923Z"
+    },
+    {
+      "Id": "lootrank10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Mithril",
+      "Armor": 20,
+      "Damage": 10,
+      "CostPct": 1500,
+      "UpdateTime": "2024-08-01T00:28:08.883Z"
+    },
+    {
+      "Id": "lootrank11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Adamantite",
+      "Armor": 25,
+      "Damage": 12,
+      "CostPct": 2000,
+      "UpdateTime": "2024-08-01T00:28:08.887Z"
+    },
+    {
+      "Id": "lootrank12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "Ruby",
+      "Armor": 30,
+      "Damage": 15,
+      "CostPct": 3000,
+      "UpdateTime": "2024-08-01T00:28:08.89Z"
+    },
+    {
+      "Id": "lootrank13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "Sapphire",
+      "Armor": 35,
+      "Damage": 18,
+      "CostPct": 4000,
+      "UpdateTime": "2024-08-01T00:28:08.892Z"
+    },
+    {
+      "Id": "lootrank14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "Emerald",
+      "Armor": 40,
+      "Damage": 21,
+      "CostPct": 5000,
+      "UpdateTime": "2024-08-01T00:28:08.895Z"
+    },
+    {
+      "Id": "lootrank15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "Diamond",
+      "Armor": 50,
+      "Damage": 25,
+      "CostPct": 7500,
+      "UpdateTime": "2024-08-01T00:28:08.897Z"
+    },
+    {
+      "Id": "lootrank16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "HeartStone",
+      "Armor": 60,
+      "Damage": 30,
+      "CostPct": 10000,
+      "UpdateTime": "2024-08-01T00:28:08.9Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "LevelsPerQuality": 5.0,
+    "ExtraQualityChance": 0.25,
+    "ArmorChance": 0.93,
+    "Name": "LootRankSettings",
+    "UpdateTime": "2024-08-31T23:26:51.868Z"
+  },
+  "Id": "default"
+}

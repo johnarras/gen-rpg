@@ -16,12 +16,12 @@ PrefabInstance:
     - target: {fileID: 4098416782585100563, guid: 91bd94bdc67a59e4bb88a4c2c45db377,
         type: 3}
       propertyPath: m_fontSize
-      value: 24
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4098416782585100563, guid: 91bd94bdc67a59e4bb88a4c2c45db377,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 24
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4098416782585100563, guid: 91bd94bdc67a59e4bb88a4c2c45db377,
         type: 3}
@@ -144,8 +144,8 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2151795990766252892, guid: 91bd94bdc67a59e4bb88a4c2c45db377,
         type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2925979313171211763}
+      insertIndex: 2
+      addedObject: {fileID: 2369709685002033484}
     - targetCorrespondingSourceObject: {fileID: 2151795990766252892, guid: 91bd94bdc67a59e4bb88a4c2c45db377,
         type: 3}
       insertIndex: -1
@@ -169,7 +169,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7446782629224900524}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2925979313171211763
+--- !u!114 &2369709685002033484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,11 +178,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8828460811598206192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0a20a02bca0a054f828262680afe68c, type: 3}
+  m_Script: {fileID: 11500000, guid: 09295beb157ca194a8d21f32e42fb87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Button: {fileID: 1512346477095373479}
-  Text: {fileID: 6897483838755446463}
+  _elements:
+  - Obj: {fileID: 1512346477095373479}
+    Name: Button
+  - Obj: {fileID: 6897483838755446463}
+    Name: Text
 --- !u!114 &1512346477095373479
 MonoBehaviour:
   m_ObjectHideFlags: 0

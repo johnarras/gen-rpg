@@ -1,6 +1,6 @@
 ﻿
-using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
+using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Maps.Entities;
 using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Utils.Data;
@@ -10,8 +10,7 @@ using System.Linq;
 using Genrpg.Shared.Zones.Settings;
 using UnityEngine;
 using System.Threading.Tasks;
-using Genrpg.Shared.Crawler.MapGen.Constants;
-using Genrpg.Shared.Crawler.MapGen.Settings;
+using Genrpg.Shared.Crawler.Maps.Settings;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -20,7 +19,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
         public override long GetKey() { return CrawlerMapTypes.City; }
 
-        public override async Awaitable<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
+        public override async Task<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
         {
             await Task.CompletedTask;
             MyRandom rand = new MyRandom(genData.World.IdKey*3 + genData.World.MaxMapId*17);
@@ -104,9 +103,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             if (fillerBuildings.Count > 0)
             {
-                for (int xx = 1; xx < clearCells.GetLength(0)-1; xx++)
+                for (int xx = 0; xx < clearCells.GetLength(0); xx++)
                 {
-                    for (int yy = 1; yy < clearCells.GetLength(1)-1; yy++)
+                    for (int yy = 0; yy < clearCells.GetLength(1); yy++)
                     {
                         if (clearCells[xx, yy])
                         {
@@ -164,6 +163,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 }
             }
 
+
+            points = points.Where(x => x.X > 0 && x.Y > 0 && x.X < map.Width - 1 && x.Y < map.Height - 1).ToList();
             foreach (BuildingType btype in requiredBuildings)
             {
                 if (points.Count < 1)

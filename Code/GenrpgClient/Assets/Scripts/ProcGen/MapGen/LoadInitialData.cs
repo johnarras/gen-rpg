@@ -1,11 +1,8 @@
-﻿using System;
-using System.Threading;
-
-using Genrpg.Shared.Characters.PlayerData;
+﻿using System.Threading;
 using Genrpg.Shared.Players.Messages;
+using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Units.Entities;
 using UnityEngine;
-using GEntity = UnityEngine.GameObject;
 
 
 public class LoadInitialData : BaseZoneGenerator
@@ -16,7 +13,7 @@ public class LoadInitialData : BaseZoneGenerator
     public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
-        AwaitableUtils.ForgetAwaitable(LoadInitialMapData(token));
+        TaskUtils.ForgetAwaitable(LoadInitialMapData(token));
     }
 
     public async Awaitable LoadInitialMapData(CancellationToken token)
@@ -41,7 +38,7 @@ public class LoadInitialData : BaseZoneGenerator
             await Awaitable.WaitForSecondsAsync(delaySec, cancellationToken: token);
         }
 
-        GEntity go = _playerManager.GetEntity();
+        GameObject go = _playerManager.GetPlayerGameObject();
         if (unit != null && go != null)
         {
             float height = 0;
@@ -49,8 +46,8 @@ public class LoadInitialData : BaseZoneGenerator
             do
             {
                 height = _terrainManager.SampleHeight(unit.X, unit.Z);
-                go.transform().position = GVector3.Create(unit.X, height, unit.Z);
-                go.transform().eulerAngles = GVector3.Create(0, unit.Rot, 0);
+                go.transform.position = new Vector3(unit.X, height, unit.Z);
+                go.transform.eulerAngles = new Vector3(0, unit.Rot, 0);
                 if (height == 0)
                 {
                     await Awaitable.WaitForSecondsAsync(1.0f, cancellationToken: token);

@@ -1,0 +1,75 @@
+{
+  "Data": [
+    {
+      "Id": "activity1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Daily Quests",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "ResetDays": 1,
+      "BaseCost": 50,
+      "IncrementalCost": 10,
+      "MaxRewardTier": 5,
+      "BaseReward": 10,
+      "IncrementalReward": 5,
+      "MinLevel": 5,
+      "UpdateTime": "2024-08-11T22:42:21.151Z"
+    },
+    {
+      "Id": "activity2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Weekly Quests",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "ResetDays": 7,
+      "BaseCost": 250,
+      "IncrementalCost": 25,
+      "MaxRewardTier": 10,
+      "BaseReward": 50,
+      "IncrementalReward": 10,
+      "MinLevel": 5,
+      "UpdateTime": "2024-08-11T22:42:21.151Z"
+    },
+    {
+      "Id": "activity3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Monthly Quests",
+      "ResetDays": 30,
+      "BaseCost": 400,
+      "IncrementalCost": 40,
+      "MaxRewardTier": 50,
+      "BaseReward": 100,
+      "IncrementalReward": 25,
+      "MinLevel": 5,
+      "UpdateTime": "2024-08-11T22:42:21.151Z"
+    },
+    {
+      "Id": "activity4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Yearly Quests",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "ResetDays": 365,
+      "BaseCost": 2500,
+      "IncrementalCost": 250,
+      "MaxRewardTier": 100,
+      "BaseReward": 250,
+      "IncrementalReward": 50,
+      "MinLevel": 5,
+      "UpdateTime": "2024-08-11T22:42:21.151Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "ActivitySettings",
+    "UpdateTime": "2024-08-11T22:42:21.151Z"
+  },
+  "Id": "default"
+}

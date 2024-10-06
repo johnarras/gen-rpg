@@ -6,10 +6,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.ProcGen.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Units.Entities;
 using System.Threading;
-using Genrpg.Shared.Entities.Constants;
-using Assets.Scripts.Tokens;
 using Genrpg.Shared.Website.Messages.LoadIntoMap;
 using Assets.Scripts.MapTerrain;
 using Genrpg.Shared.Units.Services;
@@ -26,13 +23,13 @@ using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Entities.Utils;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.Core.Entities;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
-using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Client.Core;
 using UnityEngine;
 using Genrpg.Shared.Units.Settings;
+using Genrpg.Shared.Client.Tokens;
 
 public interface IZoneGenService : IInitializable
 {
@@ -67,7 +64,7 @@ public class ZoneGenService : IZoneGenService, IGameTokenService
     protected IDispatcher _dispatcher;
     protected IGameData _gameData;
     protected IMapProvider _mapProvider;
-    protected IUnityGameState _gs;
+    protected IClientGameState _gs;
     protected IClientRandom _rand;
     protected IMapGenData _md;
 

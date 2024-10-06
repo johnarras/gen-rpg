@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Crawler.Maps.Constants;
-using Genrpg.Shared.Crawler.MapGen.Constants;
+﻿
+using Genrpg.Shared.Crawler.Maps.Constants;
 
 namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {

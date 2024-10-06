@@ -14,7 +14,6 @@ namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
 {
     public interface IUserLoadUpdater : IOrderedSetupDictionaryItem<Type>
     {
-        int Order { get; }
         Task Update(WebContext context, List<IUnitData> unitData);
     }
 }

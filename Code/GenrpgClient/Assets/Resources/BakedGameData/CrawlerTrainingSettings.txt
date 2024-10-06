@@ -10,5 +10,5 @@
   "LowerStatIncreaseChance": 0.75,
   "MaxStatIncreaseChance": 0.5,
   "Name": "CrawlerTrainingSettings",
-  "UpdateTime": "2024-09-02T00:00:13.347Z"
+  "UpdateTime": "2024-09-14T16:08:22.823Z"
 }

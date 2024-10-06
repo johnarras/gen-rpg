@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 public class ClientUnitUtils
 {
@@ -13,8 +13,8 @@ public class ClientUnitUtils
         if (controller != null && unit != null)
         {
 
-            controller.transform().position = GVector3.Create(unit.X, 0, unit.Z);
-            controller.transform().eulerAngles = GVector3.Create(0, unit.Rot, 0);
+            controller.transform.position = new Vector3(unit.X, 0, unit.Z);
+            controller.transform.eulerAngles = new Vector3(0, unit.Rot, 0);
         }
     }
 }

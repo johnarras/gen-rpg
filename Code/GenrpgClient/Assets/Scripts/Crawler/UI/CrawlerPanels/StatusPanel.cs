@@ -1,9 +1,11 @@
 ﻿using Assets.Scripts.UI.Crawler.StatusUI;
-
+using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.UI.Interfaces;
+using Genrpg.Shared.MVC.Interfaces;
+using Genrpg.Shared.UI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +20,20 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
     public class StatusPanel : BaseCrawlerPanel, IStatusPanel
     {
 
-        public List<CrawlerStatusRow> Rows;
+        private List<PartyMemberStatusRow> _rows = new List<PartyMemberStatusRow>();
 
-        public override async Awaitable Init(CrawlerScreen screen, CancellationToken token)
+        private object Content;
+
+        public override async Task Init(CrawlerScreen screen, IView view, CancellationToken token)
         {
-            await base.Init(screen, token);
+            await base.Init(screen, view, token);
+
+            Content = view.Get<object>("Content");
+
+            for (int i = 0; i <= PartyConstants.MaxPartySize; i++)
+            {
+                _rows.Add(await _assetService.CreateAsync<PartyMemberStatusRow, int>(i, AssetCategoryNames.UI, "PartyMemberStatusRow", Content, token, screen.Subdirectory));
+            }
 
             UpdatePartyData();
 
@@ -33,19 +44,20 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             PartyData partyData = _crawlerService.GetParty();
             for (int r = 0; r <= PartyConstants.MaxPartySize; r++)
             {
-                if (Rows.Count >= r+1)
+                if (_rows.Count >= r+1)
                 {
                     if (partyIndexToUpdate > 0 && r != partyIndexToUpdate)
                     {
                         continue;
                     }
-                    Rows[r].Init(partyData.GetMemberInSlot(r), r);
+                    _rows[r].UpdateText();
                 }
             }
         }
 
-        public override void OnNewStateData(CrawlerStateData stateData)
+        public override async Task OnNewStateData(CrawlerStateData stateData, CancellationToken token)
         {
+            await Task.Delay(10);
             UpdatePartyData();
         }
 

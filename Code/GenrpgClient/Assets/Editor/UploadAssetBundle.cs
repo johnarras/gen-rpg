@@ -3,34 +3,37 @@ using UnityEngine;
 using UnityEditor;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Client.Core;
 
 public class UploadAssetBundle
 {
 	[MenuItem("Build/Dev Upload Asset Bundles")]
 	static void ExecuteDev()
     {
-        IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+        IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
         UploadAssetBundles(EnvNames.Dev);
 	}
 
     [MenuItem("Build/Prod Upload Asset Bundles")]
     static void ExecuteProd()
     {
-        IUnityGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+        IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
         UploadAssetBundles(EnvNames.Prod);
     }
     public static void UploadAssetBundles(string env)
     {
-        IUnityGameState gs = SetupEditorUnityGameState.Setup().GetAwaiter().GetResult();
+        IClientGameState gs = SetupEditorUnityGameState.Setup().GetAwaiter().GetResult();
         InnerUploadFiles(gs, env);
 	}
 
 
-	private static void InnerUploadFiles(IUnityGameState gs, string env)
+	private static void InnerUploadFiles(IClientGameState gs, string env)
 	{
 
-        BinaryFileRepository localRepo = new BinaryFileRepository(gs.loc.Get<ILogService>());
         gs = SetupEditorUnityGameState.Setup(gs).GetAwaiter().GetResult();
+
+        IClientAppService appService = gs.loc.Get<IClientAppService>();    
+        IBinaryFileRepository localRepo = gs.loc.Get<IBinaryFileRepository>();
 
         List<PlatformBuildData> targets = BuildConfiguration.GetbuildConfigs(gs);
 
@@ -46,8 +49,8 @@ public class UploadAssetBundle
 
                 BundleVersion bvd = currentData.Versions[bname];
                 string fullName = bvd.Name + "_" + bvd.Hash;
-                string localPath = AppUtils.DataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + bvd.Name;
-                string remotePath = AppUtils.Version + "/" + targets[t].FilePath + "/" + fullName;
+                string localPath = appService.DataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + bvd.Name;
+                string remotePath = appService.Version + "/" + targets[t].FilePath + "/" + fullName;
                 FileUploadData fdata = new FileUploadData();
                 fdata.GamePrefix = Game.Prefix;
                 fdata.Env = env;
@@ -76,8 +79,8 @@ public class UploadAssetBundle
 
                 foreach (string fileName in filesToUpload)
                 {
-                    string localPath = AppUtils.DataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + fileName;
-                    string remotePath = AppUtils.Version + "/" + targets[t].FilePath + "/" + fileName;
+                    string localPath = appService.DataPath + "/../" + BuildConfiguration.AssetBundleRoot + prefix + "/" + fileName;
+                    string remotePath = appService.Version + "/" + targets[t].FilePath + "/" + fileName;
                     FileUploadData fdata = new FileUploadData();
                     fdata.GamePrefix = Game.Prefix;
                     fdata.Env = env;

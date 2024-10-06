@@ -66,7 +66,7 @@ namespace Genrpg.ServerShared.MainServer
             _tokenSource = CancellationTokenSource.CreateLinkedTokenSource(serverToken, _tokenSource.Token);
             _serverId = GetServerId(data);
 
-            _context = await SetupUtils.SetupFromConfig<TGameState,TSetupService>(this, _serverId, 
+            _context = await new ServerSetup().SetupFromConfig<TGameState,TSetupService>(this, _serverId, 
                 _tokenSource.Token);
 
             _cloudCommsService.SetQueueMessageHandlers(_queueHandlers.GetDict());

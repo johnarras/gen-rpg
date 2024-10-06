@@ -20,7 +20,6 @@ using Genrpg.Shared.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using Genrpg.Shared.GameSettings;
-using Genrpg.Shared.Inventory.Utils;
 using Genrpg.Shared.Vendors.Settings;
 namespace Genrpg.Shared.Inventory.Services
 {
@@ -38,6 +37,7 @@ namespace Genrpg.Shared.Inventory.Services
         private INameGenService _nameGenService = null;
         private IStatService _statService = null;
         private IGameData _gameData = null;
+        private ISharedItemService _sharedItemService = null;
 
         // ACtually generate an item from either an old item or an itemTypeId.
         public virtual Item Generate(IRandom rand, ItemGenData genData)
@@ -495,7 +495,7 @@ namespace Genrpg.Shared.Inventory.Services
             item.Quantity = 1;
             item.ScalingTypeId = scalingType.IdKey;
             item.Effects = effs;
-            item.BuyCost = ItemUtils.CalcBuyCost(_gameData, null, item);
+            item.BuyCost = _sharedItemService.CalcBuyCost(_gameData, null, item);
             item.SellValue = (long)(item.BuyCost * _gameData.Get<VendorSettings>(null).SellToVendorPriceMult);
             item.Name = GenerateName(rand, itype.IdKey, item.Level, item.QualityTypeId, new List<FullReagent>());
 

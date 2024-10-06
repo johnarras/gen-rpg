@@ -9,6 +9,8 @@ using UnityEngine;
 public class UploadMap : BaseZoneGenerator
 {
     private IClientWebService _webNetworkService;
+    private IClientAppService _clientAppService;
+    private IBinaryFileRepository _binaryFileRepository;
     public override async Awaitable Generate(CancellationToken token)
     {
 
@@ -41,13 +43,13 @@ public class UploadMap : BaseZoneGenerator
         string localFilePath = patch.GetFilePath(true);
         string remoteFilePath = patch.GetFilePath(false);
 
-        BinaryFileRepository repo = new BinaryFileRepository(_logService);
-        string localPath = repo.GetPath(localFilePath);
+        string localPath = _binaryFileRepository.GetPath(localFilePath);
         FileUploadData fdata = new FileUploadData();
         fdata.GamePrefix = Game.Prefix;
         fdata.Env = _assetService.GetWorldDataEnv();
         fdata.IsWorldData = true;
 
+        fdata.LocalDataPath = _clientAppService.DataPath;
         fdata.LocalPath = localPath;
         fdata.RemotePath = remoteFilePath;
         if (gx % 10 == 0)

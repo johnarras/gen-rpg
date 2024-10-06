@@ -461,9 +461,6 @@ namespace Genrpg.MapServer.Maps
 
             MapObjectGridItem newGridItem = CreateGridItem(rand, obj, pt.X, pt.Z);
 
-            _objectGrid[pt.X, pt.Z].AddObj(newGridItem.Obj);
-            _totalGridLocks++;
-
             _idDict[obj.GetIdHash() % IdHashSize].TryAdd(obj.Id, newGridItem);
             obj.Spawn = spawn;
             if (obj is Unit unit)
@@ -479,6 +476,9 @@ namespace Genrpg.MapServer.Maps
             {
                 _objectCount++;
             }
+            _objectGrid[pt.X, pt.Z].AddObj(newGridItem.Obj);
+            _totalGridLocks++;
+
 
             if (_didSetupOnce && _messageService != null)
             {
@@ -628,6 +628,7 @@ namespace Genrpg.MapServer.Maps
 
             foreach (MapSpawn spawn in _mapProvider.GetSpawns().Data)
             {
+
                 if (rand.NextDouble() > _gameData.Get<SpawnSettings>(null).MapSpawnChance)
                 {
                     continue;
@@ -736,6 +737,11 @@ namespace Genrpg.MapServer.Maps
         protected void OnAddObjectToGrid(IRandom rand, MapObject obj, int gx, int gz)
         {
             if (!(obj is Character ch))
+            {
+                return;
+            }
+
+            if (obj.IsDeleted())
             {
                 return;
             }

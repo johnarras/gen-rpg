@@ -4,7 +4,7 @@
   "IdKey": 20,
   "Name": "Blink",
   "Desc": "Jump forward 1-9 squares if you are not impeded by anything.",
-  "PowerCost": 10,
+  "PowerCost": 10.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 8,

@@ -20,7 +20,7 @@ using Genrpg.Shared.MapServer.Entities;
 using Genrpg.MapServer.MapMessaging.MessageHandlers;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Rewards.Entities;
-using Genrpg.ServerShared.Spawns.Services;
+using Genrpg.MapServer.Spawns.Services;
 
 namespace Genrpg.MapServer.InteractObject.MessageHandlers
 {

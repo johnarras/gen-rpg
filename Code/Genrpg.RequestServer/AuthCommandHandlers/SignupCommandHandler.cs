@@ -1,7 +1,5 @@
 ﻿using Genrpg.RequestServer.AuthCommandHandlers.Constants;
 using Genrpg.RequestServer.Core;
-using Genrpg.RequestServer.Utils;
-using Genrpg.ServerShared.Utils;
 using Genrpg.Shared.Accounts.Constants;
 using Genrpg.Shared.Accounts.PlayerData;
 using Genrpg.Shared.Users.Entities;
@@ -15,13 +13,13 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
         {
             if (command == null)
             {
-                WebUtils.ShowError(context, "Login missing SignupCommand");
+                context.ShowError("Login missing SignupCommand");
                 return;
             }
 
             if (string.IsNullOrEmpty(command.Password))
             {
-                WebUtils.ShowError(context, "Missing password");
+                context.ShowError("Missing password");
                 return;
             }
 
@@ -54,7 +52,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
                 
                 if (authResult == EAuthResult.Failure)
                 {
-                    WebUtils.ShowError(context, "That email is already in use");
+                    context.ShowError("That email is already in use");
                     return;
                 }
             }
@@ -68,7 +66,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
 
                     if (refAccount == null)
                     {
-                        WebUtils.ShowError(context, "No account has that ShareId. Leave blank for random ReferralId.");
+                        context.ShowError("No account has that ShareId. Leave blank for random ReferralId.");
                         return;
                     }
                 }
@@ -87,12 +85,12 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
 
                 if (existingShareIdAccount != null)
                 {
-                    WebUtils.ShowError(context, "That ShareId is already taken.");
+                    context.ShowError("That ShareId is already taken.");
                     return;
                 }
 
-                string passwordSalt = PasswordUtils.GetRandomBytes();
-                string passwordHash = PasswordUtils.GetPasswordHash(passwordSalt, command.Password);
+                string passwordSalt = _cryptoService.GetRandomBytes();
+                string passwordHash = _cryptoService.GetPasswordHash(passwordSalt, command.Password);
 
                 string newId = await _accountService.GetNextAccountId();
                 account = new Account()
@@ -116,7 +114,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
 
                 if (!success)
                 {
-                    WebUtils.ShowError(context, "Email and ShareId must be unique.");
+                    context.ShowError("Email and ShareId must be unique.");
                     return;
                 }
 
@@ -124,7 +122,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
 
                 if (account2 == null)
                 {
-                    WebUtils.ShowError(context, "Account failed to save.");
+                    context.ShowError("Account failed to save.");
                     return;
                 }
             }
@@ -145,7 +143,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
 
             if (user == null)
             {
-                WebUtils.ShowError(context, "User failed to save");
+                context.ShowError("User failed to save");
                 return;
             }
 
@@ -158,7 +156,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
         {
             if (string.IsNullOrEmpty(email))
             {
-                WebUtils.ShowError(context, "Email cannot be blank");
+                context.ShowError("Email cannot be blank");
                 return false;
             }
 
@@ -169,7 +167,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
                 lastDotIndex < atIndex + 2 ||
                 lastDotIndex >= email.Length - 2)
             {
-                WebUtils.ShowError(context, "This doesn't look like a valid email.");
+                context.ShowError("This doesn't look like a valid email.");
                 return false;
             }
 
@@ -183,7 +181,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
                 || screenName.Length < AccountConstants.MinNameLength
                 || screenName.Length > AccountConstants.MaxNameLength)
             {
-                WebUtils.ShowError(context, nameError);
+                context.ShowError(nameError);
                 return false;
             }
 
@@ -197,7 +195,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
                 shareId.Length < AccountConstants.MinShareIdLength ||
                 shareId.Length > AccountConstants.MaxShareIdLength)
             {
-                WebUtils.ShowError(context, shareIdError);
+                context.ShowError(shareIdError);
                 return false;
             }
 
@@ -210,7 +208,7 @@ namespace Genrpg.RequestServer.AuthCommandHandlers
             if (string.IsNullOrEmpty(password) ||
                 password.Length < AccountConstants.MinPasswordLength)
             {
-                WebUtils.ShowError(context, passwordError);
+                context.ShowError(passwordError);
                 return false;
             }
             return true;

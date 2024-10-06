@@ -1,9 +1,8 @@
 ﻿
+using Genrpg.Shared.UI.Entities;
 using System;
-using UI.Screens.Constants;
 using UnityEditor;
-using UnityEngine; // Needed
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 namespace Assets.Scripts.UI.Config
 {

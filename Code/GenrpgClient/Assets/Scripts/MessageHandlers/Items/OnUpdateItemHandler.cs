@@ -1,12 +1,13 @@
 ﻿using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Inventory.Messages;
 using System.Threading;
-using Genrpg.Shared.Inventory.Utils;
+using Genrpg.Shared.Inventory.Services;
 
 namespace Assets.Scripts.MessageHandlers.Items
 {
     public class OnUpdateItemHandler : BaseClientMapMessageHandler<OnUpdateItem>
     {
+        protected ISharedItemService _sharedItemService;
         protected override void InnerProcess(OnUpdateItem msg, CancellationToken token)
         {
 
@@ -21,7 +22,7 @@ namespace Assets.Scripts.MessageHandlers.Items
 
             if (item != null)
             {
-                ItemUtils.CopyStatsFrom(msg.Item, item);
+                _sharedItemService.CopyStatsFrom(msg.Item, item);
             }
         }
     }

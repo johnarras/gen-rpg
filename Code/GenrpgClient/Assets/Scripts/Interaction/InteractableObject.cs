@@ -1,11 +1,9 @@
 ﻿using System;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using UnityEngine.EventSystems;
-
-using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.MapObjects.Entities;
 using System.Threading;
-using UnityEngine; // Needed
+using Genrpg.Shared.Client.Assets.Constants;
 
 public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerClickHandler
 {
@@ -14,13 +12,14 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
     public const int DidUse = 2;
 
     protected MapObject _mapObj;
-    protected GEntity _entity;
+    protected GameObject _entity;
     public const string InteractGlow = "InteractGlow";
-    protected GEntity GlowItem = null;
+    protected GameObject GlowItem = null;
     CancellationToken _token;
     protected IPlayerManager _playerManager;
+    protected ICursorService _cursorService;
 
-    public virtual void Init(MapObject worldObj, GEntity go, CancellationToken token)
+    public virtual void Init(MapObject worldObj, GameObject go, CancellationToken token)
     {
         _mapObj = worldObj;
         _entity = go;
@@ -35,7 +34,7 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
 
     public void HideGlow(float delay, bool destroyAtEnd)
     {
-        _updateService.AddDelayedUpdate(entity, (_token) => { DelayHideGlow(destroyAtEnd); }, _token, delay);
+        AddDelayedUpdate((_token) => { DelayHideGlow(destroyAtEnd); }, delay);
     }
 
     private void DelayHideGlow(bool destroyAtEnd)
@@ -53,13 +52,13 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
 
         if (GlowItem != null)
         {
-            GEntityUtils.Destroy(GlowItem);
+            _gameObjectService.Destroy(GlowItem);
             GlowItem = null;
         }
 
         if (destroyAtEnd)
         {
-            GEntityUtils.Destroy(entity);
+            _gameObjectService.Destroy(entity);
         }
         _showingGlow = false;
     }
@@ -72,7 +71,7 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
             return;
         }
         _showingGlow = true;
-        _updateService.AddDelayedUpdate(entity, DelayShowGlow, _token, delay);
+        AddDelayedUpdate(DelayShowGlow, delay);
     }
 
     private void DelayShowGlow(CancellationToken token)
@@ -87,7 +86,7 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
 
     private void OnLoadGlow(object obj, object data, CancellationToken token)
     {
-        GEntity glow = obj as GEntity;
+        GameObject glow = obj as GameObject;
         if (glow == null)
         {
             return;
@@ -95,18 +94,18 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
 
         if (glow.transform.parent == null)
         {
-            GEntityUtils.Destroy(glow);
+            _gameObjectService.Destroy(glow);
             return;
         }
 
-        glow.transform().localPosition = GVector3.Create(0, 1, 0);
+        glow.transform.localPosition = new Vector3(0, 1, 0);
         GlowItem = glow;
     }
 
 
     public virtual bool CanInteract()
     {
-        GEntity go = _playerManager.GetEntity();
+        GameObject go = _playerManager.GetPlayerGameObject();
         if (go == null)
         {
             return false;
@@ -118,7 +117,7 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
         }
         
 
-        float dist = GVector3.Distance(GVector3.Create(go.transform().position), GVector3.Create(entity.transform().position));
+        float dist = Vector3.Distance(go.transform.position, entity.transform.position);
         return dist < MapConstants.MaxInteractDistance;
     }
 
@@ -175,12 +174,12 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
 
     protected virtual void _OnPointerEnter()
     {
-        Cursors.SetCursor(Cursors.Interact);
+        _cursorService.SetCursor(CursorNames.Interact);
     }
 
     protected virtual void _OnPointerExit()
     {
-        Cursors.SetCursor(Cursors.Default);
+        _cursorService.SetCursor(CursorNames.Default);
     }
 
     protected virtual void _LeftClick(float distance) { }

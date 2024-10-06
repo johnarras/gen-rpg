@@ -1,16 +1,12 @@
 ﻿
 using Genrpg.Shared.Characters.PlayerData;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Ftue.Constants;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Ftue.Settings.Steps;
+using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using UI.Screens.Constants;
 using UnityEngine;
 
 namespace Assets.Scripts.Ftue.Services
@@ -28,7 +24,7 @@ namespace Assets.Scripts.Ftue.Services
                 return null;
             }
 
-            AwaitableUtils.ForgetAwaitable(ClientStartOpen(newStep));
+            TaskUtils.ForgetAwaitable(ClientStartOpen(newStep));
 
             return newStep;
         }

@@ -8,6 +8,7 @@ using Genrpg.Shared.ProcGen.Settings.LineGen;
 using Genrpg.Shared.Zones.Settings;
 using Genrpg.Shared.Zones.WorldData;
 using UnityEngine;
+using Genrpg.Shared.Client.Core;
 
 public class CreviceData
 {
@@ -48,7 +49,7 @@ public class AddCrevices : BaseZoneGenerator
         _md.creviceDepths = null;
     }
 
-    private void SetCreviceDepths (IUnityGameState gs)
+    private void SetCreviceDepths (IClientGameState gs)
     {
         if (base._md.heights == null || base._md.creviceDepths == null)
         {

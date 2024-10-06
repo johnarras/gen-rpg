@@ -1,12 +1,8 @@
 ﻿using Assets.Scripts.Model;
-using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
-using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 
 using System.Threading.Tasks;
@@ -14,10 +10,10 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Mappers;
 using UnityEngine;
-using Genrpg.Shared.Interfaces;
 using System.IO;
 using Genrpg.Shared.Logging.Interfaces;
 using Assets.Scripts.GameSettings.Entities;
+using Genrpg.Shared.Client.Core;
 
 namespace Assets.Scripts.GameSettings.Services
 {
@@ -27,8 +23,14 @@ namespace Assets.Scripts.GameSettings.Services
         private IRepositoryService _repoService;
         protected IGameData _gameData;
         private ILogService _logService;
+        private IClientAppService _clientAppService;
 
         private Dictionary<Type, IGameSettingsMapper> _loaderObjects = null;
+
+        protected string GetFullBakedGameDataPath()
+        {
+            return _clientAppService.DataPath + "/Resources/" + BakedGameDataPathSuffix;
+        }
 
         public async Task Initialize(CancellationToken token)
         {
@@ -46,10 +48,10 @@ namespace Assets.Scripts.GameSettings.Services
             await Task.CompletedTask;
         }
 #if UNITY_EDITOR
-        static readonly string FullBakedGameDataPath = AppUtils.DataPath  + "/Resources/" + BakedGameDataPathSuffix;
+        
 #endif
         static readonly string BakedGameDataPathSuffix = "BakedGameData/";
-        public async Awaitable LoadCachedSettings(IUnityGameState gs)
+        public async Awaitable LoadCachedSettings(IClientGameState gs)
         {
             GameData gameData = new ClientGameData();
             ClientRepositoryService repo = _repoService as ClientRepositoryService;
@@ -67,15 +69,29 @@ namespace Assets.Scripts.GameSettings.Services
                     bakedSettings = (ITopLevelSettings)SerializationUtils.DeserializeWithType(textAsset.text, loader.GetClientType());
                 }
 
+                List<ITopLevelSettings> settingsChoices = new List<ITopLevelSettings>();
+
                 object obj = await repo.LoadWithType(loader.GetClientType(), GameDataConstants.DefaultFilename);
-                if (obj is ITopLevelSettings downloadedSettings)
+
+                ITopLevelSettings downloadedSettings = obj as ITopLevelSettings;
+
+                // If baked settings are newer than the cached downloaded settings, use the new baked data in place of the cached.
+                // This comes up if you create a new client.
+                if (bakedSettings != null && downloadedSettings != null && 
+                    bakedSettings.UpdateTime > downloadedSettings.UpdateTime)
+                {
+                    downloadedSettings = bakedSettings;
+                }
+
+                if (downloadedSettings != null)
                 {
                     allSettings.Add(downloadedSettings);
                 }
                 else if (bakedSettings != null)
                 {
-                    allSettings.Add(bakedSettings);
+                    allSettings.Add(bakedSettings); 
                 }
+
             }
             gameData.AddData(allSettings);
             _gameData.CopyFrom(gameData);
@@ -89,7 +105,7 @@ namespace Assets.Scripts.GameSettings.Services
 
 #if UNITY_EDITOR
 
-            string dirName = FullBakedGameDataPath + BakedGameDataPathSuffix;
+            string dirName = GetFullBakedGameDataPath() + BakedGameDataPathSuffix;
 
             if (!Directory.Exists(dirName))
             {

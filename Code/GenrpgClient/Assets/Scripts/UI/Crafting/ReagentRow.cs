@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 public class ReagentRow : BaseBehaviour
 {
     public GText ReagentCategory;
-    public GEntity IconParent;
+    public GameObject IconParent;
     public List<CraftSlotIcon> Icons;
 }

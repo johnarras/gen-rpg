@@ -1,27 +1,22 @@
 ﻿
-using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.Services;
-using Genrpg.Shared.Units.Entities;
 using System.Linq;
 using System.Threading;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 using Genrpg.Shared.Inventory.Constants;
-using Genrpg.Shared.MapObjects.MapObjectAddons.Constants;
-using Genrpg.Shared.MapObjects.Messages;
-using Genrpg.Shared.Vendors.MapObjectAddons;
-using Genrpg.Shared.Vendors.WorldData;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using Assets.Scripts.Crawler.Services;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Vendors.Settings;
 using System;
 using System.Collections.Generic;
 using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Utils;
-using Assets.Scripts.UI.Crawler.States;
-using UnityEngine;
-using Assets.Scripts.Crawler.Maps.Services;
 using Genrpg.Shared.Inventory.Entities;
+using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Crawler.States.Services;
+using System.Threading.Tasks;
+using Genrpg.Shared.Client.GameEvents;
+using Genrpg.Shared.Crawler.States.Constants;
 
 public class CrawlerVendorScreen : ItemIconScreen
 {
@@ -30,17 +25,19 @@ public class CrawlerVendorScreen : ItemIconScreen
     protected IInventoryService _inventoryService;
     protected ILootGenService _lootGenService;
     private ICrawlerWorldService _crawlerWorldService;
+    private IIconService _iconService;
+    
     public const string VendorIconName = "VendorItemIcon";
 
     public InventoryPanel PlayerItems;
-    public GEntity VendorItems;
+    public GameObject VendorItems;
 
 
     public GText PartyGoldText;
 
     PartyData _party;
     PartyMember _member;
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         await base.OnStartOpen(data, token);
 
@@ -64,7 +61,7 @@ public class CrawlerVendorScreen : ItemIconScreen
 
     private async void ShowVendorItems()
     {
-        GEntityUtils.DestroyAllChildren(VendorItems);
+        _gameObjectService.DestroyAllChildren(VendorItems);
 
         if (VendorItems == null)
         {
@@ -103,10 +100,10 @@ public class CrawlerVendorScreen : ItemIconScreen
                 IconPrefabName = VendorIconName,
                 Screen = this,
             };
-            IconHelper.InitItemIcon(idata, VendorItems, _assetService, _token);
+            _iconService.InitItemIcon(idata, VendorItems, _assetService, _token);
         }
 
-        _uIInitializable.SetText(PartyGoldText, StrUtils.PrintCommaValue(_party.Gold));
+        _uiService.SetText(PartyGoldText, StrUtils.PrintCommaValue(_party.Gold));
     }
 
     // Blank

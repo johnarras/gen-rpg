@@ -1,35 +1,34 @@
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.Setup.Services;
-using UI.Screens.Constants;
 using System.Threading;
-using Genrpg.Shared.Interfaces;
-using UI.Screens.Utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Reflection;
 using ClientEvents;
-using UnityEngine;
 using System;
-using Assets.Scripts.Crawler.Services;
-using static ClientWebService;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.Client.Updates;
+using Assets.Scripts.Assets;
 
-
-public interface IInitClient : IInjectable
-{
-    GameObject go { get; }
-}
 public class InitClient : BaseBehaviour, IInitClient
 {
-    public GEntity _splashImage;
-    public GameObject go { get { return gameObject; } }
 
+    public GameObject _splashImage;
+    public object go { get { return gameObject; } }
 
     private IClientAuthService _loginService;
     private ICrawlerService _crawlerService;
     private IClientWebService _webService;
+    private IClientConfigContainer _config;
+    private IClientAppService _clientAppService;
+    private IClientEntityService _entityService;
+    private ICursorService _cursorService;
+    private ILocalLoadService _localLoadService;
 
 #if UNITY_EDITOR
     public string CurrMapId;
@@ -52,13 +51,13 @@ public class InitClient : BaseBehaviour, IInitClient
 
     void Start()
     {
-        AwaitableUtils.ForgetAwaitable(OnStart());
+        TaskUtils.ForgetAwaitable(OnStart());
     }
 
-    public IUnityGameState InitialSetup()
+    public IClientGameState InitialSetup()
     {
 
-        _gs = new UnityGameState();
+        _gs = new ClientGameState();
         _gs.loc.Resolve(this);
         return _gs;
     }
@@ -69,16 +68,15 @@ public class InitClient : BaseBehaviour, IInitClient
 #if UNITY_EDITOR
         EditorInstance = this;
 #endif
-        string envName = base._gs.Config.Env.ToString();
+        string envName = _config.Config.Env.ToString();
 
-        AwaitableUtils.ForgetAwaitable(DelayRemoveSplashScreen(_gameTokenSource.Token));
+        TaskUtils.ForgetAwaitable(DelayRemoveSplashScreen(_gameTokenSource.Token));
 
         // Initial app appearance.
-        AppUtils.TargetFrameRate = 30;
-        ScreenUtils.SetupScreenSystem(2460, 1440, false, true, 2);
-        Cursors.SetCursor(Cursors.Default);
+        _clientAppService.TargetFrameRate = 30;
+        _clientAppService.SetupScreen(2460, 1440, false, true, 2);
 
-        _dispatcher.AddEvent<NewVersionEvent>(this, OnNewVersion);
+        _dispatcher.AddListener<NewVersionEvent>(OnNewVersion, _gameTokenSource.Token);
         _gs.CrawlerMode = CrawlerMode;
 
         if (_gs.CrawlerMode)
@@ -88,16 +86,16 @@ public class InitClient : BaseBehaviour, IInitClient
         }
 
         ClientWebRequest req = new ClientWebRequest();
-        string url = base._gs.Config.InitialConfigEndpoint + "?env=" + envName;
+        string url = _config.Config.InitialConfigEndpoint + "?env=" + envName;
 
-        AwaitableUtils.ForgetAwaitable(req.SendRequest(_logService, url, null, null, OnGetWebConfig, _gameTokenSource.Token));
+        TaskUtils.ForgetAwaitable(req.SendRequest(_logService, url, null, null, OnGetWebConfig, _gameTokenSource.Token));
 
         await Task.CompletedTask;
     }
 
     private void OnGetWebConfig(string txt, List<FullWebCommand> commands,  CancellationToken token)
     {
-        AwaitableUtils.ForgetAwaitable(OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token));
+        TaskUtils.ForgetAwaitable(OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token));
     }
 
     private async Awaitable OnGetWebConfigAsync(ConfigResponse response, CancellationToken token)
@@ -106,8 +104,8 @@ public class InitClient : BaseBehaviour, IInitClient
         try
         {
             _gs.LoginServerURL = response.ServerURL;
-            _gs.Config.ResponseContentRoot = response.ContentRoot;
-            _gs.Config.ResponseAssetEnv = response.AssetEnv;
+            _config.Config.ResponseContentRoot = response.ContentRoot;
+            _config.Config.ResponseAssetEnv = response.AssetEnv;
             await SetupGame(token);
         }
         catch (Exception e)
@@ -126,8 +124,8 @@ public class InitClient : BaseBehaviour, IInitClient
         ClientInitializer clientInitializer = new ClientInitializer(_gs);
         clientInitializer.AddClientServices(this, true, token);
 
-        InitialPrefabLoader prefabLoader = AssetUtils.LoadResource<InitialPrefabLoader>("Prefabs/PrefabLoader");
-        await prefabLoader.LoadPrefabs(_gs);
+        InitialPrefabLoader prefabLoader = _localLoadService.LocalLoad<InitialPrefabLoader>("Prefabs/PrefabLoader");
+        await prefabLoader.LoadPrefabs(_gs, _entityService, _localLoadService);
 
         await clientInitializer.FinalInitialize(token);
 
@@ -136,6 +134,7 @@ public class InitClient : BaseBehaviour, IInitClient
             await Awaitable.WaitForSecondsAsync(0.001f);
         }
 
+        _cursorService.SetCursor(CursorNames.Default);
         _screenService.Open(ScreenId.Loading);
 
         while (_screenService.GetScreen(ScreenId.Loading) == null)
@@ -153,7 +152,7 @@ public class InitClient : BaseBehaviour, IInitClient
         {
             await _loginService.StartNoUser(token);
         }
-        string txt2 = "ScreenWH: " + ScreenUtils.Width + "x" + ScreenUtils.Height + " -- " + Game.Prefix + " -- " + _gs.Config.Env + " -- " + AppUtils.Platform;
+        string txt2 = "ScreenWH: " + _clientAppService.ScreenWidth + "x" + _clientAppService.ScreenHeight + " -- " + Game.Prefix + " -- " + _config.Config.Env + " -- " + _clientAppService.Platform;
         _logService.Info(txt2);
     }
     
@@ -181,7 +180,7 @@ public class InitClient : BaseBehaviour, IInitClient
 
         if (_splashImage != null)
         {
-            GEntityUtils.SetActive(_splashImage, false);
+            _gameObjectService.SetActive(_splashImage, false);
             _splashImage = null;
         }
     }
@@ -189,5 +188,21 @@ public class InitClient : BaseBehaviour, IInitClient
     private void OnNewVersion(NewVersionEvent newVersion)
     {
         Caching.ClearCache();
+    }
+
+    private IGlobalUpdater _globalUpdater;
+    public void SetGlobalUpdater(IGlobalUpdater updater)
+    {
+        _globalUpdater = updater;
+    }
+
+    private void Update()
+    {
+        _globalUpdater?.OnUpdate();
+    }
+
+    private void LateUpdate()
+    {
+        _globalUpdater?.OnLateUpdate();
     }
 }

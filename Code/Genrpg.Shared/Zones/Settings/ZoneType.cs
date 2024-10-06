@@ -59,16 +59,13 @@ namespace Genrpg.Shared.Zones.Settings
         [Key(31)] public List<ZoneTypeOverride> Overrides { get; set; } = new List<ZoneTypeOverride>();
         [Key(32)] public List<ZoneUnitSpawn> ZoneUnitSpawns { get; set; } = new List<ZoneUnitSpawn>();
 
-
         [Key(33)] public string PlantChoices { get; set; }
 
         [Key(34)] public float FenceChance { get; set; }
 
-
         [Key(35)] public string Art { get; set; }
 
         [Key(36)] public long WeatherTypeId { get; set; }
-
 
         [Key(37)] public float CreviceCountScale { get; set; }
         [Key(38)] public float CreviceDepthScale { get; set; }
@@ -76,6 +73,8 @@ namespace Genrpg.Shared.Zones.Settings
 
         [Key(40)] public long MusicTypeId { get; set; }
         [Key(41)] public long AmbientMusicTypeId { get; set; }
+
+        [Key(42)] public double TraveralTimeScale { get; set; } = 1.0;
 
         public ZoneType()
         {

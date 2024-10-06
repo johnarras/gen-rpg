@@ -26,7 +26,7 @@ public class HUDScreen : BaseScreen
     
     public ChatWindow _chatWindow;
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
         _zoneUI?.Init(token);
         _minimap?.Init(token);

@@ -1,0 +1,46 @@
+﻿using Assets.Scripts.BoardGame.Controllers;
+using Assets.Scripts.BoardGame.Loading.Constants;
+using Assets.Scripts.BoardGame.Tiles;
+using Genrpg.Shared.BoardGame.PlayerData;
+using Genrpg.Shared.BoardGame.Settings;
+using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Users.PlayerData;
+using System.Threading;
+using System.Threading.Tasks;
+using UnityEngine;
+
+namespace Assets.Scripts.BoardGame.Loading.Steps
+{
+    public class LoadPlayer : BaseLoadBoardStep
+    {
+        private IClientGameState _gs;
+        private IGameData _gameData;
+        private IPlayerManager _playerManager;
+        private IBoardGameController _boardGameController;
+        public override async Awaitable Execute(BoardData boardData, CancellationToken token)
+        {
+            CoreUserData userData = _gs.ch.Get<CoreUserData>();
+
+            Marker marker = _gameData.Get<MarkerSettings>(_gs.ch).Get(userData.MarkerId);
+
+            TileArt tile = _boardGameController.GetTile(boardData.TileIndex);
+
+            _assetService.LoadAssetInto(tile.PieceAnchor, AssetCategoryNames.Markers, marker.Art + userData.MarkerTier, OnLoadMarker, null, token);
+            await Task.CompletedTask;
+        }
+
+        public override ELoadBoardSteps GetKey() { return ELoadBoardSteps.LoadPlayer; }
+
+        private void OnLoadMarker(object obj, object data, CancellationToken token)
+        {
+            GameObject go = obj as GameObject;
+
+
+            _playerManager.SetEntity(go);
+
+
+        }
+    }
+}

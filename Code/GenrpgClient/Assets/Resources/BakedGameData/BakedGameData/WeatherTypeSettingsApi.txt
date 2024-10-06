@@ -1,0 +1,538 @@
+{
+  "Data": [
+    {
+      "Id": "weathertype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Field",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.7490196,
+        "G": 0.854901969,
+        "B": 0.929411769,
+        "A": 1.0
+      },
+      "LightColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 0.870588243,
+        "A": 1.0
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "R": 0.470588237,
+        "G": 0.7529412,
+        "B": 1.0,
+        "A": 1.0
+      },
+      "FogScale": 0.002,
+      "FogColor": {
+        "R": 0.7176471,
+        "G": 0.721568644,
+        "B": 0.721568644,
+        "A": 1.0
+      },
+      "FogDistance": 100.0,
+      "CloudScale": 0.5,
+      "CloudSpeed": 0.3,
+      "CloudColor": {
+        "R": 0.9019608,
+        "G": 0.8980392,
+        "B": 0.8901961,
+        "A": 1.0
+      },
+      "WindScale": 0.5,
+      "PrecipScale": 0.4,
+      "ParticleScale": 1.0,
+      "Particles": "dust leaves",
+      "UpdateTime": "2024-08-01T00:28:16.808Z"
+    },
+    {
+      "Id": "weathertype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Forest",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.6509804,
+        "G": 0.819607854,
+        "B": 0.843137264,
+        "A": 1.0
+      },
+      "LightColor": {
+        "R": 0.9647059,
+        "G": 0.9647059,
+        "B": 0.8666667,
+        "A": 1.0
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "R": 0.31764707,
+        "G": 0.6509804,
+        "B": 0.9764706,
+        "A": 1.0
+      },
+      "FogScale": 0.0025,
+      "FogColor": {
+        "R": 0.7058824,
+        "G": 0.7058824,
+        "B": 0.7058824,
+        "A": 1.0
+      },
+      "FogDistance": 75.0,
+      "CloudScale": 0.5,
+      "CloudSpeed": 0.5,
+      "CloudColor": {
+        "R": 0.8901961,
+        "G": 0.870588243,
+        "B": 0.854901969,
+        "A": 1.0
+      },
+      "WindScale": 1.0,
+      "PrecipScale": 0.3,
+      "ParticleScale": 1.0,
+      "Particles": "dust leaves mist",
+      "UpdateTime": "2024-08-01T00:28:16.81Z"
+    },
+    {
+      "Id": "weathertype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Hills",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.7529412,
+        "G": 0.992156863,
+        "B": 1.0,
+        "A": 1.0
+      },
+      "LightColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 0.870588243,
+        "A": 1.0
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "R": 0.6901961,
+        "G": 0.854901969,
+        "B": 1.0,
+        "A": 1.0
+      },
+      "FogScale": 0.003,
+      "FogColor": {
+        "R": 0.7058824,
+        "G": 0.7058824,
+        "B": 0.7058824,
+        "A": 1.0
+      },
+      "FogDistance": 100.0,
+      "CloudScale": 0.4,
+      "CloudSpeed": 1.5,
+      "CloudColor": {
+        "R": 0.9490196,
+        "G": 0.9411765,
+        "B": 0.917647064,
+        "A": 1.0
+      },
+      "WindScale": 2.0,
+      "PrecipScale": 0.2,
+      "IsCold": true,
+      "ParticleScale": 1.0,
+      "Particles": "pineneedles leaves mist",
+      "UpdateTime": "2024-08-01T00:28:16.813Z"
+    },
+    {
+      "Id": "weathertype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Swamp",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.6666667,
+        "G": 0.768627465,
+        "B": 0.8352941,
+        "A": 1.0
+      },
+      "LightColor": {
+        "R": 0.933333337,
+        "G": 0.858823538,
+        "B": 0.768627465,
+        "A": 1.0
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "R": 0.9607843,
+        "G": 0.9254902,
+        "B": 0.870588243,
+        "A": 1.0
+      },
+      "FogScale": 0.01,
+      "FogColor": {
+        "R": 0.709803939,
+        "G": 0.6392157,
+        "B": 0.454901963,
+        "A": 1.0
+      },
+      "FogDistance": 25.0,
+      "CloudScale": 1.0,
+      "CloudSpeed": 0.25,
+      "CloudColor": {
+        "R": 0.894117653,
+        "G": 0.796078444,
+        "B": 0.6509804,
+        "A": 1.0
+      },
+      "WindScale": 0.25,
+      "PrecipScale": 0.7,
+      "ParticleScale": 3.0,
+      "Particles": "mist",
+      "UpdateTime": "2024-08-01T00:28:16.815Z"
+    },
+    {
+      "Id": "weathertype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Badlands",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.772549033,
+        "G": 0.768627465,
+        "B": 0.7647059,
+        "A": 1.0
+      },
+      "LightColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 0.9019608,
+        "A": 1.0
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "R": 0.945098042,
+        "G": 0.9411765,
+        "B": 0.945098042,
+        "A": 1.0
+      },
+      "FogScale": 0.0025,
+      "FogColor": {
+        "R": 0.8352941,
+        "G": 0.68235296,
+        "B": 0.6156863,
+        "A": 1.0
+      },
+      "FogDistance": 125.0,
+      "CloudScale": 0.22,
+      "CloudSpeed": 0.5,
+      "CloudColor": {
+        "R": 0.8666667,
+        "G": 0.858823538,
+        "B": 0.843137264,
+        "A": 1.0
+      },
+      "WindScale": 0.3,
+      "PrecipScale": 0.15,
+      "ParticleScale": 0.5,
+      "Particles": "dust",
+      "UpdateTime": "2024-08-01T00:28:16.817Z"
+    },
+    {
+      "Id": "weathertype6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Desert",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.8901961,
+        "G": 1.0,
+        "B": 1.0,
+        "A": 1.0
+      },
+      "LightColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 0.905882359,
+        "A": 1.0
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "R": 0.7294118,
+        "G": 0.8627451,
+        "B": 1.0,
+        "A": 1.0
+      },
+      "FogScale": 0.003,
+      "FogColor": {
+        "R": 0.9372549,
+        "G": 0.9254902,
+        "B": 0.6313726,
+        "A": 1.0
+      },
+      "FogDistance": 150.0,
+      "CloudScale": 0.15,
+      "CloudSpeed": 0.3,
+      "CloudColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 1.0,
+        "A": 1.0
+      },
+      "WindScale": 0.3,
+      "PrecipScale": 0.1,
+      "ParticleScale": 0.3,
+      "Particles": "dust",
+      "UpdateTime": "2024-08-01T00:28:16.82Z"
+    },
+    {
+      "Id": "weathertype7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "DarkForest",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.5529412,
+        "G": 0.6313726,
+        "B": 0.6745098,
+        "A": 1.0
+      },
+      "LightColor": {
+        "R": 0.8117647,
+        "G": 0.894117653,
+        "B": 1.0,
+        "A": 0.980392158
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "R": 0.3137255,
+        "G": 0.5529412,
+        "B": 0.8627451,
+        "A": 1.0
+      },
+      "FogScale": 0.007,
+      "FogColor": {
+        "R": 0.4627451,
+        "G": 0.5921569,
+        "B": 0.7058824,
+        "A": 1.0
+      },
+      "FogDistance": 50.0,
+      "CloudScale": 0.7,
+      "CloudSpeed": 0.8,
+      "CloudColor": {
+        "R": 0.5176471,
+        "G": 0.521568656,
+        "B": 0.5254902,
+        "A": 1.0
+      },
+      "WindScale": 0.7,
+      "PrecipScale": 0.45,
+      "ParticleScale": 2.0,
+      "Particles": "mist",
+      "UpdateTime": "2024-08-01T00:28:16.822Z"
+    },
+    {
+      "Id": "weathertype8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Savannah",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.8117647,
+        "G": 0.929411769,
+        "B": 0.9607843,
+        "A": 1.0
+      },
+      "LightColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 0.8901961,
+        "A": 1.0
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "R": 0.709803939,
+        "G": 0.847058833,
+        "B": 1.0,
+        "A": 1.0
+      },
+      "FogScale": 0.004,
+      "FogColor": {
+        "R": 0.8235294,
+        "G": 0.7921569,
+        "B": 0.7019608,
+        "A": 1.0
+      },
+      "FogDistance": 100.0,
+      "CloudScale": 0.5,
+      "CloudSpeed": 1.5,
+      "CloudColor": {
+        "R": 0.8235294,
+        "G": 0.807843149,
+        "B": 0.7921569,
+        "A": 1.0
+      },
+      "WindScale": 1.5,
+      "PrecipScale": 0.5,
+      "ParticleScale": 1.0,
+      "Particles": "leaves",
+      "UpdateTime": "2024-08-01T00:28:16.825Z"
+    },
+    {
+      "Id": "weathertype9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "CrawlerOutdoors",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.7490196,
+        "G": 0.854901969,
+        "B": 0.929411769,
+        "A": 1.0
+      },
+      "LightColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 0.870588243,
+        "A": 1.0
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "R": 0.470588237,
+        "G": 0.7529412,
+        "B": 1.0,
+        "A": 1.0
+      },
+      "FogScale": 0.002,
+      "FogColor": {
+        "R": 0.7176471,
+        "G": 0.721568644,
+        "B": 0.721568644,
+        "A": 1.0
+      },
+      "FogDistance": 100.0,
+      "CloudScale": 0.5,
+      "CloudSpeed": 0.3,
+      "CloudColor": {
+        "R": 0.9019608,
+        "G": 0.8980392,
+        "B": 0.8901961,
+        "A": 1.0
+      },
+      "WindScale": 0.5,
+      "PrecipScale": 0.4,
+      "ParticleScale": 1.0,
+      "Particles": "dust leaves",
+      "UpdateTime": "2024-08-01T00:28:16.827Z"
+    },
+    {
+      "Id": "weathertype10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "CrawlerCity",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.7490196,
+        "G": 0.854901969,
+        "B": 0.929411769,
+        "A": 1.0
+      },
+      "LightColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 0.870588243,
+        "A": 1.0
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "R": 0.470588237,
+        "G": 0.7529412,
+        "B": 1.0,
+        "A": 1.0
+      },
+      "FogScale": 0.002,
+      "FogColor": {
+        "R": 0.7176471,
+        "G": 0.721568644,
+        "B": 0.721568644,
+        "A": 1.0
+      },
+      "FogDistance": 100.0,
+      "CloudScale": 0.5,
+      "CloudSpeed": 0.3,
+      "CloudColor": {
+        "R": 0.9019608,
+        "G": 0.8980392,
+        "B": 0.8901961,
+        "A": 1.0
+      },
+      "WindScale": 0.5,
+      "PrecipScale": 0.4,
+      "ParticleScale": 1.0,
+      "Particles": "dust leaves",
+      "UpdateTime": "2024-08-01T00:28:16.803Z"
+    },
+    {
+      "Id": "weathertype11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "CrawlerDungeon",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "AmbientColor": {
+        "R": 0.3019608,
+        "G": 0.3019608,
+        "B": 0.3019608,
+        "A": 1.0
+      },
+      "LightColor": {
+        "A": 1.0
+      },
+      "LightScale": 1.0,
+      "SkyColor": {
+        "A": 1.0
+      },
+      "FogScale": 0.002,
+      "FogColor": {
+        "A": 1.0
+      },
+      "FogDistance": 100.0,
+      "CloudScale": 0.5,
+      "CloudSpeed": 0.3,
+      "CloudColor": {
+        "A": 1.0
+      },
+      "WindScale": 0.5,
+      "PrecipScale": 0.4,
+      "ParticleScale": 1.0,
+      "Particles": "dust leaves",
+      "UpdateTime": "2024-08-01T00:28:16.806Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "WeatherTypeSettings",
+    "UpdateTime": "2024-08-01T00:28:16.83Z"
+  },
+  "Id": "default"
+}

@@ -4,7 +4,7 @@
   "IdKey": 31,
   "Name": "Lightning Bolt",
   "Desc": "Hit one or more monsters with electric damage.",
-  "PowerCost": 6,
+  "PowerCost": 6.0,
   "PowerPerLevel": 0.5,
   "MaxRange": 100,
   "CombatActionId": 4,

@@ -2,7 +2,6 @@ using Genrpg.Editor.Entities.Copying;
 using Genrpg.Editor.Entities.Core;
 using Genrpg.Editor.Services.Reflection;
 using Genrpg.Editor.UI;
-using Genrpg.Editor.UI.Constants;
 using Genrpg.Editor.Utils;
 using Genrpg.Shared.Constants;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
@@ -24,6 +23,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Threading;
+using Genrpg.Editor.Constants;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.

@@ -21,6 +21,7 @@ namespace Genrpg.Shared.BoardGame.Settings
     {
         [Key(0)] public long BoardPrizeId { get; set; }
         [Key(1)] public double Weight { get; set; }
+        [Key(2)] public string Name { get; set; }
     }
 
 
@@ -31,16 +32,17 @@ namespace Genrpg.Shared.BoardGame.Settings
     }
 
     [MessagePackObject]
-    public class BoardPrize : ChildSettings, IIdName
+    public class BoardPrize : ChildSettings, IIndexedGameItem
     {
 
         [Key(0)] public override string Id { get; set; }
         [Key(1)] public override string ParentId { get; set; }
         [Key(2)] public long IdKey { get; set; }
         [Key(3)] public override string Name { get; set; }
-        [Key(4)] public long VisualEntityTypeId { get; set; } // What it looks like
-        [Key(5)] public long VisualEntityId { get; set; } // What it looks like
-        [Key(6)] public List<SpawnItem> LootTable { get; set; } = new List<SpawnItem>(); // What it actually spawns
+        [Key(4)] public string Desc { get; set; }
+        [Key(5)] public string Icon { get; set; }
+        [Key(6)] public string Art { get; set; }
+        [Key(7)] public List<SpawnItem> LootTable { get; set; } = new List<SpawnItem>(); // What it actually spawns
     }
 
     [MessagePackObject]

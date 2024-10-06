@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Genrpg.Shared.Core.Entities;
+﻿
 using ClientEvents;
-using UI.Screens.Constants;
 using Assets.Scripts.Core.Interfaces;
 using Genrpg.Shared.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using Genrpg.Shared.UI.Entities;
 
 public interface IPopupManager : IInitializable, IInjectOnLoad<IPopupManager>
 {
@@ -21,7 +16,7 @@ public class PopupManager : BaseBehaviour, IPopupManager
     public override void Init()
     {
         base.Init();
-        _dispatcher.AddEvent<ShowLootEvent>(this, OnLootPopup);
+        AddListener<ShowLootEvent>(OnLootPopup);
 
     }
     public async Task Initialize(CancellationToken token)

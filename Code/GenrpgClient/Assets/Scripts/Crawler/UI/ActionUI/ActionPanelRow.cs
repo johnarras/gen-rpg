@@ -1,40 +1,49 @@
 ﻿using Assets.Scripts.ClientEvents;
-using Assets.Scripts.Crawler.CrawlerStates;
-using Assets.Scripts.Crawler.Services;
-using Assets.Scripts.Crawler.UI.Utils;
+using Assets.Scripts.MVC;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
-using Assets.Scripts.UI.Crawler.States;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Crawler.States.Constants;
+using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.MVC.Interfaces;
+using Genrpg.Shared.UI.Interfaces;
+using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Utils;
 using System.Threading;
-using UnityEngine;
-using UnityEngine.EventSystems;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.UI.Crawler.ActionUI
 {
-    public class ActionPanelRow : BaseBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class ActionPanelRow : BaseViewController<CrawlerStateWithAction,IView>
     {
 
         private ICrawlerService _crawlerService;
+        private ITextService _textService;
+        public IView View;
 
-        public GButton Button;
-        public GText Text;
-
+        IText Text;
+        IButton Button;
         protected CrawlerStateAction _action = null;
-        protected CrawlerStateData _data = null;
-        protected CancellationToken _token;
-        public void Init(CrawlerStateData data, CrawlerStateAction action, CancellationToken token)
+        protected CrawlerStateData _state = null;
+
+        public override async Task Init(CrawlerStateWithAction model, IView view, CancellationToken token)
         {
-            _action = action;
-            _data = data;
-            _token = token;
+            await base.Init(model, view, token);
+            _action = model.Action;
+            _state = model.State;
+
+            Text = _view.Get<IText>("Text");
+            Button = _view.Get<IButton>("Button");
+
+            _uiService.AddPointerHandlers(view, OnPointerEnter, OnPointerExit);
 
             if (_action != null)
             {
-                string text = action.Text;
+                string text = _action.Text;
 
-                if (_action.Key == KeyCode.Escape)
+                if (_action.Key == CharCodes.Escape)
                 {
-                    text = $"\n\nPress {CrawlerUIUtils.HighlightText("Escape")} to return to " + StrUtils.SplitOnCapitalLetters(_action.NextState.ToString());                
+                    text = $"\n\nPress {_textService.HighlightText("Escape")} to return to " + StrUtils.SplitOnCapitalLetters(_action.NextState.ToString());                
                 }
                 else if (text != null && text.Length > 0 && char.IsLetterOrDigit(text[0]))
                 {
@@ -42,13 +51,19 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
                         char.ToLower(text[0]) == (char)(_action.Key))
                     {
                         char firstLetter = text[0];
-                        text = $"{CrawlerUIUtils.HighlightText(text[0])} {text.Substring(1)}";
+                        text = $"{_textService.HighlightText(text[0])} {text.Substring(1)}";
                     }
                 }
 
-                _uIInitializable.SetText(Text, text);
+                if (_state.UseSmallerButtons)
+                {
+                    _uiService.SetAutoSizing(Text, true);
+                }
 
-                _uIInitializable.SetButton(Button, "ActionTextRow", ClickAction);
+
+                _uiService.SetText(Text, text);
+
+                _uiService.SetButton(Button, "ActionTextRow", ClickAction);
 
             }
         }
@@ -57,13 +72,13 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
         {
             if (_action != null && _action.NextState != ECrawlerStates.None)
             {
-                _crawlerService.ChangeState(_data, _action, _token);  
+                _crawlerService.ChangeState(_state, _action, _token);  
             }
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public void OnPointerExit()
         {
-            Text.alpha = 1.0f;
+            _uiService.SetAlpha(Text, 1.0f);
             if (_action != null && _action.OnPointerExit != null)
             {
                 _action?.OnPointerExit();
@@ -74,10 +89,10 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
             }
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public void OnPointerEnter()
         {
 
-            Text.alpha = 0.5f;
+            _uiService.SetAlpha(Text, 0.5f);
             if (_action != null)
             { 
                 if (!string.IsNullOrEmpty(_action.SpriteName))

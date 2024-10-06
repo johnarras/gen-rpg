@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.GameSettings.Interfaces;
+﻿using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Assets.Scripts.GameSettings.Services
     {
         Awaitable SaveSettings(IGameSettings settings);
 
-        Awaitable LoadCachedSettings(IUnityGameState gs);
+        Awaitable LoadCachedSettings(IClientGameState gs);
 
     }
 }

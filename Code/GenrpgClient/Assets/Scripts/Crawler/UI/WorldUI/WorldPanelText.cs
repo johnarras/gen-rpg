@@ -1,24 +1,22 @@
-﻿using Assets.Scripts.Crawler.CrawlerStates;
-using Assets.Scripts.Crawler.Services;
-using Assets.Scripts.UI.Crawler.CrawlerPanels;
-using Assets.Scripts.UI.Crawler.States;
-using Genrpg.Shared.Utils;
+﻿using Assets.Scripts.MVC;
+using Genrpg.Shared.MVC.Interfaces;
+using Genrpg.Shared.UI.Interfaces;
 using System.Threading;
-using UnityEngine;
-using UnityEngine.EventSystems;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.UI.Crawler.WorldUI
 {
-    public class WorldPanelText : BaseBehaviour
+    public class WorldPanelText : BaseViewController<string,IView>
     {
+        private IText _text;
 
-        public GText Text;
-
-        private string _text = null;
-        public void Init(string text, CancellationToken token)
+        public override async Task Init(string newText, IView view, CancellationToken token)
         {
-            _text = text;
-            _uIInitializable.SetText(Text, text);
+            await base.Init(newText, view, token);
+
+            _text = view.Get<IText>("Text");
+
+            _uiService.SetText(_text, newText);
         }
     }
 }

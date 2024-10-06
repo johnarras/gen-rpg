@@ -16,6 +16,8 @@
   "MaxArmorScalingTypeId": 1,
   "CritPercent": 10,
   "ManaStatTypeId": 12,
+  "TrainingXpScale": 1.0,
+  "TrainingGoldScale": 1.0,
   "Bonuses": [
     {
       "EntityTypeId": 2,
@@ -124,7 +126,15 @@
     {
       "EntityTypeId": 101,
       "EntityId": 5
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10032
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10034
     }
   ],
-  "UpdateTime": "2024-08-30T22:57:22.623Z"
+  "UpdateTime": "2024-10-05T23:56:53.124Z"
 }

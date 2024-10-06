@@ -13,7 +13,6 @@ namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
 {
     public interface ICharacterLoadUpdater : IOrderedSetupDictionaryItem<Type>
     {
-        int Order { get; }
         Task Update(WebContext context, Character ch);
     }
 }

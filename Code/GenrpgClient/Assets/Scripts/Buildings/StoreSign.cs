@@ -15,7 +15,7 @@ namespace Assets.Scripts.Buildings
             _btype = btype;
             _spawn = spawn;
 
-            _uIInitializable.SetText(SignText, _btype.Name);
+            _uiService.SetText(SignText, _btype.Name);
         }
     }
 }

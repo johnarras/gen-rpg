@@ -57,7 +57,10 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
         [Key(18)] public long ManaStatTypeId { get; set; }
         [Key(19)] public bool Guardian { get; set; } = false;
 
-        [Key(20)] public List<RoleBonus> Bonuses { get; set; } = new List<RoleBonus>();
+        [Key(20)] public double TrainingXpScale { get; set; }
+        [Key(21)] public double TrainingGoldScale { get; set; }
+
+        [Key(22)] public List<RoleBonus> Bonuses { get; set; } = new List<RoleBonus>();
     }
 
 

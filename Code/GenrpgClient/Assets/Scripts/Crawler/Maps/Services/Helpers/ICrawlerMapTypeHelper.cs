@@ -1,6 +1,6 @@
 ﻿
-using Assets.Scripts.Crawler.Maps.Constants;
-using Assets.Scripts.Crawler.Maps.Entities;
+using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Maps.GameObjects;
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -17,6 +17,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         int GetBlockingBits(CrawlerMapRoot mapRoot, int startx, int startz, int endx, int endz, bool allowBuildingEntry);
 
-        Awaitable DrawCell(CrawlerWorld world, PartyData party, CrawlerMapRoot mapRoot, UnityMapCell cell, int xpos, int zpos, CancellationToken token);
+        Awaitable DrawCell(CrawlerWorld world, PartyData party, CrawlerMapRoot mapRoot, ClientMapCell cell, int xpos, int zpos, CancellationToken token);
     }
 }

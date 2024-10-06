@@ -3,16 +3,16 @@ using Genrpg.Shared.Levels.Messages;
 using Genrpg.Shared.Spells.Messages;
 using Genrpg.Shared.Units.Constants;
 using Genrpg.Shared.Units.Entities;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 public class UnitFrame : BaseBehaviour
 {
     public CoreUnitUI _unitUI;
     public List<UnitStatBar> _statBar;
     public CastBar _castBar;
-    public GEntity _contentRoot;
+    public GameObject _contentRoot;
     public ExpBar _expBar;
-    public GEntity _effectParent;
+    public GameObject _effectParent;
     private Unit _unit;
     protected UnitController _controller;
 
@@ -24,12 +24,12 @@ public class UnitFrame : BaseBehaviour
 
     public void Init(Unit unitIn)
     {
-        _dispatcher.AddEvent<NewLevel>(this, OnLevelUpdate);
-        _dispatcher.AddEvent<OnAddEffect>(this, AddVisualEffect);
-        _dispatcher.AddEvent<OnRemoveEffect>(this, RemoveVisualEffect);
-        _dispatcher.AddEvent<OnUpdateEffect>(this, UpdateVisualEffect);
+        AddListener<NewLevel>(OnLevelUpdate);
+        AddListener<OnAddEffect>(AddVisualEffect);
+        AddListener<OnRemoveEffect>(RemoveVisualEffect);
+        AddListener<OnUpdateEffect>(UpdateVisualEffect );
         _unit = unitIn;
-        _controller = GEntityUtils.FindInParents<UnitController>(entity);
+        _controller = _gameObjectService.FindInParents<UnitController>(entity);
         if (_controller != null)
         {
             _controller.SetUnitFrame(this);
@@ -91,8 +91,8 @@ public class UnitFrame : BaseBehaviour
             showStar = false;
         }
 
-        GEntityUtils.SetActive(_contentRoot, shouldShow);
-        GEntityUtils.SetActive(_currentTargetIcon, showStar);
+        _gameObjectService.SetActive(_contentRoot, shouldShow);
+        _gameObjectService.SetActive(_currentTargetIcon, showStar);
     }
 
     private void OnLevelUpdate(NewLevel newLevel)

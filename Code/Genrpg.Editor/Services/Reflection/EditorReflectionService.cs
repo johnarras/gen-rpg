@@ -226,7 +226,7 @@ namespace Genrpg.Editor.Services.Reflection
                 list.Add(allFields[f]);
             }
 
-            list = ListUtils.OrderOn(list, "Name");
+            list = OrderOn(list, "Name");
 
             MemberInfo idval = null;
 
@@ -1132,7 +1132,7 @@ namespace Genrpg.Editor.Services.Reflection
 
             }
 
-            list = ListUtils.OrderOn(list, "Name");
+            list = OrderOn(list, "Name");
             return list;
         }
 
@@ -1573,11 +1573,11 @@ namespace Genrpg.Editor.Services.Reflection
                     return elist;
                 }
 
-                List<SortHelper> olist = new List<SortHelper>();
+                List<SortData> olist = new List<SortData>();
 
                 foreach (object item in elist)
                 {
-                    SortHelper sh = new SortHelper();
+                    SortData sh = new SortData();
                     sh.SortVal = item;
                     sh.SortKey = GetObjectValue(item, prop);
                     olist.Add(sh);
@@ -1599,7 +1599,7 @@ namespace Genrpg.Editor.Services.Reflection
 
                 MethodInfo addMethod = ltype.GetMethod("Add", new[] { utype });
 
-                foreach (SortHelper item in olist)
+                foreach (SortData item in olist)
                 {
                     addMethod.Invoke(nlist, new[] { item.SortVal });
                 }
@@ -1611,6 +1611,97 @@ namespace Genrpg.Editor.Services.Reflection
                 return elist;
             }
 
+        }
+
+        /// <summary>
+        /// A bad implementation of OrderOn. Uses InsertionSort and Reflection.
+        /// </summary>
+        /// <typeparam name="T">The Type of the List</typeparam>
+        /// <param name="list"></param>
+        /// <param name="memberName">What member name we will sort on</param>
+        /// <param name="numeric">Is this a numeric or string sorting</param>
+        /// <param name="descending">Ascending or descending order</param>
+        /// <returns>The newly ordered list.</returns>
+        public List<T> OrderOn<T>(List<T> list, string memberName, bool numeric = false, bool descending = false)
+        {
+
+            List<T> list2 = new List<T>();
+            if (list == null)
+            {
+                return list2;
+            }
+            if (string.IsNullOrEmpty(memberName))
+            {
+                return list;
+            }
+            for (int ii = 0; ii < list.Count; ii++)
+            {
+                T item = list[ii];
+                if (list2.Count < 1)
+                {
+                    list2.Add(item);
+                    continue;
+                }
+
+
+                bool addedItem = false;
+                object val = EntityUtils.GetObjectValue(item, memberName);
+
+                if (val == null)
+                {
+                    val = "";
+                }
+                string valStr = val.ToString();
+
+                // Now search backwards till we find something that's before this object.
+                for (int i = list2.Count - 1; i >= 0; i--)
+                {
+                    T item2 = list2[i];
+                    object val2 = EntityUtils.GetObjectValue(item2, memberName);
+                    if (val2 == null)
+                    {
+                        val2 = "";
+                    }
+                    string valStr2 = val2.ToString();
+
+                    if (!numeric && string.Compare(valStr, valStr2) >= 0)
+                    {
+
+                        list2.Insert(i + 1, item);
+                        addedItem = true;
+                        break;
+                    }
+
+                    if (numeric)
+                    {
+                        double double1 = 0.0;
+                        double double2 = 0.0;
+                        double.TryParse(valStr, out double1);
+                        double.TryParse(valStr2, out double2);
+
+                        if (double1 >= double2)
+                        {
+                            list2.Insert(i + 1, item);
+                            addedItem = true;
+                            break;
+                        }
+                    }
+                }
+
+                // All items too big put this at front.
+                if (!addedItem)
+                {
+                    list2.Insert(0, item);
+                }
+
+            }
+
+            if (descending)
+            {
+                list2.Reverse();
+            }
+
+            return list2;
         }
     }
 }

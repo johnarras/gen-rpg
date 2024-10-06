@@ -4,7 +4,7 @@
   "IdKey": 43,
   "Name": "Summon Elemental",
   "Desc": "Summon an elemental.",
-  "PowerCost": 10,
+  "PowerCost": 10.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,

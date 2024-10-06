@@ -882,5 +882,6 @@
   "WeatherTypeId": 2,
   "MusicTypeId": 4,
   "AmbientMusicTypeId": 8,
-  "UpdateTime": "2024-08-31T18:56:29.231Z"
+  "TraveralTimeScale": 5.0,
+  "UpdateTime": "2024-09-14T16:14:39.118Z"
 }

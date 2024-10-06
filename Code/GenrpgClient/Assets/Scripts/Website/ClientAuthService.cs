@@ -1,26 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-
 using Assets.Scripts.GameSettings.Services;
 using Genrpg.Shared.DataStores.Interfaces;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Website.Messages.Login;
-using UI.Screens.Constants;
-using GEntity = UnityEngine.GameObject;
-using Genrpg.Shared.Website.Messages.NoUserGameData;
+using UnityEngine;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Logging.Interfaces;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
-using UnityEngine;
 using Genrpg.Shared.Website.Interfaces;
 using Genrpg.Shared.Website.Messages.Signup;
 using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Website.Messages;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.UI.Services;
+using Genrpg.Shared.UI.Entities;
 
 
 public interface IClientAuthService : IInitializable
@@ -50,7 +49,10 @@ public class ClientAuthService : IClientAuthService
     protected IGameData _gameData;
     protected IPlayerManager _playerManager;
     protected IMapProvider _mapProvider;
-    protected IUnityGameState _gs;
+    protected IClientGameState _gs;
+    private IClientConfigContainer _config;
+    private IClientCryptoService _clientCryptoService;
+    private IClientAppService _clientAppService;
 
     public async Task Initialize(CancellationToken token)
     {
@@ -70,7 +72,7 @@ public class ClientAuthService : IClientAuthService
             try
             {
                 userid = localData.UserId;
-                password = CryptoUtils.DecryptString(localData.LoginToken);
+                password = _clientCryptoService.DecryptString(localData.LoginToken);
             }
             catch (Exception ex)
             {
@@ -84,11 +86,11 @@ public class ClientAuthService : IClientAuthService
                 UserId = userid,
                 Email = email,
                 Password = password,
-                ClientVersion = AppUtils.Version,
-                DeviceId = CryptoUtils.GetDeviceId(),
+                ClientVersion = _clientAppService.Version,
+                DeviceId = _clientCryptoService.GetDeviceId(),
             };
 
-            AwaitableUtils.ForgetAwaitable(LoginToServer(loginCommand, token));
+            TaskUtils.ForgetAwaitable(LoginToServer(loginCommand, token));
             _screenService.Open(ScreenId.Loading, true);
             return;
         }
@@ -138,7 +140,7 @@ public class ClientAuthService : IClientAuthService
         {
             Id = LocalUserFilename,
             UserId = userId,
-            LoginToken = CryptoUtils.EncryptString(loginToken),
+            LoginToken = _clientCryptoService.EncryptString(loginToken),
         };
 
         await _repoService.Save(localUserData);
@@ -147,7 +149,7 @@ public class ClientAuthService : IClientAuthService
 
     public async Awaitable LoginToServer(LoginCommand command, CancellationToken token)
     {
-        command.AccountProductId = _gs.Config.AccountProductId;
+        command.AccountProductId = _config.Config.AccountProductId;
 
         try
         {
@@ -202,7 +204,7 @@ public class ClientAuthService : IClientAuthService
 
     public async Awaitable Signup(SignupCommand command, CancellationToken token)
     {
-        command.AccountProductId = _gs.Config.AccountProductId;
+        command.AccountProductId = _config.Config.AccountProductId;
         _clientWebService.SendAuthWebCommand(command, token);
         await Task.CompletedTask;
     }

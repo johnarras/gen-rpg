@@ -1,8 +1,5 @@
 using MessagePack;
 using Genrpg.Shared.Crawler.Spells.Settings;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Genrpg.Shared.Spells.Settings.Elements;
 
 namespace Genrpg.Shared.Crawler.Combat.Entities

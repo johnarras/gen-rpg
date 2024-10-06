@@ -17,7 +17,7 @@ public class SetTerrainTextures : BaseZoneGenerator
         {
             for (int gy = 0; gy < _mapProvider.GetMap().BlockCount; gy++)
             {
-                AwaitableUtils.ForgetAwaitable(_terrainTextureManager.SetOneTerrainPatchLayers(_terrainManager.GetTerrainPatch(gx, gy, true), token, true));
+                TaskUtils.ForgetAwaitable(_terrainTextureManager.SetOneTerrainPatchLayers(_terrainManager.GetTerrainPatch(gx, gy, true), token, true));
             }
             await Awaitable.NextFrameAsync(cancellationToken: token);
         }

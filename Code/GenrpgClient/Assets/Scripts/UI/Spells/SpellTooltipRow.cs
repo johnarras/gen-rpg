@@ -7,11 +7,11 @@ public class SpellTooltipRow : BaseBehaviour
     {
         if (rowData == null)
         {
-            GEntityUtils.Destroy(entity);
+            _gameObjectService.Destroy(entity);
             return;
         }
 
-        _uIInitializable.SetText(TextRow, rowData.text);
+        _uiService.SetText(TextRow, rowData.text);
 
     }
 }

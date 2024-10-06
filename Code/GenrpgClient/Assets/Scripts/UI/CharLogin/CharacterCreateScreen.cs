@@ -1,9 +1,9 @@
 ﻿
-using UI.Screens.Constants;
 using System.Threading;
 using Genrpg.Shared.Website.Messages.CreateChar;
 using UnityEngine;
 using System.Threading.Tasks;
+using Genrpg.Shared.UI.Entities;
 
 public class CharacterCreateScreen : BaseScreen
 {
@@ -13,10 +13,10 @@ public class CharacterCreateScreen : BaseScreen
     public GButton CreateButton;
     public GButton BackButton;
 
-    protected override async Awaitable OnStartOpen(object data, CancellationToken token)
+    protected override async Task OnStartOpen(object data, CancellationToken token)
     {
-        _uIInitializable.SetButton(CreateButton, GetName(), ClickCreate);
-        _uIInitializable.SetButton(BackButton, GetName(),ClickBack);
+        _uiService.SetButton(CreateButton, GetName(), ClickCreate);
+        _uiService.SetButton(BackButton, GetName(),ClickBack);
 
         await Task.CompletedTask;
     }

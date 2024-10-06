@@ -174,6 +174,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
                     if (chanceChosen <= 0)
                     {
                         currArray[(int)newPrizeIndexes[n]] = prizeSpawns[i].BoardPrizeId;
+                        break;
                     }
                 }
             }

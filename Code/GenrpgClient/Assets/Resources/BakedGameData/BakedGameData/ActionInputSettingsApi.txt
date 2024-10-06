@@ -1,0 +1,9 @@
+{
+  "Data": [],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "InputSettings",
+    "UpdateTime": "2024-08-01T00:28:07.231Z"
+  },
+  "Id": "default"
+}

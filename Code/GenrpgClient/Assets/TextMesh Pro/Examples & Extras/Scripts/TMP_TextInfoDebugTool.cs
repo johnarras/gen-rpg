@@ -127,12 +127,12 @@ namespace TMPro.Examples
                 // Draw character bounds
                 if (characterInfo.isVisible)
                 {
-                    Color color = Color.green;
+                    UnityEngine.Color color = UnityEngine.Color.green;
                     DrawDottedRectangle(bottomLeft, topRight, color);
                 }
                 else
                 {
-                    Color color = Color.grey;
+                    UnityEngine.Color color = UnityEngine.Color.grey;
 
                     float whiteSpaceAdvance = Math.Abs(characterInfo.origin - characterInfo.xAdvance) > 0.01f ? characterInfo.xAdvance : characterInfo.origin + (characterInfo.ascender - characterInfo.descender) * 0.03f;
                     DrawDottedRectangle(m_Transform.TransformPoint(new Vector3(characterInfo.origin, characterInfo.descender, 0)), m_Transform.TransformPoint(new Vector3(whiteSpaceAdvance, characterInfo.ascender, 0)), color, 4);
@@ -148,7 +148,7 @@ namespace TMPro.Examples
                 Vector3 ascentlineStart = m_Transform.TransformPoint(new Vector3(origin, ascentline, 0));
                 Vector3 ascentlineEnd = m_Transform.TransformPoint(new Vector3(advance, ascentline, 0));
 
-                Handles.color = Color.cyan;
+                Handles.color = UnityEngine.Color.cyan;
                 Handles.DrawDottedLine(ascentlineStart, ascentlineEnd, dottedLineSize);
 
                 // Draw Cap Height & Mean line
@@ -163,11 +163,11 @@ namespace TMPro.Examples
                 if (characterInfo.isVisible)
                 {
                     // Cap line
-                    Handles.color = Color.cyan;
+                    Handles.color = UnityEngine.Color.cyan;
                     Handles.DrawDottedLine(capHeightStart, capHeightEnd, dottedLineSize);
 
                     // Mean line
-                    Handles.color = Color.cyan;
+                    Handles.color = UnityEngine.Color.cyan;
                     Handles.DrawDottedLine(meanlineStart, meanlineEnd, dottedLineSize);
                 }
 
@@ -175,30 +175,30 @@ namespace TMPro.Examples
                 Vector3 baselineStart = m_Transform.TransformPoint(new Vector3(origin, baseline, 0));
                 Vector3 baselineEnd = m_Transform.TransformPoint(new Vector3(advance, baseline, 0));
 
-                Handles.color = Color.cyan;
+                Handles.color = UnityEngine.Color.cyan;
                 Handles.DrawDottedLine(baselineStart, baselineEnd, dottedLineSize);
 
                 //Draw Descent line
                 Vector3 descentlineStart = m_Transform.TransformPoint(new Vector3(origin, descentline, 0));
                 Vector3 descentlineEnd = m_Transform.TransformPoint(new Vector3(advance, descentline, 0));
 
-                Handles.color = Color.cyan;
+                Handles.color = UnityEngine.Color.cyan;
                 Handles.DrawDottedLine(descentlineStart, descentlineEnd, dottedLineSize);
 
                 // Draw Origin
                 Vector3 originPosition = m_Transform.TransformPoint(new Vector3(origin, baseline, 0));
-                DrawCrosshair(originPosition, 0.05f / m_ScaleMultiplier, Color.cyan);
+                DrawCrosshair(originPosition, 0.05f / m_ScaleMultiplier, UnityEngine.Color.cyan);
 
                 // Draw Horizontal Advance
                 Vector3 advancePosition = m_Transform.TransformPoint(new Vector3(advance, baseline, 0));
-                DrawSquare(advancePosition, 0.025f / m_ScaleMultiplier, Color.yellow);
-                DrawCrosshair(advancePosition, 0.0125f / m_ScaleMultiplier, Color.yellow);
+                DrawSquare(advancePosition, 0.025f / m_ScaleMultiplier, UnityEngine.Color.yellow);
+                DrawCrosshair(advancePosition, 0.0125f / m_ScaleMultiplier, UnityEngine.Color.yellow);
 
                 // Draw text labels for metrics
                if (m_HandleSize < 0.5f)
                {
                    GUIStyle style = new GUIStyle(GUI.skin.GetStyle("Label"));
-                   style.normal.textColor = new Color(0.6f, 0.6f, 0.6f, 1.0f);
+                   style.normal.textColor = new UnityEngine.Color(0.6f, 0.6f, 0.6f, 1.0f);
                    style.fontSize = 12;
                    style.fixedWidth = 200;
                    style.fixedHeight = 20;
@@ -277,7 +277,7 @@ namespace TMPro.Examples
                 float maxAscender = -Mathf.Infinity;
                 float minDescender = Mathf.Infinity;
 
-                Color wordColor = Color.green;
+                UnityEngine.Color wordColor = UnityEngine.Color.green;
 
                 // Iterate through each character of the word
                 for (int j = 0; j < wInfo.characterCount; j++)
@@ -383,7 +383,7 @@ namespace TMPro.Examples
                 float maxAscender = -Mathf.Infinity;
                 float minDescender = Mathf.Infinity;
 
-                Color32 linkColor = Color.cyan;
+                Color32 linkColor = UnityEngine.Color.cyan;
 
                 // Iterate through each character of the link text
                 for (int j = 0; j < linkInfo.linkTextLength; j++)
@@ -495,34 +495,34 @@ namespace TMPro.Examples
                 float dottedLineSize = 12;
 
                 // Draw line extents
-                DrawDottedRectangle(m_Transform.TransformPoint(lineInfo.lineExtents.min), m_Transform.TransformPoint(lineInfo.lineExtents.max), Color.green, 4);
+                DrawDottedRectangle(m_Transform.TransformPoint(lineInfo.lineExtents.min), m_Transform.TransformPoint(lineInfo.lineExtents.max), UnityEngine.Color.green, 4);
 
                 // Draw Ascent line
                 Vector3 ascentlineStart = m_Transform.TransformPoint(new Vector3(lineBottomLeft, ascentline, 0));
                 Vector3 ascentlineEnd = m_Transform.TransformPoint(new Vector3(lineTopRight, ascentline, 0));
 
-                Handles.color = Color.yellow;
+                Handles.color = UnityEngine.Color.yellow;
                 Handles.DrawDottedLine(ascentlineStart, ascentlineEnd, dottedLineSize);
 
                 // Draw Base line
                 Vector3 baseLineStart = m_Transform.TransformPoint(new Vector3(lineBottomLeft, baseline, 0));
                 Vector3 baseLineEnd = m_Transform.TransformPoint(new Vector3(lineTopRight, baseline, 0));
 
-                Handles.color = Color.yellow;
+                Handles.color = UnityEngine.Color.yellow;
                 Handles.DrawDottedLine(baseLineStart, baseLineEnd, dottedLineSize);
 
                 // Draw Descent line
                 Vector3 descentLineStart = m_Transform.TransformPoint(new Vector3(lineBottomLeft, descentline, 0));
                 Vector3 descentLineEnd = m_Transform.TransformPoint(new Vector3(lineTopRight, descentline, 0));
 
-                Handles.color = Color.yellow;
+                Handles.color = UnityEngine.Color.yellow;
                 Handles.DrawDottedLine(descentLineStart, descentLineEnd, dottedLineSize);
 
                 // Draw text labels for metrics
                 if (m_HandleSize < 1.0f)
                 {
                     GUIStyle style = new GUIStyle();
-                    style.normal.textColor = new Color(0.8f, 0.8f, 0.8f, 1.0f);
+                    style.normal.textColor = new UnityEngine.Color(0.8f, 0.8f, 0.8f, 1.0f);
                     style.fontSize = 12;
                     style.fixedWidth = 200;
                     style.fixedHeight = 20;
@@ -557,7 +557,7 @@ namespace TMPro.Examples
             Vector3 bottomLeft = m_TextComponent.transform.position + meshBounds.min;
             Vector3 topRight = m_TextComponent.transform.position + meshBounds.max;
 
-            DrawRectangle(bottomLeft, topRight, new Color(1, 0.5f, 0));
+            DrawRectangle(bottomLeft, topRight, new UnityEngine.Color(1, 0.5f, 0));
         }
 
 
@@ -568,12 +568,12 @@ namespace TMPro.Examples
             Vector3 bottomLeft = m_TextComponent.transform.position + (textBounds.center - textBounds.extents);
             Vector3 topRight = m_TextComponent.transform.position + (textBounds.center + textBounds.extents);
 
-            DrawRectangle(bottomLeft, topRight, new Color(0f, 0.5f, 0.5f));
+            DrawRectangle(bottomLeft, topRight, new UnityEngine.Color(0f, 0.5f, 0.5f));
         }
 
 
         // Draw Rectangles
-        void DrawRectangle(Vector3 BL, Vector3 TR, Color color)
+        void DrawRectangle(Vector3 BL, Vector3 TR, UnityEngine.Color color)
         {
             Gizmos.color = color;
 
@@ -583,7 +583,7 @@ namespace TMPro.Examples
             Gizmos.DrawLine(new Vector3(TR.x, BL.y, 0), new Vector3(BL.x, BL.y, 0));
         }
 
-        void DrawDottedRectangle(Vector3 bottomLeft, Vector3 topRight, Color color, float size = 5.0f)
+        void DrawDottedRectangle(Vector3 bottomLeft, Vector3 topRight, UnityEngine.Color color, float size = 5.0f)
         {
             Handles.color = color;
             Handles.DrawDottedLine(bottomLeft, new Vector3(bottomLeft.x, topRight.y, bottomLeft.z), size);
@@ -592,14 +592,14 @@ namespace TMPro.Examples
             Handles.DrawDottedLine(new Vector3(topRight.x, bottomLeft.y, bottomLeft.z), bottomLeft, size);
         }
 
-        void DrawSolidRectangle(Vector3 bottomLeft, Vector3 topRight, Color color, float size = 5.0f)
+        void DrawSolidRectangle(Vector3 bottomLeft, Vector3 topRight, UnityEngine.Color color, float size = 5.0f)
         {
             Handles.color = color;
             Rect rect = new Rect(bottomLeft, topRight - bottomLeft);
-            Handles.DrawSolidRectangleWithOutline(rect, color, Color.black);
+            Handles.DrawSolidRectangleWithOutline(rect, color, UnityEngine.Color.black);
         }
 
-        void DrawSquare(Vector3 position, float size, Color color)
+        void DrawSquare(Vector3 position, float size, UnityEngine.Color color)
         {
             Handles.color = color;
             Vector3 bottomLeft = new Vector3(position.x - size, position.y - size, position.z);
@@ -613,7 +613,7 @@ namespace TMPro.Examples
             Handles.DrawLine(bottomRight, bottomLeft);
         }
 
-        void DrawCrosshair(Vector3 position, float size, Color color)
+        void DrawCrosshair(Vector3 position, float size, UnityEngine.Color color)
         {
             Handles.color = color;
 
@@ -623,7 +623,7 @@ namespace TMPro.Examples
 
 
         // Draw Rectangles
-        void DrawRectangle(Vector3 bl, Vector3 tl, Vector3 tr, Vector3 br, Color color)
+        void DrawRectangle(Vector3 bl, Vector3 tl, Vector3 tr, Vector3 br, UnityEngine.Color color)
         {
             Gizmos.color = color;
 
@@ -635,7 +635,7 @@ namespace TMPro.Examples
 
 
         // Draw Rectangles
-        void DrawDottedRectangle(Vector3 bl, Vector3 tl, Vector3 tr, Vector3 br, Color color)
+        void DrawDottedRectangle(Vector3 bl, Vector3 tl, Vector3 tr, Vector3 br, UnityEngine.Color color)
         {
             var cam = Camera.current;
             float dotSpacing = (cam.WorldToScreenPoint(br).x - cam.WorldToScreenPoint(bl).x) / 75f;

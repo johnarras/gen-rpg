@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using UI.Screens.Constants;
 
 using System.Threading;
 using UnityEngine.UI; // FIX
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using Genrpg.Shared.UI.Entities;
+using System.Threading.Tasks;
 
 public abstract class BaseScreen : AnimatorBehaviour, IScreen
 {
@@ -22,7 +22,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
   
 
     // Called when screen first opens.
-    protected abstract Awaitable OnStartOpen(object data, CancellationToken token);
+    protected abstract Task OnStartOpen(object data, CancellationToken token);
 
 
     public override void Init()
@@ -59,7 +59,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
         return _raycasters;
     }
 
-    public virtual async Awaitable StartOpen(object data, CancellationToken token)
+    public virtual async Task StartOpen(object data, CancellationToken token)
     {
         _screenSource = CancellationTokenSource.CreateLinkedTokenSource(token);
         _token = _screenSource.Token;
@@ -136,6 +136,7 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
     {
         _screenService.FinishClose(ScreenID);
     }
+
 }
 
 

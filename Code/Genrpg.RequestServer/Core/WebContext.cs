@@ -12,6 +12,7 @@ using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Users.PlayerData;
 using System.Runtime.InteropServices;
 using Genrpg.Shared.GameSettings.PlayerData;
+using Genrpg.Shared.Website.Messages.Error;
 
 namespace Genrpg.RequestServer.Core
 {
@@ -161,6 +162,11 @@ namespace Genrpg.RequestServer.Core
             }
             Set(item);
             return item;
+        }
+
+        public void ShowError(string error)
+        {
+            Results.Add(new ErrorResult() { Error = error });
         }
     }
 }

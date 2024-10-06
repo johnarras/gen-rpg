@@ -25,5 +25,6 @@
   "Art": "",
   "MusicTypeId": 1,
   "AmbientMusicTypeId": 1,
-  "UpdateTime": "2024-08-31T18:56:29.231Z"
+  "TraveralTimeScale": 1.0,
+  "UpdateTime": "2024-09-14T16:14:39.118Z"
 }

@@ -1,4 +1,6 @@
 ﻿
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Client.GameEvents;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;

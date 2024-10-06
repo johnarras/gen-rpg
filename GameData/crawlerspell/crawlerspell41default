@@ -4,7 +4,7 @@
   "IdKey": 41,
   "Name": "Call Beast",
   "Desc": "Summon a beast.",
-  "PowerCost": 10,
+  "PowerCost": 10.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,

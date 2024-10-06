@@ -21,6 +21,7 @@ namespace Genrpg.ServerShared.Maps
         Task<List<MapStub>> GetMapStubs();
         Task<Map> LoadMap(IRandom rand, string mapId);
         Task SaveMap(IRepositoryService repoService, Map map);
+        string GetMapOwnerId(string mapId, int mapVersion);
     }
 
     public class MapDataService : IMapDataService
@@ -55,6 +56,11 @@ namespace Genrpg.ServerShared.Maps
             return allStubs;
         }
 
+        public string GetMapOwnerId(string mapId, int mapVersion)
+        {
+            return mapId + "-" + mapVersion;
+        }
+
         public async Task<Map> LoadMap(IRandom rand, string mapId)
         {
             MapRoot root = await _repoService.Load<MapRoot>(mapId);
@@ -71,7 +77,7 @@ namespace Genrpg.ServerShared.Maps
 
             Map map = SerializationUtils.Deserialize<Map>(SerializationUtils.Serialize(root));
 
-            string mapOwnerId = Map.GetMapOwnerId(map);
+            string mapOwnerId = GetMapOwnerId(map.Id, map.MapVersion);
 
             map.Zones = await LoadMapDataList<Zone>(rand, mapOwnerId);
             map.Quests = await LoadMapDataList<QuestType>(rand, mapOwnerId);
@@ -90,7 +96,7 @@ namespace Genrpg.ServerShared.Maps
                 // Do not save map. It's too big.
                 await _repoService.Save(mapRoot);
 
-                string mapOwnerId = Map.GetMapOwnerId(map);
+                string mapOwnerId = GetMapOwnerId(map.Id, map.MapVersion);
 
                 await SaveMapDataList(repoService, map.Zones, map.Id, map.MapVersion);
                 await SaveMapDataList(repoService, map.Quests, map.Id, map.MapVersion);
@@ -105,7 +111,7 @@ namespace Genrpg.ServerShared.Maps
         protected async Task SaveMapDataList<T>(IRepositoryService repoService, List<T> list, string mapId, int mapVersion) where T : class, IMapOwnerId, IId
         {
             await repoService.DeleteAll<T>(x => x.MapId == mapId);
-            string ownerId = Map.GetMapOwnerId(mapId, mapVersion);
+            string ownerId = GetMapOwnerId(mapId, mapVersion);
             foreach (T t in list)
             {
                 t.OwnerId = ownerId;

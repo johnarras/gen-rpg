@@ -719,5 +719,6 @@
   "CreviceWidthScale": 0.6,
   "MusicTypeId": 3,
   "AmbientMusicTypeId": 8,
-  "UpdateTime": "2024-08-31T18:56:29.231Z"
+  "TraveralTimeScale": 2.0,
+  "UpdateTime": "2024-09-14T16:14:39.118Z"
 }

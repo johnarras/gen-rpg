@@ -8,6 +8,7 @@ using System.Threading;
 using Genrpg.Shared.ProcGen.Settings.LineGen;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Services;
+using Genrpg.Shared.Client.Core;
 
 public interface IAddRoadService : IInjectable
 {
@@ -20,7 +21,7 @@ public class AddRoadService : IAddRoadService
 {
     protected ILineGenService _lineGenService;
     protected IMapProvider _mapProvider;
-    protected IUnityGameState _gs;
+    protected IClientGameState _gs;
     protected IMapGenData _md;
 
     protected MyPoint GetClosestEndpoint (List<MyPoint> list, int sx, int sy, int areaSize)

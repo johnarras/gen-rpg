@@ -25,15 +25,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.MapServer.Services;
-using Assets.Scripts.ProcGen.RandomNumbers;
+using Genrpg.Shared.Client.Core;
 
 public interface IMapGenService : IInitializable
 {
 
     Map GenerateMap(Map startMap);
-    void CreateZones(IUnityGameState gs);
-    void SetPrevNextZones(IUnityGameState gs);
-    void AddNPCs(IUnityGameState gs);
+    void CreateZones(IClientGameState gs);
+    void SetPrevNextZones(IClientGameState gs);
+    void AddNPCs(IClientGameState gs);
 }
 
 
@@ -48,7 +48,7 @@ public class MapGenService : IMapGenService
     protected ILogService _logService;
     protected IGameData _gameData;
     protected IMapProvider _mapProvider;
-    protected IUnityGameState _gs;
+    protected IClientGameState _gs;
     protected IClientRandom _rand;
     protected IMapGenData _md;
     public Map GenerateMap(Map startMap)
@@ -122,7 +122,7 @@ public class MapGenService : IMapGenService
     }
 
        
-    public void SetMinMaxSizes(IUnityGameState gs)
+    public void SetMinMaxSizes(IClientGameState gs)
     {
         foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
@@ -258,7 +258,7 @@ public class MapGenService : IMapGenService
         }
     }
 
-    public virtual void SetPrevNextZones(IUnityGameState gs)
+    public virtual void SetPrevNextZones(IClientGameState gs)
     {
         int numAdjacent = 3;
         List<Zone> orderedZones = _mapProvider.GetMap().Zones.OrderBy(x => x.Level).ToList();
@@ -340,7 +340,7 @@ public class MapGenService : IMapGenService
     }
 
 
-    public void AddNPCs(IUnityGameState gs)
+    public void AddNPCs(IClientGameState gs)
     {
         foreach (Zone zone in _mapProvider.GetMap().Zones)
         {
@@ -453,7 +453,7 @@ public class MapGenService : IMapGenService
         }
     }
 
-    public void CreateZones(IUnityGameState gs)
+    public void CreateZones(IClientGameState gs)
     {
         if (_mapProvider.GetMap() == null || _md.mapZoneIds == null)
         {

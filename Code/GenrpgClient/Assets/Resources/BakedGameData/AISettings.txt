@@ -7,5 +7,5 @@
   "BaseUnitSpeed": 5.0,
   "BringAFriendRadius": 20.0,
   "Name": "AISettings",
-  "UpdateTime": "2024-08-01T00:27:58.56Z"
+  "UpdateTime": "2024-09-28T16:54:05.545Z"
 }

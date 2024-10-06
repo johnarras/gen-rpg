@@ -16,6 +16,14 @@ using System.Text;
 
 namespace Genrpg.Shared.Crawler.Parties.PlayerData
 {
+
+    [MessagePackObject]
+    public class StatRegenFraction
+    {
+        [Key(0)] public long StatTypeId { get; set; }
+        [Key(1)] public double Fraction { get; set; }
+    }
+
     [MessagePackObject]
     public class PartyMember : CrawlerUnit
     {
@@ -31,6 +39,8 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         public const long PermStatSize = StatConstants.PrimaryStatEnd - StatConstants.PrimaryStatStart + 1;
 
         private long[] _permStats { get; set; } = new long[PermStatSize];
+
+        [Key(4)] public List<StatRegenFraction> RegenFractions { get; set; } = new List<StatRegenFraction>();
 
         public void ClearPermStats()
         {
@@ -64,14 +74,14 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         }
 
 
-        [Key(4)] public long Exp { get; set; }
+        [Key(5)] public long Exp { get; set; }
 
-        [Key(5)] public List<PartySummon> Summons { get; set; } = new List<PartySummon>();
+        [Key(6)] public List<PartySummon> Summons { get; set; } = new List<PartySummon>();
 
-        [Key(6)] public long WarpMapId { get; set; }
-        [Key(7)] public int WarpMapX { get; set; }
-        [Key(8)] public int WarpMapZ { get; set; }
-        [Key(9)] public int WarpRot { get; set; }
+        [Key(7)] public long WarpMapId { get; set; }
+        [Key(8)] public int WarpMapX { get; set; }
+        [Key(9)] public int WarpMapZ { get; set; }
+        [Key(10)] public int WarpRot { get; set; }
 
         public PartyMember(IRepositoryService repositoryService) : base(repositoryService) { }  
 
@@ -98,12 +108,5 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         }
 
         protected override bool AlwaysCreateMissingData() { return true; }
-    }
-
-    [MessagePackObject]
-    public class MemberStat
-    {
-        [Key(0)] public short Id { get; set; }
-        [Key(1)] public int Val { get; set; }
     }
 }

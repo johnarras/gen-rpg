@@ -1,0 +1,31 @@
+{
+  "Data": [
+    {
+      "Id": "storeslot1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Gem Store",
+      "UpdateTime": "2024-08-01T00:28:13.682Z"
+    },
+    {
+      "Id": "storeslot2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Gold Store",
+      "UpdateTime": "2024-08-01T00:28:13.685Z"
+    },
+    {
+      "Id": "storeslot3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Bundle Store",
+      "UpdateTime": "2024-08-01T00:28:13.687Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "StoreSlotSettings",
+    "UpdateTime": "2024-08-01T00:28:13.69Z"
+  },
+  "Id": "default"
+}

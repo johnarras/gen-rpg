@@ -22,9 +22,11 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
 {
 
     private ILogService _logger;
-    public ClientRepositoryCollection(ILogService logger)
+    private IClientAppService _clientAppService;
+    public ClientRepositoryCollection(ILogService logger, IClientAppService clientAppService)
     {
         _logger = logger;
+        _clientAppService = clientAppService;
     }
 
     public virtual async Awaitable<bool> SaveAll(List<T> list)
@@ -161,9 +163,9 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
 
 
 
-    protected static string GetPathPrefix()
+    protected string GetPathPrefix()
     {
-        string prefix = AssetUtils.GetPerisistentDataPath() + "/Data";
+        string prefix = _clientAppService.PersistentDataPath + "/Data";
 #if DEMO_BUILD
     if (InitProject.Env != EnvNames.Prod && !string.IsNullOrEmpty(Application.version))
     {

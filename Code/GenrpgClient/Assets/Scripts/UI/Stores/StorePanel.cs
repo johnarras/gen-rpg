@@ -1,10 +1,11 @@
 ﻿
+using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
 using System.Collections.Generic;
 using System.Threading;
-using GEntity = UnityEngine.GameObject;
+using UnityEngine;
 
 namespace Assets.Scripts.UI.Stores
 {
@@ -14,7 +15,7 @@ namespace Assets.Scripts.UI.Stores
         const string ProductPanelPrefab = "StoreProductPanel";
 
         public GText Header;
-        public GEntity ProductParent;
+        public GameObject ProductParent;
 
         private List<StoreProductPanel> _panels = new List<StoreProductPanel>();
 
@@ -34,7 +35,7 @@ namespace Assets.Scripts.UI.Stores
 
             _theme = _gameData.Get<StoreThemeSettings>(_gs.ch).Get(offer.StoreThemeId);
 
-            _uIInitializable.SetText(Header, _offer.Name);
+            _uiService.SetText(Header, _offer.Name);
 
             foreach (PlayerOfferProduct product in _offer.Products)
             {
@@ -45,7 +46,7 @@ namespace Assets.Scripts.UI.Stores
         
         private void OnLoadStorePanel(object obj, object data, CancellationToken token)
         {
-            GEntity go = obj as GEntity;
+            GameObject go = obj as GameObject;
 
             if (go == null)
             {
