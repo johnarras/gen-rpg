@@ -1,4 +1,5 @@
 ﻿
+using Assets.Scripts.Awaitables;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Ftue.Constants;
 using Genrpg.Shared.Ftue.Services;
@@ -14,6 +15,7 @@ namespace Assets.Scripts.Ftue.Services
     public class ClientFtueService : FtueService
     {
         IScreenService _screenService = null;
+        protected IAwaitableService _awaitableService;
 
         public override FtueStep StartStep(IRandom random, Character ch, long ftueStepId)
         {
@@ -24,7 +26,7 @@ namespace Assets.Scripts.Ftue.Services
                 return null;
             }
 
-            TaskUtils.ForgetAwaitable(ClientStartOpen(newStep));
+            _awaitableService.ForgetAwaitable(ClientStartOpen(newStep));
 
             return newStep;
         }

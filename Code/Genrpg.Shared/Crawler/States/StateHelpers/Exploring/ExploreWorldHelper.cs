@@ -86,7 +86,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
             CrawlerWorld world = await _worldService.GetWorld(party.WorldId);
             stateData.Actions.Add(new CrawlerStateAction("Cast", 'C', ECrawlerStates.SelectAlly));
-            stateData.Actions.Add(new CrawlerStateAction("Inn", 'I', ECrawlerStates.TavernMain));
+            stateData.Actions.Add(new CrawlerStateAction("Inn", 'I', ECrawlerStates.GuildMain));
             stateData.Actions.Add(new CrawlerStateAction("Train", 'T', ECrawlerStates.TrainingMain));
             stateData.Actions.Add(new CrawlerStateAction("Vendor", 'V', ECrawlerStates.Vendor));
             stateData.Actions.Add(new CrawlerStateAction("Fight", 'F', ECrawlerStates.StartCombat));

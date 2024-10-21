@@ -13,7 +13,7 @@ public class LoadInitialData : BaseZoneGenerator
     public override async Awaitable Generate(CancellationToken token)
     {
         await base.Generate(token);
-        TaskUtils.ForgetAwaitable(LoadInitialMapData(token));
+        _awaitableService.ForgetAwaitable(LoadInitialMapData(token));
     }
 
     public async Awaitable LoadInitialMapData(CancellationToken token)

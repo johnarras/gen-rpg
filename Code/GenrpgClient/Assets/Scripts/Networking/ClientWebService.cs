@@ -18,6 +18,7 @@ using UnityEngine;
 using Genrpg.Shared.Website.Messages.Error;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Client.Tokens;
+using Assets.Scripts.Awaitables;
 
 public delegate void WebResultsHandler(string txt, List<FullWebCommand> commands, CancellationToken token);
 
@@ -71,9 +72,9 @@ public class ClientWebService : IClientWebService
     protected IClientGameState _gs = null;
     private IClientUpdateService _updateService;
     protected ILogService _logService;
-    public ClientWebService(CancellationToken token)
+    private IAwaitableService _awaitableService;
+    public ClientWebService()
     {
-        _token = token;
     }
 
     // Web endpoints.
@@ -188,6 +189,7 @@ public class ClientWebService : IClientWebService
         private string _fullEndpoint;
         private ILogService _logService;
         private IClientWebService _clientWebService;
+        private IAwaitableService _awaitableService;
 
         public WebRequestQueue(IClientGameState gs, CancellationToken token, string fullEndpoint, float delaySeconds, ILogService logService, IClientWebService _clientWebService, WebRequestQueue parentQueue = null)
         {
@@ -267,7 +269,7 @@ public class ClientWebService : IClientWebService
 
             string commandText = SerializationUtils.Serialize(commandSet);
 
-            TaskUtils.ForgetAwaitable(req.SendRequest(_logService, _fullEndpoint, commandText, _pending.ToList(), HandleResults, fullRequestSource.Token));
+            _awaitableService.ForgetAwaitable(req.SendRequest(_logService, _fullEndpoint, commandText, _pending.ToList(), HandleResults, fullRequestSource.Token));
         }
 
         public void HandleResults(string txt, List<FullWebCommand> commands, CancellationToken token)

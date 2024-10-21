@@ -68,11 +68,6 @@ public class ClientConfig : ScriptableObject, IConnectionConfig
     }
 #endif
 
-    public static ClientConfig Load(ILocalLoadService localLoadService)
-    {
-        return localLoadService.LocalLoad<ClientConfig>("Config/ClientConfig");
-    }
-
     public string GetConnectionString(string key)
     {
         return "";

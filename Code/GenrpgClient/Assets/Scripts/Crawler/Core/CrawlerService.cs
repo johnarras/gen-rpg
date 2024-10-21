@@ -28,6 +28,7 @@ using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Crawler.Combat.Services;
 using Genrpg.Shared.Crawler.States.StateHelpers;
 using System.Collections.Concurrent;
+using Genrpg.Shared.Tasks.Services;
 
 namespace Assets.Scripts.Crawler.Services
 {
@@ -45,6 +46,7 @@ namespace Assets.Scripts.Crawler.Services
         protected ICrawlerWorldService _worldService;
         protected ILootGenService _lootGenService;
         private IInputService _inputService;
+        protected ITaskService _taskService;
 
         public const string SaveFileSuffix = ".sav";
         public const string StartSaveFileName = "Start" + SaveFileSuffix;
@@ -93,7 +95,7 @@ namespace Assets.Scripts.Crawler.Services
             CrawlerWorld world = await _worldService.GetWorld(this._party.WorldId);
 
             await Task.CompletedTask;
-            ChangeState(ECrawlerStates.TavernMain, token);
+            ChangeState(ECrawlerStates.GuildMain, token);
             await UpdateCrawlerUI();
         }
 
@@ -132,7 +134,7 @@ namespace Assets.Scripts.Crawler.Services
 
                 _crawlerMapService.ClearMovement();
 
-                TaskUtils.ForgetTask(ChangeStateAsync(fullCrawlerState, token));
+                _taskService.ForgetTask(ChangeStateAsync(fullCrawlerState, token));
             }
         }
 
@@ -508,7 +510,7 @@ namespace Assets.Scripts.Crawler.Services
             {
                 if (currentData.Id == ECrawlerStates.ExploreWorld)
                 {
-                    TaskUtils.ForgetTask(UpdateMovementAsync(token));
+                    _taskService.ForgetTask(UpdateMovementAsync(token));
                 }
             }
         }
@@ -558,10 +560,6 @@ namespace Assets.Scripts.Crawler.Services
                             return;
                         }
                     }
-                    else if (detail.EntityTypeId == EntityTypes.Riddle)
-                    {
-                        ChangeState(ECrawlerStates.Riddle, token, detail);
-                    }
                 }
             }
 
@@ -574,23 +572,27 @@ namespace Assets.Scripts.Crawler.Services
                     : encounterBits == MapEncounters.Trap ? nameof(MapEncounters.Trap) :
                     encounterBits == MapEncounters.Monsters ? nameof(MapEncounters.Monsters) : "Unknown";
 
-                bool didVisit = _crawlerMapService.PartyHasVisited(_party.MapId, _party.MapX, _party.MapZ, thisRunOnly);
+                bool didVisitEver = _crawlerMapService.PartyHasVisited(_party.MapId, _party.MapX, _party.MapZ, false);
+                bool didVisitThisRun = _crawlerMapService.PartyHasVisited(_party.MapId, _party.MapX, _party.MapZ, true);
+                if (!didVisitEver)
+                {
+                    if (FlagUtils.IsSet(encounterBits, MapEncounters.Treasure))
+                    {
+                        ChangeState(ECrawlerStates.GiveLoot, token);
+                    }
+                }
 
-                if (!didVisit)
+                if (!didVisitThisRun)
                 {
                     if (FlagUtils.IsSet(encounterBits, MapEncounters.Monsters))
                     {
                         InitialCombatState initialCombatState = new InitialCombatState()
                         {
-                            Difficulty = 2,
+                            Difficulty = 1.5f,
                         };
                         ChangeState(ECrawlerStates.StartCombat, token, initialCombatState);
                         return;
                     }
-                    else if (FlagUtils.IsSet(encounterBits, MapEncounters.Treasure))
-                    {
-                        ChangeState(ECrawlerStates.GiveLoot, token);
-                    }  
                 }
             }
 

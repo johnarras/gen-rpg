@@ -11,10 +11,13 @@ using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Client.Tokens;
 using Genrpg.Shared.Client.Assets.Constants;
+using Assets.Scripts.Awaitables;
+using UnityEngine.UI;
 
 public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, IInjectOnLoad<IScreenService>
 {
     private IAnalyticsService _analyticsService;
+    protected IAwaitableService _awaitableService;
     public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;
@@ -55,20 +58,20 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
             return;
         }
         _haveSetupLayers = true;
-        _gameObjectService.DestroyAllChildren(entity);
+        _clientEntityService.DestroyAllChildren(entity);
         for (int i = 0; i < Layers.Count; i++)
         {
             Layers[i].CurrentScreen = null;
             Layers[i].ScreenQueue = new List<ActiveScreen>();
         }
 
-        _gameObjectService.DestroyAllChildren(entity);
+        _clientEntityService.DestroyAllChildren(entity);
         for (int i = 0; i < Layers.Count; i++)
         {
             Layers[i].LayerParent = new GameObject();
             Layers[i].LayerParent.name = Layers[i].LayerId + "Layer";
             Layers[i].Index = i;
-            _gameObjectService.AddToParent(Layers[i].LayerParent, entity);
+            _clientEntityService.AddToParent(Layers[i].LayerParent, entity);
             if (Layers[i].LayerId == ScreenLayers.DragItems)
             {
                 DragParent = Layers[i].LayerParent;
@@ -129,7 +132,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
 
     private void OnLoadScreen(object obj, object data, CancellationToken token)
     {
-        TaskUtils.ForgetAwaitable(OnLoadScreenAsync(obj, data, token));
+        _awaitableService.ForgetAwaitable(OnLoadScreenAsync(obj, data, token));
     }
 
     private async Awaitable OnLoadScreenAsync (object obj, object data, CancellationToken token)
@@ -147,7 +150,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
         if (nextItem ==null)
         {
             _logService.Debug("Couldn't find active screen object for new screen");
-            _gameObjectService.Destroy(screen);
+            _clientEntityService.Destroy(screen);
             return;
         }
 
@@ -156,7 +159,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
         if (layer == null)
         {
             _logService.Debug("Couldn't find active screen layer for new screen");
-            _gameObjectService.Destroy(screen);
+            _clientEntityService.Destroy(screen);
             return;
         }
 
@@ -165,7 +168,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
 
         if (bs == null)
         {
-            _gameObjectService.Destroy(screen);
+            _clientEntityService.Destroy(screen);
             _logService.Debug("Screen had no BaseScreen on it");
             return;
         }
@@ -179,7 +182,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
             canvas.sortingOrder = layer.Index * 10;
         }
 
-        Camera cam = _gameObjectService.GetComponent<Camera>(screen);
+        Camera cam = _clientEntityService.GetComponent<Camera>(screen);
         if (cam != null)
         {
             cam.depth = 100 * (layer.Index + 1);
@@ -190,9 +193,26 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
         layer.CurrentScreen = nextItem;
         layer.CurrentLoading = null;
         _analyticsService.Send(AnalyticsEvents.OpenScreen, nextItem.Screen.GetName());
+        List<Canvas> canvases = _clientEntityService.GetComponents<Canvas>(nextItem.Screen);
+
+
+        _clientEntityService.SetActive(nextItem.Screen, false);
+
+        foreach (Canvas canvas2 in canvases)
+        {
+            canvas2.enabled = false;
+        }
+
         await nextItem.Screen.StartOpen(nextItem.Data, nextItem.Screen.GetToken());
         ClearAllScreensList();
 
+        await Awaitable.NextFrameAsync(token);
+
+        _clientEntityService.SetActive(nextItem.Screen, true);
+        foreach (Canvas canvas2 in canvases)
+        {
+            canvas2.enabled = true;
+        }
     }
 
     public void StringOpen (string screenName, object data = null)
@@ -298,7 +318,7 @@ public class ScreenService : BaseBehaviour, IScreenService, IGameTokenService, I
                 BaseScreen baseScreen = layer.CurrentScreen.Screen as BaseScreen;
                 if (baseScreen != null)
                 {
-                    _gameObjectService.Destroy(baseScreen.gameObject);
+                    _clientEntityService.Destroy(baseScreen.gameObject);
                 }
                 _analyticsService.Send(AnalyticsEvents.CloseScreen, baseScreen.GetName());
                 layer.CurrentScreen = null;

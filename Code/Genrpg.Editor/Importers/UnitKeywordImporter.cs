@@ -6,6 +6,7 @@ using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
+using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.UnitEffects.Settings;
@@ -34,7 +35,9 @@ namespace Genrpg.Editor.Importers
         const int DamBonusCol = 2;
         const int MinRangeCol = 3;
         const int MinLevelCol = 4;
-        const int ColumnCount = 5;
+        const int VulnerabilityCol = 5;
+        const int ResistCol = 6;
+        const int ColumnCount = 7;
 
         protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
         {
@@ -47,6 +50,8 @@ namespace Genrpg.Editor.Importers
             IReadOnlyList<CrawlerSpell> crawlerSpells = gs.data.Get<CrawlerSpellSettings>(null).GetData();
 
             IReadOnlyList<StatusEffect> statusEffects = gs.data.Get<StatusEffectSettings>(null).GetData();  
+
+            IReadOnlyList<ElementType> elementTypes = gs.data.Get<ElementTypeSettings>(null).GetData();
 
             gs.LookedAtObjects.Add(gs.data.Get<UnitKeywordSettings>(null));
 
@@ -142,6 +147,10 @@ namespace Genrpg.Editor.Importers
                         continue;
                     }
                 }
+
+                unitKeyword.Effects.AddRange(ReadElementWords(words[VulnerabilityCol], EntityTypes.Vulnerability, elementTypes));
+                unitKeyword.Effects.AddRange(ReadElementWords(words[ResistCol], EntityTypes.Resist, elementTypes));
+
                 newList.Add(unitKeyword);
             }
             settings.SetData(newList);

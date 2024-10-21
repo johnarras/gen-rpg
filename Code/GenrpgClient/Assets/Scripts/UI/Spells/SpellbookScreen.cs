@@ -246,7 +246,7 @@ public class SpellbookScreen : SpellIconScreen
         // Get rid of extra effect blocks
         while (_effectEdits.Count > spell.Effects.Count)
         {
-            _gameObjectService.Destroy(_effectEdits[_effectEdits.Count - 1].gameObject);
+            _clientEntityService.Destroy(_effectEdits[_effectEdits.Count - 1].gameObject);
             _effectEdits.RemoveAt(_effectEdits.Count - 1);
         }
 

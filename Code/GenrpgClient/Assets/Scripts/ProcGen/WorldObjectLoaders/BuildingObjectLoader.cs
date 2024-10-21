@@ -53,7 +53,7 @@ public class BuildingObjectLoader : BaseMapObjectLoader
             return;
         }
         loadData.FixedPosition = true;
-        MapBuilding building = _gameObjectService.GetOrAddComponent<MapBuilding>(go);
+        MapBuilding building = _clientEntityService.GetOrAddComponent<MapBuilding>(go);
 
         BuildingType buildingType = _gameData.Get<BuildingSettings>(_gs.ch).Get(loadData.Spawn.EntityId);
 

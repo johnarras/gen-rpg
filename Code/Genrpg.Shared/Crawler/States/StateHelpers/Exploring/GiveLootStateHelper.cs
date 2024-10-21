@@ -122,7 +122,6 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
             }
 
             stateData.Actions.Add(new CrawlerStateAction($"\n\nPress {_textService.HighlightText("Space")} to continue...", CharCodes.Space, ECrawlerStates.ExploreWorld));
-
             await _crawlerService.SaveGame();
 
             return stateData;

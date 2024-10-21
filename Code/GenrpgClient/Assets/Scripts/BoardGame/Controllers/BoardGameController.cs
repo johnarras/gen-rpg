@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.BoardGame.Services;
+﻿using Assets.Scripts.Awaitables;
+using Assets.Scripts.BoardGame.Services;
 using Assets.Scripts.BoardGame.Tiles;
 using Assets.Scripts.GameObjects;
 using Assets.Scripts.ProcGen.Components;
@@ -7,6 +8,7 @@ using Genrpg.Shared.BoardGame.PlayerData;
 using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.MVC.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -23,8 +25,9 @@ namespace Assets.Scripts.BoardGame.Controllers
         void LoadCurrentBoard();
         void ShowDiceRoll(RollDiceResult result);
         void RollDice();
-        void SetTiles();
-        TileArt GetTile(long indeX);
+        void SetTiles(List<TileController> tiles);
+        IReadOnlyList<TileController> GetTiles();
+        TileController GetTile(long indeX);
     }
 
     public class BoardGameController : IBoardGameController
@@ -36,13 +39,18 @@ namespace Assets.Scripts.BoardGame.Controllers
         private IClientWebService _clientWebService;
         private IClientUpdateService _updateService;
         private ISingletonContainer _singletonContainer;
+        protected IAwaitableService _awaitableService;
 
         private CancellationToken _gameToken;
         private CancellationTokenSource _boardSource;
         private ICameraController _cameraController;
         private IPlayerManager _playerManager;
-        private IClientEntityService _gameObjectService;
-        private List<TileArt> _tiles = new List<TileArt>();   
+        private IClientEntityService _clientEntityService;
+
+        private List<IView> _viewList = new List<IView>();
+        private List<TileController> _tiles = new List<TileController>();   
+
+        
 
         public async Task Initialize(CancellationToken token)
         {
@@ -72,12 +80,17 @@ namespace Assets.Scripts.BoardGame.Controllers
             return _boardAnchor;
         }
 
-        public void SetTiles()
+        public void SetTiles(List<TileController> tiles)
         {
-            _tiles = _gameObjectService.GetComponents<TileArt>(_boardAnchor).OrderBy(x=>x.MarkerPos.Index).ToList();  
+            _tiles = tiles.OrderBy(x=>x.MarkerPos.Index).ToList();  
         }
 
-        public TileArt GetTile(long index)
+        public IReadOnlyList<TileController> GetTiles()
+        {
+            return _tiles;
+        }
+
+        public TileController GetTile(long index)
         {
             return _tiles.FirstOrDefault(x=>x.MarkerPos.Index == index);    
         }
@@ -98,7 +111,7 @@ namespace Assets.Scripts.BoardGame.Controllers
         public void LoadCurrentBoard()
         {
             RefreshBoardToken();
-            TaskUtils.ForgetAwaitable(LoadCurrentBoardAsync(_boardSource.Token));
+            _awaitableService.ForgetAwaitable(LoadCurrentBoardAsync(_boardSource.Token));
         }
 
         private async Awaitable LoadCurrentBoardAsync(CancellationToken token)
@@ -113,7 +126,7 @@ namespace Assets.Scripts.BoardGame.Controllers
 
         public void ShowDiceRoll(RollDiceResult result)
         {
-            TaskUtils.ForgetAwaitable(ShowDiceRollAsync(result,_boardSource.Token));
+            _awaitableService.ForgetAwaitable(ShowDiceRollAsync(result,_boardSource.Token));
         }
 
         private async Awaitable ShowDiceRollAsync(RollDiceResult result, CancellationToken token)

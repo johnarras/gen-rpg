@@ -1,4 +1,5 @@
 ﻿
+using Assets.Scripts.Awaitables;
 using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.Client.Tokens;
@@ -28,6 +29,7 @@ namespace Assets.Scripts.Pathfinding.Utils
         private IAssetService _assetService;
         private CancellationToken _token;
         private ILogService _logService;
+        protected IAwaitableService _awaitableService;
 
         public void SetMapToken(CancellationToken token)
         {
@@ -62,7 +64,7 @@ namespace Assets.Scripts.Pathfinding.Utils
                 }
 
                 _logService.Info("Path:\n" + sb.ToString());
-                TaskUtils.ForgetAwaitable(DelayDestroyObjects(pathObjects));
+                _awaitableService.ForgetAwaitable(DelayDestroyObjects(pathObjects));
             }
         }
 

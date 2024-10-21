@@ -7,6 +7,7 @@
   "Abbrev": "Elf",
   "RoleCategoryId": 2,
   "RangedScaling": 0.1,
+  "StartStatBonuses": "0 2 2 2 0 0",
   "Bonuses": [],
-  "UpdateTime": "2024-10-05T23:56:53.124Z"
+  "UpdateTime": "2024-10-20T18:48:00.956Z"
 }

@@ -58,7 +58,7 @@ public class InputService : IInputService
     private IGameData _gameData;
     private IRealtimeNetworkService _networkService;
     IClientMapObjectManager _objectManager;
-    private IClientEntityService _gameObjectService;
+    private IClientEntityService _clientEntityService;
 
     public async Task Initialize(CancellationToken token)
     {
@@ -96,7 +96,7 @@ public class InputService : IInputService
 
     private bool EditingText()
     {
-        return _gameObjectService.GetComponent<GInputField>(EventSystem.current.currentSelectedGameObject) != null;
+        return _clientEntityService.GetComponent<GInputField>(EventSystem.current.currentSelectedGameObject) != null;
     }
 
     private Dictionary<string, InputContainer> _stringInputs = null;
@@ -365,7 +365,7 @@ public class InputService : IInputService
             // the interactable object component is added to the root object.
             if (newInteractObject == null && hitObject.transform.parent != null)
             {
-                newInteractObject = _gameObjectService.FindInParents<InteractableObject>(hitObject);
+                newInteractObject = _clientEntityService.FindInParents<InteractableObject>(hitObject);
             }
 
 

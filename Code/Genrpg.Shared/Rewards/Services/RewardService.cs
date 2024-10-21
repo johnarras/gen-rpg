@@ -99,7 +99,7 @@ namespace Genrpg.Shared.Rewards.Services
             return false;
         }
 
-        public virtual void OnSetQuantity<TUpd>(MapObject obj, TUpd upd, long entityTypeId, long diff) where TUpd: class, IStringId
+        public virtual void OnAddQuantity<TUpd>(MapObject obj, TUpd upd, long entityTypeId, long entityId, long diff) where TUpd: class, IStringId
         {
         }
     }

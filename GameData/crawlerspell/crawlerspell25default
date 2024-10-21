@@ -1,0 +1,23 @@
+{
+  "Id": "crawlerspell25default",
+  "ParentId": "default",
+  "IdKey": 25,
+  "Name": "Poison Blade",
+  "Desc": "Hit one or more enemies with a poisoned blade.",
+  "PowerCost": 10.0,
+  "PowerPerLevel": 0.5,
+  "MaxRange": 10,
+  "CombatActionId": 4,
+  "TargetTypeId": 1,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 33,
+      "EntityId": 3,
+      "MinQuantity": 1,
+      "MaxQuantity": 24,
+      "ElementTypeId": 8
+    }
+  ],
+  "UpdateTime": "2024-10-21T22:47:47.801Z"
+}

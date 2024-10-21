@@ -1,9 +1,0 @@
-{
-  "Id": "statuseffect16default",
-  "ParentId": "default",
-  "IdKey": 16,
-  "Name": "Taunt",
-  "Abbrev": "Taunt",
-  "ActionEffects": [],
-  "UpdateTime": "2024-08-01T00:28:13.079Z"
-}

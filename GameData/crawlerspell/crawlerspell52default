@@ -8,7 +8,7 @@
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 4,
-  "Level": 5,
+  "Level": 9,
   "Effects": [
     {
       "EntityTypeId": 33,
@@ -18,5 +18,5 @@
       "ElementTypeId": 3
     }
   ],
-  "UpdateTime": "2024-08-31T18:58:09.831Z"
+  "UpdateTime": "2024-10-21T22:47:47.801Z"
 }

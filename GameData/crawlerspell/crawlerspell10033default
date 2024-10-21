@@ -3,8 +3,8 @@
   "ParentId": "default",
   "IdKey": 10033,
   "Name": "Enhance HealthRegen",
-  "PowerCost": 3.0,
-  "PowerPerLevel": 0.25,
+  "PowerCost": 10.0,
+  "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
   "TargetTypeId": 9,
@@ -17,5 +17,5 @@
       "MaxQuantity": 1
     }
   ],
-  "UpdateTime": "2024-10-05T23:56:53.124Z"
+  "UpdateTime": "2024-10-21T22:47:47.801Z"
 }

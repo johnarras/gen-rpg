@@ -4,6 +4,7 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Entities;
 using MessagePack;
 using System.Collections.Generic;
@@ -59,8 +60,10 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
 
         [Key(20)] public double TrainingXpScale { get; set; }
         [Key(21)] public double TrainingGoldScale { get; set; }
+        [Key(22)] public string StartStatBonuses { get; set; }
 
-        [Key(22)] public List<RoleBonus> Bonuses { get; set; } = new List<RoleBonus>();
+        [Key(23)] public List<RoleBonus> Bonuses { get; set; } = new List<RoleBonus>();
+
     }
 
 

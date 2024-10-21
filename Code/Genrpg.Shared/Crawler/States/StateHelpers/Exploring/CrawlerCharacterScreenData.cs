@@ -1,15 +1,17 @@
-﻿using Genrpg.Shared.Crawler.Parties.PlayerData;
+using MessagePack;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 {
-    internal class CrawlerCharacterScreenData
+    [MessagePackObject]
+    public class CrawlerCharacterScreenData
     {
         public CrawlerCharacterScreenData()
         {
         }
 
-        public PartyMember Unit { get; set; }
-        public ECrawlerStates PrevState { get; set; }
+        [Key(0)] public PartyMember Unit { get; set; }
+        [Key(1)] public ECrawlerStates PrevState { get; set; }
     }
 }

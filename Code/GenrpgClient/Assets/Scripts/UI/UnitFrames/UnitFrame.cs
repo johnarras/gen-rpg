@@ -29,7 +29,7 @@ public class UnitFrame : BaseBehaviour
         AddListener<OnRemoveEffect>(RemoveVisualEffect);
         AddListener<OnUpdateEffect>(UpdateVisualEffect );
         _unit = unitIn;
-        _controller = _gameObjectService.FindInParents<UnitController>(entity);
+        _controller = _clientEntityService.FindInParents<UnitController>(entity);
         if (_controller != null)
         {
             _controller.SetUnitFrame(this);
@@ -91,8 +91,8 @@ public class UnitFrame : BaseBehaviour
             showStar = false;
         }
 
-        _gameObjectService.SetActive(_contentRoot, shouldShow);
-        _gameObjectService.SetActive(_currentTargetIcon, showStar);
+        _clientEntityService.SetActive(_contentRoot, shouldShow);
+        _clientEntityService.SetActive(_currentTargetIcon, showStar);
     }
 
     private void OnLevelUpdate(NewLevel newLevel)

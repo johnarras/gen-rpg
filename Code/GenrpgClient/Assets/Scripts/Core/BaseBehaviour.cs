@@ -22,7 +22,7 @@ public class BaseBehaviour : StubComponent, IInitOnResolve
     protected IGameData _gameData;
     protected IClientGameState _gs;
     protected IClientRandom _rand;
-    protected IClientEntityService _gameObjectService;
+    protected IClientEntityService _clientEntityService;
 
     private CancellationTokenSource _cts = null;
     public CancellationToken GetToken()

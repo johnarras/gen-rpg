@@ -133,13 +133,13 @@ public abstract class DragItem<TData,TDragItem,TScreen,TInitData> : BaseBehaviou
 
     protected virtual void SetAsDragItem(bool isDragItem)
     {
-        ScrollRect scrollRect = _gameObjectService.FindInParents<ScrollRect>(entity);
+        ScrollRect scrollRect = _clientEntityService.FindInParents<ScrollRect>(entity);
         if (scrollRect != null)
         {
             scrollRect.enabled = !enabled;
         }
 
-        List<GImage> allImages = _gameObjectService.GetComponents<GImage>(entity);
+        List<GImage> allImages = _clientEntityService.GetComponents<GImage>(entity);
         foreach (GImage image in allImages)
         {
             if (isDragItem)

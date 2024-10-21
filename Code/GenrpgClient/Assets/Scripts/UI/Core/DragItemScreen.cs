@@ -22,8 +22,8 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
     {
         if (ToolTip != null)
         {
-            _gameObjectService.InitializeHierarchy(ToolTip.gameObject);
-            _gameObjectService.SetActive(ToolTip.gameObject, false);
+            _clientEntityService.InitializeHierarchy(ToolTip.gameObject);
+            _clientEntityService.SetActive(ToolTip.gameObject, false);
         }
 
         await Task.CompletedTask;
@@ -86,7 +86,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
 
         ResetCurrentDragItem();
         _origItem = icon;
-        _dragItem = _gameObjectService.FullInstantiate<TDragItem>(icon);
+        _dragItem = _clientEntityService.FullInstantiate<TDragItem>(icon);
         _dragItem.Init(icon.GetInitData(), _token);
         _dragItem.transform.SetParent(dragParent.transform);
         _dragItem.transform.localScale = icon.transform.lossyScale;
@@ -107,7 +107,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
             return;
         }
 
-        _gameObjectService.Destroy(_dragItem.gameObject);
+        _clientEntityService.Destroy(_dragItem.gameObject);
         _dragItem = null;
         _origItem = null;
         ShowDragTargetIconsGlow(false);
@@ -142,7 +142,7 @@ public abstract class DragItemScreen<TData,TDragItem,TScreen,TInitData> : BaseSc
             {
                 foreach (RaycastResult res in results)
                 {
-                    TDragItem iconParent = _gameObjectService.FindInParents<TDragItem>(res.gameObject);
+                    TDragItem iconParent = _clientEntityService.FindInParents<TDragItem>(res.gameObject);
                     if (dropTargetIcon == null && iconParent != null && iconParent != _dragItem)
                     {
                         dropTargetIcon = iconParent;

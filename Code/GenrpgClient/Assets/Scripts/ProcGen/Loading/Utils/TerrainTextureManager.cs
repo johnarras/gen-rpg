@@ -48,7 +48,7 @@ public class TerrainTextureManager : ITerrainTextureManager
     private IMapProvider _mapProvider;
     protected IClientGameState _gs;
     protected IMapGenData _md;
-    protected IClientEntityService _gameObjectService;
+    protected IClientEntityService _clientEntityService;
 
     public async Awaitable SetOneTerrainPatchLayers(TerrainPatchData patch, CancellationToken token, bool allAtOnce = false)
     {
@@ -159,7 +159,7 @@ public class TerrainTextureManager : ITerrainTextureManager
             return;
         }
 
-        IndexList indexes = _gameObjectService.GetOrAddComponent<IndexList>(terr.gameObject);
+        IndexList indexes = _clientEntityService.GetOrAddComponent<IndexList>(terr.gameObject);
 
         if (indexes.Indexes == null || indexes.Indexes.Length != currLayers.Length)
         {
@@ -201,7 +201,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (ddata.Terr == null || ddata.TexType == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -209,7 +209,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (currentData != null && currentData.RegTexture != null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             SetNewTerrainLayer(ddata.Terr, ddata.TextureIndex, currentData);
             return;
         }
@@ -220,7 +220,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (texList == null || texList.Textures == null || texList.Textures.Count < texSize)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -228,7 +228,7 @@ public class TerrainTextureManager : ITerrainTextureManager
         {
             if (texList.Textures[i] == null)
             {
-                _gameObjectService.Destroy(go);
+                _clientEntityService.Destroy(go);
                 return;
             }
         }
@@ -276,7 +276,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (ddata.TexType == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
         TextureList texList = go.GetComponent<TextureList>();
@@ -290,7 +290,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (currentData != null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -298,7 +298,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         if (texList == null || texList.Textures == null || texList.Textures.Count < texSize)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -306,7 +306,7 @@ public class TerrainTextureManager : ITerrainTextureManager
         {
             if (texList.Textures[i] == null)
             {
-                _gameObjectService.Destroy(go);
+                _clientEntityService.Destroy(go);
                 return;
             }
         }

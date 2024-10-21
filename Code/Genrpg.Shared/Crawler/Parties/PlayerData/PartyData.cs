@@ -19,6 +19,7 @@ using Newtonsoft.Json.Serialization;
 using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Crawler.Items.Entities;
+using Genrpg.Shared.Crawler.Combat.Constants;
 
 namespace Genrpg.Shared.Crawler.Parties.PlayerData
 {
@@ -149,6 +150,19 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
                 }
             }
             return retval;
+        }
+
+        public EActionCategories GetActionCategory()
+        {
+            if (Combat == null)
+            {
+                return EActionCategories.NonCombat;
+            }
+            if (Combat.PartyGroup.CombatGroupAction == ECombatGroupActions.Prepare)
+            {
+                return EActionCategories.Preparing;
+            }
+            return EActionCategories.Combat;
         }
     }
 

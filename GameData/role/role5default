@@ -4,6 +4,8 @@
   "IdKey": 5,
   "Name": "Thief",
   "Desc": "Sneaky Fighter",
+  "Icon": "",
+  "Art": "",
   "Abbrev": "Th",
   "RoleCategoryId": 1,
   "MeleeScaling": 0.2,
@@ -18,6 +20,7 @@
   "ManaStatTypeId": 12,
   "TrainingXpScale": 1.0,
   "TrainingGoldScale": 1.0,
+  "StartStatBonuses": "4 0 0 2 2 4",
   "Bonuses": [
     {
       "EntityTypeId": 2,
@@ -73,15 +76,15 @@
     },
     {
       "EntityTypeId": 100,
-      "EntityId": 5
-    },
-    {
-      "EntityTypeId": 100,
       "EntityId": 18
     },
     {
       "EntityTypeId": 100,
       "EntityId": 19
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 25
     },
     {
       "EntityTypeId": 100,
@@ -110,7 +113,19 @@
     {
       "EntityTypeId": 100,
       "EntityId": 10063
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10016
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10020
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10063
     }
   ],
-  "UpdateTime": "2024-10-05T23:56:53.124Z"
+  "UpdateTime": "2024-10-21T22:47:47.801Z"
 }

@@ -11,6 +11,7 @@ using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Client.Assets;
 using Genrpg.Shared.Client.Assets.Services;
+using Assets.Scripts.Awaitables;
 
 /// <summary>
 /// Base class for object loaders
@@ -31,7 +32,8 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
     protected IGameData _gameData;
     protected IMapProvider _mapProvider;
     protected IClientGameState _gs;
-    protected IClientEntityService _gameObjectService;
+    protected IClientEntityService _clientEntityService;
+    protected IAwaitableService _awaitableService;
 
     public void FinalPlaceObject(GameObject go, SpawnLoadData data, string layerName)
     {
@@ -49,15 +51,15 @@ public abstract class BaseMapObjectLoader : IMapObjectLoader
         Terrain terrain = patchData.terrain as Terrain;
         if (terrain != null)
         {
-            _gameObjectService.AddToParent(go, terrain.gameObject);
+            _clientEntityService.AddToParent(go, terrain.gameObject);
         }
         else
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
-        _gameObjectService.SetLayer(go, LayerUtils.NameToLayer(layerName));
+        _clientEntityService.SetLayer(go, LayerUtils.NameToLayer(layerName));
 
         long placementSeed = (long)(data.Spawn.X * 131 + data.Spawn.Z * 517);
 

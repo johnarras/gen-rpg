@@ -29,7 +29,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         protected ILogService _logService;
         protected IGameData _gameData;
         protected IClientGameState _gs;
-        protected IClientEntityService _gameObjectService;
+        protected IClientEntityService _clientEntityService;
         protected ICrawlerWorldService _worldService;
         protected ICrawlerMapService _mapService;
         protected ICrawlerMapGenService _mapGenService;

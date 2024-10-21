@@ -15,6 +15,6 @@ namespace Genrpg.Shared.Rewards.Services
         bool GiveReward(IRandom rand, MapObject obj, long entityType, long entityId, long quantity, object extraData = null);
         bool Add(MapObject obj, long entityTypeId, long entityId, long quantity);
         bool Set(MapObject obj, long entityTypeId, long entityId, long quantity);
-        void OnSetQuantity<TUpd>(MapObject obj, TUpd upd, long entityTypeId, long diff) where TUpd : class, IStringId;
+        void OnAddQuantity<TUpd>(MapObject obj, TUpd upd, long entityTypeId, long entityId, long diff) where TUpd : class, IStringId;
     }
 }

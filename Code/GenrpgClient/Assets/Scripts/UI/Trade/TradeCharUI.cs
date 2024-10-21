@@ -1,19 +1,9 @@
-﻿using Assets.Scripts.UI.Services;
-using Assets.Scripts.UI.Trade;
+﻿using Assets.Scripts.UI.Trade;
 using Genrpg.Shared.Inventory.PlayerData;
 using Genrpg.Shared.Trades.Entities;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 
 public class TradeCharUI : BaseBehaviour

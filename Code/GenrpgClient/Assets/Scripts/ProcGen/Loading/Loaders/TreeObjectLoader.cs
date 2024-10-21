@@ -288,11 +288,11 @@ public class TreeObjectLoader : BaseObjectLoader
         ObjectPrototype op = data as ObjectPrototype;
         if (op == null || op.Prototype == null || !TokenUtils.IsValid(op.token))
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
-        List<MeshRenderer> renderers = _gameObjectService.GetComponents<MeshRenderer>(go);
+        List<MeshRenderer> renderers = _clientEntityService.GetComponents<MeshRenderer>(go);
 
         foreach (MeshRenderer renderer in renderers)
         {
@@ -329,7 +329,7 @@ public class TreeObjectLoader : BaseObjectLoader
             }
         }
 
-        _gameObjectService.SetLayer(go, LayerNames.ObjectLayer);
+        _clientEntityService.SetLayer(go, LayerNames.ObjectLayer);
         go.transform.localPosition = new Vector3(0, -2000, 0);
     }
 

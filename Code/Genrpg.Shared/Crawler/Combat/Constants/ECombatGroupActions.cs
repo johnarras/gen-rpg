@@ -10,5 +10,6 @@ namespace Genrpg.Shared.Crawler.Combat.Constants
         Fight,
         Run,
         Advance,
+        Prepare,
     };
 }

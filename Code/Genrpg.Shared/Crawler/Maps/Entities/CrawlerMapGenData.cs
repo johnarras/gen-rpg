@@ -1,24 +1,26 @@
-﻿using System;
+using MessagePack;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Genrpg.Shared.Crawler.Maps.Entities
 {
+    [MessagePackObject]
     public class CrawlerMapGenData
     {
         public CrawlerWorld World;
         public long MapType;
-        public int Level { get; set; } = 0;
-        public long ZoneTypeId { get; set; }
-        public bool Looping { get; set; }
-        public long FromMapId { get; set; }
-        public int FromMapX { get; set; }
-        public int FromMapZ { get; set; }
-        public int CurrFloor { get; set; } = 1;
-        public int MaxFloor { get; set; } = 1;
-        public string Name { get; set; }
-        public bool SimpleDungeon { get; set; }
-        public CrawlerMap PrevMap { get; set; }
+        [Key(0)] public int Level { get; set; } = 0;
+        [Key(1)] public long ZoneTypeId { get; set; }
+        [Key(2)] public bool Looping { get; set; }
+        [Key(3)] public long FromMapId { get; set; }
+        [Key(4)] public int FromMapX { get; set; }
+        [Key(5)] public int FromMapZ { get; set; }
+        [Key(6)] public int CurrFloor { get; set; } = 1;
+        [Key(7)] public int MaxFloor { get; set; } = 1;
+        [Key(8)] public string Name { get; set; }
+        [Key(9)] public bool SimpleDungeon { get; set; }
+        [Key(10)] public CrawlerMap PrevMap { get; set; }
     }
 
 }

@@ -203,14 +203,14 @@ namespace UI
 
         private void AddChatRow(OnChatMessage message)
         { 
-            ChatRow newRow = _gameObjectService.FullInstantiate(Row.gameObject).GetComponent<ChatRow>();
+            ChatRow newRow = _clientEntityService.FullInstantiate(Row.gameObject).GetComponent<ChatRow>();
             newRow.gameObject.SetActive(true);
-            _gameObjectService.AddToParent(newRow.gameObject, ChatParent);
+            _clientEntityService.AddToParent(newRow.gameObject, ChatParent);
             _rows.Add(newRow);
             newRow.Init(message);
             while (_rows.Count > _maxRows)
             {
-                _gameObjectService.Destroy(_rows[0].gameObject);
+                _clientEntityService.Destroy(_rows[0].gameObject);
                 _rows.RemoveAt(0);
             }
         }
@@ -220,14 +220,14 @@ namespace UI
             foreach (WhoListItem item in message.Items)
             {
 
-                ChatRow newRow = _gameObjectService.FullInstantiate(Row.gameObject).GetComponent<ChatRow>();
+                ChatRow newRow = _clientEntityService.FullInstantiate(Row.gameObject).GetComponent<ChatRow>();
                 newRow.gameObject.SetActive(true);
-                _gameObjectService.AddToParent(newRow.gameObject, ChatParent);
+                _clientEntityService.AddToParent(newRow.gameObject, ChatParent);
                 _rows.Add(newRow);
                 newRow.InitTextOnly(item.Name + " :" + item.Level);
                 while (_rows.Count > _maxRows)
                 {
-                    _gameObjectService.Destroy(_rows[0].gameObject);
+                    _clientEntityService.Destroy(_rows[0].gameObject);
                     _rows.RemoveAt(0);
                 }
             }

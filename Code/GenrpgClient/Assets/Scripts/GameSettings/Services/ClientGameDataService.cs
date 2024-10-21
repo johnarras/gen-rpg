@@ -64,6 +64,7 @@ namespace Assets.Scripts.GameSettings.Services
                 string bakedResourcesPath = BakedGameDataPathSuffix + loader.GetClientType().Name;
 
                 TextAsset textAsset = Resources.Load<TextAsset>(bakedResourcesPath);
+
                 if (textAsset != null && !string.IsNullOrEmpty(textAsset.text))
                 {
                     bakedSettings = (ITopLevelSettings)SerializationUtils.DeserializeWithType(textAsset.text, loader.GetClientType());
@@ -105,7 +106,7 @@ namespace Assets.Scripts.GameSettings.Services
 
 #if UNITY_EDITOR
 
-            string dirName = GetFullBakedGameDataPath() + BakedGameDataPathSuffix;
+            string dirName = GetFullBakedGameDataPath();
 
             if (!Directory.Exists(dirName))
             {

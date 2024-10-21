@@ -30,7 +30,7 @@ public class LootPopup : BaseScreen
         List<Reward> rewards = rewardLists.SelectMany(x=>x.Rewards).ToList();   
         
 
-        TaskUtils.ForgetAwaitable(ShowRewards(rewards, token));
+        _awaitableService.ForgetAwaitable(ShowRewards(rewards, token));
 
 
         await Task.CompletedTask;
@@ -67,7 +67,7 @@ public class LootPopup : BaseScreen
                 break;
             }
             GameObject firstChild = _itemAnchor.transform.GetChild(0).gameObject;
-            _gameObjectService.Destroy(firstChild);
+            _clientEntityService.Destroy(firstChild);
         }
         StartClose();
     }

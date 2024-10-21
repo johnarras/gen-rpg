@@ -8,13 +8,6 @@
   "CombatActionId": 5,
   "TargetTypeId": 9,
   "Level": 1,
-  "Effects": [
-    {
-      "EntityTypeId": 36,
-      "EntityId": 13,
-      "MinQuantity": 1,
-      "MaxQuantity": 1
-    }
-  ],
-  "UpdateTime": "2024-08-31T18:58:09.831Z"
+  "Effects": [],
+  "UpdateTime": "2024-10-21T22:47:47.801Z"
 }

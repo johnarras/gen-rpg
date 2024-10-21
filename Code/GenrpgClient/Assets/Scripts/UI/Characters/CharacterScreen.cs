@@ -81,7 +81,7 @@ public class CharacterScreen : ItemIconScreen
 
         if (eqIcon.Icon == null)
         {
-            _gameObjectService.SetActive(eqIcon.gameObject, false);
+            _clientEntityService.SetActive(eqIcon.gameObject, false);
         }
 
         InventoryData inventory = _unit.Get<InventoryData>();
@@ -174,7 +174,7 @@ public class CharacterScreen : ItemIconScreen
 
         if (downloadData == null || downloadData.currUnit == null || downloadData.statTypeId < 1)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -182,7 +182,7 @@ public class CharacterScreen : ItemIconScreen
         StatInfoRow statRow = go.GetComponent<StatInfoRow>();
         if (statRow == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
         if (Stats == null)
@@ -356,7 +356,7 @@ public class CharacterScreen : ItemIconScreen
             EquipSlotIcon eqIcon = newEqIcon.GetComponent<EquipSlotIcon>();
             if (eqIcon == null)
             {
-                _gameObjectService.Destroy(newEqIcon.gameObject);
+                _clientEntityService.Destroy(newEqIcon.gameObject);
             }
         }
         else // Otherwise set the icon data that we were dragging to the currently equipped item data.

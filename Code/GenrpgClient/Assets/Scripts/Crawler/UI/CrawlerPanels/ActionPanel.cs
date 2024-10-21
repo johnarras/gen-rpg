@@ -46,7 +46,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         private CrawlerStateData _nextStateData = null;
 
-        public object ScrollRect = null;
+        public object _scrollRect = null;
 
         private List<object> _subObjects = new List<object>();
 
@@ -60,16 +60,19 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             for (int i =0; i < InputCount; i++)
             {
                 _inputs.Add(view.Get<ILabeledInputField>("Input" + i));
+                _gs.loc.Resolve(_inputs[i]);
             }
 
+            _scrollRect = view.Get<IScrollRect>("ScrollRect");
+
             _panelRow = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelRowPrefab, _root, _token, _model.Subdirectory);
-            _gameObjectService.SetActive(_panelRow, false);
+            _clientEntityService.SetActive(_panelRow, false);
             _panelText = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelTextPrefab, _root, _token, _model.Subdirectory);
-            _gameObjectService.SetActive(_panelText, false);
+            _clientEntityService.SetActive(_panelText, false);
             _panelGrid = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelGridPrefab, _root, _token, _model.Subdirectory);
-            _gameObjectService.SetActive(_panelGrid, false);
+            _clientEntityService.SetActive(_panelGrid, false);
             _panelButton = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelButtonPrefab, _root, _token, _model.Subdirectory);
-            _gameObjectService.SetActive(_panelButton, false);
+            _clientEntityService.SetActive(_panelButton, false);
 
             AddUpdate(OnLateUpdate, UpdateType.Late);
         }
@@ -92,7 +95,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                 return;
             }
 
-            _gameObjectService.DestroyAllChildren(_content);
+            _clientEntityService.DestroyAllChildren(_content);
 
             List<CrawlerStateAction> buttonActions = new List<CrawlerStateAction>();
 
@@ -154,26 +157,29 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             for (int i = 0; i < _inputs.Count; i++)
             {
-                _gameObjectService.SetActive(_inputs[i], false);
+                _inputs[i].SetLabel("");
+                _inputs[i].SetPlaceholder("");
+                _inputs[i].SetInputText("");
+                _clientEntityService.SetActive(_inputs[i], false);
             }
 
             for (int i = 0; i < _inputs.Count && i < stateInputs.Count; i++)
             {
-                _gameObjectService.SetActive(_inputs[i], true);
+                _clientEntityService.SetActive(_inputs[i], true);
                 stateInputs[i].InputField = _inputs[i];
                 _inputs[i].SetLabel(stateInputs[i].InputLabel);
                 _inputs[i].SetPlaceholder(stateData.InputPlaceholderText);
-                _inputs[i].SetInput("");
+                _inputs[i].SetInputText("");
             }
 
-            _uiService.ScrollToBottom(ScrollRect);
+            _uiService.ScrollToBottom(_scrollRect);
             await Task.CompletedTask;
         }
 
         public void Clear()
         {
             _textToShow.Clear();
-            _gameObjectService.DestroyAllChildren(_content);
+            _clientEntityService.DestroyAllChildren(_content);
             _subObjects.Clear();
         }
 
@@ -192,7 +198,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             }
             if (_textToShow.Count > 0)
             {
-                TaskUtils.ForgetTask(OnLateUpdateAsync());
+                _taskService.ForgetTask(OnLateUpdateAsync());
             }
 
         }
@@ -213,8 +219,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             if (showedText)
             {
-                await Task.Delay(10);
-                _uiService.ScrollToBottom(ScrollRect);
+                await Task.Delay(50);
+                _uiService.ScrollToBottom(_scrollRect);
             }
             _showingText = false;
         }

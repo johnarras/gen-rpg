@@ -31,7 +31,7 @@ public class FxService : IFxService
     private IClientMapObjectManager _objectManager;
     private IAssetService _assetService;
     private IClientGameState _gs;
-    protected IClientEntityService _gameObjectService;
+    protected IClientEntityService _clientEntityService;
 
     public async Task Initialize(CancellationToken token)
     {
@@ -80,10 +80,10 @@ public class FxService : IFxService
         FullFX full = data as FullFX;
         if (full ==null || !TokenUtils.IsValid(full.token))
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
-        MapProjectile proj = _gameObjectService.GetOrAddComponent<MapProjectile>(go);
+        MapProjectile proj = _clientEntityService.GetOrAddComponent<MapProjectile>(go);
 
         proj.Init(full, token);
 

@@ -7,7 +7,7 @@ public class SpellTooltipRow : BaseBehaviour
     {
         if (rowData == null)
         {
-            _gameObjectService.Destroy(entity);
+            _clientEntityService.Destroy(entity);
             return;
         }
 

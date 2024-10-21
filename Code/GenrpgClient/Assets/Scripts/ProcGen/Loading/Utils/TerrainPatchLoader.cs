@@ -41,7 +41,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
     public void LoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)
     {
         _token = token;
-        TaskUtils.ForgetAwaitable(InnerLoadOneTerrainPatch(gx, gy, fastLoading, token));
+        _awaitableService.ForgetAwaitable(InnerLoadOneTerrainPatch(gx, gy, fastLoading, token));
     }
 
     private async Awaitable InnerLoadOneTerrainPatch(int gx, int gy, bool fastLoading, CancellationToken token)
@@ -427,7 +427,7 @@ public class TerrainPatchLoader : BaseZoneGenerator, ITerrainPatchLoader
                             float height = _terrainManager.SampleHeight(worldx, worldz);
                             GameObject sphere = (GameObject)(await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, "TestSphere", null, token));
                             sphere.name = "TestSphere_" + worldx + "_" + worldz;
-                            _gameObjectService.AddToParent(sphere, patch.terrain.gameObject);
+                            _clientEntityService.AddToParent(sphere, patch.terrain.gameObject);
                             sphere.transform.position = new Vector3(worldx, height, worldz);
                         }
                     }

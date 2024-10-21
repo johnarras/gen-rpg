@@ -53,7 +53,9 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
             CrawlerMapStatus partyMap = partyData.Maps.FirstOrDefault(x => x.MapId == detail.EntityId);
 
-            if (partyMap == null)
+            bool didComplete = partyData.CompletedMaps.HasBit(detail.EntityId);
+
+            if (partyMap == null && !didComplete)
             {
                 if (map.MapQuestItemId > 0)
                 {
@@ -80,62 +82,71 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
                         stateData.Actions.Add(new CrawlerStateAction($"\n\nPress {_textService.HighlightText("Space")} to continue...", CharCodes.Space, ECrawlerStates.ExploreWorld));
 
+                        stateData.Actions.Add(new CrawlerStateAction("", CharCodes.Escape, ECrawlerStates.ExploreWorld));
+
                         return stateData;
                     }
+                }
 
-                    if (map.RiddleId < 0)
+                if (map.RiddleId > 0)
+                {
+                    Riddle riddle = _gameData.Get<RiddleSettings>(_gs.ch).Get(map.RiddleId);
+                    if (riddle != null && !string.IsNullOrEmpty(riddle.Desc) && !string.IsNullOrEmpty(riddle.Name))
                     {
-                        Riddle riddle = _gameData.Get<RiddleSettings>(_gs.ch).Get(map.RiddleId);
-                        if (riddle != null && !string.IsNullOrEmpty(riddle.Desc) && !string.IsNullOrEmpty(riddle.Name))
+                        string[] descLines = riddle.Desc.Split('\n');
+
+                        stateData.Actions.Add(new CrawlerStateAction("Answer me this to enter:\n"));
+                        for (int d = 0; d < descLines.Length; d++)
                         {
-                            string[] descLines = riddle.Desc.Split('\n');
-
-                            stateData.Actions.Add(new CrawlerStateAction("Answer me this to enter:\n"));
-                            for (int d = 0; d < descLines.Length; d++)
+                            if (!string.IsNullOrEmpty(descLines[d]))
                             {
-                                stateData.Actions.Add(new CrawlerStateAction(descLines[d]));
+                                stateData.Actions.Add(new CrawlerStateAction(descLines[d].Substring(0, (int)MathUtils.Min(descLines[d].Length, 6)) + "..."));
                             }
+                        }
 
-                            if (string.IsNullOrEmpty(errorText))
+                        if (string.IsNullOrEmpty(errorText))
+                        {
+                            stateData.Actions.Add(new CrawlerStateAction(" "));
+                        }
+                        else
+                        {
+                            stateData.Actions.Add(new CrawlerStateAction(_textService.HighlightText(errorText, TextColors.ColorRed)));
+                        }
+
+                        stateData.AddInputField("Answer:", delegate (string text)
+                        {
+                            string normalizedRiddleName = riddle.Name.ToLower().Trim();
+                            if (!string.IsNullOrEmpty(text) && text.ToLower().Trim() == normalizedRiddleName)
                             {
-                                stateData.Actions.Add(new CrawlerStateAction(" "));
+                                EnterCrawlerMapData enterMapData = new EnterCrawlerMapData()
+                                {
+                                    MapId = map.IdKey,
+                                    MapX = detail.ToX,
+                                    MapZ = detail.ToZ,
+                                    MapRot = 0,
+                                    World = world,
+                                    Map = map,
+                                };
+
+                                _crawlerService.ChangeState(ECrawlerStates.ExploreWorld, token, enterMapData);
                             }
                             else
                             {
-                                stateData.Actions.Add(new CrawlerStateAction(_textService.HighlightText(errorText, TextColors.ColorRed)));
+                                ErrorMapCellDetail newErrorDetail = new ErrorMapCellDetail()
+                                {
+                                    Detail = detail,
+                                    ErrorText = "Sorry, that is not correct! Search for clues nearby and try again.",
+                                };
+                                _crawlerService.ChangeState(ECrawlerStates.MapExit, token, newErrorDetail);
                             }
+                        });
+                        stateData.Actions.Add(new CrawlerStateAction("", CharCodes.Escape, ECrawlerStates.ExploreWorld));
 
-                            stateData.AddInputField("Your Answer:\n", delegate (string text)
-                            {
-                                string normalizedRiddleName = riddle.Name.ToLower().Trim();
-                                if (!string.IsNullOrEmpty(text) && text.ToLower().Trim() == normalizedRiddleName)
-                                {
-                                    EnterCrawlerMapData enterMapData = new EnterCrawlerMapData()
-                                    {
-                                        MapId = map.IdKey,
-                                        MapX = detail.ToX,
-                                        MapZ = detail.ToZ,
-                                        MapRot = 0,
-                                        World = world,
-                                        Map = map,
-                                    };
-
-                                    _crawlerService.ChangeState(ECrawlerStates.ExploreWorld, token, enterMapData);
-                                }
-                                else
-                                {
-                                    ErrorMapCellDetail newErrorDetail = new ErrorMapCellDetail()
-                                    {
-                                        Detail = detail,
-                                        ErrorText = "Sorry, that is not correct! Search for clues nearby and try again.",
-                                    };
-                                    _crawlerService.ChangeState(ECrawlerStates.MapExit, token, newErrorDetail);
-                                }
-                            });
-                        }
+                        return stateData;
                     }
                 }
             }
+
 
             stateData.Actions.Add(new CrawlerStateAction("Go to " + map.GetName(detail.ToX, detail.ToZ) + "?\n\n", CharCodes.None, ECrawlerStates.None, null, null));
 

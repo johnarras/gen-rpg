@@ -24,7 +24,7 @@ public class CreateMinimap : BaseZoneGenerator
 	{
 
         await base.Generate(token);
-        _gameObjectService.Destroy(minimapCamera);
+        _clientEntityService.Destroy(minimapCamera);
 
         minimapCamera = new GameObject();
         minimapCamera.name = "CreateMinimapCamera";
@@ -174,7 +174,7 @@ public class CreateMinimap : BaseZoneGenerator
 
         GameObject fullMapWater = (GameObject)(await _assetService.LoadAssetAsync(AssetCategoryNames.Prefabs, MapConstants.FullMinimapWaterName, null, token));
 
-        _gameObjectService.AddToParent(fullMapWater, waterRoot);
+        _clientEntityService.AddToParent(fullMapWater, waterRoot);
 
         fullMapWater.transform.position = new Vector3(_mapProvider.GetMap().GetHwid() / 2, MapConstants.OceanHeight, _mapProvider.GetMap().GetHhgt()/2);
         fullMapWater.transform.localScale = new Vector3(1000000, 1, 1000000);
@@ -396,8 +396,8 @@ public class CreateMinimap : BaseZoneGenerator
 
         cam.targetTexture = null;
         RenderTexture.active = null;
-        _gameObjectService.Destroy(rt);        
-        _gameObjectService.Destroy(minimapCamera);
+        _clientEntityService.Destroy(rt);        
+        _clientEntityService.Destroy(minimapCamera);
         minimapCamera = null;
 
         RenderSettings.ambientSkyColor= ambientColor;
@@ -436,7 +436,7 @@ public class CreateMinimap : BaseZoneGenerator
 
         FileUploader.UploadFile(fdata);
 
-        _gameObjectService.DestroyAllChildren(waterRoot);
+        _clientEntityService.DestroyAllChildren(waterRoot);
 
         FileUploadData uploadData = new FileUploadData();
 

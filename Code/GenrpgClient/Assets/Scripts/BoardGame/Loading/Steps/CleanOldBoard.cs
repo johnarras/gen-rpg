@@ -1,13 +1,7 @@
-﻿using Assets.Scripts.BoardGame.Controllers;
-using Assets.Scripts.BoardGame.Loading.Constants;
+﻿using Assets.Scripts.BoardGame.Loading.Constants;
 using Genrpg.Shared.BoardGame.PlayerData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TMPro.Examples;
 using UnityEngine;
 
 namespace Assets.Scripts.BoardGame.Loading
@@ -28,7 +22,7 @@ namespace Assets.Scripts.BoardGame.Loading
             _mapGenData.HaveSetHeights = false;
             _terrainManager.ClearPatches();
             _cameraController.SetupForBoardGame();
-            _gameObjectService.DestroyAllChildren(_controller.GetBoardAnchor());
+            _clientEntityService.DestroyAllChildren(_controller.GetBoardAnchor());
             await Task.CompletedTask;
         }
     }

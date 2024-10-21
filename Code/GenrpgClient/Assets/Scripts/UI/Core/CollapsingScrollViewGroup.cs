@@ -33,7 +33,7 @@ public class CollapsingScrollViewGroup : BaseBehaviour
     public void Start()
     {
 
-        _scrollViews = _gameObjectService.GetComponents<CollapsableScrollView>(entity);
+        _scrollViews = _clientEntityService.GetComponents<CollapsableScrollView>(entity);
 
 
         foreach (CollapsableScrollView view in _scrollViews)

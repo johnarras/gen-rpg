@@ -91,7 +91,7 @@ public class VendorScreen : ItemIconScreen
 
     private void ShowVendorItems(VendorAddon addon)
     {
-        _gameObjectService.DestroyAllChildren(VendorItems);
+        _clientEntityService.DestroyAllChildren(VendorItems);
 
         _addon = addon;
         if (VendorItems == null || addon == null || addon.Items == null)

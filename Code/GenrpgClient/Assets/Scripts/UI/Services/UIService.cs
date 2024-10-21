@@ -22,9 +22,7 @@ using Assets.Scripts.UI.Abstractions;
 using Assets.Scripts.UI.Pointers;
 using UnityEngine.UI;
 using Genrpg.Shared.MVC.Interfaces;
-using Assets.Scripts.MVC;
-using UnityEditor.Build;
-using Genrpg.Shared.ProcGen.Settings.Names;
+using Assets.Scripts.Awaitables;
 
 namespace Assets.Scripts.UI.Services
 {
@@ -37,12 +35,13 @@ namespace Assets.Scripts.UI.Services
         protected IGameData _gameData;
         protected IClientRandom _rand;
         protected IClientGameState _gs;
-        protected IClientEntityService _gameObjectService;
+        protected IClientEntityService _clientEntityService;
         protected IEntityService _entityService;
         private ILogService _logService;
         private IClientUpdateService _updateService;
         private CancellationToken _token;
-     
+        protected IAwaitableService _awaitableService;
+
         public async Task Initialize(CancellationToken token)
         {
             await Task.CompletedTask;
@@ -60,7 +59,7 @@ namespace Assets.Scripts.UI.Services
                 {
                     if (itext is GText gtext)
                     {
-                        gtext.text = txt;
+                        gtext.SetText(txt);
                     }
                 });
         }
@@ -135,7 +134,7 @@ namespace Assets.Scripts.UI.Services
                 gbutton.onClick.AddListener(
                    () =>
                    {
-                       TaskUtils.ForgetAwaitable(InnerButtonClick(gbutton, screenName, action, null, extraData));
+                       _awaitableService.ForgetAwaitable(InnerButtonClick(gbutton, screenName, action, null, extraData));
 
                    });
             }
@@ -147,7 +146,7 @@ namespace Assets.Scripts.UI.Services
                 gbutton.onClick.AddListener(
                    () =>
                    {
-                       TaskUtils.ForgetAwaitable(InnerButtonClick(gbutton, screenName, null, awaitableAction, extraData));
+                       _awaitableService.ForgetAwaitable(InnerButtonClick(gbutton, screenName, null, awaitableAction, extraData));
 
                    });
             }
@@ -250,7 +249,7 @@ namespace Assets.Scripts.UI.Services
         {
             if (view is MonoBehaviour mb)
             {
-                PointerHandler ph = _gameObjectService.GetOrAddComponent<PointerHandler>(mb.gameObject);
+                PointerHandler ph = _clientEntityService.GetOrAddComponent<PointerHandler>(mb.gameObject);
                 ph.SetEnterExitHandlers(enterHandler, exitHandler);
             }
         }
@@ -291,7 +290,10 @@ namespace Assets.Scripts.UI.Services
         {
             if (image is GRawImage gimage)
             {
-                return gimage.texture?.height ?? 0;
+                if (gimage.texture != null)
+                {
+                    return gimage.texture.height;
+                }
             }
             return 0;
         }
@@ -300,7 +302,10 @@ namespace Assets.Scripts.UI.Services
         {
             if (image is GRawImage gimage)
             {
-                return gimage.texture?.width ?? 0;
+                if (gimage.texture != null)
+                {
+                    return gimage.texture.width;
+                }
             }
             return 0;
         }

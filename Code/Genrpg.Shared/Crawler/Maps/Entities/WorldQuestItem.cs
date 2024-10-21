@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Interfaces;
+using MessagePack;
+using Genrpg.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Crawler.Maps.Entities
 {
+    [MessagePackObject]
     public class WorldQuestItem : IIdName
     {
-        public long IdKey { get; set; }
-        public string Name { get; set; }
-        public long FoundInMapId { get; set; }
-        public long UnlocksMapId { get; set; }
+        [Key(0)] public long IdKey { get; set; }
+        [Key(1)] public string Name { get; set; }
+        [Key(2)] public long FoundInMapId { get; set; }
+        [Key(3)] public long UnlocksMapId { get; set; }
     }
 }

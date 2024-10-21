@@ -24,7 +24,7 @@ public class SpellIconPanel : BaseBehaviour
             return;
         }
 
-        _gameObjectService.DestroyAllChildren(_iconParent);
+        _clientEntityService.DestroyAllChildren(_iconParent);
 
         foreach (Spell spell in spells)
         {

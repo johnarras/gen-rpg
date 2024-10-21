@@ -53,5 +53,31 @@ namespace Assets.Scripts.MVC
             }
             return default(T);
         }
+
+        public object LocalPosition()
+        {
+            return gameObject.transform.localPosition;
+        }
+
+        public object Position()
+        {
+            return gameObject.transform.position;
+        }
+
+        public void SetLocalPosition(object localPosition)
+        {
+            if (localPosition is Vector3 vec)
+            {
+                gameObject.transform.localPosition = vec;   
+            }
+        }
+
+        public void SetPosition(object position)
+        {
+            if (position is Vector3 vec)
+            {
+                gameObject.transform.position = vec;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Crawler.Maps.Constants;
+using MessagePack;
+using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Interfaces;
 using System.Collections.Generic;
@@ -28,27 +29,28 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
         public const int Max = 16;
     }
 
+    [MessagePackObject]
     public class CrawlerMap : IStringId
     {
-        public string Id { get; set; }
-        public long IdKey { get; set; }
-        public string Name { get; set; }
-        public List<ZoneRegion> Regions { get; set; } = null;
-        public long CrawlerMapTypeId { get; set; } = CrawlerMapTypes.Dungeon;
-        public long DungeonArtId { get; set; } = 1;
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public int Level { get; set; }
-        public bool Looping { get; set; }
-        public long ZoneTypeId { get; set; }
-        public long MapFloor { get; set; }
-        public string FromPlaceName { get; set; }
-        public long MapQuestItemId { get; set; }
-        public long RiddleId { get; set; }
+        [Key(0)] public string Id { get; set; }
+        [Key(1)] public long IdKey { get; set; }
+        [Key(2)] public string Name { get; set; }
+        [Key(3)] public List<ZoneRegion> Regions { get; set; } = null;
+        [Key(4)] public long CrawlerMapTypeId { get; set; } = CrawlerMapTypes.Dungeon;
+        [Key(5)] public long DungeonArtId { get; set; } = 1;
+        [Key(6)] public int Width { get; set; }
+        [Key(7)] public int Height { get; set; }
+        [Key(8)] public int Level { get; set; }
+        [Key(9)] public bool Looping { get; set; }
+        [Key(10)] public long ZoneTypeId { get; set; }
+        [Key(11)] public long MapFloor { get; set; }
+        [Key(12)] public string FromPlaceName { get; set; }
+        [Key(13)] public long MapQuestItemId { get; set; }
+        [Key(14)] public long RiddleId { get; set; }
 
-        public byte[] Data { get; set; }
+        [Key(15)] public byte[] Data { get; set; }
         public List<MapCellDetail> Details = new List<MapCellDetail>();
-        public DungeonArt DungeonArt { get; set; }
+        [Key(16)] public DungeonArt DungeonArt { get; set; }
 
         public void SetupDataBlocks()
         {

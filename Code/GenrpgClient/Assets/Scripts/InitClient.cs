@@ -14,12 +14,13 @@ using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.Client.Updates;
 using Assets.Scripts.Assets;
+using Assets.Scripts.Awaitables;
 
 public class InitClient : BaseBehaviour, IInitClient
 {
 
     public GameObject _splashImage;
-    public object go { get { return gameObject; } }
+    public ClientConfig ClientConfig;
 
     private IClientAuthService _loginService;
     private ICrawlerService _crawlerService;
@@ -29,6 +30,7 @@ public class InitClient : BaseBehaviour, IInitClient
     private IClientEntityService _entityService;
     private ICursorService _cursorService;
     private ILocalLoadService _localLoadService;
+    private IAwaitableService _awaitableService;
 
 #if UNITY_EDITOR
     public string CurrMapId;
@@ -41,6 +43,7 @@ public class InitClient : BaseBehaviour, IInitClient
     public float PlayerSpeedMult;
     public long AccountSuffixId;
 #endif
+
     public bool CrawlerMode = false;
     private CancellationTokenSource _gameTokenSource = new CancellationTokenSource();
 
@@ -49,20 +52,16 @@ public class InitClient : BaseBehaviour, IInitClient
         ReflectionUtils.AddAllowedAssembly(Assembly.GetExecutingAssembly());
     }
 
-    void Start()
-    {
-        TaskUtils.ForgetAwaitable(OnStart());
-    }
 
     public IClientGameState InitialSetup()
     {
 
-        _gs = new ClientGameState();
+        _gs = new ClientGameState(ClientConfig);
         _gs.loc.Resolve(this);
         return _gs;
     }
 
-    protected async Awaitable OnStart()
+    async void Start()
     {
         InitialSetup();
 #if UNITY_EDITOR
@@ -70,7 +69,7 @@ public class InitClient : BaseBehaviour, IInitClient
 #endif
         string envName = _config.Config.Env.ToString();
 
-        TaskUtils.ForgetAwaitable(DelayRemoveSplashScreen(_gameTokenSource.Token));
+        _awaitableService.ForgetAwaitable(DelayRemoveSplashScreen(_gameTokenSource.Token));
 
         // Initial app appearance.
         _clientAppService.TargetFrameRate = 30;
@@ -88,14 +87,14 @@ public class InitClient : BaseBehaviour, IInitClient
         ClientWebRequest req = new ClientWebRequest();
         string url = _config.Config.InitialConfigEndpoint + "?env=" + envName;
 
-        TaskUtils.ForgetAwaitable(req.SendRequest(_logService, url, null, null, OnGetWebConfig, _gameTokenSource.Token));
+        _awaitableService.ForgetAwaitable(req.SendRequest(_logService, url, null, null, OnGetWebConfig, _gameTokenSource.Token));
 
         await Task.CompletedTask;
     }
 
     private void OnGetWebConfig(string txt, List<FullWebCommand> commands,  CancellationToken token)
     {
-        TaskUtils.ForgetAwaitable(OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token));
+        _awaitableService.ForgetAwaitable(OnGetWebConfigAsync(SerializationUtils.Deserialize<ConfigResponse>(txt), token));
     }
 
     private async Awaitable OnGetWebConfigAsync(ConfigResponse response, CancellationToken token)
@@ -180,7 +179,7 @@ public class InitClient : BaseBehaviour, IInitClient
 
         if (_splashImage != null)
         {
-            _gameObjectService.SetActive(_splashImage, false);
+            _clientEntityService.SetActive(_splashImage, false);
             _splashImage = null;
         }
     }

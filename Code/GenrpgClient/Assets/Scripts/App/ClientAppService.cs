@@ -61,12 +61,13 @@ public class ClientAppService : IClientAppService
 #if UNITY_STANDALONE_LINUX
         prefix = PlatformAssetPrefixes.Linux;
 #endif
-#if UNITY_EDITOR
-        prefix = PlatformAssetPrefixes.Win;
+#if UNITY_ANDROID
+        prefix = PlatformAssetPrefixes.Android;
 #endif
-
-        return prefix;
-
+#if UNITY_IOS
+        prefix = PlatformAssetPrefixes.IOS;
+#endif
+    return prefix;
     }
 
     private string _runtimePrefix = null;

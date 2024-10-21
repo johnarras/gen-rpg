@@ -113,13 +113,13 @@ public class MinimapUI : BaseBehaviour
 
     private void OnEnableMinimap(EnableMinimapEvent data)
     {
-        _gameObjectService.SetActive(MainPanel, true);
+        _clientEntityService.SetActive(MainPanel, true);
         return;
     }
 
     private void OnDisableMinimap(DisableMinimapEvent data)
     {
-        _gameObjectService.SetActive(MainPanel, false);
+        _clientEntityService.SetActive(MainPanel, false);
         return;
     }
 

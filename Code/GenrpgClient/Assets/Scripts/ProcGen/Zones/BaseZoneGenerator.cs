@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Client.Assets.Services;
+﻿using Assets.Scripts.Awaitables;
+using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
@@ -29,7 +30,8 @@ public class BaseZoneGenerator : IZoneGenerator, IInitializable
     protected IClientRandom _rand;
     protected IMapGenData _md;
     protected IPathfindingService _pathfindingService;
-    protected IClientEntityService _gameObjectService;
+    protected IClientEntityService _clientEntityService;
+    protected IAwaitableService _awaitableService;
 
     public virtual async Awaitable Generate(CancellationToken token)
     {

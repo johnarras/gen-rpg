@@ -37,7 +37,7 @@ namespace Assets.Scripts.UI.Stores
                 return;
             }
 
-            _gameObjectService.DestroyAllChildren(StoreParent);
+            _clientEntityService.DestroyAllChildren(StoreParent);
 
             foreach (PlayerStoreOffer offer in _offerData.StoreOffers)
             {

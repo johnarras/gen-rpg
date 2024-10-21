@@ -14,13 +14,13 @@ namespace GameAssets.Editor
 	public class FullAssetBuild
 	{
 
-        [MenuItem("Build/Dev Full Asset Build")]
+        [MenuItem("Tools/Dev Full Asset Build")]
         static void ExecuteDev()
         {
             ExecuteEnv(EnvNames.Dev);
         }
 
-        [MenuItem("Build/Prod Full Asset Build")]
+        [MenuItem("Tools/Prod Full Asset Build")]
         static void ExecuteProd()
         {
             ExecuteEnv(EnvNames.Prod);

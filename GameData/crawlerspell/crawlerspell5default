@@ -5,11 +5,9 @@
   "Name": "Backstab",
   "Desc": "Leap from the shadows and kill one or more monsters in a group.",
   "MaxRange": 10,
-  "RequiredStatusEffectId": 13,
   "ReplacesCrawlerSpellId": 1,
   "CombatActionId": 1,
   "TargetTypeId": 1,
-  "CritChance": 100.0,
   "Level": 1,
   "Effects": [
     {
@@ -18,5 +16,5 @@
       "ElementTypeId": 1
     }
   ],
-  "UpdateTime": "2024-08-31T18:58:09.831Z"
+  "UpdateTime": "2024-10-21T22:47:47.801Z"
 }

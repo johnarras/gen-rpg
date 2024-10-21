@@ -4,9 +4,12 @@ using Genrpg.Editor.UI;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
+using Genrpg.Shared.Spells.Settings.Elements;
+using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using MongoDB.Bson.Serialization.IdGenerators;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -97,6 +100,34 @@ namespace Genrpg.Editor.Importers
             dialog.ShowAsync().GetAwaiter().GetResult();
 
             gs.LookedAtObjects.Clear();
+        }
+        public List<UnitEffect> ReadElementWords(string wordList, long entityTypeId, IReadOnlyList<ElementType> elementTypes)
+        {
+            List<UnitEffect> retval = new List<UnitEffect>();
+            if (string.IsNullOrEmpty(wordList))
+            { 
+                return retval; 
+            }
+
+            string[] words = wordList.Split(' ');
+
+            for (int w = 0; w < words.Length; w++)
+            {
+                string word = words[w].ToLower().Replace("_", "");
+
+                ElementType etype = elementTypes.FirstOrDefault(x => x.Name.ToLower() == word);
+
+                if (etype != null)
+                {
+                    retval.Add(new UnitEffect() { EntityTypeId = entityTypeId, EntityId = etype.IdKey, Quantity = 1 });
+                }
+                else
+                {
+                    _logService.Error("Missing element called: " + word);
+                }
+            }
+
+            return retval;
         }
     }
 }

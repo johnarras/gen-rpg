@@ -29,7 +29,7 @@ namespace Assets.Scripts.BoardGame.Services
         private IGameData _gameData;
         private IAssetService _assetService;
         private ILogService _logService;
-        private IClientEntityService _gameObjectService;  
+        private IClientEntityService _clientEntityService;  
 
         public async Awaitable UpdatePrizes(CancellationToken token)
         {
@@ -39,7 +39,7 @@ namespace Assets.Scripts.BoardGame.Services
 
             for (int i = 0; i < boardData.Length; i++)
             {
-                TileArt tileArt = _controller.GetTile(i);
+                TileController tileArt = _controller.GetTile(i);
 
                 long[] prizeIds = new long[BoardPrizeSlots.Max];
 
@@ -57,7 +57,7 @@ namespace Assets.Scripts.BoardGame.Services
                         }
                         if (prizeIds[s] == 0)
                         {
-                            _gameObjectService.DestroyAllChildren(tileArt.PrizeAnchors[s]);
+                            _clientEntityService.DestroyAllChildren(tileArt.PrizeAnchors[s]);
                         }
                         else
                         {

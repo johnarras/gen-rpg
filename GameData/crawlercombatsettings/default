@@ -8,6 +8,10 @@
   "MaxGroupSize": 99,
   "LuckCritChanceAtLevel": 0.05000000074505806,
   "MaxLuckCritRatio": 2.0,
+  "VulnerabilityDamageMult": 3.0,
+  "HiddenSingleTargetCritPercent": 100.0,
+  "ResistAddCritChance": -200.0,
+  "VulnAddCritChance": 10.0,
   "Name": "CrawlerCombatSettings",
-  "UpdateTime": "2024-08-30T23:00:35.583Z"
+  "UpdateTime": "2024-10-21T18:18:57.021Z"
 }

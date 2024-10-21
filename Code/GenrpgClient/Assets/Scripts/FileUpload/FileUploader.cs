@@ -1,6 +1,7 @@
 ﻿
 using System.Diagnostics;
 using Genrpg.Shared.Constants;
+using Genrpg.Shared.Purchasing.Settings;
 
 public class FileUploader
 {
@@ -9,6 +10,11 @@ public class FileUploader
         // Call out to the FileUploader program in Assets../FileUploader/FileUploader.exe
 
         ProcessStartInfo psi = new ProcessStartInfo();
+
+        if (fdata.LocalDataPath == null)
+        {
+            return;
+        }
 
         string filePath = fdata.LocalDataPath.Replace("Assets", "../FileUploader/Output/FileUploader.exe");
 

@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 6192750619760457459}
   - component: {fileID: 4456692975644884829}
   - component: {fileID: 5470134554553906309}
-  - component: {fileID: 4809023002443185068}
+  - component: {fileID: 8358508704986780800}
   m_Layer: 0
   m_Name: Scroll View
   m_TagString: Untagged
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4809023002443185068
+--- !u!114 &8358508704986780800
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3385376544266164874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Script: {fileID: 11500000, guid: fe8a2270151a13b41a5e72930f125b7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1494631638867755214}
@@ -430,9 +430,9 @@ MonoBehaviour:
   m_Viewport: {fileID: 2910947561424604761}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 5930972486039017642}
-  m_HorizontalScrollbarVisibility: 2
+  m_HorizontalScrollbarVisibility: 0
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -3
+  m_HorizontalScrollbarSpacing: 0
   m_VerticalScrollbarSpacing: 2
   m_OnValueChanged:
     m_PersistentCalls:
@@ -575,6 +575,8 @@ MonoBehaviour:
     Name: Input1
   - Obj: {fileID: 6158014440160446518}
     Name: Input2
+  - Obj: {fileID: 3385376544266164874}
+    Name: ScrollRect
 --- !u!222 &2041062528324121460
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -633,9 +635,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: m_TextWrappingMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 6959582924704007968, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: Text
+      value: 
+      objectReference: {fileID: 8318602351560952556}
     - target: {fileID: 7921855890685124001, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
       propertyPath: m_Pivot.x
@@ -758,6 +775,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2497264054597424261}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8318602351560952556 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2497264054597424261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ec29f826410a84792259cf40e7d3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4018112616519628037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -778,9 +807,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: m_TextWrappingMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 6959582924704007968, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: Text
+      value: 
+      objectReference: {fileID: 7357395853286206316}
     - target: {fileID: 7921855890685124001, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
       propertyPath: m_Pivot.x
@@ -903,6 +947,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4018112616519628037}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7357395853286206316 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4018112616519628037}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ec29f826410a84792259cf40e7d3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4296123531122104697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -923,9 +979,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: m_TextWrappingMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 6959582924704007968, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+        type: 3}
+      propertyPath: Text
+      value: 
+      objectReference: {fileID: 7658205380935042832}
     - target: {fileID: 7921855890685124001, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1048,3 +1119,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4296123531122104697}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7658205380935042832 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5897899869798178409, guid: c883e124e5fbd1c4f89c64a78ffd23f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4296123531122104697}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ec29f826410a84792259cf40e7d3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

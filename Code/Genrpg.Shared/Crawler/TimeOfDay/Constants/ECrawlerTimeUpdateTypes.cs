@@ -10,5 +10,8 @@ namespace Genrpg.Shared.Crawler.TimeOfDay.Constants
         CombatRound=1,
         Rest=2,
         Tavern=3,
+        Eat,
+        Drink,
+        Rumor,
     };
 }

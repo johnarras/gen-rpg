@@ -66,7 +66,7 @@ public class CastBar : BaseBehaviour
 
         _spellName = spellName;
         _isCasting = true;
-        _gameObjectService.SetActive(_contentParent, true);
+        _clientEntityService.SetActive(_contentParent, true);
         _progressBar.InitRange(0, castTimeMS, 0);
         _progressBar.SetValue(0, spellName);
 
@@ -74,7 +74,7 @@ public class CastBar : BaseBehaviour
 
     public void HideCast()
     {
-        _gameObjectService.SetActive(_contentParent, false);
+        _clientEntityService.SetActive(_contentParent, false);
         _isCasting = false;
     }
 

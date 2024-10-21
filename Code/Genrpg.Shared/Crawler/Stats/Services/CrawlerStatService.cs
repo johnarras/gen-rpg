@@ -2,18 +2,22 @@
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roles.Settings;
+using Genrpg.Shared.Crawler.Stats.Settings;
 using Genrpg.Shared.Crawler.Stats.Utils;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Inventory.PlayerData;
+using Genrpg.Shared.ProcGen.Settings.Names;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Utils;
+using MessagePack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Genrpg.Shared.Crawler.Stats.Services
@@ -24,7 +28,13 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
         void CalcPartyStats(PartyData party, bool resetCurrStats);
 
+        List<NameIdValue> GetInitialStats(PartyMember member);
+
+        List<NameIdValue> GetInitialStatBonuses(long roleId);
     }
+
+
+
     public class CrawlerStatService : ICrawlerStatService
     {
         protected IStatService _statService;
@@ -62,6 +72,8 @@ namespace Genrpg.Shared.Crawler.Stats.Services
             {
                 buffStatTypes.AddRange(role.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).Select(x => x.EntityId));
             }
+
+            buffStatTypes = buffStatTypes.Where(x => x < StatConstants.PrimaryStatStart || x > StatConstants.PrimaryStatEnd).ToList();
 
             buffStatTypes = buffStatTypes.Distinct().ToList();
 
@@ -229,6 +241,84 @@ namespace Genrpg.Shared.Crawler.Stats.Services
             }
 
             return retval;
+        }
+
+
+        public List<NameIdValue> GetInitialStats(PartyMember member)
+        {
+
+            CrawlerStatSettings crawlerStatSettings = _gameData.Get<CrawlerStatSettings>(_gs.ch);
+
+            IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(null).GetData().Where(x => x.IdKey >=
+            StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).OrderBy(x => x.IdKey).ToList();
+
+            List<Role> roles = _gameData.Get<RoleSettings>(_gs.ch).GetRoles(member.Roles);
+
+
+            List<NameIdValue> retval = new List<NameIdValue>();
+
+            foreach (StatType statType in allStats)
+            {
+                retval.Add(new NameIdValue()
+                {
+                    IdKey = statType.IdKey,
+                    Name = statType.Name,
+                    Val = crawlerStatSettings.StartStat,
+                });
+            }
+
+            foreach (Role role in roles)
+            {
+                List<NameIdValue> nameVals = GetInitialStatBonuses(role.IdKey);
+
+                foreach (NameIdValue nameVal in nameVals)
+                {
+                    NameIdValue currStatVal = retval.FirstOrDefault(x => x.IdKey== nameVal.IdKey);
+
+                    if (currStatVal != null)
+                    {
+                        currStatVal.Val += nameVal.Val;
+                    }
+                }
+            }
+
+            return retval;
+        }
+
+        public List<NameIdValue> GetInitialStatBonuses(long roleId)
+        {
+            IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(null).GetData().Where(x => x.IdKey >=
+            StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).OrderBy(x => x.IdKey).ToList();
+
+            Role role = _gameData.Get<RoleSettings>(_gs.ch).Get(roleId);
+
+            List<NameIdValue> retval = new List<NameIdValue>();
+
+            if (String.IsNullOrEmpty(role.StartStatBonuses))
+            {
+                return retval;
+            }
+
+            string[] words = role.StartStatBonuses.Split(' ');
+
+            for (int i = 0; i < allStats.Count && i < words.Length; i++)
+            {
+                if (Int64.TryParse(words[i], out long val))
+                {
+                    if (val != 0)
+                    {
+                        retval.Add(new NameIdValue()
+                        {
+                            IdKey = allStats[i].IdKey,
+                            Name = allStats[i].Name.Substring(0,3),
+                            Val = val
+                        });
+                    }
+                }
+            }
+
+            return retval;
+
         }
     }
 }

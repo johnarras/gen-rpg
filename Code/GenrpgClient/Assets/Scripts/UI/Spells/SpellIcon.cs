@@ -75,7 +75,7 @@ public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIc
             return;
         }
 
-        _gameObjectService.SetActive(_initData.Screen.ToolTip, true);
+        _clientEntityService.SetActive(_initData.Screen.ToolTip, true);
         InitSpellTooltipData tooltipData = new InitSpellTooltipData() { spell = _initData.Data };
         _initData.Screen.ToolTip.Init(tooltipData, _token);
         UpdateTooltipPosition();
@@ -88,7 +88,7 @@ public class SpellIcon : DragItem<Spell, SpellIcon, SpellIconScreen, InitSpellIc
             return;
         }
 
-        _gameObjectService.SetActive(_initData.Screen.ToolTip, false);
+        _clientEntityService.SetActive(_initData.Screen.ToolTip, false);
     }
 
 

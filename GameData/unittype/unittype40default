@@ -12,6 +12,11 @@
     {
       "EntityTypeId": 36,
       "EntityId": 13
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 5
     }
   ],
   "PrefixNames": [],
@@ -21,5 +26,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-08-31T18:55:35.49Z"
+  "UpdateTime": "2024-10-18T22:27:41.638Z"
 }

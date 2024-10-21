@@ -16,7 +16,7 @@ public class QuestTaskUI : BaseBehaviour
     {
         if (qtype == null || task == null)
         {
-            _gameObjectService.Destroy(entity);
+            _clientEntityService.Destroy(entity);
             return;
         }
 

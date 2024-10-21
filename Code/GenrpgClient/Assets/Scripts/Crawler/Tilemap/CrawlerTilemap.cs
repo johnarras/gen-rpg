@@ -115,7 +115,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
                 rect.sizeDelta = new Vector2(_tileSize, _tileSize);
             }
 
-            _gameObjectService.DestroyAllChildren(ImageParent);
+            _clientEntityService.DestroyAllChildren(ImageParent);
 
             _mapDepth = (_isBigMap ? TilemapIndexes.SimpleMax : TilemapIndexes.Max);
 

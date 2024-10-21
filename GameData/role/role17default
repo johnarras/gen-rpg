@@ -7,6 +7,7 @@
   "Abbrev": "Hf",
   "RoleCategoryId": 2,
   "CritPercent": 5,
+  "StartStatBonuses": "0 0 0 3 0 3",
   "Bonuses": [],
-  "UpdateTime": "2024-10-05T23:56:53.124Z"
+  "UpdateTime": "2024-10-20T18:48:00.956Z"
 }

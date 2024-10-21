@@ -35,7 +35,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
         protected ILogService _logService;
         protected IGameData _gameData;
         protected IClientGameState _gs;
-        protected IClientEntityService _gameObjectService;
+        protected IClientEntityService _clientEntityService;
         protected ICrawlerWorldService _worldService;
         protected ICrawlerMapService _mapService;
         protected ICrawlerMapGenService _mapGenService;
@@ -58,7 +58,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             CrawlerMap map = mapData.Map;
 
             GameObject go = new GameObject() { name = GetKey().ToString() };
-            CrawlerMapRoot mapRoot = _gameObjectService.GetOrAddComponent<CrawlerMapRoot>(go);
+            CrawlerMapRoot mapRoot = _clientEntityService.GetOrAddComponent<CrawlerMapRoot>(go);
 
             mapRoot.SetupFromMap(map);
             mapRoot.DrawX = partyData.MapX * CrawlerMapConstants.BlockSize;
@@ -72,8 +72,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
         protected void AddWallComponent(GameObject asset, GameObject parent, Vector3 offset, Vector3 euler)
         {
-            GameObject obj = _gameObjectService.FullInstantiate(asset);
-            _gameObjectService.AddToParent(obj, parent);
+            GameObject obj = _clientEntityService.FullInstantiate(asset);
+            _clientEntityService.AddToParent(obj, parent);
             obj.transform.localPosition = offset;
             obj.transform.eulerAngles = euler;
         }
@@ -91,11 +91,11 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             if (loadData == null || loadData.MapCell == null || loadData.BuildingType == null || loadData.MapRoot == null ||
                 go.transform.parent == null)
             {
-                _gameObjectService.Destroy(go);
+                _clientEntityService.Destroy(go);
                 return;
             }
 
-            MapBuilding mapBuilding = _gameObjectService.GetComponent<MapBuilding>(go);
+            MapBuilding mapBuilding = _clientEntityService.GetComponent<MapBuilding>(go);
 
             if (mapBuilding != null)
             {
@@ -139,19 +139,19 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                 return;
             }
 
-            TextureList tlist = _gameObjectService.GetComponent<TextureList>(go);
+            TextureList tlist = _clientEntityService.GetComponent<TextureList>(go);
 
             if (tlist == null || tlist.Textures == null || tlist.Textures.Count < 1 || tlist.Textures[0] == null)
             {
-                _gameObjectService.Destroy(go);
+                _clientEntityService.Destroy(go);
                 return;
             }
 
-            GImage image = _gameObjectService.GetComponent<GImage>(parent);
+            GImage image = _clientEntityService.GetComponent<GImage>(parent);
 
             if (image == null)
             {
-                _gameObjectService.Destroy(go);
+                _clientEntityService.Destroy(go);
                 return;
             }
 
@@ -239,7 +239,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 
             GameObject go = new GameObject() { name = "Cell" + cell.X + "." + cell.Z };
             cell.Content = go;           
-            _gameObjectService.AddToParent(go, mapRoot.gameObject);
+            _clientEntityService.AddToParent(go, mapRoot.gameObject);
             go.transform.position = new Vector3(nx * bz, 0, nz * bz);
 
             bool isRoom = (mapRoot.Map.Get(cell.X, cell.Z, CellIndex.Walls) & (1 << MapWallBits.IsRoomBitOffset)) != 0;
@@ -263,7 +263,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             if (!IsIndoors())
             {
                 GameObject imageChild = new GameObject() { name = "Image" };
-                _gameObjectService.AddToParent(imageChild, go);
+                _clientEntityService.AddToParent(imageChild, go);
                 imageChild.AddComponent<GImage>();
                 Canvas canvas = imageChild.AddComponent<Canvas>();
                 canvas.renderMode = RenderMode.WorldSpace;

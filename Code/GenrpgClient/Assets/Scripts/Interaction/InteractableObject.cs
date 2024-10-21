@@ -52,13 +52,13 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
 
         if (GlowItem != null)
         {
-            _gameObjectService.Destroy(GlowItem);
+            _clientEntityService.Destroy(GlowItem);
             GlowItem = null;
         }
 
         if (destroyAtEnd)
         {
-            _gameObjectService.Destroy(entity);
+            _clientEntityService.Destroy(entity);
         }
         _showingGlow = false;
     }
@@ -94,7 +94,7 @@ public class InteractableObject : BaseBehaviour, IPointerEnterHandler, IPointerE
 
         if (glow.transform.parent == null)
         {
-            _gameObjectService.Destroy(glow);
+            _clientEntityService.Destroy(glow);
             return;
         }
 

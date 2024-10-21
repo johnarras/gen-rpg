@@ -145,7 +145,6 @@ namespace Assets.Scripts.ProcGen.Components
                 Vector3 pos = (Container.Splines[0].EvaluatePosition(percent));
                 MarkerPosition markerPos = new MarkerPosition() { Percent = percent, Index = i, Position = pos, EntityId = tileType.IdKey };
 
-                _logService.Info("LoadTile: " + tileType.Art + " " + tileType.IdKey + " " + markerPos.Index);
                 _markers.Add(markerPos);
                 _assetService.LoadAssetInto(this, AssetCategoryNames.Tiles, tileType.Art, OnLoadMarker, markerPos, token);
             }
@@ -207,7 +206,6 @@ namespace Assets.Scripts.ProcGen.Components
                         MarkerPosition markerPos = new MarkerPosition() { Percent = percent, Index = i+pathLengthSoFar, Position = evalPos, EntityId = tileType.IdKey };
 
                         _markers.Add(markerPos);
-                        _logService.Info("LoadTile: " + tileType.Art + " " + tileType.IdKey + " " + markerPos.Index);
                         _assetService.LoadAssetInto(this, AssetCategoryNames.Tiles, tileType.Art, OnLoadMarker, markerPos, token);
                     }
                     pathLengthSoFar += sidePaths[s].Count;
@@ -229,7 +227,7 @@ namespace Assets.Scripts.ProcGen.Components
 
             if (Container == null || Container.Splines.Count < 1)
             {
-                _gameObjectService.Destroy(go);
+                _clientEntityService.Destroy(go);
                 return;
             }
 

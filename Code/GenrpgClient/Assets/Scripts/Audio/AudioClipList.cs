@@ -118,7 +118,7 @@ public class AudioClipList : BaseBehaviour
         }
 
         _sources.Remove(source);
-        _gameObjectService.Destroy(source);
+        _clientEntityService.Destroy(source);
     }
      
 
@@ -172,7 +172,7 @@ public class AudioClipList : BaseBehaviour
                 if (!source.isPlaying)
                 {
                     source.clip = null;
-                    _gameObjectService.Destroy(source);
+                    _clientEntityService.Destroy(source);
                     _sources.Remove(source);
                     s--;
                 }

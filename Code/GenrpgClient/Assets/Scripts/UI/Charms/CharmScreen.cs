@@ -38,7 +38,7 @@ namespace Assets.Scripts.UI.Charms
             CharmRow row = go.GetComponent<CharmRow>();
             if (row == null)
             {
-                _gameObjectService.Destroy(go);
+                _clientEntityService.Destroy(go);
                 return;
             }
 

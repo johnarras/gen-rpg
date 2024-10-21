@@ -27,7 +27,7 @@ public class TestAssetDownloads : IInjectable
     private IAssetService _assetService;
     private IScreenService _screenService;
     private IGameData _gameData;
-    protected IClientEntityService _gameObjectService;
+    protected IClientEntityService _clientEntityService;
     public async Awaitable RunTests(IClientGameState gs, CancellationToken token)
     {
         gs.loc.Resolve(this);
@@ -64,7 +64,7 @@ public class TestAssetDownloads : IInjectable
         {
            _logService.Info("Failed Download: " + data);
         }
-        _gameObjectService.Destroy(obj);
+        _clientEntityService.Destroy(obj);
 
        
     }

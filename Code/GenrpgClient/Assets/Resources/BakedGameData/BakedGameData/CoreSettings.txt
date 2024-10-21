@@ -1,8 +1,0 @@
-{
-  "Id": "default",
-  "GameName": "Genrpg",
-  "UnityProjectId": "d20d5604-ef2a-4c41-8904-3f881fc78a2b",
-  "BundleId": "com.oxdeadbeefgames.genrpg",
-  "Name": "CoreSettings",
-  "UpdateTime": "2024-08-01T00:28:05.681Z"
-}

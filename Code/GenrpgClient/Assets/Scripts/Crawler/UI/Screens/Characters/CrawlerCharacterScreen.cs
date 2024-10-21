@@ -4,9 +4,9 @@ using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.Stats.Services;
+using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
 using Genrpg.Shared.Inventory.Messages;
 using Genrpg.Shared.Inventory.PlayerData;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,19 +16,12 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Crawler.UI.Screens.Characters
 {
-    public class CrawlerCharacterScreenData
-    {
-        public Unit Unit;
-        public ECrawlerStates PrevState;
-    }
-
-
     public class CrawlerCharacterScreen : CharacterScreen
     {
         ICrawlerService _crawlerService;
         ICrawlerStatService _crawlerStatService;
 
-        ECrawlerStates _prevState = ECrawlerStates.TavernMain;
+        ECrawlerStates _prevState = ECrawlerStates.GuildMain;
 
         protected override bool CalcStatsOnEquipUnequip() { return false; }
         protected override string GetStatSubdirectory() { return "CrawlerUnits"; }

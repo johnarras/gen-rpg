@@ -83,8 +83,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Charms
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1d635af844f05bc42be8b9d338c0f26b, type: 2}
+  m_sharedMaterial: {fileID: -1391173332140436192, guid: 1d635af844f05bc42be8b9d338c0f26b,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -977,7 +978,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+      objectReference: {fileID: 11400000, guid: 1d635af844f05bc42be8b9d338c0f26b,
         type: 2}
     - target: {fileID: 8328473642033499900, guid: 5aafc411c19fc3d4e8af6e44e6688e3b,
         type: 3}
@@ -1003,7 +1004,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -1391173332140436192, guid: 1d635af844f05bc42be8b9d338c0f26b,
+        type: 2}
     - target: {fileID: 8328473642033499900, guid: 5aafc411c19fc3d4e8af6e44e6688e3b,
         type: 3}
       propertyPath: m_TextStyleHashCode

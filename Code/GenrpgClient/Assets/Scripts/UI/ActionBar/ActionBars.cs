@@ -69,8 +69,8 @@ public class ActionBars : SpellIconScreen
         {
             GameObject parent = _buttonSetParents[b].gameObject;
 
-            _gameObjectService.SetActive(parent, true); // Config user bars
-            _gameObjectService.DestroyAllChildren(parent);
+            _clientEntityService.SetActive(parent, true); // Config user bars
+            _clientEntityService.DestroyAllChildren(parent);
 
             for (int i = _buttonSetParents[b].MinIndex; i <= _buttonSetParents[b].MaxIndex; i++)
             {
@@ -108,14 +108,14 @@ public class ActionBars : SpellIconScreen
 
         if (!InputConstants.OkActionIndex(abDownload.Index))
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
         ActionButton button = go.GetComponent<ActionButton>();
         if (button == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -136,7 +136,7 @@ public class ActionBars : SpellIconScreen
         foreach (ActionButton ab in buttons)
         {
             ab.transform.SetParent(null);
-            _gameObjectService.AddToParent(ab.gameObject, abDownload.Parent);
+            _clientEntityService.AddToParent(ab.gameObject, abDownload.Parent);
         }
 
     }

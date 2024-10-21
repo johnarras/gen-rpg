@@ -9,10 +9,11 @@ namespace Assets.Scripts.UI.Core
         public GText Label;
         public GInputField Input;
         public GText Placeholder;
+        public GText Text;
 
-        public string GetText()
+        public string GetInputText()
         {
-            return Input.text;
+            return Text.text;
         }
 
         public void Init(long spellModifierId, Action onValueChangedAction)
@@ -29,12 +30,9 @@ namespace Assets.Scripts.UI.Core
             _uiService.SetText(Placeholder, text);
         }
 
-        public void SetInput(string text)
+        public void SetInputText(string text)
         {
-            if (Input != null)
-            {
-                _uiService.SetText((GText)(Input.textComponent), text);
-            }
+            _uiService.SetText(Text, text);
         }
     }
 }

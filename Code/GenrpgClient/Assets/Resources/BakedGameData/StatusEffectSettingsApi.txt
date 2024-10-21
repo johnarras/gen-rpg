@@ -149,11 +149,11 @@
       "Abbrev": "Fear",
       "ActionEffects": [
         {
-          "CombatActionId": 6,
+          "CombatActionId": 7,
           "Effect": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:13.062Z"
+      "UpdateTime": "2024-10-21T23:08:45.47Z"
     },
     {
       "Id": "statuseffect12default",
@@ -166,11 +166,11 @@
       "Abbrev": "Stun",
       "ActionEffects": [
         {
-          "CombatActionId": 6,
+          "CombatActionId": 7,
           "Effect": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:13.064Z"
+      "UpdateTime": "2024-10-21T23:08:45.47Z"
     },
     {
       "Id": "statuseffect13default",
@@ -183,11 +183,11 @@
       "Abbrev": "Petri",
       "ActionEffects": [
         {
-          "CombatActionId": 6,
+          "CombatActionId": 7,
           "Effect": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:13.066Z"
+      "UpdateTime": "2024-10-21T23:08:45.47Z"
     },
     {
       "Id": "statuseffect14default",
@@ -200,55 +200,16 @@
       "Abbrev": "Poss",
       "ActionEffects": [
         {
-          "CombatActionId": 6,
+          "CombatActionId": 7,
           "Effect": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:13.068Z"
+      "UpdateTime": "2024-10-21T23:08:45.47Z"
     },
     {
       "Id": "statuseffect15default",
       "ParentId": "default",
       "IdKey": 15,
-      "Name": "Hidden",
-      "Abbrev": "Hide",
-      "ActionEffects": [],
-      "UpdateTime": "2024-08-01T00:28:13.071Z"
-    },
-    {
-      "Id": "statuseffect16default",
-      "ParentId": "default",
-      "IdKey": 16,
-      "Name": "Taunt",
-      "Abbrev": "Taunt",
-      "ActionEffects": [],
-      "UpdateTime": "2024-08-01T00:28:13.079Z"
-    },
-    {
-      "Id": "statuseffect17default",
-      "ParentId": "default",
-      "IdKey": 17,
-      "Name": "Hasted",
-      "Abbrev": "Haste",
-      "ActionEffects": [],
-      "UpdateTime": "2024-08-01T00:28:13.086Z"
-    },
-    {
-      "Id": "statuseffect18default",
-      "ParentId": "default",
-      "IdKey": 18,
-      "Name": "Mult",
-      "Desc": "",
-      "Icon": "",
-      "Art": "",
-      "Abbrev": "Mult",
-      "ActionEffects": [],
-      "UpdateTime": "2024-08-01T00:28:13.089Z"
-    },
-    {
-      "Id": "statuseffect19default",
-      "ParentId": "default",
-      "IdKey": 19,
       "Name": "Dead",
       "Desc": "",
       "Icon": "",
@@ -256,17 +217,17 @@
       "Abbrev": "Dead",
       "ActionEffects": [
         {
-          "CombatActionId": 6,
+          "CombatActionId": 7,
           "Effect": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:13.091Z"
+      "UpdateTime": "2024-10-21T23:08:45.47Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "StatusEffectSettings",
-    "UpdateTime": "2024-08-01T00:28:13.119Z"
+    "UpdateTime": "2024-10-21T23:08:45.47Z"
   },
   "Id": "default"
 }

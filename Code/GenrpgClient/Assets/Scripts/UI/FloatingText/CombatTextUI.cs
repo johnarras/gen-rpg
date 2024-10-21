@@ -92,7 +92,7 @@ public class CombatTextUI : BaseBehaviour
     {
         if ((DateTime.UtcNow-createTime).TotalSeconds >= _lifetimeSeconds)
         {
-            _gameObjectService.Destroy(entity);
+            _clientEntityService.Destroy(entity);
             return;
         }
 

@@ -53,7 +53,7 @@ namespace Assets.Scripts.UI.Blockers
 
                         if (baseScreen != null)
                         {
-                            entity = (GameObject)_gameObjectService.FindChild(baseScreen.gameObject, _step.ActionButtonName);
+                            entity = (GameObject)_clientEntityService.FindChild(baseScreen.gameObject, _step.ActionButtonName);
                         }
                     }
                 }
@@ -81,7 +81,7 @@ namespace Assets.Scripts.UI.Blockers
                     }
                     if (BackgroundImage != null)
                     {
-                        _gameObjectService.SetActive(BackgroundImage, false);
+                        _clientEntityService.SetActive(BackgroundImage, false);
                     }
                 }
                 else
@@ -91,13 +91,13 @@ namespace Assets.Scripts.UI.Blockers
                         RectTransform maskRect = CircleMask.GetComponent<RectTransform>();
                         maskRect.position = Vector3.zero;
                         maskRect.sizeDelta = Vector2.zero;
-                        _gameObjectService.SetActive(CircleMask, false);
+                        _clientEntityService.SetActive(CircleMask, false);
                     }
 
                     if (BackgroundImage != null)
                     {
                         BackgroundImage.raycastTarget = true;
-                        _gameObjectService.SetActive(BackgroundImage, true);
+                        _clientEntityService.SetActive(BackgroundImage, true);
 
                         _uiService.SetButton(BackgroundButton, GetName(), OnClickBackground);
                     }

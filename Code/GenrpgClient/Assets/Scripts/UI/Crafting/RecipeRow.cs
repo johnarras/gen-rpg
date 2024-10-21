@@ -41,7 +41,7 @@ public class RecipeRow : BaseBehaviour
 
     private void OnError()
     {
-        _gameObjectService.Destroy(entity);
+        _clientEntityService.Destroy(entity);
         return;
     }
 

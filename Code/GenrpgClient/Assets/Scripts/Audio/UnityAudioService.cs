@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Assets.Scripts.Core.Interfaces;
 using Genrpg.Shared.Client.Tokens;
 using Genrpg.Shared.Client.Assets.Constants;
+using Assets.Scripts.Awaitables;
 
 public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService, IInjectOnLoad<IAudioService>, IInitOnResolve
 {
@@ -24,6 +25,8 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         await Task.CompletedTask;
     }
 
+    protected IAwaitableService _awaitableService;
+
     private Dictionary<string, AudioClipList> _audioCache = new Dictionary<string, AudioClipList>();
 
     protected CancellationToken _token;
@@ -32,7 +35,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
     public void SetGameToken(CancellationToken token)
     {
         _token = token;
-        TaskUtils.ForgetAwaitable(CheckRemoveAudio(_token));
+        _awaitableService.ForgetAwaitable(CheckRemoveAudio(_token));
     }
 
     public override void Init()
@@ -130,7 +133,7 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
                     }
                     _audioCache.Remove(cont.Name);
                     cont.Clear();
-                    _gameObjectService.Destroy(cont.gameObject);
+                    _clientEntityService.Destroy(cont.gameObject);
                 }
             }
             else
@@ -186,20 +189,20 @@ public class UnityAudioService : BaseBehaviour, IAudioService, IGameTokenService
         AudioClipList cont = go.GetComponent<AudioClipList>();
         if (cont == null || !cont.IsValid())
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
         PlayAudioData playData = data as PlayAudioData;
         if (playData == null || string.IsNullOrEmpty(playData.audioName))
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
         if (_audioCache.ContainsKey(playData.audioName))
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             cont = _audioCache[playData.audioName];
                 
         }

@@ -8,7 +8,7 @@
       "Icon": "Humanoid",
       "Art": "Humanoid",
       "Effects": [],
-      "UpdateTime": "2024-08-01T00:28:15.154Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword2default",
@@ -31,9 +31,13 @@
         {
           "EntityTypeId": 36,
           "EntityId": 5
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.164Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword3default",
@@ -46,9 +50,13 @@
         {
           "EntityTypeId": 100,
           "EntityId": 37
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.167Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword4default",
@@ -75,7 +83,7 @@
           "EntityId": 29
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.169Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword5default",
@@ -90,7 +98,7 @@
           "EntityId": 13
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.172Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword6default",
@@ -119,7 +127,7 @@
           "EntityId": 8
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.174Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword7default",
@@ -129,7 +137,7 @@
       "Icon": "Beast",
       "Art": "Beast",
       "Effects": [],
-      "UpdateTime": "2024-08-01T00:28:15.177Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword8default",
@@ -146,9 +154,19 @@
         {
           "EntityTypeId": 36,
           "EntityId": 3
+        },
+        {
+          "EntityTypeId": 24,
+          "Quantity": 1,
+          "EntityId": 7
+        },
+        {
+          "EntityTypeId": 25,
+          "Quantity": 1,
+          "EntityId": 6
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.179Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword9default",
@@ -163,7 +181,7 @@
           "EntityId": 1
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.182Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword10default",
@@ -177,9 +195,18 @@
         {
           "EntityTypeId": 36,
           "EntityId": 11
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 25,
+          "Quantity": 1,
+          "EntityId": 1
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.129Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword11default",
@@ -192,9 +219,18 @@
         {
           "EntityTypeId": 36,
           "EntityId": 12
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 25,
+          "Quantity": 1,
+          "EntityId": 1
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.132Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword12default",
@@ -213,7 +249,7 @@
           "EntityId": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.134Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword13default",
@@ -222,8 +258,18 @@
       "Name": "Giant",
       "Icon": "Giant",
       "Art": "Giant",
-      "Effects": [],
-      "UpdateTime": "2024-08-01T00:28:15.137Z"
+      "Effects": [
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 25,
+          "Quantity": 1,
+          "EntityId": 1
+        }
+      ],
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword14default",
@@ -239,7 +285,7 @@
           "EntityId": 3
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.139Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword15default",
@@ -260,7 +306,7 @@
           "EntityId": 20
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.142Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword16default",
@@ -285,7 +331,7 @@
           "EntityId": 37
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.144Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword17default",
@@ -304,7 +350,7 @@
           "EntityId": 32
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.147Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword18default",
@@ -323,7 +369,7 @@
           "EntityId": 7
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.149Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword19default",
@@ -340,9 +386,23 @@
         {
           "EntityTypeId": 36,
           "EntityId": 11
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 24,
+          "Quantity": 1,
+          "EntityId": 7
+        },
+        {
+          "EntityTypeId": 25,
+          "Quantity": 1,
+          "EntityId": 6
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.152Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword20default",
@@ -359,9 +419,14 @@
         {
           "EntityTypeId": 100,
           "EntityId": 32
+        },
+        {
+          "EntityTypeId": 24,
+          "Quantity": 1,
+          "EntityId": 5
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.157Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword21default",
@@ -378,9 +443,19 @@
         {
           "EntityTypeId": 100,
           "EntityId": 50
+        },
+        {
+          "EntityTypeId": 24,
+          "Quantity": 1,
+          "EntityId": 3
+        },
+        {
+          "EntityTypeId": 25,
+          "Quantity": 1,
+          "EntityId": 2
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.159Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     },
     {
       "Id": "unitkeyword22default",
@@ -397,15 +472,25 @@
         {
           "EntityTypeId": 100,
           "EntityId": 30
+        },
+        {
+          "EntityTypeId": 24,
+          "Quantity": 1,
+          "EntityId": 2
+        },
+        {
+          "EntityTypeId": 25,
+          "Quantity": 1,
+          "EntityId": 3
         }
       ],
-      "UpdateTime": "2024-08-01T00:28:15.162Z"
+      "UpdateTime": "2024-10-18T22:39:42.104Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "UnitKeywordSettings",
-    "UpdateTime": "2024-08-01T00:28:15.184Z"
+    "UpdateTime": "2024-10-18T22:39:42.104Z"
   },
   "Id": "default"
 }

@@ -101,7 +101,7 @@ public class FullItemTooltip : BaseTooltip
         _mainTooltip.Init(mainInitData, _token);
         for (int i = 0; i < _equipTooltips.Count; i++)
         {
-            _gameObjectService.SetActive(_equipTooltips[i], i < _equips.Count);
+            _clientEntityService.SetActive(_equipTooltips[i], i < _equips.Count);
             if (i < _equips.Count)
             {
                 InitItemTooltipData otherInitData = new InitItemTooltipData()
@@ -151,7 +151,7 @@ public class FullItemTooltip : BaseTooltip
 
     public void OnExit(string msg = "")
     {
-        _gameObjectService.SetActive(entity, false);
+        _clientEntityService.SetActive(entity, false);
     }
 
 }

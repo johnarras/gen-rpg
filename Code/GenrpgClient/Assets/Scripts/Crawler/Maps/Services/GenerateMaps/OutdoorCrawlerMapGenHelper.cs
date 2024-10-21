@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System.Threading.Tasks;
+using Genrpg.Shared.Riddles.Settings;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -678,6 +679,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 map.Set(xx, yy, CellIndex.Building, buildingTypeId);
             }
 
+            List<Riddle> riddles = _gameData.Get<RiddleSettings>(_gs.ch).GetData().ToList();
+
             CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
 
             CrawlerMapType dungeonType = mapSettings.Get(CrawlerMapTypes.Dungeon);
@@ -719,31 +722,29 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 }
             }
 
-            for (int d = 0; d < dungeonMapGroups.Count; d++)
+            for (int dungeonIndex = 0; dungeonIndex < dungeonMapGroups.Count; dungeonIndex++)
             {
-                List<CrawlerMap> floors = dungeonMapGroups[d];
+                List<CrawlerMap> floors = dungeonMapGroups[dungeonIndex];
 
                 List<long> floorIds = floors.Select(x => x.IdKey).ToList();
 
                 CrawlerMap entranceMap = floors.First();
 
-                if ((d > 4 && rand.NextDouble() < dungeonType.QuestItemEntranceUnlockChance) || d == dungeonMapGroups.Count - 1)
+                if ((dungeonIndex > 4 && rand.NextDouble() < dungeonType.QuestItemEntranceUnlockChance) || dungeonIndex == dungeonMapGroups.Count - 1)
                 {
 
                     string questItemName = _lootGenService.GenerateItemNames(rand, 1).First();
 
-                    int lookbackDistance = Math.Min(d - 1, 4 + d / 3);
+                    int lookbackDistance = Math.Min(dungeonIndex - 1, 4 + dungeonIndex / 3);
 
                     List<int> okIndexes = new List<int>();
 
-                    for (int i = d - 1; i >= 0 && d - i <= lookbackDistance + 1; i--)
+                    for (int i = dungeonIndex - 1; i >= 0 && dungeonIndex - i <= lookbackDistance + 1; i--)
                     {
                         okIndexes.Add(i);
                     }
 
                     int chosenIndex = okIndexes[rand.Next() % okIndexes.Count];
-
-
 
                     List<CrawlerMap> targetMaps = dungeonMapGroups[chosenIndex];
 
@@ -773,6 +774,93 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                         entranceMap.MapQuestItemId = nextQuestItemId;
 
+                    }
+                }
+                else if (dungeonIndex > 2 && dungeonIndex < dungeonMapGroups.Count - 1 && rand.NextDouble() <= dungeonType.RiddleUnlockChance && riddles.Count > 0)
+                {
+                    Riddle riddle = riddles[rand.Next() % riddles.Count];
+
+                    long minFloor = floors.Min(x => x.MapFloor);
+                    long maxFloor = floors.Max(x => x.MapFloor);
+
+                    if (maxFloor < 2)
+                    {
+                        continue;
+                    }
+
+                    long floorChosen = MathUtils.LongRange(minFloor + 1, maxFloor, rand);
+
+                    floorChosen = 2;
+
+                    CrawlerMap lockedFloor = floors.FirstOrDefault(x=>x.MapFloor == floorChosen);
+
+                    if (lockedFloor == null)
+                    {
+                        continue;
+                    }
+
+                    CrawlerMap prevFloor = floors.FirstOrDefault(x => x.MapFloor == floorChosen - 1);
+
+                    if (prevFloor == null)
+                    {
+                        continue;
+                    }
+
+                    string[] lines = riddle.Desc.Split('\n');
+
+                    if (lines.Length < 2)
+                    {
+                        continue;
+                    }
+
+                    List<MyPoint2> openPoints = new List<MyPoint2>();
+
+                    for (int x =0; x < prevFloor.Width; x++)
+                    {
+                        for (int z = 0; z < prevFloor.Height; z++)
+                        {
+                            if (prevFloor.Get(x,z,CellIndex.Terrain) < 1 ||
+                               prevFloor.Get(x,z,CellIndex.Encounter) > 0 ||
+                                prevFloor.Get(x,z,CellIndex.Magic) > 0 ||
+                                prevFloor.Get(x,z,CellIndex.Disables) > 0)
+                            {
+                                continue;
+                            }
+
+                            MapCellDetail detail = prevFloor.Details.FirstOrDefault(d => d.X == x && d.Z == z);
+
+                            if (detail != null)
+                            {
+                                continue;
+                            }
+
+                            openPoints.Add(new MyPoint2(x,z));
+                        }
+                    }
+
+                    if (openPoints.Count < lines.Length)
+                    {
+                        continue;
+                    }
+
+                    riddles.Remove(riddle);
+
+                    lockedFloor.RiddleId = riddle.IdKey;
+
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (!String.IsNullOrEmpty(lines[i]))
+                        {
+                            MyPoint2 openPoint = openPoints[rand.Next() % openPoints.Count];
+                            prevFloor.Details.Add(new MapCellDetail()
+                            {
+                                EntityTypeId = EntityTypes.Riddle,
+                                EntityId = riddle.IdKey,
+                                X = (int)openPoint.X,
+                                Z = (int)openPoint.Y,
+                                Index = i
+                            });
+                        }
                     }
                 }
             }

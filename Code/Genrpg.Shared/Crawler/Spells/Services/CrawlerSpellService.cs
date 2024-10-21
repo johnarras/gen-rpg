@@ -46,8 +46,8 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 {
     public interface ICrawlerSpellService : IInjectable
     {
-        List<CrawlerSpell> GetSpellsForMember(PartyData party, PartyMember member, bool inCombat);
-        List<CrawlerSpell> GetNonSpellCombatActionsForMember(PartyData party, PartyMember member, bool inCombat);
+        List<CrawlerSpell> GetSpellsForMember(PartyData party, PartyMember member);
+        List<CrawlerSpell> GetNonSpellCombatActionsForMember(PartyData party, PartyMember member);
         FullSpell GetFullSpell(PartyData party, CrawlerUnit unit, CrawlerSpell spell, long overrideLevel = 0);
         Task CastSpell(PartyData party, UnitAction action, long overrideLevel = 0, int depth = 0);
         ISpecialMagicHelper GetSpecialEffectHelper(long effectEntityId);
@@ -57,8 +57,18 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         bool IsEnemyTarget(long targetTypeId);
         bool IsNonCombatTarget(long targetTypeId);
     }
+
+
+
     public class CrawlerSpellService : ICrawlerSpellService
     {
+
+        class ExtraMessageBits
+        {
+            public const long Resists = (1 << 0);
+            public const long Vulnerable = (1 << 1);
+        }
+
 
         private IStatService _statService;
         private ILogService _logService;
@@ -82,20 +92,22 @@ namespace Genrpg.Shared.Crawler.Spells.Services
         }
 
         public List<CrawlerSpell> GetNonSpellCombatActionsForMember(
-            PartyData party, PartyMember member, bool inCombat)
+            PartyData party, PartyMember member)
         {
-            return GetAbilitiesForMember(party, member, inCombat, false);
+            return GetAbilitiesForMember(party, member, false);
         }
 
         public List<CrawlerSpell> GetSpellsForMember(PartyData party,
-            PartyMember member, bool inCombat)
+            PartyMember member)
         {
-            return GetAbilitiesForMember(party, member, inCombat, true);
+            return GetAbilitiesForMember(party, member, true);
         }
 
         private List<CrawlerSpell> GetAbilitiesForMember(PartyData party,
-            PartyMember member, bool inCombat, bool chooseSpells)
+            PartyMember member, bool chooseSpells)
         {
+            EActionCategories actionCategory = party.GetActionCategory();
+
             IReadOnlyList<CrawlerSpell> allSpells = _gameData.Get<CrawlerSpellSettings>(null).GetData();
 
             List<CrawlerSpell> castSpells = allSpells.Where(x =>
@@ -129,11 +141,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     continue;
                 }
 
-                if (spell.RequiredStatusEffectId > 0 && !member.StatusEffects.HasBit(spell.RequiredStatusEffectId))
-                {
-                    continue;
-                }
-
                 if (_combatService.IsActionBlocked(party, member, spell.CombatActionId))
                 {
                     continue;
@@ -144,7 +151,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     continue;
                 }
 
-                if (!inCombat)
+                if (actionCategory == EActionCategories.NonCombat)
                 {
                     if (IsEnemyTarget(spell.TargetTypeId))
                     {
@@ -157,12 +164,20 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                         continue;
                     }
                 }
-                else
+                else // in combat
                 {
                     if (IsNonCombatTarget(spell.TargetTypeId))
                     {
                         continue;
                     }
+
+                    // Only defensive things during preparation round.
+                    if (actionCategory == EActionCategories.Preparing && 
+                        IsEnemyTarget(spell.TargetTypeId))
+                    {
+                        continue;
+                    }
+
                 }
                 okSpells.Add(spell);
             }
@@ -211,11 +226,21 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             if (caster is PartyMember member)
             {
                 critChance += _gameData.Get<RoleSettings>(_gs.ch).GetRoles(member.Roles).Sum(x => x.CritPercent);
-                if (spell.CritChance > 0)
+                if (spell.TargetTypeId == TargetTypes.Enemy && member.HideExtraRange > 0)
                 {
-                    critChance += spell.CritChance;
+                    critChance += combatSettings.HiddenSingleTargetCritPercent;
+                }
+                if (spell.CombatActionId != CombatActions.Hide)
+                {
+                    member.HideExtraRange = 0;
+                }
+
+                if (party.Combat != null)
+                {
+                    member.LastCombatCrawlerSpellId = spell.IdKey;
                 }
             }
+
 
             long abilityLevel = (overrideLevel < 1 ? casterLevel : overrideLevel);
 
@@ -658,7 +683,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
             }
         }
 
-        private void AddToActionDict(Dictionary<string, ActionListItem> dict, string actionName, long quantity)
+        private void AddToActionDict(Dictionary<string, ActionListItem> dict, string actionName, long quantity, long extraMessageBits)
         {
             if (string.IsNullOrEmpty(actionName))
             {
@@ -672,12 +697,15 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             dict[actionName].TotalQuantity += quantity;
             dict[actionName].TotalHits++;
+            dict[actionName].ExtraMessageBits |= extraMessageBits;
+            
         }
 
         internal class ActionListItem
         {
             public long TotalQuantity { get; set; }
             public long TotalHits { get; set; }
+            public long ExtraMessageBits { get; set; }
         }
 
         public async Task CastSpellOnUnit(PartyData party, CrawlerUnit caster, FullSpell spell, CrawlerUnit target, float delay = 0.5f)
@@ -734,6 +762,8 @@ namespace Genrpg.Shared.Crawler.Spells.Services
 
             Dictionary<string, ActionListItem> actionList = new Dictionary<string, ActionListItem>();
 
+            long extraMessageBits = 0;
+
             while (spell.HitsLeft > 0)
             {
                 bool didKill = false;
@@ -747,6 +777,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     newQuantity = 0;
                     fullAction = null;
                     healTarget = target;
+                    extraMessageBits = 0;
                     CrawlerSpellEffect effect = fullEffect.Effect;
                     OneEffect hit = fullEffect.Hit;
 
@@ -778,11 +809,32 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                             continue;
                         }
 
+                        double damageScale = 1.0f;
+                        long elementBits = (long)(1 << (int)effect.ElementTypeId);
+
+                        double finalCritChance = hit.CritChance;
+                        if (FlagUtils.IsSet(target.ResistBits, elementBits))
+                        {
+                            if (!FlagUtils.IsSet(target.VulnBits, elementBits))
+                            {
+                                damageScale /= combatSettings.VulnerabilityDamageMult;
+                                finalCritChance += combatSettings.ResistAddCritChance;                            
+                                extraMessageBits |= ExtraMessageBits.Resists;
+                            }
+                        }
+                        else if (FlagUtils.IsSet(target.VulnBits, elementBits))
+                        {
+                            damageScale *= combatSettings.VulnerabilityDamageMult;
+                            extraMessageBits |= ExtraMessageBits.Vulnerable;
+                            finalCritChance += combatSettings.VulnAddCritChance;
+                        }
+
+
                         if (target.DefendRank == 0 && hit.CritChance > 0 &&
                             _rand.NextDouble() * 100 < hit.CritChance && !casterIsWeakened)
                         {
                             newQuantity = target.Stats.Curr(StatTypes.Health);
-                            AddToActionDict(actionList, "CRITS!", newQuantity);
+                            AddToActionDict(actionList, "CRITS!", newQuantity, extraMessageBits);
                             didKill = true;
                         }
                         else
@@ -798,8 +850,6 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                             {
                                 newQuantity = Math.Max(1, newQuantity / 2);
                             }
-
-                            double damageScale = 1.0f;
 
                             if (target.DefendRank == EDefendRanks.Defend)
                             {
@@ -841,7 +891,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                             string actionWord = (effect.EntityTypeId == EntityTypes.Attack ? "Attacks" :
                                 effect.EntityTypeId == EntityTypes.Shoot ? "Shoots" :
                                  fullEffect.ElementType.ObserverActionName);
-                            AddToActionDict(actionList, actionWord, newQuantity);
+                            AddToActionDict(actionList, actionWord, newQuantity, extraMessageBits);
                         }
                         totalDamage += newQuantity;
                         _statService.Add(target, StatTypes.Health, StatCategories.Curr, -newQuantity);
@@ -908,7 +958,7 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                             healTarget = caster;
                         }
                         _statService.Add(healTarget, StatTypes.Health, StatCategories.Curr, newQuantity);
-                        AddToActionDict(actionList, "Heals", newQuantity);
+                        AddToActionDict(actionList, "Heals", newQuantity, 0);
                     }
                     else if (currHitTimes == 0)
                     {
@@ -1016,7 +1066,17 @@ namespace Genrpg.Shared.Crawler.Spells.Services
                     foreach (string actionName in actionList.Keys)
                     {
                         ActionListItem actionListItem = actionList[actionName];
-                        await ShowText(party, $"{caster.Name} {actionName} {healTarget.Name} {actionListItem.TotalHits}x for {actionListItem.TotalQuantity}", delay);
+
+                        string extraWords = "";
+                        if (FlagUtils.IsSet(actionListItem.ExtraMessageBits, ExtraMessageBits.Resists))
+                        {
+                            extraWords = "(Resist)";
+                        }
+                        else if (FlagUtils.IsSet(actionListItem.ExtraMessageBits, ExtraMessageBits.Vulnerable))
+                        {
+                            extraWords = "(Vulnerable)";
+                        }
+                        await ShowText(party, $"{caster.Name} {actionName} {healTarget.Name} {actionListItem.TotalHits}x for {actionListItem.TotalQuantity} {extraWords}", delay);
                     }
 
                     if (isDead)

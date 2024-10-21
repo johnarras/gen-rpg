@@ -36,7 +36,7 @@ namespace Assets.Scripts.ProcGen.Services
     {
         private ILogService _logService;
         private IAssetService _assetService;
-        private IClientEntityService _gameObjectService;
+        private IClientEntityService _clientEntityService;
         private ISharedBoardGenService _boardGenService;
         private IGameData _gameData;
 
@@ -44,7 +44,7 @@ namespace Assets.Scripts.ProcGen.Services
         public MarkedSpline CreateLinearSpline(MarkedSpline markedSpline, int splineIndex, int pathLength, float sx, float sz, float dx, float dz, IRandom rand, CancellationToken token)
         {
 
-            markedSpline.Container = _gameObjectService.GetOrAddComponent<SplineContainer>(markedSpline.gameObject);
+            markedSpline.Container = _clientEntityService.GetOrAddComponent<SplineContainer>(markedSpline.gameObject);
 
             while (markedSpline.Container.Splines.Count <= splineIndex)
             {
@@ -100,7 +100,7 @@ namespace Assets.Scripts.ProcGen.Services
         public MarkedSpline CreateCircularSpline(MarkedSpline markedSpline, IRandom rand, CancellationToken token)
         {
 
-            markedSpline.Container = _gameObjectService.GetOrAddComponent<SplineContainer>(markedSpline.gameObject);
+            markedSpline.Container = _clientEntityService.GetOrAddComponent<SplineContainer>(markedSpline.gameObject);
 
             if (markedSpline.Container.Splines.Count < 1)
             {

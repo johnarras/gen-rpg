@@ -39,6 +39,10 @@ using Genrpg.Shared.Crawler.TimeOfDay.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.States.Constants;
+using Newtonsoft.Json.Serialization;
+using Genrpg.Shared.Crawler.States.StateHelpers.Selection.Entities;
+using Genrpg.Shared.Spells.PlayerData.Spells;
+using System.Reflection.Emit;
 
 namespace Genrpg.Shared.Crawler.Combat.Services
 {
@@ -271,11 +275,14 @@ namespace Genrpg.Shared.Crawler.Combat.Services
         public void AddCombatUnits(PartyData partyData, UnitType unitType, long unitQuantity, long factionTypeId,
             int currRange = CrawlerCombatConstants.MinRange)
         {
+
             if (partyData.Combat == null)
             {
                 return;
             }
             IReadOnlyList<CrawlerSpell> crawlerSpells = _gameData.Get<CrawlerSpellSettings>(null).GetData();
+
+            List<long> defendSpellIds = crawlerSpells.Where(x => x.CombatActionId == CombatActions.Defend).Select(x => x.IdKey).ToList();
 
             IReadOnlyList<StatusEffect> statusEffects = _gameData.Get<StatusEffectSettings>(null).GetData();
 
@@ -301,6 +308,9 @@ namespace Genrpg.Shared.Crawler.Combat.Services
             List<UnitEffect> spells = new List<UnitEffect>();
             List<UnitEffect> applyEffects = new List<UnitEffect>();
 
+            List<UnitEffect> resistEffects = new List<UnitEffect>();
+            List<UnitEffect> vulnEffects = new List<UnitEffect>();
+
             foreach (string word in nameWords)
             {
                 UnitKeyword keyword = keywords.FirstOrDefault(x => x.Name == word);
@@ -309,16 +319,45 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                     currRange = Math.Max(keyword.MinRange, currRange);
                     spells.AddRange(keyword.Effects.Where(x => x.EntityTypeId == EntityTypes.CrawlerSpell));
                     applyEffects.AddRange(keyword.Effects.Where(x => x.EntityTypeId == EntityTypes.StatusEffect));
+                    resistEffects.AddRange(keyword.Effects.Where(x => x.EntityTypeId == EntityTypes.Resist));
+                    vulnEffects.AddRange(keyword.Effects.Where(x => x.EntityTypeId == EntityTypes.Vulnerability));
                 }
             }
+
+
+            spells.AddRange(unitType.Effects.Where(x => x.EntityTypeId == EntityTypes.CrawlerSpell));
+            applyEffects.AddRange(unitType.Effects.Where(x => x.EntityTypeId == EntityTypes.StatusEffect));
+            resistEffects.AddRange(unitType.Effects.Where(x => x.EntityTypeId == EntityTypes.Resist));
+            vulnEffects.AddRange(unitType.Effects.Where(x => x.EntityTypeId == EntityTypes.Vulnerability));
 
             // Remove duplicates
             spells = spells.GroupBy(x => x.EntityId).Select(g => g.First()).ToList();
             applyEffects = applyEffects.GroupBy(x => x.EntityId).Select(g => g.First()).ToList();
 
+
+            long vulnBits = 0;
+            long resistBits = 0;
+
+            foreach (UnitEffect eff in resistEffects)
+            {
+                resistBits |= (long)(1 << (int)eff.EntityId);
+            }
+
+            foreach (UnitEffect eff in vulnEffects)
+            {
+                vulnBits |= (long)(1 << (int)eff.EntityId); 
+            }
+
+
+            bool isGuardian = spells.Any(x => x.EntityTypeId == EntityTypes.CrawlerSpell && defendSpellIds.Contains(x.EntityId));
             if (true)
             {
                 StringBuilder sb = new StringBuilder();
+
+                if (isGuardian)
+                {
+                    sb.Append(" IS GUARDIAN!!! ");
+                }
 
                 if (spells.Count > 0)
                 {
@@ -392,6 +431,9 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                     FactionTypeId = factionTypeId,
                     Spells = spells,
                     ApplyEffects = applyEffects,
+                    IsGuardian = isGuardian,
+                    ResistBits = resistBits,
+                    VulnBits = vulnBits,
                 };
                 _statService.CalcUnitStats(partyData, monster, true);
 
@@ -434,20 +476,16 @@ namespace Genrpg.Shared.Crawler.Combat.Services
         public async Task EndCombatRound(PartyData party)
         {
 
-            int step = 1;
             try
             {
-                step = 2;
                 if (party.Combat == null || !ReadyForCombat(party))
                 {
                     return;
                 }
-                step = 3;
                 CrawlerCombatState combat = party.Combat;
 
                 foreach (CombatGroup group in combat.Enemies)
                 {
-                    step = 4;
                     group.CombatGroupAction = ECombatGroupActions.None;
                     List<CrawlerUnit> dupeList = new List<CrawlerUnit>(group.Units);
                     foreach (CrawlerUnit unit in dupeList)
@@ -455,7 +493,6 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                         unit.Action = null;
                         if (unit.StatusEffects.HasBit(StatusEffects.Dead))
                         {
-                            step = 5;
                             group.Units.Remove(unit);
                             combat.EnemiesKilled.Add(unit);
                         }
@@ -463,7 +500,6 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                         List<IDisplayEffect> removeEffectList = new List<IDisplayEffect>();
                         foreach (IDisplayEffect effect in unit.Effects)
                         {
-                            step = 6;
                             if (effect.MaxDuration > 0)
                             {
                                 effect.DurationLeft--;
@@ -476,12 +512,10 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                         foreach (IDisplayEffect effect in removeEffectList)
                         {
-                            step = 7;
                             unit.RemoveEffect(effect);
                         }
                     }
                 }
-                step = 8;
                 foreach (CombatGroup group in combat.Allies)
                 {
                     group.CombatGroupAction = ECombatGroupActions.None;
@@ -489,17 +523,15 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                     {
                         unit.Action = null;
                     }
-                    step = 9;
                 }
 
                 combat.Enemies = combat.Enemies.Where(x => x.Units.Count > 0).ToList();
-                step = 10;
                 await _timeService.UpdateTime(party, ECrawlerTimeUpdateTypes.CombatRound);
-                step = 11;
+                combat.RoundsComplete++;
             }
             catch (Exception ex)
             {
-                _logService.Exception(ex, "Combat " + step);
+                _logService.Exception(ex, "Combat ");
             }
         }
 
@@ -524,6 +556,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                     if (defenderRoleIds.Contains(unitRole.RoleId))
                     {
                         unit.DefendRank = EDefendRanks.Guardian;
+                        unit.IsGuardian = true;
                         break;
                     }
                 }
@@ -542,19 +575,29 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 else if (unit.Action.CombatActionId == CombatActions.Hide)
                 {
                     unit.HideExtraRange += CrawlerCombatConstants.RangeDelta;
-                    unit.StatusEffects.SetBit(StatusEffects.Hidden);
                 }
-                else if (unit.HideExtraRange > 0 && unit.Action.CombatActionId != CombatActions.Hide)
+            }
+
+            foreach (CombatGroup cgroup in party.Combat.Allies)
+            {
+                if (cgroup == party.Combat.PartyGroup)
                 {
-                    unit.HideExtraRange = CrawlerCombatConstants.MinRange;
-                    unit.StatusEffects.RemoveBit(StatusEffects.Hidden);
+                    continue;
+                }
+
+                foreach (CrawlerUnit unit in cgroup.Units)
+                {
+                    if (unit.IsGuardian)
+                    {
+                        unit.DefendRank = EDefendRanks.Guardian;
+                    }
                 }
             }
         }
 
         public bool SetMonsterActions(PartyData party)
         {
-            if (party.Combat == null || !ReadyForCombat(party))
+            if (party.Combat == null || !ReadyForCombat(party) || party.Combat.PartyGroup.CombatGroupAction== ECombatGroupActions.Prepare)
             {
                 return false;
             }
@@ -569,10 +612,28 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 tauntUnits.AddRange(combatGroup.Units.Where(x => x.DefendRank >= EDefendRanks.Guardian));
             }
 
+
+
             if (tauntUnits.Count > 0)
             {
                 EDefendRanks maxDefendRank = tauntUnits.Max(x => x.DefendRank);
                 tauntUnits = tauntUnits.Where(x => x.DefendRank == maxDefendRank).ToList();
+            }
+
+
+            List<CrawlerUnit> monsterTaunts = new List<CrawlerUnit>();
+
+            foreach (CrawlerUnit unit in tauntUnits)
+            {
+                if (unit is Monster monster)
+                {
+                    monsterTaunts.Add(unit);
+                }
+            }
+            
+            if (monsterTaunts.Count > 0)
+            {
+                tauntUnits = monsterTaunts;
             }
 
             foreach (CombatGroup group in combat.Allies)
@@ -752,10 +813,11 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                 long minRange = spell.MinRange;
                 long maxRange = spell.MaxRange;
-                if (spell.RequiredStatusEffectId == StatusEffects.Hidden)
+                if (unit.HideExtraRange > 0)
                 {
-                    maxRange = Math.Max(maxRange, unit.HideExtraRange + CrawlerCombatConstants.MinRange);
+                    maxRange =unit.HideExtraRange + CrawlerCombatConstants.MinRange;
                 }
+
                 foreach (CombatGroup group in party.Combat.Enemies)
                 {
 
@@ -853,7 +915,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 return retval;
             }
 
-            List<CrawlerSpell> nonCastSpells = _spellService.GetNonSpellCombatActionsForMember(party, member, true);
+            List<CrawlerSpell> nonCastSpells = _spellService.GetNonSpellCombatActionsForMember(party, member);
 
             foreach (CrawlerSpell spell in nonCastSpells)
             {
@@ -864,11 +926,26 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 }
             }
 
-            List<CrawlerSpell> spells = _spellService.GetSpellsForMember(party, member, true);
+            List<CrawlerSpell> spells = _spellService.GetSpellsForMember(party, member);
 
             if (spells.Count > 0)
             {
                 retval.Add(new UnitAction() { Caster = member, CombatActionId = CombatActions.Cast, Text = "Cast" });
+            }
+
+            if (party.Combat != null)
+            {
+                CrawlerSpell prevSpell = spells.FirstOrDefault(x => x.IdKey == member.LastCombatCrawlerSpellId);
+                if (prevSpell == null)
+                {
+                    prevSpell = nonCastSpells.FirstOrDefault(x => x.IdKey == member.LastCombatCrawlerSpellId);
+                }
+
+                if (prevSpell != null)
+                {
+
+                    retval.Add(new UnitAction() { Caster = member, Spell = prevSpell, CombatActionId = CombatActions.Recast });
+                }
             }
 
             if (retval.Count < 1)

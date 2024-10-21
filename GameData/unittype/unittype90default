@@ -8,7 +8,13 @@
   "Art": "Salamander",
   "TribeTypeId": 2,
   "MinLevel": 1,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 2
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -16,5 +22,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-08-31T18:55:35.49Z"
+  "UpdateTime": "2024-10-18T22:27:41.638Z"
 }

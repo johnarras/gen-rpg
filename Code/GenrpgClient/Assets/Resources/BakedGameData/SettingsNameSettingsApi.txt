@@ -748,6 +748,20 @@
       "IdKey": 107,
       "Name": "MarkerSettings",
       "UpdateTime": "2024-09-21T13:50:28.65Z"
+    },
+    {
+      "Id": "settingsname108default",
+      "ParentId": "default",
+      "IdKey": 108,
+      "Name": "CrawlerStatSettings",
+      "UpdateTime": "2024-10-19T18:54:32.334Z"
+    },
+    {
+      "Id": "settingsname109default",
+      "ParentId": "default",
+      "IdKey": 109,
+      "Name": "TempleSettings",
+      "UpdateTime": "2024-10-20T21:14:10.144Z"
     }
   ],
   "ParentObj": {

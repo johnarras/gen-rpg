@@ -19,7 +19,7 @@ namespace Assets.Scripts.BoardGame.Loading
         protected IBoardGameController _controller;
         protected IAssetService _assetService;
         protected ILogService _logService;
-        protected IClientEntityService _gameObjectService;
+        protected IClientEntityService _clientEntityService;
         public int Order => (int)GetKey();
         public abstract Awaitable Execute(BoardData boardData, CancellationToken token);
         public abstract ELoadBoardSteps GetKey();

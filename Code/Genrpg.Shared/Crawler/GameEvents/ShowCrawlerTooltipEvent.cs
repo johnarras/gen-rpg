@@ -1,11 +1,13 @@
-﻿using System;
+using MessagePack;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Genrpg.Shared.Crawler.GameEvents
 {
+    [MessagePackObject]
     public class ShowCrawlerTooltipEvent
     {
-        public List<string> Lines { get; set; } = new List<string>();
+        [Key(0)] public List<string> Lines { get; set; } = new List<string>();
     }
 }

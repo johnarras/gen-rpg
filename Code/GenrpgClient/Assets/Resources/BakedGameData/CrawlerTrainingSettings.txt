@@ -2,13 +2,13 @@
   "Id": "default",
   "LinearCostPerLevel": 100,
   "QuadraticCostPerLevel": 10,
-  "StartKillsNeeded": 12.0,
-  "ExtraKillsNeeded": 2.0,
-  "StartMonsterExp": 135.0,
-  "ExtraMonsterExp": 25.0,
+  "StartKillsNeeded": 10.0,
+  "ExtraKillsNeeded": 3.0,
+  "StartMonsterExp": 100.0,
+  "ExtraMonsterExp": 50.0,
   "MaxScalingExpLevel": 50,
   "LowerStatIncreaseChance": 0.75,
   "MaxStatIncreaseChance": 0.5,
   "Name": "CrawlerTrainingSettings",
-  "UpdateTime": "2024-09-14T16:08:22.823Z"
+  "UpdateTime": "2024-10-19T19:58:01.559Z"
 }

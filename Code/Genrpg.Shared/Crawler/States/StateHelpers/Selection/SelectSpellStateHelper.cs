@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Crawler.Parties.PlayerData;
+﻿using Genrpg.Shared.Crawler.Combat.Constants;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.States.Constants;
@@ -30,13 +31,11 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Selection
                 return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Cannot select a spell without a select action" };
             }
 
-            bool inCombat = party.Combat != null;
-
             long level = data.Member.Level;
 
             long currMana = data.Member.Stats.Curr(StatTypes.Mana);
 
-            List<CrawlerSpell> spells = _spellService.GetSpellsForMember(party, data.Member, inCombat);
+            List<CrawlerSpell> spells = _spellService.GetSpellsForMember(party, data.Member);
 
             for (int s = 0; s < spells.Count; s++)
             {

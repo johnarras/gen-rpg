@@ -33,7 +33,7 @@ namespace Genrpg.Editor.Importers
 
             List<long> buffStatIds =
                  roles.SelectMany(x => x.Bonuses)
-                 .Where(y => y.EntityTypeId == EntityTypes.Stat)
+                 .Where(y => y.EntityTypeId == EntityTypes.Stat && (y.EntityId < StatConstants.PrimaryStatStart || y.EntityId > StatConstants.PrimaryStatEnd))                 
                  .Select(x => x.EntityId)
                  .Distinct().ToList();
 

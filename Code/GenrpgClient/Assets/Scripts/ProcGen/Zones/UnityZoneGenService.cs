@@ -20,6 +20,7 @@ using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.Client.Tokens;
 using Genrpg.Shared.UI.Entities;
+using Assets.Scripts.Awaitables;
 
 public class UnityZoneGenService : ZoneGenService
 {
@@ -39,6 +40,7 @@ public class UnityZoneGenService : ZoneGenService
     private CancellationToken _gameToken;
     private IAssetService _assetServce;
     private IPlayerManager _playerManager;
+    private IAwaitableService _awaitableService;
 
     public override void SetGameToken(CancellationToken token)
     {
@@ -63,7 +65,7 @@ public class UnityZoneGenService : ZoneGenService
                 tokenService.SetMapToken(_mapToken);
             }
         }
-        TaskUtils.ForgetAwaitable(InnerGenerate(worldId, _mapToken));
+        _awaitableService.ForgetAwaitable(InnerGenerate(worldId, _mapToken));
     }
 
     protected async Awaitable InnerGenerate(string worldId, CancellationToken token)
@@ -386,7 +388,7 @@ public class UnityZoneGenService : ZoneGenService
                 }
 
 
-                TaskUtils.ForgetAwaitable(SetOnePatchAlphamaps(patch, token));
+                _awaitableService.ForgetAwaitable(SetOnePatchAlphamaps(patch, token));
             }
         }
 

@@ -27,7 +27,7 @@ public class ClearMapData : BaseZoneGenerator
 
         _assetService.ClearBundleCache(token);
 
-        TaskUtils.ForgetAwaitable(CleanUpOldMapFolders(token));
+        _awaitableService.ForgetAwaitable(CleanUpOldMapFolders(token));
 
 
         await Task.CompletedTask;

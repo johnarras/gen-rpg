@@ -4,6 +4,9 @@ using Assets.Scripts.UI.Crawler.CrawlerPanels;
 using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.Tasks.Services;
+using Genrpg.Shared.UI.Entities;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,10 +15,12 @@ namespace Assets.Scripts.UI.Crawler
     public class CrawlerScreen : BaseScreen
     {
         private ICrawlerService _crawlerService;
+        protected ITaskService _taskService;
 
         private WorldPanel _worldPanel;
         private ActionPanel _actionPanel;
         private StatusPanel _statusPanel;
+
 
         private object _leftParent;
         private object _rightParent;
@@ -42,11 +47,14 @@ namespace Assets.Scripts.UI.Crawler
             partyData.ActionPanel = _actionPanel;
 
             await _crawlerService.Init(partyData, token);
+
+            _screenService.CloseAll(new List<ScreenId>() { ScreenId.Crawler });
+        
         }
 
         private void OnNewStateData(CrawlerStateData data)
         {
-            TaskUtils.ForgetTask(OnNewStatDataAsync(data, _token));
+            _taskService.ForgetTask(OnNewStatDataAsync(data, _token));
         }
 
         private async Task OnNewStatDataAsync(CrawlerStateData data, CancellationToken token)

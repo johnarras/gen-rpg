@@ -2,6 +2,7 @@
 using Genrpg.Shared.DataStores.Categories.PlayerData;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Inventory.Settings.Qualities;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.Spawns.Interfaces;
@@ -17,16 +18,26 @@ namespace Genrpg.Shared.Rewards.Helpers
     {
 
         protected IRewardService _rewardService;
+        public abstract long GetKey();
+
 
         public bool GiveReward(IRandom rand, MapObject obj, long entityId, long quantity, object extraData = null)
         {
-            obj.Get<TParent>().Get(entityId).Quantity += quantity;
-            return true;
+           return Add(obj, entityId, quantity);
         }
 
         public bool Add(MapObject obj, long entityId, long quantity)
         {
-            return Set(obj, entityId, Get(obj, entityId) + quantity);
+            if (quantity == 0)
+            {
+                return false;
+            }
+
+            TParent parentData = obj.Get<TParent>();
+            TChild status = parentData.Get(entityId);
+            status.Quantity += quantity;
+            _rewardService.OnAddQuantity(obj, status, GetKey(), status.IdKey, quantity);
+            return true;
         }
 
         public long Get(MapObject obj, long entityId)
@@ -34,21 +45,13 @@ namespace Genrpg.Shared.Rewards.Helpers
             return obj.Get<TParent>().Get(entityId).Quantity;
         }
 
-        public abstract long GetKey();
-
         public bool Set(MapObject obj, long entityId, long quantity)
         {
             TParent parentData = obj.Get<TParent>();
             TChild status = parentData.Get(entityId);
             long oldQuantity = Math.Max(0, status.Quantity);
-            status.Quantity = quantity;
-
             long diff = quantity - oldQuantity;
-
-            if (diff != 0)
-            {
-                _rewardService.OnSetQuantity(obj, status, GetKey(), diff);
-            }
+            Add(obj, entityId, diff);
             return true;
         }
     }

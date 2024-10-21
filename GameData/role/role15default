@@ -7,6 +7,7 @@
   "Abbrev": "Hc",
   "RoleCategoryId": 2,
   "MeleeScaling": 0.1,
+  "StartStatBonuses": "3 0 0 0 3 0",
   "Bonuses": [],
-  "UpdateTime": "2024-10-05T23:56:53.124Z"
+  "UpdateTime": "2024-10-20T18:48:00.956Z"
 }

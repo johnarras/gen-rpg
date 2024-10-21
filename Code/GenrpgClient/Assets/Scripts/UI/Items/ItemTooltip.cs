@@ -81,7 +81,7 @@ public class ItemTooltip : BaseTooltip
 
     private void ShowEffects()
     {
-        _gameObjectService.DestroyAllChildren(RowParent);
+        _clientEntityService.DestroyAllChildren(RowParent);
         _rows = new List<ItemTooltipRow>();
 
 
@@ -215,7 +215,7 @@ public class ItemTooltip : BaseTooltip
         ItemTooltipRowData rowData = data as ItemTooltipRowData;       
         if(row == null || rowData == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 

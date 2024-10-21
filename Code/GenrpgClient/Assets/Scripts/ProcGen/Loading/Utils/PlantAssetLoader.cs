@@ -11,6 +11,7 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.Client.Assets.Constants;
+using Assets.Scripts.Awaitables;
 
 public class FullDetailPrototype : BaseDetailPrototype
 {
@@ -28,11 +29,12 @@ public class PlantAssetLoader : IPlantAssetLoader
     private ILogService _logService;
     private IZonePlantValidator _zonePlantValidator;
     private IMapProvider _mapProvider;
-    protected IClientEntityService _gameObjectService;
+    protected IClientEntityService _clientEntityService;
+    private IAwaitableService _awaitableService;
 
     public void SetupOneMapGrass(int gx, int gy, CancellationToken token)
     {
-        TaskUtils.ForgetAwaitable(InnerSetupOneMapGrass(gx, gy, token));
+        _awaitableService.ForgetAwaitable(InnerSetupOneMapGrass(gx, gy, token));
     }
     private async Awaitable InnerSetupOneMapGrass(int gx, int gy, CancellationToken token)
     {
@@ -292,16 +294,16 @@ private void OnDownloadGrass(object obj, object data, CancellationToken token)
     TerrainPatchData grid = _terrainManager.GetMapGrid(full.XGrid, full.YGrid) as TerrainPatchData;
     if (grid == null)
     {
-        _gameObjectService.Destroy(go);
+        _clientEntityService.Destroy(go);
         return;
     }
     Terrain terr = grid.terrain as Terrain;
     if (terr == null)
     {
-        _gameObjectService.Destroy(go);
+        _clientEntityService.Destroy(go);
         return;
     }
-    _gameObjectService.AddToParent(go, terr.gameObject);
+    _clientEntityService.AddToParent(go, terr.gameObject);
     go.SetActive(false);
 }
 }

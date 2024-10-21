@@ -11,7 +11,6 @@ namespace Assets.Scripts.Crawler.UI.ActionUI
     {
 
         public IGridLayoutGroup Group;
-        private IClientEntityService _clientEntityService;
 
         public override async Task Init(bool useSmallerButtons, IView view, CancellationToken token)
         {

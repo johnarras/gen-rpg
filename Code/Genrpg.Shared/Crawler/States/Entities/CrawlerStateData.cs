@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Crawler.Constants;
+using MessagePack;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
@@ -15,6 +16,7 @@ public class CrawlerInputData
     public ILabeledInputField InputField;
 }
 
+    [MessagePackObject]
 public class CrawlerStateData
 {
     public CrawlerStateData(ECrawlerStates state, bool forceNextState = false)
@@ -23,17 +25,17 @@ public class CrawlerStateData
         ForceNextState = forceNextState;
     }
 
-    public List<CrawlerInputData> Inputs { get; set; } = new List<CrawlerInputData>();
-    public object ExtraData { get; set; }
-    public string InputPlaceholderText { get; set; }
+    [Key(0)] public List<CrawlerInputData> Inputs { get; set; } = new List<CrawlerInputData>();
+    [Key(1)] public object ExtraData { get; set; }
+    [Key(2)] public string InputPlaceholderText { get; set; }
     public ECrawlerStates Id { get; private set; }
-    public PartyMember Member { get; set; }
+    [Key(3)] public PartyMember Member { get; set; }
     public List<CrawlerStateAction> Actions = new List<CrawlerStateAction>();
     public List<String> LoreText = new List<string>();
     public string WorldSpriteName = CrawlerClientConstants.WorldImage;
-    public bool ForceNextState { get; set; } = false;
-    public bool DoNotTransitionToThisState { get; set; }
-    public bool UseSmallerButtons { get; set; } = false;
+    [Key(4)] public bool ForceNextState { get; set; } = false;
+    [Key(5)] public bool DoNotTransitionToThisState { get; set; }
+    [Key(6)] public bool UseSmallerButtons { get; set; } = false;
 
     public bool HasInput()
     {
@@ -53,7 +55,7 @@ public class CrawlerStateData
 
             foreach (CrawlerInputData input in Inputs)
             {
-                input.ValidateTextAction(input.InputField.GetText());
+                input.ValidateTextAction(input.InputField.GetInputText());
             }
         }
         return false;

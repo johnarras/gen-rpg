@@ -27,6 +27,12 @@ namespace Genrpg.Shared.Crawler.Monsters.Entities
 
         [Key(5)] public int CombatGroupId { get; set; }
 
+        [Key(6)] public bool IsGuardian { get; set; }
+
+        [Key(7)] public long VulnBits { get; set; }
+
+        [Key(8)] public long ResistBits { get; set; }
+
         public CrawlerUnit(IRepositoryService repositoryService) : base(repositoryService) { }
 
 

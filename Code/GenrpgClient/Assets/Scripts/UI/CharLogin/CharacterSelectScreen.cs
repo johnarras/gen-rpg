@@ -45,10 +45,10 @@ public class CharacterSelectScreen : ErrorMessageScreen
 
         if (GenWorldButton == null)
         {
-            GameObject genWorldObj = (GameObject)_gameObjectService.FindChild(entity, "GenWorldButton");
+            GameObject genWorldObj = (GameObject)_clientEntityService.FindChild(entity, "GenWorldButton");
             if (genWorldObj != null)
             {
-                GenWorldButton = _gameObjectService.GetComponent<GButton>(genWorldObj);
+                GenWorldButton = _clientEntityService.GetComponent<GButton>(genWorldObj);
             }
         }
 
@@ -57,10 +57,10 @@ public class CharacterSelectScreen : ErrorMessageScreen
 
         if (TestAssetsButton == null)
         {
-            GameObject testsAssetsObj = (GameObject)_gameObjectService.FindChild(entity, "TestAssetsButton");
+            GameObject testsAssetsObj = (GameObject)_clientEntityService.FindChild(entity, "TestAssetsButton");
             if (testsAssetsObj != null)
             {
-                TestAssetsButton = _gameObjectService.GetComponent<GButton>(testsAssetsObj);
+                TestAssetsButton = _clientEntityService.GetComponent<GButton>(testsAssetsObj);
             }
         }
 
@@ -68,7 +68,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
 
 
 #endif
-        _gameObjectService.DestroyAllChildren(CharacterGridParent);
+        _clientEntityService.DestroyAllChildren(CharacterGridParent);
 
         _uiService.SetButton(LogoutButton, GetName(), ClickLogout);
         _uiService.SetButton(CreateButton, GetName(), ClickCharacterCreate);
@@ -92,7 +92,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
     {
         TestAssetDownloads dl = new TestAssetDownloads();
 
-        TaskUtils.ForgetAwaitable(dl.RunTests(_gs, _token));
+        _awaitableService.ForgetAwaitable(dl.RunTests(_gs, _token));
     }
 
     private void ClickGenerate()
@@ -123,7 +123,6 @@ public class CharacterSelectScreen : ErrorMessageScreen
 
     private void ClickCrawler()
     {
-        _screenService.CloseAll();
         _screenService.Open(ScreenId.Crawler);
     }
 
@@ -175,7 +174,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
             return;
         }
 
-        _gameObjectService.DestroyAllChildren(CharacterGridParent);
+        _clientEntityService.DestroyAllChildren(CharacterGridParent);
 
         foreach (CharacterStub stub in _gs.characterStubs)
         {
@@ -195,14 +194,14 @@ public class CharacterSelectScreen : ErrorMessageScreen
         CharacterStub ch = data as CharacterStub;
         if (ch ==null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
         CharacterSelectRow charRow = go.GetComponent<CharacterSelectRow>();
         if (charRow == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
         charRow.Init(ch, this, token);

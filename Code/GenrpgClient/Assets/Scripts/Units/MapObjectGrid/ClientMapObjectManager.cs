@@ -21,6 +21,7 @@ using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Client.Tokens;
 using Assets.Scripts.GameObjects;
+using Assets.Scripts.Awaitables;
 
 public interface IClientMapObjectManager : IInitializable, IMapTokenService
 {
@@ -48,7 +49,8 @@ public class ClientMapObjectManager : IClientMapObjectManager
     protected IMapProvider _mapProvider;
     private ILogService _logService;
     private ISingletonContainer _singletonContainer;
-    protected IClientEntityService _gameObjectService;
+    protected IClientEntityService _clientEntityService;
+    protected IAwaitableService _awaitableService;
 
     private const string FXParentName = "FXParent";
 
@@ -71,11 +73,6 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
     public GameObject _fxParent;
 
-    public ClientMapObjectManager(CancellationToken token)
-    {
-        TaskUtils.ForgetAwaitable(UpdateRecentlyLoadedSpawns(token));
-    }
-
     public void Reset()
     {
         _controllers = new List<UnitController>();
@@ -84,7 +81,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
         _olderSpawns = new List<string>();
         _recentlyLoadedSpawns = new List<string>();
         _removeUnitList = new List<UnitController>();
-        _gameObjectService.DestroyAllChildren(_fxParent);
+        _clientEntityService.DestroyAllChildren(_fxParent);
     }
 
     public GameObject GetFXParent()
@@ -107,7 +104,8 @@ public class ClientMapObjectManager : IClientMapObjectManager
     public async Task Initialize(CancellationToken token)
     {
         Reset();
-        
+
+        _awaitableService.ForgetAwaitable(UpdateRecentlyLoadedSpawns(token));
         if (!_didAddUpdate)
         {
             _updateService.AddTokenUpdate(this, FrameUpdate, UpdateType.Regular, token);
@@ -313,7 +311,7 @@ public class ClientMapObjectManager : IClientMapObjectManager
 
     protected void FadeOutObject(GameObject go)
     {
-        _gameObjectService.Destroy(go);
+        _clientEntityService.Destroy(go);
     }
 
     public bool GetController (string unitId, out UnitController controller)

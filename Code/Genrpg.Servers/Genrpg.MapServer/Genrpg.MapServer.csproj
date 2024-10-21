@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(TargetDir)Genrpg.Shared.dll $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.dll&#xD;&#xA;copy $(TargetDir)Genrpg.Shared.pdb $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.pdb&#xD;&#xA;copy $(TargetDir)Genrpg.Shared.dll $(SolutionDir)CrawlerClient\CrawlerClient\Plugins\Genrpg.Shared.dll&#xD;&#xA;copy $(TargetDir)Genrpg.Shared.pdb $(SolutionDir)CrawlerClient\CrawlerClient\Plugins\Genrpg.Shared.pdb" />
+    <Exec Command="copy $(TargetDir)Genrpg.Shared.dll $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.dll&#xD;&#xA;copy $(TargetDir)Genrpg.Shared.pdb $(SolutionDir)GenrpgClient\Assets\Plugins\Shared\Genrpg.Shared.pdb" />
   </Target>
 
 </Project>

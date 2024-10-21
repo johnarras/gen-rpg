@@ -1,7 +1,7 @@
 {
   "Id": "default",
-  "StatBuffPowerCost": 3.0,
-  "StatBuffPowerPerLevel": 0.25,
+  "StatBuffPowerCost": 10.0,
+  "StatBuffPowerPerLevel": 1.0,
   "Name": "CrawlerSpellSettings",
-  "UpdateTime": "2024-09-14T16:08:22.823Z"
+  "UpdateTime": "2024-10-21T22:47:47.801Z"
 }

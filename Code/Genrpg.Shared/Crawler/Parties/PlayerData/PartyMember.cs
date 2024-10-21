@@ -82,6 +82,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         [Key(8)] public int WarpMapX { get; set; }
         [Key(9)] public int WarpMapZ { get; set; }
         [Key(10)] public int WarpRot { get; set; }
+        [Key(11)] public long LastCombatCrawlerSpellId { get; set; }
 
         public PartyMember(IRepositoryService repositoryService) : base(repositoryService) { }  
 

@@ -1,9 +1,0 @@
-{
-  "Id": "statuseffect17default",
-  "ParentId": "default",
-  "IdKey": 17,
-  "Name": "Hasted",
-  "Abbrev": "Haste",
-  "ActionEffects": [],
-  "UpdateTime": "2024-08-01T00:28:13.086Z"
-}

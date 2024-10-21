@@ -13,7 +13,17 @@
     {
       "EntityTypeId": 36,
       "EntityId": 3
+    },
+    {
+      "EntityTypeId": 24,
+      "Quantity": 1,
+      "EntityId": 7
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 6
     }
   ],
-  "UpdateTime": "2024-08-01T00:28:15.179Z"
+  "UpdateTime": "2024-10-18T22:39:42.104Z"
 }

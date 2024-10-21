@@ -19,7 +19,7 @@ public interface IIconService : IInjectable
 
 public class IconService : IIconService
 {
-    private IClientEntityService _gameObjectService;
+    private IClientEntityService _clientEntityService;
 
     public const string DefaultItemIconName = "ItemIcon";
     public const string DefaultSpellIconName = "SpellIcon";
@@ -77,7 +77,7 @@ public class IconService : IIconService
         ItemIcon iicon = go.GetComponent<ItemIcon>();
         if (iicon == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -85,7 +85,7 @@ public class IconService : IIconService
         InitItemIconData idata = data as InitItemIconData;
         if (idata == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -117,7 +117,7 @@ public class IconService : IIconService
         SpellIcon iicon = go.GetComponent<SpellIcon>();
         if (iicon == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -125,7 +125,7 @@ public class IconService : IIconService
         InitSpellIconData idata = data as InitSpellIconData;
         if (idata == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 

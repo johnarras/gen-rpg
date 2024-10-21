@@ -63,11 +63,11 @@ public class UnitFrameContainer : BaseBehaviour
     {
         if (unit == null)
         {
-            _gameObjectService.SetActive(Frame, false);
+            _clientEntityService.SetActive(Frame, false);
         }
         else
         {
-            _gameObjectService.SetActive(Frame, true);
+            _clientEntityService.SetActive(Frame, true);
             Frame.Init(unit);
         }
     }

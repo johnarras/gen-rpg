@@ -9,7 +9,7 @@ using Genrpg.Shared.Client.Core;
 
 public class CreateAssetBundle
 {
-	[MenuItem("Build/Build Asset Bundles")]
+	[MenuItem("Tools/Build Asset Bundles")]
 	static void Execute()
 	{
         IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();

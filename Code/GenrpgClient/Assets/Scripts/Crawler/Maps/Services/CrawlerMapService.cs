@@ -30,6 +30,7 @@ using Genrpg.Shared.Client.GameEvents;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
 using UnityEngine;
+using Genrpg.Shared.Tasks.Services;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
@@ -63,7 +64,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         private IGameData _gameData;
         private ICrawlerWorldService _worldService;
         private ITimeOfDayService _timeService;
-        private IClientEntityService _gameObjectService;
+        private IClientEntityService _clientEntityService;
+        protected ITaskService _taskService;
 
         const int ViewRadius = 8;
         CrawlerMapRoot _crawlerMapRoot = null;
@@ -135,7 +137,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 {
                     _playerLightObject = (GameObject)(await _assetService.LoadAssetAsync(AssetCategoryNames.UI, "PlayerLight", _cameraParent, _token, "Units"));
                 }
-                _playerLight = _gameObjectService.GetComponent<Light>(_playerLightObject);
+                _playerLight = _clientEntityService.GetComponent<Light>(_playerLightObject);
 
                 if (_playerLight != null)
                 {
@@ -192,12 +194,12 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         {
             if (_crawlerMapRoot != null && _crawlerMapRoot.Assets != null)
             {
-                _gameObjectService.Destroy(_crawlerMapRoot.Assets.gameObject);
+                _clientEntityService.Destroy(_crawlerMapRoot.Assets.gameObject);
                 _crawlerMapRoot.Assets = null;
             }
             if (_crawlerMapRoot != null)
             {
-                _gameObjectService.Destroy(_crawlerMapRoot.gameObject);
+                _clientEntityService.Destroy(_crawlerMapRoot.gameObject);
                 _crawlerMapRoot = null;
             }
         }
@@ -283,7 +285,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
 
             _updatingMovement = true;
-            TaskUtils.ForgetTask(UpdateMovementInternal(token));
+            _taskService.ForgetTask(UpdateMovementInternal(token));
             await Task.CompletedTask;
         }
 
@@ -308,7 +310,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
 
             _updatingMovement = true;
-            TaskUtils.ForgetTask(UpdateMovementInternal(token));
+            _taskService.ForgetTask(UpdateMovementInternal(token));
             await Task.CompletedTask;
         }
 
@@ -464,68 +466,67 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         private async Task DrawNearbyMap(CancellationToken token)
         {
-            if (_crawlerMapRoot == null)
+
+            try
             {
-                return;
-            }
-
-            int bz = CrawlerMapConstants.BlockSize;
-
-            int cx = (int)(_party.MapX);
-            int cz = (int)(_party.MapZ);
-
-            int bigViewRadius = ViewRadius + 2;
-
-            if (_crawlerMapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.Outdoors)
-            {
-                bigViewRadius += 2;
-            }
-
-            int viewBufferSize = bigViewRadius + 2;
-
-            for (int x = cx - bigViewRadius; x <= cx + bigViewRadius; x++)
-            {
-                int offsetX = Math.Abs(x - cx);
-                for (int z = cz - bigViewRadius; z <= cz + bigViewRadius; z++)
+                if (_crawlerMapRoot == null)
                 {
-                    int offsetZ = Math.Abs(z - cz);
+                    return;
+                }
 
-                    int worldX = x;
-                    int worldZ = z;
+                int bz = CrawlerMapConstants.BlockSize;
 
-                    int cellX = x;
-                    int cellZ = z;
+                int cx = (int)(_party.MapX);
+                int cz = (int)(_party.MapZ);
 
-                    while (cellX < 0)
+                int nonLoopExtraRadius = _crawlerMapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.Dungeon ? 1 : 0;
+
+                int bigViewRadius = ViewRadius + 2;
+
+                if (_crawlerMapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.Outdoors)
+                {
+                    bigViewRadius += 2;
+                }
+
+                int viewBufferSize = bigViewRadius + 2;
+
+                for (int x = cx - bigViewRadius; x <= cx + bigViewRadius; x++)
+                {
+                    int offsetX = Math.Abs(x - cx);
+                    for (int z = cz - bigViewRadius; z <= cz + bigViewRadius; z++)
                     {
-                        cellX += _crawlerMapRoot.Map.Width;
-                    }
-                    while (cellZ < 0)
-                    {
-                        cellZ += _crawlerMapRoot.Map.Height;
-                    }
+                        int offsetZ = Math.Abs(z - cz);
 
-                    cellX %= _crawlerMapRoot.Map.Width;
-                    cellZ %= _crawlerMapRoot.Map.Height;
+                        int cellX = x;
+                        int cellZ = z;
 
-                    ClientMapCell cell = _crawlerMapRoot.GetCell(cellX, cellZ);
+                        int worldX = x;
+                        int worldZ = z;
 
-                    if (_crawlerMapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.Outdoors &&
-                        (offsetX >= ViewRadius + viewBufferSize ||
-                        offsetZ >= ViewRadius + viewBufferSize))
-                    {
-                        if (cell.Content != null)
+                        ClientMapCell cell = _crawlerMapRoot.GetCell(cellX, cellZ);
+
+                        if (_crawlerMapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.Outdoors &&
+                            (offsetX >= ViewRadius + viewBufferSize ||
+                            offsetZ >= ViewRadius + viewBufferSize))
                         {
-                            _gameObjectService.Destroy(cell.Content);
-                            cell.Content = null;
+                            if (cell.Content != null)
+                            {
+                                _clientEntityService.Destroy(cell.Content);
+                                cell.Content = null;
+                            }
+                            continue;
                         }
-                        continue;
-                    }
-                    if (_crawlerMapRoot.Map.Looping ||
-                        _crawlerMapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.Dungeon ||
-                            worldX >= 0 && worldX < _crawlerMapRoot.Map.Width &&
-                            worldZ >= 0 && worldZ < _crawlerMapRoot.Map.Height)
-                    {
+
+                        if (!_crawlerMapRoot.Map.Looping &&
+
+
+                            (worldX < -nonLoopExtraRadius || worldX >= _crawlerMapRoot.Map.Width + nonLoopExtraRadius ||
+                            worldZ < -nonLoopExtraRadius || worldZ >= _crawlerMapRoot.Map.Height + nonLoopExtraRadius))
+                        {
+                            continue;
+                        }
+
+
                         GameObject go = (GameObject)cell.Content;
                         if (go != null)
                         {
@@ -539,6 +540,10 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                _logService.Exception(ex, "DrawNearbyMap");
             }
         }
 
@@ -570,7 +575,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
             else if (btype.Name == "Guild")
             {
-                EnterBuilding(ECrawlerStates.TavernMain, token);
+                EnterBuilding(ECrawlerStates.GuildMain, token);
                 return true;
             }
             else if (btype.Name == "Trainer")
@@ -578,9 +583,19 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 EnterBuilding(ECrawlerStates.TrainingMain, token);
                 return true;
             }
+            else if (btype.Name == "Tavern")
+            {
+                EnterBuilding(ECrawlerStates.TavernMain, token);
+                return true;
+            }
             else if (btype.Name == "House")
             {
                 EnterBuilding(ECrawlerStates.EnterHouse, token);
+                return true;
+            }
+            else if (btype.Name == "Temple")
+            {
+                EnterBuilding(ECrawlerStates.Temple, token);
                 return true;
             }
             return true;
@@ -735,7 +750,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _party.MapRot = rot;
             UpdateCameraPos(token);
             MarkCurrentCellVisited();
-            TaskUtils.ForgetTask(DrawNearbyMap(token));
+            _taskService.ForgetTask(DrawNearbyMap(token));
             _dispatcher.Dispatch(new ShowPartyMinimap() { Party = _party, PartyArrowOnly = rotationOnly });
 
         }

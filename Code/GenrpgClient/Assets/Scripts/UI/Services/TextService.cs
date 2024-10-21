@@ -10,12 +10,12 @@ namespace Assets.Scripts.UI.Services
 {
     public class TextService : ITextService
     {
-        public string HighlightText(string text, string color = TextColors.ColorYellow)
+        public string HighlightText(string text, string color = TextColors.ColorGold)
         {
             return $"<color={color}>{text}</color>";
         }
 
-        public string HighlightText(char c, string color = TextColors.ColorYellow)
+        public string HighlightText(char c, string color = TextColors.ColorGold)
         {
             return $"<color={color}>{c}</color>";
         }

@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5424302797648208791}
-  - component: {fileID: 5979813545017884405}
+  - component: {fileID: 4109567630255013174}
   m_Layer: 0
   m_Name: BaseTile
   m_TagString: Untagged
@@ -67,7 +67,7 @@ Transform:
   - {fileID: 8994203291009435150}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5979813545017884405
+--- !u!114 &4109567630255013174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,16 +76,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3035215784377519215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79a1b3ae3512d87458a7fcece625d5bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 09295beb157ca194a8d21f32e42fb87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TileTypeId: 0
-  PieceAnchor: {fileID: 2113645921707884595}
-  Animator: {fileID: 0}
-  TileMesh: {fileID: 8776351500707399268}
-  PrizeAnchors:
-  - {fileID: 8395522550645262293}
-  - {fileID: 8212004858401326325}
+  _elements:
+  - Obj: {fileID: 2113645921707884595}
+    Name: PieceAnchor
+  - Obj: {fileID: 9190608858442590317}
+    Name: TileMesh
+  - Obj: {fileID: 8395522550645262293}
+    Name: PassLootAnchor
+  - Obj: {fileID: 8212004858401326325}
+    Name: LandLootAnchor
+  - Obj: {fileID: 3035215784377519215}
+    Name: Animator
 --- !u!1 &8212004858401326325
 GameObject:
   m_ObjectHideFlags: 0

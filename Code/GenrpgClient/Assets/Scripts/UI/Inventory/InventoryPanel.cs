@@ -27,7 +27,7 @@ public class InventoryPanel : BaseBehaviour
         _category = categories;
         _prefabName = prefabName;
 
-        _gameObjectService.DestroyAllChildren(_iconParent);
+        _clientEntityService.DestroyAllChildren(_iconParent);
 
         InventoryData inventory = _unit.Get<InventoryData>();
 
@@ -82,14 +82,14 @@ public class InventoryPanel : BaseBehaviour
 
     public void RemoveIcon(string itemId)
     {
-        List<ItemIcon> allIcons = _gameObjectService.GetComponents<ItemIcon>(_iconParent);
+        List<ItemIcon> allIcons = _clientEntityService.GetComponents<ItemIcon>(_iconParent);
 
         ItemIcon desiredIcon = allIcons.FirstOrDefault(x => x.GetDataItem() != null &&
         x.GetDataItem().Id == itemId);
 
         if (desiredIcon != null)
         {
-            _gameObjectService.Destroy(desiredIcon.gameObject);
+            _clientEntityService.Destroy(desiredIcon.gameObject);
         }
     }
 

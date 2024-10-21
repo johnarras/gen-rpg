@@ -11,7 +11,7 @@ public class ItemTooltipRow : BaseBehaviour
     {
         if (rowData == null)
         {
-            _gameObjectService.Destroy(entity);
+            _clientEntityService.Destroy(entity);
             return;
         }
 
@@ -50,7 +50,7 @@ public class ItemTooltipRow : BaseBehaviour
         {
             for (int i = 0; i < Stars.Count; i++)
             {
-                _gameObjectService.SetActive(Stars[i], i < rowData.starsToShow);
+                _clientEntityService.SetActive(Stars[i], i < rowData.starsToShow);
             }
         }
 

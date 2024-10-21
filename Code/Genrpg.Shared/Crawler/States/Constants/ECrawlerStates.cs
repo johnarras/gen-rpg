@@ -10,7 +10,7 @@ namespace Genrpg.Shared.Crawler.States.Constants
         DoNotChangeState,
         PopState,
         Lore,
-        TavernMain,
+        GuildMain,
         AddMember,
         RemoveMember,
         ChooseSex,
@@ -29,6 +29,7 @@ namespace Genrpg.Shared.Crawler.States.Constants
         QuitGame,
         Help,
 
+        TavernMain,
         ExploreWorld,
         MapExit,
         Error,
@@ -64,7 +65,7 @@ namespace Genrpg.Shared.Crawler.States.Constants
 
         EnterHouse,
 
-        TempleBase,
+        Temple,
 
         StartCombat,
         CombatFightRun,

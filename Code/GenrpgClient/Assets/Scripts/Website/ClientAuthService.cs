@@ -20,6 +20,7 @@ using Genrpg.Shared.Website.Messages;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.UI.Entities;
+using Assets.Scripts.Awaitables;
 
 
 public interface IClientAuthService : IInitializable
@@ -53,6 +54,7 @@ public class ClientAuthService : IClientAuthService
     private IClientConfigContainer _config;
     private IClientCryptoService _clientCryptoService;
     private IClientAppService _clientAppService;
+    protected IAwaitableService _awaitableService;
 
     public async Task Initialize(CancellationToken token)
     {
@@ -90,7 +92,7 @@ public class ClientAuthService : IClientAuthService
                 DeviceId = _clientCryptoService.GetDeviceId(),
             };
 
-            TaskUtils.ForgetAwaitable(LoginToServer(loginCommand, token));
+            _awaitableService.ForgetAwaitable(LoginToServer(loginCommand, token));
             _screenService.Open(ScreenId.Loading, true);
             return;
         }

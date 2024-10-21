@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.DataStores.DataGroups;
 using Genrpg.Shared.Client.Assets.Services;
+using Assets.Scripts.Awaitables;
 
 public class DownloadFileData
 {
@@ -41,6 +42,7 @@ public class FileDownloadService : IFileDownloadService
 {
     private IClientAppService _appService;
     private IModTextureService _modTextureService;
+    protected IAwaitableService _awaitableService;
     public async Task Initialize(CancellationToken token)
     {
         if (!_appService.IsPlaying)
@@ -146,7 +148,7 @@ public class FileDownloadService : IFileDownloadService
             List<InternalFileDownload> list = new List<InternalFileDownload>();
             list.Add(fileDownLoad);
             _downloading[filePath] = list;
-            TaskUtils.ForgetAwaitable(DownloadFileInternal(fileDownLoad, token));
+            _awaitableService.ForgetAwaitable(DownloadFileInternal(fileDownLoad, token));
         }
     }
 

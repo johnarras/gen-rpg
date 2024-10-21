@@ -76,14 +76,6 @@ namespace Genrpg.Editor.Importers
                 }
             }
 
-            IReadOnlyList<PartyBuff> partyBuffs = gs.data.Get<PartyBuffSettings>(null).GetData();
-
-            IReadOnlyList<CrawlerSpell> crawlerSpells = gs.data.Get<CrawlerSpellSettings>(null).GetData();
-
-            IReadOnlyList<StatType> statTypes = gs.data.Get<StatSettings>(null).GetData();
-
-            IReadOnlyList<ItemType> itemTypes = gs.data.Get<ItemTypeSettings>(null).GetData();
-
             PropertyInfo[] props = typeof(Role).GetProperties();
 
             for (int line = 1; line < lines.Length; line++)

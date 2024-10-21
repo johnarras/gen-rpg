@@ -29,10 +29,10 @@ public class MapProjectile : BaseBehaviour
         if (_full == null || _full.fromObj == null ||
             _full.fx == null || !TokenUtils.IsValid(_full.token))
         {
-            _gameObjectService.Destroy(entity);
+            _clientEntityService.Destroy(entity);
             return;
         }
-        _gameObjectService.AddToParent(entity, _objectManager.GetFXParent());
+        _clientEntityService.AddToParent(entity, _objectManager.GetFXParent());
 
        entity.transform.position = _full.fromObj.transform.position + extraHeight;
         lastPos = entity.transform.position;
@@ -43,7 +43,7 @@ public class MapProjectile : BaseBehaviour
             _full.fx.Dur = 0.1f;
         }
 
-        _gameObjectService.SetLayer(entity, LayerUtils.NameToLayer(LayerNames.SpellLayer));
+        _clientEntityService.SetLayer(entity, LayerUtils.NameToLayer(LayerNames.SpellLayer));
 
     }
 
@@ -71,7 +71,7 @@ public class MapProjectile : BaseBehaviour
             else
             {
                entity.transform.position = _full.toObj.transform.position;
-                _gameObjectService.Destroy(entity);
+                _clientEntityService.Destroy(entity);
             }
         }
         else
@@ -80,7 +80,7 @@ public class MapProjectile : BaseBehaviour
 
             if (_elapsedTime >= _full.fx.Dur)
             {
-                _gameObjectService.Destroy(entity);
+                _clientEntityService.Destroy(entity);
             }
 
             if (_full.fromObj != null && _full.toObj != null)

@@ -18,6 +18,10 @@ namespace Genrpg.Shared.Crawler.Combat.Settings
         [Key(6)] public long MaxGroupSize { get; set; } = 99;
         [Key(7)] public double LuckCritChanceAtLevel { get; set; } = 0.05f;
         [Key(8)] public double MaxLuckCritRatio { get; set; } = 2.0f;
+        [Key(9)] public double VulnerabilityDamageMult { get; set; } = 3.0f;
+        [Key(10)] public double HiddenSingleTargetCritPercent { get; set; } = 100;
+        [Key(11)] public double ResistAddCritChance { get; set; } = -200;
+        [Key(12)] public double VulnAddCritChance { get; set; } = 10;
     }
 
 

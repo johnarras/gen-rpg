@@ -61,7 +61,7 @@ public class CrawlerVendorScreen : ItemIconScreen
 
     private async void ShowVendorItems()
     {
-        _gameObjectService.DestroyAllChildren(VendorItems);
+        _clientEntityService.DestroyAllChildren(VendorItems);
 
         if (VendorItems == null)
         {

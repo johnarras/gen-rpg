@@ -200,7 +200,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
             for (int step = 0; step < args.Result.TilesIndexesReached.Count; step++)
             {
                 int tileIndex = args.Result.TilesIndexesReached[step];
-                RollStep rollStep = new RollStep();
+                RollStep rollStep = new RollStep() { Step = step };
                 args.Result.Steps.Add(rollStep);
                 long tileTypeId = args.Board.Tiles[tileIndex];
                 

@@ -151,38 +151,22 @@ namespace Genrpg.Shared.Crawler.Combat.Services
             // Descending by speed.
             allUnits = allUnits.OrderByDescending(x => x.Stats.Max(StatTypes.Speed)).ToList();
 
-            List<CrawlerUnit> hastedUnits = new List<CrawlerUnit>();
             List<CrawlerUnit> normalUnits = new List<CrawlerUnit>();
             List<CrawlerUnit> slowedUnits = new List<CrawlerUnit>();
 
             foreach (CrawlerUnit unit in allUnits)
             {
-                if (unit.StatusEffects.HasBit(StatusEffects.Hasted))
+                if (unit.StatusEffects.HasBit(StatusEffects.Slowed))
                 {
-                    if (unit.StatusEffects.HasBit(StatusEffects.Slowed))
-                    {
-                        normalUnits.Add(unit);
-                    }
-                    else
-                    {
-                        hastedUnits.Add(unit);
-                    }
+                    slowedUnits.Add(unit);
                 }
                 else
                 {
-                    if (unit.StatusEffects.HasBit(StatusEffects.Slowed))
-                    {
-                        slowedUnits.Add(unit);
-                    }
-                    else
-                    {
-                        normalUnits.Add(unit);
-                    }
+                    normalUnits.Add(unit);
                 }
             }
 
             List<CrawlerUnit> retval = new List<CrawlerUnit>();
-            retval.AddRange(hastedUnits);
             retval.AddRange(normalUnits);
             retval.AddRange(slowedUnits);
 

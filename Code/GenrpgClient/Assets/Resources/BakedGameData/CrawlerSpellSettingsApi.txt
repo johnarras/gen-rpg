@@ -18,7 +18,7 @@
         }
       ],
       "Flags": 1,
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell2default",
@@ -32,7 +32,7 @@
       "Level": 1,
       "Effects": [],
       "Flags": 1,
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell3default",
@@ -53,7 +53,7 @@
         }
       ],
       "Flags": 1,
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell4default",
@@ -65,15 +65,8 @@
       "CombatActionId": 5,
       "TargetTypeId": 9,
       "Level": 1,
-      "Effects": [
-        {
-          "EntityTypeId": 36,
-          "EntityId": 13,
-          "MinQuantity": 1,
-          "MaxQuantity": 1
-        }
-      ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "Effects": [],
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell5default",
@@ -82,11 +75,9 @@
       "Name": "Backstab",
       "Desc": "Leap from the shadows and kill one or more monsters in a group.",
       "MaxRange": 10,
-      "RequiredStatusEffectId": 13,
       "ReplacesCrawlerSpellId": 1,
       "CombatActionId": 1,
       "TargetTypeId": 1,
-      "CritChance": 100.0,
       "Level": 1,
       "Effects": [
         {
@@ -95,7 +86,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell6default",
@@ -113,7 +104,7 @@
           "EntityId": 3
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell7default",
@@ -135,7 +126,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell8default",
@@ -157,7 +148,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell9default",
@@ -179,7 +170,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell10default",
@@ -201,7 +192,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell15default",
@@ -224,7 +215,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell16default",
@@ -247,7 +238,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell17default",
@@ -267,7 +258,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell18default",
@@ -287,7 +278,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell19default",
@@ -307,7 +298,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell20default",
@@ -327,7 +318,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell21default",
@@ -347,7 +338,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell23default",
@@ -369,7 +360,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell24default",
@@ -391,7 +382,30 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
+    },
+    {
+      "Id": "crawlerspell25default",
+      "ParentId": "default",
+      "IdKey": 25,
+      "Name": "Poison Blade",
+      "Desc": "Hit one or more enemies with a poisoned blade.",
+      "PowerCost": 10.0,
+      "PowerPerLevel": 0.5,
+      "MaxRange": 10,
+      "CombatActionId": 4,
+      "TargetTypeId": 1,
+      "Level": 1,
+      "Effects": [
+        {
+          "EntityTypeId": 33,
+          "EntityId": 3,
+          "MinQuantity": 1,
+          "MaxQuantity": 24,
+          "ElementTypeId": 8
+        }
+      ],
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell27default",
@@ -414,7 +428,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell28default",
@@ -427,7 +441,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
-      "Level": 14,
+      "Level": 2,
       "Effects": [
         {
           "EntityTypeId": 33,
@@ -437,7 +451,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell29default",
@@ -460,7 +474,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell30default",
@@ -473,7 +487,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
-      "Level": 5,
+      "Level": 3,
       "Effects": [
         {
           "EntityTypeId": 33,
@@ -483,7 +497,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell31default",
@@ -506,7 +520,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell32default",
@@ -519,7 +533,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 3,
-      "Level": 11,
+      "Level": 5,
       "Effects": [
         {
           "EntityTypeId": 33,
@@ -529,7 +543,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell33default",
@@ -551,7 +565,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell37default",
@@ -571,7 +585,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell39default",
@@ -592,7 +606,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell40default",
@@ -605,7 +619,7 @@
       "TargetTypeId": 5,
       "Level": 18,
       "Effects": [],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell41default",
@@ -628,7 +642,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell42default",
@@ -651,7 +665,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell43default",
@@ -675,7 +689,7 @@
         }
       ],
       "Flags": 2,
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell44default",
@@ -693,7 +707,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell45default",
@@ -715,7 +729,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell46default",
@@ -736,7 +750,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell47default",
@@ -757,7 +771,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell48default",
@@ -778,7 +792,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell49default",
@@ -801,7 +815,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell50default",
@@ -824,7 +838,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell51default",
@@ -846,7 +860,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell52default",
@@ -858,7 +872,7 @@
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 4,
-      "Level": 5,
+      "Level": 9,
       "Effects": [
         {
           "EntityTypeId": 33,
@@ -868,7 +882,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell53default",
@@ -889,7 +903,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell58default",
@@ -909,7 +923,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell59default",
@@ -929,7 +943,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell60default",
@@ -949,15 +963,15 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-08-31T18:58:09.831Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell10016default",
       "ParentId": "default",
       "IdKey": 10016,
       "Name": "Enhance Luck",
-      "PowerCost": 3.0,
-      "PowerPerLevel": 0.25,
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
@@ -970,15 +984,15 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell10020default",
       "ParentId": "default",
       "IdKey": 10020,
       "Name": "Enhance DamagePower",
-      "PowerCost": 3.0,
-      "PowerPerLevel": 0.25,
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
@@ -991,15 +1005,15 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell10031default",
       "ParentId": "default",
       "IdKey": 10031,
       "Name": "Enhance Armor",
-      "PowerCost": 3.0,
-      "PowerPerLevel": 0.25,
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
@@ -1012,15 +1026,15 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell10032default",
       "ParentId": "default",
       "IdKey": 10032,
       "Name": "Enhance Resist",
-      "PowerCost": 3.0,
-      "PowerPerLevel": 0.25,
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
@@ -1033,15 +1047,15 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell10033default",
       "ParentId": "default",
       "IdKey": 10033,
       "Name": "Enhance HealthRegen",
-      "PowerCost": 3.0,
-      "PowerPerLevel": 0.25,
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
@@ -1054,15 +1068,15 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell10034default",
       "ParentId": "default",
       "IdKey": 10034,
       "Name": "Enhance ManaRegen",
-      "PowerCost": 3.0,
-      "PowerPerLevel": 0.25,
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
@@ -1075,15 +1089,15 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell10063default",
       "ParentId": "default",
       "IdKey": 10063,
       "Name": "Enhance Speed",
-      "PowerCost": 3.0,
-      "PowerPerLevel": 0.25,
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
@@ -1096,15 +1110,15 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell10070default",
       "ParentId": "default",
       "IdKey": 10070,
       "Name": "Enhance Hit",
-      "PowerCost": 3.0,
-      "PowerPerLevel": 0.25,
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
@@ -1117,15 +1131,15 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "crawlerspell10071default",
       "ParentId": "default",
       "IdKey": 10071,
       "Name": "Enhance Leadership",
-      "PowerCost": 3.0,
-      "PowerPerLevel": 0.25,
+      "PowerCost": 10.0,
+      "PowerPerLevel": 1.0,
       "MaxRange": 100,
       "CombatActionId": 4,
       "TargetTypeId": 9,
@@ -1138,15 +1152,15 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
-    "StatBuffPowerCost": 3.0,
-    "StatBuffPowerPerLevel": 0.25,
+    "StatBuffPowerCost": 10.0,
+    "StatBuffPowerPerLevel": 1.0,
     "Name": "CrawlerSpellSettings",
-    "UpdateTime": "2024-09-14T16:08:22.823Z"
+    "UpdateTime": "2024-10-21T22:47:47.801Z"
   },
   "Id": "default"
 }

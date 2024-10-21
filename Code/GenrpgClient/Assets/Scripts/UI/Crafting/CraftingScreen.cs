@@ -104,7 +104,7 @@ public class CraftingScreen : ItemIconScreen
         RecipeStatus status = data as RecipeStatus;
         if (status == null || row == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 

@@ -18,6 +18,7 @@
   "ManaStatTypeId": 12,
   "TrainingXpScale": 1.0,
   "TrainingGoldScale": 1.0,
+  "StartStatBonuses": "2 2 0 4 2 2",
   "Bonuses": [
     {
       "EntityTypeId": 2,
@@ -118,7 +119,15 @@
     {
       "EntityTypeId": 100,
       "EntityId": 10070
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10020
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10070
     }
   ],
-  "UpdateTime": "2024-10-05T23:56:53.124Z"
+  "UpdateTime": "2024-10-21T22:47:47.801Z"
 }

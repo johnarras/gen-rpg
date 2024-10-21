@@ -1,9 +1,7 @@
 ﻿using Genrpg.Shared.Input.PlayerData;
 using Genrpg.Shared.Units.Constants;
-using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
 using System;
-using System.Security.Policy;
 using System.Threading;
 using UnityEngine;
 

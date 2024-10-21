@@ -77,9 +77,9 @@ public class UnitController : BaseBehaviour
     public override void Init()
     {
         base.Init();
-        anims = _gameObjectService.GetComponent<GAnimator>(entity);
+        anims = _clientEntityService.GetComponent<GAnimator>(entity);
         cc = GetComponent<CharacterController>();
-        rb = _gameObjectService.GetOrAddComponent<Rigidbody>(entity);
+        rb = _clientEntityService.GetOrAddComponent<Rigidbody>(entity);
         rb.isKinematic = true;
         rb.freezeRotation = true;
     }
@@ -308,7 +308,7 @@ public class UnitController : BaseBehaviour
     {
         if (_unitFrame == null)
         {
-            _unitFrame = _gameObjectService.GetComponent<UnitFrame>(entity);
+            _unitFrame = _clientEntityService.GetComponent<UnitFrame>(entity);
         }
         if (_unitFrame == null)
         {
@@ -414,14 +414,14 @@ public class UnitController : BaseBehaviour
 
         if (text == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
         CombatTextUI ui = go.GetComponent<CombatTextUI>();
         if (ui == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 

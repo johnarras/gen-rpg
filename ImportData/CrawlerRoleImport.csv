@@ -6,6 +6,7 @@ HealthPerLevel,,22,16,18,12,14,18,16,18,18,20,16,0,0,5,0,0,0
 ManaPerLevel,,10,10,14,22,22,14,16,18,8,18,20,0,0,0,0,0,0
 TrainingXpScale,,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
 TrainingGoldScale,,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
+StartStatBonuses,Str Int Dev Agi Sta Luc,4 0 0 4 4 0,4 0 0 2 2 4,2 2 0 4 2 2,0 6 0 3 0 3,0 3 6 0 1 2,2 2 2 2 2 2,2 3 3 2 1 1,2 2 2 2 2 2,6 0 0 0 6 0,4 0 4 0 4 0,0 6 6 0 0 0,1 1 1 1 1 1,0 2 2 2 0 0,2 0 2 0 2 0,3 0 0 0 3 0,0 3 3 0 0 0,0 0 0 3 0 3
 Guardian,,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
 MeleeScaling,,0.34,0.2,0.17,0.125,0.144,0.25,0.2,0.2,0.5,0.34,0.17,0,0,0,0.1,0,0
 RangedScaling,,0.17,0.2,0.5,0.1,0.1,0.34,0.2,0.17,0.25,0.17,0.125,0,0.1,0,0,0,0
@@ -21,7 +22,6 @@ Shoot,,x,x,x,x,x,x,x,x,x,x,x,,,,,,
 Whirlwind,3,x,,,,,,,x,x,,,,,,,,
 Volley,3,,,x,,,x,x,,,,,,,,,,
 Hide,3,,x,,,,,x,x,,,,,,,,,
-Backstab,3,,x,,,,,x,x,,,,,,,,,
 Disarm Traps,2,,x,,x,,,,,,,,,,,,,
 Pick Lock,2,,x,,,,,x,,,,,,,,,,
 Sense Area,5,,x,x,x,,,,x,,,x,,,,,,
@@ -73,6 +73,7 @@ Blizzard,,,,,x,,,,,,,,,,,,,
 Cure,6,,,,,x,x,x,x,,x,x,,,,,,
 Cure Party,6,,,,,x,x,x,x,,x,x,,,,,,
 Sword,,x,x,x,x,,,x,,x,x,x,,,,,,
+Poison Blade,,,x,,,,,,,,,,,,,,,
 Axe,,x,x,x,,,,x,,x,x,,,,,,,
 Mace,,x,x,,,x,,x,x,x,x,x,,,,,,
 Dagger,,x,x,x,x,x,x,x,x,x,,x,,,,,,

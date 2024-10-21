@@ -6,7 +6,7 @@ namespace Genrpg.Shared.UI.Interfaces
     {
         void SetLabel(string text);
         void SetPlaceholder(string text);
-        void SetInput(string text);
-        string GetText();
+        void SetInputText(string text);
+        string GetInputText();
     }
 }

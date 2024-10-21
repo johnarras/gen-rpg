@@ -53,7 +53,7 @@ public class GroundObjectLoader : BaseMapObjectLoader
             return;
         }
 
-        MapGroundObject worldGroundObject = _gameObjectService.GetOrAddComponent<MapGroundObject>(go);
+        MapGroundObject worldGroundObject = _clientEntityService.GetOrAddComponent<MapGroundObject>(go);
 
         GroundObjType gtype = _gameData.Get<GroundObjTypeSettings>(_gs.ch).Get(loadData.Spawn.EntityId);
 

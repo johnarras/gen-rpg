@@ -65,6 +65,7 @@ SpriteAtlas:
     - 1b31aef4ec9559740b24be5bd2c2b6f2: 21300000
     - e2749ef5a4dffd348bba385cc66a3069: 21300000
     - 8d675516f95d3394dab5496b32444b41: 21300000
+    - bf835f56dde7d224593598d32db45843: 21300000
     - 06e6f4661c1c3a7468078f7b507f0308: 21300000
     - abbe8e2751e2779499587437d27d462f: 21300000
     - f7fe0067a0a783a4ebabb0ccbc08d818: 21300000
@@ -108,6 +109,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1b31aef4ec9559740b24be5bd2c2b6f2, type: 3}
   - {fileID: 21300000, guid: e2749ef5a4dffd348bba385cc66a3069, type: 3}
   - {fileID: 21300000, guid: 8d675516f95d3394dab5496b32444b41, type: 3}
+  - {fileID: 21300000, guid: bf835f56dde7d224593598d32db45843, type: 3}
   - {fileID: 21300000, guid: 06e6f4661c1c3a7468078f7b507f0308, type: 3}
   - {fileID: 21300000, guid: abbe8e2751e2779499587437d27d462f, type: 3}
   - {fileID: 21300000, guid: f7fe0067a0a783a4ebabb0ccbc08d818, type: 3}
@@ -150,6 +152,7 @@ SpriteAtlas:
   - BGBrown
   - YellowBar
   - IconGold
+  - BGDarkGray
   - DirRight
   - BGDark
   - PurpleBar

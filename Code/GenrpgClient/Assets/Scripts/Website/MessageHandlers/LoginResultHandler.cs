@@ -30,7 +30,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IClientGameDataService _clientGameDataService;
         protected override void InnerProcess(LoginResult result, CancellationToken token)
         {
-            TaskUtils.ForgetAwaitable(InnerProcessAsync(result, token));
+            _awaitableService.ForgetAwaitable(InnerProcessAsync(result, token));
         }
 
         private async Awaitable InnerProcessAsync(LoginResult result, CancellationToken token)
@@ -91,14 +91,14 @@ namespace Assets.Scripts.Login.MessageHandlers
             await Awaitable.NextFrameAsync(cancellationToken: token);
             await Awaitable.NextFrameAsync(cancellationToken: token);
 
-            _screenService.CloseAll();
-            _screenService.Close(ScreenId.HUD);
             if (_gs.CrawlerMode)
             {
                 _screenService.Open(ScreenId.Crawler);
             }
             else
             {
+                _screenService.CloseAll();
+                _screenService.Close(ScreenId.HUD);
                 _screenService.Open(ScreenId.CharacterSelect);
             }
         }

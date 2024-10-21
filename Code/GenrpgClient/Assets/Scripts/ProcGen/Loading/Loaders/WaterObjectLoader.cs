@@ -68,25 +68,25 @@ public class WaterObjectLoader : BaseObjectLoader
 
         if (dlo.loadData.patch == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
         Terrain terr = dlo.loadData.patch.terrain as Terrain;
         if (terr != null)
         {
-            _gameObjectService.AddToParent(go, terr.gameObject);
+            _clientEntityService.AddToParent(go, terr.gameObject);
         }
         else
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
         float mult = 2.0f; // = 100.0f // if AQUAS
         go.transform.localPosition = new Vector3(dlo.x, dlo.finalZ, dlo.y);
         go.transform.localScale = new Vector3(size.X*mult, 1, size.Z*mult);
-        _gameObjectService.SetLayer(go, LayerUtils.NameToLayer(LayerNames.Water));
+        _clientEntityService.SetLayer(go, LayerUtils.NameToLayer(LayerNames.Water));
 
 
 

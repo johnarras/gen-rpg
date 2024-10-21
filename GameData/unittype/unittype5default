@@ -7,9 +7,18 @@
   "Icon": "Dwarf",
   "Art": "Dwarf",
   "TribeTypeId": 1,
-  "PlayerRace": true,
   "MinLevel": 1,
-  "Effects": [],
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 3
+    }
+  ],
   "PrefixNames": [],
   "DoubleNameSuffixes": [],
   "SuffixNames": [],
@@ -17,5 +26,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-08-31T18:55:35.49Z"
+  "UpdateTime": "2024-10-18T22:27:41.638Z"
 }

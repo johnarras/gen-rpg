@@ -1,7 +1,0 @@
-{
-  "Id": "default",
-  "DiceMultChargeScaling": 0.5,
-  "DiceMultRewardScaling": 0.5,
-  "Name": "BonusModeSettings",
-  "UpdateTime": "2024-08-08T21:47:14.108Z"
-}

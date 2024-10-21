@@ -54,13 +54,13 @@ public class UnitObjectLoader : BaseMapObjectLoader
 
         if (!TokenUtils.IsValid(loadData.Token))
         {
-            _gameObjectService.Destroy(artGo);
+            _clientEntityService.Destroy(artGo);
             return;
         }
 
         if (_objectManager.GetController(loadData.Spawn.ObjId, out UnitController currController))
         {
-            _gameObjectService.Destroy(artGo);
+            _clientEntityService.Destroy(artGo);
             return;
         }
 
@@ -76,11 +76,11 @@ public class UnitObjectLoader : BaseMapObjectLoader
 
             if (terr != null)
             {
-                _gameObjectService.AddToParent(go, terr.gameObject);
+                _clientEntityService.AddToParent(go, terr.gameObject);
             }
             else
             {
-                _gameObjectService.AddToParent(go, _terrainManager.GetPrototypeParent());
+                _clientEntityService.AddToParent(go, _terrainManager.GetPrototypeParent());
             }
         }
 
@@ -101,7 +101,7 @@ public class UnitObjectLoader : BaseMapObjectLoader
 
         if (height == 0)
         {
-            TaskUtils.ForgetAwaitable(WaitForTerrain(go, loadData, loadData.Token));
+            _awaitableService.ForgetAwaitable(WaitForTerrain(go, loadData, loadData.Token));
         }
 
         _objectManager.AddObject(loadData.Obj, go);

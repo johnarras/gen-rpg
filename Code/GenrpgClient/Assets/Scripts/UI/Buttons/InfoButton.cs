@@ -16,7 +16,7 @@ public class InfoButton : BaseBehaviour
     public override void Init()
     {
         base.Init();
-        BaseScreen screen = _gameObjectService.FindInParents<BaseScreen>(gameObject);
+        BaseScreen screen = _clientEntityService.FindInParents<BaseScreen>(gameObject);
 
         if (screen != null)
         {

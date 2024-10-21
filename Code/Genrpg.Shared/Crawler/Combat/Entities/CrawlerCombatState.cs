@@ -29,7 +29,7 @@ namespace Genrpg.Shared.Crawler.Combat.Entities
     [MessagePackObject]
     public class CrawlerCombatState
     {
-        [Key(0)] public int Round { get; set; } = 0;
+        [Key(0)] public int RoundsComplete { get; set; } = 0;
 
         [Key(1)] public long Level { get; set; } = 1;
 

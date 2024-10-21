@@ -17,7 +17,7 @@ public class SetupBundles
 	public const int AtlasSize = 512;
 	public const int CoreSize = 1024;
 
-    [MenuItem("Build/Clear Bundles")]
+    [MenuItem("Tools/Clear Bundles")]
     static void ClearAllAssetBundles()
     {
         ClearBundlesInPath("Assets");
@@ -53,7 +53,7 @@ public class SetupBundles
     }
 
 
-    [MenuItem("Build/Setup Bundles")]
+    [MenuItem("Tools/Setup Bundles")]
     static void SetupBundlesDirect()
     {
         SetupAll(null);

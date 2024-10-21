@@ -126,11 +126,11 @@ public class ProgressBar : BaseBehaviour
         _didInit = true;
         if (currPct <= 0 && bar.IsActive())
         {
-            _gameObjectService.SetActive(bar, false);
+            _clientEntityService.SetActive(bar, false);
         }
         else if (currPct > 0 && !bar.IsActive())
         {
-            _gameObjectService.SetActive(bar, true);
+            _clientEntityService.SetActive(bar, true);
         }
         UnityEngine.RectTransform rectTransform = GetComponent<UnityEngine.RectTransform>();
         MaxBarWidth = rectTransform.rect.width;

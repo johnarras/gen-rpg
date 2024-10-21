@@ -9,22 +9,26 @@ namespace Assets.Scripts.Crawler.Maps.GameObjects
 
         public string MapId { get; set; }
 
-        public Dictionary<long, ClientMapCell> Cells { get; set; } = new Dictionary<long, ClientMapCell>();
+        public Dictionary<string, ClientMapCell> Cells { get; set; } = new Dictionary<string, ClientMapCell>();
 
         public DungeonAssets Assets { get; set; }
 
-        public ClientMapCell GetCell(int x, int y)
+        public ClientMapCell GetCell(int x, int z)
         {
-            int index = Map.GetIndex(x, y);
 
-            if (Cells.TryGetValue(index, out ClientMapCell cell))
+            string key = x + "." + z;
+
+            if (Cells.TryGetValue(key, out ClientMapCell cell))
             {
                 return cell;
             }
 
-            cell = new ClientMapCell() { X = x, Z = y };
+            x = (x + Map.Width) % Map.Width;
+            z = (z + Map.Height) % Map.Height;
 
-            Cells[index] = cell;
+            cell = new ClientMapCell() { X = x, Z = z };
+
+            Cells[key] = cell;
             return cell;
         }
 

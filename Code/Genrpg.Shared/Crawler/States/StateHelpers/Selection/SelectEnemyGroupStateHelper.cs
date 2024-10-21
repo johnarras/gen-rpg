@@ -52,7 +52,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Selection
                         selectAction.Action.Action.FinalTargets = group.Units.ToList();
                         currUnit.Action = selectAction.Action.Action;
                         selectAction.Action.Action.FinalTargetGroups = new List<CombatGroup>() { group };
-                    }));
+                    }, forceButton: true));
 
             }
 

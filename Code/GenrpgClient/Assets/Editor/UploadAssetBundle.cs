@@ -7,14 +7,14 @@ using Genrpg.Shared.Client.Core;
 
 public class UploadAssetBundle
 {
-	[MenuItem("Build/Dev Upload Asset Bundles")]
+	[MenuItem("Tools/Dev Upload Asset Bundles")]
 	static void ExecuteDev()
     {
         IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
         UploadAssetBundles(EnvNames.Dev);
 	}
 
-    [MenuItem("Build/Prod Upload Asset Bundles")]
+    [MenuItem("Tools/Prod Upload Asset Bundles")]
     static void ExecuteProd()
     {
         IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
@@ -34,6 +34,7 @@ public class UploadAssetBundle
 
         IClientAppService appService = gs.loc.Get<IClientAppService>();    
         IBinaryFileRepository localRepo = gs.loc.Get<IBinaryFileRepository>();
+        IClientAppService clientAppService = gs.loc.Get<IClientAppService>();
 
         List<PlatformBuildData> targets = BuildConfiguration.GetbuildConfigs(gs);
 
@@ -56,6 +57,7 @@ public class UploadAssetBundle
                 fdata.Env = env;
                 fdata.LocalPath = localPath;
                 fdata.RemotePath = remotePath;
+                fdata.LocalDataPath = clientAppService.DataPath;
                 if (uploadCount % 20 == 10)
                 {
                     fdata.WaitForComplete = true;
@@ -86,6 +88,7 @@ public class UploadAssetBundle
                     fdata.Env = env;
                     fdata.LocalPath = localPath;
                     fdata.RemotePath = remotePath;
+                    fdata.LocalDataPath = clientAppService.DataPath;
 
                     FileUploader.UploadFile(fdata);
                 }

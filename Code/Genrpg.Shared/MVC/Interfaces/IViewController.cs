@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.MVC.Interfaces
 {
-    public interface IViewController<TModel, IView> : IInjectable
+
+    public interface IViewController : IInjectable
     {
-        Task Init(TModel model, IView view, CancellationToken token);
         IView GetView();
-        TModel GetModel();
         CancellationToken GetToken();
+    }
+
+    public interface IViewController<TModel, TView> : IViewController where TView : IView
+    {
+        Task Init(TModel model, TView view, CancellationToken token);
+        TModel GetModel();
     }
 }

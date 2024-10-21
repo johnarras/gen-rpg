@@ -62,7 +62,7 @@ public class QuestInfoUI : BaseBehaviour
 
     protected virtual void ShowQuestInfo()
     {
-        _gameObjectService.SetActive(ContentParent, _qtype != null);
+        _clientEntityService.SetActive(ContentParent, _qtype != null);
         if (_qtype == null)
         {            
             return;
@@ -87,10 +87,10 @@ public class QuestInfoUI : BaseBehaviour
         _uiService.SetText(QuestName, nameText);
         _uiService.SetText(Description, _qtype.Desc);
 
-        _gameObjectService.DestroyAllChildren(TaskParent);
+        _clientEntityService.DestroyAllChildren(TaskParent);
         if (_qtype.Tasks != null && TaskParent != null)
         {
-            _gameObjectService.DestroyAllChildren(TaskParent);
+            _clientEntityService.DestroyAllChildren(TaskParent);
             foreach (QuestTask task in _qtype.Tasks)
             {
                 _assetService.LoadAssetInto(TaskParent, AssetCategoryNames.UI,
@@ -216,7 +216,7 @@ public class QuestInfoUI : BaseBehaviour
 
         if (task == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -224,7 +224,7 @@ public class QuestInfoUI : BaseBehaviour
 
         if (taskRow == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -233,21 +233,21 @@ public class QuestInfoUI : BaseBehaviour
 
     public void UpdateButtonsFromState(int state)
     {
-        _gameObjectService.SetActive(AcceptButton, false);
-        _gameObjectService.SetActive(AbandonButton, false);
-        _gameObjectService.SetActive(CompleteButton, false);
+        _clientEntityService.SetActive(AcceptButton, false);
+        _clientEntityService.SetActive(AbandonButton, false);
+        _clientEntityService.SetActive(CompleteButton, false);
 
         if (state == QuestState.Available)
         {
-            _gameObjectService.SetActive(AcceptButton, true);
+            _clientEntityService.SetActive(AcceptButton, true);
         }
         else if (state == QuestState.Active)
         {
-            _gameObjectService.SetActive(AbandonButton, true);
+            _clientEntityService.SetActive(AbandonButton, true);
         }
         else if (state == QuestState.Complete)
         {
-            _gameObjectService.SetActive(CompleteButton, true);
+            _clientEntityService.SetActive(CompleteButton, true);
         }
     }
 

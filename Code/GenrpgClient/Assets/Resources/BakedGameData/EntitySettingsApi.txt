@@ -165,6 +165,20 @@
       "UpdateTime": "2024-08-22T14:01:32.798Z"
     },
     {
+      "Id": "entitytype24default",
+      "ParentId": "default",
+      "IdKey": 24,
+      "Name": "Vulnerability",
+      "UpdateTime": "2024-10-18T21:20:10.933Z"
+    },
+    {
+      "Id": "entitytype25default",
+      "ParentId": "default",
+      "IdKey": 25,
+      "Name": "Resist",
+      "UpdateTime": "2024-10-18T21:20:10.933Z"
+    },
+    {
       "Id": "entitytype31default",
       "ParentId": "default",
       "IdKey": 31,
@@ -268,7 +282,7 @@
   "ParentObj": {
     "Id": "default",
     "Name": "EntitySettings",
-    "UpdateTime": "2024-08-22T14:01:32.798Z"
+    "UpdateTime": "2024-10-18T21:20:10.933Z"
   },
   "Id": "default"
 }

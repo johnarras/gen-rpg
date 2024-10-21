@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefabs:
-  - SingletonContainer
   - EventsAndInput
   - ShaderVariants
   - ScreenManager

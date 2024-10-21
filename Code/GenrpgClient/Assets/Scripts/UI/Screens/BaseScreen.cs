@@ -5,6 +5,7 @@ using UnityEngine.UI; // FIX
 using UnityEngine;
 using Genrpg.Shared.UI.Entities;
 using System.Threading.Tasks;
+using Assets.Scripts.Awaitables;
 
 public abstract class BaseScreen : AnimatorBehaviour, IScreen
 {
@@ -19,7 +20,8 @@ public abstract class BaseScreen : AnimatorBehaviour, IScreen
 
     private CancellationTokenSource _screenSource = new CancellationTokenSource();
     protected CancellationToken _token;
-  
+
+    protected IAwaitableService _awaitableService;
 
     // Called when screen first opens.
     protected abstract Task OnStartOpen(object data, CancellationToken token);

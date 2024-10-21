@@ -6,6 +6,7 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Zones.Constants;
+using Genrpg.Shared.Zones.Settings;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -42,11 +43,16 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 genData.Looping = true;
                 genData.SimpleDungeon = true;
 
+                if (genData.ZoneTypeId == 0)
+                {
+                    genData.ZoneTypeId = _newMapZoneIds[rand.Next() % _newMapZoneIds.Length];
+                }
+
                 if (genData.ZoneTypeId == ZoneTypes.Tower)
                 {
                     genData.Looping = false;
-                    width = Math.Max(12, width / 2);
-                    height = Math.Max(12, height / 2);
+                    width = Math.Max(6, width / 2);
+                    height = Math.Max(6, height / 2);
                     genData.SimpleDungeon = true;
                 }
                 else if (rand.NextDouble() < 0.5f)
@@ -55,11 +61,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                     width = MathUtils.LongRange(mapType.MinWidth * 3 / 2, mapType.MaxWidth * 3 / 2, rand);
                     height = MathUtils.LongRange(mapType.MinHeight * 3 / 2, mapType.MaxHeight * 3 / 2, rand);
                     genData.Looping = false;
-                }
-
-                if (genData.ZoneTypeId == 0)
-                {
-                    genData.ZoneTypeId = _newMapZoneIds[rand.Next() % _newMapZoneIds.Length];
                 }
 
                 map = genData.World.CreateMap(genData, (int)width, (int)height);
@@ -205,6 +206,34 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                     }
                 }
 
+                double roomTimes = map.Width * map.Height / 200.0f;
+
+                double roomremainder = roomTimes - (int)roomTimes;
+                roomTimes = (int)roomTimes;
+                if (rand.NextDouble() < roomremainder) 
+                {
+                    roomTimes++;
+                }
+
+                int maxRoomSize = 6;
+                for (int r = 0; r < roomTimes; r++)
+                {
+                    int minx = MathUtils.IntRange(0, map.Width - maxRoomSize-1, rand);
+                    int maxx = minx + MathUtils.IntRange(maxRoomSize / 2, maxRoomSize, rand);
+
+                    int minz = MathUtils.IntRange(0, map.Height - maxRoomSize - 1, rand);
+                    int maxz = MathUtils.IntRange(maxRoomSize / 2, maxRoomSize, rand);
+
+                    for (int x = minx; x < maxx; x++)
+                    {
+                        for (int z = minz; z < maxz; z++)
+                        {
+                            map.Set(x, z, CellIndex.Walls, 0);
+                        }
+                    }
+                }
+
+
                 enterX = rand.Next() % map.Width;
                 enterZ = rand.Next() % map.Height;
 
@@ -273,7 +302,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             }
             else
             {
-                bool[,] clearCells = AddCorridors(map, genData, rand, 0.66f);
+                bool[,] clearCells = AddCorridors(map, genData, rand, 1.2f);
 
                 // Add rooms first.
                 List<PointXZ> okPoints = new List<PointXZ>();

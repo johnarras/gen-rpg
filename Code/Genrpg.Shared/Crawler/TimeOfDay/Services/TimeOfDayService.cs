@@ -80,6 +80,18 @@ namespace Genrpg.Shared.Crawler.TimeOfDay.Services
                 hoursSpent = timeSettings.RestHours;
                 fullHeal = true;
             }
+            else if (type == ECrawlerTimeUpdateTypes.Eat)
+            {
+                hoursSpent = timeSettings.EatHours;
+            }
+            else if (type == ECrawlerTimeUpdateTypes.Drink)
+            {
+                hoursSpent = timeSettings.DrinkHours;
+            }
+            else if(type == ECrawlerTimeUpdateTypes.Rumor)
+            {
+                hoursSpent += timeSettings.RumorHours;  
+            }
             else if (type == ECrawlerTimeUpdateTypes.Tavern)
             {
                 hoursSpent = timeSettings.DailyResetHour - partyData.HourOfDay;

@@ -1,0 +1,8 @@
+{
+  "Id": "default",
+  "HealingCostPerLevel": 10,
+  "StatusEffectCostPerLevel": 100,
+  "MaxCostLevel": 25,
+  "Name": "TempleSettings",
+  "UpdateTime": "2024-10-21T19:04:53.776Z"
+}

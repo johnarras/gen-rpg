@@ -6,6 +6,7 @@ using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.Entities.Utils;
+using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.UnitEffects.Settings;
@@ -33,12 +34,13 @@ namespace Genrpg.Editor.Importers
         const int PluralCol = 1;
         const int TribeCol = 2;
         const int SuffixCol = 3;
-        const int IsPlayerCol = 4;
-        const int MinLevelCol = 5;
-        const int HpBonusCol = 6;
-        const int DamBonusCol = 7;
+        const int MinLevelCol = 4;
+        const int HpBonusCol = 5;
+        const int DamBonusCol = 6;
+        const int VulnerabilityColumn = 7;
+        const int ResistCol = 8;
 
-        const int ColumnCount = 8;
+        const int ColumnCount = 7;
 
         protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
         {
@@ -53,6 +55,8 @@ namespace Genrpg.Editor.Importers
             IReadOnlyList<CrawlerSpell> crawlerSpells = gs.data.Get<CrawlerSpellSettings>(null).GetData();
 
             IReadOnlyList<StatusEffect> statusEffects = gs.data.Get<StatusEffectSettings>(null).GetData();  
+
+            IReadOnlyList<ElementType> elementTypes = gs.data.Get<ElementTypeSettings>(null).GetData(); 
 
             gs.LookedAtObjects.Add(gs.data.Get<UnitSettings>(null));
 
@@ -117,11 +121,6 @@ namespace Genrpg.Editor.Importers
 
                     unitType.TribeTypeId = tribe.IdKey;
 
-                    if (string.IsNullOrEmpty(suffix) && bool.TryParse(words[IsPlayerCol], out bool isPlayer))
-                    {
-                        unitType.PlayerRace = isPlayer;
-                    }
-
                     if (Int64.TryParse(words[MinLevelCol], out long minLevel))
                     {
                         unitType.MinLevel = minLevel;
@@ -162,8 +161,13 @@ namespace Genrpg.Editor.Importers
                         CrawlerSpell matchingSpell = crawlerSpells.FirstOrDefault(x=>x.Name.ToLower() == 
                         word.ToLower());
 
+                      
                         if (matchingSpell != null)
                         {
+                            if (word == "Defend")
+                            {
+                                Console.WriteLine("Found Defend");
+                            }
                             unitType.Effects.Add(new UnitEffect()
                             {
                                 EntityTypeId = EntityTypes.CrawlerSpell,
@@ -184,6 +188,9 @@ namespace Genrpg.Editor.Importers
                             continue;
                         }
                     }
+                    unitType.Effects.AddRange(ReadElementWords(words[VulnerabilityColumn], EntityTypes.Vulnerability, elementTypes));
+                    unitType.Effects.AddRange(ReadElementWords(words[ResistCol], EntityTypes.Resist, elementTypes));
+
                     newList.Add(unitType);
                 }
             }

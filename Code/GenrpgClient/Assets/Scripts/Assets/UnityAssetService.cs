@@ -18,6 +18,8 @@ using Genrpg.Shared.Client.Assets.Constants;
 using Assets.Scripts.GameObjects;
 using Genrpg.Shared.MVC.Interfaces;
 using Assets.Scripts.MVC;
+using Assets.Scripts.Awaitables;
+
 
 
 
@@ -91,11 +93,13 @@ public class UnityAssetService : IAssetService
     private IFileDownloadService _fileDownloadService;
     protected IClientRandom _rand;
     protected IClientGameState _gs;
-    protected IClientEntityService _gameObjectService;
+    protected IClientEntityService _clientEntityService;
     private IClientConfigContainer _config; 
     private ISingletonContainer _singletonContainer;
     private IClientAppService _clientAppService;
     private IBinaryFileRepository _binaryFileRepo;
+
+    private IAwaitableService _awaitableService;
 
     private static float _loadDelayChance = 0.03f;
 
@@ -162,14 +166,14 @@ public class UnityAssetService : IAssetService
         string persPath = _clientAppService.PersistentDataPath;
         for (int i = 0; i < _maxConcurrentExistingDownloads; i++)
         {
-            TaskUtils.ForgetAwaitable(LoadFromExistingBundles(true, token));
+            _awaitableService.ForgetAwaitable(LoadFromExistingBundles(true, token));
         }
         for (int i = 0; i < _maxConcurrentBundleDownloads; i++)
         {
-            TaskUtils.ForgetAwaitable(DownloadNewBundles(token));
+            _awaitableService.ForgetAwaitable(DownloadNewBundles(token));
         }
 
-        TaskUtils.ForgetAwaitable(IncrementalClearMemoryCache(token));
+        _awaitableService.ForgetAwaitable(IncrementalClearMemoryCache(token));
         LoadLastSaveTimeFile(token);
 
         await Task.CompletedTask;
@@ -211,13 +215,13 @@ public class UnityAssetService : IAssetService
                 {
                     bdata.assetBundle.Unload(true);
                     _assetCounts.BundlesUnloaded++;
-                    _gameObjectService.Destroy(bdata.assetBundle);
+                    _clientEntityService.Destroy(bdata.assetBundle);
                 }
             }
         }
 
         _bundleCache = newBundleCache;
-        TaskUtils.ForgetAwaitable(UnloadUnusedAssets(token));
+        _awaitableService.ForgetAwaitable(UnloadUnusedAssets(token));
     }
 
     protected async Awaitable IncrementalClearMemoryCache(CancellationToken token)
@@ -248,7 +252,7 @@ public class UnityAssetService : IAssetService
 
                         bundle.assetBundle.Unload(true);
                         _assetCounts.BundlesUnloaded++;
-                        _gameObjectService.Destroy(bundle.assetBundle);
+                        _clientEntityService.Destroy(bundle.assetBundle);
                         _bundleCache.Remove(item);
                         removeCount++;
                         if (removeCount > 5)
@@ -398,7 +402,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
                     {
                         asset = InstantiateIntoParent(asset, parent);
 
-                        _gameObjectService.InitializeHierarchy(asset as GameObject);
+                        _clientEntityService.InitializeHierarchy(asset as GameObject);
 
                         if (handler != null)
                         {
@@ -720,7 +724,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
 
         if (atlasSpriteDownload == null || string.IsNullOrEmpty(atlasSpriteDownload.atlasName))
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
 
             if (atlasSpriteDownload != null && atlasSpriteDownload.finalHandler != null)
             {
@@ -740,7 +744,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
 
         if (_atlasCache.ContainsKey(atlasSpriteDownload.atlasName))
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
         }
         else
         {
@@ -1026,7 +1030,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
         BaseBehaviour oneBehavior = go.GetComponent<BaseBehaviour>();
         if (oneBehavior != null)
         {
-            _gameObjectService.InitializeHierarchy(go);
+            _clientEntityService.InitializeHierarchy(go);
         }
         return go;
     }
@@ -1112,7 +1116,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
 
         if (parent != null)
         {
-            _gameObjectService.AddToParent(go, parent);
+            _clientEntityService.AddToParent(go, parent);
         }
         return go;
     }
@@ -1137,7 +1141,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
         }
         else
         {
-            return _gameObjectService.GetComponent<T>(cont.Entity);
+            return _clientEntityService.GetComponent<T>(cont.Entity);
         }
     }
 
@@ -1204,15 +1208,15 @@ public void LoadAsset(string assetPathSuffix, string assetName,
     {
         if (dupeObject)
         {
-            viewObj = _gameObjectService.FullInstantiate(viewObj);
+            viewObj = _clientEntityService.FullInstantiate(viewObj);
         }
         if (viewObj is BaseView viewDupe)
         {
             VC viewController = new VC();
             _gs.loc.Resolve(viewController);
             await viewController.Init(model, viewDupe, token);
-            _gameObjectService.AddToParent(viewDupe.gameObject, parent);
-            _gameObjectService.SetActive(viewDupe.gameObject, true);
+            _clientEntityService.AddToParent(viewDupe.gameObject, parent);
+            _clientEntityService.SetActive(viewDupe.gameObject, true);
             return viewController;
         }
         return default(VC);

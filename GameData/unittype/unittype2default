@@ -7,7 +7,6 @@
   "Icon": "Elf",
   "Art": "Elf",
   "TribeTypeId": 1,
-  "PlayerRace": true,
   "MinLevel": 1,
   "Effects": [],
   "PrefixNames": [],
@@ -17,5 +16,5 @@
   "FoodSources": [],
   "LootItems": [],
   "InteractLootItems": [],
-  "UpdateTime": "2024-08-31T18:55:35.49Z"
+  "UpdateTime": "2024-10-18T22:27:41.638Z"
 }

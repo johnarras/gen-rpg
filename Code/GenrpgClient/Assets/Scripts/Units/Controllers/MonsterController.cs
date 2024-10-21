@@ -215,7 +215,7 @@ public class MonsterController : UnitController
         SetState(IdleState);
 
         float rotDiff =entity.transform.localEulerAngles.y -entity.transform.eulerAngles.y;
-        GameObject renderObject = (GameObject)_gameObjectService.FindChild(entity, AnimUtils.RenderObjectName);
+        GameObject renderObject = (GameObject)_clientEntityService.FindChild(entity, AnimUtils.RenderObjectName);
         if (renderObject != null)
         {   
             renderObject.transform.localEulerAngles = new Vector3(0, rotDiff, 0);
@@ -274,7 +274,7 @@ public class MonsterController : UnitController
                 return;
             }
             triedToFindInnerPlayer = true;
-            innerPlayer = (GameObject)_gameObjectService.FindChild(entity, AnimUtils.RenderObjectName);
+            innerPlayer = (GameObject)_clientEntityService.FindChild(entity, AnimUtils.RenderObjectName);
             if (innerPlayer == null)
             {
                 return;

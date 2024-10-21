@@ -13,7 +13,6 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Zones.Settings;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -38,7 +37,7 @@ namespace Assets.Scripts.BoardGame.Loading.Steps
 
             GameObject tileRoot = _boardController.GetBoardAnchor();
 
-            List<TileArt> tiles = _gameObjectService.GetComponents<TileArt>(tileRoot);
+            IReadOnlyList<TileController> tiles = _boardController.GetTiles();
 
             bool[,] blocked = new bool[map.GetHwid(), map.GetHhgt()];
 
@@ -84,10 +83,11 @@ namespace Assets.Scripts.BoardGame.Loading.Steps
                 }
             }
 
-            foreach (TileArt tile in tiles)
+            foreach (TileController tile in tiles)
             {
-                int cx = (int)tile.transform.position.x;
-                int cz = (int)tile.transform.position.z;
+                Vector3 pos = (Vector3) tile.GetView().Position();
+                int cx = (int)pos.x;
+                int cz = (int)pos.z;
 
                 int radius = 3;
                 if (tile.MarkerPos.Index <= maxMainPathIndex)

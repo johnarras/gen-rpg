@@ -18,7 +18,7 @@ namespace Assets.Editor
     {
 
 
-        [MenuItem("Build/CopyMonsterTextures")]
+        [MenuItem("Tools/CopyMonsterTextures")]
         static void ExecuteLocal()
         {
             IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
@@ -50,7 +50,7 @@ namespace Assets.Editor
             }
         }
 
-        [MenuItem("Build/SetupMonsterImagePrefabs")]
+        [MenuItem("Tools/SetupMonsterImagePrefabs")]
         static void SetupMonsterImagePrefabs()
         {
             IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
@@ -102,7 +102,7 @@ namespace Assets.Editor
         }
 
 
-        [MenuItem("Build/SetupMonster3DPrefabs")]
+        [MenuItem("Tools/SetupMonster3DPrefabs")]
         static void SetupMonster3DPrefabs()
         {
             IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();

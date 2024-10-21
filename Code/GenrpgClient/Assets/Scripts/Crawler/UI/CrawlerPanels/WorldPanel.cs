@@ -37,6 +37,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         private ICrawlerMapService _mapService;
         private ICurveGenService _curveGenService;
         private ICrawlerWorldService _worldService;
+            
 
         private IRawImage _worldImage;
         private IText _worldPosText;
@@ -78,11 +79,12 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             _noRangedImage = _view.Get<IImage>("NoRangedImage");
             _noMagicImage = _view.Get<IImage>("NoMagicImage");
             _minimap = _view.Get<CrawlerTilemap>("Minimap");
+            _gs.loc.Resolve(_minimap);
             _tooltipParent = _view.Get<object>("TooltipParent");
             _tooltipContent = _view.Get<object>("TooltipContent");
             _root = _view.Get<object>("Root");
 
-            _gameObjectService.SetActive(_tooltipParent, false);
+            _clientEntityService.SetActive(_tooltipParent, false);
 
             _uiService.SetButton(_closeTooltipButton, GetType().Name, () => { OnHideTooltip(new HideCrawlerTooltipEvent()); });
 
@@ -142,15 +144,15 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             byte disables = map.Get(partyData.MapX, partyData.MapZ, CellIndex.Disables);
 
-            _gameObjectService.SetActive(_noMeleeImage, FlagUtils.IsSet(disables, MapDisables.NoMelee));
-            _gameObjectService.SetActive(_noRangedImage, FlagUtils.IsSet(disables, MapDisables.NoRanged));
-            _gameObjectService.SetActive(_noMagicImage, FlagUtils.IsSet(disables, MapDisables.NoMagic));
+            _clientEntityService.SetActive(_noMeleeImage, FlagUtils.IsSet(disables, MapDisables.NoMelee));
+            _clientEntityService.SetActive(_noRangedImage, FlagUtils.IsSet(disables, MapDisables.NoRanged));
+            _clientEntityService.SetActive(_noMagicImage, FlagUtils.IsSet(disables, MapDisables.NoMagic));
 
         }
 
         private void OnShowTooltip(ShowCrawlerTooltipEvent showEvent)
         {
-            TaskUtils.ForgetTask(OnShowTooltipAsync(showEvent));
+            _taskService.ForgetTask(OnShowTooltipAsync(showEvent));
         }
 
         private async Task OnShowTooltipAsync(ShowCrawlerTooltipEvent showEvent)
@@ -160,8 +162,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                 return;
             }
 
-            _gameObjectService.DestroyAllChildren(_tooltipContent);
-            _gameObjectService.SetActive(_tooltipParent, true);
+            _clientEntityService.DestroyAllChildren(_tooltipContent);
+            _clientEntityService.SetActive(_tooltipParent, true);
 
             for (int i = 0; i < showEvent.Lines.Count; i++)
             {
@@ -171,7 +173,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         private void OnHideTooltip(HideCrawlerTooltipEvent hideEvent)
         {
-            _gameObjectService.SetActive(_tooltipParent, false);
+            _clientEntityService.SetActive(_tooltipParent, false);
         }
 
 
@@ -202,7 +204,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             if (string.IsNullOrEmpty(spriteName))
             {
                 _uiService.SetImageTexture(_worldImage, null);
-                _gameObjectService.SetActive(_worldImage, false);
+                _clientEntityService.SetActive(_worldImage, false);
                 _currentSpriteName = spriteName;
                 return;
             }
@@ -217,7 +219,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             {
                 if (textureList.Textures.Count > 0 && textureList.Textures[0] != null)
                 {
-                    _gameObjectService.SetActive(_worldImage, true);
+                    _clientEntityService.SetActive(_worldImage, true);
                     _uiService.SetImageTexture(_worldImage, textureList.Textures[0]);
                     SetTextureFrame(0);
                 }
@@ -243,27 +245,27 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             if (spriteName == null)
             {
-                _gameObjectService.Destroy(go);
+                _clientEntityService.Destroy(go);
                 return;
             }
 
             if (_cachedSprites.TryGetValue(spriteName, out TextureList texList))
             {
-                _gameObjectService.Destroy(go);
+                _clientEntityService.Destroy(go);
             }
             else
             {
                 texList = go.GetComponent<TextureList>();
                 if (texList == null)
                 {
-                    _gameObjectService.Destroy(go);
+                    _clientEntityService.Destroy(go);
                     return;
                 }
-                _gameObjectService.SetActive(go, false);
-               // _gameObjectService.AddToParent(go, gameObject);
+                _clientEntityService.SetActive(go, false);
+               // _clientEntityService.AddToParent(go, gameObject);
                 _cachedSprites[spriteName] = texList;
             }
-            _gameObjectService.SetActive(_worldImage, true);
+            _clientEntityService.SetActive(_worldImage, true);
             _uiService.SetImageTexture(_worldImage, texList.Textures[0]);
             SetTextureFrame(0);
         }

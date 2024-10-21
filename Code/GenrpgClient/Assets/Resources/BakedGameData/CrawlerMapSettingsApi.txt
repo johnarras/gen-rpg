@@ -8,15 +8,15 @@
       "Desc": "",
       "Icon": "",
       "Art": "",
-      "MinWidth": 15,
-      "MaxWidth": 15,
-      "MinHeight": 15,
-      "MaxHeight": 15,
+      "MinWidth": 10,
+      "MaxWidth": 20,
+      "MinHeight": 10,
+      "MaxHeight": 20,
       "MinFloors": 2,
       "MaxFloors": 5,
       "QuestItemEntranceUnlockChance": 0.2,
       "RiddleUnlockChance": 0.2,
-      "UpdateTime": "2024-09-02T00:46:22.316Z"
+      "UpdateTime": "2024-10-21T18:10:07.855Z"
     },
     {
       "Id": "crawlermaptype2default",
@@ -32,7 +32,7 @@
       "MaxHeight": 20,
       "MinFloors": 1,
       "MaxFloors": 1,
-      "UpdateTime": "2024-09-02T00:46:22.316Z"
+      "UpdateTime": "2024-10-21T18:10:07.855Z"
     },
     {
       "Id": "crawlermaptype3default",
@@ -48,13 +48,13 @@
       "MaxHeight": 70,
       "MinFloors": 1,
       "MaxFloors": 1,
-      "UpdateTime": "2024-08-28T23:58:20.709Z"
+      "UpdateTime": "2024-10-21T18:10:07.855Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "CrawlerMapSettings",
-    "UpdateTime": "2024-09-02T00:46:22.316Z"
+    "UpdateTime": "2024-10-21T18:10:07.855Z"
   },
   "Id": "default"
 }

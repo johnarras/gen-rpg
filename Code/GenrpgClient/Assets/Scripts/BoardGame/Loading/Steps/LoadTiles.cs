@@ -5,6 +5,10 @@ using Assets.Scripts.GameObjects;
 using Assets.Scripts.ProcGen.Components;
 using Assets.Scripts.ProcGen.Services;
 using Genrpg.Shared.BoardGame.PlayerData;
+using Genrpg.Shared.BoardGame.Settings;
+using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Utils;
 using Newtonsoft.Json.Linq;
 using System;
@@ -24,6 +28,8 @@ namespace Assets.Scripts.BoardGame.Loading
         protected IMapTerrainManager _terrainManager;
         private IMapGenData _mapGenData;
         private IBoardGameController _boardGameController;
+        private IGameData _gameData;
+        private IClientGameState _gs;
         public override ELoadBoardSteps GetKey() { return ELoadBoardSteps.LoadTiles; }
 
         public override async Awaitable Execute(BoardData boardData, CancellationToken token)
@@ -33,7 +39,7 @@ namespace Assets.Scripts.BoardGame.Loading
             IRandom _rand = new MyRandom(boardData.Seed);
 
             int radius = 20;
-            _spline = _gameObjectService.GetOrAddComponent<MarkedSpline>(parent);
+            _spline = _clientEntityService.GetOrAddComponent<MarkedSpline>(parent);
             _spline.GenParams.BreakChance = MathUtils.FloatRange(0.1f, 0.7f, _rand);
             _spline.GenParams.MinRadius = radius;
             _spline.GenParams.MaxRadius = _spline.GenParams.MinRadius * 5 / 4;
@@ -49,7 +55,11 @@ namespace Assets.Scripts.BoardGame.Loading
                 await Awaitable.NextFrameAsync(token);
             }
 
+            IReadOnlyList<TileType> tileTypes = _gameData.Get<TileTypeSettings>(_gs.ch).GetData();
+
             float doffset = 0.5f;
+
+            List<TileController> controllers = new List<TileController>();
             foreach (MarkerPosition markerPos in _spline.GetMarkers())
             {
                 if (markerPos.GameObject != null)
@@ -74,17 +84,31 @@ namespace Assets.Scripts.BoardGame.Loading
                             }
                         }
                     }
-                    TileArt baseTile = _gameObjectService.GetComponent<TileArt>(markerPos.GameObject);
-                    if (baseTile != null)
+
+                    if (markerPos.Index < 0)
                     {
-                        baseTile.MarkerPos = markerPos;
+                        continue;
                     }
+                    long tileTypeId = boardData.Tiles[markerPos.Index];
+
+                    TileType tileType = tileTypes.FirstOrDefault(x => x.IdKey == tileTypeId);
+
+                    TileTypeWithIndex ttidx = new TileTypeWithIndex()
+                    {
+                        TileType = tileType,
+                        Index = markerPos.Index,
+                    };
+
+                    TileController tileArt = await _assetService.CreateAsync<TileController,TileTypeWithIndex>(ttidx, AssetCategoryNames.Tiles, tileType.Art, markerPos.GameObject,
+                        token);
+                    controllers.Add(tileArt);
+                    tileArt.MarkerPos = markerPos;
                     markerPos.GameObject.transform.position = new Vector3(pos.x, maxHeight+0.3f, pos.z);
 
                 }
             }
 
-            _boardGameController.SetTiles();
+            _boardGameController.SetTiles(controllers);
         }
     }
 }

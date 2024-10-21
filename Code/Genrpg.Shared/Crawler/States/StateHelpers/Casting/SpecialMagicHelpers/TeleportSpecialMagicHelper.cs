@@ -66,12 +66,12 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Casting.SpecialMagicHelpers
                 _crawlerService.ChangeState(ECrawlerStates.ExploreWorld, token);
             }
 
-            if (!int.TryParse(currState.Inputs[0].InputField.GetText(), out int x))
+            if (!int.TryParse(currState.Inputs[0].InputField.GetInputText(), out int x))
             {
                 return;
             }
 
-            if (!int.TryParse(currState.Inputs[1].InputField.GetText(), out int z))
+            if (!int.TryParse(currState.Inputs[1].InputField.GetInputText(), out int z))
             {
                 return;
             }

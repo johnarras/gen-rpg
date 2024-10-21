@@ -71,11 +71,11 @@ public class MoneyDisplay : BaseBehaviour
             long currAmount = amountLeft % SegmentDiv;
             if (currAmount == 0 && (money > 0 || s < _segments.Count-1))
             {
-                _gameObjectService.SetActive(seg.GetParent(), false);               
+                _clientEntityService.SetActive(seg.GetParent(), false);               
             }
             else
             {
-                _gameObjectService.SetActive(seg.GetParent(), true);
+                _clientEntityService.SetActive(seg.GetParent(), true);
                 seg.SetQuantityText(currAmount.ToString());
             }
             amountLeft /= SegmentDiv;

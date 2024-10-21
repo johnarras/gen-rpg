@@ -156,7 +156,7 @@ public class TradeScreen : ItemIconScreen
         TradeCharUI parentUI = null;
         if (otherIconHit != null)
         {
-            parentUI = _gameObjectService.FindInParents<TradeCharUI>(otherIconHit.gameObject);
+            parentUI = _clientEntityService.FindInParents<TradeCharUI>(otherIconHit.gameObject);
         }
 
         // If landing spot is not one of our icons, bail out.

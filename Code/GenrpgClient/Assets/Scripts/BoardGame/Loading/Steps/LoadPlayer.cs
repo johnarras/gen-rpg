@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.BoardGame.Controllers;
 using Assets.Scripts.BoardGame.Loading.Constants;
+using Assets.Scripts.BoardGame.Players;
 using Assets.Scripts.BoardGame.Tiles;
 using Genrpg.Shared.BoardGame.PlayerData;
 using Genrpg.Shared.BoardGame.Settings;
@@ -25,7 +26,7 @@ namespace Assets.Scripts.BoardGame.Loading.Steps
 
             Marker marker = _gameData.Get<MarkerSettings>(_gs.ch).Get(userData.MarkerId);
 
-            TileArt tile = _boardGameController.GetTile(boardData.TileIndex);
+            TileController tile = _boardGameController.GetTile(boardData.TileIndex);
 
             _assetService.LoadAssetInto(tile.PieceAnchor, AssetCategoryNames.Markers, marker.Art + userData.MarkerTier, OnLoadMarker, null, token);
             await Task.CompletedTask;
@@ -37,8 +38,12 @@ namespace Assets.Scripts.BoardGame.Loading.Steps
         {
             GameObject go = obj as GameObject;
 
-
-            _playerManager.SetEntity(go);
+            GameObject parent = new GameObject() { name = "Player" };
+            _clientEntityService.AddToParent(parent, go.transform.parent.gameObject);
+            PlayerMarker marker = parent.AddComponent<PlayerMarker>();
+            marker.View = go;
+            _clientEntityService.AddToParent(go, parent);
+            _playerManager.SetEntity(parent);
 
 
         }

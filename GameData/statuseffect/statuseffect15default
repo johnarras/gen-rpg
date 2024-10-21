@@ -2,8 +2,16 @@
   "Id": "statuseffect15default",
   "ParentId": "default",
   "IdKey": 15,
-  "Name": "Hidden",
-  "Abbrev": "Hide",
-  "ActionEffects": [],
-  "UpdateTime": "2024-08-01T00:28:13.071Z"
+  "Name": "Dead",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Dead",
+  "ActionEffects": [
+    {
+      "CombatActionId": 7,
+      "Effect": 2
+    }
+  ],
+  "UpdateTime": "2024-10-21T23:08:45.47Z"
 }

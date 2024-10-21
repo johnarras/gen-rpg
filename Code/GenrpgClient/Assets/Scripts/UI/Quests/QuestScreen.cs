@@ -51,7 +51,7 @@ public class QuestScreen : ItemIconScreen
 
         if (!_unit.HasAddon(MapObjectAddonTypes.Vendor))
         {
-            _gameObjectService.Destroy(VendorButton);
+            _clientEntityService.Destroy(VendorButton);
             ShowMyQuests();
             return;
         }
@@ -105,7 +105,7 @@ public class QuestScreen : ItemIconScreen
             return;
         }
 
-        _gameObjectService.SetActive(VendorButton, _unit.HasAddon(MapObjectAddonTypes.Vendor));
+        _clientEntityService.SetActive(VendorButton, _unit.HasAddon(MapObjectAddonTypes.Vendor));
 
         ShowQuestList(questsToShow);
 
@@ -154,7 +154,7 @@ public class QuestScreen : ItemIconScreen
             return;
         }
 
-        _gameObjectService.DestroyAllChildren(QuestListParent);
+        _clientEntityService.DestroyAllChildren(QuestListParent);
 
         ShowFullQuestData(null);
 
@@ -192,7 +192,7 @@ public class QuestScreen : ItemIconScreen
 
         if (qindex == null || qindex.qtype == null) 
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 

@@ -11,6 +11,7 @@ namespace Assets.Editor
         public const string Win = "Win";
         public const string OSX = "OSX";
         public const string Linux = "Linux";
+        public const string Android = "Android";
 
         public static string GetApplicationSuffix(string platformName)
         {
@@ -26,7 +27,10 @@ namespace Assets.Editor
             {
                 return ".app";
             }
-
+            else if (platformName == Android)
+            {
+                return ".apk";
+            }
             return ".exe";
         }
 

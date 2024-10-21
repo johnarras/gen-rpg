@@ -1,5 +1,0 @@
-{
-  "Id": "default",
-  "Name": "ResetSettings",
-  "UpdateTime": "2024-08-18T01:12:32.096Z"
-}

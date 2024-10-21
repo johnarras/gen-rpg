@@ -23,19 +23,19 @@ using Assets.Scripts.Assets;
 public class BuildClients
 {
 
-    [MenuItem("Build/BuildLocalClients")]
+    [MenuItem("Tools/BuildLocalClients")]
     static void ExecuteLocal()
     {
         BuildAllClients(EnvNames.Local);
     }
 
-    [MenuItem("Build/BuildDevClients")]
+    [MenuItem("Tools/BuildDevClients")]
     static void ExecuteDev()
     {
         BuildAllClients(EnvNames.Dev);
     }
 
-    [MenuItem("Build/BuildTestClients")]
+    [MenuItem("Tools/BuildTestClients")]
     static void ExecuteTest()
     {
         BuildAllClients(EnvNames.Test);
@@ -52,16 +52,11 @@ public class BuildClients
 
         IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
-        bool didSetEnv = false;
-        ClientConfig clientConfig = ClientConfig.Load(new LocalLoadService());
+        IClientConfigContainer _configContainer = gs.loc.Get<IClientConfigContainer>();
 
-        if (clientConfig == null)
-        {
-            Debug.Log("Missing ClientConfig");
-            return;
-        }
-        string oldEnv = clientConfig.Env;
-        clientConfig.Env = env;
+        bool didSetEnv = false;
+        string oldEnv = _configContainer.Config.Env;
+        _configContainer.Config.Env = env;
         didSetEnv = true;
 
         if (!didSetEnv)
@@ -70,7 +65,7 @@ public class BuildClients
             return;
         }
 
-        EditorUtility.SetDirty(clientConfig);
+        EditorUtility.SetDirty(_configContainer.Config);
         AssetDatabase.SaveAssets();
 
         string gamePrefix = "Game";
@@ -154,9 +149,8 @@ public class BuildClients
         vfdata.RemotePath = remoteVersionPath;
 
         FileUploader.UploadFile(vfdata);
-        clientConfig = ClientConfig.Load(new LocalLoadService());
-        clientConfig.Env = oldEnv;
-        EditorUtility.SetDirty(clientConfig);
+        _configContainer.Config.Env = oldEnv;
+        EditorUtility.SetDirty(_configContainer.Config);
         AssetDatabase.SaveAssets();
 
         Debug.Log("Finished building clients version: " + version);

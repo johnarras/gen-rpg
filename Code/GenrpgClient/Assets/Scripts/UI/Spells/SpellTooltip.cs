@@ -50,7 +50,7 @@ public class SpellTooltip : BaseTooltip
 
     private void ShowEffects()
     {
-        _gameObjectService.DestroyAllChildren(RowParent);
+        _clientEntityService.DestroyAllChildren(RowParent);
         Rows = new List<SpellTooltipRow>();
 
         if (_data.spell == null)
@@ -82,7 +82,7 @@ public class SpellTooltip : BaseTooltip
         SpellTooltipRowData rowData = data as SpellTooltipRowData;
         if (row == null || rowData == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 

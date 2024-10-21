@@ -34,7 +34,7 @@ namespace Genrpg.MapServer.Rewards.Services
             return base.GiveRewards(rand, obj, resultList);
         }
 
-        public override void OnSetQuantity<TUpd>(MapObject obj, TUpd upd, long entityTypeId, long diff)
+        public override void OnAddQuantity<TUpd>(MapObject obj, TUpd upd, long entityTypeId, long entityId, long diff)
         {
             if (diff == 0)
             {
@@ -48,7 +48,7 @@ namespace Genrpg.MapServer.Rewards.Services
                 {
                     CharId = obj.Id,
                     EntityTypeId = entityTypeId,
-                    EntityId = quantityChild.IdKey,
+                    EntityId = entityId,
                     Quantity = diff,
                 };
 

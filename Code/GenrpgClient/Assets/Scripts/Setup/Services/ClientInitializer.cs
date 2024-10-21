@@ -1,4 +1,5 @@
 using Assets.Scripts.Assets;
+using Assets.Scripts.Awaitables;
 using Assets.Scripts.BoardGame.Controllers;
 using Assets.Scripts.BoardGame.Services;
 using Assets.Scripts.Crawler.Maps;
@@ -12,6 +13,7 @@ using Assets.Scripts.Pathfinding.Utils;
 using Assets.Scripts.PlayerSearch;
 using Assets.Scripts.ProcGen.Loading.Utils;
 using Assets.Scripts.ProcGen.Services;
+using Assets.Scripts.Rewards.Services;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.Client.Core;
@@ -23,6 +25,7 @@ using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Rewards.Services;
 using Genrpg.Shared.UI.Services;
 using System.Collections.Generic;
 using System.Threading;
@@ -31,7 +34,7 @@ using System.Threading.Tasks;
 public class ClientInitializer 
 {
     private IServiceLocator _loc = null;
-    private IClientGameState _gs;
+    private IClientGameState _gs = null;
     public ClientInitializer(IClientGameState gs)
     {
         _gs = gs;
@@ -56,6 +59,7 @@ public class ClientInitializer
 
         IClientEntityService gameObjectService = _loc.Get<IClientEntityService>();
         
+        Set<ISingletonContainer>(new SingletonContainer()); 
         Set<IAssetService>(new UnityAssetService());
         Set<IFileDownloadService>(new FileDownloadService());
         Set<IShapeService>(new ShapeService());
@@ -65,7 +69,7 @@ public class ClientInitializer
         Set<IZoneGenService>(new ZoneGenService());
         Set<IQuestGenService>(new QuestGenService()); 
         Set<ITerrainPatchLoader>(new TerrainPatchLoader());
-        Set<IClientMapObjectManager>(new ClientMapObjectManager(token));
+        Set<IClientMapObjectManager>(new ClientMapObjectManager());
         Set<IClientGameDataService>(new ClientGameDataService());
         Set<IUIService>(new UIService());
         Set<IFxService>(new FxService());
@@ -82,14 +86,15 @@ public class ClientInitializer
         Set<IClientCryptoService>(new ClientCryptoService());
         Set<IBinaryFileRepository>(new BinaryFileRepository()); 
         Set<ICursorService>(new CursorService());
-        Set<IModTextureService>(new ModTextureService());   
+        Set<IModTextureService>(new ModTextureService());
+        Set<IRewardService>(new ClientRewardService());
 
         // Unity-specific overrides
 
         if (forRealGame)
         {
-            Set<IRealtimeNetworkService>(new RealtimeNetworkService(token));
-            Set<IClientWebService>(new ClientWebService(token));
+            Set<IRealtimeNetworkService>(new RealtimeNetworkService());
+            Set<IClientWebService>(new ClientWebService());
             Set<IMapTerrainManager>(new MapTerrainManager());
             Set<IInputService>(new InputService());
             Set<ICrawlerService>(new CrawlerService());

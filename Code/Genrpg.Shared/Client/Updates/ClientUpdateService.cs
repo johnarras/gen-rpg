@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Logging.Interfaces;
 
 public class UpdateType
 {
@@ -73,6 +74,7 @@ public class ClientUpdateService : IClientUpdateService
 
     private IClientGameState _gs;
     private IInitClient _initClient;
+    private ILogService _logService;
     public async Task Initialize(CancellationToken token)
     {
         _mapToken = token;

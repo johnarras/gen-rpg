@@ -41,7 +41,7 @@ public class PlayerManager : IPlayerManager
     private IPathfindingService _pathfindingService;
     private IRealtimeNetworkService _networkService;
     private ILogService _logService;
-    private IClientEntityService _gameObjectService;
+    private IClientEntityService _clientEntityService;
 
     public void SetEntity(GameObject entity)
     {
@@ -59,7 +59,7 @@ public class PlayerManager : IPlayerManager
         }
         else
         {
-            _gameObjectService.Destroy(_entity);
+            _clientEntityService.Destroy(_entity);
             _entity = null;
             _unit = null;
         }

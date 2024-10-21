@@ -135,7 +135,7 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
             return;
         }
 
-        _gameObjectService.SetActive(_initData.Screen.ToolTip, true);
+        _clientEntityService.SetActive(_initData.Screen.ToolTip, true);
         FullItemTooltipInitData fullTooltipInitData = new FullItemTooltipInitData()
         {
             unit = _initData.Screen.GetUnit(),
@@ -153,6 +153,6 @@ public class ItemIcon : DragItem<Item,ItemIcon,ItemIconScreen,InitItemIconData>
         {
             return;
         }
-        _gameObjectService.SetActive(_initData.Screen.ToolTip, false);
+        _clientEntityService.SetActive(_initData.Screen.ToolTip, false);
     }
 }

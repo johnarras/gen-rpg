@@ -21,6 +21,7 @@
       "Guardian": true,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "2 2 2 2 2 2",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -141,9 +142,21 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10070
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10020
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10070
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role2default",
@@ -165,6 +178,7 @@
       "ManaStatTypeId": 13,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "0 3 6 0 1 2",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -261,9 +275,21 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10033
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10016
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10031
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role3default",
@@ -285,6 +311,7 @@
       "ManaStatTypeId": 12,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "0 6 0 3 0 3",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -401,9 +428,17 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10034
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10032
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10034
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role4default",
@@ -426,6 +461,7 @@
       "Guardian": true,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "4 0 0 4 4 0",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -530,9 +566,29 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10071
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10031
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10063
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10070
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10071
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role5default",
@@ -540,6 +596,8 @@
       "IdKey": 5,
       "Name": "Thief",
       "Desc": "Sneaky Fighter",
+      "Icon": "",
+      "Art": "",
       "Abbrev": "Th",
       "RoleCategoryId": 1,
       "MeleeScaling": 0.2,
@@ -554,6 +612,7 @@
       "ManaStatTypeId": 12,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "4 0 0 2 2 4",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -609,15 +668,15 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 5
-        },
-        {
-          "EntityTypeId": 100,
           "EntityId": 18
         },
         {
           "EntityTypeId": 100,
           "EntityId": 19
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 25
         },
         {
           "EntityTypeId": 100,
@@ -646,9 +705,21 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10063
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10016
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10020
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10063
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role6default",
@@ -670,6 +741,7 @@
       "ManaStatTypeId": 12,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "2 2 0 4 2 2",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -770,9 +842,17 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10070
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10020
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10070
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role7default",
@@ -794,6 +874,7 @@
       "ManaStatTypeId": 13,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "2 3 3 2 1 1",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -846,10 +927,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 4
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 5
         },
         {
           "EntityTypeId": 100,
@@ -906,9 +983,21 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10071
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10016
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10031
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10071
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role8default",
@@ -931,6 +1020,7 @@
       "Guardian": true,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "2 2 2 2 2 2",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -983,10 +1073,6 @@
         {
           "EntityTypeId": 100,
           "EntityId": 4
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 5
         },
         {
           "EntityTypeId": 100,
@@ -1075,9 +1161,21 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10063
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10032
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10034
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10063
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role9default",
@@ -1100,6 +1198,7 @@
       "Guardian": true,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "6 0 0 0 6 0",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -1200,9 +1299,21 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10070
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10020
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10063
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10070
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role10default",
@@ -1225,6 +1336,7 @@
       "Guardian": true,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "4 0 4 0 4 0",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -1333,9 +1445,25 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10071
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10016
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10031
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10033
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10071
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role11default",
@@ -1345,11 +1473,11 @@
       "Desc": "Spell Dam and Heals",
       "Abbrev": "El",
       "RoleCategoryId": 1,
-      "MeleeScaling": 6.0,
-      "RangedScaling": 8.0,
-      "SpellDamScaling": 3.0,
-      "HealingScaling": 4.0,
-      "SummonScaling": 4.0,
+      "MeleeScaling": 0.17,
+      "RangedScaling": 0.125,
+      "SpellDamScaling": 0.34,
+      "HealingScaling": 0.25,
+      "SummonScaling": 0.25,
       "HealthPerLevel": 16,
       "ManaPerLevel": 20,
       "MaxArmorScalingTypeId": 3,
@@ -1357,6 +1485,7 @@
       "ManaStatTypeId": 12,
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "0 6 6 0 0 0",
       "Bonuses": [
         {
           "EntityTypeId": 2,
@@ -1489,9 +1618,21 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10063
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10032
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10034
+        },
+        {
+          "EntityTypeId": 100,
+          "EntityId": 10063
         }
       ],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-21T22:47:47.801Z"
     },
     {
       "Id": "role12default",
@@ -1501,10 +1642,9 @@
       "Desc": "Normal people",
       "Abbrev": "Hu",
       "RoleCategoryId": 2,
-      "TrainingXpScale": 1.0,
-      "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "1 1 1 1 1 1",
       "Bonuses": [],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-20T18:48:00.956Z"
     },
     {
       "Id": "role13default",
@@ -1515,10 +1655,9 @@
       "Abbrev": "Elf",
       "RoleCategoryId": 2,
       "RangedScaling": 0.1,
-      "TrainingXpScale": 1.0,
-      "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "0 2 2 2 0 0",
       "Bonuses": [],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-20T18:48:00.956Z"
     },
     {
       "Id": "role14default",
@@ -1529,10 +1668,9 @@
       "Abbrev": "Dw",
       "RoleCategoryId": 2,
       "HealthPerLevel": 5,
-      "TrainingXpScale": 1.0,
-      "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "2 0 2 0 2 0",
       "Bonuses": [],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-20T18:48:00.956Z"
     },
     {
       "Id": "role15default",
@@ -1543,10 +1681,9 @@
       "Abbrev": "Hc",
       "RoleCategoryId": 2,
       "MeleeScaling": 0.1,
-      "TrainingXpScale": 1.0,
-      "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "3 0 0 0 3 0",
       "Bonuses": [],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-20T18:48:00.956Z"
     },
     {
       "Id": "role16default",
@@ -1557,10 +1694,9 @@
       "Abbrev": "Gn",
       "RoleCategoryId": 2,
       "SpellDamScaling": 0.1,
-      "TrainingXpScale": 1.0,
-      "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "0 3 3 0 0 0",
       "Bonuses": [],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-20T18:48:00.956Z"
     },
     {
       "Id": "role17default",
@@ -1571,16 +1707,15 @@
       "Abbrev": "Hf",
       "RoleCategoryId": 2,
       "CritPercent": 5,
-      "TrainingXpScale": 1.0,
-      "TrainingGoldScale": 1.0,
+      "StartStatBonuses": "0 0 0 3 0 3",
       "Bonuses": [],
-      "UpdateTime": "2024-09-14T17:29:19.543Z"
+      "UpdateTime": "2024-10-20T18:48:00.956Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "RoleSettings",
-    "UpdateTime": "2024-09-14T16:07:21.287Z"
+    "UpdateTime": "2024-10-20T18:48:00.956Z"
   },
   "Id": "default"
 }

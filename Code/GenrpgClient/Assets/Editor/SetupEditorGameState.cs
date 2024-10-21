@@ -32,9 +32,9 @@ public class SetupEditorUnityGameState
 
             await ss.SetupGame(_cts.Token);
 
-            ClientConfig config = ClientConfig.Load(new LocalLoadService());
-
-            config.ResponseContentRoot = AssetConstants.DefaultDevContentRoot;
+            IClientConfigContainer configContainer = gs.loc.Get<IClientConfigContainer>();
+            
+            configContainer.Config.ResponseContentRoot = AssetConstants.DefaultDevContentRoot;
 
             try
             {

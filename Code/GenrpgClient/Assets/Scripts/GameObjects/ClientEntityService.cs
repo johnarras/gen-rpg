@@ -354,6 +354,7 @@ namespace Assets.Scripts.GameObjects
 
         public void AddToParent(object childObj, object parentObj)
         {
+
             if (!(childObj is GameObject child) ||
                 !(parentObj is GameObject parent))
             {

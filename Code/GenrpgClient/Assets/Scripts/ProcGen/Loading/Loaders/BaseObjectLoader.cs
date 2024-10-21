@@ -21,7 +21,7 @@ public abstract class BaseObjectLoader : IInjectable
     protected IClientGameState _gs;
     protected IClientRandom _rand;
     protected IMapGenData _md;
-    protected IClientEntityService _gameObjectService;
+    protected IClientEntityService _clientEntityService;
 
     public abstract bool LoadObject(PatchLoadData loadData, uint objectId, int x, int y, 
         Zone currZone, ZoneType currZoneType, CancellationToken token);
@@ -40,13 +40,13 @@ public abstract class BaseObjectLoader : IInjectable
 
         if (dlo == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
         if (dlo == null || dlo.loadData == null || dlo.loadData.patch == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
@@ -68,12 +68,12 @@ public abstract class BaseObjectLoader : IInjectable
 
         if (terrGo == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
 
-        _gameObjectService.AddToParent(go, terrGo);
-        _gameObjectService.SetLayer(go, LayerUtils.NameToLayer(LayerNames.ObjectLayer));
+        _clientEntityService.AddToParent(go, terrGo);
+        _clientEntityService.SetLayer(go, LayerUtils.NameToLayer(LayerNames.ObjectLayer));
 
         dlo.placementSeed = 17041 + dlo.x * 9479 + dlo.y * 2281 + dlo.loadData.gx * 5281 + dlo.loadData.gy * 719
             + dlo.loadData.gx * dlo.y + dlo.loadData.gy * dlo.x;

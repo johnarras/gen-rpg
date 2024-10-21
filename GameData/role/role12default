@@ -6,6 +6,7 @@
   "Desc": "Normal people",
   "Abbrev": "Hu",
   "RoleCategoryId": 2,
+  "StartStatBonuses": "1 1 1 1 1 1",
   "Bonuses": [],
-  "UpdateTime": "2024-10-05T23:56:53.124Z"
+  "UpdateTime": "2024-10-20T18:48:00.956Z"
 }

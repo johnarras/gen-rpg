@@ -90,7 +90,7 @@ public class FloatingTextScreen : BaseScreen
             {
                 _currentItems.Remove(item);
             }
-            _gameObjectService.Destroy(item.gameObject);
+            _clientEntityService.Destroy(item.gameObject);
         }
         
     }
@@ -128,13 +128,13 @@ public class FloatingTextScreen : BaseScreen
         string txt = data as String;
         if (string.IsNullOrEmpty(txt))
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
         FloatingTextItem ft = go.GetComponent<FloatingTextItem>();
         if (ft == null || ft.TextString == null)
         {
-            _gameObjectService.Destroy(go);
+            _clientEntityService.Destroy(go);
             return;
         }
         _uiService.SetText(ft.TextString, txt);

@@ -1,4 +1,5 @@
 ﻿
+using Assets.Scripts.Awaitables;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.GameSettings;
@@ -16,6 +17,7 @@ namespace Assets.Scripts.Login.Messages.Core
         protected IDispatcher _dispatcher;
         protected IGameData _gameData;
         protected IClientGameState _gs;
+        protected IAwaitableService _awaitableService;
         public Type GetKey() { return typeof(T); }
 
         virtual public int Priority() { return 0; }

@@ -1,7 +1,0 @@
-{
-  "Id": "default",
-  "SidePathMinLength": 15,
-  "SidePathMaxLength": 25,
-  "Name": "BoardGenSettings",
-  "UpdateTime": "2024-08-08T21:47:14.108Z"
-}

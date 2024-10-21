@@ -19,6 +19,7 @@ using UnityEngine;
 using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Client.Tokens;
+using Assets.Scripts.Awaitables;
 
 public interface IRealtimeNetworkService : IInitializable, IMapTokenService
 {
@@ -35,10 +36,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
     private ILogService _logService;
     protected IClientGameState _gs = null;
     protected IMapGenData _md;
-    public RealtimeNetworkService(CancellationToken token)
-    {
-        TaskUtils.ForgetAwaitable(ProcessMessages(token));
-    }
+    private IAwaitableService _awaitableService;
 
 
     CancellationTokenSource _mapTokenSource = null;
@@ -53,6 +51,7 @@ public class RealtimeNetworkService : IRealtimeNetworkService
 
     public async Task Initialize(CancellationToken token)
     {
+        _awaitableService.ForgetAwaitable(ProcessMessages(token));
         await Task.CompletedTask;
     }
 

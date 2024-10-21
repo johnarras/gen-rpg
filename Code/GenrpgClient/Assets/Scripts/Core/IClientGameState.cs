@@ -12,6 +12,7 @@ using Genrpg.Shared.DataStores.Entities;
 using Assets.Scripts.Model;
 using Genrpg.Shared.Client.Core;
 using Assets.Scripts.Assets;
+using Assets.Scripts.Awaitables;
 
 public class ClientGameState : GameState, IInjectable, IClientGameState
 {
@@ -30,17 +31,19 @@ public class ClientGameState : GameState, IInjectable, IClientGameState
 
     private ILogService _logService;
     private IClientAppService _clientAppService;
-    public ClientGameState()
+    protected IAwaitableService _awaitableService;
+    public ClientGameState(ClientConfig config)
     {
         ILocalLoadService localLoadService = new LocalLoadService();
         ClientConfigContainer configContainer = new ClientConfigContainer();
-        configContainer.Config = ClientConfig.Load(localLoadService);
+        configContainer.Config = config;
         _logService = new ClientLogger(configContainer.Config);
 
        
         IAnalyticsService analyticsService = new ClientAnalyticsService(configContainer.Config);
         loc = new ServiceLocator(_logService, analyticsService, new ClientGameData());
         loc.Set<IClientConfigContainer>(configContainer);
+        loc.Set<IAwaitableService>(new AwaitableService());
         loc.Set<IDispatcher>(new Dispatcher());
         loc.Set<IClientGameState>(this);
         loc.Set<IClientRandom>(new ClientRandom());
@@ -83,7 +86,7 @@ public class ClientGameState : GameState, IInjectable, IClientGameState
         }
 
         ClientRepositoryCollection<InitialClientConfig> repo = new ClientRepositoryCollection<InitialClientConfig>(_logService, _clientAppService);
-        TaskUtils.ForgetAwaitable(repo.Save(_config));
+        _awaitableService.ForgetAwaitable(repo.Save(_config));
     }
 
     public void UpdateUserFlags(int flag, bool val)

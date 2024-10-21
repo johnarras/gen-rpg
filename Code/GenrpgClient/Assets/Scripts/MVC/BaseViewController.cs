@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.MVC
 {
-    public class BaseViewController<TModel, IView> : IViewController<TModel, IView>
+    public class BaseViewController<TModel, TView> : IViewController<TModel, TView> where TView : IView
     {
         protected IInitClient _initClient;
         protected IClientUpdateService _updateService;
@@ -23,10 +23,10 @@ namespace Assets.Scripts.MVC
         protected IGameData _gameData;
         protected IClientGameState _gs;
         protected IClientRandom _rand;
-        protected IClientEntityService _gameObjectService;
+        protected IClientEntityService _clientEntityService;
 
         protected TModel _model;
-        protected IView _view;
+        protected TView _view;
         protected CancellationToken _token;
 
         private CancellationTokenSource _cts;
@@ -35,7 +35,7 @@ namespace Assets.Scripts.MVC
         {
             return _view;
         }
-
+        
         public virtual TModel GetModel()
         {
             return _model;
@@ -46,7 +46,7 @@ namespace Assets.Scripts.MVC
             return _token;
         }
 
-        public virtual async Task Init(TModel model, IView view, CancellationToken token)
+        public virtual async Task Init(TModel model, TView view, CancellationToken token)
         {
             _model = model; 
             _view = view;
@@ -74,5 +74,6 @@ namespace Assets.Scripts.MVC
         {
             _dispatcher.AddListener<T>(action, GetToken());
         }
+
     }
 }

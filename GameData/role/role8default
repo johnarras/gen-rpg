@@ -19,6 +19,7 @@
   "Guardian": true,
   "TrainingXpScale": 1.0,
   "TrainingGoldScale": 1.0,
+  "StartStatBonuses": "2 2 2 2 2 2",
   "Bonuses": [
     {
       "EntityTypeId": 2,
@@ -71,10 +72,6 @@
     {
       "EntityTypeId": 100,
       "EntityId": 4
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 5
     },
     {
       "EntityTypeId": 100,
@@ -163,7 +160,19 @@
     {
       "EntityTypeId": 100,
       "EntityId": 10063
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10032
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10034
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10063
     }
   ],
-  "UpdateTime": "2024-10-05T23:56:53.124Z"
+  "UpdateTime": "2024-10-21T22:47:47.801Z"
 }

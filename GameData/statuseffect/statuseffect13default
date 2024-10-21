@@ -9,9 +9,9 @@
   "Abbrev": "Petri",
   "ActionEffects": [
     {
-      "CombatActionId": 6,
+      "CombatActionId": 7,
       "Effect": 2
     }
   ],
-  "UpdateTime": "2024-08-01T00:28:13.066Z"
+  "UpdateTime": "2024-10-21T23:08:45.47Z"
 }

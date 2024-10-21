@@ -128,7 +128,7 @@ public class MapTerrainManager : IMapTerrainManager
     private IAssetService _assetService;
     private IGameData _gameData;
     private IClientRandom _rand;
-    private IClientEntityService _gameObjectService;
+    private IClientEntityService _clientEntityService;
     private ISingletonContainer _singletonContainer;
 
 
@@ -250,7 +250,7 @@ public class MapTerrainManager : IMapTerrainManager
 
         foreach (string prefabName in prefabRemoveList)
         {
-            _gameObjectService.Destroy(_terrainProtoObjectData[prefabName].Prefab);
+            _clientEntityService.Destroy(_terrainProtoObjectData[prefabName].Prefab);
             _terrainProtoObjectData.Remove(prefabName);
         }
 
@@ -285,8 +285,8 @@ public class MapTerrainManager : IMapTerrainManager
     public void Clear()
     {
         _terrainProtoObjectData = new Dictionary<string, TerrainProtoObject>();
-        _gameObjectService.DestroyAllChildren(_prototypeParent);
-        _gameObjectService.DestroyAllChildren(_terrainTextureParent);
+        _clientEntityService.DestroyAllChildren(_prototypeParent);
+        _clientEntityService.DestroyAllChildren(_terrainTextureParent);
         _terrainTextureCache.Clear();
 
         _loadingPatchList = new List<MyPoint>();
@@ -309,7 +309,7 @@ public class MapTerrainManager : IMapTerrainManager
 
             if (tpObject.Prefab != null)
             {
-                _gameObjectService.Destroy(go);
+                _clientEntityService.Destroy(go);
                 return tpObject.Prefab;
             }
             else
@@ -629,7 +629,7 @@ public class MapTerrainManager : IMapTerrainManager
                                     if (tdata.InstanceCount <= 0)
                                     {
                                         RemoveFromTerrainTextureCache(texName);
-                                        _gameObjectService.Destroy(tdata.TextureContainer);
+                                        _clientEntityService.Destroy(tdata.TextureContainer);
 
                                         layer.diffuseTexture = null;
                                         layer.normalMapTexture = null;
@@ -639,7 +639,7 @@ public class MapTerrainManager : IMapTerrainManager
                         }
                     }
 
-                    _gameObjectService.Destroy(terr.gameObject);
+                    _clientEntityService.Destroy(terr.gameObject);
                 }
                 patch.terrain = null;
                 patch.terrainData = null;
@@ -680,7 +680,7 @@ public class MapTerrainManager : IMapTerrainManager
                     Terrain terr = _terrainPatches[x, y].terrain as Terrain;
                     if (terr != null)
                     {
-                        _gameObjectService.Destroy(terr.gameObject);
+                        _clientEntityService.Destroy(terr.gameObject);
                     }
                 }
             }
@@ -740,7 +740,7 @@ public class MapTerrainManager : IMapTerrainManager
         terr2.terrainData.detailPrototypes = new DetailPrototype[0];
         terr2.terrainData.treePrototypes = new TreePrototype[0];
         terr2.terrainData = GameObject.Instantiate<TerrainData>(terr2.terrainData);
-        TerrainCollider coll = _gameObjectService.GetOrAddComponent<TerrainCollider>(terrObj2); 
+        TerrainCollider coll = _clientEntityService.GetOrAddComponent<TerrainCollider>(terrObj2); 
         coll.terrainData = terr2.terrainData;
 
             
@@ -1072,7 +1072,7 @@ public class MapTerrainManager : IMapTerrainManager
                     continue;
                 }
 
-                _gameObjectService.Destroy(terr.gameObject);
+                _clientEntityService.Destroy(terr.gameObject);
                 _terrainPatches[x, y] = null;
 
             }

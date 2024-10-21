@@ -29,6 +29,8 @@ namespace Genrpg.Shared.Entities.Constants
         public const long Chest = 21;
         public const long BoardPrize = 22;
         public const long BoardMode = 23;
+        public const long Vulnerability = 24;
+        public const long Resist = 25;
 
 
         public const long Stat = 31;

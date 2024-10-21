@@ -4,6 +4,9 @@
   "BaseMoveMinutes": 1.0,
   "CombatRoundMinutes": 1.0,
   "RestHours": 8.0,
+  "EatHours": 1.0,
+  "DrinkHours": 0.5,
+  "RumorHours": 0.25,
   "RegenHours": [
     {
       "StatTypeId": 1,
