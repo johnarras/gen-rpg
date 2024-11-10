@@ -22,6 +22,7 @@ namespace Genrpg.Shared.Crawler.Maps.Services
         void MovePartyTo(PartyData partyData, int x, int z, int rot, CancellationToken token, bool rotationOnly = false);
         FullWallTileImage GetMinimapWallFilename(CrawlerMap map, int x, int z);
         Task AddKeyInput(char keyChar, CancellationToken token);
+        bool IsDungeon(long crawlerMapTypeId);
 
     }
 }

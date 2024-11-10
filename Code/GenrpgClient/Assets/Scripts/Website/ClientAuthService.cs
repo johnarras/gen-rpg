@@ -21,6 +21,7 @@ using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.UI.Entities;
 using Assets.Scripts.Awaitables;
+using Genrpg.Shared.Users.PlayerData;
 
 
 public interface IClientAuthService : IInitializable

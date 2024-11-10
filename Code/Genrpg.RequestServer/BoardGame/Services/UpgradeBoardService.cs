@@ -17,8 +17,8 @@ namespace Genrpg.RequestServer.BoardGame.Services
 {
     public class UpgradeBoardService : IUpgradeBoardService
     {
-        private IGameData _gameData;
-        private IUserAbilityService _userAbilityService;
+        private IGameData _gameData = null;
+        private IUserAbilityService _userAbilityService = null;
         public async Task<long> GetTotalUpgradeCost(WebContext context)
         {
             CoreUserData userData = await context.GetAsync<CoreUserData>();   

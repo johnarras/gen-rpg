@@ -16,7 +16,7 @@ namespace Genrpg.RequestServer.PlayMultiplier.Services
 {
     public class ServerPlayMultService : IServerPlayMultService
     {
-        private ISharedPlayMultService _sharedPlayMultService;
+        private ISharedPlayMultService _sharedPlayMultService = null;
         public async Task SetPlayMult(WebContext context, long newPlayMult)
         {
             CoreUserData userData = await context.GetAsync<CoreUserData>();

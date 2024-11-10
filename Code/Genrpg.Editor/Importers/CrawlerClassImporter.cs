@@ -187,7 +187,7 @@ namespace Genrpg.Editor.Importers
             }
             catch (Exception e)
             {
-                Console.WriteLine("Invalid cast");
+                Console.WriteLine("Invalid cast" + e.Message);
             }
             return false;
         }

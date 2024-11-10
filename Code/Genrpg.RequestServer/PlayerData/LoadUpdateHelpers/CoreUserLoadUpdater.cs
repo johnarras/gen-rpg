@@ -16,7 +16,7 @@ namespace Genrpg.RequestServer.PlayerData.LoadUpdateHelpers
 {
     public class CoreUserLoadUpdater : IUserLoadUpdater
     {
-        private IGameData _gameData;
+        private IGameData _gameData = null;
 
         public int Order => 1;
 

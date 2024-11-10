@@ -277,7 +277,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
                 IReadOnlyList<WeatherType> weatherTypes = _gameData.Get<WeatherTypeSettings>(_gs.ch).GetData();
                 long mapType = CrawlerMapService.MapType;
 
-                if (mapType == CrawlerMapTypes.Dungeon)
+                if (_crawlerMapService.IsDungeon(mapType))
                 {
                     _dataWeather = weatherTypes.FirstOrDefault(x => x.Name == "CrawlerDungeon");
                 }

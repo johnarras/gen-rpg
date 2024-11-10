@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Crawler.Parties.PlayerData;
+﻿using Genrpg.Shared.Buildings.Constants;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
 using Genrpg.Shared.Crawler.Temples.Services;
@@ -17,10 +18,10 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Temple
     public class TempleStateHelper : BaseStateHelper
     {
 
-        private ITrainingService _trainingService;
-        private ITempleService _templeService;
+        private ITempleService _templeService = null;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.Temple; }
+        public override long TriggerBuildingId() { return BuildingTypes.Temple; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {

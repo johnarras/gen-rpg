@@ -14,5 +14,6 @@ namespace Genrpg.Editor.Constants
         UnitKeywords=3,
         CrawlerSpells = 4,
         Riddles =5,
+        Aphorisms=6,
     };
 }

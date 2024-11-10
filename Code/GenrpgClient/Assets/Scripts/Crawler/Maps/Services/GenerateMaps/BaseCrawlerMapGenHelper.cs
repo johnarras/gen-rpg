@@ -15,6 +15,7 @@ using Genrpg.Shared.Client.Assets;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.UI.Services;
+using Genrpg.Shared.Crawler.Maps.Settings;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -31,7 +32,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         protected IClientGameState _gs;
         protected IClientEntityService _clientEntityService;
         protected ICrawlerWorldService _worldService;
-        protected ICrawlerMapService _mapService;
+        protected ICrawlerMapService _crawlerMapService;
         protected ICrawlerMapGenService _mapGenService;
         protected IZoneGenService _zoneGenService;
 
@@ -42,12 +43,10 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         protected readonly long[] _newMapZoneIds = new long[] { ZoneTypes.Cave, ZoneTypes.Dungeon, ZoneTypes.Tower };
 
 
-        protected long GetBuildingIdFromZoneTypeId(long zoneTypeId)
+        protected long GetBuildingTypeFromMapType(long mapTypeId)
         {
-            return zoneTypeId == ZoneTypes.Cave ? BuildingTypes.Cave :
-                zoneTypeId == ZoneTypes.Dungeon ? BuildingTypes.Dungeon :
-                zoneTypeId == ZoneTypes.Tower ? BuildingTypes.Tower :
-                0;
+            return _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(mapTypeId).BuildingTypeId;
+
         }
 
         /// <summary>
@@ -58,7 +57,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         /// <param name="rand"></param>
         /// <param name="density"></param>
         /// <returns></returns>
-        protected bool[,] AddCorridors(CrawlerMap map, CrawlerMapGenData genData, MyRandom rand, float density = 1.0f)
+        protected bool[,] AddCorridors(CrawlerMap map, CrawlerMapGenData genData, IRandom rand, float density = 1.0f)
         {
             bool[,] clearCells = new bool[map.Width, map.Height];
             clearCells[map.Width / 2, map.Height / 2] = true;
@@ -67,7 +66,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             int streetCount = (int)(Math.Sqrt((map.Width * map.Height)) * density);
 
-            int edgeSize = 1;
+            int edgeSize = 2;
             for (int times = 0; times < streetCount; times++)
             {
                 MyPoint startPoint = endPoints[rand.Next() % endPoints.Count];

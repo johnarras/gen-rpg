@@ -247,7 +247,7 @@ namespace Genrpg.ServerShared.Accounts.Services
         {
             AccountIdIncrement increment = await _serverRepositoryService.AtomicIncrement<AccountIdIncrement>(AccountIdIncrement.DocId, nameof(AccountIdIncrement.AccountId), 1) as AccountIdIncrement;
 
-            return HashUtils.GetIdFromVal(increment.AccountId);
+            return HashUtils.GetIdFromVal(increment.AccountId); // Feel free to use a GUID or something...I just think it's neat I can autoincrement in nosql. :)
         }
     }
 }

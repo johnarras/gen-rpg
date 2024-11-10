@@ -762,6 +762,20 @@
       "IdKey": 109,
       "Name": "TempleSettings",
       "UpdateTime": "2024-10-20T21:14:10.144Z"
+    },
+    {
+      "Id": "settingsname110default",
+      "ParentId": "default",
+      "IdKey": 110,
+      "Name": "AphorismSettings",
+      "UpdateTime": "2024-11-03T11:52:31.978Z"
+    },
+    {
+      "Id": "settingsname111default",
+      "ParentId": "default",
+      "IdKey": 111,
+      "Name": "SomeNewSettings",
+      "UpdateTime": "2024-11-06T19:49:35.36Z"
     }
   ],
   "ParentObj": {

@@ -13,6 +13,7 @@ using Assets.Scripts.Model;
 using Genrpg.Shared.Client.Core;
 using Assets.Scripts.Assets;
 using Assets.Scripts.Awaitables;
+using Genrpg.Shared.Users.PlayerData;
 
 public class ClientGameState : GameState, IInjectable, IClientGameState
 {

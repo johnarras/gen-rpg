@@ -1,5 +1,6 @@
 {
   "Id": "default",
+  "CorridorDungeonSizeScale": 1.5,
   "Name": "CrawlerMapSettings",
-  "UpdateTime": "2024-10-21T18:10:07.855Z"
+  "UpdateTime": "2024-11-02T16:33:25.69Z"
 }

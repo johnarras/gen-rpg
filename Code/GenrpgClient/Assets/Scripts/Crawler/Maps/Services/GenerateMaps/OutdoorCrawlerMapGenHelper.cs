@@ -19,6 +19,10 @@ using System.Linq;
 using UnityEngine;
 using System.Threading.Tasks;
 using Genrpg.Shared.Riddles.Settings;
+using Genrpg.Shared.Dungeons.Constants;
+using Genrpg.Shared.Crawler.States.Entities;
+using System.Text;
+using Genrpg.Shared.Riddles.Services;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -28,6 +32,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         ISamplingService _samplingService;
         ILineGenService _lineGenService;
         ILootGenService _lootGenService;
+        IRiddleService _riddleService;
 
         public override long GetKey() { return CrawlerMapTypes.Outdoors; }
 
@@ -70,7 +75,6 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             int height = 16 * MathUtils.IntRange(4, 6, rand);
 
             CrawlerMap map = genData.World.CreateMap(genData, width, height);
-            map.DungeonArt = _gameData.Get<DungeonArtSettings>(null).Get(map.DungeonArtId);
 
 
             byte[,] overrides = new byte[map.Width, map.Height];
@@ -665,17 +669,20 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 CrawlerMapGenData dungeonGenData = new CrawlerMapGenData()
                 {
                     World = genData.World,
-                    MapType = CrawlerMapTypes.Dungeon,
+                    MapType = CrawlerMapTypes.RandomDungeon,
                     Level = (int)dungeonLevel,
                     FromMapId = map.IdKey,
                     FromMapX = (int)(xx),
                     FromMapZ = (int)(yy),
                 };
 
-                dungeonSuccess++;
                 CrawlerMap dungeonMap = await _mapGenService.Generate(party, world, dungeonGenData);
 
-                long buildingTypeId = GetBuildingIdFromZoneTypeId(dungeonMap.ZoneTypeId);
+                dungeonSuccess++;
+
+
+
+                long buildingTypeId = GetBuildingTypeFromMapType(dungeonMap.CrawlerMapTypeId);
                 map.Set(xx, yy, CellIndex.Building, buildingTypeId);
             }
 
@@ -683,9 +690,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             CrawlerMapSettings mapSettings = _gameData.Get<CrawlerMapSettings>(_gs.ch);
 
-            CrawlerMapType dungeonType = mapSettings.Get(CrawlerMapTypes.Dungeon);
-
-            List<CrawlerMap> dungeonMaps = world.Maps.Where(x => x.CrawlerMapTypeId == CrawlerMapTypes.Dungeon && x.MapFloor == 1).OrderBy(x => x.Level).ToList();
+            List<CrawlerMap> dungeonMaps = world.Maps.Where(x => _crawlerMapService.IsDungeon(x.CrawlerMapTypeId) && x.MapFloor == 1).OrderBy(x => x.Level).ToList();
 
 
             List<List<CrawlerMap>> dungeonMapGroups = new List<List<CrawlerMap>>();
@@ -694,7 +699,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             {
                 CrawlerMap dmap = dungeonMaps[d];
 
-                List<CrawlerMap> otherDungeonMaps = world.Maps.Where(x => x.CrawlerMapTypeId == CrawlerMapTypes.Dungeon &&
+                List<CrawlerMap> otherDungeonMaps = world.Maps.Where(x => _crawlerMapService.IsDungeon(x.CrawlerMapTypeId)  &&
                 x.Name == dmap.Name && x.IdKey >= dmap.IdKey && x.IdKey <= dmap.IdKey + 6).OrderBy(x => x.MapFloor).ToList();
 
                 dungeonMapGroups.Add(otherDungeonMaps);
@@ -729,6 +734,8 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 List<long> floorIds = floors.Select(x => x.IdKey).ToList();
 
                 CrawlerMap entranceMap = floors.First();
+
+                CrawlerMapType dungeonType = mapSettings.Get(dungeonMaps[dungeonIndex].CrawlerMapTypeId);
 
                 if ((dungeonIndex > 4 && rand.NextDouble() < dungeonType.QuestItemEntranceUnlockChance) || dungeonIndex == dungeonMapGroups.Count - 1)
                 {
@@ -773,96 +780,10 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                         });
 
                         entranceMap.MapQuestItemId = nextQuestItemId;
-
                     }
                 }
-                else if (dungeonIndex > 2 && dungeonIndex < dungeonMapGroups.Count - 1 && rand.NextDouble() <= dungeonType.RiddleUnlockChance && riddles.Count > 0)
-                {
-                    Riddle riddle = riddles[rand.Next() % riddles.Count];
 
-                    long minFloor = floors.Min(x => x.MapFloor);
-                    long maxFloor = floors.Max(x => x.MapFloor);
-
-                    if (maxFloor < 2)
-                    {
-                        continue;
-                    }
-
-                    long floorChosen = MathUtils.LongRange(minFloor + 1, maxFloor, rand);
-
-                    floorChosen = 2;
-
-                    CrawlerMap lockedFloor = floors.FirstOrDefault(x=>x.MapFloor == floorChosen);
-
-                    if (lockedFloor == null)
-                    {
-                        continue;
-                    }
-
-                    CrawlerMap prevFloor = floors.FirstOrDefault(x => x.MapFloor == floorChosen - 1);
-
-                    if (prevFloor == null)
-                    {
-                        continue;
-                    }
-
-                    string[] lines = riddle.Desc.Split('\n');
-
-                    if (lines.Length < 2)
-                    {
-                        continue;
-                    }
-
-                    List<MyPoint2> openPoints = new List<MyPoint2>();
-
-                    for (int x =0; x < prevFloor.Width; x++)
-                    {
-                        for (int z = 0; z < prevFloor.Height; z++)
-                        {
-                            if (prevFloor.Get(x,z,CellIndex.Terrain) < 1 ||
-                               prevFloor.Get(x,z,CellIndex.Encounter) > 0 ||
-                                prevFloor.Get(x,z,CellIndex.Magic) > 0 ||
-                                prevFloor.Get(x,z,CellIndex.Disables) > 0)
-                            {
-                                continue;
-                            }
-
-                            MapCellDetail detail = prevFloor.Details.FirstOrDefault(d => d.X == x && d.Z == z);
-
-                            if (detail != null)
-                            {
-                                continue;
-                            }
-
-                            openPoints.Add(new MyPoint2(x,z));
-                        }
-                    }
-
-                    if (openPoints.Count < lines.Length)
-                    {
-                        continue;
-                    }
-
-                    riddles.Remove(riddle);
-
-                    lockedFloor.RiddleId = riddle.IdKey;
-
-                    for (int i = 0; i < lines.Length; i++)
-                    {
-                        if (!String.IsNullOrEmpty(lines[i]))
-                        {
-                            MyPoint2 openPoint = openPoints[rand.Next() % openPoints.Count];
-                            prevFloor.Details.Add(new MapCellDetail()
-                            {
-                                EntityTypeId = EntityTypes.Riddle,
-                                EntityId = riddle.IdKey,
-                                X = (int)openPoint.X,
-                                Z = (int)openPoint.Y,
-                                Index = i
-                            });
-                        }
-                    }
-                }
+                await _riddleService.GenerateRiddles(floors, rand);
             }
 
             // Now remove all empty quest item detail slots.

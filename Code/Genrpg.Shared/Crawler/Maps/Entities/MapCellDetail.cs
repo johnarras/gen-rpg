@@ -1,3 +1,4 @@
+using Genrpg.Shared.Characters.PlayerData;
 using MessagePack;
 namespace Genrpg.Shared.Crawler.Maps.Entities
 {
@@ -11,6 +12,7 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
         [Key(4)] public int ToX { get; set; }
         [Key(5)] public int ToZ { get; set; }
         [Key(6)] public int Index { get; set; }
+        [Key(7)] public string Text { get; set; }
     }
 
     [MessagePackObject]

@@ -11,9 +11,6 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 {
     public class StartCombatStateHelper : BaseCombatStateHelper
     {
-        private IScreenService _screenService;
-        private ICrawlerWorldService _crawlerWorldService;
-
         public override ECrawlerStates GetKey() { return ECrawlerStates.StartCombat; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)

@@ -29,6 +29,9 @@ using Genrpg.Shared.Crawler.Combat.Services;
 using Genrpg.Shared.Crawler.States.StateHelpers;
 using System.Collections.Concurrent;
 using Genrpg.Shared.Tasks.Services;
+using Genrpg.Shared.Buildings.Settings;
+using Genrpg.Shared.MapServer.Entities;
+using Genrpg.Shared.GameSettings;
 
 namespace Assets.Scripts.Crawler.Services
 {
@@ -47,6 +50,7 @@ namespace Assets.Scripts.Crawler.Services
         protected ILootGenService _lootGenService;
         private IInputService _inputService;
         protected ITaskService _taskService;
+        private IGameData _gameData;
 
         public const string SaveFileSuffix = ".sav";
         public const string StartSaveFileName = "Start" + SaveFileSuffix;
@@ -547,7 +551,7 @@ namespace Assets.Scripts.Crawler.Services
                     {
                         ChangeState(ECrawlerStates.MapExit, token, detail);
                     }
-                    else if (detail != null && detail.EntityTypeId == EntityTypes.QuestItem)
+                    else if (detail.EntityTypeId == EntityTypes.QuestItem)
                     {
                         PartyQuestItem pqi = _party.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == detail.EntityId);
                         if (pqi == null || pqi.Quantity < 1)
@@ -559,6 +563,10 @@ namespace Assets.Scripts.Crawler.Services
                             ChangeState(ECrawlerStates.StartCombat, token, initialCombatState);
                             return;
                         }
+                    }
+                    else if (detail.EntityTypeId == EntityTypes.Riddle)
+                    {
+                        ChangeState(ECrawlerStates.Riddle, token, detail);
                     }
                 }
             }
@@ -599,5 +607,38 @@ namespace Assets.Scripts.Crawler.Services
             UpdateIfNotMoving(true, token);
         }
 
+        public ForcedNextState TryGetNextForcedState(CrawlerMap map, int ex, int ez)
+        {
+            byte buildingId = map.Get(ex, ez, CellIndex.Building);
+
+            BuildingType btype = _gameData.Get<BuildingSettings>(null).Get(buildingId);
+
+            if (btype == null)
+            {
+                return null;
+            }
+
+            List<MapCellDetail> details = map.Details.Where(d => d.X == ex && d.Z == ez).ToList();
+
+            List<IStateHelper> helpers = _stateHelpers.GetDict().Values.ToList();
+
+            foreach (MapCellDetail detail in details)
+            {
+                IStateHelper helper = helpers.FirstOrDefault(x => x.TriggerDetailEntityTypeId() == detail.EntityTypeId);
+                if (helper != null)
+                {
+                    return new ForcedNextState() { NextState = helper.GetKey(), Detail = detail };
+                }
+            }
+
+            IStateHelper buildingHelper = helpers.FirstOrDefault(x=>x.TriggerBuildingId() == buildingId);   
+
+            if (buildingHelper != null)
+            {
+                return new ForcedNextState() { NextState = buildingHelper.GetKey() };
+            }
+
+            return null;
+        }
     }
 }

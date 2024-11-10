@@ -12,6 +12,11 @@
   "HiddenSingleTargetCritPercent": 100.0,
   "ResistAddCritChance": -200.0,
   "VulnAddCritChance": 10.0,
+  "GuaranteedHitDefenseRatio": 1.25,
+  "BaseMonsterMinDam": 1,
+  "BaseMonsterMaxDam": 3,
+  "MinMonsterDamPerLevel": 0.25,
+  "MaxMonsterDamPerLevel": 0.5,
   "Name": "CrawlerCombatSettings",
-  "UpdateTime": "2024-10-21T18:18:57.021Z"
+  "UpdateTime": "2024-11-10T01:10:20.627Z"
 }

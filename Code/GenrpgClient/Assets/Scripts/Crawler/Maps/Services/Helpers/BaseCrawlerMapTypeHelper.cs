@@ -102,7 +102,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
                 mapBuilding.Init(loadData.BuildingType, new OnSpawn());
             }
             go.transform.eulerAngles = new Vector3(0, loadData.Angle, 0);
-
+            go.transform.localScale = Vector3.one;
         }
 
         protected virtual void LoadTerrainTexture(GameObject parent, long terrainTextureId, CancellationToken token)
@@ -285,11 +285,14 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             if (northBits == WallTypes.Wall || northBits == WallTypes.Secret)
             {
                 AddWallComponent(mapRoot.Assets.Wall, go, nOffset, nRot);
-                 
             }
             else if (northBits == WallTypes.Door)
             {
                 AddWallComponent(mapRoot.Assets.Door, go, nOffset, nRot);
+            }
+            else if (northBits == WallTypes.Barricade)
+            {
+                AddWallComponent(mapRoot.Assets.Barricade, go, nOffset, nRot);
             }
             if (isRoom != nIsRoom)
             {
@@ -309,6 +312,10 @@ namespace Assets.Scripts.Crawler.Maps.Services.Helpers
             else if (eastBits == WallTypes.Door)
             {
                 AddWallComponent(mapRoot.Assets.Door, go, eOffset, eRot);
+            }
+            else if (eastBits == WallTypes.Barricade)
+            {
+                AddWallComponent(mapRoot.Assets.Barricade, go, eOffset, eRot);
             }
 
             if (isRoom != eIsRoom)

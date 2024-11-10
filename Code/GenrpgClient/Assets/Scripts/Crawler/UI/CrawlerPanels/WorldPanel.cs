@@ -62,6 +62,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         private WorldPanelButtons _panelButtons;
 
+        private TextureList _textureList;
+
         public override async Task Init(CrawlerScreen screen, IView view, CancellationToken token)
         {
             await base.Init(screen, view, token);
@@ -203,9 +205,9 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             }
             if (string.IsNullOrEmpty(spriteName))
             {
-                _uiService.SetImageTexture(_worldImage, null);
-                _clientEntityService.SetActive(_worldImage, false);
+                _textureList = null;
                 _currentSpriteName = spriteName;
+                ShowTexture(0);
                 return;
             }
             if (_currentSpriteName == spriteName)
@@ -219,20 +221,20 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             {
                 if (textureList.Textures.Count > 0 && textureList.Textures[0] != null)
                 {
+                    _textureList = textureList;
                     _clientEntityService.SetActive(_worldImage, true);
-                    _uiService.SetImageTexture(_worldImage, textureList.Textures[0]);
-                    SetTextureFrame(0);
+                    ShowTexture(0);
                 }
                 return;
             }
 
-            _assetService.LoadAsset(AssetCategoryNames.TextureLists, spriteName, OnDownloadAtlas, spriteName, null, _token); 
+            _assetService.LoadAsset(AssetCategoryNames.TextureLists, spriteName, OnDownloadTextureList, spriteName, null, _token); 
         }
         public void ApplyEffect(string effectName, float duration)
         {
         }
 
-        private void OnDownloadAtlas(object obj, object data, CancellationToken token)
+        private void OnDownloadTextureList(object obj, object data, CancellationToken token)
         {
             GameObject go = obj as GameObject;
 
@@ -262,12 +264,10 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                     return;
                 }
                 _clientEntityService.SetActive(go, false);
-               // _clientEntityService.AddToParent(go, gameObject);
                 _cachedSprites[spriteName] = texList;
             }
-            _clientEntityService.SetActive(_worldImage, true);
-            _uiService.SetImageTexture(_worldImage, texList.Textures[0]);
-            SetTextureFrame(0);
+            _textureList = texList;
+            ShowTexture(0);
         }
 
         const int FramesBetweenIncrement = 20;
@@ -281,42 +281,24 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             if (currIncrementFrame % FramesBetweenIncrement == 0)
             {
                 _currentTextureFrame++;
-                ShowTexture();
+                ShowTexture(_currentTextureFrame);
             }
         }
 
-        private void SetTextureFrame(int frame)
+        private void ShowTexture(int frame)
         {
-            _currentTextureFrame = 0;
-            ShowTexture();
-        }
-
-        private void ShowTexture()
-        {
-            if (_worldImage == null || _uiService.GetImageTexture(_worldImage) == null)
+            _currentTextureFrame = frame;
+            if (_textureList == null || _textureList.Textures.Count < 1)
             {
+                _clientEntityService.SetActive(_worldImage, false);
                 return;
             }
 
-            int height = _uiService.GetImageHeight(_worldImage);    
-            int width = _uiService.GetImageWidth(_worldImage);
+            _clientEntityService.SetActive(_worldImage, true);
 
-            int frameCount = 1;
+            int currentFrame = _currentTextureFrame % _textureList.Textures.Count;
 
-            if (width > height)
-            {
-                frameCount = width / height;
-            }
-
-            int currFrame = _currentTextureFrame % frameCount;
-
-            float xmin = 1.0f * currFrame / frameCount;
-            float xmax = 1.0f * (currFrame + 1) / frameCount;
-            _uiService.SetUVRect(_worldImage, xmin, 0, 1.0f / frameCount, 1);
-        }
-
-        public void UpdateTime(PartyData partyData)
-        {
+            _uiService.SetImageTexture(_worldImage, _textureList.Textures[currentFrame]);
         }
     }
 }

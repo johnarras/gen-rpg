@@ -11,17 +11,16 @@ using Genrpg.Shared.Crawler.TimeOfDay.Services;
 using Genrpg.Shared.Crawler.States.Entities;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.Constants;
+using Genrpg.Shared.Buildings.Constants;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild
 {
     public class GuildMainHelper : BaseStateHelper
     {
-        private ILootGenService _lootGenService;
-        private ICrawlerWorldService _crawlerWorldService;
-        private ITimeOfDayService _timeService;
-        private ICrawlerMapService _crawlerMapService;
+        private ITimeOfDayService _timeService = null;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.GuildMain; }
+        public override long TriggerBuildingId() { return BuildingTypes.Guild; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentState, CrawlerStateAction action, CancellationToken token)
         {

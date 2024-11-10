@@ -30,8 +30,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
     public class GiveLootStateHelper : BaseStateHelper
     {
 
-        private ILootGenService _lootService;
-        private ITrainingService _trainingService;
+        private ILootGenService _lootService = null;
+        private ITrainingService _trainingService = null;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.GiveLoot; }
 

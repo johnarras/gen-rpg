@@ -12,5 +12,6 @@ namespace Assets.Scripts.Dungeons
         public GameObject Door;
         public GameObject Floor;
         public GameObject Ceiling;
+        public GameObject Barricade;
     }
 }

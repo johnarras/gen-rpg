@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Crawler.Maps.Entities;
 
 namespace Genrpg.Shared.Crawler.States.Services
 {
@@ -25,5 +26,6 @@ namespace Genrpg.Shared.Crawler.States.Services
         CrawlerStateData GetTopLevelState();
         Task UpdateCrawlerUI();
         ECrawlerStates GetState();
+        ForcedNextState TryGetNextForcedState(CrawlerMap map, int ex, int ez);
     }
 }

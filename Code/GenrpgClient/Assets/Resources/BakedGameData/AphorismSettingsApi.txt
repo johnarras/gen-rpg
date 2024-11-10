@@ -1,0 +1,2202 @@
+{
+  "Data": [
+    {
+      "Id": "aphorism1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Aph1",
+      "Desc": "A blade well kept need seldom be drawn.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Aph2",
+      "Desc": "Words are wind; deeds are earth.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Aph3",
+      "Desc": "A warm hearth keeps the spirit alive.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Aph4",
+      "Desc": "Gold hides in shadow but gleams in the light.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "Aph5",
+      "Desc": "To seek knowledge is to wield unseen power.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "Aph6",
+      "Desc": "Rivers find their path by wearing down stone.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "Aph7",
+      "Desc": "An open ear is worth more than an open mouth.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "Aph8",
+      "Desc": "A wise man carries his home in his heart.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism9default",
+      "ParentId": "default",
+      "IdKey": 9,
+      "Name": "Aph9",
+      "Desc": "The tallest trees grow from the smallest seeds.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism10default",
+      "ParentId": "default",
+      "IdKey": 10,
+      "Name": "Aph10",
+      "Desc": "No journey is wasted if it leads you home.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism11default",
+      "ParentId": "default",
+      "IdKey": 11,
+      "Name": "Aph11",
+      "Desc": "The oak grows slowly but endures the storms.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism12default",
+      "ParentId": "default",
+      "IdKey": 12,
+      "Name": "Aph12",
+      "Desc": "Pride travels far before it finds a fall.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism13default",
+      "ParentId": "default",
+      "IdKey": 13,
+      "Name": "Aph13",
+      "Desc": "Stones remember what words forget.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism14default",
+      "ParentId": "default",
+      "IdKey": 14,
+      "Name": "Aph14",
+      "Desc": "Trust earned is wealth kept.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism15default",
+      "ParentId": "default",
+      "IdKey": 15,
+      "Name": "Aph15",
+      "Desc": "A hunter waits longer than his prey.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism16default",
+      "ParentId": "default",
+      "IdKey": 16,
+      "Name": "Aph16",
+      "Desc": "In darkness, the smallest light shines brightest.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism17default",
+      "ParentId": "default",
+      "IdKey": 17,
+      "Name": "Aph17",
+      "Desc": "The tongue cuts deeper than any blade.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism18default",
+      "ParentId": "default",
+      "IdKey": 18,
+      "Name": "Aph18",
+      "Desc": "Fire warms or burns; the choice lies in its keeper.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism19default",
+      "ParentId": "default",
+      "IdKey": 19,
+      "Name": "Aph19",
+      "Desc": "A friend's hand weighs less than a stranger's coin.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism20default",
+      "ParentId": "default",
+      "IdKey": 20,
+      "Name": "Aph20",
+      "Desc": "Iron sharpens iron, but jealousy dulls the heart.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism21default",
+      "ParentId": "default",
+      "IdKey": 21,
+      "Name": "Aph21",
+      "Desc": "Even wolves gather for warmth.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism22default",
+      "ParentId": "default",
+      "IdKey": 22,
+      "Name": "Aph22",
+      "Desc": "One must first master the silence to hear the truth.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism23default",
+      "ParentId": "default",
+      "IdKey": 23,
+      "Name": "Aph23",
+      "Desc": "To plant a tree is to believe in tomorrow.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism24default",
+      "ParentId": "default",
+      "IdKey": 24,
+      "Name": "Aph24",
+      "Desc": "Patience is the root of strength.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism25default",
+      "ParentId": "default",
+      "IdKey": 25,
+      "Name": "Aph25",
+      "Desc": "The quietest waters run the deepest.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism26default",
+      "ParentId": "default",
+      "IdKey": 26,
+      "Name": "Aph26",
+      "Desc": "A broken trust cannot be mended by coin.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism27default",
+      "ParentId": "default",
+      "IdKey": 27,
+      "Name": "Aph27",
+      "Desc": "Bounty without wisdom brings ruin.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism28default",
+      "ParentId": "default",
+      "IdKey": 28,
+      "Name": "Aph28",
+      "Desc": "Shadows reveal what light cannot.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism29default",
+      "ParentId": "default",
+      "IdKey": 29,
+      "Name": "Aph29",
+      "Desc": "Wisdom grows in soil of humility.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism30default",
+      "ParentId": "default",
+      "IdKey": 30,
+      "Name": "Aph30",
+      "Desc": "Every step forward leaves a footprint behind.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism31default",
+      "ParentId": "default",
+      "IdKey": 31,
+      "Name": "Aph31",
+      "Desc": "The sharpest spear cannot pierce regret.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism32default",
+      "ParentId": "default",
+      "IdKey": 32,
+      "Name": "Aph32",
+      "Desc": "Armor shields the body but not the heart.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism33default",
+      "ParentId": "default",
+      "IdKey": 33,
+      "Name": "Aph33",
+      "Desc": "All journeys end in memory.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism34default",
+      "ParentId": "default",
+      "IdKey": 34,
+      "Name": "Aph34",
+      "Desc": "A flame left untended devours its home.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism35default",
+      "ParentId": "default",
+      "IdKey": 35,
+      "Name": "Aph35",
+      "Desc": "Where water flows, life finds a way.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism36default",
+      "ParentId": "default",
+      "IdKey": 36,
+      "Name": "Aph36",
+      "Desc": "A single thread cannot hold a great weight.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism37default",
+      "ParentId": "default",
+      "IdKey": 37,
+      "Name": "Aph37",
+      "Desc": "The stars guide those who learn their patterns.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism38default",
+      "ParentId": "default",
+      "IdKey": 38,
+      "Name": "Aph38",
+      "Desc": "A coin in haste is a debt in the making.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism39default",
+      "ParentId": "default",
+      "IdKey": 39,
+      "Name": "Aph39",
+      "Desc": "The hardest path is often the truest.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism40default",
+      "ParentId": "default",
+      "IdKey": 40,
+      "Name": "Aph40",
+      "Desc": "A strong back can bear a heavy heart.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism41default",
+      "ParentId": "default",
+      "IdKey": 41,
+      "Name": "Aph41",
+      "Desc": "Time wears mountains to dust.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism42default",
+      "ParentId": "default",
+      "IdKey": 42,
+      "Name": "Aph42",
+      "Desc": "Honor binds as strongly as chains.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism43default",
+      "ParentId": "default",
+      "IdKey": 43,
+      "Name": "Aph43",
+      "Desc": "Small kindnesses cast long shadows.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism44default",
+      "ParentId": "default",
+      "IdKey": 44,
+      "Name": "Aph44",
+      "Desc": "A gentle hand can tame even the fiercest beast.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism45default",
+      "ParentId": "default",
+      "IdKey": 45,
+      "Name": "Aph45",
+      "Desc": "Water takes the shape of its vessel.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism46default",
+      "ParentId": "default",
+      "IdKey": 46,
+      "Name": "Aph46",
+      "Desc": "Light grows from embers, darkness from neglect.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism47default",
+      "ParentId": "default",
+      "IdKey": 47,
+      "Name": "Aph47",
+      "Desc": "Even a fool finds wisdom in silence.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism48default",
+      "ParentId": "default",
+      "IdKey": 48,
+      "Name": "Aph48",
+      "Desc": "The wind whispers where the earth cannot speak.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism49default",
+      "ParentId": "default",
+      "IdKey": 49,
+      "Name": "Aph49",
+      "Desc": "Wounds of the spirit heal slower than wounds of the flesh.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism50default",
+      "ParentId": "default",
+      "IdKey": 50,
+      "Name": "Aph50",
+      "Desc": "Patience carves paths that force cannot clear.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism51default",
+      "ParentId": "default",
+      "IdKey": 51,
+      "Name": "Aph51",
+      "Desc": "The seed does not know the tree it will become.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism52default",
+      "ParentId": "default",
+      "IdKey": 52,
+      "Name": "Aph52",
+      "Desc": "A sturdy roof keeps the rain from the fire.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism53default",
+      "ParentId": "default",
+      "IdKey": 53,
+      "Name": "Aph53",
+      "Desc": "In every shadow hides a glimmer of light.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism54default",
+      "ParentId": "default",
+      "IdKey": 54,
+      "Name": "Aph54",
+      "Desc": "Courage is the heart's shield.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism55default",
+      "ParentId": "default",
+      "IdKey": 55,
+      "Name": "Aph55",
+      "Desc": "A tree with deep roots fears not the storm.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism56default",
+      "ParentId": "default",
+      "IdKey": 56,
+      "Name": "Aph56",
+      "Desc": "Riches may fill the hand but empty the heart.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism57default",
+      "ParentId": "default",
+      "IdKey": 57,
+      "Name": "Aph57",
+      "Desc": "A calm mind holds the weight of wisdom.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism58default",
+      "ParentId": "default",
+      "IdKey": 58,
+      "Name": "Aph58",
+      "Desc": "A promise given binds two fates.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism59default",
+      "ParentId": "default",
+      "IdKey": 59,
+      "Name": "Aph59",
+      "Desc": "One pebble begins the landslide.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism60default",
+      "ParentId": "default",
+      "IdKey": 60,
+      "Name": "Aph60",
+      "Desc": "Rain cleanses what fire cannot.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism61default",
+      "ParentId": "default",
+      "IdKey": 61,
+      "Name": "Aph61",
+      "Desc": "A wise leader first learns to follow.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism62default",
+      "ParentId": "default",
+      "IdKey": 62,
+      "Name": "Aph62",
+      "Desc": "Trust once broken is an empty cup.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism63default",
+      "ParentId": "default",
+      "IdKey": 63,
+      "Name": "Aph63",
+      "Desc": "In stillness, the truth settles.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism64default",
+      "ParentId": "default",
+      "IdKey": 64,
+      "Name": "Aph64",
+      "Desc": "A wolf fears not the night.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism65default",
+      "ParentId": "default",
+      "IdKey": 65,
+      "Name": "Aph65",
+      "Desc": "The swift blade often misses its mark.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism66default",
+      "ParentId": "default",
+      "IdKey": 66,
+      "Name": "Aph66",
+      "Desc": "Old wounds remember the warrior's path.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism67default",
+      "ParentId": "default",
+      "IdKey": 67,
+      "Name": "Aph67",
+      "Desc": "A single star may light the way.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism68default",
+      "ParentId": "default",
+      "IdKey": 68,
+      "Name": "Aph68",
+      "Desc": "The forest whispers to those who listen.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism69default",
+      "ParentId": "default",
+      "IdKey": 69,
+      "Name": "Aph69",
+      "Desc": "Shadows flee from the rising sun.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism70default",
+      "ParentId": "default",
+      "IdKey": 70,
+      "Name": "Aph70",
+      "Desc": "Kindness given is never lost.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism71default",
+      "ParentId": "default",
+      "IdKey": 71,
+      "Name": "Aph71",
+      "Desc": "Every loss holds a lesson.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism72default",
+      "ParentId": "default",
+      "IdKey": 72,
+      "Name": "Aph72",
+      "Desc": "The stars are silent, yet they guide all travelers.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism73default",
+      "ParentId": "default",
+      "IdKey": 73,
+      "Name": "Aph73",
+      "Desc": "An empty cup waits to be filled.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism74default",
+      "ParentId": "default",
+      "IdKey": 74,
+      "Name": "Aph74",
+      "Desc": "Every dawn holds its own promise.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism75default",
+      "ParentId": "default",
+      "IdKey": 75,
+      "Name": "Aph75",
+      "Desc": "A lone tree endures, but a forest thrives.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism76default",
+      "ParentId": "default",
+      "IdKey": 76,
+      "Name": "Aph76",
+      "Desc": "A heart that loves is richer than a hand that holds gold.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism77default",
+      "ParentId": "default",
+      "IdKey": 77,
+      "Name": "Aph77",
+      "Desc": "Patience is the rain that nourishes the soul's roots.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism78default",
+      "ParentId": "default",
+      "IdKey": 78,
+      "Name": "Aph78",
+      "Desc": "The fire in the heart outlasts the fire in the hearth.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism79default",
+      "ParentId": "default",
+      "IdKey": 79,
+      "Name": "Aph79",
+      "Desc": "Wisdom is the fruit of an old tree.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism80default",
+      "ParentId": "default",
+      "IdKey": 80,
+      "Name": "Aph80",
+      "Desc": "The mountain stands, yet the river moves.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism81default",
+      "ParentId": "default",
+      "IdKey": 81,
+      "Name": "Aph81",
+      "Desc": "The river does not question its path.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism82default",
+      "ParentId": "default",
+      "IdKey": 82,
+      "Name": "Aph82",
+      "Desc": "A true friend is a shelter from the storm.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism83default",
+      "ParentId": "default",
+      "IdKey": 83,
+      "Name": "Aph83",
+      "Desc": "The arrow knows no mercy once loosed.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism84default",
+      "ParentId": "default",
+      "IdKey": 84,
+      "Name": "Aph84",
+      "Desc": "All doors open with the right word.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism85default",
+      "ParentId": "default",
+      "IdKey": 85,
+      "Name": "Aph85",
+      "Desc": "To tame the flame, one must feel its heat.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism86default",
+      "ParentId": "default",
+      "IdKey": 86,
+      "Name": "Aph86",
+      "Desc": "The mountain hides secrets from the hasty.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism87default",
+      "ParentId": "default",
+      "IdKey": 87,
+      "Name": "Aph87",
+      "Desc": "A fallen leaf cannot return to the branch.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism88default",
+      "ParentId": "default",
+      "IdKey": 88,
+      "Name": "Aph88",
+      "Desc": "A smile costs less than a scowl.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism89default",
+      "ParentId": "default",
+      "IdKey": 89,
+      "Name": "Aph89",
+      "Desc": "The smallest acorn holds the tallest oak.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism90default",
+      "ParentId": "default",
+      "IdKey": 90,
+      "Name": "Aph90",
+      "Desc": "Wisdom hides in the quietest corners.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism91default",
+      "ParentId": "default",
+      "IdKey": 91,
+      "Name": "Aph91",
+      "Desc": "The wolf that feeds alone howls alone.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism92default",
+      "ParentId": "default",
+      "IdKey": 92,
+      "Name": "Aph92",
+      "Desc": "A mighty river begins as a single drop.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism93default",
+      "ParentId": "default",
+      "IdKey": 93,
+      "Name": "Aph93",
+      "Desc": "Courage is a fire that does not consume.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism94default",
+      "ParentId": "default",
+      "IdKey": 94,
+      "Name": "Aph94",
+      "Desc": "Kindness waters the roots of the soul.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism95default",
+      "ParentId": "default",
+      "IdKey": 95,
+      "Name": "Aph95",
+      "Desc": "Every shadow has a light that casts it.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism96default",
+      "ParentId": "default",
+      "IdKey": 96,
+      "Name": "Aph96",
+      "Desc": "Fate binds those who share a path.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism97default",
+      "ParentId": "default",
+      "IdKey": 97,
+      "Name": "Aph97",
+      "Desc": "A silent warrior is a deadly foe.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism98default",
+      "ParentId": "default",
+      "IdKey": 98,
+      "Name": "Aph98",
+      "Desc": "Gentle words tame wild spirits.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism99default",
+      "ParentId": "default",
+      "IdKey": 99,
+      "Name": "Aph99",
+      "Desc": "The deeper the roots, the taller the tree.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism100default",
+      "ParentId": "default",
+      "IdKey": 100,
+      "Name": "Aph100",
+      "Desc": "Gold blinds more than it reveals.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism101default",
+      "ParentId": "default",
+      "IdKey": 101,
+      "Name": "Aph101",
+      "Desc": "Hope lights the darkest paths.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism102default",
+      "ParentId": "default",
+      "IdKey": 102,
+      "Name": "Aph102",
+      "Desc": "No heart is as strong as one that forgives.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism103default",
+      "ParentId": "default",
+      "IdKey": 103,
+      "Name": "Aph103",
+      "Desc": "A sword remembers each hand that wields it.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism104default",
+      "ParentId": "default",
+      "IdKey": 104,
+      "Name": "Aph104",
+      "Desc": "The sky speaks to those who look up.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism105default",
+      "ParentId": "default",
+      "IdKey": 105,
+      "Name": "Aph105",
+      "Desc": "A steady hand is worth a sharp blade.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism106default",
+      "ParentId": "default",
+      "IdKey": 106,
+      "Name": "Aph106",
+      "Desc": "The strong are gentle by nature.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism107default",
+      "ParentId": "default",
+      "IdKey": 107,
+      "Name": "Aph107",
+      "Desc": "Stars mark the path for those who watch.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism108default",
+      "ParentId": "default",
+      "IdKey": 108,
+      "Name": "Aph108",
+      "Desc": "A fire left untended devours its home.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism109default",
+      "ParentId": "default",
+      "IdKey": 109,
+      "Name": "Aph109",
+      "Desc": "Faith binds what fear would scatter.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism110default",
+      "ParentId": "default",
+      "IdKey": 110,
+      "Name": "Aph110",
+      "Desc": "In time, all debts come due.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism111default",
+      "ParentId": "default",
+      "IdKey": 111,
+      "Name": "Aph111",
+      "Desc": "A friend is a lantern in the dark.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism112default",
+      "ParentId": "default",
+      "IdKey": 112,
+      "Name": "Aph112",
+      "Desc": "The wolf follows the moon's silent call.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism113default",
+      "ParentId": "default",
+      "IdKey": 113,
+      "Name": "Aph113",
+      "Desc": "Truth is the hardest stone to shape.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism114default",
+      "ParentId": "default",
+      "IdKey": 114,
+      "Name": "Aph114",
+      "Desc": "The thorn protects the rose.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism115default",
+      "ParentId": "default",
+      "IdKey": 115,
+      "Name": "Aph115",
+      "Desc": "Wisdom begins in wonder.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism116default",
+      "ParentId": "default",
+      "IdKey": 116,
+      "Name": "Aph116",
+      "Desc": "A hunter's silence speaks volumes.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism117default",
+      "ParentId": "default",
+      "IdKey": 117,
+      "Name": "Aph117",
+      "Desc": "No wind is a friend to a leaky sail.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism118default",
+      "ParentId": "default",
+      "IdKey": 118,
+      "Name": "Aph118",
+      "Desc": "In every laugh, there is a spark of light.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism119default",
+      "ParentId": "default",
+      "IdKey": 119,
+      "Name": "Aph119",
+      "Desc": "A pebble tossed may ripple far.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism120default",
+      "ParentId": "default",
+      "IdKey": 120,
+      "Name": "Aph120",
+      "Desc": "Where kindness grows, bitterness withers.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism121default",
+      "ParentId": "default",
+      "IdKey": 121,
+      "Name": "Aph121",
+      "Desc": "Even the fox sleeps with one eye open.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism122default",
+      "ParentId": "default",
+      "IdKey": 122,
+      "Name": "Aph122",
+      "Desc": "A light heart carries its burdens lightly.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism123default",
+      "ParentId": "default",
+      "IdKey": 123,
+      "Name": "Aph123",
+      "Desc": "A healer's hands serve where words cannot.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism124default",
+      "ParentId": "default",
+      "IdKey": 124,
+      "Name": "Aph124",
+      "Desc": "Fate favors those who prepare.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism125default",
+      "ParentId": "default",
+      "IdKey": 125,
+      "Name": "Aph125",
+      "Desc": "A well-told tale is a treasure.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism126default",
+      "ParentId": "default",
+      "IdKey": 126,
+      "Name": "Aph126",
+      "Desc": "The river carves stone, drop by drop.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism127default",
+      "ParentId": "default",
+      "IdKey": 127,
+      "Name": "Aph127",
+      "Desc": "The wise listen even when silent.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism128default",
+      "ParentId": "default",
+      "IdKey": 128,
+      "Name": "Aph128",
+      "Desc": "Patience weaves a mighty cloth.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism129default",
+      "ParentId": "default",
+      "IdKey": 129,
+      "Name": "Aph129",
+      "Desc": "A loyal heart outshines a clever tongue.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism130default",
+      "ParentId": "default",
+      "IdKey": 130,
+      "Name": "Aph130",
+      "Desc": "Shadows cannot stand against the dawn.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism131default",
+      "ParentId": "default",
+      "IdKey": 131,
+      "Name": "Aph131",
+      "Desc": "A storm may shake the tree, but not its roots.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism132default",
+      "ParentId": "default",
+      "IdKey": 132,
+      "Name": "Aph132",
+      "Desc": "Gold carries the weight of those who covet it.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism133default",
+      "ParentId": "default",
+      "IdKey": 133,
+      "Name": "Aph133",
+      "Desc": "A full cup cannot hold more.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism134default",
+      "ParentId": "default",
+      "IdKey": 134,
+      "Name": "Aph134",
+      "Desc": "Kindness given is a bridge built.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism135default",
+      "ParentId": "default",
+      "IdKey": 135,
+      "Name": "Aph135",
+      "Desc": "The wise carry their own burdens.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism136default",
+      "ParentId": "default",
+      "IdKey": 136,
+      "Name": "Aph136",
+      "Desc": "The moon changes, yet endures.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism137default",
+      "ParentId": "default",
+      "IdKey": 137,
+      "Name": "Aph137",
+      "Desc": "Steel sharpens steel, heart strengthens heart.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism138default",
+      "ParentId": "default",
+      "IdKey": 138,
+      "Name": "Aph138",
+      "Desc": "A path taken alone is walked twice as far.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism139default",
+      "ParentId": "default",
+      "IdKey": 139,
+      "Name": "Aph139",
+      "Desc": "Even an old wolf learns a new track.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism140default",
+      "ParentId": "default",
+      "IdKey": 140,
+      "Name": "Aph140",
+      "Desc": "Flowers bloom with no witness.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism141default",
+      "ParentId": "default",
+      "IdKey": 141,
+      "Name": "Aph141",
+      "Desc": "The sea does not seek, yet it gathers all.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism142default",
+      "ParentId": "default",
+      "IdKey": 142,
+      "Name": "Aph142",
+      "Desc": "A sturdy house stands on humble stones.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism143default",
+      "ParentId": "default",
+      "IdKey": 143,
+      "Name": "Aph143",
+      "Desc": "Every stranger was once unknown.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism144default",
+      "ParentId": "default",
+      "IdKey": 144,
+      "Name": "Aph144",
+      "Desc": "In darkness, silence sings loudest.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism145default",
+      "ParentId": "default",
+      "IdKey": 145,
+      "Name": "Aph145",
+      "Desc": "The seasons do not wait for any man.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism146default",
+      "ParentId": "default",
+      "IdKey": 146,
+      "Name": "Aph146",
+      "Desc": "A sword remembers each hand that wields it.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism147default",
+      "ParentId": "default",
+      "IdKey": 147,
+      "Name": "Aph147",
+      "Desc": "Shadows are born of light.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism148default",
+      "ParentId": "default",
+      "IdKey": 148,
+      "Name": "Aph148",
+      "Desc": "Mercy is strength without its armor.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism149default",
+      "ParentId": "default",
+      "IdKey": 149,
+      "Name": "Aph149",
+      "Desc": "The wise man sees paths where others see walls.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism150default",
+      "ParentId": "default",
+      "IdKey": 150,
+      "Name": "Aph150",
+      "Desc": "A heart of iron bends in kindness.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism151default",
+      "ParentId": "default",
+      "IdKey": 151,
+      "Name": "Aph151",
+      "Desc": "Fire cannot survive without air.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism152default",
+      "ParentId": "default",
+      "IdKey": 152,
+      "Name": "Aph152",
+      "Desc": "Gold shines only in light.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism153default",
+      "ParentId": "default",
+      "IdKey": 153,
+      "Name": "Aph153",
+      "Desc": "A bitter heart sours its own drink.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism154default",
+      "ParentId": "default",
+      "IdKey": 154,
+      "Name": "Aph154",
+      "Desc": "A calm mind makes the clearest choices.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism155default",
+      "ParentId": "default",
+      "IdKey": 155,
+      "Name": "Aph155",
+      "Desc": "The tallest peak holds the hardest path.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism156default",
+      "ParentId": "default",
+      "IdKey": 156,
+      "Name": "Aph156",
+      "Desc": "The hawk sees what the rabbit misses.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism157default",
+      "ParentId": "default",
+      "IdKey": 157,
+      "Name": "Aph157",
+      "Desc": "Every end holds a new beginning.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism158default",
+      "ParentId": "default",
+      "IdKey": 158,
+      "Name": "Aph158",
+      "Desc": "To see clearly, one must stand still.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism159default",
+      "ParentId": "default",
+      "IdKey": 159,
+      "Name": "Aph159",
+      "Desc": "Even the strongest river respects the mountain.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism160default",
+      "ParentId": "default",
+      "IdKey": 160,
+      "Name": "Aph160",
+      "Desc": "Strength does not always roar.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism161default",
+      "ParentId": "default",
+      "IdKey": 161,
+      "Name": "Aph161",
+      "Desc": "Trust is earned in deeds, not words.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism162default",
+      "ParentId": "default",
+      "IdKey": 162,
+      "Name": "Aph162",
+      "Desc": "Clouds cannot hide the sun forever.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism163default",
+      "ParentId": "default",
+      "IdKey": 163,
+      "Name": "Aph163",
+      "Desc": "A sharp mind cuts deeper than any blade.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism164default",
+      "ParentId": "default",
+      "IdKey": 164,
+      "Name": "Aph164",
+      "Desc": "A song sung is a joy shared.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism165default",
+      "ParentId": "default",
+      "IdKey": 165,
+      "Name": "Aph165",
+      "Desc": "The river flows, whether seen or not.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism166default",
+      "ParentId": "default",
+      "IdKey": 166,
+      "Name": "Aph166",
+      "Desc": "Darkness hides as well as it reveals.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism167default",
+      "ParentId": "default",
+      "IdKey": 167,
+      "Name": "Aph167",
+      "Desc": "The seedling knows nothing of the oak.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism168default",
+      "ParentId": "default",
+      "IdKey": 168,
+      "Name": "Aph168",
+      "Desc": "Where there is life, there is change.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism169default",
+      "ParentId": "default",
+      "IdKey": 169,
+      "Name": "Aph169",
+      "Desc": "A wound healed leaves wisdom.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism170default",
+      "ParentId": "default",
+      "IdKey": 170,
+      "Name": "Aph170",
+      "Desc": "Shadows stretch long at sunset.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism171default",
+      "ParentId": "default",
+      "IdKey": 171,
+      "Name": "Aph171",
+      "Desc": "Even the quietest voice can carry far.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism172default",
+      "ParentId": "default",
+      "IdKey": 172,
+      "Name": "Aph172",
+      "Desc": "The roots of patience yield a bountiful harvest.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism173default",
+      "ParentId": "default",
+      "IdKey": 173,
+      "Name": "Aph173",
+      "Desc": "Silence is often the loudest answer.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism174default",
+      "ParentId": "default",
+      "IdKey": 174,
+      "Name": "Aph174",
+      "Desc": "In hardship, the heart is forged.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism175default",
+      "ParentId": "default",
+      "IdKey": 175,
+      "Name": "Aph175",
+      "Desc": "A wise owl speaks only what it must.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism176default",
+      "ParentId": "default",
+      "IdKey": 176,
+      "Name": "Aph176",
+      "Desc": "The river bends but never breaks.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism177default",
+      "ParentId": "default",
+      "IdKey": 177,
+      "Name": "Aph177",
+      "Desc": "Honor walks on two feet but carries many burdens.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism178default",
+      "ParentId": "default",
+      "IdKey": 178,
+      "Name": "Aph178",
+      "Desc": "A warm heart casts the brightest light.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism179default",
+      "ParentId": "default",
+      "IdKey": 179,
+      "Name": "Aph179",
+      "Desc": "Even the smallest spark can start a fire.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism180default",
+      "ParentId": "default",
+      "IdKey": 180,
+      "Name": "Aph180",
+      "Desc": "The mountain stands unmoved, but the river reaches the sea.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism181default",
+      "ParentId": "default",
+      "IdKey": 181,
+      "Name": "Aph181",
+      "Desc": "A loyal heart keeps its promises long after the words are spoken.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism182default",
+      "ParentId": "default",
+      "IdKey": 182,
+      "Name": "Aph182",
+      "Desc": "A steady hand steers through any storm.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism183default",
+      "ParentId": "default",
+      "IdKey": 183,
+      "Name": "Aph183",
+      "Desc": "Gold glitters brightest in greedy hands.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism184default",
+      "ParentId": "default",
+      "IdKey": 184,
+      "Name": "Aph184",
+      "Desc": "The wise fear no question.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism185default",
+      "ParentId": "default",
+      "IdKey": 185,
+      "Name": "Aph185",
+      "Desc": "Shadows lengthen as the day draws to its end.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism186default",
+      "ParentId": "default",
+      "IdKey": 186,
+      "Name": "Aph186",
+      "Desc": "An open hand holds more than a closed fist.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism187default",
+      "ParentId": "default",
+      "IdKey": 187,
+      "Name": "Aph187",
+      "Desc": "Thunder warns, but lightning strikes.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism188default",
+      "ParentId": "default",
+      "IdKey": 188,
+      "Name": "Aph188",
+      "Desc": "A sturdy wall withstands even the strongest wind.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism189default",
+      "ParentId": "default",
+      "IdKey": 189,
+      "Name": "Aph189",
+      "Desc": "One grain of sand does not make a desert.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism190default",
+      "ParentId": "default",
+      "IdKey": 190,
+      "Name": "Aph190",
+      "Desc": "The quiet night has many secrets.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism191default",
+      "ParentId": "default",
+      "IdKey": 191,
+      "Name": "Aph191",
+      "Desc": "A broken blade can still defend.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism192default",
+      "ParentId": "default",
+      "IdKey": 192,
+      "Name": "Aph192",
+      "Desc": "An empty mind finds no answers.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism193default",
+      "ParentId": "default",
+      "IdKey": 193,
+      "Name": "Aph193",
+      "Desc": "The stone that endures shapes the landscape.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism194default",
+      "ParentId": "default",
+      "IdKey": 194,
+      "Name": "Aph194",
+      "Desc": "Only the patient witness the bloom.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism195default",
+      "ParentId": "default",
+      "IdKey": 195,
+      "Name": "Aph195",
+      "Desc": "A silent heart hides no lies.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism196default",
+      "ParentId": "default",
+      "IdKey": 196,
+      "Name": "Aph196",
+      "Desc": "The moon watches, unseen yet unfailing.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism197default",
+      "ParentId": "default",
+      "IdKey": 197,
+      "Name": "Aph197",
+      "Desc": "A feather falls, but the eagle soars.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism198default",
+      "ParentId": "default",
+      "IdKey": 198,
+      "Name": "Aph198",
+      "Desc": "Every wave returns to the shore.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism199default",
+      "ParentId": "default",
+      "IdKey": 199,
+      "Name": "Aph199",
+      "Desc": "Patience is the gatekeeper of wisdom.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism200default",
+      "ParentId": "default",
+      "IdKey": 200,
+      "Name": "Aph200",
+      "Desc": "No storm can darken the stars.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism201default",
+      "ParentId": "default",
+      "IdKey": 201,
+      "Name": "Aph201",
+      "Desc": "The soil remembers every seed.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism202default",
+      "ParentId": "default",
+      "IdKey": 202,
+      "Name": "Aph202",
+      "Desc": "Strength lies in bending, not breaking.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism203default",
+      "ParentId": "default",
+      "IdKey": 203,
+      "Name": "Aph203",
+      "Desc": "Each day a gift, each night a lesson.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism204default",
+      "ParentId": "default",
+      "IdKey": 204,
+      "Name": "Aph204",
+      "Desc": "A warm fire draws friends and foes alike.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism205default",
+      "ParentId": "default",
+      "IdKey": 205,
+      "Name": "Aph205",
+      "Desc": "Silence is the friend of deep thought.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism206default",
+      "ParentId": "default",
+      "IdKey": 206,
+      "Name": "Aph206",
+      "Desc": "The strongest chain has a gentle link.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism207default",
+      "ParentId": "default",
+      "IdKey": 207,
+      "Name": "Aph207",
+      "Desc": "The wanderer finds wisdom where the settled find dust.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism208default",
+      "ParentId": "default",
+      "IdKey": 208,
+      "Name": "Aph208",
+      "Desc": "A hunter's arrow may miss, but his hunger does not.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism209default",
+      "ParentId": "default",
+      "IdKey": 209,
+      "Name": "Aph209",
+      "Desc": "Trust grows slower than a tree and falls faster than a leaf.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism210default",
+      "ParentId": "default",
+      "IdKey": 210,
+      "Name": "Aph210",
+      "Desc": "The path reveals itself to the one who walks it.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism211default",
+      "ParentId": "default",
+      "IdKey": 211,
+      "Name": "Aph211",
+      "Desc": "A forest holds more than just trees.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism212default",
+      "ParentId": "default",
+      "IdKey": 212,
+      "Name": "Aph212",
+      "Desc": "The wolf trusts in its own fangs.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism213default",
+      "ParentId": "default",
+      "IdKey": 213,
+      "Name": "Aph213",
+      "Desc": "Hope flies where despair cannot reach.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism214default",
+      "ParentId": "default",
+      "IdKey": 214,
+      "Name": "Aph214",
+      "Desc": "The stone holds secrets older than the stars.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism215default",
+      "ParentId": "default",
+      "IdKey": 215,
+      "Name": "Aph215",
+      "Desc": "The heart's path is seldom straight.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism216default",
+      "ParentId": "default",
+      "IdKey": 216,
+      "Name": "Aph216",
+      "Desc": "Even a fallen leaf serves the earth.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism217default",
+      "ParentId": "default",
+      "IdKey": 217,
+      "Name": "Aph217",
+      "Desc": "A cloak of night hides many secrets.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism218default",
+      "ParentId": "default",
+      "IdKey": 218,
+      "Name": "Aph218",
+      "Desc": "Rivers change, but mountains remain.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism219default",
+      "ParentId": "default",
+      "IdKey": 219,
+      "Name": "Aph219",
+      "Desc": "Honor never rusts.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism220default",
+      "ParentId": "default",
+      "IdKey": 220,
+      "Name": "Aph220",
+      "Desc": "No blade is sharper than regret.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism221default",
+      "ParentId": "default",
+      "IdKey": 221,
+      "Name": "Aph221",
+      "Desc": "The tree grows where the seed falls.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism222default",
+      "ParentId": "default",
+      "IdKey": 222,
+      "Name": "Aph222",
+      "Desc": "Wisdom does not wait for age.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism223default",
+      "ParentId": "default",
+      "IdKey": 223,
+      "Name": "Aph223",
+      "Desc": "Kindness begets kindness, even in the wilderness.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism224default",
+      "ParentId": "default",
+      "IdKey": 224,
+      "Name": "Aph224",
+      "Desc": "Fire may warm, or fire may consume.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism225default",
+      "ParentId": "default",
+      "IdKey": 225,
+      "Name": "Aph225",
+      "Desc": "Truth wears no armor.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism226default",
+      "ParentId": "default",
+      "IdKey": 226,
+      "Name": "Aph226",
+      "Desc": "The earth remembers each step taken.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism227default",
+      "ParentId": "default",
+      "IdKey": 227,
+      "Name": "Aph227",
+      "Desc": "Pride is a crown that sits uneasily.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism228default",
+      "ParentId": "default",
+      "IdKey": 228,
+      "Name": "Aph228",
+      "Desc": "A lone wolf faces many dangers.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism229default",
+      "ParentId": "default",
+      "IdKey": 229,
+      "Name": "Aph229",
+      "Desc": "Peace is the gift of a patient soul.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism230default",
+      "ParentId": "default",
+      "IdKey": 230,
+      "Name": "Aph230",
+      "Desc": "Courage blooms even in barren soil.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism231default",
+      "ParentId": "default",
+      "IdKey": 231,
+      "Name": "Aph231",
+      "Desc": "The strong speak with their deeds.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism232default",
+      "ParentId": "default",
+      "IdKey": 232,
+      "Name": "Aph232",
+      "Desc": "Patience wins battles that swords cannot.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism233default",
+      "ParentId": "default",
+      "IdKey": 233,
+      "Name": "Aph233",
+      "Desc": "An open sky holds endless answers.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism234default",
+      "ParentId": "default",
+      "IdKey": 234,
+      "Name": "Aph234",
+      "Desc": "Fate follows the fearless.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism235default",
+      "ParentId": "default",
+      "IdKey": 235,
+      "Name": "Aph235",
+      "Desc": "A warrior knows his blade; a sage knows his heart.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism236default",
+      "ParentId": "default",
+      "IdKey": 236,
+      "Name": "Aph236",
+      "Desc": "The wise travel with light hearts and heavy minds.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism237default",
+      "ParentId": "default",
+      "IdKey": 237,
+      "Name": "Aph237",
+      "Desc": "Shadows vanish in the face of truth.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism238default",
+      "ParentId": "default",
+      "IdKey": 238,
+      "Name": "Aph238",
+      "Desc": "The moon is silent, yet it moves the tides.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism239default",
+      "ParentId": "default",
+      "IdKey": 239,
+      "Name": "Aph239",
+      "Desc": "Words once loosed fly forever.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism240default",
+      "ParentId": "default",
+      "IdKey": 240,
+      "Name": "Aph240",
+      "Desc": "A fallen tree feeds the soil.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism241default",
+      "ParentId": "default",
+      "IdKey": 241,
+      "Name": "Aph241",
+      "Desc": "A true friend is a hidden treasure.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism242default",
+      "ParentId": "default",
+      "IdKey": 242,
+      "Name": "Aph242",
+      "Desc": "Destiny bends to the bold.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism243default",
+      "ParentId": "default",
+      "IdKey": 243,
+      "Name": "Aph243",
+      "Desc": "Silence watches over wisdom.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism244default",
+      "ParentId": "default",
+      "IdKey": 244,
+      "Name": "Aph244",
+      "Desc": "A wounded heart still beats.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism245default",
+      "ParentId": "default",
+      "IdKey": 245,
+      "Name": "Aph245",
+      "Desc": "The path ahead shapes the steps behind.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism246default",
+      "ParentId": "default",
+      "IdKey": 246,
+      "Name": "Aph246",
+      "Desc": "The swift stream cuts the deepest valley.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism247default",
+      "ParentId": "default",
+      "IdKey": 247,
+      "Name": "Aph247",
+      "Desc": "All tales begin with a single step.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism248default",
+      "ParentId": "default",
+      "IdKey": 248,
+      "Name": "Aph248",
+      "Desc": "A steady breath calms the storm within.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism249default",
+      "ParentId": "default",
+      "IdKey": 249,
+      "Name": "Aph249",
+      "Desc": "Water yields, yet wears down mountains.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism250default",
+      "ParentId": "default",
+      "IdKey": 250,
+      "Name": "Aph250",
+      "Desc": "Patience weaves the finest cloth.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism251default",
+      "ParentId": "default",
+      "IdKey": 251,
+      "Name": "Aph251",
+      "Desc": "Even the darkest night ends in dawn.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism252default",
+      "ParentId": "default",
+      "IdKey": 252,
+      "Name": "Aph252",
+      "Desc": "A traveler finds his way in the stars.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism253default",
+      "ParentId": "default",
+      "IdKey": 253,
+      "Name": "Aph253",
+      "Desc": "From hardship grows the mightiest oak.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism254default",
+      "ParentId": "default",
+      "IdKey": 254,
+      "Name": "Aph254",
+      "Desc": "A quiet stream holds a deep pool.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism255default",
+      "ParentId": "default",
+      "IdKey": 255,
+      "Name": "Aph255",
+      "Desc": "Shadows stretch at dusk but shrink by dawn.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism256default",
+      "ParentId": "default",
+      "IdKey": 256,
+      "Name": "Aph256",
+      "Desc": "The earth wears down the strongest stone.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism257default",
+      "ParentId": "default",
+      "IdKey": 257,
+      "Name": "Aph257",
+      "Desc": "The wise share their food and their counsel.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism258default",
+      "ParentId": "default",
+      "IdKey": 258,
+      "Name": "Aph258",
+      "Desc": "Hope is the last light to fade.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism259default",
+      "ParentId": "default",
+      "IdKey": 259,
+      "Name": "Aph259",
+      "Desc": "Honor walks on the heels of trust.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism260default",
+      "ParentId": "default",
+      "IdKey": 260,
+      "Name": "Aph260",
+      "Desc": "A candle's flame spreads without diminishing.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism261default",
+      "ParentId": "default",
+      "IdKey": 261,
+      "Name": "Aph261",
+      "Desc": "A clear mind finds hidden paths.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism262default",
+      "ParentId": "default",
+      "IdKey": 262,
+      "Name": "Aph262",
+      "Desc": "Even a castle begins with a single stone.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism263default",
+      "ParentId": "default",
+      "IdKey": 263,
+      "Name": "Aph263",
+      "Desc": "The heart knows paths that reason cannot.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism264default",
+      "ParentId": "default",
+      "IdKey": 264,
+      "Name": "Aph264",
+      "Desc": "Courage is a light to oneself and others.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism265default",
+      "ParentId": "default",
+      "IdKey": 265,
+      "Name": "Aph265",
+      "Desc": "A healed wound still remembers the pain.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism266default",
+      "ParentId": "default",
+      "IdKey": 266,
+      "Name": "Aph266",
+      "Desc": "The sea's edge is where all things meet.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism267default",
+      "ParentId": "default",
+      "IdKey": 267,
+      "Name": "Aph267",
+      "Desc": "A quiet strength is a strength doubled.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism268default",
+      "ParentId": "default",
+      "IdKey": 268,
+      "Name": "Aph268",
+      "Desc": "A gentle hand calms the fiercest beast.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism269default",
+      "ParentId": "default",
+      "IdKey": 269,
+      "Name": "Aph269",
+      "Desc": "The longest road remembers every step.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism270default",
+      "ParentId": "default",
+      "IdKey": 270,
+      "Name": "Aph270",
+      "Desc": "A tale told is a burden shared.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism271default",
+      "ParentId": "default",
+      "IdKey": 271,
+      "Name": "Aph271",
+      "Desc": "One lantern lights another without losing its flame.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism272default",
+      "ParentId": "default",
+      "IdKey": 272,
+      "Name": "Aph272",
+      "Desc": "In every breath lies a new chance.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism273default",
+      "ParentId": "default",
+      "IdKey": 273,
+      "Name": "Aph273",
+      "Desc": "A wise heart finds a way where none is seen.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    },
+    {
+      "Id": "aphorism274default",
+      "ParentId": "default",
+      "IdKey": 274,
+      "Name": "Aph274",
+      "Desc": "Those who share their fire need fear no cold.",
+      "UpdateTime": "2024-11-05T00:18:00.873Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "AphorismSettings",
+    "UpdateTime": "2024-11-05T00:18:00.873Z"
+  },
+  "Id": "default"
+}

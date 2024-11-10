@@ -24,56 +24,23 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Riddles
 
             CrawlerStateData errorState = new CrawlerStateData(ECrawlerStates.ExploreWorld, true);
 
-            if (detail == null || detail.EntityTypeId != EntityTypes.Riddle)
+            if (string.IsNullOrEmpty(detail.Text))
             {
                 return errorState;
             }
 
-            Riddle riddle = _gameData.Get<RiddleSettings>(_gs.ch).Get(detail.EntityId);
+            string[] lines = detail.Text.Split("\n");
 
-            if (riddle == null || string.IsNullOrEmpty(riddle.Desc) || string.IsNullOrEmpty(riddle.Name))
+            for (int l = 0; l < lines.Length; l++)
             {
-                return errorState;
+                stateData.Actions.Add(new CrawlerStateAction("\"" + lines[l] + "\""));
+                stateData.Actions.Add(new CrawlerStateAction(" \n"));
             }
 
-            string[] lines = riddle.Desc.Split('\n');   
-
-            if (detail.Index < 0 || detail.Index >= lines.Length)
-            {
-                return errorState;
-            }
-
-            stateData.Actions.Add(new CrawlerStateAction("Some strange writing is on the wall..."));
-
-
-            stateData.Actions.Add(new CrawlerStateAction("\n"));
-            stateData.Actions.Add(new CrawlerStateAction(lines[(int)detail.Index]));
-
-            stateData.Actions.Add(new CrawlerStateAction("\n"));
-
-            int letterIndex = (int)(detail.Index*31 + riddle.IdKey * 7) % riddle.Name.Length;
-
-            StringBuilder answer = new StringBuilder();
-
-            for (int i = 0; i < riddle.Name.Length; i++)
-            {
-                if (i !=  letterIndex)
-                {
-                    answer.Append("_");
-                }
-                else
-                {
-                    answer.Append(char.ToUpper(riddle.Name[i]));
-                }
-            }
-
-            stateData.Actions.Add(new CrawlerStateAction(answer.ToString()));
-
-
-            stateData.Actions.Add(new CrawlerStateAction("\n"));
+            stateData.Actions.Add(new CrawlerStateAction(" \n"));
 
             stateData.Actions.Add(new CrawlerStateAction($"\n\nPress {_textService.HighlightText("Space")} to continue...", CharCodes.Space, ECrawlerStates.ExploreWorld));
-
+            await Task.CompletedTask;
             return stateData;
         }
     }

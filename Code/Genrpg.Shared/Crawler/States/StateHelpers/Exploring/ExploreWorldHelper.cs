@@ -27,7 +27,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
             }
         }
 
-        private ICrawlerMapService _crawlerMapService;
+        private ICrawlerMapService _crawlerMapService = null;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.ExploreWorld; }
         public override bool IsTopLevelState() { return true; }

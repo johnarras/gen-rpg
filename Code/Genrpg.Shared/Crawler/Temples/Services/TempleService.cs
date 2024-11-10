@@ -33,9 +33,9 @@ namespace Genrpg.Shared.Crawler.Temples.Services
     public class TempleService : ITempleService
     {
 
-        private IGameData _gameData;
-        private IClientGameState _gs;
-        private IStatService _statService;
+        private IGameData _gameData = null;
+        private IClientGameState _gs = null;
+        private IStatService _statService = null;
 
         public long GetHealingCostForMember(PartyData party, PartyMember member)
         {

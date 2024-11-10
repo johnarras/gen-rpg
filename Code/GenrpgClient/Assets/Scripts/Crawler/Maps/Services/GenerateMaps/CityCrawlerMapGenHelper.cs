@@ -11,6 +11,9 @@ using Genrpg.Shared.Zones.Settings;
 using UnityEngine;
 using System.Threading.Tasks;
 using Genrpg.Shared.Crawler.Maps.Settings;
+using Genrpg.Shared.Zones.Constants;
+using Genrpg.Shared.Dungeons.Constants;
+using Genrpg.Shared.Buildings.Constants;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -22,15 +25,17 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         public override async Task<NewCrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
         {
             await Task.CompletedTask;
-            MyRandom rand = new MyRandom(genData.World.IdKey*3 + genData.World.MaxMapId*17);
+            MyRandom rand = new MyRandom(genData.World.IdKey * 3 + genData.World.MaxMapId * 17);
 
             IReadOnlyList<ZoneType> allZoneTypes = _gameData.Get<ZoneTypeSettings>(null).GetData();
 
             long cityZoneTypeId = allZoneTypes.FirstOrDefault(x => x.Name == "City")?.IdKey ?? 1;
             long roadZoneTypeId = allZoneTypes.FirstOrDefault(x => x.Name == "Road")?.IdKey ?? 1;
-
+            long fillerZoneTypeId = ZoneTypes.Field;
             CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(CrawlerMapTypes.City);
 
+
+            int mapEdgeDistance = 1;
 
             int width = (int)MathUtils.LongRange(mapType.MinWidth, mapType.MaxWidth, rand);
             int height = (int)MathUtils.LongRange(mapType.MinHeight, mapType.MaxHeight, rand);
@@ -38,23 +43,24 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             CrawlerMap map = genData.World.CreateMap(genData, width, height);
 
             map.Name = _zoneGenService.GenerateZoneName(genData.ZoneTypeId, rand.Next(), true);
-            bool[,] clearCells = AddCorridors(map, genData, rand, 1.0f);
+            bool[,] clearCells = AddCorridors(map, genData, rand, MathUtils.FloatRange(mapType.MinCorridorDensity, mapType.MaxCorridorDensity, rand));
 
             int gateX = -1;
             int gateZ = -1;
 
+            int cityEdgeDistance = 1;
             // X on border, y in middle.
             if (rand.NextDouble() < 0.5f)
             {
-                gateX = (rand.NextDouble() < 0.5 ? 0 : map.Width - 1);
+                gateX = (rand.NextDouble() < 0.5 ? cityEdgeDistance : map.Width - 1 - cityEdgeDistance);
                 gateZ = MathUtils.IntRange(map.Height / 3, map.Height * 2 / 3, rand);
-               
-                int start = gateX;                
-                int dir = (gateX == 0 ? 1 : -1);
+
+                int start = gateX;
+                int dir = (gateX == cityEdgeDistance ? 1 : -1);
                 int xx = start;
                 while (true)
                 {
-                    if (clearCells[xx,gateZ])
+                    if (clearCells[xx, gateZ])
                     {
                         break;
                     }
@@ -68,26 +74,114 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             }
             else
             {
-                gateZ = (rand.NextDouble() < 0.5 ? 0 : map.Height - 1);
-                gateX = MathUtils.IntRange(map.Width/3, map.Width * 2 / 3, rand);
-              
+                gateZ = (rand.NextDouble() < 0.5 ? cityEdgeDistance : map.Height - 1 - cityEdgeDistance);
+                gateX = MathUtils.IntRange(map.Width / 3, map.Width * 2 / 3, rand);
+
                 int start = gateZ;
-                int dir = (gateZ == 0 ? 1 : -1);
+                int dir = (gateZ == cityEdgeDistance ? 1 : -1);
 
                 int zz = start;
                 while (true)
                 {
-                    if (clearCells[gateX,zz])
+                    if (clearCells[gateX, zz])
                     {
                         break;
                     }
-                    clearCells[gateX,zz] = true;
+                    clearCells[gateX, zz] = true;
                     zz += dir;
                     if (zz < 0 || zz >= map.Height)
                     {
                         break;
                     }
                 }
+            }
+
+            for (int x = mapEdgeDistance; x < map.Width - 1; x++)
+            {
+                map.AddBits(x, 0, CellIndex.Walls, (WallTypes.Wall << MapWallBits.NWallStart));
+                map.AddBits(x, map.Height - 1 - mapEdgeDistance, CellIndex.Walls, (WallTypes.Wall << MapWallBits.NWallStart));
+
+            }
+
+            for (int z = mapEdgeDistance; z < map.Height - 1; z++)
+            {
+                map.AddBits(0, z, CellIndex.Walls, (WallTypes.Wall << MapWallBits.EWallStart));
+                map.AddBits(map.Width - 1 - mapEdgeDistance, z, CellIndex.Walls, (WallTypes.Wall << MapWallBits.EWallStart));
+            }
+
+            int towersPerSide = 4;
+
+            for (int xp = 0; xp <= towersPerSide; xp++)
+            {
+                for (int zp = 0; zp <= towersPerSide; zp++)
+                {
+                    if (xp != 0 && xp != towersPerSide && zp != 0 && zp != towersPerSide)
+                    {
+                        continue;
+                    }
+
+                    int xx = xp * (map.Width - 1) / towersPerSide;
+                    int zz = zp * (map.Height - 1) / towersPerSide;
+
+                    map.Set(xx, zz, CellIndex.Building, BuildingTypes.GuardTower);
+                }
+            }
+
+            int visGateX = 0;
+            int visGateZ = 0;
+            int gateBits = 0;
+            int towerX = 0;
+            int towerZ = 0;
+            bool gateIsOnSides = true;
+            if (gateX == mapEdgeDistance)
+            {
+                visGateX = gateX - 1;
+                visGateZ = gateZ;
+                towerX = 0;
+                towerZ = gateZ;
+                gateBits = WallTypes.Door << MapWallBits.EWallStart;
+            }
+            else if (gateX == map.Width - 1 - mapEdgeDistance)
+            {
+                visGateX = gateX;
+                visGateZ = gateZ;
+                towerX = map.Width - 1;
+                towerZ = gateZ;
+                gateBits = WallTypes.Door << MapWallBits.EWallStart;
+            }
+            else if (gateZ == mapEdgeDistance)
+            {
+                visGateX = gateX;
+                visGateZ = gateZ - 1;
+                towerX = gateX;
+                towerZ = 0;
+                gateBits = WallTypes.Door << MapWallBits.NWallStart;
+                gateIsOnSides = false;
+            }
+            else
+            {
+                visGateX = gateX;
+                visGateZ = gateZ;
+                towerX = gateX;
+                towerZ = map.Height - 1;
+                gateBits = WallTypes.Door << MapWallBits.NWallStart;
+                gateIsOnSides = false;
+            }
+
+
+            map.Set(visGateX, visGateZ, CellIndex.Walls, gateBits);
+
+            if (gateIsOnSides)
+            {
+                map.Set(towerX, towerZ - 1, CellIndex.Building, BuildingTypes.GuardTower);
+                map.Set(towerX, towerZ + 1, CellIndex.Building, BuildingTypes.GuardTower);
+                map.Set(towerX, towerZ, CellIndex.Building, 0);
+            }
+            else
+            {
+                map.Set(towerX - 1, towerZ, CellIndex.Building, BuildingTypes.GuardTower);
+                map.Set(towerX + 1, towerZ, CellIndex.Building, BuildingTypes.GuardTower);
+                map.Set(towerX, towerZ, CellIndex.Building, 0);
             }
 
 
@@ -101,13 +195,26 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
             List<MyPoint> points = new List<MyPoint>();
 
+            float buildingChance = MathUtils.FloatRange(mapType.MinBuildingDensity, mapType.MaxBuildingDensity, rand);
+
             if (fillerBuildings.Count > 0)
             {
                 for (int xx = 0; xx < clearCells.GetLength(0); xx++)
                 {
-                    for (int yy = 0; yy < clearCells.GetLength(1); yy++)
+
+                    if (xx < mapEdgeDistance || xx >= map.Width - 1 - mapEdgeDistance)
                     {
-                        if (clearCells[xx, yy])
+                        continue;
+                    }
+                    for (int zz = 0; zz < clearCells.GetLength(1); zz++)
+                    {
+
+                        if (zz < mapEdgeDistance || zz >= map.Height - 1 - mapEdgeDistance)
+                        {
+                            continue;
+                        }
+
+                        if (clearCells[xx, zz])
                         {
                             continue;
                         }
@@ -118,7 +225,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                         {
                             int sx = xx + x;
 
-                            if (sx < 0 || sx >= map.Width)
+                            if (sx < mapEdgeDistance || sx >= map.Width - mapEdgeDistance)
                             {
                                 continue;
                             }
@@ -130,9 +237,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                                     continue;
                                 }
 
-                                int sy = yy + y;
+                                int sy = zz + y;
 
-                                if (sy < 0 || sy >= map.Height)
+                                if (sy < mapEdgeDistance || sy >= map.Height - mapEdgeDistance)
                                 {
                                     continue;
                                 }
@@ -144,21 +251,45 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                             }
                         }
 
-                        if (okDirs.Count > 0)
+                        if (okDirs.Count > 0 && rand.NextDouble() < buildingChance)
                         {
                             MyPoint okDir = okDirs[rand.Next() % okDirs.Count];
 
                             int dirAngle = DirUtils.DirDeltaToAngle(okDir.X, okDir.Y);
 
-                            map.Set(xx, yy, CellIndex.Dir, dirAngle/CrawlerMapConstants.DirToAngleMult);
+                            map.Set(xx, zz, CellIndex.Dir, dirAngle / CrawlerMapConstants.DirToAngleMult);
 
                             BuildingType btype = fillerBuildings[rand.Next() % fillerBuildings.Count];
 
-                            map.Set(xx, yy, CellIndex.Building, btype.IdKey);
+                            map.Set(xx, zz, CellIndex.Building, btype.IdKey);
 
-                            points.Add(new MyPoint(xx, yy));
+                            points.Add(new MyPoint(xx, zz));
                         }
 
+                    }
+                }
+            }
+
+
+            IReadOnlyList<ZoneType> zoneTypes = _gameData.Get<ZoneTypeSettings>(null).GetData();
+
+            for (int x = 0; x < map.Width; x++)
+            {
+                for (int z = 0; z < map.Height; z++)
+                {
+
+                    if (map.Get(x, z, CellIndex.Building) != 0 || x == 0 || z == 0 || x == map.Width - 1 || z == map.Height - 1)
+                    {
+                        map.Set(x, z, CellIndex.Terrain, cityZoneTypeId);
+                    }
+                    else if (clearCells[x, z])
+                    {
+                        map.Set(x, z, CellIndex.Terrain, roadZoneTypeId);
+                    }
+                    else
+                    {
+
+                        map.Set(x, z, CellIndex.Terrain, fillerZoneTypeId);
                     }
                 }
             }
@@ -174,7 +305,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                 MyPoint currPoint = points[rand.Next() % points.Count];
                 points.Remove(currPoint);
-                
+
                 map.Set((int)currPoint.X, (int)currPoint.Y, CellIndex.Building, btype.IdKey);
             }
 
@@ -198,7 +329,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 CrawlerMapGenData dungeonGenData = new CrawlerMapGenData()
                 {
                     World = genData.World,
-                    MapType = CrawlerMapTypes.Dungeon,
+                    MapType = CrawlerMapTypes.RandomDungeon,
                     ZoneTypeId = newZoneTypeId,
                     Level = dungeonLevel++,
                     FromMapId = map.IdKey,
@@ -206,8 +337,9 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                     FromMapZ = (int)(currPoint.Y),
                 };
 
-                map.Set((int)currPoint.X, (int)currPoint.Y, CellIndex.Building, GetBuildingIdFromZoneTypeId(newZoneTypeId));
                 CrawlerMap dungeonMap = await _mapGenService.Generate(party, world, dungeonGenData);
+
+                map.Set((int)currPoint.X, (int)currPoint.Y, CellIndex.Building, GetBuildingTypeFromMapType(dungeonMap.CrawlerMapTypeId));
 
                 if (rand.NextDouble() < 0.6)
                 {
@@ -215,28 +347,30 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 }
             }
 
-            IReadOnlyList<ZoneType> zoneTypes = _gameData.Get<ZoneTypeSettings>(null).GetData();
 
-            for (int x = 0; x < map.Width; x++)
-            {
-                for (int y = 0; y < map.Height; y++)
+            List<long> terrains = new List<long>() { roadZoneTypeId, fillerZoneTypeId };
+
+            for (int terrainIndex = 0; terrainIndex < 2; terrainIndex++)
+            {         
+                for (int x = 1; x < map.Width - 1; x++)
                 {
-
-                    if (map.Get(x, y, CellIndex.Building) != 0)
+                    for (int z = 1; z < map.Height - 1; z++)
                     {
-                        map.Set(x, y, CellIndex.Terrain, cityZoneTypeId);
-                    }
-                    else if (clearCells[x,y])
-                    {
-                        map.Set(x, y, CellIndex.Terrain, roadZoneTypeId);
-                    }
-                    else
-                    {
-
-                        map.Set(x, y, CellIndex.Terrain, 1);
+                        if (map.Get(x, z, CellIndex.Terrain) == terrains[terrainIndex])
+                        {
+                            if (map.Get(x, z + 1, CellIndex.Terrain) == terrains[(terrainIndex + 1) % terrains.Count])
+                            {
+                                map.AddBits(x, z, CellIndex.Walls, WallTypes.Barricade << MapWallBits.NWallStart);
+                            }
+                            if (map.Get(x + 1, z, CellIndex.Terrain) == terrains[(terrainIndex + 1) % terrains.Count])
+                            {
+                                map.AddBits(x, z, CellIndex.Walls, WallTypes.Barricade << MapWallBits.EWallStart);
+                            }
+                        }
                     }
                 }
             }
+
             return new NewCrawlerMap() { Map = map, EnterX = gateX, EnterZ = gateZ };   
         }
     }

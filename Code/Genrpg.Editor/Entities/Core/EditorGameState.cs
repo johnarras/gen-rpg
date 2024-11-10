@@ -6,6 +6,7 @@ using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Users.Entities;
+using Genrpg.Shared.Users.PlayerData;
 using Genrpg.Shared.Utils;
 using System.Collections.Generic;
 using System.Threading;

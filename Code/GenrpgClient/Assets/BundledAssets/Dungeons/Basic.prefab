@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 214490968233204535}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 514.4962, y: 0.35272503, z: 527.23145}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48,3 +48,5 @@ MonoBehaviour:
   Door: {fileID: 1682565954592356688, guid: 8673b2594008d5a42836d656ce4e609e, type: 3}
   Floor: {fileID: 1682565954592356688, guid: d6abc139c66df9d47b24c883902d2ac6, type: 3}
   Ceiling: {fileID: 1682565954592356688, guid: fbf050822497fcf40bd21bef84caa2a0, type: 3}
+  Barricade: {fileID: 1682565954592356688, guid: 29f8b3cd49625d740afb6ad71e507001,
+    type: 3}

@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Crawler.Constants;
+﻿using Genrpg.Shared.Buildings.Constants;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Maps.Entities;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -17,9 +18,10 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Houses
 {
     public class TavernMainHelper : BaseStateHelper
     {
-        private ITimeOfDayService _timeService;
-        private ITavernService _tavernService;
+        private ITimeOfDayService _timeService = null;
+        private ITavernService _tavernService = null;
         public override ECrawlerStates GetKey() { return ECrawlerStates.TavernMain; }
+        public override long TriggerBuildingId() { return BuildingTypes.Tavern; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {

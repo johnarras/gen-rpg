@@ -20,9 +20,7 @@ namespace Genrpg.Editor
 {
     public partial class FindUserView : UserControl, IUICanvas
     {
-        private IAccountService _accountService = null;
         private IRepositoryService _repoService = null;
-        private IServerConfig _config = null;
         private EditorGameState _gs = null;
         private DataWindow _win = null;
         private TextBox _queryInput = null;

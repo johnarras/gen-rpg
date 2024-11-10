@@ -72,9 +72,7 @@ public class ClientUpdateService : IClientUpdateService
     private List<IUpdateObject> _toRemoveList { get; set; } = new List<IUpdateObject>();
     private ConcurrentQueue<Action> _mainThreadActions = new ConcurrentQueue<Action>();
 
-    private IClientGameState _gs;
-    private IInitClient _initClient;
-    private ILogService _logService;
+    private IInitClient _initClient = null;
     public async Task Initialize(CancellationToken token)
     {
         _mapToken = token;

@@ -52,7 +52,6 @@ namespace Genrpg.Editor.Importers
 
                 do
                 {
-                    desc.AppendLine(StrUtils.SanitizeSingleEnglishLine(lines[i]));
                     i++;
                 }
                 while (i < lines.Length && !string.IsNullOrEmpty(lines[i]) );

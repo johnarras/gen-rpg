@@ -7,6 +7,7 @@ using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
+using Genrpg.Shared.Utils.Data;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using MongoDB.Bson.Serialization.IdGenerators;
@@ -56,7 +57,8 @@ namespace Genrpg.Editor.Importers
 
             for (int l = 0; l < lines.Length; l++)
             {
-                lines[l] = lines[l].Trim();
+
+                lines[l] =  StrUtils.SanitizeSingleEnglishLine(lines[l].Trim());
             }
 
             return lines;

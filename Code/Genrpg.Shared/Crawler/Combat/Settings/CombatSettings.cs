@@ -1,3 +1,4 @@
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Core.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Loaders;
@@ -10,18 +11,24 @@ namespace Genrpg.Shared.Crawler.Combat.Settings
     public class CrawlerCombatSettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public double MinHitToDefenseRatio { get; set; } = 0.25f;
-        [Key(2)] public double MaxHitToDefenseRatio { get; set; } = 1.25f;
-        [Key(3)] public double DefendDamageScale { get; set; } = 0.5f;
-        [Key(4)] public double GuardianDamageScale { get; set; } = 0.66f;
-        [Key(5)] public double TauntDamageScale { get; set; } = 0.25f;
-        [Key(6)] public long MaxGroupSize { get; set; } = 99;
-        [Key(7)] public double LuckCritChanceAtLevel { get; set; } = 0.05f;
-        [Key(8)] public double MaxLuckCritRatio { get; set; } = 2.0f;
-        [Key(9)] public double VulnerabilityDamageMult { get; set; } = 3.0f;
-        [Key(10)] public double HiddenSingleTargetCritPercent { get; set; } = 100;
-        [Key(11)] public double ResistAddCritChance { get; set; } = -200;
-        [Key(12)] public double VulnAddCritChance { get; set; } = 10;
+        [Key(1)] public double MinHitToDefenseRatio { get; set; }
+        [Key(2)] public double MaxHitToDefenseRatio { get; set; }
+        [Key(3)] public double DefendDamageScale { get; set; }
+        [Key(4)] public double GuardianDamageScale { get; set; }
+        [Key(5)] public double TauntDamageScale { get; set; }
+        [Key(6)] public long MaxGroupSize { get; set; } 
+        [Key(7)] public double LuckCritChanceAtLevel { get; set; }
+        [Key(8)] public double MaxLuckCritRatio { get; set; } 
+        [Key(9)] public double VulnerabilityDamageMult { get; set; }
+        [Key(10)] public double HiddenSingleTargetCritPercent { get; set; }
+        [Key(11)] public double ResistAddCritChance { get; set; } 
+        [Key(12)] public double VulnAddCritChance { get; set; } 
+        [Key(13)] public double GuaranteedHitDefenseRatio { get; set; }
+        [Key(14)] public int BaseMonsterMinDam { get; set; }
+        [Key(15)] public int BaseMonsterMaxDam { get; set; }
+        [Key(16)] public double MinMonsterDamPerLevel { get; set; }
+        [Key(17)] public double MaxMonsterDamPerLevel { get; set; }
+
     }
 
 

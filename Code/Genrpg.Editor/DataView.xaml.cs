@@ -1288,8 +1288,6 @@ namespace Genrpg.Editor
             {
                 IEnumerable list = _multiGrid.ItemsSource;
 
-                int count = 0;
-
                 if (list == null)
                 {
                     return;
@@ -1627,6 +1625,7 @@ namespace Genrpg.Editor
                     return;
                 }
 
+                await Task.CompletedTask;
                 _ = Task.Run(() => WaitForGridColumns(underlyingType, iidlist));
             });
         }
@@ -1641,7 +1640,7 @@ namespace Genrpg.Editor
 
             DispatcherQueue.TryEnqueue(async () =>
             {
-
+                await Task.CompletedTask;
                 for (int j = 0; j < _multiGrid.Columns.Count; j++)
                 {
                     DataGridColumn col = _multiGrid.Columns[j];
@@ -1813,7 +1812,7 @@ namespace Genrpg.Editor
 
         }
 
-        private void OnTick(object? sender)
+        private void OnTick(object sender)
         {
         }
     }

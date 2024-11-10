@@ -28,13 +28,11 @@ namespace Genrpg.Shared.Crawler.TimeOfDay.Services
 
         const int SecondsPerDay = SecondsPerMinute * MinutesPerHour * HoursPerDay;
 
-        private IStatService _statService;
-        private ICrawlerStatService _crawlerStatService;
-        private IGameData _gameData;
-        private IClientGameState _gs;
-        private ICrawlerMapService _mapService;
-        private ICrawlerWorldService _worldService;
-        private IDispatcher _dispatcher;
+        private IStatService _statService = null;
+        private IGameData _gameData = null;
+        private IClientGameState _gs = null;
+        private ICrawlerWorldService _worldService = null;
+        private IDispatcher _dispatcher = null;
 
         public async Task UpdateTime(PartyData partyData, ECrawlerTimeUpdateTypes type)
         {

@@ -11,7 +11,7 @@ namespace Genrpg.Shared.PlayMultiplier.Services
 {
     public class SharedPlayMultService : ISharedPlayMultService
     {
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public long GetMaxMult(IFilteredObject obj, long level, long energy)
         {
             return GetValidMults(obj, level, energy).Last().Mult;

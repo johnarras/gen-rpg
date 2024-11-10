@@ -6,7 +6,7 @@ using Genrpg.Shared.HelperClasses;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Units.Loaders;
 using Genrpg.Shared.Units.Mappers;
-using Genrpg.Shared.Users.Entities;
+using Genrpg.Shared.Users.PlayerData;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;

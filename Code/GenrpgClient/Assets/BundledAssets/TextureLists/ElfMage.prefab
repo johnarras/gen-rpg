@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8478311318346144263
+--- !u!1 &7782675110567552631
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2133134502677983695}
-  - component: {fileID: 9209089886389702057}
+  - component: {fileID: 7804280476888342304}
+  - component: {fileID: 5799865889868694442}
   m_Layer: 0
   m_Name: ElfMage
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2133134502677983695
+--- !u!4 &7804280476888342304
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8478311318346144263}
+  m_GameObject: {fileID: 7782675110567552631}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,17 +32,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9209089886389702057
+--- !u!114 &5799865889868694442
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8478311318346144263}
+  m_GameObject: {fileID: 7782675110567552631}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6f7969976255be4db72cb5f458e9bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Textures:
-  - {fileID: 2800000, guid: af84e6fb7090c9b4599243bce9a7ab1a, type: 3}
+  - {fileID: 2800000, guid: b2c22b4b56b8bdc43a441cf9f15f5df4, type: 3}
+  - {fileID: 2800000, guid: d8749a40cd106f144a639039c0687803, type: 3}
+  - {fileID: 2800000, guid: cb1d6d6ffe3185545964504ee0a7e304, type: 3}
+  - {fileID: 2800000, guid: baf35bc9626b18b44b01071b4f31db5e, type: 3}

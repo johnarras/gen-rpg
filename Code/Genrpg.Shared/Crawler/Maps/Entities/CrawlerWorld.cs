@@ -32,7 +32,6 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
                 Height = height,
                 Level = genData.Level,
                 IdKey = mapId,
-                ZoneTypeId = genData.ZoneTypeId,
                 MapFloor = genData.CurrFloor,
             };
 

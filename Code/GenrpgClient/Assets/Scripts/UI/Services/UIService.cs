@@ -103,9 +103,16 @@ namespace Assets.Scripts.UI.Services
 
         public void SetImageTexture(IRawImage image, object texObj)
         {
-            if (image is GRawImage gimage && texObj is Texture tex)
+            if (image is GRawImage gimage)
             {
-                gimage.texture = tex;
+                if (texObj is Texture tex)
+                {
+                    gimage.texture = tex;
+                }
+                else if (texObj == null)
+                {
+                    gimage.texture = null;
+                }
             }
         }
 

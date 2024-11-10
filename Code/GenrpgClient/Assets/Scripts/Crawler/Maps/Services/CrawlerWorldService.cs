@@ -24,6 +24,7 @@ using UnityEngine;
 using Genrpg.Shared.Crawler.GameEvents;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.Crawler.Maps.Settings;
 
 namespace Assets.Scripts.Crawler.Maps.Services
 {
@@ -39,6 +40,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
         private IClientRandom _rand;
         private IDispatcher _dispatcher;
         private IClientAppService _clientAppService;
+        private IClientGameState _gs;
 
         private CrawlerWorld _world = null;
 
@@ -55,6 +57,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
             partyData.MapZ = 0;
             partyData.DaysPlayed = 0;
             partyData.HourOfDay = _gameData.Get<TimeOfDaySettings>(null).DailyResetHour;
+            partyData.CompletedMaps.Clear();
             _dispatcher.Dispatch(new CrawlerUIUpdate());
             return world;
         }
@@ -187,6 +190,24 @@ namespace Assets.Scripts.Crawler.Maps.Services
                 await _crawlerService.SaveGame();
                 _crawlerService.ClearAllStates();
                 _mapService.CleanMap();
+
+
+
+                StringBuilder riddleSB = new StringBuilder();
+                foreach (CrawlerMap map in world.Maps)
+                {
+                    if (!string.IsNullOrEmpty(map.RiddleText) && !string.IsNullOrEmpty(map.RiddleAnswer))
+                    {
+                        riddleSB.Clear();
+
+                        riddleSB.Append(map.Name + " [#" + map.IdKey + "] ");
+                        riddleSB.Append("Riddle Answer: " + map.RiddleAnswer + "\n");
+                        riddleSB.Append(map.RiddleText);
+                        _logService.Info(riddleSB.ToString());
+                    }
+                }
+
+
                 _dispatcher.Dispatch(new ClearCrawlerTilemaps());
 
                 return world;
@@ -206,13 +227,14 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
             CrawlerMap map = world.GetMap(partyData.MapId);
 
-            IReadOnlyList<ZoneType> allZoneTypes = _gameData.Get<ZoneTypeSettings>(null).GetData();
+            CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(map.CrawlerMapTypeId);
 
-            if (map.ZoneTypeId > 0)
+            IReadOnlyList<ZoneType> allZoneTypes = _gameData.Get<ZoneTypeSettings>(_gs.ch).GetData();
+
+            if (mapType.ZoneTypeId > 0)
             {
-                return allZoneTypes.FirstOrDefault(x => x.IdKey == map.ZoneTypeId);
+                return allZoneTypes.FirstOrDefault(x => x.IdKey == mapType.ZoneTypeId);
             }
-
 
             int index = map.GetIndex(partyData.MapX, partyData.MapZ);
 

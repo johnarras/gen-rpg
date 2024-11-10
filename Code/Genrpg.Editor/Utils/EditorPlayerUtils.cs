@@ -4,7 +4,7 @@ using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Characters.Utils;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
-using Genrpg.Shared.Users.Entities;
+using Genrpg.Shared.Users.PlayerData;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

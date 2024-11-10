@@ -40,7 +40,7 @@ namespace Genrpg.Editor
         private EditorGameState _gs = null;
         private string _prefix;
 
-        private IGameData _gameData;
+        private IGameData _gameData = null;
 
         private Canvas _canvas = new Canvas();
 

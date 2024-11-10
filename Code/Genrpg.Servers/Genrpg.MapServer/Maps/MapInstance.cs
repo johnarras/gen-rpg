@@ -11,7 +11,6 @@ using Genrpg.Shared.Pathfinding.Services;
 using Genrpg.Shared.MapObjects.Entities;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.MapServer.Entities;
-using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Players.Constants;
 using Genrpg.Shared.Spawns.Entities;
 using Genrpg.Shared.Characters.PlayerData;
@@ -58,6 +57,7 @@ using Genrpg.Shared.MapServer.Services;
 using Genrpg.Shared.GameSettings.PlayerData;
 using Genrpg.Shared.DataStores.DataGroups;
 using Genrpg.Shared.DataStores.PlayerData;
+using Genrpg.Shared.Users.PlayerData;
 
 namespace Genrpg.MapServer.Maps
 {

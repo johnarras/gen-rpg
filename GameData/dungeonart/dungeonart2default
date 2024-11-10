@@ -1,0 +1,10 @@
+{
+  "Id": "dungeonart2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "City",
+  "Desc": "City Art Assets",
+  "Icon": "",
+  "Art": "City",
+  "UpdateTime": "2024-10-27T20:00:36.363Z"
+}

@@ -3,7 +3,6 @@ using Genrpg.ServerShared.Core;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.DataStores.PlayerData;
 using Genrpg.Shared.Interfaces;
-using Genrpg.Shared.Users.Entities;
 using Genrpg.Shared.Utils;
 using MongoDB.Driver;
 using Genrpg.Shared.Website.Interfaces;

@@ -13,7 +13,7 @@ namespace Genrpg.RequestServer.Resets.Commands
     public class UpdateUserEnergyCommandHandler : BaseClientCommandHandler<UpdateUserEnergyCommand>
     {
 
-        private IHourlyUpdateService _hourlyUpdateService;
+        private IHourlyUpdateService _hourlyUpdateService = null;
         protected override async Task InnerHandleMessage(WebContext context, UpdateUserEnergyCommand command, CancellationToken token)
         {
             await _hourlyUpdateService.CheckHourlyUpdate(context);

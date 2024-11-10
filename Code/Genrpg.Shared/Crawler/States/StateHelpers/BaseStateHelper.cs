@@ -35,6 +35,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers
         public abstract Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token);
 
         public virtual bool IsTopLevelState() { return false; }
+        public virtual long TriggerBuildingId() { return 0; }
+        public virtual long TriggerDetailEntityTypeId() { return 0; }
 
         virtual protected CrawlerStateData CreateStateData()
         {

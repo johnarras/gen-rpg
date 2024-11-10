@@ -26,9 +26,9 @@ namespace Assets.Editor
             IGameData gameData = gs.loc.Get<IGameData>();
             IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
 
-            string directory = "Assets/FullAssets/Monsters/Images/";
+            string directory = "Assets/FullAssets/Crawler/Images/Monsters/";
 
-            
+
             foreach (UnitType unitType in unitTypes)
             {
                 if (unitType.IdKey < 1 || string.IsNullOrEmpty(unitType.Icon))
@@ -36,22 +36,15 @@ namespace Assets.Editor
                     continue;
                 }
 
-                int val = clientRandom.Next(1, 5);
-
-                string targetFile = directory + unitType.Icon + ".png";
-
-                if (File.Exists(targetFile))
+                for (int i = 1; i <= 4; i++)
                 {
-                    continue;
+                    File.Copy(directory + "Base" + i + ".png", directory + unitType.Icon + +i + ".png", true);
                 }
-
-                File.Copy(directory + "Full" + val + ".png", targetFile);
-
             }
         }
 
         [MenuItem("Tools/SetupMonsterImagePrefabs")]
-        static void SetupMonsterImagePrefabs()
+        static void OldSetupMonsterImagePrefabs()
         {
             IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
 
@@ -69,21 +62,26 @@ namespace Assets.Editor
                     continue;
                 }
 
-                string startTex = imageDirectory + unitType.Icon + ".png";
+                string startTexPrefix = imageDirectory + unitType.Icon;
                 string targetFile = prefabDirectory + unitType.Icon + ".prefab";
 
                 if (File.Exists(targetFile))
                 {
-                    continue;
+                    //continue;
                 }
 
-                Texture2D tex = AssetDatabase.LoadAssetAtPath<Texture2D>(startTex);
+                List<Texture2D> textures = new List<Texture2D>();
 
-                if (tex == null)
+                for (int i = 1; i <= 10; i++)
                 {
-                    int val = clientRandom.Next(1, 5);
-                    File.Copy(imageDirectory + "Full" + val + ".png", startTex);
-                    tex = AssetDatabase.LoadAssetAtPath<Texture2D>(startTex);
+
+                    Texture2D tex = AssetDatabase.LoadAssetAtPath<Texture2D>(imageDirectory + unitType.Icon + i + ".png");
+
+                    if (tex == null)
+                    {
+                        break;
+                    }
+                    textures.Add(tex);
                 }
 
                 GameObject go = new GameObject();
@@ -94,8 +92,8 @@ namespace Assets.Editor
                 {
                     tl.Textures = new List<Texture2D>();
                 }
-                tl.Textures.Add(tex);
 
+                tl.Textures = textures;
                 PrefabUtility.SaveAsPrefabAsset(go, targetFile);
                 GameObject.DestroyImmediate(go);
             }

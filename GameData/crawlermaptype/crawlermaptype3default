@@ -12,5 +12,11 @@
   "MaxHeight": 70,
   "MinFloors": 1,
   "MaxFloors": 1,
-  "UpdateTime": "2024-10-21T18:10:07.855Z"
+  "SpecialTileChance": 0.02,
+  "DungeonArtId": 1,
+  "MinCorridorDensity": 0.1,
+  "MaxCorridorDensity": 0.3,
+  "MinBuildingDensity": 0.01,
+  "MaxBuildingDensity": 0.02,
+  "UpdateTime": "2024-11-02T16:33:25.69Z"
 }

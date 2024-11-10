@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Crawler.Constants;
+﻿using Genrpg.Shared.Buildings.Constants;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
@@ -11,8 +12,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Houses
 {
     public class EnterHouseHelper : BaseStateHelper
     {
-        private ICrawlerMapService _crawlerMapService;
         public override ECrawlerStates GetKey() { return ECrawlerStates.EnterHouse; }
+        public override long TriggerBuildingId() { return BuildingTypes.House; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {

@@ -4,6 +4,8 @@ using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using Genrpg.Shared.Dungeons.Constants;
+using Genrpg.Shared.Characters.PlayerData;
 
 namespace Genrpg.Shared.Crawler.Maps.Entities
 {
@@ -37,20 +39,18 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
         [Key(2)] public string Name { get; set; }
         [Key(3)] public List<ZoneRegion> Regions { get; set; } = null;
         [Key(4)] public long CrawlerMapTypeId { get; set; } = CrawlerMapTypes.Dungeon;
-        [Key(5)] public long DungeonArtId { get; set; } = 1;
-        [Key(6)] public int Width { get; set; }
-        [Key(7)] public int Height { get; set; }
-        [Key(8)] public int Level { get; set; }
-        [Key(9)] public bool Looping { get; set; }
-        [Key(10)] public long ZoneTypeId { get; set; }
-        [Key(11)] public long MapFloor { get; set; }
-        [Key(12)] public string FromPlaceName { get; set; }
-        [Key(13)] public long MapQuestItemId { get; set; }
-        [Key(14)] public long RiddleId { get; set; }
-
+        [Key(5)] public int Width { get; set; }
+        [Key(6)] public int Height { get; set; }
+        [Key(7)] public int Level { get; set; }
+        [Key(8)] public bool Looping { get; set; }
+        [Key(9)] public long MapFloor { get; set; }
+        [Key(10)] public string FromPlaceName { get; set; }
+        [Key(11)] public long MapQuestItemId { get; set; }
+        [Key(12)] public string RiddleText { get; set; }
+        [Key(13)] public string RiddleAnswer { get; set; }
+        [Key(14)] public string RiddleError { get; set; }
         [Key(15)] public byte[] Data { get; set; }
         public List<MapCellDetail> Details = new List<MapCellDetail>();
-        [Key(16)] public DungeonArt DungeonArt { get; set; }
 
         public void SetupDataBlocks()
         {
@@ -86,8 +86,9 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
         private string _floorName = null;
         public string GetName(int x, int z)
         {
-            if (CrawlerMapTypeId == CrawlerMapTypes.Dungeon)
+            if (MapFloor > 1)
             {
+
                 if (string.IsNullOrEmpty(_floorName))
                 {
                     _floorName = Name + " (Level " + MapFloor + ")";

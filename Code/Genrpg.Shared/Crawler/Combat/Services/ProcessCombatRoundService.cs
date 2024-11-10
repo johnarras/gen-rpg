@@ -30,14 +30,12 @@ namespace Genrpg.Shared.Crawler.Combat.Services
     }
     public class ProcessCombatRoundCombatService : IProcessCombatRoundCombatService
     {
-        private ICrawlerStatService _statService;
-        private ICrawlerSpellService _spellService;
-        private ICrawlerCombatService _combatService;
-        private ICrawlerService _crawlerService;
-        protected IClientGameState _gs;
-        protected IClientRandom _rand;
-        private IGameData _gameData;
-        private ITimeOfDayService _timeService;
+        private ICrawlerSpellService _spellService = null;
+        private ICrawlerCombatService _combatService = null;
+        private ICrawlerService _crawlerService = null;
+        protected IClientGameState _gs = null;
+        protected IClientRandom _rand = null;
+        private IGameData _gameData = null;
 
         public async Task<bool> ProcessCombatRound(PartyData party, CancellationToken token)
         {

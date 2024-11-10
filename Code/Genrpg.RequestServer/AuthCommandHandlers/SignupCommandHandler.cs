@@ -2,7 +2,7 @@
 using Genrpg.RequestServer.Core;
 using Genrpg.Shared.Accounts.Constants;
 using Genrpg.Shared.Accounts.PlayerData;
-using Genrpg.Shared.Users.Entities;
+using Genrpg.Shared.Users.PlayerData;
 using Genrpg.Shared.Website.Messages.Signup;
 
 namespace Genrpg.RequestServer.AuthCommandHandlers

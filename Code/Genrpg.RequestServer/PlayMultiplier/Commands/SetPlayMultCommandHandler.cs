@@ -12,7 +12,7 @@ namespace Genrpg.RequestServer.PlayMultiplier.Commands
 {
     public class SetPlayMultCommandHandler : BaseClientCommandHandler<SetPlayMultCommand>
     {
-        IServerPlayMultService _playMultService;
+        IServerPlayMultService _playMultService = null;
         protected override async Task InnerHandleMessage(WebContext context, SetPlayMultCommand command, CancellationToken token)
         {
             await _playMultService.SetPlayMult(context, command.PlayMult);

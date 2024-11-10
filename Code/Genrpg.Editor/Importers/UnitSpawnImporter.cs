@@ -26,8 +26,6 @@ namespace Genrpg.Editor.Importers
         {
             string[] firstLine = lines[0].Split(',');
 
-            string missingWords = "";
-
             ZoneTypeSettings settings = gs.data.Get<ZoneTypeSettings>(null);
 
             gs.LookedAtObjects.Add(settings);

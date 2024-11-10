@@ -18,7 +18,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
 {
     public class ChooseNameHelper : BaseStateHelper
     {
-        private ILootGenService _lootGenService;
+        private ILootGenService _lootGenService = null;
         public override ECrawlerStates GetKey() { return ECrawlerStates.ChooseName; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)

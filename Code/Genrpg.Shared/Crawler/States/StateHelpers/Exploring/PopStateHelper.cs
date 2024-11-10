@@ -9,8 +9,6 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 {
     public class PopStateHelper : BaseStateHelper
     {
-        private ICrawlerMapService _crawlerMapService;
-
         public override ECrawlerStates GetKey() { return ECrawlerStates.PopState; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)

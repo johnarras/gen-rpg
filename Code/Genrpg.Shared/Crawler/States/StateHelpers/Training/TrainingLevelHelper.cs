@@ -14,7 +14,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Training
     public class TrainingLevelHelper : BaseStateHelper
     {
 
-        ITrainingService _trainingService;
+        ITrainingService _trainingService = null;
         public override ECrawlerStates GetKey() { return ECrawlerStates.TrainingLevel; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)

@@ -37,10 +37,10 @@ namespace Genrpg.Shared.Crawler.Training.Services
     public class TrainingService : ITrainingService
     {
 
-        private ICrawlerStatService _statService;
-        protected IGameData _gameData;
-        protected IClientRandom _rand;
-        protected IClientGameState _gs;
+        private ICrawlerStatService _statService = null;
+        protected IGameData _gameData = null;
+        protected IClientRandom _rand = null;
+        protected IClientGameState _gs = null;
 
         public async Task Initialize(CancellationToken token)
         {

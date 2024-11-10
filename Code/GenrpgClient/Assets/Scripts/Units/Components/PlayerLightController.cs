@@ -1,6 +1,7 @@
 ﻿
 using Assets.Scripts.Crawler.Services.CrawlerMaps;
 using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Crawler.Maps.Services;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
@@ -8,6 +9,7 @@ namespace Assets.Scripts.Controllers
     public class PlayerLightController : BaseBehaviour
     {
         private IModTextureService _modTextureService;
+        private ICrawlerMapService _crawlerMapService;
         public float TargetIntensityScale = 0;
 
         public float Range = 75;
@@ -32,7 +34,7 @@ namespace Assets.Scripts.Controllers
         bool haveSetPosition = false;
         private void LightUpdate()
         {
-            if (CrawlerMapService.MapType == CrawlerMapTypes.Dungeon)
+            if (_crawlerMapService.IsDungeon(CrawlerMapService.MapType))
             {
                 return;
             }

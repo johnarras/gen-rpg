@@ -11,7 +11,7 @@ using Genrpg.Shared.PlayerFiltering.Interfaces;
 using Genrpg.Shared.PlayerFiltering.Utils;
 using Genrpg.Shared.Purchasing.PlayerData;
 using Genrpg.Shared.Purchasing.Settings;
-using Genrpg.Shared.Users.Entities;
+using Genrpg.Shared.Users.PlayerData;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Settings;
 using Microsoft.Extensions.Azure;

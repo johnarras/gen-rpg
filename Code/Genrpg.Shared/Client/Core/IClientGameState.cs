@@ -4,6 +4,7 @@ using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Users.Entities;
+using Genrpg.Shared.Users.PlayerData;
 using System.Collections.Generic;
 
 namespace Genrpg.Shared.Client.Core

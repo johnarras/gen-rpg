@@ -12,8 +12,7 @@ namespace Genrpg.RequestServer.BoardGame.Services
 {
     public class BoardService : IBoardService
     {
-        private IBoardGenService _boardGenService = null!;
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         private SetupDictionaryContainer<long, ITileTypeHelper> _tileTypeHelpers = new SetupDictionaryContainer<long, ITileTypeHelper>();
 
         public ITileTypeHelper GetTileTypeHelper(long tileTypeId)

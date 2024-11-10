@@ -8,13 +8,23 @@
       "Desc": "Basic Art Assets",
       "Icon": "",
       "Art": "Basic",
-      "UpdateTime": "2024-08-01T00:28:06.498Z"
+      "UpdateTime": "2024-10-27T20:00:36.363Z"
+    },
+    {
+      "Id": "dungeonart2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "City",
+      "Desc": "City Art Assets",
+      "Icon": "",
+      "Art": "City",
+      "UpdateTime": "2024-10-27T20:00:36.363Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "DungeonArtSettings",
-    "UpdateTime": "2024-08-01T00:28:06.501Z"
+    "UpdateTime": "2024-10-27T20:00:36.363Z"
   },
   "Id": "default"
 }

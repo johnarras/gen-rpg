@@ -21,13 +21,12 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.AddMember
             for (int m = 0; m < partyData.Members.Count; m++)
             {
                 PartyMember member = partyData.Members[m];
-                char c = (char)('a' + m);
 
                 if (member.PartySlot > 0)
                 {
                     continue;
                 }
-                stateData.Actions.Add(new CrawlerStateAction(char.ToUpper(c) + " " + member.Name, c, ECrawlerStates.AddMember,
+                stateData.Actions.Add(new CrawlerStateAction(member.Name, CharCodes.None, ECrawlerStates.AddMember,
                     delegate
                     {
                         if (member.PartySlot > 0)

@@ -16,6 +16,7 @@ using Genrpg.Shared.Client.Assets;
 using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.Users.PlayerData;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {

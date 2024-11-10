@@ -46,8 +46,6 @@ namespace Genrpg.Editor.Importers
         {
             string[] firstLine = lines[0].Split(',');
 
-            string missingWords = "";
-
             UnitSettings settings = gs.data.Get<UnitSettings>(null);
 
             IReadOnlyList<UnitType> startUnitTypes = settings.GetData();

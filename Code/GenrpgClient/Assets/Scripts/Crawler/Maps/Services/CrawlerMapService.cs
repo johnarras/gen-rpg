@@ -31,6 +31,11 @@ using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
 using UnityEngine;
 using Genrpg.Shared.Tasks.Services;
+using Genrpg.Shared.Crawler.States.StateHelpers;
+using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Dungeons.Settings;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Genrpg.Shared.Crawler.Maps.Settings;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
@@ -66,6 +71,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         private ITimeOfDayService _timeService;
         private IClientEntityService _clientEntityService;
         protected ITaskService _taskService;
+        private IClientGameState _gs;
 
         const int ViewRadius = 8;
         CrawlerMapRoot _crawlerMapRoot = null;
@@ -76,6 +82,10 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         private PartyData _party;
         private CrawlerWorld _world;
+
+        private FullWallTileImage[] TileImages { get; set; }
+
+        private List<WallTileImage> _refImages { get; set; } = new List<WallTileImage>();
 
         private SetupDictionaryContainer<long, ICrawlerMapTypeHelper> _mapTypeHelpers = new SetupDictionaryContainer<long, ICrawlerMapTypeHelper>();
         public static long MapType { get; set; } = CrawlerMapTypes.None;
@@ -170,7 +180,10 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         private async Task LoadDungeonAssets(CrawlerMapRoot mapRoot, CancellationToken token)
         {
 
-            _assetService.LoadAsset(AssetCategoryNames.Dungeons, mapRoot.Map.DungeonArt.Art, OnLoadDungeonAssets, null, null, token);
+            CrawlerMapType mtype = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(mapRoot.Map.CrawlerMapTypeId);
+            DungeonArt dungeonArt = _gameData.Get<DungeonArtSettings>(_gs.ch).Get(mtype.DungeonArtId);
+
+            _assetService.LoadAsset(AssetCategoryNames.Dungeons, dungeonArt.Art, OnLoadDungeonAssets, null, null, token);
 
             while (mapRoot.Assets == null)
             {
@@ -214,7 +227,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             if (_playerLight != null)
             {
 
-                if (MapType == CrawlerMapTypes.Dungeon)
+                if (IsDungeon(MapType))
                 {
                     _playerLight.intensity = 100;
                     _playerLight.range = 1000;
@@ -231,11 +244,11 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             {
 
                 _camera = _cameraController.GetMainCamera();
-                _camera.transform.localPosition = new Vector3(0, 0, -bz * 0.3f);
+                _camera.transform.localPosition = new Vector3(0, 0, -bz * 0.5f);
                 _camera.transform.eulerAngles = new Vector3(0, 0, 0);
                 _camera.farClipPlane = CrawlerMapConstants.BlockSize * 8;
                 _camera.rect = new Rect(0, 0, 9f / 16f, 1);
-                _camera.fieldOfView = 60f;
+                _camera.fieldOfView = 70f;
             }
 
             _cameraParent.transform.position = new Vector3(_crawlerMapRoot.DrawX, _crawlerMapRoot.DrawY, _crawlerMapRoot.DrawZ);
@@ -380,7 +393,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             int blockBits = GetBlockingBits(sx, sz, ex, ez, true);
 
-            if (blockBits == WallTypes.Wall || blockBits == WallTypes.Secret)
+            if (WallTypes.IsBlockingType(blockBits))
             {
                 // Bonk
                 _dispatcher.Dispatch(new ShowFloatingText("Bonk!", EFloatingTextArt.Error));
@@ -389,7 +402,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             if (blockBits == WallTypes.Building)
             {
-                if (TryEnterBuilding(_crawlerMapRoot, ex, ez, token))
+                if (TryEnterBuilding(_crawlerMapRoot, sx, sz, ex, ez, token))
                 {
                     MarkCellVisited(_crawlerMapRoot.Map.IdKey, ex, ez);
                     return;
@@ -479,7 +492,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 int cx = (int)(_party.MapX);
                 int cz = (int)(_party.MapZ);
 
-                int nonLoopExtraRadius = _crawlerMapRoot.Map.CrawlerMapTypeId == CrawlerMapTypes.Dungeon ? 1 : 0;
+                int nonLoopExtraRadius = IsDungeon(_crawlerMapRoot.Map.CrawlerMapTypeId)  ? 1 : 0;
 
                 int bigViewRadius = ViewRadius + 2;
 
@@ -547,65 +560,21 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
         }
 
-        private bool TryEnterBuilding(CrawlerMapRoot mapRoot, int ex, int ez, CancellationToken token)
+        private bool TryEnterBuilding(CrawlerMapRoot mapRoot, int sx, int sz, int ex, int ez, CancellationToken token)
         {
 
-            byte buildingId = mapRoot.Map.Get(ex, ez, CellIndex.Building);
+            ForcedNextState nextState = _crawlerService.TryGetNextForcedState(mapRoot.Map, ex, ez);
 
-            BuildingType btype = _gameData.Get<BuildingSettings>(null).Get(buildingId);
-
-            if (btype == null)
+            if (nextState != null)
             {
-                return false;
-            }
 
-            MapCellDetail detail = mapRoot.Map.Details.FirstOrDefault(x => x.EntityTypeId == EntityTypes.Map &&
-            x.EntityId > 0 && x.X == ex && x.Z == ez);
-
-            if (detail != null)
-            {
-                EnterBuilding(ECrawlerStates.MapExit, token, detail);
+                SetFullRot(_party.MapRot + 180);
+                UpdateCameraPos(token);
+                _crawlerService.ChangeState(nextState.NextState, token, nextState.Detail);
                 return true;
             }
 
-            if (btype.Name == "Equipment")
-            {
-                EnterBuilding(ECrawlerStates.Vendor, token);
-                return true;
-            }
-            else if (btype.Name == "Guild")
-            {
-                EnterBuilding(ECrawlerStates.GuildMain, token);
-                return true;
-            }
-            else if (btype.Name == "Trainer")
-            {
-                EnterBuilding(ECrawlerStates.TrainingMain, token);
-                return true;
-            }
-            else if (btype.Name == "Tavern")
-            {
-                EnterBuilding(ECrawlerStates.TavernMain, token);
-                return true;
-            }
-            else if (btype.Name == "House")
-            {
-                EnterBuilding(ECrawlerStates.EnterHouse, token);
-                return true;
-            }
-            else if (btype.Name == "Temple")
-            {
-                EnterBuilding(ECrawlerStates.Temple, token);
-                return true;
-            }
-            return true;
-        }
-        private void EnterBuilding(ECrawlerStates state, CancellationToken token, object extraData = null)
-        {
-            SetFullRot(_party.MapRot + 180);
-            UpdateCameraPos(token);
-            _crawlerService.ChangeState(state, token, extraData);
-
+            return false;
         }
 
         public string GetBuildingArtPrefix()
@@ -757,7 +726,15 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         private int IgnoreSecret(int wallVal)
         {
-            return wallVal == WallTypes.Secret ? WallTypes.Wall : wallVal;
+            if (wallVal == WallTypes.Barricade)
+            {
+                return WallTypes.None;
+            }
+            else if (wallVal == WallTypes.Secret)
+            {
+                return WallTypes.Wall;
+            }
+            return wallVal;
         }
         public FullWallTileImage GetMinimapWallFilename(CrawlerMap map, int x, int z)
         {
@@ -858,9 +835,9 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             }
         }
 
-        private FullWallTileImage[] TileImages { get; set; }
-
-        private List<WallTileImage> _refImages { get; set; } = new List<WallTileImage>();
+        public bool IsDungeon(long crawlerMapTypeId)
+        {
+            return (_gameData.Get<CrawlerMapSettings>(_gs.ch).Get(crawlerMapTypeId)?.DungeonGenChance ?? 0) > 0;
+        }
     }
-
 }

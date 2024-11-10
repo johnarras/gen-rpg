@@ -1,7 +1,4 @@
 using MessagePack;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Genrpg.Shared.Crawler.Maps.Entities
 {
@@ -19,7 +16,7 @@ namespace Genrpg.Shared.Crawler.Maps.Entities
         [Key(6)] public int CurrFloor { get; set; } = 1;
         [Key(7)] public int MaxFloor { get; set; } = 1;
         [Key(8)] public string Name { get; set; }
-        [Key(9)] public bool SimpleDungeon { get; set; }
+        [Key(9)] public bool RandomWallsDungeon { get; set; }
         [Key(10)] public CrawlerMap PrevMap { get; set; }
     }
 

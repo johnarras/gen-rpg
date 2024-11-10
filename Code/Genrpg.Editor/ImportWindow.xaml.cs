@@ -38,7 +38,7 @@ namespace Genrpg.Editor
         private EditorGameState _gs = null;
         private string _prefix;
 
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         private SetupDictionaryContainer<EImportTypes, IDataImporter> _importers = new();
 
         private Canvas _canvas = new Canvas();
@@ -79,7 +79,8 @@ namespace Genrpg.Editor
                 "ImportUnitSpawns",
                 "ImportUnitKeywords",
                 "ImportSpells",
-                "ImportRiddles"
+                "ImportRiddles",
+                "ImportAphorisms",
             };
 
             int column = 0;
@@ -158,7 +159,7 @@ namespace Genrpg.Editor
             String env = words[0];
             String action = words[1];
 
-            Action<EditorGameState>? afterAction = null;
+            Action<EditorGameState> afterAction = null;
             if (action == "ImportRoles")
             {
                 afterAction = (gs) => { ImportData(gs, EImportTypes.CrawlerRoles); };
@@ -189,12 +190,17 @@ namespace Genrpg.Editor
                 afterAction = (gs) => { ImportData(gs, EImportTypes.Riddles); };
                 action = "Data";
             }
+            if (action == "ImportAphorisms")
+            {
+                afterAction = (gs) => { ImportData(gs, EImportTypes.Aphorisms); };
+                action = "Data";
+            }
 
             Task.Run(() => OnClickButtonAsync(action, env, afterAction));
         }
 
 
-        private async Task OnClickButtonAsync(string action, string env, Action<EditorGameState>? afterAction = null)
+        private async Task OnClickButtonAsync(string action, string env, Action<EditorGameState> afterAction = null)
         {
 
             _gs = await EditorGameDataUtils.SetupFromConfig(this, env);

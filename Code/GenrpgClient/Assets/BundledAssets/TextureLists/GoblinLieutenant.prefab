@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5564705055210346804
+--- !u!1 &7782675110567552631
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 603362937658860075}
-  - component: {fileID: 2458512415165948618}
+  - component: {fileID: 7804280476888342304}
+  - component: {fileID: 5799865889868694442}
   m_Layer: 0
   m_Name: GoblinLieutenant
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &603362937658860075
+--- !u!4 &7804280476888342304
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5564705055210346804}
+  m_GameObject: {fileID: 7782675110567552631}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,17 +32,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2458512415165948618
+--- !u!114 &5799865889868694442
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5564705055210346804}
+  m_GameObject: {fileID: 7782675110567552631}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6f7969976255be4db72cb5f458e9bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Textures:
-  - {fileID: 2800000, guid: 2d0931434e657fa42a99a360e8bacb0e, type: 3}
+  - {fileID: 2800000, guid: 3fa31d2e6a6a15d4ab405fada495c369, type: 3}
+  - {fileID: 2800000, guid: 9e7352d0eb5765e449503157fd78094a, type: 3}
+  - {fileID: 2800000, guid: ada498541f8527945b63f2544865c6ea, type: 3}
+  - {fileID: 2800000, guid: 0b019f55f84fe904aa1137955f8535e8, type: 3}

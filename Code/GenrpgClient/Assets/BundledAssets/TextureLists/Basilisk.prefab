@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6856684434541402653
+--- !u!1 &7782675110567552631
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2541385337834373305}
-  - component: {fileID: 1942757288494740612}
+  - component: {fileID: 7804280476888342304}
+  - component: {fileID: 5799865889868694442}
   m_Layer: 0
   m_Name: Basilisk
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2541385337834373305
+--- !u!4 &7804280476888342304
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6856684434541402653}
+  m_GameObject: {fileID: 7782675110567552631}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,17 +32,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1942757288494740612
+--- !u!114 &5799865889868694442
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6856684434541402653}
+  m_GameObject: {fileID: 7782675110567552631}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6f7969976255be4db72cb5f458e9bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Textures:
-  - {fileID: 2800000, guid: c03f5d31d7423e04a86544612b9fe3f3, type: 3}
+  - {fileID: 2800000, guid: 5076b93f4c040bc46a701d08ff55f2d3, type: 3}
+  - {fileID: 2800000, guid: 0014fdb9278af3047950f477cc918d55, type: 3}
+  - {fileID: 2800000, guid: 6a3fdfc5704fde34c949970411e2876e, type: 3}
+  - {fileID: 2800000, guid: 5f960412304643f43a17343db959e812, type: 3}

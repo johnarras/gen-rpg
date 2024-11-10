@@ -24,13 +24,12 @@ namespace Genrpg.RequestServer.BoardGame.Services
 {
     public class DiceRollService : IDiceRollService
     {
-        private IBoardService _boardService;
-        private IGameData _gameData;
-        private IWebSpawnService _spawnService;
-        private IWebRewardService _rewardService;
-        private ILogService _logService;
-        private IBoardModeService _boardModeService;
-        private IBoardPrizeService _boardPrizeService;
+        private IGameData _gameData = null;
+        private IWebSpawnService _spawnService = null;
+        private IWebRewardService _rewardService = null;
+        private ILogService _logService = null;
+        private IBoardModeService _boardModeService = null;
+        private IBoardPrizeService _boardPrizeService = null;
         public async Task RollDice(WebContext context, DiceRollParams rollData)
         {
             try

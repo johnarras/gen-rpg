@@ -13,9 +13,9 @@ namespace Genrpg.RequestServer.BoardGame.Services
     public class BoardPrizeService : IBoardPrizeService
     {
 
-        private IGameData _gameData;
-        private IBoardModeService _boardModeService;
-        private IBoardService _boardService;
+        private IGameData _gameData = null;
+        private IBoardModeService _boardModeService = null;
+        private IBoardService _boardService = null;
         public async Task UpdatePrizesForBoard(WebContext context, BoardData boardData = null)
         {
             if (boardData == null)

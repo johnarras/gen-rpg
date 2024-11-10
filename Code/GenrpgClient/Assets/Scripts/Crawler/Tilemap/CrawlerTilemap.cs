@@ -54,7 +54,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
         private Image[,,] _tiles;
 
         private ICrawlerWorldService _worldService;
-        private ICrawlerMapService _mapService;
+        private ICrawlerMapService _crawlerMapService;
         private ICrawlerService _crawlerService;
 
         private CrawlerMap _map = null;
@@ -405,10 +405,12 @@ namespace Assets.Scripts.Crawler.Tilemaps
                     if (_map.CrawlerMapTypeId != CrawlerMapTypes.City)
                     {
                         int index = _map.GetIndex(x, z);
-                        if (_mapStatus != null && _mapStatus.MapId == _map.IdKey &&
+                        if (
+                            false && 
+                            _mapStatus != null && _mapStatus.MapId == _map.IdKey &&
                             !_party.CompletedMaps.HasBit(_map.IdKey) && !_mapStatus.Visited.HasBit(index))
                         {
-                            ShowGray(ix, iz);
+                            ShowGray(ix, iz); 
                             continue;
                         }
                     }
@@ -456,7 +458,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
                         _tiles[ix, iz, TilemapIndexes.Object].sprite = buildingSprite;
                         didSetObject = true;
                     }
-                    if (_map.CrawlerMapTypeId == CrawlerMapTypes.Dungeon)
+                    if (_crawlerMapService.IsDungeon(_map.CrawlerMapTypeId))
                     {
                         MapCellDetail detail = _map.Details.FirstOrDefault(d => d.X == x && d.Z == z);
 
@@ -475,7 +477,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
 
                     if (_mapDepth > TilemapIndexes.Walls)
                     {
-                        FullWallTileImage image = _mapService.GetMinimapWallFilename(_map, x, z);
+                        FullWallTileImage image = _crawlerMapService.GetMinimapWallFilename(_map, x, z);
                         if (image != null && image.RefImage.Filename == "OOOO" + SpriteNameSuffixes.Wall)
                         {
                             _tiles[ix, iz, TilemapIndexes.Walls].sprite = _blankSprite;
@@ -491,10 +493,6 @@ namespace Assets.Scripts.Crawler.Tilemaps
                                 if (rectTransform != null)
                                 {
                                     int mapRot = (int)image.RotAngle;
-                                    if (mapRot % 180 == 0)
-                                    {
-                                        //mapRot += 180;
-                                    }
                                     rectTransform.localEulerAngles = new Vector3(0, 0, mapRot);
                                 }
                             }

@@ -10,7 +10,7 @@ namespace Genrpg.RequestServer.Resets.Services
 {
     public class HourlyUpdateService : IHourlyUpdateService
     {
-        private IGameData _gameData;
+        private IGameData _gameData = null;
         public async Task CheckHourlyUpdate(WebContext context)
         {
             CoreUserData userData = await context.GetAsync<CoreUserData>();

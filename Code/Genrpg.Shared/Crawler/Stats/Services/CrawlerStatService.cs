@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roles.Settings;
@@ -60,9 +61,10 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 unit.Level = 1;
             }
 
-            RoleSettings roleSettings = _gameData.Get<RoleSettings>(null);
+            RoleSettings roleSettings = _gameData.Get<RoleSettings>(_gs.ch);
+            CrawlerCombatSettings combatSettings = _gameData.Get<CrawlerCombatSettings>(_gs.ch);
 
-            IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(null).GetData();
+            IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(_gs.ch).GetData();
 
             IReadOnlyList<Role> allRoles = roleSettings.GetData();
 
@@ -182,8 +184,8 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 _statService.Set(unit, StatTypes.Health, StatCategories.Base, startHealth);
                 _statService.Set(unit, StatTypes.Health, StatCategories.Curr, startHealth);
 
-                monster.MinDam = 1 + unit.Level / 3;
-                monster.MaxDam = 3 + unit.Level / 2;
+                monster.MinDam = (long)(combatSettings.BaseMonsterMinDam + unit.Level * combatSettings.MinMonsterDamPerLevel);
+                monster.MaxDam = (long)(combatSettings.BaseMonsterMaxDam + unit.Level * combatSettings.MaxMonsterDamPerLevel);
             }
         }
 

@@ -13,7 +13,7 @@ public interface ISamplingService : IInitializable
 }
 public class SamplingService : ISamplingService
 {
-    private INoiseService _noiseService;
+    private INoiseService _noiseService = null;
     public async Task Initialize(CancellationToken token)
     {
         await Task.CompletedTask;

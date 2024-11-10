@@ -11,7 +11,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 {
     public class PartyMemberHelper : BaseStateHelper
     {
-        private IScreenService _screenService;
+        private IScreenService _screenService = null;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.PartyMember; }
 

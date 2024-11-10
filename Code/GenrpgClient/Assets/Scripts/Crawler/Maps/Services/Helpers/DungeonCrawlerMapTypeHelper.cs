@@ -1,13 +1,14 @@
-﻿
-using Genrpg.Shared.Crawler.Maps.Constants;
+﻿using Genrpg.Shared.Crawler.Maps.Constants;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {
-
-    public class DungeonCrawlerMapTypeHelper : BaseCrawlerMapTypeHelper
+    public class DungeonCrawlerMapTypeHelper : BaseDungeonCrawlerMapTypeHelper
     {
         public override long GetKey() { return CrawlerMapTypes.Dungeon; }
-
-        protected override bool IsIndoors() { return true; }
     }
 }

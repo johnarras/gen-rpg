@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.Crawler.Constants;
+﻿using Genrpg.Shared.Buildings.Constants;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
@@ -12,9 +13,9 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Vendor
 {
     public class VendorHelper : BaseStateHelper
     {
-        private IScreenService _screenService;
-        private ICrawlerMapService _crawlerMapService;
+        private IScreenService _screenService = null;
         public override ECrawlerStates GetKey() { return ECrawlerStates.Vendor; }
+        public override long TriggerBuildingId() { return BuildingTypes.Equipment; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {

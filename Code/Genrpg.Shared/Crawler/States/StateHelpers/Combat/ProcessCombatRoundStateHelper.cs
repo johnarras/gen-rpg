@@ -11,7 +11,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
     public class ProcessCombatRoundStateHelper : BaseCombatStateHelper
     {
 
-        private IProcessCombatRoundCombatService _processCombatService;
+        private IProcessCombatRoundCombatService _processCombatService = null;
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.ProcessCombatRound; }
 

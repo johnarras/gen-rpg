@@ -10,5 +10,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers
     {
         Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token);
         bool IsTopLevelState();
+        long TriggerBuildingId();
+        long TriggerDetailEntityTypeId();
     }
 }

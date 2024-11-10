@@ -65,17 +65,17 @@ namespace Genrpg.Shared.Crawler.Combat.Services
     }
     public class CrawlerCombatService : ICrawlerCombatService
     {
-        private ICrawlerStatService _statService;
-        private ICrawlerSpellService _spellService;
-        protected IGameData _gameData;
-        private IRepositoryService _repoService;
-        protected IClientGameState _gs;
-        protected IClientRandom _rand;
-        private ICrawlerMapService _crawlerMapService;
-        private ICrawlerService _crawlerService;
-        private ICrawlerWorldService _worldService;
-        private ILogService _logService;
-        private ITimeOfDayService _timeService;
+        private ICrawlerStatService _statService = null;
+        private ICrawlerSpellService _spellService = null;
+        protected IGameData _gameData = null;
+        private IRepositoryService _repoService = null;
+        protected IClientGameState _gs = null;
+        protected IClientRandom _rand = null;
+        private ICrawlerMapService _crawlerMapService = null;
+        private ICrawlerService _crawlerService = null;
+        private ICrawlerWorldService _worldService = null;
+        private ILogService _logService = null;
+        private ITimeOfDayService _timeService = null;
 
         public async Task Initialize(CancellationToken token)
         {
@@ -116,30 +116,19 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
             foreach (PartyMember member in members)
             {
-                List<Role> roles = roleSettings.GetRoles(member.Roles);
 
-                // 1.5 here for rounding and not random scaling value combat to combat
-                long quantity = (long)(1.5 + roleSettings.GetScalingBonusPerLevel(roles.Select(x => x.SummonScaling).ToList()) * member.GetAbilityLevel());
-
-                long luckBonus = CrawlerStatUtils.GetStatBonus(member, StatTypes.Luck);
-
-                long luckySummonCount = 0;
-                for (int q = 0; q < quantity; q++)
+                if (member.Summons.Count > 0)
                 {
-                    if (_rand.NextDouble() * 100 < luckBonus)
-                    {
-                        luckySummonCount++;
-                    }
-                }
-                quantity += luckySummonCount;
+                    long quantity = _spellService.GetSummonQuantity(member);
 
-                foreach (PartySummon summon in member.Summons)
-                {
-                    UnitType unitType = _gameData.Get<UnitSettings>(null).Get(summon.UnitTypeId);
-
-                    if (unitType != null)
+                    foreach (PartySummon summon in member.Summons)
                     {
-                        AddCombatUnits(party, unitType, 1, FactionTypes.Player);
+                        UnitType unitType = _gameData.Get<UnitSettings>(null).Get(summon.UnitTypeId);
+
+                        if (unitType != null)
+                        {
+                            AddCombatUnits(party, unitType, quantity, FactionTypes.Player);
+                        }
                     }
                 }
             }

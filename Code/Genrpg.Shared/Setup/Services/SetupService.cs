@@ -21,6 +21,7 @@ using Genrpg.Shared.PlayMultiplier.Services;
 using Genrpg.Shared.ProcGen.Services;
 using Genrpg.Shared.Quests.Services;
 using Genrpg.Shared.Rewards.Services;
+using Genrpg.Shared.Riddles.Services;
 using Genrpg.Shared.SpellCrafting.Services;
 using Genrpg.Shared.Spells.Services;
 using Genrpg.Shared.Stats.Services;
@@ -88,7 +89,8 @@ namespace Genrpg.Shared.Setup.Services
             Set<ISharedItemService>(new SharedItemService());
             Set<ITaskService>(new TaskService());   
             Set<ITavernService>(new TavernService());   
-            Set<ITempleService>(new TempleService());   
+            Set<ITempleService>(new TempleService());
+            Set<IRiddleService>(new RiddleService());
             // Use for crawler
 
             // Board game
