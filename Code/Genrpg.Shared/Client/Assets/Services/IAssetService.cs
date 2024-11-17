@@ -32,7 +32,7 @@ namespace Genrpg.Shared.Client.Assets.Services
         Task<T> LoadAssetAsync<T>(string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null) where T : class;
         Task<object> LoadAssetAsync(string assetCategory, string assetPath, object parent, CancellationToken token, string subdirectory = null);
         void GetSpriteList(string atlasName, SpriteListDelegate onLoad, CancellationToken token);
-        void ClearBundleCache(CancellationToken token);
+        Task ClearBundleCache(CancellationToken token);
         string GetBundleNameForCategoryAndAsset(string assetCategory, string assetPath);
         ClientAssetCounts GetAssetCounts();
         string StripPathPrefix(string path);

@@ -19,8 +19,19 @@ using Assets.Scripts.Awaitables;
 public class InitClient : BaseBehaviour, IInitClient
 {
 
-    public GameObject _splashImage;
-    public ClientConfig ClientConfig;
+    [SerializeField]
+    private ClientConfig _clientConfig;
+    
+    [SerializeField]
+    private GameObject _splashImage;
+
+    [SerializeField]
+    private GameObject _globalRoot;
+
+    public bool PlayerContainsAllAssets()
+    {
+        return _clientConfig.PlayerContainsAllAssets;
+    }
 
     private IClientAuthService _loginService;
     private ICrawlerService _crawlerService;
@@ -31,11 +42,11 @@ public class InitClient : BaseBehaviour, IInitClient
     private ICursorService _cursorService;
     private ILocalLoadService _localLoadService;
     private IAwaitableService _awaitableService;
+    private IClientAuthService _clientAuthService;
 
 #if UNITY_EDITOR
     public string CurrMapId;
     public static InitClient EditorInstance { get; set; }
-    public bool ForceDownloadFromAssetBundles = false;
     public int BlockCount;
     public float ZoneSize;
     public int ForceZoneTypeId;
@@ -52,16 +63,55 @@ public class InitClient : BaseBehaviour, IInitClient
         ReflectionUtils.AddAllowedAssembly(Assembly.GetExecutingAssembly());
     }
 
+    public object GetRootObject()
+    {
+        return _globalRoot;
+    }
+
+    public void FullResetGame()
+    {
+
+        _awaitableService.ForgetAwaitable(FullResetGameAsync());
+    }
+
+    public void CleanupGame()
+    {
+        _awaitableService.ForgetAwaitable(CleanupGameAsync());
+    }
+
+    private async Awaitable CleanupGameAsync()
+    {
+        _clientEntityService.SetActive(_splashImage, true);
+        _gameTokenSource?.Cancel();
+        _gameTokenSource?.Dispose();
+        _gameTokenSource = new CancellationTokenSource();
+        _globalUpdater = null;
+        _clientAuthService.ResetGame();
+        await _assetService.ClearBundleCache(_gameTokenSource.Token);
+        _clientEntityService.DestroyAllChildren(_globalRoot);
+    }
+
+    private async Awaitable FullResetGameAsync()
+    {
+        await CleanupGameAsync();
+        await InitGameAsync();
+
+    }
+
+    async void Start()
+    {
+        await InitGameAsync();    
+    }
 
     public IClientGameState InitialSetup()
     {
 
-        _gs = new ClientGameState(ClientConfig);
+        _gs = new ClientGameState(_clientConfig);
         _gs.loc.Resolve(this);
         return _gs;
     }
 
-    async void Start()
+    async Awaitable InitGameAsync()
     {
         InitialSetup();
 #if UNITY_EDITOR
@@ -124,7 +174,7 @@ public class InitClient : BaseBehaviour, IInitClient
         clientInitializer.AddClientServices(this, true, token);
 
         InitialPrefabLoader prefabLoader = _localLoadService.LocalLoad<InitialPrefabLoader>("Prefabs/PrefabLoader");
-        await prefabLoader.LoadPrefabs(_gs, _entityService, _localLoadService);
+        await prefabLoader.LoadPrefabs(_gs, _entityService, _localLoadService, _globalRoot);
 
         await clientInitializer.FinalInitialize(token);
 
@@ -180,7 +230,6 @@ public class InitClient : BaseBehaviour, IInitClient
         if (_splashImage != null)
         {
             _clientEntityService.SetActive(_splashImage, false);
-            _splashImage = null;
         }
     }
 

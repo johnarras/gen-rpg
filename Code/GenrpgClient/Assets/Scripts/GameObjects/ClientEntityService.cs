@@ -17,7 +17,9 @@ namespace Assets.Scripts.GameObjects
         protected IInitClient _initClient = null;
         protected IUIService _uiService = null;
         protected ILogService _logService = null;
-        private IClientAppService _clientAppService = null;
+#if UNITY_EDITOR
+        private IClientAppService _clientAppService = null!;
+#endif
         public object FullInstantiateAndSet(object obj)
         {
             if (!(obj is GameObject go))

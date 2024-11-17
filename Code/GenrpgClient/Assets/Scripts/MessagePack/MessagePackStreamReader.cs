@@ -98,7 +98,7 @@ namespace MessagePack
                     return completeMessage;
                 }
 
-                if (!await this.TryReadMoreDataAsync(cancellationToken))
+                if (!await this.TryReadMoreDataAsync(cancellationToken).ConfigureAwait(false))
                 {
                     // We've reached the end of the stream.
                     // We already checked for a complete message with what we already had, so evidently it's not a complete message.
@@ -171,7 +171,7 @@ namespace MessagePack
             int bytesRead = 0;
             try
             {
-                bytesRead = await this.stream.ReadAsync(buffer, cancellationToken);
+                bytesRead = await this.stream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
                 return bytesRead > 0;
             }
             finally

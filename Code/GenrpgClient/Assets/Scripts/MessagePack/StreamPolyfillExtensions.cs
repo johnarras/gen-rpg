@@ -72,7 +72,7 @@ namespace MessagePack
                 {
                     try
                     {
-                        int result = await readTask.;
+                        int result = await readTask.ConfigureAwait(false);
                         new Span<byte>(localBuffer, 0, result).CopyTo(localDestination.Span);
                         return result;
                     }
@@ -125,7 +125,7 @@ namespace MessagePack
             try
             {
                 buffer.CopyTo(sharedBuffer);
-                await stream.WriteAsync(sharedBuffer, 0, buffer.Length, cancellationToken);
+                await stream.WriteAsync(sharedBuffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false);
             }
             finally
             {

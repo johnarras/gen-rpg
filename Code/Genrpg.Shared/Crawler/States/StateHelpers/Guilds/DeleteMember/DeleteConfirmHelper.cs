@@ -17,7 +17,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.DeleteMember
 
             PartyMember member = action.ExtraData as PartyMember;
 
-            stateData.Actions.Add(new CrawlerStateAction("Delete " + member.Name + "?\n\n", CharCodes.None, ECrawlerStates.DeleteMember, null, null,
+            stateData.Actions.Add(new CrawlerStateAction("Delete " + member.Name + "?\n\n", CharCodes.None, ECrawlerStates.None, null, null,
                 member.PortraitName));
 
             stateData.Actions.Add(new CrawlerStateAction("Yes", 'Y', ECrawlerStates.DeleteMember,
@@ -37,10 +37,6 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.DeleteMember
                 }));
 
             stateData.Actions.Add(new CrawlerStateAction("No", 'N', ECrawlerStates.DeleteMember));
-
-
-
-            stateData.Actions.Add(new CrawlerStateAction("Escape", CharCodes.Escape, ECrawlerStates.DeleteMember));
 
             await Task.CompletedTask;
             return stateData;

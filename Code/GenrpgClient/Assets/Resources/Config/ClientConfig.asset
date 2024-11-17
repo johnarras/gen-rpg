@@ -17,3 +17,4 @@ MonoBehaviour:
   WorldDataEnv: dev
   InitialConfigEndpoint: https://genrpgconfig.azurewebsites.net/api/GenrpgConfig
   AccountProductId: 2
+  PlayerContainsAllAssets: 1

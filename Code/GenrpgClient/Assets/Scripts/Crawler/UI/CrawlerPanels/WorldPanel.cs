@@ -22,6 +22,7 @@ using Genrpg.Shared.MVC.Interfaces;
 using System.Threading.Tasks;
 using Genrpg.Shared.UI.Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 {
@@ -34,11 +35,12 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
     public class WorldPanel : BaseCrawlerPanel, IWorldPanel
     {
         const string PanelTextPrefab = "WorldPanelText";
-        private ICrawlerMapService _mapService;
+        private ICrawlerMapService _crawlerMapService;
         private ICurveGenService _curveGenService;
         private ICrawlerWorldService _worldService;
-            
 
+
+        private IRawImage _bgImage;
         private IRawImage _worldImage;
         private IText _worldPosText;
         private IText _mapNameText;
@@ -64,6 +66,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         private TextureList _textureList;
 
+        private Texture _defaultBG = null;
+
         public override async Task Init(CrawlerScreen screen, IView view, CancellationToken token)
         {
             await base.Init(screen, view, token);
@@ -72,6 +76,12 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             AddListener<ShowCrawlerTooltipEvent>(OnShowTooltip);
             AddListener<HideCrawlerTooltipEvent>(OnHideTooltip);
 
+            _bgImage = _view.Get<IRawImage>("BGImage");
+
+            if (_bgImage is RawImage raw)
+            {
+                _defaultBG = raw.mainTexture;
+            }
             _worldImage = _view.Get<IRawImage>("WorldImage");
             _worldPosText = _view.Get<IText>("WorldPosText");
             _timeOfDayText = _view.Get<IText>("TimeOfDayText");
@@ -96,6 +106,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             AddUpdate(OnLateUpdate, UpdateType.Late);
 
+            _clientEntityService.SetActive(_worldImage, false);
+            _clientEntityService.SetActive(_bgImage, false);
             SetPicture(null);
 
         }
@@ -196,7 +208,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             }
             if (!string.IsNullOrEmpty(spriteName) && spriteName.IndexOf("Building") >= 0)
             {
-                spriteName = _mapService.GetBuildingArtPrefix() + spriteName;
+                spriteName = _crawlerMapService.GetBuildingArtPrefix() + spriteName;
             }
 
             if (_worldImage == null)
@@ -222,13 +234,12 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                 if (textureList.Textures.Count > 0 && textureList.Textures[0] != null)
                 {
                     _textureList = textureList;
-                    _clientEntityService.SetActive(_worldImage, true);
                     ShowTexture(0);
                 }
                 return;
             }
 
-            _assetService.LoadAsset(AssetCategoryNames.TextureLists, spriteName, OnDownloadTextureList, spriteName, null, _token); 
+            _assetService.LoadAssetInto(_root, AssetCategoryNames.TextureLists, spriteName, OnDownloadTextureList, spriteName, _token); 
         }
         public void ApplyEffect(string effectName, float duration)
         {
@@ -291,12 +302,23 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             if (_textureList == null || _textureList.Textures.Count < 1)
             {
                 _clientEntityService.SetActive(_worldImage, false);
+                _clientEntityService.SetActive(_bgImage, false);
                 return;
             }
 
             _clientEntityService.SetActive(_worldImage, true);
+            _clientEntityService.SetActive(_bgImage, true);
 
             int currentFrame = _currentTextureFrame % _textureList.Textures.Count;
+
+
+            object bgImage = _crawlerMapService.GetBGImage();
+
+            if (bgImage == null)
+            {
+                bgImage = _defaultBG;
+            }
+            _uiService.SetImageTexture(_bgImage, bgImage);
 
             _uiService.SetImageTexture(_worldImage, _textureList.Textures[currentFrame]);
         }

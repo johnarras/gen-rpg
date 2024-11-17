@@ -19,30 +19,37 @@ using Assets.Scripts.GameSettings.Entities;
 using Genrpg.Shared.Client.Core;
 using Assets.Editor;
 using Assets.Scripts.Assets;
+using UnityEngine.EventSystems;
 
 public class BuildClients
 {
 
+    [MenuItem("Tools/BuildSelfContainedClients")]
+    static void ExecuteSelfContained()
+    {
+        BuildAllClients(EnvNames.Local, true);
+    }
+
     [MenuItem("Tools/BuildLocalClients")]
     static void ExecuteLocal()
     {
-        BuildAllClients(EnvNames.Local);
+        BuildAllClients(EnvNames.Local,false);
     }
 
     [MenuItem("Tools/BuildDevClients")]
     static void ExecuteDev()
     {
-        BuildAllClients(EnvNames.Dev);
+        BuildAllClients(EnvNames.Dev,false);
     }
 
     [MenuItem("Tools/BuildTestClients")]
     static void ExecuteTest()
     {
-        BuildAllClients(EnvNames.Test);
+        BuildAllClients(EnvNames.Test,false);
     }
 
 
-    private static void BuildAllClients (string env)
+    private static void BuildAllClients (string env, bool playerContainsAllAssets)
     {
         if (string.IsNullOrEmpty(env))
         {
@@ -54,21 +61,20 @@ public class BuildClients
 
         IClientConfigContainer _configContainer = gs.loc.Get<IClientConfigContainer>();
 
-        bool didSetEnv = false;
         string oldEnv = _configContainer.Config.Env;
+        bool oldPlayerContainsAllAssets = _configContainer.Config.PlayerContainsAllAssets;
         _configContainer.Config.Env = env;
-        didSetEnv = true;
+        _configContainer.Config.PlayerContainsAllAssets = playerContainsAllAssets;
 
-        if (!didSetEnv)
+        if (playerContainsAllAssets)
         {
-            Debug.Log("Invalid Env: " + env);
-            return;
+            MoveDirectory(AssetConstants.DownloadAssetRootPath, AssetConstants.SelfContainedAssetRootPath);
         }
 
         EditorUtility.SetDirty(_configContainer.Config);
         AssetDatabase.SaveAssets();
 
-        string gamePrefix = "Game";
+        string gamePrefix = Game.Prefix;
 
         EditorBuildSettingsScene mainScene = EditorBuildSettings.scenes.FirstOrDefault(x => x.path.IndexOf("GameMain") >= 0);
 
@@ -131,7 +137,11 @@ public class BuildClients
             {
                 Directory.CreateDirectory(outputFilesFolder);
             }
-            BuildPipeline.BuildPlayer(sceneArray, outputPath, config.Target, BuildOptions.AllowDebugging | BuildOptions.CompressWithLz4HC);
+            BuildOptions options = BuildOptions.CompressWithLz4HC;
+
+            // Maybe do some stuff with debug symbols here.
+
+            BuildPipeline.BuildPlayer(sceneArray, outputPath, config.Target, options);
 
         }
 
@@ -148,12 +158,41 @@ public class BuildClients
         vfdata.LocalPath = localVersionPath;
         vfdata.RemotePath = remoteVersionPath;
 
+        MoveDirectory(AssetConstants.SelfContainedAssetRootPath, AssetConstants.DownloadAssetRootPath);
+
         FileUploader.UploadFile(vfdata);
+
         _configContainer.Config.Env = oldEnv;
-        EditorUtility.SetDirty(_configContainer.Config);
+        _configContainer.Config.PlayerContainsAllAssets = oldPlayerContainsAllAssets;
         AssetDatabase.SaveAssets();
+
 
         Debug.Log("Finished building clients version: " + version);
 
+    }
+
+    private static bool MoveDirectory (string dir1, string dir2)
+    {
+        if (!Directory.Exists(dir1))
+        {
+            return false;
+        }
+
+        if (Directory.Exists(dir2))
+        {
+            string[] files = Directory.GetFiles(dir2);
+            string[] dirs = Directory.GetDirectories(dir2);
+
+            if (files.Length > 0 || dirs.Length > 0)
+            {
+                Debug.LogError("Target move directory is not empty: " + dir2);
+                return false;
+            }
+
+            Directory.Delete(dir2, true);
+        }
+
+        Directory.Move(dir1, dir2);
+        return true;
     }
 }

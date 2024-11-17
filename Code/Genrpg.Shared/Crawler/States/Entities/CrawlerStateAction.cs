@@ -14,7 +14,8 @@ namespace Genrpg.Shared.Crawler.States.Entities
             Action pointerEnterAction = null,
             Action pointerExitAction = null,
             bool rowFiller = false,
-            bool forceButton = false)
+            bool forceButton = false,
+            bool forceText = false)
         {
             Text = text;
             Key = key;
@@ -26,6 +27,7 @@ namespace Genrpg.Shared.Crawler.States.Entities
             OnPointerExit = pointerExitAction;
             RowFiller = rowFiller;
             ForceButton = forceButton;
+            ForceText = forceText;
         }
 
         public string Text { get; private set; }
@@ -38,6 +40,7 @@ namespace Genrpg.Shared.Crawler.States.Entities
         public Action OnPointerExit { get; private set; }
         public bool RowFiller { get; private set; }
         public bool ForceButton { get; private set; }
+        public bool ForceText { get; private set; }
 
     }
 }

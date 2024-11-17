@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Core.Interfaces;
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Interfaces;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -19,6 +20,7 @@ namespace Assets.Scripts.GameObjects
         private Dictionary<string, GameObject> _objectDict = new Dictionary<string, GameObject>();
 
         private IClientEntityService _clientEntityService;
+        private IInitClient _initClient;
 
         string containerName = "InitClient";
 
@@ -26,7 +28,8 @@ namespace Assets.Scripts.GameObjects
         {
             if (_root == null)
             {
-                _root = GameObject.Find(containerName);
+
+                _root = (GameObject)_initClient.GetRootObject();
 
                 if (_root == null)
                 {

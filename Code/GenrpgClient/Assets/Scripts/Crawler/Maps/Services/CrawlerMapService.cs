@@ -36,6 +36,8 @@ using Genrpg.Shared.Crawler.States.Entities;
 using Genrpg.Shared.Dungeons.Settings;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Genrpg.Shared.Crawler.Maps.Settings;
+using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.UI.Interfaces;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
@@ -88,8 +90,19 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         private List<WallTileImage> _refImages { get; set; } = new List<WallTileImage>();
 
         private SetupDictionaryContainer<long, ICrawlerMapTypeHelper> _mapTypeHelpers = new SetupDictionaryContainer<long, ICrawlerMapTypeHelper>();
-        public static long MapType { get; set; } = CrawlerMapTypes.None;
 
+
+        public object GetBGImage()
+        {
+            return _crawlerMapRoot?.Assets?.Background ?? null;
+        }
+
+        private long _mapType = CrawlerMapTypes.None;
+        public long GetMapType()
+        {
+            return _mapType;
+        }
+        
         private GameObject _playerLightObject = null;
         private Light _playerLight = null;
         public async Task Initialize(CancellationToken token)
@@ -162,8 +175,8 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
                 }
             }
 
-            MapType = mapData.Map.CrawlerMapTypeId;
-            ICrawlerMapTypeHelper helper = GetMapHelper(MapType);
+            _mapType = mapData.Map.CrawlerMapTypeId;
+            ICrawlerMapTypeHelper helper = GetMapHelper(_mapType);
 
             _crawlerMapRoot = await helper.Enter(partyData, mapData, token);
 
@@ -227,7 +240,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             if (_playerLight != null)
             {
 
-                if (IsDungeon(MapType))
+                if (IsDungeon(_mapType))
                 {
                     _playerLight.intensity = 100;
                     _playerLight.range = 1000;

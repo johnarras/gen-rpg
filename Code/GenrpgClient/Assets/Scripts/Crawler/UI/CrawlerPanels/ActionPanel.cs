@@ -109,9 +109,9 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
                     continue;
                 }
 
-                if (!action.ForceButton && !action.RowFiller && (action.Key == CharCodes.Escape || action.Key == CharCodes.Space ||
+                if (action.ForceText || (!action.ForceButton && !action.RowFiller && (action.Key == CharCodes.Escape || action.Key == CharCodes.Space ||
                     string.IsNullOrEmpty(action.Text) || action.Text.Length >= 20 ||
-                    action.NextState == ECrawlerStates.None))
+                    action.NextState == ECrawlerStates.None)))
                 {
                     ActionPanelRow actionPanelRow = await _assetService.InitViewController<ActionPanelRow, CrawlerStateWithAction>(
                         new CrawlerStateWithAction() { State = stateData, Action = stateData.Actions[a] },

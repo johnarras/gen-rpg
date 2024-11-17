@@ -697,7 +697,7 @@ namespace MessagePack
                 }
                 else
                 {
-                    // timestamp 96(nanoseconds in 32-bit unsigned int | seconds in 64-bit signed int )
+                    // timestamp 96( nanoseconds in 32-bit unsigned int | seconds in 64-bit signed int )
                     Span<byte> span = this.writer.GetSpan(15);
                     span[0] = MessagePackCode.Ext8;
                     span[1] = 12;
@@ -1054,7 +1054,7 @@ namespace MessagePack
         /// <summary>
         /// Gets memory where raw messagepack data can be written.
         /// </summary>
-        /// <param name="length">The size of the memory block required.</param>
+        /// <param name="length">The minimum length of the returned System.Span`1. If 0, a non-empty buffer is returned.</param>
         /// <returns>The span of memory to write to. This *may* exceed <paramref name="length"/>.</returns>
         /// <remarks>
         /// <para>After initializing the resulting memory, always follow up with a call to <see cref="Advance(int)"/>.</para>

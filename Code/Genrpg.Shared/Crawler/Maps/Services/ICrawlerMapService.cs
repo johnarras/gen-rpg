@@ -3,6 +3,7 @@ using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Interfaces;
 using System.Threading.Tasks;
 using System.Threading;
+using Genrpg.Shared.UI.Interfaces;
 
 namespace Genrpg.Shared.Crawler.Maps.Services
 {
@@ -23,6 +24,8 @@ namespace Genrpg.Shared.Crawler.Maps.Services
         FullWallTileImage GetMinimapWallFilename(CrawlerMap map, int x, int z);
         Task AddKeyInput(char keyChar, CancellationToken token);
         bool IsDungeon(long crawlerMapTypeId);
+        long GetMapType();
+        object GetBGImage();
 
     }
 }

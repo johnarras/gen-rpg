@@ -50,7 +50,7 @@ namespace Assets.Scripts.GameSettings.Services
 #if UNITY_EDITOR
         
 #endif
-        static readonly string BakedGameDataPathSuffix = "BakedGameData/";
+        const string BakedGameDataPathSuffix = "BakedGameData/";
         public async Awaitable LoadCachedSettings(IClientGameState gs)
         {
             GameData gameData = new ClientGameData();

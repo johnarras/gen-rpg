@@ -204,7 +204,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
         return;
     }
 
-    private bool InCrawlerMode() { return CrawlerMapService.MapType != CrawlerMapTypes.None; }
+    private bool InCrawlerMode() { return _crawlerMapService.GetMapType() != CrawlerMapTypes.None; }
 
     private bool _didInitZoneState = false;
     private void ZoneUpdate()
@@ -275,7 +275,7 @@ public class ZoneStateController : BaseBehaviour, IZoneStateController
             {
 
                 IReadOnlyList<WeatherType> weatherTypes = _gameData.Get<WeatherTypeSettings>(_gs.ch).GetData();
-                long mapType = CrawlerMapService.MapType;
+                long mapType = _crawlerMapService.GetMapType();
 
                 if (_crawlerMapService.IsDungeon(mapType))
                 {

@@ -11,5 +11,6 @@ namespace Genrpg.Shared.Client.Assets.Constants
         public const string SkillIcons = "SkillIcons";
         public const string CrawlerUI = "CrawlerUI";
         public const string CrawlerMinimap = "CrawlerMinimap";
+        public const string UI = "UI";
     }
 }

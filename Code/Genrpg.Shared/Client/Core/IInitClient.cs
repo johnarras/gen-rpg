@@ -8,5 +8,9 @@ namespace Genrpg.Shared.Client.Core
     {
         CancellationToken GetGameToken();
         void SetGlobalUpdater(IGlobalUpdater updater);
+        object GetRootObject();
+        void FullResetGame();
+        void CleanupGame();
+        bool PlayerContainsAllAssets();
     }
 }

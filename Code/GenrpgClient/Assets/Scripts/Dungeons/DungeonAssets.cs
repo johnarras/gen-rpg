@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Genrpg.Shared.Characters.PlayerData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace Assets.Scripts.Dungeons
         public GameObject Floor;
         public GameObject Ceiling;
         public GameObject Barricade;
+        public Texture2D Background;
     }
 }

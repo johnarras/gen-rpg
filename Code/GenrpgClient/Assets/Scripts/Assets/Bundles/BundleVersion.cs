@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,9 @@ public class BundleVersion
 {
     public string Name { get; set; }
     public string Hash { get; set; }
-    public int Size { get; set; }
+    public List<string> ChildDependencies { get; set; } = new List<string>();
+    [JsonIgnore]
+    public List<string> ParentDependencies { get; set; } = new List<string>();
 
     private uint[] _hashInts = null;
     public uint[] GetHashInts()

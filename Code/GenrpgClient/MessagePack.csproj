@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\MessagePack\Internal\ExpressionUtility.cs" />
     <Compile Include="Assets\Scripts\MessagePack\Internal\CodeGenHelpers.cs" />
     <Compile Include="Assets\Scripts\MessagePack\LZ4\LZ4Codec.Unsafe32.Dirty.cs" />
+    <Compile Include="Assets\Scripts\MessagePack\SipHash.cs" />
     <Compile Include="Assets\Scripts\MessagePack\T4\TupleFormatter.cs" />
     <Compile Include="Assets\Scripts\MessagePack\Resolvers\BuiltinResolver.cs" />
     <Compile Include="Assets\Scripts\MessagePack\Unity\UnityResolver.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\Scripts\MessagePack\Unity\Extension\UnsafeBlitFormatter.cs" />
     <Compile Include="Assets\Scripts\MessagePack\Utilities.cs" />
     <Compile Include="Assets\Scripts\MessagePack\LZ4\LZ4Codec.Helper.cs" />
+    <Compile Include="Assets\Scripts\MessagePack\MessagePackEventSource.cs" />
     <Compile Include="Assets\Scripts\MessagePack\Resolvers\NativeGuidResolver.cs" />
     <Compile Include="Assets\Scripts\MessagePack\Resolvers\TypelessObjectResolver.cs" />
     <Compile Include="Assets\Scripts\MessagePack\Resolvers\NativeDateTimeResolver.cs" />

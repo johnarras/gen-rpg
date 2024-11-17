@@ -36,7 +36,7 @@ public class BundleSetupUtils
 
         List<string> paths = new List<string>();
 
-        string fullPath = "Assets/" + AssetConstants.DownloadAssetRootPath + endOfPath;
+        string fullPath = AssetConstants.DownloadAssetRootPath + endOfPath;
 
         string[] files = Directory.GetFiles(fullPath);
 

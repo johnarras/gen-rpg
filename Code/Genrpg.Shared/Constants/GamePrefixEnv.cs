@@ -11,9 +11,9 @@ namespace Genrpg.Shared.Constants
     [MessagePackObject]
     public class EnvNames
     {
-        public static readonly string Local = "local";
-        public static readonly string Dev = "dev";
-        public static readonly string Test = "test";
-        public static readonly string Prod = "prod";
-    }
+        public const string Local = "local";
+        public const string Dev = "dev";
+        public const string Test = "test";
+        public const string Prod = "prod";
+    }   
 }

@@ -10,7 +10,8 @@ public class InitialPrefabLoader : MonoBehaviour
 {
     public List<string> Prefabs;
 
-    public async Awaitable LoadPrefabs(IClientGameState gs, IClientEntityService entityService, ILocalLoadService localLoadService)
+    public async Awaitable LoadPrefabs(IClientGameState gs, IClientEntityService entityService, ILocalLoadService localLoadService,
+        GameObject parent)
     {
         if (Prefabs == null)
         {
@@ -30,6 +31,7 @@ public class InitialPrefabLoader : MonoBehaviour
 
             GameObject newPrefab = (GameObject)entityService.FullInstantiateAndSet(prefabObj);
             newPrefab.name = newPrefab.name.Replace("(Clone)", "");
+            entityService.AddToParent(newPrefab, parent);
         }
 
 

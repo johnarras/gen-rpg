@@ -13,6 +13,7 @@ using Genrpg.Shared.Client.Assets.Constants;
 
 public class AddMinGroundLevel : BaseZoneGenerator
 {
+    private IInitClient _initClient;
     public override async Awaitable Generate (CancellationToken token)
     {
         await base.Generate(token);
@@ -20,14 +21,14 @@ public class AddMinGroundLevel : BaseZoneGenerator
 	}
 
 
-    private static GameObject _killCollider = null;
+    private GameObject _killCollider = null;
     public void AddKillCollider(IClientGameState gs)
     {
         if (_killCollider != null)
         {
             return;
         }
-        _assetService.LoadAsset(AssetCategoryNames.Prefabs, MapConstants.KillColliderName, OnLoadKillCollider, null, null, _token);
+        _assetService.LoadAssetInto(_initClient.GetRootObject(), AssetCategoryNames.Prefabs, MapConstants.KillColliderName, OnLoadKillCollider, null, _token);
     }
 
     private void OnLoadKillCollider (object obj, object data, CancellationToken token)

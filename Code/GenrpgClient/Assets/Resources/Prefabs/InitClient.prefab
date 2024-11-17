@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2276351813643653905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2816266984456292112}
+  m_Layer: 0
+  m_Name: GlobalRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2816266984456292112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2276351813643653905}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1604152586628774692}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4480780464994235373
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +161,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8390991325916481460}
+  - {fileID: 2816266984456292112}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3029877380482160996
@@ -144,11 +176,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39105bd8cd9349bc96b6ff34c085542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clientConfig: {fileID: 11400000, guid: 93c18f0fc0579cd408ad032e236d593a, type: 2}
   _splashImage: {fileID: 4480780464994235373}
+  _globalRoot: {fileID: 2276351813643653905}
   CurrMapId: 3
-  ForceDownloadFromAssetBundles: 0
-  WorldSize: 4
-  ZoneSize: 1
+  ForceDownloadFromAssetBundles: 1
+  BlockCount: 90
+  ZoneSize: 6
   ForceZoneTypeId: 0
-  MapGenSeed: 1235678
-  PlayerSpeedMult: 2
+  MapGenSeed: 0
+  PlayerSpeedMult: 1
+  AccountSuffixId: 0
+  CrawlerMode: 1

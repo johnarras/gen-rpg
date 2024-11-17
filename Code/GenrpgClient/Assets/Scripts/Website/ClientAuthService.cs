@@ -22,6 +22,7 @@ using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.UI.Entities;
 using Assets.Scripts.Awaitables;
 using Genrpg.Shared.Users.PlayerData;
+using Genrpg.Shared.Crawler.Maps.Services;
 
 
 public interface IClientAuthService : IInitializable
@@ -33,6 +34,7 @@ public interface IClientAuthService : IInitializable
     Awaitable Signup(SignupCommand command, CancellationToken token);
     Awaitable SaveLocalUserData(string email, string loginToken);
     Awaitable StartNoUser(CancellationToken token);
+    void ResetGame();
 }
 
 public class ClientAuthService : IClientAuthService
@@ -56,6 +58,7 @@ public class ClientAuthService : IClientAuthService
     private IClientCryptoService _clientCryptoService;
     private IClientAppService _clientAppService;
     protected IAwaitableService _awaitableService;
+    protected ICrawlerMapService _crawlerMapService;
 
     public async Task Initialize(CancellationToken token)
     {
@@ -108,7 +111,7 @@ public class ClientAuthService : IClientAuthService
     public void Logout()
     {
         _logService.Info("Logging out");
-        InnerExitMap();
+        ExitMMOMap();
         _gs.user = null;
         _screenService.CloseAll();
         _screenService.Close(ScreenId.HUD);
@@ -118,13 +121,21 @@ public class ClientAuthService : IClientAuthService
     public void ExitMap()
     {
         _logService.Info("Exiting Map");
-        InnerExitMap();
+        ExitMMOMap();
         _screenService.CloseAll();
         _screenService.Close(ScreenId.HUD);
         _screenService.Open(ScreenId.CharacterSelect);
     }
 
-    private void InnerExitMap()
+    public void ResetGame()
+    {
+        ExitMMOMap();
+        _crawlerMapService.CleanMap();
+    }
+
+  
+
+    private void ExitMMOMap()
     {
         _zoneGenService.CancelMapToken();
         _playerManager.SetUnit(null);

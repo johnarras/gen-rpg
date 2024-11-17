@@ -56,7 +56,6 @@ namespace Assets.Scripts.BoardGame.Controllers
         {
             _gameToken = token;
             RefreshBoardToken();
-            _boardAnchor = _singletonContainer.GetSingleton("BoardAnchor");
 
             _updateService.AddUpdate(this, OnUpdate, UpdateType.Regular, token);
 
@@ -77,6 +76,10 @@ namespace Assets.Scripts.BoardGame.Controllers
 
         public GameObject GetBoardAnchor()
         {
+            if (_boardAnchor == null)
+            {
+                _boardAnchor = _singletonContainer.GetSingleton("BoardAnchor");
+            }
             return _boardAnchor;
         }
 

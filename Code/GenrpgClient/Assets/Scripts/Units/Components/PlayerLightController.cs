@@ -34,7 +34,7 @@ namespace Assets.Scripts.Controllers
         bool haveSetPosition = false;
         private void LightUpdate()
         {
-            if (_crawlerMapService.IsDungeon(CrawlerMapService.MapType))
+            if (_crawlerMapService.IsDungeon(_crawlerMapService.GetMapType()))
             {
                 return;
             }

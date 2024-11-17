@@ -25,8 +25,6 @@ public class ClearMapData : BaseZoneGenerator
         RenderSettings.fog = false;
         RenderSettings.ambientIntensity = 1.0f;
 
-        _assetService.ClearBundleCache(token);
-
         _awaitableService.ForgetAwaitable(CleanUpOldMapFolders(token));
 
 

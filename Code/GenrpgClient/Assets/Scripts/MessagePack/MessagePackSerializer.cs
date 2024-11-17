@@ -187,7 +187,7 @@ namespace MessagePack
                     foreach (ReadOnlyMemory<byte> segment in sequenceRental.Value.AsReadOnlySequence)
                     {
                         cancellationToken.ThrowIfCancellationRequested();
-                        await stream.WriteAsync(segment, cancellationToken);
+                        await stream.WriteAsync(segment, cancellationToken).ConfigureAwait(false);
                     }
                 }
                 catch (Exception ex)
@@ -389,7 +389,7 @@ namespace MessagePack
                     do
                     {
                         Memory<byte> memory = sequence.GetMemory(stream.CanSeek ? (int)Math.Min(options.SuggestedContiguousMemorySize, stream.Length - stream.Position) : 0);
-                        bytesRead = await stream.ReadAsync(memory, cancellationToken);
+                        bytesRead = await stream.ReadAsync(memory, cancellationToken).ConfigureAwait(false);
                         sequence.Advance(bytesRead);
                     }
                     while (bytesRead > 0);
@@ -440,7 +440,7 @@ namespace MessagePack
             if (streamToRewind.CanSeek && !reader.End)
             {
                 // Reverse the stream as many bytes as we left unread.
-                int bytesNotRead = checked((int)reader.Sequence.Slice(reader.Position).Length);
+                long bytesNotRead = reader.Sequence.Slice(reader.Position).Length;
                 streamToRewind.Seek(-bytesNotRead, SeekOrigin.Current);
             }
 

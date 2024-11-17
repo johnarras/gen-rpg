@@ -1020,10 +1020,10 @@
       "Id": "unittype48default",
       "ParentId": "default",
       "IdKey": 48,
-      "Name": "Skeleon",
+      "Name": "Skeleton",
       "PluralName": "Skeletons",
-      "Icon": "Skeleon",
-      "Art": "Skeleon",
+      "Icon": "Skeleton",
+      "Art": "Skeleton",
       "TribeTypeId": 3,
       "MinLevel": 1,
       "Effects": [
@@ -1045,7 +1045,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2024-11-12T18:32:53.406Z"
     },
     {
       "Id": "unittype49default",
@@ -1080,7 +1080,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2024-11-12T18:32:53.406Z"
     },
     {
       "Id": "unittype50default",
@@ -2927,7 +2927,7 @@
   "ParentObj": {
     "Id": "default",
     "Name": "UnitSettings",
-    "UpdateTime": "2024-10-18T22:27:41.638Z"
+    "UpdateTime": "2024-11-12T18:32:53.406Z"
   },
   "Id": "default"
 }
