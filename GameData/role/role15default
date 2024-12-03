@@ -6,8 +6,14 @@
   "Desc": "More Melee",
   "Abbrev": "Hc",
   "RoleCategoryId": 2,
-  "MeleeScaling": 0.1,
   "StartStatBonuses": "3 0 0 0 3 0",
-  "Bonuses": [],
-  "UpdateTime": "2024-10-20T18:48:00.956Z"
+  "BinaryBonuses": [],
+  "AmountBonuses": [
+    {
+      "EntityTypeId": 41,
+      "EntityId": 1,
+      "Amount": 0.1
+    }
+  ],
+  "UpdateTime": "2024-11-26T03:11:28.929Z"
 }

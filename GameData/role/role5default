@@ -8,11 +8,6 @@
   "Art": "",
   "Abbrev": "Th",
   "RoleCategoryId": 1,
-  "MeleeScaling": 0.2,
-  "RangedScaling": 0.2,
-  "SpellDamScaling": 0.17,
-  "HealingScaling": 0.125,
-  "SummonScaling": 0.125,
   "HealthPerLevel": 16,
   "ManaPerLevel": 10,
   "MaxArmorScalingTypeId": 2,
@@ -21,7 +16,7 @@
   "TrainingXpScale": 1.0,
   "TrainingGoldScale": 1.0,
   "StartStatBonuses": "4 0 0 2 2 4",
-  "Bonuses": [
+  "BinaryBonuses": [
     {
       "EntityTypeId": 2,
       "EntityId": 21
@@ -99,6 +94,10 @@
       "EntityId": 60
     },
     {
+      "EntityTypeId": 100,
+      "EntityId": 63
+    },
+    {
       "EntityTypeId": 101,
       "EntityId": 2
     },
@@ -113,19 +112,34 @@
     {
       "EntityTypeId": 100,
       "EntityId": 10063
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 10016
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 10020
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 10063
     }
   ],
-  "UpdateTime": "2024-10-21T22:47:47.801Z"
+  "AmountBonuses": [
+    {
+      "EntityTypeId": 41,
+      "EntityId": 1,
+      "Amount": 0.2
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 2,
+      "Amount": 0.2
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 3,
+      "Amount": 0.17
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 4,
+      "Amount": 0.125
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 5,
+      "Amount": 0.125
+    }
+  ],
+  "UpdateTime": "2024-11-26T03:11:28.929Z"
 }

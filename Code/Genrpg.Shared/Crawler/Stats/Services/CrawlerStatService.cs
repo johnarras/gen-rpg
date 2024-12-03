@@ -1,10 +1,14 @@
 ﻿using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Roguelikes.Constants;
+using Genrpg.Shared.Crawler.Roguelikes.Services;
+using Genrpg.Shared.Crawler.Roguelikes.Settings;
 using Genrpg.Shared.Crawler.Roles.Settings;
+using Genrpg.Shared.Crawler.States.StateHelpers.Casting.SpecialMagicHelpers;
 using Genrpg.Shared.Crawler.Stats.Settings;
-using Genrpg.Shared.Crawler.Stats.Utils;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;
@@ -14,12 +18,9 @@ using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Utils;
-using MessagePack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 
 namespace Genrpg.Shared.Crawler.Stats.Services
 {
@@ -29,9 +30,11 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
         void CalcPartyStats(PartyData party, bool resetCurrStats);
 
-        List<NameIdValue> GetInitialStats(PartyMember member);
+        List<NameIdValue> GetInitialStats(PartyData party, PartyMember member);
 
         List<NameIdValue> GetInitialStatBonuses(long roleId);
+
+        long GetStatBonus(PartyData party, CrawlerUnit unit, long statId);
     }
 
 
@@ -42,6 +45,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
         protected IGameData _gameData;
         protected IClientGameState _gs;
         protected IClientRandom _rand;
+        private IRoguelikeUpgradeService _roguelikeUpgradeService;
 
         public void CalcPartyStats(PartyData party, bool resetCurrStats)
         {
@@ -72,7 +76,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
             foreach (Role role in allRoles)
             {
-                buffStatTypes.AddRange(role.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).Select(x => x.EntityId));
+                buffStatTypes.AddRange(role.BinaryBonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).Select(x => x.EntityId));
             }
 
             buffStatTypes = buffStatTypes.Where(x => x < StatConstants.PrimaryStatStart || x > StatConstants.PrimaryStatEnd).ToList();
@@ -109,7 +113,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 foreach (long buffStatType in buffStatTypes)
                 {
 
-                    long buffVal = buffStats.FirstOrDefault(x => x.StatTypeId == buffStatType)?.Val ?? 0;
+                    long buffVal = member.Level; // buffStats.FirstOrDefault(x => x.StatTypeId == buffStatType)?.Val ?? 0;
 
                     _statService.Set(member, buffStatType, StatCategories.Bonus, buffVal);
                 }
@@ -130,7 +134,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 double healthPerLevel = 0;
                 double manaPerLevel = 0;
 
-                long stamBonus = CrawlerStatUtils.GetStatBonus(member, StatTypes.Stamina);
+                long stamBonus = GetStatBonus(party, member, StatTypes.Stamina);
 
                 foreach (Role role in roles)
                 {
@@ -139,7 +143,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                     if (role.ManaStatTypeId > 0)
                     {
-                        manaPerLevel += CrawlerStatUtils.GetStatBonus(member, role.ManaStatTypeId);
+                        manaPerLevel += GetStatBonus(party, member, role.ManaStatTypeId);
                     }
                 }
 
@@ -176,16 +180,30 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                         _statService.Set(unit, statType.IdKey, StatCategories.Base, unit.Level);
                     }
                 }
-                long minHealth = Math.Max(1, unit.Level / 2);
-                long maxHealth = unit.Level * 3 + 10;
 
+                long minHealth = (long)(combatSettings.BaseMonsterMinHealth + unit.Level * combatSettings.MinMonsterHealthPerLevel);
+                long maxHealth = (long)(combatSettings.BaseMonsterMaxHealth + unit.Level * combatSettings.MaxMonsterHealthPerLevel);
+
+                monster.MinDam = (long)(combatSettings.BaseMonsterMinDam + unit.Level * combatSettings.MinMonsterDamPerLevel);
+                monster.MaxDam = (long)(combatSettings.BaseMonsterMaxDam + unit.Level * combatSettings.MaxMonsterDamPerLevel);
+
+                double qualityScaling = _roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.SummonQuality);
+
+                if (qualityScaling > 0)
+                {
+                    minHealth = (long)(minHealth * (1 + qualityScaling));
+                    maxHealth = (long)(maxHealth * (1 + qualityScaling));
+                    monster.MinDam = (long)(monster.MinDam * (1 + qualityScaling));
+                    monster.MaxDam = (long)(monster.MaxDam * (1 + qualityScaling));
+                }
+                
                 long startHealth = MathUtils.LongRange(minHealth, maxHealth, _rand);
+
+
 
                 _statService.Set(unit, StatTypes.Health, StatCategories.Base, startHealth);
                 _statService.Set(unit, StatTypes.Health, StatCategories.Curr, startHealth);
 
-                monster.MinDam = (long)(combatSettings.BaseMonsterMinDam + unit.Level * combatSettings.MinMonsterDamPerLevel);
-                monster.MaxDam = (long)(combatSettings.BaseMonsterMaxDam + unit.Level * combatSettings.MaxMonsterDamPerLevel);
             }
         }
 
@@ -207,9 +225,9 @@ namespace Genrpg.Shared.Crawler.Stats.Services
 
                 foreach (Role role in roles)
                 {
-                    List<RoleBonus> buffStatbonuses = role.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).ToList();
+                    List<RoleBonusBinary> buffStatbonuses = role.BinaryBonuses.Where(x => x.EntityTypeId == EntityTypes.Stat).ToList();
 
-                    foreach (RoleBonus bonus in buffStatbonuses)
+                    foreach (RoleBonusBinary bonus in buffStatbonuses)
                     {
                         if (!buffStatLevels.ContainsKey(bonus.EntityId))
                         {
@@ -246,17 +264,23 @@ namespace Genrpg.Shared.Crawler.Stats.Services
         }
 
 
-        public List<NameIdValue> GetInitialStats(PartyMember member)
+        public List<NameIdValue> GetInitialStats(PartyData party, PartyMember member)
         {
 
             CrawlerStatSettings crawlerStatSettings = _gameData.Get<CrawlerStatSettings>(_gs.ch);
 
             IReadOnlyList<StatType> allStats = _gameData.Get<StatSettings>(null).GetData().Where(x => x.IdKey >=
             StatConstants.PrimaryStatStart && x.IdKey <= StatConstants.PrimaryStatEnd).OrderBy(x => x.IdKey).ToList();
-
             List<Role> roles = _gameData.Get<RoleSettings>(_gs.ch).GetRoles(member.Roles);
 
 
+            long roguelikeBonusStats = 0;
+
+
+            if (party.GameMode == Core.Constants.EGameModes.Roguelike)
+            {
+                roguelikeBonusStats = (long)_roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.StartStats);
+            }
             List<NameIdValue> retval = new List<NameIdValue>();
 
             foreach (StatType statType in allStats)
@@ -265,7 +289,7 @@ namespace Genrpg.Shared.Crawler.Stats.Services
                 {
                     IdKey = statType.IdKey,
                     Name = statType.Name,
-                    Val = crawlerStatSettings.StartStat,
+                    Val = crawlerStatSettings.StartStat + roguelikeBonusStats,
                 });
             }
 
@@ -285,6 +309,11 @@ namespace Genrpg.Shared.Crawler.Stats.Services
             }
 
             return retval;
+        }
+
+        private EGameModes EGameModes(long v)
+        {
+            throw new NotImplementedException();
         }
 
         public List<NameIdValue> GetInitialStatBonuses(long roleId)
@@ -320,6 +349,56 @@ namespace Genrpg.Shared.Crawler.Stats.Services
             }
 
             return retval;
+
+        }
+
+        public long GetStatBonus(PartyData party, CrawlerUnit unit, long statTypeId)
+        {
+            if (statTypeId < 1)
+            {
+                return 0;
+            }
+
+            long statValue = unit.Stats.Max(statTypeId);
+
+            long baseBonus = 0;
+
+            if (statValue < 13)
+            {
+                baseBonus = 0;
+            }
+            else if (statValue < 16)
+            {
+                baseBonus = 1;
+            }
+            else if (statValue < 18)
+            {
+                baseBonus = 2;
+            }
+            else if (statValue <= 20) // 18-20 go from 3 to 5
+            {
+                baseBonus = (statValue - 18) + 3;
+            }
+            else if (statValue <= 50) // 21-50 go from 6 to 11
+            {
+                baseBonus = 5 + (statValue - 20) / 5;
+            }
+            else // 11 at 50 then 1 point per 10 stat vals after. Cap at 250 for 11 + 11 = 22
+            {
+                if (statValue > 250)
+                {
+                    statValue = 250;
+                }
+
+                baseBonus = 11 + (statValue - 50) / 10;
+            }
+
+            if (_gs.GameMode == Core.Constants.EGameModes.Roguelike)
+            {
+                baseBonus += (long)_roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.StatBonusValue);
+            }
+
+            return baseBonus;
 
         }
     }

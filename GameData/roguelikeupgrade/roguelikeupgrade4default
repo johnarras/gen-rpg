@@ -1,0 +1,14 @@
+{
+  "Id": "roguelikeupgrade4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "AttackQuantity",
+  "NameId": "",
+  "Desc": "Increases number of ticks/attacks a player gets per level.",
+  "Icon": "",
+  "Art": "",
+  "MaxTier": 5,
+  "BonusPerTier": 0.05,
+  "BasePointCost": 2,
+  "UpdateTime": "2024-11-29T02:33:50.038Z"
+}

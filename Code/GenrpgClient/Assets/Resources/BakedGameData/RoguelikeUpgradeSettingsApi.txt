@@ -1,0 +1,115 @@
+{
+  "Data": [
+    {
+      "Id": "roguelikeupgrade1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Classes",
+      "NameId": "",
+      "Desc": "Lets new characters start with extra classes.",
+      "Icon": "",
+      "Art": "",
+      "MaxTier": 2,
+      "BonusPerTier": 1.0,
+      "BasePointCost": 10,
+      "UpdateTime": "2024-11-27T22:19:14.352Z"
+    },
+    {
+      "Id": "roguelikeupgrade2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "ActionCount",
+      "Desc": "Gives a chance for the player to take multiple actions before monsters attack.",
+      "MaxTier": 3,
+      "BonusPerTier": 0.1,
+      "BasePointCost": 1,
+      "UpdateTime": "2024-11-27T22:19:14.352Z"
+    },
+    {
+      "Id": "roguelikeupgrade3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "StartStats",
+      "NameId": "",
+      "Desc": "Add stats to the player when they are created.",
+      "Icon": "",
+      "Art": "",
+      "MaxTier": 10,
+      "BonusPerTier": 5.0,
+      "BasePointCost": 1,
+      "UpdateTime": "2024-11-27T22:26:36.293Z"
+    },
+    {
+      "Id": "roguelikeupgrade4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "AttackQuantity",
+      "NameId": "",
+      "Desc": "Increases number of ticks/attacks a player gets per level.",
+      "Icon": "",
+      "Art": "",
+      "MaxTier": 5,
+      "BonusPerTier": 0.05,
+      "BasePointCost": 2,
+      "UpdateTime": "2024-11-27T22:26:36.293Z"
+    },
+    {
+      "Id": "roguelikeupgrade5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "StatBonusValue",
+      "NameId": "",
+      "Desc": "Increases the stat bonus players get from their primary stats.",
+      "MaxTier": 5,
+      "BonusPerTier": 1.0,
+      "BasePointCost": 1,
+      "UpdateTime": "2024-11-27T22:29:50.685Z"
+    },
+    {
+      "Id": "roguelikeupgrade6default",
+      "ParentId": "default",
+      "IdKey": 6,
+      "Name": "VendorQuality",
+      "NameId": "",
+      "Desc": "Increases the level and quality of items in the vendor.",
+      "MaxTier": 5,
+      "BonusPerTier": 0.5,
+      "BasePointCost": 2,
+      "UpdateTime": "2024-11-27T22:26:36.293Z"
+    },
+    {
+      "Id": "roguelikeupgrade7default",
+      "ParentId": "default",
+      "IdKey": 7,
+      "Name": "LootQuality",
+      "NameId": "",
+      "Desc": "Increases the quality of the loot items found.",
+      "MaxTier": 5,
+      "BonusPerTier": 0.5,
+      "BasePointCost": 2,
+      "UpdateTime": "2024-11-27T22:29:50.685Z"
+    },
+    {
+      "Id": "roguelikeupgrade8default",
+      "ParentId": "default",
+      "IdKey": 8,
+      "Name": "SummonQuality",
+      "NameId": "",
+      "Desc": "Increases the quality of the player's summons.",
+      "Icon": "",
+      "Art": "",
+      "MaxTier": 5,
+      "BonusPerTier": 0.05,
+      "BasePointCost": 2,
+      "UpdateTime": "2024-11-27T22:29:50.685Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "BasePointsPerLevel": 3,
+    "ExtraPointsPerLevel": 0.2,
+    "Name": "RoguelikeUpgradeSettings",
+    "UpdateTime": "2024-11-27T22:29:50.685Z"
+  },
+  "Id": "default"
+}

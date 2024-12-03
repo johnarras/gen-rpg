@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 4851661272057939784}
   - component: {fileID: 1986324759401640213}
   m_Layer: 5
-  m_Name: Right
+  m_Name: ActionStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,6 +193,10 @@ MonoBehaviour:
   IntroTime: 0
   OutroTime: 0
   View: {fileID: 9099457693453311000}
+  WorldPanelName: WorldPanel
+  ActionPanelName: ActionPanel
+  StatusPanelName: StatusPanel
+  ActionPanelElementSuffix: 
 --- !u!223 &4897233755897787420
 Canvas:
   m_ObjectHideFlags: 0
@@ -278,9 +282,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _elements:
   - Obj: {fileID: 9006980067546002734}
-    Name: Left
+    Name: World
   - Obj: {fileID: 5099130761320306911}
-    Name: Right
+    Name: Action
+  - Obj: {fileID: 5099130761320306911}
+    Name: Status
 --- !u!1 &9006980067546002734
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 999805343711123013}
   m_Layer: 5
-  m_Name: Left
+  m_Name: World
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

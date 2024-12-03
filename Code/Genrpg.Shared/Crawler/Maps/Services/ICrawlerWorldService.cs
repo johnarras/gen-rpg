@@ -14,6 +14,7 @@ namespace Genrpg.Shared.Crawler.Maps.Services
         CrawlerMap GetMap(long mapId);
 
         Task SaveWorld(CrawlerWorld world);
+        Task SaveMap(CrawlerWorld world, CrawlerMap map);
 
         Task<ZoneType> GetCurrentZone(PartyData partyData);
         Task<long> GetMapLevelAtPoint(CrawlerWorld world, long mapId, int x, int z);

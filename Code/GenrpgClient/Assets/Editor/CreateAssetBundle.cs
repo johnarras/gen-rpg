@@ -43,7 +43,7 @@ public class CreateAssetBundle
 
             BundleVersions versionData = new BundleVersions() { UpdateInfo = updateData };
            
-            BuildAssetBundleOptions options = BuildAssetBundleOptions.ChunkBasedCompression;
+            BuildAssetBundleOptions options = BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.RecurseDependencies;
 
             AssetBundleManifest manifest = null;
             try

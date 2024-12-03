@@ -12,8 +12,9 @@ using UnityEngine;
 using System.Threading.Tasks;
 using Genrpg.Shared.Crawler.Maps.Settings;
 using Genrpg.Shared.Zones.Constants;
-using Genrpg.Shared.Dungeons.Constants;
 using Genrpg.Shared.Buildings.Constants;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.MapGen.Entities;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -34,6 +35,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             long fillerZoneTypeId = ZoneTypes.Field;
             CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(CrawlerMapTypes.City);
 
+            bool isRoguelike = party.GameMode == EGameModes.Roguelike;
 
             int mapEdgeDistance = 1;
 
@@ -127,63 +129,65 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 }
             }
 
-            int visGateX = 0;
-            int visGateZ = 0;
-            int gateBits = 0;
-            int towerX = 0;
-            int towerZ = 0;
-            bool gateIsOnSides = true;
-            if (gateX == mapEdgeDistance)
+            if (!isRoguelike)
             {
-                visGateX = gateX - 1;
-                visGateZ = gateZ;
-                towerX = 0;
-                towerZ = gateZ;
-                gateBits = WallTypes.Door << MapWallBits.EWallStart;
-            }
-            else if (gateX == map.Width - 1 - mapEdgeDistance)
-            {
-                visGateX = gateX;
-                visGateZ = gateZ;
-                towerX = map.Width - 1;
-                towerZ = gateZ;
-                gateBits = WallTypes.Door << MapWallBits.EWallStart;
-            }
-            else if (gateZ == mapEdgeDistance)
-            {
-                visGateX = gateX;
-                visGateZ = gateZ - 1;
-                towerX = gateX;
-                towerZ = 0;
-                gateBits = WallTypes.Door << MapWallBits.NWallStart;
-                gateIsOnSides = false;
-            }
-            else
-            {
-                visGateX = gateX;
-                visGateZ = gateZ;
-                towerX = gateX;
-                towerZ = map.Height - 1;
-                gateBits = WallTypes.Door << MapWallBits.NWallStart;
-                gateIsOnSides = false;
-            }
+                int visGateX = 0;
+                int visGateZ = 0;
+                int gateBits = 0;
+                int towerX = 0;
+                int towerZ = 0;
+                bool gateIsOnSides = true;
+                if (gateX == mapEdgeDistance)
+                {
+                    visGateX = gateX - 1;
+                    visGateZ = gateZ;
+                    towerX = 0;
+                    towerZ = gateZ;
+                    gateBits = WallTypes.Door << MapWallBits.EWallStart;
+                }
+                else if (gateX == map.Width - 1 - mapEdgeDistance)
+                {
+                    visGateX = gateX;
+                    visGateZ = gateZ;
+                    towerX = map.Width - 1;
+                    towerZ = gateZ;
+                    gateBits = WallTypes.Door << MapWallBits.EWallStart;
+                }
+                else if (gateZ == mapEdgeDistance)
+                {
+                    visGateX = gateX;
+                    visGateZ = gateZ - 1;
+                    towerX = gateX;
+                    towerZ = 0;
+                    gateBits = WallTypes.Door << MapWallBits.NWallStart;
+                    gateIsOnSides = false;
+                }
+                else
+                {
+                    visGateX = gateX;
+                    visGateZ = gateZ;
+                    towerX = gateX;
+                    towerZ = map.Height - 1;
+                    gateBits = WallTypes.Door << MapWallBits.NWallStart;
+                    gateIsOnSides = false;
+                }
 
 
-            map.Set(visGateX, visGateZ, CellIndex.Walls, gateBits);
+                map.Set(visGateX, visGateZ, CellIndex.Walls, gateBits);
 
-            if (gateIsOnSides)
-            {
-                map.Set(towerX, towerZ - 1, CellIndex.Building, BuildingTypes.GuardTower);
-                map.Set(towerX, towerZ + 1, CellIndex.Building, BuildingTypes.GuardTower);
-                map.Set(towerX, towerZ, CellIndex.Building, 0);
+                if (gateIsOnSides)
+                {
+                    map.Set(towerX, towerZ - 1, CellIndex.Building, BuildingTypes.GuardTower);
+                    map.Set(towerX, towerZ + 1, CellIndex.Building, BuildingTypes.GuardTower);
+                    map.Set(towerX, towerZ, CellIndex.Building, 0);
+                }
+                else
+                {
+                    map.Set(towerX - 1, towerZ, CellIndex.Building, BuildingTypes.GuardTower);
+                    map.Set(towerX + 1, towerZ, CellIndex.Building, BuildingTypes.GuardTower);
+                    map.Set(towerX, towerZ, CellIndex.Building, 0);
+                }
             }
-            else
-            {
-                map.Set(towerX - 1, towerZ, CellIndex.Building, BuildingTypes.GuardTower);
-                map.Set(towerX + 1, towerZ, CellIndex.Building, BuildingTypes.GuardTower);
-                map.Set(towerX, towerZ, CellIndex.Building, 0);
-            }
-
 
             IReadOnlyList<BuildingType> buildings = _gameData.Get<BuildingSettings>(null).GetData();
 

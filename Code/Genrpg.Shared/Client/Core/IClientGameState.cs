@@ -1,5 +1,6 @@
 ﻿
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
@@ -17,7 +18,7 @@ namespace Genrpg.Shared.Client.Core
         List<MapStub> mapStubs { get; set; }
         string LoginServerURL { get; set; }
         InitialClientConfig GetConfig();
-        bool CrawlerMode { get; set; }
+        EGameModes GameMode { get; set; }
         void UpdateUserFlags(int flag, bool val);
     }
 }

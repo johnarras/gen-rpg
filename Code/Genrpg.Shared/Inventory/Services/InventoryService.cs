@@ -343,7 +343,7 @@ namespace Genrpg.Shared.Inventory.Services
 
                 if ((slot.IdKey == EquipSlots.MainHand || slot.IdKey == EquipSlots.Ranged))
                 {
-                    if (roles.Any(x => x.Bonuses.Any(x => x.EntityTypeId == EntityTypes.Item && x.EntityId == itype.IdKey)))
+                    if (roles.Any(x => x.BinaryBonuses.Any(x => x.EntityTypeId == EntityTypes.Item && x.EntityId == itype.IdKey)))
                     {
                         return true;
                     }

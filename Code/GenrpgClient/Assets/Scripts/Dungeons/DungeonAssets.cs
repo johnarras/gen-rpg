@@ -14,6 +14,6 @@ namespace Assets.Scripts.Dungeons
         public GameObject Floor;
         public GameObject Ceiling;
         public GameObject Barricade;
-        public Texture2D Background;
+        public string BGImageName;
     }
 }

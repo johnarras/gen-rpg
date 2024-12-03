@@ -8,5 +8,6 @@ namespace Genrpg.Shared.Crawler.Parties.Constants
     {
         // Idk maybe should be configurable.
         public const int MaxPartySize = 8;
+        public const int MaxRoguelikePartySize = 1;
     }
 }

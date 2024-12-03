@@ -6,11 +6,6 @@
   "Desc": "Ranged Combat",
   "Abbrev": "Hu",
   "RoleCategoryId": 1,
-  "MeleeScaling": 0.17,
-  "RangedScaling": 0.5,
-  "SpellDamScaling": 0.17,
-  "HealingScaling": 0.125,
-  "SummonScaling": 0.34,
   "HealthPerLevel": 18,
   "ManaPerLevel": 14,
   "MaxArmorScalingTypeId": 3,
@@ -19,7 +14,7 @@
   "TrainingXpScale": 1.0,
   "TrainingGoldScale": 1.0,
   "StartStatBonuses": "2 2 0 4 2 2",
-  "Bonuses": [
+  "BinaryBonuses": [
     {
       "EntityTypeId": 2,
       "EntityId": 21
@@ -119,15 +114,34 @@
     {
       "EntityTypeId": 100,
       "EntityId": 10070
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 10020
-    },
-    {
-      "EntityTypeId": 100,
-      "EntityId": 10070
     }
   ],
-  "UpdateTime": "2024-10-21T22:47:47.801Z"
+  "AmountBonuses": [
+    {
+      "EntityTypeId": 41,
+      "EntityId": 1,
+      "Amount": 0.17
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 2,
+      "Amount": 0.5
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 3,
+      "Amount": 0.17
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 4,
+      "Amount": 0.125
+    },
+    {
+      "EntityTypeId": 41,
+      "EntityId": 5,
+      "Amount": 0.34
+    }
+  ],
+  "UpdateTime": "2024-11-26T03:11:28.929Z"
 }

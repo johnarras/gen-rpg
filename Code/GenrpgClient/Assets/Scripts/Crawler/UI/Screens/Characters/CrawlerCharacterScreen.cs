@@ -13,6 +13,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Inventory.Settings.ItemTypes;
+using Genrpg.Shared.Inventory.Settings.Slots;
 
 namespace Assets.Scripts.Crawler.UI.Screens.Characters
 {
@@ -34,6 +37,25 @@ namespace Assets.Scripts.Crawler.UI.Screens.Characters
                 _unit = csd.Unit;
                 _prevState = csd.PrevState;
             }
+
+            if (_gs.GameMode != EGameModes.Roguelike)
+            {
+                IReadOnlyList<EquipSlot> equipSlots = _gameData.Get<EquipSlotSettings>(_gs.ch).GetData();
+
+                foreach (EquipSlot equipSlot in equipSlots)
+                {
+                    if (!equipSlot.IsCrawlerSlot)
+                    {
+                        EquipSlotIcon icon = EquipmentIcons.FirstOrDefault(x => x.EquipSlotId == equipSlot.IdKey);
+                        if (icon != null)
+                        {
+                            _clientEntityService.SetActive(icon, false);
+                        }
+                    }
+                }
+            }
+
+
             await base.OnStartOpen(data, token);
         }
 

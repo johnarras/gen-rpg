@@ -1,0 +1,23 @@
+{
+  "Id": "crawlerspell62default",
+  "ParentId": "default",
+  "IdKey": 62,
+  "Name": "Summon Scrapper",
+  "Desc": "Summon a scrapper",
+  "PowerCost": 9.0,
+  "PowerPerLevel": 1.0,
+  "MaxRange": 100,
+  "CombatActionId": 4,
+  "TargetTypeId": 9,
+  "Level": 1,
+  "Effects": [
+    {
+      "EntityTypeId": 4,
+      "EntityId": 30,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "ElementTypeId": 8
+    }
+  ],
+  "UpdateTime": "2024-11-26T00:47:25.3Z"
+}

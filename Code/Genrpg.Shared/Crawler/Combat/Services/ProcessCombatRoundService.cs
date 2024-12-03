@@ -53,7 +53,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                     if (_rand.NextDouble() * party.Combat.Level < averageLuck)
                     {
-                        party.Combat = null;
+                        party.EndCombat();
                         _crawlerService.ChangeState(ECrawlerStates.ExploreWorld, token);
                         return true;
                     }

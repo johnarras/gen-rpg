@@ -190,6 +190,15 @@ public class BuildClients
             }
 
             Directory.Delete(dir2, true);
+            if (dir2.LastIndexOf("/") == dir2.Length-1)
+            {
+                string dir2Small = dir2.Substring(0, dir2.Length-1);
+                dir2Small += ".meta";
+                if (File.Exists(dir2Small))
+                {
+                    File.Delete(dir2Small); 
+                }
+            }
         }
 
         Directory.Move(dir1, dir2);

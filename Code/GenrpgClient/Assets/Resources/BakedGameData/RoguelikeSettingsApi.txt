@@ -1,0 +1,51 @@
+{
+  "Data": [
+    {
+      "Id": "roguelikeupgrade1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "Classes",
+      "NameId": "",
+      "Desc": "",
+      "Icon": "",
+      "Art": "",
+      "MaxBonus": 3.0,
+      "BonusPerLevel": 0.1,
+      "UpdateTime": "2024-11-25T19:59:43.588Z"
+    },
+    {
+      "Id": "roguelikeupgrade2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "Actions",
+      "MaxBonus": 4.0,
+      "BonusPerLevel": 0.08,
+      "UpdateTime": "2024-11-25T19:59:43.588Z"
+    },
+    {
+      "Id": "roguelikeupgrade3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "Scaling",
+      "MaxBonus": 0.25,
+      "BonusPerLevel": 0.005,
+      "UpdateTime": "2024-11-25T19:59:43.588Z"
+    },
+    {
+      "Id": "roguelikeupgrade4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "Stats",
+      "NameId": "",
+      "MaxBonus": 50.0,
+      "BonusPerLevel": 0.5,
+      "UpdateTime": "2024-11-25T19:59:43.588Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "RoguelikeUpgradeSettings",
+    "UpdateTime": "2024-11-25T19:59:43.588Z"
+  },
+  "Id": "default"
+}

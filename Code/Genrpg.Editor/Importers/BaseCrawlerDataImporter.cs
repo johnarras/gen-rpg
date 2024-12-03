@@ -32,7 +32,7 @@ namespace Genrpg.Editor.Importers
             List<CrawlerSpell> spells = spellSettings.GetData().ToList();
 
             List<long> buffStatIds =
-                 roles.SelectMany(x => x.Bonuses)
+                 roles.SelectMany(x => x.BinaryBonuses)
                  .Where(y => y.EntityTypeId == EntityTypes.Stat && (y.EntityId < StatConstants.PrimaryStatStart || y.EntityId > StatConstants.PrimaryStatEnd))                 
                  .Select(x => x.EntityId)
                  .Distinct().ToList();
@@ -81,24 +81,24 @@ namespace Genrpg.Editor.Importers
             // For each role, remove crawler buff spells that no longer apply and add crawler buff spells that need to be there.
             foreach (Role role in roles)
             {
-                role.Bonuses = role.Bonuses
+                role.BinaryBonuses = role.BinaryBonuses
                     .Where(x => x.EntityTypeId != EntityTypes.Stat
                     || x.EntityId < CrawlerSpellConstants.StatBuffSpellIdOffset
                     || x.EntityId > CrawlerSpellConstants.StatBuffSpellIdOffset + StatTypes.Max)
                     .ToList();
 
-                List<RoleBonus> bonusesToAdd = new List<RoleBonus>();
-                foreach (RoleBonus bonus in role.Bonuses)
+                List<RoleBonusBinary> bonusesToAdd = new List<RoleBonusBinary>();
+                foreach (RoleBonusBinary bonus in role.BinaryBonuses)
                 {
                     if (bonus.EntityTypeId == EntityTypes.Stat)
                     {
-                        RoleBonus spellBonus = role.Bonuses
+                        RoleBonusBinary spellBonus = role.BinaryBonuses
                             .Where(x => x.EntityTypeId == EntityTypes.CrawlerSpell
                         && x.EntityId == bonus.EntityId - CrawlerSpellConstants.StatBuffSpellIdOffset)
                             .FirstOrDefault();
                         if (spellBonus == null)
                         {
-                            bonusesToAdd.Add(new RoleBonus()
+                            bonusesToAdd.Add(new RoleBonusBinary()
                             {
                                 EntityTypeId = EntityTypes.CrawlerSpell,
                                 EntityId = bonus.EntityId + CrawlerSpellConstants.StatBuffSpellIdOffset
@@ -108,7 +108,7 @@ namespace Genrpg.Editor.Importers
                 }
                 if (bonusesToAdd.Count > 0)
                 {
-                    role.Bonuses.AddRange(bonusesToAdd);
+                    role.BinaryBonuses.AddRange(bonusesToAdd);
                     gs.LookedAtObjects.Add(role);
                 }
             }

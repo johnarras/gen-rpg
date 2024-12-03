@@ -1,7 +1,9 @@
-﻿using Genrpg.Shared.Crawler.Combat.Services;
+﻿using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Combat.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Crawler.TimeOfDay.Settings;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -64,13 +66,19 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
             }
             else
             {
-                if (!party.Combat.CombatIsOver())
+                if (party.Combat.PartyWonCombat())
                 {
-                    _crawlerService.ChangeState(ECrawlerStates.CombatFightRun, token);
+                    _crawlerService.ChangeState(ECrawlerStates.GiveLoot, token, party.Combat);
+                }
+                else if (party.Combat.PartyIsDead())
+                {
+                    party.Reset(_rand);
+                    _crawlerService.ChangeState(ECrawlerStates.GuildMain, token);
+                    party.StatusPanel.RefreshAll();
                 }
                 else
                 {
-                    _crawlerService.ChangeState(ECrawlerStates.GiveLoot, token, party.Combat);
+                    _crawlerService.ChangeState(ECrawlerStates.CombatFightRun, token);
                 }
             }
         }

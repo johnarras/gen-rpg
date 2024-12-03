@@ -1,0 +1,7 @@
+{
+  "Id": "default",
+  "BasePointsPerLevel": 3,
+  "ExtraPointsPerLevel": 0.2,
+  "Name": "RoguelikeUpgradeSettings",
+  "UpdateTime": "2024-11-29T02:33:50.038Z"
+}

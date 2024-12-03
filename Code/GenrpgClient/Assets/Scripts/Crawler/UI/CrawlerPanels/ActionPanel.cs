@@ -25,10 +25,10 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
     public class ActionPanel : BaseCrawlerPanel, IActionPanel
     {
 
-        const string PanelRowPrefab = "ActionPanelRow";
-        const string PanelTextPrefab = "ActionPanelText";
-        const string PanelGridPrefab = "ActionPanelGrid";
-        const string PanelButtonPrefab = "ActionPanelButton";
+        public string PanelRowPrefab = "ActionPanelRow";
+        public string PanelTextPrefab = "ActionPanelText";
+        public string PanelGridPrefab = "ActionPanelGrid";
+        public string PanelButtonPrefab = "ActionPanelButton";
 
         private object _content;
 
@@ -65,13 +65,13 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             _scrollRect = view.Get<IScrollRect>("ScrollRect");
 
-            _panelRow = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelRowPrefab, _root, _token, _model.Subdirectory);
+            _panelRow = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelRowPrefab + model.ActionPanelElementSuffix, _root, _token, _model.Subdirectory);
             _clientEntityService.SetActive(_panelRow, false);
-            _panelText = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelTextPrefab, _root, _token, _model.Subdirectory);
+            _panelText = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelTextPrefab + model.ActionPanelElementSuffix, _root, _token, _model.Subdirectory);
             _clientEntityService.SetActive(_panelText, false);
-            _panelGrid = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelGridPrefab, _root, _token, _model.Subdirectory);
+            _panelGrid = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelGridPrefab + model.ActionPanelElementSuffix, _root, _token, _model.Subdirectory);
             _clientEntityService.SetActive(_panelGrid, false);
-            _panelButton = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelButtonPrefab, _root, _token, _model.Subdirectory);
+            _panelButton = await _assetService.LoadAssetAsync<IView>(AssetCategoryNames.UI, PanelButtonPrefab + model.ActionPanelElementSuffix, _root, _token, _model.Subdirectory);
             _clientEntityService.SetActive(_panelButton, false);
 
             AddUpdate(OnLateUpdate, UpdateType.Late);

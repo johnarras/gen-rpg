@@ -1,6 +1,6 @@
 ﻿using Genrpg.Shared.Client.Core;
-using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Temples.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Interfaces;

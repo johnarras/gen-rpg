@@ -14,7 +14,7 @@ using Genrpg.Shared.Utils;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genrpg.Shared.Crawler.States.StateHelpers.Houses
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Tavenrs
 {
     public class TavernMainHelper : BaseStateHelper
     {
@@ -37,7 +37,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Houses
 
             if (action.ExtraData is string prevText)
             {
-                stateData.Actions.Add(new CrawlerStateAction(prevText));    
+                stateData.Actions.Add(new CrawlerStateAction(prevText));
             }
 
 

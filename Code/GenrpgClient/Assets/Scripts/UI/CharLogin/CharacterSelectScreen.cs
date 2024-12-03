@@ -12,6 +12,7 @@ using Genrpg.Shared.ProcGen.Services;
 using Genrpg.Shared.Client.GameEvents;
 using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Crawler.States.Services;
 
 public class CharacterSelectScreen : ErrorMessageScreen
 {
@@ -36,6 +37,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
     private IBoardGameController _boardGameController;
     private IClientConfigContainer _configContainer;
     private IClientAppService _clientAppService;
+    private ICrawlerService _crawlerService;
 
     public const string CharacterRowArt = "CharacterSelectRow";
 
@@ -123,7 +125,7 @@ public class CharacterSelectScreen : ErrorMessageScreen
 
     private void ClickCrawler()
     {
-        _screenService.Open(ScreenId.Crawler);
+        _screenService.Open(_crawlerService.GetCrawlerScreenId());
     }
 
     private void ClickBoardGame()

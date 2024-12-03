@@ -14,15 +14,17 @@ using Genrpg.Shared.Client.Core;
 using Assets.Scripts.Assets;
 using Assets.Scripts.Awaitables;
 using Genrpg.Shared.Users.PlayerData;
+using Genrpg.Shared.Core.Constants;
 
 public class ClientGameState : GameState, IInjectable, IClientGameState
 {
     public IMapGenData md { get; set; } = null;   
     public User user { get; set; }
     public Character ch { get; set; }
-    public bool CrawlerMode { get; set; } = false;
     public List<CharacterStub> characterStubs { get; set; }  = new List<CharacterStub>();
     public List<MapStub> mapStubs { get; set; } = new List<MapStub>(); 
+
+    public EGameModes GameMode { get; set; }
 
 
     public string LoginServerURL { get; set; }

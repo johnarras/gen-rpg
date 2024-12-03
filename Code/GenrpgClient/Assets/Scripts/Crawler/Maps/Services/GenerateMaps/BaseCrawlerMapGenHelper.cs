@@ -16,6 +16,9 @@ using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Crawler.Maps.Settings;
+using Genrpg.Shared.Crawler.MapGen.Services;
+using Genrpg.Shared.Crawler.MapGen.Entities;
+using Genrpg.Shared.Crawler.MapGen.Helpers;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -26,7 +29,7 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
         public const float EncounterTreasureChance = 0.2f;
 
         protected IAssetService _assetService;
-        protected IUIService _uIInitializable;
+        protected IUIService _uiService;
         protected ILogService _logService;
         protected IGameData _gameData;
         protected IClientGameState _gs;

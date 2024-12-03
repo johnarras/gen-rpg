@@ -247,7 +247,15 @@
       "IdKey": 40,
       "Name": "Riddle",
       "Desc": "",
-      "UpdateTime": "2024-08-11T14:51:59.701Z"
+      "UpdateTime": "2024-11-26T01:48:57.473Z"
+    },
+    {
+      "Id": "entitytype41default",
+      "ParentId": "default",
+      "IdKey": 41,
+      "Name": "RoleScaling",
+      "Desc": "",
+      "UpdateTime": "2024-11-26T01:48:57.473Z"
     },
     {
       "Id": "entitytype100default",
@@ -282,7 +290,7 @@
   "ParentObj": {
     "Id": "default",
     "Name": "EntitySettings",
-    "UpdateTime": "2024-10-18T21:20:10.933Z"
+    "UpdateTime": "2024-11-26T01:48:57.473Z"
   },
   "Id": "default"
 }

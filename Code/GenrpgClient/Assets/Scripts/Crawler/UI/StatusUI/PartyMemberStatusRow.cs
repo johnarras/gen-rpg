@@ -1,11 +1,16 @@
 ﻿
+using Assets.Scripts.Assets.Textures;
 using Assets.Scripts.MVC;
+using Assets.Scripts.TextureLists.Services;
 using Genrpg.Shared.Characters.PlayerData;
+using Genrpg.Shared.Client.GameEvents;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Services;
+using Genrpg.Shared.Crawler.TextureLists.Services;
 using Genrpg.Shared.MVC.Interfaces;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.UI.Interfaces;
@@ -14,6 +19,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SearchService;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 namespace Assets.Scripts.UI.Crawler.StatusUI
 {
@@ -39,6 +46,10 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
 
         public IButton Button;
 
+        private AnimatedTexture _portrait;
+
+        private GameObject _root = null;
+
         private PartyMember _partyMember = null;
 
         private Dictionary<string, IText> _textFields = new Dictionary<string, IText>();
@@ -59,14 +70,16 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
             };
 
             Button = view.Get<IButton>("Button");
+            _root = view.Get<GameObject>("Root");
 
             foreach (string name in names)
             {
                 _textFields[name] = view.Get<IText>(name);
             }
 
-            _uiService.SetButton(Button, GetType().Name, ClickPartyMember);
+            _portrait = view.Get<AnimatedTexture>("Portrait");
 
+            _uiService.SetButton(Button, GetType().Name, ClickPartyMember);
 
             if (_model > 0)
             {
@@ -89,7 +102,8 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
 
             }
 
-            UpdateText();
+            _updateService.AddUpdate(this, OnLateUpdate, UpdateType.Late, GetToken());
+            UpdateData();
         }
 
         private void ClickPartyMember()
@@ -109,8 +123,24 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
 
         }
 
-        public void UpdateText()
+        private bool _needToUpdate = false;
+        public void UpdateData()
         {
+            _needToUpdate = true;
+        }
+
+
+        private void OnLateUpdate()
+        {
+            if (_needToUpdate)
+            {
+                UpdateDataInternal();
+                _needToUpdate = false;
+            }
+        }
+
+        private void UpdateDataInternal()
+        { 
             if (_model == 0)
             {
                 return;
@@ -119,6 +149,7 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
 
             if (_partyMember == null)
             {
+                _clientEntityService.SetActive(_root, false);
                 SetText(Names.Name, "");
                 SetText(Names.Health, "");
                 SetText(Names.Mana, "");
@@ -126,10 +157,12 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                 SetText(Names.Level, "");
                 SetText(Names.Summons, "");
                 SetText(Names.Status, "");
+                SetPortrait(null);
                 return;
             }
             else
             {
+                _clientEntityService.SetActive(_root, true);
                 SetText(Names.Name, _partyMember.Name);
                 SetText(Names.Level, _partyMember.Level.ToString());
                 long currHp = _partyMember.Stats.Curr(StatTypes.Health);
@@ -147,18 +180,20 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                     SetText(Names.Mana, currMana + "/" + maxMana);
                 }
 
+                SetPortrait(_partyMember.PortraitName);
+
                 RoleSettings roleSettings = _gameData.Get<RoleSettings>(_gs.ch);
                 string classText = "";
 
                 List<Role> roles = roleSettings.GetRoles(_partyMember.Roles);
                 
-                if (!string.IsNullOrEmpty(classText))
-                {
-                    classText += "/";
-                }
-
                 foreach (Role role in roles)
                 {
+                    if (!string.IsNullOrEmpty(classText))
+                    {
+                        classText += "/";
+                    }
+
                     if (role.RoleCategoryId == RoleCategories.Class)
                     {
                         classText += role.Abbrev;
@@ -186,6 +221,15 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
             {
                 _uiService.SetText(textField, text);
             }
+        }
+
+        private void SetPortrait(string portraitName)
+        {
+            if (string.IsNullOrEmpty(portraitName))
+            {
+                portraitName = CrawlerClientConstants.DefaultWorldBG;
+            }
+            _portrait?.SetImage(portraitName);
         }
 
     }

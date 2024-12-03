@@ -35,5 +35,6 @@ namespace Genrpg.Shared.UI.Entities
         Trade = 26,
         CrawlerMap = 27,
         MobileHUD = 28,
+        Crawler2 = 29,
     }
 }

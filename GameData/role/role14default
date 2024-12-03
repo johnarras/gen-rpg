@@ -8,6 +8,7 @@
   "RoleCategoryId": 2,
   "HealthPerLevel": 5,
   "StartStatBonuses": "2 0 2 0 2 0",
-  "Bonuses": [],
-  "UpdateTime": "2024-10-20T18:48:00.956Z"
+  "BinaryBonuses": [],
+  "AmountBonuses": [],
+  "UpdateTime": "2024-11-26T03:11:28.929Z"
 }

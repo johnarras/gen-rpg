@@ -23,9 +23,10 @@ using Genrpg.Shared.UI.Entities;
 using Assets.Scripts.Awaitables;
 using Genrpg.Shared.Users.PlayerData;
 using Genrpg.Shared.Crawler.Maps.Services;
+using Genrpg.Shared.Core.Interfaces;
 
 
-public interface IClientAuthService : IInitializable
+public interface IClientAuthService : IInitializable, IGameCleanup
 {
     void StartAuth(CancellationToken token);
     void Logout();
@@ -34,7 +35,6 @@ public interface IClientAuthService : IInitializable
     Awaitable Signup(SignupCommand command, CancellationToken token);
     Awaitable SaveLocalUserData(string email, string loginToken);
     Awaitable StartNoUser(CancellationToken token);
-    void ResetGame();
 }
 
 public class ClientAuthService : IClientAuthService
@@ -58,7 +58,6 @@ public class ClientAuthService : IClientAuthService
     private IClientCryptoService _clientCryptoService;
     private IClientAppService _clientAppService;
     protected IAwaitableService _awaitableService;
-    protected ICrawlerMapService _crawlerMapService;
 
     public async Task Initialize(CancellationToken token)
     {
@@ -126,14 +125,6 @@ public class ClientAuthService : IClientAuthService
         _screenService.Close(ScreenId.HUD);
         _screenService.Open(ScreenId.CharacterSelect);
     }
-
-    public void ResetGame()
-    {
-        ExitMMOMap();
-        _crawlerMapService.CleanMap();
-    }
-
-  
 
     private void ExitMMOMap()
     {
@@ -220,6 +211,12 @@ public class ClientAuthService : IClientAuthService
     {
         command.AccountProductId = _config.Config.AccountProductId;
         _clientWebService.SendAuthWebCommand(command, token);
+        await Task.CompletedTask;
+    }
+
+    public async Task OnCleanup(CancellationToken token)
+    {
+        ExitMMOMap();
         await Task.CompletedTask;
     }
 }

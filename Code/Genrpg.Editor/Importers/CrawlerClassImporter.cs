@@ -37,6 +37,9 @@ namespace Genrpg.Editor.Importers
 
         const int MaxRoles = 100;
 
+        private IGameData _gameData;
+        
+
         protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
         {
             string[] firstLine = lines[0].Split(',');
@@ -72,7 +75,8 @@ namespace Genrpg.Editor.Importers
                 if (topRow[s] != null)
                 {
                     gs.LookedAtObjects.Add(topRow[s]);
-                    topRow[s].Bonuses = new List<RoleBonus>();
+                    topRow[s].BinaryBonuses = new List<RoleBonusBinary>();
+                    topRow[s].AmountBonuses = new List<RoleBonusAmount>();
                 }
             }
 
@@ -87,19 +91,24 @@ namespace Genrpg.Editor.Importers
                     continue;
                 }
 
-                if (TryAddBonus<PartyBuffSettings>(gs.data, EntityTypes.PartyBuff, words, topRow))
+                if (TryAddAmountBonus<RoleScalingTypeSettings>(gs.data, EntityTypes.RoleScaling, words, topRow))
                 {
                     continue;
                 }
-                if (TryAddBonus<StatSettings>(gs.data, EntityTypes.Stat, words, topRow))
+
+                if (TryAddBinaryBonus<PartyBuffSettings>(gs.data, EntityTypes.PartyBuff, words, topRow))
                 {
                     continue;
                 }
-                if (TryAddBonus<CrawlerSpellSettings>(gs.data, EntityTypes.CrawlerSpell, words, topRow))
+                if (TryAddBinaryBonus<StatSettings>(gs.data, EntityTypes.Stat, words, topRow))
                 {
                     continue;
                 }
-                if (TryAddBonus<ItemTypeSettings>(gs.data, EntityTypes.Item, words, topRow))
+                if (TryAddBinaryBonus<CrawlerSpellSettings>(gs.data, EntityTypes.CrawlerSpell, words, topRow))
+                {
+                    continue;
+                }
+                if (TryAddBinaryBonus<ItemTypeSettings>(gs.data, EntityTypes.Item, words, topRow))
                 {
                     continue;
                 }
@@ -152,7 +161,7 @@ namespace Genrpg.Editor.Importers
             {
                 if (topRow[c] != null)
                 {
-                    topRow[c].Bonuses = topRow[c].Bonuses.OrderBy(x=>x.EntityTypeId).ThenBy(x=>x.EntityId).ToList();    
+                    topRow[c].BinaryBonuses = topRow[c].BinaryBonuses.OrderBy(x=>x.EntityTypeId).ThenBy(x=>x.EntityId).ToList();    
                 }
             }
 
@@ -164,7 +173,38 @@ namespace Genrpg.Editor.Importers
             return true;
         }
 
-        private bool TryAddBonus<T>(IGameData gameData, long entityTypeId, string[] words, Role[] topRow) where T : ITopLevelSettings
+        private bool TryAddAmountBonus<T>(IGameData gameData, long entityTypeId, string[] words, Role[] topRow) where T : ITopLevelSettings
+        {
+
+            try
+            {
+                List<IIdName> children = gameData.Get<T>(null).GetChildren().Cast<IIdName>().ToList();
+
+                IIdName child = children.FirstOrDefault(x => x.Name == words[0]);
+
+                if (child != null)
+                {
+                    for (int w = 1; w < words.Length && w < MaxRoles; w++)
+                    {
+                        if (topRow[w] != null && double.TryParse(words[w], out double amount))
+                        {
+                            if (amount != 0)
+                            {
+                                topRow[w].AmountBonuses.Add(new RoleBonusAmount() { EntityTypeId = entityTypeId, EntityId = child.IdKey, Amount = amount });
+                            }
+                        }
+                    }
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Invalid cast" + e.Message);
+            }
+            return false;
+        }
+
+        private bool TryAddBinaryBonus<T>(IGameData gameData, long entityTypeId, string[] words, Role[] topRow) where T : ITopLevelSettings
         {
 
             try
@@ -179,7 +219,7 @@ namespace Genrpg.Editor.Importers
                     {
                         if (topRow[w] != null && !string.IsNullOrEmpty(words[w]))
                         {
-                            topRow[w].Bonuses.Add(new RoleBonus() { EntityTypeId = entityTypeId, EntityId = child.IdKey });
+                            topRow[w].BinaryBonuses.Add(new RoleBonusBinary() { EntityTypeId = entityTypeId, EntityId = child.IdKey });
                         }
                     }
                     return true;

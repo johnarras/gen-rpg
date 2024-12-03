@@ -1,11 +1,9 @@
 ﻿using Genrpg.Editor.Constants;
 using Genrpg.Editor.Entities.Core;
-using Genrpg.Shared.Aphorisms.Settings;
+using Genrpg.Shared.Riddles.Settings;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Genrpg.Editor.Importers

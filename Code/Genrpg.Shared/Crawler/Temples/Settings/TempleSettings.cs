@@ -4,7 +4,7 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using MessagePack;
 
-namespace Genrpg.Shared.Crawler.Combat.Settings
+namespace Genrpg.Shared.Crawler.Temples.Settings
 {
     [MessagePackObject]
     public class TempleSettings : NoChildSettings // No List

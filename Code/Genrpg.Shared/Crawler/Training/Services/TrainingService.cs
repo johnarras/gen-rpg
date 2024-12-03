@@ -14,6 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Roguelikes.Services;
 
 namespace Genrpg.Shared.Crawler.Training.Services
 {
@@ -41,6 +43,7 @@ namespace Genrpg.Shared.Crawler.Training.Services
         protected IGameData _gameData = null;
         protected IClientRandom _rand = null;
         protected IClientGameState _gs = null;
+        private IRoguelikeUpgradeService _roguelikeUpgradeService;
 
         public async Task Initialize(CancellationToken token)
         {
@@ -184,6 +187,12 @@ namespace Genrpg.Shared.Crawler.Training.Services
 
                 _statService.CalcUnitStats(party, member, true);
 
+                long newPoints =  _roguelikeUpgradeService.UpdateOnLevelup(party, member.Level);
+
+                if (newPoints > 0)
+                {
+                    party.ActionPanel.AddText($"You get {newPoints} upgrade points for a total of {party.UpgradePoints}.");
+                }
             }
         }
     }

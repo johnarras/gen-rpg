@@ -28,6 +28,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Crawler.Combat.Entities;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Roguelikes.Settings;
+using Genrpg.Shared.Crawler.Roguelikes.Services;
+using Genrpg.Shared.Crawler.Roguelikes.Constants;
 
 namespace Genrpg.Shared.Crawler.Loot.Services
 {
@@ -64,6 +68,8 @@ namespace Genrpg.Shared.Crawler.Loot.Services
         protected IClientGameState _gs;
         protected IClientRandom _rand;
         protected IItemGenService _itemGenService;
+        private IRoguelikeUpgradeService _roguelikeUpgradeService;
+
         public Item GenerateItem(ItemGenData lootGenData)
         {
 
@@ -111,9 +117,12 @@ namespace Genrpg.Shared.Crawler.Loot.Services
             {
                 itemType = _gameData.Get<ItemTypeSettings>(_gs.ch).Get(lootGenData.ItemTypeId);
             }
+
+            bool allItemSlotsOk = _gs.GameMode == EGameModes.Roguelike;
+
             if (itemType == null)
             {
-                List<EquipSlot> okEquipSlots = _gameData.Get<EquipSlotSettings>(null).GetData().Where(x => x.IsCrawlerSlot).ToList();
+                List<EquipSlot> okEquipSlots = _gameData.Get<EquipSlotSettings>(null).GetData().Where(x => x.IsCrawlerSlot || allItemSlotsOk).ToList();
 
                 List<long> okEquipSlotIds = okEquipSlots.Select(x => x.IdKey).ToList();
 
@@ -331,17 +340,45 @@ namespace Genrpg.Shared.Crawler.Loot.Services
         public PartyLoot GiveLoot(PartyData party, CrawlerMap map, LootGenData genData)
         {
             PartyLoot loot = new PartyLoot();
-            CrawlerLootSettings lootSettings = _gameData.Get<CrawlerLootSettings>(null);
+            CrawlerLootSettings lootSettings = _gameData.Get<CrawlerLootSettings>(_gs.ch);
+
+            double lootScale = 1.0f;
+
+            if (_gs.GameMode == EGameModes.Roguelike)
+            {
+                lootScale = _gameData.Get<RoguelikeSettings>(_gs.ch).LootScale;
+
+
+                int itemCount = genData.ItemCount;
+
+                for (int i = 0; i < itemCount; i++)
+                {
+                    if (_rand.NextDouble() > lootScale)
+                    {
+                        genData.ItemCount--;
+                    }
+                }
+
+                genData.Gold = (long)(genData.Gold * lootScale);
+                genData.Exp = (long)(genData.Exp * lootScale);
+            }
+
 
             List<Item> items = new List<Item>();
 
-            ItemGenData itemGenData = new ItemGenData()
-            {
-                Level = genData.Level,
-            };
+            double lootQualityBonus = _roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.LootQuality);
+
+
+
 
             for (int i = 0; i < genData.ItemCount; i++)
             {
+                ItemGenData itemGenData = new ItemGenData()
+                {
+                    Level = genData.Level,
+                    QualityTypeId = (long)(_rand.NextDouble() * (lootQualityBonus * 2 + 0.5f))
+                };
+
                 Item item = GenerateItem(itemGenData);
                 if (item != null)
                 {

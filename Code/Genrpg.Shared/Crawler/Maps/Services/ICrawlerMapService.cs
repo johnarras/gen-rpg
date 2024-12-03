@@ -4,10 +4,11 @@ using Genrpg.Shared.Interfaces;
 using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Shared.UI.Interfaces;
+using Genrpg.Shared.Core.Interfaces;
 
 namespace Genrpg.Shared.Crawler.Maps.Services
 {
-    public interface ICrawlerMapService : IInitializable
+    public interface ICrawlerMapService : IInitializable, IGameCleanup
     {
         Task EnterMap(PartyData partyData, EnterCrawlerMapData mapData, CancellationToken token);
         Task UpdateMovement(CancellationToken token);
@@ -25,7 +26,7 @@ namespace Genrpg.Shared.Crawler.Maps.Services
         Task AddKeyInput(char keyChar, CancellationToken token);
         bool IsDungeon(long crawlerMapTypeId);
         long GetMapType();
-        object GetBGImage();
+        string GetBGImageName();
 
     }
 }

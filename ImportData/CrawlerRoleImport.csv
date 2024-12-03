@@ -3,7 +3,7 @@ Abbrev,,Wa,Th,Hu,Ma,Cl,En,Bd,Dr,Bb,Pa,El,Hu,Elf,Dw,Hc,Gn,Hf
 Desc,,Tough Fighter,Sneaky Fighter,Ranged Combat,Spell Damage,Healing,Hybrid ,Hybrid Spell,Full Hybrid,Big Melee Dam,Tanky Heals,Spell Dam and Heals,Normal people,Slightly more Ranged,More health,More Melee,More Spell Dam,More Crit
 RoleCategoryId,,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2
 HealthPerLevel,,22,16,18,12,14,18,16,18,18,20,16,0,0,5,0,0,0
-ManaPerLevel,,10,10,14,22,22,14,16,18,8,18,20,0,0,0,0,0,0
+ManaPerLevel,,10,10,14,22,22,14,16,18,10,18,20,0,0,0,0,0,0
 TrainingXpScale,,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
 TrainingGoldScale,,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
 StartStatBonuses,Str Int Dev Agi Sta Luc,4 0 0 4 4 0,4 0 0 2 2 4,2 2 0 4 2 2,0 6 0 3 0 3,0 3 6 0 1 2,2 2 2 2 2 2,2 3 3 2 1 1,2 2 2 2 2 2,6 0 0 0 6 0,4 0 4 0 4 0,0 6 6 0 0 0,1 1 1 1 1 1,0 2 2 2 0 0,2 0 2 0 2 0,3 0 0 0 3 0,0 3 3 0 0 0,0 0 0 3 0 3
@@ -63,9 +63,12 @@ Identify Monster,,,,x,,,,,x,,,x,,,,,,
 Mesmerize,,,,x,,,x,,,,,,,,,,,
 Entangle,,,,x,,,,,x,,,,,,,,,
 Identify Item,,,x,,x,,x,,,,,,,,,,,
-Call Beast,,,,x,,,,,,,,,,,,,,
-Conjure Golem,,,,,x,,,,,,,,,,,,,
-Summon Elemental,,,,,,,,,,,x,x,,,,,,
+Call Beast,,,,x,,,,,x,,,,,,,,,
+Conjure Golem,,,,,x,,x,,,,,,,,,,,
+Summon Elemental,,,,,,,,,,,,x,,,,,,
+Summon Monk,,,,,,x,,,,,x,,,,,,,
+Summon Scrapper,,x,,,,,,,,x,,,,,,,,
+Signal Thief,,,x,,,,,x,,,,,,,,,,
 Holy Storm,,,,,,,,,,,,,,,,,,
 Lightning Storm,,,,,,,,,,,,x,,,,,,
 Firestorm,,,,,x,,,,,,,,,,,,,

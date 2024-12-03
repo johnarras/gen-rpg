@@ -26,10 +26,18 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
     }
 
     [MessagePackObject]
-    public class RoleBonus
+    public class RoleBonusBinary
     {
         [Key(0)] public long EntityTypeId { get; set; }
         [Key(1)] public long EntityId { get; set; }
+    }
+
+    [MessagePackObject]
+    public class RoleBonusAmount
+    {
+        [Key(0)] public long EntityTypeId { get; set; }
+        [Key(1)] public long EntityId { get; set; }
+        [Key(2)] public double Amount { get; set; }
     }
 
     [MessagePackObject]
@@ -46,24 +54,20 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
         [Key(7)] public string Abbrev { get; set; }
 
         [Key(8)] public long RoleCategoryId { get; set; }
-        [Key(9)] public double MeleeScaling { get; set; }
-        [Key(10)] public double RangedScaling { get; set; }
-        [Key(11)] public double SpellDamScaling { get; set; }
-        [Key(12)] public double HealingScaling { get; set; }
-        [Key(13)] public double SummonScaling { get; set; }
-        [Key(14)] public int HealthPerLevel { get; set; }
-        [Key(15)] public int ManaPerLevel { get; set; }
-        [Key(16)] public long MaxArmorScalingTypeId { get; set; }
-        [Key(17)] public long CritPercent { get; set; } = 0; 
-        [Key(18)] public long ManaStatTypeId { get; set; }
-        [Key(19)] public bool Guardian { get; set; } = false;
+        [Key(9)] public int HealthPerLevel { get; set; }
+        [Key(10)] public int ManaPerLevel { get; set; }
+        [Key(11)] public long MaxArmorScalingTypeId { get; set; }
+        [Key(12)] public long CritPercent { get; set; } = 0; 
+        [Key(13)] public long ManaStatTypeId { get; set; }
+        [Key(14)] public bool Guardian { get; set; } = false;
 
-        [Key(20)] public double TrainingXpScale { get; set; }
-        [Key(21)] public double TrainingGoldScale { get; set; }
-        [Key(22)] public string StartStatBonuses { get; set; }
+        [Key(15)] public double TrainingXpScale { get; set; }
+        [Key(16)] public double TrainingGoldScale { get; set; }
+        [Key(17)] public string StartStatBonuses { get; set; }
 
-        [Key(23)] public List<RoleBonus> Bonuses { get; set; } = new List<RoleBonus>();
+        [Key(18)] public List<RoleBonusBinary> BinaryBonuses { get; set; } = new List<RoleBonusBinary>();
 
+        [Key(19)] public List<RoleBonusAmount> AmountBonuses { get; set; } = new List<RoleBonusAmount>();
     }
 
 
@@ -92,7 +96,7 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
             foreach (UnitRole uc in roles)
             {
                 Role cl = Get(uc.RoleId);
-                if (cl != null && cl.Bonuses.Any(x => x.EntityTypeId == entityTypeId && x.EntityId == entityId))
+                if (cl != null && cl.BinaryBonuses.Any(x => x.EntityTypeId == entityTypeId && x.EntityId == entityId))
                 {
                     return true;
                 }

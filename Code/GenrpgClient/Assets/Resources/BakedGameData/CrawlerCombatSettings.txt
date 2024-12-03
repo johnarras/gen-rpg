@@ -17,6 +17,8 @@
   "BaseMonsterMaxDam": 3,
   "MinMonsterDamPerLevel": 0.25,
   "MaxMonsterDamPerLevel": 0.5,
+  "RandomEncounterChance": 0.05,
+  "MovesBetweenEncounters": 6,
   "Name": "CrawlerCombatSettings",
-  "UpdateTime": "2024-11-10T01:10:20.627Z"
+  "UpdateTime": "2024-11-28T20:12:03.079Z"
 }

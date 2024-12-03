@@ -1,10 +1,7 @@
 ﻿using Genrpg.Shared.Crawler.Maps.Entities;
-using Assets.Scripts.Crawler.Maps.Services;
-using Assets.Scripts.Crawler.Maps.Services.GenerateMaps;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
-using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;
@@ -22,6 +19,9 @@ using Genrpg.Shared.Zones.Constants;
 using System;
 using Genrpg.Shared.Utils;
 using Genrpg.Shared.Crawler.Maps.Settings;
+using Genrpg.Shared.Crawler.MapGen.Services;
+using Genrpg.Shared.Crawler.MapGen.Helpers;
+using Genrpg.Shared.Crawler.MapGen.Entities;
 
 namespace Assets.Scripts.Crawler.Maps
 {
@@ -83,7 +83,7 @@ namespace Assets.Scripts.Crawler.Maps
             return null;
         }
 
-        public async  Awaitable<CrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
+        public async Task<CrawlerMap> Generate(PartyData party, CrawlerWorld world, CrawlerMapGenData genData)
         {
 
             if (genData.MapType == CrawlerMapTypes.RandomDungeon)

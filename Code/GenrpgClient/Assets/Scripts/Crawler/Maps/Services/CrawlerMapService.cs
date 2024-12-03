@@ -31,13 +31,11 @@ using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.StateHelpers.Exploring;
 using UnityEngine;
 using Genrpg.Shared.Tasks.Services;
-using Genrpg.Shared.Crawler.States.StateHelpers;
 using Genrpg.Shared.Crawler.States.Entities;
 using Genrpg.Shared.Dungeons.Settings;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Genrpg.Shared.Crawler.Maps.Settings;
-using Genrpg.Shared.Characters.PlayerData;
-using Genrpg.Shared.UI.Interfaces;
+using Genrpg.Shared.Crawler.Constants;
+using Genrpg.Shared.Core.Constants;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
@@ -92,9 +90,14 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         private SetupDictionaryContainer<long, ICrawlerMapTypeHelper> _mapTypeHelpers = new SetupDictionaryContainer<long, ICrawlerMapTypeHelper>();
 
 
-        public object GetBGImage()
+        public string GetBGImageName()
         {
-            return _crawlerMapRoot?.Assets?.Background ?? null;
+            if (_crawlerMapRoot == null || _crawlerMapRoot.Assets == null || string.IsNullOrEmpty(_crawlerMapRoot.Assets.BGImageName))
+            {
+                return CrawlerClientConstants.DefaultWorldBG;
+            }
+
+            return _crawlerMapRoot.Assets.BGImageName;
         }
 
         private long _mapType = CrawlerMapTypes.None;
@@ -150,7 +153,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
         {
             CleanMap();
             _party = partyData;
-            _party.InTavern = false;
+            _party.InGuildHall = false;
             _world = await _worldService.GetWorld(_party.WorldId);
 
             if (_playerLight == null)
@@ -216,6 +219,15 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             _crawlerMapRoot.Assets = assetGo.GetComponent<DungeonAssets>();
         }
 
+
+
+        public async Task OnCleanup(CancellationToken token)
+        {
+            CleanMap();
+            await Task.CompletedTask;
+        }
+
+
         public void CleanMap()
         {
             if (_crawlerMapRoot != null && _crawlerMapRoot.Assets != null)
@@ -257,10 +269,14 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
             {
 
                 _camera = _cameraController.GetMainCamera();
+
+                if (_gs.GameMode != EGameModes.Crawler2)
+                {
+                    _camera.rect = new Rect(0, 0, 9f / 16f, 1);
+                }
                 _camera.transform.localPosition = new Vector3(0, 0, -bz * 0.5f);
                 _camera.transform.eulerAngles = new Vector3(0, 0, 0);
                 _camera.farClipPlane = CrawlerMapConstants.BlockSize * 8;
-                _camera.rect = new Rect(0, 0, 9f / 16f, 1);
                 _camera.fieldOfView = 70f;
             }
 

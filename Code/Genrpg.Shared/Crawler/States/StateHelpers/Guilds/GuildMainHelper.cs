@@ -12,8 +12,9 @@ using Genrpg.Shared.Crawler.States.Entities;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Buildings.Constants;
+using Genrpg.Shared.Core.Constants;
 
-namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds
 {
     public class GuildMainHelper : BaseStateHelper
     {
@@ -58,13 +59,17 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild
             {
                 stateData.Actions.Add(new CrawlerStateAction("Enter Map", 'E', ECrawlerStates.ExploreWorld));
             }
-            stateData.Actions.Add(new CrawlerStateAction("More Options", 'M', ECrawlerStates.Options));
+            if (party.GameMode == EGameModes.Roguelike)
+            {
+                stateData.Actions.Add(new CrawlerStateAction("Upgrades", 'U', ECrawlerStates.UpgradeParty));
+            }
+            //stateData.Actions.Add(new CrawlerStateAction("More Options", 'M', ECrawlerStates.Options));
 
-            if (!party.InTavern)
+            if (!party.InGuildHall)
             {
                 await _timeService.UpdateTime(party, ECrawlerTimeUpdateTypes.Tavern);
             }
-            party.InTavern = true;
+            party.InGuildHall = true;
             return stateData;
 
         }

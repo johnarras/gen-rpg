@@ -1,23 +1,17 @@
-﻿using Genrpg.Shared.Crawler.Combat.Settings;
-using Genrpg.Shared.Crawler.Parties.PlayerData;
+﻿using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
-using Genrpg.Shared.Crawler.Stats.Services;
 using Genrpg.Shared.ProcGen.Settings.Names;
-using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Stats.Entities;
-using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Utils;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
 {
     public class RollStatsHelper : BaseStateHelper
     {
@@ -30,10 +24,12 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
 
             PartyMember member = action.ExtraData as PartyMember;
 
+            PartyData party = _crawlerService.GetParty();
+
             member.ClearPermStats();
             member.Stats = new StatGroup();
 
-            List<NameIdValue> stats = _statService.GetInitialStats(member);
+            List<NameIdValue> stats = _statService.GetInitialStats(party, member);
 
             List<List<NameIdValue>> roleBonuses = new List<List<NameIdValue>>();
 

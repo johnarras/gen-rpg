@@ -17,6 +17,10 @@ using Genrpg.Shared.Crawler.States.Services;
 using System.Threading.Tasks;
 using Genrpg.Shared.Client.GameEvents;
 using Genrpg.Shared.Crawler.States.Constants;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Roguelikes.Constants;
+using Genrpg.Shared.Crawler.Roguelikes.Services;
+using Genrpg.Shared.Inventory.Settings.Qualities;
 
 public class CrawlerVendorScreen : ItemIconScreen
 {
@@ -26,6 +30,7 @@ public class CrawlerVendorScreen : ItemIconScreen
     protected ILootGenService _lootGenService;
     private ICrawlerWorldService _crawlerWorldService;
     private IIconService _iconService;
+    private IRoguelikeUpgradeService _roguelikeUpgradeService;
     
     public const string VendorIconName = "VendorItemIcon";
 
@@ -79,12 +84,31 @@ public class CrawlerVendorScreen : ItemIconScreen
 
             int quantity = MathUtils.IntRange(4, 10, _rand);
 
+            long level = await _crawlerWorldService.GetMapLevelAtParty(await _crawlerWorldService.GetWorld(_party.WorldId), _party);
+
+
+            double quality = 0;
+            
+
+            if (_party.GameMode == EGameModes.Roguelike)
+            {
+                level = _party.MaxLevel;
+                quality = _roguelikeUpgradeService.GetBonus(_party, RoguelikeUpgrades.VendorQuality);
+            }
+
             for (int i = 0; i < quantity; i++)
             {
+                long qualityTypeId = (long)quality;
 
+                double remainder = quality - qualityTypeId;
+                if (_rand.NextDouble() < remainder)
+                {
+                    qualityTypeId++;
+                }
                 ItemGenData lootGenData = new ItemGenData()
                 {
-                    Level = await _crawlerWorldService.GetMapLevelAtParty(await _crawlerWorldService.GetWorld(_party.WorldId), _party)
+                    Level = level,
+                    QualityTypeId = qualityTypeId
                 };
 
                 _party.VendorItems.Add(_lootGenService.GenerateItem(lootGenData));

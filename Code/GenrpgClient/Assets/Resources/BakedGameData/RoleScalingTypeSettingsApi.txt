@@ -1,0 +1,45 @@
+{
+  "Data": [
+    {
+      "Id": "rolescalingtype1default",
+      "ParentId": "default",
+      "IdKey": 1,
+      "Name": "MeleeScaling",
+      "UpdateTime": "2024-11-26T01:48:34.329Z"
+    },
+    {
+      "Id": "rolescalingtype2default",
+      "ParentId": "default",
+      "IdKey": 2,
+      "Name": "RangedScaling",
+      "UpdateTime": "2024-11-26T01:48:34.329Z"
+    },
+    {
+      "Id": "rolescalingtype3default",
+      "ParentId": "default",
+      "IdKey": 3,
+      "Name": "SpellDamScaling",
+      "UpdateTime": "2024-11-26T01:48:34.329Z"
+    },
+    {
+      "Id": "rolescalingtype4default",
+      "ParentId": "default",
+      "IdKey": 4,
+      "Name": "HealingScaling",
+      "UpdateTime": "2024-11-26T01:48:34.329Z"
+    },
+    {
+      "Id": "rolescalingtype5default",
+      "ParentId": "default",
+      "IdKey": 5,
+      "Name": "SummonScaling",
+      "UpdateTime": "2024-11-26T01:48:34.329Z"
+    }
+  ],
+  "ParentObj": {
+    "Id": "default",
+    "Name": "RoleScalingTypeSettings",
+    "UpdateTime": "2024-11-26T01:48:34.329Z"
+  },
+  "Id": "default"
+}

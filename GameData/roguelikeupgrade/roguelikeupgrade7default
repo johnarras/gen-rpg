@@ -1,0 +1,12 @@
+{
+  "Id": "roguelikeupgrade7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "LootQuality",
+  "NameId": "",
+  "Desc": "Increases the quality of the loot items found.",
+  "MaxTier": 5,
+  "BonusPerTier": 0.5,
+  "BasePointCost": 2,
+  "UpdateTime": "2024-11-27T22:29:50.685Z"
+}

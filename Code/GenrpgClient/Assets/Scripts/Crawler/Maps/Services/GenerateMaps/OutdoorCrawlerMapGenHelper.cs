@@ -23,6 +23,8 @@ using Genrpg.Shared.Dungeons.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
 using System.Text;
 using Genrpg.Shared.Riddles.Services;
+using Genrpg.Shared.Crawler.MapGen.Entities;
+using Genrpg.Shared.Core.Constants;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -783,7 +785,10 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                     }
                 }
 
-                await _riddleService.GenerateRiddles(floors, rand);
+                if (party.GameMode != EGameModes.Roguelike)
+                {
+                    await _riddleService.GenerateRiddles(floors, rand);
+                }
             }
 
             // Now remove all empty quest item detail slots.

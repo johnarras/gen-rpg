@@ -25,6 +25,10 @@ using Genrpg.Shared.Crawler.GameEvents;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Crawler.Maps.Settings;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.MapGen.Services;
+using Genrpg.Shared.Crawler.MapGen.Helpers;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Assets.Scripts.Crawler.Maps.Services
 {
@@ -46,18 +50,14 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
         public async Task<CrawlerWorld> GenerateWorld(PartyData partyData)
         {
-            partyData.WorldId = DateTime.UtcNow.Ticks % 1000000;
-            partyData.Maps = new List<CrawlerMapStatus>();
-            partyData.CurrentMap = new CrawlerMapStatus();
-            partyData.LastVendorRefresh = DateTime.UtcNow.AddDays(-1);
-            partyData.WorldId = _rand.Next() % 1000000000;
+
+            partyData.GameMode = _gs.GameMode;
+            partyData.Reset(_rand);
+            if (partyData.Members.Count < 1)
+            {
+                partyData.MaxLevel = 0;
+            }
             CrawlerWorld world = await GenerateInternal(partyData.WorldId);
-            partyData.MapId = 0;
-            partyData.MapX = 0;
-            partyData.MapZ = 0;
-            partyData.DaysPlayed = 0;
-            partyData.HourOfDay = _gameData.Get<TimeOfDaySettings>(null).DailyResetHour;
-            partyData.CompletedMaps.Clear();
             _dispatcher.Dispatch(new CrawlerUIUpdate());
             return world;
         }
@@ -108,20 +108,22 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
             List<Task> allTasks = new List<Task>();
 
-            allTasks.Add(clientRepoService.StringSave<CrawlerWorld>(pathPrefix + world.Id, SerializationUtils.Serialize(world)));
+            await clientRepoService.StringSave<CrawlerWorld>(pathPrefix + world.Id, SerializationUtils.Serialize(world));
 
             foreach (CrawlerMap map in world.Maps)
             {
-                map.Data = CompressionUtils.CompressBytes(map.Data);
-                allTasks.Add(clientRepoService.StringSave<CrawlerMap>(pathPrefix + map.Id, SerializationUtils.Serialize(map)));
+                await SaveMap(world, map);
             }
 
-            await Task.WhenAll(allTasks);
+        }
 
-            foreach (CrawlerMap map in world.Maps)
-            {
-                map.Data = CompressionUtils.DecompressBytes(map.Data);
-            }
+        public async Task SaveMap(CrawlerWorld world, CrawlerMap map)
+        {
+            ClientRepositoryService clientRepoService = _repoService as ClientRepositoryService;
+            string pathPrefix = WorldPathPrefix(world.IdKey);
+            map.Data = CompressionUtils.CompressBytes(map.Data);
+            await clientRepoService.StringSave<CrawlerMap>(pathPrefix + map.Id, SerializationUtils.Serialize(map));
+            map.Data = CompressionUtils.DecompressBytes(map.Data);
         }
 
         private async Task<CrawlerWorld> LoadWorld(long worldId)
@@ -142,7 +144,7 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
             List<Task<CrawlerMap>> loadTasks = new List<Task<CrawlerMap>>();
 
-            for (int i = 1; i < world.MaxMapId; i++)
+            for (int i = 1; i <= world.MaxMapId; i++)
             {
                 loadTasks.Add(clientRepoService.LoadObjectFromString<CrawlerMap>(pathPrefix + "Map" + i));
             }
@@ -161,62 +163,131 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
         private async Task<CrawlerWorld> GenerateInternal(long worldId)
         {
-            try
+
+            PartyData partyData = _crawlerService.GetParty();
+
+            if (partyData.GameMode == EGameModes.Roguelike)
             {
-                CrawlerWorld world = new CrawlerWorld() { Id = "World", Name = "World", IdKey = worldId };
-                
-                ICrawlerMapGenHelper helper = _mapGenService.GetGenHelper(CrawlerMapTypes.Outdoors);
-
-                MyRandom rand = new MyRandom(worldId + 1);
-
-                CrawlerMapGenData genData = new CrawlerMapGenData()
+                try
                 {
-                    MapType = CrawlerMapTypes.Outdoors,
-                    World = world,
-                    Level = 1,
-                    Looping = false,
-                    ZoneTypeId = 0,
-                };
+                    CrawlerWorld world = new CrawlerWorld() { Id = "World", Name = "World", IdKey = worldId };
 
-                CrawlerMap outdoorMap = await _mapGenService.Generate(_crawlerService.GetParty(), world, genData);
+                    ICrawlerMapGenHelper helper = _mapGenService.GetGenHelper(CrawlerMapTypes.City);
 
-                string path = _clientAppService.PersistentDataPath + "/Data/World";
-                if (Directory.Exists(path))
-                {
-                    Directory.Delete(path, true);
-                }
-                await SaveWorld(world);
+                    MyRandom rand = new MyRandom(worldId + 1);
 
-                await _crawlerService.SaveGame();
-                _crawlerService.ClearAllStates();
-                _mapService.CleanMap();
-
-
-
-                StringBuilder riddleSB = new StringBuilder();
-                foreach (CrawlerMap map in world.Maps)
-                {
-                    if (!string.IsNullOrEmpty(map.RiddleText) && !string.IsNullOrEmpty(map.RiddleAnswer))
+                    CrawlerMapGenData genData = new CrawlerMapGenData()
                     {
-                        riddleSB.Clear();
+                        MapType = CrawlerMapTypes.City,
+                        World = world,
+                        Level = 1,
+                        Looping = false,
+                        ZoneTypeId = 0,
+                    };
 
-                        riddleSB.Append(map.Name + " [#" + map.IdKey + "] ");
-                        riddleSB.Append("Riddle Answer: " + map.RiddleAnswer + "\n");
-                        riddleSB.Append(map.RiddleText);
-                        _logService.Info(riddleSB.ToString());
+                    CrawlerMap outdoorMap = await _mapGenService.Generate(_crawlerService.GetParty(), world, genData);
+
+                    string path = _clientAppService.PersistentDataPath + "/Data/World";
+
+#if UNITY_EDITOR
+                    path = _clientAppService.PersistentDataPath + "/Data/EditorWorld";
+#endif
+                    if (Directory.Exists(path))
+                    {
+                        Directory.Delete(path, true);
                     }
+                    await SaveWorld(world);
+
+                    await _crawlerService.SaveGame();
+                    _crawlerService.ClearAllStates();
+                    _mapService.CleanMap();
+
+
+
+                    StringBuilder riddleSB = new StringBuilder();
+                    foreach (CrawlerMap map in world.Maps)
+                    {
+                        if (!string.IsNullOrEmpty(map.RiddleText) && !string.IsNullOrEmpty(map.RiddleAnswer))
+                        {
+                            riddleSB.Clear();
+
+                            riddleSB.Append(map.Name + " [#" + map.IdKey + "] ");
+                            riddleSB.Append("Riddle Answer: " + map.RiddleAnswer + "\n");
+                            riddleSB.Append(map.RiddleText);
+                            _logService.Info(riddleSB.ToString());
+                        }
+                    }
+
+
+                    _dispatcher.Dispatch(new ClearCrawlerTilemaps());
+
+                    return world;
                 }
-
-
-                _dispatcher.Dispatch(new ClearCrawlerTilemaps());
-
-                return world;
+                catch (Exception e)
+                {
+                    _logService.Exception(e, "CrawlerWorldGen");
+                }
+                return null;
             }
-            catch (Exception e)
+            else
             {
-                _logService.Exception(e, "CrawlerWorldGen");
+                try
+                {
+                    CrawlerWorld world = new CrawlerWorld() { Id = "World", Name = "World", IdKey = worldId };
+
+                    ICrawlerMapGenHelper helper = _mapGenService.GetGenHelper(CrawlerMapTypes.Outdoors);
+
+                    MyRandom rand = new MyRandom(worldId + 1);
+
+                    CrawlerMapGenData genData = new CrawlerMapGenData()
+                    {
+                        MapType = CrawlerMapTypes.Outdoors,
+                        World = world,
+                        Level = 1,
+                        Looping = false,
+                        ZoneTypeId = 0,
+                    };
+
+                    CrawlerMap outdoorMap = await _mapGenService.Generate(_crawlerService.GetParty(), world, genData);
+
+                    string path = _clientAppService.PersistentDataPath + "/Data/World";
+                    if (Directory.Exists(path))
+                    {
+                        Directory.Delete(path, true);
+                    }
+                    await SaveWorld(world);
+
+                    await _crawlerService.SaveGame();
+                    _crawlerService.ClearAllStates();
+                    _mapService.CleanMap();
+
+
+
+                    StringBuilder riddleSB = new StringBuilder();
+                    foreach (CrawlerMap map in world.Maps)
+                    {
+                        if (!string.IsNullOrEmpty(map.RiddleText) && !string.IsNullOrEmpty(map.RiddleAnswer))
+                        {
+                            riddleSB.Clear();
+
+                            riddleSB.Append(map.Name + " [#" + map.IdKey + "] ");
+                            riddleSB.Append("Riddle Answer: " + map.RiddleAnswer + "\n");
+                            riddleSB.Append(map.RiddleText);
+                            _logService.Info(riddleSB.ToString());
+                        }
+                    }
+
+
+                    _dispatcher.Dispatch(new ClearCrawlerTilemaps());
+
+                    return world;
+                }
+                catch (Exception e)
+                {
+                    _logService.Exception(e, "CrawlerWorldGen");
+                }
+                return null;
             }
-            return null;
         }
 
 
@@ -263,7 +334,12 @@ namespace Assets.Scripts.Crawler.Maps.Services
         {
             CrawlerMap map = world.GetMap(mapId);
             
-            if (map == null || map.CrawlerMapTypeId != CrawlerMapTypes.Outdoors)
+            if (map == null)
+            {
+                return 1;
+            }
+
+            if (map.CrawlerMapTypeId != CrawlerMapTypes.Outdoors)
             {
                 return map.Level;
             }

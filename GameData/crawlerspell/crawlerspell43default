@@ -4,7 +4,7 @@
   "IdKey": 43,
   "Name": "Summon Elemental",
   "Desc": "Summon an elemental.",
-  "PowerCost": 10.0,
+  "PowerCost": 9.0,
   "PowerPerLevel": 1.0,
   "MaxRange": 100,
   "CombatActionId": 4,
@@ -19,6 +19,5 @@
       "ElementTypeId": 8
     }
   ],
-  "Flags": 2,
-  "UpdateTime": "2024-10-21T22:47:47.801Z"
+  "UpdateTime": "2024-11-26T00:47:25.3Z"
 }

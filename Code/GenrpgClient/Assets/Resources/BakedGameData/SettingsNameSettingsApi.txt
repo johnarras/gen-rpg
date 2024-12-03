@@ -776,6 +776,27 @@
       "IdKey": 111,
       "Name": "SomeNewSettings",
       "UpdateTime": "2024-11-06T19:49:35.36Z"
+    },
+    {
+      "Id": "settingsname112default",
+      "ParentId": "default",
+      "IdKey": 112,
+      "Name": "RoguelikeSettings",
+      "UpdateTime": "2024-11-25T19:35:57.111Z"
+    },
+    {
+      "Id": "settingsname113default",
+      "ParentId": "default",
+      "IdKey": 113,
+      "Name": "RoguelikeUpgradeSettings",
+      "UpdateTime": "2024-11-25T19:58:08.038Z"
+    },
+    {
+      "Id": "settingsname114default",
+      "ParentId": "default",
+      "IdKey": 114,
+      "Name": "RoleScalingTypeSettings",
+      "UpdateTime": "2024-11-26T01:48:34.329Z"
     }
   ],
   "ParentObj": {

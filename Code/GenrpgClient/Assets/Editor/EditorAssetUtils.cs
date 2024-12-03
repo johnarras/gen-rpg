@@ -57,8 +57,27 @@ public class EditorAssetUtils
 		{
 			Debug.Log("Outer DeleteAllDirs: " + e.Message);
 		}
-	
-	}
+
+    }
+
+    public static bool IsNotPrefabName(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            return true;
+        }
+
+        if (name.LastIndexOf(".prefab") < 0 || name.LastIndexOf(".prefab") != name.Length - 7)
+        {
+            return true;
+        }
+
+        if (IsIgnoreFilename(name))
+        {
+            return true;
+        }
+        return false;
+    }
 
     public static bool IsIgnoreFilename(string name)
     {
@@ -67,13 +86,7 @@ public class EditorAssetUtils
             return true;
         }
 
-        if (name.LastIndexOf(".prefab") < 0 || name.LastIndexOf(".prefab") != name.Length-7)
-        {
-            return true;
-        }
-
-        if (name.LastIndexOf(".meta") == name.Length-5 || name.IndexOf("Thumbs.db") >= 0 ||
-            name.IndexOf(".spriteatlas") >= 0)
+        if (name.LastIndexOf(".meta") == name.Length-5 || name.IndexOf("Thumbs.db") >= 0 )
         {
             return true;
         }

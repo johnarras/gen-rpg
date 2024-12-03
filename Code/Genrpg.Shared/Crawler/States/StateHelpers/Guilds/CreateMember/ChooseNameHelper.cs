@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
 {
     public class ChooseNameHelper : BaseStateHelper
     {
@@ -43,11 +43,11 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
 
                     List<Role> roles = _gameData.Get<RoleSettings>(_gs.ch).GetRoles(member.Roles);
 
-                    List<RoleBonus> weaponBonuses = new List<RoleBonus>();
+                    List<RoleBonusBinary> weaponBonuses = new List<RoleBonusBinary>();
 
                     foreach (Role role in roles)
                     {
-                        weaponBonuses.AddRange(role.Bonuses.Where(x => x.EntityTypeId == EntityTypes.Item));
+                        weaponBonuses.AddRange(role.BinaryBonuses.Where(x => x.EntityTypeId == EntityTypes.Item));
                     }
 
                     List<long> okWeaponTypes = weaponBonuses.Where(x => x.EntityTypeId == EntityTypes.Item).Select(x => x.EntityId).ToList();

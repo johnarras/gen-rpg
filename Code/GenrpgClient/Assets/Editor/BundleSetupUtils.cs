@@ -74,13 +74,21 @@ public class BundleSetupUtils
             else
             {
                 SetupFileAtPath(assetPathSuffix, directory, true);
+                string bundleName = _assetService.GetBundleNameForCategoryAndAsset(assetPathSuffix, subdirectory);
+                SetupChildFileOfBundle(directory, bundleName);
+
             }
         }
     }
 
-    private static bool SetupFileAtPath(string assetPathSuffix, string item, bool allowAllFiles)
+    private static bool SetupFileAtPath(string assetPathSuffix, string item, bool allowDirectories, string assetBundleName = null)
     {
-        if (!allowAllFiles && EditorAssetUtils.IsIgnoreFilename(item))
+        if (!allowDirectories && EditorAssetUtils.IsNotPrefabName(item))
+        {
+            return false;
+        }
+
+        if (EditorAssetUtils.IsIgnoreFilename(item))
         {
             return false;
         }
@@ -93,7 +101,13 @@ public class BundleSetupUtils
         if (importer != null)
         {
             string shortFilename = fileName.Replace(AssetConstants.ArtFileSuffix, "");
-            string bundleName = _assetService.GetBundleNameForCategoryAndAsset(assetPathSuffix, shortFilename);
+
+            string bundleName = assetBundleName;
+
+            if (string.IsNullOrEmpty(bundleName))
+            {
+                bundleName = _assetService.GetBundleNameForCategoryAndAsset(assetPathSuffix, shortFilename);
+            }
             if (importer.assetBundleName != bundleName)
             {
                 importer.assetBundleName = bundleName;
@@ -102,5 +116,32 @@ public class BundleSetupUtils
         }
         return true;
     }
+
+
+
+
+    private static void SetupChildFileOfBundle(string pathSuffix, string bundleName)
+    {
+        if (!Directory.Exists(pathSuffix))
+        {
+            return;
+        }
+
+        string[] directories = Directory.GetDirectories(pathSuffix);
+        string[] files = Directory.GetFiles(pathSuffix);
+
+        foreach (string directory in directories)
+        {
+            SetupChildFileOfBundle(directory, bundleName);
+        }
+
+        foreach (string file in files)
+        {
+            SetupFileAtPath(pathSuffix, file, true, bundleName);
+        }
+
+    }
+
+
 }
 

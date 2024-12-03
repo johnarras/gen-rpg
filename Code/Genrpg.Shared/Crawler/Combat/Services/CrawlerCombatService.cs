@@ -10,7 +10,6 @@ using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.Spells.Settings;
 using Genrpg.Shared.Crawler.Stats.Services;
-using Genrpg.Shared.Crawler.Stats.Utils;
 using Genrpg.Shared.Crawler.TimeOfDay.Constants;
 using Genrpg.Shared.DataStores.Entities;
 using Genrpg.Shared.Entities.Constants;
@@ -43,6 +42,8 @@ using Newtonsoft.Json.Serialization;
 using Genrpg.Shared.Crawler.States.StateHelpers.Selection.Entities;
 using Genrpg.Shared.Spells.PlayerData.Spells;
 using System.Reflection.Emit;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Roguelikes.Settings;
 
 namespace Genrpg.Shared.Crawler.Combat.Services
 {
@@ -114,12 +115,14 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
             RoleSettings roleSettings = _gameData.Get<RoleSettings>(_gs.ch);
 
+            RoguelikeSettings roguelikeSettings = _gameData.Get<RoguelikeSettings>(_gs.ch);
+
             foreach (PartyMember member in members)
             {
 
                 if (member.Summons.Count > 0)
                 {
-                    long quantity = _spellService.GetSummonQuantity(member);
+                    long quantity = _spellService.GetSummonQuantity(party, member);
 
                     foreach (PartySummon summon in member.Summons)
                     {
@@ -229,6 +232,11 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                         }
                     }
 
+                    if (_gs.GameMode == EGameModes.Roguelike)
+                    {
+                        quantity = Math.Max(1, (int)(quantity*roguelikeSettings.MonsterQuantityScale));  
+                    }
+
                     quantity = MathUtils.Clamp(1, quantity, 99);
 
                     InitialCombatGroup initialGroup = new InitialCombatGroup()
@@ -258,6 +266,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 AddCombatUnits(party, unitType, initialGroup.Quantity, FactionTypes.Faction1, initialGroup.Range);
             }
 
+            party.WorldPanel.UpdateCombatGroups();
             return true;
         }
 
@@ -339,44 +348,6 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
 
             bool isGuardian = spells.Any(x => x.EntityTypeId == EntityTypes.CrawlerSpell && defendSpellIds.Contains(x.EntityId));
-            if (true)
-            {
-                StringBuilder sb = new StringBuilder();
-
-                if (isGuardian)
-                {
-                    sb.Append(" IS GUARDIAN!!! ");
-                }
-
-                if (spells.Count > 0)
-                {
-                    sb.Append("Spells: ");
-                    foreach (UnitEffect effect in spells)
-                    {
-                        CrawlerSpell spell = crawlerSpells.FirstOrDefault(x => x.IdKey == effect.EntityId);
-                        if (spell != null)
-                        {
-                            sb.Append(" [" + spell.Name + "] ");
-                        }
-                    }
-                }
-
-                if (applyEffects.Count > 0)
-                {
-                    sb.Append("Apply Effects: ");
-                    foreach (UnitEffect effect in applyEffects)
-                    {
-                        StatusEffect eff = statusEffects.FirstOrDefault(x => x.IdKey == effect.EntityId);
-                        if (eff != null)
-                        {
-                            sb.Append(" [" + eff.Name + "] ");
-                        }
-                    }
-                }
-
-                _logService.Info(sb.ToString());
-            }
-
             if (group == null)
             {
                 group = new CombatGroup()
@@ -471,6 +442,9 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 {
                     return;
                 }
+
+                party.Combat.PlayerActionsRemaining--;
+
                 CrawlerCombatState combat = party.Combat;
 
                 foreach (CombatGroup group in combat.Enemies)
@@ -507,16 +481,25 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 }
                 foreach (CombatGroup group in combat.Allies)
                 {
-                    group.CombatGroupAction = ECombatGroupActions.None;
-                    foreach (CrawlerUnit unit in group.Units)
+                    group.CombatGroupAction = ECombatGroupActions.None; 
+                    List<CrawlerUnit> dupeList = new List<CrawlerUnit>(group.Units);
+                    foreach (CrawlerUnit unit in dupeList)
                     {
                         unit.Action = null;
+                        if (unit.StatusEffects.HasBit(StatusEffects.Dead))
+                        {
+                            if (!(unit is PartyMember member))
+                            {
+                                group.Units.Remove(unit);
+                            }
+                        }
                     }
                 }
 
                 combat.Enemies = combat.Enemies.Where(x => x.Units.Count > 0).ToList();
                 await _timeService.UpdateTime(party, ECrawlerTimeUpdateTypes.CombatRound);
                 combat.RoundsComplete++;
+
             }
             catch (Exception ex)
             {
@@ -586,10 +569,12 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
         public bool SetMonsterActions(PartyData party)
         {
-            if (party.Combat == null || !ReadyForCombat(party) || party.Combat.PartyGroup.CombatGroupAction== ECombatGroupActions.Prepare)
+            if (party.Combat == null || !ReadyForCombat(party) || party.Combat.PartyGroup.CombatGroupAction== ECombatGroupActions.Prepare ||
+                party.Combat.PlayerActionsRemaining > 1)
             {
                 return false;
             }
+
             List<CrawlerSpell> monsterSpells = _gameData.Get<CrawlerSpellSettings>(null).GetData().Where(x => x.HasFlag(CrawlerSpellFlags.MonsterOnly)).ToList();
 
             CrawlerCombatState combat = party.Combat;
@@ -683,7 +668,6 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 return;
             }
 
-
             if (unit.IsPlayer())
             {
                 if (!unit.StatusEffects.HasBit(StatusEffects.Possessed))
@@ -736,7 +720,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 combatAction.Spell = _gameData.Get<CrawlerSpellSettings>(null).Get(CrawlerSpells.DefendId);
             }
 
-            if (!unit.IsPlayer() && monsterSpells.Count > 0 && _rand.NextDouble() < 0.05f)
+            if (!unit.IsPlayer() && monsterSpells.Count > 0 && _rand.NextDouble() < 0.0f)
             {
                 CrawlerSpell spell = monsterSpells[_rand.Next() % monsterSpells.Count];
                 if (spell.TargetTypeId == TargetTypes.Self)
@@ -952,6 +936,8 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
             if (atEndOfMove)
             {
+                CrawlerCombatSettings combatSettings = _gameData.Get<CrawlerCombatSettings>(_gs.ch);
+
                 PartyData party = _crawlerService.GetParty();
 
                 CrawlerMap map = _worldService.GetMap(party.MapId);
@@ -971,17 +957,24 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 CrawlerMap cmap = _worldService.GetMap(party.MapId);
 
                 _lastMoveTime = DateTime.UtcNow;
-                if (++_movesSinceLastCombat < 10)
+                if (++_movesSinceLastCombat < combatSettings.MovesBetweenEncounters)
                 {
                     return;
                 }
 
-                if (_rand.NextDouble() > 0.03f)
+
+                double randomChance = combatSettings.RandomEncounterChance;
+
+                if (_gs.GameMode == EGameModes.Roguelike)
+                {
+                    randomChance *= _gameData.Get<RoguelikeSettings>(_gs.ch).RandomEncounterChanceMult;
+                }
+                if (_rand.NextDouble() > randomChance)
                 {
                     return;
                 }
 
-                if (!newlyMarked)
+                if (!newlyMarked && _gs.GameMode != EGameModes.Roguelike)
                 {
                     return;
                 }

@@ -6,13 +6,10 @@
       "IdKey": 1,
       "Name": "Engineer",
       "Desc": "Hybrid ",
+      "Icon": "",
+      "Art": "",
       "Abbrev": "En",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.25,
-      "RangedScaling": 0.34,
-      "SpellDamScaling": 0.25,
-      "HealingScaling": 0.2,
-      "SummonScaling": 0.25,
       "HealthPerLevel": 18,
       "ManaPerLevel": 14,
       "MaxArmorScalingTypeId": 3,
@@ -22,7 +19,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "2 2 2 2 2 2",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 24
@@ -113,6 +110,10 @@
         },
         {
           "EntityTypeId": 100,
+          "EntityId": 42
+        },
+        {
+          "EntityTypeId": 100,
           "EntityId": 48
         },
         {
@@ -142,21 +143,36 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10070
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10020
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10033
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10070
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.34
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.25
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role2default",
@@ -166,11 +182,6 @@
       "Desc": "Healing",
       "Abbrev": "Cl",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.144,
-      "RangedScaling": 0.1,
-      "SpellDamScaling": 0.34,
-      "HealingScaling": 0.5,
-      "SummonScaling": 0.144,
       "HealthPerLevel": 14,
       "ManaPerLevel": 22,
       "MaxArmorScalingTypeId": 1,
@@ -179,7 +190,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "0 3 6 0 1 2",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 23
@@ -261,6 +272,10 @@
           "EntityId": 53
         },
         {
+          "EntityTypeId": 100,
+          "EntityId": 61
+        },
+        {
           "EntityTypeId": 101,
           "EntityId": 1
         },
@@ -275,21 +290,36 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10033
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10016
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10031
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10033
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.144
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.1
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.34
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.5
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.144
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role3default",
@@ -299,11 +329,6 @@
       "Desc": "Spell Damage",
       "Abbrev": "Ma",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.125,
-      "RangedScaling": 0.1,
-      "SpellDamScaling": 0.5,
-      "HealingScaling": 0.2,
-      "SummonScaling": 0.25,
       "HealthPerLevel": 12,
       "ManaPerLevel": 22,
       "MaxArmorScalingTypeId": 1,
@@ -312,7 +337,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "0 6 0 3 0 3",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 21
@@ -428,17 +453,36 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10034
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10032
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10034
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.125
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.1
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.5
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.25
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role4default",
@@ -448,11 +492,6 @@
       "Desc": "Tough Fighter",
       "Abbrev": "Wa",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.34,
-      "RangedScaling": 0.17,
-      "SpellDamScaling": 0.144,
-      "HealingScaling": 0.125,
-      "SummonScaling": 0.125,
       "HealthPerLevel": 22,
       "ManaPerLevel": 10,
       "MaxArmorScalingTypeId": 4,
@@ -462,7 +501,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "4 0 0 4 4 0",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 21
@@ -549,23 +588,7 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 10031
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10033
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10063
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10070
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10071
+          "EntityId": 62
         },
         {
           "EntityTypeId": 100,
@@ -588,7 +611,34 @@
           "EntityId": 10071
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.34
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.17
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.144
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.125
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.125
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role5default",
@@ -600,11 +650,6 @@
       "Art": "",
       "Abbrev": "Th",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.2,
-      "RangedScaling": 0.2,
-      "SpellDamScaling": 0.17,
-      "HealingScaling": 0.125,
-      "SummonScaling": 0.125,
       "HealthPerLevel": 16,
       "ManaPerLevel": 10,
       "MaxArmorScalingTypeId": 2,
@@ -613,7 +658,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "4 0 0 2 2 4",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 21
@@ -691,6 +736,10 @@
           "EntityId": 60
         },
         {
+          "EntityTypeId": 100,
+          "EntityId": 63
+        },
+        {
           "EntityTypeId": 101,
           "EntityId": 2
         },
@@ -705,21 +754,36 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10063
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10016
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10020
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10063
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.17
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.125
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.125
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role6default",
@@ -729,11 +793,6 @@
       "Desc": "Ranged Combat",
       "Abbrev": "Hu",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.17,
-      "RangedScaling": 0.5,
-      "SpellDamScaling": 0.17,
-      "HealingScaling": 0.125,
-      "SummonScaling": 0.34,
       "HealthPerLevel": 18,
       "ManaPerLevel": 14,
       "MaxArmorScalingTypeId": 3,
@@ -742,7 +801,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "2 2 0 4 2 2",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 21
@@ -842,17 +901,36 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10070
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10020
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10070
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.17
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.5
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.17
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.125
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.34
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role7default",
@@ -862,11 +940,6 @@
       "Desc": "Hybrid Spell",
       "Abbrev": "Bd",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.2,
-      "RangedScaling": 0.2,
-      "SpellDamScaling": 0.2,
-      "HealingScaling": 0.25,
-      "SummonScaling": 0.2,
       "HealthPerLevel": 16,
       "ManaPerLevel": 16,
       "MaxArmorScalingTypeId": 2,
@@ -875,7 +948,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "2 3 3 2 1 1",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 21
@@ -965,6 +1038,10 @@
           "EntityId": 53
         },
         {
+          "EntityTypeId": 100,
+          "EntityId": 63
+        },
+        {
           "EntityTypeId": 101,
           "EntityId": 4
         },
@@ -983,21 +1060,36 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10071
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10016
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10031
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10071
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.2
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role8default",
@@ -1007,11 +1099,6 @@
       "Desc": "Full Hybrid",
       "Abbrev": "Dr",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.2,
-      "RangedScaling": 0.17,
-      "SpellDamScaling": 0.25,
-      "HealingScaling": 0.34,
-      "SummonScaling": 0.2,
       "HealthPerLevel": 18,
       "ManaPerLevel": 18,
       "MaxArmorScalingTypeId": 2,
@@ -1021,7 +1108,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "2 2 2 2 2 2",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 23
@@ -1124,6 +1211,10 @@
         },
         {
           "EntityTypeId": 100,
+          "EntityId": 41
+        },
+        {
+          "EntityTypeId": 100,
           "EntityId": 53
         },
         {
@@ -1161,21 +1252,36 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10063
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10032
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10034
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10063
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.2
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.17
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.34
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.2
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role9default",
@@ -1185,13 +1291,8 @@
       "Desc": "Big Melee Dam",
       "Abbrev": "Bb",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.5,
-      "RangedScaling": 0.25,
-      "SpellDamScaling": 0.125,
-      "HealingScaling": 0.1,
-      "SummonScaling": 0.25,
       "HealthPerLevel": 18,
-      "ManaPerLevel": 8,
+      "ManaPerLevel": 10,
       "MaxArmorScalingTypeId": 2,
       "CritPercent": 15,
       "ManaStatTypeId": 12,
@@ -1199,7 +1300,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "6 0 0 0 6 0",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 21
@@ -1285,6 +1386,10 @@
           "EntityId": 48
         },
         {
+          "EntityTypeId": 100,
+          "EntityId": 62
+        },
+        {
           "EntityTypeId": 101,
           "EntityId": 2
         },
@@ -1299,21 +1404,36 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10070
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10020
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10063
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10070
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.5
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.125
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.1
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.25
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role10default",
@@ -1323,11 +1443,6 @@
       "Desc": "Tanky Heals",
       "Abbrev": "Pa",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.34,
-      "RangedScaling": 0.17,
-      "SpellDamScaling": 0.25,
-      "HealingScaling": 0.34,
-      "SummonScaling": 0.17,
       "HealthPerLevel": 20,
       "ManaPerLevel": 18,
       "MaxArmorScalingTypeId": 4,
@@ -1337,7 +1452,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "4 0 4 0 4 0",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 21
@@ -1420,11 +1535,11 @@
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 43
+          "EntityId": 53
         },
         {
           "EntityTypeId": 100,
-          "EntityId": 53
+          "EntityId": 61
         },
         {
           "EntityTypeId": 101,
@@ -1445,25 +1560,36 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10071
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10016
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10031
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10033
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10071
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.34
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.17
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.34
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.17
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role11default",
@@ -1473,11 +1599,6 @@
       "Desc": "Spell Dam and Heals",
       "Abbrev": "El",
       "RoleCategoryId": 1,
-      "MeleeScaling": 0.17,
-      "RangedScaling": 0.125,
-      "SpellDamScaling": 0.34,
-      "HealingScaling": 0.25,
-      "SummonScaling": 0.25,
       "HealthPerLevel": 16,
       "ManaPerLevel": 20,
       "MaxArmorScalingTypeId": 3,
@@ -1486,7 +1607,7 @@
       "TrainingXpScale": 1.0,
       "TrainingGoldScale": 1.0,
       "StartStatBonuses": "0 6 6 0 0 0",
-      "Bonuses": [
+      "BinaryBonuses": [
         {
           "EntityTypeId": 2,
           "EntityId": 21
@@ -1618,21 +1739,36 @@
         {
           "EntityTypeId": 100,
           "EntityId": 10063
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10032
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10034
-        },
-        {
-          "EntityTypeId": 100,
-          "EntityId": 10063
         }
       ],
-      "UpdateTime": "2024-10-21T22:47:47.801Z"
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.17
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.125
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.34
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 4,
+          "Amount": 0.25
+        },
+        {
+          "EntityTypeId": 41,
+          "EntityId": 5,
+          "Amount": 0.25
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role12default",
@@ -1643,8 +1779,9 @@
       "Abbrev": "Hu",
       "RoleCategoryId": 2,
       "StartStatBonuses": "1 1 1 1 1 1",
-      "Bonuses": [],
-      "UpdateTime": "2024-10-20T18:48:00.956Z"
+      "BinaryBonuses": [],
+      "AmountBonuses": [],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role13default",
@@ -1654,10 +1791,16 @@
       "Desc": "Slightly more Ranged",
       "Abbrev": "Elf",
       "RoleCategoryId": 2,
-      "RangedScaling": 0.1,
       "StartStatBonuses": "0 2 2 2 0 0",
-      "Bonuses": [],
-      "UpdateTime": "2024-10-20T18:48:00.956Z"
+      "BinaryBonuses": [],
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 2,
+          "Amount": 0.1
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role14default",
@@ -1669,8 +1812,9 @@
       "RoleCategoryId": 2,
       "HealthPerLevel": 5,
       "StartStatBonuses": "2 0 2 0 2 0",
-      "Bonuses": [],
-      "UpdateTime": "2024-10-20T18:48:00.956Z"
+      "BinaryBonuses": [],
+      "AmountBonuses": [],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role15default",
@@ -1680,10 +1824,16 @@
       "Desc": "More Melee",
       "Abbrev": "Hc",
       "RoleCategoryId": 2,
-      "MeleeScaling": 0.1,
       "StartStatBonuses": "3 0 0 0 3 0",
-      "Bonuses": [],
-      "UpdateTime": "2024-10-20T18:48:00.956Z"
+      "BinaryBonuses": [],
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 1,
+          "Amount": 0.1
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role16default",
@@ -1693,10 +1843,16 @@
       "Desc": "More Spell Dam",
       "Abbrev": "Gn",
       "RoleCategoryId": 2,
-      "SpellDamScaling": 0.1,
       "StartStatBonuses": "0 3 3 0 0 0",
-      "Bonuses": [],
-      "UpdateTime": "2024-10-20T18:48:00.956Z"
+      "BinaryBonuses": [],
+      "AmountBonuses": [
+        {
+          "EntityTypeId": 41,
+          "EntityId": 3,
+          "Amount": 0.1
+        }
+      ],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     },
     {
       "Id": "role17default",
@@ -1708,14 +1864,15 @@
       "RoleCategoryId": 2,
       "CritPercent": 5,
       "StartStatBonuses": "0 0 0 3 0 3",
-      "Bonuses": [],
-      "UpdateTime": "2024-10-20T18:48:00.956Z"
+      "BinaryBonuses": [],
+      "AmountBonuses": [],
+      "UpdateTime": "2024-11-26T03:11:28.929Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "RoleSettings",
-    "UpdateTime": "2024-10-20T18:48:00.956Z"
+    "UpdateTime": "2024-11-26T03:11:28.929Z"
   },
   "Id": "default"
 }

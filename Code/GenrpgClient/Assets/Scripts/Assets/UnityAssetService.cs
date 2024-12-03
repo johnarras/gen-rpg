@@ -142,6 +142,26 @@ public class UnityAssetService : IAssetService
     { 
         return _assetEnvs[EDataCategories.Worlds]; 
     }
+
+    private BundleVersion GetBundleVersion(string bundleName)
+    {
+        if (_bundleVersions.Versions.TryGetValue(bundleName, out BundleVersion version))
+        {
+            return version;
+        }
+        return null;
+    }
+
+    private BundleCacheData GetBundleCacheData(string bundleName)
+    {
+        if (_bundleCache.TryGetValue(bundleName, out  BundleCacheData bundleCacheData))
+        {
+            return bundleCacheData;
+        }
+        return null;
+    }
+       
+
     public async Task Initialize(CancellationToken token)
     {
         if (!_clientAppService.IsPlaying)
@@ -207,6 +227,11 @@ public class UnityAssetService : IAssetService
 
     }
 
+    public async Task OnCleanup(CancellationToken token)
+    {
+        await ClearBundleCache(token);
+    }
+
     public async Task ClearBundleCache(CancellationToken token)
     {
         Dictionary<string,BundleCacheData> newBundleCache = new Dictionary<string, BundleCacheData>();
@@ -242,7 +267,8 @@ public class UnityAssetService : IAssetService
                     if (bundle.LoadingCount < 1 &&
                         bundle.assetBundle != null &&
                         !bundle.KeepLoaded &&
-                        bundle.LastUsed < DateTime.UtcNow.AddSeconds(-20))
+                        bundle.LastUsed < DateTime.UtcNow.AddSeconds(-20) &&
+                        bundle.ParentDependencies.Count < 1)
                     {
                         if (bundle.Instances.Any(x => x.Equals(null)))
                         {
@@ -252,7 +278,10 @@ public class UnityAssetService : IAssetService
                         {
                             continue;
                         }
-
+                        foreach (BundleCacheData childBundle in bundle.ChildDependencies)
+                        {
+                            childBundle.ParentDependencies.Remove(bundle);
+                        }
                         bundle.assetBundle.Unload(true);
                         _assetCounts.BundlesUnloaded++;
                         _clientEntityService.Destroy(bundle.assetBundle);
@@ -322,26 +351,26 @@ _unloadingAssets = false;
     {
         return assetCategoryName + "/";
     }
-/// <summary>
-/// Download something from an asset bundle (Async)
-/// </summary>
-/// <param name="gs"></param>
-/// <param name="assetPathSuffix">This is the category where the asset resides. It exists here so that
-/// the URLs being stored by the game aren't as long and so that we can move the categories on disk
-/// in a single spot (enforced here rather than making sure all data items use it.) It's a tradeoff
-/// and I've gone back and forth, but if it isn't here, then it would have to be in each
-/// piece of data stored in game data, OR each time the asset is loaded, we would have to do
-/// a lookup to get the path from the category OR it would have to be hardcoded. So this seems
-/// like the best way to do it to avoid mistakes later on even though it costs a bit extra in
-/// terms of programming time to put the category in the load. </param>
-/// <param name="assetName"></param>
-/// <param name="handler"></param>
-/// <param name="data"></param>
-/// <param name="assetPathSuffix">optional category used for certain specific naming conventions for bundles</param>
-public void LoadAsset(string assetPathSuffix, string assetName,
-        OnDownloadHandler handler,
-        System.Object data, object parentIn,
-        CancellationToken token, string subdirectory = null)
+    /// <summary>
+    /// Download something from an asset bundle (Async)
+    /// </summary>
+    /// <param name="gs"></param>
+    /// <param name="assetPathSuffix">This is the category where the asset resides. It exists here so that
+    /// the URLs being stored by the game aren't as long and so that we can move the categories on disk
+    /// in a single spot (enforced here rather than making sure all data items use it.) It's a tradeoff
+    /// and I've gone back and forth, but if it isn't here, then it would have to be in each
+    /// piece of data stored in game data, OR each time the asset is loaded, we would have to do
+    /// a lookup to get the path from the category OR it would have to be hardcoded. So this seems
+    /// like the best way to do it to avoid mistakes later on even though it costs a bit extra in
+    /// terms of programming time to put the category in the load. </param>
+    /// <param name="assetName"></param>
+    /// <param name="handler"></param>
+    /// <param name="data"></param>
+    /// <param name="assetPathSuffix">optional category used for certain specific naming conventions for bundles</param>
+    public void LoadAsset(string assetPathSuffix, string assetName,
+            OnDownloadHandler handler,
+            System.Object data, object parentIn,
+            CancellationToken token, string subdirectory = null)
     {
         if (!TokenUtils.IsValid(token))
         {
@@ -386,7 +415,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
             string fullAssetName = categoryPath + assetName;
             if (!String.IsNullOrEmpty(categoryPath) &&
             !_failedLocalLoads.Contains(fullAssetName))
-            { 
+            {
                 UnityEngine.Object asset = null;
                 string fullPath = "";
 #if UNITY_EDITOR
@@ -428,9 +457,38 @@ public void LoadAsset(string assetPathSuffix, string assetName,
             return;
         }
         if (assetName.LastIndexOf("/") >= 0)
-        {            
+        {
             assetName = assetName.Substring(assetName.LastIndexOf("/") + 1);
         }
+
+
+        AddBundleDownload(bundleName, assetName, handler, data, parent, new List<string>());
+    }
+
+    private void QueueBundleDependencies(string bundleName, List<string> parentBundles)
+    {
+        if (parentBundles.Contains(bundleName))
+        {
+            return;
+        }
+
+        if (_bundleVersions.Versions.TryGetValue(bundleName, out BundleVersion version))
+        {
+            if (version.ChildDependencies.Count < 1)
+            {
+                return;
+            }
+
+            foreach (string dependency in version.ChildDependencies)
+            {
+                parentBundles.Add(dependency);
+                AddBundleDownload(dependency, null, null, null, null, parentBundles);
+            }
+        }
+    }
+
+    private void AddBundleDownload(string bundleName, string assetName, OnDownloadHandler handler, object data, GameObject parent, List<string> parentBundles)
+    {
 
         BundleDownload currentBundleDownload = null;
         currentBundleDownload = new BundleDownload();
@@ -439,6 +497,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
         currentBundleDownload.handler = handler;
         currentBundleDownload.data = data;
         currentBundleDownload.parent = parent;
+        currentBundleDownload.url = GetFullBundleURL(bundleName);
 
         if (_bundleCache.ContainsKey(bundleName))
         {
@@ -447,7 +506,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
             return;
         }
 
-        currentBundleDownload.url = GetFullBundleURL(bundleName);
+        QueueBundleDependencies(bundleName, parentBundles);
 
         if (_bundleDownloadQueue.ContainsKey(bundleName))
         {
@@ -510,7 +569,14 @@ public void LoadAsset(string assetPathSuffix, string assetName,
         {
             if (_existingDownloads.Count > 0)
             {
-                await LoadAssetFromExistingBundle(_existingDownloads.Dequeue(), token);
+                try
+                {
+                    await LoadAssetFromExistingBundle(_existingDownloads.Dequeue(), token);
+                }
+                catch (Exception e)
+                {
+                    _logService.Exception(e, "LoadFromExistingBundles");
+                }
                 if (_rand.NextDouble() < _loadDelayChance)
                 {
                     await Awaitable.NextFrameAsync(cancellationToken: token);
@@ -571,7 +637,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
     private async Awaitable LoadAssetFromExistingBundle(BundleDownload bdl, CancellationToken token)
     {
         // Need to check existence of bundle here since this call is delayed from when 
-        if (bdl == null || !_bundleCache.ContainsKey(bdl.bundleName))
+        if (bdl == null || !_bundleCache.ContainsKey(bdl.bundleName) || string.IsNullOrEmpty(bdl.assetName))
         {
             return;
         }
@@ -609,10 +675,13 @@ public void LoadAsset(string assetPathSuffix, string assetName,
         }
     }
 
-    private void AddBundleToCache(BundleDownload bad, AssetBundle downloadedBundle)
+    private void AddBundleToCache(BundleDownload bad, AssetBundle downloadedBundle, CancellationToken token)
     {
-        if (bad == null || downloadedBundle == null || _bundleCache.ContainsKey(bad.bundleName)) return;
-        
+        if (downloadedBundle == null || _bundleCache.ContainsKey(bad.bundleName))
+        {
+            return;
+        }
+
         BundleCacheData bdata = new BundleCacheData()
         {
             name = bad.bundleName,
@@ -625,6 +694,25 @@ public void LoadAsset(string assetPathSuffix, string assetName,
 
         _bundleCache[bad.bundleName] = bdata;
         _assetCounts.BundlesLoaded++;
+
+        BundleVersion version = GetBundleVersion(bad.bundleName);
+
+        if (version != null)
+        {
+            foreach (string dep in version.ChildDependencies)
+            {
+
+                BundleCacheData childData = GetBundleCacheData(dep);
+
+                if (childData == null)
+                {
+                    _logService.Error("Bundle " + bad.bundleName + " is missing dependency bundle " + dep);
+                    continue;
+                }
+                childData.ParentDependencies.Add(bdata);
+                bdata.ChildDependencies.Add(childData);
+            }
+        } 
     }
 
     private AssetBundleRequest StartLoadAssetFromBundle(string bundleName, string assetName)
@@ -971,6 +1059,27 @@ public void LoadAsset(string assetPathSuffix, string assetName,
             return;
         }
 
+        BundleVersion version = GetBundleVersion(bad.bundleName);
+
+        if (version != null)
+        {
+            foreach (string dep in version.ChildDependencies)
+            {
+
+                BundleCacheData childData = null;
+
+                while (childData == null)
+                {
+                    childData = GetBundleCacheData(dep);
+
+                    if (childData == null)
+                    {
+                        await Awaitable.NextFrameAsync();
+                    }
+                }
+            }
+        }
+        
         for (int i = 0; i < _retryTimes; i++)
         {
             string bundleHash = GetBundleHash(bad.bundleName);
@@ -1005,7 +1114,7 @@ public void LoadAsset(string assetPathSuffix, string assetName,
 
                 if (downloadedBundle != null)
                 {
-                    AddBundleToCache(bad, downloadedBundle);
+                    AddBundleToCache(bad, downloadedBundle, token);
 
                     request.Dispose();
                     return;

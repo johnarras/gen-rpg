@@ -14,15 +14,15 @@ using Assets.Scripts.PlayerSearch;
 using Assets.Scripts.ProcGen.Loading.Utils;
 using Assets.Scripts.ProcGen.Services;
 using Assets.Scripts.Rewards.Services;
+using Assets.Scripts.TextureLists.Services;
 using Assets.Scripts.UI.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Client.Tokens;
-using Genrpg.Shared.Crawler.Loot.Services;
+using Genrpg.Shared.Crawler.MapGen.Services;
 using Genrpg.Shared.Crawler.Maps.Services;
-using Genrpg.Shared.Crawler.Spells.Services;
 using Genrpg.Shared.Crawler.States.Services;
-using Genrpg.Shared.Crawler.Stats.Services;
+using Genrpg.Shared.Crawler.TextureLists.Services;
 using Genrpg.Shared.Ftue.Services;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Rewards.Services;
@@ -88,6 +88,7 @@ public class ClientInitializer
         Set<ICursorService>(new CursorService());
         Set<IModTextureService>(new ModTextureService());
         Set<IRewardService>(new ClientRewardService());
+        Set<ITextureListCache>(new TextureListCache());
 
         // Unity-specific overrides
 

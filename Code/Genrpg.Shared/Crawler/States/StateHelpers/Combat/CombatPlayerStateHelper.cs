@@ -1,8 +1,11 @@
-﻿using Genrpg.Shared.Crawler.Combat.Constants;
+﻿using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Combat.Settings;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Roguelikes.Constants;
+using Genrpg.Shared.Crawler.Roguelikes.Settings;
 using Genrpg.Shared.Crawler.Spells.Entities;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
@@ -37,6 +40,25 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
                 party.Combat.PartyGroup.CombatGroupAction != ECombatGroupActions.Prepare))
             {
                 return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "Party is not fighting in combat" };
+            }
+
+            if (party.Combat.PlayerActionsRemaining < 1)
+            {
+                party.Combat.PlayerActionsRemaining = 1;
+            }
+
+            if (party.GameMode == EGameModes.Roguelike)
+            {
+                
+                double extraActions = (long)_roguelikeUpgradeService.GetBonus(party, RoguelikeUpgrades.ActionCount);
+                party.Combat.PlayerActionsRemaining += (long)(extraActions);
+
+                double remainder = extraActions - (long)(extraActions);
+
+                if (_rand.NextDouble() < remainder)
+                {
+                    party.Combat.PlayerActionsRemaining++;
+                }
             }
 
             CombatGroup group = party.Combat.PartyGroup;

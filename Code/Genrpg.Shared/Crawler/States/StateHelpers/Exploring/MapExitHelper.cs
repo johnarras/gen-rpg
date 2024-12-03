@@ -13,11 +13,17 @@ using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.UI.Constants;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Stats.Constants;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.MapGen.Services;
+using Genrpg.Shared.Crawler.Maps.Constants;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 {
     public class MapExitHelper : BaseStateHelper
     {
+
+        private ICrawlerMapGenService _crawlerMapGenService;
+
         public override ECrawlerStates GetKey() { return ECrawlerStates.MapExit; }
         public override long TriggerDetailEntityTypeId() { return EntityTypes.Map; }
 
@@ -45,11 +51,45 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
             CrawlerWorld world = await _worldService.GetWorld(partyData.WorldId);
 
-            CrawlerMap map = world.GetMap(detail.EntityId);
+            CrawlerMap currMap = world.GetMap(partyData.MapId);
 
-            if (map == null)
+            CrawlerMap nextMap = world.GetMap(detail.EntityId);
+
+            _logService.Info("NextMapId: " + detail.EntityId + " MapCount: " + world.Maps.Count);
+
+            foreach (var map in world.Maps)
             {
-                return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "No such map exists." };
+                _logService.Info("Map: " + map.IdKey);
+            }
+
+
+            if (nextMap == null)
+            {
+                if (partyData.GameMode == EGameModes.Roguelike && currMap != null)
+                {
+                    long nextId = world.Maps.Max(x => x.IdKey) + 1;
+
+                    CrawlerMapGenData mapGenData = new CrawlerMapGenData()
+                    {
+                        CurrFloor = (int)currMap.MapFloor + 1,
+                        FromMapId = currMap.IdKey,
+                        FromMapX = detail.X,
+                        FromMapZ = detail.Z,
+                        Level = currMap.Level + 1,
+                        MaxFloor = 0,
+                        Name = currMap.Name,
+                        World = world,
+                        PrevMap = currMap,
+                        MapType = CrawlerMapTypes.RandomDungeon,
+                    };
+
+                    nextMap = await _crawlerMapGenService.Generate(partyData, world, mapGenData);
+                    await _worldService.SaveMap(world, nextMap);
+                }
+                else
+                {
+                    return new CrawlerStateData(ECrawlerStates.Error, true) { ExtraData = "No such map exists." };
+                }
             }
 
             CrawlerMapStatus partyMap = partyData.Maps.FirstOrDefault(x => x.MapId == detail.EntityId);
@@ -58,16 +98,16 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
             if (partyMap == null && !didComplete)
             {
-                if (map.MapQuestItemId > 0)
+                if (nextMap.MapQuestItemId > 0)
                 {
 
                     WorldQuestItem itemNeeded = null;
 
-                    PartyQuestItem pqi = partyData.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == map.MapQuestItemId);
+                    PartyQuestItem pqi = partyData.QuestItems.FirstOrDefault(x => x.CrawlerQuestItemId == nextMap.MapQuestItemId);
 
                     if (pqi == null)
                     {
-                        WorldQuestItem wqi = world.QuestItems.FirstOrDefault(x => x.IdKey == map.MapQuestItemId);
+                        WorldQuestItem wqi = world.QuestItems.FirstOrDefault(x => x.IdKey == nextMap.MapQuestItemId);
                         if (wqi != null)
                         {
                             itemNeeded = wqi;
@@ -77,7 +117,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
                     if (itemNeeded != null)
                     {
-                        stateData.Actions.Add(new CrawlerStateAction(map.Name + " requires the following to enter: "));
+                        stateData.Actions.Add(new CrawlerStateAction(nextMap.Name + " requires the following to enter: "));
 
                         stateData.Actions.Add(new CrawlerStateAction(itemNeeded.Name));
 
@@ -89,10 +129,10 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
                     }
                 }
 
-                _logService.Info("UnlockText: " + map.RiddleText + " Answer: " + map.RiddleAnswer);
-                if (!string.IsNullOrEmpty(map.RiddleText) && !string.IsNullOrEmpty(map.RiddleAnswer))
+                _logService.Info("UnlockText: " + nextMap.RiddleText + " Answer: " + nextMap.RiddleAnswer);
+                if (!string.IsNullOrEmpty(nextMap.RiddleText) && !string.IsNullOrEmpty(nextMap.RiddleAnswer))
                 {
-                    string[] descLines = map.RiddleText.Split("\n");
+                    string[] descLines = nextMap.RiddleText.Split("\n");
 
                     stateData.Actions.Add(new CrawlerStateAction("Answer this to pass:\n"));
                     stateData.Actions.Add(new CrawlerStateAction(" "));
@@ -115,7 +155,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
                     stateData.AddInputField("Answer:", delegate (string text)
                     {
-                        string normalizedRiddleName = map.RiddleAnswer.ToLower().Trim();
+                        string normalizedRiddleName = nextMap.RiddleAnswer.ToLower().Trim();
 
                         string normalizedText = text.ToLower().Trim();
 
@@ -125,12 +165,12 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
                         {
                             EnterCrawlerMapData enterMapData = new EnterCrawlerMapData()
                             {
-                                MapId = map.IdKey,
+                                MapId = nextMap.IdKey,
                                 MapX = detail.ToX,
                                 MapZ = detail.ToZ,
                                 MapRot = 0,
                                 World = world,
-                                Map = map,
+                                Map = nextMap,
                             };
 
                             _crawlerService.ChangeState(ECrawlerStates.ExploreWorld, token, enterMapData);
@@ -140,7 +180,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
                             ErrorMapCellDetail newErrorDetail = new ErrorMapCellDetail()
                             {
                                 Detail = detail,
-                                ErrorText = map.RiddleError,
+                                ErrorText = nextMap.RiddleError,
                             };
 
                             foreach (PartyMember member in partyData.GetActiveParty())
@@ -157,17 +197,17 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
             }
 
 
-            stateData.Actions.Add(new CrawlerStateAction("Go to " + map.GetName(detail.ToX, detail.ToZ) + "?\n\n", CharCodes.None, ECrawlerStates.None, null, null));
+            stateData.Actions.Add(new CrawlerStateAction("Go to " + nextMap.GetName(detail.ToX, detail.ToZ) + "?\n\n", CharCodes.None, ECrawlerStates.None, null, null));
 
             stateData.Actions.Add(new CrawlerStateAction("Yes", 'Y', ECrawlerStates.ExploreWorld, null,
                new EnterCrawlerMapData()
                {
-                   MapId = map.IdKey,
+                   MapId = nextMap.IdKey,
                    MapX = detail.ToX,
                    MapZ = detail.ToZ,
                    MapRot = 0,
                    World = world,
-                   Map = map,
+                   Map = nextMap,
                }));
 
             stateData.Actions.Add(new CrawlerStateAction("No", 'N', ECrawlerStates.ExploreWorld));

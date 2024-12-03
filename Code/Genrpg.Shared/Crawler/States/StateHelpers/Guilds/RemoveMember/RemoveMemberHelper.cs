@@ -6,7 +6,7 @@ using Genrpg.Shared.Utils;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.RemoveMember
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.RemoveMember
 {
     public class RemoveMemberHelper : BaseStateHelper
     {

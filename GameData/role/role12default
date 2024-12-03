@@ -7,6 +7,7 @@
   "Abbrev": "Hu",
   "RoleCategoryId": 2,
   "StartStatBonuses": "1 1 1 1 1 1",
-  "Bonuses": [],
-  "UpdateTime": "2024-10-20T18:48:00.956Z"
+  "BinaryBonuses": [],
+  "AmountBonuses": [],
+  "UpdateTime": "2024-11-26T03:11:28.929Z"
 }

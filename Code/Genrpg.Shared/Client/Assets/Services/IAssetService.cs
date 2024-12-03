@@ -1,4 +1,5 @@
-﻿using Genrpg.Shared.DataStores.DataGroups;
+﻿using Genrpg.Shared.Core.Interfaces;
+using Genrpg.Shared.DataStores.DataGroups;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.MVC.Interfaces;
 using Genrpg.Shared.Website.Messages.CreateChar;
@@ -22,7 +23,7 @@ namespace Genrpg.Shared.Client.Assets.Services
         public long ObjectsUnloaded = 0;
 
     }
-    public interface IAssetService : IInitializable
+    public interface IAssetService : IInitializable, IGameCleanup
     {
         bool IsInitialized();
         void LoadAssetInto(object parent, string assetCategory, string assetPath, OnDownloadHandler handler, object data, CancellationToken token, string subdirectory = null);

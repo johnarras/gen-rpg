@@ -25,6 +25,7 @@ using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.UI.Services;
+using Genrpg.Shared.Crawler.MapGen.Services;
 
 namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {

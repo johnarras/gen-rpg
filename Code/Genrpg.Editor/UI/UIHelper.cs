@@ -8,6 +8,7 @@ using Windows.UI.Core;
 using System;
 using Microsoft.UI.Xaml.Media;
 using Genrpg.Editor.Constants;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Genrpg.Editor.UI
 {
@@ -15,24 +16,7 @@ namespace Genrpg.Editor.UI
     {
         public static SmallPopup ShowBlockingDialog(Window parent, string text, double width = 0, double height = 0)
         {
-
-
-            if (width == 0)
-            {
-                width = 400;
-            }
-
-            if (height == 0)
-            {
-                height = 480;
-            }
-
-            SmallPopup win = new SmallPopup();
-
-            UIHelper.SetWindowRect(win, 500, 500, width, height);
-
-            TextBlock tb = CreateLabel(win, ELabelTypes.Default, "DialogText", text, width - 20, height - 40, 0, 0);
-
+            SmallPopup win = new SmallPopup(text, (int)width, (int)height);
             win.Activate();
 
             return win;
@@ -185,7 +169,7 @@ namespace Genrpg.Editor.UI
 
         public static void SetWindowRect(Window window, double xpos, double ypos, double width, double height)
         {
-            window.AppWindow.MoveAndResize(new Windows.Graphics.RectInt32(000, 000, (int)(width*ScalingConstants.DisplayScaling),
+            window.AppWindow.MoveAndResize(new Windows.Graphics.RectInt32((int)xpos,(int)ypos, (int)(width*ScalingConstants.DisplayScaling),
                 (int)(height*ScalingConstants.DisplayScaling)));    
         }
 

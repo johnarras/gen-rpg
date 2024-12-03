@@ -50,4 +50,4 @@ MonoBehaviour:
   Ceiling: {fileID: 1682565954592356688, guid: f984bfbcf5aad61498a237a628d27ee5, type: 3}
   Barricade: {fileID: 1682565954592356688, guid: 5e8bbe6acaea7e94ab25656ce548c46a,
     type: 3}
-  Background: {fileID: 2800000, guid: aa1815e949024064fb0d74c072f7272d, type: 3}
+  BGImageName: CityBG

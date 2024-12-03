@@ -406,7 +406,7 @@ namespace Assets.Scripts.Crawler.Tilemaps
                     {
                         int index = _map.GetIndex(x, z);
                         if (
-                            //false && 
+                           // false && 
                             _mapStatus != null && _mapStatus.MapId == _map.IdKey &&
                             !_party.CompletedMaps.HasBit(_map.IdKey) && !_mapStatus.Visited.HasBit(index))
                         {

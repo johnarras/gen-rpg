@@ -5,7 +5,6 @@ using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Crawler.Maps.Entities;
 using Assets.Scripts.Crawler.Tilemaps;
 using Assets.Scripts.Crawler.UI.WorldUI;
-using Assets.Scripts.ProcGen.Components;
 using Assets.Scripts.ProcGen.Services;
 using Assets.Scripts.UI.Crawler.WorldUI;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
@@ -13,7 +12,6 @@ using Genrpg.Shared.Crawler.UI.Interfaces;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.Utils;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using Genrpg.Shared.Crawler.GameEvents;
 using Genrpg.Shared.Crawler.Maps.Services;
@@ -23,6 +21,11 @@ using System.Threading.Tasks;
 using Genrpg.Shared.UI.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts.TextureLists.Services;
+using Genrpg.Shared.Crawler.TextureLists.Services;
+using Assets.Scripts.Assets.Textures;
+using Genrpg.Shared.Crawler.Constants;
+using Assets.Scripts.Crawler.Combat;
 
 namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 {
@@ -35,13 +38,15 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
     public class WorldPanel : BaseCrawlerPanel, IWorldPanel
     {
         const string PanelTextPrefab = "WorldPanelText";
+        const string DefaultWorldBG = "DefaultWorldBG";
         private ICrawlerMapService _crawlerMapService;
         private ICurveGenService _curveGenService;
         private ICrawlerWorldService _worldService;
 
 
-        private IRawImage _bgImage;
-        private IRawImage _worldImage;
+        private AnimatedTexture _bgImage;
+        private AnimatedTexture _worldImage;
+
         private IText _worldPosText;
         private IText _mapNameText;
         private IText _timeOfDayText;
@@ -64,9 +69,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
         private WorldPanelButtons _panelButtons;
 
-        private TextureList _textureList;
-
-        private Texture _defaultBG = null;
+        private CrawlerCombatUI _combatUI;
 
         public override async Task Init(CrawlerScreen screen, IView view, CancellationToken token)
         {
@@ -76,13 +79,6 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             AddListener<ShowCrawlerTooltipEvent>(OnShowTooltip);
             AddListener<HideCrawlerTooltipEvent>(OnHideTooltip);
 
-            _bgImage = _view.Get<IRawImage>("BGImage");
-
-            if (_bgImage is RawImage raw)
-            {
-                _defaultBG = raw.mainTexture;
-            }
-            _worldImage = _view.Get<IRawImage>("WorldImage");
             _worldPosText = _view.Get<IText>("WorldPosText");
             _timeOfDayText = _view.Get<IText>("TimeOfDayText");
             _mapNameText = _view.Get<IText>("MapNameText");
@@ -95,6 +91,10 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             _tooltipParent = _view.Get<object>("TooltipParent");
             _tooltipContent = _view.Get<object>("TooltipContent");
             _root = _view.Get<object>("Root");
+            _combatUI = _view.Get<CrawlerCombatUI>("CombatUI");
+
+            _bgImage = _view.Get<AnimatedTexture>("BGImage");
+            _worldImage = _view.Get<AnimatedTexture>("WorldImage");
 
             _clientEntityService.SetActive(_tooltipParent, false);
 
@@ -106,9 +106,7 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             AddUpdate(OnLateUpdate, UpdateType.Late);
 
-            _clientEntityService.SetActive(_worldImage, false);
-            _clientEntityService.SetActive(_bgImage, false);
-            SetPicture(null);
+            SetPicture(CrawlerClientConstants.DefaultWorldBG);
 
         }
 
@@ -191,136 +189,36 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         }
 
 
-        private string _currentSpriteName = null;
-        private string _newSpriteName = null;
-        private Dictionary<string, TextureList> _cachedSprites = new Dictionary<string, TextureList>();
         public void SetPicture(string spriteName)
         {
-            _newSpriteName = spriteName;
-        }
-
-        private void LateUpdatePicture()
-        {
-            string spriteName = _newSpriteName;
-            if (_newSpriteName == _currentSpriteName)
-            {
-                return;
-            }
-            if (!string.IsNullOrEmpty(spriteName) && spriteName.IndexOf("Building") >= 0)
-            {
-                spriteName = _crawlerMapService.GetBuildingArtPrefix() + spriteName;
-            }
-
-            if (_worldImage == null)
-            {
-                return;
-            }
+         
             if (string.IsNullOrEmpty(spriteName))
             {
-                _textureList = null;
-                _currentSpriteName = spriteName;
-                ShowTexture(0);
-                return;
+                _bgImage?.SetImage(null);
+                _worldImage?.SetImage(null);
             }
-            if (_currentSpriteName == spriteName)
+            else
             {
-                return;
+                _bgImage?.SetImage(_crawlerMapService.GetBGImageName());
+                _worldImage?.SetImage(spriteName);
             }
-
-            _currentSpriteName = spriteName;
-         
-            if (_cachedSprites.TryGetValue(spriteName, out TextureList textureList))
-            {
-                if (textureList.Textures.Count > 0 && textureList.Textures[0] != null)
-                {
-                    _textureList = textureList;
-                    ShowTexture(0);
-                }
-                return;
-            }
-
-            _assetService.LoadAssetInto(_root, AssetCategoryNames.TextureLists, spriteName, OnDownloadTextureList, spriteName, _token); 
         }
+
+       
+
+
         public void ApplyEffect(string effectName, float duration)
         {
         }
 
-        private void OnDownloadTextureList(object obj, object data, CancellationToken token)
-        {
-            GameObject go = obj as GameObject;
-
-            if (go == null)
-            {
-                return;
-            }
-
-            string spriteName = data as string;
-
-            if (spriteName == null)
-            {
-                _clientEntityService.Destroy(go);
-                return;
-            }
-
-            if (_cachedSprites.TryGetValue(spriteName, out TextureList texList))
-            {
-                _clientEntityService.Destroy(go);
-            }
-            else
-            {
-                texList = go.GetComponent<TextureList>();
-                if (texList == null)
-                {
-                    _clientEntityService.Destroy(go);
-                    return;
-                }
-                _clientEntityService.SetActive(go, false);
-                _cachedSprites[spriteName] = texList;
-            }
-            _textureList = texList;
-            ShowTexture(0);
-        }
-
-        const int FramesBetweenIncrement = 20;
-        int currIncrementFrame = 0;
-        int _currentTextureFrame = 0;
         private void OnLateUpdate()
         {
             LateUpdateWorldUI();
-            LateUpdatePicture();
-            currIncrementFrame++;
-            if (currIncrementFrame % FramesBetweenIncrement == 0)
-            {
-                _currentTextureFrame++;
-                ShowTexture(_currentTextureFrame);
-            }
         }
 
-        private void ShowTexture(int frame)
+        public void UpdateCombatGroups()
         {
-            _currentTextureFrame = frame;
-            if (_textureList == null || _textureList.Textures.Count < 1)
-            {
-                _clientEntityService.SetActive(_worldImage, false);
-                _clientEntityService.SetActive(_bgImage, false);
-                return;
-            }
-
-            _clientEntityService.SetActive(_worldImage, true);
-            _clientEntityService.SetActive(_bgImage, true);
-
-            int currentFrame = _currentTextureFrame % _textureList.Textures.Count;
-
-
-            object bgImage = _crawlerMapService.GetBGImage();
-
-            if (bgImage == null)
-            {
-                bgImage = _defaultBG;
-            }
-            _uiService.SetImageTexture(_bgImage, bgImage);
-
-            _uiService.SetImageTexture(_worldImage, _textureList.Textures[currentFrame]);
+            _combatUI?.UpdateData();
         }
     }
 }

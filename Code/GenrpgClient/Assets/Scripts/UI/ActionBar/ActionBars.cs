@@ -20,7 +20,7 @@ internal class ActionButtonDownload
 
 public class ActionBars : SpellIconScreen
 {
-    private IRepositoryService _repoService;
+    private IRepositoryService _repoService = null!;
 
     public const string ActionButtonPrefab = "ActionButton";
 

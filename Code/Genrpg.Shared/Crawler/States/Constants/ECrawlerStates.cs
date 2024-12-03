@@ -23,6 +23,8 @@ namespace Genrpg.Shared.Crawler.States.Constants
         DeleteConfirm,
         DeleteYes,
         DeleteNo,
+        UpgradeParty,
+
 
         Options,
         SaveGame,

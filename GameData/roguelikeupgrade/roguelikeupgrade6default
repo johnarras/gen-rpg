@@ -1,0 +1,12 @@
+{
+  "Id": "roguelikeupgrade6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "VendorQuality",
+  "NameId": "",
+  "Desc": "Increases the level and quality of items in the vendor.",
+  "MaxTier": 5,
+  "BonusPerTier": 0.5,
+  "BasePointCost": 2,
+  "UpdateTime": "2024-11-27T22:26:36.293Z"
+}

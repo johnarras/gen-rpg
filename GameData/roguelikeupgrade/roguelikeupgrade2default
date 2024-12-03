@@ -1,0 +1,11 @@
+{
+  "Id": "roguelikeupgrade2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "ActionCount",
+  "Desc": "Gives a chance for the player to take multiple actions before monsters attack.",
+  "MaxTier": 2,
+  "BonusPerTier": 1.0,
+  "BasePointCost": 10,
+  "UpdateTime": "2024-11-29T02:33:50.038Z"
+}

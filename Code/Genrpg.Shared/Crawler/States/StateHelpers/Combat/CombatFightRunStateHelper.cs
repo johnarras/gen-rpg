@@ -1,4 +1,5 @@
 ﻿
+using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Monsters.Entities;
@@ -117,12 +118,14 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 
 
 
-            stateData.Actions.Add(new CrawlerStateAction("Run", 'R', ECrawlerStates.CombatConfirm,
-                onClickAction: delegate ()
-                {
-                    partyData.Combat.PartyGroup.CombatGroupAction = ECombatGroupActions.Run;
-                }));
-
+            if (partyData.GameMode != EGameModes.Roguelike)
+            {
+                stateData.Actions.Add(new CrawlerStateAction("Run", 'R', ECrawlerStates.CombatConfirm,
+                    onClickAction: delegate ()
+                    {
+                        partyData.Combat.PartyGroup.CombatGroupAction = ECombatGroupActions.Run;
+                    }));
+            }
 
             long minRange = CrawlerCombatConstants.MaxRange;
 

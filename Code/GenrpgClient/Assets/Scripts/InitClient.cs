@@ -15,6 +15,10 @@ using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.Client.Updates;
 using Assets.Scripts.Assets;
 using Assets.Scripts.Awaitables;
+using Genrpg.Shared.Core.Interfaces;
+using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Core.Constants;
+
 
 public class InitClient : BaseBehaviour, IInitClient
 {
@@ -55,7 +59,7 @@ public class InitClient : BaseBehaviour, IInitClient
     public long AccountSuffixId;
 #endif
 
-    public bool CrawlerMode = false;
+    public EGameModes GameMode;
     private CancellationTokenSource _gameTokenSource = new CancellationTokenSource();
 
     private void Awake()
@@ -86,8 +90,16 @@ public class InitClient : BaseBehaviour, IInitClient
         _gameTokenSource?.Dispose();
         _gameTokenSource = new CancellationTokenSource();
         _globalUpdater = null;
-        _clientAuthService.ResetGame();
-        await _assetService.ClearBundleCache(_gameTokenSource.Token);
+
+        List<IGameCleanup> cleanups = new List<IGameCleanup>();
+
+        foreach (IInjectable inj in _gs.loc.GetVals())
+        {
+            if (inj is IGameCleanup cleanup)
+            {
+                await cleanup.OnCleanup(_gameTokenSource.Token);
+            }
+        }
         _clientEntityService.DestroyAllChildren(_globalRoot);
     }
 
@@ -126,9 +138,9 @@ public class InitClient : BaseBehaviour, IInitClient
         _clientAppService.SetupScreen(2460, 1440, false, true, 2);
 
         _dispatcher.AddListener<NewVersionEvent>(OnNewVersion, _gameTokenSource.Token);
-        _gs.CrawlerMode = CrawlerMode;
+        _gs.GameMode = GameMode;
 
-        if (_gs.CrawlerMode)
+        if (GameModeUtils.IsPureClientMode(_gs.GameMode))
         {
             await SetupGame(_gameTokenSource.Token);
             return;
@@ -193,7 +205,7 @@ public class InitClient : BaseBehaviour, IInitClient
 
         _screenService.Open(ScreenId.FloatingText);
 
-        if (!_gs.CrawlerMode)
+        if (!GameModeUtils.IsPureClientMode(_gs.GameMode))
         {
             _loginService.StartAuth(token);
         }

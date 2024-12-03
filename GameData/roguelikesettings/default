@@ -1,0 +1,8 @@
+{
+  "Id": "default",
+  "LootScale": 0.5,
+  "MonsterQuantityScale": 0.5,
+  "RandomEncounterChanceMult": 4.0,
+  "Name": "RoguelikeSettings",
+  "UpdateTime": "2024-11-28T20:12:03.079Z"
+}

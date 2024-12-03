@@ -1,0 +1,12 @@
+{
+  "Id": "roguelikeupgrade5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "StatBonusValue",
+  "NameId": "",
+  "Desc": "Increases the stat bonus players get from their primary stats.",
+  "MaxTier": 5,
+  "BonusPerTier": 1.0,
+  "BasePointCost": 1,
+  "UpdateTime": "2024-11-27T22:29:50.685Z"
+}

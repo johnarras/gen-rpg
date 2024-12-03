@@ -1,4 +1,5 @@
 ﻿using Genrpg.Shared.Crawler.Parties.PlayerData;
+using Genrpg.Shared.Crawler.Roguelikes.Services;
 using Genrpg.Shared.Crawler.States.StateHelpers;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 {
     public abstract class BaseCombatStateHelper : BaseStateHelper
     {
+        protected IRoguelikeUpgradeService _roguelikeUpgradeService;
         protected override CrawlerStateData CreateStateData()
         {
             CrawlerStateData stateData = base.CreateStateData();

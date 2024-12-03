@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
 {
     public class ChooseRaceHelper : BaseRoleStateHelper
     {

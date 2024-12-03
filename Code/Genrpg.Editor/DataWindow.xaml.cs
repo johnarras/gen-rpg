@@ -41,8 +41,8 @@ namespace Genrpg.Editor
         private Window _parentForm;
 
 
-        int width = 1600;
-        int height = 900;
+        int width = 2500;
+        int height = 1200;
 
         public int Width => width;
         public int Height => height;
@@ -79,7 +79,7 @@ namespace Genrpg.Editor
                 return;
             }
 
-            UIHelper.SetWindowRect(this, 200, 200, width, height);
+            UIHelper.SetWindowRect(this, 50, 50, width, height);
                 
             AddView(action);
 

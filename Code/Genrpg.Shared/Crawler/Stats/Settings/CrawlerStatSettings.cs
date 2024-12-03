@@ -10,7 +10,7 @@ namespace Genrpg.Shared.Crawler.Stats.Settings
     public class CrawlerStatSettings : NoChildSettings // No List
     {
         [Key(0)] public override string Id { get; set; }
-        [Key(1)] public int StartStat { get; set; } = 10;
+        [Key(1)] public int StartStat { get; set; }
     }
 
 

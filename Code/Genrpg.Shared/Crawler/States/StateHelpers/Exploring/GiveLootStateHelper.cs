@@ -52,7 +52,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
                 party.Combat = combatState;
                 loot = _lootService.GiveCombatLoot(party, combatState, _worldService.GetMap(party.MapId));
-                party.Combat = null;
+                party.EndCombat();
             }
             else
             {

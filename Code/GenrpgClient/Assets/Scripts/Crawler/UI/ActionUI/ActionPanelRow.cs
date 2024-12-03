@@ -92,7 +92,12 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
         public void OnPointerEnter()
         {
 
-            _uiService.SetAlpha(Text, 0.5f);
+            if (_action.NextState != ECrawlerStates.None || _action.OnClickAction != null)
+            {
+                _uiService.SetAlpha(Text, 0.7f);
+                return;
+            }
+
             if (_action != null)
             { 
                 if (!string.IsNullOrEmpty(_action.SpriteName))

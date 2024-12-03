@@ -1,7 +1,9 @@
 ﻿
 using Assets.Scripts.MVC;
 using Assets.Scripts.UI.Crawler.CrawlerPanels;
+using Genrpg.Shared.Characters.PlayerData;
 using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Core.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.Tasks.Services;
@@ -22,25 +24,34 @@ namespace Assets.Scripts.UI.Crawler
         private StatusPanel _statusPanel;
 
 
-        private object _leftParent;
-        private object _rightParent;
+        private object _worldParent;
+        private object _statusParent;
+        private object _actionParent;
 
         public BaseView View;
+
+        public string WorldPanelName = "WorldPanel";
+        public string ActionPanelName = "ActionPanel";
+        public string StatusPanelName = "StatusPanel";
+
+        public string ActionPanelElementSuffix = "";
 
         protected override async Task OnStartOpen(object data, CancellationToken token)
         {
             PartyData partyData = await _crawlerService.LoadParty();
             AddListener<CrawlerStateData>(OnNewStateData);
 
-            _leftParent = View.Get<object>("Left");
-            _rightParent = View.Get<object>("Right");
+            _worldParent = View.Get<object>("World");
+            _statusParent = View.Get<object>("Status");
+            _actionParent = View.Get<object>("Action");
 
             _worldPanel = await _assetService.CreateAsync<WorldPanel, CrawlerScreen>(this,
-                AssetCategoryNames.UI, "WorldPanel", _leftParent, _token, Subdirectory);
+                AssetCategoryNames.UI, WorldPanelName, _worldParent, _token, Subdirectory);
+
             _actionPanel = await _assetService.CreateAsync<ActionPanel, CrawlerScreen>(this,
-                AssetCategoryNames.UI, "ActionPanel", _rightParent, _token, Subdirectory);
+                AssetCategoryNames.UI, ActionPanelName, _actionParent, _token, Subdirectory);
             _statusPanel = await _assetService.CreateAsync<StatusPanel, CrawlerScreen>(this,
-                AssetCategoryNames.UI, "StatusPanel", _rightParent, _token, Subdirectory);
+                AssetCategoryNames.UI, StatusPanelName, _statusParent, _token, Subdirectory);
 
             partyData.WorldPanel = _worldPanel;
             partyData.StatusPanel = _statusPanel;
@@ -48,7 +59,7 @@ namespace Assets.Scripts.UI.Crawler
 
             await _crawlerService.Init(partyData, token);
 
-            _screenService.CloseAll(new List<ScreenId>() { ScreenId.Crawler });
+            _screenService.CloseAll(new List<ScreenId>() { _crawlerService.GetCrawlerScreenId()});
         
         }
 

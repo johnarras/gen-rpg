@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Genrpg.Shared.Crawler.States.StateHelpers.Vendor
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Vendors
 {
     public class VendorHelper : BaseStateHelper
     {

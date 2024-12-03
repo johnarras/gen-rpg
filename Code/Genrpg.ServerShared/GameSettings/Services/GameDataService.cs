@@ -18,6 +18,7 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Versions.Settings;
 using Genrpg.Shared.Website.Messages.Login;
 using Genrpg.Shared.Website.Messages.RefreshGameSettings;
+using Microsoft.Extensions.Azure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -114,7 +115,7 @@ namespace Genrpg.ServerShared.GameSettings.Services
             // any changes.
 
             if (!forceRefresh &&
-                versionSettings.GameDataSaveTime == ch.DataOverrides.LastTimeSet &&
+                versionSettings.GameDataSaveTime == ch.DataOverrides.GameDataSaveTime &&
                 ch.DataOverrides.LastTimeSet >= dataOverrideSettings.PrevUpdateTime &&
                 ch.DataOverrides.LastTimeSet < dataOverrideSettings.NextUpdateTime)
             {

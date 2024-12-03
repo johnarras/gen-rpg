@@ -20,6 +20,9 @@ using Genrpg.Shared.Units.Mappers;
 using Genrpg.Shared.Utils.Data;
 using Genrpg.Shared.Crawler.Items.Entities;
 using Genrpg.Shared.Crawler.Combat.Constants;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.TimeOfDay.Settings;
+using Genrpg.Shared.Client.Core;
 
 namespace Genrpg.Shared.Crawler.Parties.PlayerData
 {
@@ -73,7 +76,14 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
         [Key(20)] public long DaysPlayed { get; set; } = 0;
 
-        [Key(21)] public bool InTavern { get; set; }
+        [Key(21)] public bool InGuildHall { get; set; }
+
+        [Key(22)] public EGameModes GameMode { get; set; }
+
+        [Key(23)] public long MaxLevel { get; set; }
+        [Key(24)] public long UpgradePoints { get; set; }
+
+        [Key(25)] public List<PartyRoguelikeUpgrade> RoguelikeUpgrades { get; set; } = new List<PartyRoguelikeUpgrade>();
 
         [JsonIgnore] public IWorldPanel WorldPanel = null;
         [JsonIgnore] public IActionPanel ActionPanel = null;
@@ -81,18 +91,30 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         [JsonIgnore] public ISpeedupListener SpeedupListener = null;
         [JsonIgnore] public CrawlerCombatState Combat = null;
 
+
+        public void EndCombat()
+        {
+            Combat = null;
+            WorldPanel?.UpdateCombatGroups();
+        }
+
         public PartyMember GetMemberInSlot(int slot)
         {
-            if (slot >= 1 && slot <= PartyConstants.MaxPartySize)
+            if (slot >= 1 && slot <= GetMaxPartySize())
             {
                 return Members.FirstOrDefault(x=>x.PartySlot == slot);
             }
             return null;
         }
 
+        public long GetMaxPartySize()
+        {
+            return GameMode != EGameModes.Roguelike ? PartyConstants.MaxPartySize : PartyConstants.MaxRoguelikePartySize;
+        }
+
         public void AddPartyMember(PartyMember member)
         {
-            for (int i = 1; i <= PartyConstants.MaxPartySize; i++)
+            for (int i = 1; i <= GetMaxPartySize(); i++)
             {
                 if (GetMemberInSlot(i) == null)
                 {
@@ -116,6 +138,13 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
                 return;
             }
             Members.Remove(member);
+            if (GameMode == EGameModes.Roguelike && Members.Count < 1)
+            {
+                Gold = 0;
+                Inventory = new List<Item>();
+                VendorBuyback = new List<Item>();
+                VendorItems = new List<Item>();
+            }
             FixPartySlots();
         }
 
@@ -125,7 +154,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
 
             for (int i = 0; i< currentMembers.Count; i++)
             {
-                if (i < PartyConstants.MaxPartySize)
+                if (i < GetMaxPartySize())
                 {
                     currentMembers[i].PartySlot = i + 1;
                 }
@@ -134,14 +163,14 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
                     currentMembers[i].PartySlot = 0;
                 }
             }
-
+            StatusPanel?.RefreshAll();
         }
 
         public List<PartyMember> GetActiveParty()
         {
             List<PartyMember> retval = new List<PartyMember>();
 
-            for (int i = 1; i <= PartyConstants.MaxPartySize; i++)
+            for (int i = 1; i <= GetMaxPartySize(); i++)
             {
                 PartyMember member = GetMemberInSlot(i);
                 if (member != null)
@@ -163,6 +192,74 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
                 return EActionCategories.Preparing;
             }
             return EActionCategories.Combat;
+        }
+
+        public void Reset(IClientRandom rand)
+        {
+            WorldId = DateTime.UtcNow.Ticks % 1000000;
+            Maps = new List<CrawlerMapStatus>();
+            CurrentMap = new CrawlerMapStatus();
+            LastVendorRefresh = DateTime.UtcNow.AddDays(-1);
+            Inventory = new List<Item>();
+            VendorBuyback = new List<Item>();
+            VendorItems = new List<Item>();
+            
+            WorldId = rand.Next() % 1000000000;
+            MapId = 0;
+            MapX = 0;
+            MapZ = 0;
+            InGuildHall = true;
+            DaysPlayed = 0;
+            if (GameMode == EGameModes.Roguelike)
+            {
+                Members.Clear();
+            }
+            else
+            {
+                foreach (PartyMember member in Members)
+                {
+                    member.StatusEffects.Clear();
+                }
+                RoguelikeUpgrades = new List<PartyRoguelikeUpgrade>();
+                MaxLevel = 0;
+            }
+            Gold = 0;
+            HourOfDay = 0;
+            CompletedMaps.Clear();
+        }
+
+        public long GetUpgradeTier(long roguelikeUpgradeId)
+        {
+
+            if (GameMode != EGameModes.Roguelike)
+            {
+                return 0;
+            }
+
+            PartyRoguelikeUpgrade upgrade = RoguelikeUpgrades.FirstOrDefault(x=>x.RoguelikeUpgradeId == roguelikeUpgradeId);
+            if (upgrade == null)
+            {
+                return 0;
+            }
+            return upgrade.Tier;
+        }
+
+        public void SetUpgradeTier(long roguelikeUpgradeId, long newTier)
+        {
+
+            if (GameMode != EGameModes.Roguelike)
+            {
+                return;
+            }
+
+            PartyRoguelikeUpgrade upgrade = RoguelikeUpgrades.FirstOrDefault(x => x.RoguelikeUpgradeId == roguelikeUpgradeId);
+            if (upgrade == null)
+            {
+                upgrade = new PartyRoguelikeUpgrade() { RoguelikeUpgradeId = roguelikeUpgradeId, Tier = 0 };
+                RoguelikeUpgrades.Add(upgrade);
+            }
+
+            upgrade.Tier = newTier;
         }
     }
 

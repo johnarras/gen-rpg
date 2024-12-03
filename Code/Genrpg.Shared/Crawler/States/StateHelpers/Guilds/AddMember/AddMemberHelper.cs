@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.AddMember
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.AddMember
 {
     public class AddMemberHelper : BaseStateHelper
     {

@@ -32,6 +32,8 @@ using Genrpg.Shared.Tasks.Services;
 using Genrpg.Shared.Buildings.Settings;
 using Genrpg.Shared.MapServer.Entities;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.Core.Constants;
 
 namespace Assets.Scripts.Crawler.Services
 {
@@ -101,6 +103,11 @@ namespace Assets.Scripts.Crawler.Services
             await Task.CompletedTask;
             ChangeState(ECrawlerStates.GuildMain, token);
             await UpdateCrawlerUI();
+        }
+
+        public ScreenId GetCrawlerScreenId()
+        {
+            return _gs.GameMode == EGameModes.Crawler2 ? ScreenId.Crawler2 : ScreenId.Crawler;
         }
 
         public void ChangeState(ECrawlerStates crawlerState, CancellationToken token, object extraData = null , ECrawlerStates returnState= ECrawlerStates.None)

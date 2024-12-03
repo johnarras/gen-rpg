@@ -1,0 +1,14 @@
+{
+  "Id": "roguelikeupgrade3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "StartStats",
+  "NameId": "",
+  "Desc": "Add stats to the player when they are created.",
+  "Icon": "",
+  "Art": "",
+  "MaxTier": 10,
+  "BonusPerTier": 5.0,
+  "BasePointCost": 1,
+  "UpdateTime": "2024-11-29T02:33:50.038Z"
+}

@@ -32,7 +32,7 @@ public class CrawlerStateData
     [Key(3)] public PartyMember Member { get; set; }
     public List<CrawlerStateAction> Actions = new List<CrawlerStateAction>();
     public List<String> LoreText = new List<string>();
-    public string WorldSpriteName = CrawlerClientConstants.WorldImage;
+    public string WorldSpriteName = CrawlerClientConstants.DefaultWorldBG;
     [Key(4)] public bool ForceNextState { get; set; } = false;
     [Key(5)] public bool DoNotTransitionToThisState { get; set; }
     [Key(6)] public bool UseSmallerButtons { get; set; } = false;

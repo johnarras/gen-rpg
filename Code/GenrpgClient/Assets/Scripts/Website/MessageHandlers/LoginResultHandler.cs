@@ -17,6 +17,8 @@ using Assets.Scripts.GameSettings.Entities;
 using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.UI.Entities;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.States.Services;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
@@ -28,6 +30,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IClientWebService _webNetworkService;
         private IClientGameDataService _gameDataService;
         private IClientGameDataService _clientGameDataService;
+        private ICrawlerService _crawlerService;
         protected override void InnerProcess(LoginResult result, CancellationToken token)
         {
             _awaitableService.ForgetAwaitable(InnerProcessAsync(result, token));
@@ -91,9 +94,9 @@ namespace Assets.Scripts.Login.MessageHandlers
             await Awaitable.NextFrameAsync(cancellationToken: token);
             await Awaitable.NextFrameAsync(cancellationToken: token);
 
-            if (_gs.CrawlerMode)
+            if (GameModeUtils.IsPureClientMode(_gs.GameMode))
             {
-                _screenService.Open(ScreenId.Crawler);
+                _screenService.Open(_crawlerService.GetCrawlerScreenId());
             }
             else
             {

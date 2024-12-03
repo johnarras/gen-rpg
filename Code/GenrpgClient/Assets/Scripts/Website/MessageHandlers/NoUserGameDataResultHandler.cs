@@ -17,6 +17,7 @@ using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.Users.PlayerData;
+using Genrpg.Shared.Crawler.States.Services;
 
 namespace Assets.Scripts.Login.MessageHandlers
 {
@@ -27,6 +28,7 @@ namespace Assets.Scripts.Login.MessageHandlers
         private IAssetService _assetService;
         private IClientWebService _webNetworkService;
         private IClientGameDataService _gameDataService;
+        private ICrawlerService _crawlerService;
         protected override void InnerProcess(NoUserGameDataResult result, CancellationToken token)
         {
             _awaitableService.ForgetAwaitable(InnerProcessAsync(result, token));
@@ -56,15 +58,17 @@ namespace Assets.Scripts.Login.MessageHandlers
             await Awaitable.NextFrameAsync(cancellationToken: token);
             await Awaitable.NextFrameAsync(cancellationToken: token);
 
-            _screenService.Open(ScreenId.Crawler);
+            ScreenId screenId = _crawlerService.GetCrawlerScreenId();
+
+            _screenService.Open(screenId);
 
 
-            while (_screenService.GetScreen(ScreenId.Crawler) == null)
+            while (_screenService.GetScreen(screenId) == null)
             {
                 await Awaitable.NextFrameAsync(token);
             }
 
-            _screenService.CloseAll(new List<ScreenId>() { ScreenId.Crawler });
+            _screenService.CloseAll(new List<ScreenId>() { screenId });
         }
 
         public async Awaitable RetryUploadMap(CancellationToken token)

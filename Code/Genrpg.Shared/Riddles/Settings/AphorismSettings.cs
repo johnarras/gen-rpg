@@ -10,7 +10,7 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Purchasing.Settings;
 
-namespace Genrpg.Shared.Aphorisms.Settings
+namespace Genrpg.Shared.Riddles.Settings
 {
 
     [MessagePackObject]

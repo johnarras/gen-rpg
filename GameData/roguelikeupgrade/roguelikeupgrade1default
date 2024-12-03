@@ -1,0 +1,14 @@
+{
+  "Id": "roguelikeupgrade1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Classes",
+  "NameId": "",
+  "Desc": "Lets new characters start with extra classes.",
+  "Icon": "",
+  "Art": "",
+  "MaxTier": 2,
+  "BonusPerTier": 1.0,
+  "BasePointCost": 10,
+  "UpdateTime": "2024-11-27T22:19:14.352Z"
+}

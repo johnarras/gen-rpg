@@ -43,7 +43,11 @@ namespace Genrpg.Shared.Crawler.Combat.Entities
 
         [Key(6)] public List<StatVal> StatBuffs { get; set; } = new List<StatVal>();
 
-        public bool CombatIsOver() { return Enemies.Count == 0 || PartyIsDead(); }
+        [Key(7)] public long PlayerActionsRemaining { get; set; }
+
+
+
+        public bool PartyWonCombat() { return Enemies.Count == 0; }
 
         public bool PartyIsDead()
         {

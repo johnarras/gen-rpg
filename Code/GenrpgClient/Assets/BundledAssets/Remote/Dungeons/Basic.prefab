@@ -50,4 +50,4 @@ MonoBehaviour:
   Ceiling: {fileID: 1682565954592356688, guid: fbf050822497fcf40bd21bef84caa2a0, type: 3}
   Barricade: {fileID: 1682565954592356688, guid: 29f8b3cd49625d740afb6ad71e507001,
     type: 3}
-  Background: {fileID: 2800000, guid: 73217ddf4b7ff6c4ea37f691298d2ac8, type: 3}
+  BGImageName: DungeonBG

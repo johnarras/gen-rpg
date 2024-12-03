@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
 {
     public abstract class BaseRoleStateHelper : BaseStateHelper
     {
@@ -28,6 +28,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
             allLines.Add($"{role.HealthPerLevel} Hp/Level, {role.ManaPerLevel} Mana/Level, {role.CritPercent}% Crit");
 
             List<NameIdValue> bonuses = _statService.GetInitialStatBonuses(role.IdKey);
+
+            IReadOnlyList<RoleScalingType> scalingTypes = _gameData.Get<RoleScalingTypeSettings>(_gs.ch).GetData();
 
             if (bonuses.Count > 0)
             {
@@ -48,7 +50,22 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
 
 
             allLines.Add("Bonuses Per Level::");
-            allLines.Add($"Melee: {role.MeleeScaling}, Ranged: {role.RangedScaling}, SpellDam: {role.SpellDamScaling}, Heal: {role.HealingScaling} Summon: {role.SummonScaling}");
+
+            StringBuilder scalingBuilder = new StringBuilder();
+            foreach (RoleBonusAmount amount in role.AmountBonuses)
+            {
+                if (amount.EntityTypeId == EntityTypes.RoleScaling)
+                {
+                    RoleScalingType scalingType = scalingTypes.FirstOrDefault(x => x.IdKey == amount.EntityId);
+                    if (scalingType != null)
+                    {
+                        scalingBuilder.Append(scalingType.Name.Replace("Scaling", "") + ": " + amount.Amount + " ");
+                    }
+                }
+            }
+
+
+            allLines.Add(scalingBuilder.ToString());
 
             ShowBuffs(role, EntityTypes.Stat, allLines, "Stats: ", _gameData.Get<StatSettings>(null).GetData(), true);
             ShowBuffs(role, EntityTypes.PartyBuff, allLines, "Buffs: ", _gameData.Get<PartyBuffSettings>(null).GetData(), true);
@@ -59,7 +76,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
 
         protected virtual void ShowBuffs<T>(Role role, long entityTypeId, List<string> lines, string header, IReadOnlyList<T> gameDataList, bool inOneRow) where T : IIndexedGameItem
         {
-            List<RoleBonus> bonuses = role.Bonuses.Where(x => x.EntityTypeId == entityTypeId).ToList();
+            List<RoleBonusBinary> bonuses = role.BinaryBonuses.Where(x => x.EntityTypeId == entityTypeId).ToList();
 
             if (bonuses.Count < 1)
             {
@@ -67,7 +84,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guild.CreateMember
             }
 
             List<T> dataItems = new List<T>();
-            foreach (RoleBonus bonus in bonuses)
+            foreach (RoleBonusBinary bonus in bonuses)
             {
                 T dataItem = gameDataList.FirstOrDefault(x => x.IdKey == bonus.EntityId);
                 if (dataItem != null)

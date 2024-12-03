@@ -1,0 +1,14 @@
+{
+  "Id": "roguelikeupgrade8default",
+  "ParentId": "default",
+  "IdKey": 8,
+  "Name": "SummonQuality",
+  "NameId": "",
+  "Desc": "Increases the quality of the player's summons.",
+  "Icon": "",
+  "Art": "",
+  "MaxTier": 5,
+  "BonusPerTier": 0.05,
+  "BasePointCost": 2,
+  "UpdateTime": "2024-11-27T22:29:50.685Z"
+}

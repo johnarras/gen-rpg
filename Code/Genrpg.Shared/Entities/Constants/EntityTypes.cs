@@ -43,6 +43,7 @@ namespace Genrpg.Shared.Entities.Constants
         public const long Attack = 38;
         public const long Shoot = 39;
         public const long Riddle = 40;
+        public const long RoleScaling = 41;
 
         // Crawler-specific entitytypes
         public const long CrawlerSpell = 100;

@@ -9,6 +9,8 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Crawler.States.StateHelpers;
 using Genrpg.Shared.Crawler.States.Entities;
 using Genrpg.Shared.Crawler.States.Constants;
+using Genrpg.Shared.Crawler.Maps.Constants;
+using Genrpg.Shared.Core.Constants;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 {
@@ -46,7 +48,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
             EnterCrawlerMapData mapData = action.ExtraData as EnterCrawlerMapData;
 
             PartyData party = _crawlerService.GetParty();
-            party.Combat = null;
+
+            party.EndCombat();
 
             if (mapData == null)
             {
@@ -83,19 +86,14 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
             stateData.Actions.Add(new CrawlerStateAction(null, rowFiller: true));
 
-
             CrawlerWorld world = await _worldService.GetWorld(party.WorldId);
             stateData.Actions.Add(new CrawlerStateAction("Cast", 'C', ECrawlerStates.SelectAlly));
-            stateData.Actions.Add(new CrawlerStateAction("Inn", 'I', ECrawlerStates.GuildMain));
-            stateData.Actions.Add(new CrawlerStateAction("Train", 'T', ECrawlerStates.TrainingMain));
-            stateData.Actions.Add(new CrawlerStateAction("Vendor", 'V', ECrawlerStates.Vendor));
-            stateData.Actions.Add(new CrawlerStateAction("Fight", 'F', ECrawlerStates.StartCombat));
 
-            CrawlerMap firstCity = world.GetMap(2);
+            CrawlerMap firstCity = world.Maps.FirstOrDefault(x => x.CrawlerMapTypeId == CrawlerMapTypes.City);
 
             EnterCrawlerMapData firstCityData = new EnterCrawlerMapData()
             {
-                MapId = 2,
+                MapId = firstCity.IdKey,
                 MapX = firstCity.Width / 2,
                 MapZ = firstCity.Height / 2,
                 MapRot = 0,
@@ -103,9 +101,37 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
                 Map = firstCity,
             };
 
-            stateData.Actions.Add(new CrawlerStateAction("Outdoors", 'O', ECrawlerStates.ExploreWorld,
-                extraData: firstCityData));
+            bool showFullMenu = false;
 
+            if (party.GameMode != EGameModes.Roguelike)
+            {
+                showFullMenu = true;
+            }
+            else if (mapData != null)
+            {
+                if (mapData.MapId == firstCity.IdKey)
+                {
+                    showFullMenu = true;
+                }
+            }
+            else // No map data.
+            {
+                if (party.MapId <= firstCity.IdKey)
+                {
+                    showFullMenu = true;
+                }
+            }
+
+            if (showFullMenu)
+            {
+                stateData.Actions.Add(new CrawlerStateAction("Inn", 'I', ECrawlerStates.GuildMain));
+                stateData.Actions.Add(new CrawlerStateAction("Train", 'T', ECrawlerStates.TrainingMain));
+                stateData.Actions.Add(new CrawlerStateAction("Vendor", 'V', ECrawlerStates.Vendor));
+                stateData.Actions.Add(new CrawlerStateAction("Fight", 'F', ECrawlerStates.StartCombat));
+
+                stateData.Actions.Add(new CrawlerStateAction("Outdoors", 'O', ECrawlerStates.ExploreWorld,
+                    extraData: firstCityData));
+            }
 
             stateData.Actions.Add(new CrawlerStateAction(null, rowFiller: true));
             int moveKeysShown = 0;
@@ -120,7 +146,6 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
                     stateData.Actions.Add(new CrawlerStateAction(null, rowFiller: true));
                 }
             }
-
 
             if (mapData == null)
             {
@@ -141,6 +166,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
                     mapData = firstCityData;
                 }
             }
+
+
 
             await _crawlerMapService.EnterMap(party, mapData, token);
 

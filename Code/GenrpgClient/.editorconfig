@@ -1,0 +1,11 @@
+﻿# Root .editorconfig file
+root = true
+
+[*.cs]
+# Disable nullability warnings
+nullable = enable
+dotnet_diagnostic.CS8600.severity = none
+dotnet_diagnostic.CS8601.severity = none
+dotnet_diagnostic.CS8602.severity = none
+dotnet_diagnostic.CS8603.severity = none
+dotnet_diagnostic.CS8604.severity = none

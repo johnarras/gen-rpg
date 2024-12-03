@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Genrpg.Shared.Crawler.States.StateHelpers.Temple
+namespace Genrpg.Shared.Crawler.States.StateHelpers.Temples
 {
     public class TempleStateHelper : BaseStateHelper
     {
@@ -35,7 +35,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Temple
             {
                 string color = result.Success ? TextColors.ColorYellow : TextColors.ColorRed;
 
-                stateData.Actions.Add(new CrawlerStateAction(_textService.HighlightText(result.Message,color)));
+                stateData.Actions.Add(new CrawlerStateAction(_textService.HighlightText(result.Message, color)));
             }
 
             stateData.Actions.Add(new CrawlerStateAction("Party Gold: " + partyData.Gold));
@@ -50,7 +50,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Temple
                         () =>
                         {
                             _templeService.HealPartyMember(partyData, member, newResult);
-                        }, forceButton:true, extraData: newResult));
+                        }, forceButton: true, extraData: newResult));
                 }
             }
 

@@ -1,4 +1,6 @@
 ﻿using Genrpg.Shared.Client.Core;
+using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.MapGen.Entities;
 using Genrpg.Shared.Crawler.Maps.Constants;
 using Genrpg.Shared.Crawler.Maps.Entities;
 using Genrpg.Shared.Crawler.Maps.Settings;
@@ -8,7 +10,9 @@ using Genrpg.Shared.Utils;
 using Genrpg.Shared.Utils.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Unity.Collections;
 
 namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 {
@@ -29,7 +33,14 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
             if (genData.MaxFloor == 0 || genData.PrevMap == null)
             {
                 genData.MaxFloor = MathUtils.IntRange(mapType.MinFloors, mapType.MaxFloors, rand);
-                genData.CurrFloor = 1;
+                if (party.GameMode == EGameModes.Roguelike)
+                {
+                    genData.MaxFloor = 1000;
+                }
+                if (genData.CurrFloor == 0)
+                {
+                    genData.CurrFloor = 1;
+                }
                 if (rand.NextDouble() < 0.2f)
                 {
                     genData.MaxFloor++;
@@ -37,9 +48,16 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
 
                 genData.Looping = rand.NextDouble() < mapType.LoopingChance ? true : false;
                 genData.RandomWallsDungeon = rand.NextDouble() < mapType.RandomWallsChance ? true : false;
+
                 int width = MathUtils.IntRange(mapType.MinWidth, mapType.MaxWidth, rand);
                 int height = MathUtils.IntRange(mapType.MinHeight, mapType.MaxHeight, rand);
 
+                if (_gs.GameMode == EGameModes.Roguelike)
+                {
+                    genData.RandomWallsDungeon = true;
+                    width /= 2;
+                    height /= 2;
+                }
                 if (!genData.RandomWallsDungeon)
                 {
                     width = (int)(width * mapSettings.CorridorDungeonSizeScale);
@@ -54,11 +72,16 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 map = genData.World.CreateMap(genData, (int)width, (int)height);
                 genData.Name = _zoneGenService.GenerateZoneName(genData.ZoneTypeId, rand.Next(), false);
 
+
             }
             else
             {
                 genData.Level++;
                 genData.CurrFloor++;
+                if (genData.ZoneTypeId == 0)
+                {
+                    genData.ZoneTypeId = _newMapZoneIds[rand.Next() % _newMapZoneIds.Length];
+                }
                 map = genData.World.CreateMap(genData, genData.PrevMap.Width, genData.PrevMap.Height);
             }
 
@@ -373,11 +396,51 @@ namespace Assets.Scripts.Crawler.Maps.Services.GenerateMaps
                 genData.FromMapX = exitX;
                 genData.FromMapZ = exitZ;
 
-                await _mapGenService.Generate(party, world, genData);
+                if (party.GameMode != EGameModes.Roguelike)
+                {
+                    await _mapGenService.Generate(party, world, genData);
+                }
 
                 genData.FromMapId = currMapId;
                 genData.FromMapX = currFromX;
                 genData.FromMapZ = currFromZ;
+
+                if (party.GameMode == EGameModes.Roguelike)
+                {
+                    List<PointXZ> okPoints = new List<PointXZ>();
+
+
+                    for (int x = 0; x < map.Width; x++)
+                    {
+                        for (int z = 0; z < map.Height; z++)
+                        {
+                            if (map.Get(x,z,CellIndex.Terrain) == 0)
+                            {
+                                continue;
+                            }
+
+                            if (map.Get(x,z,CellIndex.Encounter) > 0)
+                            {
+                                continue;
+                            }
+
+                            MapCellDetail currDetail = map.Details.FirstOrDefault(d => d.X == x && d.Z == z);
+                            
+                            if (currDetail != null)
+                            {
+                                continue;
+                            }
+                            okPoints.Add(new PointXZ(x,z));
+
+                        }
+                    }
+
+                    PointXZ downStairsPoint = okPoints[rand.Next() % okPoints.Count];
+
+                    map.Details.Add(new MapCellDetail() { EntityTypeId = EntityTypes.Map, EntityId = map.IdKey+1, X = downStairsPoint.X, Z = downStairsPoint.Z });
+
+                }
+
             }
 
             return new NewCrawlerMap() { Map = map, EnterX = enterX, EnterZ = enterZ };
