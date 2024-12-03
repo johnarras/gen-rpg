@@ -51,6 +51,12 @@ namespace Assets.Scripts.UI.MobileGame
 
         private void OnAddUserCoinVisual(AddUserCoinVisual visual)
         {
+
+            if (visual.UserCoinTypeId != UserCoinTypeId)
+            {
+                return;
+            }
+
             _targetQuantity += visual.QuantityAdded;
 
             if (visual.InstantUpdate)
