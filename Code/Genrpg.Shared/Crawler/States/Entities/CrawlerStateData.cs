@@ -36,6 +36,7 @@ public class CrawlerStateData
     [Key(4)] public bool ForceNextState { get; set; } = false;
     [Key(5)] public bool DoNotTransitionToThisState { get; set; }
     [Key(6)] public bool UseSmallerButtons { get; set; } = false;
+    [Key(7)] public bool BGImageOnly { get; set; }
 
     public bool HasInput()
     {

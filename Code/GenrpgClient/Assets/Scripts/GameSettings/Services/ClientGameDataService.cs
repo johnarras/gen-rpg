@@ -24,6 +24,7 @@ namespace Assets.Scripts.GameSettings.Services
         protected IGameData _gameData;
         private ILogService _logService;
         private IClientAppService _clientAppService;
+        private IClientConfigContainer _configContainer;
 
         private Dictionary<Type, IGameSettingsMapper> _loaderObjects = null;
 
@@ -70,27 +71,34 @@ namespace Assets.Scripts.GameSettings.Services
                     bakedSettings = (ITopLevelSettings)SerializationUtils.DeserializeWithType(textAsset.text, loader.GetClientType());
                 }
 
-                List<ITopLevelSettings> settingsChoices = new List<ITopLevelSettings>();
-
-                object obj = await repo.LoadWithType(loader.GetClientType(), GameDataConstants.DefaultFilename);
-
-                ITopLevelSettings downloadedSettings = obj as ITopLevelSettings;
-
-                // If baked settings are newer than the cached downloaded settings, use the new baked data in place of the cached.
-                // This comes up if you create a new client.
-                if (bakedSettings != null && downloadedSettings != null && 
-                    bakedSettings.UpdateTime > downloadedSettings.UpdateTime)
+                if (!_configContainer.Config.PlayerContainsAllAssets)
                 {
-                    downloadedSettings = bakedSettings;
+                    List<ITopLevelSettings> settingsChoices = new List<ITopLevelSettings>();
+
+                    object obj = await repo.LoadWithType(loader.GetClientType(), GameDataConstants.DefaultFilename);
+
+                    ITopLevelSettings downloadedSettings = obj as ITopLevelSettings;
+
+                    // If baked settings are newer than the cached downloaded settings, use the new baked data in place of the cached.
+                    // This comes up if you create a new client.
+                    if (bakedSettings != null && downloadedSettings != null &&
+                        bakedSettings.UpdateTime > downloadedSettings.UpdateTime)
+                    {
+                        downloadedSettings = bakedSettings;
+                    }
+
+                    if (downloadedSettings != null)
+                    {
+                        allSettings.Add(downloadedSettings);
+                    }
+                    else if (bakedSettings != null)
+                    {
+                        allSettings.Add(bakedSettings);
+                    }
                 }
-
-                if (downloadedSettings != null)
+                else
                 {
-                    allSettings.Add(downloadedSettings);
-                }
-                else if (bakedSettings != null)
-                {
-                    allSettings.Add(bakedSettings); 
+                    allSettings.Add(bakedSettings);
                 }
 
             }

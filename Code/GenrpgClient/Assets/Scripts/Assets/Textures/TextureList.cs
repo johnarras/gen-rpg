@@ -1,7 +1,14 @@
-﻿using System.Collections.Generic;
-using UnityEngine; // Needed
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
 
-public class TextureList : BaseBehaviour
+namespace Assets.Scripts.Assets.Textures
 {
-    public List<Texture2D> Textures;
+    public class TextureList : BaseBehaviour
+    {
+        public List<Texture2D> Textures;
+    }
 }

@@ -37,10 +37,14 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers
         public virtual bool IsTopLevelState() { return false; }
         public virtual long TriggerBuildingId() { return 0; }
         public virtual long TriggerDetailEntityTypeId() { return 0; }
+        protected virtual bool OnlyUseBGImage() { return false; }
 
-        virtual protected CrawlerStateData CreateStateData()
+        protected virtual CrawlerStateData CreateStateData()
         {
-            return new CrawlerStateData(GetKey());
+            return new CrawlerStateData(GetKey())
+            {
+                BGImageOnly = OnlyUseBGImage(),
+            };
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Genrpg.Shared.Constants
     public class Game
     {
         public const string Prefix = "Genrpg";
+        public const string DefaultPrefix = "Genrpg";
     }
 
     [MessagePackObject]

@@ -22,10 +22,22 @@ namespace Genrpg.Shared.GameSettings.Loaders
         {
 
             List<ITopLevelSettings> list = (await repoSystem.Search<TServer>(x => true)).Cast<ITopLevelSettings>().ToList();
-            if (createDefaultIfMissing && list.Count < 1)
+
+            ITopLevelSettings defaultItem = list.FirstOrDefault(x => x.Id == GameDataConstants.DefaultFilename);
+
+            if (defaultItem == null)
             {
-                list.Add(new TServer() { Id = GameDataConstants.DefaultFilename });
+
+                if (createDefaultIfMissing)
+                {
+                    list.Add(new TServer() { Id = GameDataConstants.DefaultFilename });
+                }
+                else
+                {
+                    throw new Exception("Missing NoChildSettings: " + typeof(TServer).FullName);    
+                }
             }
+         
             return list;
         }
 

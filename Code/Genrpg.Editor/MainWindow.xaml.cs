@@ -24,6 +24,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Threading;
 using Genrpg.Editor.Constants;
+using Genrpg.ServerShared.GameSettings.Services;
+using Genrpg.Shared.Characters.PlayerData;
+using Microsoft.Azure.Amqp.Framing;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -40,7 +43,9 @@ namespace Genrpg.Editor
         private EditorGameState _gs = null;
         private string _prefix;
 
-        private IGameData _gameData = null;
+        private IGameData _gameData = null; 
+        private IGameDataService _gameDataService;
+        private IRepositoryService _repoService;
 
         private Canvas _canvas = new Canvas();
 
@@ -73,7 +78,7 @@ namespace Genrpg.Editor
             buttonCount++;
 
             string[] envWords = { "dev" };
-            string[] actionWords = "Data Users Maps Importer CopyToTest CopyToGit CopyToDB MessageSetup UpdateAssets DeleteMetas SetupItemIcons TestAccountSetup".Split(' ');
+            string[] actionWords = "Data Users Maps Importer CopyToTest CopyToGit CopyToDB CopyToClient MessageSetup UpdateAssets DeleteMetas SetupItemIcons TestAccountSetup".Split(' ');
             int column = 0;
             for (int e = 0; e < envWords.Length; e++)
             {
@@ -263,7 +268,7 @@ namespace Genrpg.Editor
             String env = words[1];
             String action = words[2];
 
-            _gs = await EditorGameDataUtils.SetupFromConfig(this, env);
+            _gs = await EditorGameDataUtils.SetupFromConfig(this, env, true);
 
         }
 
@@ -310,6 +315,11 @@ namespace Genrpg.Editor
                 CopyGameDataFromGitToDatabase(EnvNames.Dev);
                 return;
             }
+            if (action == "CopyToClient")
+            {
+                CopyGameDataFromDatabaseToClient(EnvNames.Dev);
+                return;
+            }
             else if (action == "SetupItemIcons")
             {
                 SetupItemIcons();
@@ -347,7 +357,7 @@ namespace Genrpg.Editor
         private async Task OnClickButtonAsync(string action, string env, Action<EditorGameState>? afterAction = null)
         {
 
-            _gs = await EditorGameDataUtils.SetupFromConfig(this, env);
+            _gs = await EditorGameDataUtils.SetupFromConfig(this, env, true);
 
 
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
@@ -557,7 +567,7 @@ namespace Genrpg.Editor
                 fileNames.Add(finalFileName);
             }
 
-            _gs = await EditorGameDataUtils.SetupFromConfig(this, env);
+            _gs = await EditorGameDataUtils.SetupFromConfig(this, env, false);
 
             IGameData gameData = _gs.data;
 
@@ -632,6 +642,26 @@ namespace Genrpg.Editor
             }
 
             blocker.StartClose();
+        }
+
+
+        private void CopyGameDataFromDatabaseToClient(string env)
+        {
+            SmallPopup form = UIHelper.ShowBlockingDialog(this, "Copying to Client");
+            _ = Task.Run(() => CopyGameDataFromDatabaseToClientAsync(env, form, EditorGameState.CTS.Token));
+        }
+
+        private async Task CopyGameDataFromDatabaseToClientAsync(string env, SmallPopup form, CancellationToken token)
+        {
+
+            FullGameDataCopy dataCopy = await EditorGameDataUtils.LoadFullGameData(this, env, token);
+
+
+            List<ITopLevelSettings> defaultSettings = _gameDataService.GetClientGameData(new Character(_repoService), true);
+
+            EditorGameDataUtils.WriteGameDataToClient(defaultSettings);
+
+            form.StartClose();
         }
     }
 }

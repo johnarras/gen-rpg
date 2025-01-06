@@ -10,6 +10,7 @@
       "Art": "Human",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -18,7 +19,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype2default",
@@ -30,6 +31,7 @@
       "Art": "Elf",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -38,7 +40,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype3default",
@@ -50,6 +52,7 @@
       "Art": "ElfArcher",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -58,7 +61,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype4default",
@@ -70,6 +73,7 @@
       "Art": "ElfMage",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -78,7 +82,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype5default",
@@ -90,6 +94,7 @@
       "Art": "Dwarf",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -108,7 +113,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype6default",
@@ -120,6 +125,7 @@
       "Art": "DwarfPriest",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -138,7 +144,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype7default",
@@ -150,6 +156,7 @@
       "Art": "Mongrel",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -163,7 +170,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype8default",
@@ -175,6 +182,7 @@
       "Art": "MongrelArcher",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -188,7 +196,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype9default",
@@ -200,6 +208,7 @@
       "Art": "MongrelShaman",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -213,7 +222,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype10default",
@@ -225,6 +234,7 @@
       "Art": "Gnome",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -233,7 +243,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype11default",
@@ -245,6 +255,7 @@
       "Art": "GnomePriest",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -253,7 +264,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype12default",
@@ -265,6 +276,7 @@
       "Art": "GnomeMage",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -273,7 +285,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype13default",
@@ -285,6 +297,7 @@
       "Art": "Halfling",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -293,7 +306,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype14default",
@@ -305,6 +318,7 @@
       "Art": "HalflingThief",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -313,7 +327,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype15default",
@@ -325,6 +339,7 @@
       "Art": "HalflingArcher",
       "TribeTypeId": 1,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -333,7 +348,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype16default",
@@ -345,6 +360,7 @@
       "Art": "Goblin",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -353,7 +369,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype17default",
@@ -365,6 +381,7 @@
       "Art": "GoblinArcher",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -373,7 +390,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype18default",
@@ -385,6 +402,7 @@
       "Art": "GoblinLieutenant",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -393,7 +411,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype19default",
@@ -405,6 +423,7 @@
       "Art": "GoblinChieftain",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -413,7 +432,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype20default",
@@ -425,6 +444,7 @@
       "Art": "GoblinShaman",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -433,7 +453,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype21default",
@@ -445,6 +465,7 @@
       "Art": "Hobgoblin",
       "TribeTypeId": 10,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -453,7 +474,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype22default",
@@ -465,6 +486,7 @@
       "Art": "HobgoblinArcher",
       "TribeTypeId": 10,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -473,7 +495,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype23default",
@@ -485,6 +507,7 @@
       "Art": "HobgoblinLieutenant",
       "TribeTypeId": 10,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -493,7 +516,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype24default",
@@ -505,6 +528,7 @@
       "Art": "HobgoblinChieftain",
       "TribeTypeId": 10,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -513,7 +537,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype25default",
@@ -525,6 +549,7 @@
       "Art": "HobgoblinShaman",
       "TribeTypeId": 10,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -533,7 +558,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype26default",
@@ -545,6 +570,7 @@
       "Art": "Warrior",
       "TribeTypeId": 11,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -558,7 +584,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype27default",
@@ -570,6 +596,7 @@
       "Art": "Fighter",
       "TribeTypeId": 11,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -583,7 +610,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype28default",
@@ -595,6 +622,7 @@
       "Art": "Bladesman",
       "TribeTypeId": 11,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -608,7 +636,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype29default",
@@ -620,6 +648,7 @@
       "Art": "Swordsman",
       "TribeTypeId": 11,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -633,7 +662,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype30default",
@@ -645,6 +674,7 @@
       "Art": "Scrapper",
       "TribeTypeId": 11,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -653,7 +683,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype31default",
@@ -665,6 +695,7 @@
       "Art": "Monk",
       "TribeTypeId": 11,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -673,7 +704,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype32default",
@@ -685,6 +716,7 @@
       "Art": "Barbarian",
       "TribeTypeId": 11,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -693,7 +725,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype33default",
@@ -705,6 +737,7 @@
       "Art": "Mage",
       "TribeTypeId": 12,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -713,7 +746,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype34default",
@@ -725,6 +758,7 @@
       "Art": "Magician",
       "TribeTypeId": 12,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -733,7 +767,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype35default",
@@ -745,6 +779,7 @@
       "Art": "Conjurer",
       "TribeTypeId": 12,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -753,7 +788,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype36default",
@@ -765,6 +800,7 @@
       "Art": "Sorcerer",
       "TribeTypeId": 12,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -773,7 +809,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype37default",
@@ -785,6 +821,7 @@
       "Art": "Wizard",
       "TribeTypeId": 12,
       "MinLevel": 20,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -798,7 +835,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype38default",
@@ -810,6 +847,7 @@
       "Art": "Faerie",
       "TribeTypeId": 8,
       "MinLevel": 20,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 25,
@@ -824,7 +862,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype39default",
@@ -836,6 +874,7 @@
       "Art": "Cleric",
       "TribeTypeId": 13,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -844,7 +883,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype40default",
@@ -856,6 +895,7 @@
       "Art": "Medusa",
       "TribeTypeId": 8,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -874,7 +914,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype41default",
@@ -886,6 +926,7 @@
       "Art": "Dog",
       "TribeTypeId": 2,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -894,7 +935,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype42default",
@@ -906,6 +947,7 @@
       "Art": "Hound",
       "TribeTypeId": 2,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -914,7 +956,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype43default",
@@ -926,6 +968,7 @@
       "Art": "Wolf",
       "TribeTypeId": 2,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -934,7 +977,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype44default",
@@ -946,6 +989,7 @@
       "Art": "Coyote",
       "TribeTypeId": 2,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -954,7 +998,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype45default",
@@ -966,6 +1010,7 @@
       "Art": "Cat",
       "TribeTypeId": 2,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -974,7 +1019,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype46default",
@@ -986,6 +1031,7 @@
       "Art": "Tiger",
       "TribeTypeId": 2,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -994,7 +1040,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype47default",
@@ -1006,6 +1052,7 @@
       "Art": "Lion",
       "TribeTypeId": 2,
       "MinLevel": 20,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -1014,18 +1061,19 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype48default",
       "ParentId": "default",
       "IdKey": 48,
-      "Name": "Skeleton",
+      "Name": "Skeleon",
       "PluralName": "Skeletons",
-      "Icon": "Skeleton",
-      "Art": "Skeleton",
+      "Icon": "Skeleon",
+      "Art": "Skeleon",
       "TribeTypeId": 3,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 24,
@@ -1045,7 +1093,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-11-12T18:32:53.406Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype49default",
@@ -1057,6 +1105,7 @@
       "Art": "Zombie",
       "TribeTypeId": 3,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -1080,7 +1129,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-11-12T18:32:53.406Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype50default",
@@ -1092,6 +1141,7 @@
       "Art": "Ghoul",
       "TribeTypeId": 3,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1119,7 +1169,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype51default",
@@ -1131,6 +1181,7 @@
       "Art": "Wight",
       "TribeTypeId": 3,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1158,7 +1209,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype52default",
@@ -1170,6 +1221,7 @@
       "Art": "Wraith",
       "TribeTypeId": 3,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1193,7 +1245,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype53default",
@@ -1205,6 +1257,7 @@
       "Art": "Ghost",
       "TribeTypeId": 3,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1228,7 +1281,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype54default",
@@ -1240,6 +1293,7 @@
       "Art": "Spectre",
       "TribeTypeId": 3,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1263,7 +1317,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype55default",
@@ -1275,6 +1329,7 @@
       "Art": "Lich",
       "TribeTypeId": 3,
       "MinLevel": 20,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1292,7 +1347,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype56default",
@@ -1304,6 +1359,7 @@
       "Art": "Thief",
       "TribeTypeId": 14,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1317,7 +1373,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype57default",
@@ -1329,6 +1385,7 @@
       "Art": "Rogue",
       "TribeTypeId": 14,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1342,7 +1399,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype58default",
@@ -1354,6 +1411,7 @@
       "Art": "Assassin",
       "TribeTypeId": 14,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -1362,7 +1420,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype59default",
@@ -1374,7 +1432,18 @@
       "Art": "Demon",
       "TribeTypeId": 15,
       "MinLevel": 20,
+      "SpawnQuantityScale": 0.1,
       "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
         {
           "EntityTypeId": 100,
           "EntityId": 2
@@ -1397,7 +1466,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype60default",
@@ -1409,7 +1478,18 @@
       "Art": "DemonLord",
       "TribeTypeId": 15,
       "MinLevel": 20,
+      "SpawnQuantityScale": 0.1,
       "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
         {
           "EntityTypeId": 100,
           "EntityId": 2
@@ -1432,7 +1512,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype61default",
@@ -1444,7 +1524,18 @@
       "Art": "BlueDragon",
       "TribeTypeId": 16,
       "MinLevel": 20,
+      "SpawnQuantityScale": 0.1,
       "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
         {
           "EntityTypeId": 100,
           "EntityId": 51
@@ -1466,7 +1557,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype62default",
@@ -1478,7 +1569,18 @@
       "Art": "RedDragon",
       "TribeTypeId": 16,
       "MinLevel": 20,
+      "SpawnQuantityScale": 0.1,
       "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
         {
           "EntityTypeId": 100,
           "EntityId": 50
@@ -1500,7 +1602,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype63default",
@@ -1512,7 +1614,18 @@
       "Art": "WhiteDragon",
       "TribeTypeId": 16,
       "MinLevel": 20,
+      "SpawnQuantityScale": 0.1,
       "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
         {
           "EntityTypeId": 100,
           "EntityId": 52
@@ -1534,7 +1647,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype64default",
@@ -1546,7 +1659,18 @@
       "Art": "BlackDragon",
       "TribeTypeId": 16,
       "MinLevel": 20,
+      "SpawnQuantityScale": 0.1,
       "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
         {
           "EntityTypeId": 36,
           "EntityId": 2
@@ -1572,7 +1696,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype65default",
@@ -1584,7 +1708,18 @@
       "Art": "GreenDragon",
       "TribeTypeId": 16,
       "MinLevel": 20,
+      "SpawnQuantityScale": 0.1,
       "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
         {
           "EntityTypeId": 36,
           "EntityId": 1
@@ -1606,7 +1741,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype66default",
@@ -1618,6 +1753,7 @@
       "Art": "StoneGolem",
       "TribeTypeId": 17,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1640,7 +1776,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype67default",
@@ -1652,6 +1788,7 @@
       "Art": "IronGolem",
       "TribeTypeId": 17,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1674,7 +1811,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype68default",
@@ -1686,6 +1823,7 @@
       "Art": "FleshGolem",
       "TribeTypeId": 17,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 36,
@@ -1704,7 +1842,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype69default",
@@ -1716,6 +1854,7 @@
       "Art": "AirElemental",
       "TribeTypeId": 4,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 24,
@@ -1735,7 +1874,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype70default",
@@ -1747,6 +1886,7 @@
       "Art": "EarthElemental",
       "TribeTypeId": 4,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -1770,7 +1910,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype71default",
@@ -1782,6 +1922,7 @@
       "Art": "FireElemental",
       "TribeTypeId": 4,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 24,
@@ -1801,7 +1942,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype72default",
@@ -1813,6 +1954,7 @@
       "Art": "WaterElemental",
       "TribeTypeId": 4,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 24,
@@ -1832,7 +1974,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype73default",
@@ -1844,6 +1986,7 @@
       "Art": "Bear",
       "TribeTypeId": 2,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -1857,7 +2000,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype74default",
@@ -1869,6 +2012,7 @@
       "Art": "Slime",
       "TribeTypeId": 6,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -1877,7 +2021,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype75default",
@@ -1889,6 +2033,7 @@
       "Art": "Spider",
       "TribeTypeId": 2,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -1897,7 +2042,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype76default",
@@ -1909,6 +2054,7 @@
       "Art": "Scorpion",
       "TribeTypeId": 2,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -1917,7 +2063,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype77default",
@@ -1929,7 +2075,19 @@
       "Art": "Chimera",
       "TribeTypeId": 8,
       "MinLevel": 15,
-      "Effects": [],
+      "SpawnQuantityScale": 0.1,
+      "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -1937,7 +2095,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype78default",
@@ -1949,6 +2107,7 @@
       "Art": "Orc",
       "TribeTypeId": 10,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -1957,7 +2116,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype79default",
@@ -1969,6 +2128,7 @@
       "Art": "OrcArcher",
       "TribeTypeId": 10,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -1977,7 +2137,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype80default",
@@ -1989,6 +2149,7 @@
       "Art": "OrcLieutenant",
       "TribeTypeId": 10,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -1997,7 +2158,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype81default",
@@ -2009,6 +2170,7 @@
       "Art": "OrcChieftain",
       "TribeTypeId": 10,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2017,7 +2179,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype82default",
@@ -2029,6 +2191,7 @@
       "Art": "OrcShaman",
       "TribeTypeId": 10,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2037,7 +2200,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype83default",
@@ -2049,6 +2212,7 @@
       "Art": "Ogre",
       "TribeTypeId": 7,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2062,7 +2226,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype84default",
@@ -2074,6 +2238,7 @@
       "Art": "OgreArcher",
       "TribeTypeId": 7,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2087,7 +2252,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype85default",
@@ -2099,6 +2264,7 @@
       "Art": "OgreLieutenant",
       "TribeTypeId": 7,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2112,7 +2278,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype86default",
@@ -2124,6 +2290,7 @@
       "Art": "OgreChieftain",
       "TribeTypeId": 7,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2137,7 +2304,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype87default",
@@ -2149,6 +2316,7 @@
       "Art": "OgreShaman",
       "TribeTypeId": 7,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2162,7 +2330,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype88default",
@@ -2174,6 +2342,7 @@
       "Art": "Rat",
       "TribeTypeId": 6,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2182,7 +2351,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype89default",
@@ -2194,6 +2363,7 @@
       "Art": "Bat",
       "TribeTypeId": 2,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2202,7 +2372,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype90default",
@@ -2214,6 +2384,7 @@
       "Art": "Salamander",
       "TribeTypeId": 2,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 25,
@@ -2228,7 +2399,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype91default",
@@ -2240,7 +2411,19 @@
       "Art": "Wyvern",
       "TribeTypeId": 8,
       "MinLevel": 20,
-      "Effects": [],
+      "SpawnQuantityScale": 0.1,
+      "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        }
+      ],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
       "SuffixNames": [],
@@ -2248,7 +2431,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype92default",
@@ -2260,6 +2443,7 @@
       "Art": "Frog",
       "TribeTypeId": 2,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2268,7 +2452,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype93default",
@@ -2280,6 +2464,7 @@
       "Art": "Lizardman",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2288,7 +2473,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype94default",
@@ -2300,6 +2485,7 @@
       "Art": "Werewolf",
       "TribeTypeId": 10,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2308,7 +2494,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype95default",
@@ -2320,6 +2506,7 @@
       "Art": "Troll",
       "TribeTypeId": 7,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2338,7 +2525,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype96default",
@@ -2350,6 +2537,7 @@
       "Art": "TrollArcher",
       "TribeTypeId": 7,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2368,7 +2556,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype97default",
@@ -2380,6 +2568,7 @@
       "Art": "TrollLieutenant",
       "TribeTypeId": 7,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2398,7 +2587,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype98default",
@@ -2410,6 +2599,7 @@
       "Art": "TrollChieftain",
       "TribeTypeId": 7,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2428,7 +2618,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype99default",
@@ -2440,6 +2630,7 @@
       "Art": "TrollShaman",
       "TribeTypeId": 7,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2458,7 +2649,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype100default",
@@ -2470,7 +2661,18 @@
       "Art": "Vampire",
       "TribeTypeId": 3,
       "MinLevel": 20,
+      "SpawnQuantityScale": 0.1,
       "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
         {
           "EntityTypeId": 24,
           "Quantity": 1,
@@ -2489,7 +2691,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype101default",
@@ -2501,7 +2703,18 @@
       "Art": "VampireLord",
       "TribeTypeId": 3,
       "MinLevel": 20,
+      "SpawnQuantityScale": 0.1,
       "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
         {
           "EntityTypeId": 24,
           "Quantity": 1,
@@ -2520,7 +2733,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype102default",
@@ -2532,6 +2745,7 @@
       "Art": "Mummy",
       "TribeTypeId": 3,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2555,7 +2769,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype103default",
@@ -2567,6 +2781,7 @@
       "Art": "MummyLord",
       "TribeTypeId": 3,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2590,7 +2805,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype104default",
@@ -2602,6 +2817,7 @@
       "Art": "Harpy",
       "TribeTypeId": 8,
       "MinLevel": 10,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2610,7 +2826,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype105default",
@@ -2622,6 +2838,7 @@
       "Art": "Griffon",
       "TribeTypeId": 8,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2630,7 +2847,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype106default",
@@ -2642,6 +2859,7 @@
       "Art": "Manticore",
       "TribeTypeId": 8,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2650,7 +2868,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype107default",
@@ -2662,6 +2880,7 @@
       "Art": "Snake",
       "TribeTypeId": 2,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2670,7 +2889,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype108default",
@@ -2682,6 +2901,7 @@
       "Art": "Steed",
       "TribeTypeId": 2,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2690,7 +2910,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype109default",
@@ -2702,7 +2922,18 @@
       "Art": "Basilisk",
       "TribeTypeId": 8,
       "MinLevel": 20,
+      "SpawnQuantityScale": 0.1,
       "Effects": [
+        {
+          "EntityTypeId": 32,
+          "Quantity": 100,
+          "EntityId": 1
+        },
+        {
+          "EntityTypeId": 32,
+          "Quantity": 50,
+          "EntityId": 20
+        },
         {
           "EntityTypeId": 25,
           "Quantity": 1,
@@ -2716,7 +2947,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype110default",
@@ -2728,6 +2959,7 @@
       "Art": "Giant",
       "TribeTypeId": 7,
       "MinLevel": 15,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2736,7 +2968,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype111default",
@@ -2748,6 +2980,7 @@
       "Art": "Guard",
       "TribeTypeId": 11,
       "MinLevel": 1,
+      "SpawnQuantityScale": 1.0,
       "Effects": [
         {
           "EntityTypeId": 100,
@@ -2761,7 +2994,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype112default",
@@ -2773,6 +3006,7 @@
       "Art": "Gnoll",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2781,7 +3015,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype113default",
@@ -2793,6 +3027,7 @@
       "Art": "GnollArcher",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2801,7 +3036,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype114default",
@@ -2813,6 +3048,7 @@
       "Art": "GnollLieutenant",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2821,7 +3057,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype115default",
@@ -2833,6 +3069,7 @@
       "Art": "GnollChieftain",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2841,7 +3078,7 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:35:16.683Z"
     },
     {
       "Id": "unittype116default",
@@ -2853,6 +3090,7 @@
       "Art": "GnollShaman",
       "TribeTypeId": 10,
       "MinLevel": 5,
+      "SpawnQuantityScale": 1.0,
       "Effects": [],
       "PrefixNames": [],
       "DoubleNameSuffixes": [],
@@ -2861,73 +3099,13 @@
       "FoodSources": [],
       "LootItems": [],
       "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
-    },
-    {
-      "Id": "unittype117default",
-      "ParentId": "default",
-      "IdKey": 117,
-      "Name": "Iron Golem",
-      "PluralName": "Iron Golems",
-      "Icon": "IronGolem",
-      "Art": "IronGolem",
-      "TribeTypeId": 8,
-      "MinLevel": 1,
-      "Effects": [
-        {
-          "EntityTypeId": 100,
-          "EntityId": 2
-        },
-        {
-          "EntityTypeId": 25,
-          "Quantity": 1,
-          "EntityId": 1
-        }
-      ],
-      "PrefixNames": [],
-      "DoubleNameSuffixes": [],
-      "SuffixNames": [],
-      "AlternateNames": [],
-      "FoodSources": [],
-      "LootItems": [],
-      "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
-    },
-    {
-      "Id": "unittype118default",
-      "ParentId": "default",
-      "IdKey": 118,
-      "Name": "Stone Golem",
-      "PluralName": "Stone Golems",
-      "Icon": "StoneGolem",
-      "Art": "StoneGolem",
-      "TribeTypeId": 8,
-      "MinLevel": 1,
-      "Effects": [
-        {
-          "EntityTypeId": 100,
-          "EntityId": 2
-        },
-        {
-          "EntityTypeId": 25,
-          "Quantity": 1,
-          "EntityId": 1
-        }
-      ],
-      "PrefixNames": [],
-      "DoubleNameSuffixes": [],
-      "SuffixNames": [],
-      "AlternateNames": [],
-      "FoodSources": [],
-      "LootItems": [],
-      "InteractLootItems": [],
-      "UpdateTime": "2024-10-18T22:27:41.638Z"
+      "UpdateTime": "2025-01-04T20:37:02.476Z"
     }
   ],
   "ParentObj": {
     "Id": "default",
     "Name": "UnitSettings",
-    "UpdateTime": "2024-11-12T18:32:53.406Z"
+    "UpdateTime": "2025-01-04T20:37:02.476Z"
   },
   "Id": "default"
 }

@@ -131,16 +131,16 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
                 }
                 foreach (T dataItem in dataItems)
                 {
+                    lines.Add(dataItem.Name);
+                    //if (dataItem is IExtraDescItem extraItem)
+                    //{
 
-                    if (dataItem is IExtraDescItem extraItem)
-                    {
-
-                        lines.Add("   " + dataItem.Name + ": [" + extraItem.GetExtraDesc(_gameData) + "] " + dataItem.Desc);
-                    }
-                    else
-                    {
-                        lines.Add("   " + dataItem.Name + ": " + dataItem.Desc);
-                    }
+                    //    lines.Add("   " + dataItem.Name + ": [" + extraItem.GetExtraDesc(_gameData) + "] " + dataItem.Desc);
+                    //}
+                    //else
+                    //{
+                    //    lines.Add("   " + dataItem.Name + ": " + dataItem.Desc);
+                    //}
                 }
             }
         }

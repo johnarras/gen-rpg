@@ -159,13 +159,8 @@ public class CameraController : BaseBehaviour, ICameraController, IInjectOnLoad<
 	protected bool button1 = false;
 	protected Vector3 prevPos = Vector3.zero;
 
-
-	protected IScreenService screenService = null;
-
 	protected Camera cam = null;
 
-	
-	
 	protected float moveScale = 0.0f;
 	protected Vector3 currPos = Vector3.zero;
 	protected Vector3 diffPos = Vector3.zero;

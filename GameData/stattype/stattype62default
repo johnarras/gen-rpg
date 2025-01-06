@@ -1,9 +1,0 @@
-{
-  "Id": "stattype62default",
-  "ParentId": "default",
-  "IdKey": 62,
-  "Name": "Haste",
-  "Desc": "Faster Cast",
-  "GenScalePct": 200,
-  "UpdateTime": "2024-08-01T00:28:13.027Z"
-}

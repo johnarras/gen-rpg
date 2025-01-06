@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1858764121128613373}
-  - component: {fileID: 6174865758228496478}
+  - component: {fileID: 7370653787041747459}
   m_Layer: 0
   m_Name: Grassi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1858764121128613373
 Transform:
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6174865758228496478
+--- !u!114 &7370653787041747459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7341206086154975721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6f7969976255be4db72cb5f458e9bdd, type: 3}
+  m_Script: {fileID: 11500000, guid: c7079ee0c86c05d4e9e75c7319c69cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Textures:

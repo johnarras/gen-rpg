@@ -50,7 +50,7 @@ namespace Genrpg.Shared.GameSettings.Settings
         [Key(19)] public string MaxClientVersion { get; set; }
         [Key(20)] public string MinClientVersion { get; set; }
 
-        [Key(21)] public List<DataOverrideItem> Items { get; set; }
+        [Key(21)] public List<DataOverrideItem> Items { get; set; } = new List<DataOverrideItem>();
         [Key(22)] public List<AllowedPlayer> AllowedPlayers { get; set; } = new List<AllowedPlayer>();
 
         public void OrderSelf()

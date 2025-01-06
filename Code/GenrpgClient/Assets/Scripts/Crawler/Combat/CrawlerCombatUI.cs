@@ -1,5 +1,7 @@
-﻿using Genrpg.Shared.Crawler.Combat.Constants;
+﻿using Assets.Scripts.Assets.Textures;
+using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.Crawler.Combat.Entities;
+using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Services;
 using Genrpg.Shared.UnitEffects.Constants;
@@ -16,10 +18,10 @@ namespace Assets.Scripts.Crawler.Combat
     public class CrawlerCombatUI : BaseBehaviour
     {
         private ICrawlerService _crawlerService;
+        private ICrawlerMapService _crawlerMapService;
 
         public CrawlerGroupGrid AllyGrid;
         public CrawlerGroupGrid EnemyGrid;
-
 
         private bool _needToUpdateData = false;
         public void OnLateUpdate()
@@ -45,6 +47,7 @@ namespace Assets.Scripts.Crawler.Combat
             _needToUpdateData = true;
         }
 
+        
         private void UpdateDataInternal()
         { 
             PartyData party = _crawlerService.GetParty();
@@ -57,9 +60,7 @@ namespace Assets.Scripts.Crawler.Combat
             {
                 AllyGrid.UpdateGroups(party.Combat.Allies);
                 EnemyGrid.UpdateGroups(party.Combat.Enemies);
-            }
-
-         
+            }         
         }
     }
 }

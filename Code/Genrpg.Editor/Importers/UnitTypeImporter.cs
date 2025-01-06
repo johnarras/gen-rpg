@@ -37,14 +37,15 @@ namespace Genrpg.Editor.Importers
         const int MinLevelCol = 4;
         const int HpBonusCol = 5;
         const int DamBonusCol = 6;
-        const int VulnerabilityColumn = 7;
-        const int ResistCol = 8;
+        const int SpawnQuantityCol = 7;
+        const int VulnerabilityColumn = 8;
+        const int ResistCol = 9;
 
-        const int ColumnCount = 7;
+        const int ColumnCount = 9;
 
-        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
+        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, List<string[]> lines)
         {
-            string[] firstLine = lines[0].Split(',');
+            string[] firstLine = lines[0];
 
             UnitSettings settings = gs.data.Get<UnitSettings>(null);
 
@@ -64,9 +65,9 @@ namespace Genrpg.Editor.Importers
             IReadOnlyList<TribeType> tribes = gs.data.Get<TribeSettings>(null).GetData();
 
             int nextIdKey = 1;
-            for (int l = 1; l < lines.Length; l++)
+            for (int l = 1; l < lines.Count; l++)
             {
-                string[] words = lines[l].Split(",");
+                string[] words = lines[l];
 
                 if (words.Length < ColumnCount) // so far need 8 columns.
                 {
@@ -102,6 +103,7 @@ namespace Genrpg.Editor.Importers
                 foreach (string suffix in suffixes)
                 {
                     UnitType unitType = new UnitType() { IdKey = nextIdKey++ };
+                    _importService.ImportLine<UnitType>(gs, l, words, firstLine, unitType);
 
                     if (string.IsNullOrEmpty(suffix))
                     {
@@ -118,11 +120,8 @@ namespace Genrpg.Editor.Importers
                     unitType.Art = unitType.Icon;
 
                     unitType.TribeTypeId = tribe.IdKey;
+                    unitType.Effects = new List<UnitEffect>();
 
-                    if (Int64.TryParse(words[MinLevelCol], out long minLevel))
-                    {
-                        unitType.MinLevel = minLevel;
-                    }
 
                     if (Int64.TryParse(words[HpBonusCol], out long hpBonus))
                     {
@@ -132,6 +131,8 @@ namespace Genrpg.Editor.Importers
                         }
                     }
 
+                    
+
                     if (Int64.TryParse(words[DamBonusCol], out long damBonus))
                     {
                         if (damBonus > 0)
@@ -139,8 +140,6 @@ namespace Genrpg.Editor.Importers
                             unitType.Effects.Add(new UnitEffect() { EntityTypeId = EntityTypes.StatPct, EntityId = StatTypes.DamagePower, Quantity = damBonus });
                         }
                     }
-
-                    unitType.Effects = new List<UnitEffect>();
 
                     for (int col = ColumnCount; col < ColumnCount+20; col++)
                     {

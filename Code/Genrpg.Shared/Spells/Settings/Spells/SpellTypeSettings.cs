@@ -10,6 +10,8 @@ using Genrpg.Shared.Spells.Interfaces;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Purchasing.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Spells.Settings.Spells
 {
@@ -78,4 +80,11 @@ namespace Genrpg.Shared.Spells.Settings.Spells
 
     [MessagePackObject]
     public class SpellTypeSettingsMapper : ParentSettingsMapper<SpellTypeSettings, SpellType, SpellTypeSettingsApi> { }
+
+
+
+    public class SpellHelper : BaseEntityHelper<SpellTypeSettings, SpellType>
+    {
+        public override long GetKey() { return EntityTypes.Spell; }
+    }
 }

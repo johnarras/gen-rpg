@@ -1,9 +1,0 @@
-{
-  "Id": "texturetype1default",
-  "ParentId": "default",
-  "IdKey": 1,
-  "Name": "Grass",
-  "Art": "Grass",
-  "Size": 8.0,
-  "UpdateTime": "2024-08-01T00:28:13.808Z"
-}

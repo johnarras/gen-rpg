@@ -15,7 +15,7 @@ using Genrpg.Shared.Levels.Settings;
 using Genrpg.Shared.Names.Settings;
 using Genrpg.Shared.ProcGen.Settings.Locations;
 using Genrpg.Shared.Zones.Settings;
-using Genrpg.Shared.ProcGen.Settings.Texturse;
+using Genrpg.Shared.ProcGen.Settings.Textures;
 using Genrpg.Shared.ProcGen.Settings.Plants;
 using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Spawns.Settings;

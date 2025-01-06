@@ -1,9 +1,0 @@
-{
-  "Id": "usercointype2default",
-  "ParentId": "default",
-  "IdKey": 2,
-  "Name": "Credits",
-  "PluralName": "Credits",
-  "Icon": "IconCredits",
-  "UpdateTime": "2024-08-10T14:23:54.115Z"
-}

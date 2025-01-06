@@ -4,6 +4,8 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
 using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Crafting.Settings.Recipes
 {
@@ -84,4 +86,10 @@ namespace Genrpg.Shared.Crafting.Settings.Recipes
 
     [MessagePackObject]
     public class RecipeSettingsMapper : ParentSettingsMapper<RecipeSettings, RecipeType, RecipeSettingsApi> { }
+
+
+    public class RecipeHelper : BaseEntityHelper<RecipeSettings, RecipeType>
+    {
+        public override long GetKey() { return EntityTypes.Recipe; }
+    }
 }

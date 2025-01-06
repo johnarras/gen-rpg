@@ -12,6 +12,7 @@ using Genrpg.Shared.Achievements.Settings;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.BoardGame.Settings
 {
@@ -53,4 +54,10 @@ namespace Genrpg.Shared.BoardGame.Settings
 
     [MessagePackObject]
     public class BoardPrizeSettingsMapper : ParentSettingsMapper<BoardPrizeSettings, BoardPrize, BoardPrizeSettingsApi> { }
+
+
+    public class BoardPrizeHelper : BaseEntityHelper<BoardPrizeSettings, BoardPrize>
+    {
+        public override long GetKey() { return EntityTypes.BoardPrize; }
+    }
 }

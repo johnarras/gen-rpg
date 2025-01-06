@@ -3,6 +3,7 @@ using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Crawler.States.StateHelpers.Buildings;
 using Genrpg.Shared.UI.Entities;
 using Genrpg.Shared.UI.Services;
 using System.Threading;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Vendors
 {
-    public class VendorHelper : BaseStateHelper
+    public class VendorHelper : BuildingStateHelper
     {
         private IScreenService _screenService = null;
         public override ECrawlerStates GetKey() { return ECrawlerStates.Vendor; }

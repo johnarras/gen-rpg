@@ -1,12 +1,9 @@
 ﻿using Genrpg.RequestServer.BoardGame.BoardModeHelpers;
 using Genrpg.RequestServer.BoardGame.Helpers.TileTypeHelpers;
 using Genrpg.RequestServer.Core;
-using Genrpg.Shared.BoardGame.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.HelperClasses;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Genrpg.Shared.Tiles.Settings;
 
 namespace Genrpg.RequestServer.BoardGame.Services
 {

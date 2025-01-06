@@ -11,6 +11,8 @@ using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Purchasing.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Stats.Settings.Stats
 {/// <summary>
@@ -57,4 +59,10 @@ namespace Genrpg.Shared.Stats.Settings.Stats
 
     [MessagePackObject]
     public class StatSettingsMapper : ParentSettingsMapper<StatSettings, StatType, StatSettingsApi> { }
+
+
+    public class StatTypeHelper : BaseEntityHelper<StatSettings, StatType>
+    {
+        public override long GetKey() { return EntityTypes.Stat; }
+    }
 }

@@ -3,13 +3,13 @@ guid: 72ef7e9d8f01fe44c9a4083262636352
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
-  fontSize: 20
+  fontSize: 16
   forceTextureCase: -2
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - BlackChancery
+  - Pierce
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

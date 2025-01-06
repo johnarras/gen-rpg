@@ -4,13 +4,14 @@ using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Crawler.States.StateHelpers.Buildings;
 using Genrpg.Shared.Utils;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Houses
 {
-    public class EnterHouseHelper : BaseStateHelper
+    public class EnterHouseHelper : BuildingStateHelper
     {
         public override ECrawlerStates GetKey() { return ECrawlerStates.EnterHouse; }
         public override long TriggerBuildingId() { return BuildingTypes.House; }

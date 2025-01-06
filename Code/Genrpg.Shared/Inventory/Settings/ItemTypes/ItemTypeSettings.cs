@@ -1,5 +1,7 @@
 using Genrpg.Shared.Currencies.Settings;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Inventory.Constants;
@@ -49,4 +51,8 @@ namespace Genrpg.Shared.Inventory.Settings.ItemTypes
     public class ItemSettingsMapper : ParentSettingsMapper<ItemTypeSettings, ItemType, ItemTypeSettingsApi> { }
 
 
+    public class ItemHelper : BaseEntityHelper<ItemTypeSettings, ItemType>
+    {
+        public override long GetKey() { return EntityTypes.Item; }
+    }
 }

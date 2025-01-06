@@ -19,6 +19,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
             CrawlerStateData stateData = CreateStateData();
             IReadOnlyList<UnitType> allUnitTypes = _gameData.Get<UnitSettings>(null).GetData();
 
+            PartyData partyData = _crawlerService.GetParty();
+
             PartyMember member = action.ExtraData as PartyMember;
 
             allUnitTypes = allUnitTypes.OrderBy(x => x.Name).ToList();
@@ -33,8 +35,10 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
                    delegate
                    {
                        member.PortraitName = unitType.Icon;
-                   }, member, unitType.Icon
-                   ));
+                   }, member, unitType.Icon,
+                   () => { partyData.WorldPanel.SetPicture(unitType.Icon, false); }
+                   )
+                   );
             }
 
             stateData.Actions.Add(new CrawlerStateAction("Escape", CharCodes.Escape, ECrawlerStates.ChooseClass,

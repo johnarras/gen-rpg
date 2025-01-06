@@ -44,13 +44,17 @@ namespace Genrpg.Shared.GameSettings.Loaders
             List<TParent> parents = await loadParentsTask;
             List<TChild> allChildren = await loadChildrenTask;
 
-            if (createDefaultIfMissing)
+            TParent defaultObject = parents.FirstOrDefault(x => x.Id == GameDataConstants.DefaultFilename);
+            if (defaultObject == null)
             {
-                TParent defaultObject = parents.FirstOrDefault(x => x.Id == GameDataConstants.DefaultFilename);
-                if (defaultObject == null)
+                if (createDefaultIfMissing)
                 {
                     defaultObject = new TParent() { Id = GameDataConstants.DefaultFilename };
                     parents.Add(defaultObject);
+                }
+                else
+                {
+                    throw new Exception("Missing ParentObject: " + typeof(TParent).FullName);
                 }
             }
 

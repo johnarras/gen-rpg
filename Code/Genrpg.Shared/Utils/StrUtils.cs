@@ -1,6 +1,7 @@
-using MessagePack;
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -9,7 +10,7 @@ namespace Genrpg.Shared.Utils
     /// <summary>
     /// This class contains some string utility functions.
     /// </summary>
-    [MessagePackObject]
+
     public class StrUtils
     {
 
@@ -546,7 +547,7 @@ namespace Genrpg.Shared.Utils
             return System.Text.Encoding.UTF8.GetString(arr);
         }
 
-        public static string StringBetweenTokens (string searchString, string startToken, string endToken)
+        public static string StringBetweenTokens(string searchString, string startToken, string endToken)
         {
             int startIndex = searchString.IndexOf(startToken);
             if (startIndex < 0)
@@ -595,7 +596,96 @@ namespace Genrpg.Shared.Utils
                     sb.Append(txt[c]);
                 }
             }
+
+
+
             return sb.ToString();
+        }
+
+        const string CommaReplace = "&&&&";
+        const string QuoteReplace = "****";
+        public static string[] SafeSplitCommaLine(string line)
+        {
+            List<string> retval = new List<string>();
+
+            StringBuilder sb = new StringBuilder();
+
+            bool inQuote = false;
+            for (int c = 0; c < line.Length; c++)
+            {
+                if (line[c] == '\"')
+                {
+                    inQuote = !inQuote;
+                    sb.Append(line[c]);
+                    continue;
+                }
+
+
+                else if (line[c] == ',')
+                {
+                    if (inQuote)
+                    {
+                        sb.Append(CommaReplace);
+                    }
+                    else
+                    {
+                        sb.Append(',');
+                    }
+                    continue;
+                }
+                else
+                {
+                    sb.Append(line[c]);
+                }
+            }
+
+            string newLine = sb.ToString();
+
+            retval = newLine.Split(',').ToList();
+
+            for (int r = 0; r < retval.Count; r++)
+            {
+                retval[r] = retval[r].Replace(CommaReplace, ",");
+                retval[r] = retval[r].Replace("\"\"", QuoteReplace);
+                retval[r] = retval[r].Replace("\"", "");
+                retval[r] = retval[r].Replace(QuoteReplace, "\"");
+
+            }
+            return retval.ToArray();
+
+        }
+
+        public static bool IsEmptyLine(string[] words)
+        {
+            return words == null || words.Length == 0 || string.IsNullOrEmpty(words[0]);
+        }
+
+        public static string RecombineCSVLine(string[] words)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (i > 0)
+                {
+                    sb.Append(",");
+                }
+                sb.Append(words[i]);
+            }
+
+            string line = sb.ToString();
+
+            return line;
+        }
+
+        public static string NormalizeWord(string word)
+        {
+            if (string.IsNullOrEmpty(word))
+            {
+                return word;
+            }
+            return word.Replace(" ", "").ToLower().Trim();
         }
     }
 }
+

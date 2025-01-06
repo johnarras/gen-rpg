@@ -1,5 +1,7 @@
 ﻿
+using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.Crawler.Combat.Entities;
+using Genrpg.Shared.Crawler.GameEvents;
 using Genrpg.Shared.Crawler.Monsters.Entities;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
@@ -7,6 +9,7 @@ using Genrpg.Shared.Crawler.States.Entities;
 using Genrpg.Shared.Crawler.States.StateHelpers.Combat;
 using Genrpg.Shared.Crawler.States.StateHelpers.Selection.Entities;
 using Genrpg.Shared.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -46,17 +49,35 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Selection
                 CombatGroup group = selectAction.Action.Action.PossibleTargetGroups[m];
                 char c = (char)('a' + m);
 
-                stateData.Actions.Add(new CrawlerStateAction(char.ToUpper(c) + " " + group.ShowStatus(), c,
-                    selectAction.Action.NextState, onClickAction: delegate ()
+                Action clickRowAction = delegate ()
+                { 
+                    selectAction.Action.Action.FinalTargets = group.Units.ToList();
+                    currUnit.Action = selectAction.Action.Action;
+                    selectAction.Action.Action.FinalTargetGroups = new List<CombatGroup>() { group };
+                    _dispatcher.Dispatch(new ClearCombatGroupActions());
+                };
+
+                CrawlerStateAction newAction = new CrawlerStateAction(char.ToUpper(c) + " " + group.ShowStatus(), c,
+                    selectAction.Action.NextState, onClickAction: clickRowAction, forceButton: true);
+
+                stateData.Actions.Add(newAction);
+
+                Action clickIconAction =
+                    delegate
                     {
-                        selectAction.Action.Action.FinalTargets = group.Units.ToList();
-                        currUnit.Action = selectAction.Action.Action;
-                        selectAction.Action.Action.FinalTargetGroups = new List<CombatGroup>() { group };
-                    }, forceButton: true));
+                        _crawlerService.ChangeState(stateData, newAction, _crawlerService.GetToken());
+                    };
+
+
+                _dispatcher.Dispatch(new SetCombatGroupAction() { Action = clickIconAction, Group = group });
 
             }
 
-            stateData.Actions.Add(new CrawlerStateAction("", CharCodes.Escape, ECrawlerStates.CombatPlayer));
+            stateData.Actions.Add(new CrawlerStateAction("", CharCodes.Escape, ECrawlerStates.CombatPlayer,
+                delegate ()
+                {
+                    _dispatcher.Dispatch(new ClearCombatGroupActions());
+                }));
 
 
             await Task.CompletedTask;

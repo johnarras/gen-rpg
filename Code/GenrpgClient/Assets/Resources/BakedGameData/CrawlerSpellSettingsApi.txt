@@ -18,7 +18,7 @@
         }
       ],
       "Flags": 1,
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell2default",
@@ -32,7 +32,7 @@
       "Level": 1,
       "Effects": [],
       "Flags": 1,
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell3default",
@@ -53,7 +53,7 @@
         }
       ],
       "Flags": 1,
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell4default",
@@ -66,7 +66,7 @@
       "TargetTypeId": 9,
       "Level": 1,
       "Effects": [],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell5default",
@@ -86,7 +86,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell6default",
@@ -104,7 +104,7 @@
           "EntityId": 3
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell7default",
@@ -126,7 +126,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell8default",
@@ -148,7 +148,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell9default",
@@ -170,7 +170,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell10default",
@@ -192,7 +192,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell15default",
@@ -215,7 +215,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell16default",
@@ -238,7 +238,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell17default",
@@ -258,7 +258,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell18default",
@@ -278,7 +278,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell19default",
@@ -298,7 +298,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell20default",
@@ -318,7 +318,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell21default",
@@ -338,7 +338,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell23default",
@@ -360,7 +360,7 @@
           "ElementTypeId": 6
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell24default",
@@ -382,7 +382,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell25default",
@@ -405,7 +405,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell27default",
@@ -428,7 +428,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell28default",
@@ -451,7 +451,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell29default",
@@ -474,7 +474,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell30default",
@@ -497,7 +497,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell31default",
@@ -505,9 +505,12 @@
       "IdKey": 31,
       "Name": "Lightning Bolt",
       "Desc": "Hit one or more monsters with electric damage.",
+      "Icon": "",
+      "Art": "",
       "PowerCost": 6.0,
       "PowerPerLevel": 0.5,
       "MaxRange": 100,
+      "ReplacesCrawlerSpellId": 1,
       "CombatActionId": 4,
       "TargetTypeId": 1,
       "Level": 3,
@@ -517,10 +520,11 @@
           "EntityId": 3,
           "MinQuantity": 1,
           "MaxQuantity": 12,
-          "ElementTypeId": 4
+          "ElementTypeId": 4,
+          "Name": ""
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell32default",
@@ -543,7 +547,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell33default",
@@ -565,7 +569,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell37default",
@@ -585,7 +589,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell39default",
@@ -606,7 +610,7 @@
           "ElementTypeId": 1
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell40default",
@@ -619,7 +623,7 @@
       "TargetTypeId": 5,
       "Level": 18,
       "Effects": [],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell41default",
@@ -642,7 +646,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell42default",
@@ -665,7 +669,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell43default",
@@ -688,7 +692,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell44default",
@@ -706,7 +710,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell45default",
@@ -728,7 +732,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell46default",
@@ -749,7 +753,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell47default",
@@ -770,7 +774,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell48default",
@@ -791,7 +795,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell49default",
@@ -814,7 +818,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell50default",
@@ -837,7 +841,7 @@
           "ElementTypeId": 2
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell51default",
@@ -859,7 +863,7 @@
           "ElementTypeId": 4
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell52default",
@@ -881,7 +885,7 @@
           "ElementTypeId": 3
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell53default",
@@ -902,7 +906,7 @@
           "ElementTypeId": 7
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell58default",
@@ -922,7 +926,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell59default",
@@ -942,7 +946,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell60default",
@@ -962,7 +966,7 @@
           "ElementTypeId": 9
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell61default",
@@ -985,7 +989,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell62default",
@@ -1008,7 +1012,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell63default",
@@ -1031,7 +1035,7 @@
           "ElementTypeId": 8
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell10016default",
@@ -1052,7 +1056,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-11-26T00:47:25.3Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell10020default",
@@ -1073,7 +1077,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell10031default",
@@ -1094,7 +1098,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell10032default",
@@ -1115,7 +1119,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell10033default",
@@ -1136,7 +1140,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell10034default",
@@ -1157,7 +1161,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell10063default",
@@ -1178,7 +1182,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell10070default",
@@ -1199,7 +1203,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     },
     {
       "Id": "crawlerspell10071default",
@@ -1220,7 +1224,7 @@
           "MaxQuantity": 1
         }
       ],
-      "UpdateTime": "2024-11-26T03:11:28.929Z"
+      "UpdateTime": "2024-12-30T17:06:34.075Z"
     }
   ],
   "ParentObj": {
@@ -1228,7 +1232,7 @@
     "StatBuffPowerCost": 10.0,
     "StatBuffPowerPerLevel": 1.0,
     "Name": "CrawlerSpellSettings",
-    "UpdateTime": "2024-11-26T00:47:25.3Z"
+    "UpdateTime": "2024-12-30T17:06:34.075Z"
   },
   "Id": "default"
 }

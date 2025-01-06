@@ -43,7 +43,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Combat
 
                 if (!didShowPortrait)
                 {
-                    partyData.WorldPanel.SetPicture(group.Units[0].PortraitName);
+                    partyData.WorldPanel.SetPicture(group.Units[0].PortraitName, false);
                     stateData.WorldSpriteName = group.Units[0].PortraitName;
                     didShowPortrait = true;
                 }

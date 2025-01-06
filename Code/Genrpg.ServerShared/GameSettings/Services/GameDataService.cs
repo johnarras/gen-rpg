@@ -67,7 +67,14 @@ namespace Genrpg.ServerShared.GameSettings.Services
             }
             gameData.SetupDataDict(true);
 
-            gameData.CurrSaveTime = gameData.Get<VersionSettings>(null).GameDataSaveTime;
+            VersionSettings versionSettings = gameData.Get<VersionSettings>(null);
+
+            if (versionSettings == null)
+            {
+                versionSettings = new VersionSettings() { Id = GameDataConstants.DefaultFilename };
+            }
+
+            gameData.CurrSaveTime = versionSettings.GameDataSaveTime;
 
             _gameData.CopyFrom(gameData);
 

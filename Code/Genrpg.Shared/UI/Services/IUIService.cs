@@ -17,6 +17,7 @@ namespace Genrpg.Shared.UI.Services
         int GetIntInput(IInputField field);
         long GetSelectedIdFromName(Type iidNameType, IDropdown dropdown);
         void SetImageTexture(IRawImage image, object tex);
+        void SetImageSprite(IImage image, object spr);
         object GetImageTexture(IRawImage image);
         int GetImageHeight(IRawImage image);
         int GetImageWidth(IRawImage image);
@@ -28,9 +29,11 @@ namespace Genrpg.Shared.UI.Services
         void SetAlpha(IText text, float alpha);
         void SetAutoSizing(IText text, bool autoSizing);
         void ResizeGridLayout(IGridLayoutGroup group, float xscale, float yscale);
-        void AddPointerHandlers(IView view, Action enterHandler, Action exitHandler);
+        void AddPointerHandlers(object view, Action enterHandler, Action exitHandler);
         void ScrollToBottom(object scrollRectObj);
         void ScrollToTop(object scrollRectObj);
         void SetTextAlignemnt(IText text, int offset); // -1,0,1= left, center, right
+        void SetInteractable(IButton button, bool interactable); 
+        void SetAsRaycastTarget(object obj, bool isRaycastTarget);
     }
 }

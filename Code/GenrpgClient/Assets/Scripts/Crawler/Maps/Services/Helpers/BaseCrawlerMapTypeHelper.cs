@@ -12,7 +12,6 @@ using Genrpg.Shared.Entities.Constants;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.MapObjects.Messages;
-using Genrpg.Shared.ProcGen.Settings.Texturse;
 using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Zones.Settings;
 using System;
@@ -26,6 +25,9 @@ using Genrpg.Shared.Client.Assets.Services;
 using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.UI.Services;
 using Genrpg.Shared.Crawler.MapGen.Services;
+using System.Runtime.InteropServices;
+using Genrpg.Shared.ProcGen.Settings.Textures;
+using Assets.Scripts.Assets.Textures;
 
 namespace Assets.Scripts.Crawler.Maps.Services.Helpers
 {

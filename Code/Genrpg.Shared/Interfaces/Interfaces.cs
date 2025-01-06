@@ -6,6 +6,7 @@ using System.Threading;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.DataStores.PlayerData;
 using System.Threading.Tasks;
+using Genrpg.Shared.DataStores.Interfaces;
 
 namespace Genrpg.Shared.Interfaces
 {
@@ -54,6 +55,11 @@ namespace Genrpg.Shared.Interfaces
         string Name { get; set; }
     }
 
+
+    public interface INamedUpdateData : IName, IUpdateData
+    {
+
+    }
     public interface IInfo
     {
 

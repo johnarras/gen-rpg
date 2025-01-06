@@ -82,6 +82,12 @@ namespace Assets.Scripts.Crawler.Services
             await Task.CompletedTask;
         }
 
+
+        public CancellationToken GetToken()
+        {  
+            return _token; 
+        }
+
         public async Task Init(PartyData party, CancellationToken token)
         {
             _inputService.SetDisabled(true);
@@ -107,7 +113,7 @@ namespace Assets.Scripts.Crawler.Services
 
         public ScreenId GetCrawlerScreenId()
         {
-            return _gs.GameMode == EGameModes.Crawler2 ? ScreenId.Crawler2 : ScreenId.Crawler;
+            return ScreenId.Crawler;
         }
 
         public void ChangeState(ECrawlerStates crawlerState, CancellationToken token, object extraData = null , ECrawlerStates returnState= ECrawlerStates.None)
@@ -270,7 +276,7 @@ namespace Assets.Scripts.Crawler.Services
 
                 if (string.IsNullOrEmpty(newItem.Id) || newItem.Id.Length > 6)
                 {
-                    newItem.Id = (++partyData.NextItemId).ToString();
+                    newItem.Id = partyData.GetNextId();
                 }
 
                 newItem.Set(CIdx.ItemTypeId, item.ItemTypeId);

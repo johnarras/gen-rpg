@@ -9,6 +9,8 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Purchasing.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Spawns.Settings
 {
@@ -73,6 +75,12 @@ namespace Genrpg.Shared.Spawns.Settings
 
     [MessagePackObject]
         public class SpawnSettingsMapper : ParentSettingsMapper<SpawnSettings, SpawnTable, SpawnSettingsApi> { }
+
+
+        public class SpawnHelper : BaseEntityHelper<SpawnSettings, SpawnTable>
+        {
+            public override long GetKey() { return EntityTypes.Spawn; }
+        }
 
 
     }

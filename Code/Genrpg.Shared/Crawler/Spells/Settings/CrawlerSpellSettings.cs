@@ -12,6 +12,8 @@ using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Crawler.Buffs.Settings;
 using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Crawler.Spells.Settings
 {
@@ -104,4 +106,8 @@ namespace Genrpg.Shared.Crawler.Spells.Settings
     public class CrawlerSpellSettingsMapper : ParentSettingsMapper<CrawlerSpellSettings, CrawlerSpell, CrawlerSpellSettingsApi> { }
 
 
+    public class CrawlerSpellHelper : BaseEntityHelper<CrawlerSpellSettings, CrawlerSpell>
+    {
+        public override long GetKey() { return EntityTypes.CrawlerSpell; }
+    }
 }

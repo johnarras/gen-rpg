@@ -1,9 +1,0 @@
-{
-  "Id": "texturetype4default",
-  "ParentId": "default",
-  "IdKey": 4,
-  "Name": "Road",
-  "Art": "Road",
-  "Size": 8.0,
-  "UpdateTime": "2024-08-01T00:28:13.9Z"
-}

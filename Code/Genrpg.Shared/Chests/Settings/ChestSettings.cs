@@ -5,6 +5,8 @@ using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using System.Collections.Generic;
 using Genrpg.Shared.Spawns.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Chests.Settings
 {
@@ -49,4 +51,10 @@ namespace Genrpg.Shared.Chests.Settings
 
     [MessagePackObject]
     public class ChestSettingsMapper : ParentSettingsMapper<ChestSettings, Chest, ChestSettingsApi> { }
+
+
+    public class ChestHelper : BaseEntityHelper<ChestSettings, Chest>
+    {
+        public override long GetKey() { return EntityTypes.Chest; }
+    }
 }

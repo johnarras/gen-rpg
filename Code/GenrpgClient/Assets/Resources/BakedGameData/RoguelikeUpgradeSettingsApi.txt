@@ -20,10 +20,10 @@
       "IdKey": 2,
       "Name": "ActionCount",
       "Desc": "Gives a chance for the player to take multiple actions before monsters attack.",
-      "MaxTier": 3,
-      "BonusPerTier": 0.1,
-      "BasePointCost": 1,
-      "UpdateTime": "2024-11-27T22:19:14.352Z"
+      "MaxTier": 2,
+      "BonusPerTier": 1.0,
+      "BasePointCost": 10,
+      "UpdateTime": "2024-11-29T02:33:50.038Z"
     },
     {
       "Id": "roguelikeupgrade3default",
@@ -37,7 +37,7 @@
       "MaxTier": 10,
       "BonusPerTier": 5.0,
       "BasePointCost": 1,
-      "UpdateTime": "2024-11-27T22:26:36.293Z"
+      "UpdateTime": "2024-11-29T02:33:50.038Z"
     },
     {
       "Id": "roguelikeupgrade4default",
@@ -51,7 +51,7 @@
       "MaxTier": 5,
       "BonusPerTier": 0.05,
       "BasePointCost": 2,
-      "UpdateTime": "2024-11-27T22:26:36.293Z"
+      "UpdateTime": "2024-11-29T02:33:50.038Z"
     },
     {
       "Id": "roguelikeupgrade5default",
@@ -109,7 +109,7 @@
     "BasePointsPerLevel": 3,
     "ExtraPointsPerLevel": 0.2,
     "Name": "RoguelikeUpgradeSettings",
-    "UpdateTime": "2024-11-27T22:29:50.685Z"
+    "UpdateTime": "2024-11-29T02:33:50.038Z"
   },
   "Id": "default"
 }

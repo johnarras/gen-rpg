@@ -7,6 +7,9 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.Achievements.Settings;
 using Genrpg.Shared.GameSettings.Mappers;
+using Genrpg.Shared.Crafting.Settings.Recipes;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.Crafting.Settings.Crafters
 {
@@ -63,6 +66,13 @@ namespace Genrpg.Shared.Crafting.Settings.Crafters
 
     [MessagePackObject]
     public class CraftingSettingsMapper : ParentSettingsMapper<CraftingSettings, CrafterType, CrafterSettingsApi> { }
+
+
+
+    public class CrafterSettingsHelper : BaseEntityHelper<CraftingSettings,CrafterType>
+    {
+        public override long GetKey() { return EntityTypes.Crafter; }
+    }
 
 
 

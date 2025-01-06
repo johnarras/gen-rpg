@@ -13,6 +13,7 @@ using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Rewards.Constants;
 using Genrpg.Shared.Rewards.Entities;
 using Genrpg.Shared.Spawns.Entities;
+using Genrpg.Shared.Tiles.Settings;
 using Genrpg.Shared.UserCoins.Constants;
 using Genrpg.Shared.UserEnergy.Messages;
 using Genrpg.Shared.UserEnergy.Settings;

@@ -5,6 +5,7 @@ using Genrpg.Shared.Crawler.Maps.Services;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Crawler.States.StateHelpers.Buildings;
 using Genrpg.Shared.Crawler.Tavern.Services;
 using Genrpg.Shared.Crawler.TimeOfDay.Constants;
 using Genrpg.Shared.Crawler.TimeOfDay.Services;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Tavenrs
 {
-    public class TavernMainHelper : BaseStateHelper
+    public class TavernMainHelper : BuildingStateHelper
     {
         private ITimeOfDayService _timeService = null;
         private ITavernService _tavernService = null;

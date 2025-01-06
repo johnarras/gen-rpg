@@ -15,7 +15,7 @@ namespace Assets.Scripts.TextureLists.Services
         public object Data;
         public DownloadTextureListHandler Handler;
         public string TextureName;
-        public TextureList TextureList;
+        public SpriteList TextureList;
     }
 
     public class TextureListCache : ITextureListCache
@@ -27,7 +27,7 @@ namespace Assets.Scripts.TextureLists.Services
 
         private GameObject _textureListParent;
 
-        private Dictionary<string, TextureList> _textureListCache = new Dictionary<string, TextureList>();
+        private Dictionary<string, SpriteList> _textureListCache = new Dictionary<string, SpriteList>();
 
         public async Task Initialize(CancellationToken token)
         {
@@ -59,7 +59,7 @@ namespace Assets.Scripts.TextureLists.Services
         public async Task OnCleanup(CancellationToken token)
         {
             _clientEntityService.DestroyAllChildren(GetTextureListParent());
-            _textureListCache = new Dictionary<string, TextureList>();
+            _textureListCache = new Dictionary<string, SpriteList>();
             await Task.CompletedTask;
         }
 
@@ -81,13 +81,13 @@ namespace Assets.Scripts.TextureLists.Services
                 return;
             }
 
-            if (_textureListCache.TryGetValue(downloadData.TextureName, out TextureList texList))
+            if (_textureListCache.TryGetValue(downloadData.TextureName, out SpriteList texList))
             {
                 _clientEntityService.Destroy(go);
             }
             else
             {
-                texList = go.GetComponent<TextureList>();
+                texList = go.GetComponent<SpriteList>();
                 if (texList == null)
                 {
                     _clientEntityService.Destroy(go);

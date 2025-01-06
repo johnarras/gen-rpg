@@ -26,6 +26,7 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Exploring
 
         public override ECrawlerStates GetKey() { return ECrawlerStates.MapExit; }
         public override long TriggerDetailEntityTypeId() { return EntityTypes.Map; }
+        protected override bool OnlyUseBGImage() { return true; }
 
         public override async Task<CrawlerStateData> Init(CrawlerStateData currentData, CrawlerStateAction action, CancellationToken token)
         {

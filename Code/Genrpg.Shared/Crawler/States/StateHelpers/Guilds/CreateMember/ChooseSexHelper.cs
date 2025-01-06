@@ -23,8 +23,11 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds.CreateMember
 
             IReadOnlyList<SexType> sexes = _gameData.Get<SexTypeSettings>(null).GetData();
 
+            PartyData partyData = _crawlerService.GetParty();
+
             PartyMember member = new PartyMember(_repoService)
             {
+                Id = partyData.GetNextId(),
                 FactionTypeId = FactionTypes.Player,
             };
 

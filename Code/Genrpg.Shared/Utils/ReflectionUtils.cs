@@ -101,7 +101,9 @@ namespace Genrpg.Shared.Utils
 
             foreach (Assembly assembly in assemblies)
             {
-                if (assembly.FullName.IndexOf(Game.Prefix) < 0  && !_searchAssemblies.Contains(assembly))
+                if (assembly.FullName.IndexOf(Game.Prefix) < 0
+                    && assembly.FullName.IndexOf(Game.DefaultPrefix) < 0
+                    && !_searchAssemblies.Contains(assembly))
                 {
                     continue;
                 }

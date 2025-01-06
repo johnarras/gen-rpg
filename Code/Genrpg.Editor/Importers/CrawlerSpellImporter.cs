@@ -17,18 +17,18 @@ namespace Genrpg.Editor.Importers
 
         public override EImportTypes GetKey() { return EImportTypes.CrawlerSpells; }
 
-        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
+        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, List<string[]> lines)
         {
-            string[] spellHeaderLine = lines[0].Split(',');
-            string[] effectHeaders= lines[1].Split(",");    
+            string[] spellHeaderLine = lines[0];
+            string[] effectHeaders= lines[1];    
 
             CrawlerSpellSettings settings = gs.data.Get<CrawlerSpellSettings>(null);
             List<CrawlerSpell> crawlerSpells = settings.GetData().ToList();
 
             CrawlerSpell currentSpell = null;
-            for (int l = 2; l < lines.Length; l++)
+            for (int l = 2; l < lines.Count; l++)
             {
-                string[] words = lines[l].Split(",");
+                string[] words = lines[l];
 
                 if (words[0] == "spell")
                 {
@@ -44,7 +44,7 @@ namespace Genrpg.Editor.Importers
 
                     CrawlerSpell oldSpell = crawlerSpells.FirstOrDefault(x => x.IdKey == currIdKey);
 
-                    currentSpell = DataImportTools.ImportLine<CrawlerSpell>(words, spellHeaderLine, oldSpell);
+                    currentSpell = _importService.ImportLine<CrawlerSpell>(gs, l, words, spellHeaderLine, oldSpell);
 
                     if (oldSpell == null)
                     {
@@ -60,7 +60,7 @@ namespace Genrpg.Editor.Importers
                 }
                 else if (words[0] == "effect")
                 {
-                    CrawlerSpellEffect effect = DataImportTools.ImportLine<CrawlerSpellEffect>(words, effectHeaders);
+                    CrawlerSpellEffect effect = _importService.ImportLine<CrawlerSpellEffect>(gs, l, words, effectHeaders);
                     currentSpell.Effects.Add(effect);
                 }
             }

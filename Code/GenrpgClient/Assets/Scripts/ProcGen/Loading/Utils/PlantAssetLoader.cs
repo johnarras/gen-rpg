@@ -276,8 +276,8 @@ private void OnDownloadGrass(object obj, object data, CancellationToken token)
         return;
     }
 
-    TextureList tlist = go.GetComponent<TextureList>();
-    if (tlist == null || tlist.Textures == null || tlist.Textures.Count < 1)
+    SpriteList tlist = go.GetComponent<SpriteList>();
+    if (tlist == null || tlist.Sprites == null || tlist.Sprites.Count < 1)
     {
         full.proto.prototype = go;
         full.proto.renderMode = DetailRenderMode.VertexLit;
@@ -285,7 +285,7 @@ private void OnDownloadGrass(object obj, object data, CancellationToken token)
     }
     else
     {
-        full.proto.prototypeTexture = tlist.Textures[0];
+        full.proto.prototypeTexture = tlist.Sprites[0].texture;
         full.proto.healthyColor = Color.white;
         full.proto.renderMode = DetailRenderMode.GrassBillboard;
         full.proto.dryColor = Color.white;

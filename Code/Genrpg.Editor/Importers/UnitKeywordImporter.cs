@@ -39,9 +39,9 @@ namespace Genrpg.Editor.Importers
         const int ResistCol = 6;
         const int ColumnCount = 7;
 
-        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
+        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, List<string[]> lines)
         {
-            string[] firstLine = lines[0].Split(',');
+            string[] firstLine = lines[0];
 
             UnitKeywordSettings settings = gs.data.Get<UnitKeywordSettings>(null);
 
@@ -61,9 +61,9 @@ namespace Genrpg.Editor.Importers
             IReadOnlyList<TribeType> tribes = gs.data.Get<TribeSettings>(null).GetData();
 
             int nextIdKey = 1;
-            for (int l = 1; l < lines.Length; l++)
+            for (int l = 1; l < lines.Count; l++)
             {
-                string[] words = lines[l].Split(",");
+                string[] words = lines[l];
 
                 if (words.Length < ColumnCount) // so far need 8 columns.
                 {

@@ -203,7 +203,7 @@ namespace Genrpg.Editor
         private async Task OnClickButtonAsync(string action, string env, Action<EditorGameState> afterAction = null)
         {
 
-            _gs = await EditorGameDataUtils.SetupFromConfig(this, env);
+            _gs = await EditorGameDataUtils.SetupFromConfig(this, env, false);
 
 
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;

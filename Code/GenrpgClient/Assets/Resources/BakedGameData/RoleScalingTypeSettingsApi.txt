@@ -39,7 +39,7 @@
   "ParentObj": {
     "Id": "default",
     "Name": "RoleScalingTypeSettings",
-    "UpdateTime": "2024-11-26T01:48:34.329Z"
+    "UpdateTime": "2024-11-29T02:33:50.038Z"
   },
   "Id": "default"
 }

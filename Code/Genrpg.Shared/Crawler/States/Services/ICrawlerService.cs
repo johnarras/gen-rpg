@@ -16,6 +16,7 @@ namespace Genrpg.Shared.Crawler.States.Services
     public interface ICrawlerService : IInitializable, ISpeedupListener
     {
         Task Init(PartyData partyData, CancellationToken token);
+        CancellationToken GetToken();
         void ChangeState(ECrawlerStates state, CancellationToken token, object extraData = null, ECrawlerStates returnState = ECrawlerStates.None);
         void ChangeState(CrawlerStateData currentState, CrawlerStateAction nextStateAction, CancellationToken token);
         Task OnFinishMove(bool movedPosition, CancellationToken token);

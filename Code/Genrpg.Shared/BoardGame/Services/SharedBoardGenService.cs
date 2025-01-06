@@ -3,6 +3,7 @@ using Genrpg.Shared.BoardGame.Entities;
 using Genrpg.Shared.BoardGame.Settings;
 using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.PlayerFiltering.Interfaces;
+using Genrpg.Shared.Tiles.Settings;
 using Genrpg.Shared.Utils;
 using System;
 using System.Collections.Generic;

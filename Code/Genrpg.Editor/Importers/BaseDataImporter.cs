@@ -1,16 +1,12 @@
 ﻿using Genrpg.Editor.Constants;
 using Genrpg.Editor.Entities.Core;
-using Genrpg.Editor.UI;
+using Genrpg.Editor.Services.Importing;
 using Genrpg.Shared.DataStores.Entities;
-using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
 using Genrpg.Shared.Spells.Settings.Elements;
 using Genrpg.Shared.Units.Entities;
 using Genrpg.Shared.Utils;
-using Genrpg.Shared.Utils.Data;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using MongoDB.Bson.Serialization.IdGenerators;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +14,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Devices.AllJoyn;
 using Windows.UI.Popups;
 
 namespace Genrpg.Editor.Importers
@@ -28,12 +23,13 @@ namespace Genrpg.Editor.Importers
 
         protected ILogService _logService;
         protected IRepositoryService _repoService;
+        protected IImportService _importService;
 
         public abstract string ImportDataFilename { get; }
 
         public abstract EImportTypes GetKey();
 
-        protected abstract Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines);
+        protected abstract Task<bool> ParseInputFromLines(Window window, EditorGameState gs, List<string[]> lines);
 
         protected virtual Task<bool> UpdateAfterImport(Window window, EditorGameState gs)
         {
@@ -41,7 +37,7 @@ namespace Genrpg.Editor.Importers
         }
 
         string dataFolderOffsetPath = "\\..\\..\\..\\..\\..\\..\\..\\ImportData\\";
-        protected string[] ReadImportDataLines(string importFilename)
+        protected List<string[]> ReadImportDataLines(string importFilename)
         {
             string strExeFilePath = Assembly.GetExecutingAssembly().Location;
 
@@ -58,25 +54,33 @@ namespace Genrpg.Editor.Importers
             for (int l = 0; l < lines.Length; l++)
             {
 
-                lines[l] =  StrUtils.SanitizeSingleEnglishLine(lines[l].Trim());
+                lines[l] = StrUtils.SanitizeSingleEnglishLine(lines[l].Trim());
             }
 
-            return lines;
+            List<string[]> retval = new List<string[]>();
+
+            for (int l = 0; l < lines.Length; l++)
+            {
+                string[] words = StrUtils.SafeSplitCommaLine(lines[l]);
+                retval.Add(words);
+            }
+
+            return retval;
         }
 
         public async Task<bool> ImportData(Window window, EditorGameState gs)
         {
             try
             {
-                string[] lines = ReadImportDataLines(ImportDataFilename);
+                List<string[]> lines = ReadImportDataLines(ImportDataFilename);
 
-                if (lines.Length < 1)
+                if (lines.Count < 1)
                 {
                     return false;
                 }
 
                 if (!await ParseInputFromLines(window, gs, lines) ||
-                    !await UpdateAfterImport(window,gs))
+                    !await UpdateAfterImport(window, gs))
                 {
                     gs.LookedAtObjects = new List<object>();
                 }
@@ -103,12 +107,14 @@ namespace Genrpg.Editor.Importers
 
             gs.LookedAtObjects.Clear();
         }
+
+
         public List<UnitEffect> ReadElementWords(string wordList, long entityTypeId, IReadOnlyList<ElementType> elementTypes)
         {
             List<UnitEffect> retval = new List<UnitEffect>();
             if (string.IsNullOrEmpty(wordList))
-            { 
-                return retval; 
+            {
+                return retval;
             }
 
             string[] words = wordList.Split(' ');
@@ -131,5 +137,6 @@ namespace Genrpg.Editor.Importers
 
             return retval;
         }
+
     }
 }

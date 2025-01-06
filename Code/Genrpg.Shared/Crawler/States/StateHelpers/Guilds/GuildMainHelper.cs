@@ -13,10 +13,11 @@ using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Buildings.Constants;
 using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Crawler.States.StateHelpers.Buildings;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Guilds
 {
-    public class GuildMainHelper : BaseStateHelper
+    public class GuildMainHelper : BuildingStateHelper
     {
         private ITimeOfDayService _timeService = null;
 

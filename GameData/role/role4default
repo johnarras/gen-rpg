@@ -123,6 +123,26 @@
     {
       "EntityTypeId": 100,
       "EntityId": 10071
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10031
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10033
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10063
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10070
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 10071
     }
   ],
   "AmountBonuses": [
@@ -152,5 +172,5 @@
       "Amount": 0.125
     }
   ],
-  "UpdateTime": "2024-11-26T03:11:28.929Z"
+  "UpdateTime": "2024-12-30T17:06:34.075Z"
 }

@@ -358,25 +358,42 @@ namespace Assets.Scripts.GameObjects
 
 
 
-        public void AddToParent(object childObj, object parentObj)
+        public void AddToParent(object childObjIn, object parentObjIn)
         {
+            GameObject childObj = childObjIn as GameObject;
+            GameObject parentObj = parentObjIn as GameObject;
 
-            if (!(childObj is GameObject child) ||
-                !(parentObj is GameObject parent))
+            if (childObj == null)
             {
-                return;
+                if (childObjIn is MonoBehaviour mb)
+                {
+                    childObj = mb.gameObject;
+                }
+                else
+                {
+                    return;
+                }
             }
 
-            if (parent == null)
+            if (parentObj == null)
             {
-                Destroy(child);
-                return;
+                if (parentObjIn is MonoBehaviour mb)
+                {
+                    parentObj = mb.gameObject;
+                }
+                else
+                {
+                    
+                    return;
+                }
             }
-            child.transform.SetParent(parent.transform);
-            child.transform.localPosition = Vector3.zero;
-            child.transform.localEulerAngles = Vector3.zero;
-            child.transform.localScale = Vector3.one;
-            SetLayer(child, parent.layer);
+
+
+            childObj.transform.SetParent(parentObj.transform);
+            childObj.transform.localPosition = Vector3.zero;
+            childObj.transform.localEulerAngles = Vector3.zero;
+            childObj.transform.localScale = Vector3.one;
+            SetLayer(childObj, parentObj.layer);
         }
 
         public object GetEntity(object obj)

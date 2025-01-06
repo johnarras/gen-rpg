@@ -23,27 +23,26 @@ namespace Assets.Editor
         [MenuItem("Tools/CopyMonsterTextures")]
         static void CopyMonsterTextures()
         {
-            return;
-            //IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
-            //IClientRandom clientRandom = new ClientRandom();
-            //IGameData gameData = gs.loc.Get<IGameData>();
-            //IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
+            IClientGameState gs = SetupEditorUnityGameState.Setup(null).GetAwaiter().GetResult();
+            IClientRandom clientRandom = new ClientRandom();
+            IGameData gameData = gs.loc.Get<IGameData>();
+            IReadOnlyList<UnitType> unitTypes = gameData.Get<UnitSettings>(null).GetData();
 
-            //string directory = "Assets/FullAssets/Crawler/Images/Monsters/";
+            string directory = "Assets/FullAssets/Crawler/Images/Monsters/";
 
 
-            //foreach (UnitType unitType in unitTypes)
-            //{
-            //    if (unitType.IdKey < 1 || string.IsNullOrEmpty(unitType.Icon))
-            //    {
-            //        continue;
-            //    }
+            foreach (UnitType unitType in unitTypes)
+            {
+                if (unitType.IdKey < 1 || string.IsNullOrEmpty(unitType.Icon))
+                {
+                    continue;
+                }
 
-            //    for (int i = 1; i <= 4; i++)
-            //    {
-            //        File.Copy(directory + "Base" + i + ".png", directory + unitType.Icon + +i + ".png", true);
-            //    }
-            //}
+                for (int i = 1; i <= 4; i++)
+                {
+                    File.Copy(directory + "Base" + i + ".png", directory + unitType.Icon + +i + ".png", true);
+                }
+            }
         }
 
         [MenuItem("Tools/SetupMonsterImagePrefabs")]
@@ -73,37 +72,38 @@ namespace Assets.Editor
                     //continue;
                 }
 
-                List<Texture2D> textures = new List<Texture2D>();
+                List<Sprite> textures = new List<Sprite>();
 
                 for (int i = 1; i <= 10; i++)
                 {
 
-                    Texture2D tex = AssetDatabase.LoadAssetAtPath<Texture2D>(imageDirectory + unitType.Icon + i + ".png");
-
+                    string filename = imageDirectory + unitType.Icon + i + ".png";
+                    Sprite spr = (Sprite)AssetDatabase.LoadAssetAtPath(filename, typeof(Sprite));
                    
-
-                    if (tex == null)
+                    if (spr == null)
                     {
                         if (i == 1)
                         {
-                            Debug.LogError("MISSING first image for unit with image name: " + unitType.Icon);
+                            Debug.LogError("Missing first sprite for " + unitType.Icon);
                             return;
                         }
+
+
                         break;
                     }
-                    textures.Add(tex);
+                    textures.Add(spr);
                 }
 
                 GameObject go = new GameObject();
                 go.name = unitType.Icon;
-                TextureList tl = go.AddComponent<TextureList>();
+                SpriteList tl = go.AddComponent<SpriteList>();
 
-                if (tl.Textures == null)
+                if (tl.Sprites == null)
                 {
-                    tl.Textures = new List<Texture2D>();
+                    tl.Sprites = new List<Sprite>();
                 }
 
-                tl.Textures = textures;
+                tl.Sprites = textures;
                 PrefabUtility.SaveAsPrefabAsset(go, targetFile);
                 GameObject.DestroyImmediate(go);
             }
@@ -173,24 +173,26 @@ namespace Assets.Editor
                 }
 
 
-                Texture2D tex = AssetDatabase.LoadAssetAtPath<Texture2D>(filePath);
+                Sprite tex = AssetDatabase.LoadAssetAtPath<Sprite>(filePath);
 
-                Color[] oldColors = tex.GetPixels(0, 0, tex.width, tex.height);
+                int width = tex.texture.width;
+                int height = tex.texture.height;
+                Color[] oldColors = tex.texture.GetPixels(0, 0, width, height);
 
                 Color[] newColors = new Color[oldColors.Length];
 
                 Color transparent = new Color(0, 0, 0, 0);
 
-                for (int x = 0; x < tex.width; x++)
+                for (int x = 0; x < width; x++)
                 {
-                    for (int y = 0; y < tex.height; y++)
+                    for (int y = 0; y < height; y++)
                     {
                         bool nextToTransparent = false;
-                        for (int xx = Math.Max(x-1, 0); xx <= Math.Min(x+1,tex.width-1); xx++)
+                        for (int xx = Math.Max(x-1, 0); xx <= Math.Min(x+1,width-1); xx++)
                         {
-                            for (int yy = Math.Max(y-1,0); yy <= Math.Min(y+1,tex.height-1); yy++)
+                            for (int yy = Math.Max(y-1,0); yy <= Math.Min(y+1,height -1); yy++)
                             {
-                                Color oldColor = oldColors[GetTextureIndex(xx, yy, tex.width)];
+                                Color oldColor = oldColors[GetTextureIndex(xx, yy, width)];
 
                                 if (oldColor.a == 0)
                                 {
@@ -200,13 +202,13 @@ namespace Assets.Editor
                             }
                         }
 
-                        int index = GetTextureIndex(x, y, tex.width);
+                        int index = GetTextureIndex(x, y, width);
                         newColors[index] = (nextToTransparent ? transparent : oldColors[index]);
                     }
                 }
-                tex.SetPixels(newColors);
-                tex.Apply(); 
-                byte[] bytes = tex.EncodeToPNG(); 
+                tex.texture.SetPixels(newColors);
+                tex.texture.Apply(); 
+                byte[] bytes = tex.texture.EncodeToPNG(); 
                 //File.WriteAllBytes(filePath, bytes); 
                 AssetDatabase.ImportAsset(filePath); 
                 AssetDatabase.Refresh();

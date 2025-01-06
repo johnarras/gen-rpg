@@ -1,5 +1,6 @@
 ﻿using Genrpg.Shared.Crawler.Combat.Entities;
 using Genrpg.Shared.Crawler.Monsters.Entities;
+using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.UnitEffects.Constants;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,11 @@ namespace Assets.Scripts.Crawler.Combat
 
             foreach (CombatGroup group in groups)
             {
+
+                if (group.Units.Any(x=>x is PartyMember member))
+                {
+                    continue;
+                }
 
                 CrawlerCombatIcon icon = Icons.FirstOrDefault(x => x.Group.Id == group.Id);
 

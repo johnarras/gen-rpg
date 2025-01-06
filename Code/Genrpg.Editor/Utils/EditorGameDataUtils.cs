@@ -34,7 +34,7 @@ namespace Genrpg.Editor.Utils
         public static async Task<FullGameDataCopy> LoadFullGameData(IUICanvas form, string env, CancellationToken token)
         {
 
-            EditorGameState gs = await SetupFromConfig(form, env);
+            EditorGameState gs = await SetupFromConfig(form, env, false);
 
             FullGameDataCopy dataCopy = new FullGameDataCopy();
 
@@ -54,7 +54,7 @@ namespace Genrpg.Editor.Utils
             return dataCopy;
         }
 
-        public static async Task<EditorGameState> SetupFromConfig (object parent, string env, IServerConfig serverConfig = null)
+        public static async Task<EditorGameState> SetupFromConfig (object parent, string env, bool setupForEditor, IServerConfig serverConfig = null)
         {
             if (serverConfig == null)
             {
@@ -70,7 +70,10 @@ namespace Genrpg.Editor.Utils
 
             foreach (ITopLevelSettings settings in allSettings)
             {
-                settings.SetupForEditor();
+                if (setupForEditor)
+                {
+                    settings.SetupForEditor();
+                }
                 if (settings is BaseGameSettings baseSettings)
                 {
                     if (baseSettings.UpdateTime == DateTime.MinValue)
@@ -87,7 +90,7 @@ namespace Genrpg.Editor.Utils
         public static async Task SaveFullGameData(IUICanvas form, FullGameDataCopy dataCopy, string env, bool deleteExistingData, CancellationToken token)
         {
 
-            EditorGameState gs = await SetupFromConfig(form, env);
+            EditorGameState gs = await SetupFromConfig(form, env, false);
             IRepositoryService repoService = gs.loc.Get<IRepositoryService>();
 
             List<IGameSettings> dataList = new List<IGameSettings>();
@@ -99,11 +102,11 @@ namespace Genrpg.Editor.Utils
             {
                 saveTasks.Add(repoService.Save(dataCopy.Data[i]));
 
-                if (i % 100 == 99 || i == dataCopy.Data.Count-1)
+                if (i % 10 == 9 || i == dataCopy.Data.Count-1)
                 {
                     await Task.WhenAll(saveTasks);
                     saveTasks = new List<Task>();
-                    await Task.Delay(100);
+                    await Task.Delay(1000);
                 }
             }
         }
@@ -151,6 +154,21 @@ namespace Genrpg.Editor.Utils
 
 
         }
+
+
+        public static void WriteGameDataToClient(List<ITopLevelSettings> defaultClientSettings)
+        {
+            string dirName = GetCodeFolderPath() + "..\\Code\\" + Game.Prefix + "Client\\Assets\\Resources\\BakedGameData";
+
+            foreach (ITopLevelSettings settingsItem in defaultClientSettings)
+            {
+                string txt = SerializationUtils.PrettyPrint(settingsItem);
+                string filename = settingsItem.GetType().Name + ".txt";
+
+                File.WriteAllText(dirName + "\\" + filename, txt);
+            }
+        }
+
 
         private static void RemoveDeletedFiles(string parentPath, List<IGameSettings> allSettings)
         {
@@ -215,7 +233,7 @@ namespace Genrpg.Editor.Utils
         public static async Task<FullGameDataCopy> LoadDataFromDisk(IUICanvas form, CancellationToken token)
         {
 
-            EditorGameState gs = await SetupFromConfig(form, EnvNames.Dev);
+            EditorGameState gs = await SetupFromConfig(form, EnvNames.Dev, false);
 
             FullGameDataCopy dataCopy = new FullGameDataCopy();
 

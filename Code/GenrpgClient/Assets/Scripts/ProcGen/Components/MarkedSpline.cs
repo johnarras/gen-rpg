@@ -15,6 +15,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 using Genrpg.Shared.Client.Assets.Constants;
+using Genrpg.Shared.Tiles.Settings;
 
 namespace Assets.Scripts.ProcGen.Components
 {

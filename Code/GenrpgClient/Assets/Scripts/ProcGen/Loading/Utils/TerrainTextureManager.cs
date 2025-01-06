@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Threading;
 using Assets.Scripts.MapTerrain;
-using Genrpg.Shared.ProcGen.Settings.Texturse;
+using Genrpg.Shared.ProcGen.Settings.Textures;
 using Genrpg.Shared.Zones.WorldData;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
@@ -18,8 +18,8 @@ public class TerrainTextureData
 {
     public TextureType TexType;
 
-    public Texture2D RegTexture;
-    public Texture2D NormTexture;
+    public Sprite RegTexture;
+    public Sprite NormTexture;
     public GameObject TextureContainer;
     public int InstanceCount = 0;
     public TerrainLayer TerrLayer;
@@ -214,11 +214,11 @@ public class TerrainTextureManager : ITerrainTextureManager
             return;
         }
 
-        TextureList texList = go.GetComponent<TextureList>();
+        SpriteList texList = go.GetComponent<SpriteList>();
 
         int texSize = 2;
 
-        if (texList == null || texList.Textures == null || texList.Textures.Count < texSize)
+        if (texList == null || texList.Sprites == null || texList.Sprites.Count < texSize)
         {
             _clientEntityService.Destroy(go);
             return;
@@ -226,21 +226,21 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         for (int i = 0; i < texSize; i++)
         {
-            if (texList.Textures[i] == null)
+            if (texList.Sprites[i] == null)
             {
                 _clientEntityService.Destroy(go);
                 return;
             }
         }
 
-        Texture2D[] newTerrains = texList.Textures.ToArray();
+        Sprite[] newTerrains = texList.Sprites.ToArray();
 
         TerrainTextureData tdata = new TerrainTextureData();
         tdata.RegTexture = newTerrains[0];
         tdata.NormTexture = newTerrains[1];
         tdata.TexType = ddata.TexType;
         tdata.TextureContainer = go;
-        tdata.TerrLayer = _terrainManager.CreateTerrainLayer(tdata.RegTexture, tdata.NormTexture);
+        tdata.TerrLayer = _terrainManager.CreateTerrainLayer(tdata.RegTexture.texture, tdata.NormTexture.texture);
         _terrainManager.AddToTerrainTextureCache(ddata.TexType.Name, tdata);
         SetNewTerrainLayer(ddata.Terr, ddata.TextureIndex, tdata);
     }
@@ -279,7 +279,7 @@ public class TerrainTextureManager : ITerrainTextureManager
             _clientEntityService.Destroy(go);
             return;
         }
-        TextureList texList = go.GetComponent<TextureList>();
+        SpriteList texList = go.GetComponent<SpriteList>();
 
         if (texList == null)
         {
@@ -296,7 +296,7 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         int texSize = 2;
 
-        if (texList == null || texList.Textures == null || texList.Textures.Count < texSize)
+        if (texList == null || texList.Sprites == null || texList.Sprites.Count < texSize)
         {
             _clientEntityService.Destroy(go);
             return;
@@ -304,21 +304,21 @@ public class TerrainTextureManager : ITerrainTextureManager
 
         for (int i = 0; i < texSize; i++)
         {
-            if (texList.Textures[i] == null)
+            if (texList.Sprites[i] == null)
             {
                 _clientEntityService.Destroy(go);
                 return;
             }
         }
 
-        Texture2D[] newTerrains = texList.Textures.ToArray();
+        Sprite[] newTerrains = texList.Sprites.ToArray();
 
         TerrainTextureData tdata = new TerrainTextureData();
         tdata.RegTexture = newTerrains[0];
         tdata.NormTexture = newTerrains[1];
         tdata.TexType = ddata.TexType;
         tdata.TextureContainer = go;
-        tdata.TerrLayer = _terrainManager.CreateTerrainLayer(tdata.RegTexture, tdata.NormTexture);
+        tdata.TerrLayer = _terrainManager.CreateTerrainLayer(tdata.RegTexture.texture, tdata.NormTexture.texture);
         _terrainManager.AddToTerrainTextureCache(ddata.TexType.Name, tdata);
     }
 }

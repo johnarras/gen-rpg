@@ -139,8 +139,14 @@ public class ClientRepositoryCollection<T> : IClientRepositoryCollection where T
         {
             return false;
         }
-        
-        string id = EntityUtils.GetObjId(t);
+
+        if (!(t is IStringId sid))
+        {
+            return false;
+        }
+
+        string id = sid.Id;
+
         if (string.IsNullOrEmpty(id))
         {
             return false;

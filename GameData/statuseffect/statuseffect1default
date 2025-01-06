@@ -1,9 +1,0 @@
-{
-  "Id": "statuseffect1default",
-  "ParentId": "default",
-  "IdKey": 1,
-  "Name": "Poisoned",
-  "Abbrev": "Pois",
-  "ActionEffects": [],
-  "UpdateTime": "2024-08-01T00:28:13.094Z"
-}

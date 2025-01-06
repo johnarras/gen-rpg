@@ -123,8 +123,8 @@
     <Compile Include="Assets\Scripts\MessagePack\Resolvers\CachingFormatterResolver.cs" />
     <Compile Include="Assets\Scripts\MessagePack\LZ4\LZ4Codec.Safe64.Dirty.cs" />
     <Compile Include="Assets\Scripts\MessagePack\Resolvers\StaticCompositeResolver.cs" />
-    <Compile Include="Assets\Scripts\MessagePack\LZ4\LZ4Codec.Unsafe64.Dirty.cs" />
     <Compile Include="Assets\Scripts\MessagePack\LZ4\LZ4Codec.Unsafe.cs" />
+    <Compile Include="Assets\Scripts\MessagePack\LZ4\LZ4Codec.Unsafe64.Dirty.cs" />
     <Compile Include="Assets\Scripts\MessagePack\Formatters\IMessagePackFormatter`1.cs" />
     <Compile Include="Assets\Scripts\MessagePack\Internal\AsymmetricKeyHashTable.cs" />
     <Compile Include="Assets\Scripts\MessagePack\ThisLibraryExtensionTypeCodes.cs" />

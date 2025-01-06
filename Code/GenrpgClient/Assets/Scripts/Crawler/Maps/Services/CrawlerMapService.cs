@@ -36,6 +36,7 @@ using Genrpg.Shared.Dungeons.Settings;
 using Genrpg.Shared.Crawler.Maps.Settings;
 using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Core.Constants;
+using Genrpg.Shared.Zones.Settings;
 
 namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 {
@@ -92,6 +93,17 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
         public string GetBGImageName()
         {
+            if (_party == null)
+            {
+                _party = _crawlerService.GetParty();
+            }
+            ZoneType zoneType = _worldService.GetCurrentZone(_party).Result;
+
+            if (zoneType != null && !string.IsNullOrEmpty(zoneType.Icon))
+            {
+                return zoneType.Icon;
+            }
+
             if (_crawlerMapRoot == null || _crawlerMapRoot.Assets == null || string.IsNullOrEmpty(_crawlerMapRoot.Assets.BGImageName))
             {
                 return CrawlerClientConstants.DefaultWorldBG;
@@ -270,10 +282,6 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
                 _camera = _cameraController.GetMainCamera();
 
-                if (_gs.GameMode != EGameModes.Crawler2)
-                {
-                    _camera.rect = new Rect(0, 0, 9f / 16f, 1);
-                }
                 _camera.transform.localPosition = new Vector3(0, 0, -bz * 0.5f);
                 _camera.transform.eulerAngles = new Vector3(0, 0, 0);
                 _camera.farClipPlane = CrawlerMapConstants.BlockSize * 8;
@@ -282,7 +290,7 @@ namespace Assets.Scripts.Crawler.Services.CrawlerMaps
 
             _cameraParent.transform.position = new Vector3(_crawlerMapRoot.DrawX, _crawlerMapRoot.DrawY, _crawlerMapRoot.DrawZ);
             _cameraParent.transform.eulerAngles = new Vector3(0, _crawlerMapRoot.DrawRot + 90, 0);
-            _party.WorldPanel.SetPicture(null);
+            _party.WorldPanel.SetPicture(null,false);
             if (_playerLightObject != null && _camera != null)
             {
                 _playerLightObject.transform.position = _camera.transform.position;

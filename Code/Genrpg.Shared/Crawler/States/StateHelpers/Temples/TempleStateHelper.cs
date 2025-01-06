@@ -1,7 +1,9 @@
 ﻿using Genrpg.Shared.Buildings.Constants;
+using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Crawler.States.StateHelpers.Buildings;
 using Genrpg.Shared.Crawler.Temples.Services;
 using Genrpg.Shared.Crawler.Training.Services;
 using Genrpg.Shared.UI.Constants;
@@ -15,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Temples
 {
-    public class TempleStateHelper : BaseStateHelper
+    public class TempleStateHelper : BuildingStateHelper
     {
 
         private ITempleService _templeService = null;
@@ -28,6 +30,8 @@ namespace Genrpg.Shared.Crawler.States.StateHelpers.Temples
             CrawlerStateData stateData = CreateStateData();
 
             PartyData partyData = _crawlerService.GetParty();
+
+            stateData.WorldSpriteName = CrawlerClientConstants.TempleImage;
 
             TempleResult result = action.ExtraData as TempleResult;
 

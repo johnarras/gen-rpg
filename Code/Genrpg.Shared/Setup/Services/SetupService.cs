@@ -2,6 +2,7 @@ using Genrpg.Shared.BoardGame.Services;
 using Genrpg.Shared.Charms.Services;
 using Genrpg.Shared.Crafting.Services;
 using Genrpg.Shared.Crawler.Combat.Services;
+using Genrpg.Shared.Crawler.Info.Services;
 using Genrpg.Shared.Crawler.Loot.Services;
 using Genrpg.Shared.Crawler.Roguelikes.Services;
 using Genrpg.Shared.Crawler.Roles.Services;
@@ -95,6 +96,7 @@ namespace Genrpg.Shared.Setup.Services
             Set<IRiddleService>(new RiddleService());
             Set<IRoleService>(new RoleService());
             Set<IRoguelikeUpgradeService>(new RoguelikeUpgradeService());
+            Set<IInfoService>(new InfoService());
             // Use for crawler
 
             // Board game

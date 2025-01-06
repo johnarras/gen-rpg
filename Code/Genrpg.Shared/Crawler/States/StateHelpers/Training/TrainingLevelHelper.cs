@@ -3,6 +3,7 @@ using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Entities;
+using Genrpg.Shared.Crawler.States.StateHelpers.Buildings;
 using Genrpg.Shared.Crawler.Training.Services;
 using Genrpg.Shared.Utils;
 using System.Threading;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Genrpg.Shared.Crawler.States.StateHelpers.Training
 {
-    public class TrainingLevelHelper : BaseStateHelper
+    public class TrainingLevelHelper : BuildingStateHelper
     {
 
         ITrainingService _trainingService = null;

@@ -116,7 +116,8 @@ public class UnityAssetService : IAssetService
 
     protected HashSet<string> _bundleFailedDownloads = new HashSet<string>();
 
-    protected HashSet<string> _failedLocalLoads = new HashSet<string>();
+    protected HashSet<string> _failedLocalLoads = new HashSet<string>(); 
+    private Dictionary<string, GameObject> _localLoads = new Dictionary<string, GameObject>();
 
     protected Dictionary<string, SpriteAtlas> _atlasCache = new Dictionary<string, SpriteAtlas>();
     protected Dictionary<string, Sprite[]> _spriteListCache = new Dictionary<string, Sprite[]>();
@@ -206,7 +207,6 @@ public class UnityAssetService : IAssetService
         _bundleUpdateInfo = new BundleUpdateInfo() { UpdateTime = DateTime.UtcNow.Date };
         _bundleVersions = new BundleVersions() { UpdateInfo = _bundleUpdateInfo };
         _isInitialized = true;
-        _logService.Info("Bypassing AssetService Initialization since player contains all assets.");
     }
 
     public bool IsDownloading()
@@ -310,6 +310,7 @@ public class UnityAssetService : IAssetService
             return;
         }
         _unloadingAssets = true;
+        _localLoads.Clear();
         AsyncOperation op = Resources.UnloadUnusedAssets();
         while (!op.isDone)
         {
@@ -421,11 +422,19 @@ _unloadingAssets = false;
 #if UNITY_EDITOR
                 fullPath = AssetConstants.DownloadAssetRootPath + fullAssetName +
                 (assetName.IndexOf(AssetConstants.ArtFileSuffix) < 0 ? AssetConstants.ArtFileSuffix : "");
-                asset = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath);
+                if (_localLoads.ContainsKey(fullPath))
+                {
+                    asset = _localLoads[fullPath];
+                }
+                else
+                {
+                    asset = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath);
+                }
 #else
                 fullPath = fullAssetName;
-                asset = _localLoadService.LocalLoad<GameObject>(fullPath);
+                asset = _localLoadService.LocalLoad<GameObject>(fullPath);               
 #endif
+                
 
                 if (asset != null)
                 {

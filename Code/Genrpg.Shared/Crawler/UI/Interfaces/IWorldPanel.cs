@@ -7,7 +7,7 @@ namespace Genrpg.Shared.Crawler.UI.Interfaces
 {
     public interface IWorldPanel
     {
-        void SetPicture(string image);
+        void SetPicture(string image, bool useBGOnly);
 
         void ApplyEffect(string effectName, float duration);
 

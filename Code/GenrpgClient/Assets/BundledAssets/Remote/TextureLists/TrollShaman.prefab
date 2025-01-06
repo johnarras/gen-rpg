@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f7969976255be4db72cb5f458e9bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Textures:
-  - {fileID: 2800000, guid: 8379f64819d78c94f87e29e6cdb99e88, type: 3}
+  Sprites:
+  - {fileID: 21300000, guid: 8379f64819d78c94f87e29e6cdb99e88, type: 3}

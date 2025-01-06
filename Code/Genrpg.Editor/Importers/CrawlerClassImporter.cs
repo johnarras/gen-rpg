@@ -40,9 +40,9 @@ namespace Genrpg.Editor.Importers
         private IGameData _gameData;
         
 
-        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
+        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, List<string[]> lines)
         {
-            string[] firstLine = lines[0].Split(',');
+            string[] firstLine = lines[0];
 
             string missingWords = "";
             IReadOnlyList<Role> roles = gs.data.Get<RoleSettings>(null).GetData();
@@ -82,9 +82,9 @@ namespace Genrpg.Editor.Importers
 
             PropertyInfo[] props = typeof(Role).GetProperties();
 
-            for (int line = 1; line < lines.Length; line++)
+            for (int line = 1; line < lines.Count; line++)
             {
-                string[] words = lines[line].Split(',');
+                string[] words = lines[line];
 
                 if (words.Length < 2 || string.IsNullOrEmpty(words[0].Trim()))
                 {

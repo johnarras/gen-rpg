@@ -280,6 +280,14 @@
       "UpdateTime": "2024-08-11T14:51:59.701Z"
     },
     {
+      "Id": "entitytype103default",
+      "ParentId": "default",
+      "IdKey": 103,
+      "Name": "Role",
+      "Desc": "",
+      "UpdateTime": "2025-01-05T00:57:05.547Z"
+    },
+    {
       "Id": "entitytype200default",
       "ParentId": "default",
       "IdKey": 200,
@@ -290,7 +298,7 @@
   "ParentObj": {
     "Id": "default",
     "Name": "EntitySettings",
-    "UpdateTime": "2024-11-26T01:48:57.473Z"
+    "UpdateTime": "2025-01-05T00:57:05.547Z"
   },
   "Id": "default"
 }

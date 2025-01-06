@@ -1,9 +1,0 @@
-{
-  "Id": "stattype40default",
-  "ParentId": "default",
-  "IdKey": 40,
-  "Name": "PowerMult",
-  "Desc": "All Dam Mult",
-  "GenScalePct": 10,
-  "UpdateTime": "2024-08-01T00:28:12.998Z"
-}

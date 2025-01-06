@@ -1,9 +1,0 @@
-{
-  "Id": "statuseffect3default",
-  "ParentId": "default",
-  "IdKey": 3,
-  "Name": "Cursed",
-  "Abbrev": "Curs",
-  "ActionEffects": [],
-  "UpdateTime": "2024-08-01T00:28:13.099Z"
-}

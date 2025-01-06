@@ -22,9 +22,9 @@ namespace Genrpg.Editor.Importers
         public override EImportTypes GetKey() { return EImportTypes.UnitSpawns; }
 
 
-        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
+        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, List<string[]> lines)
         {
-            string[] firstLine = lines[0].Split(',');
+            string[] firstLine = lines[0];
 
             ZoneTypeSettings settings = gs.data.Get<ZoneTypeSettings>(null);
 
@@ -58,11 +58,9 @@ namespace Genrpg.Editor.Importers
                 zoneType.ZoneUnitSpawns = new List<ZoneUnitSpawn>();
             }
 
-            for (int row = 1; row < lines.Length; row++)
+            for (int row = 1; row < lines.Count; row++)
             {
-                string line = lines[row];
-
-                string[] words = line.Split(",");
+                string[] words = lines[row];
 
                 if (words.Length < 1 || string.IsNullOrEmpty(words[0]))
                 {

@@ -31,6 +31,7 @@ namespace Genrpg.Shared.Entities.Constants
         public const long BoardMode = 23;
         public const long Vulnerability = 24;
         public const long Resist = 25;
+        public const long Crafter = 26;
 
 
         public const long Stat = 31;
@@ -49,6 +50,7 @@ namespace Genrpg.Shared.Entities.Constants
         public const long CrawlerSpell = 100;
         public const long PartyBuff = 101;
         public const long Map = 102;
+        public const long Role = 103;
 
         // User Reward Types
         public const long UserCoin = 200;

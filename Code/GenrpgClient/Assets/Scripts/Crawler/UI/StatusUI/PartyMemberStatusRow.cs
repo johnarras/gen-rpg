@@ -1,16 +1,13 @@
 ﻿
 using Assets.Scripts.Assets.Textures;
 using Assets.Scripts.MVC;
-using Assets.Scripts.TextureLists.Services;
-using Genrpg.Shared.Characters.PlayerData;
-using Genrpg.Shared.Client.GameEvents;
+using Assets.Scripts.UI.CombatTexts;
 using Genrpg.Shared.Crawler.Constants;
 using Genrpg.Shared.Crawler.Parties.PlayerData;
 using Genrpg.Shared.Crawler.Roles.Constants;
 using Genrpg.Shared.Crawler.Roles.Settings;
 using Genrpg.Shared.Crawler.States.Constants;
 using Genrpg.Shared.Crawler.States.Services;
-using Genrpg.Shared.Crawler.TextureLists.Services;
 using Genrpg.Shared.MVC.Interfaces;
 using Genrpg.Shared.Stats.Constants;
 using Genrpg.Shared.UI.Interfaces;
@@ -19,8 +16,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SearchService;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 namespace Assets.Scripts.UI.Crawler.StatusUI
 {
@@ -45,12 +40,15 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
         private ICrawlerService _crawlerService;
 
         public IButton Button;
+       
+        private FastCombatTextUI _fastTextUI;
 
-        private AnimatedTexture _portrait;
+        private AnimatedSprite _portrait;
 
         private GameObject _root = null;
 
         private PartyMember _partyMember = null;
+
 
         private Dictionary<string, IText> _textFields = new Dictionary<string, IText>();
 
@@ -77,7 +75,9 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                 _textFields[name] = view.Get<IText>(name);
             }
 
-            _portrait = view.Get<AnimatedTexture>("Portrait");
+            _portrait = view.Get<AnimatedSprite>("Portrait");
+
+            _fastTextUI = view.Get<FastCombatTextUI>("FastCombatText");
 
             _uiService.SetButton(Button, GetType().Name, ClickPartyMember);
 
@@ -158,10 +158,23 @@ namespace Assets.Scripts.UI.Crawler.StatusUI
                 SetText(Names.Summons, "");
                 SetText(Names.Status, "");
                 SetPortrait(null);
+                if (_fastTextUI != null)
+                {
+                    _fastTextUI.SetUnitId(null);
+                }
+
                 return;
             }
             else
             {
+
+
+                if (_fastTextUI != null)
+                {
+                    _fastTextUI.SetUnitId(_partyMember.Id);
+                }
+
+
                 _clientEntityService.SetActive(_root, true);
                 SetText(Names.Name, _partyMember.Name);
                 SetText(Names.Level, _partyMember.Level.ToString());

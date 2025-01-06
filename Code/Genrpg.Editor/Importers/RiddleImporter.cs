@@ -20,7 +20,8 @@ namespace Genrpg.Editor.Importers
         public override EImportTypes GetKey() { return EImportTypes.Riddles; }
 
 
-        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, string[] lines)
+
+        protected override async Task<bool> ParseInputFromLines(Window window, EditorGameState gs, List<string[]> lines)
         {
             RiddleSettings settings = gs.data.Get<RiddleSettings>(null);
 
@@ -31,16 +32,18 @@ namespace Genrpg.Editor.Importers
             long riddleId = 0;
 
             
-            for (int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < lines.Count; i++)
             {
-                if (string.IsNullOrEmpty(lines[i]) && i <lines.Length - 1)
-                {
-                    continue;
-                }
-
-                if (i >= lines.Length)
+                if (i >= lines.Count)
                 {
                     break;
+                }
+
+                string[] words = lines[i];
+
+                if (StrUtils.IsEmptyLine(words))
+                {
+                    continue;
                 }
 
                 Riddle riddle = new Riddle()
@@ -49,31 +52,40 @@ namespace Genrpg.Editor.Importers
                 };
 
                 StringBuilder desc = new StringBuilder();
-
-                do
+                while (i < lines.Count && StrUtils.IsEmptyLine(lines[i]))
                 {
                     i++;
                 }
-                while (i < lines.Length && !string.IsNullOrEmpty(lines[i]) );
 
-                if (i >= lines.Length)
+                if (i >= lines.Count)
                 {
                     break;
+                }
+
+                while (i < lines.Count && !StrUtils.IsEmptyLine(lines[i]))
+                {
+                    desc.Append(StrUtils.RecombineCSVLine(lines[i]) + "\n");
+                    i++;
                 }
 
                 riddle.Desc = desc.ToString();
 
-                while (i < lines.Length && string.IsNullOrEmpty(lines[i]))
-                {
-                    i++;
-                }
-
-                if (i >= lines.Length)
+                if (i >= lines.Count)
                 {
                     break;
                 }
 
-                riddle.Name = lines[i];
+                while (i < lines.Count && StrUtils.IsEmptyLine(lines[i]))
+                {
+                    i++;
+                }
+
+                if (i >= lines.Count)
+                {
+                    break;
+                }
+
+                riddle.Name = StrUtils.RecombineCSVLine(lines[i]);
 
                 riddles.Add(riddle);
                 gs.LookedAtObjects.Add(riddle);

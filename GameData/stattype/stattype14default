@@ -1,9 +1,0 @@
-{
-  "Id": "stattype14default",
-  "ParentId": "default",
-  "IdKey": 14,
-  "Name": "Agility",
-  "Desc": "+2 RAP",
-  "GenScalePct": 100,
-  "UpdateTime": "2024-08-01T00:28:12.964Z"
-}

@@ -298,6 +298,11 @@ namespace Assets.Scripts.Crawler.Maps.Services
 
             CrawlerMap map = world.GetMap(partyData.MapId);
 
+            if (map == null)
+            {
+                return null;
+            }
+
             CrawlerMapType mapType = _gameData.Get<CrawlerMapSettings>(_gs.ch).Get(map.CrawlerMapTypeId);
 
             IReadOnlyList<ZoneType> allZoneTypes = _gameData.Get<ZoneTypeSettings>(_gs.ch).GetData();

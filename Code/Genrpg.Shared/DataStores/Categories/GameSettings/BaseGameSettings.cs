@@ -4,6 +4,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Utils.Data;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;

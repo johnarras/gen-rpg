@@ -1,4 +1,5 @@
-﻿using Genrpg.Editor.Services.Reflection;
+﻿using Genrpg.Editor.Services.Importing;
+using Genrpg.Editor.Services.Reflection;
 using Genrpg.ServerShared.Setup;
 using Genrpg.Shared.Core.Entities;
 using Genrpg.Shared.Interfaces;
@@ -19,6 +20,7 @@ namespace Genrpg.Editor.Services.Setup
         {
             base.AddServices();
             Set<IEditorReflectionService>(new EditorReflectionService());
+            Set<IImportService>(new ImportService());
             _loc.ResolveSelf();
         }
 

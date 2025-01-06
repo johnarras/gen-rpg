@@ -13,15 +13,18 @@ namespace Assets.Scripts.Crawler.UI.WorldUI
     {
         private IButton _mapButton;
         private IButton _resetButton;
+        private IButton _infoButton;
         public override async Task Init(WorldPanel model, IView view, CancellationToken token)
         {
             await base.Init(model, view, token);
 
             _mapButton = view.Get<IButton>("MapButton");
             _resetButton = view.Get<IButton>("ResetButton");
+            _infoButton = view.Get<IButton>("InfoButton");
 
             _uiService.SetButton(_mapButton, GetType().Name, ClickMapScreen);
             _uiService.SetButton(_resetButton, GetType().Name, ClickResetGame);
+            _uiService.SetButton(_infoButton, GetType().Name, ClickInfo);
         }
 
         private void ClickMapScreen()
@@ -32,6 +35,11 @@ namespace Assets.Scripts.Crawler.UI.WorldUI
         private void ClickResetGame()
         {
             _initClient.FullResetGame();
+        }
+
+        private void ClickInfo()
+        {
+            _screenService.Open(ScreenId.CrawlerInfo);
         }
     }
 }

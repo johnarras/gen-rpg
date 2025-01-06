@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8560359586303234736}
-  - component: {fileID: 3933220218314798520}
+  - component: {fileID: 6448658280215019692}
   m_Layer: 0
   m_Name: Crackedb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8560359586303234736
 Transform:
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3933220218314798520
+--- !u!114 &6448658280215019692
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7000434504609747866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6f7969976255be4db72cb5f458e9bdd, type: 3}
+  m_Script: {fileID: 11500000, guid: c7079ee0c86c05d4e9e75c7319c69cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Textures:

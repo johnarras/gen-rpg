@@ -64,7 +64,7 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         [Key(13)] public int MapZ { get; set; }
         [Key(14)] public int MapRot { get; set; }
 
-        [Key(15)] public long NextItemId { get; set; }
+        [Key(15)] public long NextId { get; set; }
 
         [Key(16)] public List<CrawlerMapStatus> Maps { get; set; } = new List<CrawlerMapStatus>();
 
@@ -96,6 +96,11 @@ namespace Genrpg.Shared.Crawler.Parties.PlayerData
         {
             Combat = null;
             WorldPanel?.UpdateCombatGroups();
+        }
+
+        public string GetNextId()
+        {
+            return (++NextId).ToString();
         }
 
         public PartyMember GetMemberInSlot(int slot)

@@ -25,7 +25,6 @@ namespace Genrpg.Shared.Crawler.States.Constants
         DeleteNo,
         UpgradeParty,
 
-
         Options,
         SaveGame,
         QuitGame,

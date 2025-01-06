@@ -130,13 +130,13 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                         if (unitType != null)
                         {
-                            AddCombatUnits(party, unitType, quantity, FactionTypes.Player);
+                            AddCombatUnits(party, unitType, Math.Max(1,(long)(quantity*unitType.SpawnQuantityScale)), FactionTypes.Player);
                         }
                     }
                 }
             }
 
-            CombatGroup partyGroup = new CombatGroup() { SingularName = "Player", PluralName = "Players" };
+            CombatGroup partyGroup = new CombatGroup() { SingularName = "Player", PluralName = "Players", Id=party.GetNextId() };
             party.Combat.Allies.Add(partyGroup);
             party.Combat.PartyGroup = partyGroup;
 
@@ -145,6 +145,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
             foreach (PartyMember member in members)
             {
                 partyGroup.Units.Add(member);
+                member.CombatGroupId = partyGroup.Id;
             }
 
             if (initialState.CombatGroups.Count < 1)
@@ -187,7 +188,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                 }
 
                 groupCount = MathUtils.Clamp(1, groupCount, maxGroups);
-
+                groupCount = 2;
                 List<UnitType> chosenUnitTypes = new List<UnitType>();
 
                 while (chosenUnitTypes.Count < groupCount && spawns.Count > 0)
@@ -352,6 +353,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
             {
                 group = new CombatGroup()
                 {
+                    Id = partyData.GetNextId(),
                     Range = currRange,
                     UnitTypeId = unitType.IdKey,
                     SingularName = unitType.Name,
@@ -384,6 +386,7 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                 Monster monster = new Monster(_repoService)
                 {
+                    Id = partyData.GetNextId(),
                     UnitTypeId = unitType.IdKey,
                     Level = partyData.Combat.Level,
                     Name = unitType.Name + (i + 1),
@@ -393,7 +396,8 @@ namespace Genrpg.Shared.Crawler.Combat.Services
                     ApplyEffects = applyEffects,
                     IsGuardian = isGuardian,
                     ResistBits = resistBits,
-                    VulnBits = vulnBits,
+                    VulnBits = vulnBits,     
+                    CombatGroupId = group.Id,
                 };
                 _statService.CalcUnitStats(partyData, monster, true);
 
@@ -814,7 +818,6 @@ namespace Genrpg.Shared.Crawler.Combat.Services
 
                             foreach (CrawlerUnit crawlerUnit in group.Units)
                             {
-                                crawlerUnit.CombatGroupId = g;
                                 newAction.FinalTargets.Add(crawlerUnit);
                             }
                         }

@@ -9,6 +9,8 @@ using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Purchasing.Settings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 
 namespace Genrpg.Shared.UserCoins.Settings
 {
@@ -41,4 +43,10 @@ namespace Genrpg.Shared.UserCoins.Settings
 
     [MessagePackObject]
     public class UserCoinSettingsMapper : ParentSettingsMapper<UserCoinSettings, UserCoinType, UserCoinSettingsApi> { }
+
+
+    public class UserCoinHelper : BaseEntityHelper<UserCoinSettings, UserCoinType>
+    {
+        public override long GetKey() { return EntityTypes.UserCoin; }
+    }
 }

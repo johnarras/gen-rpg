@@ -95,7 +95,6 @@ namespace Assets.Scripts.UI.Crawler.ActionUI
             if (_action.NextState != ECrawlerStates.None || _action.OnClickAction != null)
             {
                 _uiService.SetAlpha(Text, 0.7f);
-                return;
             }
 
             if (_action != null)

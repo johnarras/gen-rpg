@@ -4,6 +4,7 @@ using Assets.Scripts.ProcGen.Components;
 using Genrpg.Shared.BoardGame.Constants;
 using Genrpg.Shared.BoardGame.Settings;
 using Genrpg.Shared.MVC.Interfaces;
+using Genrpg.Shared.Tiles.Settings;
 using Genrpg.Shared.UI.Interfaces;
 using System.Collections.Generic;
 using System.Threading;

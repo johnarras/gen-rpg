@@ -1,9 +1,12 @@
 using Genrpg.Shared.Crawler.Buffs.Settings;
 using Genrpg.Shared.Crawler.Combat.Constants;
 using Genrpg.Shared.DataStores.Categories.GameSettings;
+using Genrpg.Shared.Entities.Constants;
+using Genrpg.Shared.Entities.Helpers;
 using Genrpg.Shared.GameSettings.Loaders;
 using Genrpg.Shared.GameSettings.Mappers;
 using Genrpg.Shared.Interfaces;
+using Genrpg.Shared.Spawns.Settings;
 using Genrpg.Shared.Stats.Settings.Stats;
 using Genrpg.Shared.Units.Entities;
 using MessagePack;
@@ -117,20 +120,18 @@ namespace Genrpg.Shared.Crawler.Roles.Settings
           
     }
 
-    
 
     [MessagePackObject]
     public class RoleSettingsApi : ParentSettingsApi<RoleSettings, Role> { }
     [MessagePackObject]
     public class RoleSettingsLoader : ParentSettingsLoader<RoleSettings, Role> { }
 
-
-
     [MessagePackObject]
     public class RoleSettingsMapper : ParentSettingsMapper<RoleSettings, Role, RoleSettingsApi> { }
 
-
-
-
+    public class RoleHelper : BaseEntityHelper<RoleSettings, Role>
+    {
+        public override long GetKey() { return EntityTypes.Role; }
+    }
 
 }

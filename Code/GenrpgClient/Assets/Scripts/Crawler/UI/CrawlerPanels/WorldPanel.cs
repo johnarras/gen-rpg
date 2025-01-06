@@ -44,8 +44,9 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         private ICrawlerWorldService _worldService;
 
 
-        private AnimatedTexture _bgImage;
-        private AnimatedTexture _worldImage;
+        private AnimatedSprite _bgImage;
+        private AnimatedSprite _worldImage;
+        private AnimatedSprite _combatBgImage;
 
         private IText _worldPosText;
         private IText _mapNameText;
@@ -93,8 +94,8 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
             _root = _view.Get<object>("Root");
             _combatUI = _view.Get<CrawlerCombatUI>("CombatUI");
 
-            _bgImage = _view.Get<AnimatedTexture>("BGImage");
-            _worldImage = _view.Get<AnimatedTexture>("WorldImage");
+            _bgImage = _view.Get<AnimatedSprite>("BGImage");
+            _worldImage = _view.Get<AnimatedSprite>("WorldImage");
 
             _clientEntityService.SetActive(_tooltipParent, false);
 
@@ -106,19 +107,19 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
 
             AddUpdate(OnLateUpdate, UpdateType.Late);
 
-            SetPicture(CrawlerClientConstants.DefaultWorldBG);
+            SetPicture(CrawlerClientConstants.DefaultWorldBG, true);
 
         }
 
         public override async Task OnNewStateData(CrawlerStateData stateData, CancellationToken token)
         {
-            SetPicture(stateData.WorldSpriteName);
+            SetPicture(stateData.WorldSpriteName, stateData.BGImageOnly);
             await Task.CompletedTask;
         }
 
         private void OnShowWorldPanelImage(ShowWorldPanelImage imageToShow)
         {
-            SetPicture(imageToShow.SpriteName);
+            SetPicture(imageToShow.SpriteName, false);
             return;
         }
 
@@ -189,18 +190,32 @@ namespace Assets.Scripts.UI.Crawler.CrawlerPanels
         }
 
 
-        public void SetPicture(string spriteName)
+        public void SetPicture(string spriteName, bool useBgOnly)
         {
-         
-            if (string.IsNullOrEmpty(spriteName))
+            if (!useBgOnly)
             {
-                _bgImage?.SetImage(null);
-                _worldImage?.SetImage(null);
+                if (string.IsNullOrEmpty(spriteName))
+                {
+                    _bgImage?.SetImage(null);
+                    _worldImage?.SetImage(null);
+                }
+                else
+                {
+                    _bgImage?.SetImage(_crawlerMapService.GetBGImageName());
+                    _worldImage?.SetImage(spriteName);
+                }
             }
             else
             {
-                _bgImage?.SetImage(_crawlerMapService.GetBGImageName());
-                _worldImage?.SetImage(spriteName);
+                _worldImage?.SetImage(null);
+                if (string.IsNullOrEmpty(spriteName))
+                {
+                    _bgImage?.SetImage(null);
+                }
+                else
+                {
+                    _bgImage?.SetImage(spriteName);
+                }
             }
         }
 

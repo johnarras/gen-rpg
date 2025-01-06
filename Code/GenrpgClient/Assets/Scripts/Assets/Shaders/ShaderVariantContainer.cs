@@ -6,6 +6,6 @@ public class ShaderVariantContainer : BaseBehaviour
 
     public void Start()
     {
-        Variants.WarmUp();
+        Variants?.WarmUp();
     }
 }

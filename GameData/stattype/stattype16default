@@ -1,9 +1,0 @@
-{
-  "Id": "stattype16default",
-  "ParentId": "default",
-  "IdKey": 16,
-  "Name": "Luck",
-  "Desc": "Helps with ?",
-  "GenScalePct": 100,
-  "UpdateTime": "2024-08-01T00:28:12.969Z"
-}

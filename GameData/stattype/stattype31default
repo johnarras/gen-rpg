@@ -1,9 +1,0 @@
-{
-  "Id": "stattype31default",
-  "ParentId": "default",
-  "IdKey": 31,
-  "Name": "Armor",
-  "Desc": "Resist Attack",
-  "GenScalePct": 200,
-  "UpdateTime": "2024-08-01T00:28:12.986Z"
-}

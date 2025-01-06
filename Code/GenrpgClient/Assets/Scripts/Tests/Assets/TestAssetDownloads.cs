@@ -7,7 +7,7 @@ using Genrpg.Shared.GameSettings;
 using Genrpg.Shared.GameSettings.Interfaces;
 using Genrpg.Shared.Interfaces;
 using Genrpg.Shared.Logging.Interfaces;
-using Genrpg.Shared.ProcGen.Settings.Texturse;
+using Genrpg.Shared.ProcGen.Settings.Textures;
 using Genrpg.Shared.ProcGen.Settings.Trees;
 using Genrpg.Shared.Spells.Constants;
 using Genrpg.Shared.Spells.Settings.Elements;

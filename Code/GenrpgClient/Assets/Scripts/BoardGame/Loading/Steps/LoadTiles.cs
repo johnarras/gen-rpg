@@ -9,6 +9,7 @@ using Genrpg.Shared.BoardGame.Settings;
 using Genrpg.Shared.Client.Assets.Constants;
 using Genrpg.Shared.Client.Core;
 using Genrpg.Shared.GameSettings;
+using Genrpg.Shared.Tiles.Settings;
 using Genrpg.Shared.Utils;
 using Newtonsoft.Json.Linq;
 using System;

@@ -25,7 +25,7 @@ namespace Genrpg.Shared.Crawler.Monsters.Entities
         [JsonIgnore]
         [Key(4)] public UnitAction Action { get; set; }
 
-        [Key(5)] public int CombatGroupId { get; set; }
+        [Key(5)] public string CombatGroupId { get; set; }
 
         [Key(6)] public bool IsGuardian { get; set; }
 
