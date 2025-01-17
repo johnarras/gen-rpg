@@ -1,0 +1,25 @@
+{
+  "Id": "unitkeyword16default",
+  "ParentId": "default",
+  "IdKey": 16,
+  "Name": "Chieftain",
+  "Icon": "Chieftain",
+  "Art": "Chieftain",
+  "Effects": [
+    {
+      "EntityTypeId": 32,
+      "Quantity": 50,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 32,
+      "Quantity": 50,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 37
+    }
+  ],
+  "UpdateTime": "2024-10-18T22:39:42.104Z"
+}

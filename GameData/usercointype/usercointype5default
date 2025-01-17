@@ -1,0 +1,9 @@
+{
+  "Id": "usercointype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Cosmetics",
+  "PluralName": "Cosmetics",
+  "Icon": "IconCosmetics",
+  "UpdateTime": "2024-08-10T14:23:54.115Z"
+}

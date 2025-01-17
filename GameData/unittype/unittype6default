@@ -1,0 +1,31 @@
+{
+  "Id": "unittype6default",
+  "ParentId": "default",
+  "IdKey": 6,
+  "Name": "Dwarf Priest",
+  "PluralName": "Dwarf Priests",
+  "Icon": "DwarfPriest",
+  "Art": "DwarfPriest",
+  "TribeTypeId": 1,
+  "MinLevel": 1,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 3
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

@@ -1,0 +1,10 @@
+{
+  "Id": "texturetype84default",
+  "ParentId": "default",
+  "IdKey": 84,
+  "Name": "Roadf",
+  "Art": "Roadf",
+  "Size": 8.0,
+  "ParentTextureTypeId": 4,
+  "UpdateTime": "2024-08-01T00:28:14.517Z"
+}

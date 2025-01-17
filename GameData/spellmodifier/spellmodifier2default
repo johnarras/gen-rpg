@@ -1,0 +1,15 @@
+{
+  "Id": "spellmodifier2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Range",
+  "Icon": "",
+  "Art": "",
+  "Desc": "",
+  "DisplaySuffix": "",
+  "DataMemberName": "Range",
+  "DisplayMult": 1.0,
+  "MaxValue": 40.0,
+  "ValueDelta": 5.0,
+  "UpdateTime": "2024-08-01T00:28:12.913Z"
+}

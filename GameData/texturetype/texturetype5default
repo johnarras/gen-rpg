@@ -1,0 +1,9 @@
+{
+  "Id": "texturetype5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Sand",
+  "Art": "Sand",
+  "Size": 8.0,
+  "UpdateTime": "2024-08-01T00:28:14.451Z"
+}

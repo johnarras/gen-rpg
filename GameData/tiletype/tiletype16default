@@ -1,0 +1,12 @@
+{
+  "Id": "tiletype16default",
+  "ParentId": "default",
+  "IdKey": 16,
+  "Name": "End Path",
+  "Desc": "Ends a path ",
+  "Icon": "EndPathTile",
+  "Art": "EndPathTile",
+  "PassRewards": [],
+  "LandRewards": [],
+  "UpdateTime": "2024-09-26T21:11:49.191Z"
+}

@@ -1,0 +1,9 @@
+{
+  "Id": "stattype42default",
+  "ParentId": "default",
+  "IdKey": 42,
+  "Name": "SpellMult",
+  "Desc": "Spell Dam Mult",
+  "GenScalePct": 10,
+  "UpdateTime": "2024-08-01T00:28:13.002Z"
+}

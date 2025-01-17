@@ -1,0 +1,11 @@
+{
+  "Id": "treetype27default",
+  "ParentId": "default",
+  "IdKey": 27,
+  "Name": "SnakeweedYellow",
+  "Art": "SnakeweedYellow",
+  "Scale": 1.0,
+  "VariationCount": 2,
+  "Flags": 3,
+  "UpdateTime": "2024-08-01T00:28:14.634Z"
+}

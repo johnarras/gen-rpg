@@ -1,0 +1,9 @@
+{
+  "Id": "stattype41default",
+  "ParentId": "default",
+  "IdKey": 41,
+  "Name": "AttackMult",
+  "Desc": "Phys Dam Mult",
+  "GenScalePct": 10,
+  "UpdateTime": "2024-08-01T00:28:13Z"
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "treetype25default",
+  "ParentId": "default",
+  "IdKey": 25,
+  "Name": "Knapweed",
+  "Art": "Knapweed",
+  "Scale": 0.5,
+  "VariationCount": 2,
+  "Flags": 3,
+  "UpdateTime": "2024-08-01T00:28:14.629Z"
+}

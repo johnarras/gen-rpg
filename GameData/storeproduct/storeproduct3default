@@ -1,0 +1,16 @@
+{
+  "Id": "storeproduct3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Large Gem Pack",
+  "Rewards": [
+    {
+      "EntityTypeId": 200,
+      "EntityId": 1,
+      "MinQuantity": 500,
+      "MaxQuantity": 500,
+      "Weight": 100.0
+    }
+  ],
+  "UpdateTime": "2024-08-01T00:28:13.659Z"
+}

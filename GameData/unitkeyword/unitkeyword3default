@@ -1,0 +1,19 @@
+{
+  "Id": "unitkeyword3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Warrior",
+  "Icon": "Warrior",
+  "Art": "Warrior",
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 37
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    }
+  ],
+  "UpdateTime": "2024-10-18T22:39:42.104Z"
+}

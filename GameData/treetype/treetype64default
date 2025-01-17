@@ -1,0 +1,10 @@
+{
+  "Id": "treetype64default",
+  "ParentId": "default",
+  "IdKey": 64,
+  "Name": "AspenFall",
+  "Art": "AspenFall",
+  "Scale": 2.5,
+  "VariationCount": 2,
+  "UpdateTime": "2024-08-01T00:28:15.004Z"
+}

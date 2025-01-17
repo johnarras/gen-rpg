@@ -1,0 +1,9 @@
+{
+  "Id": "texturetype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Dirt",
+  "Art": "Dirt",
+  "Size": 8.0,
+  "UpdateTime": "2024-08-01T00:28:13.837Z"
+}

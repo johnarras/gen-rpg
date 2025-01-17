@@ -1,0 +1,10 @@
+{
+  "Id": "texturetype44default",
+  "ParentId": "default",
+  "IdKey": 44,
+  "Name": "DirtGraya",
+  "Art": "DirtGraya",
+  "Size": 8.0,
+  "ParentTextureTypeId": 4,
+  "UpdateTime": "2024-08-01T00:28:13.885Z"
+}

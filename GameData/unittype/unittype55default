@@ -1,0 +1,30 @@
+{
+  "Id": "unittype55default",
+  "ParentId": "default",
+  "IdKey": 55,
+  "Name": "Lich",
+  "PluralName": "Liches",
+  "Icon": "Lich",
+  "Art": "Lich",
+  "TribeTypeId": 3,
+  "MinLevel": 20,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 11
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 8
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

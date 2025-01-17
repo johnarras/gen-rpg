@@ -1,0 +1,10 @@
+{
+  "Id": "texturetype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Path",
+  "Art": "Path",
+  "Size": 8.0,
+  "ParentTextureTypeId": 4,
+  "UpdateTime": "2024-08-01T00:28:13.782Z"
+}

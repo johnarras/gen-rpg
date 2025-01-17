@@ -1,0 +1,9 @@
+{
+  "Id": "stattype33default",
+  "ParentId": "default",
+  "IdKey": 33,
+  "Name": "HealthRegen",
+  "Desc": "Health Regen",
+  "GenScalePct": 100,
+  "UpdateTime": "2024-08-01T00:28:12.99Z"
+}

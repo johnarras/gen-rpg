@@ -1,0 +1,12 @@
+{
+  "Id": "userabilitytype9default",
+  "ParentId": "default",
+  "IdKey": 9,
+  "Name": "DefendChance",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "BaseQuantity": 10,
+  "QuantityPerRank": 1,
+  "UpdateTime": "2024-08-10T14:42:52.81Z"
+}

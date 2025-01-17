@@ -1,0 +1,10 @@
+{
+  "Id": "texturetype101default",
+  "ParentId": "default",
+  "IdKey": 101,
+  "Name": "RockSmall",
+  "Art": "RockSmall",
+  "Size": 8.0,
+  "ParentTextureTypeId": 3,
+  "UpdateTime": "2024-08-01T00:28:13.763Z"
+}

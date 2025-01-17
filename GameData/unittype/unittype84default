@@ -1,0 +1,26 @@
+{
+  "Id": "unittype84default",
+  "ParentId": "default",
+  "IdKey": 84,
+  "Name": "Ogre Archer",
+  "PluralName": "Ogre Archers",
+  "Icon": "OgreArcher",
+  "Art": "OgreArcher",
+  "TribeTypeId": 7,
+  "MinLevel": 10,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

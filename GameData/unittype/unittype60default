@@ -1,0 +1,46 @@
+{
+  "Id": "unittype60default",
+  "ParentId": "default",
+  "IdKey": 60,
+  "Name": "Demon Lord",
+  "PluralName": "Demon Lords",
+  "Icon": "DemonLord",
+  "Art": "DemonLord",
+  "TribeTypeId": 15,
+  "MinLevel": 20,
+  "SpawnQuantityScale": 0.1,
+  "Effects": [
+    {
+      "EntityTypeId": 32,
+      "Quantity": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 32,
+      "Quantity": 50,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 24,
+      "Quantity": 1,
+      "EntityId": 7
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 6
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

@@ -1,0 +1,21 @@
+{
+  "Id": "unittype47default",
+  "ParentId": "default",
+  "IdKey": 47,
+  "Name": "Lion",
+  "PluralName": "Lions",
+  "Icon": "Lion",
+  "Art": "Lion",
+  "TribeTypeId": 2,
+  "MinLevel": 20,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

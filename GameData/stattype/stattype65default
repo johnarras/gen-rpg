@@ -1,0 +1,9 @@
+{
+  "Id": "stattype65default",
+  "ParentId": "default",
+  "IdKey": 65,
+  "Name": "Cooldown",
+  "Desc": "Lower Cooldown",
+  "GenScalePct": 200,
+  "UpdateTime": "2024-08-01T00:28:13.041Z"
+}

@@ -1,0 +1,9 @@
+{
+  "Id": "stattype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Intellect",
+  "Desc": "+2 AP",
+  "GenScalePct": 100,
+  "UpdateTime": "2024-08-01T00:28:12.959Z"
+}

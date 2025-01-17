@@ -1,0 +1,21 @@
+{
+  "Id": "unittype17default",
+  "ParentId": "default",
+  "IdKey": 17,
+  "Name": "Goblin Archer",
+  "PluralName": "Goblin Archers",
+  "Icon": "GoblinArcher",
+  "Art": "GoblinArcher",
+  "TribeTypeId": 10,
+  "MinLevel": 5,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

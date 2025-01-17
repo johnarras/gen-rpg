@@ -1,0 +1,21 @@
+{
+  "Id": "tribetype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Mage",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "LootItems": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 5,
+      "MinQuantity": 1,
+      "MaxQuantity": 2,
+      "Weight": 66.0
+    }
+  ],
+  "InteractLootItems": [],
+  "LootCrafterTypeId": 1,
+  "UpdateTime": "2024-08-01T00:28:15.081Z"
+}

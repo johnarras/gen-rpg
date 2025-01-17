@@ -1,0 +1,23 @@
+{
+  "Id": "storeproduct7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Small Bundle",
+  "Rewards": [
+    {
+      "EntityTypeId": 1,
+      "EntityId": 2,
+      "MinQuantity": 1000,
+      "MaxQuantity": 1000,
+      "Weight": 100.0
+    },
+    {
+      "EntityTypeId": 200,
+      "EntityId": 1,
+      "MinQuantity": 100,
+      "MaxQuantity": 100,
+      "Weight": 100.0
+    }
+  ],
+  "UpdateTime": "2024-08-01T00:28:13.669Z"
+}

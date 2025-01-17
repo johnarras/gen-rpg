@@ -1,0 +1,21 @@
+{
+  "Id": "unittype76default",
+  "ParentId": "default",
+  "IdKey": 76,
+  "Name": "Scorpion",
+  "PluralName": "Scorpions",
+  "Icon": "Scorpion",
+  "Art": "Scorpion",
+  "TribeTypeId": 2,
+  "MinLevel": 1,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

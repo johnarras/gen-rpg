@@ -1,0 +1,17 @@
+{
+  "Id": "statuseffect11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Feared",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Fear",
+  "ActionEffects": [
+    {
+      "CombatActionId": 7,
+      "Effect": 2
+    }
+  ],
+  "UpdateTime": "2024-10-21T23:08:45.47Z"
+}

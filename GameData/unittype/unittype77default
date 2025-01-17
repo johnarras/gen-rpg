@@ -1,0 +1,32 @@
+{
+  "Id": "unittype77default",
+  "ParentId": "default",
+  "IdKey": 77,
+  "Name": "Chimera",
+  "PluralName": "Chimera",
+  "Icon": "Chimera",
+  "Art": "Chimera",
+  "TribeTypeId": 8,
+  "MinLevel": 15,
+  "SpawnQuantityScale": 0.1,
+  "Effects": [
+    {
+      "EntityTypeId": 32,
+      "Quantity": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 32,
+      "Quantity": 50,
+      "EntityId": 20
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

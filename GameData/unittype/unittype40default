@@ -1,0 +1,31 @@
+{
+  "Id": "unittype40default",
+  "ParentId": "default",
+  "IdKey": 40,
+  "Name": "Medusa",
+  "PluralName": "Medusae",
+  "Icon": "Medusa",
+  "Art": "Medusa",
+  "TribeTypeId": 8,
+  "MinLevel": 1,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 13
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 5
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

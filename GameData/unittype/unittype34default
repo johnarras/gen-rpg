@@ -1,0 +1,21 @@
+{
+  "Id": "unittype34default",
+  "ParentId": "default",
+  "IdKey": 34,
+  "Name": "Magician",
+  "PluralName": "Magicians",
+  "Icon": "Magician",
+  "Art": "Magician",
+  "TribeTypeId": 12,
+  "MinLevel": 10,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

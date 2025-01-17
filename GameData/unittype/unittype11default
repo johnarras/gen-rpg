@@ -1,0 +1,21 @@
+{
+  "Id": "unittype11default",
+  "ParentId": "default",
+  "IdKey": 11,
+  "Name": "Gnome Priest",
+  "PluralName": "Gnome Priests",
+  "Icon": "GnomePriest",
+  "Art": "GnomePriest",
+  "TribeTypeId": 1,
+  "MinLevel": 1,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

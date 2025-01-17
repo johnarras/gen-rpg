@@ -1,0 +1,10 @@
+{
+  "Id": "texturetype81default",
+  "ParentId": "default",
+  "IdKey": 81,
+  "Name": "PebblesGrayb",
+  "Art": "PebblesGrayb",
+  "Size": 8.0,
+  "ParentTextureTypeId": 4,
+  "UpdateTime": "2024-08-01T00:28:14.509Z"
+}

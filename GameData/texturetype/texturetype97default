@@ -1,0 +1,10 @@
+{
+  "Id": "texturetype97default",
+  "ParentId": "default",
+  "IdKey": 97,
+  "Name": "RockGrayb",
+  "Art": "RockGrayb",
+  "Size": 8.0,
+  "ParentTextureTypeId": 4,
+  "UpdateTime": "2024-08-01T00:28:14.55Z"
+}

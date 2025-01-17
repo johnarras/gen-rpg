@@ -1,0 +1,21 @@
+{
+  "Id": "unittype113default",
+  "ParentId": "default",
+  "IdKey": 113,
+  "Name": "Gnoll Archer",
+  "PluralName": "Gnoll Archers",
+  "Icon": "GnollArcher",
+  "Art": "GnollArcher",
+  "TribeTypeId": 10,
+  "MinLevel": 5,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

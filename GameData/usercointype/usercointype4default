@@ -1,0 +1,9 @@
+{
+  "Id": "usercointype4default",
+  "ParentId": "default",
+  "IdKey": 4,
+  "Name": "Activity",
+  "PluralName": "Activity",
+  "Icon": "IconActivity",
+  "UpdateTime": "2024-08-10T14:23:54.115Z"
+}

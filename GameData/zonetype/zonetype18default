@@ -1,0 +1,519 @@
+{
+  "Id": "zonetype18default",
+  "ParentId": "default",
+  "IdKey": 18,
+  "Name": "Lava",
+  "Desc": "",
+  "Icon": "Lava",
+  "MinLevel": 20,
+  "GenChance": 1.0,
+  "GrassDensity": 0.05,
+  "GrassFreq": 1.0,
+  "TreeDensity": 0.1,
+  "TreeFreq": 2.0,
+  "BushDensity": 0.4,
+  "BushFreq": 0.6,
+  "RockDensity": 1.0,
+  "DetailAmp": 1.7,
+  "DetailFreq": 0.5,
+  "RoadDetailScale": 0.2,
+  "RoadDipScale": 1.0,
+  "RoadDirtScale": 1.0,
+  "ZoneListGenScale": 0.8,
+  "Textures": [
+    {
+      "TextureTypeId": 106
+    },
+    {
+      "TextureTypeId": 8,
+      "TextureChannelId": 1
+    },
+    {
+      "TextureTypeId": 16,
+      "TextureChannelId": 2
+    },
+    {
+      "TextureTypeId": 10,
+      "TextureChannelId": 3
+    },
+    {
+      "TextureTypeId": 62,
+      "TextureChannelId": 1
+    }
+  ],
+  "ZoneNames": [
+    {
+      "Weight": 1000.0,
+      "Name": "Barrens",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Canyon",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Canyons",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Desert",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Divide",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dune",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dunes",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Expanse",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mesa",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mesas",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sand",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sands",
+      "Desc": ""
+    },
+    {
+      "Weight": 100.0,
+      "Name": "Void",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Waste",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wastes",
+      "Desc": ""
+    }
+  ],
+  "ZoneAdjectives": [
+    {
+      "Weight": 1000.0,
+      "Name": "Flame",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fire",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fiery",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Lava",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Blistering",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Magma",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Hot",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Parched",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scorched",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Inferno",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Infernal",
+      "Desc": ""
+    }
+  ],
+  "BridgeTypes": [
+    {
+      "BridgeTypeId": 2,
+      "Chance": 100
+    },
+    {
+      "BridgeTypeId": 3,
+      "Chance": 100
+    },
+    {
+      "BridgeTypeId": 1,
+      "Chance": 100
+    }
+  ],
+  "FenceTypes": [
+    {
+      "FenceTypeId": 1,
+      "Chance": 100.0
+    }
+  ],
+  "RockTypes": [
+    {
+      "RockTypeId": 1,
+      "ChanceScale": 0.1,
+      "BaseColor": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 1.0,
+        "A": 1.0
+      }
+    },
+    {
+      "RockTypeId": 2,
+      "ChanceScale": 1.0,
+      "BaseColor": {}
+    }
+  ],
+  "TreeTypes": [
+    {
+      "TreeTypeId": 15,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 6,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 20,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 21,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 26,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 27,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 53,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 54,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 22,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 23,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 80,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 81,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 82,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 84,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 85,
+      "PopulationScale": 1.0
+    },
+    {
+      "TreeTypeId": 86,
+      "PopulationScale": 1.0
+    }
+  ],
+  "CreatureNamePrefixes": [
+    {
+      "Weight": 1000.0,
+      "Name": "Arid",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dehydrated",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Desert",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dry",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dune",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dust",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fiery",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fire",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Flame",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Mesa",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Pale",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Parched",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sand",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sandstorm",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sandy",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Scorch",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sun",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Tan",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Thirsty",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wild",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wind",
+      "Desc": ""
+    }
+  ],
+  "CreatureDoubleNamePrefixes": [
+    {
+      "Weight": 1000.0,
+      "Name": "Blister",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Burn",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Desert",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Dry",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Fire",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Sand",
+      "Desc": ""
+    },
+    {
+      "Weight": 1000.0,
+      "Name": "Wild",
+      "Desc": ""
+    }
+  ],
+  "Overrides": [],
+  "ZoneUnitSpawns": [
+    {
+      "UnitTypeId": 21,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 22,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 23,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 24,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 25,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 83,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 84,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 85,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 86,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 87,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 90,
+      "Chance": 3.0
+    },
+    {
+      "UnitTypeId": 91,
+      "Chance": 2.0
+    },
+    {
+      "UnitTypeId": 92,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 107,
+      "Chance": 10.0
+    },
+    {
+      "UnitTypeId": 110,
+      "Chance": 2.0
+    },
+    {
+      "UnitTypeId": 112,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 113,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 114,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 115,
+      "Chance": 5.0
+    },
+    {
+      "UnitTypeId": 116,
+      "Chance": 5.0
+    }
+  ],
+  "PlantChoices": "34 35 36 37 38",
+  "FenceChance": 0.1,
+  "Art": "",
+  "WeatherTypeId": 6,
+  "CreviceCountScale": 4.0,
+  "CreviceDepthScale": 0.5,
+  "CreviceWidthScale": 2.0,
+  "MusicTypeId": 5,
+  "AmbientMusicTypeId": 9,
+  "TraveralTimeScale": 20.0,
+  "UpdateTime": "2024-09-14T16:14:39.118Z"
+}

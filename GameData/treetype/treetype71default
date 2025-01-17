@@ -1,0 +1,10 @@
+{
+  "Id": "treetype71default",
+  "ParentId": "default",
+  "IdKey": 71,
+  "Name": "AppleFall",
+  "Art": "AppleFall",
+  "Scale": 2.5,
+  "VariationCount": 2,
+  "UpdateTime": "2024-08-01T00:28:15.023Z"
+}

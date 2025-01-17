@@ -1,0 +1,12 @@
+{
+  "Id": "userabilitytype12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "HitChance",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "BaseQuantity": 75,
+  "QuantityPerRank": 2,
+  "UpdateTime": "2024-08-10T14:42:52.81Z"
+}

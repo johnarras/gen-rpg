@@ -1,0 +1,9 @@
+{
+  "Id": "texturetype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Rock",
+  "Art": "Rock",
+  "Size": 8.0,
+  "UpdateTime": "2024-08-01T00:28:13.873Z"
+}

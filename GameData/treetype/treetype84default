@@ -1,0 +1,11 @@
+{
+  "Id": "treetype84default",
+  "ParentId": "default",
+  "IdKey": 84,
+  "Name": "Foxglove",
+  "Art": "Foxglove",
+  "Scale": 3.0,
+  "VariationCount": 1,
+  "Flags": 13,
+  "UpdateTime": "2024-08-01T00:28:15.056Z"
+}

@@ -1,0 +1,10 @@
+{
+  "Id": "treetype54default",
+  "ParentId": "default",
+  "IdKey": 54,
+  "Name": "BaobabSmall",
+  "Art": "BaobabSmall",
+  "Scale": 0.6,
+  "VariationCount": 2,
+  "UpdateTime": "2024-08-01T00:28:14.978Z"
+}

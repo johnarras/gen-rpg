@@ -1,0 +1,34 @@
+{
+  "Id": "tiletype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Gem",
+  "Desc": "Gives out some gems",
+  "Icon": "GemTile",
+  "Art": "GemTile",
+  "MaxQuantity": 1,
+  "SpawnPriority": 20.0,
+  "MinPosition": 1,
+  "OnMainPath": true,
+  "PassRewards": [
+    {
+      "EntityTypeId": 200,
+      "EntityId": 1,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "Name": "None"
+    }
+  ],
+  "LandRewards": [
+    {
+      "EntityTypeId": 200,
+      "EntityId": 1,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0,
+      "Name": "None"
+    }
+  ],
+  "UpdateTime": "2024-09-26T21:11:49.191Z"
+}

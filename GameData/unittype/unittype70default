@@ -1,0 +1,36 @@
+{
+  "Id": "unittype70default",
+  "ParentId": "default",
+  "IdKey": 70,
+  "Name": "Earth Elemental",
+  "PluralName": "Earth Elementals",
+  "Icon": "EarthElemental",
+  "Art": "EarthElemental",
+  "TribeTypeId": 4,
+  "MinLevel": 15,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 24,
+      "Quantity": 1,
+      "EntityId": 4
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 5
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

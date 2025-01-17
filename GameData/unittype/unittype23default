@@ -1,0 +1,21 @@
+{
+  "Id": "unittype23default",
+  "ParentId": "default",
+  "IdKey": 23,
+  "Name": "Hobgoblin Lieutenant",
+  "PluralName": "Hobgoblin Lieutenants",
+  "Icon": "HobgoblinLieutenant",
+  "Art": "HobgoblinLieutenant",
+  "TribeTypeId": 10,
+  "MinLevel": 1,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

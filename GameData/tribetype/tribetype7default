@@ -1,0 +1,20 @@
+{
+  "Id": "tribetype7default",
+  "ParentId": "default",
+  "IdKey": 7,
+  "Name": "Giant",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "LootItems": [
+    {
+      "EntityTypeId": 5,
+      "EntityId": 27,
+      "MinQuantity": 1,
+      "MaxQuantity": 1,
+      "Weight": 100.0
+    }
+  ],
+  "InteractLootItems": [],
+  "UpdateTime": "2024-08-01T00:28:15.114Z"
+}

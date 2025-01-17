@@ -1,0 +1,10 @@
+{
+  "Id": "treetype30default",
+  "ParentId": "default",
+  "IdKey": 30,
+  "Name": "BroadleafSmall",
+  "Art": "BroadleafSmall",
+  "Scale": 2.0,
+  "VariationCount": 2,
+  "UpdateTime": "2024-08-01T00:28:14.645Z"
+}

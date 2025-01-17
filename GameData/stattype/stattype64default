@@ -1,0 +1,9 @@
+{
+  "Id": "stattype64default",
+  "ParentId": "default",
+  "IdKey": 64,
+  "Name": "Efficiency",
+  "Desc": "Lower Cost",
+  "GenScalePct": 200,
+  "UpdateTime": "2024-08-01T00:28:13.033Z"
+}

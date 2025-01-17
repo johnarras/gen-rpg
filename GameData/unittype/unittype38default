@@ -1,0 +1,27 @@
+{
+  "Id": "unittype38default",
+  "ParentId": "default",
+  "IdKey": 38,
+  "Name": "Faerie",
+  "PluralName": "Faeries",
+  "Icon": "Faerie",
+  "Art": "Faerie",
+  "TribeTypeId": 8,
+  "MinLevel": 20,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 9
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

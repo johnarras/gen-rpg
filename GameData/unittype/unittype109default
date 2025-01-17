@@ -1,0 +1,37 @@
+{
+  "Id": "unittype109default",
+  "ParentId": "default",
+  "IdKey": 109,
+  "Name": "Basilisk",
+  "PluralName": "Basilisks",
+  "Icon": "Basilisk",
+  "Art": "Basilisk",
+  "TribeTypeId": 8,
+  "MinLevel": 20,
+  "SpawnQuantityScale": 0.1,
+  "Effects": [
+    {
+      "EntityTypeId": 32,
+      "Quantity": 100,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 32,
+      "Quantity": 50,
+      "EntityId": 20
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 5
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

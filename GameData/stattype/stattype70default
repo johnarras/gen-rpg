@@ -1,0 +1,9 @@
+{
+  "Id": "stattype70default",
+  "ParentId": "default",
+  "IdKey": 70,
+  "Name": "Hit",
+  "Desc": "Chance to Hit",
+  "GenScalePct": 100,
+  "UpdateTime": "2024-08-01T00:28:13.051Z"
+}

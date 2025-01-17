@@ -1,0 +1,17 @@
+{
+  "Id": "statuseffect14default",
+  "ParentId": "default",
+  "IdKey": 14,
+  "Name": "Possessed",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "Abbrev": "Poss",
+  "ActionEffects": [
+    {
+      "CombatActionId": 7,
+      "Effect": 2
+    }
+  ],
+  "UpdateTime": "2024-10-21T23:08:45.47Z"
+}

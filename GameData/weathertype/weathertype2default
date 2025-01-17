@@ -1,0 +1,49 @@
+{
+  "Id": "weathertype2default",
+  "ParentId": "default",
+  "IdKey": 2,
+  "Name": "Forest",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "AmbientColor": {
+    "R": 0.6509804,
+    "G": 0.81960785,
+    "B": 0.84313726,
+    "A": 1.0
+  },
+  "LightColor": {
+    "R": 0.9647059,
+    "G": 0.9647059,
+    "B": 0.8666667,
+    "A": 1.0
+  },
+  "LightScale": 1.0,
+  "SkyColor": {
+    "R": 0.31764707,
+    "G": 0.6509804,
+    "B": 0.9764706,
+    "A": 1.0
+  },
+  "FogScale": 0.0025,
+  "FogColor": {
+    "R": 0.7058824,
+    "G": 0.7058824,
+    "B": 0.7058824,
+    "A": 1.0
+  },
+  "FogDistance": 75.0,
+  "CloudScale": 0.5,
+  "CloudSpeed": 0.5,
+  "CloudColor": {
+    "R": 0.8901961,
+    "G": 0.87058824,
+    "B": 0.85490197,
+    "A": 1.0
+  },
+  "WindScale": 1.0,
+  "PrecipScale": 0.3,
+  "ParticleScale": 1.0,
+  "Particles": "dust leaves mist",
+  "UpdateTime": "2024-08-01T00:28:16.81Z"
+}

@@ -1,0 +1,21 @@
+{
+  "Id": "unittype25default",
+  "ParentId": "default",
+  "IdKey": 25,
+  "Name": "Hobgoblin Shaman",
+  "PluralName": "Hobgoblin Shamans",
+  "Icon": "HobgoblinShaman",
+  "Art": "HobgoblinShaman",
+  "TribeTypeId": 10,
+  "MinLevel": 1,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

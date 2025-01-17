@@ -1,0 +1,21 @@
+{
+  "Id": "unittype42default",
+  "ParentId": "default",
+  "IdKey": 42,
+  "Name": "Hound",
+  "PluralName": "Hounds",
+  "Icon": "Hound",
+  "Art": "Hound",
+  "TribeTypeId": 2,
+  "MinLevel": 10,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

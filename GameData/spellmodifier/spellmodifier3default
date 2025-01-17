@@ -1,0 +1,15 @@
+{
+  "Id": "spellmodifier3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "Extra Targets",
+  "Icon": "",
+  "Art": "",
+  "Desc": "",
+  "DisplaySuffix": "",
+  "DataMemberName": "ExtraTargets",
+  "DisplayMult": 1.0,
+  "MaxValue": 5.0,
+  "ValueDelta": 1.0,
+  "UpdateTime": "2024-08-01T00:28:12.915Z"
+}

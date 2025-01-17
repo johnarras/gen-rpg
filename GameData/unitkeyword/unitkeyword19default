@@ -1,0 +1,33 @@
+{
+  "Id": "unitkeyword19default",
+  "ParentId": "default",
+  "IdKey": 19,
+  "Name": "Demon",
+  "Icon": "Demon",
+  "Art": "Demon",
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 6
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 11
+    },
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 24,
+      "Quantity": 1,
+      "EntityId": 7
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 6
+    }
+  ],
+  "UpdateTime": "2024-10-18T22:39:42.104Z"
+}

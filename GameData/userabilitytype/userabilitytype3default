@@ -1,0 +1,12 @@
+{
+  "Id": "userabilitytype3default",
+  "ParentId": "default",
+  "IdKey": 3,
+  "Name": "WarbandSize",
+  "Desc": "",
+  "Icon": "",
+  "Art": "",
+  "BaseQuantity": 5,
+  "QuantityPerRank": 1,
+  "UpdateTime": "2024-08-10T14:42:52.81Z"
+}

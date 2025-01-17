@@ -1,0 +1,9 @@
+{
+  "Id": "stattype13default",
+  "ParentId": "default",
+  "IdKey": 13,
+  "Name": "Devotion",
+  "Desc": "+2 Healer SP",
+  "GenScalePct": 100,
+  "UpdateTime": "2024-08-01T00:28:12.961Z"
+}

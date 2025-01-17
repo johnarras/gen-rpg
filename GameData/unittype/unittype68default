@@ -1,0 +1,31 @@
+{
+  "Id": "unittype68default",
+  "ParentId": "default",
+  "IdKey": 68,
+  "Name": "Flesh Golem",
+  "PluralName": "Flesh Golems",
+  "Icon": "FleshGolem",
+  "Art": "FleshGolem",
+  "TribeTypeId": 17,
+  "MinLevel": 15,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 3
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 1
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

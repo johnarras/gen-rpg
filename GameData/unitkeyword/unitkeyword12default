@@ -1,0 +1,19 @@
+{
+  "Id": "unitkeyword12default",
+  "ParentId": "default",
+  "IdKey": 12,
+  "Name": "Vermin",
+  "Icon": "Vermin",
+  "Art": "Vermin",
+  "Effects": [
+    {
+      "EntityTypeId": 36,
+      "EntityId": 1
+    },
+    {
+      "EntityTypeId": 36,
+      "EntityId": 2
+    }
+  ],
+  "UpdateTime": "2024-10-18T22:39:42.104Z"
+}

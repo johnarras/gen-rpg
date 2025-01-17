@@ -1,0 +1,9 @@
+{
+  "Id": "stattype50default",
+  "ParentId": "default",
+  "IdKey": 50,
+  "Name": "DefenseMult",
+  "Desc": "All Dam Reduced",
+  "GenScalePct": 10,
+  "UpdateTime": "2024-08-01T00:28:13.006Z"
+}

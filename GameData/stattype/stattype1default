@@ -1,0 +1,8 @@
+{
+  "Id": "stattype1default",
+  "ParentId": "default",
+  "IdKey": 1,
+  "Name": "Health",
+  "RegenSeconds": 75,
+  "UpdateTime": "2024-08-01T00:28:12.972Z"
+}

@@ -1,0 +1,21 @@
+{
+  "Id": "unittype43default",
+  "ParentId": "default",
+  "IdKey": 43,
+  "Name": "Wolf",
+  "PluralName": "Wolves",
+  "Icon": "Wolf",
+  "Art": "Wolf",
+  "TribeTypeId": 2,
+  "MinLevel": 15,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

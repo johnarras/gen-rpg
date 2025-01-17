@@ -1,0 +1,17 @@
+{
+  "Id": "spellmodifier5default",
+  "ParentId": "default",
+  "IdKey": 5,
+  "Name": "Scale",
+  "Icon": "",
+  "Art": "",
+  "Desc": "",
+  "DisplaySuffix": "%",
+  "DataMemberName": "Scale",
+  "DisplayMult": 1.0,
+  "MinValue": 10.0,
+  "MaxValue": 300.0,
+  "ValueDelta": 10.0,
+  "DefaultValue": 100.0,
+  "UpdateTime": "2024-08-01T00:28:12.921Z"
+}

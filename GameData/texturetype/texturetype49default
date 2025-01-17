@@ -1,0 +1,10 @@
+{
+  "Id": "texturetype49default",
+  "ParentId": "default",
+  "IdKey": 49,
+  "Name": "Dirtj",
+  "Art": "Dirtj",
+  "Size": 8.0,
+  "ParentTextureTypeId": 2,
+  "UpdateTime": "2024-08-01T00:28:13.898Z"
+}

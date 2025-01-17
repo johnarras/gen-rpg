@@ -1,0 +1,9 @@
+{
+  "Id": "stattype71default",
+  "ParentId": "default",
+  "IdKey": 71,
+  "Name": "Leadership",
+  "Desc": "Higher Attack Levl",
+  "GenScalePct": 100,
+  "UpdateTime": "2024-08-01T00:28:13.055Z"
+}

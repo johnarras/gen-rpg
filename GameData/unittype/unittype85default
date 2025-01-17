@@ -1,0 +1,26 @@
+{
+  "Id": "unittype85default",
+  "ParentId": "default",
+  "IdKey": 85,
+  "Name": "Ogre Lieutenant",
+  "PluralName": "Ogre Lieutenants",
+  "Icon": "OgreLieutenant",
+  "Art": "OgreLieutenant",
+  "TribeTypeId": 7,
+  "MinLevel": 10,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

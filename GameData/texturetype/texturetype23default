@@ -1,0 +1,10 @@
+{
+  "Id": "texturetype23default",
+  "ParentId": "default",
+  "IdKey": 23,
+  "Name": "Cobblea",
+  "Art": "Cobblea",
+  "Size": 8.0,
+  "ParentTextureTypeId": 4,
+  "UpdateTime": "2024-08-01T00:28:13.822Z"
+}

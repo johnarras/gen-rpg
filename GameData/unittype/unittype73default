@@ -1,0 +1,26 @@
+{
+  "Id": "unittype73default",
+  "ParentId": "default",
+  "IdKey": 73,
+  "Name": "Bear",
+  "PluralName": "Bears",
+  "Icon": "Bear",
+  "Art": "Bear",
+  "TribeTypeId": 2,
+  "MinLevel": 1,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 100,
+      "EntityId": 2
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

@@ -1,0 +1,32 @@
+{
+  "Id": "unittype48default",
+  "ParentId": "default",
+  "IdKey": 48,
+  "Name": "Skeleon",
+  "PluralName": "Skeletons",
+  "Icon": "Skeleon",
+  "Art": "Skeleon",
+  "TribeTypeId": 3,
+  "MinLevel": 1,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 24,
+      "Quantity": 1,
+      "EntityId": 7
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 6
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}

@@ -1,0 +1,32 @@
+{
+  "Id": "unittype72default",
+  "ParentId": "default",
+  "IdKey": 72,
+  "Name": "Water Elemental",
+  "PluralName": "Water Elementals",
+  "Icon": "WaterElemental",
+  "Art": "WaterElemental",
+  "TribeTypeId": 4,
+  "MinLevel": 15,
+  "SpawnQuantityScale": 1.0,
+  "Effects": [
+    {
+      "EntityTypeId": 24,
+      "Quantity": 1,
+      "EntityId": 2
+    },
+    {
+      "EntityTypeId": 25,
+      "Quantity": 1,
+      "EntityId": 3
+    }
+  ],
+  "PrefixNames": [],
+  "DoubleNameSuffixes": [],
+  "SuffixNames": [],
+  "AlternateNames": [],
+  "FoodSources": [],
+  "LootItems": [],
+  "InteractLootItems": [],
+  "UpdateTime": "2025-01-04T20:35:16.683Z"
+}
